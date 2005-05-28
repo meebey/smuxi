@@ -1,0 +1,41 @@
+/**
+ * $Id: CREDITS 60 2005-03-27 11:51:37Z meebey $
+ * $URL: svn+ssh://svn.qnetp.net/svn/smuxi/Gnosmirc/trunk/CREDITS $
+ * $Rev: 60 $
+ * $Author: meebey $
+ * $Date: 2005-03-27 13:51:37 +0200 (Sun, 27 Mar 2005) $
+ */
+
+This is the creditslist for smuxi
+
+The fields are:
+(N) name
+(E) email
+(W) web-address
+(P) PGP key ID and fingerprint
+(D) description
+(S) snail-mail address
+---------------------------
+
+N: Mirco 'meebey' Bauer
+E: meebey@meebey.net
+W: www.meebey.net
+P: EEF946C8 / ABE1 95E1 50A8 DBE7 809D  3F42 7127 E5AB EEF9 46C8
+D: Project Founder/Leader
+S: Kroonhorst 42
+S: 22549 Hamburg
+S: Germany
+
+N: Giacomo Di Ciocco
+E: admin@nectarine.info
+W: www.nectarine.info
+D: Preferences Abstraction Layer and Backend (patch)
+
+Linux Beta Testers:
+Tobias Schlitt <tobias@schlitt.info>
+Helgi Þormar Þorbjörnsson <helgi@trance.is>
+
+Windows Beta Testers:
+<noia@wanadoo.nl>
+<klaus@capitalfocus.org>
+<aaron@wormus.com>

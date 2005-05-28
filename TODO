@@ -1,0 +1,68 @@
+/**
+ * $Id: TODO 60 2005-03-27 11:51:37Z meebey $
+ * $URL: svn+ssh://svn.qnetp.net/svn/smuxi/Gnosmirc/trunk/TODO $
+ * $Rev: 60 $
+ * $Author: meebey $
+ * $Date: 2005-03-27 13:51:37 +0200 (Sun, 27 Mar 2005) $
+ */
+
+smuxi 0.6 Goals:
+
+Feature Requests:
+- DEFAULT config writter
+- use TcpExChannel
+- engines manager
+- irc server manager
+- /disconnect [server] (besfred)
+- completion for commands
+- right button menus for query/channelpage, users in channels
+- /join #foo should check if we are already joined
+- /window $channel/$user feature for switching to the channel/user
+- /set command for preferences
+- create debian package
+- nickname completion should ignore special characters (darix)
+- DCC receiving and sending (helgi)
+- aliases for commands
+- use for each server connection a servertab and group
+  the channels within them (Tobias Schlitt)
+- show quit/part in query window of users (helgi)
+- color settings (background/fonts etc)
+- colors in channels (hightlighting)
+- tab colors (editable):
+   black = no activity
+   blue = channel modes
+   red = activity
+   green = highlight
+- smuxi cocoa frontend (Alexander Wirt)
+- smuxi text frontend (ncurses based? probably better: SWC)
+- chat logging
+- theme support
+- scripting/plugins C#/Perl/Python/PHP
+
+Done:
+- /whois command
+- /part [channel] [partmessage]
+- ^x key for changing the current irc connection (Tobias Schlitt)
+- /away command
+- setting for scrollback lines
+- on connect commands (Jellybob)
+- allow the userlist position to be changed (0.3) (helgi)
+- show topic on channels (0.3)
+- fixed GnosmircPage design bug
+  this broke the notebook when multiple pages are opened and one is closed in between.
+- allow nickname completion within message 
+  not only at the beginning (Tobias Schlitt)
+- INI config backend
+- timestamps for messages
+- allow "/query $nick" to open query tabs (Tobias Schlitt)
+- user friendly crash message
+- /topic command (Tobias Schlitt)
+- bash style nickname completion (Joerg Heissler)
+- completion char setting
+- command char setting
+- /window close and close button on query pages
+- alt+$number as window shortcuts
+- nickname completion
+- threading issues (GnosmircIrcClient accesses Notebook.CurrentPage)
+- usermode / channelmode type in IRC lib
+- query pages

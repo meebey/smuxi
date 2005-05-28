@@ -1,0 +1,28 @@
+<Combine name="smuxi" fileversion="2.0" outputpath="../bin">
+  <Configurations active="Debug">
+    <Configuration name="Release" ctype="CombineConfiguration">
+      <Entry build="False" name="Engine" />
+      <Entry build="False" name="Server" />
+      <Entry build="False" name="Frontend-GtkGnome" />
+      <Entry build="False" name="Frontend-Test" />
+    </Configuration>
+    <Configuration name="Debug" ctype="CombineConfiguration">
+      <Entry build="False" name="Engine" />
+      <Entry build="False" name="Server" />
+      <Entry build="False" name="Frontend-GtkGnome" />
+      <Entry build="False" name="Frontend-Test" />
+    </Configuration>
+  </Configurations>
+  <StartMode startupentry="Engine" single="False">
+    <Execute type="None" entry="Engine" />
+    <Execute type="None" entry="Server" />
+    <Execute type="Execute" entry="Frontend-GtkGnome" />
+    <Execute type="None" entry="Frontend-Test" />
+  </StartMode>
+  <Entries>
+    <Entry filename="./Engine.mdp" />
+    <Entry filename="./Server.mdp" />
+    <Entry filename="./Frontend-GtkGnome.mdp" />
+    <Entry filename="./Frontend-Test.mdp" />
+  </Entries>
+</Combine>

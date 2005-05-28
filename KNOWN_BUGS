@@ -1,0 +1,20 @@
+/**
+ * $Id: KNOWN_BUGS 60 2005-03-27 11:51:37Z meebey $
+ * $URL: svn+ssh://svn.qnetp.net/svn/smuxi/Gnosmirc/trunk/KNOWN_BUGS $
+ * $Rev: 60 $
+ * $Author: meebey $
+ * $Date: 2005-03-27 13:51:37 +0200 (Sun, 27 Mar 2005) $
+ */
+
+Open:
+- write away message to query page, not server page
+- "/connect  foo" throws exception
+
+Fixed:
+- umlauts corrupts textview (Gtk# wants UTF-8)
+- userlist too small
+- Entry History is upside down
+- click in textbuffer should focus to entry field
+- _Event_NICK collision problems?
+- textview should not have any selections!
+- ' ' exception in Command()
