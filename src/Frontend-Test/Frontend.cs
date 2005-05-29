@@ -60,11 +60,12 @@ namespace Meebey.Smuxi.FrontendTest
             string password = (string)FrontendConfig["Engines/"+profile+"/Password"];
             string hostname = (string)FrontendConfig["Engines/"+profile+"/Hostname"];
             int port = (int)FrontendConfig["Engines/"+profile+"/Port"];
-            string protocol = (string)FrontendConfig["Engines/"+profile+"/Protocol"];
+            string channel = (string)FrontendConfig["Engines/"+profile+"/Channel"];
+            string formatter = (string)FrontendConfig["Engines/"+profile+"/Formatter"];
             IFrontendUI ui = new TestUI();
             try {
                 SessionManager sessm = null;
-                switch (protocol) {
+                switch (channel) {
                     case "TCP":
                         ChannelServices.RegisterChannel(new TcpChannel());
                         sessm = (SessionManager)Activator.GetObject(typeof(SessionManager),
@@ -80,7 +81,7 @@ namespace Meebey.Smuxi.FrontendTest
                         sessm = Engine.Engine.SessionManager;
                         break;
                     default:
-                        Console.WriteLine("Unknown protocol ("+protocol+"), aborting...");
+                        Console.WriteLine("Unknown channel ("+channel+"), aborting...");
                         Environment.Exit(1);
                         break;
                 }
