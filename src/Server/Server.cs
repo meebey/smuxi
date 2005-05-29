@@ -56,14 +56,23 @@ namespace Meebey.Smuxi.Server
             switch (channel) {
                 case "TCP":
                     props["name"] = "TCPChannel";
+#if LOG4NET
+                    Engine.Logger.Remoting.Debug("Registering TcpChannel port: "+props["port"]);
+#endif            
                     ChannelServices.RegisterChannel(new TcpChannel(props, null, null));
                     break;
                 case "TcpEx":
                     //props["name"] = "TcpExChannel";
+#if LOG4NET
+                    Engine.Logger.Remoting.Debug("Registering TcpExChannel port: "+props["port"]);
+#endif            
                     ChannelServices.RegisterChannel(new TcpExChannel(props, null, null));
                     break;
                 case "HTTP":
                     props["name"] = "HTTPChannel";
+#if LOG4NET
+                    Engine.Logger.Remoting.Debug("Registering HttpChannel port: "+props["port"]);
+#endif            
                     ChannelServices.RegisterChannel(new HttpChannel(props, null, null));
                     break;
                 default:
@@ -76,7 +85,7 @@ namespace Meebey.Smuxi.Server
             RemotingServices.Marshal(Engine.Engine.SessionManager, "SessionManager");
             
 #if LOG4NET
-            Engine.Logger.Remoting.Info("Spawned remoting server with protocol: "+protocol+" port: "+port);
+            Engine.Logger.Remoting.Info("Spawned remoting server with channel: "+channel+" formatter: "+formatter+" port: "+port);
 #endif            
             
             while (true) {
