@@ -34,7 +34,9 @@ using System.Runtime.Remoting.Channels;
 using System.Runtime.Remoting.Channels.Tcp;
 using System.Runtime.Remoting.Channels.Http;
 using Meebey.Smuxi;
+#if CHANNEL_TCPEX
 using TcpEx;
+#endif
 
 namespace Meebey.Smuxi.Server
 { 
@@ -61,6 +63,7 @@ namespace Meebey.Smuxi.Server
 #endif            
                     ChannelServices.RegisterChannel(new TcpChannel(props, null, null));
                     break;
+#if CHANNEL_TCPEX
                 case "TcpEx":
                     //props["name"] = "TcpExChannel";
 #if LOG4NET
@@ -68,6 +71,7 @@ namespace Meebey.Smuxi.Server
 #endif            
                     ChannelServices.RegisterChannel(new TcpExChannel(props, null, null));
                     break;
+#endif
                 case "HTTP":
                     props["name"] = "HTTPChannel";
 #if LOG4NET

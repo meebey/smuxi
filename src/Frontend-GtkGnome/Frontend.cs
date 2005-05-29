@@ -34,7 +34,9 @@ using System.Runtime.Remoting.Channels.Http;
 using System.Runtime.Remoting.Channels.Tcp;
 using Meebey.Smuxi;
 using Meebey.Smuxi.Engine;
+#if CHANNEL_TCPEX
 using TcpEx;
+#endif
 
 namespace Meebey.Smuxi.FrontendGtkGnome
 {
@@ -201,6 +203,7 @@ namespace Meebey.Smuxi.FrontendGtkGnome
                             sessm = (SessionManager)Activator.GetObject(typeof(SessionManager),
                                 connection_url);
                             break;
+#if CHANNEL_TCPEX
                         case "TcpEx":
                             connection_url = "tcpex://"+hostname+":"+port+"/SessionManager"; 
 #if LOG4NET
@@ -210,6 +213,7 @@ namespace Meebey.Smuxi.FrontendGtkGnome
                             sessm = (SessionManager)Activator.GetObject(typeof(SessionManager),
                                 connection_url);
                             break;
+#endif
                         case "HTTP":
                             connection_url = "http://"+hostname+":"+port+"/SessionManager"; 
 #if LOG4NET
