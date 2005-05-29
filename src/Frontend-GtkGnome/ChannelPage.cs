@@ -187,5 +187,12 @@ namespace Meebey.Smuxi.FrontendGtkGnome
             
             return String.Compare(column2a, column2b, true, CultureInfo.InvariantCulture);
         }
+
+#if GTK_1
+        static private void _OnDestroyNotify()
+        {
+            // noop
+        }
+#endif
     }
 }
