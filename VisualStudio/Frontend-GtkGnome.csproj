@@ -1,0 +1,243 @@
+<VisualStudioProject>
+    <CSHARP
+        ProjectType = "Local"
+        ProductVersion = "7.10.3077"
+        SchemaVersion = "2.0"
+        ProjectGuid = "{1818A3F5-0850-4A7C-A528-29338BF1A41B}"
+    >
+        <Build>
+            <Settings
+                ApplicationIcon = ""
+                AssemblyKeyContainerName = ""
+                AssemblyName = "smuxi-gtk"
+                AssemblyOriginatorKeyFile = ""
+                DefaultClientScript = "JScript"
+                DefaultHTMLPageLayout = "Grid"
+                DefaultTargetSchema = "IE50"
+                DelaySign = "false"
+                OutputType = "Exe"
+                PreBuildEvent = ""
+                PostBuildEvent = ""
+                RootNamespace = "Frontend_GtkGnome"
+                RunPostBuildEvent = "OnBuildSuccess"
+                StartupObject = ""
+            >
+                <Config
+                    Name = "Debug"
+                    AllowUnsafeBlocks = "false"
+                    BaseAddress = "285212672"
+                    CheckForOverflowUnderflow = "false"
+                    ConfigurationOverrideFile = ""
+                    DefineConstants = "CONFIG_NINI;UI_GTK;GTK_1;LOG4NET;DEBUG;TRACE"
+                    DocumentationFile = ""
+                    DebugSymbols = "true"
+                    FileAlignment = "4096"
+                    IncrementalBuild = "false"
+                    NoStdLib = "false"
+                    NoWarn = ""
+                    Optimize = "false"
+                    OutputPath = "..\bin\net\debug\"
+                    RegisterForComInterop = "false"
+                    RemoveIntegerChecks = "false"
+                    TreatWarningsAsErrors = "false"
+                    WarningLevel = "4"
+                />
+                <Config
+                    Name = "Release"
+                    AllowUnsafeBlocks = "false"
+                    BaseAddress = "285212672"
+                    CheckForOverflowUnderflow = "false"
+                    ConfigurationOverrideFile = ""
+                    DefineConstants = "CONFIG_NINI;UI_GTK;TRACE"
+                    DocumentationFile = ""
+                    DebugSymbols = "false"
+                    FileAlignment = "4096"
+                    IncrementalBuild = "false"
+                    NoStdLib = "false"
+                    NoWarn = ""
+                    Optimize = "true"
+                    OutputPath = "..\bin\net\release\"
+                    RegisterForComInterop = "false"
+                    RemoveIntegerChecks = "false"
+                    TreatWarningsAsErrors = "false"
+                    WarningLevel = "4"
+                />
+            </Settings>
+            <References>
+                <Reference
+                    Name = "Engine"
+                    Project = "{7282E818-5F42-4811-BFCB-36E362948C9F}"
+                    Package = "{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}"
+                />
+                <Reference
+                    Name = "System"
+                    AssemblyName = "System"
+                    HintPath = "C:\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.dll"
+                />
+                <Reference
+                    Name = "log4net"
+                    AssemblyName = "log4net"
+                    HintPath = "..\bin\log4net.dll"
+                />
+                <Reference
+                    Name = "System.Runtime.Remoting"
+                    AssemblyName = "System.Runtime.Remoting"
+                    HintPath = "C:\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.Runtime.Remoting.dll"
+                />
+                <Reference
+                    Name = "art-sharp"
+                    AssemblyName = "art-sharp"
+                    HintPath = "C:\Program Files\Common Files\GtkRun\2.6\lib\gtk-sharp\art-sharp.dll"
+                    AssemblyFolderKey = "hklm\dn\gtk-sharp"
+                />
+                <Reference
+                    Name = "atk-sharp"
+                    AssemblyName = "atk-sharp"
+                    HintPath = "C:\Program Files\Common Files\GtkRun\2.6\lib\gtk-sharp\atk-sharp.dll"
+                    AssemblyFolderKey = "hklm\dn\gtk-sharp"
+                />
+                <Reference
+                    Name = "gdk-sharp"
+                    AssemblyName = "gdk-sharp"
+                    HintPath = "C:\Program Files\Common Files\GtkRun\2.6\lib\gtk-sharp\gdk-sharp.dll"
+                    AssemblyFolderKey = "hklm\dn\gtk-sharp"
+                />
+                <Reference
+                    Name = "glib-sharp"
+                    AssemblyName = "glib-sharp"
+                    HintPath = "C:\Program Files\Common Files\GtkRun\2.6\lib\gtk-sharp\glib-sharp.dll"
+                    AssemblyFolderKey = "hklm\dn\gtk-sharp"
+                />
+                <Reference
+                    Name = "gtk-sharp"
+                    AssemblyName = "gtk-sharp"
+                    HintPath = "C:\Program Files\Common Files\GtkRun\2.6\lib\gtk-sharp\gtk-sharp.dll"
+                    AssemblyFolderKey = "hklm\dn\gtk-sharp"
+                />
+            </References>
+        </Build>
+        <Files>
+            <Include>
+                <File
+                    RelPath = "AboutDialog.cs"
+                    Link = "..\src\Frontend-GtkGnome\AboutDialog.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "AssemblyInfo.cs"
+                    Link = "..\src\Frontend-GtkGnome\AssemblyInfo.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "ChannelPage.cs"
+                    Link = "..\src\Frontend-GtkGnome\ChannelPage.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "CrashDialog.cs"
+                    Link = "..\src\Frontend-GtkGnome\CrashDialog.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "EngineManagerDialog.cs"
+                    Link = "..\src\Frontend-GtkGnome\EngineManagerDialog.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Entry.cs"
+                    Link = "..\src\Frontend-GtkGnome\Entry.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Frontend.cs"
+                    Link = "..\src\Frontend-GtkGnome\Frontend.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "GtkGnomeUI.cs"
+                    Link = "..\src\Frontend-GtkGnome\GtkGnomeUI.cs"
+                    SubType = "Component"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "IrcManagerWindow.cs"
+                    Link = "..\src\Frontend-GtkGnome\IrcManagerWindow.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Logger.cs"
+                    Link = "..\src\Frontend-GtkGnome\Logger.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Main.cs"
+                    Link = "..\src\Frontend-GtkGnome\Main.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "MainWindow.cs"
+                    Link = "..\src\Frontend-GtkGnome\MainWindow.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Notebook.cs"
+                    Link = "..\src\Frontend-GtkGnome\Notebook.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Page.cs"
+                    Link = "..\src\Frontend-GtkGnome\Page.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "PreferencesDialog.cs"
+                    Link = "..\src\Frontend-GtkGnome\PreferencesDialog.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "QueryPage.cs"
+                    Link = "..\src\Frontend-GtkGnome\QueryPage.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "ServerPage.cs"
+                    Link = "..\src\Frontend-GtkGnome\ServerPage.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "SplashScreenWindow.cs"
+                    Link = "..\src\Frontend-GtkGnome\SplashScreenWindow.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "images\about.png"
+                    Link = "..\images\about.png"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "images\splashscreen.png"
+                    Link = "..\images\splashscreen.png"
+                    BuildAction = "EmbeddedResource"
+                />
+            </Include>
+        </Files>
+    </CSHARP>
+</VisualStudioProject>
+

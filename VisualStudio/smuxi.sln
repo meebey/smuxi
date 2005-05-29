@@ -1,0 +1,37 @@
+Microsoft Visual Studio Solution File, Format Version 8.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Engine", "Engine.csproj", "{7282E818-5F42-4811-BFCB-36E362948C9F}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Frontend-GtkGnome", "Frontend-GtkGnome.csproj", "{1818A3F5-0850-4A7C-A528-29338BF1A41B}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Server", "Server.csproj", "{CC2CF485-C0B3-4601-8F96-FCC4C999CA36}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfiguration) = preSolution
+		Debug = Debug
+		Release = Release
+	EndGlobalSection
+	GlobalSection(ProjectConfiguration) = postSolution
+		{7282E818-5F42-4811-BFCB-36E362948C9F}.Debug.ActiveCfg = Debug|.NET
+		{7282E818-5F42-4811-BFCB-36E362948C9F}.Debug.Build.0 = Debug|.NET
+		{7282E818-5F42-4811-BFCB-36E362948C9F}.Release.ActiveCfg = Release|.NET
+		{7282E818-5F42-4811-BFCB-36E362948C9F}.Release.Build.0 = Release|.NET
+		{1818A3F5-0850-4A7C-A528-29338BF1A41B}.Debug.ActiveCfg = Debug|.NET
+		{1818A3F5-0850-4A7C-A528-29338BF1A41B}.Debug.Build.0 = Debug|.NET
+		{1818A3F5-0850-4A7C-A528-29338BF1A41B}.Release.ActiveCfg = Release|.NET
+		{1818A3F5-0850-4A7C-A528-29338BF1A41B}.Release.Build.0 = Release|.NET
+		{CC2CF485-C0B3-4601-8F96-FCC4C999CA36}.Debug.ActiveCfg = Debug|.NET
+		{CC2CF485-C0B3-4601-8F96-FCC4C999CA36}.Debug.Build.0 = Debug|.NET
+		{CC2CF485-C0B3-4601-8F96-FCC4C999CA36}.Release.ActiveCfg = Release|.NET
+		{CC2CF485-C0B3-4601-8F96-FCC4C999CA36}.Release.Build.0 = Release|.NET
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+	EndGlobalSection
+	GlobalSection(ExtensibilityAddIns) = postSolution
+	EndGlobalSection
+EndGlobal
