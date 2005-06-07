@@ -1,9 +1,9 @@
 /**
- * $Id: AssemblyInfo.cs 34 2004-09-05 14:46:59Z meebey $
- * $URL: svn+ssh://svn.qnetp.net/svn/smuxi/Gnosmirc/trunk/src/AssemblyInfo.cs $
- * $Rev: 34 $
- * $Author: meebey $
- * $Date: 2004-09-05 16:46:59 +0200 (Sun, 05 Sep 2004) $
+ * $Id$
+ * $URL$
+ * $Rev$
+ * $Author$
+ * $Date$
  *
  * smuxi - Smart MUltipleXed Irc
  *
@@ -27,12 +27,12 @@
  */
 
 using System;
+using System.Collections;
+using System.Collections.Specialized;
 using Meebey.Smuxi.Engine;
 
 namespace Meebey.Smuxi.FrontendGtkGnome
 {
-    using System.Collections.Specialized;
-
     public class Entry : Gtk.Entry
     {
         private StringCollection _History = new StringCollection();
@@ -284,8 +284,8 @@ namespace Meebey.Smuxi.FrontendGtkGnome
 
         private void _OnFocusOut(object obj, Gtk.FocusOutEventArgs args)
         {
-            HasFocus = true;
-            Position = -1;
+            //HasFocus = true;
+            //Position = -1;
         }
 
         private void _OnActivated(object obj, EventArgs args)
@@ -295,52 +295,53 @@ namespace Meebey.Smuxi.FrontendGtkGnome
             } 
             
             bool handled = false;
-            handled = _Command(Frontend.FrontendManager, Text);
+            CommandData cd = new CommandData(Frontend.FrontendManager,
+                                    (string)Frontend.UserConfig["Interface/Entry/CommandCharacter"],
+                                    Text);
+            handled = _Command(cd);
             if (!handled) {
-                handled = Frontend.Session.Command(Frontend.FrontendManager, Text);
+                handled = Frontend.Session.Command(cd);
             }
             if (!handled) {
                 // we may have no network manager yet
                 if (Frontend.FrontendManager.CurrentNetworkManager != null) {
-                    handled = Frontend.FrontendManager.CurrentNetworkManager.Command(
-                                Frontend.FrontendManager, Text);
+                    handled = Frontend.FrontendManager.CurrentNetworkManager.Command(cd);
+                } else {
+                    handled = true;
                 }
             }
             if (!handled) {
-               _CommandUnknown(Frontend.FrontendManager, Text);
+               _CommandUnknown(cd);
             }
             
             AddToHistory(Text, History.Count - HistoryPosition);
             Text = String.Empty;
         }
         
-        private bool _Command(FrontendManager fm, string data)
+        private bool _Command(CommandData cd)
         {
             bool handled = false;
-            if (!(data.Length >= 1)) {
-                return false;
-            }
-
-            string[] dataex = data.Split(new char[] {' '});
-            string parameter = String.Join(" ", dataex, 1, dataex.Length-1);
-            string command = (dataex[0].Length > 1) ? dataex[0].Substring(1).ToLower() : "";
+            
             // command that work even without beeing connected 
-            if (data[0] == ((string)Frontend.UserConfig["Interface/Entry/CommandCharacter"])[0]) {
-                switch (command) {
+            if (cd.IsCommand) {
+                switch (cd.Command) {
+                    case "help":
+                        _CommandHelp(cd);
+                        break;
                     case "quit":
-                        _CommandQuit(fm, data, dataex, parameter);
+                        _CommandQuit(cd);
                         handled = true;
                         break;
                     case "echo":
-                        _CommandEcho(fm, data, dataex, parameter);
+                        _CommandEcho(cd);
                         handled = true;
                         break;
                     case "exec":
-                        _CommandExec(fm, data, dataex, parameter);
+                        _CommandExec(cd);
                         handled = true;
                         break;
                     case "window":
-                        _CommandWindow(fm, data, dataex, parameter);
+                        _CommandWindow(cd);
                         handled = true;
                         break;
                 }
@@ -349,24 +350,41 @@ namespace Meebey.Smuxi.FrontendGtkGnome
             return handled;
         }
         
-        private void _CommandQuit(FrontendManager fm, string data, string[] dataex, string parameter)
+        private void _CommandHelp(CommandData cd)
+        {
+            string[] help = {
+            "[Frontend Commands]",
+            "help",
+            "window (number|channelname|queryname|close",
+            "echo data",
+            "exec command",
+            "quit [quitmessage]",
+            };
+            
+            foreach (string line in help) { 
+                cd.FrontendManager.AddTextToCurrentPage("-!- "+line);
+            }
+        }
+        
+        private void _CommandQuit(CommandData cd)
         {
             Frontend.Quit();
         }
 
-        private void _CommandEcho(FrontendManager fm, string data, string[] dataex, string parameter)
+        private void _CommandEcho(CommandData cd)
         {
-            fm.AddTextToCurrentPage("-!- "+parameter);
+            cd.FrontendManager.AddTextToCurrentPage("-!- "+cd.Parameter);
         }
         
-        private void _CommandExec(FrontendManager fm, string data, string[] dataex, string parameter)
+        private void _CommandExec(CommandData cd)
         {
-            if (dataex.Length >= 2) {
+            if (cd.DataArray.Length >= 2) {
                 string output;
                 System.Diagnostics.Process process = new System.Diagnostics.Process();
-                process.StartInfo.FileName = dataex[1];
-                if (dataex.Length >= 3) { 
-                    process.StartInfo.Arguments = String.Join(" ", dataex, 2, dataex.Length-2);
+                process.StartInfo.FileName = cd.DataArray[1];
+                if (cd.DataArray.Length >= 3) { 
+                    process.StartInfo.Arguments = String.Join(" ", cd.DataArray,
+                                                    2, cd.DataArray.Length-2);
                 }
                 process.StartInfo.RedirectStandardOutput = true;
                 process.StartInfo.RedirectStandardError = true;
@@ -375,24 +393,24 @@ namespace Meebey.Smuxi.FrontendGtkGnome
                 try {
                     process.Start();
                     output = process.StandardOutput.ReadToEnd();
-                    fm.AddTextToCurrentPage(output);
+                    cd.FrontendManager.AddTextToCurrentPage(output);
                 } catch {
                 }
             }
         }
     
-        private void _CommandWindow(FrontendManager fm, string data, string[] dataex, string parameter)
+        private void _CommandWindow(CommandData cd)
         {
-            if (dataex.Length >= 2) {
+            FrontendManager fm = cd.FrontendManager;
+            if (cd.DataArray.Length >= 2) {
                 string name;
-                if (dataex[1].ToLower() == "close") {
+                if (cd.DataArray[1].ToLower() == "close") {
                     name = fm.CurrentPage.Name;
                     if (fm.CurrentPage.PageType != PageType.Server) {
                         if (fm.CurrentNetworkManager is IrcManager) {
                             IrcManager ircm = (IrcManager)fm.CurrentNetworkManager; 
                             if (fm.CurrentPage.PageType == PageType.Channel) {
-                                // HACK: we emulate an user typed command, WTF?!?
-                                ircm.Command(fm, "/part "+name);
+                                ircm.CommandPart(new CommandData(fm, cd.CommandCharacter, "/part "+name));
                             } else {
                                 // query
                                 Frontend.Session.RemovePage(fm.CurrentPage);
@@ -400,32 +418,46 @@ namespace Meebey.Smuxi.FrontendGtkGnome
                         }
                     }
                 } else {
+                    bool is_number = false;
+                    int pagecount = Frontend.MainWindow.Notebook.NPages;
                     try {
-                        int number = Int32.Parse(dataex[1]);
-                        if (number <= Frontend.MainWindow.Notebook.NPages) {
+                        int number = Int32.Parse(cd.DataArray[1]);
+                        is_number = true;
+                        if (number <= pagecount) {
                             Frontend.MainWindow.Notebook.CurrentPage = number - 1;
-                        } else {
-                            // TODO: search the page when found make it currrent page
-#if _0
-                            foreach (Page page in Frontend.Session.Pages) {
-                                if (page.Name.ToLower() == dataex[1].ToLower()) {
-                                    number = Frontend.MainWindow.Notebook.PageNum(page);
-                                    Frontend.MainWindow.Notebook.CurrentPage = number;
-                                    break;
-                                }
-                            }
-#endif
                         }
                     } catch (FormatException) {
+                    }
+                    
+                    if (!is_number) {
+                        // seems to be query- or channelname
+                        // let's see if we find something
+                        ArrayList candidates = new ArrayList();
+                        for (int i = 0; i < pagecount; i++) {
+                            Page page = (Page)Frontend.MainWindow.Notebook.GetNthPage(i);
+                            Engine.Page epage = page.EnginePage;
+                            if (epage.Name.ToLower() == cd.DataArray[1].ToLower()) {
+                                if ((epage.PageType == fm.CurrentPage.PageType) &&
+                                    (epage.NetworkManager == fm.CurrentPage.NetworkManager)) {
+                                    Frontend.MainWindow.Notebook.CurrentPage = i;
+                                    break;
+                                } else {
+                                    // there was no exact match
+                                    candidates.Add(i);
+                                }
+                            }
+                        }
+                        if (candidates.Count > 0) {
+                            Frontend.MainWindow.Notebook.CurrentPage = (int)candidates[0];
+                        }
                     }
                 }
             }
         }
     
-        private void _CommandUnknown(FrontendManager fm, string data)
+        private void _CommandUnknown(CommandData cd)
         {
-            string[] dataex = data.Split(new char[] {' '});
-            fm.AddTextToCurrentPage("-!- Unknown Command: "+dataex[0].Substring(1).ToLower());
+            cd.FrontendManager.AddTextToCurrentPage("-!- Unknown Command: "+cd.Command);
         }
         
         private void _NickCompletion()

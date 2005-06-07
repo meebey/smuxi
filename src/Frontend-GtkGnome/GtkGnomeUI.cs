@@ -1,9 +1,9 @@
 /**
- * $Id: AssemblyInfo.cs 34 2004-09-05 14:46:59Z meebey $
- * $URL: svn+ssh://svn.qnetp.net/svn/smuxi/Gnosmirc/trunk/src/AssemblyInfo.cs $
- * $Rev: 34 $
- * $Author: meebey $
- * $Date: 2004-09-05 16:46:59 +0200 (Sun, 05 Sep 2004) $
+ * $Id$
+ * $URL$
+ * $Rev$
+ * $Author$
+ * $Date$
  *
  * smuxi - Smart MUltipleXed Irc
  *
@@ -83,7 +83,7 @@ namespace Meebey.Smuxi.FrontendGtkGnome
                     Gdk.Threads.Leave();
                     throw new ApplicationException("Unknown PageType: "+epage.PageType);
             }
-            Frontend.MainWindow.Notebook.AppendPage(newpage, newpage.Label);
+            Frontend.MainWindow.Notebook.AppendPage(newpage, newpage.LabelEventBox);
             newpage.ShowAll();
             
             Gdk.Threads.Leave();

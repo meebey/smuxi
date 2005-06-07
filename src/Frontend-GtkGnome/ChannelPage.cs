@@ -1,9 +1,9 @@
 /**
- * $Id: AssemblyInfo.cs 34 2004-09-05 14:46:59Z meebey $
- * $URL: svn+ssh://svn.qnetp.net/svn/smuxi/Gnosmirc/trunk/src/AssemblyInfo.cs $
- * $Rev: 34 $
- * $Author: meebey $
- * $Date: 2004-09-05 16:46:59 +0200 (Sun, 05 Sep 2004) $
+ * $Id$
+ * $URL$
+ * $Rev$
+ * $Author$
+ * $Date$
  *
  * smuxi - Smart MUltipleXed Irc
  *
@@ -28,6 +28,7 @@
 
 using System;
 using System.Globalization;
+using Meebey.Smuxi.Engine;
 
 namespace Meebey.Smuxi.FrontendGtkGnome
 {
@@ -35,6 +36,8 @@ namespace Meebey.Smuxi.FrontendGtkGnome
     {
         private Gtk.TreeView _UserListTreeView;
         private Gtk.Entry    _TopicEntry;
+        private Gtk.Menu     _TabMenu;
+        private Gtk.Menu     _UserListMenu;
         
         public Gtk.TreeView UserListTreeView
         {
@@ -50,10 +53,18 @@ namespace Meebey.Smuxi.FrontendGtkGnome
             }
         }
         
+        public Gtk.Menu TabMenu
+        {
+            get {
+                return _TabMenu;
+            }
+        }
+        
         public ChannelPage(Engine.Page epage) : base(epage)
         {
             _Label = new Gtk.Label(epage.Name);
-            
+            _LabelEventBox.Add(_Label);
+            _Label.Show();
             
             // userlist
             Gtk.ScrolledWindow sw = null;
@@ -139,6 +150,16 @@ namespace Meebey.Smuxi.FrontendGtkGnome
             } else {
                 Add(vbox);
             }
+            
+            // popup menu
+            Gtk.AccelGroup agrp = new Gtk.AccelGroup();
+            Frontend.MainWindow.AddAccelGroup(agrp);
+            _TabMenu = new Gtk.Menu();
+            Gtk.ImageMenuItem image_item = new Gtk.ImageMenuItem(Gtk.Stock.Close, agrp);
+            image_item.Activated += new EventHandler(_OnTabMenuCloseActivated);  
+            _TabMenu.Append(image_item);
+            
+            _LabelEventBox.ButtonPressEvent += new Gtk.ButtonPressEventHandler(_OnTabButtonPress);
         }
         
         static private int _OnStatusSort(Gtk.TreeModel model, Gtk.TreeIter itera, Gtk.TreeIter iterb)
@@ -187,7 +208,40 @@ namespace Meebey.Smuxi.FrontendGtkGnome
             
             return String.Compare(column2a, column2b, true, CultureInfo.InvariantCulture);
         }
+        
+        private void _OnTabButtonPress(object obj, Gtk.ButtonPressEventArgs args)
+        {
+#if LOG4NET
+            Logger.UI.Debug("_OnTabButtonPress triggered");
+#endif
 
+            if (args.Event.Button == 3) {
+                _TabMenu.Popup(null, null, null, IntPtr.Zero, args.Event.Button, args.Event.Time);
+                _TabMenu.ShowAll();
+            }
+        }
+        
+        private void _OnTabMenuCloseActivated(object sender, EventArgs e)
+        {
+            if (EnginePage.NetworkManager is IrcManager) {
+                IrcManager imanager = (IrcManager)EnginePage.NetworkManager;
+                imanager.CommandPart(new CommandData(Frontend.FrontendManager,
+                                            EnginePage.Name));
+            }
+        }
+        
+        private void _OnUserListButtonPress(object obj, Gtk.ButtonPressEventArgs args)
+        {
+#if LOG4NET
+            Logger.UI.Debug("_OnUserListButtonPress triggered");
+#endif
+
+            if (args.Event.Button == 3) {
+                _UserListMenu.Popup(null, null, null, IntPtr.Zero, args.Event.Button, args.Event.Time);
+                _UserListMenu.ShowAll();
+            }
+        }
+        
 #if GTK_1
         static private void _OnDestroyNotify()
         {

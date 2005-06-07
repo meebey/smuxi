@@ -1,9 +1,9 @@
 /**
- * $Id: AssemblyInfo.cs 34 2004-09-05 14:46:59Z meebey $
- * $URL: svn+ssh://svn.qnetp.net/svn/smuxi/Gnosmirc/trunk/src/AssemblyInfo.cs $
- * $Rev: 34 $
- * $Author: meebey $
- * $Date: 2004-09-05 16:46:59 +0200 (Sun, 05 Sep 2004) $
+ * $Id$
+ * $URL$
+ * $Rev$
+ * $Author$
+ * $Date$
  *
  * smuxi - Smart MUltipleXed Irc
  *
@@ -54,7 +54,13 @@ namespace Meebey.Smuxi.Engine
                 return false;
             }
         }
-    
+        
+        public string Server {
+            get {
+                return _IrcClient.Address;
+            }
+        }
+        
         public IrcManager(Session session)
         {
             _IrcClient = new IrcClient();
@@ -206,141 +212,150 @@ namespace Meebey.Smuxi.Engine
             return result;
         }
         
-        public bool Command(FrontendManager fm, string data)
+        public bool Command(CommandData cd)
         {
             bool handled = false;
-            string[] dataex = data.Split(new char[] {' '});
-            string parameter = String.Join(" ", dataex, 1, dataex.Length-1);
-            string command = (dataex[0].Length > 1) ? dataex[0].Substring(1).ToLower() : "";
-            bool is_command = (data[0] == ((string)_Session.UserConfig["Interface/Entry/CommandCharacter"])[0]);
             if (IsConnected) {
-                if (is_command) {
-                    // commands which only work when we have a connection
-                    switch (command) {
+                if (cd.IsCommand) {
+                    // commands which work when we have a connection
+                    switch (cd.Command) {
+                        case "help":
+                            CommandHelp(cd);
+                            handled = true;
+                            break;
                         // commands which work on serverpage/channels/queries
                         case "j":
                         case "join":
-                            _CommandJoin(fm, data, dataex, parameter);
+                            CommandJoin(cd);
                             handled = true;
                             break;
                         case "query":
                         case "msg":
-                            _CommandQuery(fm, data, dataex, parameter);
+                            CommandQuery(cd);
                             handled = true;
                             break;
                         case "notice":
-                            _CommandNotice(fm, data, dataex, parameter);
+                            CommandNotice(cd);
                             handled = true;
                             break;
                         case "nick":
-                            _CommandNick(fm, data, dataex, parameter);
+                            CommandNick(cd);
                             handled = true;
                             break;
                         case "raw":
                         case "quote":
-                            _CommandRaw(fm, data, dataex, parameter);
+                            CommandRaw(cd);
                             handled = true;
                             break;
                         case "ping":
-                            _CommandPing(fm, data, dataex, parameter);
+                            CommandPing(cd);
                             handled = true;
                             break;
                         case "whois":
-                            _CommandWhoIs(fm, data, dataex, parameter);
+                            CommandWhoIs(cd);
                             handled = true;
                             break;
                         case "whowas":
-                            _CommandWhoWas(fm, data, dataex, parameter);
+                            CommandWhoWas(cd);
                             handled = true;
                             break;
                         case "away":
-                            _CommandAway(fm, data, dataex, parameter);
+                            CommandAway(cd);
+                            handled = true;
+                            break;
+                        case "ctcp":
+                            CommandCtcp(cd);
                             handled = true;
                             break;
                         // commands which only work on channels or queries
                         case "me":
-                           _CommandMe(fm, data, dataex, parameter);
+                            CommandMe(cd);
                             handled = true;
                            break;
                         // commands which only work on a channels
                         case "p":
                         case "part":
-                            _CommandPart(fm, data, dataex, parameter);
+                            CommandPart(cd);
                             handled = true;
                             break;
                         case "topic":
-                            _CommandTopic(fm, data, dataex, parameter);
+                            CommandTopic(cd);
                             handled = true;
                             break;
                         case "cycle":
                         case "rejoin":
-                            _CommandPart(fm, data, dataex, parameter);
-                            _CommandJoin(fm, data,
-                            new string[] {"", fm.CurrentPage.Name},
-                            parameter);
+                            CommandCycle(cd);
                             handled = true;
                             break;
                         case "op":
-                            _CommandOp(fm, data, dataex, parameter);
+                            CommandOp(cd);
                             handled = true;
                             break;
                         case "deop":
-                            _CommandDeop(fm, data, dataex, parameter);
+                            CommandDeop(cd);
                             handled = true;
                             break;
                         case "voice":
-                            _CommandVoice(fm, data, dataex, parameter);
+                            CommandVoice(cd);
                             handled = true;
                             break;
                         case "devoice":
-                            _CommandDevoice(fm, data, dataex, parameter);
+                            CommandDevoice(cd);
                             handled = true;
                             break;
                         case "ban":
-                            _CommandBan(fm, data, dataex, parameter);
+                            CommandBan(cd);
                             handled = true;
                             break;
                         case "unban":
-                            _CommandUnban(fm, data, dataex, parameter);
+                            CommandUnban(cd);
                             handled = true;
                             break;
                         case "kick":
-                            _CommandKick(fm, data, dataex, parameter);
+                            CommandKick(cd);
                             handled = true;
                             break;
                         case "kickban":
                         case "kb":
-                            _CommandKickban(fm, data, dataex, parameter);
+                            CommandKickban(cd);
                             handled = true;
                             break;
                         case "mode":
-                            _CommandMode(fm, data, dataex, parameter);
+                            CommandMode(cd);
                             handled = true;
                             break;
                         case "invite":
-                            _CommandInvite(fm, data, dataex, parameter);
+                            CommandInvite(cd);
                             handled = true;
                             break;
                     }
                 } else {
                     // normal text
-                    if (fm.CurrentPage.PageType == PageType.Server) {
+                    if (cd.FrontendManager.CurrentPage.PageType == PageType.Server) {
                         // we are on the server page
-                        _IrcClient.WriteLine(data);
+                        _IrcClient.WriteLine(cd.Data);
                     } else {
                         // we are on a channel or query page
-                        _IrcClient.SendMessage(SendType.Message, fm.CurrentPage.Name,
-                            data);
-                        _Session.AddTextToPage(fm.CurrentPage, "<"+_IrcClient.Nickname+"> "+data);
+                        _IrcClient.SendMessage(SendType.Message,
+                            cd.FrontendManager.CurrentPage.Name,
+                            cd.Data);
+                        _Session.AddTextToPage(cd.FrontendManager.CurrentPage,
+                            "<"+_IrcClient.Nickname+"> "+cd.Data);
                     }
                     handled = true;
                 }
             } else {
-                if (is_command) {
+                if (cd.IsCommand) {
                     // commands which work even without beeing connected
+                    switch (cd.Command) {
+                        case "help":
+                            CommandHelp(cd);
+                            handled = true;
+                            break;
+                    }
                 } else {
                     // normal text, without connection
-                    _CommandNotConnected(fm, data, dataex, parameter);
+                    CommandNotConnected(cd);
                     handled = true;
                 }
             }
@@ -348,35 +363,80 @@ namespace Meebey.Smuxi.Engine
             return handled;
         }
         
-        private void _CommandJoin(FrontendManager fm, string data, string[] dataex, string parameter)
+        public void CommandHelp(CommandData cd)
+        {
+            string[] help = {
+            "[IrcManager Commands]",
+            "help",
+            "join/j channel(s) [key]",
+            "part/p [channel(s)] [partmessage]",
+            "topic [newtopic]",
+            "cycle/rejoin",
+            "msg/query nick message",
+            "me actionmessage",
+            "notice (channel|nick) message",
+            "invite nick",
+            "whois nick",
+            "whowas nick",
+            "ping nick",
+            "mode newmode",
+            "away [awaymessage]",
+            "kick nick(s) [reason]",
+            "kickban/kb nick(s) [reason]",
+            "ban mask",
+            "unban mask",
+            "voice nick",
+            "devoice nick",
+            "op nick",
+            "deop nick",
+            "nick newnick",
+            "ctcp destination command [data]",
+            "raw/quote irccommand",
+            };
+            
+            foreach (string line in help) { 
+                cd.FrontendManager.AddTextToCurrentPage("-!- "+line);
+            }
+        }
+        
+        public void CommandJoin(CommandData cd)
         {
             string channel = null;
-            if ((dataex.Length >= 2) &&
-                (dataex[1].Length >= 1)) {
-                switch (dataex[1][0]) {
+            if ((cd.DataArray.Length >= 2) &&
+                (cd.DataArray[1].Length >= 1)) {
+                switch (cd.DataArray[1][0]) {
                     case '#':
                     case '!':
                     case '+':
                     case '&':
-                        channel = dataex[1];
+                        channel = cd.DataArray[1];
                         break;
                     default:
-                        channel = "#"+dataex[1];  
+                        channel = "#"+cd.DataArray[1];  
                         break;
                 }
             }
         
-            if (dataex.Length == 2) {
+            if (cd.DataArray.Length == 2) {
                 _IrcClient.RfcJoin(channel);
-            } else if (dataex.Length > 2) {
-                _IrcClient.RfcJoin(channel, dataex[2]);
+            } else if (cd.DataArray.Length > 2) {
+                _IrcClient.RfcJoin(channel, cd.DataArray[2]);
             }
         }
         
-        private void _CommandQuery(FrontendManager fm, string data, string[] dataex, string parameter)
+        public void CommandCycle(CommandData cd)
         {
-            if (dataex.Length >= 2) {
-                string nickname = dataex[1];
+            FrontendManager fm = cd.FrontendManager;
+            if (fm.CurrentPage.PageType == PageType.Channel) {
+                 CommandPart(cd);
+                 CommandJoin(new CommandData(fm, fm.CurrentPage.Name));
+            }
+        }
+        
+        public void CommandQuery(CommandData cd)
+        {
+            if (cd.DataArray.Length >= 2) {
+                string nickname = cd.DataArray[1];
                 Page page = _Session.GetPage(nickname, PageType.Query, NetworkType.Irc, this);
                 if (page == null) {
                     page = new Page(nickname, PageType.Query, NetworkType.Irc, this);
@@ -384,30 +444,30 @@ namespace Meebey.Smuxi.Engine
                 }
             }
             
-            if (dataex.Length >= 3) {
-                string message = String.Join(" ", dataex, 2, dataex.Length-2);
-                string nickname = dataex[1];
+            if (cd.DataArray.Length >= 3) {
+                string message = String.Join(" ", cd.DataArray, 2, cd.DataArray.Length-2);
+                string nickname = cd.DataArray[1];
                 Page page = _Session.GetPage(nickname, PageType.Query, NetworkType.Irc, this);
                 _IrcClient.SendMessage(SendType.Message, nickname, message);
                 _Session.AddTextToPage(page, "<"+_IrcClient.Nickname+"> "+message);
             }
         }
         
-        private void _CommandPart(FrontendManager fm, string data, string[] dataex, string parameter)
+        public void CommandPart(CommandData cd)
         {
-            if ((dataex.Length >= 2) &&
-                (dataex[1].Length >= 1)) {
+            if ((cd.DataArray.Length >= 2) &&
+                (cd.DataArray[1].Length >= 1)) {
                 // have to guess here if we got a channel passed or not
-                switch (dataex[1][0]) {
+                switch (cd.DataArray[1][0]) {
                     case '#':
                     case '&':
                     case '!':
                     case '+':
                         // seems to be a channel
-                        string[] channels = dataex[1].Split(new char[] {','});
+                        string[] channels = cd.DataArray[1].Split(new char[] {','});
                         string message = null;
-                        if  (dataex.Length >= 3) {
-                            message = String.Join(" ", dataex, 2, dataex.Length-2);
+                        if  (cd.DataArray.Length >= 3) {
+                            message = String.Join(" ", cd.DataArray, 2, cd.DataArray.Length-2);
                         }
                         foreach (string channel in channels) {
                             if (message != null) {
@@ -419,61 +479,79 @@ namespace Meebey.Smuxi.Engine
                         break;
                     default:
                         // sems to be a part message
-                        _IrcClient.RfcPart(dataex[1], parameter);
+                        _IrcClient.RfcPart(cd.DataArray[1], cd.Parameter);
                         break;
                 }
             } else {
-                Page page = fm.CurrentPage;
+                Page page = cd.FrontendManager.CurrentPage;
                 _IrcClient.RfcPart(page.Name);
             }
         }
         
-        private void _CommandAway(FrontendManager fm, string data, string[] dataex, string parameter)
+        public void CommandAway(CommandData cd)
         {
-            if (dataex.Length >= 2) {
-                _IrcClient.RfcAway(parameter);
+            if (cd.DataArray.Length >= 2) {
+                _IrcClient.RfcAway(cd.Parameter);
             } else {
                 _IrcClient.RfcAway();
             }
         }
         
-        private void _CommandPing(FrontendManager fm, string data, string[] dataex, string parameter)
+        public void CommandCtcp(CommandData cd)
         {
-            if (dataex.Length >= 2) {
-                string destination = dataex[1];
+            if (cd.DataArray.Length >= 3) {
+                string destination = cd.DataArray[1];
+                string command = cd.DataArray[2].ToUpper();
+                string parameters = "";
+                if (cd.DataArray.Length >= 4) {
+                    parameters = String.Join(" ", cd.DataArray, 3, cd.DataArray.Length-3);
+                }
+                Page spage = _Session.GetPage("Server", PageType.Server, NetworkType.Irc, null);
+                _Session.AddTextToPage(spage, "[ctcp("+destination+")] "+command+" "+parameters);
+                _IrcClient.SendMessage(SendType.CtcpRequest, destination, command+" "+parameters);
+            } else {
+                cd.FrontendManager.AddTextToCurrentPage("-!- Not enough parameters for ctcp command");
+            }
+        }
+        
+        public void CommandPing(CommandData cd)
+        {
+            if (cd.DataArray.Length >= 2) {
+                string destination = cd.DataArray[1];
                 string timestamp = DateTime.Now.ToFileTime().ToString();
                 Page spage = _Session.GetPage("Server", PageType.Server, NetworkType.Irc, null);
                 _Session.AddTextToPage(spage, "[ctcp("+destination+")] PING "+timestamp);
                 _IrcClient.SendMessage(SendType.CtcpRequest, destination, "PING "+timestamp);
             } else {
-                fm.AddTextToCurrentPage("-!- Not enough parameters for ping command");
+                cd.FrontendManager.AddTextToCurrentPage("-!- Not enough parameters for ping command");
             }
         }
         
-        private void _CommandWhoIs(FrontendManager fm, string data, string[] dataex, string parameter)
+        public void CommandWhoIs(CommandData cd)
         {
-            if (dataex.Length >= 2) {
-                _IrcClient.RfcWhois(dataex[1]);
+            if (cd.DataArray.Length >= 2) {
+                _IrcClient.RfcWhois(cd.DataArray[1]);
             } else {
-                fm.AddTextToCurrentPage("-!- Not enough parameters for whois command");
+                cd.FrontendManager.AddTextToCurrentPage("-!- Not enough parameters for whois command");
             }
         }
         
-        private void _CommandWhoWas(FrontendManager fm, string data, string[] dataex, string parameter)
+        public void CommandWhoWas(CommandData cd)
         {
-            if (dataex.Length >= 2) {
-                _IrcClient.RfcWhowas(dataex[1]);
+            if (cd.DataArray.Length >= 2) {
+                _IrcClient.RfcWhowas(cd.DataArray[1]);
             } else {
-                fm.AddTextToCurrentPage("-!- Not enough parameters for whowas command");
+                cd.FrontendManager.AddTextToCurrentPage("-!- Not enough parameters for whowas command");
             }
         }
         
-        private void _CommandTopic(FrontendManager fm, string data, string[] dataex, string parameter)
+        public void CommandTopic(CommandData cd)
         {
+            FrontendManager fm = cd.FrontendManager;
             Page page = fm.CurrentPage;
             string channel = page.Name;
-            if (dataex.Length >= 2) {
-                _IrcClient.RfcTopic(channel, parameter);
+            if (cd.DataArray.Length >= 2) {
+                _IrcClient.RfcTopic(channel, cd.Parameter);
             } else {
                 if (_IrcClient.IsJoined(channel)) {
                     string topic = _IrcClient.GetChannel(channel).Topic;
@@ -488,98 +566,98 @@ namespace Meebey.Smuxi.Engine
             }
         }
         
-        private void _CommandOp(FrontendManager fm, string data, string[] dataex, string parameter)
+        public void CommandOp(CommandData cd)
         {
-            Page page = fm.CurrentPage;
+            Page page = cd.FrontendManager.CurrentPage;
             string channel = page.Name;
-            if (dataex.Length == 2) {
-                _IrcClient.Op(channel, parameter);
-            } else if (dataex.Length > 2) {
-                string[] candidates = parameter.Split(new char[] {' '});
+            if (cd.DataArray.Length == 2) {
+                _IrcClient.Op(channel, cd.Parameter);
+            } else if (cd.DataArray.Length > 2) {
+                string[] candidates = cd.Parameter.Split(new char[] {' '});
                 foreach (string nick in candidates) {
                     _IrcClient.Op(channel, nick);
                 }
             }
         }
     
-        private void _CommandDeop(FrontendManager fm, string data, string[] dataex, string parameter)
+        public void CommandDeop(CommandData cd)
         {
-            Page page = fm.CurrentPage;
+            Page page = cd.FrontendManager.CurrentPage;
             string channel = page.Name;
-            if (dataex.Length == 2) {
-                _IrcClient.Deop(channel, parameter);
-            } else if (dataex.Length > 2) {
-                string[] candidates = parameter.Split(new char[] {' '});
+            if (cd.DataArray.Length == 2) {
+                _IrcClient.Deop(channel, cd.Parameter);
+            } else if (cd.DataArray.Length > 2) {
+                string[] candidates = cd.Parameter.Split(new char[] {' '});
                 foreach(string nick in candidates) {
                     _IrcClient.Deop(channel, nick);
                 }
             }
         }
 
-        private void _CommandVoice(FrontendManager fm, string data, string[] dataex, string parameter)
+        public void CommandVoice(CommandData cd)
         {
-            Page page = fm.CurrentPage;
+            Page page = cd.FrontendManager.CurrentPage;
             string channel = page.Name;
-            if (dataex.Length == 2) {
-                _IrcClient.Voice(channel, parameter);
-            } else if (dataex.Length > 2) {
-                string[] candidates = parameter.Split(new char[] {' '});
+            if (cd.DataArray.Length == 2) {
+                _IrcClient.Voice(channel, cd.Parameter);
+            } else if (cd.DataArray.Length > 2) {
+                string[] candidates = cd.Parameter.Split(new char[] {' '});
                 foreach (string nick in candidates) {
                     _IrcClient.Voice(channel, nick);
                 }
             }
         }
 
-        private void _CommandDevoice(FrontendManager fm, string data, string[] dataex, string parameter)
+        public void CommandDevoice(CommandData cd)
         {
-            Page page = fm.CurrentPage;
+            Page page = cd.FrontendManager.CurrentPage;
             string channel = page.Name;
-            if (dataex.Length == 2) {
-                _IrcClient.Devoice(channel, parameter);
-            } else if (dataex.Length > 2) {
-                string[] candidates = parameter.Split(new char[] {' '});
+            if (cd.DataArray.Length == 2) {
+                _IrcClient.Devoice(channel, cd.Parameter);
+            } else if (cd.DataArray.Length > 2) {
+                string[] candidates = cd.Parameter.Split(new char[] {' '});
                 foreach (string nick in candidates) {
                     _IrcClient.Devoice(channel, nick);
                 }
             }
         }
 
-        private void _CommandBan(FrontendManager fm, string data, string[] dataex, string parameter)
+        public void CommandBan(CommandData cd)
         {
-            Page page = fm.CurrentPage;
+            Page page = cd.FrontendManager.CurrentPage;
             string channel = page.Name;
-            if (dataex.Length == 2) {
-                _IrcClient.Ban(channel, parameter);
-            } else if (dataex.Length > 2) {
-                string[] candidates = parameter.Split(new char[] {' '});
+            if (cd.DataArray.Length == 2) {
+                _IrcClient.Ban(channel, cd.Parameter);
+            } else if (cd.DataArray.Length > 2) {
+                string[] candidates = cd.Parameter.Split(new char[] {' '});
                 foreach(string nick in candidates) {
                     _IrcClient.Ban(channel, nick);
                 }
             }
         }
 
-        private void _CommandUnban(FrontendManager fm, string data, string[] dataex, string parameter)
+        public void CommandUnban(CommandData cd)
         {
-            Page page = fm.CurrentPage;
+            Page page = cd.FrontendManager.CurrentPage;
             string channel = page.Name;
-            if (dataex.Length == 2) {
-                _IrcClient.Unban(channel, parameter);
-            } else if (dataex.Length > 2) {
-                string[] candidates = parameter.Split(new char[] {' '});
+            if (cd.DataArray.Length == 2) {
+                _IrcClient.Unban(channel, cd.Parameter);
+            } else if (cd.DataArray.Length > 2) {
+                string[] candidates = cd.Parameter.Split(new char[] {' '});
                 foreach (string nick in candidates) {
                     _IrcClient.Unban(channel, nick);
                 }
             }
         }
 
-        private void _CommandKick(FrontendManager fm, string data, string[] dataex, string parameter)
+        public void CommandKick(CommandData cd)
         {
-            Page page = fm.CurrentPage;
+            Page page = cd.FrontendManager.CurrentPage;
             string channel = page.Name;
-            if (dataex.Length >= 2) {
-                string[] candidates = dataex[1].Split(new char[] {','});
-                if (dataex.Length >= 3) {
-                    string reason = String.Join(" ", dataex, 2, dataex.Length-2);  
+            if (cd.DataArray.Length >= 2) {
+                string[] candidates = cd.DataArray[1].Split(new char[] {','});
+                if (cd.DataArray.Length >= 3) {
+                    string reason = String.Join(" ", cd.DataArray, 2, cd.DataArray.Length-2);  
                     foreach (string nick in candidates) {
                         _IrcClient.RfcKick(channel, nick, reason);
                     }
@@ -591,15 +669,15 @@ namespace Meebey.Smuxi.Engine
             }
         }
 
-        private void _CommandKickban(FrontendManager fm, string data, string[] dataex, string parameter)
+        public void CommandKickban(CommandData cd)
         {
-            Page page = fm.CurrentPage;
+            Page page = cd.FrontendManager.CurrentPage;
             string channel = page.Name;
             SmartIrc4net.IrcUser ircuser;
-            if (dataex.Length >= 2) {
-                string[] candidates = dataex[1].Split(new char[] {','});
-                if (dataex.Length >= 3) {
-                    string reason = String.Join(" ", dataex, 2, dataex.Length-2);  
+            if (cd.DataArray.Length >= 2) {
+                string[] candidates = cd.DataArray[1].Split(new char[] {','});
+                if (cd.DataArray.Length >= 3) {
+                    string reason = String.Join(" ", cd.DataArray, 2, cd.DataArray.Length-2);  
                     foreach (string nick in candidates) {
                         ircuser = _IrcClient.GetIrcUser(nick);
                         if (ircuser != null) {
@@ -619,53 +697,54 @@ namespace Meebey.Smuxi.Engine
             }
         }
 
-        private void _CommandMode(FrontendManager fm, string data, string[] dataex, string parameter)
+        public void CommandMode(CommandData cd)
         {
-            Page page = fm.CurrentPage;
-            if (dataex.Length >= 2) {
+            Page page = cd.FrontendManager.CurrentPage;
+            if (cd.DataArray.Length >= 2) {
                 if (page.PageType == PageType.Server) {
-                    _IrcClient.RfcMode(_IrcClient.Nickname, parameter);
+                    _IrcClient.RfcMode(_IrcClient.Nickname, cd.Parameter);
                 } else {
                     string channel = page.Name;
-                    _IrcClient.RfcMode(channel, parameter);
+                    _IrcClient.RfcMode(channel, cd.Parameter);
                 }
             }
         }
 
-        private void _CommandInvite(FrontendManager fm, string data, string[] dataex, string parameter)
+        public void CommandInvite(CommandData cd)
         {
+            FrontendManager fm = cd.FrontendManager;
             Page page = fm.CurrentPage;
             string channel = page.Name;
-            if (dataex.Length >= 2) {
-                if (!_IrcClient.IsJoined(channel, dataex[1])) {
-                    _IrcClient.RfcInvite(dataex[1], channel);
-                    fm.AddTextToPage(page, "-!- Inviting "+dataex[1]+" to "+channel);
+            if (cd.DataArray.Length >= 2) {
+                if (!_IrcClient.IsJoined(channel, cd.DataArray[1])) {
+                    _IrcClient.RfcInvite(cd.DataArray[1], channel);
+                    fm.AddTextToPage(page, "-!- Inviting "+cd.DataArray[1]+" to "+channel);
                 } else {
-                    fm.AddTextToPage(page, "-!- "+dataex[1]+" is already on channel");
+                    fm.AddTextToPage(page, "-!- "+cd.DataArray[1]+" is already on channel");
                 }
             }
         }
 
-        private void _CommandRaw(FrontendManager fm, string data, string[] dataex, string parameter)
+        public void CommandRaw(CommandData cd)
         {
-            _IrcClient.WriteLine(parameter);
+            _IrcClient.WriteLine(cd.Parameter);
         }
     
-        private void _CommandMe(FrontendManager fm, string data, string[] dataex, string parameter)
+        public void CommandMe(CommandData cd)
         {
-            Page page = fm.CurrentPage;
+            Page page = cd.FrontendManager.CurrentPage;
             string channel = page.Name;
-            if (dataex.Length >= 2) {
-                _IrcClient.SendMessage(SendType.Action, channel, parameter);
-                _Session.AddTextToPage(page, " * "+_IrcClient.Nickname+" "+parameter);
+            if (cd.DataArray.Length >= 2) {
+                _IrcClient.SendMessage(SendType.Action, channel, cd.Parameter);
+                _Session.AddTextToPage(page, " * "+_IrcClient.Nickname+" "+cd.Parameter);
             }
         }
     
-        private void _CommandNotice(FrontendManager fm, string data, string[] dataex, string parameter)
+        public void CommandNotice(CommandData cd)
         {
-            if (dataex.Length >= 3) {
-                string target = dataex[1];
-                string message = String.Join(" ", dataex, 2, dataex.Length-2);  
+            if (cd.DataArray.Length >= 3) {
+                string target = cd.DataArray[1];
+                string message = String.Join(" ", cd.DataArray, 2, cd.DataArray.Length-2);  
                 _IrcClient.SendMessage(SendType.Notice, target, message);
                 if (_IrcClient.IsJoined(target)) {
                     Page page = _Session.GetPage(target, PageType.Query, NetworkType.Irc, this);
@@ -677,16 +756,16 @@ namespace Meebey.Smuxi.Engine
             }
         }
     
-        private void _CommandNick(FrontendManager fm, string data, string[] dataex, string parameter)
+        public void CommandNick(CommandData cd)
         {
-            if (dataex.Length >= 2) {
-                _IrcClient.RfcNick(parameter);
+            if (cd.DataArray.Length >= 2) {
+                _IrcClient.RfcNick(cd.Parameter);
             }
         }
     
-        private void _CommandNotConnected(FrontendManager fm, string data, string[] dataex, string parameter)
+        public void CommandNotConnected(CommandData cd)
         {
-            fm.AddTextToCurrentPage("-!- Not connected to server");
+            cd.FrontendManager.AddTextToCurrentPage("-!- Not connected to server");
         }
         
         private void _OnRawMessage(object sender, IrcEventArgs e)
@@ -801,6 +880,9 @@ namespace Meebey.Smuxi.Engine
             if (e.CtcpCommand == "PING") {
                 try {
                     long timestamp = Int64.Parse(e.CtcpParameter);
+                    if (!(timestamp >= 0)) {
+                        return;
+                    }
                     DateTime sent = DateTime.FromFileTime(timestamp);
                     string duration = DateTime.Now.Subtract(sent).TotalSeconds.ToString();
                     _Session.AddTextToPage(spage, "CTCP PING reply from "+e.Data.Nick+": "+duration+" seconds");

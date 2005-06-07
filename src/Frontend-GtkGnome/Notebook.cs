@@ -1,9 +1,9 @@
 /**
- * $Id: AssemblyInfo.cs 34 2004-09-05 14:46:59Z meebey $
- * $URL: svn+ssh://svn.qnetp.net/svn/smuxi/Gnosmirc/trunk/src/AssemblyInfo.cs $
- * $Rev: 34 $
- * $Author: meebey $
- * $Date: 2004-09-05 16:46:59 +0200 (Sun, 05 Sep 2004) $
+ * $Id$
+ * $URL$
+ * $Rev$
+ * $Author$
+ * $Date$
  *
  * smuxi - Smart MUltipleXed Irc
  *
@@ -33,9 +33,7 @@ namespace Meebey.Smuxi.FrontendGtkGnome
 {
     public class Notebook : Gtk.Notebook
     {
-        private Gtk.Menu     _ChannelTabMenu;
         private Gtk.Menu     _QueryTabMenu;
-        private Gtk.Menu     _ChannelUserMenu;
     
         public Notebook() : base ()
         {
@@ -81,30 +79,6 @@ namespace Meebey.Smuxi.FrontendGtkGnome
         }
         
         // events
-        private void _OnTabButtonPress(object obj, Gtk.ButtonPressEventArgs args)
-        {
-#if LOG4NET
-            Logger.UI.Debug("_OnTabButtonPress triggered");
-#endif
-
-            if (args.Event.Button == 3) {
-                _ChannelTabMenu.Popup(null, null, null, IntPtr.Zero, args.Event.Button, args.Event.Time);
-                _ChannelTabMenu.ShowAll();
-            }
-        }
-
-        private void _OnChannelUserListButtonPress(object obj, Gtk.ButtonPressEventArgs args)
-        {
-#if LOG4NET
-            Logger.UI.Debug("_OnChannelUserListButtonPress triggered");
-#endif
-
-            if (args.Event.Button == 3) {
-                _ChannelUserMenu.Popup(null, null, null, IntPtr.Zero, args.Event.Button, args.Event.Time);
-                _ChannelUserMenu.ShowAll();
-            }
-        }
-
         private void _OnSwitchPage(object obj, Gtk.SwitchPageArgs args)
         {
 #if LOG4NET
@@ -122,8 +96,7 @@ namespace Meebey.Smuxi.FrontendGtkGnome
                 Frontend.FrontendManager.UpdateNetworkStatus();
 
                 // lets remove any markup
-                Gtk.Label label = (Gtk.Label)GetTabLabel(npage);
-                label.Markup = label.Text;
+                npage.Label.Markup = npage.Label.Text;
             }
         }
     }

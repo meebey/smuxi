@@ -1,9 +1,9 @@
 /**
- * $Id: AssemblyInfo.cs 34 2004-09-05 14:46:59Z meebey $
- * $URL: svn+ssh://svn.qnetp.net/svn/smuxi/Gnosmirc/trunk/src/AssemblyInfo.cs $
- * $Rev: 34 $
- * $Author: meebey $
- * $Date: 2004-09-05 16:46:59 +0200 (Sun, 05 Sep 2004) $
+ * $Id$
+ * $URL$
+ * $Rev$
+ * $Author$
+ * $Date$
  *
  * smuxi - Smart MUltipleXed Irc
  *
@@ -36,6 +36,7 @@ namespace Meebey.Smuxi.FrontendGtkGnome
         private   Engine.Page        _EnginePage;            
         private   int                _Number;
         protected Gtk.Label          _Label;
+        protected Gtk.EventBox       _LabelEventBox;
         protected Gtk.ScrolledWindow _OutputScrolledWindow;
         protected Gtk.TextView       _OutputTextView;
     
@@ -66,6 +67,13 @@ namespace Meebey.Smuxi.FrontendGtkGnome
             }
         }
     
+        public Gtk.EventBox LabelEventBox
+        {
+            get {
+                return _LabelEventBox;
+            }
+        }
+        
         public Gtk.TextView OutputTextView
         {
             get {
@@ -83,6 +91,8 @@ namespace Meebey.Smuxi.FrontendGtkGnome
         public Page(Engine.Page epage)
         {
             _EnginePage = epage;
+            _LabelEventBox = new Gtk.EventBox();
+            _LabelEventBox.VisibleWindow = false;
             Name = epage.Name;
             
             Gtk.TextView tv = new Gtk.TextView();

@@ -1,9 +1,9 @@
 /**
- * $Id: AssemblyInfo.cs 34 2004-09-05 14:46:59Z meebey $
- * $URL: svn+ssh://svn.qnetp.net/svn/smuxi/Gnosmirc/trunk/src/AssemblyInfo.cs $
- * $Rev: 34 $
- * $Author: meebey $
- * $Date: 2004-09-05 16:46:59 +0200 (Sun, 05 Sep 2004) $
+ * $Id$
+ * $URL$
+ * $Rev$
+ * $Author$
+ * $Date$
  *
  * smuxi - Smart MUltipleXed Irc
  *
@@ -26,14 +26,56 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA
  */
 
+using System;
+using Meebey.Smuxi.Engine;
+
 namespace Meebey.Smuxi.FrontendGtkGnome
 {
     public class QueryPage : Page
     {
+        private Gtk.Menu     _TabMenu;
+
+        public Gtk.Menu TabMenu
+        {
+            get {
+                return _TabMenu;
+            }
+        }
+        
         public QueryPage(Engine.Page epage) : base(epage)
         {
             Label = new Gtk.Label(epage.Name);
+            _LabelEventBox.Add(_Label);
+            _Label.Show();
+            
             Add(_OutputScrolledWindow);
+            
+            // popup menu
+            Gtk.AccelGroup agrp = new Gtk.AccelGroup();
+            Frontend.MainWindow.AddAccelGroup(agrp);
+            _TabMenu = new Gtk.Menu();
+            Gtk.ImageMenuItem image_item = new Gtk.ImageMenuItem(Gtk.Stock.Close, agrp);
+            image_item.Activated += new EventHandler(_OnTabMenuCloseActivated);  
+            _TabMenu.Append(image_item);
+            
+            _LabelEventBox.ButtonPressEvent += new Gtk.ButtonPressEventHandler(_OnTabButtonPress);
+        }
+        
+        private void _OnTabButtonPress(object obj, Gtk.ButtonPressEventArgs args)
+        {
+#if LOG4NET
+            Logger.UI.Debug("_OnTabButtonPress triggered");
+#endif
+
+            if (args.Event.Button == 3) {
+                _TabMenu.Popup(null, null, null, IntPtr.Zero, args.Event.Button, args.Event.Time);
+                _TabMenu.ShowAll();
+            }
+        }
+        
+        private void _OnTabMenuCloseActivated(object sender, EventArgs e)
+        {
+            Frontend.Session.RemovePage(EnginePage);
         }
     }
 }

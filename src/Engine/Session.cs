@@ -1,9 +1,9 @@
 /**
- * $Id: AssemblyInfo.cs 34 2004-09-05 14:46:59Z meebey $
- * $URL: svn+ssh://svn.qnetp.net/svn/smuxi/Gnosmirc/trunk/src/AssemblyInfo.cs $
- * $Rev: 34 $
- * $Author: meebey $
- * $Date: 2004-09-05 16:46:59 +0200 (Sun, 05 Sep 2004) $
+ * $Id$
+ * $URL$
+ * $Rev$
+ * $Author$
+ * $Date$
  *
  * smuxi - Smart MUltipleXed Irc
  *
@@ -133,40 +133,36 @@ namespace Meebey.Smuxi.Engine
             return null;
         }
         
-        public bool Command(FrontendManager fm, string data)
+        public bool Command(CommandData cd)
         {
             bool handled = false;
-            string[] dataex = data.Split(new char[] {' '});
-            string parameter = String.Join(" ", dataex, 1, dataex.Length-1);
-            string command = (dataex[0].Length > 1) ? dataex[0].Substring(1).ToLower() : "";
-            bool is_command = (data[0] == ((string)UserConfig["Interface/Entry/CommandCharacter"])[0]);
-            if (is_command) {
-                switch (command) {
+            if (cd.IsCommand) {
+                switch (cd.Command) {
+                    case "help":
+                        _CommandHelp(cd);
+                        break;
                     case "server":
                     case "connect":
-                        _CommandConnect(fm, data, dataex, parameter);
+                        _CommandConnect(cd);
                         handled = true;
                         break;
                     case "disconnect":
-                        _CommandDisconnect(fm, data, dataex, parameter);
+                        _CommandDisconnect(cd);
                         handled = true;
                         break;
                     case "reconnect":
-                        _CommandReconnect(fm, data, dataex, parameter);
+                        _CommandReconnect(cd);
                         handled = true;
                         break;
                     case "config":
-                        _CommandConfig(fm, data, dataex, parameter);
+                        _CommandConfig(cd);
                         handled = true;
-                        break;
-                    case "help":
-                        _CommandHelp(fm, data, dataex, parameter);
                         break;
                 }
             } else {
                 // normal text
-                if (fm.CurrentNetworkManager == null) {
-                    _CommandNotConnected(fm, data, dataex, parameter);
+                if (cd.FrontendManager.CurrentNetworkManager == null) {
+                    _CommandNotConnected(cd);
                     handled = true;
                 }
             }
@@ -174,61 +170,38 @@ namespace Meebey.Smuxi.Engine
             return handled;
         }
         
-        private void _CommandHelp(FrontendManager fm, string data, string[] dataex, string parameter)
+        private void _CommandHelp(CommandData cd)
         {
             string[] help = {
-            "Gnosmirc commands:",
+            "[Engine Commands]",
             "help",
             "connect/server [server] [port] [password] [nick]",
-            "window (number|close)",
-            "join/j channel(s) [key]",
-            "part/p [channel(s)] [partmessage]",
-            "topic [newtopic]",
-            "cycle/rejoin",
-            "msg/query nick message",
-            "me actionmessage",
-            "notice (channel|nick) message",
-            "invite nick",
-            "whois nick",
-            "whowas nick",
-            "ping nick",
-            "mode newmode",
-            "away [awaymessage]",
-            "kick nick(s) [reason]",
-            "kickban/kb nick(s) [reason]",
-            "ban mask",
-            "unban mask",
-            "voice nick",
-            "devoice nick",
-            "op nick",
-            "deop nick",
-            "nick newnick",
-            "raw/quote irccommand",
-            "exec command",
-            "quit [quitmessage]",
+            "disconnect",
             "config (save|load)",
             };
             
             foreach (string line in help) { 
-                fm.AddTextToCurrentPage(line);
+                cd.FrontendManager.AddTextToCurrentPage("-!- "+line);
             }
         }
         
-        private void _CommandConnect(FrontendManager fm, string data, string[] dataex, string parameter)
+        private void _CommandConnect(CommandData cd)
         {
+            FrontendManager fm = cd.FrontendManager;
+            
             string server;
-            if (dataex.Length >= 2) {
-                server = dataex[1];
+            if (cd.DataArray.Length >= 2) {
+                server = cd.DataArray[1];
             } else {
                 server = "localhost";
             }
             
             int port;
-            if (dataex.Length >= 3) {
+            if (cd.DataArray.Length >= 3) {
                 try {
-                    port = Int32.Parse(dataex[2]);
+                    port = Int32.Parse(cd.DataArray[2]);
                 } catch (FormatException) {
-                    fm.AddTextToCurrentPage("-!- Invalid port: "+dataex[2]);
+                    fm.AddTextToCurrentPage("-!- Invalid port: "+cd.DataArray[2]);
                     return;
                 }
             } else {
@@ -236,15 +209,15 @@ namespace Meebey.Smuxi.Engine
             }
             
             string pass;                
-            if (dataex.Length >=4) {
-                pass = dataex[3];
+            if (cd.DataArray.Length >=4) {
+                pass = cd.DataArray[3];
             } else {
                 pass = null;
             }
             
             string[] nicks;
-            if (dataex.Length >= 5) {
-                nicks = new string[] {dataex[4]};
+            if (cd.DataArray.Length >= 5) {
+                nicks = new string[] {cd.DataArray[4]};
             } else {
                 nicks = (string[])UserConfig["Connection/Nicknames"];
             }
@@ -260,21 +233,37 @@ namespace Meebey.Smuxi.Engine
             }
         }
         
-        private void _CommandDisconnect(FrontendManager fm, string data, string[] dataex, string parameter)
+        private void _CommandDisconnect(CommandData cd)
         {
-            fm.CurrentNetworkManager.Disconnect(fm);
-            _NetworkManagers.Remove(fm.CurrentNetworkManager);
+            FrontendManager fm = cd.FrontendManager;
+            if (cd.DataArray.Length >= 2) {
+                string server = cd.DataArray[1];
+                foreach (INetworkManager nm in _NetworkManagers) {
+                    if (nm is IrcManager) {
+                        IrcManager im = (IrcManager)nm;
+                        if (im.Server.ToLower() == server.ToLower()) {
+                            im.Disconnect(fm);
+                            _NetworkManagers.Remove(im);
+                            break;
+                        }
+                    }
+                }
+                fm.AddTextToCurrentPage("-!- Disconnect failed, could not find server: "+server);
+            } else {
+                fm.CurrentNetworkManager.Disconnect(fm);
+                _NetworkManagers.Remove(fm.CurrentNetworkManager);
+            }
         }
         
-        private void _CommandReconnect(FrontendManager fm, string data, string[] dataex, string parameter)
+        private void _CommandReconnect(CommandData cd)
         {
-            //fm.CurrentNetworkManager.Reconnect(fm);
         }
         
-        private void _CommandConfig(FrontendManager fm, string data, string[] dataex, string parameter)
+        private void _CommandConfig(CommandData cd)
         {
-            if (dataex.Length >= 2) {
-                switch (dataex[1].ToLower()) {
+            FrontendManager fm = cd.FrontendManager;
+            if (cd.DataArray.Length >= 2) {
+                switch (cd.DataArray[1].ToLower()) {
                     case "load":
                         _Config.Load();
                         fm.AddTextToCurrentPage("-!- Configuration reloaded");
@@ -292,9 +281,9 @@ namespace Meebey.Smuxi.Engine
             }
         }
         
-        private void _CommandNotConnected(FrontendManager fm, string data, string[] dataex, string parameter)
+        private void _CommandNotConnected(CommandData cd)
         {
-            fm.AddTextToCurrentPage("-!- Not connected to any network");
+            cd.FrontendManager.AddTextToCurrentPage("-!- Not connected to any network");
         }
         
         public void AddPage(Page page)

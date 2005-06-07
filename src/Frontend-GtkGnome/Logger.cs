@@ -1,8 +1,8 @@
 /**
- * $Id: Logger.cs,v 1.5 2004/07/15 20:51:03 meebey Exp $
- * $Revision: 1.5 $
- * $Author: meebey $
- * $Date: 2004/07/15 20:51:03 $
+ * $Id$
+ * $Revision$
+ * $Author$
+ * $Date$
  *
  * Copyright (c) 2003 Mirco 'meebey' Bauer <mail@meebey.net> <http://www.meebey.net>
  * 
