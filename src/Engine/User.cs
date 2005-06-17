@@ -1,4 +1,4 @@
-/**
+/*
  * $Id$
  * $URL$
  * $Rev$
@@ -28,7 +28,7 @@
 
 namespace Meebey.Smuxi.Engine
 {
-    public class User : PermanentComponent
+    public class User : PermanentRemoteObject
     {
         private string      _Nickname;
         private NetworkType _NetworkType;

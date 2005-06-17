@@ -42,9 +42,10 @@
     <File name="./Engine/SessionManager.cs" subtype="Code" buildaction="Compile" />
     <File name="./Engine/UserConfig.cs" subtype="Code" buildaction="Compile" />
     <File name="./Engine/Logger.cs" subtype="Code" buildaction="Compile" />
-    <File name="./Engine/PermanentComponent.cs" subtype="Code" buildaction="Compile" />
     <File name="./Engine/AssemblyInfo.cs" subtype="Code" buildaction="Compile" />
     <File name="./Engine/INetworkManager.cs" subtype="Code" buildaction="Compile" />
     <File name="./Engine/IrcChannelUser.cs" subtype="Code" buildaction="Compile" />
+    <File name="./Engine/CommandData.cs" subtype="Code" buildaction="Compile" />
+    <File name="./Engine/PermanentRemoteObject.cs" subtype="Code" buildaction="Compile" />
   </Contents>
 </Project>

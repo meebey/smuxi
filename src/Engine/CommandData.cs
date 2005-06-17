@@ -1,4 +1,4 @@
-/**
+/*
  * $Id$
  * $URL$
  * $Rev$
@@ -30,7 +30,7 @@ using System;
 
 namespace Meebey.Smuxi.Engine
 {
-    public class CommandData
+    public class CommandData : PermanentRemoteObject
     {
         private string          _Data;
         private string[]        _DataArray;

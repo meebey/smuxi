@@ -1,4 +1,4 @@
-/**
+/*
  * $Id$
  * $URL$
  * $Rev$
@@ -39,15 +39,13 @@ namespace Meebey.Smuxi.FrontendGtkGnome
         private int              _HistoryPosition = 0;
         private bool             _HistoryChangedLine = false;
 
-        public StringCollection History
-        {
+        public StringCollection History {
             get {
                 return _History;
             }
         }
 
-        public int HistoryPosition
-        {
+        public int HistoryPosition {
             get {
                 return _HistoryPosition;
             }
@@ -56,8 +54,7 @@ namespace Meebey.Smuxi.FrontendGtkGnome
             }
         }
 
-        public bool HistoryChangedLine
-        {
+        public bool HistoryChangedLine {
             get {
                 return _HistoryChangedLine;
             }
@@ -284,8 +281,8 @@ namespace Meebey.Smuxi.FrontendGtkGnome
 
         private void _OnFocusOut(object obj, Gtk.FocusOutEventArgs args)
         {
-            //HasFocus = true;
-            //Position = -1;
+            HasFocus = true;
+            Position = -1;
         }
 
         private void _OnActivated(object obj, EventArgs args)

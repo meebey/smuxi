@@ -1,4 +1,4 @@
-/**
+/*
  * $Id$
  * $URL$
  * $Rev$
@@ -97,6 +97,7 @@ namespace Meebey.Smuxi.FrontendGtkGnome
             
             Gtk.TextView tv = new Gtk.TextView();
             tv.Editable = false;
+            tv.CursorVisible = false;
             tv.WrapMode = Gtk.WrapMode.Word;
             tv.Buffer.Changed += new EventHandler(_OnTextBufferChanged);
             _OutputTextView = tv;

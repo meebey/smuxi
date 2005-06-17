@@ -1,4 +1,4 @@
-/**
+/*
  * $Id$
  * $URL$
  * $Rev$
@@ -38,8 +38,7 @@ namespace Meebey.Smuxi.Engine
         private Hashtable _Users = Hashtable.Synchronized(new Hashtable());
         private bool      _IsSynced;
         
-        public string Topic
-        {
+        public string Topic {
             get {
                 return _Topic;
             }
@@ -48,15 +47,13 @@ namespace Meebey.Smuxi.Engine
             }
         }
         
-        public Hashtable Users
-        {
+        public Hashtable Users {
             get {
                 return _Users;
             }
         }
         
-        public bool IsSynced
-        {
+        public bool IsSynced {
             get {
                 return _IsSynced;
             }

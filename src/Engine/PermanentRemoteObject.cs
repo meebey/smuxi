@@ -1,4 +1,4 @@
-/**
+/*
  * $Id$
  * $URL$
  * $Rev$
@@ -27,12 +27,11 @@
  */
  
 using System;
-using System.ComponentModel;
 using System.Runtime.Remoting.Lifetime;
 
 namespace Meebey.Smuxi.Engine
 {
-    public abstract class PermanentComponent : Component
+    public abstract class PermanentRemoteObject : MarshalByRefObject
     {
         public override object InitializeLifetimeService()
         {

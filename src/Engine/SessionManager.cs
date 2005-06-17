@@ -1,4 +1,4 @@
-/**
+/*
  * $Id$
  * $URL$
  * $Rev$
@@ -31,7 +31,7 @@ using System.Collections;
 
 namespace Meebey.Smuxi.Engine
 {
-    public class SessionManager : PermanentComponent
+    public class SessionManager : PermanentRemoteObject
     {
         private Hashtable _Sessions = Hashtable.Synchronized(new Hashtable());
         

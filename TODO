@@ -9,15 +9,14 @@
 smuxi 0.6 Goals:
 
 Feature Requests:
-- DEFAULT config writter
-- use TcpExChannel
+- use Interface/Notebook/BufferLines setting
+- DEFAULT config writer
+- use TcpExChannel/
 - engines manager
 - irc server manager
-- /disconnect [server] (besfred)
 - completion for commands
 - right button menus for query/channelpage, users in channels
 - /join #foo should check if we are already joined
-- /window $channel/$user feature for switching to the channel/user
 - /set command for preferences
 - create debian package
 - nickname completion should ignore special characters (darix)
@@ -25,7 +24,6 @@ Feature Requests:
 - aliases for commands
 - use for each server connection a servertab and group
   the channels within them (Tobias Schlitt)
-- show quit/part in query window of users (helgi)
 - color settings (background/fonts etc)
 - colors in channels (hightlighting)
 - tab colors (editable):
@@ -40,6 +38,9 @@ Feature Requests:
 - scripting/plugins C#/Perl/Python/PHP
 
 Done:
+- show quit in query window of users (helgi)
+- /window channel|nick feature for switching tabs
+- /disconnect [server] (besfred)
 - /whois command
 - /part [channel] [partmessage]
 - ^x key for changing the current irc connection (Tobias Schlitt)

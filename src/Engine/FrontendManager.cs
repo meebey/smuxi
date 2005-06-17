@@ -1,4 +1,4 @@
-/**
+/*
  * $Id$
  * $URL$
  * $Rev$
@@ -32,7 +32,7 @@ using System.Threading;
 
 namespace Meebey.Smuxi.Engine
 {
-    public class FrontendManager : PermanentComponent, IFrontendUI
+    public class FrontendManager : PermanentRemoteObject, IFrontendUI
     {
         private int             _Version = 0;
         private Queue           _Queue  = Queue.Synchronized(new Queue());
@@ -77,6 +77,9 @@ namespace Meebey.Smuxi.Engine
             _Thread.IsBackground = true;
             _Thread.Start();
             
+            // HACK: this is ugly hack to sync the pages, we should use some
+            // better way, using a SyncPages() method maybe, that would be much faster!
+             
             // sync all pages
             foreach (Page page in _Session.Pages) {
                 AddPage(page);
@@ -89,18 +92,19 @@ namespace Meebey.Smuxi.Engine
                         AddUserToChannel(cpage, user);
                     }
                 }
-                
-                /*
-                if (page.PageType == PageType.Server) {
-                    _CurrentPage = page;
-                }
-                */
             }
             
             // sync current network manager (if any exists)
             if (_Session.NetworkManagers.Count > 0) {
                 INetworkManager nm = (INetworkManager)_Session.NetworkManagers[0];
                 CurrentNetworkManager = nm;
+            }
+            
+            // sync buffer
+            foreach (Page page in _Session.Pages) {
+                foreach (string line in page.Buffer) {
+                    AddTextToPage(page, line);
+                }
             }
         }
         

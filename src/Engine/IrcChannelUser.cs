@@ -1,4 +1,4 @@
-/**
+/*
  * $Id$
  * $URL$
  * $Rev$
@@ -33,8 +33,7 @@ namespace Meebey.Smuxi.Engine
         private bool _IsOp;
         private bool _IsVoice;
         
-        public bool IsOp
-        {
+        public bool IsOp {
             get {
                 return _IsOp;
             }
@@ -43,8 +42,7 @@ namespace Meebey.Smuxi.Engine
             }
         }
 
-        public bool IsVoice
-        {
+        public bool IsVoice {
             get {
                 return _IsVoice;
             }
@@ -54,6 +52,10 @@ namespace Meebey.Smuxi.Engine
         }
         
         public IrcChannelUser(string nickname, string realname, string ident, string host) : base(nickname, realname, ident, host)
+        {
+        }
+        
+        public IrcChannelUser(string nickname) : base(nickname)
         {
         }
     }

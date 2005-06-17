@@ -1,4 +1,4 @@
-/**
+/*
  * $Id$
  * $URL$
  * $Rev$
@@ -33,7 +33,7 @@ using Meebey.SmartIrc4net;
 
 namespace Meebey.Smuxi.Engine
 {
-    public class IrcManager : PermanentComponent, INetworkManager
+    public class IrcManager : PermanentRemoteObject, INetworkManager
     {
         private IrcClient       _IrcClient;
         private Session         _Session;
@@ -801,7 +801,13 @@ namespace Meebey.Smuxi.Engine
                         _Session.AddTextToPage(spage, msg);
                     }
                     break;
-            }    
+                case ReplyCode.EndOfNames:
+                    string chan = e.Data.RawMessageArray[3]; 
+                    ChannelPage cpage = (ChannelPage)_Session.GetPage(
+                       chan, PageType.Channel, NetworkType.Irc, this);
+                    cpage.IsSynced = true;
+                    break;
+            }
         }
         
         private void _OnReceiveTypeWhois(IrcEventArgs e)
@@ -961,6 +967,41 @@ namespace Meebey.Smuxi.Engine
 #if LOG4NET
             Logger.IrcManager.Debug("_OnNames() e.Channel: "+e.Channel);
 #endif
+            ChannelPage cpage = (ChannelPage)_Session.GetPage(e.Data.Channel, PageType.Channel, NetworkType.Irc, this);
+            if (cpage.IsSynced) {
+                // nothing todo for us
+                return;
+            }
+            char[] space = new char[] {' '};
+            bool op;
+            bool voice;
+            foreach (string user in e.UserList) {
+                if (user.TrimEnd(space).Length == 0) {
+                    continue;
+                }
+                string username = user;
+                
+                op = false;
+                voice = false;
+                switch (user[0]) {
+                    case '@':
+                        op = true;
+                        username = user.Substring(1);
+                        break;
+                    case '+':
+                        voice = true;
+                        username = user.Substring(1);
+                        break;
+                }
+                IrcChannelUser icuser = new IrcChannelUser(username);
+                if (op) {
+                    icuser.IsOp = true;
+                }
+                if (voice) {
+                    icuser.IsVoice = true;
+                }
+                _Session.AddUserToChannel(cpage, icuser);
+            } 
         }
         
         private void _OnChannelActiveSynced(object sender, IrcEventArgs e)
@@ -971,15 +1012,29 @@ namespace Meebey.Smuxi.Engine
             ChannelPage cpage = (ChannelPage)_Session.GetPage(e.Data.Channel, PageType.Channel, NetworkType.Irc, this);
             SmartIrc4net.Channel schan = _IrcClient.GetChannel(e.Data.Channel);
             foreach (ChannelUser scuser in schan.Users.Values) {
-                IrcChannelUser icuser = new IrcChannelUser(scuser.Nick, scuser.Realname,
-                                            scuser.Ident, scuser.Host);
+                IrcChannelUser icuser = (IrcChannelUser)cpage.GetUser(scuser.Nick);
+                if (icuser == null) {
+                    icuser = new IrcChannelUser(scuser.Nick, scuser.Realname,
+                                    scuser.Ident, scuser.Host);
+                    _Session.AddUserToChannel(cpage, icuser);
+                } else {
+                    icuser.Realname = scuser.Realname;
+                    icuser.Ident = scuser.Ident;
+                    icuser.Host = scuser.Host;
+                }
+                
                 if (scuser.IsOp) {
-                    icuser.IsOp = scuser.IsOp;
+                    icuser.IsOp = true;
+                } else {
+                    icuser.IsOp = false;
                 }
                 if (scuser.IsVoice) {
-                    icuser.IsVoice = scuser.IsVoice;
+                    icuser.IsVoice = true;
+                } else {
+                    icuser.IsVoice = false;
                 }
-                _Session.AddUserToChannel(cpage, icuser);
+                
+                _Session.UpdateUserInChannel(cpage, icuser, icuser);
             }
         }
         
@@ -1068,7 +1123,13 @@ namespace Meebey.Smuxi.Engine
         {
             ChannelPage cpage = (ChannelPage)_Session.GetPage(e.Channel, PageType.Channel, NetworkType.Irc, this);
             IrcChannelUser user = (IrcChannelUser)cpage.GetUser(e.Whom);
-            user.IsOp = true;
+            if (user != null) {
+                user.IsOp = true;
+#if LOG4NET
+            } else {
+                Logger.IrcManager.Error("cpage.GetUser(e.Whom) returned null! cpage.Name: "+cpage.Name+" e.Whom: "+e.Whom);
+#endif
+            }
             _Session.UpdateUserInChannel(cpage, user, user);
         }
         
@@ -1131,8 +1192,11 @@ namespace Meebey.Smuxi.Engine
                     if (page.PageType == PageType.Channel) {
                         ChannelPage cpage = (ChannelPage)page;
                         User user = cpage.GetUser(e.Who);
-                        _Session.RemoveUserFromChannel(cpage, user);
-                        _Session.AddTextToPage(cpage, "-!- "+e.Who+" ["+e.Data.Ident+"@"+e.Data.Host+"] has quit ["+e.QuitMessage+"]");
+                        if (user != null) {
+                            // he is on this channel, let's remove him
+                            _Session.RemoveUserFromChannel(cpage, user);
+                            _Session.AddTextToPage(cpage, "-!- "+e.Who+" ["+e.Data.Ident+"@"+e.Data.Host+"] has quit ["+e.QuitMessage+"]");
+                        }
                     } else if ((page.PageType == PageType.Query) &&
                                (page.Name == e.Who)) {
                         _Session.AddTextToPage(page, "-!- "+e.Who+" ["+e.Data.Ident+"@"+e.Data.Host+"] has quit ["+e.QuitMessage+"]");

@@ -1,4 +1,4 @@
-/**
+/*
  * $Id$
  * $URL$
  * $Rev$
@@ -28,7 +28,7 @@
 
 namespace Meebey.Smuxi.Engine
 {
-    public class UserConfig : PermanentComponent
+    public class UserConfig : PermanentRemoteObject
     {
         private Config _Config;
         private string _Username;

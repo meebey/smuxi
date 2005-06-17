@@ -1,4 +1,4 @@
-/**
+/*
  * $Id$
  * $URL$
  * $Rev$
@@ -34,24 +34,30 @@ namespace Meebey.Smuxi.Engine
         private string _Ident;
         private string _Host;
         
-        public string Realname
-        {
+        public string Realname {
             get {
                 return _Realname;
             }
-        }
-        
-        public string Ident
-        {
-            get {
-                return _Ident;
+            set {
+                _Realname = value;
             }
         }
         
-        public string Host
-        {
+        public string Ident {
+            get {
+                return _Ident;
+            }
+            set {
+                _Ident = value;
+            }
+        }
+        
+        public string Host {
             get {
                 return _Host;
+            }
+            set {
+                _Host = value;
             }
         }
         
@@ -60,6 +66,10 @@ namespace Meebey.Smuxi.Engine
             _Realname = realname;
             _Ident = ident;
             _Host = host;
+        }
+        
+        public IrcUser(string nickname) : base(nickname, NetworkType.Irc)
+        {
         }
     }
 }

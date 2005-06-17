@@ -1,4 +1,4 @@
-/**
+/*
  * $Id$
  * $URL$
  * $Rev$
@@ -32,7 +32,7 @@ using Meebey.Smuxi.Engine;
 
 namespace Meebey.Smuxi.FrontendGtkGnome
 {
-    public class GtkGnomeUI : PermanentComponent, IFrontendUI
+    public class GtkGnomeUI : PermanentRemoteObject, IFrontendUI
     {
         private int _ThreadId;
         private int _Version = 0;

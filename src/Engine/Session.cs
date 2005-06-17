@@ -1,4 +1,4 @@
-/**
+/*
  * $Id$
  * $URL$
  * $Rev$
@@ -32,7 +32,7 @@ using System.Runtime.Remoting;
 
 namespace Meebey.Smuxi.Engine
 {
-    public class Session : PermanentComponent, IFrontendUI 
+    public class Session : PermanentRemoteObject, IFrontendUI 
     {
         private int        _Version = 0;
         private Hashtable  _FrontendManagers = Hashtable.Synchronized(new Hashtable());
@@ -299,6 +299,13 @@ namespace Meebey.Smuxi.Engine
         
         public void AddTextToPage(Page page, string text)
         {
+            int buffer_lines = (int)UserConfig["Interface/Notebook/EngineBufferLines"];
+            if (buffer_lines > 0) {
+                page.Buffer.Add(text);
+                if (page.Buffer.Count > buffer_lines) {
+                    page.Buffer.RemoveAt(0);
+                }
+            }
             foreach (FrontendManager fm in _FrontendManagers.Values) {
                 fm.AddTextToPage(page, text);
             }

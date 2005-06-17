@@ -1,4 +1,4 @@
-/**
+/*
  * $Id$
  * $URL$
  * $Rev$
@@ -35,7 +35,7 @@ using Nini.Ini;
 
 namespace Meebey.Smuxi.Engine
 {
-    public class Config : PermanentComponent
+    public class Config : PermanentRemoteObject
     {
         private   int           _PreferencesVersion = 5;
 #if CONFIG_GCONF
@@ -201,6 +201,8 @@ namespace Meebey.Smuxi.Engine
                 }
                 _LoadUserEntry(user, "Interface/Notebook/TimestampFormat", null);
                 _LoadUserEntry(user, "Interface/Notebook/TabPosition", null);
+                _LoadUserEntry(user, "Interface/Notebook/BufferLines", null);
+                _LoadUserEntry(user, "Interface/Notebook/EngineBufferLines", null);
                 _LoadUserEntry(user, "Interface/Notebook/Channel/UserListPosition", null);
                 _LoadUserEntry(user, "Interface/Notebook/Channel/TopicPosition", null);
                 _LoadUserEntry(user, "Interface/Entry/CompletionCharacter", null);

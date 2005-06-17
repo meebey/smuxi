@@ -15,7 +15,7 @@
   </Configurations>
   <StartMode startupentry="Engine" single="False">
     <Execute type="None" entry="Engine" />
-    <Execute type="None" entry="Server" />
+    <Execute type="Execute" entry="Server" />
     <Execute type="Execute" entry="Frontend-GtkGnome" />
     <Execute type="None" entry="Frontend-Test" />
   </StartMode>

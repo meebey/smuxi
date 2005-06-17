@@ -1,4 +1,4 @@
-/**
+/*
  * $Id$
  * $URL$
  * $Rev$
@@ -26,40 +26,46 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA
  */
 
+using System;
+using System.Collections.Specialized;
+
 namespace Meebey.Smuxi.Engine
 {
-    public class Page : PermanentComponent
+    public class Page : PermanentRemoteObject
     {
-        private string          _Name;
-        private PageType        _PageType;
-        private NetworkType     _NetworkType;
-        private INetworkManager _NetworkManager;
+        private string           _Name;
+        private PageType         _PageType;
+        private NetworkType      _NetworkType;
+        private INetworkManager  _NetworkManager;
+        private StringCollection _Buffer = new StringCollection(); 
         
-        public string Name
-        {
+        public string Name {
             get {
                 return _Name;
             }
         }
         
-        public PageType PageType
-        {
+        public PageType PageType {
             get {
                 return _PageType;
             }
         }
         
-        public NetworkType NetworkType
-        {
+        public NetworkType NetworkType {
             get {
                 return _NetworkType;
             }
         }
         
-        public INetworkManager NetworkManager
-        {
+        public INetworkManager NetworkManager {
             get {
                 return _NetworkManager;
+            }
+        }
+        
+        public StringCollection Buffer {
+            get {
+                return _Buffer;
             }
         }
         

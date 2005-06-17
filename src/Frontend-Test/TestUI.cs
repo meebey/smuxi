@@ -1,4 +1,4 @@
-/**
+/*
  * $Id$
  * $URL$
  * $Rev$
@@ -31,7 +31,7 @@ using Meebey.Smuxi.Engine;
 
 namespace Meebey.Smuxi.FrontendTest
 {
-    public class TestUI : PermanentComponent, IFrontendUI 
+    public class TestUI : PermanentRemoteObject, IFrontendUI 
     {
         private int _Version = 0;
         
