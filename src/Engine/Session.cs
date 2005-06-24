@@ -41,36 +41,31 @@ namespace Meebey.Smuxi.Engine
         private Config     _Config;
         private UserConfig _UserConfig;
         
-        public ArrayList NetworkManagers
-        {
+        public ArrayList NetworkManagers {
             get {
                 return _NetworkManagers;
             }
         }
         
-        public ArrayList Pages
-        {
+        public ArrayList Pages {
             get {
                 return _Pages;
             }
         }
     
-        public int Version
-        {
+        public int Version {
             get {
                 return _Version;
             }
         }
 
-        public Config Config
-        {
+        public Config Config {
             get {
                 return _Config;
             }
         }
                     
-        public UserConfig UserConfig
-        {
+        public UserConfig UserConfig {
             get {
                 return _UserConfig;
             }

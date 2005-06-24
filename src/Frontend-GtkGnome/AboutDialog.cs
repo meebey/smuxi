@@ -47,10 +47,5 @@ namespace Meebey.Smuxi.FrontendGtkGnome
 #if UI_GTK
 #endif
         }
-    
-        private void _OnCloseButtonClicked(object obj, EventArgs args)
-        {
-            Destroy();
-        }
     }
 }

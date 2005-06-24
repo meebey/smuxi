@@ -42,15 +42,13 @@ namespace Meebey.Smuxi.Engine
         private Page            _CurrentPage;
         private INetworkManager _CurrentNetworkManager;
         
-        public int Version
-        {
+        public int Version {
             get {
                 return _Version;
             }
         }
         
-        public Page CurrentPage
-        {
+        public Page CurrentPage {
             get {
                 return _CurrentPage;
             }
@@ -59,8 +57,7 @@ namespace Meebey.Smuxi.Engine
             }
         }
         
-        public INetworkManager CurrentNetworkManager
-        {
+        public INetworkManager CurrentNetworkManager {
             get {
                 return _CurrentNetworkManager;
             }

@@ -37,7 +37,7 @@ namespace Meebey.Smuxi.FrontendGtkGnome
         private Gtk.TreeView _UserListTreeView;
         private Gtk.Entry    _TopicEntry;
         private Gtk.Menu     _TabMenu;
-        private Gtk.Menu     _UserListMenu;
+        //private Gtk.Menu     _UserListMenu;
         
         public Gtk.TreeView UserListTreeView
         {
@@ -230,6 +230,7 @@ namespace Meebey.Smuxi.FrontendGtkGnome
             }
         }
         
+        /* TODO: menu for users on channel page
         private void _OnUserListButtonPress(object obj, Gtk.ButtonPressEventArgs args)
         {
 #if LOG4NET
@@ -241,6 +242,7 @@ namespace Meebey.Smuxi.FrontendGtkGnome
                 _UserListMenu.ShowAll();
             }
         }
+        */
         
 #if GTK_1
         static private void _OnDestroyNotify()

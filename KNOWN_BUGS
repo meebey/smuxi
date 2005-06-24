@@ -7,10 +7,10 @@
  */
 
 Open:
-- write away message to query page, not server page
-- "/connect  foo" throws exception
 
 Fixed:
+- write away message to query page, not server page
+- "/connect  foo" throws exception
 - umlauts corrupts textview (Gtk# wants UTF-8)
 - userlist too small
 - Entry History is upside down

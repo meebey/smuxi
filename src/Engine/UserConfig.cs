@@ -31,7 +31,6 @@ namespace Meebey.Smuxi.Engine
     public class UserConfig : PermanentRemoteObject
     {
         private Config _Config;
-        private string _Username;
         private string _UserPrefix;
         private string _DefaultPrefix = "Engine/Users/DEFAULT/";
         
@@ -53,7 +52,6 @@ namespace Meebey.Smuxi.Engine
         public UserConfig(Config config, string username)
         {
             _Config = config;
-            _Username = username;
             _UserPrefix = "Engine/Users/"+username+"/";
         }
     }

@@ -37,7 +37,7 @@ namespace Meebey.Smuxi.Engine
 {
     public class Config : PermanentRemoteObject
     {
-        private   int           _PreferencesVersion = 5;
+        //private   int           _PreferencesVersion = 0;
 #if CONFIG_GCONF
         private   GConf.Client  _GConf     = new GConf.Client();
 #elif CONFIG_NINI
@@ -46,8 +46,7 @@ namespace Meebey.Smuxi.Engine
 #endif
         protected Hashtable     _Preferences = Hashtable.Synchronized(new Hashtable());
 
-        public object this[string key]
-        {
+        public object this[string key] {
             get {
                 return _Preferences[key];
             }
@@ -173,14 +172,14 @@ namespace Meebey.Smuxi.Engine
             _LoadEntry(prefix+"Channel", "TCP");
 
             prefix = "Engine/Users/";
-            string[] users_list = _GetList(prefix+"UsersList");
-            if (users_list != null) {
-                _Preferences[prefix+"UsersList"] = users_list;
+            string[] users = _GetList(prefix+"Users");
+            if (users != null) {
+                _Preferences[prefix+"Users"] = users;
             } else {
-                users_list = new string[] {""};
+                users = new string[] {""};
             }
-            foreach (string user in users_list) {
-                if (user == "") {
+            foreach (string user in users) {
+                if (user.Length == 0) {
                     continue;
                 }
                 
@@ -210,16 +209,17 @@ namespace Meebey.Smuxi.Engine
                 _LoadUserEntry(user, "Interface/Entry/BashStyleCompletion", null);
                 _LoadUserEntry(user, "Interface/Entry/CommandHistorySize", null);
                 
-                string[] servers_list = null;
-                servers_list = _GetList(prefix+"Servers/ServersList");
-                foreach (string server in servers_list) {
-                    if (server == "") {
+                string[] servers = null;
+                servers = _GetList(prefix+"Servers/Servers");
+                foreach (string server in servers) {
+                    if (server.Length == 0) {
                         continue;
                     }
                     string sprefix = prefix+user+"/Servers/"+server+"/";
                     _LoadEntry(sprefix+"Hostname", null);
                     _LoadEntry(sprefix+"Port", null);
                     _LoadEntry(sprefix+"Network", null);
+                    _LoadEntry(sprefix+"Username", null);
                     _LoadEntry(sprefix+"Password", null);
                 }                
             }

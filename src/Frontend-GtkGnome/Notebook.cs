@@ -33,7 +33,7 @@ namespace Meebey.Smuxi.FrontendGtkGnome
 {
     public class Notebook : Gtk.Notebook
     {
-        private Gtk.Menu     _QueryTabMenu;
+        //private Gtk.Menu     _QueryTabMenu;
     
         public Notebook() : base ()
         {

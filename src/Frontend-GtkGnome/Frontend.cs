@@ -28,10 +28,6 @@
 
 using System;
 using System.Reflection;
-using System.Runtime.Remoting;
-using System.Runtime.Remoting.Channels;
-using System.Runtime.Remoting.Channels.Http;
-using System.Runtime.Remoting.Channels.Tcp;
 using Meebey.Smuxi;
 using Meebey.Smuxi.Engine;
 #if CHANNEL_TCPEX
@@ -43,7 +39,8 @@ namespace Meebey.Smuxi.FrontendGtkGnome
     public class Frontend
     {
         private static string             _Name = "smuxi";
-        private static string             _UI = "GtkGnome";
+        private static string             _UIName = "GtkGnome";
+        private static IFrontendUI        _UI;
         private static string             _Version;
         private static string             _VersionString;
         private static MainWindow         _MainWindow;
@@ -54,80 +51,78 @@ namespace Meebey.Smuxi.FrontendGtkGnome
         private static Session            _Session;
         private static FrontendManager    _FrontendManager;
         
-        public static string Name
-        {
+        public static string Name {
             get {
                 return _Name;
             }
         }
     
-        public static string UI
-        {
+        public static string UIName {
+            get {
+                return _UIName;
+            }
+        }
+    
+        public static IFrontendUI UI {
             get {
                 return _UI;
             }
         }
-    
-        public static string Version
-        {
+        
+        public static string Version {
             get {
                 return _Version;
             }
         }
     
-        public static string VersionString
-        {
+        public static string VersionString {
             get {
                 return _VersionString;
             }
         }
     
 #if UI_GNOME
-        public static Gnome.Program Program
-        {
+        public static Gnome.Program Program {
             get {
                 return _Program;
             }
         }
 #endif
  
-        public static MainWindow MainWindow
-        {
+        public static MainWindow MainWindow {
             get {
                 return _MainWindow;
             }
         }
     
-        public static Session Session
-        {
+        public static Session Session {
             get {
                 return _Session;
             }
+            set {
+                _Session = value;
+            }
         }
         
-        public static FrontendManager FrontendManager
-        {
+        public static FrontendManager FrontendManager {
             get {
                 return _FrontendManager;
             }
         }
         
-        public static Config Config
-        {
+        public static Config Config {
             get {
                 return Session.Config;
             }
         }
         
-        public static UserConfig UserConfig
-        {
+        public static UserConfig UserConfig {
             get {
                 return Session.UserConfig;
             }
         }
         
-        public static FrontendConfig FrontendConfig
-        {
+        public static FrontendConfig FrontendConfig {
             get {
                 return _FrontendConfig;
             }
@@ -168,74 +163,31 @@ namespace Meebey.Smuxi.FrontendGtkGnome
 #endif
                 SplashScreenWindow ssw = new SplashScreenWindow();
                     
-                _FrontendConfig = new FrontendConfig(UI);
+                _FrontendConfig = new FrontendConfig(UIName);
                 _FrontendConfig.Load();
                 _FrontendConfig.Save();
                 
                 // setup the session
-                IFrontendUI ui = new GtkGnomeUI();
+                _UI = new GtkGnomeUI();
                 if (((string)FrontendConfig["Engines/Default"]).Length == 0) {
                     Engine.Engine.Init();
                     _Session = new Session(Engine.Engine.Config, "local");
-                    _Session.RegisterFrontendUI(ui);
+                    _Session.RegisterFrontendUI(_UI);
                 } else {
                     // there is a default engine set, means we want a remote engine
-                    // TODO: write engine manager dialog!
-                    //EngineManagerDialog emd = new EngineManagerDialog();
-                    //emd.Run();
-                    string engine = (string)FrontendConfig["Engines/Default"];
-                    string username = (string)FrontendConfig["Engines/"+engine+"/Username"];
-                    string password = (string)FrontendConfig["Engines/"+engine+"/Password"];
-                    string hostname = (string)FrontendConfig["Engines/"+engine+"/Hostname"];
-                    int port = (int)FrontendConfig["Engines/"+engine+"/Port"];
-                    string formatter = (string)FrontendConfig["Engines/"+engine+"/Formatter"];
-                    string channel = (string)FrontendConfig["Engines/"+engine+"/Channel"];
-                    
-                    SessionManager sessm = null;
-                    string connection_url;
-                    switch (channel) {
-                        case "TCP":
-                            connection_url = "tcp://"+hostname+":"+port+"/SessionManager"; 
-#if LOG4NET
-                            Logger.Main.Info("Connecting to: "+connection_url);
-#endif
-                            ChannelServices.RegisterChannel(new TcpChannel());
-                            sessm = (SessionManager)Activator.GetObject(typeof(SessionManager),
-                                connection_url);
-                            break;
-#if CHANNEL_TCPEX
-                        case "TcpEx":
-                            connection_url = "tcpex://"+hostname+":"+port+"/SessionManager"; 
-#if LOG4NET
-                            Logger.Main.Info("Connecting to: "+connection_url);
-#endif
-                            ChannelServices.RegisterChannel(new TcpExChannel());
-                            sessm = (SessionManager)Activator.GetObject(typeof(SessionManager),
-                                connection_url);
-                            break;
-#endif
-                        case "HTTP":
-                            connection_url = "http://"+hostname+":"+port+"/SessionManager"; 
-#if LOG4NET
-                            Logger.Main.Info("Connecting to: "+connection_url);
-#endif
-                            ChannelServices.RegisterChannel(new HttpChannel());
-                            sessm = (SessionManager)Activator.GetObject(typeof(SessionManager),
-                                connection_url);
-                            break;
-                        default:
-                            Console.WriteLine("Unknown channel ("+channel+"), aborting...");
-                            Environment.Exit(1);
-                            break;
+                    EngineManagerDialog emd = new EngineManagerDialog();
+                    ssw.Destroy();
+                    int response = emd.Run();
+                    if (response != 1) {
+                        Quit();
                     }
-                    _Session = sessm.Register(username, password, ui);
                 }
-                _FrontendManager = _Session.GetFrontendManager(ui);
+                _FrontendManager = _Session.GetFrontendManager(_UI);
                 
                 _MainWindow = new MainWindow();
-                
                 ssw.Destroy();
                 _MainWindow.ShowAll();
+                
                 // make sure entry got attention :-P
                 _MainWindow.Entry.HasFocus = true;
                 
@@ -251,7 +203,7 @@ namespace Meebey.Smuxi.FrontendGtkGnome
             }
         }
         
-        static public void Quit()
+        public static void Quit()
         {
 #if UI_GNOME
             _Program.Quit();

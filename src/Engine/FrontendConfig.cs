@@ -31,7 +31,7 @@ namespace Meebey.Smuxi.Engine
     public class FrontendConfig : Config
     {
         private string _Prefix;
-        private string _UI;
+        private string _UIName;
         
         public new object this[string key]
         {
@@ -43,9 +43,9 @@ namespace Meebey.Smuxi.Engine
             }
         }
         
-        public FrontendConfig(string ui)
+        public FrontendConfig(string uiName)
         {
-            _UI = ui;
+            _UIName = uiName;
             _Prefix = "Frontend/";
         }
         
@@ -58,12 +58,12 @@ namespace Meebey.Smuxi.Engine
             
             prefix = "Frontend/";
             _LoadEntry(prefix+"Engines/Default", "");
-
+            
             prefix = "Frontend/Engines/";
-            string[] engines_list = _GetList(prefix+"EnginesList");
-            _Preferences[prefix+"EnginesList"] = engines_list;
-            foreach (string engine in engines_list) {
-                if (engine == "") {
+            string[] engines = _GetList(prefix+"Engines");
+            _Preferences[prefix+"Engines"] = engines;
+            foreach (string engine in engines) {
+                if (engine.Length == 0) {
                     continue;
                 }
                 string eprefix = prefix+engine+"/"; 
@@ -75,7 +75,7 @@ namespace Meebey.Smuxi.Engine
                 _LoadEntry(eprefix+"Formatter", null);
             }
             
-            _LoadAllEntries("Frontend/"+_UI);
+            _LoadAllEntries("Frontend/"+_UIName);
         }
     }
 }

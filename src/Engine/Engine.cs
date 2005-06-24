@@ -38,29 +38,25 @@ namespace Meebey.Smuxi.Engine
         private static Config           _Config;
         private static SessionManager   _SessionManager;
         
-        public static string Version
-        {
+        public static string Version {
             get {
                 return _Version;
             }
         }
     
-        public static string VersionString
-        {
+        public static string VersionString {
             get {
                 return _VersionString;
             }
         }
         
-        public static Config Config
-        {
+        public static Config Config {
             get {
                 return _Config;
             } 
         }
         
-        public static SessionManager SessionManager
-        {
+        public static SessionManager SessionManager {
             get {
                 return _SessionManager;
             } 

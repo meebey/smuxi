@@ -37,12 +37,12 @@ namespace Meebey.Smuxi.Engine
         
         public SessionManager()
         {
-            string[] users_list = (string[])Engine.Config["Engine/Users/UsersList"];
-            if (users_list == null) {
+            string[] users = (string[])Engine.Config["Engine/Users/Users"];
+            if (users == null) {
                 Console.WriteLine("No Engine/Users/*, aborting...\n");
                 Environment.Exit(1);
             }
-            foreach (string user in users_list) {
+            foreach (string user in users) {
 #if LOG4NET
                 Logger.Session.Debug("Creating Session for User "+user);
 #endif

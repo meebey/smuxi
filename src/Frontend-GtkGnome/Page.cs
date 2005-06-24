@@ -40,15 +40,13 @@ namespace Meebey.Smuxi.FrontendGtkGnome
         protected Gtk.ScrolledWindow _OutputScrolledWindow;
         protected Gtk.TextView       _OutputTextView;
     
-        public Engine.Page EnginePage
-        {
+        public Engine.Page EnginePage {
             get {
                 return _EnginePage;
             }
         }
         
-        public int Number
-        {
+        public int Number {
             get {
                 return _Number;
             }
@@ -57,8 +55,7 @@ namespace Meebey.Smuxi.FrontendGtkGnome
             }
         }
 
-        public Gtk.Label Label
-        {
+        public Gtk.Label Label {
             get {
                 return _Label;
             }
@@ -67,22 +64,19 @@ namespace Meebey.Smuxi.FrontendGtkGnome
             }
         }
     
-        public Gtk.EventBox LabelEventBox
-        {
+        public Gtk.EventBox LabelEventBox {
             get {
                 return _LabelEventBox;
             }
         }
         
-        public Gtk.TextView OutputTextView
-        {
+        public Gtk.TextView OutputTextView {
             get {
                 return _OutputTextView;
             }
         }
         
-        public Gtk.TextBuffer OutputTextBuffer
-        {
+        public Gtk.TextBuffer OutputTextBuffer {
             get {
                 return _OutputTextView.Buffer;
             }

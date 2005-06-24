@@ -57,7 +57,7 @@ namespace Meebey.Smuxi.Server
             } 
             switch (channel) {
                 case "TCP":
-                    props["name"] = "TCPChannel";
+                    props["name"] = "TcpChannel";
 #if LOG4NET
                     Engine.Logger.Remoting.Debug("Registering TcpChannel port: "+props["port"]);
 #endif            
@@ -65,7 +65,7 @@ namespace Meebey.Smuxi.Server
                     break;
 #if CHANNEL_TCPEX
                 case "TcpEx":
-                    //props["name"] = "TcpExChannel";
+                    props["name"] = "TcpExChannel";
 #if LOG4NET
                     Engine.Logger.Remoting.Debug("Registering TcpExChannel port: "+props["port"]);
 #endif            
@@ -73,7 +73,7 @@ namespace Meebey.Smuxi.Server
                     break;
 #endif
                 case "HTTP":
-                    props["name"] = "HTTPChannel";
+                    props["name"] = "HttpChannel";
 #if LOG4NET
                     Engine.Logger.Remoting.Debug("Registering HttpChannel port: "+props["port"]);
 #endif            

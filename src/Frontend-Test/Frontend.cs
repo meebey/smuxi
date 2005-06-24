@@ -61,7 +61,7 @@ namespace Meebey.Smuxi.FrontendTest
             string hostname = (string)FrontendConfig["Engines/"+profile+"/Hostname"];
             int port = (int)FrontendConfig["Engines/"+profile+"/Port"];
             string channel = (string)FrontendConfig["Engines/"+profile+"/Channel"];
-            string formatter = (string)FrontendConfig["Engines/"+profile+"/Formatter"];
+            //string formatter = (string)FrontendConfig["Engines/"+profile+"/Formatter"];
             IFrontendUI ui = new TestUI();
             try {
                 SessionManager sessm = null;

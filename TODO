@@ -11,9 +11,9 @@ smuxi 0.6 Goals:
 Feature Requests:
 - use Interface/Notebook/BufferLines setting
 - DEFAULT config writer
-- use TcpExChannel/
-- engines manager
-- irc server manager
+- use TcpExChannel
+- engines manager GUI
+- irc server manager GUI
 - completion for commands
 - right button menus for query/channelpage, users in channels
 - /join #foo should check if we are already joined
