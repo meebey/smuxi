@@ -191,7 +191,7 @@ namespace Meebey.Smuxi.FrontendGtkGnome
                 // make sure entry got attention :-P
                 _MainWindow.Entry.HasFocus = true;
                 
-#if UI_GNOME        
+#if UI_GNOME
                 _Program.Run();
 #elif UI_GTK
                 Gtk.Application.Run();

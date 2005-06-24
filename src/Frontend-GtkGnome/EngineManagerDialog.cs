@@ -86,6 +86,9 @@ namespace Meebey.Smuxi.FrontendGtkGnome
                     _OnConnectButtonPressed();
                     break;
                 default:
+#if LOG4NET
+                    Logger.UI.Debug("abc");
+#endif                
                     Gtk.MessageDialog md = new Gtk.MessageDialog(this, Gtk.DialogFlags.Modal,
                         Gtk.MessageType.Info, Gtk.ButtonsType.Close, "Sorry, not implemented yet!");
                     md.Run();
