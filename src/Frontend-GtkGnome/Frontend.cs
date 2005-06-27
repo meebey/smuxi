@@ -30,9 +30,6 @@ using System;
 using System.Reflection;
 using Meebey.Smuxi;
 using Meebey.Smuxi.Engine;
-#if CHANNEL_TCPEX
-using TcpEx;
-#endif
 
 namespace Meebey.Smuxi.FrontendGtkGnome
 {
@@ -177,25 +174,31 @@ namespace Meebey.Smuxi.FrontendGtkGnome
                     // there is a default engine set, means we want a remote engine
                     EngineManagerDialog emd = new EngineManagerDialog();
                     ssw.Destroy();
-                    int response = emd.Run();
-                    if (response != 1) {
-                        Quit();
-                    }
+                    emd.Run();
                 }
-                _FrontendManager = _Session.GetFrontendManager(_UI);
                 
-                _MainWindow = new MainWindow();
-                ssw.Destroy();
-                _MainWindow.ShowAll();
-                
-                // make sure entry got attention :-P
-                _MainWindow.Entry.HasFocus = true;
-                
+                if (_Session != null) {
+                    _FrontendManager = _Session.GetFrontendManager(_UI);
+                    
+                    _MainWindow = new MainWindow();
+                    ssw.Destroy();
+                    _MainWindow.ShowAll();
+                    
+                    // make sure entry got attention :-P
+                    _MainWindow.Entry.HasFocus = true;
+                    
+                    foreach (string command in (string[])Frontend.UserConfig["OnStartupCommands"]) {
+                        if (command.Length == 0) {
+                            continue;
+                        }
+                        _MainWindow.Entry.ExecuteCommand(command);
+                    }
 #if UI_GNOME
-                _Program.Run();
+                    _Program.Run();
 #elif UI_GTK
-                Gtk.Application.Run();
+                    Gtk.Application.Run();
 #endif
+                }
             } catch (Exception e) {
                 new CrashDialog(e);
                 // rethrow the exception for console output

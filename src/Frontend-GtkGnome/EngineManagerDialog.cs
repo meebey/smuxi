@@ -27,17 +27,28 @@
  */
 
 using System;
+using System.Collections.Specialized;
 using System.Runtime.Remoting;
 using System.Runtime.Remoting.Channels;
 using System.Runtime.Remoting.Channels.Http;
 using System.Runtime.Remoting.Channels.Tcp;
 using Meebey.Smuxi.Engine;
+#if CHANNEL_TCPEX
+using TcpEx;
+#endif
+#if CHANNEL_BIRDIRTCP
+using DotNetRemotingCC.Channels.BidirectionalTCP;
+#endif
 
 namespace Meebey.Smuxi.FrontendGtkGnome
 {
     public class EngineManagerDialog : Gtk.Dialog
     {
+#if GTK_1
+        private Gtk.Combo    _Combo;
+#elif GTK_2
         private Gtk.ComboBox _ComboBox;
+#endif
         private string       _SelectedEngine;  
         
         public EngineManagerDialog()
@@ -49,28 +60,44 @@ namespace Meebey.Smuxi.FrontendGtkGnome
             AddButton("Edit", 2);
             AddButton("New", 3);
             AddButton("Delete", 4);
+            AddButton("Quit", 5);
             Response += new Gtk.ResponseHandler(_OnResponse);
-            Close += new EventHandler(_OnClose);
             
             Gtk.VBox vbox = new Gtk.VBox();
             vbox.PackStart(new Gtk.Label("Select to which smuxi engine you want to connect"), false, false, 5);
             
             Gtk.HBox hbox = new Gtk.HBox();
             hbox.PackStart(new Gtk.Label("Engine:"), false, false, 5);
-                                       
+
+#if GTK_1
+            Gtk.Combo c = new Gtk.Combo();
+            _Combo = c;
+            c.DisableActivate();
+#elif GTK_2
             Gtk.ComboBox cb = Gtk.ComboBox.NewText();
             _ComboBox = cb;
             cb.Changed += new EventHandler(_OnComboBoxChanged);
+#endif
+            string[] engines = (string[])Frontend.FrontendConfig["Engines/Engines"];
+#if GTK_2
             string default_engine = (string)Frontend.FrontendConfig["Engines/Default"];
             int item = 0;
-            foreach (string engine in (string[])Frontend.FrontendConfig["Engines/Engines"]) {
+            foreach (string engine in engines) {
                 cb.AppendText(engine);
                 if (engine == default_engine) {
                     cb.Active = item;
                 }
                 item++;
             }
+#endif
+
+#if GTK_1
+            c.PopdownStrings = engines;
+
+            hbox.PackStart(c, true, true, 10); 
+#elif GTK_2
             hbox.PackStart(cb, true, true, 10); 
+#endif
             
             vbox.PackStart(hbox, false, false, 10);
             
@@ -81,14 +108,20 @@ namespace Meebey.Smuxi.FrontendGtkGnome
         
         private void _OnResponse(object sender, Gtk.ResponseArgs e)
         {
+#if LOG4NET
+            Logger.UI.Debug("ResponseId: "+e.ResponseId);
+#endif                
             switch ((int)e.ResponseId) {
                 case 1:
                     _OnConnectButtonPressed();
                     break;
+                case (int)Gtk.ResponseType.DeleteEvent:
+                    _OnDeleteEvent();
+                    break;
+                case 5:
+                    _OnQuitButtonPressed();
+                    break;
                 default:
-#if LOG4NET
-                    Logger.UI.Debug("abc");
-#endif                
                     Gtk.MessageDialog md = new Gtk.MessageDialog(this, Gtk.DialogFlags.Modal,
                         Gtk.MessageType.Info, Gtk.ButtonsType.Close, "Sorry, not implemented yet!");
                     md.Run();
@@ -102,6 +135,9 @@ namespace Meebey.Smuxi.FrontendGtkGnome
         
         private void _OnConnectButtonPressed()
         {
+#if GTK_1
+            _SelectedEngine = _Combo.Entry.Text;
+#endif
             string engine = _SelectedEngine;
             string username = (string)Frontend.FrontendConfig["Engines/"+engine+"/Username"];
             string password = (string)Frontend.FrontendConfig["Engines/"+engine+"/Password"];
@@ -117,36 +153,50 @@ namespace Meebey.Smuxi.FrontendGtkGnome
                 switch (channel) {
                     case "TCP":
                         connection_url = "tcp://"+hostname+":"+port+"/SessionManager"; 
-#if LOG4NET
-                        Logger.Main.Info("Connecting to: "+connection_url);
-#endif
                         if (ChannelServices.GetChannel("tcp") == null) {
                             ChannelServices.RegisterChannel(new TcpChannel());
                         }
+#if LOG4NET
+                        Logger.Main.Info("Connecting to: "+connection_url);
+#endif
                         sessm = (SessionManager)Activator.GetObject(typeof(SessionManager),
                             connection_url);
                         break;
 #if CHANNEL_TCPEX
                     case "TcpEx":
                         connection_url = "tcpex://"+hostname+":"+port+"/SessionManager"; 
-#if LOG4NET
-                        Logger.Main.Info("Connecting to: "+connection_url);
-#endif
                         if (ChannelServices.GetChannel("tcpex") == null) {
                             ChannelServices.RegisterChannel(new TcpExChannel());
                         }
+#if LOG4NET
+                        Logger.Main.Info("Connecting to: "+connection_url);
+#endif
+                        sessm = (SessionManager)Activator.GetObject(typeof(SessionManager),
+                            connection_url);
+                        break;
+#endif
+#if CHANNEL_BIRDIRTCP
+                    case "BirDirTcp":
+                        string ip = System.Net.Dns.Resolve(hostname).AddressList[0].ToString();
+                        connection_url = "birdirtcp://"+ip+":"+port+"/SessionManager"; 
+                        if (ChannelServices.GetChannel("birdirtcp") == null) {
+                            ChannelServices.RegisterChannel(new BidirTcpClientChannel());
+                        }
+#if LOG4NET
+                        Logger.Main.Info("Connecting to: "+connection_url);
+#endif
                         sessm = (SessionManager)Activator.GetObject(typeof(SessionManager),
                             connection_url);
                         break;
 #endif
                     case "HTTP":
                         connection_url = "http://"+hostname+":"+port+"/SessionManager"; 
-#if LOG4NET
-                        Logger.Main.Info("Connecting to: "+connection_url);
-#endif
                         if (ChannelServices.GetChannel("http") == null) {
                             ChannelServices.RegisterChannel(new HttpChannel());
                         }
+#if LOG4NET
+                        Logger.Main.Info("Connecting to: "+connection_url);
+#endif
                         sessm = (SessionManager)Activator.GetObject(typeof(SessionManager),
                             connection_url);
                         break;
@@ -155,13 +205,16 @@ namespace Meebey.Smuxi.FrontendGtkGnome
                                     "only following channel types are supported: HTTP and TCP\n";
                         break;
                 }
-                Frontend.Session = sessm.Register(username, password, Frontend.UI);
-                if (Frontend.Session == null) {
-                    error_msg += "Registration at engine failed, "+
-                                "username and/or password was wrong, please verify them.\n";
-                } else {
-                    // Dialog finished it's job
-                    Destroy();
+                // sessm can be null when there was a unknown channel used
+                if (sessm != null) {
+                    Frontend.Session = sessm.Register(username, password, Frontend.UI);
+                    if (Frontend.Session != null) {
+                        // Dialog finished it's job, we are connected
+                        Destroy();
+                    } else {
+                        error_msg += "Registration at engine failed, "+
+                                    "username and/or password was wrong, please verify them.\n";
+                    }
                 }
             } catch (Exception ex) {
                 error_msg += ex.Message+"\n";
@@ -186,6 +239,17 @@ namespace Meebey.Smuxi.FrontendGtkGnome
             }
         }
         
+        private void _OnQuitButtonPressed()
+        {
+            Frontend.Quit();
+        }
+        
+        private void _OnDeleteEvent()
+        {
+            Frontend.Quit();
+        }
+        
+#if GTK_2
         private void _OnComboBoxChanged(object sender, EventArgs e)
         {
             Gtk.TreeIter iter;
@@ -193,10 +257,7 @@ namespace Meebey.Smuxi.FrontendGtkGnome
                _SelectedEngine = (string)_ComboBox.Model.GetValue(iter, 0);
             }
         }
+#endif
         
-        private void _OnClose(object sender, EventArgs e)
-        {
-            Frontend.Quit();
-        }
     }
 }

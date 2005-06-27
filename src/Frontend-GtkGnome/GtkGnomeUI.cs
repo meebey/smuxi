@@ -64,7 +64,9 @@ namespace Meebey.Smuxi.FrontendGtkGnome
         {
             Gdk.Threads.Enter();
             
-            Console.WriteLine("AddPage()");
+#if LOG4NET
+            Logger.UI.Debug("AddPage()");
+#endif
             Page newpage = null;
             switch (epage.PageType) {
                 case PageType.Server:
@@ -93,16 +95,19 @@ namespace Meebey.Smuxi.FrontendGtkGnome
         {
             Gdk.Threads.Enter();
             
-            Console.Write("AddTextToPage()");
-            Console.Write(" epage: "+(epage != null ? epage.GetType().ToString() : "(null)"));
-            if (epage != null)
-                Console.Write(" epage.Name: "+(epage.Name != null ? epage.Name : "(null)"));
-            Console.Write(" text: '"+(text != null ? text : "(null)")+"'");
-            Console.WriteLine();
-            
+#if LOG4NET
+            Logger.UI.Debug("AddTextToPage() "+
+                " epage: "+(epage != null ? epage.GetType().ToString() : "(null)")+
+                " epage.Name: "+(epage.Name != null ? epage.Name : "(null)")+
+                " text: '"+(text != null ? text : "(null)")+"'");
+#endif
             Page page = Frontend.MainWindow.Notebook.GetPage(epage);
             Gtk.TextIter iter = page.OutputTextBuffer.EndIter;
+#if GTK_1
+            page.OutputTextBuffer.Insert(iter, text+"\n");
+#elif GTK_2
             page.OutputTextBuffer.Insert(ref iter, text+"\n");
+#endif
             
             if (Frontend.FrontendManager.CurrentPage != epage) {
                 page.Label.Markup = "<span foreground=\"blue\">"+page.Name+"</span>";
@@ -115,7 +120,9 @@ namespace Meebey.Smuxi.FrontendGtkGnome
         {
             Gdk.Threads.Enter();
             
-            Console.WriteLine("RemovePage()");
+#if LOG4NET
+            Logger.UI.Debug("RemovePage()");
+#endif
             Page page = Frontend.MainWindow.Notebook.GetPage(epage);
             Frontend.MainWindow.Notebook.RemovePage(
                 Frontend.MainWindow.Notebook.PageNum(page)
@@ -128,7 +135,9 @@ namespace Meebey.Smuxi.FrontendGtkGnome
         {
             Gdk.Threads.Enter();
             
-            Console.WriteLine("AddUserToChannel()");
+#if LOG4NET
+            Logger.UI.Debug("AddUserToChannel()");
+#endif
             ChannelPage cpage = (ChannelPage)Frontend.MainWindow.Notebook.GetPage(ecpage);
             Gtk.TreeView  treeview  = cpage.UserListTreeView;
             if (treeview == null) {
@@ -156,7 +165,9 @@ namespace Meebey.Smuxi.FrontendGtkGnome
         {
             Gdk.Threads.Enter();
             
-            Console.WriteLine("UpdateUserInChannel()");
+#if LOG4NET
+            Logger.UI.Debug("UpdateUserInChannel()");
+#endif
             ChannelPage cpage = (ChannelPage)Frontend.MainWindow.Notebook.GetPage(ecpage);
             Gtk.TreeView  treeview  = cpage.UserListTreeView;
             if (treeview == null) {
@@ -195,7 +206,9 @@ namespace Meebey.Smuxi.FrontendGtkGnome
         {
             Gdk.Threads.Enter();
             
-            Console.WriteLine("UpdateTopicInChannel()");
+#if LOG4NET
+            Logger.UI.Debug("UpdateTopicInChannel()");
+#endif
             ChannelPage cpage = (ChannelPage)Frontend.MainWindow.Notebook.GetPage(ecpage);
             if (cpage.TopicEntry != null) {
                 cpage.TopicEntry.Text = topic;
@@ -208,7 +221,9 @@ namespace Meebey.Smuxi.FrontendGtkGnome
         {
             Gdk.Threads.Enter();
             
-            Console.WriteLine("RemoveUserFromChannel()");
+#if LOG4NET
+            Logger.UI.Debug("RemoveUserFromChannel()");
+#endif
             ChannelPage cpage = (ChannelPage)Frontend.MainWindow.Notebook.GetPage(ecpage);
             Gtk.TreeView  treeview  = cpage.UserListTreeView;
             if (treeview == null) {
@@ -236,7 +251,9 @@ namespace Meebey.Smuxi.FrontendGtkGnome
         {
             Gdk.Threads.Enter();
             
-            Console.WriteLine("SetNetworkStatus()");
+#if LOG4NET
+            Logger.UI.Debug("SetNetworkStatus()");
+#endif
 #if UI_GNOME
             Frontend.MainWindow.NetworkStatusbar.Push(status);
 #elif UI_GTK
@@ -250,7 +267,9 @@ namespace Meebey.Smuxi.FrontendGtkGnome
         {
             Gdk.Threads.Enter();
             
-            Console.WriteLine("SetStatus()");
+#if LOG4NET
+            Logger.UI.Debug("SetStatus()");
+#endif
 #if UI_GNOME
             Frontend.MainWindow.Statusbar.Push(status);
 #elif UI_GTK

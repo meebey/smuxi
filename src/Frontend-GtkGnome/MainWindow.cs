@@ -46,50 +46,34 @@ namespace Meebey.Smuxi.FrontendGtkGnome
         private Entry            _Entry;
         private Notebook         _Notebook;
         
-        public Notebook Notebook
-        {
+        public Notebook Notebook {
             get {
-#if LOG4NET
-                Logger.UI.Debug("MainWindow.Notebook called");
-#endif
                 return _Notebook;
             }
         }
 
 #if UI_GNOME
-        public new Gnome.AppBar NetworkStatusbar
+        public new Gnome.AppBar NetworkStatusbar {
 #elif UI_GTK
-        public new Gtk.Statusbar NetworkStatusbar
+        public new Gtk.Statusbar NetworkStatusbar {
 #endif
-        {
             get {
-#if LOG4NET
-                Logger.UI.Debug("MainWindow.NetworkStatusbar called");
-#endif
                 return _NetworkStatusbar;
             }
         } 
 
 #if UI_GNOME
-        public new Gnome.AppBar Statusbar
+        public new Gnome.AppBar Statusbar {
 #elif UI_GTK
-        public new Gtk.Statusbar Statusbar
+        public new Gtk.Statusbar Statusbar {
 #endif
-        {
             get {
-#if LOG4NET
-                Logger.UI.Debug("MainWindow.Statusbar called");
-#endif
                 return _Statusbar;
             }
         } 
 
-        public Entry Entry
-        {
+        public Entry Entry {
             get {
-#if LOG4NET
-                Logger.UI.Debug("MainWindow.Entry called");
-#endif
                 return _Entry;
             }
         }
@@ -196,8 +180,7 @@ namespace Meebey.Smuxi.FrontendGtkGnome
         
         private void _OnPreferencesButtonClicked(object obj, EventArgs args)
         {
-            PreferencesDialog pd = new PreferencesDialog();
-            pd.ShowAll();
+            new PreferencesDialog();
         }
 	}
 }

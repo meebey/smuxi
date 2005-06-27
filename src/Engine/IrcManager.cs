@@ -129,16 +129,21 @@ namespace Meebey.Smuxi.Engine
                     _IrcClient.RfcPass(_Password, Priority.Critical);
                 }
                 _IrcClient.Login(_Nicknames, (string)_Session.UserConfig["Connection/Realname"], 0, _Username);
-                // TODO: make OnConnectCommands working
-                /*
-                char command_char = ((string)_Session.UserConfig["Interface/Entry/CommandCharacter"])[0];
-                foreach (string command in ((string[])_Session.UserConfig["Interface/Connection/OnConnectCommands"])) {
-                        if ((command.Length > 0) && 
-                            (command[0] == command_char)) {
-                            _Session.Command(command);
+                
+                foreach (string command in (string[])_Session.UserConfig["Connection/OnConnectCommands"]) {
+                        if (command.Length == 0) {
+                            continue;
+                        } 
+                        CommandData cd = new CommandData(_FrontendManager,
+                            (string)_Session.UserConfig["Interface/Entry/CommandCharacter"],
+                            command);
+                            
+                        bool handled;
+                        handled = _Session.Command(cd);
+                        if (!handled) {
+                            Command(cd);
                         }
                 }
-                */
                 
                 try {
                     // TODO: we must handle this somehow
@@ -146,8 +151,6 @@ namespace Meebey.Smuxi.Engine
                         _IrcClient.Listen();
                     //}
                 } catch (Exception e) {
-                    //Gnosmirc.GUI.Crash(e);
-                    //Gnosmirc.Quit();
                     throw e;
                 }
             } catch (CouldNotConnectException e) {

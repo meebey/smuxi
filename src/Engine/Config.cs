@@ -184,20 +184,31 @@ namespace Meebey.Smuxi.Engine
                 }
                 
                 _LoadUserEntry(user, "Password", "smuxi");
+                
+                string[] startup_commands = _GetList(prefix+user+"/OnStartupCommands");
+                if (startup_commands != null) {
+                    _Preferences[prefix+user+"/OnStartupCommands"] = startup_commands;
+                } else {
+                    _Preferences[prefix+user+"/OnStartupCommands"] = new string[] {""};
+                }
+                
                 string[] nick_list = _GetList(prefix+user+"/Connection/Nicknames");
                 if (nick_list != null) {
                     _Preferences[prefix+user+"/Connection/Nicknames"] = nick_list;
                 } else {
                     _Preferences[prefix+user+"/Connection/Nicknames"] = new string[] {"Smuxi", "Smuxi_"};
                 }
+                
                 _LoadUserEntry(user, "Connection/Username", "");
                 _LoadUserEntry(user, "Connection/Realname", "http://smuxi.meebey.net");
+                
                 string[] command_list = _GetList(prefix+user+"/Connection/OnConnectCommands");
                 if (command_list != null) {
                     _Preferences[prefix+user+"/Connection/OnConnectCommands"] = command_list;
                 } else {
                     _Preferences[prefix+user+"/Connection/OnConnectCommands"] = new string[] {""};
                 }
+                
                 _LoadUserEntry(user, "Interface/Notebook/TimestampFormat", null);
                 _LoadUserEntry(user, "Interface/Notebook/TabPosition", null);
                 _LoadUserEntry(user, "Interface/Notebook/BufferLines", null);

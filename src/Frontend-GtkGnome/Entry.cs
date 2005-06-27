@@ -284,17 +284,24 @@ namespace Meebey.Smuxi.FrontendGtkGnome
             HasFocus = true;
             Position = -1;
         }
-
+    
         private void _OnActivated(object obj, EventArgs args)
         {
             if (!(Text.Length > 0)) {
                 return;
             } 
             
-            bool handled = false;
+            ExecuteCommand(Text);
+            AddToHistory(Text, History.Count - HistoryPosition);
+            Text = String.Empty;
+        }
+        
+        public void ExecuteCommand(string cmd)
+        {
+            bool handled;
             CommandData cd = new CommandData(Frontend.FrontendManager,
                                     (string)Frontend.UserConfig["Interface/Entry/CommandCharacter"],
-                                    Text);
+                                    cmd);
             handled = _Command(cd);
             if (!handled) {
                 handled = Frontend.Session.Command(cd);
@@ -310,9 +317,6 @@ namespace Meebey.Smuxi.FrontendGtkGnome
             if (!handled) {
                _CommandUnknown(cd);
             }
-            
-            AddToHistory(Text, History.Count - HistoryPosition);
-            Text = String.Empty;
         }
         
         private bool _Command(CommandData cd)

@@ -86,7 +86,9 @@ namespace Meebey.Smuxi.FrontendGtkGnome
         {
             _EnginePage = epage;
             _LabelEventBox = new Gtk.EventBox();
+#if GTK_2
             _LabelEventBox.VisibleWindow = false;
+#endif
             Name = epage.Name;
             
             Gtk.TextView tv = new Gtk.TextView();
