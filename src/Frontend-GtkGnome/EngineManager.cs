@@ -1,9 +1,9 @@
 /*
- * $Id$
- * $URL$
- * $Rev$
- * $Author$
- * $Date$
+ * $Id: Frontend.cs 73 2005-06-27 12:42:06Z meebey $
+ * $URL: svn+ssh://svn.qnetp.net/svn/smuxi/smuxi/trunk/src/Frontend-GtkGnome/Frontend.cs $
+ * $Rev: 73 $
+ * $Author: meebey $
+ * $Date: 2005-06-27 14:42:06 +0200 (Mon, 27 Jun 2005) $
  *
  * smuxi - Smart MUltipleXed Irc
  *
@@ -27,25 +27,18 @@
  */
 
 using System;
+using Meebey.Smuxi;
 
 namespace Meebey.Smuxi.FrontendGtkGnome
 {
-#if UI_GNOME    
-    public class AboutDialog : Gnome.About
-#elif UI_GTK
-    public class AboutDialog : Gtk.Dialog
-#endif
+    public class EngineManager
     {
-#if UI_GNOME
-        public AboutDialog() : base (Frontend.Name, Frontend.Version,
-            "2005 (C) Mirco Bauer <meebey@meebey.net>", String.Empty, new string[] {"Mirco Bauer <meebey@meebey.net>"},
-            new string[] {String.Empty}, String.Empty, new Gdk.Pixbuf(null, "about.png"))
-#elif UI_GTK
-        public AboutDialog() : base ()
-#endif
+        public EngineManager()
         {
-#if UI_GTK
-#endif
+        }
+        
+        public void Connect(string engine)
+        {
         }
     }
 }

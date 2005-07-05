@@ -73,7 +73,8 @@ namespace Meebey.Smuxi.Engine
        protected object _Get(string key, object defaultvalue)
        {
 #if LOG4NET
-            Logger.Config.Debug("_Get() key: '"+key+"' defaultvalue: '"+(defaultvalue != null ? defaultvalue : "(null)")+"'");
+            Logger.Config.Debug("_Get() key: '"+key+"' defaultvalue: '"+
+                (defaultvalue != null ? defaultvalue : "(null)")+"'");
 #endif
 #if CONFIG_GCONF
             try {
@@ -122,7 +123,7 @@ namespace Meebey.Smuxi.Engine
             string[] result = null;
 #if CONFIG_GCONF
             // Gconf# bug, it doesn't like empty string lists.
-            result = (string[])_Get(key, new string[] {""});
+            result = (string[])_Get(key, new string[] {String.Empty});
 #elif CONFIG_NINI
             // Nini does not support native string lists, have to emulate them
             string result_str = (string)_Get(key, null);
@@ -136,7 +137,8 @@ namespace Meebey.Smuxi.Engine
         private void _Set(string key, object valueobj)
         {
 #if LOG4NET
-            Logger.Config.Debug("_Set() key: '"+key+"' valueobj: '"+(valueobj != null ? valueobj : "(null)")+"'");
+            Logger.Config.Debug("_Set() key: '"+key+"' valueobj: '"+
+                (valueobj != null ? valueobj : "(null)")+"'");
 #endif
 #if CONFIG_GCONF
             _GConf.Set("/apps/smuxi/"+key, valueobj);
@@ -176,7 +178,7 @@ namespace Meebey.Smuxi.Engine
             if (users != null) {
                 _Preferences[prefix+"Users"] = users;
             } else {
-                users = new string[] {""};
+                users = new string[] {String.Empty};
             }
             foreach (string user in users) {
                 if (user.Length == 0) {
@@ -189,7 +191,7 @@ namespace Meebey.Smuxi.Engine
                 if (startup_commands != null) {
                     _Preferences[prefix+user+"/OnStartupCommands"] = startup_commands;
                 } else {
-                    _Preferences[prefix+user+"/OnStartupCommands"] = new string[] {""};
+                    _Preferences[prefix+user+"/OnStartupCommands"] = new string[] {String.Empty};
                 }
                 
                 string[] nick_list = _GetList(prefix+user+"/Connection/Nicknames");
@@ -199,14 +201,14 @@ namespace Meebey.Smuxi.Engine
                     _Preferences[prefix+user+"/Connection/Nicknames"] = new string[] {"Smuxi", "Smuxi_"};
                 }
                 
-                _LoadUserEntry(user, "Connection/Username", "");
+                _LoadUserEntry(user, "Connection/Username", String.Empty);
                 _LoadUserEntry(user, "Connection/Realname", "http://smuxi.meebey.net");
                 
                 string[] command_list = _GetList(prefix+user+"/Connection/OnConnectCommands");
                 if (command_list != null) {
                     _Preferences[prefix+user+"/Connection/OnConnectCommands"] = command_list;
                 } else {
-                    _Preferences[prefix+user+"/Connection/OnConnectCommands"] = new string[] {""};
+                    _Preferences[prefix+user+"/Connection/OnConnectCommands"] = new string[] {String.Empty};
                 }
                 
                 _LoadUserEntry(user, "Interface/Notebook/TimestampFormat", null);
@@ -241,35 +243,40 @@ namespace Meebey.Smuxi.Engine
 #if LOG4NET
             Logger.Config.Info("Saving config (Config)");
 #endif
-
+            
             foreach (string key in _Preferences.Keys) {
                 object obj = _Preferences[key];
                 _Set(key, obj);
             }
-
+            
+            // BUG: we write all existing entries to the backends but when an
+            // entry was removed, it will stay in the backend!
+            // Probably need to explicit compare and hard remove from the
+            // backends the removed entries. 
 #if CONFIG_GCONF
             _GConf.SuggestSync();
 #elif CONFIG_NINI
             _IniDocument.Save(_IniFilename);
 #endif
         }
+        
+        public void Remove(string key)
+        {
+#if LOG4NET
+            Logger.Config.Debug("Removing: "+key);
+#endif
+            _Preferences.Remove(key);
+        }
 
         private void _LoadUserEntry(string user, string key, object defaultvalue)
         {
 #if LOG4NET
-            Logger.Config.Debug("_LoadUserEntry() user: '"+user+"' key: '"+key+"' defaultvalue: '"+(defaultvalue != null ? defaultvalue : "(null)")+"'");
+            Logger.Config.Debug("_LoadUserEntry() user: '"+user+"' key: '"+key+
+                "' defaultvalue: '"+(defaultvalue != null ? defaultvalue : "(null)")+"'");
 #endif
             string prefix = "Engine/Users/";
             string ukey = prefix+user+"/"+key;
-            string dkey = prefix+"DEFAULT/"+key;
-            object obj;
-            if (defaultvalue == null) {
-                // BUG: this will set the value of the Users/DEFAULT/* value!
-                obj = _Get(ukey, _Get(dkey, null));
-            } else {
-                obj = _Get(ukey, defaultvalue);
-            }
-            
+            object obj = _Get(ukey, defaultvalue);
             if (obj != null) {
                 _Preferences[ukey] = obj;
             }
@@ -278,7 +285,8 @@ namespace Meebey.Smuxi.Engine
         protected void _LoadEntry(string key, object defaultvalue)
         {
 #if LOG4NET
-            Logger.Config.Debug("_LoadEntry() key: '"+key+"' defaultvalue: '"+(defaultvalue != null ? defaultvalue : "(null)")+"'");
+            Logger.Config.Debug("_LoadEntry() key: '"+key+"' defaultvalue: '"+
+                (defaultvalue != null ? defaultvalue : "(null)")+"'");
 #endif
             object obj = _Get(key, defaultvalue);
             if (obj != null) {

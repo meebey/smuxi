@@ -27,6 +27,7 @@
  */
 
 using System;
+using System.Collections;
 using System.Collections.Specialized;
 using System.Runtime.Remoting;
 using System.Runtime.Remoting.Channels;
@@ -55,16 +56,17 @@ namespace Meebey.Smuxi.FrontendGtkGnome
         {
             Modal = true;
             Title = "smuxi - Engine Manager";
-            //SetDefaultSize(320, 240);
-            AddButton("Connect", 1);
+            AddButton("Connect" , 1);
+            AddActionWidget(new Gtk.Button(Gtk.Stock.New), 3);
             AddButton("Edit", 2);
-            AddButton("New", 3);
-            AddButton("Delete", 4);
-            AddButton("Quit", 5);
+            AddActionWidget(new Gtk.Button(Gtk.Stock.Delete), 4);
+            AddActionWidget(new Gtk.Button(Gtk.Stock.Quit), 5);
             Response += new Gtk.ResponseHandler(_OnResponse);
             
             Gtk.VBox vbox = new Gtk.VBox();
-            vbox.PackStart(new Gtk.Label("Select to which smuxi engine you want to connect"), false, false, 5);
+            Gtk.Label label = new Gtk.Label("<b>Select to which smuxi engine you want to connect</b>");
+            label.UseMarkup = true;
+            vbox.PackStart(label, false, false, 5);
             
             Gtk.HBox hbox = new Gtk.HBox();
             hbox.PackStart(new Gtk.Label("Engine:"), false, false, 5);
@@ -115,18 +117,22 @@ namespace Meebey.Smuxi.FrontendGtkGnome
                 case 1:
                     _OnConnectButtonPressed();
                     break;
-                case (int)Gtk.ResponseType.DeleteEvent:
-                    _OnDeleteEvent();
+#if UI_GNOME
+                case 3:
+                    _OnNewButtonPressed();
+                    break;
+#endif
+                case 4:
+                    _OnDeleteButtonPressed();
                     break;
                 case 5:
                     _OnQuitButtonPressed();
                     break;
+                case (int)Gtk.ResponseType.DeleteEvent:
+                    _OnDeleteEvent();
+                    break;
                 default:
-                    Gtk.MessageDialog md = new Gtk.MessageDialog(this, Gtk.DialogFlags.Modal,
-                        Gtk.MessageType.Info, Gtk.ButtonsType.Close, "Sorry, not implemented yet!");
-                    md.Run();
-                    md.Destroy();
-                    
+                    new NotImplementedMessageDialog();
                     // Re-run the Dialog
                     Run();
                     break;
@@ -205,11 +211,12 @@ namespace Meebey.Smuxi.FrontendGtkGnome
                                     "only following channel types are supported: HTTP and TCP\n";
                         break;
                 }
-                // sessm can be null when there was a unknown channel used
+                // sessm can be null when there was an unknown channel used
                 if (sessm != null) {
                     Frontend.Session = sessm.Register(username, password, Frontend.UI);
                     if (Frontend.Session != null) {
                         // Dialog finished it's job, we are connected
+                        Frontend.InitGUI();
                         Destroy();
                     } else {
                         error_msg += "Registration at engine failed, "+
@@ -225,7 +232,7 @@ namespace Meebey.Smuxi.FrontendGtkGnome
                 if (error_msg != null) {
                     string msg;
                     msg = "Error occured while connecting to the engine!\n\n";
-                    msg += (connection_url != null ? "Engine URL: "+connection_url+"\n" : "");
+                    msg += (connection_url != null ? "Engine URL: "+connection_url+"\n" : String.Empty);
                     msg += "Error: "+error_msg;
                     
                     Gtk.MessageDialog md = new Gtk.MessageDialog(this, Gtk.DialogFlags.Modal,
@@ -237,6 +244,53 @@ namespace Meebey.Smuxi.FrontendGtkGnome
                     Run();
                 }
             }
+        }
+
+#if UI_GNOME
+        private void _OnNewButtonPressed()
+        {
+            // the druid will spawn EngineManagerDialog when it's canceled or finished
+            Destroy();
+            new NewEngineDruid();
+        }
+#endif
+
+        private void _OnDeleteButtonPressed()
+        {
+            string msg = "Are you sure you want to delete the engine \""+
+                _SelectedEngine+"\"?";
+            Gtk.MessageDialog md = new Gtk.MessageDialog(this, Gtk.DialogFlags.Modal,
+            Gtk.MessageType.Warning, Gtk.ButtonsType.YesNo, msg);
+            int res = md.Run();
+            if ((Gtk.ResponseType)res == Gtk.ResponseType.Yes) {
+                _DeleteEngine(_SelectedEngine);
+                Destroy();
+                new EngineManagerDialog();
+            }
+            md.Destroy();
+        }
+        
+        private void _DeleteEngine(string engine)
+        {
+            StringCollection new_engines = new StringCollection();
+            string[] current_engines = (string[])Frontend.FrontendConfig["Engines/Engines"];
+            foreach (string eng in current_engines) {
+                if (eng != engine) {
+                    new_engines.Add(eng);
+                }
+            }
+            string[] new_engines_array = new string[new_engines.Count]; 
+            new_engines.CopyTo(new_engines_array, 0);
+            Frontend.FrontendConfig["Engines/Engines"] = new_engines_array;
+            Frontend.FrontendConfig.Remove("Engines/"+engine+"/Username");
+            Frontend.FrontendConfig.Remove("Engines/"+engine+"/Password");
+            Frontend.FrontendConfig.Remove("Engines/"+engine+"/Hostname");
+            Frontend.FrontendConfig.Remove("Engines/"+engine+"/Port");
+            Frontend.FrontendConfig.Remove("Engines/"+engine+"/Channel");
+            Frontend.FrontendConfig.Remove("Engines/"+engine+"/Formatter");
+            Frontend.FrontendConfig.Remove("Engines/"+engine);
+            Frontend.FrontendConfig.Save();
+            Frontend.FrontendConfig.Load();
         }
         
         private void _OnQuitButtonPressed()

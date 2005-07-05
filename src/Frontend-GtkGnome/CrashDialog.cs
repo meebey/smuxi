@@ -67,7 +67,7 @@ namespace Meebey.Smuxi.FrontendGtkGnome
             VBox.PackStart(vbox, true, true, 2);
             AddButton(Gtk.Stock.Quit, 0);
             
-            string message = "";
+            string message = String.Empty;
             if (e.InnerException != null) {
                 message = "Inner-Exception Type:\n"+e.InnerException.GetType()+"\n\n"+
                           "Inner-Exception Message:\n"+e.InnerException.Message+"\n\n"+

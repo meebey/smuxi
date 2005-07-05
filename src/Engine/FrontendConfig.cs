@@ -26,6 +26,8 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA
  */
 
+using System;
+
 namespace Meebey.Smuxi.Engine
 {
     public class FrontendConfig : Config
@@ -57,7 +59,7 @@ namespace Meebey.Smuxi.Engine
 #endif
             
             prefix = "Frontend/";
-            _LoadEntry(prefix+"Engines/Default", "");
+            _LoadEntry(prefix+"Engines/Default", String.Empty);
             
             prefix = "Frontend/Engines/";
             string[] engines = _GetList(prefix+"Engines");
@@ -76,6 +78,11 @@ namespace Meebey.Smuxi.Engine
             }
             
             _LoadAllEntries("Frontend/"+_UIName);
+        }
+        
+        public new void Remove(string key)
+        {
+            base.Remove(_Prefix+key);
         }
     }
 }

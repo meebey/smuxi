@@ -37,24 +37,21 @@ namespace Meebey.Smuxi.FrontendGtkGnome
         private Gtk.TreeView _UserListTreeView;
         private Gtk.Entry    _TopicEntry;
         private Gtk.Menu     _TabMenu;
-        //private Gtk.Menu     _UserListMenu;
+        private Gtk.Menu     _UserListMenu;
         
-        public Gtk.TreeView UserListTreeView
-        {
+        public Gtk.TreeView UserListTreeView {
             get {
                 return _UserListTreeView;
             }
         }
 
-        public Gtk.Entry TopicEntry
-        {
+        public Gtk.Entry TopicEntry {
             get {
                 return _TopicEntry;
             }
         }
         
-        public Gtk.Menu TabMenu
-        {
+        public Gtk.Menu TabMenu {
             get {
                 return _TabMenu;
             }
@@ -67,11 +64,11 @@ namespace Meebey.Smuxi.FrontendGtkGnome
             _Label.Show();
             
             // userlist
-            Gtk.ScrolledWindow sw = null;
+            Gtk.Frame frame = null;
             string userlist_pos = (string)Frontend.UserConfig["Interface/Notebook/Channel/UserListPosition"];
             if ((userlist_pos == "left") ||
                 (userlist_pos == "right")) {
-               sw = new Gtk.ScrolledWindow();
+               Gtk.ScrolledWindow sw = new Gtk.ScrolledWindow();
                sw.WidthRequest = 120;
                
                Gtk.TreeView tv = new Gtk.TreeView();
@@ -81,7 +78,7 @@ namespace Meebey.Smuxi.FrontendGtkGnome
                _UserListTreeView = tv;
                
                Gtk.TreeViewColumn statuscolumn;
-               statuscolumn = new Gtk.TreeViewColumn("", new Gtk.CellRendererText(), "text", 0);
+               statuscolumn = new Gtk.TreeViewColumn(String.Empty, new Gtk.CellRendererText(), "text", 0);
                statuscolumn.SortColumnId = 0;
                statuscolumn.Spacing = 0;
                statuscolumn.SortIndicator = false;
@@ -107,6 +104,16 @@ namespace Meebey.Smuxi.FrontendGtkGnome
                tv.Model = liststore;
                tv.AppendColumn(statuscolumn);
                tv.AppendColumn(usercolumn);
+               
+                // popup menu
+                _UserListMenu = new Gtk.Menu();
+                Gtk.MenuItem kick_item = new Gtk.MenuItem("Kick");
+                kick_item.Activated += new EventHandler(_OnUserListMenuKickActivated);  
+                _UserListMenu.Append(kick_item);
+                
+                frame = new Gtk.Frame();
+                frame.ButtonReleaseEvent += new Gtk.ButtonReleaseEventHandler(_OnUserListButtonReleaseEvent);
+                frame.Add(sw);
             } else if (userlist_pos == "none") {
             } else {
 #if LOG4NET
@@ -140,11 +147,11 @@ namespace Meebey.Smuxi.FrontendGtkGnome
             if (userlist_pos == "left" || userlist_pos == "right") { 
                 Gtk.HPaned hpaned = new Gtk.HPaned();
                 if (userlist_pos == "left") {
-                    hpaned.Pack1(sw, false, false);
+                    hpaned.Pack1(frame, false, false);
                     hpaned.Pack2(vbox, true, true);
                 } else {
                     hpaned.Pack1(vbox, true, true);
-                    hpaned.Pack2(sw, false, false);
+                    hpaned.Pack2(frame, false, false);
                 }
                 Add(hpaned);
             } else {
@@ -230,19 +237,40 @@ namespace Meebey.Smuxi.FrontendGtkGnome
             }
         }
         
-        /* TODO: menu for users on channel page
-        private void _OnUserListButtonPress(object obj, Gtk.ButtonPressEventArgs args)
+        private void _OnUserListButtonReleaseEvent(object sender, Gtk.ButtonReleaseEventArgs e)
         {
 #if LOG4NET
-            Logger.UI.Debug("_OnUserListButtonPress triggered");
+            Logger.UI.Debug("_OnUserListButtonReleaseEvent triggered");
 #endif
 
-            if (args.Event.Button == 3) {
-                _UserListMenu.Popup(null, null, null, IntPtr.Zero, args.Event.Button, args.Event.Time);
+            if (e.Event.Button == 3) {
+                _UserListMenu.Popup(null, null, null, IntPtr.Zero, e.Event.Button, e.Event.Time);
                 _UserListMenu.ShowAll();
             }
         }
-        */
+        
+        private void _OnUserListMenuKickActivated(object sender, EventArgs e)
+        {
+            string victim = _GetSelectedNode();
+            if (victim != null) {
+                if (EnginePage.NetworkManager is IrcManager) {
+                    IrcManager imanager = (IrcManager)EnginePage.NetworkManager;
+                    imanager.CommandKick(new CommandData(Frontend.FrontendManager,
+                        victim));
+                }
+            }
+        } 
+        
+        private string _GetSelectedNode()
+        {
+            Gtk.TreeIter iter;
+            Gtk.TreeModel model;
+            if (_UserListTreeView.Selection.GetSelected(out model, out iter)) {
+                return (string)model.GetValue(iter, 1);
+            }
+            
+            return null;
+        }
         
 #if GTK_1
         static private void _OnDestroyNotify()

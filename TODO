@@ -9,6 +9,7 @@
 smuxi 0.6 Goals:
 
 Feature Requests:
+- allow bash-style to complete as much as possible (besfred)
 - use Interface/Notebook/BufferLines setting
 - DEFAULT config writer
 - use TcpExChannel

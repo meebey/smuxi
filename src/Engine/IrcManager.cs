@@ -505,7 +505,7 @@ namespace Meebey.Smuxi.Engine
             if (cd.DataArray.Length >= 3) {
                 string destination = cd.DataArray[1];
                 string command = cd.DataArray[2].ToUpper();
-                string parameters = "";
+                string parameters = String.Empty;
                 if (cd.DataArray.Length >= 4) {
                     parameters = String.Join(" ", cd.DataArray, 3, cd.DataArray.Length-3);
                 }

@@ -49,5 +49,8 @@
     <File name="./Frontend-GtkGnome/IrcManagerWindow.cs" subtype="Code" buildaction="Compile" />
     <File name="./Frontend-GtkGnome/PreferencesDialog.cs" subtype="Code" buildaction="Compile" />
     <File name="../glade/preferences.glade" subtype="Code" buildaction="EmbedAsResource" />
+    <File name="./Frontend-GtkGnome/NewEngineDruid.cs" subtype="Code" buildaction="Compile" />
+    <File name="./Frontend-GtkGnome/EngineManager.cs" subtype="Code" buildaction="Compile" />
+    <File name="./Frontend-GtkGnome/NotImplementedMessageDialog.cs" subtype="Code" buildaction="Compile" />
   </Contents>
 </Project>

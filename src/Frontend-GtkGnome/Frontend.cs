@@ -40,6 +40,7 @@ namespace Meebey.Smuxi.FrontendGtkGnome
         private static IFrontendUI        _UI;
         private static string             _Version;
         private static string             _VersionString;
+        private static SplashScreenWindow _SplashScreenWindow;
         private static MainWindow         _MainWindow;
 #if UI_GNOME
         private static Gnome.Program      _Program;
@@ -158,52 +159,48 @@ namespace Meebey.Smuxi.FrontendGtkGnome
 #elif UI_GTK
                 Gtk.Application.Init();
 #endif
-                SplashScreenWindow ssw = new SplashScreenWindow();
+                _SplashScreenWindow = new SplashScreenWindow();
                     
                 _FrontendConfig = new FrontendConfig(UIName);
                 _FrontendConfig.Load();
                 _FrontendConfig.Save();
                 
-                // setup the session
                 _UI = new GtkGnomeUI();
-                if (((string)FrontendConfig["Engines/Default"]).Length == 0) {
+                if (((string)Frontend.FrontendConfig["Engines/Default"]).Length == 0) {
                     Engine.Engine.Init();
-                    _Session = new Session(Engine.Engine.Config, "local");
-                    _Session.RegisterFrontendUI(_UI);
+                    _Session = new Engine.Session(Engine.Engine.Config, "local");
+                    _Session.RegisterFrontendUI(Frontend.UI);
                 } else {
                     // there is a default engine set, means we want a remote engine
-                    EngineManagerDialog emd = new EngineManagerDialog();
-                    ssw.Destroy();
-                    emd.Run();
+                    new EngineManagerDialog();
                 }
-                
+
                 if (_Session != null) {
-                    _FrontendManager = _Session.GetFrontendManager(_UI);
-                    
-                    _MainWindow = new MainWindow();
-                    ssw.Destroy();
-                    _MainWindow.ShowAll();
-                    
-                    // make sure entry got attention :-P
-                    _MainWindow.Entry.HasFocus = true;
-                    
-                    foreach (string command in (string[])Frontend.UserConfig["OnStartupCommands"]) {
-                        if (command.Length == 0) {
-                            continue;
-                        }
-                        _MainWindow.Entry.ExecuteCommand(command);
-                    }
-#if UI_GNOME
-                    _Program.Run();
-#elif UI_GTK
-                    Gtk.Application.Run();
-#endif
+                    InitGUI();
                 }
+                _SplashScreenWindow.Destroy();
+                
+#if UI_GNOME
+                _Program.Run();
+#elif UI_GTK
+                Gtk.Application.Run();
+#endif
             } catch (Exception e) {
                 new CrashDialog(e);
                 // rethrow the exception for console output
                 throw e;
             }
+        }
+        
+        public static void InitGUI()
+        {
+            _FrontendManager = _Session.GetFrontendManager(_UI);
+
+            _MainWindow = new MainWindow();
+            _MainWindow.ShowAll();
+
+            // make sure entry got attention :-P
+            _MainWindow.Entry.HasFocus = true;
         }
         
         public static void Quit()

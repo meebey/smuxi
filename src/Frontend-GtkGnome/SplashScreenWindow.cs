@@ -41,7 +41,6 @@ namespace Meebey.Smuxi.FrontendGtkGnome
             while (Gtk.Application.EventsPending()) {
                 Gtk.Application.RunIteration();
             }
-            System.Threading.Thread.Sleep(2000);
         }
     }
 }

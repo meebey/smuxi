@@ -112,6 +112,26 @@ namespace Meebey.Smuxi.FrontendGtkGnome
             item.Activated += new EventHandler(_OnQuitButtonClicked);
             menu.Append(item);
             
+            // Menu - File
+            menu = new Gtk.Menu();
+            item = new Gtk.MenuItem("_Engine");
+            item.Submenu = menu;
+            mb.Append(item);
+
+            item = new Gtk.MenuItem("_Use Local Engine");
+            item.Activated += new EventHandler(_OnUseLocalEngineButtonClicked);
+            menu.Append(item);
+            
+            image_item = new Gtk.ImageMenuItem("_Add Remote Engine");
+            Gdk.Pixbuf pbuf = image_item.RenderIcon(Gtk.Stock.Add, Gtk.IconSize.Menu, null); 
+            image_item.Image = new Gtk.Image(pbuf);
+            image_item.Activated += new EventHandler(_OnAddRemoteEngineButtonClicked);
+            menu.Append(image_item);
+            
+            item = new Gtk.MenuItem("_Switch Remote Engine");
+            item.Activated += new EventHandler(_OnSwitchRemoteEngineButtonClicked);
+            menu.Append(item);
+            
             // Menu - Help
             menu = new Gtk.Menu();
             item = new Gtk.MenuItem("_Help");
@@ -181,6 +201,23 @@ namespace Meebey.Smuxi.FrontendGtkGnome
         private void _OnPreferencesButtonClicked(object obj, EventArgs args)
         {
             new PreferencesDialog();
+        }
+        
+        private void _OnUseLocalEngineButtonClicked(object obj, EventArgs args)
+        {
+            // TODO
+            new NotImplementedMessageDialog();
+        }
+        
+        private void _OnAddRemoteEngineButtonClicked(object obj, EventArgs args)
+        {
+            new NewEngineDruid();
+        }
+        
+        private void _OnSwitchRemoteEngineButtonClicked(object obj, EventArgs args)
+        {
+            // TODO
+            new NotImplementedMessageDialog();
         }
 	}
 }

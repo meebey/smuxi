@@ -90,7 +90,7 @@ namespace Meebey.Smuxi.Engine
             _IsCommand = (data[0] == cmdChar[0]);
             _CommandCharacter = cmdChar;
             if (_IsCommand) {
-                _Command = (_DataArray[0].Length > 1) ? _DataArray[0].Substring(1).ToLower() : "";
+                _Command = (_DataArray[0].Length > 1) ? _DataArray[0].Substring(1).ToLower() : String.Empty;
             }
             _FrontendManager = fm;
         }

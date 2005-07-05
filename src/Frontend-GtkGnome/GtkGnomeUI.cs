@@ -153,7 +153,7 @@ namespace Meebey.Smuxi.FrontendGtkGnome
             } else if (icuser.IsVoice) {
                 liststore.AppendValues("+", icuser.Nickname);
             } else {
-                liststore.AppendValues("", icuser.Nickname);
+                liststore.AppendValues(String.Empty, icuser.Nickname);
             }
             
             treeview.GetColumn(1).Title = "Users ("+liststore.IterNChildren()+")";
@@ -188,7 +188,7 @@ namespace Meebey.Smuxi.FrontendGtkGnome
                     } else if (newcuser.IsVoice) {
                         mode = "+";
                     } else {
-                        mode = "";
+                        mode = String.Empty;
                     }
                     
                     // update the mode of the current row

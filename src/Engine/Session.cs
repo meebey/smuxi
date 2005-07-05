@@ -90,7 +90,27 @@ namespace Meebey.Smuxi.Engine
             Logger.UI.Debug("Registering UI with URI: "+uri);
 #endif
             // add the FrontendManager to the hashtable with an unique .NET remoting identifier
-            _FrontendManagers.Add(uri, new FrontendManager(this, ui));
+            FrontendManager fm = new FrontendManager(this, ui);
+            _FrontendManagers.Add(uri, fm);
+            
+            // if this was the first frontend, we process OnStartupCommands
+            if (_FrontendManagers.Count == 1) {
+                foreach (string command in (string[])_UserConfig["OnStartupCommands"]) {
+                    if (command.Length == 0) {
+                        continue;
+                    }
+                    CommandData cd = new CommandData(fm,
+                        (string)_UserConfig["Interface/Entry/CommandCharacter"],
+                        command);
+                    bool handled;
+                    handled = Command(cd);
+                    if (!handled) {
+                        if (fm.CurrentNetworkManager != null) {
+                            fm.CurrentNetworkManager.Command(cd);
+                        }
+                    }
+                }
+            }
         }
         
         public void DeregisterFrontendUI(IFrontendUI ui)

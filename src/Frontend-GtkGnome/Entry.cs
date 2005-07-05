@@ -160,7 +160,7 @@ namespace Meebey.Smuxi.FrontendGtkGnome
                 Logger.CommandHistory.Debug("not empty line, lets add one");
 #endif
                 // last position and we went further down
-                _History.Add("");
+                _History.Add(String.Empty);
                 _HistoryPosition++;
                 Text = String.Empty;
             }
