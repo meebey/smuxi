@@ -24,6 +24,8 @@ GNOME_PACKAGES=gnome-sharp-2.0,gtk-sharp-2.0,glade-sharp-2.0
 RESOURCES = \
 ../images/splashscreen.png \
 ../images/about.png \
+../images/connect.png \
+../images/edit.png \
 ../glade/preferences.glade
 RESOURCES_BUILD = $(foreach res,$(RESOURCES), $(addprefix /resource:,$(res)),$(notdir $(res)))
 ENGINE_TARGET=smuxi-engine.dll
