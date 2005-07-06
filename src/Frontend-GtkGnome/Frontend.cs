@@ -160,7 +160,7 @@ namespace Meebey.Smuxi.FrontendGtkGnome
                 Gtk.Application.Init();
 #endif
                 _SplashScreenWindow = new SplashScreenWindow();
-                    
+                
                 _FrontendConfig = new FrontendConfig(UIName);
                 _FrontendConfig.Load();
                 _FrontendConfig.Save();
@@ -176,14 +176,20 @@ namespace Meebey.Smuxi.FrontendGtkGnome
                 }
 
                 if (_Session != null) {
-                    InitGUI();
+                    ConnectEngineToGUI();
                 }
                 _SplashScreenWindow.Destroy();
                 
 #if UI_GNOME
                 _Program.Run();
+    #if LOG4NET
+                Logger.UI.Warn("_Program.Run() returned!");
+    #endif
 #elif UI_GTK
                 Gtk.Application.Run();
+    #if LOG4NET
+                Logger.UI.Warn("Gtk.Application.Run() returned!");
+    #endif
 #endif
             } catch (Exception e) {
                 new CrashDialog(e);
@@ -192,19 +198,31 @@ namespace Meebey.Smuxi.FrontendGtkGnome
             }
         }
         
-        public static void InitGUI()
+        public static void ConnectEngineToGUI()
         {
             _FrontendManager = _Session.GetFrontendManager(_UI);
-
-            _MainWindow = new MainWindow();
+            if (_MainWindow == null) {
+                _MainWindow = new MainWindow();
+            }
             _MainWindow.ShowAll();
-
             // make sure entry got attention :-P
             _MainWindow.Entry.HasFocus = true;
         }
         
+        public static void DisconnectEngineFromGUI()
+        {
+            _FrontendManager.IsFrontendDisconnecting = true;
+            _Session.DeregisterFrontendUI(_UI);
+            _MainWindow.Hide();
+            _FrontendManager = null;
+            _Session = null;
+        }
+        
         public static void Quit()
         {
+            if (_FrontendManager != null) {
+                DisconnectEngineFromGUI();
+            }
 #if UI_GNOME
             _Program.Quit();
 #elif UI_GTK

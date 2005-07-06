@@ -107,8 +107,25 @@ namespace Meebey.Smuxi.FrontendGtkGnome
                
                 // popup menu
                 _UserListMenu = new Gtk.Menu();
-                Gtk.MenuItem kick_item = new Gtk.MenuItem("Kick");
-                kick_item.Activated += new EventHandler(_OnUserListMenuKickActivated);  
+                
+                Gtk.ImageMenuItem op_item = new Gtk.ImageMenuItem("Op");
+                op_item.Activated += new EventHandler(_OnUserListMenuOpActivated);
+                _UserListMenu.Append(op_item);
+                
+                Gtk.ImageMenuItem deop_item = new Gtk.ImageMenuItem("Deop");
+                deop_item.Activated += new EventHandler(_OnUserListMenuDeopActivated);
+                _UserListMenu.Append(deop_item);
+                
+                Gtk.ImageMenuItem voice_item = new Gtk.ImageMenuItem("Voice");
+                voice_item.Activated += new EventHandler(_OnUserListMenuVoiceActivated);
+                _UserListMenu.Append(voice_item);
+                
+                Gtk.ImageMenuItem devoice_item = new Gtk.ImageMenuItem("Devoice");
+                devoice_item.Activated += new EventHandler(_OnUserListMenuDevoiceActivated);
+                _UserListMenu.Append(devoice_item);
+                
+                Gtk.ImageMenuItem kick_item = new Gtk.ImageMenuItem("Kick");
+                kick_item.Activated += new EventHandler(_OnUserListMenuKickActivated);
                 _UserListMenu.Append(kick_item);
                 
                 frame = new Gtk.Frame();
@@ -162,9 +179,9 @@ namespace Meebey.Smuxi.FrontendGtkGnome
             Gtk.AccelGroup agrp = new Gtk.AccelGroup();
             Frontend.MainWindow.AddAccelGroup(agrp);
             _TabMenu = new Gtk.Menu();
-            Gtk.ImageMenuItem image_item = new Gtk.ImageMenuItem(Gtk.Stock.Close, agrp);
-            image_item.Activated += new EventHandler(_OnTabMenuCloseActivated);  
-            _TabMenu.Append(image_item);
+            Gtk.ImageMenuItem close_item = new Gtk.ImageMenuItem(Gtk.Stock.Close, agrp);
+            close_item.Activated += new EventHandler(_OnTabMenuCloseActivated);  
+            _TabMenu.Append(close_item);
             
             _LabelEventBox.ButtonPressEvent += new Gtk.ButtonPressEventHandler(_OnTabButtonPress);
         }
@@ -248,6 +265,54 @@ namespace Meebey.Smuxi.FrontendGtkGnome
                 _UserListMenu.ShowAll();
             }
         }
+        
+        private void _OnUserListMenuOpActivated(object sender, EventArgs e)
+        {
+            string whom = _GetSelectedNode();
+            if (whom != null) {
+                if (EnginePage.NetworkManager is IrcManager) {
+                    IrcManager imanager = (IrcManager)EnginePage.NetworkManager;
+                    imanager.CommandOp(new CommandData(Frontend.FrontendManager,
+                        whom));
+                }
+            }
+        } 
+        
+        private void _OnUserListMenuDeopActivated(object sender, EventArgs e)
+        {
+            string whom = _GetSelectedNode();
+            if (whom != null) {
+                if (EnginePage.NetworkManager is IrcManager) {
+                    IrcManager imanager = (IrcManager)EnginePage.NetworkManager;
+                    imanager.CommandDeop(new CommandData(Frontend.FrontendManager,
+                        whom));
+                }
+            }
+        }
+         
+        private void _OnUserListMenuVoiceActivated(object sender, EventArgs e)
+        {
+            string whom = _GetSelectedNode();
+            if (whom != null) {
+                if (EnginePage.NetworkManager is IrcManager) {
+                    IrcManager imanager = (IrcManager)EnginePage.NetworkManager;
+                    imanager.CommandVoice(new CommandData(Frontend.FrontendManager,
+                        whom));
+                }
+            }
+        }
+        
+        private void _OnUserListMenuDevoiceActivated(object sender, EventArgs e)
+        {
+            string whom = _GetSelectedNode();
+            if (whom != null) {
+                if (EnginePage.NetworkManager is IrcManager) {
+                    IrcManager imanager = (IrcManager)EnginePage.NetworkManager;
+                    imanager.CommandDevoice(new CommandData(Frontend.FrontendManager,
+                        whom));
+                }
+            }
+        } 
         
         private void _OnUserListMenuKickActivated(object sender, EventArgs e)
         {

@@ -41,6 +41,7 @@ namespace Meebey.Smuxi.Engine
         private IFrontendUI     _UI;
         private Page            _CurrentPage;
         private INetworkManager _CurrentNetworkManager;
+        private bool            _IsFrontendDisconnecting;
         
         public int Version {
             get {
@@ -63,6 +64,15 @@ namespace Meebey.Smuxi.Engine
             }
             set {
                 _CurrentNetworkManager = value;
+            }
+        }
+        
+        public bool IsFrontendDisconnecting {
+            get {
+                return _IsFrontendDisconnecting;
+            }
+            set {
+                _IsFrontendDisconnecting = value;
             }
         }
         
@@ -232,8 +242,11 @@ namespace Meebey.Smuxi.Engine
                         }
                     } catch (System.Runtime.Remoting.RemotingException e) {
 #if LOG4NET
-                        Logger.Remoting.Error("RemotingException in _Worker(), aborting FrontendManager thread...", e);
-                        Logger.Remoting.Error("Inner-Exception: ", e.InnerException);
+                        if (!_IsFrontendDisconnecting) {
+                            // we didn't expect this problem
+                            Logger.Remoting.Error("RemotingException in _Worker(), aborting FrontendManager thread...", e);
+                            Logger.Remoting.Error("Inner-Exception: ", e.InnerException);
+                        }
 #endif
                         _Session.DeregisterFrontendUI(_UI);
                         return;

@@ -216,8 +216,17 @@ namespace Meebey.Smuxi.FrontendGtkGnome
         
         private void _OnSwitchRemoteEngineButtonClicked(object obj, EventArgs args)
         {
-            // TODO
-            new NotImplementedMessageDialog();
+            Gtk.MessageDialog md = new Gtk.MessageDialog(null, Gtk.DialogFlags.Modal,
+                Gtk.MessageType.Warning, Gtk.ButtonsType.YesNo,
+                "Switchting the remote engine will disconnect you from the current engine!\n"+
+                "Are you sure you want to do this?");
+            int result = md.Run();
+            md.Destroy();
+            if ((Gtk.ResponseType)result == Gtk.ResponseType.Yes) {
+                Frontend.DisconnectEngineFromGUI();
+                EngineManagerDialog emd = new EngineManagerDialog();
+                emd.Run();
+            }
         }
 	}
 }

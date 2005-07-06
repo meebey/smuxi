@@ -56,9 +56,25 @@ namespace Meebey.Smuxi.FrontendGtkGnome
         {
             Modal = true;
             Title = "smuxi - Engine Manager";
-            AddButton("Connect" , 1);
+
+            Gtk.HBox connect_hbox = new Gtk.HBox();
+            Gtk.Image connect_image = new Gtk.Image(new Gdk.Pixbuf(null,
+                "connect.png"));
+            connect_hbox.Add(connect_image);
+            connect_hbox.Add(new Gtk.Label("_Connect"));
+            Gtk.Button connect_button = new Gtk.Button(connect_hbox);
+            AddActionWidget(connect_button, 1);
+
             AddActionWidget(new Gtk.Button(Gtk.Stock.New), 3);
-            AddButton("Edit", 2);
+
+            Gtk.HBox edit_hbox = new Gtk.HBox();
+            Gtk.Image edit_image = new Gtk.Image(new Gdk.Pixbuf(null,
+                "edit.png"));
+            edit_hbox.Add(edit_image);
+            edit_hbox.Add(new Gtk.Label("_Edit"));
+            Gtk.Button edit_button = new Gtk.Button(edit_hbox);
+            AddActionWidget(edit_button, 2);
+            
             AddActionWidget(new Gtk.Button(Gtk.Stock.Delete), 4);
             AddActionWidget(new Gtk.Button(Gtk.Stock.Quit), 5);
             Response += new Gtk.ResponseHandler(_OnResponse);
@@ -216,7 +232,7 @@ namespace Meebey.Smuxi.FrontendGtkGnome
                     Frontend.Session = sessm.Register(username, password, Frontend.UI);
                     if (Frontend.Session != null) {
                         // Dialog finished it's job, we are connected
-                        Frontend.InitGUI();
+                        Frontend.ConnectEngineToGUI();
                         Destroy();
                     } else {
                         error_msg += "Registration at engine failed, "+
@@ -312,6 +328,5 @@ namespace Meebey.Smuxi.FrontendGtkGnome
             }
         }
 #endif
-        
     }
 }

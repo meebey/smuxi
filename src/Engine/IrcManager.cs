@@ -793,11 +793,25 @@ namespace Meebey.Smuxi.Engine
                 }
             }
             
+            string chan;
+            string nick;
+            string msg;
+            Page page;            
             switch (e.Data.ReplyCode) {
                 case ReplyCode.ErrorNoSuchNickname:
-                    string nick = e.Data.RawMessageArray[3];
-                    string msg = "-!- "+nick+": No such nick/channel";
-                    Page page = _Session.GetPage(nick, PageType.Query, NetworkType.Irc, this);
+                    nick = e.Data.RawMessageArray[3];
+                    msg = "-!- "+nick+": No such nick/channel";
+                    page = _Session.GetPage(nick, PageType.Query, NetworkType.Irc, this);
+                    if (page != null) {
+                        _Session.AddTextToPage(page, msg);
+                    } else {
+                        _Session.AddTextToPage(spage, msg);
+                    }
+                    break;
+                case ReplyCode.ErrorChannelOpPrivilegesNeeded:
+                    chan = e.Data.RawMessageArray[3];
+                    msg = "-!- "+chan+" "+e.Data.Message;
+                    page = _Session.GetPage(chan, PageType.Channel, NetworkType.Irc, this);
                     if (page != null) {
                         _Session.AddTextToPage(page, msg);
                     } else {
@@ -805,7 +819,7 @@ namespace Meebey.Smuxi.Engine
                     }
                     break;
                 case ReplyCode.EndOfNames:
-                    string chan = e.Data.RawMessageArray[3]; 
+                    chan = e.Data.RawMessageArray[3]; 
                     ChannelPage cpage = (ChannelPage)_Session.GetPage(
                        chan, PageType.Channel, NetworkType.Irc, this);
                     cpage.IsSynced = true;
