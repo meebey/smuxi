@@ -33,6 +33,7 @@ using System.Runtime.Remoting.Lifetime;
 using System.Runtime.Remoting.Channels;
 using System.Runtime.Remoting.Channels.Tcp;
 using System.Runtime.Remoting.Channels.Http;
+using System.Runtime.Serialization.Formatters;
 using Meebey.Smuxi;
 #if CHANNEL_TCPEX
 using TcpEx;
@@ -51,6 +52,7 @@ namespace Meebey.Smuxi.Server
             string host = (string)Engine.Engine.Config["Server/Host"];
             int port = (int)Engine.Engine.Config["Server/Port"];
             IDictionary props = new Hashtable();
+            props["typeFilterLevel"] = TypeFilterLevel.Full;
             props["port"] = port.ToString();
             if (host != null) {
                 props["machineName"] = host;

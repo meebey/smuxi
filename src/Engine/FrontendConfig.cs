@@ -27,6 +27,10 @@
  */
 
 using System;
+using System.IO;
+#if CONFIG_NINI
+using Nini.Ini;
+#endif
 
 namespace Meebey.Smuxi.Engine
 {
@@ -50,6 +54,21 @@ namespace Meebey.Smuxi.Engine
             _UIName = uiName;
             _Prefix = "Frontend/";
         }
+
+        public FrontendConfig()
+        {
+#if CONFIG_NINI
+            _IniFilename = "smuxi-frontend.ini";
+            if (!File.Exists(_IniFilename)) {
+#if LOG4NET
+                Logger.Config.Debug("creating file: "+_IniFilename);
+#endif
+                File.Create(_IniFilename).Close();
+            }
+            
+            _IniDocument = new IniDocument(_IniFilename);
+#endif
+        }
         
         public new void Load()
         {
@@ -63,7 +82,11 @@ namespace Meebey.Smuxi.Engine
             
             prefix = "Frontend/Engines/";
             string[] engines = _GetList(prefix+"Engines");
-            _Preferences[prefix+"Engines"] = engines;
+            if (engines != null) {
+                _Preferences[prefix+"Engines"] = engines;
+            } else {
+                engines = new string[] {String.Empty};
+            }
             foreach (string engine in engines) {
                 if (engine.Length == 0) {
                     continue;

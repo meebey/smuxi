@@ -79,9 +79,9 @@ namespace Meebey.Smuxi.FrontendGtkGnome
         }
      
 #if UI_GNOME
-		public MainWindow() : base ("smuxi", "smuxi - Smart MUtipleXed Irc")
+		public MainWindow() : base("smuxi", "smuxi - Smart MUtipleXed Irc")
 #elif UI_GTK
-		public MainWindow() : base ("smuxi - Smart MUtipleXed Irc")
+		public MainWindow() : base("smuxi - Smart MUtipleXed Irc")
 #endif
 		{
             SetDefaultSize(800, 600);
@@ -152,29 +152,29 @@ namespace Meebey.Smuxi.FrontendGtkGnome
 #if UI_GNOME
             Menus = mb;
             mb.ShowAll();
-            Gtk.VBox vbox = new Gtk.VBox(false, 0);
+            Gtk.VBox vbox = new Gtk.VBox();
             vbox.PackStart(_Notebook, true, true, 0);
             vbox.PackStart(_Entry, false, false, 0);
             Contents = vbox;
             
             _NetworkStatusbar = new Gnome.AppBar(false, true, Gnome.PreferencesType.Never);
-            _NetworkStatusbar.WidthRequest = 200;
+            _NetworkStatusbar.WidthRequest = 300;
             _Statusbar = new Gnome.AppBar(false, true, Gnome.PreferencesType.Never);
-            Gtk.HBox sb_hbox = new Gtk.HBox(false, 0);
+            Gtk.HBox sb_hbox = new Gtk.HBox();
             sb_hbox.PackStart(_NetworkStatusbar, false, true, 0);
             sb_hbox.PackStart(_Statusbar, true, true, 0);
             base.Statusbar = sb_hbox;
 #elif UI_GTK
-            Gtk.VBox vbox = new Gtk.VBox(false, 0);
+            Gtk.VBox vbox = new Gtk.VBox();
             vbox.PackStart(mb, false, false, 0);
             vbox.PackStart(_Notebook, true, true, 0);
             vbox.PackStart(_Entry, false, false, 0);
 
             _NetworkStatusbar = new Gtk.Statusbar();
-            _NetworkStatusbar.WidthRequest = 200;
+            _NetworkStatusbar.WidthRequest = 300;
             _NetworkStatusbar.HasResizeGrip = false;
             _Statusbar = new Gtk.Statusbar();
-            Gtk.HBox sb_hbox = new Gtk.HBox(false, 0);
+            Gtk.HBox sb_hbox = new Gtk.HBox();
             sb_hbox.PackStart(_NetworkStatusbar, false, true, 0);
             sb_hbox.PackStart(_Statusbar, true, true, 0);
             vbox.PackStart(sb_hbox, false, false, 0);
@@ -205,8 +205,17 @@ namespace Meebey.Smuxi.FrontendGtkGnome
         
         private void _OnUseLocalEngineButtonClicked(object obj, EventArgs args)
         {
-            // TODO
-            new NotImplementedMessageDialog();
+            Gtk.MessageDialog md = new Gtk.MessageDialog(null, Gtk.DialogFlags.Modal,
+                Gtk.MessageType.Warning, Gtk.ButtonsType.YesNo,
+                "Switchting to local engine will disconnect you from the current engine!\n"+
+                "Are you sure you want to do this?");
+            int result = md.Run();
+            md.Destroy();
+            if ((Gtk.ResponseType)result == Gtk.ResponseType.Yes) {
+                Frontend.DisconnectEngineFromGUI();
+                Frontend.InitLocalEngine();
+                Frontend.ConnectEngineToGUI();
+            }
         }
         
         private void _OnAddRemoteEngineButtonClicked(object obj, EventArgs args)

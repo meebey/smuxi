@@ -34,7 +34,7 @@ namespace Meebey.Smuxi.FrontendGtkGnome
     public abstract class Page : Gtk.EventBox
     {
         private   Engine.Page        _EnginePage;            
-        private   int                _Number;
+        //private   int                _Number;
         protected Gtk.Label          _Label;
         protected Gtk.EventBox       _LabelEventBox;
         protected Gtk.ScrolledWindow _OutputScrolledWindow;
@@ -45,7 +45,8 @@ namespace Meebey.Smuxi.FrontendGtkGnome
                 return _EnginePage;
             }
         }
-        
+
+        /*
         public int Number {
             get {
                 return _Number;
@@ -54,7 +55,8 @@ namespace Meebey.Smuxi.FrontendGtkGnome
                 _Number = value;
             }
         }
-
+        */
+        
         public Gtk.Label Label {
             get {
                 return _Label;
@@ -86,7 +88,7 @@ namespace Meebey.Smuxi.FrontendGtkGnome
         {
             _EnginePage = epage;
             _LabelEventBox = new Gtk.EventBox();
-#if GTK_2
+#if GTK_SHARP_2
             _LabelEventBox.VisibleWindow = false;
 #endif
             Name = epage.Name;
@@ -96,6 +98,7 @@ namespace Meebey.Smuxi.FrontendGtkGnome
             tv.CursorVisible = false;
             tv.WrapMode = Gtk.WrapMode.Word;
             tv.Buffer.Changed += new EventHandler(_OnTextBufferChanged);
+            //tv.Tabs = new Pango.TabArray(2, false);
             _OutputTextView = tv;
             
             Gtk.ScrolledWindow sw = new Gtk.ScrolledWindow();
@@ -106,6 +109,14 @@ namespace Meebey.Smuxi.FrontendGtkGnome
             _OutputScrolledWindow = sw;
         }
     
+        public void ScrollUp()
+        {
+        }
+        
+        public void ScrollDown()
+        {
+        }
+        
         private void _OnTextBufferChanged(object obj, EventArgs args)
         {
 #if LOG4NET
@@ -114,12 +125,21 @@ namespace Meebey.Smuxi.FrontendGtkGnome
         
             Gtk.ScrolledWindow sw = _OutputScrolledWindow;
             Gtk.TextView tv = _OutputTextView;
+            
             if (sw.Vadjustment.Upper == (sw.Vadjustment.Value + sw.Vadjustment.PageSize)) {
                 // the scrollbar is way at the end, lets autoscroll
                 Gtk.TextIter endit = tv.Buffer.EndIter;
                 tv.Buffer.PlaceCursor(endit);
                 tv.Buffer.MoveMark(tv.Buffer.InsertMark, endit);
                 tv.ScrollMarkOnscreen(tv.Buffer.InsertMark);
+            }
+            
+            int buffer_lines = (int)Frontend.UserConfig["Interface/Notebook/BufferLines"];
+            if (tv.Buffer.LineCount > buffer_lines) {
+                Gtk.TextIter start_iter = tv.Buffer.StartIter; 
+                // TODO: maybe we should delete chunks instead of each line
+                Gtk.TextIter end_iter = tv.Buffer.GetIterAtLine(tv.Buffer.LineCount - buffer_lines);
+                tv.Buffer.Delete(ref start_iter, ref end_iter);
             }
         }
     }

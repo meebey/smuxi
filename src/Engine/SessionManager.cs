@@ -34,9 +34,17 @@ namespace Meebey.Smuxi.Engine
     public class SessionManager : PermanentRemoteObject
     {
         private Hashtable _Sessions = Hashtable.Synchronized(new Hashtable());
+        private string    _Version;
+        
+        public string Version {
+            get {
+                return _Version;
+            }
+        }
         
         public SessionManager()
         {
+            _Version = Engine.Version;
             string[] users = (string[])Engine.Config["Engine/Users/Users"];
             if (users == null) {
                 Console.WriteLine("No Engine/Users/*, aborting...\n");

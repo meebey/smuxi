@@ -39,10 +39,11 @@ namespace Meebey.Smuxi.Engine
     {
         //private   int           _PreferencesVersion = 0;
 #if CONFIG_GCONF
-        private   GConf.Client  _GConf     = new GConf.Client();
+        protected GConf.Client  _GConf = new GConf.Client();
+        protected string        _GConfPrefix = "/apps/smuxi/";
 #elif CONFIG_NINI
-        private   IniDocument   _IniDocument;
-        protected string        _IniFilename = "smuxi.ini";
+        protected IniDocument   _IniDocument;
+        protected string        _IniFilename;
 #endif
         protected Hashtable     _Preferences = Hashtable.Synchronized(new Hashtable());
 
@@ -58,18 +59,18 @@ namespace Meebey.Smuxi.Engine
         public Config()
         {
 #if CONFIG_NINI
-            // doesn't work
-            // using (FileInfo fi = new FileInfo(_IniFilename)) {
-            FileInfo fi = new FileInfo(_IniFilename);
-                if (!fi.Exists) {
-                    fi.Create();
-                }
-            //}
-            // bug here? when the file got created, we get a "Sharing Violation"
+            _IniFilename = "smuxi-engine.ini";
+            if (!File.Exists(_IniFilename)) {
+#if LOG4NET
+                Logger.Config.Debug("creating file: "+_IniFilename);
+#endif
+                File.Create(_IniFilename).Close();
+            }
+            
             _IniDocument = new IniDocument(_IniFilename);
 #endif
-       }
-
+        }
+        
        protected object _Get(string key, object defaultvalue)
        {
 #if LOG4NET
@@ -78,7 +79,7 @@ namespace Meebey.Smuxi.Engine
 #endif
 #if CONFIG_GCONF
             try {
-                return _GConf.Get("/apps/smuxi/"+key);
+                return _GConf.Get(_GConfPrefix+key);
             } catch (GConf.NoSuchKeyException) {
                 if (defaultvalue != null) {
                     _Set(key, defaultvalue);
@@ -94,26 +95,10 @@ namespace Meebey.Smuxi.Engine
                 if (defaultvalue != null) {
                     _Set(key, defaultvalue);
                 }
-               return defaultvalue;
+                return defaultvalue;
             } else {
                 // the section and key exist
-                // since INI files are plain text, all data will be string,
-                // must convert here when possible (via guessing)
-                object obj = section.GetValue(inikey);
-                try {
-                    int number = Int32.Parse((string)obj);
-                    return number;
-                } catch (FormatException) {
-                }
-                
-                try {
-                    bool boolean = Boolean.Parse((string)obj);
-                    return boolean;
-                } catch (FormatException) {
-                }
-                
-                // no convert worked, let's leave it as string
-                return obj;
+                return _Parse(section.GetValue(inikey));
             }
 #endif
        }
@@ -141,7 +126,7 @@ namespace Meebey.Smuxi.Engine
                 (valueobj != null ? valueobj : "(null)")+"'");
 #endif
 #if CONFIG_GCONF
-            _GConf.Set("/apps/smuxi/"+key, valueobj);
+            _GConf.Set(_GConfPrefix+key, valueobj);
 #elif CONFIG_NINI
             string inisection = _IniGetSection(key);
             string inikey = _IniGetKey(key);
@@ -167,12 +152,35 @@ namespace Meebey.Smuxi.Engine
 #endif
             string prefix;
             
+            // setting required default values
             prefix = "Server/";
-            _LoadEntry(prefix+"Host", null);
+            _Get(prefix+"Port", 7689);
+            _Get(prefix+"Channel", "TCP");
+            _Get(prefix+"Formatter", "binary");
+            
+            prefix = "Engine/Users/DEFAULT/Interface/Notebook/";
+            _Get(prefix+"Timestamp", "HH:mm");
+            _Get(prefix+"BufferLines", 100);
+            _Get(prefix+"EngineBufferLines", 100);
+            
+            prefix = "Engine/Users/DEFAULT/Interface/Notebook/Channel/";
+            _Get(prefix+"UserListPosition", "left");
+            _Get(prefix+"TopicPosition", "top");
+
+            prefix = "Engine/Users/DEFAULT/Interface/Entry/";
+            _Get(prefix+"CompletionCharacter", ":");
+            _Get(prefix+"CommandCharacter", "/");
+            _Get(prefix+"BashStyleCompletion", false);
+            _Get(prefix+"CommandHistorySize", 30);
+            
+            prefix = "Server/";
             _LoadEntry(prefix+"Port", 7689);
             _LoadEntry(prefix+"Formatter", "binary");
             _LoadEntry(prefix+"Channel", "TCP");
 
+            // loading defaults
+            _LoadAllEntries("Engine/Users/DEFAULT");
+            
             prefix = "Engine/Users/";
             string[] users = _GetList(prefix+"Users");
             if (users != null) {
@@ -234,7 +242,7 @@ namespace Meebey.Smuxi.Engine
                     _LoadEntry(sprefix+"Network", null);
                     _LoadEntry(sprefix+"Username", null);
                     _LoadEntry(sprefix+"Password", null);
-                }                
+                }
             }
         }
 
@@ -305,10 +313,35 @@ namespace Meebey.Smuxi.Engine
                 IniSection inisection = (IniSection)dec.Value;
                 if (inisection.Name.StartsWith(basepath)) {
                     foreach (string key in inisection.GetKeys()) {
-                        _Preferences[inisection.Name+"/"+key] = inisection.GetValue(key);
+                        _Preferences[inisection.Name+"/"+key] = _Parse(inisection.GetValue(key));
                     }
                 }
             }
+#endif
+        }
+        
+        private object _Parse(string data)
+        {
+#if CONFIG_GCONF
+            return data;
+#elif CONFIG_NINI
+            // since INI files are plain text, all data will be string,
+            // must convert here when possible (via guessing)
+            object obj = data;
+            try {
+                int number = Int32.Parse((string)obj);
+                return number;
+            } catch (FormatException) {
+            }
+
+            try {
+                bool boolean = Boolean.Parse((string)obj);
+                return boolean;
+            } catch (FormatException) {
+            }
+
+            // no convert worked, let's leave it as string
+            return obj;
 #endif
         }
         

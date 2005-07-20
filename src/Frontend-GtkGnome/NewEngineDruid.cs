@@ -175,7 +175,7 @@ namespace Meebey.Smuxi.FrontendGtkGnome
             }
         }
 
-#if GTK_2
+#if GTK_SHARP_2
         private void _OnChannelComboBoxChanged(object sender, EventArgs e)
         {
             Gtk.TreeIter iter;

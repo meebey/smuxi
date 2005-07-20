@@ -93,7 +93,7 @@ namespace Meebey.Smuxi.FrontendGtkGnome
         public void AddToHistory(string data, int positiondiff)
         {
             /*
-            this code doesnt work well
+            // BUG: this code doesnt work well
             // _History.Count-1 is the last entry, which should be always empty
             if ((_History.Count > 1) &&
                 (data == _History[_History.Count-2])) {
@@ -182,7 +182,7 @@ namespace Meebey.Smuxi.FrontendGtkGnome
                         if (Frontend.FrontendManager.CurrentPage.PageType == PageType.Server) {
                             Frontend.FrontendManager.NextNetworkManager();
                         }
-                    break;
+                        break;
                 }
             }
             
@@ -200,40 +200,40 @@ namespace Meebey.Smuxi.FrontendGtkGnome
                     case 56: // 8
                     case 57: // 9
                         pagenumber = keynumber - 49;
-                    break;
+                        break;
                     case 48: // 0
                         pagenumber = 9;
-                    break;
+                        break;
                     case 113: // q
                         pagenumber = 10;
-                    break;
+                        break;
                     case 119: // w
                         pagenumber = 11;
-                    break;
+                        break;
                     case 101: // e
                         pagenumber = 12;
-                    break;
+                        break;
                     case 114: // r
                         pagenumber = 13;
-                    break;
+                        break;
                     case 116: // t
                         pagenumber = 14;
-                    break;
+                        break;
                     case 121: // y
                         pagenumber = 15;
-                    break;
+                        break;
                     case 117: // u
                         pagenumber = 16;
-                    break;
+                        break;
                     case 105: // i
                         pagenumber = 17;
-                    break;
+                        break;
                     case 111: // o
                         pagenumber = 18;
-                    break;
+                        break;
                     case 112: // p
                         pagenumber = 19;
-                    break;
+                        break;
                 }
 
                 if ((pagenumber != -1) &&
@@ -252,30 +252,41 @@ namespace Meebey.Smuxi.FrontendGtkGnome
             UpdateHistoryChangedLine();
             switch (keynumber) {
                 case 65289: // TAB
+                    // don't loose the focus
                     args.RetVal = true;
-                break;
+                    
+                    if (Frontend.FrontendManager.CurrentPage is Engine.ChannelPage) {
+                        if (Text.Length > 0) {
+                            _NickCompletion();
+                        }
+                    }
+                    break;
                 case 65362: // Up-Arrow
 #if LOG4NET
                     Logger.UI.Debug("Up-Arrow");
 #endif
                     HistoryPrevious();
-                break;
+                    break;
                 case 65364: // Down-Arrow
 #if LOG4NET
                     Logger.UI.Debug("Down-Arrow");
 #endif
                     HistoryNext();
-                break;
-            }
-
-            if (Frontend.FrontendManager.CurrentPage is Engine.ChannelPage) {
-                switch (keynumber) {
-                    case 65289: // TAB
-                        if (Text.Length > 0) {
-                            _NickCompletion();
-                        }
                     break;
-                }
+                case 65365: // Page-Up
+#if LOG4NET
+                    Logger.UI.Debug("Page-Up");
+#endif
+                    Frontend.MainWindow.Notebook.GetPage(
+                        Frontend.FrontendManager.CurrentPage).ScrollUp();
+                    break;
+                case 65366: // Page-Down
+#if LOG4NET
+                    Logger.UI.Debug("Page-Down");
+#endif
+                    Frontend.MainWindow.Notebook.GetPage(
+                        Frontend.FrontendManager.CurrentPage).ScrollDown();
+                    break;
             }
         }
 

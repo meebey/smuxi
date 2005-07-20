@@ -1083,7 +1083,7 @@ namespace Meebey.Smuxi.Engine
                 _Session.AddTextToPage(spage,
                     "-!- You was kicked from "+e.Channel+" by "+e.Who+" ["+e.KickReason+"]");
             } else {
-                User user = cpage.GetUser(e.Who);
+                User user = cpage.GetUser(e.Whom);
                 _Session.RemoveUserFromChannel(cpage, user);
                 _Session.AddTextToPage(cpage,
                     "-!- "+e.Whom+" was kicked from "+e.Channel+" by "+e.Who+" ["+e.KickReason+"]");

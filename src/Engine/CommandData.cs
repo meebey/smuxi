@@ -84,6 +84,10 @@ namespace Meebey.Smuxi.Engine
         
         public CommandData(FrontendManager fm, string cmdChar, string data)
         {
+#if LOG4NET
+            Logger.Command.Debug("CommandData() fm: "+fm.GetType()+" cmdChar: '"+
+                cmdChar+"' data: '"+data+"'");
+#endif
             _Data = data;
             _DataArray = data.Split(new char[] {' '});
             _Parameter = String.Join(" ", _DataArray, 1, _DataArray.Length-1);

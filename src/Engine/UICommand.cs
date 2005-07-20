@@ -33,6 +33,7 @@ namespace Meebey.Smuxi.Engine
         AddPage,
         AddTextToPage,
         RemovePage,
+        SyncPage,
         AddUserToChannel,
         UpdateUserInChannel,
         UpdateTopicInChannel,

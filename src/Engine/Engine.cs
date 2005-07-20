@@ -72,8 +72,8 @@ namespace Meebey.Smuxi.Engine
             AssemblyProductAttribute pr = (AssemblyProductAttribute)assembly.GetCustomAttributes(typeof(AssemblyProductAttribute), false)[0];
             _Version = assembly_name.Version.ToString();
             _VersionString = pr.Product+" "+_Version;
-                
-            _Config = new Config(); 
+            
+            _Config = new Config();
             _Config.Load();
             _Config.Save();
             _SessionManager = new SessionManager();

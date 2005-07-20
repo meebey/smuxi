@@ -83,22 +83,10 @@ namespace Meebey.Smuxi.Engine
             _Thread = new Thread(new ThreadStart(_Worker));
             _Thread.IsBackground = true;
             _Thread.Start();
-            
-            // HACK: this is ugly hack to sync the pages, we should use some
-            // better way, using a SyncPages() method maybe, that would be much faster!
-             
-            // sync all pages
+
+            // sync pages            
             foreach (Page page in _Session.Pages) {
                 AddPage(page);
-                if (page.PageType == PageType.Channel) {
-                    ChannelPage cpage = (ChannelPage)page;
-                    // sync topic
-                    UpdateTopicInChannel(cpage, cpage.Topic);
-                    // sync all users
-                    foreach (User user in cpage.Users.Values) {
-                        AddUserToChannel(cpage, user);
-                    }
-                }
             }
             
             // sync current network manager (if any exists)
@@ -107,12 +95,11 @@ namespace Meebey.Smuxi.Engine
                 CurrentNetworkManager = nm;
             }
             
-            // sync buffer
+            // sync content of pages
             foreach (Page page in _Session.Pages) {
-                foreach (string line in page.Buffer) {
-                    AddTextToPage(page, line);
-                }
+                SyncPage(page);
             }
+            
         }
         
         public void NextNetworkManager()
@@ -168,6 +155,11 @@ namespace Meebey.Smuxi.Engine
             _Queue.Enqueue(new UICommandContainer(UICommand.RemovePage, page));
         }
         
+        public void SyncPage(Page page)
+        {
+            _Queue.Enqueue(new UICommandContainer(UICommand.SyncPage, page));
+        }
+                
         public void AddUserToChannel(ChannelPage cpage, User user)
         {
             _Queue.Enqueue(new UICommandContainer(UICommand.AddUserToChannel, cpage, user));
@@ -207,38 +199,44 @@ namespace Meebey.Smuxi.Engine
                         switch (com.Command) {
                             case UICommand.AddPage:
                                 _UI.AddPage((Page)com.Parameters[0]);
-                            break;
+                                break;
                             case UICommand.AddTextToPage:
                                 _UI.AddTextToPage((Page)com.Parameters[0],
                                     (string)com.Parameters[1]);
-                            break;
+                                break;
                             case UICommand.RemovePage:
                                 _UI.RemovePage((Page)com.Parameters[0]);
-                            break;
+                                break;
+                            case UICommand.SyncPage:
+                                _UI.SyncPage((Page)com.Parameters[0]);
+                                break;
                             case UICommand.AddUserToChannel:
                                 _UI.AddUserToChannel((ChannelPage)com.Parameters[0],
                                     (User)com.Parameters[1]);
-                            break;
+                                break;
                             case UICommand.UpdateUserInChannel:
                                 _UI.UpdateUserInChannel((ChannelPage)com.Parameters[0],
                                     (User)com.Parameters[1], (User)com.Parameters[2]);
-                            break;
+                                break;
                             case UICommand.UpdateTopicInChannel:
                                 _UI.UpdateTopicInChannel((ChannelPage)com.Parameters[0],
                                     (string)com.Parameters[1]);
-                            break;
+                                break;
                             case UICommand.RemoveUserFromChannel:
                                 _UI.RemoveUserFromChannel((ChannelPage)com.Parameters[0],
                                     (User)com.Parameters[1]);
-                            break;
+                                break;
                             case UICommand.SetNetworkStatus:
                                 _UI.SetNetworkStatus((string)com.Parameters[0]);
-                            break;
+                                break;
                             case UICommand.SetStatus:
                                 _UI.SetStatus((string)com.Parameters[0]);
-                            break;
+                                break;
                             default:
-                            break;
+#if LOG4NET
+                                Logger.Main.Error("Unknown UICommand: "+com.Command);
+#endif
+                                break;
                         }
                     } catch (System.Runtime.Remoting.RemotingException e) {
 #if LOG4NET

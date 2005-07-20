@@ -34,7 +34,7 @@ namespace Meebey.Smuxi.Engine
         private string _UserPrefix;
         private string _DefaultPrefix = "Engine/Users/DEFAULT/";
         
-        public new object this[string key]
+        public object this[string key]
         {
             get {
                 object obj;
@@ -42,7 +42,15 @@ namespace Meebey.Smuxi.Engine
                 if (obj != null) {
                     return obj;
                 }
-                return _Config[_DefaultPrefix+key];
+                
+                obj = _Config[_DefaultPrefix+key];
+#if LOG4NET
+                if (obj == null) {
+                    Logger.Config.Error("value is null for key: "+key);
+                }
+#endif
+
+                return obj;
             }
             set {
                 _Config[_UserPrefix+key] = value;

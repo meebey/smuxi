@@ -78,6 +78,14 @@ namespace Meebey.Smuxi.FrontendGtkGnome
             return null;
         }
         
+        public void RemoveAllPages()
+        {
+            int npages = NPages;
+            for (int i = 0; i < npages; i++) {
+                RemovePage(i);
+            }
+        }
+        
         // events
         private void _OnSwitchPage(object obj, Gtk.SwitchPageArgs args)
         {

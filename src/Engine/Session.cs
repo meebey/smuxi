@@ -337,6 +337,11 @@ namespace Meebey.Smuxi.Engine
             }
         }
         
+        public void SyncPage(Page page)
+        {
+            // NOOP, required for IFrontendGUI
+        }
+        
         public void AddUserToChannel(ChannelPage cpage, User user)
         {
 #if LOG4NET

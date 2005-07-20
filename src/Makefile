@@ -5,10 +5,11 @@
 # $Date$
 
 CSC=mcs
-AOT=mono --aot -O=all
+#AOT=mono --aot -O=all
+AOT=true
 ENGINE_DEFINES=CONFIG_NINI
-GNOME_DEFINES=UI_GNOME,GTK_2,CONFIG_NINI
-GTK_DEFINES=UI_GTK,GTK_2,CONFIG_NINI
+GNOME_DEFINES=UI_GNOME,GTK_SHARP_2,CONFIG_NINI
+GTK_DEFINES=UI_GTK,GTK_SHARP_2,CONFIG_NINI
 SMARTIRC_DLL=Meebey.SmartIrc4net.dll
 SMARTIRC_DIR=../bin
 LOG4NET_DLL=log4net.dll
@@ -92,10 +93,16 @@ bin/mono/release/$(GNOME_TARGET): Frontend-GtkGnome/*.cs
 	$(AOT) ../bin/mono/release/$(GNOME_TARGET)
 
 clean:
+	rm -f ../bin/mono/debug/*.mdb
+	rm -f ../bin/mono/debug/*.exe.so
+	rm -f ../bin/mono/debug/*.dll.so
 	rm -f ../bin/mono/debug/$(ENGINE_TARGET)
 	rm -f ../bin/mono/debug/$(SERVER_TARGET)
 	rm -f ../bin/mono/debug/$(GTK_TARGET)
 	rm -f ../bin/mono/debug/$(GNOME_TARGET)
+	rm -f ../bin/mono/release/*.mdb
+	rm -f ../bin/mono/release/*.exe.so
+	rm -f ../bin/mono/release/*.dll.so
 	rm -f ../bin/mono/release/$(ENGINE_TARGET)
 	rm -f ../bin/mono/release/$(SERVER_TARGET)
 	rm -f ../bin/mono/release/$(GTK_TARGET)

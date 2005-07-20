@@ -57,6 +57,11 @@ namespace Meebey.Smuxi.FrontendTest
             Console.WriteLine("RemovePage()");
         }
         
+        public void SyncPage(Page page)
+        {
+            Console.WriteLine("SyncPage()");
+        }
+        
         public void AddUserToChannel(ChannelPage cpage, User user)
         {
             Console.WriteLine("AddUserToChannel()");

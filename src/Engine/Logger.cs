@@ -37,6 +37,7 @@ namespace Meebey.Smuxi.Engine
         Remoting,
         Session,
         Config,
+        Command,
         NickCompletion,
         IrcManager,
     }
@@ -71,6 +72,7 @@ namespace Meebey.Smuxi.Engine
             _LoggerList[Category.Remoting] = log4net.LogManager.GetLogger("REMOTING");
             _LoggerList[Category.Session] = log4net.LogManager.GetLogger("SESSION");
             _LoggerList[Category.Config] = log4net.LogManager.GetLogger("CONFIG");
+            _LoggerList[Category.Command] = log4net.LogManager.GetLogger("COMMAND");
             _LoggerList[Category.NickCompletion] = log4net.LogManager.GetLogger("NICKCOMPLETION");
             _LoggerList[Category.IrcManager] = log4net.LogManager.GetLogger("IRCMANAGER");
         }
@@ -107,6 +109,13 @@ namespace Meebey.Smuxi.Engine
         {
             get {
                 return (log4net.ILog)_LoggerList[Category.Config];
+            }
+        }
+
+        public static log4net.ILog Command
+        {
+            get {
+                return (log4net.ILog)_LoggerList[Category.Command];
             }
         }
 

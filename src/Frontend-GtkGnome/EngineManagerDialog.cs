@@ -45,9 +45,9 @@ namespace Meebey.Smuxi.FrontendGtkGnome
 {
     public class EngineManagerDialog : Gtk.Dialog
     {
-#if GTK_1
+#if GTK_SHARP_1
         private Gtk.Combo    _Combo;
-#elif GTK_2
+#elif GTK_SHARP_2
         private Gtk.ComboBox _ComboBox;
 #endif
         private string       _SelectedEngine;  
@@ -87,17 +87,17 @@ namespace Meebey.Smuxi.FrontendGtkGnome
             Gtk.HBox hbox = new Gtk.HBox();
             hbox.PackStart(new Gtk.Label("Engine:"), false, false, 5);
 
-#if GTK_1
+#if GTK_SHARP_1
             Gtk.Combo c = new Gtk.Combo();
             _Combo = c;
             c.DisableActivate();
-#elif GTK_2
+#elif GTK_SHARP_2
             Gtk.ComboBox cb = Gtk.ComboBox.NewText();
             _ComboBox = cb;
             cb.Changed += new EventHandler(_OnComboBoxChanged);
 #endif
             string[] engines = (string[])Frontend.FrontendConfig["Engines/Engines"];
-#if GTK_2
+#if GTK_SHARP_2
             string default_engine = (string)Frontend.FrontendConfig["Engines/Default"];
             int item = 0;
             foreach (string engine in engines) {
@@ -109,11 +109,11 @@ namespace Meebey.Smuxi.FrontendGtkGnome
             }
 #endif
 
-#if GTK_1
+#if GTK_SHARP_1
             c.PopdownStrings = engines;
 
             hbox.PackStart(c, true, true, 10); 
-#elif GTK_2
+#elif GTK_SHARP_2
             hbox.PackStart(cb, true, true, 10); 
 #endif
             
@@ -157,7 +157,7 @@ namespace Meebey.Smuxi.FrontendGtkGnome
         
         private void _OnConnectButtonPressed()
         {
-#if GTK_1
+#if GTK_SHARP_1
             _SelectedEngine = _Combo.Entry.Text;
 #endif
             string engine = _SelectedEngine;
@@ -230,6 +230,7 @@ namespace Meebey.Smuxi.FrontendGtkGnome
                 // sessm can be null when there was an unknown channel used
                 if (sessm != null) {
                     Frontend.Session = sessm.Register(username, password, Frontend.UI);
+                    Frontend.EngineVersion = sessm.Version;
                     if (Frontend.Session != null) {
                         // Dialog finished it's job, we are connected
                         Frontend.ConnectEngineToGUI();
@@ -319,7 +320,7 @@ namespace Meebey.Smuxi.FrontendGtkGnome
             Frontend.Quit();
         }
         
-#if GTK_2
+#if GTK_SHARP_2
         private void _OnComboBoxChanged(object sender, EventArgs e)
         {
             Gtk.TreeIter iter;

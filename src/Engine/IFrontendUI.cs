@@ -37,6 +37,7 @@ namespace Meebey.Smuxi.Engine
         void AddPage(Page page);
         void AddTextToPage(Page page, string text);
         void RemovePage(Page page);
+        void SyncPage(Page page);
         void AddUserToChannel(ChannelPage cpage, User user);
         void UpdateUserInChannel(ChannelPage cpage, User olduser, User newuser);
         void UpdateTopicInChannel(ChannelPage cpage, string topic);

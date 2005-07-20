@@ -40,6 +40,7 @@ namespace Meebey.Smuxi.FrontendGtkGnome
         private static IFrontendUI        _UI;
         private static string             _Version;
         private static string             _VersionString;
+        private static string             _EngineVersion;
         private static SplashScreenWindow _SplashScreenWindow;
         private static MainWindow         _MainWindow;
 #if UI_GNOME
@@ -54,13 +55,13 @@ namespace Meebey.Smuxi.FrontendGtkGnome
                 return _Name;
             }
         }
-    
+        
         public static string UIName {
             get {
                 return _UIName;
             }
         }
-    
+        
         public static IFrontendUI UI {
             get {
                 return _UI;
@@ -72,7 +73,16 @@ namespace Meebey.Smuxi.FrontendGtkGnome
                 return _Version;
             }
         }
-    
+        
+        public static string EngineVersion {
+            get {
+                return _EngineVersion;
+            }
+            set {
+                _EngineVersion = value;
+            }
+        }
+        
         public static string VersionString {
             get {
                 return _VersionString;
@@ -110,13 +120,13 @@ namespace Meebey.Smuxi.FrontendGtkGnome
         
         public static Config Config {
             get {
-                return Session.Config;
+                return _Session.Config;
             }
         }
         
         public static UserConfig UserConfig {
             get {
-                return Session.UserConfig;
+                return _Session.UserConfig;
             }
         }
         
@@ -131,10 +141,10 @@ namespace Meebey.Smuxi.FrontendGtkGnome
             try {
                 System.Threading.Thread.CurrentThread.Name = "Main";
                 
-                Assembly assembly = Assembly.GetAssembly(typeof(Frontend));
-                AssemblyName assembly_name = assembly.GetName(false);
-                AssemblyProductAttribute pr = (AssemblyProductAttribute)assembly.GetCustomAttributes(typeof(AssemblyProductAttribute), false)[0];
-                _Version = assembly_name.Version.ToString();
+                Assembly asm = Assembly.GetAssembly(typeof(Frontend));
+                AssemblyName asm_name = asm.GetName(false);
+                AssemblyProductAttribute pr = (AssemblyProductAttribute)asm.GetCustomAttributes(typeof(AssemblyProductAttribute), false)[0];
+                _Version = asm_name.Version.ToString();
                 _VersionString = pr.Product+" "+_Version;
                 
 #if LOG4NET
@@ -143,7 +153,7 @@ namespace Meebey.Smuxi.FrontendGtkGnome
                 Engine.Logger.Init();
 #endif
 
-#if GTK_1
+#if GTK_SHARP_1
                 int os = (int)Environment.OSVersion.Platform;
                 // 128 == Linux with Mono .NET 1.0
                 // 4 == Linux with Mono .NET 2.0
@@ -167,9 +177,7 @@ namespace Meebey.Smuxi.FrontendGtkGnome
                 
                 _UI = new GtkGnomeUI();
                 if (((string)Frontend.FrontendConfig["Engines/Default"]).Length == 0) {
-                    Engine.Engine.Init();
-                    _Session = new Engine.Session(Engine.Engine.Config, "local");
-                    _Session.RegisterFrontendUI(Frontend.UI);
+                    InitLocalEngine();
                 } else {
                     // there is a default engine set, means we want a remote engine
                     new EngineManagerDialog();
@@ -198,6 +206,14 @@ namespace Meebey.Smuxi.FrontendGtkGnome
             }
         }
         
+        public static void InitLocalEngine()
+        {
+            Engine.Engine.Init();
+            _EngineVersion = Engine.Engine.Version;
+            _Session = new Engine.Session(Engine.Engine.Config, "local");
+            _Session.RegisterFrontendUI(_UI);
+        }
+        
         public static void ConnectEngineToGUI()
         {
             _FrontendManager = _Session.GetFrontendManager(_UI);
@@ -214,20 +230,25 @@ namespace Meebey.Smuxi.FrontendGtkGnome
             _FrontendManager.IsFrontendDisconnecting = true;
             _Session.DeregisterFrontendUI(_UI);
             _MainWindow.Hide();
+            _MainWindow.Notebook.RemoveAllPages();
             _FrontendManager = null;
             _Session = null;
         }
         
         public static void Quit()
         {
-            if (_FrontendManager != null) {
-                DisconnectEngineFromGUI();
-            }
 #if UI_GNOME
             _Program.Quit();
 #elif UI_GTK
             Gtk.Application.Quit();
 #endif
+            /*
+            BUG: don't do this, the access to config is lost and the entry will
+            throw an exception then.
+            if (_FrontendManager != null) {
+                DisconnectEngineFromGUI();
+            }
+            */
         }    
     }
 }

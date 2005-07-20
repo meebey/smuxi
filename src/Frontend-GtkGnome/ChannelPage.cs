@@ -93,10 +93,10 @@ namespace Meebey.Smuxi.FrontendGtkGnome
                
                Gtk.ListStore liststore = new Gtk.ListStore(typeof(string), typeof(string));
                liststore.SetSortColumnId(0, Gtk.SortType.Ascending);
-#if GTK_1
+#if GTK_SHARP_1
                liststore.SetSortFunc(0, new Gtk.TreeIterCompareFunc(_OnStatusSort), IntPtr.Zero, new Gtk.DestroyNotify(_OnDestroyNotify));
                liststore.SetSortFunc(1, new Gtk.TreeIterCompareFunc(_OnUsersListSort), IntPtr.Zero, new Gtk.DestroyNotify(_OnDestroyNotify));
-#elif GTK_2
+#elif GTK_SHARP_2
                liststore.SetSortFunc(0, new Gtk.TreeIterCompareFunc(_OnStatusSort));
                liststore.SetSortFunc(1, new Gtk.TreeIterCompareFunc(_OnUsersListSort));
 #endif
@@ -337,7 +337,7 @@ namespace Meebey.Smuxi.FrontendGtkGnome
             return null;
         }
         
-#if GTK_1
+#if GTK_SHARP_1
         static private void _OnDestroyNotify()
         {
             // noop

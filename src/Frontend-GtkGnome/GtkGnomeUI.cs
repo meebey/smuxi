@@ -103,9 +103,9 @@ namespace Meebey.Smuxi.FrontendGtkGnome
 #endif
             Page page = Frontend.MainWindow.Notebook.GetPage(epage);
             Gtk.TextIter iter = page.OutputTextBuffer.EndIter;
-#if GTK_1
+#if GTK_SHARP_1
             page.OutputTextBuffer.Insert(iter, text+"\n");
-#elif GTK_2
+#elif GTK_SHARP_2
             page.OutputTextBuffer.Insert(ref iter, text+"\n");
 #endif
             
@@ -128,6 +128,68 @@ namespace Meebey.Smuxi.FrontendGtkGnome
                 Frontend.MainWindow.Notebook.PageNum(page)
             );
             
+            Gdk.Threads.Leave();
+        }
+        
+        public void SyncPage(Engine.Page epage)
+        {
+            Gdk.Threads.Enter();
+            
+#if LOG4NET
+            Logger.UI.Debug("SyncPage()");
+#endif
+
+            Page page = Frontend.MainWindow.Notebook.GetPage(epage);
+            if (epage.PageType == PageType.Channel) {
+               ChannelPage cpage = (ChannelPage)page;
+               Engine.ChannelPage ecpage = (Engine.ChannelPage)epage;
+               
+               // sync userlist
+               Gtk.TreeView tv  = cpage.UserListTreeView;
+               if (tv != null) {
+                   Gtk.ListStore ls = (Gtk.ListStore)tv.Model;
+                   // detach the model (less CPU load)
+                   tv.Model = new Gtk.ListStore(typeof(string), typeof(string));
+                   foreach (User user in ecpage.Users.Values) {
+                       if (user is Engine.IrcChannelUser) { 
+                           IrcChannelUser icuser = (IrcChannelUser)user;
+                           if (icuser.IsOp) {
+                               ls.AppendValues("@", icuser.Nickname);
+                           } else if (icuser.IsVoice) {
+                               ls.AppendValues("+", icuser.Nickname);
+                           } else {
+                               ls.AppendValues(String.Empty, icuser.Nickname);
+                           }
+                       }
+                   }
+                   // attach the model again
+                   tv.Model = ls;
+               
+                   tv.GetColumn(1).Title = "Users ("+ls.IterNChildren()+")";
+               }
+               
+               // sync topic
+               if (cpage.TopicEntry != null) {
+                   cpage.TopicEntry.Text = ecpage.Topic;
+               }
+            }
+            
+            // sync messages
+            if (epage.Buffer.Count > 0) {
+                foreach (string line in epage.Buffer) {
+                    Gtk.TextIter iter = page.OutputTextBuffer.EndIter;
+#if GTK_SHARP_1
+                    page.OutputTextBuffer.Insert(iter, line+"\n");
+#elif GTK_SHARP_2
+                    page.OutputTextBuffer.Insert(ref iter, line+"\n");
+#endif
+                    
+                    if (Frontend.FrontendManager.CurrentPage != epage) {
+                        page.Label.Markup = "<span foreground=\"blue\">"+page.Name+"</span>";
+                    }
+                }
+            }
+
             Gdk.Threads.Leave();
         }
         
@@ -155,7 +217,7 @@ namespace Meebey.Smuxi.FrontendGtkGnome
             } else {
                 liststore.AppendValues(String.Empty, icuser.Nickname);
             }
-            
+
             treeview.GetColumn(1).Title = "Users ("+liststore.IterNChildren()+")";
             
             Gdk.Threads.Leave();

@@ -27,6 +27,7 @@
  */
 
 using System;
+using Meebey.Smuxi;
 
 namespace Meebey.Smuxi.FrontendGtkGnome
 {
@@ -37,7 +38,8 @@ namespace Meebey.Smuxi.FrontendGtkGnome
 #endif
     {
 #if UI_GNOME
-        public AboutDialog() : base (Frontend.Name, Frontend.Version,
+        public AboutDialog() : base (Frontend.Name, "\n Gtk/Gnome Frontend: "+
+            Frontend.Version+"\n Engine: "+Frontend.EngineVersion,
             "2005 (C) Mirco Bauer <meebey@meebey.net>", String.Empty, new string[] {"Mirco Bauer <meebey@meebey.net>"},
             new string[] {String.Empty}, String.Empty, new Gdk.Pixbuf(null, "about.png"))
 #elif UI_GTK
