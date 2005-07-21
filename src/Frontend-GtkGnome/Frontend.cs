@@ -176,7 +176,7 @@ namespace Meebey.Smuxi.FrontendGtkGnome
                 _FrontendConfig.Save();
                 
                 _UI = new GtkGnomeUI();
-                if (((string)Frontend.FrontendConfig["Engines/Default"]).Length == 0) {
+                if (((string)FrontendConfig["Engines/Default"]).Length == 0) {
                     InitLocalEngine();
                 } else {
                     // there is a default engine set, means we want a remote engine
@@ -242,6 +242,11 @@ namespace Meebey.Smuxi.FrontendGtkGnome
 #elif UI_GTK
             Gtk.Application.Quit();
 #endif
+
+            if (_FrontendManager != null) {
+                _FrontendManager.IsFrontendDisconnecting = true;
+            }
+            
             /*
             BUG: don't do this, the access to config is lost and the entry will
             throw an exception then.

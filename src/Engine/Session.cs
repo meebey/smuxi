@@ -340,6 +340,10 @@ namespace Meebey.Smuxi.Engine
         public void SyncPage(Page page)
         {
             // NOOP, required for IFrontendGUI
+            
+            foreach (FrontendManager fm in _FrontendManagers.Values) {
+                fm.SyncPage(page);
+            }
         }
         
         public void AddUserToChannel(ChannelPage cpage, User user)
@@ -347,7 +351,7 @@ namespace Meebey.Smuxi.Engine
 #if LOG4NET
             Logger.Session.Debug("AddUserToChannel() cpage.Name: "+cpage.Name+" user.Nickname: "+user.Nickname);
 #endif
-            cpage.Users.Add(user.Nickname.ToLower(), user);
+            //cpage.Users.Add(user.Nickname.ToLower(), user);
             foreach (FrontendManager fm in _FrontendManagers.Values) {
                 fm.AddUserToChannel(cpage, user);
             }

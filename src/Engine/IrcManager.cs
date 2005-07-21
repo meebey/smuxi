@@ -972,6 +972,7 @@ namespace Meebey.Smuxi.Engine
                 SmartIrc4net.IrcUser siuser = _IrcClient.GetIrcUser(e.Who);
                 IrcChannelUser icuser = new IrcChannelUser(e.Who, siuser.Realname,
                                         siuser.Ident, siuser.Host);
+                 cpage.Users.Add(icuser.Nickname.ToLower(), icuser);
                 _Session.AddUserToChannel(cpage, icuser);
             }
             
@@ -984,6 +985,7 @@ namespace Meebey.Smuxi.Engine
 #if LOG4NET
             Logger.IrcManager.Debug("_OnNames() e.Channel: "+e.Channel);
 #endif
+            /*
             ChannelPage cpage = (ChannelPage)_Session.GetPage(e.Data.Channel, PageType.Channel, NetworkType.Irc, this);
             if (cpage.IsSynced) {
                 // nothing todo for us
@@ -1018,7 +1020,8 @@ namespace Meebey.Smuxi.Engine
                     icuser.IsVoice = true;
                 }
                 _Session.AddUserToChannel(cpage, icuser);
-            } 
+            }
+            */
         }
         
         private void _OnChannelActiveSynced(object sender, IrcEventArgs e)
@@ -1033,8 +1036,9 @@ namespace Meebey.Smuxi.Engine
                 if (icuser == null) {
                     icuser = new IrcChannelUser(scuser.Nick, scuser.Realname,
                                     scuser.Ident, scuser.Host);
-                    _Session.AddUserToChannel(cpage, icuser);
-                } else {
+                    //_Session.AddUserToChannel(cpage, icuser);
+                    cpage.Users.Add(icuser.Nickname.ToLower(), icuser);
+                }/* else {
                     icuser.Realname = scuser.Realname;
                     icuser.Ident = scuser.Ident;
                     icuser.Host = scuser.Host;
@@ -1051,8 +1055,9 @@ namespace Meebey.Smuxi.Engine
                     icuser.IsVoice = false;
                 }
                 
-                _Session.UpdateUserInChannel(cpage, icuser, icuser);
+                _Session.UpdateUserInChannel(cpage, icuser, icuser);*/
             }
+            _Session.SyncPage(cpage);
         }
         
         private void _OnPart(object sender, PartEventArgs e)

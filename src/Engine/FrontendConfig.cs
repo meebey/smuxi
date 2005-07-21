@@ -49,14 +49,11 @@ namespace Meebey.Smuxi.Engine
             }
         }
         
-        public FrontendConfig(string uiName)
+        public FrontendConfig(string uiName) : base()
         {
             _UIName = uiName;
             _Prefix = "Frontend/";
-        }
-
-        public FrontendConfig()
-        {
+            
 #if CONFIG_NINI
             _IniFilename = "smuxi-frontend.ini";
             if (!File.Exists(_IniFilename)) {
@@ -69,7 +66,7 @@ namespace Meebey.Smuxi.Engine
             _IniDocument = new IniDocument(_IniFilename);
 #endif
         }
-        
+
         public new void Load()
         {
             string prefix;

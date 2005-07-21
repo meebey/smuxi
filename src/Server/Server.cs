@@ -52,7 +52,6 @@ namespace Meebey.Smuxi.Server
             string host = (string)Engine.Engine.Config["Server/Host"];
             int port = (int)Engine.Engine.Config["Server/Port"];
             IDictionary props = new Hashtable();
-            props["typeFilterLevel"] = TypeFilterLevel.Full;
             props["port"] = port.ToString();
             if (host != null) {
                 props["machineName"] = host;
@@ -60,10 +59,13 @@ namespace Meebey.Smuxi.Server
             switch (channel) {
                 case "TCP":
                     props["name"] = "TcpChannel";
+                    BinaryServerFormatterSinkProvider sprovider =
+                        new BinaryServerFormatterSinkProvider();
+                    sprovider.TypeFilterLevel = TypeFilterLevel.Full;
 #if LOG4NET
                     Engine.Logger.Remoting.Debug("Registering TcpChannel port: "+props["port"]);
-#endif            
-                    ChannelServices.RegisterChannel(new TcpChannel(props, null, null));
+#endif
+                    ChannelServices.RegisterChannel(new TcpChannel(props, null, sprovider));
                     break;
 #if CHANNEL_TCPEX
                 case "TcpEx":

@@ -4,13 +4,13 @@
       <Output directory="../bin/mono/debug" assembly="smuxi-gtkgnome" />
       <Build debugmode="True" target="Exe" />
       <Execution runwithwarnings="False" externalconsole="True" consolepause="True" runtime="MsNet" />
-      <CodeGeneration compiler="Csc" warninglevel="4" optimize="False" unsafecodeallowed="False" generateoverflowchecks="True" mainclass="" definesymbols="TRACE,LOG4NET,CONFIG_NINI,UI_GNOME,GTK_2" generatexmldocumentation="False" ctype="CSharpCompilerParameters" />
+      <CodeGeneration compiler="Csc" warninglevel="4" optimize="False" unsafecodeallowed="False" generateoverflowchecks="True" mainclass="" definesymbols="TRACE,LOG4NET,CONFIG_NINI,UI_GNOME,GTK_SHARP_2" generatexmldocumentation="False" ctype="CSharpCompilerParameters" />
     </Configuration>
     <Configuration name="Release" ctype="DotNetProjectConfiguration">
       <Output directory="../bin/mono/release" assembly="smuxi-gtkgnome" />
       <Build debugmode="False" target="Exe" />
       <Execution runwithwarnings="False" consolepause="True" runtime="MsNet" />
-      <CodeGeneration compiler="Csc" warninglevel="4" optimize="True" unsafecodeallowed="False" generateoverflowchecks="True" mainclass="" definesymbols="CONFIG_NINI,UI_GNOME,GTK_2" generatexmldocumentation="False" ctype="CSharpCompilerParameters" />
+      <CodeGeneration compiler="Csc" warninglevel="4" optimize="True" unsafecodeallowed="False" generateoverflowchecks="True" mainclass="" definesymbols="CONFIG_NINI,UI_GNOME,GTK_SHARP_2" generatexmldocumentation="False" ctype="CSharpCompilerParameters" />
     </Configuration>
   </Configurations>
   <References>

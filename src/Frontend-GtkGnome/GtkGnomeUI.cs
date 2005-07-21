@@ -147,7 +147,9 @@ namespace Meebey.Smuxi.FrontendGtkGnome
                // sync userlist
                Gtk.TreeView tv  = cpage.UserListTreeView;
                if (tv != null) {
-                   Gtk.ListStore ls = (Gtk.ListStore)tv.Model;
+                   //Gtk.ListStore ls = (Gtk.ListStore)tv.Model;
+                   // cleanup, be sure the list is empty
+                   Gtk.ListStore ls = new Gtk.ListStore(typeof(string), typeof(string));
                    // detach the model (less CPU load)
                    tv.Model = new Gtk.ListStore(typeof(string), typeof(string));
                    foreach (User user in ecpage.Users.Values) {
@@ -169,12 +171,17 @@ namespace Meebey.Smuxi.FrontendGtkGnome
                }
                
                // sync topic
-               if (cpage.TopicEntry != null) {
+               if ((cpage.TopicEntry != null) &&
+                   (ecpage.Topic != null)) {
                    cpage.TopicEntry.Text = ecpage.Topic;
                }
             }
             
             // sync messages
+            // cleanup, be sure the output is empty
+            // Gtk# bug?
+            page.OutputTextBuffer.Clear();
+            //page.OutputTextBuffer.Text = null;
             if (epage.Buffer.Count > 0) {
                 foreach (string line in epage.Buffer) {
                     Gtk.TextIter iter = page.OutputTextBuffer.EndIter;

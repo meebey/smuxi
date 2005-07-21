@@ -39,8 +39,8 @@ namespace Meebey.Smuxi.Engine
     {
         //private   int           _PreferencesVersion = 0;
 #if CONFIG_GCONF
-        protected GConf.Client  _GConf = new GConf.Client();
-        protected string        _GConfPrefix = "/apps/smuxi/";
+        private   GConf.Client  _GConf = new GConf.Client();
+        private   string        _GConfPrefix = "/apps/smuxi/";
 #elif CONFIG_NINI
         protected IniDocument   _IniDocument;
         protected string        _IniFilename;

@@ -6,17 +6,21 @@
  * $Date$
  */
 
-smuxi 0.6 Goals:
-
-Feature Requests:
+smuxi 0.6 goals:
 - engines manager GUI
 - irc server manager GUI
 - DEFAULT config writer
+- GUI for swichting current network
+- color settings (background/fonts etc)
+- colors in channels (hightlighting)
+- theme support
+
+Feature Requests:
+- page-up/page-down for scrolling
 - allow bash-style to complete as much as possible (besfred)
-- use Interface/Notebook/BufferLines setting
+- normal nick completion should allow multiple tab press to iterate through possible nicks
 - use TcpExChannel
 - completion for commands
-- right button menus for query/channelpage, users in channels
 - /join #foo should check if we are already joined
 - /set command for preferences
 - create debian package
@@ -25,8 +29,6 @@ Feature Requests:
 - aliases for commands
 - use for each server connection a servertab and group
   the channels within them (Tobias Schlitt)
-- color settings (background/fonts etc)
-- colors in channels (hightlighting)
 - tab colors (editable):
    black = no activity
    blue = channel modes
@@ -35,10 +37,13 @@ Feature Requests:
 - smuxi cocoa frontend (Alexander Wirt)
 - smuxi text frontend (ncurses based? probably better: SWC)
 - chat logging
-- theme support
 - scripting/plugins C#/Perl/Python/PHP
+- traffic status, showing how much messages per second are written in that
+channel (showing it in the tab as pixmap) (Salz)
 
 Done:
+- right button menus for query/channelpage, users in channels
+- use Interface/Notebook/BufferLines setting
 - show quit in query window of users (helgi)
 - /window channel|nick feature for switching tabs
 - /disconnect [server] (besfred)
