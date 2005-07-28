@@ -18,6 +18,7 @@ NINI_DLL=Nini.dll
 NINI_DIR=../bin
 SERVER_LIB=System.Runtime.Remoting
 ENGINE_LIB=$(SMARTIRC_DIR)/$(SMARTIRC_DLL),$(NINI_DIR)/$(NINI_DLL)
+TEST_LIB=System.Runtime.Remoting
 GTK_LIB=$(NINI_DIR)/$(NINI_DLL),System.Runtime.Remoting
 GNOME_LIB=$(NINI_DIR)/$(NINI_DLL),System.Runtime.Remoting
 GTK_PACKAGES=gtk-sharp-2.0,glade-sharp-2.0
@@ -31,14 +32,16 @@ RESOURCES = \
 RESOURCES_BUILD = $(foreach res,$(RESOURCES), $(addprefix /resource:,$(res)),$(notdir $(res)))
 ENGINE_TARGET=smuxi-engine.dll
 SERVER_TARGET=smuxi-server.exe
+TEST_TARGET=smuxi-test.exe
 GTK_TARGET=smuxi-gtk.exe
 GNOME_TARGET=smuxi-gnome.exe
 
-all: smuxi-engine smuxi-server smuxi-gtk smuxi-gnome
+default: smuxi-engine smuxi-server smuxi-gtk smuxi-gnome
 
 debug: \
 	bin/mono/debug/$(ENGINE_TARGET) \
 	bin/mono/debug/$(SERVER_TARGET) \
+	bin/mono/debug/$(TEST_TARGET) \
 	bin/mono/debug/$(GTK_TARGET) \
 	bin/mono/debug/$(GNOME_TARGET) \
 
@@ -71,6 +74,12 @@ bin/mono/debug/$(SERVER_TARGET): Server/*.cs
 bin/mono/release/$(SERVER_TARGET): Server/*.cs
 	$(CSC) /target:exe /r:$(SERVER_LIB),../bin/mono/release/$(ENGINE_TARGET) /out:../bin/mono/release/$(SERVER_TARGET) $^
 	$(AOT) ../bin/mono/release/$(SERVER_TARGET)
+
+smuxi-test: bin/mono/debug/$(TEST_TARGET)
+bin/mono/debug/$(TEST_TARGET): Frontend-Test/*.cs
+	$(CSC) /debug /define:TRACE,LOG4NET /target:exe /r:$(TEST_LIB),../bin/mono/debug/$(ENGINE_TARGET),../bin/$(LOG4NET_DLL) /out:../bin/mono/debug/$(TEST_TARGET) $^
+	$(AOT) ../bin/mono/debug/$(TEST_TARGET)
+	cp $(LOG4NET_DIR)/$(LOG4NET_DLL) ../bin/mono/debug
 
 smuxi-gtk: bin/mono/debug/$(GTK_TARGET)
 bin/mono/debug/$(GTK_TARGET): Frontend-GtkGnome/*.cs

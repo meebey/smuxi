@@ -27,6 +27,7 @@
  */
 
 using System;
+using System.IO;
 using System.Reflection;
 using Meebey.Smuxi;
 using Meebey.Smuxi.Engine;
@@ -170,24 +171,31 @@ namespace Meebey.Smuxi.FrontendGtkGnome
                 Gtk.Application.Init();
 #endif
                 _SplashScreenWindow = new SplashScreenWindow();
-                
-                _FrontendConfig = new FrontendConfig(UIName);
-                _FrontendConfig.Load();
-                _FrontendConfig.Save();
-                
-                _UI = new GtkGnomeUI();
-                if (((string)FrontendConfig["Engines/Default"]).Length == 0) {
-                    InitLocalEngine();
-                } else {
-                    // there is a default engine set, means we want a remote engine
-                    new EngineManagerDialog();
-                }
 
-                if (_Session != null) {
-                    ConnectEngineToGUI();
+                _UI = new GtkGnomeUI();
+                if (!File.Exists("smuxi-engine.ini") ||
+                    !File.Exists("smuxi-frontend.ini")) {
+                    _FrontendConfig = new FrontendConfig(UIName);
+                    // loading and setting defaults
+                    _FrontendConfig.Load();
+                    _FrontendConfig.Save();
+#if UI_GNOME
+                    new FirstStartDruid();
+#endif
+                } else {
+                    _FrontendConfig = new FrontendConfig(UIName);
+                    _FrontendConfig.Load();
+                    _FrontendConfig.Save();
+                    
+                    if (((string)FrontendConfig["Engines/Default"]).Length == 0) {
+                        InitLocalEngine();
+                    } else {
+                        // there is a default engine set, means we want a remote engine
+                        new EngineManagerDialog();
+                    }
                 }
-                _SplashScreenWindow.Destroy();
                 
+                _SplashScreenWindow.Destroy();
 #if UI_GNOME
                 _Program.Run();
     #if LOG4NET
@@ -212,6 +220,7 @@ namespace Meebey.Smuxi.FrontendGtkGnome
             _EngineVersion = Engine.Engine.Version;
             _Session = new Engine.Session(Engine.Engine.Config, "local");
             _Session.RegisterFrontendUI(_UI);
+            ConnectEngineToGUI();
         }
         
         public static void ConnectEngineToGUI()

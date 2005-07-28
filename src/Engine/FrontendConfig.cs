@@ -74,10 +74,14 @@ namespace Meebey.Smuxi.Engine
             Logger.Config.Info("Loading config (FrontendConfig)");
 #endif
             
-            prefix = "Frontend/";
-            _LoadEntry(prefix+"Engines/Default", String.Empty);
+            // setting required default values
+            prefix = "Frontend/Engines/";
+            _Get(prefix+"Engines", new string[] {String.Empty});
+            _Get(prefix+"Default", String.Empty);
             
             prefix = "Frontend/Engines/";
+            _LoadEntry(prefix+"Default", String.Empty);
+            
             string[] engines = _GetList(prefix+"Engines");
             if (engines != null) {
                 _Preferences[prefix+"Engines"] = engines;

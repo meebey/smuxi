@@ -27,10 +27,12 @@
  */
 
 using System;
+using System.Collections;
 using System.Runtime.Remoting;
 using System.Runtime.Remoting.Channels;
 using System.Runtime.Remoting.Channels.Http;
 using System.Runtime.Remoting.Channels.Tcp;
+using System.Runtime.Serialization.Formatters;
 using Meebey.Smuxi;
 using Meebey.Smuxi.Engine;
 
@@ -62,12 +64,23 @@ namespace Meebey.Smuxi.FrontendTest
             int port = (int)FrontendConfig["Engines/"+profile+"/Port"];
             string channel = (string)FrontendConfig["Engines/"+profile+"/Channel"];
             //string formatter = (string)FrontendConfig["Engines/"+profile+"/Formatter"];
+
+            IDictionary props = new Hashtable();
+            props["port"] = 0;
             IFrontendUI ui = new TestUI();
             try {
                 SessionManager sessm = null;
                 switch (channel) {
                     case "TCP":
-                        ChannelServices.RegisterChannel(new TcpChannel());
+                        BinaryClientFormatterSinkProvider cprovider =
+                            new BinaryClientFormatterSinkProvider();
+
+                        BinaryServerFormatterSinkProvider sprovider =
+                            new BinaryServerFormatterSinkProvider();
+                        // required for MS .NET 1.1
+                        sprovider.TypeFilterLevel = TypeFilterLevel.Full;
+
+                        ChannelServices.RegisterChannel(new TcpChannel(props, cprovider, sprovider));
                         sessm = (SessionManager)Activator.GetObject(typeof(SessionManager),
                             "tcp://"+hostname+":"+port+"/SessionManager");
                         break;

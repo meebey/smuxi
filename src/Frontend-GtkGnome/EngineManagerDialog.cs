@@ -33,6 +33,7 @@ using System.Runtime.Remoting;
 using System.Runtime.Remoting.Channels;
 using System.Runtime.Remoting.Channels.Http;
 using System.Runtime.Remoting.Channels.Tcp;
+using System.Runtime.Serialization.Formatters;
 using Meebey.Smuxi.Engine;
 #if CHANNEL_TCPEX
 using TcpEx;
@@ -100,6 +101,7 @@ namespace Meebey.Smuxi.FrontendGtkGnome
 #if GTK_SHARP_2
             string default_engine = (string)Frontend.FrontendConfig["Engines/Default"];
             int item = 0;
+            cb.AppendText("<Local Engine>");
             foreach (string engine in engines) {
                 cb.AppendText(engine);
                 if (engine == default_engine) {
@@ -160,6 +162,24 @@ namespace Meebey.Smuxi.FrontendGtkGnome
 #if GTK_SHARP_1
             _SelectedEngine = _Combo.Entry.Text;
 #endif
+
+            if (_SelectedEngine == null || _SelectedEngine == String.Empty) {
+                Gtk.MessageDialog md = new Gtk.MessageDialog(this,
+                    Gtk.DialogFlags.Modal, Gtk.MessageType.Error,
+                    Gtk.ButtonsType.Close, "Please select an engine!");
+                md.Run();
+                md.Destroy();
+                // Re-run the Dialog
+                Run();
+                return;
+            }
+            
+            if (_SelectedEngine == "<Local Engine>") {
+                Frontend.InitLocalEngine();
+                Destroy();
+                return;
+            }
+
             string engine = _SelectedEngine;
             string username = (string)Frontend.FrontendConfig["Engines/"+engine+"/Username"];
             string password = (string)Frontend.FrontendConfig["Engines/"+engine+"/Password"];
@@ -168,16 +188,26 @@ namespace Meebey.Smuxi.FrontendGtkGnome
             //string formatter = (string)FrontendConfig["Engines/"+engine+"/Formatter"];
             string channel = (string)Frontend.FrontendConfig["Engines/"+engine+"/Channel"];
             
+            IDictionary props = new Hashtable();
+            props["port"] = 0;
             string error_msg = null;
             string connection_url = null;
             try {
                 SessionManager sessm = null;
                 switch (channel) {
                     case "TCP":
-                        connection_url = "tcp://"+hostname+":"+port+"/SessionManager"; 
                         if (ChannelServices.GetChannel("tcp") == null) {
-                            ChannelServices.RegisterChannel(new TcpChannel());
+                            BinaryClientFormatterSinkProvider cprovider =
+                                new BinaryClientFormatterSinkProvider();
+
+                            BinaryServerFormatterSinkProvider sprovider =
+                                new BinaryServerFormatterSinkProvider();
+                            // required for MS .NET 1.1
+                            sprovider.TypeFilterLevel = TypeFilterLevel.Full;
+
+                            ChannelServices.RegisterChannel(new TcpChannel(props, cprovider, sprovider));
                         }
+                        connection_url = "tcp://"+hostname+":"+port+"/SessionManager"; 
 #if LOG4NET
                         Logger.Main.Info("Connecting to: "+connection_url);
 #endif

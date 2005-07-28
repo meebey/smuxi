@@ -34,7 +34,6 @@ namespace Meebey.Smuxi.FrontendGtkGnome
     public abstract class Page : Gtk.EventBox
     {
         private   Engine.Page        _EnginePage;            
-        //private   int                _Number;
         protected Gtk.Label          _Label;
         protected Gtk.EventBox       _LabelEventBox;
         protected Gtk.ScrolledWindow _OutputScrolledWindow;
@@ -46,17 +45,6 @@ namespace Meebey.Smuxi.FrontendGtkGnome
             }
         }
 
-        /*
-        public int Number {
-            get {
-                return _Number;
-            }
-            set {
-                _Number = value;
-            }
-        }
-        */
-        
         public Gtk.Label Label {
             get {
                 return _Label;
@@ -96,7 +84,7 @@ namespace Meebey.Smuxi.FrontendGtkGnome
             Gtk.TextView tv = new Gtk.TextView();
             tv.Editable = false;
             tv.CursorVisible = false;
-            tv.WrapMode = Gtk.WrapMode.Word;
+            tv.WrapMode = Gtk.WrapMode.WordChar;
             tv.Buffer.Changed += new EventHandler(_OnTextBufferChanged);
             //tv.Tabs = new Pango.TabArray(2, false);
             _OutputTextView = tv;
@@ -111,12 +99,29 @@ namespace Meebey.Smuxi.FrontendGtkGnome
     
         public void ScrollUp()
         {
+            Gtk.Adjustment adj = _OutputScrolledWindow.Vadjustment;
+            adj.Value -= adj.PageSize - adj.StepIncrement;
         }
         
         public void ScrollDown()
         {
+            // note: Upper - PageSize is the farest scrollable position! 
+            Gtk.Adjustment adj = _OutputScrolledWindow.Vadjustment;
+            if ((adj.Value + adj.PageSize) <= (adj.Upper - adj.PageSize)) {
+                adj.Value += adj.PageSize - adj.StepIncrement;
+            } else {
+                // there is no page left to scroll, so let's just scroll to the
+                // farest position instead
+                adj.Value = adj.Upper - adj.PageSize;
+            }
         }
         
+        public void ScrollToEnd()
+        {
+            Gtk.Adjustment adj = _OutputScrolledWindow.Vadjustment;
+            adj.Value = adj.Upper - adj.PageSize;
+        }
+       
         private void _OnTextBufferChanged(object obj, EventArgs args)
         {
 #if LOG4NET

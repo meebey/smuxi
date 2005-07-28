@@ -59,13 +59,18 @@ namespace Meebey.Smuxi.Server
             switch (channel) {
                 case "TCP":
                     props["name"] = "TcpChannel";
+
+                    BinaryClientFormatterSinkProvider cprovider =
+                        new BinaryClientFormatterSinkProvider();
+
                     BinaryServerFormatterSinkProvider sprovider =
                         new BinaryServerFormatterSinkProvider();
+                    // required for MS .NET 1.1
                     sprovider.TypeFilterLevel = TypeFilterLevel.Full;
 #if LOG4NET
                     Engine.Logger.Remoting.Debug("Registering TcpChannel port: "+props["port"]);
 #endif
-                    ChannelServices.RegisterChannel(new TcpChannel(props, null, sprovider));
+                    ChannelServices.RegisterChannel(new TcpChannel(props, cprovider, sprovider));
                     break;
 #if CHANNEL_TCPEX
                 case "TcpEx":

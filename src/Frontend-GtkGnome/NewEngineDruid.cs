@@ -154,10 +154,16 @@ namespace Meebey.Smuxi.FrontendGtkGnome
         {
             string new_engine = _EngineNameEntry.Text;
             string[] engines = (string[])Frontend.FrontendConfig["Engines/Engines"];
-            string[] new_engines = new string[engines.Length+1];
-            engines.CopyTo(new_engines, 0);
-            new_engines[engines.Length] = new_engine;
-            
+            string[] new_engines;
+            if (engines.Length == 1 && engines[0].Length == 0) {
+                // empty list
+                // HACK: please fix this crap! :)
+                new_engines = new string[] {new_engine};
+            } else {
+                new_engines = new string[engines.Length+1];
+                engines.CopyTo(new_engines, 0);
+                new_engines[engines.Length] = new_engine;
+            }
             Engine.FrontendConfig fc = Frontend.FrontendConfig;
             fc["Engines/Engines"] = new_engines;
             fc["Engines/"+new_engine+"/Username"] = _UsernameEntry.Text;

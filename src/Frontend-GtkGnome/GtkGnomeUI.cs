@@ -141,33 +141,59 @@ namespace Meebey.Smuxi.FrontendGtkGnome
 
             Page page = Frontend.MainWindow.Notebook.GetPage(epage);
             if (epage.PageType == PageType.Channel) {
-               ChannelPage cpage = (ChannelPage)page;
-               Engine.ChannelPage ecpage = (Engine.ChannelPage)epage;
+                ChannelPage cpage = (ChannelPage)page;
+                Engine.ChannelPage ecpage = (Engine.ChannelPage)epage;
                
-               // sync userlist
-               Gtk.TreeView tv  = cpage.UserListTreeView;
-               if (tv != null) {
-                   //Gtk.ListStore ls = (Gtk.ListStore)tv.Model;
-                   // cleanup, be sure the list is empty
-                   Gtk.ListStore ls = new Gtk.ListStore(typeof(string), typeof(string));
-                   // detach the model (less CPU load)
-                   tv.Model = new Gtk.ListStore(typeof(string), typeof(string));
-                   foreach (User user in ecpage.Users.Values) {
-                       if (user is Engine.IrcChannelUser) { 
-                           IrcChannelUser icuser = (IrcChannelUser)user;
-                           if (icuser.IsOp) {
-                               ls.AppendValues("@", icuser.Nickname);
-                           } else if (icuser.IsVoice) {
-                               ls.AppendValues("+", icuser.Nickname);
-                           } else {
-                               ls.AppendValues(String.Empty, icuser.Nickname);
-                           }
-                       }
-                   }
-                   // attach the model again
-                   tv.Model = ls;
+                // sync userlist
+                Gtk.TreeView tv  = cpage.UserListTreeView;
+                if (tv != null) {
+                    int count = ecpage.Users.Count;
+                    if (count > 1) {
+                        Frontend.MainWindow.ProgressBar.DiscreteBlocks = (uint)count;
+                    } else {
+                        Frontend.MainWindow.ProgressBar.DiscreteBlocks = 2;
+                    }
+                    Frontend.MainWindow.ProgressBar.BarStyle = Gtk.ProgressBarStyle.Continuous;
+                    string status = "Syncing Channel Users of "+cpage.Name+"...";
+#if UI_GNOME
+                    Frontend.MainWindow.Statusbar.Push(status);
+#elif UI_GTK
+                    Frontend.MainWindow.Statusbar.Push(0, status);
+#endif
+                    Gtk.ListStore ls = (Gtk.ListStore)tv.Model;
+                    // cleanup, be sure the list is empty
+                    ls.Clear();
+                    // detach the model (less CPU load)
+                    tv.Model = new Gtk.ListStore(typeof(string), typeof(string));
+                    int i = 1;
+                    foreach (User user in ecpage.Users.Values) {
+                        if (user is Engine.IrcChannelUser) {
+                            IrcChannelUser icuser = (IrcChannelUser)user;
+                            if (icuser.IsOp) {
+                                ls.AppendValues("@", icuser.Nickname);
+                            } else if (icuser.IsVoice) {
+                                ls.AppendValues("+", icuser.Nickname);
+                            } else {
+                                ls.AppendValues(String.Empty, icuser.Nickname);
+                            }
+                        }
+                        Frontend.MainWindow.ProgressBar.Fraction = (double)i++ / count;
+                        while (Gtk.Application.EventsPending()) {
+                            Gtk.Application.RunIteration(false);
+                        }
+                    }
+                    // attach the model again
+                    tv.Model = ls;
                
-                   tv.GetColumn(1).Title = "Users ("+ls.IterNChildren()+")";
+                    tv.GetColumn(1).Title = "Users ("+ls.IterNChildren()+")";
+                   
+                    Frontend.MainWindow.ProgressBar.Fraction = 0;
+                    status += " done.";
+#if UI_GNOME
+                    Frontend.MainWindow.Statusbar.Push(status);
+#elif UI_GTK
+                    Frontend.MainWindow.Statusbar.Push(0, status);
+#endif
                }
                
                // sync topic
@@ -196,6 +222,8 @@ namespace Meebey.Smuxi.FrontendGtkGnome
                     }
                 }
             }
+            
+            page.ScrollToEnd();
 
             Gdk.Threads.Leave();
         }

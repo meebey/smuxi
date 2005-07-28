@@ -7,6 +7,8 @@
  */
 
 Open:
+- when multiple frontends are connect a remoting exception occurs sometimes and
+kills all remoting clients except one. (Mono bug?)
 
 Fixed:
 - write away message to query page, not server page

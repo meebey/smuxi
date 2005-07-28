@@ -104,6 +104,7 @@ namespace Meebey.Smuxi.FrontendGtkGnome
                tv.Model = liststore;
                tv.AppendColumn(statuscolumn);
                tv.AppendColumn(usercolumn);
+               tv.RowActivated += new Gtk.RowActivatedHandler(_OnUserListRowActivated);
                
                 // popup menu
                 _UserListMenu = new Gtk.Menu();
@@ -128,6 +129,7 @@ namespace Meebey.Smuxi.FrontendGtkGnome
                 kick_item.Activated += new EventHandler(_OnUserListMenuKickActivated);
                 _UserListMenu.Append(kick_item);
                 
+                // frame needed for events when selecting something in the treeview
                 frame = new Gtk.Frame();
                 frame.ButtonReleaseEvent += new Gtk.ButtonReleaseEventHandler(_OnUserListButtonReleaseEvent);
                 frame.Add(sw);
@@ -252,6 +254,18 @@ namespace Meebey.Smuxi.FrontendGtkGnome
                 imanager.CommandPart(new CommandData(Frontend.FrontendManager,
                                             EnginePage.Name));
             }
+        }
+        
+        private void _OnUserListRowActivated(object sender, Gtk.RowActivatedArgs e)
+        {
+            string user = _GetSelectedNode();
+            if (user != null) {
+                if (EnginePage.NetworkManager is IrcManager) {
+                    IrcManager imanager = (IrcManager)EnginePage.NetworkManager;
+                    imanager.CommandQuery(new CommandData(Frontend.FrontendManager,
+                        user));
+                }
+            }            
         }
         
         private void _OnUserListButtonReleaseEvent(object sender, Gtk.ButtonReleaseEventArgs e)

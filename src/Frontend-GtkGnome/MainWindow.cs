@@ -43,6 +43,7 @@ namespace Meebey.Smuxi.FrontendGtkGnome
         private Gtk.Statusbar    _NetworkStatusbar;
         private Gtk.Statusbar    _Statusbar;
 #endif
+        private Gtk.ProgressBar  _ProgressBar;
         private Entry            _Entry;
         private Notebook         _Notebook;
         
@@ -72,6 +73,12 @@ namespace Meebey.Smuxi.FrontendGtkGnome
             }
         } 
 
+        public Gtk.ProgressBar ProgressBar {
+            get {
+                return _ProgressBar;
+            }
+        }
+        
         public Entry Entry {
             get {
                 return _Entry;
@@ -147,7 +154,10 @@ namespace Meebey.Smuxi.FrontendGtkGnome
             menu.Append(image_item);
 
             _Notebook = new Notebook();
+            
             _Entry = new Entry();
+            
+            _ProgressBar = new Gtk.ProgressBar();
             
 #if UI_GNOME
             Menus = mb;
@@ -159,10 +169,13 @@ namespace Meebey.Smuxi.FrontendGtkGnome
             
             _NetworkStatusbar = new Gnome.AppBar(false, true, Gnome.PreferencesType.Never);
             _NetworkStatusbar.WidthRequest = 300;
+            
             _Statusbar = new Gnome.AppBar(false, true, Gnome.PreferencesType.Never);
+            
             Gtk.HBox sb_hbox = new Gtk.HBox();
             sb_hbox.PackStart(_NetworkStatusbar, false, true, 0);
             sb_hbox.PackStart(_Statusbar, true, true, 0);
+            sb_hbox.PackStart(_ProgressBar, false, false, 0);
             base.Statusbar = sb_hbox;
 #elif UI_GTK
             Gtk.VBox vbox = new Gtk.VBox();
@@ -173,10 +186,13 @@ namespace Meebey.Smuxi.FrontendGtkGnome
             _NetworkStatusbar = new Gtk.Statusbar();
             _NetworkStatusbar.WidthRequest = 300;
             _NetworkStatusbar.HasResizeGrip = false;
+            
             _Statusbar = new Gtk.Statusbar();
+            
             Gtk.HBox sb_hbox = new Gtk.HBox();
             sb_hbox.PackStart(_NetworkStatusbar, false, true, 0);
             sb_hbox.PackStart(_Statusbar, true, true, 0);
+            sb_hbox.PackStart(_ProgressBar, false, false, 0);
             vbox.PackStart(sb_hbox, false, false, 0);
             Add(vbox);
 #endif

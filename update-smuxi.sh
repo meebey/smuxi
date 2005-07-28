@@ -9,7 +9,7 @@ fi
 
 echo Deleting old...
 for i in *; do
-	if [ "$i" = "smuxi.ini" ]; then
+	if [ "$i" = "smuxi.ini" -o "$i" = "smuxi-engine.ini" -o "$i" = "smuxi-frontend.ini" ]; then
 		continue
 	fi
 	rm -f $i
@@ -17,9 +17,13 @@ done
 
 echo Downloading new files...
 wget -q -r -np -nd --reject=html,=A,=D http://www.meebey.net/temp/smuxi/
-if [ ! -f "smuxi.ini" ]; then
-	echo "copying smuxi.ini.orig to smux.ini"
-	cp smuxi.ini.orig smuxi.ini
+if [ ! -f "smuxi-engine.ini" ]; then
+	echo "copying smuxi-engine.ini.orig to smux-engine.ini"
+	cp smuxi-engine.ini.orig smuxi-engine.ini
+fi
+if [ ! -f "smuxi-frontend.ini" ]; then
+	echo "copying smuxi-frontend.ini.orig to smux-frontend.ini"
+	cp smuxi-frontend.ini.orig smuxi-frontend.ini
 fi
 
 echo Making executable...

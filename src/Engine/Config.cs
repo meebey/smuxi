@@ -159,7 +159,8 @@ namespace Meebey.Smuxi.Engine
             _Get(prefix+"Formatter", "binary");
             
             prefix = "Engine/Users/DEFAULT/Interface/Notebook/";
-            _Get(prefix+"Timestamp", "HH:mm");
+            _Get(prefix+"TimestampFormat", "HH:mm");
+            _Get(prefix+"TabPosition", "top");
             _Get(prefix+"BufferLines", 100);
             _Get(prefix+"EngineBufferLines", 100);
             
@@ -172,6 +173,15 @@ namespace Meebey.Smuxi.Engine
             _Get(prefix+"CommandCharacter", "/");
             _Get(prefix+"BashStyleCompletion", false);
             _Get(prefix+"CommandHistorySize", 30);
+            
+            prefix = "Engine/Users/";
+            _Get(prefix+"Users", new string[] {"local"});
+            
+            prefix = "Engine/Users/local/";
+            _Get(prefix+"Password", String.Empty);
+
+            prefix = "Engine/Users/local/Servers/";
+            _Get(prefix+"Servers", new string[] {String.Empty});
             
             prefix = "Server/";
             _LoadEntry(prefix+"Port", 7689);
@@ -231,12 +241,13 @@ namespace Meebey.Smuxi.Engine
                 _LoadUserEntry(user, "Interface/Entry/CommandHistorySize", null);
                 
                 string[] servers = null;
-                servers = _GetList(prefix+"Servers/Servers");
+                string sprefix = prefix+user+"/Servers/";
+                servers = _GetList(sprefix+"Servers");
                 foreach (string server in servers) {
                     if (server.Length == 0) {
                         continue;
                     }
-                    string sprefix = prefix+user+"/Servers/"+server+"/";
+                    sprefix = prefix+user+"/Servers/"+server+"/";
                     _LoadEntry(sprefix+"Hostname", null);
                     _LoadEntry(sprefix+"Port", null);
                     _LoadEntry(sprefix+"Network", null);

@@ -93,6 +93,8 @@ namespace Meebey.Smuxi.Engine
             _IrcClient.OnNowAway        += new IrcEventHandler(_OnNowAway);
             _IrcClient.OnCtcpRequest    += new CtcpEventHandler(_OnCtcpRequest);
             _IrcClient.OnCtcpReply      += new CtcpEventHandler(_OnCtcpReply);
+            
+            _IrcClient.AutoNickHandling = false;
             _Session = session;
         }
     
@@ -418,8 +420,19 @@ namespace Meebey.Smuxi.Engine
                         channel = "#"+cd.DataArray[1];  
                         break;
                 }
+            } else {
+                cd.FrontendManager.AddTextToCurrentPage(
+                    "-!- Not enough parameters for join command");
+                return;
             }
-        
+            
+            if (_IrcClient.IsJoined(channel)) {
+                cd.FrontendManager.AddTextToCurrentPage(
+                    "-!- Already joined to channel: "+channel+"."+
+                    " Type /window "+channel+" to switch to it");
+                return;
+            }
+            
             if (cd.DataArray.Length == 2) {
                 _IrcClient.RfcJoin(channel);
             } else if (cd.DataArray.Length > 2) {
@@ -1038,11 +1051,10 @@ namespace Meebey.Smuxi.Engine
                                     scuser.Ident, scuser.Host);
                     //_Session.AddUserToChannel(cpage, icuser);
                     cpage.Users.Add(icuser.Nickname.ToLower(), icuser);
-                }/* else {
-                    icuser.Realname = scuser.Realname;
-                    icuser.Ident = scuser.Ident;
-                    icuser.Host = scuser.Host;
                 }
+                icuser.Realname = scuser.Realname;
+                icuser.Ident = scuser.Ident;
+                icuser.Host = scuser.Host;
                 
                 if (scuser.IsOp) {
                     icuser.IsOp = true;
@@ -1055,7 +1067,7 @@ namespace Meebey.Smuxi.Engine
                     icuser.IsVoice = false;
                 }
                 
-                _Session.UpdateUserInChannel(cpage, icuser, icuser);*/
+                //_Session.UpdateUserInChannel(cpage, icuser, icuser);
             }
             _Session.SyncPage(cpage);
         }
@@ -1147,12 +1159,12 @@ namespace Meebey.Smuxi.Engine
             IrcChannelUser user = (IrcChannelUser)cpage.GetUser(e.Whom);
             if (user != null) {
                 user.IsOp = true;
+                _Session.UpdateUserInChannel(cpage, user, user);
 #if LOG4NET
             } else {
                 Logger.IrcManager.Error("cpage.GetUser(e.Whom) returned null! cpage.Name: "+cpage.Name+" e.Whom: "+e.Whom);
 #endif
             }
-            _Session.UpdateUserInChannel(cpage, user, user);
         }
         
         private void _OnDeop(object sender, DeopEventArgs e)
@@ -1167,8 +1179,14 @@ namespace Meebey.Smuxi.Engine
         {
             ChannelPage cpage = (ChannelPage)_Session.GetPage(e.Channel, PageType.Channel, NetworkType.Irc, this);
             IrcChannelUser user = (IrcChannelUser)cpage.GetUser(e.Whom);
-            user.IsVoice = true;
-            _Session.UpdateUserInChannel(cpage, user, user);
+            if (user != null) {
+                user.IsVoice = true;
+                _Session.UpdateUserInChannel(cpage, user, user);
+#if LOG4NET
+            } else {
+                Logger.IrcManager.Error("cpage.GetUser(e.Whom) returned null! cpage.Name: "+cpage.Name+" e.Whom: "+e.Whom);
+#endif
+            }
         }
         
         private void _OnDevoice(object sender, DevoiceEventArgs e)

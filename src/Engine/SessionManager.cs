@@ -51,6 +51,9 @@ namespace Meebey.Smuxi.Engine
                 Environment.Exit(1);
             }
             foreach (string user in users) {
+                if (user == "local") {
+                    continue;
+                }
 #if LOG4NET
                 Logger.Session.Debug("Creating Session for User "+user);
 #endif
