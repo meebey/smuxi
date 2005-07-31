@@ -7,6 +7,7 @@
  */
 
 Open:
+- when many channels are joined the window will grow out of screen.
 - when multiple frontends are connect a remoting exception occurs sometimes and
 kills all remoting clients except one. (Mono bug?)
 
