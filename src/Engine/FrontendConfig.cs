@@ -55,12 +55,13 @@ namespace Meebey.Smuxi.Engine
             _Prefix = "Frontend/";
             
 #if CONFIG_NINI
-            _IniFilename = "smuxi-frontend.ini";
+            _IniFilename = _ConfigPath+"/smuxi-frontend.ini";
             if (!File.Exists(_IniFilename)) {
 #if LOG4NET
                 Logger.Config.Debug("creating file: "+_IniFilename);
 #endif
                 File.Create(_IniFilename).Close();
+                _IsCleanConfig = true;
             }
             
             _IniDocument = new IniDocument(_IniFilename);
@@ -76,22 +77,15 @@ namespace Meebey.Smuxi.Engine
             
             // setting required default values
             prefix = "Frontend/Engines/";
-            _Get(prefix+"Engines", new string[] {String.Empty});
+            _Get(prefix+"Engines", new string[] {});
             _Get(prefix+"Default", String.Empty);
             
             prefix = "Frontend/Engines/";
             _LoadEntry(prefix+"Default", String.Empty);
             
             string[] engines = _GetList(prefix+"Engines");
-            if (engines != null) {
-                _Preferences[prefix+"Engines"] = engines;
-            } else {
-                engines = new string[] {String.Empty};
-            }
+            _Preferences[prefix+"Engines"] = engines;
             foreach (string engine in engines) {
-                if (engine.Length == 0) {
-                    continue;
-                }
                 string eprefix = prefix+engine+"/"; 
                 _LoadEntry(eprefix+"Username", null);
                 _LoadEntry(eprefix+"Password", null);

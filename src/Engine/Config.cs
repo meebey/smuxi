@@ -42,9 +42,11 @@ namespace Meebey.Smuxi.Engine
         private   GConf.Client  _GConf = new GConf.Client();
         private   string        _GConfPrefix = "/apps/smuxi/";
 #elif CONFIG_NINI
+        protected string        _ConfigPath;
         protected IniDocument   _IniDocument;
         protected string        _IniFilename;
 #endif
+        protected bool          _IsCleanConfig;
         protected Hashtable     _Preferences = Hashtable.Synchronized(new Hashtable());
 
         public object this[string key] {
@@ -55,16 +57,29 @@ namespace Meebey.Smuxi.Engine
                 _Preferences[key] = value;
             }
         }
+        
+        public bool IsCleanConfig {
+            get {
+                return _IsCleanConfig;
+            }
+        }
 
         public Config()
         {
 #if CONFIG_NINI
-            _IniFilename = "smuxi-engine.ini";
+            _ConfigPath = Path.Combine(Environment.GetEnvironmentVariable("HOME"),
+                ".config/smuxi");
+            if (!Directory.Exists(_ConfigPath)) {
+                Directory.CreateDirectory(_ConfigPath);
+            }
+            
+            _IniFilename = _ConfigPath+"/smuxi-engine.ini";
             if (!File.Exists(_IniFilename)) {
 #if LOG4NET
                 Logger.Config.Debug("creating file: "+_IniFilename);
 #endif
                 File.Create(_IniFilename).Close();
+                _IsCleanConfig = true;
             }
             
             _IniDocument = new IniDocument(_IniFilename);
@@ -109,11 +124,20 @@ namespace Meebey.Smuxi.Engine
 #if CONFIG_GCONF
             // Gconf# bug, it doesn't like empty string lists.
             result = (string[])_Get(key, new string[] {String.Empty});
+            if (result.Length == 1 && result[0] == String.Empty) {
+                // don't return workaround list, instead a clean empty list
+                result = new string[] {};
+            }
+            
 #elif CONFIG_NINI
             // Nini does not support native string lists, have to emulate them
             string result_str = (string)_Get(key, null);
             if (result_str != null) {
-                result = result_str.Split('|');
+                if (result_str.Length > 0) {
+                    result = result_str.Split('|');
+                } else {
+                    result = new string[] {};
+                }
             }
 #endif
             return result;
@@ -181,7 +205,7 @@ namespace Meebey.Smuxi.Engine
             _Get(prefix+"Password", String.Empty);
 
             prefix = "Engine/Users/local/Servers/";
-            _Get(prefix+"Servers", new string[] {String.Empty});
+            _Get(prefix+"Servers", new string[] {});
             
             prefix = "Server/";
             _LoadEntry(prefix+"Port", 7689);
@@ -193,23 +217,15 @@ namespace Meebey.Smuxi.Engine
             
             prefix = "Engine/Users/";
             string[] users = _GetList(prefix+"Users");
-            if (users != null) {
-                _Preferences[prefix+"Users"] = users;
-            } else {
-                users = new string[] {String.Empty};
-            }
+            _Preferences[prefix+"Users"] = users;
             foreach (string user in users) {
-                if (user.Length == 0) {
-                    continue;
-                }
-                
                 _LoadUserEntry(user, "Password", "smuxi");
                 
                 string[] startup_commands = _GetList(prefix+user+"/OnStartupCommands");
                 if (startup_commands != null) {
                     _Preferences[prefix+user+"/OnStartupCommands"] = startup_commands;
                 } else {
-                    _Preferences[prefix+user+"/OnStartupCommands"] = new string[] {String.Empty};
+                    _Preferences[prefix+user+"/OnStartupCommands"] = new string[] {};
                 }
                 
                 string[] nick_list = _GetList(prefix+user+"/Connection/Nicknames");
@@ -226,7 +242,7 @@ namespace Meebey.Smuxi.Engine
                 if (command_list != null) {
                     _Preferences[prefix+user+"/Connection/OnConnectCommands"] = command_list;
                 } else {
-                    _Preferences[prefix+user+"/Connection/OnConnectCommands"] = new string[] {String.Empty};
+                    _Preferences[prefix+user+"/Connection/OnConnectCommands"] = new string[] {};
                 }
                 
                 _LoadUserEntry(user, "Interface/Notebook/TimestampFormat", null);
@@ -243,10 +259,10 @@ namespace Meebey.Smuxi.Engine
                 string[] servers = null;
                 string sprefix = prefix+user+"/Servers/";
                 servers = _GetList(sprefix+"Servers");
+                if (servers == null) {
+                    servers = new string[] {};
+                }
                 foreach (string server in servers) {
-                    if (server.Length == 0) {
-                        continue;
-                    }
                     sprefix = prefix+user+"/Servers/"+server+"/";
                     _LoadEntry(sprefix+"Hostname", null);
                     _LoadEntry(sprefix+"Port", null);

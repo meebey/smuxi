@@ -86,7 +86,7 @@ namespace Meebey.Smuxi.FrontendGtkGnome
             _PortSpinButton.Value = 7689;
             _Page3.AppendItem("_Port:",
                 _PortSpinButton, "TCP port of the smuxi engine");
-                
+            
             _ChannelComboBox = Gtk.ComboBox.NewText();
             _ChannelComboBox.AppendText("TCP");
             _ChannelComboBox.Changed += new EventHandler(_OnChannelComboBoxChanged);
@@ -111,7 +111,7 @@ namespace Meebey.Smuxi.FrontendGtkGnome
             _UsernameEntry.Changed += new EventHandler(_OnPage4Changed);
             _Page4.AppendItem("_Username:", _UsernameEntry,
                 "Username which will be used to register at the smuxi engine");
-                
+            
             _PasswordEntry = new Gtk.Entry();
             _PasswordEntry.Visibility = false;
             _PasswordEntry.Changed += new EventHandler(_OnPage4Changed);
@@ -123,7 +123,7 @@ namespace Meebey.Smuxi.FrontendGtkGnome
             _Password2Entry.Changed += new EventHandler(_OnPage4Changed);
             _Page4.AppendItem("_Verify Password:", _Password2Entry,
                 "Repeat the password for verification");
-                
+            
             // page 5
             _Page5 = new Gnome.DruidPageEdge(Gnome.EdgePosition.Finish, true,
                 "Thank you", "You can now use the added smuxi engine", null,
@@ -155,16 +155,18 @@ namespace Meebey.Smuxi.FrontendGtkGnome
             string new_engine = _EngineNameEntry.Text;
             string[] engines = (string[])Frontend.FrontendConfig["Engines/Engines"];
             string[] new_engines;
-            if (engines.Length == 1 && engines[0].Length == 0) {
-                // empty list
-                // HACK: please fix this crap! :)
+            Engine.FrontendConfig fc = Frontend.FrontendConfig;
+            
+            if (engines.Length == 0) {
+                // there was no existing engines
                 new_engines = new string[] {new_engine};
+                fc["Engines/Default"] = new_engine;
             } else {
                 new_engines = new string[engines.Length+1];
                 engines.CopyTo(new_engines, 0);
                 new_engines[engines.Length] = new_engine;
             }
-            Engine.FrontendConfig fc = Frontend.FrontendConfig;
+            
             fc["Engines/Engines"] = new_engines;
             fc["Engines/"+new_engine+"/Username"] = _UsernameEntry.Text;
             fc["Engines/"+new_engine+"/Password"] = _PasswordEntry.Text;

@@ -57,7 +57,7 @@ namespace Meebey.Smuxi.FrontendGtkGnome
         {
             Modal = true;
             Title = "smuxi - Engine Manager";
-
+                
             Gtk.HBox connect_hbox = new Gtk.HBox();
             Gtk.Image connect_image = new Gtk.Image(new Gdk.Pixbuf(null,
                 "connect.png"));
@@ -65,9 +65,9 @@ namespace Meebey.Smuxi.FrontendGtkGnome
             connect_hbox.Add(new Gtk.Label("_Connect"));
             Gtk.Button connect_button = new Gtk.Button(connect_hbox);
             AddActionWidget(connect_button, 1);
-
+            
             AddActionWidget(new Gtk.Button(Gtk.Stock.New), 3);
-
+            
             Gtk.HBox edit_hbox = new Gtk.HBox();
             Gtk.Image edit_image = new Gtk.Image(new Gdk.Pixbuf(null,
                 "edit.png"));
@@ -87,7 +87,7 @@ namespace Meebey.Smuxi.FrontendGtkGnome
             
             Gtk.HBox hbox = new Gtk.HBox();
             hbox.PackStart(new Gtk.Label("Engine:"), false, false, 5);
-
+            
 #if GTK_SHARP_1
             Gtk.Combo c = new Gtk.Combo();
             _Combo = c;
@@ -102,6 +102,7 @@ namespace Meebey.Smuxi.FrontendGtkGnome
             string default_engine = (string)Frontend.FrontendConfig["Engines/Default"];
             int item = 0;
             cb.AppendText("<Local Engine>");
+            item++;
             foreach (string engine in engines) {
                 cb.AppendText(engine);
                 if (engine == default_engine) {
@@ -113,7 +114,7 @@ namespace Meebey.Smuxi.FrontendGtkGnome
 
 #if GTK_SHARP_1
             c.PopdownStrings = engines;
-
+            
             hbox.PackStart(c, true, true, 10); 
 #elif GTK_SHARP_2
             hbox.PackStart(cb, true, true, 10); 

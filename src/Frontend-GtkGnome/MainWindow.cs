@@ -210,7 +210,7 @@ namespace Meebey.Smuxi.FrontendGtkGnome
     
         private void _OnAboutButtonClicked(object obj, EventArgs args)
         {
-            AboutDialog ad =new AboutDialog();
+            AboutDialog ad = new AboutDialog();
             ad.ShowAll();
         }
         
@@ -223,7 +223,7 @@ namespace Meebey.Smuxi.FrontendGtkGnome
         {
             Gtk.MessageDialog md = new Gtk.MessageDialog(null, Gtk.DialogFlags.Modal,
                 Gtk.MessageType.Warning, Gtk.ButtonsType.YesNo,
-                "Switchting to local engine will disconnect you from the current engine!\n"+
+                "Switching to local engine will disconnect you from the current engine!\n"+
                 "Are you sure you want to do this?");
             int result = md.Run();
             md.Destroy();
@@ -243,7 +243,7 @@ namespace Meebey.Smuxi.FrontendGtkGnome
         {
             Gtk.MessageDialog md = new Gtk.MessageDialog(null, Gtk.DialogFlags.Modal,
                 Gtk.MessageType.Warning, Gtk.ButtonsType.YesNo,
-                "Switchting the remote engine will disconnect you from the current engine!\n"+
+                "Switching the remote engine will disconnect you from the current engine!\n"+
                 "Are you sure you want to do this?");
             int result = md.Run();
             md.Destroy();

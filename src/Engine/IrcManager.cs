@@ -1124,6 +1124,12 @@ namespace Meebey.Smuxi.Engine
                     
                     // clone the old user to a new user
                     IrcChannelUser olduser = (IrcChannelUser)cpage.GetUser(e.OldNickname);
+                    if (olduser == null) {
+#if LOG4NET
+                        Logger.IrcManager.Error("cpage.GetUser(e.OldNickname) returned null! cpage.Name: "+cpage.Name+" e.OldNickname: "+e.OldNickname);
+#endif
+                        continue;
+                    }
                     IrcChannelUser newuser = new IrcChannelUser(e.NewNickname, ircuser.Realname,
                                         ircuser.Ident, ircuser.Host);
                     newuser.IsOp = olduser.IsOp;

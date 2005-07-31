@@ -37,6 +37,7 @@ namespace Meebey.Smuxi.FrontendGtkGnome
     
         public Notebook() : base ()
         {
+            Scrollable = true;
             SwitchPage += new Gtk.SwitchPageHandler(_OnSwitchPage);
             ApplyUserConfig();
         }

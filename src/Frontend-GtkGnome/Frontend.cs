@@ -173,20 +173,16 @@ namespace Meebey.Smuxi.FrontendGtkGnome
                 _SplashScreenWindow = new SplashScreenWindow();
 
                 _UI = new GtkGnomeUI();
-                if (!File.Exists("smuxi-engine.ini") ||
-                    !File.Exists("smuxi-frontend.ini")) {
-                    _FrontendConfig = new FrontendConfig(UIName);
-                    // loading and setting defaults
-                    _FrontendConfig.Load();
-                    _FrontendConfig.Save();
+                _FrontendConfig = new FrontendConfig(UIName);
+                // loading and setting defaults
+                _FrontendConfig.Load();
+                _FrontendConfig.Save();
+                
+                if (_FrontendConfig.IsCleanConfig) {
 #if UI_GNOME
                     new FirstStartDruid();
 #endif
                 } else {
-                    _FrontendConfig = new FrontendConfig(UIName);
-                    _FrontendConfig.Load();
-                    _FrontendConfig.Save();
-                    
                     if (((string)FrontendConfig["Engines/Default"]).Length == 0) {
                         InitLocalEngine();
                     } else {
