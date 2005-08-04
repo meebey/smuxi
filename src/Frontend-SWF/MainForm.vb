@@ -119,7 +119,9 @@ Public Class MainForm
         InitializeComponent()
 
         ' Add any initialization after the InitializeComponent() call.
+#If CONFIG = "Debug" Then
         Meebey.Smuxi.Engine.Logger.Init()
+#End If
         Meebey.Smuxi.Engine.Engine.Init()
         Me.Show()
         Globals.Session = Meebey.Smuxi.Engine.Engine.SessionManager.Register("local", "smuxi", UI)

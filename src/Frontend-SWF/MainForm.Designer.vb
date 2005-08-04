@@ -27,7 +27,7 @@
 '* Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA
 '*
 
-Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
 Partial Public Class MainForm
     Inherits System.Windows.Forms.Form
 
