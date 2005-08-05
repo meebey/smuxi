@@ -28,7 +28,6 @@
 '*
 
 Public Class PageForm
-    Protected Style As FontStyle
     Protected Page As Meebey.Smuxi.Engine.Page
 
 
@@ -43,10 +42,10 @@ Public Class PageForm
         InitializeComponent()
 
         ' Add any initialization after the InitializeComponent() call.
-        Style = PageBuffer.Font.Style
     End Sub
 
     Public Sub AddText(ByVal text As String)
+        Dim Style As FontStyle
         Dim sb As New System.Text.StringBuilder()
         For Each c As Char In text.ToCharArray()
             Select Case c
@@ -63,10 +62,10 @@ Public Class PageForm
                 Case Else
                     sb.Append(c)
             End Select
-
         Next
 
-        PageBuffer.AppendText(text & vbNewLine)
+        PageBuffer.AppendText(sb.ToString() & vbNewLine)
+        PageBuffer.SelectionFont = New Font(PageBuffer.Font, FontStyle.Regular)
         PageBuffer.ScrollToCaret()
     End Sub
     Protected Overrides Sub OnClosing(ByVal e As System.ComponentModel.CancelEventArgs)

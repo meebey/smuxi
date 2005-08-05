@@ -124,7 +124,7 @@ Public Class MainForm
 #End If
         Meebey.Smuxi.Engine.Engine.Init()
         Me.Show()
-        Globals.Session = Meebey.Smuxi.Engine.Engine.SessionManager.Register("local", "smuxi", UI)
+        Globals.Session = Meebey.Smuxi.Engine.Engine.SessionManager.Register("smuxi", "crackme", UI)
         Globals.FManager = Session.GetFrontendManager(UI)
     End Sub
 

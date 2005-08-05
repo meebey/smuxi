@@ -71,18 +71,25 @@
       <DependentUpon>ChannelPageForm.vb</DependentUpon>
     </Compile>
     <Compile Include="..\..\src\Frontend-SWF\ChannelPageForm.vb">
+      <Link>ChannelPageForm.vb</Link>
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="..\..\src\Frontend-SWF\Globals.vb" />
+    <Compile Include="..\..\src\Frontend-SWF\Globals.vb">
+      <Link>Globals.vb</Link>
+    </Compile>
     <Compile Include="..\..\src\Frontend-SWF\MainForm.vb">
+      <Link>MainForm.vb</Link>
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="..\..\src\Frontend-SWF\MainForm.Designer.vb">
       <DependentUpon>MainForm.vb</DependentUpon>
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="..\..\src\Frontend-SWF\My Project\AssemblyInfo.vb" />
+    <Compile Include="..\..\src\Frontend-SWF\My Project\AssemblyInfo.vb">
+      <Link>My Project\AssemblyInfo.vb</Link>
+    </Compile>
     <Compile Include="..\..\src\Frontend-SWF\My Project\Application.Designer.vb">
+      <Link>My Project\Application.Designer.vb</Link>
       <AutoGen>True</AutoGen>
       <DependentUpon>Application.myapp</DependentUpon>
     </Compile>
@@ -90,38 +97,48 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
+      <Link>My Project\Resources.Designer.vb</Link>
     </Compile>
     <Compile Include="..\..\src\Frontend-SWF\My Project\Settings.Designer.vb">
+      <Link>My Project\Settings.Designer.vb</Link>
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="..\..\src\Frontend-SWF\My Project\ApplicationEvents.vb" />
+    <Compile Include="..\..\src\Frontend-SWF\My Project\ApplicationEvents.vb">
+      <Link>My Project\ApplicationEvents.vb</Link>
+    </Compile>	    
     <Compile Include="..\..\src\Frontend-SWF\PageForm.Designer.vb">
       <DependentUpon>PageForm.vb</DependentUpon>
     </Compile>
     <Compile Include="..\..\src\Frontend-SWF\PageForm.vb">
+      <Link>PageForm.vb</Link>
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="..\..\src\Frontend-SWF\Preferences.Designer.vb">
       <DependentUpon>Preferences.vb</DependentUpon>
     </Compile>
     <Compile Include="..\..\src\Frontend-SWF\Preferences.vb">
+      <Link>Preferences.vb</Link>
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="..\..\src\Frontend-SWF\QueryPageForm.Designer.vb">
       <DependentUpon>QueryPageForm.vb</DependentUpon>
     </Compile>
     <Compile Include="..\..\src\Frontend-SWF\QueryPageForm.vb">
+      <Link>QueryPageForm.vb</Link>
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="..\..\src\Frontend-SWF\ServerPageForm.Designer.vb">
       <DependentUpon>ServerPageForm.vb</DependentUpon>
     </Compile>
     <Compile Include="..\..\src\Frontend-SWF\ServerPageForm.vb">
+      <Link>ServerPageForm.vb</Link>
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="..\..\src\Frontend-SWF\WrapUI.vb" />
+    <Compile Include="..\..\src\Frontend-SWF\WrapUI.vb">
+      <Link>WrapUI.vb</Link>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="..\..\src\Frontend-SWF\ChannelPageForm.resx">
@@ -131,6 +148,7 @@
       <DependentUpon>MainForm.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="..\..\src\Frontend-SWF\My Project\Resources.resx">
+      <Link>My Project\Resources.resx</Link>
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.vb</LastGenOutput>
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
@@ -147,12 +165,16 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\src\Frontend-SWF\app.config" />
+    <None Include="..\..\src\Frontend-SWF\app.config">
+      <Link>app.config</Link>
+    </None>      
     <None Include="..\..\src\Frontend-SWF\My Project\Application.myapp">
+      <Link>My Project\Application.myapp</Link>
       <Generator>MyApplicationCodeGenerator</Generator>
       <LastGenOutput>Application.Designer.vb</LastGenOutput>
     </None>
     <None Include="..\..\src\Frontend-SWF\My Project\Settings.settings">
+      <Link>My Project\Settings.settings</Link>
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
     </None>
