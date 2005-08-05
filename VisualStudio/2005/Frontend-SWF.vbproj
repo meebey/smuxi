@@ -107,7 +107,7 @@
     </Compile>
     <Compile Include="..\..\src\Frontend-SWF\My Project\ApplicationEvents.vb">
       <Link>My Project\ApplicationEvents.vb</Link>
-    </Compile>	    
+    </Compile>
     <Compile Include="..\..\src\Frontend-SWF\PageForm.Designer.vb">
       <DependentUpon>PageForm.vb</DependentUpon>
     </Compile>
@@ -167,7 +167,7 @@
   <ItemGroup>
     <None Include="..\..\src\Frontend-SWF\app.config">
       <Link>app.config</Link>
-    </None>      
+    </None>
     <None Include="..\..\src\Frontend-SWF\My Project\Application.myapp">
       <Link>My Project\Application.myapp</Link>
       <Generator>MyApplicationCodeGenerator</Generator>
