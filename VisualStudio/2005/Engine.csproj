@@ -1,0 +1,176 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectType>Local</ProjectType>
+    <ProductVersion>8.0.50215</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{7282E818-5F42-4811-BFCB-36E362948C9F}</ProjectGuid>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ApplicationIcon>
+    </ApplicationIcon>
+    <AssemblyKeyContainerName>
+    </AssemblyKeyContainerName>
+    <AssemblyName>smuxi-engine</AssemblyName>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
+    <DefaultClientScript>JScript</DefaultClientScript>
+    <DefaultHTMLPageLayout>Grid</DefaultHTMLPageLayout>
+    <DefaultTargetSchema>IE50</DefaultTargetSchema>
+    <DelaySign>false</DelaySign>
+    <OutputType>Library</OutputType>
+    <RootNamespace>smuxi</RootNamespace>
+    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+    <StartupObject>
+    </StartupObject>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>..\..\bin\net\debug\</OutputPath>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <BaseAddress>285212672</BaseAddress>
+    <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>CONFIG_NINI;LOG4NET;DEBUG;TRACE</DefineConstants>
+    <DocumentationFile>
+    </DocumentationFile>
+    <DebugSymbols>true</DebugSymbols>
+    <FileAlignment>4096</FileAlignment>
+    <NoStdLib>false</NoStdLib>
+    <NoWarn>
+    </NoWarn>
+    <Optimize>false</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>..\..\bin\net\release\</OutputPath>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <BaseAddress>285212672</BaseAddress>
+    <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>CONFIG_NINI;TRACE</DefineConstants>
+    <DocumentationFile>
+    </DocumentationFile>
+    <DebugSymbols>false</DebugSymbols>
+    <FileAlignment>4096</FileAlignment>
+    <NoStdLib>false</NoStdLib>
+    <NoWarn>
+    </NoWarn>
+    <Optimize>true</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="log4net">
+      <Name>log4net</Name>
+      <HintPath>..\..\bin\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Meebey.SmartIrc4net">
+      <Name>Meebey.SmartIrc4net</Name>
+      <HintPath>..\..\bin\Meebey.SmartIrc4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Nini">
+      <Name>Nini</Name>
+      <HintPath>..\..\bin\Nini.dll</HintPath>
+    </Reference>
+    <Reference Include="System">
+      <Name>System</Name>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\..\src\Engine\AssemblyInfo.cs">
+      <Link>AssemblyInfo.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\src\Engine\ChannelPage.cs">
+      <Link>ChannelPage.cs</Link>
+    </Compile>
+    <Compile Include="..\..\src\Engine\CommandData.cs">
+      <Link>CommandData.cs</Link>
+    </Compile>
+    <Compile Include="..\..\src\Engine\Config.cs">
+      <Link>Config.cs</Link>
+    </Compile>
+    <Compile Include="..\..\src\Engine\Engine.cs">
+      <Link>Engine.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\src\Engine\FrontendConfig.cs">
+      <Link>FrontendConfig.cs</Link>
+    </Compile>
+    <Compile Include="..\..\src\Engine\FrontendManager.cs">
+      <Link>FrontendManager.cs</Link>
+    </Compile>
+    <Compile Include="..\..\src\Engine\IFrontendUI.cs">
+      <Link>IFrontendUI.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\src\Engine\INetworkManager.cs">
+      <Link>INetworkManager.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\src\Engine\IrcChannelUser.cs">
+      <Link>IrcChannelUser.cs</Link>
+    </Compile>
+    <Compile Include="..\..\src\Engine\IrcManager.cs">
+      <Link>IrcManager.cs</Link>
+    </Compile>
+    <Compile Include="..\..\src\Engine\IrcUser.cs">
+      <Link>IrcUser.cs</Link>
+    </Compile>
+    <Compile Include="..\..\src\Engine\Logger.cs">
+      <Link>Logger.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\src\Engine\NetworkType.cs">
+      <Link>NetworkType.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\src\Engine\Page.cs">
+      <Link>Page.cs</Link>
+    </Compile>
+    <Compile Include="..\..\src\Engine\PageType.cs">
+      <Link>PageType.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\src\Engine\PermanentRemoteObject.cs">
+      <Link>PermanentComponent.cs</Link>
+    </Compile>
+    <Compile Include="..\..\src\Engine\Session.cs">
+      <Link>Session.cs</Link>
+    </Compile>
+    <Compile Include="..\..\src\Engine\SessionManager.cs">
+      <Link>SessionManager.cs</Link>
+    </Compile>
+    <Compile Include="..\..\src\Engine\UICommand.cs">
+      <Link>UICommand.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\src\Engine\UICommandContainer.cs">
+      <Link>UICommandContainer.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="..\..\src\Engine\User.cs">
+      <Link>User.cs</Link>
+    </Compile>
+    <Compile Include="..\..\src\Engine\UserConfig.cs">
+      <Link>UserConfig.cs</Link>
+    </Compile>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+</Project>
