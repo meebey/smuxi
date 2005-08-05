@@ -57,8 +57,6 @@ Partial Public Class PageForm
         'CommandLine
         '
         Me.CommandLine.Anchor = CType((System.Windows.Forms.AnchorStyles.Left Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.CommandLine.BackColor = WinSmuxi.Settings.Default.BackgroundColor
-        Me.CommandLine.DataBindings.Add(New System.Windows.Forms.Binding("BackColor", WinSmuxi.Settings.Default, "BackgroundColor", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
         Me.CommandLine.Location = New System.Drawing.Point(0, 1)
         Me.CommandLine.Margin = New System.Windows.Forms.Padding(0)
         Me.CommandLine.Name = "CommandLine"
@@ -67,8 +65,7 @@ Partial Public Class PageForm
         '
         'PageBuffer
         '
-        Me.PageBuffer.BackColor = WinSmuxi.Settings.Default.BackgroundColor
-        Me.PageBuffer.DataBindings.Add(New System.Windows.Forms.Binding("BackColor", WinSmuxi.Settings.Default, "BackgroundColor", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
+        Me.PageBuffer.BackColor = System.Drawing.SystemColors.Window
         Me.PageBuffer.Dock = System.Windows.Forms.DockStyle.Fill
         Me.PageBuffer.Font = New System.Drawing.Font("Courier New", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.PageBuffer.Location = New System.Drawing.Point(0, 0)

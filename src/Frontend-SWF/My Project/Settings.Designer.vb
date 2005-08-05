@@ -47,18 +47,6 @@ Partial Friend NotInheritable Class Settings
             Return defaultInstance
         End Get
     End Property
-    
-    <Global.System.Configuration.UserScopedSettingAttribute(),  _
-     Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-     Global.System.Configuration.DefaultSettingValueAttribute("Window")>  _
-    Public Property BackgroundColor() As Global.System.Drawing.Color
-        Get
-            Return CType(Me("BackgroundColor"),Global.System.Drawing.Color)
-        End Get
-        Set
-            Me("BackgroundColor") = value
-        End Set
-    End Property
 End Class
 
 Namespace My

@@ -127,7 +127,7 @@ Partial Public Class MainForm
         Me.MainToolBar.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripLabel1, Me.NetworkBox})
         Me.MainToolBar.Location = New System.Drawing.Point(0, 0)
         Me.MainToolBar.Name = "MainToolBar"
-        Me.MainToolBar.Size = New System.Drawing.Size(178, 25)
+        Me.MainToolBar.Size = New System.Drawing.Size(209, 25)
         Me.MainToolBar.TabIndex = 1
         Me.MainToolBar.Text = "ToolStrip1"
         '
@@ -179,8 +179,6 @@ Partial Public Class MainForm
         '
         'PageList
         '
-        Me.PageList.BackColor = WinSmuxi.Settings.Default.BackgroundColor
-        Me.PageList.DataBindings.Add(New System.Windows.Forms.Binding("BackColor", WinSmuxi.Settings.Default, "BackgroundColor", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
         Me.PageList.Dock = System.Windows.Forms.DockStyle.Left
         Me.PageList.Location = New System.Drawing.Point(0, 49)
         Me.PageList.Name = "PageList"
