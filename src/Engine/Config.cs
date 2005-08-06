@@ -67,13 +67,14 @@ namespace Meebey.Smuxi.Engine
         public Config()
         {
 #if CONFIG_NINI
-            _ConfigPath = Path.Combine(Environment.GetEnvironmentVariable("HOME"),
-                ".config/smuxi");
+            _ConfigPath = Path.Combine(Environment.GetFolderPath(
+                Environment.SpecialFolder.ApplicationData), "smuxi");
+            
             if (!Directory.Exists(_ConfigPath)) {
                 Directory.CreateDirectory(_ConfigPath);
             }
             
-            _IniFilename = _ConfigPath+"/smuxi-engine.ini";
+            _IniFilename = Path.Combine(_ConfigPath, "smuxi-engine.ini");
             if (!File.Exists(_IniFilename)) {
 #if LOG4NET
                 Logger.Config.Debug("creating file: "+_IniFilename);
@@ -347,29 +348,25 @@ namespace Meebey.Smuxi.Engine
 #endif
         }
         
+#elif CONFIG_NINI
         private object _Parse(string data)
         {
-#if CONFIG_GCONF
-            return data;
-#elif CONFIG_NINI
             // since INI files are plain text, all data will be string,
             // must convert here when possible (via guessing)
-            object obj = data;
             try {
-                int number = Int32.Parse((string)obj);
+                int number = Int32.Parse(data);
                 return number;
             } catch (FormatException) {
             }
 
             try {
-                bool boolean = Boolean.Parse((string)obj);
+                bool boolean = Boolean.Parse(data);
                 return boolean;
             } catch (FormatException) {
             }
 
             // no convert worked, let's leave it as string
-            return obj;
-#endif
+            return data;
         }
         
 #if CONFIG_NINI

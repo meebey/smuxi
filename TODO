@@ -18,6 +18,7 @@ smuxi 0.6 goals:
 - create debian package
 
 Feature Requests:
+- use treeview as alternative to notebook tabs.
 - show highlight notifications in tray (DevGet)
 - whois in userlist context menu (DevGet)
 - multiple server pages (Zhila)

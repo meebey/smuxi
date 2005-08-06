@@ -26,6 +26,7 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA
  */
 
+using System;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 
@@ -34,6 +35,9 @@ using System.Runtime.CompilerServices;
 //
 // change them to the information which is associated with the assembly
 // you compile.
+
+[assembly: CLSCompliant(true)]
+[assembly: ComVisible(false)]
 
 [assembly: AssemblyTitle("smuxi - engine")]
 [assembly: AssemblyDescription("Smart MUltipleXed Irc")]
