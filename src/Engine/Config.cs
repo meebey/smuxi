@@ -37,60 +37,60 @@ namespace Meebey.Smuxi.Engine
 {
     public class Config : PermanentRemoteObject
     {
-        //private   int           _PreferencesVersion = 0;
+        //protected int           m_PreferencesVersion = 0;
 #if CONFIG_GCONF
         private   GConf.Client  _GConf = new GConf.Client();
         private   string        _GConfPrefix = "/apps/smuxi/";
 #elif CONFIG_NINI
-        protected string        _ConfigPath;
-        protected IniDocument   _IniDocument;
-        protected string        _IniFilename;
+        protected string        m_ConfigPath;
+        protected IniDocument   m_IniDocument;
+        protected string        m_IniFilename;
 #endif
-        protected bool          _IsCleanConfig;
-        protected Hashtable     _Preferences = Hashtable.Synchronized(new Hashtable());
+        protected bool          m_IsCleanConfig;
+        protected Hashtable     m_Preferences = Hashtable.Synchronized(new Hashtable());
 
         public object this[string key] {
             get {
-                return _Preferences[key];
+                return m_Preferences[key];
             }
             set {
-                _Preferences[key] = value;
+                m_Preferences[key] = value;
             }
         }
         
         public bool IsCleanConfig {
             get {
-                return _IsCleanConfig;
+                return m_IsCleanConfig;
             }
         }
 
         public Config()
         {
 #if CONFIG_NINI
-            _ConfigPath = Path.Combine(Environment.GetFolderPath(
+            m_ConfigPath = Path.Combine(Environment.GetFolderPath(
                 Environment.SpecialFolder.ApplicationData), "smuxi");
             
-            if (!Directory.Exists(_ConfigPath)) {
-                Directory.CreateDirectory(_ConfigPath);
+            if (!Directory.Exists(m_ConfigPath)) {
+                Directory.CreateDirectory(m_ConfigPath);
             }
             
-            _IniFilename = Path.Combine(_ConfigPath, "smuxi-engine.ini");
-            if (!File.Exists(_IniFilename)) {
+            m_IniFilename = Path.Combine(m_ConfigPath, "smuxi-engine.ini");
+            if (!File.Exists(m_IniFilename)) {
 #if LOG4NET
-                Logger.Config.Debug("creating file: "+_IniFilename);
+                Logger.Config.Debug("creating file: "+m_IniFilename);
 #endif
-                File.Create(_IniFilename).Close();
-                _IsCleanConfig = true;
+                File.Create(m_IniFilename).Close();
+                m_IsCleanConfig = true;
             }
             
-            _IniDocument = new IniDocument(_IniFilename);
+            m_IniDocument = new IniDocument(m_IniFilename);
 #endif
         }
         
-       protected object _Get(string key, object defaultvalue)
+       protected object Get(string key, object defaultvalue)
        {
 #if LOG4NET
-            Logger.Config.Debug("_Get() key: '"+key+"' defaultvalue: '"+
+            Logger.Config.Debug("Get() key: '"+key+"' defaultvalue: '"+
                 (defaultvalue != null ? defaultvalue : "(null)")+"'");
 #endif
 #if CONFIG_GCONF
@@ -105,7 +105,7 @@ namespace Meebey.Smuxi.Engine
 #elif CONFIG_NINI
             string inisection = _IniGetSection(key);
             string inikey = _IniGetKey(key);
-            IniSection section = _IniDocument.Sections[inisection];
+            IniSection section = m_IniDocument.Sections[inisection];
             if ((section == null) ||
                 (!section.Contains(inikey))) {
                 if (defaultvalue != null) {
@@ -119,12 +119,12 @@ namespace Meebey.Smuxi.Engine
 #endif
        }
 
-        protected string[] _GetList(string key)
+        protected string[] GetList(string key)
         {
             string[] result = null;
 #if CONFIG_GCONF
             // Gconf# bug, it doesn't like empty string lists.
-            result = (string[])_Get(key, new string[] {String.Empty});
+            result = (string[])Get(key, new string[] {String.Empty});
             if (result.Length == 1 && result[0] == String.Empty) {
                 // don't return workaround list, instead a clean empty list
                 result = new string[] {};
@@ -132,7 +132,7 @@ namespace Meebey.Smuxi.Engine
             
 #elif CONFIG_NINI
             // Nini does not support native string lists, have to emulate them
-            string result_str = (string)_Get(key, null);
+            string result_str = (string)Get(key, null);
             if (result_str != null) {
                 if (result_str.Length > 0) {
                     result = result_str.Split('|');
@@ -147,7 +147,7 @@ namespace Meebey.Smuxi.Engine
         private void _Set(string key, object valueobj)
         {
 #if LOG4NET
-            Logger.Config.Debug("_Set() key: '"+key+"' valueobj: '"+
+            Logger.Config.Debug("Set() key: '"+key+"' valueobj: '"+
                 (valueobj != null ? valueobj : "(null)")+"'");
 #endif
 #if CONFIG_GCONF
@@ -155,10 +155,10 @@ namespace Meebey.Smuxi.Engine
 #elif CONFIG_NINI
             string inisection = _IniGetSection(key);
             string inikey = _IniGetKey(key);
-            IniSection section = _IniDocument.Sections[inisection];
+            IniSection section = m_IniDocument.Sections[inisection];
             if (section == null) {
-                _IniDocument.Sections.Add(new IniSection(inisection));
-                section = _IniDocument.Sections[inisection];
+                m_IniDocument.Sections.Add(new IniSection(inisection));
+                section = m_IniDocument.Sections[inisection];
             }
 
             if (valueobj is string[]) {
@@ -179,97 +179,97 @@ namespace Meebey.Smuxi.Engine
             
             // setting required default values
             prefix = "Server/";
-            _Get(prefix+"Port", 7689);
-            _Get(prefix+"Channel", "TCP");
-            _Get(prefix+"Formatter", "binary");
+            Get(prefix+"Port", 7689);
+            Get(prefix+"Channel", "TCP");
+            Get(prefix+"Formatter", "binary");
             
             prefix = "Engine/Users/DEFAULT/Interface/Notebook/";
-            _Get(prefix+"TimestampFormat", "HH:mm");
-            _Get(prefix+"TabPosition", "top");
-            _Get(prefix+"BufferLines", 100);
-            _Get(prefix+"EngineBufferLines", 100);
+            Get(prefix+"TimestampFormat", "HH:mm");
+            Get(prefix+"TabPosition", "top");
+            Get(prefix+"BufferLines", 100);
+            Get(prefix+"EngineBufferLines", 100);
             
             prefix = "Engine/Users/DEFAULT/Interface/Notebook/Channel/";
-            _Get(prefix+"UserListPosition", "left");
-            _Get(prefix+"TopicPosition", "top");
+            Get(prefix+"UserListPosition", "left");
+            Get(prefix+"TopicPosition", "top");
 
             prefix = "Engine/Users/DEFAULT/Interface/Entry/";
-            _Get(prefix+"CompletionCharacter", ":");
-            _Get(prefix+"CommandCharacter", "/");
-            _Get(prefix+"BashStyleCompletion", false);
-            _Get(prefix+"CommandHistorySize", 30);
+            Get(prefix+"CompletionCharacter", ":");
+            Get(prefix+"CommandCharacter", "/");
+            Get(prefix+"BashStyleCompletion", false);
+            Get(prefix+"CommandHistorySize", 30);
             
             prefix = "Engine/Users/";
-            _Get(prefix+"Users", new string[] {"local"});
+            Get(prefix+"Users", new string[] {"local"});
             
             prefix = "Engine/Users/local/";
-            _Get(prefix+"Password", String.Empty);
+            Get(prefix+"Password", String.Empty);
 
             prefix = "Engine/Users/local/Servers/";
-            _Get(prefix+"Servers", new string[] {});
+            Get(prefix+"Servers", new string[] {});
             
             prefix = "Server/";
-            _LoadEntry(prefix+"Port", 7689);
-            _LoadEntry(prefix+"Formatter", "binary");
-            _LoadEntry(prefix+"Channel", "TCP");
+            LoadEntry(prefix+"Port", 7689);
+            LoadEntry(prefix+"Formatter", "binary");
+            LoadEntry(prefix+"Channel", "TCP");
 
             // loading defaults
-            _LoadAllEntries("Engine/Users/DEFAULT");
+            LoadAllEntries("Engine/Users/DEFAULT");
             
             prefix = "Engine/Users/";
-            string[] users = _GetList(prefix+"Users");
-            _Preferences[prefix+"Users"] = users;
+            string[] users = GetList(prefix+"Users");
+            m_Preferences[prefix+"Users"] = users;
             foreach (string user in users) {
-                _LoadUserEntry(user, "Password", "smuxi");
+                LoadUserEntry(user, "Password", "smuxi");
                 
-                string[] startup_commands = _GetList(prefix+user+"/OnStartupCommands");
+                string[] startup_commands = GetList(prefix+user+"/OnStartupCommands");
                 if (startup_commands != null) {
-                    _Preferences[prefix+user+"/OnStartupCommands"] = startup_commands;
+                    m_Preferences[prefix+user+"/OnStartupCommands"] = startup_commands;
                 } else {
-                    _Preferences[prefix+user+"/OnStartupCommands"] = new string[] {};
+                    m_Preferences[prefix+user+"/OnStartupCommands"] = new string[] {};
                 }
                 
-                string[] nick_list = _GetList(prefix+user+"/Connection/Nicknames");
+                string[] nick_list = GetList(prefix+user+"/Connection/Nicknames");
                 if (nick_list != null) {
-                    _Preferences[prefix+user+"/Connection/Nicknames"] = nick_list;
+                    m_Preferences[prefix+user+"/Connection/Nicknames"] = nick_list;
                 } else {
-                    _Preferences[prefix+user+"/Connection/Nicknames"] = new string[] {"Smuxi", "Smuxi_"};
+                    m_Preferences[prefix+user+"/Connection/Nicknames"] = new string[] {"Smuxi", "Smuxi_"};
                 }
                 
-                _LoadUserEntry(user, "Connection/Username", String.Empty);
-                _LoadUserEntry(user, "Connection/Realname", "http://smuxi.meebey.net");
+                LoadUserEntry(user, "Connection/Username", String.Empty);
+                LoadUserEntry(user, "Connection/Realname", "http://smuxi.meebey.net");
                 
-                string[] command_list = _GetList(prefix+user+"/Connection/OnConnectCommands");
+                string[] command_list = GetList(prefix+user+"/Connection/OnConnectCommands");
                 if (command_list != null) {
-                    _Preferences[prefix+user+"/Connection/OnConnectCommands"] = command_list;
+                    m_Preferences[prefix+user+"/Connection/OnConnectCommands"] = command_list;
                 } else {
-                    _Preferences[prefix+user+"/Connection/OnConnectCommands"] = new string[] {};
+                    m_Preferences[prefix+user+"/Connection/OnConnectCommands"] = new string[] {};
                 }
                 
-                _LoadUserEntry(user, "Interface/Notebook/TimestampFormat", null);
-                _LoadUserEntry(user, "Interface/Notebook/TabPosition", null);
-                _LoadUserEntry(user, "Interface/Notebook/BufferLines", null);
-                _LoadUserEntry(user, "Interface/Notebook/EngineBufferLines", null);
-                _LoadUserEntry(user, "Interface/Notebook/Channel/UserListPosition", null);
-                _LoadUserEntry(user, "Interface/Notebook/Channel/TopicPosition", null);
-                _LoadUserEntry(user, "Interface/Entry/CompletionCharacter", null);
-                _LoadUserEntry(user, "Interface/Entry/CommandCharacter", null);
-                _LoadUserEntry(user, "Interface/Entry/BashStyleCompletion", null);
-                _LoadUserEntry(user, "Interface/Entry/CommandHistorySize", null);
+                LoadUserEntry(user, "Interface/Notebook/TimestampFormat", null);
+                LoadUserEntry(user, "Interface/Notebook/TabPosition", null);
+                LoadUserEntry(user, "Interface/Notebook/BufferLines", null);
+                LoadUserEntry(user, "Interface/Notebook/EngineBufferLines", null);
+                LoadUserEntry(user, "Interface/Notebook/Channel/UserListPosition", null);
+                LoadUserEntry(user, "Interface/Notebook/Channel/TopicPosition", null);
+                LoadUserEntry(user, "Interface/Entry/CompletionCharacter", null);
+                LoadUserEntry(user, "Interface/Entry/CommandCharacter", null);
+                LoadUserEntry(user, "Interface/Entry/BashStyleCompletion", null);
+                LoadUserEntry(user, "Interface/Entry/CommandHistorySize", null);
                 
                 string[] servers = null;
                 string sprefix = prefix+user+"/Servers/";
-                servers = _GetList(sprefix+"Servers");
+                servers = GetList(sprefix+"Servers");
                 if (servers == null) {
                     servers = new string[] {};
                 }
                 foreach (string server in servers) {
                     sprefix = prefix+user+"/Servers/"+server+"/";
-                    _LoadEntry(sprefix+"Hostname", null);
-                    _LoadEntry(sprefix+"Port", null);
-                    _LoadEntry(sprefix+"Network", null);
-                    _LoadEntry(sprefix+"Username", null);
-                    _LoadEntry(sprefix+"Password", null);
+                    LoadEntry(sprefix+"Hostname", null);
+                    LoadEntry(sprefix+"Port", null);
+                    LoadEntry(sprefix+"Network", null);
+                    LoadEntry(sprefix+"Username", null);
+                    LoadEntry(sprefix+"Password", null);
                 }
             }
         }
@@ -280,8 +280,8 @@ namespace Meebey.Smuxi.Engine
             Logger.Config.Info("Saving config (Config)");
 #endif
             
-            foreach (string key in _Preferences.Keys) {
-                object obj = _Preferences[key];
+            foreach (string key in m_Preferences.Keys) {
+                object obj = m_Preferences[key];
                 _Set(key, obj);
             }
             
@@ -292,7 +292,7 @@ namespace Meebey.Smuxi.Engine
 #if CONFIG_GCONF
             _GConf.SuggestSync();
 #elif CONFIG_NINI
-            _IniDocument.Save(_IniFilename);
+            m_IniDocument.Save(m_IniFilename);
 #endif
         }
         
@@ -301,54 +301,56 @@ namespace Meebey.Smuxi.Engine
 #if LOG4NET
             Logger.Config.Debug("Removing: "+key);
 #endif
-            _Preferences.Remove(key);
+            m_Preferences.Remove(key);
         }
 
-        private void _LoadUserEntry(string user, string key, object defaultvalue)
+        protected void LoadUserEntry(string user, string key, object defaultvalue)
         {
 #if LOG4NET
-            Logger.Config.Debug("_LoadUserEntry() user: '"+user+"' key: '"+key+
+            Logger.Config.Debug("LoadUserEntry() user: '"+user+"' key: '"+key+
                 "' defaultvalue: '"+(defaultvalue != null ? defaultvalue : "(null)")+"'");
 #endif
             string prefix = "Engine/Users/";
             string ukey = prefix+user+"/"+key;
-            object obj = _Get(ukey, defaultvalue);
+            object obj = Get(ukey, defaultvalue);
             if (obj != null) {
-                _Preferences[ukey] = obj;
+                m_Preferences[ukey] = obj;
             }
         }
         
-        protected void _LoadEntry(string key, object defaultvalue)
+        protected void LoadEntry(string key, object defaultvalue)
         {
 #if LOG4NET
-            Logger.Config.Debug("_LoadEntry() key: '"+key+"' defaultvalue: '"+
+            Logger.Config.Debug("LoadEntry() key: '"+key+"' defaultvalue: '"+
                 (defaultvalue != null ? defaultvalue : "(null)")+"'");
 #endif
-            object obj = _Get(key, defaultvalue);
+            object obj = Get(key, defaultvalue);
             if (obj != null) {
-                _Preferences[key] = obj;             
+                m_Preferences[key] = obj;             
             }
         }
         
-        protected void _LoadAllEntries(string basepath)
+        protected void LoadAllEntries(string basepath)
         {
 #if LOG4NET
-            Logger.Config.Debug("_LoadAllEntries() basepath: '"+basepath+"'");
+            Logger.Config.Debug("LoadAllEntries() basepath: '"+basepath+"'");
 #endif
 #if CONFIG_GCONF
+            // TODO: GConf# has no way yet to get the sub-paths of a given path!
+            // So we have to use Nini as primary config backend for now...
 #elif CONFIG_NINI
-            foreach (DictionaryEntry dec in _IniDocument.Sections) {
+            foreach (DictionaryEntry dec in m_IniDocument.Sections) {
                 IniSection inisection = (IniSection)dec.Value;
                 if (inisection.Name.StartsWith(basepath)) {
                     foreach (string key in inisection.GetKeys()) {
-                        _Preferences[inisection.Name+"/"+key] = _Parse(inisection.GetValue(key));
+                        m_Preferences[inisection.Name+"/"+key] = _Parse(inisection.GetValue(key));
                     }
                 }
             }
 #endif
         }
         
-#elif CONFIG_NINI
+#if CONFIG_NINI
         private object _Parse(string data)
         {
             // since INI files are plain text, all data will be string,
@@ -368,8 +370,7 @@ namespace Meebey.Smuxi.Engine
             // no convert worked, let's leave it as string
             return data;
         }
-        
-#if CONFIG_NINI
+
         private string _IniGetKey(string key)
         {
             string[] keys = key.Split(new char[] {'/'});

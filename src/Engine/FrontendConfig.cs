@@ -55,16 +55,16 @@ namespace Meebey.Smuxi.Engine
             _Prefix = "Frontend/";
             
 #if CONFIG_NINI
-            _IniFilename = _ConfigPath+"/smuxi-frontend.ini";
-            if (!File.Exists(_IniFilename)) {
+            m_IniFilename = m_ConfigPath+"/smuxi-frontend.ini";
+            if (!File.Exists(m_IniFilename)) {
 #if LOG4NET
-                Logger.Config.Debug("creating file: "+_IniFilename);
+                Logger.Config.Debug("creating file: "+m_IniFilename);
 #endif
-                File.Create(_IniFilename).Close();
-                _IsCleanConfig = true;
+                File.Create(m_IniFilename).Close();
+                m_IsCleanConfig = true;
             }
             
-            _IniDocument = new IniDocument(_IniFilename);
+            m_IniDocument = new IniDocument(m_IniFilename);
 #endif
         }
 
@@ -77,25 +77,25 @@ namespace Meebey.Smuxi.Engine
             
             // setting required default values
             prefix = "Frontend/Engines/";
-            _Get(prefix+"Engines", new string[] {});
-            _Get(prefix+"Default", String.Empty);
+            Get(prefix+"Engines", new string[] {});
+            Get(prefix+"Default", String.Empty);
             
             prefix = "Frontend/Engines/";
-            _LoadEntry(prefix+"Default", String.Empty);
+            LoadEntry(prefix+"Default", String.Empty);
             
-            string[] engines = _GetList(prefix+"Engines");
-            _Preferences[prefix+"Engines"] = engines;
+            string[] engines = GetList(prefix+"Engines");
+            m_Preferences[prefix+"Engines"] = engines;
             foreach (string engine in engines) {
                 string eprefix = prefix+engine+"/"; 
-                _LoadEntry(eprefix+"Username", null);
-                _LoadEntry(eprefix+"Password", null);
-                _LoadEntry(eprefix+"Hostname", null);
-                _LoadEntry(eprefix+"Port", null);
-                _LoadEntry(eprefix+"Channel", null);
-                _LoadEntry(eprefix+"Formatter", null);
+                LoadEntry(eprefix+"Username", null);
+                LoadEntry(eprefix+"Password", null);
+                LoadEntry(eprefix+"Hostname", null);
+                LoadEntry(eprefix+"Port", null);
+                LoadEntry(eprefix+"Channel", null);
+                LoadEntry(eprefix+"Formatter", null);
             }
             
-            _LoadAllEntries("Frontend/"+_UIName);
+            LoadAllEntries("Frontend/"+_UIName);
         }
         
         public new void Remove(string key)
