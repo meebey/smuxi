@@ -91,6 +91,7 @@ namespace Meebey.Smuxi.FrontendGtkGnome
             Gdk.Threads.Leave();
         }
         
+        /*
         public void AddTextToPage(Engine.Page epage, string text)
         {
             Gdk.Threads.Enter();
@@ -115,7 +116,45 @@ namespace Meebey.Smuxi.FrontendGtkGnome
             
             Gdk.Threads.Leave();
         }
+        */
         
+        public void AddMessageToPage(Engine.Page epage, FormattedMessage fmsg)
+        {
+            Gdk.Threads.Enter();
+            
+#if LOG4NET
+            Logger.UI.Debug("AddMessageToPage() "+
+                " epage: "+(epage != null ? epage.GetType().ToString() : "(null)")+
+                " epage.Name: "+(epage.Name != null ? epage.Name : "(null)"));
+#endif
+
+            Page page = Frontend.MainWindow.Notebook.GetPage(epage);
+            Gtk.TextIter iter = page.OutputTextBuffer.EndIter;
+            foreach (FormattedMessageItem item in fmsg.Items) {
+                switch (item.Type) {
+                    case FormattedMessageItemType.Text:
+                        FormattedTextMessage ftmsg = (FormattedTextMessage)item.Value;
+#if GTK_SHARP_1
+                        page.OutputTextBuffer.Insert(iter, ftmsg.Text);
+#elif GTK_SHARP_2
+                        page.OutputTextBuffer.Insert(ref iter, ftmsg.Text);
+#endif
+                        break; 
+                } 
+            }
+#if GTK_SHARP_1
+            page.OutputTextBuffer.Insert(iter, "\n");
+#elif GTK_SHARP_2
+            page.OutputTextBuffer.Insert(ref iter, "\n");
+#endif
+            
+            if (Frontend.FrontendManager.CurrentPage != epage) {
+                page.Label.Markup = "<span foreground=\"blue\">"+page.Name+"</span>";
+            }
+            
+            Gdk.Threads.Leave();
+        }
+                
         public void RemovePage(Engine.Page epage)
         {
             Gdk.Threads.Enter();

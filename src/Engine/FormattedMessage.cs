@@ -1,9 +1,9 @@
 /*
- * $Id$
- * $URL$
- * $Rev$
- * $Author$
- * $Date$
+ * $Id: Config.cs 100 2005-08-07 14:54:22Z meebey $
+ * $URL: svn+ssh://svn.qnetp.net/svn/smuxi/smuxi/trunk/src/Engine/Config.cs $
+ * $Rev: 100 $
+ * $Author: meebey $
+ * $Date: 2005-08-07 16:54:22 +0200 (Sun, 07 Aug 2005) $
  *
  * smuxi - Smart MUltipleXed Irc
  *
@@ -31,50 +31,34 @@ using System.Collections;
 
 namespace Meebey.Smuxi.Engine
 {
-    public class Page : PermanentRemoteObject
+    [Serializable()]
+    public class FormattedMessage
     {
-        private string           _Name;
-        private PageType         _PageType;
-        private NetworkType      _NetworkType;
-        private INetworkManager  _NetworkManager;
-        private ArrayList        _Buffer = new ArrayList(); 
-        
-        public string Name {
+        private DateTime    _Timestamp;
+        private ArrayList   _Items;
+
+        public DateTime Timestamp {
             get {
-                return _Name;
+                return _Timestamp;
             }
         }
         
-        public PageType PageType {
+        public ArrayList Items {
             get {
-                return _PageType;
+                return _Items;
             }
         }
-        
-        public NetworkType NetworkType {
-            get {
-                return _NetworkType;
-            }
-        }
-        
-        public INetworkManager NetworkManager {
-            get {
-                return _NetworkManager;
-            }
-        }
-        
-        public ArrayList Buffer {
-            get {
-                return _Buffer;
-            }
-        }
-        
-        public Page(string name, PageType ptype, NetworkType ntype, INetworkManager nm)
+                
+        public FormattedMessage()
         {
-            _Name = name;
-            _PageType = ptype;
-            _NetworkType = ntype;
-            _NetworkManager = nm;
+            _Timestamp = new DateTime();
+            _Items = new ArrayList();
+        }
+        
+        public FormattedMessage(string text) : this()
+        {
+            _Items.Add(new FormattedMessageItem(FormattedMessageItemType.Text,
+                new FormattedTextMessage(null, null, false, false, text)));
         }
     }
 }

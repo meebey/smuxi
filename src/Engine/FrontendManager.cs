@@ -132,6 +132,7 @@ namespace Meebey.Smuxi.Engine
             _Queue.Enqueue(new UICommandContainer(UICommand.AddPage, page));
         }
         
+        /*
         public void AddTextToPage(Page page, string text)
         {
             string formated_timestamp;
@@ -148,6 +149,27 @@ namespace Meebey.Smuxi.Engine
         public void AddTextToCurrentPage(string text)
         {
             AddTextToPage(CurrentPage, text);
+        }
+        */
+        
+        public void AddTextToPage(Page page, string text)
+        {
+            AddMessageToPage(page, new FormattedMessage(text));
+        }
+        
+        public void AddTextToCurrentPage(string text)
+        {
+            AddTextToPage(CurrentPage, text);
+        }
+        
+        public void AddMessageToPage(Page page, FormattedMessage fmsg)
+        {
+            _Queue.Enqueue(new UICommandContainer(UICommand.AddMessageToPage, page, fmsg));
+        }
+        
+        public void AddMessageToCurrentPage(FormattedMessage fmsg)
+        {
+            AddMessageToPage(CurrentPage, fmsg);
         }
         
         public void RemovePage(Page page)
@@ -200,9 +222,9 @@ namespace Meebey.Smuxi.Engine
                             case UICommand.AddPage:
                                 _UI.AddPage((Page)com.Parameters[0]);
                                 break;
-                            case UICommand.AddTextToPage:
-                                _UI.AddTextToPage((Page)com.Parameters[0],
-                                    (string)com.Parameters[1]);
+                            case UICommand.AddMessageToPage:
+                                _UI.AddMessageToPage((Page)com.Parameters[0],
+                                    (FormattedMessage)com.Parameters[1]);
                                 break;
                             case UICommand.RemovePage:
                                 _UI.RemovePage((Page)com.Parameters[0]);

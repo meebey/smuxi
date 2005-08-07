@@ -47,9 +47,9 @@ namespace Meebey.Smuxi.FrontendTest
             Console.WriteLine("AddPage()");
         }
         
-        public void AddTextToPage(Page page, string text)
+        public void AddMessageToPage(Page page, FormattedMessage fmsg)
         {
-            Console.WriteLine("AddTextToPage()");
+            Console.WriteLine("AddMessageToPage()");
         }
         
         public void RemovePage(Page page)

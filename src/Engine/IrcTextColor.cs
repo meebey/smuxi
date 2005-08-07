@@ -1,9 +1,9 @@
 /*
- * $Id$
- * $URL$
- * $Rev$
- * $Author$
- * $Date$
+ * $Id: Config.cs 100 2005-08-07 14:54:22Z meebey $
+ * $URL: svn+ssh://svn.qnetp.net/svn/smuxi/smuxi/trunk/src/Engine/Config.cs $
+ * $Rev: 100 $
+ * $Author: meebey $
+ * $Date: 2005-08-07 16:54:22 +0200 (Sun, 07 Aug 2005) $
  *
  * smuxi - Smart MUltipleXed Irc
  *
@@ -27,54 +27,41 @@
  */
 
 using System;
-using System.Collections;
 
 namespace Meebey.Smuxi.Engine
 {
-    public class Page : PermanentRemoteObject
+    [Serializable()]
+    public class IrcTextColor
     {
-        private string           _Name;
-        private PageType         _PageType;
-        private NetworkType      _NetworkType;
-        private INetworkManager  _NetworkManager;
-        private ArrayList        _Buffer = new ArrayList(); 
+        static private TextColor _Normal = new TextColor(-1);
+        static private TextColor _Red = new TextColor(0xFF0000);
+        static private TextColor _LightRed = new TextColor(0xFF8888);
         
-        public string Name {
+        static public TextColor Normal {
             get {
-                return _Name;
+                return _Normal;
+            }
+            set {
+                _Normal = value;
             }
         }
         
-        public PageType PageType {
+        static public TextColor Red {
             get {
-                return _PageType;
+                return _Red;
+            }
+            set {
+                _Red = value;
             }
         }
         
-        public NetworkType NetworkType {
+        static public TextColor LightRed {
             get {
-                return _NetworkType;
+                return _LightRed;
             }
-        }
-        
-        public INetworkManager NetworkManager {
-            get {
-                return _NetworkManager;
+            set {
+                _LightRed = value;
             }
-        }
-        
-        public ArrayList Buffer {
-            get {
-                return _Buffer;
-            }
-        }
-        
-        public Page(string name, PageType ptype, NetworkType ntype, INetworkManager nm)
-        {
-            _Name = name;
-            _PageType = ptype;
-            _NetworkType = ntype;
-            _NetworkManager = nm;
         }
     }
 }

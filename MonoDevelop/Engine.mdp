@@ -47,5 +47,11 @@
     <File name="./Engine/IrcChannelUser.cs" subtype="Code" buildaction="Compile" />
     <File name="./Engine/CommandData.cs" subtype="Code" buildaction="Compile" />
     <File name="./Engine/PermanentRemoteObject.cs" subtype="Code" buildaction="Compile" />
+    <File name="./Engine/IrcTextColor.cs" subtype="Code" buildaction="Compile" />
+    <File name="./Engine/TextColor.cs" subtype="Code" buildaction="Compile" />
+    <File name="./Engine/FormattedMessageItemType.cs" subtype="Code" buildaction="Compile" />
+    <File name="./Engine/FormattedMessageItem.cs" subtype="Code" buildaction="Compile" />
+    <File name="./Engine/FormattedTextMessage.cs" subtype="Code" buildaction="Compile" />
+    <File name="./Engine/FormattedMessage.cs" subtype="Code" buildaction="Compile" />
   </Contents>
 </Project>

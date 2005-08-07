@@ -314,6 +314,9 @@ namespace Meebey.Smuxi.Engine
         
         public void AddTextToPage(Page page, string text)
         {
+            /*
+            text message can't hold the timestamp, so makes no sense to put them
+            in the engine buffer
             int buffer_lines = (int)UserConfig["Interface/Notebook/EngineBufferLines"];
             if (buffer_lines > 0) {
                 page.Buffer.Add(text);
@@ -321,8 +324,24 @@ namespace Meebey.Smuxi.Engine
                     page.Buffer.RemoveAt(0);
                 }
             }
+            */
             foreach (FrontendManager fm in _FrontendManagers.Values) {
                 fm.AddTextToPage(page, text);
+            }
+        }
+        
+        public void AddMessageToPage(Page page, FormattedMessage fmsg)
+        {
+            int buffer_lines = (int)UserConfig["Interface/Notebook/EngineBufferLines"];
+            if (buffer_lines > 0) {
+                page.Buffer.Add(fmsg);
+                if (page.Buffer.Count > buffer_lines) {
+                    page.Buffer.RemoveAt(0);
+                }
+            }
+            
+            foreach (FrontendManager fm in _FrontendManagers.Values) {
+                fm.AddMessageToPage(page, fmsg);
             }
         }
         

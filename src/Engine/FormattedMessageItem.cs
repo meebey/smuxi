@@ -1,9 +1,9 @@
 /*
- * $Id$
- * $URL$
- * $Rev$
- * $Author$
- * $Date$
+ * $Id: Config.cs 100 2005-08-07 14:54:22Z meebey $
+ * $URL: svn+ssh://svn.qnetp.net/svn/smuxi/smuxi/trunk/src/Engine/Config.cs $
+ * $Rev: 100 $
+ * $Author: meebey $
+ * $Date: 2005-08-07 16:54:22 +0200 (Sun, 07 Aug 2005) $
  *
  * smuxi - Smart MUltipleXed Irc
  *
@@ -26,23 +26,32 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA
  */
 
+using System;
+
 namespace Meebey.Smuxi.Engine
 {
-    public interface IFrontendUI
+    [Serializable()]
+    public class FormattedMessageItem
     {
-        int Version
-        {
-            get;
+        private FormattedMessageItemType _Type;
+        private object                   _Value;
+        
+        public FormattedMessageItemType Type {
+            get {
+                return _Type;
+            }
         }
-        void AddPage(Page page);
-        void AddMessageToPage(Page page, FormattedMessage fmsg);
-        void RemovePage(Page page);
-        void SyncPage(Page page);
-        void AddUserToChannel(ChannelPage cpage, User user);
-        void UpdateUserInChannel(ChannelPage cpage, User olduser, User newuser);
-        void UpdateTopicInChannel(ChannelPage cpage, string topic);
-        void RemoveUserFromChannel(ChannelPage cpage, User user);
-        void SetNetworkStatus(string status);
-        void SetStatus(string status);
+        
+        public object Value {
+            get {
+                return _Value;
+            }
+        }
+        
+        public FormattedMessageItem(FormattedMessageItemType type, object value)
+        {
+            _Type = type;
+            _Value = value;
+        }
     }
 }

@@ -31,7 +31,7 @@ namespace Meebey.Smuxi.Engine
     public enum UICommand
     {
         AddPage,
-        AddTextToPage,
+        AddMessageToPage,
         RemovePage,
         SyncPage,
         AddUserToChannel,
