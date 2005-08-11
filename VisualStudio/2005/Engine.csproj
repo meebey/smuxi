@@ -104,6 +104,18 @@
       <Link>Engine.cs</Link>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="..\..\src\Engine\FormattedMessage.cs">
+      <Link>FormattedMessage.cs</Link>
+    </Compile>
+    <Compile Include="..\..\src\Engine\FormattedMessageItem.cs">
+      <Link>FormattedMessageItem.cs</Link>
+    </Compile>
+    <Compile Include="..\..\src\Engine\FormattedMessageItemType.cs">
+      <Link>FormattedMessageItemType.cs</Link>
+    </Compile>
+    <Compile Include="..\..\src\Engine\FormattedTextMessage.cs">
+      <Link>FormattedTextMessage.cs</Link>
+    </Compile>
     <Compile Include="..\..\src\Engine\FrontendConfig.cs">
       <Link>FrontendConfig.cs</Link>
     </Compile>
@@ -123,6 +135,9 @@
     </Compile>
     <Compile Include="..\..\src\Engine\IrcManager.cs">
       <Link>IrcManager.cs</Link>
+    </Compile>
+    <Compile Include="..\..\src\Engine\IrcTextColor.cs">
+      <Link>IrcTextColor.cs</Link>
     </Compile>
     <Compile Include="..\..\src\Engine\IrcUser.cs">
       <Link>IrcUser.cs</Link>
@@ -150,6 +165,9 @@
     </Compile>
     <Compile Include="..\..\src\Engine\SessionManager.cs">
       <Link>SessionManager.cs</Link>
+    </Compile>
+    <Compile Include="..\..\src\Engine\TextColor.cs">
+      <Link>TextColor.cs</Link>
     </Compile>
     <Compile Include="..\..\src\Engine\UICommand.cs">
       <Link>UICommand.cs</Link>

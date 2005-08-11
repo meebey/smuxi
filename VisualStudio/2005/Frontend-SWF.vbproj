@@ -7,12 +7,18 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{47FF6EC6-F8A2-4667-B0CF-A4D01D1B0557}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <StartupObject>WinSmuxi.My.MyApplication</StartupObject>
+    <StartupObject>
+    </StartupObject>
     <RootNamespace>WinSmuxi</RootNamespace>
     <AssemblyName>WinSmuxi</AssemblyName>
     <MyType>WindowsForms</MyType>
     <IsWebBootstrapper>true</IsWebBootstrapper>
-    <PublishUrl>http://localhost/WinSmuxi/</PublishUrl>
+    <SignManifests>true</SignManifests>
+    <ManifestCertificateThumbprint>20011A0688F04BB98B16CB5B345B699FDC243F5A</ManifestCertificateThumbprint>
+    <SignAssembly>false</SignAssembly>
+    <TargetZone>LocalIntranet</TargetZone>
+    <GenerateManifests>true</GenerateManifests>
+    <PublishUrl>ftp://n1kio.org/db/publish/WinSmuxi/</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Web</InstallFrom>
     <UpdateEnabled>true</UpdateEnabled>
@@ -22,7 +28,8 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationVersion>1.0.0.*</ApplicationVersion>
+    <InstallUrl>http://db.zhilaware.starfusion.org/publish/WinSmuxi/</InstallUrl>
+    <ApplicationVersion>1.0.0.0</ApplicationVersion>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -33,6 +40,7 @@
     <OutputPath>..\..\bin\net\debug\</OutputPath>
     <DocumentationFile>WinSmuxi.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -58,6 +66,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Import Include="Meebey.Smuxi.Engine" />
     <Import Include="Microsoft.VisualBasic" />
     <Import Include="System" />
     <Import Include="System.Collections" />
@@ -185,6 +194,11 @@
       <ProductName>.NET Framework 2.0 Beta</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="..\..\src\Frontend-SWF\My Project\">
+	    <Link>My Project</Link>
+    </Folder>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.VisualBasic.targets" />
 </Project>
