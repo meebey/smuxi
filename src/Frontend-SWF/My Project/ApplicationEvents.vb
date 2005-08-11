@@ -9,7 +9,9 @@ Namespace My
     'NetworkAvailabilityChanged: Raised when the network connection is connected or disconnected.
 
     Class MyApplication
-
+        Public Sub CatchException(ByVal sender As Object, ByVal e As Microsoft.VisualBasic.ApplicationServices.UnhandledExceptionEventArgs) Handles Me.UnhandledException
+            MessageBox.Show(e.Exception.Message & vbNewLine & e.Exception.StackTrace)
+        End Sub
     End Class
 
 End Namespace

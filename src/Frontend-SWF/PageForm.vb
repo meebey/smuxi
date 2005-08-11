@@ -44,39 +44,33 @@ Public Class PageForm
         ' Add any initialization after the InitializeComponent() call.
     End Sub
 
-    Public Sub AddText(ByVal text As String)
-        Dim Style As FontStyle
-        Dim sb As New System.Text.StringBuilder()
-        For Each c As Char In text.ToCharArray()
-            Select Case c
-                Case Chr(2)
-                    PageBuffer.AppendText(sb.ToString())
-                    sb = New System.Text.StringBuilder()
-                    Style = Style Xor FontStyle.Bold
+    Public Sub AddMessage(ByVal msg As Meebey.Smuxi.Engine.FormattedMessage)
+        For Each item As FormattedMessageItem In msg.Items
+            Select Case item.Type
+                Case FormattedMessageItemType.Text
+                    Dim Style As FontStyle
+                    Dim TextItem As FormattedTextMessage = DirectCast(item.Value, FormattedTextMessage)
+                    If TextItem.Bold Then Style = Style Or FontStyle.Bold
+                    If TextItem.Underline Then Style = Style Or FontStyle.Underline
+                    'PageBuffer.SelectionBackColor = Color.FromArgb(TextItem.BackgroundColor.HexCode And &HFF000000)
+                    'PageBuffer.SelectionColor = Color.FromArgb(TextItem.Color.HexCode And &HFF000000)
                     PageBuffer.SelectionFont = New Font(PageBuffer.Font, Style)
-                Case Chr(15), Chr(13)
-                    PageBuffer.AppendText(sb.ToString())
-                    sb = New System.Text.StringBuilder()
-                    Style = FontStyle.Regular
-                    PageBuffer.SelectionFont = New Font(PageBuffer.Font, Style)
-                Case Else
-                    sb.Append(c)
+                    PageBuffer.AppendText(TextItem.Text)
             End Select
         Next
+        PageBuffer.AppendText(vbNewLine)
+        PageBuffer.ScrollToCaret()
+    End Sub
 
-        PageBuffer.AppendText(sb.ToString() & vbNewLine)
-        PageBuffer.SelectionFont = New Font(PageBuffer.Font, FontStyle.Regular)
+    Public Sub UpdateTopic(ByVal Topic As String)
+        PageBuffer.AppendText(String.Format("Topic updated to ""{0}""", Topic))
+        PageBuffer.AppendText(vbNewLine)
         PageBuffer.ScrollToCaret()
     End Sub
     Protected Overrides Sub OnClosing(ByVal e As System.ComponentModel.CancelEventArgs)
         e.Cancel = True
         Me.Hide()
         MyBase.OnClosing(e)
-    End Sub
-    Protected Overrides Sub OnResize(ByVal e As System.EventArgs)
-        'MessageBox.Show("hey")
-        If Me.WindowState = FormWindowState.Minimized Then Me.Visible = False
-        MyBase.OnResize(e)
     End Sub
 
     Private Sub SendCommand(ByVal sender As Object, ByVal e As EventArgs) Handles Send.Click

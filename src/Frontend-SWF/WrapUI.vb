@@ -36,7 +36,7 @@ Friend Class WrapUI
     Private Invoke As InvokeMethod
 
     Private Delegate Sub ManagePage(ByVal page As Meebey.Smuxi.Engine.Page)
-    Private Delegate Sub AddPageText(ByVal page As Meebey.Smuxi.Engine.Page, ByVal text As String)
+    Private Delegate Sub AddPageText(ByVal page As Meebey.Smuxi.Engine.Page, ByVal text As FormattedMessage)
     Private Delegate Sub ManageUser(ByVal cpage As Meebey.Smuxi.Engine.ChannelPage, ByVal user As Meebey.Smuxi.Engine.User)
     Private Delegate Sub StatusText(ByVal text As String)
     Private Delegate Sub UpdateTopic(ByVal cpage As Meebey.Smuxi.Engine.ChannelPage, ByVal topic As String)
@@ -47,8 +47,8 @@ Friend Class WrapUI
         Invoke(New ManagePage(AddressOf UI.AddPage), New Object() {page})
     End Sub
 
-    Public Sub AddTextToPage(ByVal page As Meebey.Smuxi.Engine.Page, ByVal text As String) Implements Meebey.Smuxi.Engine.IFrontendUI.AddTextToPage
-        Invoke(New AddPageText(AddressOf UI.AddTextToPage), New Object() {page, text})
+    Public Sub AddMessageToPage(ByVal page As Page, ByVal fmsg As Meebey.Smuxi.Engine.FormattedMessage) Implements Meebey.Smuxi.Engine.IFrontendUI.AddMessageToPage
+        Invoke(New AddPageText(AddressOf UI.AddMessageToPage), New Object() {page, fmsg})
     End Sub
 
     Public Sub AddUserToChannel(ByVal cpage As Meebey.Smuxi.Engine.ChannelPage, ByVal user As Meebey.Smuxi.Engine.User) Implements Meebey.Smuxi.Engine.IFrontendUI.AddUserToChannel

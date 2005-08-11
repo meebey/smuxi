@@ -64,8 +64,8 @@ Public Class MainForm
         pf.Tag = n
     End Sub
 
-    Public Sub AddTextToPage(ByVal page As Meebey.Smuxi.Engine.Page, ByVal text As String) Implements Meebey.Smuxi.Engine.IFrontendUI.AddTextToPage
-        plist(page).AddText(text)
+    Public Sub AddTextToPage(ByVal page As Meebey.Smuxi.Engine.Page, ByVal msg As Meebey.Smuxi.Engine.FormattedMessage) Implements Meebey.Smuxi.Engine.IFrontendUI.AddMessageToPage
+        plist(page).AddMessage(msg)
     End Sub
 
     Public Sub AddUserToChannel(ByVal cpage As Meebey.Smuxi.Engine.ChannelPage, ByVal user As Meebey.Smuxi.Engine.User) Implements Meebey.Smuxi.Engine.IFrontendUI.AddUserToChannel
@@ -98,7 +98,7 @@ Public Class MainForm
     End Sub
 
     Public Sub UpdateTopicInChannel(ByVal cpage As Meebey.Smuxi.Engine.ChannelPage, ByVal topic As String) Implements Meebey.Smuxi.Engine.IFrontendUI.UpdateTopicInChannel
-        plist(cpage).AddText(String.Format("Topic updated to ""{0}""", topic))
+        plist(cpage).UpdateTopic(topic)
     End Sub
 
     Public Sub UpdateUserInChannel(ByVal cpage As Meebey.Smuxi.Engine.ChannelPage, ByVal olduser As Meebey.Smuxi.Engine.User, ByVal newuser As Meebey.Smuxi.Engine.User) Implements Meebey.Smuxi.Engine.IFrontendUI.UpdateUserInChannel
@@ -124,7 +124,8 @@ Public Class MainForm
 #End If
         Meebey.Smuxi.Engine.Engine.Init()
         Me.Show()
-        Globals.Session = Meebey.Smuxi.Engine.Engine.SessionManager.Register("smuxi", "crackme", UI)
+        Globals.Session = New Meebey.Smuxi.Engine.Session(Meebey.Smuxi.Engine.Engine.Config, "local")
+        Globals.Session.RegisterFrontendUI(UI)
         Globals.FManager = Session.GetFrontendManager(UI)
     End Sub
 
