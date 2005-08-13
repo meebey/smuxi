@@ -68,6 +68,9 @@ Partial Public Class MainForm
         Me.ToolStripDockLeft = New System.Windows.Forms.ToolStripPanel
         Me.ToolStripDockRight = New System.Windows.Forms.ToolStripPanel
         Me.Splitter1 = New System.Windows.Forms.Splitter
+        Me.ConnectSmuxiItem = New System.Windows.Forms.ToolStripMenuItem
+        Me.ConnectIRCItem = New System.Windows.Forms.ToolStripMenuItem
+        Me.ToolStripSeparator2 = New System.Windows.Forms.ToolStripSeparator
         ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator
         Me.MainMenu.SuspendLayout()
         Me.MainToolBar.SuspendLayout()
@@ -97,8 +100,9 @@ Partial Public Class MainForm
         '
         'ConnectItem
         '
+        Me.ConnectItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ConnectSmuxiItem, Me.ToolStripSeparator2, Me.ConnectIRCItem})
         Me.ConnectItem.Name = "ConnectItem"
-        Me.ConnectItem.Text = "&Connect..."
+        Me.ConnectItem.Text = "&Connect To"
         '
         'ExitItem
         '
@@ -230,6 +234,20 @@ Partial Public Class MainForm
         Me.Splitter1.TabIndex = 7
         Me.Splitter1.TabStop = False
         '
+        'ConnectSmuxiItem
+        '
+        Me.ConnectSmuxiItem.Name = "ConnectSmuxiItem"
+        Me.ConnectSmuxiItem.Text = "&Smuxi..."
+        '
+        'ConnectIRCItem
+        '
+        Me.ConnectIRCItem.Name = "ConnectIRCItem"
+        Me.ConnectIRCItem.Text = "&IRC..."
+        '
+        'ToolStripSeparator2
+        '
+        Me.ToolStripSeparator2.Name = "ToolStripSeparator2"
+        '
         'MainForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -275,5 +293,8 @@ Partial Public Class MainForm
     Friend WithEvents WindowStrip As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents ToolStripLabel1 As System.Windows.Forms.ToolStripLabel
     Friend WithEvents NetworkBox As System.Windows.Forms.ToolStripComboBox
+    Friend WithEvents ConnectSmuxiItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents ConnectIRCItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents ToolStripSeparator2 As System.Windows.Forms.ToolStripSeparator
 
 End Class
