@@ -28,7 +28,7 @@
 '*
 
 Public Class PageForm
-    Protected Page As Meebey.Smuxi.Engine.Page
+    Public Page As Meebey.Smuxi.Engine.Page
 
 
     Friend Sub New(ByVal Page As Meebey.Smuxi.Engine.Page)
@@ -42,6 +42,9 @@ Public Class PageForm
         InitializeComponent()
 
         ' Add any initialization after the InitializeComponent() call.
+        'For Each s As String In Page.Buffer
+
+        'Next
     End Sub
 
     Public Sub AddMessage(ByVal msg As Meebey.Smuxi.Engine.FormattedMessage)

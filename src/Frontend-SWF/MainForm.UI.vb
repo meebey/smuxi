@@ -100,5 +100,10 @@ Partial Public Class MainForm
         DirectCast(plist(cpage), ChannelPageForm).AddUser(newuser)
     End Sub
 
+    Public ReadOnly Property Version() As Integer Implements Meebey.Smuxi.Engine.IFrontendUI.Version
+        Get
+            Return My.Application.Info.Version.Major
+        End Get
+    End Property
 
 End Class

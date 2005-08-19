@@ -14,22 +14,29 @@
     <MyType>WindowsForms</MyType>
     <IsWebBootstrapper>true</IsWebBootstrapper>
     <SignManifests>true</SignManifests>
-    <ManifestCertificateThumbprint>20011A0688F04BB98B16CB5B345B699FDC243F5A</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>E8E692215D028D6F6A92B24251B29A1ACCE9ACFB</ManifestCertificateThumbprint>
     <SignAssembly>false</SignAssembly>
-    <TargetZone>LocalIntranet</TargetZone>
+    <TargetZone>Internet</TargetZone>
     <GenerateManifests>true</GenerateManifests>
+    <ManifestKeyFile>
+    </ManifestKeyFile>
+    <ExcludedPermissions>
+    </ExcludedPermissions>
+    <AssemblyOriginatorKeyFile>Frontend-SWF_TemporaryKey.pfx</AssemblyOriginatorKeyFile>
     <PublishUrl>ftp://n1kio.org/db/publish/WinSmuxi/</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Web</InstallFrom>
     <UpdateEnabled>true</UpdateEnabled>
-    <UpdateMode>Foreground</UpdateMode>
-    <UpdateInterval>7</UpdateInterval>
+    <UpdateMode>Background</UpdateMode>
+    <UpdateInterval>1</UpdateInterval>
     <UpdateIntervalUnits>Days</UpdateIntervalUnits>
-    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdatePeriodically>true</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
     <InstallUrl>http://db.zhilaware.starfusion.org/publish/WinSmuxi/</InstallUrl>
-    <ApplicationVersion>1.0.0.0</ApplicationVersion>
+    <ProductName>WinSmuxi</ProductName>
+    <PublisherName>Zhila</PublisherName>
+    <ApplicationVersion>0.5.6.*</ApplicationVersion>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -51,6 +58,9 @@
     <DocumentationFile>WinSmuxi.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
   </PropertyGroup>
+  <PropertyGroup>
+    <PublishDir>$(OutputPath)publish\</PublishDir>
+  </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="Engine.csproj">
       <Name>Engine</Name>
@@ -62,6 +72,7 @@
     <Reference Include="System.Deployment" />
     <Reference Include="System.DirectoryServices" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Remoting" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
   </ItemGroup>
@@ -83,8 +94,32 @@
       <Link>ChannelPageForm.vb</Link>
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="..\..\src\Frontend-SWF\ConnectIRC.designer.vb">
+      <Link>ConnectIRC.designer.vb</Link>
+      <DependentUpon>ConnectIRC.vb</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\src\Frontend-SWF\ConnectIRC.vb">
+      <Link>ConnectIRC.vb</Link>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="..\..\src\Frontend-SWF\ConnectSmuxi.designer.vb">
+      <Link>ConnectSmuxi.designer.vb</Link>
+      <DependentUpon>ConnectSmuxi.vb</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\src\Frontend-SWF\ConnectSmuxi.vb">
+      <Link>ConnectSmuxi.vb</Link>
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="..\..\src\Frontend-SWF\Globals.vb">
       <Link>Globals.vb</Link>
+    </Compile>
+    <Compile Include="..\..\src\Frontend-SWF\MainForm.Events.vb">
+      <Link>MainForm.Events.vb</Link>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="..\..\src\Frontend-SWF\MainForm.UI.vb">
+      <Link>MainForm.UI.vb</Link>
+      <SubType>Form</SubType>
     </Compile>
     <Compile Include="..\..\src\Frontend-SWF\MainForm.vb">
       <Link>MainForm.vb</Link>
@@ -177,6 +212,9 @@
     <None Include="..\..\src\Frontend-SWF\app.config">
       <Link>app.config</Link>
     </None>
+    <None Include="..\..\src\Frontend-SWF\My Project\app.manifest">
+      <Link>My Project\app.manifest</Link>
+    </None>
     <None Include="..\..\src\Frontend-SWF\My Project\Application.myapp">
       <Link>My Project\Application.myapp</Link>
       <Generator>MyApplicationCodeGenerator</Generator>
@@ -187,6 +225,7 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
     </None>
+    <None Include="Frontend-SWF_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
@@ -194,11 +233,6 @@
       <ProductName>.NET Framework 2.0 Beta</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="..\..\src\Frontend-SWF\My Project\">
-	    <Link>My Project</Link>
-    </Folder>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.VisualBasic.targets" />
 </Project>

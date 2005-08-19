@@ -1,4 +1,4 @@
-'*
+'t '*
 '* $Id$
 '* $URL$
 '* $Rev$
@@ -38,7 +38,9 @@ Partial Public Class MainForm
         pf.BringToFront()
     End Sub
     Private Sub PopulateNetworks(ByVal sender As Object, ByVal e As EventArgs) Handles NetworkBox.DropDown
+        Dim s As String = NetworkBox.Text
         NetworkBox.Items.Clear()
+        NetworkBox.Text = s
         For Each Network As Meebey.Smuxi.Engine.INetworkManager In Globals.Session.NetworkManagers
             NetworkBox.Items.Add(Network)
         Next
@@ -63,10 +65,12 @@ Partial Public Class MainForm
             End If
             URL = String.Format("tcp://{0}:{1}/SessionManager", smuxi.Hostname, smuxi.Port)
             SManager = DirectCast(Activator.GetObject(GetType(SessionManager), URL), SessionManager)
-            Globals.Session.DeregisterFrontendUI(UI)
+            DisconnectSmuxi()
             Globals.Session = SManager.Register(smuxi.Username, smuxi.Password, UI)
             Globals.FManager = Session.GetFrontendManager(UI)
         End If
     End Sub
+
+
 
 End Class

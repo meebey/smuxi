@@ -36,11 +36,6 @@ Public Class MainForm
     Private UI As New WrapUI(Me, AddressOf Me.invoke)
 
 
-    Public ReadOnly Property Version() As Integer Implements Meebey.Smuxi.Engine.IFrontendUI.Version
-        Get
-            Return My.Application.Info.Version.Major
-        End Get
-    End Property
 
     Public Sub New()
 
@@ -61,6 +56,7 @@ Public Class MainForm
 
     Protected Overrides Sub OnClosing(ByVal e As System.ComponentModel.CancelEventArgs)
         e.Cancel = False
+        If Globals.FManager IsNot Nothing Then Globals.FManager.IsFrontendDisconnecting = True
         MyBase.OnClosing(e)
     End Sub
 
@@ -71,5 +67,23 @@ Public Class MainForm
             GetServerNode = PageList.Nodes.Add(servername, servername)
         End If
     End Function
+
+    Private Sub DisconnectSmuxi()
+        Globals.FManager.IsFrontendDisconnecting = True
+        Globals.Session.DeregisterFrontendUI(UI)
+        Globals.FManager = Nothing
+        Globals.Session = Nothing
+    End Sub
+
+    Protected Overrides Sub OnMdiChildActivate(ByVal e As System.EventArgs)
+        Dim pf As PageForm = TryCast(ActiveMdiChild, PageForm)
+        If pf IsNot Nothing Then
+            If pf.Page.NetworkManager IsNot Nothing Then
+                Globals.FManager.CurrentNetworkManager = pf.Page.NetworkManager
+                NetworkBox.Text = pf.Page.NetworkManager.ToString()
+            End If
+        End If
+        MyBase.OnMdiChildActivate(e)
+    End Sub
 
 End Class
