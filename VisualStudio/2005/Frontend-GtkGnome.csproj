@@ -1,7 +1,7 @@
 ﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <ProjectType>Local</ProjectType>
-    <ProductVersion>8.0.50215</ProductVersion>
+    <ProductVersion>8.0.50727</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{1818A3F5-0850-4A7C-A528-29338BF1A41B}</ProjectGuid>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -75,36 +75,12 @@
       <Project>{7282E818-5F42-4811-BFCB-36E362948C9F}</Project>
       <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
     </ProjectReference>
-    <Reference Include="art-sharp">
-      <Name>art-sharp</Name>
-      <HintPath>C:\Program Files\Common Files\GtkRun\2.6\lib\gtk-sharp\art-sharp.dll</HintPath>
-      <AssemblyFolderKey>hklm\dn\gtk-sharp</AssemblyFolderKey>
-    </Reference>
-    <Reference Include="atk-sharp">
-      <Name>atk-sharp</Name>
-      <HintPath>C:\Program Files\Common Files\GtkRun\2.6\lib\gtk-sharp\atk-sharp.dll</HintPath>
-      <AssemblyFolderKey>hklm\dn\gtk-sharp</AssemblyFolderKey>
-    </Reference>
-    <Reference Include="gdk-sharp">
-      <Name>gdk-sharp</Name>
-      <HintPath>C:\Program Files\Common Files\GtkRun\2.6\lib\gtk-sharp\gdk-sharp.dll</HintPath>
-      <AssemblyFolderKey>hklm\dn\gtk-sharp</AssemblyFolderKey>
-    </Reference>
-    <Reference Include="glade-sharp">
-      <Name>glade-sharp</Name>
-      <HintPath>C:\Program Files\Common Files\GtkRun\2.6\lib\gtk-sharp\glade-sharp.dll</HintPath>
-      <AssemblyFolderKey>hklm\dn\gtk-sharp</AssemblyFolderKey>
-    </Reference>
-    <Reference Include="glib-sharp">
-      <Name>glib-sharp</Name>
-      <HintPath>C:\Program Files\Common Files\GtkRun\2.6\lib\gtk-sharp\glib-sharp.dll</HintPath>
-      <AssemblyFolderKey>hklm\dn\gtk-sharp</AssemblyFolderKey>
-    </Reference>
-    <Reference Include="gtk-sharp">
-      <Name>gtk-sharp</Name>
-      <HintPath>C:\Program Files\Common Files\GtkRun\2.6\lib\gtk-sharp\gtk-sharp.dll</HintPath>
-      <AssemblyFolderKey>hklm\dn\gtk-sharp</AssemblyFolderKey>
-    </Reference>
+    <Reference Include="art-sharp, Version=2.4.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
+    <Reference Include="atk-sharp, Version=2.4.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
+    <Reference Include="gdk-sharp, Version=2.4.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
+    <Reference Include="glade-sharp, Version=2.4.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
+    <Reference Include="glib-sharp, Version=2.4.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
+    <Reference Include="gtk-sharp, Version=2.4.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
     <Reference Include="log4net">
       <Name>log4net</Name>
       <HintPath>..\..\bin\log4net.dll</HintPath>

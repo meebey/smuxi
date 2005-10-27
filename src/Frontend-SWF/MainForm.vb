@@ -58,6 +58,7 @@ Public Class MainForm
         e.Cancel = False
         If Globals.FManager IsNot Nothing Then Globals.FManager.IsFrontendDisconnecting = True
         MyBase.OnClosing(e)
+        Globals.Quit(0)
     End Sub
 
 

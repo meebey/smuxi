@@ -3,12 +3,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>8.0.50215</ProductVersion>
+    <ProductVersion>8.0.50727</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{47FF6EC6-F8A2-4667-B0CF-A4D01D1B0557}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <StartupObject>
-    </StartupObject>
+    <StartupObject>WinSmuxi.Globals</StartupObject>
     <RootNamespace>WinSmuxi</RootNamespace>
     <AssemblyName>WinSmuxi</AssemblyName>
     <MyType>WindowsForms</MyType>
@@ -129,28 +128,8 @@
       <DependentUpon>MainForm.vb</DependentUpon>
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="..\..\src\Frontend-SWF\My Project\AssemblyInfo.vb">
-      <Link>My Project\AssemblyInfo.vb</Link>
-    </Compile>
-    <Compile Include="..\..\src\Frontend-SWF\My Project\Application.Designer.vb">
-      <Link>My Project\Application.Designer.vb</Link>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Application.myapp</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\src\Frontend-SWF\My Project\Resources.Designer.vb">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-      <Link>My Project\Resources.Designer.vb</Link>
-    </Compile>
-    <Compile Include="..\..\src\Frontend-SWF\My Project\Settings.Designer.vb">
-      <Link>My Project\Settings.Designer.vb</Link>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Settings.settings</DependentUpon>
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-    </Compile>
-    <Compile Include="..\..\src\Frontend-SWF\My Project\ApplicationEvents.vb">
-      <Link>My Project\ApplicationEvents.vb</Link>
+    <Compile Include="..\..\src\Frontend-SWF\AssemblyInfo.vb">
+      <Link>AssemblyInfo.vb</Link>
     </Compile>
     <Compile Include="..\..\src\Frontend-SWF\PageForm.Designer.vb">
       <DependentUpon>PageForm.vb</DependentUpon>
@@ -191,13 +170,6 @@
     <EmbeddedResource Include="..\..\src\Frontend-SWF\MainForm.resx">
       <DependentUpon>MainForm.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="..\..\src\Frontend-SWF\My Project\Resources.resx">
-      <Link>My Project\Resources.resx</Link>
-      <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
-      <CustomToolNamespace>My.Resources</CustomToolNamespace>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <EmbeddedResource Include="..\..\src\Frontend-SWF\PageForm.resx">
       <DependentUpon>PageForm.vb</DependentUpon>
     </EmbeddedResource>
@@ -212,18 +184,8 @@
     <None Include="..\..\src\Frontend-SWF\app.config">
       <Link>app.config</Link>
     </None>
-    <None Include="..\..\src\Frontend-SWF\My Project\app.manifest">
-      <Link>My Project\app.manifest</Link>
-    </None>
-    <None Include="..\..\src\Frontend-SWF\My Project\Application.myapp">
-      <Link>My Project\Application.myapp</Link>
-      <Generator>MyApplicationCodeGenerator</Generator>
-      <LastGenOutput>Application.Designer.vb</LastGenOutput>
-    </None>
-    <None Include="..\..\src\Frontend-SWF\My Project\Settings.settings">
-      <Link>My Project\Settings.settings</Link>
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings.Designer.vb</LastGenOutput>
+    <None Include="..\..\src\Frontend-SWF\app.manifest">
+      <Link>app.manifest</Link>
     </None>
     <None Include="Frontend-SWF_TemporaryKey.pfx" />
   </ItemGroup>

@@ -26,13 +26,32 @@
 '* along with this program; if not, write to the Free Software
 '* Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA
 '*
+Imports Meebey.Smuxi
+Imports System.Windows.Forms
+
 
 Structure ServerData
-    Public Page As Meebey.Smuxi.Engine.Page
-    Public Network As Meebey.Smuxi.Engine.INetworkManager
-    Public Window As System.Windows.Forms.Form
+    Public Page As Engine.Page
+    Public Network As Engine.INetworkManager
+    Public Window As Form
 End Structure
 Module Globals
     Public FManager As Meebey.Smuxi.Engine.FrontendManager
     Public Session As Meebey.Smuxi.Engine.Session
+    Public MainForm As MainForm
+    Private ExitCode As Nullable(Of Integer) = Nothing
+
+
+    Public Function Main(ByVal args As String()) As Integer
+        MainForm = New MainForm()
+        Do Until ExitCode.HasValue
+            Application.DoEvents()
+        Loop
+        Return ExitCode
+    End Function
+
+    Public Sub Quit(Optional ByVal ExitCode As Integer = 0)
+        Globals.ExitCode = ExitCode
+    End Sub
+
 End Module
