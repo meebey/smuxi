@@ -27,6 +27,7 @@
  */
 
 using System;
+using System.Threading;
 using System.Collections;
 using System.Runtime.Remoting;
 using System.Runtime.Remoting.Lifetime;
@@ -101,9 +102,7 @@ namespace Meebey.Smuxi.Server
             Engine.Logger.Remoting.Info("Spawned remoting server with channel: "+channel+" formatter: "+formatter+" port: "+port);
 #endif            
             
-            while (true) {
-                System.Console.ReadLine();
-            } 
+            Thread.Sleep(Timeout.Infinite);
         }
     }
 }

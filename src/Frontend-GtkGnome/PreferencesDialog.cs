@@ -39,8 +39,15 @@ namespace Meebey.Smuxi.FrontendGtkGnome
         public PreferencesDialog()
         {
             _Glade = new Glade.XML(null, "preferences.glade", "PreferencesDialog", null);
+            //_Glade.BindFields(this);
+            // changed signal is used in all settings, so use glade for now
             _Glade.Autoconnect(this);
             _Dialog = (Gtk.Dialog)_Glade["PreferencesDialog"];
+            
+            ((Gtk.Button)_Glade["OKButton"]).Clicked += new EventHandler(_OnOKButtonClicked);
+            ((Gtk.Button)_Glade["ApplyButton"]).Clicked += new EventHandler(_OnApplyButtonClicked);
+            ((Gtk.Button)_Glade["CancelButton"]).Clicked += new EventHandler(_OnCancelButtonClicked);
+            
             ((Gtk.TextView)_Glade["OnConnectCommandsTextView"]).Buffer.Changed += new EventHandler(_OnChanged);
             ((Gtk.TextView)_Glade["OnStartupCommandsTextView"]).Buffer.Changed += new EventHandler(_OnChanged);
             _Load();

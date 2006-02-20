@@ -1,16 +1,16 @@
 <Combine name="smuxi" fileversion="2.0" outputpath="../bin">
   <Configurations active="Debug">
     <Configuration name="Release" ctype="CombineConfiguration">
-      <Entry build="False" name="Engine" />
-      <Entry build="False" name="Server" />
-      <Entry build="False" name="Frontend-GtkGnome" />
-      <Entry build="False" name="Frontend-Test" />
+      <Entry configuration="Release" build="True" name="Engine" />
+      <Entry configuration="Release" build="True" name="Server" />
+      <Entry configuration="Release" build="True" name="Frontend-GtkGnome" />
+      <Entry configuration="Release" build="True" name="Frontend-Test" />
     </Configuration>
     <Configuration name="Debug" ctype="CombineConfiguration">
-      <Entry build="False" name="Engine" />
-      <Entry build="False" name="Server" />
-      <Entry build="False" name="Frontend-GtkGnome" />
-      <Entry build="False" name="Frontend-Test" />
+      <Entry configuration="Debug" build="True" name="Engine" />
+      <Entry configuration="Debug" build="True" name="Server" />
+      <Entry configuration="Debug" build="True" name="Frontend-GtkGnome" />
+      <Entry configuration="Debug" build="True" name="Frontend-Test" />
     </Configuration>
   </Configurations>
   <StartMode startupentry="Engine" single="False">

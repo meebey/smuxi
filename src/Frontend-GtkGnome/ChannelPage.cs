@@ -242,7 +242,11 @@ namespace Meebey.Smuxi.FrontendGtkGnome
 #endif
 
             if (args.Event.Button == 3) {
+#if GTK_1
                 _TabMenu.Popup(null, null, null, IntPtr.Zero, args.Event.Button, args.Event.Time);
+#elif GTK_2
+                _TabMenu.Popup(null, null, null, args.Event.Button, args.Event.Time);
+#endif
                 _TabMenu.ShowAll();
             }
         }
@@ -275,7 +279,11 @@ namespace Meebey.Smuxi.FrontendGtkGnome
 #endif
 
             if (e.Event.Button == 3) {
+#if GTK_1
                 _UserListMenu.Popup(null, null, null, IntPtr.Zero, e.Event.Button, e.Event.Time);
+#elif GTK_2
+                _UserListMenu.Popup(null, null, null, e.Event.Button, e.Event.Time);
+#endif
                 _UserListMenu.ShowAll();
             }
         }

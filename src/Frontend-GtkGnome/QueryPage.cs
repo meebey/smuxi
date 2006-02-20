@@ -68,7 +68,11 @@ namespace Meebey.Smuxi.FrontendGtkGnome
 #endif
 
             if (args.Event.Button == 3) {
+#if GTK_1
                 _TabMenu.Popup(null, null, null, IntPtr.Zero, args.Event.Button, args.Event.Time);
+#elif GTK_2
+                _TabMenu.Popup(null, null, null, args.Event.Button, args.Event.Time);
+#endif
                 _TabMenu.ShowAll();
             }
         }

@@ -156,7 +156,7 @@ namespace Meebey.Smuxi.Engine
         {
             AddMessageToPage(page, new FormattedMessage(text));
         }
-        
+
         public void AddTextToCurrentPage(string text)
         {
             AddTextToPage(CurrentPage, text);

@@ -518,6 +518,8 @@ namespace Meebey.Smuxi.FrontendGtkGnome
                 if (result.Length > 1) {
                     string nicks = String.Join(" ", result);
                     Frontend.FrontendManager.AddTextToCurrentPage("-!- "+nicks);
+                    found = true;
+                    nick = result[0];
                 } else if (result.Length == 1) {
                     found = true;
                     nick = result[0];

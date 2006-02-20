@@ -116,10 +116,12 @@ namespace Meebey.Smuxi.FrontendGtkGnome
             _UpdatePage1Buttons();
         }
         
+        /*
         private void _OnPage1Changed(object sender, EventArgs e)
         {
             _UpdatePage1Buttons();
         }
+        */
         
         private void _OnPage1NextClicked(object sender, Gnome.NextClickedArgs e)
         {

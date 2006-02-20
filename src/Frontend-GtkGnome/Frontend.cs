@@ -144,7 +144,8 @@ namespace Meebey.Smuxi.FrontendGtkGnome
                 
                 Assembly asm = Assembly.GetAssembly(typeof(Frontend));
                 AssemblyName asm_name = asm.GetName(false);
-                AssemblyProductAttribute pr = (AssemblyProductAttribute)asm.GetCustomAttributes(typeof(AssemblyProductAttribute), false)[0];
+                AssemblyProductAttribute pr = (AssemblyProductAttribute)asm.
+                    GetCustomAttributes(typeof(AssemblyProductAttribute), false)[0];
                 _Version = asm_name.Version.ToString();
                 _VersionString = pr.Product+" "+_Version;
                 
@@ -154,7 +155,6 @@ namespace Meebey.Smuxi.FrontendGtkGnome
                 Engine.Logger.Init();
 #endif
 
-#if GTK_SHARP_1
                 int os = (int)Environment.OSVersion.Platform;
                 // 128 == Linux with Mono .NET 1.0
                 // 4 == Linux with Mono .NET 2.0
@@ -163,7 +163,6 @@ namespace Meebey.Smuxi.FrontendGtkGnome
                     // this is not linux
                     GLib.Thread.Init(); // .NET needs that...
                 }
-#endif
                 Gdk.Threads.Init();
 #if UI_GNOME
                 _Program = new Gnome.Program(Name, Version, Gnome.Modules.UI, args);

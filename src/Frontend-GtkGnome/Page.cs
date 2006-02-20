@@ -84,6 +84,7 @@ namespace Meebey.Smuxi.FrontendGtkGnome
             Gtk.TextView tv = new Gtk.TextView();
             tv.Editable = false;
             tv.CursorVisible = false;
+            //tv.Buffer.Dr
             tv.WrapMode = Gtk.WrapMode.WordChar;
             tv.Buffer.Changed += new EventHandler(_OnTextBufferChanged);
             //tv.Tabs = new Pango.TabArray(2, false);

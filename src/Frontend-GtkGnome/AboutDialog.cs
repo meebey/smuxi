@@ -31,23 +31,15 @@ using Meebey.Smuxi;
 
 namespace Meebey.Smuxi.FrontendGtkGnome
 {
-#if UI_GNOME    
-    public class AboutDialog : Gnome.About
-#elif UI_GTK
-    public class AboutDialog : Gtk.Dialog
-#endif
+    public class AboutDialog : Gtk.AboutDialog
     {
-#if UI_GNOME
-        public AboutDialog() : base (Frontend.Name, "\n Gtk/Gnome Frontend: "+
-            Frontend.Version+"\n Engine: "+Frontend.EngineVersion,
-            "2005 (C) Mirco Bauer <meebey@meebey.net>", String.Empty, new string[] {"Mirco Bauer <meebey@meebey.net>"},
-            new string[] {String.Empty}, String.Empty, new Gdk.Pixbuf(null, "about.png"))
-#elif UI_GTK
-        public AboutDialog() : base ()
-#endif
+        public AboutDialog()
         {
-#if UI_GTK
-#endif
+            Name = Frontend.Name;
+            Version = "\n Gtk/Gnome Frontend: "+Frontend.Version+"\n Engine: "+Frontend.EngineVersion;
+            Copyright = "2006 (C) Mirco Bauer <meebey@meebey.net>";
+            Authors = new string[] {"Mirco Bauer <meebey@meebey.net>"};
+            Logo = new Gdk.Pixbuf(null, "about.png");
         }
     }
 }

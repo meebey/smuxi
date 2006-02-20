@@ -78,6 +78,12 @@ namespace Meebey.Smuxi.Engine
             
             Page spage = new Page("Server", PageType.Server, NetworkType.Irc, null);
             _Pages.Add(spage);
+            FormattedMessage fm = new FormattedMessage();
+            fm.Items.Add(
+                new FormattedMessageItem(FormattedMessageItemType.Text,
+                    new FormattedTextMessage(IrcTextColor.Red, null, false,
+                        false, "Welcome to Smuxi")));
+            AddMessageToPage(spage, fm); 
         }
         
         public void RegisterFrontendUI(IFrontendUI ui)
@@ -325,9 +331,14 @@ namespace Meebey.Smuxi.Engine
                 }
             }
             */
+            
+            /*
             foreach (FrontendManager fm in _FrontendManagers.Values) {
                 fm.AddTextToPage(page, text);
             }
+            */
+            
+            AddMessageToPage(page, new FormattedMessage(text));
         }
         
         public void AddMessageToPage(Page page, FormattedMessage fmsg)
