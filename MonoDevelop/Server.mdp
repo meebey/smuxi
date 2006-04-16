@@ -4,7 +4,7 @@
       <Output directory="../bin/mono/debug" assembly="smuxi-server" />
       <Build debugmode="True" target="Exe" />
       <Execution runwithwarnings="False" externalconsole="True" consolepause="True" runtime="MsNet" />
-      <CodeGeneration compiler="Csc" warninglevel="4" optimize="False" unsafecodeallowed="False" generateoverflowchecks="True" mainclass="" definesymbols="TRACE,LOG4NET" generatexmldocumentation="False" ctype="CSharpCompilerParameters" />
+      <CodeGeneration compiler="Csc" warninglevel="4" optimize="False" unsafecodeallowed="False" generateoverflowchecks="True" mainclass="" definesymbols="TRACE,DEBUG,LOG4NET" generatexmldocumentation="False" ctype="CSharpCompilerParameters" />
     </Configuration>
     <Configuration name="Release" ctype="DotNetProjectConfiguration">
       <Output directory="../bin/mono/release" assembly="smuxi-server" />

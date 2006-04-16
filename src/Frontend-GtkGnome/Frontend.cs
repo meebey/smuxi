@@ -163,7 +163,7 @@ namespace Meebey.Smuxi.FrontendGtkGnome
                     // this is not linux
                     GLib.Thread.Init(); // .NET needs that...
                 }
-                Gdk.Threads.Init();
+                //Gdk.Threads.Init();
 #if UI_GNOME
                 _Program = new Gnome.Program(Name, Version, Gnome.Modules.UI, args);
 #elif UI_GTK

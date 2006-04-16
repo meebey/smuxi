@@ -100,43 +100,52 @@ namespace Meebey.Smuxi.Engine
         {
             StringCollection foundnicks = new StringCollection();
             int searchnicklength = searchnick.Length;
-            int longest_nickname = 0;
+            string longest_nickname = String.Empty;
             foreach (User user in _Users.Values) {
                 if ((user.Nickname.Length >= searchnicklength) &&
                     (user.Nickname.Substring(0, searchnicklength).ToLower() == searchnick.ToLower())) {
                     foundnicks.Add(user.Nickname);
-                    if (user.Nickname.Length > longest_nickname) {
-                        longest_nickname = user.Nickname.Length; 
+                    if (user.Nickname.Length > longest_nickname.Length) {
+                        longest_nickname = user.Nickname; 
                     }
                 }
             }
             
             // guess the common part of the found nicknames
             string common_nick = searchnick;
-            int start_cpos = searchnick.Length - 1;
-            int foundnicks_count = foundnicks.Count;
-            for (int cpos = start_cpos; cpos < longest_nickname; cpos++) {
-                char common_char = 'a';
-                for (int npos = 0; npos < foundnicks_count; npos++) {
-                    if (npos == 0) {
-                        if (foundnicks[npos].Length > cpos) {
-                            common_char = foundnicks[npos][cpos];
-                        } else {
-                            break;
-                        }
-                    }
-                    
-                    if ((foundnicks[npos].Length > cpos) &&
-                        (foundnicks[npos][cpos] == common_char)) {
-                        common_nick += common_char;
-                    }
+            bool match = true;
+            while (match) {
+                if (common_nick.Length >= longest_nickname.Length) {
+                    break;
+                }
+                
+                common_nick += longest_nickname[common_nick.Length];
+                foreach (string nick in foundnicks) {
+                    if (!nick.ToLower().StartsWith(common_nick.ToLower())) {
+                        common_nick = common_nick.Substring(0, common_nick.Length - 1);
+                        match = false;
+                     }
                 }
             }
-            
-            string[] result;
-            result = new string[foundnicks.Count+1];
-            result[0] = common_nick;
-            foundnicks.CopyTo(result, 1);
+
+            string[] result = null;
+            if (foundnicks.Count == 0) {
+#if LOG4NET
+                Logger.NickCompletion.Debug("NicknameLookupAll() no matching nickname found");
+#endif
+            } else if (foundnicks.Count == 1) {
+#if LOG4NET
+                Logger.NickCompletion.Debug("NicknameLookupAll() found exact match: "+foundnicks[0]);
+#endif
+                result = new string[] { foundnicks[0] };
+            } else {
+#if LOG4NET
+                Logger.NickCompletion.Debug("NicknameLookupAll() found "+foundnicks.Count+" matches");
+#endif
+                result = new string[foundnicks.Count+1];
+                result[0] = common_nick;
+                foundnicks.CopyTo(result, 1);
+            }
             return result;
         }
     }

@@ -46,11 +46,7 @@ namespace Meebey.Smuxi.FrontendGtkGnome
 {
     public class EngineManagerDialog : Gtk.Dialog
     {
-#if GTK_SHARP_1
-        private Gtk.Combo    _Combo;
-#elif GTK_SHARP_2
         private Gtk.ComboBox _ComboBox;
-#endif
         private string       _SelectedEngine;  
         
         public EngineManagerDialog()
@@ -88,17 +84,10 @@ namespace Meebey.Smuxi.FrontendGtkGnome
             Gtk.HBox hbox = new Gtk.HBox();
             hbox.PackStart(new Gtk.Label("Engine:"), false, false, 5);
             
-#if GTK_SHARP_1
-            Gtk.Combo c = new Gtk.Combo();
-            _Combo = c;
-            c.DisableActivate();
-#elif GTK_SHARP_2
             Gtk.ComboBox cb = Gtk.ComboBox.NewText();
             _ComboBox = cb;
             cb.Changed += new EventHandler(_OnComboBoxChanged);
-#endif
             string[] engines = (string[])Frontend.FrontendConfig["Engines/Engines"];
-#if GTK_SHARP_2
             string default_engine = (string)Frontend.FrontendConfig["Engines/Default"];
             int item = 0;
             cb.AppendText("<Local Engine>");
@@ -110,15 +99,8 @@ namespace Meebey.Smuxi.FrontendGtkGnome
                 }
                 item++;
             }
-#endif
 
-#if GTK_SHARP_1
-            c.PopdownStrings = engines;
-            
-            hbox.PackStart(c, true, true, 10); 
-#elif GTK_SHARP_2
             hbox.PackStart(cb, true, true, 10); 
-#endif
             
             vbox.PackStart(hbox, false, false, 10);
             
@@ -160,10 +142,6 @@ namespace Meebey.Smuxi.FrontendGtkGnome
         
         private void _OnConnectButtonPressed()
         {
-#if GTK_SHARP_1
-            _SelectedEngine = _Combo.Entry.Text;
-#endif
-
             if (_SelectedEngine == null || _SelectedEngine == String.Empty) {
                 Gtk.MessageDialog md = new Gtk.MessageDialog(this,
                     Gtk.DialogFlags.Modal, Gtk.MessageType.Error,
@@ -190,7 +168,7 @@ namespace Meebey.Smuxi.FrontendGtkGnome
             string channel = (string)Frontend.FrontendConfig["Engines/"+engine+"/Channel"];
             
             IDictionary props = new Hashtable();
-            props["port"] = 0;
+            props["port"] = "0";
             string error_msg = null;
             string connection_url = null;
             try {
@@ -217,9 +195,11 @@ namespace Meebey.Smuxi.FrontendGtkGnome
                         break;
 #if CHANNEL_TCPEX
                     case "TcpEx":
+                        //props.Remove("port");
+                        //props["name"] = "tcpex";
                         connection_url = "tcpex://"+hostname+":"+port+"/SessionManager"; 
-                        if (ChannelServices.GetChannel("tcpex") == null) {
-                            ChannelServices.RegisterChannel(new TcpExChannel());
+                        if (ChannelServices.GetChannel("ExtendedTcp") == null) {
+                            ChannelServices.RegisterChannel(new TcpExChannel(props, null, null));
                         }
 #if LOG4NET
                         Logger.Main.Info("Connecting to: "+connection_url);
@@ -273,6 +253,7 @@ namespace Meebey.Smuxi.FrontendGtkGnome
                 }
             } catch (Exception ex) {
                 error_msg += ex.Message+"\n";
+                Console.WriteLine(ex.StackTrace);
                 if (ex.InnerException != null) {
                     error_msg += " ["+ex.InnerException.Message+"]\n";
                 }
@@ -351,7 +332,6 @@ namespace Meebey.Smuxi.FrontendGtkGnome
             Frontend.Quit();
         }
         
-#if GTK_SHARP_2
         private void _OnComboBoxChanged(object sender, EventArgs e)
         {
             Gtk.TreeIter iter;
@@ -359,6 +339,5 @@ namespace Meebey.Smuxi.FrontendGtkGnome
                _SelectedEngine = (string)_ComboBox.Model.GetValue(iter, 0);
             }
         }
-#endif
     }
 }

@@ -101,7 +101,6 @@ namespace Meebey.Smuxi.FrontendGtkGnome
             _Druid.Destroy();
         }
 
-#if GTK_SHARP_2
         private void _OnModeComboBoxChanged(object sender, EventArgs e)
         {
             Gtk.TreeIter iter;
@@ -109,7 +108,6 @@ namespace Meebey.Smuxi.FrontendGtkGnome
                _SelectedMode = (string)_ModeComboBox.Model.GetValue(iter, 0);
             }
         }
-#endif
         
         private void _OnPage1Prepared(object sender, EventArgs e)
         {

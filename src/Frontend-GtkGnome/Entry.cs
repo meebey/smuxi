@@ -511,17 +511,21 @@ namespace Meebey.Smuxi.FrontendGtkGnome
 
             // find the possible nickname
             bool found = false;
+            bool partial_found = false;
             string nick = null;
             Engine.ChannelPage cp = (Engine.ChannelPage)Frontend.FrontendManager.CurrentPage;
             if ((bool)Frontend.UserConfig["Interface/Entry/BashStyleCompletion"]) {
                 string[] result = cp.NicknameLookupAll(word);
-                if (result.Length > 1) {
-                    string nicks = String.Join(" ", result);
-                    Frontend.FrontendManager.AddTextToCurrentPage("-!- "+nicks);
-                    found = true;
-                    nick = result[0];
+                if (result == null) {
+                    // no match
                 } else if (result.Length == 1) {
                     found = true;
+                    nick = result[0];
+                } else if (result.Length >= 2) {
+                    string nicks = String.Join(" ", result, 1, result.Length - 1);
+                    Frontend.FrontendManager.AddTextToCurrentPage("-!- "+nicks);
+                    found = true;
+                    partial_found = true;
                     nick = result[0];
                 }
             } else {
@@ -539,20 +543,36 @@ namespace Meebey.Smuxi.FrontendGtkGnome
                     temp = text.Remove(previous_space+1, word.Length);
                     temp = temp.Insert(previous_space+1, nick);
                     Text = temp;
-                    Position = previous_space+2+nick.Length;
+                    if (partial_found) {
+                        Position = previous_space+1+nick.Length;
+                    } else {
+                        Position = previous_space+2+nick.Length;
+                    }
                 } else if (previous_space != -1) {
-                    // previous space exist
+                    // only previous space exist
                     temp = text.Remove(previous_space+1, word.Length);
                     temp = temp.Insert(previous_space+1, nick);
-                    Text = temp+" ";
+                    if (partial_found) {
+                        Text = temp;
+                    } else {
+                        Text = temp+" ";
+                    }
                     Position = previous_space+2+nick.Length;
                 } else if (next_space != -1) {
-                    // next space exist
-                    Text = nick+(string)Frontend.UserConfig["Interface/Entry/CompletionCharacter"]+" ";
+                    // only next space exist
+                    if (partial_found) {
+                        Text = nick;
+                    } else {
+                        Text = nick+(string)Frontend.UserConfig["Interface/Entry/CompletionCharacter"]+" ";
+                    }
                     Position = -1;
                 } else {
                     // no spaces
-                    Text = nick+(string)Frontend.UserConfig["Interface/Entry/CompletionCharacter"]+" ";
+                    if (partial_found) {
+                        Text = nick;
+                    } else {
+                        Text = nick+(string)Frontend.UserConfig["Interface/Entry/CompletionCharacter"]+" ";
+                    }
                     Position = -1;
                 }
             }

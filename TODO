@@ -18,6 +18,7 @@ smuxi 0.6 goals:
 - create debian package
 
 Feature Requests:
+- auto-cleanup query windows after X hours/days of inactivity
 - use treeview as alternative to notebook tabs.
 - show highlight notifications in tray (DevGet)
 - whois in userlist context menu (DevGet)
@@ -25,11 +26,9 @@ Feature Requests:
 - add non-RFC features like HalfOp (Zhila)
 - clickable URLs (DevGet)
 - configurable charset for the IRC connection (iso 8859-1, utf8 etc)
-- allow bash-style to complete as much as possible (besfred)
 - nickname completion should ignore special characters (darix)
 - normal nick completion should allow multiple tab press to iterate through possible nicks
-- use RedirectChannel
-- use TcpExChannel
+- use RedirectChannel / TcpExChannel
 - completion for commands
 - "/config set" command for preferences
 - DCC receiving and sending (helgi)
@@ -49,6 +48,7 @@ Feature Requests:
 channel (showing it in the tab as pixmap) (Salz)
 
 Done:
+- allow bash-style to complete as much as possible (besfred)
 - DEFAULT config writer
 - progress bar during channel sync (besfred)
 - page-up/page-down for scrolling

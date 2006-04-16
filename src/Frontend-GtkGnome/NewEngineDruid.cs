@@ -183,7 +183,6 @@ namespace Meebey.Smuxi.FrontendGtkGnome
             }
         }
 
-#if GTK_SHARP_2
         private void _OnChannelComboBoxChanged(object sender, EventArgs e)
         {
             Gtk.TreeIter iter;
@@ -199,7 +198,6 @@ namespace Meebey.Smuxi.FrontendGtkGnome
                _SelectedFormatter = (string)_FormatterComboBox.Model.GetValue(iter, 0);
             }
         }
-#endif
         
         private void _OnPage2Prepared(object sender, EventArgs e)
         {
