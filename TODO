@@ -9,12 +9,12 @@
 in-work:
 
 smuxi 0.6 goals:
+- theme support
 - engines manager GUI
 - irc server manager GUI
 - GUI for swichting current network
 - color settings (background/fonts etc)
 - colors in channels (hightlighting)
-- theme support
 - create debian package
 
 Feature Requests:
@@ -32,7 +32,7 @@ Feature Requests:
 - completion for commands
 - "/config set" command for preferences
 - DCC receiving and sending (helgi)
-- aliases for commands
+- aliases for commands (/alias slap me slaps $1 with a large trout)
 - use for each server connection a servertab and group
   the channels within them (Tobias Schlitt)
 - tab colors (editable):

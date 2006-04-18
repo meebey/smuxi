@@ -27,21 +27,46 @@
  */
 
 using System;
+using System.Collections;
 
 namespace Meebey.Smuxi.Engine
 {
     public class UserConfig : PermanentRemoteObject
     {
-        private Config _Config;
-        private string _UserPrefix;
-        private string _DefaultPrefix = "Engine/Users/DEFAULT/";
+        private Config    _Config;
+        private string    _UserPrefix;
+        private string    _DefaultPrefix = "Engine/Users/DEFAULT/";
+        private Hashtable _Cache; 
+        
+        public bool IsCaching
+        {
+            get {
+                return _Cache != null;
+            }
+            set {
+                if (value) {
+                    _Cache = new Hashtable();
+                } else {
+                    _Cache = null;
+                }
+            }
+        }
         
         public object this[string key]
         {
             get {
+                if (IsCaching) {
+                    if (_Cache.Contains(key)) {
+                        return _Cache[key];
+                    }
+                }
+                
                 object obj;
                 obj = _Config[_UserPrefix+key];
                 if (obj != null) {
+                    if (IsCaching) {
+                        _Cache.Add(key, obj);
+                    }
                     return obj;
                 }
                 
@@ -51,6 +76,9 @@ namespace Meebey.Smuxi.Engine
                     Logger.Config.Error("value is null for key: "+key);
                 }
 #endif
+                if (IsCaching) {
+                    _Cache.Add(key, obj);
+                }
 
                 return obj;
             }
@@ -63,6 +91,16 @@ namespace Meebey.Smuxi.Engine
         {
             _Config = config;
             _UserPrefix = "Engine/Users/"+username+"/";
+        }
+        
+        public void ClearCache()
+        {
+            if (IsCaching) {
+#if LOG4NET
+                Logger.Config.Debug("Clearing UserConfig cache");
+#endif
+                _Cache.Clear();
+            }
         }
     }
 }

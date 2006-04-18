@@ -244,6 +244,9 @@ namespace Meebey.Smuxi.FrontendGtkGnome
                     Frontend.EngineVersion = sessm.Version;
                     if (Frontend.Session != null) {
                         // Dialog finished it's job, we are connected
+                        Frontend.UserConfig = new UserConfig(Frontend.Session.Config,
+                                                             username);
+                        Frontend.UserConfig.IsCaching = true;
                         Frontend.ConnectEngineToGUI();
                         Destroy();
                     } else {

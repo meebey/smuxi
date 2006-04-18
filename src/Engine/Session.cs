@@ -64,7 +64,7 @@ namespace Meebey.Smuxi.Engine
                 return _Config;
             }
         }
-                    
+        
         public UserConfig UserConfig {
             get {
                 return _UserConfig;
@@ -322,7 +322,8 @@ namespace Meebey.Smuxi.Engine
         {
             /*
             text message can't hold the timestamp, so makes no sense to put them
-            in the engine buffer
+            in the engine buffer.
+            FormattedMessage contains the Timestamp instead.
             int buffer_lines = (int)UserConfig["Interface/Notebook/EngineBufferLines"];
             if (buffer_lines > 0) {
                 page.Buffer.Add(text);

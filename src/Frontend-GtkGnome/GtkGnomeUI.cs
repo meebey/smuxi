@@ -62,14 +62,11 @@ namespace Meebey.Smuxi.FrontendGtkGnome
         
         public void AddPage(Engine.Page epage)
         {
-#if LOG4NET
-            Logger.UI.Debug("AddPage()");
-#endif
+            Trace.Call(epage);
             
             Gtk.Application.Invoke(delegate {
-#if LOG4NET
-                Logger.UI.Debug("AddPage()");
-#endif
+                Trace.Call(epage);
+                
                 Page newpage = null;
                 switch (epage.PageType) {
                     case PageType.Server:
@@ -140,6 +137,14 @@ namespace Meebey.Smuxi.FrontendGtkGnome
                } 
            }
            
+           string timestamp;
+           try {
+               timestamp = fmsg.Timestamp.ToLocalTime().ToString((string)Frontend.UserConfig["Interface/Notebook/TimestampFormat"]);
+           } catch (FormatException e) {
+               timestamp = "Timestamp Format ERROR: "+e.Message;
+           }
+           msg = timestamp+" "+msg;
+           
            Page page = Frontend.MainWindow.Notebook.GetPage(epage);
            Gtk.TextIter iter = page.OutputTextBuffer.EndIter;
            // we must use pango here!!!
@@ -152,32 +157,21 @@ namespace Meebey.Smuxi.FrontendGtkGnome
         
         public void AddMessageToPage(Engine.Page epage, FormattedMessage fmsg)
         {
-#if LOG4NET
-            Logger.UI.Debug("AddMessageToPage() "+
-                " epage: "+(epage != null ? epage.GetType().ToString() : "(null)")+
-                " epage.Name: "+(epage.Name != null ? epage.Name : "(null)"));
-#endif
+            Trace.Call(epage, fmsg);
 
             Gtk.Application.Invoke(delegate {
-#if LOG4NET
-                Logger.UI.Debug("AddMessageToPage() "+
-                    " epage: "+(epage != null ? epage.GetType().ToString() : "(null)")+
-                    " epage.Name: "+(epage.Name != null ? epage.Name : "(null)"));
-#endif
+                Trace.Call(epage, fmsg);
                 _AddMessageToPage(epage, fmsg);
             });
         }
         
         public void RemovePage(Engine.Page epage)
         {
-#if LOG4NET
-            Logger.UI.Debug("RemovePage()");
-#endif
+            Trace.Call(epage);
 
             Gtk.Application.Invoke(delegate {
-#if LOG4NET
-                Logger.UI.Debug("RemovePage()");
-#endif
+                Trace.Call(epage);
+                
                 Page page = Frontend.MainWindow.Notebook.GetPage(epage);
                 Frontend.MainWindow.Notebook.RemovePage(
                     Frontend.MainWindow.Notebook.PageNum(page)
@@ -187,14 +181,10 @@ namespace Meebey.Smuxi.FrontendGtkGnome
         
         public void SyncPage(Engine.Page epage)
         {
-#if LOG4NET
-            Logger.UI.Debug("SyncPage()");
-#endif
+            Trace.Call(epage);
 
             Gtk.Application.Invoke(delegate {
-#if LOG4NET
-                Logger.UI.Debug("SyncPage()");
-#endif
+                Trace.Call(epage);
 
                 Page page = Frontend.MainWindow.Notebook.GetPage(epage);
                 if (epage.PageType == PageType.Channel) {
@@ -287,14 +277,11 @@ namespace Meebey.Smuxi.FrontendGtkGnome
         
         public void AddUserToChannel(Engine.ChannelPage ecpage, User user)
         {
-#if LOG4NET
-            Logger.UI.Debug("AddUserToChannel()");
-#endif
+            Trace.Call(ecpage, user);
 
             Gtk.Application.Invoke(delegate {
-#if LOG4NET
-                Logger.UI.Debug("AddUserToChannel()");
-#endif
+                Trace.Call(ecpage, user);
+                
                 ChannelPage cpage = (ChannelPage)Frontend.MainWindow.Notebook.GetPage(ecpage);
                 Gtk.TreeView  treeview  = cpage.UserListTreeView;
                 if (treeview == null) {
@@ -318,14 +305,11 @@ namespace Meebey.Smuxi.FrontendGtkGnome
         
         public void UpdateUserInChannel(Engine.ChannelPage ecpage, User olduser, User newuser)
         {
-#if LOG4NET
-            Logger.UI.Debug("UpdateUserInChannel()");
-#endif
+            Trace.Call(ecpage, olduser, newuser);
 
             Gtk.Application.Invoke(delegate {
-#if LOG4NET
-                Logger.UI.Debug("UpdateUserInChannel()");
-#endif
+                Trace.Call(ecpage, olduser, newuser);
+                
                 ChannelPage cpage = (ChannelPage)Frontend.MainWindow.Notebook.GetPage(ecpage);
                 Gtk.TreeView  treeview  = cpage.UserListTreeView;
                 if (treeview == null) {
@@ -360,14 +344,11 @@ namespace Meebey.Smuxi.FrontendGtkGnome
         
         public void UpdateTopicInChannel(Engine.ChannelPage ecpage, string topic)
         {
-#if LOG4NET
-            Logger.UI.Debug("UpdateTopicInChannel()");
-#endif
+            Trace.Call(ecpage, topic);
 
             Gtk.Application.Invoke(delegate {
-#if LOG4NET
-                Logger.UI.Debug("UpdateTopicInChannel()");
-#endif
+                Trace.Call(ecpage, topic);
+                
                 ChannelPage cpage = (ChannelPage)Frontend.MainWindow.Notebook.GetPage(ecpage);
                 if (cpage.TopicEntry != null) {
                     cpage.TopicEntry.Text = topic;
@@ -377,14 +358,11 @@ namespace Meebey.Smuxi.FrontendGtkGnome
         
         public void RemoveUserFromChannel(Engine.ChannelPage ecpage, User user)
         {
-#if LOG4NET
-            Logger.UI.Debug("RemoveUserFromChannel()");
-#endif
+            Trace.Call(ecpage, user);
 
             Gtk.Application.Invoke(delegate {
-#if LOG4NET
-                Logger.UI.Debug("RemoveUserFromChannel()");
-#endif
+                Trace.Call(ecpage, user);
+            
                 ChannelPage cpage = (ChannelPage)Frontend.MainWindow.Notebook.GetPage(ecpage);
                 Gtk.TreeView  treeview  = cpage.UserListTreeView;
                 if (treeview == null) {
@@ -408,14 +386,10 @@ namespace Meebey.Smuxi.FrontendGtkGnome
         
         public void SetNetworkStatus(string status)
         {
-#if LOG4NET
-            Logger.UI.Debug("SetNetworkStatus()");
-#endif
+            Trace.Call(status);
 
             Gtk.Application.Invoke(delegate {
-#if LOG4NET
-                Logger.UI.Debug("SetNetworkStatus()");
-#endif
+                Trace.Call(status);
 #if UI_GNOME
                 Frontend.MainWindow.NetworkStatusbar.Push(status);
 #elif UI_GTK
@@ -426,14 +400,10 @@ namespace Meebey.Smuxi.FrontendGtkGnome
         
         public void SetStatus(string status)
         {
-#if LOG4NET
-            Logger.UI.Debug("SetStatus()");
-#endif
+            Trace.Call(status);
 
             Gtk.Application.Invoke(delegate {
-#if LOG4NET
-                Logger.UI.Debug("SetStatus()");
-#endif
+                Trace.Call(status);
 #if UI_GNOME
                 Frontend.MainWindow.Statusbar.Push(status);
 #elif UI_GTK

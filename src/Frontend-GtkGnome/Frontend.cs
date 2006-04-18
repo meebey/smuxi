@@ -49,6 +49,7 @@ namespace Meebey.Smuxi.FrontendGtkGnome
 #endif
         private static FrontendConfig     _FrontendConfig;
         private static Session            _Session;
+        private static UserConfig         _UserConfig;
         private static FrontendManager    _FrontendManager;
         
         public static string Name {
@@ -127,7 +128,10 @@ namespace Meebey.Smuxi.FrontendGtkGnome
         
         public static UserConfig UserConfig {
             get {
-                return _Session.UserConfig;
+                return _UserConfig;
+            }
+            set {
+                _UserConfig = value;
             }
         }
         
@@ -215,12 +219,17 @@ namespace Meebey.Smuxi.FrontendGtkGnome
             _EngineVersion = Engine.Engine.Version;
             _Session = new Engine.Session(Engine.Engine.Config, "local");
             _Session.RegisterFrontendUI(_UI);
+            _UserConfig = _Session.UserConfig;
             ConnectEngineToGUI();
         }
         
         public static void ConnectEngineToGUI()
         {
             _FrontendManager = _Session.GetFrontendManager(_UI);
+            if (_UserConfig.IsCaching) {
+                // if our UserConfig is cached, we need to invalidate the cache
+                _FrontendManager.ConfigChanged = new SimpleDelegate(_UserConfig.ClearCache);
+            }
             if (_MainWindow == null) {
                 _MainWindow = new MainWindow();
             }

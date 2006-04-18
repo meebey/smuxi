@@ -277,6 +277,10 @@ namespace Meebey.Smuxi.Engine
                             CommandMe(cd);
                             handled = true;
                            break;
+                        case "say":
+                            CommandSay(cd);
+                            handled = true;
+                            break;
                         // commands which only work on a channels
                         case "p":
                         case "part":
@@ -341,11 +345,7 @@ namespace Meebey.Smuxi.Engine
                         _IrcClient.WriteLine(cd.Data);
                     } else {
                         // we are on a channel or query page
-                        _IrcClient.SendMessage(SendType.Message,
-                            cd.FrontendManager.CurrentPage.Name,
-                            cd.Data);
-                        _Session.AddTextToPage(cd.FrontendManager.CurrentPage,
-                            "<"+_IrcClient.Nickname+"> "+cd.Data);
+                        _Say(cd, cd.Data);
                     }
                     handled = true;
                 }
@@ -373,6 +373,7 @@ namespace Meebey.Smuxi.Engine
             string[] help = {
             "[IrcManager Commands]",
             "help",
+            "say",
             "join/j channel(s) [key]",
             "part/p [channel(s)] [partmessage]",
             "topic [newtopic]",
@@ -402,6 +403,21 @@ namespace Meebey.Smuxi.Engine
             foreach (string line in help) { 
                 cd.FrontendManager.AddTextToCurrentPage("-!- "+line);
             }
+        }
+        
+        private void _Say(CommandData cd, string message)
+        {
+            _IrcClient.SendMessage(SendType.Message,
+                cd.FrontendManager.CurrentPage.Name,
+                message);
+            
+            _Session.AddTextToPage(cd.FrontendManager.CurrentPage,
+                "<"+_IrcClient.Nickname+"> "+message);
+        }
+        
+        public void CommandSay(CommandData cd)
+        {
+            _Say(cd, cd.Parameter);
         }
         
         public void CommandJoin(CommandData cd)

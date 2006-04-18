@@ -51,14 +51,17 @@ namespace Meebey.Smuxi.Engine
                 
         public FormattedMessage()
         {
-            _Timestamp = new DateTime();
+            _Timestamp = DateTime.UtcNow;
             _Items = new ArrayList();
         }
         
         public FormattedMessage(string text) : this()
         {
-            _Items.Add(new FormattedMessageItem(FormattedMessageItemType.Text,
-                new FormattedTextMessage(null, null, false, false, text)));
+            _Items.Add(new FormattedMessageItem(
+                            FormattedMessageItemType.Text,
+                            new FormattedTextMessage(null, null, false, false, text)
+                            )
+                      );
         }
     }
 }

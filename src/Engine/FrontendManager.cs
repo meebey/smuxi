@@ -32,6 +32,8 @@ using System.Threading;
 
 namespace Meebey.Smuxi.Engine
 {
+    public delegate void SimpleDelegate(); 
+    
     public class FrontendManager : PermanentRemoteObject, IFrontendUI
     {
         private int             _Version = 0;
@@ -42,10 +44,17 @@ namespace Meebey.Smuxi.Engine
         private Page            _CurrentPage;
         private INetworkManager _CurrentNetworkManager;
         private bool            _IsFrontendDisconnecting;
+        private SimpleDelegate  _ConfigChanged;
         
         public int Version {
             get {
                 return _Version;
+            }
+        }
+        
+        public SimpleDelegate ConfigChanged {
+            set {
+                _ConfigChanged = value;
             }
         }
         
@@ -100,6 +109,13 @@ namespace Meebey.Smuxi.Engine
                 SyncPage(page);
             }
             
+            // register event for config invalidation
+            _Session.Config.Changed += new EventHandler(_OnConfigChanged);
+        }
+        
+        private void _OnConfigChanged(object sender, EventArgs e)
+        {
+            _ConfigChanged();
         }
         
         public void NextNetworkManager()
@@ -133,6 +149,7 @@ namespace Meebey.Smuxi.Engine
         }
         
         /*
+        FormattedMessage contains the Timestamp
         public void AddTextToPage(Page page, string text)
         {
             string formated_timestamp;
@@ -145,18 +162,13 @@ namespace Meebey.Smuxi.Engine
             
             _Queue.Enqueue(new UICommandContainer(UICommand.AddTextToPage, page, formated_text));
         }
-        
-        public void AddTextToCurrentPage(string text)
-        {
-            AddTextToPage(CurrentPage, text);
-        }
         */
         
         public void AddTextToPage(Page page, string text)
         {
             AddMessageToPage(page, new FormattedMessage(text));
         }
-
+        
         public void AddTextToCurrentPage(string text)
         {
             AddTextToPage(CurrentPage, text);

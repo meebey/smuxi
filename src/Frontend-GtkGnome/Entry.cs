@@ -356,6 +356,10 @@ namespace Meebey.Smuxi.FrontendGtkGnome
                         _CommandWindow(cd);
                         handled = true;
                         break;
+                    case "clear":
+                        _CommandClear(cd);
+                        handled = true;
+                        break;
                 }
             }
             
@@ -368,6 +372,7 @@ namespace Meebey.Smuxi.FrontendGtkGnome
             "[Frontend Commands]",
             "help",
             "window (number|channelname|queryname|close",
+            "clear",
             "echo data",
             "exec command",
             "quit [quitmessage]",
@@ -467,6 +472,12 @@ namespace Meebey.Smuxi.FrontendGtkGnome
             }
         }
     
+        private void _CommandClear(CommandData cd)
+        {
+            Page page = Frontend.MainWindow.Notebook.GetPage(cd.FrontendManager.CurrentPage);
+            page.OutputTextBuffer.Clear();
+        }
+        
         private void _CommandUnknown(CommandData cd)
         {
             cd.FrontendManager.AddTextToCurrentPage("-!- Unknown Command: "+cd.Command);

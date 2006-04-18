@@ -37,7 +37,7 @@ namespace Meebey.Smuxi.Engine
         private PageType         _PageType;
         private NetworkType      _NetworkType;
         private INetworkManager  _NetworkManager;
-        private ArrayList        _Buffer = new ArrayList(); 
+        private ArrayList        _Buffer = new ArrayList();
         
         public string Name {
             get {

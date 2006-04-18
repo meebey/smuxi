@@ -32,6 +32,7 @@ namespace Meebey.Smuxi.FrontendGtkGnome
     public enum Category
     {
         Main,
+        Trace,
         UI,
         Remoting,
         CommandHistory,
@@ -64,6 +65,7 @@ namespace Meebey.Smuxi.FrontendGtkGnome
             }
     
             _LoggerList[Category.Main] = log4net.LogManager.GetLogger("MAIN");
+            _LoggerList[Category.Trace] = log4net.LogManager.GetLogger("TRACE");
             _LoggerList[Category.UI]  = log4net.LogManager.GetLogger("UI");
             _LoggerList[Category.Remoting] = log4net.LogManager.GetLogger("REMOTING");
             _LoggerList[Category.CommandHistory] = log4net.LogManager.GetLogger("COMMANDHISTORY");
@@ -77,6 +79,13 @@ namespace Meebey.Smuxi.FrontendGtkGnome
             }
         }
     
+        public static log4net.ILog Trace
+        {
+            get {
+                return (log4net.ILog)_LoggerList[Category.Trace];
+            }
+        }
+        
         public static log4net.ILog UI
         {
             get {

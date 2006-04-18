@@ -48,13 +48,17 @@ namespace Meebey.Smuxi.Engine
 #endif
         protected bool          m_IsCleanConfig;
         protected Hashtable     m_Preferences = Hashtable.Synchronized(new Hashtable());
-
+        public event EventHandler Changed;
+        
         public object this[string key] {
             get {
                 return m_Preferences[key];
             }
             set {
                 m_Preferences[key] = value;
+                if (Changed != null) {
+                    Changed(this, EventArgs.Empty);
+                }
             }
         }
         
@@ -302,6 +306,9 @@ namespace Meebey.Smuxi.Engine
             Logger.Config.Debug("Removing: "+key);
 #endif
             m_Preferences.Remove(key);
+            if (Changed != null) {
+                Changed(this, EventArgs.Empty);
+            }
         }
 
         protected void LoadUserEntry(string user, string key, object defaultvalue)
