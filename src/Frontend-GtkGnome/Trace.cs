@@ -82,20 +82,25 @@ namespace Meebey.Smuxi.FrontendGtkGnome
         {
             string res = null;
             if (parameters.Length > 0) {
-                res += "'" + parameters[0] + "'";
+                res += _ParameterizeQuote(parameters[0]);
                 for (int i = 1; i < parameters.Length; i++) {
                     res += ", ";
-                    if (parameters[i] is string) {
-                        res += "'" + (parameters[i] == null ? "(null)" : parameters[i]) + "'";
-                    } else {
-                        res += (parameters[i] == null ? "(null)" : parameters[i]);
-                    }
+                    res += _ParameterizeQuote(parameters[i]);
                 }
             } else {
                 res = String.Empty;
             }
             
             return res;
+        }
+        
+        private static string _ParameterizeQuote(object obj)
+        {
+            if (obj is string) {
+                return "'" + (obj == null ? "(null)" : obj) + "'";
+            }
+            
+            return (obj == null ? "(null)" : obj.ToString());
         }
 	}
 }
