@@ -1,9 +1,9 @@
 /*
- * $Id$
- * $URL$
- * $Rev$
- * $Author$
- * $Date$
+ * $Id: AssemblyInfo.cs 116 2006-04-22 22:14:09Z meebey $
+ * $URL: svn+ssh://svn.qnetp.net/svn/smuxi/smuxi/trunk/src/Frontend-Test/AssemblyInfo.cs $
+ * $Rev: 116 $
+ * $Author: meebey $
+ * $Date: 2006-04-23 00:14:09 +0200 (Sun, 23 Apr 2006) $
  *
  * smuxi - Smart MUltipleXed Irc
  *
@@ -27,29 +27,23 @@
  */
 
 using System;
+using System.Reflection;
+using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
 
-namespace Meebey.Smuxi.Server
-{
-    public class MainClass
-    {
-#if LOG4NET
-        private static readonly log4net.ILog _Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-#endif
+[assembly: AssemblyTitle("smuxi - common library")]
+[assembly: AssemblyDescription("Smart MUltipleXed Irc")]
+[assembly: AssemblyConfiguration("")]
+[assembly: AssemblyCompany("qNETp")]
+[assembly: AssemblyProduct("smuxi")]
+[assembly: AssemblyCopyright("2005-2006 (C) Mirco Bauer <meebey@meebey.net>")]
+[assembly: AssemblyTrademark("")]
+[assembly: AssemblyCulture("")]
 
-        public static void Main(string[] args)
-        {
-#if LOG4NET
-            log4net.Config.BasicConfigurator.Configure();
-#endif
-            try {
-                Server.Init(args);
-            } catch (Exception e) {
-#if LOG4NET
-                _Logger.Fatal(e);
-#endif
-                // rethrow the exception for console output
-                throw;
-            }
-        }
-    }
-}
+[assembly: AssemblyVersion("0.5.9.*")]
+
+[assembly: AssemblyDelaySign(false)]
+[assembly: AssemblyKeyFile("")]
+
+[assembly: CLSCompliant(true)]
+[assembly: ComVisible(false)]

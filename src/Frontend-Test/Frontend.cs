@@ -7,7 +7,7 @@
  *
  * smuxi - Smart MUltipleXed Irc
  *
- * Copyright (c) 2005 Mirco Bauer <meebey@meebey.net>
+ * Copyright (c) 2005-2006 Mirco Bauer <meebey@meebey.net>
  *
  * Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
  *
@@ -167,11 +167,27 @@ namespace Meebey.Smuxi.FrontendTest
                                              (string)_UserConfig["Interface/Entry/CommandCharacter"],
                                              cmd);
             
-            switch (cmd) {
-                case "/quit":
-                    Environment.Exit(0);
-                    handled = true;
-                    break;
+            if (cd.IsCommand) {
+                switch (cd.Command) {
+                    case "window":
+                        bool found = false;
+                        foreach (Page page in _Session.Pages) {
+                            if (page.Name.ToLower() == cd.Parameter.ToLower()) {
+                                found = true;
+                                ChangeActivePage(page);
+                                break;
+                            }
+                        }
+                        if (!found) {
+                            Console.WriteLine("-!- Unknown page: "+cd.Parameter);
+                        }
+                        handled = true;
+                        break;
+                    case "quit":
+                        Environment.Exit(0);
+                        handled = true;
+                        break;
+                }
             }
             
             if (!handled) {
@@ -190,6 +206,12 @@ namespace Meebey.Smuxi.FrontendTest
             if (!handled) {
                Console.WriteLine("-!- Unknown command");
             }
+        }
+        
+        public static void ChangeActivePage(Page page)
+        {
+            Console.WriteLine("Active page: "+page.Name);
+            _FrontendManager.CurrentPage = page;
         }
     }
 }

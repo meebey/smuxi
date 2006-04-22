@@ -7,7 +7,7 @@
  *
  * smuxi - Smart MUltipleXed Irc
  *
- * Copyright (c) 2005 Mirco Bauer <meebey@meebey.net>
+ * Copyright (c) 2005-2006 Mirco Bauer <meebey@meebey.net>
  *
  * Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
  *
@@ -48,7 +48,7 @@ namespace Meebey.Smuxi.FrontendTest
             Trace.Call(page);
             
             Console.WriteLine("New page: "+page.Name+ " type: "+page.PageType);
-            Frontend.FrontendManager.CurrentPage = page;
+            Frontend.ChangeActivePage(page);
         }
         
         public void AddMessageToPage(Page page, FormattedMessage fmsg)
@@ -72,8 +72,8 @@ namespace Meebey.Smuxi.FrontendTest
             } catch (FormatException e) {
                 timestamp = "Timestamp Format ERROR: "+e.Message;
             }
-            msg = timestamp+" "+msg;
-           
+            msg = timestamp+" "+page.Name+" "+msg;
+            
             Console.WriteLine(msg);
         }
         
