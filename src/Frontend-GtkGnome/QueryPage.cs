@@ -28,6 +28,7 @@
 
 using System;
 using Meebey.Smuxi.Engine;
+using Meebey.Smuxi.Common;
 
 namespace Meebey.Smuxi.FrontendGtkGnome
 {
@@ -61,24 +62,20 @@ namespace Meebey.Smuxi.FrontendGtkGnome
             _LabelEventBox.ButtonPressEvent += new Gtk.ButtonPressEventHandler(_OnTabButtonPress);
         }
         
-        private void _OnTabButtonPress(object obj, Gtk.ButtonPressEventArgs args)
+        private void _OnTabButtonPress(object sender, Gtk.ButtonPressEventArgs e)
         {
-#if LOG4NET
-            Logger.UI.Debug("_OnTabButtonPress triggered");
-#endif
+            Trace.Call(sender, e);
 
-            if (args.Event.Button == 3) {
-#if GTK_1
-                _TabMenu.Popup(null, null, null, IntPtr.Zero, args.Event.Button, args.Event.Time);
-#elif GTK_2
-                _TabMenu.Popup(null, null, null, args.Event.Button, args.Event.Time);
-#endif
+            if (e.Event.Button == 3) {
+                _TabMenu.Popup(null, null, null, e.Event.Button, e.Event.Time);
                 _TabMenu.ShowAll();
             }
         }
         
         private void _OnTabMenuCloseActivated(object sender, EventArgs e)
         {
+            Trace.Call(sender, e);
+            
             Frontend.Session.RemovePage(EnginePage);
         }
     }

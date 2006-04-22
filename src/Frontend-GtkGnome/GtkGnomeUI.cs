@@ -29,11 +29,15 @@
 using System;
 using System.ComponentModel;
 using Meebey.Smuxi.Engine;
+using Meebey.Smuxi.Common;
 
 namespace Meebey.Smuxi.FrontendGtkGnome
 {
     public class GtkGnomeUI : PermanentRemoteObject, IFrontendUI
     {
+#if LOG4NET
+        private static readonly log4net.ILog _Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+#endif
         private int _ThreadId;
         private int _Version = 0;
         
@@ -80,7 +84,7 @@ namespace Meebey.Smuxi.FrontendGtkGnome
                         break;
                     default:
 #if LOG4NET
-                        Logger.UI.Fatal("AddPage() Unknown PageType: "+epage.PageType);
+                        _Logger.Fatal("AddPage() Unknown PageType: "+epage.PageType);
 #endif
                         throw new ApplicationException("Unknown PageType: "+epage.PageType);
                 }
@@ -192,7 +196,7 @@ namespace Meebey.Smuxi.FrontendGtkGnome
                     Engine.ChannelPage ecpage = (Engine.ChannelPage)epage;
                    
 #if LOG4NET
-                   Logger.UI.Debug("SyncPage() syncing userlist");
+                    _Logger.Debug("SyncPage() syncing userlist");
 #endif
                     // sync userlist
                     Gtk.TreeView tv  = cpage.UserListTreeView;
@@ -247,7 +251,7 @@ namespace Meebey.Smuxi.FrontendGtkGnome
                    }
                    
 #if LOG4NET
-                   Logger.UI.Debug("SyncPage() syncing topic");
+                   _Logger.Debug("SyncPage() syncing topic");
 #endif
                    // sync topic
                    if ((cpage.TopicEntry != null) &&
@@ -257,7 +261,7 @@ namespace Meebey.Smuxi.FrontendGtkGnome
                 }
                 
 #if LOG4NET
-                Logger.UI.Debug("SyncPage() syncing messages");
+                _Logger.Debug("SyncPage() syncing messages");
 #endif
                 // sync messages
                 // cleanup, be sure the output is empty
@@ -270,7 +274,7 @@ namespace Meebey.Smuxi.FrontendGtkGnome
                 
                 page.ScrollToEnd();
 #if LOG4NET
-                Logger.UI.Debug("SyncPage() done");
+                _Logger.Debug("SyncPage() done");
 #endif
             });
         }

@@ -26,13 +26,30 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA
  */
 
+using System;
+
 namespace Meebey.Smuxi.Server
-{ 
+{
     public class MainClass
     {
+#if LOG4NET
+        private static readonly log4net.ILog _Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+#endif
+
         public static void Main(string[] args)
         {
-            Server.Init(args);
+#if LOG4NET
+            log4net.Config.BasicConfigurator.Configure();
+#endif
+            try {
+                Server.Init(args);
+            } catch (Exception e) {
+#if LOG4NET
+                _Logger.Fatal(e);
+#endif
+                // rethrow the exception for console output
+                throw;
+            }
         }
     }
 }

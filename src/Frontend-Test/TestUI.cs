@@ -28,6 +28,7 @@
 
 using System;
 using Meebey.Smuxi.Engine;
+using Meebey.Smuxi.Common;
 
 namespace Meebey.Smuxi.FrontendTest
 {
@@ -44,52 +45,82 @@ namespace Meebey.Smuxi.FrontendTest
         
         public void AddPage(Page page)
         {
-            Console.WriteLine("AddPage()");
+            Trace.Call(page);
+            
+            Console.WriteLine("New page: "+page.Name+ " type: "+page.PageType);
+            Frontend.FrontendManager.CurrentPage = page;
         }
         
         public void AddMessageToPage(Page page, FormattedMessage fmsg)
         {
-            Console.WriteLine("AddMessageToPage()");
+            Trace.Call(page, fmsg);
+
+            string msg = String.Empty;
+            foreach (FormattedMessageItem item in fmsg.Items) {
+                switch (item.Type) {
+                    // TODO: implement other ItemTypes
+                    case FormattedMessageItemType.Text:
+                        FormattedTextMessage ftmsg = (FormattedTextMessage)item.Value;
+                        msg += ftmsg.Text;
+                        break; 
+                } 
+            }
+            
+            string timestamp;
+            try {
+                timestamp = fmsg.Timestamp.ToLocalTime().ToString((string)Frontend.UserConfig["Interface/Notebook/TimestampFormat"]);
+            } catch (FormatException e) {
+                timestamp = "Timestamp Format ERROR: "+e.Message;
+            }
+            msg = timestamp+" "+msg;
+           
+            Console.WriteLine(msg);
         }
         
         public void RemovePage(Page page)
         {
-            Console.WriteLine("RemovePage()");
+            Trace.Call(page);
+            
+            Console.WriteLine("Removed page: "+page.Name+" type: "+page.PageType);
         }
         
         public void SyncPage(Page page)
         {
-            Console.WriteLine("SyncPage()");
+            Trace.Call(page);
+            
+            Console.WriteLine("Synced page: "+page.Name+" type: "+page.PageType);
         }
         
         public void AddUserToChannel(ChannelPage cpage, User user)
         {
-            Console.WriteLine("AddUserToChannel()");
+            Trace.Call(cpage, user);
         }
         
         public void UpdateUserInChannel(ChannelPage cpage, User olduser, User newuser)
         {
-            Console.WriteLine("UpdateUserInChannel()");
+            Trace.Call(cpage, olduser, newuser);
         }
     
         public void UpdateTopicInChannel(ChannelPage cpage, string topic)
         {
-            Console.WriteLine("UpdateTopicInChannel()");
+            Trace.Call(cpage, topic);
+            
+            Console.WriteLine("Topic changed to: "+topic+ " on "+cpage.Name);
         }
         
         public void RemoveUserFromChannel(ChannelPage cpage, User user)
         {
-            Console.WriteLine("RemoveUserFromChannel()");
+            Trace.Call(cpage, user);
         }
 
         public void SetNetworkStatus(string status)
         {
-            Console.WriteLine("SetNetworkStatus()");
+            Trace.Call(status);
         }
 
         public void SetStatus(string status)
         {
-            Console.WriteLine("SetStatus()");
+            Trace.Call(status);
         }
     }
 }

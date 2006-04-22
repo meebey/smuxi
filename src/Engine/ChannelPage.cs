@@ -34,6 +34,9 @@ namespace Meebey.Smuxi.Engine
 {
     public class ChannelPage : Page
     {
+#if LOG4NET
+        private static readonly log4net.ILog _Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+#endif
         private string    _Topic;
         private Hashtable _Users = Hashtable.Synchronized(new Hashtable());
         private bool      _IsSynced;
@@ -74,24 +77,24 @@ namespace Meebey.Smuxi.Engine
         public string NicknameLookup(string searchnick)
         {
 #if LOG4NET
-            Logger.NickCompletion.Debug("ChannelPage.Name: "+Name);
+            _Logger.Debug("NicknameLookup(): ChannelPage.Name: "+Name);
 #endif
             int searchnicklength = searchnick.Length; 
             foreach (User user in _Users.Values) {
 #if LOG4NET
-                Logger.NickCompletion.Debug("user.Nickname: "+user.Nickname);
+                _Logger.Debug("NicknameLookup(): user.Nickname: "+user.Nickname);
 #endif
                 if ((user.Nickname.Length >= searchnicklength) &&
                     (user.Nickname.Substring(0, searchnicklength).ToLower() == searchnick.ToLower())) {
 #if LOG4NET
-                    Logger.NickCompletion.Debug("found: "+user.Nickname);
+                    _Logger.Debug("NicknameLookup(): found: "+user.Nickname);
 #endif
                     return user.Nickname;
                 }   
             }
         
 #if LOG4NET
-            Logger.NickCompletion.Debug("NicknameLookup() no matching nickname found");
+            _Logger.Debug("NicknameLookup() no matching nickname found");
 #endif
             return null;
         }
@@ -131,16 +134,16 @@ namespace Meebey.Smuxi.Engine
             string[] result = null;
             if (foundnicks.Count == 0) {
 #if LOG4NET
-                Logger.NickCompletion.Debug("NicknameLookupAll() no matching nickname found");
+                _Logger.Debug("NicknameLookupAll(): no matching nickname found");
 #endif
             } else if (foundnicks.Count == 1) {
 #if LOG4NET
-                Logger.NickCompletion.Debug("NicknameLookupAll() found exact match: "+foundnicks[0]);
+                _Logger.Debug("NicknameLookupAll(): found exact match: "+foundnicks[0]);
 #endif
                 result = new string[] { foundnicks[0] };
             } else {
 #if LOG4NET
-                Logger.NickCompletion.Debug("NicknameLookupAll() found "+foundnicks.Count+" matches");
+                _Logger.Debug("NicknameLookupAll(): found "+foundnicks.Count+" matches");
 #endif
                 result = new string[foundnicks.Count+1];
                 result[0] = common_nick;

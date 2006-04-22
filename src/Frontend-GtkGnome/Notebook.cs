@@ -28,6 +28,7 @@
 
 using System;
 using Meebey.Smuxi;
+using Meebey.Smuxi.Common;
 
 namespace Meebey.Smuxi.FrontendGtkGnome
 {
@@ -88,14 +89,12 @@ namespace Meebey.Smuxi.FrontendGtkGnome
         }
         
         // events
-        private void _OnSwitchPage(object obj, Gtk.SwitchPageArgs args)
+        private void _OnSwitchPage(object sender, Gtk.SwitchPageArgs e)
         {
-#if LOG4NET
-            Logger.UI.Debug("_OnPageSwitched triggered");
-#endif
+            Trace.Call(sender, e);
 
             // synchronize FrontManager.CurrenPage
-            Page npage = (Page)GetNthPage((int)args.PageNum);
+            Page npage = (Page)GetNthPage((int)e.PageNum);
             if (npage != null) {
                 Frontend.FrontendManager.CurrentPage = npage.EnginePage;
                 if (npage.EnginePage.NetworkManager != null) {

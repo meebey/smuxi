@@ -35,6 +35,7 @@ using System.Runtime.Remoting.Channels.Http;
 using System.Runtime.Remoting.Channels.Tcp;
 using System.Runtime.Serialization.Formatters;
 using Meebey.Smuxi.Engine;
+using Meebey.Smuxi.Common;
 #if CHANNEL_TCPEX
 using TcpEx;
 #endif
@@ -46,6 +47,9 @@ namespace Meebey.Smuxi.FrontendGtkGnome
 {
     public class EngineManagerDialog : Gtk.Dialog
     {
+#if LOG4NET
+        private static readonly log4net.ILog _Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+#endif
         private Gtk.ComboBox _ComboBox;
         private string       _SelectedEngine;  
         
@@ -111,8 +115,10 @@ namespace Meebey.Smuxi.FrontendGtkGnome
         
         private void _OnResponse(object sender, Gtk.ResponseArgs e)
         {
+            Trace.Call(sender, e);
+            
 #if LOG4NET
-            Logger.UI.Debug("ResponseId: "+e.ResponseId);
+            _Logger.Debug("_OnResponse(): ResponseId: "+e.ResponseId);
 #endif                
             switch ((int)e.ResponseId) {
                 case 1:
@@ -188,7 +194,7 @@ namespace Meebey.Smuxi.FrontendGtkGnome
                         }
                         connection_url = "tcp://"+hostname+":"+port+"/SessionManager"; 
 #if LOG4NET
-                        Logger.Main.Info("Connecting to: "+connection_url);
+                        _Logger.Info("Connecting to: "+connection_url);
 #endif
                         sessm = (SessionManager)Activator.GetObject(typeof(SessionManager),
                             connection_url);
@@ -202,7 +208,7 @@ namespace Meebey.Smuxi.FrontendGtkGnome
                             ChannelServices.RegisterChannel(new TcpExChannel(props, null, null));
                         }
 #if LOG4NET
-                        Logger.Main.Info("Connecting to: "+connection_url);
+                        _Logger.Info("Connecting to: "+connection_url);
 #endif
                         sessm = (SessionManager)Activator.GetObject(typeof(SessionManager),
                             connection_url);
@@ -216,7 +222,7 @@ namespace Meebey.Smuxi.FrontendGtkGnome
                             ChannelServices.RegisterChannel(new BidirTcpClientChannel());
                         }
 #if LOG4NET
-                        Logger.Main.Info("Connecting to: "+connection_url);
+                        _Logger.Info("Connecting to: "+connection_url);
 #endif
                         sessm = (SessionManager)Activator.GetObject(typeof(SessionManager),
                             connection_url);
@@ -228,7 +234,7 @@ namespace Meebey.Smuxi.FrontendGtkGnome
                             ChannelServices.RegisterChannel(new HttpChannel());
                         }
 #if LOG4NET
-                        Logger.Main.Info("Connecting to: "+connection_url);
+                        _Logger.Info("Connecting to: "+connection_url);
 #endif
                         sessm = (SessionManager)Activator.GetObject(typeof(SessionManager),
                             connection_url);
@@ -337,6 +343,8 @@ namespace Meebey.Smuxi.FrontendGtkGnome
         
         private void _OnComboBoxChanged(object sender, EventArgs e)
         {
+            Trace.Call(sender, e);
+            
             Gtk.TreeIter iter;
             if (_ComboBox.GetActiveIter(out iter)) {
                _SelectedEngine = (string)_ComboBox.Model.GetValue(iter, 0);

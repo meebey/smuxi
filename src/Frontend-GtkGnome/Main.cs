@@ -26,13 +26,33 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA
  */
 
+using System;
+
 namespace Meebey.Smuxi.FrontendGtkGnome
 { 
     public class MainClass
     {
+#if LOG4NET
+        private static readonly log4net.ILog _Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+#endif
+
         public static void Main(string[] args)
         {
-            Frontend.Init(args);
+#if LOG4NET
+            log4net.Config.BasicConfigurator.Configure();
+#endif
+            try {
+                Frontend.Init(args);
+            } catch (Exception e) {
+#if LOG4NET
+                _Logger.Fatal(e);
+#endif
+                // when Gtk# receives an exception it is not usable/relyable anymore! 
+                //new CrashDialog(e);
+                
+                // rethrow the exception for console output
+                throw;
+            }
         }
     }
 }

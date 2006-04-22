@@ -29,11 +29,15 @@
 using System;
 using System.Globalization;
 using Meebey.Smuxi.Engine;
+using Meebey.Smuxi.Common;
 
 namespace Meebey.Smuxi.FrontendGtkGnome
 {
     public class ChannelPage : Page
     {
+#if LOG4NET
+        private static readonly log4net.ILog _Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+#endif
         private Gtk.TreeView _UserListTreeView;
         private Gtk.Entry    _TopicEntry;
         private Gtk.Menu     _TabMenu;
@@ -131,7 +135,7 @@ namespace Meebey.Smuxi.FrontendGtkGnome
             } else if (userlist_pos == "none") {
             } else {
 #if LOG4NET
-                Logger.Main.Error("ChannelPage() unknown value in Interface/Notebook/Channel/UserListPosition: "+userlist_pos);
+                _Logger.Error("ctor ChannelPage(): unknown value in Interface/Notebook/Channel/UserListPosition: "+userlist_pos);
 #endif
             }
             
@@ -154,7 +158,7 @@ namespace Meebey.Smuxi.FrontendGtkGnome
                 vbox.PackStart(_OutputScrolledWindow, true, true, 0);
             } else {
 #if LOG4NET
-                Logger.Main.Error("ChannelPage() unknown value in Interface/Notebook/Channel/TopicPosition: "+topic_pos);
+                _Logger.Error("ctor ChannelPage(): unknown value in Interface/Notebook/Channel/TopicPosition: "+topic_pos);
 #endif
             }
             
@@ -185,6 +189,8 @@ namespace Meebey.Smuxi.FrontendGtkGnome
         
         static private int _OnStatusSort(Gtk.TreeModel model, Gtk.TreeIter itera, Gtk.TreeIter iterb)
         {
+            Trace.Call(model, itera, iterb);
+            
             Gtk.ListStore liststore = (Gtk.ListStore)model;
             // status
             int    status1a   = 0;
@@ -222,6 +228,8 @@ namespace Meebey.Smuxi.FrontendGtkGnome
     
         static private int _OnUsersListSort(Gtk.TreeModel model, Gtk.TreeIter itera, Gtk.TreeIter iterb)
         {
+            Trace.Call(model, itera, iterb);
+
             Gtk.ListStore liststore = (Gtk.ListStore)model;
             // nickname
             string column2a = (string)liststore.GetValue(itera, 1);
@@ -230,24 +238,20 @@ namespace Meebey.Smuxi.FrontendGtkGnome
             return String.Compare(column2a, column2b, true, CultureInfo.InvariantCulture);
         }
         
-        private void _OnTabButtonPress(object obj, Gtk.ButtonPressEventArgs args)
+        private void _OnTabButtonPress(object sender, Gtk.ButtonPressEventArgs e)
         {
-#if LOG4NET
-            Logger.UI.Debug("_OnTabButtonPress triggered");
-#endif
+            Trace.Call(sender, e);
 
-            if (args.Event.Button == 3) {
-#if GTK_1
-                _TabMenu.Popup(null, null, null, IntPtr.Zero, args.Event.Button, args.Event.Time);
-#elif GTK_2
-                _TabMenu.Popup(null, null, null, args.Event.Button, args.Event.Time);
-#endif
+            if (e.Event.Button == 3) {
+                _TabMenu.Popup(null, null, null, e.Event.Button, e.Event.Time);
                 _TabMenu.ShowAll();
             }
         }
         
         private void _OnTabMenuCloseActivated(object sender, EventArgs e)
         {
+            Trace.Call(sender, e);
+            
             if (EnginePage.NetworkManager is IrcManager) {
                 IrcManager imanager = (IrcManager)EnginePage.NetworkManager;
                 imanager.CommandPart(new CommandData(Frontend.FrontendManager,
@@ -257,6 +261,8 @@ namespace Meebey.Smuxi.FrontendGtkGnome
         
         private void _OnUserListRowActivated(object sender, Gtk.RowActivatedArgs e)
         {
+            Trace.Call(sender, e);
+            
             string user = _GetSelectedNode();
             if (user != null) {
                 if (EnginePage.NetworkManager is IrcManager) {
@@ -269,22 +275,18 @@ namespace Meebey.Smuxi.FrontendGtkGnome
         
         private void _OnUserListButtonReleaseEvent(object sender, Gtk.ButtonReleaseEventArgs e)
         {
-#if LOG4NET
-            Logger.UI.Debug("_OnUserListButtonReleaseEvent triggered");
-#endif
+            Trace.Call(sender, e);
 
             if (e.Event.Button == 3) {
-#if GTK_1
-                _UserListMenu.Popup(null, null, null, IntPtr.Zero, e.Event.Button, e.Event.Time);
-#elif GTK_2
                 _UserListMenu.Popup(null, null, null, e.Event.Button, e.Event.Time);
-#endif
                 _UserListMenu.ShowAll();
             }
         }
         
         private void _OnUserListMenuOpActivated(object sender, EventArgs e)
         {
+            Trace.Call(sender, e);
+            
             string whom = _GetSelectedNode();
             if (whom != null) {
                 if (EnginePage.NetworkManager is IrcManager) {
@@ -297,6 +299,8 @@ namespace Meebey.Smuxi.FrontendGtkGnome
         
         private void _OnUserListMenuDeopActivated(object sender, EventArgs e)
         {
+            Trace.Call(sender, e);
+            
             string whom = _GetSelectedNode();
             if (whom != null) {
                 if (EnginePage.NetworkManager is IrcManager) {
@@ -309,6 +313,8 @@ namespace Meebey.Smuxi.FrontendGtkGnome
          
         private void _OnUserListMenuVoiceActivated(object sender, EventArgs e)
         {
+            Trace.Call(sender, e);
+            
             string whom = _GetSelectedNode();
             if (whom != null) {
                 if (EnginePage.NetworkManager is IrcManager) {
@@ -321,6 +327,8 @@ namespace Meebey.Smuxi.FrontendGtkGnome
         
         private void _OnUserListMenuDevoiceActivated(object sender, EventArgs e)
         {
+            Trace.Call(sender, e);
+
             string whom = _GetSelectedNode();
             if (whom != null) {
                 if (EnginePage.NetworkManager is IrcManager) {
@@ -333,6 +341,8 @@ namespace Meebey.Smuxi.FrontendGtkGnome
         
         private void _OnUserListMenuKickActivated(object sender, EventArgs e)
         {
+            Trace.Call(sender, e);
+
             string victim = _GetSelectedNode();
             if (victim != null) {
                 if (EnginePage.NetworkManager is IrcManager) {

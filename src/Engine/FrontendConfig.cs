@@ -36,6 +36,9 @@ namespace Meebey.Smuxi.Engine
 {
     public class FrontendConfig : Config
     {
+#if LOG4NET
+        private static readonly log4net.ILog _Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+#endif
         private string _Prefix;
         private string _UIName;
         
@@ -57,9 +60,9 @@ namespace Meebey.Smuxi.Engine
 #if CONFIG_NINI
             m_IniFilename = m_ConfigPath+"/smuxi-frontend.ini";
             if (!File.Exists(m_IniFilename)) {
-#if LOG4NET
-                Logger.Config.Debug("creating file: "+m_IniFilename);
-#endif
+    #if LOG4NET
+                _Logger.Debug("creating file: "+m_IniFilename);
+    #endif
                 File.Create(m_IniFilename).Close();
                 m_IsCleanConfig = true;
             }
@@ -72,7 +75,7 @@ namespace Meebey.Smuxi.Engine
         {
             string prefix;
 #if LOG4NET
-            Logger.Config.Info("Loading config (FrontendConfig)");
+            _Logger.Info("Loading config (FrontendConfig)");
 #endif
             
             // setting required default values

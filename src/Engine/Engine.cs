@@ -64,9 +64,6 @@ namespace Meebey.Smuxi.Engine
         
         public static void Init()
         {
-#if LOG4NET
-            Logger.Init();
-#endif
             Assembly assembly = Assembly.GetAssembly(typeof(Engine));
             AssemblyName assembly_name = assembly.GetName(false);
             AssemblyProductAttribute pr = (AssemblyProductAttribute)assembly.GetCustomAttributes(typeof(AssemblyProductAttribute), false)[0];

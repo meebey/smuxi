@@ -34,6 +34,9 @@ namespace Meebey.Smuxi.Engine
 {
     public class Session : PermanentRemoteObject, IFrontendUI 
     {
+#if LOG4NET
+        private static readonly log4net.ILog _Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+#endif
         private int        _Version = 0;
         private Hashtable  _FrontendManagers = Hashtable.Synchronized(new Hashtable());
         private ArrayList  _NetworkManagers = ArrayList.Synchronized(new ArrayList());
@@ -93,7 +96,7 @@ namespace Meebey.Smuxi.Engine
                 uri = "local";
             }
 #if LOG4NET
-            Logger.UI.Debug("Registering UI with URI: "+uri);
+            _Logger.Debug("Registering UI with URI: "+uri);
 #endif
             // add the FrontendManager to the hashtable with an unique .NET remoting identifier
             FrontendManager fm = new FrontendManager(this, ui);
@@ -126,7 +129,7 @@ namespace Meebey.Smuxi.Engine
                 uri = "local";
             }
 #if LOG4NET
-            Logger.UI.Debug("Deregistering UI with URI: "+uri);
+            _Logger.Debug("Deregistering UI with URI: "+uri);
 #endif
             _FrontendManagers.Remove(uri);
         }
@@ -310,7 +313,7 @@ namespace Meebey.Smuxi.Engine
         public void AddPage(Page page)
         {
 #if LOG4NET
-            Logger.Session.Debug("AddPage() page.Name: "+page.Name);
+            _Logger.Debug("AddPage() page.Name: "+page.Name);
 #endif
             _Pages.Add(page);
             foreach (FrontendManager fm in _FrontendManagers.Values) {
@@ -360,7 +363,7 @@ namespace Meebey.Smuxi.Engine
         public void RemovePage(Page page)
         {
 #if LOG4NET
-            Logger.Session.Debug("RemovePage() page.Name: "+page.Name);
+            _Logger.Debug("RemovePage() page.Name: "+page.Name);
 #endif
             _Pages.Remove(page);
             foreach (FrontendManager fm in _FrontendManagers.Values) {
@@ -378,7 +381,7 @@ namespace Meebey.Smuxi.Engine
         public void AddUserToChannel(ChannelPage cpage, User user)
         {
 #if LOG4NET
-            Logger.Session.Debug("AddUserToChannel() cpage.Name: "+cpage.Name+" user.Nickname: "+user.Nickname);
+            _Logger.Debug("AddUserToChannel() cpage.Name: "+cpage.Name+" user.Nickname: "+user.Nickname);
 #endif
             foreach (FrontendManager fm in _FrontendManagers.Values) {
                 fm.AddUserToChannel(cpage, user);
@@ -388,7 +391,7 @@ namespace Meebey.Smuxi.Engine
         public void UpdateUserInChannel(ChannelPage cpage, User olduser, User newuser)
         {
 #if LOG4NET
-            Logger.Session.Debug("UpdateUserInChannel() cpage.Name: "+cpage.Name+" olduser.Nickname: "+olduser.Nickname+" newuser.Nickname: "+newuser.Nickname);
+            _Logger.Debug("UpdateUserInChannel() cpage.Name: "+cpage.Name+" olduser.Nickname: "+olduser.Nickname+" newuser.Nickname: "+newuser.Nickname);
 #endif
             cpage.Users.Remove(olduser.Nickname.ToLower());
             cpage.Users.Add(newuser.Nickname.ToLower(), newuser);
@@ -400,7 +403,7 @@ namespace Meebey.Smuxi.Engine
         public void UpdateTopicInChannel(ChannelPage cpage, string topic)
         {
 #if LOG4NET
-            Logger.Session.Debug("UpdateTopicInChannel() cpage.Name: "+cpage.Name+" topic: "+topic);
+            _Logger.Debug("UpdateTopicInChannel() cpage.Name: "+cpage.Name+" topic: "+topic);
 #endif
             cpage.Topic = topic;
             foreach (FrontendManager fm in _FrontendManagers.Values) {
@@ -411,7 +414,7 @@ namespace Meebey.Smuxi.Engine
         public void RemoveUserFromChannel(ChannelPage cpage, User user)
         {
 #if LOG4NET
-            Logger.Session.Debug("RemoveUserFromChannel() cpage.Name: "+cpage.Name+" user.Nickname: "+user.Nickname);
+            _Logger.Debug("RemoveUserFromChannel() cpage.Name: "+cpage.Name+" user.Nickname: "+user.Nickname);
 #endif
             cpage.Users.Remove(user.Nickname.ToLower());
             foreach (FrontendManager fm in _FrontendManagers.Values) {
@@ -422,7 +425,7 @@ namespace Meebey.Smuxi.Engine
         public void SetNetworkStatus(string status)
         {
 #if LOG4NET
-            Logger.Session.Debug("SetNetworkStatus() status: "+status);
+            _Logger.Debug("SetNetworkStatus() status: "+status);
 #endif
             foreach (FrontendManager fm in _FrontendManagers.Values) {
                 fm.SetNetworkStatus(status);
@@ -432,7 +435,7 @@ namespace Meebey.Smuxi.Engine
         public void SetStatus(string status)
         {
 #if LOG4NET
-            Logger.Session.Debug("SetStatus() status: "+status);
+            _Logger.Debug("SetStatus() status: "+status);
 #endif
             foreach (FrontendManager fm in _FrontendManagers.Values) {
                 fm.SetStatus(status);

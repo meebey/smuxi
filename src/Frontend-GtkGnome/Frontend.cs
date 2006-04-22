@@ -36,6 +36,9 @@ namespace Meebey.Smuxi.FrontendGtkGnome
 {
     public class Frontend
     {
+#if LOG4NET
+        private static readonly log4net.ILog _Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+#endif
         private static string             _Name = "smuxi";
         private static string             _UIName = "GtkGnome";
         private static IFrontendUI        _UI;
@@ -143,74 +146,66 @@ namespace Meebey.Smuxi.FrontendGtkGnome
         
         public static void Init(string[] args)
         {
-            try {
-                System.Threading.Thread.CurrentThread.Name = "Main";
-                
-                Assembly asm = Assembly.GetAssembly(typeof(Frontend));
-                AssemblyName asm_name = asm.GetName(false);
-                AssemblyProductAttribute pr = (AssemblyProductAttribute)asm.
-                    GetCustomAttributes(typeof(AssemblyProductAttribute), false)[0];
-                _Version = asm_name.Version.ToString();
-                _VersionString = pr.Product+" "+_Version;
-                
+           System.Threading.Thread.CurrentThread.Name = "Main";
+           
 #if LOG4NET
-                Logger.Init();
-                Logger.Main.Info("smuxi-gtkgnome starting");
-                Engine.Logger.Init();
+           _Logger.Info("smuxi-gnome starting");
 #endif
 
-                int os = (int)Environment.OSVersion.Platform;
-                // 128 == Linux with Mono .NET 1.0
-                // 4 == Linux with Mono .NET 2.0
-                if ((os != 128) &&
-                    (os != 4)) {
-                    // this is not linux
-                    GLib.Thread.Init(); // .NET needs that...
-                }
-                //Gdk.Threads.Init();
-#if UI_GNOME
-                _Program = new Gnome.Program(Name, Version, Gnome.Modules.UI, args);
-#elif UI_GTK
-                Gtk.Application.Init();
-#endif
-                _SplashScreenWindow = new SplashScreenWindow();
+           Assembly asm = Assembly.GetAssembly(typeof(Frontend));
+           AssemblyName asm_name = asm.GetName(false);
+           AssemblyProductAttribute pr = (AssemblyProductAttribute)asm.
+               GetCustomAttributes(typeof(AssemblyProductAttribute), false)[0];
+           _Version = asm_name.Version.ToString();
+           _VersionString = pr.Product+" "+_Version;
 
-                _UI = new GtkGnomeUI();
-                _FrontendConfig = new FrontendConfig(UIName);
-                // loading and setting defaults
-                _FrontendConfig.Load();
-                _FrontendConfig.Save();
-                
-                if (_FrontendConfig.IsCleanConfig) {
+           int os = (int)Environment.OSVersion.Platform;
+           // 128 == Linux with Mono .NET 1.0
+           // 4 == Linux with Mono .NET 2.0
+           if ((os != 128) &&
+               (os != 4)) {
+               // this is not linux
+               GLib.Thread.Init(); // .NET needs that...
+           }
+           //Gdk.Threads.Init();
 #if UI_GNOME
-                    new FirstStartDruid();
+           _Program = new Gnome.Program(Name, Version, Gnome.Modules.UI, args);
+#elif UI_GTK
+           Gtk.Application.Init();
 #endif
-                } else {
-                    if (((string)FrontendConfig["Engines/Default"]).Length == 0) {
-                        InitLocalEngine();
-                    } else {
-                        // there is a default engine set, means we want a remote engine
-                        new EngineManagerDialog();
-                    }
-                }
-                
-                _SplashScreenWindow.Destroy();
+           _SplashScreenWindow = new SplashScreenWindow();
+
+           _UI = new GtkGnomeUI();
+           _FrontendConfig = new FrontendConfig(UIName);
+           // loading and setting defaults
+           _FrontendConfig.Load();
+           _FrontendConfig.Save();
+           
+           if (_FrontendConfig.IsCleanConfig) {
 #if UI_GNOME
-                _Program.Run();
+               new FirstStartDruid();
+#endif
+           } else {
+               if (((string)FrontendConfig["Engines/Default"]).Length == 0) {
+                   InitLocalEngine();
+               } else {
+                   // there is a default engine set, means we want a remote engine
+                   new EngineManagerDialog();
+               }
+           }
+           
+           _SplashScreenWindow.Destroy();
+#if UI_GNOME
+           _Program.Run();
     #if LOG4NET
-                Logger.UI.Warn("_Program.Run() returned!");
+           _Logger.Warn("_Program.Run() returned!");
     #endif
 #elif UI_GTK
-                Gtk.Application.Run();
+           Gtk.Application.Run();
     #if LOG4NET
-                Logger.UI.Warn("Gtk.Application.Run() returned!");
+           _Logger.Warn("Gtk.Application.Run() returned!");
     #endif
 #endif
-            } catch (Exception e) {
-                new CrashDialog(e);
-                // rethrow the exception for console output
-                throw e;
-            }
         }
         
         public static void InitLocalEngine()
@@ -227,8 +222,8 @@ namespace Meebey.Smuxi.FrontendGtkGnome
         {
             _FrontendManager = _Session.GetFrontendManager(_UI);
             if (_UserConfig.IsCaching) {
-                // if our UserConfig is cached, we need to invalidate the cache
-                _FrontendManager.ConfigChanged = new SimpleDelegate(_UserConfig.ClearCache);
+                // when our UserConfig is cached, we need to invalidate the cache
+                _FrontendManager.ConfigChangedDelegate = new SimpleDelegate(_UserConfig.ClearCache);
             }
             if (_MainWindow == null) {
                 _MainWindow = new MainWindow();

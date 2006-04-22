@@ -18,6 +18,9 @@ smuxi 0.6 goals:
 - create debian package
 
 Feature Requests:
+- /ignore users, joins/parts (basher)
+- multi-line pastes (maybe with a warning like irssi does) -- it looks like it only MSGs the first like and the rest are echoed in the buffer only (basher)
+- /who command (basher)
 - auto-cleanup query windows after X hours/days of inactivity
 - use treeview as alternative to notebook tabs.
 - show highlight notifications in tray (DevGet)

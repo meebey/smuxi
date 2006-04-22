@@ -30,11 +30,15 @@ using System;
 using System.Collections;
 using System.Collections.Specialized;
 using Meebey.Smuxi.Engine;
+using Meebey.Smuxi.Common;
 
 namespace Meebey.Smuxi.FrontendGtkGnome
 {
     public class Entry : Gtk.Entry
     {
+#if LOG4NET
+        private static readonly log4net.ILog _Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+#endif
         private StringCollection _History = new StringCollection();
         private int              _HistoryPosition = 0;
         private bool             _HistoryChangedLine = false;
@@ -70,6 +74,7 @@ namespace Meebey.Smuxi.FrontendGtkGnome
             Activated += new EventHandler(_OnActivated);
             KeyPressEvent += new Gtk.KeyPressEventHandler(_OnKeyPress);
             FocusOutEvent += new Gtk.FocusOutEventHandler(_OnFocusOut);
+            ClipboardPasted += new EventHandler(_OnClipboardPasted);
         }
 
         public void UpdateHistoryChangedLine()
@@ -80,12 +85,12 @@ namespace Meebey.Smuxi.FrontendGtkGnome
                 // the entry changed and the entry is not empty
                 _HistoryChangedLine = true;
 #if LOG4NET
-                Logger.CommandHistory.Debug("changed = true");
+                _Logger.Debug("_HistoryChangedLine = true");
 #endif
             } else {
                 _HistoryChangedLine = false;
 #if LOG4NET
-                Logger.CommandHistory.Debug("changed = false");
+                _Logger.Debug("_HistoryChangedLine = false");
 #endif
             }
         }
@@ -104,7 +109,7 @@ namespace Meebey.Smuxi.FrontendGtkGnome
 
             _History.Insert(_History.Count-1, data);
 #if LOG4NET
-             Logger.CommandHistory.Debug("added: '"+data+"' to history");
+             _Logger.Debug("added: '"+data+"' to history");
 #endif
 
             if (_History.Count > (int)Frontend.UserConfig["Interface/Entry/CommandHistorySize"]) {
@@ -123,7 +128,7 @@ namespace Meebey.Smuxi.FrontendGtkGnome
         {
             if (_HistoryChangedLine) {
 #if LOG4NET
-                Logger.CommandHistory.Debug("entry changed, adding to history");
+                _Logger.Debug("entry changed, adding to history");
 #endif
                 AddToHistory(Text, 0);
                 _HistoryChangedLine = false;
@@ -131,7 +136,7 @@ namespace Meebey.Smuxi.FrontendGtkGnome
 
             if (_HistoryPosition > 0) {
 #if LOG4NET
-                Logger.CommandHistory.Debug("showing previous item");
+                _Logger.Debug("showing previous item");
 #endif
                 _HistoryPosition--;
                 Text = HistoryCurrent();
@@ -142,7 +147,7 @@ namespace Meebey.Smuxi.FrontendGtkGnome
         {
             if (_HistoryChangedLine) {
 #if LOG4NET
-                Logger.CommandHistory.Debug("entry changed, adding to history");
+                _Logger.Debug("entry changed, adding to history");
 #endif
                 AddToHistory(Text, 0);
                 _HistoryChangedLine = false;
@@ -150,14 +155,14 @@ namespace Meebey.Smuxi.FrontendGtkGnome
 
             if (_HistoryPosition < _History.Count-1) {
 #if LOG4NET
-                Logger.CommandHistory.Debug("showing next item");
+                _Logger.Debug("showing next item");
 #endif
                 _HistoryPosition++;
                 Text = HistoryCurrent();
                 Position = -1;
             } else if (Text.Length > 0) {
 #if LOG4NET
-                Logger.CommandHistory.Debug("not empty line, lets add one");
+                _Logger.Debug("not empty line, lets add one");
 #endif
                 // last position and we went further down
                 _History.Add(String.Empty);
@@ -167,15 +172,16 @@ namespace Meebey.Smuxi.FrontendGtkGnome
         }
 
         [GLib.ConnectBefore]
-        private void _OnKeyPress(object obj, Gtk.KeyPressEventArgs args)
+        private void _OnKeyPress(object sender, Gtk.KeyPressEventArgs e)
         {
+            Trace.Call(sender, e);
+            
 #if LOG4NET
-            Logger.UI.Debug("Entry.OnKeyPress triggered");
-            Logger.UI.Debug("KeyValue: "+args.Event.KeyValue);
+            _Logger.Debug("_OnKeyPress(): KeyValue: "+e.Event.KeyValue);
 #endif
 
-            int keynumber = (int)args.Event.KeyValue;
-            if ((args.Event.State & Gdk.ModifierType.ControlMask) != 0) {
+            int keynumber = (int)e.Event.KeyValue;
+            if ((e.Event.State & Gdk.ModifierType.ControlMask) != 0) {
                 // ctrl is pressed
                 switch (keynumber) {
                     case 120: // x
@@ -187,7 +193,7 @@ namespace Meebey.Smuxi.FrontendGtkGnome
             }
             
             int pagenumber = -1;
-            if ((args.Event.State & Gdk.ModifierType.Mod1Mask) != 0) {
+            if ((e.Event.State & Gdk.ModifierType.Mod1Mask) != 0) {
                 // alt is pressed
                 switch (keynumber) {
                     case 49: // 1
@@ -242,9 +248,9 @@ namespace Meebey.Smuxi.FrontendGtkGnome
                 }
             }
 
-            if (((args.Event.State & Gdk.ModifierType.Mod1Mask) != 0) ||
-                ((args.Event.State & Gdk.ModifierType.ControlMask) != 0) ||
-                ((args.Event.State & Gdk.ModifierType.ShiftMask) != 0)) {
+            if (((e.Event.State & Gdk.ModifierType.Mod1Mask) != 0) ||
+                ((e.Event.State & Gdk.ModifierType.ControlMask) != 0) ||
+                ((e.Event.State & Gdk.ModifierType.ShiftMask) != 0)) {
                 // alt, ctrl or shift pushed, returning
                 return;
             }
@@ -253,7 +259,7 @@ namespace Meebey.Smuxi.FrontendGtkGnome
             switch (keynumber) {
                 case 65289: // TAB
                     // don't loose the focus
-                    args.RetVal = true;
+                    e.RetVal = true;
                     
                     if (Frontend.FrontendManager.CurrentPage is Engine.ChannelPage) {
                         if (Text.Length > 0) {
@@ -263,26 +269,26 @@ namespace Meebey.Smuxi.FrontendGtkGnome
                     break;
                 case 65362: // Up-Arrow
 #if LOG4NET
-                    Logger.UI.Debug("Up-Arrow");
+                    _Logger.Debug("_OnKeyPress(): Up-Arrow");
 #endif
                     HistoryPrevious();
                     break;
                 case 65364: // Down-Arrow
 #if LOG4NET
-                    Logger.UI.Debug("Down-Arrow");
+                    _Logger.Debug("_OnKeyPress(): Down-Arrow");
 #endif
                     HistoryNext();
                     break;
                 case 65365: // Page-Up
 #if LOG4NET
-                    Logger.UI.Debug("Page-Up");
+                    _Logger.Debug("_OnKeyPress(): Page-Up");
 #endif
                     Frontend.MainWindow.Notebook.GetPage(
                         Frontend.FrontendManager.CurrentPage).ScrollUp();
                     break;
                 case 65366: // Page-Down
 #if LOG4NET
-                    Logger.UI.Debug("Page-Down");
+                    _Logger.Debug("_OnKeyPress(): Page-Down");
 #endif
                     Frontend.MainWindow.Notebook.GetPage(
                         Frontend.FrontendManager.CurrentPage).ScrollDown();
@@ -290,14 +296,18 @@ namespace Meebey.Smuxi.FrontendGtkGnome
             }
         }
 
-        private void _OnFocusOut(object obj, Gtk.FocusOutEventArgs args)
+        private void _OnFocusOut(object sender, Gtk.FocusOutEventArgs e)
         {
+            Trace.Call(sender, e);
+            
             HasFocus = true;
             Position = -1;
         }
     
-        private void _OnActivated(object obj, EventArgs args)
+        private void _OnActivated(object sender, EventArgs e)
         {
+            Trace.Call(sender, e);
+            
             if (!(Text.Length > 0)) {
                 return;
             } 
@@ -305,6 +315,12 @@ namespace Meebey.Smuxi.FrontendGtkGnome
             ExecuteCommand(Text);
             AddToHistory(Text, History.Count - HistoryPosition);
             Text = String.Empty;
+        }
+        
+        private void _OnClipboardPasted(object sender, EventArgs e)
+        {
+            Trace.Call(sender, e);
+            
         }
         
         public void ExecuteCommand(string cmd)
@@ -498,8 +514,8 @@ namespace Meebey.Smuxi.FrontendGtkGnome
             next_space = text.IndexOf(' ', position);
 
 #if LOG4NET
-            Logger.NickCompletion.Debug("previous_space: "+previous_space);
-            Logger.NickCompletion.Debug("next_space: "+next_space);
+            _Logger.Debug("previous_space: "+previous_space);
+            _Logger.Debug("next_space: "+next_space);
 #endif
 
             if (previous_space != -1 && next_space != -1) {

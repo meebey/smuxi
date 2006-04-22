@@ -44,6 +44,10 @@ namespace Meebey.Smuxi.Server
 { 
     public class Server
     {
+#if LOG4NET
+        private static readonly log4net.ILog _Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+#endif
+
         public static void Init(string[] args)
         {
             System.Threading.Thread.CurrentThread.Name = "Main";
@@ -69,7 +73,7 @@ namespace Meebey.Smuxi.Server
                     // required for MS .NET 1.1
                     sprovider.TypeFilterLevel = TypeFilterLevel.Full;
 #if LOG4NET
-                    Engine.Logger.Remoting.Debug("Registering TcpChannel port: "+props["port"]);
+                    _Logger.Debug("Registering TcpChannel port: "+props["port"]);
 #endif
                     ChannelServices.RegisterChannel(new TcpChannel(props, cprovider, sprovider));
                     break;
@@ -77,7 +81,7 @@ namespace Meebey.Smuxi.Server
                 case "TcpEx":
                     props["name"] = "TcpExChannel";
 #if LOG4NET
-                    Engine.Logger.Remoting.Debug("Registering TcpExChannel port: "+props["port"]);
+                    _Logger.Debug("Registering TcpExChannel port: "+props["port"]);
 #endif            
                     ChannelServices.RegisterChannel(new TcpExChannel(props, null, null));
                     break;
@@ -85,7 +89,7 @@ namespace Meebey.Smuxi.Server
                 case "HTTP":
                     props["name"] = "HttpChannel";
 #if LOG4NET
-                    Engine.Logger.Remoting.Debug("Registering HttpChannel port: "+props["port"]);
+                    _Logger.Debug("Registering HttpChannel port: "+props["port"]);
 #endif            
                     ChannelServices.RegisterChannel(new HttpChannel(props, null, null));
                     break;
@@ -99,7 +103,7 @@ namespace Meebey.Smuxi.Server
             RemotingServices.Marshal(Engine.Engine.SessionManager, "SessionManager");
             
 #if LOG4NET
-            Engine.Logger.Remoting.Info("Spawned remoting server with channel: "+channel+" formatter: "+formatter+" port: "+port);
+            _Logger.Info("Spawned remoting server with channel: "+channel+" formatter: "+formatter+" port: "+port);
 #endif            
             
             Thread.Sleep(Timeout.Infinite);

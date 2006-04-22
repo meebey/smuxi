@@ -32,11 +32,15 @@ using System.Collections;
 #if CONFIG_NINI
 using Nini.Ini;
 #endif
+using Meebey.Smuxi.Common;
 
 namespace Meebey.Smuxi.Engine
 {
     public class Config : PermanentRemoteObject
     {
+#if LOG4NET
+        private static readonly log4net.ILog _Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+#endif
         //protected int           m_PreferencesVersion = 0;
 #if CONFIG_GCONF
         private   GConf.Client  _GConf = new GConf.Client();
@@ -81,7 +85,7 @@ namespace Meebey.Smuxi.Engine
             m_IniFilename = Path.Combine(m_ConfigPath, "smuxi-engine.ini");
             if (!File.Exists(m_IniFilename)) {
 #if LOG4NET
-                Logger.Config.Debug("creating file: "+m_IniFilename);
+                _Logger.Debug("creating file: "+m_IniFilename);
 #endif
                 File.Create(m_IniFilename).Close();
                 m_IsCleanConfig = true;
@@ -91,12 +95,10 @@ namespace Meebey.Smuxi.Engine
 #endif
         }
         
-       protected object Get(string key, object defaultvalue)
-       {
-#if LOG4NET
-            Logger.Config.Debug("Get() key: '"+key+"' defaultvalue: '"+
-                (defaultvalue != null ? defaultvalue : "(null)")+"'");
-#endif
+        protected object Get(string key, object defaultvalue)
+        {
+            Trace.Call(key, defaultvalue);
+            
 #if CONFIG_GCONF
             try {
                 return _GConf.Get(_GConfPrefix+key);
@@ -150,10 +152,8 @@ namespace Meebey.Smuxi.Engine
         
         private void _Set(string key, object valueobj)
         {
-#if LOG4NET
-            Logger.Config.Debug("Set() key: '"+key+"' valueobj: '"+
-                (valueobj != null ? valueobj : "(null)")+"'");
-#endif
+            Trace.Call(key, valueobj);
+            
 #if CONFIG_GCONF
             _GConf.Set(_GConfPrefix+key, valueobj);
 #elif CONFIG_NINI
@@ -177,7 +177,7 @@ namespace Meebey.Smuxi.Engine
         public void Load()
         {
 #if LOG4NET
-            Logger.Config.Info("Loading config (Config)");
+            _Logger.Info("Loading config");
 #endif
             string prefix;
             
@@ -281,7 +281,7 @@ namespace Meebey.Smuxi.Engine
         public void Save()
         {
 #if LOG4NET
-            Logger.Config.Info("Saving config (Config)");
+            _Logger.Info("Saving config");
 #endif
             
             foreach (string key in m_Preferences.Keys) {
@@ -303,7 +303,7 @@ namespace Meebey.Smuxi.Engine
         public void Remove(string key)
         {
 #if LOG4NET
-            Logger.Config.Debug("Removing: "+key);
+            _Logger.Debug("Removing: "+key);
 #endif
             m_Preferences.Remove(key);
             if (Changed != null) {
@@ -313,10 +313,8 @@ namespace Meebey.Smuxi.Engine
 
         protected void LoadUserEntry(string user, string key, object defaultvalue)
         {
-#if LOG4NET
-            Logger.Config.Debug("LoadUserEntry() user: '"+user+"' key: '"+key+
-                "' defaultvalue: '"+(defaultvalue != null ? defaultvalue : "(null)")+"'");
-#endif
+            Trace.Call(user, key, defaultvalue);
+            
             string prefix = "Engine/Users/";
             string ukey = prefix+user+"/"+key;
             object obj = Get(ukey, defaultvalue);
@@ -327,10 +325,8 @@ namespace Meebey.Smuxi.Engine
         
         protected void LoadEntry(string key, object defaultvalue)
         {
-#if LOG4NET
-            Logger.Config.Debug("LoadEntry() key: '"+key+"' defaultvalue: '"+
-                (defaultvalue != null ? defaultvalue : "(null)")+"'");
-#endif
+            Trace.Call(key, defaultvalue);
+            
             object obj = Get(key, defaultvalue);
             if (obj != null) {
                 m_Preferences[key] = obj;             
@@ -339,9 +335,8 @@ namespace Meebey.Smuxi.Engine
         
         protected void LoadAllEntries(string basepath)
         {
-#if LOG4NET
-            Logger.Config.Debug("LoadAllEntries() basepath: '"+basepath+"'");
-#endif
+            Trace.Call(basepath);
+            
 #if CONFIG_GCONF
             // TODO: GConf# has no way yet to get the sub-paths of a given path!
             // So we have to use Nini as primary config backend for now...

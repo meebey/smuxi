@@ -33,6 +33,9 @@ namespace Meebey.Smuxi.Engine
 {
     public class SessionManager : PermanentRemoteObject
     {
+#if LOG4NET
+        private static readonly log4net.ILog _Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+#endif
         private Hashtable _Sessions = Hashtable.Synchronized(new Hashtable());
         private string    _Version;
         
@@ -55,7 +58,7 @@ namespace Meebey.Smuxi.Engine
                     continue;
                 }
 #if LOG4NET
-                Logger.Session.Debug("Creating Session for User "+user);
+                _Logger.Debug("Creating Session for User "+user);
 #endif
                 _Sessions.Add(user, new Session(Engine.Config, user));
             }
@@ -63,13 +66,13 @@ namespace Meebey.Smuxi.Engine
         
         public Session Register(string username, string password, IFrontendUI ui)
         {
-            object obj;
-            if ((obj = Engine.Config["Engine/Users/"+username+"/Password"]) != null) {
-                if ((string)obj == password) {
-                    Session sess = (Session)_Sessions[username];
-                    sess.RegisterFrontendUI(ui);
-                    return sess;
-                }
+            string configPassword = (string)Engine.Config["Engine/Users/"+username+"/Password"]; 
+            if (configPassword != null &&
+                configPassword != String.Empty &&
+                configPassword == password) {
+                Session sess = (Session)_Sessions[username];
+                sess.RegisterFrontendUI(ui);
+                return sess;
             }
             
             return null;

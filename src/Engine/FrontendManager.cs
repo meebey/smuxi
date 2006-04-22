@@ -36,6 +36,9 @@ namespace Meebey.Smuxi.Engine
     
     public class FrontendManager : PermanentRemoteObject, IFrontendUI
     {
+#if LOG4NET
+        private static readonly log4net.ILog _Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+#endif
         private int             _Version = 0;
         private Queue           _Queue  = Queue.Synchronized(new Queue());
         private Thread          _Thread;
@@ -44,7 +47,7 @@ namespace Meebey.Smuxi.Engine
         private Page            _CurrentPage;
         private INetworkManager _CurrentNetworkManager;
         private bool            _IsFrontendDisconnecting;
-        private SimpleDelegate  _ConfigChanged;
+        private SimpleDelegate  _ConfigChangedDelegate;
         
         public int Version {
             get {
@@ -52,9 +55,9 @@ namespace Meebey.Smuxi.Engine
             }
         }
         
-        public SimpleDelegate ConfigChanged {
+        public SimpleDelegate ConfigChangedDelegate {
             set {
-                _ConfigChanged = value;
+                _ConfigChangedDelegate = value;
             }
         }
         
@@ -92,7 +95,13 @@ namespace Meebey.Smuxi.Engine
             _Thread = new Thread(new ThreadStart(_Worker));
             _Thread.IsBackground = true;
             _Thread.Start();
-
+            
+            // register event for config invalidation
+            _Session.Config.Changed += new EventHandler(_OnConfigChanged);
+        }
+        
+        public void Sync()
+        {
             // sync pages            
             foreach (Page page in _Session.Pages) {
                 AddPage(page);
@@ -104,18 +113,13 @@ namespace Meebey.Smuxi.Engine
                 CurrentNetworkManager = nm;
             }
             
+            // sync current page
+            _CurrentPage = (Page)_Session.Pages[0];
+            
             // sync content of pages
             foreach (Page page in _Session.Pages) {
                 SyncPage(page);
             }
-            
-            // register event for config invalidation
-            _Session.Config.Changed += new EventHandler(_OnConfigChanged);
-        }
-        
-        private void _OnConfigChanged(object sender, EventArgs e)
-        {
-            _ConfigChanged();
         }
         
         public void NextNetworkManager()
@@ -268,7 +272,7 @@ namespace Meebey.Smuxi.Engine
                                 break;
                             default:
 #if LOG4NET
-                                Logger.Main.Error("Unknown UICommand: "+com.Command);
+                                _Logger.Error("_Worker(): Unknown UICommand: "+com.Command);
 #endif
                                 break;
                         }
@@ -276,16 +280,16 @@ namespace Meebey.Smuxi.Engine
 #if LOG4NET
                         if (!_IsFrontendDisconnecting) {
                             // we didn't expect this problem
-                            Logger.Remoting.Error("RemotingException in _Worker(), aborting FrontendManager thread...", e);
-                            Logger.Remoting.Error("Inner-Exception: ", e.InnerException);
+                            _Logger.Error("RemotingException in _Worker(), aborting FrontendManager thread...", e);
+                            _Logger.Error("Inner-Exception: ", e.InnerException);
                         }
 #endif
                         _Session.DeregisterFrontendUI(_UI);
                         return;
                     } catch (Exception e) {
 #if LOG4NET
-                        Logger.Main.Error("Exception in _Worker(), aborting FrontendManager thread...", e);
-                        Logger.Main.Error("Inner-Exception: ", e.InnerException);
+                        _Logger.Error("Exception in _Worker(), aborting FrontendManager thread...", e);
+                        _Logger.Error("Inner-Exception: ", e.InnerException);
 #endif
                         _Session.DeregisterFrontendUI(_UI);
                         return;
@@ -293,6 +297,13 @@ namespace Meebey.Smuxi.Engine
                 } else {
                     Thread.Sleep(10);
                 }
+            }
+        }
+        
+        private void _OnConfigChanged(object sender, EventArgs e)
+        {
+            if (_ConfigChangedDelegate != null) {
+                _ConfigChangedDelegate();
             }
         }
     }

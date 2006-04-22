@@ -28,6 +28,7 @@
 
 using System;
 using Meebey.Smuxi;
+using Meebey.Smuxi.Common;
 
 namespace Meebey.Smuxi.FrontendGtkGnome
 {
@@ -121,11 +122,9 @@ namespace Meebey.Smuxi.FrontendGtkGnome
             adj.Value = adj.Upper - adj.PageSize;
         }
        
-        private void _OnTextBufferChanged(object obj, EventArgs args)
+        private void _OnTextBufferChanged(object sender, EventArgs e)
         {
-#if LOG4NET
-            Logger.UI.Debug("_OnTextBufferChanged triggered");
-#endif
+            Trace.Call(sender, e);
         
             Gtk.ScrolledWindow sw = _OutputScrolledWindow;
             Gtk.TextView tv = _OutputTextView;

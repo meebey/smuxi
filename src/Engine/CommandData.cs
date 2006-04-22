@@ -27,11 +27,15 @@
  */
 
 using System;
+using Meebey.Smuxi.Common;
 
 namespace Meebey.Smuxi.Engine
 {
     public class CommandData : PermanentRemoteObject
     {
+#if LOG4NET
+        private static readonly log4net.ILog _Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+#endif
         private string          _Data;
         private string[]        _DataArray;
         private string          _Parameter;
@@ -84,10 +88,8 @@ namespace Meebey.Smuxi.Engine
         
         public CommandData(FrontendManager fm, string cmdChar, string data)
         {
-#if LOG4NET
-            Logger.Command.Debug("CommandData() fm: "+fm.GetType()+" cmdChar: '"+
-                cmdChar+"' data: '"+data+"'");
-#endif
+            Trace.Call(fm, cmdChar, data);
+            
             _Data = data;
             _DataArray = data.Split(new char[] {' '});
             _Parameter = String.Join(" ", _DataArray, 1, _DataArray.Length-1);

@@ -40,36 +40,77 @@ namespace Meebey.Smuxi.FrontendTest
 {
     public class Frontend
     {
-        public static FrontendConfig FrontendConfig;
+#if LOG4NET
+        private static readonly log4net.ILog _Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+#endif
+        public  const  char            Escape = (char)27;
+        private static FrontendManager _FrontendManager;
+        private static FrontendConfig  _FrontendConfig;
+        private static Session         _Session;
+        private static UserConfig      _UserConfig;
+        
+        public static FrontendConfig FrontendConfig {
+            get {
+                return _FrontendConfig;
+            }
+        }
+        
+        public static FrontendManager FrontendManager {
+            get {
+                return _FrontendManager;
+            }
+        }
+        
+        public static Session Session {
+            get {
+                return _Session;
+            }
+        }
+        
+        public static UserConfig UserConfig {
+            get {
+                return _UserConfig;
+            }
+        }
         
         public static void Init(string[] args)
         {
+            System.Threading.Thread.CurrentThread.Name = "Main";
+            
             if (!(args.Length >= 1)) {
                 Console.WriteLine("Usage: smuxi-test.exe profile");
                 return;
             }
-            System.Threading.Thread.CurrentThread.Name = "Main";
+            
 #if LOG4NET
-            Logger.Init();
-            Logger.Main.Info("smuxi-test starting");
-            Engine.Logger.Init();
+            _Logger.Info("smuxi-test starting");
 #endif
-            FrontendConfig = new FrontendConfig("Test");
-            FrontendConfig.Load();
+
+            _FrontendConfig = new FrontendConfig("Test");
+            _FrontendConfig.Load();
             
             string profile = args[0];
-            string username = (string)FrontendConfig["Engines/"+profile+"/Username"];
-            string password = (string)FrontendConfig["Engines/"+profile+"/Password"];
-            string hostname = (string)FrontendConfig["Engines/"+profile+"/Hostname"];
-            int port = (int)FrontendConfig["Engines/"+profile+"/Port"];
-            string channel = (string)FrontendConfig["Engines/"+profile+"/Channel"];
-            //string formatter = (string)FrontendConfig["Engines/"+profile+"/Formatter"];
 
-            IDictionary props = new Hashtable();
-            props["port"] = 0;
             IFrontendUI ui = new TestUI();
-            try {
-                SessionManager sessm = null;
+            
+            SessionManager sessionManager = null;
+            Session session = null;
+            if (profile == "local") {
+                Engine.Engine.Init();
+                sessionManager = Engine.Engine.SessionManager;
+                session = new Engine.Session(Engine.Engine.Config, "local");
+                session.RegisterFrontendUI(ui);
+                _UserConfig = session.UserConfig;
+            } else {
+                // remote engine
+                string username = (string)_FrontendConfig["Engines/"+profile+"/Username"];
+                string password = (string)_FrontendConfig["Engines/"+profile+"/Password"];
+                string hostname = (string)_FrontendConfig["Engines/"+profile+"/Hostname"];
+                int    port     = (int)_FrontendConfig["Engines/"+profile+"/Port"];
+                string channel  = (string)_FrontendConfig["Engines/"+profile+"/Channel"];
+                
+                IDictionary props = new Hashtable();
+                props["port"] = 0;
                 switch (channel) {
                     case "TCP":
                         BinaryClientFormatterSinkProvider cprovider =
@@ -81,50 +122,74 @@ namespace Meebey.Smuxi.FrontendTest
                         sprovider.TypeFilterLevel = TypeFilterLevel.Full;
 
                         ChannelServices.RegisterChannel(new TcpChannel(props, cprovider, sprovider));
-                        sessm = (SessionManager)Activator.GetObject(typeof(SessionManager),
+                        sessionManager = (SessionManager)Activator.GetObject(typeof(SessionManager),
                             "tcp://"+hostname+":"+port+"/SessionManager");
                         break;
                     case "HTTP":
                         ChannelServices.RegisterChannel(new HttpChannel());
-                        sessm = (SessionManager)Activator.GetObject(typeof(SessionManager),
+                        sessionManager = (SessionManager)Activator.GetObject(typeof(SessionManager),
                             "http://"+hostname+":"+port+"/SessionManager");
-                        break;
-                    case "LOCAL":
-                        Engine.Engine.Init();
-                        sessm = Engine.Engine.SessionManager;
                         break;
                     default:
                         Console.WriteLine("Unknown channel ("+channel+"), aborting...");
                         Environment.Exit(1);
                         break;
                 }
+                session = sessionManager.Register(username, password, ui);
                 
-                Session sess = sessm.Register(username, password, ui);
-                FrontendManager fm = sess.GetFrontendManager(ui);
-                string line = string.Empty;
-                bool handled = false;
-                while (true) {
-                    line = Console.ReadLine();
-                    switch (line) {
-                        case "/quit":
-                            return;
-                    }
-                    
-                    if (!handled) {
-                        sess.Command(new CommandData(fm, "/", line));
-                    }
-                }
-            } catch (Exception e) {
-#if LOG4NET
-                Logger.Main.Fatal("Exception: "+e.Message, e);
-                Logger.Main.Fatal("Type: "+e.GetType());
-                Logger.Main.Fatal("StackTrace: "+e.StackTrace);
-#endif
+                // setup cached config
+                _UserConfig = new UserConfig(session.Config, username);
+                _UserConfig.IsCaching = true;
             }
             
-#if LOG4NET
-            Logger.Main.Info("smuxi-test ended");
-#endif
-       }
+            _Session = session;
+            _FrontendManager = session.GetFrontendManager(ui);
+            _FrontendManager.Sync();
+            
+            if (_UserConfig.IsCaching) {
+                // when our UserConfig is cached, we need to invalidate the cache
+                _FrontendManager.ConfigChangedDelegate = new SimpleDelegate(_UserConfig.ClearCache);
+            }
+            
+            while (true) {
+                string line = Console.ReadLine();
+                // TODO: remove the entered line from output
+                //Console.WriteLine(Escape+"M");
+                
+                _ExecuteCommand(line);
+            }
+        }
+        
+        public static void _ExecuteCommand(string cmd)
+        {
+            bool handled = false;
+            CommandData cd = new CommandData(_FrontendManager,
+                                             (string)_UserConfig["Interface/Entry/CommandCharacter"],
+                                             cmd);
+            
+            switch (cmd) {
+                case "/quit":
+                    Environment.Exit(0);
+                    handled = true;
+                    break;
+            }
+            
+            if (!handled) {
+                handled = _Session.Command(cd);
+            }
+            
+            if (!handled) {
+                // we may have no network manager yet
+                if (_FrontendManager.CurrentNetworkManager != null) {
+                    handled = _FrontendManager.CurrentNetworkManager.Command(cd);
+                } else {
+                    handled = true;
+                }
+            }
+            
+            if (!handled) {
+               Console.WriteLine("-!- Unknown command");
+            }
+        }
     }
 }

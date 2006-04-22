@@ -33,6 +33,9 @@ namespace Meebey.Smuxi.Engine
 {
     public class UserConfig : PermanentRemoteObject
     {
+#if LOG4NET
+        private static readonly log4net.ILog _Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+#endif
         private Config    _Config;
         private string    _UserPrefix;
         private string    _DefaultPrefix = "Engine/Users/DEFAULT/";
@@ -73,7 +76,7 @@ namespace Meebey.Smuxi.Engine
                 obj = _Config[_DefaultPrefix+key];
 #if LOG4NET
                 if (obj == null) {
-                    Logger.Config.Error("value is null for key: "+key);
+                    _Logger.Error("value is null for key: "+key);
                 }
 #endif
                 if (IsCaching) {
@@ -97,7 +100,7 @@ namespace Meebey.Smuxi.Engine
         {
             if (IsCaching) {
 #if LOG4NET
-                Logger.Config.Debug("Clearing UserConfig cache");
+                _Logger.Debug("Clearing cache");
 #endif
                 _Cache.Clear();
             }

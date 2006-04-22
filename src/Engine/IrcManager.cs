@@ -35,6 +35,9 @@ namespace Meebey.Smuxi.Engine
 {
     public class IrcManager : PermanentRemoteObject, INetworkManager
     {
+#if LOG4NET
+        private static readonly log4net.ILog _Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+#endif
         private IrcClient       _IrcClient;
         private Session         _Session;
         private string          _Server;
@@ -1012,7 +1015,7 @@ namespace Meebey.Smuxi.Engine
         private void _OnNames(object sender, NamesEventArgs e)
         {
 #if LOG4NET
-            Logger.IrcManager.Debug("_OnNames() e.Channel: "+e.Channel);
+            _Logger.Debug("_OnNames() e.Channel: "+e.Channel);
 #endif
             /*
             ChannelPage cpage = (ChannelPage)_Session.GetPage(e.Data.Channel, PageType.Channel, NetworkType.Irc, this);
@@ -1056,7 +1059,7 @@ namespace Meebey.Smuxi.Engine
         private void _OnChannelActiveSynced(object sender, IrcEventArgs e)
         {
 #if LOG4NET
-            Logger.IrcManager.Debug("_OnChannelActiveSynced() e.Data.Channel: "+e.Data.Channel);
+            _Logger.Debug("_OnChannelActiveSynced() e.Data.Channel: "+e.Data.Channel);
 #endif
             ChannelPage cpage = (ChannelPage)_Session.GetPage(e.Data.Channel, PageType.Channel, NetworkType.Irc, this);
             SmartIrc4net.Channel schan = _IrcClient.GetChannel(e.Data.Channel);
@@ -1091,7 +1094,7 @@ namespace Meebey.Smuxi.Engine
         private void _OnPart(object sender, PartEventArgs e)
         {
 #if LOG4NET
-            Logger.IrcManager.Debug("_OnPart() e.Channel: "+e.Channel+" e.Who: "+e.Who);
+            _Logger.Debug("_OnPart() e.Channel: "+e.Channel+" e.Who: "+e.Who);
 #endif
             ChannelPage cpage = (ChannelPage)_Session.GetPage(e.Channel, PageType.Channel, NetworkType.Irc, this);
             if (e.Data.Irc.IsMe(e.Who)) {
@@ -1107,7 +1110,7 @@ namespace Meebey.Smuxi.Engine
         private void _OnKick(object sender, KickEventArgs e)
         {
 #if LOG4NET
-            Logger.IrcManager.Debug("_OnKick() e.Channel: "+e.Channel+" e.Whom: "+e.Whom);
+            _Logger.Debug("_OnKick() e.Channel: "+e.Channel+" e.Whom: "+e.Whom);
 #endif
             ChannelPage cpage = (ChannelPage)_Session.GetPage(e.Channel, PageType.Channel, NetworkType.Irc, this);
             if (e.Data.Irc.IsMe(e.Whom)) {
@@ -1126,7 +1129,7 @@ namespace Meebey.Smuxi.Engine
         private void _OnNickChange(object sender, NickChangeEventArgs e)
         {
 #if LOG4NET
-            Logger.IrcManager.Debug("_OnNickChange() e.OldNickname: "+e.OldNickname+" e.NewNickname: "+e.NewNickname);
+            _Logger.Debug("_OnNickChange() e.OldNickname: "+e.OldNickname+" e.NewNickname: "+e.NewNickname);
 #endif
             if (e.Data.Irc.IsMe(e.NewNickname)) {
                 Page spage = _Session.GetPage("Server", PageType.Server, NetworkType.Irc, null);
@@ -1142,7 +1145,7 @@ namespace Meebey.Smuxi.Engine
                     IrcChannelUser olduser = (IrcChannelUser)cpage.GetUser(e.OldNickname);
                     if (olduser == null) {
 #if LOG4NET
-                        Logger.IrcManager.Error("cpage.GetUser(e.OldNickname) returned null! cpage.Name: "+cpage.Name+" e.OldNickname: "+e.OldNickname);
+                        _Logger.Error("cpage.GetUser(e.OldNickname) returned null! cpage.Name: "+cpage.Name+" e.OldNickname: "+e.OldNickname);
 #endif
                         continue;
                     }
@@ -1184,7 +1187,7 @@ namespace Meebey.Smuxi.Engine
                 _Session.UpdateUserInChannel(cpage, user, user);
 #if LOG4NET
             } else {
-                Logger.IrcManager.Error("cpage.GetUser(e.Whom) returned null! cpage.Name: "+cpage.Name+" e.Whom: "+e.Whom);
+                _Logger.Error("cpage.GetUser(e.Whom) returned null! cpage.Name: "+cpage.Name+" e.Whom: "+e.Whom);
 #endif
             }
         }
@@ -1206,7 +1209,7 @@ namespace Meebey.Smuxi.Engine
                 _Session.UpdateUserInChannel(cpage, user, user);
 #if LOG4NET
             } else {
-                Logger.IrcManager.Error("cpage.GetUser(e.Whom) returned null! cpage.Name: "+cpage.Name+" e.Whom: "+e.Whom);
+                _Logger.Error("cpage.GetUser(e.Whom) returned null! cpage.Name: "+cpage.Name+" e.Whom: "+e.Whom);
 #endif
             }
         }
@@ -1245,7 +1248,7 @@ namespace Meebey.Smuxi.Engine
         private void _OnQuit(object sender, QuitEventArgs e)
         {
 #if LOG4NET
-            Logger.IrcManager.Debug("_Quit() e.Who: "+e.Who);
+            _Logger.Debug("_Quit() e.Who: "+e.Who);
 #endif
             if (e.Data.Irc.IsMe(e.Who)) {
                 // _OnDisconnect() handles this

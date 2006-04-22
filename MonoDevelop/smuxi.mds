@@ -5,12 +5,14 @@
       <Entry build="True" name="Server" configuration="Release" />
       <Entry build="True" name="Frontend-GtkGnome" configuration="Release" />
       <Entry build="True" name="Frontend-Test" configuration="Release" />
+      <Entry build="True" name="Common" configuration="Debug" />
     </Configuration>
     <Configuration name="Debug" ctype="CombineConfiguration">
       <Entry build="True" name="Engine" configuration="Debug" />
       <Entry build="True" name="Server" configuration="Debug" />
       <Entry build="True" name="Frontend-GtkGnome" configuration="Debug" />
       <Entry build="True" name="Frontend-Test" configuration="Debug" />
+      <Entry build="True" name="Common" configuration="Debug" />
     </Configuration>
   </Configurations>
   <StartMode startupentry="Engine" single="False">
@@ -18,11 +20,13 @@
     <Execute type="Execute" entry="Server" />
     <Execute type="Execute" entry="Frontend-GtkGnome" />
     <Execute type="None" entry="Frontend-Test" />
+    <Execute type="None" entry="Common" />
   </StartMode>
   <Entries>
     <Entry filename="./Engine.mdp" />
     <Entry filename="./Server.mdp" />
     <Entry filename="./Frontend-GtkGnome.mdp" />
     <Entry filename="./Frontend-Test.mdp" />
+    <Entry filename="./Common.mdp" />
   </Entries>
 </Combine>
