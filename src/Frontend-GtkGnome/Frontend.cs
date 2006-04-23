@@ -221,6 +221,8 @@ namespace Meebey.Smuxi.FrontendGtkGnome
         public static void ConnectEngineToGUI()
         {
             _FrontendManager = _Session.GetFrontendManager(_UI);
+            //_FrontendManager.Sync();
+            
             if (_UserConfig.IsCaching) {
                 // when our UserConfig is cached, we need to invalidate the cache
                 _FrontendManager.ConfigChangedDelegate = new SimpleDelegate(_UserConfig.ClearCache);

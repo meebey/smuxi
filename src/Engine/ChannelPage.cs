@@ -29,6 +29,7 @@
 using System;
 using System.Collections;
 using System.Collections.Specialized;
+using Meebey.Smuxi.Common;
 
 namespace Meebey.Smuxi.Engine
 {
@@ -76,6 +77,8 @@ namespace Meebey.Smuxi.Engine
         
         public string NicknameLookup(string searchnick)
         {
+            Trace.Call(searchnick);
+            
 #if LOG4NET
             _Logger.Debug("NicknameLookup(): ChannelPage.Name: "+Name);
 #endif
@@ -101,6 +104,8 @@ namespace Meebey.Smuxi.Engine
 
         public string[] NicknameLookupAll(string searchnick)
         {
+            Trace.Call(searchnick);
+            
             StringCollection foundnicks = new StringCollection();
             int searchnicklength = searchnick.Length;
             string longest_nickname = String.Empty;

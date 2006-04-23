@@ -98,6 +98,11 @@ namespace Meebey.Smuxi.Engine
             
             // register event for config invalidation
             _Session.Config.Changed += new EventHandler(_OnConfigChanged);
+            
+            // BUG: Session adds stuff to the queue but the frontend is not ready yet!
+            // The frontend must Sync() _first_!
+            // HACK: so this bug doesn't happen for now
+            Sync();
         }
         
         public void Sync()

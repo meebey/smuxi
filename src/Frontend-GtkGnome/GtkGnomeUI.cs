@@ -95,68 +95,73 @@ namespace Meebey.Smuxi.FrontendGtkGnome
         
         private void _AddMessageToPage(Engine.Page epage, FormattedMessage fmsg)
         {
-           string msg = null;
-           foreach (FormattedMessageItem item in fmsg.Items) {
-               switch (item.Type) {
-                   // TODO: implement other ItemTypes
-                   case FormattedMessageItemType.Text:
-                       FormattedTextMessage ftmsg = (FormattedTextMessage)item.Value;
-                       /*
-                       if ((ftmsg.Color.HexCode != -1) ||
-                           (ftmsg.BackgroundColor.HexCode != -1)) {
-                           msg += "<span ";
-                           if (ftmsg.Color.HexCode != -1) {
-                               msg += "foreground=\"#"+ftmsg.Color.
-                                   HexCode+"\" ";
-                           }
-                           if (ftmsg.BackgroundColor.HexCode != -1) {
-                               msg += "background=\"#"+ftmsg.BackgroundColor.
-                                   HexCode+"\" ";
-                           }
-                           msg += ">";
-                       }
-                       if (ftmsg.Underline) {
-                           msg += "<u>";
-                       }
-                       if (ftmsg.Bold) {
-                           msg += "<b>";
-                       }
-                       */
-                       
-                       msg += ftmsg.Text;
-                       
-                       /*
-                       if (ftmsg.Bold) {
-                           msg += "</b>";
-                       }
-                       if (ftmsg.Underline) {
-                           msg += "</u>";
-                       }
-                       if ((ftmsg.Color.HexCode != -1) ||
-                           (ftmsg.BackgroundColor.HexCode != -1)) {
-                           msg += "</span>";
-                       }
-                       */
-                       break; 
-               } 
-           }
+            string msg = null;
+            foreach (FormattedMessageItem item in fmsg.Items) {
+                switch (item.Type) {
+                    // TODO: implement other ItemTypes
+                    case FormattedMessageItemType.Text:
+                        FormattedTextMessage ftmsg = (FormattedTextMessage)item.Value;
+                        /*
+                        if ((ftmsg.Color.HexCode != -1) ||
+                            (ftmsg.BackgroundColor.HexCode != -1)) {
+                            msg += "<span ";
+                            if (ftmsg.Color.HexCode != -1) {
+                                msg += "foreground=\"#"+ftmsg.Color.
+                                    HexCode+"\" ";
+                            }
+                            if (ftmsg.BackgroundColor.HexCode != -1) {
+                                msg += "background=\"#"+ftmsg.BackgroundColor.
+                                    HexCode+"\" ";
+                            }
+                            msg += ">";
+                        }
+                        if (ftmsg.Underline) {
+                            msg += "<u>";
+                        }
+                        if (ftmsg.Bold) {
+                            msg += "<b>";
+                        }
+                        */
+                        
+                        msg += ftmsg.Text;
+                        
+                        /*
+                        if (ftmsg.Bold) {
+                            msg += "</b>";
+                        }
+                        if (ftmsg.Underline) {
+                            msg += "</u>";
+                        }
+                        if ((ftmsg.Color.HexCode != -1) ||
+                            (ftmsg.BackgroundColor.HexCode != -1)) {
+                            msg += "</span>";
+                        }
+                        */
+                        break; 
+                } 
+            }
+            
+            string timestamp;
+            try {
+                timestamp = fmsg.Timestamp.ToLocalTime().ToString((string)Frontend.UserConfig["Interface/Notebook/TimestampFormat"]);
+            } catch (FormatException e) {
+                timestamp = "Timestamp Format ERROR: "+e.Message;
+            }
+            msg = timestamp+" "+msg;
            
-           string timestamp;
-           try {
-               timestamp = fmsg.Timestamp.ToLocalTime().ToString((string)Frontend.UserConfig["Interface/Notebook/TimestampFormat"]);
-           } catch (FormatException e) {
-               timestamp = "Timestamp Format ERROR: "+e.Message;
-           }
-           msg = timestamp+" "+msg;
-           
-           Page page = Frontend.MainWindow.Notebook.GetPage(epage);
-           Gtk.TextIter iter = page.OutputTextBuffer.EndIter;
-           // we must use pango here!!!
-           page.OutputTextBuffer.Insert(ref iter, msg+"\n");
+            Page page = Frontend.MainWindow.Notebook.GetPage(epage);
+#if LOG4NET
+            if (page == null) {
+                _Logger.Fatal(String.Format("_AddMessageToPage(): Notebook.GetPage(epage) epage.Name: {0} returned null!", epage.Name));
+            }
+#endif
+            Gtk.TextIter iter = page.OutputTextBuffer.EndIter;
+            // we must use pango here!!!
+            page.OutputTextBuffer.Insert(ref iter, msg+"\n");
 
-           if (Frontend.FrontendManager.CurrentPage != epage) {
-               page.Label.Markup = "<span foreground=\"blue\">"+page.Name+"</span>";
-           }
+            if (Frontend.FrontendManager.CurrentPage != epage) {
+                page.Label.Markup = "<span foreground=\"blue\">"+page.Name+"</span>";
+            }
         }
         
         public void AddMessageToPage(Engine.Page epage, FormattedMessage fmsg)

@@ -520,13 +520,13 @@ namespace Meebey.Smuxi.FrontendGtkGnome
 
             if (previous_space != -1 && next_space != -1) {
                 // previous and next space exist
-                word = text.Substring(previous_space+1, next_space-previous_space-1);
+                word = text.Substring(previous_space + 1, next_space - previous_space - 1);
             } else if (previous_space != -1) {
                 // previous space exist
-                word = text.Substring(previous_space+1);
+                word = text.Substring(previous_space + 1);
             } else if (next_space != -1) {
                 // next space exist
-                word = text.Substring(0, text.Length-next_space);
+                word = text.Substring(0, next_space);
             } else {
                 // no spaces
                 word = text;
@@ -567,32 +567,34 @@ namespace Meebey.Smuxi.FrontendGtkGnome
                 // put the found nickname in place
                 if (previous_space != -1 && next_space != -1) {
                     // previous and next space exist
-                    temp = text.Remove(previous_space+1, word.Length);
-                    temp = temp.Insert(previous_space+1, nick);
+                    temp = text.Remove(previous_space + 1, word.Length);
+                    temp = temp.Insert(previous_space + 1, nick);
                     Text = temp;
                     if (partial_found) {
-                        Position = previous_space+1+nick.Length;
+                        Position = previous_space + 1 + nick.Length;
                     } else {
-                        Position = previous_space+2+nick.Length;
+                        Position = previous_space + 2 + nick.Length;
                     }
                 } else if (previous_space != -1) {
                     // only previous space exist
-                    temp = text.Remove(previous_space+1, word.Length);
-                    temp = temp.Insert(previous_space+1, nick);
+                    temp = text.Remove(previous_space + 1, word.Length);
+                    temp = temp.Insert(previous_space + 1, nick);
                     if (partial_found) {
                         Text = temp;
                     } else {
                         Text = temp+" ";
                     }
-                    Position = previous_space+2+nick.Length;
+                    Position = previous_space + 2 + nick.Length;
                 } else if (next_space != -1) {
                     // only next space exist
+                    temp = text.Remove(0, next_space + 1);
                     if (partial_found) {
-                        Text = nick;
+                        Text = nick + " " + temp;
+                        Position = nick.Length;
                     } else {
-                        Text = nick+(string)Frontend.UserConfig["Interface/Entry/CompletionCharacter"]+" ";
+                        Text = nick+(string)Frontend.UserConfig["Interface/Entry/CompletionCharacter"] + " " + temp;
+                        Position = nick.Length + 2;
                     }
-                    Position = -1;
                 } else {
                     // no spaces
                     if (partial_found) {

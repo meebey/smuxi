@@ -1,5 +1,5 @@
 <Project name="Frontend-Test" fileversion="2.0" language="C#" ctype="DotNetProject">
-  <Configurations active="Release">
+  <Configurations active="Debug">
     <Configuration name="Debug" ctype="DotNetProjectConfiguration">
       <Output directory="../bin/mono/debug" assembly="smuxi-test" />
       <Build debugmode="True" target="Exe" />
