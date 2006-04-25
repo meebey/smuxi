@@ -146,28 +146,24 @@ namespace Meebey.Smuxi.FrontendGtkGnome
         
         public static void Init(string[] args)
         {
-           System.Threading.Thread.CurrentThread.Name = "Main";
+            System.Threading.Thread.CurrentThread.Name = "Main";
            
 #if LOG4NET
-           _Logger.Info("smuxi-gnome starting");
+            _Logger.Info("smuxi-gnome starting");
 #endif
 
-           Assembly asm = Assembly.GetAssembly(typeof(Frontend));
-           AssemblyName asm_name = asm.GetName(false);
-           AssemblyProductAttribute pr = (AssemblyProductAttribute)asm.
-               GetCustomAttributes(typeof(AssemblyProductAttribute), false)[0];
-           _Version = asm_name.Version.ToString();
-           _VersionString = pr.Product+" "+_Version;
-
-           int os = (int)Environment.OSVersion.Platform;
-           // 128 == Linux with Mono .NET 1.0
-           // 4 == Linux with Mono .NET 2.0
-           if ((os != 128) &&
-               (os != 4)) {
-               // this is not linux
-               GLib.Thread.Init(); // .NET needs that...
-           }
-           //Gdk.Threads.Init();
+            Assembly asm = Assembly.GetAssembly(typeof(Frontend));
+            AssemblyName asm_name = asm.GetName(false);
+            AssemblyProductAttribute pr = (AssemblyProductAttribute)asm.
+                GetCustomAttributes(typeof(AssemblyProductAttribute), false)[0];
+            _Version = asm_name.Version.ToString();
+            _VersionString = pr.Product+" "+_Version;
+            
+            if (Type.GetType("Mono.Runtime") == null) {
+                // when we don't run on Mono, we need to initialize glib ourself
+                GLib.Thread.Init();
+            }
+            
 #if UI_GNOME
            _Program = new Gnome.Program(Name, Version, Gnome.Modules.UI, args);
 #elif UI_GTK
