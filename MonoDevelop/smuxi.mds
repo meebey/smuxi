@@ -3,14 +3,14 @@
     <Configuration name="Release" ctype="CombineConfiguration">
       <Entry build="True" name="Engine" configuration="Release" />
       <Entry build="True" name="Server" configuration="Release" />
-      <Entry build="True" name="Frontend-GtkGnome" configuration="Release" />
+      <Entry build="True" name="Frontend-GNOME" configuration="Release" />
       <Entry build="True" name="Frontend-Test" configuration="Release" />
       <Entry build="True" name="Common" configuration="Debug" />
     </Configuration>
     <Configuration name="Debug" ctype="CombineConfiguration">
       <Entry build="True" name="Engine" configuration="Debug" />
       <Entry build="True" name="Server" configuration="Debug" />
-      <Entry build="True" name="Frontend-GtkGnome" configuration="Debug" />
+      <Entry build="True" name="Frontend-GNOME" configuration="Debug" />
       <Entry build="True" name="Frontend-Test" configuration="Debug" />
       <Entry build="True" name="Common" configuration="Debug" />
     </Configuration>
@@ -18,15 +18,15 @@
   <StartMode startupentry="Engine" single="False">
     <Execute type="None" entry="Engine" />
     <Execute type="Execute" entry="Server" />
-    <Execute type="Execute" entry="Frontend-GtkGnome" />
+    <Execute type="Execute" entry="Frontend-GNOME" />
     <Execute type="None" entry="Frontend-Test" />
     <Execute type="None" entry="Common" />
   </StartMode>
   <Entries>
+    <Entry filename="./Common.mdp" />
     <Entry filename="./Engine.mdp" />
     <Entry filename="./Server.mdp" />
-    <Entry filename="./Frontend-GtkGnome.mdp" />
+    <Entry filename="./Frontend-GNOME.mdp" />
     <Entry filename="./Frontend-Test.mdp" />
-    <Entry filename="./Common.mdp" />
   </Entries>
 </Combine>
