@@ -27,8 +27,9 @@
  */
 
 using System;
+using Mono.Unix;
 
-namespace Meebey.Smuxi.FrontendGtkGnome
+namespace Meebey.Smuxi.FrontendGnome
 {
 #if UI_GNOME
     public class MainWindow : Gnome.App
@@ -105,7 +106,7 @@ namespace Meebey.Smuxi.FrontendGtkGnome
             
             // Menu - File
             menu = new Gtk.Menu();
-            item = new Gtk.MenuItem("_File");
+            item = new Gtk.MenuItem(Catalog.GetString("_File"));
             item.Submenu = menu;
             mb.Append(item);
             
@@ -121,34 +122,34 @@ namespace Meebey.Smuxi.FrontendGtkGnome
             
             // Menu - File
             menu = new Gtk.Menu();
-            item = new Gtk.MenuItem("_Engine");
+            item = new Gtk.MenuItem(Catalog.GetString("_Engine"));
             item.Submenu = menu;
             mb.Append(item);
 
-            item = new Gtk.MenuItem("_Use Local Engine");
+            item = new Gtk.MenuItem(Catalog.GetString("_Use Local Engine"));
             item.Activated += new EventHandler(_OnUseLocalEngineButtonClicked);
             menu.Append(item);
             
-            image_item = new Gtk.ImageMenuItem("_Add Remote Engine");
+            image_item = new Gtk.ImageMenuItem(Catalog.GetString("_Add Remote Engine"));
             Gdk.Pixbuf pbuf = image_item.RenderIcon(Gtk.Stock.Add, Gtk.IconSize.Menu, null); 
             image_item.Image = new Gtk.Image(pbuf);
             image_item.Activated += new EventHandler(_OnAddRemoteEngineButtonClicked);
             menu.Append(image_item);
             
-            item = new Gtk.MenuItem("_Switch Remote Engine");
+            item = new Gtk.MenuItem(Catalog.GetString("_Switch Remote Engine"));
             item.Activated += new EventHandler(_OnSwitchRemoteEngineButtonClicked);
             menu.Append(item);
             
             // Menu - Help
             menu = new Gtk.Menu();
-            item = new Gtk.MenuItem("_Help");
+            item = new Gtk.MenuItem(Catalog.GetString("_Help"));
             item.Submenu = menu;
             mb.Append(item);
             
 #if UI_GNOME
             image_item = new Gtk.ImageMenuItem(Gnome.Stock.About, agrp);
 #elif UI_GTK
-            image_item = new Gtk.ImageMenuItem("_About", agrp);
+            image_item = new Gtk.ImageMenuItem(Catalog.GetString("_About"), agrp);
 #endif
             image_item.Activated += new EventHandler(_OnAboutButtonClicked);
             menu.Append(image_item);
@@ -223,8 +224,8 @@ namespace Meebey.Smuxi.FrontendGtkGnome
         {
             Gtk.MessageDialog md = new Gtk.MessageDialog(null, Gtk.DialogFlags.Modal,
                 Gtk.MessageType.Warning, Gtk.ButtonsType.YesNo,
-                "Switching to local engine will disconnect you from the current engine!\n"+
-                "Are you sure you want to do this?");
+                Catalog.GetString("Switching to local engine will disconnect you from the current engine!\n"+
+                "Are you sure you want to do this?"));
             int result = md.Run();
             md.Destroy();
             if ((Gtk.ResponseType)result == Gtk.ResponseType.Yes) {
@@ -243,8 +244,8 @@ namespace Meebey.Smuxi.FrontendGtkGnome
         {
             Gtk.MessageDialog md = new Gtk.MessageDialog(null, Gtk.DialogFlags.Modal,
                 Gtk.MessageType.Warning, Gtk.ButtonsType.YesNo,
-                "Switching the remote engine will disconnect you from the current engine!\n"+
-                "Are you sure you want to do this?");
+                Catalog.GetString("Switching the remote engine will disconnect you from the current engine!\n"+
+                "Are you sure you want to do this?"));
             int result = md.Run();
             md.Destroy();
             if ((Gtk.ResponseType)result == Gtk.ResponseType.Yes) {

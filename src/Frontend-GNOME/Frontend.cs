@@ -32,24 +32,26 @@ using System.Reflection;
 using Meebey.Smuxi;
 using Meebey.Smuxi.Engine;
 
-namespace Meebey.Smuxi.FrontendGtkGnome
+namespace Meebey.Smuxi.FrontendGnome
 {
     public class Frontend
     {
 #if LOG4NET
         private static readonly log4net.ILog _Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 #endif
-        private static string             _Name = "smuxi";
-        private static string             _UIName = "GtkGnome";
+        private static readonly string    _Name = "smuxi";
+#if UI_GTK
+        private static readonly string    _UIName = "GTK+";
+#elif UI_GNOME
+        private static readonly string    _UIName = "GNOME";
+        private static Gnome.Program      _Program;
+#endif
         private static IFrontendUI        _UI;
         private static string             _Version;
         private static string             _VersionString;
         private static string             _EngineVersion;
         private static SplashScreenWindow _SplashScreenWindow;
         private static MainWindow         _MainWindow;
-#if UI_GNOME
-        private static Gnome.Program      _Program;
-#endif
         private static FrontendConfig     _FrontendConfig;
         private static Session            _Session;
         private static UserConfig         _UserConfig;
@@ -148,16 +150,16 @@ namespace Meebey.Smuxi.FrontendGtkGnome
         {
             System.Threading.Thread.CurrentThread.Name = "Main";
            
-#if LOG4NET
-            _Logger.Info("smuxi-gnome starting");
-#endif
-
             Assembly asm = Assembly.GetAssembly(typeof(Frontend));
             AssemblyName asm_name = asm.GetName(false);
             AssemblyProductAttribute pr = (AssemblyProductAttribute)asm.
                 GetCustomAttributes(typeof(AssemblyProductAttribute), false)[0];
             _Version = asm_name.Version.ToString();
-            _VersionString = pr.Product+" "+_Version;
+            _VersionString = pr.Product + " - " + _UIName + " frontend " + _Version;
+
+#if LOG4NET
+            _Logger.Info(_VersionString + " starting");
+#endif
             
             if (Type.GetType("Mono.Runtime") == null) {
                 // when we don't run on Mono, we need to initialize glib ourself

@@ -27,16 +27,17 @@
  */
 
 using System;
+using Mono.Unix;
 using Meebey.Smuxi;
 
-namespace Meebey.Smuxi.FrontendGtkGnome
+namespace Meebey.Smuxi.FrontendGnome
 {
     public class NotImplementedMessageDialog
     {
         public NotImplementedMessageDialog()
         {
             Gtk.MessageDialog md = new Gtk.MessageDialog(null, Gtk.DialogFlags.Modal,
-                Gtk.MessageType.Info, Gtk.ButtonsType.Close, "Sorry, not implemented yet!");
+                Gtk.MessageType.Info, Gtk.ButtonsType.Close, Catalog.GetString("Sorry, not implemented yet!"));
             md.Run();
             md.Destroy();
         }

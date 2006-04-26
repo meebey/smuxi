@@ -28,7 +28,7 @@
 
 using System;
 
-namespace Meebey.Smuxi.FrontendGtkGnome
+namespace Meebey.Smuxi.FrontendGnome
 { 
     public class MainClass
     {

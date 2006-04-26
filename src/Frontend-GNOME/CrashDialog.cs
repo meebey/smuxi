@@ -27,15 +27,16 @@
  */
 
 using System;
+using Mono.Unix;
 
-namespace Meebey.Smuxi.FrontendGtkGnome
+namespace Meebey.Smuxi.FrontendGnome
 {
     public class CrashDialog : Gtk.Dialog
     {
         public CrashDialog(Exception e) : base()
         {
             SetDefaultSize(640, 480);
-            Title = "smuxi - Oops, I did it again...";
+            Title = "smuxi - " + Catalog.GetString("Oops, I did it again...");
             
             Gtk.HBox hbox = new Gtk.HBox();
 
@@ -45,8 +46,10 @@ namespace Meebey.Smuxi.FrontendGtkGnome
             Gtk.VBox label_vbox = new Gtk.VBox();
             Gtk.Label label1 = new Gtk.Label();
             Gtk.Label label2 = new Gtk.Label();
-            label1.Markup = "<b>smuxi crashed because an unhandled exception was thrown!</b>";
-            label2.Markup = "Here is the stacktrace, please report this bug!";
+            label1.Markup = "<b>" +
+                            Catalog.GetString("smuxi crashed because an unhandled exception was thrown!") +
+                            "</b>";
+            label2.Markup = Catalog.GetString("Here is the stacktrace, please report this bug!");
             label_vbox.PackStart(label1, false, false, 0);
             label_vbox.PackStart(new Gtk.Fixed(), true, true, 0);
             label_vbox.PackStart(label2, false, false, 0);

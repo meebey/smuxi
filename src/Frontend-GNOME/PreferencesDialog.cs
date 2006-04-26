@@ -29,7 +29,7 @@
 using System;
 using Meebey.Smuxi;
 
-namespace Meebey.Smuxi.FrontendGtkGnome
+namespace Meebey.Smuxi.FrontendGnome
 {
     public class PreferencesDialog
     {

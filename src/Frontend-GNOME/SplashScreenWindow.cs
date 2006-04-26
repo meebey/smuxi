@@ -28,11 +28,11 @@
 
 using System;
 
-namespace Meebey.Smuxi.FrontendGtkGnome
+namespace Meebey.Smuxi.FrontendGnome
 {
     public class SplashScreenWindow : Gtk.Window
     {
-        public SplashScreenWindow() : base("smuxi - splashscreen")
+        public SplashScreenWindow() : base("smuxi - Splashscreen")
         {
             Decorated = false;
             WindowPosition = Gtk.WindowPosition.Center;

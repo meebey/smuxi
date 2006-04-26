@@ -30,7 +30,7 @@ using System;
 using Meebey.Smuxi;
 using Meebey.Smuxi.Common;
 
-namespace Meebey.Smuxi.FrontendGtkGnome
+namespace Meebey.Smuxi.FrontendGnome
 {
     public abstract class Page : Gtk.EventBox
     {

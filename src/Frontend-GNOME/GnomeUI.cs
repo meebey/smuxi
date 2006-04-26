@@ -28,10 +28,11 @@
 
 using System;
 using System.ComponentModel;
+using Mono.Unix;
 using Meebey.Smuxi.Engine;
 using Meebey.Smuxi.Common;
 
-namespace Meebey.Smuxi.FrontendGtkGnome
+namespace Meebey.Smuxi.FrontendGnome
 {
     public class GtkGnomeUI : PermanentRemoteObject, IFrontendUI
     {
@@ -213,7 +214,9 @@ namespace Meebey.Smuxi.FrontendGtkGnome
                             Frontend.MainWindow.ProgressBar.DiscreteBlocks = 2;
                         }
                         Frontend.MainWindow.ProgressBar.BarStyle = Gtk.ProgressBarStyle.Continuous;
-                        string status = "Syncing Channel Users of "+cpage.Name+"...";
+                        string status = String.Format(Catalog.GetString(
+                                                      "Syncing Channel Users of {0}..."),
+                                                      cpage.Name);
 #if UI_GNOME
                         Frontend.MainWindow.Statusbar.Push(status);
 #elif UI_GTK
@@ -244,10 +247,12 @@ namespace Meebey.Smuxi.FrontendGtkGnome
                         // attach the model again
                         tv.Model = ls;
                    
-                        tv.GetColumn(1).Title = "Users ("+ls.IterNChildren()+")";
+                        tv.GetColumn(1).Title = String.Format(Catalog.GetString(
+                                                              "Users ({0})"),
+                                                              ls.IterNChildren());
                        
                         Frontend.MainWindow.ProgressBar.Fraction = 0;
-                        status += " done.";
+                        status += Catalog.GetString(" done.");
 #if UI_GNOME
                         Frontend.MainWindow.Statusbar.Push(status);
 #elif UI_GTK
@@ -308,7 +313,9 @@ namespace Meebey.Smuxi.FrontendGtkGnome
                     liststore.AppendValues(String.Empty, icuser.Nickname);
                 }
 
-                treeview.GetColumn(1).Title = "Users ("+liststore.IterNChildren()+")";
+                treeview.GetColumn(1).Title = String.Format(Catalog.GetString(
+                                                            "Users ({0})"),
+                                                            liststore.IterNChildren());
             });
         }
         
@@ -389,7 +396,9 @@ namespace Meebey.Smuxi.FrontendGtkGnome
                     }
                 } while (liststore.IterNext(ref iter));
                 
-                treeview.GetColumn(1).Title = "Users ("+liststore.IterNChildren()+")";
+                treeview.GetColumn(1).Title = String.Format(Catalog.GetString(
+                                                            "Users ({0})"),
+                                                            liststore.IterNChildren());
             });
         }
         

@@ -28,10 +28,11 @@
 
 using System;
 using System.Globalization;
+using Mono.Unix;
 using Meebey.Smuxi.Engine;
 using Meebey.Smuxi.Common;
 
-namespace Meebey.Smuxi.FrontendGtkGnome
+namespace Meebey.Smuxi.FrontendGnome
 {
     public class ChannelPage : Page
     {
@@ -89,7 +90,7 @@ namespace Meebey.Smuxi.FrontendGtkGnome
                statuscolumn.Sizing = Gtk.TreeViewColumnSizing.Autosize;
                
                Gtk.TreeViewColumn usercolumn;
-               usercolumn = new Gtk.TreeViewColumn("Users (0)", new Gtk.CellRendererText(), "text", 1);
+               usercolumn = new Gtk.TreeViewColumn(Catalog.GetString("Users (0)"), new Gtk.CellRendererText(), "text", 1);
                usercolumn.SortColumnId = 1;
                usercolumn.Spacing = 0;
                usercolumn.SortIndicator = false;
@@ -108,23 +109,23 @@ namespace Meebey.Smuxi.FrontendGtkGnome
                 // popup menu
                 _UserListMenu = new Gtk.Menu();
                 
-                Gtk.ImageMenuItem op_item = new Gtk.ImageMenuItem("Op");
+                Gtk.ImageMenuItem op_item = new Gtk.ImageMenuItem(Catalog.GetString("Op"));
                 op_item.Activated += new EventHandler(_OnUserListMenuOpActivated);
                 _UserListMenu.Append(op_item);
                 
-                Gtk.ImageMenuItem deop_item = new Gtk.ImageMenuItem("Deop");
+                Gtk.ImageMenuItem deop_item = new Gtk.ImageMenuItem(Catalog.GetString("Deop"));
                 deop_item.Activated += new EventHandler(_OnUserListMenuDeopActivated);
                 _UserListMenu.Append(deop_item);
                 
-                Gtk.ImageMenuItem voice_item = new Gtk.ImageMenuItem("Voice");
+                Gtk.ImageMenuItem voice_item = new Gtk.ImageMenuItem(Catalog.GetString("Voice"));
                 voice_item.Activated += new EventHandler(_OnUserListMenuVoiceActivated);
                 _UserListMenu.Append(voice_item);
                 
-                Gtk.ImageMenuItem devoice_item = new Gtk.ImageMenuItem("Devoice");
+                Gtk.ImageMenuItem devoice_item = new Gtk.ImageMenuItem(Catalog.GetString("Devoice"));
                 devoice_item.Activated += new EventHandler(_OnUserListMenuDevoiceActivated);
                 _UserListMenu.Append(devoice_item);
                 
-                Gtk.ImageMenuItem kick_item = new Gtk.ImageMenuItem("Kick");
+                Gtk.ImageMenuItem kick_item = new Gtk.ImageMenuItem(Catalog.GetString("Kick"));
                 kick_item.Activated += new EventHandler(_OnUserListMenuKickActivated);
                 _UserListMenu.Append(kick_item);
                 
@@ -135,7 +136,7 @@ namespace Meebey.Smuxi.FrontendGtkGnome
             } else if (userlist_pos == "none") {
             } else {
 #if LOG4NET
-                _Logger.Error("ctor ChannelPage(): unknown value in Interface/Notebook/Channel/UserListPosition: "+userlist_pos);
+                _Logger.Error("ChannelPage..ctor(): unknown value in Interface/Notebook/Channel/UserListPosition: "+userlist_pos);
 #endif
             }
             
@@ -158,7 +159,7 @@ namespace Meebey.Smuxi.FrontendGtkGnome
                 vbox.PackStart(_OutputScrolledWindow, true, true, 0);
             } else {
 #if LOG4NET
-                _Logger.Error("ctor ChannelPage(): unknown value in Interface/Notebook/Channel/TopicPosition: "+topic_pos);
+                _Logger.Error("ChannelPage..ctor(): unknown value in Interface/Notebook/Channel/TopicPosition: "+topic_pos);
 #endif
             }
             

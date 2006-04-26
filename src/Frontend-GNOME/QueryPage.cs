@@ -30,7 +30,7 @@ using System;
 using Meebey.Smuxi.Engine;
 using Meebey.Smuxi.Common;
 
-namespace Meebey.Smuxi.FrontendGtkGnome
+namespace Meebey.Smuxi.FrontendGnome
 {
     public class QueryPage : Page
     {

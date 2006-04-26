@@ -29,6 +29,6 @@
 using System;
 using Meebey.Smuxi.Engine;
 
-namespace Meebey.Smuxi.FrontendGtkGnome
+namespace Meebey.Smuxi.FrontendGnome
 {
 }

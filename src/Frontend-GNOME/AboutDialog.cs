@@ -29,15 +29,16 @@
 using System;
 using Meebey.Smuxi;
 
-namespace Meebey.Smuxi.FrontendGtkGnome
+namespace Meebey.Smuxi.FrontendGnome
 {
     public class AboutDialog : Gtk.AboutDialog
     {
         public AboutDialog()
         {
             Name = Frontend.Name;
-            Version = "\n Gtk/Gnome Frontend: "+Frontend.Version+"\n Engine: "+Frontend.EngineVersion;
-            Copyright = "2006 (C) Mirco Bauer <meebey@meebey.net>";
+            Version = "\n Frontend: " + Frontend.UIName + " " + Frontend.Version +
+                      "\n Engine: " + Frontend.EngineVersion;
+            Copyright = "2005-2006 (C) Mirco Bauer <meebey@meebey.net>";
             Authors = new string[] {"Mirco Bauer <meebey@meebey.net>"};
             Logo = new Gdk.Pixbuf(null, "about.png");
         }

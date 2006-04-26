@@ -29,10 +29,11 @@
 using System;
 using System.Collections;
 using System.Collections.Specialized;
+using Mono.Unix;
 using Meebey.Smuxi.Engine;
 using Meebey.Smuxi.Common;
 
-namespace Meebey.Smuxi.FrontendGtkGnome
+namespace Meebey.Smuxi.FrontendGnome
 {
     public class Entry : Gtk.Entry
     {
@@ -385,7 +386,7 @@ namespace Meebey.Smuxi.FrontendGtkGnome
         private void _CommandHelp(CommandData cd)
         {
             string[] help = {
-            "[Frontend Commands]",
+            Catalog.GetString("[Frontend Commands]"),
             "help",
             "window (number|channelname|queryname|close",
             "clear",
@@ -496,7 +497,10 @@ namespace Meebey.Smuxi.FrontendGtkGnome
         
         private void _CommandUnknown(CommandData cd)
         {
-            cd.FrontendManager.AddTextToCurrentPage("-!- Unknown Command: "+cd.Command);
+            cd.FrontendManager.AddTextToCurrentPage("-!- " +
+                                String.Format(Catalog.GetString(
+                                              "Unknown Command: {0}"),
+                                              cd.Command));
         }
         
         private void _NickCompletion()

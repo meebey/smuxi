@@ -27,9 +27,10 @@
  */
 
 using System;
+using Mono.Unix;
 using Meebey.Smuxi;
 
-namespace Meebey.Smuxi.FrontendGtkGnome
+namespace Meebey.Smuxi.FrontendGnome
 {
     public class NewEngineDruid
     {
@@ -55,10 +56,10 @@ namespace Meebey.Smuxi.FrontendGtkGnome
         {
             // page 1
             _Page1 = new Gnome.DruidPageEdge(Gnome.EdgePosition.Start, true,
-                "Add smuxi engine",
-                "Welcome to the Smuxi Engine Configuration Assistent.\n"+
+                Catalog.GetString("Add smuxi engine"),
+                Catalog.GetString("Welcome to the Smuxi Engine Configuration Assistent.\n"+
                 "You need to enter some information before you can use the engine.\n\n"+
-                "Click \"Forward\" to begin.",
+                "Click \"Forward\" to begin."),
                 null, null, null);
             _Page1.CancelClicked += new Gnome.CancelClickedHandler(_OnCancel);
 
@@ -68,8 +69,8 @@ namespace Meebey.Smuxi.FrontendGtkGnome
             _Page2.Prepared += new Gnome.PreparedHandler(_OnPage2Prepared);
             _EngineNameEntry = new Gtk.Entry();
             _EngineNameEntry.Changed += new EventHandler(_OnPage2Changed);
-            _Page2.AppendItem("_Engine Name:",
-                _EngineNameEntry, "Profile name of the new engine entry");
+            _Page2.AppendItem(Catalog.GetString("_Engine Name:"),
+                _EngineNameEntry, Catalog.GetString("Profile name of the new engine entry"));
             
             // page 3
             _Page3 = new Gnome.DruidPageStandard();
@@ -78,29 +79,29 @@ namespace Meebey.Smuxi.FrontendGtkGnome
             
             _HostEntry = new Gtk.Entry();
             _HostEntry.Changed += new EventHandler(_OnPage3Changed);
-            _Page3.AppendItem("_Host:",
-                _HostEntry, "DNS or IP address of the smuxi engine");
+            _Page3.AppendItem(Catalog.GetString("_Host:"),
+                _HostEntry, Catalog.GetString("DNS or IP address of the smuxi engine"));
 
             _PortSpinButton = new Gtk.SpinButton(1, 65535, 1);
             _PortSpinButton.Numeric = true;
             _PortSpinButton.Value = 7689;
-            _Page3.AppendItem("_Port:",
-                _PortSpinButton, "TCP port of the smuxi engine");
+            _Page3.AppendItem(Catalog.GetString("_Port:"),
+                _PortSpinButton, Catalog.GetString("TCP port of the smuxi engine"));
             
             _ChannelComboBox = Gtk.ComboBox.NewText();
             _ChannelComboBox.AppendText("TCP");
             _ChannelComboBox.Changed += new EventHandler(_OnChannelComboBoxChanged);
             _ChannelComboBox.Active = 0;
-            _Page3.AppendItem("_Channel:", _ChannelComboBox,
-                ".NET Remoting Channel which will be used for communication\n"+
-                "between the frontend and the engine");
+            _Page3.AppendItem(Catalog.GetString("_Channel:"), _ChannelComboBox,
+                Catalog.GetString(".NET Remoting Channel which will be used for communication\n"+
+                "between the frontend and the engine"));
             
             _FormatterComboBox = Gtk.ComboBox.NewText();
             _FormatterComboBox.AppendText("binary");
             _FormatterComboBox.Changed += new EventHandler(_OnFormatterComboBoxChanged);
             _FormatterComboBox.Active = 0;
-            _Page3.AppendItem("_Formatter:", _FormatterComboBox,
-                ".NET Remoting Data Formatter");
+            _Page3.AppendItem(Catalog.GetString("_Formatter:"), _FormatterComboBox,
+                Catalog.GetString(".NET Remoting Data Formatter"));
             
             // page 4
             _Page4 = new Gnome.DruidPageStandard();
@@ -109,29 +110,29 @@ namespace Meebey.Smuxi.FrontendGtkGnome
             
             _UsernameEntry = new Gtk.Entry();
             _UsernameEntry.Changed += new EventHandler(_OnPage4Changed);
-            _Page4.AppendItem("_Username:", _UsernameEntry,
-                "Username which will be used to register at the smuxi engine");
+            _Page4.AppendItem(Catalog.GetString("_Username:"), _UsernameEntry,
+                Catalog.GetString("Username which will be used to register at the smuxi engine"));
             
             _PasswordEntry = new Gtk.Entry();
             _PasswordEntry.Visibility = false;
             _PasswordEntry.Changed += new EventHandler(_OnPage4Changed);
-            _Page4.AppendItem("_Password:", _PasswordEntry,
-                "Password of the user");
+            _Page4.AppendItem(Catalog.GetString("_Password:"), _PasswordEntry,
+                Catalog.GetString("Password of the user"));
             
             _Password2Entry = new Gtk.Entry();
             _Password2Entry.Visibility = false;
             _Password2Entry.Changed += new EventHandler(_OnPage4Changed);
-            _Page4.AppendItem("_Verify Password:", _Password2Entry,
-                "Repeat the password for verification");
+            _Page4.AppendItem(Catalog.GetString("_Verify Password:"), _Password2Entry,
+                Catalog.GetString("Repeat the password for verification"));
             
             // page 5
             _Page5 = new Gnome.DruidPageEdge(Gnome.EdgePosition.Finish, true,
-                "Thank you", "You can now use the added smuxi engine", null,
+                Catalog.GetString("Thank you"), Catalog.GetString("Now you can use the added smuxi engine"), null,
                 null, null);
             _Page5.CancelClicked += new Gnome.CancelClickedHandler(_OnCancel);
             _Page5.FinishClicked += new Gnome.FinishClickedHandler(_OnFinishClicked);
             
-            _Druid = new Gnome.Druid("Adding new engine to smuxi", true);
+            _Druid = new Gnome.Druid(Catalog.GetString("Adding new engine to smuxi"), true);
             _Druid.Cancel += new EventHandler(_OnCancel);
             
             _Druid.AppendPage(_Page1);
