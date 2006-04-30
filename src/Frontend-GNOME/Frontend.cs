@@ -173,7 +173,7 @@ namespace Meebey.Smuxi.FrontendGnome
 #endif
            _SplashScreenWindow = new SplashScreenWindow();
 
-           _UI = new GtkGnomeUI();
+           _UI = new GnomeUI();
            _FrontendConfig = new FrontendConfig(UIName);
            // loading and setting defaults
            _FrontendConfig.Load();

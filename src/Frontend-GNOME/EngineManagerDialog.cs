@@ -119,33 +119,39 @@ namespace Meebey.Smuxi.FrontendGnome
         private void _OnResponse(object sender, Gtk.ResponseArgs e)
         {
             Trace.Call(sender, e);
-            
+            try {
 #if LOG4NET
-            _Logger.Debug("_OnResponse(): ResponseId: "+e.ResponseId);
+                _Logger.Debug("_OnResponse(): ResponseId: "+e.ResponseId);
 #endif                
-            switch ((int)e.ResponseId) {
-                case 1:
-                    _OnConnectButtonPressed();
-                    break;
+                switch ((int)e.ResponseId) {
+                    case 1:
+                        _OnConnectButtonPressed();
+                        break;
 #if UI_GNOME
-                case 3:
-                    _OnNewButtonPressed();
-                    break;
+                    case 3:
+                        _OnNewButtonPressed();
+                        break;
 #endif
-                case 4:
-                    _OnDeleteButtonPressed();
-                    break;
-                case 5:
-                    _OnQuitButtonPressed();
-                    break;
-                case (int)Gtk.ResponseType.DeleteEvent:
-                    _OnDeleteEvent();
-                    break;
-                default:
-                    new NotImplementedMessageDialog();
-                    // Re-run the Dialog
-                    Run();
-                    break;
+                    case 4:
+                        _OnDeleteButtonPressed();
+                        break;
+                    case 5:
+                        _OnQuitButtonPressed();
+                        break;
+                    case (int)Gtk.ResponseType.DeleteEvent:
+                        _OnDeleteEvent();
+                        break;
+                    default:
+                        new NotImplementedMessageDialog();
+                        // Re-run the Dialog
+                        Run();
+                        break;
+                }
+            } catch (Exception ex) {
+#if LOG4NET
+                _Logger.Error(ex);
+#endif
+                new CrashDialog(ex);
             }
         }
         
@@ -264,8 +270,10 @@ namespace Meebey.Smuxi.FrontendGnome
                     }
                 }
             } catch (Exception ex) {
+#if LOG4NET
+                _Logger.Error(ex);
+#endif
                 error_msg += ex.Message+"\n";
-                Console.WriteLine(ex.StackTrace);
                 if (ex.InnerException != null) {
                     error_msg += " ["+ex.InnerException.Message+"]\n";
                 }

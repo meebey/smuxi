@@ -59,7 +59,7 @@ namespace Meebey.Smuxi.Engine
         {
             _Items.Add(new FormattedMessageItem(
                             FormattedMessageItemType.Text,
-                            new FormattedTextMessage(null, null, false, false, false, text)
+                            new FormattedMessageTextItem(null, null, false, false, false, text)
                             )
                       );
         }

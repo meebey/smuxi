@@ -60,8 +60,8 @@ namespace Meebey.Smuxi.FrontendTest
                 switch (item.Type) {
                     // TODO: implement other ItemTypes
                     case FormattedMessageItemType.Text:
-                        FormattedTextMessage ftmsg = (FormattedTextMessage)item.Value;
-                        msg += ftmsg.Text;
+                        FormattedMessageTextItem fmsgti = (FormattedMessageTextItem)item.Value;
+                        msg += fmsgti.Text;
                         break; 
                 } 
             }

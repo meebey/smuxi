@@ -34,11 +34,20 @@ using Meebey.SmartIrc4net;
 
 namespace Meebey.Smuxi.Engine
 {
+    public enum IrcControlCode : int
+    {
+        Clear     = 15,
+        Bold      = 2,
+        Underline = 31,
+        Italic    = 26,
+    }
+    
     public class IrcManager : PermanentRemoteObject, INetworkManager
     {
 #if LOG4NET
         private static readonly log4net.ILog _Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 #endif
+        private static char[]   _IrcControlChars;
         private IrcClient       _IrcClient;
         private Session         _Session;
         private string          _Server;
@@ -63,6 +72,17 @@ namespace Meebey.Smuxi.Engine
             get {
                 return _IrcClient.Address;
             }
+        }
+        
+        static IrcManager()
+        {
+            int[] intValues = (int[])Enum.GetValues(typeof(IrcControlCode));
+            char[] chars = new char[intValues.Length];
+            int i = 0;
+            foreach (int intValue in intValues) {
+                chars[i++] = (char)intValue;
+            }
+            _IrcControlChars = chars;
         }
         
         public IrcManager(Session session)
@@ -804,12 +824,89 @@ namespace Meebey.Smuxi.Engine
             cd.FrontendManager.AddTextToCurrentPage("-!- Not connected to server");
         }
         
-        private FormattedMessage _IrcMessageToFormattedMessage(string message)
+        private void _IrcMessageToFormattedMessage(ref FormattedMessage fmsg, string message)
         {
-            FormattedMessage fmsg = new FormattedMessage();
+            // convert * / _ to mIRC control characters
+            string char_pattern = "[A-Za-z0-9]+?";
+            message = Regex.Replace(message, @"(\*" + char_pattern + @"\*)", (char)IrcControlCode.Bold + "$1" + (char)IrcControlCode.Bold);
+            message = Regex.Replace(message, "(_" + char_pattern + "_)", (char)IrcControlCode.Underline + "$1" + (char)IrcControlCode.Underline);
+            message = Regex.Replace(message, "(/" + char_pattern + "/)", (char)IrcControlCode.Italic + "$1" + (char)IrcControlCode.Italic);
             
-            FormattedTextMessage ftmsg;
+            FormattedMessageTextItem fmsgti;
             FormattedMessageItem fmsgi;
+            
+            bool bold = false;
+            bool underline = false;
+            bool italic = false;
+            bool controlCharFound;
+            do {
+                string submessage;
+                int controlPos = message.IndexOfAny(_IrcControlChars);
+                if (controlPos > 0) {
+                    // control char found and we have normal text infront
+                    controlCharFound = true;
+                    submessage = message.Substring(0, controlPos);
+                    message = message.Substring(controlPos);
+                } else if (controlPos != -1) {
+                    // control char found
+                    controlCharFound = true;
+                    if (controlPos > 0) {
+                    }
+                    
+                    IrcControlCode controlChar = (IrcControlCode)message.Substring(controlPos, 1)[0];
+                    switch (controlChar) {
+                        case IrcControlCode.Clear:
+#if LOG4NET
+                            _Logger.Debug("_IrcMessageToFormattedMessage(): found clear control character");
+#endif
+                            bold = false;
+                            underline = false;
+                            break;
+                        case IrcControlCode.Bold:
+#if LOG4NET
+                            _Logger.Debug("_IrcMessageToFormattedMessage(): found bold control character");
+#endif
+                            bold = !bold;
+                            break;
+                        case IrcControlCode.Underline:
+#if LOG4NET
+                            _Logger.Debug("_IrcMessageToFormattedMessage(): found underline control character");
+#endif
+                            underline = !underline;
+                            break;
+                        case IrcControlCode.Italic:
+#if LOG4NET
+                            _Logger.Debug("_IrcMessageToFormattedMessage(): found italic control character");
+#endif
+                            italic = !italic;
+                            break;
+                        default:
+                            break;
+                    }
+                    int nextControlPos = message.IndexOfAny(_IrcControlChars, controlPos + 1);
+                    if (nextControlPos != -1) {
+                        submessage = message.Substring(1, nextControlPos -1);
+                        message = message.Substring(nextControlPos);
+                    } else {
+                        // no next control char
+                        // skip the control char
+                        submessage = message.Substring(1);
+                        message = String.Empty;
+                    }
+                } else {
+                    // no control char, nothing to do
+                    controlCharFound = false;
+                    submessage = message;
+                }
+                
+                fmsgti = new FormattedMessageTextItem();
+                fmsgti.Text = submessage;
+                fmsgti.Bold = bold;
+                fmsgti.Underline = underline;
+                fmsgti.Italic = italic;
+                fmsgi = new FormattedMessageItem(FormattedMessageItemType.Text, fmsgti);
+                fmsg.Items.Add(fmsgi);
+            } while (controlCharFound);
         }
         
         /*
@@ -902,6 +999,7 @@ namespace Meebey.Smuxi.Engine
             return fmsg;
         }
         */
+        
         private void _OnRawMessage(object sender, IrcEventArgs e)
         {
             Page spage = _Session.GetPage("Server", PageType.Server, NetworkType.Irc, null);
@@ -1051,7 +1149,18 @@ namespace Meebey.Smuxi.Engine
             // add formatting here!
             //_Session.AddTextToPage(page, "<"+e.Data.Nick+"> "+e.Data.Message);
 
-            _Session.AddMessageToPage(page, _IrcMessageToFormattedMessage(e));
+            FormattedMessage fmsg = new FormattedMessage();
+            FormattedMessageTextItem fmsgti;
+            FormattedMessageItem fmsgi;
+            
+            fmsgti = new FormattedMessageTextItem();
+            fmsgti.Text = "<" + e.Data.Nick + "> ";
+            fmsgi = new FormattedMessageItem(FormattedMessageItemType.Text, fmsgti);
+            fmsg.Items.Add(fmsgi);
+            
+            _IrcMessageToFormattedMessage(ref fmsg, e.Data.Message);
+            
+            _Session.AddMessageToPage(page, fmsg);
         }
         
         private void _OnChannelAction(object sender, ActionEventArgs e)

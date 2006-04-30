@@ -31,7 +31,7 @@ using System;
 namespace Meebey.Smuxi.Engine
 {
     [Serializable()]
-    public class FormattedTextMessage
+    public class FormattedMessageTextItem
     {
         private TextColor _Color;
         private TextColor _BackgroundColor;
@@ -94,13 +94,13 @@ namespace Meebey.Smuxi.Engine
             }
         }
         
-        public FormattedTextMessage()
+        public FormattedMessageTextItem()
         {
             _Color = new TextColor();
             _BackgroundColor = new TextColor();
         }
         
-        public FormattedTextMessage(TextColor color, TextColor bgcolor,
+        public FormattedMessageTextItem(TextColor color, TextColor bgcolor,
             bool underline, bool bold, bool italic, string text)
         {
             if (color != null) {

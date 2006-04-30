@@ -27,6 +27,7 @@
  */
 
 using System;
+using System.Reflection;
 using System.Collections;
 using System.ComponentModel;
 using Mono.Unix;
@@ -35,12 +36,11 @@ using Meebey.Smuxi.Common;
 
 namespace Meebey.Smuxi.FrontendGnome
 {
-    public class GtkGnomeUI : PermanentRemoteObject, IFrontendUI
+    public class GnomeUI : PermanentRemoteObject, IFrontendUI
     {
 #if LOG4NET
         private static readonly log4net.ILog _Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 #endif
-        private int _ThreadId;
         private int _Version = 0;
         
         public int Version
@@ -50,28 +50,13 @@ namespace Meebey.Smuxi.FrontendGnome
             }
         }
         
-        public bool InvokeRequired
-        {
-            get {
-                if (AppDomain.GetCurrentThreadId() == _ThreadId) {
-                    return false;
-                } else {
-                    return true;
-                }
-            }
-        }
-        
-        public GtkGnomeUI()
-        {
-            _ThreadId = AppDomain.GetCurrentThreadId();
-        }
-        
         public void AddPage(Engine.Page epage)
         {
             Trace.Call(epage);
             
+            MethodBase mb = Trace.GetMethodBase();
             Gtk.Application.Invoke(delegate {
-                Trace.Call(epage);
+                Trace.Call(mb, epage);
                 
                 Page newpage = null;
                 switch (epage.PageType) {
@@ -122,9 +107,9 @@ namespace Meebey.Smuxi.FrontendGnome
                 switch (item.Type) {
                     // TODO: implement other ItemTypes
                     case FormattedMessageItemType.Text:
-                        FormattedTextMessage ftmsg = (FormattedTextMessage)item.Value;
+                        FormattedMessageTextItem fmsgti = (FormattedMessageTextItem)item.Value;
 #if LOG4NET
-                        _Logger.Debug("_AddMessageToPage(): ftmsg.Text: " + ftmsg.Text);
+                        _Logger.Debug("_AddMessageToPage(): fmsgti.Text: " + fmsgti.Text);
 #endif
                         ArrayList tags = new ArrayList();
                         /*
@@ -142,18 +127,18 @@ namespace Meebey.Smuxi.FrontendGnome
                             msg += ">";
                         }
                         */
-                        if (ftmsg.Underline) {
+                        if (fmsgti.Underline) {
                             tags.Add("underline");
                         }
-                        if (ftmsg.Bold) {
+                        if (fmsgti.Bold) {
                             tags.Add("bold");
                         }
-                        if (ftmsg.Italic) {
+                        if (fmsgti.Italic) {
                             tags.Add("italic");
                         }
                         
                         //msg += ftmsg.Text;
-                        page.OutputTextBuffer.InsertWithTagsByName(ref iter, ftmsg.Text, (string[])tags.ToArray(typeof(string)));
+                        page.OutputTextBuffer.InsertWithTagsByName(ref iter, fmsgti.Text, (string[])tags.ToArray(typeof(string)));
                         
                         /*
                         if (ftmsg.Bold) {
@@ -185,8 +170,10 @@ namespace Meebey.Smuxi.FrontendGnome
         {
             Trace.Call(epage, fmsg);
 
+            MethodBase mb = Trace.GetMethodBase();
             Gtk.Application.Invoke(delegate {
-                Trace.Call(epage, fmsg);
+                Trace.Call(mb, epage, fmsg);
+                
                 _AddMessageToPage(epage, fmsg);
             });
         }
@@ -195,8 +182,9 @@ namespace Meebey.Smuxi.FrontendGnome
         {
             Trace.Call(epage);
 
+            MethodBase mb = Trace.GetMethodBase();
             Gtk.Application.Invoke(delegate {
-                Trace.Call(epage);
+                Trace.Call(mb, epage);
                 
                 Page page = Frontend.MainWindow.Notebook.GetPage(epage);
                 Frontend.MainWindow.Notebook.RemovePage(
@@ -209,8 +197,9 @@ namespace Meebey.Smuxi.FrontendGnome
         {
             Trace.Call(epage);
 
+            MethodBase mb = Trace.GetMethodBase();
             Gtk.Application.Invoke(delegate {
-                Trace.Call(epage);
+                Trace.Call(mb, epage);
 
                 Page page = Frontend.MainWindow.Notebook.GetPage(epage);
                 if (epage.PageType == PageType.Channel) {
@@ -309,8 +298,9 @@ namespace Meebey.Smuxi.FrontendGnome
         {
             Trace.Call(ecpage, user);
 
+            MethodBase mb = Trace.GetMethodBase();
             Gtk.Application.Invoke(delegate {
-                Trace.Call(ecpage, user);
+                Trace.Call(mb, ecpage, user);
                 
                 ChannelPage cpage = (ChannelPage)Frontend.MainWindow.Notebook.GetPage(ecpage);
                 Gtk.TreeView  treeview  = cpage.UserListTreeView;
@@ -339,8 +329,9 @@ namespace Meebey.Smuxi.FrontendGnome
         {
             Trace.Call(ecpage, olduser, newuser);
 
+            MethodBase mb = Trace.GetMethodBase();
             Gtk.Application.Invoke(delegate {
-                Trace.Call(ecpage, olduser, newuser);
+                Trace.Call(mb, ecpage, olduser, newuser);
                 
                 ChannelPage cpage = (ChannelPage)Frontend.MainWindow.Notebook.GetPage(ecpage);
                 Gtk.TreeView  treeview  = cpage.UserListTreeView;
@@ -378,8 +369,9 @@ namespace Meebey.Smuxi.FrontendGnome
         {
             Trace.Call(ecpage, topic);
 
+            MethodBase mb = Trace.GetMethodBase();
             Gtk.Application.Invoke(delegate {
-                Trace.Call(ecpage, topic);
+                Trace.Call(mb, ecpage, topic);
                 
                 ChannelPage cpage = (ChannelPage)Frontend.MainWindow.Notebook.GetPage(ecpage);
                 if (cpage.TopicEntry != null) {
@@ -392,8 +384,9 @@ namespace Meebey.Smuxi.FrontendGnome
         {
             Trace.Call(ecpage, user);
 
+            MethodBase mb = Trace.GetMethodBase();
             Gtk.Application.Invoke(delegate {
-                Trace.Call(ecpage, user);
+                Trace.Call(mb, ecpage, user);
             
                 ChannelPage cpage = (ChannelPage)Frontend.MainWindow.Notebook.GetPage(ecpage);
                 Gtk.TreeView  treeview  = cpage.UserListTreeView;
@@ -422,8 +415,9 @@ namespace Meebey.Smuxi.FrontendGnome
         {
             Trace.Call(status);
 
+            MethodBase mb = Trace.GetMethodBase();
             Gtk.Application.Invoke(delegate {
-                Trace.Call(status);
+                Trace.Call(mb, status);
 #if UI_GNOME
                 Frontend.MainWindow.NetworkStatusbar.Push(status);
 #elif UI_GTK
@@ -436,8 +430,9 @@ namespace Meebey.Smuxi.FrontendGnome
         {
             Trace.Call(status);
 
+            MethodBase mb = Trace.GetMethodBase();
             Gtk.Application.Invoke(delegate {
-                Trace.Call(status);
+                Trace.Call(mb, status);
 #if UI_GNOME
                 Frontend.MainWindow.Statusbar.Push(status);
 #elif UI_GTK
