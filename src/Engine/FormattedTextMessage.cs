@@ -37,11 +37,15 @@ namespace Meebey.Smuxi.Engine
         private TextColor _BackgroundColor;
         private bool      _Underline;
         private bool      _Bold;
+        private bool      _Italic;
         private string    _Text;
         
         public TextColor Color {
             get {
                 return _Color;
+            }
+            set {
+                _Color = value;
             }
         }
         
@@ -49,11 +53,17 @@ namespace Meebey.Smuxi.Engine
             get {
                 return _BackgroundColor;
             }
+            set {
+                _BackgroundColor = value;
+            }
         }
         
         public bool Underline {
             get {
                 return _Underline;
+            }
+            set {
+                _Underline = value;
             }
         }
         
@@ -61,16 +71,37 @@ namespace Meebey.Smuxi.Engine
             get {
                 return _Bold;
             }
+            set {
+                _Bold = value;
+            }
+        }
+        
+        public bool Italic {
+            get {
+                return _Italic;
+            }
+            set {
+                _Italic = value;
+            }
         }
         
         public string Text {
             get {
                 return _Text;
             }
+            set {
+                _Text = value;
+            }
+        }
+        
+        public FormattedTextMessage()
+        {
+            _Color = new TextColor();
+            _BackgroundColor = new TextColor();
         }
         
         public FormattedTextMessage(TextColor color, TextColor bgcolor,
-            bool underline, bool bold, string text)
+            bool underline, bool bold, bool italic, string text)
         {
             if (color != null) {
                 _Color = color;
@@ -86,6 +117,7 @@ namespace Meebey.Smuxi.Engine
             
             _Underline = underline;
             _Bold = bold;
+            _Italic = italic;
             _Text = text;
         }
     }

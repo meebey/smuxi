@@ -27,6 +27,7 @@
  */
 
 using System;
+using System.Collections;
 using System.ComponentModel;
 using Mono.Unix;
 using Meebey.Smuxi.Engine;
@@ -96,12 +97,36 @@ namespace Meebey.Smuxi.FrontendGnome
         
         private void _AddMessageToPage(Engine.Page epage, FormattedMessage fmsg)
         {
-            string msg = null;
+            string timestamp;
+            try {
+                timestamp = fmsg.Timestamp.ToLocalTime().ToString((string)Frontend.UserConfig["Interface/Notebook/TimestampFormat"]);
+            } catch (FormatException e) {
+                timestamp = "Timestamp Format ERROR: "+e.Message;
+            }
+            //msg = timestamp + " " + msg + "\n";
+           
+            Page page = Frontend.MainWindow.Notebook.GetPage(epage);
+#if LOG4NET
+            if (page == null) {
+                _Logger.Fatal(String.Format("_AddMessageToPage(): Notebook.GetPage(epage) epage.Name: {0} returned null!", epage.Name));
+            }
+#endif
+            Gtk.TextIter iter = page.OutputTextBuffer.EndIter;
+            page.OutputTextBuffer.Insert(ref iter, timestamp + " ");
+            
+            //string msg = null;
             foreach (FormattedMessageItem item in fmsg.Items) {
+#if LOG4NET
+                _Logger.Debug("_AddMessageToPage(): item.Type: " + item.Type);
+#endif
                 switch (item.Type) {
                     // TODO: implement other ItemTypes
                     case FormattedMessageItemType.Text:
                         FormattedTextMessage ftmsg = (FormattedTextMessage)item.Value;
+#if LOG4NET
+                        _Logger.Debug("_AddMessageToPage(): ftmsg.Text: " + ftmsg.Text);
+#endif
+                        ArrayList tags = new ArrayList();
                         /*
                         if ((ftmsg.Color.HexCode != -1) ||
                             (ftmsg.BackgroundColor.HexCode != -1)) {
@@ -116,15 +141,19 @@ namespace Meebey.Smuxi.FrontendGnome
                             }
                             msg += ">";
                         }
+                        */
                         if (ftmsg.Underline) {
-                            msg += "<u>";
+                            tags.Add("underline");
                         }
                         if (ftmsg.Bold) {
-                            msg += "<b>";
+                            tags.Add("bold");
                         }
-                        */
+                        if (ftmsg.Italic) {
+                            tags.Add("italic");
+                        }
                         
-                        msg += ftmsg.Text;
+                        //msg += ftmsg.Text;
+                        page.OutputTextBuffer.InsertWithTagsByName(ref iter, ftmsg.Text, (string[])tags.ToArray(typeof(string)));
                         
                         /*
                         if (ftmsg.Bold) {
@@ -141,24 +170,11 @@ namespace Meebey.Smuxi.FrontendGnome
                         break; 
                 } 
             }
+            page.OutputTextBuffer.Insert(ref iter, "\n");
             
-            string timestamp;
-            try {
-                timestamp = fmsg.Timestamp.ToLocalTime().ToString((string)Frontend.UserConfig["Interface/Notebook/TimestampFormat"]);
-            } catch (FormatException e) {
-                timestamp = "Timestamp Format ERROR: "+e.Message;
-            }
-            msg = timestamp+" "+msg;
-           
-            Page page = Frontend.MainWindow.Notebook.GetPage(epage);
-#if LOG4NET
-            if (page == null) {
-                _Logger.Fatal(String.Format("_AddMessageToPage(): Notebook.GetPage(epage) epage.Name: {0} returned null!", epage.Name));
-            }
-#endif
-            Gtk.TextIter iter = page.OutputTextBuffer.EndIter;
             // we must use pango here!!!
-            page.OutputTextBuffer.Insert(ref iter, msg+"\n");
+            //page.OutputTextBuffer.Insert(ref iter, msg);
+            //page.OutputTextBuffer.InsertWithTagsByName(ref iter, msg, "bold");
 
             if (Frontend.FrontendManager.CurrentPage != epage) {
                 page.Label.Markup = "<span foreground=\"blue\">"+page.Name+"</span>";

@@ -81,7 +81,36 @@ namespace Meebey.Smuxi.FrontendGnome
             
             Name = epage.Name;
             
+            // TextTags
+            Gtk.TextTagTable ttt = new Gtk.TextTagTable();
+            Gtk.TextTag tt;
+            Pango.FontDescription fd;
+            
+            tt = new Gtk.TextTag("bold");
+            fd = new Pango.FontDescription();
+            fd.Weight = Pango.Weight.Bold;
+            tt.FontDesc = fd;
+            ttt.Add(tt);
+
+            tt = new Gtk.TextTag("italic");
+            fd = new Pango.FontDescription();
+            fd.Style = Pango.Style.Italic;
+            tt.FontDesc = fd;
+            ttt.Add(tt);
+            
+            tt = new Gtk.TextTag("underline");
+            tt.Underline = Pango.Underline.Single;
+            ttt.Add(tt);
+            
+            tt = new Gtk.TextTag("url");
+            tt.Underline = Pango.Underline.Single;
+            // TODO: make the URL blue?
+            fd = new Pango.FontDescription();
+            tt.FontDesc = fd;
+            ttt.Add(tt);
+            
             Gtk.TextView tv = new Gtk.TextView();
+            tv.Buffer = new Gtk.TextBuffer(ttt);
             tv.Editable = false;
             tv.CursorVisible = false;
             tv.WrapMode = Gtk.WrapMode.WordChar;

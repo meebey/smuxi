@@ -27,6 +27,7 @@
  */
 
 using System;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Collections;
 using Meebey.SmartIrc4net;
@@ -803,6 +804,115 @@ namespace Meebey.Smuxi.Engine
             cd.FrontendManager.AddTextToCurrentPage("-!- Not connected to server");
         }
         
+        private FormattedMessage _IrcMessageToFormattedMessage(IrcEventArgs e)
+        {
+            FormattedMessage fmsg = new FormattedMessage();
+            
+            FormattedTextMessage ftmsg;
+            FormattedMessageItem fmsgi;
+            
+            ftmsg = new FormattedTextMessage();
+            ftmsg.Text = "<" + e.Data.Nick + "> ";
+            fmsgi = new FormattedMessageItem(FormattedMessageItemType.Text, ftmsg);
+            fmsg.Items.Add(fmsgi);
+            
+            string msg = e.Data.Message;
+            bool control_char_found;
+            char[] controlCharacters = { (char)2, '*', (char)31, '_', '/'};
+            //string pattern = @"([\u0002\u001F])(.*?)([\u0002\u001F])?";
+            do {
+                ftmsg = new FormattedTextMessage();
+                //Match match = Regex.Match(msg, pattern);
+                int start_pos = msg.IndexOfAny(controlCharacters);
+                
+                /*
+                if (match.Success) {
+                    _Logger.Debug("Groups.Count:    '"+match.Groups.Count+"'");
+                    _Logger.Debug("Groups[0].Value: '"+match.Groups[0].Value+"'");
+                    _Logger.Debug("Groups[1].Value: '"+match.Groups[1].Value+"'");
+                    _Logger.Debug("Groups[2].Value: '"+match.Groups[2].Value+"'");
+                    char control = match.Groups[1].Value[0];
+                    string visible_char = control == (char)2 ? "^B" : "?";
+                    _Logger.Debug("found control character: " + visible_char);
+                    control_char_found = true;
+                    
+                    string submsg = match.Groups[2].Value;
+                    if (match.Groups.Count >= 4) {
+                        _Logger.Debug("Groups[3].Value: '"+match.Groups[3].Value+"'");
+                        msg = msg.Substring(match.Groups[3].Index + 1); 
+                    } else {
+                        msg = String.Empty;
+                    }
+                */
+                    
+                if (start_pos != -1) {
+                    control_char_found = true;
+                    char control = msg.Substring(start_pos, 1)[0];
+#if LOG4NET
+                    _Logger.Debug("_IrcMessageToFormattedMessage(): found control character: (char)" + (int)control);
+#endif
+                    // search for end
+                    int end_pos = msg.IndexOf(control, start_pos + 1);
+                    
+                    string submsg;
+                    // don't include the control chars
+                    if (end_pos != -1) {
+#if LOG4NET
+                        _Logger.Debug("end_pos != -1");
+#endif
+                       submsg = msg.Substring(start_pos + 1, end_pos - 1);
+                       msg = msg.Substring(end_pos + 1);
+                    } else {
+#if LOG4NET
+                        _Logger.Debug("end_pos == -1");
+#endif
+                       submsg = msg.Substring(start_pos + 1, msg.Length - 1);
+                       msg = String.Empty;
+                    }
+                    
+                    switch (control) {
+                        case (char)2:
+                        case '*':
+#if LOG4NET
+                            _Logger.Debug("_IrcMessageToFormattedMessage(): found bold control character");
+#endif
+                            ftmsg.Bold = true;
+                            ftmsg.Text = submsg;
+                            break;
+                        case (char)31:
+                        case '_':
+#if LOG4NET
+                            _Logger.Debug("_IrcMessageToFormattedMessage(): found underline control character");
+#endif
+                            ftmsg.Underline = true;
+                            ftmsg.Text = submsg;
+                            break;
+                        case '/':
+#if LOG4NET
+                            _Logger.Debug("_IrcMessageToFormattedMessage(): found italic control character");
+#endif
+                            ftmsg.Italic = true;
+                            ftmsg.Text = submsg;
+                            break;
+                        default:
+#if LOG4NET
+                            _Logger.Error("_IrcMessageToFormattedMessage(): unknown control character: " + control);
+#endif
+                            break;
+                    }
+                } else {
+                    // no control chars
+                    control_char_found = false;
+                    ftmsg.Text = msg;
+                }
+                
+                fmsgi = new FormattedMessageItem(FormattedMessageItemType.Text, ftmsg);
+                fmsg.Items.Add(fmsgi);
+            } while (control_char_found);
+            
+            return fmsg;
+        }
+        
         private void _OnRawMessage(object sender, IrcEventArgs e)
         {
             Page spage = _Session.GetPage("Server", PageType.Server, NetworkType.Irc, null);
@@ -949,7 +1059,10 @@ namespace Meebey.Smuxi.Engine
         private void _OnChannelMessage(object sender, IrcEventArgs e)
         {
             Page page = _Session.GetPage(e.Data.Channel, PageType.Channel, NetworkType.Irc, this);
-            _Session.AddTextToPage(page, "<"+e.Data.Nick+"> "+e.Data.Message);
+            // add formatting here!
+            //_Session.AddTextToPage(page, "<"+e.Data.Nick+"> "+e.Data.Message);
+
+            _Session.AddMessageToPage(page, _IrcMessageToFormattedMessage(e));
         }
         
         private void _OnChannelAction(object sender, ActionEventArgs e)
@@ -972,6 +1085,7 @@ namespace Meebey.Smuxi.Engine
                 _Session.AddPage(page);
             }
             
+            // add formatting here!
             _Session.AddTextToPage(page, "<"+e.Data.Nick+"> "+e.Data.Message);
         }
         

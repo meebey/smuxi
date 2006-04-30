@@ -85,7 +85,7 @@ namespace Meebey.Smuxi.Engine
             fm.Items.Add(
                 new FormattedMessageItem(FormattedMessageItemType.Text,
                     new FormattedTextMessage(IrcTextColor.Red, null, false,
-                        false, "Welcome to Smuxi")));
+                        false, false, "Welcome to Smuxi")));
             AddMessageToPage(spage, fm); 
         }
         
