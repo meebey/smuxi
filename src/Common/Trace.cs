@@ -37,7 +37,7 @@ namespace Meebey.Smuxi.Common
 	{
 #if LOG4NET
         private static readonly log4net.ILog _Logger = log4net.LogManager.GetLogger("TRACE");
-#elif
+#else
 	    static Trace()
 		{
             TextWriterTraceListener myWriter = new TextWriterTraceListener(Console.Out);
@@ -59,21 +59,33 @@ namespace Meebey.Smuxi.Common
             }
 #if LOG4NET
             _Logger.Debug(line);
-#elif
+#else
             SysTrace.Write(line);
 #endif
+        }
+        
+        public static MethodBase GetMethodBase()
+        {
+            MethodBase mb = new StackTrace().GetFrame(1).GetMethod();
+            return mb;
         }
         
         [Conditional("TRACE")]
         public static void Call(params object[] args)
         {
             MethodBase mb = new StackTrace().GetFrame(1).GetMethod();
+            Call(mb, args);
+        }
+        
+        [Conditional("TRACE")]
+        public static void Call(MethodBase mb, params object[] args)
+        {
             string methodname = mb.DeclaringType.Name + "." + mb.Name;
             string line;
             line = methodname + "(" + _Parameterize(args) + ")";
 #if LOG4NET
             _Logger.Debug(line);
-#elif
+#else
             SysTrace.WriteLine(line);
 #endif
         }
