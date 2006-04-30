@@ -804,6 +804,15 @@ namespace Meebey.Smuxi.Engine
             cd.FrontendManager.AddTextToCurrentPage("-!- Not connected to server");
         }
         
+        private FormattedMessage _IrcMessageToFormattedMessage(string message)
+        {
+            FormattedMessage fmsg = new FormattedMessage();
+            
+            FormattedTextMessage ftmsg;
+            FormattedMessageItem fmsgi;
+        }
+        
+        /*
         private FormattedMessage _IrcMessageToFormattedMessage(IrcEventArgs e)
         {
             FormattedMessage fmsg = new FormattedMessage();
@@ -825,26 +834,6 @@ namespace Meebey.Smuxi.Engine
                 //Match match = Regex.Match(msg, pattern);
                 int start_pos = msg.IndexOfAny(controlCharacters);
                 
-                /*
-                if (match.Success) {
-                    _Logger.Debug("Groups.Count:    '"+match.Groups.Count+"'");
-                    _Logger.Debug("Groups[0].Value: '"+match.Groups[0].Value+"'");
-                    _Logger.Debug("Groups[1].Value: '"+match.Groups[1].Value+"'");
-                    _Logger.Debug("Groups[2].Value: '"+match.Groups[2].Value+"'");
-                    char control = match.Groups[1].Value[0];
-                    string visible_char = control == (char)2 ? "^B" : "?";
-                    _Logger.Debug("found control character: " + visible_char);
-                    control_char_found = true;
-                    
-                    string submsg = match.Groups[2].Value;
-                    if (match.Groups.Count >= 4) {
-                        _Logger.Debug("Groups[3].Value: '"+match.Groups[3].Value+"'");
-                        msg = msg.Substring(match.Groups[3].Index + 1); 
-                    } else {
-                        msg = String.Empty;
-                    }
-                */
-                    
                 if (start_pos != -1) {
                     control_char_found = true;
                     char control = msg.Substring(start_pos, 1)[0];
@@ -912,7 +901,7 @@ namespace Meebey.Smuxi.Engine
             
             return fmsg;
         }
-        
+        */
         private void _OnRawMessage(object sender, IrcEventArgs e)
         {
             Page spage = _Session.GetPage("Server", PageType.Server, NetworkType.Irc, null);
