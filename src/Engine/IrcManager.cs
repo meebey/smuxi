@@ -38,6 +38,7 @@ namespace Meebey.Smuxi.Engine
     {
         Clear     = 15,
         Bold      = 2,
+        Color     = 3,
         Underline = 31,
         Italic    = 26,
     }
@@ -435,8 +436,23 @@ namespace Meebey.Smuxi.Engine
                 cd.FrontendManager.CurrentPage.Name,
                 message);
             
+            /*
             _Session.AddTextToPage(cd.FrontendManager.CurrentPage,
                 "<"+_IrcClient.Nickname+"> "+message);
+            */
+            
+            FormattedMessage fmsg = new FormattedMessage();
+            FormattedMessageTextItem fmsgti;
+            FormattedMessageItem fmsgi;
+            
+            fmsgti = new FormattedMessageTextItem();
+            fmsgti.Text = "<" + _IrcClient.Nickname + "> ";
+            fmsgi = new FormattedMessageItem(FormattedMessageItemType.Text, fmsgti);
+            fmsg.Items.Add(fmsgi);
+            
+            _IrcMessageToFormattedMessage(ref fmsg, message);
+            
+            _Session.AddMessageToPage(cd.FrontendManager.CurrentPage, fmsg);
         }
         
         public void CommandSay(CommandData cd)
@@ -826,18 +842,30 @@ namespace Meebey.Smuxi.Engine
         
         private void _IrcMessageToFormattedMessage(ref FormattedMessage fmsg, string message)
         {
-            // convert * / _ to mIRC control characters
-            string char_pattern = "[A-Za-z0-9]+?";
-            message = Regex.Replace(message, @"(\*" + char_pattern + @"\*)", (char)IrcControlCode.Bold + "$1" + (char)IrcControlCode.Bold);
-            message = Regex.Replace(message, "(_" + char_pattern + "_)", (char)IrcControlCode.Underline + "$1" + (char)IrcControlCode.Underline);
-            message = Regex.Replace(message, "(/" + char_pattern + "/)", (char)IrcControlCode.Italic + "$1" + (char)IrcControlCode.Italic);
-            
             FormattedMessageTextItem fmsgti;
             FormattedMessageItem fmsgi;
+            
+            /*
+            int urlPos = message.IndexOf("http://");
+            if (urlPos != -1) {
+                FormattedMessageUrlItem fmsgui = new FormattedMessageUrlItem();
+                fmsgui.Url = 
+                fmsg.Items.Add(
+            }
+            */
+            
+            // convert * / _ to mIRC control characters
+            string pattern = @"(^|\s)({0}[A-Za-z0-9]+?{0})(\s|$)";
+            message = Regex.Replace(message, String.Format(pattern, @"\*"), "$1" + (char)IrcControlCode.Bold + "$2" + (char)IrcControlCode.Bold + "$3");
+            message = Regex.Replace(message, String.Format(pattern, "_"), "$1" + (char)IrcControlCode.Underline + "$2" + (char)IrcControlCode.Underline + "$3");
+            message = Regex.Replace(message, String.Format(pattern, "/"), "$1" + (char)IrcControlCode.Italic + "$2" + (char)IrcControlCode.Italic + "$3");
             
             bool bold = false;
             bool underline = false;
             bool italic = false;
+            bool color = false;
+            TextColor fg_color = IrcTextColor.Normal;
+            TextColor bg_color = IrcTextColor.Normal;
             bool controlCharFound;
             do {
                 string submessage;
@@ -850,11 +878,11 @@ namespace Meebey.Smuxi.Engine
                 } else if (controlPos != -1) {
                     // control char found
                     controlCharFound = true;
-                    if (controlPos > 0) {
-                    }
                     
-                    IrcControlCode controlChar = (IrcControlCode)message.Substring(controlPos, 1)[0];
-                    switch (controlChar) {
+                    char controlChar = message.Substring(controlPos, 1)[0];
+                    IrcControlCode controlCode = (IrcControlCode)controlChar;
+                    string controlChars = controlChar.ToString();
+                    switch (controlCode) {
                         case IrcControlCode.Clear:
 #if LOG4NET
                             _Logger.Debug("_IrcMessageToFormattedMessage(): found clear control character");
@@ -880,17 +908,53 @@ namespace Meebey.Smuxi.Engine
 #endif
                             italic = !italic;
                             break;
+                        case IrcControlCode.Color:
+#if LOG4NET
+                            _Logger.Debug("_IrcMessageToFormattedMessage(): found color control character");
+#endif
+                            color = !color;
+                            string color_codes = message.Substring(controlPos, 5);
+                            Match match = Regex.Match(color_codes, "(" + (char)IrcControlCode.Color + "([0-9][0-9]?),([0-9][0-9]?))");
+                            if (match.Success) {
+                                controlChars = match.Groups[1].Value;
+                                int color_code;
+                                if (match.Groups.Count >= 2) {
+                                    try {
+                                        color_code = Int32.Parse(match.Groups[2].Value);
+                                        fg_color = _IrcTextColorToTextColor(color_code);
+                                    } catch (FormatException) {
+                                        fg_color = IrcTextColor.Normal;
+                                    }
+                                }
+                                if (match.Groups.Count == 3) {
+                                    try {
+                                        color_code = Int32.Parse(match.Groups[3].Value);
+                                        bg_color = _IrcTextColorToTextColor(color_code);
+                                    } catch (FormatException) {
+                                        bg_color = IrcTextColor.Normal;
+                                    }
+                                }
+                            } else {
+                                controlChars = controlChar.ToString();
+                                fg_color = IrcTextColor.Normal;
+                                bg_color = IrcTextColor.Normal;
+                            }
+                            break;
                         default:
                             break;
                     }
+#if LOG4NET
+                    _Logger.Debug("_IrcMessageToFormattedMessage(): controlChars.Length: " + controlChars.Length);
+#endif
+
                     int nextControlPos = message.IndexOfAny(_IrcControlChars, controlPos + 1);
                     if (nextControlPos != -1) {
-                        submessage = message.Substring(1, nextControlPos -1);
+                        submessage = message.Substring(controlChars.Length, nextControlPos - 1);
                         message = message.Substring(nextControlPos);
                     } else {
                         // no next control char
-                        // skip the control char
-                        submessage = message.Substring(1);
+                        // skip the control chars
+                        submessage = message.Substring(controlChars.Length);
                         message = String.Empty;
                     }
                 } else {
@@ -904,9 +968,51 @@ namespace Meebey.Smuxi.Engine
                 fmsgti.Bold = bold;
                 fmsgti.Underline = underline;
                 fmsgti.Italic = italic;
+                fmsgti.Color = fg_color;
+                fmsgti.BackgroundColor = bg_color;
                 fmsgi = new FormattedMessageItem(FormattedMessageItemType.Text, fmsgti);
                 fmsg.Items.Add(fmsgi);
             } while (controlCharFound);
+        }
+        
+        private TextColor _IrcTextColorToTextColor(int color)
+        {
+            switch (color) {
+                case 0:
+                    return IrcTextColor.White;
+                case 1:
+                    return IrcTextColor.Black;
+                case 2:
+                    return IrcTextColor.Blue;
+                case 3:
+                    return IrcTextColor.Green;
+                case 4:
+                    return IrcTextColor.Red;
+                case 5:
+                    return IrcTextColor.Brown;
+                case 6:
+                    return IrcTextColor.Purple;
+                case 7:
+                    return IrcTextColor.Orange;
+                case 8:
+                    return IrcTextColor.Yellow;
+                case 9:
+                    return IrcTextColor.LightGreen;
+                case 10:
+                    return IrcTextColor.Teal;
+                case 11:
+                    return IrcTextColor.LightCyan;
+                case 12:
+                    return IrcTextColor.LightBlue;
+                case 13:
+                    return IrcTextColor.LightPurple;
+                case 14:
+                    return IrcTextColor.Grey;
+                case 15:
+                    return IrcTextColor.LightGrey;
+                default:
+                    return IrcTextColor.Normal;
+            }
         }
         
         /*

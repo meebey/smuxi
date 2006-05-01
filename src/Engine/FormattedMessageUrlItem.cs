@@ -30,11 +30,46 @@ using System;
 
 namespace Meebey.Smuxi.Engine
 {
-    public enum FormattedMessageItemType
+    public enum UrlProtocol {
+        Http,
+        Https,
+        Ftp,
+        Ftps,
+        Telnet,
+    }
+    
+    [Serializable()]
+    public class FormattedMessageUrlItem
     {
-        Text,
-        Image,
-        Sound,
-        Url,
+        private string      _Url;
+        private UrlProtocol _Protocol;
+        
+        public string Url {
+            get {
+                return _Url;
+            }
+            set {
+                _Url = value;
+            }
+        }
+        
+        public UrlProtocol Protocol {
+            get {
+                return _Protocol;
+            }
+            set {
+                _Protocol = value;
+            }
+        }
+        
+        public FormattedMessageUrlItem()
+        {
+        }
+        
+        public FormattedMessageUrlItem(string url, UrlProtocol protocol)
+        {
+            _Url = url;
+            _Protocol = protocol;
+        }
     }
 }

@@ -88,8 +88,7 @@ namespace Meebey.Smuxi.FrontendGnome
             } catch (FormatException e) {
                 timestamp = "Timestamp Format ERROR: "+e.Message;
             }
-            //msg = timestamp + " " + msg + "\n";
-           
+            
             Page page = Frontend.MainWindow.Notebook.GetPage(epage);
 #if LOG4NET
             if (page == null) {
@@ -109,7 +108,7 @@ namespace Meebey.Smuxi.FrontendGnome
                     case FormattedMessageItemType.Text:
                         FormattedMessageTextItem fmsgti = (FormattedMessageTextItem)item.Value;
 #if LOG4NET
-                        _Logger.Debug("_AddMessageToPage(): fmsgti.Text: " + fmsgti.Text);
+                        _Logger.Debug("_AddMessageToPage(): fmsgti.Text: '" + fmsgti.Text + "'");
 #endif
                         ArrayList tags = new ArrayList();
                         /*
@@ -128,12 +127,21 @@ namespace Meebey.Smuxi.FrontendGnome
                         }
                         */
                         if (fmsgti.Underline) {
+#if LOG4NET
+                            _Logger.Debug("_AddMessageToPage(): fmsgti.Underline is true");
+#endif
                             tags.Add("underline");
                         }
                         if (fmsgti.Bold) {
+#if LOG4NET
+                            _Logger.Debug("_AddMessageToPage(): fmsgti.Bold is true");
+#endif
                             tags.Add("bold");
                         }
                         if (fmsgti.Italic) {
+#if LOG4NET
+                            _Logger.Debug("_AddMessageToPage(): fmsgti.Italic is true");
+#endif
                             tags.Add("italic");
                         }
                         
@@ -152,7 +160,11 @@ namespace Meebey.Smuxi.FrontendGnome
                             msg += "</span>";
                         }
                         */
-                        break; 
+                        break;
+                    case FormattedMessageItemType.Url:
+                        FormattedMessageUrlItem fmsgui = (FormattedMessageUrlItem)item.Value;
+                        page.OutputTextBuffer.InsertWithTagsByName(ref iter, fmsgui.Url, "url");
+                        break;
                 } 
             }
             page.OutputTextBuffer.Insert(ref iter, "\n");

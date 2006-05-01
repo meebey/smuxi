@@ -104,7 +104,8 @@ namespace Meebey.Smuxi.FrontendGnome
             
             tt = new Gtk.TextTag("url");
             tt.Underline = Pango.Underline.Single;
-            // TODO: make the URL blue?
+            tt.Foreground = "lightblue";
+            tt.TextEvent += new Gtk.TextEventHandler(_OnTextTagUrlTextEvent);
             fd = new Pango.FontDescription();
             tt.FontDesc = fd;
             ttt.Add(tt);
@@ -173,6 +174,12 @@ namespace Meebey.Smuxi.FrontendGnome
                 Gtk.TextIter end_iter = tv.Buffer.GetIterAtLine(tv.Buffer.LineCount - buffer_lines);
                 tv.Buffer.Delete(ref start_iter, ref end_iter);
             }
+        }
+        
+        private void _OnTextTagUrlTextEvent(object sender, Gtk.TextEventArgs e)
+        {
+            Trace.Call(sender, e);
+            
         }
     }
 }

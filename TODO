@@ -18,6 +18,7 @@ smuxi 0.6 goals:
 - create debian package
 
 Feature Requests:
+- support ^G (beep), option to either flash screen, ignore or play audio/system beep (basher)
 - /ignore users, joins/parts (basher)
 - multi-line pastes (maybe with a warning like irssi does) -- it looks like it only MSGs the first like and the rest are echoed in the buffer only (basher)
 - /who command (basher)
