@@ -34,11 +34,12 @@ namespace Meebey.Smuxi.FrontendGnome
 {
     public abstract class Page : Gtk.EventBox
     {
-        private   Engine.Page        _EnginePage;            
+        private   Engine.Page        _EnginePage;
         protected Gtk.Label          _Label;
         protected Gtk.EventBox       _LabelEventBox;
         protected Gtk.ScrolledWindow _OutputScrolledWindow;
         protected Gtk.TextView       _OutputTextView;
+        protected Gtk.TextTagTable   _OutputTextTagTable;
     
         public Engine.Page EnginePage {
             get {
@@ -73,6 +74,12 @@ namespace Meebey.Smuxi.FrontendGnome
             }
         }
         
+        public Gtk.TextTagTable OutputTextTagTable {
+            get {
+                return _OutputTextTagTable;
+            }
+        }
+        
         public Page(Engine.Page epage)
         {
             _EnginePage = epage;
@@ -83,6 +90,7 @@ namespace Meebey.Smuxi.FrontendGnome
             
             // TextTags
             Gtk.TextTagTable ttt = new Gtk.TextTagTable();
+            _OutputTextTagTable = ttt;
             Gtk.TextTag tt;
             Pango.FontDescription fd;
             
@@ -116,7 +124,6 @@ namespace Meebey.Smuxi.FrontendGnome
             tv.CursorVisible = false;
             tv.WrapMode = Gtk.WrapMode.WordChar;
             tv.Buffer.Changed += new EventHandler(_OnTextBufferChanged);
-            //tv.Tabs = new Pango.TabArray(2, false);
             _OutputTextView = tv;
             
             Gtk.ScrolledWindow sw = new Gtk.ScrolledWindow();

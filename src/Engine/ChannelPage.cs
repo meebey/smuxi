@@ -39,7 +39,9 @@ namespace Meebey.Smuxi.Engine
         private static readonly log4net.ILog _Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 #endif
         private string    _Topic;
-        private Hashtable _Users = Hashtable.Synchronized(new Hashtable());
+        //private Hashtable _Users = Hashtable.Synchronized(new Hashtable());
+        // shouldn't need threadsafe wrapper, only the IRC thread should write to it
+        private Hashtable _Users = new Hashtable();
         private bool      _IsSynced;
         
         public string Topic {
@@ -52,6 +54,12 @@ namespace Meebey.Smuxi.Engine
         }
         
         public Hashtable Users {
+            get {
+                return (Hashtable)_Users.Clone();
+            }
+        }
+        
+        public Hashtable UnsafeUsers {
             get {
                 return _Users;
             }
@@ -83,7 +91,8 @@ namespace Meebey.Smuxi.Engine
             _Logger.Debug("NicknameLookup(): ChannelPage.Name: "+Name);
 #endif
             int searchnicklength = searchnick.Length; 
-            foreach (User user in _Users.Values) {
+            // must use a copy here of Users, public method which can be used by a frontend (or many)
+            foreach (User user in Users.Values) {
 #if LOG4NET
                 _Logger.Debug("NicknameLookup(): user.Nickname: "+user.Nickname);
 #endif
@@ -109,7 +118,8 @@ namespace Meebey.Smuxi.Engine
             StringCollection foundnicks = new StringCollection();
             int searchnicklength = searchnick.Length;
             string longest_nickname = String.Empty;
-            foreach (User user in _Users.Values) {
+            // must use a copy here of Users, public method which can be used by a frontend (or many)
+            foreach (User user in Users.Values) {
                 if ((user.Nickname.Length >= searchnicklength) &&
                     (user.Nickname.Substring(0, searchnicklength).ToLower() == searchnick.ToLower())) {
                     foundnicks.Add(user.Nickname);

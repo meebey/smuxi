@@ -323,25 +323,6 @@ namespace Meebey.Smuxi.Engine
         
         public void AddTextToPage(Page page, string text)
         {
-            /*
-            text message can't hold the timestamp, so makes no sense to put them
-            in the engine buffer.
-            FormattedMessage contains the Timestamp instead.
-            int buffer_lines = (int)UserConfig["Interface/Notebook/EngineBufferLines"];
-            if (buffer_lines > 0) {
-                page.Buffer.Add(text);
-                if (page.Buffer.Count > buffer_lines) {
-                    page.Buffer.RemoveAt(0);
-                }
-            }
-            */
-            
-            /*
-            foreach (FrontendManager fm in _FrontendManagers.Values) {
-                fm.AddTextToPage(page, text);
-            }
-            */
-            
             AddMessageToPage(page, new FormattedMessage(text));
         }
         
@@ -349,9 +330,9 @@ namespace Meebey.Smuxi.Engine
         {
             int buffer_lines = (int)UserConfig["Interface/Notebook/EngineBufferLines"];
             if (buffer_lines > 0) {
-                page.Buffer.Add(fmsg);
-                if (page.Buffer.Count > buffer_lines) {
-                    page.Buffer.RemoveAt(0);
+                page.UnsafeBuffer.Add(fmsg);
+                if (page.UnsafeBuffer.Count > buffer_lines) {
+                    page.UnsafeBuffer.RemoveAt(0);
                 }
             }
             
@@ -393,8 +374,8 @@ namespace Meebey.Smuxi.Engine
 #if LOG4NET
             _Logger.Debug("UpdateUserInChannel() cpage.Name: "+cpage.Name+" olduser.Nickname: "+olduser.Nickname+" newuser.Nickname: "+newuser.Nickname);
 #endif
-            cpage.Users.Remove(olduser.Nickname.ToLower());
-            cpage.Users.Add(newuser.Nickname.ToLower(), newuser);
+            cpage.UnsafeUsers.Remove(olduser.Nickname.ToLower());
+            cpage.UnsafeUsers.Add(newuser.Nickname.ToLower(), newuser);
             foreach (FrontendManager fm in _FrontendManagers.Values) {
                 fm.UpdateUserInChannel(cpage, olduser, newuser);
             }
@@ -416,7 +397,7 @@ namespace Meebey.Smuxi.Engine
 #if LOG4NET
             _Logger.Debug("RemoveUserFromChannel() cpage.Name: "+cpage.Name+" user.Nickname: "+user.Nickname);
 #endif
-            cpage.Users.Remove(user.Nickname.ToLower());
+            cpage.UnsafeUsers.Remove(user.Nickname.ToLower());
             foreach (FrontendManager fm in _FrontendManagers.Values) {
                 fm.RemoveUserFromChannel(cpage, user);
             }

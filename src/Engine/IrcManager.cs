@@ -914,21 +914,30 @@ namespace Meebey.Smuxi.Engine
 #endif
                             color = !color;
                             string color_codes = message.Substring(controlPos, 5);
-                            Match match = Regex.Match(color_codes, "(" + (char)IrcControlCode.Color + "([0-9][0-9]?),([0-9][0-9]?))");
+#if LOG4NET
+                            _Logger.Debug("_IrcMessageToFormattedMessage(): color_codes: '" + color_codes + "'");
+#endif
+                            Match match = Regex.Match(color_codes, (char)IrcControlCode.Color + "(?<fg>[0-9][0-9]?)(,(?<bg>[0-9][0-9]?))?");
                             if (match.Success) {
-                                controlChars = match.Groups[1].Value;
+                                controlChars = match.Value;
                                 int color_code;
-                                if (match.Groups.Count >= 2) {
+                                if (match.Groups["fg"] != null) {
+#if LOG4NET
+                                    _Logger.Debug("_IrcMessageToFormattedMessage(): match.Groups[fg].Value: " + match.Groups["fg"].Value);
+#endif
                                     try {
-                                        color_code = Int32.Parse(match.Groups[2].Value);
+                                        color_code = Int32.Parse(match.Groups["fg"].Value);
                                         fg_color = _IrcTextColorToTextColor(color_code);
                                     } catch (FormatException) {
                                         fg_color = IrcTextColor.Normal;
                                     }
                                 }
-                                if (match.Groups.Count == 3) {
+                                if (match.Groups["bg"] != null) {
+#if LOG4NET
+                                    _Logger.Debug("_IrcMessageToFormattedMessage(): match.Groups[bg].Value: " + match.Groups["bg"].Value);
+#endif
                                     try {
-                                        color_code = Int32.Parse(match.Groups[3].Value);
+                                        color_code = Int32.Parse(match.Groups["bg"].Value);
                                         bg_color = _IrcTextColorToTextColor(color_code);
                                     } catch (FormatException) {
                                         bg_color = IrcTextColor.Normal;
@@ -939,6 +948,10 @@ namespace Meebey.Smuxi.Engine
                                 fg_color = IrcTextColor.Normal;
                                 bg_color = IrcTextColor.Normal;
                             }
+#if LOG4NET
+                            _Logger.Debug("_IrcMessageToFormattedMessage(): fg_color.HexCode: " + String.Format("0x{0:X6}", fg_color.HexCode));
+                            _Logger.Debug("_IrcMessageToFormattedMessage(): bg_color.HexCode: " + String.Format("0x{0:X6}", bg_color.HexCode));
+#endif
                             break;
                         default:
                             break;
@@ -949,7 +962,7 @@ namespace Meebey.Smuxi.Engine
 
                     int nextControlPos = message.IndexOfAny(_IrcControlChars, controlPos + 1);
                     if (nextControlPos != -1) {
-                        submessage = message.Substring(controlChars.Length, nextControlPos - 1);
+                        submessage = message.Substring(controlChars.Length, nextControlPos - controlChars.Length);
                         message = message.Substring(nextControlPos);
                     } else {
                         // no next control char
@@ -1322,7 +1335,7 @@ namespace Meebey.Smuxi.Engine
                 SmartIrc4net.IrcUser siuser = _IrcClient.GetIrcUser(e.Who);
                 IrcChannelUser icuser = new IrcChannelUser(e.Who, siuser.Realname,
                                         siuser.Ident, siuser.Host);
-                 cpage.Users.Add(icuser.Nickname.ToLower(), icuser);
+                 cpage.UnsafeUsers.Add(icuser.Nickname.ToLower(), icuser);
                 _Session.AddUserToChannel(cpage, icuser);
             }
             
@@ -1386,8 +1399,9 @@ namespace Meebey.Smuxi.Engine
                 if (icuser == null) {
                     icuser = new IrcChannelUser(scuser.Nick, scuser.Realname,
                                     scuser.Ident, scuser.Host);
+                    // don't tell any frontend yet that there is new data, SyncPage() will do it
                     //_Session.AddUserToChannel(cpage, icuser);
-                    cpage.Users.Add(icuser.Nickname.ToLower(), icuser);
+                    cpage.UnsafeUsers.Add(icuser.Nickname.ToLower(), icuser);
                 }
                 icuser.Realname = scuser.Realname;
                 icuser.Ident = scuser.Ident;

@@ -65,6 +65,12 @@ namespace Meebey.Smuxi.Engine
         
         public ArrayList Buffer {
             get {
+                return (ArrayList)_Buffer.Clone();
+            }
+        }
+        
+        public ArrayList UnsafeBuffer {
+            get {
                 return _Buffer;
             }
         }

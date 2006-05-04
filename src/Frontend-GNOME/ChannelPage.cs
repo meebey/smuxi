@@ -188,9 +188,9 @@ namespace Meebey.Smuxi.FrontendGnome
             _LabelEventBox.ButtonPressEvent += new Gtk.ButtonPressEventHandler(_OnTabButtonPress);
         }
         
-        static private int _OnStatusSort(Gtk.TreeModel model, Gtk.TreeIter itera, Gtk.TreeIter iterb)
+        private static int _OnStatusSort(Gtk.TreeModel model, Gtk.TreeIter itera, Gtk.TreeIter iterb)
         {
-            Trace.Call(model, itera, iterb);
+            //Trace.Call(model, itera, iterb);
             
             Gtk.ListStore liststore = (Gtk.ListStore)model;
             // status
@@ -227,9 +227,9 @@ namespace Meebey.Smuxi.FrontendGnome
             return String.Compare(column2a, column2b, true, CultureInfo.InvariantCulture);
         }
     
-        static private int _OnUsersListSort(Gtk.TreeModel model, Gtk.TreeIter itera, Gtk.TreeIter iterb)
+        private static int _OnUsersListSort(Gtk.TreeModel model, Gtk.TreeIter itera, Gtk.TreeIter iterb)
         {
-            Trace.Call(model, itera, iterb);
+            //Trace.Call(model, itera, iterb);
 
             Gtk.ListStore liststore = (Gtk.ListStore)model;
             // nickname

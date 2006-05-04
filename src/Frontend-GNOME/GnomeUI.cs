@@ -29,6 +29,7 @@
 using System;
 using System.Reflection;
 using System.Collections;
+using System.Globalization; 
 using System.ComponentModel;
 using Mono.Unix;
 using Meebey.Smuxi.Engine;
@@ -126,6 +127,16 @@ namespace Meebey.Smuxi.FrontendGnome
                             msg += ">";
                         }
                         */
+                        
+                        if (fmsgti.Color.HexCode != -1) {
+                            string tagname = _GetTextTagName(page, fmsgti.Color, null);
+                            tags.Add(tagname);
+                        }
+                        if (fmsgti.BackgroundColor.HexCode != -1) {
+                            string tagname = _GetTextTagName(page, null, fmsgti.BackgroundColor);
+                            tags.Add(tagname);
+                        }
+                        
                         if (fmsgti.Underline) {
 #if LOG4NET
                             _Logger.Debug("_AddMessageToPage(): fmsgti.Underline is true");
@@ -147,6 +158,15 @@ namespace Meebey.Smuxi.FrontendGnome
                         
                         //msg += ftmsg.Text;
                         page.OutputTextBuffer.InsertWithTagsByName(ref iter, fmsgti.Text, (string[])tags.ToArray(typeof(string)));
+                        
+                        /*
+                        page.OutputTextBuffer.Insert(ref iter, fmsgti.Text);
+                        Gtk.TextIter end_iter = iter;
+                        Gtk.TextIter start_iter = page.OutputTextBuffer.GetIterAtOffset(end_iter.Offset - fmsgti.Text.Length);
+                        if (fg_color_tt != null) {
+                            page.OutputTextBuffer.ApplyTag(fg_color_tt, start_iter, end_iter);
+                        }
+                        */
                         
                         /*
                         if (ftmsg.Bold) {
@@ -176,6 +196,39 @@ namespace Meebey.Smuxi.FrontendGnome
             if (Frontend.FrontendManager.CurrentPage != epage) {
                 page.Label.Markup = "<span foreground=\"blue\">"+page.Name+"</span>";
             }
+        }
+
+        private string _GetTextTagName(Page page, TextColor fg_color, TextColor bg_color)
+        {
+             string hexcode;
+             string tagname;
+             if (fg_color != null) {
+                hexcode = fg_color.HexCode.ToString("X6");
+                tagname = "fg_color:" + hexcode;
+             } else if (bg_color != null) {
+                hexcode = bg_color.HexCode.ToString("X6");
+                tagname = "bg_color:" + hexcode;
+             } else {
+                return null;
+             }
+             
+             if (page.OutputTextTagTable.Lookup(tagname) == null) {
+                 int red   = Int16.Parse(hexcode.Substring(0,2), NumberStyles.HexNumber);
+                 int green = Int16.Parse(hexcode.Substring(2,2), NumberStyles.HexNumber);
+                 int blue  = Int16.Parse(hexcode.Substring(4,2), NumberStyles.HexNumber);
+                 Gdk.Color c = new Gdk.Color((byte)red, (byte)green, (byte)blue);
+                 Gtk.TextTag tt = new Gtk.TextTag(tagname);
+                 if (fg_color != null) {
+                    tt.ForegroundGdk = c;
+                 } else if (bg_color != null) {
+                    tt.BackgroundGdk = c;
+                 }
+#if LOG4NET
+                 _Logger.Debug("_GetTextTagName(): adding: " + tagname + " to page.OutputTextTagTable");
+#endif
+                 page.OutputTextTagTable.Add(tt);
+             }
+             return tagname;
         }
         
         public void AddMessageToPage(Engine.Page epage, FormattedMessage fmsg)
@@ -257,9 +310,14 @@ namespace Meebey.Smuxi.FrontendGnome
                                 }
                             }
                             Frontend.MainWindow.ProgressBar.Fraction = (double)i++ / count;
+                            /*
+                            // this seems to break the sync when it's remote engine is used,
+                            // guess it does some other GUI processing, like removing users from
+                            // the userlist....
                             while (Gtk.Application.EventsPending()) {
                                 Gtk.Application.RunIteration(false);
                             }
+                            */
                         }
                         // attach the model again
                         tv.Model = ls;
