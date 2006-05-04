@@ -1,12 +1,15 @@
+﻿
 Microsoft Visual Studio Solution File, Format Version 9.00
 # Visual Studio 2005
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Engine", "Engine.csproj", "{7282E818-5F42-4811-BFCB-36E362948C9F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Frontend-GtkGnome", "Frontend-GtkGnome.csproj", "{1818A3F5-0850-4A7C-A528-29338BF1A41B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Frontend-GNOME", "Frontend-GNOME.csproj", "{1818A3F5-0850-4A7C-A528-29338BF1A41B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Server", "Server.csproj", "{CC2CF485-C0B3-4601-8F96-FCC4C999CA36}"
 EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Frontend-SWF", "Frontend-SWF.vbproj", "{47FF6EC6-F8A2-4667-B0CF-A4D01D1B0557}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common.csproj", "{FFD3D333-8796-445C-8AC2-9E61D2A805BF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -30,6 +33,10 @@ Global
 		{47FF6EC6-F8A2-4667-B0CF-A4D01D1B0557}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{47FF6EC6-F8A2-4667-B0CF-A4D01D1B0557}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{47FF6EC6-F8A2-4667-B0CF-A4D01D1B0557}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FFD3D333-8796-445C-8AC2-9E61D2A805BF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FFD3D333-8796-445C-8AC2-9E61D2A805BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FFD3D333-8796-445C-8AC2-9E61D2A805BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FFD3D333-8796-445C-8AC2-9E61D2A805BF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

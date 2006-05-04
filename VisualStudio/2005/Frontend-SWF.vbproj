@@ -1,5 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -17,10 +16,6 @@
     <SignAssembly>false</SignAssembly>
     <TargetZone>Internet</TargetZone>
     <GenerateManifests>true</GenerateManifests>
-    <ManifestKeyFile>
-    </ManifestKeyFile>
-    <ExcludedPermissions>
-    </ExcludedPermissions>
     <AssemblyOriginatorKeyFile>Frontend-SWF_TemporaryKey.pfx</AssemblyOriginatorKeyFile>
     <PublishUrl>ftp://n1kio.org/db/publish/WinSmuxi/</PublishUrl>
     <Install>true</Install>
@@ -37,35 +32,40 @@
     <PublisherName>Zhila</PublisherName>
     <ApplicationVersion>0.5.6.*</ApplicationVersion>
     <BootstrapperEnabled>true</BootstrapperEnabled>
+    <PublishDir>$(OutputPath)publish\</PublishDir>
+    <RemoveIntegerChecks>True</RemoveIntegerChecks>
+    <OptionExplicit>On</OptionExplicit>
+    <OptionStrict>Off</OptionStrict>
+    <OptionCompare>Binary</OptionCompare>
+    <RegisterForComInterop>False</RegisterForComInterop>
+    <GenerateSerializationAssemblies>Auto</GenerateSerializationAssemblies>
+    <BaseAddress>4194304</BaseAddress>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <WarningLevel>4</WarningLevel>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
+    <DebugType>Full</DebugType>
     <DefineDebug>true</DefineDebug>
     <DefineTrace>true</DefineTrace>
     <OutputPath>..\..\bin\net\debug\</OutputPath>
     <DocumentationFile>WinSmuxi.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
     <UseVSHostingProcess>false</UseVSHostingProcess>
+    <Optimize>False</Optimize>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
+    <DebugType>None</DebugType>
     <DefineDebug>false</DefineDebug>
     <DefineTrace>true</DefineTrace>
     <Optimize>true</Optimize>
     <OutputPath>..\..\bin\net\release\</OutputPath>
     <DocumentationFile>WinSmuxi.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
-  </PropertyGroup>
-  <PropertyGroup>
-    <PublishDir>$(OutputPath)publish\</PublishDir>
+    <DebugSymbols>false</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
-    <ProjectReference Include="Engine.csproj">
-      <Name>Engine</Name>
-      <Project>{7282E818-5F42-4811-BFCB-36E362948C9F}</Project>
-      <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
-    </ProjectReference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Deployment" />
@@ -162,8 +162,6 @@
     <Compile Include="..\..\src\Frontend-SWF\WrapUI.vb">
       <Link>WrapUI.vb</Link>
     </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="..\..\src\Frontend-SWF\ChannelPageForm.resx">
       <DependentUpon>ChannelPageForm.vb</DependentUpon>
     </EmbeddedResource>
@@ -179,8 +177,6 @@
     <EmbeddedResource Include="..\..\src\Frontend-SWF\ServerPageForm.resx">
       <DependentUpon>ServerPageForm.vb</DependentUpon>
     </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="..\..\src\Frontend-SWF\app.config">
       <Link>app.config</Link>
     </None>
@@ -190,6 +186,11 @@
     <None Include="Frontend-SWF_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="Engine.csproj">
+      <Name>Engine</Name>
+      <Project>{7282E818-5F42-4811-BFCB-36E362948C9F}</Project>
+      <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
+    </ProjectReference>
     <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
       <InProject>False</InProject>
       <ProductName>.NET Framework 2.0 Beta</ProductName>

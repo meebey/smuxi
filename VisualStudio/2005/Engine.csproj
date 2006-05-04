@@ -1,18 +1,12 @@
 ﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <ProjectType>Local</ProjectType>
-    <ProductVersion>8.0.50215</ProductVersion>
+    <ProductVersion>8.0.50727</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{7282E818-5F42-4811-BFCB-36E362948C9F}</ProjectGuid>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ApplicationIcon>
-    </ApplicationIcon>
-    <AssemblyKeyContainerName>
-    </AssemblyKeyContainerName>
     <AssemblyName>smuxi-engine</AssemblyName>
-    <AssemblyOriginatorKeyFile>
-    </AssemblyOriginatorKeyFile>
     <DefaultClientScript>JScript</DefaultClientScript>
     <DefaultHTMLPageLayout>Grid</DefaultHTMLPageLayout>
     <DefaultTargetSchema>IE50</DefaultTargetSchema>
@@ -20,28 +14,16 @@
     <OutputType>Library</OutputType>
     <RootNamespace>smuxi</RootNamespace>
     <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
-    <StartupObject>
-    </StartupObject>
-    <FileUpgradeFlags>
-    </FileUpgradeFlags>
-    <UpgradeBackupLocation>
-    </UpgradeBackupLocation>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <OutputPath>..\..\bin\net\debug\</OutputPath>
     <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
     <BaseAddress>285212672</BaseAddress>
     <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
-    <ConfigurationOverrideFile>
-    </ConfigurationOverrideFile>
     <DefineConstants>CONFIG_NINI;LOG4NET;DEBUG;TRACE</DefineConstants>
-    <DocumentationFile>
-    </DocumentationFile>
     <DebugSymbols>true</DebugSymbols>
     <FileAlignment>4096</FileAlignment>
     <NoStdLib>false</NoStdLib>
-    <NoWarn>
-    </NoWarn>
     <Optimize>false</Optimize>
     <RegisterForComInterop>false</RegisterForComInterop>
     <RemoveIntegerChecks>false</RemoveIntegerChecks>
@@ -53,16 +35,10 @@
     <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
     <BaseAddress>285212672</BaseAddress>
     <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
-    <ConfigurationOverrideFile>
-    </ConfigurationOverrideFile>
     <DefineConstants>CONFIG_NINI;TRACE</DefineConstants>
-    <DocumentationFile>
-    </DocumentationFile>
     <DebugSymbols>false</DebugSymbols>
     <FileAlignment>4096</FileAlignment>
     <NoStdLib>false</NoStdLib>
-    <NoWarn>
-    </NoWarn>
     <Optimize>true</Optimize>
     <RegisterForComInterop>false</RegisterForComInterop>
     <RemoveIntegerChecks>false</RemoveIntegerChecks>
@@ -89,7 +65,6 @@
   <ItemGroup>
     <Compile Include="..\..\src\Engine\AssemblyInfo.cs">
       <Link>AssemblyInfo.cs</Link>
-      <SubType>Code</SubType>
     </Compile>
     <Compile Include="..\..\src\Engine\ChannelPage.cs">
       <Link>ChannelPage.cs</Link>
@@ -102,7 +77,6 @@
     </Compile>
     <Compile Include="..\..\src\Engine\Engine.cs">
       <Link>Engine.cs</Link>
-      <SubType>Code</SubType>
     </Compile>
     <Compile Include="..\..\src\Engine\FormattedMessage.cs">
       <Link>FormattedMessage.cs</Link>
@@ -113,8 +87,8 @@
     <Compile Include="..\..\src\Engine\FormattedMessageItemType.cs">
       <Link>FormattedMessageItemType.cs</Link>
     </Compile>
-    <Compile Include="..\..\src\Engine\FormattedTextMessage.cs">
-      <Link>FormattedTextMessage.cs</Link>
+    <Compile Include="..\..\src\Engine\FormattedMessageTextItem.cs">
+      <Link>FormattedMessageTextItem.cs</Link>
     </Compile>
     <Compile Include="..\..\src\Engine\FrontendConfig.cs">
       <Link>FrontendConfig.cs</Link>
@@ -124,11 +98,9 @@
     </Compile>
     <Compile Include="..\..\src\Engine\IFrontendUI.cs">
       <Link>IFrontendUI.cs</Link>
-      <SubType>Code</SubType>
     </Compile>
     <Compile Include="..\..\src\Engine\INetworkManager.cs">
       <Link>INetworkManager.cs</Link>
-      <SubType>Code</SubType>
     </Compile>
     <Compile Include="..\..\src\Engine\IrcChannelUser.cs">
       <Link>IrcChannelUser.cs</Link>
@@ -142,23 +114,17 @@
     <Compile Include="..\..\src\Engine\IrcUser.cs">
       <Link>IrcUser.cs</Link>
     </Compile>
-    <Compile Include="..\..\src\Engine\Logger.cs">
-      <Link>Logger.cs</Link>
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="..\..\src\Engine\NetworkType.cs">
       <Link>NetworkType.cs</Link>
-      <SubType>Code</SubType>
     </Compile>
     <Compile Include="..\..\src\Engine\Page.cs">
       <Link>Page.cs</Link>
     </Compile>
     <Compile Include="..\..\src\Engine\PageType.cs">
       <Link>PageType.cs</Link>
-      <SubType>Code</SubType>
     </Compile>
     <Compile Include="..\..\src\Engine\PermanentRemoteObject.cs">
-      <Link>PermanentComponent.cs</Link>
+      <Link>PermanentRemoteObject.cs</Link>
     </Compile>
     <Compile Include="..\..\src\Engine\Session.cs">
       <Link>Session.cs</Link>
@@ -171,11 +137,9 @@
     </Compile>
     <Compile Include="..\..\src\Engine\UICommand.cs">
       <Link>UICommand.cs</Link>
-      <SubType>Code</SubType>
     </Compile>
     <Compile Include="..\..\src\Engine\UICommandContainer.cs">
       <Link>UICommandContainer.cs</Link>
-      <SubType>Code</SubType>
     </Compile>
     <Compile Include="..\..\src\Engine\User.cs">
       <Link>User.cs</Link>
@@ -184,11 +148,11 @@
       <Link>UserConfig.cs</Link>
     </Compile>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="Common.csproj">
+      <Project>{FFD3D333-8796-445C-8AC2-9E61D2A805BF}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
-  <PropertyGroup>
-    <PreBuildEvent>
-    </PreBuildEvent>
-    <PostBuildEvent>
-    </PostBuildEvent>
-  </PropertyGroup>
 </Project>
