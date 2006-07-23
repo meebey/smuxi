@@ -1,2 +1,4 @@
 [encoding: UTF-8]
 ../src/Engine/FrontendManager.cs
+../src/Engine/IrcManager.cs
+../src/Engine/Session.cs

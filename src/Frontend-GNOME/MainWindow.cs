@@ -106,7 +106,7 @@ namespace Meebey.Smuxi.FrontendGnome
             
             // Menu - File
             menu = new Gtk.Menu();
-            item = new Gtk.MenuItem(Catalog.GetString("_File"));
+            item = new Gtk.MenuItem(_("_File"));
             item.Submenu = menu;
             mb.Append(item);
             
@@ -122,34 +122,34 @@ namespace Meebey.Smuxi.FrontendGnome
             
             // Menu - File
             menu = new Gtk.Menu();
-            item = new Gtk.MenuItem(Catalog.GetString("_Engine"));
+            item = new Gtk.MenuItem(_("_Engine"));
             item.Submenu = menu;
             mb.Append(item);
 
-            item = new Gtk.MenuItem(Catalog.GetString("_Use Local Engine"));
+            item = new Gtk.MenuItem(_("_Use Local Engine"));
             item.Activated += new EventHandler(_OnUseLocalEngineButtonClicked);
             menu.Append(item);
             
-            image_item = new Gtk.ImageMenuItem(Catalog.GetString("_Add Remote Engine"));
+            image_item = new Gtk.ImageMenuItem(_("_Add Remote Engine"));
             Gdk.Pixbuf pbuf = image_item.RenderIcon(Gtk.Stock.Add, Gtk.IconSize.Menu, null); 
             image_item.Image = new Gtk.Image(pbuf);
             image_item.Activated += new EventHandler(_OnAddRemoteEngineButtonClicked);
             menu.Append(image_item);
             
-            item = new Gtk.MenuItem(Catalog.GetString("_Switch Remote Engine"));
+            item = new Gtk.MenuItem(_("_Switch Remote Engine"));
             item.Activated += new EventHandler(_OnSwitchRemoteEngineButtonClicked);
             menu.Append(item);
             
             // Menu - Help
             menu = new Gtk.Menu();
-            item = new Gtk.MenuItem(Catalog.GetString("_Help"));
+            item = new Gtk.MenuItem(_("_Help"));
             item.Submenu = menu;
             mb.Append(item);
             
 #if UI_GNOME
             image_item = new Gtk.ImageMenuItem(Gnome.Stock.About, agrp);
 #elif UI_GTK
-            image_item = new Gtk.ImageMenuItem(Catalog.GetString("_About"), agrp);
+            image_item = new Gtk.ImageMenuItem(_("_About"), agrp);
 #endif
             image_item.Activated += new EventHandler(_OnAboutButtonClicked);
             menu.Append(image_item);
@@ -224,8 +224,8 @@ namespace Meebey.Smuxi.FrontendGnome
         {
             Gtk.MessageDialog md = new Gtk.MessageDialog(null, Gtk.DialogFlags.Modal,
                 Gtk.MessageType.Warning, Gtk.ButtonsType.YesNo,
-                Catalog.GetString("Switching to local engine will disconnect you from the current engine!\n"+
-                "Are you sure you want to do this?"));
+                _("Switching to local engine will disconnect you from the current engine!\n"+
+                  "Are you sure you want to do this?"));
             int result = md.Run();
             md.Destroy();
             if ((Gtk.ResponseType)result == Gtk.ResponseType.Yes) {
@@ -244,8 +244,8 @@ namespace Meebey.Smuxi.FrontendGnome
         {
             Gtk.MessageDialog md = new Gtk.MessageDialog(null, Gtk.DialogFlags.Modal,
                 Gtk.MessageType.Warning, Gtk.ButtonsType.YesNo,
-                Catalog.GetString("Switching the remote engine will disconnect you from the current engine!\n"+
-                "Are you sure you want to do this?"));
+                _("Switching the remote engine will disconnect you from the current engine!\n"+
+                  "Are you sure you want to do this?"));
             int result = md.Run();
             md.Destroy();
             if ((Gtk.ResponseType)result == Gtk.ResponseType.Yes) {
@@ -254,5 +254,10 @@ namespace Meebey.Smuxi.FrontendGnome
                 emd.Run();
             }
         }
-	}
+        
+        private static string _(string msg)
+        {
+            return Mono.Unix.Catalog.GetString(msg);
+        }
+    }
 }

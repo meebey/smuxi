@@ -29,7 +29,6 @@
 using System;
 using System.Collections;
 using System.Threading;
-using Mono.Unix;
 
 namespace Meebey.Smuxi.Engine
 {
@@ -155,7 +154,7 @@ namespace Meebey.Smuxi.Engine
             if (CurrentNetworkManager != null) {
                 SetNetworkStatus(CurrentNetworkManager.ToString());
             } else {
-                SetNetworkStatus(String.Format("({0})", foo("no network connections")));
+                SetNetworkStatus(String.Format("({0})", _("no network connections")));
             }
         }
         
@@ -345,10 +344,9 @@ namespace Meebey.Smuxi.Engine
             }
         }
         
-        private static string foo(string msg)
+        private static string _(string msg)
         {
             return Mono.Unix.Catalog.GetString(msg);
-            //return "";
         }
     }
 }

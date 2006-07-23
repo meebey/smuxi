@@ -85,7 +85,7 @@ namespace Meebey.Smuxi.Engine
             fm.Items.Add(
                 new FormattedMessageItem(FormattedMessageItemType.Text,
                     new FormattedMessageTextItem(IrcTextColor.Red, null, false,
-                        true, false, "Welcome to Smuxi")));
+                        true, false, _("Welcome to Smuxi"))));
             AddMessageToPage(spage, fm); 
         }
         
@@ -190,7 +190,7 @@ namespace Meebey.Smuxi.Engine
             } else {
                 // normal text
                 if (cd.FrontendManager.CurrentNetworkManager == null) {
-                    _CommandNotConnected(cd);
+                    _NotConnected(cd);
                     handled = true;
                 }
             }
@@ -230,7 +230,9 @@ namespace Meebey.Smuxi.Engine
                 try {
                     port = Int32.Parse(cd.DataArray[2]);
                 } catch (FormatException) {
-                    fm.AddTextToCurrentPage("-!- Invalid port: "+cd.DataArray[2]);
+                    fm.AddTextToCurrentPage("-!- " + String.Format(
+                                                        _("Invalid port: {0}"),
+                                                        cd.DataArray[2]));
                     return;
                 }
             } else {
@@ -277,7 +279,9 @@ namespace Meebey.Smuxi.Engine
                         }
                     }
                 }
-                fm.AddTextToCurrentPage("-!- Disconnect failed, could not find server: "+server);
+                fm.AddTextToCurrentPage("-!- " + String.Format(
+                                                    _("Disconnect failed, could not find server: {0}"),
+                                                    server));
             } else {
                 fm.CurrentNetworkManager.Disconnect(fm);
                 _NetworkManagers.Remove(fm.CurrentNetworkManager);
@@ -306,7 +310,7 @@ namespace Meebey.Smuxi.Engine
                         break;
                 }
             } else {
-                fm.AddTextToCurrentPage("-!- Not enough parameters for config command");
+                _NotEnoughParameters(cd);
             }
         }
         
@@ -328,9 +332,15 @@ namespace Meebey.Smuxi.Engine
             }
         }
         
-        private void _CommandNotConnected(CommandData cd)
+        private void _NotConnected(CommandData cd)
         {
-            cd.FrontendManager.AddTextToCurrentPage("-!- Not connected to any network");
+            cd.FrontendManager.AddTextToCurrentPage("-!- " + _("Not connected to any network"));
+        }
+        
+        private void _NotEnoughParameters(CommandData cd)
+        {
+            cd.FrontendManager.AddTextToCurrentPage(
+                "-!- " + String.Format(_("Not enough parameters for {0} command"), cd.Command));
         }
         
         public void AddPage(Page page)
@@ -445,5 +455,10 @@ namespace Meebey.Smuxi.Engine
                 fm.SetStatus(status);
             }
         }
-    }
+        
+        private static string _(string msg)
+        {
+            return Mono.Unix.Catalog.GetString(msg);
+        }
+}
 }

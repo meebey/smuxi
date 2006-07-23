@@ -64,11 +64,11 @@ namespace Meebey.Smuxi.Engine
         
         public static void Init()
         {
-            Assembly assembly = Assembly.GetAssembly(typeof(Engine));
-            AssemblyName assembly_name = assembly.GetName(false);
-            AssemblyProductAttribute pr = (AssemblyProductAttribute)assembly.GetCustomAttributes(typeof(AssemblyProductAttribute), false)[0];
-            _Version = assembly_name.Version.ToString();
-            _VersionString = pr.Product+" "+_Version;
+            Assembly asm = Assembly.GetAssembly(typeof(Engine));
+            AssemblyName asm_name = asm.GetName(false);
+            AssemblyProductAttribute pr = (AssemblyProductAttribute)asm.GetCustomAttributes(typeof(AssemblyProductAttribute), false)[0];
+            _Version = asm_name.Version.ToString();
+            _VersionString = pr.Product + " " + _Version;
             
             _Config = new Config();
             _Config.Load();

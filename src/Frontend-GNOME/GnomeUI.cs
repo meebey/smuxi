@@ -87,7 +87,7 @@ namespace Meebey.Smuxi.FrontendGnome
             try {
                 timestamp = fmsg.Timestamp.ToLocalTime().ToString((string)Frontend.UserConfig["Interface/Notebook/TimestampFormat"]);
             } catch (FormatException e) {
-                timestamp = "Timestamp Format ERROR: "+e.Message;
+                timestamp = "Timestamp Format ERROR: " + e.Message;
             }
             
             Page page = Frontend.MainWindow.Notebook.GetPage(epage);
@@ -112,21 +112,6 @@ namespace Meebey.Smuxi.FrontendGnome
                         _Logger.Debug("_AddMessageToPage(): fmsgti.Text: '" + fmsgti.Text + "'");
 #endif
                         ArrayList tags = new ArrayList();
-                        /*
-                        if ((ftmsg.Color.HexCode != -1) ||
-                            (ftmsg.BackgroundColor.HexCode != -1)) {
-                            msg += "<span ";
-                            if (ftmsg.Color.HexCode != -1) {
-                                msg += "foreground=\"#"+ftmsg.Color.
-                                    HexCode+"\" ";
-                            }
-                            if (ftmsg.BackgroundColor.HexCode != -1) {
-                                msg += "background=\"#"+ftmsg.BackgroundColor.
-                                    HexCode+"\" ";
-                            }
-                            msg += ">";
-                        }
-                        */
                         
                         if (fmsgti.Color.HexCode != -1) {
                             string tagname = _GetTextTagName(page, fmsgti.Color, null);
@@ -156,7 +141,6 @@ namespace Meebey.Smuxi.FrontendGnome
                             tags.Add("italic");
                         }
                         
-                        //msg += ftmsg.Text;
                         page.OutputTextBuffer.InsertWithTagsByName(ref iter, fmsgti.Text, (string[])tags.ToArray(typeof(string)));
                         
                         /*
@@ -165,19 +149,6 @@ namespace Meebey.Smuxi.FrontendGnome
                         Gtk.TextIter start_iter = page.OutputTextBuffer.GetIterAtOffset(end_iter.Offset - fmsgti.Text.Length);
                         if (fg_color_tt != null) {
                             page.OutputTextBuffer.ApplyTag(fg_color_tt, start_iter, end_iter);
-                        }
-                        */
-                        
-                        /*
-                        if (ftmsg.Bold) {
-                            msg += "</b>";
-                        }
-                        if (ftmsg.Underline) {
-                            msg += "</u>";
-                        }
-                        if ((ftmsg.Color.HexCode != -1) ||
-                            (ftmsg.BackgroundColor.HexCode != -1)) {
-                            msg += "</span>";
                         }
                         */
                         break;
@@ -194,7 +165,7 @@ namespace Meebey.Smuxi.FrontendGnome
             //page.OutputTextBuffer.InsertWithTagsByName(ref iter, msg, "bold");
 
             if (Frontend.FrontendManager.CurrentPage != epage) {
-                page.Label.Markup = "<span foreground=\"blue\">"+page.Name+"</span>";
+                page.Label.Markup = "<span foreground=\"blue\">" + page.Name + "</span>";
             }
         }
 
@@ -284,9 +255,9 @@ namespace Meebey.Smuxi.FrontendGnome
                             Frontend.MainWindow.ProgressBar.DiscreteBlocks = 2;
                         }
                         Frontend.MainWindow.ProgressBar.BarStyle = Gtk.ProgressBarStyle.Continuous;
-                        string status = String.Format(Catalog.GetString(
-                                                      "Syncing Channel Users of {0}..."),
-                                                      cpage.Name);
+                        string status = String.Format(
+                                            _("Syncing Channel Users of {0}..."),
+                                            cpage.Name);
 #if UI_GNOME
                         Frontend.MainWindow.Statusbar.Push(status);
 #elif UI_GTK
@@ -322,12 +293,12 @@ namespace Meebey.Smuxi.FrontendGnome
                         // attach the model again
                         tv.Model = ls;
                    
-                        tv.GetColumn(1).Title = String.Format(Catalog.GetString(
-                                                              "Users ({0})"),
-                                                              ls.IterNChildren());
+                        tv.GetColumn(1).Title = String.Format(
+                                                    _("Users ({0})"),
+                                                    ls.IterNChildren());
                        
                         Frontend.MainWindow.ProgressBar.Fraction = 0;
-                        status += Catalog.GetString(" done.");
+                        status += _(" done.");
 #if UI_GNOME
                         Frontend.MainWindow.Statusbar.Push(status);
 #elif UI_GTK
@@ -391,9 +362,9 @@ namespace Meebey.Smuxi.FrontendGnome
                     liststore.AppendValues(String.Empty, icuser.Nickname);
                 }
 
-                treeview.GetColumn(1).Title = String.Format(Catalog.GetString(
-                                                            "Users ({0})"),
-                                                            liststore.IterNChildren());
+                treeview.GetColumn(1).Title = String.Format(
+                                                _("Users ({0})"),
+                                                liststore.IterNChildren());
             });
         }
         
@@ -484,9 +455,9 @@ namespace Meebey.Smuxi.FrontendGnome
                     }
                 } while (liststore.IterNext(ref iter));
                 
-                treeview.GetColumn(1).Title = String.Format(Catalog.GetString(
-                                                            "Users ({0})"),
-                                                            liststore.IterNChildren());
+                treeview.GetColumn(1).Title = String.Format(
+                                                _("Users ({0})"),
+                                                liststore.IterNChildren());
             });
         }
         
@@ -518,6 +489,11 @@ namespace Meebey.Smuxi.FrontendGnome
                 Frontend.MainWindow.Statusbar.Push(0, status);
 #endif
             });
+        }
+        
+        private static string _(string msg)
+        {
+            return Mono.Unix.Catalog.GetString(msg);
         }
     }
 }

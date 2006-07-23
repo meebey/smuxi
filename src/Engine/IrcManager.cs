@@ -31,8 +31,6 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Collections;
 using Meebey.SmartIrc4net;
-using C = Mono.Unix.Catalog;
-using Mono.Unix;
 
 namespace Meebey.Smuxi.Engine
 {
@@ -145,16 +143,16 @@ namespace Meebey.Smuxi.Engine
         {
             string msg;
             Page spage = _Session.GetPage("Server", PageType.Server, NetworkType.Irc, null);
-            msg = String.Format(C.GetString("Connecting to {0} port {1}..."), _Server, _Port);
+            msg = String.Format(_("Connecting to {0} port {1}..."), _Server, _Port);
             _FrontendManager.SetStatus(msg);
             _Session.AddTextToPage(spage, "-!- "+msg);
             try {
                 _IrcClient.Connect(_Server, _Port);
                 _FrontendManager.UpdateNetworkStatus();
-                msg = String.Format(Catalog.GetString("Connection to {0} established"), _Server);
+                msg = String.Format(_("Connection to {0} established"), _Server);
                 _FrontendManager.SetStatus(msg);
                 _Session.AddTextToPage(spage, "-!- " + msg);
-                _Session.AddTextToPage(spage, "-!- " + Catalog.GetString("Logging in..."));
+                _Session.AddTextToPage(spage, "-!- " + _("Logging in..."));
                 if (_Password != null) {
                     _IrcClient.RfcPass(_Password, Priority.Critical);
                 }
@@ -185,8 +183,8 @@ namespace Meebey.Smuxi.Engine
                     throw;
                 }
             } catch (CouldNotConnectException e) {
-                _FrontendManager.SetStatus(Catalog.GetString("Connection failed!"));
-                _Session.AddTextToPage(spage, "-!- " + Catalog.GetString("Connection failed! Reason: ") + e.Message);
+                _FrontendManager.SetStatus(_("Connection failed!"));
+                _Session.AddTextToPage(spage, "-!- " + _("Connection failed! Reason: ") + e.Message);
             }
             
             // don't need the FrontendManager anymore
@@ -195,20 +193,20 @@ namespace Meebey.Smuxi.Engine
         
         public void Disconnect(FrontendManager fm)
         {
-            fm.SetStatus(Catalog.GetString("Disconnecting..."));
+            fm.SetStatus(_("Disconnecting..."));
             Page spage = _Session.GetPage("Server", PageType.Server, NetworkType.Irc, null);
             if (IsConnected) {
                 _Session.AddTextToPage(spage, "-!- " + 
-                    String.Format(Catalog.GetString("Disconnecting from {0}..."), _IrcClient.Address));
+                    String.Format(_("Disconnecting from {0}..."), _IrcClient.Address));
                 _IrcClient.Disconnect();
-                fm.SetStatus(String.Format(Catalog.GetString("Disconnected from {0}"), _IrcClient.Address));
+                fm.SetStatus(String.Format(_("Disconnected from {0}"), _IrcClient.Address));
                 _Session.AddTextToPage(spage, "-!- " +
-                    Catalog.GetString("Connection closed"));
+                    _("Connection closed"));
                 // TODO: set someone else as current network manager?
             } else {
-                fm.SetStatus(Catalog.GetString("Not connected!"));
+                fm.SetStatus(_("Not connected!"));
                 fm.AddTextToPage(spage, "-!- " +
-                    Catalog.GetString("Not connected"));
+                    _("Not connected"));
             }
             fm.UpdateNetworkStatus();
         }
@@ -242,9 +240,9 @@ namespace Meebey.Smuxi.Engine
         {
             string result = "IRC ";
             if (IsConnected) {
-                result += _IrcClient.Address+":"+_IrcClient.Port;
+                result += _IrcClient.Address + ":" + _IrcClient.Port;
             } else {
-                result += "(not connected)";
+                result += _("(not connected)");
             }
             return result;
         }
@@ -396,7 +394,7 @@ namespace Meebey.Smuxi.Engine
                     }
                 } else {
                     // normal text, without connection
-                    CommandNotConnected(cd);
+                    _NotConnected(cd);
                     handled = true;
                 }
             }
@@ -438,7 +436,7 @@ namespace Meebey.Smuxi.Engine
             };
             
             foreach (string line in help) { 
-                cd.FrontendManager.AddTextToCurrentPage("-!- "+line);
+                cd.FrontendManager.AddTextToCurrentPage("-!- " + line);
             }
         }
         
@@ -485,19 +483,21 @@ namespace Meebey.Smuxi.Engine
                         channel = cd.DataArray[1];
                         break;
                     default:
-                        channel = "#"+cd.DataArray[1];  
+                        channel = "#" + cd.DataArray[1];  
                         break;
                 }
             } else {
-                cd.FrontendManager.AddTextToCurrentPage(
-                    "-!- Not enough parameters for join command");
+                _NotEnoughParameters(cd);
                 return;
             }
             
             if (_IrcClient.IsJoined(channel)) {
                 cd.FrontendManager.AddTextToCurrentPage(
-                    "-!- Already joined to channel: "+channel+"."+
-                    " Type /window "+channel+" to switch to it");
+                    "-!- " +
+                    String.Format(
+                        _("Already joined to channel: {0}." +
+                        " Type /window {0} to switch to it"),
+                        channel));
                 return;
             }
             
@@ -533,7 +533,7 @@ namespace Meebey.Smuxi.Engine
                 string nickname = cd.DataArray[1];
                 Page page = _Session.GetPage(nickname, PageType.Query, NetworkType.Irc, this);
                 _IrcClient.SendMessage(SendType.Message, nickname, message);
-                _Session.AddTextToPage(page, "<"+_IrcClient.Nickname+"> "+message);
+                _Session.AddTextToPage(page, "<" + _IrcClient.Nickname + "> " + message);
             }
         }
         
@@ -591,10 +591,10 @@ namespace Meebey.Smuxi.Engine
                     parameters = String.Join(" ", cd.DataArray, 3, cd.DataArray.Length-3);
                 }
                 Page spage = _Session.GetPage("Server", PageType.Server, NetworkType.Irc, null);
-                _Session.AddTextToPage(spage, "[ctcp("+destination+")] "+command+" "+parameters);
-                _IrcClient.SendMessage(SendType.CtcpRequest, destination, command+" "+parameters);
+                _Session.AddTextToPage(spage, "[ctcp(" + destination + ")] " + command + " " + parameters);
+                _IrcClient.SendMessage(SendType.CtcpRequest, destination, command + " " + parameters);
             } else {
-                cd.FrontendManager.AddTextToCurrentPage("-!- Not enough parameters for ctcp command");
+                _NotEnoughParameters(cd);
             }
         }
         
@@ -604,10 +604,10 @@ namespace Meebey.Smuxi.Engine
                 string destination = cd.DataArray[1];
                 string timestamp = DateTime.Now.ToFileTime().ToString();
                 Page spage = _Session.GetPage("Server", PageType.Server, NetworkType.Irc, null);
-                _Session.AddTextToPage(spage, "[ctcp("+destination+")] PING "+timestamp);
-                _IrcClient.SendMessage(SendType.CtcpRequest, destination, "PING "+timestamp);
+                _Session.AddTextToPage(spage, "[ctcp(" + destination + ")] PING " + timestamp);
+                _IrcClient.SendMessage(SendType.CtcpRequest, destination, "PING " + timestamp);
             } else {
-                cd.FrontendManager.AddTextToCurrentPage("-!- Not enough parameters for ping command");
+                _NotEnoughParameters(cd);
             }
         }
         
@@ -616,7 +616,7 @@ namespace Meebey.Smuxi.Engine
             if (cd.DataArray.Length >= 2) {
                 _IrcClient.RfcWhois(cd.DataArray[1]);
             } else {
-                cd.FrontendManager.AddTextToCurrentPage("-!- Not enough parameters for whois command");
+                _NotEnoughParameters(cd);
             }
         }
         
@@ -625,7 +625,7 @@ namespace Meebey.Smuxi.Engine
             if (cd.DataArray.Length >= 2) {
                 _IrcClient.RfcWhowas(cd.DataArray[1]);
             } else {
-                cd.FrontendManager.AddTextToCurrentPage("-!- Not enough parameters for whowas command");
+                _NotEnoughParameters(cd);
             }
         }
         
@@ -641,10 +641,10 @@ namespace Meebey.Smuxi.Engine
                     string topic = _IrcClient.GetChannel(channel).Topic;
                     if (topic.Length > 0) {
                         fm.AddTextToPage(page,
-                            "-!- Topic for "+channel+": "+topic);
+                            "-!- " + String.Format(_("Topic for {0}: {1}"), topic));
                     } else {
                         fm.AddTextToPage(page,
-                        "-!- No topic set for "+channel);
+                            "-!- " + String.Format(_("No topic set for {0}"), channel));
                     }
                 }
             }
@@ -765,7 +765,7 @@ namespace Meebey.Smuxi.Engine
                     foreach (string nick in candidates) {
                         ircuser = _IrcClient.GetIrcUser(nick);
                         if (ircuser != null) {
-                            _IrcClient.Ban(channel, "*!*"+ircuser.Ident+"@"+ircuser.Host);
+                            _IrcClient.Ban(channel, "*!*" + ircuser.Ident + "@" + ircuser.Host);
                             _IrcClient.RfcKick(channel, nick, reason);
                         }
                     }
@@ -773,7 +773,7 @@ namespace Meebey.Smuxi.Engine
                     foreach (string nick in candidates) {
                         ircuser = _IrcClient.GetIrcUser(nick);
                         if (ircuser != null) {
-                            _IrcClient.Ban(channel, "*!*"+ircuser.Ident+"@"+ircuser.Host);
+                            _IrcClient.Ban(channel, "*!*" + ircuser.Ident + "@" + ircuser.Host);
                             _IrcClient.RfcKick(channel, nick);
                         }
                     }
@@ -802,9 +802,13 @@ namespace Meebey.Smuxi.Engine
             if (cd.DataArray.Length >= 2) {
                 if (!_IrcClient.IsJoined(channel, cd.DataArray[1])) {
                     _IrcClient.RfcInvite(cd.DataArray[1], channel);
-                    fm.AddTextToPage(page, "-!- Inviting "+cd.DataArray[1]+" to "+channel);
+                    fm.AddTextToPage(page, "-!- " + String.Format(
+                                                        _("Inviting {0} to {1}"),
+                                                        cd.DataArray[1], channel));
                 } else {
-                    fm.AddTextToPage(page, "-!- "+cd.DataArray[1]+" is already on channel");
+                    fm.AddTextToPage(page, "-!- " + String.Format(
+                                                        _("{0} is already on channel"),
+                                                        cd.DataArray[1]));
                 }
             }
         }
@@ -820,7 +824,7 @@ namespace Meebey.Smuxi.Engine
             string channel = page.Name;
             if (cd.DataArray.Length >= 2) {
                 _IrcClient.SendMessage(SendType.Action, channel, cd.Parameter);
-                _Session.AddTextToPage(page, " * "+_IrcClient.Nickname+" "+cd.Parameter);
+                _Session.AddTextToPage(page, " * " + _IrcClient.Nickname + " " + cd.Parameter);
             }
         }
     
@@ -832,10 +836,10 @@ namespace Meebey.Smuxi.Engine
                 _IrcClient.SendMessage(SendType.Notice, target, message);
                 if (_IrcClient.IsJoined(target)) {
                     Page page = _Session.GetPage(target, PageType.Query, NetworkType.Irc, this);
-                    _Session.AddTextToPage(page, "[notice("+target+")] "+message);
+                    _Session.AddTextToPage(page, "[notice(" + target + ")] " + message);
                 } else {
                     Page page = _Session.GetPage("Server", PageType.Server, NetworkType.Irc, null);
-                    _Session.AddTextToPage(page, "[notice("+target+")] "+message);
+                    _Session.AddTextToPage(page, "[notice(" + target + ")] " + message);
                 }
             }
         }
@@ -857,9 +861,15 @@ namespace Meebey.Smuxi.Engine
             }
         }
         
-        public void CommandNotConnected(CommandData cd)
+        private void _NotEnoughParameters(CommandData cd)
         {
-            cd.FrontendManager.AddTextToCurrentPage("-!- Not connected to server");
+            cd.FrontendManager.AddTextToCurrentPage(
+                "-!- " + String.Format(_("Not enough parameters for {0} command"), cd.Command));
+        }
+        
+        private void _NotConnected(CommandData cd)
+        {
+            cd.FrontendManager.AddTextToCurrentPage("-!- " + _("Not connected to server"));
         }
         
         private void _IrcMessageToFormattedMessage(ref FormattedMessage fmsg, string message)
@@ -1080,7 +1090,7 @@ namespace Meebey.Smuxi.Engine
             switch (e.Data.ReplyCode) {
                 case ReplyCode.ErrorNoSuchNickname:
                     nick = e.Data.RawMessageArray[3];
-                    msg = "-!- "+nick+": No such nick/channel";
+                    msg = "-!- " + String.Format(_("{0}: No such nick/channel"), nick);
                     page = _Session.GetPage(nick, PageType.Query, NetworkType.Irc, this);
                     if (page != null) {
                         _Session.AddTextToPage(page, msg);
@@ -1122,13 +1132,13 @@ namespace Meebey.Smuxi.Engine
                     string ident = e.Data.RawMessageArray[4];
                     string host = e.Data.RawMessageArray[5];
                     string realname = e.Data.Message;
-                    _Session.AddTextToPage(page, "-!- "+nick+" ["+ident+"@"+host+"]");
-                    _Session.AddTextToPage(page, "-!-  realname: "+realname);
+                    _Session.AddTextToPage(page, "-!- " + nick + " [" + ident + "@" + host + "]");
+                    _Session.AddTextToPage(page, "-!-  realname: " + realname);
                     break;
                 case ReplyCode.WhoIsServer:
                     string server = e.Data.RawMessageArray[4];
                     string serverinfo = e.Data.Message;
-                    _Session.AddTextToPage(page, "-!-  server: "+server+" ["+serverinfo+"]");
+                    _Session.AddTextToPage(page, "-!-  server: " + server + " [" + serverinfo + "]");
                     break;
                 case ReplyCode.WhoIsIdle:
                     string idle = e.Data.RawMessageArray[4];
@@ -1142,13 +1152,13 @@ namespace Meebey.Smuxi.Engine
                     break;
                 case ReplyCode.WhoIsChannels:
                     string channels = e.Data.Message;
-                    _Session.AddTextToPage(page, "-!-  channels: "+channels);
+                    _Session.AddTextToPage(page, "-!-  channels: " + channels);
                     break;
                 case ReplyCode.WhoIsOperator:
-                    _Session.AddTextToPage(page, "-!-  "+e.Data.Message);
+                    _Session.AddTextToPage(page, "-!-  " + e.Data.Message);
                     break;
                 case ReplyCode.EndOfWhoIs:
-                    _Session.AddTextToPage(page, "-!-  "+e.Data.Message);
+                    _Session.AddTextToPage(page, "-!-  " + e.Data.Message);
                     break;
             }
         }
@@ -1165,11 +1175,11 @@ namespace Meebey.Smuxi.Engine
                     string ident = e.Data.RawMessageArray[4];
                     string host = e.Data.RawMessageArray[5];
                     string realname = e.Data.Message;
-                    _Session.AddTextToPage(page, "-!- "+nick+" ["+ident+"@"+host+"]");
-                    _Session.AddTextToPage(page, "-!-  realname: "+realname);
+                    _Session.AddTextToPage(page, "-!- " + nick + " [" + ident + "@" + host + "]");
+                    _Session.AddTextToPage(page, "-!-  realname: " + realname);
                     break;
                 case ReplyCode.EndOfWhoWas:
-                    _Session.AddTextToPage(page, "-!-  "+e.Data.Message);
+                    _Session.AddTextToPage(page, "-!-  " + e.Data.Message);
                     break;
             }
         }
@@ -1177,7 +1187,11 @@ namespace Meebey.Smuxi.Engine
         private void _OnCtcpRequest(object sender, CtcpEventArgs e)
         {
             Page spage = _Session.GetPage("Server", PageType.Server, NetworkType.Irc, null);
-            _Session.AddTextToPage(spage, e.Data.Nick+" ["+e.Data.Ident+"@"+e.Data.Host+"] requested CTCP "+e.CtcpCommand+" from "+_IrcClient.Nickname+": "+e.CtcpParameter);
+            _Session.AddTextToPage(spage, String.Format(
+                                            _("{0} [{1}] requested CTCP {2} from {3}: {4}"),
+                                            e.Data.Nick, e.Data.Ident+"@"+e.Data.Host,
+                                            e.CtcpCommand, _IrcClient.Nickname,
+                                            e.CtcpParameter));
         }
         
         private void _OnCtcpReply(object sender, CtcpEventArgs e)
@@ -1191,7 +1205,9 @@ namespace Meebey.Smuxi.Engine
                     }
                     DateTime sent = DateTime.FromFileTime(timestamp);
                     string duration = DateTime.Now.Subtract(sent).TotalSeconds.ToString();
-                    _Session.AddTextToPage(spage, "CTCP PING reply from "+e.Data.Nick+": "+duration+" seconds");
+                    _Session.AddTextToPage(spage, String.Format(
+                                                    _("CTCP PING reply from {0}: {1} seconds"),
+                                                    e.Data.Nick, duration));
                 } catch (FormatException) {
                 }
             }
@@ -1220,13 +1236,13 @@ namespace Meebey.Smuxi.Engine
         private void _OnChannelAction(object sender, ActionEventArgs e)
         {
             Page page = _Session.GetPage(e.Data.Channel, PageType.Channel, NetworkType.Irc, this);
-            _Session.AddTextToPage(page, " * "+e.Data.Nick+" "+e.ActionMessage);
+            _Session.AddTextToPage(page, " * " + e.Data.Nick + " " + e.ActionMessage);
         }
         
         private void _OnChannelNotice(object sender, IrcEventArgs e)
         {
             Page page = _Session.GetPage(e.Data.Channel, PageType.Channel, NetworkType.Irc, this);
-            _Session.AddTextToPage(page, "-"+e.Data.Nick+":"+e.Data.Channel+"- "+e.Data.Message);
+            _Session.AddTextToPage(page, "-" + e.Data.Nick + ":" + e.Data.Channel + "- " + e.Data.Message);
         }
         
         private void _OnQueryMessage(object sender, IrcEventArgs e)
@@ -1238,7 +1254,7 @@ namespace Meebey.Smuxi.Engine
             }
             
             // add formatting here!
-            _Session.AddTextToPage(page, "<"+e.Data.Nick+"> "+e.Data.Message);
+            _Session.AddTextToPage(page, "<" + e.Data.Nick + "> " + e.Data.Message);
         }
         
         private void _OnQueryAction(object sender, ActionEventArgs e)
@@ -1249,14 +1265,16 @@ namespace Meebey.Smuxi.Engine
                 _Session.AddPage(page);
             }
             
-            _Session.AddTextToPage(page, " * "+e.Data.Nick+" "+e.ActionMessage);
+            _Session.AddTextToPage(page, " * " + e.Data.Nick + " " + e.ActionMessage);
         }
         
         private void _OnQueryNotice(object sender, IrcEventArgs e)
         {
             Page page = _Session.GetPage("Server", PageType.Server, NetworkType.Irc, null);
             _Session.AddTextToPage(page,
-                "-"+e.Data.Nick+"("+e.Data.Ident+"@"+e.Data.Host+")- "+e.Data.Message);
+                "-" + String.Format(
+                        _("{0} ({1})- {2}"),
+                        e.Data.Nick, e.Data.Ident + "@" + e.Data.Host, e.Data.Message));
         }
         
         private void _OnJoin(object sender, JoinEventArgs e)
@@ -1275,7 +1293,9 @@ namespace Meebey.Smuxi.Engine
             }
             
             _Session.AddTextToPage(cpage,
-                "-!- "+e.Who+" ["+e.Data.Ident+"@"+e.Data.Host+"] has joined "+e.Channel);
+                "-!- " + String.Format(
+                            _("{0} [{1}] has joined {2}"),
+                            e.Who, e.Data.Ident + "@" + e.Data.Host, e.Channel));
         }
         
         private void _OnNames(object sender, NamesEventArgs e)
@@ -1382,7 +1402,9 @@ namespace Meebey.Smuxi.Engine
                 User user = cpage.GetUser(e.Who);
                 _Session.RemoveUserFromChannel(cpage, user);
                 _Session.AddTextToPage(cpage,
-                    "-!- "+e.Who+" ["+e.Data.Ident+"@"+e.Data.Host+"] has left "+e.Channel+" ["+e.PartMessage+"]");
+                    "-!- " + String.Format(
+                                _("{0} [{1}] has left {2} [{3}]"),
+                                e.Who, e.Data.Ident + "@" + e.Data.Host, e.Channel, e.PartMessage));
             }
         }
         
@@ -1396,12 +1418,16 @@ namespace Meebey.Smuxi.Engine
                 Page spage = _Session.GetPage("Server", PageType.Server, NetworkType.Irc, null);
                 _Session.RemovePage(cpage);
                 _Session.AddTextToPage(spage,
-                    "-!- You was kicked from "+e.Channel+" by "+e.Who+" ["+e.KickReason+"]");
+                    "-!- " + String.Format(
+                                _("You was kicked from {0} by {1} [{2}]"),
+                                e.Channel, e.Who, e.KickReason));
             } else {
                 User user = cpage.GetUser(e.Whom);
                 _Session.RemoveUserFromChannel(cpage, user);
                 _Session.AddTextToPage(cpage,
-                    "-!- "+e.Whom+" was kicked from "+e.Channel+" by "+e.Who+" ["+e.KickReason+"]");
+                    "-!- " + String.Format(
+                                _("{0} was kicked from {1} by {2} [{3}]"),
+                                e.Whom, e.Channel, e.Who, e.KickReason));
             }
         }
         
@@ -1412,7 +1438,9 @@ namespace Meebey.Smuxi.Engine
 #endif
             if (e.Data.Irc.IsMe(e.NewNickname)) {
                 Page spage = _Session.GetPage("Server", PageType.Server, NetworkType.Irc, null);
-                _Session.AddTextToPage(spage, "-!- You're now known as "+e.NewNickname);
+                _Session.AddTextToPage(spage, "-!- " + String.Format(
+                                                        _("You're now known as {0}"),
+                                                        e.NewNickname));
             }
             
             SmartIrc4net.IrcUser ircuser = e.Data.Irc.GetIrcUser(e.NewNickname);
@@ -1436,9 +1464,13 @@ namespace Meebey.Smuxi.Engine
                     _Session.UpdateUserInChannel(cpage, olduser, newuser);
                     
                     if (e.Data.Irc.IsMe(e.NewNickname)) {
-                        _Session.AddTextToPage(cpage, "-!- You're now known as "+e.NewNickname);
+                        _Session.AddTextToPage(cpage, "-!- " + String.Format(
+                                                                _("You're now known as {0}"),
+                                                                e.NewNickname));
                     } else {
-                        _Session.AddTextToPage(cpage, "-!- "+e.OldNickname+" is now known as "+e.NewNickname);
+                        _Session.AddTextToPage(cpage, "-!- " + String.Format(
+                                                                _("{0} is now known as {1}"),
+                                                                e.OldNickname, e.NewNickname));
                     }
                 }
             }
@@ -1454,7 +1486,9 @@ namespace Meebey.Smuxi.Engine
         {
             ChannelPage cpage = (ChannelPage)_Session.GetPage(e.Channel, PageType.Channel, NetworkType.Irc, this);
             _Session.UpdateTopicInChannel(cpage, e.NewTopic);
-            _Session.AddTextToPage(cpage, "-!- "+e.Who+" changed the topic of "+e.Channel+" to: "+e.NewTopic);
+            _Session.AddTextToPage(cpage, "-!- " + String.Format(
+                                                    _("{0} changed the topic of {1} to: {2}"),
+                                                    e.Who, e.Channel, e.NewTopic));
         }
         
         private void _OnOp(object sender, OpEventArgs e)
@@ -1508,7 +1542,9 @@ namespace Meebey.Smuxi.Engine
                 case ReceiveType.UserModeChange:
                     modechange = e.Data.Message;
                     Page spage = _Session.GetPage("Server", PageType.Server, NetworkType.Irc, null);
-                    _Session.AddTextToPage(spage, "-!- Mode change ["+modechange+"] for user "+e.Data.Irc.Nickname);
+                    _Session.AddTextToPage(spage, "-!- " + String.Format(
+                                                            _("Mode change [{0}] for user {1}"),
+                                                            modechange, e.Data.Irc.Nickname));
                 break;
                 case ReceiveType.ChannelModeChange:
                     modechange = String.Join(" ", e.Data.RawMessageArray, 3, e.Data.RawMessageArray.Length-3);
@@ -1519,7 +1555,9 @@ namespace Meebey.Smuxi.Engine
                         who = e.Data.Host;
                     }
                     Page page = _Session.GetPage(e.Data.Channel, PageType.Channel, NetworkType.Irc, this);
-                    _Session.AddTextToPage(page, "-!- mode/"+e.Data.Channel+" ["+modechange+"] by "+who);
+                    _Session.AddTextToPage(page, "-!- " + String.Format(
+                                                            _("mode/{0} [{1}] by {2}"),
+                                                            e.Data.Channel, modechange, who));
                 break;
             }
         }
@@ -1539,11 +1577,15 @@ namespace Meebey.Smuxi.Engine
                         if (user != null) {
                             // he is on this channel, let's remove him
                             _Session.RemoveUserFromChannel(cpage, user);
-                            _Session.AddTextToPage(cpage, "-!- "+e.Who+" ["+e.Data.Ident+"@"+e.Data.Host+"] has quit ["+e.QuitMessage+"]");
+                            _Session.AddTextToPage(cpage, "-!- " + String.Format(
+                                                                    _("{0} [{1}] has quit [{2}]"),
+                                                                    e.Who, e.Data.Ident + "@" + e.Data.Host, e.QuitMessage));
                         }
                     } else if ((page.PageType == PageType.Query) &&
                                (page.Name == e.Who)) {
-                        _Session.AddTextToPage(page, "-!- "+e.Who+" ["+e.Data.Ident+"@"+e.Data.Host+"] has quit ["+e.QuitMessage+"]");
+                        _Session.AddTextToPage(page, "-!- " + String.Format(
+                                                                _("{0} [{1}] has quit [{2}]"),
+                                                                e.Who, e.Data.Ident + "@" + e.Data.Host, e.QuitMessage));
                     }
                 }
             }
@@ -1571,19 +1613,26 @@ namespace Meebey.Smuxi.Engine
             if (page == null) {
                 page = _Session.GetPage("Server", PageType.Server, NetworkType.Irc, null);
             }
-            _Session.AddTextToPage(page, "-!- "+e.Who+" is away: "+e.AwayMessage);
+            _Session.AddTextToPage(page, "-!- " + String.Format(
+                                                    _("{0} is away: {1}"),
+                                                    e.Who, e.AwayMessage));
         }
 
         private void _OnUnAway(object sender, IrcEventArgs e)
         {
             Page spage = _Session.GetPage("Server", PageType.Server, NetworkType.Irc, null);
-            _Session.AddTextToPage(spage, "-!- You are no longer marked as being away");
+            _Session.AddTextToPage(spage, "-!- " + _("You are no longer marked as being away"));
         }
         
         private void _OnNowAway(object sender, IrcEventArgs e)
         {
             Page spage = _Session.GetPage("Server", PageType.Server, NetworkType.Irc, null);
-            _Session.AddTextToPage(spage, "-!- You have been marked as being away");
+            _Session.AddTextToPage(spage, "-!- " + _("You have been marked as being away"));
+        }
+        
+        private static string _(string msg)
+        {
+            return Mono.Unix.Catalog.GetString(msg);
         }
     }
 }
