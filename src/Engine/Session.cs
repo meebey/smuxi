@@ -85,7 +85,7 @@ namespace Meebey.Smuxi.Engine
             fm.Items.Add(
                 new FormattedMessageItem(FormattedMessageItemType.Text,
                     new FormattedMessageTextItem(IrcTextColor.Red, null, false,
-                        false, false, "Welcome to Smuxi")));
+                        true, false, "Welcome to Smuxi")));
             AddMessageToPage(spage, fm); 
         }
         
@@ -182,6 +182,10 @@ namespace Meebey.Smuxi.Engine
                         _CommandConfig(cd);
                         handled = true;
                         break;
+                    case "quit":
+                        _CommandQuit(cd);
+                        handled = true;
+                        break;
                 }
             } else {
                 // normal text
@@ -202,6 +206,7 @@ namespace Meebey.Smuxi.Engine
             "connect/server [server] [port] [password] [nick]",
             "disconnect",
             "config (save|load)",
+            "quit [quitmessage]",
             };
             
             foreach (string line in help) { 
@@ -302,6 +307,24 @@ namespace Meebey.Smuxi.Engine
                 }
             } else {
                 fm.AddTextToCurrentPage("-!- Not enough parameters for config command");
+            }
+        }
+        
+        private void _CommandQuit(CommandData cd)
+        {
+            FrontendManager fm = cd.FrontendManager;
+            string message = cd.Parameter;
+            foreach (INetworkManager nm in _NetworkManagers) {
+                if (message == null) {
+                    nm.Disconnect(fm);
+                } else {
+                    if (nm is IrcManager) {
+                        IrcManager im = (IrcManager)nm;
+                        im.CommandQuit(cd);
+                    } else {
+                        nm.Disconnect(fm);
+                    }
+                }
             }
         }
         

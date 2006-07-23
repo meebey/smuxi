@@ -29,6 +29,7 @@
 using System;
 using System.Collections;
 using System.Threading;
+using Mono.Unix;
 
 namespace Meebey.Smuxi.Engine
 {
@@ -48,6 +49,7 @@ namespace Meebey.Smuxi.Engine
         private INetworkManager _CurrentNetworkManager;
         private bool            _IsFrontendDisconnecting;
         private SimpleDelegate  _ConfigChangedDelegate;
+        private ArrayList       _SyncedPages = new ArrayList();
         
         public int Version {
             get {
@@ -102,7 +104,7 @@ namespace Meebey.Smuxi.Engine
             // BUG: Session adds stuff to the queue but the frontend is not ready yet!
             // The frontend must Sync() _first_!
             // HACK: so this bug doesn't happen for now
-            Sync();
+            //Sync();
         }
         
         public void Sync()
@@ -127,6 +129,11 @@ namespace Meebey.Smuxi.Engine
             }
         }
         
+        public void AddSyncedPage(Page page)
+        {
+            _SyncedPages.Add(page);
+        }
+        
         public void NextNetworkManager()
         {
             if (!(_Session.NetworkManagers.Count > 0)) {
@@ -148,7 +155,7 @@ namespace Meebey.Smuxi.Engine
             if (CurrentNetworkManager != null) {
                 SetNetworkStatus(CurrentNetworkManager.ToString());
             } else {
-                SetNetworkStatus("(no network connections)");
+                SetNetworkStatus(String.Format("({0})", foo("no network connections")));
             }
         }
         
@@ -156,22 +163,6 @@ namespace Meebey.Smuxi.Engine
         {
             _Queue.Enqueue(new UICommandContainer(UICommand.AddPage, page));
         }
-        
-        /*
-        FormattedMessage contains the Timestamp
-        public void AddTextToPage(Page page, string text)
-        {
-            string formated_timestamp;
-            try {
-                formated_timestamp = System.DateTime.Now.ToString((string)_Session.UserConfig["Interface/Notebook/TimestampFormat"]);
-            } catch (FormatException e) {
-                formated_timestamp = "Timestamp Format ERROR: "+e.Message;
-            }
-            string formated_text = formated_timestamp+" "+text;
-            
-            _Queue.Enqueue(new UICommandContainer(UICommand.AddTextToPage, page, formated_text));
-        }
-        */
         
         public void AddTextToPage(Page page, string text)
         {
@@ -185,6 +176,13 @@ namespace Meebey.Smuxi.Engine
         
         public void AddMessageToPage(Page page, FormattedMessage fmsg)
         {
+            if (_SyncedPages.Contains(page)) {
+                _AddMessageToPage(page, fmsg);
+            }
+        }
+        
+        private void _AddMessageToPage(Page page, FormattedMessage fmsg)
+        {
             _Queue.Enqueue(new UICommandContainer(UICommand.AddMessageToPage, page, fmsg));
         }
         
@@ -194,6 +192,13 @@ namespace Meebey.Smuxi.Engine
         }
         
         public void RemovePage(Page page)
+        {
+            if (_SyncedPages.Contains(page)) {
+                _RemovePage(page);
+            }
+        }
+        
+        private void _RemovePage(Page page)
         {
             _Queue.Enqueue(new UICommandContainer(UICommand.RemovePage, page));
         }
@@ -205,20 +210,48 @@ namespace Meebey.Smuxi.Engine
                 
         public void AddUserToChannel(ChannelPage cpage, User user)
         {
+            if (_SyncedPages.Contains(cpage)) {
+                _AddUserToChannel(cpage, user);
+            }
+        }
+        
+        private void _AddUserToChannel(ChannelPage cpage, User user)
+        {
             _Queue.Enqueue(new UICommandContainer(UICommand.AddUserToChannel, cpage, user));
         }
         
         public void UpdateUserInChannel(ChannelPage cpage, User olduser, User newuser)
+        {
+            if (_SyncedPages.Contains(cpage)) {
+                _UpdateUserInChannel(cpage, olduser, newuser);
+            }
+        }
+        
+        private void _UpdateUserInChannel(ChannelPage cpage, User olduser, User newuser)
         {
             _Queue.Enqueue(new UICommandContainer(UICommand.UpdateUserInChannel, cpage, olduser, newuser));
         }
     
         public void UpdateTopicInChannel(ChannelPage cpage, string topic)
         {
+            if (_SyncedPages.Contains(cpage)) {
+                _UpdateTopicInChannel(cpage, topic);
+            }
+        }
+        
+        private void _UpdateTopicInChannel(ChannelPage cpage, string topic)
+        {
             _Queue.Enqueue(new UICommandContainer(UICommand.UpdateTopicInChannel, cpage, topic));
         }
     
         public void RemoveUserFromChannel(ChannelPage cpage, User user)
+        {
+            if (_SyncedPages.Contains(cpage)) {
+                _RemoveUserFromChannel(cpage, user);
+            }
+        }
+        
+        private void _RemoveUserFromChannel(ChannelPage cpage, User user)
         {
             _Queue.Enqueue(new UICommandContainer(UICommand.RemoveUserFromChannel, cpage, user));
         }
@@ -310,6 +343,12 @@ namespace Meebey.Smuxi.Engine
             if (_ConfigChangedDelegate != null) {
                 _ConfigChangedDelegate();
             }
+        }
+        
+        private static string foo(string msg)
+        {
+            return Mono.Unix.Catalog.GetString(msg);
+            //return "";
         }
     }
 }

@@ -357,8 +357,8 @@ namespace Meebey.Smuxi.FrontendGnome
                     case "help":
                         _CommandHelp(cd);
                         break;
-                    case "quit":
-                        _CommandQuit(cd);
+                    case "detach":
+                        _CommandDetach(cd);
                         handled = true;
                         break;
                     case "echo":
@@ -392,7 +392,7 @@ namespace Meebey.Smuxi.FrontendGnome
             "clear",
             "echo data",
             "exec command",
-            "quit [quitmessage]",
+            "detach",
             };
             
             foreach (string line in help) { 
@@ -400,7 +400,7 @@ namespace Meebey.Smuxi.FrontendGnome
             }
         }
         
-        private void _CommandQuit(CommandData cd)
+        private void _CommandDetach(CommandData cd)
         {
             Frontend.Quit();
         }

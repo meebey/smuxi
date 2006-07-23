@@ -213,9 +213,9 @@ namespace Meebey.Smuxi.FrontendGnome
              }
              
              if (page.OutputTextTagTable.Lookup(tagname) == null) {
-                 int red   = Int16.Parse(hexcode.Substring(0,2), NumberStyles.HexNumber);
-                 int green = Int16.Parse(hexcode.Substring(2,2), NumberStyles.HexNumber);
-                 int blue  = Int16.Parse(hexcode.Substring(4,2), NumberStyles.HexNumber);
+                 int red   = Int16.Parse(hexcode.Substring(0, 2), NumberStyles.HexNumber);
+                 int green = Int16.Parse(hexcode.Substring(2, 2), NumberStyles.HexNumber);
+                 int blue  = Int16.Parse(hexcode.Substring(4, 2), NumberStyles.HexNumber);
                  Gdk.Color c = new Gdk.Color((byte)red, (byte)green, (byte)blue);
                  Gtk.TextTag tt = new Gtk.TextTag(tagname);
                  if (fg_color != null) {
@@ -358,6 +358,8 @@ namespace Meebey.Smuxi.FrontendGnome
                 }
                 
                 page.ScrollToEnd();
+                // maybe a BUG here? should be tell the FrontendManager before we sync?
+                Frontend.FrontendManager.AddSyncedPage(epage);
 #if LOG4NET
                 _Logger.Debug("SyncPage() done");
 #endif
@@ -412,7 +414,14 @@ namespace Meebey.Smuxi.FrontendGnome
                 
                 Gtk.ListStore liststore = (Gtk.ListStore)treeview.Model;
                 Gtk.TreeIter iter;
-                liststore.GetIterFirst(out iter);
+                bool res = liststore.GetIterFirst(out iter);
+                if (!res) {
+#if LOG4NET
+                    _Logger.Error("UpdateUserInChannel(): liststore.GetIterFirst() returned false, ignoring update...");
+#endif
+                    return;
+                }
+                
                 do {
                     if ((string)liststore.GetValue(iter, 1) == olduser.Nickname) {
                         IrcChannelUser newcuser = (IrcChannelUser)newuser;

@@ -32,11 +32,12 @@ using System.Collections.Specialized;
 using System.Runtime.Remoting;
 using System.Runtime.Remoting.Channels;
 using System.Runtime.Remoting.Channels.Http;
-using System.Runtime.Remoting.Channels.Tcp;
+//using System.Runtime.Remoting.Channels.Tcp;
 using System.Runtime.Serialization.Formatters;
 using Mono.Unix;
 using Meebey.Smuxi.Engine;
 using Meebey.Smuxi.Common;
+using Meebey.Smuxi.Channels.Tcp;
 #if CHANNEL_TCPEX
 using TcpEx;
 #endif
@@ -191,13 +192,19 @@ namespace Meebey.Smuxi.FrontendGnome
                 switch (channel) {
                     case "TCP":
                         if (ChannelServices.GetChannel("tcp") == null) {
+                            // frontend -> engine
                             BinaryClientFormatterSinkProvider cprovider =
                                 new BinaryClientFormatterSinkProvider();
 
+                            // engine -> frontend (back-connection)
                             BinaryServerFormatterSinkProvider sprovider =
                                 new BinaryServerFormatterSinkProvider();
                             // required for MS .NET 1.1
                             sprovider.TypeFilterLevel = TypeFilterLevel.Full;
+                            // HACK: test for SSH tunnel
+                            props["port"] = "7690";
+                            props["machineName"] = "localhost";
+                            //TcpServerChannel schannel = new TcpServerChannel(props, sprovider);
 
                             ChannelServices.RegisterChannel(new TcpChannel(props, cprovider, sprovider));
                         }
@@ -256,7 +263,7 @@ namespace Meebey.Smuxi.FrontendGnome
                 // sessm can be null when there was an unknown channel used
                 if (sessm != null) {
                     Frontend.Session = sessm.Register(username, password, Frontend.UI);
-                    Frontend.EngineVersion = sessm.Version;
+                    Frontend.EngineVersion = sessm.VersionString;
                     if (Frontend.Session != null) {
                         // Dialog finished it's job, we are connected
                         Frontend.UserConfig = new UserConfig(Frontend.Session.Config,

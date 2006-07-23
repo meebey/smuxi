@@ -161,8 +161,14 @@ namespace Meebey.Smuxi.FrontendGnome
             _Logger.Info(_VersionString + " starting");
 #endif
             
+            // with GTK# 2.8 we can do this better, see below
+            /*
             if (Type.GetType("Mono.Runtime") == null) {
                 // when we don't run on Mono, we need to initialize glib ourself
+                GLib.Thread.Init();
+            }
+            */
+            if (!GLib.Thread.Supported) {
                 GLib.Thread.Init();
             }
             
@@ -219,7 +225,7 @@ namespace Meebey.Smuxi.FrontendGnome
         public static void ConnectEngineToGUI()
         {
             _FrontendManager = _Session.GetFrontendManager(_UI);
-            //_FrontendManager.Sync();
+            _FrontendManager.Sync();
             
             if (_UserConfig.IsCaching) {
                 // when our UserConfig is cached, we need to invalidate the cache

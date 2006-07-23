@@ -1,15 +1,15 @@
-<Project name="Engine" fileversion="2.0" language="C#" ctype="DotNetProject">
+<Project name="Engine" fileversion="2.0" language="C#" clr-version="Net_1_1" ctype="DotNetProject">
   <Configurations active="Debug">
     <Configuration name="Debug" ctype="DotNetProjectConfiguration">
       <Output directory="../bin/mono/debug" assembly="smuxi-engine" />
       <Build debugmode="True" target="Library" />
-      <Execution runwithwarnings="False" consolepause="False" runtime="MsNet" />
+      <Execution runwithwarnings="False" consolepause="False" runtime="MsNet" clr-version="Net_1_1" />
       <CodeGeneration compiler="Csc" warninglevel="4" optimize="False" unsafecodeallowed="False" generateoverflowchecks="True" mainclass="" definesymbols="TRACE,CONFIG_NINI,LOG4NET" generatexmldocumentation="False" ctype="CSharpCompilerParameters" />
     </Configuration>
     <Configuration name="Release" ctype="DotNetProjectConfiguration">
       <Output directory="../bin/mono/release" assembly="smuxi-engine" />
       <Build debugmode="False" target="Library" />
-      <Execution runwithwarnings="False" consolepause="False" runtime="MsNet" />
+      <Execution runwithwarnings="False" consolepause="False" runtime="MsNet" clr-version="Net_1_1" />
       <CodeGeneration compiler="Csc" warninglevel="4" optimize="True" unsafecodeallowed="False" generateoverflowchecks="True" mainclass="" definesymbols="CONFIG_GCONF" generatexmldocumentation="False" ctype="CSharpCompilerParameters" />
     </Configuration>
   </Configurations>

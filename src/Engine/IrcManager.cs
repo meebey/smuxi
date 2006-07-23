@@ -31,16 +31,18 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Collections;
 using Meebey.SmartIrc4net;
+using C = Mono.Unix.Catalog;
+using Mono.Unix;
 
 namespace Meebey.Smuxi.Engine
 {
     public enum IrcControlCode : int
     {
-        Clear     = 15,
         Bold      = 2,
         Color     = 3,
-        Underline = 31,
+        Clear     = 15,
         Italic    = 26,
+        Underline = 31,
     }
     
     public class IrcManager : PermanentRemoteObject, INetworkManager
@@ -119,7 +121,8 @@ namespace Meebey.Smuxi.Engine
             _IrcClient.OnCtcpRequest    += new CtcpEventHandler(_OnCtcpRequest);
             _IrcClient.OnCtcpReply      += new CtcpEventHandler(_OnCtcpReply);
             
-            _IrcClient.AutoNickHandling = false;
+            // HACK: so Getty's BNC doesn't get mad!
+            //_IrcClient.AutoNickHandling = false;
             _Session = session;
         }
     
@@ -142,16 +145,16 @@ namespace Meebey.Smuxi.Engine
         {
             string msg;
             Page spage = _Session.GetPage("Server", PageType.Server, NetworkType.Irc, null);
-            msg = "Connecting to "+_Server+" port "+_Port+"...";
+            msg = String.Format(C.GetString("Connecting to {0} port {1}..."), _Server, _Port);
             _FrontendManager.SetStatus(msg);
             _Session.AddTextToPage(spage, "-!- "+msg);
             try {
                 _IrcClient.Connect(_Server, _Port);
                 _FrontendManager.UpdateNetworkStatus();
-                msg = "Connection to "+_Server+" established";
+                msg = String.Format(Catalog.GetString("Connection to {0} established"), _Server);
                 _FrontendManager.SetStatus(msg);
-                _Session.AddTextToPage(spage, "-!- "+msg);
-                _Session.AddTextToPage(spage, "-!- Logging in...");
+                _Session.AddTextToPage(spage, "-!- " + msg);
+                _Session.AddTextToPage(spage, "-!- " + Catalog.GetString("Logging in..."));
                 if (_Password != null) {
                     _IrcClient.RfcPass(_Password, Priority.Critical);
                 }
@@ -178,11 +181,12 @@ namespace Meebey.Smuxi.Engine
                         _IrcClient.Listen();
                     //}
                 } catch (Exception e) {
-                    throw e;
+                    _Logger.Error(e);
+                    throw;
                 }
             } catch (CouldNotConnectException e) {
-                _FrontendManager.SetStatus("Connection failed!");
-                _Session.AddTextToPage(spage, "-!- Connection failed! Reason: "+e.Message);
+                _FrontendManager.SetStatus(Catalog.GetString("Connection failed!"));
+                _Session.AddTextToPage(spage, "-!- " + Catalog.GetString("Connection failed! Reason: ") + e.Message);
             }
             
             // don't need the FrontendManager anymore
@@ -191,17 +195,20 @@ namespace Meebey.Smuxi.Engine
         
         public void Disconnect(FrontendManager fm)
         {
-            fm.SetStatus("Disconnecting...");
+            fm.SetStatus(Catalog.GetString("Disconnecting..."));
             Page spage = _Session.GetPage("Server", PageType.Server, NetworkType.Irc, null);
             if (IsConnected) {
-                _Session.AddTextToPage(spage, "-!- Disconnecting from "+_IrcClient.Address+"...");
+                _Session.AddTextToPage(spage, "-!- " + 
+                    String.Format(Catalog.GetString("Disconnecting from {0}..."), _IrcClient.Address));
                 _IrcClient.Disconnect();
-                fm.SetStatus("Disconnected from "+_IrcClient.Address);
-                _Session.AddTextToPage(spage, "-!- Connection closed");
+                fm.SetStatus(String.Format(Catalog.GetString("Disconnected from {0}"), _IrcClient.Address));
+                _Session.AddTextToPage(spage, "-!- " +
+                    Catalog.GetString("Connection closed"));
                 // TODO: set someone else as current network manager?
             } else {
-                fm.SetStatus("Not connected!");
-                fm.AddTextToPage(spage, "-!- Not connected");
+                fm.SetStatus(Catalog.GetString("Not connected!"));
+                fm.AddTextToPage(spage, "-!- " +
+                    Catalog.GetString("Not connected"));
             }
             fm.UpdateNetworkStatus();
         }
@@ -306,7 +313,7 @@ namespace Meebey.Smuxi.Engine
                             CommandSay(cd);
                             handled = true;
                             break;
-                        // commands which only work on a channels
+                        // commands which only work on channels
                         case "p":
                         case "part":
                             CommandPart(cd);
@@ -360,6 +367,10 @@ namespace Meebey.Smuxi.Engine
                             break;
                         case "invite":
                             CommandInvite(cd);
+                            handled = true;
+                            break;
+                        case "quit":
+                            CommandQuit(cd);
                             handled = true;
                             break;
                     }
@@ -423,6 +434,7 @@ namespace Meebey.Smuxi.Engine
             "nick newnick",
             "ctcp destination command [data]",
             "raw/quote irccommand",
+            "quit [quitmessage]",
             };
             
             foreach (string line in help) { 
@@ -835,6 +847,16 @@ namespace Meebey.Smuxi.Engine
             }
         }
     
+        public void CommandQuit(CommandData cd)
+        {
+            string message = cd.Parameter; 
+            if (message != null) {
+                _IrcClient.RfcQuit(message);
+            } else {
+                _IrcClient.RfcQuit();
+            }
+        }
+        
         public void CommandNotConnected(CommandData cd)
         {
             cd.FrontendManager.AddTextToCurrentPage("-!- Not connected to server");
@@ -962,6 +984,7 @@ namespace Meebey.Smuxi.Engine
 
                     int nextControlPos = message.IndexOfAny(_IrcControlChars, controlPos + 1);
                     if (nextControlPos != -1) {
+                        // BUG: length is wrong
                         submessage = message.Substring(controlChars.Length, nextControlPos - controlChars.Length);
                         message = message.Substring(nextControlPos);
                     } else {
@@ -1028,97 +1051,6 @@ namespace Meebey.Smuxi.Engine
             }
         }
         
-        /*
-        private FormattedMessage _IrcMessageToFormattedMessage(IrcEventArgs e)
-        {
-            FormattedMessage fmsg = new FormattedMessage();
-            
-            FormattedTextMessage ftmsg;
-            FormattedMessageItem fmsgi;
-            
-            ftmsg = new FormattedTextMessage();
-            ftmsg.Text = "<" + e.Data.Nick + "> ";
-            fmsgi = new FormattedMessageItem(FormattedMessageItemType.Text, ftmsg);
-            fmsg.Items.Add(fmsgi);
-            
-            string msg = e.Data.Message;
-            bool control_char_found;
-            char[] controlCharacters = { (char)2, '*', (char)31, '_', '/'};
-            //string pattern = @"([\u0002\u001F])(.*?)([\u0002\u001F])?";
-            do {
-                ftmsg = new FormattedTextMessage();
-                //Match match = Regex.Match(msg, pattern);
-                int start_pos = msg.IndexOfAny(controlCharacters);
-                
-                if (start_pos != -1) {
-                    control_char_found = true;
-                    char control = msg.Substring(start_pos, 1)[0];
-#if LOG4NET
-                    _Logger.Debug("_IrcMessageToFormattedMessage(): found control character: (char)" + (int)control);
-#endif
-                    // search for end
-                    int end_pos = msg.IndexOf(control, start_pos + 1);
-                    
-                    string submsg;
-                    // don't include the control chars
-                    if (end_pos != -1) {
-#if LOG4NET
-                        _Logger.Debug("end_pos != -1");
-#endif
-                       submsg = msg.Substring(start_pos + 1, end_pos - 1);
-                       msg = msg.Substring(end_pos + 1);
-                    } else {
-#if LOG4NET
-                        _Logger.Debug("end_pos == -1");
-#endif
-                       submsg = msg.Substring(start_pos + 1, msg.Length - 1);
-                       msg = String.Empty;
-                    }
-                    
-                    switch (control) {
-                        case (char)2:
-                        case '*':
-#if LOG4NET
-                            _Logger.Debug("_IrcMessageToFormattedMessage(): found bold control character");
-#endif
-                            ftmsg.Bold = true;
-                            ftmsg.Text = submsg;
-                            break;
-                        case (char)31:
-                        case '_':
-#if LOG4NET
-                            _Logger.Debug("_IrcMessageToFormattedMessage(): found underline control character");
-#endif
-                            ftmsg.Underline = true;
-                            ftmsg.Text = submsg;
-                            break;
-                        case '/':
-#if LOG4NET
-                            _Logger.Debug("_IrcMessageToFormattedMessage(): found italic control character");
-#endif
-                            ftmsg.Italic = true;
-                            ftmsg.Text = submsg;
-                            break;
-                        default:
-#if LOG4NET
-                            _Logger.Error("_IrcMessageToFormattedMessage(): unknown control character: " + control);
-#endif
-                            break;
-                    }
-                } else {
-                    // no control chars
-                    control_char_found = false;
-                    ftmsg.Text = msg;
-                }
-                
-                fmsgi = new FormattedMessageItem(FormattedMessageItemType.Text, ftmsg);
-                fmsg.Items.Add(fmsgi);
-            } while (control_char_found);
-            
-            return fmsg;
-        }
-        */
-        
         private void _OnRawMessage(object sender, IrcEventArgs e)
         {
             Page spage = _Session.GetPage("Server", PageType.Server, NetworkType.Irc, null);
@@ -1171,6 +1103,9 @@ namespace Meebey.Smuxi.Engine
                     ChannelPage cpage = (ChannelPage)_Session.GetPage(
                        chan, PageType.Channel, NetworkType.Irc, this);
                     cpage.IsSynced = true;
+#if LOG4NET
+                    _Logger.Debug("_OnRawMessage(): " + chan + " synced");
+#endif
                     break;
             }
         }
@@ -1348,43 +1283,50 @@ namespace Meebey.Smuxi.Engine
 #if LOG4NET
             _Logger.Debug("_OnNames() e.Channel: "+e.Channel);
 #endif
-            /*
             ChannelPage cpage = (ChannelPage)_Session.GetPage(e.Data.Channel, PageType.Channel, NetworkType.Irc, this);
             if (cpage.IsSynced) {
                 // nothing todo for us
                 return;
             }
-            char[] space = new char[] {' '};
-            bool op;
-            bool voice;
+            
+            //bool op;
+            //bool voice;
             foreach (string user in e.UserList) {
-                if (user.TrimEnd(space).Length == 0) {
+                if (user.TrimEnd(' ').Length == 0) {
                     continue;
                 }
                 string username = user;
                 
-                op = false;
-                voice = false;
+                //op = false;
+                //voice = false;
                 switch (user[0]) {
                     case '@':
-                        op = true;
+                        //op = true;
                         username = user.Substring(1);
                         break;
                     case '+':
-                        voice = true;
+                        //voice = true;
                         username = user.Substring(1);
                         break;
                 }
+                
                 IrcChannelUser icuser = new IrcChannelUser(username);
+                /*
                 if (op) {
                     icuser.IsOp = true;
                 }
                 if (voice) {
                     icuser.IsVoice = true;
                 }
-                _Session.AddUserToChannel(cpage, icuser);
+                */
+                
+                // don't tell any frontend yet that there is new data, SyncPage() will do it
+                //_Session.AddUserToChannel(cpage, icuser);
+                cpage.UnsafeUsers.Add(icuser.Nickname.ToLower(), icuser);
+#if LOG4NET
+                _Logger.Debug("_OnNames() added user: " + username + " to: " + cpage.Name);
+#endif
             }
-            */
         }
         
         private void _OnChannelActiveSynced(object sender, IrcEventArgs e)
@@ -1397,11 +1339,15 @@ namespace Meebey.Smuxi.Engine
             foreach (ChannelUser scuser in schan.Users.Values) {
                 IrcChannelUser icuser = (IrcChannelUser)cpage.GetUser(scuser.Nick);
                 if (icuser == null) {
+                    /*
                     icuser = new IrcChannelUser(scuser.Nick, scuser.Realname,
                                     scuser.Ident, scuser.Host);
                     // don't tell any frontend yet that there is new data, SyncPage() will do it
                     //_Session.AddUserToChannel(cpage, icuser);
                     cpage.UnsafeUsers.Add(icuser.Nickname.ToLower(), icuser);
+                    */
+                    // we should not get here anymore, _OnNames creates the users already
+                    _Logger.Error("_OnChannelActiveSynced(): cpage.GetUser(" + scuser.Nick + ") returned null!");
                 }
                 icuser.Realname = scuser.Realname;
                 icuser.Ident = scuser.Ident;
@@ -1418,6 +1364,7 @@ namespace Meebey.Smuxi.Engine
                     icuser.IsVoice = false;
                 }
                 
+                // don't tell any frontend yet that there is new data, SyncPage() will do it
                 //_Session.UpdateUserInChannel(cpage, icuser, icuser);
             }
             _Session.SyncPage(cpage);

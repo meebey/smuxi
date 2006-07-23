@@ -46,7 +46,8 @@ namespace Meebey.Smuxi.Engine
         static private TextColor _LightGreen  = new TextColor(0x00FF00);
         static private TextColor _Teal        = new TextColor(0x008080);
         static private TextColor _LightCyan   = new TextColor(0xE0FFFF);
-        static private TextColor _LightBlue   = new TextColor(0xADD8E6);
+        //static private TextColor _LightBlue   = new TextColor(0xADD8E6);
+        static private TextColor _LightBlue   = new TextColor(0xA4C8E0);
         static private TextColor _LightPurple = new TextColor(0xEE82EE);
         static private TextColor _Grey        = new TextColor(0x808080);
         static private TextColor _LightGrey   = new TextColor(0xD3D3D3);

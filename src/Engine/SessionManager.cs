@@ -37,17 +37,18 @@ namespace Meebey.Smuxi.Engine
         private static readonly log4net.ILog _Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 #endif
         private Hashtable _Sessions = Hashtable.Synchronized(new Hashtable());
-        private string    _Version;
+        private string    _VersionString;
         
-        public string Version {
+        public string VersionString {
             get {
-                return _Version;
+                return _VersionString;
             }
         }
         
         public SessionManager()
         {
-            _Version = Engine.Version;
+            _VersionString = Engine.Version;
+            //System.Reflection.Assembly.GetCallingAssembly().
             string[] users = (string[])Engine.Config["Engine/Users/Users"];
             if (users == null) {
                 Console.WriteLine("No Engine/Users/*, aborting...\n");

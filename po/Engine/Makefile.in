@@ -1,6 +1,6 @@
 
 # program name, used as textdomain
-GETTEXT_PACKAGE = smuxi-gnome
+GETTEXT_PACKAGE = smuxi-engine
 # space seperated list of languages we have translations for (*.mo)
 CATALOGS = de.mo dk.mo
 
@@ -11,7 +11,7 @@ MSGMERGE = $(INTLTOOL_UPDATE) --gettext-package $(GETTEXT_PACKAGE) --dist
 GENPOT   = $(INTLTOOL_UPDATE) --gettext-package $(GETTEXT_PACKAGE) --pot
 CATOBJEXT = .mo
 
-POTFILES = ../../../src/Frontend-GNOME/ChannelPage.cs  ../../../src/Frontend-GNOME/CrashDialog.cs  ../../../src/Frontend-GNOME/EngineManagerDialog.cs  ../../../src/Frontend-GNOME/Entry.cs  ../../../src/Frontend-GNOME/FirstStartDruid.cs  ../../../src/Frontend-GNOME/GnomeUI.cs  ../../../src/Frontend-GNOME/MainWindow.cs  ../../../src/Frontend-GNOME/NewEngineDruid.cs  ../../../src/Frontend-GNOME/NotImplementedMessageDialog.cs 
+POTFILES =
 
 default: Makefile $(GETTEXT_PACKAGE).pot update-po $(CATALOGS)
 
@@ -69,7 +69,7 @@ POTFILES: POTFILES.in
 Makefile: POTFILES=$(shell cat POTFILES)
 Makefile: Makefile.in POTFILES
 	rm -f $@
-	sed -e "s,POTFILES = ../../../src/Frontend-GNOME/ChannelPage.cs  ../../../src/Frontend-GNOME/CrashDialog.cs  ../../../src/Frontend-GNOME/EngineManagerDialog.cs  ../../../src/Frontend-GNOME/Entry.cs  ../../../src/Frontend-GNOME/FirstStartDruid.cs  ../../../src/Frontend-GNOME/GnomeUI.cs  ../../../src/Frontend-GNOME/MainWindow.cs  ../../../src/Frontend-GNOME/NewEngineDruid.cs  ../../../src/Frontend-GNOME/NotImplementedMessageDialog.cs ,POTFILES = $(POTFILES)," < Makefile.in > $@
+	sed -e "s,POTFILES =,POTFILES = $(POTFILES)," < Makefile.in > $@
 	chmod a-w $@
 
 clean:
