@@ -146,7 +146,7 @@ namespace Meebey.Smuxi.FrontendGnome
             string topic_pos = (string)Frontend.UserConfig["Interface/Notebook/Channel/TopicPosition"];
             if (topic_pos == "top" || topic_pos == "bottom") {
                 Gtk.Entry topic = new Gtk.Entry();
-                topic.Editable = false;
+                topic.IsEditable = false;
                 _TopicEntry = topic;
                 if (topic_pos == "top") {
                     vbox.PackStart(topic, false, false, 2);

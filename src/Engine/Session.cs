@@ -351,6 +351,7 @@ namespace Meebey.Smuxi.Engine
             _Pages.Add(page);
             foreach (FrontendManager fm in _FrontendManagers.Values) {
                 fm.AddPage(page);
+                fm.SyncPage(page);
             }
         }
         

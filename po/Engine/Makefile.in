@@ -66,7 +66,7 @@ POTFILES: POTFILES.in
 	  | sed -e '$$s/\\$$//' > $@
 	chmod a-w $@
 
-Makefile: POTFILES=$(shell cat POTFILES)
+#Makefile: POTFILES=$(shell cat POTFILES)
 Makefile: Makefile.in POTFILES
 	rm -f $@
 	sed -e "s,POTFILES =,POTFILES = $(POTFILES)," < Makefile.in > $@

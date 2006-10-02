@@ -1,4 +1,5 @@
 [encoding: UTF-8]
+../glade/preferences.glade
 ../src/Frontend-GNOME/ChannelPage.cs
 ../src/Frontend-GNOME/CrashDialog.cs
 ../src/Frontend-GNOME/EngineManagerDialog.cs

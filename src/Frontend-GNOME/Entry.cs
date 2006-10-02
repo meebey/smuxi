@@ -182,12 +182,23 @@ namespace Meebey.Smuxi.FrontendGnome
 #endif
 
             int keynumber = (int)e.Event.KeyValue;
+            Gdk.Key key = e.Event.Key;
             if ((e.Event.State & Gdk.ModifierType.ControlMask) != 0) {
                 // ctrl is pressed
-                switch (keynumber) {
-                    case 120: // x
+                switch (key) {
+                    case Gdk.Key.x:
                         if (Frontend.FrontendManager.CurrentPage.PageType == PageType.Server) {
                             Frontend.FrontendManager.NextNetworkManager();
+                        }
+                        break;
+                    case Gdk.Key.Page_Down:
+                        if (Frontend.MainWindow.Notebook.CurrentPage < Frontend.MainWindow.Notebook.NPages) {
+                            Frontend.MainWindow.Notebook.CurrentPage++;
+                        }
+                        break;
+                    case Gdk.Key.Page_Up:
+                        if (Frontend.MainWindow.Notebook.CurrentPage > 0) {
+                            Frontend.MainWindow.Notebook.CurrentPage--;
                         }
                         break;
                 }

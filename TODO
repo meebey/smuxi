@@ -18,6 +18,7 @@ smuxi 0.6 goals:
 - create debian package
 
 Feature Requests:
+- SSL support (TCW)
 - added sed support to correct the last said line, below the sed line
 - support ^G (beep), option to either flash screen, ignore or play audio/system beep (basher)
 - /ignore users, joins/parts (basher)

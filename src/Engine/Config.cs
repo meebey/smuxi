@@ -192,6 +192,8 @@ namespace Meebey.Smuxi.Engine
             Get(prefix+"TabPosition", "top");
             Get(prefix+"BufferLines", 100);
             Get(prefix+"EngineBufferLines", 100);
+            Get(prefix+"StripColors", false);
+            Get(prefix+"StripFormattings", false);
             
             prefix = "Engine/Users/DEFAULT/Interface/Notebook/Channel/";
             Get(prefix+"UserListPosition", "left");
@@ -254,6 +256,8 @@ namespace Meebey.Smuxi.Engine
                 LoadUserEntry(user, "Interface/Notebook/TabPosition", null);
                 LoadUserEntry(user, "Interface/Notebook/BufferLines", null);
                 LoadUserEntry(user, "Interface/Notebook/EngineBufferLines", null);
+                LoadUserEntry(user, "Interface/Notebook/StripColors", null);
+                LoadUserEntry(user, "Interface/Notebook/StripFormattings", null);
                 LoadUserEntry(user, "Interface/Notebook/Channel/UserListPosition", null);
                 LoadUserEntry(user, "Interface/Notebook/Channel/TopicPosition", null);
                 LoadUserEntry(user, "Interface/Entry/CompletionCharacter", null);

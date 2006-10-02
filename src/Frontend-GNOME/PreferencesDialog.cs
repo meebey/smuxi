@@ -76,6 +76,10 @@ namespace Meebey.Smuxi.FrontendGnome
                 (double)(int)Frontend.UserConfig["Interface/Notebook/BufferLines"];
             ((Gtk.SpinButton)_Glade["EngineBufferLinesSpinButton"]).Value =
                 (double)(int)Frontend.UserConfig["Interface/Notebook/EngineBufferLines"];
+            ((Gtk.CheckButton)_Glade["StripColorsCheckButton"]).Active =
+                (bool)Frontend.UserConfig["Interface/Notebook/StripColors"];
+            ((Gtk.CheckButton)_Glade["StripFormattingsCheckButton"]).Active =
+                (bool)Frontend.UserConfig["Interface/Notebook/StripFormattings"];
             switch ((string)Frontend.UserConfig["Interface/Notebook/TabPosition"]) {
                 case "top":
                     ((Gtk.RadioButton)_Glade["TabPositionRadioButtonTop"]).Active = true;
@@ -153,6 +157,10 @@ namespace Meebey.Smuxi.FrontendGnome
                 (int)((Gtk.SpinButton)_Glade["BufferLinesSpinButton"]).Value;
             Frontend.UserConfig["Interface/Notebook/EngineBufferLines"] =
                 (int)((Gtk.SpinButton)_Glade["EngineBufferLinesSpinButton"]).Value;
+            Frontend.UserConfig["Interface/Notebook/StripColors"] =
+                ((Gtk.CheckButton)_Glade["StripColorsCheckButton"]).Active;
+            Frontend.UserConfig["Interface/Notebook/StripFormatting"] =
+                ((Gtk.CheckButton)_Glade["StripFormattingsCheckButton"]).Active;
                 
             string tab_position = null;
             if (((Gtk.RadioButton)_Glade["TabPositionRadioButtonTop"]).Active) {

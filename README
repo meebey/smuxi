@@ -22,9 +22,9 @@ you need:
 
 If you use Debian Sid/Unstable you can do:
 apt-get install mono
-apt-get install libgnome-cil (if you want to use Gnome#)
+apt-get install libgnome2.0-cil (if you want to use Gnome#)
 or
-apt-get install libgtk-cil (if you want to use Gtk#)
+apt-get install libgtk2.0-cil (if you want to use Gtk#)
 
 Windows Installation
 --------------------

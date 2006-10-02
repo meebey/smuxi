@@ -884,8 +884,25 @@ namespace Meebey.Smuxi.Engine
                 fmsgui.Url = 
                 fmsg.Items.Add(
             }
-            */
-            
+        Bold      = 2,
+        Color     = 3,
+        Clear     = 15,
+        Italic    = 26,
+        Underline = 31,
+*/        
+            // strip color and formatting if configured
+            if ((bool)_Session.UserConfig["Interface/Notebook/StripColors"]) {
+                message = Regex.Replace(message, (char)IrcControlCode.Color +
+                            "[0-9]{1,2}(,[0-9]{1,2})?", String.Empty);
+            }
+            if ((bool)_Session.UserConfig["Interface/Notebook/StripFormattings"]) {
+                message = Regex.Replace(message, String.Format("({0}|{1}|{2}|{3})",
+                                                    (char)IrcControlCode.Bold,
+                                                    (char)IrcControlCode.Clear,
+                                                    (char)IrcControlCode.Italic,
+                                                    (char)IrcControlCode.Underline), String.Empty);
+            }
+
             // convert * / _ to mIRC control characters
             string pattern = @"(^|\s)({0}[A-Za-z0-9]+?{0})(\s|$)";
             message = Regex.Replace(message, String.Format(pattern, @"\*"), "$1" + (char)IrcControlCode.Bold + "$2" + (char)IrcControlCode.Bold + "$3");
@@ -1071,8 +1088,12 @@ namespace Meebey.Smuxi.Engine
                     case ReceiveType.Invite:
                     case ReceiveType.List:
                     case ReceiveType.Login:
-                    case ReceiveType.Motd:
                         _Session.AddTextToPage(spage, e.Data.Message);
+                        break;
+                    case ReceiveType.Motd:
+                        FormattedMessage fmsg = new FormattedMessage();
+                        _IrcMessageToFormattedMessage(ref fmsg, e.Data.Message);
+                        _Session.AddMessageToPage(spage, fmsg);
                         break;
                     case ReceiveType.WhoIs:
                         _OnReceiveTypeWhois(e);
@@ -1216,15 +1237,13 @@ namespace Meebey.Smuxi.Engine
         private void _OnChannelMessage(object sender, IrcEventArgs e)
         {
             Page page = _Session.GetPage(e.Data.Channel, PageType.Channel, NetworkType.Irc, this);
-            // add formatting here!
-            //_Session.AddTextToPage(page, "<"+e.Data.Nick+"> "+e.Data.Message);
 
             FormattedMessage fmsg = new FormattedMessage();
             FormattedMessageTextItem fmsgti;
             FormattedMessageItem fmsgi;
             
             fmsgti = new FormattedMessageTextItem();
-            fmsgti.Text = "<" + e.Data.Nick + "> ";
+            fmsgti.Text = String.Format("<{0}> ", e.Data.Nick);
             fmsgi = new FormattedMessageItem(FormattedMessageItemType.Text, fmsgti);
             fmsg.Items.Add(fmsgi);
             
@@ -1236,13 +1255,36 @@ namespace Meebey.Smuxi.Engine
         private void _OnChannelAction(object sender, ActionEventArgs e)
         {
             Page page = _Session.GetPage(e.Data.Channel, PageType.Channel, NetworkType.Irc, this);
-            _Session.AddTextToPage(page, " * " + e.Data.Nick + " " + e.ActionMessage);
+            
+            FormattedMessage fmsg = new FormattedMessage();
+            FormattedMessageTextItem fmsgti;
+            FormattedMessageItem fmsgi;
+            
+            fmsgti = new FormattedMessageTextItem();
+            fmsgti.Text = String.Format(" * {0} ", e.Data.Nick);
+            fmsgi = new FormattedMessageItem(FormattedMessageItemType.Text, fmsgti);
+            fmsg.Items.Add(fmsgi);
+            
+            _IrcMessageToFormattedMessage(ref fmsg, e.ActionMessage);
+            
+            _Session.AddMessageToPage(page, fmsg);
         }
         
         private void _OnChannelNotice(object sender, IrcEventArgs e)
         {
             Page page = _Session.GetPage(e.Data.Channel, PageType.Channel, NetworkType.Irc, this);
-            _Session.AddTextToPage(page, "-" + e.Data.Nick + ":" + e.Data.Channel + "- " + e.Data.Message);
+            FormattedMessage fmsg = new FormattedMessage();
+            FormattedMessageTextItem fmsgti;
+            FormattedMessageItem fmsgi;
+            
+            fmsgti = new FormattedMessageTextItem();
+            fmsgti.Text = String.Format("-{0}:{1}- ", e.Data.Nick, e.Data.Channel);
+            fmsgi = new FormattedMessageItem(FormattedMessageItemType.Text, fmsgti);
+            fmsg.Items.Add(fmsgi);
+            
+            _IrcMessageToFormattedMessage(ref fmsg, e.Data.Message);
+            
+            _Session.AddMessageToPage(page, fmsg);
         }
         
         private void _OnQueryMessage(object sender, IrcEventArgs e)
@@ -1253,8 +1295,18 @@ namespace Meebey.Smuxi.Engine
                 _Session.AddPage(page);
             }
             
-            // add formatting here!
-            _Session.AddTextToPage(page, "<" + e.Data.Nick + "> " + e.Data.Message);
+            FormattedMessage fmsg = new FormattedMessage();
+            FormattedMessageTextItem fmsgti;
+            FormattedMessageItem fmsgi;
+            
+            fmsgti = new FormattedMessageTextItem();
+            fmsgti.Text = String.Format("<{0}> ", e.Data.Nick);
+            fmsgi = new FormattedMessageItem(FormattedMessageItemType.Text, fmsgti);
+            fmsg.Items.Add(fmsgi);
+            
+            _IrcMessageToFormattedMessage(ref fmsg, e.Data.Message);
+            
+            _Session.AddMessageToPage(page, fmsg);
         }
         
         private void _OnQueryAction(object sender, ActionEventArgs e)
@@ -1265,16 +1317,35 @@ namespace Meebey.Smuxi.Engine
                 _Session.AddPage(page);
             }
             
-            _Session.AddTextToPage(page, " * " + e.Data.Nick + " " + e.ActionMessage);
+            FormattedMessage fmsg = new FormattedMessage();
+            FormattedMessageTextItem fmsgti;
+            FormattedMessageItem fmsgi;
+            
+            fmsgti = new FormattedMessageTextItem();
+            fmsgti.Text = String.Format(" * {0} ", e.Data.Nick);
+            fmsgi = new FormattedMessageItem(FormattedMessageItemType.Text, fmsgti);
+            fmsg.Items.Add(fmsgi);
+            
+            _IrcMessageToFormattedMessage(ref fmsg, e.ActionMessage);
+            
+            _Session.AddMessageToPage(page, fmsg);
         }
         
         private void _OnQueryNotice(object sender, IrcEventArgs e)
         {
             Page page = _Session.GetPage("Server", PageType.Server, NetworkType.Irc, null);
-            _Session.AddTextToPage(page,
-                "-" + String.Format(
-                        _("{0} ({1})- {2}"),
-                        e.Data.Nick, e.Data.Ident + "@" + e.Data.Host, e.Data.Message));
+            FormattedMessage fmsg = new FormattedMessage();
+            FormattedMessageTextItem fmsgti;
+            FormattedMessageItem fmsgi;
+            
+            fmsgti = new FormattedMessageTextItem();
+            fmsgti.Text = String.Format("-{0} ({1}@{2})- ", e.Data.Nick, e.Data.Ident, e.Data.Host);
+            fmsgi = new FormattedMessageItem(FormattedMessageItemType.Text, fmsgti);
+            fmsg.Items.Add(fmsgi);
+            
+            _IrcMessageToFormattedMessage(ref fmsg, e.Data.Message);
+            
+            _Session.AddMessageToPage(page, fmsg);
         }
         
         private void _OnJoin(object sender, JoinEventArgs e)
@@ -1500,7 +1571,7 @@ namespace Meebey.Smuxi.Engine
                 _Session.UpdateUserInChannel(cpage, user, user);
 #if LOG4NET
             } else {
-                _Logger.Error("cpage.GetUser(e.Whom) returned null! cpage.Name: "+cpage.Name+" e.Whom: "+e.Whom);
+                _Logger.Error("_OnOp(): cpage.GetUser(e.Whom) returned null! cpage.Name: "+cpage.Name+" e.Whom: "+e.Whom);
 #endif
             }
         }
@@ -1509,8 +1580,14 @@ namespace Meebey.Smuxi.Engine
         {
             ChannelPage cpage = (ChannelPage)_Session.GetPage(e.Channel, PageType.Channel, NetworkType.Irc, this);
             IrcChannelUser user = (IrcChannelUser)cpage.GetUser(e.Whom);
-            user.IsOp = false;
-            _Session.UpdateUserInChannel(cpage, user, user);
+            if (user != null) {
+                user.IsOp = false;
+                _Session.UpdateUserInChannel(cpage, user, user);
+#if LOG4NET
+            } else {
+                _Logger.Error("_OnDeop(): cpage.GetUser(e.Whom) returned null! cpage.Name: "+cpage.Name+" e.Whom: "+e.Whom);
+#endif
+            }
         }
         
         private void _OnVoice(object sender, VoiceEventArgs e)
@@ -1531,8 +1608,14 @@ namespace Meebey.Smuxi.Engine
         {
             ChannelPage cpage = (ChannelPage)_Session.GetPage(e.Channel, PageType.Channel, NetworkType.Irc, this);
             IrcChannelUser user = (IrcChannelUser)cpage.GetUser(e.Whom);
-            user.IsVoice = false;
-            _Session.UpdateUserInChannel(cpage, user, user);
+            if (user != null) {
+                user.IsVoice = false;
+                _Session.UpdateUserInChannel(cpage, user, user);
+#if LOG4NET
+            } else {
+                _Logger.Error("cpage.GetUser(e.Whom) returned null! cpage.Name: "+cpage.Name+" e.Whom: "+e.Whom);
+#endif
+            }
         }
         
         private void _OnModeChange(object sender, IrcEventArgs e)

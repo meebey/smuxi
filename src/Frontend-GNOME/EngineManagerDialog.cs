@@ -32,12 +32,12 @@ using System.Collections.Specialized;
 using System.Runtime.Remoting;
 using System.Runtime.Remoting.Channels;
 using System.Runtime.Remoting.Channels.Http;
-//using System.Runtime.Remoting.Channels.Tcp;
+using System.Runtime.Remoting.Channels.Tcp;
 using System.Runtime.Serialization.Formatters;
 using Mono.Unix;
 using Meebey.Smuxi.Engine;
 using Meebey.Smuxi.Common;
-using Meebey.Smuxi.Channels.Tcp;
+//using Meebey.Smuxi.Channels.Tcp;
 #if CHANNEL_TCPEX
 using TcpEx;
 #endif
@@ -58,13 +58,13 @@ namespace Meebey.Smuxi.FrontendGnome
         public EngineManagerDialog()
         {
             Modal = true;
-            Title = "smuxi - " + Catalog.GetString("Engine Manager");
+            Title = "smuxi - " + _("Engine Manager");
                 
             Gtk.HBox connect_hbox = new Gtk.HBox();
             Gtk.Image connect_image = new Gtk.Image(new Gdk.Pixbuf(null,
                 "connect.png"));
             connect_hbox.Add(connect_image);
-            connect_hbox.Add(new Gtk.Label(Catalog.GetString("_Connect")));
+            connect_hbox.Add(new Gtk.Label(_("_Connect")));
             Gtk.Button connect_button = new Gtk.Button(connect_hbox);
             AddActionWidget(connect_button, 1);
             
@@ -98,7 +98,7 @@ namespace Meebey.Smuxi.FrontendGnome
             string[] engines = (string[])Frontend.FrontendConfig["Engines/Engines"];
             string default_engine = (string)Frontend.FrontendConfig["Engines/Default"];
             int item = 0;
-            cb.AppendText("<" + Catalog.GetString("Local Engine") + ">");
+            cb.AppendText("<" + _("Local Engine") + ">");
             item++;
             foreach (string engine in engines) {
                 cb.AppendText(engine);
@@ -169,7 +169,7 @@ namespace Meebey.Smuxi.FrontendGnome
                 return;
             }
             
-            if (_SelectedEngine == "<" + Catalog.GetString("Local Engine") + ">") {
+            if (_SelectedEngine == "<" + _("Local Engine") + ">") {
                 Frontend.InitLocalEngine();
                 Destroy();
                 return;
@@ -201,9 +201,11 @@ namespace Meebey.Smuxi.FrontendGnome
                                 new BinaryServerFormatterSinkProvider();
                             // required for MS .NET 1.1
                             sprovider.TypeFilterLevel = TypeFilterLevel.Full;
+                            /*
                             // HACK: test for SSH tunnel
                             props["port"] = "7690";
                             props["machineName"] = "localhost";
+                            */
                             //TcpServerChannel schannel = new TcpServerChannel(props, sprovider);
 
                             ChannelServices.RegisterChannel(new TcpChannel(props, cprovider, sprovider));
@@ -256,8 +258,10 @@ namespace Meebey.Smuxi.FrontendGnome
                             connection_url);
                         break;
                     default:
-                        error_msg += String.Format(Catalog.GetString("Unknown channel ({0}), "+
-                                    "only following channel types are supported: "), channel) + "HTTP TCP\n";
+                        error_msg += String.Format(
+                                        _("Unknown channel ({0}), "+
+                                          "only following channel types are supported:"),
+                                        channel) + " HTTP TCP\n";
                         break;
                 }
                 // sessm can be null when there was an unknown channel used
@@ -272,24 +276,28 @@ namespace Meebey.Smuxi.FrontendGnome
                         Frontend.ConnectEngineToGUI();
                         Destroy();
                     } else {
-                        error_msg += Catalog.GetString("Registration at engine failed, "+
-                                    "username and/or password was wrong, please verify them.") + "\n";
+                        error_msg += _("Registration at engine failed, "+
+                                       "username and/or password was wrong, please verify them.") + "\n";
                     }
                 }
             } catch (Exception ex) {
 #if LOG4NET
                 _Logger.Error(ex);
 #endif
-                error_msg += ex.Message+"\n";
+                error_msg += ex.Message + "\n";
                 if (ex.InnerException != null) {
-                    error_msg += " ["+ex.InnerException.Message+"]\n";
+                    error_msg += " [" + ex.InnerException.Message + "]\n";
                 }
             } finally {
                 if (error_msg != null) {
                     string msg;
-                    msg = Catalog.GetString("Error occured while connecting to the engine!") + "\n\n";
-                    msg += (connection_url != null ? "Engine URL: "+connection_url+"\n" : String.Empty);
-                    msg += String.Format(Catalog.GetString("Error: {0}"), error_msg);
+                    msg = _("Error occured while connecting to the engine!") + "\n\n";
+                    if (connection_url != null) {
+                        msg += String.Format(
+                                _("Engine URL: {0}") + "\n",
+                                connection_url);
+                    }
+                    msg += String.Format(_("Error: {0}"), error_msg);
                     
                     Gtk.MessageDialog md = new Gtk.MessageDialog(this, Gtk.DialogFlags.Modal,
                         Gtk.MessageType.Error, Gtk.ButtonsType.Close, msg);
@@ -313,9 +321,9 @@ namespace Meebey.Smuxi.FrontendGnome
 
         private void _OnDeleteButtonPressed()
         {
-            string msg = String.Format(Catalog.GetString(
-                                       "Are you sure you want to delete the engine \"{0}\"?"),
-                                       _SelectedEngine);
+            string msg = String.Format(
+                            _("Are you sure you want to delete the engine \"{0}\"?"),
+                            _SelectedEngine);
             Gtk.MessageDialog md = new Gtk.MessageDialog(this, Gtk.DialogFlags.Modal,
             Gtk.MessageType.Warning, Gtk.ButtonsType.YesNo, msg);
             int res = md.Run();
@@ -368,6 +376,11 @@ namespace Meebey.Smuxi.FrontendGnome
             if (_ComboBox.GetActiveIter(out iter)) {
                _SelectedEngine = (string)_ComboBox.Model.GetValue(iter, 0);
             }
+        }
+        
+        private static string _(string msg)
+        {
+            return Mono.Unix.Catalog.GetString(msg);
         }
     }
 }
