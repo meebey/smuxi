@@ -162,16 +162,16 @@ namespace Meebey.Smuxi.FrontendGnome
 #endif
             
             // with GTK# 2.8 we can do this better, see below
-            /*
+            // GTK# 2.7.1 for MS .NET doesn't support that though.
             if (Type.GetType("Mono.Runtime") == null) {
                 // when we don't run on Mono, we need to initialize glib ourself
                 GLib.Thread.Init();
             }
-            */
+            /*
             if (!GLib.Thread.Supported) {
                 GLib.Thread.Init();
             }
-            
+            */
 #if UI_GNOME
            _Program = new Gnome.Program(Name, Version, Gnome.Modules.UI, args);
 #elif UI_GTK
