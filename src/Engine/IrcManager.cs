@@ -884,12 +884,8 @@ namespace Meebey.Smuxi.Engine
                 fmsgui.Url = 
                 fmsg.Items.Add(
             }
-        Bold      = 2,
-        Color     = 3,
-        Clear     = 15,
-        Italic    = 26,
-        Underline = 31,
-*/        
+			*/
+			
             // strip color and formatting if configured
             if ((bool)_Session.UserConfig["Interface/Notebook/StripColors"]) {
                 message = Regex.Replace(message, (char)IrcControlCode.Color +
@@ -1392,15 +1388,16 @@ namespace Meebey.Smuxi.Engine
                 //voice = false;
                 switch (user[0]) {
                     case '@':
-                        //op = true;
-                        username = user.Substring(1);
-                        break;
                     case '+':
-                        //voice = true;
+                    // RFC VIOLATION
+                    // some IRC network do this and break our nice smuxi...
+                    case '&':
+                    case '%':
+                    case '~':
                         username = user.Substring(1);
                         break;
-                }
-                
+				}
+				
                 IrcChannelUser icuser = new IrcChannelUser(username);
                 /*
                 if (op) {
@@ -1443,17 +1440,8 @@ namespace Meebey.Smuxi.Engine
                 icuser.Realname = scuser.Realname;
                 icuser.Ident = scuser.Ident;
                 icuser.Host = scuser.Host;
-                
-                if (scuser.IsOp) {
-                    icuser.IsOp = true;
-                } else {
-                    icuser.IsOp = false;
-                }
-                if (scuser.IsVoice) {
-                    icuser.IsVoice = true;
-                } else {
-                    icuser.IsVoice = false;
-                }
+                icuser.IsOp = scuser.IsOp;
+                icuser.IsVoice = scuser.IsVoice;
                 
                 // don't tell any frontend yet that there is new data, SyncPage() will do it
                 //_Session.UpdateUserInChannel(cpage, icuser, icuser);

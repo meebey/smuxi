@@ -324,15 +324,38 @@ namespace Meebey.Smuxi.FrontendGnome
                 return;
             } 
             
-            ExecuteCommand(Text);
-            AddToHistory(Text, History.Count - HistoryPosition);
+            if (Text.IndexOf("\n") != -1) {
+            	// seems to be a paste, so let's break it apart
+            	string[] msgParts = Text.Split(new char[] {'\n'});
+            	if (msgParts.Length > 3) {
+            		string msg = String.Format(_("You are going to paste {0} lines, do you want to continue?"),
+            								   msgParts.Length);
+            		Gtk.MessageDialog md = new Gtk.MessageDialog(
+            									Frontend.MainWindow,
+            									Gtk.DialogFlags.Modal,
+            									Gtk.MessageType.Warning,
+            									Gtk.ButtonsType.YesNo,
+            									msg);
+					Gtk.ResponseType res = (Gtk.ResponseType)md.Run();
+					md.Destroy();
+					if (res != Gtk.ResponseType.Yes) {
+	            		Text = String.Empty;
+	            		return;
+					}
+            	}
+            	foreach (string msg in msgParts) {
+		            ExecuteCommand(msg);
+            	}
+            } else {
+	            ExecuteCommand(Text);
+	            AddToHistory(Text, History.Count - HistoryPosition);
+	        }
             Text = String.Empty;
         }
         
         private void _OnClipboardPasted(object sender, EventArgs e)
         {
             Trace.Call(sender, e);
-            
         }
         
         public void ExecuteCommand(string cmd)
@@ -621,5 +644,10 @@ namespace Meebey.Smuxi.FrontendGnome
                 }
             }
         }
+        
+        private static string _(string msg)
+        {
+            return Mono.Unix.Catalog.GetString(msg);
+        }        
     }
 }
