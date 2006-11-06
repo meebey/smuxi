@@ -156,7 +156,7 @@ namespace Meebey.Smuxi.FrontendGnome
 
             _Notebook = new Notebook();
             
-            _Entry = new Entry();
+            _Entry = new Entry(_Notebook);
             
             _ProgressBar = new Gtk.ProgressBar();
             

@@ -29,6 +29,7 @@
 using System;
 using System.Collections;
 using System.Runtime.Remoting;
+using Meebey.Smuxi.Common;
 
 namespace Meebey.Smuxi.Engine
 {
@@ -254,9 +255,18 @@ namespace Meebey.Smuxi.Engine
             }
             
             string user = (string)UserConfig["Connection/Username"];
-            IrcManager ircm = new IrcManager(this);
-            _NetworkManagers.Add(ircm);
+            
+            IrcNetworkManager ircm;
+            if (fm.CurrentNetworkManager != null &&
+                fm.CurrentNetworkManager is IrcNetworkManager &&
+                !fm.CurrentNetworkManager.IsConnected) {
+                ircm = (IrcNetworkManager)fm.CurrentNetworkManager;
+            } else {
+                ircm = new IrcNetworkManager(this);
+                _NetworkManagers.Add(ircm);
+            }
             ircm.Connect(fm, server, port, nicks, user, pass);
+            
             if (fm.CurrentNetworkManager == null) {
                 // only set this new network manager if there was none set
                 fm.CurrentNetworkManager = ircm;
@@ -270,8 +280,8 @@ namespace Meebey.Smuxi.Engine
             if (cd.DataArray.Length >= 2) {
                 string server = cd.DataArray[1];
                 foreach (INetworkManager nm in _NetworkManagers) {
-                    if (nm is IrcManager) {
-                        IrcManager im = (IrcManager)nm;
+                    if (nm is IrcNetworkManager) {
+                        IrcNetworkManager im = (IrcNetworkManager)nm;
                         if (im.Server.ToLower() == server.ToLower()) {
                             im.Disconnect(fm);
                             _NetworkManagers.Remove(im);
@@ -322,8 +332,8 @@ namespace Meebey.Smuxi.Engine
                 if (message == null) {
                     nm.Disconnect(fm);
                 } else {
-                    if (nm is IrcManager) {
-                        IrcManager im = (IrcManager)nm;
+                    if (nm is IrcNetworkManager) {
+                        IrcNetworkManager im = (IrcNetworkManager)nm;
                         im.CommandQuit(cd);
                     } else {
                         nm.Disconnect(fm);
@@ -355,6 +365,46 @@ namespace Meebey.Smuxi.Engine
             }
         }
         
+        public void RemovePage(Page page)
+        {
+#if LOG4NET
+            _Logger.Debug("RemovePage() page.Name: "+page.Name);
+#endif
+            _Pages.Remove(page);
+            foreach (FrontendManager fm in _FrontendManagers.Values) {
+                fm.RemovePage(page);
+            }
+        }
+        
+        public void EnablePage(Page page)
+        {
+        	Trace.Call(page);
+        	
+        	page.IsEnabled = true;
+            foreach (FrontendManager fm in _FrontendManagers.Values) {
+                fm.EnablePage(page);
+            }
+        }
+        
+        public void DisablePage(Page page)
+        {
+        	Trace.Call(page);
+        	
+        	page.IsEnabled = false;
+            foreach (FrontendManager fm in _FrontendManagers.Values) {
+                fm.DisablePage(page);
+            }
+        }
+        
+        public void SyncPage(Page page)
+        {
+        	Trace.Call(page);
+        	
+            foreach (FrontendManager fm in _FrontendManagers.Values) {
+                fm.SyncPage(page);
+            }
+        }
+        
         public void AddTextToPage(Page page, string text)
         {
             AddMessageToPage(page, new FormattedMessage(text));
@@ -372,24 +422,6 @@ namespace Meebey.Smuxi.Engine
             
             foreach (FrontendManager fm in _FrontendManagers.Values) {
                 fm.AddMessageToPage(page, fmsg);
-            }
-        }
-        
-        public void RemovePage(Page page)
-        {
-#if LOG4NET
-            _Logger.Debug("RemovePage() page.Name: "+page.Name);
-#endif
-            _Pages.Remove(page);
-            foreach (FrontendManager fm in _FrontendManagers.Values) {
-                fm.RemovePage(page);
-            }
-        }
-        
-        public void SyncPage(Page page)
-        {
-            foreach (FrontendManager fm in _FrontendManagers.Values) {
-                fm.SyncPage(page);
             }
         }
         

@@ -43,7 +43,8 @@ namespace Meebey.Smuxi.FrontendGnome
         private StringCollection _History = new StringCollection();
         private int              _HistoryPosition = 0;
         private bool             _HistoryChangedLine = false;
-
+        private Notebook         _Notebook;
+        
         public StringCollection History {
             get {
                 return _History;
@@ -68,7 +69,7 @@ namespace Meebey.Smuxi.FrontendGnome
             }
         }
 
-        public Entry()
+        public Entry(Notebook notebook)
         {
             _History.Add(String.Empty);
             
@@ -76,6 +77,9 @@ namespace Meebey.Smuxi.FrontendGnome
             KeyPressEvent += new Gtk.KeyPressEventHandler(_OnKeyPress);
             FocusOutEvent += new Gtk.FocusOutEventHandler(_OnFocusOut);
             ClipboardPasted += new EventHandler(_OnClipboardPasted);
+            
+            _Notebook = notebook;
+            //_Notebook.SwitchPage += new Gtk.SwitchPageHandler(_OnNotebookSwitchPage);
         }
 
         public void UpdateHistoryChangedLine()
@@ -358,6 +362,16 @@ namespace Meebey.Smuxi.FrontendGnome
             Trace.Call(sender, e);
         }
         
+        /*
+        private void _OnNotebookSwitchPage(object sender, Gtk.SwitchPageArgs e)
+        {
+            Trace.Call(sender, e);
+            
+            FrontendGnome.Page page = _Notebook.GetPage((int)e.PageNum);
+            base.IsEditable = page.EnginePage.IsEnabled;
+        }
+        */
+        
         public void ExecuteCommand(string cmd)
         {
             bool handled;
@@ -475,8 +489,8 @@ namespace Meebey.Smuxi.FrontendGnome
                 if (cd.DataArray[1].ToLower() == "close") {
                     name = fm.CurrentPage.Name;
                     if (fm.CurrentPage.PageType != PageType.Server) {
-                        if (fm.CurrentNetworkManager is IrcManager) {
-                            IrcManager ircm = (IrcManager)fm.CurrentNetworkManager; 
+                        if (fm.CurrentNetworkManager is IrcNetworkManager) {
+                            IrcNetworkManager ircm = (IrcNetworkManager)fm.CurrentNetworkManager; 
                             if (fm.CurrentPage.PageType == PageType.Channel) {
                                 ircm.CommandPart(new CommandData(fm, cd.CommandCharacter, "/part "+name));
                             } else {

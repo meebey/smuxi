@@ -36,6 +36,12 @@ namespace Meebey.Smuxi.FrontendGnome
     {
         //private Gtk.Menu     _QueryTabMenu;
     
+        public Page CurrentFrontendPage {
+            get {
+                return (Page)base.CurrentPageWidget;
+            }
+        }
+        
         public Notebook() : base ()
         {
             Scrollable = true;
@@ -80,6 +86,11 @@ namespace Meebey.Smuxi.FrontendGnome
             return null;
         }
         
+        public Page GetPage(int pageNumber)
+        {
+            return (Page)base.GetNthPage(pageNumber);
+        }
+        
         public void RemoveAllPages()
         {
             int npages = NPages;
@@ -94,7 +105,7 @@ namespace Meebey.Smuxi.FrontendGnome
             Trace.Call(sender, e);
 
             // synchronize FrontManager.CurrenPage
-            Page npage = (Page)GetNthPage((int)e.PageNum);
+            Page npage = GetPage((int)e.PageNum);
             if (npage != null) {
                 Frontend.FrontendManager.CurrentPage = npage.EnginePage;
                 if (npage.EnginePage.NetworkManager != null) {

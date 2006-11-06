@@ -108,11 +108,17 @@ namespace Meebey.Smuxi.Common
         
         private static string _ParameterizeQuote(object obj)
         {
-            if (obj is string) {
-                return "'" + (obj == null ? "(null)" : obj) + "'";
+            if (obj == null) {
+            	return "(null)";
             }
             
-            return (obj == null ? "(null)" : obj.ToString());
+            if (obj is string) {
+                return "'" + obj + "'";
+            } else if (obj is ITraceable) {
+            	return "<" + ((ITraceable)obj).ToTraceString() + ">";
+            }
+            
+            return obj.ToString();
         }
 	}
 }

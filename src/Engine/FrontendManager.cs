@@ -173,6 +173,16 @@ namespace Meebey.Smuxi.Engine
             AddTextToPage(CurrentPage, text);
         }
         
+        public void EnablePage(Page page)
+        {
+            _Queue.Enqueue(new UICommandContainer(UICommand.EnablePage, page));
+        }
+        
+        public void DisablePage(Page page)
+        {
+            _Queue.Enqueue(new UICommandContainer(UICommand.DisablePage, page));
+        }
+        
         public void AddMessageToPage(Page page, FormattedMessage fmsg)
         {
             if (_SyncedPages.Contains(page)) {
@@ -275,15 +285,21 @@ namespace Meebey.Smuxi.Engine
                             case UICommand.AddPage:
                                 _UI.AddPage((Page)com.Parameters[0]);
                                 break;
-                            case UICommand.AddMessageToPage:
-                                _UI.AddMessageToPage((Page)com.Parameters[0],
-                                    (FormattedMessage)com.Parameters[1]);
-                                break;
                             case UICommand.RemovePage:
                                 _UI.RemovePage((Page)com.Parameters[0]);
                                 break;
+                            case UICommand.EnablePage:
+                                _UI.EnablePage((Page)com.Parameters[0]);
+                                break;
+                            case UICommand.DisablePage:
+                                _UI.DisablePage((Page)com.Parameters[0]);
+                                break;
                             case UICommand.SyncPage:
                                 _UI.SyncPage((Page)com.Parameters[0]);
+                                break;
+                            case UICommand.AddMessageToPage:
+                                _UI.AddMessageToPage((Page)com.Parameters[0],
+                                    (FormattedMessage)com.Parameters[1]);
                                 break;
                             case UICommand.AddUserToChannel:
                                 _UI.AddUserToChannel((ChannelPage)com.Parameters[0],

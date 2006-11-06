@@ -30,11 +30,13 @@ namespace Meebey.Smuxi.Engine
 {
     public interface IFrontendUI
     {
-        int Version
-        {
+        int Version {
             get;
         }
+        
         void AddPage(Page page);
+        void EnablePage(Page page);
+        void DisablePage(Page page);
         void AddMessageToPage(Page page, FormattedMessage fmsg);
         void RemovePage(Page page);
         void SyncPage(Page page);

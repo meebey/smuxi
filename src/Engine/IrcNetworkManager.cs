@@ -43,7 +43,7 @@ namespace Meebey.Smuxi.Engine
         Underline = 31,
     }
     
-    public class IrcManager : PermanentRemoteObject, INetworkManager
+    public class IrcNetworkManager : PermanentRemoteObject, INetworkManager
     {
 #if LOG4NET
         private static readonly log4net.ILog _Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
@@ -75,7 +75,7 @@ namespace Meebey.Smuxi.Engine
             }
         }
         
-        static IrcManager()
+        static IrcNetworkManager()
         {
             int[] intValues = (int[])Enum.GetValues(typeof(IrcControlCode));
             char[] chars = new char[intValues.Length];
@@ -86,7 +86,7 @@ namespace Meebey.Smuxi.Engine
             _IrcControlChars = chars;
         }
         
-        public IrcManager(Session session)
+        public IrcNetworkManager(Session session)
         {
             _IrcClient = new IrcClient();
             _IrcClient.ActiveChannelSyncing = true;
@@ -442,25 +442,29 @@ namespace Meebey.Smuxi.Engine
         
         private void _Say(CommandData cd, string message)
         {
-            _IrcClient.SendMessage(SendType.Message,
-                cd.FrontendManager.CurrentPage.Name,
-                message);
-            
-            /*
-            _Session.AddTextToPage(cd.FrontendManager.CurrentPage,
-                "<"+_IrcClient.Nickname+"> "+message);
-            */
+            string channelName = cd.FrontendManager.CurrentPage.Name;
             
             FormattedMessage fmsg = new FormattedMessage();
             FormattedMessageTextItem fmsgti;
             FormattedMessageItem fmsgi;
             
             fmsgti = new FormattedMessageTextItem();
-            fmsgti.Text = "<" + _IrcClient.Nickname + "> ";
-            fmsgi = new FormattedMessageItem(FormattedMessageItemType.Text, fmsgti);
-            fmsg.Items.Add(fmsgi);
+            if (cd.FrontendManager.CurrentPage.IsEnabled) {
+                _IrcClient.SendMessage(SendType.Message, channelName, message);
+                
+                fmsgti.Text = "<" + _IrcClient.Nickname + "> ";
+                fmsgi = new FormattedMessageItem(FormattedMessageItemType.Text, fmsgti);
+                fmsg.Items.Add(fmsgi);
             
-            _IrcMessageToFormattedMessage(ref fmsg, message);
+                _IrcMessageToFormattedMessage(ref fmsg, message);
+            } else {
+                fmsgti.Text = "-!- " +
+                    String.Format(
+                        _("Not joined to channel: {0}. Please rejoin."),
+                        channelName);
+                fmsgi = new FormattedMessageItem(FormattedMessageItemType.Text, fmsgti);
+                fmsg.Items.Add(fmsgi);
+            }
             
             _Session.AddMessageToPage(cd.FrontendManager.CurrentPage, fmsg);
         }
@@ -1348,8 +1352,13 @@ namespace Meebey.Smuxi.Engine
         {
             ChannelPage cpage = (ChannelPage)_Session.GetPage(e.Channel, PageType.Channel, NetworkType.Irc, this);
             if (e.Data.Irc.IsMe(e.Who)) {
-                cpage = new ChannelPage(e.Channel, NetworkType.Irc, this);
-                _Session.AddPage(cpage);
+                if (cpage == null) {
+                    cpage = new ChannelPage(e.Channel, NetworkType.Irc, this);
+                    _Session.AddPage(cpage);
+                } else {
+                    // page still exists, so we we only need to enable it
+                    _Session.EnablePage(cpage);
+                }
             } else {
                 // someone else joined, let's add him to the channel page
                 SmartIrc4net.IrcUser siuser = _IrcClient.GetIrcUser(e.Who);
@@ -1474,9 +1483,10 @@ namespace Meebey.Smuxi.Engine
 #endif
             ChannelPage cpage = (ChannelPage)_Session.GetPage(e.Channel, PageType.Channel, NetworkType.Irc, this);
             if (e.Data.Irc.IsMe(e.Whom)) {
-                Page spage = _Session.GetPage("Server", PageType.Server, NetworkType.Irc, null);
-                _Session.RemovePage(cpage);
-                _Session.AddTextToPage(spage,
+                //Page spage = _Session.GetPage("Server", PageType.Server, NetworkType.Irc, null);
+                //_Session.RemovePage(cpage);
+                _Session.DisablePage(cpage);
+                _Session.AddTextToPage(cpage,
                     "-!- " + String.Format(
                                 _("You was kicked from {0} by {1} [{2}]"),
                                 e.Channel, e.Who, e.KickReason));
@@ -1623,7 +1633,7 @@ namespace Meebey.Smuxi.Engine
                     if (e.Data.Nick != null && e.Data.Nick.Length > 0) {
                         who = e.Data.Nick;
                     } else {
-                        who = e.Data.Host;
+                        who = e.Data.From;
                     }
                     Page page = _Session.GetPage(e.Data.Channel, PageType.Channel, NetworkType.Irc, this);
                     _Session.AddTextToPage(page, "-!- " + String.Format(
@@ -1674,7 +1684,8 @@ namespace Meebey.Smuxi.Engine
             
             // now we can delete
             foreach (Page page in removelist) {
-                _Session.RemovePage(page);
+                //_Session.RemovePage(page);
+                _Session.DisablePage(page);
             }
         }
         

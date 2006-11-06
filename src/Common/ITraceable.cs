@@ -1,9 +1,9 @@
 /*
- * $Id$
- * $URL$
- * $Rev$
- * $Author$
- * $Date$
+ * $Id: Page.cs 111 2006-02-20 23:10:45Z meebey $
+ * $URL: svn+ssh://svn.qnetp.net/svn/smuxi/smuxi/trunk/src/Frontend-GtkGnome/Page.cs $
+ * $Rev: 111 $
+ * $Author: meebey $
+ * $Date: 2006-02-21 00:10:45 +0100 (Tue, 21 Feb 2006) $
  *
  * smuxi - Smart MUltipleXed Irc
  *
@@ -26,15 +26,12 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA
  */
 
-namespace Meebey.Smuxi.Engine
+using System;
+
+namespace Meebey.Smuxi.Common
 {
-    public interface INetworkManager
-    {
-        bool IsConnected {
-            get;
-        }
-        bool Command(CommandData cd);
-        void Disconnect(FrontendManager fm);
-        string ToString();
-    }
+	public interface ITraceable
+	{
+		string ToTraceString();
+	}
 }

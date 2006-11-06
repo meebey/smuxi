@@ -229,6 +229,32 @@ namespace Meebey.Smuxi.FrontendGnome
             });
         }
         
+        public void EnablePage(Engine.Page epage)
+        {
+        	Trace.Call(epage);
+
+            MethodBase mb = Trace.GetMethodBase();
+            Gtk.Application.Invoke(delegate {
+            	Trace.Call(mb, epage);
+            	
+        	    Page page = Frontend.MainWindow.Notebook.GetPage(epage);
+        	    page.Enable();
+        	});
+        }
+        
+        public void DisablePage(Engine.Page epage)
+        {
+        	Trace.Call(epage);
+        	
+            MethodBase mb = Trace.GetMethodBase();
+            Gtk.Application.Invoke(delegate {
+            	Trace.Call(mb, epage);
+            	
+            	Page page = Frontend.MainWindow.Notebook.GetPage(epage);
+            	page.Disable();
+        	});
+        }
+        
         public void SyncPage(Engine.Page epage)
         {
             Trace.Call(epage);
@@ -293,9 +319,7 @@ namespace Meebey.Smuxi.FrontendGnome
                         // attach the model again
                         tv.Model = ls;
                    
-                        tv.GetColumn(1).Title = String.Format(
-                                                    _("Users ({0})"),
-                                                    ls.IterNChildren());
+                        cpage.UpdateUsersCount(); 
                        
                         Frontend.MainWindow.ProgressBar.Fraction = 0;
                         status += _(" done.");

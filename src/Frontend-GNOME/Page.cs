@@ -40,7 +40,7 @@ namespace Meebey.Smuxi.FrontendGnome
         protected Gtk.ScrolledWindow _OutputScrolledWindow;
         protected Gtk.TextView       _OutputTextView;
         protected Gtk.TextTagTable   _OutputTextTagTable;
-    
+        
         public Engine.Page EnginePage {
             get {
                 return _EnginePage;
@@ -159,6 +159,14 @@ namespace Meebey.Smuxi.FrontendGnome
             adj.Value = adj.Upper - adj.PageSize;
         }
        
+        public virtual void Enable()
+        {
+        }
+        
+        public virtual void Disable()
+        {
+        }
+        
         private void _OnTextBufferChanged(object sender, EventArgs e)
         {
             Trace.Call(sender, e);

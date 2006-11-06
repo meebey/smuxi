@@ -28,16 +28,18 @@
 
 using System;
 using System.Collections;
+using Meebey.Smuxi.Common;
 
 namespace Meebey.Smuxi.Engine
 {
-    public class Page : PermanentRemoteObject
+    public class Page : PermanentRemoteObject, ITraceable
     {
         private string           _Name;
         private PageType         _PageType;
         private NetworkType      _NetworkType;
         private INetworkManager  _NetworkManager;
-        private ArrayList        _Buffer = new ArrayList();
+        private IList            _Buffer = new ArrayList();
+        private bool             _IsEnabled = true;
         
         public string Name {
             get {
@@ -63,16 +65,25 @@ namespace Meebey.Smuxi.Engine
             }
         }
         
-        public ArrayList Buffer {
+        public IList Buffer {
             get {
-                return (ArrayList)_Buffer.Clone();
+                return (IList) ((ICloneable)_Buffer).Clone();
             }
         }
         
-        public ArrayList UnsafeBuffer {
+        public IList UnsafeBuffer {
             get {
                 return _Buffer;
             }
+        }
+        
+        public virtual bool IsEnabled {
+        	get {
+        		return _IsEnabled;
+        	}
+        	internal set {
+        	    _IsEnabled = value;
+        	}
         }
         
         public Page(string name, PageType ptype, NetworkType ntype, INetworkManager nm)
@@ -81,6 +92,12 @@ namespace Meebey.Smuxi.Engine
             _PageType = ptype;
             _NetworkType = ntype;
             _NetworkManager = nm;
+        }
+        
+        public string ToTraceString()
+        {
+        	string nm = (_NetworkManager != null) ? _NetworkManager.ToString() : "null" ;  
+        	return  nm + "/" + _Name; 
         }
     }
 }

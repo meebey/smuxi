@@ -18,11 +18,13 @@ smuxi 0.6 goals:
 - create debian package
 
 Feature Requests:
+- /close_network /list_network /switch_network [name]
+- enable/disable pages, so the buffer isn't lost during reconnects (Zhila)
+- mark last seen line when switching to other pages (bashes) and a button to jump it
 - SSL support (TCW)
 - added sed support to correct the last said line, below the sed line
 - support ^G (beep), option to either flash screen, ignore or play audio/system beep (basher)
 - /ignore users, joins/parts (basher)
-- multi-line pastes (maybe with a warning like irssi does) -- it looks like it only MSGs the first like and the rest are echoed in the buffer only (basher)
 - /who command (basher)
 - auto-cleanup query windows after X hours/days of inactivity
 - use treeview as alternative to notebook tabs.
@@ -54,7 +56,7 @@ Feature Requests:
 channel (showing it in the tab as pixmap) (Salz)
 
 Done:
-- allow bash-style to complete as much as possible (besfred)
+- multi-line pastes (maybe with a warning like irssi does) -- it looks like it only MSGs the first like and the rest are echoed in the buffer only (basher)- allow bash-style to complete as much as possible (besfred)
 - DEFAULT config writer
 - progress bar during channel sync (besfred)
 - page-up/page-down for scrolling

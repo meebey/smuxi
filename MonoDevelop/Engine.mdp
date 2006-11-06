@@ -20,7 +20,7 @@
     <File name="./Engine/FrontendConfig.cs" subtype="Code" buildaction="Compile" />
     <File name="./Engine/FrontendManager.cs" subtype="Code" buildaction="Compile" />
     <File name="./Engine/IFrontendUI.cs" subtype="Code" buildaction="Compile" />
-    <File name="./Engine/IrcManager.cs" subtype="Code" buildaction="Compile" />
+    <File name="./Engine/IrcNetworkManager.cs" subtype="Code" buildaction="Compile" />
     <File name="./Engine/IrcUser.cs" subtype="Code" buildaction="Compile" />
     <File name="./Engine/NetworkType.cs" subtype="Code" buildaction="Compile" />
     <File name="./Engine/Page.cs" subtype="Code" buildaction="Compile" />

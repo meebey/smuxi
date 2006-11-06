@@ -84,6 +84,16 @@ namespace Meebey.Smuxi.FrontendTest
             Console.WriteLine("Removed page: "+page.Name+" type: "+page.PageType);
         }
         
+        public void EnablePage(Page page)
+        {
+            Trace.Call(page);
+        }
+        
+        public void DisablePage(Page page)
+        {
+            Trace.Call(page);
+        }
+        
         public void SyncPage(Page page)
         {
             Trace.Call(page);

@@ -44,6 +44,20 @@ namespace Meebey.Smuxi.Engine
         private Hashtable _Users = new Hashtable();
         private bool      _IsSynced;
         
+        public override bool IsEnabled {
+            get {
+                return base.IsEnabled;
+            }
+            internal set {
+                base.IsEnabled = value;
+                if (!value) {
+                    _Topic = null;
+                    _Users.Clear();
+                    _IsSynced = false;
+                }
+            }
+        }
+        
         public string Topic {
             get {
                 return _Topic;

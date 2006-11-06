@@ -39,10 +39,11 @@ namespace Meebey.Smuxi.FrontendGnome
 #if LOG4NET
         private static readonly log4net.ILog _Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 #endif
-        private Gtk.TreeView _UserListTreeView;
-        private Gtk.Entry    _TopicEntry;
-        private Gtk.Menu     _TabMenu;
-        private Gtk.Menu     _UserListMenu;
+        private Gtk.TreeView  _UserListTreeView;
+        private Gtk.ListStore _UserListStore;
+        private Gtk.Entry     _TopicEntry;
+        private Gtk.Menu      _TabMenu;
+        private Gtk.Menu      _UserListMenu;
         
         public Gtk.TreeView UserListTreeView {
             get {
@@ -90,7 +91,7 @@ namespace Meebey.Smuxi.FrontendGnome
                statuscolumn.Sizing = Gtk.TreeViewColumnSizing.Autosize;
                
                Gtk.TreeViewColumn usercolumn;
-               usercolumn = new Gtk.TreeViewColumn(Catalog.GetString("Users (0)"), new Gtk.CellRendererText(), "text", 1);
+               usercolumn = new Gtk.TreeViewColumn(String.Empty, new Gtk.CellRendererText(), "text", 1);
                usercolumn.SortColumnId = 1;
                usercolumn.Spacing = 0;
                usercolumn.SortIndicator = false;
@@ -100,6 +101,7 @@ namespace Meebey.Smuxi.FrontendGnome
                liststore.SetSortColumnId(0, Gtk.SortType.Ascending);
                liststore.SetSortFunc(0, new Gtk.TreeIterCompareFunc(_OnStatusSort));
                liststore.SetSortFunc(1, new Gtk.TreeIterCompareFunc(_OnUsersListSort));
+               _UserListStore = liststore;
                
                tv.Model = liststore;
                tv.AppendColumn(statuscolumn);
@@ -188,6 +190,23 @@ namespace Meebey.Smuxi.FrontendGnome
             _LabelEventBox.ButtonPressEvent += new Gtk.ButtonPressEventHandler(_OnTabButtonPress);
         }
         
+        public override void Disable()
+        {
+            base.Disable();
+            
+            _TopicEntry.Text = String.Empty;
+            
+            _UserListStore.Clear();
+            UpdateUsersCount();
+        }
+        
+        public void UpdateUsersCount()
+        {
+            _UserListTreeView.GetColumn(1).Title = String.Format(
+                                                    _("Users") + " ({0})",
+                                                    _UserListStore.IterNChildren());
+        }
+        
         private static int _OnStatusSort(Gtk.TreeModel model, Gtk.TreeIter itera, Gtk.TreeIter iterb)
         {
             //Trace.Call(model, itera, iterb);
@@ -253,8 +272,8 @@ namespace Meebey.Smuxi.FrontendGnome
         {
             Trace.Call(sender, e);
             
-            if (EnginePage.NetworkManager is IrcManager) {
-                IrcManager imanager = (IrcManager)EnginePage.NetworkManager;
+            if (EnginePage.NetworkManager is IrcNetworkManager) {
+                IrcNetworkManager imanager = (IrcNetworkManager)EnginePage.NetworkManager;
                 imanager.CommandPart(new CommandData(Frontend.FrontendManager,
                                             EnginePage.Name));
             }
@@ -266,8 +285,8 @@ namespace Meebey.Smuxi.FrontendGnome
             
             string user = _GetSelectedNode();
             if (user != null) {
-                if (EnginePage.NetworkManager is IrcManager) {
-                    IrcManager imanager = (IrcManager)EnginePage.NetworkManager;
+                if (EnginePage.NetworkManager is IrcNetworkManager) {
+                    IrcNetworkManager imanager = (IrcNetworkManager)EnginePage.NetworkManager;
                     imanager.CommandQuery(new CommandData(Frontend.FrontendManager,
                         user));
                 }
@@ -290,8 +309,8 @@ namespace Meebey.Smuxi.FrontendGnome
             
             string whom = _GetSelectedNode();
             if (whom != null) {
-                if (EnginePage.NetworkManager is IrcManager) {
-                    IrcManager imanager = (IrcManager)EnginePage.NetworkManager;
+                if (EnginePage.NetworkManager is IrcNetworkManager) {
+                    IrcNetworkManager imanager = (IrcNetworkManager)EnginePage.NetworkManager;
                     imanager.CommandOp(new CommandData(Frontend.FrontendManager,
                         whom));
                 }
@@ -304,8 +323,8 @@ namespace Meebey.Smuxi.FrontendGnome
             
             string whom = _GetSelectedNode();
             if (whom != null) {
-                if (EnginePage.NetworkManager is IrcManager) {
-                    IrcManager imanager = (IrcManager)EnginePage.NetworkManager;
+                if (EnginePage.NetworkManager is IrcNetworkManager) {
+                    IrcNetworkManager imanager = (IrcNetworkManager)EnginePage.NetworkManager;
                     imanager.CommandDeop(new CommandData(Frontend.FrontendManager,
                         whom));
                 }
@@ -318,8 +337,8 @@ namespace Meebey.Smuxi.FrontendGnome
             
             string whom = _GetSelectedNode();
             if (whom != null) {
-                if (EnginePage.NetworkManager is IrcManager) {
-                    IrcManager imanager = (IrcManager)EnginePage.NetworkManager;
+                if (EnginePage.NetworkManager is IrcNetworkManager) {
+                    IrcNetworkManager imanager = (IrcNetworkManager)EnginePage.NetworkManager;
                     imanager.CommandVoice(new CommandData(Frontend.FrontendManager,
                         whom));
                 }
@@ -332,8 +351,8 @@ namespace Meebey.Smuxi.FrontendGnome
 
             string whom = _GetSelectedNode();
             if (whom != null) {
-                if (EnginePage.NetworkManager is IrcManager) {
-                    IrcManager imanager = (IrcManager)EnginePage.NetworkManager;
+                if (EnginePage.NetworkManager is IrcNetworkManager) {
+                    IrcNetworkManager imanager = (IrcNetworkManager)EnginePage.NetworkManager;
                     imanager.CommandDevoice(new CommandData(Frontend.FrontendManager,
                         whom));
                 }
@@ -346,8 +365,8 @@ namespace Meebey.Smuxi.FrontendGnome
 
             string victim = _GetSelectedNode();
             if (victim != null) {
-                if (EnginePage.NetworkManager is IrcManager) {
-                    IrcManager imanager = (IrcManager)EnginePage.NetworkManager;
+                if (EnginePage.NetworkManager is IrcNetworkManager) {
+                    IrcNetworkManager imanager = (IrcNetworkManager)EnginePage.NetworkManager;
                     imanager.CommandKick(new CommandData(Frontend.FrontendManager,
                         victim));
                 }
@@ -363,6 +382,11 @@ namespace Meebey.Smuxi.FrontendGnome
             }
             
             return null;
+        }
+        
+        private static string _(string msg)
+        {
+            return Mono.Unix.Catalog.GetString(msg);
         }
     }
 }
