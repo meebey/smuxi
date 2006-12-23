@@ -37,6 +37,9 @@ namespace Meebey.Smuxi.FrontendGnome
 	public class MainWindow : Gtk.Window
 #endif
 	{
+#if LOG4NET
+        private static readonly log4net.ILog _Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+#endif
 #if UI_GNOME
         private Gnome.AppBar     _NetworkStatusbar;
         private Gnome.AppBar     _Statusbar;
@@ -47,6 +50,13 @@ namespace Meebey.Smuxi.FrontendGnome
         private Gtk.ProgressBar  _ProgressBar;
         private Entry            _Entry;
         private Notebook         _Notebook;
+        private bool             _CaretMode;
+        
+        public bool CaretMode {
+            get {
+                return _CaretMode;
+            }
+        }
         
         public Notebook Notebook {
             get {
@@ -96,6 +106,7 @@ namespace Meebey.Smuxi.FrontendGnome
             Destroyed += new EventHandler(_OnDestroyed);
             
             Gtk.AccelGroup agrp = new Gtk.AccelGroup();
+            Gtk.AccelKey   akey;
             AddAccelGroup(agrp);
             
             // Menu
@@ -120,7 +131,21 @@ namespace Meebey.Smuxi.FrontendGnome
             item.Activated += new EventHandler(_OnQuitButtonClicked);
             menu.Append(item);
             
-            // Menu - File
+            // Menu - View
+            menu = new Gtk.Menu();
+            item = new Gtk.MenuItem(_("_View"));
+            item.Submenu = menu;
+            mb.Append(item);
+            
+            item = new Gtk.CheckMenuItem(_("_Caret Mode"));
+            item.Activated += new EventHandler(_OnCaretModeButtonClicked);
+            akey = new Gtk.AccelKey();
+            akey.AccelFlags = Gtk.AccelFlags.Visible;
+            akey.Key = Gdk.Key.F7;
+            item.AddAccelerator("activate", agrp, akey);
+            menu.Append(item);
+            
+            // Menu - Engine
             menu = new Gtk.Menu();
             item = new Gtk.MenuItem(_("_Engine"));
             item.Submenu = menu;
@@ -217,7 +242,14 @@ namespace Meebey.Smuxi.FrontendGnome
         
         private void _OnPreferencesButtonClicked(object obj, EventArgs args)
         {
-            new PreferencesDialog();
+            try {
+                new PreferencesDialog();
+            } catch (Exception e) {
+#if LOG4NET
+                _Logger.Error(e);
+#endif
+                Frontend.ShowException(e);
+            }
         }
         
         private void _OnUseLocalEngineButtonClicked(object obj, EventArgs args)
@@ -252,6 +284,22 @@ namespace Meebey.Smuxi.FrontendGnome
                 Frontend.DisconnectEngineFromGUI();
                 EngineManagerDialog emd = new EngineManagerDialog();
                 emd.Run();
+            }
+        }
+
+        private void _OnCaretModeButtonClicked(object obj, EventArgs args)
+        {
+            _CaretMode = !_CaretMode;
+            
+            for (int i = 0; i < _Notebook.NPages; i++) {
+                Page page = _Notebook.GetPage(i);
+                page.OutputTextView.CursorVisible = _CaretMode;
+            }
+            
+            if (_CaretMode) {
+                _Notebook.CurrentFrontendPage.OutputTextView.HasFocus = true;
+            } else {
+                _Entry.HasFocus = true;
             }
         }
         

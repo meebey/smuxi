@@ -91,6 +91,8 @@ namespace Meebey.Smuxi.Engine
                 m_IsCleanConfig = true;
             }
             
+//            StreamReader sr = File.OpenText(m_IniFilename);
+//            m_IniDocument = new IniDocument(sr);
             m_IniDocument = new IniDocument(m_IniFilename);
 #endif
         }
@@ -244,6 +246,7 @@ namespace Meebey.Smuxi.Engine
                 
                 LoadUserEntry(user, "Connection/Username", String.Empty);
                 LoadUserEntry(user, "Connection/Realname", "http://smuxi.meebey.net");
+                LoadUserEntry(user, "Connection/Encoding", String.Empty);
                 
                 string[] command_list = GetList(prefix+user+"/Connection/OnConnectCommands");
                 if (command_list != null) {
@@ -276,6 +279,7 @@ namespace Meebey.Smuxi.Engine
                     LoadEntry(sprefix+"Hostname", null);
                     LoadEntry(sprefix+"Port", null);
                     LoadEntry(sprefix+"Network", null);
+                    LoadEntry(sprefix+"Encoding", null);
                     LoadEntry(sprefix+"Username", null);
                     LoadEntry(sprefix+"Password", null);
                 }
@@ -300,6 +304,8 @@ namespace Meebey.Smuxi.Engine
 #if CONFIG_GCONF
             _GConf.SuggestSync();
 #elif CONFIG_NINI
+//            StreamWriter sr = File.CreateText(m_IniFilename);
+//            m_IniDocument.Save(sr);
             m_IniDocument.Save(m_IniFilename);
 #endif
         }

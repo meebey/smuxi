@@ -27,14 +27,29 @@
  */
 
 using System;
+using System.Text;
+using System.Collections;
 using Meebey.Smuxi;
 
 namespace Meebey.Smuxi.FrontendGnome
 {
     public class PreferencesDialog
     {
+        private enum Page : int {
+            Connection = 0,
+            Interface,
+            Servers,
+        }
+        
+#if LOG4NET
+        private static readonly log4net.ILog _Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+#endif
         private Gtk.Dialog _Dialog;
         private Glade.XML  _Glade;
+        [Glade.Widget("Notebook")]
+        private Gtk.Notebook _Notebook;
+        [Glade.Widget("MenuTreeView")]
+        private Gtk.TreeView _MenuTreeView;
         
         public PreferencesDialog()
         {
@@ -50,6 +65,36 @@ namespace Meebey.Smuxi.FrontendGnome
             
             ((Gtk.TextView)_Glade["OnConnectCommandsTextView"]).Buffer.Changed += new EventHandler(_OnChanged);
             ((Gtk.TextView)_Glade["OnStartupCommandsTextView"]).Buffer.Changed += new EventHandler(_OnChanged);
+            
+            _Notebook.ShowTabs = false;
+            
+            Gtk.ListStore ls = new Gtk.ListStore(typeof(Page), typeof(Gdk.Pixbuf), typeof(string));
+            ls.AppendValues(Page.Connection, _Dialog.RenderIcon(
+                                                Gtk.Stock.Connect,
+                                                Gtk.IconSize.SmallToolbar, null),
+                            _("Connection"));
+            ls.AppendValues(Page.Interface, _Dialog.RenderIcon(
+                                                Gtk.Stock.SelectFont,
+                                                Gtk.IconSize.SmallToolbar, null),
+                            _("Interface"));
+            
+            ls.AppendValues(Page.Servers, _Dialog.RenderIcon(
+                                                Gtk.Stock.Network,
+                                                Gtk.IconSize.SmallToolbar, null),
+                            _("Servers"));
+            
+            int i = 1;
+            _MenuTreeView.AppendColumn(null, new Gtk.CellRendererPixbuf(), "pixbuf",i++);
+            _MenuTreeView.AppendColumn(null, new Gtk.CellRendererText(), "text", i++);
+            _MenuTreeView.Selection.Changed += new EventHandler(_MenuTreeViewSelectionChanged);
+            _MenuTreeView.Selection.Mode = Gtk.SelectionMode.Browse;
+            _MenuTreeView.Model = ls;
+
+            // select the first item
+            Gtk.TreeIter iter;
+            ls.GetIterFirst(out iter);
+            _MenuTreeView.Selection.SelectIter(iter);
+            
             _Load();
         }
         
@@ -66,7 +111,70 @@ namespace Meebey.Smuxi.FrontendGnome
             ((Gtk.Entry)_Glade["ConnectionRealnameEntry"]).Text  = (string)Frontend.UserConfig["Connection/Realname"];
             string connect_commands = String.Join("\n", (string[])Frontend.UserConfig["Connection/OnConnectCommands"]);
             ((Gtk.TextView)_Glade["OnConnectCommandsTextView"]).Buffer.Text = connect_commands;
-                    
+            
+            string encoding = (string)Frontend.UserConfig["Connection/Encoding"];
+            encoding = encoding.ToUpper();
+            // HACK: stolen from Mono .NET 2.0, .NET 1.1 has no Encoding.GetEncodings()
+            int [] codepages = new int [] {
+                37, 437, 500, 708,
+                850, 852, 855, 857, 858, 860, 861, 862, 863,
+                864, 865, 866, 869, 870, 874, 875,
+                932, 936, 949, 950,
+                1026, 1047, 1140, 1141, 1142, 1143, 1144,
+                1145, 1146, 1147, 1148, 1149,
+                1200, 1201, 1250, 1251, 1252, 1253, 1254,
+                1255, 1256, 1257, 1258,
+                10000, 10079, 12000, 12001,
+                20127, 20273, 20277, 20278, 20280, 20284,
+                20285, 20290, 20297, 20420, 20424, 20866,
+                20871, 21025, 21866, 28591, 28592, 28593,
+                28594, 28595, 28596, 28597, 28598, 28599,
+                28605, 38598,
+                50220, 50221, 50222, 51932, 51949, 54936,
+                57002, 57003, 57004, 57005, 57006, 57007,
+                57008, 57009, 57010, 57011,
+                65000, 65001};
+
+            Gtk.ComboBox cb = (Gtk.ComboBox)_Glade["EncodingComboBox"];
+            // glade might initialize it already!
+            cb.Clear();
+            Gtk.CellRendererText cell = new Gtk.CellRendererText();
+            cb.PackStart(cell, false);
+            cb.AddAttribute(cell, "text", 0);
+            Gtk.ListStore store = new Gtk.ListStore(typeof(string), typeof(string));
+            store.AppendValues(String.Empty);
+            ArrayList encodingList = new ArrayList();
+            for (int i = 0; i < codepages.Length; i++) {
+                try {
+                    Encoding enc = Encoding.GetEncoding(codepages[i]);
+                    string encodingName = enc.BodyName.ToUpper();
+                    if (enc.EncodingName.IndexOf("DOS") != -1 ||
+                        enc.EncodingName.IndexOf("MAC") != -1 ||
+                        enc.EncodingName.IndexOf("EBCDIC") != -1 ||
+                        enc.EncodingName.IndexOf("ISCII") != -1 ||
+                        encodingList.Contains(encodingName)) {
+                        continue;
+                    }
+#if LOG4NET
+                    _Logger.Debug("_Load(): adding encoding: " + encodingName);
+#endif
+                    encodingList.Add(encodingName);
+                    store.AppendValues(enc.EncodingName, encodingName);
+                } catch (NotSupportedException) {
+                }
+            }
+            cb.Model = store;
+            store.SetSortColumnId(0, Gtk.SortType.Ascending);
+            int j = 0;
+            foreach (object[] row in store) {
+                string encodingName = (string) row[1];
+                if (encodingName == encoding) {
+                    cb.Active = j;
+                    break;
+                }
+                j++;
+            }
+            
             // Interface
             ((Gtk.Entry)_Glade["TimestampFormatEntry"]).Text =
                 (string)Frontend.UserConfig["Interface/Notebook/TimestampFormat"];
@@ -149,6 +257,12 @@ namespace Meebey.Smuxi.FrontendGnome
             Frontend.UserConfig["Connection/OnConnectCommands"] = 
                 ((Gtk.TextView)_Glade["OnConnectCommandsTextView"]).Buffer.Text.Split(new char[] {'\n'});
             
+            Gtk.ComboBox cb = (Gtk.ComboBox)_Glade["EncodingComboBox"];
+            Gtk.TreeIter iter;
+            cb.GetActiveIter(out iter);
+            string bodyName = (string) cb.Model.GetValue(iter, 1);
+            Frontend.UserConfig["Connection/Encoding"] = bodyName;
+            
             // Interface
             Frontend.UserConfig["Interface/Notebook/TimestampFormat"] =
                 ((Gtk.Entry)_Glade["TimestampFormatEntry"]).Text;
@@ -216,21 +330,57 @@ namespace Meebey.Smuxi.FrontendGnome
         
         private void _OnOKButtonClicked(object obj, EventArgs args)
         {
-            _Save();
-            Frontend.Config.Load();
-            _Dialog.Destroy();
+            try {
+                _Save();
+                Frontend.Config.Load();
+                _Dialog.Destroy();
+            } catch (Exception e) {
+#if LOG4NET
+                _Logger.Error(e);
+#endif                
+                Frontend.ShowException(e);
+            }
         }
 
         private void _OnApplyButtonClicked(object obj, EventArgs args)
         {
-            _Save();
-            _Load();
-            Frontend.Config.Load();
+            try {
+                _Save();
+                _Load();
+                Frontend.Config.Load();
+            } catch (Exception e) {
+#if LOG4NET
+                _Logger.Error(e);
+#endif                
+                Frontend.ShowException(e);
+            }
         }
 
         private void _OnCancelButtonClicked(object obj, EventArgs args)
         {
-            _Dialog.Destroy();
+            try {
+                _Dialog.Destroy();
+            } catch (Exception e) {
+#if LOG4NET
+                _Logger.Error(e);
+#endif                
+                Frontend.ShowException(e);
+            }
+        }
+        
+        private void _MenuTreeViewSelectionChanged(object sender, EventArgs e)
+        {
+            Gtk.TreeIter iter;
+            Gtk.TreeModel model;
+            if (_MenuTreeView.Selection.GetSelected(out model, out iter)) {
+                Page activePage = (Page)model.GetValue(iter, 0);
+                _Notebook.CurrentPage = (int)activePage;
+            }
+        }
+        
+        private static string _(string msg)
+        {
+            return Mono.Unix.Catalog.GetString(msg);
         }
     }
 }

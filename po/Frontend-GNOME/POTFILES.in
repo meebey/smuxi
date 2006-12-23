@@ -9,3 +9,4 @@
 ../src/Frontend-GNOME/MainWindow.cs
 ../src/Frontend-GNOME/NewEngineDruid.cs
 ../src/Frontend-GNOME/NotImplementedMessageDialog.cs
+../src/Frontend-GNOME/PreferencesDialog.cs

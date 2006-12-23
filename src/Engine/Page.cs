@@ -96,7 +96,7 @@ namespace Meebey.Smuxi.Engine
         
         public string ToTraceString()
         {
-        	string nm = (_NetworkManager != null) ? _NetworkManager.ToString() : "null" ;  
+        	string nm = (_NetworkManager != null) ? _NetworkManager.ToString() : "(null)" ;  
         	return  nm + "/" + _Name; 
         }
     }

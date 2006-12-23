@@ -268,6 +268,11 @@ namespace Meebey.Smuxi.FrontendGnome
                 DisconnectEngineFromGUI();
             }
             */
-        }    
+        }
+        
+        public static void ShowException(Exception e)
+        {
+            new CrashDialog(e);
+        }
     }
 }

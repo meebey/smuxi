@@ -48,7 +48,7 @@ namespace Meebey.Smuxi.Engine
         public SessionManager()
         {
             _VersionString = Engine.Version;
-            //System.Reflection.Assembly.GetCallingAssembly().
+            
             string[] users = (string[])Engine.Config["Engine/Users/Users"];
             if (users == null) {
                 Console.WriteLine("No Engine/Users/*, aborting...\n");

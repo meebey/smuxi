@@ -274,12 +274,16 @@ namespace Meebey.Smuxi.FrontendGnome
             UpdateHistoryChangedLine();
             switch (keynumber) {
                 case 65289: // TAB
-                    // don't loose the focus
                     e.RetVal = true;
-                    
-                    if (Frontend.FrontendManager.CurrentPage is Engine.ChannelPage) {
-                        if (Text.Length > 0) {
-                            _NickCompletion();
+                    if (Frontend.MainWindow.CaretMode) {
+                        // when we are in caret-mode change focus to output textview
+                        Frontend.MainWindow.Notebook.CurrentFrontendPage.OutputTextView.HasFocus = true;
+                    } else {
+                        // don't loose the focus (if we are not in caret-mode)
+                        if (Frontend.FrontendManager.CurrentPage is Engine.ChannelPage) {
+                            if (Text.Length > 0) {
+                                _NickCompletion();
+                            }
                         }
                     }
                     break;
@@ -316,45 +320,54 @@ namespace Meebey.Smuxi.FrontendGnome
         {
             Trace.Call(sender, e);
             
-            HasFocus = true;
-            Position = -1;
+            if (!Frontend.MainWindow.CaretMode) {
+                HasFocus = true;
+                Position = -1;
+            }
         }
     
         private void _OnActivated(object sender, EventArgs e)
         {
             Trace.Call(sender, e);
             
-            if (!(Text.Length > 0)) {
-                return;
-            } 
-            
-            if (Text.IndexOf("\n") != -1) {
-            	// seems to be a paste, so let's break it apart
-            	string[] msgParts = Text.Split(new char[] {'\n'});
-            	if (msgParts.Length > 3) {
-            		string msg = String.Format(_("You are going to paste {0} lines, do you want to continue?"),
-            								   msgParts.Length);
-            		Gtk.MessageDialog md = new Gtk.MessageDialog(
-            									Frontend.MainWindow,
-            									Gtk.DialogFlags.Modal,
-            									Gtk.MessageType.Warning,
-            									Gtk.ButtonsType.YesNo,
-            									msg);
-					Gtk.ResponseType res = (Gtk.ResponseType)md.Run();
-					md.Destroy();
-					if (res != Gtk.ResponseType.Yes) {
-	            		Text = String.Empty;
-	            		return;
-					}
-            	}
-            	foreach (string msg in msgParts) {
-		            ExecuteCommand(msg);
-            	}
-            } else {
-	            ExecuteCommand(Text);
-	            AddToHistory(Text, History.Count - HistoryPosition);
-	        }
-            Text = String.Empty;
+            try {
+                if (!(Text.Length > 0)) {
+                    return;
+                }
+                
+                if (Text.IndexOf("\n") != -1) {
+                	// seems to be a paste, so let's break it apart
+                	string[] msgParts = Text.Split(new char[] {'\n'});
+                	if (msgParts.Length > 3) {
+                		string msg = String.Format(_("You are going to paste {0} lines, do you want to continue?"),
+                								   msgParts.Length);
+                		Gtk.MessageDialog md = new Gtk.MessageDialog(
+                									Frontend.MainWindow,
+                									Gtk.DialogFlags.Modal,
+                									Gtk.MessageType.Warning,
+                									Gtk.ButtonsType.YesNo,
+                									msg);
+    					Gtk.ResponseType res = (Gtk.ResponseType)md.Run();
+    					md.Destroy();
+    					if (res != Gtk.ResponseType.Yes) {
+    	            		Text = String.Empty;
+    	            		return;
+    					}
+                	}
+                	foreach (string msg in msgParts) {
+    		            ExecuteCommand(msg);
+                	}
+                } else {
+    	            ExecuteCommand(Text);
+    	            AddToHistory(Text, History.Count - HistoryPosition);
+    	        }
+                Text = String.Empty;
+            } catch (Exception ex) {
+#if LOG4NET
+                _Logger.Error(ex);
+#endif
+                Frontend.ShowException(ex);
+            }
         }
         
         private void _OnClipboardPasted(object sender, EventArgs e)
@@ -374,6 +387,10 @@ namespace Meebey.Smuxi.FrontendGnome
         
         public void ExecuteCommand(string cmd)
         {
+            if (!(cmd.Length > 0)) {
+                return;
+            }
+            
             bool handled;
             CommandData cd = new CommandData(Frontend.FrontendManager,
                                     (string)Frontend.UserConfig["Interface/Entry/CommandCharacter"],

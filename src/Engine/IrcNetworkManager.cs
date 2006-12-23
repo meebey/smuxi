@@ -27,6 +27,7 @@
  */
 
 using System;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Collections;
@@ -88,6 +89,8 @@ namespace Meebey.Smuxi.Engine
         
         public IrcNetworkManager(Session session)
         {
+            _Session = session;
+            
             _IrcClient = new IrcClient();
             _IrcClient.ActiveChannelSyncing = true;
             _IrcClient.CtcpVersion      = Engine.VersionString;
@@ -118,10 +121,23 @@ namespace Meebey.Smuxi.Engine
             _IrcClient.OnNowAway        += new IrcEventHandler(_OnNowAway);
             _IrcClient.OnCtcpRequest    += new CtcpEventHandler(_OnCtcpRequest);
             _IrcClient.OnCtcpReply      += new CtcpEventHandler(_OnCtcpReply);
-            
             // HACK: so Getty's BNC doesn't get mad!
             //_IrcClient.AutoNickHandling = false;
-            _Session = session;
+            
+            string encodingName = (string) _Session.UserConfig["Connection/Encoding"];
+            if (encodingName != null && encodingName.Length != 0) {
+                try {
+                    _IrcClient.Encoding = Encoding.GetEncoding(encodingName);
+                } catch (Exception ex) {
+#if LOG4NET
+                    _Logger.Warn("IrcNetworkManager(): Error getting encoding for: " +
+                                 encodingName + " falling back to system encoding.", ex);
+#endif
+                    _IrcClient.Encoding = Encoding.Default;
+                }
+            } else {
+                _IrcClient.Encoding = Encoding.Default;
+            }
         }
     
         public void Connect(FrontendManager fm, string server, int port, string[] nicks, string user, string pass)
@@ -241,6 +257,9 @@ namespace Meebey.Smuxi.Engine
             string result = "IRC ";
             if (IsConnected) {
                 result += _IrcClient.Address + ":" + _IrcClient.Port;
+                if (_IrcClient.IsAway) {
+                    result += " (away)";
+                }
             } else {
                 result += _("(not connected)");
             }
@@ -264,9 +283,9 @@ namespace Meebey.Smuxi.Engine
                             CommandJoin(cd);
                             handled = true;
                             break;
-                        case "query":
                         case "msg":
-                            CommandQuery(cd);
+                        case "query":
+                            CommandMessage(cd);
                             handled = true;
                             break;
                         case "notice":
@@ -521,7 +540,29 @@ namespace Meebey.Smuxi.Engine
             }
         }
         
-        public void CommandQuery(CommandData cd)
+        public void CommandMessage(CommandData cd)
+        {
+            if ((cd.DataArray.Length >= 2) &&
+                (cd.DataArray[1].Length >= 1)) {
+                switch (cd.DataArray[1][0]) {
+                    case '#':
+                    case '!':
+                    case '+':
+                    case '&':
+                        // seems to be a channel
+                        CommandMessageChannel(cd);
+                        break;
+                    default:
+                        // seems to be a nick
+                        CommandMessageQuery(cd);
+                        break;
+                }
+            } else {
+                CommandMessageQuery(cd);
+            }
+        }
+        
+        public void CommandMessageQuery(CommandData cd)
         {
             if (cd.DataArray.Length >= 2) {
                 string nickname = cd.DataArray[1];
@@ -538,6 +579,23 @@ namespace Meebey.Smuxi.Engine
                 Page page = _Session.GetPage(nickname, PageType.Query, NetworkType.Irc, this);
                 _IrcClient.SendMessage(SendType.Message, nickname, message);
                 _Session.AddTextToPage(page, "<" + _IrcClient.Nickname + "> " + message);
+            }
+        }
+        
+        public void CommandMessageChannel(CommandData cd)
+        {
+            if (cd.DataArray.Length >= 3) {
+                string message = String.Join(" ", cd.DataArray, 2, cd.DataArray.Length-2);
+                string channelname = cd.DataArray[1];
+                Page page = _Session.GetPage(channelname, PageType.Channel, NetworkType.Irc, this);
+                if (page == null) {
+                    // server page as fallback if we are not joined
+                    page = _Session.GetPage("Server", PageType.Server, NetworkType.Irc, null);
+                }
+                _IrcClient.SendMessage(SendType.Message, channelname, message);
+                _Session.AddTextToPage(page, "<" + _IrcClient.Nickname + ":" + channelname + "> " + message);
+            } else {
+                _NotEnoughParameters(cd);
             }
         }
         
@@ -645,7 +703,7 @@ namespace Meebey.Smuxi.Engine
                     string topic = _IrcClient.GetChannel(channel).Topic;
                     if (topic.Length > 0) {
                         fm.AddTextToPage(page,
-                            "-!- " + String.Format(_("Topic for {0}: {1}"), topic));
+                            "-!- " + String.Format(_("Topic for {0}: {1}"), channel, topic));
                     } else {
                         fm.AddTextToPage(page,
                             "-!- " + String.Format(_("No topic set for {0}"), channel));
@@ -904,10 +962,14 @@ namespace Meebey.Smuxi.Engine
             }
 
             // convert * / _ to mIRC control characters
-            string pattern = @"(^|\s)({0}[A-Za-z0-9]+?{0})(\s|$)";
-            message = Regex.Replace(message, String.Format(pattern, @"\*"), "$1" + (char)IrcControlCode.Bold + "$2" + (char)IrcControlCode.Bold + "$3");
-            message = Regex.Replace(message, String.Format(pattern, "_"), "$1" + (char)IrcControlCode.Underline + "$2" + (char)IrcControlCode.Underline + "$3");
-            message = Regex.Replace(message, String.Format(pattern, "/"), "$1" + (char)IrcControlCode.Italic + "$2" + (char)IrcControlCode.Italic + "$3");
+            string[] messageParts = message.Split(new char[] {' '});
+            string pattern = @"^({0})([A-Za-z0-9]+?){0}$";
+            for (int i = 0; i < messageParts.Length; i++) {
+                messageParts[i] = Regex.Replace(messageParts[i], String.Format(pattern, @"\*"), (char)IrcControlCode.Bold      + "$1$2$1" + (char)IrcControlCode.Bold);
+                messageParts[i] = Regex.Replace(messageParts[i], String.Format(pattern,  "_"),  (char)IrcControlCode.Underline + "$1$2$1" + (char)IrcControlCode.Underline);
+                messageParts[i] = Regex.Replace(messageParts[i], String.Format(pattern,  "/"),  (char)IrcControlCode.Italic    + "$1$2$1" + (char)IrcControlCode.Italic);
+            }
+            message = String.Join(" ", messageParts);
             
             bool bold = false;
             bool underline = false;
@@ -1704,12 +1766,14 @@ namespace Meebey.Smuxi.Engine
         {
             Page spage = _Session.GetPage("Server", PageType.Server, NetworkType.Irc, null);
             _Session.AddTextToPage(spage, "-!- " + _("You are no longer marked as being away"));
+            _Session.UpdateNetworkStatus();
         }
         
         private void _OnNowAway(object sender, IrcEventArgs e)
         {
             Page spage = _Session.GetPage("Server", PageType.Server, NetworkType.Irc, null);
             _Session.AddTextToPage(spage, "-!- " + _("You have been marked as being away"));
+            _Session.UpdateNetworkStatus();
         }
         
         private static string _(string msg)

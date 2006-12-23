@@ -44,6 +44,7 @@ namespace Meebey.Smuxi.Engine
         private ArrayList  _Pages = ArrayList.Synchronized(new ArrayList());
         private Config     _Config;
         private UserConfig _UserConfig;
+        private bool       _OnStartupCommandsProcessed;
         
         public ArrayList NetworkManagers {
             get {
@@ -103,8 +104,9 @@ namespace Meebey.Smuxi.Engine
             FrontendManager fm = new FrontendManager(this, ui);
             _FrontendManagers.Add(uri, fm);
             
-            // if this was the first frontend, we process OnStartupCommands
-            if (_FrontendManagers.Count == 1) {
+            // if this is the first frontend, we process OnStartupCommands
+            if (!_OnStartupCommandsProcessed) {
+                _OnStartupCommandsProcessed = true;
                 foreach (string command in (string[])_UserConfig["OnStartupCommands"]) {
                     if (command.Length == 0) {
                         continue;
@@ -353,11 +355,19 @@ namespace Meebey.Smuxi.Engine
                 "-!- " + String.Format(_("Not enough parameters for {0} command"), cd.Command));
         }
         
+        public void UpdateNetworkStatus()
+        {
+            Trace.Call();
+            
+            foreach (FrontendManager fm in _FrontendManagers.Values) {
+                fm.UpdateNetworkStatus();
+            }
+        }
+        
         public void AddPage(Page page)
         {
-#if LOG4NET
-            _Logger.Debug("AddPage() page.Name: "+page.Name);
-#endif
+        	Trace.Call(page);
+        	
             _Pages.Add(page);
             foreach (FrontendManager fm in _FrontendManagers.Values) {
                 fm.AddPage(page);
@@ -367,9 +377,8 @@ namespace Meebey.Smuxi.Engine
         
         public void RemovePage(Page page)
         {
-#if LOG4NET
-            _Logger.Debug("RemovePage() page.Name: "+page.Name);
-#endif
+        	Trace.Call(page);
+        	
             _Pages.Remove(page);
             foreach (FrontendManager fm in _FrontendManagers.Values) {
                 fm.RemovePage(page);

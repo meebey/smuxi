@@ -38,11 +38,11 @@ namespace Meebey.Smuxi.Common
 #if LOG4NET
         private static readonly log4net.ILog _Logger = log4net.LogManager.GetLogger("TRACE");
 #else
-	    static Trace()
-		{
+        static Trace()
+        {
             TextWriterTraceListener myWriter = new TextWriterTraceListener(Console.Out);
             SysTrace.Listeners.Add(myWriter); 
-		}
+        }
 #endif
 
         [Conditional("TRACE")]

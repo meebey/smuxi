@@ -22,8 +22,8 @@ E: meebey@meebey.net
 W: http://www.meebey.net/
 P: EEF946C8 / ABE1 95E1 50A8 DBE7 809D  3F42 7127 E5AB EEF9 46C8
 D: Project Founder/Leader
-S: Kroonhorst 42
-S: 22549 Hamburg
+S: Brucknerstrasse 29B
+S: 22083 Hamburg
 S: Germany
 
 N: Jeffrey 'the' Mann Richardson
@@ -38,8 +38,7 @@ D: Preferences Abstraction Layer and Backend (patch)
 
 Linux Alpha/Beta Testers:
 Frank Besler			<besfred@gmx.net>	Ubuntu 5.04 (Hoary)
-Tobias Schlitt			<tobias@schlitt.info>	
-Helgi Þormar Þorbjörnsson	<helgi@trance.is>	
+Bjarke Sørensen			<bs@wasd.dk>		Ubuntu 6.10 (Edgy Eft)
 
 Windows Alpha/Beta Testers:
 <noia@wanadoo.nl>

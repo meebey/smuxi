@@ -287,7 +287,7 @@ namespace Meebey.Smuxi.FrontendGnome
             if (user != null) {
                 if (EnginePage.NetworkManager is IrcNetworkManager) {
                     IrcNetworkManager imanager = (IrcNetworkManager)EnginePage.NetworkManager;
-                    imanager.CommandQuery(new CommandData(Frontend.FrontendManager,
+                    imanager.CommandMessageQuery(new CommandData(Frontend.FrontendManager,
                         user));
                 }
             }            
