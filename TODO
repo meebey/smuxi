@@ -14,13 +14,15 @@ smuxi 0.6 goals:
 - irc server manager GUI
 - GUI for swichting current network
 - color settings (background/fonts etc)
-- colors in channels (hightlighting)
+X colors in channels (hightlighting)
 - create debian package
 
 Feature Requests:
+- keep nick (Salz)
+- different identifies per server (Salz)
+- overview page, showing all channels and queries on one page (Salz)
 - /close_network /list_network /switch_network [name]
-- enable/disable pages, so the buffer isn't lost during reconnects (Zhila)
-- mark last seen line when switching to other pages (bashes) and a button to jump it
+- mark last seen line when switching to other pages and a button to jump it (basher)
 - SSL support (TCW)
 - added sed support to correct the last said line, below the sed line
 - support ^G (beep), option to either flash screen, ignore or play audio/system beep (basher)
@@ -28,12 +30,10 @@ Feature Requests:
 - /who command (basher)
 - auto-cleanup query windows after X hours/days of inactivity
 - use treeview as alternative to notebook tabs.
-- show highlight notifications in tray (DevGet)
 - whois in userlist context menu (DevGet)
 - multiple server pages (Zhila)
 - add non-RFC features like HalfOp (Zhila)
 - clickable URLs (DevGet)
-- configurable charset for the IRC connection (iso 8859-1, utf8 etc)
 - nickname completion should ignore special characters (darix)
 - normal nick completion should allow multiple tab press to iterate through possible nicks
 - use RedirectChannel / TcpExChannel
@@ -56,6 +56,9 @@ Feature Requests:
 channel (showing it in the tab as pixmap) (Salz)
 
 Done:
+- configurable charset for the IRC connection (iso 8859-1, utf8 etc)
+- show highlight notifications in tray (DevGet)
+- enable/disable pages, so the buffer isn't lost during reconnects (Zhila)
 - multi-line pastes (maybe with a warning like irssi does) -- it looks like it only MSGs the first like and the rest are echoed in the buffer only (basher)- allow bash-style to complete as much as possible (besfred)
 - DEFAULT config writer
 - progress bar during channel sync (besfred)

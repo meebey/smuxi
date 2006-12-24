@@ -13,7 +13,6 @@ Open:
 - when putting special chars in the config (like UTF-8) the config will loose
   on the next start.
 
-
 Fixed:
 - write away message to query page, not server page
 - "/connect  foo" throws exception
