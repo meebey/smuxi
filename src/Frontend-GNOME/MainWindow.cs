@@ -28,6 +28,7 @@
 
 using System;
 using Mono.Unix;
+using Meebey.Smuxi.Common;
 
 namespace Meebey.Smuxi.FrontendGnome
 {
@@ -104,6 +105,7 @@ namespace Meebey.Smuxi.FrontendGnome
 		{
             SetDefaultSize(800, 600);
             Destroyed += new EventHandler(_OnDestroyed);
+            FocusInEvent += new Gtk.FocusInEventHandler(_OnFocusInEvent);
             
             Gtk.AccelGroup agrp = new Gtk.AccelGroup();
             Gtk.AccelKey   akey;
@@ -234,6 +236,13 @@ namespace Meebey.Smuxi.FrontendGnome
             Frontend.Quit();
         }
     
+        private void _OnFocusInEvent(object obj, EventArgs args)
+        {
+            Trace.Call(obj, args);
+            
+            UrgencyHint = false;
+        }
+        
         private void _OnAboutButtonClicked(object obj, EventArgs args)
         {
             AboutDialog ad = new AboutDialog();

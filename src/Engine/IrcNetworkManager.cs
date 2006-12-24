@@ -29,6 +29,7 @@
 using System;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Globalization;
 using System.Threading;
 using System.Collections;
 using Meebey.SmartIrc4net;
@@ -1088,6 +1089,13 @@ namespace Meebey.Smuxi.Engine
                     submessage = message;
                 }
                 
+                bool highlight = false;
+                if (submessage.IndexOf(_IrcClient.Nickname) != -1) {
+                    highlight = true;
+                    string highlightColor = (string) _Session.UserConfig["Interface/Notebook/Tab/HighlightColor"];
+                    fg_color = new TextColor(Int32.Parse(highlightColor.Substring(1), NumberStyles.HexNumber));
+                }
+                
                 fmsgti = new FormattedMessageTextItem();
                 fmsgti.Text = submessage;
                 fmsgti.Bold = bold;
@@ -1095,7 +1103,7 @@ namespace Meebey.Smuxi.Engine
                 fmsgti.Italic = italic;
                 fmsgti.Color = fg_color;
                 fmsgti.BackgroundColor = bg_color;
-                fmsgi = new FormattedMessageItem(FormattedMessageItemType.Text, fmsgti);
+                fmsgi = new FormattedMessageItem(FormattedMessageItemType.Text, fmsgti, highlight);
                 fmsg.Items.Add(fmsgi);
             } while (controlCharFound);
         }

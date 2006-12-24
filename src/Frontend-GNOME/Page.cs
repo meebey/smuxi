@@ -35,6 +35,7 @@ namespace Meebey.Smuxi.FrontendGnome
     public abstract class Page : Gtk.EventBox
     {
         private   Engine.Page        _EnginePage;
+        private   bool               _HasHighlight;
         protected Gtk.Label          _Label;
         protected Gtk.EventBox       _LabelEventBox;
         protected Gtk.ScrolledWindow _OutputScrolledWindow;
@@ -44,6 +45,15 @@ namespace Meebey.Smuxi.FrontendGnome
         public Engine.Page EnginePage {
             get {
                 return _EnginePage;
+            }
+        }
+        
+        public bool HasHighlight {
+            get {
+                return _HasHighlight;
+            }
+            set {
+                _HasHighlight = value;
             }
         }
 

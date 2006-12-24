@@ -30,11 +30,12 @@ using System;
 
 namespace Meebey.Smuxi.Engine
 {
-    [Serializable()]
+    [Serializable]
     public class FormattedMessageItem
     {
         private FormattedMessageItemType _Type;
         private object                   _Value;
+        private bool                     _IsHighlight;
         
         public FormattedMessageItemType Type {
             get {
@@ -48,10 +49,22 @@ namespace Meebey.Smuxi.Engine
             }
         }
         
+        public bool IsHighlight {
+            get {
+                return _IsHighlight;
+            }
+        }
+        
         public FormattedMessageItem(FormattedMessageItemType type, object value)
         {
             _Type = type;
             _Value = value;
+        }
+
+        public FormattedMessageItem(FormattedMessageItemType type, object value, bool highlight) :
+                               this(type, value)
+        {
+            _IsHighlight = highlight;
         }
     }
 }

@@ -114,8 +114,10 @@ namespace Meebey.Smuxi.FrontendGnome
                 // even when we have no network manager, we still want to update the state
                 Frontend.FrontendManager.UpdateNetworkStatus();
 
-                // lets remove any markup
-                npage.Label.Markup = npage.Label.Text;
+                // lets remove any markup / highlight
+                string color = (string) Frontend.UserConfig["Interface/Notebook/Tab/NoActivityColor"];
+                npage.Label.Markup = String.Format("<span foreground=\"{0}\">{1}</span>", color, npage.Label.Text);
+                npage.HasHighlight = false;
             }
         }
     }

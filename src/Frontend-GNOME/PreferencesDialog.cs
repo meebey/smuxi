@@ -29,6 +29,7 @@
 using System;
 using System.Text;
 using System.Collections;
+using System.Globalization;
 using Meebey.Smuxi;
 
 namespace Meebey.Smuxi.FrontendGnome
@@ -227,7 +228,28 @@ namespace Meebey.Smuxi.FrontendGnome
                     ((Gtk.RadioButton)_Glade["TopicPositionRadioButtonNone"]).Active = true;
                 break;
             }
+            // Interface/Notebook/Tab
+            Gtk.ColorButton colorButton;
+            Gdk.Color color;
+            string colorHexCode;
+            int redColor, greenColor, blueColor;
+            
+            colorButton = (Gtk.ColorButton)_Glade["NoActivityColorButton"];
+            colorHexCode = (string)Frontend.UserConfig["Interface/Notebook/Tab/NoActivityColor"];
+            colorButton.Color = _HexStringToGdkColor(colorHexCode);
 
+            colorButton = (Gtk.ColorButton)_Glade["ActivityColorButton"];
+            colorHexCode = (string)Frontend.UserConfig["Interface/Notebook/Tab/ActivityColor"];
+            colorButton.Color = _HexStringToGdkColor(colorHexCode);
+
+            colorButton = (Gtk.ColorButton)_Glade["ModeColorButton"];
+            colorHexCode = (string)Frontend.UserConfig["Interface/Notebook/Tab/ModeColor"];
+            colorButton.Color = _HexStringToGdkColor(colorHexCode);
+            
+            colorButton = (Gtk.ColorButton)_Glade["HighlightColorButton"];
+            colorHexCode = (string)Frontend.UserConfig["Interface/Notebook/Tab/HighlightColor"];
+            colorButton.Color = _HexStringToGdkColor(colorHexCode);
+            
             // Interface/Entry
             ((Gtk.Entry)_Glade["CompletionCharacterEntry"]).Text =
                 (string)Frontend.UserConfig["Interface/Entry/CompletionCharacter"];
@@ -243,6 +265,8 @@ namespace Meebey.Smuxi.FrontendGnome
         
         private void _Save()
         {
+            string prefix;
+            
             // root
             Frontend.UserConfig["OnStartupCommands"] = 
                 ((Gtk.TextView)_Glade["OnStartupCommandsTextView"]).Buffer.Text.Split(new char[] {'\n'});
@@ -310,6 +334,17 @@ namespace Meebey.Smuxi.FrontendGnome
             }
             Frontend.UserConfig["Interface/Notebook/Channel/TopicPosition"] = topic_position;
             
+            // Interface/Notebook/Tab
+            prefix = "Interface/Notebook/Tab/";
+            Frontend.UserConfig[prefix + "NoActivityColor"] =
+                _GdkColorToHexString(((Gtk.ColorButton)_Glade["NoActivityColorButton"]).Color);
+            Frontend.UserConfig[prefix + "ActivityColor"] =
+                _GdkColorToHexString(((Gtk.ColorButton)_Glade["ActivityColorButton"]).Color);
+            Frontend.UserConfig[prefix + "ModeColor"] =
+                _GdkColorToHexString(((Gtk.ColorButton)_Glade["ModeColorButton"]).Color);
+            Frontend.UserConfig[prefix + "HighlightColor"] =
+                _GdkColorToHexString(((Gtk.ColorButton)_Glade["HighlightColorButton"]).Color);
+            
             // Entry
             Frontend.UserConfig["Interface/Entry/CompletionCharacter"] =
                 ((Gtk.Entry)_Glade["CompletionCharacterEntry"]).Text;
@@ -321,6 +356,24 @@ namespace Meebey.Smuxi.FrontendGnome
                 (int)((Gtk.SpinButton)_Glade["CommandHistorySizeSpinButton"]).Value;
             
             Frontend.Config.Save();
+        }
+        
+        private Gdk.Color _HexStringToGdkColor(string color)
+        {
+            color = color.Substring(1); // remove #
+            int red   = Int16.Parse(color.Substring(0, 2), NumberStyles.HexNumber);
+            int green = Int16.Parse(color.Substring(2, 2), NumberStyles.HexNumber);
+            int blue  = Int16.Parse(color.Substring(4, 2), NumberStyles.HexNumber);
+            return new Gdk.Color((byte)red, (byte)green, (byte)blue);
+        }
+        
+        private string _GdkColorToHexString(Gdk.Color color)
+        {
+            string res = "#";
+            res += ((byte)color.Red).ToString("X2");
+            res += ((byte)color.Green).ToString("X2"); 
+            res += ((byte)color.Blue).ToString("X2");
+            return res;
         }
         
         private void _OnChanged(object obj, EventArgs args)

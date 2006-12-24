@@ -30,7 +30,7 @@ using System;
 
 namespace Meebey.Smuxi.Engine
 {
-    [Serializable()]
+    [Serializable]
     public class FormattedMessageTextItem
     {
         private TextColor _Color;

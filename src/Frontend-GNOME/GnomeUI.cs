@@ -99,11 +99,15 @@ namespace Meebey.Smuxi.FrontendGnome
             Gtk.TextIter iter = page.OutputTextBuffer.EndIter;
             page.OutputTextBuffer.Insert(ref iter, timestamp + " ");
             
-            //string msg = null;
+            bool hasHighlight = false;
             foreach (FormattedMessageItem item in fmsg.Items) {
 #if LOG4NET
                 _Logger.Debug("_AddMessageToPage(): item.Type: " + item.Type);
 #endif
+                if (item.IsHighlight) {
+                    hasHighlight = true;
+                }
+                
                 switch (item.Type) {
                     // TODO: implement other ItemTypes
                     case FormattedMessageItemType.Text:
@@ -160,15 +164,25 @@ namespace Meebey.Smuxi.FrontendGnome
             }
             page.OutputTextBuffer.Insert(ref iter, "\n");
             
-            // we must use pango here!!!
-            //page.OutputTextBuffer.Insert(ref iter, msg);
-            //page.OutputTextBuffer.InsertWithTagsByName(ref iter, msg, "bold");
-
+            if (hasHighlight && !Frontend.MainWindow.HasFocus) {
+                Frontend.MainWindow.UrgencyHint = hasHighlight;
+            }
+            
             if (Frontend.FrontendManager.CurrentPage != epage) {
-                page.Label.Markup = "<span foreground=\"blue\">" + page.Name + "</span>";
+                string color = null;
+                if (hasHighlight) {
+                    page.HasHighlight = hasHighlight;
+                    color = (string) Frontend.UserConfig["Interface/Notebook/Tab/HighlightColor"];
+                } else if (!page.HasHighlight) {
+                    color = (string) Frontend.UserConfig["Interface/Notebook/Tab/ActivityColor"];
+                }
+                
+                if (color != null) {
+                    page.Label.Markup = String.Format("<span foreground=\"{0}\">{1}</span>", color, page.Name);
+                }
             }
         }
-
+        
         private string _GetTextTagName(Page page, TextColor fg_color, TextColor bg_color)
         {
              string hexcode;

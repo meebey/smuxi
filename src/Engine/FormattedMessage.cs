@@ -31,7 +31,7 @@ using System.Collections;
 
 namespace Meebey.Smuxi.Engine
 {
-    [Serializable()]
+    [Serializable]
     public class FormattedMessage
     {
         private DateTime    _Timestamp;

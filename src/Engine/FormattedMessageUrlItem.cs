@@ -38,7 +38,7 @@ namespace Meebey.Smuxi.Engine
         Telnet,
     }
     
-    [Serializable()]
+    [Serializable]
     public class FormattedMessageUrlItem
     {
         private string      _Url;
