@@ -168,7 +168,7 @@ namespace Meebey.Smuxi.FrontendGnome
             Gtk.Adjustment adj = _OutputScrolledWindow.Vadjustment;
             adj.Value = adj.Upper - adj.PageSize;
         }
-       
+        
         public virtual void Enable()
         {
         }

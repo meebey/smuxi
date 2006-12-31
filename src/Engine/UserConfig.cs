@@ -65,7 +65,7 @@ namespace Meebey.Smuxi.Engine
                 }
                 
                 object obj;
-                obj = _Config[_UserPrefix+key];
+                obj = _Config[_UserPrefix + key];
                 if (obj != null) {
                     if (IsCaching) {
                         _Cache.Add(key, obj);
@@ -73,10 +73,10 @@ namespace Meebey.Smuxi.Engine
                     return obj;
                 }
                 
-                obj = _Config[_DefaultPrefix+key];
+                obj = _Config[_DefaultPrefix + key];
 #if LOG4NET
                 if (obj == null) {
-                    _Logger.Error("value is null for key: "+key);
+                    _Logger.Error("get_Item[]: default value is null for key: " + key);
                 }
 #endif
                 if (IsCaching) {

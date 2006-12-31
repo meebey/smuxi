@@ -31,9 +31,8 @@ namespace Meebey.Smuxi.Engine
     public enum NetworkType
     {
         Irc,
-        Jabber,
         Icq,
         Aim,
-        Icom,
+        Jabber,
     }
 }

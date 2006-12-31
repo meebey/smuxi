@@ -55,6 +55,7 @@ namespace Meebey.Smuxi.Engine
                 Environment.Exit(1);
             }
             foreach (string user in users) {
+                // skip local session
                 if (user == "local") {
                     continue;
                 }

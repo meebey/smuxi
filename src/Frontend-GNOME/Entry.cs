@@ -191,7 +191,10 @@ namespace Meebey.Smuxi.FrontendGnome
                 // ctrl is pressed
                 switch (key) {
                     case Gdk.Key.x:
-                        if (Frontend.FrontendManager.CurrentPage.PageType == PageType.Server) {
+                        //if (Frontend.FrontendManager.CurrentPage.PageType == PageType.Server) {
+                        // this does the same with one remoting call less
+                        // (the CurrentPage object is not called)
+                        if (Frontend.MainWindow.Notebook.CurrentFrontendPage.EnginePage.PageType == PageType.Server) {
                             Frontend.FrontendManager.NextNetworkManager();
                         }
                         break;
@@ -258,15 +261,15 @@ namespace Meebey.Smuxi.FrontendGnome
                         break;
                 }
 
-                if ((pagenumber != -1) &&
-                    (Frontend.MainWindow.Notebook.NPages >= pagenumber+1)) {
+                if (pagenumber != -1 &&
+                    Frontend.MainWindow.Notebook.NPages >= pagenumber + 1) {
                     Frontend.MainWindow.Notebook.Page = pagenumber;
                 }
             }
 
-            if (((e.Event.State & Gdk.ModifierType.Mod1Mask) != 0) ||
-                ((e.Event.State & Gdk.ModifierType.ControlMask) != 0) ||
-                ((e.Event.State & Gdk.ModifierType.ShiftMask) != 0)) {
+            if ((e.Event.State & Gdk.ModifierType.Mod1Mask) != 0 ||
+                (e.Event.State & Gdk.ModifierType.ControlMask) != 0 ||
+                (e.Event.State & Gdk.ModifierType.ShiftMask) != 0) {
                 // alt, ctrl or shift pushed, returning
                 return;
             }
@@ -280,7 +283,10 @@ namespace Meebey.Smuxi.FrontendGnome
                         Frontend.MainWindow.Notebook.CurrentFrontendPage.OutputTextView.HasFocus = true;
                     } else {
                         // don't loose the focus (if we are not in caret-mode)
-                        if (Frontend.FrontendManager.CurrentPage is Engine.ChannelPage) {
+                        //if (Frontend.FrontendManager.CurrentPage is Engine.ChannelPage) {
+                        // this does the same with one remoting call less
+                        // (the FrontendManager.CurrentPage object is not called)
+                        if (Frontend.MainWindow.Notebook.CurrentFrontendPage.EnginePage is Engine.ChannelPage) {
                             if (Text.Length > 0) {
                                 _NickCompletion();
                             }
@@ -401,8 +407,9 @@ namespace Meebey.Smuxi.FrontendGnome
             }
             if (!handled) {
                 // we may have no network manager yet
-                if (Frontend.FrontendManager.CurrentNetworkManager != null) {
-                    handled = Frontend.FrontendManager.CurrentNetworkManager.Command(cd);
+                Engine.INetworkManager nm = Frontend.FrontendManager.CurrentNetworkManager;
+                if (nm != null) {
+                    handled = nm.Command(cd);
                 } else {
                     handled = true;
                 }
@@ -461,7 +468,7 @@ namespace Meebey.Smuxi.FrontendGnome
             };
             
             foreach (string line in help) { 
-                cd.FrontendManager.AddTextToCurrentPage("-!- "+line);
+                cd.FrontendManager.AddTextToCurrentPage("-!- " + line);
             }
         }
         

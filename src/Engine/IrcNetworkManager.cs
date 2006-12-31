@@ -60,8 +60,7 @@ namespace Meebey.Smuxi.Engine
         private string          _Password;
         private FrontendManager _FrontendManager;
         
-        public bool IsConnected
-        {
+        public bool IsConnected {
             get {
                 if ((_IrcClient != null) &&
                     (_IrcClient.IsConnected)) {
@@ -71,12 +70,38 @@ namespace Meebey.Smuxi.Engine
             }
         }
         
+        public string Host {
+            get {
+                if (_IrcClient == null) {
+                    return null;
+                }
+                return _IrcClient.Address;
+            }
+        }
+        
+        public int Port {
+            get {
+                if (_IrcClient == null) {
+                    return -1;
+                }
+                return _IrcClient.Port;
+            }
+        }
+        
+        public NetworkType Type {
+            get {
+                return NetworkType.Irc;
+            }
+        }
+        
+        /*
         public string Server {
             get {
                 return _IrcClient.Address;
             }
         }
-        
+        */
+
         static IrcNetworkManager()
         {
             int[] intValues = (int[])Enum.GetValues(typeof(IrcControlCode));
@@ -93,6 +118,9 @@ namespace Meebey.Smuxi.Engine
             _Session = session;
             
             _IrcClient = new IrcClient();
+            _IrcClient.AutoReconnect = true;
+            _IrcClient.AutoRetry = true;
+            _IrcClient.AutoRejoin = true;
             _IrcClient.ActiveChannelSyncing = true;
             _IrcClient.CtcpVersion      = Engine.VersionString;
             _IrcClient.OnRawMessage     += new IrcEventHandler(_OnRawMessage);
@@ -140,7 +168,40 @@ namespace Meebey.Smuxi.Engine
                 _IrcClient.Encoding = Encoding.Default;
             }
         }
-    
+        
+        public void Dispose()
+        {
+            // we can't delete directly, it will break the enumerator, let's use a list
+            ArrayList removelist = new ArrayList();
+            foreach (Page page in _Session.Pages) {
+                if (page.NetworkManager == this) {
+                    removelist.Add(page);
+                }
+            }
+            
+            // now we can delete
+            foreach (Page page in removelist) {
+                _Session.RemovePage(page);
+            }
+        }
+        
+        public override string ToString()
+        {
+            string result = "IRC ";
+            if (_IrcClient != null) {
+                result += _IrcClient.Address + ":" + _IrcClient.Port;
+            }
+            
+            if (IsConnected) {
+                if (_IrcClient.IsAway) {
+                    result += " (" + _("away") + ")";
+                }
+            } else {
+                result += " (" + _("not connected") + ")";
+            }
+            return result;
+        }
+        
         public void Connect(FrontendManager fm, string server, int port, string[] nicks, string user, string pass)
         {
             _FrontendManager = fm;
@@ -191,10 +252,7 @@ namespace Meebey.Smuxi.Engine
                 }
                 
                 try {
-                    // TODO: we must handle this somehow
-                    //while (true) {
-                        _IrcClient.Listen();
-                    //}
+                    _IrcClient.Listen();
                 } catch (Exception e) {
                     _Logger.Error(e);
                     throw;
@@ -252,20 +310,6 @@ namespace Meebey.Smuxi.Engine
             fm.UpdateNetworkStatus();
         }
         */
-        
-        public override string ToString()
-        {
-            string result = "IRC ";
-            if (IsConnected) {
-                result += _IrcClient.Address + ":" + _IrcClient.Port;
-                if (_IrcClient.IsAway) {
-                    result += " (away)";
-                }
-            } else {
-                result += _("(not connected)");
-            }
-            return result;
-        }
         
         public bool Command(CommandData cd)
         {
@@ -468,16 +512,28 @@ namespace Meebey.Smuxi.Engine
             FormattedMessageTextItem fmsgti;
             FormattedMessageItem fmsgi;
             
-            fmsgti = new FormattedMessageTextItem();
             if (cd.FrontendManager.CurrentPage.IsEnabled) {
                 _IrcClient.SendMessage(SendType.Message, channelName, message);
                 
-                fmsgti.Text = "<" + _IrcClient.Nickname + "> ";
+                fmsgti = new FormattedMessageTextItem();
+                fmsgti.Text = "<";
                 fmsgi = new FormattedMessageItem(FormattedMessageItemType.Text, fmsgti);
                 fmsg.Items.Add(fmsgi);
             
+                fmsgti = new FormattedMessageTextItem();
+                fmsgti.Text = _IrcClient.Nickname;
+                fmsgti.Color = IrcTextColor.Blue;
+                fmsgi = new FormattedMessageItem(FormattedMessageItemType.Text, fmsgti);
+                fmsg.Items.Add(fmsgi);
+                
+                fmsgti = new FormattedMessageTextItem();
+                fmsgti.Text = "> ";
+                fmsgi = new FormattedMessageItem(FormattedMessageItemType.Text, fmsgti);
+                fmsg.Items.Add(fmsgi);
+                
                 _IrcMessageToFormattedMessage(ref fmsg, message);
             } else {
+                fmsgti = new FormattedMessageTextItem();
                 fmsgti.Text = "-!- " +
                     String.Format(
                         _("Not joined to channel: {0}. Please rejoin."),
@@ -1754,7 +1810,6 @@ namespace Meebey.Smuxi.Engine
             
             // now we can delete
             foreach (Page page in removelist) {
-                //_Session.RemovePage(page);
                 _Session.DisablePage(page);
             }
         }

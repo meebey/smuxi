@@ -31,7 +31,10 @@ using Meebey.Smuxi.Common;
 
 namespace Meebey.Smuxi.Engine
 {
-    public class CommandData : PermanentRemoteObject
+    [Serializable]
+    public class CommandData // : PermanentRemoteObject
+    // don't need this object by refences, causes only unnessary traffic from
+    // engine to frontend
     {
 #if LOG4NET
         private static readonly log4net.ILog _Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);

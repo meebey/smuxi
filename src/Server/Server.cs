@@ -56,11 +56,15 @@ namespace Meebey.Smuxi.Server
             string channel = (string)Engine.Engine.Config["Server/Channel"];
             string formatter = (string)Engine.Engine.Config["Server/Formatter"];
             string host = (string)Engine.Engine.Config["Server/Host"];
+            string bindAddress = (string)Engine.Engine.Config["Server/BindAddress"];
             int port = (int)Engine.Engine.Config["Server/Port"];
             IDictionary props = new Hashtable();
             props["port"] = port.ToString();
             if (host != null) {
                 props["machineName"] = host;
+            }
+            if (bindAddress != null) {
+                props["bindTo"] = bindAddress;
             }
             switch (channel) {
                 case "TCP":

@@ -29,6 +29,7 @@
 using System;
 using System.Collections;
 using System.Threading;
+using Meebey.Smuxi.Common;
 
 namespace Meebey.Smuxi.Engine
 {
@@ -136,16 +137,16 @@ namespace Meebey.Smuxi.Engine
         public void NextNetworkManager()
         {
             if (!(_Session.NetworkManagers.Count > 0)) {
-                return;
-            }
-            
-            int pos = _Session.NetworkManagers.IndexOf(CurrentNetworkManager);
-            if (pos < _Session.NetworkManagers.Count-1) {
-                pos++;
+                CurrentNetworkManager = null;
             } else {
-                pos = 0;
+                int pos = _Session.NetworkManagers.IndexOf(CurrentNetworkManager);
+                if (pos < _Session.NetworkManagers.Count - 1) {
+                    pos++;
+                } else {
+                    pos = 0;
+                }
+                CurrentNetworkManager = (INetworkManager)_Session.NetworkManagers[pos];
             }
-            CurrentNetworkManager = (INetworkManager)_Session.NetworkManagers[pos];
             UpdateNetworkStatus();
         }
         
@@ -279,8 +280,8 @@ namespace Meebey.Smuxi.Engine
         {
             while (true) {
                 if (_Queue.Count > 0) {
-                    UICommandContainer com = (UICommandContainer)_Queue.Dequeue();
                     try {
+                        UICommandContainer com = (UICommandContainer)_Queue.Dequeue();
                         switch (com.Command) {
                             case UICommand.AddPage:
                                 _UI.AddPage((Page)com.Parameters[0]);
@@ -348,6 +349,7 @@ namespace Meebey.Smuxi.Engine
                         return;
                     }
                 } else {
+                    // no better way?
                     Thread.Sleep(10);
                 }
             }
@@ -355,8 +357,16 @@ namespace Meebey.Smuxi.Engine
         
         private void _OnConfigChanged(object sender, EventArgs e)
         {
-            if (_ConfigChangedDelegate != null) {
-                _ConfigChangedDelegate();
+            Trace.Call(sender, e);
+            
+            try {
+                if (_ConfigChangedDelegate != null) {
+                    _ConfigChangedDelegate();
+                }
+            } catch (Exception ex) {
+#if LOG4NET
+                _Logger.Error(ex);
+#endif
             }
         }
         

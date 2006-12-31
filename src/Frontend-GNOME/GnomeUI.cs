@@ -164,8 +164,12 @@ namespace Meebey.Smuxi.FrontendGnome
             }
             page.OutputTextBuffer.Insert(ref iter, "\n");
             
-            if (hasHighlight && !Frontend.MainWindow.HasFocus) {
-                Frontend.MainWindow.UrgencyHint = hasHighlight;
+            if (hasHighlight && !Frontend.MainWindow.HasToplevelFocus) {
+                Frontend.MainWindow.UrgencyHint = true;
+                if (Frontend.UserConfig["Sound/BeepOnHighlight"] != null &&
+                    (bool)Frontend.UserConfig["Sound/BeepOnHighlight"]) {
+                    Frontend.MainWindow.Display.Beep();
+                }
             }
             
             if (Frontend.FrontendManager.CurrentPage != epage) {
@@ -366,7 +370,9 @@ namespace Meebey.Smuxi.FrontendGnome
                     }
                 }
                 
+                // BUG: doesn't work?!?
                 page.ScrollToEnd();
+                
                 // maybe a BUG here? should be tell the FrontendManager before we sync?
                 Frontend.FrontendManager.AddSyncedPage(epage);
 #if LOG4NET

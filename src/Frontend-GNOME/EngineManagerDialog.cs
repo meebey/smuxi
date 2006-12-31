@@ -179,6 +179,7 @@ namespace Meebey.Smuxi.FrontendGnome
             string username = (string)Frontend.FrontendConfig["Engines/"+engine+"/Username"];
             string password = (string)Frontend.FrontendConfig["Engines/"+engine+"/Password"];
             string hostname = (string)Frontend.FrontendConfig["Engines/"+engine+"/Hostname"];
+            string bindAddress = (string)Frontend.FrontendConfig["Engines/"+engine+"/BindAddress"];
             int port = (int)Frontend.FrontendConfig["Engines/"+engine+"/Port"];
             //string formatter = (string)FrontendConfig["Engines/"+engine+"/Formatter"];
             string channel = (string)Frontend.FrontendConfig["Engines/"+engine+"/Channel"];
@@ -201,6 +202,7 @@ namespace Meebey.Smuxi.FrontendGnome
                                 new BinaryServerFormatterSinkProvider();
                             // required for MS .NET 1.1
                             sprovider.TypeFilterLevel = TypeFilterLevel.Full;
+                            
                             /*
                             // HACK: test for SSH tunnel
                             props["port"] = "7690";
@@ -208,6 +210,9 @@ namespace Meebey.Smuxi.FrontendGnome
                             */
                             //TcpServerChannel schannel = new TcpServerChannel(props, sprovider);
 
+                            if (bindAddress != null) {
+                                props["machineName"] = bindAddress;
+                            }
                             ChannelServices.RegisterChannel(new TcpChannel(props, cprovider, sprovider));
                         }
                         connection_url = "tcp://"+hostname+":"+port+"/SessionManager"; 

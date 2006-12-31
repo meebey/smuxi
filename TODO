@@ -21,7 +21,6 @@ Feature Requests:
 - keep nick (Salz)
 - different identifies per server (Salz)
 - overview page, showing all channels and queries on one page (Salz)
-- /close_network /list_network /switch_network [name]
 - mark last seen line when switching to other pages and a button to jump it (basher)
 - SSL support (TCW)
 - added sed support to correct the last said line, below the sed line
@@ -56,6 +55,7 @@ Feature Requests:
 channel (showing it in the tab as pixmap) (Salz)
 
 Done:
+- /network list /network close [name] /network switch [name]
 - configurable charset for the IRC connection (iso 8859-1, utf8 etc)
 - show highlight notifications in tray (DevGet)
 - enable/disable pages, so the buffer isn't lost during reconnects (Zhila)

@@ -26,10 +26,21 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA
  */
 
+using System;
+
 namespace Meebey.Smuxi.Engine
 {
-    public interface INetworkManager
+    public interface INetworkManager : IDisposable
     {
+        NetworkType Type {
+            get;
+        }
+        string Host {
+            get;
+        }
+        int Port {
+            get;
+        }
         bool IsConnected {
             get;
         }

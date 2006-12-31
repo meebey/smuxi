@@ -106,7 +106,7 @@ namespace Meebey.Smuxi.FrontendGnome
             SetDefaultSize(800, 600);
             Destroyed += new EventHandler(_OnDestroyed);
             FocusInEvent += new Gtk.FocusInEventHandler(_OnFocusInEvent);
-            
+             
             Gtk.AccelGroup agrp = new Gtk.AccelGroup();
             Gtk.AccelKey   akey;
             AddAccelGroup(agrp);

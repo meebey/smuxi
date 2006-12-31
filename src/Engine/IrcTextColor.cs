@@ -30,7 +30,7 @@ using System;
 
 namespace Meebey.Smuxi.Engine
 {
-    [Serializable()]
+    [Serializable]
     public class IrcTextColor
     {
         static private TextColor _Normal      = new TextColor(-1);

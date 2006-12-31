@@ -166,27 +166,31 @@ namespace Meebey.Smuxi.Engine
             if (cd.IsCommand) {
                 switch (cd.Command) {
                     case "help":
-                        _CommandHelp(cd);
+                        CommandHelp(cd);
                         break;
                     case "server":
                     case "connect":
-                        _CommandConnect(cd);
+                        CommandConnect(cd);
                         handled = true;
                         break;
                     case "disconnect":
-                        _CommandDisconnect(cd);
+                        CommandDisconnect(cd);
                         handled = true;
                         break;
                     case "reconnect":
-                        _CommandReconnect(cd);
+                        CommandReconnect(cd);
+                        handled = true;
+                        break;
+                    case "network":
+                        CommandNetwork(cd);
                         handled = true;
                         break;
                     case "config":
-                        _CommandConfig(cd);
+                        CommandConfig(cd);
                         handled = true;
                         break;
                     case "quit":
-                        _CommandQuit(cd);
+                        CommandQuit(cd);
                         handled = true;
                         break;
                 }
@@ -201,13 +205,16 @@ namespace Meebey.Smuxi.Engine
             return handled;
         }
         
-        private void _CommandHelp(CommandData cd)
+        public void CommandHelp(CommandData cd)
         {
             string[] help = {
             "[Engine Commands]",
             "help",
             "connect/server [server] [port] [password] [nick]",
             "disconnect",
+            "network list",
+            "network close [server]",
+            "network switch [server]",
             "config (save|load)",
             "quit [quitmessage]",
             };
@@ -217,7 +224,7 @@ namespace Meebey.Smuxi.Engine
             }
         }
         
-        private void _CommandConnect(CommandData cd)
+        public void CommandConnect(CommandData cd)
         {
             FrontendManager fm = cd.FrontendManager;
             
@@ -259,36 +266,25 @@ namespace Meebey.Smuxi.Engine
             string user = (string)UserConfig["Connection/Username"];
             
             IrcNetworkManager ircm;
-            if (fm.CurrentNetworkManager != null &&
-                fm.CurrentNetworkManager is IrcNetworkManager &&
-                !fm.CurrentNetworkManager.IsConnected) {
-                ircm = (IrcNetworkManager)fm.CurrentNetworkManager;
-            } else {
-                ircm = new IrcNetworkManager(this);
-                _NetworkManagers.Add(ircm);
-            }
+            ircm = new IrcNetworkManager(this);
             ircm.Connect(fm, server, port, nicks, user, pass);
+            _NetworkManagers.Add(ircm);
             
-            if (fm.CurrentNetworkManager == null) {
-                // only set this new network manager if there was none set
-                fm.CurrentNetworkManager = ircm;
-                fm.UpdateNetworkStatus();
-            }
+            // set this as current network manager
+            fm.CurrentNetworkManager = ircm;
+            fm.UpdateNetworkStatus();
         }
         
-        private void _CommandDisconnect(CommandData cd)
+        public void CommandDisconnect(CommandData cd)
         {
             FrontendManager fm = cd.FrontendManager;
             if (cd.DataArray.Length >= 2) {
                 string server = cd.DataArray[1];
                 foreach (INetworkManager nm in _NetworkManagers) {
-                    if (nm is IrcNetworkManager) {
-                        IrcNetworkManager im = (IrcNetworkManager)nm;
-                        if (im.Server.ToLower() == server.ToLower()) {
-                            im.Disconnect(fm);
-                            _NetworkManagers.Remove(im);
-                            break;
-                        }
+                    if (nm.Host.ToLower() == server.ToLower()) {
+                        nm.Disconnect(fm);
+                        _NetworkManagers.Remove(nm);
+                        return;
                     }
                 }
                 fm.AddTextToCurrentPage("-!- " + String.Format(
@@ -300,33 +296,11 @@ namespace Meebey.Smuxi.Engine
             }
         }
         
-        private void _CommandReconnect(CommandData cd)
+        public void CommandReconnect(CommandData cd)
         {
         }
         
-        private void _CommandConfig(CommandData cd)
-        {
-            FrontendManager fm = cd.FrontendManager;
-            if (cd.DataArray.Length >= 2) {
-                switch (cd.DataArray[1].ToLower()) {
-                    case "load":
-                        _Config.Load();
-                        fm.AddTextToCurrentPage("-!- Configuration reloaded");
-                        break;
-                    case "save":
-                        _Config.Save();
-                        fm.AddTextToCurrentPage("-!- Configuration saved");
-                        break;
-                    default:
-                        fm.AddTextToCurrentPage("-!- wrong paramater for config, use load or save");
-                        break;
-                }
-            } else {
-                _NotEnoughParameters(cd);
-            }
-        }
-        
-        private void _CommandQuit(CommandData cd)
+        public void CommandQuit(CommandData cd)
         {
             FrontendManager fm = cd.FrontendManager;
             string message = cd.Parameter;
@@ -344,6 +318,118 @@ namespace Meebey.Smuxi.Engine
             }
         }
         
+        public void CommandConfig(CommandData cd)
+        {
+            FrontendManager fm = cd.FrontendManager;
+            if (cd.DataArray.Length >= 2) {
+                switch (cd.DataArray[1].ToLower()) {
+                    case "load":
+                        _Config.Load();
+                        fm.AddTextToCurrentPage("-!- " +
+                            _("Configuration reloaded"));
+                        break;
+                    case "save":
+                        _Config.Save();
+                        fm.AddTextToCurrentPage("-!- " +
+                            _("Configuration saved"));
+                        break;
+                    default:
+                        fm.AddTextToCurrentPage("-!- " + 
+                            _("Invalid paramater for config, use load or save"));
+                        break;
+                }
+            } else {
+                _NotEnoughParameters(cd);
+            }
+        }
+        
+        public void CommandNetwork(CommandData cd)
+        {
+            FrontendManager fm = cd.FrontendManager;
+            if (cd.DataArray.Length >= 2) {
+                switch (cd.DataArray[1].ToLower()) {
+                    case "list":
+                        _CommandNetworkList(cd);
+                        break;
+                    case "switch":
+                        _CommandNetworkSwitch(cd);
+                        break;
+                    case "close":
+                        _CommandNetworkClose(cd);
+                        break;
+                    default:
+                        fm.AddTextToCurrentPage("-!- " + 
+                            _("Invalid paramater for network, use list, switch or close"));
+                        break;
+                }
+            } else {
+                _NotEnoughParameters(cd);
+            }
+        }
+        
+        private void _CommandNetworkList(CommandData cd)
+        {
+            FrontendManager fm = cd.FrontendManager;
+            fm.AddTextToCurrentPage("-!- " + _("Networks") + ":");
+            foreach (INetworkManager nm in _NetworkManagers) {
+                fm.AddTextToCurrentPage("-!- " +
+                    _("Type") + ": " + nm.Type.ToString().ToUpper() + " " +
+                    _("Host") + ": " + nm.Host + " " + 
+                    _("Port") + ": " + nm.Port);
+            }
+        }
+        
+        private void _CommandNetworkClose(CommandData cd)
+        {
+            FrontendManager fm = cd.FrontendManager;
+            if (cd.DataArray.Length >= 3) {
+                // named network manager
+                string host = cd.DataArray[2].ToLower();
+                foreach (INetworkManager nm in _NetworkManagers) {
+                    if (nm.Host.ToLower() == host) {
+                        nm.Disconnect(fm);
+                        nm.Dispose();
+                        _NetworkManagers.Remove(nm);
+                        fm.NextNetworkManager();
+                        return;
+                    }
+                }
+                fm.AddTextToCurrentPage("-!- " +
+                    String.Format(_("Network switch failed, could not find network with host: {0}"),
+                                  host));
+            } else if (cd.DataArray.Length >= 2) {
+                // current network manager
+                fm.CurrentNetworkManager.Disconnect(fm);
+                fm.CurrentNetworkManager.Dispose();
+                _NetworkManagers.Remove(fm.CurrentNetworkManager);
+                fm.NextNetworkManager();
+            }
+        }
+        
+        private void _CommandNetworkSwitch(CommandData cd)
+        {
+            FrontendManager fm = cd.FrontendManager;
+            if (cd.DataArray.Length >= 3) {
+                // named network manager
+                string host = cd.DataArray[2].ToLower();
+                foreach (INetworkManager nm in _NetworkManagers) {
+                    if (nm.Host.ToLower() == host) {
+                        fm.CurrentNetworkManager = nm;
+                        fm.UpdateNetworkStatus();
+                        return;
+                    }
+                }
+                fm.AddTextToCurrentPage("-!- " +
+                    String.Format(_("Network switch failed, could not find network with host: {0}"),
+                                  host));
+            } else if (cd.DataArray.Length >= 2) {
+                // next network manager
+                fm.NextNetworkManager();
+            } else {
+                _NotEnoughParameters(cd);
+            }
+        }
+        
         private void _NotConnected(CommandData cd)
         {
             cd.FrontendManager.AddTextToCurrentPage("-!- " + _("Not connected to any network"));
@@ -351,8 +437,8 @@ namespace Meebey.Smuxi.Engine
         
         private void _NotEnoughParameters(CommandData cd)
         {
-            cd.FrontendManager.AddTextToCurrentPage(
-                "-!- " + String.Format(_("Not enough parameters for {0} command"), cd.Command));
+            cd.FrontendManager.AddTextToCurrentPage("-!- " +
+                String.Format(_("Not enough parameters for {0} command"), cd.Command));
         }
         
         public void UpdateNetworkStatus()

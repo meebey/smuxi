@@ -31,6 +31,7 @@ using System.Text;
 using System.Collections;
 using System.Globalization;
 using Meebey.Smuxi;
+using Meebey.Smuxi.Common;
 
 namespace Meebey.Smuxi.FrontendGnome
 {
@@ -54,6 +55,8 @@ namespace Meebey.Smuxi.FrontendGnome
         
         public PreferencesDialog()
         {
+            Trace.Call();
+
             _Glade = new Glade.XML(null, "preferences.glade", "PreferencesDialog", null);
             //_Glade.BindFields(this);
             // changed signal is used in all settings, so use glade for now
@@ -101,6 +104,8 @@ namespace Meebey.Smuxi.FrontendGnome
         
         private void _Load()
         {
+            Trace.Call();
+
             // root
             string startup_commands = String.Join("\n", (string[])Frontend.UserConfig["OnStartupCommands"]);
             ((Gtk.TextView)_Glade["OnStartupCommandsTextView"]).Buffer.Text  = startup_commands;
@@ -143,7 +148,7 @@ namespace Meebey.Smuxi.FrontendGnome
             cb.PackStart(cell, false);
             cb.AddAttribute(cell, "text", 0);
             Gtk.ListStore store = new Gtk.ListStore(typeof(string), typeof(string));
-            store.AppendValues(String.Empty);
+            store.AppendValues(String.Empty, String.Empty);
             ArrayList encodingList = new ArrayList();
             for (int i = 0; i < codepages.Length; i++) {
                 try {
@@ -165,6 +170,7 @@ namespace Meebey.Smuxi.FrontendGnome
                 }
             }
             cb.Model = store;
+            cb.Active = 0;
             store.SetSortColumnId(0, Gtk.SortType.Ascending);
             int j = 0;
             foreach (object[] row in store) {
@@ -228,11 +234,10 @@ namespace Meebey.Smuxi.FrontendGnome
                     ((Gtk.RadioButton)_Glade["TopicPositionRadioButtonNone"]).Active = true;
                 break;
             }
+            
             // Interface/Notebook/Tab
             Gtk.ColorButton colorButton;
-            Gdk.Color color;
             string colorHexCode;
-            int redColor, greenColor, blueColor;
             
             colorButton = (Gtk.ColorButton)_Glade["NoActivityColorButton"];
             colorHexCode = (string)Frontend.UserConfig["Interface/Notebook/Tab/NoActivityColor"];
@@ -260,11 +265,16 @@ namespace Meebey.Smuxi.FrontendGnome
             ((Gtk.SpinButton)_Glade["CommandHistorySizeSpinButton"]).Value =
                 (double)(int)Frontend.UserConfig["Interface/Entry/CommandHistorySize"];
 
+            ((Gtk.CheckButton)_Glade["BeepOnHighlightCheckButton"]).Active =
+                (bool)Frontend.UserConfig["Sound/BeepOnHighlight"];
+            
             ((Gtk.Button)_Glade["ApplyButton"]).Sensitive = false;
         }
         
         private void _Save()
         {
+            Trace.Call();
+            
             string prefix;
             
             // root
@@ -355,6 +365,9 @@ namespace Meebey.Smuxi.FrontendGnome
             Frontend.UserConfig["Interface/Entry/CommandHistorySize"] =
                 (int)((Gtk.SpinButton)_Glade["CommandHistorySizeSpinButton"]).Value;
             
+            Frontend.UserConfig["Sound/BeepOnHighlight"] =
+                ((Gtk.CheckButton)_Glade["BeepOnHighlightCheckButton"]).Active;
+            
             Frontend.Config.Save();
         }
         
@@ -376,53 +389,63 @@ namespace Meebey.Smuxi.FrontendGnome
             return res;
         }
         
-        private void _OnChanged(object obj, EventArgs args)
+        private void _OnChanged(object sender, EventArgs e)
         {
             ((Gtk.Button)_Glade["ApplyButton"]).Sensitive = true;
         }
         
-        private void _OnOKButtonClicked(object obj, EventArgs args)
+        private void _OnOKButtonClicked(object sender, EventArgs e)
         {
+            Trace.Call(sender, e);
+            
             try {
                 _Save();
+                // BUG: throws RemotingException?
                 Frontend.Config.Load();
                 _Dialog.Destroy();
-            } catch (Exception e) {
+            } catch (Exception ex) {
 #if LOG4NET
-                _Logger.Error(e);
+                _Logger.Error(ex);
+                _Logger.Error("BaseException", ex.GetBaseException());
 #endif                
-                Frontend.ShowException(e);
+                Frontend.ShowException(ex);
             }
         }
 
-        private void _OnApplyButtonClicked(object obj, EventArgs args)
+        private void _OnApplyButtonClicked(object sender, EventArgs e)
         {
+            Trace.Call(sender, e);
+            
             try {
                 _Save();
                 _Load();
                 Frontend.Config.Load();
-            } catch (Exception e) {
+            } catch (Exception ex) {
 #if LOG4NET
-                _Logger.Error(e);
+                _Logger.Error(ex);
 #endif                
-                Frontend.ShowException(e);
+                Frontend.ShowException(ex);
             }
         }
 
-        private void _OnCancelButtonClicked(object obj, EventArgs args)
+        private void _OnCancelButtonClicked(object sender, EventArgs e)
         {
+            Trace.Call(sender, e);
+
             try {
                 _Dialog.Destroy();
-            } catch (Exception e) {
+            } catch (Exception ex) {
 #if LOG4NET
-                _Logger.Error(e);
+                _Logger.Error(ex);
 #endif                
-                Frontend.ShowException(e);
+                Frontend.ShowException(ex);
             }
         }
         
         private void _MenuTreeViewSelectionChanged(object sender, EventArgs e)
         {
+            Trace.Call(sender, e);
+            
             Gtk.TreeIter iter;
             Gtk.TreeModel model;
             if (_MenuTreeView.Selection.GetSelected(out model, out iter)) {

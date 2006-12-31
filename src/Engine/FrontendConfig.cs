@@ -93,6 +93,7 @@ namespace Meebey.Smuxi.Engine
                 LoadEntry(eprefix+"Username", null);
                 LoadEntry(eprefix+"Password", null);
                 LoadEntry(eprefix+"Hostname", null);
+                LoadEntry(eprefix+"BindAddress", null);
                 LoadEntry(eprefix+"Port", null);
                 LoadEntry(eprefix+"Channel", null);
                 LoadEntry(eprefix+"Formatter", null);

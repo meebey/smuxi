@@ -59,6 +59,12 @@ namespace Meebey.Smuxi.Engine
                 return m_Preferences[key];
             }
             set {
+                if (value == null) {
+#if LOG4NET
+                    _Logger.Error("Passed null to indexer with key: " + key + ", ignored.");
+#endif
+                    return;
+                }
                 m_Preferences[key] = value;
                 if (Changed != null) {
                     Changed(this, EventArgs.Empty);
@@ -213,6 +219,12 @@ namespace Meebey.Smuxi.Engine
             Get(prefix+"BashStyleCompletion", false);
             Get(prefix+"CommandHistorySize", 30);
             
+            prefix = "Engine/Users/DEFAULT/Sound/";
+            Get(prefix+"BeepOnHighlight", false);
+            
+            prefix = "Engine/Users/DEFAULT/Connection/";
+            Get(prefix+"Encoding", String.Empty);
+            
             prefix = "Engine/Users/";
             Get(prefix+"Users", new string[] {"local"});
             
@@ -226,6 +238,7 @@ namespace Meebey.Smuxi.Engine
             LoadEntry(prefix+"Port", 7689);
             LoadEntry(prefix+"Formatter", "binary");
             LoadEntry(prefix+"Channel", "TCP");
+            LoadEntry(prefix+"BindAddress", null);
 
             // loading defaults
             LoadAllEntries("Engine/Users/DEFAULT");
@@ -273,6 +286,8 @@ namespace Meebey.Smuxi.Engine
                 LoadUserEntry(user, "Interface/Entry/CommandCharacter", null);
                 LoadUserEntry(user, "Interface/Entry/BashStyleCompletion", null);
                 LoadUserEntry(user, "Interface/Entry/CommandHistorySize", null);
+                
+                LoadUserEntry(user, "Sound/BeepOnHighlight", null);
                 
                 string[] servers = null;
                 string sprefix = prefix+user+"/Servers/";
