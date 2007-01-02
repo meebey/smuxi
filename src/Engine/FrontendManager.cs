@@ -99,7 +99,8 @@ namespace Meebey.Smuxi.Engine
             _Thread.Start();
             
             // register event for config invalidation
-            _Session.Config.Changed += new EventHandler(_OnConfigChanged);
+            // BUG: when the frontend disconnects there are dangling methods registered!
+            //_Session.Config.Changed += new EventHandler(_OnConfigChanged);
             
             // BUG: Session adds stuff to the queue but the frontend is not ready yet!
             // The frontend must Sync() _first_!
@@ -111,7 +112,7 @@ namespace Meebey.Smuxi.Engine
         {
             // sync pages            
             foreach (Page page in _Session.Pages) {
-                AddPage(page);
+                _AddPage(page);
             }
             
             // sync current network manager (if any exists)
@@ -131,6 +132,8 @@ namespace Meebey.Smuxi.Engine
         
         public void AddSyncedPage(Page page)
         {
+            Trace.Call(page);
+            
             _SyncedPages.Add(page);
         }
         
@@ -160,6 +163,13 @@ namespace Meebey.Smuxi.Engine
         }
         
         public void AddPage(Page page)
+        {
+            if (!_SyncedPages.Contains(page)) {
+                _AddPage(page);
+            }
+        }
+        
+        private void _AddPage(Page page)
         {
             _Queue.Enqueue(new UICommandContainer(UICommand.AddPage, page));
         }
@@ -358,7 +368,9 @@ namespace Meebey.Smuxi.Engine
         private void _OnConfigChanged(object sender, EventArgs e)
         {
             Trace.Call(sender, e);
-            
+            // BUG: we should use some timeout here and only call the delegate
+            // when the timeout is reached, else we flood the frontend for each
+            // changed value in the config!
             try {
                 if (_ConfigChangedDelegate != null) {
                     _ConfigChangedDelegate();

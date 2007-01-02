@@ -400,8 +400,8 @@ namespace Meebey.Smuxi.FrontendGnome
             
             try {
                 _Save();
-                // BUG: throws RemotingException?
                 Frontend.Config.Load();
+                Frontend.UserConfig.ClearCache();
                 _Dialog.Destroy();
             } catch (Exception ex) {
 #if LOG4NET
@@ -418,8 +418,9 @@ namespace Meebey.Smuxi.FrontendGnome
             
             try {
                 _Save();
-                _Load();
                 Frontend.Config.Load();
+                Frontend.UserConfig.ClearCache();
+                _Load();
             } catch (Exception ex) {
 #if LOG4NET
                 _Logger.Error(ex);

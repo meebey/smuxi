@@ -26,8 +26,11 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA
  */
 
+using System;
+
 namespace Meebey.Smuxi.Engine
 {
+    [Serializable]
     public class IrcChannelUser : IrcUser
     {
         private bool _IsOp;

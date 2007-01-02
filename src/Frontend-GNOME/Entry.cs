@@ -411,7 +411,7 @@ namespace Meebey.Smuxi.FrontendGnome
                 if (nm != null) {
                     handled = nm.Command(cd);
                 } else {
-                    handled = true;
+                    handled = false;
                 }
             }
             if (!handled) {

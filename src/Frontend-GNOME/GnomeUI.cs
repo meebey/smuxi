@@ -172,7 +172,8 @@ namespace Meebey.Smuxi.FrontendGnome
                 }
             }
             
-            if (Frontend.FrontendManager.CurrentPage != epage) {
+            //if (Frontend.FrontendManager.CurrentPage != epage) {
+            if (Frontend.MainWindow.Notebook.CurrentFrontendPage != page) {
                 string color = null;
                 if (hasHighlight) {
                     page.HasHighlight = hasHighlight;
@@ -281,24 +282,29 @@ namespace Meebey.Smuxi.FrontendGnome
             Gtk.Application.Invoke(delegate {
                 Trace.Call(mb, epage);
 
+#if LOG4NET
+                DateTime syncStart = DateTime.UtcNow;
+#endif
                 Page page = Frontend.MainWindow.Notebook.GetPage(epage);
                 if (epage.PageType == PageType.Channel) {
                     ChannelPage cpage = (ChannelPage)page;
                     Engine.ChannelPage ecpage = (Engine.ChannelPage)epage;
-                   
+                    Hashtable users = ecpage.Users; 
 #if LOG4NET
                     _Logger.Debug("SyncPage() syncing userlist");
 #endif
                     // sync userlist
                     Gtk.TreeView tv  = cpage.UserListTreeView;
                     if (tv != null) {
-                        int count = ecpage.Users.Count;
+                        int count = users.Count;
+                        /*
                         if (count > 1) {
                             Frontend.MainWindow.ProgressBar.DiscreteBlocks = (uint)count;
                         } else {
                             Frontend.MainWindow.ProgressBar.DiscreteBlocks = 2;
                         }
                         Frontend.MainWindow.ProgressBar.BarStyle = Gtk.ProgressBarStyle.Continuous;
+                        */
                         string status = String.Format(
                                             _("Syncing Channel Users of {0}..."),
                                             cpage.Name);
@@ -313,7 +319,7 @@ namespace Meebey.Smuxi.FrontendGnome
                         // detach the model (less CPU load)
                         tv.Model = new Gtk.ListStore(typeof(string), typeof(string));
                         int i = 1;
-                        foreach (User user in ecpage.Users.Values) {
+                        foreach (User user in users.Values) {
                             if (user is Engine.IrcChannelUser) {
                                 IrcChannelUser icuser = (IrcChannelUser)user;
                                 if (icuser.IsOp) {
@@ -324,7 +330,7 @@ namespace Meebey.Smuxi.FrontendGnome
                                     ls.AppendValues(String.Empty, icuser.Nickname);
                                 }
                             }
-                            Frontend.MainWindow.ProgressBar.Fraction = (double)i++ / count;
+                            //Frontend.MainWindow.ProgressBar.Fraction = (double)i++ / count;
                             /*
                             // this seems to break the sync when it's remote engine is used,
                             // guess it does some other GUI processing, like removing users from
@@ -352,9 +358,10 @@ namespace Meebey.Smuxi.FrontendGnome
                    _Logger.Debug("SyncPage() syncing topic");
 #endif
                    // sync topic
+                   string topic = ecpage.Topic;
                    if ((cpage.TopicEntry != null) &&
-                       (ecpage.Topic != null)) {
-                       cpage.TopicEntry.Text = ecpage.Topic;
+                       (topic != null)) {
+                       cpage.TopicEntry.Text = topic;
                    }
                 }
                 
@@ -364,8 +371,9 @@ namespace Meebey.Smuxi.FrontendGnome
                 // sync messages
                 // cleanup, be sure the output is empty
                 page.OutputTextBuffer.Clear();
-                if (epage.Buffer.Count > 0) {
-                    foreach (FormattedMessage fm in epage.Buffer) {
+                IList messageBuffer = epage.Buffer;
+                if (messageBuffer.Count > 0) {
+                    foreach (FormattedMessage fm in messageBuffer) {
                         _AddMessageToPage(epage, fm);
                     }
                 }
@@ -376,7 +384,9 @@ namespace Meebey.Smuxi.FrontendGnome
                 // maybe a BUG here? should be tell the FrontendManager before we sync?
                 Frontend.FrontendManager.AddSyncedPage(epage);
 #if LOG4NET
-                _Logger.Debug("SyncPage() done");
+                DateTime syncStop = DateTime.UtcNow;
+                double duration = syncStop.Subtract(syncStart).TotalMilliseconds;
+                _Logger.Debug("SyncPage() done, syncing took: " + Math.Round(duration) + " ms");
 #endif
             });
         }

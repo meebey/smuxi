@@ -9,15 +9,18 @@
 in-work:
 
 smuxi 0.6 goals:
-- theme support
 - engines manager GUI
 - irc server manager GUI
+  - on connected commands
 - GUI for swichting current network
 - color settings (background/fonts etc)
 X colors in channels (hightlighting)
 - create debian package
 
 Feature Requests:
+- add date stamps between days like irssi
+- add disable page marker
+- theme support
 - keep nick (Salz)
 - different identifies per server (Salz)
 - overview page, showing all channels and queries on one page (Salz)

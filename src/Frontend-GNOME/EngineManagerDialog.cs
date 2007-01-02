@@ -203,13 +203,6 @@ namespace Meebey.Smuxi.FrontendGnome
                             // required for MS .NET 1.1
                             sprovider.TypeFilterLevel = TypeFilterLevel.Full;
                             
-                            /*
-                            // HACK: test for SSH tunnel
-                            props["port"] = "7690";
-                            props["machineName"] = "localhost";
-                            */
-                            //TcpServerChannel schannel = new TcpServerChannel(props, sprovider);
-
                             if (bindAddress != null) {
                                 props["machineName"] = bindAddress;
                             }

@@ -1357,6 +1357,10 @@ namespace Meebey.Smuxi.Engine
                                                     e.Data.Nick, duration));
                 } catch (FormatException) {
                 }
+            } else {
+                _Session.AddTextToPage(spage, String.Format(
+                                            _("CTCP {0} reply from {1}: {2}"),
+                                            e.CtcpCommand, e.Data.Nick, e.CtcpParameter));
             }
         }
         
@@ -1381,7 +1385,7 @@ namespace Meebey.Smuxi.Engine
         private void _OnChannelAction(object sender, ActionEventArgs e)
         {
             Page page = _Session.GetPage(e.Data.Channel, PageType.Channel, NetworkType.Irc, this);
-            
+
             FormattedMessage fmsg = new FormattedMessage();
             FormattedMessageTextItem fmsgti;
             FormattedMessageItem fmsgi;
@@ -1399,6 +1403,7 @@ namespace Meebey.Smuxi.Engine
         private void _OnChannelNotice(object sender, IrcEventArgs e)
         {
             Page page = _Session.GetPage(e.Data.Channel, PageType.Channel, NetworkType.Irc, this);
+
             FormattedMessage fmsg = new FormattedMessage();
             FormattedMessageTextItem fmsgti;
             FormattedMessageItem fmsgi;
@@ -1459,7 +1464,15 @@ namespace Meebey.Smuxi.Engine
         
         private void _OnQueryNotice(object sender, IrcEventArgs e)
         {
-            Page page = _Session.GetPage("Server", PageType.Server, NetworkType.Irc, null);
+            Page page = null;
+            if (e.Data.Nick != null) {
+                page = _Session.GetPage(e.Data.Nick, PageType.Query, NetworkType.Irc, this);
+            }
+            if (page == null) {
+                // use server page as fallback
+                page = _Session.GetPage("Server", PageType.Server, NetworkType.Irc, null);
+            }
+
             FormattedMessage fmsg = new FormattedMessage();
             FormattedMessageTextItem fmsgti;
             FormattedMessageItem fmsgi;
@@ -1778,6 +1791,12 @@ namespace Meebey.Smuxi.Engine
                 // _OnDisconnect() handles this
             } else {
                 foreach (Page page in _Session.Pages) {
+                    if (page.NetworkManager != this) {
+                        // we don't care about channels and queries the user was
+                        // on other networks
+                        continue;
+                    }
+                    
                     if (page.PageType == PageType.Channel) {
                         ChannelPage cpage = (ChannelPage)page;
                         User user = cpage.GetUser(e.Who);
@@ -1800,17 +1819,10 @@ namespace Meebey.Smuxi.Engine
         
         private void _OnDisconnected(object sender, EventArgs e)
         {
-            // we can't delete directly, it will break the enumerator, let's use a list
-            ArrayList removelist = new ArrayList();
             foreach (Page page in _Session.Pages) {
                 if (page.NetworkManager == this) {
-                    removelist.Add(page);
+                    _Session.DisablePage(page);
                 }
-            }
-            
-            // now we can delete
-            foreach (Page page in removelist) {
-                _Session.DisablePage(page);
             }
         }
         

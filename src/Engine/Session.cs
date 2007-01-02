@@ -148,6 +148,10 @@ namespace Meebey.Smuxi.Engine
         
         public Page GetPage(string name, PageType ptype, NetworkType ntype, INetworkManager nm)
         {
+            if (name == null) {
+                throw new ArgumentNullException("name");
+            }
+            
             foreach (Page page in _Pages) {
                 if ((page.Name.ToLower() == name.ToLower()) &&
                     (page.PageType == ptype) &&
@@ -588,5 +592,5 @@ namespace Meebey.Smuxi.Engine
         {
             return Mono.Unix.Catalog.GetString(msg);
         }
-}
+    }
 }
