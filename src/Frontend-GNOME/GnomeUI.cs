@@ -378,9 +378,6 @@ namespace Meebey.Smuxi.FrontendGnome
                     }
                 }
                 
-                // BUG: doesn't work?!?
-                page.ScrollToEnd();
-                
                 // maybe a BUG here? should be tell the FrontendManager before we sync?
                 Frontend.FrontendManager.AddSyncedPage(epage);
 #if LOG4NET
@@ -388,6 +385,9 @@ namespace Meebey.Smuxi.FrontendGnome
                 double duration = syncStop.Subtract(syncStart).TotalMilliseconds;
                 _Logger.Debug("SyncPage() done, syncing took: " + Math.Round(duration) + " ms");
 #endif
+
+                // BUG: doesn't work?!?
+                page.ScrollToEnd();
             });
         }
         

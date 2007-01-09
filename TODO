@@ -9,17 +9,25 @@
 in-work:
 
 smuxi 0.6 goals:
-- engines manager GUI
 - irc server manager GUI
   - on connected commands
-- GUI for swichting current network
 - color settings (background/fonts etc)
+- engines manager GUI
+- GUI for swichting current network
 X colors in channels (hightlighting)
 - create debian package
 
 Feature Requests:
+- show smuxi in tray when minimized
+- setable highlight words
+- making gnome highlight (urgency) a setting
+- /exec -o echo bar, sends the output of the exec to IRC
+- /exec -c echo /me smokes C#, take the output of the exec as commands
+- /exec -engine, execute the command on engine and not frontend
+- /network save, save servers and joined channels for auto-connect/join (basher)
 - add date stamps between days like irssi
 - add disable page marker
+- use treeview as alternative to notebook tabs.
 - theme support
 - keep nick (Salz)
 - different identifies per server (Salz)

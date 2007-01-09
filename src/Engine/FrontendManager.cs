@@ -92,6 +92,8 @@ namespace Meebey.Smuxi.Engine
         
         public FrontendManager(Session session, IFrontendUI ui)
         {
+            Trace.Call(session, ui);
+            
             _Session = session;
             _UI = ui;
             _Thread = new Thread(new ThreadStart(_Worker));
@@ -110,6 +112,8 @@ namespace Meebey.Smuxi.Engine
         
         public void Sync()
         {
+            Trace.Call();
+            
             // sync pages            
             foreach (Page page in _Session.Pages) {
                 _AddPage(page);

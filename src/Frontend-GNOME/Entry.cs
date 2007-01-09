@@ -182,7 +182,8 @@ namespace Meebey.Smuxi.FrontendGnome
             Trace.Call(sender, e);
             
 #if LOG4NET
-            _Logger.Debug("_OnKeyPress(): KeyValue: "+e.Event.KeyValue);
+            _Logger.Debug("_OnKeyPress(): Key: " + e.Event.Key.ToString() + 
+                          " KeyValue: " + e.Event.KeyValue);
 #endif
 
             int keynumber = (int)e.Event.KeyValue;
@@ -194,18 +195,18 @@ namespace Meebey.Smuxi.FrontendGnome
                         //if (Frontend.FrontendManager.CurrentPage.PageType == PageType.Server) {
                         // this does the same with one remoting call less
                         // (the CurrentPage object is not called)
-                        if (Frontend.MainWindow.Notebook.CurrentFrontendPage.EnginePage.PageType == PageType.Server) {
+                        if (_Notebook.CurrentFrontendPage.EnginePage.PageType == PageType.Server) {
                             Frontend.FrontendManager.NextNetworkManager();
                         }
                         break;
                     case Gdk.Key.Page_Down:
-                        if (Frontend.MainWindow.Notebook.CurrentPage < Frontend.MainWindow.Notebook.NPages) {
-                            Frontend.MainWindow.Notebook.CurrentPage++;
+                        if (_Notebook.CurrentPage < _Notebook.NPages) {
+                            _Notebook.CurrentPage++;
                         }
                         break;
                     case Gdk.Key.Page_Up:
-                        if (Frontend.MainWindow.Notebook.CurrentPage > 0) {
-                            Frontend.MainWindow.Notebook.CurrentPage--;
+                        if (_Notebook.CurrentPage > 0) {
+                            _Notebook.CurrentPage--;
                         }
                         break;
                 }
@@ -262,8 +263,8 @@ namespace Meebey.Smuxi.FrontendGnome
                 }
 
                 if (pagenumber != -1 &&
-                    Frontend.MainWindow.Notebook.NPages >= pagenumber + 1) {
-                    Frontend.MainWindow.Notebook.Page = pagenumber;
+                    _Notebook.NPages >= pagenumber + 1) {
+                    _Notebook.Page = pagenumber;
                 }
             }
 
@@ -275,49 +276,41 @@ namespace Meebey.Smuxi.FrontendGnome
             }
 
             UpdateHistoryChangedLine();
-            switch (keynumber) {
-                case 65289: // TAB
+            switch (key) {
+                case Gdk.Key.Tab:
                     e.RetVal = true;
                     if (Frontend.MainWindow.CaretMode) {
                         // when we are in caret-mode change focus to output textview
-                        Frontend.MainWindow.Notebook.CurrentFrontendPage.OutputTextView.HasFocus = true;
+                        _Notebook.CurrentFrontendPage.OutputTextView.HasFocus = true;
                     } else {
                         // don't loose the focus (if we are not in caret-mode)
                         //if (Frontend.FrontendManager.CurrentPage is Engine.ChannelPage) {
                         // this does the same with one remoting call less
                         // (the FrontendManager.CurrentPage object is not called)
-                        if (Frontend.MainWindow.Notebook.CurrentFrontendPage.EnginePage is Engine.ChannelPage) {
+                        if (_Notebook.CurrentFrontendPage.EnginePage is Engine.ChannelPage) {
                             if (Text.Length > 0) {
                                 _NickCompletion();
                             }
                         }
                     }
                     break;
-                case 65362: // Up-Arrow
-#if LOG4NET
-                    _Logger.Debug("_OnKeyPress(): Up-Arrow");
-#endif
+                case Gdk.Key.Up:
                     HistoryPrevious();
                     break;
-                case 65364: // Down-Arrow
-#if LOG4NET
-                    _Logger.Debug("_OnKeyPress(): Down-Arrow");
-#endif
+                case Gdk.Key.Down:
                     HistoryNext();
                     break;
-                case 65365: // Page-Up
-#if LOG4NET
-                    _Logger.Debug("_OnKeyPress(): Page-Up");
-#endif
-                    Frontend.MainWindow.Notebook.GetPage(
-                        Frontend.FrontendManager.CurrentPage).ScrollUp();
+                case Gdk.Key.Page_Up:
+                    _Notebook.CurrentFrontendPage.ScrollUp();
                     break;
-                case 65366: // Page-Down
-#if LOG4NET
-                    _Logger.Debug("_OnKeyPress(): Page-Down");
-#endif
-                    Frontend.MainWindow.Notebook.GetPage(
-                        Frontend.FrontendManager.CurrentPage).ScrollDown();
+                case Gdk.Key.Page_Down:
+                    _Notebook.CurrentFrontendPage.ScrollDown();
+                    break;
+                case Gdk.Key.Home:
+                    _Notebook.CurrentFrontendPage.ScrollToBeginning();
+                    break;
+                case Gdk.Key.End:
+                    _Notebook.CurrentFrontendPage.ScrollToEnd();
                     break;
             }
         }
@@ -525,12 +518,12 @@ namespace Meebey.Smuxi.FrontendGnome
                     }
                 } else {
                     bool is_number = false;
-                    int pagecount = Frontend.MainWindow.Notebook.NPages;
+                    int pagecount = _Notebook.NPages;
                     try {
                         int number = Int32.Parse(cd.DataArray[1]);
                         is_number = true;
                         if (number <= pagecount) {
-                            Frontend.MainWindow.Notebook.CurrentPage = number - 1;
+                            _Notebook.CurrentPage = number - 1;
                         }
                     } catch (FormatException) {
                     }
@@ -540,12 +533,12 @@ namespace Meebey.Smuxi.FrontendGnome
                         // let's see if we find something
                         ArrayList candidates = new ArrayList();
                         for (int i = 0; i < pagecount; i++) {
-                            Page page = (Page)Frontend.MainWindow.Notebook.GetNthPage(i);
+                            Page page = (Page)_Notebook.GetNthPage(i);
                             Engine.Page epage = page.EnginePage;
                             if (epage.Name.ToLower() == cd.DataArray[1].ToLower()) {
                                 if ((epage.PageType == fm.CurrentPage.PageType) &&
                                     (epage.NetworkManager == fm.CurrentPage.NetworkManager)) {
-                                    Frontend.MainWindow.Notebook.CurrentPage = i;
+                                    _Notebook.CurrentPage = i;
                                     break;
                                 } else {
                                     // there was no exact match
@@ -554,7 +547,7 @@ namespace Meebey.Smuxi.FrontendGnome
                             }
                         }
                         if (candidates.Count > 0) {
-                            Frontend.MainWindow.Notebook.CurrentPage = (int)candidates[0];
+                            _Notebook.CurrentPage = (int)candidates[0];
                         }
                     }
                 }
@@ -563,8 +556,7 @@ namespace Meebey.Smuxi.FrontendGnome
     
         private void _CommandClear(CommandData cd)
         {
-            Page page = Frontend.MainWindow.Notebook.GetPage(cd.FrontendManager.CurrentPage);
-            page.OutputTextBuffer.Clear();
+            _Notebook.CurrentFrontendPage.OutputTextBuffer.Clear();
         }
         
         private void _CommandUnknown(CommandData cd)

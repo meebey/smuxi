@@ -93,14 +93,6 @@ namespace Meebey.Smuxi.Engine
                 return NetworkType.Irc;
             }
         }
-        
-        /*
-        public string Server {
-            get {
-                return _IrcClient.Address;
-            }
-        }
-        */
 
         static IrcNetworkManager()
         {
@@ -118,8 +110,9 @@ namespace Meebey.Smuxi.Engine
             _Session = session;
             
             _IrcClient = new IrcClient();
-            _IrcClient.AutoReconnect = true;
             _IrcClient.AutoRetry = true;
+            _IrcClient.AutoReconnect = true;
+            _IrcClient.AutoRelogin = true;
             _IrcClient.AutoRejoin = true;
             _IrcClient.ActiveChannelSyncing = true;
             _IrcClient.CtcpVersion      = Engine.VersionString;
@@ -360,6 +353,17 @@ namespace Meebey.Smuxi.Engine
                             break;
                         case "away":
                             CommandAway(cd);
+                            // send away on all other IRC networks too
+                            foreach (INetworkManager nm in _Session.NetworkManagers) {
+                                if (nm == this) {
+                                    // skip us, else we send it 2 times
+                                    continue;
+                                }
+                                if (nm is IrcNetworkManager) {
+                                    IrcNetworkManager ircnm = (IrcNetworkManager)nm;
+                                    ircnm.CommandAway(cd);
+                                }
+                            }
                             handled = true;
                             break;
                         case "ctcp":
@@ -468,8 +472,19 @@ namespace Meebey.Smuxi.Engine
         
         public void CommandHelp(CommandData cd)
         {
+            FormattedMessage fmsg = new FormattedMessage();
+            FormattedMessageTextItem fmsgti;
+            FormattedMessageItem fmsgi;
+
+            fmsgti = new FormattedMessageTextItem();
+            fmsgti.Text = "[IrcNetworkManager Commands]";
+            fmsgti.Bold = true;
+            fmsgi = new FormattedMessageItem(FormattedMessageItemType.Text, fmsgti);
+            fmsg.Items.Add(fmsgi);
+            
+            _Session.AddMessageToPage(cd.FrontendManager.CurrentPage, fmsg);
+            
             string[] help = {
-            "[IrcManager Commands]",
             "help",
             "say",
             "join/j channel(s) [key]",

@@ -95,16 +95,22 @@ namespace Meebey.Smuxi.Engine
             
             _Data = data;
             _DataArray = data.Split(new char[] {' '});
-            _Parameter = String.Join(" ", _DataArray, 1, _DataArray.Length-1);
-            _IsCommand = (data[0] == cmdChar[0]);
+            _Parameter = String.Join(" ", _DataArray, 1, _DataArray.Length - 1);
             _CommandCharacter = cmdChar;
-            if (_IsCommand) {
-                _Command = (_DataArray[0].Length > 1) ? _DataArray[0].Substring(1).ToLower() : String.Empty;
+            if (data.StartsWith(cmdChar) &&
+                !data.StartsWith(cmdChar + cmdChar)) {
+                _IsCommand = true;
+                _Command = (_DataArray[0].Length > cmdChar.Length) ?
+                                _DataArray[0].Substring(cmdChar.Length).ToLower() :
+                                String.Empty;
+            } else if (data.StartsWith(cmdChar + cmdChar)) {
+                _Data = data.Substring(cmdChar.Length);
+                _DataArray[0] = _DataArray[0].Substring(cmdChar.Length);
             }
             _FrontendManager = fm;
         }
         
-        public CommandData(FrontendManager fm, string parameter) : this(fm, "/", "/cmd "+parameter)
+        public CommandData(FrontendManager fm, string parameter) : this(fm, "/", "/cmd " + parameter)
         {
         }
     }

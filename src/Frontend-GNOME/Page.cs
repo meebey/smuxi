@@ -34,6 +34,9 @@ namespace Meebey.Smuxi.FrontendGnome
 {
     public abstract class Page : Gtk.EventBox
     {
+#if LOG4NET
+        private static readonly log4net.ILog _Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+#endif
         private   Engine.Page        _EnginePage;
         private   bool               _HasHighlight;
         protected Gtk.Label          _Label;
@@ -146,12 +149,16 @@ namespace Meebey.Smuxi.FrontendGnome
     
         public void ScrollUp()
         {
+            Trace.Call();
+
             Gtk.Adjustment adj = _OutputScrolledWindow.Vadjustment;
             adj.Value -= adj.PageSize - adj.StepIncrement;
         }
         
         public void ScrollDown()
         {
+            Trace.Call();
+
             // note: Upper - PageSize is the farest scrollable position! 
             Gtk.Adjustment adj = _OutputScrolledWindow.Vadjustment;
             if ((adj.Value + adj.PageSize) <= (adj.Upper - adj.PageSize)) {
@@ -163,18 +170,36 @@ namespace Meebey.Smuxi.FrontendGnome
             }
         }
         
+        public void ScrollToBeginning()
+        {
+            Trace.Call();
+            
+            Gtk.Adjustment adj = _OutputScrolledWindow.Vadjustment;
+            adj.Value = adj.Lower;
+        }
+        
         public void ScrollToEnd()
         {
+            Trace.Call();
+            
             Gtk.Adjustment adj = _OutputScrolledWindow.Vadjustment;
+#if LOG4NET
+            _Logger.Debug("ScrollToEnd(): Vadjustment.Value: " + adj.Value +
+                          " Vadjustment.Upper: " + adj.Upper +
+                          " Vadjustment.PageSize: " + adj.PageSize);
+#endif
+            // BUG? doesn't work always for some reason
             adj.Value = adj.Upper - adj.PageSize;
         }
         
         public virtual void Enable()
         {
+            Trace.Call();
         }
         
         public virtual void Disable()
         {
+            Trace.Call();
         }
         
         private void _OnTextBufferChanged(object sender, EventArgs e)
@@ -204,7 +229,6 @@ namespace Meebey.Smuxi.FrontendGnome
         private void _OnTextTagUrlTextEvent(object sender, Gtk.TextEventArgs e)
         {
             Trace.Call(sender, e);
-            
         }
     }
 }
