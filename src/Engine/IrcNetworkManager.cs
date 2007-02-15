@@ -1035,6 +1035,7 @@ namespace Meebey.Smuxi.Engine
 
             // convert * / _ to mIRC control characters
             string[] messageParts = message.Split(new char[] {' '});
+            // better regex? \*([^ *]+)\*
             string pattern = @"^({0})([A-Za-z0-9]+?){0}$";
             for (int i = 0; i < messageParts.Length; i++) {
                 messageParts[i] = Regex.Replace(messageParts[i], String.Format(pattern, @"\*"), (char)IrcControlCode.Bold      + "$1$2$1" + (char)IrcControlCode.Bold);

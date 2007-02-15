@@ -269,10 +269,26 @@ namespace Meebey.Smuxi.Engine
             
             string user = (string)UserConfig["Connection/Username"];
             
-            IrcNetworkManager ircm;
-            ircm = new IrcNetworkManager(this);
+            IrcNetworkManager ircm = null;
+            foreach (INetworkManager nm in _NetworkManagers) {
+                if (nm is IrcNetworkManager &&
+                    nm.Host == server &&
+                    nm.Port == port) {
+                    // reuse network manager
+                    if (nm.IsConnected) {
+                        fm.AddTextToCurrentPage("-!- " + String.Format(
+                            _("Already connected to: {0}:{1}"), server, port));
+                        return;
+                    }
+                    ircm = (IrcNetworkManager) nm;
+                    break;
+                }
+            }
+            if (ircm == null) {
+                ircm = new IrcNetworkManager(this);
+                _NetworkManagers.Add(ircm);
+            }
             ircm.Connect(fm, server, port, nicks, user, pass);
-            _NetworkManagers.Add(ircm);
             
             // set this as current network manager
             fm.CurrentNetworkManager = ircm;

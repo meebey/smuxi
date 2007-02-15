@@ -7,6 +7,7 @@
       <Entry build="True" name="Frontend-Test" configuration="Release" />
       <Entry build="True" name="Common" configuration="Debug" />
       <Entry build="True" name="TcpChannel" configuration="Debug" />
+      <Entry build="True" name="Frontend" configuration="Release" />
     </Configuration>
     <Configuration name="Debug" ctype="CombineConfiguration">
       <Entry build="True" name="Engine" configuration="Debug" />
@@ -15,6 +16,7 @@
       <Entry build="True" name="Frontend-Test" configuration="Debug" />
       <Entry build="True" name="Common" configuration="Debug" />
       <Entry build="True" name="TcpChannel" configuration="Debug" />
+      <Entry build="True" name="Frontend" configuration="Debug" />
     </Configuration>
   </Configurations>
   <DeployTargets />
@@ -25,6 +27,7 @@
     <Execute type="None" entry="Frontend-Test" />
     <Execute type="None" entry="Common" />
     <Execute type="None" entry="TcpChannel" />
+    <Execute type="None" entry="Frontend" />
   </StartMode>
   <Entries>
     <Entry filename="./Common.mdp" />
@@ -33,5 +36,6 @@
     <Entry filename="./Frontend-GNOME.mdp" />
     <Entry filename="./Frontend-Test.mdp" />
     <Entry filename="./TcpChannel.mdp" />
+    <Entry filename="../src/Frontend/Frontend.mdp" />
   </Entries>
 </Combine>

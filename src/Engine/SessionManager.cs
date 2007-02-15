@@ -68,6 +68,7 @@ namespace Meebey.Smuxi.Engine
         
         public Session Register(string username, string password, IFrontendUI ui)
         {
+            // TODO: MD5 / SHA1 password
             string configPassword = (string)Engine.Config["Engine/Users/"+username+"/Password"]; 
             if (configPassword != null &&
                 configPassword != String.Empty &&

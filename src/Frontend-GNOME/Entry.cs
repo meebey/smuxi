@@ -190,6 +190,7 @@ namespace Meebey.Smuxi.FrontendGnome
             Gdk.Key key = e.Event.Key;
             if ((e.Event.State & Gdk.ModifierType.ControlMask) != 0) {
                 // ctrl is pressed
+                e.RetVal = true;
                 switch (key) {
                     case Gdk.Key.x:
                         //if (Frontend.FrontendManager.CurrentPage.PageType == PageType.Server) {
@@ -208,6 +209,12 @@ namespace Meebey.Smuxi.FrontendGnome
                         if (_Notebook.CurrentPage > 0) {
                             _Notebook.CurrentPage--;
                         }
+                        break;
+                    case Gdk.Key.Home:
+                        _Notebook.CurrentFrontendPage.ScrollToBeginning();
+                        break;
+                    case Gdk.Key.End:
+                        _Notebook.CurrentFrontendPage.ScrollToEnd();
                         break;
                 }
             }
@@ -305,12 +312,6 @@ namespace Meebey.Smuxi.FrontendGnome
                     break;
                 case Gdk.Key.Page_Down:
                     _Notebook.CurrentFrontendPage.ScrollDown();
-                    break;
-                case Gdk.Key.Home:
-                    _Notebook.CurrentFrontendPage.ScrollToBeginning();
-                    break;
-                case Gdk.Key.End:
-                    _Notebook.CurrentFrontendPage.ScrollToEnd();
                     break;
             }
         }
@@ -556,7 +557,7 @@ namespace Meebey.Smuxi.FrontendGnome
     
         private void _CommandClear(CommandData cd)
         {
-            _Notebook.CurrentFrontendPage.OutputTextBuffer.Clear();
+            _Notebook.CurrentFrontendPage.OutputTextView.Buffer.Clear();
         }
         
         private void _CommandUnknown(CommandData cd)

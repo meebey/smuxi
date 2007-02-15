@@ -96,8 +96,8 @@ namespace Meebey.Smuxi.FrontendGnome
                 _Logger.Fatal(String.Format("_AddMessageToPage(): Notebook.GetPage(epage) epage.Name: {0} returned null!", epage.Name));
             }
 #endif
-            Gtk.TextIter iter = page.OutputTextBuffer.EndIter;
-            page.OutputTextBuffer.Insert(ref iter, timestamp + " ");
+            Gtk.TextIter iter = page.OutputTextView.Buffer.EndIter;
+            page.OutputTextView.Buffer.Insert(ref iter, timestamp + " ");
             
             bool hasHighlight = false;
             foreach (FormattedMessageItem item in fmsg.Items) {
@@ -145,7 +145,7 @@ namespace Meebey.Smuxi.FrontendGnome
                             tags.Add("italic");
                         }
                         
-                        page.OutputTextBuffer.InsertWithTagsByName(ref iter, fmsgti.Text, (string[])tags.ToArray(typeof(string)));
+                        page.OutputTextView.Buffer.InsertWithTagsByName(ref iter, fmsgti.Text, (string[])tags.ToArray(typeof(string)));
                         
                         /*
                         page.OutputTextBuffer.Insert(ref iter, fmsgti.Text);
@@ -158,11 +158,11 @@ namespace Meebey.Smuxi.FrontendGnome
                         break;
                     case FormattedMessageItemType.Url:
                         FormattedMessageUrlItem fmsgui = (FormattedMessageUrlItem)item.Value;
-                        page.OutputTextBuffer.InsertWithTagsByName(ref iter, fmsgui.Url, "url");
+                        page.OutputTextView.Buffer.InsertWithTagsByName(ref iter, fmsgui.Url, "url");
                         break;
                 } 
             }
-            page.OutputTextBuffer.Insert(ref iter, "\n");
+            page.OutputTextView.Buffer.Insert(ref iter, "\n");
             
             if (hasHighlight && !Frontend.MainWindow.HasToplevelFocus) {
                 Frontend.MainWindow.UrgencyHint = true;
@@ -370,7 +370,7 @@ namespace Meebey.Smuxi.FrontendGnome
 #endif
                 // sync messages
                 // cleanup, be sure the output is empty
-                page.OutputTextBuffer.Clear();
+                page.OutputTextView.Buffer.Clear();
                 IList messageBuffer = epage.Buffer;
                 if (messageBuffer.Count > 0) {
                     foreach (FormattedMessage fm in messageBuffer) {
@@ -387,7 +387,11 @@ namespace Meebey.Smuxi.FrontendGnome
 #endif
 
                 // BUG: doesn't work?!?
-                page.ScrollToEnd();
+                //page.OutputTextView.Display.Flush();
+                //page.OutputTextView.Display.Sync();
+                //Gtk.Application.Invoke(delegate {
+                    page.ScrollToEnd();
+                //});
             });
         }
         

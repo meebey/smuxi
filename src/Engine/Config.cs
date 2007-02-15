@@ -138,7 +138,7 @@ namespace Meebey.Smuxi.Engine
             string[] result = null;
 #if CONFIG_GCONF
             // Gconf# bug, it doesn't like empty string lists.
-            result = (string[])Get(key, new string[] {String.Empty});
+            result = (string[])Get(key, new string[] { String.Empty });
             if (result.Length == 1 && result[0] == String.Empty) {
                 // don't return workaround list, instead a clean empty list
                 result = new string[] {};
@@ -290,19 +290,33 @@ namespace Meebey.Smuxi.Engine
                 LoadUserEntry(user, "Sound/BeepOnHighlight", null);
                 
                 string[] servers = null;
-                string sprefix = prefix+user+"/Servers/";
-                servers = GetList(sprefix+"Servers");
+                string sprefix = prefix + user + "/Servers/";
+                servers = GetList(sprefix + "Servers");
                 if (servers == null) {
                     servers = new string[] {};
                 }
                 foreach (string server in servers) {
-                    sprefix = prefix+user+"/Servers/"+server+"/";
+                    sprefix = prefix + user + "/Servers/" + server + "/";
                     LoadEntry(sprefix+"Hostname", null);
                     LoadEntry(sprefix+"Port", null);
                     LoadEntry(sprefix+"Network", null);
                     LoadEntry(sprefix+"Encoding", null);
                     LoadEntry(sprefix+"Username", null);
                     LoadEntry(sprefix+"Password", null);
+                }
+
+                string[] channelFilters = null;
+                string cprefix = prefix + user + "/Filters/Channel/";
+                channelFilters = GetList(cprefix + "Patterns");
+                if (channelFilters == null) {
+                    channelFilters = new string[] {};
+                }
+                foreach (string filter in channelFilters) {
+                    cprefix = prefix + user + "/Filters/Channel/" + filter + "/";
+                    LoadEntry(cprefix + "Pattern", null);
+                    LoadEntry(cprefix + "FilterJoins", null);
+                    LoadEntry(cprefix + "FilterParts", null);
+                    LoadEntry(cprefix + "FilterQuits", null);
                 }
             }
         }

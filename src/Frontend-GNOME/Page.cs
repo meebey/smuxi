@@ -81,12 +81,6 @@ namespace Meebey.Smuxi.FrontendGnome
             }
         }
         
-        public Gtk.TextBuffer OutputTextBuffer {
-            get {
-                return _OutputTextView.Buffer;
-            }
-        }
-        
         public Gtk.TextTagTable OutputTextTagTable {
             get {
                 return _OutputTextTagTable;
@@ -133,6 +127,7 @@ namespace Meebey.Smuxi.FrontendGnome
             
             Gtk.TextView tv = new Gtk.TextView();
             tv.Buffer = new Gtk.TextBuffer(ttt);
+            tv.Buffer.CreateMark("tail", tv.Buffer.EndIter, false); 
             tv.Editable = false;
             tv.CursorVisible = false;
             tv.WrapMode = Gtk.WrapMode.WordChar;
@@ -188,8 +183,16 @@ namespace Meebey.Smuxi.FrontendGnome
                           " Vadjustment.Upper: " + adj.Upper +
                           " Vadjustment.PageSize: " + adj.PageSize);
 #endif
+            
             // BUG? doesn't work always for some reason
             adj.Value = adj.Upper - adj.PageSize;
+            
+            //_OutputTextView.Buffer.MoveMark("tail", _OutputTextView.Buffer.EndIter);
+            //_OutputTextView.ScrollMarkOnscreen(_OutputTextView.Buffer.GetMark("tail"));
+            
+            //_OutputTextView.ScrollMarkOnscreen(_OutputTextView.Buffer.InsertMark);
+
+            //_OutputTextView.ScrollMarkOnscreen(_OutputTextView.Buffer.GetMark("tail"));
         }
         
         public virtual void Enable()
@@ -224,6 +227,9 @@ namespace Meebey.Smuxi.FrontendGnome
                 Gtk.TextIter end_iter = tv.Buffer.GetIterAtLine(tv.Buffer.LineCount - buffer_lines);
                 tv.Buffer.Delete(ref start_iter, ref end_iter);
             }
+
+            //tv.Buffer.MoveMark("tail", tv.Buffer.EndIter);
+            //tv.Buffer.MoveMark("tail", tv.Buffer.GetIterAtLine(tv.Buffer.LineCount));
         }
         
         private void _OnTextTagUrlTextEvent(object sender, Gtk.TextEventArgs e)

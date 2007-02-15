@@ -18,7 +18,9 @@ X colors in channels (hightlighting)
 - create debian package
 
 Feature Requests:
+- smarter /op /deop /voice /devoice (using multiple modes)
 - show smuxi in tray when minimized
+- chat logging
 - setable highlight words
 - making gnome highlight (urgency) a setting
 - /exec -o echo bar, sends the output of the exec to IRC
@@ -60,7 +62,6 @@ Feature Requests:
    green = highlight
 - smuxi cocoa frontend (Alexander Wirt)
 - smuxi text frontend (ncurses based? probably better: SWC)
-- chat logging
 - scripting/plugins C#/Perl/Python/PHP
 - traffic status, showing how much messages per second are written in that
 channel (showing it in the tab as pixmap) (Salz)

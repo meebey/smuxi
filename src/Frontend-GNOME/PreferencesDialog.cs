@@ -41,6 +41,7 @@ namespace Meebey.Smuxi.FrontendGnome
             Connection = 0,
             Interface,
             Servers,
+            Filters,
         }
         
 #if LOG4NET
@@ -52,6 +53,7 @@ namespace Meebey.Smuxi.FrontendGnome
         private Gtk.Notebook _Notebook;
         [Glade.Widget("MenuTreeView")]
         private Gtk.TreeView _MenuTreeView;
+        private ChannelFilterListView _ChannelFilterListView;
         
         public PreferencesDialog()
         {
@@ -81,11 +83,14 @@ namespace Meebey.Smuxi.FrontendGnome
                                                 Gtk.Stock.SelectFont,
                                                 Gtk.IconSize.SmallToolbar, null),
                             _("Interface"));
-            
             ls.AppendValues(Page.Servers, _Dialog.RenderIcon(
                                                 Gtk.Stock.Network,
                                                 Gtk.IconSize.SmallToolbar, null),
                             _("Servers"));
+            ls.AppendValues(Page.Filters, _Dialog.RenderIcon(
+                                                Gtk.Stock.Delete,
+                                                Gtk.IconSize.SmallToolbar, null),
+                            _("Filters"));
             
             int i = 1;
             _MenuTreeView.AppendColumn(null, new Gtk.CellRendererPixbuf(), "pixbuf",i++);
@@ -98,6 +103,8 @@ namespace Meebey.Smuxi.FrontendGnome
             Gtk.TreeIter iter;
             ls.GetIterFirst(out iter);
             _MenuTreeView.Selection.SelectIter(iter);
+            
+            _ChannelFilterListView = new ChannelFilterListView(_Glade);
             
             _Load();
         }
