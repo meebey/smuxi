@@ -41,8 +41,8 @@ namespace Meebey.Smuxi.FrontendGnome
         private static readonly log4net.ILog _Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 #endif
         private StringCollection _History = new StringCollection();
-        private int              _HistoryPosition = 0;
-        private bool             _HistoryChangedLine = false;
+        private int              _HistoryPosition;
+        private bool             _HistoryChangedLine;
         private Notebook         _Notebook;
         
         public StringCollection History {
@@ -73,13 +73,12 @@ namespace Meebey.Smuxi.FrontendGnome
         {
             _History.Add(String.Empty);
             
+            _Notebook = notebook;
+            
             Activated += new EventHandler(_OnActivated);
             KeyPressEvent += new Gtk.KeyPressEventHandler(_OnKeyPress);
             FocusOutEvent += new Gtk.FocusOutEventHandler(_OnFocusOut);
             ClipboardPasted += new EventHandler(_OnClipboardPasted);
-            
-            _Notebook = notebook;
-            //_Notebook.SwitchPage += new Gtk.SwitchPageHandler(_OnNotebookSwitchPage);
         }
 
         public void UpdateHistoryChangedLine()
@@ -374,16 +373,6 @@ namespace Meebey.Smuxi.FrontendGnome
         {
             Trace.Call(sender, e);
         }
-        
-        /*
-        private void _OnNotebookSwitchPage(object sender, Gtk.SwitchPageArgs e)
-        {
-            Trace.Call(sender, e);
-            
-            FrontendGnome.Page page = _Notebook.GetPage((int)e.PageNum);
-            base.IsEditable = page.EnginePage.IsEnabled;
-        }
-        */
         
         public void ExecuteCommand(string cmd)
         {

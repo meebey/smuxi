@@ -3082,7 +3082,6 @@
 		<widget class="GtkVBox" id="vbox13">
 		  <property name="border_width">5</property>
 		  <property name="visible">True</property>
-		  <property name="sensitive">False</property>
 		  <property name="homogeneous">False</property>
 		  <property name="spacing">0</property>
 

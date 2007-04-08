@@ -18,6 +18,10 @@ X colors in channels (hightlighting)
 - create debian package
 
 Feature Requests:
+- /squery command (SQUERY service: command)
+- show channel mode, /mode without params should show the current mode
+- Telepathy support
+- dbus support
 - smarter /op /deop /voice /devoice (using multiple modes)
 - show smuxi in tray when minimized
 - chat logging

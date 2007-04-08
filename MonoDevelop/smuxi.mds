@@ -19,7 +19,6 @@
       <Entry build="True" name="Frontend" configuration="Debug" />
     </Configuration>
   </Configurations>
-  <DeployTargets />
   <StartMode startupentry="Engine" single="False">
     <Execute type="None" entry="Engine" />
     <Execute type="Execute" entry="Server" />
