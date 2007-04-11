@@ -14,9 +14,10 @@
     </Configuration>
   </Configurations>
   <Contents>
-    <File name="./Common/Trace.cs" subtype="Code" buildaction="Compile" />
-    <File name="./Common/AssemblyInfo.cs" subtype="Code" buildaction="Compile" />
-    <File name="./Common/ITraceable.cs" subtype="Code" buildaction="Compile" />
+    <File name="../src/Common/AssemblyInfo.cs" subtype="Code" buildaction="Compile" />
+    <File name="../src/Common/ITraceable.cs" subtype="Code" buildaction="Compile" />
+    <File name="../src/Common/Trace.cs" subtype="Code" buildaction="Compile" />
+    <File name="./" subtype="Directory" buildaction="Compile" />
   </Contents>
   <References>
     <ProjectReference type="Assembly" localcopy="True" refto="../bin/log4net.dll" />
