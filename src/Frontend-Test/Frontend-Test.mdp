@@ -21,7 +21,7 @@
   </Contents>
   <References>
     <ProjectReference type="Project" localcopy="True" refto="Engine" />
-    <ProjectReference type="Assembly" localcopy="True" refto="../../bin/log4net.dll" />
+    <ProjectReference type="Assembly" localcopy="True" refto="../../lib/log4net.dll" />
     <ProjectReference type="Project" localcopy="True" refto="Common" />
     <ProjectReference type="Gac" localcopy="True" refto="System.Runtime.Remoting, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   </References>
