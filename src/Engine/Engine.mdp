@@ -1,53 +1,53 @@
 <Project name="Engine" fileversion="2.0" language="C#" clr-version="Net_2_0" ctype="DotNetProject">
   <Configurations active="Debug">
     <Configuration name="Debug" ctype="DotNetProjectConfiguration">
-      <Output directory="../bin/mono/debug" assembly="smuxi-engine" />
+      <Output directory="../../bin/debug" assembly="smuxi-engine" />
       <Build debugmode="True" target="Library" />
       <Execution runwithwarnings="False" consolepause="False" runtime="MsNet" clr-version="Net_2_0" />
       <CodeGeneration compiler="Csc" warninglevel="4" optimize="False" unsafecodeallowed="False" generateoverflowchecks="True" mainclass="" definesymbols="TRACE,CONFIG_NINI,LOG4NET" generatexmldocumentation="False" ctype="CSharpCompilerParameters" />
     </Configuration>
     <Configuration name="Release" ctype="DotNetProjectConfiguration">
-      <Output directory="../bin/mono/release" assembly="smuxi-engine" />
+      <Output directory="../../bin/release" assembly="smuxi-engine" />
       <Build debugmode="False" target="Library" />
       <Execution runwithwarnings="False" consolepause="False" runtime="MsNet" clr-version="Net_2_0" />
       <CodeGeneration compiler="Csc" warninglevel="4" optimize="True" unsafecodeallowed="False" generateoverflowchecks="True" mainclass="" definesymbols="CONFIG_GCONF" generatexmldocumentation="False" ctype="CSharpCompilerParameters" />
     </Configuration>
   </Configurations>
   <Contents>
-    <File name="../src/Engine/AssemblyInfo.cs" subtype="Code" buildaction="Compile" />
-    <File name="../src/Engine/ChannelPage.cs" subtype="Code" buildaction="Compile" />
-    <File name="../src/Engine/CommandData.cs" subtype="Code" buildaction="Compile" />
-    <File name="../src/Engine/Config.cs" subtype="Code" buildaction="Compile" />
-    <File name="../src/Engine/Engine.cs" subtype="Code" buildaction="Compile" />
-    <File name="../src/Engine/FormattedMessage.cs" subtype="Code" buildaction="Compile" />
-    <File name="../src/Engine/FormattedMessageItem.cs" subtype="Code" buildaction="Compile" />
-    <File name="../src/Engine/FormattedMessageItemType.cs" subtype="Code" buildaction="Compile" />
-    <File name="../src/Engine/FormattedMessageTextItem.cs" subtype="Code" buildaction="Compile" />
-    <File name="../src/Engine/FormattedMessageUrlItem.cs" subtype="Code" buildaction="Compile" />
-    <File name="../src/Engine/FrontendConfig.cs" subtype="Code" buildaction="Compile" />
-    <File name="../src/Engine/FrontendManager.cs" subtype="Code" buildaction="Compile" />
-    <File name="../src/Engine/IFrontendUI.cs" subtype="Code" buildaction="Compile" />
-    <File name="../src/Engine/INetworkManager.cs" subtype="Code" buildaction="Compile" />
-    <File name="../src/Engine/IrcChannelUser.cs" subtype="Code" buildaction="Compile" />
-    <File name="../src/Engine/IrcNetworkManager.cs" subtype="Code" buildaction="Compile" />
-    <File name="../src/Engine/IrcTextColor.cs" subtype="Code" buildaction="Compile" />
-    <File name="../src/Engine/IrcUser.cs" subtype="Code" buildaction="Compile" />
-    <File name="../src/Engine/NetworkType.cs" subtype="Code" buildaction="Compile" />
-    <File name="../src/Engine/Page.cs" subtype="Code" buildaction="Compile" />
-    <File name="../src/Engine/PageType.cs" subtype="Code" buildaction="Compile" />
-    <File name="../src/Engine/PermanentRemoteObject.cs" subtype="Code" buildaction="Compile" />
-    <File name="../src/Engine/Session.cs" subtype="Code" buildaction="Compile" />
-    <File name="../src/Engine/SessionManager.cs" subtype="Code" buildaction="Compile" />
-    <File name="../src/Engine/TextColor.cs" subtype="Code" buildaction="Compile" />
-    <File name="../src/Engine/UICommand.cs" subtype="Code" buildaction="Compile" />
-    <File name="../src/Engine/UICommandContainer.cs" subtype="Code" buildaction="Compile" />
-    <File name="../src/Engine/User.cs" subtype="Code" buildaction="Compile" />
-    <File name="../src/Engine/UserConfig.cs" subtype="Code" buildaction="Compile" />
+    <File name="./AssemblyInfo.cs" subtype="Code" buildaction="Compile" />
+    <File name="./ChannelPage.cs" subtype="Code" buildaction="Compile" />
+    <File name="./CommandData.cs" subtype="Code" buildaction="Compile" />
+    <File name="./Config.cs" subtype="Code" buildaction="Compile" />
+    <File name="./Engine.cs" subtype="Code" buildaction="Compile" />
+    <File name="./FormattedMessage.cs" subtype="Code" buildaction="Compile" />
+    <File name="./FormattedMessageItem.cs" subtype="Code" buildaction="Compile" />
+    <File name="./FormattedMessageItemType.cs" subtype="Code" buildaction="Compile" />
+    <File name="./FormattedMessageTextItem.cs" subtype="Code" buildaction="Compile" />
+    <File name="./FormattedMessageUrlItem.cs" subtype="Code" buildaction="Compile" />
+    <File name="./FrontendConfig.cs" subtype="Code" buildaction="Compile" />
+    <File name="./FrontendManager.cs" subtype="Code" buildaction="Compile" />
+    <File name="./IFrontendUI.cs" subtype="Code" buildaction="Compile" />
+    <File name="./INetworkManager.cs" subtype="Code" buildaction="Compile" />
+    <File name="./IrcChannelUser.cs" subtype="Code" buildaction="Compile" />
+    <File name="./IrcNetworkManager.cs" subtype="Code" buildaction="Compile" />
+    <File name="./IrcTextColor.cs" subtype="Code" buildaction="Compile" />
+    <File name="./IrcUser.cs" subtype="Code" buildaction="Compile" />
+    <File name="./NetworkType.cs" subtype="Code" buildaction="Compile" />
+    <File name="./Page.cs" subtype="Code" buildaction="Compile" />
+    <File name="./PageType.cs" subtype="Code" buildaction="Compile" />
+    <File name="./PermanentRemoteObject.cs" subtype="Code" buildaction="Compile" />
+    <File name="./Session.cs" subtype="Code" buildaction="Compile" />
+    <File name="./SessionManager.cs" subtype="Code" buildaction="Compile" />
+    <File name="./TextColor.cs" subtype="Code" buildaction="Compile" />
+    <File name="./UICommand.cs" subtype="Code" buildaction="Compile" />
+    <File name="./UICommandContainer.cs" subtype="Code" buildaction="Compile" />
+    <File name="./User.cs" subtype="Code" buildaction="Compile" />
+    <File name="./UserConfig.cs" subtype="Code" buildaction="Compile" />
   </Contents>
   <References>
-    <ProjectReference type="Assembly" localcopy="True" refto="../bin/log4net.dll" />
-    <ProjectReference type="Assembly" localcopy="True" refto="../bin/Nini.dll" />
-    <ProjectReference type="Assembly" localcopy="True" refto="../bin/Meebey.SmartIrc4net.dll" />
+    <ProjectReference type="Assembly" localcopy="True" refto="../../bin/log4net.dll" />
+    <ProjectReference type="Assembly" localcopy="True" refto="../../bin/Nini.dll" />
+    <ProjectReference type="Assembly" localcopy="True" refto="../../bin/Meebey.SmartIrc4net.dll" />
     <ProjectReference type="Gac" localcopy="True" refto="gconf-sharp, Version=2.8.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
     <ProjectReference type="Project" localcopy="True" refto="Common" />
     <ProjectReference type="Gac" localcopy="True" refto="System.Runtime.Remoting, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />

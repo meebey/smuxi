@@ -1,25 +1,25 @@
 <Project name="Common" fileversion="2.0" language="C#" clr-version="Net_2_0" ctype="DotNetProject">
   <Configurations active="Debug">
     <Configuration name="Debug" ctype="DotNetProjectConfiguration">
-      <Output directory="../bin/mono/debug" assembly="smuxi-common" />
+      <Output directory="../../bin/debug" assembly="smuxi-common" />
       <Build debugmode="True" target="Library" />
       <Execution runwithwarnings="False" consolepause="True" runtime="MsNet" clr-version="Net_2_0" />
       <CodeGeneration compiler="Csc" warninglevel="4" optimize="True" unsafecodeallowed="False" generateoverflowchecks="True" mainclass="" definesymbols="DEBUG,TRACE,LOG4NET" generatexmldocumentation="False" ctype="CSharpCompilerParameters" />
     </Configuration>
     <Configuration name="Release" ctype="DotNetProjectConfiguration">
-      <Output directory="../bin/mono/release" assembly="smuxi-common" />
+      <Output directory="../../bin/release" assembly="smuxi-common" />
       <Build debugmode="False" target="Library" />
       <Execution runwithwarnings="True" consolepause="True" runtime="MsNet" clr-version="Net_2_0" />
       <CodeGeneration compiler="Csc" warninglevel="4" optimize="True" unsafecodeallowed="False" generateoverflowchecks="True" mainclass="" generatexmldocumentation="False" ctype="CSharpCompilerParameters" />
     </Configuration>
   </Configurations>
   <Contents>
-    <File name="../src/Common/AssemblyInfo.cs" subtype="Code" buildaction="Compile" />
-    <File name="../src/Common/ITraceable.cs" subtype="Code" buildaction="Compile" />
-    <File name="../src/Common/Trace.cs" subtype="Code" buildaction="Compile" />
+    <File name="./AssemblyInfo.cs" subtype="Code" buildaction="Compile" />
+    <File name="./ITraceable.cs" subtype="Code" buildaction="Compile" />
+    <File name="./Trace.cs" subtype="Code" buildaction="Compile" />
   </Contents>
   <References>
-    <ProjectReference type="Assembly" localcopy="True" refto="../bin/log4net.dll" />
+    <ProjectReference type="Assembly" localcopy="True" refto="../../bin/log4net.dll" />
     <ProjectReference type="Gac" localcopy="True" refto="System, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   </References>
   <DeploymentInformation strategy="File">

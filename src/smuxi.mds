@@ -26,11 +26,11 @@
     <Execute type="None" entry="Frontend" />
   </StartMode>
   <Entries>
-    <Entry filename="./Common.mdp" />
-    <Entry filename="./Engine.mdp" />
-    <Entry filename="./Server.mdp" />
-    <Entry filename="./Frontend-GNOME.mdp" />
-    <Entry filename="./Frontend-Test.mdp" />
-    <Entry filename="./Frontend.mdp" />
+    <Entry filename="./Common/Common.mdp" />
+    <Entry filename="./Engine/Engine.mdp" />
+    <Entry filename="./Server/Server.mdp" />
+    <Entry filename="./Frontend-GNOME/Frontend-GNOME.mdp" />
+    <Entry filename="./Frontend-Test/Frontend-Test.mdp" />
+    <Entry filename="./Frontend/Frontend.mdp" />
   </Entries>
 </Combine>
