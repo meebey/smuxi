@@ -46,5 +46,8 @@ namespace Meebey.Smuxi.Engine
         void RemoveUserFromChannel(ChannelPage cpage, User user);
         void SetNetworkStatus(string status);
         void SetStatus(string status);
+        
+        // Presence?
+        // File Transfer?
     }
 }

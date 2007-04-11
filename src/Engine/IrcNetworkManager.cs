@@ -33,6 +33,7 @@ using System.Globalization;
 using System.Threading;
 using System.Collections;
 using Meebey.SmartIrc4net;
+using Meebey.Smuxi.Common;
 
 namespace Meebey.Smuxi.Engine
 {
@@ -59,6 +60,7 @@ namespace Meebey.Smuxi.Engine
         private string          _Username;
         private string          _Password;
         private FrontendManager _FrontendManager;
+        private bool            _Listening;
         
         public bool IsConnected {
             get {
@@ -107,6 +109,8 @@ namespace Meebey.Smuxi.Engine
         
         public IrcNetworkManager(Session session)
         {
+            Trace.Call(session);
+            
             _Session = session;
             
             _IrcClient = new IrcClient();
@@ -143,8 +147,6 @@ namespace Meebey.Smuxi.Engine
             _IrcClient.OnNowAway        += new IrcEventHandler(_OnNowAway);
             _IrcClient.OnCtcpRequest    += new CtcpEventHandler(_OnCtcpRequest);
             _IrcClient.OnCtcpReply      += new CtcpEventHandler(_OnCtcpReply);
-            // HACK: so Getty's BNC doesn't get mad!
-            //_IrcClient.AutoNickHandling = false;
             
             string encodingName = (string) _Session.UserConfig["Connection/Encoding"];
             if (encodingName != null && encodingName.Length != 0) {
@@ -164,6 +166,8 @@ namespace Meebey.Smuxi.Engine
         
         public void Dispose()
         {
+            Trace.Call();
+            
             // we can't delete directly, it will break the enumerator, let's use a list
             ArrayList removelist = new ArrayList();
             foreach (Page page in _Session.Pages) {
@@ -204,24 +208,70 @@ namespace Meebey.Smuxi.Engine
             _Username = user;
             _Password = pass;
             
-            Thread thread = new Thread(new ThreadStart(_Connect));
+            Thread thread = new Thread(new ThreadStart(_Run));
             thread.IsBackground = true;
             thread.Name = "IrcManager ("+server+":"+port+")";
             thread.Start();
         }
         
-        private void _Connect()
+        private void _Run()
         {
-            string msg;
-            Page spage = _Session.GetPage("Server", PageType.Server, NetworkType.Irc, null);
-            msg = String.Format(_("Connecting to {0} port {1}..."), _Server, _Port);
-            _FrontendManager.SetStatus(msg);
-            _Session.AddTextToPage(spage, "-!- "+msg);
+            Trace.Call();
+            
             try {
+                Connect(_FrontendManager);
+                
+                while (_Listening) {
+                    try {
+                        _Listen();
+#if LOG4NET
+                        _Logger.Warn("_Run(): _Listen() returned.");
+#endif
+                        System.Threading.Thread.Sleep(1000);
+                    } catch (Exception ex) {
+#if LOG4NET
+                        _Logger.Error("_Run(): exception in _Listen() occurred!" ,ex);
+#endif
+                        Reconnect(_FrontendManager);
+                    }
+                }
+            } catch (Exception ex) {
+#if LOG4NET
+                _Logger.Error(ex);
+#endif
+            }
+            
+            // don't need the FrontendManager anymore
+            _FrontendManager = null;
+        }
+        
+        private void _Listen()
+        {
+            try {
+                _IrcClient.Listen();
+            } catch (Exception ex) {
+                string msg;
+                Page spage = _Session.GetPage("Server", PageType.Server, NetworkType.Irc, null);
+                _Session.AddTextToPage(spage, "-!- " + _("Connection error! Reason: ") + ex.Message);
+                throw;
+            }
+        }
+        
+        public void Connect(FrontendManager fm)
+        {
+            Trace.Call(fm);
+            
+            Page spage = _Session.GetPage("Server", PageType.Server, NetworkType.Irc, null);
+            try {
+                string msg;
+                msg = String.Format(_("Connecting to {0} port {1}..."), _Server, _Port);
+                fm.SetStatus(msg);
+                _Session.AddTextToPage(spage, "-!- " + msg);
+                
                 _IrcClient.Connect(_Server, _Port);
-                _FrontendManager.UpdateNetworkStatus();
+                fm.UpdateNetworkStatus();
                 msg = String.Format(_("Connection to {0} established"), _Server);
-                _FrontendManager.SetStatus(msg);
+                fm.SetStatus(msg);
                 _Session.AddTextToPage(spage, "-!- " + msg);
                 _Session.AddTextToPage(spage, "-!- " + _("Logging in..."));
                 if (_Password != null) {
@@ -230,37 +280,31 @@ namespace Meebey.Smuxi.Engine
                 _IrcClient.Login(_Nicknames, (string)_Session.UserConfig["Connection/Realname"], 0, _Username);
                 
                 foreach (string command in (string[])_Session.UserConfig["Connection/OnConnectCommands"]) {
-                        if (command.Length == 0) {
-                            continue;
-                        } 
-                        CommandData cd = new CommandData(_FrontendManager,
-                            (string)_Session.UserConfig["Interface/Entry/CommandCharacter"],
-                            command);
-                            
-                        bool handled;
-                        handled = _Session.Command(cd);
-                        if (!handled) {
-                            Command(cd);
-                        }
+                    if (command.Length == 0) {
+                        continue;
+                    } 
+                    CommandData cd = new CommandData(_FrontendManager,
+                        (string)_Session.UserConfig["Interface/Entry/CommandCharacter"],
+                        command);
+                        
+                    bool handled;
+                    handled = _Session.Command(cd);
+                    if (!handled) {
+                        Command(cd);
+                    }
                 }
-                
-                try {
-                    _IrcClient.Listen();
-                } catch (Exception e) {
-                    _Logger.Error(e);
-                    throw;
-                }
-            } catch (CouldNotConnectException e) {
+                _Listening = true;
+            } catch (CouldNotConnectException ex) {
                 _FrontendManager.SetStatus(_("Connection failed!"));
-                _Session.AddTextToPage(spage, "-!- " + _("Connection failed! Reason: ") + e.Message);
+                _Session.AddTextToPage(spage, "-!- " + _("Connection failed! Reason: ") + ex.Message);
+                throw;
             }
-            
-            // don't need the FrontendManager anymore
-            _FrontendManager = null;
         }
         
         public void Disconnect(FrontendManager fm)
         {
+            Trace.Call(fm);
+            
             fm.SetStatus(_("Disconnecting..."));
             Page spage = _Session.GetPage("Server", PageType.Server, NetworkType.Irc, null);
             if (IsConnected) {
@@ -270,6 +314,8 @@ namespace Meebey.Smuxi.Engine
                 fm.SetStatus(String.Format(_("Disconnected from {0}"), _IrcClient.Address));
                 _Session.AddTextToPage(spage, "-!- " +
                     _("Connection closed"));
+                
+                _Listening = false;
                 // TODO: set someone else as current network manager?
             } else {
                 fm.SetStatus(_("Not connected!"));
@@ -279,15 +325,16 @@ namespace Meebey.Smuxi.Engine
             fm.UpdateNetworkStatus();
         }
         
-        /* not sure if this method makes sense
         public void Reconnect(FrontendManager fm)
         {
+            Trace.Call(fm);
+            
             fm.SetStatus("Reconnecting...");
             Page spage = _Session.GetPage("Server", PageType.Server, NetworkType.Irc, null);
             try {
                 string msg;
                 if (_IrcClient != null) {
-                    _Session.AddTextToPage(spage, "-!- Reconnecting to "+_IrcClient.Address+"...");
+                    _Session.AddTextToPage(spage, "-!- Reconnecting to " + _IrcClient.Address+"...");
                     _IrcClient.Reconnect(true);
                     msg = "Connection to "+_IrcClient.Address+" established";
                     fm.SetStatus(msg); 
@@ -302,7 +349,6 @@ namespace Meebey.Smuxi.Engine
             }
             fm.UpdateNetworkStatus();
         }
-        */
         
         public bool Command(CommandData cd)
         {
@@ -1036,7 +1082,8 @@ namespace Meebey.Smuxi.Engine
             // convert * / _ to mIRC control characters
             string[] messageParts = message.Split(new char[] {' '});
             // better regex? \*([^ *]+)\*
-            string pattern = @"^({0})([A-Za-z0-9]+?){0}$";
+            //string pattern = @"^({0})([A-Za-z0-9]+?){0}$";
+            string pattern = @"^({0})([^ *]+){0}$";
             for (int i = 0; i < messageParts.Length; i++) {
                 messageParts[i] = Regex.Replace(messageParts[i], String.Format(pattern, @"\*"), (char)IrcControlCode.Bold      + "$1$2$1" + (char)IrcControlCode.Bold);
                 messageParts[i] = Regex.Replace(messageParts[i], String.Format(pattern,  "_"),  (char)IrcControlCode.Underline + "$1$2$1" + (char)IrcControlCode.Underline);
@@ -1097,11 +1144,11 @@ namespace Meebey.Smuxi.Engine
                             _Logger.Debug("_IrcMessageToFormattedMessage(): found color control character");
 #endif
                             color = !color;
-                            string color_codes = message.Substring(controlPos, 5);
+                            string colorMessage = message.Substring(controlPos);
 #if LOG4NET
-                            _Logger.Debug("_IrcMessageToFormattedMessage(): color_codes: '" + color_codes + "'");
+                            _Logger.Debug("_IrcMessageToFormattedMessage(): colorMessage: '" + colorMessage + "'");
 #endif
-                            Match match = Regex.Match(color_codes, (char)IrcControlCode.Color + "(?<fg>[0-9][0-9]?)(,(?<bg>[0-9][0-9]?))?");
+                            Match match = Regex.Match(colorMessage, (char)IrcControlCode.Color + "(?<fg>[0-9][0-9]?)(,(?<bg>[0-9][0-9]?))?");
                             if (match.Success) {
                                 controlChars = match.Value;
                                 int color_code;

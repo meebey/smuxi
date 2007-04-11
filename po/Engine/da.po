@@ -1,0 +1,211 @@
+# Smuxi-Engine Danish da-DK.
+# Copyright (C) 2006
+# This file is distributed under the same license as the PACKAGE package.
+# Bjarke Sørensen <bs@wasd.dk>, 2006.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2006-12-10 15:22+0100\n"
+"PO-Revision-Date: 2006-12-11 00:21+0100\n"
+"Last-Translator: Bjarke Sørensen <bs@wasd.dk>\n"
+"Language-Team: Danish <bs@wasd.dk>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../src/Engine/FrontendManager.cs:157
+msgid "no network connections"
+msgstr "ingen netværksforbindelser"
+
+#: ../../src/Engine/IrcNetworkManager.cs:146
+#, csharp-format
+msgid "Connecting to {0} port {1}..."
+msgstr "Forbinder til {0} port {1}..."
+
+#: ../../src/Engine/IrcNetworkManager.cs:152
+#, csharp-format
+msgid "Connection to {0} established"
+msgstr "Forbindelse til {0} oprettet"
+
+#: ../../src/Engine/IrcNetworkManager.cs:155
+msgid "Logging in..."
+msgstr "Logger ind..."
+
+#: ../../src/Engine/IrcNetworkManager.cs:186
+msgid "Connection failed!"
+msgstr "Forbindelse mislykkedes!"
+
+#: ../../src/Engine/IrcNetworkManager.cs:187
+msgid "Connection failed! Reason: "
+msgstr "Forbindelse mislykkedes! Grund:"
+
+#: ../../src/Engine/IrcNetworkManager.cs:196
+msgid "Disconnecting..."
+msgstr "Afbryder forbindelse..."
+
+#: ../../src/Engine/IrcNetworkManager.cs:200
+#, csharp-format
+msgid "Disconnecting from {0}..."
+msgstr "Afbryder fra {0}..."
+
+#: ../../src/Engine/IrcNetworkManager.cs:202
+#, csharp-format
+msgid "Disconnected from {0}"
+msgstr "Afbrudt fra {0}"
+
+#: ../../src/Engine/IrcNetworkManager.cs:204
+msgid "Connection closed"
+msgstr "Forbindelse lukket"
+
+#: ../../src/Engine/IrcNetworkManager.cs:207
+msgid "Not connected!"
+msgstr "Ikke forbundet!"
+
+#: ../../src/Engine/IrcNetworkManager.cs:209
+msgid "Not connected"
+msgstr "Ikke forbundet"
+
+#: ../../src/Engine/IrcNetworkManager.cs:248
+msgid "(not connected)"
+msgstr "(ikke forbundet)"
+
+#: ../../src/Engine/IrcNetworkManager.cs:466
+#, csharp-format
+msgid "Not joined to channel: {0}. Please rejoin."
+msgstr "Ikke i kanalen: {0}.Gå derind igen."
+
+#: ../../src/Engine/IrcNetworkManager.cs:505
+#, csharp-format
+msgid "Already joined to channel: {0}. Type /window {0} to switch to it"
+msgstr "Du er allerede i kanalen: {0}.Skriv /window {0} for at skifte til den"
+
+#: ../../src/Engine/IrcNetworkManager.cs:651
+#, csharp-format
+msgid "Topic for {0}: {1}"
+msgstr "Emnet for {0}: {1}"
+
+#: ../../src/Engine/IrcNetworkManager.cs:654
+#, csharp-format
+msgid "No topic set for {0}"
+msgstr "Intet emne sat for {0}"
+
+#: ../../src/Engine/IrcNetworkManager.cs:813
+#, csharp-format
+msgid "Inviting {0} to {1}"
+msgstr "Inviterer {0} til {1}"
+
+#: ../../src/Engine/IrcNetworkManager.cs:817
+#, csharp-format
+msgid "{0} is already on channel"
+msgstr "{0} er allerede i kanalen"
+
+#: ../../src/Engine/IrcNetworkManager.cs:874
+#: ../../src/Engine/Session.cs:355
+#, csharp-format
+msgid "Not enough parameters for {0} command"
+msgstr "Ikke nok parametre for kanalen {0}"
+
+#: ../../src/Engine/IrcNetworkManager.cs:879
+msgid "Not connected to server"
+msgstr "Ikke forbundet til server"
+
+#: ../../src/Engine/IrcNetworkManager.cs:1118
+#, csharp-format
+msgid "{0}: No such nick/channel"
+msgstr "{0}: Intet sådan kaldenavn/kanal"
+
+#: ../../src/Engine/IrcNetworkManager.cs:1216
+#, csharp-format
+msgid "{0} [{1}] requested CTCP {2} from {3}: {4}"
+msgstr "{0} [{1}] udbedte CTCP {2} fra {3}: {4}"
+
+#: ../../src/Engine/IrcNetworkManager.cs:1234
+#, csharp-format
+msgid "CTCP PING reply from {0}: {1} seconds"
+msgstr "CTCP PING svar fra {0}: {1} sekunder"
+
+#: ../../src/Engine/IrcNetworkManager.cs:1377
+#, csharp-format
+msgid "{0} [{1}] has joined {2}"
+msgstr "{0} [{1}] kom ind i {2}"
+
+#: ../../src/Engine/IrcNetworkManager.cs:1478
+#, csharp-format
+msgid "{0} [{1}] has left {2} [{3}]"
+msgstr "{0} [{1}] har forladt {2} [{3}]"
+
+#: ../../src/Engine/IrcNetworkManager.cs:1495
+#, csharp-format
+msgid "You was kicked from {0} by {1} [{2}]"
+msgstr "Du blev sparket ud fra {0} af {1} [{2}]"
+
+#: ../../src/Engine/IrcNetworkManager.cs:1502
+#, csharp-format
+msgid "{0} was kicked from {1} by {2} [{3}]"
+msgstr "{0} blev sparket ud fra {1} af {2} [{3}]"
+
+#: ../../src/Engine/IrcNetworkManager.cs:1515
+#: ../../src/Engine/IrcNetworkManager.cs:1541
+#, csharp-format
+msgid "You're now known as {0}"
+msgstr "Du kendes nu som  {0}"
+
+#: ../../src/Engine/IrcNetworkManager.cs:1545
+#, csharp-format
+msgid "{0} is now known as {1}"
+msgstr "{0} kendes nu som {1}"
+
+#: ../../src/Engine/IrcNetworkManager.cs:1563
+#, csharp-format
+msgid "{0} changed the topic of {1} to: {2}"
+msgstr "{0} har ændret emnet i {1} til: {2}"
+
+#: ../../src/Engine/IrcNetworkManager.cs:1631
+#, fuzzy, csharp-format
+msgid "Mode change [{0}] for user {1}"
+msgstr "Modus [{0}] ændret for brugeren {1}"
+
+#: ../../src/Engine/IrcNetworkManager.cs:1644
+#, fuzzy, csharp-format
+msgid "mode/{0} [{1}] by {2}"
+msgstr "modus/{0} [{1}] af {2}"
+
+#: ../../src/Engine/IrcNetworkManager.cs:1666
+#: ../../src/Engine/IrcNetworkManager.cs:1672
+#, fuzzy, csharp-format
+msgid "{0} [{1}] has quit [{2}]"
+msgstr "{0} [{1}] har afsluttet [{2}]"
+
+#: ../../src/Engine/IrcNetworkManager.cs:1703
+#, csharp-format
+msgid "{0} is away: {1}"
+msgstr "{0} er væk: {1}"
+
+#: ../../src/Engine/IrcNetworkManager.cs:1710
+msgid "You are no longer marked as being away"
+msgstr "Du er ikke længere markeret som værende væk"
+
+#: ../../src/Engine/IrcNetworkManager.cs:1717
+msgid "You have been marked as being away"
+msgstr "Du er blevet markeret som værende væk"
+
+#: ../../src/Engine/Session.cs:90
+msgid "Welcome to Smuxi"
+msgstr "Velkommen til Smuxi"
+
+#: ../../src/Engine/Session.cs:237
+#, csharp-format
+msgid "Invalid port: {0}"
+msgstr "Invalid port: {0}"
+
+#: ../../src/Engine/Session.cs:295
+#, csharp-format
+msgid "Disconnect failed, could not find server: {0}"
+msgstr "Afbrydelse fejlede, kunne ikke finde server: {0}"
+
+#: ../../src/Engine/Session.cs:349
+msgid "Not connected to any network"
+msgstr "Ikke forbundet til noget netværk"
+

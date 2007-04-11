@@ -28,6 +28,13 @@
 
 namespace Meebey.Smuxi.Engine
 {
+    public enum ModelType
+    {
+        Network,
+        Public,
+        Private,
+    }
+    
     public enum PageType
     {
         Server,

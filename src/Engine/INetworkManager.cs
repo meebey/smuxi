@@ -46,6 +46,7 @@ namespace Meebey.Smuxi.Engine
         }
         bool Command(CommandData cd);
         void Disconnect(FrontendManager fm);
+        void Reconnect(FrontendManager fm);
         string ToString();
     }
 }

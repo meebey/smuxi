@@ -318,6 +318,8 @@ namespace Meebey.Smuxi.Engine
         
         public void CommandReconnect(CommandData cd)
         {
+            FrontendManager fm = cd.FrontendManager;
+            fm.CurrentNetworkManager.Reconnect(fm);
         }
         
         public void CommandQuit(CommandData cd)

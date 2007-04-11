@@ -358,7 +358,9 @@ namespace Meebey.Smuxi.FrontendGnome
                 	}
                 } else {
     	            ExecuteCommand(Text);
-    	            AddToHistory(Text, History.Count - HistoryPosition);
+                    AddToHistory(Text, History.Count - HistoryPosition);
+                    // reset history position to last entry
+                    _HistoryPosition = _History.Count - 1;
     	        }
                 Text = String.Empty;
             } catch (Exception ex) {

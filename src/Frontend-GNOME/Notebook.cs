@@ -46,6 +46,7 @@ namespace Meebey.Smuxi.FrontendGnome
         {
             Scrollable = true;
             SwitchPage += new Gtk.SwitchPageHandler(_OnSwitchPage);
+            
             ApplyUserConfig();
         }
         

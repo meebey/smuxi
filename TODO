@@ -32,7 +32,7 @@ Feature Requests:
 - /exec -engine, execute the command on engine and not frontend
 - /network save, save servers and joined channels for auto-connect/join (basher)
 - add date stamps between days like irssi
-- add disable page marker
+- add marker for disabled pages
 - use treeview as alternative to notebook tabs.
 - theme support
 - keep nick (Salz)
