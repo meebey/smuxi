@@ -18,7 +18,6 @@
     <File name="../src/Frontend-Test/Frontend.cs" subtype="Code" buildaction="Compile" />
     <File name="../src/Frontend-Test/Main.cs" subtype="Code" buildaction="Compile" />
     <File name="../src/Frontend-Test/TestUI.cs" subtype="Code" buildaction="Compile" />
-    <File name="./" subtype="Directory" buildaction="Compile" />
   </Contents>
   <References>
     <ProjectReference type="Project" localcopy="True" refto="Engine" />

@@ -50,7 +50,6 @@
     <File name="../src/Frontend-GNOME/Preferences/ChannelFilterListController.cs" subtype="Code" buildaction="Compile" />
     <File name="../src/Frontend-GNOME/Preferences/ChannelFilterListView.cs" subtype="Code" buildaction="Compile" />
     <File name="../src/Frontend-GNOME/Preferences/ChannelFilterModel.cs" subtype="Code" buildaction="Compile" />
-    <File name="./" subtype="Directory" buildaction="Compile" />
   </Contents>
   <References>
     <ProjectReference type="Project" localcopy="True" refto="Engine" />

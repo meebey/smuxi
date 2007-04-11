@@ -43,7 +43,6 @@
     <File name="../src/Engine/UICommandContainer.cs" subtype="Code" buildaction="Compile" />
     <File name="../src/Engine/User.cs" subtype="Code" buildaction="Compile" />
     <File name="../src/Engine/UserConfig.cs" subtype="Code" buildaction="Compile" />
-    <File name="./" subtype="Directory" buildaction="Compile" />
   </Contents>
   <References>
     <ProjectReference type="Assembly" localcopy="True" refto="../bin/log4net.dll" />

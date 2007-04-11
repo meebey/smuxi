@@ -31,6 +31,6 @@
     <Entry filename="./Server.mdp" />
     <Entry filename="./Frontend-GNOME.mdp" />
     <Entry filename="./Frontend-Test.mdp" />
-    <Entry filename="../src/Frontend/Frontend.mdp" />
+    <Entry filename="./Frontend.mdp" />
   </Entries>
 </Combine>
