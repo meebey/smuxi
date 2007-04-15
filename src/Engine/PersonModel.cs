@@ -1,9 +1,9 @@
 /*
- * $Id$
- * $URL$
- * $Rev$
- * $Author$
- * $Date$
+ * $Id: NetworkType.cs 141 2006-12-31 02:09:01Z meebey $
+ * $URL: svn+ssh://svn.qnetp.net/svn/smuxi/smuxi/trunk/src/Engine/NetworkType.cs $
+ * $Rev: 141 $
+ * $Author: meebey $
+ * $Date: 2006-12-31 03:09:01 +0100 (Sun, 31 Dec 2006) $
  *
  * smuxi - Smart MUltipleXed Irc
  *
@@ -28,19 +28,21 @@
 
 namespace Meebey.Smuxi.Engine
 {
-    public enum UICommand
+    public class PersonModel : ContactModel
     {
-        AddChat,
-        RemoveChat,
-        EnableChat,
-        DisableChat,
-        SyncChat,
-        AddMessageToChat,
-        AddPersonToGroupChat,
-        UpdatePersonInGroupChat,
-        UpdateTopicInGroupChat,
-        RemovePersonFromGroupChat,
-        SetNetworkStatus,
-        SetStatus,
+        private INetworkManager _NetworkManager;
+        
+        public INetworkManager NetworkManager {
+            get {
+                return _NetworkManager;
+            }
+        }
+        
+        public PersonModel(string id, string displayName,
+                           string networkID, NetworkProtocol networkProtocol, INetworkManager networkManager) :
+                      base(id, displayName, networkID, networkProtocol)
+        {
+            _NetworkManager = networkManager;
+        }
     }
 }

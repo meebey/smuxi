@@ -1,9 +1,9 @@
 /*
- * $Id$
- * $URL$
- * $Rev$
- * $Author$
- * $Date$
+ * $Id: Page.cs 138 2006-12-23 17:11:57Z meebey $
+ * $URL: svn+ssh://svn.qnetp.net/svn/smuxi/smuxi/trunk/src/Engine/Page.cs $
+ * $Rev: 138 $
+ * $Author: meebey $
+ * $Date: 2006-12-23 18:11:57 +0100 (Sat, 23 Dec 2006) $
  *
  * smuxi - Smart MUltipleXed Irc
  *
@@ -28,18 +28,18 @@
 
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using Meebey.Smuxi.Common;
 
 namespace Meebey.Smuxi.Engine
 {
-    public class Page : PermanentRemoteObject, ITraceable
+    public class ChatModel : PermanentRemoteObject, ITraceable
     {
-        private string           _Name;
-        private PageType         _PageType;
-        private NetworkType      _NetworkType;
-        private INetworkManager  _NetworkManager;
-        private IList            _Buffer = new ArrayList();
-        private bool             _IsEnabled = true;
+        private string               _Name;
+        private ChatType             _ChatType;
+        private INetworkManager      _NetworkManager;
+        private IList<MessageModel>  _Messages = new List<MessageModel>();
+        private bool                 _IsEnabled = true;
         
         public string Name {
             get {
@@ -47,15 +47,9 @@ namespace Meebey.Smuxi.Engine
             }
         }
         
-        public PageType PageType {
+        public ChatType ChatType {
             get {
-                return _PageType;
-            }
-        }
-        
-        public NetworkType NetworkType {
-            get {
-                return _NetworkType;
+                return _ChatType;
             }
         }
         
@@ -65,15 +59,15 @@ namespace Meebey.Smuxi.Engine
             }
         }
         
-        public IList Buffer {
+        public IList<MessageModel> Messages {
             get {
-                return (IList) ((ICloneable)_Buffer).Clone();
+                return (IList<MessageModel>) ((ICloneable)_Messages).Clone();
             }
         }
         
-        public IList UnsafeBuffer {
+        internal IList<MessageModel> UnsafeMessages {
             get {
-                return _Buffer;
+                return _Messages;
             }
         }
         
@@ -86,17 +80,16 @@ namespace Meebey.Smuxi.Engine
         	}
         }
         
-        public Page(string name, PageType ptype, NetworkType ntype, INetworkManager nm)
+        public ChatModel(string name, ChatType chatType, INetworkManager networkManager)
         {
             _Name = name;
-            _PageType = ptype;
-            _NetworkType = ntype;
-            _NetworkManager = nm;
+            _ChatType = chatType;
+            _NetworkManager = networkManager;
         }
         
         public string ToTraceString()
         {
-        	string nm = (_NetworkManager != null) ? _NetworkManager.ToString() : "(null)" ;  
+        	string nm = (_NetworkManager != null) ? _NetworkManager.ToString() : "(null)";  
         	return  nm + "/" + _Name; 
         }
     }

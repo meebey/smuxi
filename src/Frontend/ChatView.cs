@@ -1,13 +1,13 @@
 /*
- * $Id$
- * $URL$
- * $Rev$
- * $Author$
- * $Date$
+ * $Id: AboutDialog.cs 122 2006-04-26 19:31:42Z meebey $
+ * $URL: svn+ssh://svn.qnetp.net/svn/smuxi/smuxi/trunk/src/Frontend-GNOME/AboutDialog.cs $
+ * $Rev: 122 $
+ * $Author: meebey $
+ * $Date: 2006-04-26 21:31:42 +0200 (Wed, 26 Apr 2006) $
  *
  * smuxi - Smart MUltipleXed Irc
  *
- * Copyright (c) 2005-2006 Mirco Bauer <meebey@meebey.net>
+ * Copyright (c) 2005-2007 Mirco Bauer <meebey@meebey.net>
  *
  * Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
  *
@@ -26,19 +26,12 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA
  */
 
-namespace Meebey.Smuxi.Engine
+using System;
+using Meebey.Smuxi;
+
+namespace Meebey.Smuxi.Frontend
 {
-    public enum ModelType
+    public class ChatView
     {
-        Network,
-        Public,
-        Private,
-    }
-    
-    public enum PageType
-    {
-        Server,
-        Channel,
-        Query,
     }
 }

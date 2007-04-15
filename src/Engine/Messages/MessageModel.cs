@@ -27,41 +27,37 @@
  */
 
 using System;
-using System.Collections;
+using System.Collections.Generic;
 
 namespace Meebey.Smuxi.Engine
 {
     [Serializable]
-    public class FormattedMessage
+    public class MessageModel
     {
-        private DateTime    _Timestamp;
-        private ArrayList   _Items;
+        private DateTime                _TimeStamp;
+        private IList<MessagePartModel> _MessageParts;
 
-        public DateTime Timestamp {
+        public DateTime TimeStamp {
             get {
-                return _Timestamp;
+                return _TimeStamp;
             }
         }
         
-        public ArrayList Items {
+        public IList<MessagePartModel> MessageParts {
             get {
-                return _Items;
+                return _MessageParts;
             }
         }
-                
-        public FormattedMessage()
+        
+        public MessageModel()
         {
-            _Timestamp = DateTime.UtcNow;
-            _Items = new ArrayList();
+            _TimeStamp    = DateTime.UtcNow;
+            _MessageParts = new List<MessagePartModel>();
         }
         
-        public FormattedMessage(string text) : this()
+        public MessageModel(string text) : this()
         {
-            _Items.Add(new FormattedMessageItem(
-                            FormattedMessageItemType.Text,
-                            new FormattedMessageTextItem(null, null, false, false, false, text)
-                            )
-                      );
+            _MessageParts.Add(new TextMessagePartModel(null, null, false, false, false, text));
         }
     }
 }

@@ -31,21 +31,21 @@ using System;
 namespace Meebey.Smuxi.Engine
 {
     [Serializable]
-    public class FormattedMessageTextItem
+    public class TextMessagePartModel : MessagePartModel
     {
-        private TextColor _Color;
+        private TextColor _ForegroundColor;
         private TextColor _BackgroundColor;
         private bool      _Underline;
         private bool      _Bold;
         private bool      _Italic;
         private string    _Text;
         
-        public TextColor Color {
+        public TextColor ForegroundColor {
             get {
-                return _Color;
+                return _ForegroundColor;
             }
             set {
-                _Color = value;
+                _ForegroundColor = value;
             }
         }
         
@@ -94,23 +94,26 @@ namespace Meebey.Smuxi.Engine
             }
         }
         
-        public FormattedMessageTextItem()
+        public TextMessagePartModel() :
+                               base(MessagePartType.Text)
         {
-            _Color = new TextColor();
+            _ForegroundColor = new TextColor();
             _BackgroundColor = new TextColor();
         }
         
-        public FormattedMessageTextItem(TextColor color, TextColor bgcolor,
-            bool underline, bool bold, bool italic, string text)
+        public TextMessagePartModel(TextColor fgColor, TextColor bgColor,
+                                    bool underline, bool bold, bool italic,
+                                    string text, bool highlight) :
+                               base(MessagePartType.Text, highlight)
         {
-            if (color != null) {
-                _Color = color;
+            if (fgColor != null) {
+                _ForegroundColor = fgColor;
             } else {
-                _Color = new TextColor();
+                _ForegroundColor = new TextColor();
             }
             
-            if (bgcolor != null) {
-                _BackgroundColor = bgcolor;
+            if (bgColor != null) {
+                _BackgroundColor = bgColor;
             } else {
                 _BackgroundColor = new TextColor();
             }
@@ -119,6 +122,13 @@ namespace Meebey.Smuxi.Engine
             _Bold = bold;
             _Italic = italic;
             _Text = text;
+        }
+        
+        public TextMessagePartModel(TextColor fgColor, TextColor bgColor,
+                                    bool underline, bool bold, bool italic,
+                                    string text) :
+                               this(fgColor, bgColor, underline, bold, italic, text, false)
+        {
         }
     }
 }

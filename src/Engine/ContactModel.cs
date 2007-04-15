@@ -1,9 +1,9 @@
 /*
- * $Id: Config.cs 100 2005-08-07 14:54:22Z meebey $
- * $URL: svn+ssh://svn.qnetp.net/svn/smuxi/smuxi/trunk/src/Engine/Config.cs $
- * $Rev: 100 $
+ * $Id: User.cs 142 2007-01-02 22:19:08Z meebey $
+ * $URL: svn+ssh://svn.qnetp.net/svn/smuxi/smuxi/trunk/src/Engine/User.cs $
+ * $Rev: 142 $
  * $Author: meebey $
- * $Date: 2005-08-07 16:54:22 +0200 (Sun, 07 Aug 2005) $
+ * $Date: 2007-01-02 23:19:08 +0100 (Tue, 02 Jan 2007) $
  *
  * smuxi - Smart MUltipleXed Irc
  *
@@ -31,40 +31,47 @@ using System;
 namespace Meebey.Smuxi.Engine
 {
     [Serializable]
-    public class FormattedMessageItem
+    public class ContactModel
     {
-        private FormattedMessageItemType _Type;
-        private object                   _Value;
-        private bool                     _IsHighlight;
+        private string          _ID;
+        private string          _IdentityName;
+        private string          _NetworkID;
+        private NetworkProtocol _NetworkProtocol;
         
-        public FormattedMessageItemType Type {
+        public string ID {
             get {
-                return _Type;
+                return _ID;
             }
         }
         
-        public object Value {
+        public string IdentityName {
             get {
-                return _Value;
+                return _IdentityName;
+            }
+            set {
+                _IdentityName = value;
             }
         }
         
-        public bool IsHighlight {
+        public string NetworkID {
             get {
-                return _IsHighlight;
+                return _NetworkID;
             }
         }
         
-        public FormattedMessageItem(FormattedMessageItemType type, object value)
+        public NetworkProtocol NetworkProtocol {
+            get {
+                return _NetworkProtocol;
+            }
+        }
+        
+        public ContactModel(string id, string identityName,
+                            string networkID, NetworkProtocol networkProtocol)
         {
-            _Type = type;
-            _Value = value;
-        }
-
-        public FormattedMessageItem(FormattedMessageItemType type, object value, bool highlight) :
-                               this(type, value)
-        {
-            _IsHighlight = highlight;
+            _ID = id;
+            _IdentityName = identityName;
+            _NetworkID = networkID;
+            _NetworkProtocol = networkProtocol;
         }
     }
 }

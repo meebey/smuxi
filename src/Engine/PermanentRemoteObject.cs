@@ -35,6 +35,7 @@ namespace Meebey.Smuxi.Engine
     {
         public override object InitializeLifetimeService()
         {
+            // no, please, nooooo, don't kill us!
             // both ways will cause an infinitive lifetime for the object
             /*
             Console.WriteLine("InitializeLifetimeService()");

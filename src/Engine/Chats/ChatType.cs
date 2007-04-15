@@ -1,9 +1,9 @@
 /*
- * $Id$
- * $URL$
- * $Rev$
- * $Author$
- * $Date$
+ * $Id: PageType.cs 149 2007-04-11 16:47:52Z meebey $
+ * $URL: svn+ssh://svn.qnetp.net/svn/smuxi/smuxi/trunk/src/Engine/PageType.cs $
+ * $Rev: 149 $
+ * $Author: meebey $
+ * $Date: 2007-04-11 18:47:52 +0200 (Wed, 11 Apr 2007) $
  *
  * smuxi - Smart MUltipleXed Irc
  *
@@ -26,34 +26,12 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA
  */
 
-using System;
-
 namespace Meebey.Smuxi.Engine
 {
-    [Serializable]
-    public class User // : PermanentRemoteObject
+    public enum ChatType
     {
-        private string      _Nickname;
-        private NetworkType _NetworkType;
-        
-        public string Nickname
-        {
-            get {
-                return _Nickname;
-            }
-        }
-        
-        public NetworkType NetworkType
-        {
-            get {
-                return _NetworkType;
-            }
-        }
-        
-        public User(string nickname, NetworkType ntype)
-        {
-            _Nickname = nickname;
-            _NetworkType = ntype;
-        }
+        Network,
+        Person,
+        Group,
     }
 }

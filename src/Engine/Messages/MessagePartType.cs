@@ -1,9 +1,9 @@
 /*
- * $Id$
- * $URL$
- * $Rev$
- * $Author$
- * $Date$
+ * $Id: Config.cs 100 2005-08-07 14:54:22Z meebey $
+ * $URL: svn+ssh://svn.qnetp.net/svn/smuxi/smuxi/trunk/src/Engine/Config.cs $
+ * $Rev: 100 $
+ * $Author: meebey $
+ * $Date: 2005-08-07 16:54:22 +0200 (Sun, 07 Aug 2005) $
  *
  * smuxi - Smart MUltipleXed Irc
  *
@@ -26,13 +26,15 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA
  */
 
+using System;
+
 namespace Meebey.Smuxi.Engine
 {
-    public enum NetworkType
+    public enum MessagePartType
     {
-        Irc,
-        Icq,
-        Aim,
-        Jabber,
+        Text,
+        Image,
+        Sound,
+        Url,
     }
 }

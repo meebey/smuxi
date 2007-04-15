@@ -1,0 +1,11 @@
+[Frontend/Engines]
+Engines = localhost
+Default = localhost
+
+[Frontend/Engines/localhost]
+Username = smuxi
+Password = crackme
+Hostname = localhost
+Port = 7689
+Channel = TCP
+Formatter = binary

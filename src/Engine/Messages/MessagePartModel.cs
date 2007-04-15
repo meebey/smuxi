@@ -30,46 +30,35 @@ using System;
 
 namespace Meebey.Smuxi.Engine
 {
-    public enum UrlProtocol {
-        Http,
-        Https,
-        Ftp,
-        Ftps,
-        Telnet,
-    }
-    
     [Serializable]
-    public class FormattedMessageUrlItem
+    public abstract class MessagePartModel
     {
-        private string      _Url;
-        private UrlProtocol _Protocol;
+        private bool                     _IsHighlight;
+        private MessagePartType          _MessagePartType;
         
-        public string Url {
+        public bool IsHighlight {
             get {
-                return _Url;
+                return _IsHighlight;
             }
             set {
-                _Url = value;
+                _IsHighlight = value;
             }
         }
         
-        public UrlProtocol Protocol {
+        public MessagePartType MessagePartType {
             get {
-                return _Protocol;
-            }
-            set {
-                _Protocol = value;
+                return _MessagePartType;
             }
         }
         
-        public FormattedMessageUrlItem()
+        protected MessagePartModel(MessagePartType type)
         {
+            _MessagePartType = type;
         }
-        
-        public FormattedMessageUrlItem(string url, UrlProtocol protocol)
+
+        protected MessagePartModel(MessagePartType type, bool highlight) : this(type)
         {
-            _Url = url;
-            _Protocol = protocol;
+            _IsHighlight = highlight;
         }
     }
 }

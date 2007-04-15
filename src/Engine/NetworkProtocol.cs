@@ -26,40 +26,14 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA
  */
 
-using System;
-
 namespace Meebey.Smuxi.Engine
 {
-    [Serializable]
-    public class IrcChannelUser : IrcUser
+    public enum NetworkProtocol
     {
-        private bool _IsOp;
-        private bool _IsVoice;
-        
-        public bool IsOp {
-            get {
-                return _IsOp;
-            }
-            set {
-                _IsOp = value;
-            }
-        }
-
-        public bool IsVoice {
-            get {
-                return _IsVoice;
-            }
-            set {
-                _IsVoice = value;
-            }
-        }
-        
-        public IrcChannelUser(string nickname, string realname, string ident, string host) : base(nickname, realname, ident, host)
-        {
-        }
-        
-        public IrcChannelUser(string nickname) : base(nickname)
-        {
-        }
+        None,
+        Irc,
+        Jabber,
+        Oscar, // AIM / ICQ
+        Msn,
     }
 }

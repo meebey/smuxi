@@ -28,6 +28,7 @@
 
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Threading;
 using Meebey.Smuxi.Common;
 
@@ -40,16 +41,16 @@ namespace Meebey.Smuxi.Engine
 #if LOG4NET
         private static readonly log4net.ILog _Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 #endif
-        private int             _Version = 0;
-        private Queue           _Queue  = Queue.Synchronized(new Queue());
-        private Thread          _Thread;
-        private Session         _Session;
-        private IFrontendUI     _UI;
-        private Page            _CurrentPage;
-        private INetworkManager _CurrentNetworkManager;
-        private bool            _IsFrontendDisconnecting;
-        private SimpleDelegate  _ConfigChangedDelegate;
-        private ArrayList       _SyncedPages = new ArrayList();
+        private int              _Version = 0;
+        private Queue            _Queue  = Queue.Synchronized(new Queue());
+        private Thread           _Thread;
+        private Session          _Session;
+        private IFrontendUI      _UI;
+        private ChatModel        _CurrentChat;
+        private INetworkManager  _CurrentNetworkManager;
+        private bool             _IsFrontendDisconnecting;
+        private SimpleDelegate   _ConfigChangedDelegate;
+        private IList<ChatModel> _SyncedChats = new List<ChatModel>();
         
         public int Version {
             get {
@@ -63,12 +64,12 @@ namespace Meebey.Smuxi.Engine
             }
         }
         
-        public Page CurrentPage {
+        public ChatModel CurrentChat {
             get {
-                return _CurrentPage;
+                return _CurrentChat;
             }
             set {
-                _CurrentPage = value;
+                _CurrentChat = value;
             }
         }
         
@@ -115,8 +116,8 @@ namespace Meebey.Smuxi.Engine
             Trace.Call();
             
             // sync pages            
-            foreach (Page page in _Session.Pages) {
-                _AddPage(page);
+            foreach (ChatModel chat in _Session.Chats) {
+                _AddChat(chat);
             }
             
             // sync current network manager (if any exists)
@@ -126,19 +127,19 @@ namespace Meebey.Smuxi.Engine
             }
             
             // sync current page
-            _CurrentPage = (Page)_Session.Pages[0];
+            _CurrentChat = (ChatModel)_Session.Chats[0];
             
             // sync content of pages
-            foreach (Page page in _Session.Pages) {
-                SyncPage(page);
+            foreach (ChatModel chat in _Session.Chats) {
+                SyncChat(chat);
             }
         }
         
-        public void AddSyncedPage(Page page)
+        public void AddSyncedChat(ChatModel chatModel)
         {
-            Trace.Call(page);
+            Trace.Call(chatModel);
             
-            _SyncedPages.Add(page);
+            _SyncedChats.Add(chatModel);
         }
         
         public void NextNetworkManager()
@@ -166,118 +167,118 @@ namespace Meebey.Smuxi.Engine
             }
         }
         
-        public void AddPage(Page page)
+        public void AddChat(ChatModel chat)
         {
-            if (!_SyncedPages.Contains(page)) {
-                _AddPage(page);
+            if (!_SyncedChats.Contains(chat)) {
+                _AddChat(chat);
             }
         }
         
-        private void _AddPage(Page page)
+        private void _AddChat(ChatModel chat)
         {
-            _Queue.Enqueue(new UICommandContainer(UICommand.AddPage, page));
+            _Queue.Enqueue(new UICommandContainer(UICommand.AddChat, chat));
         }
         
-        public void AddTextToPage(Page page, string text)
+        public void AddTextToChat(ChatModel chat, string text)
         {
-            AddMessageToPage(page, new FormattedMessage(text));
+            AddMessageToChat(chat, new MessageModel(text));
         }
         
-        public void AddTextToCurrentPage(string text)
+        public void AddTextToCurrentChat(string text)
         {
-            AddTextToPage(CurrentPage, text);
+            AddTextToChat(CurrentChat, text);
         }
         
-        public void EnablePage(Page page)
+        public void EnableChat(ChatModel chat)
         {
-            _Queue.Enqueue(new UICommandContainer(UICommand.EnablePage, page));
+            _Queue.Enqueue(new UICommandContainer(UICommand.EnableChat, chat));
         }
         
-        public void DisablePage(Page page)
+        public void DisableChat(ChatModel chat)
         {
-            _Queue.Enqueue(new UICommandContainer(UICommand.DisablePage, page));
+            _Queue.Enqueue(new UICommandContainer(UICommand.DisableChat, chat));
         }
         
-        public void AddMessageToPage(Page page, FormattedMessage fmsg)
+        public void AddMessageToChat(ChatModel chat, MessageModel msg)
         {
-            if (_SyncedPages.Contains(page)) {
-                _AddMessageToPage(page, fmsg);
+            if (_SyncedChats.Contains(chat)) {
+                _AddMessageToChat(chat, msg);
             }
         }
         
-        private void _AddMessageToPage(Page page, FormattedMessage fmsg)
+        private void _AddMessageToChat(ChatModel chat, MessageModel msg)
         {
-            _Queue.Enqueue(new UICommandContainer(UICommand.AddMessageToPage, page, fmsg));
+            _Queue.Enqueue(new UICommandContainer(UICommand.AddMessageToChat, chat, msg));
         }
         
-        public void AddMessageToCurrentPage(FormattedMessage fmsg)
+        public void AddMessageToCurrentChat(MessageModel msg)
         {
-            AddMessageToPage(CurrentPage, fmsg);
+            AddMessageToChat(CurrentChat, msg);
         }
         
-        public void RemovePage(Page page)
+        public void RemoveChat(ChatModel chat)
         {
-            if (_SyncedPages.Contains(page)) {
-                _RemovePage(page);
+            if (_SyncedChats.Contains(chat)) {
+                _RemoveChat(chat);
             }
         }
         
-        private void _RemovePage(Page page)
+        private void _RemoveChat(ChatModel chat)
         {
-            _Queue.Enqueue(new UICommandContainer(UICommand.RemovePage, page));
+            _Queue.Enqueue(new UICommandContainer(UICommand.RemoveChat, chat));
         }
         
-        public void SyncPage(Page page)
+        public void SyncChat(ChatModel chat)
         {
-            _Queue.Enqueue(new UICommandContainer(UICommand.SyncPage, page));
+            _Queue.Enqueue(new UICommandContainer(UICommand.SyncChat, chat));
         }
                 
-        public void AddUserToChannel(ChannelPage cpage, User user)
+        public void AddPersonToGroupChat(GroupChatModel groupChat, PersonModel person)
         {
-            if (_SyncedPages.Contains(cpage)) {
-                _AddUserToChannel(cpage, user);
+            if (_SyncedChats.Contains(groupChat)) {
+                _AddPersonToGroupChat(groupChat, person);
             }
         }
         
-        private void _AddUserToChannel(ChannelPage cpage, User user)
+        private void _AddPersonToGroupChat(GroupChatModel groupChat, PersonModel person)
         {
-            _Queue.Enqueue(new UICommandContainer(UICommand.AddUserToChannel, cpage, user));
+            _Queue.Enqueue(new UICommandContainer(UICommand.AddPersonToGroupChat, groupChat, person));
         }
         
-        public void UpdateUserInChannel(ChannelPage cpage, User olduser, User newuser)
+        public void UpdatePersonInGroupChat(GroupChatModel groupChat, PersonModel oldPerson, PersonModel newPerson)
         {
-            if (_SyncedPages.Contains(cpage)) {
-                _UpdateUserInChannel(cpage, olduser, newuser);
+            if (_SyncedChats.Contains(groupChat)) {
+                _UpdatePersonInGroupChat(groupChat, oldPerson, newPerson);
             }
         }
         
-        private void _UpdateUserInChannel(ChannelPage cpage, User olduser, User newuser)
+        private void _UpdatePersonInGroupChat(GroupChatModel groupChat, PersonModel oldPerson, PersonModel newPerson)
         {
-            _Queue.Enqueue(new UICommandContainer(UICommand.UpdateUserInChannel, cpage, olduser, newuser));
+            _Queue.Enqueue(new UICommandContainer(UICommand.UpdatePersonInGroupChat, groupChat, oldPerson, newPerson));
         }
     
-        public void UpdateTopicInChannel(ChannelPage cpage, string topic)
+        public void UpdateTopicInGroupChat(GroupChatModel groupChat, string topic)
         {
-            if (_SyncedPages.Contains(cpage)) {
-                _UpdateTopicInChannel(cpage, topic);
+            if (_SyncedChats.Contains(groupChat)) {
+                _UpdateTopicInGroupChat(groupChat, topic);
             }
         }
         
-        private void _UpdateTopicInChannel(ChannelPage cpage, string topic)
+        private void _UpdateTopicInGroupChat(GroupChatModel groupChat, string topic)
         {
-            _Queue.Enqueue(new UICommandContainer(UICommand.UpdateTopicInChannel, cpage, topic));
+            _Queue.Enqueue(new UICommandContainer(UICommand.UpdateTopicInGroupChat, groupChat, topic));
         }
     
-        public void RemoveUserFromChannel(ChannelPage cpage, User user)
+        public void RemovePersonFromGroupChat(GroupChatModel groupChat, PersonModel person)
         {
-            if (_SyncedPages.Contains(cpage)) {
-                _RemoveUserFromChannel(cpage, user);
+            if (_SyncedChats.Contains(groupChat)) {
+                _RemovePersonFromGroupChat(groupChat, person);
             }
         }
         
-        private void _RemoveUserFromChannel(ChannelPage cpage, User user)
+        private void _RemovePersonFromGroupChat(GroupChatModel groupChat, PersonModel person)
         {
-            _Queue.Enqueue(new UICommandContainer(UICommand.RemoveUserFromChannel, cpage, user));
+            _Queue.Enqueue(new UICommandContainer(UICommand.RemovePersonFromGroupChat, groupChat, person));
         }
         
         public void SetNetworkStatus(string status)
@@ -297,40 +298,40 @@ namespace Meebey.Smuxi.Engine
                     try {
                         UICommandContainer com = (UICommandContainer)_Queue.Dequeue();
                         switch (com.Command) {
-                            case UICommand.AddPage:
-                                _UI.AddPage((Page)com.Parameters[0]);
+                            case UICommand.AddChat:
+                                _UI.AddChat((ChatModel)com.Parameters[0]);
                                 break;
-                            case UICommand.RemovePage:
-                                _UI.RemovePage((Page)com.Parameters[0]);
+                            case UICommand.RemoveChat:
+                                _UI.RemoveChat((ChatModel)com.Parameters[0]);
                                 break;
-                            case UICommand.EnablePage:
-                                _UI.EnablePage((Page)com.Parameters[0]);
+                            case UICommand.EnableChat:
+                                _UI.EnableChat((ChatModel)com.Parameters[0]);
                                 break;
-                            case UICommand.DisablePage:
-                                _UI.DisablePage((Page)com.Parameters[0]);
+                            case UICommand.DisableChat:
+                                _UI.DisableChat((ChatModel)com.Parameters[0]);
                                 break;
-                            case UICommand.SyncPage:
-                                _UI.SyncPage((Page)com.Parameters[0]);
+                            case UICommand.SyncChat:
+                                _UI.SyncChat((ChatModel)com.Parameters[0]);
                                 break;
-                            case UICommand.AddMessageToPage:
-                                _UI.AddMessageToPage((Page)com.Parameters[0],
-                                    (FormattedMessage)com.Parameters[1]);
+                            case UICommand.AddMessageToChat:
+                                _UI.AddMessageToChat((ChatModel)com.Parameters[0],
+                                    (MessageModel)com.Parameters[1]);
                                 break;
-                            case UICommand.AddUserToChannel:
-                                _UI.AddUserToChannel((ChannelPage)com.Parameters[0],
-                                    (User)com.Parameters[1]);
+                            case UICommand.AddPersonToGroupChat:
+                                _UI.AddPersonToGroupChat((GroupChatModel)com.Parameters[0],
+                                    (PersonModel)com.Parameters[1]);
                                 break;
-                            case UICommand.UpdateUserInChannel:
-                                _UI.UpdateUserInChannel((ChannelPage)com.Parameters[0],
-                                    (User)com.Parameters[1], (User)com.Parameters[2]);
+                            case UICommand.UpdatePersonInGroupChat:
+                                _UI.UpdatePersonInGroupChat((GroupChatModel)com.Parameters[0],
+                                    (PersonModel)com.Parameters[1], (PersonModel)com.Parameters[2]);
                                 break;
-                            case UICommand.UpdateTopicInChannel:
-                                _UI.UpdateTopicInChannel((ChannelPage)com.Parameters[0],
+                            case UICommand.UpdateTopicInGroupChat:
+                                _UI.UpdateTopicInGroupChat((GroupChatModel)com.Parameters[0],
                                     (string)com.Parameters[1]);
                                 break;
-                            case UICommand.RemoveUserFromChannel:
-                                _UI.RemoveUserFromChannel((ChannelPage)com.Parameters[0],
-                                    (User)com.Parameters[1]);
+                            case UICommand.RemovePersonFromGroupChat:
+                                _UI.RemovePersonFromGroupChat((GroupChatModel)com.Parameters[0],
+                                    (PersonModel)com.Parameters[1]);
                                 break;
                             case UICommand.SetNetworkStatus:
                                 _UI.SetNetworkStatus((string)com.Parameters[0]);

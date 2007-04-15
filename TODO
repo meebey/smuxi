@@ -18,6 +18,7 @@ X colors in channels (hightlighting)
 - create debian package
 
 Feature Requests:
+- remember highlight and activity states, even after reconnecting the frontend 
 - /squery command (SQUERY service: command)
 - show channel mode, /mode without params should show the current mode
 - Telepathy support

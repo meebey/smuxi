@@ -32,9 +32,7 @@ using Meebey.Smuxi.Common;
 namespace Meebey.Smuxi.Engine
 {
     [Serializable]
-    public class CommandData // : PermanentRemoteObject
-    // don't need this object by refences, causes only unnessary traffic from
-    // engine to frontend
+    public class CommandModel
     {
 #if LOG4NET
         private static readonly log4net.ILog _Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
@@ -46,6 +44,7 @@ namespace Meebey.Smuxi.Engine
         private string          _CommandCharacter;
         private string          _Command;
         private FrontendManager _FrontendManager;
+        private ChatModel       _Chat;
         
         public string Data {
             get {
@@ -89,9 +88,15 @@ namespace Meebey.Smuxi.Engine
             }
         }
         
-        public CommandData(FrontendManager fm, string cmdChar, string data)
+        public ChatModel Chat {
+            get {
+                return _Chat;
+            }
+        }
+        
+        public CommandModel(FrontendManager fm, ChatModel chat, string cmdChar, string data)
         {
-            Trace.Call(fm, cmdChar, data);
+            Trace.Call(fm, chat, cmdChar, data);
             
             _Data = data;
             _DataArray = data.Split(new char[] {' '});
@@ -108,9 +113,11 @@ namespace Meebey.Smuxi.Engine
                 _DataArray[0] = _DataArray[0].Substring(cmdChar.Length);
             }
             _FrontendManager = fm;
+            _Chat = chat;
         }
         
-        public CommandData(FrontendManager fm, string parameter) : this(fm, "/", "/cmd " + parameter)
+        public CommandModel(FrontendManager fm, ChatModel chat, string parameter) :
+                       this(fm, chat, "/", "/cmd " + parameter)
         {
         }
     }

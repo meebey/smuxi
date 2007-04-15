@@ -34,16 +34,18 @@ namespace Meebey.Smuxi.Engine
             get;
         }
         
-        void AddPage(Page page);
-        void EnablePage(Page page);
-        void DisablePage(Page page);
-        void AddMessageToPage(Page page, FormattedMessage fmsg);
-        void RemovePage(Page page);
-        void SyncPage(Page page);
-        void AddUserToChannel(ChannelPage cpage, User user);
-        void UpdateUserInChannel(ChannelPage cpage, User olduser, User newuser);
-        void UpdateTopicInChannel(ChannelPage cpage, string topic);
-        void RemoveUserFromChannel(ChannelPage cpage, User user);
+        void AddChat(ChatModel chat);
+        void EnableChat(ChatModel chat);
+        void DisableChat(ChatModel chat);
+        void AddMessageToChat(ChatModel chat, MessageModel msg);
+        void RemoveChat(ChatModel chat);
+        void SyncChat(ChatModel chat);
+        
+        void AddPersonToGroupChat(GroupChatModel groupChat, PersonModel person);
+        void UpdatePersonInGroupChat(GroupChatModel groupChat, PersonModel oldPerson, PersonModel newPerson);
+        void UpdateTopicInGroupChat(GroupChatModel groupChat, string topic);
+        void RemovePersonFromGroupChat(GroupChatModel groupChat, PersonModel person);
+        
         void SetNetworkStatus(string status);
         void SetStatus(string status);
         

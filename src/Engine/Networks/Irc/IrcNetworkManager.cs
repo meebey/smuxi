@@ -1,9 +1,9 @@
 /*
- * $Id$
- * $URL$
- * $Rev$
- * $Author$
- * $Date$
+ * $Id: IrcNetworkManager.cs 149 2007-04-11 16:47:52Z meebey $
+ * $URL: svn+ssh://svn.qnetp.net/svn/smuxi/smuxi/trunk/src/Engine/IrcNetworkManager.cs $
+ * $Rev: 149 $
+ * $Author: meebey $
+ * $Date: 2007-04-11 18:47:52 +0200 (Wed, 11 Apr 2007) $
  *
  * smuxi - Smart MUltipleXed Irc
  *
@@ -61,6 +61,7 @@ namespace Meebey.Smuxi.Engine
         private string          _Password;
         private FrontendManager _FrontendManager;
         private bool            _Listening;
+        private ChatModel       _NetworkChat;
         
         public bool IsConnected {
             get {
@@ -90,9 +91,17 @@ namespace Meebey.Smuxi.Engine
             }
         }
         
-        public NetworkType Type {
+        public string NetworkID {
             get {
-                return NetworkType.Irc;
+                // TODO: implement me
+                //return _IrcClient.Network;
+                return null;
+            }
+        }
+        
+        public NetworkProtocol NetworkProtocol {
+            get {
+                return NetworkProtocol.Irc;
             }
         }
 
@@ -170,15 +179,15 @@ namespace Meebey.Smuxi.Engine
             
             // we can't delete directly, it will break the enumerator, let's use a list
             ArrayList removelist = new ArrayList();
-            foreach (Page page in _Session.Pages) {
-                if (page.NetworkManager == this) {
-                    removelist.Add(page);
+            foreach (ChatModel  chat in _Session.Chats) {
+                if (chat.NetworkManager == this) {
+                    removelist.Add(chat);
                 }
             }
             
             // now we can delete
-            foreach (Page page in removelist) {
-                _Session.RemovePage(page);
+            foreach (ChatModel  chat in removelist) {
+                _Session.RemoveChat(chat);
             }
         }
         
@@ -208,9 +217,13 @@ namespace Meebey.Smuxi.Engine
             _Username = user;
             _Password = pass;
             
+            // TODO: use config for single network chat or once per network manager
+            _NetworkChat = new ChatModel("IRC " + server, ChatType.Network, this);
+            _Session.AddChat(_NetworkChat);
+            
             Thread thread = new Thread(new ThreadStart(_Run));
             thread.IsBackground = true;
-            thread.Name = "IrcManager ("+server+":"+port+")";
+            thread.Name = "IrcNetworkManager ("+server+":"+port+")";
             thread.Start();
         }
         
@@ -251,8 +264,7 @@ namespace Meebey.Smuxi.Engine
                 _IrcClient.Listen();
             } catch (Exception ex) {
                 string msg;
-                Page spage = _Session.GetPage("Server", PageType.Server, NetworkType.Irc, null);
-                _Session.AddTextToPage(spage, "-!- " + _("Connection error! Reason: ") + ex.Message);
+                _Session.AddTextToChat(_NetworkChat, "-!- " + _("Connection error! Reason: ") + ex.Message);
                 throw;
             }
         }
@@ -261,19 +273,18 @@ namespace Meebey.Smuxi.Engine
         {
             Trace.Call(fm);
             
-            Page spage = _Session.GetPage("Server", PageType.Server, NetworkType.Irc, null);
             try {
                 string msg;
                 msg = String.Format(_("Connecting to {0} port {1}..."), _Server, _Port);
                 fm.SetStatus(msg);
-                _Session.AddTextToPage(spage, "-!- " + msg);
+                _Session.AddTextToChat(_NetworkChat, "-!- " + msg);
                 
                 _IrcClient.Connect(_Server, _Port);
                 fm.UpdateNetworkStatus();
                 msg = String.Format(_("Connection to {0} established"), _Server);
                 fm.SetStatus(msg);
-                _Session.AddTextToPage(spage, "-!- " + msg);
-                _Session.AddTextToPage(spage, "-!- " + _("Logging in..."));
+                _Session.AddTextToChat(_NetworkChat, "-!- " + msg);
+                _Session.AddTextToChat(_NetworkChat, "-!- " + _("Logging in..."));
                 if (_Password != null) {
                     _IrcClient.RfcPass(_Password, Priority.Critical);
                 }
@@ -283,7 +294,7 @@ namespace Meebey.Smuxi.Engine
                     if (command.Length == 0) {
                         continue;
                     } 
-                    CommandData cd = new CommandData(_FrontendManager,
+                    CommandModel cd = new CommandModel(_FrontendManager, _NetworkChat,
                         (string)_Session.UserConfig["Interface/Entry/CommandCharacter"],
                         command);
                         
@@ -296,7 +307,7 @@ namespace Meebey.Smuxi.Engine
                 _Listening = true;
             } catch (CouldNotConnectException ex) {
                 _FrontendManager.SetStatus(_("Connection failed!"));
-                _Session.AddTextToPage(spage, "-!- " + _("Connection failed! Reason: ") + ex.Message);
+                _Session.AddTextToChat(_NetworkChat, "-!- " + _("Connection failed! Reason: ") + ex.Message);
                 throw;
             }
         }
@@ -306,20 +317,19 @@ namespace Meebey.Smuxi.Engine
             Trace.Call(fm);
             
             fm.SetStatus(_("Disconnecting..."));
-            Page spage = _Session.GetPage("Server", PageType.Server, NetworkType.Irc, null);
             if (IsConnected) {
-                _Session.AddTextToPage(spage, "-!- " + 
+                _Session.AddTextToChat(_NetworkChat, "-!- " + 
                     String.Format(_("Disconnecting from {0}..."), _IrcClient.Address));
                 _IrcClient.Disconnect();
                 fm.SetStatus(String.Format(_("Disconnected from {0}"), _IrcClient.Address));
-                _Session.AddTextToPage(spage, "-!- " +
+                _Session.AddTextToChat(_NetworkChat, "-!- " +
                     _("Connection closed"));
                 
                 _Listening = false;
                 // TODO: set someone else as current network manager?
             } else {
                 fm.SetStatus(_("Not connected!"));
-                fm.AddTextToPage(spage, "-!- " +
+                fm.AddTextToChat(_NetworkChat, "-!- " +
                     _("Not connected"));
             }
             fm.UpdateNetworkStatus();
@@ -330,75 +340,74 @@ namespace Meebey.Smuxi.Engine
             Trace.Call(fm);
             
             fm.SetStatus("Reconnecting...");
-            Page spage = _Session.GetPage("Server", PageType.Server, NetworkType.Irc, null);
             try {
                 string msg;
                 if (_IrcClient != null) {
-                    _Session.AddTextToPage(spage, "-!- Reconnecting to " + _IrcClient.Address+"...");
+                    _Session.AddTextToChat(_NetworkChat, "-!- Reconnecting to " + _IrcClient.Address+"...");
                     _IrcClient.Reconnect(true);
                     msg = "Connection to "+_IrcClient.Address+" established";
                     fm.SetStatus(msg); 
-                    _Session.AddTextToPage(spage, "-!- "+msg);
+                    _Session.AddTextToChat(_NetworkChat, "-!- "+msg);
                 } else {
                     fm.SetStatus("Reconnect Error");
-                    _Session.AddTextToPage(spage, "-!- Reconnect Error");
+                    _Session.AddTextToChat(_NetworkChat, "-!- Reconnect Error");
                 }
             } catch (ConnectionException) {
                 fm.SetStatus("Not connected!");
-                fm.AddTextToPage(spage, "-!- Not connected");
+                fm.AddTextToChat(_NetworkChat, "-!- Not connected");
             }
             fm.UpdateNetworkStatus();
         }
         
-        public bool Command(CommandData cd)
+        public bool Command(CommandModel command)
         {
             bool handled = false;
             if (IsConnected) {
-                if (cd.IsCommand) {
+                if (command.IsCommand) {
                     // commands which work when we have a connection
-                    switch (cd.Command) {
+                    switch (command.Command) {
                         case "help":
-                            CommandHelp(cd);
+                            CommandHelp(command);
                             handled = true;
                             break;
-                        // commands which work on serverpage/channels/queries
+                        // commands which work on serverchat/channels/queries
                         case "j":
                         case "join":
-                            CommandJoin(cd);
+                            CommandJoin(command);
                             handled = true;
                             break;
                         case "msg":
                         case "query":
-                            CommandMessage(cd);
+                            CommandMessage(command);
                             handled = true;
                             break;
                         case "notice":
-                            CommandNotice(cd);
+                            CommandNotice(command);
                             handled = true;
                             break;
                         case "nick":
-                            CommandNick(cd);
+                            CommandNick(command);
                             handled = true;
                             break;
                         case "raw":
                         case "quote":
-                            CommandRaw(cd);
+                            CommandRaw(command);
                             handled = true;
                             break;
                         case "ping":
-                            CommandPing(cd);
+                            CommandPing(command);
                             handled = true;
                             break;
                         case "whois":
-                            CommandWhoIs(cd);
+                            CommandWhoIs(command);
                             handled = true;
                             break;
                         case "whowas":
-                            CommandWhoWas(cd);
+                            CommandWhoWas(command);
                             handled = true;
                             break;
                         case "away":
-                            CommandAway(cd);
+                            CommandAway(command);
                             // send away on all other IRC networks too
                             foreach (INetworkManager nm in _Session.NetworkManagers) {
                                 if (nm == this) {
@@ -407,108 +416,108 @@ namespace Meebey.Smuxi.Engine
                                 }
                                 if (nm is IrcNetworkManager) {
                                     IrcNetworkManager ircnm = (IrcNetworkManager)nm;
-                                    ircnm.CommandAway(cd);
+                                    ircnm.CommandAway(command);
                                 }
                             }
                             handled = true;
                             break;
                         case "ctcp":
-                            CommandCtcp(cd);
+                            CommandCtcp(command);
                             handled = true;
                             break;
                         // commands which only work on channels or queries
                         case "me":
-                            CommandMe(cd);
+                            CommandMe(command);
                             handled = true;
                            break;
                         case "say":
-                            CommandSay(cd);
+                            CommandSay(command);
                             handled = true;
                             break;
                         // commands which only work on channels
                         case "p":
                         case "part":
-                            CommandPart(cd);
+                            CommandPart(command);
                             handled = true;
                             break;
                         case "topic":
-                            CommandTopic(cd);
+                            CommandTopic(command);
                             handled = true;
                             break;
                         case "cycle":
                         case "rejoin":
-                            CommandCycle(cd);
+                            CommandCycle(command);
                             handled = true;
                             break;
                         case "op":
-                            CommandOp(cd);
+                            CommandOp(command);
                             handled = true;
                             break;
                         case "deop":
-                            CommandDeop(cd);
+                            CommandDeop(command);
                             handled = true;
                             break;
                         case "voice":
-                            CommandVoice(cd);
+                            CommandVoice(command);
                             handled = true;
                             break;
                         case "devoice":
-                            CommandDevoice(cd);
+                            CommandDevoice(command);
                             handled = true;
                             break;
                         case "ban":
-                            CommandBan(cd);
+                            CommandBan(command);
                             handled = true;
                             break;
                         case "unban":
-                            CommandUnban(cd);
+                            CommandUnban(command);
                             handled = true;
                             break;
                         case "kick":
-                            CommandKick(cd);
+                            CommandKick(command);
                             handled = true;
                             break;
                         case "kickban":
                         case "kb":
-                            CommandKickban(cd);
+                            CommandKickban(command);
                             handled = true;
                             break;
                         case "mode":
-                            CommandMode(cd);
+                            CommandMode(command);
                             handled = true;
                             break;
                         case "invite":
-                            CommandInvite(cd);
+                            CommandInvite(command);
                             handled = true;
                             break;
                         case "quit":
-                            CommandQuit(cd);
+                            CommandQuit(command);
                             handled = true;
                             break;
                     }
                 } else {
                     // normal text
-                    if (cd.FrontendManager.CurrentPage.PageType == PageType.Server) {
-                        // we are on the server page
-                        _IrcClient.WriteLine(cd.Data);
+                    if (command.FrontendManager.CurrentChat.ChatType == ChatType.Network) {
+                        // we are on the server chat
+                        _IrcClient.WriteLine(command.Data);
                     } else {
-                        // we are on a channel or query page
-                        _Say(cd, cd.Data);
+                        // we are on a channel or query chat
+                        _Say(command, command.Data);
                     }
                     handled = true;
                 }
             } else {
-                if (cd.IsCommand) {
+                if (command.IsCommand) {
                     // commands which work even without beeing connected
-                    switch (cd.Command) {
+                    switch (command.Command) {
                         case "help":
-                            CommandHelp(cd);
+                            CommandHelp(command);
                             handled = true;
                             break;
                     }
                 } else {
                     // normal text, without connection
-                    _NotConnected(cd);
+                    _NotConnected(command);
                     handled = true;
                 }
             }
@@ -516,19 +525,17 @@ namespace Meebey.Smuxi.Engine
             return handled;
         }
         
-        public void CommandHelp(CommandData cd)
+        public void CommandHelp(CommandModel cd)
         {
-            FormattedMessage fmsg = new FormattedMessage();
-            FormattedMessageTextItem fmsgti;
-            FormattedMessageItem fmsgi;
+            MessageModel fmsg = new MessageModel();
+            TextMessagePartModel fmsgti;
 
-            fmsgti = new FormattedMessageTextItem();
+            fmsgti = new TextMessagePartModel();
             fmsgti.Text = "[IrcNetworkManager Commands]";
             fmsgti.Bold = true;
-            fmsgi = new FormattedMessageItem(FormattedMessageItemType.Text, fmsgti);
-            fmsg.Items.Add(fmsgi);
+            fmsg.MessageParts.Add(fmsgti);
             
-            _Session.AddMessageToPage(cd.FrontendManager.CurrentPage, fmsg);
+            _Session.AddMessageToChat(cd.FrontendManager.CurrentChat, fmsg);
             
             string[] help = {
             "help",
@@ -561,57 +568,52 @@ namespace Meebey.Smuxi.Engine
             };
             
             foreach (string line in help) { 
-                cd.FrontendManager.AddTextToCurrentPage("-!- " + line);
+                cd.FrontendManager.AddTextToCurrentChat("-!- " + line);
             }
         }
         
-        private void _Say(CommandData cd, string message)
+        private void _Say(CommandModel cd, string message)
         {
-            string channelName = cd.FrontendManager.CurrentPage.Name;
+            string channelName = cd.FrontendManager.CurrentChat.Name;
             
-            FormattedMessage fmsg = new FormattedMessage();
-            FormattedMessageTextItem fmsgti;
-            FormattedMessageItem fmsgi;
+            MessageModel fmsg = new MessageModel();
+            TextMessagePartModel fmsgti;
             
-            if (cd.FrontendManager.CurrentPage.IsEnabled) {
+            if (cd.FrontendManager.CurrentChat.IsEnabled) {
                 _IrcClient.SendMessage(SendType.Message, channelName, message);
                 
-                fmsgti = new FormattedMessageTextItem();
+                fmsgti = new TextMessagePartModel();
                 fmsgti.Text = "<";
-                fmsgi = new FormattedMessageItem(FormattedMessageItemType.Text, fmsgti);
-                fmsg.Items.Add(fmsgi);
+                fmsg.MessageParts.Add(fmsgti);
             
-                fmsgti = new FormattedMessageTextItem();
+                fmsgti = new TextMessagePartModel();
                 fmsgti.Text = _IrcClient.Nickname;
-                fmsgti.Color = IrcTextColor.Blue;
-                fmsgi = new FormattedMessageItem(FormattedMessageItemType.Text, fmsgti);
-                fmsg.Items.Add(fmsgi);
+                fmsgti.ForegroundColor = IrcTextColor.Blue;
+                fmsg.MessageParts.Add(fmsgti);
                 
-                fmsgti = new FormattedMessageTextItem();
+                fmsgti = new TextMessagePartModel();
                 fmsgti.Text = "> ";
-                fmsgi = new FormattedMessageItem(FormattedMessageItemType.Text, fmsgti);
-                fmsg.Items.Add(fmsgi);
+                fmsg.MessageParts.Add(fmsgti);
                 
-                _IrcMessageToFormattedMessage(ref fmsg, message);
+                _IrcMessageToMessageModel(ref fmsg, message);
             } else {
-                fmsgti = new FormattedMessageTextItem();
+                fmsgti = new TextMessagePartModel();
                 fmsgti.Text = "-!- " +
                     String.Format(
                         _("Not joined to channel: {0}. Please rejoin."),
                         channelName);
-                fmsgi = new FormattedMessageItem(FormattedMessageItemType.Text, fmsgti);
-                fmsg.Items.Add(fmsgi);
+                fmsg.MessageParts.Add(fmsgti);
             }
             
-            _Session.AddMessageToPage(cd.FrontendManager.CurrentPage, fmsg);
+            _Session.AddMessageToChat(cd.FrontendManager.CurrentChat, fmsg);
         }
         
-        public void CommandSay(CommandData cd)
+        public void CommandSay(CommandModel cd)
         {
             _Say(cd, cd.Parameter);
         }
         
-        public void CommandJoin(CommandData cd)
+        public void CommandJoin(CommandModel cd)
         {
             string channel = null;
             if ((cd.DataArray.Length >= 2) &&
@@ -633,7 +635,7 @@ namespace Meebey.Smuxi.Engine
             }
             
             if (_IrcClient.IsJoined(channel)) {
-                cd.FrontendManager.AddTextToCurrentPage(
+                cd.FrontendManager.AddTextToCurrentChat(
                     "-!- " +
                     String.Format(
                         _("Already joined to channel: {0}." +
@@ -649,16 +651,16 @@ namespace Meebey.Smuxi.Engine
             }
         }
         
-        public void CommandCycle(CommandData cd)
+        public void CommandCycle(CommandModel cd)
         {
             FrontendManager fm = cd.FrontendManager;
-            if (fm.CurrentPage.PageType == PageType.Channel) {
+            if (cd.Chat.ChatType == ChatType.Group) {
                  CommandPart(cd);
-                 CommandJoin(new CommandData(fm, fm.CurrentPage.Name));
+                 CommandJoin(new CommandModel(fm, cd.Chat, cd.Chat.Name));
             }
         }
         
-        public void CommandMessage(CommandData cd)
+        public void CommandMessage(CommandModel cd)
         {
             if ((cd.DataArray.Length >= 2) &&
                 (cd.DataArray[1].Length >= 1)) {
@@ -680,44 +682,44 @@ namespace Meebey.Smuxi.Engine
             }
         }
         
-        public void CommandMessageQuery(CommandData cd)
+        public void CommandMessageQuery(CommandModel cd)
         {
             if (cd.DataArray.Length >= 2) {
                 string nickname = cd.DataArray[1];
-                Page page = _Session.GetPage(nickname, PageType.Query, NetworkType.Irc, this);
-                if (page == null) {
-                    page = new Page(nickname, PageType.Query, NetworkType.Irc, this);
-                    _Session.AddPage(page);
+                ChatModel chat = _Session.GetChat(nickname, ChatType.Person, NetworkProtocol.Irc, this);
+                if (chat == null) {
+                    chat = new ChatModel(nickname, ChatType.Person, this);
+                    _Session.AddChat(chat);
                 }
             }
             
             if (cd.DataArray.Length >= 3) {
                 string message = String.Join(" ", cd.DataArray, 2, cd.DataArray.Length-2);
                 string nickname = cd.DataArray[1];
-                Page page = _Session.GetPage(nickname, PageType.Query, NetworkType.Irc, this);
+                ChatModel chat = _Session.GetChat(nickname, ChatType.Person, NetworkProtocol.Irc, this);
                 _IrcClient.SendMessage(SendType.Message, nickname, message);
-                _Session.AddTextToPage(page, "<" + _IrcClient.Nickname + "> " + message);
+                _Session.AddTextToChat(chat, "<" + _IrcClient.Nickname + "> " + message);
             }
         }
         
-        public void CommandMessageChannel(CommandData cd)
+        public void CommandMessageChannel(CommandModel cd)
         {
             if (cd.DataArray.Length >= 3) {
                 string message = String.Join(" ", cd.DataArray, 2, cd.DataArray.Length-2);
                 string channelname = cd.DataArray[1];
-                Page page = _Session.GetPage(channelname, PageType.Channel, NetworkType.Irc, this);
-                if (page == null) {
-                    // server page as fallback if we are not joined
-                    page = _Session.GetPage("Server", PageType.Server, NetworkType.Irc, null);
+                ChatModel chat = _Session.GetChat(channelname, ChatType.Group, NetworkProtocol.Irc, this);
+                if (chat == null) {
+                    // server chat as fallback if we are not joined
+                    chat = _NetworkChat;
                 }
                 _IrcClient.SendMessage(SendType.Message, channelname, message);
-                _Session.AddTextToPage(page, "<" + _IrcClient.Nickname + ":" + channelname + "> " + message);
+                _Session.AddTextToChat(chat, "<" + _IrcClient.Nickname + ":" + channelname + "> " + message);
             } else {
                 _NotEnoughParameters(cd);
             }
         }
         
-        public void CommandPart(CommandData cd)
+        public void CommandPart(CommandModel cd)
         {
             if ((cd.DataArray.Length >= 2) &&
                 (cd.DataArray[1].Length >= 1)) {
@@ -747,12 +749,12 @@ namespace Meebey.Smuxi.Engine
                         break;
                 }
             } else {
-                Page page = cd.FrontendManager.CurrentPage;
-                _IrcClient.RfcPart(page.Name);
+                ChatModel chat = cd.FrontendManager.CurrentChat;
+                _IrcClient.RfcPart(chat.Name);
             }
         }
         
-        public void CommandAway(CommandData cd)
+        public void CommandAway(CommandModel cd)
         {
             if (cd.DataArray.Length >= 2) {
                 _IrcClient.RfcAway(cd.Parameter);
@@ -761,7 +763,7 @@ namespace Meebey.Smuxi.Engine
             }
         }
         
-        public void CommandCtcp(CommandData cd)
+        public void CommandCtcp(CommandModel cd)
         {
             if (cd.DataArray.Length >= 3) {
                 string destination = cd.DataArray[1];
@@ -770,28 +772,26 @@ namespace Meebey.Smuxi.Engine
                 if (cd.DataArray.Length >= 4) {
                     parameters = String.Join(" ", cd.DataArray, 3, cd.DataArray.Length-3);
                 }
-                Page spage = _Session.GetPage("Server", PageType.Server, NetworkType.Irc, null);
-                _Session.AddTextToPage(spage, "[ctcp(" + destination + ")] " + command + " " + parameters);
+                _Session.AddTextToChat(_NetworkChat, "[ctcp(" + destination + ")] " + command + " " + parameters);
                 _IrcClient.SendMessage(SendType.CtcpRequest, destination, command + " " + parameters);
             } else {
                 _NotEnoughParameters(cd);
             }
         }
         
-        public void CommandPing(CommandData cd)
+        public void CommandPing(CommandModel cd)
         {
             if (cd.DataArray.Length >= 2) {
                 string destination = cd.DataArray[1];
                 string timestamp = DateTime.Now.ToFileTime().ToString();
-                Page spage = _Session.GetPage("Server", PageType.Server, NetworkType.Irc, null);
-                _Session.AddTextToPage(spage, "[ctcp(" + destination + ")] PING " + timestamp);
+                _Session.AddTextToChat(_NetworkChat, "[ctcp(" + destination + ")] PING " + timestamp);
                 _IrcClient.SendMessage(SendType.CtcpRequest, destination, "PING " + timestamp);
             } else {
                 _NotEnoughParameters(cd);
             }
         }
         
-        public void CommandWhoIs(CommandData cd)
+        public void CommandWhoIs(CommandModel cd)
         {
             if (cd.DataArray.Length >= 2) {
                 _IrcClient.RfcWhois(cd.DataArray[1]);
@@ -800,7 +800,7 @@ namespace Meebey.Smuxi.Engine
             }
         }
         
-        public void CommandWhoWas(CommandData cd)
+        public void CommandWhoWas(CommandModel cd)
         {
             if (cd.DataArray.Length >= 2) {
                 _IrcClient.RfcWhowas(cd.DataArray[1]);
@@ -809,31 +809,31 @@ namespace Meebey.Smuxi.Engine
             }
         }
         
-        public void CommandTopic(CommandData cd)
+        public void CommandTopic(CommandModel cd)
         {
             FrontendManager fm = cd.FrontendManager;
-            Page page = fm.CurrentPage;
-            string channel = page.Name;
+            ChatModel chat = fm.CurrentChat;
+            string channel = chat.Name;
             if (cd.DataArray.Length >= 2) {
                 _IrcClient.RfcTopic(channel, cd.Parameter);
             } else {
                 if (_IrcClient.IsJoined(channel)) {
                     string topic = _IrcClient.GetChannel(channel).Topic;
                     if (topic.Length > 0) {
-                        fm.AddTextToPage(page,
+                        fm.AddTextToChat(chat,
                             "-!- " + String.Format(_("Topic for {0}: {1}"), channel, topic));
                     } else {
-                        fm.AddTextToPage(page,
+                        fm.AddTextToChat(chat,
                             "-!- " + String.Format(_("No topic set for {0}"), channel));
                     }
                 }
             }
         }
         
-        public void CommandOp(CommandData cd)
+        public void CommandOp(CommandModel cd)
         {
-            Page page = cd.FrontendManager.CurrentPage;
-            string channel = page.Name;
+            ChatModel chat = cd.FrontendManager.CurrentChat;
+            string channel = chat.Name;
             if (cd.DataArray.Length == 2) {
                 _IrcClient.Op(channel, cd.Parameter);
             } else if (cd.DataArray.Length > 2) {
@@ -844,10 +844,10 @@ namespace Meebey.Smuxi.Engine
             }
         }
     
-        public void CommandDeop(CommandData cd)
+        public void CommandDeop(CommandModel cd)
         {
-            Page page = cd.FrontendManager.CurrentPage;
-            string channel = page.Name;
+            ChatModel chat = cd.FrontendManager.CurrentChat;
+            string channel = chat.Name;
             if (cd.DataArray.Length == 2) {
                 _IrcClient.Deop(channel, cd.Parameter);
             } else if (cd.DataArray.Length > 2) {
@@ -858,10 +858,10 @@ namespace Meebey.Smuxi.Engine
             }
         }
 
-        public void CommandVoice(CommandData cd)
+        public void CommandVoice(CommandModel cd)
         {
-            Page page = cd.FrontendManager.CurrentPage;
-            string channel = page.Name;
+            ChatModel chat = cd.FrontendManager.CurrentChat;
+            string channel = chat.Name;
             if (cd.DataArray.Length == 2) {
                 _IrcClient.Voice(channel, cd.Parameter);
             } else if (cd.DataArray.Length > 2) {
@@ -872,10 +872,10 @@ namespace Meebey.Smuxi.Engine
             }
         }
 
-        public void CommandDevoice(CommandData cd)
+        public void CommandDevoice(CommandModel cd)
         {
-            Page page = cd.FrontendManager.CurrentPage;
-            string channel = page.Name;
+            ChatModel chat = cd.FrontendManager.CurrentChat;
+            string channel = chat.Name;
             if (cd.DataArray.Length == 2) {
                 _IrcClient.Devoice(channel, cd.Parameter);
             } else if (cd.DataArray.Length > 2) {
@@ -886,10 +886,10 @@ namespace Meebey.Smuxi.Engine
             }
         }
 
-        public void CommandBan(CommandData cd)
+        public void CommandBan(CommandModel cd)
         {
-            Page page = cd.FrontendManager.CurrentPage;
-            string channel = page.Name;
+            ChatModel chat = cd.FrontendManager.CurrentChat;
+            string channel = chat.Name;
             if (cd.DataArray.Length == 2) {
                 _IrcClient.Ban(channel, cd.Parameter);
             } else if (cd.DataArray.Length > 2) {
@@ -900,10 +900,10 @@ namespace Meebey.Smuxi.Engine
             }
         }
 
-        public void CommandUnban(CommandData cd)
+        public void CommandUnban(CommandModel cd)
         {
-            Page page = cd.FrontendManager.CurrentPage;
-            string channel = page.Name;
+            ChatModel chat = cd.FrontendManager.CurrentChat;
+            string channel = chat.Name;
             if (cd.DataArray.Length == 2) {
                 _IrcClient.Unban(channel, cd.Parameter);
             } else if (cd.DataArray.Length > 2) {
@@ -914,10 +914,10 @@ namespace Meebey.Smuxi.Engine
             }
         }
 
-        public void CommandKick(CommandData cd)
+        public void CommandKick(CommandModel cd)
         {
-            Page page = cd.FrontendManager.CurrentPage;
-            string channel = page.Name;
+            ChatModel chat = cd.FrontendManager.CurrentChat;
+            string channel = chat.Name;
             if (cd.DataArray.Length >= 2) {
                 string[] candidates = cd.DataArray[1].Split(new char[] {','});
                 if (cd.DataArray.Length >= 3) {
@@ -933,10 +933,10 @@ namespace Meebey.Smuxi.Engine
             }
         }
 
-        public void CommandKickban(CommandData cd)
+        public void CommandKickban(CommandModel cd)
         {
-            Page page = cd.FrontendManager.CurrentPage;
-            string channel = page.Name;
+            ChatModel chat = cd.FrontendManager.CurrentChat;
+            string channel = chat.Name;
             SmartIrc4net.IrcUser ircuser;
             if (cd.DataArray.Length >= 2) {
                 string[] candidates = cd.DataArray[1].Split(new char[] {','});
@@ -961,77 +961,79 @@ namespace Meebey.Smuxi.Engine
             }
         }
 
-        public void CommandMode(CommandData cd)
+        public void CommandMode(CommandModel cd)
         {
-            Page page = cd.FrontendManager.CurrentPage;
+            ChatModel chat = cd.FrontendManager.CurrentChat;
             if (cd.DataArray.Length >= 2) {
-                if (page.PageType == PageType.Server) {
+                if (chat.ChatType == ChatType.Network) {
                     _IrcClient.RfcMode(_IrcClient.Nickname, cd.Parameter);
                 } else {
-                    string channel = page.Name;
+                    string channel = chat.Name;
                     _IrcClient.RfcMode(channel, cd.Parameter);
                 }
             }
         }
 
-        public void CommandInvite(CommandData cd)
+        public void CommandInvite(CommandModel cd)
         {
             FrontendManager fm = cd.FrontendManager;
-            Page page = fm.CurrentPage;
-            string channel = page.Name;
+            ChatModel chat = fm.CurrentChat;
+            string channel = chat.Name;
             if (cd.DataArray.Length >= 2) {
                 if (!_IrcClient.IsJoined(channel, cd.DataArray[1])) {
                     _IrcClient.RfcInvite(cd.DataArray[1], channel);
-                    fm.AddTextToPage(page, "-!- " + String.Format(
+                    fm.AddTextToChat(chat, "-!- " + String.Format(
                                                         _("Inviting {0} to {1}"),
                                                         cd.DataArray[1], channel));
                 } else {
-                    fm.AddTextToPage(page, "-!- " + String.Format(
+                    fm.AddTextToChat(chat, "-!- " + String.Format(
                                                         _("{0} is already on channel"),
                                                         cd.DataArray[1]));
                 }
             }
         }
 
-        public void CommandRaw(CommandData cd)
+        public void CommandRaw(CommandModel cd)
         {
             _IrcClient.WriteLine(cd.Parameter);
         }
     
-        public void CommandMe(CommandData cd)
+        public void CommandMe(CommandModel cd)
         {
-            Page page = cd.FrontendManager.CurrentPage;
-            string channel = page.Name;
+            ChatModel chat = cd.FrontendManager.CurrentChat;
+            string channel = chat.Name;
             if (cd.DataArray.Length >= 2) {
                 _IrcClient.SendMessage(SendType.Action, channel, cd.Parameter);
-                _Session.AddTextToPage(page, " * " + _IrcClient.Nickname + " " + cd.Parameter);
+                _Session.AddTextToChat(chat, " * " + _IrcClient.Nickname + " " + cd.Parameter);
             }
         }
     
-        public void CommandNotice(CommandData cd)
+        public void CommandNotice(CommandModel cd)
         {
             if (cd.DataArray.Length >= 3) {
                 string target = cd.DataArray[1];
                 string message = String.Join(" ", cd.DataArray, 2, cd.DataArray.Length-2);  
                 _IrcClient.SendMessage(SendType.Notice, target, message);
+                
+                // BUG: proping via GetChat() is more reliable
+                ChatModel chat;
                 if (_IrcClient.IsJoined(target)) {
-                    Page page = _Session.GetPage(target, PageType.Query, NetworkType.Irc, this);
-                    _Session.AddTextToPage(page, "[notice(" + target + ")] " + message);
+                    chat = _Session.GetChat(target, ChatType.Person, NetworkProtocol.Irc, this);
                 } else {
-                    Page page = _Session.GetPage("Server", PageType.Server, NetworkType.Irc, null);
-                    _Session.AddTextToPage(page, "[notice(" + target + ")] " + message);
+                    chat = _NetworkChat;
                 }
+                _Session.AddTextToChat(chat, "[notice(" + target + ")] " + message);
             }
         }
     
-        public void CommandNick(CommandData cd)
+        public void CommandNick(CommandModel cd)
         {
             if (cd.DataArray.Length >= 2) {
                 _IrcClient.RfcNick(cd.Parameter);
             }
         }
     
-        public void CommandQuit(CommandData cd)
+        public void CommandQuit(CommandModel cd)
         {
             string message = cd.Parameter; 
             if (message != null) {
@@ -1041,26 +1043,26 @@ namespace Meebey.Smuxi.Engine
             }
         }
         
-        private void _NotEnoughParameters(CommandData cd)
+        private void _NotEnoughParameters(CommandModel cd)
         {
-            cd.FrontendManager.AddTextToCurrentPage(
+            cd.FrontendManager.AddTextToCurrentChat(
                 "-!- " + String.Format(_("Not enough parameters for {0} command"), cd.Command));
         }
         
-        private void _NotConnected(CommandData cd)
+        private void _NotConnected(CommandModel cd)
         {
-            cd.FrontendManager.AddTextToCurrentPage("-!- " + _("Not connected to server"));
+            cd.FrontendManager.AddTextToCurrentChat("-!- " + _("Not connected to server"));
         }
         
-        private void _IrcMessageToFormattedMessage(ref FormattedMessage fmsg, string message)
+        private void _IrcMessageToMessageModel(ref MessageModel fmsg, string message)
         {
-            FormattedMessageTextItem fmsgti;
-            FormattedMessageItem fmsgi;
+            TextMessagePartModel fmsgti;
+            MessagePartModel fmsgi;
             
             /*
             int urlPos = message.IndexOf("http://");
             if (urlPos != -1) {
-                FormattedMessageUrlItem fmsgui = new FormattedMessageUrlItem();
+                MessageModelUrlItem fmsgui = new MessageModelUrlItem();
                 fmsgui.Url = 
                 fmsg.Items.Add(
             }
@@ -1116,37 +1118,37 @@ namespace Meebey.Smuxi.Engine
                     switch (controlCode) {
                         case IrcControlCode.Clear:
 #if LOG4NET
-                            _Logger.Debug("_IrcMessageToFormattedMessage(): found clear control character");
+                            _Logger.Debug("_IrcMessageToMessageModel(): found clear control character");
 #endif
                             bold = false;
                             underline = false;
                             break;
                         case IrcControlCode.Bold:
 #if LOG4NET
-                            _Logger.Debug("_IrcMessageToFormattedMessage(): found bold control character");
+                            _Logger.Debug("_IrcMessageToMessageModel(): found bold control character");
 #endif
                             bold = !bold;
                             break;
                         case IrcControlCode.Underline:
 #if LOG4NET
-                            _Logger.Debug("_IrcMessageToFormattedMessage(): found underline control character");
+                            _Logger.Debug("_IrcMessageToMessageModel(): found underline control character");
 #endif
                             underline = !underline;
                             break;
                         case IrcControlCode.Italic:
 #if LOG4NET
-                            _Logger.Debug("_IrcMessageToFormattedMessage(): found italic control character");
+                            _Logger.Debug("_IrcMessageToMessageModel(): found italic control character");
 #endif
                             italic = !italic;
                             break;
                         case IrcControlCode.Color:
 #if LOG4NET
-                            _Logger.Debug("_IrcMessageToFormattedMessage(): found color control character");
+                            _Logger.Debug("_IrcMessageToMessageModel(): found color control character");
 #endif
                             color = !color;
                             string colorMessage = message.Substring(controlPos);
 #if LOG4NET
-                            _Logger.Debug("_IrcMessageToFormattedMessage(): colorMessage: '" + colorMessage + "'");
+                            _Logger.Debug("_IrcMessageToMessageModel(): colorMessage: '" + colorMessage + "'");
 #endif
                             Match match = Regex.Match(colorMessage, (char)IrcControlCode.Color + "(?<fg>[0-9][0-9]?)(,(?<bg>[0-9][0-9]?))?");
                             if (match.Success) {
@@ -1154,7 +1156,7 @@ namespace Meebey.Smuxi.Engine
                                 int color_code;
                                 if (match.Groups["fg"] != null) {
 #if LOG4NET
-                                    _Logger.Debug("_IrcMessageToFormattedMessage(): match.Groups[fg].Value: " + match.Groups["fg"].Value);
+                                    _Logger.Debug("_IrcMessageToMessageModel(): match.Groups[fg].Value: " + match.Groups["fg"].Value);
 #endif
                                     try {
                                         color_code = Int32.Parse(match.Groups["fg"].Value);
@@ -1165,7 +1167,7 @@ namespace Meebey.Smuxi.Engine
                                 }
                                 if (match.Groups["bg"] != null) {
 #if LOG4NET
-                                    _Logger.Debug("_IrcMessageToFormattedMessage(): match.Groups[bg].Value: " + match.Groups["bg"].Value);
+                                    _Logger.Debug("_IrcMessageToMessageModel(): match.Groups[bg].Value: " + match.Groups["bg"].Value);
 #endif
                                     try {
                                         color_code = Int32.Parse(match.Groups["bg"].Value);
@@ -1180,15 +1182,15 @@ namespace Meebey.Smuxi.Engine
                                 bg_color = IrcTextColor.Normal;
                             }
 #if LOG4NET
-                            _Logger.Debug("_IrcMessageToFormattedMessage(): fg_color.HexCode: " + String.Format("0x{0:X6}", fg_color.HexCode));
-                            _Logger.Debug("_IrcMessageToFormattedMessage(): bg_color.HexCode: " + String.Format("0x{0:X6}", bg_color.HexCode));
+                            _Logger.Debug("_IrcMessageToMessageModel(): fg_color.HexCode: " + String.Format("0x{0:X6}", fg_color.HexCode));
+                            _Logger.Debug("_IrcMessageToMessageModel(): bg_color.HexCode: " + String.Format("0x{0:X6}", bg_color.HexCode));
 #endif
                             break;
                         default:
                             break;
                     }
 #if LOG4NET
-                    _Logger.Debug("_IrcMessageToFormattedMessage(): controlChars.Length: " + controlChars.Length);
+                    _Logger.Debug("_IrcMessageToMessageModel(): controlChars.Length: " + controlChars.Length);
 #endif
 
                     int nextControlPos = message.IndexOfAny(_IrcControlChars, controlPos + 1);
@@ -1215,15 +1217,15 @@ namespace Meebey.Smuxi.Engine
                     fg_color = new TextColor(Int32.Parse(highlightColor.Substring(1), NumberStyles.HexNumber));
                 }
                 
-                fmsgti = new FormattedMessageTextItem();
+                fmsgti = new TextMessagePartModel();
                 fmsgti.Text = submessage;
                 fmsgti.Bold = bold;
                 fmsgti.Underline = underline;
                 fmsgti.Italic = italic;
-                fmsgti.Color = fg_color;
+                fmsgti.ForegroundColor = fg_color;
                 fmsgti.BackgroundColor = bg_color;
-                fmsgi = new FormattedMessageItem(FormattedMessageItemType.Text, fmsgti, highlight);
-                fmsg.Items.Add(fmsgi);
+                fmsgti.IsHighlight = highlight;
+                fmsg.MessageParts.Add(fmsgti);
             } while (controlCharFound);
         }
         
@@ -1269,7 +1271,6 @@ namespace Meebey.Smuxi.Engine
         
         private void _OnRawMessage(object sender, IrcEventArgs e)
         {
-            Page spage = _Session.GetPage("Server", PageType.Server, NetworkType.Irc, null);
     	    if (e.Data.Message != null) {
                 switch (e.Data.Type) {
                     case ReceiveType.Error:
@@ -1277,12 +1278,12 @@ namespace Meebey.Smuxi.Engine
                     case ReceiveType.Invite:
                     case ReceiveType.List:
                     case ReceiveType.Login:
-                        _Session.AddTextToPage(spage, e.Data.Message);
+                        _Session.AddTextToChat(_NetworkChat, e.Data.Message);
                         break;
                     case ReceiveType.Motd:
-                        FormattedMessage fmsg = new FormattedMessage();
-                        _IrcMessageToFormattedMessage(ref fmsg, e.Data.Message);
-                        _Session.AddMessageToPage(spage, fmsg);
+                        MessageModel fmsg = new MessageModel();
+                        _IrcMessageToMessageModel(ref fmsg, e.Data.Message);
+                        _Session.AddMessageToChat(_NetworkChat, fmsg);
                         break;
                     case ReceiveType.WhoIs:
                         _OnReceiveTypeWhois(e);
@@ -1296,33 +1297,33 @@ namespace Meebey.Smuxi.Engine
             string chan;
             string nick;
             string msg;
-            Page page;            
+            ChatModel chat;            
             switch (e.Data.ReplyCode) {
                 case ReplyCode.ErrorNoSuchNickname:
                     nick = e.Data.RawMessageArray[3];
                     msg = "-!- " + String.Format(_("{0}: No such nick/channel"), nick);
-                    page = _Session.GetPage(nick, PageType.Query, NetworkType.Irc, this);
-                    if (page != null) {
-                        _Session.AddTextToPage(page, msg);
+                    chat = _Session.GetChat(nick, ChatType.Person, NetworkProtocol.Irc, this);
+                    if (chat != null) {
+                        _Session.AddTextToChat(chat, msg);
                     } else {
-                        _Session.AddTextToPage(spage, msg);
+                        _Session.AddTextToChat(_NetworkChat, msg);
                     }
                     break;
                 case ReplyCode.ErrorChannelOpPrivilegesNeeded:
                     chan = e.Data.RawMessageArray[3];
-                    msg = "-!- "+chan+" "+e.Data.Message;
-                    page = _Session.GetPage(chan, PageType.Channel, NetworkType.Irc, this);
-                    if (page != null) {
-                        _Session.AddTextToPage(page, msg);
+                    msg = "-!- " + chan + " " + e.Data.Message;
+                    chat = _Session.GetChat(chan, ChatType.Group, NetworkProtocol.Irc, this);
+                    if (chat != null) {
+                        _Session.AddTextToChat(chat, msg);
                     } else {
-                        _Session.AddTextToPage(spage, msg);
+                        _Session.AddTextToChat(_NetworkChat, msg);
                     }
                     break;
                 case ReplyCode.EndOfNames:
                     chan = e.Data.RawMessageArray[3]; 
-                    ChannelPage cpage = (ChannelPage)_Session.GetPage(
-                       chan, PageType.Channel, NetworkType.Irc, this);
-                    cpage.IsSynced = true;
+                    GroupChatModel groupChat = (GroupChatModel)_Session.GetChat(
+                       chan, ChatType.Group, NetworkProtocol.Irc, this);
+                    groupChat.IsSynced = true;
 #if LOG4NET
                     _Logger.Debug("_OnRawMessage(): " + chan + " synced");
 #endif
@@ -1333,22 +1334,22 @@ namespace Meebey.Smuxi.Engine
         private void _OnReceiveTypeWhois(IrcEventArgs e)
         {
             string nick = e.Data.RawMessageArray[3];
-            Page page = _Session.GetPage(nick, PageType.Query, NetworkType.Irc, this);
-            if (page == null) {
-                page = _Session.GetPage("Server", PageType.Server, NetworkType.Irc, null);
+            ChatModel chat = _Session.GetChat(nick, ChatType.Person, NetworkProtocol.Irc, this);
+            if (chat == null) {
+                chat = _NetworkChat;
             }
             switch (e.Data.ReplyCode) {
                 case ReplyCode.WhoIsUser:
                     string ident = e.Data.RawMessageArray[4];
                     string host = e.Data.RawMessageArray[5];
                     string realname = e.Data.Message;
-                    _Session.AddTextToPage(page, "-!- " + nick + " [" + ident + "@" + host + "]");
-                    _Session.AddTextToPage(page, "-!-  realname: " + realname);
+                    _Session.AddTextToChat(chat, "-!- " + nick + " [" + ident + "@" + host + "]");
+                    _Session.AddTextToChat(chat, "-!-  realname: " + realname);
                     break;
                 case ReplyCode.WhoIsServer:
                     string server = e.Data.RawMessageArray[4];
                     string serverinfo = e.Data.Message;
-                    _Session.AddTextToPage(page, "-!-  server: " + server + " [" + serverinfo + "]");
+                    _Session.AddTextToChat(chat, "-!-  server: " + server + " [" + serverinfo + "]");
                     break;
                 case ReplyCode.WhoIsIdle:
                     string idle = e.Data.RawMessageArray[4];
@@ -1356,19 +1357,19 @@ namespace Meebey.Smuxi.Engine
                         long timestamp = Int64.Parse(e.Data.RawMessageArray[5]);
                         DateTime signon =  new DateTime(1970, 1, 1, 0, 0, 0, 0);
                         signon = signon.AddSeconds(timestamp).ToLocalTime();
-                        _Session.AddTextToPage(page, "-!-  idle: "+idle+" [signon: "+signon.ToString()+"]");
+                        _Session.AddTextToChat(chat, "-!-  idle: "+idle+" [signon: "+signon.ToString()+"]");
                     } catch (FormatException) {
                     }
                     break;
                 case ReplyCode.WhoIsChannels:
                     string channels = e.Data.Message;
-                    _Session.AddTextToPage(page, "-!-  channels: " + channels);
+                    _Session.AddTextToChat(chat, "-!-  channels: " + channels);
                     break;
                 case ReplyCode.WhoIsOperator:
-                    _Session.AddTextToPage(page, "-!-  " + e.Data.Message);
+                    _Session.AddTextToChat(chat, "-!-  " + e.Data.Message);
                     break;
                 case ReplyCode.EndOfWhoIs:
-                    _Session.AddTextToPage(page, "-!-  " + e.Data.Message);
+                    _Session.AddTextToChat(chat, "-!-  " + e.Data.Message);
                     break;
             }
         }
@@ -1376,28 +1377,27 @@ namespace Meebey.Smuxi.Engine
         private void _OnReceiveTypeWhowas(IrcEventArgs e)
         {
             string nick = e.Data.RawMessageArray[3];
-            Page page = _Session.GetPage(nick, PageType.Query, NetworkType.Irc, this);
-            if (page == null) {
-                page = _Session.GetPage("Server", PageType.Server, NetworkType.Irc, null);
+            ChatModel chat = _Session.GetChat(nick, ChatType.Person, NetworkProtocol.Irc, this);
+            if (chat == null) {
+                chat = _NetworkChat;
             }
             switch (e.Data.ReplyCode) {
                 case ReplyCode.WhoWasUser:
                     string ident = e.Data.RawMessageArray[4];
                     string host = e.Data.RawMessageArray[5];
                     string realname = e.Data.Message;
-                    _Session.AddTextToPage(page, "-!- " + nick + " [" + ident + "@" + host + "]");
-                    _Session.AddTextToPage(page, "-!-  realname: " + realname);
+                    _Session.AddTextToChat(chat, "-!- " + nick + " [" + ident + "@" + host + "]");
+                    _Session.AddTextToChat(chat, "-!-  realname: " + realname);
                     break;
                 case ReplyCode.EndOfWhoWas:
-                    _Session.AddTextToPage(page, "-!-  " + e.Data.Message);
+                    _Session.AddTextToChat(chat, "-!-  " + e.Data.Message);
                     break;
             }
         }
         
         private void _OnCtcpRequest(object sender, CtcpEventArgs e)
         {
-            Page spage = _Session.GetPage("Server", PageType.Server, NetworkType.Irc, null);
-            _Session.AddTextToPage(spage, String.Format(
+            _Session.AddTextToChat(_NetworkChat, String.Format(
                                             _("{0} [{1}] requested CTCP {2} from {3}: {4}"),
                                             e.Data.Nick, e.Data.Ident+"@"+e.Data.Host,
                                             e.CtcpCommand, _IrcClient.Nickname,
@@ -1406,7 +1406,6 @@ namespace Meebey.Smuxi.Engine
         
         private void _OnCtcpReply(object sender, CtcpEventArgs e)
         {
-            Page spage = _Session.GetPage("Server", PageType.Server, NetworkType.Irc, null);
             if (e.CtcpCommand == "PING") {
                 try {
                     long timestamp = Int64.Parse(e.CtcpParameter);
@@ -1415,13 +1414,13 @@ namespace Meebey.Smuxi.Engine
                     }
                     DateTime sent = DateTime.FromFileTime(timestamp);
                     string duration = DateTime.Now.Subtract(sent).TotalSeconds.ToString();
-                    _Session.AddTextToPage(spage, String.Format(
+                    _Session.AddTextToChat(_NetworkChat, String.Format(
                                                     _("CTCP PING reply from {0}: {1} seconds"),
                                                     e.Data.Nick, duration));
                 } catch (FormatException) {
                 }
             } else {
-                _Session.AddTextToPage(spage, String.Format(
+                _Session.AddTextToChat(_NetworkChat, String.Format(
                                             _("CTCP {0} reply from {1}: {2}"),
                                             e.CtcpCommand, e.Data.Nick, e.CtcpParameter));
             }
@@ -1429,148 +1428,136 @@ namespace Meebey.Smuxi.Engine
         
         private void _OnChannelMessage(object sender, IrcEventArgs e)
         {
-            Page page = _Session.GetPage(e.Data.Channel, PageType.Channel, NetworkType.Irc, this);
+            ChatModel chat = _Session.GetChat(e.Data.Channel, ChatType.Group, NetworkProtocol.Irc, this);
 
-            FormattedMessage fmsg = new FormattedMessage();
-            FormattedMessageTextItem fmsgti;
-            FormattedMessageItem fmsgi;
+            MessageModel fmsg = new MessageModel();
+            TextMessagePartModel fmsgti;
             
-            fmsgti = new FormattedMessageTextItem();
+            fmsgti = new TextMessagePartModel();
             fmsgti.Text = String.Format("<{0}> ", e.Data.Nick);
-            fmsgi = new FormattedMessageItem(FormattedMessageItemType.Text, fmsgti);
-            fmsg.Items.Add(fmsgi);
+            fmsg.MessageParts.Add(fmsgti);
             
-            _IrcMessageToFormattedMessage(ref fmsg, e.Data.Message);
+            _IrcMessageToMessageModel(ref fmsg, e.Data.Message);
             
-            _Session.AddMessageToPage(page, fmsg);
+            _Session.AddMessageToChat(chat, fmsg);
         }
         
         private void _OnChannelAction(object sender, ActionEventArgs e)
         {
-            Page page = _Session.GetPage(e.Data.Channel, PageType.Channel, NetworkType.Irc, this);
+            ChatModel chat = _Session.GetChat(e.Data.Channel, ChatType.Group, NetworkProtocol.Irc, this);
 
-            FormattedMessage fmsg = new FormattedMessage();
-            FormattedMessageTextItem fmsgti;
-            FormattedMessageItem fmsgi;
+            MessageModel fmsg = new MessageModel();
+            TextMessagePartModel fmsgti;
             
-            fmsgti = new FormattedMessageTextItem();
+            fmsgti = new TextMessagePartModel();
             fmsgti.Text = String.Format(" * {0} ", e.Data.Nick);
-            fmsgi = new FormattedMessageItem(FormattedMessageItemType.Text, fmsgti);
-            fmsg.Items.Add(fmsgi);
+            fmsg.MessageParts.Add(fmsgti);
             
-            _IrcMessageToFormattedMessage(ref fmsg, e.ActionMessage);
+            _IrcMessageToMessageModel(ref fmsg, e.ActionMessage);
             
-            _Session.AddMessageToPage(page, fmsg);
+            _Session.AddMessageToChat(chat, fmsg);
         }
         
         private void _OnChannelNotice(object sender, IrcEventArgs e)
         {
-            Page page = _Session.GetPage(e.Data.Channel, PageType.Channel, NetworkType.Irc, this);
+            ChatModel chat = _Session.GetChat(e.Data.Channel, ChatType.Group, NetworkProtocol.Irc, this);
 
-            FormattedMessage fmsg = new FormattedMessage();
-            FormattedMessageTextItem fmsgti;
-            FormattedMessageItem fmsgi;
+            MessageModel fmsg = new MessageModel();
+            TextMessagePartModel fmsgti;
             
-            fmsgti = new FormattedMessageTextItem();
+            fmsgti = new TextMessagePartModel();
             fmsgti.Text = String.Format("-{0}:{1}- ", e.Data.Nick, e.Data.Channel);
-            fmsgi = new FormattedMessageItem(FormattedMessageItemType.Text, fmsgti);
-            fmsg.Items.Add(fmsgi);
+            fmsg.MessageParts.Add(fmsgti);
             
-            _IrcMessageToFormattedMessage(ref fmsg, e.Data.Message);
+            _IrcMessageToMessageModel(ref fmsg, e.Data.Message);
             
-            _Session.AddMessageToPage(page, fmsg);
+            _Session.AddMessageToChat(chat, fmsg);
         }
         
         private void _OnQueryMessage(object sender, IrcEventArgs e)
         {
-            Page page = _Session.GetPage(e.Data.Nick, PageType.Query, NetworkType.Irc, this);
-            if (page == null) {
-                page = new Page(e.Data.Nick, PageType.Query, NetworkType.Irc, this);
-                _Session.AddPage(page);
+            ChatModel chat = _Session.GetChat(e.Data.Nick, ChatType.Person, NetworkProtocol.Irc, this);
+            if (chat == null) {
+                chat = new ChatModel(e.Data.Nick, ChatType.Person, this);
+                _Session.AddChat(chat);
             }
             
-            FormattedMessage fmsg = new FormattedMessage();
-            FormattedMessageTextItem fmsgti;
-            FormattedMessageItem fmsgi;
+            MessageModel fmsg = new MessageModel();
+            TextMessagePartModel fmsgti;
             
-            fmsgti = new FormattedMessageTextItem();
+            fmsgti = new TextMessagePartModel();
             fmsgti.Text = String.Format("<{0}> ", e.Data.Nick);
-            fmsgi = new FormattedMessageItem(FormattedMessageItemType.Text, fmsgti);
-            fmsg.Items.Add(fmsgi);
+            fmsg.MessageParts.Add(fmsgti);
             
-            _IrcMessageToFormattedMessage(ref fmsg, e.Data.Message);
+            _IrcMessageToMessageModel(ref fmsg, e.Data.Message);
             
-            _Session.AddMessageToPage(page, fmsg);
+            _Session.AddMessageToChat(chat, fmsg);
         }
         
         private void _OnQueryAction(object sender, ActionEventArgs e)
         {
-            Page page = _Session.GetPage(e.Data.Nick, PageType.Query, NetworkType.Irc, this);
-            if (page == null) {
-                page = new Page(e.Data.Nick, PageType.Query, NetworkType.Irc, this);
-                _Session.AddPage(page);
+            ChatModel chat = _Session.GetChat(e.Data.Nick, ChatType.Person, NetworkProtocol.Irc, this);
+            if (chat == null) {
+                chat = new ChatModel(e.Data.Nick, ChatType.Person, this);
+                _Session.AddChat(chat);
             }
             
-            FormattedMessage fmsg = new FormattedMessage();
-            FormattedMessageTextItem fmsgti;
-            FormattedMessageItem fmsgi;
+            MessageModel fmsg = new MessageModel();
+            TextMessagePartModel fmsgti;
             
-            fmsgti = new FormattedMessageTextItem();
+            fmsgti = new TextMessagePartModel();
             fmsgti.Text = String.Format(" * {0} ", e.Data.Nick);
-            fmsgi = new FormattedMessageItem(FormattedMessageItemType.Text, fmsgti);
-            fmsg.Items.Add(fmsgi);
+            fmsg.MessageParts.Add(fmsgti);
             
-            _IrcMessageToFormattedMessage(ref fmsg, e.ActionMessage);
+            _IrcMessageToMessageModel(ref fmsg, e.ActionMessage);
             
-            _Session.AddMessageToPage(page, fmsg);
+            _Session.AddMessageToChat(chat, fmsg);
         }
         
         private void _OnQueryNotice(object sender, IrcEventArgs e)
         {
-            Page page = null;
+            ChatModel chat = null;
             if (e.Data.Nick != null) {
-                page = _Session.GetPage(e.Data.Nick, PageType.Query, NetworkType.Irc, this);
+                chat = _Session.GetChat(e.Data.Nick, ChatType.Person, NetworkProtocol.Irc, this);
             }
-            if (page == null) {
-                // use server page as fallback
-                page = _Session.GetPage("Server", PageType.Server, NetworkType.Irc, null);
+            if (chat == null) {
+                // use server chat as fallback
+                chat = _NetworkChat;
             }
 
-            FormattedMessage fmsg = new FormattedMessage();
-            FormattedMessageTextItem fmsgti;
-            FormattedMessageItem fmsgi;
+            MessageModel fmsg = new MessageModel();
+            TextMessagePartModel fmsgti;
             
-            fmsgti = new FormattedMessageTextItem();
+            fmsgti = new TextMessagePartModel();
             fmsgti.Text = String.Format("-{0} ({1}@{2})- ", e.Data.Nick, e.Data.Ident, e.Data.Host);
-            fmsgi = new FormattedMessageItem(FormattedMessageItemType.Text, fmsgti);
-            fmsg.Items.Add(fmsgi);
+            fmsg.MessageParts.Add(fmsgti);
             
-            _IrcMessageToFormattedMessage(ref fmsg, e.Data.Message);
+            _IrcMessageToMessageModel(ref fmsg, e.Data.Message);
             
-            _Session.AddMessageToPage(page, fmsg);
+            _Session.AddMessageToChat(chat, fmsg);
         }
         
         private void _OnJoin(object sender, JoinEventArgs e)
         {
-            ChannelPage cpage = (ChannelPage)_Session.GetPage(e.Channel, PageType.Channel, NetworkType.Irc, this);
+            GroupChatModel cchat = (GroupChatModel)_Session.GetChat(e.Channel, ChatType.Group, NetworkProtocol.Irc, this);
             if (e.Data.Irc.IsMe(e.Who)) {
-                if (cpage == null) {
-                    cpage = new ChannelPage(e.Channel, NetworkType.Irc, this);
-                    _Session.AddPage(cpage);
+                if (cchat == null) {
+                    cchat = new GroupChatModel(e.Channel, this);
+                    _Session.AddChat(cchat);
                 } else {
-                    // page still exists, so we we only need to enable it
-                    _Session.EnablePage(cpage);
+                    // chat still exists, so we we only need to enable it
+                    _Session.EnableChat(cchat);
                 }
             } else {
-                // someone else joined, let's add him to the channel page
+                // someone else joined, let's add him to the channel chat
                 SmartIrc4net.IrcUser siuser = _IrcClient.GetIrcUser(e.Who);
-                IrcChannelUser icuser = new IrcChannelUser(e.Who, siuser.Realname,
-                                        siuser.Ident, siuser.Host);
-                 cpage.UnsafeUsers.Add(icuser.Nickname.ToLower(), icuser);
-                _Session.AddUserToChannel(cpage, icuser);
+                IrcGroupPersonModel icuser = new IrcGroupPersonModel(e.Who, siuser.Realname,
+                                        siuser.Ident, siuser.Host, NetworkID, this);
+                 cchat.UnsafePersons.Add(icuser.NickName.ToLower(), icuser);
+                _Session.AddPersonToGroupChat(cchat, icuser);
             }
             
-            _Session.AddTextToPage(cpage,
+            _Session.AddTextToChat(cchat,
                 "-!- " + String.Format(
                             _("{0} [{1}] has joined {2}"),
                             e.Who, e.Data.Ident + "@" + e.Data.Host, e.Channel));
@@ -1581,8 +1568,8 @@ namespace Meebey.Smuxi.Engine
 #if LOG4NET
             _Logger.Debug("_OnNames() e.Channel: "+e.Channel);
 #endif
-            ChannelPage cpage = (ChannelPage)_Session.GetPage(e.Data.Channel, PageType.Channel, NetworkType.Irc, this);
-            if (cpage.IsSynced) {
+            GroupChatModel cchat = (GroupChatModel)_Session.GetChat(e.Data.Channel, ChatType.Group, NetworkProtocol.Irc, this);
+            if (cchat.IsSynced) {
                 // nothing todo for us
                 return;
             }
@@ -1609,7 +1596,7 @@ namespace Meebey.Smuxi.Engine
                         break;
 				}
 				
-                IrcChannelUser icuser = new IrcChannelUser(username);
+                IrcGroupPersonModel icuser = new IrcGroupPersonModel(username, NetworkID, this);
                 /*
                 if (op) {
                     icuser.IsOp = true;
@@ -1620,10 +1607,10 @@ namespace Meebey.Smuxi.Engine
                 */
                 
                 // don't tell any frontend yet that there is new data, SyncPage() will do it
-                //_Session.AddUserToChannel(cpage, icuser);
-                cpage.UnsafeUsers.Add(icuser.Nickname.ToLower(), icuser);
+                //_Session.AddUserToChannel(cchat, icuser);
+                cchat.UnsafePersons.Add(icuser.NickName.ToLower(), icuser);
 #if LOG4NET
-                _Logger.Debug("_OnNames() added user: " + username + " to: " + cpage.Name);
+                _Logger.Debug("_OnNames() added user: " + username + " to: " + cchat.Name);
 #endif
             }
         }
@@ -1633,31 +1620,31 @@ namespace Meebey.Smuxi.Engine
 #if LOG4NET
             _Logger.Debug("_OnChannelActiveSynced() e.Data.Channel: "+e.Data.Channel);
 #endif
-            ChannelPage cpage = (ChannelPage)_Session.GetPage(e.Data.Channel, PageType.Channel, NetworkType.Irc, this);
+            GroupChatModel cchat = (GroupChatModel)_Session.GetChat(e.Data.Channel, ChatType.Group, NetworkProtocol.Irc, this);
             SmartIrc4net.Channel schan = _IrcClient.GetChannel(e.Data.Channel);
             foreach (ChannelUser scuser in schan.Users.Values) {
-                IrcChannelUser icuser = (IrcChannelUser)cpage.GetUser(scuser.Nick);
+                IrcGroupPersonModel icuser = (IrcGroupPersonModel)cchat.GetPerson(scuser.Nick);
                 if (icuser == null) {
                     /*
-                    icuser = new IrcChannelUser(scuser.Nick, scuser.Realname,
+                    icuser = new IrcGroupPersonModel(scuser.Nick, scuser.Realname,
                                     scuser.Ident, scuser.Host);
                     // don't tell any frontend yet that there is new data, SyncPage() will do it
-                    //_Session.AddUserToChannel(cpage, icuser);
-                    cpage.UnsafeUsers.Add(icuser.Nickname.ToLower(), icuser);
+                    //_Session.AddUserToChannel(cchat, icuser);
+                    cchat.UnsafeUsers.Add(icuser.Nickname.ToLower(), icuser);
                     */
                     // we should not get here anymore, _OnNames creates the users already
-                    _Logger.Error("_OnChannelActiveSynced(): cpage.GetUser(" + scuser.Nick + ") returned null!");
+                    _Logger.Error("_OnChannelActiveSynced(): cchat.GetPerson(" + scuser.Nick + ") returned null!");
                 }
-                icuser.Realname = scuser.Realname;
+                icuser.RealName = scuser.Realname;
                 icuser.Ident = scuser.Ident;
                 icuser.Host = scuser.Host;
                 icuser.IsOp = scuser.IsOp;
                 icuser.IsVoice = scuser.IsVoice;
                 
                 // don't tell any frontend yet that there is new data, SyncPage() will do it
-                //_Session.UpdateUserInChannel(cpage, icuser, icuser);
+                //_Session.UpdatePersonInGroupChat(cchat, icuser, icuser);
             }
-            _Session.SyncPage(cpage);
+            _Session.SyncChat(cchat);
         }
         
         private void _OnPart(object sender, PartEventArgs e)
@@ -1665,13 +1652,13 @@ namespace Meebey.Smuxi.Engine
 #if LOG4NET
             _Logger.Debug("_OnPart() e.Channel: "+e.Channel+" e.Who: "+e.Who);
 #endif
-            ChannelPage cpage = (ChannelPage)_Session.GetPage(e.Channel, PageType.Channel, NetworkType.Irc, this);
+            GroupChatModel cchat = (GroupChatModel)_Session.GetChat(e.Channel, ChatType.Group, NetworkProtocol.Irc, this);
             if (e.Data.Irc.IsMe(e.Who)) {
-                _Session.RemovePage(cpage);
+                _Session.RemoveChat(cchat);
             } else {
-                User user = cpage.GetUser(e.Who);
-                _Session.RemoveUserFromChannel(cpage, user);
-                _Session.AddTextToPage(cpage,
+                PersonModel user = cchat.GetPerson(e.Who);
+                _Session.RemovePersonFromGroupChat(cchat, user);
+                _Session.AddTextToChat(cchat,
                     "-!- " + String.Format(
                                 _("{0} [{1}] has left {2} [{3}]"),
                                 e.Who, e.Data.Ident + "@" + e.Data.Host, e.Channel, e.PartMessage));
@@ -1683,19 +1670,17 @@ namespace Meebey.Smuxi.Engine
 #if LOG4NET
             _Logger.Debug("_OnKick() e.Channel: "+e.Channel+" e.Whom: "+e.Whom);
 #endif
-            ChannelPage cpage = (ChannelPage)_Session.GetPage(e.Channel, PageType.Channel, NetworkType.Irc, this);
+            GroupChatModel cchat = (GroupChatModel)_Session.GetChat(e.Channel, ChatType.Group, NetworkProtocol.Irc, this);
             if (e.Data.Irc.IsMe(e.Whom)) {
-                //Page spage = _Session.GetPage("Server", PageType.Server, NetworkType.Irc, null);
-                //_Session.RemovePage(cpage);
-                _Session.DisablePage(cpage);
-                _Session.AddTextToPage(cpage,
+                _Session.DisableChat(cchat);
+                _Session.AddTextToChat(cchat,
                     "-!- " + String.Format(
                                 _("You was kicked from {0} by {1} [{2}]"),
                                 e.Channel, e.Who, e.KickReason));
             } else {
-                User user = cpage.GetUser(e.Whom);
-                _Session.RemoveUserFromChannel(cpage, user);
-                _Session.AddTextToPage(cpage,
+                PersonModel user = cchat.GetPerson(e.Whom);
+                _Session.RemovePersonFromGroupChat(cchat, user);
+                _Session.AddTextToChat(cchat,
                     "-!- " + String.Format(
                                 _("{0} was kicked from {1} by {2} [{3}]"),
                                 e.Whom, e.Channel, e.Who, e.KickReason));
@@ -1708,8 +1693,7 @@ namespace Meebey.Smuxi.Engine
             _Logger.Debug("_OnNickChange() e.OldNickname: "+e.OldNickname+" e.NewNickname: "+e.NewNickname);
 #endif
             if (e.Data.Irc.IsMe(e.NewNickname)) {
-                Page spage = _Session.GetPage("Server", PageType.Server, NetworkType.Irc, null);
-                _Session.AddTextToPage(spage, "-!- " + String.Format(
+                _Session.AddTextToChat(_NetworkChat, "-!- " + String.Format(
                                                         _("You're now known as {0}"),
                                                         e.NewNickname));
             }
@@ -1717,29 +1701,29 @@ namespace Meebey.Smuxi.Engine
             SmartIrc4net.IrcUser ircuser = e.Data.Irc.GetIrcUser(e.NewNickname);
             if (ircuser != null) {
                 foreach (string channel in ircuser.JoinedChannels) {
-                    ChannelPage cpage = (ChannelPage)_Session.GetPage(channel, PageType.Channel, NetworkType.Irc, this);
+                    GroupChatModel cchat = (GroupChatModel)_Session.GetChat(channel, ChatType.Group, NetworkProtocol.Irc, this);
                     
                     // clone the old user to a new user
-                    IrcChannelUser olduser = (IrcChannelUser)cpage.GetUser(e.OldNickname);
+                    IrcGroupPersonModel olduser = (IrcGroupPersonModel)cchat.GetPerson(e.OldNickname);
                     if (olduser == null) {
 #if LOG4NET
-                        _Logger.Error("cpage.GetUser(e.OldNickname) returned null! cpage.Name: "+cpage.Name+" e.OldNickname: "+e.OldNickname);
+                        _Logger.Error("cchat.GetPerson(e.OldNickname) returned null! cchat.Name: "+cchat.Name+" e.OldNickname: "+e.OldNickname);
 #endif
                         continue;
                     }
-                    IrcChannelUser newuser = new IrcChannelUser(e.NewNickname, ircuser.Realname,
-                                        ircuser.Ident, ircuser.Host);
+                    IrcGroupPersonModel newuser = new IrcGroupPersonModel(e.NewNickname, ircuser.Realname,
+                                        ircuser.Ident, ircuser.Host, NetworkID, this);
                     newuser.IsOp = olduser.IsOp;
                     newuser.IsVoice = olduser.IsVoice;
                     
-                    _Session.UpdateUserInChannel(cpage, olduser, newuser);
+                    _Session.UpdatePersonInGroupChat(cchat, olduser, newuser);
                     
                     if (e.Data.Irc.IsMe(e.NewNickname)) {
-                        _Session.AddTextToPage(cpage, "-!- " + String.Format(
+                        _Session.AddTextToChat(cchat, "-!- " + String.Format(
                                                                 _("You're now known as {0}"),
                                                                 e.NewNickname));
                     } else {
-                        _Session.AddTextToPage(cpage, "-!- " + String.Format(
+                        _Session.AddTextToChat(cchat, "-!- " + String.Format(
                                                                 _("{0} is now known as {1}"),
                                                                 e.OldNickname, e.NewNickname));
                     }
@@ -1749,71 +1733,71 @@ namespace Meebey.Smuxi.Engine
         
         private void _OnTopic(object sender, TopicEventArgs e)
         {
-            ChannelPage cpage = (ChannelPage)_Session.GetPage(e.Channel, PageType.Channel, NetworkType.Irc, this);
-            _Session.UpdateTopicInChannel(cpage, e.Topic);
+            GroupChatModel cchat = (GroupChatModel)_Session.GetChat(e.Channel, ChatType.Group, NetworkProtocol.Irc, this);
+            _Session.UpdateTopicInGroupChat(cchat, e.Topic);
         }
         
         private void _OnTopicChange(object sender, TopicChangeEventArgs e)
         {
-            ChannelPage cpage = (ChannelPage)_Session.GetPage(e.Channel, PageType.Channel, NetworkType.Irc, this);
-            _Session.UpdateTopicInChannel(cpage, e.NewTopic);
-            _Session.AddTextToPage(cpage, "-!- " + String.Format(
+            GroupChatModel cchat = (GroupChatModel)_Session.GetChat(e.Channel, ChatType.Group, NetworkProtocol.Irc, this);
+            _Session.UpdateTopicInGroupChat(cchat, e.NewTopic);
+            _Session.AddTextToChat(cchat, "-!- " + String.Format(
                                                     _("{0} changed the topic of {1} to: {2}"),
                                                     e.Who, e.Channel, e.NewTopic));
         }
         
         private void _OnOp(object sender, OpEventArgs e)
         {
-            ChannelPage cpage = (ChannelPage)_Session.GetPage(e.Channel, PageType.Channel, NetworkType.Irc, this);
-            IrcChannelUser user = (IrcChannelUser)cpage.GetUser(e.Whom);
+            GroupChatModel cchat = (GroupChatModel)_Session.GetChat(e.Channel, ChatType.Group, NetworkProtocol.Irc, this);
+            IrcGroupPersonModel user = (IrcGroupPersonModel)cchat.GetPerson(e.Whom);
             if (user != null) {
                 user.IsOp = true;
-                _Session.UpdateUserInChannel(cpage, user, user);
+                _Session.UpdatePersonInGroupChat(cchat, user, user);
 #if LOG4NET
             } else {
-                _Logger.Error("_OnOp(): cpage.GetUser(e.Whom) returned null! cpage.Name: "+cpage.Name+" e.Whom: "+e.Whom);
+                _Logger.Error("_OnOp(): cchat.GetPerson(e.Whom) returned null! cchat.Name: "+cchat.Name+" e.Whom: "+e.Whom);
 #endif
             }
         }
         
         private void _OnDeop(object sender, DeopEventArgs e)
         {
-            ChannelPage cpage = (ChannelPage)_Session.GetPage(e.Channel, PageType.Channel, NetworkType.Irc, this);
-            IrcChannelUser user = (IrcChannelUser)cpage.GetUser(e.Whom);
+            GroupChatModel cchat = (GroupChatModel)_Session.GetChat(e.Channel, ChatType.Group, NetworkProtocol.Irc, this);
+            IrcGroupPersonModel user = (IrcGroupPersonModel)cchat.GetPerson(e.Whom);
             if (user != null) {
                 user.IsOp = false;
-                _Session.UpdateUserInChannel(cpage, user, user);
+                _Session.UpdatePersonInGroupChat(cchat, user, user);
 #if LOG4NET
             } else {
-                _Logger.Error("_OnDeop(): cpage.GetUser(e.Whom) returned null! cpage.Name: "+cpage.Name+" e.Whom: "+e.Whom);
+                _Logger.Error("_OnDeop(): cchat.GetPerson(e.Whom) returned null! cchat.Name: "+cchat.Name+" e.Whom: "+e.Whom);
 #endif
             }
         }
         
         private void _OnVoice(object sender, VoiceEventArgs e)
         {
-            ChannelPage cpage = (ChannelPage)_Session.GetPage(e.Channel, PageType.Channel, NetworkType.Irc, this);
-            IrcChannelUser user = (IrcChannelUser)cpage.GetUser(e.Whom);
+            GroupChatModel cchat = (GroupChatModel)_Session.GetChat(e.Channel, ChatType.Group, NetworkProtocol.Irc, this);
+            IrcGroupPersonModel user = (IrcGroupPersonModel)cchat.GetPerson(e.Whom);
             if (user != null) {
                 user.IsVoice = true;
-                _Session.UpdateUserInChannel(cpage, user, user);
+                _Session.UpdatePersonInGroupChat(cchat, user, user);
 #if LOG4NET
             } else {
-                _Logger.Error("cpage.GetUser(e.Whom) returned null! cpage.Name: "+cpage.Name+" e.Whom: "+e.Whom);
+                _Logger.Error("cchat.GetPerson(e.Whom) returned null! cchat.Name: "+cchat.Name+" e.Whom: "+e.Whom);
 #endif
             }
         }
         
         private void _OnDevoice(object sender, DevoiceEventArgs e)
         {
-            ChannelPage cpage = (ChannelPage)_Session.GetPage(e.Channel, PageType.Channel, NetworkType.Irc, this);
-            IrcChannelUser user = (IrcChannelUser)cpage.GetUser(e.Whom);
+            GroupChatModel cchat = (GroupChatModel)_Session.GetChat(e.Channel, ChatType.Group, NetworkProtocol.Irc, this);
+            IrcGroupPersonModel user = (IrcGroupPersonModel)cchat.GetPerson(e.Whom);
             if (user != null) {
                 user.IsVoice = false;
-                _Session.UpdateUserInChannel(cpage, user, user);
+                _Session.UpdatePersonInGroupChat(cchat, user, user);
 #if LOG4NET
             } else {
-                _Logger.Error("cpage.GetUser(e.Whom) returned null! cpage.Name: "+cpage.Name+" e.Whom: "+e.Whom);
+                _Logger.Error("cchat.GetPerson(e.Whom) returned null! cchat.Name: "+cchat.Name+" e.Whom: "+e.Whom);
 #endif
             }
         }
@@ -1824,8 +1808,7 @@ namespace Meebey.Smuxi.Engine
             switch (e.Data.Type) {
                 case ReceiveType.UserModeChange:
                     modechange = e.Data.Message;
-                    Page spage = _Session.GetPage("Server", PageType.Server, NetworkType.Irc, null);
-                    _Session.AddTextToPage(spage, "-!- " + String.Format(
+                    _Session.AddTextToChat(_NetworkChat, "-!- " + String.Format(
                                                             _("Mode change [{0}] for user {1}"),
                                                             modechange, e.Data.Irc.Nickname));
                 break;
@@ -1837,8 +1820,8 @@ namespace Meebey.Smuxi.Engine
                     } else {
                         who = e.Data.From;
                     }
-                    Page page = _Session.GetPage(e.Data.Channel, PageType.Channel, NetworkType.Irc, this);
-                    _Session.AddTextToPage(page, "-!- " + String.Format(
+                    ChatModel chat = _Session.GetChat(e.Data.Channel, ChatType.Group, NetworkProtocol.Irc, this);
+                    _Session.AddTextToChat(chat, "-!- " + String.Format(
                                                             _("mode/{0} [{1}] by {2}"),
                                                             e.Data.Channel, modechange, who));
                 break;
@@ -1853,26 +1836,26 @@ namespace Meebey.Smuxi.Engine
             if (e.Data.Irc.IsMe(e.Who)) {
                 // _OnDisconnect() handles this
             } else {
-                foreach (Page page in _Session.Pages) {
-                    if (page.NetworkManager != this) {
+                foreach (ChatModel chat in _Session.Chats) {
+                    if (chat.NetworkManager != this) {
                         // we don't care about channels and queries the user was
                         // on other networks
                         continue;
                     }
                     
-                    if (page.PageType == PageType.Channel) {
-                        ChannelPage cpage = (ChannelPage)page;
-                        User user = cpage.GetUser(e.Who);
+                    if (chat.ChatType == ChatType.Group) {
+                        GroupChatModel cchat = (GroupChatModel)chat;
+                        PersonModel user = cchat.GetPerson(e.Who);
                         if (user != null) {
                             // he is on this channel, let's remove him
-                            _Session.RemoveUserFromChannel(cpage, user);
-                            _Session.AddTextToPage(cpage, "-!- " + String.Format(
+                            _Session.RemovePersonFromGroupChat(cchat, user);
+                            _Session.AddTextToChat(cchat, "-!- " + String.Format(
                                                                     _("{0} [{1}] has quit [{2}]"),
                                                                     e.Who, e.Data.Ident + "@" + e.Data.Host, e.QuitMessage));
                         }
-                    } else if ((page.PageType == PageType.Query) &&
-                               (page.Name == e.Who)) {
-                        _Session.AddTextToPage(page, "-!- " + String.Format(
+                    } else if ((chat.ChatType == ChatType.Person) &&
+                               (chat.Name == e.Who)) {
+                        _Session.AddTextToChat(chat, "-!- " + String.Format(
                                                                 _("{0} [{1}] has quit [{2}]"),
                                                                 e.Who, e.Data.Ident + "@" + e.Data.Host, e.QuitMessage));
                     }
@@ -1882,35 +1865,33 @@ namespace Meebey.Smuxi.Engine
         
         private void _OnDisconnected(object sender, EventArgs e)
         {
-            foreach (Page page in _Session.Pages) {
-                if (page.NetworkManager == this) {
-                    _Session.DisablePage(page);
+            foreach (ChatModel chat in _Session.Chats) {
+                if (chat.NetworkManager == this) {
+                    _Session.DisableChat(chat);
                 }
             }
         }
         
         private void _OnAway(object sender, AwayEventArgs e)
         {
-            Page page = _Session.GetPage(e.Who, PageType.Query, NetworkType.Irc, this);
-            if (page == null) {
-                page = _Session.GetPage("Server", PageType.Server, NetworkType.Irc, null);
+            ChatModel chat = _Session.GetChat(e.Who, ChatType.Person, NetworkProtocol.Irc, this);
+            if (chat == null) {
+                chat = _NetworkChat;
             }
-            _Session.AddTextToPage(page, "-!- " + String.Format(
+            _Session.AddTextToChat(chat, "-!- " + String.Format(
                                                     _("{0} is away: {1}"),
                                                     e.Who, e.AwayMessage));
         }
 
         private void _OnUnAway(object sender, IrcEventArgs e)
         {
-            Page spage = _Session.GetPage("Server", PageType.Server, NetworkType.Irc, null);
-            _Session.AddTextToPage(spage, "-!- " + _("You are no longer marked as being away"));
+            _Session.AddTextToChat(_NetworkChat, "-!- " + _("You are no longer marked as being away"));
             _Session.UpdateNetworkStatus();
         }
         
         private void _OnNowAway(object sender, IrcEventArgs e)
         {
-            Page spage = _Session.GetPage("Server", PageType.Server, NetworkType.Irc, null);
-            _Session.AddTextToPage(spage, "-!- " + _("You have been marked as being away"));
+            _Session.AddTextToChat(_NetworkChat, "-!- " + _("You have been marked as being away"));
             _Session.UpdateNetworkStatus();
         }
         

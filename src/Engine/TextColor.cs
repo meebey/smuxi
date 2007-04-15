@@ -30,7 +30,7 @@ using System;
 
 namespace Meebey.Smuxi.Engine
 {
-    [Serializable()]
+    [Serializable]
     public class TextColor
     {
         private int _HexCode;

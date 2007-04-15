@@ -31,7 +31,7 @@ using System;
 namespace Meebey.Smuxi.Engine
 {
     [Serializable]
-    public class IrcTextColor
+    public static class IrcTextColor
     {
         static private TextColor _Normal      = new TextColor(-1);
         static private TextColor _White       = new TextColor(0xFFFFFF);
@@ -52,7 +52,7 @@ namespace Meebey.Smuxi.Engine
         static private TextColor _Grey        = new TextColor(0x808080);
         static private TextColor _LightGrey   = new TextColor(0xD3D3D3);
         
-        static public TextColor Normal {
+        public static TextColor Normal {
             get {
                 return _Normal;
             }
@@ -61,7 +61,7 @@ namespace Meebey.Smuxi.Engine
             }
         }
         
-        static public TextColor White {
+        public static TextColor White {
             get {
                 return _White;
             }

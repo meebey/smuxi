@@ -1,0 +1,51 @@
+[Server]
+Port = 7689
+Channel = TCP
+Formatter = binary
+
+[Engine/Users]
+Users = local|smuxi
+
+[Engine/Users/Servers]
+Servers = irc.freenet.de
+
+[Engine/Users/Servers/freenet]
+Network = IRC
+Hostname = irc.freenet.de
+Port = 6667
+
+[Engine/Users/DEFAULT/Interface/Notebook]
+TimestampFormat = HH:mm
+TabPosition = top
+BufferLines = 200
+EngineBufferLines = 50
+
+[Engine/Users/DEFAULT/Interface/Notebook/Channel]
+UserListPosition = left
+TopicPosition = top
+
+[Engine/Users/DEFAULT/Interface/Entry]
+CompletionCharacter = :
+CommandCharacter = /
+BashStyleCompletion = false
+CommandHistorySize = 30
+
+[Engine/Users/smuxi]
+Password = crackme
+OnStartupCommands = /connect irc.freenode.net|
+
+[Engine/Users/smuxi/Connection]
+Nicknames = smuxi
+Username =
+Realname = http://smuxi.meebey.net
+OnConnectCommands = /join #smuxi|
+
+[Engine/Users/local]
+Password = smuxi
+OnStartupCommands =
+
+[Engine/Users/local/Connection]
+Nicknames = Smuxi|Smuxi_
+Username =
+Realname = http://smuxi.meebey.net
+OnConnectCommands =

@@ -38,13 +38,13 @@ namespace Meebey.Smuxi.Engine
 #if LOG4NET
         private static readonly log4net.ILog _Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 #endif
-        private int        _Version = 0;
-        private Hashtable  _FrontendManagers = Hashtable.Synchronized(new Hashtable());
-        private ArrayList  _NetworkManagers = ArrayList.Synchronized(new ArrayList());
-        private ArrayList  _Pages = ArrayList.Synchronized(new ArrayList());
-        private Config     _Config;
-        private UserConfig _UserConfig;
-        private bool       _OnStartupCommandsProcessed;
+        private int              _Version = 0;
+        private Hashtable        _FrontendManagers = Hashtable.Synchronized(new Hashtable());
+        private ArrayList        _NetworkManagers = ArrayList.Synchronized(new ArrayList());
+        private ArrayList        _Chats = ArrayList.Synchronized(new ArrayList());
+        private Config           _Config;
+        private UserConfig       _UserConfig;
+        private bool             _OnStartupCommandsProcessed;
         
         public ArrayList NetworkManagers {
             get {
@@ -52,9 +52,9 @@ namespace Meebey.Smuxi.Engine
             }
         }
         
-        public ArrayList Pages {
+        public ArrayList Chats {
             get {
-                return _Pages;
+                return _Chats;
             }
         }
     
@@ -76,19 +76,18 @@ namespace Meebey.Smuxi.Engine
             }
         }
         
-        public Session(Config config, string username)
+        public Session(Config config, string personname)
         {
             _Config = config;
-            _UserConfig = new UserConfig(config, username);
+            _UserConfig = new UserConfig(config, personname);
             
-            Page spage = new Page("Server", PageType.Server, NetworkType.Irc, null);
-            _Pages.Add(spage);
-            FormattedMessage fm = new FormattedMessage();
-            fm.Items.Add(
-                new FormattedMessageItem(FormattedMessageItemType.Text,
-                    new FormattedMessageTextItem(IrcTextColor.Red, null, false,
-                        true, false, _("Welcome to Smuxi"))));
-            AddMessageToPage(spage, fm); 
+            ChatModel chat = new ChatModel("smuxi", ChatType.Network, null);
+            _Chats.Add(chat);
+            MessageModel fm = new MessageModel();
+            fm.MessageParts.Add(
+                new TextMessagePartModel(IrcTextColor.Red, null, false,
+                        true, false, _("Welcome to Smuxi")));
+            AddMessageToChat(chat, fm); 
         }
         
         public void RegisterFrontendUI(IFrontendUI ui)
@@ -107,11 +106,12 @@ namespace Meebey.Smuxi.Engine
             // if this is the first frontend, we process OnStartupCommands
             if (!_OnStartupCommandsProcessed) {
                 _OnStartupCommandsProcessed = true;
+                ChatModel smuxiChat = GetChat("smuxi", ChatType.Network, null);
                 foreach (string command in (string[])_UserConfig["OnStartupCommands"]) {
                     if (command.Length == 0) {
                         continue;
                     }
-                    CommandData cd = new CommandData(fm,
+                    CommandModel cd = new CommandModel(fm, smuxiChat,
                         (string)_UserConfig["Interface/Entry/CommandCharacter"],
                         command);
                     bool handled;
@@ -146,25 +146,31 @@ namespace Meebey.Smuxi.Engine
             return (FrontendManager)_FrontendManagers[uri];
         }
         
-        public Page GetPage(string name, PageType ptype, NetworkType ntype, INetworkManager nm)
+        public ChatModel GetChat(string name, ChatType chatType, INetworkManager networkManager)
+        {
+            return GetChat(name, chatType, NetworkProtocol.None, networkManager);
+        }                                     
+                                         
+        public ChatModel GetChat(string name, ChatType chatType,
+                                 NetworkProtocol networkProtocol, INetworkManager networkManager)
         {
             if (name == null) {
                 throw new ArgumentNullException("name");
             }
             
-            foreach (Page page in _Pages) {
-                if ((page.Name.ToLower() == name.ToLower()) &&
-                    (page.PageType == ptype) &&
-                    (page.NetworkType == ntype) &&
-                    (page.NetworkManager == nm)) {
-                    return page;
+            foreach (ChatModel chat in _Chats) {
+                if ((chat.Name.ToLower() == name.ToLower()) &&
+                    (chat.ChatType == chatType) &&
+                    /*(chat.NetworkProtocol == networkProtocol) && */
+                    (chat.NetworkManager == networkManager)) {
+                    return chat;
                 }
             }
             
             return null;
         }
         
-        public bool Command(CommandData cd)
+        public bool Command(CommandModel cd)
         {
             bool handled = false;
             if (cd.IsCommand) {
@@ -209,7 +215,7 @@ namespace Meebey.Smuxi.Engine
             return handled;
         }
         
-        public void CommandHelp(CommandData cd)
+        public void CommandHelp(CommandModel cd)
         {
             string[] help = {
             "[Engine Commands]",
@@ -224,11 +230,11 @@ namespace Meebey.Smuxi.Engine
             };
             
             foreach (string line in help) { 
-                cd.FrontendManager.AddTextToCurrentPage("-!- "+line);
+                cd.FrontendManager.AddTextToCurrentChat("-!- " + line);
             }
         }
         
-        public void CommandConnect(CommandData cd)
+        public void CommandConnect(CommandModel cd)
         {
             FrontendManager fm = cd.FrontendManager;
             
@@ -244,7 +250,7 @@ namespace Meebey.Smuxi.Engine
                 try {
                     port = Int32.Parse(cd.DataArray[2]);
                 } catch (FormatException) {
-                    fm.AddTextToCurrentPage("-!- " + String.Format(
+                    fm.AddTextToCurrentChat("-!- " + String.Format(
                                                         _("Invalid port: {0}"),
                                                         cd.DataArray[2]));
                     return;
@@ -267,7 +273,7 @@ namespace Meebey.Smuxi.Engine
                 nicks = (string[])UserConfig["Connection/Nicknames"];
             }
             
-            string user = (string)UserConfig["Connection/Username"];
+            string person = (string)UserConfig["Connection/PersonModelname"];
             
             IrcNetworkManager ircm = null;
             foreach (INetworkManager nm in _NetworkManagers) {
@@ -276,7 +282,7 @@ namespace Meebey.Smuxi.Engine
                     nm.Port == port) {
                     // reuse network manager
                     if (nm.IsConnected) {
-                        fm.AddTextToCurrentPage("-!- " + String.Format(
+                        fm.AddTextToCurrentChat("-!- " + String.Format(
                             _("Already connected to: {0}:{1}"), server, port));
                         return;
                     }
@@ -288,14 +294,14 @@ namespace Meebey.Smuxi.Engine
                 ircm = new IrcNetworkManager(this);
                 _NetworkManagers.Add(ircm);
             }
-            ircm.Connect(fm, server, port, nicks, user, pass);
+            ircm.Connect(fm, server, port, nicks, person, pass);
             
             // set this as current network manager
             fm.CurrentNetworkManager = ircm;
             fm.UpdateNetworkStatus();
         }
         
-        public void CommandDisconnect(CommandData cd)
+        public void CommandDisconnect(CommandModel cd)
         {
             FrontendManager fm = cd.FrontendManager;
             if (cd.DataArray.Length >= 2) {
@@ -307,7 +313,7 @@ namespace Meebey.Smuxi.Engine
                         return;
                     }
                 }
-                fm.AddTextToCurrentPage("-!- " + String.Format(
+                fm.AddTextToCurrentChat("-!- " + String.Format(
                                                     _("Disconnect failed, could not find server: {0}"),
                                                     server));
             } else {
@@ -316,13 +322,13 @@ namespace Meebey.Smuxi.Engine
             }
         }
         
-        public void CommandReconnect(CommandData cd)
+        public void CommandReconnect(CommandModel cd)
         {
             FrontendManager fm = cd.FrontendManager;
             fm.CurrentNetworkManager.Reconnect(fm);
         }
         
-        public void CommandQuit(CommandData cd)
+        public void CommandQuit(CommandModel cd)
         {
             FrontendManager fm = cd.FrontendManager;
             string message = cd.Parameter;
@@ -340,23 +346,23 @@ namespace Meebey.Smuxi.Engine
             }
         }
         
-        public void CommandConfig(CommandData cd)
+        public void CommandConfig(CommandModel cd)
         {
             FrontendManager fm = cd.FrontendManager;
             if (cd.DataArray.Length >= 2) {
                 switch (cd.DataArray[1].ToLower()) {
                     case "load":
                         _Config.Load();
-                        fm.AddTextToCurrentPage("-!- " +
+                        fm.AddTextToCurrentChat("-!- " +
                             _("Configuration reloaded"));
                         break;
                     case "save":
                         _Config.Save();
-                        fm.AddTextToCurrentPage("-!- " +
+                        fm.AddTextToCurrentChat("-!- " +
                             _("Configuration saved"));
                         break;
                     default:
-                        fm.AddTextToCurrentPage("-!- " + 
+                        fm.AddTextToCurrentChat("-!- " + 
                             _("Invalid paramater for config, use load or save"));
                         break;
                 }
@@ -365,7 +371,7 @@ namespace Meebey.Smuxi.Engine
             }
         }
         
-        public void CommandNetwork(CommandData cd)
+        public void CommandNetwork(CommandModel cd)
         {
             FrontendManager fm = cd.FrontendManager;
             if (cd.DataArray.Length >= 2) {
@@ -380,7 +386,7 @@ namespace Meebey.Smuxi.Engine
                         _CommandNetworkClose(cd);
                         break;
                     default:
-                        fm.AddTextToCurrentPage("-!- " + 
+                        fm.AddTextToCurrentChat("-!- " + 
                             _("Invalid paramater for network, use list, switch or close"));
                         break;
                 }
@@ -389,19 +395,19 @@ namespace Meebey.Smuxi.Engine
             }
         }
         
-        private void _CommandNetworkList(CommandData cd)
+        private void _CommandNetworkList(CommandModel cd)
         {
             FrontendManager fm = cd.FrontendManager;
-            fm.AddTextToCurrentPage("-!- " + _("Networks") + ":");
+            fm.AddTextToCurrentChat("-!- " + _("Networks") + ":");
             foreach (INetworkManager nm in _NetworkManagers) {
-                fm.AddTextToCurrentPage("-!- " +
-                    _("Type") + ": " + nm.Type.ToString().ToUpper() + " " +
+                fm.AddTextToCurrentChat("-!- " +
+                    _("Type") + ": " + nm.NetworkProtocol.ToString().ToUpper() + " " +
                     _("Host") + ": " + nm.Host + " " + 
                     _("Port") + ": " + nm.Port);
             }
         }
         
-        private void _CommandNetworkClose(CommandData cd)
+        private void _CommandNetworkClose(CommandModel cd)
         {
             FrontendManager fm = cd.FrontendManager;
             if (cd.DataArray.Length >= 3) {
@@ -416,7 +422,7 @@ namespace Meebey.Smuxi.Engine
                         return;
                     }
                 }
-                fm.AddTextToCurrentPage("-!- " +
+                fm.AddTextToCurrentChat("-!- " +
                     String.Format(_("Network switch failed, could not find network with host: {0}"),
                                   host));
             } else if (cd.DataArray.Length >= 2) {
@@ -428,7 +434,7 @@ namespace Meebey.Smuxi.Engine
             }
         }
         
-        private void _CommandNetworkSwitch(CommandData cd)
+        private void _CommandNetworkSwitch(CommandModel cd)
         {
             FrontendManager fm = cd.FrontendManager;
             if (cd.DataArray.Length >= 3) {
@@ -441,7 +447,7 @@ namespace Meebey.Smuxi.Engine
                         return;
                     }
                 }
-                fm.AddTextToCurrentPage("-!- " +
+                fm.AddTextToCurrentChat("-!- " +
                     String.Format(_("Network switch failed, could not find network with host: {0}"),
                                   host));
             } else if (cd.DataArray.Length >= 2) {
@@ -452,14 +458,14 @@ namespace Meebey.Smuxi.Engine
             }
         }
         
-        private void _NotConnected(CommandData cd)
+        private void _NotConnected(CommandModel cd)
         {
-            cd.FrontendManager.AddTextToCurrentPage("-!- " + _("Not connected to any network"));
+            cd.FrontendManager.AddTextToCurrentChat("-!- " + _("Not connected to any network"));
         }
         
-        private void _NotEnoughParameters(CommandData cd)
+        private void _NotEnoughParameters(CommandModel cd)
         {
-            cd.FrontendManager.AddTextToCurrentPage("-!- " +
+            cd.FrontendManager.AddTextToCurrentChat("-!- " +
                 String.Format(_("Not enough parameters for {0} command"), cd.Command));
         }
         
@@ -472,117 +478,117 @@ namespace Meebey.Smuxi.Engine
             }
         }
         
-        public void AddPage(Page page)
+        public void AddChat(ChatModel chat)
         {
-        	Trace.Call(page);
+        	Trace.Call(chat);
         	
-            _Pages.Add(page);
+            _Chats.Add(chat);
             foreach (FrontendManager fm in _FrontendManagers.Values) {
-                fm.AddPage(page);
-                fm.SyncPage(page);
+                fm.AddChat(chat);
+                fm.SyncChat(chat);
             }
         }
         
-        public void RemovePage(Page page)
+        public void RemoveChat(ChatModel chat)
         {
-        	Trace.Call(page);
+        	Trace.Call(chat);
         	
-            _Pages.Remove(page);
+            _Chats.Remove(chat);
             foreach (FrontendManager fm in _FrontendManagers.Values) {
-                fm.RemovePage(page);
+                fm.RemoveChat(chat);
             }
         }
         
-        public void EnablePage(Page page)
+        public void EnableChat(ChatModel chat)
         {
-        	Trace.Call(page);
+        	Trace.Call(chat);
         	
-        	page.IsEnabled = true;
+        	chat.IsEnabled = true;
             foreach (FrontendManager fm in _FrontendManagers.Values) {
-                fm.EnablePage(page);
+                fm.EnableChat(chat);
             }
         }
         
-        public void DisablePage(Page page)
+        public void DisableChat(ChatModel chat)
         {
-        	Trace.Call(page);
+        	Trace.Call(chat);
         	
-        	page.IsEnabled = false;
+        	chat.IsEnabled = false;
             foreach (FrontendManager fm in _FrontendManagers.Values) {
-                fm.DisablePage(page);
+                fm.DisableChat(chat);
             }
         }
         
-        public void SyncPage(Page page)
+        public void SyncChat(ChatModel chat)
         {
-        	Trace.Call(page);
+        	Trace.Call(chat);
         	
             foreach (FrontendManager fm in _FrontendManagers.Values) {
-                fm.SyncPage(page);
+                fm.SyncChat(chat);
             }
         }
         
-        public void AddTextToPage(Page page, string text)
+        public void AddTextToChat(ChatModel chat, string text)
         {
-            AddMessageToPage(page, new FormattedMessage(text));
+            AddMessageToChat(chat, new MessageModel(text));
         }
         
-        public void AddMessageToPage(Page page, FormattedMessage fmsg)
+        public void AddMessageToChat(ChatModel chat, MessageModel fmsg)
         {
             int buffer_lines = (int)UserConfig["Interface/Notebook/EngineBufferLines"];
             if (buffer_lines > 0) {
-                page.UnsafeBuffer.Add(fmsg);
-                if (page.UnsafeBuffer.Count > buffer_lines) {
-                    page.UnsafeBuffer.RemoveAt(0);
+                chat.UnsafeMessages.Add(fmsg);
+                if (chat.UnsafeMessages.Count > buffer_lines) {
+                    chat.UnsafeMessages.RemoveAt(0);
                 }
             }
             
             foreach (FrontendManager fm in _FrontendManagers.Values) {
-                fm.AddMessageToPage(page, fmsg);
+                fm.AddMessageToChat(chat, fmsg);
             }
         }
         
-        public void AddUserToChannel(ChannelPage cpage, User user)
+        public void AddPersonToGroupChat(GroupChatModel groupChat, PersonModel person)
         {
 #if LOG4NET
-            _Logger.Debug("AddUserToChannel() cpage.Name: "+cpage.Name+" user.Nickname: "+user.Nickname);
+            _Logger.Debug("AddPersonToGroupChat() groupChat.Name: "+groupChat.Name+" person.IdentityName: "+person.IdentityName);
 #endif
             foreach (FrontendManager fm in _FrontendManagers.Values) {
-                fm.AddUserToChannel(cpage, user);
+                fm.AddPersonToGroupChat(groupChat, person);
             }
         }
         
-        public void UpdateUserInChannel(ChannelPage cpage, User olduser, User newuser)
+        public void UpdatePersonInGroupChat(GroupChatModel groupChat, PersonModel oldperson, PersonModel newperson)
         {
 #if LOG4NET
-            _Logger.Debug("UpdateUserInChannel() cpage.Name: "+cpage.Name+" olduser.Nickname: "+olduser.Nickname+" newuser.Nickname: "+newuser.Nickname);
+            _Logger.Debug("UpdatePersonModelInGroupChat() groupChat.Name: " + groupChat.Name + " oldperson.IdentityName: " + oldperson.IdentityName + " newperson.IdentityName: "+newperson.IdentityName);
 #endif
-            cpage.UnsafeUsers.Remove(olduser.Nickname.ToLower());
-            cpage.UnsafeUsers.Add(newuser.Nickname.ToLower(), newuser);
+            groupChat.UnsafePersons.Remove(oldperson.ID.ToLower());
+            groupChat.UnsafePersons.Add(newperson.ID.ToLower(), newperson);
             foreach (FrontendManager fm in _FrontendManagers.Values) {
-                fm.UpdateUserInChannel(cpage, olduser, newuser);
+                fm.UpdatePersonInGroupChat(groupChat, oldperson, newperson);
             }
         }
     
-        public void UpdateTopicInChannel(ChannelPage cpage, string topic)
+        public void UpdateTopicInGroupChat(GroupChatModel groupChat, string topic)
         {
 #if LOG4NET
-            _Logger.Debug("UpdateTopicInChannel() cpage.Name: "+cpage.Name+" topic: "+topic);
+            _Logger.Debug("UpdateTopicInGroupChat() groupChat.Name: " + groupChat.Name + " topic: " + topic);
 #endif
-            cpage.Topic = topic;
+            groupChat.Topic = topic;
             foreach (FrontendManager fm in _FrontendManagers.Values) {
-                fm.UpdateTopicInChannel(cpage, topic);
+                fm.UpdateTopicInGroupChat(groupChat, topic);
             }
         }
     
-        public void RemoveUserFromChannel(ChannelPage cpage, User user)
+        public void RemovePersonFromGroupChat(GroupChatModel groupChat, PersonModel person)
         {
 #if LOG4NET
-            _Logger.Debug("RemoveUserFromChannel() cpage.Name: "+cpage.Name+" user.Nickname: "+user.Nickname);
+            _Logger.Debug("RemovePersonModelFromGroupChat() groupChat.Name: " + groupChat.Name + " person.ID: "+person.ID);
 #endif
-            cpage.UnsafeUsers.Remove(user.Nickname.ToLower());
+            groupChat.UnsafePersons.Remove(person.ID.ToLower());
             foreach (FrontendManager fm in _FrontendManagers.Values) {
-                fm.RemoveUserFromChannel(cpage, user);
+                fm.RemovePersonFromGroupChat(groupChat, person);
             }
         }
         

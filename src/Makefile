@@ -11,11 +11,11 @@ ENGINE_DEFINES=CONFIG_NINI
 GNOME_DEFINES=UI_GNOME,GTK_SHARP_2,CONFIG_NINI
 GTK_DEFINES=UI_GTK,GTK_SHARP_2,CONFIG_NINI
 SMARTIRC_DLL=Meebey.SmartIrc4net.dll
-SMARTIRC_DIR=../bin
+SMARTIRC_DIR=../lib
 LOG4NET_DLL=log4net.dll
-LOG4NET_DIR=../bin
+LOG4NET_DIR=../lib
 NINI_DLL=Nini.dll
-NINI_DIR=../bin
+NINI_DIR=../lib
 SERVER_LIB=System.Runtime.Remoting
 ENGINE_LIB=$(SMARTIRC_DIR)/$(SMARTIRC_DLL),$(NINI_DIR)/$(NINI_DLL)
 TEST_LIB=System.Runtime.Remoting
@@ -39,50 +39,50 @@ GNOME_TARGET=smuxi-gnome.exe
 default: smuxi-engine smuxi-server smuxi-gtk smuxi-gnome
 
 debug: \
-	bin/mono/debug/$(ENGINE_TARGET) \
-	bin/mono/debug/$(SERVER_TARGET) \
-	bin/mono/debug/$(TEST_TARGET) \
-	bin/mono/debug/$(GTK_TARGET) \
-	bin/mono/debug/$(GNOME_TARGET) \
+	bin/debug/$(ENGINE_TARGET) \
+	bin/debug/$(SERVER_TARGET) \
+	bin/debug/$(TEST_TARGET) \
+	bin/debug/$(GTK_TARGET) \
+	bin/debug/$(GNOME_TARGET) \
 
 release: \
-	bin/mono/release/$(ENGINE_TARGET) \
-	bin/mono/release/$(SERVER_TARGET) \
-	bin/mono/release/$(GTK_TARGET) \
-	bin/mono/release/$(GNOME_TARGET) \
+	bin/release/$(ENGINE_TARGET) \
+	bin/release/$(SERVER_TARGET) \
+	bin/release/$(GTK_TARGET) \
+	bin/release/$(GNOME_TARGET) \
 
-smuxi-engine: bin/mono/debug/$(ENGINE_TARGET)
-bin/mono/debug/$(ENGINE_TARGET): Engine/*.cs
+smuxi-engine: bin/debug/$(ENGINE_TARGET)
+bin/debug/$(ENGINE_TARGET): Engine/*.cs
 	$(CSC) /debug /define:$(ENGINE_DEFINES),TRACE,LOG4NET /target:library /r:$(ENGINE_LIB),../bin/$(LOG4NET_DLL) /out:../bin/mono/debug/$(ENGINE_TARGET) $^
 	$(AOT) ../bin/mono/debug/$(ENGINE_TARGET)
 	cp $(LOG4NET_DIR)/$(LOG4NET_DLL) ../bin/mono/debug
 	cp $(SMARTIRC_DIR)/$(SMARTIRC_DLL) ../bin/mono/debug
 	cp $(NINI_DIR)/$(NINI_DLL) ../bin/mono/debug
 
-bin/mono/release/$(ENGINE_TARGET): Engine/*.cs
+bin/release/$(ENGINE_TARGET): Engine/*.cs
 	$(CSC) /define:$(ENGINE_DEFINES) /target:library /r:$(ENGINE_LIB) /out:../bin/mono/release/$(ENGINE_TARGET) $^
 	$(AOT) ../bin/mono/release/$(ENGINE_TARGET)
 	cp $(SMARTIRC_DIR)/$(SMARTIRC_DLL) ../bin/mono/release
 	cp $(NINI_DIR)/$(NINI_DLL) ../bin/mono/release
 
 smuxi-server: bin/mono/debug/$(SERVER_TARGET)
-bin/mono/debug/$(SERVER_TARGET): Server/*.cs
+bin/debug/$(SERVER_TARGET): Server/*.cs
 	$(CSC) /debug /define:TRACE,LOG4NET /target:exe /r:$(SERVER_LIB),../bin/mono/debug/$(ENGINE_TARGET),../bin/$(LOG4NET_DLL) /out:../bin/mono/debug/$(SERVER_TARGET) $^
 	$(AOT) ../bin/mono/debug/$(SERVER_TARGET)
 	cp $(LOG4NET_DIR)/$(LOG4NET_DLL) ../bin/mono/debug
 
-bin/mono/release/$(SERVER_TARGET): Server/*.cs
+bin/release/$(SERVER_TARGET): Server/*.cs
 	$(CSC) /target:exe /r:$(SERVER_LIB),../bin/mono/release/$(ENGINE_TARGET) /out:../bin/mono/release/$(SERVER_TARGET) $^
 	$(AOT) ../bin/mono/release/$(SERVER_TARGET)
 
 smuxi-test: bin/mono/debug/$(TEST_TARGET)
-bin/mono/debug/$(TEST_TARGET): Frontend-Test/*.cs
+bin/debug/$(TEST_TARGET): Frontend-Test/*.cs
 	$(CSC) /debug /define:TRACE,LOG4NET /target:exe /r:$(TEST_LIB),../bin/mono/debug/$(ENGINE_TARGET),../bin/$(LOG4NET_DLL) /out:../bin/mono/debug/$(TEST_TARGET) $^
 	$(AOT) ../bin/mono/debug/$(TEST_TARGET)
 	cp $(LOG4NET_DIR)/$(LOG4NET_DLL) ../bin/mono/debug
 
 smuxi-gtk: bin/mono/debug/$(GTK_TARGET)
-bin/mono/debug/$(GTK_TARGET): Frontend-GtkGnome/*.cs
+bin/debug/$(GTK_TARGET): Frontend-GtkGnome/*.cs
 	$(CSC) /debug /define:$(GTK_DEFINES),TRACE,LOG4NET /nowarn:0169 /target:exe /r:$(GTK_LIB),../bin/mono/debug/$(ENGINE_TARGET),../bin/$(LOG4NET_DLL) /pkg:$(GTK_PACKAGES) $(RESOURCES_BUILD) /out:../bin/mono/debug/$(GTK_TARGET) $^
 	$(AOT) ../bin/mono/debug/$(GTK_TARGET)
 	cp $(LOG4NET_DIR)/$(LOG4NET_DLL) ../bin/mono/debug

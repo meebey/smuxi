@@ -32,21 +32,29 @@ namespace Meebey.Smuxi.Engine
 {
     public interface INetworkManager : IDisposable
     {
-        NetworkType Type {
+        string NetworkID {
             get;
         }
+        
+        NetworkProtocol NetworkProtocol {
+            get;
+        }
+        
         string Host {
             get;
         }
+        
         int Port {
             get;
         }
+        
         bool IsConnected {
             get;
         }
-        bool Command(CommandData cd);
-        void Disconnect(FrontendManager fm);
-        void Reconnect(FrontendManager fm);
+        
+        void Disconnect(FrontendManager frontendManager);
+        void Reconnect(FrontendManager frontendManager);
+        bool Command(CommandModel command);
         string ToString();
     }
 }
