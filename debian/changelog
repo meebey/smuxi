@@ -1,0 +1,5 @@
+smuxi (0.5.22) unstable; urgency=low
+
+  * Initial release. (Closes: #310836)
+
+ -- Mirco Bauer <meebey@debian.org>  Tue, 17 Apr 2007 00:33:50 +0200
