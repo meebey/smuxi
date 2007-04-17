@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Server", "Server\Server.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Frontend-SWF", "Frontend-SWF\Frontend-SWF.csproj", "{0CA3B4CA-9CE0-4F3C-8C54-D01EDBAAD9B9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Frontend-WPF", "Frontend-WPF\Frontend-WPF.csproj", "{D0B70251-09A7-4AA0-A8C8-B594785046E5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -37,6 +39,10 @@ Global
 		{0CA3B4CA-9CE0-4F3C-8C54-D01EDBAAD9B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0CA3B4CA-9CE0-4F3C-8C54-D01EDBAAD9B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0CA3B4CA-9CE0-4F3C-8C54-D01EDBAAD9B9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D0B70251-09A7-4AA0-A8C8-B594785046E5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D0B70251-09A7-4AA0-A8C8-B594785046E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D0B70251-09A7-4AA0-A8C8-B594785046E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D0B70251-09A7-4AA0-A8C8-B594785046E5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

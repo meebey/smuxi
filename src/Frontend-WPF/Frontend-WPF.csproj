@@ -3,8 +3,8 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{0CA3B4CA-9CE0-4F3C-8C54-D01EDBAAD9B9}</ProjectGuid>
-    <AssemblyName>smuxi-frontend-swf</AssemblyName>
+    <ProjectGuid>{D0B70251-09A7-4AA0-A8C8-B594785046E5}</ProjectGuid>
+    <AssemblyName>smuxi-frontend-wpf</AssemblyName>
     <ReferencePath>..\..\lib\</ReferencePath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -12,11 +12,11 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>..\..\bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE;LOG4NET;CONFIG_NINI</DefineConstants>
+    <DefineConstants>DEBUG;TRACE;CONFIG_NINI;LOG4NET</DefineConstants>
     <OutputType>Exe</OutputType>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
+    <DebugType>none</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>..\..\bin\Release\</OutputPath>
     <DefineConstants>CONFIG_NINI</DefineConstants>
@@ -28,7 +28,11 @@
     <Reference Include="Mono.Posix" />
     <Reference Include="System" />
     <Reference Include="System.Runtime.Remoting" />
-    <Reference Include="System.Windows.Forms" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="UIAutomationProvider" />
+    <Reference Include="UIAutomationTypes" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Common\Common.csproj">
