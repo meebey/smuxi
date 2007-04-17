@@ -47,8 +47,8 @@ namespace Meebey.Smuxi.FrontendGnome
         {
             // FirstPage
             _FirstPage = new Gnome.DruidPageEdge(Gnome.EdgePosition.Start, true,
-                Catalog.GetString("Smuxi's first start"),
-                Catalog.GetString("Welcome to the smuxi\n"+
+                _("Smuxi's first start"),
+                _("Welcome to the smuxi\n"+
                 "You started smuxi for the first time and it needs some answers from you.\n\n"+
                 "Click \"Forward\" to begin."),
                 null, null, null);
@@ -60,21 +60,21 @@ namespace Meebey.Smuxi.FrontendGnome
             _Page1.Prepared += new Gnome.PreparedHandler(_OnPage1Prepared);
             _Page1.NextClicked += new Gnome.NextClickedHandler(_OnPage1NextClicked);
             _ModeComboBox = Gtk.ComboBox.NewText();
-            _ModeComboBox.AppendText(Catalog.GetString("Local"));
-            _ModeComboBox.AppendText(Catalog.GetString("Remote"));
+            _ModeComboBox.AppendText(_("Local"));
+            _ModeComboBox.AppendText(_("Remote"));
             _ModeComboBox.Changed += new EventHandler(_OnModeComboBoxChanged);
             _ModeComboBox.Active = 0;
-            _Page1.AppendItem(Catalog.GetString("_Default Engine Mode:"),
-                _ModeComboBox, Catalog.GetString("When smuxi is started which mode it should use by default"));
+            _Page1.AppendItem(_("_Default Engine Mode:"),
+                _ModeComboBox, _("When smuxi is started which mode it should use by default"));
                 
             // LastPage
             _LastPage = new Gnome.DruidPageEdge(Gnome.EdgePosition.Finish, true,
-                Catalog.GetString("Thank you"), Catalog.GetString("Now you can use smuxi"), null,
+                _("Thank you"), _("Now you can use smuxi"), null,
                 null, null);
             _LastPage.CancelClicked += new Gnome.CancelClickedHandler(_OnCancel);
             _LastPage.FinishClicked += new Gnome.FinishClickedHandler(_OnFinishClicked);
             
-            _Druid = new Gnome.Druid(Catalog.GetString("First Start Druid"), true);
+            _Druid = new Gnome.Druid(_("First Start Druid"), true);
             _Druid.Cancel += new EventHandler(_OnCancel);
             
             _Druid.AppendPage(_FirstPage);
@@ -92,7 +92,7 @@ namespace Meebey.Smuxi.FrontendGnome
         private void _OnFinishClicked(object sender, Gnome.FinishClickedArgs e)
         {
             Engine.FrontendConfig fc = Frontend.FrontendConfig;
-            if (_SelectedMode == Catalog.GetString("Remote")) {
+            if (_SelectedMode == _("Remote")) {
                 new NewEngineDruid();
             } else {
                 fc["Engines/Default"] = String.Empty;
@@ -124,7 +124,9 @@ namespace Meebey.Smuxi.FrontendGnome
         
         private void _OnPage1NextClicked(object sender, Gnome.NextClickedArgs e)
         {
-            if (_SelectedMode == Catalog.GetString("Local")) {
+            /*
+            // BUG: why did I wanted to a insert a special page for local?
+            if (_SelectedMode == _("Local")) {
                 if (_LocalEnginePage == null) {
                     _LocalEnginePage = new Gnome.DruidPageStandard();
                     
@@ -133,6 +135,7 @@ namespace Meebey.Smuxi.FrontendGnome
                 _Druid.Page = _LocalEnginePage;
                 e.RetVal = true;
             }
+            */
         }
         
         private void _UpdatePage1Buttons()
@@ -144,6 +147,11 @@ namespace Meebey.Smuxi.FrontendGnome
                 _Druid.SetButtonsSensitive(true, false, true, false);
             }
             */
+        }
+        
+        private static string _(string msg)
+        {
+            return Mono.Unix.Catalog.GetString(msg);
         }
 #endif
     }

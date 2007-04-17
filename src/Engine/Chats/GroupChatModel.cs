@@ -70,13 +70,18 @@ namespace Meebey.Smuxi.Engine
         
         public IDictionary<string, PersonModel> Persons {
             get {
-                return new Dictionary<string, PersonModel>(_Persons);
+                lock (_Persons) {
+                    // during cloning, someone could modify it and break the enumerator
+                    return new Dictionary<string, PersonModel>(_Persons);
+                }
             }
         }
         
         internal IDictionary<string, PersonModel> UnsafePersons {
             get {
-                return _Persons;
+                lock (_Persons) {
+                    return _Persons;
+                }
             }
         }
         

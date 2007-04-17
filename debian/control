@@ -8,7 +8,7 @@ Standards-Version: 3.7.2
 
 Package: smuxi
 Architecture: all
-Depends: ${shlibs:Depends}, ${misc:Depends}, ${cli:Depends}
+Depends: ${shlibs:Depends}, ${misc:Depends}, ${cli:Depends}, libmono2.0-cil
 Description: IRC client for advanced users
  Smart MUtipleXed Irc (smuxi) is an IRC client for advanced users.
  It is split into 2 parts, engine and frontend. The frontend can be detached

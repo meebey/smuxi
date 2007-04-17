@@ -221,7 +221,10 @@ namespace Meebey.Smuxi.Engine
             
             // TODO: use config for single network chat or once per network manager
             _NetworkChat = new ChatModel("IRC " + server, ChatType.Network, this);
-            _Session.Chats.Add(_NetworkChat);
+            // BUG: race condition when we use _Session.AddChat() as it pushes this already
+            // to the connected frontend and the frontend will sync and get the page 2 times!
+            //_Session.Chats.Add(_NetworkChat);
+            _Session.AddChat(_NetworkChat);
             
             Thread thread = new Thread(new ThreadStart(_Run));
             thread.IsBackground = true;

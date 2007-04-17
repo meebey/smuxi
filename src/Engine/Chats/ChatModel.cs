@@ -61,13 +61,18 @@ namespace Meebey.Smuxi.Engine
         
         public IList<MessageModel> Messages {
             get {
-                return new List<MessageModel>(_Messages);
+                lock (_Messages) {
+                    // during cloning, someone could modify it and break the enumerator
+                    return new List<MessageModel>(_Messages);
+                }
             }
         }
         
         internal IList<MessageModel> UnsafeMessages {
             get {
-                return _Messages;
+                lock (_Messages) {
+                    return _Messages;
+                }
             }
         }
         

@@ -50,6 +50,7 @@ namespace Meebey.Smuxi.Engine
         private INetworkManager  _CurrentNetworkManager;
         private bool             _IsFrontendDisconnecting;
         private SimpleDelegate   _ConfigChangedDelegate;
+        private bool             _IsFrontendSynced;
         private IList<ChatModel> _SyncedChats = new List<ChatModel>();
         
         public int Version {
@@ -108,6 +109,7 @@ namespace Meebey.Smuxi.Engine
             // BUG: Session adds stuff to the queue but the frontend is not ready yet!
             // The frontend must Sync() _first_!
             // HACK: so this bug doesn't happen for now
+            // actually there is no other way, the frontend must tell us when he is ready to sync!
             //Sync();
         }
         
@@ -131,8 +133,10 @@ namespace Meebey.Smuxi.Engine
             
             // sync content of pages
             foreach (ChatModel chat in _Session.Chats) {
-                SyncChat(chat);
+                _SyncChat(chat);
             }
+            
+            _IsFrontendSynced = true;
         }
         
         public void AddSyncedChat(ChatModel chatModel)
@@ -169,7 +173,7 @@ namespace Meebey.Smuxi.Engine
         
         public void AddChat(ChatModel chat)
         {
-            if (!_SyncedChats.Contains(chat)) {
+            if (!_SyncedChats.Contains(chat) && _IsFrontendSynced) {
                 _AddChat(chat);
             }
         }
@@ -230,9 +234,16 @@ namespace Meebey.Smuxi.Engine
         
         public void SyncChat(ChatModel chat)
         {
+             if (!_SyncedChats.Contains(chat) && _IsFrontendSynced) {
+                _SyncChat(chat);
+            }
+        }
+        
+        private void _SyncChat(ChatModel chat)
+        {
             _Queue.Enqueue(new UICommandContainer(UICommand.SyncChat, chat));
         }
-                
+        
         public void AddPersonToGroupChat(GroupChatModel groupChat, PersonModel person)
         {
             if (_SyncedChats.Contains(groupChat)) {
