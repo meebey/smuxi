@@ -2,7 +2,7 @@
 # program name, used as textdomain
 GETTEXT_PACKAGE = smuxi-gnome
 # space seperated list of languages we have translations for (*.mo)
-CATALOGS = de.mo dk.mo
+CATALOGS = 
 
 MSGFMT = /usr/bin/msgfmt
 XGETTEXT = /usr/bin/xgettext

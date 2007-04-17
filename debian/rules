@@ -19,7 +19,7 @@ include /usr/share/dpatch/dpatch.make
 build: patch build-stamp
 build-stamp:
 	dh_testdir
-	cd src && $(MAKE)
+	$(MAKE)
 	touch build-stamp
 
 clean: clean-patched unpatch
@@ -27,7 +27,7 @@ clean-patched:
 	dh_testdir
 	dh_testroot
 	rm -f build-stamp 
-	-cd src && $(MAKE) clean
+	-$(MAKE) clean
 	rm -rf $(MONO_SHARED_DIR)/.wapi
 	dh_clean 
 
@@ -36,18 +36,26 @@ install: build
 	dh_testroot
 	dh_clean -k 
 	dh_installdirs
-	#$(MAKE) install DESTDIR=$(CURDIR)/debian/gfax
-	mkdir -p debian/smuxi/usr/lib/smuxi/
-	cp bin/debug/*.dll* bin/debug/*.exe* debian/smuxi/usr/lib/smuxi/
-	mkdir -p debian/smuxi/usr/bin/
-	cp smuxi-gnome debian/smuxi/usr/bin/
-	mkdir -p debian/smuxi/usr/share/applications/
-	cp smuxi.desktop debian/smuxi/usr/share/applications/
+	$(MAKE) install PREFIX=/usr DESTDIR=$(CURDIR)/debian/tmp
+
+	#mkdir -p debian/smuxi-engine/usr/lib/smuxi/
+	#cp bin/debug/smuxi-common.dll* debian/smuxi-engine/usr/lib/smuxi/
+	#cp bin/debug/smuxi-engine.dll* debian/smuxi-engine/usr/lib/smuxi/
+
+	#mkdir -p debian/smuxi-server/usr/lib/smuxi/
+	#cp bin/debug/smuxi-server.exe* debian/smuxi/usr/lib/smuxi/
+
+	#mkdir -p debian/smuxi-frontend-gnome/usr/lib/smuxi/
+	#cp bin/debug/smuxi-frontend-gnome.exe* debian/smuxi-frontend-gnome/usr/lib/smuxi/
+	#mkdir -p debian/smuxi-frontend-gnome/usr/bin/
+	#cp smuxi-gnome debian/smuxi-frontend-gnome/usr/bin/
+	#mkdir -p debian/smuxi-frontend-gnome/usr/share/applications/
+	#cp smuxi.desktop debian/smuxi-frontend-gnome/usr/share/applications/
 
 binary-indep: build install
 	dh_testdir
 	dh_testroot
-	dh_install
+	dh_install --sourcedir=debian/tmp
 	#dh_installchangelogs ChangeLog
 	dh_installdocs
 	dh_installexamples

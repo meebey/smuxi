@@ -1638,7 +1638,9 @@ namespace Meebey.Smuxi.Engine
                     cchat.UnsafeUsers.Add(icuser.Nickname.ToLower(), icuser);
                     */
                     // we should not get here anymore, _OnNames creates the users already
+#if LOG4NET
                     _Logger.Error("_OnChannelActiveSynced(): cchat.GetPerson(" + scuser.Nick + ") returned null!");
+#endif
                 }
                 icuser.RealName = scuser.Realname;
                 icuser.Ident = scuser.Ident;

@@ -1,0 +1,8 @@
+#!/bin/sh
+
+SMUXI_DIR=$(dirname $0)
+if [ ! -f $SMUXI_DIR/smuxi-fronted-gnome.exe ]; then
+	SMUXI_DIR=/usr/lib/smuxi
+fi
+mkdir -p ~/.config/smuxi/logs
+mono --debug $SMUXI_DIR/smuxi-frontend-gnome.exe > ~/.config/smuxi/logs/smuxi-frontend-gnome.log 2>&1

@@ -1,3 +1,10 @@
+smuxi (0.5.25) unstable; urgency=low
+
+  * Split the smuxi package into smuxi-engine smuxi-server and
+    smuxi-frontend-gnome.
+
+ -- Mirco Bauer <meebey@debian.org>  Tue, 17 Apr 2007 18:54:49 +0200
+
 smuxi (0.5.24) unstable; urgency=low
 
   * Initial release. (Closes: #310836)
