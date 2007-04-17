@@ -78,11 +78,14 @@ namespace Meebey.Smuxi.Engine
         
         public Session(Config config, string personname)
         {
+            Trace.Call(config, personname);
+            
             _Config = config;
             _UserConfig = new UserConfig(config, personname);
             
             ChatModel chat = new ChatModel("smuxi", ChatType.Network, null);
             _Chats.Add(chat);
+            
             MessageModel fm = new MessageModel();
             fm.MessageParts.Add(
                 new TextMessagePartModel(IrcTextColor.Red, null, false,
@@ -92,6 +95,12 @@ namespace Meebey.Smuxi.Engine
         
         public void RegisterFrontendUI(IFrontendUI ui)
         {
+            Trace.Call(ui);
+            
+            if (ui == null) {
+                throw new ArgumentNullException("ui");
+            }
+            
             string uri = RemotingServices.GetObjectUri((MarshalByRefObject)ui);
             if (uri == null) {
                 uri = "local";
@@ -127,6 +136,12 @@ namespace Meebey.Smuxi.Engine
         
         public void DeregisterFrontendUI(IFrontendUI ui)
         {
+            Trace.Call(ui);
+            
+            if (ui == null) {
+                throw new ArgumentNullException("ui");
+            }
+            
             string uri = RemotingServices.GetObjectUri((MarshalByRefObject)ui);
             if (uri == null) {
                 uri = "local";
@@ -139,6 +154,12 @@ namespace Meebey.Smuxi.Engine
         
         public FrontendManager GetFrontendManager(IFrontendUI ui)
         {
+            Trace.Call(ui);
+            
+            if (ui == null) {
+                throw new ArgumentNullException("ui");
+            }
+            
             string uri = RemotingServices.GetObjectUri((MarshalByRefObject)ui);
             if (uri == null) {
                 uri = "local";
@@ -172,6 +193,12 @@ namespace Meebey.Smuxi.Engine
         
         public bool Command(CommandModel cd)
         {
+            Trace.Call(cd);
+            
+            if (cd == null) {
+                throw new ArgumentNullException("cd");
+            }
+            
             bool handled = false;
             if (cd.IsCommand) {
                 switch (cd.Command) {
@@ -217,6 +244,12 @@ namespace Meebey.Smuxi.Engine
         
         public void CommandHelp(CommandModel cd)
         {
+            Trace.Call(cd);
+            
+            if (cd == null) {
+                throw new ArgumentNullException("cd");
+            }
+            
             string[] help = {
             "[Engine Commands]",
             "help",
@@ -236,6 +269,12 @@ namespace Meebey.Smuxi.Engine
         
         public void CommandConnect(CommandModel cd)
         {
+            Trace.Call(cd);
+            
+            if (cd == null) {
+                throw new ArgumentNullException("cd");
+            }
+            
             FrontendManager fm = cd.FrontendManager;
             
             string server;
@@ -273,7 +312,7 @@ namespace Meebey.Smuxi.Engine
                 nicks = (string[])UserConfig["Connection/Nicknames"];
             }
             
-            string person = (string)UserConfig["Connection/PersonModelname"];
+            string person = (string)UserConfig["Connection/Username"];
             
             IrcNetworkManager ircm = null;
             foreach (INetworkManager nm in _NetworkManagers) {
@@ -303,6 +342,12 @@ namespace Meebey.Smuxi.Engine
         
         public void CommandDisconnect(CommandModel cd)
         {
+            Trace.Call(cd);
+            
+            if (cd == null) {
+                throw new ArgumentNullException("cd");
+            }
+            
             FrontendManager fm = cd.FrontendManager;
             if (cd.DataArray.Length >= 2) {
                 string server = cd.DataArray[1];
@@ -324,12 +369,24 @@ namespace Meebey.Smuxi.Engine
         
         public void CommandReconnect(CommandModel cd)
         {
+            Trace.Call(cd);
+            
+            if (cd == null) {
+                throw new ArgumentNullException("cd");
+            }
+            
             FrontendManager fm = cd.FrontendManager;
             fm.CurrentNetworkManager.Reconnect(fm);
         }
         
         public void CommandQuit(CommandModel cd)
         {
+            Trace.Call(cd);
+            
+            if (cd == null) {
+                throw new ArgumentNullException("cd");
+            }
+            
             FrontendManager fm = cd.FrontendManager;
             string message = cd.Parameter;
             foreach (INetworkManager nm in _NetworkManagers) {
@@ -348,6 +405,12 @@ namespace Meebey.Smuxi.Engine
         
         public void CommandConfig(CommandModel cd)
         {
+            Trace.Call(cd);
+            
+            if (cd == null) {
+                throw new ArgumentNullException("cd");
+            }
+            
             FrontendManager fm = cd.FrontendManager;
             if (cd.DataArray.Length >= 2) {
                 switch (cd.DataArray[1].ToLower()) {
@@ -373,6 +436,12 @@ namespace Meebey.Smuxi.Engine
         
         public void CommandNetwork(CommandModel cd)
         {
+            Trace.Call(cd);
+            
+            if (cd == null) {
+                throw new ArgumentNullException("cd");
+            }
+            
             FrontendManager fm = cd.FrontendManager;
             if (cd.DataArray.Length >= 2) {
                 switch (cd.DataArray[1].ToLower()) {
@@ -561,7 +630,7 @@ namespace Meebey.Smuxi.Engine
         public void UpdatePersonInGroupChat(GroupChatModel groupChat, PersonModel oldperson, PersonModel newperson)
         {
 #if LOG4NET
-            _Logger.Debug("UpdatePersonModelInGroupChat() groupChat.Name: " + groupChat.Name + " oldperson.IdentityName: " + oldperson.IdentityName + " newperson.IdentityName: "+newperson.IdentityName);
+            _Logger.Debug("UpdatePersonInGroupChat() groupChat.Name: " + groupChat.Name + " oldperson.IdentityName: " + oldperson.IdentityName + " newperson.IdentityName: "+newperson.IdentityName);
 #endif
             groupChat.UnsafePersons.Remove(oldperson.ID.ToLower());
             groupChat.UnsafePersons.Add(newperson.ID.ToLower(), newperson);
@@ -584,7 +653,7 @@ namespace Meebey.Smuxi.Engine
         public void RemovePersonFromGroupChat(GroupChatModel groupChat, PersonModel person)
         {
 #if LOG4NET
-            _Logger.Debug("RemovePersonModelFromGroupChat() groupChat.Name: " + groupChat.Name + " person.ID: "+person.ID);
+            _Logger.Debug("RemovePersonFromGroupChat() groupChat.Name: " + groupChat.Name + " person.ID: "+person.ID);
 #endif
             groupChat.UnsafePersons.Remove(person.ID.ToLower());
             foreach (FrontendManager fm in _FrontendManagers.Values) {

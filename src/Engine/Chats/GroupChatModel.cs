@@ -70,7 +70,7 @@ namespace Meebey.Smuxi.Engine
         
         public IDictionary<string, PersonModel> Persons {
             get {
-                return (IDictionary<string, PersonModel>) ((ICloneable) _Persons).Clone();
+                return new Dictionary<string, PersonModel>(_Persons);
             }
         }
         

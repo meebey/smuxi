@@ -28,6 +28,7 @@
 
 using System;
 using System.Collections;
+using Meebey.Smuxi.Common;
 
 namespace Meebey.Smuxi.Engine
 {
@@ -37,17 +38,17 @@ namespace Meebey.Smuxi.Engine
         private static readonly log4net.ILog _Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 #endif
         private Hashtable _Sessions = Hashtable.Synchronized(new Hashtable());
-        private string    _VersionString;
+        private Version   _EngineVersion;
         
-        public string VersionString {
+        public Version EngineVersion {
             get {
-                return _VersionString;
+                return _EngineVersion;
             }
         }
         
         public SessionManager()
         {
-            _VersionString = Engine.Version;
+            _EngineVersion = Engine.Version;
             
             string[] users = (string[])Engine.Config["Engine/Users/Users"];
             if (users == null) {
@@ -68,6 +69,18 @@ namespace Meebey.Smuxi.Engine
         
         public Session Register(string username, string password, IFrontendUI ui)
         {
+            Trace.Call(username, password, ui);
+            
+            if (username == null) {
+                throw new ArgumentNullException("username");
+            }
+            if (password == null) {
+                throw new ArgumentNullException("password");
+            }
+            if (ui == null) {
+                throw new ArgumentNullException("ui");
+            }
+            
             // TODO: MD5 / SHA1 password
             string configPassword = (string)Engine.Config["Engine/Users/"+username+"/Password"]; 
             if (configPassword != null &&

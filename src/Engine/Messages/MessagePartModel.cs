@@ -34,7 +34,6 @@ namespace Meebey.Smuxi.Engine
     public abstract class MessagePartModel
     {
         private bool                     _IsHighlight;
-        private MessagePartType          _MessagePartType;
         
         public bool IsHighlight {
             get {
@@ -45,18 +44,11 @@ namespace Meebey.Smuxi.Engine
             }
         }
         
-        public MessagePartType MessagePartType {
-            get {
-                return _MessagePartType;
-            }
-        }
-        
-        protected MessagePartModel(MessagePartType type)
+        protected MessagePartModel()
         {
-            _MessagePartType = type;
         }
 
-        protected MessagePartModel(MessagePartType type, bool highlight) : this(type)
+        protected MessagePartModel(bool highlight)
         {
             _IsHighlight = highlight;
         }

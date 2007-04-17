@@ -33,12 +33,13 @@ namespace Meebey.Smuxi.Engine
 {
     public class Engine
     {
-        private static string           _Version;
+        private static Version          _Version;
+        private static string           _VersionNumber;
         private static string           _VersionString;
         private static Config           _Config;
         private static SessionManager   _SessionManager;
         
-        public static string Version {
+        public static Version Version {
             get {
                 return _Version;
             }
@@ -67,7 +68,8 @@ namespace Meebey.Smuxi.Engine
             Assembly asm = Assembly.GetAssembly(typeof(Engine));
             AssemblyName asm_name = asm.GetName(false);
             AssemblyProductAttribute pr = (AssemblyProductAttribute)asm.GetCustomAttributes(typeof(AssemblyProductAttribute), false)[0];
-            _Version = asm_name.Version.ToString();
+            _Version = asm_name.Version;
+            _VersionNumber = asm_name.Version.ToString();
             _VersionString = pr.Product + " " + _Version;
             
             _Config = new Config();

@@ -27,7 +27,7 @@
     <File name="../../images/edit.png" subtype="Code" buildaction="EmbedAsResource" />
     <File name="./AboutDialog.cs" subtype="Code" buildaction="Compile" />
     <File name="./AssemblyInfo.cs" subtype="Code" buildaction="Compile" />
-    <File name="./ChannelPage.cs" subtype="Code" buildaction="Compile" />
+    <File name="./GroupChatView.cs" subtype="Code" buildaction="Compile" />
     <File name="./CrashDialog.cs" subtype="Code" buildaction="Compile" />
     <File name="./EngineManager.cs" subtype="Code" buildaction="Compile" />
     <File name="./EngineManagerDialog.cs" subtype="Code" buildaction="Compile" />
@@ -41,15 +41,15 @@
     <File name="./NewEngineDruid.cs" subtype="Code" buildaction="Compile" />
     <File name="./NotImplementedMessageDialog.cs" subtype="Code" buildaction="Compile" />
     <File name="./Notebook.cs" subtype="Code" buildaction="Compile" />
-    <File name="./Page.cs" subtype="Code" buildaction="Compile" />
+    <File name="./ChatView.cs" subtype="Code" buildaction="Compile" />
     <File name="./PreferencesDialog.cs" subtype="Code" buildaction="Compile" />
-    <File name="./QueryPage.cs" subtype="Code" buildaction="Compile" />
-    <File name="./ServerPage.cs" subtype="Code" buildaction="Compile" />
+    <File name="./PersonChatView.cs" subtype="Code" buildaction="Compile" />
+    <File name="./NetworkChatView.cs" subtype="Code" buildaction="Compile" />
     <File name="./SplashScreenWindow.cs" subtype="Code" buildaction="Compile" />
-    <File name="./ViewManager.cs" subtype="Code" buildaction="Compile" />
     <File name="./Preferences/ChannelFilterListController.cs" subtype="Code" buildaction="Compile" />
     <File name="./Preferences/ChannelFilterListView.cs" subtype="Code" buildaction="Compile" />
     <File name="./Preferences/ChannelFilterModel.cs" subtype="Code" buildaction="Compile" />
+    <File name="./ChatViewManager.cs" subtype="Code" buildaction="Compile" />
   </Contents>
   <References>
     <ProjectReference type="Project" localcopy="True" refto="Engine" />

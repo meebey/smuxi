@@ -29,11 +29,13 @@
 using System;
 using System.Reflection;
 using System.Collections;
+using System.Collections.Generic;
 using System.Globalization; 
 using System.ComponentModel;
 using Mono.Unix;
-using Meebey.Smuxi.Engine;
 using Meebey.Smuxi.Common;
+using Meebey.Smuxi.Engine;
+using Meebey.Smuxi.Frontend;
 
 namespace Meebey.Smuxi.FrontendGnome
 {
@@ -43,6 +45,7 @@ namespace Meebey.Smuxi.FrontendGnome
         private static readonly log4net.ILog _Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 #endif
         private int _Version = 0;
+        private ChatViewManagerBase _ChatViewManager;
         
         public int Version
         {
@@ -51,118 +54,102 @@ namespace Meebey.Smuxi.FrontendGnome
             }
         }
         
-        public void AddPage(Engine.Page epage)
+        public GnomeUI(ChatViewManagerBase chatViewManager)
         {
-            Trace.Call(epage);
+            _ChatViewManager = chatViewManager;
+        }
+        
+        public void AddChat(ChatModel chat)
+        {
+            Trace.Call(chat);
             
             MethodBase mb = Trace.GetMethodBase();
             Gtk.Application.Invoke(delegate {
-                Trace.Call(mb, epage);
+                Trace.Call(mb, chat);
                 
-                Page newpage = null;
-                switch (epage.PageType) {
-                    case PageType.Server:
-                        newpage = new ServerPage(epage);
-                        break;
-                    case PageType.Channel:
-                        newpage = new ChannelPage(epage);
-                        break;
-                    case PageType.Query:
-                        newpage = new QueryPage(epage);
-                        break;
-                    default:
-#if LOG4NET
-                        _Logger.Fatal("AddPage() Unknown PageType: "+epage.PageType);
-#endif
-                        throw new ApplicationException("Unknown PageType: "+epage.PageType);
-                }
-                Frontend.MainWindow.Notebook.AppendPage(newpage, newpage.LabelEventBox);
-                newpage.ShowAll();
+                _ChatViewManager.AddChat(chat);
             });
         }
         
-        private void _AddMessageToPage(Engine.Page epage, FormattedMessage fmsg)
+        private void _AddMessageToChat(ChatModel epage, MessageModel msg)
         {
             string timestamp;
             try {
-                timestamp = fmsg.Timestamp.ToLocalTime().ToString((string)Frontend.UserConfig["Interface/Notebook/TimestampFormat"]);
+                timestamp = msg.TimeStamp.ToLocalTime().ToString((string)Frontend.UserConfig["Interface/Notebook/TimestampFormat"]);
             } catch (FormatException e) {
                 timestamp = "Timestamp Format ERROR: " + e.Message;
             }
             
-            Page page = Frontend.MainWindow.Notebook.GetPage(epage);
+            ChatView chatView = Frontend.MainWindow.Notebook.GetChat(epage);
 #if LOG4NET
-            if (page == null) {
-                _Logger.Fatal(String.Format("_AddMessageToPage(): Notebook.GetPage(epage) epage.Name: {0} returned null!", epage.Name));
+            if (chatView == null) {
+                _Logger.Fatal(String.Format("_AddMessageToChat(): Notebook.GetPage(epage) epage.Name: {0} returned null!", epage.Name));
             }
 #endif
-            Gtk.TextIter iter = page.OutputTextView.Buffer.EndIter;
-            page.OutputTextView.Buffer.Insert(ref iter, timestamp + " ");
+            Gtk.TextIter iter = chatView.OutputTextView.Buffer.EndIter;
+            chatView.OutputTextView.Buffer.Insert(ref iter, timestamp + " ");
             
             bool hasHighlight = false;
-            foreach (FormattedMessageItem item in fmsg.Items) {
+            foreach (MessagePartModel msgPart in msg.MessageParts) {
 #if LOG4NET
-                _Logger.Debug("_AddMessageToPage(): item.Type: " + item.Type);
+                _Logger.Debug("_AddMessageToChat(): msgPart.GetType(): " + msgPart.GetType());
 #endif
-                if (item.IsHighlight) {
+                if (msgPart.IsHighlight) {
                     hasHighlight = true;
                 }
                 
-                switch (item.Type) {
-                    // TODO: implement other ItemTypes
-                    case FormattedMessageItemType.Text:
-                        FormattedMessageTextItem fmsgti = (FormattedMessageTextItem)item.Value;
+                // TODO: implement all types
+                if (msgPart is UrlMessagePartModel) {
+                    UrlMessagePartModel fmsgui = (UrlMessagePartModel) msgPart;
+                    chatView.OutputTextView.Buffer.InsertWithTagsByName(ref iter, fmsgui.Url, "url");
+                } else if (msgPart is TextMessagePartModel) {
+                    TextMessagePartModel fmsgti = (TextMessagePartModel) msgPart;
 #if LOG4NET
-                        _Logger.Debug("_AddMessageToPage(): fmsgti.Text: '" + fmsgti.Text + "'");
+                    _Logger.Debug("_AddMessageToChat(): fmsgti.Text: '" + fmsgti.Text + "'");
 #endif
-                        ArrayList tags = new ArrayList();
-                        
-                        if (fmsgti.Color.HexCode != -1) {
-                            string tagname = _GetTextTagName(page, fmsgti.Color, null);
-                            tags.Add(tagname);
-                        }
-                        if (fmsgti.BackgroundColor.HexCode != -1) {
-                            string tagname = _GetTextTagName(page, null, fmsgti.BackgroundColor);
-                            tags.Add(tagname);
-                        }
-                        
-                        if (fmsgti.Underline) {
+                    ArrayList tags = new ArrayList();
+                    
+                    if (fmsgti.ForegroundColor.HexCode != -1) {
+                        string tagname = _GetTextTagName(chatView, fmsgti.ForegroundColor, null);
+                        tags.Add(tagname);
+                    }
+                    if (fmsgti.BackgroundColor.HexCode != -1) {
+                        string tagname = _GetTextTagName(chatView, null, fmsgti.BackgroundColor);
+                        tags.Add(tagname);
+                    }
+                    
+                    if (fmsgti.Underline) {
 #if LOG4NET
-                            _Logger.Debug("_AddMessageToPage(): fmsgti.Underline is true");
+                        _Logger.Debug("_AddMessageToChat(): fmsgti.Underline is true");
 #endif
-                            tags.Add("underline");
-                        }
-                        if (fmsgti.Bold) {
+                        tags.Add("underline");
+                    }
+                    if (fmsgti.Bold) {
 #if LOG4NET
-                            _Logger.Debug("_AddMessageToPage(): fmsgti.Bold is true");
+                        _Logger.Debug("_AddMessageToChat(): fmsgti.Bold is true");
 #endif
-                            tags.Add("bold");
-                        }
-                        if (fmsgti.Italic) {
+                        tags.Add("bold");
+                    }
+                    if (fmsgti.Italic) {
 #if LOG4NET
-                            _Logger.Debug("_AddMessageToPage(): fmsgti.Italic is true");
+                        _Logger.Debug("_AddMessageToChat(): fmsgti.Italic is true");
 #endif
-                            tags.Add("italic");
-                        }
-                        
-                        page.OutputTextView.Buffer.InsertWithTagsByName(ref iter, fmsgti.Text, (string[])tags.ToArray(typeof(string)));
-                        
-                        /*
-                        page.OutputTextBuffer.Insert(ref iter, fmsgti.Text);
-                        Gtk.TextIter end_iter = iter;
-                        Gtk.TextIter start_iter = page.OutputTextBuffer.GetIterAtOffset(end_iter.Offset - fmsgti.Text.Length);
-                        if (fg_color_tt != null) {
-                            page.OutputTextBuffer.ApplyTag(fg_color_tt, start_iter, end_iter);
-                        }
-                        */
-                        break;
-                    case FormattedMessageItemType.Url:
-                        FormattedMessageUrlItem fmsgui = (FormattedMessageUrlItem)item.Value;
-                        page.OutputTextView.Buffer.InsertWithTagsByName(ref iter, fmsgui.Url, "url");
-                        break;
+                        tags.Add("italic");
+                    }
+                    
+                    chatView.OutputTextView.Buffer.InsertWithTagsByName(ref iter, fmsgti.Text, (string[])tags.ToArray(typeof(string)));
+                    
+                    /*
+                    page.OutputTextBuffer.Insert(ref iter, fmsgti.Text);
+                    Gtk.TextIter end_iter = iter;
+                    Gtk.TextIter start_iter = page.OutputTextBuffer.GetIterAtOffset(end_iter.Offset - fmsgti.Text.Length);
+                    if (fg_color_tt != null) {
+                        page.OutputTextBuffer.ApplyTag(fg_color_tt, start_iter, end_iter);
+                    }
+                    */
                 } 
             }
-            page.OutputTextView.Buffer.Insert(ref iter, "\n");
+            chatView.OutputTextView.Buffer.Insert(ref iter, "\n");
             
             if (hasHighlight && !Frontend.MainWindow.HasToplevelFocus) {
                 Frontend.MainWindow.UrgencyHint = true;
@@ -172,23 +159,22 @@ namespace Meebey.Smuxi.FrontendGnome
                 }
             }
             
-            //if (Frontend.FrontendManager.CurrentPage != epage) {
-            if (Frontend.MainWindow.Notebook.CurrentFrontendPage != page) {
+            if (Frontend.MainWindow.Notebook.CurrentChatView != chatView) {
                 string color = null;
                 if (hasHighlight) {
-                    page.HasHighlight = hasHighlight;
+                    chatView.HasHighlight = hasHighlight;
                     color = (string) Frontend.UserConfig["Interface/Notebook/Tab/HighlightColor"];
-                } else if (!page.HasHighlight) {
+                } else if (!chatView.HasHighlight) {
                     color = (string) Frontend.UserConfig["Interface/Notebook/Tab/ActivityColor"];
                 }
                 
                 if (color != null) {
-                    page.Label.Markup = String.Format("<span foreground=\"{0}\">{1}</span>", color, page.Name);
+                    chatView.Label.Markup = String.Format("<span foreground=\"{0}\">{1}</span>", color, chatView.Name);
                 }
             }
         }
         
-        private string _GetTextTagName(Page page, TextColor fg_color, TextColor bg_color)
+        private string _GetTextTagName(ChatView page, TextColor fg_color, TextColor bg_color)
         {
              string hexcode;
              string tagname;
@@ -221,7 +207,7 @@ namespace Meebey.Smuxi.FrontendGnome
              return tagname;
         }
         
-        public void AddMessageToPage(Engine.Page epage, FormattedMessage fmsg)
+        public void AddMessageToChat(ChatModel epage, MessageModel fmsg)
         {
             Trace.Call(epage, fmsg);
 
@@ -229,69 +215,64 @@ namespace Meebey.Smuxi.FrontendGnome
             Gtk.Application.Invoke(delegate {
                 Trace.Call(mb, epage, fmsg);
                 
-                _AddMessageToPage(epage, fmsg);
+                _AddMessageToChat(epage, fmsg);
             });
         }
         
-        public void RemovePage(Engine.Page epage)
+        public void RemoveChat(ChatModel chat)
         {
-            Trace.Call(epage);
+            Trace.Call(chat);
 
             MethodBase mb = Trace.GetMethodBase();
             Gtk.Application.Invoke(delegate {
-                Trace.Call(mb, epage);
+                Trace.Call(mb, chat);
                 
-                Page page = Frontend.MainWindow.Notebook.GetPage(epage);
-                Frontend.MainWindow.Notebook.RemovePage(
-                    Frontend.MainWindow.Notebook.PageNum(page)
-                );
+                _ChatViewManager.RemoveChat(chat);
             });
         }
         
-        public void EnablePage(Engine.Page epage)
+        public void EnableChat(ChatModel chat)
         {
-        	Trace.Call(epage);
+        	Trace.Call(chat);
 
             MethodBase mb = Trace.GetMethodBase();
             Gtk.Application.Invoke(delegate {
-            	Trace.Call(mb, epage);
-            	
-        	    Page page = Frontend.MainWindow.Notebook.GetPage(epage);
-        	    page.Enable();
+            	Trace.Call(mb, chat);
+                
+                _ChatViewManager.EnableChat(chat);
         	});
         }
         
-        public void DisablePage(Engine.Page epage)
+        public void DisableChat(ChatModel chat)
         {
-        	Trace.Call(epage);
+        	Trace.Call(chat);
         	
             MethodBase mb = Trace.GetMethodBase();
             Gtk.Application.Invoke(delegate {
-            	Trace.Call(mb, epage);
+            	Trace.Call(mb, chat);
             	
-            	Page page = Frontend.MainWindow.Notebook.GetPage(epage);
-            	page.Disable();
+                _ChatViewManager.DisableChat(chat);
         	});
         }
         
-        public void SyncPage(Engine.Page epage)
+        public void SyncChat(ChatModel chatModel)
         {
-            Trace.Call(epage);
+            Trace.Call(chatModel);
 
             MethodBase mb = Trace.GetMethodBase();
             Gtk.Application.Invoke(delegate {
-                Trace.Call(mb, epage);
+                Trace.Call(mb, chatModel);
 
 #if LOG4NET
                 DateTime syncStart = DateTime.UtcNow;
 #endif
-                Page page = Frontend.MainWindow.Notebook.GetPage(epage);
-                if (epage.PageType == PageType.Channel) {
-                    ChannelPage cpage = (ChannelPage)page;
-                    Engine.ChannelPage ecpage = (Engine.ChannelPage)epage;
-                    Hashtable users = ecpage.Users; 
+                ChatView chatView = Frontend.MainWindow.Notebook.GetChat(chatModel);
+                if (chatModel.ChatType == ChatType.Group) {
+                    GroupChatView cpage = (GroupChatView)chatView;
+                    GroupChatModel ecpage = (GroupChatModel)chatModel;
+                    IDictionary<string, PersonModel> users = ecpage.Persons; 
 #if LOG4NET
-                    _Logger.Debug("SyncPage() syncing userlist");
+                    _Logger.Debug("SyncChat() syncing userlist");
 #endif
                     // sync userlist
                     Gtk.TreeView tv  = cpage.UserListTreeView;
@@ -306,7 +287,7 @@ namespace Meebey.Smuxi.FrontendGnome
                         Frontend.MainWindow.ProgressBar.BarStyle = Gtk.ProgressBarStyle.Continuous;
                         */
                         string status = String.Format(
-                                            _("Syncing Channel Users of {0}..."),
+                                            _("Syncing Channel PersonModels of {0}..."),
                                             cpage.Name);
 #if UI_GNOME
                         Frontend.MainWindow.Statusbar.Push(status);
@@ -319,15 +300,15 @@ namespace Meebey.Smuxi.FrontendGnome
                         // detach the model (less CPU load)
                         tv.Model = new Gtk.ListStore(typeof(string), typeof(string));
                         int i = 1;
-                        foreach (User user in users.Values) {
-                            if (user is Engine.IrcChannelUser) {
-                                IrcChannelUser icuser = (IrcChannelUser)user;
+                        foreach (PersonModel user in users.Values) {
+                            if (user is Engine.IrcGroupPersonModel) {
+                                IrcGroupPersonModel icuser = (IrcGroupPersonModel)user;
                                 if (icuser.IsOp) {
-                                    ls.AppendValues("@", icuser.Nickname);
+                                    ls.AppendValues("@", icuser.NickName);
                                 } else if (icuser.IsVoice) {
-                                    ls.AppendValues("+", icuser.Nickname);
+                                    ls.AppendValues("+", icuser.NickName);
                                 } else {
-                                    ls.AppendValues(String.Empty, icuser.Nickname);
+                                    ls.AppendValues(String.Empty, icuser.NickName);
                                 }
                             }
                             //Frontend.MainWindow.ProgressBar.Fraction = (double)i++ / count;
@@ -355,7 +336,7 @@ namespace Meebey.Smuxi.FrontendGnome
                    }
                    
 #if LOG4NET
-                   _Logger.Debug("SyncPage() syncing topic");
+                   _Logger.Debug("SyncChat() syncing topic");
 #endif
                    // sync topic
                    string topic = ecpage.Topic;
@@ -366,36 +347,36 @@ namespace Meebey.Smuxi.FrontendGnome
                 }
                 
 #if LOG4NET
-                _Logger.Debug("SyncPage() syncing messages");
+                _Logger.Debug("SyncChat() syncing messages");
 #endif
                 // sync messages
                 // cleanup, be sure the output is empty
-                page.OutputTextView.Buffer.Clear();
-                IList messageBuffer = epage.Buffer;
-                if (messageBuffer.Count > 0) {
-                    foreach (FormattedMessage fm in messageBuffer) {
-                        _AddMessageToPage(epage, fm);
+                chatView.OutputTextView.Buffer.Clear();
+                IList<MessageModel> messages = chatModel.Messages;
+                if (messages.Count > 0) {
+                    foreach (MessageModel fm in messages) {
+                        _AddMessageToChat(chatModel, fm);
                     }
                 }
                 
                 // maybe a BUG here? should be tell the FrontendManager before we sync?
-                Frontend.FrontendManager.AddSyncedPage(epage);
+                Frontend.FrontendManager.AddSyncedChat(chatModel);
 #if LOG4NET
                 DateTime syncStop = DateTime.UtcNow;
                 double duration = syncStop.Subtract(syncStart).TotalMilliseconds;
-                _Logger.Debug("SyncPage() done, syncing took: " + Math.Round(duration) + " ms");
+                _Logger.Debug("SyncChat() done, syncing took: " + Math.Round(duration) + " ms");
 #endif
 
                 // BUG: doesn't work?!?
                 //page.OutputTextView.Display.Flush();
                 //page.OutputTextView.Display.Sync();
                 //Gtk.Application.Invoke(delegate {
-                    page.ScrollToEnd();
+                    chatView.ScrollToEnd();
                 //});
             });
         }
         
-        public void AddUserToChannel(Engine.ChannelPage ecpage, User user)
+        public void AddPersonToGroupChat(GroupChatModel ecpage, PersonModel user)
         {
             Trace.Call(ecpage, user);
 
@@ -403,30 +384,30 @@ namespace Meebey.Smuxi.FrontendGnome
             Gtk.Application.Invoke(delegate {
                 Trace.Call(mb, ecpage, user);
                 
-                ChannelPage cpage = (ChannelPage)Frontend.MainWindow.Notebook.GetPage(ecpage);
+                GroupChatView cpage = (GroupChatView)Frontend.MainWindow.Notebook.GetChat(ecpage);
                 Gtk.TreeView  treeview  = cpage.UserListTreeView;
                 if (treeview == null) {
                     // no treeview, nothing todo
                     return;
                 }
                 
-                IrcChannelUser icuser = (IrcChannelUser)user;
+                IrcGroupPersonModel icuser = (IrcGroupPersonModel)user;
                 Gtk.ListStore liststore = (Gtk.ListStore)treeview.Model;
                 if (icuser.IsOp) {
-                    liststore.AppendValues("@", icuser.Nickname);
+                    liststore.AppendValues("@", icuser.NickName);
                 } else if (icuser.IsVoice) {
-                    liststore.AppendValues("+", icuser.Nickname);
+                    liststore.AppendValues("+", icuser.NickName);
                 } else {
-                    liststore.AppendValues(String.Empty, icuser.Nickname);
+                    liststore.AppendValues(String.Empty, icuser.NickName);
                 }
 
                 treeview.GetColumn(1).Title = String.Format(
-                                                _("Users ({0})"),
+                                                _("PersonModels ({0})"),
                                                 liststore.IterNChildren());
             });
         }
         
-        public void UpdateUserInChannel(Engine.ChannelPage ecpage, User olduser, User newuser)
+        public void UpdatePersonInGroupChat(GroupChatModel ecpage, PersonModel olduser, PersonModel newuser)
         {
             Trace.Call(ecpage, olduser, newuser);
 
@@ -434,7 +415,7 @@ namespace Meebey.Smuxi.FrontendGnome
             Gtk.Application.Invoke(delegate {
                 Trace.Call(mb, ecpage, olduser, newuser);
                 
-                ChannelPage cpage = (ChannelPage)Frontend.MainWindow.Notebook.GetPage(ecpage);
+                GroupChatView cpage = (GroupChatView)Frontend.MainWindow.Notebook.GetChat(ecpage);
                 Gtk.TreeView  treeview  = cpage.UserListTreeView;
                 if (treeview == null) {
                     // no treeview, nothing todo
@@ -446,14 +427,14 @@ namespace Meebey.Smuxi.FrontendGnome
                 bool res = liststore.GetIterFirst(out iter);
                 if (!res) {
 #if LOG4NET
-                    _Logger.Error("UpdateUserInChannel(): liststore.GetIterFirst() returned false, ignoring update...");
+                    _Logger.Error("UpdatePersonModelInChannel(): liststore.GetIterFirst() returned false, ignoring update...");
 #endif
                     return;
                 }
                 
                 do {
-                    if ((string)liststore.GetValue(iter, 1) == olduser.Nickname) {
-                        IrcChannelUser newcuser = (IrcChannelUser)newuser;
+                    if ((string)liststore.GetValue(iter, 1) == olduser.IdentityName) {
+                        IrcGroupPersonModel newcuser = (IrcGroupPersonModel)newuser;
                         string mode;
                         if (newcuser.IsOp) {
                             mode = "@";
@@ -466,14 +447,14 @@ namespace Meebey.Smuxi.FrontendGnome
                         // update the mode of the current row
                         liststore.SetValue(iter, 0, mode);
                         // update the nickname of the current row
-                        liststore.SetValue(iter, 1, newuser.Nickname);
+                        liststore.SetValue(iter, 1, newuser.IdentityName);
                         break;
                     }
                 } while (liststore.IterNext(ref iter));
             });
         }
         
-        public void UpdateTopicInChannel(Engine.ChannelPage ecpage, string topic)
+        public void UpdateTopicInGroupChat(GroupChatModel ecpage, string topic)
         {
             Trace.Call(ecpage, topic);
 
@@ -481,14 +462,14 @@ namespace Meebey.Smuxi.FrontendGnome
             Gtk.Application.Invoke(delegate {
                 Trace.Call(mb, ecpage, topic);
                 
-                ChannelPage cpage = (ChannelPage)Frontend.MainWindow.Notebook.GetPage(ecpage);
+                GroupChatView cpage = (GroupChatView)Frontend.MainWindow.Notebook.GetChat(ecpage);
                 if (cpage.TopicEntry != null) {
                     cpage.TopicEntry.Text = topic;
                 }
             });
         }
         
-        public void RemoveUserFromChannel(Engine.ChannelPage ecpage, User user)
+        public void RemovePersonFromGroupChat(GroupChatModel ecpage, PersonModel user)
         {
             Trace.Call(ecpage, user);
 
@@ -496,7 +477,7 @@ namespace Meebey.Smuxi.FrontendGnome
             Gtk.Application.Invoke(delegate {
                 Trace.Call(mb, ecpage, user);
             
-                ChannelPage cpage = (ChannelPage)Frontend.MainWindow.Notebook.GetPage(ecpage);
+                GroupChatView cpage = (GroupChatView)Frontend.MainWindow.Notebook.GetChat(ecpage);
                 Gtk.TreeView  treeview  = cpage.UserListTreeView;
                 if (treeview == null) {
                     // no treeview, nothing todo
@@ -507,14 +488,14 @@ namespace Meebey.Smuxi.FrontendGnome
                 Gtk.TreeIter iter;
                 liststore.GetIterFirst(out iter);
                 do {
-                    if ((string)liststore.GetValue(iter, 1) == user.Nickname) {
+                    if ((string)liststore.GetValue(iter, 1) == user.IdentityName) {
                         liststore.Remove(ref iter);
                         break;
                     }
                 } while (liststore.IterNext(ref iter));
                 
                 treeview.GetColumn(1).Title = String.Format(
-                                                _("Users ({0})"),
+                                                _("PersonModels ({0})"),
                                                 liststore.IterNChildren());
             });
         }

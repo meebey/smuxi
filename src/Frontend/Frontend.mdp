@@ -1,13 +1,13 @@
 <Project name="Frontend" fileversion="2.0" language="C#" clr-version="Net_2_0" ctype="DotNetProject">
   <Configurations active="Debug">
     <Configuration name="Debug" ctype="DotNetProjectConfiguration">
-      <Output directory="../../bin/debug" assembly="Frontend" />
+      <Output directory="../../bin/debug" assembly="smuxi-frontend" />
       <Build debugmode="True" target="Library" />
       <Execution runwithwarnings="True" consolepause="False" runtime="MsNet" clr-version="Net_2_0" />
-      <CodeGeneration compiler="Csc" warninglevel="4" optimize="True" unsafecodeallowed="False" generateoverflowchecks="True" mainclass="" generatexmldocumentation="False" ctype="CSharpCompilerParameters" />
+      <CodeGeneration compiler="Csc" warninglevel="4" optimize="True" unsafecodeallowed="False" generateoverflowchecks="True" mainclass="" generatexmldocumentation="False" win32Icon="./" ctype="CSharpCompilerParameters" />
     </Configuration>
     <Configuration name="Release" ctype="DotNetProjectConfiguration">
-      <Output directory="../../bin/release" assembly="Frontend" />
+      <Output directory="../../bin/release" assembly="smuxi-frontend" />
       <Build debugmode="False" target="Library" />
       <Execution runwithwarnings="True" consolepause="False" runtime="MsNet" clr-version="Net_2_0" />
       <CodeGeneration compiler="Csc" warninglevel="4" optimize="True" unsafecodeallowed="False" generateoverflowchecks="True" generatexmldocumentation="False" ctype="CSharpCompilerParameters" />
@@ -16,8 +16,13 @@
   <Contents>
     <File name="./AssemblyInfo.cs" subtype="Code" buildaction="Compile" />
     <File name="./ChatView.cs" subtype="Code" buildaction="Compile" />
+    <File name="./EntryController.cs" subtype="Code" buildaction="Compile" />
+    <File name="./EntryHistoryModel.cs" subtype="Code" buildaction="Compile" />
+    <File name="./ChatViewManagerBase.cs" subtype="Code" buildaction="Compile" />
+    <File name="./IChatView.cs" subtype="Code" buildaction="Compile" />
   </Contents>
   <References>
     <ProjectReference type="Gac" localcopy="True" refto="System, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+    <ProjectReference type="Project" localcopy="True" refto="Engine" />
   </References>
 </Project>

@@ -27,17 +27,18 @@
  */
 
 using System;
-using Meebey.Smuxi;
 using Meebey.Smuxi.Common;
+using Meebey.Smuxi.Engine;
+using Meebey.Smuxi.Frontend;
 
 namespace Meebey.Smuxi.FrontendGnome
 {
-    public abstract class Page : Gtk.EventBox
+    public abstract class ChatView : Gtk.EventBox, IChatView
     {
 #if LOG4NET
         private static readonly log4net.ILog _Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 #endif
-        private   Engine.Page        _EnginePage;
+        private   ChatModel          _ChatModel;
         private   bool               _HasHighlight;
         protected Gtk.Label          _Label;
         protected Gtk.EventBox       _LabelEventBox;
@@ -45,9 +46,9 @@ namespace Meebey.Smuxi.FrontendGnome
         protected Gtk.TextView       _OutputTextView;
         protected Gtk.TextTagTable   _OutputTextTagTable;
         
-        public Engine.Page EnginePage {
+        public ChatModel ChatModel {
             get {
-                return _EnginePage;
+                return _ChatModel;
             }
         }
         
@@ -87,13 +88,13 @@ namespace Meebey.Smuxi.FrontendGnome
             }
         }
         
-        public Page(Engine.Page epage)
+        public ChatView(ChatModel chat)
         {
-            _EnginePage = epage;
+            _ChatModel = chat;
             _LabelEventBox = new Gtk.EventBox();
             _LabelEventBox.VisibleWindow = false;
             
-            Name = epage.Name;
+            Name = chat.Name;
             
             // TextTags
             Gtk.TextTagTable ttt = new Gtk.TextTagTable();
@@ -165,7 +166,7 @@ namespace Meebey.Smuxi.FrontendGnome
             }
         }
         
-        public void ScrollToBeginning()
+        public void ScrollToStart()
         {
             Trace.Call();
             

@@ -29,6 +29,7 @@
 using System;
 using Mono.Unix;
 using Meebey.Smuxi.Common;
+using Meebey.Smuxi.Engine;
 
 namespace Meebey.Smuxi.FrontendGnome
 {
@@ -52,7 +53,9 @@ namespace Meebey.Smuxi.FrontendGnome
         private Entry            _Entry;
         private Notebook         _Notebook;
         private bool             _CaretMode;
-        
+	    private ChatViewManager  _ChatViewManager;
+	    private IFrontendUI      _UI;
+	    
         public bool CaretMode {
             get {
                 return _CaretMode;
@@ -64,7 +67,13 @@ namespace Meebey.Smuxi.FrontendGnome
                 return _Notebook;
             }
         }
-
+        
+        public IFrontendUI UI {
+            get {
+                return _UI;
+            }
+        }
+        
 #if UI_GNOME
         public new Gnome.AppBar NetworkStatusbar {
 #elif UI_GTK
@@ -180,8 +189,11 @@ namespace Meebey.Smuxi.FrontendGnome
 #endif
             image_item.Activated += new EventHandler(_OnAboutButtonClicked);
             menu.Append(image_item);
-
-            _Notebook = new Notebook();
+		    
+		    // TODO: network treeview
+		    _Notebook = new Notebook();
+		    _ChatViewManager = new ChatViewManager(_Notebook, null);
+            _UI = new GnomeUI(_ChatViewManager);
             
             _Entry = new Entry(_Notebook);
             
@@ -246,7 +258,8 @@ namespace Meebey.Smuxi.FrontendGnome
         private void _OnAboutButtonClicked(object obj, EventArgs args)
         {
             AboutDialog ad = new AboutDialog();
-            ad.ShowAll();
+            ad.Run();
+            ad.Destroy();
         }
         
         private void _OnPreferencesButtonClicked(object obj, EventArgs args)
@@ -301,12 +314,12 @@ namespace Meebey.Smuxi.FrontendGnome
             _CaretMode = !_CaretMode;
             
             for (int i = 0; i < _Notebook.NPages; i++) {
-                Page page = _Notebook.GetPage(i);
-                page.OutputTextView.CursorVisible = _CaretMode;
+                ChatView chatView = _Notebook.GetChat(i);
+                chatView.OutputTextView.CursorVisible = _CaretMode;
             }
             
             if (_CaretMode) {
-                _Notebook.CurrentFrontendPage.OutputTextView.HasFocus = true;
+                _Notebook.CurrentChatView.OutputTextView.HasFocus = true;
             } else {
                 _Entry.HasFocus = true;
             }

@@ -46,10 +46,10 @@ namespace Meebey.Smuxi.FrontendGnome
         private static readonly string    _UIName = "GNOME";
         private static Gnome.Program      _Program;
 #endif
-        private static IFrontendUI        _UI;
-        private static string             _Version;
+        private static Version            _Version;
+        private static string             _VersionNumber;
         private static string             _VersionString;
-        private static string             _EngineVersion;
+        private static Version            _EngineVersion;
         private static SplashScreenWindow _SplashScreenWindow;
         private static MainWindow         _MainWindow;
         private static FrontendConfig     _FrontendConfig;
@@ -69,19 +69,13 @@ namespace Meebey.Smuxi.FrontendGnome
             }
         }
         
-        public static IFrontendUI UI {
-            get {
-                return _UI;
-            }
-        }
-        
-        public static string Version {
+        public static Version Version {
             get {
                 return _Version;
             }
         }
         
-        public static string EngineVersion {
+        public static Version EngineVersion {
             get {
                 return _EngineVersion;
             }
@@ -154,7 +148,8 @@ namespace Meebey.Smuxi.FrontendGnome
             AssemblyName asm_name = asm.GetName(false);
             AssemblyProductAttribute pr = (AssemblyProductAttribute)asm.
                 GetCustomAttributes(typeof(AssemblyProductAttribute), false)[0];
-            _Version = asm_name.Version.ToString();
+            _Version = asm_name.Version;
+            _VersionNumber = asm_name.Version.ToString();
             _VersionString = pr.Product + " - " + _UIName + " frontend " + _Version;
 
 #if LOG4NET
@@ -173,13 +168,14 @@ namespace Meebey.Smuxi.FrontendGnome
             }
             */
 #if UI_GNOME
-           _Program = new Gnome.Program(Name, Version, Gnome.Modules.UI, args);
+           _Program = new Gnome.Program(Name, Version.ToString(), Gnome.Modules.UI, args);
 #elif UI_GTK
            Gtk.Application.Init();
 #endif
            _SplashScreenWindow = new SplashScreenWindow();
 
-           _UI = new GnomeUI();
+           _MainWindow = new MainWindow();
+           
            _FrontendConfig = new FrontendConfig(UIName);
            // loading and setting defaults
            _FrontendConfig.Load();
@@ -217,22 +213,19 @@ namespace Meebey.Smuxi.FrontendGnome
             Engine.Engine.Init();
             _EngineVersion = Engine.Engine.Version;
             _Session = new Engine.Session(Engine.Engine.Config, "local");
-            _Session.RegisterFrontendUI(_UI);
+            _Session.RegisterFrontendUI(_MainWindow.UI);
             _UserConfig = _Session.UserConfig;
             ConnectEngineToGUI();
         }
         
         public static void ConnectEngineToGUI()
         {
-            _FrontendManager = _Session.GetFrontendManager(_UI);
+            _FrontendManager = _Session.GetFrontendManager(_MainWindow.UI);
             _FrontendManager.Sync();
             
             if (_UserConfig.IsCaching) {
                 // when our UserConfig is cached, we need to invalidate the cache
                 _FrontendManager.ConfigChangedDelegate = new SimpleDelegate(_UserConfig.ClearCache);
-            }
-            if (_MainWindow == null) {
-                _MainWindow = new MainWindow();
             }
             _MainWindow.ShowAll();
             // make sure entry got attention :-P
@@ -242,7 +235,7 @@ namespace Meebey.Smuxi.FrontendGnome
         public static void DisconnectEngineFromGUI()
         {
             _FrontendManager.IsFrontendDisconnecting = true;
-            _Session.DeregisterFrontendUI(_UI);
+            _Session.DeregisterFrontendUI(_MainWindow.UI);
             _MainWindow.Hide();
             _MainWindow.Notebook.RemoveAllPages();
             _FrontendManager = null;

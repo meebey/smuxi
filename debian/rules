@@ -39,6 +39,10 @@ install: build
 	#$(MAKE) install DESTDIR=$(CURDIR)/debian/gfax
 	mkdir -p debian/smuxi/usr/lib/smuxi/
 	cp bin/debug/*.dll* bin/debug/*.exe* debian/smuxi/usr/lib/smuxi/
+	mkdir -p debian/smuxi/usr/bin/
+	cp smuxi-gnome debian/smuxi/usr/bin/
+	mkdir -p debian/smuxi/usr/share/applications/
+	cp smuxi.desktop debian/smuxi/usr/share/applications/
 
 binary-indep: build install
 	dh_testdir

@@ -32,7 +32,7 @@ using Meebey.Smuxi.Common;
 
 namespace Meebey.Smuxi.FrontendGnome
 {
-    public class QueryPage : Page
+    public class PersonChatView : ChatView
     {
         private Gtk.Menu     _TabMenu;
 
@@ -43,9 +43,9 @@ namespace Meebey.Smuxi.FrontendGnome
             }
         }
         
-        public QueryPage(Engine.Page epage) : base(epage)
+        public PersonChatView(ChatModel chat) : base(chat)
         {
-            Label = new Gtk.Label(epage.Name);
+            Label = new Gtk.Label(chat.Name);
             _LabelEventBox.Add(_Label);
             _Label.Show();
             
@@ -76,7 +76,8 @@ namespace Meebey.Smuxi.FrontendGnome
         {
             Trace.Call(sender, e);
             
-            Frontend.Session.RemovePage(EnginePage);
+            // BUG: out of scope?
+            Frontend.Session.RemoveChat(this.ChatModel);
         }
     }
 }

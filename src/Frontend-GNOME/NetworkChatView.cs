@@ -25,14 +25,16 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA
  */
-
+ 
+using Meebey.Smuxi.Engine;
+ 
 namespace Meebey.Smuxi.FrontendGnome
 {
-    public class ServerPage : Page
+    public class NetworkChatView : ChatView
     {
-        public ServerPage(Engine.Page epage) : base(epage)
+        public NetworkChatView(ChatModel chat) : base(chat)
         {
-            _Label = new Gtk.Label(epage.Name);
+            _Label = new Gtk.Label(chat.Name);
             _LabelEventBox.Add(_Label);
             _Label.Show();
             

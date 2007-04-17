@@ -34,7 +34,7 @@ using Meebey.Smuxi.Common;
 
 namespace Meebey.Smuxi.FrontendGnome
 {
-    public class ChannelPage : Page
+    public class GroupChatView : ChatView
     {
 #if LOG4NET
         private static readonly log4net.ILog _Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
@@ -63,9 +63,9 @@ namespace Meebey.Smuxi.FrontendGnome
             }
         }
         
-        public ChannelPage(Engine.Page epage) : base(epage)
+        public GroupChatView(GroupChatModel groupChat) : base(groupChat)
         {
-            _Label = new Gtk.Label(epage.Name);
+            _Label = new Gtk.Label(groupChat.Name);
             _LabelEventBox.Add(_Label);
             _Label.Show();
             
@@ -272,10 +272,10 @@ namespace Meebey.Smuxi.FrontendGnome
         {
             Trace.Call(sender, e);
             
-            if (EnginePage.NetworkManager is IrcNetworkManager) {
-                IrcNetworkManager imanager = (IrcNetworkManager)EnginePage.NetworkManager;
-                imanager.CommandPart(new CommandData(Frontend.FrontendManager,
-                                            EnginePage.Name));
+            if (ChatModel.NetworkManager is IrcNetworkManager) {
+                IrcNetworkManager imanager = (IrcNetworkManager) ChatModel.NetworkManager;
+                imanager.CommandPart(new CommandModel(Frontend.FrontendManager, ChatModel,
+                                                      ChatModel.Name));
             }
         }
         
@@ -284,14 +284,16 @@ namespace Meebey.Smuxi.FrontendGnome
             Trace.Call(sender, e);
             
             string user = _GetSelectedNode();
-            if (user != null) {
-                if (EnginePage.NetworkManager is IrcNetworkManager) {
-                    IrcNetworkManager imanager = (IrcNetworkManager)EnginePage.NetworkManager;
-                    imanager.CommandMessageQuery(new CommandData(Frontend.FrontendManager,
-                        user));
-                }
-            }            
-        }
+            if (user == null) {
+                return;
+            }
+            
+            if (ChatModel.NetworkManager is IrcNetworkManager) {
+                IrcNetworkManager imanager = (IrcNetworkManager) ChatModel.NetworkManager;
+                imanager.CommandMessageQuery(new CommandModel(Frontend.FrontendManager,
+                                                              ChatModel, user));
+            }
+        }            
         
         private void _OnUserListButtonReleaseEvent(object sender, Gtk.ButtonReleaseEventArgs e)
         {
@@ -308,12 +310,14 @@ namespace Meebey.Smuxi.FrontendGnome
             Trace.Call(sender, e);
             
             string whom = _GetSelectedNode();
-            if (whom != null) {
-                if (EnginePage.NetworkManager is IrcNetworkManager) {
-                    IrcNetworkManager imanager = (IrcNetworkManager)EnginePage.NetworkManager;
-                    imanager.CommandOp(new CommandData(Frontend.FrontendManager,
-                        whom));
-                }
+            if (whom == null) {
+                return;
+            }
+            
+            if (ChatModel.NetworkManager is IrcNetworkManager) {
+                IrcNetworkManager imanager = (IrcNetworkManager) ChatModel.NetworkManager;
+                imanager.CommandOp(new CommandModel(Frontend.FrontendManager, ChatModel,
+                    whom));
             }
         } 
         
@@ -322,12 +326,14 @@ namespace Meebey.Smuxi.FrontendGnome
             Trace.Call(sender, e);
             
             string whom = _GetSelectedNode();
-            if (whom != null) {
-                if (EnginePage.NetworkManager is IrcNetworkManager) {
-                    IrcNetworkManager imanager = (IrcNetworkManager)EnginePage.NetworkManager;
-                    imanager.CommandDeop(new CommandData(Frontend.FrontendManager,
-                        whom));
-                }
+            if (whom == null) {
+                return;
+            }
+            
+            if (ChatModel.NetworkManager is IrcNetworkManager) {
+                IrcNetworkManager imanager = (IrcNetworkManager) ChatModel.NetworkManager;
+                imanager.CommandDeop(new CommandModel(Frontend.FrontendManager, ChatModel,
+                    whom));
             }
         }
          
@@ -336,12 +342,14 @@ namespace Meebey.Smuxi.FrontendGnome
             Trace.Call(sender, e);
             
             string whom = _GetSelectedNode();
-            if (whom != null) {
-                if (EnginePage.NetworkManager is IrcNetworkManager) {
-                    IrcNetworkManager imanager = (IrcNetworkManager)EnginePage.NetworkManager;
-                    imanager.CommandVoice(new CommandData(Frontend.FrontendManager,
-                        whom));
-                }
+            if (whom == null) {
+                return;
+            }
+            
+            if (ChatModel.NetworkManager is IrcNetworkManager) {
+                IrcNetworkManager imanager = (IrcNetworkManager) ChatModel.NetworkManager;
+                imanager.CommandVoice(new CommandModel(Frontend.FrontendManager, ChatModel,
+                    whom));
             }
         }
         
@@ -350,12 +358,14 @@ namespace Meebey.Smuxi.FrontendGnome
             Trace.Call(sender, e);
 
             string whom = _GetSelectedNode();
-            if (whom != null) {
-                if (EnginePage.NetworkManager is IrcNetworkManager) {
-                    IrcNetworkManager imanager = (IrcNetworkManager)EnginePage.NetworkManager;
-                    imanager.CommandDevoice(new CommandData(Frontend.FrontendManager,
-                        whom));
-                }
+            if (whom == null) {
+                return;
+            }
+            
+            if (ChatModel.NetworkManager is IrcNetworkManager) {
+                IrcNetworkManager imanager = (IrcNetworkManager) ChatModel.NetworkManager;
+                imanager.CommandDevoice(new CommandModel(Frontend.FrontendManager, ChatModel,
+                    whom));
             }
         } 
         
@@ -364,12 +374,14 @@ namespace Meebey.Smuxi.FrontendGnome
             Trace.Call(sender, e);
 
             string victim = _GetSelectedNode();
-            if (victim != null) {
-                if (EnginePage.NetworkManager is IrcNetworkManager) {
-                    IrcNetworkManager imanager = (IrcNetworkManager)EnginePage.NetworkManager;
-                    imanager.CommandKick(new CommandData(Frontend.FrontendManager,
-                        victim));
-                }
+            if (victim == null) {
+                return;
+            }
+            
+            if (ChatModel.NetworkManager is IrcNetworkManager) {
+                IrcNetworkManager imanager = (IrcNetworkManager) ChatModel.NetworkManager;
+                imanager.CommandKick(new CommandModel(Frontend.FrontendManager, ChatModel,
+                    victim));
             }
         } 
         

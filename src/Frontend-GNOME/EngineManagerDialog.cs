@@ -263,20 +263,31 @@ namespace Meebey.Smuxi.FrontendGnome
                         break;
                 }
                 // sessm can be null when there was an unknown channel used
-                if (sessm != null) {
-                    Frontend.Session = sessm.Register(username, password, Frontend.UI);
-                    Frontend.EngineVersion = sessm.VersionString;
-                    if (Frontend.Session != null) {
-                        // Dialog finished it's job, we are connected
-                        Frontend.UserConfig = new UserConfig(Frontend.Session.Config,
-                                                             username);
-                        Frontend.UserConfig.IsCaching = true;
-                        Frontend.ConnectEngineToGUI();
-                        Destroy();
-                    } else {
-                        error_msg += _("Registration at engine failed, "+
-                                       "username and/or password was wrong, please verify them.") + "\n";
-                    }
+                if (sessm == null) {
+                    return;
+                }
+                
+                if (sessm.EngineVersion.Major != Frontend.Version.Major ||
+                    sessm.EngineVersion.Minor != Frontend.Version.Minor ||
+                    sessm.EngineVersion.Build != Frontend.Version.Build) {                        
+                        error_msg += String.Format(
+                                        _("Your frontend version ({0}) is not matching the engine version ({1})!"),
+                                        Frontend.Version, sessm.EngineVersion);
+                    return;
+                }
+                
+                Frontend.Session = sessm.Register(username, password, Frontend.MainWindow.UI);
+                Frontend.EngineVersion = sessm.EngineVersion;
+                if (Frontend.Session != null) {
+                    // Dialog finished it's job, we are connected
+                    Frontend.UserConfig = new UserConfig(Frontend.Session.Config,
+                                                         username);
+                    Frontend.UserConfig.IsCaching = true;
+                    Frontend.ConnectEngineToGUI();
+                    Destroy();
+                } else {
+                    error_msg += _("Registration at engine failed, "+
+                                   "username and/or password was wrong, please verify them.") + "\n";
                 }
             } catch (Exception ex) {
 #if LOG4NET

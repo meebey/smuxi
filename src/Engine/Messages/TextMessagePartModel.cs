@@ -95,16 +95,26 @@ namespace Meebey.Smuxi.Engine
         }
         
         public TextMessagePartModel() :
-                               base(MessagePartType.Text)
+                               base()
         {
             _ForegroundColor = new TextColor();
             _BackgroundColor = new TextColor();
         }
         
+        public TextMessagePartModel(string text) :
+                               this(null, null, false, false, false, text, false)
+        {
+        }
+        
+        public TextMessagePartModel(string text, bool highlight) :
+                               this(null, null, false, false, false, text, highlight)
+        {
+        }
+        
         public TextMessagePartModel(TextColor fgColor, TextColor bgColor,
                                     bool underline, bool bold, bool italic,
                                     string text, bool highlight) :
-                               base(MessagePartType.Text, highlight)
+                               base(highlight)
         {
             if (fgColor != null) {
                 _ForegroundColor = fgColor;

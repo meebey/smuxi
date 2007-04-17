@@ -43,82 +43,80 @@ namespace Meebey.Smuxi.FrontendTest
             }
         }
         
-        public void AddPage(Page page)
+        public void AddChat(ChatModel page)
         {
             Trace.Call(page);
             
-            Console.WriteLine("New page: "+page.Name+ " type: "+page.PageType);
-            Frontend.ChangeActivePage(page);
+            Console.WriteLine("New page: "+page.Name+ " type: "+page.ChatType);
+            Frontend.ChangeActiveChat(page);
         }
         
-        public void AddMessageToPage(Page page, FormattedMessage fmsg)
+        public void AddMessageToChat(ChatModel page, MessageModel msg)
         {
-            Trace.Call(page, fmsg);
+            Trace.Call(page, msg);
 
-            string msg = String.Empty;
-            foreach (FormattedMessageItem item in fmsg.Items) {
-                switch (item.Type) {
-                    // TODO: implement other ItemTypes
-                    case FormattedMessageItemType.Text:
-                        FormattedMessageTextItem fmsgti = (FormattedMessageTextItem)item.Value;
-                        msg += fmsgti.Text;
-                        break; 
+            string finalMsg = String.Empty;
+            foreach (MessagePartModel msgPart in msg.MessageParts) {
+                // TODO: implement other types
+                if (msgPart is TextMessagePartModel) {
+                    TextMessagePartModel fmsgti = (TextMessagePartModel) msgPart;
+                    finalMsg += fmsgti.Text;
                 } 
             }
             
             string timestamp;
             try {
-                timestamp = fmsg.Timestamp.ToLocalTime().ToString((string)Frontend.UserConfig["Interface/Notebook/TimestampFormat"]);
+                timestamp = msg.TimeStamp.ToLocalTime().ToString((string)Frontend.UserConfig["Interface/Notebook/TimestampFormat"]);
             } catch (FormatException e) {
-                timestamp = "Timestamp Format ERROR: "+e.Message;
+                timestamp = "Timestamp Format ERROR: " + e.Message;
             }
-            msg = timestamp+" "+page.Name+" "+msg;
+            finalMsg = timestamp + " " + page.Name + " " + msg;
             
-            Console.WriteLine(msg);
+            Console.WriteLine(finalMsg);
         }
         
-        public void RemovePage(Page page)
-        {
-            Trace.Call(page);
-            
-            Console.WriteLine("Removed page: "+page.Name+" type: "+page.PageType);
-        }
-        
-        public void EnablePage(Page page)
-        {
-            Trace.Call(page);
-        }
-        
-        public void DisablePage(Page page)
-        {
-            Trace.Call(page);
-        }
-        
-        public void SyncPage(Page page)
+        public void RemoveChat(ChatModel page)
         {
             Trace.Call(page);
             
-            Console.WriteLine("Synced page: "+page.Name+" type: "+page.PageType);
+            Console.WriteLine("Removed page: "+page.Name+" type: "+page.ChatType);
         }
         
-        public void AddUserToChannel(ChannelPage cpage, User user)
+        public void EnableChat(ChatModel page)
+        {
+            Trace.Call(page);
+        }
+        
+        public void DisableChat(ChatModel page)
+        {
+            Trace.Call(page);
+        }
+        
+        public void SyncChat(ChatModel page)
+        {
+            Trace.Call(page);
+            
+            Console.WriteLine("Synced page: "+page.Name+" type: "+page.ChatType);
+        }
+        
+        public void AddPersonToGroupChat(GroupChatModel cpage, PersonModel user)
         {
             Trace.Call(cpage, user);
         }
         
-        public void UpdateUserInChannel(ChannelPage cpage, User olduser, User newuser)
+        public void UpdatePersonInGroupChat(GroupChatModel cpage, PersonModel olduser, PersonModel newuser)
         {
             Trace.Call(cpage, olduser, newuser);
         }
     
-        public void UpdateTopicInChannel(ChannelPage cpage, string topic)
+        public void UpdateTopicInGroupChat(GroupChatModel cpage, string topic)
         {
             Trace.Call(cpage, topic);
             
             Console.WriteLine("Topic changed to: "+topic+ " on "+cpage.Name);
         }
         
-        public void RemoveUserFromChannel(ChannelPage cpage, User user)
+        public void RemovePersonFromGroupChat(GroupChatModel cpage, PersonModel user)
         {
             Trace.Call(cpage, user);
         }

@@ -1,9 +1,9 @@
 /*
- * $Id: Config.cs 100 2005-08-07 14:54:22Z meebey $
- * $URL: svn+ssh://svn.qnetp.net/svn/smuxi/smuxi/trunk/src/Engine/Config.cs $
- * $Rev: 100 $
+ * $Id: ChannelPage.cs 137 2006-11-06 18:49:57Z meebey $
+ * $URL: svn+ssh://svn.qnetp.net/svn/smuxi/smuxi/trunk/src/Engine/ChannelPage.cs $
+ * $Rev: 137 $
  * $Author: meebey $
- * $Date: 2005-08-07 16:54:22 +0200 (Sun, 07 Aug 2005) $
+ * $Date: 2006-11-06 19:49:57 +0100 (Mon, 06 Nov 2006) $
  *
  * smuxi - Smart MUltipleXed Irc
  *
@@ -27,14 +27,27 @@
  */
 
 using System;
+using Meebey.Smuxi.Common;
 
 namespace Meebey.Smuxi.Engine
 {
-    public enum MessagePartType
+    public class PersonChatModel : ChatModel
     {
-        Text,
-        Image,
-        Sound,
-        Url,
+#if LOG4NET
+        private static readonly log4net.ILog _Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+#endif
+        private PersonModel _Person;
+        
+        public PersonModel Person {
+            get {
+                return _Person;
+            }
+        }
+        
+        public PersonChatModel(PersonModel person, string name, INetworkManager networkManager) :
+                          base(name, ChatType.Person, networkManager)
+        {
+            _Person = person;
+        }
     }
 }

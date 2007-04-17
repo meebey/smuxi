@@ -27,11 +27,17 @@
  */
 
 using System;
-using Meebey.Smuxi;
+using Meebey.Smuxi.Engine;
 
 namespace Meebey.Smuxi.Frontend
 {
     public class ChatView
     {
+        private ChatModel _Model;
+        
+        public ChatView(ChatModel chat)
+        {
+            _Model = chat;
+        }
     }
 }

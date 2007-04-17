@@ -1,13 +1,13 @@
 /*
- * $Id$
- * $URL$
- * $Rev$
- * $Author$
- * $Date$
+ * $Id: AboutDialog.cs 122 2006-04-26 19:31:42Z meebey $
+ * $URL: svn+ssh://svn.qnetp.net/svn/smuxi/smuxi/trunk/src/Frontend-GNOME/AboutDialog.cs $
+ * $Rev: 122 $
+ * $Author: meebey $
+ * $Date: 2006-04-26 21:31:42 +0200 (Wed, 26 Apr 2006) $
  *
  * smuxi - Smart MUltipleXed Irc
  *
- * Copyright (c) 2005-2006 Mirco Bauer <meebey@meebey.net>
+ * Copyright (c) 2005-2007 Mirco Bauer <meebey@meebey.net>
  *
  * Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
  *
@@ -27,23 +27,21 @@
  */
 
 using System;
-using System.Reflection;
-using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices;
+using Meebey.Smuxi.Engine;
 
-[assembly: AssemblyTitle("smuxi - engine")]
-[assembly: AssemblyDescription("Smart MUltipleXed Irc")]
-[assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("qNETp")]
-[assembly: AssemblyProduct("smuxi")]
-[assembly: AssemblyCopyright("2005-2006 (C) Mirco Bauer <meebey@meebey.net>")]
-[assembly: AssemblyTrademark("")]
-[assembly: AssemblyCulture("")]
-
-[assembly: AssemblyVersion("0.5.23.*")]
-
-[assembly: AssemblyDelaySign(false)]
-[assembly: AssemblyKeyFile("")]
-
-[assembly: CLSCompliant(true)]
-[assembly: ComVisible(false)]
+namespace Meebey.Smuxi.Frontend
+{
+    public abstract class ChatViewManagerBase
+    {
+        protected abstract IChatView CreateChatView(ChatModel chat);
+        
+        public abstract void AddChat(ChatModel chat);
+        public abstract void RemoveChat(ChatModel chat);
+        public abstract void EnableChat(ChatModel chat);
+        public abstract void DisableChat(ChatModel chat);
+        
+        protected ChatViewManagerBase()
+        {
+        }
+    }
+}

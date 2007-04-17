@@ -27,8 +27,8 @@
  */
 
 using System;
-using Meebey.Smuxi;
 using Meebey.Smuxi.Common;
+using Meebey.Smuxi.Engine;
 
 namespace Meebey.Smuxi.FrontendGnome
 {
@@ -36,9 +36,9 @@ namespace Meebey.Smuxi.FrontendGnome
     {
         //private Gtk.Menu     _QueryTabMenu;
     
-        public Page CurrentFrontendPage {
+        public ChatView CurrentChatView {
             get {
-                return (Page)base.CurrentPageWidget;
+                return (ChatView) base.CurrentPageWidget;
             }
         }
         
@@ -47,7 +47,7 @@ namespace Meebey.Smuxi.FrontendGnome
             Scrollable = true;
             SwitchPage += new Gtk.SwitchPageHandler(_OnSwitchPage);
             
-            ApplyUserConfig();
+            //ApplyUserConfig();
         }
         
         public void ApplyUserConfig()
@@ -75,21 +75,21 @@ namespace Meebey.Smuxi.FrontendGnome
             }
         }
         
-        public Page GetPage(Engine.Page epage)
+        public ChatView GetChat(ChatModel chat)
         {
             for (int i=0; i < NPages; i++) {
-                Page page = (Page)GetNthPage(i);
-                if (page.EnginePage == epage) {
-                    return page;
+                ChatView chatView = (ChatView) GetNthPage(i);
+                if (chatView.ChatModel == chat) {
+                    return chatView;
                 }
             }
             
             return null;
         }
         
-        public Page GetPage(int pageNumber)
+        public ChatView GetChat(int pageNumber)
         {
-            return (Page)base.GetNthPage(pageNumber);
+            return (ChatView) base.GetNthPage(pageNumber);
         }
         
         public void RemoveAllPages()
@@ -104,30 +104,34 @@ namespace Meebey.Smuxi.FrontendGnome
         private void _OnSwitchPage(object sender, Gtk.SwitchPageArgs e)
         {
             Trace.Call(sender, e);
+            
+            try {
+                // synchronize FrontManager.CurrenPage
+                ChatView chatView = GetChat((int)e.PageNum);
+                if (chatView != null) {
+                    ChatModel chatModel = chatView.ChatModel;
+                    INetworkManager nmanager = chatModel.NetworkManager;
+                    Frontend.FrontendManager.CurrentChat = chatModel;
+                    if (nmanager != null) {
+                        Frontend.FrontendManager.CurrentNetworkManager = nmanager;
+                    }
+                    // even when we have no network manager, we still want to update the state
+                    Frontend.FrontendManager.UpdateNetworkStatus();
 
-            // synchronize FrontManager.CurrenPage
-            Page npage = GetPage((int)e.PageNum);
-            if (npage != null) {
-                Engine.Page epage = npage.EnginePage;
-                Engine.INetworkManager nmanager = epage.NetworkManager;
-                Frontend.FrontendManager.CurrentPage = epage;
-                if (nmanager != null) {
-                    Frontend.FrontendManager.CurrentNetworkManager = nmanager;
+                    // lets remove any markup / highlight
+                    string color = (string) Frontend.UserConfig["Interface/Notebook/Tab/NoActivityColor"];
+                    chatView.Label.Markup = String.Format("<span foreground=\"{0}\">{1}</span>", color, chatView.Label.Text);
+                    chatView.HasHighlight = false;
+                    
+                    // sync title
+                    if (Frontend.MainWindow != null) {
+                        string network = nmanager != null ? nmanager.ToString() + " / " : "";
+                        Frontend.MainWindow.Title = network + chatView.Label.Text +
+                                                    " - smuxi - Smart MUtipleXed Irc";
+                    }
                 }
-                // even when we have no network manager, we still want to update the state
-                Frontend.FrontendManager.UpdateNetworkStatus();
-
-                // lets remove any markup / highlight
-                string color = (string) Frontend.UserConfig["Interface/Notebook/Tab/NoActivityColor"];
-                npage.Label.Markup = String.Format("<span foreground=\"{0}\">{1}</span>", color, npage.Label.Text);
-                npage.HasHighlight = false;
-                
-                // sync title
-                if (Frontend.MainWindow != null) {
-                    string network = nmanager != null ? nmanager.ToString() + " / " : "";
-                    Frontend.MainWindow.Title = network + npage.Label.Text +
-                                                " - smuxi - Smart MUtipleXed Irc";
-                }
+            } catch (Exception ex) {
+                Frontend.ShowException(ex);
             }
         }
     }

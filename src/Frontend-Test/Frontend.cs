@@ -163,7 +163,7 @@ namespace Meebey.Smuxi.FrontendTest
         public static void _ExecuteCommand(string cmd)
         {
             bool handled = false;
-            CommandData cd = new CommandData(_FrontendManager,
+            CommandModel cd = new CommandModel(_FrontendManager, _FrontendManager.CurrentChat,
                                              (string)_UserConfig["Interface/Entry/CommandCharacter"],
                                              cmd);
             
@@ -171,10 +171,10 @@ namespace Meebey.Smuxi.FrontendTest
                 switch (cd.Command) {
                     case "window":
                         bool found = false;
-                        foreach (Page page in _Session.Pages) {
-                            if (page.Name.ToLower() == cd.Parameter.ToLower()) {
+                        foreach (ChatModel chatModel in _Session.Chats) {
+                            if (chatModel.Name.ToLower() == cd.Parameter.ToLower()) {
                                 found = true;
-                                ChangeActivePage(page);
+                                ChangeActiveChat(chatModel);
                                 break;
                             }
                         }
@@ -208,10 +208,10 @@ namespace Meebey.Smuxi.FrontendTest
             }
         }
         
-        public static void ChangeActivePage(Page page)
+        public static void ChangeActiveChat(ChatModel chatModel)
         {
-            Console.WriteLine("Active page: "+page.Name);
-            _FrontendManager.CurrentPage = page;
+            Console.WriteLine("Active chat: "+chatModel.Name);
+            _FrontendManager.CurrentChat = chatModel;
         }
     }
 }

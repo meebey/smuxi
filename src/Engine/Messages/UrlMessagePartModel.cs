@@ -31,6 +31,7 @@ using System;
 namespace Meebey.Smuxi.Engine
 {
     public enum UrlProtocol {
+        Unknown,
         Http,
         Https,
         Ftp,
@@ -38,19 +39,17 @@ namespace Meebey.Smuxi.Engine
         Telnet,
     }
     
-    // TODO: extend TextMessagePartModel instead?
     [Serializable]
-    public class UrlMessagePartModel : MessagePartModel
+    public class UrlMessagePartModel : TextMessagePartModel
     {
-        private string      _Url;
         private UrlProtocol _Protocol;
         
         public string Url {
             get {
-                return _Url;
+                return base.Text;
             }
             set {
-                _Url = value;
+                base.Text = value;
             }
         }
         
@@ -63,15 +62,16 @@ namespace Meebey.Smuxi.Engine
             }
         }
         
-        public UrlMessagePartModel() :
-                              base(MessagePartType.Url)
+        public UrlMessagePartModel(string url) :
+                              base(url)
         {
+            // TODO: parse url and extract protocol
+            _Protocol = UrlProtocol.Unknown;
         }
         
         public UrlMessagePartModel(string url, UrlProtocol protocol) :
-                              base(MessagePartType.Url)
+                              base(url)
         {
-            _Url = url;
             _Protocol = protocol;
         }
     }

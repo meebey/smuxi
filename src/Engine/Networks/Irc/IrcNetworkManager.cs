@@ -95,7 +95,7 @@ namespace Meebey.Smuxi.Engine
             get {
                 // TODO: implement me
                 //return _IrcClient.Network;
-                return null;
+                return _IrcClient.Address;
             }
         }
         
@@ -210,6 +210,8 @@ namespace Meebey.Smuxi.Engine
         
         public void Connect(FrontendManager fm, string server, int port, string[] nicks, string user, string pass)
         {
+            Trace.Call(fm, server, port, nicks, user, pass);
+            
             _FrontendManager = fm;
             _Server = server;
             _Port = port;
@@ -219,7 +221,7 @@ namespace Meebey.Smuxi.Engine
             
             // TODO: use config for single network chat or once per network manager
             _NetworkChat = new ChatModel("IRC " + server, ChatType.Network, this);
-            _Session.AddChat(_NetworkChat);
+            _Session.Chats.Add(_NetworkChat);
             
             Thread thread = new Thread(new ThreadStart(_Run));
             thread.IsBackground = true;

@@ -38,7 +38,7 @@ namespace Meebey.Smuxi.Engine
         private string               _Name;
         private ChatType             _ChatType;
         private INetworkManager      _NetworkManager;
-        private IList<MessageModel>  _Messages = new List<MessageModel>();
+        private List<MessageModel>   _Messages = new List<MessageModel>();
         private bool                 _IsEnabled = true;
         
         public string Name {
@@ -61,7 +61,7 @@ namespace Meebey.Smuxi.Engine
         
         public IList<MessageModel> Messages {
             get {
-                return (IList<MessageModel>) ((ICloneable)_Messages).Clone();
+                return new List<MessageModel>(_Messages);
             }
         }
         

@@ -28,6 +28,7 @@
 
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Collections.Specialized;
 using Mono.Unix;
 using Meebey.Smuxi.Engine;
@@ -195,7 +196,7 @@ namespace Meebey.Smuxi.FrontendGnome
                         //if (Frontend.FrontendManager.CurrentPage.PageType == PageType.Server) {
                         // this does the same with one remoting call less
                         // (the CurrentPage object is not called)
-                        if (_Notebook.CurrentFrontendPage.EnginePage.PageType == PageType.Server) {
+                        if (_Notebook.CurrentChatView.ChatModel.ChatType == ChatType.Network) {
                             Frontend.FrontendManager.NextNetworkManager();
                         }
                         break;
@@ -210,10 +211,10 @@ namespace Meebey.Smuxi.FrontendGnome
                         }
                         break;
                     case Gdk.Key.Home:
-                        _Notebook.CurrentFrontendPage.ScrollToBeginning();
+                        _Notebook.CurrentChatView.ScrollToStart();
                         break;
                     case Gdk.Key.End:
-                        _Notebook.CurrentFrontendPage.ScrollToEnd();
+                        _Notebook.CurrentChatView.ScrollToEnd();
                         break;
                 }
             }
@@ -287,13 +288,10 @@ namespace Meebey.Smuxi.FrontendGnome
                     e.RetVal = true;
                     if (Frontend.MainWindow.CaretMode) {
                         // when we are in caret-mode change focus to output textview
-                        _Notebook.CurrentFrontendPage.OutputTextView.HasFocus = true;
+                        _Notebook.CurrentChatView.OutputTextView.HasFocus = true;
                     } else {
                         // don't loose the focus (if we are not in caret-mode)
-                        //if (Frontend.FrontendManager.CurrentPage is Engine.ChannelPage) {
-                        // this does the same with one remoting call less
-                        // (the FrontendManager.CurrentPage object is not called)
-                        if (_Notebook.CurrentFrontendPage.EnginePage is Engine.ChannelPage) {
+                        if (_Notebook.CurrentChatView.ChatModel is GroupChatModel) {
                             if (Text.Length > 0) {
                                 _NickCompletion();
                             }
@@ -307,10 +305,10 @@ namespace Meebey.Smuxi.FrontendGnome
                     HistoryNext();
                     break;
                 case Gdk.Key.Page_Up:
-                    _Notebook.CurrentFrontendPage.ScrollUp();
+                    _Notebook.CurrentChatView.ScrollUp();
                     break;
                 case Gdk.Key.Page_Down:
-                    _Notebook.CurrentFrontendPage.ScrollDown();
+                    _Notebook.CurrentChatView.ScrollDown();
                     break;
             }
         }
@@ -383,7 +381,7 @@ namespace Meebey.Smuxi.FrontendGnome
             }
             
             bool handled;
-            CommandData cd = new CommandData(Frontend.FrontendManager,
+            CommandModel cd = new CommandModel(Frontend.FrontendManager, _Notebook.CurrentChatView.ChatModel,
                                     (string)Frontend.UserConfig["Interface/Entry/CommandCharacter"],
                                     cmd);
             handled = _Command(cd);
@@ -404,7 +402,7 @@ namespace Meebey.Smuxi.FrontendGnome
             }
         }
         
-        private bool _Command(CommandData cd)
+        private bool _Command(CommandModel cd)
         {
             bool handled = false;
             
@@ -440,7 +438,7 @@ namespace Meebey.Smuxi.FrontendGnome
             return handled;
         }
         
-        private void _CommandHelp(CommandData cd)
+        private void _CommandHelp(CommandModel cd)
         {
             string[] help = {
             Catalog.GetString("[Frontend Commands]"),
@@ -453,21 +451,21 @@ namespace Meebey.Smuxi.FrontendGnome
             };
             
             foreach (string line in help) { 
-                cd.FrontendManager.AddTextToCurrentPage("-!- " + line);
+                cd.FrontendManager.AddTextToCurrentChat("-!- " + line);
             }
         }
         
-        private void _CommandDetach(CommandData cd)
+        private void _CommandDetach(CommandModel cd)
         {
             Frontend.Quit();
         }
 
-        private void _CommandEcho(CommandData cd)
+        private void _CommandEcho(CommandModel cd)
         {
-            cd.FrontendManager.AddTextToCurrentPage("-!- "+cd.Parameter);
+            cd.FrontendManager.AddTextToCurrentChat("-!- "+cd.Parameter);
         }
         
-        private void _CommandExec(CommandData cd)
+        private void _CommandExec(CommandModel cd)
         {
             if (cd.DataArray.Length >= 2) {
                 string output;
@@ -484,27 +482,28 @@ namespace Meebey.Smuxi.FrontendGnome
                 try {
                     process.Start();
                     output = process.StandardOutput.ReadToEnd();
-                    cd.FrontendManager.AddTextToCurrentPage(output);
+                    cd.FrontendManager.AddTextToCurrentChat(output);
                 } catch {
                 }
             }
         }
     
-        private void _CommandWindow(CommandData cd)
+        private void _CommandWindow(CommandModel cd)
         {
             FrontendManager fm = cd.FrontendManager;
             if (cd.DataArray.Length >= 2) {
+                ChatModel currentChatModel = _Notebook.CurrentChatView.ChatModel;
                 string name;
                 if (cd.DataArray[1].ToLower() == "close") {
-                    name = fm.CurrentPage.Name;
-                    if (fm.CurrentPage.PageType != PageType.Server) {
-                        if (fm.CurrentNetworkManager is IrcNetworkManager) {
-                            IrcNetworkManager ircm = (IrcNetworkManager)fm.CurrentNetworkManager; 
-                            if (fm.CurrentPage.PageType == PageType.Channel) {
-                                ircm.CommandPart(new CommandData(fm, cd.CommandCharacter, "/part "+name));
+                    name = currentChatModel.Name;
+                    if (currentChatModel.ChatType != ChatType.Network) {
+                        if (currentChatModel.NetworkManager is IrcNetworkManager) {
+                            IrcNetworkManager ircm = (IrcNetworkManager) currentChatModel.NetworkManager; 
+                            if (currentChatModel.ChatType == ChatType.Group) {
+                                ircm.CommandPart(new CommandModel(fm, currentChatModel, name));
                             } else {
                                 // query
-                                Frontend.Session.RemovePage(fm.CurrentPage);
+                                Frontend.Session.RemoveChat(currentChatModel);
                             }
                         }
                     }
@@ -525,11 +524,14 @@ namespace Meebey.Smuxi.FrontendGnome
                         // let's see if we find something
                         ArrayList candidates = new ArrayList();
                         for (int i = 0; i < pagecount; i++) {
-                            Page page = (Page)_Notebook.GetNthPage(i);
-                            Engine.Page epage = page.EnginePage;
-                            if (epage.Name.ToLower() == cd.DataArray[1].ToLower()) {
-                                if ((epage.PageType == fm.CurrentPage.PageType) &&
-                                    (epage.NetworkManager == fm.CurrentPage.NetworkManager)) {
+                            ChatView chatView = _Notebook.GetChat(i);
+                            ChatModel chatModel = chatView.ChatModel;
+                            
+                            if (chatModel.Name.ToLower() == cd.DataArray[1].ToLower()) {
+                                // name matches
+                                // first let's see if there is an exact match, if so, take it
+                                if ((chatModel.ChatType == currentChatModel.ChatType) &&
+                                    (chatModel.NetworkManager == currentChatModel.NetworkManager)) {
                                     _Notebook.CurrentPage = i;
                                     break;
                                 } else {
@@ -538,6 +540,7 @@ namespace Meebey.Smuxi.FrontendGnome
                                 }
                             }
                         }
+                        
                         if (candidates.Count > 0) {
                             _Notebook.CurrentPage = (int)candidates[0];
                         }
@@ -546,14 +549,14 @@ namespace Meebey.Smuxi.FrontendGnome
             }
         }
     
-        private void _CommandClear(CommandData cd)
+        private void _CommandClear(CommandModel cd)
         {
-            _Notebook.CurrentFrontendPage.OutputTextView.Buffer.Clear();
+            _Notebook.CurrentChatView.OutputTextView.Buffer.Clear();
         }
         
-        private void _CommandUnknown(CommandData cd)
+        private void _CommandUnknown(CommandModel cd)
         {
-            cd.FrontendManager.AddTextToCurrentPage("-!- " +
+            cd.FrontendManager.AddTextToCurrentChat("-!- " +
                                 String.Format(Catalog.GetString(
                                               "Unknown Command: {0}"),
                                               cd.Command));
@@ -600,26 +603,29 @@ namespace Meebey.Smuxi.FrontendGnome
             bool found = false;
             bool partial_found = false;
             string nick = null;
-            Engine.ChannelPage cp = (Engine.ChannelPage)Frontend.FrontendManager.CurrentPage;
+            //GroupChatModel cp = (GroupChatModel) Frontend.FrontendManager.CurrentChat;
+            GroupChatModel cp = (GroupChatModel) _Notebook.CurrentChatView.ChatModel;
             if ((bool)Frontend.UserConfig["Interface/Entry/BashStyleCompletion"]) {
-                string[] result = cp.NicknameLookupAll(word);
-                if (result == null) {
+                IList<string> result = cp.PersonLookupAll(word);
+                if (result == null || result.Count == 0) {
                     // no match
-                } else if (result.Length == 1) {
+                } else if (result.Count == 1) {
                     found = true;
                     nick = result[0];
-                } else if (result.Length >= 2) {
-                    string nicks = String.Join(" ", result, 1, result.Length - 1);
-                    Frontend.FrontendManager.AddTextToCurrentPage("-!- "+nicks);
+                } else if (result.Count >= 2) {
+                    string[] nickArray = new string[result.Count];
+                    result.CopyTo(nickArray, 0);
+                    string nicks = String.Join(" ", nickArray, 1, nickArray.Length - 1);
+                    Frontend.FrontendManager.AddTextToCurrentChat("-!- " + nicks);
                     found = true;
                     partial_found = true;
                     nick = result[0];
                 }
             } else {
-                string result = cp.NicknameLookup(word);
-                if (result != null) {
+                PersonModel person = cp.PersonLookup(word);
+                if (person != null) {
                     found = true;
-                    nick = result;
+                    nick = person.IdentityName;
                  }
             }
 
