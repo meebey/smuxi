@@ -43,7 +43,7 @@ Description: Server application for smuxi
  state.
  .
  This package contains the standalone server of smuxi, it doesn't need any GUI.
- While the server is running, the smuxi frontends can connect via network.
+ The smuxi frontends can connect to a running server via the network.
 
 Package: smuxi-frontend-gnome
 Architecture: all
