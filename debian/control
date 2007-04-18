@@ -22,7 +22,7 @@ Description: IRC client for advanced users
 Package: smuxi-engine
 Architecture: all
 Replaces: smuxi (<< 0.5.25)
-Depends: ${shlibs:Depends}, ${misc:Depends}, ${cli:Depends}, libmono2.0-cil
+Depends: ${shlibs:Depends}, ${misc:Depends}, ${cli:Depends}
 Description: Engine library for smuxi
  Smart MUtipleXed Irc (smuxi) is an IRC client for advanced users.
  It is split into 2 parts, engine and frontend. The frontend can be detached
@@ -35,7 +35,7 @@ Description: Engine library for smuxi
 Package: smuxi-server
 Architecture: all
 Replaces: smuxi (<< 0.5.25)
-Depends: ${shlibs:Depends}, ${misc:Depends}, ${cli:Depends}, smuxi-engine (= ${Source-Version}), libmono2.0-cil
+Depends: ${shlibs:Depends}, ${misc:Depends}, ${cli:Depends}, smuxi-engine (= ${Source-Version})
 Description: Server application for smuxi
  Smart MUtipleXed Irc (smuxi) is an IRC client for advanced users.
  It is split into 2 parts, engine and frontend. The frontend can be detached
@@ -43,12 +43,12 @@ Description: Server application for smuxi
  state.
  .
  This package contains the standalone server of smuxi, it doesn't need any GUI.
- Smuxi frontends connect over the network to smuxi server.
+ While the server is running, the smuxi frontends can connect via network.
 
 Package: smuxi-frontend-gnome
 Architecture: all
 Replaces: smuxi (<< 0.5.25)
-Depends: ${shlibs:Depends}, ${misc:Depends}, ${cli:Depends}, smuxi-engine (= ${Source-Version}), libmono2.0-cil
+Depends: ${shlibs:Depends}, ${misc:Depends}, ${cli:Depends}, smuxi-engine (= ${Source-Version})
 Description: GNOME frontend for smuxi
  Smart MUtipleXed Irc (smuxi) is an IRC client for advanced users.
  It is split into 2 parts, engine and frontend. The frontend can be detached
