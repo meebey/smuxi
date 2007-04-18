@@ -15,17 +15,19 @@ smuxi 0.6 goals:
 - engines manager GUI
 - GUI for swichting current network
 X colors in channels (hightlighting)
-- create debian package
+X create debian package
+- make preferences smaller!
+- smarter /op /deop /voice /devoice (using multiple modes)
+- clickable URLs (DevGet)
+- add date stamps between days like irssi
+- show channel mode, /mode without params should show the current mode
 
 Feature Requests:
 - compare smuxi with all other common IRC clients on the website
-- make preferences smaller!
 - remember highlight and activity states, even after reconnecting the frontend 
 - /squery command (SQUERY service: command)
-- show channel mode, /mode without params should show the current mode
 - Telepathy support
 - dbus support
-- smarter /op /deop /voice /devoice (using multiple modes)
 - show smuxi in tray when minimized
 - chat logging
 - setable highlight words
@@ -34,12 +36,11 @@ Feature Requests:
 - /exec -c echo /me smokes C#, take the output of the exec as commands
 - /exec -engine, execute the command on engine and not frontend
 - /network save, save servers and joined channels for auto-connect/join (basher)
-- add date stamps between days like irssi
 - add marker for disabled pages
 - use treeview as alternative to notebook tabs.
 - theme support
 - keep nick (Salz)
-- different identifies per server (Salz)
+- different identities per server (Salz)
 - overview page, showing all channels and queries on one page (Salz)
 - mark last seen line when switching to other pages and a button to jump it (basher)
 - SSL support (TCW)
@@ -50,9 +51,7 @@ Feature Requests:
 - auto-cleanup query windows after X hours/days of inactivity
 - use treeview as alternative to notebook tabs.
 - whois in userlist context menu (DevGet)
-- multiple server pages (Zhila)
 - add non-RFC features like HalfOp (Zhila)
-- clickable URLs (DevGet)
 - nickname completion should ignore special characters (darix)
 - normal nick completion should allow multiple tab press to iterate through possible nicks
 - use RedirectChannel / TcpExChannel
@@ -74,6 +73,7 @@ Feature Requests:
 channel (showing it in the tab as pixmap) (Salz)
 
 Done:
+- multiple server pages (Zhila)
 - /network list /network close [name] /network switch [name]
 - configurable charset for the IRC connection (iso 8859-1, utf8 etc)
 - show highlight notifications in tray (DevGet)
