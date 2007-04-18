@@ -1,0 +1,8 @@
+#!/bin/sh
+
+SMUXI_DIR=$(dirname $0)
+if [ ! -f $SMUXI_DIR/smuxi-server.exe ]; then
+	SMUXI_DIR=/usr/lib/smuxi
+fi
+mkdir -p ~/.config/smuxi/logs
+mono --debug $SMUXI_DIR/smuxi-server.exe > ~/.config/smuxi/logs/smuxi-server.log 2>&1

@@ -38,20 +38,6 @@ install: build
 	dh_installdirs
 	$(MAKE) install PREFIX=/usr DESTDIR=$(CURDIR)/debian/tmp
 
-	#mkdir -p debian/smuxi-engine/usr/lib/smuxi/
-	#cp bin/debug/smuxi-common.dll* debian/smuxi-engine/usr/lib/smuxi/
-	#cp bin/debug/smuxi-engine.dll* debian/smuxi-engine/usr/lib/smuxi/
-
-	#mkdir -p debian/smuxi-server/usr/lib/smuxi/
-	#cp bin/debug/smuxi-server.exe* debian/smuxi/usr/lib/smuxi/
-
-	#mkdir -p debian/smuxi-frontend-gnome/usr/lib/smuxi/
-	#cp bin/debug/smuxi-frontend-gnome.exe* debian/smuxi-frontend-gnome/usr/lib/smuxi/
-	#mkdir -p debian/smuxi-frontend-gnome/usr/bin/
-	#cp smuxi-gnome debian/smuxi-frontend-gnome/usr/bin/
-	#mkdir -p debian/smuxi-frontend-gnome/usr/share/applications/
-	#cp smuxi.desktop debian/smuxi-frontend-gnome/usr/share/applications/
-
 binary-indep: build install
 	dh_testdir
 	dh_testroot

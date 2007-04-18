@@ -45,10 +45,22 @@ Description: Server application for smuxi
  This package contains the standalone server of smuxi, it doesn't need any GUI.
  The smuxi frontends can connect to a running server via the network.
 
-Package: smuxi-frontend-gnome
+Package: smuxi-frontend
 Architecture: all
 Replaces: smuxi (<< 0.5.25)
 Depends: ${shlibs:Depends}, ${misc:Depends}, ${cli:Depends}, smuxi-engine (= ${Source-Version})
+Description: Frontend library for smuxi
+ Smart MUtipleXed Irc (smuxi) is an IRC client for advanced users.
+ It is split into 2 parts, engine and frontend. The frontend can be detached
+ from the running engine and later reattached, while keeping the complete
+ state.
+ .
+ This package contains the base library for all smuxi frontends.
+
+Package: smuxi-frontend-gnome
+Architecture: all
+Replaces: smuxi (<< 0.5.25)
+Depends: ${shlibs:Depends}, ${misc:Depends}, ${cli:Depends}, smuxi-engine (= ${Source-Version}), smuxi-frontend (= ${Source-Version})
 Description: GNOME frontend for smuxi
  Smart MUtipleXed Irc (smuxi) is an IRC client for advanced users.
  It is split into 2 parts, engine and frontend. The frontend can be detached

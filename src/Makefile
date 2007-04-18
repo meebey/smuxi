@@ -113,7 +113,7 @@ release-all: \
 	$(COMMON_RELEASE_TARGET) \
 	$(ENGINE_RELEASE_TARGET) \
 	$(SERVER_RELEASE_TARGET) \
-  $(FRONTEND_RELEASE_TARGET) \
+	$(FRONTEND_RELEASE_TARGET) \
 	$(GTK_RELEASE_TARGET) \
 	$(GNOME_RELEASE_TARGET) \
 
@@ -191,6 +191,7 @@ install-base:
 	$(MKDIR) -p $(INSTALL_BIN_DIR)
 	$(MKDIR) -p $(INSTALL_APPLICATIONS_DIR)
 	$(COPY) ../smuxi-frontend-gnome $(INSTALL_BIN_DIR)
+	$(COPY) ../smuxi-server $(INSTALL_BIN_DIR)
 	$(COPY) ../smuxi.desktop $(INSTALL_APPLICATIONS_DIR)
 
 install-debug-all: debug-all install-base
