@@ -1,0 +1,517 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>stringprep</name>
+    </assembly>
+    <members>
+        <member name="T:stringprep.steps.BidiException">
+            <summary>
+            There was a problem with the Bidirection nature of a string to be prepped.
+            </summary>
+        </member>
+        <member name="M:stringprep.steps.BidiException.#ctor(System.String)">
+            <summary>
+            Create a new BidiException
+            </summary>
+            <param name="message"></param>
+        </member>
+        <member name="T:stringprep.steps.BidiStep">
+            <summary>
+            A stringprep profile step to check for Bidirectional correctness.  
+            If the NO_BIDI flag is set, this is a no-op.
+            </summary>
+        </member>
+        <member name="T:stringprep.steps.ProfileStep">
+            <summary>
+            Base class for steps in a stringprep profile.
+            </summary>
+        </member>
+        <member name="M:stringprep.steps.ProfileStep.#ctor(System.String)">
+            <summary>
+            Create a named profile step, with no flags.
+            </summary>
+            <param name="name">The profile name</param>
+        </member>
+        <member name="M:stringprep.steps.ProfileStep.Prepare(System.Text.StringBuilder)">
+            <summary>
+            This is the workhorse function, to be implemented in each subclass.
+            </summary>
+            <param name="result">Result will be modified in place</param>
+        </member>
+        <member name="P:stringprep.steps.ProfileStep.Name">
+            <summary>
+            The name of the step.
+            </summary>
+        </member>
+        <member name="M:stringprep.steps.BidiStep.#ctor">
+            <summary>
+            Create a new BidiStep.
+            </summary>
+        </member>
+        <member name="M:stringprep.steps.BidiStep.Prepare(System.Text.StringBuilder)">
+            <summary>
+            Perform BiDi checks.
+            
+            From RFC 3454, Section 6:
+            In any profile that specifies bidirectional character handling, all
+            three of the following requirements MUST be met:
+            <ol>
+            <li>The characters in section 5.8 MUST be prohibited.</li>
+            <li>If a string contains any RandALCat character, the string MUST NOT
+            contain any LCat character.</li>
+            <li> If a string contains any RandALCat character, a RandALCat
+            character MUST be the first character of the string, and a
+            RandALCat character MUST be the last character of the string.</li>
+            </ol>
+            </summary>
+            <param name="result">Result is modified in place.</param>
+            <exception cref="T:stringprep.steps.BidiException">A BiDi problem exists</exception>
+        </member>
+        <!-- Badly formed XML comment ignored for member "T:stringprep.steps.ProhibitStep" -->
+        <member name="M:stringprep.steps.ProhibitStep.#ctor(System.Char[][],System.String)">
+            <param name="name"></param>
+        </member>
+        <member name="M:stringprep.steps.ProhibitStep.Contains(System.Char)">
+            <returns>True if the character is prohibited</returns>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:stringprep.steps.ProhibitStep.FindStringInTable(System.Text.StringBuilder)" -->
+        <member name="M:stringprep.steps.ProhibitStep.Prepare(System.Text.StringBuilder)">
+            <exception cref="T:stringprep.steps.ProhibitedCharacterException">Invalid character detected.</exception>
+        </member>
+        <!-- Badly formed XML comment ignored for member "T:stringprep.steps.MapStep" -->
+        <member name="M:stringprep.steps.MapStep.#ctor(System.String[],System.String)">
+            <param name="name"></param>
+        </member>
+        <member name="M:stringprep.steps.MapStep.Prepare(System.Text.StringBuilder)">
+            <param name="result">Result is modified in place.</param>
+        </member>
+        <member name="T:stringprep.steps.NFKCStep">
+            <summary>
+            Perform Unicode Normalization Form KC.
+            </summary>
+        </member>
+        <member name="M:stringprep.steps.NFKCStep.#ctor">
+            <summary>
+            Create an NFKC step.
+            </summary>
+        </member>
+        <member name="M:stringprep.steps.NFKCStep.Prepare(System.Text.StringBuilder)">
+            <summary>
+            Perform NFKC.  General overview: Decompose, Reorder, Compose
+            </summary>
+            <param name="result"></param>
+        </member>
+        <member name="M:stringprep.steps.NFKCStep.CanonicalOrdering(System.Text.StringBuilder)">
+            <summary>
+            Reorder characters in the given range into their correct cannonical ordering with
+            respect to combining class.
+            </summary>
+            <param name="buf">Buffer to reorder</param>
+        </member>
+        <!-- Badly formed XML comment ignored for member "T:stringprep.steps.ProhibitedCharacterException" -->
+        <!-- Badly formed XML comment ignored for member "F:stringprep.steps.ProhibitedCharacterException.InvalidChar" -->
+        <member name="M:stringprep.steps.ProhibitedCharacterException.#ctor(stringprep.steps.ProfileStep,System.Char)">
+            <param name="c">The offending character</param>
+        </member>
+        <member name="T:stringprep.RFC3454">
+            <summary>
+            Constants from RFC 3454, Stringprep.
+            </summary>
+        </member>
+        <member name="F:stringprep.RFC3454.A_1">
+            <summary>
+            A.1 Unassigned code points in Unicode 3.2
+            
+            </summary>
+        </member>
+        <member name="F:stringprep.RFC3454.B_1">
+            <summary>
+            B.1 Commonly mapped to nothing
+            
+            </summary>
+        </member>
+        <member name="F:stringprep.RFC3454.B_2">
+            <summary>
+            B.2 Mapping for case-folding used with NFKC
+            
+            </summary>
+        </member>
+        <member name="F:stringprep.RFC3454.B_3">
+            <summary>
+            B.3 Mapping for case-folding used with no normalization
+            
+            </summary>
+        </member>
+        <member name="F:stringprep.RFC3454.C_1_1">
+            <summary>
+            C.1.1 ASCII space characters
+            
+            </summary>
+        </member>
+        <member name="F:stringprep.RFC3454.C_1_2">
+            <summary>
+            C.1.2 Non-ASCII space characters
+                    /// </summary>
+        </member>
+        <member name="F:stringprep.RFC3454.C_2_1">
+            <summary>
+            C.2.1 ASCII control characters
+            
+            </summary>
+        </member>
+        <member name="F:stringprep.RFC3454.C_2_2">
+            <summary>
+            C.2.2 Non-ASCII control characters
+            
+            </summary>
+        </member>
+        <member name="F:stringprep.RFC3454.C_3">
+            <summary>
+            C.3 Private use
+            
+            </summary>
+        </member>
+        <member name="F:stringprep.RFC3454.C_4">
+            <summary>
+            C.4 Non-character code points
+            
+            </summary>
+        </member>
+        <member name="F:stringprep.RFC3454.C_5">
+            <summary>
+            C.5 Surrogate codes
+            
+            </summary>
+        </member>
+        <member name="F:stringprep.RFC3454.C_6">
+            <summary>
+            C.6 Inappropriate for plain text
+            
+            </summary>
+        </member>
+        <member name="F:stringprep.RFC3454.C_7">
+            <summary>
+            C.7 Inappropriate for canonical representation
+            
+            </summary>
+        </member>
+        <member name="F:stringprep.RFC3454.C_8">
+            <summary>
+            C.8 Change display properties or are deprecated
+            
+            </summary>
+        </member>
+        <member name="F:stringprep.RFC3454.C_9">
+            <summary>
+            C.9 Tagging characters
+            
+            </summary>
+        </member>
+        <member name="F:stringprep.RFC3454.D_1">
+            <summary>
+            D.1 Characters with bidirectional property "R" or "AL"
+            
+            </summary>
+        </member>
+        <member name="F:stringprep.RFC3454.D_2">
+            <summary>
+            D.2 Characters with bidirectional property "L"
+            
+            </summary>
+        </member>
+        <member name="T:stringprep.unicode.Combining">
+            <summary>
+            Combining classes for Unicode characters.
+            </summary>
+        </member>
+        <member name="M:stringprep.unicode.Combining.Class(System.Char)">
+            <summary>
+            What is the combining class for the given character?
+            </summary>
+            <param name="c">Character to look up</param>
+            <returns>Combining class for this character</returns>
+        </member>
+        <member name="T:stringprep.unicode.CombiningData">
+            <summary>
+            Combining class lookup tables.
+            </summary>
+        </member>
+        <member name="F:stringprep.unicode.CombiningData.Classes">
+            <summary>
+            Combining classes for different pages.  All pages
+            unspecified here will return combining class 0.
+            </summary>
+        </member>
+        <member name="F:stringprep.unicode.CombiningData.Pages">
+            <summary>
+            Offset into the Classes array for each page, since Classes
+            is sparse.
+            255 here means that all of the combining classes for that page
+            are 0.
+            </summary>
+        </member>
+        <member name="T:stringprep.unicode.Compose">
+            <summary>
+            Combine combining characters, where possible.
+            Note: this is still Black Magic, as far as I can tell.
+            </summary>
+        </member>
+        <member name="M:stringprep.unicode.Compose.Combine(System.Char,System.Char,System.Char@)">
+            <summary>
+            Combine two characters together, if possible.
+            </summary>
+            <param name="a">First character to combine</param>
+            <param name="b">Second character to combine</param>
+            <param name="result">The combined character, if method returns true.  Otherwise, undefined.</param>
+            <returns>True if combination occurred</returns>
+        </member>
+        <member name="T:stringprep.unicode.ComposeData">
+            <summary>
+            Data for composition of characters.  The algorithms here are still black box to me.
+            </summary>
+        </member>
+        <member name="F:stringprep.unicode.ComposeData.FIRST_START">
+            <summary>
+            Where the first range of offsets from Data starts.
+            These are used for checking the first character
+            in a pair with a second character in Array.
+            </summary>
+        </member>
+        <member name="F:stringprep.unicode.ComposeData.FIRST_SINGLE_START">
+            <summary>
+            Where the offsets of the range of characters where there is 
+            only one match for the second character, with a given first character.
+            </summary> 
+        </member>
+        <member name="F:stringprep.unicode.ComposeData.SECOND_START">
+            <summary>
+            Where the offsets of the range of second characters that match a given first
+            character starts.
+            </summary> 
+        </member>
+        <member name="F:stringprep.unicode.ComposeData.SECOND_SINGLE_START">
+            <summary>
+            When there is only a single match to the left for these characters on the
+            right, the offsets for that chunk of characters starts here.
+            </summary> 
+        </member>
+        <member name="F:stringprep.unicode.ComposeData.Data">
+            <summary>
+            The offset into Array for each character.  This array is compressed using
+            the Table table, which provides page offsets for the pages that are non-zero.
+            </summary> 
+        </member>
+        <member name="F:stringprep.unicode.ComposeData.Table">
+            <summary>
+            Page offsets into Data for each page of characters.
+            </summary> 
+        </member>
+        <member name="F:stringprep.unicode.ComposeData.FirstSingle">
+            <summary>
+            When the offset for the  first character is in the range 
+            [FIRST_SINGLE_START, SECOND_START), look up the corresponding 
+            character here with the offset from Data to see if it is 
+            the second character.  If not, there is no combination.
+            </summary> 
+        </member>
+        <member name="F:stringprep.unicode.ComposeData.SecondSingle">
+            <summary>
+            When the offset for the second character is in the range 
+            [SECOND_SINGLE_START...), look up the corresponding 
+            character here with the offset from Data to see if it is 
+            the first character.  If not, there is no combination.
+            </summary> 
+        </member>
+        <member name="F:stringprep.unicode.ComposeData.Array">
+            <summary>
+            Array of composition pairs, indexed by offset (from Data) of first
+            character, and offset of second character.
+            </summary> 
+        </member>
+        <member name="T:stringprep.unicode.Decompose">
+            <summary>
+            Decomposition data for NFKC.
+            </summary>
+        </member>
+        <member name="M:stringprep.unicode.Decompose.Find(System.Char)">
+            <summary>
+            Look up the expansion, if any, for the given character.
+            </summary>
+            <param name="ch">The character to find</param>
+            <returns>the expansion, or null if none found.</returns>
+        </member>
+        <member name="T:stringprep.unicode.DecomposeData">
+            <summary>
+            Decomposition data for NFKC.
+            </summary>
+        </member>
+        <member name="F:stringprep.unicode.DecomposeData.Offsets">
+            <summary>
+            Offset into the Expansion string for each decomposable character.
+            One way to make this faster might be to have this not be sparse, so that the lookup
+            could be direct rather than a binary search.  That would add several hundred K to the
+            library size, though, or time at startup to initialize an array from this.
+            </summary>
+        </member>
+        <member name="F:stringprep.unicode.DecomposeData.Expansion">
+            <summary>
+            How to expand characters.  Since multiple input characters
+            output the same string, this table is compressed to only
+            have one copy of each, and the Offsets table
+            gives offsets into this for each input.
+            </summary>
+        </member>
+        <member name="T:stringprep.Nameprep">
+            <summary>
+            RFC 3491, "nameprep" profile, for internationalized domain names.
+            </summary>
+        </member>
+        <member name="T:stringprep.Profile">
+            <summary>
+            Summary description for Prep.
+            </summary>
+        </member>
+        <member name="F:stringprep.Profile.B_1">
+            <summary>
+            RFC 3454, Appendix B.1
+            </summary>
+        </member>
+        <member name="F:stringprep.Profile.B_2">
+            <summary>
+            RFC 3454, Appendix B.2
+            </summary>
+        </member>
+        <member name="F:stringprep.Profile.B_3">
+            <summary>
+            RFC 3454, Appendix B.3
+            </summary>
+        </member>
+        <member name="F:stringprep.Profile.C_1_1">
+            <summary>
+            RFC 3454, Appendix C.1.1
+            </summary>        
+        </member>
+        <member name="F:stringprep.Profile.C_1_2">
+            <summary>
+            RFC 3454, Appendix C.1.2
+            </summary>        
+        </member>
+        <member name="F:stringprep.Profile.C_2_1">
+            <summary>
+            RFC 3454, Appendix C.2.1
+            </summary>        
+        </member>
+        <member name="F:stringprep.Profile.C_2_2">
+            <summary>
+            RFC 3454, Appendix C.2.2
+            </summary>        
+        </member>
+        <member name="F:stringprep.Profile.C_3">
+            <summary>
+            RFC 3454, Appendix C.3
+            </summary>        
+        </member>
+        <member name="F:stringprep.Profile.C_4">
+            <summary>
+            RFC 3454, Appendix C.4
+            </summary>        
+        </member>
+        <member name="F:stringprep.Profile.C_5">
+            <summary>
+            RFC 3454, Appendix C.5
+            </summary>        
+        </member>
+        <member name="F:stringprep.Profile.C_6">
+            <summary>
+            RFC 3454, Appendix C.6
+            </summary>        
+        </member>
+        <member name="F:stringprep.Profile.C_7">
+            <summary>
+            RFC 3454, Appendix C.7
+            </summary>        
+        </member>
+        <member name="F:stringprep.Profile.C_8">
+            <summary>
+            RFC 3454, Appendix C.8
+            </summary>        
+        </member>
+        <member name="F:stringprep.Profile.C_9">
+            <summary>
+            RFC 3454, Appendix C.9
+            </summary>        
+        </member>
+        <member name="F:stringprep.Profile.NFKC">
+            <summary>
+            RFC 3454, Section 4
+            </summary>
+        </member>
+        <member name="F:stringprep.Profile.BIDI">
+            <summary>
+            RFC 3454, Section 6
+            </summary>
+        </member>
+        <member name="F:stringprep.Profile.UNASSIGNED">
+            <summary>
+            RFC 3454, Section 7
+            </summary>
+        </member>
+        <member name="M:stringprep.Profile.#ctor(stringprep.steps.ProfileStep[])">
+            <summary>
+            Create a new profile, with the given steps.
+            </summary>
+            <param name="profile">The steps to perform</param>
+        </member>
+        <member name="M:stringprep.Profile.Prepare(System.String)">
+            <summary>
+            Prepare a string, according to the specified profile.
+            </summary>
+            <param name="input">The string to prepare</param>
+            <returns>The prepared string</returns>
+        </member>
+        <member name="M:stringprep.Profile.Prepare(System.Text.StringBuilder)">
+            <summary>
+            Prepare a string, according to the specified profile, in place.
+            Not thread safe; make sure the input is locked, if appropriate.
+            (this is the canonical version, that should be overriden by
+            subclasses if necessary)
+            </summary>
+            <param name="result">The string to prepare in place</param>
+        </member>
+        <member name="M:stringprep.Nameprep.#ctor">
+            <summary>
+            Create a nameprep instance.
+            </summary>
+        </member>
+        <member name="T:stringprep.Plain">
+            <summary>
+            A relatively plain stringprep profile, that doesn't do case folding, or prevent unassigned characters.
+            </summary>
+        </member>
+        <member name="M:stringprep.Plain.#ctor">
+            <summary>
+            Create a Plain instance.
+            </summary>
+        </member>
+        <member name="T:stringprep.XmppNode">
+            <summary>
+            A stringprep profile for draft-ietf-xmpp-nodeprep-02, for Jabber nodes (the "user" part).
+            </summary>
+        </member>
+        <member name="M:stringprep.XmppNode.#ctor">
+            <summary>
+            Create a new XmppNode profile instance.
+            </summary>
+        </member>
+        <member name="T:stringprep.XmppResource">
+            <summary>
+            A stringprep profile for draft-ietf-xmpp-resourceprep-02, used for Jabber resources.
+            </summary>
+        </member>
+        <member name="M:stringprep.XmppResource.#ctor">
+            <summary>
+            Create an instance of an XmppResource
+            </summary>
+        </member>
+    </members>
+</doc>

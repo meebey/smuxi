@@ -1,0 +1,338 @@
+<html>
+    <head>
+        <title>Jabber-Net Home Page</title>
+        <meta name="vs_targetSchema" content="http://schemas.microsoft.com/intellisense/ie5">
+        <style TYPE="text/css"> <!-- body { font-family: Verdana, Arial, Helvetica }
+	.notes { color: #008080; font-family: Technical, Arial, Helvetica; text-decoration: none; vertical-align: top; font-weight: bold }
+	.topic { color: #FFFFFF; font-family: Verdana, Arial, Helvetica; text-decoration: none; vertical-align: top; font-weight: bold; background-color: #606060 }
+	.links { color: #FFFFFF; font-family: Verdana, Arial, Helvetica; text-decoration:none; }
+	.links:Visited { color: #FFFFFF; font-family: Verdana, Arial, Helvetica; text-decoration:none; }
+	.links:hover { color: #008080; font-family: Verdana, Arial, Helvetica; text-decoration: none; }
+	.links:Active { color: #606060; font-family: Verdana, Arial, Helvetica; text-decoration:none; }
+	.here { color: #000000; font-family: Verdana, Arial, Helvetica; text-decoration: none; }
+	.here:visited { color: #000000; font-family: Verdana, Arial, Helvetica; text-decoration: none; }
+	.here:hover { color: #008080; font-family: Verdana, Arial, Helvetica; text-decoration: none; }
+	.here:Active { color: #606060; font-family: Verdana, Arial, Helvetica; text-decoration:none; }
+	td { font-family: Verdana, Arial, Helvetica }
+	ul { font-family: Verdana, Arial, Helvetica }
+	h3 { font-family: Verdana, Arial, Helvetica; Color: #303030}
+	--> 
+        </style>
+    </head>
+    <body bgcolor="#ffffff">
+        <div class="topic">Jabber.Net</div>
+        <p>A set of libraries for connecting to <a href="http://www.jabber.org/">Jabber</a> 
+            using <a href="http://msdn.microsoft.com/net">.Net</a> technology.</p>
+        <p>
+            <b>Note:&nbsp;<br>
+            </b>No, there are no current plans for a server implementation.&nbsp; If you 
+            are interested in leading a sub-project to do that, drop me a line.
+        </p>
+        <p><b>WHAT IS JABBER-NET?</b></p>
+        <p>Jabber-Net is a set of libraries for accessing Jabber functionality from .Net. 
+            It is written in C#, but should be accessible from other .Net languages such as 
+            VB.Net. Components exist for connecting to a Jabber server either as a client 
+            or as a component. As you explore, you'll find there are some other goodies 
+            buried inside, like Trees, CommandLine processing, etc.</p>
+        <p>If you wanted to use JabberCOM from .Net, but had difficulties, you should try 
+            Jabber-Net instead.</p>
+        <p><b>HOW DO I USE JABBER-NET?</b></p>
+        <ul>
+            <li>
+            Create a new windows app in VS.Net.
+            <li>
+            Right-click in toolbox, select Customize Toolbox
+            <li>
+            Select .the .Net Framework Components tab
+            <li>
+            Click browse, and select jabber-net.dll, prefereably in the bin/Debug 
+            directory, where it gets built
+            <li>
+            Do the same for muzzle.dll (UI elements) if you want
+            <li>
+            Click OK, to add a the components
+            <li>
+            Drop a JabberClient component on your form
+            <li>
+            Set connection parameters in the property box
+            <li>
+            Call jabberClient1.Connect() in the Form.OnLoad event handler
+            <li>
+            Go to events in the property box (the lightning bolt), double-click OnMessage
+            <li>
+                Write code to handle Message's, like this:</li>
+        </ul>
+        <pre>
+private void jabberClient1_OnMessage(object sender, Message msg)
+{
+  jabber.protocol.client.Message reply = new jabber.protocol.client.Message(jabberClient1.Document);			
+  reply.Body = "Hello!";
+  reply.To = msg.From;
+  jabberClient1.Write(reply);
+}
+</pre>
+        <p>Note that packet types such as Message are sub-classes of XmlElement with 
+            easy-to-use getters and setters.</p>
+        <p><b>HOW DO I MODIFY THE ROSTER?</b></p>
+        <P>Just drop a jabber.client.RosterManager on the same form as your 
+            jabber.client.JabberClient (you *have* followed the directions in this file to 
+            get them into your toolbox, right?) Set the Client property on the 
+            RosterManager to your JabberClient instance, and you’re up and running.</P>
+        <P>RosterManager is currently more for local caching of your roster, and not for 
+            setting things. That, unfortunately, has to be done relatively manually for 
+            now. I’d suggest something like this:
+        </P>
+        <p><pre><FONT color=#009900>// &lt;iq id="jcl_7" type="set"&gt;
+//   &lt;query xmlns="jabber:iq:roster"&gt;
+//     &lt;item jid="cnn@rss.rifetech.com" name="cnn rss"&gt;
+//       &lt;group&gt;RSS&lt;/group&gt;
+//     &lt;/item&gt;
+//   &lt;/query&gt;
+// &lt;/iq&gt;</FONT>
+
+jabber.protocol.iq.RosterIQ riq = new jabber.protocol.iq.RosterIQ(jabberClient1.Document);
+riq.Type = jabber.protocol.client.IQType.set;
+jabber.protocol.iq.Roster r =  (jabber.protocol.iq.Roster) riq.Query;
+jabber.protocol.iq.Item i = r.AddItem();
+i.JID = "cnn@rss.rifetech.com";
+i.Nickname = "cnn rss";
+i.AddGroup("RSS");
+jabberClient1.Write(riq);</pre>
+        <p><b>HOW DO I ADD MY OWN PACKET TYPES?</b></p>
+        <p>(thanks to Tom Waters for this)</p>
+        <p>Say you want to use a new packet type like this:</p>
+        <p class="MsoNormal" style="mso-layout-grid-align:none"><span style="FONT-SIZE:
+10pt;COLOR:
+blue;FONT-FAMILY:
+'Courier New'">&lt;!</span><span style="FONT-SIZE:10pt;COLOR:green;FONT-FAMILY:'Courier New'">-- 
+                get your own list of all your objects... --</span><span style="FONT-SIZE:10pt;COLOR:blue;FONT-FAMILY:'Courier New'">&gt;</span><span style="FONT-SIZE:
+10pt;COLOR:
+blue;FONT-FAMILY:
+'Courier New'"><br>
+                &lt;</span><span style="FONT-SIZE:
+10pt;COLOR:
+maroon;FONT-FAMILY:
+'Courier New'">iq</span><span style="FONT-SIZE:
+10pt;COLOR:
+fuchsia;FONT-FAMILY:
+'Courier New'"> </span><span style="FONT-SIZE:
+10pt;COLOR:
+red;FONT-FAMILY:
+'Courier New'">type</span><span style="FONT-SIZE:
+10pt;COLOR:
+blue;FONT-FAMILY:
+'Courier New'">='get'</span><span style="FONT-SIZE:10pt;COLOR:fuchsia;FONT-FAMILY:'Courier New'">
+            </span><span style="FONT-SIZE:10pt;COLOR:red;FONT-FAMILY:'Courier New'">to</span><span style="FONT-SIZE:10pt;COLOR:blue;FONT-FAMILY:'Courier New'">='self'</span><span style="FONT-SIZE:10pt;COLOR:fuchsia;FONT-FAMILY:'Courier New'">
+            </span><span style="FONT-SIZE:10pt;COLOR:red;FONT-FAMILY:'Courier New'">id</span><span style="FONT-SIZE:10pt;COLOR:blue;FONT-FAMILY:'Courier New'">='n0'&gt;</span><span style="FONT-SIZE:
+10pt;FONT-FAMILY:
+'Courier New'"><span style="mso-spacerun: yes"><br>
+                    &nbsp;</span><span style="COLOR:blue">&lt;</span><span style="COLOR:maroon">query</span><span style="COLOR:fuchsia">
+                </span><span style="COLOR:red">xmlns</span><span style="COLOR:blue">='your:namespace'/&gt;</span></span><span style="FONT-SIZE:
+10pt;COLOR:
+blue;FONT-FAMILY:
+'Courier New'"><br>
+                &lt;/</span><span style="FONT-SIZE:10pt;COLOR:maroon;FONT-FAMILY:'Courier New'">iq</span><span style="FONT-SIZE:10pt;COLOR:blue;FONT-FAMILY:'Courier New'">&gt;</span></p>
+        <p class="MsoNormal" style="mso-layout-grid-align:none"><span style="FONT-SIZE:
+10pt;COLOR:
+blue;FONT-FAMILY:
+'Courier New'">&lt;!</span><span style="FONT-SIZE:10pt;COLOR:green;FONT-FAMILY:'Courier New'">-- 
+                reply with list of objects... --</span><span style="FONT-SIZE:10pt;COLOR:blue;FONT-FAMILY:'Courier New'">&gt;</span><span style="FONT-SIZE:
+10pt;COLOR:
+blue;FONT-FAMILY:
+'Courier New'"><br>
+                &lt;</span><span style="FONT-SIZE:
+10pt;COLOR:
+maroon;FONT-FAMILY:
+'Courier New'">iq</span><span style="FONT-SIZE:
+10pt;COLOR:
+fuchsia;FONT-FAMILY:
+'Courier New'"> </span><span style="FONT-SIZE:
+10pt;COLOR:
+red;FONT-FAMILY:
+'Courier New'">type</span><span style="FONT-SIZE:
+10pt;COLOR:
+blue;FONT-FAMILY:
+'Courier New'">='result'</span><span style="FONT-SIZE:10pt;COLOR:fuchsia;FONT-FAMILY:'Courier New'">
+            </span><span style="FONT-SIZE:10pt;COLOR:red;FONT-FAMILY:'Courier New'">to</span><span style="FONT-SIZE:10pt;COLOR:blue;FONT-FAMILY:'Courier New'">='self'</span><span style="FONT-SIZE:10pt;COLOR:fuchsia;FONT-FAMILY:'Courier New'">
+            </span><span style="FONT-SIZE:10pt;COLOR:red;FONT-FAMILY:'Courier New'">id</span><span style="FONT-SIZE:10pt;COLOR:blue;FONT-FAMILY:'Courier New'">='n0'&gt;</span><span style="FONT-SIZE:
+10pt;FONT-FAMILY:
+'Courier New'"><span style="mso-spacerun: yes"><br>
+                    &nbsp;</span><span style="COLOR:blue">&lt;</span><span style="COLOR:maroon">query</span><span style="COLOR:fuchsia">
+                </span><span style="COLOR:red">xmlns</span><span style="COLOR:blue">='your:namespace'&gt;</span><span style="mso-spacerun: yes"><br>
+                    &nbsp; </span><span style="COLOR:blue">&lt;</span><span style="COLOR:maroon">yourobj</span><span style="COLOR:fuchsia">
+                </span><span style="COLOR:red">key</span><span style="COLOR:blue">='Object1'</span><span style="COLOR:fuchsia">
+                </span><span style="COLOR:red">other</span><span style="COLOR:blue">='value1'/&gt;</span></span><span style="FONT-SIZE:
+10pt;COLOR:
+blue;FONT-FAMILY:
+'Courier New'"><span style="mso-spacerun:
+yes"><br>
+                    &nbsp;</span>&lt;/</span><span style="FONT-SIZE:10pt;COLOR:maroon;FONT-FAMILY:'Courier New'">query</span><span style="FONT-SIZE:10pt;COLOR:blue;FONT-FAMILY:'Courier New'">&gt;<br>
+                &lt;/</span><span style="FONT-SIZE:10pt;COLOR:maroon;FONT-FAMILY:'Courier New'">iq</span><span style="FONT-SIZE:10pt;COLOR:blue;FONT-FAMILY:'Courier New'">&gt;</span></p>
+        <p>In order to get the inbound connection to create objects of your class, rather 
+            than just plain XmlElements, you need to create a Factory class, and register 
+            it with your connection object in the OnStreamInit event.</p>
+        <p class="MsoNormal" style="mso-layout-grid-align:none"><span style="FONT-SIZE:
+10pt;FONT-FAMILY:
+'Courier New'"><span style="COLOR:blue">private</span> <span style="COLOR:blue">void</span> jabberClient_OnStreamInit(<span style="COLOR:blue">object</span>
+                sender, <span style="COLOR:blue">ElementStream</span> stream)<span style="mso-tab-count:1"><br>
+                </span>{<span style="mso-tab-count:1"><br>
+                    &nbsp;&nbsp;&nbsp; </span>stream.AddFactory(<span style="COLOR:blue">new</span>
+                your.protocol.Factory());</span><span style="FONT-SIZE:10pt;FONT-FAMILY:'Courier New'"><span style="mso-tab-count:1"><br>
+                </span>}</span></p>
+        <p>For an example of a factory class, see <a href="mk:@MSITStore:C:/src/jabber-net/docs/jabber-net.chm::/jabber.protocol.iq.Factory.html">
+                jabber.protocol.iq.Factory</a>.</p>
+        <p>Next, make sure you implement both of these constructors for your type:</p>
+        <p class="MsoNormal" style="mso-layout-grid-align:none"><span style="FONT-SIZE:
+10pt;COLOR:
+blue;FONT-FAMILY:
+'Courier New'"><span style="FONT-SIZE:10pt;COLOR:blue;FONT-FAMILY:'Courier New';mso-fareast-font-family:'Times New Roman';mso-ansi-language:EN-US;mso-fareast-language:EN-US;mso-bidi-language:AR-SA">namespace</span><span style="FONT-SIZE:10pt;FONT-FAMILY:'Courier New';mso-fareast-font-family:'Times New Roman';mso-ansi-language:EN-US;mso-fareast-language:EN-US;mso-bidi-language:AR-SA">
+                    your.protocol<br>
+                </span></span><span style="FONT-SIZE:10pt;FONT-FAMILY:'Courier New'">{</span><span style="FONT-SIZE:
+10pt;COLOR:
+blue;FONT-FAMILY:
+'Courier New'"><span style="FONT-SIZE:10pt;FONT-FAMILY:'Courier New';mso-fareast-font-family:'Times New Roman';mso-ansi-language:EN-US;mso-fareast-language:EN-US;mso-bidi-language:AR-SA"><br>
+                    &nbsp;&nbsp; </span>public</span><span style="FONT-SIZE:10pt;FONT-FAMILY:'Courier New'">
+                <span style="COLOR:blue">class</span> YourQuery : Element&nbsp;<br>
+                &nbsp;&nbsp; {<br>
+                <span style="FONT-SIZE:
+10pt;COLOR:
+blue;FONT-FAMILY:
+'Courier New'">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; public</span> <span style="COLOR:blue">const</span>
+                <span style="COLOR:blue">string</span> YOUR_NS<span style="mso-spacerun: yes">&nbsp;
+                </span>= "your:namespace";</span><span style="FONT-SIZE:
+10pt;FONT-FAMILY:
+'Courier New'"><span style="mso-tab-count:1"><br>
+                    <br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span style="COLOR:blue">public</span>
+                YourQuery(XmlDocument doc) : <span style="COLOR:blue">base</span>("query", 
+                YOUR_NS, doc)&nbsp;<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {}<br>
+                <span style="mso-tab-count:1">
+                    <br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>// this constructor is used by the 
+                Factory!<span style="mso-tab-count:1"><br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span style="COLOR:blue">public</span>
+                YourQuery(<span style="COLOR:blue">string</span> prefix, XmlQualifiedName 
+                qname, XmlDocument doc) :</span>&nbsp;<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="FONT-SIZE:10pt;COLOR:blue;FONT-FAMILY:'Courier New'">
+                base</span><span style="FONT-SIZE:10pt;FONT-FAMILY:'Courier New'">(prefix, 
+                qname, doc)&nbsp;<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {}<br>
+            </span><span style="FONT-SIZE:
+10pt;FONT-FAMILY:
+'Courier New'"><span style="FONT-SIZE: 10pt; FONT-FAMILY: Courier New">&nbsp;&nbsp; </span><span style="mso-tab-count:1">
+                    }<br>
+                    <br>
+                    <br>
+                </span></span>&nbsp;&nbsp;&nbsp; <span style="FONT-SIZE:
+10pt;COLOR:
+blue;FONT-FAMILY:
+'Courier New'">public</span><span style="FONT-SIZE:10pt;FONT-FAMILY:'Courier New'"> <span style="COLOR:blue">
+                    class</span> Factory : jabber.protocol.IPacketTypes&nbsp;<br>
+                &nbsp;&nbsp; {</span><span style="FONT-SIZE:
+10pt;FONT-FAMILY:
+'Courier New'"><span style="mso-tab-count:1"><br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span style="COLOR:blue">private</span>
+                <span style="COLOR:blue">static</span> QnameType[] s_qnt = <span style="COLOR:blue">
+                    new</span> QnameType[]&nbsp;<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span style="COLOR:blue">new</span>
+                QnameType("query", YourQuery.YOUR_NS, <span style="COLOR:blue">typeof</span>(YourQuery))<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // Add other types here, 
+                perhaps sub-elements of query...</span><br>
+            <span style="FONT-SIZE:
+10pt;FONT-FAMILY:
+'Courier New'"><span style="mso-tab-count: 1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>};<span style="mso-tab-count:1"><br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>QnameType[] IPacketTypes.Types { <span style="COLOR:blue">
+                    get</span> { <span style="COLOR:blue">return</span> s_qnt; } }<span style="mso-tab-count:1"><br>
+                    &nbsp;&nbsp; </span>}<br>
+                <span style="mso-tab-count:1">}</span></span></p>
+        <p>One more note.&nbsp; Most of the classes you are liable to write should derive 
+            from <a href="mk:@MSITStore:C:/src/jabber-net/docs/jabber-net.chm::/jabber.protocol.Element.html">
+                jabber.protocol.Element</a>.&nbsp; <a href="mk:@MSITStore:C:/src/jabber-net/docs/jabber-net.chm::/jabber.protocol.Packet.html">
+                jabber.protocol.Packet</a> is for top-level jabber packets, like 
+            &lt;message/&gt;, &lt;iq/&gt;, and &lt;presence/&gt;.</p>
+        <p><b>HOW DO I REGISTER A NEW USER?</b></p>
+        <P>Set AutoLogin to false.&nbsp;&nbsp; Do something like this:</P>
+        <P><SPAN style="FONT-SIZE: 10pt; COLOR: blue; FONT-FAMILY: 'Courier New'">void</SPAN><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: 'Courier New'">
+                jabberClient1_OnLoginRequired(<SPAN style="COLOR: blue">object</SPAN> sender)<BR>
+            </SPAN><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: 'Courier New'">{<BR>
+            </SPAN><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: 'Courier New'"><SPAN style="mso-spacerun: yes">
+                    &nbsp;&nbsp;&nbsp; </SPAN>RegisterIQ riq = <SPAN style="COLOR: blue">new</SPAN>
+                RegisterIQ(jc.Document);<BR>
+            </SPAN><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: 'Courier New'"><SPAN style="mso-spacerun: yes">
+                    &nbsp;&nbsp;&nbsp; </SPAN>riq.Type = IQType.<SPAN style="COLOR: blue">get</SPAN>;<BR>
+            </SPAN><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: 'Courier New'"><SPAN style="mso-spacerun: yes">
+                    &nbsp;&nbsp;&nbsp; </SPAN>Register r = (Register)riq.Query;<BR>
+            </SPAN><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: 'Courier New'"><SPAN style="mso-spacerun: yes">
+                    &nbsp;&nbsp;&nbsp; </SPAN>r.Username = txtUser.Text;<BR>
+            </SPAN><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: 'Courier New'"><SPAN style="mso-spacerun: yes">
+                    &nbsp;&nbsp;&nbsp; </SPAN>jabberClient1.Tracker.BeginIQ(riq, <SPAN style="COLOR: blue">
+                    new</SPAN> IqCB(GotRegisterGet), <SPAN style="COLOR: blue">null</SPAN>);<BR>
+            </SPAN><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: 'Courier New'">}</SPAN></P>
+        <P class="MsoNormal" style="mso-layout-grid-align: none"><SPAN style="FONT-SIZE: 10pt; COLOR: blue; FONT-FAMILY: 'Courier New'">void</SPAN><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: 'Courier New'">
+                GotRegisterGet(<SPAN style="COLOR: blue">object</SPAN> sender, IQ iq, <SPAN style="COLOR: blue">
+                    object</SPAN> state)<BR>
+            </SPAN><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: 'Courier New'">{<BR>
+            </SPAN><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: 'Courier New'"><SPAN style="mso-spacerun: yes">
+                    &nbsp;&nbsp;&nbsp; </SPAN><SPAN style="COLOR: green">// TODO: look in iq to see 
+                    if user already registered, and ensure&nbsp;<BR>
+                </SPAN></SPAN><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: 'Courier New'"><SPAN style="mso-spacerun: yes">
+                    &nbsp;&nbsp;&nbsp; </SPAN><SPAN style="COLOR: green">// that we get all of the 
+                    correct fields filled out.<BR>
+                </SPAN></SPAN><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: 'Courier New'"><SPAN style="mso-spacerun: yes">
+                    &nbsp;&nbsp;&nbsp; </SPAN>RegisterIQ riq = <SPAN style="COLOR: blue">new</SPAN>
+                RegisterIQ(jc.Document);<BR>
+            </SPAN><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: 'Courier New'"><SPAN style="mso-spacerun: yes">
+                    &nbsp;&nbsp;&nbsp; </SPAN>Register r = (Register)riq.Query;<BR>
+            </SPAN><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: 'Courier New'"><SPAN style="mso-spacerun: yes">
+                    &nbsp;&nbsp;&nbsp; </SPAN>riq.Type = IQType.<SPAN style="COLOR: blue">set</SPAN>;<BR>
+            </SPAN><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: 'Courier New'"><SPAN style="mso-spacerun: yes">
+                    &nbsp;&nbsp;&nbsp; </SPAN>r.Username = txtUser.Text;<BR>
+            </SPAN><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: 'Courier New'"><SPAN style="mso-spacerun: yes">
+                    &nbsp;&nbsp;&nbsp; </SPAN>r.Password = txtPass.Text;<BR>
+            </SPAN><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: 'Courier New'"><SPAN style="mso-spacerun: yes">
+                    &nbsp;&nbsp;&nbsp; jabberClient1</SPAN>.Tracker.BeginIQ(riq, <SPAN style="COLOR: blue">
+                    new</SPAN> IqCB(GotRegisterSet), <SPAN style="COLOR: blue">null</SPAN>);<BR>
+            </SPAN><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: 'Courier New'">}
+                <o:p></o:p></SPAN></P>
+        <P class="MsoNormal" style="mso-layout-grid-align: none"><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: 'Courier New'">
+                <o:p></o:p></SPAN></P>
+        <SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: 'Courier New'">
+            <P class="MsoNormal" style="mso-layout-grid-align: none"><SPAN style="FONT-SIZE: 10pt; COLOR: blue; FONT-FAMILY: 'Courier New'">void</SPAN><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: 'Courier New'">
+                    GotRegisterSet(<SPAN style="COLOR: blue">object</SPAN> sender, IQ iq, <SPAN style="COLOR: blue">
+                        object</SPAN> state)<BR>
+                </SPAN><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: 'Courier New'">{<BR>
+                </SPAN><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: 'Courier New'"><SPAN style="mso-spacerun: yes">
+                        &nbsp;&nbsp;&nbsp; </SPAN><SPAN style="COLOR: blue">if</SPAN> (iq.Type != 
+                    IQType.error)<BR>
+                </SPAN><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: 'Courier New'"><SPAN style="mso-spacerun: yes">
+                        &nbsp;&nbsp;&nbsp; </SPAN>{<BR>
+                </SPAN><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: 'Courier New'"><SPAN style="mso-spacerun: yes">
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; jabberClient1</SPAN>.User = 
+                    txtUser.Text;<BR>
+                </SPAN><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: 'Courier New'"><SPAN style="mso-spacerun: yes">
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; jabberClient1</SPAN>.Password = 
+                    txtPass.Text;<BR>
+                </SPAN><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: 'Courier New'"><SPAN style="mso-spacerun: yes">
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; jabberClient1</SPAN>.Login();<BR>
+                </SPAN><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: 'Courier New'"><SPAN style="mso-spacerun: yes">
+                        &nbsp;&nbsp;&nbsp; </SPAN>}<BR>
+                </SPAN><SPAN style="FONT-SIZE: 10pt; FONT-FAMILY: 'Courier New'">}
+                    <o:p></o:p></SPAN></P>
+        </SPAN>
+        <P></P>
+        <P><B>HOW DO I FIND OUT MORE?</B></P>
+        <p>Included in both the source, CVS, and the binary release is a <a href="http://msdn.microsoft.com/library/default.asp?url=/library/en-us/htmlhelp/html/vsconHH1Start.asp">
+                .chm</a> file, generated with <a href="http://ndoc.sourceforge.net/">NDoc</a>, 
+            which fully documents the API.&nbsp; If you prefer javadoc-style, you should be 
+            able to generate it pretty easily.</p>
+        <p><b>WHERE DO I FIND JABBER-NET?</b></p>
+        <p><A href="http://sourceforge.net"><IMG src="http://sourceforge.net/sflogo.php?group_id=30092" border="0" alt="SourceForge Logo" align="left"></A>
+            The project <font color="#ff0000">HAS BEEN MOVED</font> to <a href="http://jabber-net.jabberstudio.org">
+                http://jabber-net.jabberstudio.org</a>, and the JabberStudio project is at 
+            TBD.&nbsp; Join the <a href="http://lists.sourceforge.net/lists/listinfo/jabber-net-developers">
+                mailing list</a> to get involved.</p>
+        <p>For more information, contact <a href="mailto:joe-sourceforge@cursive.net">joe-sourceforge@cursive.net</a>.</p>
+    </body>
+</html>

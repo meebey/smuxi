@@ -1,0 +1,72 @@
+<?xml version="1.0"?>
+<project default="test" name="VB.Example">
+  <property name="debug" value="true"/>
+  <property name="dir.bin" value="..\bin"/>
+  <property name="dir.lib" value="..\lib"/>
+  <property name="dir.dist" value="..\dist"/>
+  <property name="target.type" value="winexe"/>
+  <property name="project.FormalName" value="VB.Example"/>
+  <target name="init" description="Initialize properties for the build" depends="init-Debug,init-Release">
+	<tstamp/>
+	<mkdir dir="${dir.bin}"/>
+	<property name="project.output" value="${project.FormalName}.exe"/>
+	<property name="dist.name" value="${dir.dist}\${project.FormalName}"/>
+	<property name="vbc.optionCompare" value=""/>
+	<property name="vbc.optionExplicit" value="false"/>
+	<property name="vbc.optionStrict" value="false"/>
+	<property name="rootNamespace" value="VB.Example"/>
+  </target>
+  <target name="init-Debug" if="${debug}">
+	<property name="define" value="DEBUG;TRACE"/>
+	<property name="optimize" value="false"/>
+	<property name="incremental" value="false"/>
+	<property name="unsafe" value="/unsafe-"/>
+	<property name="debug" value="true"/>
+	<property name="removeintchecks" value="false"/>
+	<property name="tdir" value="Debug"/>	
+	<property name="dir.output" value="${dir.bin}\${tdir}"/>	
+	<mkdir dir="${dir.output}"/>
+<!--	<property name="doc" value="${dir.output}/${project.FormalName}.xml"/> -->
+  </target>
+  <target name="init-Release" unless="${debug}">
+	<property name="define" value="TRACE"/>
+	<property name="optimize" value="true"/>
+	<property name="incremental" value="false"/>
+	<property name="unsafe" value="/unsafe-"/>
+	<property name="debug" value="false"/>
+	<property name="removeintchecks" value="false"/>
+	<property name="tdir" value="Release"/>
+	<property name="dir.output" value="${dir.bin}\${tdir}"/>
+	<mkdir dir="${dir.output}"/>
+<!-- 	<property name="doc" value="${dir.output}/${project.FormalName}.xml"/> -->
+  </target>
+  <target name="compile" description="Compile project" depends="init">
+	<csc target="${target.type}" output="${dir.output}\${project.output}" debug="${debug}" define="${define}" optioncompare="${vbc.optionCompare}" optionexplicit="${vbc.optionExplicit}" optionstrict="${vbc.optionStrict}" removeintchecks="${removeIntChecks}" rootnamespace="${rootNamespace}" win32icon="HAMMER.ICO">
+	  <arg value="${unsafe}"/>
+	  <sources>
+		<includes name="**.cs"/>
+	  </sources>
+	  <resources>
+		<includes name="**.resx"/>
+		<includes name="**.bmp"/>
+	  </resources>
+	  <references>
+		<includes name="System.dll"/>
+		<includes name="System.Drawing.dll"/>
+		<includes name="System.Windows.Forms.dll"/>
+		<includes name="System.Xml.dll"/>
+		<includes name="..\bin\${tdir}\jabber-net.dll"/>
+		<includes name="..\bin\${tdir}\muzzle.dll"/>
+	  </references>
+	</csc>
+  </target>
+  <target name="build" description="Do an incremental build" depends="init,compile,test">
+	<copy file="${dir.output}\${project.output}" todir="${dir.lib}"/>
+  </target>
+  <target name="test" depends="init,compile"/>
+  <target name="clean" depends="init" description="Delete output of a build">
+	<delete file="${dir.output}\${project.output}" verbose="true" failonerror="false"/>
+	<delete file="${dir.output}\${project.FormalName}.pdb" verbose="true" failonerror="false"/>
+<!--	<delete file="${doc}" verbose="true" failonerror="false"/> -->
+  </target>
+</project>

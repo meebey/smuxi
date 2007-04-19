@@ -1,0 +1,37 @@
+<html>
+<head>
+<title>Jabber.Net Design Philosophies</title>
+</head>
+<body>
+<p>Philosophies to guide Jabber.Net development.</p>
+<p>Sure, a lot of these are going to be Mom&amp;ApplePie, but let's get them
+down.</p>
+<ul>
+  <li>Scale - scale out first, then scale up</li>
+  <li>Latency matters - don't automatically trade latency for scalability or
+    fail-over</li>
+  <li>Managed - Reuse the existing WinNT/Win2k/WinXP management
+    infrastructure.&nbsp; Target typical MCSE's as server admins.&nbsp; Don't
+    require hand-editing XML files for standard configurations.</li>
+  <li>Reused - don't reinvent the wheel until there is a <i>proven</i> reason to
+    do so (e.g. hard performance data pointing to a hot spot).&nbsp; Prefer less
+    lines of code.</li>
+  <li>Enabled - allow client and server module developers to hook functionality
+    in the VS.Net IDE.</li>
+  <li>Thread-safe - this thing is going to be maximum-async, so watch for
+    correct locking.</li>
+  <li>Compatible - maintain <b>all</b> of the client-to-CCM protocol, and create
+    a superset of the server-to-module protocol.&nbsp; Try to leverage existing
+    modules, but no need to maintain existing configuration file formats,
+    etc.&nbsp; As long as there exists a way to hook in existing base-accept and
+    base-connect modules, we'll call that good enough.</li>
+  <li>Portable - heh.&nbsp; Don't use stuff from the win32 namespace without a
+    wrapper.&nbsp; Assume that there will be a .Net runtime on non-MS platforms
+    someday.</li>
+  <li>Abstract - there are 20+ ways to implement queues.&nbsp; Write an
+    interface, and defer the implementation details until later.</li>
+</ul>
+<hr>
+<p align="right">$Header$</p>
+</body>
+</html>
