@@ -1,6 +1,6 @@
 /*
- * $Id: IrcNetworkManager.cs 149 2007-04-11 16:47:52Z meebey $
- * $URL: svn+ssh://svn.qnetp.net/svn/smuxi/smuxi/trunk/src/Engine/IrcNetworkManager.cs $
+ * $Id: IrcProtocolManager.cs 149 2007-04-11 16:47:52Z meebey $
+ * $URL: svn+ssh://svn.qnetp.net/svn/smuxi/smuxi/trunk/src/Engine/IrcProtocolManager.cs $
  * $Rev: 149 $
  * $Author: meebey $
  * $Date: 2007-04-11 18:47:52 +0200 (Wed, 11 Apr 2007) $
@@ -32,7 +32,7 @@ using Smuxi.Common;
 
 namespace Smuxi.Engine
 {
-    public abstract class NetworkManagerBase : PermanentRemoteObject, INetworkManager
+    public abstract class ProtocolManagerBase : PermanentRemoteObject, IProtocolManager
     {
 #if LOG4NET
         private static readonly log4net.ILog _Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
@@ -83,7 +83,7 @@ namespace Smuxi.Engine
             }
         }
         
-        protected NetworkManagerBase(Session session)
+        protected ProtocolManagerBase(Session session)
         {
             Trace.Call(session);
             

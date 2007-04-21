@@ -1,6 +1,6 @@
 /*
- * $Id: IrcNetworkManager.cs 149 2007-04-11 16:47:52Z meebey $
- * $URL: svn+ssh://svn.qnetp.net/svn/smuxi/smuxi/trunk/src/Engine/IrcNetworkManager.cs $
+ * $Id: IrcProtocolManager.cs 149 2007-04-11 16:47:52Z meebey $
+ * $URL: svn+ssh://svn.qnetp.net/svn/smuxi/smuxi/trunk/src/Engine/IrcProtocolManager.cs $
  * $Rev: 149 $
  * $Author: meebey $
  * $Date: 2007-04-11 18:47:52 +0200 (Wed, 11 Apr 2007) $
@@ -46,7 +46,7 @@ namespace Smuxi.Engine
         Underline = 31,
     }
     
-    public class IrcNetworkManager : PermanentRemoteObject, INetworkManager
+    public class IrcProtocolManager : PermanentRemoteObject, IProtocolManager
     {
 #if LOG4NET
         private static readonly log4net.ILog _Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
@@ -105,7 +105,7 @@ namespace Smuxi.Engine
             }
         }
 
-        static IrcNetworkManager()
+        static IrcProtocolManager()
         {
             int[] intValues = (int[])Enum.GetValues(typeof(IrcControlCode));
             char[] chars = new char[intValues.Length];
@@ -116,7 +116,7 @@ namespace Smuxi.Engine
             _IrcControlChars = chars;
         }
         
-        public IrcNetworkManager(Session session)
+        public IrcProtocolManager(Session session)
         {
             Trace.Call(session);
             
@@ -163,7 +163,7 @@ namespace Smuxi.Engine
                     _IrcClient.Encoding = Encoding.GetEncoding(encodingName);
                 } catch (Exception ex) {
 #if LOG4NET
-                    _Logger.Warn("IrcNetworkManager(): Error getting encoding for: " +
+                    _Logger.Warn("IrcProtocolManager(): Error getting encoding for: " +
                                  encodingName + " falling back to system encoding.", ex);
 #endif
                     _IrcClient.Encoding = Encoding.Default;
@@ -180,7 +180,7 @@ namespace Smuxi.Engine
             // we can't delete directly, it will break the enumerator, let's use a list
             ArrayList removelist = new ArrayList();
             foreach (ChatModel  chat in _Session.Chats) {
-                if (chat.NetworkManager == this) {
+                if (chat.ProtocolManager == this) {
                     removelist.Add(chat);
                 }
             }
@@ -228,7 +228,7 @@ namespace Smuxi.Engine
             
             Thread thread = new Thread(new ThreadStart(_Run));
             thread.IsBackground = true;
-            thread.Name = "IrcNetworkManager ("+server+":"+port+")";
+            thread.Name = "IrcProtocolManager ("+server+":"+port+")";
             thread.Start();
         }
         
@@ -414,13 +414,13 @@ namespace Smuxi.Engine
                         case "away":
                             CommandAway(command);
                             // send away on all other IRC networks too
-                            foreach (INetworkManager nm in _Session.NetworkManagers) {
+                            foreach (IProtocolManager nm in _Session.ProtocolManagers) {
                                 if (nm == this) {
                                     // skip us, else we send it 2 times
                                     continue;
                                 }
-                                if (nm is IrcNetworkManager) {
-                                    IrcNetworkManager ircnm = (IrcNetworkManager)nm;
+                                if (nm is IrcProtocolManager) {
+                                    IrcProtocolManager ircnm = (IrcProtocolManager)nm;
                                     ircnm.CommandAway(command);
                                 }
                             }
@@ -536,7 +536,7 @@ namespace Smuxi.Engine
             TextMessagePartModel fmsgti;
 
             fmsgti = new TextMessagePartModel();
-            fmsgti.Text = _("[IrcNetworkManager Commands]");
+            fmsgti.Text = _("[IrcProtocolManager Commands]");
             fmsgti.Bold = true;
             fmsg.MessageParts.Add(fmsgti);
             
@@ -1850,7 +1850,7 @@ namespace Smuxi.Engine
                 // _OnDisconnect() handles this
             } else {
                 foreach (ChatModel chat in _Session.Chats) {
-                    if (chat.NetworkManager != this) {
+                    if (chat.ProtocolManager != this) {
                         // we don't care about channels and queries the user was
                         // on other networks
                         continue;
@@ -1879,7 +1879,7 @@ namespace Smuxi.Engine
         private void _OnDisconnected(object sender, EventArgs e)
         {
             foreach (ChatModel chat in _Session.Chats) {
-                if (chat.NetworkManager == this) {
+                if (chat.ProtocolManager == this) {
                     _Session.DisableChat(chat);
                 }
             }

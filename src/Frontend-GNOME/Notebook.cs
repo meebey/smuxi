@@ -110,10 +110,10 @@ namespace Smuxi.Frontend.Gnome
                 ChatView chatView = GetChat((int)e.PageNum);
                 if (chatView != null) {
                     ChatModel chatModel = chatView.ChatModel;
-                    INetworkManager nmanager = chatModel.NetworkManager;
+                    IProtocolManager nmanager = chatModel.ProtocolManager;
                     Frontend.FrontendManager.CurrentChat = chatModel;
                     if (nmanager != null) {
-                        Frontend.FrontendManager.CurrentNetworkManager = nmanager;
+                        Frontend.FrontendManager.CurrentProtocolManager = nmanager;
                     }
                     // even when we have no network manager, we still want to update the state
                     Frontend.FrontendManager.UpdateNetworkStatus();

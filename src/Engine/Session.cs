@@ -40,15 +40,15 @@ namespace Smuxi.Engine
 #endif
         private int              _Version = 0;
         private Hashtable        _FrontendManagers = Hashtable.Synchronized(new Hashtable());
-        private ArrayList        _NetworkManagers = ArrayList.Synchronized(new ArrayList());
+        private ArrayList        _ProtocolManagers = ArrayList.Synchronized(new ArrayList());
         private ArrayList        _Chats = ArrayList.Synchronized(new ArrayList());
         private Config           _Config;
         private UserConfig       _UserConfig;
         private bool             _OnStartupCommandsProcessed;
         
-        public ArrayList NetworkManagers {
+        public ArrayList ProtocolManagers {
             get {
-                return _NetworkManagers;
+                return _ProtocolManagers;
             }
         }
         
@@ -133,8 +133,8 @@ namespace Smuxi.Engine
                     bool handled;
                     handled = Command(cd);
                     if (!handled) {
-                        if (fm.CurrentNetworkManager != null) {
-                            fm.CurrentNetworkManager.Command(cd);
+                        if (fm.CurrentProtocolManager != null) {
+                            fm.CurrentProtocolManager.Command(cd);
                         }
                     }
                 }
@@ -174,13 +174,13 @@ namespace Smuxi.Engine
             return (FrontendManager)_FrontendManagers[uri];
         }
         
-        public ChatModel GetChat(string name, ChatType chatType, INetworkManager networkManager)
+        public ChatModel GetChat(string name, ChatType chatType, IProtocolManager networkManager)
         {
             return GetChat(name, chatType, NetworkProtocol.None, networkManager);
         }                                     
                                          
         public ChatModel GetChat(string name, ChatType chatType,
-                                 NetworkProtocol networkProtocol, INetworkManager networkManager)
+                                 NetworkProtocol networkProtocol, IProtocolManager networkManager)
         {
             if (name == null) {
                 throw new ArgumentNullException("name");
@@ -190,7 +190,7 @@ namespace Smuxi.Engine
                 if ((chat.Name.ToLower() == name.ToLower()) &&
                     (chat.ChatType == chatType) &&
                     /*(chat.NetworkProtocol == networkProtocol) && */
-                    (chat.NetworkManager == networkManager)) {
+                    (chat.ProtocolManager == networkManager)) {
                     return chat;
                 }
             }
@@ -240,7 +240,7 @@ namespace Smuxi.Engine
                 }
             } else {
                 // normal text
-                if (cd.FrontendManager.CurrentNetworkManager == null) {
+                if (cd.FrontendManager.CurrentProtocolManager == null) {
                     _NotConnected(cd);
                     handled = true;
                 }
@@ -330,11 +330,11 @@ namespace Smuxi.Engine
             
             string person = (string)UserConfig["Connection/Username"];
             
-            INetworkManager networkManager = null;
+            IProtocolManager networkManager = null;
             /*
-            IrcNetworkManager ircm = null;
-            foreach (INetworkManager nm in _NetworkManagers) {
-                if (nm is IrcNetworkManager &&
+            IrcProtocolManager ircm = null;
+            foreach (IProtocolManager nm in _ProtocolManagers) {
+                if (nm is IrcProtocolManager &&
                     nm.Host == server &&
                     nm.Port == port) {
                     // reuse network manager
@@ -343,23 +343,23 @@ namespace Smuxi.Engine
                             _("Already connected to: {0}:{1}"), server, port));
                         return;
                     }
-                    ircm = (IrcNetworkManager) nm;
+                    ircm = (IrcProtocolManager) nm;
                     break;
                 }
             }
             if (ircm == null) {
-                ircm = new IrcNetworkManager(this);
-                _NetworkManagers.Add(ircm);
+                ircm = new IrcProtocolManager(this);
+                _ProtocolManagers.Add(ircm);
             }
             ircm.Connect(fm, server, port, nicks, person, pass);
             */
             
-            XmppNetworkManager xmppNetworkManager = new XmppNetworkManager(this);
-            xmppNetworkManager.Connect(fm, server, port, nicks[0], pass);
-            networkManager = xmppNetworkManager;
+            XmppProtocolManager xmppProtocolManager = new XmppNetworkManager(this);
+            xmppProtocolManager.Connect(fm, server, port, nicks[0], pass);
+            networkManager = xmppProtocolManager;
             
             // set this as current network manager
-            fm.CurrentNetworkManager = networkManager;
+            fm.CurrentProtocolManager = networkManager;
             fm.UpdateNetworkStatus();
         }
         
@@ -374,10 +374,10 @@ namespace Smuxi.Engine
             FrontendManager fm = cd.FrontendManager;
             if (cd.DataArray.Length >= 2) {
                 string server = cd.DataArray[1];
-                foreach (INetworkManager nm in _NetworkManagers) {
+                foreach (IProtocolManager nm in _ProtocolManagers) {
                     if (nm.Host.ToLower() == server.ToLower()) {
                         nm.Disconnect(fm);
-                        _NetworkManagers.Remove(nm);
+                        _ProtocolManagers.Remove(nm);
                         return;
                     }
                 }
@@ -385,8 +385,8 @@ namespace Smuxi.Engine
                                                     _("Disconnect failed, could not find server: {0}"),
                                                     server));
             } else {
-                fm.CurrentNetworkManager.Disconnect(fm);
-                _NetworkManagers.Remove(fm.CurrentNetworkManager);
+                fm.CurrentProtocolManager.Disconnect(fm);
+                _ProtocolManagers.Remove(fm.CurrentProtocolManager);
             }
         }
         
@@ -399,7 +399,7 @@ namespace Smuxi.Engine
             }
             
             FrontendManager fm = cd.FrontendManager;
-            fm.CurrentNetworkManager.Reconnect(fm);
+            fm.CurrentProtocolManager.Reconnect(fm);
         }
         
         public void CommandQuit(CommandModel cd)
@@ -412,12 +412,12 @@ namespace Smuxi.Engine
             
             FrontendManager fm = cd.FrontendManager;
             string message = cd.Parameter;
-            foreach (INetworkManager nm in _NetworkManagers) {
+            foreach (IProtocolManager nm in _ProtocolManagers) {
                 if (message == null) {
                     nm.Disconnect(fm);
                 } else {
-                    if (nm is IrcNetworkManager) {
-                        IrcNetworkManager im = (IrcNetworkManager)nm;
+                    if (nm is IrcProtocolManager) {
+                        IrcProtocolManager im = (IrcProtocolManager)nm;
                         im.CommandQuit(cd);
                     } else {
                         nm.Disconnect(fm);
@@ -491,7 +491,7 @@ namespace Smuxi.Engine
         {
             FrontendManager fm = cd.FrontendManager;
             fm.AddTextToCurrentChat("-!- " + _("Networks") + ":");
-            foreach (INetworkManager nm in _NetworkManagers) {
+            foreach (IProtocolManager nm in _ProtocolManagers) {
                 fm.AddTextToCurrentChat("-!- " +
                     _("Type") + ": " + nm.NetworkProtocol.ToString().ToUpper() + " " +
                     _("Host") + ": " + nm.Host + " " + 
@@ -505,12 +505,12 @@ namespace Smuxi.Engine
             if (cd.DataArray.Length >= 3) {
                 // named network manager
                 string host = cd.DataArray[2].ToLower();
-                foreach (INetworkManager nm in _NetworkManagers) {
+                foreach (IProtocolManager nm in _ProtocolManagers) {
                     if (nm.Host.ToLower() == host) {
                         nm.Disconnect(fm);
                         nm.Dispose();
-                        _NetworkManagers.Remove(nm);
-                        fm.NextNetworkManager();
+                        _ProtocolManagers.Remove(nm);
+                        fm.NextProtocolManager();
                         return;
                     }
                 }
@@ -519,10 +519,10 @@ namespace Smuxi.Engine
                                   host));
             } else if (cd.DataArray.Length >= 2) {
                 // current network manager
-                fm.CurrentNetworkManager.Disconnect(fm);
-                fm.CurrentNetworkManager.Dispose();
-                _NetworkManagers.Remove(fm.CurrentNetworkManager);
-                fm.NextNetworkManager();
+                fm.CurrentProtocolManager.Disconnect(fm);
+                fm.CurrentProtocolManager.Dispose();
+                _ProtocolManagers.Remove(fm.CurrentProtocolManager);
+                fm.NextProtocolManager();
             }
         }
         
@@ -532,9 +532,9 @@ namespace Smuxi.Engine
             if (cd.DataArray.Length >= 3) {
                 // named network manager
                 string host = cd.DataArray[2].ToLower();
-                foreach (INetworkManager nm in _NetworkManagers) {
+                foreach (IProtocolManager nm in _ProtocolManagers) {
                     if (nm.Host.ToLower() == host) {
-                        fm.CurrentNetworkManager = nm;
+                        fm.CurrentProtocolManager = nm;
                         fm.UpdateNetworkStatus();
                         return;
                     }
@@ -544,7 +544,7 @@ namespace Smuxi.Engine
                                   host));
             } else if (cd.DataArray.Length >= 2) {
                 // next network manager
-                fm.NextNetworkManager();
+                fm.NextProtocolManager();
             } else {
                 _NotEnoughParameters(cd);
             }

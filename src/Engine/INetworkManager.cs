@@ -30,7 +30,7 @@ using System;
 
 namespace Smuxi.Engine
 {
-    public interface INetworkManager : IDisposable
+    public interface IProtocolManager : IDisposable
     {
         string NetworkID {
             get;

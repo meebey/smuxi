@@ -74,7 +74,7 @@ namespace Smuxi.Engine
         }
         
         public IrcPersonModel(string nickName, string realName, string ident, string host,
-                              string networkID, INetworkManager networkManager) :
+                              string networkID, IProtocolManager networkManager) :
                          base(nickName, nickName, networkID, NetworkProtocol.Irc, networkManager)
         {
             _RealName = realName;

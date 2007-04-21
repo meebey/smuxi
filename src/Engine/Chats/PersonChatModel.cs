@@ -44,7 +44,7 @@ namespace Smuxi.Engine
             }
         }
         
-        public PersonChatModel(PersonModel person, string id, string name, INetworkManager networkManager) :
+        public PersonChatModel(PersonModel person, string id, string name, IProtocolManager networkManager) :
                           base(id, name, ChatType.Person, networkManager)
         {
             _Person = person;

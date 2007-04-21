@@ -272,8 +272,8 @@ namespace Smuxi.Frontend.Gnome
         {
             Trace.Call(sender, e);
             
-            if (ChatModel.NetworkManager is IrcNetworkManager) {
-                IrcNetworkManager imanager = (IrcNetworkManager) ChatModel.NetworkManager;
+            if (ChatModel.ProtocolManager is IrcProtocolManager) {
+                IrcProtocolManager imanager = (IrcProtocolManager) ChatModel.NetworkManager;
                 imanager.CommandPart(new CommandModel(Frontend.FrontendManager, ChatModel,
                                                       ChatModel.Name));
             }
@@ -288,8 +288,8 @@ namespace Smuxi.Frontend.Gnome
                 return;
             }
             
-            if (ChatModel.NetworkManager is IrcNetworkManager) {
-                IrcNetworkManager imanager = (IrcNetworkManager) ChatModel.NetworkManager;
+            if (ChatModel.ProtocolManager is IrcProtocolManager) {
+                IrcProtocolManager imanager = (IrcProtocolManager) ChatModel.NetworkManager;
                 imanager.CommandMessageQuery(new CommandModel(Frontend.FrontendManager,
                                                               ChatModel, user));
             }
@@ -314,8 +314,8 @@ namespace Smuxi.Frontend.Gnome
                 return;
             }
             
-            if (ChatModel.NetworkManager is IrcNetworkManager) {
-                IrcNetworkManager imanager = (IrcNetworkManager) ChatModel.NetworkManager;
+            if (ChatModel.ProtocolManager is IrcProtocolManager) {
+                IrcProtocolManager imanager = (IrcProtocolManager) ChatModel.NetworkManager;
                 imanager.CommandOp(new CommandModel(Frontend.FrontendManager, ChatModel,
                     whom));
             }
@@ -330,8 +330,8 @@ namespace Smuxi.Frontend.Gnome
                 return;
             }
             
-            if (ChatModel.NetworkManager is IrcNetworkManager) {
-                IrcNetworkManager imanager = (IrcNetworkManager) ChatModel.NetworkManager;
+            if (ChatModel.ProtocolManager is IrcProtocolManager) {
+                IrcProtocolManager imanager = (IrcProtocolManager) ChatModel.NetworkManager;
                 imanager.CommandDeop(new CommandModel(Frontend.FrontendManager, ChatModel,
                     whom));
             }
@@ -346,8 +346,8 @@ namespace Smuxi.Frontend.Gnome
                 return;
             }
             
-            if (ChatModel.NetworkManager is IrcNetworkManager) {
-                IrcNetworkManager imanager = (IrcNetworkManager) ChatModel.NetworkManager;
+            if (ChatModel.ProtocolManager is IrcProtocolManager) {
+                IrcProtocolManager imanager = (IrcProtocolManager) ChatModel.NetworkManager;
                 imanager.CommandVoice(new CommandModel(Frontend.FrontendManager, ChatModel,
                     whom));
             }
@@ -362,8 +362,8 @@ namespace Smuxi.Frontend.Gnome
                 return;
             }
             
-            if (ChatModel.NetworkManager is IrcNetworkManager) {
-                IrcNetworkManager imanager = (IrcNetworkManager) ChatModel.NetworkManager;
+            if (ChatModel.ProtocolManager is IrcProtocolManager) {
+                IrcProtocolManager imanager = (IrcProtocolManager) ChatModel.NetworkManager;
                 imanager.CommandDevoice(new CommandModel(Frontend.FrontendManager, ChatModel,
                     whom));
             }
@@ -378,8 +378,8 @@ namespace Smuxi.Frontend.Gnome
                 return;
             }
             
-            if (ChatModel.NetworkManager is IrcNetworkManager) {
-                IrcNetworkManager imanager = (IrcNetworkManager) ChatModel.NetworkManager;
+            if (ChatModel.ProtocolManager is IrcProtocolManager) {
+                IrcProtocolManager imanager = (IrcProtocolManager) ChatModel.NetworkManager;
                 imanager.CommandKick(new CommandModel(Frontend.FrontendManager, ChatModel,
                     victim));
             }

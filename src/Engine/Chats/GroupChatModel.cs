@@ -94,7 +94,7 @@ namespace Smuxi.Engine
             }
         }
         
-        public GroupChatModel(string id, string name, INetworkManager networkManager) :
+        public GroupChatModel(string id, string name, IProtocolManager networkManager) :
                          base(id, name, ChatType.Group, networkManager)
         {
         }

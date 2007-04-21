@@ -33,19 +33,19 @@ namespace Smuxi.Engine
     [Serializable]
     public class PersonModel : ContactModel
     {
-        private INetworkManager _NetworkManager;
+        private IProtocolManager _ProtocolManager;
         
-        public INetworkManager NetworkManager {
+        public IProtocolManager ProtocolManager {
             get {
-                return _NetworkManager;
+                return _ProtocolManager;
             }
         }
         
         public PersonModel(string id, string displayName,
-                           string networkID, NetworkProtocol networkProtocol, INetworkManager networkManager) :
+                           string networkID, NetworkProtocol networkProtocol, IProtocolManager networkManager) :
                       base(id, displayName, networkID, networkProtocol)
         {
-            _NetworkManager = networkManager;
+            _ProtocolManager = networkManager;
         }
     }
 }

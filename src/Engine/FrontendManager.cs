@@ -47,7 +47,7 @@ namespace Smuxi.Engine
         private Session          _Session;
         private IFrontendUI      _UI;
         private ChatModel        _CurrentChat;
-        private INetworkManager  _CurrentNetworkManager;
+        private IProtocolManager  _CurrentProtocolManager;
         private bool             _IsFrontendDisconnecting;
         private SimpleDelegate   _ConfigChangedDelegate;
         private bool             _IsFrontendSynced;
@@ -74,12 +74,12 @@ namespace Smuxi.Engine
             }
         }
         
-        public INetworkManager CurrentNetworkManager {
+        public IProtocolManager CurrentProtocolManager {
             get {
-                return _CurrentNetworkManager;
+                return _CurrentProtocolManager;
             }
             set {
-                _CurrentNetworkManager = value;
+                _CurrentProtocolManager = value;
             }
         }
         
@@ -123,9 +123,9 @@ namespace Smuxi.Engine
             }
             
             // sync current network manager (if any exists)
-            if (_Session.NetworkManagers.Count > 0) {
-                INetworkManager nm = (INetworkManager)_Session.NetworkManagers[0];
-                CurrentNetworkManager = nm;
+            if (_Session.ProtocolManagers.Count > 0) {
+                IProtocolManager nm = (IProtocolManager)_Session.NetworkManagers[0];
+                CurrentProtocolManager = nm;
             }
             
             // sync current page
@@ -146,26 +146,26 @@ namespace Smuxi.Engine
             _SyncedChats.Add(chatModel);
         }
         
-        public void NextNetworkManager()
+        public void NextProtocolManager()
         {
-            if (!(_Session.NetworkManagers.Count > 0)) {
-                CurrentNetworkManager = null;
+            if (!(_Session.ProtocolManagers.Count > 0)) {
+                CurrentProtocolManager = null;
             } else {
-                int pos = _Session.NetworkManagers.IndexOf(CurrentNetworkManager);
-                if (pos < _Session.NetworkManagers.Count - 1) {
+                int pos = _Session.ProtocolManagers.IndexOf(CurrentProtocolManager);
+                if (pos < _Session.ProtocolManagers.Count - 1) {
                     pos++;
                 } else {
                     pos = 0;
                 }
-                CurrentNetworkManager = (INetworkManager)_Session.NetworkManagers[pos];
+                CurrentProtocolManager = (IProtocolManager)_Session.NetworkManagers[pos];
             }
             UpdateNetworkStatus();
         }
         
         public void UpdateNetworkStatus()
         {
-            if (CurrentNetworkManager != null) {
-                SetNetworkStatus(CurrentNetworkManager.ToString());
+            if (CurrentProtocolManager != null) {
+                SetNetworkStatus(CurrentProtocolManager.ToString());
             } else {
                 SetNetworkStatus(String.Format("({0})", _("no network connections")));
             }

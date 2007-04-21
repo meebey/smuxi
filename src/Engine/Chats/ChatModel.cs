@@ -38,7 +38,7 @@ namespace Smuxi.Engine
         private string               _ID;
         private string               _Name;
         private ChatType             _ChatType;
-        private INetworkManager      _NetworkManager;
+        private IProtocolManager      _ProtocolManager;
         private List<MessageModel>   _Messages = new List<MessageModel>();
         private bool                 _IsEnabled = true;
         
@@ -60,9 +60,9 @@ namespace Smuxi.Engine
             }
         }
         
-        public INetworkManager NetworkManager {
+        public IProtocolManager ProtocolManager {
             get {
-                return _NetworkManager;
+                return _ProtocolManager;
             }
         }
         
@@ -92,17 +92,17 @@ namespace Smuxi.Engine
         	}
         }
         
-        public ChatModel(string id, string name, ChatType chatType, INetworkManager networkManager)
+        public ChatModel(string id, string name, ChatType chatType, IProtocolManager networkManager)
         {
             _ID = id;
             _Name = name;
             _ChatType = chatType;
-            _NetworkManager = networkManager;
+            _ProtocolManager = networkManager;
         }
         
         public string ToTraceString()
         {
-        	string nm = (_NetworkManager != null) ? _NetworkManager.ToString() : "(null)";  
+        	string nm = (_ProtocolManager != null) ? _ProtocolManager.ToString() : "(null)";  
         	return  nm + "/" + _Name; 
         }
     }

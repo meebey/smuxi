@@ -55,13 +55,13 @@ namespace Smuxi.Engine
         }
         
         public IrcGroupPersonModel(string nickname, string realname, string ident, string host,
-                                   string networkID, INetworkManager networkManager) :
+                                   string networkID, IProtocolManager networkManager) :
                               base(nickname, realname, ident, host,
                                    networkID, networkManager)
         {
         }
         
-        public IrcGroupPersonModel(string nickname, string networkID, INetworkManager networkManager) :
+        public IrcGroupPersonModel(string nickname, string networkID, IProtocolManager networkManager) :
                               base(nickname, null, null, null, networkID, networkManager)
         {
         }                                           

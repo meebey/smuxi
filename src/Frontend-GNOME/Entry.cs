@@ -197,7 +197,7 @@ namespace Smuxi.Frontend.Gnome
                         // this does the same with one remoting call less
                         // (the CurrentPage object is not called)
                         if (_Notebook.CurrentChatView.ChatModel.ChatType == ChatType.Network) {
-                            Frontend.FrontendManager.NextNetworkManager();
+                            Frontend.FrontendManager.NextProtocolManager();
                         }
                         break;
                     case Gdk.Key.Page_Down:
@@ -390,7 +390,7 @@ namespace Smuxi.Frontend.Gnome
             }
             if (!handled) {
                 // we may have no network manager yet
-                Engine.INetworkManager nm = Frontend.FrontendManager.CurrentNetworkManager;
+                Engine.IProtocolManager nm = Frontend.FrontendManager.CurrentProtocolManager;
                 if (nm != null) {
                     handled = nm.Command(cd);
                 } else {
@@ -506,8 +506,8 @@ namespace Smuxi.Frontend.Gnome
                 if (cd.DataArray[1].ToLower() == "close") {
                     name = currentChatModel.Name;
                     if (currentChatModel.ChatType != ChatType.Network) {
-                        if (currentChatModel.NetworkManager is IrcNetworkManager) {
-                            IrcNetworkManager ircm = (IrcNetworkManager) currentChatModel.NetworkManager; 
+                        if (currentChatModel.ProtocolManager is IrcProtocolManager) {
+                            IrcProtocolManager ircm = (IrcProtocolManager) currentChatModel.NetworkManager; 
                             if (currentChatModel.ChatType == ChatType.Group) {
                                 ircm.CommandPart(new CommandModel(fm, currentChatModel, name));
                             } else {
@@ -540,7 +540,7 @@ namespace Smuxi.Frontend.Gnome
                                 // name matches
                                 // first let's see if there is an exact match, if so, take it
                                 if ((chatModel.ChatType == currentChatModel.ChatType) &&
-                                    (chatModel.NetworkManager == currentChatModel.NetworkManager)) {
+                                    (chatModel.ProtocolManager == currentChatModel.ProtocolManager)) {
                                     _Notebook.CurrentPage = i;
                                     break;
                                 } else {

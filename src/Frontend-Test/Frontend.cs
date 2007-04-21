@@ -196,8 +196,8 @@ namespace Smuxi.FrontendTest
             
             if (!handled) {
                 // we may have no network manager yet
-                if (_FrontendManager.CurrentNetworkManager != null) {
-                    handled = _FrontendManager.CurrentNetworkManager.Command(cd);
+                if (_FrontendManager.CurrentProtocolManager != null) {
+                    handled = _FrontendManager.CurrentProtocolManager.Command(cd);
                 } else {
                     handled = true;
                 }

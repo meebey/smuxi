@@ -37,7 +37,7 @@ namespace Smuxi.Engine
         private static readonly log4net.ILog _Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 #endif
         
-        public NetworkChatModel(string id, string name, INetworkManager networkManager) :
+        public NetworkChatModel(string id, string name, IProtocolManager networkManager) :
                           base(id, name, ChatType.Network, networkManager)
         {
         }
