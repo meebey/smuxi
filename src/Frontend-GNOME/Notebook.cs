@@ -30,7 +30,7 @@ using System;
 using Smuxi.Common;
 using Smuxi.Engine;
 
-namespace Smuxi.FrontendGnome
+namespace Smuxi.Frontend.Gnome
 {
     public class Notebook : Gtk.Notebook
     {

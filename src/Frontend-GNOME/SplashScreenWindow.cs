@@ -28,7 +28,7 @@
 
 using System;
 
-namespace Smuxi.FrontendGnome
+namespace Smuxi.Frontend.Gnome
 {
     public class SplashScreenWindow : Gtk.Window
     {

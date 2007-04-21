@@ -29,6 +29,6 @@
 using System;
 using Smuxi.Engine;
 
-namespace Smuxi.FrontendGnome
+namespace Smuxi.Frontend.Gnome
 {
 }

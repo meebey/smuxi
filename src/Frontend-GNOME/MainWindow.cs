@@ -31,7 +31,7 @@ using Mono.Unix;
 using Smuxi.Common;
 using Smuxi.Engine;
 
-namespace Smuxi.FrontendGnome
+namespace Smuxi.Frontend.Gnome
 {
 #if UI_GNOME
     public class MainWindow : Gnome.App

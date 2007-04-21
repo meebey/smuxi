@@ -33,7 +33,7 @@ using System.Globalization;
 using Smuxi;
 using Smuxi.Common;
 
-namespace Smuxi.FrontendGnome
+namespace Smuxi.Frontend.Gnome
 {
     public class PreferencesDialog
     {

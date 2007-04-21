@@ -31,7 +31,7 @@ using System.Collections.Generic;
 using Smuxi;
 using Smuxi.Common;
 
-namespace Smuxi.FrontendGnome
+namespace Smuxi.Frontend.Gnome
 {
     public class ChannelFilterListView
     {

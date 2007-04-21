@@ -45,7 +45,7 @@ using TcpEx;
 using DotNetRemotingCC.Channels.BidirectionalTCP;
 #endif
 
-namespace Smuxi.FrontendGnome
+namespace Smuxi.Frontend.Gnome
 {
     public class EngineManagerDialog : Gtk.Dialog
     {

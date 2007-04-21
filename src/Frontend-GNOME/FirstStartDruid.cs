@@ -30,7 +30,7 @@ using System;
 using Mono.Unix;
 using Smuxi;
 
-namespace Smuxi.FrontendGnome
+namespace Smuxi.Frontend.Gnome
 {
     public class FirstStartDruid
     {

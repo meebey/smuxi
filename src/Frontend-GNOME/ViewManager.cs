@@ -10,7 +10,7 @@
 using System;
 using Smuxi;
 
-namespace Smuxi.FrontendGnome
+namespace Smuxi.Frontend.Gnome
 {
     public abstract class ViewManager
     {

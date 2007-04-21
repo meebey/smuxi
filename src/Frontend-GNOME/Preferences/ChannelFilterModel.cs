@@ -30,7 +30,7 @@ using System;
 using Smuxi;
 using Smuxi.Common;
 
-namespace Smuxi.FrontendGnome
+namespace Smuxi.Frontend.Gnome
 {
     public class ChannelFilterModel
     {

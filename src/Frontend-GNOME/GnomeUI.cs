@@ -37,7 +37,7 @@ using Smuxi.Common;
 using Smuxi.Engine;
 using Smuxi.Frontend;
 
-namespace Smuxi.FrontendGnome
+namespace Smuxi.Frontend.Gnome
 {
     public class GnomeUI : PermanentRemoteObject, IFrontendUI
     {
