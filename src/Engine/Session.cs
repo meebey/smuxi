@@ -76,21 +76,28 @@ namespace Meebey.Smuxi.Engine
             }
         }
         
-        public Session(Config config, string personname)
+        public Session(Config config, string username)
         {
-            Trace.Call(config, personname);
+            Trace.Call(config, username);
+            
+            if (config == null) {
+                throw new ArgumentNullException("config");
+            }
+            if (username == null) {
+                throw new ArgumentNullException("username");
+            }
             
             _Config = config;
-            _UserConfig = new UserConfig(config, personname);
+            _UserConfig = new UserConfig(config, username);
             
-            ChatModel chat = new ChatModel("smuxi", ChatType.Network, null);
+            ChatModel chat = new NetworkChatModel("smuxi", "smuxi", null);
             _Chats.Add(chat);
             
-            MessageModel fm = new MessageModel();
-            fm.MessageParts.Add(
+            MessageModel msg = new MessageModel();
+            msg.MessageParts.Add(
                 new TextMessagePartModel(IrcTextColor.Red, null, false,
                         true, false, _("Welcome to Smuxi")));
-            AddMessageToChat(chat, fm); 
+            AddMessageToChat(chat, msg); 
         }
         
         public void RegisterFrontendUI(IFrontendUI ui)
@@ -250,8 +257,17 @@ namespace Meebey.Smuxi.Engine
                 throw new ArgumentNullException("cd");
             }
             
+            MessageModel msg = new MessageModel();
+            TextMessagePartModel msgPart;
+            
+            msgPart = new TextMessagePartModel();
+            msgPart.Text = _("[Engine Commands]");
+            msgPart.Bold = true;
+            msg.MessageParts.Add(msgPart);
+            
+            cd.FrontendManager.AddMessageToChat(cd.Chat, msg);
+            
             string[] help = {
-            "[Engine Commands]",
             "help",
             "connect/server [server] [port] [password] [nick]",
             "disconnect",
@@ -314,6 +330,8 @@ namespace Meebey.Smuxi.Engine
             
             string person = (string)UserConfig["Connection/Username"];
             
+            INetworkManager networkManager = null;
+            /*
             IrcNetworkManager ircm = null;
             foreach (INetworkManager nm in _NetworkManagers) {
                 if (nm is IrcNetworkManager &&
@@ -334,9 +352,14 @@ namespace Meebey.Smuxi.Engine
                 _NetworkManagers.Add(ircm);
             }
             ircm.Connect(fm, server, port, nicks, person, pass);
+            */
+            
+            XmppNetworkManager xmppNetworkManager = new XmppNetworkManager(this);
+            xmppNetworkManager.Connect(fm, server, port, nicks[0], pass);
+            networkManager = xmppNetworkManager;
             
             // set this as current network manager
-            fm.CurrentNetworkManager = ircm;
+            fm.CurrentNetworkManager = networkManager;
             fm.UpdateNetworkStatus();
         }
         

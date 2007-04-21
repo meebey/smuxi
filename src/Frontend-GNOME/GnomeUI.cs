@@ -46,11 +46,18 @@ namespace Meebey.Smuxi.FrontendGnome
 #endif
         private int _Version = 0;
         private ChatViewManagerBase _ChatViewManager;
+        private IList<ChatView>     _SyncedChatViews;
         
         public int Version
         {
             get {
                 return _Version;
+            }
+        }
+        
+        public IList<ChatView> SyncedChatViews {
+            get {
+                return _SyncedChatViews;
             }
         }
         
@@ -366,13 +373,10 @@ namespace Meebey.Smuxi.FrontendGnome
                 double duration = syncStop.Subtract(syncStart).TotalMilliseconds;
                 _Logger.Debug("SyncChat() done, syncing took: " + Math.Round(duration) + " ms");
 #endif
+                _SyncedChats.Add(chatView);
 
                 // BUG: doesn't work?!?
-                //page.OutputTextView.Display.Flush();
-                //page.OutputTextView.Display.Sync();
-                //Gtk.Application.Invoke(delegate {
-                    chatView.ScrollToEnd();
-                //});
+                chatView.ScrollToEnd();
             });
         }
         

@@ -94,8 +94,8 @@ namespace Meebey.Smuxi.Engine
             }
         }
         
-        public GroupChatModel(string name, INetworkManager networkManager) :
-                         base(name, ChatType.Group, networkManager)
+        public GroupChatModel(string id, string name, INetworkManager networkManager) :
+                         base(id, name, ChatType.Group, networkManager)
         {
         }
         

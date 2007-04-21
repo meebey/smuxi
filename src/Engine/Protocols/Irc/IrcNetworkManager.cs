@@ -220,7 +220,7 @@ namespace Meebey.Smuxi.Engine
             _Password = pass;
             
             // TODO: use config for single network chat or once per network manager
-            _NetworkChat = new ChatModel("IRC " + server, ChatType.Network, this);
+            _NetworkChat = new NetworkChatModel(NetworkID, "IRC " + server, this);
             // BUG: race condition when we use _Session.AddChat() as it pushes this already
             // to the connected frontend and the frontend will sync and get the page 2 times!
             //_Session.Chats.Add(_NetworkChat);
@@ -502,7 +502,7 @@ namespace Meebey.Smuxi.Engine
                     }
                 } else {
                     // normal text
-                    if (command.FrontendManager.CurrentChat.ChatType == ChatType.Network) {
+                    if (command.Chat.ChatType == ChatType.Network) {
                         // we are on the server chat
                         _IrcClient.WriteLine(command.Data);
                     } else {
@@ -536,7 +536,7 @@ namespace Meebey.Smuxi.Engine
             TextMessagePartModel fmsgti;
 
             fmsgti = new TextMessagePartModel();
-            fmsgti.Text = "[IrcNetworkManager Commands]";
+            fmsgti.Text = _("[IrcNetworkManager Commands]");
             fmsgti.Bold = true;
             fmsg.MessageParts.Add(fmsgti);
             
@@ -693,7 +693,9 @@ namespace Meebey.Smuxi.Engine
                 string nickname = cd.DataArray[1];
                 ChatModel chat = _Session.GetChat(nickname, ChatType.Person, NetworkProtocol.Irc, this);
                 if (chat == null) {
-                    chat = new ChatModel(nickname, ChatType.Person, this);
+                    PersonModel person = new PersonModel(nickname, nickname,
+                                                NetworkID, NetworkProtocol, this);
+                    chat = new PersonChatModel(person, nickname, nickname, this);
                     _Session.AddChat(chat);
                 }
             }
@@ -1483,7 +1485,9 @@ namespace Meebey.Smuxi.Engine
         {
             ChatModel chat = _Session.GetChat(e.Data.Nick, ChatType.Person, NetworkProtocol.Irc, this);
             if (chat == null) {
-                chat = new ChatModel(e.Data.Nick, ChatType.Person, this);
+                PersonModel person = new PersonModel(e.Data.Nick, e.Data.Nick,
+                                            NetworkID, NetworkProtocol, this);
+                chat = new PersonChatModel(person, e.Data.Nick, e.Data.Nick, this);
                 _Session.AddChat(chat);
             }
             
@@ -1503,7 +1507,9 @@ namespace Meebey.Smuxi.Engine
         {
             ChatModel chat = _Session.GetChat(e.Data.Nick, ChatType.Person, NetworkProtocol.Irc, this);
             if (chat == null) {
-                chat = new ChatModel(e.Data.Nick, ChatType.Person, this);
+                PersonModel person = new PersonModel(e.Data.Nick, e.Data.Nick,
+                                            NetworkID, NetworkProtocol, this);
+                chat = new PersonChatModel(person, e.Data.Nick, e.Data.Nick, this);
                 _Session.AddChat(chat);
             }
             
@@ -1547,7 +1553,7 @@ namespace Meebey.Smuxi.Engine
             GroupChatModel cchat = (GroupChatModel)_Session.GetChat(e.Channel, ChatType.Group, NetworkProtocol.Irc, this);
             if (e.Data.Irc.IsMe(e.Who)) {
                 if (cchat == null) {
-                    cchat = new GroupChatModel(e.Channel, this);
+                    cchat = new GroupChatModel(e.Channel, e.Channel, this);
                     _Session.AddChat(cchat);
                 } else {
                     // chat still exists, so we we only need to enable it

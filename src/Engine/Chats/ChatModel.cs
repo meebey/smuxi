@@ -33,13 +33,20 @@ using Meebey.Smuxi.Common;
 
 namespace Meebey.Smuxi.Engine
 {
-    public class ChatModel : PermanentRemoteObject, ITraceable
+    public abstract class ChatModel : PermanentRemoteObject, ITraceable
     {
+        private string               _ID;
         private string               _Name;
         private ChatType             _ChatType;
         private INetworkManager      _NetworkManager;
         private List<MessageModel>   _Messages = new List<MessageModel>();
         private bool                 _IsEnabled = true;
+        
+        public string ID {
+            get {
+                return _ID;
+            }
+        }
         
         public string Name {
             get {
@@ -85,8 +92,9 @@ namespace Meebey.Smuxi.Engine
         	}
         }
         
-        public ChatModel(string name, ChatType chatType, INetworkManager networkManager)
+        public ChatModel(string id, string name, ChatType chatType, INetworkManager networkManager)
         {
+            _ID = id;
             _Name = name;
             _ChatType = chatType;
             _NetworkManager = networkManager;

@@ -44,8 +44,8 @@ namespace Meebey.Smuxi.Engine
             }
         }
         
-        public PersonChatModel(PersonModel person, string name, INetworkManager networkManager) :
-                          base(name, ChatType.Person, networkManager)
+        public PersonChatModel(PersonModel person, string id, string name, INetworkManager networkManager) :
+                          base(id, name, ChatType.Person, networkManager)
         {
             _Person = person;
         }

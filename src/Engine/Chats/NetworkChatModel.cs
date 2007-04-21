@@ -1,9 +1,9 @@
 /*
- * $Id$
- * $URL$
- * $Rev$
- * $Author$
- * $Date$
+ * $Id: ChannelPage.cs 137 2006-11-06 18:49:57Z meebey $
+ * $URL: svn+ssh://svn.qnetp.net/svn/smuxi/smuxi/trunk/src/Engine/ChannelPage.cs $
+ * $Rev: 137 $
+ * $Author: meebey $
+ * $Date: 2006-11-06 19:49:57 +0100 (Mon, 06 Nov 2006) $
  *
  * smuxi - Smart MUltipleXed Irc
  *
@@ -27,22 +27,19 @@
  */
 
 using System;
+using Meebey.Smuxi.Common;
 
-namespace Meebey.Smuxi.FrontendGnome
+namespace Meebey.Smuxi.Engine
 {
-    public class SplashScreenWindow : Gtk.Window
+    public class NetworkChatModel : ChatModel
     {
-        public SplashScreenWindow() : base("smuxi - Splashscreen")
+#if LOG4NET
+        private static readonly log4net.ILog _Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+#endif
+        
+        public NetworkChatModel(string id, string name, INetworkManager networkManager) :
+                          base(id, name, ChatType.Network, networkManager)
         {
-            Decorated = false;
-            WindowPosition = Gtk.WindowPosition.Center;
-            Add(new Gtk.Image(new Gdk.Pixbuf(null, "splashscreen.png")));
-            ShowAll();
-            
-            // force GTK+ to draw us, regardless if we are in the glib/gtk main-loop
-            while (Gtk.Application.EventsPending()) {
-                Gtk.Application.RunIteration();
-            }
         }
     }
 }

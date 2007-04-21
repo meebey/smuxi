@@ -440,8 +440,17 @@ namespace Meebey.Smuxi.FrontendGnome
         
         private void _CommandHelp(CommandModel cd)
         {
+            MessageModel msg = new MessageModel();
+            TextMessagePartModel msgPart;
+            
+            msgPart = new TextMessagePartModel();
+            msgPart.Text = _("[Frontend Commands]");
+            msgPart.Bold = true;
+            msg.MessageParts.Add(msgPart);
+            
+            cd.FrontendManager.AddMessageToChat(cd.Chat, msg);
+            
             string[] help = {
-            Catalog.GetString("[Frontend Commands]"),
             "help",
             "window (number|channelname|queryname|close",
             "clear",

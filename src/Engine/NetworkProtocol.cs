@@ -32,8 +32,8 @@ namespace Meebey.Smuxi.Engine
     {
         None,
         Irc,
-        Jabber,
-        Oscar, // AIM / ICQ
+        Xmpp,   // Jabber
+        Oscar,  // AIM / ICQ
         Msn,
     }
 }
