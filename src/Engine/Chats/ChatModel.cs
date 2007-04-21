@@ -29,9 +29,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Meebey.Smuxi.Common;
+using Smuxi.Common;
 
-namespace Meebey.Smuxi.Engine
+namespace Smuxi.Engine
 {
     public abstract class ChatModel : PermanentRemoteObject, ITraceable
     {

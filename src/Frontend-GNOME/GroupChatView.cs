@@ -29,10 +29,10 @@
 using System;
 using System.Globalization;
 using Mono.Unix;
-using Meebey.Smuxi.Engine;
-using Meebey.Smuxi.Common;
+using Smuxi.Engine;
+using Smuxi.Common;
 
-namespace Meebey.Smuxi.FrontendGnome
+namespace Smuxi.FrontendGnome
 {
     public class GroupChatView : ChatView
     {

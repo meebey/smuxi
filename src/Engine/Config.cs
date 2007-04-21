@@ -32,9 +32,9 @@ using System.Collections;
 #if CONFIG_NINI
 using Nini.Ini;
 #endif
-using Meebey.Smuxi.Common;
+using Smuxi.Common;
 
-namespace Meebey.Smuxi.Engine
+namespace Smuxi.Engine
 {
     public class Config : PermanentRemoteObject
     {

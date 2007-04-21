@@ -35,9 +35,9 @@ using System.Collections;
 using jabber.client;
 using jabber.connection;
 using jabber.protocol.client;
-using Meebey.Smuxi.Common;
+using Smuxi.Common;
 
-namespace Meebey.Smuxi.Engine
+namespace Smuxi.Engine
 {
     public class XmppNetworkManager : NetworkManagerBase
     {

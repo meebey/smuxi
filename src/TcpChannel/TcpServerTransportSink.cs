@@ -32,7 +32,7 @@ using System.Runtime.Remoting.Channels;
 using System.Runtime.Remoting.Messaging;
 using System.IO;
 
-namespace Meebey.Smuxi.Channels.Tcp
+namespace Smuxi.Channels.Tcp
 {
 	internal class TcpServerTransportSink : IServerChannelSink, IChannelSinkBase
 	{

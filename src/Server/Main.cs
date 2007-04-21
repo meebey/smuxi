@@ -28,7 +28,7 @@
 
 using System;
 
-namespace Meebey.Smuxi.Server
+namespace Smuxi.Server
 {
     public class MainClass
     {

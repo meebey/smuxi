@@ -28,11 +28,11 @@
 
 using System;
 using System.Collections.Generic;
-using Meebey.Smuxi;
-using Meebey.Smuxi.Common;
-using Meebey.Smuxi.Engine;
+using Smuxi;
+using Smuxi.Common;
+using Smuxi.Engine;
 
-namespace Meebey.Smuxi.FrontendGnome
+namespace Smuxi.FrontendGnome
 {
     public class ChannelFiltersController
     {

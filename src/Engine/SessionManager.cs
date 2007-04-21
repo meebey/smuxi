@@ -28,9 +28,9 @@
 
 using System;
 using System.Collections;
-using Meebey.Smuxi.Common;
+using Smuxi.Common;
 
-namespace Meebey.Smuxi.Engine
+namespace Smuxi.Engine
 {
     public class SessionManager : PermanentRemoteObject
     {

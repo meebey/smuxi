@@ -33,10 +33,10 @@ using System.Runtime.Remoting.Channels;
 using System.Runtime.Remoting.Channels.Http;
 using System.Runtime.Remoting.Channels.Tcp;
 using System.Runtime.Serialization.Formatters;
-using Meebey.Smuxi;
-using Meebey.Smuxi.Engine;
+using Smuxi;
+using Smuxi.Engine;
 
-namespace Meebey.Smuxi.FrontendTest
+namespace Smuxi.FrontendTest
 {
     public class Frontend
     {

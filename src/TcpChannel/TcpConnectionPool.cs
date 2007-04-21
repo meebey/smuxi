@@ -32,7 +32,7 @@ using System.IO;
 using System.Net.Sockets;
 using System.Runtime.Remoting;
 
-namespace Meebey.Smuxi.Channels.Tcp
+namespace Smuxi.Channels.Tcp
 {
 	// This is a pool of Tcp connections. Connections requested
 	// by the TCP channel are pooled after their use, and can

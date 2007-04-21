@@ -29,11 +29,11 @@
 using System;
 using System.Globalization;
 using Mono.Unix;
-using Meebey.Smuxi.Common;
-using Meebey.Smuxi.Engine;
-using Meebey.Smuxi.Frontend;
+using Smuxi.Common;
+using Smuxi.Engine;
+using Smuxi.Frontend;
 
-namespace Meebey.Smuxi.FrontendGnome
+namespace Smuxi.FrontendGnome
 {
     public class ChatViewManager : ChatViewManagerBase
     {

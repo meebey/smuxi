@@ -34,7 +34,7 @@ using System.Collections;
 using System.IO;
 using System.Threading;
 
-namespace Meebey.Smuxi.Channels.Tcp
+namespace Smuxi.Channels.Tcp
 {
 	internal class TcpClientTransportSink : IClientChannelSink
 	{

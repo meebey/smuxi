@@ -29,7 +29,7 @@
 using System;
 using System.Runtime.Remoting.Channels;
 
-namespace Meebey.Smuxi.Channels.Tcp
+namespace Smuxi.Channels.Tcp
 {
 	internal class TcpClientTransportSinkProvider : IClientChannelSinkProvider
 	{

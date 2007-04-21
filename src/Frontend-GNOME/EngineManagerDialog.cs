@@ -35,9 +35,9 @@ using System.Runtime.Remoting.Channels.Http;
 using System.Runtime.Remoting.Channels.Tcp;
 using System.Runtime.Serialization.Formatters;
 using Mono.Unix;
-using Meebey.Smuxi.Engine;
-using Meebey.Smuxi.Common;
-//using Meebey.Smuxi.Channels.Tcp;
+using Smuxi.Engine;
+using Smuxi.Common;
+//using Smuxi.Channels.Tcp;
 #if CHANNEL_TCPEX
 using TcpEx;
 #endif
@@ -45,7 +45,7 @@ using TcpEx;
 using DotNetRemotingCC.Channels.BidirectionalTCP;
 #endif
 
-namespace Meebey.Smuxi.FrontendGnome
+namespace Smuxi.FrontendGnome
 {
     public class EngineManagerDialog : Gtk.Dialog
     {

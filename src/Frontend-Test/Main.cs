@@ -28,7 +28,7 @@
 
 using System;
 
-namespace Meebey.Smuxi.FrontendTest
+namespace Smuxi.FrontendTest
 { 
     public class MainClass
     {

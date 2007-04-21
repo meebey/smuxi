@@ -28,9 +28,9 @@
 
 using System;
 using Mono.Unix;
-using Meebey.Smuxi;
+using Smuxi;
 
-namespace Meebey.Smuxi.FrontendGnome
+namespace Smuxi.FrontendGnome
 {
     public class NotImplementedMessageDialog
     {

@@ -27,10 +27,10 @@
  */
 
 using System;
-using Meebey.Smuxi;
-using Meebey.Smuxi.Common;
+using Smuxi;
+using Smuxi.Common;
 
-namespace Meebey.Smuxi.FrontendGnome
+namespace Smuxi.FrontendGnome
 {
     public class ChannelFilterModel
     {

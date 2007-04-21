@@ -29,7 +29,7 @@
 using System;
 using System.Collections;
 
-namespace Meebey.Smuxi.Engine
+namespace Smuxi.Engine
 {
     public class UserConfig : PermanentRemoteObject
     {

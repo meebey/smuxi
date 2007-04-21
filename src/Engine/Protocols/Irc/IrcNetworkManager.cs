@@ -32,10 +32,10 @@ using System.Text.RegularExpressions;
 using System.Globalization;
 using System.Threading;
 using System.Collections;
-using Meebey.SmartIrc4net;
-using Meebey.Smuxi.Common;
+using SmartIrc4net;
+using Smuxi.Common;
 
-namespace Meebey.Smuxi.Engine
+namespace Smuxi.Engine
 {
     public enum IrcControlCode : int
     {

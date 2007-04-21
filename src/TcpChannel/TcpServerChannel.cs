@@ -37,7 +37,7 @@ using System.Net;
 using System.Threading;
 using System.IO;
 
-namespace Meebey.Smuxi.Channels.Tcp
+namespace Smuxi.Channels.Tcp
 {
 	public class TcpServerChannel : IChannelReceiver, IChannel
 	{

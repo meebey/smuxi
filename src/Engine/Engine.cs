@@ -29,7 +29,7 @@
 using System;
 using System.Reflection;
 
-namespace Meebey.Smuxi.Engine
+namespace Smuxi.Engine
 {
     public class Engine
     {

@@ -28,10 +28,10 @@
 
 using System;
 using Mono.Unix;
-using Meebey.Smuxi.Common;
-using Meebey.Smuxi.Engine;
+using Smuxi.Common;
+using Smuxi.Engine;
 
-namespace Meebey.Smuxi.FrontendGnome
+namespace Smuxi.FrontendGnome
 {
 #if UI_GNOME
     public class MainWindow : Gnome.App

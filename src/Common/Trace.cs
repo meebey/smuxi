@@ -31,7 +31,7 @@ using System.Reflection;
 using System.Diagnostics;
 using SysTrace = System.Diagnostics.Trace;
 
-namespace Meebey.Smuxi.Common
+namespace Smuxi.Common
 {
 	public sealed class Trace
 	{

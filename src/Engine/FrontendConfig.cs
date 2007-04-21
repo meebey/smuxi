@@ -32,7 +32,7 @@ using System.IO;
 using Nini.Ini;
 #endif
 
-namespace Meebey.Smuxi.Engine
+namespace Smuxi.Engine
 {
     public class FrontendConfig : Config
     {

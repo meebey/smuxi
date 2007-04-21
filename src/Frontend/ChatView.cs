@@ -27,9 +27,9 @@
  */
 
 using System;
-using Meebey.Smuxi.Engine;
+using Smuxi.Engine;
 
-namespace Meebey.Smuxi.Frontend
+namespace Smuxi.Frontend
 {
     public class ChatView
     {

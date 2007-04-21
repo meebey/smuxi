@@ -28,7 +28,7 @@
 
 using System;
 
-namespace Meebey.Smuxi.Common
+namespace Smuxi.Common
 {
 	public interface ITraceable
 	{

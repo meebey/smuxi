@@ -28,7 +28,7 @@
 
 using System;
 
-namespace Meebey.Smuxi.Engine
+namespace Smuxi.Engine
 {
     [Serializable]
     public class TextMessagePartModel : MessagePartModel

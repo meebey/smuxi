@@ -35,13 +35,13 @@ using System.Runtime.Remoting.Channels;
 using System.Runtime.Remoting.Channels.Tcp;
 using System.Runtime.Remoting.Channels.Http;
 using System.Runtime.Serialization.Formatters;
-using Meebey.Smuxi;
-//using Meebey.Smuxi.Channels.Tcp;
+using Smuxi;
+//using Smuxi.Channels.Tcp;
 #if CHANNEL_TCPEX
 using TcpEx;
 #endif
 
-namespace Meebey.Smuxi.Server
+namespace Smuxi.Server
 { 
     public class Server
     {

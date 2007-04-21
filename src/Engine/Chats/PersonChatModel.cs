@@ -27,9 +27,9 @@
  */
 
 using System;
-using Meebey.Smuxi.Common;
+using Smuxi.Common;
 
-namespace Meebey.Smuxi.Engine
+namespace Smuxi.Engine
 {
     public class PersonChatModel : ChatModel
     {

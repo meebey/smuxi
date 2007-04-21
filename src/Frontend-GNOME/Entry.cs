@@ -31,10 +31,10 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using Mono.Unix;
-using Meebey.Smuxi.Engine;
-using Meebey.Smuxi.Common;
+using Smuxi.Engine;
+using Smuxi.Common;
 
-namespace Meebey.Smuxi.FrontendGnome
+namespace Smuxi.FrontendGnome
 {
     public class Entry : Gtk.Entry
     {

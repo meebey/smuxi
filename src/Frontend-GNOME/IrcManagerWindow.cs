@@ -27,8 +27,8 @@
  */
 
 using System;
-using Meebey.Smuxi.Engine;
+using Smuxi.Engine;
 
-namespace Meebey.Smuxi.FrontendGnome
+namespace Smuxi.FrontendGnome
 {
 }

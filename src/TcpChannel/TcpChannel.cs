@@ -32,7 +32,7 @@ using System.Runtime.Remoting.Channels;
 using System.Runtime.Remoting.Messaging;
 using System.Text.RegularExpressions;
 
-namespace Meebey.Smuxi.Channels.Tcp
+namespace Smuxi.Channels.Tcp
 {
 	public class TcpChannel : IChannelReceiver, IChannel, IChannelSender
 	{

@@ -30,7 +30,7 @@ using System.Collections;
 using System.Threading;
 using System.Runtime.Remoting;
 
-namespace Meebey.Smuxi.Channels.Tcp
+namespace Smuxi.Channels.Tcp
 {
 	internal class RemotingThreadPool
 	{

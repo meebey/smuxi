@@ -29,7 +29,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Meebey.Smuxi.Engine
+namespace Smuxi.Engine
 {
     [Serializable]
     public class MessageModel

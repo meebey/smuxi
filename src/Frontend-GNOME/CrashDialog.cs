@@ -29,7 +29,7 @@
 using System;
 using Mono.Unix;
 
-namespace Meebey.Smuxi.FrontendGnome
+namespace Smuxi.FrontendGnome
 {
     public class CrashDialog : Gtk.Dialog
     {

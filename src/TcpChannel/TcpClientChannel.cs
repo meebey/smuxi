@@ -34,7 +34,7 @@ using System.Runtime.Remoting.Messaging;
 using System.Runtime.Remoting.Channels;
 using System.Threading;
 
-namespace Meebey.Smuxi.Channels.Tcp
+namespace Smuxi.Channels.Tcp
 {
 	public class TcpClientChannel : IChannelSender, IChannel
 	{

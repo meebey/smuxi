@@ -27,10 +27,10 @@
  */
 
 using System;
-using Meebey.Smuxi.Engine;
-using Meebey.Smuxi.Common;
+using Smuxi.Engine;
+using Smuxi.Common;
 
-namespace Meebey.Smuxi.FrontendTest
+namespace Smuxi.FrontendTest
 {
     public class TestUI : PermanentRemoteObject, IFrontendUI 
     {

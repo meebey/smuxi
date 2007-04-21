@@ -30,9 +30,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
-using Meebey.Smuxi.Common;
+using Smuxi.Common;
 
-namespace Meebey.Smuxi.Engine
+namespace Smuxi.Engine
 {
     public delegate void SimpleDelegate(); 
     

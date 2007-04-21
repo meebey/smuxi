@@ -29,10 +29,10 @@
 using System;
 using System.IO;
 using System.Reflection;
-using Meebey.Smuxi;
-using Meebey.Smuxi.Engine;
+using Smuxi;
+using Smuxi.Engine;
 
-namespace Meebey.Smuxi.FrontendGnome
+namespace Smuxi.FrontendGnome
 {
     public class Frontend
     {

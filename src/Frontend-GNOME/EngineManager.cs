@@ -27,9 +27,9 @@
  */
 
 using System;
-using Meebey.Smuxi;
+using Smuxi;
 
-namespace Meebey.Smuxi.FrontendGnome
+namespace Smuxi.FrontendGnome
 {
     public class EngineManager
     {

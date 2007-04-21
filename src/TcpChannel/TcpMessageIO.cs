@@ -34,7 +34,7 @@ using System.IO;
 using System.Text;
 using System.Net.Sockets;
 
-namespace Meebey.Smuxi.Channels.Tcp
+namespace Smuxi.Channels.Tcp
 {
 	enum MessageStatus { MethodMessage = 0, CancelSignal = 1, Unknown = 10}
 
