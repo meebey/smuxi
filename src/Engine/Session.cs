@@ -354,7 +354,7 @@ namespace Smuxi.Engine
             ircm.Connect(fm, server, port, nicks, person, pass);
             */
             
-            XmppProtocolManager xmppProtocolManager = new XmppNetworkManager(this);
+            XmppProtocolManager xmppProtocolManager = new XmppProtocolManager(this);
             xmppProtocolManager.Connect(fm, server, port, nicks[0], pass);
             networkManager = xmppProtocolManager;
             

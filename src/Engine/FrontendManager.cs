@@ -125,7 +125,7 @@ namespace Smuxi.Engine
             
             // sync current network manager (if any exists)
             if (_Session.ProtocolManagers.Count > 0) {
-                IProtocolManager nm = (IProtocolManager)_Session.NetworkManagers[0];
+                IProtocolManager nm = (IProtocolManager)_Session.ProtocolManagers[0];
                 CurrentProtocolManager = nm;
             }
             
@@ -158,7 +158,7 @@ namespace Smuxi.Engine
                 } else {
                     pos = 0;
                 }
-                CurrentProtocolManager = (IProtocolManager)_Session.NetworkManagers[pos];
+                CurrentProtocolManager = (IProtocolManager)_Session.ProtocolManagers[pos];
             }
             UpdateNetworkStatus();
         }

@@ -507,7 +507,7 @@ namespace Smuxi.Frontend.Gnome
                     name = currentChatModel.Name;
                     if (currentChatModel.ChatType != ChatType.Network) {
                         if (currentChatModel.ProtocolManager is IrcProtocolManager) {
-                            IrcProtocolManager ircm = (IrcProtocolManager) currentChatModel.NetworkManager; 
+                            IrcProtocolManager ircm = (IrcProtocolManager) currentChatModel.ProtocolManager; 
                             if (currentChatModel.ChatType == ChatType.Group) {
                                 ircm.CommandPart(new CommandModel(fm, currentChatModel, name));
                             } else {
