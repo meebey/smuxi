@@ -27,6 +27,7 @@
     <Reference Include="Nini" />
     <Reference Include="Mono.Posix" />
     <Reference Include="System" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Runtime.Remoting" />
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
@@ -43,6 +44,40 @@
       <Project>{0F54E2A1-25A7-4433-AFE8-58B212E8F846}</Project>
       <Name>Frontend</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="SplashScreenWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SplashScreenWindow.designer.cs">
+      <DependentUpon>SplashScreenWindow.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="..\..\images\about.png">
+      <Link>about.png</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\images\connect.png">
+      <Link>connect.png</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\images\edit.png">
+      <Link>edit.png</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\images\icon_default.png">
+      <Link>icon_default.png</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\images\icon_halfop.png">
+      <Link>icon_halfop.png</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\images\icon_op.png">
+      <Link>icon_op.png</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\images\icon_voice.png">
+      <Link>icon_voice.png</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\images\splashscreen.png">
+      <Link>splashscreen.png</Link>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>
