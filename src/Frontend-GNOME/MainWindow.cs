@@ -28,13 +28,16 @@
 
 using System;
 using Mono.Unix;
+#if UI_GNOME
+using GNOME = Gnome;
+#endif
 using Smuxi.Common;
 using Smuxi.Engine;
 
 namespace Smuxi.Frontend.Gnome
 {
 #if UI_GNOME
-    public class MainWindow : Gnome.App
+    public class MainWindow : GNOME.App
 #elif UI_GTK
 	public class MainWindow : Gtk.Window
 #endif
@@ -43,8 +46,8 @@ namespace Smuxi.Frontend.Gnome
         private static readonly log4net.ILog _Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 #endif
 #if UI_GNOME
-        private Gnome.AppBar     _NetworkStatusbar;
-        private Gnome.AppBar     _Statusbar;
+        private GNOME.AppBar     _NetworkStatusbar;
+        private GNOME.AppBar     _Statusbar;
 #elif UI_GTK
         private Gtk.Statusbar    _NetworkStatusbar;
         private Gtk.Statusbar    _Statusbar;
@@ -75,7 +78,7 @@ namespace Smuxi.Frontend.Gnome
         }
         
 #if UI_GNOME
-        public new Gnome.AppBar NetworkStatusbar {
+        public new GNOME.AppBar NetworkStatusbar {
 #elif UI_GTK
         public new Gtk.Statusbar NetworkStatusbar {
 #endif
@@ -85,7 +88,7 @@ namespace Smuxi.Frontend.Gnome
         } 
 
 #if UI_GNOME
-        public new Gnome.AppBar Statusbar {
+        public new GNOME.AppBar Statusbar {
 #elif UI_GTK
         public new Gtk.Statusbar Statusbar {
 #endif
@@ -183,7 +186,7 @@ namespace Smuxi.Frontend.Gnome
             mb.Append(item);
             
 #if UI_GNOME
-            image_item = new Gtk.ImageMenuItem(Gnome.Stock.About, agrp);
+            image_item = new Gtk.ImageMenuItem(GNOME.Stock.About, agrp);
 #elif UI_GTK
             image_item = new Gtk.ImageMenuItem(_("_About"), agrp);
 #endif
@@ -207,10 +210,10 @@ namespace Smuxi.Frontend.Gnome
             vbox.PackStart(_Entry, false, false, 0);
             Contents = vbox;
             
-            _NetworkStatusbar = new Gnome.AppBar(false, true, Gnome.PreferencesType.Never);
+            _NetworkStatusbar = new GNOME.AppBar(false, true, GNOME.PreferencesType.Never);
             _NetworkStatusbar.WidthRequest = 300;
             
-            _Statusbar = new Gnome.AppBar(false, true, Gnome.PreferencesType.Never);
+            _Statusbar = new GNOME.AppBar(false, true, GNOME.PreferencesType.Never);
             
             Gtk.HBox sb_hbox = new Gtk.HBox();
             sb_hbox.PackStart(_NetworkStatusbar, false, true, 0);

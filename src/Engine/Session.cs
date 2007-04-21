@@ -43,6 +43,7 @@ namespace Smuxi.Engine
         private ArrayList        _ProtocolManagers = ArrayList.Synchronized(new ArrayList());
         private ArrayList        _Chats = ArrayList.Synchronized(new ArrayList());
         private Config           _Config;
+        private ProtocolManagerFactory _ProtocolManagerFactory;
         private UserConfig       _UserConfig;
         private bool             _OnStartupCommandsProcessed;
         
@@ -76,18 +77,23 @@ namespace Smuxi.Engine
             }
         }
         
-        public Session(Config config, string username)
+        public Session(Config config, ProtocolManagerFactory protocolManagerFactory,
+                       string username)
         {
-            Trace.Call(config, username);
+            Trace.Call(config, protocolManagerFactory, username);
             
             if (config == null) {
                 throw new ArgumentNullException("config");
+            }
+            if (protocolManagerFactory == null) {
+                throw new ArgumentNullException("protocolManagerFactory");
             }
             if (username == null) {
                 throw new ArgumentNullException("username");
             }
             
             _Config = config;
+            _ProtocolManagerFactory = protocolManagerFactory;
             _UserConfig = new UserConfig(config, username);
             
             ChatModel chat = new NetworkChatModel("smuxi", "smuxi", null);
@@ -95,7 +101,7 @@ namespace Smuxi.Engine
             
             MessageModel msg = new MessageModel();
             msg.MessageParts.Add(
-                new TextMessagePartModel(IrcTextColor.Red, null, false,
+                new TextMessagePartModel(new TextColor(0xFF0000), null, false,
                         true, false, _("Welcome to Smuxi")));
             AddMessageToChat(chat, msg); 
         }
@@ -293,49 +299,18 @@ namespace Smuxi.Engine
             
             FrontendManager fm = cd.FrontendManager;
             
-            string server;
+            string protocol;
             if (cd.DataArray.Length >= 2) {
-                server = cd.DataArray[1];
+                protocol = cd.DataArray[1];
             } else {
-                server = "localhost";
+                _NotEnoughParameters(cd);
+                return;
             }
-            
-            int port;
-            if (cd.DataArray.Length >= 3) {
-                try {
-                    port = Int32.Parse(cd.DataArray[2]);
-                } catch (FormatException) {
-                    fm.AddTextToCurrentChat("-!- " + String.Format(
-                                                        _("Invalid port: {0}"),
-                                                        cd.DataArray[2]));
-                    return;
-                }
-            } else {
-                port = 6667;
-            }
-            
-            string pass;                
-            if (cd.DataArray.Length >=4) {
-                pass = cd.DataArray[3];
-            } else {
-                pass = null;
-            }
-            
-            string[] nicks;
-            if (cd.DataArray.Length >= 5) {
-                nicks = new string[] {cd.DataArray[4]};
-            } else {
-                nicks = (string[])UserConfig["Connection/Nicknames"];
-            }
-            
-            string person = (string)UserConfig["Connection/Username"];
             
             IProtocolManager networkManager = null;
             /*
-            IrcProtocolManager ircm = null;
             foreach (IProtocolManager nm in _ProtocolManagers) {
-                if (nm is IrcProtocolManager &&
-                    nm.Host == server &&
+                if (nm.Host == server &&
                     nm.Port == port) {
                     // reuse network manager
                     if (nm.IsConnected) {
@@ -343,20 +318,29 @@ namespace Smuxi.Engine
                             _("Already connected to: {0}:{1}"), server, port));
                         return;
                     }
-                    ircm = (IrcProtocolManager) nm;
+                    networkManager = nm;
                     break;
                 }
             }
-            if (ircm == null) {
-                ircm = new IrcProtocolManager(this);
-                _ProtocolManagers.Add(ircm);
-            }
-            ircm.Connect(fm, server, port, nicks, person, pass);
             */
+
+            if (networkManager == null) {
+                ProtocolManagerInfoModel info = _ProtocolManagerFactory.GetProtocolManagerInfoByAlias(protocol); 
+                if (info == null) {
+                    fm.AddTextToCurrentChat("-!- " + String.Format(
+                            _("Unknown protocol: {0}"), protocol));
+                    return;
+                }
+                networkManager = _ProtocolManagerFactory.CreateProtocolManager(info, this);
+                _ProtocolManagers.Add(networkManager);
+            }
+            networkManager.Command(cd);
             
+            /*
             XmppProtocolManager xmppProtocolManager = new XmppProtocolManager(this);
             xmppProtocolManager.Connect(fm, server, port, nicks[0], pass);
             networkManager = xmppProtocolManager;
+            */
             
             // set this as current network manager
             fm.CurrentProtocolManager = networkManager;
@@ -416,12 +400,14 @@ namespace Smuxi.Engine
                 if (message == null) {
                     nm.Disconnect(fm);
                 } else {
+                    /*
                     if (nm is IrcProtocolManager) {
                         IrcProtocolManager im = (IrcProtocolManager)nm;
                         im.CommandQuit(cd);
                     } else {
                         nm.Disconnect(fm);
                     }
+                    */
                 }
             }
         }

@@ -13,4 +13,14 @@
       <CodeGeneration compiler="Mcs" warninglevel="4" optimize="True" unsafecodeallowed="False" generateoverflowchecks="True" mainclass="" generatexmldocumentation="False" win32Icon="./" ctype="CSharpCompilerParameters" />
     </Configuration>
   </Configurations>
+  <Contents>
+    <File name="./" subtype="Directory" buildaction="Compile" />
+    <File name="./AssemblyInfo.cs" subtype="Code" buildaction="Compile" />
+  </Contents>
+  <References>
+    <ProjectReference type="Project" localcopy="True" refto="Frontend-GNOME" />
+    <ProjectReference type="Project" localcopy="True" refto="Engine" />
+    <ProjectReference type="Project" localcopy="True" refto="Common" />
+    <ProjectReference type="Project" localcopy="True" refto="Engine-XMPP" />
+  </References>
 </Project>

@@ -98,7 +98,9 @@ namespace Smuxi.FrontendTest
             if (profile == "local") {
                 Engine.Engine.Init();
                 sessionManager = Engine.Engine.SessionManager;
-                session = new Engine.Session(Engine.Engine.Config, "local");
+                session = new Engine.Session(Engine.Engine.Config,
+                                             Engine.Engine.ProtocolManagerFactory,
+                                             "local");
                 session.RegisterFrontendUI(ui);
                 _UserConfig = session.UserConfig;
             } else {

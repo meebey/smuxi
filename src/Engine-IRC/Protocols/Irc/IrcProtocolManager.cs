@@ -32,7 +32,7 @@ using System.Text.RegularExpressions;
 using System.Globalization;
 using System.Threading;
 using System.Collections;
-using SmartIrc4net;
+using Meebey.SmartIrc4net;
 using Smuxi.Common;
 
 namespace Smuxi.Engine
@@ -46,6 +46,7 @@ namespace Smuxi.Engine
         Underline = 31,
     }
     
+    [ProtocolManagerInfo(Name = "IRC", Description = "Internet Relay Chat", Alias = "irc")]
     public class IrcProtocolManager : PermanentRemoteObject, IProtocolManager
     {
 #if LOG4NET
@@ -519,6 +520,10 @@ namespace Smuxi.Engine
                             CommandHelp(command);
                             handled = true;
                             break;
+                        case "connect":
+                            CommandConnect(command);
+                            handled = true;
+                            break;
                     }
                 } else {
                     // normal text, without connection
@@ -575,6 +580,50 @@ namespace Smuxi.Engine
             foreach (string line in help) { 
                 cd.FrontendManager.AddTextToCurrentChat("-!- " + line);
             }
+        }
+        
+        public void CommandConnect(CommandModel cd)
+        {
+            FrontendManager fm = cd.FrontendManager;
+            
+            string server;
+            if (cd.DataArray.Length >= 3) {
+                server = cd.DataArray[2];
+            } else {
+                server = "localhost";
+            }
+            
+            int port;
+            if (cd.DataArray.Length >= 4) {
+                try {
+                    port = Int32.Parse(cd.DataArray[3]);
+                } catch (FormatException) {
+                    fm.AddTextToCurrentChat("-!- " + String.Format(
+                                                        _("Invalid port: {0}"),
+                                                        cd.DataArray[3]));
+                    return;
+                }
+            } else {
+                port = 6667;
+            }
+            
+            string pass;                
+            if (cd.DataArray.Length >=5) {
+                pass = cd.DataArray[4];
+            } else {
+                pass = null;
+            }
+            
+            string[] nicks;
+            if (cd.DataArray.Length >= 6) {
+                nicks = new string[] {cd.DataArray[5]};
+            } else {
+                nicks = (string[])_Session.UserConfig["Connection/Nicknames"];
+            }
+            
+            string username = (string)_Session.UserConfig["Connection/Username"];
+            
+            Connect(fm, server, port, nicks, username, pass);
         }
         
         private void _Say(CommandModel cd, string message)
@@ -944,7 +993,7 @@ namespace Smuxi.Engine
         {
             ChatModel chat = cd.FrontendManager.CurrentChat;
             string channel = chat.Name;
-            SmartIrc4net.IrcUser ircuser;
+            IrcUser ircuser;
             if (cd.DataArray.Length >= 2) {
                 string[] candidates = cd.DataArray[1].Split(new char[] {','});
                 if (cd.DataArray.Length >= 3) {
@@ -1561,7 +1610,7 @@ namespace Smuxi.Engine
                 }
             } else {
                 // someone else joined, let's add him to the channel chat
-                SmartIrc4net.IrcUser siuser = _IrcClient.GetIrcUser(e.Who);
+                IrcUser siuser = _IrcClient.GetIrcUser(e.Who);
                 IrcGroupPersonModel icuser = new IrcGroupPersonModel(e.Who, siuser.Realname,
                                         siuser.Ident, siuser.Host, NetworkID, this);
                  cchat.UnsafePersons.Add(icuser.NickName.ToLower(), icuser);
@@ -1632,7 +1681,7 @@ namespace Smuxi.Engine
             _Logger.Debug("_OnChannelActiveSynced() e.Data.Channel: "+e.Data.Channel);
 #endif
             GroupChatModel cchat = (GroupChatModel)_Session.GetChat(e.Data.Channel, ChatType.Group, NetworkProtocol.Irc, this);
-            SmartIrc4net.Channel schan = _IrcClient.GetChannel(e.Data.Channel);
+            Channel schan = _IrcClient.GetChannel(e.Data.Channel);
             foreach (ChannelUser scuser in schan.Users.Values) {
                 IrcGroupPersonModel icuser = (IrcGroupPersonModel)cchat.GetPerson(scuser.Nick);
                 if (icuser == null) {
@@ -1711,7 +1760,7 @@ namespace Smuxi.Engine
                                                         e.NewNickname));
             }
             
-            SmartIrc4net.IrcUser ircuser = e.Data.Irc.GetIrcUser(e.NewNickname);
+            IrcUser ircuser = e.Data.Irc.GetIrcUser(e.NewNickname);
             if (ircuser != null) {
                 foreach (string channel in ircuser.JoinedChannels) {
                     GroupChatModel cchat = (GroupChatModel)_Session.GetChat(channel, ChatType.Group, NetworkProtocol.Irc, this);

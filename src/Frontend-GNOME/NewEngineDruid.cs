@@ -27,19 +27,21 @@
  */
 
 using System;
-using Smuxi;
+#if UI_GNOME
+using GNOME = Gnome;
+#endif
 
 namespace Smuxi.Frontend.Gnome
 {
     public class NewEngineDruid
     {
 #if UI_GNOME
-        private Gnome.Druid             _Druid;
-        private Gnome.DruidPageEdge     _Page1;
-        private Gnome.DruidPageStandard _Page2;
-        private Gnome.DruidPageStandard _Page3;
-        private Gnome.DruidPageStandard _Page4;
-        private Gnome.DruidPageEdge     _Page5;
+        private GNOME.Druid             _Druid;
+        private GNOME.DruidPageEdge     _Page1;
+        private GNOME.DruidPageStandard _Page2;
+        private GNOME.DruidPageStandard _Page3;
+        private GNOME.DruidPageStandard _Page4;
+        private GNOME.DruidPageEdge     _Page5;
         private Gtk.Entry               _EngineNameEntry;
         private Gtk.Entry               _HostEntry;
         private Gtk.SpinButton          _PortSpinButton;
@@ -54,27 +56,27 @@ namespace Smuxi.Frontend.Gnome
         public NewEngineDruid()
         {
             // page 1
-            _Page1 = new Gnome.DruidPageEdge(Gnome.EdgePosition.Start, true,
+            _Page1 = new GNOME.DruidPageEdge(GNOME.EdgePosition.Start, true,
                 _("Add smuxi engine"),
                 _("Welcome to the Smuxi Engine Configuration Assistent.\n"+
                 "You need to enter some information before you can use the engine.\n\n"+
                 "Click \"Forward\" to begin."),
                 null, null, null);
-            _Page1.CancelClicked += new Gnome.CancelClickedHandler(_OnCancel);
+            _Page1.CancelClicked += new GNOME.CancelClickedHandler(_OnCancel);
 
             // page 2
-            _Page2 = new Gnome.DruidPageStandard();
-            _Page2.CancelClicked += new Gnome.CancelClickedHandler(_OnCancel);
-            _Page2.Prepared += new Gnome.PreparedHandler(_OnPage2Prepared);
+            _Page2 = new GNOME.DruidPageStandard();
+            _Page2.CancelClicked += new GNOME.CancelClickedHandler(_OnCancel);
+            _Page2.Prepared += new GNOME.PreparedHandler(_OnPage2Prepared);
             _EngineNameEntry = new Gtk.Entry();
             _EngineNameEntry.Changed += new EventHandler(_OnPage2Changed);
             _Page2.AppendItem(_("_Engine Name:"),
                 _EngineNameEntry, _("Profile name of the new engine entry"));
             
             // page 3
-            _Page3 = new Gnome.DruidPageStandard();
-            _Page3.CancelClicked += new Gnome.CancelClickedHandler(_OnCancel);
-            _Page3.Prepared += new Gnome.PreparedHandler(_OnPage3Prepared);
+            _Page3 = new GNOME.DruidPageStandard();
+            _Page3.CancelClicked += new GNOME.CancelClickedHandler(_OnCancel);
+            _Page3.Prepared += new GNOME.PreparedHandler(_OnPage3Prepared);
             
             _HostEntry = new Gtk.Entry();
             _HostEntry.Changed += new EventHandler(_OnPage3Changed);
@@ -103,9 +105,9 @@ namespace Smuxi.Frontend.Gnome
                 _(".NET Remoting Data Formatter"));
             
             // page 4
-            _Page4 = new Gnome.DruidPageStandard();
-            _Page4.CancelClicked += new Gnome.CancelClickedHandler(_OnCancel);
-            _Page4.Prepared += new Gnome.PreparedHandler(_OnPage4Prepared);
+            _Page4 = new GNOME.DruidPageStandard();
+            _Page4.CancelClicked += new GNOME.CancelClickedHandler(_OnCancel);
+            _Page4.Prepared += new GNOME.PreparedHandler(_OnPage4Prepared);
             
             _UsernameEntry = new Gtk.Entry();
             _UsernameEntry.Changed += new EventHandler(_OnPage4Changed);
@@ -125,13 +127,13 @@ namespace Smuxi.Frontend.Gnome
                 _("Repeat the password for verification"));
             
             // page 5
-            _Page5 = new Gnome.DruidPageEdge(Gnome.EdgePosition.Finish, true,
+            _Page5 = new GNOME.DruidPageEdge(GNOME.EdgePosition.Finish, true,
                 _("Thank you"), _("Now you can use the added smuxi engine"), null,
                 null, null);
-            _Page5.CancelClicked += new Gnome.CancelClickedHandler(_OnCancel);
-            _Page5.FinishClicked += new Gnome.FinishClickedHandler(_OnFinishClicked);
+            _Page5.CancelClicked += new GNOME.CancelClickedHandler(_OnCancel);
+            _Page5.FinishClicked += new GNOME.FinishClickedHandler(_OnFinishClicked);
             
-            _Druid = new Gnome.Druid(_("Adding new engine to smuxi"), true);
+            _Druid = new GNOME.Druid(_("Adding new engine to smuxi"), true);
             _Druid.Cancel += new EventHandler(_OnCancel);
             
             _Druid.AppendPage(_Page1);
@@ -150,7 +152,7 @@ namespace Smuxi.Frontend.Gnome
             }
         }
         
-        private void _OnFinishClicked(object sender, Gnome.FinishClickedArgs e)
+        private void _OnFinishClicked(object sender, GNOME.FinishClickedArgs e)
         {
             string new_engine = _EngineNameEntry.Text;
             string[] engines = (string[])Frontend.FrontendConfig["Engines/Engines"];

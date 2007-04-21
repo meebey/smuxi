@@ -39,6 +39,15 @@ using Smuxi.Common;
 
 namespace Smuxi.Engine
 {
+    [ProtocolManagerInfo(Name = "Jabber/XMPP", Description = "Extensible Messaging and Presence Protocol", Alias = "jabber")]
+    public class JabberProtocolManager : XmppProtocolManager
+    {
+        public JabberProtocolManager(Session session) : base(session)
+        {
+        }
+    }
+    
+    [ProtocolManagerInfo(Name = "Jabber/XMPP", Description = "Extensible Messaging and Presence Protocol", Alias = "xmpp")]
     public class XmppProtocolManager : ProtocolManagerBase
     {
 #if LOG4NET
@@ -175,7 +184,8 @@ namespace Smuxi.Engine
             
             msgPart = new TextMessagePartModel();
             msgPart.Text = _JabberClient.User;
-            msgPart.ForegroundColor = IrcTextColor.Blue;
+            //msgPart.ForegroundColor = IrcTextColor.Blue;
+            msgPart.ForegroundColor = new TextColor(0x0000FF);
             msg.MessageParts.Add(msgPart);
             
             msgPart = new TextMessagePartModel();

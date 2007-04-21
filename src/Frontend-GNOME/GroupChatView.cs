@@ -272,11 +272,13 @@ namespace Smuxi.Frontend.Gnome
         {
             Trace.Call(sender, e);
             
+            /*
             if (ChatModel.ProtocolManager is IrcProtocolManager) {
                 IrcProtocolManager imanager = (IrcProtocolManager) ChatModel.ProtocolManager;
                 imanager.CommandPart(new CommandModel(Frontend.FrontendManager, ChatModel,
                                                       ChatModel.Name));
             }
+            */
         }
         
         private void _OnUserListRowActivated(object sender, Gtk.RowActivatedArgs e)
@@ -288,11 +290,13 @@ namespace Smuxi.Frontend.Gnome
                 return;
             }
             
+            /*
             if (ChatModel.ProtocolManager is IrcProtocolManager) {
                 IrcProtocolManager imanager = (IrcProtocolManager) ChatModel.ProtocolManager;
                 imanager.CommandMessageQuery(new CommandModel(Frontend.FrontendManager,
                                                               ChatModel, user));
             }
+            */
         }            
         
         private void _OnUserListButtonReleaseEvent(object sender, Gtk.ButtonReleaseEventArgs e)
@@ -314,11 +318,13 @@ namespace Smuxi.Frontend.Gnome
                 return;
             }
             
+            /*
             if (ChatModel.ProtocolManager is IrcProtocolManager) {
                 IrcProtocolManager imanager = (IrcProtocolManager) ChatModel.ProtocolManager;
                 imanager.CommandOp(new CommandModel(Frontend.FrontendManager, ChatModel,
                     whom));
             }
+            */
         } 
         
         private void _OnUserListMenuDeopActivated(object sender, EventArgs e)
@@ -330,11 +336,13 @@ namespace Smuxi.Frontend.Gnome
                 return;
             }
             
+            /*
             if (ChatModel.ProtocolManager is IrcProtocolManager) {
                 IrcProtocolManager imanager = (IrcProtocolManager) ChatModel.ProtocolManager;
                 imanager.CommandDeop(new CommandModel(Frontend.FrontendManager, ChatModel,
                     whom));
             }
+            */
         }
          
         private void _OnUserListMenuVoiceActivated(object sender, EventArgs e)
@@ -346,11 +354,13 @@ namespace Smuxi.Frontend.Gnome
                 return;
             }
             
+            /*
             if (ChatModel.ProtocolManager is IrcProtocolManager) {
                 IrcProtocolManager imanager = (IrcProtocolManager) ChatModel.ProtocolManager;
                 imanager.CommandVoice(new CommandModel(Frontend.FrontendManager, ChatModel,
                     whom));
             }
+            */
         }
         
         private void _OnUserListMenuDevoiceActivated(object sender, EventArgs e)
@@ -362,11 +372,13 @@ namespace Smuxi.Frontend.Gnome
                 return;
             }
             
+            /*
             if (ChatModel.ProtocolManager is IrcProtocolManager) {
                 IrcProtocolManager imanager = (IrcProtocolManager) ChatModel.ProtocolManager;
                 imanager.CommandDevoice(new CommandModel(Frontend.FrontendManager, ChatModel,
                     whom));
             }
+            */
         } 
         
         private void _OnUserListMenuKickActivated(object sender, EventArgs e)
@@ -378,11 +390,13 @@ namespace Smuxi.Frontend.Gnome
                 return;
             }
             
+            /*
             if (ChatModel.ProtocolManager is IrcProtocolManager) {
                 IrcProtocolManager imanager = (IrcProtocolManager) ChatModel.ProtocolManager;
                 imanager.CommandKick(new CommandModel(Frontend.FrontendManager, ChatModel,
                     victim));
             }
+            */
         } 
         
         private string _GetSelectedNode()

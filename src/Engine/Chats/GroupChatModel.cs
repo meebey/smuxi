@@ -77,7 +77,8 @@ namespace Smuxi.Engine
             }
         }
         
-        internal IDictionary<string, PersonModel> UnsafePersons {
+        // ProtocolManagers need access to this
+        public IDictionary<string, PersonModel> UnsafePersons {
             get {
                 lock (_Persons) {
                     return _Persons;

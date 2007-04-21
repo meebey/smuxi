@@ -506,6 +506,7 @@ namespace Smuxi.Frontend.Gnome
                 if (cd.DataArray[1].ToLower() == "close") {
                     name = currentChatModel.Name;
                     if (currentChatModel.ChatType != ChatType.Network) {
+                        /*
                         if (currentChatModel.ProtocolManager is IrcProtocolManager) {
                             IrcProtocolManager ircm = (IrcProtocolManager) currentChatModel.ProtocolManager; 
                             if (currentChatModel.ChatType == ChatType.Group) {
@@ -515,6 +516,7 @@ namespace Smuxi.Frontend.Gnome
                                 Frontend.Session.RemoveChat(currentChatModel);
                             }
                         }
+                        */
                     }
                 } else {
                     bool is_number = false;

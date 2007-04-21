@@ -27,6 +27,7 @@
  */
 
 using System;
+using System.IO;
 using System.Reflection;
 
 namespace Smuxi.Engine
@@ -38,6 +39,7 @@ namespace Smuxi.Engine
         private static string           _VersionString;
         private static Config           _Config;
         private static SessionManager   _SessionManager;
+        private static ProtocolManagerFactory _ProtocolManagerFactory;
         
         public static Version Version {
             get {
@@ -54,6 +56,12 @@ namespace Smuxi.Engine
         public static Config Config {
             get {
                 return _Config;
+            } 
+        }
+        
+        public static ProtocolManagerFactory ProtocolManagerFactory {
+            get {
+                return _ProtocolManagerFactory;
             } 
         }
         
@@ -75,7 +83,12 @@ namespace Smuxi.Engine
             _Config = new Config();
             _Config.Load();
             _Config.Save();
-            _SessionManager = new SessionManager();
+            
+            string location = Assembly.GetExecutingAssembly().Location;
+            _ProtocolManagerFactory = new ProtocolManagerFactory();
+            _ProtocolManagerFactory.LoadAllProtocolManagers(Path.GetDirectoryName(location));
+            
+            _SessionManager = new SessionManager(_Config, _ProtocolManagerFactory);
         }
     }
 }

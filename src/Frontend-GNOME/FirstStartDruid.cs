@@ -28,37 +28,39 @@
 
 using System;
 using Mono.Unix;
-using Smuxi;
+#if UI_GNOME
+using GNOME = Gnome;
+#endif
 
 namespace Smuxi.Frontend.Gnome
 {
     public class FirstStartDruid
     {
 #if UI_GNOME
-        private Gnome.Druid             _Druid;
-        private Gnome.DruidPageEdge     _FirstPage;
-        private Gnome.DruidPageStandard _Page1;
-        private Gnome.DruidPageStandard _LocalEnginePage;
-        private Gnome.DruidPageEdge     _LastPage;
+        private GNOME.Druid             _Druid;
+        private GNOME.DruidPageEdge     _FirstPage;
+        private GNOME.DruidPageStandard _Page1;
+        private GNOME.DruidPageStandard _LocalEnginePage;
+        private GNOME.DruidPageEdge     _LastPage;
         private Gtk.ComboBox            _ModeComboBox;
         private string                  _SelectedMode;
         
         public FirstStartDruid()
         {
             // FirstPage
-            _FirstPage = new Gnome.DruidPageEdge(Gnome.EdgePosition.Start, true,
+            _FirstPage = new GNOME.DruidPageEdge(GNOME.EdgePosition.Start, true,
                 _("Smuxi's first start"),
                 _("Welcome to the smuxi\n"+
                 "You started smuxi for the first time and it needs some answers from you.\n\n"+
                 "Click \"Forward\" to begin."),
                 null, null, null);
-            _FirstPage.CancelClicked += new Gnome.CancelClickedHandler(_OnCancel);
+            _FirstPage.CancelClicked += new GNOME.CancelClickedHandler(_OnCancel);
 
             // page 1
-            _Page1 = new Gnome.DruidPageStandard();
-            _Page1.CancelClicked += new Gnome.CancelClickedHandler(_OnCancel);
-            _Page1.Prepared += new Gnome.PreparedHandler(_OnPage1Prepared);
-            _Page1.NextClicked += new Gnome.NextClickedHandler(_OnPage1NextClicked);
+            _Page1 = new GNOME.DruidPageStandard();
+            _Page1.CancelClicked += new GNOME.CancelClickedHandler(_OnCancel);
+            _Page1.Prepared += new GNOME.PreparedHandler(_OnPage1Prepared);
+            _Page1.NextClicked += new GNOME.NextClickedHandler(_OnPage1NextClicked);
             _ModeComboBox = Gtk.ComboBox.NewText();
             _ModeComboBox.AppendText(_("Local"));
             _ModeComboBox.AppendText(_("Remote"));
@@ -68,13 +70,13 @@ namespace Smuxi.Frontend.Gnome
                 _ModeComboBox, _("When smuxi is started which mode it should use by default"));
                 
             // LastPage
-            _LastPage = new Gnome.DruidPageEdge(Gnome.EdgePosition.Finish, true,
+            _LastPage = new GNOME.DruidPageEdge(GNOME.EdgePosition.Finish, true,
                 _("Thank you"), _("Now you can use smuxi"), null,
                 null, null);
-            _LastPage.CancelClicked += new Gnome.CancelClickedHandler(_OnCancel);
-            _LastPage.FinishClicked += new Gnome.FinishClickedHandler(_OnFinishClicked);
+            _LastPage.CancelClicked += new GNOME.CancelClickedHandler(_OnCancel);
+            _LastPage.FinishClicked += new GNOME.FinishClickedHandler(_OnFinishClicked);
             
-            _Druid = new Gnome.Druid(_("First Start Druid"), true);
+            _Druid = new GNOME.Druid(_("First Start Druid"), true);
             _Druid.Cancel += new EventHandler(_OnCancel);
             
             _Druid.AppendPage(_FirstPage);
@@ -89,7 +91,7 @@ namespace Smuxi.Frontend.Gnome
             Frontend.Quit();
         }
         
-        private void _OnFinishClicked(object sender, Gnome.FinishClickedArgs e)
+        private void _OnFinishClicked(object sender, GNOME.FinishClickedArgs e)
         {
             Engine.FrontendConfig fc = Frontend.FrontendConfig;
             if (_SelectedMode == _("Remote")) {
@@ -122,7 +124,7 @@ namespace Smuxi.Frontend.Gnome
         }
         */
         
-        private void _OnPage1NextClicked(object sender, Gnome.NextClickedArgs e)
+        private void _OnPage1NextClicked(object sender, GNOME.NextClickedArgs e)
         {
             /*
             // BUG: why did I wanted to a insert a special page for local?

@@ -29,7 +29,9 @@
 using System;
 using System.IO;
 using System.Reflection;
-using Smuxi;
+#if UI_GNOME
+using GNOME = Gnome;
+#endif
 using Smuxi.Engine;
 
 namespace Smuxi.Frontend.Gnome
@@ -44,7 +46,7 @@ namespace Smuxi.Frontend.Gnome
         private static readonly string    _UIName = "GTK+";
 #elif UI_GNOME
         private static readonly string    _UIName = "GNOME";
-        private static Gnome.Program      _Program;
+        private static GNOME.Program      _Program;
 #endif
         private static Version            _Version;
         private static string             _VersionNumber;
@@ -91,7 +93,7 @@ namespace Smuxi.Frontend.Gnome
         }
     
 #if UI_GNOME
-        public static Gnome.Program Program {
+        public static GNOME.Program Program {
             get {
                 return _Program;
             }
@@ -168,7 +170,7 @@ namespace Smuxi.Frontend.Gnome
             }
             */
 #if UI_GNOME
-           _Program = new Gnome.Program(Name, Version.ToString(), Gnome.Modules.UI, args);
+           _Program = new GNOME.Program(Name, Version.ToString(), GNOME.Modules.UI, args);
 #elif UI_GTK
            Gtk.Application.Init();
 #endif
@@ -212,7 +214,9 @@ namespace Smuxi.Frontend.Gnome
         {
             Engine.Engine.Init();
             _EngineVersion = Engine.Engine.Version;
-            _Session = new Engine.Session(Engine.Engine.Config, "local");
+            _Session = new Engine.Session(Engine.Engine.Config,
+                                          Engine.Engine.ProtocolManagerFactory,
+                                          "local");
             _Session.RegisterFrontendUI(_MainWindow.UI);
             _UserConfig = _Session.UserConfig;
             ConnectEngineToGUI();

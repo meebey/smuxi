@@ -39,6 +39,8 @@ namespace Smuxi.Engine
 #endif
         private Hashtable _Sessions = Hashtable.Synchronized(new Hashtable());
         private Version   _EngineVersion;
+        private Config    _Config;
+        private ProtocolManagerFactory _ProtocolManagerFactory;
         
         public Version EngineVersion {
             get {
@@ -46,9 +48,15 @@ namespace Smuxi.Engine
             }
         }
         
-        public SessionManager()
+        public SessionManager(Config config, ProtocolManagerFactory protocolManagerFactory)
         {
+            Trace.Call(config, protocolManagerFactory);
+            
+            // BUG: out of scope?
             _EngineVersion = Engine.Version;
+            
+            _Config = config;
+            _ProtocolManagerFactory = protocolManagerFactory;
             
             string[] users = (string[])Engine.Config["Engine/Users/Users"];
             if (users == null) {
@@ -63,7 +71,7 @@ namespace Smuxi.Engine
 #if LOG4NET
                 _Logger.Debug("Creating Session for User "+user);
 #endif
-                _Sessions.Add(user, new Session(Engine.Config, user));
+                _Sessions.Add(user, new Session(_Config, _ProtocolManagerFactory, user));
             }
         }
         

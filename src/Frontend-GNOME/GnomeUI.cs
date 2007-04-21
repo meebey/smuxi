@@ -308,6 +308,7 @@ namespace Smuxi.Frontend.Gnome
                         tv.Model = new Gtk.ListStore(typeof(string), typeof(string));
                         int i = 1;
                         foreach (PersonModel user in users.Values) {
+                            /*
                             if (user is Engine.IrcGroupPersonModel) {
                                 IrcGroupPersonModel icuser = (IrcGroupPersonModel)user;
                                 if (icuser.IsOp) {
@@ -318,6 +319,8 @@ namespace Smuxi.Frontend.Gnome
                                     ls.AppendValues(String.Empty, icuser.NickName);
                                 }
                             }
+                            */
+                            
                             //Frontend.MainWindow.ProgressBar.Fraction = (double)i++ / count;
                             /*
                             // this seems to break the sync when it's remote engine is used,
@@ -373,7 +376,7 @@ namespace Smuxi.Frontend.Gnome
                 double duration = syncStop.Subtract(syncStart).TotalMilliseconds;
                 _Logger.Debug("SyncChat() done, syncing took: " + Math.Round(duration) + " ms");
 #endif
-                _SyncedChats.Add(chatView);
+                //_SyncedChats.Add(chatView);
 
                 // BUG: doesn't work?!?
                 chatView.ScrollToEnd();
@@ -395,8 +398,9 @@ namespace Smuxi.Frontend.Gnome
                     return;
                 }
                 
-                IrcGroupPersonModel icuser = (IrcGroupPersonModel)user;
                 Gtk.ListStore liststore = (Gtk.ListStore)treeview.Model;
+                /*
+                IrcGroupPersonModel icuser = (IrcGroupPersonModel)user;
                 if (icuser.IsOp) {
                     liststore.AppendValues("@", icuser.NickName);
                 } else if (icuser.IsVoice) {
@@ -404,7 +408,8 @@ namespace Smuxi.Frontend.Gnome
                 } else {
                     liststore.AppendValues(String.Empty, icuser.NickName);
                 }
-
+                */
+                
                 treeview.GetColumn(1).Title = String.Format(
                                                 _("PersonModels ({0})"),
                                                 liststore.IterNChildren());
@@ -438,8 +443,9 @@ namespace Smuxi.Frontend.Gnome
                 
                 do {
                     if ((string)liststore.GetValue(iter, 1) == olduser.IdentityName) {
-                        IrcGroupPersonModel newcuser = (IrcGroupPersonModel)newuser;
-                        string mode;
+                        //IrcGroupPersonModel newcuser = (IrcGroupPersonModel)newuser;
+                        string mode = String.Empty;
+                        /*
                         if (newcuser.IsOp) {
                             mode = "@";
                         } else if (newcuser.IsVoice) {
@@ -447,6 +453,7 @@ namespace Smuxi.Frontend.Gnome
                         } else {
                             mode = String.Empty;
                         }
+                        */
                         
                         // update the mode of the current row
                         liststore.SetValue(iter, 0, mode);
