@@ -27,7 +27,6 @@
  */
 
 using System;
-
 using Smuxi.Common;
 
 namespace Smuxi.Engine

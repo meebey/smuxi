@@ -36,6 +36,7 @@ namespace Smuxi.Engine
 {
     public delegate void SimpleDelegate(); 
     
+    // TODO: use generics for the queue
     public class FrontendManager : PermanentRemoteObject, IFrontendUI
     {
 #if LOG4NET

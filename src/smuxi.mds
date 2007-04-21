@@ -11,6 +11,7 @@
       <Entry build="True" name="Engine-XMPP" configuration="Release" />
       <Entry build="True" name="Frontend-GNOME-IRC" configuration="Release" />
       <Entry build="True" name="Frontend-GNOME-XMPP" configuration="Release" />
+      <Entry build="True" name="Frontend-SWF" configuration="Release" />
     </Configuration>
     <Configuration name="Debug" ctype="CombineConfiguration">
       <Entry build="True" name="Engine" configuration="Debug" />
@@ -23,6 +24,7 @@
       <Entry build="True" name="Engine-XMPP" configuration="Debug" />
       <Entry build="True" name="Frontend-GNOME-IRC" configuration="Debug" />
       <Entry build="True" name="Frontend-GNOME-XMPP" configuration="Debug" />
+      <Entry build="True" name="Frontend-SWF" configuration="Debug" />
     </Configuration>
   </Configurations>
   <StartMode startupentry="Engine" single="False">
@@ -36,6 +38,7 @@
     <Execute type="None" entry="Engine-XMPP" />
     <Execute type="None" entry="Frontend-GNOME-IRC" />
     <Execute type="None" entry="Frontend-GNOME-XMPP" />
+    <Execute type="None" entry="Frontend-SWF" />
   </StartMode>
   <Entries>
     <Entry filename="./Common/Common.mdp" />
@@ -48,5 +51,6 @@
     <Entry filename="./Engine-XMPP/Engine-XMPP.mdp" />
     <Entry filename="./Frontend-GNOME-IRC/Frontend-GNOME-IRC.mdp" />
     <Entry filename="./Frontend-GNOME-XMPP/Frontend-GNOME-XMPP.mdp" />
+    <Entry filename="./Frontend-SWF/Frontend-SWF.mdp" />
   </Entries>
 </Combine>
