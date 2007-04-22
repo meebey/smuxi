@@ -32,6 +32,7 @@ using Smuxi.Common;
 
 namespace Smuxi.Frontend.Gnome
 {
+    [ChatViewInfo(ChatType = ChatType.Person)]
     public class PersonChatView : ChatView
     {
         private Gtk.Menu     _TabMenu;

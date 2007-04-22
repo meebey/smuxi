@@ -34,6 +34,7 @@ using Smuxi.Common;
 
 namespace Smuxi.Frontend.Gnome
 {
+    [ChatViewInfo(ChatType = ChatType.Group)]
     public class GroupChatView : ChatView
     {
 #if LOG4NET
@@ -60,6 +61,12 @@ namespace Smuxi.Frontend.Gnome
         public Gtk.Menu TabMenu {
             get {
                 return _TabMenu;
+            }
+        }
+        
+        protected Gtk.Menu UserListMenu {
+            get {
+                return _UserListMenu;
             }
         }
         
@@ -110,26 +117,6 @@ namespace Smuxi.Frontend.Gnome
                
                 // popup menu
                 _UserListMenu = new Gtk.Menu();
-                
-                Gtk.ImageMenuItem op_item = new Gtk.ImageMenuItem(Catalog.GetString("Op"));
-                op_item.Activated += new EventHandler(_OnUserListMenuOpActivated);
-                _UserListMenu.Append(op_item);
-                
-                Gtk.ImageMenuItem deop_item = new Gtk.ImageMenuItem(Catalog.GetString("Deop"));
-                deop_item.Activated += new EventHandler(_OnUserListMenuDeopActivated);
-                _UserListMenu.Append(deop_item);
-                
-                Gtk.ImageMenuItem voice_item = new Gtk.ImageMenuItem(Catalog.GetString("Voice"));
-                voice_item.Activated += new EventHandler(_OnUserListMenuVoiceActivated);
-                _UserListMenu.Append(voice_item);
-                
-                Gtk.ImageMenuItem devoice_item = new Gtk.ImageMenuItem(Catalog.GetString("Devoice"));
-                devoice_item.Activated += new EventHandler(_OnUserListMenuDevoiceActivated);
-                _UserListMenu.Append(devoice_item);
-                
-                Gtk.ImageMenuItem kick_item = new Gtk.ImageMenuItem(Catalog.GetString("Kick"));
-                kick_item.Activated += new EventHandler(_OnUserListMenuKickActivated);
-                _UserListMenu.Append(kick_item);
                 
                 // frame needed for events when selecting something in the treeview
                 frame = new Gtk.Frame();
@@ -285,7 +272,7 @@ namespace Smuxi.Frontend.Gnome
         {
             Trace.Call(sender, e);
             
-            string user = _GetSelectedNode();
+            string user = GetSelectedNode();
             if (user == null) {
                 return;
             }
@@ -309,97 +296,7 @@ namespace Smuxi.Frontend.Gnome
             }
         }
         
-        private void _OnUserListMenuOpActivated(object sender, EventArgs e)
-        {
-            Trace.Call(sender, e);
-            
-            string whom = _GetSelectedNode();
-            if (whom == null) {
-                return;
-            }
-            
-            /*
-            if (ChatModel.ProtocolManager is IrcProtocolManager) {
-                IrcProtocolManager imanager = (IrcProtocolManager) ChatModel.ProtocolManager;
-                imanager.CommandOp(new CommandModel(Frontend.FrontendManager, ChatModel,
-                    whom));
-            }
-            */
-        } 
-        
-        private void _OnUserListMenuDeopActivated(object sender, EventArgs e)
-        {
-            Trace.Call(sender, e);
-            
-            string whom = _GetSelectedNode();
-            if (whom == null) {
-                return;
-            }
-            
-            /*
-            if (ChatModel.ProtocolManager is IrcProtocolManager) {
-                IrcProtocolManager imanager = (IrcProtocolManager) ChatModel.ProtocolManager;
-                imanager.CommandDeop(new CommandModel(Frontend.FrontendManager, ChatModel,
-                    whom));
-            }
-            */
-        }
-         
-        private void _OnUserListMenuVoiceActivated(object sender, EventArgs e)
-        {
-            Trace.Call(sender, e);
-            
-            string whom = _GetSelectedNode();
-            if (whom == null) {
-                return;
-            }
-            
-            /*
-            if (ChatModel.ProtocolManager is IrcProtocolManager) {
-                IrcProtocolManager imanager = (IrcProtocolManager) ChatModel.ProtocolManager;
-                imanager.CommandVoice(new CommandModel(Frontend.FrontendManager, ChatModel,
-                    whom));
-            }
-            */
-        }
-        
-        private void _OnUserListMenuDevoiceActivated(object sender, EventArgs e)
-        {
-            Trace.Call(sender, e);
-
-            string whom = _GetSelectedNode();
-            if (whom == null) {
-                return;
-            }
-            
-            /*
-            if (ChatModel.ProtocolManager is IrcProtocolManager) {
-                IrcProtocolManager imanager = (IrcProtocolManager) ChatModel.ProtocolManager;
-                imanager.CommandDevoice(new CommandModel(Frontend.FrontendManager, ChatModel,
-                    whom));
-            }
-            */
-        } 
-        
-        private void _OnUserListMenuKickActivated(object sender, EventArgs e)
-        {
-            Trace.Call(sender, e);
-
-            string victim = _GetSelectedNode();
-            if (victim == null) {
-                return;
-            }
-            
-            /*
-            if (ChatModel.ProtocolManager is IrcProtocolManager) {
-                IrcProtocolManager imanager = (IrcProtocolManager) ChatModel.ProtocolManager;
-                imanager.CommandKick(new CommandModel(Frontend.FrontendManager, ChatModel,
-                    victim));
-            }
-            */
-        } 
-        
-        private string _GetSelectedNode()
+        protected string GetSelectedNode()
         {
             Gtk.TreeIter iter;
             Gtk.TreeModel model;

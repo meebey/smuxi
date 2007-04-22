@@ -49,6 +49,7 @@ namespace Smuxi.Frontend.Gnome
             _TreeView = treeView;
         }
         
+        /*
         protected override IChatView CreateChatView(ChatModel chat)
         {
             switch (chat.ChatType) {
@@ -62,6 +63,7 @@ namespace Smuxi.Frontend.Gnome
             
             throw new ApplicationException("Unsupported ChatModel type: " + chat.GetType());
         }
+        */
         
         public override void AddChat(ChatModel chat)
         {

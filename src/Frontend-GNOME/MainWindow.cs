@@ -27,6 +27,8 @@
  */
 
 using System;
+using System.IO;
+using System.Reflection;
 using Mono.Unix;
 #if UI_GNOME
 using GNOME = Gnome;
@@ -195,7 +197,13 @@ namespace Smuxi.Frontend.Gnome
 		    
 		    // TODO: network treeview
 		    _Notebook = new Notebook();
+		    
 		    _ChatViewManager = new ChatViewManager(_Notebook, null);
+		    Assembly asm = Assembly.GetExecutingAssembly();
+		    _ChatViewManager.Load(asm);
+		    _ChatViewManager.LoadAll(System.IO.Path.GetDirectoryName(asm.Location),
+		                             "smuxi-frontend-gnome-*.dll");
+            
             _UI = new GnomeUI(_ChatViewManager);
             
             _Entry = new Entry(_Notebook);
