@@ -85,7 +85,7 @@ namespace Smuxi.Engine
             _JabberClient.OnWriteText += new bedrock.TextHandler(_OnWriteText);
         }
         
-        public void Connect(FrontendManager fm, string host, int port, string username, string password)
+        public void Connect(FrontendManager fm, string host, int port, string username, string password, string resource)
         {
             Trace.Call(fm, host, port, username, password);
             
@@ -101,14 +101,8 @@ namespace Smuxi.Engine
             _JabberClient.Port = port;
             _JabberClient.User = username;
             _JabberClient.Password = password;
+            _JabberClient.Resource = resource;
             _JabberClient.Connect();
-            
-            /*
-            Thread thread = new Thread(new ThreadStart(_Run));
-            thread.IsBackground = true;
-            thread.Name = "IrcProtocolManager ("+server+":"+port+")";
-            thread.Start();
-            */
         }
         
         public override void Reconnect(FrontendManager fm)
@@ -161,10 +155,104 @@ namespace Smuxi.Engine
                     _Say(command, command.Data);
                     handled = true;
                 }
+            } else {
+                if (command.IsCommand) {
+                    // commands which work even without beeing connected
+                    switch (command.Command) {
+                        case "help":
+                            CommandHelp(command);
+                            handled = true;
+                            break;
+                        case "connect":
+                            CommandConnect(command);
+                            handled = true;
+                            break;
+                    }
+                } else {
+                    // normal text, without connection
+                    NotConnected(command);
+                    handled = true;
+                }
             }
+            
             return handled;
         }
 
+        public void CommandHelp(CommandModel cd)
+        {
+            MessageModel fmsg = new MessageModel();
+            TextMessagePartModel fmsgti;
+
+            fmsgti = new TextMessagePartModel();
+            fmsgti.Text = _("[XmppProtocolManager Commands]");
+            fmsgti.Bold = true;
+            fmsg.MessageParts.Add(fmsgti);
+            
+            this.Session.AddMessageToChat(cd.FrontendManager.CurrentChat, fmsg);
+            
+            string[] help = {
+            "help",
+            "connect xmpp/jabber server port username passwort [resource]",
+            };
+            
+            foreach (string line in help) { 
+                cd.FrontendManager.AddTextToCurrentChat("-!- " + line);
+            }
+        }
+        
+        public void CommandConnect(CommandModel cd)
+        {
+            FrontendManager fm = cd.FrontendManager;
+            
+            string server;
+            if (cd.DataArray.Length >= 3) {
+                server = cd.DataArray[2];
+            } else {
+                NotEnoughParameters(cd);
+                return;
+            }
+            
+            int port;
+            if (cd.DataArray.Length >= 4) {
+                try {
+                    port = Int32.Parse(cd.DataArray[3]);
+                } catch (FormatException) {
+                    fm.AddTextToCurrentChat("-!- " + String.Format(
+                                                        _("Invalid port: {0}"),
+                                                        cd.DataArray[3]));
+                    return;
+                }
+            } else {
+                NotEnoughParameters(cd);
+                return;
+            }
+            
+            string username;                
+            if (cd.DataArray.Length >= 5) {
+                username = cd.DataArray[4];
+            } else {
+                NotEnoughParameters(cd);
+                return;
+            }
+            
+            string password;
+            if (cd.DataArray.Length >= 6) {
+                password = cd.DataArray[5];
+            } else {
+                NotEnoughParameters(cd);
+                return;
+            }
+            
+            string resource;
+            if (cd.DataArray.Length >= 7) {
+                resource = cd.DataArray[6];
+            } else {
+                resource = "smuxi";
+            }
+            
+            Connect(fm, server, port, username, password, resource);
+        }
+        
         private void _Say(CommandModel command, string text)
         {
             if (!command.Chat.IsEnabled) {

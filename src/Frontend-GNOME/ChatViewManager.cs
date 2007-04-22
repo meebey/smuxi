@@ -89,5 +89,10 @@ namespace Smuxi.Frontend.Gnome
        	    ChatView chatView = _Notebook.GetChat(chat);
        	    chatView.Disable();
         }
+        
+        public ChatView GetChat(ChatModel chatModel)
+        {
+            return _Notebook.GetChat(chatModel);
+        }
     }   
 }

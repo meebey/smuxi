@@ -47,42 +47,78 @@ namespace Smuxi.Frontend.Gnome
             
             //_IrcGroupChatModel = ircGroupChat;
 
-            if (this.UserListMenu != null) {
+            if (this.PersonMenu != null) {
                 Gtk.ImageMenuItem op_item = new Gtk.ImageMenuItem(_("Op"));
                 op_item.Activated += new EventHandler(_OnUserListMenuOpActivated);
-                this.UserListMenu.Append(op_item);
+                this.PersonMenu.Append(op_item);
                 
                 Gtk.ImageMenuItem deop_item = new Gtk.ImageMenuItem(_("Deop"));
                 deop_item.Activated += new EventHandler(_OnUserListMenuDeopActivated);
-                this.UserListMenu.Append(deop_item);
+                this.PersonMenu.Append(deop_item);
                 
                 Gtk.ImageMenuItem voice_item = new Gtk.ImageMenuItem(_("Voice"));
                 voice_item.Activated += new EventHandler(_OnUserListMenuVoiceActivated);
-                this.UserListMenu.Append(voice_item);
+                this.PersonMenu.Append(voice_item);
                 
                 Gtk.ImageMenuItem devoice_item = new Gtk.ImageMenuItem(_("Devoice"));
                 devoice_item.Activated += new EventHandler(_OnUserListMenuDevoiceActivated);
-                this.UserListMenu.Append(devoice_item);
+                this.PersonMenu.Append(devoice_item);
                 
                 Gtk.ImageMenuItem kick_item = new Gtk.ImageMenuItem(_("Kick"));
                 kick_item.Activated += new EventHandler(_OnUserListMenuKickActivated);
-                this.UserListMenu.Append(kick_item);
+                this.PersonMenu.Append(kick_item);
+            }
+            
+            if (this.PersonTreeView != null) {
+                Gtk.CellRenderer cellr = new Gtk.CellRendererText();
+                Gtk.TreeViewColumn column = new Gtk.TreeViewColumn(String.Empty, cellr);
+                //column.SortColumnId = 0;
+                column.Spacing = 0;
+                column.SortIndicator = false;
+                column.Sizing = Gtk.TreeViewColumnSizing.Autosize;
+                column.SetCellDataFunc(cellr, new Gtk.TreeCellDataFunc(_RenderIrcGroupPersonMode));
+                
+                this.PersonTreeView.AppendColumn(column);
+                this.PersonTreeView.MoveColumnAfter(this.IdentityNameColumn, column);
             }
         }
-
+        
+        private void _RenderIrcGroupPersonMode(Gtk.TreeViewColumn column,
+                                               Gtk.CellRenderer cellr,
+                                               Gtk.TreeModel model, Gtk.TreeIter iter)
+	    {
+		    IrcGroupPersonModel person = model.GetValue(iter, 0) as IrcGroupPersonModel;
+		    if (person == null) {
+#if LOG4NET
+                _Logger.Error("_RenderIrcGroupPersonMode(): person == null");
+#endif
+		        return;
+		    }
+		    
+		    string mode;
+            if (person.IsOp) {
+                mode = "@";
+            } else if (person.IsVoice) {
+                mode = "+";
+            } else {
+                mode = String.Empty;
+            }
+		    (cellr as Gtk.CellRendererText).Text = mode;
+	    }
+	    
         private void _OnUserListMenuOpActivated(object sender, EventArgs e)
         {
             Trace.Call(sender, e);
             
-            string whom = GetSelectedNode();
-            if (whom == null) {
+            PersonModel person = GetSelectedPerson();
+            if (person == null) {
                 return;
             }
             
             if (ChatModel.ProtocolManager is IrcProtocolManager) {
                 IrcProtocolManager imanager = (IrcProtocolManager) ChatModel.ProtocolManager;
                 imanager.CommandOp(new CommandModel(Frontend.FrontendManager, ChatModel,
-                    whom));
+                    person.ID));
             }
         } 
         
@@ -90,15 +126,15 @@ namespace Smuxi.Frontend.Gnome
         {
             Trace.Call(sender, e);
             
-            string whom = GetSelectedNode();
-            if (whom == null) {
+            PersonModel person = GetSelectedPerson();
+            if (person == null) {
                 return;
             }
             
             if (ChatModel.ProtocolManager is IrcProtocolManager) {
                 IrcProtocolManager imanager = (IrcProtocolManager) ChatModel.ProtocolManager;
                 imanager.CommandDeop(new CommandModel(Frontend.FrontendManager, ChatModel,
-                    whom));
+                    person.ID));
             }
         }
          
@@ -106,15 +142,15 @@ namespace Smuxi.Frontend.Gnome
         {
             Trace.Call(sender, e);
             
-            string whom = GetSelectedNode();
-            if (whom == null) {
+            PersonModel person = GetSelectedPerson();
+            if (person == null) {
                 return;
             }
             
             if (ChatModel.ProtocolManager is IrcProtocolManager) {
                 IrcProtocolManager imanager = (IrcProtocolManager) ChatModel.ProtocolManager;
                 imanager.CommandVoice(new CommandModel(Frontend.FrontendManager, ChatModel,
-                    whom));
+                    person.ID));
             }
         }
         
@@ -122,15 +158,15 @@ namespace Smuxi.Frontend.Gnome
         {
             Trace.Call(sender, e);
 
-            string whom = GetSelectedNode();
-            if (whom == null) {
+            PersonModel person = GetSelectedPerson();
+            if (person == null) {
                 return;
             }
             
             if (ChatModel.ProtocolManager is IrcProtocolManager) {
                 IrcProtocolManager imanager = (IrcProtocolManager) ChatModel.ProtocolManager;
                 imanager.CommandDevoice(new CommandModel(Frontend.FrontendManager, ChatModel,
-                    whom));
+                    person.ID));
             }
         } 
         
@@ -138,18 +174,83 @@ namespace Smuxi.Frontend.Gnome
         {
             Trace.Call(sender, e);
 
-            string victim = GetSelectedNode();
-            if (victim == null) {
+            PersonModel person = GetSelectedPerson();
+            if (person == null) {
                 return;
             }
             
             if (ChatModel.ProtocolManager is IrcProtocolManager) {
                 IrcProtocolManager imanager = (IrcProtocolManager) ChatModel.ProtocolManager;
                 imanager.CommandKick(new CommandModel(Frontend.FrontendManager, ChatModel,
-                    victim));
+                    person.ID));
             }
         }
         
+        protected override void OnPersonsRowActivated(object sender, Gtk.RowActivatedArgs e)
+        {
+            Trace.Call(sender, e);
+            
+            base.OnPersonsRowActivated(sender, e);
+            
+            PersonModel person = GetSelectedPerson();
+            if (person == null) {
+                return;
+            }
+            
+            if (ChatModel.ProtocolManager is IrcProtocolManager) {
+                IrcProtocolManager imanager = (IrcProtocolManager) ChatModel.ProtocolManager;
+                imanager.CommandMessageQuery(new CommandModel(Frontend.FrontendManager,
+                                                              ChatModel, person.ID));
+            }
+        }
+
+        protected override int SortPersonListStore(Gtk.TreeModel model,
+                                                   Gtk.TreeIter iter1,
+                                                   Gtk.TreeIter iter2)
+        {
+            Gtk.ListStore liststore = (Gtk.ListStore) model;
+            
+            IrcGroupPersonModel person1 = (IrcGroupPersonModel) liststore.GetValue(iter1, 0);
+            IrcGroupPersonModel person2 = (IrcGroupPersonModel) liststore.GetValue(iter2, 0);
+            
+            int status1 = 0;
+            if (person1.IsOp) {
+                status1 += 1;
+            }
+            if (person1.IsVoice) {
+                status1 += 2;
+            }
+            if (status1 == 0) {
+                status1 = 4;
+            }
+            
+            int status2 = 0;
+            if (person2.IsOp) {
+                status2 += 1;
+            }
+            if (person2.IsVoice) {
+                status2 += 2;
+            }
+            if (status2 == 0) {
+                status2 = 4;
+            }
+            
+            int mode_res = 0;
+            if (status1 > status2) {
+                mode_res = 1;
+            }
+            if (status1 < status2) {
+                mode_res = -1;
+            }
+            
+            if (mode_res == 0 ) {
+                // the mode is equal, so the name decides
+                return base.SortPersonListStore(model, iter1, iter2);
+            }
+            
+            return mode_res;
+        }
+
         private static string _(string msg)
         {
             return Mono.Unix.Catalog.GetString(msg);

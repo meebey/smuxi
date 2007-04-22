@@ -27,6 +27,7 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.Globalization;
 using Mono.Unix;
 using Smuxi.Engine;
@@ -40,18 +41,14 @@ namespace Smuxi.Frontend.Gnome
 #if LOG4NET
         private static readonly log4net.ILog _Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 #endif
-        private Gtk.TreeView  _UserListTreeView;
-        private Gtk.ListStore _UserListStore;
-        private Gtk.Entry     _TopicEntry;
-        private Gtk.Menu      _TabMenu;
-        private Gtk.Menu      _UserListMenu;
+        private GroupChatModel     _GroupChatModel;
+        private Gtk.TreeView       _PersonTreeView;
+        private Gtk.ListStore      _PersonListStore;
+        private Gtk.Menu           _PersonMenu;
+        private Gtk.Entry          _TopicEntry;
+        private Gtk.Menu           _TabMenu;
+        private Gtk.TreeViewColumn _IdentityNameColumn;
         
-        public Gtk.TreeView UserListTreeView {
-            get {
-                return _UserListTreeView;
-            }
-        }
-
         public Gtk.Entry TopicEntry {
             get {
                 return _TopicEntry;
@@ -64,14 +61,30 @@ namespace Smuxi.Frontend.Gnome
             }
         }
         
-        protected Gtk.Menu UserListMenu {
+        protected Gtk.TreeView PersonTreeView {
             get {
-                return _UserListMenu;
+                return _PersonTreeView;
+            }
+        }
+        
+        protected Gtk.Menu PersonMenu {
+            get {
+                return _PersonMenu;
+            }
+        }
+        
+        protected Gtk.TreeViewColumn IdentityNameColumn {
+            get {
+                return _IdentityNameColumn;
             }
         }
         
         public GroupChatView(GroupChatModel groupChat) : base(groupChat)
         {
+            Trace.Call(groupChat);
+            
+            _GroupChatModel = groupChat;
+            
             _Label = new Gtk.Label(groupChat.Name);
             _LabelEventBox.Add(_Label);
             _Label.Show();
@@ -81,42 +94,46 @@ namespace Smuxi.Frontend.Gnome
             string userlist_pos = (string)Frontend.UserConfig["Interface/Notebook/Channel/UserListPosition"];
             if ((userlist_pos == "left") ||
                 (userlist_pos == "right")) {
-               Gtk.ScrolledWindow sw = new Gtk.ScrolledWindow();
-               sw.WidthRequest = 120;
-               
-               Gtk.TreeView tv = new Gtk.TreeView();
-               tv.CanFocus = false;
-               tv.BorderWidth = 0;
-               sw.Add(tv);
-               _UserListTreeView = tv;
-               
-               Gtk.TreeViewColumn statuscolumn;
-               statuscolumn = new Gtk.TreeViewColumn(String.Empty, new Gtk.CellRendererText(), "text", 0);
-               statuscolumn.SortColumnId = 0;
-               statuscolumn.Spacing = 0;
-               statuscolumn.SortIndicator = false;
-               statuscolumn.Sizing = Gtk.TreeViewColumnSizing.Autosize;
-               
-               Gtk.TreeViewColumn usercolumn;
-               usercolumn = new Gtk.TreeViewColumn(String.Empty, new Gtk.CellRendererText(), "text", 1);
-               usercolumn.SortColumnId = 1;
-               usercolumn.Spacing = 0;
-               usercolumn.SortIndicator = false;
-               usercolumn.Sizing = Gtk.TreeViewColumnSizing.Autosize;
-               
-               Gtk.ListStore liststore = new Gtk.ListStore(typeof(string), typeof(string));
-               liststore.SetSortColumnId(0, Gtk.SortType.Ascending);
-               liststore.SetSortFunc(0, new Gtk.TreeIterCompareFunc(_OnStatusSort));
-               liststore.SetSortFunc(1, new Gtk.TreeIterCompareFunc(_OnUsersListSort));
-               _UserListStore = liststore;
-               
-               tv.Model = liststore;
-               tv.AppendColumn(statuscolumn);
-               tv.AppendColumn(usercolumn);
-               tv.RowActivated += new Gtk.RowActivatedHandler(_OnUserListRowActivated);
+                Gtk.ScrolledWindow sw = new Gtk.ScrolledWindow();
+                sw.WidthRequest = 120;
+                
+                Gtk.TreeView tv = new Gtk.TreeView();
+                tv.CanFocus = false;
+                tv.BorderWidth = 0;
+                sw.Add(tv);
+                _PersonTreeView = tv;
+                
+                /*
+                Gtk.TreeViewColumn statuscolumn;
+                statuscolumn = new Gtk.TreeViewColumn(String.Empty, new Gtk.CellRendererText(), "text", 0);
+                statuscolumn.SortColumnId = 0;
+                statuscolumn.Spacing = 0;
+                statuscolumn.SortIndicator = false;
+                statuscolumn.Sizing = Gtk.TreeViewColumnSizing.Autosize;
+                */
+                
+                Gtk.TreeViewColumn column;
+                Gtk.CellRenderer cellr = new Gtk.CellRendererText();
+                column = new Gtk.TreeViewColumn(String.Empty, cellr);
+                column.SortColumnId = 0;
+                column.Spacing = 0;
+                column.SortIndicator = false;
+                column.Sizing = Gtk.TreeViewColumnSizing.Autosize;
+                column.SetCellDataFunc(cellr, new Gtk.TreeCellDataFunc(_RenderPersonIdentityName));
+                tv.AppendColumn(column);
+                _IdentityNameColumn = column;
+                
+                Gtk.ListStore liststore = new Gtk.ListStore(typeof(PersonModel));
+                liststore.SetSortColumnId(0, Gtk.SortType.Ascending);
+                liststore.SetSortFunc(0, new Gtk.TreeIterCompareFunc(SortPersonListStore));
+                _PersonListStore = liststore;
+                
+                tv.Model = liststore;
+                //tv.AppendColumn(statuscolumn);
+                tv.RowActivated += new Gtk.RowActivatedHandler(OnPersonsRowActivated);
                
                 // popup menu
-                _UserListMenu = new Gtk.Menu();
+                _PersonMenu = new Gtk.Menu();
                 
                 // frame needed for events when selecting something in the treeview
                 frame = new Gtk.Frame();
@@ -125,7 +142,7 @@ namespace Smuxi.Frontend.Gnome
             } else if (userlist_pos == "none") {
             } else {
 #if LOG4NET
-                _Logger.Error("ChannelPage..ctor(): unknown value in Interface/Notebook/Channel/UserListPosition: "+userlist_pos);
+                _Logger.Error("GroupChatView..ctor(): unknown value in Interface/Notebook/Channel/UserListPosition: "+userlist_pos);
 #endif
             }
             
@@ -148,7 +165,7 @@ namespace Smuxi.Frontend.Gnome
                 vbox.PackStart(_OutputScrolledWindow, true, true, 0);
             } else {
 #if LOG4NET
-                _Logger.Error("ChannelPage..ctor(): unknown value in Interface/Notebook/Channel/TopicPosition: "+topic_pos);
+                _Logger.Error("GroupChatView..ctor(): unknown value in Interface/Notebook/Channel/TopicPosition: "+topic_pos);
 #endif
             }
             
@@ -182,18 +199,161 @@ namespace Smuxi.Frontend.Gnome
             base.Disable();
             
             _TopicEntry.Text = String.Empty;
-            
-            _UserListStore.Clear();
-            UpdateUsersCount();
+            _PersonListStore.Clear();
+            UpdatePersonCount();
         }
         
-        public void UpdateUsersCount()
+        public override void Sync()
         {
-            _UserListTreeView.GetColumn(1).Title = String.Format(
-                                                    _("Users") + " ({0})",
-                                                    _UserListStore.IterNChildren());
+            IDictionary<string, PersonModel> persons = _GroupChatModel.Persons; 
+#if LOG4NET
+            _Logger.Debug("Sync() syncing persons");
+#endif
+            // sync persons
+            if (_PersonTreeView != null) {
+                int count = persons.Count;
+                /*
+                if (count > 1) {
+                    Frontend.MainWindow.ProgressBar.DiscreteBlocks = (uint)count;
+                } else {
+                    Frontend.MainWindow.ProgressBar.DiscreteBlocks = 2;
+                }
+                Frontend.MainWindow.ProgressBar.BarStyle = Gtk.ProgressBarStyle.Continuous;
+                */
+                
+                // HACK: out of scope
+                string status = String.Format(
+                                    _("Syncing chat persons of {0}..."),
+                                    ChatModel.Name);
+#if UI_GNOME
+                Frontend.MainWindow.Statusbar.Push(status);
+#elif UI_GTK
+                Frontend.MainWindow.Statusbar.Push(0, status);
+#endif
+    
+                Gtk.ListStore ls = (Gtk.ListStore) _PersonTreeView.Model;
+                // cleanup, be sure the list is empty
+                ls.Clear();
+                // detach the model (less CPU load)
+                _PersonTreeView.Model = new Gtk.ListStore(typeof(PersonModel));
+                int i = 1;
+                foreach (PersonModel person in persons.Values) {
+                    ls.AppendValues(person);
+                    
+                    //Frontend.MainWindow.ProgressBar.Fraction = (double)i++ / count;
+                    /*
+                    // this seems to break the sync when it's remote engine is used,
+                    // guess it does some other GUI processing, like removing users from
+                    // the userlist....
+                    while (Gtk.Application.EventsPending()) {
+                        Gtk.Application.RunIteration(false);
+                    }
+                    */
+                }
+                // attach the model again
+                _PersonTreeView.Model = ls;
+           
+                UpdatePersonCount(); 
+               
+                // HACK: out of scope
+                Frontend.MainWindow.ProgressBar.Fraction = 0;
+                status += _(" done.");
+#if UI_GNOME
+                Frontend.MainWindow.Statusbar.Push(status);
+#elif UI_GTK
+                Frontend.MainWindow.Statusbar.Push(0, status);
+#endif
+            }
+           
+#if LOG4NET
+            _Logger.Debug("Sync() syncing topic");
+#endif
+            // sync topic
+            string topic = _GroupChatModel.Topic;
+            if ((_TopicEntry != null) &&
+               (topic != null)) {
+                _TopicEntry.Text = topic;
+            }
+            
+            base.Sync();
         }
         
+        protected void UpdatePersonCount()
+        {
+            _IdentityNameColumn.Title = String.Format(_("Person") + " ({0})",
+                                                      _PersonListStore.IterNChildren());
+        }
+        
+        public void AddPerson(PersonModel person)
+        {
+            Trace.Call(person);
+            
+            if (_PersonListStore == null) {
+                // no liststore, nothing todo
+                return;
+            }
+            
+            _PersonListStore.AppendValues(person);
+            UpdatePersonCount();
+        }
+        
+        public void UpdatePerson(PersonModel oldPerson, PersonModel newPerson)
+        {
+            Trace.Call(oldPerson, newPerson);
+            
+            if (_PersonListStore == null) {
+                // no liststore, nothing todo
+                return;
+            }
+            
+            Gtk.TreeIter iter;
+            bool res = _PersonListStore.GetIterFirst(out iter);
+            if (!res) {
+#if LOG4NET
+                _Logger.Error("UpdatePersonModelInChannel(): _PersonsStore.GetIterFirst() returned false, ignoring update...");
+#endif
+                return;
+            }
+            
+            do {
+                PersonModel person = (PersonModel) _PersonListStore.GetValue(iter, 0);
+                if (person.ID  == oldPerson.ID) {
+                     _PersonListStore.SetValue(iter, 0, newPerson);
+                    break;
+                }
+            } while (_PersonListStore.IterNext(ref iter));
+        }
+        
+        public void RemovePerson(PersonModel person)
+        {
+            Trace.Call(person);
+            
+            if (_PersonListStore == null) {
+                // no liststore, nothing todo
+                return;
+            }
+            
+            Gtk.TreeIter iter;
+            _PersonListStore.GetIterFirst(out iter);
+            do {
+                PersonModel currentPerson = (PersonModel) _PersonListStore.GetValue(iter, 0);
+                if (currentPerson.ID == person.ID) {
+                    _PersonListStore.Remove(ref iter);
+                    break;
+                }
+            } while (_PersonListStore.IterNext(ref iter));
+            UpdatePersonCount();
+        }
+        
+        private void _RenderPersonIdentityName(Gtk.TreeViewColumn column,
+                                               Gtk.CellRenderer cellr,
+                                               Gtk.TreeModel model, Gtk.TreeIter iter)
+	    {
+		    PersonModel person = (PersonModel) model.GetValue(iter, 0);
+		    (cellr as Gtk.CellRendererText).Text = person.IdentityName;
+	    }
+	    
+	    /*
         private static int _OnStatusSort(Gtk.TreeModel model, Gtk.TreeIter itera, Gtk.TreeIter iterb)
         {
             //Trace.Call(model, itera, iterb);
@@ -232,17 +392,19 @@ namespace Smuxi.Frontend.Gnome
             
             return String.Compare(column2a, column2b, true, CultureInfo.InvariantCulture);
         }
-    
-        private static int _OnUsersListSort(Gtk.TreeModel model, Gtk.TreeIter itera, Gtk.TreeIter iterb)
+        */
+        
+        protected virtual int SortPersonListStore(Gtk.TreeModel model,
+                                                  Gtk.TreeIter iter1,
+                                                  Gtk.TreeIter iter2)
         {
-            //Trace.Call(model, itera, iterb);
-
-            Gtk.ListStore liststore = (Gtk.ListStore)model;
-            // nickname
-            string column2a = (string)liststore.GetValue(itera, 1);
-            string column2b = (string)liststore.GetValue(iterb, 1);
+            Gtk.ListStore liststore = (Gtk.ListStore) model;
             
-            return String.Compare(column2a, column2b, true, CultureInfo.InvariantCulture);
+            PersonModel person1 = (PersonModel) liststore.GetValue(iter1, 0); 
+            PersonModel person2 = (PersonModel) liststore.GetValue(iter2, 0); 
+            
+            return String.Compare(person1.IdentityName, person2.IdentityName,
+                                  true, CultureInfo.InvariantCulture);
         }
         
         private void _OnTabButtonPress(object sender, Gtk.ButtonPressEventArgs e)
@@ -268,40 +430,27 @@ namespace Smuxi.Frontend.Gnome
             */
         }
         
-        private void _OnUserListRowActivated(object sender, Gtk.RowActivatedArgs e)
+        protected virtual void OnPersonsRowActivated(object sender, Gtk.RowActivatedArgs e)
         {
             Trace.Call(sender, e);
-            
-            string user = GetSelectedNode();
-            if (user == null) {
-                return;
-            }
-            
-            /*
-            if (ChatModel.ProtocolManager is IrcProtocolManager) {
-                IrcProtocolManager imanager = (IrcProtocolManager) ChatModel.ProtocolManager;
-                imanager.CommandMessageQuery(new CommandModel(Frontend.FrontendManager,
-                                                              ChatModel, user));
-            }
-            */
-        }            
+        }
         
         private void _OnUserListButtonReleaseEvent(object sender, Gtk.ButtonReleaseEventArgs e)
         {
             Trace.Call(sender, e);
 
             if (e.Event.Button == 3) {
-                _UserListMenu.Popup(null, null, null, e.Event.Button, e.Event.Time);
-                _UserListMenu.ShowAll();
+                _PersonMenu.Popup(null, null, null, e.Event.Button, e.Event.Time);
+                _PersonMenu.ShowAll();
             }
         }
         
-        protected string GetSelectedNode()
+        protected PersonModel GetSelectedPerson()
         {
             Gtk.TreeIter iter;
             Gtk.TreeModel model;
-            if (_UserListTreeView.Selection.GetSelected(out model, out iter)) {
-                return (string)model.GetValue(iter, 1);
+            if (_PersonTreeView.Selection.GetSelected(out model, out iter)) {
+                return (PersonModel) model.GetValue(iter, 0);
             }
             
             return null;
@@ -313,3 +462,4 @@ namespace Smuxi.Frontend.Gnome
         }
     }
 }
+

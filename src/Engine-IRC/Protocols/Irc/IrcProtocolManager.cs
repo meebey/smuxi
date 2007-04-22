@@ -549,6 +549,7 @@ namespace Smuxi.Engine
             
             string[] help = {
             "help",
+            "connect irc server port [password] [nicknames]",
             "say",
             "join/j channel(s) [key]",
             "part/p [channel(s)] [partmessage]",
@@ -1656,7 +1657,9 @@ namespace Smuxi.Engine
                         break;
 				}
 				
-                IrcGroupPersonModel icuser = new IrcGroupPersonModel(username, NetworkID, this);
+                IrcGroupPersonModel icuser = new IrcGroupPersonModel(username,
+                                                                     NetworkID,
+                                                                     this);
                 /*
                 if (op) {
                     icuser.IsOp = true;

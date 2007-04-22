@@ -93,5 +93,22 @@ namespace Smuxi.Engine
         public abstract bool Command(CommandModel cmd);
         public abstract void Reconnect(FrontendManager fm);
         public abstract void Disconnect(FrontendManager fm);
+        
+        protected void NotConnected(CommandModel cmd)
+        {
+            cmd.FrontendManager.AddTextToCurrentChat("-!- " + _("Not connected to server"));
+        }
+
+        protected void NotEnoughParameters(CommandModel cmd)
+        {
+            cmd.FrontendManager.AddTextToCurrentChat(
+                "-!- " + String.Format(_("Not enough parameters for {0} command"),
+                cmd.Command));
+        }
+        
+        private static string _(string msg)
+        {
+            return Mono.Unix.Catalog.GetString(msg);
+        }
     }
 }

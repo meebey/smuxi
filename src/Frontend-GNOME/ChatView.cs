@@ -27,6 +27,8 @@
  */
 
 using System;
+using System.Collections.Generic;
+using System.Globalization;
 using Smuxi.Common;
 using Smuxi.Engine;
 using Smuxi.Frontend;
@@ -204,6 +206,151 @@ namespace Smuxi.Frontend.Gnome
         public virtual void Disable()
         {
             Trace.Call();
+        }
+        
+        public virtual void Sync()
+        {
+            
+#if LOG4NET
+            _Logger.Debug("Sync() syncing messages");
+#endif
+            // sync messages
+            // cleanup, be sure the output is empty
+            _OutputTextView.Buffer.Clear();
+            IList<MessageModel> messages = _ChatModel.Messages;
+            if (messages.Count > 0) {
+                foreach (MessageModel msg in messages) {
+                    AddMessage(msg);
+                }
+            }
+        }
+        
+        public void AddMessage(MessageModel msg)
+        {
+            Trace.Call(msg);
+            
+            string timestamp;
+            try {
+                string format = (string)Frontend.UserConfig["Interface/Notebook/TimestampFormat"];
+                timestamp = msg.TimeStamp.ToLocalTime().ToString(format);
+            } catch (FormatException e) {
+                timestamp = "Timestamp Format ERROR: " + e.Message;
+            }
+            
+            Gtk.TextIter iter = _OutputTextView.Buffer.EndIter;
+            _OutputTextView.Buffer.Insert(ref iter, timestamp + " ");
+            
+            bool hasHighlight = false;
+            foreach (MessagePartModel msgPart in msg.MessageParts) {
+#if LOG4NET
+                _Logger.Debug("AddMessage(): msgPart.GetType(): " + msgPart.GetType());
+#endif
+                if (msgPart.IsHighlight) {
+                    hasHighlight = true;
+                }
+                
+                // TODO: implement all types
+                if (msgPart is UrlMessagePartModel) {
+                    UrlMessagePartModel fmsgui = (UrlMessagePartModel) msgPart;
+                    _OutputTextView.Buffer.InsertWithTagsByName(ref iter, fmsgui.Url, "url");
+                } else if (msgPart is TextMessagePartModel) {
+                    TextMessagePartModel fmsgti = (TextMessagePartModel) msgPart;
+#if LOG4NET
+                    _Logger.Debug("AddMessage(): fmsgti.Text: '" + fmsgti.Text + "'");
+#endif
+                    List<string> tags = new List<string>();
+                    
+                    if (fmsgti.ForegroundColor.HexCode != -1) {
+                        string tagname = _GetTextTagName(fmsgti.ForegroundColor, null);
+                        tags.Add(tagname);
+                    }
+                    if (fmsgti.BackgroundColor.HexCode != -1) {
+                        string tagname = _GetTextTagName(null, fmsgti.BackgroundColor);
+                        tags.Add(tagname);
+                    }
+                    
+                    if (fmsgti.Underline) {
+#if LOG4NET
+                        _Logger.Debug("AddMessage(): fmsgti.Underline is true");
+#endif
+                        tags.Add("underline");
+                    }
+                    if (fmsgti.Bold) {
+#if LOG4NET
+                        _Logger.Debug("AddMessage(): fmsgti.Bold is true");
+#endif
+                        tags.Add("bold");
+                    }
+                    if (fmsgti.Italic) {
+#if LOG4NET
+                        _Logger.Debug("AddMessage(): fmsgti.Italic is true");
+#endif
+                        tags.Add("italic");
+                    }
+                    
+                    _OutputTextView.Buffer.InsertWithTagsByName(ref iter,
+                                                                fmsgti.Text,
+                                                                tags.ToArray());
+                } 
+            }
+            _OutputTextView.Buffer.Insert(ref iter, "\n");
+            
+            // HACK: out of scope?
+            if (hasHighlight && !Frontend.MainWindow.HasToplevelFocus) {
+                Frontend.MainWindow.UrgencyHint = true;
+                if (Frontend.UserConfig["Sound/BeepOnHighlight"] != null &&
+                    (bool)Frontend.UserConfig["Sound/BeepOnHighlight"]) {
+                    Frontend.MainWindow.Display.Beep();
+                }
+            }
+            
+            // HACK: out of scope?
+            if (Frontend.MainWindow.Notebook.CurrentChatView != this) {
+                string color = null;
+                if (hasHighlight) {
+                    _HasHighlight = hasHighlight;
+                    color = (string) Frontend.UserConfig["Interface/Notebook/Tab/HighlightColor"];
+                } else if (!_HasHighlight) {
+                    color = (string) Frontend.UserConfig["Interface/Notebook/Tab/ActivityColor"];
+                }
+                
+                if (color != null) {
+                    _Label.Markup = String.Format("<span foreground=\"{0}\">{1}</span>", color, _ChatModel.Name);
+                }
+            }
+        }
+        
+        private string _GetTextTagName(TextColor fg_color, TextColor bg_color)
+        {
+             string hexcode;
+             string tagname;
+             if (fg_color != null) {
+                hexcode = fg_color.HexCode.ToString("X6");
+                tagname = "fg_color:" + hexcode;
+             } else if (bg_color != null) {
+                hexcode = bg_color.HexCode.ToString("X6");
+                tagname = "bg_color:" + hexcode;
+             } else {
+                return null;
+             }
+             
+             if (_OutputTextTagTable.Lookup(tagname) == null) {
+                 int red   = Int16.Parse(hexcode.Substring(0, 2), NumberStyles.HexNumber);
+                 int green = Int16.Parse(hexcode.Substring(2, 2), NumberStyles.HexNumber);
+                 int blue  = Int16.Parse(hexcode.Substring(4, 2), NumberStyles.HexNumber);
+                 Gdk.Color c = new Gdk.Color((byte)red, (byte)green, (byte)blue);
+                 Gtk.TextTag tt = new Gtk.TextTag(tagname);
+                 if (fg_color != null) {
+                    tt.ForegroundGdk = c;
+                 } else if (bg_color != null) {
+                    tt.BackgroundGdk = c;
+                 }
+#if LOG4NET
+                 _Logger.Debug("_GetTextTagName(): adding: " + tagname + " to _OutputTextTagTable");
+#endif
+                 _OutputTextTagTable.Add(tt);
+             }
+             return tagname;
         }
         
         private void _OnTextBufferChanged(object sender, EventArgs e)

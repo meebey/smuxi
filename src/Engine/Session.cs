@@ -275,7 +275,7 @@ namespace Smuxi.Engine
             
             string[] help = {
             "help",
-            "connect/server [server] [port] [password] [nick]",
+            "connect/server protocol [protocol-parameters]",
             "disconnect",
             "network list",
             "network close [server]",
@@ -335,12 +335,6 @@ namespace Smuxi.Engine
                 _ProtocolManagers.Add(networkManager);
             }
             networkManager.Command(cd);
-            
-            /*
-            XmppProtocolManager xmppProtocolManager = new XmppProtocolManager(this);
-            xmppProtocolManager.Connect(fm, server, port, nicks[0], pass);
-            networkManager = xmppProtocolManager;
-            */
             
             // set this as current network manager
             fm.CurrentProtocolManager = networkManager;
