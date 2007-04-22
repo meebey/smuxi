@@ -27,9 +27,11 @@
     <Reference Include="Nini" />
     <Reference Include="Mono.Posix" />
     <Reference Include="System" />
+    <Reference Include="System.Data" />
     <Reference Include="System.Runtime.Remoting" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="System.Xml" />
     <Reference Include="UIAutomationProvider" />
     <Reference Include="UIAutomationTypes" />
     <Reference Include="WindowsBase" />
@@ -68,10 +70,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="SplashScreenWindow.xaml.cs">
-      <SubType>Code</SubType>
-      <DependentUpon>SplashScreenWindow.xaml</DependentUpon>
-    </Compile>
+    <Compile Include="NotImplementedMessageDialog.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Common\Common.csproj">

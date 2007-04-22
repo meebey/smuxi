@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Smuxi.Frontend.SWF
+namespace Smuxi.Frontend.Swf
 {
 	public partial class SplashScreenWindow
 	{

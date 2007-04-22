@@ -1,7 +1,7 @@
 using System;
 using System.Windows;
 
-namespace FrontendWPF {
+namespace Smuxi.Frontend.Wpf {
 	/// <summary>
 	/// Interaction logic for App.xaml
 	/// </summary>

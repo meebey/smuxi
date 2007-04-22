@@ -31,7 +31,7 @@ using System.Reflection;
 using System.Windows.Forms;
 using System.Drawing;
 
-namespace Smuxi.Frontend.SWF
+namespace Smuxi.Frontend.Swf
 {
     public partial class SplashScreenWindow : Form
     {
