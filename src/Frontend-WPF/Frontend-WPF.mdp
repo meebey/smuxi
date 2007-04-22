@@ -1,32 +1,28 @@
-<Project name="Frontend-SWF" fileversion="2.0" language="C#" clr-version="Net_2_0" ctype="DotNetProject">
+<Project name="Frontend-WPF" fileversion="2.0" language="C#" clr-version="Net_2_0" ctype="DotNetProject">
   <Configurations active="Debug">
     <Configuration name="Debug" ctype="DotNetProjectConfiguration">
-      <Output directory="../../bin/debug" assembly="smuxi-frontend-swf" />
+      <Output directory="../../bin/debug" assembly="smuxi-frontend-wpf" />
       <Build debugmode="True" target="Exe" />
       <Execution runwithwarnings="True" consolepause="True" runtime="MsNet" clr-version="Net_2_0" />
       <CodeGeneration compiler="Mcs" warninglevel="4" optimize="True" unsafecodeallowed="False" generateoverflowchecks="True" mainclass="" definesymbols="DEBUG,TRACE,LOG4NET" generatexmldocumentation="False" win32Icon="./" ctype="CSharpCompilerParameters" />
     </Configuration>
     <Configuration name="Release" ctype="DotNetProjectConfiguration">
-      <Output directory="../../bin/release" assembly="smuxi-frontend-swf" />
+      <Output directory="../../bin/release" assembly="smuxi-frontend-wpf" />
       <Build debugmode="False" target="WinExe" />
       <Execution runwithwarnings="True" consolepause="True" runtime="MsNet" clr-version="Net_2_0" />
       <CodeGeneration compiler="Mcs" warninglevel="4" optimize="True" unsafecodeallowed="False" generateoverflowchecks="True" mainclass="" generatexmldocumentation="False" win32Icon="./" ctype="CSharpCompilerParameters" />
     </Configuration>
   </Configurations>
   <Contents>
-    <File name="./SplashScreenWindow.cs" subtype="Code" buildaction="Compile" />
-    <File name="./SplashScreenWindow.designer.cs" subtype="Code" buildaction="Compile" />
-    <File name="../../images/splashscreen.png" subtype="Code" buildaction="EmbedAsResource" />
-    <File name="./NotImplementedMessageDialog.cs" subtype="Code" buildaction="Compile" />
     <File name="./AssemblyInfo.cs" subtype="Code" buildaction="Compile" />
+    <File name="./App.xaml" subtype="Code" buildaction="Nothing" />
+    <File name="./App.xaml.cs" subtype="Code" buildaction="Compile" />
+    <File name="./NotImplementedMessageDialog.cs" subtype="Code" buildaction="Compile" />
+    <File name="./SplashScreenWindow.xaml" subtype="Code" buildaction="Nothing" />
   </Contents>
   <References>
-    <ProjectReference type="Project" localcopy="True" refto="Common" />
     <ProjectReference type="Project" localcopy="True" refto="Engine" />
     <ProjectReference type="Project" localcopy="True" refto="Frontend" />
-    <ProjectReference type="Gac" localcopy="True" refto="System, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-    <ProjectReference type="Gac" localcopy="True" refto="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-    <ProjectReference type="Gac" localcopy="True" refto="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
     <ProjectReference type="Gac" localcopy="True" refto="Mono.Posix, Version=2.0.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756" />
   </References>
 </Project>

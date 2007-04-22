@@ -4,11 +4,11 @@ using Mono.Unix;
 
 namespace Smuxi.Frontend.Wpf
 {
-	static class NotImplementedMessageDialog
-	{
-        static public void Show()
+    public static class NotImplementedMessageDialog
+    {
+        public static void Show()
         {
             MessageBox.Show(Catalog.GetString("Sorry, not implemented yet!"), null, MessageBoxButton.OK, MessageBoxImage.Information);
         }
-	}
+    }
 }
