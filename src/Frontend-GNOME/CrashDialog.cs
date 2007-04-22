@@ -33,10 +33,11 @@ namespace Smuxi.Frontend.Gnome
 {
     public class CrashDialog : Gtk.Dialog
     {
-        public CrashDialog(Exception e) : base()
+        public CrashDialog(Gtk.Window parent, Exception e) : base()
         {
             SetDefaultSize(640, 480);
-            Title = "smuxi - " + Catalog.GetString("Oops, I did it again...");
+            Title = "smuxi - " + _("Oops, I did it again...");
+            Parent = parent;
             
             Gtk.HBox hbox = new Gtk.HBox();
 
@@ -47,9 +48,9 @@ namespace Smuxi.Frontend.Gnome
             Gtk.Label label1 = new Gtk.Label();
             Gtk.Label label2 = new Gtk.Label();
             label1.Markup = "<b>" +
-                            Catalog.GetString("smuxi crashed because an unhandled exception was thrown!") +
+                            _("smuxi crashed because an unhandled exception was thrown!") +
                             "</b>";
-            label2.Markup = Catalog.GetString("Here is the stacktrace, please report this bug!");
+            label2.Markup = _("Here is the stacktrace, please report this bug!");
             label_vbox.PackStart(label1, false, false, 0);
             label_vbox.PackStart(new Gtk.Fixed(), true, true, 0);
             label_vbox.PackStart(label2, false, false, 0);
@@ -80,10 +81,18 @@ namespace Smuxi.Frontend.Gnome
                        "Exception Message:\n"+e.Message+"\n\n"+
                        "Exception StackTrace:\n"+e.StackTrace;
             tv.Buffer.Text = message;
-            
-            ShowAll();
-            Run();
-            Destroy();
        }
+       
+        public static void Show(Gtk.Window parent, Exception ex)
+        {
+            CrashDialog cd = new CrashDialog(parent, ex);
+            cd.Run();
+            cd.Destroy();
+        }
+        
+        private static string _(string msg)
+        {
+            return Mono.Unix.Catalog.GetString(msg);
+        }
     }
 }

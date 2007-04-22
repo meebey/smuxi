@@ -415,7 +415,7 @@ namespace Smuxi.Frontend.Gnome
                 _Logger.Error(ex);
                 _Logger.Error("BaseException", ex.GetBaseException());
 #endif                
-                Frontend.ShowException(ex);
+                Frontend.ShowException(_Dialog, ex);
             }
         }
 
@@ -432,7 +432,7 @@ namespace Smuxi.Frontend.Gnome
 #if LOG4NET
                 _Logger.Error(ex);
 #endif                
-                Frontend.ShowException(ex);
+                Frontend.ShowException(_Dialog, ex);
             }
         }
 
@@ -446,7 +446,7 @@ namespace Smuxi.Frontend.Gnome
 #if LOG4NET
                 _Logger.Error(ex);
 #endif                
-                Frontend.ShowException(ex);
+                Frontend.ShowException(_Dialog, ex);
             }
         }
         

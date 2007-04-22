@@ -131,7 +131,7 @@ namespace Smuxi.Frontend.Gnome
                     }
                 }
             } catch (Exception ex) {
-                Frontend.ShowException(ex);
+                Frontend.ShowException(null, ex);
             }
         }
     }

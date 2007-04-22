@@ -32,14 +32,25 @@ using Smuxi;
 
 namespace Smuxi.Frontend.Gnome
 {
-    public class NotImplementedMessageDialog
+    public class NotImplementedMessageDialog : Gtk.MessageDialog
     {
-        public NotImplementedMessageDialog()
+        public NotImplementedMessageDialog(Gtk.Window parent) :
+                                      base(parent, Gtk.DialogFlags.Modal,
+                                           Gtk.MessageType.Info, Gtk.ButtonsType.Close,
+                                           _("Sorry, not implemented yet!"))
         {
-            Gtk.MessageDialog md = new Gtk.MessageDialog(null, Gtk.DialogFlags.Modal,
-                Gtk.MessageType.Info, Gtk.ButtonsType.Close, Catalog.GetString("Sorry, not implemented yet!"));
-            md.Run();
-            md.Destroy();
         }
+        
+        public static void Show(Gtk.Window parent)
+        {
+            NotImplementedMessageDialog nimd = new NotImplementedMessageDialog(parent);
+            nimd.Run();
+            nimd.Destroy();
+        }
+        
+        private static string _(string msg)
+        {
+            return Mono.Unix.Catalog.GetString(msg);
+        }    
     }
 }

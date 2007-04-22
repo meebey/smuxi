@@ -281,7 +281,7 @@ namespace Smuxi.Frontend.Gnome
 #if LOG4NET
                 _Logger.Error(e);
 #endif
-                Frontend.ShowException(e);
+                Frontend.ShowException(this, e);
             }
         }
         

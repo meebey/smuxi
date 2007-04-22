@@ -267,9 +267,11 @@ namespace Smuxi.Frontend.Gnome
             */
         }
         
-        public static void ShowException(Exception e)
+        public static void ShowException(Gtk.Window parent, Exception ex)
         {
-            new CrashDialog(e);
+            CrashDialog cd = new CrashDialog(parent, ex);
+            cd.Run();
+            cd.Destroy();
         }
     }
 }

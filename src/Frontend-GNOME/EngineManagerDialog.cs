@@ -143,7 +143,10 @@ namespace Smuxi.Frontend.Gnome
                         _OnDeleteEvent();
                         break;
                     default:
-                        new NotImplementedMessageDialog();
+                        NotImplementedMessageDialog nid = new NotImplementedMessageDialog(this);
+                        nid.Run();
+                        nid.Destroy();
+                        
                         // Re-run the Dialog
                         Run();
                         break;
@@ -152,7 +155,7 @@ namespace Smuxi.Frontend.Gnome
 #if LOG4NET
                 _Logger.Error(ex);
 #endif
-                new CrashDialog(ex);
+                CrashDialog.Show(this, ex);
             }
         }
         
