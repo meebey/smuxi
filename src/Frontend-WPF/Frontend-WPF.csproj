@@ -35,6 +35,45 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="..\..\images\about.png">
+      <Link>about.png</Link>
+    </Resource>
+    <Resource Include="..\..\images\connect.png">
+      <Link>connect.png</Link>
+    </Resource>
+    <Resource Include="..\..\images\edit.png">
+      <Link>edit.png</Link>
+    </Resource>
+    <Resource Include="..\..\images\icon_default.png">
+      <Link>icon_default.png</Link>
+    </Resource>
+    <Resource Include="..\..\images\icon_halfop.png">
+      <Link>icon_halfop.png</Link>
+    </Resource>
+    <Resource Include="..\..\images\icon_op.png">
+      <Link>icon_op.png</Link>
+    </Resource>
+    <Resource Include="..\..\images\icon_voice.png">
+      <Link>icon_voice.png</Link>
+    </Resource>
+    <Resource Include="..\..\images\splashscreen.png">
+      <Link>splashscreen.png</Link>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml" />
+    <Page Include="SplashScreenWindow.xaml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SplashScreenWindow.xaml.cs">
+      <SubType>Code</SubType>
+      <DependentUpon>SplashScreenWindow.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\Common\Common.csproj">
       <Project>{E1CAA428-6841-4C42-B4FA-3A3DE6D86B3D}</Project>
       <Name>Common</Name>
@@ -49,4 +88,5 @@
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildBinPath)\Microsoft.WinFX.targets" />
 </Project>

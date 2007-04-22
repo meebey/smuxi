@@ -1,0 +1,9 @@
+﻿<Window x:Class="Smuxi.Frontend.WPF.SplashScreenWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	WindowStyle="None" ResizeMode="NoResize"
+	ShowInTaskbar="False" WindowStartupLocation="CenterScreen"
+	SizeToContent="WidthAndHeight">
+	
+	<Image Source="splashscreen.png" Stretch="None" />
+</Window>

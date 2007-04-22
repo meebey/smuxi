@@ -23,6 +23,7 @@
   <ItemGroup>
     <Compile Include="AssemblyInfo.cs" />
     <Compile Include="ChatView.cs" />
+    <Compile Include="ChatViewInfoAttribute.cs" />
     <Compile Include="ChatViewManagerBase.cs" />
     <Compile Include="EntryController.cs" />
     <Compile Include="EntryHistoryModel.cs" />

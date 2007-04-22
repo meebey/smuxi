@@ -33,6 +33,7 @@
     <Compile Include="Chats\ChatModel.cs" />
     <Compile Include="Chats\ChatType.cs" />
     <Compile Include="Chats\GroupChatModel.cs" />
+    <Compile Include="Chats\NetworkChatModel.cs" />
     <Compile Include="Chats\PersonChatModel.cs" />
     <Compile Include="CommandModel.cs" />
     <Compile Include="Config.cs" />
@@ -41,18 +42,18 @@
     <Compile Include="FrontendConfig.cs" />
     <Compile Include="FrontendManager.cs" />
     <Compile Include="IFrontendUI.cs" />
-    <Compile Include="INetworkManager.cs" />
     <Compile Include="Messages\MessageModel.cs" />
     <Compile Include="Messages\MessagePartModel.cs" />
     <Compile Include="Messages\TextMessagePartModel.cs" />
     <Compile Include="Messages\UrlMessagePartModel.cs" />
     <Compile Include="NetworkProtocol.cs" />
-    <Compile Include="Networks\Irc\IrcGroupPersonModel.cs" />
-    <Compile Include="Networks\Irc\IrcNetworkManager.cs" />
-    <Compile Include="Networks\Irc\IrcPersonModel.cs" />
-    <Compile Include="Networks\Irc\IrcTextColor.cs" />
     <Compile Include="PermanentRemoteObject.cs" />
     <Compile Include="PersonModel.cs" />
+    <Compile Include="Protocols\IProtocolManager.cs" />
+    <Compile Include="Protocols\ProtocolManagerBase.cs" />
+    <Compile Include="Protocols\ProtocolManagerFactory.cs" />
+    <Compile Include="Protocols\ProtocolManagerInfoAttribute.cs" />
+    <Compile Include="Protocols\ProtocolManagerInfoModel.cs" />
     <Compile Include="Session.cs" />
     <Compile Include="SessionManager.cs" />
     <Compile Include="TextColor.cs" />
@@ -65,6 +66,9 @@
       <Project>{E1CAA428-6841-4C42-B4FA-3A3DE6D86B3D}</Project>
       <Name>Common</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Plugins\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSHARP.Targets" />
   <ProjectExtensions>
