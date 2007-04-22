@@ -4,8 +4,8 @@ using System.Text;
 
 namespace Smuxi.Frontend.Swf
 {
-	public partial class SplashScreenWindow
-	{
+    public partial class SplashScreenWindow
+    {
         private void InitializeComponent()
         {
             this.SuspendLayout();
@@ -17,7 +17,6 @@ namespace Smuxi.Frontend.Swf
             this.Name = "SplashScreenWindow";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.ResumeLayout(false);
-
         }
-	}
+    }
 }
