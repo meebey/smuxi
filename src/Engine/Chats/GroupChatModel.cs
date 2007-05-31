@@ -102,7 +102,13 @@ namespace Smuxi.Engine
         
         public PersonModel GetPerson(string id)
         {
-            return _Persons[id.ToLower()];
+            if (id == null) {
+                throw new ArgumentNullException("id");
+            }
+            
+            PersonModel personModel;
+            _Persons.TryGetValue(id.ToLower(), out personModel);
+            return personModel;
         }
         
         public PersonModel PersonLookup(string identityName)

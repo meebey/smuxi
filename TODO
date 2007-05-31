@@ -24,6 +24,7 @@ X create debian package
 
 Bugs:
 - /quit reconnects?
+- track rename for person chats 19:02 -!- Nils`- is now known as Nils`aw
 
 Feature Requests:
 - compare smuxi with all other common IRC clients on the website
