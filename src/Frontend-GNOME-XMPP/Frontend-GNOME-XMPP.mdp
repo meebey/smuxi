@@ -14,7 +14,6 @@
     </Configuration>
   </Configurations>
   <Contents>
-    <File name="./" subtype="Directory" buildaction="Compile" />
     <File name="./AssemblyInfo.cs" subtype="Code" buildaction="Compile" />
   </Contents>
   <References>
