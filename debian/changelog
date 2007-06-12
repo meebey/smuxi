@@ -1,3 +1,9 @@
+smuxi (0.5.26) unstable; urgency=low
+
+  * Fix QUIT/PART crash in IrcProtocolManager.
+
+ -- Mirco Bauer <meebey@debian.org>  Mon, 11 Jun 2007 22:09:36 +0200
+
 smuxi (0.5.25) unstable; urgency=low
 
   * Split the smuxi package into smuxi-engine smuxi-server and
