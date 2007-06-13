@@ -1,6 +1,7 @@
 smuxi (0.5.26) unstable; urgency=low
 
   * Fix QUIT/PART crash in IrcProtocolManager.
+  * Added smuxi-engine-irc and smuxi-frontend-gnome-irc package.
 
  -- Mirco Bauer <meebey@debian.org>  Mon, 11 Jun 2007 22:09:36 +0200
 
