@@ -219,6 +219,8 @@ namespace Smuxi.Frontend.Gnome
                     ((Gtk.RadioButton)_Glade["TabPositionRadioButtonNone"]).Active = true;
                 break;
             }
+            
+            // Interface/Notebook/Channel
             switch ((string)Frontend.UserConfig["Interface/Notebook/Channel/UserListPosition"]) {
                 case "left":
                     ((Gtk.RadioButton)_Glade["UserListPositionRadioButtonLeft"]).Active = true;
@@ -241,6 +243,8 @@ namespace Smuxi.Frontend.Gnome
                     ((Gtk.RadioButton)_Glade["TopicPositionRadioButtonNone"]).Active = true;
                 break;
             }
+            ((Gtk.CheckButton) _Glade["NickColorsCheckButton"]).Active =
+                (bool) Frontend.UserConfig["Interface/Notebook/Channel/NickColors"];
             
             // Interface/Notebook/Tab
             Gtk.ColorButton colorButton;
@@ -340,6 +344,9 @@ namespace Smuxi.Frontend.Gnome
                 userlist_position = "none";
             }
             Frontend.UserConfig["Interface/Notebook/Channel/UserListPosition"] = userlist_position;
+            
+            Frontend.UserConfig["Interface/Notebook/Channel/NickColors"] =
+                ((Gtk.CheckButton) _Glade["NickColorsCheckButton"]).Active;
 
             string topic_position = null;
              if (((Gtk.RadioButton)_Glade["TopicPositionRadioButtonTop"]).Active) {

@@ -212,6 +212,7 @@ namespace Smuxi.Engine
             prefix = "Engine/Users/DEFAULT/Interface/Notebook/Channel/";
             Get(prefix+"UserListPosition", "left");
             Get(prefix+"TopicPosition", "top");
+            Get(prefix+"NickColors", false);
 
             prefix = "Engine/Users/DEFAULT/Interface/Entry/";
             Get(prefix+"CompletionCharacter", ":");

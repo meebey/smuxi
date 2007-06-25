@@ -78,7 +78,7 @@ namespace Smuxi.Frontend.Gnome
             Trace.Call(sender, e);
             
             // BUG: out of scope?
-            Frontend.Session.RemoveChat(this.ChatModel);
+            Frontend.Session.RemoveChat(ChatModel);
         }
     }
 }

@@ -27,11 +27,13 @@
  */
 
 using System;
+using System.Drawing;
 using System.Collections.Generic;
 using System.Globalization;
 using Smuxi.Common;
 using Smuxi.Engine;
 using Smuxi.Frontend;
+using GNOME = Gnome;
 
 namespace Smuxi.Frontend.Gnome
 {
@@ -42,6 +44,7 @@ namespace Smuxi.Frontend.Gnome
 #endif
         private   ChatModel          _ChatModel;
         private   bool               _HasHighlight;
+        private   Gtk.TextMark       _EndMark;
         protected Gtk.Label          _Label;
         protected Gtk.EventBox       _LabelEventBox;
         protected Gtk.ScrolledWindow _OutputScrolledWindow;
@@ -122,7 +125,7 @@ namespace Smuxi.Frontend.Gnome
             
             tt = new Gtk.TextTag("url");
             tt.Underline = Pango.Underline.Single;
-            tt.Foreground = "lightblue";
+            tt.Foreground = "darkblue";
             tt.TextEvent += new Gtk.TextEventHandler(_OnTextTagUrlTextEvent);
             fd = new Pango.FontDescription();
             tt.FontDesc = fd;
@@ -130,7 +133,7 @@ namespace Smuxi.Frontend.Gnome
             
             Gtk.TextView tv = new Gtk.TextView();
             tv.Buffer = new Gtk.TextBuffer(ttt);
-            tv.Buffer.CreateMark("tail", tv.Buffer.EndIter, false); 
+            _EndMark = tv.Buffer.CreateMark("end", tv.Buffer.EndIter, false); 
             tv.Editable = false;
             tv.CursorVisible = false;
             tv.WrapMode = Gtk.WrapMode.WordChar;
@@ -188,14 +191,25 @@ namespace Smuxi.Frontend.Gnome
 #endif
             
             // BUG? doesn't work always for some reason
-            adj.Value = adj.Upper - adj.PageSize;
+            // seems like GTK+ doesn't update the adjustment till we give back control
+            //adj.Value = adj.Upper - adj.PageSize;
             
-            //_OutputTextView.Buffer.MoveMark("tail", _OutputTextView.Buffer.EndIter);
-            //_OutputTextView.ScrollMarkOnscreen(_OutputTextView.Buffer.GetMark("tail"));
+            //_OutputTextView.Buffer.MoveMark(_EndMark, _OutputTextView.Buffer.EndIter);
+            //_OutputTextView.ScrollMarkOnscreen(_EndMark);
+            //_OutputTextView.ScrollToMark(_EndMark, 0.49, true, 0.0, 0.0);
             
             //_OutputTextView.ScrollMarkOnscreen(_OutputTextView.Buffer.InsertMark);
 
             //_OutputTextView.ScrollMarkOnscreen(_OutputTextView.Buffer.GetMark("tail"));
+            
+            // WORKAROUND: scroll after one second delay
+            System.Reflection.MethodBase mb = Trace.GetMethodBase();
+            GLib.Timeout.Add(1000, new GLib.TimeoutHandler(delegate {
+                Trace.Call(mb);
+                
+                _OutputTextView.ScrollMarkOnscreen(_EndMark);
+                return false;
+            }));
         }
         
         public virtual void Enable()
@@ -261,6 +275,25 @@ namespace Smuxi.Frontend.Gnome
                     List<string> tags = new List<string>();
                     
                     if (fmsgti.ForegroundColor.HexCode != -1) {
+                        // TODO: if the color is too near our background color,
+                        // we should invert it
+                        // use HSV
+                        Gdk.Color bgcolor = _OutputTextView.DefaultAttributes.Appearance.BgColor;
+                        /*
+                        if (
+                        bgcolor.Red
+                        bgcolor.Green
+                        bgcolor.Blue
+                        
+                        TextColor color;
+                        if () {
+                           color = -fmsgti.ForegroundColor;
+                        } else {
+                           color = fmsgti.ForegroundColor;
+                        }
+                        
+                        System.Drawing.Color color = Color.FromArgb(0, (int)bgcolor.Red, (int)bgcolor.Green, (int)bgcolor.Blue);
+                        */
                         string tagname = _GetTextTagName(fmsgti.ForegroundColor, null);
                         tags.Add(tagname);
                     }
@@ -376,13 +409,34 @@ namespace Smuxi.Frontend.Gnome
                 tv.Buffer.Delete(ref start_iter, ref end_iter);
             }
 
-            //tv.Buffer.MoveMark("tail", tv.Buffer.EndIter);
-            //tv.Buffer.MoveMark("tail", tv.Buffer.GetIterAtLine(tv.Buffer.LineCount));
+            // update the end mark
+            tv.Buffer.MoveMark(_EndMark, tv.Buffer.EndIter);
         }
         
         private void _OnTextTagUrlTextEvent(object sender, Gtk.TextEventArgs e)
         {
             Trace.Call(sender, e);
+            
+            if (e.Event.Type != Gdk.EventType.TwoButtonPress) {
+                return;
+            }
+            
+            // get URL via TextTag from TextIter
+            Gtk.TextTag tag = (Gtk.TextTag) sender;
+            
+            Gtk.TextIter start = e.Iter;
+            Gtk.TextIter end = e.Iter;
+            
+            start.BackwardToTagToggle(tag);
+            end.ForwardToTagToggle(tag);
+            string url = _OutputTextView.Buffer.GetText(start, end, false);
+            if (!url.StartsWith("http://")) {
+                url = "http://" + url;
+            }
+            GNOME.Url.Show(url);
+            
+            // prevent that the selection changes because of the double-click
+            e.RetVal = true;
         }
     }
 }

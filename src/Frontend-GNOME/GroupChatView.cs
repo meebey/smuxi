@@ -188,7 +188,7 @@ namespace Smuxi.Frontend.Gnome
             Frontend.MainWindow.AddAccelGroup(agrp);
             _TabMenu = new Gtk.Menu();
             Gtk.ImageMenuItem close_item = new Gtk.ImageMenuItem(Gtk.Stock.Close, agrp);
-            close_item.Activated += new EventHandler(_OnTabMenuCloseActivated);  
+            close_item.Activated += new EventHandler(OnTabMenuCloseActivated);  
             _TabMenu.Append(close_item);
             
             _LabelEventBox.ButtonPressEvent += new Gtk.ButtonPressEventHandler(_OnTabButtonPress);
@@ -417,17 +417,9 @@ namespace Smuxi.Frontend.Gnome
             }
         }
         
-        private void _OnTabMenuCloseActivated(object sender, EventArgs e)
+        protected virtual void OnTabMenuCloseActivated(object sender, EventArgs e)
         {
             Trace.Call(sender, e);
-            
-            /*
-            if (ChatModel.ProtocolManager is IrcProtocolManager) {
-                IrcProtocolManager imanager = (IrcProtocolManager) ChatModel.ProtocolManager;
-                imanager.CommandPart(new CommandModel(Frontend.FrontendManager, ChatModel,
-                                                      ChatModel.Name));
-            }
-            */
         }
         
         protected virtual void OnPersonsRowActivated(object sender, Gtk.RowActivatedArgs e)

@@ -33,6 +33,8 @@ namespace Smuxi.Engine
     [Serializable]
     public class TextColor
     {
+        public static TextColor None = new TextColor();
+        
         private int _HexCode;
         
         public int HexCode {

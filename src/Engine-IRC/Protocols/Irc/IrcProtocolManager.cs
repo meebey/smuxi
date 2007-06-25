@@ -32,6 +32,7 @@ using System.Text.RegularExpressions;
 using System.Globalization;
 using System.Threading;
 using System.Collections;
+using System.Collections.Generic;
 using Meebey.SmartIrc4net;
 using Smuxi.Common;
 
@@ -1116,15 +1117,6 @@ namespace Smuxi.Engine
             TextMessagePartModel fmsgti;
             MessagePartModel fmsgi;
             
-            /*
-            int urlPos = message.IndexOf("http://");
-            if (urlPos != -1) {
-                MessageModelUrlItem fmsgui = new MessageModelUrlItem();
-                fmsgui.Url = 
-                fmsg.Items.Add(
-            }
-			*/
-			
             // strip color and formatting if configured
             if ((bool)_Session.UserConfig["Interface/Notebook/StripColors"]) {
                 message = Regex.Replace(message, (char)IrcControlCode.Color +
@@ -1150,6 +1142,7 @@ namespace Smuxi.Engine
             }
             message = String.Join(" ", messageParts);
             
+            // parse colors
             bool bold = false;
             bool underline = false;
             bool italic = false;
@@ -1284,6 +1277,77 @@ namespace Smuxi.Engine
                 fmsgti.IsHighlight = highlight;
                 fmsg.MessageParts.Add(fmsgti);
             } while (controlCharFound);
+
+            // parse URLs
+            string urlRegex;
+			//urlRegex = "((([a-zA-Z][0-9a-zA-Z+\\-\\.]*:)?/{0,2}[0-9a-zA-Z;/?:@&=+$\\.\\-_!~*'()%]+)?(#[0-9a-zA-Z;/?:@&=+$\\.\\-_!~*'()%]+)?)");
+            // It was constructed according to the BNF grammar given in RFC 2396 (http://www.ietf.org/rfc/rfc2396.txt).
+            
+			/*
+            urlRegex = @"^(?<s1>(?<s0>[^:/\?#]+):)?(?<a1>" + 
+                                  @"//(?<a0>[^/\?#]*))?(?<p0>[^\?#]*)" + 
+                                  @"(?<q1>\?(?<q0>[^#]*))?" + 
+                                  @"(?<f1>#(?<f0>.*))?");
+            */ 
+
+            urlRegex = @"(((https?|ftp):\/\/)|www\.)(([0-9]+\.[0-9]+\.[0-9]+\.[0-9]+)|localhost|([a-zA-Z0-9\-]+\.)*[a-zA-Z0-9\-]+\.(com|net|org|info|biz|gov|name|edu|[a-zA-Z][a-zA-Z]))(:[0-9]+)?((\/|\?)[^ ""]*[^ ,;\.:"">)])?";
+            Regex reg = new Regex(urlRegex);
+            // clone MessageParts
+            IList<MessagePartModel> parts = new List<MessagePartModel>(fmsg.MessageParts);
+            foreach (MessagePartModel part in parts) {
+                if (!(part is TextMessagePartModel)) {
+                    continue;
+                }
+                
+                TextMessagePartModel textPart = (TextMessagePartModel) part;
+                Match urlMatch = reg.Match(textPart.Text);
+                if (!urlMatch.Success) {
+                    // no URLs in this MessagePart, nothing to do
+                    continue;
+                }
+                
+                // found URL(s)
+                // remove current MessagePartModel as we need to split it
+                int idx = fmsg.MessageParts.IndexOf(part);
+                fmsg.MessageParts.RemoveAt(idx);
+                
+                string[] textPartParts = textPart.Text.Split(new char[] {' '});
+                for (int i = 0; i < textPartParts.Length; i++) {
+                    string textPartPart = textPartParts[i];
+                    urlMatch = reg.Match(textPartPart);
+                    if (urlMatch.Success) {
+                        TextMessagePartModel urlPart = new UrlMessagePartModel(textPartPart);
+                        fmsg.MessageParts.Insert(idx++, urlPart);
+                        fmsg.MessageParts.Insert(idx++, new TextMessagePartModel(" "));
+                    } else {
+                        // FIXME: we put each text part into it's own object, instead of combining them (the smart way)
+                        TextMessagePartModel notUrlPart = new TextMessagePartModel(textPartPart + " ");
+                        fmsg.MessageParts.Insert(idx++, notUrlPart);
+                    }
+                }
+                
+                /*
+                do {
+                    string url = urlMatch.Groups[0];
+                    _Logger.Debug("found url: " + url);
+                    
+                    UrlMessagePartModel urlPart = new UrlMessagePartModel(url);
+                    
+                    urlMatch = urlMatch.NextMatch();
+                } while (urlMatch.Success);
+                */
+            }
+            
+            
+
+            /*
+            int urlPos = message.IndexOf("http://");
+            if (urlPos != -1) {
+                MessageModelUrlItem fmsgui = new MessageModelUrlItem();
+                fmsgui.Url = 
+                fmsg.Items.Add(
+            }
+			*/
         }
         
         private TextColor _IrcTextColorToTextColor(int color)
@@ -1483,6 +1547,15 @@ namespace Smuxi.Engine
             }
         }
         
+        protected TextColor _GetNickColor(string nickname)
+        {
+            if ((bool) _Session.UserConfig["Interface/Notebook/Channel/NickColors"]) {
+                return new TextColor(nickname.GetHashCode());
+            }
+            
+            return TextColor.None;
+        }
+        
         private void _OnChannelMessage(object sender, IrcEventArgs e)
         {
             ChatModel chat = _Session.GetChat(e.Data.Channel, ChatType.Group, NetworkProtocol.Irc, this);
@@ -1491,7 +1564,16 @@ namespace Smuxi.Engine
             TextMessagePartModel fmsgti;
             
             fmsgti = new TextMessagePartModel();
-            fmsgti.Text = String.Format("<{0}> ", e.Data.Nick);
+            fmsgti.Text = "<";
+            fmsg.MessageParts.Add(fmsgti);
+
+            fmsgti = new TextMessagePartModel();
+            fmsgti.ForegroundColor = _GetNickColor(e.Data.Nick);
+            fmsgti.Text = e.Data.Nick;
+            fmsg.MessageParts.Add(fmsgti);
+
+            fmsgti = new TextMessagePartModel();
+            fmsgti.Text = "> ";
             fmsg.MessageParts.Add(fmsgti);
             
             _IrcMessageToMessageModel(ref fmsg, e.Data.Message);

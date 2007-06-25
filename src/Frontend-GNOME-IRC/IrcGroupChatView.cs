@@ -186,6 +186,20 @@ namespace Smuxi.Frontend.Gnome
             }
         }
         
+        protected override void OnTabMenuCloseActivated(object sender, EventArgs e)
+        {
+            Trace.Call(sender, e);
+            
+            base.OnTabMenuCloseActivated(sender, e);
+            
+            if (ChatModel.ProtocolManager is IrcProtocolManager) {
+                IrcProtocolManager imanager = (IrcProtocolManager) ChatModel.ProtocolManager;
+                imanager.CommandPart(new CommandModel(Frontend.FrontendManager,
+                                                      ChatModel,
+                                                      ChatModel.Name));
+            }
+        }
+        
         protected override void OnPersonsRowActivated(object sender, Gtk.RowActivatedArgs e)
         {
             Trace.Call(sender, e);
