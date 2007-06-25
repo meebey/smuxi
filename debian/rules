@@ -53,6 +53,7 @@ binary-indep: build install
 	dh_strip
 	dh_compress
 	dh_fixperms
+	dh_clifixperms
 	dh_installdeb
 	dh_shlibdeps
 	dh_clideps
