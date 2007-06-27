@@ -126,8 +126,9 @@ namespace Smuxi.Frontend
                     continue;
                 }
                 
-                ChatViewInfoAttribute attr = (ChatViewInfoAttribute) attrs[0];
-                _ChatViewTypes.Add(attr, foundType);
+                foreach (ChatViewInfoAttribute attr in attrs) {
+                    _ChatViewTypes.Add(attr, foundType);
+                }
             }
         }
     }

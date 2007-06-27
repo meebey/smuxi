@@ -14,6 +14,7 @@
       <Entry build="True" name="Frontend-SWF" configuration="Release" />
       <Entry build="False" name="Frontend-WPF" configuration="Release" />
       <Entry build="True" name="Frontend-Curses" configuration="Release" />
+      <Entry build="True" name="Frontend-STFL" configuration="Release" />
     </Configuration>
     <Configuration name="Debug" ctype="CombineConfiguration">
       <Entry build="True" name="Engine" configuration="Debug" />
@@ -29,6 +30,7 @@
       <Entry build="True" name="Frontend-SWF" configuration="Debug" />
       <Entry build="False" name="Frontend-WPF" configuration="Debug" />
       <Entry build="True" name="Frontend-Curses" configuration="Debug" />
+      <Entry build="True" name="Frontend-STFL" configuration="Debug" />
     </Configuration>
   </Configurations>
   <StartMode startupentry="Engine" single="False">
@@ -45,6 +47,7 @@
     <Execute type="None" entry="Frontend-SWF" />
     <Execute type="None" entry="Frontend-WPF" />
     <Execute type="None" entry="Frontend-Curses" />
+    <Execute type="None" entry="Frontend-STFL" />
   </StartMode>
   <Entries>
     <Entry filename="./Common/Common.mdp" />
@@ -60,5 +63,6 @@
     <Entry filename="./Frontend-SWF/Frontend-SWF.mdp" />
     <Entry filename="./Frontend-WPF/Frontend-WPF.mdp" />
     <Entry filename="./Frontend-Curses/Frontend-Curses.mdp" />
+    <Entry filename="./Frontend-STFL/Frontend-STFL.mdp" />
   </Entries>
 </Combine>

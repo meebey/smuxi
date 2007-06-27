@@ -42,6 +42,9 @@ namespace Smuxi.Frontend.Gnome
 #if LOG4NET
         private static readonly log4net.ILog _Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 #endif
+        private static readonly Gdk.Cursor _NormalCursor = new Gdk.Cursor(Gdk.CursorType.Xterm);
+        private static readonly Gdk.Cursor _LinkCursor = new Gdk.Cursor(Gdk.CursorType.Hand2);
+        private   bool               _AtUrlTag;
         private   ChatModel          _ChatModel;
         private   bool               _HasHighlight;
         private   Gtk.TextMark       _EndMark;
@@ -146,6 +149,8 @@ namespace Smuxi.Frontend.Gnome
             sw.ShadowType = Gtk.ShadowType.In;
             sw.Add(_OutputTextView);
             _OutputScrolledWindow = sw;
+            
+            _OutputTextView.MotionNotifyEvent += new Gtk.MotionNotifyEventHandler(_OnMotionNotifyEvent);
         }
     
         public void ScrollUp()
@@ -415,8 +420,6 @@ namespace Smuxi.Frontend.Gnome
         
         private void _OnTextTagUrlTextEvent(object sender, Gtk.TextEventArgs e)
         {
-            Trace.Call(sender, e);
-            
             if (e.Event.Type != Gdk.EventType.TwoButtonPress) {
                 return;
             }
@@ -437,6 +440,47 @@ namespace Smuxi.Frontend.Gnome
             
             // prevent that the selection changes because of the double-click
             e.RetVal = true;
+        }
+        
+        private void _OnMotionNotifyEvent(object sender, Gtk.MotionNotifyEventArgs e)
+        {
+            // GDK is ugly!
+            Gdk.ModifierType modifierType;
+            int windowX, windowY;
+            int bufferX, bufferY;
+            
+            // get the window position of the mouse
+            _OutputTextView.GdkWindow.GetPointer(out windowX, out windowY, out modifierType);
+            // get buffer position with the window position
+            _OutputTextView.WindowToBufferCoords(Gtk.TextWindowType.Widget,
+                                                 windowX, windowY,
+                                                 out bufferX, out bufferY);
+            // get TextIter with buffer position
+            Gtk.TextIter iter = _OutputTextView.GetIterAtLocation(bufferX, bufferY);
+            bool atUrlTag = false;
+            foreach (Gtk.TextTag tag in iter.Tags) {
+                if (tag.Name == "url") {
+                    atUrlTag = true;
+                    break;
+                }
+            }
+            
+            Gdk.Window window = _OutputTextView.GetWindow(Gtk.TextWindowType.Text); 
+            if (atUrlTag != _AtUrlTag) {
+                _AtUrlTag = atUrlTag;
+                
+                if (atUrlTag) {
+#if LOG4NET
+                    _Logger.Debug("_OnMotionNotifyEvent(): at url tag");
+#endif
+                    window.Cursor = _LinkCursor;
+                } else {
+#if LOG4NET
+                    _Logger.Debug("_OnMotionNotifyEvent(): not at url tag");
+#endif
+                    window.Cursor = _NormalCursor;
+                }
+            }
         }
     }
 }

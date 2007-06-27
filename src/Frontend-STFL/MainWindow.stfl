@@ -1,0 +1,19 @@
+vbox
+  autobind:0
+  textview[output_textview]
+    .expand:vh
+    style_end:""
+  vbox[status]
+    .expand:0 .height:1
+    @style_normal:fg=white,bg=blue
+    label
+      text:"Test"
+  hbox[input_hbox]
+    .expand:0 .height:1
+    label
+      .expand:0
+      text[input_label]:"[smuxi] "
+    !input[input]
+      on_TAB:TAB
+      on_M4:alt4
+      text[input_text]:

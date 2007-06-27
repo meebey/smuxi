@@ -1,9 +1,9 @@
 /*
- * $Id$
- * $URL$
- * $Rev$
- * $Author$
- * $Date$
+ * $Id: TestUI.cs 179 2007-04-21 15:01:29Z meebey $
+ * $URL: svn+ssh://svn.qnetp.net/svn/smuxi/smuxi/trunk/src/Frontend-Test/TestUI.cs $
+ * $Rev: 179 $
+ * $Author: meebey $
+ * $Date: 2007-04-21 17:01:29 +0200 (Sat, 21 Apr 2007) $
  *
  * smuxi - Smart MUltipleXed Irc
  *
@@ -27,20 +27,32 @@
  */
 
 using System;
-using Smuxi;
 
-namespace Smuxi.Frontend.Gnome
+namespace Smuxi.Frontend.Stfl
 {
-    public class AboutDialog : Gtk.AboutDialog
+    public delegate void KeyPressedEventHandler(object sender, KeyPressedEventArgs e);
+    
+    public class KeyPressedEventArgs : EventArgs
     {
-        public AboutDialog()
+        private string _Key;
+        private string _Focus;
+        
+        public string Key {
+            get {
+                return _Key;
+            }
+        }
+        
+        public string Focus {
+            get {
+                return _Focus;
+            }
+        }
+        
+        public KeyPressedEventArgs(string key, string focus)
         {
-            Name = Frontend.Name;
-            Version = "\n Frontend: " + Frontend.UIName + " " + Frontend.Version +
-                      "\n Engine: " + Frontend.EngineVersion;
-            Copyright = "2005-2007 (C) Mirco Bauer <meebey@meebey.net>";
-            Authors = new string[] {"Mirco Bauer <meebey@meebey.net>"};
-            Logo = new Gdk.Pixbuf(null, "about.png");
+            _Key = key;
+            _Focus = focus;
         }
     }
 }

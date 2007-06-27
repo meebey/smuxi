@@ -1,13 +1,13 @@
 /*
- * $Id: CommandModel.cs 179 2007-04-21 15:01:29Z meebey $
- * $URL: svn+ssh://svn.qnetp.net/svn/smuxi/smuxi/trunk/src/Engine/CommandModel.cs $
- * $Rev: 179 $
+ * $Id: MainWindow.cs 192 2007-04-22 11:48:12Z meebey $
+ * $URL: svn+ssh://svn.qnetp.net/svn/smuxi/smuxi/trunk/src/Frontend-GNOME/MainWindow.cs $
+ * $Rev: 192 $
  * $Author: meebey $
- * $Date: 2007-04-21 17:01:29 +0200 (Sat, 21 Apr 2007) $
+ * $Date: 2007-04-22 13:48:12 +0200 (Sun, 22 Apr 2007) $
  *
  * smuxi - Smart MUltipleXed Irc
  *
- * Copyright (c) 2005-2006 Mirco Bauer <meebey@meebey.net>
+ * Copyright (c) 2007 Mirco Bauer <meebey@meebey.net>
  *
  * Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
  *
@@ -27,39 +27,36 @@
  */
 
 using System;
+using System.IO;
+using System.Reflection;
+using Mono.Unix;
+using Smuxi.Common;
+using Smuxi.Engine;
 
-namespace Smuxi.Engine
+namespace Smuxi.Frontend.Stfl
 {
-    [AttributeUsage(AttributeTargets.Class, AllowMultiple = true)]
-    public class ChatViewInfoAttribute : Attribute
-    {
+	public class MainWindow : Form
+	{
 #if LOG4NET
         private static readonly log4net.ILog _Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 #endif
-
-        private ChatType _ChatType;
-        private Type     _ProtocolManagerType;
+        private StflUI          _UI;
+        private Entry           _Entry;
+	    private ChatViewManager _ChatViewManager;
         
-        public ChatType ChatType {
+        public StflUI UI {
             get {
-                return _ChatType;
-            }
-            set {
-                _ChatType = value;
+                return _UI;
             }
         }
         
-        public Type ProtocolManagerType {
-            get {
-                return _ProtocolManagerType;
-            }
-            set {
-                _ProtocolManagerType = value;
-            }
-        }
-        
-        public ChatViewInfoAttribute()
+        public MainWindow() : base(null, "MainWindow.stfl")
         {
-        }
+            _ChatViewManager = new ChatViewManager(this);
+            _Entry = new Entry(this);
+            _UI = new StflUI(_ChatViewManager);
+		    Assembly asm = Assembly.GetExecutingAssembly();
+		    _ChatViewManager.Load(asm);
+		}
     }
 }
