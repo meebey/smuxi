@@ -28,7 +28,7 @@
   <Contents>
     <File name="../../images/about.png" subtype="Code" buildaction="EmbedAsResource" />
     <File name="../../images/splashscreen.png" subtype="Code" buildaction="EmbedAsResource" />
-    <File name="../../glade/preferences.glade" subtype="Code" buildaction="EmbedAsResource" />
+    <File name="../../glade/smuxi-frontend-gnome.glade" subtype="Code" buildaction="EmbedAsResource" />
     <File name="../../images/connect.png" subtype="Code" buildaction="EmbedAsResource" />
     <File name="../../images/edit.png" subtype="Code" buildaction="EmbedAsResource" />
     <File name="./AboutDialog.cs" subtype="Code" buildaction="Compile" />
@@ -48,7 +48,6 @@
     <File name="./NotImplementedMessageDialog.cs" subtype="Code" buildaction="Compile" />
     <File name="./Notebook.cs" subtype="Code" buildaction="Compile" />
     <File name="./ChatView.cs" subtype="Code" buildaction="Compile" />
-    <File name="./PreferencesDialog.cs" subtype="Code" buildaction="Compile" />
     <File name="./PersonChatView.cs" subtype="Code" buildaction="Compile" />
     <File name="./NetworkChatView.cs" subtype="Code" buildaction="Compile" />
     <File name="./SplashScreenWindow.cs" subtype="Code" buildaction="Compile" />
@@ -56,6 +55,11 @@
     <File name="./Preferences/ChannelFilterListView.cs" subtype="Code" buildaction="Compile" />
     <File name="./Preferences/ChannelFilterModel.cs" subtype="Code" buildaction="Compile" />
     <File name="./ChatViewManager.cs" subtype="Code" buildaction="Compile" />
+    <File name="./Preferences/ServerListView.cs" subtype="Code" buildaction="Compile" />
+    <File name="./Preferences/ServerListController.cs" subtype="Code" buildaction="Compile" />
+    <File name="./Preferences/ServerModel.cs" subtype="Code" buildaction="Compile" />
+    <File name="./Preferences/ServerView.cs" subtype="Code" buildaction="Compile" />
+    <File name="./Preferences/PreferencesDialog.cs" subtype="Code" buildaction="Compile" />
   </Contents>
   <References>
     <ProjectReference type="Project" localcopy="True" refto="Engine" />

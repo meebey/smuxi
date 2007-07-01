@@ -44,6 +44,12 @@ namespace Smuxi.Frontend.Stfl
         private MainWindow                      _MainWindow;
         private Dictionary<ChatModel, ChatView> _ChatViews = new Dictionary<ChatModel, ChatView>();
         
+        public override IChatView ActiveChat {
+            get {
+                return null;
+            }
+        }
+
         public ChatViewManager(MainWindow mainWindow)
         {
             _MainWindow = mainWindow;

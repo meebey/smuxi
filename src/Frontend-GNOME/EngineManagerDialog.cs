@@ -279,7 +279,7 @@ namespace Smuxi.Frontend.Gnome
                     return;
                 }
                 
-                Frontend.Session = sessm.Register(username, password, Frontend.MainWindow.UI);
+                Frontend.Session = sessm.Register(username, MD5.FromString(password), Frontend.MainWindow.UI);
                 Frontend.EngineVersion = sessm.EngineVersion;
                 if (Frontend.Session != null) {
                     // Dialog finished it's job, we are connected

@@ -28,6 +28,7 @@
 
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Runtime.Remoting;
 using Smuxi.Common;
 
@@ -129,6 +130,7 @@ namespace Smuxi.Engine
             if (!_OnStartupCommandsProcessed) {
                 _OnStartupCommandsProcessed = true;
                 ChatModel smuxiChat = GetChat("smuxi", ChatType.Network, null);
+                
                 foreach (string command in (string[])_UserConfig["OnStartupCommands"]) {
                     if (command.Length == 0) {
                         continue;
@@ -144,6 +146,9 @@ namespace Smuxi.Engine
                         }
                     }
                 }
+                
+                // process server specific connects/commands
+                
             }
         }
         
@@ -682,6 +687,11 @@ namespace Smuxi.Engine
             foreach (FrontendManager fm in _FrontendManagers.Values) {
                 fm.SetStatus(status);
             }
+        }
+        
+        public IList<string> GetSupportedProtocols()
+        {
+            return _ProtocolManagerFactory.GetProtocols();
         }
         
         private static string _(string msg)

@@ -33,6 +33,7 @@ using System.Reflection;
 using GNOME = Gnome;
 #endif
 using Smuxi.Engine;
+using Smuxi.Common;
 
 namespace Smuxi.Frontend.Gnome
 {
@@ -42,6 +43,7 @@ namespace Smuxi.Frontend.Gnome
         private static readonly log4net.ILog _Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 #endif
         private static readonly string    _Name = "smuxi";
+        private static readonly string    _GladeFilename = "smuxi-frontend-gnome.glade";
 #if UI_GTK
         private static readonly string    _UIName = "GTK+";
 #elif UI_GNOME
@@ -62,6 +64,12 @@ namespace Smuxi.Frontend.Gnome
         public static string Name {
             get {
                 return _Name;
+            }
+        }
+        
+        public static string GladeFilename {
+            get {
+                return _GladeFilename;
             }
         }
         
@@ -238,6 +246,8 @@ namespace Smuxi.Frontend.Gnome
         
         public static void DisconnectEngineFromGUI()
         {
+            Trace.Call();
+            
             _FrontendManager.IsFrontendDisconnecting = true;
             _Session.DeregisterFrontendUI(_MainWindow.UI);
             _MainWindow.Hide();
@@ -272,6 +282,11 @@ namespace Smuxi.Frontend.Gnome
             CrashDialog cd = new CrashDialog(parent, ex);
             cd.Run();
             cd.Destroy();
+        }
+        
+        public static void ShowException(Exception ex)
+        {
+            ShowException(null, ex);
         }
     }
 }

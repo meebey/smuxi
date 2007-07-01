@@ -21,6 +21,7 @@
     <File name="./ChatViewManagerBase.cs" subtype="Code" buildaction="Compile" />
     <File name="./IChatView.cs" subtype="Code" buildaction="Compile" />
     <File name="./ChatViewInfoAttribute.cs" subtype="Code" buildaction="Compile" />
+    <File name="./IEntryView.cs" subtype="Code" buildaction="Compile" />
   </Contents>
   <References>
     <ProjectReference type="Gac" localcopy="True" refto="System, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />

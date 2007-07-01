@@ -43,6 +43,12 @@ namespace Smuxi.Frontend.Gnome
         private Notebook     _Notebook;
         private Gtk.TreeView _TreeView;
 
+        public override IChatView ActiveChat {
+            get {
+                return _Notebook.CurrentChatView;
+            }
+        }
+        
         public ChatViewManager(Notebook notebook, Gtk.TreeView treeView)
         {
             _Notebook = notebook;

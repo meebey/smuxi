@@ -109,6 +109,17 @@ namespace Smuxi.Engine
             return null;
         }
         
+        public IList<string> GetProtocols()
+        {
+            IList<string> protocols = new List<string>();
+            foreach (ProtocolManagerInfoModel info in _ProtocolManagerTypes.Keys) {
+                if (!protocols.Contains(info.Name)) {
+                    protocols.Add(info.Name);
+                }
+            }
+            return protocols;
+        }
+        
         public IProtocolManager CreateProtocolManager(ProtocolManagerInfoModel info, Session session)
         {
             Type type = _ProtocolManagerTypes[info];

@@ -30,6 +30,7 @@ using System;
 using System.IO;
 using System.Collections;
 #if CONFIG_NINI
+using Nini.Config;
 using Nini.Ini;
 #endif
 using Smuxi.Common;
@@ -48,6 +49,8 @@ namespace Smuxi.Engine
 #elif CONFIG_NINI
         protected string        m_ConfigPath;
         protected IniDocument   m_IniDocument;
+        //protected IConfigSource m_IniConfigSource;
+        //protected IConfig       m_IniConfig;
         protected string        m_IniFilename;
 #endif
         protected bool          m_IsCleanConfig;
@@ -100,6 +103,7 @@ namespace Smuxi.Engine
 //            StreamReader sr = File.OpenText(m_IniFilename);
 //            m_IniDocument = new IniDocument(sr);
             m_IniDocument = new IniDocument(m_IniFilename);
+            //m_IniConfigSource = new IniConfigSource(m_IniFilename);
 #endif
         }
         
@@ -246,7 +250,7 @@ namespace Smuxi.Engine
             
             prefix = "Engine/Users/";
             string[] users = GetList(prefix+"Users");
-            m_Preferences[prefix+"Users"] = users;
+            m_Preferences[prefix + "Users"] = users;
             foreach (string user in users) {
                 LoadUserEntry(user, "Password", "smuxi");
                 
@@ -270,7 +274,7 @@ namespace Smuxi.Engine
                 
                 string[] command_list = GetList(prefix+user+"/Connection/OnConnectCommands");
                 if (command_list != null) {
-                    m_Preferences[prefix+user+"/Connection/OnConnectCommands"] = command_list;
+                    m_Preferences[prefix+user+"/Connection/OnConnectCommands"] =  command_list;
                 } else {
                     m_Preferences[prefix+user+"/Connection/OnConnectCommands"] = new string[] {};
                 }
@@ -295,6 +299,9 @@ namespace Smuxi.Engine
                 servers = GetList(sprefix + "Servers");
                 if (servers == null) {
                     servers = new string[] {};
+                    m_Preferences[sprefix + "Servers"] = new string[] {};
+                } else {
+                    m_Preferences[sprefix + "Servers"] = servers;
                 }
                 foreach (string server in servers) {
                     sprefix = prefix + user + "/Servers/" + server + "/";
@@ -304,20 +311,31 @@ namespace Smuxi.Engine
                     LoadEntry(sprefix+"Encoding", null);
                     LoadEntry(sprefix+"Username", null);
                     LoadEntry(sprefix+"Password", null);
+                    LoadEntry(sprefix+"OnStartupConnect", false);
+                    string[] commands = GetList(sprefix + "OnConnectCommands");
+                    if (commands == null) {
+                        commands = new string[] {};
+                        m_Preferences[sprefix + "OnConnectCommands"] = new string[] {};
+                    } else {
+                        m_Preferences[sprefix + "OnConnectCommands"] = commands;
+                    }
                 }
 
                 string[] channelFilters = null;
-                string cprefix = prefix + user + "/Filters/Channel/";
-                channelFilters = GetList(cprefix + "Patterns");
+                string cprefix = "Filters/Channel/";
+                channelFilters = GetList(prefix + user + "/" + cprefix + "Patterns");
                 if (channelFilters == null) {
                     channelFilters = new string[] {};
+                    m_Preferences[prefix + user + "/" + cprefix + "Patterns"] = new string[] {};
+                } else {
+                    m_Preferences[prefix + user + "/" + cprefix + "Patterns"] = channelFilters;
                 }
                 foreach (string filter in channelFilters) {
-                    cprefix = prefix + user + "/Filters/Channel/" + filter + "/";
-                    LoadEntry(cprefix + "Pattern", null);
-                    LoadEntry(cprefix + "FilterJoins", null);
-                    LoadEntry(cprefix + "FilterParts", null);
-                    LoadEntry(cprefix + "FilterQuits", null);
+                    cprefix = "Filters/Channel/" + filter + "/";
+                    LoadUserEntry(user, cprefix + "Pattern", null);
+                    LoadUserEntry(user, cprefix + "FilterJoins", null);
+                    LoadUserEntry(user, cprefix + "FilterParts", null);
+                    LoadUserEntry(user, cprefix + "FilterQuits", null);
                 }
             }
         }
@@ -328,15 +346,12 @@ namespace Smuxi.Engine
             _Logger.Info("Saving config");
 #endif
             
+            // update values in backend
             foreach (string key in m_Preferences.Keys) {
                 object obj = m_Preferences[key];
                 _Set(key, obj);
             }
             
-            // BUG: we write all existing entries to the backends but when an
-            // entry was removed, it will stay in the backend!
-            // Probably need to explicit compare and hard remove from the
-            // backends the removed entries. 
 #if CONFIG_GCONF
             _GConf.SuggestSync();
 #elif CONFIG_NINI
@@ -348,10 +363,32 @@ namespace Smuxi.Engine
         
         public void Remove(string key)
         {
-#if LOG4NET
-            _Logger.Debug("Removing: "+key);
+            Trace.Call(key);
+            
+            bool isSection = false;
+            if (key.EndsWith("/")) {
+                isSection = true;
+                ArrayList keys = new ArrayList(m_Preferences.Keys);
+                foreach (string pkey in keys) {
+                    if (pkey.StartsWith(key)) {
+                        m_Preferences.Remove(pkey);
+                    }
+                }
+            } else {
+                m_Preferences.Remove(key);
+            }
+#if CONFIG_GCONF
+            //_GConf.
+#elif CONFIG_NINI
+            string iniSection = _IniGetSection(key);
+            string iniKey = _IniGetKey(key);
+            if (isSection) {
+                m_IniDocument.Sections.Remove(iniSection);
+            } else {
+                m_IniDocument.Sections[key].Remove(key);
+            }
 #endif
-            m_Preferences.Remove(key);
+            
             if (Changed != null) {
                 Changed(this, EventArgs.Empty);
             }

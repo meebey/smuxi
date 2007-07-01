@@ -1,0 +1,164 @@
+/*
+ * $Id: PreferencesDialog.cs 142 2007-01-02 22:19:08Z meebey $
+ * $URL: svn+ssh://svn.qnetp.net/svn/smuxi/smuxi/trunk/src/Frontend-GNOME/PreferencesDialog.cs $
+ * $Rev: 142 $
+ * $Author: meebey $
+ * $Date: 2007-01-02 23:19:08 +0100 (Tue, 02 Jan 2007) $
+ *
+ * smuxi - Smart MUltipleXed Irc
+ *
+ * Copyright (c) 2005-2006 Mirco Bauer <meebey@meebey.net>
+ *
+ * Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA
+ */
+
+using System;
+using System.Collections.Generic;
+using Smuxi.Common;
+using Smuxi.Engine;
+
+namespace Smuxi.Frontend.Gnome
+{
+    public class ServerListController
+    {
+#if LOG4NET
+        private static readonly log4net.ILog _Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+#endif
+        private UserConfig _UserConfig;
+        
+        public ServerListController(UserConfig userConfig)
+        {
+            _UserConfig = userConfig;
+        }
+        
+        public IList<ServerModel> GetServerList()
+        {
+            string[] servers = (string[]) _UserConfig["Servers/Servers"];
+            IList<ServerModel> serverList = new List<ServerModel>();
+            if (servers == null) {
+                return serverList;
+            }
+            foreach (string server in servers) {
+                string[] serverParts = server.Split(new char[] {'/'});
+                string protocol = serverParts[0];
+                string servername = serverParts[1];
+                ServerModel ser = GetServer(protocol, servername);
+                if (ser == null) {
+#if LOG4NET
+                    _Logger.Error("GetServerList(): GetServer(" + protocol + ", " + servername +") returned null! ignoring...");
+#endif 
+                    continue;
+                }
+                serverList.Add(ser);
+            }
+            return serverList;
+        }
+        
+        public ServerModel GetServer(string protocol, string servername)
+        {
+            Trace.Call(protocol, servername);
+            
+            string prefix = "Servers/" + protocol + "/" + servername + "/";
+            ServerModel server = new ServerModel();
+            if (_UserConfig[prefix + "Hostname"] == null) {
+                // server does not exist
+                return null;
+            }
+            server.Protocol    = protocol;
+            server.Hostname    = (string) _UserConfig[prefix + "Hostname"];
+            server.Port        = (int) _UserConfig[prefix + "Port"];
+            server.Network     = (string) _UserConfig[prefix + "Network"];
+            server.Username    = (string) _UserConfig[prefix + "Username"];
+            server.Password    = (string) _UserConfig[prefix + "Password"];
+            server.OnStartupConnect = (bool) _UserConfig[prefix + "OnStartupConnect"];
+            server.OnConnectCommands  = (IList<string>) _UserConfig[prefix + "OnConnectCommands"];
+            return server;
+        }
+        
+        public IList<string> GetNetworks()
+        {
+            Trace.Call();
+            
+            IList<string> networks = new List<string>();
+            IList<ServerModel> servers = GetServerList();
+            foreach (ServerModel server in servers) {
+                if (!networks.Contains(server.Network)) {
+                    networks.Add(server.Network);
+                }
+            }
+            return networks;
+        }
+        
+        public void AddServer(ServerModel server)
+        {
+            Trace.Call(server);
+            
+            string prefix = "Servers/" + server.Protocol + "/" + server.Hostname + "/";
+            _UserConfig[prefix + "Hostname"] = server.Hostname;
+            _UserConfig[prefix + "Port"]     = server.Port;
+            _UserConfig[prefix + "Network"]  = server.Network;
+            _UserConfig[prefix + "Username"] = server.Username;
+            _UserConfig[prefix + "Password"] = server.Password;
+            _UserConfig[prefix + "OnStartupConnect"] = server.OnStartupConnect;
+            _UserConfig[prefix + "OnConnectCommands"] = server.OnConnectCommands;
+            
+            string[] servers = (string[]) _UserConfig["Servers/Servers"];
+            if (servers == null) {
+                servers = new string[] {};
+            }
+            List<string> serverList = new List<string>(servers);
+            serverList.Add(server.Protocol + "/" + server.Hostname);
+            _UserConfig["Servers/Servers"] = serverList.ToArray();
+        }
+
+        public void SetServer(ServerModel server)
+        {
+            Trace.Call(server);
+            
+            string prefix = "Servers/" + server.Protocol + "/" + server.Hostname + "/";
+            _UserConfig[prefix + "Hostname"] = server.Hostname;
+            _UserConfig[prefix + "Port"]     = server.Port;
+            _UserConfig[prefix + "Network"]  = server.Network;
+            _UserConfig[prefix + "Username"] = server.Username;
+            _UserConfig[prefix + "Password"] = server.Password;
+            _UserConfig[prefix + "OnStartupConnect"] = server.OnStartupConnect;
+            _UserConfig[prefix + "OnConnectCommands"] = server.OnConnectCommands;
+        }
+        
+        public void RemoveServer(string protocol, string servername)
+        {
+            Trace.Call(protocol, servername);
+            
+            string server = "Servers/" + protocol + "/" + servername + "/";
+            _UserConfig.Remove(server);
+
+            string[] servers = (string[]) _UserConfig["Servers/Servers"];
+            if (servers == null) {
+                servers = new string[] {};
+            }
+            List<string> serverList = new List<string>(servers);
+            int idx = serverList.IndexOf(protocol + "/" + servername);
+            serverList.RemoveAt(idx);
+            _UserConfig["Servers/Servers"] = serverList.ToArray();
+        }
+        
+        public void Save()
+        {
+            _UserConfig.Save();
+        }
+    }
+}

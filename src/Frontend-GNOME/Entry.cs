@@ -46,12 +46,15 @@ namespace Smuxi.Frontend.Gnome
         private bool             _HistoryChangedLine;
         private Notebook         _Notebook;
         
+        /*
         public StringCollection History {
             get {
                 return _History;
             }
         }
+        */
 
+        /*
         public int HistoryPosition {
             get {
                 return _HistoryPosition;
@@ -60,7 +63,9 @@ namespace Smuxi.Frontend.Gnome
                 _HistoryPosition = value;
             }
         }
-
+        */
+        
+        /*
         public bool HistoryChangedLine {
             get {
                 return _HistoryChangedLine;
@@ -69,6 +74,7 @@ namespace Smuxi.Frontend.Gnome
                 _HistoryChangedLine = value;
             }
         }
+        */
 
         public Entry(Notebook notebook)
         {
@@ -356,7 +362,7 @@ namespace Smuxi.Frontend.Gnome
                 	}
                 } else {
     	            ExecuteCommand(Text);
-                    AddToHistory(Text, History.Count - HistoryPosition);
+                    AddToHistory(Text, _History.Count - _HistoryPosition);
                     // reset history position to last entry
                     _HistoryPosition = _History.Count - 1;
     	        }

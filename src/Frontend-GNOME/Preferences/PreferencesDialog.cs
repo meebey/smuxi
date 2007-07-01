@@ -54,12 +54,13 @@ namespace Smuxi.Frontend.Gnome
         [Glade.Widget("MenuTreeView")]
         private Gtk.TreeView _MenuTreeView;
         private ChannelFilterListView _ChannelFilterListView;
+        private ServerListView _ServerListView;
         
         public PreferencesDialog()
         {
             Trace.Call();
 
-            _Glade = new Glade.XML(null, "preferences.glade", "PreferencesDialog", null);
+            _Glade = new Glade.XML(null, Frontend.GladeFilename, "PreferencesDialog", null);
             //_Glade.BindFields(this);
             // changed signal is used in all settings, so use glade for now
             _Glade.Autoconnect(this);
@@ -105,6 +106,7 @@ namespace Smuxi.Frontend.Gnome
             _MenuTreeView.Selection.SelectIter(iter);
             
             _ChannelFilterListView = new ChannelFilterListView(_Glade);
+            _ServerListView = new ServerListView(_Glade);
             
             _Load();
         }
@@ -279,6 +281,12 @@ namespace Smuxi.Frontend.Gnome
             ((Gtk.CheckButton)_Glade["BeepOnHighlightCheckButton"]).Active =
                 (bool)Frontend.UserConfig["Sound/BeepOnHighlight"];
             
+            // Filters
+            _ChannelFilterListView.Load();
+            
+            // Servers
+            _ServerListView.Load();
+            
             ((Gtk.Button)_Glade["ApplyButton"]).Sensitive = false;
         }
         
@@ -381,6 +389,12 @@ namespace Smuxi.Frontend.Gnome
             
             Frontend.UserConfig["Sound/BeepOnHighlight"] =
                 ((Gtk.CheckButton)_Glade["BeepOnHighlightCheckButton"]).Active;
+            
+            // Filters
+            _ChannelFilterListView.Save();
+            
+            // Servers
+            //_ServerListView.Save();
             
             Frontend.Config.Save();
         }

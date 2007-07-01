@@ -77,7 +77,7 @@ namespace Smuxi.Engine
         
         public Session Register(string username, string password, IFrontendUI ui)
         {
-            Trace.Call(username, password, ui);
+            Trace.Call(username, "XXX", ui);
             
             if (username == null) {
                 throw new ArgumentNullException("username");
@@ -89,11 +89,16 @@ namespace Smuxi.Engine
                 throw new ArgumentNullException("ui");
             }
             
-            // TODO: MD5 / SHA1 password
             string configPassword = (string)Engine.Config["Engine/Users/"+username+"/Password"]; 
-            if (configPassword != null &&
-                configPassword != String.Empty &&
-                configPassword == password) {
+            if (configPassword == null ||
+                configPassword == String.Empty) {
+                return null;
+            }
+            
+            // calculate MD5 string from config password
+            configPassword = MD5.FromString(configPassword);
+            
+            if (configPassword == password) {
                 Session sess = (Session)_Sessions[username];
                 sess.RegisterFrontendUI(ui);
                 return sess;

@@ -96,7 +96,12 @@ namespace Smuxi.Frontend.Gnome
         {
             int npages = NPages;
             for (int i = 0; i < npages; i++) {
-                RemovePage(i);
+                // *doh* this would be too easy, ugly Gtk.Notebook doesn't
+                // like it though, index based vs array based?
+                //RemovePage(i);
+                
+                NextPage();
+                RemovePage(CurrentPage);
             }
         }
         

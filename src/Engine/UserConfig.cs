@@ -86,7 +86,7 @@ namespace Smuxi.Engine
                 return obj;
             }
             set {
-                _Config[_UserPrefix+key] = value;
+                _Config[_UserPrefix + key] = value;
             }
         }
         
@@ -104,6 +104,17 @@ namespace Smuxi.Engine
 #endif
                 _Cache.Clear();
             }
+        }
+        
+        public void Remove(string key)
+        {
+            _Config.Remove(_UserPrefix + key);
+        }
+        
+        public void Save()
+        {
+            _Config.Save();
+            //ClearCache();
         }
     }
 }

@@ -36,28 +36,35 @@ namespace Smuxi.Frontend.Gnome
     public class ChannelFilterListView
     {
         private ChannelFiltersController _Controller;
+        [Glade.Widget("ChannelFiltersTreeView")]
         private Gtk.TreeView             _TreeView;
         private Gtk.ListStore            _ListStore;
+        [Glade.Widget("ChannelFiltersAddButton")]
         private Gtk.Button               _AddButton;
+        [Glade.Widget("ChannelFiltersRemoveButton")]
         private Gtk.Button               _RemoveButton;
         
         public ChannelFilterListView(Glade.XML gladeXml)
         {
             _Controller = new ChannelFiltersController(Frontend.UserConfig);
             
+            /*
             _TreeView     = (Gtk.TreeView) gladeXml["ChannelFiltersTreeView"];
             _AddButton    = (Gtk.Button) gladeXml["ChannelFiltersAddButton"];
             _RemoveButton = (Gtk.Button) gladeXml["ChannelFiltersRemoveButton"];
+            */
+            gladeXml.BindFields(this);
             
             _AddButton.Clicked += new EventHandler(_OnAddButtonClicked);
             
-            _ListStore = new Gtk.ListStore(typeof(string), // channel name
+            _ListStore = new Gtk.ListStore(typeof(ChannelFilterModel),
+                                           typeof(string), // channel name
                                            typeof(bool), // joins
                                            typeof(bool), // parts
                                            typeof(bool) // quits
                                            );
             _TreeView.Model = _ListStore;
-            int i = 0;
+            int i = 1;
             Gtk.CellRendererText textCellr;
             Gtk.CellRendererToggle toggleCellr;
             
@@ -66,7 +73,10 @@ namespace Smuxi.Frontend.Gnome
             textCellr.Edited += delegate(object sender, Gtk.EditedArgs e) {
                 Gtk.TreeIter iter;
                 _ListStore.GetIterFromString(out iter, e.Path);
-                _ListStore.SetValue(iter, 0, e.NewText);
+                _ListStore.SetValue(iter, 1, e.NewText);
+
+                ChannelFilterModel filter = (ChannelFilterModel) _ListStore.GetValue(iter, 0);
+                filter.Pattern = e.NewText;
             };
             _TreeView.AppendColumn(_("Pattern"), textCellr, "text", i);
             
@@ -76,8 +86,12 @@ namespace Smuxi.Frontend.Gnome
             toggleCellr.Toggled += delegate(object sender, Gtk.ToggledArgs e) {
                 Gtk.TreeIter iter;
                 _ListStore.GetIterFromString(out iter, e.Path);
-                bool value = (bool) _ListStore.GetValue(iter, 1);
-                _ListStore.SetValue(iter, 1, !value);
+                bool oldValue = (bool) _ListStore.GetValue(iter, 2);
+                bool newValue = !oldValue;
+                _ListStore.SetValue(iter, 2, newValue);
+
+                ChannelFilterModel filter = (ChannelFilterModel) _ListStore.GetValue(iter, 0);
+                filter.FilterJoins = newValue;
             };
             _TreeView.AppendColumn(_("Joins"), toggleCellr, "active", i);
             
@@ -87,10 +101,14 @@ namespace Smuxi.Frontend.Gnome
             toggleCellr.Toggled += delegate(object sender, Gtk.ToggledArgs e) {
                 Gtk.TreeIter iter;
                 _ListStore.GetIterFromString(out iter, e.Path);
-                bool value = (bool) _ListStore.GetValue(iter, 2);
-                _ListStore.SetValue(iter, 2, !value);
+                bool oldValue = (bool) _ListStore.GetValue(iter, 3);
+                bool newValue = !oldValue;
+                _ListStore.SetValue(iter, 3, newValue);
+
+                ChannelFilterModel filter = (ChannelFilterModel) _ListStore.GetValue(iter, 0);
+                filter.FilterParts = newValue;
             };
-            _TreeView.AppendColumn(_("Parts"), new Gtk.CellRendererToggle(), "active", i); 
+            _TreeView.AppendColumn(_("Parts"), toggleCellr, "active", i); 
 
             i++;
             toggleCellr = new Gtk.CellRendererToggle();
@@ -98,21 +116,39 @@ namespace Smuxi.Frontend.Gnome
             toggleCellr.Toggled += delegate(object sender, Gtk.ToggledArgs e) {
                 Gtk.TreeIter iter;
                 _ListStore.GetIterFromString(out iter, e.Path);
-                bool value = (bool) _ListStore.GetValue(iter, 3);
-                _ListStore.SetValue(iter, 3, !value);
+
+                bool oldValue = (bool) _ListStore.GetValue(iter, 4);
+                bool newValue = !oldValue;
+                _ListStore.SetValue(iter, 4, newValue);
+
+                ChannelFilterModel filter = (ChannelFilterModel) _ListStore.GetValue(iter, 0);
+                filter.FilterQuits = newValue;
             };
-            _TreeView.AppendColumn(_("Quits"), new Gtk.CellRendererToggle(), "active", i);
+            _TreeView.AppendColumn(_("Quits"), toggleCellr, "active", i);
         }
         
         public void Save()
         {
+            Trace.Call();
+            
+            foreach (object[] row in _ListStore) {
+                ChannelFilterModel filter = (ChannelFilterModel) row[0];
+                if (_Controller.GetFilter(filter.Pattern) == null) {
+                    _Controller.AddFilter(filter);
+                } else {
+                    _Controller.SetFilter(filter);
+                }
+            }
         }
         
         public void Load()
         {
+            Trace.Call();
+            
             IList<ChannelFilterModel> filters = _Controller.GetFilterList();
             foreach (ChannelFilterModel filter in filters) {
-                _ListStore.AppendValues(filter.Pattern,
+                _ListStore.AppendValues(filter,
+                                        filter.Pattern,
                                         filter.FilterJoins,
                                         filter.FilterParts,
                                         filter.FilterQuits);
@@ -121,7 +157,12 @@ namespace Smuxi.Frontend.Gnome
         
         private void _OnAddButtonClicked(object sender, EventArgs e)
         {
-            _ListStore.AppendValues(String.Empty, false, false, false);
+            try {
+                Gtk.TreeIter iter = _ListStore.AppendValues(new ChannelFilterModel(), String.Empty, false, false, false);
+                _TreeView.Selection.SelectIter(iter);
+            } catch (Exception ex) {
+                Frontend.ShowException(ex);
+            }
         }
 
         private static string _(string msg)

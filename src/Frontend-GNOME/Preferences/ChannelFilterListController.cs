@@ -47,6 +47,9 @@ namespace Smuxi.Frontend.Gnome
         {
             string[] channels = (string[]) _UserConfig["Filters/Channel/Patterns"];
             IList<ChannelFilterModel> filters = new List<ChannelFilterModel>();
+            if (channels == null) {
+                return filters;
+            }
             foreach (string channel in channels) {
                 filters.Add(GetFilter(channel));
             }
@@ -57,6 +60,10 @@ namespace Smuxi.Frontend.Gnome
         {
             string prefix = "Filters/Channel/" + pattern + "/";
             ChannelFilterModel filter = new ChannelFilterModel();
+            if (_UserConfig[prefix + "Pattern"] == null) {
+                // filter does not exist
+                return null;
+            }
             filter.Pattern     = (string) _UserConfig[prefix + "Pattern"];
             filter.FilterJoins = (bool) _UserConfig[prefix + "FilterJoins"];
             filter.FilterParts = (bool) _UserConfig[prefix + "FilterParts"];
@@ -73,13 +80,26 @@ namespace Smuxi.Frontend.Gnome
             _UserConfig[prefix + "FilterQuits"] = filter.FilterQuits;
             
             string[] channels = (string[]) _UserConfig["Filters/Channel/Patterns"];
+            if (channels == null) {
+                channels = new string[] {};
+            }
             List<string> channelList = new List<string>(channels);
             channelList.Add(filter.Pattern);
             _UserConfig["Filters/Channel/Patterns"] = channelList.ToArray();
         }
 
+        public void SetFilter(ChannelFilterModel filter)
+        {
+            string prefix = "Filters/Channel/" + filter.Pattern + "/";
+            _UserConfig[prefix + "Pattern"] = filter.Pattern;
+            _UserConfig[prefix + "FilterJoins"] = filter.FilterJoins;
+            _UserConfig[prefix + "FilterParts"] = filter.FilterParts;
+            _UserConfig[prefix + "FilterQuits"] = filter.FilterQuits;
+        }
+        
         public void RemoveFilter(string pattern)
         {
+            // TODO
         }
     }
 }

@@ -81,6 +81,8 @@ namespace Smuxi.Frontend.Gnome
                        "Exception Message:\n"+e.Message+"\n\n"+
                        "Exception StackTrace:\n"+e.StackTrace;
             tv.Buffer.Text = message;
+            
+            ShowAll();
        }
        
         public static void Show(Gtk.Window parent, Exception ex)

@@ -42,6 +42,10 @@ namespace Smuxi.Frontend
 #endif
         private IDictionary<ChatViewInfoAttribute, Type> _ChatViewTypes = new Dictionary<ChatViewInfoAttribute, Type>();
         
+        public abstract IChatView ActiveChat {
+            get;
+        }
+        
         protected ChatViewManagerBase()
         {
         }

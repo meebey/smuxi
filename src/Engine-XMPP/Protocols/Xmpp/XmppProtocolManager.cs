@@ -39,7 +39,7 @@ using Smuxi.Common;
 
 namespace Smuxi.Engine
 {
-    [ProtocolManagerInfo(Name = "Jabber/XMPP", Description = "Extensible Messaging and Presence Protocol", Alias = "jabber")]
+    [ProtocolManagerInfo(Name = "XMPP", Description = "Extensible Messaging and Presence Protocol", Alias = "jabber")]
     public class JabberProtocolManager : XmppProtocolManager
     {
         public JabberProtocolManager(Session session) : base(session)
@@ -47,7 +47,7 @@ namespace Smuxi.Engine
         }
     }
     
-    [ProtocolManagerInfo(Name = "Jabber/XMPP", Description = "Extensible Messaging and Presence Protocol", Alias = "xmpp")]
+    [ProtocolManagerInfo(Name = "XMPP", Description = "Extensible Messaging and Presence Protocol", Alias = "xmpp")]
     public class XmppProtocolManager : ProtocolManagerBase
     {
 #if LOG4NET
@@ -95,7 +95,7 @@ namespace Smuxi.Engine
             
             // TODO: use config for single network chat or once per network manager
             _NetworkChat = new NetworkChatModel(NetworkID, "Jabber " + host, this);
-            this.Session.AddChat(_NetworkChat);
+            Session.AddChat(_NetworkChat);
             
             _JabberClient.Server = host;
             _JabberClient.Port = port;
@@ -319,18 +319,18 @@ namespace Smuxi.Engine
                 msgPart.Text = String.Format("<{0}> {1}", xmppMsg.From.User, xmppMsg.Body);
                 msg.MessageParts.Add(msgPart);
                 
-                this.Session.AddMessageToChat(chat, msg);
+                Session.AddMessageToChat(chat, msg);
             }
         }
         
         private void _OnConnect(object sender, StanzaStream stream)
         {
-            this.IsConnected = true;
+            IsConnected = true;
         }
         
         private void _OnDisconnect(object sender)
         {
-            this.IsConnected = false;
+            IsConnected = false;
         }
         
         private static string _(string msg)
