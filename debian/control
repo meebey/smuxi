@@ -3,7 +3,7 @@ Section: gnome
 Priority: optional
 Maintainer: Mirco Bauer <meebey@debian.org>
 Build-Depends: debhelper (>= 5.0.0), dpatch
-Build-Depends-Indep: cli-common-dev (>= 0.4.4), pkg-config, mono-gmcs (>= 1.0) | c-sharp-2.0-compiler, libmono2.0-cil, libmono-system-runtime2.0-cil, libsmartirc4net0.4-cil, libnini1.1-cil, liblog4net1.2-cil, libgtk2.0-cil, libgnome2.0-cil, libgconf2.0-cil, libglade2.0-cil, libglib2.0-cil, gettext, intltool
+Build-Depends-Indep: cli-common-dev (>= 0.4.4), pkg-config, mono-gmcs (>= 1.0) | c-sharp-2.0-compiler, libmono2.0-cil, libmono-system-runtime2.0-cil, libsmartirc4net0.4-cil, libnini1.1-cil, liblog4net1.2-cil, libgtk2.0-cil (>= 2.8), libgnome2.0-cil (>= 2.8), libgconf2.0-cil (>= 2.8), libglade2.0-cil (>= 2.8), libglib2.0-cil (>= 2.8), gettext, intltool
 Standards-Version: 3.7.2
 
 Package: smuxi

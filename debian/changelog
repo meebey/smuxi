@@ -1,3 +1,11 @@
+smuxi (0.5.26-1) unstable; urgency=low
+
+  * Changed from native packaging to pristine packaging
+  * debian/control:
+    + Bild depend on Gtk# >= 2.8
+
+ -- Mirco Bauer <meebey@meebey.net>  Mon, 02 Jul 2007 11:28:29 +0200
+
 smuxi (0.5.26) unstable; urgency=low
 
   * Fix QUIT/PART crash in IrcProtocolManager.
