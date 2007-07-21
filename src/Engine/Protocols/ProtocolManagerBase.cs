@@ -27,6 +27,7 @@
  */
 
 using System;
+using System.Collections.Generic;
 using Smuxi.Common;
 
 namespace Smuxi.Engine
@@ -40,6 +41,9 @@ namespace Smuxi.Engine
         private string          _Host;
         private int             _Port;
         private bool            _IsConnected;
+        
+        public event EventHandler Connected;
+        public event EventHandler Disconnected;
         
         public virtual string Host {
             get {
@@ -72,7 +76,15 @@ namespace Smuxi.Engine
             get;
         }
         
+        public abstract string Protocol {
+            get;
+        }
+        
         public abstract NetworkProtocol NetworkProtocol {
+            get;
+        }
+        
+        public abstract ChatModel Chat {
             get;
         }
         
@@ -89,8 +101,28 @@ namespace Smuxi.Engine
             _Session = session;
         }
         
-        public abstract void Dispose();
+        public virtual void Dispose()
+        {
+            Trace.Call();
+            
+            // we can't delete directly, it will break the enumerator, let's use a list
+            List<ChatModel> removelist = new List<ChatModel>();
+            foreach (ChatModel chat in _Session.Chats) {
+                if (chat.ProtocolManager == this) {
+                    removelist.Add(chat);
+                }
+            }
+            
+            // now we can delete
+            foreach (ChatModel chat in removelist) {
+                _Session.RemoveChat(chat);
+            }
+        }
+        
         public abstract bool Command(CommandModel cmd);
+        public abstract void Connect(FrontendManager fm,
+                                     string hostname, int port,
+                                     string username, string password);
         public abstract void Reconnect(FrontendManager fm);
         public abstract void Disconnect(FrontendManager fm);
         
@@ -104,6 +136,24 @@ namespace Smuxi.Engine
             cmd.FrontendManager.AddTextToCurrentChat(
                 "-!- " + String.Format(_("Not enough parameters for {0} command"),
                 cmd.Command));
+        }
+        
+        protected virtual void OnConnected(EventArgs e)
+        {
+            Trace.Call(e);
+            
+            if (Connected != null) {
+                Connected(this, e);
+            }
+        }
+        
+        protected virtual void OnDisconnected(EventArgs e)
+        {
+            Trace.Call(e);
+
+            if (Disconnected != null) {
+                Disconnected(this, e);
+            }
         }
         
         private static string _(string msg)

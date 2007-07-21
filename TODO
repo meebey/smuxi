@@ -7,17 +7,17 @@
  */
 
 in-work:
-- server manager GUI
-  - on connected commands
+- show channel mode, /mode without params should show the current mode
 
 smuxi 0.6 goals:
+X server manager GUI
+  X on connected commands
 - channel list GUI
 - engines manager GUI
 X colors in channels (hightlighting)
 X create debian package
-- add date stamps between days like irssi
-- show channel mode, /mode without params should show the current mode
 X make preferences smaller!
+- add date stamps between days like irssi
 - release smuxi.meebey.net
 - release www.meebey.net
 - release sourceforge
@@ -27,6 +27,8 @@ X make preferences smaller!
 - release mono-announce
 
 Bugs:
+- after join ops/voices are not synced correctly?
+- scrolling notebook doesnt work?
 - /quit reconnects?
 - track rename for person chats 19:02 -!- Nils`- is now known as Nils`aw
 

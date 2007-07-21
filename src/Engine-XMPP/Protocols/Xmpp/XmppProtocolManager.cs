@@ -68,6 +68,18 @@ namespace Smuxi.Engine
                 return NetworkProtocol.Xmpp;
             }
         }
+        
+        public override string Protocol {
+            get {
+                return "XMPP";
+            }
+        }
+        
+        public override ChatModel Chat {
+            get {
+                return _NetworkChat;
+            }
+        }
 
         public XmppProtocolManager(Session session) : base(session)
         {
@@ -83,6 +95,11 @@ namespace Smuxi.Engine
 
             _JabberClient.OnReadText += new bedrock.TextHandler(_OnReadText);
             _JabberClient.OnWriteText += new bedrock.TextHandler(_OnWriteText);
+        }
+        
+        public override void Connect(FrontendManager fm, string host, int port, string username, string password)
+        {
+            Connect(fm, host, port, username, password, "smuxi");
         }
         
         public void Connect(FrontendManager fm, string host, int port, string username, string password, string resource)
@@ -134,7 +151,7 @@ namespace Smuxi.Engine
             
             // we can't delete directly, it will break the enumerator, let's use a list
             ArrayList removelist = new ArrayList();
-            foreach (ChatModel  chat in this.Session.Chats) {
+            foreach (ChatModel  chat in Session.Chats) {
                 if (chat.ProtocolManager == this) {
                     removelist.Add(chat);
                 }
@@ -142,7 +159,7 @@ namespace Smuxi.Engine
             
             // now we can delete
             foreach (ChatModel  chat in removelist) {
-                this.Session.RemoveChat(chat);
+                Session.RemoveChat(chat);
             }
         }
         

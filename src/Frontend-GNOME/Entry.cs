@@ -199,12 +199,18 @@ namespace Smuxi.Frontend.Gnome
                 e.RetVal = true;
                 switch (key) {
                     case Gdk.Key.x:
-                        //if (Frontend.FrontendManager.CurrentPage.PageType == PageType.Server) {
-                        // this does the same with one remoting call less
-                        // (the CurrentPage object is not called)
-                        if (_Notebook.CurrentChatView.ChatModel.ChatType == ChatType.Network) {
+                        if (_Notebook.CurrentChatView.ChatModel.ChatType == ChatType.Network &&
+                            _Notebook.CurrentChatView.ChatModel.Name == "smuxi") {
                             Frontend.FrontendManager.NextProtocolManager();
+                        } else {
+                            // don't break cut
+                            e.RetVal = false;
                         }
+                        break;
+                    // don't break copy/paste
+                    case Gdk.Key.c:
+                    case Gdk.Key.v:
+                        e.RetVal = false;
                         break;
                     case Gdk.Key.Page_Down:
                         if (_Notebook.CurrentPage < _Notebook.NPages) {

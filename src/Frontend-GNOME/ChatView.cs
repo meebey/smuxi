@@ -138,13 +138,16 @@ namespace Smuxi.Frontend.Gnome
             tv.Buffer = new Gtk.TextBuffer(ttt);
             _EndMark = tv.Buffer.CreateMark("end", tv.Buffer.EndIter, false); 
             tv.Editable = false;
-            tv.CursorVisible = false;
-            tv.WrapMode = Gtk.WrapMode.WordChar;
+            //tv.CursorVisible = false;
+            tv.CursorVisible = true;
+            //tv.WrapMode = Gtk.WrapMode.WordChar;
+            tv.WrapMode = Gtk.WrapMode.Char;
             tv.Buffer.Changed += new EventHandler(_OnTextBufferChanged);
             _OutputTextView = tv;
             
             Gtk.ScrolledWindow sw = new Gtk.ScrolledWindow();
-            sw.HscrollbarPolicy = Gtk.PolicyType.Never;
+            //sw.HscrollbarPolicy = Gtk.PolicyType.Never;
+            sw.HscrollbarPolicy = Gtk.PolicyType.Automatic;
             sw.VscrollbarPolicy = Gtk.PolicyType.Always;
             sw.ShadowType = Gtk.ShadowType.In;
             sw.Add(_OutputTextView);
@@ -420,7 +423,7 @@ namespace Smuxi.Frontend.Gnome
         
         private void _OnTextTagUrlTextEvent(object sender, Gtk.TextEventArgs e)
         {
-            if (e.Event.Type != Gdk.EventType.TwoButtonPress) {
+            if (e.Event.Type != Gdk.EventType.ButtonRelease) {
                 return;
             }
             
@@ -438,8 +441,10 @@ namespace Smuxi.Frontend.Gnome
             }
             GNOME.Url.Show(url);
             
+            /*
             // prevent that the selection changes because of the double-click
             e.RetVal = true;
+            */
         }
         
         private void _OnMotionNotifyEvent(object sender, Gtk.MotionNotifyEventArgs e)

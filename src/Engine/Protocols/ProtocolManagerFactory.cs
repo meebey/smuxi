@@ -122,6 +122,13 @@ namespace Smuxi.Engine
         
         public IProtocolManager CreateProtocolManager(ProtocolManagerInfoModel info, Session session)
         {
+            if (info == null) {
+                throw new ArgumentNullException("info");
+            }
+            if (session == null) {
+                throw new ArgumentNullException("session");
+            }
+            
             Type type = _ProtocolManagerTypes[info];
             return (IProtocolManager) Activator.CreateInstance(type, session);
         }

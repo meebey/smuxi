@@ -29,6 +29,7 @@
 using System;
 using System.Collections.Generic;
 using Smuxi.Common;
+using Smuxi.Engine;
 
 namespace Smuxi.Frontend.Gnome
 {
@@ -55,7 +56,7 @@ namespace Smuxi.Frontend.Gnome
             _EditButton.Clicked += new EventHandler(_OnEditButtonClicked);
             _RemoveButton.Clicked += new EventHandler(_OnRemoveButtonClicked);
             
-            _TreeView.AppendColumn(String.Empty, new Gtk.CellRendererText(), "text", 1); 
+            _TreeView.AppendColumn(_("Protocol"), new Gtk.CellRendererText(), "text", 1); 
             _TreeView.AppendColumn(_("Hostname"), new Gtk.CellRendererText(), "text", 2); 
             
             _TreeStore = new Gtk.TreeStore(typeof(ServerModel),

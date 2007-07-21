@@ -40,6 +40,10 @@ namespace Smuxi.Engine
             get;
         }
         
+        string Protocol {
+            get;
+        }
+        
         string Host {
             get;
         }
@@ -52,9 +56,18 @@ namespace Smuxi.Engine
             get;
         }
         
+        ChatModel Chat {
+            get;
+        }
+        
+        void Connect(FrontendManager frontendManager, string hostname, int port, string username, string password);
         void Disconnect(FrontendManager frontendManager);
         void Reconnect(FrontendManager frontendManager);
+        
         bool Command(CommandModel command);
         string ToString();
+        
+        event EventHandler Connected;
+        event EventHandler Disconnected;
     }
 }

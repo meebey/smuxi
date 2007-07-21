@@ -28,10 +28,9 @@
 
 using System;
 using System.Collections.Generic;
-using Smuxi;
 using Smuxi.Common;
 
-namespace Smuxi.Frontend.Gnome
+namespace Smuxi.Engine
 {
     public class ServerModel
     {

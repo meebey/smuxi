@@ -47,7 +47,7 @@ namespace Smuxi.Frontend.Gnome
             
             //_IrcGroupChatModel = ircGroupChat;
 
-            if (this.PersonMenu != null) {
+            if (PersonMenu != null) {
                 Gtk.ImageMenuItem op_item = new Gtk.ImageMenuItem(_("Op"));
                 op_item.Activated += new EventHandler(_OnUserListMenuOpActivated);
                 this.PersonMenu.Append(op_item);
@@ -69,17 +69,18 @@ namespace Smuxi.Frontend.Gnome
                 this.PersonMenu.Append(kick_item);
             }
             
-            if (this.PersonTreeView != null) {
-                Gtk.CellRenderer cellr = new Gtk.CellRendererText();
+            if (PersonTreeView != null) {
+                Gtk.CellRendererText cellr = new Gtk.CellRendererText();
+                cellr.WidthChars = 1;
                 Gtk.TreeViewColumn column = new Gtk.TreeViewColumn(String.Empty, cellr);
                 //column.SortColumnId = 0;
                 column.Spacing = 0;
                 column.SortIndicator = false;
-                column.Sizing = Gtk.TreeViewColumnSizing.Autosize;
+                column.Sizing = Gtk.TreeViewColumnSizing.GrowOnly;
                 column.SetCellDataFunc(cellr, new Gtk.TreeCellDataFunc(_RenderIrcGroupPersonMode));
                 
-                this.PersonTreeView.AppendColumn(column);
-                this.PersonTreeView.MoveColumnAfter(this.IdentityNameColumn, column);
+                PersonTreeView.AppendColumn(column);
+                PersonTreeView.MoveColumnAfter(this.IdentityNameColumn, column);
             }
         }
         

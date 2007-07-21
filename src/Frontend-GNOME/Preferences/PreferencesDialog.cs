@@ -159,22 +159,33 @@ namespace Smuxi.Frontend.Gnome
             Gtk.ListStore store = new Gtk.ListStore(typeof(string), typeof(string));
             store.AppendValues(String.Empty, String.Empty);
             ArrayList encodingList = new ArrayList();
+            ArrayList bodyNameList = new ArrayList();
             for (int i = 0; i < codepages.Length; i++) {
                 try {
                     Encoding enc = Encoding.GetEncoding(codepages[i]);
-                    string encodingName = enc.BodyName.ToUpper();
-                    if (enc.EncodingName.IndexOf("DOS") != -1 ||
-                        enc.EncodingName.IndexOf("MAC") != -1 ||
-                        enc.EncodingName.IndexOf("EBCDIC") != -1 ||
-                        enc.EncodingName.IndexOf("ISCII") != -1 ||
-                        encodingList.Contains(encodingName)) {
+                    string encodingName = enc.EncodingName.ToUpper();
+
+                    // filter duplicates
+                    if (encodingName.IndexOf("DOS") != -1 ||
+                        encodingName.IndexOf("MAC") != -1 ||
+                        encodingName.IndexOf("EBCDIC") != -1 ||
+                        encodingName.IndexOf("ISCII") != -1 ||
+                        encodingList.Contains(encodingName) ||
+                        bodyNameList.Contains(enc.BodyName)) {
                         continue;
                     }
 #if LOG4NET
-                    _Logger.Debug("_Load(): adding encoding: " + encodingName);
+                    _Logger.Debug("_Load(): adding encoding: " + enc.BodyName);
 #endif
                     encodingList.Add(encodingName);
-                    store.AppendValues(enc.EncodingName, encodingName);
+                    bodyNameList.Add(enc.BodyName);
+                    
+                    encodingName = enc.EncodingName;
+                    // remove all (DOS)  / (Windows) / (Mac) crap from the encoding name
+                    if (enc.EncodingName.Contains(" (")) {
+                        encodingName = encodingName.Substring(0, enc.EncodingName.IndexOf(" ("));
+                    }
+                    store.AppendValues(enc.BodyName.ToUpper() + " - " + encodingName, enc.BodyName.ToUpper());
                 } catch (NotSupportedException) {
                 }
             }

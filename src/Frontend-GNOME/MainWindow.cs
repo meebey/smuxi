@@ -249,6 +249,11 @@ namespace Smuxi.Frontend.Gnome
 #endif
 		}
 
+        public void ApplyConfig(UserConfig userConfig)
+        {
+            _Notebook.ApplyConfig(userConfig);
+        }
+        
         private void _OnQuitButtonClicked(object obj, EventArgs args)
         {
             Frontend.Quit();

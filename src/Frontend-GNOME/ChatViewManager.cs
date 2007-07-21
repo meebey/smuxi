@@ -75,6 +75,8 @@ namespace Smuxi.Frontend.Gnome
         {
             ChatView chatView = (ChatView) CreateChatView(chat);
             _Notebook.AppendPage(chatView, chatView.LabelEventBox);
+            //_Notebook.SetTabReorderable(chatView, true);
+            // it's better to do automatic (re-)ordering
             chatView.ShowAll();
         }
         

@@ -148,7 +148,44 @@ namespace Smuxi.Engine
                 }
                 
                 // process server specific connects/commands
-                
+                ServerListController serverCon = new ServerListController(_UserConfig);
+                IList<ServerModel> servers = serverCon.GetServerList();
+                foreach (ServerModel server in servers) {
+                    if (!server.OnStartupConnect) {
+                        continue;
+                    }
+                    
+                    IProtocolManager protocolManager = _CreateProtocolManager(fm, server.Protocol);
+                    if (protocolManager == null) {
+                        continue;
+                    }
+                    protocolManager.Connect(fm, server.Hostname, server.Port,
+                                            server.Username, server.Password);
+                    // if the connect command was correct, we should be able to get
+                    // the chat model
+                    if (protocolManager.Chat == null) {
+                        fm.AddTextToChat(smuxiChat, String.Format(_("Automatic connect to {0} failed!"), server.Hostname + ":" + server.Port));
+                        continue;
+                    }
+                    
+                    if (server.OnConnectCommands != null && server.OnConnectCommands.Count > 0) {
+                        // BUG: server is always the same object!
+                        protocolManager.Connected += delegate {
+                            // HACK: getting the server model with the data of the protocol manager 
+                            ServerModel ser = serverCon.GetServer(protocolManager.Protocol, protocolManager.Host);
+                            foreach (string command in ser.OnConnectCommands) {
+                                if (command.Length == 0) {
+                                    continue;
+                                }
+                                CommandModel cd = new CommandModel(fm,
+                                                                   protocolManager.Chat,
+                                                                   (string)_UserConfig["Interface/Entry/CommandCharacter"],
+                                                                   command);
+                                protocolManager.Command(cd);
+                            }
+                        };
+                    }                                   
+                }
             }
         }
         
@@ -330,13 +367,10 @@ namespace Smuxi.Engine
             */
 
             if (networkManager == null) {
-                ProtocolManagerInfoModel info = _ProtocolManagerFactory.GetProtocolManagerInfoByAlias(protocol); 
-                if (info == null) {
-                    fm.AddTextToCurrentChat("-!- " + String.Format(
-                            _("Unknown protocol: {0}"), protocol));
+                networkManager = _CreateProtocolManager(fm, protocol);
+                if (networkManager == null) {
                     return;
                 }
-                networkManager = _ProtocolManagerFactory.CreateProtocolManager(info, this);
                 _ProtocolManagers.Add(networkManager);
             }
             networkManager.Command(cd);
@@ -692,6 +726,17 @@ namespace Smuxi.Engine
         public IList<string> GetSupportedProtocols()
         {
             return _ProtocolManagerFactory.GetProtocols();
+        }
+        
+        private IProtocolManager _CreateProtocolManager(FrontendManager fm ,string protocol)
+        {
+            ProtocolManagerInfoModel info = _ProtocolManagerFactory.GetProtocolManagerInfoByAlias(protocol); 
+            if (info == null) {
+                fm.AddTextToCurrentChat("-!- " + String.Format(
+                        _("Unknown protocol: {0}"), protocol));
+                return null;
+            }
+            return _ProtocolManagerFactory.CreateProtocolManager(info, this);
         }
         
         private static string _(string msg)

@@ -16,7 +16,6 @@
   <Contents>
     <File name="./AssemblyInfo.cs" subtype="Code" buildaction="Compile" />
     <File name="./CommandModel.cs" subtype="Code" buildaction="Compile" />
-    <File name="./Config.cs" subtype="Code" buildaction="Compile" />
     <File name="./Engine.cs" subtype="Code" buildaction="Compile" />
     <File name="./FrontendConfig.cs" subtype="Code" buildaction="Compile" />
     <File name="./FrontendManager.cs" subtype="Code" buildaction="Compile" />
@@ -29,7 +28,6 @@
     <File name="./UICommand.cs" subtype="Code" buildaction="Compile" />
     <File name="./UICommandContainer.cs" subtype="Code" buildaction="Compile" />
     <File name="./ContactModel.cs" subtype="Code" buildaction="Compile" />
-    <File name="./UserConfig.cs" subtype="Code" buildaction="Compile" />
     <File name="./Protocols" subtype="Directory" buildaction="Compile" />
     <File name="./Messages" subtype="Directory" buildaction="Compile" />
     <File name="./Messages/MessageModel.cs" subtype="Code" buildaction="Compile" />
@@ -49,6 +47,11 @@
     <File name="./Protocols/ProtocolManagerInfoModel.cs" subtype="Code" buildaction="Compile" />
     <File name="./Protocols/ProtocolManagerInfoAttribute.cs" subtype="Code" buildaction="Compile" />
     <File name="./Protocols/IProtocolManager.cs" subtype="Code" buildaction="Compile" />
+    <File name="./Config" subtype="Directory" buildaction="Compile" />
+    <File name="./Config/UserConfig.cs" subtype="Code" buildaction="Compile" />
+    <File name="./Config/Config.cs" subtype="Code" buildaction="Compile" />
+    <File name="./Config/ServerModel.cs" subtype="Code" buildaction="Compile" />
+    <File name="./Config/ServerListController.cs" subtype="Code" buildaction="Compile" />
   </Contents>
   <References>
     <ProjectReference type="Assembly" localcopy="True" refto="../../lib/log4net.dll" />

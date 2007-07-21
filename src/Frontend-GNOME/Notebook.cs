@@ -35,7 +35,7 @@ namespace Smuxi.Frontend.Gnome
     public class Notebook : Gtk.Notebook
     {
         //private Gtk.Menu     _QueryTabMenu;
-    
+        
         public ChatView CurrentChatView {
             get {
                 return (ChatView) base.CurrentPageWidget;
@@ -44,15 +44,15 @@ namespace Smuxi.Frontend.Gnome
         
         public Notebook() : base ()
         {
-            Scrollable = true;
-            SwitchPage += new Gtk.SwitchPageHandler(_OnSwitchPage);
+            Trace.Call();
             
-            //ApplyUserConfig();
+            //Scrollable = true;
+            SwitchPage += new Gtk.SwitchPageHandler(_OnSwitchPage);
         }
         
-        public void ApplyUserConfig()
+        public void ApplyConfig(UserConfig userConfig)
         {
-            switch ((string)Frontend.UserConfig["Interface/Notebook/TabPosition"]) {
+            switch ((string) userConfig["Interface/Notebook/TabPosition"]) {
                 case "top":
                     TabPos = Gtk.PositionType.Top;
                     ShowTabs = true;

@@ -48,15 +48,14 @@ namespace Smuxi.Engine
     }
     
     [ProtocolManagerInfo(Name = "IRC", Description = "Internet Relay Chat", Alias = "irc")]
-    public class IrcProtocolManager : PermanentRemoteObject, IProtocolManager
+    public class IrcProtocolManager : ProtocolManagerBase
     {
 #if LOG4NET
         private static readonly log4net.ILog _Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 #endif
         private static char[]   _IrcControlChars;
         private IrcClient       _IrcClient;
-        private Session         _Session;
-        private string          _Server;
+        private string          _Host;
         private int             _Port;
         private string[]        _Nicknames;
         private string          _Username;
@@ -65,7 +64,7 @@ namespace Smuxi.Engine
         private bool            _Listening;
         private ChatModel       _NetworkChat;
         
-        public bool IsConnected {
+        public override bool IsConnected {
             get {
                 if ((_IrcClient != null) &&
                     (_IrcClient.IsConnected)) {
@@ -75,7 +74,7 @@ namespace Smuxi.Engine
             }
         }
         
-        public string Host {
+        public override string Host {
             get {
                 if (_IrcClient == null) {
                     return null;
@@ -84,7 +83,7 @@ namespace Smuxi.Engine
             }
         }
         
-        public int Port {
+        public override int Port {
             get {
                 if (_IrcClient == null) {
                     return -1;
@@ -93,7 +92,7 @@ namespace Smuxi.Engine
             }
         }
         
-        public string NetworkID {
+        public override string NetworkID {
             get {
                 // TODO: implement me
                 //return _IrcClient.Network;
@@ -101,9 +100,21 @@ namespace Smuxi.Engine
             }
         }
         
-        public NetworkProtocol NetworkProtocol {
+        public override string Protocol {
+            get {
+                return "IRC";
+            }
+        }
+        
+        public override NetworkProtocol NetworkProtocol {
             get {
                 return NetworkProtocol.Irc;
+            }
+        }
+
+        public override ChatModel Chat {
+            get {
+                return _NetworkChat;
             }
         }
 
@@ -118,11 +129,9 @@ namespace Smuxi.Engine
             _IrcControlChars = chars;
         }
         
-        public IrcProtocolManager(Session session)
+        public IrcProtocolManager(Session session) : base(session)
         {
             Trace.Call(session);
-            
-            _Session = session;
             
             _IrcClient = new IrcClient();
             _IrcClient.AutoRetry = true;
@@ -152,6 +161,7 @@ namespace Smuxi.Engine
             _IrcClient.OnTopic          += new TopicEventHandler(_OnTopic);
             _IrcClient.OnTopicChange    += new TopicChangeEventHandler(_OnTopicChange);
             _IrcClient.OnQuit           += new QuitEventHandler(_OnQuit);
+            _IrcClient.OnRegistered     += new EventHandler(_OnRegistered);
             _IrcClient.OnDisconnected   += new EventHandler(_OnDisconnected);
             _IrcClient.OnAway           += new AwayEventHandler(_OnAway);
             _IrcClient.OnUnAway         += new IrcEventHandler(_OnUnAway);
@@ -159,7 +169,7 @@ namespace Smuxi.Engine
             _IrcClient.OnCtcpRequest    += new CtcpEventHandler(_OnCtcpRequest);
             _IrcClient.OnCtcpReply      += new CtcpEventHandler(_OnCtcpReply);
             
-            string encodingName = (string) _Session.UserConfig["Connection/Encoding"];
+            string encodingName = (string) Session.UserConfig["Connection/Encoding"];
             if (encodingName != null && encodingName.Length != 0) {
                 try {
                     _IrcClient.Encoding = Encoding.GetEncoding(encodingName);
@@ -172,24 +182,6 @@ namespace Smuxi.Engine
                 }
             } else {
                 _IrcClient.Encoding = Encoding.Default;
-            }
-        }
-        
-        public void Dispose()
-        {
-            Trace.Call();
-            
-            // we can't delete directly, it will break the enumerator, let's use a list
-            ArrayList removelist = new ArrayList();
-            foreach (ChatModel  chat in _Session.Chats) {
-                if (chat.ProtocolManager == this) {
-                    removelist.Add(chat);
-                }
-            }
-            
-            // now we can delete
-            foreach (ChatModel  chat in removelist) {
-                _Session.RemoveChat(chat);
             }
         }
         
@@ -210,12 +202,20 @@ namespace Smuxi.Engine
             return result;
         }
         
+        public override void Connect(FrontendManager fm, string server, int port, string user, string pass)
+        {
+            Trace.Call(fm, server, port, user, pass);
+            
+            string[] nicks = (string[]) Session.UserConfig["Connection/Nicknames"];
+            Connect(fm, server, port, nicks, user, pass);
+        }
+        
         public void Connect(FrontendManager fm, string server, int port, string[] nicks, string user, string pass)
         {
             Trace.Call(fm, server, port, nicks, user, pass);
             
             _FrontendManager = fm;
-            _Server = server;
+            _Host = server;
             _Port = port;
             _Nicknames = nicks;
             _Username = user;
@@ -223,90 +223,48 @@ namespace Smuxi.Engine
             
             // TODO: use config for single network chat or once per network manager
             _NetworkChat = new NetworkChatModel(NetworkID, "IRC " + server, this);
-            // BUG: race condition when we use _Session.AddChat() as it pushes this already
+            // BUG: race condition when we use Session.AddChat() as it pushes this already
             // to the connected frontend and the frontend will sync and get the page 2 times!
-            //_Session.Chats.Add(_NetworkChat);
-            _Session.AddChat(_NetworkChat);
+            //Session.Chats.Add(_NetworkChat);
+            Session.AddChat(_NetworkChat);
             
             Thread thread = new Thread(new ThreadStart(_Run));
             thread.IsBackground = true;
             thread.Name = "IrcProtocolManager ("+server+":"+port+")";
             thread.Start();
         }
-        
-        private void _Run()
-        {
-            Trace.Call();
-            
-            try {
-                Connect(_FrontendManager);
-                
-                while (_Listening) {
-                    try {
-                        _Listen();
-#if LOG4NET
-                        _Logger.Warn("_Run(): _Listen() returned.");
-#endif
-                        System.Threading.Thread.Sleep(1000);
-                    } catch (Exception ex) {
-#if LOG4NET
-                        _Logger.Error("_Run(): exception in _Listen() occurred!" ,ex);
-#endif
-                        Reconnect(_FrontendManager);
-                    }
-                }
-            } catch (Exception ex) {
-#if LOG4NET
-                _Logger.Error(ex);
-#endif
-            }
-            
-            // don't need the FrontendManager anymore
-            _FrontendManager = null;
-        }
-        
-        private void _Listen()
-        {
-            try {
-                _IrcClient.Listen();
-            } catch (Exception ex) {
-                string msg;
-                _Session.AddTextToChat(_NetworkChat, "-!- " + _("Connection error! Reason: ") + ex.Message);
-                throw;
-            }
-        }
-        
+
         public void Connect(FrontendManager fm)
         {
             Trace.Call(fm);
             
             try {
                 string msg;
-                msg = String.Format(_("Connecting to {0} port {1}..."), _Server, _Port);
+                msg = String.Format(_("Connecting to {0} port {1}..."), _Host, _Port);
                 fm.SetStatus(msg);
-                _Session.AddTextToChat(_NetworkChat, "-!- " + msg);
+                Session.AddTextToChat(_NetworkChat, "-!- " + msg);
                 
-                _IrcClient.Connect(_Server, _Port);
+                _IrcClient.Connect(_Host, _Port);
                 fm.UpdateNetworkStatus();
-                msg = String.Format(_("Connection to {0} established"), _Server);
+                msg = String.Format(_("Connection to {0} established"), _Host);
                 fm.SetStatus(msg);
-                _Session.AddTextToChat(_NetworkChat, "-!- " + msg);
-                _Session.AddTextToChat(_NetworkChat, "-!- " + _("Logging in..."));
+                Session.AddTextToChat(_NetworkChat, "-!- " + msg);
+                Session.AddTextToChat(_NetworkChat, "-!- " + _("Logging in..."));
                 if (_Password != null) {
                     _IrcClient.RfcPass(_Password, Priority.Critical);
                 }
-                _IrcClient.Login(_Nicknames, (string)_Session.UserConfig["Connection/Realname"], 0, _Username);
+                _IrcClient.Login(_Nicknames, (string)Session.UserConfig["Connection/Realname"], 0, _Username);
                 
-                foreach (string command in (string[])_Session.UserConfig["Connection/OnConnectCommands"]) {
+                foreach (string command in (string[])Session.UserConfig["Connection/OnConnectCommands"]) {
                     if (command.Length == 0) {
                         continue;
                     } 
                     CommandModel cd = new CommandModel(_FrontendManager, _NetworkChat,
-                        (string)_Session.UserConfig["Interface/Entry/CommandCharacter"],
+                        (string)Session.UserConfig["Interface/Entry/CommandCharacter"],
                         command);
                         
                     bool handled;
-                    handled = _Session.Command(cd);
+                    handled = Session.Command(cd);
                     if (!handled) {
                         Command(cd);
                     }
@@ -314,22 +272,22 @@ namespace Smuxi.Engine
                 _Listening = true;
             } catch (CouldNotConnectException ex) {
                 _FrontendManager.SetStatus(_("Connection failed!"));
-                _Session.AddTextToChat(_NetworkChat, "-!- " + _("Connection failed! Reason: ") + ex.Message);
+                Session.AddTextToChat(_NetworkChat, "-!- " + _("Connection failed! Reason: ") + ex.Message);
                 throw;
             }
         }
         
-        public void Disconnect(FrontendManager fm)
+        public override void Disconnect(FrontendManager fm)
         {
             Trace.Call(fm);
             
             fm.SetStatus(_("Disconnecting..."));
             if (IsConnected) {
-                _Session.AddTextToChat(_NetworkChat, "-!- " + 
+                Session.AddTextToChat(_NetworkChat, "-!- " + 
                     String.Format(_("Disconnecting from {0}..."), _IrcClient.Address));
                 _IrcClient.Disconnect();
                 fm.SetStatus(String.Format(_("Disconnected from {0}"), _IrcClient.Address));
-                _Session.AddTextToChat(_NetworkChat, "-!- " +
+                Session.AddTextToChat(_NetworkChat, "-!- " +
                     _("Connection closed"));
                 
                 _Listening = false;
@@ -342,7 +300,7 @@ namespace Smuxi.Engine
             fm.UpdateNetworkStatus();
         }
         
-        public void Reconnect(FrontendManager fm)
+        public override void Reconnect(FrontendManager fm)
         {
             Trace.Call(fm);
             
@@ -350,14 +308,14 @@ namespace Smuxi.Engine
             try {
                 string msg;
                 if (_IrcClient != null) {
-                    _Session.AddTextToChat(_NetworkChat, "-!- Reconnecting to " + _IrcClient.Address+"...");
+                    Session.AddTextToChat(_NetworkChat, "-!- Reconnecting to " + _IrcClient.Address+"...");
                     _IrcClient.Reconnect(true);
                     msg = "Connection to "+_IrcClient.Address+" established";
                     fm.SetStatus(msg); 
-                    _Session.AddTextToChat(_NetworkChat, "-!- "+msg);
+                    Session.AddTextToChat(_NetworkChat, "-!- "+msg);
                 } else {
                     fm.SetStatus("Reconnect Error");
-                    _Session.AddTextToChat(_NetworkChat, "-!- Reconnect Error");
+                    Session.AddTextToChat(_NetworkChat, "-!- Reconnect Error");
                 }
             } catch (ConnectionException) {
                 fm.SetStatus("Not connected!");
@@ -366,7 +324,7 @@ namespace Smuxi.Engine
             fm.UpdateNetworkStatus();
         }
         
-        public bool Command(CommandModel command)
+        public override bool Command(CommandModel command)
         {
             bool handled = false;
             if (IsConnected) {
@@ -416,7 +374,7 @@ namespace Smuxi.Engine
                         case "away":
                             CommandAway(command);
                             // send away on all other IRC networks too
-                            foreach (IProtocolManager nm in _Session.ProtocolManagers) {
+                            foreach (IProtocolManager nm in Session.ProtocolManagers) {
                                 if (nm == this) {
                                     // skip us, else we send it 2 times
                                     continue;
@@ -546,7 +504,7 @@ namespace Smuxi.Engine
             fmsgti.Bold = true;
             fmsg.MessageParts.Add(fmsgti);
             
-            _Session.AddMessageToChat(cd.FrontendManager.CurrentChat, fmsg);
+            Session.AddMessageToChat(cd.FrontendManager.CurrentChat, fmsg);
             
             string[] help = {
             "help",
@@ -620,10 +578,10 @@ namespace Smuxi.Engine
             if (cd.DataArray.Length >= 6) {
                 nicks = new string[] {cd.DataArray[5]};
             } else {
-                nicks = (string[])_Session.UserConfig["Connection/Nicknames"];
+                nicks = (string[])Session.UserConfig["Connection/Nicknames"];
             }
             
-            string username = (string)_Session.UserConfig["Connection/Username"];
+            string username = (string)Session.UserConfig["Connection/Username"];
             
             Connect(fm, server, port, nicks, username, pass);
         }
@@ -661,7 +619,7 @@ namespace Smuxi.Engine
                 fmsg.MessageParts.Add(fmsgti);
             }
             
-            _Session.AddMessageToChat(cd.FrontendManager.CurrentChat, fmsg);
+            Session.AddMessageToChat(cd.FrontendManager.CurrentChat, fmsg);
         }
         
         public void CommandSay(CommandModel cd)
@@ -742,21 +700,21 @@ namespace Smuxi.Engine
         {
             if (cd.DataArray.Length >= 2) {
                 string nickname = cd.DataArray[1];
-                ChatModel chat = _Session.GetChat(nickname, ChatType.Person, NetworkProtocol.Irc, this);
+                ChatModel chat = Session.GetChat(nickname, ChatType.Person, NetworkProtocol.Irc, this);
                 if (chat == null) {
                     PersonModel person = new PersonModel(nickname, nickname,
                                                 NetworkID, NetworkProtocol, this);
                     chat = new PersonChatModel(person, nickname, nickname, this);
-                    _Session.AddChat(chat);
+                    Session.AddChat(chat);
                 }
             }
             
             if (cd.DataArray.Length >= 3) {
                 string message = String.Join(" ", cd.DataArray, 2, cd.DataArray.Length-2);
                 string nickname = cd.DataArray[1];
-                ChatModel chat = _Session.GetChat(nickname, ChatType.Person, NetworkProtocol.Irc, this);
+                ChatModel chat = Session.GetChat(nickname, ChatType.Person, NetworkProtocol.Irc, this);
                 _IrcClient.SendMessage(SendType.Message, nickname, message);
-                _Session.AddTextToChat(chat, "<" + _IrcClient.Nickname + "> " + message);
+                Session.AddTextToChat(chat, "<" + _IrcClient.Nickname + "> " + message);
             }
         }
         
@@ -765,13 +723,13 @@ namespace Smuxi.Engine
             if (cd.DataArray.Length >= 3) {
                 string message = String.Join(" ", cd.DataArray, 2, cd.DataArray.Length-2);
                 string channelname = cd.DataArray[1];
-                ChatModel chat = _Session.GetChat(channelname, ChatType.Group, NetworkProtocol.Irc, this);
+                ChatModel chat = Session.GetChat(channelname, ChatType.Group, NetworkProtocol.Irc, this);
                 if (chat == null) {
                     // server chat as fallback if we are not joined
                     chat = _NetworkChat;
                 }
                 _IrcClient.SendMessage(SendType.Message, channelname, message);
-                _Session.AddTextToChat(chat, "<" + _IrcClient.Nickname + ":" + channelname + "> " + message);
+                Session.AddTextToChat(chat, "<" + _IrcClient.Nickname + ":" + channelname + "> " + message);
             } else {
                 _NotEnoughParameters(cd);
             }
@@ -830,7 +788,7 @@ namespace Smuxi.Engine
                 if (cd.DataArray.Length >= 4) {
                     parameters = String.Join(" ", cd.DataArray, 3, cd.DataArray.Length-3);
                 }
-                _Session.AddTextToChat(_NetworkChat, "[ctcp(" + destination + ")] " + command + " " + parameters);
+                Session.AddTextToChat(_NetworkChat, "[ctcp(" + destination + ")] " + command + " " + parameters);
                 _IrcClient.SendMessage(SendType.CtcpRequest, destination, command + " " + parameters);
             } else {
                 _NotEnoughParameters(cd);
@@ -842,7 +800,7 @@ namespace Smuxi.Engine
             if (cd.DataArray.Length >= 2) {
                 string destination = cd.DataArray[1];
                 string timestamp = DateTime.Now.ToFileTime().ToString();
-                _Session.AddTextToChat(_NetworkChat, "[ctcp(" + destination + ")] PING " + timestamp);
+                Session.AddTextToChat(_NetworkChat, "[ctcp(" + destination + ")] PING " + timestamp);
                 _IrcClient.SendMessage(SendType.CtcpRequest, destination, "PING " + timestamp);
             } else {
                 _NotEnoughParameters(cd);
@@ -1062,7 +1020,7 @@ namespace Smuxi.Engine
             string channel = chat.Name;
             if (cd.DataArray.Length >= 2) {
                 _IrcClient.SendMessage(SendType.Action, channel, cd.Parameter);
-                _Session.AddTextToChat(chat, " * " + _IrcClient.Nickname + " " + cd.Parameter);
+                Session.AddTextToChat(chat, " * " + _IrcClient.Nickname + " " + cd.Parameter);
             }
         }
     
@@ -1076,11 +1034,11 @@ namespace Smuxi.Engine
                 // BUG: proping via GetChat() is more reliable
                 ChatModel chat;
                 if (_IrcClient.IsJoined(target)) {
-                    chat = _Session.GetChat(target, ChatType.Person, NetworkProtocol.Irc, this);
+                    chat = Session.GetChat(target, ChatType.Person, NetworkProtocol.Irc, this);
                 } else {
                     chat = _NetworkChat;
                 }
-                _Session.AddTextToChat(chat, "[notice(" + target + ")] " + message);
+                Session.AddTextToChat(chat, "[notice(" + target + ")] " + message);
             }
         }
     
@@ -1101,6 +1059,48 @@ namespace Smuxi.Engine
             }
         }
         
+        private void _Run()
+        {
+            Trace.Call();
+            
+            try {
+                Connect(_FrontendManager);
+                
+                while (_Listening) {
+                    try {
+                        _Listen();
+#if LOG4NET
+                        _Logger.Warn("_Run(): _Listen() returned.");
+#endif
+                        System.Threading.Thread.Sleep(1000);
+                    } catch (Exception ex) {
+#if LOG4NET
+                        _Logger.Error("_Run(): exception in _Listen() occurred!" ,ex);
+#endif
+                        Reconnect(_FrontendManager);
+                    }
+                }
+            } catch (Exception ex) {
+#if LOG4NET
+                _Logger.Error(ex);
+#endif
+            }
+            
+            // don't need the FrontendManager anymore
+            _FrontendManager = null;
+        }
+        
+        private void _Listen()
+        {
+            try {
+                _IrcClient.Listen();
+            } catch (Exception ex) {
+                string msg;
+                Session.AddTextToChat(_NetworkChat, "-!- " + _("Connection error! Reason: ") + ex.Message);
+                throw;
+            }
+        }
+        
         private void _NotEnoughParameters(CommandModel cd)
         {
             cd.FrontendManager.AddTextToCurrentChat(
@@ -1118,11 +1118,11 @@ namespace Smuxi.Engine
             MessagePartModel fmsgi;
             
             // strip color and formatting if configured
-            if ((bool)_Session.UserConfig["Interface/Notebook/StripColors"]) {
+            if ((bool)Session.UserConfig["Interface/Notebook/StripColors"]) {
                 message = Regex.Replace(message, (char)IrcControlCode.Color +
                             "[0-9]{1,2}(,[0-9]{1,2})?", String.Empty);
             }
-            if ((bool)_Session.UserConfig["Interface/Notebook/StripFormattings"]) {
+            if ((bool)Session.UserConfig["Interface/Notebook/StripFormattings"]) {
                 message = Regex.Replace(message, String.Format("({0}|{1}|{2}|{3})",
                                                     (char)IrcControlCode.Bold,
                                                     (char)IrcControlCode.Clear,
@@ -1142,6 +1142,8 @@ namespace Smuxi.Engine
             }
             message = String.Join(" ", messageParts);
             
+            // crash: ^C^C0,7Dj Ler #Dj KanaL?na Girmek ZorunDaD?rLar UnutMay?N @>'^C0,4WwW.MaViGuL.NeT ^C4]^O ^C4]'
+            // reconnect caused by crash is not syncing channels correctly?
             // parse colors
             bool bold = false;
             bool underline = false;
@@ -1172,6 +1174,7 @@ namespace Smuxi.Engine
 #endif
                             bold = false;
                             underline = false;
+                            italic = false;
                             break;
                         case IrcControlCode.Bold:
 #if LOG4NET
@@ -1243,9 +1246,10 @@ namespace Smuxi.Engine
                     _Logger.Debug("_IrcMessageToMessageModel(): controlChars.Length: " + controlChars.Length);
 #endif
 
-                    int nextControlPos = message.IndexOfAny(_IrcControlChars, controlPos + 1);
+                    // check if there are more control chars in the rest of the message
+                    int nextControlPos = message.IndexOfAny(_IrcControlChars, controlPos + controlChars.Length);
                     if (nextControlPos != -1) {
-                        // BUG: length is wrong
+                        // more control chars found
                         submessage = message.Substring(controlChars.Length, nextControlPos - controlChars.Length);
                         message = message.Substring(nextControlPos);
                     } else {
@@ -1263,7 +1267,7 @@ namespace Smuxi.Engine
                 bool highlight = false;
                 if (submessage.IndexOf(_IrcClient.Nickname) != -1) {
                     highlight = true;
-                    string highlightColor = (string) _Session.UserConfig["Interface/Notebook/Tab/HighlightColor"];
+                    string highlightColor = (string) Session.UserConfig["Interface/Notebook/Tab/HighlightColor"];
                     fg_color = new TextColor(Int32.Parse(highlightColor.Substring(1), NumberStyles.HexNumber));
                 }
                 
@@ -1399,12 +1403,12 @@ namespace Smuxi.Engine
                     case ReceiveType.Invite:
                     case ReceiveType.List:
                     case ReceiveType.Login:
-                        _Session.AddTextToChat(_NetworkChat, e.Data.Message);
+                        Session.AddTextToChat(_NetworkChat, e.Data.Message);
                         break;
                     case ReceiveType.Motd:
                         MessageModel fmsg = new MessageModel();
                         _IrcMessageToMessageModel(ref fmsg, e.Data.Message);
-                        _Session.AddMessageToChat(_NetworkChat, fmsg);
+                        Session.AddMessageToChat(_NetworkChat, fmsg);
                         break;
                     case ReceiveType.WhoIs:
                         _OnReceiveTypeWhois(e);
@@ -1423,26 +1427,26 @@ namespace Smuxi.Engine
                 case ReplyCode.ErrorNoSuchNickname:
                     nick = e.Data.RawMessageArray[3];
                     msg = "-!- " + String.Format(_("{0}: No such nick/channel"), nick);
-                    chat = _Session.GetChat(nick, ChatType.Person, NetworkProtocol.Irc, this);
+                    chat = Session.GetChat(nick, ChatType.Person, NetworkProtocol.Irc, this);
                     if (chat != null) {
-                        _Session.AddTextToChat(chat, msg);
+                        Session.AddTextToChat(chat, msg);
                     } else {
-                        _Session.AddTextToChat(_NetworkChat, msg);
+                        Session.AddTextToChat(_NetworkChat, msg);
                     }
                     break;
                 case ReplyCode.ErrorChannelOpPrivilegesNeeded:
                     chan = e.Data.RawMessageArray[3];
                     msg = "-!- " + chan + " " + e.Data.Message;
-                    chat = _Session.GetChat(chan, ChatType.Group, NetworkProtocol.Irc, this);
+                    chat = Session.GetChat(chan, ChatType.Group, NetworkProtocol.Irc, this);
                     if (chat != null) {
-                        _Session.AddTextToChat(chat, msg);
+                        Session.AddTextToChat(chat, msg);
                     } else {
-                        _Session.AddTextToChat(_NetworkChat, msg);
+                        Session.AddTextToChat(_NetworkChat, msg);
                     }
                     break;
                 case ReplyCode.EndOfNames:
                     chan = e.Data.RawMessageArray[3]; 
-                    GroupChatModel groupChat = (GroupChatModel)_Session.GetChat(
+                    GroupChatModel groupChat = (GroupChatModel)Session.GetChat(
                        chan, ChatType.Group, NetworkProtocol.Irc, this);
                     groupChat.IsSynced = true;
 #if LOG4NET
@@ -1455,7 +1459,7 @@ namespace Smuxi.Engine
         private void _OnReceiveTypeWhois(IrcEventArgs e)
         {
             string nick = e.Data.RawMessageArray[3];
-            ChatModel chat = _Session.GetChat(nick, ChatType.Person, NetworkProtocol.Irc, this);
+            ChatModel chat = Session.GetChat(nick, ChatType.Person, NetworkProtocol.Irc, this);
             if (chat == null) {
                 chat = _NetworkChat;
             }
@@ -1464,13 +1468,13 @@ namespace Smuxi.Engine
                     string ident = e.Data.RawMessageArray[4];
                     string host = e.Data.RawMessageArray[5];
                     string realname = e.Data.Message;
-                    _Session.AddTextToChat(chat, "-!- " + nick + " [" + ident + "@" + host + "]");
-                    _Session.AddTextToChat(chat, "-!-  realname: " + realname);
+                    Session.AddTextToChat(chat, "-!- " + nick + " [" + ident + "@" + host + "]");
+                    Session.AddTextToChat(chat, "-!-  realname: " + realname);
                     break;
                 case ReplyCode.WhoIsServer:
                     string server = e.Data.RawMessageArray[4];
                     string serverinfo = e.Data.Message;
-                    _Session.AddTextToChat(chat, "-!-  server: " + server + " [" + serverinfo + "]");
+                    Session.AddTextToChat(chat, "-!-  server: " + server + " [" + serverinfo + "]");
                     break;
                 case ReplyCode.WhoIsIdle:
                     string idle = e.Data.RawMessageArray[4];
@@ -1478,19 +1482,19 @@ namespace Smuxi.Engine
                         long timestamp = Int64.Parse(e.Data.RawMessageArray[5]);
                         DateTime signon =  new DateTime(1970, 1, 1, 0, 0, 0, 0);
                         signon = signon.AddSeconds(timestamp).ToLocalTime();
-                        _Session.AddTextToChat(chat, "-!-  idle: "+idle+" [signon: "+signon.ToString()+"]");
+                        Session.AddTextToChat(chat, "-!-  idle: "+idle+" [signon: "+signon.ToString()+"]");
                     } catch (FormatException) {
                     }
                     break;
                 case ReplyCode.WhoIsChannels:
                     string channels = e.Data.Message;
-                    _Session.AddTextToChat(chat, "-!-  channels: " + channels);
+                    Session.AddTextToChat(chat, "-!-  channels: " + channels);
                     break;
                 case ReplyCode.WhoIsOperator:
-                    _Session.AddTextToChat(chat, "-!-  " + e.Data.Message);
+                    Session.AddTextToChat(chat, "-!-  " + e.Data.Message);
                     break;
                 case ReplyCode.EndOfWhoIs:
-                    _Session.AddTextToChat(chat, "-!-  " + e.Data.Message);
+                    Session.AddTextToChat(chat, "-!-  " + e.Data.Message);
                     break;
             }
         }
@@ -1498,7 +1502,7 @@ namespace Smuxi.Engine
         private void _OnReceiveTypeWhowas(IrcEventArgs e)
         {
             string nick = e.Data.RawMessageArray[3];
-            ChatModel chat = _Session.GetChat(nick, ChatType.Person, NetworkProtocol.Irc, this);
+            ChatModel chat = Session.GetChat(nick, ChatType.Person, NetworkProtocol.Irc, this);
             if (chat == null) {
                 chat = _NetworkChat;
             }
@@ -1507,18 +1511,18 @@ namespace Smuxi.Engine
                     string ident = e.Data.RawMessageArray[4];
                     string host = e.Data.RawMessageArray[5];
                     string realname = e.Data.Message;
-                    _Session.AddTextToChat(chat, "-!- " + nick + " [" + ident + "@" + host + "]");
-                    _Session.AddTextToChat(chat, "-!-  realname: " + realname);
+                    Session.AddTextToChat(chat, "-!- " + nick + " [" + ident + "@" + host + "]");
+                    Session.AddTextToChat(chat, "-!-  realname: " + realname);
                     break;
                 case ReplyCode.EndOfWhoWas:
-                    _Session.AddTextToChat(chat, "-!-  " + e.Data.Message);
+                    Session.AddTextToChat(chat, "-!-  " + e.Data.Message);
                     break;
             }
         }
         
         private void _OnCtcpRequest(object sender, CtcpEventArgs e)
         {
-            _Session.AddTextToChat(_NetworkChat, String.Format(
+            Session.AddTextToChat(_NetworkChat, String.Format(
                                             _("{0} [{1}] requested CTCP {2} from {3}: {4}"),
                                             e.Data.Nick, e.Data.Ident+"@"+e.Data.Host,
                                             e.CtcpCommand, _IrcClient.Nickname,
@@ -1535,13 +1539,13 @@ namespace Smuxi.Engine
                     }
                     DateTime sent = DateTime.FromFileTime(timestamp);
                     string duration = DateTime.Now.Subtract(sent).TotalSeconds.ToString();
-                    _Session.AddTextToChat(_NetworkChat, String.Format(
+                    Session.AddTextToChat(_NetworkChat, String.Format(
                                                     _("CTCP PING reply from {0}: {1} seconds"),
                                                     e.Data.Nick, duration));
                 } catch (FormatException) {
                 }
             } else {
-                _Session.AddTextToChat(_NetworkChat, String.Format(
+                Session.AddTextToChat(_NetworkChat, String.Format(
                                             _("CTCP {0} reply from {1}: {2}"),
                                             e.CtcpCommand, e.Data.Nick, e.CtcpParameter));
             }
@@ -1549,7 +1553,7 @@ namespace Smuxi.Engine
         
         protected TextColor _GetNickColor(string nickname)
         {
-            if ((bool) _Session.UserConfig["Interface/Notebook/Channel/NickColors"]) {
+            if ((bool) Session.UserConfig["Interface/Notebook/Channel/NickColors"]) {
                 return new TextColor(nickname.GetHashCode());
             }
             
@@ -1558,7 +1562,7 @@ namespace Smuxi.Engine
         
         private void _OnChannelMessage(object sender, IrcEventArgs e)
         {
-            ChatModel chat = _Session.GetChat(e.Data.Channel, ChatType.Group, NetworkProtocol.Irc, this);
+            ChatModel chat = Session.GetChat(e.Data.Channel, ChatType.Group, NetworkProtocol.Irc, this);
 
             MessageModel fmsg = new MessageModel();
             TextMessagePartModel fmsgti;
@@ -1578,28 +1582,33 @@ namespace Smuxi.Engine
             
             _IrcMessageToMessageModel(ref fmsg, e.Data.Message);
             
-            _Session.AddMessageToChat(chat, fmsg);
+            Session.AddMessageToChat(chat, fmsg);
         }
         
         private void _OnChannelAction(object sender, ActionEventArgs e)
         {
-            ChatModel chat = _Session.GetChat(e.Data.Channel, ChatType.Group, NetworkProtocol.Irc, this);
+            ChatModel chat = Session.GetChat(e.Data.Channel, ChatType.Group, NetworkProtocol.Irc, this);
 
             MessageModel fmsg = new MessageModel();
             TextMessagePartModel fmsgti;
             
             fmsgti = new TextMessagePartModel();
-            fmsgti.Text = String.Format(" * {0} ", e.Data.Nick);
+            fmsgti.Text = " * ";
+            fmsg.MessageParts.Add(fmsgti);
+            
+            fmsgti = new TextMessagePartModel();
+            fmsgti.ForegroundColor = _GetNickColor(e.Data.Nick);
+            fmsgti.Text = e.Data.Nick + " ";
             fmsg.MessageParts.Add(fmsgti);
             
             _IrcMessageToMessageModel(ref fmsg, e.ActionMessage);
             
-            _Session.AddMessageToChat(chat, fmsg);
+            Session.AddMessageToChat(chat, fmsg);
         }
         
         private void _OnChannelNotice(object sender, IrcEventArgs e)
         {
-            ChatModel chat = _Session.GetChat(e.Data.Channel, ChatType.Group, NetworkProtocol.Irc, this);
+            ChatModel chat = Session.GetChat(e.Data.Channel, ChatType.Group, NetworkProtocol.Irc, this);
 
             MessageModel fmsg = new MessageModel();
             TextMessagePartModel fmsgti;
@@ -1610,17 +1619,17 @@ namespace Smuxi.Engine
             
             _IrcMessageToMessageModel(ref fmsg, e.Data.Message);
             
-            _Session.AddMessageToChat(chat, fmsg);
+            Session.AddMessageToChat(chat, fmsg);
         }
         
         private void _OnQueryMessage(object sender, IrcEventArgs e)
         {
-            ChatModel chat = _Session.GetChat(e.Data.Nick, ChatType.Person, NetworkProtocol.Irc, this);
+            ChatModel chat = Session.GetChat(e.Data.Nick, ChatType.Person, NetworkProtocol.Irc, this);
             if (chat == null) {
                 PersonModel person = new PersonModel(e.Data.Nick, e.Data.Nick,
                                             NetworkID, NetworkProtocol, this);
                 chat = new PersonChatModel(person, e.Data.Nick, e.Data.Nick, this);
-                _Session.AddChat(chat);
+                Session.AddChat(chat);
             }
             
             MessageModel fmsg = new MessageModel();
@@ -1632,17 +1641,17 @@ namespace Smuxi.Engine
             
             _IrcMessageToMessageModel(ref fmsg, e.Data.Message);
             
-            _Session.AddMessageToChat(chat, fmsg);
+            Session.AddMessageToChat(chat, fmsg);
         }
         
         private void _OnQueryAction(object sender, ActionEventArgs e)
         {
-            ChatModel chat = _Session.GetChat(e.Data.Nick, ChatType.Person, NetworkProtocol.Irc, this);
+            ChatModel chat = Session.GetChat(e.Data.Nick, ChatType.Person, NetworkProtocol.Irc, this);
             if (chat == null) {
                 PersonModel person = new PersonModel(e.Data.Nick, e.Data.Nick,
                                             NetworkID, NetworkProtocol, this);
                 chat = new PersonChatModel(person, e.Data.Nick, e.Data.Nick, this);
-                _Session.AddChat(chat);
+                Session.AddChat(chat);
             }
             
             MessageModel fmsg = new MessageModel();
@@ -1654,14 +1663,14 @@ namespace Smuxi.Engine
             
             _IrcMessageToMessageModel(ref fmsg, e.ActionMessage);
             
-            _Session.AddMessageToChat(chat, fmsg);
+            Session.AddMessageToChat(chat, fmsg);
         }
         
         private void _OnQueryNotice(object sender, IrcEventArgs e)
         {
             ChatModel chat = null;
             if (e.Data.Nick != null) {
-                chat = _Session.GetChat(e.Data.Nick, ChatType.Person, NetworkProtocol.Irc, this);
+                chat = Session.GetChat(e.Data.Nick, ChatType.Person, NetworkProtocol.Irc, this);
             }
             if (chat == null) {
                 // use server chat as fallback
@@ -1677,19 +1686,19 @@ namespace Smuxi.Engine
             
             _IrcMessageToMessageModel(ref fmsg, e.Data.Message);
             
-            _Session.AddMessageToChat(chat, fmsg);
+            Session.AddMessageToChat(chat, fmsg);
         }
         
         private void _OnJoin(object sender, JoinEventArgs e)
         {
-            GroupChatModel cchat = (GroupChatModel)_Session.GetChat(e.Channel, ChatType.Group, NetworkProtocol.Irc, this);
+            GroupChatModel cchat = (GroupChatModel)Session.GetChat(e.Channel, ChatType.Group, NetworkProtocol.Irc, this);
             if (e.Data.Irc.IsMe(e.Who)) {
                 if (cchat == null) {
                     cchat = new GroupChatModel(e.Channel, e.Channel, this);
-                    _Session.AddChat(cchat);
+                    Session.AddChat(cchat);
                 } else {
                     // chat still exists, so we we only need to enable it
-                    _Session.EnableChat(cchat);
+                    Session.EnableChat(cchat);
                 }
             } else {
                 // someone else joined, let's add him to the channel chat
@@ -1697,10 +1706,10 @@ namespace Smuxi.Engine
                 IrcGroupPersonModel icuser = new IrcGroupPersonModel(e.Who, siuser.Realname,
                                         siuser.Ident, siuser.Host, NetworkID, this);
                  cchat.UnsafePersons.Add(icuser.NickName.ToLower(), icuser);
-                _Session.AddPersonToGroupChat(cchat, icuser);
+                Session.AddPersonToGroupChat(cchat, icuser);
             }
             
-            _Session.AddTextToChat(cchat,
+            Session.AddTextToChat(cchat,
                 "-!- " + String.Format(
                             _("{0} [{1}] has joined {2}"),
                             e.Who, e.Data.Ident + "@" + e.Data.Host, e.Channel));
@@ -1711,7 +1720,7 @@ namespace Smuxi.Engine
 #if LOG4NET
             _Logger.Debug("_OnNames() e.Channel: "+e.Channel);
 #endif
-            GroupChatModel cchat = (GroupChatModel)_Session.GetChat(e.Data.Channel, ChatType.Group, NetworkProtocol.Irc, this);
+            GroupChatModel cchat = (GroupChatModel)Session.GetChat(e.Data.Channel, ChatType.Group, NetworkProtocol.Irc, this);
             if (cchat.IsSynced) {
                 // nothing todo for us
                 return;
@@ -1752,7 +1761,7 @@ namespace Smuxi.Engine
                 */
                 
                 // don't tell any frontend yet that there is new data, SyncPage() will do it
-                //_Session.AddUserToChannel(cchat, icuser);
+                //Session.AddUserToChannel(cchat, icuser);
                 cchat.UnsafePersons.Add(icuser.NickName.ToLower(), icuser);
 #if LOG4NET
                 _Logger.Debug("_OnNames() added user: " + username + " to: " + cchat.Name);
@@ -1765,7 +1774,7 @@ namespace Smuxi.Engine
 #if LOG4NET
             _Logger.Debug("_OnChannelActiveSynced() e.Data.Channel: "+e.Data.Channel);
 #endif
-            GroupChatModel cchat = (GroupChatModel)_Session.GetChat(e.Data.Channel, ChatType.Group, NetworkProtocol.Irc, this);
+            GroupChatModel cchat = (GroupChatModel)Session.GetChat(e.Data.Channel, ChatType.Group, NetworkProtocol.Irc, this);
             Channel schan = _IrcClient.GetChannel(e.Data.Channel);
             foreach (ChannelUser scuser in schan.Users.Values) {
                 IrcGroupPersonModel icuser = (IrcGroupPersonModel)cchat.GetPerson(scuser.Nick);
@@ -1774,7 +1783,7 @@ namespace Smuxi.Engine
                     icuser = new IrcGroupPersonModel(scuser.Nick, scuser.Realname,
                                     scuser.Ident, scuser.Host);
                     // don't tell any frontend yet that there is new data, SyncPage() will do it
-                    //_Session.AddUserToChannel(cchat, icuser);
+                    //Session.AddUserToChannel(cchat, icuser);
                     cchat.UnsafeUsers.Add(icuser.Nickname.ToLower(), icuser);
                     */
                     // we should not get here anymore, _OnNames creates the users already
@@ -1789,9 +1798,9 @@ namespace Smuxi.Engine
                 icuser.IsVoice = scuser.IsVoice;
                 
                 // don't tell any frontend yet that there is new data, SyncPage() will do it
-                //_Session.UpdatePersonInGroupChat(cchat, icuser, icuser);
+                //Session.UpdatePersonInGroupChat(cchat, icuser, icuser);
             }
-            _Session.SyncChat(cchat);
+            Session.SyncChat(cchat);
         }
         
         private void _OnPart(object sender, PartEventArgs e)
@@ -1799,13 +1808,13 @@ namespace Smuxi.Engine
 #if LOG4NET
             _Logger.Debug("_OnPart() e.Channel: "+e.Channel+" e.Who: "+e.Who);
 #endif
-            GroupChatModel cchat = (GroupChatModel)_Session.GetChat(e.Channel, ChatType.Group, NetworkProtocol.Irc, this);
+            GroupChatModel cchat = (GroupChatModel)Session.GetChat(e.Channel, ChatType.Group, NetworkProtocol.Irc, this);
             if (e.Data.Irc.IsMe(e.Who)) {
-                _Session.RemoveChat(cchat);
+                Session.RemoveChat(cchat);
             } else {
                 PersonModel user = cchat.GetPerson(e.Who);
-                _Session.RemovePersonFromGroupChat(cchat, user);
-                _Session.AddTextToChat(cchat,
+                Session.RemovePersonFromGroupChat(cchat, user);
+                Session.AddTextToChat(cchat,
                     "-!- " + String.Format(
                                 _("{0} [{1}] has left {2} [{3}]"),
                                 e.Who, e.Data.Ident + "@" + e.Data.Host, e.Channel, e.PartMessage));
@@ -1817,17 +1826,17 @@ namespace Smuxi.Engine
 #if LOG4NET
             _Logger.Debug("_OnKick() e.Channel: "+e.Channel+" e.Whom: "+e.Whom);
 #endif
-            GroupChatModel cchat = (GroupChatModel)_Session.GetChat(e.Channel, ChatType.Group, NetworkProtocol.Irc, this);
+            GroupChatModel cchat = (GroupChatModel)Session.GetChat(e.Channel, ChatType.Group, NetworkProtocol.Irc, this);
             if (e.Data.Irc.IsMe(e.Whom)) {
-                _Session.DisableChat(cchat);
-                _Session.AddTextToChat(cchat,
+                Session.DisableChat(cchat);
+                Session.AddTextToChat(cchat,
                     "-!- " + String.Format(
                                 _("You was kicked from {0} by {1} [{2}]"),
                                 e.Channel, e.Who, e.KickReason));
             } else {
                 PersonModel user = cchat.GetPerson(e.Whom);
-                _Session.RemovePersonFromGroupChat(cchat, user);
-                _Session.AddTextToChat(cchat,
+                Session.RemovePersonFromGroupChat(cchat, user);
+                Session.AddTextToChat(cchat,
                     "-!- " + String.Format(
                                 _("{0} was kicked from {1} by {2} [{3}]"),
                                 e.Whom, e.Channel, e.Who, e.KickReason));
@@ -1840,7 +1849,7 @@ namespace Smuxi.Engine
             _Logger.Debug("_OnNickChange() e.OldNickname: "+e.OldNickname+" e.NewNickname: "+e.NewNickname);
 #endif
             if (e.Data.Irc.IsMe(e.NewNickname)) {
-                _Session.AddTextToChat(_NetworkChat, "-!- " + String.Format(
+                Session.AddTextToChat(_NetworkChat, "-!- " + String.Format(
                                                         _("You're now known as {0}"),
                                                         e.NewNickname));
             }
@@ -1848,7 +1857,7 @@ namespace Smuxi.Engine
             IrcUser ircuser = e.Data.Irc.GetIrcUser(e.NewNickname);
             if (ircuser != null) {
                 foreach (string channel in ircuser.JoinedChannels) {
-                    GroupChatModel cchat = (GroupChatModel)_Session.GetChat(channel, ChatType.Group, NetworkProtocol.Irc, this);
+                    GroupChatModel cchat = (GroupChatModel)Session.GetChat(channel, ChatType.Group, NetworkProtocol.Irc, this);
                     
                     // clone the old user to a new user
                     IrcGroupPersonModel olduser = (IrcGroupPersonModel)cchat.GetPerson(e.OldNickname);
@@ -1863,14 +1872,14 @@ namespace Smuxi.Engine
                     newuser.IsOp = olduser.IsOp;
                     newuser.IsVoice = olduser.IsVoice;
                     
-                    _Session.UpdatePersonInGroupChat(cchat, olduser, newuser);
+                    Session.UpdatePersonInGroupChat(cchat, olduser, newuser);
                     
                     if (e.Data.Irc.IsMe(e.NewNickname)) {
-                        _Session.AddTextToChat(cchat, "-!- " + String.Format(
+                        Session.AddTextToChat(cchat, "-!- " + String.Format(
                                                                 _("You're now known as {0}"),
                                                                 e.NewNickname));
                     } else {
-                        _Session.AddTextToChat(cchat, "-!- " + String.Format(
+                        Session.AddTextToChat(cchat, "-!- " + String.Format(
                                                                 _("{0} is now known as {1}"),
                                                                 e.OldNickname, e.NewNickname));
                     }
@@ -1880,26 +1889,26 @@ namespace Smuxi.Engine
         
         private void _OnTopic(object sender, TopicEventArgs e)
         {
-            GroupChatModel cchat = (GroupChatModel)_Session.GetChat(e.Channel, ChatType.Group, NetworkProtocol.Irc, this);
-            _Session.UpdateTopicInGroupChat(cchat, e.Topic);
+            GroupChatModel cchat = (GroupChatModel)Session.GetChat(e.Channel, ChatType.Group, NetworkProtocol.Irc, this);
+            Session.UpdateTopicInGroupChat(cchat, e.Topic);
         }
         
         private void _OnTopicChange(object sender, TopicChangeEventArgs e)
         {
-            GroupChatModel cchat = (GroupChatModel)_Session.GetChat(e.Channel, ChatType.Group, NetworkProtocol.Irc, this);
-            _Session.UpdateTopicInGroupChat(cchat, e.NewTopic);
-            _Session.AddTextToChat(cchat, "-!- " + String.Format(
+            GroupChatModel cchat = (GroupChatModel)Session.GetChat(e.Channel, ChatType.Group, NetworkProtocol.Irc, this);
+            Session.UpdateTopicInGroupChat(cchat, e.NewTopic);
+            Session.AddTextToChat(cchat, "-!- " + String.Format(
                                                     _("{0} changed the topic of {1} to: {2}"),
                                                     e.Who, e.Channel, e.NewTopic));
         }
         
         private void _OnOp(object sender, OpEventArgs e)
         {
-            GroupChatModel cchat = (GroupChatModel)_Session.GetChat(e.Channel, ChatType.Group, NetworkProtocol.Irc, this);
+            GroupChatModel cchat = (GroupChatModel)Session.GetChat(e.Channel, ChatType.Group, NetworkProtocol.Irc, this);
             IrcGroupPersonModel user = (IrcGroupPersonModel)cchat.GetPerson(e.Whom);
             if (user != null) {
                 user.IsOp = true;
-                _Session.UpdatePersonInGroupChat(cchat, user, user);
+                Session.UpdatePersonInGroupChat(cchat, user, user);
 #if LOG4NET
             } else {
                 _Logger.Error("_OnOp(): cchat.GetPerson(e.Whom) returned null! cchat.Name: "+cchat.Name+" e.Whom: "+e.Whom);
@@ -1909,11 +1918,11 @@ namespace Smuxi.Engine
         
         private void _OnDeop(object sender, DeopEventArgs e)
         {
-            GroupChatModel cchat = (GroupChatModel)_Session.GetChat(e.Channel, ChatType.Group, NetworkProtocol.Irc, this);
+            GroupChatModel cchat = (GroupChatModel)Session.GetChat(e.Channel, ChatType.Group, NetworkProtocol.Irc, this);
             IrcGroupPersonModel user = (IrcGroupPersonModel)cchat.GetPerson(e.Whom);
             if (user != null) {
                 user.IsOp = false;
-                _Session.UpdatePersonInGroupChat(cchat, user, user);
+                Session.UpdatePersonInGroupChat(cchat, user, user);
 #if LOG4NET
             } else {
                 _Logger.Error("_OnDeop(): cchat.GetPerson(e.Whom) returned null! cchat.Name: "+cchat.Name+" e.Whom: "+e.Whom);
@@ -1923,11 +1932,11 @@ namespace Smuxi.Engine
         
         private void _OnVoice(object sender, VoiceEventArgs e)
         {
-            GroupChatModel cchat = (GroupChatModel)_Session.GetChat(e.Channel, ChatType.Group, NetworkProtocol.Irc, this);
+            GroupChatModel cchat = (GroupChatModel)Session.GetChat(e.Channel, ChatType.Group, NetworkProtocol.Irc, this);
             IrcGroupPersonModel user = (IrcGroupPersonModel)cchat.GetPerson(e.Whom);
             if (user != null) {
                 user.IsVoice = true;
-                _Session.UpdatePersonInGroupChat(cchat, user, user);
+                Session.UpdatePersonInGroupChat(cchat, user, user);
 #if LOG4NET
             } else {
                 _Logger.Error("cchat.GetPerson(e.Whom) returned null! cchat.Name: "+cchat.Name+" e.Whom: "+e.Whom);
@@ -1937,11 +1946,11 @@ namespace Smuxi.Engine
         
         private void _OnDevoice(object sender, DevoiceEventArgs e)
         {
-            GroupChatModel cchat = (GroupChatModel)_Session.GetChat(e.Channel, ChatType.Group, NetworkProtocol.Irc, this);
+            GroupChatModel cchat = (GroupChatModel)Session.GetChat(e.Channel, ChatType.Group, NetworkProtocol.Irc, this);
             IrcGroupPersonModel user = (IrcGroupPersonModel)cchat.GetPerson(e.Whom);
             if (user != null) {
                 user.IsVoice = false;
-                _Session.UpdatePersonInGroupChat(cchat, user, user);
+                Session.UpdatePersonInGroupChat(cchat, user, user);
 #if LOG4NET
             } else {
                 _Logger.Error("cchat.GetPerson(e.Whom) returned null! cchat.Name: "+cchat.Name+" e.Whom: "+e.Whom);
@@ -1955,7 +1964,7 @@ namespace Smuxi.Engine
             switch (e.Data.Type) {
                 case ReceiveType.UserModeChange:
                     modechange = e.Data.Message;
-                    _Session.AddTextToChat(_NetworkChat, "-!- " + String.Format(
+                    Session.AddTextToChat(_NetworkChat, "-!- " + String.Format(
                                                             _("Mode change [{0}] for user {1}"),
                                                             modechange, e.Data.Irc.Nickname));
                 break;
@@ -1967,8 +1976,8 @@ namespace Smuxi.Engine
                     } else {
                         who = e.Data.From;
                     }
-                    ChatModel chat = _Session.GetChat(e.Data.Channel, ChatType.Group, NetworkProtocol.Irc, this);
-                    _Session.AddTextToChat(chat, "-!- " + String.Format(
+                    ChatModel chat = Session.GetChat(e.Data.Channel, ChatType.Group, NetworkProtocol.Irc, this);
+                    Session.AddTextToChat(chat, "-!- " + String.Format(
                                                             _("mode/{0} [{1}] by {2}"),
                                                             e.Data.Channel, modechange, who));
                 break;
@@ -1983,7 +1992,7 @@ namespace Smuxi.Engine
             if (e.Data.Irc.IsMe(e.Who)) {
                 // _OnDisconnect() handles this
             } else {
-                foreach (ChatModel chat in _Session.Chats) {
+                foreach (ChatModel chat in Session.Chats) {
                     if (chat.ProtocolManager != this) {
                         // we don't care about channels and queries the user was
                         // on other networks
@@ -1995,14 +2004,14 @@ namespace Smuxi.Engine
                         PersonModel user = cchat.GetPerson(e.Who);
                         if (user != null) {
                             // he is on this channel, let's remove him
-                            _Session.RemovePersonFromGroupChat(cchat, user);
-                            _Session.AddTextToChat(cchat, "-!- " + String.Format(
+                            Session.RemovePersonFromGroupChat(cchat, user);
+                            Session.AddTextToChat(cchat, "-!- " + String.Format(
                                                                     _("{0} [{1}] has quit [{2}]"),
                                                                     e.Who, e.Data.Ident + "@" + e.Data.Host, e.QuitMessage));
                         }
                     } else if ((chat.ChatType == ChatType.Person) &&
                                (chat.Name == e.Who)) {
-                        _Session.AddTextToChat(chat, "-!- " + String.Format(
+                        Session.AddTextToChat(chat, "-!- " + String.Format(
                                                                 _("{0} [{1}] has quit [{2}]"),
                                                                 e.Who, e.Data.Ident + "@" + e.Data.Host, e.QuitMessage));
                     }
@@ -2010,36 +2019,43 @@ namespace Smuxi.Engine
             }
         }
         
+        private void _OnRegistered(object sender, EventArgs e)
+        {
+            OnConnected(EventArgs.Empty);
+        }
+        
         private void _OnDisconnected(object sender, EventArgs e)
         {
-            foreach (ChatModel chat in _Session.Chats) {
+            foreach (ChatModel chat in Session.Chats) {
                 if (chat.ProtocolManager == this) {
-                    _Session.DisableChat(chat);
+                    Session.DisableChat(chat);
                 }
             }
+            
+            OnDisconnected(EventArgs.Empty);
         }
         
         private void _OnAway(object sender, AwayEventArgs e)
         {
-            ChatModel chat = _Session.GetChat(e.Who, ChatType.Person, NetworkProtocol.Irc, this);
+            ChatModel chat = Session.GetChat(e.Who, ChatType.Person, NetworkProtocol.Irc, this);
             if (chat == null) {
                 chat = _NetworkChat;
             }
-            _Session.AddTextToChat(chat, "-!- " + String.Format(
+            Session.AddTextToChat(chat, "-!- " + String.Format(
                                                     _("{0} is away: {1}"),
                                                     e.Who, e.AwayMessage));
         }
 
         private void _OnUnAway(object sender, IrcEventArgs e)
         {
-            _Session.AddTextToChat(_NetworkChat, "-!- " + _("You are no longer marked as being away"));
-            _Session.UpdateNetworkStatus();
+            Session.AddTextToChat(_NetworkChat, "-!- " + _("You are no longer marked as being away"));
+            Session.UpdateNetworkStatus();
         }
         
         private void _OnNowAway(object sender, IrcEventArgs e)
         {
-            _Session.AddTextToChat(_NetworkChat, "-!- " + _("You have been marked as being away"));
-            _Session.UpdateNetworkStatus();
+            Session.AddTextToChat(_NetworkChat, "-!- " + _("You have been marked as being away"));
+            Session.UpdateNetworkStatus();
         }
         
         private static string _(string msg)

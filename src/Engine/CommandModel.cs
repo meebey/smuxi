@@ -32,7 +32,7 @@ using Smuxi.Common;
 namespace Smuxi.Engine
 {
     [Serializable]
-    public class CommandModel
+    public class CommandModel : ITraceable
     {
 #if LOG4NET
         private static readonly log4net.ILog _Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
@@ -119,6 +119,11 @@ namespace Smuxi.Engine
         public CommandModel(FrontendManager fm, ChatModel chat, string parameter) :
                        this(fm, chat, "/", "/cmd " + parameter)
         {
+        }
+        
+        public string ToTraceString()
+        {
+            return (_IsCommand ? _CommandCharacter + _Command + " " : String.Empty) +  _Parameter;
         }
     }
 }

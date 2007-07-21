@@ -87,6 +87,11 @@ namespace Smuxi.Engine
             }
             set {
                 _Config[_UserPrefix + key] = value;
+                
+                // update entry in cache
+                if (IsCaching) {
+                    _Cache[key] = value;
+                }
             }
         }
         
@@ -109,12 +114,19 @@ namespace Smuxi.Engine
         public void Remove(string key)
         {
             _Config.Remove(_UserPrefix + key);
+            
+            // invalidate cache when this is a complete section
+            if (key.EndsWith("/")) {
+                ClearCache();
+            } else {
+                // deleting the single entry is enough
+                _Cache.Remove(key);
+            }
         }
         
         public void Save()
         {
             _Config.Save();
-            //ClearCache();
         }
     }
 }

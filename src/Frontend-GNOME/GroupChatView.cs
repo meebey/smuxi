@@ -42,6 +42,7 @@ namespace Smuxi.Frontend.Gnome
         private static readonly log4net.ILog _Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 #endif
         private GroupChatModel     _GroupChatModel;
+        private Gtk.ScrolledWindow _PersonScrolledWindow;
         private Gtk.TreeView       _PersonTreeView;
         private Gtk.ListStore      _PersonListStore;
         private Gtk.Menu           _PersonMenu;
@@ -95,7 +96,9 @@ namespace Smuxi.Frontend.Gnome
             if ((userlist_pos == "left") ||
                 (userlist_pos == "right")) {
                 Gtk.ScrolledWindow sw = new Gtk.ScrolledWindow();
-                sw.WidthRequest = 120;
+                //sw.WidthRequest = 150;
+                sw.HscrollbarPolicy = Gtk.PolicyType.Never;
+                _PersonScrolledWindow = sw;
                 
                 Gtk.TreeView tv = new Gtk.TreeView();
                 tv.CanFocus = false;
@@ -103,17 +106,9 @@ namespace Smuxi.Frontend.Gnome
                 sw.Add(tv);
                 _PersonTreeView = tv;
                 
-                /*
-                Gtk.TreeViewColumn statuscolumn;
-                statuscolumn = new Gtk.TreeViewColumn(String.Empty, new Gtk.CellRendererText(), "text", 0);
-                statuscolumn.SortColumnId = 0;
-                statuscolumn.Spacing = 0;
-                statuscolumn.SortIndicator = false;
-                statuscolumn.Sizing = Gtk.TreeViewColumnSizing.Autosize;
-                */
-                
                 Gtk.TreeViewColumn column;
-                Gtk.CellRenderer cellr = new Gtk.CellRendererText();
+                Gtk.CellRendererText cellr = new Gtk.CellRendererText();
+                cellr.WidthChars = 15;
                 column = new Gtk.TreeViewColumn(String.Empty, cellr);
                 column.SortColumnId = 0;
                 column.Spacing = 0;
@@ -129,7 +124,6 @@ namespace Smuxi.Frontend.Gnome
                 _PersonListStore = liststore;
                 
                 tv.Model = liststore;
-                //tv.AppendColumn(statuscolumn);
                 tv.RowActivated += new Gtk.RowActivatedHandler(OnPersonsRowActivated);
                
                 // popup menu
@@ -237,8 +231,13 @@ namespace Smuxi.Frontend.Gnome
                 // detach the model (less CPU load)
                 _PersonTreeView.Model = new Gtk.ListStore(typeof(PersonModel));
                 int i = 1;
+                string longestName = String.Empty;
                 foreach (PersonModel person in persons.Values) {
                     ls.AppendValues(person);
+                    
+                    if (person.IdentityName.Length > longestName.Length) {
+                        longestName = person.IdentityName;
+                    }
                     
                     //Frontend.MainWindow.ProgressBar.Fraction = (double)i++ / count;
                     /*
@@ -252,7 +251,16 @@ namespace Smuxi.Frontend.Gnome
                 }
                 // attach the model again
                 _PersonTreeView.Model = ls;
-           
+                
+                /*
+                // predict and set useful width
+                Console.WriteLine("longestNickname: " + longestName);
+                Pango.Layout layout = _PersonScrolledWindow.CreatePangoLayout(longestName);
+                //_PersonScrolledWindow.WidthRequest = layout.Width;
+                Console.WriteLine("layout.Width: " + layout.Width);
+                _PersonScrolledWindow.SetSizeRequest(layout.Width, 0);
+                  */
+                
                 UpdatePersonCount(); 
                
                 // HACK: out of scope
@@ -322,6 +330,7 @@ namespace Smuxi.Frontend.Gnome
                     break;
                 }
             } while (_PersonListStore.IterNext(ref iter));
+             _PersonTreeView.CheckResize();
         }
         
         public void RemovePerson(PersonModel person)
@@ -348,12 +357,12 @@ namespace Smuxi.Frontend.Gnome
         private void _RenderPersonIdentityName(Gtk.TreeViewColumn column,
                                                Gtk.CellRenderer cellr,
                                                Gtk.TreeModel model, Gtk.TreeIter iter)
-	    {
-		    PersonModel person = (PersonModel) model.GetValue(iter, 0);
-		    (cellr as Gtk.CellRendererText).Text = person.IdentityName;
-	    }
-	    
-	    /*
+        {
+            PersonModel person = (PersonModel) model.GetValue(iter, 0);
+            (cellr as Gtk.CellRendererText).Text = person.IdentityName;
+        }
+       
+        /*
         private static int _OnStatusSort(Gtk.TreeModel model, Gtk.TreeIter itera, Gtk.TreeIter iterb)
         {
             //Trace.Call(model, itera, iterb);

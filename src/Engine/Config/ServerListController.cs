@@ -29,9 +29,8 @@
 using System;
 using System.Collections.Generic;
 using Smuxi.Common;
-using Smuxi.Engine;
 
-namespace Smuxi.Frontend.Gnome
+namespace Smuxi.Engine
 {
     public class ServerListController
     {

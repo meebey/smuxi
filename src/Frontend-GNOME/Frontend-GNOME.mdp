@@ -56,8 +56,6 @@
     <File name="./Preferences/ChannelFilterModel.cs" subtype="Code" buildaction="Compile" />
     <File name="./ChatViewManager.cs" subtype="Code" buildaction="Compile" />
     <File name="./Preferences/ServerListView.cs" subtype="Code" buildaction="Compile" />
-    <File name="./Preferences/ServerListController.cs" subtype="Code" buildaction="Compile" />
-    <File name="./Preferences/ServerModel.cs" subtype="Code" buildaction="Compile" />
     <File name="./Preferences/ServerView.cs" subtype="Code" buildaction="Compile" />
     <File name="./Preferences/PreferencesDialog.cs" subtype="Code" buildaction="Compile" />
   </Contents>

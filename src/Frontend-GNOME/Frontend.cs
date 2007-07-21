@@ -240,6 +240,7 @@ namespace Smuxi.Frontend.Gnome
                 _FrontendManager.ConfigChangedDelegate = new SimpleDelegate(_UserConfig.ClearCache);
             }
             _MainWindow.ShowAll();
+            _MainWindow.ApplyConfig(_UserConfig);
             // make sure entry got attention :-P
             _MainWindow.Entry.HasFocus = true;
         }

@@ -1,3 +1,9 @@
+smuxi (0.5.27-1) unstable; urgency=low
+
+  * Added missing smuxi-engine-irc dependency to smuxi-frontend-gnome-irc.
+
+ -- Mirco Bauer <meebey@debian.org>  Sat, 07 Jul 2007 15:40:54 +0200
+
 smuxi (0.5.26-1) unstable; urgency=low
 
   * Changed from native packaging to pristine packaging

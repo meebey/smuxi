@@ -27,11 +27,12 @@
  */
 
 using System;
+using Smuxi.Common;
 
 namespace Smuxi.Engine
 {
     [Serializable]
-    public class ContactModel
+    public class ContactModel : ITraceable
     {
         private string          _ID;
         private string          _IdentityName;
@@ -72,6 +73,11 @@ namespace Smuxi.Engine
             _IdentityName = identityName;
             _NetworkID = networkID;
             _NetworkProtocol = networkProtocol;
+        }
+        
+        public virtual string ToTraceString()
+        {
+        	return _NetworkID + "/" + _IdentityName; 
         }
     }
 }
