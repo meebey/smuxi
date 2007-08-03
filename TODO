@@ -18,6 +18,7 @@ X colors in channels (hightlighting)
 X create debian package
 X make preferences smaller!
 - add date stamps between days like irssi
+- smarter /op /deop /voice /devoice (using multiple modes)
 - release smuxi.meebey.net
 - release www.meebey.net
 - release sourceforge
@@ -35,7 +36,6 @@ Bugs:
 Feature Requests:
 - align nicknames in output area
 - replace smileys with images
-- smarter /op /deop /voice /devoice (using multiple modes)
 - GUI for swichting current network
 - color settings (background/fonts etc)
 - path completion in frontend
@@ -43,7 +43,7 @@ Feature Requests:
 - compare smuxi with all other common IRC clients on the website
 - remember highlight and activity states, even after reconnecting the frontend 
 - /squery command (SQUERY service: command)
-- Telepathy support
+- telepathy support
 - dbus support
 - show smuxi in tray when minimized
 - chat logging

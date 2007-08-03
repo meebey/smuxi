@@ -226,6 +226,7 @@ namespace Smuxi.Engine
             // BUG: race condition when we use Session.AddChat() as it pushes this already
             // to the connected frontend and the frontend will sync and get the page 2 times!
             //Session.Chats.Add(_NetworkChat);
+            // NOTABUG: the frontend manager needs to take care for that
             Session.AddChat(_NetworkChat);
             
             Thread thread = new Thread(new ThreadStart(_Run));

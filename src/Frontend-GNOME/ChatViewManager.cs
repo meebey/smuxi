@@ -42,17 +42,19 @@ namespace Smuxi.Frontend.Gnome
 #endif
         private Notebook     _Notebook;
         private Gtk.TreeView _TreeView;
-
+        //private UserConfig   _Config;
+        
         public override IChatView ActiveChat {
             get {
                 return _Notebook.CurrentChatView;
             }
         }
         
-        public ChatViewManager(Notebook notebook, Gtk.TreeView treeView)
+        public ChatViewManager(Notebook notebook, Gtk.TreeView treeView /*, UserConfig userConfig*/)
         {
             _Notebook = notebook;
             _TreeView = treeView;
+            //_Config = userConfig;
         }
         
         /*
@@ -74,6 +76,9 @@ namespace Smuxi.Frontend.Gnome
         public override void AddChat(ChatModel chat)
         {
             ChatView chatView = (ChatView) CreateChatView(chat);
+            
+            //Frontend.UserConfig[""]
+            //_Notebook.InsertPage(chatView, chatView.LabelEventBox, pos);
             _Notebook.AppendPage(chatView, chatView.LabelEventBox);
             //_Notebook.SetTabReorderable(chatView, true);
             // it's better to do automatic (re-)ordering

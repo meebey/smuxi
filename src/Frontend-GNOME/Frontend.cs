@@ -185,7 +185,7 @@ namespace Smuxi.Frontend.Gnome
            _SplashScreenWindow = new SplashScreenWindow();
 
            _MainWindow = new MainWindow();
-           
+
            _FrontendConfig = new FrontendConfig(UIName);
            // loading and setting defaults
            _FrontendConfig.Load();

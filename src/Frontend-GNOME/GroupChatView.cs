@@ -343,7 +343,14 @@ namespace Smuxi.Frontend.Gnome
             }
             
             Gtk.TreeIter iter;
-            _PersonListStore.GetIterFirst(out iter);
+            bool res = _PersonListStore.GetIterFirst(out iter);
+            if (!res) {
+#if LOG4NET
+                _Logger.Error("RemovePerson(): GetIterFirst() returned false!");
+#endif
+                return;
+            }
+            
             do {
                 PersonModel currentPerson = (PersonModel) _PersonListStore.GetValue(iter, 0);
                 if (currentPerson.ID == person.ID) {

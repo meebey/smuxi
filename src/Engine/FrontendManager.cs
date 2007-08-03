@@ -118,6 +118,7 @@ namespace Smuxi.Engine
         {
             Trace.Call();
             
+            // TODO: sort pages network tabs then channel tabs (alphabeticly)
             // sync pages            
             foreach (ChatModel chat in _Session.Chats) {
                 _AddChat(chat);
