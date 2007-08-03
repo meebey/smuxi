@@ -30,9 +30,9 @@ using System.Reflection;
 using System.Runtime.CompilerServices;
 
 #if UI_GTK
-[assembly: AssemblyTitle("smuxi - GTK+ frontend")]
+[assembly: AssemblyTitle("smuxi - IRC support for GTK+ frontend")]
 #elif UI_GNOME
-[assembly: AssemblyTitle("smuxi - GNOME frontend")]
+[assembly: AssemblyTitle("smuxi - IRC support GNOME frontend")]
 #endif
 [assembly: AssemblyDescription("Smart MUltipleXed Irc")]
 [assembly: AssemblyConfiguration("")]
@@ -42,7 +42,7 @@ using System.Runtime.CompilerServices;
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
-[assembly: AssemblyVersion("0.5.26.*")]
+[assembly: AssemblyVersion("0.5.27.*")]
 
 [assembly: AssemblyDelaySign(false)]
 [assembly: AssemblyKeyFile("")]

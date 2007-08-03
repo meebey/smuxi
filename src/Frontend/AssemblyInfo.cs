@@ -25,20 +25,25 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA
  */
- 
+
+using System;
 using System.Reflection;
 using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
 
-[assembly: AssemblyTitle("")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("smuxi - frontend library")]
+[assembly: AssemblyDescription("Smart MUltipleXed Irc")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("")]
-[assembly: AssemblyCopyright("")]
+[assembly: AssemblyCompany("qNETp")]
+[assembly: AssemblyProduct("smuxi")]
+[assembly: AssemblyCopyright("2005-2007 (C) Mirco Bauer <meebey@meebey.net>")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
-[assembly: AssemblyVersion("0.5.26.*")]
+[assembly: AssemblyVersion("0.5.27.*")]
 
 [assembly: AssemblyDelaySign(false)]
 [assembly: AssemblyKeyFile("")]
+
+[assembly: CLSCompliant(true)]
+[assembly: ComVisible(false)]
