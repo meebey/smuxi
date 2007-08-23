@@ -1552,7 +1552,7 @@ namespace Smuxi.Engine
             }
         }
         
-        protected TextColor _GetNickColor(string nickname)
+        protected TextColor GetNickColor(string nickname)
         {
             if ((bool) Session.UserConfig["Interface/Notebook/Channel/NickColors"]) {
                 return new TextColor(nickname.GetHashCode());
@@ -1573,7 +1573,7 @@ namespace Smuxi.Engine
             fmsg.MessageParts.Add(fmsgti);
 
             fmsgti = new TextMessagePartModel();
-            fmsgti.ForegroundColor = _GetNickColor(e.Data.Nick);
+            fmsgti.ForegroundColor = GetNickColor(e.Data.Nick);
             fmsgti.Text = e.Data.Nick;
             fmsg.MessageParts.Add(fmsgti);
 
@@ -1598,7 +1598,7 @@ namespace Smuxi.Engine
             fmsg.MessageParts.Add(fmsgti);
             
             fmsgti = new TextMessagePartModel();
-            fmsgti.ForegroundColor = _GetNickColor(e.Data.Nick);
+            fmsgti.ForegroundColor = GetNickColor(e.Data.Nick);
             fmsgti.Text = e.Data.Nick + " ";
             fmsg.MessageParts.Add(fmsgti);
             
@@ -1638,6 +1638,7 @@ namespace Smuxi.Engine
             
             fmsgti = new TextMessagePartModel();
             fmsgti.Text = String.Format("<{0}> ", e.Data.Nick);
+            fmsgti.IsHighlight = true;
             fmsg.MessageParts.Add(fmsgti);
             
             _IrcMessageToMessageModel(ref fmsg, e.Data.Message);

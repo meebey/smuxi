@@ -21,7 +21,7 @@ INSTALL_APPLICATIONS_DIR=$(DESTDIR)$(PREFIX)/share/applications
 
 SMARTIRC_DLL=Meebey.SmartIrc4net.dll
 SMARTIRC_DIR=../lib
-SMARTIRC_REF=-r:$(SMARTIRC_DIR)/$(SMARTIRC_DLL)
+SMARTIRC_REF=$(shell pkg-config --libs smartirc4net)
 
 JABBER_DLL=jabber-net.dll
 JABBER_DIR=../lib
@@ -29,15 +29,15 @@ JABBER_REF=-r:$(JABBER_DIR)/$(JABBER_DLL)
 
 LOG4NET_DLL=log4net.dll
 LOG4NET_DIR=../lib
-LOG4NET_REF=-r:$(LOG4NET_DIR)/$(LOG4NET_DLL) 
+LOG4NET_REF=$(shell pkg-config --libs log4net)
 
 NINI_DLL=Nini.dll
 NINI_DIR=../lib
-NINI_REF=-r:$(NINI_DIR)/$(NINI_DLL)
+NINI_REF=$(shell pkg-config --libs nini-1.1)
 
 POSIX_DLL=Mono.Posix.dll
 POSIX_DIR=../lib
-POSIX_REF=-r:$(POSIX_DIR)/$(POSIX_DLL)
+POSIX_REF=-r:Mono.Posix.dll
 
 ENGINE_DEFINES=CONFIG_NINI
 GNOME_DEFINES=UI_GNOME,GTK_SHARP_2,CONFIG_NINI
@@ -47,8 +47,8 @@ SERVER_REFS=-r:System.Runtime.Remoting
 ENGINE_REFS=$(NINI_REF) $(POSIX_REF)
 FRONTEND_REFS=-r:System
 TEST_REFS=-r:System.Runtime.Remoting
-GTK_REFS=$(NINI_REF) $(POSIX_REF) -r:System.Runtime.Remoting
-GNOME_REFS=$(NINI_REF) $(POSIX_REF) -r:System.Runtime.Remoting
+GTK_REFS=$(NINI_REF) $(POSIX_REF) -r:System.Runtime.Remoting -r:System.Drawing
+GNOME_REFS=$(NINI_REF) $(POSIX_REF) -r:System.Runtime.Remoting -r:System.Drawing
 
 GTK_PACKAGES=gtk-sharp-2.0,glade-sharp-2.0
 GNOME_PACKAGES=gnome-sharp-2.0,gtk-sharp-2.0,glade-sharp-2.0
@@ -58,7 +58,7 @@ RESOURCES = \
 ../images/about.png \
 ../images/connect.png \
 ../images/edit.png \
-../glade/preferences.glade
+../glade/smuxi-frontend-gnome.glade
 
 RESOURCES_BUILD = $(foreach res,$(RESOURCES), $(addprefix -resource:,$(res)),$(notdir $(res)))
 

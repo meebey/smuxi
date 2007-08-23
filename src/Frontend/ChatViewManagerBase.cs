@@ -131,7 +131,13 @@ namespace Smuxi.Frontend
                 }
                 
                 foreach (ChatViewInfoAttribute attr in attrs) {
-                    _ChatViewTypes.Add(attr, foundType);
+#if LOG4NET
+                    _Logger.Debug("Load() found Attribute: " + attr + " in Type: " + foundType);
+#endif
+                   // HACK: MS .NET 2.0 finds the attribute 2 times?!? 
+                   if (!_ChatViewTypes.ContainsKey(attr)) {
+                        _ChatViewTypes.Add(attr, foundType);
+                   }
                 }
             }
         }

@@ -46,7 +46,7 @@ namespace Smuxi.Frontend.Gnome
         {
             Trace.Call();
             
-            //Scrollable = true;
+            Scrollable = true;
             SwitchPage += new Gtk.SwitchPageHandler(_OnSwitchPage);
         }
         

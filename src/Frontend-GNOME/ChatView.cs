@@ -33,7 +33,9 @@ using System.Globalization;
 using Smuxi.Common;
 using Smuxi.Engine;
 using Smuxi.Frontend;
+#if UI_GNOME
 using GNOME = Gnome;
+#endif
 
 namespace Smuxi.Frontend.Gnome
 {
@@ -439,7 +441,9 @@ namespace Smuxi.Frontend.Gnome
             if (!url.StartsWith("http://")) {
                 url = "http://" + url;
             }
+#if UI_GNOME
             GNOME.Url.Show(url);
+#endif
             
             /*
             // prevent that the selection changes because of the double-click
