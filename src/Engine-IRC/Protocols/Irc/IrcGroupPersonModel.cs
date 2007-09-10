@@ -27,12 +27,17 @@
  */
 
 using System;
+using System.Runtime.Serialization;
+using Smuxi.Common;
 
 namespace Smuxi.Engine
 {
     [Serializable]
     public class IrcGroupPersonModel : IrcPersonModel
     {
+#if LOG4NET
+        private static readonly log4net.ILog _Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+#endif
         private bool _IsOp;
         private bool _IsVoice;
         
@@ -64,6 +69,27 @@ namespace Smuxi.Engine
         public IrcGroupPersonModel(string nickname, string networkID, IProtocolManager networkManager) :
                               base(nickname, null, null, null, networkID, networkManager)
         {
-        }                                           
+        }
+        
+        protected IrcGroupPersonModel(SerializationInfo info, StreamingContext ctx) :
+                                 base(info, ctx)
+        {
+        }
+        
+        protected override void GetObjectData(SerializationWriter sw) 
+        {
+            base.GetObjectData(sw);
+
+            sw.Write(_IsOp);
+            sw.Write(_IsVoice);
+        }
+
+        protected override void SetObjectData(SerializationReader sr)
+        {
+            base.SetObjectData(sr);
+            
+            _IsOp    = sr.ReadBoolean();
+            _IsVoice = sr.ReadBoolean();
+        }
     }
 }

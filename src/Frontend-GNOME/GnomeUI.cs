@@ -28,6 +28,7 @@
 
 using System;
 using System.Reflection;
+using SysDiag = System.Diagnostics;
 using System.Collections;
 using System.Collections.Generic;
 using System.Globalization; 
@@ -67,11 +68,11 @@ namespace Smuxi.Frontend.Gnome
         
         public void AddChat(ChatModel chat)
         {
-            Trace.Call(chat);
+            TraceRemotingCall(chat);
             
             MethodBase mb = Trace.GetMethodBase();
             Gtk.Application.Invoke(delegate {
-                Trace.Call(mb, chat);
+                TraceRemotingCall(mb, chat);
                 
                 _ChatViewManager.AddChat(chat);
             });
@@ -91,11 +92,11 @@ namespace Smuxi.Frontend.Gnome
         
         public void AddMessageToChat(ChatModel epage, MessageModel fmsg)
         {
-            Trace.Call(epage, fmsg);
+            TraceRemotingCall(epage, fmsg);
 
             MethodBase mb = Trace.GetMethodBase();
             Gtk.Application.Invoke(delegate {
-                Trace.Call(mb, epage, fmsg);
+                TraceRemotingCall(mb, epage, fmsg);
                 
                 _AddMessageToChat(epage, fmsg);
             });
@@ -103,11 +104,11 @@ namespace Smuxi.Frontend.Gnome
         
         public void RemoveChat(ChatModel chat)
         {
-            Trace.Call(chat);
+            TraceRemotingCall(chat);
 
             MethodBase mb = Trace.GetMethodBase();
             Gtk.Application.Invoke(delegate {
-                Trace.Call(mb, chat);
+                TraceRemotingCall(mb, chat);
                 
                 _ChatViewManager.RemoveChat(chat);
             });
@@ -115,11 +116,11 @@ namespace Smuxi.Frontend.Gnome
         
         public void EnableChat(ChatModel chat)
         {
-        	Trace.Call(chat);
+        	TraceRemotingCall(chat);
 
             MethodBase mb = Trace.GetMethodBase();
             Gtk.Application.Invoke(delegate {
-            	Trace.Call(mb, chat);
+            	TraceRemotingCall(mb, chat);
                 
                 _ChatViewManager.EnableChat(chat);
         	});
@@ -127,11 +128,11 @@ namespace Smuxi.Frontend.Gnome
         
         public void DisableChat(ChatModel chat)
         {
-        	Trace.Call(chat);
+        	TraceRemotingCall(chat);
         	
             MethodBase mb = Trace.GetMethodBase();
             Gtk.Application.Invoke(delegate {
-            	Trace.Call(mb, chat);
+            	TraceRemotingCall(mb, chat);
             	
                 _ChatViewManager.DisableChat(chat);
         	});
@@ -139,11 +140,11 @@ namespace Smuxi.Frontend.Gnome
         
         public void SyncChat(ChatModel chatModel)
         {
-            Trace.Call(chatModel);
+            TraceRemotingCall(chatModel);
 
             MethodBase mb = Trace.GetMethodBase();
             Gtk.Application.Invoke(delegate {
-                Trace.Call(mb, chatModel);
+                TraceRemotingCall(mb, chatModel);
 
                 ChatView chatView = _ChatViewManager.GetChat(chatModel);
 #if LOG4NET
@@ -167,11 +168,11 @@ namespace Smuxi.Frontend.Gnome
         
         public void AddPersonToGroupChat(GroupChatModel groupChat, PersonModel person)
         {
-            Trace.Call(groupChat, person);
+            TraceRemotingCall(groupChat, person);
 
             MethodBase mb = Trace.GetMethodBase();
             Gtk.Application.Invoke(delegate {
-                Trace.Call(mb, groupChat, person);
+                TraceRemotingCall(mb, groupChat, person);
                 
                 GroupChatView groupChatView = (GroupChatView) _ChatViewManager.GetChat(groupChat);
                 groupChatView.AddPerson(person);
@@ -180,11 +181,11 @@ namespace Smuxi.Frontend.Gnome
         
         public void UpdatePersonInGroupChat(GroupChatModel groupChat, PersonModel oldPerson, PersonModel newPerson)
         {
-            Trace.Call(groupChat, oldPerson, newPerson);
+            TraceRemotingCall(groupChat, oldPerson, newPerson);
 
             MethodBase mb = Trace.GetMethodBase();
             Gtk.Application.Invoke(delegate {
-                Trace.Call(mb, groupChat, oldPerson, newPerson);
+                TraceRemotingCall(mb, groupChat, oldPerson, newPerson);
                 
                 GroupChatView groupChatView = (GroupChatView) _ChatViewManager.GetChat(groupChat);
                 groupChatView.UpdatePerson(oldPerson, newPerson);
@@ -193,11 +194,11 @@ namespace Smuxi.Frontend.Gnome
         
         public void UpdateTopicInGroupChat(GroupChatModel ecpage, string topic)
         {
-            Trace.Call(ecpage, topic);
+            TraceRemotingCall(ecpage, topic);
 
             MethodBase mb = Trace.GetMethodBase();
             Gtk.Application.Invoke(delegate {
-                Trace.Call(mb, ecpage, topic);
+                TraceRemotingCall(mb, ecpage, topic);
                 
                 GroupChatView cpage = (GroupChatView)Frontend.MainWindow.Notebook.GetChat(ecpage);
                 if (cpage.TopicEntry != null) {
@@ -208,11 +209,11 @@ namespace Smuxi.Frontend.Gnome
         
         public void RemovePersonFromGroupChat(GroupChatModel groupChat, PersonModel person)
         {
-            Trace.Call(groupChat, person);
+            TraceRemotingCall(groupChat, person);
 
             MethodBase mb = Trace.GetMethodBase();
             Gtk.Application.Invoke(delegate {
-                Trace.Call(mb, groupChat, person);
+                TraceRemotingCall(mb, groupChat, person);
             
                 GroupChatView groupChatView = (GroupChatView) _ChatViewManager.GetChat(groupChat);
                 groupChatView.RemovePerson(person);
@@ -221,11 +222,11 @@ namespace Smuxi.Frontend.Gnome
         
         public void SetNetworkStatus(string status)
         {
-            Trace.Call(status);
+            TraceRemotingCall(status);
 
             MethodBase mb = Trace.GetMethodBase();
             Gtk.Application.Invoke(delegate {
-                Trace.Call(mb, status);
+                TraceRemotingCall(mb, status);
 #if UI_GNOME
                 Frontend.MainWindow.NetworkStatusbar.Push(status);
 #elif UI_GTK
@@ -236,11 +237,11 @@ namespace Smuxi.Frontend.Gnome
         
         public void SetStatus(string status)
         {
-            Trace.Call(status);
+            TraceRemotingCall(status);
 
             MethodBase mb = Trace.GetMethodBase();
             Gtk.Application.Invoke(delegate {
-                Trace.Call(mb, status);
+                TraceRemotingCall(mb, status);
 #if UI_GNOME
                 Frontend.MainWindow.Statusbar.Push(status);
 #elif UI_GTK
@@ -252,6 +253,18 @@ namespace Smuxi.Frontend.Gnome
         private static string _(string msg)
         {
             return Mono.Unix.Catalog.GetString(msg);
+        }
+        
+        [SysDiag.Conditional("REMOTING_TRACE")]
+        protected static void TraceRemotingCall(MethodBase mb, params object[] parameters)
+        {
+            Trace.Call(mb, parameters);
+        }
+        
+        [SysDiag.Conditional("REMOTING_TRACE")]
+        protected static void TraceRemotingCall(params object[] parameters)
+        {
+            TraceRemotingCall(Trace.GetMethodBase(), parameters);
         }
     }
 }

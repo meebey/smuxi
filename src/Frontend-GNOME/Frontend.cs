@@ -60,6 +60,7 @@ namespace Smuxi.Frontend.Gnome
         private static Session            _Session;
         private static UserConfig         _UserConfig;
         private static FrontendManager    _FrontendManager;
+        private static object             _UnhandledExceptionSyncRoot = new Object();
         
         public static string Name {
             get {
@@ -182,6 +183,8 @@ namespace Smuxi.Frontend.Gnome
 #elif UI_GTK
            Gtk.Application.Init();
 #endif
+           GLib.ExceptionManager.UnhandledException += _OnUnhandledException;
+           
            _SplashScreenWindow = new SplashScreenWindow();
 
            _MainWindow = new MainWindow();
@@ -288,6 +291,18 @@ namespace Smuxi.Frontend.Gnome
         public static void ShowException(Exception ex)
         {
             ShowException(null, ex);
+        }
+        
+        private static void _OnUnhandledException(GLib.UnhandledExceptionArgs e)
+        {
+            Trace.Call(e);
+            
+            lock (_UnhandledExceptionSyncRoot) {
+                if (e.ExceptionObject is Exception) {
+                    ShowException((Exception) e.ExceptionObject);
+                    Quit();
+                }
+            }
         }
     }
 }

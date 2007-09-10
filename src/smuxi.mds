@@ -16,6 +16,7 @@
       <Entry build="True" name="Frontend-Curses" configuration="Release" />
       <Entry build="True" name="Frontend-STFL" configuration="Release" />
       <Entry build="True" name="Engine-MSNP" configuration="Release" />
+      <Entry build="True" name="Engine-OSCAR" configuration="Release" />
     </Configuration>
     <Configuration name="Debug" ctype="CombineConfiguration">
       <Entry build="True" name="Engine" configuration="Debug" />
@@ -33,6 +34,7 @@
       <Entry build="True" name="Frontend-Curses" configuration="Debug" />
       <Entry build="True" name="Frontend-STFL" configuration="Debug" />
       <Entry build="True" name="Engine-MSNP" configuration="Debug" />
+      <Entry build="True" name="Engine-OSCAR" configuration="Debug" />
     </Configuration>
   </Configurations>
   <StartMode startupentry="Engine" single="False">
@@ -51,6 +53,7 @@
     <Execute type="None" entry="Frontend-Curses" />
     <Execute type="None" entry="Frontend-STFL" />
     <Execute type="None" entry="Engine-MSNP" />
+    <Execute type="None" entry="Engine-OSCAR" />
   </StartMode>
   <Entries>
     <Entry filename="./Common/Common.mdp" />
@@ -68,5 +71,6 @@
     <Entry filename="./Frontend-Curses/Frontend-Curses.mdp" />
     <Entry filename="./Frontend-STFL/Frontend-STFL.mdp" />
     <Entry filename="./Engine-MSNP/Engine-MSNP.mdp" />
+    <Entry filename="./Engine-OSCAR/Engine-OSCAR.mdp" />
   </Entries>
 </Combine>

@@ -31,7 +31,7 @@ using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
-[assembly: AssemblyTitle("smuxi - MSNP protocol support for engine")]
+[assembly: AssemblyTitle("smuxi - OSCAR protocol support for engine")]
 [assembly: AssemblyDescription("Smart MUltipleXed Irc")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("qNETp")]

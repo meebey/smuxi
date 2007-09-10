@@ -27,6 +27,8 @@
  */
 
 using System;
+using System.Runtime.Serialization;
+using Smuxi.Common;
 
 namespace Smuxi.Engine
 {
@@ -80,6 +82,29 @@ namespace Smuxi.Engine
             _RealName = realName;
             _Ident = ident;
             _Host = host;
+        }
+
+        protected IrcPersonModel(SerializationInfo info, StreamingContext ctx) :
+                            base(info, ctx)
+        {
+        }
+        
+        protected override void GetObjectData(SerializationWriter sw) 
+        {
+            base.GetObjectData(sw);
+            
+            sw.Write(_RealName);
+            sw.Write(_Ident);
+            sw.Write(_Host);
+        }
+        
+        protected override void SetObjectData(SerializationReader sr)
+        {
+            base.SetObjectData(sr);
+            
+            _RealName = sr.ReadString();
+            _Ident    = sr.ReadString();
+            _Host     = sr.ReadString();
         }
     }
 }

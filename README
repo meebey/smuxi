@@ -14,17 +14,20 @@ On Linux smuxi can use the Gnome# or the Gtk# GUI library, Gnome# is
 prefered, as configuration backend GConf is used.
 
 you need:
-- Mono >= 1.0 [0]
-- Gtk# >= 1.0.4 [1]
+- Mono >= 1.2.5 [0]
+- Gtk# >= 2.8.0 [1]
 
-[0] http://www.mono-project.com/downloads/
-[1] http://sourceforge.net/project/showfiles.php?group_id=40240
+[0] http://www.mono-project.com/Downloads
+[1] http://www.mono-project.com/Downloads
 
-If you use Debian Sid/Unstable you can do:
-apt-get install mono
+If you use Debian Sid/Unstable and build smuxi from source you can do:
+apt-get install mono-runtime libmono-system-remoting2.0-cil
 apt-get install libgnome2.0-cil (if you want to use Gnome#)
 or
 apt-get install libgtk2.0-cil (if you want to use Gtk#)
+
+Or using the official Debian packages just do:
+apt-get instlal smuxi-frontend-gnome-irc
 
 Windows Installation
 --------------------
@@ -32,13 +35,14 @@ On Windows smuxi has to use Gtk#, as configuration backend an simple
 INI file is used.
 
 you need:
-- Microsoft .NET 1.1 Framework Runtime [0]
+- Microsoft .NET 2.0 Framework Runtime [0]
 - Nini >= 0.7.1 (bundled with binary installer) [1]
-- Gtk# >= 1.0.4 for MS .NET [2]
+- Gtk# >= 2.8.0 for MS .NET [2]
 or
-- Mono >= 1.0 + Gtk# >= 1.0.4 for Mono [3]
+- Mono >= 1.2.6 + Gtk# >= 2.8.0 for Mono [3]
 
 [0] http://downloads.microsoft.com
 [1] http://sourceforge.net/project/showfiles.php?group_id=110719
 [2] http://forge.novell.com/modules/xfmod/project/showfiles.php?group_id=1430&release_id=1637#selected
 [3] http://forge.novell.com/modules/xfmod/project/showfiles.php?group_id=1395&release_id=1945#selected
+

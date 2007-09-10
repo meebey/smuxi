@@ -27,12 +27,13 @@
  */
 
 using System;
+using System.Runtime.Serialization;
 using Smuxi.Common;
 
 namespace Smuxi.Engine
 {
     [Serializable]
-    public class ContactModel : ITraceable
+    public class ContactModel : ITraceable, ISerializable
     {
         private string          _ID;
         private string          _IdentityName;
@@ -73,6 +74,35 @@ namespace Smuxi.Engine
             _IdentityName = identityName;
             _NetworkID = networkID;
             _NetworkProtocol = networkProtocol;
+        }
+        
+        protected ContactModel(SerializationInfo info, StreamingContext ctx)
+        {
+            SerializationReader sr = SerializationReader.GetReader(info);
+            SetObjectData(sr);
+        }
+        
+        protected virtual void SetObjectData(SerializationReader sr)
+        {
+            _ID              = sr.ReadString();
+            _IdentityName    = sr.ReadString();
+            _NetworkID       = sr.ReadString();
+            _NetworkProtocol = (NetworkProtocol) sr.ReadInt32();
+        }
+        
+        protected virtual void GetObjectData(SerializationWriter sw)
+        {
+            sw.Write(_ID);
+            sw.Write(_IdentityName);
+            sw.Write(_NetworkID);
+            sw.Write((int) _NetworkProtocol);
+        }
+        
+        public virtual void GetObjectData(SerializationInfo info, StreamingContext ctx) 
+        {
+            SerializationWriter sw = SerializationWriter.GetWriter(); 
+            GetObjectData(sw);
+            sw.AddToInfo(info);
         }
         
         public virtual string ToTraceString()

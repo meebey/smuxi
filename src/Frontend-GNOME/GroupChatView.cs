@@ -190,6 +190,8 @@ namespace Smuxi.Frontend.Gnome
         
         public override void Disable()
         {
+            Trace.Call();
+            
             base.Disable();
             
             _TopicEntry.Text = String.Empty;
@@ -199,6 +201,8 @@ namespace Smuxi.Frontend.Gnome
         
         public override void Sync()
         {
+            Trace.Call();
+
             IDictionary<string, PersonModel> persons = _GroupChatModel.Persons; 
 #if LOG4NET
             _Logger.Debug("Sync() syncing persons");
@@ -330,7 +334,8 @@ namespace Smuxi.Frontend.Gnome
                     break;
                 }
             } while (_PersonListStore.IterNext(ref iter));
-             _PersonTreeView.CheckResize();
+            _PersonTreeView.CheckResize();
+            //_PersonListStore.Reorder();
         }
         
         public void RemovePerson(PersonModel person)

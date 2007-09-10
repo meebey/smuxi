@@ -26,14 +26,24 @@ X make preferences smaller!
 - release gfiles
 - release go-mono.org
 - release mono-announce
+- /ban
+- /mode
 
 Bugs:
+- join #gentoo on freenode, syncing bug?
+- /away needs to set away on _all_ networks
 - after join ops/voices are not synced correctly?
 - scrolling notebook doesnt work?
 - /quit reconnects?
 - track rename for person chats 19:02 -!- Nils`- is now known as Nils`aw
+- when reconnecting it needs to re-sync the pages: reconnect -> disable pages -> enabled pages -> sync
 
 Feature Requests:
+- GUI for changing topic (enjoi)
+- apply config changes without restart (enjoi)
+- mini identd server for windows support (enjoi)
+- GUI for manual server connect (enjoi)
+- banlist manager in smuxi-frontend-gnome-irc
 - align nicknames in output area
 - replace smileys with images
 - GUI for swichting current network

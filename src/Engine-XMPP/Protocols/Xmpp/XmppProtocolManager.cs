@@ -145,24 +145,6 @@ namespace Smuxi.Engine
             return result;
         }
         
-        public override void Dispose()
-        {
-            Trace.Call();
-            
-            // we can't delete directly, it will break the enumerator, let's use a list
-            ArrayList removelist = new ArrayList();
-            foreach (ChatModel  chat in Session.Chats) {
-                if (chat.ProtocolManager == this) {
-                    removelist.Add(chat);
-                }
-            }
-            
-            // now we can delete
-            foreach (ChatModel  chat in removelist) {
-                Session.RemoveChat(chat);
-            }
-        }
-        
         public override bool Command(CommandModel command)
         {
             bool handled = false;

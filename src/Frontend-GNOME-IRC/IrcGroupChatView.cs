@@ -50,37 +50,36 @@ namespace Smuxi.Frontend.Gnome
             if (PersonMenu != null) {
                 Gtk.ImageMenuItem op_item = new Gtk.ImageMenuItem(_("Op"));
                 op_item.Activated += new EventHandler(_OnUserListMenuOpActivated);
-                this.PersonMenu.Append(op_item);
+                PersonMenu.Append(op_item);
                 
                 Gtk.ImageMenuItem deop_item = new Gtk.ImageMenuItem(_("Deop"));
                 deop_item.Activated += new EventHandler(_OnUserListMenuDeopActivated);
-                this.PersonMenu.Append(deop_item);
+                PersonMenu.Append(deop_item);
                 
                 Gtk.ImageMenuItem voice_item = new Gtk.ImageMenuItem(_("Voice"));
                 voice_item.Activated += new EventHandler(_OnUserListMenuVoiceActivated);
-                this.PersonMenu.Append(voice_item);
+                PersonMenu.Append(voice_item);
                 
                 Gtk.ImageMenuItem devoice_item = new Gtk.ImageMenuItem(_("Devoice"));
                 devoice_item.Activated += new EventHandler(_OnUserListMenuDevoiceActivated);
-                this.PersonMenu.Append(devoice_item);
+                PersonMenu.Append(devoice_item);
                 
                 Gtk.ImageMenuItem kick_item = new Gtk.ImageMenuItem(_("Kick"));
                 kick_item.Activated += new EventHandler(_OnUserListMenuKickActivated);
-                this.PersonMenu.Append(kick_item);
+                PersonMenu.Append(kick_item);
             }
             
             if (PersonTreeView != null) {
                 Gtk.CellRendererText cellr = new Gtk.CellRendererText();
                 cellr.WidthChars = 1;
                 Gtk.TreeViewColumn column = new Gtk.TreeViewColumn(String.Empty, cellr);
-                //column.SortColumnId = 0;
                 column.Spacing = 0;
                 column.SortIndicator = false;
                 column.Sizing = Gtk.TreeViewColumnSizing.GrowOnly;
                 column.SetCellDataFunc(cellr, new Gtk.TreeCellDataFunc(_RenderIrcGroupPersonMode));
                 
                 PersonTreeView.AppendColumn(column);
-                PersonTreeView.MoveColumnAfter(this.IdentityNameColumn, column);
+                PersonTreeView.MoveColumnAfter(IdentityNameColumn, column);
             }
         }
         

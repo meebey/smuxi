@@ -1418,6 +1418,11 @@ namespace Smuxi.Engine
                         _OnReceiveTypeWhowas(e);
                         break;
                 }
+                switch (e.Data.ReplyCode) {
+                    case ReplyCode.ErrorUnknownCommand:
+                        Session.AddTextToChat(_NetworkChat, e.Data.Message);
+                        break;
+                }
             }
             
             string chan;

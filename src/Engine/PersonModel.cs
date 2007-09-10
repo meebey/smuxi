@@ -27,7 +27,9 @@
  */
  
 using System;
- 
+using System.Runtime.Serialization;
+using Smuxi.Common;
+
 namespace Smuxi.Engine
 {
     [Serializable]
@@ -48,6 +50,20 @@ namespace Smuxi.Engine
             _ProtocolManager = networkManager;
         }
         
+        protected PersonModel(SerializationInfo info, StreamingContext ctx) :
+                         base(info, ctx)
+        {
+            // we might optimize this away, causes 800 bytes per remoting call 
+            _ProtocolManager = (IProtocolManager) info.GetValue("_ProtocolManager", typeof(IProtocolManager));
+        }
+        
+        public override void GetObjectData(SerializationInfo info, StreamingContext ctx)
+        {
+            base.GetObjectData(info, ctx);
+            
+            info.AddValue("_ProtocolManager", _ProtocolManager);
+        }
+                                      
         public override string ToTraceString()
         {
         	string nm = (_ProtocolManager != null) ? _ProtocolManager.ToString() : "(null)";  
