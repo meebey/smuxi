@@ -1,0 +1,163 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{8CE704BA-EC68-45CE-BF14-2230D5D53F79}</ProjectGuid>
+    <NoStandardLibraries>false</NoStandardLibraries>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\bin\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;LOG4NET;CONFIG_NINI;UI_GNOME</DefineConstants>
+    <OutputType>Exe</OutputType>
+    <AssemblyName>smuxi-frontend-gnome</AssemblyName>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\bin\Release\</OutputPath>
+    <DefineConstants>CONFIG_NINI;UI_GNOME</DefineConstants>
+    <OutputType>WinExe</OutputType>
+    <AssemblyName>smuxi-frontend-gnome</AssemblyName>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug GTK|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>..\..\bin\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;LOG4NET;CONFIG_NINI;UI_GTK</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <OutputType>Exe</OutputType>
+    <AssemblyName>smuxi-frontend-gtk</AssemblyName>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release GTK|AnyCPU' ">
+    <OutputPath>..\..\bin\Release\</OutputPath>
+    <DefineConstants>CONFIG_NINI;UI_GTK</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <OutputType>WinExe</OutputType>
+    <AssemblyName>smuxi-frontend-gtk</AssemblyName>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="atk-sharp, Version=2.8.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="gdk-sharp, Version=2.8.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="glade-sharp, Version=2.8.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="glib-sharp, Version=2.8.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="gnome-sharp, Version=2.8.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="gtk-sharp, Version=2.8.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="log4net, Version=1.2.9.0, Culture=neutral, PublicKeyToken=a5715cc6d5c3540b">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Mono.Posix, Version=2.0.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\Mono.Posix.dll</HintPath>
+    </Reference>
+    <Reference Include="Nini, Version=1.1.0.0, Culture=neutral, PublicKeyToken=c9892194e1b9ec1b">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\Nini.dll</HintPath>
+    </Reference>
+    <Reference Include="pango-sharp, Version=2.8.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Remoting" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AboutDialog.cs" />
+    <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="ChatView.cs" />
+    <Compile Include="ChatViewManager.cs" />
+    <Compile Include="CrashDialog.cs" />
+    <Compile Include="EngineManager.cs" />
+    <Compile Include="EngineManagerDialog.cs" />
+    <Compile Include="Entry.cs" />
+    <Compile Include="FirstStartDruid.cs" />
+    <Compile Include="Frontend.cs" />
+    <Compile Include="GnomeUI.cs" />
+    <Compile Include="GroupChatView.cs" />
+    <Compile Include="IrcManagerWindow.cs" />
+    <Compile Include="Main.cs" />
+    <Compile Include="MainWindow.cs" />
+    <Compile Include="NetworkChatView.cs" />
+    <Compile Include="NewEngineDruid.cs" />
+    <Compile Include="Notebook.cs" />
+    <Compile Include="NotImplementedMessageDialog.cs" />
+    <Compile Include="PersonChatView.cs" />
+    <Compile Include="Preferences\ChannelFilterListController.cs" />
+    <Compile Include="Preferences\ChannelFilterListView.cs" />
+    <Compile Include="Preferences\ChannelFilterModel.cs" />
+    <Compile Include="Preferences\PreferencesDialog.cs" />
+    <Compile Include="Preferences\ServerListView.cs" />
+    <Compile Include="Preferences\ServerView.cs" />
+    <Compile Include="SplashScreenWindow.cs" />
+    <Compile Include="ViewManager.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{E1CAA428-6841-4C42-B4FA-3A3DE6D86B3D}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Engine\Engine.csproj">
+      <Project>{B5F12596-21D7-4878-86E0-A230BE0D5F02}</Project>
+      <Name>Engine</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Frontend\Frontend.csproj">
+      <Project>{0F54E2A1-25A7-4433-AFE8-58B212E8F846}</Project>
+      <Name>Frontend</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="..\..\images\about.png">
+      <Link>about.png</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\images\connect.png">
+      <Link>connect.png</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\images\edit.png">
+      <Link>edit.png</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\images\icon_default.png">
+      <Link>icon_default.png</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\images\icon_halfop.png">
+      <Link>icon_halfop.png</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\images\icon_op.png">
+      <Link>icon_op.png</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\images\icon_voice.png">
+      <Link>icon_voice.png</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\images\server.png">
+      <Link>server.png</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\images\splashscreen.png">
+      <Link>splashscreen.png</Link>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="..\..\glade\smuxi-frontend-gnome.glade">
+      <Link>smuxi-frontend-gnome.glade</Link>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSHARP.Targets" />
+  <ProjectExtensions>
+    <VisualStudio AllowExistingFolder="true" />
+  </ProjectExtensions>
+</Project>

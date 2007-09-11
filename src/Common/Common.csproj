@@ -25,7 +25,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="FastSerializer.cs" />
     <Compile Include="ITraceable.cs" />
+    <Compile Include="MD5.cs" />
     <Compile Include="Trace.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSHARP.Targets" />

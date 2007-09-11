@@ -2,34 +2,45 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{0F54E2A1-25A7-4433-AFE8-58B212E8F846}</ProjectGuid>
+    <ProjectGuid>{CC1477C9-6292-4797-A4EB-9A95386F2822}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <AssemblyName>smuxi-frontend</AssemblyName>
+    <NoStandardLibraries>false</NoStandardLibraries>
+    <AssemblyName>smuxi-engine-xmpp</AssemblyName>
+    <RootNamespace>Engine_XMPP</RootNamespace>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>..\..\bin\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;LOG4NET</DefineConstants>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <DefineConstants>TRACE</DefineConstants>
     <OutputPath>..\..\bin\Release\</OutputPath>
+    <DefineConstants>
+    </DefineConstants>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="jabber-net, Version=1.1.2664.37841, Culture=neutral, PublicKeyToken=924c5b18328d6f09">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\jabber-net.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net, Version=1.2.9.0, Culture=neutral, PublicKeyToken=a5715cc6d5c3540b">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Mono.Posix, Version=2.0.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\Mono.Posix.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.XML" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyInfo.cs" />
-    <Compile Include="ChatView.cs" />
-    <Compile Include="ChatViewInfoAttribute.cs" />
-    <Compile Include="ChatViewManagerBase.cs" />
-    <Compile Include="EntryController.cs" />
-    <Compile Include="EntryHistoryModel.cs" />
-    <Compile Include="IChatView.cs" />
-    <Compile Include="IEntryView.cs" />
+    <Compile Include="Protocols\Xmpp\XmppProtocolManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Common\Common.csproj">

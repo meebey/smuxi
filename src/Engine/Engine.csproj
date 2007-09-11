@@ -36,7 +36,10 @@
     <Compile Include="Chats\NetworkChatModel.cs" />
     <Compile Include="Chats\PersonChatModel.cs" />
     <Compile Include="CommandModel.cs" />
-    <Compile Include="Config.cs" />
+    <Compile Include="Config\Config.cs" />
+    <Compile Include="Config\ServerListController.cs" />
+    <Compile Include="Config\ServerModel.cs" />
+    <Compile Include="Config\UserConfig.cs" />
     <Compile Include="ContactModel.cs" />
     <Compile Include="Engine.cs" />
     <Compile Include="FrontendConfig.cs" />
@@ -59,7 +62,6 @@
     <Compile Include="TextColor.cs" />
     <Compile Include="UICommand.cs" />
     <Compile Include="UICommandContainer.cs" />
-    <Compile Include="UserConfig.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Common\Common.csproj">

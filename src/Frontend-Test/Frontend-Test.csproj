@@ -2,34 +2,39 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{0F54E2A1-25A7-4433-AFE8-58B212E8F846}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AssemblyName>smuxi-frontend</AssemblyName>
+    <ProjectGuid>{923B8EFB-78AE-4559-9409-51F9A1960AC6}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <NoStandardLibraries>false</NoStandardLibraries>
+    <AssemblyName>smuxi-frontend-test</AssemblyName>
+    <RootNamespace>Frontend_Test</RootNamespace>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>..\..\bin\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;LOG4NET</DefineConstants>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <DefineConstants>TRACE</DefineConstants>
     <OutputPath>..\..\bin\Release\</OutputPath>
+    <DefineConstants>
+    </DefineConstants>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="log4net, Version=1.2.9.0, Culture=neutral, PublicKeyToken=a5715cc6d5c3540b">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\log4net.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Runtime.Remoting" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyInfo.cs" />
-    <Compile Include="ChatView.cs" />
-    <Compile Include="ChatViewInfoAttribute.cs" />
-    <Compile Include="ChatViewManagerBase.cs" />
-    <Compile Include="EntryController.cs" />
-    <Compile Include="EntryHistoryModel.cs" />
-    <Compile Include="IChatView.cs" />
-    <Compile Include="IEntryView.cs" />
+    <Compile Include="Frontend.cs" />
+    <Compile Include="Main.cs" />
+    <Compile Include="TestUI.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Common\Common.csproj">

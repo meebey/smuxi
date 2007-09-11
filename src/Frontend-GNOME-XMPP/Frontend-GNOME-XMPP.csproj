@@ -2,43 +2,45 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{0F54E2A1-25A7-4433-AFE8-58B212E8F846}</ProjectGuid>
+    <ProjectGuid>{0DA0A731-D934-4965-8B73-326DC99C78DF}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <AssemblyName>smuxi-frontend</AssemblyName>
+    <NoStandardLibraries>false</NoStandardLibraries>
+    <AssemblyName>smuxi-frontend-gnome-xmpp</AssemblyName>
+    <RootNamespace>Frontend_GNOME_XMPP</RootNamespace>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>..\..\bin\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;LOG4NET</DefineConstants>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <DefineConstants>TRACE</DefineConstants>
     <OutputPath>..\..\bin\Release\</OutputPath>
+    <DefineConstants>
+    </DefineConstants>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="System" />
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="AssemblyInfo.cs" />
-    <Compile Include="ChatView.cs" />
-    <Compile Include="ChatViewInfoAttribute.cs" />
-    <Compile Include="ChatViewManagerBase.cs" />
-    <Compile Include="EntryController.cs" />
-    <Compile Include="EntryHistoryModel.cs" />
-    <Compile Include="IChatView.cs" />
-    <Compile Include="IEntryView.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Common\Common.csproj">
       <Project>{E1CAA428-6841-4C42-B4FA-3A3DE6D86B3D}</Project>
       <Name>Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Engine-XMPP\Engine-XMPP.csproj">
+      <Project>{CC1477C9-6292-4797-A4EB-9A95386F2822}</Project>
+      <Name>Engine-XMPP</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Engine\Engine.csproj">
       <Project>{B5F12596-21D7-4878-86E0-A230BE0D5F02}</Project>
       <Name>Engine</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Frontend-GNOME\Frontend-GNOME.csproj">
+      <Project>{8CE704BA-EC68-45CE-BF14-2230D5D53F79}</Project>
+      <Name>Frontend-GNOME</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSHARP.Targets" />

@@ -2,47 +2,223 @@
 Microsoft Visual Studio Solution File, Format Version 9.00
 # Visual Studio 2005
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common\Common.csproj", "{E1CAA428-6841-4C42-B4FA-3A3DE6D86B3D}"
+	ProjectSection(WebsiteProperties) = preProject
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.Debug = "False"
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Engine", "Engine\Engine.csproj", "{B5F12596-21D7-4878-86E0-A230BE0D5F02}"
+	ProjectSection(WebsiteProperties) = preProject
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.Debug = "False"
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Frontend", "Frontend\Frontend.csproj", "{0F54E2A1-25A7-4433-AFE8-58B212E8F846}"
+	ProjectSection(WebsiteProperties) = preProject
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.Debug = "False"
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Server", "Server\Server.csproj", "{B79D6E1C-7AFC-4BE9-AF70-FE194ACBF224}"
+	ProjectSection(WebsiteProperties) = preProject
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.Debug = "False"
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Frontend-SWF", "Frontend-SWF\Frontend-SWF.csproj", "{0CA3B4CA-9CE0-4F3C-8C54-D01EDBAAD9B9}"
+	ProjectSection(WebsiteProperties) = preProject
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.Debug = "False"
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Frontend-WPF", "Frontend-WPF\Frontend-WPF.csproj", "{D0B70251-09A7-4AA0-A8C8-B594785046E5}"
+	ProjectSection(WebsiteProperties) = preProject
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.Debug = "False"
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Engine-IRC", "Engine-IRC\Engine-IRC.csproj", "{00FC8713-6A0A-4A8B-8437-AEEB778F6F32}"
+	ProjectSection(WebsiteProperties) = preProject
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.Debug = "False"
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Engine-MSNP", "Engine-MSNP\Engine-MSNP.csproj", "{2FC51B62-BC3D-452F-A751-F951772C8AC6}"
+	ProjectSection(WebsiteProperties) = preProject
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.Debug = "False"
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Engine-XMPP", "Engine-XMPP\Engine-XMPP.csproj", "{CC1477C9-6292-4797-A4EB-9A95386F2822}"
+	ProjectSection(WebsiteProperties) = preProject
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.Debug = "False"
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Frontend-Curses", "Frontend-Curses\Frontend-Curses.csproj", "{B47737C4-7165-44F5-820B-1A029037B4B8}"
+	ProjectSection(WebsiteProperties) = preProject
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.Debug = "False"
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Frontend-STFL", "Frontend-STFL\Frontend-STFL.csproj", "{58FCF1AE-4316-47AE-8EB4-DA437432B09F}"
+	ProjectSection(WebsiteProperties) = preProject
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.Debug = "False"
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Frontend-Test", "Frontend-Test\Frontend-Test.csproj", "{923B8EFB-78AE-4559-9409-51F9A1960AC6}"
+	ProjectSection(WebsiteProperties) = preProject
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.Debug = "False"
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Frontend-GNOME", "Frontend-GNOME\Frontend-GNOME.csproj", "{8CE704BA-EC68-45CE-BF14-2230D5D53F79}"
+	ProjectSection(WebsiteProperties) = preProject
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.Debug = "False"
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Frontend-GNOME-IRC", "Frontend-GNOME-IRC\Frontend-GNOME-IRC.csproj", "{95139296-BAA7-4831-B938-731832763C56}"
+	ProjectSection(WebsiteProperties) = preProject
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.Debug = "False"
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Frontend-GNOME-XMPP", "Frontend-GNOME-XMPP\Frontend-GNOME-XMPP.csproj", "{0DA0A731-D934-4965-8B73-326DC99C78DF}"
+	ProjectSection(WebsiteProperties) = preProject
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.Debug = "False"
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug GTK|Any CPU = Debug GTK|Any CPU
 		Debug|Any CPU = Debug|Any CPU
+		Release GTK|Any CPU = Release GTK|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E1CAA428-6841-4C42-B4FA-3A3DE6D86B3D}.Debug GTK|Any CPU.ActiveCfg = Debug|Any CPU
+		{E1CAA428-6841-4C42-B4FA-3A3DE6D86B3D}.Debug GTK|Any CPU.Build.0 = Debug|Any CPU
 		{E1CAA428-6841-4C42-B4FA-3A3DE6D86B3D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{E1CAA428-6841-4C42-B4FA-3A3DE6D86B3D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E1CAA428-6841-4C42-B4FA-3A3DE6D86B3D}.Release GTK|Any CPU.ActiveCfg = Release|Any CPU
+		{E1CAA428-6841-4C42-B4FA-3A3DE6D86B3D}.Release GTK|Any CPU.Build.0 = Release|Any CPU
 		{E1CAA428-6841-4C42-B4FA-3A3DE6D86B3D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E1CAA428-6841-4C42-B4FA-3A3DE6D86B3D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B5F12596-21D7-4878-86E0-A230BE0D5F02}.Debug GTK|Any CPU.ActiveCfg = Debug|Any CPU
+		{B5F12596-21D7-4878-86E0-A230BE0D5F02}.Debug GTK|Any CPU.Build.0 = Debug|Any CPU
 		{B5F12596-21D7-4878-86E0-A230BE0D5F02}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{B5F12596-21D7-4878-86E0-A230BE0D5F02}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B5F12596-21D7-4878-86E0-A230BE0D5F02}.Release GTK|Any CPU.ActiveCfg = Release|Any CPU
+		{B5F12596-21D7-4878-86E0-A230BE0D5F02}.Release GTK|Any CPU.Build.0 = Release|Any CPU
 		{B5F12596-21D7-4878-86E0-A230BE0D5F02}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B5F12596-21D7-4878-86E0-A230BE0D5F02}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0F54E2A1-25A7-4433-AFE8-58B212E8F846}.Debug GTK|Any CPU.ActiveCfg = Debug|Any CPU
+		{0F54E2A1-25A7-4433-AFE8-58B212E8F846}.Debug GTK|Any CPU.Build.0 = Debug|Any CPU
 		{0F54E2A1-25A7-4433-AFE8-58B212E8F846}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{0F54E2A1-25A7-4433-AFE8-58B212E8F846}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0F54E2A1-25A7-4433-AFE8-58B212E8F846}.Release GTK|Any CPU.ActiveCfg = Release|Any CPU
+		{0F54E2A1-25A7-4433-AFE8-58B212E8F846}.Release GTK|Any CPU.Build.0 = Release|Any CPU
 		{0F54E2A1-25A7-4433-AFE8-58B212E8F846}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0F54E2A1-25A7-4433-AFE8-58B212E8F846}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B79D6E1C-7AFC-4BE9-AF70-FE194ACBF224}.Debug GTK|Any CPU.ActiveCfg = Debug|Any CPU
+		{B79D6E1C-7AFC-4BE9-AF70-FE194ACBF224}.Debug GTK|Any CPU.Build.0 = Debug|Any CPU
 		{B79D6E1C-7AFC-4BE9-AF70-FE194ACBF224}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{B79D6E1C-7AFC-4BE9-AF70-FE194ACBF224}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B79D6E1C-7AFC-4BE9-AF70-FE194ACBF224}.Release GTK|Any CPU.ActiveCfg = Release|Any CPU
+		{B79D6E1C-7AFC-4BE9-AF70-FE194ACBF224}.Release GTK|Any CPU.Build.0 = Release|Any CPU
 		{B79D6E1C-7AFC-4BE9-AF70-FE194ACBF224}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B79D6E1C-7AFC-4BE9-AF70-FE194ACBF224}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0CA3B4CA-9CE0-4F3C-8C54-D01EDBAAD9B9}.Debug GTK|Any CPU.ActiveCfg = Debug|Any CPU
+		{0CA3B4CA-9CE0-4F3C-8C54-D01EDBAAD9B9}.Debug GTK|Any CPU.Build.0 = Debug|Any CPU
 		{0CA3B4CA-9CE0-4F3C-8C54-D01EDBAAD9B9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{0CA3B4CA-9CE0-4F3C-8C54-D01EDBAAD9B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0CA3B4CA-9CE0-4F3C-8C54-D01EDBAAD9B9}.Release GTK|Any CPU.ActiveCfg = Release|Any CPU
+		{0CA3B4CA-9CE0-4F3C-8C54-D01EDBAAD9B9}.Release GTK|Any CPU.Build.0 = Release|Any CPU
 		{0CA3B4CA-9CE0-4F3C-8C54-D01EDBAAD9B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0CA3B4CA-9CE0-4F3C-8C54-D01EDBAAD9B9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D0B70251-09A7-4AA0-A8C8-B594785046E5}.Debug GTK|Any CPU.ActiveCfg = Debug|Any CPU
+		{D0B70251-09A7-4AA0-A8C8-B594785046E5}.Debug GTK|Any CPU.Build.0 = Debug|Any CPU
 		{D0B70251-09A7-4AA0-A8C8-B594785046E5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{D0B70251-09A7-4AA0-A8C8-B594785046E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D0B70251-09A7-4AA0-A8C8-B594785046E5}.Release GTK|Any CPU.ActiveCfg = Release|Any CPU
+		{D0B70251-09A7-4AA0-A8C8-B594785046E5}.Release GTK|Any CPU.Build.0 = Release|Any CPU
 		{D0B70251-09A7-4AA0-A8C8-B594785046E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D0B70251-09A7-4AA0-A8C8-B594785046E5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{00FC8713-6A0A-4A8B-8437-AEEB778F6F32}.Debug GTK|Any CPU.ActiveCfg = Debug|Any CPU
+		{00FC8713-6A0A-4A8B-8437-AEEB778F6F32}.Debug GTK|Any CPU.Build.0 = Debug|Any CPU
+		{00FC8713-6A0A-4A8B-8437-AEEB778F6F32}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{00FC8713-6A0A-4A8B-8437-AEEB778F6F32}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{00FC8713-6A0A-4A8B-8437-AEEB778F6F32}.Release GTK|Any CPU.ActiveCfg = Release|Any CPU
+		{00FC8713-6A0A-4A8B-8437-AEEB778F6F32}.Release GTK|Any CPU.Build.0 = Release|Any CPU
+		{00FC8713-6A0A-4A8B-8437-AEEB778F6F32}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{00FC8713-6A0A-4A8B-8437-AEEB778F6F32}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2FC51B62-BC3D-452F-A751-F951772C8AC6}.Debug GTK|Any CPU.ActiveCfg = Debug|Any CPU
+		{2FC51B62-BC3D-452F-A751-F951772C8AC6}.Debug GTK|Any CPU.Build.0 = Debug|Any CPU
+		{2FC51B62-BC3D-452F-A751-F951772C8AC6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2FC51B62-BC3D-452F-A751-F951772C8AC6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2FC51B62-BC3D-452F-A751-F951772C8AC6}.Release GTK|Any CPU.ActiveCfg = Release|Any CPU
+		{2FC51B62-BC3D-452F-A751-F951772C8AC6}.Release GTK|Any CPU.Build.0 = Release|Any CPU
+		{2FC51B62-BC3D-452F-A751-F951772C8AC6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2FC51B62-BC3D-452F-A751-F951772C8AC6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CC1477C9-6292-4797-A4EB-9A95386F2822}.Debug GTK|Any CPU.ActiveCfg = Debug|Any CPU
+		{CC1477C9-6292-4797-A4EB-9A95386F2822}.Debug GTK|Any CPU.Build.0 = Debug|Any CPU
+		{CC1477C9-6292-4797-A4EB-9A95386F2822}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CC1477C9-6292-4797-A4EB-9A95386F2822}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CC1477C9-6292-4797-A4EB-9A95386F2822}.Release GTK|Any CPU.ActiveCfg = Release|Any CPU
+		{CC1477C9-6292-4797-A4EB-9A95386F2822}.Release GTK|Any CPU.Build.0 = Release|Any CPU
+		{CC1477C9-6292-4797-A4EB-9A95386F2822}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CC1477C9-6292-4797-A4EB-9A95386F2822}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B47737C4-7165-44F5-820B-1A029037B4B8}.Debug GTK|Any CPU.ActiveCfg = Debug|Any CPU
+		{B47737C4-7165-44F5-820B-1A029037B4B8}.Debug GTK|Any CPU.Build.0 = Debug|Any CPU
+		{B47737C4-7165-44F5-820B-1A029037B4B8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B47737C4-7165-44F5-820B-1A029037B4B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B47737C4-7165-44F5-820B-1A029037B4B8}.Release GTK|Any CPU.ActiveCfg = Release|Any CPU
+		{B47737C4-7165-44F5-820B-1A029037B4B8}.Release GTK|Any CPU.Build.0 = Release|Any CPU
+		{B47737C4-7165-44F5-820B-1A029037B4B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B47737C4-7165-44F5-820B-1A029037B4B8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{58FCF1AE-4316-47AE-8EB4-DA437432B09F}.Debug GTK|Any CPU.ActiveCfg = Debug|Any CPU
+		{58FCF1AE-4316-47AE-8EB4-DA437432B09F}.Debug GTK|Any CPU.Build.0 = Debug|Any CPU
+		{58FCF1AE-4316-47AE-8EB4-DA437432B09F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{58FCF1AE-4316-47AE-8EB4-DA437432B09F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{58FCF1AE-4316-47AE-8EB4-DA437432B09F}.Release GTK|Any CPU.ActiveCfg = Release|Any CPU
+		{58FCF1AE-4316-47AE-8EB4-DA437432B09F}.Release GTK|Any CPU.Build.0 = Release|Any CPU
+		{58FCF1AE-4316-47AE-8EB4-DA437432B09F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{58FCF1AE-4316-47AE-8EB4-DA437432B09F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{923B8EFB-78AE-4559-9409-51F9A1960AC6}.Debug GTK|Any CPU.ActiveCfg = Debug|Any CPU
+		{923B8EFB-78AE-4559-9409-51F9A1960AC6}.Debug GTK|Any CPU.Build.0 = Debug|Any CPU
+		{923B8EFB-78AE-4559-9409-51F9A1960AC6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{923B8EFB-78AE-4559-9409-51F9A1960AC6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{923B8EFB-78AE-4559-9409-51F9A1960AC6}.Release GTK|Any CPU.ActiveCfg = Release|Any CPU
+		{923B8EFB-78AE-4559-9409-51F9A1960AC6}.Release GTK|Any CPU.Build.0 = Release|Any CPU
+		{923B8EFB-78AE-4559-9409-51F9A1960AC6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{923B8EFB-78AE-4559-9409-51F9A1960AC6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8CE704BA-EC68-45CE-BF14-2230D5D53F79}.Debug GTK|Any CPU.ActiveCfg = Debug GTK|Any CPU
+		{8CE704BA-EC68-45CE-BF14-2230D5D53F79}.Debug GTK|Any CPU.Build.0 = Debug GTK|Any CPU
+		{8CE704BA-EC68-45CE-BF14-2230D5D53F79}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8CE704BA-EC68-45CE-BF14-2230D5D53F79}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8CE704BA-EC68-45CE-BF14-2230D5D53F79}.Release GTK|Any CPU.ActiveCfg = Release GTK|Any CPU
+		{8CE704BA-EC68-45CE-BF14-2230D5D53F79}.Release GTK|Any CPU.Build.0 = Release GTK|Any CPU
+		{8CE704BA-EC68-45CE-BF14-2230D5D53F79}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8CE704BA-EC68-45CE-BF14-2230D5D53F79}.Release|Any CPU.Build.0 = Release|Any CPU
+		{95139296-BAA7-4831-B938-731832763C56}.Debug GTK|Any CPU.ActiveCfg = Debug|Any CPU
+		{95139296-BAA7-4831-B938-731832763C56}.Debug GTK|Any CPU.Build.0 = Debug|Any CPU
+		{95139296-BAA7-4831-B938-731832763C56}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{95139296-BAA7-4831-B938-731832763C56}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{95139296-BAA7-4831-B938-731832763C56}.Release GTK|Any CPU.ActiveCfg = Release|Any CPU
+		{95139296-BAA7-4831-B938-731832763C56}.Release GTK|Any CPU.Build.0 = Release|Any CPU
+		{95139296-BAA7-4831-B938-731832763C56}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{95139296-BAA7-4831-B938-731832763C56}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0DA0A731-D934-4965-8B73-326DC99C78DF}.Debug GTK|Any CPU.ActiveCfg = Debug|Any CPU
+		{0DA0A731-D934-4965-8B73-326DC99C78DF}.Debug GTK|Any CPU.Build.0 = Debug|Any CPU
+		{0DA0A731-D934-4965-8B73-326DC99C78DF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0DA0A731-D934-4965-8B73-326DC99C78DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0DA0A731-D934-4965-8B73-326DC99C78DF}.Release GTK|Any CPU.ActiveCfg = Release|Any CPU
+		{0DA0A731-D934-4965-8B73-326DC99C78DF}.Release GTK|Any CPU.Build.0 = Release|Any CPU
+		{0DA0A731-D934-4965-8B73-326DC99C78DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0DA0A731-D934-4965-8B73-326DC99C78DF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

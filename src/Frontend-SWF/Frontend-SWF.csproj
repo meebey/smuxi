@@ -48,6 +48,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AssemblyInfo.cs" />
     <Compile Include="NotImplementedMessageDialog.cs" />
     <Compile Include="SplashScreenWindow.cs">
       <SubType>Form</SubType>
