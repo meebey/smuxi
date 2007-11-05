@@ -31,6 +31,7 @@ using System.Collections.Generic;
 
 namespace Smuxi.Engine
 {
+    // TODO: use FastSerializer
     [Serializable]
     public class MessageModel
     {

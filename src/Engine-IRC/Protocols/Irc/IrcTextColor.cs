@@ -33,24 +33,24 @@ namespace Smuxi.Engine
     [Serializable]
     public static class IrcTextColor
     {
-        static private TextColor _Normal      = new TextColor(-1);
-        static private TextColor _White       = new TextColor(0xFFFFFF);
-        static private TextColor _Black       = new TextColor(0x000000);
-        static private TextColor _Blue        = new TextColor(0x0000FF);
-        static private TextColor _Green       = new TextColor(0x008000);
-        static private TextColor _Red         = new TextColor(0xFF0000);
-        static private TextColor _Brown       = new TextColor(0xA52A2A);
-        static private TextColor _Purple      = new TextColor(0x800080);
-        static private TextColor _Orange      = new TextColor(0xFFA500);
-        static private TextColor _Yellow      = new TextColor(0xFFFF00);
-        static private TextColor _LightGreen  = new TextColor(0x00FF00);
-        static private TextColor _Teal        = new TextColor(0x008080);
-        static private TextColor _LightCyan   = new TextColor(0xE0FFFF);
+        private static TextColor _Normal      = new TextColor(-1);
+        private static TextColor _White       = new TextColor(0xFFFFFF);
+        private static TextColor _Black       = new TextColor(0x000000);
+        private static TextColor _Blue        = new TextColor(0x0000FF);
+        private static TextColor _Green       = new TextColor(0x008000);
+        private static TextColor _Red         = new TextColor(0xFF0000);
+        private static TextColor _Brown       = new TextColor(0xA52A2A);
+        private static TextColor _Purple      = new TextColor(0x800080);
+        private static TextColor _Orange      = new TextColor(0xFFA500);
+        private static TextColor _Yellow      = new TextColor(0xFFFF00);
+        private static TextColor _LightGreen  = new TextColor(0x00FF00);
+        private static TextColor _Teal        = new TextColor(0x008080);
+        private static TextColor _LightCyan   = new TextColor(0xE0FFFF);
         //static private TextColor _LightBlue   = new TextColor(0xADD8E6);
-        static private TextColor _LightBlue   = new TextColor(0xA4C8E0);
-        static private TextColor _LightPurple = new TextColor(0xEE82EE);
-        static private TextColor _Grey        = new TextColor(0x808080);
-        static private TextColor _LightGrey   = new TextColor(0xD3D3D3);
+        private static TextColor _LightBlue   = new TextColor(0xA4C8E0);
+        private static TextColor _LightPurple = new TextColor(0xEE82EE);
+        private static TextColor _Grey        = new TextColor(0x808080);
+        private static TextColor _LightGrey   = new TextColor(0xD3D3D3);
         
         public static TextColor Normal {
             get {
@@ -70,7 +70,7 @@ namespace Smuxi.Engine
             }
         }
         
-        static public TextColor Black {
+        public static TextColor Black {
             get {
                 return _Black;
             }
@@ -79,7 +79,7 @@ namespace Smuxi.Engine
             }
         }
         
-        static public TextColor Blue {
+        public static TextColor Blue {
             get {
                 return _Blue;
             }
@@ -88,7 +88,7 @@ namespace Smuxi.Engine
             }
         }
         
-        static public TextColor Green {
+        public static TextColor Green {
             get {
                 return _Green;
             }
@@ -97,7 +97,7 @@ namespace Smuxi.Engine
             }
         }
         
-        static public TextColor Red {
+        public static TextColor Red {
             get {
                 return _Red;
             }
@@ -106,7 +106,7 @@ namespace Smuxi.Engine
             }
         }
         
-        static public TextColor Brown {
+        public static TextColor Brown {
             get {
                 return _Brown;
             }
@@ -115,7 +115,7 @@ namespace Smuxi.Engine
             }
         }
 
-        static public TextColor Purple {
+        public static TextColor Purple {
             get {
                 return _Purple;
             }
@@ -124,7 +124,7 @@ namespace Smuxi.Engine
             }
         }
 
-        static public TextColor Orange {
+        public static TextColor Orange {
             get {
                 return _Orange;
             }
@@ -133,7 +133,7 @@ namespace Smuxi.Engine
             }
         }
 
-        static public TextColor Yellow {
+        public static TextColor Yellow {
             get {
                 return _Yellow;
             }
@@ -142,7 +142,7 @@ namespace Smuxi.Engine
             }
         }
 
-        static public TextColor LightGreen {
+        public static TextColor LightGreen {
             get {
                 return _LightGreen;
             }
@@ -151,7 +151,7 @@ namespace Smuxi.Engine
             }
         }
 
-        static public TextColor Teal {
+        public static TextColor Teal {
             get {
                 return _Teal;
             }
@@ -160,7 +160,7 @@ namespace Smuxi.Engine
             }
         }
 
-        static public TextColor LightCyan {
+        public static TextColor LightCyan {
             get {
                 return _LightCyan;
             }
@@ -169,7 +169,7 @@ namespace Smuxi.Engine
             }
         }
 
-        static public TextColor LightBlue {
+        public static TextColor LightBlue {
             get {
                 return _LightBlue;
             }
@@ -178,7 +178,7 @@ namespace Smuxi.Engine
             }
         }
 
-        static public TextColor LightPurple {
+        public static TextColor LightPurple {
             get {
                 return _LightPurple;
             }
@@ -187,7 +187,7 @@ namespace Smuxi.Engine
             }
         }
 
-        static public TextColor Grey {
+        public static TextColor Grey {
             get {
                 return _Grey;
             }
@@ -196,7 +196,7 @@ namespace Smuxi.Engine
             }
         }
 
-        static public TextColor LightGrey {
+        public static TextColor LightGrey {
             get {
                 return _LightGrey;
             }

@@ -222,22 +222,15 @@ namespace Smuxi.Engine
             return (FrontendManager)_FrontendManagers[uri];
         }
         
-        public ChatModel GetChat(string name, ChatType chatType, IProtocolManager networkManager)
+        public ChatModel GetChat(string id, ChatType chatType, IProtocolManager networkManager)
         {
-            return GetChat(name, chatType, NetworkProtocol.None, networkManager);
-        }                                     
-                                         
-        public ChatModel GetChat(string name, ChatType chatType,
-                                 NetworkProtocol networkProtocol, IProtocolManager networkManager)
-        {
-            if (name == null) {
-                throw new ArgumentNullException("name");
+            if (id == null) {
+                throw new ArgumentNullException("id");
             }
             
             foreach (ChatModel chat in _Chats) {
-                if ((chat.Name.ToLower() == name.ToLower()) &&
+                if ((chat.ID.ToLower() == id.ToLower()) &&
                     (chat.ChatType == chatType) &&
-                    /*(chat.NetworkProtocol == networkProtocol) && */
                     (chat.ProtocolManager == networkManager)) {
                     return chat;
                 }

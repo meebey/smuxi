@@ -202,6 +202,9 @@ namespace Smuxi.Engine
         
         public void DisableChat(ChatModel chat)
         {
+            if (_SyncedChats.Contains(chat)) {
+                _SyncedChats.Remove(chat);
+            }
             _Queue.Enqueue(new UICommandContainer(UICommand.DisableChat, chat));
         }
         

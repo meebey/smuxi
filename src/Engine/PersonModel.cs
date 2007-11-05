@@ -53,7 +53,7 @@ namespace Smuxi.Engine
         protected PersonModel(SerializationInfo info, StreamingContext ctx) :
                          base(info, ctx)
         {
-            // we might optimize this away, causes 800 bytes per remoting call 
+            // TODO: we might optimize this away, causes 800 bytes per remoting call 
             _ProtocolManager = (IProtocolManager) info.GetValue("_ProtocolManager", typeof(IProtocolManager));
         }
         

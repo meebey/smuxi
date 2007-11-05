@@ -30,6 +30,7 @@ using System;
 
 namespace Smuxi.Engine
 {
+    // TODO: use FastSerializer
     [Serializable]
     public class TextMessagePartModel : MessagePartModel
     {

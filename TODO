@@ -14,11 +14,13 @@ X server manager GUI
   X on connected commands
 - channel list GUI
 - engines manager GUI
-X colors in channels (hightlighting)
+X colors in channels (highlighting)
 X create debian package
 X make preferences smaller!
 - add date stamps between days like irssi
 - smarter /op /deop /voice /devoice (using multiple modes)
+- /ban
+- /mode
 - release smuxi.meebey.net
 - release www.meebey.net
 - release sourceforge
@@ -26,19 +28,26 @@ X make preferences smaller!
 - release gfiles
 - release go-mono.org
 - release mono-announce
-- /ban
-- /mode
 
 Bugs:
+- https://foo ftp://foo opens incorect URLs
 - join #gentoo on freenode, syncing bug?
 - /away needs to set away on _all_ networks
 - after join ops/voices are not synced correctly?
 - scrolling notebook doesnt work?
 - /quit reconnects?
 - track rename for person chats 19:02 -!- Nils`- is now known as Nils`aw
-- when reconnecting it needs to re-sync the pages: reconnect -> disable pages -> enabled pages -> sync
+X when reconnecting it needs to re-sync the pages: reconnect -> disable pages -> enabled pages -> sync
+X erste message im query wird nicht formatiert, z.b. /msg foo hallo _bar_
+X Nick highlight is case-sensitive
+X URLs in eigenen actions sind nicht klickbar
 
 Feature Requests:
+- make #channel clickable
+- handle irc:// urls (gnome)
+- banshee plugin via dbus (now playing...)
+- dbus support
+- smarter fallback nicknames, nick_ nick__ should be tried as default if no alternative nicks are defined
 - GUI for changing topic (enjoi)
 - apply config changes without restart (enjoi)
 - mini identd server for windows support (enjoi)
@@ -54,7 +63,6 @@ Feature Requests:
 - remember highlight and activity states, even after reconnecting the frontend 
 - /squery command (SQUERY service: command)
 - telepathy support
-- dbus support
 - show smuxi in tray when minimized
 - chat logging
 - setable highlight words

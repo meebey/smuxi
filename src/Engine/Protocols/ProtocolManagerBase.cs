@@ -160,5 +160,10 @@ namespace Smuxi.Engine
         {
             return Mono.Unix.Catalog.GetString(msg);
         }
+        
+        protected ChatModel GetChat(string id, ChatType chatType)
+        {
+            return _Session.GetChat(id, chatType, this);
+        }
     }
 }

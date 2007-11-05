@@ -517,19 +517,21 @@ namespace Smuxi.Frontend.Gnome
                 string name;
                 if (cd.DataArray[1].ToLower() == "close") {
                     name = currentChatModel.Name;
+                    // BUG: handle this in GNOME-IRC
+                    /*
                     if (currentChatModel.ChatType != ChatType.Network) {
-                        /*
                         if (currentChatModel.ProtocolManager is IrcProtocolManager) {
                             IrcProtocolManager ircm = (IrcProtocolManager) currentChatModel.ProtocolManager; 
                             if (currentChatModel.ChatType == ChatType.Group) {
+                                // channel
                                 ircm.CommandPart(new CommandModel(fm, currentChatModel, name));
                             } else {
                                 // query
                                 Frontend.Session.RemoveChat(currentChatModel);
                             }
                         }
-                        */
                     }
+                    */
                 } else {
                     bool is_number = false;
                     int pagecount = _Notebook.NPages;

@@ -39,6 +39,7 @@ namespace Smuxi.Engine
         Telnet,
     }
     
+    // TODO: use FastSerializer
     [Serializable]
     public class UrlMessagePartModel : TextMessagePartModel
     {

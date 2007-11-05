@@ -68,10 +68,11 @@ namespace Smuxi.Engine
             }
         }
         
+        // safe version
         public IDictionary<string, PersonModel> Persons {
             get {
+                // during cloning, someone could modify it and break the enumerator
                 lock (_Persons) {
-                    // during cloning, someone could modify it and break the enumerator
                     return new Dictionary<string, PersonModel>(_Persons);
                 }
             }
@@ -119,7 +120,7 @@ namespace Smuxi.Engine
             _Logger.Debug("PersonLookup(): GroupChatModel.Name: " + Name);
 #endif
             int identityNameLength = identityName.Length; 
-            // must use a copy here of Users, public method which can be used by a frontend (or many)
+            // must use a safe version (copy) here of Users, public method which can be used by a frontend (or many)
             foreach (PersonModel person in Persons.Values) {
                 if ((person.IdentityName.Length >= identityNameLength) &&
                     (person.IdentityName.Substring(0, identityNameLength).ToLower() == identityName.ToLower())) {

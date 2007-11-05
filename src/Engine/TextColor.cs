@@ -27,13 +27,15 @@
  */
 
 using System;
+using System.Runtime.Serialization;
+using Smuxi.Common;
 
 namespace Smuxi.Engine
 {
     [Serializable]
-    public class TextColor
+    public class TextColor : ISerializable
     {
-        public static TextColor None = new TextColor();
+        public static readonly TextColor None = new TextColor();
         
         private int _HexCode;
         
@@ -51,6 +53,29 @@ namespace Smuxi.Engine
         public TextColor(int hexcode)
         {
             _HexCode = hexcode;
+        }
+
+        protected TextColor(SerializationInfo info, StreamingContext ctx)
+        {
+            SerializationReader sr = SerializationReader.GetReader(info);
+            SetObjectData(sr);
+        }
+        
+        protected virtual void SetObjectData(SerializationReader sr)
+        {
+            _HexCode = sr.ReadInt32();
+        }
+        
+        protected virtual void GetObjectData(SerializationWriter sw)
+        {
+            sw.Write(_HexCode);
+        }
+        
+        public virtual void GetObjectData(SerializationInfo info, StreamingContext ctx) 
+        {
+            SerializationWriter sw = SerializationWriter.GetWriter(); 
+            GetObjectData(sw);
+            sw.AddToInfo(info);
         }
     }
 }

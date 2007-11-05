@@ -31,6 +31,7 @@ using Smuxi.Common;
 
 namespace Smuxi.Engine
 {
+    // TODO: use FastSerializer
     [Serializable]
     public class CommandModel : ITraceable
     {
