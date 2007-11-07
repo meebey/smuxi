@@ -41,10 +41,10 @@ namespace Smuxi.Engine
         
         public string NickName {
             get {
-                return base.IdentityName;
+                return IdentityName;
             }
             set {
-                base.IdentityName = value;
+                IdentityName = value;
             }
         }
         
@@ -77,13 +77,29 @@ namespace Smuxi.Engine
         
         public IrcPersonModel(string nickName, string realName, string ident, string host,
                               string networkID, IProtocolManager networkManager) :
-                         base(nickName, nickName, networkID, NetworkProtocol.Irc, networkManager)
+                         base(nickName, nickName, networkID, "IRC", networkManager)
         {
+            if (realName == null) {
+                throw new ArgumentNullException("realName");
+            }
+            if (ident == null) {
+                throw new ArgumentNullException("ident");
+            }
+            if (host == null) {
+                throw new ArgumentNullException("host");
+            }
+
             _RealName = realName;
             _Ident = ident;
             _Host = host;
         }
 
+        protected IrcPersonModel(string nickName, string networkID, 
+                                 IProtocolManager networkManager) :
+                         base(nickName, nickName, networkID, "IRC", networkManager)
+        {
+        }
+        
         protected IrcPersonModel(SerializationInfo info, StreamingContext ctx) :
                             base(info, ctx)
         {
@@ -91,6 +107,10 @@ namespace Smuxi.Engine
         
         protected override void GetObjectData(SerializationWriter sw) 
         {
+            if (sw == null) {
+                throw new ArgumentNullException("sw");
+            }
+            
             base.GetObjectData(sw);
             
             sw.Write(_RealName);
@@ -100,6 +120,10 @@ namespace Smuxi.Engine
         
         protected override void SetObjectData(SerializationReader sr)
         {
+            if (sr == null) {
+                throw new ArgumentNullException("sr");
+            }
+            
             base.SetObjectData(sr);
             
             _RealName = sr.ReadString();

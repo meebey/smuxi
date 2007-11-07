@@ -44,21 +44,40 @@ namespace Smuxi.Engine
         }
         
         public PersonModel(string id, string displayName,
-                           string networkID, NetworkProtocol networkProtocol, IProtocolManager networkManager) :
+                           string networkID, string networkProtocol,
+                           IProtocolManager protocolManager) :
                       base(id, displayName, networkID, networkProtocol)
         {
-            _ProtocolManager = networkManager;
+            if (protocolManager == null) {
+                throw new ArgumentNullException("protocolManager");
+            }
+            
+            _ProtocolManager = protocolManager;
         }
         
         protected PersonModel(SerializationInfo info, StreamingContext ctx) :
                          base(info, ctx)
         {
+            if (info == null) {
+                throw new ArgumentNullException("info");
+            }
+            if (ctx == null) {
+                throw new ArgumentNullException("ctx");
+            }
+            
             // TODO: we might optimize this away, causes 800 bytes per remoting call 
             _ProtocolManager = (IProtocolManager) info.GetValue("_ProtocolManager", typeof(IProtocolManager));
         }
         
         public override void GetObjectData(SerializationInfo info, StreamingContext ctx)
         {
+            if (info == null) {
+                throw new ArgumentNullException("info");
+            }
+            if (ctx == null) {
+                throw new ArgumentNullException("ctx");
+            }
+
             base.GetObjectData(info, ctx);
             
             info.AddValue("_ProtocolManager", _ProtocolManager);

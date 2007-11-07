@@ -39,22 +39,22 @@ namespace Smuxi.Engine
 #if LOG4NET
         private static readonly log4net.ILog _Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 #endif
-        private int              _Version = 0;
-        private Hashtable        _FrontendManagers = Hashtable.Synchronized(new Hashtable());
-        private ArrayList        _ProtocolManagers = ArrayList.Synchronized(new ArrayList());
-        private ArrayList        _Chats = ArrayList.Synchronized(new ArrayList());
-        private Config           _Config;
-        private ProtocolManagerFactory _ProtocolManagerFactory;
-        private UserConfig       _UserConfig;
-        private bool             _OnStartupCommandsProcessed;
+        private int                                   _Version = 0;
+        private IDictionary<string, FrontendManager>  _FrontendManagers; 
+        private IList<IProtocolManager>               _ProtocolManagers;
+        private IList<ChatModel>                      _Chats;
+        private Config                                _Config;
+        private ProtocolManagerFactory                _ProtocolManagerFactory;
+        private UserConfig                            _UserConfig;
+        private bool                                  _OnStartupCommandsProcessed;
         
-        public ArrayList ProtocolManagers {
+        public IList<IProtocolManager> ProtocolManagers {
             get {
                 return _ProtocolManagers;
             }
         }
         
-        public ArrayList Chats {
+        public IList<ChatModel> Chats {
             get {
                 return _Chats;
             }
@@ -95,6 +95,10 @@ namespace Smuxi.Engine
             
             _Config = config;
             _ProtocolManagerFactory = protocolManagerFactory;
+            
+            _FrontendManagers = new Dictionary<string, FrontendManager>();
+            _ProtocolManagers = new List<IProtocolManager>();
+            _Chats = new List<ChatModel>();
             _UserConfig = new UserConfig(config, username);
             
             ChatModel chat = new NetworkChatModel("smuxi", "smuxi", null);
@@ -505,7 +509,7 @@ namespace Smuxi.Engine
             fm.AddTextToCurrentChat("-!- " + _("Networks") + ":");
             foreach (IProtocolManager nm in _ProtocolManagers) {
                 fm.AddTextToCurrentChat("-!- " +
-                    _("Type") + ": " + nm.NetworkProtocol.ToString().ToUpper() + " " +
+                    _("Type") + ": " + nm.Protocol + " " +
                     _("Host") + ": " + nm.Host + " " + 
                     _("Port") + ": " + nm.Port);
             }
@@ -586,6 +590,10 @@ namespace Smuxi.Engine
         {
         	Trace.Call(chat);
         	
+            if (chat == null) {
+                throw new ArgumentNullException("chat");
+            }
+            
             _Chats.Add(chat);
             foreach (FrontendManager fm in _FrontendManagers.Values) {
                 fm.AddChat(chat);
@@ -597,6 +605,10 @@ namespace Smuxi.Engine
         {
         	Trace.Call(chat);
         	
+            if (chat == null) {
+                throw new ArgumentNullException("chat");
+            }
+            
             _Chats.Remove(chat);
             foreach (FrontendManager fm in _FrontendManagers.Values) {
                 fm.RemoveChat(chat);
@@ -607,6 +619,10 @@ namespace Smuxi.Engine
         {
         	Trace.Call(chat);
         	
+            if (chat == null) {
+                throw new ArgumentNullException("chat");
+            }
+            
         	chat.IsEnabled = true;
             foreach (FrontendManager fm in _FrontendManagers.Values) {
                 fm.EnableChat(chat);
@@ -617,6 +633,10 @@ namespace Smuxi.Engine
         {
         	Trace.Call(chat);
         	
+            if (chat == null) {
+                throw new ArgumentNullException("chat");
+            }
+            
         	chat.IsEnabled = false;
             foreach (FrontendManager fm in _FrontendManagers.Values) {
                 fm.DisableChat(chat);
@@ -627,6 +647,10 @@ namespace Smuxi.Engine
         {
         	Trace.Call(chat);
         	
+            if (chat == null) {
+                throw new ArgumentNullException("chat");
+            }
+            
             foreach (FrontendManager fm in _FrontendManagers.Values) {
                 fm.SyncChat(chat);
             }
@@ -634,26 +658,47 @@ namespace Smuxi.Engine
         
         public void AddTextToChat(ChatModel chat, string text)
         {
+            if (chat == null) {
+                throw new ArgumentNullException("chat");
+            }
+            if (text == null) {
+                throw new ArgumentNullException("text");
+            }
+            
             AddMessageToChat(chat, new MessageModel(text));
         }
         
-        public void AddMessageToChat(ChatModel chat, MessageModel fmsg)
+        public void AddMessageToChat(ChatModel chat, MessageModel msg)
         {
+            if (chat == null) {
+                throw new ArgumentNullException("chat");
+            }
+            if (msg == null) {
+                throw new ArgumentNullException("msg");
+            }
+            
             int buffer_lines = (int)UserConfig["Interface/Notebook/EngineBufferLines"];
             if (buffer_lines > 0) {
-                chat.UnsafeMessages.Add(fmsg);
+                chat.UnsafeMessages.Add(msg);
                 if (chat.UnsafeMessages.Count > buffer_lines) {
                     chat.UnsafeMessages.RemoveAt(0);
                 }
             }
             
             foreach (FrontendManager fm in _FrontendManagers.Values) {
-                fm.AddMessageToChat(chat, fmsg);
+                fm.AddMessageToChat(chat, msg);
             }
         }
         
         public void AddPersonToGroupChat(GroupChatModel groupChat, PersonModel person)
         {
+            if (groupChat == null) {
+                throw new ArgumentNullException("groupChat");
+            }
+            if (person == null) {
+                throw new ArgumentNullException("person");
+            }
+            
 #if LOG4NET
             _Logger.Debug("AddPersonToGroupChat() groupChat.Name: "+groupChat.Name+" person.IdentityName: "+person.IdentityName);
 #endif
@@ -662,20 +707,40 @@ namespace Smuxi.Engine
             }
         }
         
-        public void UpdatePersonInGroupChat(GroupChatModel groupChat, PersonModel oldperson, PersonModel newperson)
+        public void UpdatePersonInGroupChat(GroupChatModel groupChat, PersonModel oldPerson, PersonModel newPerson)
         {
+            if (groupChat == null) {
+                throw new ArgumentNullException("groupChat");
+            }
+            if (oldPerson == null) {
+                throw new ArgumentNullException("oldPerson");
+            }
+            if (newPerson == null) {
+                throw new ArgumentNullException("newPerson");
+            }
+            
 #if LOG4NET
-            _Logger.Debug("UpdatePersonInGroupChat() groupChat.Name: " + groupChat.Name + " oldperson.IdentityName: " + oldperson.IdentityName + " newperson.IdentityName: "+newperson.IdentityName);
+            _Logger.Debug("UpdatePersonInGroupChat()" +
+                          " groupChat.Name: " + groupChat.Name +
+                          " oldPerson.IdentityName: " + oldPerson.IdentityName +
+                          " newPerson.IdentityName: " + newPerson.IdentityName);
 #endif
-            groupChat.UnsafePersons.Remove(oldperson.ID.ToLower());
-            groupChat.UnsafePersons.Add(newperson.ID.ToLower(), newperson);
+            groupChat.UnsafePersons.Remove(oldPerson.ID.ToLower());
+            groupChat.UnsafePersons.Add(newPerson.ID.ToLower(), newPerson);
             foreach (FrontendManager fm in _FrontendManagers.Values) {
-                fm.UpdatePersonInGroupChat(groupChat, oldperson, newperson);
+                fm.UpdatePersonInGroupChat(groupChat, oldPerson, newPerson);
             }
         }
     
         public void UpdateTopicInGroupChat(GroupChatModel groupChat, string topic)
         {
+            if (groupChat == null) {
+                throw new ArgumentNullException("groupChat");
+            }
+            if (topic == null) {
+                throw new ArgumentNullException("topic");
+            }
+
 #if LOG4NET
             _Logger.Debug("UpdateTopicInGroupChat() groupChat.Name: " + groupChat.Name + " topic: " + topic);
 #endif
@@ -687,6 +752,13 @@ namespace Smuxi.Engine
     
         public void RemovePersonFromGroupChat(GroupChatModel groupChat, PersonModel person)
         {
+            if (groupChat == null) {
+                throw new ArgumentNullException("groupChat");
+            }
+            if (person == null) {
+                throw new ArgumentNullException("person");
+            }
+            
 #if LOG4NET
             _Logger.Debug("RemovePersonFromGroupChat() groupChat.Name: " + groupChat.Name + " person.ID: "+person.ID);
 #endif
@@ -698,6 +770,10 @@ namespace Smuxi.Engine
         
         public void SetNetworkStatus(string status)
         {
+            if (status == null) {
+                throw new ArgumentNullException("status");
+            }
+            
 #if LOG4NET
             _Logger.Debug("SetNetworkStatus() status: "+status);
 #endif
@@ -708,6 +784,10 @@ namespace Smuxi.Engine
         
         public void SetStatus(string status)
         {
+            if (status == null) {
+                throw new ArgumentNullException("status");
+            }
+            
 #if LOG4NET
             _Logger.Debug("SetStatus() status: "+status);
 #endif
@@ -721,7 +801,7 @@ namespace Smuxi.Engine
             return _ProtocolManagerFactory.GetProtocols();
         }
         
-        private IProtocolManager _CreateProtocolManager(FrontendManager fm ,string protocol)
+        private IProtocolManager _CreateProtocolManager(FrontendManager fm, string protocol)
         {
             ProtocolManagerInfoModel info = _ProtocolManagerFactory.GetProtocolManagerInfoByAlias(protocol); 
             if (info == null) {

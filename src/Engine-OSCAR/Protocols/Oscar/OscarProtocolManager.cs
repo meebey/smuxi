@@ -42,12 +42,6 @@ namespace Smuxi.Engine
             }
         }
         
-        public override NetworkProtocol NetworkProtocol {
-            get {
-                return NetworkProtocol.Oscar;
-            }
-        }
-        
         public override string Protocol {
             get {
                 return "OSCAR";

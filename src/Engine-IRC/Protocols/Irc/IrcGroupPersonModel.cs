@@ -67,7 +67,7 @@ namespace Smuxi.Engine
         }
         
         public IrcGroupPersonModel(string nickname, string networkID, IProtocolManager networkManager) :
-                              base(nickname, null, null, null, networkID, networkManager)
+                              base(nickname, networkID, networkManager)
         {
         }
         
@@ -78,6 +78,10 @@ namespace Smuxi.Engine
         
         protected override void GetObjectData(SerializationWriter sw) 
         {
+            if (sw == null) {
+                throw new ArgumentNullException("sw");
+            }
+            
             base.GetObjectData(sw);
 
             sw.Write(_IsOp);
@@ -86,6 +90,10 @@ namespace Smuxi.Engine
 
         protected override void SetObjectData(SerializationReader sr)
         {
+            if (sr == null) {
+                throw new ArgumentNullException("sr");
+            }
+            
             base.SetObjectData(sr);
             
             _IsOp    = sr.ReadBoolean();

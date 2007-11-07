@@ -63,12 +63,6 @@ namespace Smuxi.Engine
             }
         }
         
-        public override NetworkProtocol NetworkProtocol {
-            get {
-                return NetworkProtocol.Xmpp;
-            }
-        }
-        
         public override string Protocol {
             get {
                 return "XMPP";
@@ -187,7 +181,7 @@ namespace Smuxi.Engine
             fmsgti.Bold = true;
             fmsg.MessageParts.Add(fmsgti);
             
-            this.Session.AddMessageToChat(cd.FrontendManager.CurrentChat, fmsg);
+            Session.AddMessageToChat(cd.FrontendManager.CurrentChat, fmsg);
             
             string[] help = {
             "help",
@@ -302,12 +296,12 @@ namespace Smuxi.Engine
             if (xmppMsg.Type == MessageType.chat) {
                 string jid = xmppMsg.From.ToString();
                 string user = xmppMsg.From.User;
-                ChatModel chat = this.Session.GetChat(user, ChatType.Person, this);
+                ChatModel chat = Session.GetChat(user, ChatType.Person, this);
                 if (chat == null) {
                     PersonModel person = new PersonModel(jid, user, 
-                                                NetworkID, NetworkProtocol, this);
+                                                NetworkID, Protocol, this);
                     chat = new PersonChatModel(person, jid, user, this);
-                    this.Session.AddChat(chat);
+                    Session.AddChat(chat);
                 }
                 
                 MessageModel msg = new MessageModel();

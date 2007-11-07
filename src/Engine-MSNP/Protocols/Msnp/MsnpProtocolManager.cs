@@ -40,12 +40,6 @@ namespace Smuxi.Engine
             }
         }
         
-        public override NetworkProtocol NetworkProtocol {
-            get {
-                return NetworkProtocol.Msn;
-            }
-        }
-        
         public override string Protocol {
             get {
                 return "MSNP";
@@ -278,7 +272,7 @@ namespace Smuxi.Engine
             e.Conversation.Switchboard.TextMessageReceived +=  delegate(object sender2, TextMessageEventArgs e2) {
                 PersonModel person = new PersonModel(e2.Sender.Name,
                                                      e2.Sender.Name,
-                                                     NetworkID, NetworkProtocol,
+                                                     NetworkID, Protocol,
                                                      this);
                 PersonChatModel personChat = new PersonChatModel(person,
                                                                  e2.Sender.Name,
@@ -299,7 +293,7 @@ namespace Smuxi.Engine
 
             ChatModel chat = Session.GetChat(user, ChatType.Person, this);
             if (chat == null) {
-               PersonModel person = new PersonModel(user, user, NetworkID, NetworkProtocol, this);
+               PersonModel person = new PersonModel(user, user, NetworkID, Protocol, this);
                    Session.AddChat(chat);
             }
 

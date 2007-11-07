@@ -106,12 +106,6 @@ namespace Smuxi.Engine
             }
         }
         
-        public override NetworkProtocol NetworkProtocol {
-            get {
-                return NetworkProtocol.Irc;
-            }
-        }
-
         public override ChatModel Chat {
             get {
                 return _NetworkChat;
@@ -697,7 +691,7 @@ namespace Smuxi.Engine
                 ChatModel chat = GetChat(nickname, ChatType.Person);
                 if (chat == null) {
                     PersonModel person = new PersonModel(nickname, nickname,
-                                                NetworkID, NetworkProtocol, this);
+                                                NetworkID, Protocol, this);
                     chat = new PersonChatModel(person, nickname, nickname, this);
                     Session.AddChat(chat);
                 }
@@ -1075,13 +1069,16 @@ namespace Smuxi.Engine
 #if LOG4NET
                         _Logger.Warn("_Run(): _Listen() returned.");
 #endif
-                        System.Threading.Thread.Sleep(1000);
                     } catch (Exception ex) {
 #if LOG4NET
                         _Logger.Error("_Run(): exception in _Listen() occurred!" ,ex);
 #endif
+                        
                         Reconnect(_FrontendManager);
                     }
+                    
+                    // sleep for 30 seconds, we don't want to be abusive
+                    System.Threading.Thread.Sleep(30000);
                 }
             } catch (Exception ex) {
 #if LOG4NET
@@ -1450,6 +1447,9 @@ namespace Smuxi.Engine
                         Session.AddTextToChat(_NetworkChat, msg);
                     }
                     break;
+                case ReplyCode.ErrorBannedFromChannel:
+                    _OnErrorBannedFromChannel(e);
+                    break;
                 case ReplyCode.EndOfNames:
                     chan = e.Data.RawMessageArray[3]; 
                     GroupChatModel groupChat = (GroupChatModel)GetChat(
@@ -1460,6 +1460,27 @@ namespace Smuxi.Engine
 #endif
                     break;
             }
+        }
+        
+        private void _OnErrorBannedFromChannel(IrcEventArgs e)
+        {
+            MessageModel msg = new MessageModel();
+            TextMessagePartModel textMsg;
+            
+            textMsg = new TextMessagePartModel();
+            textMsg.Text = "-!- " + _("Cannot join to channel:") + " ";
+            msg.MessageParts.Add(textMsg);
+
+            textMsg = new TextMessagePartModel();
+            textMsg.Text = e.Data.RawMessageArray[3];
+            textMsg.Bold = true;
+            msg.MessageParts.Add(textMsg);
+
+            textMsg = new TextMessagePartModel();
+            textMsg.Text = " (" + _("You are banned") + ")";
+            msg.MessageParts.Add(textMsg);
+
+            Session.AddMessageToChat(_NetworkChat, msg);
         }
         
         private void _OnReceiveTypeWhois(IrcEventArgs e)
@@ -1632,8 +1653,9 @@ namespace Smuxi.Engine
         {
             ChatModel chat = GetChat(e.Data.Nick, ChatType.Person);
             if (chat == null) {
+                // BUG: use IrcPersonModel?
                 PersonModel person = new PersonModel(e.Data.Nick, e.Data.Nick,
-                                            NetworkID, NetworkProtocol, this);
+                                            NetworkID, Protocol, this);
                 chat = new PersonChatModel(person, e.Data.Nick, e.Data.Nick, this);
                 Session.AddChat(chat);
             }
@@ -1655,8 +1677,9 @@ namespace Smuxi.Engine
         {
             ChatModel chat = GetChat(e.Data.Nick, ChatType.Person);
             if (chat == null) {
+                // BUG: use IrcPersonModel?
                 PersonModel person = new PersonModel(e.Data.Nick, e.Data.Nick,
-                                            NetworkID, NetworkProtocol, this);
+                                            NetworkID, Protocol, this);
                 chat = new PersonChatModel(person, e.Data.Nick, e.Data.Nick, this);
                 Session.AddChat(chat);
             }
@@ -1726,14 +1749,15 @@ namespace Smuxi.Engine
         private void _OnNames(object sender, NamesEventArgs e)
         {
 #if LOG4NET
-            _Logger.Debug("_OnNames() e.Channel: "+e.Channel);
+            _Logger.Debug("_OnNames() e.Channel: " + e.Channel);
 #endif
-            GroupChatModel cchat = (GroupChatModel)GetChat(e.Data.Channel, ChatType.Group);
+            GroupChatModel cchat = (GroupChatModel) GetChat(e.Data.Channel, ChatType.Group);
             if (cchat.IsSynced) {
                 // nothing todo for us
                 return;
             }
             
+            // no need to care about op/voice, _OnChannelActiveSynced() handles it
             //bool op;
             //bool voice;
             foreach (string user in e.UserList) {
@@ -1747,7 +1771,17 @@ namespace Smuxi.Engine
                 //voice = false;
                 switch (user[0]) {
                     case '@':
+                        /*
+                        op = true;
+                        username = user.Substring(1);
+                        break;
+                        */
                     case '+':
+                        /*
+                        voice = true;
+                        username = user.Substring(1);
+                        break;
+                        */
                     // RFC VIOLATION
                     // some IRC network do this and break our nice smuxi...
                     case '&':
@@ -1783,7 +1817,7 @@ namespace Smuxi.Engine
 #if LOG4NET
             _Logger.Debug("_OnChannelActiveSynced() e.Data.Channel: "+e.Data.Channel);
 #endif
-            GroupChatModel cchat = (GroupChatModel)GetChat(e.Data.Channel, ChatType.Group);
+            GroupChatModel cchat = (GroupChatModel) GetChat(e.Data.Channel, ChatType.Group);
             Channel schan = _IrcClient.GetChannel(e.Data.Channel);
             foreach (ChannelUser scuser in schan.Users.Values) {
                 IrcGroupPersonModel icuser = (IrcGroupPersonModel)cchat.GetPerson(scuser.Nick);
@@ -1799,7 +1833,9 @@ namespace Smuxi.Engine
 #if LOG4NET
                     _Logger.Error("_OnChannelActiveSynced(): cchat.GetPerson(" + scuser.Nick + ") returned null!");
 #endif
+                    return;
                 }
+                
                 icuser.RealName = scuser.Realname;
                 icuser.Ident = scuser.Ident;
                 icuser.Host = scuser.Host;
@@ -1809,6 +1845,7 @@ namespace Smuxi.Engine
                 // don't tell any frontend yet that there is new data, SyncPage() will do it
                 //Session.UpdatePersonInGroupChat(cchat, icuser, icuser);
             }
+            
             Session.SyncChat(cchat);
         }
         
@@ -1876,8 +1913,13 @@ namespace Smuxi.Engine
 #endif
                         continue;
                     }
-                    IrcGroupPersonModel newuser = new IrcGroupPersonModel(e.NewNickname, ircuser.Realname,
-                                        ircuser.Ident, ircuser.Host, NetworkID, this);
+                    IrcGroupPersonModel newuser = new IrcGroupPersonModel(
+                                                        e.NewNickname,
+                                                        ircuser.Realname,
+                                                        ircuser.Ident,
+                                                        ircuser.Host,
+                                                        NetworkID,
+                                                        this);
                     newuser.IsOp = olduser.IsOp;
                     newuser.IsVoice = olduser.IsVoice;
                     

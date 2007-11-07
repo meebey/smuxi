@@ -36,10 +36,6 @@ namespace Smuxi.Engine
             get;
         }
         
-        NetworkProtocol NetworkProtocol {
-            get;
-        }
-        
         string Protocol {
             get;
         }

@@ -4,13 +4,13 @@
       <Output directory="../../bin/debug" assembly="smuxi-common" />
       <Build debugmode="False" target="Library" />
       <Execution runwithwarnings="False" consolepause="True" runtime="MsNet" clr-version="Net_2_0" />
-      <CodeGeneration compiler="Csc" warninglevel="4" optimize="True" unsafecodeallowed="False" generateoverflowchecks="True" mainclass="" definesymbols="DEBUG,TRACE,LOG4NET" generatexmldocumentation="False" win32Icon="./" ctype="CSharpCompilerParameters" />
+      <CodeGeneration compiler="Csc" warninglevel="4" optimize="True" unsafecodeallowed="False" generateoverflowchecks="True" mainclass="" definesymbols="NET_2_0,DEBUG,TRACE,LOG4NET" generatexmldocumentation="False" win32Icon="./" ctype="CSharpCompilerParameters" />
     </Configuration>
     <Configuration name="Release" ctype="DotNetProjectConfiguration">
       <Output directory="../../bin/release" assembly="smuxi-common" />
       <Build debugmode="False" target="Library" />
       <Execution runwithwarnings="True" consolepause="True" runtime="MsNet" clr-version="Net_2_0" />
-      <CodeGeneration compiler="Csc" warninglevel="4" optimize="True" unsafecodeallowed="False" generateoverflowchecks="True" mainclass="" generatexmldocumentation="False" win32Icon="./" ctype="CSharpCompilerParameters" />
+      <CodeGeneration compiler="Csc" warninglevel="4" optimize="True" unsafecodeallowed="False" generateoverflowchecks="True" mainclass="" definesymbols="NET_2_0" generatexmldocumentation="False" win32Icon="./" ctype="CSharpCompilerParameters" />
     </Configuration>
   </Configurations>
   <Contents>

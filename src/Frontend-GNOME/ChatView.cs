@@ -234,6 +234,7 @@ namespace Smuxi.Frontend.Gnome
         
         public virtual void Sync()
         {
+            Trace.Call();
             
 #if LOG4NET
             _Logger.Debug("Sync() syncing messages");
@@ -428,6 +429,8 @@ namespace Smuxi.Frontend.Gnome
             if (e.Event.Type != Gdk.EventType.ButtonRelease) {
                 return;
             }
+            
+            // TODO: check if something is selected, if so bail out
             
             // get URL via TextTag from TextIter
             Gtk.TextTag tag = (Gtk.TextTag) sender;

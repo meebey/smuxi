@@ -80,10 +80,6 @@ namespace Smuxi.Engine
             get;
         }
         
-        public abstract NetworkProtocol NetworkProtocol {
-            get;
-        }
-        
         public abstract ChatModel Chat {
             get;
         }
@@ -97,6 +93,10 @@ namespace Smuxi.Engine
         protected ProtocolManagerBase(Session session)
         {
             Trace.Call(session);
+            
+            if (session == null) {
+                throw new ArgumentNullException("session");
+            }
             
             _Session = session;
         }

@@ -27,13 +27,15 @@
  */
 
 using System;
+using System.Collections.Generic;
+using System.Runtime.Serialization;
 using Smuxi.Common;
 
 namespace Smuxi.Engine
 {
     // TODO: use FastSerializer
     [Serializable]
-    public class CommandModel : ITraceable
+    public class CommandModel : ITraceable, ISerializable
     {
 #if LOG4NET
         private static readonly log4net.ILog _Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
@@ -120,6 +122,49 @@ namespace Smuxi.Engine
         public CommandModel(FrontendManager fm, ChatModel chat, string parameter) :
                        this(fm, chat, "/", "/cmd " + parameter)
         {
+        }
+        
+        protected CommandModel(SerializationInfo info, StreamingContext ctx)
+        {
+            SerializationReader sr = SerializationReader.GetReader(info);
+            SetObjectData(sr);
+
+            _FrontendManager = (FrontendManager) info.GetValue("_FrontendManager", typeof(FrontendManager));
+            _Chat            = (ChatModel) info.GetValue("_Chat", typeof(ChatModel));
+        }
+        
+        protected virtual void SetObjectData(SerializationReader sr)
+        {
+            _Data             = sr.ReadString();
+            _DataArray        = _Data.Split(new char[] {' '});
+            _Parameter        = sr.ReadString();
+            _IsCommand        = sr.ReadBoolean();
+            _CommandCharacter = sr.ReadString();
+            _Command          = sr.ReadString();
+            //_FrontendManager  = (FrontendManager) sr.ReadObject();
+            //_Chat             = (ChatModel) sr.ReadObject();
+        }
+        
+        protected virtual void GetObjectData(SerializationWriter sw)
+        {
+            sw.Write(_Data);
+            //sw.Write(_DataArray);
+            sw.Write(_Parameter);
+            sw.Write(_IsCommand);
+            sw.Write(_CommandCharacter);
+            sw.Write(_Command);
+            //sw.WriteObject(_FrontendManager);
+            //sw.WriteObject(_Chat);
+        }
+        
+        public virtual void GetObjectData(SerializationInfo info, StreamingContext ctx) 
+        {
+            SerializationWriter sw = SerializationWriter.GetWriter(); 
+            GetObjectData(sw);
+            sw.AddToInfo(info);
+
+            info.AddValue("_FrontendManager", _FrontendManager);
+            info.AddValue("_Chat", _Chat);
         }
         
         public string ToTraceString()

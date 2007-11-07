@@ -52,12 +52,19 @@ namespace Smuxi.Engine
         {
             Trace.Call(config, protocolManagerFactory);
             
-            // BUG: out of scope?
-            _EngineVersion = Engine.Version;
+            if (config == null) {
+                throw new ArgumentNullException("config");
+            }
+            if (protocolManagerFactory == null) {
+                throw new ArgumentNullException("protocolManagerFactory");
+            }
             
             _Config = config;
             _ProtocolManagerFactory = protocolManagerFactory;
-            
+
+            // BUG: out of scope?
+            _EngineVersion = Engine.Version;
+
             string[] users = (string[])Engine.Config["Engine/Users/Users"];
             if (users == null) {
                 Console.WriteLine("No Engine/Users/*, aborting...\n");

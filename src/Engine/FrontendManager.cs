@@ -97,6 +97,13 @@ namespace Smuxi.Engine
         {
             Trace.Call(session, ui);
             
+            if (session == null) {
+                throw new ArgumentNullException("session");
+            }
+            if (ui == null) {
+                throw new ArgumentNullException("ui");
+            }
+            
             _Session = session;
             _UI = ui;
             _Thread = new Thread(new ThreadStart(_Worker));

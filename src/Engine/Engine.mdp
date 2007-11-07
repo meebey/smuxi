@@ -20,7 +20,6 @@
     <File name="./FrontendConfig.cs" subtype="Code" buildaction="Compile" />
     <File name="./FrontendManager.cs" subtype="Code" buildaction="Compile" />
     <File name="./IFrontendUI.cs" subtype="Code" buildaction="Compile" />
-    <File name="./NetworkProtocol.cs" subtype="Code" buildaction="Compile" />
     <File name="./PermanentRemoteObject.cs" subtype="Code" buildaction="Compile" />
     <File name="./Session.cs" subtype="Code" buildaction="Compile" />
     <File name="./SessionManager.cs" subtype="Code" buildaction="Compile" />

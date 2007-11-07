@@ -38,7 +38,7 @@ namespace Smuxi.Engine
         private string          _ID;
         private string          _IdentityName;
         private string          _NetworkID;
-        private NetworkProtocol _NetworkProtocol;
+        private string          _NetworkProtocol;
         
         public string ID {
             get {
@@ -61,15 +61,30 @@ namespace Smuxi.Engine
             }
         }
         
-        public NetworkProtocol NetworkProtocol {
+        public string NetworkProtocol {
             get {
                 return _NetworkProtocol;
             }
         }
         
         public ContactModel(string id, string identityName,
-                            string networkID, NetworkProtocol networkProtocol)
+                            string networkID, string networkProtocol)
         {
+            Trace.Call(id, identityName, networkID, networkProtocol);
+            
+            if (id == null) {
+                throw new ArgumentNullException("id");
+            }
+            if (identityName == null) {
+                throw new ArgumentNullException("identityName");
+            }
+            if (networkID == null) {
+                throw new ArgumentNullException("networkID");
+            }
+            if (networkProtocol == null) {
+                throw new ArgumentNullException("networkProtocol");
+            }
+                
             _ID = id;
             _IdentityName = identityName;
             _NetworkID = networkID;
@@ -78,28 +93,50 @@ namespace Smuxi.Engine
         
         protected ContactModel(SerializationInfo info, StreamingContext ctx)
         {
+            if (info == null) {
+                throw new ArgumentNullException("info");
+            }
+            if (ctx == null) {
+                throw new ArgumentNullException("ctx");
+            }
+
             SerializationReader sr = SerializationReader.GetReader(info);
             SetObjectData(sr);
         }
         
         protected virtual void SetObjectData(SerializationReader sr)
         {
+            if (sr == null) {
+                throw new ArgumentNullException("sr");
+            }
+
             _ID              = sr.ReadString();
             _IdentityName    = sr.ReadString();
             _NetworkID       = sr.ReadString();
-            _NetworkProtocol = (NetworkProtocol) sr.ReadInt32();
+            _NetworkProtocol = sr.ReadString();
         }
         
         protected virtual void GetObjectData(SerializationWriter sw)
         {
+            if (sw == null) {
+                throw new ArgumentNullException("sw");
+            }
+
             sw.Write(_ID);
             sw.Write(_IdentityName);
             sw.Write(_NetworkID);
-            sw.Write((int) _NetworkProtocol);
+            sw.Write(_NetworkProtocol);
         }
         
         public virtual void GetObjectData(SerializationInfo info, StreamingContext ctx) 
         {
+            if (info == null) {
+                throw new ArgumentNullException("info");
+            }
+            if (ctx == null) {
+                throw new ArgumentNullException("ctx");
+            }
+
             SerializationWriter sw = SerializationWriter.GetWriter(); 
             GetObjectData(sw);
             sw.AddToInfo(info);
