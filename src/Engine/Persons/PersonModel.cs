@@ -61,9 +61,6 @@ namespace Smuxi.Engine
             if (info == null) {
                 throw new ArgumentNullException("info");
             }
-            if (ctx == null) {
-                throw new ArgumentNullException("ctx");
-            }
             
             // TODO: we might optimize this away, causes 800 bytes per remoting call 
             _ProtocolManager = (IProtocolManager) info.GetValue("_ProtocolManager", typeof(IProtocolManager));
@@ -73,9 +70,6 @@ namespace Smuxi.Engine
         {
             if (info == null) {
                 throw new ArgumentNullException("info");
-            }
-            if (ctx == null) {
-                throw new ArgumentNullException("ctx");
             }
 
             base.GetObjectData(info, ctx);

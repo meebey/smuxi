@@ -597,7 +597,9 @@ namespace Smuxi.Engine
             _Chats.Add(chat);
             foreach (FrontendManager fm in _FrontendManagers.Values) {
                 fm.AddChat(chat);
-                fm.SyncChat(chat);
+                // BUG: race condition? the (group) chat isn't fully ready yet to be synced
+                // The ProtocolManager will tell us when the chat is ready to be synced
+                //fm.SyncChat(chat);
             }
         }
         

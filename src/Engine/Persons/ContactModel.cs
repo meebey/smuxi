@@ -96,12 +96,20 @@ namespace Smuxi.Engine
             if (info == null) {
                 throw new ArgumentNullException("info");
             }
-            if (ctx == null) {
-                throw new ArgumentNullException("ctx");
-            }
 
             SerializationReader sr = SerializationReader.GetReader(info);
             SetObjectData(sr);
+        }
+        
+        public virtual void GetObjectData(SerializationInfo info, StreamingContext ctx) 
+        {
+            if (info == null) {
+                throw new ArgumentNullException("info");
+            }
+
+            SerializationWriter sw = SerializationWriter.GetWriter(); 
+            GetObjectData(sw);
+            sw.AddToInfo(info);
         }
         
         protected virtual void SetObjectData(SerializationReader sr)
@@ -126,20 +134,6 @@ namespace Smuxi.Engine
             sw.Write(_IdentityName);
             sw.Write(_NetworkID);
             sw.Write(_NetworkProtocol);
-        }
-        
-        public virtual void GetObjectData(SerializationInfo info, StreamingContext ctx) 
-        {
-            if (info == null) {
-                throw new ArgumentNullException("info");
-            }
-            if (ctx == null) {
-                throw new ArgumentNullException("ctx");
-            }
-
-            SerializationWriter sw = SerializationWriter.GetWriter(); 
-            GetObjectData(sw);
-            sw.AddToInfo(info);
         }
         
         public virtual string ToTraceString()

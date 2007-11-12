@@ -27,12 +27,13 @@
  */
 
 using System;
+using System.Runtime.Serialization;
+using Smuxi.Common;
 
 namespace Smuxi.Engine
 {
-    // TODO: use FastSerializer
     [Serializable]
-    public abstract class MessagePartModel
+    public abstract class MessagePartModel : ISerializable
     {
         private bool                     _IsHighlight;
         
@@ -52,6 +53,29 @@ namespace Smuxi.Engine
         protected MessagePartModel(bool highlight)
         {
             _IsHighlight = highlight;
+        }
+
+        protected MessagePartModel(SerializationInfo info, StreamingContext ctx)
+        {
+            SerializationReader sr = SerializationReader.GetReader(info);
+            SetObjectData(sr);
+        }
+        
+        protected virtual void SetObjectData(SerializationReader sr)
+        {
+            _IsHighlight = sr.ReadBoolean();
+        }
+        
+        protected virtual void GetObjectData(SerializationWriter sw)
+        {
+            sw.Write(_IsHighlight);
+        }
+        
+        public virtual void GetObjectData(SerializationInfo info, StreamingContext ctx) 
+        {
+            SerializationWriter sw = SerializationWriter.GetWriter(); 
+            GetObjectData(sw);
+            sw.AddToInfo(info);
         }
     }
 }

@@ -27,10 +27,11 @@
  */
 
 using System;
+using System.Runtime.Serialization;
+using Smuxi.Common;
 
 namespace Smuxi.Engine
 {
-    // TODO: use FastSerializer
     [Serializable]
     public class TextMessagePartModel : MessagePartModel
     {
@@ -130,9 +131,9 @@ namespace Smuxi.Engine
             }
             
             _Underline = underline;
-            _Bold = bold;
-            _Italic = italic;
-            _Text = text;
+            _Bold      = bold;
+            _Italic    = italic;
+            _Text      = text;
         }
         
         public TextMessagePartModel(TextColor fgColor, TextColor bgColor,
@@ -140,6 +141,35 @@ namespace Smuxi.Engine
                                     string text) :
                                this(fgColor, bgColor, underline, bold, italic, text, false)
         {
+        }
+
+        protected TextMessagePartModel(SerializationInfo info, StreamingContext ctx) :
+                                  base(info, ctx)
+        {
+        }
+        
+        protected override void SetObjectData(SerializationReader sr)
+        {
+            base.SetObjectData(sr);
+            
+            _ForegroundColor = new TextColor(sr.ReadInt32());
+            _BackgroundColor = new TextColor(sr.ReadInt32());
+            _Underline       = sr.ReadBoolean();
+            _Bold            = sr.ReadBoolean();
+            _Italic          = sr.ReadBoolean();
+            _Text            = sr.ReadString();
+        }
+        
+        protected override void GetObjectData(SerializationWriter sw)
+        {
+            base.GetObjectData(sw);
+
+            sw.Write(_ForegroundColor.HexCode);
+            sw.Write(_BackgroundColor.HexCode);
+            sw.Write(_Underline);
+            sw.Write(_Bold);
+            sw.Write(_Italic);
+            sw.Write(_Text);
         }
     }
 }

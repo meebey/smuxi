@@ -33,7 +33,6 @@ using Smuxi.Common;
 
 namespace Smuxi.Engine
 {
-    // TODO: use FastSerializer
     [Serializable]
     public class CommandModel : ITraceable, ISerializable
     {
@@ -99,7 +98,8 @@ namespace Smuxi.Engine
         
         public CommandModel(FrontendManager fm, ChatModel chat, string cmdChar, string data)
         {
-            Trace.Call(fm, chat, cmdChar, data);
+            //Trace.Call(fm, chat, cmdChar, data);
+            Trace.Call(fm, chat == null ? "(null)" : chat.GetType().ToString(), cmdChar, data);
             
             _Data = data;
             _DataArray = data.Split(new char[] {' '});
@@ -135,6 +135,7 @@ namespace Smuxi.Engine
         
         protected virtual void SetObjectData(SerializationReader sr)
         {
+            // FIXME: optimize this by re-parsing instead of deserializing
             _Data             = sr.ReadString();
             _DataArray        = _Data.Split(new char[] {' '});
             _Parameter        = sr.ReadString();

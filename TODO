@@ -30,7 +30,7 @@ X make preferences smaller!
 - release mono-announce
 
 Bugs:
-- https://foo ftp://foo opens incorect URLs
+X https://foo ftp://foo opens incorect URLs
 - join #gentoo on freenode, syncing bug?
 - /away needs to set away on _all_ networks
 - after join ops/voices are not synced correctly?
@@ -41,6 +41,7 @@ X when reconnecting it needs to re-sync the pages: reconnect -> disable pages ->
 X erste message im query wird nicht formatiert, z.b. /msg foo hallo _bar_
 X Nick highlight is case-sensitive
 X URLs in eigenen actions sind nicht klickbar
+X nick color einstellung wird sich nicht gemerkt, nach neustart ist es wieder aus
 
 Feature Requests:
 - make #channel clickable
@@ -53,7 +54,7 @@ Feature Requests:
 - mini identd server for windows support (enjoi)
 - GUI for manual server connect (enjoi)
 - banlist manager in smuxi-frontend-gnome-irc
-- align nicknames in output area
+- align nicknames in output area [nasty]
 - replace smileys with images
 - GUI for swichting current network
 - color settings (background/fonts etc)

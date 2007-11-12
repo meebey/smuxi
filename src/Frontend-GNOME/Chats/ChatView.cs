@@ -28,8 +28,9 @@
 
 using System;
 using System.Drawing;
-using System.Collections.Generic;
 using System.Globalization;
+using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using Smuxi.Common;
 using Smuxi.Engine;
 using Smuxi.Frontend;
@@ -212,9 +213,18 @@ namespace Smuxi.Frontend.Gnome
 
             //_OutputTextView.ScrollMarkOnscreen(_OutputTextView.Buffer.GetMark("tail"));
             
-            // WORKAROUND: scroll after one second delay
             System.Reflection.MethodBase mb = Trace.GetMethodBase();
+            // WORKAROUND: scroll after one second delay
+            /*
             GLib.Timeout.Add(1000, new GLib.TimeoutHandler(delegate {
+                Trace.Call(mb);
+                
+                _OutputTextView.ScrollMarkOnscreen(_EndMark);
+                return false;
+            }));
+            */
+            // WORKAROUND: scroll when GTK+ mainloop is idle
+            GLib.Idle.Add(new GLib.IdleHandler(delegate {
                 Trace.Call(mb);
                 
                 _OutputTextView.ScrollMarkOnscreen(_EndMark);
@@ -441,7 +451,9 @@ namespace Smuxi.Frontend.Gnome
             start.BackwardToTagToggle(tag);
             end.ForwardToTagToggle(tag);
             string url = _OutputTextView.Buffer.GetText(start, end, false);
-            if (!url.StartsWith("http://")) {
+            
+            if (!Regex.IsMatch(url, @"^[a-zA-Z0-9\-]+:\/\/")) {
+                // URL doesn't start with a protocol
                 url = "http://" + url;
             }
 #if UI_GNOME

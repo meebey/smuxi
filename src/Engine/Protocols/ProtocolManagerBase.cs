@@ -28,6 +28,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using Smuxi.Common;
 
 namespace Smuxi.Engine
@@ -164,6 +165,68 @@ namespace Smuxi.Engine
         protected ChatModel GetChat(string id, ChatType chatType)
         {
             return _Session.GetChat(id, chatType, this);
+        }
+        
+        protected void ParseUrls(MessageModel msg)
+        {
+            string urlRegex;
+			//urlRegex = "((([a-zA-Z][0-9a-zA-Z+\\-\\.]*:)?/{0,2}[0-9a-zA-Z;/?:@&=+$\\.\\-_!~*'()%]+)?(#[0-9a-zA-Z;/?:@&=+$\\.\\-_!~*'()%]+)?)");
+            // It was constructed according to the BNF grammar given in RFC 2396 (http://www.ietf.org/rfc/rfc2396.txt).
+            
+			/*
+            urlRegex = @"^(?<s1>(?<s0>[^:/\?#]+):)?(?<a1>" + 
+                                  @"//(?<a0>[^/\?#]*))?(?<p0>[^\?#]*)" + 
+                                  @"(?<q1>\?(?<q0>[^#]*))?" + 
+                                  @"(?<f1>#(?<f0>.*))?");
+            */ 
+
+            urlRegex = @"(((https?|ftp):\/\/)|www\.)(([0-9]+\.[0-9]+\.[0-9]+\.[0-9]+)|localhost|([a-zA-Z0-9\-]+\.)*[a-zA-Z0-9\-]+\.(com|net|org|info|biz|gov|name|edu|[a-zA-Z][a-zA-Z]))(:[0-9]+)?((\/|\?)[^ ""]*[^ ,;\.:"">)])?";
+            Regex reg = new Regex(urlRegex);
+            // clone MessageParts
+            IList<MessagePartModel> parts = new List<MessagePartModel>(msg.MessageParts);
+            foreach (MessagePartModel part in parts) {
+                if (!(part is TextMessagePartModel)) {
+                    continue;
+                }
+                
+                TextMessagePartModel textPart = (TextMessagePartModel) part;
+                Match urlMatch = reg.Match(textPart.Text);
+                if (!urlMatch.Success) {
+                    // no URLs in this MessagePart, nothing to do
+                    continue;
+                }
+                
+                // found URL(s)
+                // remove current MessagePartModel as we need to split it
+                int idx = msg.MessageParts.IndexOf(part);
+                msg.MessageParts.RemoveAt(idx);
+                
+                string[] textPartParts = textPart.Text.Split(new char[] {' '});
+                for (int i = 0; i < textPartParts.Length; i++) {
+                    string textPartPart = textPartParts[i];
+                    urlMatch = reg.Match(textPartPart);
+                    if (urlMatch.Success) {
+                        TextMessagePartModel urlPart = new UrlMessagePartModel(textPartPart);
+                        msg.MessageParts.Insert(idx++, urlPart);
+                        msg.MessageParts.Insert(idx++, new TextMessagePartModel(" "));
+                    } else {
+                        // FIXME: we put each text part into it's own object, instead of combining them (the smart way)
+                        TextMessagePartModel notUrlPart = new TextMessagePartModel(textPartPart + " ");
+                        msg.MessageParts.Insert(idx++, notUrlPart);
+                    }
+                }
+                
+                /*
+                do {
+                    string url = urlMatch.Groups[0];
+                    _Logger.Debug("found url: " + url);
+                    
+                    UrlMessagePartModel urlPart = new UrlMessagePartModel(url);
+                    
+                    urlMatch = urlMatch.NextMatch();
+                } while (urlMatch.Success);
+                */
+            }
         }
     }
 }

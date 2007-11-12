@@ -43,7 +43,7 @@ namespace Smuxi.Engine
             get {
                 return IdentityName;
             }
-            set {
+            internal set {
                 IdentityName = value;
             }
         }
@@ -52,7 +52,7 @@ namespace Smuxi.Engine
             get {
                 return _RealName;
             }
-            set {
+            internal set {
                 _RealName = value;
             }
         }
@@ -61,7 +61,7 @@ namespace Smuxi.Engine
             get {
                 return _Ident;
             }
-            set {
+            internal set {
                 _Ident = value;
             }
         }
@@ -70,14 +70,15 @@ namespace Smuxi.Engine
             get {
                 return _Host;
             }
-            set {
+            internal set {
                 _Host = value;
             }
         }
         
-        public IrcPersonModel(string nickName, string realName, string ident, string host,
-                              string networkID, IProtocolManager networkManager) :
-                         base(nickName, nickName, networkID, "IRC", networkManager)
+        internal IrcPersonModel(string nickName, string realName, string ident,
+                                string host, string networkID,
+                                IProtocolManager networkManager) :
+                           base(nickName, nickName, networkID, "IRC", networkManager)
         {
             if (realName == null) {
                 throw new ArgumentNullException("realName");
@@ -94,14 +95,16 @@ namespace Smuxi.Engine
             _Host = host;
         }
 
-        protected IrcPersonModel(string nickName, string networkID, 
-                                 IProtocolManager networkManager) :
-                         base(nickName, nickName, networkID, "IRC", networkManager)
+        internal protected IrcPersonModel(string nickName, string networkID, 
+                                          IProtocolManager networkManager) :
+                                     base(nickName, nickName, networkID, "IRC",
+                                          networkManager)
         {
         }
         
-        protected IrcPersonModel(SerializationInfo info, StreamingContext ctx) :
-                            base(info, ctx)
+        internal protected IrcPersonModel(SerializationInfo info,
+                                          StreamingContext ctx) :
+                                     base(info, ctx)
         {
         }
         

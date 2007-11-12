@@ -287,6 +287,7 @@ namespace Smuxi.Engine
                 LoadUserEntry(user, "Interface/Notebook/StripFormattings", null);
                 LoadUserEntry(user, "Interface/Notebook/Channel/UserListPosition", null);
                 LoadUserEntry(user, "Interface/Notebook/Channel/TopicPosition", null);
+                LoadUserEntry(user, "Interface/Notebook/Channel/NickColors", null);
                 LoadUserEntry(user, "Interface/Entry/CompletionCharacter", null);
                 LoadUserEntry(user, "Interface/Entry/CommandCharacter", null);
                 LoadUserEntry(user, "Interface/Entry/BashStyleCompletion", null);

@@ -27,11 +27,15 @@
  */
 
 using System;
+using System.Runtime.Serialization;
+using System.Text.RegularExpressions;
+using Smuxi.Common;
 
 namespace Smuxi.Engine
 {
     public enum UrlProtocol {
         Unknown,
+        Irc,
         Http,
         Https,
         Ftp,
@@ -39,18 +43,20 @@ namespace Smuxi.Engine
         Telnet,
     }
     
-    // TODO: use FastSerializer
     [Serializable]
     public class UrlMessagePartModel : TextMessagePartModel
     {
+#if LOG4NET
+        private static readonly log4net.ILog _Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+#endif
         private UrlProtocol _Protocol;
         
         public string Url {
             get {
-                return base.Text;
+                return Text;
             }
             set {
-                base.Text = value;
+                Text = value;
             }
         }
         
@@ -66,14 +72,53 @@ namespace Smuxi.Engine
         public UrlMessagePartModel(string url) :
                               base(url)
         {
-            // TODO: parse url and extract protocol
-            _Protocol = UrlProtocol.Unknown;
+            _Protocol = ParseProtocol(url);
         }
         
         public UrlMessagePartModel(string url, UrlProtocol protocol) :
                               base(url)
         {
             _Protocol = protocol;
+        }
+        
+        protected UrlMessagePartModel(SerializationInfo info, StreamingContext ctx) :
+                                 base(info, ctx)
+        {
+        }
+        
+        protected override void SetObjectData(SerializationReader sr)
+        {
+            base.SetObjectData(sr);
+            
+            _Protocol = (UrlProtocol) sr.ReadInt32();
+        }
+        
+        protected override void GetObjectData(SerializationWriter sw)
+        {
+            base.GetObjectData(sw);
+
+            sw.Write((Int32) _Protocol);
+        }
+
+        protected static UrlProtocol ParseProtocol(string url)
+        {
+            Match match = Regex.Match(url, @"^([a-zA-Z0-9\-]+):\/\/");
+            if (!match.Success) {
+#if LOG4NET
+                _Logger.Error("ParseProtocol(url): could not parse (via regex) protocol in URL: " + url);
+#endif
+                return UrlProtocol.Unknown;
+            }
+            
+            string protocol = match.Groups[1].Value;
+            try {
+                return (UrlProtocol) Enum.Parse(typeof(UrlProtocol), protocol, true);
+            } catch (ArgumentException ex) {
+#if LOG4NET
+                _Logger.Error("ParseProtocol(url): error parsing protocol: " + protocol, ex);
+#endif
+            }
+            return UrlProtocol.Unknown;
         }
     }
 }

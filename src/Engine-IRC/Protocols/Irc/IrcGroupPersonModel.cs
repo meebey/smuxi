@@ -45,7 +45,7 @@ namespace Smuxi.Engine
             get {
                 return _IsOp;
             }
-            set {
+            internal set {
                 _IsOp = value;
             }
         }
@@ -54,25 +54,28 @@ namespace Smuxi.Engine
             get {
                 return _IsVoice;
             }
-            set {
+            internal set {
                 _IsVoice = value;
             }
         }
         
-        public IrcGroupPersonModel(string nickname, string realname, string ident, string host,
-                                   string networkID, IProtocolManager networkManager) :
-                              base(nickname, realname, ident, host,
-                                   networkID, networkManager)
+        internal IrcGroupPersonModel(string nickname, string realname,
+                                     string ident, string host, string networkID,
+                                     IProtocolManager networkManager) :
+                                base(nickname, realname, ident, host,
+                                     networkID, networkManager)
         {
         }
         
-        public IrcGroupPersonModel(string nickname, string networkID, IProtocolManager networkManager) :
-                              base(nickname, networkID, networkManager)
+        internal IrcGroupPersonModel(string nickname, string networkID,
+                                     IProtocolManager networkManager) :
+                                base(nickname, networkID, networkManager)
         {
         }
         
-        protected IrcGroupPersonModel(SerializationInfo info, StreamingContext ctx) :
-                                 base(info, ctx)
+        internal protected IrcGroupPersonModel(SerializationInfo info,
+                                               StreamingContext ctx) :
+                                          base(info, ctx)
         {
         }
         

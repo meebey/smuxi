@@ -150,6 +150,7 @@ namespace Smuxi.Frontend.Stfl
             _FrontendConfig.Save();
            
             if (_FrontendConfig.IsCleanConfig) {
+                // first start assistant
             } else {
                 if (((string)FrontendConfig["Engines/Default"]).Length == 0) {
                     InitLocalEngine();

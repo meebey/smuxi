@@ -1111,10 +1111,8 @@ namespace Smuxi.Engine
             cd.FrontendManager.AddTextToCurrentChat("-!- " + _("Not connected to server"));
         }
         
-        private void _IrcMessageToMessageModel(ref MessageModel fmsg, string message)
+        private void _IrcMessageToMessageModel(ref MessageModel msg, string message)
         {
-            TextMessagePartModel fmsgti;
-            
             // strip color and formatting if configured
             if ((bool)Session.UserConfig["Interface/Notebook/StripColors"]) {
                 message = Regex.Replace(message, (char)IrcControlCode.Color +
@@ -1141,7 +1139,6 @@ namespace Smuxi.Engine
             message = String.Join(" ", messageParts);
             
             // crash: ^C^C0,7Dj Ler #Dj KanaL?na Girmek ZorunDaD?rLar UnutMay?N @>'^C0,4WwW.MaViGuL.NeT ^C4]^O ^C4]'
-            // reconnect caused by crash is not syncing channels correctly?
             // parse colors
             bool bold = false;
             bool underline = false;
@@ -1269,87 +1266,19 @@ namespace Smuxi.Engine
                     fg_color = new TextColor(Int32.Parse(highlightColor.Substring(1), NumberStyles.HexNumber));
                 }
                 
-                fmsgti = new TextMessagePartModel();
-                fmsgti.Text = submessage;
-                fmsgti.Bold = bold;
-                fmsgti.Underline = underline;
-                fmsgti.Italic = italic;
-                fmsgti.ForegroundColor = fg_color;
-                fmsgti.BackgroundColor = bg_color;
-                fmsgti.IsHighlight = highlight;
-                fmsg.MessageParts.Add(fmsgti);
+                TextMessagePartModel msgPart = new TextMessagePartModel();
+                msgPart.Text = submessage;
+                msgPart.Bold = bold;
+                msgPart.Underline = underline;
+                msgPart.Italic = italic;
+                msgPart.ForegroundColor = fg_color;
+                msgPart.BackgroundColor = bg_color;
+                msgPart.IsHighlight = highlight;
+                msg.MessageParts.Add(msgPart);
             } while (controlCharFound);
 
             // parse URLs
-            string urlRegex;
-			//urlRegex = "((([a-zA-Z][0-9a-zA-Z+\\-\\.]*:)?/{0,2}[0-9a-zA-Z;/?:@&=+$\\.\\-_!~*'()%]+)?(#[0-9a-zA-Z;/?:@&=+$\\.\\-_!~*'()%]+)?)");
-            // It was constructed according to the BNF grammar given in RFC 2396 (http://www.ietf.org/rfc/rfc2396.txt).
-            
-			/*
-            urlRegex = @"^(?<s1>(?<s0>[^:/\?#]+):)?(?<a1>" + 
-                                  @"//(?<a0>[^/\?#]*))?(?<p0>[^\?#]*)" + 
-                                  @"(?<q1>\?(?<q0>[^#]*))?" + 
-                                  @"(?<f1>#(?<f0>.*))?");
-            */ 
-
-            urlRegex = @"(((https?|ftp):\/\/)|www\.)(([0-9]+\.[0-9]+\.[0-9]+\.[0-9]+)|localhost|([a-zA-Z0-9\-]+\.)*[a-zA-Z0-9\-]+\.(com|net|org|info|biz|gov|name|edu|[a-zA-Z][a-zA-Z]))(:[0-9]+)?((\/|\?)[^ ""]*[^ ,;\.:"">)])?";
-            Regex reg = new Regex(urlRegex);
-            // clone MessageParts
-            IList<MessagePartModel> parts = new List<MessagePartModel>(fmsg.MessageParts);
-            foreach (MessagePartModel part in parts) {
-                if (!(part is TextMessagePartModel)) {
-                    continue;
-                }
-                
-                TextMessagePartModel textPart = (TextMessagePartModel) part;
-                Match urlMatch = reg.Match(textPart.Text);
-                if (!urlMatch.Success) {
-                    // no URLs in this MessagePart, nothing to do
-                    continue;
-                }
-                
-                // found URL(s)
-                // remove current MessagePartModel as we need to split it
-                int idx = fmsg.MessageParts.IndexOf(part);
-                fmsg.MessageParts.RemoveAt(idx);
-                
-                string[] textPartParts = textPart.Text.Split(new char[] {' '});
-                for (int i = 0; i < textPartParts.Length; i++) {
-                    string textPartPart = textPartParts[i];
-                    urlMatch = reg.Match(textPartPart);
-                    if (urlMatch.Success) {
-                        TextMessagePartModel urlPart = new UrlMessagePartModel(textPartPart);
-                        fmsg.MessageParts.Insert(idx++, urlPart);
-                        fmsg.MessageParts.Insert(idx++, new TextMessagePartModel(" "));
-                    } else {
-                        // FIXME: we put each text part into it's own object, instead of combining them (the smart way)
-                        TextMessagePartModel notUrlPart = new TextMessagePartModel(textPartPart + " ");
-                        fmsg.MessageParts.Insert(idx++, notUrlPart);
-                    }
-                }
-                
-                /*
-                do {
-                    string url = urlMatch.Groups[0];
-                    _Logger.Debug("found url: " + url);
-                    
-                    UrlMessagePartModel urlPart = new UrlMessagePartModel(url);
-                    
-                    urlMatch = urlMatch.NextMatch();
-                } while (urlMatch.Success);
-                */
-            }
-            
-            
-
-            /*
-            int urlPos = message.IndexOf("http://");
-            if (urlPos != -1) {
-                MessageModelUrlItem fmsgui = new MessageModelUrlItem();
-                fmsgui.Url = 
-                fmsg.Items.Add(
-            }
-			*/
+            ParseUrls(msg);
         }
         
         private TextColor _IrcTextColorToTextColor(int color)
@@ -1734,9 +1663,12 @@ namespace Smuxi.Engine
             } else {
                 // someone else joined, let's add him to the channel chat
                 IrcUser siuser = _IrcClient.GetIrcUser(e.Who);
-                IrcGroupPersonModel icuser = new IrcGroupPersonModel(e.Who, siuser.Realname,
-                                        siuser.Ident, siuser.Host, NetworkID, this);
-                 cchat.UnsafePersons.Add(icuser.NickName.ToLower(), icuser);
+                IrcGroupPersonModel icuser = new IrcGroupPersonModel(e.Who,
+                                                                     NetworkID,
+                                                                     this);
+                icuser.Ident = siuser.Ident;
+                icuser.Host = siuser.Host;
+                cchat.UnsafePersons.Add(icuser.NickName.ToLower(), icuser);
                 Session.AddPersonToGroupChat(cchat, icuser);
             }
             

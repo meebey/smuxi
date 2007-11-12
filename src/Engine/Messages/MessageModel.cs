@@ -28,12 +28,13 @@
 
 using System;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
+using Smuxi.Common;
 
 namespace Smuxi.Engine
 {
-    // TODO: use FastSerializer
     [Serializable]
-    public class MessageModel
+    public class MessageModel : ISerializable
     {
         private DateTime                _TimeStamp;
         private IList<MessagePartModel> _MessageParts;
@@ -59,6 +60,32 @@ namespace Smuxi.Engine
         public MessageModel(string text) : this()
         {
             _MessageParts.Add(new TextMessagePartModel(null, null, false, false, false, text));
+        }
+
+        protected MessageModel(SerializationInfo info, StreamingContext ctx)
+        {
+            SerializationReader sr = SerializationReader.GetReader(info);
+            SetObjectData(sr);
+        }
+        
+        protected virtual void SetObjectData(SerializationReader sr)
+        {
+            _TimeStamp    = sr.ReadDateTime();
+            _MessageParts = sr.ReadList<MessagePartModel>();
+        }
+        
+        protected virtual void GetObjectData(SerializationWriter sw)
+        {
+            sw.Write(_TimeStamp);
+            //sw.Write((ICollection<MessagePartModel>) _MessageParts);
+            sw.Write(_MessageParts);
+        }
+        
+        public virtual void GetObjectData(SerializationInfo info, StreamingContext ctx) 
+        {
+            SerializationWriter sw = SerializationWriter.GetWriter(); 
+            GetObjectData(sw);
+            sw.AddToInfo(info);
         }
     }
 }
