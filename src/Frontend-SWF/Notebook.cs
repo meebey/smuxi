@@ -106,6 +106,7 @@ namespace Smuxi.Frontend.Swf
 
                     // lets remove any markup / highlight
                     string color = (string) Frontend.UserConfig["Interface/Notebook/Tab/NoActivityColor"];
+                    // TODO: apply color to tab
                     chatView.HasHighlight = false;
                     
                     // sync title
