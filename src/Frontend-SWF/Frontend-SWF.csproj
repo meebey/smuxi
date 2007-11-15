@@ -49,6 +49,25 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="Chat\ChatView.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Chat\ChatView.Designer.cs">
+      <DependentUpon>ChatView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entry.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Frontend.cs" />
+    <Compile Include="MainWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainWindow.Designer.cs">
+      <DependentUpon>MainWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Notebook.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="NotImplementedMessageDialog.cs" />
     <Compile Include="SplashScreenWindow.cs">
       <SubType>Form</SubType>
@@ -81,6 +100,14 @@
     </EmbeddedResource>
     <EmbeddedResource Include="..\..\images\splashscreen.png">
       <Link>splashscreen.png</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Chat\ChatView.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>ChatView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainWindow.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>MainWindow.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

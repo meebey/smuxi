@@ -81,7 +81,10 @@
   <ItemGroup>
     <Compile Include="AboutDialog.cs" />
     <Compile Include="AssemblyInfo.cs" />
-    <Compile Include="ChatView.cs" />
+    <Compile Include="Chats\ChatView.cs" />
+    <Compile Include="Chats\GroupChatView.cs" />
+    <Compile Include="Chats\NetworkChatView.cs" />
+    <Compile Include="Chats\PersonChatView.cs" />
     <Compile Include="ChatViewManager.cs" />
     <Compile Include="CrashDialog.cs" />
     <Compile Include="EngineManager.cs" />
@@ -90,15 +93,12 @@
     <Compile Include="FirstStartDruid.cs" />
     <Compile Include="Frontend.cs" />
     <Compile Include="GnomeUI.cs" />
-    <Compile Include="GroupChatView.cs" />
     <Compile Include="IrcManagerWindow.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="MainWindow.cs" />
-    <Compile Include="NetworkChatView.cs" />
     <Compile Include="NewEngineDruid.cs" />
     <Compile Include="Notebook.cs" />
     <Compile Include="NotImplementedMessageDialog.cs" />
-    <Compile Include="PersonChatView.cs" />
     <Compile Include="Preferences\ChannelFilterListController.cs" />
     <Compile Include="Preferences\ChannelFilterListView.cs" />
     <Compile Include="Preferences\ChannelFilterModel.cs" />
