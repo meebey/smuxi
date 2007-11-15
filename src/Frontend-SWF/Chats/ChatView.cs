@@ -10,13 +10,14 @@ using Smuxi.Frontend;
 
 namespace Smuxi.Frontend.Swf
 {
-    public partial class ChatView : TabPage, IChatView
+    public abstract partial class ChatView : TabPage, IChatView
     {
 #if LOG4NET
         private static readonly log4net.ILog _Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 #endif
         private   ChatModel          _ChatModel;
         private   bool               _HasHighlight;
+        private   RichTextBox        _OutputTextView;
 
         //protected override void OnPaint(PaintEventArgs pe)
         //{
@@ -26,15 +27,16 @@ namespace Smuxi.Frontend.Swf
         //    base.OnPaint(pe);
         //}
 
-
-        public ChatModel ChatModel
-        {
-            get { return _ChatModel; }
+        public ChatModel ChatModel {
+            get {
+                return _ChatModel;
+            }
         }
 
-        public RichTextBox OutputTextView
-        {
-            get { return _OutputTextView; }
+        public RichTextBox OutputTextView {
+            get {
+                return _OutputTextView;
+            }
         }
 
         public bool HasHighlight {
@@ -46,40 +48,34 @@ namespace Smuxi.Frontend.Swf
             }
         }
 
-        public ChatView(ChatModel chat) : this()
+        protected ChatView(ChatModel chat)
         {
             _ChatModel = chat;
 
-            Name = chat.Name;
-            Text = Name;
-        }
-
-
-        private ChatView()
-        {
             InitializeComponent();
+            
+            Name = chat.Name;
+            Text = chat.Name;
         }
-
-
 
         public void ScrollUp()
         {
-            throw new Exception("The method or operation is not implemented.");
+            // TODO
         }
 
         public void ScrollDown()
         {
-            throw new Exception("The method or operation is not implemented.");
+            // TODO
         }
 
         public void ScrollToStart()
         {
-            throw new Exception("The method or operation is not implemented.");
+            // TODO
         }
 
         public void ScrollToEnd()
         {
-            throw new Exception("The method or operation is not implemented.");
+            // TODO
         }
 
         public void Enable()
@@ -95,7 +91,6 @@ namespace Smuxi.Frontend.Swf
 
             Enabled = false;
         }
-
 
         public virtual void Sync()
         {
@@ -194,7 +189,5 @@ namespace Smuxi.Frontend.Swf
                 }
             }
         }
-
-
     }
 }

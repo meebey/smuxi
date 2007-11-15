@@ -1,6 +1,6 @@
 namespace Smuxi.Frontend.Swf
 {
-	partial class ChatView
+	public partial class ChatView
 	{
 		/// <summary>
 		/// Required designer variable.
@@ -49,7 +49,5 @@ namespace Smuxi.Frontend.Swf
 		}
 
 		#endregion
-
-        protected System.Windows.Forms.RichTextBox _OutputTextView;
 	}
 }

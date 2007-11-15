@@ -247,8 +247,5 @@ namespace Smuxi.Frontend.Swf
         private System.Windows.Forms.ToolStripStatusLabel _Statusbar;
         private System.Windows.Forms.ToolStripStatusLabel _NetworkStatusbar;
         private System.Windows.Forms.ToolStripProgressBar _ProgressBar;
-        private Notebook _Notebook;
-        private Entry _Entry;
-
     }
 }

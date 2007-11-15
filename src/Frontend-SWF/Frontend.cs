@@ -7,7 +7,7 @@
  *
  * smuxi - Smart MUltipleXed Irc
  *
- * Copyright (c) 2005-2006 Mirco Bauer <meebey@meebey.net>
+ * Copyright (c) 2005-2007 Mirco Bauer <meebey@meebey.net>
  *
  * Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
  *
@@ -41,7 +41,7 @@ namespace Smuxi.Frontend.Swf
         private static readonly log4net.ILog _Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 #endif
         private static readonly string    _Name = "smuxi";
-        private static readonly string    _UIName = "Windows";
+        private static readonly string    _UIName = "SWF (WinForms)";
         private static Version            _Version;
         private static string             _VersionNumber;
         private static string             _VersionString;
@@ -59,7 +59,6 @@ namespace Smuxi.Frontend.Swf
                 return _Name;
             }
         }
-        
         
         public static string UIName {
             get {
@@ -146,34 +145,39 @@ namespace Smuxi.Frontend.Swf
 #if LOG4NET
             _Logger.Info(_VersionString + " starting");
 #endif
+           
+            _SplashScreenWindow = new SplashScreenWindow();
             
+            _MainWindow = new MainWindow();
+            // HACK: force created of window handle, else the engine will have problems adding stuff
+            IntPtr handle = _MainWindow.Handle;
+            
+            _FrontendConfig = new FrontendConfig(UIName);
+            // loading and setting defaults
+            _FrontendConfig.Load();
+            _FrontendConfig.Save();
            
-           _SplashScreenWindow = new SplashScreenWindow();
-
-           _MainWindow = new MainWindow();
-
-           _FrontendConfig = new FrontendConfig(UIName);
-           // loading and setting defaults
-           _FrontendConfig.Load();
-           _FrontendConfig.Save();
-           
-           if (_FrontendConfig.IsCleanConfig) {
-               /*TODO: Create and show first run wizard*/
-           } else {
-               if (((string)FrontendConfig["Engines/Default"]).Length == 0) {
-                   InitLocalEngine();
-               } else {
-                   // there is a default engine set, means we want a remote engine
-                   /*TODO: Create and show Engine Manager Dialog*/
-               }
-           }
-           /*TODO: Kill the SplashScreen Window*/
-
-            /*TODO: Set the main message loop*/
-           Application.Run(_MainWindow);
-    #if LOG4NET
-           _Logger.Warn("Application.Run() returned!");
-    #endif
+            if (_FrontendConfig.IsCleanConfig) {
+                /*TODO: Create and show first run wizard*/
+            } else {
+                if (((string)FrontendConfig["Engines/Default"]).Length == 0) {
+                    InitLocalEngine();
+                } else {
+                    // there is a default engine set, means we want a remote engine
+                    /*TODO: Create and show Engine Manager Dialog*/
+                    
+                    // HACK: for now always use local engine
+                    InitLocalEngine();
+                }
+            }
+            // TODO: Kill the SplashScreen Window
+            _SplashScreenWindow.Close();
+            
+             /*TODO: Set the main message loop*/
+            Application.Run(_MainWindow);
+#if LOG4NET
+            _Logger.Warn("Application.Run() returned!");
+#endif
         }
         
         public static void InitLocalEngine()
@@ -183,14 +187,14 @@ namespace Smuxi.Frontend.Swf
             _Session = new Engine.Session(Engine.Engine.Config,
                                           Engine.Engine.ProtocolManagerFactory,
                                           "local");
-            //TODO _Session.RegisterFrontendUI(_MainWindow.UI);
+            _Session.RegisterFrontendUI(_MainWindow.UI);
             _UserConfig = _Session.UserConfig;
             ConnectEngineToGUI();
         }
         
         public static void ConnectEngineToGUI()
         {
-            //TODO _FrontendManager = _Session.GetFrontendManager(_MainWindow.UI);
+            _FrontendManager = _Session.GetFrontendManager(_MainWindow.UI);
             _FrontendManager.Sync();
             
             if (_UserConfig.IsCaching) {
@@ -198,7 +202,7 @@ namespace Smuxi.Frontend.Swf
                 _FrontendManager.ConfigChangedDelegate = new SimpleDelegate(_UserConfig.ClearCache);
             }
             _MainWindow.Show();
-            //TODO _MainWindow.ApplyConfig(_UserConfig);
+            //_MainWindow.ApplyConfig(_UserConfig);
             // make sure entry got attention :-P
             //TODO _MainWindow.Entry.HasFocus = true;
         }
@@ -208,11 +212,9 @@ namespace Smuxi.Frontend.Swf
             Trace.Call();
             
             _FrontendManager.IsFrontendDisconnecting = true;
-            /*TODO
             _Session.DeregisterFrontendUI(_MainWindow.UI);
             _MainWindow.Hide();
             _MainWindow.Notebook.RemoveAllPages();
-             */
             _FrontendManager = null;
             _Session = null;
         }

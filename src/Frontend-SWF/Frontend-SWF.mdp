@@ -3,13 +3,13 @@
     <Configuration name="Debug" ctype="DotNetProjectConfiguration">
       <Output directory="../../bin/debug" assembly="smuxi-frontend-swf" />
       <Build debugmode="True" target="Exe" />
-      <Execution runwithwarnings="True" consolepause="True" runtime="MsNet" clr-version="Net_2_0" />
+      <Execution runwithwarnings="True" externalconsole="True" consolepause="True" runtime="MsNet" clr-version="Net_2_0" />
       <CodeGeneration compiler="Mcs" warninglevel="4" optimize="True" unsafecodeallowed="False" generateoverflowchecks="True" mainclass="" definesymbols="DEBUG,TRACE,LOG4NET" generatexmldocumentation="False" win32Icon="./" ctype="CSharpCompilerParameters" />
     </Configuration>
     <Configuration name="Release" ctype="DotNetProjectConfiguration">
       <Output directory="../../bin/release" assembly="smuxi-frontend-swf" />
       <Build debugmode="False" target="WinExe" />
-      <Execution runwithwarnings="True" consolepause="True" runtime="MsNet" clr-version="Net_2_0" />
+      <Execution runwithwarnings="True" externalconsole="True" consolepause="True" runtime="MsNet" clr-version="Net_2_0" />
       <CodeGeneration compiler="Mcs" warninglevel="4" optimize="True" unsafecodeallowed="False" generateoverflowchecks="True" mainclass="" generatexmldocumentation="False" win32Icon="./" ctype="CSharpCompilerParameters" />
     </Configuration>
   </Configurations>
@@ -26,6 +26,12 @@
     <File name="./Chats/ChatView.Designer.cs" subtype="Code" buildaction="Compile" />
     <File name="./Chats/ChatView.cs" subtype="Code" buildaction="Compile" />
     <File name="./Frontend.cs" subtype="Code" buildaction="Compile" />
+    <File name="./SwfUI.cs" subtype="Code" buildaction="Compile" />
+    <File name="./ChatViewManager.cs" subtype="Code" buildaction="Compile" />
+    <File name="./Chats/GroupChatView.cs" subtype="Code" buildaction="Compile" />
+    <File name="./Main.cs" subtype="Code" buildaction="Compile" />
+    <File name="./Chats/NetworkChatView.cs" subtype="Code" buildaction="Compile" />
+    <File name="./Chats/PersonChatView.cs" subtype="Code" buildaction="Compile" />
   </Contents>
   <References>
     <ProjectReference type="Project" localcopy="True" refto="Common" />

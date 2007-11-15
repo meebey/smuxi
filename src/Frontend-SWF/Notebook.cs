@@ -46,6 +46,7 @@ namespace Smuxi.Frontend.Swf
         public Notebook() : base ()
         {
             Trace.Call();
+            
             Selected += _OnSwitchPage;
         }
         
@@ -70,15 +71,16 @@ namespace Smuxi.Frontend.Swf
             }
         }
         
+        // BUG: something fishy here, I don't believe the collection contains key
+        // as string and int, see method below.
         public ChatView GetChat(ChatModel chat)
         {
-            return Controls[chat.Name] as ChatView;
-
+            return (ChatView) Controls[chat.Name];
         }
         
         public ChatView GetChat(int pageNumber)
         {
-            return base.Controls[pageNumber] as ChatView;
+            return (ChatView) Controls[pageNumber];
         }
         
         public void RemoveAllPages()

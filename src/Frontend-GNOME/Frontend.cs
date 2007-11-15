@@ -167,24 +167,28 @@ namespace Smuxi.Frontend.Gnome
             _Logger.Info(_VersionString + " starting");
 #endif
             
-            // with GTK# 2.8 we can do this better, see below
+            
+#if GTK_SHARP_2_8 || GTK_SHARP_2_10
+            if (!GLib.Thread.Supported) {
+                GLib.Thread.Init();
+            }
+#else
+            // with GTK# 2.8 we can do this better, see above
             // GTK# 2.7.1 for MS .NET doesn't support that though.
             if (Type.GetType("Mono.Runtime") == null) {
                 // when we don't run on Mono, we need to initialize glib ourself
                 GLib.Thread.Init();
             }
-            /*
-            if (!GLib.Thread.Supported) {
-                GLib.Thread.Init();
-            }
-            */
+#endif
+
 #if UI_GNOME
            _Program = new GNOME.Program(Name, Version.ToString(), GNOME.Modules.UI, args);
 #elif UI_GTK
            Gtk.Application.Init();
 #endif
+#if GTK_SHARP_2_10
            GLib.ExceptionManager.UnhandledException += _OnUnhandledException;
-           
+#endif           
            _SplashScreenWindow = new SplashScreenWindow();
 
            _MainWindow = new MainWindow();
@@ -293,6 +297,7 @@ namespace Smuxi.Frontend.Gnome
             ShowException(null, ex);
         }
         
+#if GTK_SHARP_2_10
         private static void _OnUnhandledException(GLib.UnhandledExceptionArgs e)
         {
             Trace.Call(e);
@@ -304,5 +309,6 @@ namespace Smuxi.Frontend.Gnome
                 }
             }
         }
+#endif
     }
 }

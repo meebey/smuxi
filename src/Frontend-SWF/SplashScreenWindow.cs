@@ -42,11 +42,5 @@ namespace Smuxi.Frontend.Swf
             BackgroundImage = img;
             Size = img.Size;
         }
-        
-        // TODO: remove after implementing real Main method
-        public static void Main()
-        {
-            Application.Run(new SplashScreenWindow());
-        }
     }
 }
