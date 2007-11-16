@@ -232,8 +232,8 @@ namespace Smuxi.Frontend.Swf
             MethodBase mb = Trace.GetMethodBase();
             _Control.Invoke(new MethodInvoker(delegate {
                 TraceRemotingCall(mb, status);
-                // TODO
-                //Frontend.MainWindow.NetworkStatubar.Push(status);
+                
+                Frontend.MainWindow.NetworkStatusbar.Text = status;
             }));
         }
         
@@ -244,8 +244,8 @@ namespace Smuxi.Frontend.Swf
             MethodBase mb = Trace.GetMethodBase();
             _Control.Invoke(new MethodInvoker(delegate {
                 TraceRemotingCall(mb, status);
-                // TODO
-                //Frontend.MainWindow.Statusbar.Push(status);
+
+                Frontend.MainWindow.Statusbar.Text = status;
             }));
         }
         

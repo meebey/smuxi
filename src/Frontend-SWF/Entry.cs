@@ -47,6 +47,8 @@ namespace Smuxi.Frontend.Swf
         private bool             _HistoryChangedLine;
         private Notebook         _Notebook;
         
+        public  EventHandler     Activated;
+        
         /*
         public StringCollection History {
             get {
@@ -77,23 +79,21 @@ namespace Smuxi.Frontend.Swf
         }
         */
 
-        public Entry()
-        {
-            _History.Add(String.Empty);
-                        
-            /* TODO: Figure out what this is...
-             Activated += new EventHandler(_OnActivated);
-             */
-            KeyUp += _OnKeyPress;
-            Leave += _OnFocusOut;
-            
-            //ClipboardPasted += new EventHandler(_OnClipboardPasted);
-        }
-
         public Notebook Notebook
         {
             get { return _Notebook; }
             internal set { _Notebook = value; }
+        }
+
+        public Entry()
+        {
+            _History.Add(String.Empty);
+                        
+            Activated += _OnActivated;
+            KeyDown   += _OnKeyPress;
+            Leave     += _OnFocusOut;
+            
+            //ClipboardPasted += new EventHandler(_OnClipboardPasted);
         }
 
         public void UpdateHistoryChangedLine()
@@ -229,14 +229,12 @@ namespace Smuxi.Frontend.Swf
                             _Notebook.SelectedIndex--;
                         }
                         break;
-                        /* TODO: Scrolling not yet implemented
-                    case Gdk.Key.Home:
+                    case Keys.Home:
                         _Notebook.CurrentChatView.ScrollToStart();
                         break;
-                    case Gdk.Key.End:
+                    case Keys.End:
                         _Notebook.CurrentChatView.ScrollToEnd();
                         break;
-                         */
                 }
             }
             
@@ -303,6 +301,12 @@ namespace Smuxi.Frontend.Swf
 
             UpdateHistoryChangedLine();
             switch (key) {
+                case Keys.Enter:
+                    if (Activated != null) {
+                        Activated(this, EventArgs.Empty);
+                    }
+                    e.Handled = true;
+                    break;
                 case Keys.Tab:
                     e.Handled = true;
                     if (Frontend.MainWindow.CaretMode) {
@@ -323,14 +327,12 @@ namespace Smuxi.Frontend.Swf
                 case Keys.Down:
                     HistoryNext();
                     break;
-                    /* TODO: Scrolling not implemented
-                case Gdk.Key.Page_Up:
+                case Keys.PageUp:
                     _Notebook.CurrentChatView.ScrollUp();
                     break;
-                case Gdk.Key.Page_Down:
+                case Keys.PageDown:
                     _Notebook.CurrentChatView.ScrollDown();
                     break;
-                     */
             }
         }
 
@@ -339,12 +341,10 @@ namespace Smuxi.Frontend.Swf
             Trace.Call(sender, e);
             
             if (!Frontend.MainWindow.CaretMode) {
-                Focus();
-                //Position = -1;
+                Select();
             }
         }
     
-        /* TODO: Not quite sure what Activated is, not sure how to handle it yet, leave it gone for now
         private void _OnActivated(object sender, EventArgs e)
         {
             Trace.Call(sender, e);
@@ -360,6 +360,7 @@ namespace Smuxi.Frontend.Swf
                 	if (msgParts.Length > 3) {
                 		string msg = String.Format(_("You are going to paste {0} lines, do you want to continue?"),
                 								   msgParts.Length);
+                        /*
                 		Gtk.MessageDialog md = new Gtk.MessageDialog(
                 									Frontend.MainWindow,
                 									Gtk.DialogFlags.Modal,
@@ -372,6 +373,7 @@ namespace Smuxi.Frontend.Swf
     	            		Text = String.Empty;
     	            		return;
     					}
+                        */
                 	}
                 	foreach (string msg in msgParts) {
     		            ExecuteCommand(msg);
@@ -390,7 +392,7 @@ namespace Smuxi.Frontend.Swf
                 Frontend.ShowException(null, ex);
             }
         }
-        */
+        
         private void _OnClipboardPasted(object sender, EventArgs e)
         {
             Trace.Call(sender, e);

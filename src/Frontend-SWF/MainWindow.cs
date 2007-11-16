@@ -64,8 +64,10 @@ namespace Smuxi.Frontend.Swf
 		{
 			InitializeComponent();
 			
+			_Entry.Notebook = _Notebook;
+            
 			_Notebook.Show();
-			
+            
 			_ChatViewManager = new ChatViewManager(_Notebook);
 		    Assembly asm = Assembly.GetExecutingAssembly();
 		    _ChatViewManager.Load(asm);
@@ -73,6 +75,9 @@ namespace Smuxi.Frontend.Swf
 		                             "smuxi-frontend-swf-*.dll");
 		    
             _UI = new SwfUI(_ChatViewManager, this);
+            
+            _NetworkStatusbar.Text = String.Empty;
+            _Statusbar.Text = String.Empty;
 		}
 	}
 }

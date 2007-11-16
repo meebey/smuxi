@@ -1,9 +1,10 @@
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
 using System.Text;
+using System.Drawing;
+using System.Globalization;
 using System.Windows.Forms;
+using System.ComponentModel;
+using System.Collections.Generic;
 using Smuxi.Common;
 using Smuxi.Engine;
 using Smuxi.Frontend;
@@ -53,6 +54,8 @@ namespace Smuxi.Frontend.Swf
             _ChatModel = chat;
 
             InitializeComponent();
+            // BUG? the designer doesn't add the control to the TabPage
+            Controls.Add(_OutputTextView);
             
             Name = chat.Name;
             Text = chat.Name;
@@ -60,22 +63,32 @@ namespace Smuxi.Frontend.Swf
 
         public void ScrollUp()
         {
+            Trace.Call();
+
             // TODO
         }
 
         public void ScrollDown()
         {
+            Trace.Call();
+
             // TODO
         }
 
         public void ScrollToStart()
         {
+            Trace.Call();
+
             // TODO
         }
 
         public void ScrollToEnd()
         {
-            // TODO
+            Trace.Call();
+            
+            _OutputTextView.SelectionStart = _OutputTextView.Text.Length;
+            _OutputTextView.SelectionLength = 0;
+            _OutputTextView.ScrollToCaret();
         }
 
         public void Enable()
@@ -145,6 +158,22 @@ namespace Smuxi.Frontend.Swf
                     _Logger.Debug("AddMessage(): fmsgti.Text: '" + fmsgti.Text + "'");
 #endif
                     
+                    int oldTextLength = _OutputTextView.TextLength;
+                    _OutputTextView.AppendText(fmsgti.Text);
+
+                    // HACK: Mono's RichTextBox has problems with colors
+                    if (Type.GetType("Mono.Runtime") == null) {
+                        if (fmsgti.ForegroundColor.HexCode != -1) {
+                            _OutputTextView.SelectionStart = oldTextLength;
+                            _OutputTextView.SelectionLength = fmsgti.Text.Length;
+#if LOG4NET
+                            _Logger.Debug("AddMessage(): SelectionStart: " + _OutputTextView.SelectionStart);
+                            _Logger.Debug("AddMessage(): SelectionLength: " + _OutputTextView.SelectionLength);
+#endif
+                            _OutputTextView.SelectionColor = GetDrawingColorFromTextColor(fmsgti.ForegroundColor);
+                        }
+                    }
+                    
                     if (fmsgti.Underline) {
 #if LOG4NET
                         _Logger.Debug("AddMessage(): fmsgti.Underline is true");
@@ -160,8 +189,7 @@ namespace Smuxi.Frontend.Swf
                         _Logger.Debug("AddMessage(): fmsgti.Italic is true");
 #endif
                     }
-                    
-                    _OutputTextView.AppendText(fmsgti.Text);                } 
+                } 
             }
             _OutputTextView.AppendText("\n");
             
@@ -188,6 +216,15 @@ namespace Smuxi.Frontend.Swf
                     /*TODO: Color the associated Tab*/
                 }
             }
+        }
+                        
+        private Color GetDrawingColorFromTextColor(TextColor textColor)
+        {
+            string hexcode = textColor.HexCode.ToString("X6");
+            int red   = Int16.Parse(hexcode.Substring(0, 2), NumberStyles.HexNumber);
+            int green = Int16.Parse(hexcode.Substring(2, 2), NumberStyles.HexNumber);
+            int blue  = Int16.Parse(hexcode.Substring(4, 2), NumberStyles.HexNumber);
+            return Color.FromArgb(red, green, blue);
         }
     }
 }

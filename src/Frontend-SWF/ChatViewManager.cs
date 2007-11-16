@@ -58,13 +58,15 @@ namespace Smuxi.Frontend.Swf
         public override void AddChat(ChatModel chat)
         {
             ChatView chatView = (ChatView) CreateChatView(chat);
-            _Notebook.Controls.Add(chatView);
+            //_Notebook.Controls.Add(chatView);
+            _Notebook.TabPages.Add(chatView);
         }
         
         public override void RemoveChat(ChatModel chat)
         {
             ChatView chatView = _Notebook.GetChat(chat);
-            _Notebook.Controls.Remove(chatView);
+            //_Notebook.Controls.Remove(chatView);
+            _Notebook.TabPages.Remove(chatView);
         }
         
         public override void EnableChat(ChatModel chat)
