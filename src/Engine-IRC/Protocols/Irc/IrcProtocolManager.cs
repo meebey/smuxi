@@ -214,7 +214,13 @@ namespace Smuxi.Engine
             _Nicknames = nicks;
             _Username = user;
             _Password = pass;
-            
+
+            // add fallbacks if only one nick was specified, else we get random
+            // number nicks when nick collisions happen
+            if (_Nicknames.Length == 1) {
+                _Nicknames = new string[] { _Nicknames[0], _Nicknames[0] + "_", _Nicknames[0] + "__" };
+            }
+
             // TODO: use config for single network chat or once per network manager
             _NetworkChat = new NetworkChatModel(NetworkID, "IRC " + server, this);
             // BUG: race condition when we use Session.AddChat() as it pushes this already
@@ -1260,6 +1266,7 @@ namespace Smuxi.Engine
                 }
                 
                 bool highlight = false;
+                // BUG: don't highlight everything, like nicknames, maybe require whitespace?
                 if (submessage.IndexOf(_IrcClient.Nickname, StringComparison.CurrentCultureIgnoreCase) != -1) {
                     highlight = true;
                     string highlightColor = (string) Session.UserConfig["Interface/Notebook/Tab/HighlightColor"];
@@ -1350,7 +1357,6 @@ namespace Smuxi.Engine
                         break;
                 }
             }
-            
             string chan;
             string nick;
             string msg;
@@ -1379,6 +1385,9 @@ namespace Smuxi.Engine
                 case ReplyCode.ErrorBannedFromChannel:
                     _OnErrorBannedFromChannel(e);
                     break;
+                case ReplyCode.ErrorNicknameInUse:
+                    _OnErrorNicknameInUse(e);
+                    break;
                 case ReplyCode.EndOfNames:
                     chan = e.Data.RawMessageArray[3]; 
                     GroupChatModel groupChat = (GroupChatModel)GetChat(
@@ -1389,6 +1398,27 @@ namespace Smuxi.Engine
 #endif
                     break;
             }
+        }
+        
+        private void _OnErrorNicknameInUse(IrcEventArgs e)
+        {
+            MessageModel msg = new MessageModel();
+            TextMessagePartModel textMsg;
+            
+            textMsg = new TextMessagePartModel();
+            textMsg.Text = "-!- " + _("Nick") + " ";
+            msg.MessageParts.Add(textMsg);
+
+            textMsg = new TextMessagePartModel();
+            textMsg.Text = e.Data.RawMessageArray[3];
+            textMsg.Bold = true;
+            msg.MessageParts.Add(textMsg);
+
+            textMsg = new TextMessagePartModel();
+            textMsg.Text = " " + _("is already in use");
+            msg.MessageParts.Add(textMsg);
+
+            Session.AddMessageToChat(_NetworkChat, msg);
         }
         
         private void _OnErrorBannedFromChannel(IrcEventArgs e)
@@ -1827,9 +1857,19 @@ namespace Smuxi.Engine
             _Logger.Debug("_OnNickChange() e.OldNickname: "+e.OldNickname+" e.NewNickname: "+e.NewNickname);
 #endif
             if (e.Data.Irc.IsMe(e.NewNickname)) {
-                Session.AddTextToChat(_NetworkChat, "-!- " + String.Format(
-                                                        _("You're now known as {0}"),
-                                                        e.NewNickname));
+                MessageModel msg = new MessageModel();
+                TextMessagePartModel textMsg;
+                
+                textMsg = new TextMessagePartModel();
+                textMsg.Text = "-!- " + _("You're now known as") + " ";
+                msg.MessageParts.Add(textMsg);
+
+                textMsg = new TextMessagePartModel();
+                textMsg.Text = e.NewNickname;
+                textMsg.Bold = true;
+                msg.MessageParts.Add(textMsg);
+
+                Session.AddMessageToChat(_NetworkChat, msg);
             }
             
             IrcUser ircuser = e.Data.Irc.GetIrcUser(e.NewNickname);

@@ -173,10 +173,9 @@ namespace Smuxi.Engine
                     }
                     
                     if (server.OnConnectCommands != null && server.OnConnectCommands.Count > 0) {
-                        // BUG: server is always the same object!
+                        // copy the server variable into the loop scope, else it will always be the same object in the anonymous method!
+                        ServerModel ser = server;
                         protocolManager.Connected += delegate {
-                            // HACK: getting the server model with the data of the protocol manager 
-                            ServerModel ser = serverCon.GetServer(protocolManager.Protocol, protocolManager.Host);
                             foreach (string command in ser.OnConnectCommands) {
                                 if (command.Length == 0) {
                                     continue;
