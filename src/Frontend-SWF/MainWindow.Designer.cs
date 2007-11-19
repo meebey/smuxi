@@ -209,7 +209,7 @@ namespace Smuxi.Frontend.Swf
             this._Notebook.Location = new System.Drawing.Point(0, 24);
             this._Notebook.Name = "_Notebook";
             this._Notebook.SelectedIndex = 0;
-            this._Notebook.Size = new System.Drawing.Size(784, 516);
+            this._Notebook.Size = new System.Drawing.Size(784, 496);
             this._Notebook.TabIndex = 2;
             // 
             // _Entry
@@ -225,8 +225,8 @@ namespace Smuxi.Frontend.Swf
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(784, 564);
-            this.Controls.Add(this._Entry);
             this.Controls.Add(this._Notebook);
+            this.Controls.Add(this._Entry);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(menuStrip1);
             this.MainMenuStrip = menuStrip1;

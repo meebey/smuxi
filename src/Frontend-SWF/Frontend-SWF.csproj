@@ -6,6 +6,7 @@
     <ProjectGuid>{0CA3B4CA-9CE0-4F3C-8C54-D01EDBAAD9B9}</ProjectGuid>
     <AssemblyName>smuxi-frontend-swf</AssemblyName>
     <ReferencePath>..\..\lib\</ReferencePath>
+    <StartupObject>Smuxi.Frontend.Swf.MainClass</StartupObject>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -49,16 +50,27 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyInfo.cs" />
-    <Compile Include="Chat\ChatView.cs">
+    <Compile Include="Chats\ChatView.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Chat\ChatView.Designer.cs">
+    <Compile Include="Chats\ChatView.Designer.cs">
       <DependentUpon>ChatView.cs</DependentUpon>
     </Compile>
+    <Compile Include="Chats\GroupChatView.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Chats\NetworkChatView.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Chats\PersonChatView.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ChatViewManager.cs" />
     <Compile Include="Entry.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Frontend.cs" />
+    <Compile Include="Main.cs" />
     <Compile Include="MainWindow.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -69,12 +81,19 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="NotImplementedMessageDialog.cs" />
+    <Compile Include="Preferences\PreferencesDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Preferences\PreferencesDialog.Designer.cs">
+      <DependentUpon>PreferencesDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="SplashScreenWindow.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="SplashScreenWindow.designer.cs">
       <DependentUpon>SplashScreenWindow.cs</DependentUpon>
     </Compile>
+    <Compile Include="SwfUI.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="..\..\images\about.png">
@@ -101,13 +120,17 @@
     <EmbeddedResource Include="..\..\images\splashscreen.png">
       <Link>splashscreen.png</Link>
     </EmbeddedResource>
-    <EmbeddedResource Include="Chat\ChatView.resx">
-      <SubType>Designer</SubType>
+    <EmbeddedResource Include="Chats\ChatView.resx">
       <DependentUpon>ChatView.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="MainWindow.resx">
       <SubType>Designer</SubType>
       <DependentUpon>MainWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Preferences\PreferencesDialog.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>PreferencesDialog.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
