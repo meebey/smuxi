@@ -90,19 +90,19 @@ namespace Smuxi.Frontend.Swf
             // preferencesToolStripMenuItem
             // 
             preferencesToolStripMenuItem.Name = "preferencesToolStripMenuItem";
-            preferencesToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
+            preferencesToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             preferencesToolStripMenuItem.Text = "&Preferences...";
             // 
             // toolStripMenuItem1
             // 
             toolStripMenuItem1.Name = "toolStripMenuItem1";
-            toolStripMenuItem1.Size = new System.Drawing.Size(141, 6);
+            toolStripMenuItem1.Size = new System.Drawing.Size(149, 6);
             // 
             // exitToolStripMenuItem
             // 
             exitToolStripMenuItem.Name = "exitToolStripMenuItem";
             exitToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Q)));
-            exitToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
+            exitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             exitToolStripMenuItem.Text = "E&xit";
             // 
             // viewToolStripMenuItem
@@ -161,14 +161,14 @@ namespace Smuxi.Frontend.Swf
             // aboutToolStripMenuItem
             // 
             aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            aboutToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
+            aboutToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             aboutToolStripMenuItem.Text = "&About";
             // 
             // statusStrip1
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this._Statusbar,
             this._NetworkStatusbar,
+            this._Statusbar,
             this._ProgressBar});
             this.statusStrip1.Location = new System.Drawing.Point(0, 540);
             this.statusStrip1.Name = "statusStrip1";
@@ -183,9 +183,10 @@ namespace Smuxi.Frontend.Swf
                         | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
             this._Statusbar.BorderStyle = System.Windows.Forms.Border3DStyle.SunkenInner;
             this._Statusbar.Name = "_Statusbar";
-            this._Statusbar.Size = new System.Drawing.Size(333, 19);
+            this._Statusbar.Size = new System.Drawing.Size(318, 19);
             this._Statusbar.Spring = true;
-            this._Statusbar.Text = "toolStripStatusLabel1";
+            this._Statusbar.Text = "Status";
+            this._Statusbar.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // _NetworkStatusbar
             // 
@@ -194,9 +195,10 @@ namespace Smuxi.Frontend.Swf
                         | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
             this._NetworkStatusbar.BorderStyle = System.Windows.Forms.Border3DStyle.SunkenInner;
             this._NetworkStatusbar.Name = "_NetworkStatusbar";
-            this._NetworkStatusbar.Size = new System.Drawing.Size(333, 19);
+            this._NetworkStatusbar.Size = new System.Drawing.Size(318, 19);
             this._NetworkStatusbar.Spring = true;
-            this._NetworkStatusbar.Text = "toolStripStatusLabel1";
+            this._NetworkStatusbar.Text = "NetworkStatus";
+            this._NetworkStatusbar.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // _ProgressBar
             // 
