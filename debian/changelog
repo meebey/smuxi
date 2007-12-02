@@ -1,3 +1,11 @@
+smuxi (0.5.28-1) unstable; urgency=low
+
+  * New upstream release
+  * debian/rules:
+    + generate clilibs using dh_makeclilibs
+
+ -- Mirco Bauer <meebey@debian.org>  Sun, 02 Dec 2007 22:29:00 +0100
+
 smuxi (0.5.27-1) unstable; urgency=low
 
   * Added missing smuxi-engine-irc dependency to smuxi-frontend-gnome-irc.
