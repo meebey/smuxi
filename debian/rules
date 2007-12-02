@@ -55,7 +55,7 @@ binary-indep: build install
 	dh_fixperms
 	dh_clifixperms
 	dh_installdeb
-	dh_shlibdeps
+	dh_makeclilibs -V
 	dh_clideps
 	dh_gencontrol
 	dh_md5sums

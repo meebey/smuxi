@@ -4,7 +4,9 @@
 # $Author$
 # $Date$
 
-export MONO_PATH=../lib:$$MONO_PATH
+VERSION=0.5.28
+
+export MONO_PATH=../lib:+$$MONO_PATH
 
 CSC=gmcs
 #AOT=mono --aot -O=all
@@ -39,6 +41,7 @@ POSIX_DLL=Mono.Posix.dll
 POSIX_DIR=../lib
 POSIX_REF=-r:$(POSIX_DIR)/$(POSIX_DLL)
 
+COMMON_DEFINES=NET_2_0
 ENGINE_DEFINES=CONFIG_NINI
 GNOME_DEFINES=UI_GNOME,GTK_SHARP_2,CONFIG_NINI
 GTK_DEFINES=UI_GTK,GTK_SHARP_2,CONFIG_NINI
@@ -168,11 +171,11 @@ release-all: \
 
 
 $(COMMON_DEBUG_TARGET): $(COMMON_SOURCE)
-	$(CSC) -debug -define:TRACE,LOG4NET -target:library $(LOG4NET_REF) -out:$(COMMON_DEBUG_TARGET) $^
+	$(CSC) -debug -define:TRACE,LOG4NET -define:$(COMMON_DEFINES) -target:library $(LOG4NET_REF) -out:$(COMMON_DEBUG_TARGET) $^
 	$(AOT) $(COMMON_DEBUG_TARGET)
 
 $(COMMON_RELEASE_TARGET): $(COMMON_SOURCE)
-	$(CSC) -target:library -out:$(COMMON_RELEASE_TARGET) $^
+	$(CSC) -target:library -define:$(COMMON_DEFINES) -out:$(COMMON_RELEASE_TARGET) $^
 	$(AOT) $(COMMON_RELEASE_TARGET)
 
 
@@ -297,6 +300,26 @@ $(GNOME_XMPP_RELEASE_TARGET): $(GNOME_XMPP_SOURCE)
 	$(CSC) -nowarn:0169 -target:library $(GNOME_REFS) -r:$(GNOME_RELEASE_TARGET),$(COMMON_RELEASE_TARGET),$(ENGINE_RELEASE_TARGET),$(ENGINE_XMPP_RELEASE_TARGET),$(FRONTEND_RELEASE_TARGET) -pkg:$(GNOME_PACKAGES) $(RESOURCES_BUILD) -out:$(GNOME_XMPP_RELEASE_TARGET) $(GNOME_XMPP_SOURCE)
 	$(AOT) $(GNOME_XMPP_RELEASE_TARGET)
 
+etch-dist:
+	cd .. && dpkg-buildpackage -rfakeroot
+	cd .. && fakeroot debian/rules clean
+	cd .. && sudo pbuilder --build --basetgz /var/cache/pbuilder/base-etch.tgz smuxi_0.5.28-1.dsc
+	mkdir -p ../../releases/$(VERSION)/debian
+	cp /var/cache/pbuilder/result/smuxi*$(VERSION)*.deb ../../releases/$(VERSION)/debian
+	cd  ../../releases/$(VERSION)/debian && publish smuxi $(VERSION)
+
+win32-dist:
+	mkdir -p ../../releases/$(VERSION)/win32
+	cp ../../releases/$(VERSION)/debian/*.deb ../../releases/$(VERSION)/win32
+	cd ../../releases/$(VERSION)/win32 && \
+	  for i in *.deb; do \
+	    dpkg -x $$i package; \
+	  done; \
+	  cp package/usr/lib/smuxi/* .; \
+	  rm -rf package; \
+	  rm -f *.deb; \
+	  rm -f *.mdb;
+	cp $(SMARTIRC_DIR)/$(SMARTIRC_DLL) ../../releases/$(VERSION)/win32
 
 install: install-debug-all
 
