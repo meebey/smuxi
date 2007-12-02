@@ -35,14 +35,10 @@ namespace Smuxi.Frontend.Swf
 #if LOG4NET
         private static readonly log4net.ILog _Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 #endif
-
+        
+        [STAThread]
         public static void Main(string[] args)
         {
-            // We don't want to put any XP/Vista users by using the dull ugly
-            // unthemed interface.  Application.EnableVisualStyles() should be
-            // the very first line of code executed, to avoid any situation
-            // that may cause Visual Styles to not be able to be set.
-            System.Windows.Forms.Application.EnableVisualStyles();
 #if LOG4NET
             log4net.Config.BasicConfigurator.Configure();
 #endif

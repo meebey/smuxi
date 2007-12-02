@@ -7,7 +7,6 @@
  */
 
 in-work:
-- show channel mode, /mode without params should show the current mode
 
 smuxi 0.6 goals:
 X server manager GUI
@@ -20,7 +19,7 @@ X make preferences smaller!
 - add date stamps between days like irssi
 - smarter /op /deop /voice /devoice (using multiple modes)
 - /ban
-- /mode
+X /mode without params should show the current mode
 - release smuxi.meebey.net
 - release www.meebey.net
 - release sourceforge
@@ -44,11 +43,11 @@ X URLs in eigenen actions sind nicht klickbar
 X nick color einstellung wird sich nicht gemerkt, nach neustart ist es wieder aus
 
 Feature Requests:
+- show away-msg only once per query, on each message it's annoying
 - make #channel clickable
 - handle irc:// urls (gnome)
 - banshee plugin via dbus (now playing...)
 - dbus support
-- smarter fallback nicknames, nick_ nick__ should be tried as default if no alternative nicks are defined
 - GUI for changing topic (enjoi)
 - apply config changes without restart (enjoi)
 - mini identd server for windows support (enjoi)
@@ -104,6 +103,7 @@ Feature Requests:
 channel (showing it in the tab as pixmap) (Salz)
 
 Done:
+- smarter fallback nicknames, nick_ nick__ should be tried as default if no alternative nicks are defined
 - clickable URLs (DevGet)
 - tab colors (editable):
    black = no activity

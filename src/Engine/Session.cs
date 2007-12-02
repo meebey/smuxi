@@ -345,7 +345,9 @@ namespace Smuxi.Engine
                 return;
             }
             
-            IProtocolManager networkManager = null;
+            IProtocolManager protocolManager = null;
+            // TODO: detect matching protocol managers, how to parse host and port
+            // though in a protocol neutral ?
             /*
             foreach (IProtocolManager nm in _ProtocolManagers) {
                 if (nm.Host == server &&
@@ -362,17 +364,17 @@ namespace Smuxi.Engine
             }
             */
 
-            if (networkManager == null) {
-                networkManager = _CreateProtocolManager(fm, protocol);
-                if (networkManager == null) {
+            if (protocolManager == null) {
+                protocolManager = _CreateProtocolManager(fm, protocol);
+                if (protocolManager == null) {
                     return;
                 }
-                _ProtocolManagers.Add(networkManager);
+                _ProtocolManagers.Add(protocolManager);
             }
-            networkManager.Command(cd);
+            protocolManager.Command(cd);
             
-            // set this as current network manager
-            fm.CurrentProtocolManager = networkManager;
+            // set this as current protocol manager
+            fm.CurrentProtocolManager = protocolManager;
             fm.UpdateNetworkStatus();
         }
         

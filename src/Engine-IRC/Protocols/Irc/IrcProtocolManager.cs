@@ -309,11 +309,15 @@ namespace Smuxi.Engine
             try {
                 string msg;
                 if (_IrcClient != null) {
-                    Session.AddTextToChat(_NetworkChat, "-!- Reconnecting to " + _IrcClient.Address+"...");
-                    _IrcClient.Reconnect(true);
-                    msg = "Connection to "+_IrcClient.Address+" established";
-                    fm.SetStatus(msg); 
-                    Session.AddTextToChat(_NetworkChat, "-!- "+msg);
+                    if (_IrcClient.IsConnected) {
+                        Session.AddTextToChat(_NetworkChat, "-!- Reconnecting to " + _IrcClient.Address + "...");
+                        _IrcClient.Reconnect(true);
+                        msg = "Connection to " + _IrcClient.Address + " established";
+                        fm.SetStatus(msg); 
+                        Session.AddTextToChat(_NetworkChat, "-!- "+msg);
+                    } else {
+                        Connect(fm);
+                    }
                 } else {
                     fm.SetStatus("Reconnect Error");
                     Session.AddTextToChat(_NetworkChat, "-!- Reconnect Error");
@@ -973,13 +977,26 @@ namespace Smuxi.Engine
 
         public void CommandMode(CommandModel cd)
         {
-            ChatModel chat = cd.FrontendManager.CurrentChat;
+            ChatModel chat = cd.Chat;
             if (cd.DataArray.Length >= 2) {
-                if (chat.ChatType == ChatType.Network) {
-                    _IrcClient.RfcMode(_IrcClient.Nickname, cd.Parameter);
-                } else {
+                // does cd.Chat cause a remoting call?
+                if (chat.ChatType == ChatType.Group) {
                     string channel = chat.Name;
                     _IrcClient.RfcMode(channel, cd.Parameter);
+                } else {
+                    _IrcClient.RfcMode(_IrcClient.Nickname, cd.Parameter);
+                }
+            } else {
+                if (chat.ChatType == ChatType.Group) {
+                    Channel chan = _IrcClient.GetChannel(cd.Chat.ID);
+                    cd.FrontendManager.AddTextToChat(cd.Chat, String.Format(
+                                                                "-!- mode/{0} [{1}]",
+                                                                chat.Name, chan.Mode));
+                } else {
+                    cd.FrontendManager.AddTextToChat(cd.Chat, String.Format(
+                                                                "-!- Your user mode is [{0}]",
+                                                                _IrcClient.Usermode));
+                    
                 }
             }
         }
@@ -1075,6 +1092,9 @@ namespace Smuxi.Engine
 #if LOG4NET
                         _Logger.Warn("_Run(): _Listen() returned.");
 #endif
+                        if (!IsConnected) {
+                            Connect(_FrontendManager);
+                        }
                     } catch (Exception ex) {
 #if LOG4NET
                         _Logger.Error("_Run(): exception in _Listen() occurred!" ,ex);

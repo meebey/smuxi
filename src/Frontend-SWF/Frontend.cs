@@ -146,6 +146,11 @@ namespace Smuxi.Frontend.Swf
             _Logger.Info(_VersionString + " starting");
 #endif
            
+            // We don't want to put any XP/Vista users by using the dull ugly
+            // unthemed interface.  Application.EnableVisualStyles() should be
+            // called before any form is displayed.
+            Application.EnableVisualStyles();
+
             _SplashScreenWindow = new SplashScreenWindow();
             
             _MainWindow = new MainWindow();
@@ -204,7 +209,7 @@ namespace Smuxi.Frontend.Swf
             _MainWindow.Show();
             //_MainWindow.ApplyConfig(_UserConfig);
             // make sure entry got attention :-P
-            //TODO _MainWindow.Entry.HasFocus = true;
+            _MainWindow.Entry.Select();
         }
         
         public static void DisconnectEngineFromGUI()
@@ -251,7 +256,8 @@ namespace Smuxi.Frontend.Swf
             ShowException(null, ex);
         }
         
-        /*private static void _OnUnhandledException(GLib.UnhandledExceptionArgs e)
+        /*
+        private static void _OnUnhandledException(GLib.UnhandledExceptionArgs e)
         {
             Trace.Call(e);
             
@@ -261,6 +267,7 @@ namespace Smuxi.Frontend.Swf
                     Quit();
                 }
             }
-        }*/
+        }
+        */
     }
 }
