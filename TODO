@@ -45,6 +45,7 @@ X opening ftp://foo.de URL crashes smuxi with GLib.GException: Unknown error cod
 X "/msg nick hi" creates unusable query tab
 X don't use GNOME.Vfs.Show() on Win32, use Process.Start() instead.
 X show failing attempts to a join a channel
+X show kick message before rejoin
 
 Feature Requests:
 - auto-retry joining channels

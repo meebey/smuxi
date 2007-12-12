@@ -471,7 +471,6 @@ namespace Smuxi.Engine
                         // we are on the server chat
                         _IrcClient.WriteLine(command.Data);
                     } else {
-                        // we are on a channel or query chat
                         _Say(command.Chat, command.Data);
                     }
                     handled = true;
@@ -591,38 +590,38 @@ namespace Smuxi.Engine
             Connect(fm, server, port, nicks, username, pass);
         }
         
+        public void CommandSay(CommandModel cd)
+        {
+            _Say(cd.Chat, cd.Parameter);
+        }
+        
         private void _Say(ChatModel chat, string message)
         {
             if (!chat.IsEnabled) {
                 return;
             }
 
-            MessageModel fmsg = new MessageModel();
-            TextMessagePartModel fmsgti;
+            MessageModel msg = new MessageModel();
+            TextMessagePartModel msgPart;
             
             _IrcClient.SendMessage(SendType.Message, chat.ID, message);
             
-            fmsgti = new TextMessagePartModel();
-            fmsgti.Text = "<";
-            fmsg.MessageParts.Add(fmsgti);
+            msgPart = new TextMessagePartModel();
+            msgPart.Text = "<";
+            msg.MessageParts.Add(msgPart);
         
-            fmsgti = new TextMessagePartModel();
-            fmsgti.Text = _IrcClient.Nickname;
-            fmsgti.ForegroundColor = IrcTextColor.Blue;
-            fmsg.MessageParts.Add(fmsgti);
+            msgPart = new TextMessagePartModel();
+            msgPart.Text = _IrcClient.Nickname;
+            msgPart.ForegroundColor = IrcTextColor.Blue;
+            msg.MessageParts.Add(msgPart);
             
-            fmsgti = new TextMessagePartModel();
-            fmsgti.Text = "> ";
-            fmsg.MessageParts.Add(fmsgti);
+            msgPart = new TextMessagePartModel();
+            msgPart.Text = "> ";
+            msg.MessageParts.Add(msgPart);
             
-            _IrcMessageToMessageModel(ref fmsg, message);
+            _IrcMessageToMessageModel(ref msg, message);
             
-            Session.AddMessageToChat(chat, fmsg);
-        }
-        
-        public void CommandSay(CommandModel cd)
-        {
-            _Say(cd.Chat, cd.Parameter);
+            Session.AddMessageToChat(chat, msg);
         }
         
         public void CommandJoin(CommandModel cd)
@@ -1845,11 +1844,11 @@ namespace Smuxi.Engine
 #endif
             GroupChatModel cchat = (GroupChatModel) GetChat(e.Channel, ChatType.Group);
             if (e.Data.Irc.IsMe(e.Whom)) {
-                Session.DisableChat(cchat);
                 Session.AddTextToChat(cchat,
                     "-!- " + String.Format(
                                 _("You was kicked from {0} by {1} [{2}]"),
                                 e.Channel, e.Who, e.KickReason));
+                Session.DisableChat(cchat);
             } else {
                 PersonModel user = cchat.GetPerson(e.Whom);
                 Session.RemovePersonFromGroupChat(cchat, user);
