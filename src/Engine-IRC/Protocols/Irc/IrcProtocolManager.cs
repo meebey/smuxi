@@ -700,10 +700,12 @@ namespace Smuxi.Engine
                 string nickname = cd.DataArray[1];
                 ChatModel chat = GetChat(nickname, ChatType.Person);
                 if (chat == null) {
-                    PersonModel person = new PersonModel(nickname, nickname,
-                                                NetworkID, Protocol, this);
+                    IrcPersonModel person = new IrcPersonModel(nickname,
+                                                               NetworkID,
+                                                               this);
                     chat = new PersonChatModel(person, nickname, nickname, this);
                     Session.AddChat(chat);
+                    Session.SyncChat(chat);
                 }
             }
             
@@ -1371,17 +1373,16 @@ namespace Smuxi.Engine
                         _OnReceiveTypeWhowas(e);
                         break;
                 }
-                switch (e.Data.ReplyCode) {
-                    case ReplyCode.ErrorUnknownCommand:
-                        Session.AddTextToChat(_NetworkChat, e.Data.Message);
-                        break;
-                }
             }
+            
             string chan;
             string nick;
             string msg;
             ChatModel chat;            
             switch (e.Data.ReplyCode) {
+                case ReplyCode.ErrorUnknownCommand:
+                    Session.AddTextToChat(_NetworkChat, e.Data.Message);
+                    break;
                 case ReplyCode.ErrorNoSuchNickname:
                     nick = e.Data.RawMessageArray[3];
                     msg = "-!- " + String.Format(_("{0}: No such nick/channel"), nick);
@@ -1392,7 +1393,12 @@ namespace Smuxi.Engine
                         Session.AddTextToChat(_NetworkChat, msg);
                     }
                     break;
+                case ReplyCode.ErrorChannelIsFull:
+                case ReplyCode.ErrorInviteOnlyChannel:
+                case ReplyCode.ErrorBadChannelKey:
+                case ReplyCode.ErrorTooManyChannels:
                 case ReplyCode.ErrorChannelOpPrivilegesNeeded:
+                case ReplyCode.ErrorUnavailableResource:
                     chan = e.Data.RawMessageArray[3];
                     msg = "-!- " + chan + " " + e.Data.Message;
                     chat = GetChat(chan, ChatType.Group);
@@ -1632,11 +1638,15 @@ namespace Smuxi.Engine
         {
             ChatModel chat = GetChat(e.Data.Nick, ChatType.Person);
             if (chat == null) {
-                // BUG: use IrcPersonModel?
-                PersonModel person = new PersonModel(e.Data.Nick, e.Data.Nick,
-                                            NetworkID, Protocol, this);
+                IrcPersonModel person = new IrcPersonModel(e.Data.Nick,
+                                                           null,
+                                                           e.Data.Ident,
+                                                           e.Data.Host,
+                                                           NetworkID,
+                                                           this);
                 chat = new PersonChatModel(person, e.Data.Nick, e.Data.Nick, this);
                 Session.AddChat(chat);
+                Session.SyncChat(chat);
             }
             
             MessageModel fmsg = new MessageModel();
@@ -1656,11 +1666,15 @@ namespace Smuxi.Engine
         {
             ChatModel chat = GetChat(e.Data.Nick, ChatType.Person);
             if (chat == null) {
-                // BUG: use IrcPersonModel?
-                PersonModel person = new PersonModel(e.Data.Nick, e.Data.Nick,
-                                            NetworkID, Protocol, this);
+                IrcPersonModel person = new IrcPersonModel(e.Data.Nick,
+                                                           null,
+                                                           e.Data.Ident,
+                                                           e.Data.Host,
+                                                           NetworkID,
+                                                           this);
                 chat = new PersonChatModel(person, e.Data.Nick, e.Data.Nick, this);
                 Session.AddChat(chat);
+                Session.SyncChat(chat);
             }
             
             MessageModel fmsg = new MessageModel();
@@ -1733,15 +1747,13 @@ namespace Smuxi.Engine
 #if LOG4NET
             _Logger.Debug("_OnNames() e.Channel: " + e.Channel);
 #endif
-            GroupChatModel cchat = (GroupChatModel) GetChat(e.Data.Channel, ChatType.Group);
-            if (cchat.IsSynced) {
+            GroupChatModel groupChat = (GroupChatModel) GetChat(e.Data.Channel, ChatType.Group);
+            if (groupChat.IsSynced) {
                 // nothing todo for us
                 return;
             }
             
-            // no need to care about op/voice, _OnChannelActiveSynced() handles it
-            //bool op;
-            //bool voice;
+            // would be nice if SmartIrc4net would take care of removing prefixes
             foreach (string user in e.UserList) {
                 // skip empty users (some IRC servers send an extra space)
                 if (user.TrimEnd(' ').Length == 0) {
@@ -1749,21 +1761,9 @@ namespace Smuxi.Engine
                 }
                 string username = user;
                 
-                //op = false;
-                //voice = false;
                 switch (user[0]) {
                     case '@':
-                        /*
-                        op = true;
-                        username = user.Substring(1);
-                        break;
-                        */
                     case '+':
-                        /*
-                        voice = true;
-                        username = user.Substring(1);
-                        break;
-                        */
                     // RFC VIOLATION
                     // some IRC network do this and break our nice smuxi...
                     case '&':
@@ -1773,23 +1773,13 @@ namespace Smuxi.Engine
                         break;
 				}
 				
-                IrcGroupPersonModel icuser = new IrcGroupPersonModel(username,
+                IrcGroupPersonModel groupPerson = new IrcGroupPersonModel(username,
                                                                      NetworkID,
                                                                      this);
-                /*
-                if (op) {
-                    icuser.IsOp = true;
-                }
-                if (voice) {
-                    icuser.IsVoice = true;
-                }
-                */
                 
-                // don't tell any frontend yet that there is new data, SyncPage() will do it
-                //Session.AddUserToChannel(cchat, icuser);
-                cchat.UnsafePersons.Add(icuser.NickName.ToLower(), icuser);
+                groupChat.UnsafePersons.Add(groupPerson.NickName.ToLower(), groupPerson);
 #if LOG4NET
-                _Logger.Debug("_OnNames() added user: " + username + " to: " + cchat.Name);
+                _Logger.Debug("_OnNames() added user: " + username + " to: " + groupChat.Name);
 #endif
             }
         }
@@ -1797,38 +1787,37 @@ namespace Smuxi.Engine
         private void _OnChannelActiveSynced(object sender, IrcEventArgs e)
         {
 #if LOG4NET
-            _Logger.Debug("_OnChannelActiveSynced() e.Data.Channel: "+e.Data.Channel);
+            _Logger.Debug("_OnChannelActiveSynced() e.Data.Channel: " + e.Data.Channel);
 #endif
-            GroupChatModel cchat = (GroupChatModel) GetChat(e.Data.Channel, ChatType.Group);
-            Channel schan = _IrcClient.GetChannel(e.Data.Channel);
-            foreach (ChannelUser scuser in schan.Users.Values) {
-                IrcGroupPersonModel icuser = (IrcGroupPersonModel)cchat.GetPerson(scuser.Nick);
-                if (icuser == null) {
-                    /*
-                    icuser = new IrcGroupPersonModel(scuser.Nick, scuser.Realname,
-                                    scuser.Ident, scuser.Host);
-                    // don't tell any frontend yet that there is new data, SyncPage() will do it
-                    //Session.AddUserToChannel(cchat, icuser);
-                    cchat.UnsafeUsers.Add(icuser.Nickname.ToLower(), icuser);
-                    */
-                    // we should not get here anymore, _OnNames creates the users already
+            
+            GroupChatModel groupChat = (GroupChatModel) GetChat(e.Data.Channel, ChatType.Group);
+            if (groupChat == null) {
 #if LOG4NET
-                    _Logger.Error("_OnChannelActiveSynced(): cchat.GetPerson(" + scuser.Nick + ") returned null!");
+                _Logger.Error("_OnChannelActiveSynced(): GetChat(" + e.Data.Channel + ", ChatType.Group) returned null!");
 #endif
-                    return;
-                }
-                
-                icuser.RealName = scuser.Realname;
-                icuser.Ident = scuser.Ident;
-                icuser.Host = scuser.Host;
-                icuser.IsOp = scuser.IsOp;
-                icuser.IsVoice = scuser.IsVoice;
-                
-                // don't tell any frontend yet that there is new data, SyncPage() will do it
-                //Session.UpdatePersonInGroupChat(cchat, icuser, icuser);
+                return;
             }
             
-            Session.SyncChat(cchat);
+            Channel channel = _IrcClient.GetChannel(e.Data.Channel);
+            foreach (ChannelUser channelUser in channel.Users.Values) {
+                IrcGroupPersonModel groupPerson = (IrcGroupPersonModel) groupChat.GetPerson(channelUser.Nick);
+                if (groupPerson == null) {
+                    // we should not get here anymore, _OnNames creates the users already
+#if LOG4NET
+                    _Logger.Error("_OnChannelActiveSynced(): groupChat.GetPerson(" + channelUser.Nick + ") returned null!");
+#endif
+                    continue;
+                }
+                
+                groupPerson.RealName = channelUser.Realname;
+                groupPerson.Ident    = channelUser.Ident;
+                groupPerson.Host     = channelUser.Host;
+                groupPerson.IsOp     = channelUser.IsOp;
+                groupPerson.IsVoice  = channelUser.IsVoice;
+            }
+            
+            // prime-time
+            Session.SyncChat(groupChat);
         }
         
         private void _OnPart(object sender, PartEventArgs e)
@@ -1836,7 +1825,7 @@ namespace Smuxi.Engine
 #if LOG4NET
             _Logger.Debug("_OnPart() e.Channel: "+e.Channel+" e.Who: "+e.Who);
 #endif
-            GroupChatModel cchat = (GroupChatModel)GetChat(e.Channel, ChatType.Group);
+            GroupChatModel cchat = (GroupChatModel) GetChat(e.Channel, ChatType.Group);
             if (e.Data.Irc.IsMe(e.Who)) {
                 Session.RemoveChat(cchat);
             } else {
@@ -1854,7 +1843,7 @@ namespace Smuxi.Engine
 #if LOG4NET
             _Logger.Debug("_OnKick() e.Channel: "+e.Channel+" e.Whom: "+e.Whom);
 #endif
-            GroupChatModel cchat = (GroupChatModel)GetChat(e.Channel, ChatType.Group);
+            GroupChatModel cchat = (GroupChatModel) GetChat(e.Channel, ChatType.Group);
             if (e.Data.Irc.IsMe(e.Whom)) {
                 Session.DisableChat(cchat);
                 Session.AddTextToChat(cchat,
@@ -1898,7 +1887,7 @@ namespace Smuxi.Engine
                     GroupChatModel cchat = (GroupChatModel)GetChat(channel, ChatType.Group);
                     
                     // clone the old user to a new user
-                    IrcGroupPersonModel olduser = (IrcGroupPersonModel)cchat.GetPerson(e.OldNickname);
+                    IrcGroupPersonModel olduser = (IrcGroupPersonModel) cchat.GetPerson(e.OldNickname);
                     if (olduser == null) {
 #if LOG4NET
                         _Logger.Error("cchat.GetPerson(e.OldNickname) returned null! cchat.Name: "+cchat.Name+" e.OldNickname: "+e.OldNickname);
@@ -1907,11 +1896,11 @@ namespace Smuxi.Engine
                     }
                     IrcGroupPersonModel newuser = new IrcGroupPersonModel(
                                                         e.NewNickname,
-                                                        ircuser.Realname,
-                                                        ircuser.Ident,
-                                                        ircuser.Host,
                                                         NetworkID,
                                                         this);
+                    newuser.RealName = olduser.RealName;
+                    newuser.Ident = olduser.Ident;
+                    newuser.Host = olduser.Host;
                     newuser.IsOp = olduser.IsOp;
                     newuser.IsVoice = olduser.IsVoice;
                     

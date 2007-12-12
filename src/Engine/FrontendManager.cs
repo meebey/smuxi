@@ -48,7 +48,7 @@ namespace Smuxi.Engine
         private Session          _Session;
         private IFrontendUI      _UI;
         private ChatModel        _CurrentChat;
-        private IProtocolManager  _CurrentProtocolManager;
+        private IProtocolManager _CurrentProtocolManager;
         private bool             _IsFrontendDisconnecting;
         private SimpleDelegate   _ConfigChangedDelegate;
         private bool             _IsFrontendSynced;
@@ -246,7 +246,7 @@ namespace Smuxi.Engine
         
         public void SyncChat(ChatModel chat)
         {
-             if (!_SyncedChats.Contains(chat) && _IsFrontendSynced) {
+            if (!_SyncedChats.Contains(chat) && _IsFrontendSynced) {
                 _SyncChat(chat);
             }
         }

@@ -242,10 +242,15 @@ namespace Smuxi.Frontend.Gnome
             _FrontendManager = _Session.GetFrontendManager(_MainWindow.UI);
             _FrontendManager.Sync();
             
-            if (_UserConfig.IsCaching) {
-                // when our UserConfig is cached, we need to invalidate the cache
-                _FrontendManager.ConfigChangedDelegate = new SimpleDelegate(_UserConfig.ClearCache);
+            // MS .NET doesn't like this?
+            if (Type.GetType("Mono.Runtime") != null) {
+                // when are running on Mono, all should be good
+                if (_UserConfig.IsCaching) {
+                    // when our UserConfig is cached, we need to invalidate the cache
+                    _FrontendManager.ConfigChangedDelegate = new SimpleDelegate(_UserConfig.ClearCache);
+                }
             }
+            
             _MainWindow.ShowAll();
             _MainWindow.ApplyConfig(_UserConfig);
             // make sure entry got attention :-P
@@ -277,8 +282,8 @@ namespace Smuxi.Frontend.Gnome
             }
             
             /*
-            BUG: don't do this, the access to config is lost and the entry will
-            throw an exception then.
+            // BUG: don't do this, the access to config is lost and the entry will
+            // throw an exception then.
             if (_FrontendManager != null) {
                 DisconnectEngineFromGUI();
             }

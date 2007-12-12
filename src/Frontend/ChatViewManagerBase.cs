@@ -134,10 +134,14 @@ namespace Smuxi.Frontend
 #if LOG4NET
                     _Logger.Debug("Load() found Attribute: " + attr + " in Type: " + foundType);
 #endif
-                   // HACK: MS .NET 2.0 finds the attribute 2 times?!? 
-                   if (!_ChatViewTypes.ContainsKey(attr)) {
+                    // HACK: MS .NET 2.0 finds the attribute 2 times?!?
+                    // this doesn't seem to be a bug in MS .NET but Mono
+                    // IrcGroupChatView : GroupChatView : ChatView
+                    // GroupChatView contains attributes which is found a second time
+                    // when IrcGroupChatView is scanned for attributes
+                    if (!_ChatViewTypes.ContainsKey(attr)) {
                         _ChatViewTypes.Add(attr, foundType);
-                   }
+                    }
                 }
             }
         }

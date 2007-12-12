@@ -77,12 +77,9 @@ namespace Smuxi.Engine
         
         internal IrcPersonModel(string nickName, string realName, string ident,
                                 string host, string networkID,
-                                IProtocolManager networkManager) :
-                           base(nickName, nickName, networkID, "IRC", networkManager)
+                                IProtocolManager protocolManager) :
+                           base(nickName, nickName, networkID, "IRC", protocolManager)
         {
-            if (realName == null) {
-                throw new ArgumentNullException("realName");
-            }
             if (ident == null) {
                 throw new ArgumentNullException("ident");
             }
@@ -96,9 +93,9 @@ namespace Smuxi.Engine
         }
 
         internal protected IrcPersonModel(string nickName, string networkID, 
-                                          IProtocolManager networkManager) :
+                                          IProtocolManager protocolManager) :
                                      base(nickName, nickName, networkID, "IRC",
-                                          networkManager)
+                                          protocolManager)
         {
         }
         

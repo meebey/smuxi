@@ -41,8 +41,15 @@ X erste message im query wird nicht formatiert, z.b. /msg foo hallo _bar_
 X Nick highlight is case-sensitive
 X URLs in eigenen actions sind nicht klickbar
 X nick color einstellung wird sich nicht gemerkt, nach neustart ist es wieder aus
+X opening ftp://foo.de URL crashes smuxi with GLib.GException: Unknown error code: 30
+X "/msg nick hi" creates unusable query tab
+X don't use GNOME.Vfs.Show() on Win32, use Process.Start() instead.
+X show failing attempts to a join a channel
 
 Feature Requests:
+- auto-retry joining channels
+- encoding setting per server (Cobrian)
+- support mIRC colors in topic (Cobrian)
 - show away-msg only once per query, on each message it's annoying
 - make #channel clickable
 - handle irc:// urls (gnome)

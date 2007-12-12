@@ -28,6 +28,7 @@
 
 using System;
 using System.Drawing;
+using SysDiag = System.Diagnostics;
 using System.Globalization;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
@@ -440,7 +441,10 @@ namespace Smuxi.Frontend.Gnome
                 return;
             }
             
-            // TODO: check if something is selected, if so bail out
+            // if something is selected, bail out
+            if (_OutputTextView.Buffer.HasSelection) {
+                return;
+            }
             
             // get URL via TextTag from TextIter
             Gtk.TextTag tag = (Gtk.TextTag) sender;
@@ -456,14 +460,21 @@ namespace Smuxi.Frontend.Gnome
                 // URL doesn't start with a protocol
                 url = "http://" + url;
             }
-#if UI_GNOME
-            GNOME.Url.Show(url);
-#endif
             
-            /*
-            // prevent that the selection changes because of the double-click
-            e.RetVal = true;
-            */
+            if (Type.GetType("Mono.Runtime") == null) {
+                // this is not Mono, probably MS .NET, so ShellExecute is the better approach
+                SysDiag.Process.Start(url);
+                return;
+            }
+            
+#if UI_GNOME
+            try {
+                GNOME.Url.Show(url);
+            } catch (Exception ex) {
+                string msg = String.Format(_("Opening URL ({0}) failed."), url);
+                Frontend.ShowException(new ApplicationException(msg, ex));
+            }
+#endif
         }
         
         private void _OnMotionNotifyEvent(object sender, Gtk.MotionNotifyEventArgs e)
@@ -505,6 +516,11 @@ namespace Smuxi.Frontend.Gnome
                     window.Cursor = _NormalCursor;
                 }
             }
+        }
+        
+        private static string _(string msg)
+        {
+            return Mono.Unix.Catalog.GetString(msg);
         }
     }
 }

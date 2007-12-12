@@ -77,7 +77,6 @@ namespace Smuxi.Engine
         protected virtual void GetObjectData(SerializationWriter sw)
         {
             sw.Write(_TimeStamp);
-            //sw.Write((ICollection<MessagePartModel>) _MessageParts);
             sw.Write(_MessageParts);
         }
         
