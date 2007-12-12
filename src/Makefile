@@ -4,8 +4,6 @@
 # $Author$
 # $Date$
 
-VERSION=0.5.28
-
 export MONO_PATH=../lib:+$$MONO_PATH
 
 CSC=gmcs
@@ -299,27 +297,6 @@ $(GNOME_XMPP_RELEASE_TARGET): $(GNOME_RELEASE_TARGET) $(FRONTEND_RELEASE_TARGET)
 $(GNOME_XMPP_RELEASE_TARGET): $(GNOME_XMPP_SOURCE)
 	$(CSC) -nowarn:0169 -target:library $(GNOME_REFS) -r:$(GNOME_RELEASE_TARGET),$(COMMON_RELEASE_TARGET),$(ENGINE_RELEASE_TARGET),$(ENGINE_XMPP_RELEASE_TARGET),$(FRONTEND_RELEASE_TARGET) -pkg:$(GNOME_PACKAGES) $(RESOURCES_BUILD) -out:$(GNOME_XMPP_RELEASE_TARGET) $(GNOME_XMPP_SOURCE)
 	$(AOT) $(GNOME_XMPP_RELEASE_TARGET)
-
-etch-dist:
-	cd .. && dpkg-buildpackage -rfakeroot
-	cd .. && fakeroot debian/rules clean
-	cd .. && sudo pbuilder --build --basetgz /var/cache/pbuilder/base-etch.tgz smuxi_0.5.28-1.dsc
-	mkdir -p ../../releases/$(VERSION)/debian
-	cp /var/cache/pbuilder/result/smuxi*$(VERSION)*.deb ../../releases/$(VERSION)/debian
-	cd  ../../releases/$(VERSION)/debian && publish smuxi $(VERSION)
-
-win32-dist:
-	mkdir -p ../../releases/$(VERSION)/win32
-	cp ../../releases/$(VERSION)/debian/*.deb ../../releases/$(VERSION)/win32
-	cd ../../releases/$(VERSION)/win32 && \
-	  for i in *.deb; do \
-	    dpkg -x $$i package; \
-	  done; \
-	  cp package/usr/lib/smuxi/* .; \
-	  rm -rf package; \
-	  rm -f *.deb; \
-	  rm -f *.mdb;
-	cp $(SMARTIRC_DIR)/$(SMARTIRC_DLL) ../../releases/$(VERSION)/win32
 
 install: install-debug-all
 

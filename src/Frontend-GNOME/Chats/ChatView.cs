@@ -441,10 +441,12 @@ namespace Smuxi.Frontend.Gnome
                 return;
             }
             
+#if GTK_SHARP_2_10
             // if something is selected, bail out
             if (_OutputTextView.Buffer.HasSelection) {
                 return;
             }
+#endif
             
             // get URL via TextTag from TextIter
             Gtk.TextTag tag = (Gtk.TextTag) sender;
