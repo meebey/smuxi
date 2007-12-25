@@ -7,7 +7,7 @@
  *
  * smuxi - Smart MUltipleXed Irc
  *
- * Copyright (c) 2005-2006 Mirco Bauer <meebey@meebey.net>
+ * Copyright (c) 2005-2007 Mirco Bauer <meebey@meebey.net>
  *
  * Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
  *
@@ -39,14 +39,16 @@ namespace Smuxi.Frontend.Gnome
 #if LOG4NET
         private static readonly log4net.ILog _Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 #endif
-        //private IrcGroupChatModel _IrcGroupChatModel; 
+        //private IrcGroupChatModel  _IrcGroupChatModel; 
+        private IrcProtocolManager _IrcProtocolManager;
         
         public IrcGroupChatView(GroupChatModel groupChat) : base(groupChat)
         {
             Trace.Call(groupChat);
             
             //_IrcGroupChatModel = ircGroupChat;
-
+            _IrcProtocolManager = (IrcProtocolManager) groupChat.ProtocolManager;
+            
             if (PersonMenu != null) {
                 Gtk.ImageMenuItem op_item = new Gtk.ImageMenuItem(_("Op"));
                 op_item.Activated += new EventHandler(_OnUserListMenuOpActivated);
@@ -67,6 +69,20 @@ namespace Smuxi.Frontend.Gnome
                 Gtk.ImageMenuItem kick_item = new Gtk.ImageMenuItem(_("Kick"));
                 kick_item.Activated += new EventHandler(_OnUserListMenuKickActivated);
                 PersonMenu.Append(kick_item);
+
+                Gtk.ImageMenuItem ban_item = new Gtk.ImageMenuItem(_("Ban"));
+                ban_item.Activated += new EventHandler(_OnUserListMenuBanActivated);
+                PersonMenu.Append(ban_item);
+
+                Gtk.ImageMenuItem unban_item = new Gtk.ImageMenuItem(_("Unban"));
+                unban_item.Activated += new EventHandler(_OnUserListMenuUnbanActivated);
+                PersonMenu.Append(unban_item);
+                
+                // TODO: add devider
+                
+                Gtk.ImageMenuItem query_item = new Gtk.ImageMenuItem(_("Query"));
+                query_item.Activated += new EventHandler(_OnUserListMenuQueryActivated);
+                PersonMenu.Append(query_item);
             }
             
             if (PersonTreeView != null) {
@@ -114,12 +130,9 @@ namespace Smuxi.Frontend.Gnome
             if (person == null) {
                 return;
             }
-            
-            if (ChatModel.ProtocolManager is IrcProtocolManager) {
-                IrcProtocolManager imanager = (IrcProtocolManager) ChatModel.ProtocolManager;
-                imanager.CommandOp(new CommandModel(Frontend.FrontendManager, ChatModel,
-                    person.ID));
-            }
+
+            _IrcProtocolManager.CommandOp(new CommandModel(Frontend.FrontendManager, ChatModel,
+                person.ID));
         } 
         
         private void _OnUserListMenuDeopActivated(object sender, EventArgs e)
@@ -131,11 +144,8 @@ namespace Smuxi.Frontend.Gnome
                 return;
             }
             
-            if (ChatModel.ProtocolManager is IrcProtocolManager) {
-                IrcProtocolManager imanager = (IrcProtocolManager) ChatModel.ProtocolManager;
-                imanager.CommandDeop(new CommandModel(Frontend.FrontendManager, ChatModel,
-                    person.ID));
-            }
+            _IrcProtocolManager.CommandDeop(new CommandModel(Frontend.FrontendManager, ChatModel,
+                person.ID));
         }
          
         private void _OnUserListMenuVoiceActivated(object sender, EventArgs e)
@@ -147,11 +157,8 @@ namespace Smuxi.Frontend.Gnome
                 return;
             }
             
-            if (ChatModel.ProtocolManager is IrcProtocolManager) {
-                IrcProtocolManager imanager = (IrcProtocolManager) ChatModel.ProtocolManager;
-                imanager.CommandVoice(new CommandModel(Frontend.FrontendManager, ChatModel,
+            _IrcProtocolManager.CommandVoice(new CommandModel(Frontend.FrontendManager, ChatModel,
                     person.ID));
-            }
         }
         
         private void _OnUserListMenuDevoiceActivated(object sender, EventArgs e)
@@ -163,11 +170,8 @@ namespace Smuxi.Frontend.Gnome
                 return;
             }
             
-            if (ChatModel.ProtocolManager is IrcProtocolManager) {
-                IrcProtocolManager imanager = (IrcProtocolManager) ChatModel.ProtocolManager;
-                imanager.CommandDevoice(new CommandModel(Frontend.FrontendManager, ChatModel,
-                    person.ID));
-            }
+            _IrcProtocolManager.CommandDevoice(new CommandModel(Frontend.FrontendManager,
+                                                                ChatModel, person.ID));
         } 
         
         private void _OnUserListMenuKickActivated(object sender, EventArgs e)
@@ -179,11 +183,47 @@ namespace Smuxi.Frontend.Gnome
                 return;
             }
             
-            if (ChatModel.ProtocolManager is IrcProtocolManager) {
-                IrcProtocolManager imanager = (IrcProtocolManager) ChatModel.ProtocolManager;
-                imanager.CommandKick(new CommandModel(Frontend.FrontendManager, ChatModel,
+            _IrcProtocolManager.CommandKick(new CommandModel(Frontend.FrontendManager, ChatModel,
                     person.ID));
+        }
+        
+        private void _OnUserListMenuBanActivated(object sender, EventArgs e)
+        {
+            Trace.Call(sender, e);
+
+            PersonModel person = GetSelectedPerson();
+            if (person == null) {
+                return;
             }
+            
+            _IrcProtocolManager.CommandBan(new CommandModel(Frontend.FrontendManager, ChatModel,
+                    person.ID));
+        }
+        
+        private void _OnUserListMenuUnbanActivated(object sender, EventArgs e)
+        {
+            Trace.Call(sender, e);
+
+            PersonModel person = GetSelectedPerson();
+            if (person == null) {
+                return;
+            }
+            
+            _IrcProtocolManager.CommandUnban(new CommandModel(Frontend.FrontendManager, ChatModel,
+                    person.ID));
+        }
+        
+        private void _OnUserListMenuQueryActivated(object sender, EventArgs e)
+        {
+            Trace.Call(sender, e);
+
+            PersonModel person = GetSelectedPerson();
+            if (person == null) {
+                return;
+            }
+            
+            _IrcProtocolManager.CommandMessageQuery(new CommandModel(Frontend.FrontendManager, ChatModel,
+                    person.ID));
         }
         
         protected override void OnTabMenuCloseActivated(object sender, EventArgs e)
@@ -192,12 +232,9 @@ namespace Smuxi.Frontend.Gnome
             
             base.OnTabMenuCloseActivated(sender, e);
             
-            if (ChatModel.ProtocolManager is IrcProtocolManager) {
-                IrcProtocolManager imanager = (IrcProtocolManager) ChatModel.ProtocolManager;
-                imanager.CommandPart(new CommandModel(Frontend.FrontendManager,
+            _IrcProtocolManager.CommandPart(new CommandModel(Frontend.FrontendManager,
                                                       ChatModel,
-                                                      ChatModel.Name));
-            }
+                                                      ChatModel.ID));
         }
         
         protected override void OnPersonsRowActivated(object sender, Gtk.RowActivatedArgs e)
@@ -211,11 +248,8 @@ namespace Smuxi.Frontend.Gnome
                 return;
             }
             
-            if (ChatModel.ProtocolManager is IrcProtocolManager) {
-                IrcProtocolManager imanager = (IrcProtocolManager) ChatModel.ProtocolManager;
-                imanager.CommandMessageQuery(new CommandModel(Frontend.FrontendManager,
-                                                              ChatModel, person.ID));
-            }
+            _IrcProtocolManager.CommandMessageQuery(new CommandModel(Frontend.FrontendManager,
+                                                          ChatModel, person.ID));
         }
 
         protected override int SortPersonListStore(Gtk.TreeModel model,

@@ -14,10 +14,10 @@
     </Configuration>
   </Configurations>
   <Contents>
-    <File name="./AssemblyInfo.cs" subtype="Code" buildaction="Compile" />
-    <File name="./Protocols" subtype="Directory" buildaction="Compile" />
-    <File name="./Protocols/Oscar" subtype="Directory" buildaction="Compile" />
-    <File name="./Protocols/Oscar/OscarProtocolManager.cs" subtype="Code" buildaction="Compile" />
+    <File name="AssemblyInfo.cs" subtype="Code" buildaction="Compile" />
+    <File name="Protocols" subtype="Directory" buildaction="Compile" />
+    <File name="Protocols/Oscar" subtype="Directory" buildaction="Compile" />
+    <File name="Protocols/Oscar/OscarProtocolManager.cs" subtype="Code" buildaction="Compile" />
   </Contents>
   <References>
     <ProjectReference type="Project" localcopy="True" refto="Common" />

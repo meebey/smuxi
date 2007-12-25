@@ -4,25 +4,25 @@
       <Output directory="../../bin/debug" assembly="smuxi-frontend-gnome" />
       <Build debugmode="True" target="Exe" />
       <Execution runwithwarnings="True" externalconsole="True" consolepause="True" runtime="MsNet" clr-version="Net_2_0" />
-      <CodeGeneration compiler="Csc" warninglevel="4" optimize="False" unsafecodeallowed="False" generateoverflowchecks="True" mainclass="" definesymbols="DEBUG,TRACE,LOG4NET,CONFIG_NINI,UI_GNOME,GTK_SHARP_2_10" generatexmldocumentation="False" win32Icon="./" ctype="CSharpCompilerParameters" />
+      <CodeGeneration compiler="Csc" warninglevel="4" optimize="False" unsafecodeallowed="False" generateoverflowchecks="True" mainclass="" definesymbols="DEBUG,TRACE,LOG4NET,CONFIG_NINI,UI_GNOME,GTK_SHARP_2_10" generatexmldocumentation="False" win32Icon="." ctype="CSharpCompilerParameters" />
     </Configuration>
     <Configuration name="Release" ctype="DotNetProjectConfiguration">
       <Output directory="../../bin/release" assembly="smuxi-frontend-gnome" />
       <Build debugmode="False" target="WinExe" />
       <Execution runwithwarnings="False" consolepause="True" runtime="MsNet" clr-version="Net_2_0" />
-      <CodeGeneration compiler="Csc" warninglevel="4" optimize="True" unsafecodeallowed="False" generateoverflowchecks="True" mainclass="" definesymbols="CONFIG_NINI,UI_GNOME,GTK_SHARP_2_10" generatexmldocumentation="False" win32Icon="./" ctype="CSharpCompilerParameters" />
+      <CodeGeneration compiler="Csc" warninglevel="4" optimize="True" unsafecodeallowed="False" generateoverflowchecks="True" mainclass="" definesymbols="CONFIG_NINI,UI_GNOME,GTK_SHARP_2_10" generatexmldocumentation="False" win32Icon="." ctype="CSharpCompilerParameters" />
     </Configuration>
     <Configuration name="Debug GTK" ctype="DotNetProjectConfiguration">
       <Output directory="../../bin/debug" assembly="smuxi-frontend-gtk" />
       <Build debugmode="True" target="Exe" />
       <Execution runwithwarnings="True" externalconsole="True" consolepause="True" runtime="MsNet" clr-version="Net_2_0" />
-      <CodeGeneration compiler="Csc" warninglevel="4" optimize="False" unsafecodeallowed="False" generateoverflowchecks="True" mainclass="" definesymbols="DEBUG,TRACE,LOG4NET,CONFIG_NINI,UI_GTK,GTK_SHARP_2_10" generatexmldocumentation="False" win32Icon="./" ctype="CSharpCompilerParameters" />
+      <CodeGeneration compiler="Csc" warninglevel="4" optimize="False" unsafecodeallowed="False" generateoverflowchecks="True" mainclass="" definesymbols="DEBUG,TRACE,LOG4NET,CONFIG_NINI,UI_GTK,GTK_SHARP_2_10" generatexmldocumentation="False" win32Icon="." ctype="CSharpCompilerParameters" />
     </Configuration>
     <Configuration name="Release GTK" ctype="DotNetProjectConfiguration">
       <Output directory="../../bin/debug" assembly="smuxi-frontend-gnome" />
       <Build debugmode="True" target="WinExe" />
       <Execution runwithwarnings="True" externalconsole="True" consolepause="True" runtime="MsNet" clr-version="Net_2_0" />
-      <CodeGeneration compiler="Csc" warninglevel="4" optimize="False" unsafecodeallowed="False" generateoverflowchecks="True" mainclass="" definesymbols="TRACE,DEBUG,LOG4NET,CONFIG_NINI,UI_GNOME,GTK_SHARP_2_10" generatexmldocumentation="False" win32Icon="./" ctype="CSharpCompilerParameters" />
+      <CodeGeneration compiler="Csc" warninglevel="4" optimize="False" unsafecodeallowed="False" generateoverflowchecks="True" mainclass="" definesymbols="TRACE,DEBUG,LOG4NET,CONFIG_NINI,UI_GNOME,GTK_SHARP_2_10" generatexmldocumentation="False" win32Icon="." ctype="CSharpCompilerParameters" />
     </Configuration>
   </Configurations>
   <Contents>
@@ -31,34 +31,34 @@
     <File name="../../glade/smuxi-frontend-gnome.glade" subtype="Code" buildaction="EmbedAsResource" />
     <File name="../../images/connect.png" subtype="Code" buildaction="EmbedAsResource" />
     <File name="../../images/edit.png" subtype="Code" buildaction="EmbedAsResource" />
-    <File name="./AboutDialog.cs" subtype="Code" buildaction="Compile" />
-    <File name="./AssemblyInfo.cs" subtype="Code" buildaction="Compile" />
-    <File name="./CrashDialog.cs" subtype="Code" buildaction="Compile" />
-    <File name="./EngineManager.cs" subtype="Code" buildaction="Compile" />
-    <File name="./EngineManagerDialog.cs" subtype="Code" buildaction="Compile" />
-    <File name="./Entry.cs" subtype="Code" buildaction="Compile" />
-    <File name="./FirstStartDruid.cs" subtype="Code" buildaction="Compile" />
-    <File name="./Frontend.cs" subtype="Code" buildaction="Compile" />
-    <File name="./GnomeUI.cs" subtype="Code" buildaction="Compile" />
-    <File name="./IrcManagerWindow.cs" subtype="Code" buildaction="Compile" />
-    <File name="./Main.cs" subtype="Code" buildaction="Compile" />
-    <File name="./MainWindow.cs" subtype="Code" buildaction="Compile" />
-    <File name="./NewEngineDruid.cs" subtype="Code" buildaction="Compile" />
-    <File name="./NotImplementedMessageDialog.cs" subtype="Code" buildaction="Compile" />
-    <File name="./Notebook.cs" subtype="Code" buildaction="Compile" />
-    <File name="./SplashScreenWindow.cs" subtype="Code" buildaction="Compile" />
-    <File name="./Preferences/ChannelFilterListController.cs" subtype="Code" buildaction="Compile" />
-    <File name="./Preferences/ChannelFilterListView.cs" subtype="Code" buildaction="Compile" />
-    <File name="./Preferences/ChannelFilterModel.cs" subtype="Code" buildaction="Compile" />
-    <File name="./ChatViewManager.cs" subtype="Code" buildaction="Compile" />
-    <File name="./Preferences/ServerListView.cs" subtype="Code" buildaction="Compile" />
-    <File name="./Preferences/ServerView.cs" subtype="Code" buildaction="Compile" />
-    <File name="./Preferences/PreferencesDialog.cs" subtype="Code" buildaction="Compile" />
-    <File name="./Chats" subtype="Directory" buildaction="Compile" />
-    <File name="./Chats/ChatView.cs" subtype="Code" buildaction="Compile" />
-    <File name="./Chats/GroupChatView.cs" subtype="Code" buildaction="Compile" />
-    <File name="./Chats/PersonChatView.cs" subtype="Code" buildaction="Compile" />
-    <File name="./Chats/NetworkChatView.cs" subtype="Code" buildaction="Compile" />
+    <File name="AboutDialog.cs" subtype="Code" buildaction="Compile" />
+    <File name="AssemblyInfo.cs" subtype="Code" buildaction="Compile" />
+    <File name="CrashDialog.cs" subtype="Code" buildaction="Compile" />
+    <File name="EngineManager.cs" subtype="Code" buildaction="Compile" />
+    <File name="EngineManagerDialog.cs" subtype="Code" buildaction="Compile" />
+    <File name="Entry.cs" subtype="Code" buildaction="Compile" />
+    <File name="FirstStartDruid.cs" subtype="Code" buildaction="Compile" />
+    <File name="Frontend.cs" subtype="Code" buildaction="Compile" />
+    <File name="GnomeUI.cs" subtype="Code" buildaction="Compile" />
+    <File name="IrcManagerWindow.cs" subtype="Code" buildaction="Compile" />
+    <File name="Main.cs" subtype="Code" buildaction="Compile" />
+    <File name="MainWindow.cs" subtype="Code" buildaction="Compile" />
+    <File name="NewEngineDruid.cs" subtype="Code" buildaction="Compile" />
+    <File name="NotImplementedMessageDialog.cs" subtype="Code" buildaction="Compile" />
+    <File name="Notebook.cs" subtype="Code" buildaction="Compile" />
+    <File name="SplashScreenWindow.cs" subtype="Code" buildaction="Compile" />
+    <File name="Preferences/ChannelFilterListController.cs" subtype="Code" buildaction="Compile" />
+    <File name="Preferences/ChannelFilterListView.cs" subtype="Code" buildaction="Compile" />
+    <File name="Preferences/ChannelFilterModel.cs" subtype="Code" buildaction="Compile" />
+    <File name="ChatViewManager.cs" subtype="Code" buildaction="Compile" />
+    <File name="Preferences/ServerListView.cs" subtype="Code" buildaction="Compile" />
+    <File name="Preferences/ServerView.cs" subtype="Code" buildaction="Compile" />
+    <File name="Preferences/PreferencesDialog.cs" subtype="Code" buildaction="Compile" />
+    <File name="Chats" subtype="Directory" buildaction="Compile" />
+    <File name="Chats/ChatView.cs" subtype="Code" buildaction="Compile" />
+    <File name="Chats/GroupChatView.cs" subtype="Code" buildaction="Compile" />
+    <File name="Chats/PersonChatView.cs" subtype="Code" buildaction="Compile" />
+    <File name="Chats/NetworkChatView.cs" subtype="Code" buildaction="Compile" />
   </Contents>
   <References>
     <ProjectReference type="Project" localcopy="True" refto="Engine" />

@@ -2,6 +2,7 @@ vbox
   autobind:0
   textview[output_textview]
     .expand:vh
+    offset[output_textview_offset]:0
     style_end:""
   vbox[status]
     .expand:0 .height:1

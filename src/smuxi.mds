@@ -55,22 +55,23 @@
     <Execute type="None" entry="Engine-MSNP" />
     <Execute type="None" entry="Engine-OSCAR" />
   </StartMode>
+  <MonoDevelop.ChangeLogAddIn.ChangeLogInfo policy="OneChangeLogInProjectRootDirectory" />
   <Entries>
-    <Entry filename="./Common/Common.mdp" />
-    <Entry filename="./Engine/Engine.mdp" />
-    <Entry filename="./Server/Server.mdp" />
-    <Entry filename="./Frontend-GNOME/Frontend-GNOME.mdp" />
-    <Entry filename="./Frontend-Test/Frontend-Test.mdp" />
-    <Entry filename="./Frontend/Frontend.mdp" />
-    <Entry filename="./Engine-IRC/Engine-IRC.mdp" />
-    <Entry filename="./Engine-XMPP/Engine-XMPP.mdp" />
-    <Entry filename="./Frontend-GNOME-IRC/Frontend-GNOME-IRC.mdp" />
-    <Entry filename="./Frontend-GNOME-XMPP/Frontend-GNOME-XMPP.mdp" />
-    <Entry filename="./Frontend-SWF/Frontend-SWF.mdp" />
-    <Entry filename="./Frontend-WPF/Frontend-WPF.mdp" />
-    <Entry filename="./Frontend-Curses/Frontend-Curses.mdp" />
-    <Entry filename="./Frontend-STFL/Frontend-STFL.mdp" />
-    <Entry filename="./Engine-MSNP/Engine-MSNP.mdp" />
-    <Entry filename="./Engine-OSCAR/Engine-OSCAR.mdp" />
+    <Entry filename="Common/Common.mdp" />
+    <Entry filename="Engine/Engine.mdp" />
+    <Entry filename="Server/Server.mdp" />
+    <Entry filename="Frontend-GNOME/Frontend-GNOME.mdp" />
+    <Entry filename="Frontend-Test/Frontend-Test.mdp" />
+    <Entry filename="Frontend/Frontend.mdp" />
+    <Entry filename="Engine-IRC/Engine-IRC.mdp" />
+    <Entry filename="Engine-XMPP/Engine-XMPP.mdp" />
+    <Entry filename="Frontend-GNOME-IRC/Frontend-GNOME-IRC.mdp" />
+    <Entry filename="Frontend-GNOME-XMPP/Frontend-GNOME-XMPP.mdp" />
+    <Entry filename="Frontend-SWF/Frontend-SWF.mdp" />
+    <Entry filename="Frontend-WPF/Frontend-WPF.mdp" />
+    <Entry filename="Frontend-Curses/Frontend-Curses.mdp" />
+    <Entry filename="Frontend-STFL/Frontend-STFL.mdp" />
+    <Entry filename="Engine-MSNP/Engine-MSNP.mdp" />
+    <Entry filename="Engine-OSCAR/Engine-OSCAR.mdp" />
   </Entries>
 </Combine>

@@ -42,11 +42,12 @@ namespace Smuxi.Frontend.Stfl
         private static readonly log4net.ILog _Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 #endif
         private MainWindow                      _MainWindow;
+        private ChatView                        _ActiveChat;
         private Dictionary<ChatModel, ChatView> _ChatViews = new Dictionary<ChatModel, ChatView>();
         
         public override IChatView ActiveChat {
             get {
-                return null;
+                return _ActiveChat;
             }
         }
 
@@ -60,6 +61,8 @@ namespace Smuxi.Frontend.Stfl
             ChatView chatView = (ChatView) CreateChatView(chat);
             chatView.MainWindow = _MainWindow;
             _ChatViews.Add(chat, chatView);
+            
+            _ActiveChat = chatView;
         }
         
         public override void RemoveChat(ChatModel chat)
@@ -83,6 +86,7 @@ namespace Smuxi.Frontend.Stfl
         public ChatView GetChat(ChatModel chat)
         {
             return _ChatViews[chat];
+            //return _ActiveChat;
         }
     }   
 }

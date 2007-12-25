@@ -29,8 +29,10 @@
 using System;
 using System.IO;
 using System.Reflection;
+using System.Runtime.InteropServices;
 using Smuxi.Engine;
 using Smuxi.Common;
+using STFL = Stfl;
 
 namespace Smuxi.Frontend.Stfl
 {
@@ -139,6 +141,8 @@ namespace Smuxi.Frontend.Stfl
             _VersionNumber = asm_name.Version.ToString();
             _VersionString = pr.Product + " - " + _UIName + " frontend " + _Version;
 
+            //STFL.error_action("print");
+            
 #if LOG4NET
             _Logger.Info(_VersionString + " starting");
 #endif

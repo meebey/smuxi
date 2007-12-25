@@ -140,7 +140,7 @@ namespace Smuxi.Frontend.Gnome
 #endif
             }
             
-            // right box
+            // output
             Gtk.VBox vbox = new Gtk.VBox();
             
             string topic_pos = (string)Frontend.UserConfig["Interface/Notebook/Channel/TopicPosition"];

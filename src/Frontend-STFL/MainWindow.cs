@@ -44,6 +44,12 @@ namespace Smuxi.Frontend.Stfl
         private Entry           _Entry;
 	    private ChatViewManager _ChatViewManager;
         
+        public ChatViewManager ChatViewManager {
+            get {
+                return _ChatViewManager;
+            }
+        }
+        
         public StflUI UI {
             get {
                 return _UI;

@@ -441,9 +441,17 @@ namespace Smuxi.Frontend.Gnome
                 return;
             }
             
-#if GTK_SHARP_2_10
+            Gtk.TextIter start = Gtk.TextIter.Zero;
+            Gtk.TextIter end = Gtk.TextIter.Zero;
+
             // if something is selected, bail out
+#if GTK_SHARP_2_10
             if (_OutputTextView.Buffer.HasSelection) {
+                return;
+            }
+#else
+            _OutputTextView.Buffer.GetSelectionBounds(out start, out end);
+            if (start.Offset != end.Offset) {
                 return;
             }
 #endif
@@ -451,10 +459,9 @@ namespace Smuxi.Frontend.Gnome
             // get URL via TextTag from TextIter
             Gtk.TextTag tag = (Gtk.TextTag) sender;
             
-            Gtk.TextIter start = e.Iter;
-            Gtk.TextIter end = e.Iter;
-            
+            start = e.Iter;
             start.BackwardToTagToggle(tag);
+            end = e.Iter;
             end.ForwardToTagToggle(tag);
             string url = _OutputTextView.Buffer.GetText(start, end, false);
             

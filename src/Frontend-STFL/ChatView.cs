@@ -114,6 +114,8 @@ namespace Smuxi.Frontend.Stfl
             finalMsg = timestamp + " " + _ChatModel.Name + " " + finalMsg;
             
             _MainWindow.Modify("output_textview", "append", "{listitem text:" + STFL.quote(finalMsg) + "}"); 
+            
+            //ScrollToEnd();
 		}
 		
 		public void ScrollUp()
@@ -137,7 +139,8 @@ namespace Smuxi.Frontend.Stfl
             
             // let height refresh
             //_MainWindow.Run(-1);
-            _MainWindow.Modify("output_textview", "replace", "offset:-1");
+            //_MainWindow.Modify("output_textview", "replace", "offset:-1");
+            //_MainWindow["output_textview_offset"] = (_ChatModel.Messages.Count - 1).ToString();
         }     
     }
 }

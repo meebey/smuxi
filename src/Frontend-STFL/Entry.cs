@@ -67,9 +67,14 @@ namespace Smuxi.Frontend.Stfl
 #if LOG4NET
             _Logger.Debug("_OnKeyPressed(): e.Key: " + e.Key + " e.Focus: " + e.Focus);
 #endif
-            if (e.Key == "ENTER") {
-                OnActivated(EventArgs.Empty);
-            }
+            switch (e.Key) {
+                case "ENTER":
+                    OnActivated(EventArgs.Empty);
+                    break;
+                case "NPAGE":
+                    _MainWindow.ChatViewManager.ActiveChat.ScrollToEnd();
+                    break;
+            } 
         }
 
         public virtual void OnActivated(EventArgs e)
@@ -90,9 +95,10 @@ namespace Smuxi.Frontend.Stfl
             }
             
             bool handled = false;
-            CommandModel cd = new CommandModel(Frontend.FrontendManager, null,
-                                    (string)Frontend.UserConfig["Interface/Entry/CommandCharacter"],
-                                    cmd);
+            CommandModel cd = new CommandModel(Frontend.FrontendManager,
+                                               _MainWindow.ChatViewManager.ActiveChat.ChatModel,
+                                               (string)Frontend.UserConfig["Interface/Entry/CommandCharacter"],
+                                               cmd);
             //handled = _Command(cd);
             if (!handled) {
                 handled = Frontend.Session.Command(cd);

@@ -1,0 +1,6 @@
+2007-12-25  Mirco Bauer <meebey@meebey.net> 
+
+	* MainWindow.cs, Frontend.cs, MainWindow.stfl, Entry.cs, ChatViewManager.cs,
+	  ChatView.cs: Minor fixes
+	* Frontend-STFL.mdp: Updated using MonoDevelop 0.18.1
+

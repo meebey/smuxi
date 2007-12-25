@@ -244,7 +244,7 @@ namespace Smuxi.Engine
                 msg = String.Format(_("Connecting to {0} port {1}..."), _Host, _Port);
                 fm.SetStatus(msg);
                 Session.AddTextToChat(_NetworkChat, "-!- " + msg);
-                
+                // TODO: add SSL support
                 _IrcClient.Connect(_Host, _Port);
                 fm.UpdateNetworkStatus();
                 msg = String.Format(_("Connection to {0} established"), _Host);
@@ -667,7 +667,7 @@ namespace Smuxi.Engine
             FrontendManager fm = cd.FrontendManager;
             if (cd.Chat.ChatType == ChatType.Group) {
                  CommandPart(cd);
-                 CommandJoin(new CommandModel(fm, cd.Chat, cd.Chat.Name));
+                 CommandJoin(new CommandModel(fm, cd.Chat, cd.Chat.ID));
             }
         }
         
@@ -765,7 +765,7 @@ namespace Smuxi.Engine
                 }
             } else {
                 ChatModel chat = cd.FrontendManager.CurrentChat;
-                _IrcClient.RfcPart(chat.Name);
+                _IrcClient.RfcPart(chat.ID);
             }
         }
         
@@ -828,7 +828,7 @@ namespace Smuxi.Engine
         {
             FrontendManager fm = cd.FrontendManager;
             ChatModel chat = fm.CurrentChat;
-            string channel = chat.Name;
+            string channel = chat.ID;
             if (cd.DataArray.Length >= 2) {
                 _IrcClient.RfcTopic(channel, cd.Parameter);
             } else {
@@ -848,7 +848,7 @@ namespace Smuxi.Engine
         public void CommandOp(CommandModel cd)
         {
             ChatModel chat = cd.FrontendManager.CurrentChat;
-            string channel = chat.Name;
+            string channel = chat.ID;
             if (cd.DataArray.Length == 2) {
                 _IrcClient.Op(channel, cd.Parameter);
             } else if (cd.DataArray.Length > 2) {
@@ -856,13 +856,15 @@ namespace Smuxi.Engine
                 foreach (string nick in candidates) {
                     _IrcClient.Op(channel, nick);
                 }
+            } else {
+                _NotEnoughParameters(cd);
             }
         }
     
         public void CommandDeop(CommandModel cd)
         {
             ChatModel chat = cd.FrontendManager.CurrentChat;
-            string channel = chat.Name;
+            string channel = chat.ID;
             if (cd.DataArray.Length == 2) {
                 _IrcClient.Deop(channel, cd.Parameter);
             } else if (cd.DataArray.Length > 2) {
@@ -870,13 +872,15 @@ namespace Smuxi.Engine
                 foreach(string nick in candidates) {
                     _IrcClient.Deop(channel, nick);
                 }
+            } else {
+                _NotEnoughParameters(cd);
             }
         }
 
         public void CommandVoice(CommandModel cd)
         {
             ChatModel chat = cd.FrontendManager.CurrentChat;
-            string channel = chat.Name;
+            string channel = chat.ID;
             if (cd.DataArray.Length == 2) {
                 _IrcClient.Voice(channel, cd.Parameter);
             } else if (cd.DataArray.Length > 2) {
@@ -884,13 +888,15 @@ namespace Smuxi.Engine
                 foreach (string nick in candidates) {
                     _IrcClient.Voice(channel, nick);
                 }
+            } else {
+                _NotEnoughParameters(cd);
             }
         }
 
         public void CommandDevoice(CommandModel cd)
         {
             ChatModel chat = cd.FrontendManager.CurrentChat;
-            string channel = chat.Name;
+            string channel = chat.ID;
             if (cd.DataArray.Length == 2) {
                 _IrcClient.Devoice(channel, cd.Parameter);
             } else if (cd.DataArray.Length > 2) {
@@ -898,27 +904,33 @@ namespace Smuxi.Engine
                 foreach (string nick in candidates) {
                     _IrcClient.Devoice(channel, nick);
                 }
+            } else {
+                _NotEnoughParameters(cd);
             }
         }
 
         public void CommandBan(CommandModel cd)
         {
             ChatModel chat = cd.FrontendManager.CurrentChat;
-            string channel = chat.Name;
+            string channel = chat.ID;
             if (cd.DataArray.Length == 2) {
+                // TODO: use a smart mask by default
                 _IrcClient.Ban(channel, cd.Parameter);
             } else if (cd.DataArray.Length > 2) {
                 string[] candidates = cd.Parameter.Split(new char[] {' '});
-                foreach(string nick in candidates) {
+                foreach (string nick in candidates) {
                     _IrcClient.Ban(channel, nick);
                 }
+            } else {
+                // TODO: implemement listing banlist
+                _NotEnoughParameters(cd);
             }
         }
 
         public void CommandUnban(CommandModel cd)
         {
             ChatModel chat = cd.FrontendManager.CurrentChat;
-            string channel = chat.Name;
+            string channel = chat.ID;
             if (cd.DataArray.Length == 2) {
                 _IrcClient.Unban(channel, cd.Parameter);
             } else if (cd.DataArray.Length > 2) {
@@ -926,13 +938,15 @@ namespace Smuxi.Engine
                 foreach (string nick in candidates) {
                     _IrcClient.Unban(channel, nick);
                 }
+            } else {
+                _NotEnoughParameters(cd);
             }
         }
 
         public void CommandKick(CommandModel cd)
         {
             ChatModel chat = cd.FrontendManager.CurrentChat;
-            string channel = chat.Name;
+            string channel = chat.ID;
             if (cd.DataArray.Length >= 2) {
                 string[] candidates = cd.DataArray[1].Split(new char[] {','});
                 if (cd.DataArray.Length >= 3) {
@@ -945,13 +959,15 @@ namespace Smuxi.Engine
                         _IrcClient.RfcKick(channel, nick);
                     }
                 }
+            } else {
+                _NotEnoughParameters(cd);
             }
         }
 
         public void CommandKickban(CommandModel cd)
         {
             ChatModel chat = cd.FrontendManager.CurrentChat;
-            string channel = chat.Name;
+            string channel = chat.ID;
             IrcUser ircuser;
             if (cd.DataArray.Length >= 2) {
                 string[] candidates = cd.DataArray[1].Split(new char[] {','});
@@ -973,6 +989,8 @@ namespace Smuxi.Engine
                         }
                     }
                 }
+            } else {
+                _NotEnoughParameters(cd);
             }
         }
 
@@ -982,7 +1000,7 @@ namespace Smuxi.Engine
             if (cd.DataArray.Length >= 2) {
                 // does cd.Chat cause a remoting call?
                 if (chat.ChatType == ChatType.Group) {
-                    string channel = chat.Name;
+                    string channel = chat.ID;
                     _IrcClient.RfcMode(channel, cd.Parameter);
                 } else {
                     _IrcClient.RfcMode(_IrcClient.Nickname, cd.Parameter);
@@ -1006,7 +1024,7 @@ namespace Smuxi.Engine
         {
             FrontendManager fm = cd.FrontendManager;
             ChatModel chat = fm.CurrentChat;
-            string channel = chat.Name;
+            string channel = chat.ID;
             if (cd.DataArray.Length >= 2) {
                 if (!_IrcClient.IsJoined(channel, cd.DataArray[1])) {
                     _IrcClient.RfcInvite(cd.DataArray[1], channel);
@@ -1018,6 +1036,8 @@ namespace Smuxi.Engine
                                                         _("{0} is already on channel"),
                                                         cd.DataArray[1]));
                 }
+            } else {
+                _NotEnoughParameters(cd);
             }
         }
 
@@ -2041,7 +2061,7 @@ namespace Smuxi.Engine
                                                                     e.Who, e.Data.Ident + "@" + e.Data.Host, e.QuitMessage));
                         }
                     } else if ((chat.ChatType == ChatType.Person) &&
-                               (chat.Name == e.Who)) {
+                               (chat.ID == e.Who)) {
                         Session.AddTextToChat(chat, "-!- " + String.Format(
                                                                 _("{0} [{1}] has quit [{2}]"),
                                                                 e.Who, e.Data.Ident + "@" + e.Data.Host, e.QuitMessage));
