@@ -191,13 +191,13 @@ namespace Smuxi.Frontend.Gnome
 #endif           
            _SplashScreenWindow = new SplashScreenWindow();
 
-           _MainWindow = new MainWindow();
-
            _FrontendConfig = new FrontendConfig(UIName);
            // loading and setting defaults
            _FrontendConfig.Load();
            _FrontendConfig.Save();
-           
+
+           _MainWindow = new MainWindow();
+
            if (_FrontendConfig.IsCleanConfig) {
 #if UI_GNOME
                new FirstStartDruid();
@@ -207,7 +207,8 @@ namespace Smuxi.Frontend.Gnome
                    InitLocalEngine();
                } else {
                    // there is a default engine set, means we want a remote engine
-                   new EngineManagerDialog();
+                   _SplashScreenWindow.Destroy();
+                   ShowEngineManagerDialog();
                }
            }
            
@@ -255,6 +256,9 @@ namespace Smuxi.Frontend.Gnome
             _MainWindow.ApplyConfig(_UserConfig);
             // make sure entry got attention :-P
             _MainWindow.Entry.HasFocus = true;
+            
+            // check once per minute the status of the frontend manager
+            GLib.Timeout.Add(60 * 1000, _CheckFrontendManagerStatus);
         }
         
         public static void DisconnectEngineFromGUI()
@@ -302,6 +306,15 @@ namespace Smuxi.Frontend.Gnome
             ShowException(null, ex);
         }
         
+        public static void ShowEngineManagerDialog()
+        {
+            Trace.Call();
+            
+            EngineManagerDialog diag = new EngineManagerDialog(_MainWindow.EngineManager);
+            diag.Run();
+            diag.Destroy();
+        }
+        
 #if GTK_SHARP_2_10
         private static void _OnUnhandledException(GLib.UnhandledExceptionArgs e)
         {
@@ -315,5 +328,41 @@ namespace Smuxi.Frontend.Gnome
             }
         }
 #endif
+        
+        private static bool _CheckFrontendManagerStatus()
+        {
+            Trace.Call();
+            
+            try {
+                if (_FrontendManager.IsAlive) {
+                    return true;
+                }
+                
+#if LOG4NET
+                _Logger.Error("_CheckFrontendManagerStatus(): frontend manager is not alive anymore!");
+#endif
+                Gtk.MessageDialog md = new Gtk.MessageDialog(_MainWindow,
+                    Gtk.DialogFlags.Modal, Gtk.MessageType.Error,
+                    Gtk.ButtonsType.OkCancel, _("The server has lost the connection to the frontend.\n Do you want to reconnect now?"));
+                Gtk.ResponseType res = (Gtk.ResponseType) md.Run();
+                md.Destroy();
+                
+                if (res != Gtk.ResponseType.Ok) {
+                    return false;
+                }
+                
+                Frontend.DisconnectEngineFromGUI();
+                _MainWindow.EngineManager.Reconnect();
+            } catch (Exception ex) {
+                Frontend.ShowException(ex);
+            }
+
+            return false;
+        }
+        
+        private static string _(string msg)
+        {
+            return Mono.Unix.Catalog.GetString(msg);
+        }
     }
 }

@@ -128,7 +128,7 @@ namespace Smuxi.Engine
 #endif
             // add the FrontendManager to the hashtable with an unique .NET remoting identifier
             FrontendManager fm = new FrontendManager(this, ui);
-            _FrontendManagers.Add(uri, fm);
+            _FrontendManagers[uri] = fm;
             
             // if this is the first frontend, we process OnStartupCommands
             if (!_OnStartupCommandsProcessed) {
@@ -589,8 +589,8 @@ namespace Smuxi.Engine
         
         public void AddChat(ChatModel chat)
         {
-        	Trace.Call(chat);
-        	
+            Trace.Call(chat);
+            
             if (chat == null) {
                 throw new ArgumentNullException("chat");
             }
@@ -606,8 +606,8 @@ namespace Smuxi.Engine
         
         public void RemoveChat(ChatModel chat)
         {
-        	Trace.Call(chat);
-        	
+            Trace.Call(chat);
+            
             if (chat == null) {
                 throw new ArgumentNullException("chat");
             }
@@ -620,13 +620,13 @@ namespace Smuxi.Engine
         
         public void EnableChat(ChatModel chat)
         {
-        	Trace.Call(chat);
-        	
+            Trace.Call(chat);
+            
             if (chat == null) {
                 throw new ArgumentNullException("chat");
             }
             
-        	chat.IsEnabled = true;
+            chat.IsEnabled = true;
             foreach (FrontendManager fm in _FrontendManagers.Values) {
                 fm.EnableChat(chat);
             }
@@ -634,13 +634,13 @@ namespace Smuxi.Engine
         
         public void DisableChat(ChatModel chat)
         {
-        	Trace.Call(chat);
-        	
+            Trace.Call(chat);
+            
             if (chat == null) {
                 throw new ArgumentNullException("chat");
             }
             
-        	chat.IsEnabled = false;
+            chat.IsEnabled = false;
             foreach (FrontendManager fm in _FrontendManagers.Values) {
                 fm.DisableChat(chat);
             }
@@ -648,8 +648,8 @@ namespace Smuxi.Engine
         
         public void SyncChat(ChatModel chat)
         {
-        	Trace.Call(chat);
-        	
+            Trace.Call(chat);
+            
             if (chat == null) {
                 throw new ArgumentNullException("chat");
             }

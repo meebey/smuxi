@@ -41,9 +41,9 @@ namespace Smuxi.Frontend.Gnome
 #if UI_GNOME
     public class MainWindow : GNOME.App
 #elif UI_GTK
-	public class MainWindow : Gtk.Window
+    public class MainWindow : Gtk.Window
 #endif
-	{
+    {
 #if LOG4NET
         private static readonly log4net.ILog _Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 #endif
@@ -58,9 +58,10 @@ namespace Smuxi.Frontend.Gnome
         private Entry            _Entry;
         private Notebook         _Notebook;
         private bool             _CaretMode;
-	    private ChatViewManager  _ChatViewManager;
-	    private IFrontendUI      _UI;
-	    
+        private ChatViewManager  _ChatViewManager;
+        private IFrontendUI      _UI;
+        private EngineManager    _EngineManager;
+        
         public bool CaretMode {
             get {
                 return _CaretMode;
@@ -76,6 +77,12 @@ namespace Smuxi.Frontend.Gnome
         public IFrontendUI UI {
             get {
                 return _UI;
+            }
+        }
+        
+        public EngineManager EngineManager {
+            get {
+                return _EngineManager;
             }
         }
         
@@ -112,11 +119,11 @@ namespace Smuxi.Frontend.Gnome
         }
      
 #if UI_GNOME
-		public MainWindow() : base("smuxi", "smuxi - Smart MUtipleXed Irc")
+        public MainWindow() : base("smuxi", "smuxi - Smart MUtipleXed Irc")
 #elif UI_GTK
-		public MainWindow() : base("smuxi - Smart MUtipleXed Irc")
+        public MainWindow() : base("smuxi - Smart MUtipleXed Irc")
 #endif
-		{
+        {
             SetDefaultSize(800, 600);
             Destroyed += new EventHandler(_OnDestroyed);
             FocusInEvent += new Gtk.FocusInEventHandler(_OnFocusInEvent);
@@ -194,18 +201,21 @@ namespace Smuxi.Frontend.Gnome
 #endif
             image_item.Activated += new EventHandler(_OnAboutButtonClicked);
             menu.Append(image_item);
-		    
-		    // TODO: network treeview
-		    _Notebook = new Notebook();
-		    
-		    _ChatViewManager = new ChatViewManager(_Notebook, null);
-		    Assembly asm = Assembly.GetExecutingAssembly();
-		    _ChatViewManager.Load(asm);
-		    _ChatViewManager.LoadAll(System.IO.Path.GetDirectoryName(asm.Location),
-		                             "smuxi-frontend-gnome-*.dll");
+    	    
+    	    // TODO: network treeview
+    	    _Notebook = new Notebook();
+    	    
+    	    _ChatViewManager = new ChatViewManager(_Notebook, null);
+    	    Assembly asm = Assembly.GetExecutingAssembly();
+    	    _ChatViewManager.Load(asm);
+    	    _ChatViewManager.LoadAll(System.IO.Path.GetDirectoryName(asm.Location),
+    	                             "smuxi-frontend-gnome-*.dll");
             
             _UI = new GnomeUI(_ChatViewManager);
             
+            // HACK: Frontend.FrontendConfig out of scope
+            _EngineManager = new EngineManager(Frontend.FrontendConfig, _UI);
+
             _Entry = new Entry(_Notebook);
             
             _ProgressBar = new Gtk.ProgressBar();
@@ -247,7 +257,7 @@ namespace Smuxi.Frontend.Gnome
             vbox.PackStart(sb_hbox, false, false, 0);
             Add(vbox);
 #endif
-		}
+        }
 
         public void ApplyConfig(UserConfig userConfig)
         {
@@ -320,8 +330,7 @@ namespace Smuxi.Frontend.Gnome
             md.Destroy();
             if ((Gtk.ResponseType)result == Gtk.ResponseType.Yes) {
                 Frontend.DisconnectEngineFromGUI();
-                EngineManagerDialog emd = new EngineManagerDialog();
-                emd.Run();
+                Frontend.ShowEngineManagerDialog();
             }
         }
 

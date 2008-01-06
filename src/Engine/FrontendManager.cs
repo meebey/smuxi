@@ -42,8 +42,8 @@ namespace Smuxi.Engine
 #if LOG4NET
         private static readonly log4net.ILog _Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 #endif
-        private int              _Version = 0;
-        private Queue            _Queue  = Queue.Synchronized(new Queue());
+        private int              _Version = 0;                         		// queue needs to be thread-safe for different protocol manager threads
+        private Queue            _Queue  = Queue.Synchronized(new Queue()); 
         private Thread           _Thread;
         private Session          _Session;
         private IFrontendUI      _UI;
@@ -93,6 +93,12 @@ namespace Smuxi.Engine
             }
         }
         
+        public bool IsAlive {
+            get {
+                return _Thread.IsAlive;
+            }
+        }
+        
         public FrontendManager(Session session, IFrontendUI ui)
         {
             Trace.Call(session, ui);
@@ -133,12 +139,12 @@ namespace Smuxi.Engine
             
             // sync current network manager (if any exists)
             if (_Session.ProtocolManagers.Count > 0) {
-                IProtocolManager nm = (IProtocolManager)_Session.ProtocolManagers[0];
+                IProtocolManager nm = _Session.ProtocolManagers[0];
                 CurrentProtocolManager = nm;
             }
             
             // sync current page
-            _CurrentChat = (ChatModel)_Session.Chats[0];
+            _CurrentChat = _Session.Chats[0];
             
             // sync content of pages
             foreach (ChatModel chat in _Session.Chats) {
@@ -376,26 +382,28 @@ namespace Smuxi.Engine
                             _Logger.Error("Inner-Exception: ", e.InnerException);
                         }
 #endif
-                        _Session.DeregisterFrontendUI(_UI);
-                        return;
+                        break;
                     } catch (Exception e) {
 #if LOG4NET
                         _Logger.Error("Exception in _Worker(), aborting FrontendManager thread...", e);
                         _Logger.Error("Inner-Exception: ", e.InnerException);
 #endif
-                        _Session.DeregisterFrontendUI(_UI);
-                        return;
+                        break;
                     }
                 } else {
                     // no better way?
+                    // wrap Queue and raise an event when Add() is called
                     Thread.Sleep(10);
                 }
             }
+            
+            _Session.DeregisterFrontendUI(_UI);
         }
         
         private void _OnConfigChanged(object sender, EventArgs e)
         {
             Trace.Call(sender, e);
+            
             // BUG: we should use some timeout here and only call the delegate
             // when the timeout is reached, else we flood the frontend for each
             // changed value in the config!

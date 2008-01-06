@@ -1,14 +1,14 @@
 <Project name="Frontend-GNOME" fileversion="2.0" language="C#" clr-version="Net_2_0" ctype="DotNetProject">
   <Configurations active="Debug">
     <Configuration name="Debug" ctype="DotNetProjectConfiguration">
-      <Output directory="../../bin/debug" assembly="smuxi-frontend-gnome" />
+      <Output directory="../../bin/debug" assemblyKeyFile="." assembly="smuxi-frontend-gnome" />
       <Build debugmode="True" target="Exe" />
       <Execution runwithwarnings="True" externalconsole="True" consolepause="True" runtime="MsNet" clr-version="Net_2_0" />
       <CodeGeneration compiler="Csc" warninglevel="4" optimize="False" unsafecodeallowed="False" generateoverflowchecks="True" mainclass="" definesymbols="DEBUG,TRACE,LOG4NET,CONFIG_NINI,UI_GNOME,GTK_SHARP_2_10" generatexmldocumentation="False" win32Icon="." ctype="CSharpCompilerParameters" />
     </Configuration>
     <Configuration name="Release" ctype="DotNetProjectConfiguration">
       <Output directory="../../bin/release" assembly="smuxi-frontend-gnome" />
-      <Build debugmode="False" target="WinExe" />
+      <Build debugmode="False" target="Exe" />
       <Execution runwithwarnings="False" consolepause="True" runtime="MsNet" clr-version="Net_2_0" />
       <CodeGeneration compiler="Csc" warninglevel="4" optimize="True" unsafecodeallowed="False" generateoverflowchecks="True" mainclass="" definesymbols="CONFIG_NINI,UI_GNOME,GTK_SHARP_2_10" generatexmldocumentation="False" win32Icon="." ctype="CSharpCompilerParameters" />
     </Configuration>
@@ -20,7 +20,7 @@
     </Configuration>
     <Configuration name="Release GTK" ctype="DotNetProjectConfiguration">
       <Output directory="../../bin/debug" assembly="smuxi-frontend-gnome" />
-      <Build debugmode="True" target="WinExe" />
+      <Build debugmode="True" target="Exe" />
       <Execution runwithwarnings="True" externalconsole="True" consolepause="True" runtime="MsNet" clr-version="Net_2_0" />
       <CodeGeneration compiler="Csc" warninglevel="4" optimize="False" unsafecodeallowed="False" generateoverflowchecks="True" mainclass="" definesymbols="TRACE,DEBUG,LOG4NET,CONFIG_NINI,UI_GNOME,GTK_SHARP_2_10" generatexmldocumentation="False" win32Icon="." ctype="CSharpCompilerParameters" />
     </Configuration>
@@ -34,22 +34,18 @@
     <File name="AboutDialog.cs" subtype="Code" buildaction="Compile" />
     <File name="AssemblyInfo.cs" subtype="Code" buildaction="Compile" />
     <File name="CrashDialog.cs" subtype="Code" buildaction="Compile" />
-    <File name="EngineManager.cs" subtype="Code" buildaction="Compile" />
     <File name="EngineManagerDialog.cs" subtype="Code" buildaction="Compile" />
     <File name="Entry.cs" subtype="Code" buildaction="Compile" />
     <File name="FirstStartDruid.cs" subtype="Code" buildaction="Compile" />
     <File name="Frontend.cs" subtype="Code" buildaction="Compile" />
     <File name="GnomeUI.cs" subtype="Code" buildaction="Compile" />
-    <File name="IrcManagerWindow.cs" subtype="Code" buildaction="Compile" />
     <File name="Main.cs" subtype="Code" buildaction="Compile" />
     <File name="MainWindow.cs" subtype="Code" buildaction="Compile" />
     <File name="NewEngineDruid.cs" subtype="Code" buildaction="Compile" />
     <File name="NotImplementedMessageDialog.cs" subtype="Code" buildaction="Compile" />
     <File name="Notebook.cs" subtype="Code" buildaction="Compile" />
     <File name="SplashScreenWindow.cs" subtype="Code" buildaction="Compile" />
-    <File name="Preferences/ChannelFilterListController.cs" subtype="Code" buildaction="Compile" />
     <File name="Preferences/ChannelFilterListView.cs" subtype="Code" buildaction="Compile" />
-    <File name="Preferences/ChannelFilterModel.cs" subtype="Code" buildaction="Compile" />
     <File name="ChatViewManager.cs" subtype="Code" buildaction="Compile" />
     <File name="Preferences/ServerListView.cs" subtype="Code" buildaction="Compile" />
     <File name="Preferences/ServerView.cs" subtype="Code" buildaction="Compile" />

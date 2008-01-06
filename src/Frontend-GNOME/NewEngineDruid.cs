@@ -147,8 +147,9 @@ namespace Smuxi.Frontend.Gnome
         private void _OnCancel(object sender, EventArgs e)
         {
             _Druid.Destroy();
+            
             if (Frontend.Session == null) {
-                new EngineManagerDialog();
+                Frontend.ShowEngineManagerDialog();
             }
         }
         
@@ -181,7 +182,7 @@ namespace Smuxi.Frontend.Gnome
             
             _Druid.Destroy();
             if (Frontend.Session == null) {
-                new EngineManagerDialog();
+                Frontend.ShowEngineManagerDialog();
             }
         }
 

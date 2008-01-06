@@ -32,7 +32,7 @@ using Smuxi;
 using Smuxi.Common;
 using Smuxi.Engine;
 
-namespace Smuxi.Frontend.Gnome
+namespace Smuxi.Engine
 {
     public class ChannelFiltersController
     {

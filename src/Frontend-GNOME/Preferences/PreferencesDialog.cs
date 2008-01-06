@@ -129,26 +129,6 @@ namespace Smuxi.Frontend.Gnome
             
             string encoding = (string)Frontend.UserConfig["Connection/Encoding"];
             encoding = encoding.ToUpper();
-            // HACK: stolen from Mono .NET 2.0, .NET 1.1 has no Encoding.GetEncodings()
-            int [] codepages = new int [] {
-                37, 437, 500, 708,
-                850, 852, 855, 857, 858, 860, 861, 862, 863,
-                864, 865, 866, 869, 870, 874, 875,
-                932, 936, 949, 950,
-                1026, 1047, 1140, 1141, 1142, 1143, 1144,
-                1145, 1146, 1147, 1148, 1149,
-                1200, 1201, 1250, 1251, 1252, 1253, 1254,
-                1255, 1256, 1257, 1258,
-                10000, 10079, 12000, 12001,
-                20127, 20273, 20277, 20278, 20280, 20284,
-                20285, 20290, 20297, 20420, 20424, 20866,
-                20871, 21025, 21866, 28591, 28592, 28593,
-                28594, 28595, 28596, 28597, 28598, 28599,
-                28605, 38598,
-                50220, 50221, 50222, 51932, 51949, 54936,
-                57002, 57003, 57004, 57005, 57006, 57007,
-                57008, 57009, 57010, 57011,
-                65000, 65001};
 
             Gtk.ComboBox cb = (Gtk.ComboBox)_Glade["EncodingComboBox"];
             // glade might initialize it already!
@@ -160,12 +140,12 @@ namespace Smuxi.Frontend.Gnome
             store.AppendValues(String.Empty, String.Empty);
             ArrayList encodingList = new ArrayList();
             ArrayList bodyNameList = new ArrayList();
-            for (int i = 0; i < codepages.Length; i++) {
+            foreach (EncodingInfo encInfo in Encoding.GetEncodings()) {
                 try {
-                    Encoding enc = Encoding.GetEncoding(codepages[i]);
+                    Encoding enc = Encoding.GetEncoding(encInfo.CodePage);
                     string encodingName = enc.EncodingName.ToUpper();
-
-                    // filter duplicates
+                    
+                    // filter noise and duplicates
                     if (encodingName.IndexOf("DOS") != -1 ||
                         encodingName.IndexOf("MAC") != -1 ||
                         encodingName.IndexOf("EBCDIC") != -1 ||

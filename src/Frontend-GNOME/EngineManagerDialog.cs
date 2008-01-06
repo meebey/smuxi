@@ -29,21 +29,9 @@
 using System;
 using System.Collections;
 using System.Collections.Specialized;
-using System.Runtime.Remoting;
-using System.Runtime.Remoting.Channels;
-using System.Runtime.Remoting.Channels.Http;
-using System.Runtime.Remoting.Channels.Tcp;
-using System.Runtime.Serialization.Formatters;
 using Mono.Unix;
 using Smuxi.Engine;
 using Smuxi.Common;
-//using Smuxi.Channels.Tcp;
-#if CHANNEL_TCPEX
-using TcpEx;
-#endif
-#if CHANNEL_BIRDIRTCP
-using DotNetRemotingCC.Channels.BidirectionalTCP;
-#endif
 
 namespace Smuxi.Frontend.Gnome
 {
@@ -52,11 +40,21 @@ namespace Smuxi.Frontend.Gnome
 #if LOG4NET
         private static readonly log4net.ILog _Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 #endif
-        private Gtk.ComboBox _ComboBox;
-        private string       _SelectedEngine;  
+        private Gtk.ComboBox  _ComboBox;
+        private Gtk.ListStore _ListStore;
+        private string        _SelectedEngine;  
+        private EngineManager _EngineManager;
         
-        public EngineManagerDialog()
+        public EngineManagerDialog(EngineManager engineManager)
         {
+            Trace.Call(engineManager);
+            
+            if (engineManager == null) {
+                throw new ArgumentNullException("engineManager");
+            }
+            
+            _EngineManager = engineManager;
+            
             Modal = true;
             Title = "smuxi - " + _("Engine Manager");
                 
@@ -92,23 +90,16 @@ namespace Smuxi.Frontend.Gnome
             Gtk.HBox hbox = new Gtk.HBox();
             hbox.PackStart(new Gtk.Label(Catalog.GetString("Engine:")), false, false, 5);
             
-            Gtk.ComboBox cb = Gtk.ComboBox.NewText();
-            _ComboBox = cb;
-            cb.Changed += new EventHandler(_OnComboBoxChanged);
-            string[] engines = (string[])Frontend.FrontendConfig["Engines/Engines"];
-            string default_engine = (string)Frontend.FrontendConfig["Engines/Default"];
-            int item = 0;
-            cb.AppendText("<" + _("Local Engine") + ">");
-            item++;
-            foreach (string engine in engines) {
-                cb.AppendText(engine);
-                if (engine == default_engine) {
-                    cb.Active = item;
-                }
-                item++;
-            }
+            _ListStore = new Gtk.ListStore(typeof(string));
+            _ComboBox = new Gtk.ComboBox();
+            Gtk.CellRendererText cell = new Gtk.CellRendererText();
+            _ComboBox.PackStart(cell, false);
+            _ComboBox.AddAttribute(cell, "text", 0);
+            _ComboBox.Changed += new EventHandler(_OnComboBoxChanged);
+            _ComboBox.Model = _ListStore;
+            _InitEngineList();
 
-            hbox.PackStart(cb, true, true, 10); 
+            hbox.PackStart(_ComboBox, true, true, 10); 
             
             vbox.PackStart(hbox, false, false, 10);
             
@@ -117,9 +108,27 @@ namespace Smuxi.Frontend.Gnome
             ShowAll();
         }
         
+        private void _InitEngineList()
+        {
+            string[] engines = (string[])Frontend.FrontendConfig["Engines/Engines"];
+            string default_engine = (string)Frontend.FrontendConfig["Engines/Default"];
+            int item = 0;
+            _ListStore.Clear();
+            _ListStore.AppendValues("<" + _("Local Engine") + ">");
+            item++;
+            foreach (string engine in engines) {
+                _ListStore.AppendValues(engine);
+                if (engine == default_engine) {
+                    _ComboBox.Active = item;
+                }
+                item++;
+            }
+        }
+        
         private void _OnResponse(object sender, Gtk.ResponseArgs e)
         {
             Trace.Call(sender, e);
+            
             try {
 #if LOG4NET
                 _Logger.Debug("_OnResponse(): ResponseId: "+e.ResponseId);
@@ -179,146 +188,44 @@ namespace Smuxi.Frontend.Gnome
             }
 
             string engine = _SelectedEngine;
-            string username = (string)Frontend.FrontendConfig["Engines/"+engine+"/Username"];
-            string password = (string)Frontend.FrontendConfig["Engines/"+engine+"/Password"];
-            string hostname = (string)Frontend.FrontendConfig["Engines/"+engine+"/Hostname"];
-            string bindAddress = (string)Frontend.FrontendConfig["Engines/"+engine+"/BindAddress"];
-            int port = (int)Frontend.FrontendConfig["Engines/"+engine+"/Port"];
-            //string formatter = (string)FrontendConfig["Engines/"+engine+"/Formatter"];
-            string channel = (string)Frontend.FrontendConfig["Engines/"+engine+"/Channel"];
-            
-            IDictionary props = new Hashtable();
-            props["port"] = "0";
-            string error_msg = null;
-            string connection_url = null;
             try {
-                SessionManager sessm = null;
-                switch (channel) {
-                    case "TCP":
-                        if (ChannelServices.GetChannel("tcp") == null) {
-                            // frontend -> engine
-                            BinaryClientFormatterSinkProvider cprovider =
-                                new BinaryClientFormatterSinkProvider();
-
-                            // engine -> frontend (back-connection)
-                            BinaryServerFormatterSinkProvider sprovider =
-                                new BinaryServerFormatterSinkProvider();
-                            // required for MS .NET 1.1
-                            sprovider.TypeFilterLevel = TypeFilterLevel.Full;
-                            
-                            if (bindAddress != null) {
-                                props["machineName"] = bindAddress;
-                            }
-                            ChannelServices.RegisterChannel(new TcpChannel(props, cprovider, sprovider));
-                        }
-                        connection_url = "tcp://"+hostname+":"+port+"/SessionManager"; 
-#if LOG4NET
-                        _Logger.Info("Connecting to: "+connection_url);
-#endif
-                        sessm = (SessionManager)Activator.GetObject(typeof(SessionManager),
-                            connection_url);
-                        break;
-#if CHANNEL_TCPEX
-                    case "TcpEx":
-                        //props.Remove("port");
-                        //props["name"] = "tcpex";
-                        connection_url = "tcpex://"+hostname+":"+port+"/SessionManager"; 
-                        if (ChannelServices.GetChannel("ExtendedTcp") == null) {
-                            ChannelServices.RegisterChannel(new TcpExChannel(props, null, null));
-                        }
-#if LOG4NET
-                        _Logger.Info("Connecting to: "+connection_url);
-#endif
-                        sessm = (SessionManager)Activator.GetObject(typeof(SessionManager),
-                            connection_url);
-                        break;
-#endif
-#if CHANNEL_BIRDIRTCP
-                    case "BirDirTcp":
-                        string ip = System.Net.Dns.Resolve(hostname).AddressList[0].ToString();
-                        connection_url = "birdirtcp://"+ip+":"+port+"/SessionManager"; 
-                        if (ChannelServices.GetChannel("birdirtcp") == null) {
-                            ChannelServices.RegisterChannel(new BidirTcpClientChannel());
-                        }
-#if LOG4NET
-                        _Logger.Info("Connecting to: "+connection_url);
-#endif
-                        sessm = (SessionManager)Activator.GetObject(typeof(SessionManager),
-                            connection_url);
-                        break;
-#endif
-                    case "HTTP":
-                        connection_url = "http://"+hostname+":"+port+"/SessionManager"; 
-                        if (ChannelServices.GetChannel("http") == null) {
-                            ChannelServices.RegisterChannel(new HttpChannel());
-                        }
-#if LOG4NET
-                        _Logger.Info("Connecting to: "+connection_url);
-#endif
-                        sessm = (SessionManager)Activator.GetObject(typeof(SessionManager),
-                            connection_url);
-                        break;
-                    default:
-                        error_msg += String.Format(
-                                        _("Unknown channel ({0}), "+
-                                          "only following channel types are supported:"),
-                                        channel) + " HTTP TCP\n";
-                        break;
-                }
-                // sessm can be null when there was an unknown channel used
-                if (sessm == null) {
-                    return;
+                _EngineManager.Connect(engine);
+                if (_EngineManager.EngineVersion.Major != Frontend.Version.Major ||
+                    _EngineManager.EngineVersion.Minor != Frontend.Version.Minor ||
+                    _EngineManager.EngineVersion.Build != Frontend.Version.Build) {                        
+                    throw new ApplicationException(String.Format(
+                                _("Your frontend version ({0}) is not matching the engine version ({1})!"),
+                                Frontend.Version, _EngineManager.EngineVersion));
                 }
                 
-                if (sessm.EngineVersion.Major != Frontend.Version.Major ||
-                    sessm.EngineVersion.Minor != Frontend.Version.Minor ||
-                    sessm.EngineVersion.Build != Frontend.Version.Build) {                        
-                        error_msg += String.Format(
-                                        _("Your frontend version ({0}) is not matching the engine version ({1})!"),
-                                        Frontend.Version, sessm.EngineVersion);
-                    return;
-                }
-                
-                Frontend.Session = sessm.Register(username, MD5.FromString(password), Frontend.MainWindow.UI);
-                Frontend.EngineVersion = sessm.EngineVersion;
-                if (Frontend.Session != null) {
-                    // Dialog finished it's job, we are connected
-                    Frontend.UserConfig = new UserConfig(Frontend.Session.Config,
-                                                         username);
-                    Frontend.UserConfig.IsCaching = true;
-                    Frontend.ConnectEngineToGUI();
-                    Destroy();
-                } else {
-                    error_msg += _("Registration at engine failed, "+
-                                   "username and/or password was wrong, please verify them.") + "\n";
-                }
+                Frontend.Session = _EngineManager.Session;
+                Frontend.UserConfig = _EngineManager.UserConfig;
+                Frontend.EngineVersion = _EngineManager.EngineVersion;
+                Frontend.ConnectEngineToGUI();
             } catch (Exception ex) {
 #if LOG4NET
                 _Logger.Error(ex);
 #endif
-                error_msg += ex.Message + "\n";
+
+                string error_msg = ex.Message + "\n";
                 if (ex.InnerException != null) {
                     error_msg += " [" + ex.InnerException.Message + "]\n";
                 }
-            } finally {
-                if (error_msg != null) {
-                    string msg;
-                    msg = _("Error occured while connecting to the engine!") + "\n\n";
-                    if (connection_url != null) {
-                        msg += String.Format(
-                                _("Engine URL: {0}") + "\n",
-                                connection_url);
-                    }
-                    msg += String.Format(_("Error: {0}"), error_msg);
-                    
-                    Gtk.MessageDialog md = new Gtk.MessageDialog(this, Gtk.DialogFlags.Modal,
-                        Gtk.MessageType.Error, Gtk.ButtonsType.Close, msg);
-                    md.Run();
-                    md.Destroy();
-                    
-                    // Re-run the Dialog
-                    Run();
-                }
+                
+                string msg;
+                msg = _("Error occured while connecting to the engine!") + "\n\n";
+                msg += String.Format(_("Engine URL: {0}") + "\n",
+                                     _EngineManager.EngineUrl);
+                
+                msg += String.Format(_("Error: {0}"), error_msg);
+                
+                Gtk.MessageDialog md = new Gtk.MessageDialog(this, Gtk.DialogFlags.Modal,
+                    Gtk.MessageType.Error, Gtk.ButtonsType.Close, msg);
+                md.Run();
+                md.Destroy();
+                
+                // Re-run the Dialog
+                Run();
             }
         }
 
@@ -339,12 +246,11 @@ namespace Smuxi.Frontend.Gnome
             Gtk.MessageDialog md = new Gtk.MessageDialog(this, Gtk.DialogFlags.Modal,
             Gtk.MessageType.Warning, Gtk.ButtonsType.YesNo, msg);
             int res = md.Run();
+            md.Destroy();
             if ((Gtk.ResponseType)res == Gtk.ResponseType.Yes) {
                 _DeleteEngine(_SelectedEngine);
-                Destroy();
-                new EngineManagerDialog();
+                _InitEngineList();
             }
-            md.Destroy();
         }
         
         private void _DeleteEngine(string engine)
@@ -386,7 +292,7 @@ namespace Smuxi.Frontend.Gnome
             
             Gtk.TreeIter iter;
             if (_ComboBox.GetActiveIter(out iter)) {
-               _SelectedEngine = (string)_ComboBox.Model.GetValue(iter, 0);
+               _SelectedEngine = (string )_ComboBox.Model.GetValue(iter, 0);
             }
         }
         

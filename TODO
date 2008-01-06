@@ -20,6 +20,7 @@ X make preferences smaller!
 - smarter /op /deop /voice /devoice (using multiple modes)
 - /ban
 X /mode without params should show the current mode
+- IRC channel manager gui with topic / bans / modes
 - release smuxi.meebey.net
 - release www.meebey.net
 - release sourceforge
@@ -46,8 +47,14 @@ X "/msg nick hi" creates unusable query tab
 X don't use GNOME.Vfs.Show() on Win32, use Process.Start() instead.
 X show failing attempts to a join a channel
 X show kick message before rejoin
+- exclude () from URLs: (https://bugzilla.novell.com/show_bug.cgi?id=350188)
+- messages with URL breaks highlight
 
 Feature Requests:
+- connection checks between frontend <-> server
+- lag indicator between frontend <-> server
+- pass unknown commands raw to the server like /foobar (but being an option)
+- color settings (background/fonts etc)
 - auto-retry joining channels
 - encoding setting per server (Cobrian)
 - support mIRC colors in topic (Cobrian)
@@ -64,7 +71,6 @@ Feature Requests:
 - align nicknames in output area [nasty]
 - replace smileys with images
 - GUI for swichting current network
-- color settings (background/fonts etc)
 - path completion in frontend
 - auto-away (AFK) plugin
 - compare smuxi with all other common IRC clients on the website
