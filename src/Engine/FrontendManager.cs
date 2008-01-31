@@ -7,7 +7,7 @@
  *
  * smuxi - Smart MUltipleXed Irc
  *
- * Copyright (c) 2005-2006 Mirco Bauer <meebey@meebey.net>
+ * Copyright (c) 2005-2008 Mirco Bauer <meebey@meebey.net>
  *
  * Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
  *
@@ -42,7 +42,8 @@ namespace Smuxi.Engine
 #if LOG4NET
         private static readonly log4net.ILog _Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 #endif
-        private int              _Version = 0;                         		// queue needs to be thread-safe for different protocol manager threads
+        private int              _Version = 0;
+        // queue needs to be thread-safe for different protocol manager threads
         private Queue            _Queue  = Queue.Synchronized(new Queue()); 
         private Thread           _Thread;
         private Session          _Session;
@@ -397,7 +398,11 @@ namespace Smuxi.Engine
                 }
             }
             
-            _Session.DeregisterFrontendUI(_UI);
+            // we can't rely on the UI object here, the connection is probably
+            // gone and doesn't come back
+            //_Session.DeregisterFrontendUI(_UI);
+            // thus we can deregister the hardway (using ourself)
+            _Session.DeregisterFrontendManager(this);
         }
         
         private void _OnConfigChanged(object sender, EventArgs e)

@@ -192,6 +192,27 @@ namespace Smuxi.Engine
             }
         }
         
+        internal void DeregisterFrontendManager(FrontendManager fm)
+        {
+            Trace.Call(fm);
+
+            if (fm == null) {
+                throw new ArgumentNullException("fm");
+            }
+            
+            string key = null;
+            foreach (KeyValuePair<string, FrontendManager> kv in _FrontendManagers) {
+                if (kv.Value == fm) {
+                    key = kv.Key;
+                    break;
+                }
+            }
+            if (key == null) {
+                throw new InvalidOperationException("Could not find key for frontend manager in _FrontendManagers.");
+            }
+            _FrontendManagers.Remove(key);
+        }
+        
         public void DeregisterFrontendUI(IFrontendUI ui)
         {
             Trace.Call(ui);

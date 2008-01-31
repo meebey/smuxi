@@ -38,11 +38,11 @@ using System.Runtime.CompilerServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("qNETp")]
 [assembly: AssemblyProduct("smuxi")]
-[assembly: AssemblyCopyright("2005-2007 (C) Mirco Bauer <meebey@meebey.net>")]
+[assembly: AssemblyCopyright("2005-2008 (C) Mirco Bauer <meebey@meebey.net>")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
-[assembly: AssemblyVersion("0.5.29.*")]
+[assembly: AssemblyVersion("0.5.30.*")]
 
 [assembly: AssemblyDelaySign(false)]
 [assembly: AssemblyKeyFile("")]

@@ -1,3 +1,7 @@
+2008-01-31  Mirco Bauer <meebey@meebey.net> 
+
+	* AssemblyInfo.cs: Bumped version to 0.5.30.
+
 2007-12-25  Mirco Bauer <meebey@meebey.net> 
 
 	* Frontend-SWF.mdp: Updated using MonoDevelop 0.18.1
