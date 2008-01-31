@@ -18,13 +18,17 @@ clean:
 	#cd po/Engine && make clean
 	#cd po/Frontend-GNOME && make clean
 
-etch-dist:
+update-pbuilder:
+	sudo pbuilder --update --basetgz /var/cache/pbuilder/base-etch.tgz
+
+etch-dist: update-pbuilder
 	dpkg-buildpackage -rfakeroot 
 	fakeroot debian/rules clean
 	sudo pbuilder --build --basetgz /var/cache/pbuilder/base-etch.tgz ../smuxi_$(VERSION)-$(DEBIAN_REVISION).dsc
 	mkdir -p ../releases/$(VERSION)/debian
 	cp /var/cache/pbuilder/result/smuxi*$(VERSION)*.deb ../releases/$(VERSION)/debian
-	cd ../releases/$(VERSION)/debian && publish smuxi $(VERSION)
+	cd ../releases/$(VERSION)/debian && \
+	  publish smuxi $(VERSION)
 
 win32-dist:
 	mkdir -p ../releases/$(VERSION)/win32
@@ -34,8 +38,7 @@ win32-dist:
 			dpkg -x $$i package; \
 		done; \
 		cp package/usr/lib/smuxi/* .; \
+		cp ../../.htaccess .; \
 		rm -rf package; \
 		rm -f *.deb; \
 		rm -f *.mdb;
-		#cp $(SMARTIRC_DIR)/$(SMARTIRC_DLL) ../../releases/$(VERSION)/win32
-

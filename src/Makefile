@@ -46,7 +46,7 @@ GTK_DEFINES=UI_GTK,GTK_SHARP_2,CONFIG_NINI
 
 SERVER_REFS=-r:System.Runtime.Remoting
 ENGINE_REFS=$(NINI_REF) $(POSIX_REF)
-FRONTEND_REFS=-r:System
+FRONTEND_REFS=$(POSIX_REF) -r:System -r:System.Runtime.Remoting
 TEST_REFS=-r:System.Runtime.Remoting
 GTK_REFS=$(NINI_REF) $(POSIX_REF) -r:System.Runtime.Remoting -r:System.Drawing
 GNOME_REFS=$(NINI_REF) $(POSIX_REF) -r:System.Runtime.Remoting -r:System.Drawing
