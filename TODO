@@ -28,9 +28,12 @@ X /mode without params should show the current mode
 - release gfiles
 - release go-mono.org
 - release mono-announce
+- basic theming: foreground/backgroun color, font size, font type
+- different colors available for different messages (chanmsg/privmsg/mode/join/part/ctcp/action)
 
 Bugs:
 X https://foo ftp://foo opens incorect URLs
+- theming: per-channel settings
 - join #gentoo on freenode, syncing bug?
 - /away needs to set away on _all_ networks
 - after join ops/voices are not synced correctly?
@@ -49,9 +52,10 @@ X show failing attempts to a join a channel
 X show kick message before rejoin
 - exclude () from URLs: (https://bugzilla.novell.com/show_bug.cgi?id=350188)
 - messages with URL breaks highlight
+- clear highlight after sync
 
 Feature Requests:
-- connection checks between frontend <-> server
+- IPv6 support by making a "use ipv6" option
 - lag indicator between frontend <-> server
 - pass unknown commands raw to the server like /foobar (but being an option)
 - color settings (background/fonts etc)
@@ -117,6 +121,7 @@ Feature Requests:
 channel (showing it in the tab as pixmap) (Salz)
 
 Done:
+- connection checks between frontend <-> server
 - smarter fallback nicknames, nick_ nick__ should be tried as default if no alternative nicks are defined
 - clickable URLs (DevGet)
 - tab colors (editable):
