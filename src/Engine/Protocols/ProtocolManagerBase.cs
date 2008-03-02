@@ -211,9 +211,15 @@ namespace Smuxi.Engine
                         msg.MessageParts.Insert(idx++, urlPart);
                         msg.MessageParts.Insert(idx++, new TextMessagePartModel(" "));
                     } else {
-                        // BUG: formatting and colors needs to be copied
                         // FIXME: we put each text part into it's own object, instead of combining them (the smart way)
                         TextMessagePartModel notUrlPart = new TextMessagePartModel(textPartPart + " ");
+                        // restore formatting / colors from the original text part
+                        notUrlPart.IsHighlight     = textPart.IsHighlight;
+                        notUrlPart.ForegroundColor = textPart.ForegroundColor;
+                        notUrlPart.BackgroundColor = textPart.BackgroundColor;
+                        notUrlPart.Bold            = textPart.Bold;
+                        notUrlPart.Italic          = textPart.Italic;
+                        notUrlPart.Underline       = textPart.Underline;
                         msg.MessageParts.Insert(idx++, notUrlPart);
                     }
                 }
