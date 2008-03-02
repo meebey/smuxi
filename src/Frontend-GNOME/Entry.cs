@@ -199,8 +199,7 @@ namespace Smuxi.Frontend.Gnome
                 e.RetVal = true;
                 switch (key) {
                     case Gdk.Key.x:
-                        if (_Notebook.CurrentChatView.ChatModel.ChatType == ChatType.Network &&
-                            _Notebook.CurrentChatView.ChatModel.Name == "smuxi") {
+                        if (_Notebook.CurrentChatView.ChatModel.ChatType == ChatType.Session) {
                             Frontend.FrontendManager.NextProtocolManager();
                         } else {
                             // don't break cut

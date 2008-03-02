@@ -1,5 +1,16 @@
 2008-03-02  Mirco Bauer <meebey@meebey.net> 
 
+	* Session.cs: Implemented SessionChat*, abusing NetworkChat* as smuxi chat
+	  was a dirty hack.
+	
+	  Register ProtocolManagers when connecting automatically to servers.
+	
+	* Chats/ChatModel.cs: Fixed indention.
+	* Chats/ChatType.cs, Chats/SessionChatModel.cs: Implemented SessionChat*,
+	  abusing NetworkChat* as smuxi chat was a dirty hack.
+
+2008-03-02  Mirco Bauer <meebey@meebey.net> 
+
 	* Protocols/ProtocolManagerBase.cs: Fixed highlight, formatting and colors
 	  of messages that contain URLs.
 

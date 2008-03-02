@@ -1,13 +1,13 @@
 /*
- * $Id: PageType.cs 149 2007-04-11 16:47:52Z meebey $
- * $URL: svn+ssh://svn.qnetp.net/svn/smuxi/smuxi/trunk/src/Engine/PageType.cs $
- * $Rev: 149 $
+ * $Id: ChannelPage.cs 137 2006-11-06 18:49:57Z meebey $
+ * $URL: svn+ssh://svn.qnetp.net/svn/smuxi/smuxi/trunk/src/Engine/ChannelPage.cs $
+ * $Rev: 137 $
  * $Author: meebey $
- * $Date: 2007-04-11 18:47:52 +0200 (Wed, 11 Apr 2007) $
+ * $Date: 2006-11-06 19:49:57 +0100 (Mon, 06 Nov 2006) $
  *
  * smuxi - Smart MUltipleXed Irc
  *
- * Copyright (c) 2005-2006 Mirco Bauer <meebey@meebey.net>
+ * Copyright (c) 2008 Mirco Bauer <meebey@meebey.net>
  *
  * Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
  *
@@ -26,13 +26,20 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA
  */
 
+using System;
+
 namespace Smuxi.Engine
 {
-    public enum ChatType
+    public class SessionChatModel : ChatModel
     {
-        Session,
-        Network,
-        Person,
-        Group,
+#if LOG4NET
+        private static readonly log4net.ILog _Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+#endif
+        
+        public SessionChatModel(string id, string name) :
+                           base(id, name, ChatType.Session, null)
+        {
+        }
     }
 }
+

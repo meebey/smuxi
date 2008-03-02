@@ -1,5 +1,10 @@
 2008-03-02  Mirco Bauer <meebey@meebey.net> 
 
+	* Chats/SessionChatView.cs, Entry.cs: Implemented SessionChat*, abusing
+	  NetworkChat* as smuxi chat was a dirty hack.
+
+2008-03-02  Mirco Bauer <meebey@meebey.net> 
+
 	* Chats/ChatView.cs: Cache chat name, instead of fetching it always from the
 	  proxy object.
 	

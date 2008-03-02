@@ -101,7 +101,7 @@ namespace Smuxi.Engine
             _Chats = new List<ChatModel>();
             _UserConfig = new UserConfig(config, username);
             
-            ChatModel chat = new NetworkChatModel("smuxi", "smuxi", null);
+            ChatModel chat = new SessionChatModel("smuxi", "smuxi");
             _Chats.Add(chat);
             
             MessageModel msg = new MessageModel();
@@ -163,6 +163,7 @@ namespace Smuxi.Engine
                     if (protocolManager == null) {
                         continue;
                     }
+                    _ProtocolManagers.Add(protocolManager);
                     protocolManager.Connect(fm, server.Hostname, server.Port,
                                             server.Username, server.Password);
                     // if the connect command was correct, we should be able to get
@@ -619,7 +620,7 @@ namespace Smuxi.Engine
             _Chats.Add(chat);
             foreach (FrontendManager fm in _FrontendManagers.Values) {
                 fm.AddChat(chat);
-                // BUG: race condition? the (group) chat isn't fully ready yet to be synced
+                // BUG: race condition: the (group) chat isn't fully ready yet to be synced
                 // The ProtocolManager will tell us when the chat is ready to be synced
                 //fm.SyncChat(chat);
             }

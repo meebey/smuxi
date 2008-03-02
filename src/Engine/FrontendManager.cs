@@ -164,17 +164,23 @@ namespace Smuxi.Engine
         
         public void NextProtocolManager()
         {
-            if (!(_Session.ProtocolManagers.Count > 0)) {
+            Trace.Call();
+            
+            if (_Session.ProtocolManagers.Count == 0) {
                 CurrentProtocolManager = null;
             } else {
-                int pos = _Session.ProtocolManagers.IndexOf(CurrentProtocolManager);
+                int pos = 0;
+                if (CurrentProtocolManager != null) {
+                    pos = _Session.ProtocolManagers.IndexOf(CurrentProtocolManager);
+                }
                 if (pos < _Session.ProtocolManagers.Count - 1) {
                     pos++;
                 } else {
                     pos = 0;
                 }
-                CurrentProtocolManager = (IProtocolManager)_Session.ProtocolManagers[pos];
+                CurrentProtocolManager = (IProtocolManager) _Session.ProtocolManagers[pos];
             }
+            
             UpdateNetworkStatus();
         }
         

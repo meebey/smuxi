@@ -1,13 +1,13 @@
 /*
- * $Id: PageType.cs 149 2007-04-11 16:47:52Z meebey $
- * $URL: svn+ssh://svn.qnetp.net/svn/smuxi/smuxi/trunk/src/Engine/PageType.cs $
- * $Rev: 149 $
+ * $Id: NetworkChatView.cs 218 2007-11-12 19:50:25Z meebey $
+ * $URL: svn+ssh://svn.qnetp.net/svn/smuxi/smuxi/trunk/src/Frontend-GNOME/Chats/NetworkChatView.cs $
+ * $Rev: 218 $
  * $Author: meebey $
- * $Date: 2007-04-11 18:47:52 +0200 (Wed, 11 Apr 2007) $
+ * $Date: 2007-11-12 20:50:25 +0100 (Mon, 12 Nov 2007) $
  *
  * smuxi - Smart MUltipleXed Irc
  *
- * Copyright (c) 2005-2006 Mirco Bauer <meebey@meebey.net>
+ * Copyright (c) 2008 Mirco Bauer <meebey@meebey.net>
  *
  * Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
  *
@@ -26,13 +26,21 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA
  */
 
-namespace Smuxi.Engine
+using System;
+using Smuxi.Engine;
+
+namespace Smuxi.Frontend.Gnome
 {
-    public enum ChatType
+    [ChatViewInfo(ChatType = ChatType.Session)]
+    public class SessionChatView : ChatView
     {
-        Session,
-        Network,
-        Person,
-        Group,
+        public SessionChatView(ChatModel chat) : base(chat)
+        {
+            _Label = new Gtk.Label(chat.Name);
+            _LabelEventBox.Add(_Label);
+            _Label.Show();
+            
+            Add(_OutputScrolledWindow);
+        }
     }
 }
