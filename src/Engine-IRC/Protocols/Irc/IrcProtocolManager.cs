@@ -695,9 +695,10 @@ namespace Smuxi.Engine
         
         public void CommandMessageQuery(CommandModel cd)
         {
+            ChatModel chat = null;
             if (cd.DataArray.Length >= 2) {
                 string nickname = cd.DataArray[1];
-                ChatModel chat = GetChat(nickname, ChatType.Person);
+                chat = GetChat(nickname, ChatType.Person);
                 if (chat == null) {
                     IrcPersonModel person = new IrcPersonModel(nickname,
                                                                NetworkID,
@@ -710,9 +711,6 @@ namespace Smuxi.Engine
             
             if (cd.DataArray.Length >= 3) {
                 string message = String.Join(" ", cd.DataArray, 2, cd.DataArray.Length-2);
-                string nickname = cd.DataArray[1];
-                ChatModel chat = GetChat(nickname, ChatType.Person);
-                _IrcClient.SendMessage(SendType.Message, nickname, message);
                 _Say(chat, message);
             }
         }
@@ -759,8 +757,9 @@ namespace Smuxi.Engine
                         }
                         break;
                     default:
-                        // sems to be a part message
-                        _IrcClient.RfcPart(cd.DataArray[1], cd.Parameter);
+                        // sems to be only a part message
+                        ChatModel chat = cd.FrontendManager.CurrentChat;
+                        _IrcClient.RfcPart(chat.ID, cd.Parameter);
                         break;
                 }
             } else {
@@ -1056,9 +1055,14 @@ namespace Smuxi.Engine
                 TextMessagePartModel textMsg;
             
                 textMsg = new TextMessagePartModel();
-                textMsg.Text = " * " + _IrcClient.Nickname + " ";
+                textMsg.Text = " * ";
                 msg.MessageParts.Add(textMsg);
 
+                textMsg = new TextMessagePartModel();
+                textMsg.Text = _IrcClient.Nickname + " ";
+                textMsg.ForegroundColor = IrcTextColor.Blue;
+                msg.MessageParts.Add(textMsg);
+                
                 _IrcMessageToMessageModel(ref msg, cd.Parameter);
                 
                 Session.AddMessageToChat(chat, msg);
@@ -1734,15 +1738,15 @@ namespace Smuxi.Engine
         
         private void _OnJoin(object sender, JoinEventArgs e)
         {
-            GroupChatModel cchat = (GroupChatModel)GetChat(e.Channel, ChatType.Group);
+            GroupChatModel groupChat = (GroupChatModel) GetChat(e.Channel, ChatType.Group);
             if (e.Data.Irc.IsMe(e.Who)) {
-                if (cchat == null) {
-                    cchat = new GroupChatModel(e.Channel, e.Channel, this);
-                    Session.AddChat(cchat);
+                if (groupChat == null) {
+                    groupChat = new GroupChatModel(e.Channel, e.Channel, this);
+                    Session.AddChat(groupChat);
                 } else {
                     // chat still exists, so we we only need to enable it
                     // (sync is done in _OnChannelActiveSynced)
-                    Session.EnableChat(cchat);
+                    Session.EnableChat(groupChat);
                 }
             } else {
                 // someone else joined, let's add him to the channel chat
@@ -1752,14 +1756,30 @@ namespace Smuxi.Engine
                                                                      this);
                 icuser.Ident = siuser.Ident;
                 icuser.Host = siuser.Host;
-                cchat.UnsafePersons.Add(icuser.NickName.ToLower(), icuser);
-                Session.AddPersonToGroupChat(cchat, icuser);
+                groupChat.UnsafePersons.Add(icuser.NickName.ToLower(), icuser);
+                Session.AddPersonToGroupChat(groupChat, icuser);
             }
             
-            Session.AddTextToChat(cchat,
-                "-!- " + String.Format(
-                            _("{0} [{1}] has joined {2}"),
-                            e.Who, e.Data.Ident + "@" + e.Data.Host, e.Channel));
+            MessageModel msg = new MessageModel();
+            TextMessagePartModel textMsgPart;
+            
+            textMsgPart = new TextMessagePartModel();
+            textMsgPart.Text = "-!- ";
+            msg.MessageParts.Add(textMsgPart);
+            
+            textMsgPart = new TextMessagePartModel();
+            textMsgPart.ForegroundColor = GetNickColor(e.Data.Nick);
+            textMsgPart.Text = e.Who;
+            msg.MessageParts.Add(textMsgPart);
+
+            textMsgPart = new TextMessagePartModel();
+            textMsgPart.Text = String.Format(_("{0} [{1}] has joined {2}"),
+                                             String.Empty,
+                                             e.Data.Ident + "@" + e.Data.Host,
+                                             e.Channel);
+            msg.MessageParts.Add(textMsgPart);
+            
+            Session.AddMessageToChat(groupChat, msg);
         }
         
         private void _OnNames(object sender, NamesEventArgs e)
@@ -1845,17 +1865,36 @@ namespace Smuxi.Engine
 #if LOG4NET
             _Logger.Debug("_OnPart() e.Channel: "+e.Channel+" e.Who: "+e.Who);
 #endif
-            GroupChatModel cchat = (GroupChatModel) GetChat(e.Channel, ChatType.Group);
+            GroupChatModel groupChat = (GroupChatModel) GetChat(e.Channel, ChatType.Group);
             if (e.Data.Irc.IsMe(e.Who)) {
-                Session.RemoveChat(cchat);
-            } else {
-                PersonModel user = cchat.GetPerson(e.Who);
-                Session.RemovePersonFromGroupChat(cchat, user);
-                Session.AddTextToChat(cchat,
-                    "-!- " + String.Format(
-                                _("{0} [{1}] has left {2} [{3}]"),
-                                e.Who, e.Data.Ident + "@" + e.Data.Host, e.Channel, e.PartMessage));
+                Session.RemoveChat(groupChat);
+                return;
             }
+            
+            PersonModel person = groupChat.GetPerson(e.Who);
+            Session.RemovePersonFromGroupChat(groupChat, person);
+            
+            MessageModel msg = new MessageModel();
+            TextMessagePartModel textMsgPart;
+            
+            textMsgPart = new TextMessagePartModel();
+            textMsgPart.Text = "-!- ";
+            msg.MessageParts.Add(textMsgPart);
+            
+            textMsgPart = new TextMessagePartModel();
+            textMsgPart.ForegroundColor = GetNickColor(e.Data.Nick);
+            textMsgPart.Text = e.Who;
+            msg.MessageParts.Add(textMsgPart);
+
+            textMsgPart = new TextMessagePartModel();
+            textMsgPart.Text = String.Format(_("{0} [{1}] has left {2} [{3}]"),
+                                             String.Empty,
+                                             e.Data.Ident + "@" + e.Data.Host,
+                                             e.Channel,
+                                             e.PartMessage);
+            msg.MessageParts.Add(textMsgPart);
+            
+            Session.AddMessageToChat(groupChat, msg);
         }
         
         private void _OnKick(object sender, KickEventArgs e)
