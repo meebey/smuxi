@@ -852,7 +852,7 @@ namespace Smuxi.Engine
             if (cd.DataArray.Length == 2) {
                 _IrcClient.Op(channel, cd.Parameter);
             } else if (cd.DataArray.Length > 2) {
-                string[] candidates = cd.Parameter.Split(new char[] {' '});
+                string[] candidates = cd.Parameter.TrimEnd().Split(new char[] {' '});
                 foreach (string nick in candidates) {
                     _IrcClient.Op(channel, nick);
                 }
@@ -868,7 +868,7 @@ namespace Smuxi.Engine
             if (cd.DataArray.Length == 2) {
                 _IrcClient.Deop(channel, cd.Parameter);
             } else if (cd.DataArray.Length > 2) {
-                string[] candidates = cd.Parameter.Split(new char[] {' '});
+                string[] candidates = cd.Parameter.TrimEnd().Split(new char[] {' '});
                 foreach(string nick in candidates) {
                     _IrcClient.Deop(channel, nick);
                 }
@@ -884,7 +884,7 @@ namespace Smuxi.Engine
             if (cd.DataArray.Length == 2) {
                 _IrcClient.Voice(channel, cd.Parameter);
             } else if (cd.DataArray.Length > 2) {
-                string[] candidates = cd.Parameter.Split(new char[] {' '});
+                string[] candidates = cd.Parameter.TrimEnd().Split(new char[] {' '});
                 foreach (string nick in candidates) {
                     _IrcClient.Voice(channel, nick);
                 }
@@ -900,7 +900,7 @@ namespace Smuxi.Engine
             if (cd.DataArray.Length == 2) {
                 _IrcClient.Devoice(channel, cd.Parameter);
             } else if (cd.DataArray.Length > 2) {
-                string[] candidates = cd.Parameter.Split(new char[] {' '});
+                string[] candidates = cd.Parameter.TrimEnd().Split(new char[] {' '});
                 foreach (string nick in candidates) {
                     _IrcClient.Devoice(channel, nick);
                 }
@@ -917,7 +917,7 @@ namespace Smuxi.Engine
                 // TODO: use a smart mask by default
                 _IrcClient.Ban(channel, cd.Parameter);
             } else if (cd.DataArray.Length > 2) {
-                string[] candidates = cd.Parameter.Split(new char[] {' '});
+                string[] candidates = cd.Parameter.TrimEnd().Split(new char[] {' '});
                 foreach (string nick in candidates) {
                     _IrcClient.Ban(channel, nick);
                 }
@@ -934,7 +934,7 @@ namespace Smuxi.Engine
             if (cd.DataArray.Length == 2) {
                 _IrcClient.Unban(channel, cd.Parameter);
             } else if (cd.DataArray.Length > 2) {
-                string[] candidates = cd.Parameter.Split(new char[] {' '});
+                string[] candidates = cd.Parameter.TrimEnd().Split(new char[] {' '});
                 foreach (string nick in candidates) {
                     _IrcClient.Unban(channel, nick);
                 }
