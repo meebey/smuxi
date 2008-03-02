@@ -228,7 +228,8 @@ namespace Smuxi.Engine
             //Session.Chats.Add(_NetworkChat);
             // NOTABUG: the frontend manager needs to take care for that
             Session.AddChat(_NetworkChat);
-            
+            Session.SyncChat(_NetworkChat);
+
             Thread thread = new Thread(new ThreadStart(_Run));
             thread.IsBackground = true;
             thread.Name = "IrcProtocolManager ("+server+":"+port+")";
