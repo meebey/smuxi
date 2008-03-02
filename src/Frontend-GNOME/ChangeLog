@@ -1,3 +1,12 @@
+2008-03-02  Mirco Bauer <meebey@meebey.net> 
+
+	* Chats/ChatView.cs: Cache chat name, instead of fetching it always from the
+	  proxy object.
+	
+	  Open URLs in a different thread on Windows (as the call is blocking).
+	
+	* GnomeUI.cs, ChatViewManager.cs: Fixed indention.
+
 2008-01-31  Mirco Bauer <meebey@meebey.net> 
 
 	* AssemblyInfo.cs: Bumped version to 0.5.30.

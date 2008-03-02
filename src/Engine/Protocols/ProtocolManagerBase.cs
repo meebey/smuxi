@@ -170,17 +170,17 @@ namespace Smuxi.Engine
         protected void ParseUrls(MessageModel msg)
         {
             string urlRegex;
-			//urlRegex = "((([a-zA-Z][0-9a-zA-Z+\\-\\.]*:)?/{0,2}[0-9a-zA-Z;/?:@&=+$\\.\\-_!~*'()%]+)?(#[0-9a-zA-Z;/?:@&=+$\\.\\-_!~*'()%]+)?)");
+            //urlRegex = "((([a-zA-Z][0-9a-zA-Z+\\-\\.]*:)?/{0,2}[0-9a-zA-Z;/?:@&=+$\\.\\-_!~*'()%]+)?(#[0-9a-zA-Z;/?:@&=+$\\.\\-_!~*'()%]+)?)");
             // It was constructed according to the BNF grammar given in RFC 2396 (http://www.ietf.org/rfc/rfc2396.txt).
             
-			/*
+            /*
             urlRegex = @"^(?<s1>(?<s0>[^:/\?#]+):)?(?<a1>" + 
                                   @"//(?<a0>[^/\?#]*))?(?<p0>[^\?#]*)" + 
                                   @"(?<q1>\?(?<q0>[^#]*))?" + 
                                   @"(?<f1>#(?<f0>.*))?");
             */ 
 
-            urlRegex = @"(((https?|ftp):\/\/)|www\.)(([0-9]+\.[0-9]+\.[0-9]+\.[0-9]+)|localhost|([a-zA-Z0-9\-]+\.)*[a-zA-Z0-9\-]+\.(com|net|org|info|biz|gov|name|edu|[a-zA-Z][a-zA-Z]))(:[0-9]+)?((\/|\?)[^ ""]*[^ ,;\.:"">)])?";
+            urlRegex = @"(^| )(((https?|ftp):\/\/)|www\.)(([0-9]+\.[0-9]+\.[0-9]+\.[0-9]+)|localhost|([a-zA-Z0-9\-]+\.)*[a-zA-Z0-9\-]+\.(com|net|org|info|biz|gov|name|edu|[a-zA-Z][a-zA-Z]))(:[0-9]+)?((\/|\?)[^ ""]*[^ ,;\.:"">)])?";
             Regex reg = new Regex(urlRegex);
             // clone MessageParts
             IList<MessagePartModel> parts = new List<MessagePartModel>(msg.MessageParts);
@@ -191,6 +191,7 @@ namespace Smuxi.Engine
                 
                 TextMessagePartModel textPart = (TextMessagePartModel) part;
                 Match urlMatch = reg.Match(textPart.Text);
+                // OPT: fast regex scan
                 if (!urlMatch.Success) {
                     // no URLs in this MessagePart, nothing to do
                     continue;
@@ -210,6 +211,7 @@ namespace Smuxi.Engine
                         msg.MessageParts.Insert(idx++, urlPart);
                         msg.MessageParts.Insert(idx++, new TextMessagePartModel(" "));
                     } else {
+                        // BUG: formatting and colors needs to be copied
                         // FIXME: we put each text part into it's own object, instead of combining them (the smart way)
                         TextMessagePartModel notUrlPart = new TextMessagePartModel(textPartPart + " ");
                         msg.MessageParts.Insert(idx++, notUrlPart);

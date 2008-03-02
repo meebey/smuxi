@@ -1,3 +1,8 @@
+2008-03-02  Mirco Bauer <meebey@meebey.net> 
+
+	* Protocols/Irc/IrcProtocolManager.cs: Reply error message when channel is
+	  moderated.
+
 2008-01-31  Mirco Bauer <meebey@meebey.net> 
 
 	* AssemblyInfo.cs: Bumped version to 0.5.30.

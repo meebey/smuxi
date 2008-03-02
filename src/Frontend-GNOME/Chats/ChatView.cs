@@ -29,6 +29,7 @@
 using System;
 using System.Drawing;
 using SysDiag = System.Diagnostics;
+using System.Threading;
 using System.Globalization;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
@@ -48,6 +49,7 @@ namespace Smuxi.Frontend.Gnome
 #endif
         private static readonly Gdk.Cursor _NormalCursor = new Gdk.Cursor(Gdk.CursorType.Xterm);
         private static readonly Gdk.Cursor _LinkCursor = new Gdk.Cursor(Gdk.CursorType.Hand2);
+        private   string             _Name;
         private   bool               _AtUrlTag;
         private   ChatModel          _ChatModel;
         private   bool               _HasHighlight;
@@ -103,10 +105,11 @@ namespace Smuxi.Frontend.Gnome
         public ChatView(ChatModel chat)
         {
             _ChatModel = chat;
+            _Name = _ChatModel.Name;
             _LabelEventBox = new Gtk.EventBox();
             _LabelEventBox.VisibleWindow = false;
             
-            Name = chat.Name;
+            Name = _Name;
             
             // TextTags
             Gtk.TextTagTable ttt = new Gtk.TextTagTable();
@@ -370,7 +373,7 @@ namespace Smuxi.Frontend.Gnome
                 }
                 
                 if (color != null) {
-                    _Label.Markup = String.Format("<span foreground=\"{0}\">{1}</span>", color, _ChatModel.Name);
+                    _Label.Markup = String.Format("<span foreground=\"{0}\">{1}</span>", color, _Name);
                 }
             }
         }
@@ -472,7 +475,14 @@ namespace Smuxi.Frontend.Gnome
             
             if (Type.GetType("Mono.Runtime") == null) {
                 // this is not Mono, probably MS .NET, so ShellExecute is the better approach
-                SysDiag.Process.Start(url);
+                /*
+                new Thread(new ThreadStart(delegate {
+                    SysDiag.Process.Start(url);
+                })).Start();
+                */
+                ThreadPool.QueueUserWorkItem(delegate {
+                    SysDiag.Process.Start(url);
+                });
                 return;
             }
             

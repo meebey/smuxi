@@ -1371,7 +1371,7 @@ namespace Smuxi.Engine
         
         private void _OnRawMessage(object sender, IrcEventArgs e)
         {
-    	    if (e.Data.Message != null) {
+            if (e.Data.Message != null) {
                 switch (e.Data.Type) {
                     case ReceiveType.Error:
                     case ReceiveType.Info:
@@ -1417,6 +1417,7 @@ namespace Smuxi.Engine
                 case ReplyCode.ErrorBadChannelKey:
                 case ReplyCode.ErrorTooManyChannels:
                 case ReplyCode.ErrorChannelOpPrivilegesNeeded:
+                case ReplyCode.ErrorCannotSendToChannel:
                 case ReplyCode.ErrorUnavailableResource:
                     chan = e.Data.RawMessageArray[3];
                     msg = "-!- " + chan + " " + e.Data.Message;
@@ -1790,8 +1791,8 @@ namespace Smuxi.Engine
                     case '~':
                         username = user.Substring(1);
                         break;
-				}
-				
+                }
+                
                 IrcGroupPersonModel groupPerson = new IrcGroupPersonModel(username,
                                                                      NetworkID,
                                                                      this);
