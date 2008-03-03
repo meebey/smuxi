@@ -163,6 +163,8 @@ namespace Smuxi.Frontend.Gnome
 
                 // BUG: doesn't work?!?
                 chatView.ScrollToEnd();
+                // TODO:
+                // clear highlight
             });
         }
         

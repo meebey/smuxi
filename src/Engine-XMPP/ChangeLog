@@ -1,3 +1,7 @@
+2008-03-04  Mirco Bauer <meebey@meebey.net> 
+
+	* Protocols/Xmpp/XmppProtocolManager.cs: Fixed network chat.
+
 2008-01-31  Mirco Bauer <meebey@meebey.net> 
 
 	* AssemblyInfo.cs: Bumped version to 0.5.30.

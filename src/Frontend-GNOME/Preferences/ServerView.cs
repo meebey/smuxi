@@ -35,7 +35,7 @@ namespace Smuxi.Frontend.Gnome
 {
     public class ServerView
     {
-        private ServerListController _Controller;
+        private ServerListController     _Controller;
         private Gtk.TreeView             _TreeView;
         private Gtk.ListStore            _ListStore;
         private Glade.XML                _Glade;
@@ -163,13 +163,29 @@ namespace Smuxi.Frontend.Gnome
         
         private void _OnProtocolComboBoxChanged(object sender, EventArgs e)
         {
+            // HACK: hardcoded default list, not so nice
             // suggest sane port defaults
+            _HostnameEntry.Sensitive = true;
+            _PortSpinButton.Sensitive = true;
+            _NetworkComboBoxEntry.Sensitive = true;
             switch (_ProtocolComboBox.ActiveText) {
                 case "IRC":
                     _PortSpinButton.Value = 6667;
                     break;
                 case "XMPP":
                     _PortSpinButton.Value = 5222;
+                    break;
+                case "AIM":
+                case "ICQ":
+                case "MSNP":
+                    _HostnameEntry.Text = String.Empty;
+                    _HostnameEntry.Sensitive = false;
+                    
+                    _PortSpinButton.Value = 0;
+                    _PortSpinButton.Sensitive = false;
+                    
+                    _NetworkComboBoxEntry.Entry.Text = String.Empty;
+                    _NetworkComboBoxEntry.Sensitive = false;
                     break;
             }
         }

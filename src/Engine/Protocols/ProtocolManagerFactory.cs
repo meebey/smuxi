@@ -59,6 +59,10 @@ namespace Smuxi.Engine
             Type[] types = asm.GetTypes();
             
             foreach (Type type in types) {
+                if (type.IsAbstract) {
+                    continue;
+                }
+                
                 Type foundType = null;
                 Type[] interfaceTypes = type.GetInterfaces();
                 foreach (Type interfaceType in interfaceTypes) {
@@ -78,7 +82,8 @@ namespace Smuxi.Engine
                 // let's get the info attribute
                 object[] attrs = foundType.GetCustomAttributes(typeof(ProtocolManagerInfoAttribute), true);
                 if (attrs == null || attrs.Length == 0) {
-                    throw new ArgumentException("Assembly contains IProtocolManager but misses ProtocolManagerInfoAttribute", "filename"); 
+                    throw new ArgumentException("Assembly contains IProtocolManager but misses ProtocolManagerInfoAttribute", "filename");
+                    //continue;
                 }
                 
                 ProtocolManagerInfoAttribute attr = (ProtocolManagerInfoAttribute) attrs[0];

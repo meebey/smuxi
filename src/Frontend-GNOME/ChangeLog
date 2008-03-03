@@ -1,3 +1,7 @@
+2008-03-04  Mirco Bauer <meebey@meebey.net> 
+
+	* Preferences/ServerView.cs: Added defaults for ICQ/AIM/MSNP.
+
 2008-03-02  Mirco Bauer <meebey@meebey.net> 
 
 	* Chats/SessionChatView.cs, Entry.cs: Implemented SessionChat*, abusing

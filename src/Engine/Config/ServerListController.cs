@@ -79,7 +79,7 @@ namespace Smuxi.Engine
             }
             server.Protocol    = protocol;
             server.Hostname    = (string) _UserConfig[prefix + "Hostname"];
-            server.Port        = (int) _UserConfig[prefix + "Port"];
+            server.Port        = (int)    _UserConfig[prefix + "Port"];
             server.Network     = (string) _UserConfig[prefix + "Network"];
             server.Username    = (string) _UserConfig[prefix + "Username"];
             server.Password    = (string) _UserConfig[prefix + "Password"];

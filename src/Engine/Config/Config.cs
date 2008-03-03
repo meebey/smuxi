@@ -100,8 +100,6 @@ namespace Smuxi.Engine
                 m_IsCleanConfig = true;
             }
             
-//            StreamReader sr = File.OpenText(m_IniFilename);
-//            m_IniDocument = new IniDocument(sr);
             m_IniDocument = new IniDocument(m_IniFilename);
             //m_IniConfigSource = new IniConfigSource(m_IniFilename);
 #endif
