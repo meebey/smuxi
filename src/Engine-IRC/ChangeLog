@@ -1,3 +1,7 @@
+2008-04-01  Mirco Bauer <meebey@meebey.net> 
+
+	* AssemblyInfo.cs: Bumped version to 0.5.31
+
 2008-03-02  Mirco Bauer <meebey@meebey.net> 
 
 	* Protocols/Irc/IrcProtocolManager.cs: When connecting to a new server call
