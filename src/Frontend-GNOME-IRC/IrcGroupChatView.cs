@@ -102,16 +102,16 @@ namespace Smuxi.Frontend.Gnome
         private void _RenderIrcGroupPersonMode(Gtk.TreeViewColumn column,
                                                Gtk.CellRenderer cellr,
                                                Gtk.TreeModel model, Gtk.TreeIter iter)
-	    {
-		    IrcGroupPersonModel person = model.GetValue(iter, 0) as IrcGroupPersonModel;
-		    if (person == null) {
+        {
+            IrcGroupPersonModel person = model.GetValue(iter, 0) as IrcGroupPersonModel;
+            if (person == null) {
 #if LOG4NET
                 _Logger.Error("_RenderIrcGroupPersonMode(): person == null");
 #endif
-		        return;
-		    }
-		    
-		    string mode;
+                return;
+            }
+            
+            string mode;
             if (person.IsOp) {
                 mode = "@";
             } else if (person.IsVoice) {
@@ -119,9 +119,9 @@ namespace Smuxi.Frontend.Gnome
             } else {
                 mode = String.Empty;
             }
-		    (cellr as Gtk.CellRendererText).Text = mode;
-	    }
-	    
+            (cellr as Gtk.CellRendererText).Text = mode;
+        }
+        
         private void _OnUserListMenuOpActivated(object sender, EventArgs e)
         {
             Trace.Call(sender, e);

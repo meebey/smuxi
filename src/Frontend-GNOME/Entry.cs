@@ -209,6 +209,13 @@ namespace Smuxi.Frontend.Gnome
                     // don't break copy/paste
                     case Gdk.Key.c:
                     case Gdk.Key.v:
+                    // don't select all
+                    case Gdk.Key.a:
+                    // don't break jump one word left/right
+                    case Gdk.Key.Right:
+                    case Gdk.Key.Left:
+                    // don't break delete last word
+                    case Gdk.Key.BackSpace:
                         e.RetVal = false;
                         break;
                     case Gdk.Key.Page_Down:
