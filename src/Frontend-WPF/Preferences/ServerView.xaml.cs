@@ -1,4 +1,4 @@
-/*
+﻿/*
  * $Id$
  * $URL$
  * $Rev$
@@ -28,16 +28,27 @@
  */
 
 using System;
+using System.Collections.Generic;
+using System.Text;
 using System.Windows;
-using Mono.Unix;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Shapes;
 
 namespace Smuxi.Frontend.Wpf
 {
-    public static class NotImplementedMessageDialog
+    /// <summary>
+    /// Interaction logic for ServerView.xaml
+    /// </summary>
+    public partial class ServerView : Window
     {
-        public static void Show()
+        public ServerView()
         {
-            MessageBox.Show(Catalog.GetString("Sorry, not implemented yet!"), null, MessageBoxButton.OK, MessageBoxImage.Information);
+            InitializeComponent();
         }
     }
 }

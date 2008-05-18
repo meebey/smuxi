@@ -61,6 +61,34 @@
     <OutputType>WinExe</OutputType>
     <AssemblyName>smuxi-frontend-gtk</AssemblyName>
   </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;LOG4NET;CONFIG_NINI;UI_GNOME</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>CONFIG_NINI;UI_GNOME</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug GTK|x86' ">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug GTK\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;LOG4NET;CONFIG_NINI;UI_GTK</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release GTK|x86' ">
+    <OutputPath>bin\x86\Release GTK\</OutputPath>
+    <DefineConstants>CONFIG_NINI;UI_GTK</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="atk-sharp, Version=2.8.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f">
       <SpecificVersion>False</SpecificVersion>
@@ -82,15 +110,12 @@
     </Reference>
     <Reference Include="log4net, Version=1.2.9.0, Culture=neutral, PublicKeyToken=a5715cc6d5c3540b">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\lib\log4net.dll</HintPath>
     </Reference>
-    <Reference Include="Mono.Posix, Version=2.0.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
+    <Reference Include="Mono.Posix, Version=1.0.5000.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\lib\Mono.Posix.dll</HintPath>
     </Reference>
     <Reference Include="Nini, Version=1.1.0.0, Culture=neutral, PublicKeyToken=c9892194e1b9ec1b">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\lib\Nini.dll</HintPath>
     </Reference>
     <Reference Include="pango-sharp, Version=2.8.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f">
       <SpecificVersion>False</SpecificVersion>
@@ -106,23 +131,20 @@
     <Compile Include="Chats\GroupChatView.cs" />
     <Compile Include="Chats\NetworkChatView.cs" />
     <Compile Include="Chats\PersonChatView.cs" />
+    <Compile Include="Chats\SessionChatView.cs" />
     <Compile Include="ChatViewManager.cs" />
     <Compile Include="CrashDialog.cs" />
-    <Compile Include="EngineManager.cs" />
     <Compile Include="EngineManagerDialog.cs" />
     <Compile Include="Entry.cs" />
     <Compile Include="FirstStartDruid.cs" />
     <Compile Include="Frontend.cs" />
     <Compile Include="GnomeUI.cs" />
-    <Compile Include="IrcManagerWindow.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="MainWindow.cs" />
     <Compile Include="NewEngineDruid.cs" />
     <Compile Include="Notebook.cs" />
     <Compile Include="NotImplementedMessageDialog.cs" />
-    <Compile Include="Preferences\ChannelFilterListController.cs" />
     <Compile Include="Preferences\ChannelFilterListView.cs" />
-    <Compile Include="Preferences\ChannelFilterModel.cs" />
     <Compile Include="Preferences\PreferencesDialog.cs" />
     <Compile Include="Preferences\ServerListView.cs" />
     <Compile Include="Preferences\ServerView.cs" />

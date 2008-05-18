@@ -203,7 +203,7 @@ namespace Smuxi.Frontend.Swf
             }
             
             // HACK: out of scope?
-            if (false /*TODO: Come up with a way to deturmine if top level chatview*/) {
+            if (((TabControl)this.Parent).SelectedTab != this) {
                 string color = null;
                 if (hasHighlight) {
                     _HasHighlight = hasHighlight;

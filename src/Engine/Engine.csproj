@@ -5,7 +5,6 @@
     <ProjectGuid>{B5F12596-21D7-4878-86E0-A230BE0D5F02}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AssemblyName>smuxi-engine</AssemblyName>
-    <ReferencePath>..\..\lib\</ReferencePath>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
     <OldToolsVersion>2.0</OldToolsVersion>
@@ -41,11 +40,28 @@
     <OutputPath>..\..\bin\Release\</OutputPath>
     <DefineConstants>CONFIG_NINI</DefineConstants>
   </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>TRACE;CONFIG_NINI;LOG4NET</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>CONFIG_NINI</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Nini, Version=1.1.0.0, Culture=neutral, PublicKeyToken=c9892194e1b9ec1b">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\Nini.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Runtime.Remoting" />
     <Reference Include="log4net" />
-    <Reference Include="Nini" />
     <Reference Include="Meebey.SmartIrc4net" />
     <Reference Include="Mono.Posix" />
   </ItemGroup>
@@ -56,7 +72,10 @@
     <Compile Include="Chats\GroupChatModel.cs" />
     <Compile Include="Chats\NetworkChatModel.cs" />
     <Compile Include="Chats\PersonChatModel.cs" />
+    <Compile Include="Chats\SessionChatModel.cs" />
     <Compile Include="CommandModel.cs" />
+    <Compile Include="Config\ChannelFilterListController.cs" />
+    <Compile Include="Config\ChannelFilterModel.cs" />
     <Compile Include="Config\Config.cs" />
     <Compile Include="Config\FrontendConfig.cs" />
     <Compile Include="Config\ServerListController.cs" />
@@ -90,9 +109,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Plugins\" />
-  </ItemGroup>
-  <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
       <Visible>False</Visible>
       <ProductName>.NET Framework 2.0 %28x86%29</ProductName>
@@ -113,6 +129,9 @@
       <ProductName>Windows Installer 3.1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Plugins\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSHARP.Targets" />
   <ProjectExtensions>

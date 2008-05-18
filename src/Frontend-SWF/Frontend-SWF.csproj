@@ -5,7 +5,6 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{0CA3B4CA-9CE0-4F3C-8C54-D01EDBAAD9B9}</ProjectGuid>
     <AssemblyName>smuxi-frontend-swf</AssemblyName>
-    <ReferencePath>..\..\lib\</ReferencePath>
     <StartupObject>Smuxi.Frontend.Swf.MainClass</StartupObject>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
@@ -43,6 +42,20 @@
     <OutputPath>..\..\bin\Release\</OutputPath>
     <DefineConstants>CONFIG_NINI</DefineConstants>
     <OutputType>WinExe</OutputType>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;LOG4NET;CONFIG_NINI</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>CONFIG_NINI</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="log4net" />

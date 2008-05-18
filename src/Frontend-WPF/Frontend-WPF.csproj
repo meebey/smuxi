@@ -1,107 +1,87 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
+﻿<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{D0B70251-09A7-4AA0-A8C8-B594785046E5}</ProjectGuid>
+    <DefaultClrNameSpace>Smuxi.Frontend.Wpf</DefaultClrNameSpace>
     <AssemblyName>smuxi-frontend-wpf</AssemblyName>
-    <ReferencePath>..\..\lib\</ReferencePath>
-    <TargetFrameworkVersion>v3.0</TargetFrameworkVersion>
+    <AlwaysCompileMarkupFilesInSeparateDomain>false</AlwaysCompileMarkupFilesInSeparateDomain>
+    <ExpressionBlendCreationVersion>2.1.1111.0</ExpressionBlendCreationVersion>
+    <ProjectGuid>{314F56AF-A99F-4392-A13C-71002F611252}</ProjectGuid>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <FileUpgradeFlags>
-    </FileUpgradeFlags>
-    <OldToolsVersion>2.0</OldToolsVersion>
-    <UpgradeBackupLocation>
-    </UpgradeBackupLocation>
-    <PublishUrl>publish\</PublishUrl>
-    <Install>true</Install>
-    <InstallFrom>Disk</InstallFrom>
-    <UpdateEnabled>false</UpdateEnabled>
-    <UpdateMode>Foreground</UpdateMode>
-    <UpdateInterval>7</UpdateInterval>
-    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
-    <UpdatePeriodically>false</UpdatePeriodically>
-    <UpdateRequired>false</UpdateRequired>
-    <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
-    <UseApplicationTrust>false</UseApplicationTrust>
-    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <StartupObject>Smuxi.Frontend.Wpf.Frontend</StartupObject>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE;CONFIG_NINI;LOG4NET</DefineConstants>
+    <OutputPath>..\bin\debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;LOG4NET</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
     <OutputType>Exe</OutputType>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>none</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\..\bin\Release\</OutputPath>
-    <DefineConstants>CONFIG_NINI</DefineConstants>
+    <OutputPath>..\bin\release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
     <OutputType>WinExe</OutputType>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="log4net" />
-    <Reference Include="Nini" />
-    <Reference Include="Mono.Posix" />
+    <Reference Include="log4net, Version=1.2.9.0, Culture=neutral, PublicKeyToken=a5715cc6d5c3540b">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Mono.Posix, Version=2.0.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\Mono.Posix.dll</HintPath>
+    </Reference>
+    <Reference Include="Nini, Version=1.1.0.0, Culture=neutral, PublicKeyToken=c9892194e1b9ec1b">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\Nini.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
     <Reference Include="System" />
+    <Reference Include="System.Core" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Runtime.Remoting" />
-    <Reference Include="PresentationCore">
-      <RequiredTargetFramework>3.0</RequiredTargetFramework>
-    </Reference>
-    <Reference Include="PresentationFramework">
-      <RequiredTargetFramework>3.0</RequiredTargetFramework>
-    </Reference>
     <Reference Include="System.Xml" />
-    <Reference Include="UIAutomationProvider">
-      <RequiredTargetFramework>3.0</RequiredTargetFramework>
-    </Reference>
-    <Reference Include="UIAutomationTypes" />
-    <Reference Include="WindowsBase">
-      <RequiredTargetFramework>3.0</RequiredTargetFramework>
-    </Reference>
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="..\..\images\about.png">
-      <Link>about.png</Link>
-    </Resource>
-    <Resource Include="..\..\images\connect.png">
-      <Link>connect.png</Link>
-    </Resource>
-    <Resource Include="..\..\images\edit.png">
-      <Link>edit.png</Link>
-    </Resource>
-    <Resource Include="..\..\images\icon_default.png">
-      <Link>icon_default.png</Link>
-    </Resource>
-    <Resource Include="..\..\images\icon_halfop.png">
-      <Link>icon_halfop.png</Link>
-    </Resource>
-    <Resource Include="..\..\images\icon_op.png">
-      <Link>icon_op.png</Link>
-    </Resource>
-    <Resource Include="..\..\images\icon_voice.png">
-      <Link>icon_voice.png</Link>
-    </Resource>
-    <Resource Include="..\..\images\splashscreen.png">
-      <Link>splashscreen.png</Link>
-    </Resource>
-  </ItemGroup>
-  <ItemGroup>
-    <ApplicationDefinition Include="App.xaml">
+    <Reference Include="WindowsBase" />
+    <ApplicationDefinition Include="Frontend.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="Chats\ChatView.cs" />
+    <Compile Include="Chats\GroupChatView.cs" />
+    <Compile Include="ChatViewManager.cs" />
+    <Compile Include="Frontend.xaml.cs">
+      <DependentUpon>Frontend.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="NotImplementedMessageDialog.cs" />
+    <Compile Include="Preferences\PreferencesDialog.xaml.cs">
+      <DependentUpon>PreferencesDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Preferences\ServerView.xaml.cs">
+      <DependentUpon>ServerView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WpfUI.cs" />
+    <Compile Include="XamlConverters.cs" />
     <Page Include="MainWindow.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Preferences\PreferencesDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Preferences\ServerView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -109,19 +89,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="App.xaml.cs">
-      <DependentUpon>App.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="NotImplementedMessageDialog.cs" />
-    <Compile Include="Preferences\PreferencesDialog.xaml.cs">
-      <SubType>Code</SubType>
-      <DependentUpon>PreferencesDialog.xaml</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Common\Common.csproj">
@@ -138,34 +105,41 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
-      <Visible>False</Visible>
-      <ProductName>.NET Framework 2.0 %28x86%29</ProductName>
-      <Install>false</Install>
-    </BootstrapperPackage>
-    <BootstrapperPackage Include="Microsoft.Net.Framework.3.0">
-      <Visible>False</Visible>
-      <ProductName>.NET Framework 3.0 %28x86%29</ProductName>
-      <Install>false</Install>
-    </BootstrapperPackage>
-    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5">
-      <Visible>False</Visible>
-      <ProductName>.NET Framework 3.5</ProductName>
-      <Install>true</Install>
-    </BootstrapperPackage>
-    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
-      <Visible>False</Visible>
-      <ProductName>Windows Installer 3.1</ProductName>
-      <Install>true</Install>
-    </BootstrapperPackage>
+    <Resource Include="..\..\images\about.png">
+      <Link>Images\about.png</Link>
+    </Resource>
+    <Resource Include="..\..\images\connect.png">
+      <Link>Images\connect.png</Link>
+    </Resource>
+    <Resource Include="..\..\images\edit.png">
+      <Link>Images\edit.png</Link>
+    </Resource>
+    <Resource Include="..\..\images\icon_default.png">
+      <Link>Images\icon_default.png</Link>
+    </Resource>
+    <Resource Include="..\..\images\icon_halfop.png">
+      <Link>Images\icon_halfop.png</Link>
+    </Resource>
+    <Resource Include="..\..\images\icon_op.png">
+      <Link>Images\icon_op.png</Link>
+    </Resource>
+    <Resource Include="..\..\images\icon_voice.png">
+      <Link>Images\icon_voice.png</Link>
+    </Resource>
+    <Resource Include="..\..\images\server.png">
+      <Link>Images\server.png</Link>
+    </Resource>
+    <Resource Include="..\..\images\splashscreen.png">
+      <Link>Images\splashscreen.png</Link>
+    </Resource>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="..\..\images\Tango\16x16\list-add.png">
-      <Link>list-add.png</Link>
+      <Link>Images\list-add.png</Link>
     </Resource>
     <Resource Include="..\..\images\Tango\16x16\preferences-system.png">
-      <Link>preferences-system.png</Link>
+      <Link>Images\preferences-system.png</Link>
     </Resource>
   </ItemGroup>
-  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
