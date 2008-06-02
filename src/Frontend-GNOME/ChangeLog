@@ -1,5 +1,9 @@
 2008-06-02  Mirco Bauer <meebey@meebey.net> 
 
+	* Chats/ProtocolChatView.cs: Implemented closing of protocol chats.
+
+2008-06-02  Mirco Bauer <meebey@meebey.net> 
+
 	* MainWindow.cs: Fixed whitespace.
 	* Chats/ProtocolChatView.cs, Chats/SessionChatView.cs,
 	  Chats/PersonChatView.cs, Chats/GroupChatView.cs, Chats/ChatView.cs:

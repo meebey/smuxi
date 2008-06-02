@@ -46,12 +46,34 @@ namespace Smuxi.Frontend.Gnome
             Add(_OutputScrolledWindow);
         }
         
-        protected override void OnTabMenuCloseActivated(object sender, EventArgs e)
+        protected override void Close()
         {
-            Trace.Call(sender, e);
+            Trace.Call();
             
-            // TODO: implement close by showing a dialog and then disconnect
-            //base.OnTabMenuCloseActivated (sender, e);
+            Gtk.MessageDialog md = new Gtk.MessageDialog(
+                Frontend.MainWindow,
+                Gtk.DialogFlags.Modal,
+                Gtk.MessageType.Warning,
+                Gtk.ButtonsType.YesNo,
+                _("Closing the protocol chat will also close all open chats connected to it!\n"+
+                  "Are you sure you want to do this?"));
+            int result = md.Run();
+            md.Destroy();
+            if ((Gtk.ResponseType) result != Gtk.ResponseType.Yes) {
+                return;
+            }
+            
+            base.Close();
+            
+            Frontend.Session.CommandNetwork(new CommandModel(
+                                                    Frontend.FrontendManager,
+                                                    ChatModel,
+                                                    "close"));
+        }
+        
+        private static string _(string msg)
+        {
+            return Mono.Unix.Catalog.GetString(msg);
         }
     }
 }
