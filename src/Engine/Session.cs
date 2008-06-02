@@ -546,26 +546,32 @@ namespace Smuxi.Engine
         private void _CommandNetworkClose(CommandModel cd)
         {
             FrontendManager fm = cd.FrontendManager;
+            IProtocolManager pm = null;
             if (cd.DataArray.Length >= 3) {
-                // named network manager
+                // named protocol manager
                 string host = cd.DataArray[2].ToLower();
-                foreach (IProtocolManager nm in _ProtocolManagers) {
-                    if (nm.Host.ToLower() == host) {
-                        nm.Disconnect(fm);
-                        nm.Dispose();
-                        _ProtocolManagers.Remove(nm);
-                        fm.NextProtocolManager();
-                        return;
+                foreach (IProtocolManager protocolManager in _ProtocolManagers) {
+                    if (protocolManager.Host.ToLower() == host) {
+                        pm = protocolManager;
+                        break;
                     }
                 }
-                fm.AddTextToCurrentChat("-!- " +
-                    String.Format(_("Network switch failed, could not find network with host: {0}"),
-                                  host));
+                if (pm == null) {
+                    fm.AddTextToCurrentChat("-!- " +
+                        String.Format(_("Network close failed, could not find network with host: {0}"),
+                                      host));
+                    return;
+                }
             } else if (cd.DataArray.Length >= 2) {
                 // current network manager
-                fm.CurrentProtocolManager.Disconnect(fm);
-                fm.CurrentProtocolManager.Dispose();
-                _ProtocolManagers.Remove(fm.CurrentProtocolManager);
+                pm = fm.CurrentProtocolManager;
+            }
+            
+            if (pm != null) {
+                pm.Disconnect(fm);
+                pm.Dispose();
+                // Dispose() takes care of removing the chat from session (frontends)
+                _ProtocolManagers.Remove(pm);
                 fm.NextProtocolManager();
             }
         }

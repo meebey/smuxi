@@ -106,6 +106,7 @@ namespace Smuxi.Engine
         {
             Trace.Call();
             
+            // remove all open chats (including protocol chat if exists)
             // we can't delete directly, it will break the enumerator, let's use a list
             List<ChatModel> removelist = new List<ChatModel>();
             foreach (ChatModel chat in _Session.Chats) {
