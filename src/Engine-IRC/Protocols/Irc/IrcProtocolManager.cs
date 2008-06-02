@@ -287,12 +287,13 @@ namespace Smuxi.Engine
             if (IsConnected) {
                 Session.AddTextToChat(_NetworkChat, "-!- " + 
                     String.Format(_("Disconnecting from {0}..."), _IrcClient.Address));
+                // else the Listen() thread would try to connect again
+                _Listening = false;
                 _IrcClient.Disconnect();
                 fm.SetStatus(String.Format(_("Disconnected from {0}"), _IrcClient.Address));
                 Session.AddTextToChat(_NetworkChat, "-!- " +
                     _("Connection closed"));
                 
-                _Listening = false;
                 // TODO: set someone else as current network manager?
             } else {
                 fm.SetStatus(_("Not connected!"));
@@ -1118,9 +1119,14 @@ namespace Smuxi.Engine
 #if LOG4NET
                         _Logger.Warn("_Run(): _Listen() returned.");
 #endif
-                        if (!IsConnected) {
+                        // should we care if listen returns?!?
+                        /*
+                        // only connect if we were listing and the connection
+                        // is suddenly gone
+                        if (_Listening && !IsConnected) {
                             Connect(_FrontendManager);
                         }
+                        */
                     } catch (Exception ex) {
 #if LOG4NET
                         _Logger.Error("_Run(): exception in _Listen() occurred!" ,ex);
@@ -1129,8 +1135,8 @@ namespace Smuxi.Engine
                         Reconnect(_FrontendManager);
                     }
                     
-                    // sleep for 30 seconds, we don't want to be abusive
-                    System.Threading.Thread.Sleep(30000);
+                    // sleep for 10 seconds, we don't want to be abusive
+                    System.Threading.Thread.Sleep(10000);
                 }
             } catch (Exception ex) {
 #if LOG4NET
@@ -2119,13 +2125,13 @@ namespace Smuxi.Engine
         protected override void OnConnected(EventArgs e)
         {
             foreach (ChatModel chat in Session.Chats) {
-                // re-enable all query windows
+                // re-enable all person chats
                 if (chat.ProtocolManager == this &&
-                    chat is PersonChatModel ) {
+                    chat.ChatType == ChatType.Person) {
                     Session.EnableChat(chat);
                 }
             }
-
+            
             base.OnConnected(e);
         }
         
@@ -2136,9 +2142,17 @@ namespace Smuxi.Engine
         
         protected override void OnDisconnected(EventArgs e)
         {
-            foreach (ChatModel chat in Session.Chats) {
-                if (chat.ProtocolManager == this) {
-                    Session.DisableChat(chat);
+            // only disable chats if we are listening, else we might be
+            // disconnecting and removing disabled chats is prevented in the
+            // FrontendManager.
+            // Don't disable the protocol chat though, else the user loses all
+            // control for the protocol manager! (e.g. after manual reconnect)
+            if (_Listening) {
+                foreach (ChatModel chat in Session.Chats) {
+                    if (chat.ProtocolManager == this &&
+                        chat.ChatType != ChatType.Protocol) {
+                        Session.DisableChat(chat);
+                    }
                 }
             }
             
