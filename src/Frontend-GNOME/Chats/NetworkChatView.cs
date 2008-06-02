@@ -30,7 +30,7 @@ using Smuxi.Engine;
  
 namespace Smuxi.Frontend.Gnome
 {
-    [ChatViewInfo(ChatType = ChatType.Network)]
+    [ChatViewInfo(ChatType = ChatType.Protocol)]
     public class NetworkChatView : ChatView
     {
         public NetworkChatView(ChatModel chat) : base(chat)

@@ -1,3 +1,9 @@
+2008-06-02  Mirco Bauer <meebey@meebey.net> 
+
+	* Engine.mdp, Chats/ChatType.cs, Chats/ProtocolChatModel.cs,
+	  Chats/NetworkChatModel.cs: Renamed confusing NetworkChatModel to
+	  ProtocolChatModel and ChatType.Network to ChatType.Protocol.
+
 2008-04-01  Mirco Bauer <meebey@meebey.net> 
 
 	* AssemblyInfo.cs: Bumped version to 0.5.31

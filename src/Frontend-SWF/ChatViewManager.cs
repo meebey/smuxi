@@ -71,19 +71,19 @@ namespace Smuxi.Frontend.Swf
         
         public override void EnableChat(ChatModel chat)
         {
-       	    ChatView chatView = _Notebook.GetChat(chat);
-       	    chatView.Enable();
+            ChatView chatView = _Notebook.GetChat(chat);
+            chatView.Enable();
         }
         
         public override void DisableChat(ChatModel chat)
         {
-       	    ChatView chatView = _Notebook.GetChat(chat);
-       	    chatView.Disable();
+            ChatView chatView = _Notebook.GetChat(chat);
+            chatView.Disable();
         }
         
         public ChatView GetChat(ChatModel chatModel)
         {
             return _Notebook.GetChat(chatModel);
         }
-    }   
+    }
 }

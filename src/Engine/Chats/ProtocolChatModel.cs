@@ -31,14 +31,14 @@ using Smuxi.Common;
 
 namespace Smuxi.Engine
 {
-    public class NetworkChatModel : ChatModel
+    public class ProtocolChatModel : ChatModel
     {
 #if LOG4NET
         private static readonly log4net.ILog _Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 #endif
         
-        public NetworkChatModel(string id, string name, IProtocolManager networkManager) :
-                          base(id, name, ChatType.Network, networkManager)
+        public ProtocolChatModel(string id, string name, IProtocolManager networkManager) :
+                          base(id, name, ChatType.Protocol, networkManager)
         {
         }
     }

@@ -36,7 +36,7 @@ using STFL = Stfl;
 
 namespace Smuxi.Frontend.Stfl
 {
-    [ChatViewInfo(ChatType = ChatType.Network)]
+    [ChatViewInfo(ChatType = ChatType.Protocol)]
     [ChatViewInfo(ChatType = ChatType.Person)]
     [ChatViewInfo(ChatType = ChatType.Group)]
     public class ChatView : IChatView

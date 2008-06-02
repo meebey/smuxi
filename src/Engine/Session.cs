@@ -133,7 +133,7 @@ namespace Smuxi.Engine
             // if this is the first frontend, we process OnStartupCommands
             if (!_OnStartupCommandsProcessed) {
                 _OnStartupCommandsProcessed = true;
-                ChatModel smuxiChat = GetChat("smuxi", ChatType.Network, null);
+                ChatModel smuxiChat = GetChat("smuxi", ChatType.Protocol, null);
                 
                 foreach (string command in (string[])_UserConfig["OnStartupCommands"]) {
                     if (command.Length == 0) {
@@ -396,8 +396,13 @@ namespace Smuxi.Engine
             protocolManager.Command(cd);
             
             // set this as current protocol manager
-            fm.CurrentProtocolManager = protocolManager;
-            fm.UpdateNetworkStatus();
+            // but only if there was none set (we might be on a chat for example)
+            // or if this is the neutral "smuxi" tab
+            if (fm.CurrentProtocolManager == null ||
+                fm.CurrentChat != null && fm.CurrentChat.ChatType == ChatType.Session) {
+                fm.CurrentProtocolManager = protocolManager;
+                fm.UpdateNetworkStatus();
+            }
         }
         
         public void CommandDisconnect(CommandModel cd)

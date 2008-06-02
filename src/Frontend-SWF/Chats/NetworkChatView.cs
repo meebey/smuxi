@@ -32,7 +32,7 @@ using Smuxi.Engine;
 
 namespace Smuxi.Frontend.Swf
 {
-    [ChatViewInfo(ChatType = ChatType.Network)]
+    [ChatViewInfo(ChatType = ChatType.Protocol)]
     public class NetworkChatView : ChatView
     {
         public NetworkChatView(ChatModel chat) :

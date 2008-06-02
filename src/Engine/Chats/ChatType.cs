@@ -31,7 +31,7 @@ namespace Smuxi.Engine
     public enum ChatType
     {
         Session,
-        Network,
+        Protocol,
         Person,
         Group,
     }

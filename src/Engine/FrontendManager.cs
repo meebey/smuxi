@@ -389,6 +389,9 @@ namespace Smuxi.Engine
                             _Logger.Error("Inner-Exception: ", e.InnerException);
                         }
 #endif
+                        // TODO: setup a timer and wait up to 10 minutes to let
+                        // the frontend resume the session, after that timeout
+                        // clean it good
                         break;
                     } catch (Exception e) {
 #if LOG4NET

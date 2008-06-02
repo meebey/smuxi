@@ -74,7 +74,7 @@ namespace Smuxi.Engine
             Port = 5190;
             
             // TODO: use config for single network chat or once per network manager
-            _NetworkChat = new NetworkChatModel(NetworkID, NetworkID + " Messenger", this);
+            _NetworkChat = new ProtocolChatModel(NetworkID, NetworkID + " Messenger", this);
             Session.AddChat(_NetworkChat);
             Session.SyncChat(_NetworkChat);
             

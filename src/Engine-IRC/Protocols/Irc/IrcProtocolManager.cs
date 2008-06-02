@@ -222,7 +222,7 @@ namespace Smuxi.Engine
             }
 
             // TODO: use config for single network chat or once per network manager
-            _NetworkChat = new NetworkChatModel(NetworkID, "IRC " + server, this);
+            _NetworkChat = new ProtocolChatModel(NetworkID, "IRC " + server, this);
             // BUG: race condition when we use Session.AddChat() as it pushes this already
             // to the connected frontend and the frontend will sync and get the page 2 times!
             //Session.Chats.Add(_NetworkChat);
@@ -468,7 +468,7 @@ namespace Smuxi.Engine
                     }
                 } else {
                     // normal text
-                    if (command.Chat.ChatType == ChatType.Network) {
+                    if (command.Chat.ChatType == ChatType.Protocol) {
                         // we are on the server chat
                         _IrcClient.WriteLine(command.Data);
                     } else {

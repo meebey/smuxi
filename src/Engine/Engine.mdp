@@ -37,7 +37,7 @@
     <File name="Chats/GroupChatModel.cs" subtype="Code" buildaction="Compile" />
     <File name="Chats/PersonChatModel.cs" subtype="Code" buildaction="Compile" />
     <File name="Protocols/ProtocolManagerBase.cs" subtype="Code" buildaction="Compile" />
-    <File name="Chats/NetworkChatModel.cs" subtype="Code" buildaction="Compile" />
+    <File name="Chats/ProtocolChatModel.cs" subtype="Code" buildaction="Compile" />
     <File name="Plugins" subtype="Directory" buildaction="Compile" />
     <File name="Protocols/ProtocolManagerFactory.cs" subtype="Code" buildaction="Compile" />
     <File name="Protocols/ProtocolManagerInfoModel.cs" subtype="Code" buildaction="Compile" />
