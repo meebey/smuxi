@@ -54,7 +54,7 @@
     <File name="Chats/ChatView.cs" subtype="Code" buildaction="Compile" />
     <File name="Chats/GroupChatView.cs" subtype="Code" buildaction="Compile" />
     <File name="Chats/PersonChatView.cs" subtype="Code" buildaction="Compile" />
-    <File name="Chats/NetworkChatView.cs" subtype="Code" buildaction="Compile" />
+    <File name="Chats/ProtocolChatView.cs" subtype="Code" buildaction="Compile" />
     <File name="Chats/SessionChatView.cs" subtype="Code" buildaction="Compile" />
   </Contents>
   <References>
