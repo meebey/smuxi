@@ -201,15 +201,15 @@ namespace Smuxi.Frontend.Gnome
 #endif
             image_item.Activated += new EventHandler(_OnAboutButtonClicked);
             menu.Append(image_item);
-    	    
-    	    // TODO: network treeview
-    	    _Notebook = new Notebook();
-    	    
-    	    _ChatViewManager = new ChatViewManager(_Notebook, null);
-    	    Assembly asm = Assembly.GetExecutingAssembly();
-    	    _ChatViewManager.Load(asm);
-    	    _ChatViewManager.LoadAll(System.IO.Path.GetDirectoryName(asm.Location),
-    	                             "smuxi-frontend-gnome-*.dll");
+            
+            // TODO: network treeview
+            _Notebook = new Notebook();
+            
+            _ChatViewManager = new ChatViewManager(_Notebook, null);
+            Assembly asm = Assembly.GetExecutingAssembly();
+            _ChatViewManager.Load(asm);
+            _ChatViewManager.LoadAll(System.IO.Path.GetDirectoryName(asm.Location),
+                                     "smuxi-frontend-gnome-*.dll");
             
             _UI = new GnomeUI(_ChatViewManager);
             

@@ -226,11 +226,11 @@ namespace Smuxi.Frontend.Gnome
                     person.ID));
         }
         
-        protected override void OnTabMenuCloseActivated(object sender, EventArgs e)
+        protected override void Close()
         {
-            Trace.Call(sender, e);
+            Trace.Call();
             
-            base.OnTabMenuCloseActivated(sender, e);
+            base.Close();
             
             _IrcProtocolManager.CommandPart(new CommandModel(Frontend.FrontendManager,
                                                       ChatModel,

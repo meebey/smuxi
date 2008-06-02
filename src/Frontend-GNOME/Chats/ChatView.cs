@@ -54,6 +54,7 @@ namespace Smuxi.Frontend.Gnome
         private   ChatModel          _ChatModel;
         private   bool               _HasHighlight;
         private   Gtk.TextMark       _EndMark;
+        private   Gtk.Menu           _TabMenu;
         protected Gtk.Label          _Label;
         protected Gtk.EventBox       _LabelEventBox;
         protected Gtk.ScrolledWindow _OutputScrolledWindow;
@@ -104,6 +105,8 @@ namespace Smuxi.Frontend.Gnome
         
         public ChatView(ChatModel chat)
         {
+            Trace.Call(chat);
+            
             _ChatModel = chat;
             _Name = _ChatModel.Name;
             _LabelEventBox = new Gtk.EventBox();
@@ -161,8 +164,18 @@ namespace Smuxi.Frontend.Gnome
             _OutputScrolledWindow = sw;
             
             _OutputTextView.MotionNotifyEvent += new Gtk.MotionNotifyEventHandler(_OnMotionNotifyEvent);
+            
+            // popup menu
+            Gtk.AccelGroup agrp = new Gtk.AccelGroup();
+            Frontend.MainWindow.AddAccelGroup(agrp);
+            _TabMenu = new Gtk.Menu();
+            Gtk.ImageMenuItem close_item = new Gtk.ImageMenuItem(Gtk.Stock.Close, agrp);
+            close_item.Activated += new EventHandler(OnTabMenuCloseActivated);  
+            _TabMenu.Append(close_item);
+            
+            _LabelEventBox.ButtonPressEvent += new Gtk.ButtonPressEventHandler(OnTabButtonPress);
         }
-    
+        
         public void ScrollUp()
         {
             Trace.Call();
@@ -218,7 +231,7 @@ namespace Smuxi.Frontend.Gnome
             //_OutputTextView.ScrollMarkOnscreen(_OutputTextView.Buffer.GetMark("tail"));
             
             System.Reflection.MethodBase mb = Trace.GetMethodBase();
-            // WORKAROUND: scroll after one second delay
+            // WORKAROUND1: scroll after one second delay
             /*
             GLib.Timeout.Add(1000, new GLib.TimeoutHandler(delegate {
                 Trace.Call(mb);
@@ -227,7 +240,7 @@ namespace Smuxi.Frontend.Gnome
                 return false;
             }));
             */
-            // WORKAROUND: scroll when GTK+ mainloop is idle
+            // WORKAROUND2: scroll when GTK+ mainloop is idle
             GLib.Idle.Add(new GLib.IdleHandler(delegate {
                 Trace.Call(mb);
                 
@@ -535,6 +548,30 @@ namespace Smuxi.Frontend.Gnome
                     window.Cursor = _NormalCursor;
                 }
             }
+        }
+        
+        protected virtual void OnTabButtonPress(object sender, Gtk.ButtonPressEventArgs e)
+        {
+            Trace.Call(sender, e);
+
+            if (e.Event.Button == 3) {
+                _TabMenu.Popup(null, null, null, e.Event.Button, e.Event.Time);
+                _TabMenu.ShowAll();
+            } else if (e.Event.Button == 2) {
+                Close();
+            }
+        }
+        
+        protected virtual void OnTabMenuCloseActivated(object sender, EventArgs e)
+        {
+            Trace.Call(sender, e);
+            
+            Close();
+        }
+        
+        protected virtual void Close()
+        {
+            Trace.Call();
         }
         
         private static string _(string msg)

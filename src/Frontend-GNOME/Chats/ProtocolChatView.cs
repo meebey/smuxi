@@ -25,21 +25,33 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA
  */
- 
+
+using System;
 using Smuxi.Engine;
- 
+using Smuxi.Common;
+
 namespace Smuxi.Frontend.Gnome
 {
     [ChatViewInfo(ChatType = ChatType.Protocol)]
-    public class NetworkChatView : ChatView
+    public class ProtocolChatView : ChatView
     {
-        public NetworkChatView(ChatModel chat) : base(chat)
+        public ProtocolChatView(ChatModel chat) : base(chat)
         {
+            Trace.Call(chat);
+            
             _Label = new Gtk.Label(chat.Name);
             _LabelEventBox.Add(_Label);
             _Label.Show();
             
             Add(_OutputScrolledWindow);
+        }
+        
+        protected override void OnTabMenuCloseActivated(object sender, EventArgs e)
+        {
+            Trace.Call(sender, e);
+            
+            // TODO: implement close by showing a dialog and then disconnect
+            //base.OnTabMenuCloseActivated (sender, e);
         }
     }
 }

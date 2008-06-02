@@ -47,18 +47,11 @@ namespace Smuxi.Frontend.Gnome
         private Gtk.ListStore      _PersonListStore;
         private Gtk.Menu           _PersonMenu;
         private Gtk.Entry          _TopicEntry;
-        private Gtk.Menu           _TabMenu;
         private Gtk.TreeViewColumn _IdentityNameColumn;
         
         public Gtk.Entry TopicEntry {
             get {
                 return _TopicEntry;
-            }
-        }
-        
-        public Gtk.Menu TabMenu {
-            get {
-                return _TabMenu;
             }
         }
         
@@ -176,16 +169,6 @@ namespace Smuxi.Frontend.Gnome
             } else {
                 Add(vbox);
             }
-            
-            // popup menu
-            Gtk.AccelGroup agrp = new Gtk.AccelGroup();
-            Frontend.MainWindow.AddAccelGroup(agrp);
-            _TabMenu = new Gtk.Menu();
-            Gtk.ImageMenuItem close_item = new Gtk.ImageMenuItem(Gtk.Stock.Close, agrp);
-            close_item.Activated += new EventHandler(OnTabMenuCloseActivated);  
-            _TabMenu.Append(close_item);
-            
-            _LabelEventBox.ButtonPressEvent += new Gtk.ButtonPressEventHandler(_OnTabButtonPress);
         }
         
         public override void Disable()
@@ -426,21 +409,6 @@ namespace Smuxi.Frontend.Gnome
             
             return String.Compare(person1.IdentityName, person2.IdentityName,
                                   true, CultureInfo.InvariantCulture);
-        }
-        
-        private void _OnTabButtonPress(object sender, Gtk.ButtonPressEventArgs e)
-        {
-            Trace.Call(sender, e);
-
-            if (e.Event.Button == 3) {
-                _TabMenu.Popup(null, null, null, e.Event.Button, e.Event.Time);
-                _TabMenu.ShowAll();
-            }
-        }
-        
-        protected virtual void OnTabMenuCloseActivated(object sender, EventArgs e)
-        {
-            Trace.Call(sender, e);
         }
         
         protected virtual void OnPersonsRowActivated(object sender, Gtk.RowActivatedArgs e)

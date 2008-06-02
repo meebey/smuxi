@@ -1,13 +1,13 @@
 /*
- * $Id$
- * $URL$
- * $Rev$
- * $Author$
- * $Date$
+ * $Id: GroupChatView.cs 188 2007-04-21 22:03:54Z meebey $
+ * $URL: svn+ssh://svn.qnetp.net/svn/smuxi/smuxi/trunk/src/Frontend-GNOME/GroupChatView.cs $
+ * $Rev: 188 $
+ * $Author: meebey $
+ * $Date: 2007-04-22 00:03:54 +0200 (Sun, 22 Apr 2007) $
  *
  * smuxi - Smart MUltipleXed Irc
  *
- * Copyright (c) 2005-2006 Mirco Bauer <meebey@meebey.net>
+ * Copyright (c) 2008 Mirco Bauer <meebey@meebey.net>
  *
  * Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
  *
@@ -27,23 +27,28 @@
  */
 
 using System;
+using System.Globalization;
 using Smuxi.Engine;
 using Smuxi.Common;
 
 namespace Smuxi.Frontend.Gnome
 {
-    [ChatViewInfo(ChatType = ChatType.Person)]
-    public class PersonChatView : ChatView
+    [ChatViewInfo(ChatType = ChatType.Person, ProtocolManagerType = typeof(IrcProtocolManager))]
+    public class IrcPersonChatView : PersonChatView
     {
-        public PersonChatView(ChatModel chat) : base(chat)
+        public IrcPersonChatView(PersonChatModel personChat) : base(personChat)
         {
-            Trace.Call(chat);
+            Trace.Call(personChat);
+        }
+        
+        protected override void Close()
+        {
+            Trace.Call();
             
-            Label = new Gtk.Label(chat.Name);
-            _LabelEventBox.Add(_Label);
-            _Label.Show();
+            base.Close();
             
-            Add(_OutputScrolledWindow);
+            // BUG: out of scope?
+            Frontend.Session.RemoveChat(ChatModel);
         }
     }
 }

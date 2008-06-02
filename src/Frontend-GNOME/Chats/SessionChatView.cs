@@ -28,6 +28,7 @@
 
 using System;
 using Smuxi.Engine;
+using Smuxi.Common;
 
 namespace Smuxi.Frontend.Gnome
 {
@@ -36,11 +37,20 @@ namespace Smuxi.Frontend.Gnome
     {
         public SessionChatView(ChatModel chat) : base(chat)
         {
+            Trace.Call(chat);
+            
             _Label = new Gtk.Label(chat.Name);
             _LabelEventBox.Add(_Label);
             _Label.Show();
             
             Add(_OutputScrolledWindow);
+        }
+        
+        protected override void OnTabButtonPress(object sender, Gtk.ButtonPressEventArgs e)
+        {
+            Trace.Call(sender, e);
+            
+            // disable menu for session chats
         }
     }
 }
