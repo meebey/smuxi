@@ -27,6 +27,7 @@
  */
 
 using System;
+using System.Collections.Generic;
 
 namespace Smuxi.Engine
 {
@@ -53,6 +54,10 @@ namespace Smuxi.Engine
         }
         
         ChatModel Chat {
+            get;
+        }
+        
+        IList<ChatModel> Chats {
             get;
         }
         
