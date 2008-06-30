@@ -160,11 +160,9 @@ namespace Smuxi.Frontend.Gnome
                 // maybe a BUG here? should be tell the FrontendManager before we sync?
                 Frontend.FrontendManager.AddSyncedChat(chatModel);
                 //_SyncedChats.Add(chatView);
-
                 // BUG: doesn't work?!?
                 chatView.ScrollToEnd();
-                // TODO:
-                // clear highlight
+                chatView.HasHighlight = false;
             });
         }
         

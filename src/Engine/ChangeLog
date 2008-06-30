@@ -1,3 +1,13 @@
+2008-06-30  Mirco Bauer <meebey@meebey.net> 
+
+	* Session.cs: Expose session chat as property.
+	
+	  Added check for auto-connect that /connect was passed, as required by
+	  the protocol manager implementations.
+	
+	  Only pass password to IProtocolManager.Connect() if it's not null and
+	  not empty.
+
 2008-06-25  Mirco Bauer <meebey@meebey.net> 
 
 	* Protocols/IProtocolManager.cs, Protocols/ProtocolManagerBase.cs: Expose

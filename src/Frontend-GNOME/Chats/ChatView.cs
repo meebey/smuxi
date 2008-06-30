@@ -55,11 +55,11 @@ namespace Smuxi.Frontend.Gnome
         private   bool               _HasHighlight;
         private   Gtk.TextMark       _EndMark;
         private   Gtk.Menu           _TabMenu;
-        protected Gtk.Label          _Label;
-        protected Gtk.EventBox       _LabelEventBox;
-        protected Gtk.ScrolledWindow _OutputScrolledWindow;
-        protected Gtk.TextView       _OutputTextView;
-        protected Gtk.TextTagTable   _OutputTextTagTable;
+        private   Gtk.Label          _Label;
+        private   Gtk.EventBox       _LabelEventBox;
+        private   Gtk.ScrolledWindow _OutputScrolledWindow;
+        private   Gtk.TextView       _OutputTextView;
+        private   Gtk.TextTagTable   _OutputTextTagTable;
         
         public ChatModel ChatModel {
             get {
@@ -73,18 +73,35 @@ namespace Smuxi.Frontend.Gnome
             }
             set {
                 _HasHighlight = value;
+                
+                if (!value) {
+                    // clear highlight with "no activity"
+                    HasActivity = false;
+                    return;
+                }
+                
+                string color = (string) Frontend.UserConfig["Interface/Notebook/Tab/HighlightColor"];
+                _Label.Markup = String.Format("<span foreground=\"{0}\">{1}</span>", color, _Name);
             }
         }
-
-        public Gtk.Label Label {
-            get {
-                return _Label;
-            }
+        
+        public bool HasActivity {
             set {
-                _Label = value;
+                if (HasHighlight) {
+                    // don't show activity if there is a highlight active
+                    return;
+                }
+                
+                string color = null;
+                if (value) {
+                    color = (string) Frontend.UserConfig["Interface/Notebook/Tab/ActivityColor"];
+                } else {
+                    color = (string) Frontend.UserConfig["Interface/Notebook/Tab/NoActivityColor"];
+                }
+                _Label.Markup = String.Format("<span foreground=\"{0}\">{1}</span>", color, _Name);
             }
         }
-    
+        
         public Gtk.EventBox LabelEventBox {
             get {
                 return _LabelEventBox;
@@ -97,9 +114,15 @@ namespace Smuxi.Frontend.Gnome
             }
         }
         
-        public Gtk.TextTagTable OutputTextTagTable {
+        protected Gtk.TextTagTable OutputTextTagTable {
             get {
                 return _OutputTextTagTable;
+            }
+        }
+
+        protected Gtk.ScrolledWindow OutputScrolledWindow {
+            get {
+                return _OutputScrolledWindow;
             }
         }
         
@@ -109,9 +132,6 @@ namespace Smuxi.Frontend.Gnome
             
             _ChatModel = chat;
             _Name = _ChatModel.Name;
-            _LabelEventBox = new Gtk.EventBox();
-            _LabelEventBox.VisibleWindow = false;
-            
             Name = _Name;
             
             // TextTags
@@ -153,6 +173,7 @@ namespace Smuxi.Frontend.Gnome
             //tv.WrapMode = Gtk.WrapMode.WordChar;
             tv.WrapMode = Gtk.WrapMode.Char;
             tv.Buffer.Changed += new EventHandler(_OnTextBufferChanged);
+            tv.MotionNotifyEvent += new Gtk.MotionNotifyEventHandler(_OnMotionNotifyEvent);
             _OutputTextView = tv;
             
             Gtk.ScrolledWindow sw = new Gtk.ScrolledWindow();
@@ -163,20 +184,26 @@ namespace Smuxi.Frontend.Gnome
             sw.Add(_OutputTextView);
             _OutputScrolledWindow = sw;
             
-            _OutputTextView.MotionNotifyEvent += new Gtk.MotionNotifyEventHandler(_OnMotionNotifyEvent);
-            
             // popup menu
             Gtk.AccelGroup agrp = new Gtk.AccelGroup();
             Frontend.MainWindow.AddAccelGroup(agrp);
             _TabMenu = new Gtk.Menu();
+            
             Gtk.ImageMenuItem close_item = new Gtk.ImageMenuItem(Gtk.Stock.Close, agrp);
             close_item.Activated += new EventHandler(OnTabMenuCloseActivated);  
             _TabMenu.Append(close_item);
             
+            FocusChild = _OutputTextView;
+            _Label = new Gtk.Label();
+            _Label.Text = _Name;
+            _Label.Show();
+            _LabelEventBox = new Gtk.EventBox();
+            _LabelEventBox.VisibleWindow = false;
             _LabelEventBox.ButtonPressEvent += new Gtk.ButtonPressEventHandler(OnTabButtonPress);
+            _LabelEventBox.Add(_Label);
         }
         
-        public void ScrollUp()
+        public virtual void ScrollUp()
         {
             Trace.Call();
 
@@ -184,7 +211,7 @@ namespace Smuxi.Frontend.Gnome
             adj.Value -= adj.PageSize - adj.StepIncrement;
         }
         
-        public void ScrollDown()
+        public virtual void ScrollDown()
         {
             Trace.Call();
 
@@ -199,7 +226,7 @@ namespace Smuxi.Frontend.Gnome
             }
         }
         
-        public void ScrollToStart()
+        public virtual void ScrollToStart()
         {
             Trace.Call();
             
@@ -207,7 +234,7 @@ namespace Smuxi.Frontend.Gnome
             adj.Value = adj.Lower;
         }
         
-        public void ScrollToEnd()
+        public virtual void ScrollToEnd()
         {
             Trace.Call();
             
@@ -277,7 +304,7 @@ namespace Smuxi.Frontend.Gnome
             }
         }
         
-        public void AddMessage(MessageModel msg)
+        public virtual void AddMessage(MessageModel msg)
         {
             Trace.Call(msg);
             
@@ -377,18 +404,19 @@ namespace Smuxi.Frontend.Gnome
             
             // HACK: out of scope?
             if (Frontend.MainWindow.Notebook.CurrentChatView != this) {
-                string color = null;
                 if (hasHighlight) {
-                    _HasHighlight = hasHighlight;
-                    color = (string) Frontend.UserConfig["Interface/Notebook/Tab/HighlightColor"];
-                } else if (!_HasHighlight) {
-                    color = (string) Frontend.UserConfig["Interface/Notebook/Tab/ActivityColor"];
+                    HasHighlight = true;
                 }
                 
-                if (color != null) {
-                    _Label.Markup = String.Format("<span foreground=\"{0}\">{1}</span>", color, _Name);
-                }
+                HasActivity = true;
             }
+        }
+        
+        public virtual void Clear()
+        {
+            Trace.Call();
+            
+            _OutputTextView.Buffer.Clear();
         }
         
         private string _GetTextTagName(TextColor fg_color, TextColor bg_color)
@@ -488,11 +516,6 @@ namespace Smuxi.Frontend.Gnome
             
             if (Type.GetType("Mono.Runtime") == null) {
                 // this is not Mono, probably MS .NET, so ShellExecute is the better approach
-                /*
-                new Thread(new ThreadStart(delegate {
-                    SysDiag.Process.Start(url);
-                })).Start();
-                */
                 ThreadPool.QueueUserWorkItem(delegate {
                     SysDiag.Process.Start(url);
                 });

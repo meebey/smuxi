@@ -45,7 +45,7 @@ namespace Smuxi.Frontend.Gnome
 #endif
     {
 #if LOG4NET
-        private static readonly log4net.ILog _Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly log4net.ILog f_Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 #endif
 #if UI_GNOME
         private GNOME.AppBar     _NetworkStatusbar;
@@ -154,6 +154,55 @@ namespace Smuxi.Frontend.Gnome
             item.Activated += new EventHandler(_OnQuitButtonClicked);
             menu.Append(item);
             
+            // Menu - Server
+            menu = new Gtk.Menu();
+            item = new Gtk.MenuItem(_("_Server"));
+            item.Submenu = menu;
+            mb.Append(item);
+            
+            image_item = new Gtk.ImageMenuItem(_("_Connect"));
+            image_item.Image = new Gtk.Image(Gtk.Stock.Connect, Gtk.IconSize.Menu);
+            image_item.Activated += OnServerConnectButtonClicked;
+            menu.Append(image_item);
+            
+            image_item = new Gtk.ImageMenuItem(_("_Quick Connect"));
+            image_item.Image = new Gtk.Image(Gtk.Stock.Connect, Gtk.IconSize.Menu);
+            image_item.Activated += OnServerQuickConnectButtonClicked;
+            menu.Append(image_item);
+            
+            menu.Append(new Gtk.SeparatorMenuItem());
+                    
+            image_item = new Gtk.ImageMenuItem(Gtk.Stock.Add, agrp);
+            image_item.Activated += OnServerAddButtonClicked;
+            menu.Append(image_item);
+            
+            image_item = new Gtk.ImageMenuItem(_("_Manage Servers"));
+            image_item.Image = new Gtk.Image(Gtk.Stock.Edit, Gtk.IconSize.Menu);
+            image_item.Activated += OnServerManageServersButtonClicked;
+            menu.Append(image_item);
+            
+            // Menu - Engine
+            menu = new Gtk.Menu();
+            item = new Gtk.MenuItem(_("_Engine"));
+            item.Submenu = menu;
+            mb.Append(item);
+
+            item = new Gtk.MenuItem(_("_Use Local Engine"));
+            item.Activated += new EventHandler(_OnUseLocalEngineButtonClicked);
+            menu.Append(item);
+            
+            menu.Append(new Gtk.SeparatorMenuItem());
+                    
+            image_item = new Gtk.ImageMenuItem(_("_Add Remote Engine"));
+            image_item.Image = new Gtk.Image(Gtk.Stock.Add, Gtk.IconSize.Menu);
+            image_item.Activated += new EventHandler(_OnAddRemoteEngineButtonClicked);
+            menu.Append(image_item);
+            
+            image_item = new Gtk.ImageMenuItem(_("_Switch Remote Engine"));
+            image_item.Image = new Gtk.Image(Gtk.Stock.Refresh, Gtk.IconSize.Menu);
+            image_item.Activated += new EventHandler(_OnSwitchRemoteEngineButtonClicked);
+            menu.Append(image_item);
+            
             // Menu - View
             menu = new Gtk.Menu();
             item = new Gtk.MenuItem(_("_View"));
@@ -166,26 +215,6 @@ namespace Smuxi.Frontend.Gnome
             akey.AccelFlags = Gtk.AccelFlags.Visible;
             akey.Key = Gdk.Key.F7;
             item.AddAccelerator("activate", agrp, akey);
-            menu.Append(item);
-            
-            // Menu - Engine
-            menu = new Gtk.Menu();
-            item = new Gtk.MenuItem(_("_Engine"));
-            item.Submenu = menu;
-            mb.Append(item);
-
-            item = new Gtk.MenuItem(_("_Use Local Engine"));
-            item.Activated += new EventHandler(_OnUseLocalEngineButtonClicked);
-            menu.Append(item);
-            
-            image_item = new Gtk.ImageMenuItem(_("_Add Remote Engine"));
-            Gdk.Pixbuf pbuf = image_item.RenderIcon(Gtk.Stock.Add, Gtk.IconSize.Menu, null); 
-            image_item.Image = new Gtk.Image(pbuf);
-            image_item.Activated += new EventHandler(_OnAddRemoteEngineButtonClicked);
-            menu.Append(image_item);
-            
-            item = new Gtk.MenuItem(_("_Switch Remote Engine"));
-            item.Activated += new EventHandler(_OnSwitchRemoteEngineButtonClicked);
             menu.Append(item);
             
             // Menu - Help
@@ -266,35 +295,164 @@ namespace Smuxi.Frontend.Gnome
         
         private void _OnQuitButtonClicked(object obj, EventArgs args)
         {
-            Frontend.Quit();
+            Trace.Call(obj, args);
+            
+            try {
+                Frontend.Quit();
+            } catch (Exception ex) {
+                Frontend.ShowException(this, ex);
+            }
         }
 
         private void _OnDestroyed(object obj, EventArgs args)
         {
-            Frontend.Quit();
+            Trace.Call(obj, args);
+            
+            try {
+                Frontend.Quit();
+            } catch (Exception ex) {
+                Frontend.ShowException(this, ex);
+            }
         }
     
         private void _OnFocusInEvent(object obj, EventArgs args)
         {
             Trace.Call(obj, args);
             
-            UrgencyHint = false;
+            try {
+                UrgencyHint = false;
+            } catch (Exception ex) {
+                Frontend.ShowException(this, ex);
+            }
+        }
+        
+        protected virtual void OnServerQuickConnectButtonClicked(object sender, EventArgs e)
+        {
+            Trace.Call(sender, e);
+            
+            try {
+                QuickConnectDialog dialog = new QuickConnectDialog();
+                int res = dialog.Run();
+                ServerModel server = dialog.Server;
+                dialog.Destroy();
+                if (res != (int) Gtk.ResponseType.Ok) {
+                    return;
+                }
+                
+                CommandModel cmd = new CommandModel(
+                    Frontend.FrontendManager,
+                    Frontend.Session.SessionChat,
+                    "/",
+                    String.Format(
+                        "/connect {0} {1} {2} {3}",
+                        server.Protocol,
+                        server.Hostname,
+                        server.Port,
+                        server.Username,
+                        server.Password
+                    )
+                );
+                Frontend.Session.CommandConnect(cmd);
+            } catch (Exception ex) {
+                Frontend.ShowException(this, ex);
+            }
+        }
+
+        protected virtual void OnServerConnectButtonClicked(object sender, EventArgs e)
+        {
+            Trace.Call(sender, e);
+            
+            try {
+                ConnectDialog dialog = new ConnectDialog();
+                dialog.Load();
+                int res = dialog.Run();
+                ServerModel server = dialog.Server;
+                dialog.Destroy();
+                if (res != (int) Gtk.ResponseType.Ok) {
+                    return;
+                }
+                if (server == null) {
+#if LOG4NET
+                    f_Logger.Error("OnServerConnectButtonClicked(): server is null!");
+                    return;
+#endif
+                }
+                
+                CommandModel cmd = new CommandModel(
+                    Frontend.FrontendManager,
+                    Frontend.Session.SessionChat,
+                    "/",
+                    String.Format(
+                        "/connect {0} {1} {2} {3}",
+                        server.Protocol,
+                        server.Hostname,
+                        server.Port,
+                        server.Username,
+                        server.Password
+                    )
+                );
+                Frontend.Session.CommandConnect(cmd);
+            } catch (Exception ex) {
+                Frontend.ShowException(this, ex);
+            }
+        }
+        
+        protected virtual void OnServerAddButtonClicked(object sender, EventArgs e)
+        {
+            Trace.Call(sender, e);
+            
+            try {
+                ServerListController controller = new ServerListController(Frontend.UserConfig);
+                ServerView serverView = new ServerView(null,
+                                                       Frontend.Session.GetSupportedProtocols(),
+                                                       controller.GetNetworks());
+                int res = serverView.Run();
+                serverView.Destroy();
+                if (res != (int) Gtk.ResponseType.Ok) {
+                    return;
+                }
+                
+                controller.AddServer(serverView.Server);
+                controller.Save();
+            } catch (Exception ex) {
+                Frontend.ShowException(this, ex);
+            }
+        }
+
+        protected virtual void OnServerManageServersButtonClicked(object sender, EventArgs e)
+        {
+            Trace.Call(sender, e);
+            
+            try {
+                PreferencesDialog dialog = new PreferencesDialog();
+                dialog.CurrentPage = PreferencesDialog.Page.Servers;
+            } catch (Exception ex) {
+                Frontend.ShowException(this, ex);
+            }
         }
         
         private void _OnAboutButtonClicked(object obj, EventArgs args)
         {
-            AboutDialog ad = new AboutDialog();
-            ad.Run();
-            ad.Destroy();
+            Trace.Call(obj, args);
+            
+            try {
+                AboutDialog ad = new AboutDialog();
+                ad.Run();
+                ad.Destroy();
+            } catch (Exception ex) {
+                Frontend.ShowException(this, ex);
+            }
         }
         
         private void _OnPreferencesButtonClicked(object obj, EventArgs args)
         {
+            Trace.Call(obj, args);
+            
             try {
                 new PreferencesDialog();
             } catch (Exception e) {
 #if LOG4NET
-                _Logger.Error(e);
+                f_Logger.Error(e);
 #endif
                 Frontend.ShowException(this, e);
             }
@@ -302,51 +460,75 @@ namespace Smuxi.Frontend.Gnome
         
         private void _OnUseLocalEngineButtonClicked(object obj, EventArgs args)
         {
-            Gtk.MessageDialog md = new Gtk.MessageDialog(null, Gtk.DialogFlags.Modal,
-                Gtk.MessageType.Warning, Gtk.ButtonsType.YesNo,
-                _("Switching to local engine will disconnect you from the current engine!\n"+
-                  "Are you sure you want to do this?"));
-            int result = md.Run();
-            md.Destroy();
-            if ((Gtk.ResponseType)result == Gtk.ResponseType.Yes) {
-                Frontend.DisconnectEngineFromGUI();
-                Frontend.InitLocalEngine();
-                Frontend.ConnectEngineToGUI();
+            Trace.Call(obj, args);
+            
+            try {
+                Gtk.MessageDialog md = new Gtk.MessageDialog(null, Gtk.DialogFlags.Modal,
+                    Gtk.MessageType.Warning, Gtk.ButtonsType.YesNo,
+                    _("Switching to local engine will disconnect you from the current engine!\n"+
+                      "Are you sure you want to do this?"));
+                int result = md.Run();
+                md.Destroy();
+                if ((Gtk.ResponseType)result == Gtk.ResponseType.Yes) {
+                    Frontend.DisconnectEngineFromGUI();
+                    Frontend.InitLocalEngine();
+                    Frontend.ConnectEngineToGUI();
+                }
+            } catch (Exception ex) {
+                Frontend.ShowException(this, ex);
             }
         }
         
         private void _OnAddRemoteEngineButtonClicked(object obj, EventArgs args)
         {
-            new NewEngineDruid();
+            Trace.Call(obj, args);
+            
+            try {
+                new NewEngineDruid();
+            } catch (Exception ex) {
+                Frontend.ShowException(this, ex);
+            }
         }
         
         private void _OnSwitchRemoteEngineButtonClicked(object obj, EventArgs args)
         {
-            Gtk.MessageDialog md = new Gtk.MessageDialog(null, Gtk.DialogFlags.Modal,
-                Gtk.MessageType.Warning, Gtk.ButtonsType.YesNo,
-                _("Switching the remote engine will disconnect you from the current engine!\n"+
-                  "Are you sure you want to do this?"));
-            int result = md.Run();
-            md.Destroy();
-            if ((Gtk.ResponseType)result == Gtk.ResponseType.Yes) {
-                Frontend.DisconnectEngineFromGUI();
-                Frontend.ShowEngineManagerDialog();
+            Trace.Call(obj, args);
+            
+            try {
+                Gtk.MessageDialog md = new Gtk.MessageDialog(null, Gtk.DialogFlags.Modal,
+                    Gtk.MessageType.Warning, Gtk.ButtonsType.YesNo,
+                    _("Switching the remote engine will disconnect you from the current engine!\n"+
+                      "Are you sure you want to do this?"));
+                int result = md.Run();
+                md.Destroy();
+                if ((Gtk.ResponseType)result == Gtk.ResponseType.Yes) {
+                    Frontend.DisconnectEngineFromGUI();
+                    Frontend.ShowEngineManagerDialog();
+                }
+            } catch (Exception ex) {
+                Frontend.ShowException(this, ex);
             }
         }
 
         private void _OnCaretModeButtonClicked(object obj, EventArgs args)
         {
-            _CaretMode = !_CaretMode;
+            Trace.Call(obj, args);
             
-            for (int i = 0; i < _Notebook.NPages; i++) {
-                ChatView chatView = _Notebook.GetChat(i);
-                chatView.OutputTextView.CursorVisible = _CaretMode;
-            }
-            
-            if (_CaretMode) {
-                _Notebook.CurrentChatView.OutputTextView.HasFocus = true;
-            } else {
-                _Entry.HasFocus = true;
+            try {
+                _CaretMode = !_CaretMode;
+                
+                for (int i = 0; i < _Notebook.NPages; i++) {
+                    ChatView chatView = _Notebook.GetChat(i);
+                    chatView.OutputTextView.CursorVisible = _CaretMode;
+                }
+                
+                if (_CaretMode) {
+                    _Notebook.CurrentChatView.OutputTextView.HasFocus = true;
+                } else {
+                    _Entry.HasFocus = true;
+                }
+            } catch (Exception ex) {
+                Frontend.ShowException(this, ex);
             }
         }
         

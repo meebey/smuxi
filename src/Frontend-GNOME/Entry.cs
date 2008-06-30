@@ -306,7 +306,8 @@ namespace Smuxi.Frontend.Gnome
                     e.RetVal = true;
                     if (Frontend.MainWindow.CaretMode) {
                         // when we are in caret-mode change focus to output textview
-                        _Notebook.CurrentChatView.OutputTextView.HasFocus = true;
+                        //_Notebook.CurrentChatView.OutputTextView.HasFocus = true;
+                        _Notebook.CurrentChatView.HasFocus = true;
                     } else {
                         // don't loose the focus (if we are not in caret-mode)
                         if (_Notebook.CurrentChatView.ChatModel is GroupChatModel) {
@@ -582,7 +583,7 @@ namespace Smuxi.Frontend.Gnome
     
         private void _CommandClear(CommandModel cd)
         {
-            _Notebook.CurrentChatView.OutputTextView.Buffer.Clear();
+            _Notebook.CurrentChatView.Clear();
         }
         
         private void _CommandUnknown(CommandModel cd)

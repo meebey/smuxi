@@ -123,15 +123,14 @@ namespace Smuxi.Frontend.Gnome
                     // even when we have no network manager, we still want to update the state
                     Frontend.FrontendManager.UpdateNetworkStatus();
 
-                    // lets remove any markup / highlight
-                    string color = (string) Frontend.UserConfig["Interface/Notebook/Tab/NoActivityColor"];
-                    chatView.Label.Markup = String.Format("<span foreground=\"{0}\">{1}</span>", color, chatView.Label.Text);
+                    // clear activity and highlight
                     chatView.HasHighlight = false;
+                    chatView.HasActivity = false;
                     
                     // sync title
                     if (Frontend.MainWindow != null) {
                         string network = nmanager != null ? nmanager.ToString() + " / " : "";
-                        Frontend.MainWindow.Title = network + chatView.Label.Text +
+                        Frontend.MainWindow.Title = network + chatView.Name +
                                                     " - smuxi - Smart MUtipleXed Irc";
                     }
                 }

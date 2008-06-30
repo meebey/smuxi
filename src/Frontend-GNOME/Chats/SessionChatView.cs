@@ -39,11 +39,7 @@ namespace Smuxi.Frontend.Gnome
         {
             Trace.Call(chat);
             
-            _Label = new Gtk.Label(chat.Name);
-            _LabelEventBox.Add(_Label);
-            _Label.Show();
-            
-            Add(_OutputScrolledWindow);
+            Add(OutputScrolledWindow);
         }
         
         protected override void OnTabButtonPress(object sender, Gtk.ButtonPressEventArgs e)

@@ -43,6 +43,7 @@ namespace Smuxi.Engine
         private IDictionary<string, FrontendManager>  _FrontendManagers; 
         private IList<IProtocolManager>               _ProtocolManagers;
         private IList<ChatModel>                      _Chats;
+        private SessionChatModel                      _SessionChat;
         private Config                                _Config;
         private ProtocolManagerFactory                _ProtocolManagerFactory;
         private UserConfig                            _UserConfig;
@@ -59,7 +60,13 @@ namespace Smuxi.Engine
                 return _Chats;
             }
         }
-    
+        
+        public SessionChatModel SessionChat {
+            get {
+                return _SessionChat;
+            }
+        }
+        
         public int Version {
             get {
                 return _Version;
@@ -101,14 +108,14 @@ namespace Smuxi.Engine
             _Chats = new List<ChatModel>();
             _UserConfig = new UserConfig(config, username);
             
-            ChatModel chat = new SessionChatModel("smuxi", "smuxi");
-            _Chats.Add(chat);
+            _SessionChat = new SessionChatModel("smuxi", "smuxi");
+            _Chats.Add(_SessionChat);
             
             MessageModel msg = new MessageModel();
             msg.MessageParts.Add(
                 new TextMessagePartModel(new TextColor(0xFF0000), null, false,
                         true, false, _("Welcome to Smuxi")));
-            AddMessageToChat(chat, msg); 
+            AddMessageToChat(_SessionChat, msg); 
         }
         
         public void RegisterFrontendUI(IFrontendUI ui)
@@ -163,9 +170,16 @@ namespace Smuxi.Engine
                     if (protocolManager == null) {
                         continue;
                     }
+                    
                     _ProtocolManagers.Add(protocolManager);
+                    string password = null;
+                    // only pass non-empty passwords to Connect()
+                    if (!String.IsNullOrEmpty(server.Password)) {
+                        password = server.Password;
+                    }
                     protocolManager.Connect(fm, server.Hostname, server.Port,
-                                            server.Username, server.Password);
+                                            server.Username,
+                                            password);
                     // if the connect command was correct, we should be able to get
                     // the chat model
                     if (protocolManager.Chat == null) {
@@ -392,6 +406,13 @@ namespace Smuxi.Engine
                     return;
                 }
                 _ProtocolManagers.Add(protocolManager);
+            }
+            // HACK: this is hacky as the Command parser of the protocol manager
+            // will pass this command to it's connect method only if cd was
+            // constructed correctly beginning with /connect
+            // So make sure it's like it needs to be!
+            if (cd.Command != "connect") {
+                throw new ArgumentException("cd.Command must be 'connect' but was: '" + cd.Command + "'.", "cd");
             }
             protocolManager.Command(cd);
             

@@ -1,3 +1,7 @@
+2008-06-30  Mirco Bauer <meebey@meebey.net> 
+
+	
+
 2008-06-02  Mirco Bauer <meebey@meebey.net> 
 
 	* Protocols/Oscar/OscarProtocolManager.cs: Renamed confusing

@@ -37,7 +37,7 @@ namespace Smuxi.Frontend.Gnome
 {
     public class PreferencesDialog
     {
-        private enum Page : int {
+        public enum Page : int {
             Connection = 0,
             Interface,
             Servers,
@@ -49,12 +49,33 @@ namespace Smuxi.Frontend.Gnome
 #endif
         private Gtk.Dialog _Dialog;
         private Glade.XML  _Glade;
+        
+#region Widgets
         [Glade.Widget("Notebook")]
         private Gtk.Notebook _Notebook;
         [Glade.Widget("MenuTreeView")]
         private Gtk.TreeView _MenuTreeView;
+#endregion
+        
         private ChannelFilterListView _ChannelFilterListView;
         private ServerListView _ServerListView;
+        
+        public Page CurrentPage {
+            get {
+                return (Page) _Notebook.CurrentPage;
+            }
+            set {
+                Gtk.TreeIter iter;
+                _MenuTreeView.Model.GetIterFirst(out iter);
+                do {
+                    Page page = (Page) _MenuTreeView.Model.GetValue(iter, 0);
+                    if (value == page) {
+                        _MenuTreeView.Selection.SelectIter(iter);
+                        break;
+                    }
+                } while (_MenuTreeView.Model.IterNext(ref iter));
+            }
+        }
         
         public PreferencesDialog()
         {

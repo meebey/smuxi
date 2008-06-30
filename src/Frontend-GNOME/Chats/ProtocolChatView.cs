@@ -39,36 +39,38 @@ namespace Smuxi.Frontend.Gnome
         {
             Trace.Call(chat);
             
-            _Label = new Gtk.Label(chat.Name);
-            _LabelEventBox.Add(_Label);
-            _Label.Show();
-            
-            Add(_OutputScrolledWindow);
+            Add(OutputScrolledWindow);
         }
         
         protected override void Close()
         {
             Trace.Call();
             
-            Gtk.MessageDialog md = new Gtk.MessageDialog(
-                Frontend.MainWindow,
-                Gtk.DialogFlags.Modal,
-                Gtk.MessageType.Warning,
-                Gtk.ButtonsType.YesNo,
-                _("Closing the protocol chat will also close all open chats connected to it!\n"+
-                  "Are you sure you want to do this?"));
-            int result = md.Run();
-            md.Destroy();
-            if ((Gtk.ResponseType) result != Gtk.ResponseType.Yes) {
-                return;
+            // show warning if there are open chats (besides protocol chat)
+            if (ChatModel.ProtocolManager.Chats.Count > 1) {
+                Gtk.MessageDialog md = new Gtk.MessageDialog(
+                    Frontend.MainWindow,
+                    Gtk.DialogFlags.Modal,
+                    Gtk.MessageType.Warning,
+                    Gtk.ButtonsType.YesNo,
+                    _("Closing the protocol chat will also close all open chats connected to it!\n"+
+                      "Are you sure you want to do this?"));
+                int result = md.Run();
+                md.Destroy();
+                if ((Gtk.ResponseType) result != Gtk.ResponseType.Yes) {
+                    return;
+                }
             }
             
             base.Close();
             
-            Frontend.Session.CommandNetwork(new CommandModel(
-                                                    Frontend.FrontendManager,
-                                                    ChatModel,
-                                                    "close"));
+            Frontend.Session.CommandNetwork(
+                new CommandModel(
+                    Frontend.FrontendManager,
+                    ChatModel,
+                    "close"
+                )
+            );
         }
         
         private static string _(string msg)

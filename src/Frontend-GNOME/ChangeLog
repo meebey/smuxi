@@ -1,3 +1,20 @@
+2008-06-30  Mirco Bauer <meebey@meebey.net> 
+
+	* MainWindow.cs: Enhanced menu.
+	* Preferences/ServerListView.cs: Refactored view-controlling code into own
+	  methods.
+	* Preferences/PreferencesDialog.cs: Expose CurrentPage property.
+	* Chats/ProtocolChatView.cs: Only show a warning when closing the protocol
+	  chats, if open chats exists.
+	* Chats/ChatView.cs: Refactored activity / highlight code handling.
+	* GnomeUI.cs: Clear highlight after having synced all messages, as it's less
+	  confusing when a frontend reconnects to a running smuxi server.
+	* gtk-gui/Smuxi.Frontend.Gnome.QuickConnectDialog.cs, QuickConnectDialog.cs:
+	  Implemented QuickConnectDialog.
+	
+	* gtk-gui/Smuxi.Frontend.Gnome.ConnectDialog.cs, ConnectDialog.cs:
+	  Implemented ConnectDialog.
+
 2008-06-02  Mirco Bauer <meebey@meebey.net> 
 
 	* Chats/ProtocolChatView.cs: Implemented closing of protocol chats.

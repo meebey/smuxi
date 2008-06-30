@@ -39,11 +39,7 @@ namespace Smuxi.Frontend.Gnome
         {
             Trace.Call(chat);
             
-            Label = new Gtk.Label(chat.Name);
-            _LabelEventBox.Add(_Label);
-            _Label.Show();
-            
-            Add(_OutputScrolledWindow);
+            Add(OutputScrolledWindow);
         }
     }
 }

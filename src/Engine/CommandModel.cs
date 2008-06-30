@@ -98,7 +98,6 @@ namespace Smuxi.Engine
         
         public CommandModel(FrontendManager fm, ChatModel chat, string cmdChar, string data)
         {
-            //Trace.Call(fm, chat, cmdChar, data);
             Trace.Call(fm, chat == null ? "(null)" : chat.GetType().ToString(), cmdChar, data);
             
             _Data = data;

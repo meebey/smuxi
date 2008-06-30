@@ -333,6 +333,8 @@ namespace Smuxi.Engine
         
         public override bool Command(CommandModel command)
         {
+            Trace.Call(command);
+            
             bool handled = false;
             if (IsConnected) {
                 if (command.IsCommand) {
@@ -469,8 +471,9 @@ namespace Smuxi.Engine
                     }
                 } else {
                     // normal text
-                    if (command.Chat.ChatType == ChatType.Protocol) {
-                        // we are on the server chat
+                    if (command.Chat.ChatType == ChatType.Session ||
+                        command.Chat.ChatType == ChatType.Protocol) {
+                        // we are on the session chat or protocol chat 
                         _IrcClient.WriteLine(command.Data);
                     } else {
                         _Say(command.Chat, command.Data);
@@ -1385,6 +1388,8 @@ namespace Smuxi.Engine
             if (e.Data.Message != null) {
                 switch (e.Data.Type) {
                     case ReceiveType.Error:
+                        _OnError(e);
+                        break;
                     case ReceiveType.Info:
                     case ReceiveType.Invite:
                     case ReceiveType.List:
@@ -1455,6 +1460,21 @@ namespace Smuxi.Engine
 #endif
                     break;
             }
+        }
+        
+        private void _OnError(IrcEventArgs e)
+        {
+            MessageModel msg = new MessageModel();
+            TextMessagePartModel textMsg;
+            
+            textMsg = new TextMessagePartModel();
+            textMsg.Text = e.Data.Message;
+            textMsg.ForegroundColor = IrcTextColor.Red;
+            textMsg.Bold = true;
+            textMsg.IsHighlight = true;
+            msg.MessageParts.Add(textMsg);
+
+            Session.AddMessageToChat(_NetworkChat, msg);
         }
         
         private void _OnErrorNicknameInUse(IrcEventArgs e)

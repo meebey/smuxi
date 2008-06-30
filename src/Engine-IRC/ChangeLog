@@ -1,3 +1,9 @@
+2008-06-30  Mirco Bauer <meebey@meebey.net> 
+
+	* Protocols/Irc/IrcProtocolManager.cs: Pass IRC errors to frontend.
+	
+	  Pass IRC messages to protocol manager also if being on session chat.
+
 2008-06-02  Mirco Bauer <meebey@meebey.net> 
 
 	* Protocols/Irc/IrcProtocolManager.cs: _Run(): Fixed reconnect handling.

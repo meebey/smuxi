@@ -111,10 +111,11 @@ namespace Smuxi.Frontend.Gnome
             store.SetSortColumnId(0, Gtk.SortType.Ascending);
             cb.Model = store;
             cb.Active = 0;
-            int j = 0;
+            
             if (server != null) {
                 // protocol is part of the PKEY, not allowed to change
                 cb.Sensitive = false;
+                int j = 0;
                 foreach (object[] row in store) {
                     string protocolName = (string) row[0];
                     if (protocolName == server.Protocol) {
@@ -142,17 +143,19 @@ namespace Smuxi.Frontend.Gnome
         public int Run()
         {
             int res = _Dialog.Run();
-            if ((Gtk.ResponseType)res == Gtk.ResponseType.Ok) {
-                _ServerModel = new ServerModel();
-                _ServerModel.Protocol = _ProtocolComboBox.ActiveText;
-                _ServerModel.Hostname = _HostnameEntry.Text;
-                _ServerModel.Port = _PortSpinButton.ValueAsInt;
-                _ServerModel.Network = _NetworkComboBoxEntry.Entry.Text;
-                _ServerModel.Username = _UsernameEntry.Text;
-                _ServerModel.Password = _PasswordEntry.Text;
-                _ServerModel.OnStartupConnect = _OnStartupConnectCheckButton.Active;
-                _ServerModel.OnConnectCommands = _OnConnectCommandsTextView.Buffer.Text.Split(new char[] {'\n'});
+            if ((Gtk.ResponseType)res != Gtk.ResponseType.Ok) {
+                return res;
             }
+            
+            _ServerModel = new ServerModel();
+            _ServerModel.Protocol = _ProtocolComboBox.ActiveText;
+            _ServerModel.Hostname = _HostnameEntry.Text;
+            _ServerModel.Port = _PortSpinButton.ValueAsInt;
+            _ServerModel.Network = _NetworkComboBoxEntry.Entry.Text;
+            _ServerModel.Username = _UsernameEntry.Text;
+            _ServerModel.Password = _PasswordEntry.Text;
+            _ServerModel.OnStartupConnect = _OnStartupConnectCheckButton.Active;
+            _ServerModel.OnConnectCommands = _OnConnectCommandsTextView.Buffer.Text.Split(new char[] {'\n'});
             return res;
         }
         
@@ -165,15 +168,22 @@ namespace Smuxi.Frontend.Gnome
         {
             // HACK: hardcoded default list, not so nice
             // suggest sane port defaults
-            _HostnameEntry.Sensitive = true;
-            _PortSpinButton.Sensitive = true;
-            _NetworkComboBoxEntry.Sensitive = true;
             switch (_ProtocolComboBox.ActiveText) {
                 case "IRC":
+                    _HostnameEntry.Sensitive = true;
+                    
                     _PortSpinButton.Value = 6667;
+                    _PortSpinButton.Sensitive = true;
+                    
+                    _NetworkComboBoxEntry.Sensitive = true;
                     break;
                 case "XMPP":
+                    _HostnameEntry.Sensitive = true;
+                    
                     _PortSpinButton.Value = 5222;
+                    _PortSpinButton.Sensitive = true;
+                    
+                    _NetworkComboBoxEntry.Sensitive = true;
                     break;
                 case "AIM":
                 case "ICQ":

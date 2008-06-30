@@ -79,10 +79,6 @@ namespace Smuxi.Frontend.Gnome
             
             _GroupChatModel = groupChat;
             
-            _Label = new Gtk.Label(groupChat.Name);
-            _LabelEventBox.Add(_Label);
-            _Label.Show();
-            
             // userlist
             Gtk.Frame frame = null;
             string userlist_pos = (string)Frontend.UserConfig["Interface/Notebook/Channel/UserListPosition"];
@@ -135,7 +131,6 @@ namespace Smuxi.Frontend.Gnome
             
             // output
             Gtk.VBox vbox = new Gtk.VBox();
-            
             string topic_pos = (string)Frontend.UserConfig["Interface/Notebook/Channel/TopicPosition"];
             if (topic_pos == "top" || topic_pos == "bottom") {
                 Gtk.Entry topic = new Gtk.Entry();
@@ -143,13 +138,13 @@ namespace Smuxi.Frontend.Gnome
                 _TopicEntry = topic;
                 if (topic_pos == "top") {
                     vbox.PackStart(topic, false, false, 2);
-                    vbox.PackStart(_OutputScrolledWindow, true, true, 0);
+                    vbox.PackStart(OutputScrolledWindow, true, true, 0);
                 } else {
-                    vbox.PackStart(_OutputScrolledWindow, true, true, 0);
+                    vbox.PackStart(OutputScrolledWindow, true, true, 0);
                     vbox.PackStart(topic, false, false, 2);
                 }
             } else if (topic_pos == "none") {
-                vbox.PackStart(_OutputScrolledWindow, true, true, 0);
+                vbox.PackStart(OutputScrolledWindow, true, true, 0);
             } else {
 #if LOG4NET
                 _Logger.Error("GroupChatView..ctor(): unknown value in Interface/Notebook/Channel/TopicPosition: "+topic_pos);
