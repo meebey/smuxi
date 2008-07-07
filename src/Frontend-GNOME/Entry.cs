@@ -96,12 +96,12 @@ namespace Smuxi.Frontend.Gnome
                 // the entry changed and the entry is not empty
                 _HistoryChangedLine = true;
 #if LOG4NET
-                _Logger.Debug("_HistoryChangedLine = true");
+                //_Logger.Debug("_HistoryChangedLine = true");
 #endif
             } else {
                 _HistoryChangedLine = false;
 #if LOG4NET
-                _Logger.Debug("_HistoryChangedLine = false");
+                //_Logger.Debug("_HistoryChangedLine = false");
 #endif
             }
         }
@@ -306,7 +306,6 @@ namespace Smuxi.Frontend.Gnome
                     e.RetVal = true;
                     if (Frontend.MainWindow.CaretMode) {
                         // when we are in caret-mode change focus to output textview
-                        //_Notebook.CurrentChatView.OutputTextView.HasFocus = true;
                         _Notebook.CurrentChatView.HasFocus = true;
                     } else {
                         // don't loose the focus (if we are not in caret-mode)
@@ -318,9 +317,15 @@ namespace Smuxi.Frontend.Gnome
                     }
                     break;
                 case Gdk.Key.Up:
+                    // supress widget navigation/jumping (like tab)
+                    e.RetVal = true;
+                    
                     HistoryPrevious();
                     break;
                 case Gdk.Key.Down:
+                    // supress widget navigation/jumping (like tab)
+                    e.RetVal = true;
+                    
                     HistoryNext();
                     break;
                 case Gdk.Key.Page_Up:
@@ -337,11 +342,27 @@ namespace Smuxi.Frontend.Gnome
             Trace.Call(sender, e);
             
             if (!Frontend.MainWindow.CaretMode) {
-                HasFocus = true;
-                Position = -1;
+                // we can't just move to focus directly back as that breaks the
+                // notebook scrolling, see trac bug#11
+                
+                // grant the user 250ms to start as selection
+                GLib.Timeout.Add(250, new GLib.TimeoutHandler(delegate {
+                    // don't interrupt on-going selections
+                    if (Frontend.MainWindow.Notebook.CurrentChatView.HasSelection &&
+                        Frontend.MainWindow.Notebook.CurrentChatView.HasFocus) {
+#if LOG4NET
+                        //_Logger.Debug("_OnFocusOut(): CurrentChatView has on-going selection, waiting..."); 
+#endif
+                        return true;
+                    }
+                    
+                    HasFocus = true;
+                    Position = -1;
+                    return false;
+                }));
             }
         }
-    
+        
         private void _OnActivated(object sender, EventArgs e)
         {
             Trace.Call(sender, e);
@@ -352,33 +373,33 @@ namespace Smuxi.Frontend.Gnome
                 }
                 
                 if (Text.IndexOf("\n") != -1) {
-                	// seems to be a paste, so let's break it apart
-                	string[] msgParts = Text.Split(new char[] {'\n'});
-                	if (msgParts.Length > 3) {
-                		string msg = String.Format(_("You are going to paste {0} lines, do you want to continue?"),
-                								   msgParts.Length);
-                		Gtk.MessageDialog md = new Gtk.MessageDialog(
-                									Frontend.MainWindow,
-                									Gtk.DialogFlags.Modal,
-                									Gtk.MessageType.Warning,
-                									Gtk.ButtonsType.YesNo,
-                									msg);
-    					Gtk.ResponseType res = (Gtk.ResponseType)md.Run();
-    					md.Destroy();
-    					if (res != Gtk.ResponseType.Yes) {
-    	            		Text = String.Empty;
-    	            		return;
-    					}
-                	}
-                	foreach (string msg in msgParts) {
-    		            ExecuteCommand(msg);
-                	}
+                    // seems to be a paste, so let's break it apart
+                    string[] msgParts = Text.Split(new char[] {'\n'});
+                    if (msgParts.Length > 3) {
+                        string msg = String.Format(_("You are going to paste {0} lines, do you want to continue?"),
+                                                   msgParts.Length);
+                        Gtk.MessageDialog md = new Gtk.MessageDialog(
+                                                    Frontend.MainWindow,
+                                                    Gtk.DialogFlags.Modal,
+                                                    Gtk.MessageType.Warning,
+                                                    Gtk.ButtonsType.YesNo,
+                                                    msg);
+                        Gtk.ResponseType res = (Gtk.ResponseType)md.Run();
+                        md.Destroy();
+                        if (res != Gtk.ResponseType.Yes) {
+                            Text = String.Empty;
+                            return;
+                        }
+                    }
+                    foreach (string msg in msgParts) {
+                        ExecuteCommand(msg);
+                    }
                 } else {
-    	            ExecuteCommand(Text);
+                    ExecuteCommand(Text);
                     AddToHistory(Text, _History.Count - _HistoryPosition);
                     // reset history position to last entry
                     _HistoryPosition = _History.Count - 1;
-    	        }
+                }
                 Text = String.Empty;
             } catch (Exception ex) {
 #if LOG4NET

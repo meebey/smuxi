@@ -104,6 +104,27 @@ namespace Smuxi.Frontend.Gnome
             }
         }
         
+        public bool HasSelection {
+            get {
+#if GTK_SHARP_2_10
+                return _OutputTextView.Buffer.HasSelection;
+#else
+                Gtk.TextIter start, end;
+                _OutputTextView.Buffer.GetSelectionBounds(out start, out end);
+                return start.Offset != end.Offset;
+#endif
+            }
+        }
+        
+        public new bool HasFocus {
+            get {
+                return base.HasFocus || _OutputTextView.HasFocus;
+            }
+            set {
+                _OutputTextView.HasFocus = value;
+            }
+        }
+        
         public Gtk.Widget LabelWidget {
             get {
                 return _TabEventBox;
@@ -201,7 +222,8 @@ namespace Smuxi.Frontend.Gnome
             close_item.Activated += new EventHandler(OnTabMenuCloseActivated);  
             _TabMenu.Append(close_item);
             
-            FocusChild = _OutputTextView;
+            //FocusChild = _OutputTextView;
+            //CanFocus = false;
             
             _TabLabel = new Gtk.Label();
             _TabLabel.Text = _Name;
@@ -503,16 +525,9 @@ namespace Smuxi.Frontend.Gnome
             Gtk.TextIter end = Gtk.TextIter.Zero;
 
             // if something is selected, bail out
-#if GTK_SHARP_2_10
-            if (_OutputTextView.Buffer.HasSelection) {
+            if (HasSelection) {
                 return;
             }
-#else
-            _OutputTextView.Buffer.GetSelectionBounds(out start, out end);
-            if (start.Offset != end.Offset) {
-                return;
-            }
-#endif
             
             // get URL via TextTag from TextIter
             Gtk.TextTag tag = (Gtk.TextTag) sender;

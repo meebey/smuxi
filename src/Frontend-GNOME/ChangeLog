@@ -1,5 +1,15 @@
 2008-07-07  Mirco Bauer <meebey@meebey.net> 
 
+	* Entry.cs: Fixed scrolling notebook tabs (closes: trac bug #11).
+	
+	  Fixed indention.
+	
+	  Supress up/down GTK+ navigation, trying to leave the entry.
+	
+	* Chats/ChatView.cs: Expose HasFocus and HasSelection as property.
+
+2008-07-07  Mirco Bauer <meebey@meebey.net> 
+
 	* Frontend-GNOME.mdp, Chats/ProtocolChatView.cs, Chats/SessionChatView.cs,
 	  Chats/PersonChatView.cs, Chats/GroupChatView.cs, Chats/ChatView.cs,
 	  ChatViewManager.cs: Implemented tab images.
