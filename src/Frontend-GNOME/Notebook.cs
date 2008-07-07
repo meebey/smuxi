@@ -34,6 +34,9 @@ namespace Smuxi.Frontend.Gnome
 {
     public class Notebook : Gtk.Notebook
     {
+#if LOG4NET
+        private static readonly log4net.ILog f_Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+#endif
         //private Gtk.Menu     _QueryTabMenu;
         
         public ChatView CurrentChatView {
@@ -133,6 +136,9 @@ namespace Smuxi.Frontend.Gnome
                         Frontend.MainWindow.Title = network + chatView.Name +
                                                     " - smuxi - Smart MUtipleXed Irc";
                     }
+                    
+                    // switching pages might grab the focus, so let's move it back to the entry
+                    //Frontend.MainWindow.Entry.HasFocus = true;
                 }
             } catch (Exception ex) {
                 Frontend.ShowException(null, ex);
