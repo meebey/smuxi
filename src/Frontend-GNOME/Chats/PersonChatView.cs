@@ -35,9 +35,23 @@ namespace Smuxi.Frontend.Gnome
     [ChatViewInfo(ChatType = ChatType.Person)]
     public class PersonChatView : ChatView
     {
+        private Gtk.Image   _TabImage;
+        
         public PersonChatView(ChatModel chat) : base(chat)
         {
             Trace.Call(chat);
+            
+            _TabImage = new Gtk.Image(
+                new Gdk.Pixbuf(
+                    null,
+                    "person-chat.svg",
+                    16,
+                    16
+                )
+            );
+            
+            TabHBox.PackStart(_TabImage, true, true, 2);
+            TabHBox.ShowAll();
             
             Add(OutputScrolledWindow);
         }

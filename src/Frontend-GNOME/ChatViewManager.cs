@@ -79,7 +79,7 @@ namespace Smuxi.Frontend.Gnome
             
             //Frontend.UserConfig[""]
             //_Notebook.InsertPage(chatView, chatView.LabelEventBox, pos);
-            _Notebook.AppendPage(chatView, chatView.LabelEventBox);
+            _Notebook.AppendPage(chatView, chatView.LabelWidget);
             //_Notebook.SetTabReorderable(chatView, true);
             // it's better to do automatic (re-)ordering
             chatView.ShowAll();

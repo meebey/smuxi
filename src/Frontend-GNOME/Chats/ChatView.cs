@@ -42,6 +42,7 @@ using GNOME = Gnome;
 
 namespace Smuxi.Frontend.Gnome
 {
+    // TODO: use Gtk.Bin
     public abstract class ChatView : Gtk.EventBox, IChatView
     {
 #if LOG4NET
@@ -55,8 +56,9 @@ namespace Smuxi.Frontend.Gnome
         private   bool               _HasHighlight;
         private   Gtk.TextMark       _EndMark;
         private   Gtk.Menu           _TabMenu;
-        private   Gtk.Label          _Label;
-        private   Gtk.EventBox       _LabelEventBox;
+        private   Gtk.Label          _TabLabel;
+        private   Gtk.EventBox       _TabEventBox;
+        private   Gtk.HBox           _TabHBox;
         private   Gtk.ScrolledWindow _OutputScrolledWindow;
         private   Gtk.TextView       _OutputTextView;
         private   Gtk.TextTagTable   _OutputTextTagTable;
@@ -81,7 +83,7 @@ namespace Smuxi.Frontend.Gnome
                 }
                 
                 string color = (string) Frontend.UserConfig["Interface/Notebook/Tab/HighlightColor"];
-                _Label.Markup = String.Format("<span foreground=\"{0}\">{1}</span>", color, _Name);
+                _TabLabel.Markup = String.Format("<span foreground=\"{0}\">{1}</span>", color, _Name);
             }
         }
         
@@ -98,13 +100,13 @@ namespace Smuxi.Frontend.Gnome
                 } else {
                     color = (string) Frontend.UserConfig["Interface/Notebook/Tab/NoActivityColor"];
                 }
-                _Label.Markup = String.Format("<span foreground=\"{0}\">{1}</span>", color, _Name);
+                _TabLabel.Markup = String.Format("<span foreground=\"{0}\">{1}</span>", color, _Name);
             }
         }
         
-        public Gtk.EventBox LabelEventBox {
+        public Gtk.Widget LabelWidget {
             get {
-                return _LabelEventBox;
+                return _TabEventBox;
             }
         }
         
@@ -123,6 +125,12 @@ namespace Smuxi.Frontend.Gnome
         protected Gtk.ScrolledWindow OutputScrolledWindow {
             get {
                 return _OutputScrolledWindow;
+            }
+        }
+
+        protected Gtk.HBox TabHBox {
+            get {
+                return _TabHBox;
             }
         }
         
@@ -194,13 +202,19 @@ namespace Smuxi.Frontend.Gnome
             _TabMenu.Append(close_item);
             
             FocusChild = _OutputTextView;
-            _Label = new Gtk.Label();
-            _Label.Text = _Name;
-            _Label.Show();
-            _LabelEventBox = new Gtk.EventBox();
-            _LabelEventBox.VisibleWindow = false;
-            _LabelEventBox.ButtonPressEvent += new Gtk.ButtonPressEventHandler(OnTabButtonPress);
-            _LabelEventBox.Add(_Label);
+            
+            _TabLabel = new Gtk.Label();
+            _TabLabel.Text = _Name;
+            
+            _TabHBox = new Gtk.HBox();
+            _TabHBox.PackEnd(_TabLabel);
+            _TabHBox.ShowAll();
+            
+            _TabEventBox = new Gtk.EventBox();
+            _TabEventBox.VisibleWindow = false;
+            _TabEventBox.ButtonPressEvent += new Gtk.ButtonPressEventHandler(OnTabButtonPress);
+            _TabEventBox.Add(_TabHBox);
+            _TabEventBox.ShowAll();
         }
         
         public virtual void ScrollUp()

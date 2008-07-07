@@ -48,7 +48,8 @@ namespace Smuxi.Frontend.Gnome
         private Gtk.Menu           _PersonMenu;
         private Gtk.Entry          _TopicEntry;
         private Gtk.TreeViewColumn _IdentityNameColumn;
-        
+        private Gtk.Image          _TabImage;
+                
         public Gtk.Entry TopicEntry {
             get {
                 return _TopicEntry;
@@ -164,6 +165,20 @@ namespace Smuxi.Frontend.Gnome
             } else {
                 Add(vbox);
             }
+            
+            _TabImage = new Gtk.Image(
+                new Gdk.Pixbuf(
+                    null,
+                    "group-chat.svg",
+                    16,
+                    16
+                )
+            );
+
+            TabHBox.PackStart(_TabImage, true, true, 2);
+            TabHBox.ShowAll();
+            
+            ShowAll();
         }
         
         public override void Disable()
