@@ -63,6 +63,7 @@ namespace Smuxi.Engine
         private FrontendManager _FrontendManager;
         private bool            _Listening;
         private ChatModel       _NetworkChat;
+        private TimeSpan        _LastLag;
         
         public override bool IsConnected {
             get {
@@ -193,6 +194,15 @@ namespace Smuxi.Engine
             } else {
                 result += " (" + _("not connected") + ")";
             }
+            
+            TimeSpan lag = _IrcClient.Lag;
+            if (_IrcClient != null && lag > TimeSpan.FromSeconds(5)) {
+                result += String.Format(" ({0}: {1} {2})",
+                                        _("lag"),
+                                        (int) lag.TotalSeconds,
+                                        _("seconds")); 
+            }
+            
             return result;
         }
         
@@ -232,8 +242,12 @@ namespace Smuxi.Engine
 
             Thread thread = new Thread(new ThreadStart(_Run));
             thread.IsBackground = true;
-            thread.Name = "IrcProtocolManager ("+server+":"+port+")";
+            thread.Name = "IrcProtocolManager ("+server+":"+port+") listener";
             thread.Start();
+            
+            Thread lagWatcherThread = new Thread(new ThreadStart(_LagWatcher));
+            lagWatcherThread.Name = "IrcProtocolManager ("+server+":"+port+") lag watcher";
+            lagWatcherThread.Start();
         }
 
         public void Connect(FrontendManager fm)
@@ -2200,6 +2214,38 @@ namespace Smuxi.Engine
         {
             Session.AddTextToChat(_NetworkChat, "-!- " + _("You have been marked as being away"));
             Session.UpdateNetworkStatus();
+        }
+        
+        private void _LagWatcher()
+        {
+            try {
+                while (true) {
+                    // check every 10 seconds
+                    Thread.Sleep(10000);
+                    
+                    if (_IrcClient == null ||
+                        !_IrcClient.IsConnected) {
+                        // nothing to do
+                        continue;
+                    }
+                    
+                    TimeSpan lag = _IrcClient.Lag;
+                    TimeSpan diff = lag - _LastLag;
+                    int absDiff = Math.Abs((int) diff.TotalSeconds);
+#if LOG4NET
+                    _Logger.Debug("_LagWatcher(): lag: " + lag.TotalSeconds + " seconds, difference: " + absDiff + " seconds");
+#endif
+                    // update network status if the lag changed over 5 seconds
+                    if (absDiff > 5) {
+                        Session.UpdateNetworkStatus();
+                    }
+                    _LastLag = lag;
+                }
+            } catch (Exception ex) {
+#if LOG4NET
+                _Logger.Error(ex);
+#endif
+            }
         }
         
         private static string _(string msg)
