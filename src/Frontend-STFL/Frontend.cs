@@ -168,8 +168,8 @@ namespace Smuxi.Frontend.Stfl
             while (true) {
                 // wait maximum for 500ms, to force a refresh even when
                 // not hitting a key
-		        _MainWindow.Run(500);
-		    }
+                _MainWindow.Run(500);
+            }
 #if LOG4NET
            _Logger.Warn("_MainWindow.Run() returned!");
 #endif

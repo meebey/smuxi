@@ -138,7 +138,7 @@ namespace Smuxi.Frontend
                         if (bindAddress != null) {
                             props["machineName"] = bindAddress;
                         }
-                        ChannelServices.RegisterChannel(new TcpChannel(props, cprovider, sprovider));
+                        ChannelServices.RegisterChannel(new TcpChannel(props, cprovider, sprovider), false);
                     }
                     connection_url = "tcp://"+hostname+":"+port+"/SessionManager"; 
 #if LOG4NET
@@ -179,7 +179,7 @@ namespace Smuxi.Frontend
                 case "HTTP":
                     connection_url = "http://"+hostname+":"+port+"/SessionManager"; 
                     if (ChannelServices.GetChannel("http") == null) {
-                        ChannelServices.RegisterChannel(new HttpChannel());
+                        ChannelServices.RegisterChannel(new HttpChannel(), false);
                     }
 #if LOG4NET
                     _Logger.Info("Connecting to: "+connection_url);
