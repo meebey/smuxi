@@ -160,11 +160,6 @@ namespace Smuxi.Frontend.Gnome
             item.Submenu = menu;
             mb.Append(item);
             
-            image_item = new Gtk.ImageMenuItem(_("_Connect"));
-            image_item.Image = new Gtk.Image(Gtk.Stock.Connect, Gtk.IconSize.Menu);
-            image_item.Activated += OnServerConnectButtonClicked;
-            menu.Append(image_item);
-            
             image_item = new Gtk.ImageMenuItem(_("_Quick Connect"));
             image_item.Image = new Gtk.Image(Gtk.Stock.Connect, Gtk.IconSize.Menu);
             image_item.Activated += OnServerQuickConnectButtonClicked;
@@ -176,7 +171,7 @@ namespace Smuxi.Frontend.Gnome
             image_item.Activated += OnServerAddButtonClicked;
             menu.Append(image_item);
             
-            image_item = new Gtk.ImageMenuItem(_("_Manage Servers"));
+            image_item = new Gtk.ImageMenuItem(_("_Manage"));
             image_item.Image = new Gtk.Image(Gtk.Stock.Edit, Gtk.IconSize.Menu);
             image_item.Activated += OnServerManageServersButtonClicked;
             menu.Append(image_item);
@@ -332,38 +327,6 @@ namespace Smuxi.Frontend.Gnome
             
             try {
                 QuickConnectDialog dialog = new QuickConnectDialog();
-                int res = dialog.Run();
-                ServerModel server = dialog.Server;
-                dialog.Destroy();
-                if (res != (int) Gtk.ResponseType.Ok) {
-                    return;
-                }
-                
-                CommandModel cmd = new CommandModel(
-                    Frontend.FrontendManager,
-                    Frontend.Session.SessionChat,
-                    "/",
-                    String.Format(
-                        "/connect {0} {1} {2} {3}",
-                        server.Protocol,
-                        server.Hostname,
-                        server.Port,
-                        server.Username,
-                        server.Password
-                    )
-                );
-                Frontend.Session.CommandConnect(cmd);
-            } catch (Exception ex) {
-                Frontend.ShowException(this, ex);
-            }
-        }
-
-        protected virtual void OnServerConnectButtonClicked(object sender, EventArgs e)
-        {
-            Trace.Call(sender, e);
-            
-            try {
-                ConnectDialog dialog = new ConnectDialog();
                 dialog.Load();
                 int res = dialog.Run();
                 ServerModel server = dialog.Server;
@@ -373,7 +336,7 @@ namespace Smuxi.Frontend.Gnome
                 }
                 if (server == null) {
 #if LOG4NET
-                    f_Logger.Error("OnServerConnectButtonClicked(): server is null!");
+                    f_Logger.Error("OnServerQuickConnectButtonClicked(): server is null!");
                     return;
 #endif
                 }
@@ -396,7 +359,7 @@ namespace Smuxi.Frontend.Gnome
                 Frontend.ShowException(this, ex);
             }
         }
-        
+
         protected virtual void OnServerAddButtonClicked(object sender, EventArgs e)
         {
             Trace.Call(sender, e);

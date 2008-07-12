@@ -35,7 +35,9 @@ namespace Smuxi.Frontend.Gnome
 {
     public partial class QuickConnectDialog : Gtk.Dialog 
     {
-        private ServerModel f_ServerModel;
+        private ServerListController f_Controller;
+        private Gtk.TreeStore        f_TreeStore;
+        private ServerModel          f_ServerModel;
         
         public ServerModel Server {
             get {
@@ -45,9 +47,39 @@ namespace Smuxi.Frontend.Gnome
         
         public QuickConnectDialog()
         {
+            Trace.Call();
+            
             Build();
             
-            // initialize protocols
+            f_Controller = new ServerListController(Frontend.UserConfig);
+            
+            f_TreeView.AppendColumn(_("Protocol"), new Gtk.CellRendererText(), "text", 1); 
+            f_TreeView.AppendColumn(_("Hostname"), new Gtk.CellRendererText(), "text", 2);
+            
+            f_TreeStore = new Gtk.TreeStore(
+                typeof(ServerModel),
+                typeof(string), // protocol
+                typeof(string) // hostname
+            );
+            f_TreeView.RowActivated += OnTreeViewRowActivated;
+            f_TreeView.Selection.Changed += OnTreeViewSelectionChanged;
+            f_TreeView.Model = f_TreeStore;
+        }
+        
+        public virtual void Load()
+        {
+            Trace.Call();
+            
+            LoadProtocols();
+            LoadServers();
+            
+            CheckConnectButton();
+        }
+        
+        protected void LoadProtocols()
+        {
+            Trace.Call();
+            
             f_ProtocolComboBox.Clear();
             f_ProtocolComboBox.Changed += OnProtocolComboBoxChanged;
             Gtk.CellRenderer cell = new Gtk.CellRendererText();
@@ -61,6 +93,90 @@ namespace Smuxi.Frontend.Gnome
             store.SetSortColumnId(0, Gtk.SortType.Ascending);
             f_ProtocolComboBox.Model = store;
             f_ProtocolComboBox.Active = 0;
+        }
+        
+        protected void LoadServers()
+        {
+            Trace.Call();
+            
+            f_TreeStore.Clear();
+            
+            // group servers by protocol
+            Dictionary<string, List<ServerModel>> protocols = new Dictionary<string, List<ServerModel>>();
+            IList<ServerModel> servers = f_Controller.GetServerList();
+            foreach (ServerModel server in servers) {
+                List<ServerModel> protocolServers = null;
+                protocols.TryGetValue(server.Protocol, out protocolServers);
+                if (protocolServers == null) {
+                    protocolServers = new List<ServerModel>();
+                    protocols.Add(server.Protocol, protocolServers);
+                }
+                protocolServers.Add(server);
+            }
+            
+            // add grouped servers to treeview
+            foreach (KeyValuePair<string, List<ServerModel>> pair in protocols) {
+                Gtk.TreeIter parentIter = f_TreeStore.AppendValues(null, pair.Key, String.Empty);
+                foreach (ServerModel server in pair.Value) {
+                    // a server with an empty hostname has only one default/hardcoded
+                    // hostname, thus don't create a sub-node for it
+                    if (String.IsNullOrEmpty(server.Hostname)) {
+                        f_TreeStore.SetValue(parentIter, 0, server);
+                        continue;
+                    }
+                    
+                    f_TreeStore.AppendValues(parentIter, server, String.Empty, server.Hostname);
+                }
+            }
+            
+            f_TreeView.ExpandAll();
+        }
+        
+        protected virtual ServerModel GetCurrentServer()
+        {
+            Trace.Call();
+            
+            Gtk.TreeIter iter;
+            if (!f_TreeView.Selection.GetSelected(out iter)) {
+                return null;
+            }
+            return (ServerModel) f_TreeStore.GetValue(iter, 0);
+        }
+        
+#region Event Handlers
+        protected virtual void OnTreeViewSelectionChanged(object sender, EventArgs e)
+        {
+            Trace.Call(sender, e);
+            
+            try {
+                ServerModel server = GetCurrentServer();
+                if (server == null) {
+                    return;
+                }
+                
+                int protocolPosition = -1;
+                int i = 0;
+                foreach (object[] row in (Gtk.ListStore) f_ProtocolComboBox.Model) {
+                    string protocol = (string) row[0];
+                    if (protocol == server.Protocol) {
+                        protocolPosition = i;
+                        break;
+                    }
+                    i++;
+                }
+                
+                if (protocolPosition == -1) {
+                    throw new ApplicationException("Unsupported protocol: " + server.Protocol);
+                }
+                
+                f_ProtocolComboBox.Active = protocolPosition;
+                f_HostnameEntry.Text = server.Hostname;
+                f_PortSpinButton.Value = server.Port;
+                f_UsernameEntry.Text = server.Username;
+                f_PasswordEntry.Text = server.Password;
+            } catch (Exception ex) {
+                Frontend.ShowException(ex);
+            }
         }
         
         protected virtual void OnProtocolComboBoxChanged(object sender, EventArgs e)
@@ -93,6 +209,24 @@ namespace Smuxi.Frontend.Gnome
                         f_PortSpinButton.Sensitive = false;
                         break;
                 }
+                
+                CheckConnectButton();
+            } catch (Exception ex) {
+                Frontend.ShowException(ex);
+            }
+        }
+        
+        protected virtual void OnTreeViewRowActivated(object sender, Gtk.RowActivatedArgs e)
+        {
+            Trace.Call(sender, e);
+            
+            try {
+                ServerModel server = GetCurrentServer();
+                if (server == null) {
+                    return;
+                }
+                
+                Respond(Gtk.ResponseType.Ok);
             } catch (Exception ex) {
                 Frontend.ShowException(ex);
             }
@@ -109,6 +243,31 @@ namespace Smuxi.Frontend.Gnome
                 f_ServerModel.Port     = f_PortSpinButton.ValueAsInt;
                 f_ServerModel.Username = f_UsernameEntry.Text;
                 f_ServerModel.Password = f_PasswordEntry.Text;
+            } catch (Exception ex) {
+                Frontend.ShowException(ex);
+            }
+        }
+#endregion
+        
+        private static string _(string msg)
+        {
+            return Mono.Unix.Catalog.GetString(msg);
+        }
+
+        protected virtual void CheckConnectButton()
+        {
+            Trace.Call();
+            
+            f_ConnectButton.Sensitive = !f_HostnameEntry.Sensitive ||
+                                        f_HostnameEntry.Text.Trim().Length > 0;
+        }
+        
+        protected virtual void OnHostnameEntryChanged(object sender, EventArgs e)
+        {
+            Trace.Call(sender, e);
+            
+            try {
+                CheckConnectButton();
             } catch (Exception ex) {
                 Frontend.ShowException(ex);
             }

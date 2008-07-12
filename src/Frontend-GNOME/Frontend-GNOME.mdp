@@ -62,8 +62,6 @@
     <File name="SteticPreferencesDialog.cs" subtype="Code" buildaction="Compile" />
     <File name="gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs" subtype="Code" buildaction="Compile" />
     <File name="gtk-gui/Smuxi.Frontend.Gnome.QuickConnectDialog.cs" subtype="Code" buildaction="Compile" />
-    <File name="ConnectDialog.cs" subtype="Code" buildaction="Compile" />
-    <File name="gtk-gui/Smuxi.Frontend.Gnome.ConnectDialog.cs" subtype="Code" buildaction="Compile" />
     <File name="../../images/group-chat.svg" subtype="Code" buildaction="EmbedAsResource" />
     <File name="../../images/person-chat.svg" subtype="Code" buildaction="EmbedAsResource" />
     <File name="../../images/protocol-chat.svg" subtype="Code" buildaction="EmbedAsResource" />
@@ -85,6 +83,7 @@
     <ProjectReference type="Gac" localcopy="True" refto="gdk-sharp, Version=2.8.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
     <ProjectReference type="Gac" localcopy="True" refto="gtk-sharp, Version=2.8.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
     <ProjectReference type="Gac" localcopy="True" refto="pango-sharp, Version=2.8.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
+    <ProjectReference type="Gac" localcopy="True" refto="gtk-sharp, Version=2.8.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
   </References>
   <GtkDesignInfo gtkVersion="2.8.3" />
   <DeploymentInformation strategy="File">
