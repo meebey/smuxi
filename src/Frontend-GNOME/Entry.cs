@@ -341,26 +341,39 @@ namespace Smuxi.Frontend.Gnome
         {
             Trace.Call(sender, e);
             
-            if (!Frontend.MainWindow.CaretMode) {
-                // we can't just move to focus directly back as that breaks the
-                // notebook scrolling, see trac bug#11
-                
-                // grant the user 250ms to start as selection
-                GLib.Timeout.Add(250, new GLib.TimeoutHandler(delegate {
-                    // don't interrupt on-going selections
-                    if (Frontend.MainWindow.Notebook.CurrentChatView.HasSelection &&
-                        Frontend.MainWindow.Notebook.CurrentChatView.HasFocus) {
-#if LOG4NET
-                        //_Logger.Debug("_OnFocusOut(): CurrentChatView has on-going selection, waiting..."); 
-#endif
-                        return true;
-                    }
-                    
-                    HasFocus = true;
-                    Position = -1;
-                    return false;
-                }));
+            if (Frontend.MainWindow.CaretMode) {
+                return;
             }
+            
+            // we can't just move to focus directly back as that breaks the
+            // notebook scrolling, see trac bug#11
+            
+            // grant the user 250ms to start a selection
+            GLib.Timeout.Add(250, new GLib.TimeoutHandler(delegate {
+                // TODO: check mouse buttons, if left mouse button is still pressed
+                // we should not interrupt either, as the user is going to make a selection!
+                
+                // don't interrupt on-going selections
+                if (Frontend.MainWindow.Notebook.CurrentChatView.HasSelection &&
+                    Frontend.MainWindow.Notebook.CurrentChatView.HasFocus) {
+#if LOG4NET
+                    //_Logger.Debug("_OnFocusOut(): CurrentChatView has on-going selection, waiting..."); 
+#endif
+                    return true;
+                }
+                
+                // HACK: for some reason the selection of the TextView gets
+                // lost when moving the focus from the TextView to the entry
+                // being non-empty. So we empty it, move focus and then set the
+                // old value back. GTK+ bug maybe?
+                string text = Text;
+                Text = String.Empty;
+                HasFocus = true;
+                Text = text;
+                Position = -1;
+                
+                return false;
+            }));
         }
         
         private void _OnActivated(object sender, EventArgs e)
