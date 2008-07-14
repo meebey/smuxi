@@ -182,46 +182,52 @@ namespace Smuxi.Frontend.Gnome
 #endif
 
 #if UI_GNOME
-           _Program = new GNOME.Program(Name, Version.ToString(), GNOME.Modules.UI, args);
+            _Program = new GNOME.Program(Name, Version.ToString(), GNOME.Modules.UI, args);
 #elif UI_GTK
-           Gtk.Application.Init();
+            Gtk.Application.Init();
 #endif
 #if GTK_SHARP_2_10
-           GLib.ExceptionManager.UnhandledException += _OnUnhandledException;
+            GLib.ExceptionManager.UnhandledException += _OnUnhandledException;
 #endif           
-           _SplashScreenWindow = new SplashScreenWindow();
+            _SplashScreenWindow = new SplashScreenWindow();
 
-           _FrontendConfig = new FrontendConfig(UIName);
-           // loading and setting defaults
-           _FrontendConfig.Load();
-           _FrontendConfig.Save();
+            _FrontendConfig = new FrontendConfig(UIName);
+            // loading and setting defaults
+            _FrontendConfig.Load();
+            _FrontendConfig.Save();
+ 
+            _MainWindow = new MainWindow();
 
-           _MainWindow = new MainWindow();
-
-           if (_FrontendConfig.IsCleanConfig) {
+            /*
+            // druid disabled, as infamous and not really required
+            if (_FrontendConfig.IsCleanConfig) {
 #if UI_GNOME
-               new FirstStartDruid();
+                 new FirstStartDruid();
 #endif
-           } else {
-               if (((string)FrontendConfig["Engines/Default"]).Length == 0) {
-                   InitLocalEngine();
-               } else {
-                   // there is a default engine set, means we want a remote engine
-                   _SplashScreenWindow.Destroy();
-                   ShowEngineManagerDialog();
-               }
-           }
+            } else {
+            */
+                if (((string)FrontendConfig["Engines/Default"]).Length == 0) {
+                    InitLocalEngine();
+                } else {
+                    // there is a default engine set, means we want a remote engine
+                    _SplashScreenWindow.Destroy();
+                    _SplashScreenWindow = null;
+                    ShowEngineManagerDialog();
+                }
+            //}
            
-           _SplashScreenWindow.Destroy();
+            if (_SplashScreenWindow != null) {
+                _SplashScreenWindow.Destroy();
+            }
 #if UI_GNOME
-           _Program.Run();
+            _Program.Run();
     #if LOG4NET
-           _Logger.Warn("_Program.Run() returned!");
+            _Logger.Warn("_Program.Run() returned!");
     #endif
 #elif UI_GTK
-           Gtk.Application.Run();
+            Gtk.Application.Run();
     #if LOG4NET
-           _Logger.Warn("Gtk.Application.Run() returned!");
+            _Logger.Warn("Gtk.Application.Run() returned!");
     #endif
 #endif
         }
@@ -299,6 +305,8 @@ namespace Smuxi.Frontend.Gnome
             CrashDialog cd = new CrashDialog(parent, ex);
             cd.Run();
             cd.Destroy();
+            
+            Quit();
         }
         
         public static void ShowException(Exception ex)
@@ -323,6 +331,7 @@ namespace Smuxi.Frontend.Gnome
             lock (_UnhandledExceptionSyncRoot) {
                 if (e.ExceptionObject is Exception) {
                     ShowException((Exception) e.ExceptionObject);
+                    
                     Quit();
                 }
             }

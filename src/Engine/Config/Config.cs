@@ -29,6 +29,7 @@
 using System;
 using System.IO;
 using System.Collections;
+using Mono.Unix.Native;
 #if CONFIG_NINI
 using Nini.Config;
 using Nini.Ini;
@@ -228,14 +229,52 @@ namespace Smuxi.Engine
             prefix = "Engine/Users/DEFAULT/Connection/";
             Get(prefix+"Encoding", String.Empty);
             
-            prefix = "Engine/Users/";
-            Get(prefix+"Users", new string[] {"local"});
+            prefix = "Engine/Users/DEFAULT/Servers/";
+            Get(prefix + "Servers", new string[] {
+                "IRC/irc.oftc.net",
+                "IRC/irc.gimp.org",
+                "IRC/irc.efnet.org",
+                "IRC/irc.ircnet.com",
+                "IRC/irc.freenode.net"
+            });
             
+            prefix = "Engine/Users/DEFAULT/Servers/IRC/irc.oftc.net/";
+            Get(prefix + "Hostname", "irc.oftc.net");
+            Get(prefix + "Port", 6667);
+            Get(prefix + "Network", "OFTC");
+            Get(prefix + "OnStartupConnect", true);
+            Get(prefix + "OnConnectCommands", new string[] { "/join #smuxi" });
+            
+            prefix = "Engine/Users/DEFAULT/Servers/IRC/irc.gimp.org/";
+            Get(prefix + "Hostname", "irc.gimp.org");
+            Get(prefix + "Port", 6667);
+            Get(prefix + "Network", "GIMPNet");
+
+            prefix = "Engine/Users/DEFAULT/Servers/IRC/irc.efnet.org/";
+            Get(prefix + "Hostname", "irc.efnet.org");
+            Get(prefix + "Port", 6667);
+            Get(prefix + "Network", "EFnet");
+                
+            prefix = "Engine/Users/DEFAULT/Servers/IRC/irc.ircnet.com/";
+            Get(prefix + "Hostname", "irc.ircnet.com");
+            Get(prefix + "Port", 6667);
+            Get(prefix + "Network", "IRCnet");
+                
+            prefix = "Engine/Users/DEFAULT/Servers/IRC/irc.freenode.net/";
+            Get(prefix + "Hostname", "irc.freenode.net");
+            Get(prefix + "Port", 6667);
+            Get(prefix + "Network", "freenode");
+            
+            prefix = "Engine/Users/";
+            Get(prefix+"Users", new string[] { "local" });
+            
+            /*
             prefix = "Engine/Users/local/";
             Get(prefix+"Password", String.Empty);
 
             prefix = "Engine/Users/local/Servers/";
             Get(prefix+"Servers", new string[] {});
+            */
             
             prefix = "Server/";
             LoadEntry(prefix+"Port", 7689);
@@ -245,7 +284,7 @@ namespace Smuxi.Engine
 
             // loading defaults
             LoadAllEntries("Engine/Users/DEFAULT");
-            
+                    
             prefix = "Engine/Users/";
             string[] users = GetList(prefix+"Users");
             m_Preferences[prefix + "Users"] = users;
@@ -263,16 +302,39 @@ namespace Smuxi.Engine
                 if (nick_list != null) {
                     m_Preferences[prefix+user+"/Connection/Nicknames"] = nick_list;
                 } else {
-                    m_Preferences[prefix+user+"/Connection/Nicknames"] = new string[] {"Smuxi", "Smuxi_"};
+                    string nick = Environment.UserName;
+                    // clean typical disallowed characters
+                    nick = nick.Replace(" ", String.Empty);
+                    if (String.IsNullOrEmpty(nick)) {
+                        nick = "smuxi";
+                    }
+                    m_Preferences[prefix+user+"/Connection/Nicknames"] = new string[] { nick };
                 }
                 
                 LoadUserEntry(user, "Connection/Username", String.Empty);
-                LoadUserEntry(user, "Connection/Realname", "http://smuxi.meebey.net");
+                string realname = null;
+                try {
+                    string gecos = Mono.Unix.UnixUserInfo.GetRealUser().RealName;
+                    int pos = gecos.IndexOf(",");
+                    if (pos != -1) {
+                        realname = gecos.Substring(0, pos);
+                    } else {
+                        realname = gecos;
+                    }
+                } catch (Exception ex) {
+#if LOG4NET
+                    _Logger.Warn("Load(): error getting realname from gecos", ex);
+#endif
+                }
+                if (String.IsNullOrEmpty(realname)) {
+                    realname = "http://smuxi.meebey.net";
+                }
+                LoadUserEntry(user, "Connection/Realname", realname);
                 LoadUserEntry(user, "Connection/Encoding", String.Empty);
                 
                 string[] command_list = GetList(prefix+user+"/Connection/OnConnectCommands");
                 if (command_list != null) {
-                    m_Preferences[prefix+user+"/Connection/OnConnectCommands"] =  command_list;
+                    m_Preferences[prefix+user+"/Connection/OnConnectCommands"] = command_list;
                 } else {
                     m_Preferences[prefix+user+"/Connection/OnConnectCommands"] = new string[] {};
                 }
@@ -297,9 +359,36 @@ namespace Smuxi.Engine
                 string sprefix = prefix + user + "/Servers/";
                 servers = GetList(sprefix + "Servers");
                 if (servers == null) {
-                    servers = new string[] {};
-                    m_Preferences[sprefix + "Servers"] = new string[] {};
+                    // this user has no servers
+                    string dprefix = prefix + "DEFAULT/Servers/";
+                    servers = GetList(dprefix + "Servers");
+                    if (servers == null) {
+                        // no default servers, use empty list
+                        servers = new string[] {};
+                    } else {
+                        // we have default servers, so lets copy them
+                        foreach (string server in servers) {
+                            LoadEntry(sprefix + server + "/Hostname",
+                                      Get(dprefix + server + "/Hostname", null));
+                            LoadEntry(sprefix + server + "/Port",
+                                      Get(dprefix + server + "/Port", null));
+                            LoadEntry(sprefix + server + "/Network",
+                                      Get(dprefix + server + "/Network", null));
+                            LoadEntry(sprefix + server + "/Encoding",
+                                      Get(dprefix + server + "/Encoding", null));
+                            LoadEntry(sprefix + server + "/Username",
+                                      Get(dprefix + server + "/Username", null));
+                            LoadEntry(sprefix + server + "/Password",
+                                      Get(dprefix + server + "/Password", null));
+                            LoadEntry(sprefix + server + "/OnStartupConnect",
+                                      Get(dprefix + server + "/OnStartupConnect", null));
+                            LoadEntry(sprefix + server + "/OnConnectCommands",
+                                      Get(dprefix + server + "/OnConnectCommands", null));
+                        }
+                    }
+                    m_Preferences[sprefix + "Servers"] = servers;
                 } else {
+                    // this user has servers
                     m_Preferences[sprefix + "Servers"] = servers;
                 }
                 foreach (string server in servers) {
