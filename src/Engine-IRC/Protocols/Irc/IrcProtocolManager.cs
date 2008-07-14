@@ -7,7 +7,7 @@
  *
  * smuxi - Smart MUltipleXed Irc
  *
- * Copyright (c) 2005-2006 Mirco Bauer <meebey@meebey.net>
+ * Copyright (c) 2005-2008 Mirco Bauer <meebey@meebey.net>
  *
  * Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
  *
@@ -685,8 +685,10 @@ namespace Smuxi.Engine
         {
             FrontendManager fm = cd.FrontendManager;
             if (cd.Chat.ChatType == ChatType.Group) {
-                 CommandPart(cd);
-                 CommandJoin(new CommandModel(fm, cd.Chat, cd.Chat.ID));
+                // disable chat so we don't loose the message buffer
+                Session.DisableChat(cd.Chat);
+                _IrcClient.RfcPart(cd.Chat.ID);
+                _IrcClient.RfcJoin(cd.Chat.ID);
             }
         }
         
@@ -1907,8 +1909,13 @@ namespace Smuxi.Engine
             _Logger.Debug("_OnPart() e.Channel: "+e.Channel+" e.Who: "+e.Who);
 #endif
             GroupChatModel groupChat = (GroupChatModel) GetChat(e.Channel, ChatType.Group);
+            // only remove the chat if it was enabled, that way we can retain
+            // the message buffer
             if (e.Data.Irc.IsMe(e.Who)) {
-                Session.RemoveChat(groupChat);
+                if (groupChat.IsEnabled) {
+                    Session.RemoveChat(groupChat);
+                }
+                // nothing else we can do
                 return;
             }
             

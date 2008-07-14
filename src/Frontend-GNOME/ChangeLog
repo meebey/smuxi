@@ -1,5 +1,9 @@
 2008-07-14  Mirco Bauer <meebey@meebey.net> 
 
+	* Entry.cs: Fixed brace in help output.
+
+2008-07-14  Mirco Bauer <meebey@meebey.net> 
+
 	* Frontend.cs: Fixed indention.
 	
 	  Call Quit() in ShowException, as thats what the message (CrashDialog)

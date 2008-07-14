@@ -46,6 +46,7 @@ namespace Smuxi.Engine
         
         public IList<ServerModel> GetServerList()
         {
+            // load user servers
             string[] servers = (string[]) _UserConfig["Servers/Servers"];
             IList<ServerModel> serverList = new List<ServerModel>();
             if (servers == null) {

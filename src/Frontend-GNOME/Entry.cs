@@ -7,7 +7,7 @@
  *
  * smuxi - Smart MUltipleXed Irc
  *
- * Copyright (c) 2005-2006 Mirco Bauer <meebey@meebey.net>
+ * Copyright (c) 2005-2008 Mirco Bauer <meebey@meebey.net>
  *
  * Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
  *
@@ -505,7 +505,7 @@ namespace Smuxi.Frontend.Gnome
             
             string[] help = {
             "help",
-            "window (number|channelname|queryname|close",
+            "window (number|channelname|queryname|close)",
             "clear",
             "echo data",
             "exec command",
