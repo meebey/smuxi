@@ -29,12 +29,15 @@
 using System;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Globalization;
 using System.Threading;
 using System.Collections;
+using System.Collections.Generic;
+using System.Globalization;
+
 using jabber.client;
 using jabber.connection;
 using jabber.protocol.client;
+
 using Smuxi.Common;
 
 namespace Smuxi.Engine
@@ -138,6 +141,27 @@ namespace Smuxi.Engine
                 result += " (" + _("not connected") + ")";
             }
             return result;
+        }
+        
+        public override IList<GroupChatModel> FindGroupChats(GroupChatModel filter)
+        {
+            Trace.Call(filter);
+            
+            throw new NotImplementedException();
+        }
+
+        public override void OpenChat(FrontendManager fm, ChatModel chat)
+        {
+            Trace.Call(fm, chat);
+            
+            throw new NotImplementedException();
+        }
+
+        public override void CloseChat(FrontendManager fm, ChatModel chat)
+        {
+            Trace.Call(fm, chat);
+            
+            throw new NotImplementedException();
         }
         
         public override bool Command(CommandModel command)

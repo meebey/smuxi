@@ -1,3 +1,11 @@
+2008-07-15  Mirco Bauer <meebey@meebey.net> 
+
+	* Protocols/Irc/IrcProtocolManager.cs: Implemented FindGroupChats().
+	
+	  Implemented OpenChat().
+	
+	  Implemented CloseChat().
+
 2008-07-14  Mirco Bauer <meebey@meebey.net> 
 
 	* Protocols/Irc/IrcProtocolManager.cs: Fixed CommandCycle().

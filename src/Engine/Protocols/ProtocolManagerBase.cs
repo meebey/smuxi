@@ -130,6 +130,10 @@ namespace Smuxi.Engine
         public abstract void Reconnect(FrontendManager fm);
         public abstract void Disconnect(FrontendManager fm);
         
+        public abstract IList<GroupChatModel> FindGroupChats(GroupChatModel filter);
+        public abstract void OpenChat(FrontendManager fm, ChatModel chat);
+        public abstract void CloseChat(FrontendManager fm, ChatModel chat);
+        
         protected void NotConnected(CommandModel cmd)
         {
             cmd.FrontendManager.AddTextToCurrentChat("-!- " + _("Not connected to server"));

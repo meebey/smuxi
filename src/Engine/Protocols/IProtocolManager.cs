@@ -70,5 +70,9 @@ namespace Smuxi.Engine
         
         event EventHandler Connected;
         event EventHandler Disconnected;
+        
+        IList<GroupChatModel> FindGroupChats(GroupChatModel filter);
+        void OpenChat(FrontendManager fm, ChatModel chat);
+        void CloseChat(FrontendManager fm, ChatModel chat);
     }
 }

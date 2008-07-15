@@ -1,5 +1,11 @@
 2008-07-15  Mirco Bauer <meebey@meebey.net> 
 
+	* MainWindow.cs, FindGroupChatDialog.cs,
+	  gtk-gui/Smuxi.Frontend.Gnome.FindGroupChatDialog.cs, gtk-gui/gui.stetic:
+	  Implemented FindGroupChatDialog (closes trac bug #13).
+
+2008-07-15  Mirco Bauer <meebey@meebey.net> 
+
 	* Chats/SessionChatView.cs, Chats/PersonChatView.cs, Chats/GroupChatView.cs,
 	  Chats/ChatView.cs: Fixed icon / label position on tabs.
 

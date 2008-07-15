@@ -176,6 +176,17 @@ namespace Smuxi.Frontend.Gnome
             image_item.Activated += OnServerManageServersButtonClicked;
             menu.Append(image_item);
             
+            // Menu - Server
+            menu = new Gtk.Menu();
+            item = new Gtk.MenuItem(_("_Chat"));
+            item.Submenu = menu;
+            mb.Append(item);
+            
+            image_item = new Gtk.ImageMenuItem(_("_Find Group Chat"));
+            image_item.Image = new Gtk.Image(Gtk.Stock.Find, Gtk.IconSize.Menu);
+            image_item.Activated += OnChatFindGroupChatButtonClicked;
+            menu.Append(image_item);
+            
             // Menu - Engine
             menu = new Gtk.Menu();
             item = new Gtk.MenuItem(_("_Engine"));
@@ -389,6 +400,28 @@ namespace Smuxi.Frontend.Gnome
             try {
                 PreferencesDialog dialog = new PreferencesDialog();
                 dialog.CurrentPage = PreferencesDialog.Page.Servers;
+            } catch (Exception ex) {
+                Frontend.ShowException(this, ex);
+            }
+        }
+        
+        protected virtual void OnChatFindGroupChatButtonClicked(object sender, EventArgs e)
+        {
+            Trace.Call(sender, e);
+            
+            try {
+                IProtocolManager manager = Frontend.FrontendManager.CurrentProtocolManager;
+                FindGroupChatDialog dialog = new FindGroupChatDialog(
+                    this, manager
+                );
+                int res = dialog.Run();
+                GroupChatModel groupChat = dialog.GroupChat;
+                dialog.Destroy();
+                if (res != (int) Gtk.ResponseType.Ok) {
+                    return;
+                }
+                
+                manager.OpenChat(Frontend.FrontendManager, groupChat);
             } catch (Exception ex) {
                 Frontend.ShowException(this, ex);
             }

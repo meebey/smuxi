@@ -1,3 +1,11 @@
+2008-07-15  Mirco Bauer <meebey@meebey.net> 
+
+	* Protocols/Msnp/MsnpProtocolManager.cs: Added FindGroupChats().
+	
+	  Added OpenChat().
+	
+	  Added CloseChat().
+
 2008-06-02  Mirco Bauer <meebey@meebey.net> 
 
 	* Protocols/Msnp/MsnpProtocolManager.cs: Renamed confusing NetworkChatModel

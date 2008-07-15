@@ -92,7 +92,7 @@ namespace Smuxi.Engine
             }
         }
         
-        public ChatModel(string id, string name, ChatType chatType, IProtocolManager networkManager)
+        protected ChatModel(string id, string name, ChatType chatType, IProtocolManager networkManager)
         {
             _ID = id;
             _Name = name;

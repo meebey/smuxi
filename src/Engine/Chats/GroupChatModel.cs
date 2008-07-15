@@ -44,6 +44,7 @@ namespace Smuxi.Engine
         private bool                             _IsSynced;
         // IRC specific?
         private string    _Topic;
+        private int       _PersonCount = -1;
         
         public override bool IsEnabled {
             get {
@@ -84,6 +85,19 @@ namespace Smuxi.Engine
                 lock (_Persons) {
                     return _Persons;
                 }
+            }
+        }
+        
+        public int PersonCount {
+            get {
+                if (_PersonCount != -1) {
+                    return _PersonCount;
+                }
+                
+                return _Persons.Count;
+            }
+            set {
+                _PersonCount = value;
             }
         }
         

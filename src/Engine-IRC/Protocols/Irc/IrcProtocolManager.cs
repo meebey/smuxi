@@ -345,6 +345,65 @@ namespace Smuxi.Engine
             fm.UpdateNetworkStatus();
         }
         
+        public override IList<GroupChatModel> FindGroupChats(GroupChatModel filter)
+        {
+            Trace.Call(filter);
+            
+            string channel = null;
+            if (filter != null) {
+                channel = filter.Name;
+            }
+            
+            IList<ListChannelInfo> channelInfos = _IrcClient.GetChannelInfos(channel);
+            List<GroupChatModel> chats = new List<GroupChatModel>(channelInfos.Count);
+            foreach (ListChannelInfo channelInfo in channelInfos) {
+                GroupChatModel chat = new GroupChatModel(
+                    channelInfo.Channel,
+                    channelInfo.Channel,
+                    null
+                );
+                chat.PersonCount = channelInfo.UserCount;
+                chat.Topic = channelInfo.Topic;
+                chats.Add(chat);
+            }
+            
+            return chats;
+        }
+        
+        public override void OpenChat(FrontendManager fm, ChatModel chat)
+        {
+            Trace.Call(fm, chat);
+            
+            CommandModel cmd = new CommandModel(fm, _NetworkChat, chat.ID);
+            switch (chat.ChatType) {
+                case ChatType.Person:
+                    CommandMessage(cmd);
+                    break;
+                case ChatType.Group:
+                    CommandJoin(cmd);
+                    break;
+            }
+        }
+
+        public override void CloseChat(FrontendManager fm, ChatModel chat)
+        {
+            Trace.Call(fm, chat);
+            
+            switch (chat.ChatType) {
+                case ChatType.Person:
+                    // get real chat object from session
+                    chat = Session.GetChat(chat.ID, chat.ChatType, this);
+                    if (chat != null) {
+                        Session.RemoveChat(chat);
+                    }
+                    break;
+                case ChatType.Group:
+                    CommandModel cmd = new CommandModel(fm, _NetworkChat, chat.ID);
+                    CommandPart(cmd);
+                    break;
+            }
+        }
+        
         public override bool Command(CommandModel command)
         {
             Trace.Call(command);
