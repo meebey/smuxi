@@ -229,7 +229,8 @@ namespace Smuxi.Frontend.Gnome
             _TabLabel.Text = _Name;
             
             _TabHBox = new Gtk.HBox();
-            _TabHBox.PackEnd(_TabLabel);
+            _TabHBox.PackEnd(new Gtk.Fixed(), true, true, 0);
+            _TabHBox.PackEnd(_TabLabel, false, false, 0);
             _TabHBox.ShowAll();
             
             _TabEventBox = new Gtk.EventBox();

@@ -50,7 +50,7 @@ namespace Smuxi.Frontend.Gnome
                 )
             );
             
-            TabHBox.PackStart(_TabImage, true, true, 2);
+            TabHBox.PackStart(_TabImage, false, false, 2);
             TabHBox.ShowAll();
             
             Add(OutputScrolledWindow);
