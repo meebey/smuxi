@@ -165,7 +165,7 @@ namespace Smuxi.Engine
             _IrcClient.OnCtcpReply      += new CtcpEventHandler(_OnCtcpReply);
             
             string encodingName = (string) Session.UserConfig["Connection/Encoding"];
-            if (encodingName != null && encodingName.Length != 0) {
+            if (!String.IsNullOrEmpty(encodingName)) {
                 try {
                     _IrcClient.Encoding = Encoding.GetEncoding(encodingName);
                 } catch (Exception ex) {
@@ -231,8 +231,13 @@ namespace Smuxi.Engine
                 _Nicknames = new string[] { _Nicknames[0], _Nicknames[0] + "_", _Nicknames[0] + "__" };
             }
 
+            if (String.IsNullOrEmpty(_Username)) {
+                _Username = (string) Session.UserConfig["Connection/Username"];
+            }
+            
             // TODO: use config for single network chat or once per network manager
             _NetworkChat = new ProtocolChatModel(NetworkID, "IRC " + server, this);
+            
             // BUG: race condition when we use Session.AddChat() as it pushes this already
             // to the connected frontend and the frontend will sync and get the page 2 times!
             //Session.Chats.Add(_NetworkChat);
@@ -269,16 +274,16 @@ namespace Smuxi.Engine
                 if (_Password != null) {
                     _IrcClient.RfcPass(_Password, Priority.Critical);
                 }
-                _IrcClient.Login(_Nicknames, (string)Session.UserConfig["Connection/Realname"], 0, _Username);
+                _IrcClient.Login(_Nicknames, (string) Session.UserConfig["Connection/Realname"], 0, _Username);
                 
-                foreach (string command in (string[])Session.UserConfig["Connection/OnConnectCommands"]) {
+                foreach (string command in (string[]) Session.UserConfig["Connection/OnConnectCommands"]) {
                     if (command.Length == 0) {
                         continue;
                     } 
                     CommandModel cd = new CommandModel(_FrontendManager, _NetworkChat,
-                        (string)Session.UserConfig["Interface/Entry/CommandCharacter"],
+                        (string) Session.UserConfig["Interface/Entry/CommandCharacter"],
                         command);
-                        
+                    
                     bool handled;
                     handled = Session.Command(cd);
                     if (!handled) {
@@ -1808,6 +1813,7 @@ namespace Smuxi.Engine
             
             fmsgti = new TextMessagePartModel();
             fmsgti.Text = String.Format(" * {0} ", e.Data.Nick);
+            fmsgti.IsHighlight = true;
             fmsg.MessageParts.Add(fmsgti);
             
             _IrcMessageToMessageModel(ref fmsg, e.ActionMessage);
@@ -1831,6 +1837,7 @@ namespace Smuxi.Engine
             
             fmsgti = new TextMessagePartModel();
             fmsgti.Text = String.Format("-{0} ({1}@{2})- ", e.Data.Nick, e.Data.Ident, e.Data.Host);
+            fmsgti.IsHighlight = true;
             fmsg.MessageParts.Add(fmsgti);
             
             _IrcMessageToMessageModel(ref fmsg, e.Data.Message);
