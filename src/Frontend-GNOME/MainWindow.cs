@@ -86,6 +86,12 @@ namespace Smuxi.Frontend.Gnome
             }
         }
         
+        public ChatViewManager ChatViewManager {
+            get {
+                return _ChatViewManager;
+            }
+        }
+        
 #if UI_GNOME
         public new GNOME.AppBar NetworkStatusbar {
 #elif UI_GTK

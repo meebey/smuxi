@@ -162,6 +162,10 @@ namespace Smuxi.Frontend.Gnome
                 //_SyncedChats.Add(chatView);
                 // BUG: doesn't work?!?
                 chatView.ScrollToEnd();
+                
+                // BUG: clearing highlight here is a bad idea, highlight in
+                // person chats for the first message go lost here!
+                // no better way currently to fix this, see trac bug #50
                 chatView.HasHighlight = false;
             });
         }

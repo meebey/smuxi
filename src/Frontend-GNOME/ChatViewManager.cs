@@ -27,8 +27,11 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.Globalization;
+
 using Mono.Unix;
+
 using Smuxi.Common;
 using Smuxi.Engine;
 using Smuxi.Frontend;
@@ -40,20 +43,27 @@ namespace Smuxi.Frontend.Gnome
 #if LOG4NET
         private static readonly log4net.ILog _Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 #endif
-        private Notebook     _Notebook;
-        private Gtk.TreeView _TreeView;
+        private List<ChatView> f_Chats = new List<ChatView>();
+        private Notebook       f_Notebook;
+        private Gtk.TreeView   f_TreeView;
         //private UserConfig   _Config;
         
         public override IChatView ActiveChat {
             get {
-                return _Notebook.CurrentChatView;
+                return f_Notebook.CurrentChatView;
+            }
+        }
+        
+        public IList<ChatView> Chats {
+            get {
+                return f_Chats;
             }
         }
         
         public ChatViewManager(Notebook notebook, Gtk.TreeView treeView /*, UserConfig userConfig*/)
         {
-            _Notebook = notebook;
-            _TreeView = treeView;
+            f_Notebook = notebook;
+            f_TreeView = treeView;
             //_Config = userConfig;
         }
         
@@ -77,9 +87,10 @@ namespace Smuxi.Frontend.Gnome
         {
             ChatView chatView = (ChatView) CreateChatView(chat);
             
+            f_Chats.Add(chatView);
             //Frontend.UserConfig[""]
             //_Notebook.InsertPage(chatView, chatView.LabelEventBox, pos);
-            _Notebook.AppendPage(chatView, chatView.LabelWidget);
+            f_Notebook.AppendPage(chatView, chatView.LabelWidget);
             //_Notebook.SetTabReorderable(chatView, true);
             // it's better to do automatic (re-)ordering
             chatView.ShowAll();
@@ -87,25 +98,26 @@ namespace Smuxi.Frontend.Gnome
         
         public override void RemoveChat(ChatModel chat)
         {
-            ChatView chatView = _Notebook.GetChat(chat);
-            _Notebook.RemovePage(_Notebook.PageNum(chatView));
+            ChatView chatView = f_Notebook.GetChat(chat);
+            f_Notebook.RemovePage(f_Notebook.PageNum(chatView));
+            f_Chats.Remove(chatView);
         }
         
         public override void EnableChat(ChatModel chat)
         {
-            ChatView chatView = _Notebook.GetChat(chat);
+            ChatView chatView = f_Notebook.GetChat(chat);
             chatView.Enable();
         }
         
         public override void DisableChat(ChatModel chat)
         {
-            ChatView chatView = _Notebook.GetChat(chat);
+            ChatView chatView = f_Notebook.GetChat(chat);
             chatView.Disable();
         }
         
         public ChatView GetChat(ChatModel chatModel)
         {
-            return _Notebook.GetChat(chatModel);
+            return f_Notebook.GetChat(chatModel);
         }
     }   
 }

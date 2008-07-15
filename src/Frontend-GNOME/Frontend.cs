@@ -249,6 +249,17 @@ namespace Smuxi.Frontend.Gnome
             _FrontendManager = _Session.GetFrontendManager(_MainWindow.UI);
             _FrontendManager.Sync();
             
+            /*
+            // clear all current highlights, annoying to see them each time you
+            // connect to the engine
+            // BUG: this is useless here, the Sync() call triggers only a queue, so
+            // at this point we don't have any chat views yet :(
+            // this was an attempt to fix trac bug #50
+            foreach (ChatView chat in _MainWindow.ChatViewManager.Chats) {
+                chat.HasHighlight = false;
+            }
+            */
+            
             // MS .NET doesn't like this?
             if (Type.GetType("Mono.Runtime") != null) {
                 // when are running on Mono, all should be good
@@ -275,6 +286,7 @@ namespace Smuxi.Frontend.Gnome
             _Session.DeregisterFrontendUI(_MainWindow.UI);
             _MainWindow.Hide();
             _MainWindow.Notebook.RemoveAllPages();
+            
             _FrontendManager = null;
             _Session = null;
         }
