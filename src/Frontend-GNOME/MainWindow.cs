@@ -498,7 +498,7 @@ namespace Smuxi.Frontend.Gnome
             Trace.Call(obj, args);
             
             try {
-                new NewEngineDruid();
+                new EngineDruid(Frontend.FrontendConfig);
             } catch (Exception ex) {
                 Frontend.ShowException(this, ex);
             }

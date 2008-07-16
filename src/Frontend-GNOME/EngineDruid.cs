@@ -30,12 +30,18 @@ using System;
 #if UI_GNOME
 using GNOME = Gnome;
 #endif
+using Smuxi.Engine;
 
 namespace Smuxi.Frontend.Gnome
 {
-    public class NewEngineDruid
-    {
 #if UI_GNOME
+    public class EngineDruid
+    {
+        private enum Mode {
+            New,
+            Edit
+        }
+        
         private GNOME.Druid             _Druid;
         private GNOME.DruidPageEdge     _Page1;
         private GNOME.DruidPageStandard _Page2;
@@ -52,9 +58,18 @@ namespace Smuxi.Frontend.Gnome
         private Gtk.Entry               _UsernameEntry;
         private Gtk.Entry               _PasswordEntry;
         private Gtk.Entry               _Password2Entry;
+        private FrontendConfig          _Config;
+        private Mode                    _Mode;
         
-        public NewEngineDruid()
+        public EngineDruid(FrontendConfig config)
         {
+            if (config == null) {
+                throw new ArgumentNullException("config");
+            }
+            
+            _Mode = Mode.New;
+            _Config = config;
+            
             // page 1
             _Page1 = new GNOME.DruidPageEdge(GNOME.EdgePosition.Start, true,
                 _("Add smuxi engine"),
@@ -128,12 +143,12 @@ namespace Smuxi.Frontend.Gnome
             
             // page 5
             _Page5 = new GNOME.DruidPageEdge(GNOME.EdgePosition.Finish, true,
-                _("Thank you"), _("Now you can use the added smuxi engine"), null,
+                _("Thank you"), _("Now you can use the smuxi engine"), null,
                 null, null);
             _Page5.CancelClicked += new GNOME.CancelClickedHandler(_OnCancel);
             _Page5.FinishClicked += new GNOME.FinishClickedHandler(_OnFinishClicked);
             
-            _Druid = new GNOME.Druid(_("Adding new engine to smuxi"), true);
+            _Druid = new GNOME.Druid(_("smuxi - Engine Assistant"), true);
             _Druid.Cancel += new EventHandler(_OnCancel);
             
             _Druid.AppendPage(_Page1);
@@ -142,6 +157,50 @@ namespace Smuxi.Frontend.Gnome
             _Druid.AppendPage(_Page4);
             _Druid.AppendPage(_Page5);
             _Druid.ShowAll();
+        }
+        
+        public EngineDruid(FrontendConfig config, string engine) : this(config)
+        {
+            if (config == null) {
+                throw new ArgumentNullException("config");
+            }
+            if (engine == null) {
+                throw new ArgumentNullException("engine");
+            }
+            
+            _Mode = Mode.Edit;
+            
+            // skip the introduction page and engine name page
+            _Druid.Page = _Page3;
+            
+            // prefill old values
+            string prefix = "Engines/"+engine+"/";
+            _EngineNameEntry.Text = engine;
+            _UsernameEntry.Text = (string) _Config["Engines/"+engine+"/Username"];
+            string pw = (string) _Config["Engines/"+engine+"/Password"];
+            _PasswordEntry.Text = pw;
+            _Password2Entry.Text = pw;
+            _HostEntry.Text = (string) _Config["Engines/"+engine+"/Hostname"];
+            _PortSpinButton.Value = (int) _Config["Engines/"+engine+"/Port"];
+            string channel = (string) _Config["Engines/"+engine+"/Channel"];
+            int i = 0;
+            foreach (object[] row in (Gtk.ListStore) _ChannelComboBox.Model) {
+                if ((string) row[0] == channel) {
+                    _ChannelComboBox.Active = i;
+                    break;
+                }
+                i++;
+            }
+            
+            string formatter = (string) _Config["Engines/"+engine+"/Formatter"];
+            i = 0;
+            foreach (object[] row in (Gtk.ListStore) _ChannelComboBox.Model) {
+                if ((string) row[0] == formatter) {
+                    _FormatterComboBox.Active = i;
+                    break;
+                }
+                i++;
+            }
         }
         
         private void _OnCancel(object sender, EventArgs e)
@@ -155,30 +214,31 @@ namespace Smuxi.Frontend.Gnome
         
         private void _OnFinishClicked(object sender, GNOME.FinishClickedArgs e)
         {
-            string new_engine = _EngineNameEntry.Text;
-            string[] engines = (string[])Frontend.FrontendConfig["Engines/Engines"];
-            string[] new_engines;
-            Engine.FrontendConfig fc = Frontend.FrontendConfig;
-            
-            if (engines.Length == 0) {
-                // there was no existing engines
-                new_engines = new string[] {new_engine};
-                fc["Engines/Default"] = new_engine;
-            } else {
-                new_engines = new string[engines.Length+1];
-                engines.CopyTo(new_engines, 0);
-                new_engines[engines.Length] = new_engine;
+            string engine = _EngineNameEntry.Text;
+            if (_Mode == Mode.New) {
+                string[] engines = (string[]) _Config["Engines/Engines"];
+                string[] new_engines;
+                
+                if (engines.Length == 0) {
+                    // there was no existing engines
+                    new_engines = new string[] { engine };
+                   _Config["Engines/Default"] = engine;
+                } else {
+                    new_engines = new string[engines.Length+1];
+                    engines.CopyTo(new_engines, 0);
+                    new_engines[engines.Length] = engine;
+                }
+                _Config["Engines/Engines"] = new_engines;
             }
             
-            fc["Engines/Engines"] = new_engines;
-            fc["Engines/"+new_engine+"/Username"] = _UsernameEntry.Text;
-            fc["Engines/"+new_engine+"/Password"] = _PasswordEntry.Text;
-            fc["Engines/"+new_engine+"/Hostname"] = _HostEntry.Text;
-            fc["Engines/"+new_engine+"/Port"] = (int)_PortSpinButton.Value;
-            fc["Engines/"+new_engine+"/Channel"] = _SelectedChannel;
-            fc["Engines/"+new_engine+"/Formatter"] = _SelectedFormatter;
-            fc.Save();
-            fc.Load();
+            _Config["Engines/"+engine+"/Username"] = _UsernameEntry.Text;
+            _Config["Engines/"+engine+"/Password"] = _PasswordEntry.Text;
+            _Config["Engines/"+engine+"/Hostname"] = _HostEntry.Text;
+            _Config["Engines/"+engine+"/Port"] = (int)_PortSpinButton.Value;
+            _Config["Engines/"+engine+"/Channel"] = _SelectedChannel;
+            _Config["Engines/"+engine+"/Formatter"] = _SelectedFormatter;
+            _Config.Save();
+            _Config.Load();
             
             _Druid.Destroy();
             if (Frontend.Session == null) {
@@ -265,6 +325,6 @@ namespace Smuxi.Frontend.Gnome
         {
             return Mono.Unix.Catalog.GetString(msg);
         }
-#endif
     }
+#endif
 }

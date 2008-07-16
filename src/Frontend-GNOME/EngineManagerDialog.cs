@@ -44,6 +44,8 @@ namespace Smuxi.Frontend.Gnome
         private Gtk.ListStore _ListStore;
         private string        _SelectedEngine;  
         private EngineManager _EngineManager;
+        private Gtk.Button    _EditButton;
+        private Gtk.Button    _DeleteButton;
         
         public EngineManagerDialog(EngineManager engineManager)
         {
@@ -74,9 +76,11 @@ namespace Smuxi.Frontend.Gnome
             edit_hbox.Add(edit_image);
             edit_hbox.Add(new Gtk.Label(Catalog.GetString("_Edit")));
             Gtk.Button edit_button = new Gtk.Button(edit_hbox);
+            _EditButton = edit_button;
             AddActionWidget(edit_button, 2);
             
-            AddActionWidget(new Gtk.Button(Gtk.Stock.Delete), 4);
+            _DeleteButton = new Gtk.Button(Gtk.Stock.Delete);
+            AddActionWidget(_DeleteButton, 4);
             AddActionWidget(new Gtk.Button(Gtk.Stock.Quit), 5);
             Response += new Gtk.ResponseHandler(_OnResponse);
             
@@ -138,6 +142,9 @@ namespace Smuxi.Frontend.Gnome
                         _OnConnectButtonPressed();
                         break;
 #if UI_GNOME
+                    case 2:
+                        _OnEditButtonPressed();
+                        break;
                     case 3:
                         _OnNewButtonPressed();
                         break;
@@ -234,10 +241,19 @@ namespace Smuxi.Frontend.Gnome
         {
             // the druid will spawn EngineManagerDialog when it's canceled or finished
             Destroy();
-            new NewEngineDruid();
+            new EngineDruid(Frontend.FrontendConfig);
         }
 #endif
 
+#if UI_GNOME
+        private void _OnEditButtonPressed()
+        {
+            // the druid will spawn EngineManagerDialog when it's canceled or finished
+            Destroy();
+            new EngineDruid(Frontend.FrontendConfig, _SelectedEngine);
+        }
+#endif
+        
         private void _OnDeleteButtonPressed()
         {
             string msg = String.Format(
@@ -294,6 +310,10 @@ namespace Smuxi.Frontend.Gnome
             if (_ComboBox.GetActiveIter(out iter)) {
                _SelectedEngine = (string )_ComboBox.Model.GetValue(iter, 0);
             }
+            
+            bool isLocalEngine = _SelectedEngine == "<" + _("Local Engine") + ">";
+            _EditButton.Sensitive = !isLocalEngine; 
+            _DeleteButton.Sensitive = !isLocalEngine; 
         }
         
         private static string _(string msg)

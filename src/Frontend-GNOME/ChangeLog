@@ -1,3 +1,12 @@
+2008-07-17  Mirco Bauer <meebey@meebey.net> 
+
+	* MainWindow.cs, EngineManagerDialog.cs, FirstStartDruid.cs,
+	  Frontend-GNOME.mdp, EngineDruid.cs, NewEngineDruid.cs: Renamed
+	  NewEngineDruid to EngineDruid.
+	
+	  Implemented edit mode of EngineDruid (closes trac bug #14).
+	* SteticPreferencesDialog.cs: Added license header.
+
 2008-07-16  Mirco Bauer <meebey@meebey.net> 
 
 	* MainWindow.cs, Frontend.cs, Preferences/PreferencesDialog.cs,

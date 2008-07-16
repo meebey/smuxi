@@ -95,7 +95,7 @@ namespace Smuxi.Frontend.Gnome
         {
             Engine.FrontendConfig fc = Frontend.FrontendConfig;
             if (_SelectedMode == _("Remote")) {
-                new NewEngineDruid();
+                new EngineDruid(Frontend.FrontendConfig);
             } else {
                 fc["Engines/Default"] = String.Empty;
                 fc.Save();
