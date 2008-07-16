@@ -284,12 +284,6 @@ namespace Smuxi.Frontend.Gnome
         
         public static void Quit()
         {
-#if UI_GNOME
-            _Program.Quit();
-#elif UI_GTK
-            Gtk.Application.Quit();
-#endif
-
             if (_FrontendManager != null) {
                 _FrontendManager.IsFrontendDisconnecting = true;
             }
@@ -301,6 +295,14 @@ namespace Smuxi.Frontend.Gnome
                 DisconnectEngineFromGUI();
             }
             */
+            
+#if UI_GNOME
+            _Program.Quit();
+#elif UI_GTK
+            Gtk.Application.Quit();
+#endif
+            
+            Environment.Exit(0);
         }
         
         public static void ShowException(Gtk.Window parent, Exception ex)

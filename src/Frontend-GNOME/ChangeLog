@@ -1,5 +1,10 @@
 2008-07-17  Mirco Bauer <meebey@meebey.net> 
 
+	* Frontend.cs: Don't rely on Application.Quit(), call Environment.Quit()
+	  afterwards to be sure we are quitting.
+
+2008-07-17  Mirco Bauer <meebey@meebey.net> 
+
 	* MainWindow.cs, EngineManagerDialog.cs, FirstStartDruid.cs,
 	  Frontend-GNOME.mdp, EngineDruid.cs, NewEngineDruid.cs: Renamed
 	  NewEngineDruid to EngineDruid.
