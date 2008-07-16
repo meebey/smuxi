@@ -331,9 +331,6 @@
                       </packing>
                     </child>
                   </widget>
-                  <packing>
-                    <property name="tab_expand">False</property>
-                  </packing>
                 </child>
                 <child>
                   <widget class="GtkLabel" id="label44">
@@ -344,7 +341,6 @@
                   </widget>
                   <packing>
                     <property name="type">tab</property>
-                    <property name="tab_expand">False</property>
                     <property name="tab_fill">False</property>
                   </packing>
                 </child>
@@ -655,9 +651,6 @@
                           </packing>
                         </child>
                       </widget>
-                      <packing>
-                        <property name="tab_expand">False</property>
-                      </packing>
                     </child>
                     <child>
                       <widget class="GtkLabel" id="label1">
@@ -667,7 +660,6 @@
                       </widget>
                       <packing>
                         <property name="type">tab</property>
-                        <property name="tab_expand">False</property>
                         <property name="tab_fill">False</property>
                       </packing>
                     </child>
@@ -806,7 +798,7 @@
                                                 <child>
                                                   <widget class="GtkImage" id="image10">
                                                     <property name="visible">True</property>
-                                                    <property name="stock">gtk-go-back</property>
+                                                    <property name="stock">gtk-goto-first</property>
                                                   </widget>
                                                   <packing>
                                                     <property name="expand">False</property>
@@ -856,7 +848,7 @@
                                                 <child>
                                                   <widget class="GtkImage" id="image11">
                                                     <property name="visible">True</property>
-                                                    <property name="stock">gtk-go-forward</property>
+                                                    <property name="stock">gtk-goto-last</property>
                                                   </widget>
                                                   <packing>
                                                     <property name="expand">False</property>
@@ -1038,6 +1030,7 @@
                                         <property name="visible">True</property>
                                         <property name="can_focus">True</property>
                                         <property name="response_id">0</property>
+                                        <signal name="color_set" handler="_OnChanged"/>
                                       </widget>
                                       <packing>
                                         <property name="left_attach">1</property>
@@ -1071,7 +1064,6 @@
                       </widget>
                       <packing>
                         <property name="position">1</property>
-                        <property name="tab_expand">False</property>
                       </packing>
                     </child>
                     <child>
@@ -1083,7 +1075,6 @@
                       <packing>
                         <property name="type">tab</property>
                         <property name="position">1</property>
-                        <property name="tab_expand">False</property>
                         <property name="tab_fill">False</property>
                       </packing>
                     </child>
@@ -1283,7 +1274,6 @@
                       </widget>
                       <packing>
                         <property name="position">2</property>
-                        <property name="tab_expand">False</property>
                       </packing>
                     </child>
                     <child>
@@ -1295,7 +1285,6 @@
                       <packing>
                         <property name="type">tab</property>
                         <property name="position">2</property>
-                        <property name="tab_expand">False</property>
                         <property name="tab_fill">False</property>
                       </packing>
                     </child>
@@ -1312,10 +1301,12 @@
                                 <property name="visible">True</property>
                                 <property name="left_padding">12</property>
                                 <child>
-                                  <widget class="GtkVBox" id="vbox8">
+                                  <widget class="GtkTable" id="table6">
                                     <property name="visible">True</property>
-                                    <property name="border_width">5</property>
-                                    <property name="spacing">5</property>
+                                    <property name="n_rows">3</property>
+                                    <property name="n_columns">2</property>
+                                    <property name="column_spacing">2</property>
+                                    <property name="row_spacing">2</property>
                                     <child>
                                       <widget class="GtkCheckButton" id="NickColorsCheckButton">
                                         <property name="visible">True</property>
@@ -1324,9 +1315,340 @@
                                         <property name="label" translatable="yes">Nick Colors</property>
                                         <property name="response_id">0</property>
                                         <property name="draw_indicator">True</property>
+                                        <signal name="toggled" handler="_OnChanged"/>
                                       </widget>
                                       <packing>
-                                        <property name="expand">False</property>
+                                        <property name="right_attach">2</property>
+                                      </packing>
+                                    </child>
+                                    <child>
+                                      <widget class="GtkFrame" id="frame6">
+                                        <property name="visible">True</property>
+                                        <property name="label_xalign">0</property>
+                                        <child>
+                                          <widget class="GtkAlignment" id="alignment2">
+                                            <property name="visible">True</property>
+                                            <property name="left_padding">12</property>
+                                            <child>
+                                              <widget class="GtkHBox" id="hbox12">
+                                                <property name="visible">True</property>
+                                                <child>
+                                                  <widget class="GtkCheckButton" id="OverrideFontCheckButton">
+                                                    <property name="visible">True</property>
+                                                    <property name="can_focus">True</property>
+                                                    <property name="label" translatable="yes">Override</property>
+                                                    <property name="response_id">0</property>
+                                                    <property name="draw_indicator">True</property>
+                                                    <signal name="toggled" handler="_OnChanged"/>
+                                                  </widget>
+                                                </child>
+                                                <child>
+                                                  <widget class="GtkFontButton" id="FontButton">
+                                                    <property name="visible">True</property>
+                                                    <property name="sensitive">False</property>
+                                                    <property name="can_focus">True</property>
+                                                    <property name="receives_default">True</property>
+                                                    <property name="response_id">0</property>
+                                                    <signal name="font_set" handler="_OnChanged"/>
+                                                  </widget>
+                                                  <packing>
+                                                    <property name="position">1</property>
+                                                  </packing>
+                                                </child>
+                                              </widget>
+                                            </child>
+                                          </widget>
+                                        </child>
+                                        <child>
+                                          <widget class="GtkLabel" id="label27">
+                                            <property name="visible">True</property>
+                                            <property name="label" translatable="yes">&lt;b&gt; Font &lt;/b&gt;</property>
+                                            <property name="use_markup">True</property>
+                                          </widget>
+                                          <packing>
+                                            <property name="type">label_item</property>
+                                          </packing>
+                                        </child>
+                                      </widget>
+                                      <packing>
+                                        <property name="left_attach">1</property>
+                                        <property name="right_attach">2</property>
+                                        <property name="top_attach">2</property>
+                                        <property name="bottom_attach">3</property>
+                                      </packing>
+                                    </child>
+                                    <child>
+                                      <widget class="GtkFrame" id="frame5">
+                                        <property name="visible">True</property>
+                                        <property name="label_xalign">0</property>
+                                        <child>
+                                          <widget class="GtkAlignment" id="alignment1">
+                                            <property name="visible">True</property>
+                                            <property name="left_padding">12</property>
+                                            <child>
+                                              <widget class="GtkTable" id="table7">
+                                                <property name="visible">True</property>
+                                                <property name="n_rows">2</property>
+                                                <property name="n_columns">3</property>
+                                                <property name="column_spacing">5</property>
+                                                <property name="row_spacing">5</property>
+                                                <child>
+                                                  <widget class="GtkCheckButton" id="OverrideBackgroundColorCheckButton">
+                                                    <property name="visible">True</property>
+                                                    <property name="can_focus">True</property>
+                                                    <property name="label" translatable="yes">Override</property>
+                                                    <property name="response_id">0</property>
+                                                    <property name="draw_indicator">True</property>
+                                                    <signal name="toggled" handler="_OnChanged"/>
+                                                  </widget>
+                                                  <packing>
+                                                    <property name="top_attach">1</property>
+                                                    <property name="bottom_attach">2</property>
+                                                    <property name="x_options">GTK_FILL</property>
+                                                  </packing>
+                                                </child>
+                                                <child>
+                                                  <widget class="GtkCheckButton" id="OverrideForegroundColorCheckButton">
+                                                    <property name="visible">True</property>
+                                                    <property name="can_focus">True</property>
+                                                    <property name="label" translatable="yes">Override</property>
+                                                    <property name="response_id">0</property>
+                                                    <property name="draw_indicator">True</property>
+                                                    <signal name="toggled" handler="_OnChanged"/>
+                                                  </widget>
+                                                  <packing>
+                                                    <property name="x_options">GTK_FILL</property>
+                                                  </packing>
+                                                </child>
+                                                <child>
+                                                  <widget class="GtkColorButton" id="BackgroundColorButton">
+                                                    <property name="visible">True</property>
+                                                    <property name="sensitive">False</property>
+                                                    <property name="can_focus">True</property>
+                                                    <property name="receives_default">True</property>
+                                                    <property name="response_id">0</property>
+                                                    <property name="color">#000000000000</property>
+                                                    <signal name="color_set" handler="_OnChanged"/>
+                                                  </widget>
+                                                  <packing>
+                                                    <property name="left_attach">2</property>
+                                                    <property name="right_attach">3</property>
+                                                    <property name="top_attach">1</property>
+                                                    <property name="bottom_attach">2</property>
+                                                    <property name="x_options">GTK_FILL</property>
+                                                  </packing>
+                                                </child>
+                                                <child>
+                                                  <widget class="GtkColorButton" id="ForegroundColorButton">
+                                                    <property name="visible">True</property>
+                                                    <property name="sensitive">False</property>
+                                                    <property name="can_focus">True</property>
+                                                    <property name="receives_default">True</property>
+                                                    <property name="response_id">0</property>
+                                                    <property name="color">#000000000000</property>
+                                                    <signal name="color_set" handler="_OnChanged"/>
+                                                  </widget>
+                                                  <packing>
+                                                    <property name="left_attach">2</property>
+                                                    <property name="right_attach">3</property>
+                                                    <property name="x_options">GTK_FILL</property>
+                                                  </packing>
+                                                </child>
+                                                <child>
+                                                  <widget class="GtkLabel" id="label26">
+                                                    <property name="visible">True</property>
+                                                    <property name="xalign">0</property>
+                                                    <property name="label" translatable="yes">Background</property>
+                                                  </widget>
+                                                  <packing>
+                                                    <property name="left_attach">1</property>
+                                                    <property name="right_attach">2</property>
+                                                    <property name="top_attach">1</property>
+                                                    <property name="bottom_attach">2</property>
+                                                    <property name="x_options">GTK_FILL</property>
+                                                  </packing>
+                                                </child>
+                                                <child>
+                                                  <widget class="GtkLabel" id="label25">
+                                                    <property name="visible">True</property>
+                                                    <property name="xalign">0</property>
+                                                    <property name="label" translatable="yes">Foreground</property>
+                                                  </widget>
+                                                  <packing>
+                                                    <property name="left_attach">1</property>
+                                                    <property name="right_attach">2</property>
+                                                    <property name="x_options">GTK_FILL</property>
+                                                  </packing>
+                                                </child>
+                                              </widget>
+                                            </child>
+                                          </widget>
+                                        </child>
+                                        <child>
+                                          <widget class="GtkLabel" id="label23">
+                                            <property name="visible">True</property>
+                                            <property name="label" translatable="yes">&lt;b&gt; Color &lt;/b&gt;</property>
+                                            <property name="use_markup">True</property>
+                                          </widget>
+                                          <packing>
+                                            <property name="type">label_item</property>
+                                          </packing>
+                                        </child>
+                                      </widget>
+                                      <packing>
+                                        <property name="left_attach">1</property>
+                                        <property name="right_attach">2</property>
+                                        <property name="top_attach">1</property>
+                                        <property name="bottom_attach">2</property>
+                                      </packing>
+                                    </child>
+                                    <child>
+                                      <widget class="GtkFrame" id="frame9">
+                                        <property name="width_request">152</property>
+                                        <property name="height_request">96</property>
+                                        <property name="visible">True</property>
+                                        <property name="label_xalign">0</property>
+                                        <child>
+                                          <widget class="GtkAlignment" id="alignment13">
+                                            <property name="visible">True</property>
+                                            <property name="left_padding">12</property>
+                                            <child>
+                                              <widget class="GtkVBox" id="vbox17">
+                                                <property name="visible">True</property>
+                                                <child>
+                                                  <widget class="GtkRadioButton" id="UserListPositionRadioButtonLeft">
+                                                    <property name="visible">True</property>
+                                                    <property name="can_focus">True</property>
+                                                    <property name="response_id">0</property>
+                                                    <property name="active">True</property>
+                                                    <property name="draw_indicator">True</property>
+                                                    <signal name="toggled" handler="_OnChanged"/>
+                                                    <child>
+                                                      <widget class="GtkAlignment" id="alignment17">
+                                                        <property name="visible">True</property>
+                                                        <property name="xscale">0</property>
+                                                        <property name="yscale">0</property>
+                                                        <child>
+                                                          <widget class="GtkHBox" id="hbox18">
+                                                            <property name="visible">True</property>
+                                                            <property name="spacing">2</property>
+                                                            <child>
+                                                              <widget class="GtkImage" id="image3">
+                                                                <property name="visible">True</property>
+                                                                <property name="stock">gtk-goto-first</property>
+                                                              </widget>
+                                                              <packing>
+                                                                <property name="expand">False</property>
+                                                                <property name="fill">False</property>
+                                                              </packing>
+                                                            </child>
+                                                            <child>
+                                                              <widget class="GtkLabel" id="label48">
+                                                                <property name="visible">True</property>
+                                                                <property name="label" translatable="yes">Left</property>
+                                                                <property name="use_underline">True</property>
+                                                              </widget>
+                                                              <packing>
+                                                                <property name="expand">False</property>
+                                                                <property name="fill">False</property>
+                                                                <property name="position">1</property>
+                                                              </packing>
+                                                            </child>
+                                                          </widget>
+                                                        </child>
+                                                      </widget>
+                                                    </child>
+                                                  </widget>
+                                                  <packing>
+                                                    <property name="expand">False</property>
+                                                    <property name="fill">False</property>
+                                                  </packing>
+                                                </child>
+                                                <child>
+                                                  <widget class="GtkRadioButton" id="UserListPositionRadioButtonRight">
+                                                    <property name="visible">True</property>
+                                                    <property name="can_focus">True</property>
+                                                    <property name="response_id">0</property>
+                                                    <property name="draw_indicator">True</property>
+                                                    <property name="group">UserListPositionRadioButtonLeft</property>
+                                                    <signal name="toggled" handler="_OnChanged"/>
+                                                    <child>
+                                                      <widget class="GtkAlignment" id="alignment18">
+                                                        <property name="visible">True</property>
+                                                        <property name="xscale">0</property>
+                                                        <property name="yscale">0</property>
+                                                        <child>
+                                                          <widget class="GtkHBox" id="hbox19">
+                                                            <property name="visible">True</property>
+                                                            <property name="spacing">2</property>
+                                                            <child>
+                                                              <widget class="GtkImage" id="image4">
+                                                                <property name="visible">True</property>
+                                                                <property name="stock">gtk-goto-last</property>
+                                                              </widget>
+                                                              <packing>
+                                                                <property name="expand">False</property>
+                                                                <property name="fill">False</property>
+                                                              </packing>
+                                                            </child>
+                                                            <child>
+                                                              <widget class="GtkLabel" id="label49">
+                                                                <property name="visible">True</property>
+                                                                <property name="label" translatable="yes">Right</property>
+                                                                <property name="use_underline">True</property>
+                                                              </widget>
+                                                              <packing>
+                                                                <property name="expand">False</property>
+                                                                <property name="fill">False</property>
+                                                                <property name="position">1</property>
+                                                              </packing>
+                                                            </child>
+                                                          </widget>
+                                                        </child>
+                                                      </widget>
+                                                    </child>
+                                                  </widget>
+                                                  <packing>
+                                                    <property name="expand">False</property>
+                                                    <property name="fill">False</property>
+                                                    <property name="position">1</property>
+                                                  </packing>
+                                                </child>
+                                                <child>
+                                                  <widget class="GtkRadioButton" id="UserListPositionRadioButtonNone">
+                                                    <property name="visible">True</property>
+                                                    <property name="can_focus">True</property>
+                                                    <property name="label" translatable="yes">None</property>
+                                                    <property name="use_underline">True</property>
+                                                    <property name="response_id">0</property>
+                                                    <property name="draw_indicator">True</property>
+                                                    <property name="group">UserListPositionRadioButtonLeft</property>
+                                                    <signal name="toggled" handler="_OnChanged"/>
+                                                  </widget>
+                                                  <packing>
+                                                    <property name="expand">False</property>
+                                                    <property name="fill">False</property>
+                                                    <property name="position">2</property>
+                                                  </packing>
+                                                </child>
+                                              </widget>
+                                            </child>
+                                          </widget>
+                                        </child>
+                                        <child>
+                                          <widget class="GtkLabel" id="label38">
+                                            <property name="visible">True</property>
+                                            <property name="label" translatable="yes">&lt;b&gt; Person List Position &lt;/b&gt;</property>
+                                            <property name="use_markup">True</property>
+                                          </widget>
+                                          <packing>
+                                            <property name="type">label_item</property>
+                                          </packing>
+                                        </child>
+                                      </widget>
+                                      <packing>
+                                        <property name="top_attach">2</property>
+                                        <property name="bottom_attach">3</property>
                                       </packing>
                                     </child>
                                     <child>
@@ -1338,7 +1660,7 @@
                                             <property name="visible">True</property>
                                             <property name="left_padding">12</property>
                                             <child>
-                                              <widget class="GtkVBox" id="vbox8">
+                                              <widget class="GtkVBox" id="vbox15">
                                                 <property name="visible">True</property>
                                                 <child>
                                                   <widget class="GtkRadioButton" id="TopicPositionRadioButtonTop">
@@ -1472,157 +1794,8 @@
                                         </child>
                                       </widget>
                                       <packing>
-                                        <property name="expand">False</property>
-                                        <property name="position">1</property>
-                                      </packing>
-                                    </child>
-                                    <child>
-                                      <widget class="GtkFrame" id="frame9">
-                                        <property name="width_request">152</property>
-                                        <property name="height_request">96</property>
-                                        <property name="visible">True</property>
-                                        <property name="label_xalign">0</property>
-                                        <child>
-                                          <widget class="GtkAlignment" id="alignment13">
-                                            <property name="visible">True</property>
-                                            <property name="left_padding">12</property>
-                                            <child>
-                                              <widget class="GtkVBox" id="vbox9">
-                                                <property name="visible">True</property>
-                                                <child>
-                                                  <widget class="GtkRadioButton" id="UserListPositionRadioButtonLeft">
-                                                    <property name="visible">True</property>
-                                                    <property name="can_focus">True</property>
-                                                    <property name="response_id">0</property>
-                                                    <property name="active">True</property>
-                                                    <property name="draw_indicator">True</property>
-                                                    <signal name="toggled" handler="_OnChanged"/>
-                                                    <child>
-                                                      <widget class="GtkAlignment" id="alignment17">
-                                                        <property name="visible">True</property>
-                                                        <property name="xscale">0</property>
-                                                        <property name="yscale">0</property>
-                                                        <child>
-                                                          <widget class="GtkHBox" id="hbox18">
-                                                            <property name="visible">True</property>
-                                                            <property name="spacing">2</property>
-                                                            <child>
-                                                              <widget class="GtkImage" id="image3">
-                                                                <property name="visible">True</property>
-                                                                <property name="stock">gtk-go-back</property>
-                                                              </widget>
-                                                              <packing>
-                                                                <property name="expand">False</property>
-                                                                <property name="fill">False</property>
-                                                              </packing>
-                                                            </child>
-                                                            <child>
-                                                              <widget class="GtkLabel" id="label48">
-                                                                <property name="visible">True</property>
-                                                                <property name="label" translatable="yes">Left</property>
-                                                                <property name="use_underline">True</property>
-                                                              </widget>
-                                                              <packing>
-                                                                <property name="expand">False</property>
-                                                                <property name="fill">False</property>
-                                                                <property name="position">1</property>
-                                                              </packing>
-                                                            </child>
-                                                          </widget>
-                                                        </child>
-                                                      </widget>
-                                                    </child>
-                                                  </widget>
-                                                  <packing>
-                                                    <property name="expand">False</property>
-                                                    <property name="fill">False</property>
-                                                  </packing>
-                                                </child>
-                                                <child>
-                                                  <widget class="GtkRadioButton" id="UserListPositionRadioButtonRight">
-                                                    <property name="visible">True</property>
-                                                    <property name="can_focus">True</property>
-                                                    <property name="response_id">0</property>
-                                                    <property name="draw_indicator">True</property>
-                                                    <property name="group">UserListPositionRadioButtonLeft</property>
-                                                    <signal name="toggled" handler="_OnChanged"/>
-                                                    <child>
-                                                      <widget class="GtkAlignment" id="alignment18">
-                                                        <property name="visible">True</property>
-                                                        <property name="xscale">0</property>
-                                                        <property name="yscale">0</property>
-                                                        <child>
-                                                          <widget class="GtkHBox" id="hbox19">
-                                                            <property name="visible">True</property>
-                                                            <property name="spacing">2</property>
-                                                            <child>
-                                                              <widget class="GtkImage" id="image4">
-                                                                <property name="visible">True</property>
-                                                                <property name="stock">gtk-go-forward</property>
-                                                              </widget>
-                                                              <packing>
-                                                                <property name="expand">False</property>
-                                                                <property name="fill">False</property>
-                                                              </packing>
-                                                            </child>
-                                                            <child>
-                                                              <widget class="GtkLabel" id="label49">
-                                                                <property name="visible">True</property>
-                                                                <property name="label" translatable="yes">Right</property>
-                                                                <property name="use_underline">True</property>
-                                                              </widget>
-                                                              <packing>
-                                                                <property name="expand">False</property>
-                                                                <property name="fill">False</property>
-                                                                <property name="position">1</property>
-                                                              </packing>
-                                                            </child>
-                                                          </widget>
-                                                        </child>
-                                                      </widget>
-                                                    </child>
-                                                  </widget>
-                                                  <packing>
-                                                    <property name="expand">False</property>
-                                                    <property name="fill">False</property>
-                                                    <property name="position">1</property>
-                                                  </packing>
-                                                </child>
-                                                <child>
-                                                  <widget class="GtkRadioButton" id="UserListPositionRadioButtonNone">
-                                                    <property name="visible">True</property>
-                                                    <property name="can_focus">True</property>
-                                                    <property name="label" translatable="yes">None</property>
-                                                    <property name="use_underline">True</property>
-                                                    <property name="response_id">0</property>
-                                                    <property name="draw_indicator">True</property>
-                                                    <property name="group">UserListPositionRadioButtonLeft</property>
-                                                    <signal name="toggled" handler="_OnChanged"/>
-                                                  </widget>
-                                                  <packing>
-                                                    <property name="expand">False</property>
-                                                    <property name="fill">False</property>
-                                                    <property name="position">2</property>
-                                                  </packing>
-                                                </child>
-                                              </widget>
-                                            </child>
-                                          </widget>
-                                        </child>
-                                        <child>
-                                          <widget class="GtkLabel" id="label38">
-                                            <property name="visible">True</property>
-                                            <property name="label" translatable="yes">&lt;b&gt; User List Position &lt;/b&gt;</property>
-                                            <property name="use_markup">True</property>
-                                          </widget>
-                                          <packing>
-                                            <property name="type">label_item</property>
-                                          </packing>
-                                        </child>
-                                      </widget>
-                                      <packing>
-                                        <property name="expand">False</property>
-                                        <property name="position">2</property>
+                                        <property name="top_attach">1</property>
+                                        <property name="bottom_attach">2</property>
                                       </packing>
                                     </child>
                                   </widget>
@@ -1632,7 +1805,7 @@
                             <child>
                               <widget class="GtkLabel" id="label10">
                                 <property name="visible">True</property>
-                                <property name="label" translatable="yes">&lt;b&gt; Channel &lt;/b&gt;</property>
+                                <property name="label" translatable="yes">&lt;b&gt; Chat &lt;/b&gt;</property>
                                 <property name="use_markup">True</property>
                               </widget>
                               <packing>
@@ -1729,7 +1902,6 @@
                       </widget>
                       <packing>
                         <property name="position">3</property>
-                        <property name="tab_expand">False</property>
                       </packing>
                     </child>
                     <child>
@@ -1741,14 +1913,12 @@
                       <packing>
                         <property name="type">tab</property>
                         <property name="position">3</property>
-                        <property name="tab_expand">False</property>
                         <property name="tab_fill">False</property>
                       </packing>
                     </child>
                   </widget>
                   <packing>
                     <property name="position">1</property>
-                    <property name="tab_expand">False</property>
                   </packing>
                 </child>
                 <child>
@@ -1761,7 +1931,6 @@
                   <packing>
                     <property name="type">tab</property>
                     <property name="position">1</property>
-                    <property name="tab_expand">False</property>
                     <property name="tab_fill">False</property>
                   </packing>
                 </child>
@@ -1834,7 +2003,6 @@
                   </widget>
                   <packing>
                     <property name="position">2</property>
-                    <property name="tab_expand">False</property>
                   </packing>
                 </child>
                 <child>
@@ -1847,7 +2015,6 @@
                   <packing>
                     <property name="type">tab</property>
                     <property name="position">2</property>
-                    <property name="tab_expand">False</property>
                     <property name="tab_fill">False</property>
                   </packing>
                 </child>
@@ -1963,7 +2130,6 @@
                   </widget>
                   <packing>
                     <property name="position">3</property>
-                    <property name="tab_expand">False</property>
                   </packing>
                 </child>
                 <child>
@@ -1976,7 +2142,6 @@
                   <packing>
                     <property name="type">tab</property>
                     <property name="position">3</property>
-                    <property name="tab_expand">False</property>
                     <property name="tab_fill">False</property>
                   </packing>
                 </child>
@@ -2176,7 +2341,7 @@
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
-                            <property name="adjustment">1 1 65535 1 10 10</property>
+                            <property name="adjustment">0 0 65535 1 10 10</property>
                             <property name="numeric">True</property>
                           </widget>
                           <packing>
@@ -2288,7 +2453,7 @@
                     <property name="hscrollbar_policy">GTK_POLICY_AUTOMATIC</property>
                     <property name="shadow_type">GTK_SHADOW_IN</property>
                     <child>
-                      <widget class="GtkTextView" id="OnConnectCommandsTextView">
+                      <widget class="GtkTextView" id="OnConnectCommandsTextView1">
                         <property name="width_request">152</property>
                         <property name="height_request">168</property>
                         <property name="visible">True</property>
@@ -2318,7 +2483,7 @@
             <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
             <property name="layout_style">GTK_BUTTONBOX_END</property>
             <child>
-              <widget class="GtkButton" id="CancelButton">
+              <widget class="GtkButton" id="CancelButton1">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
@@ -2329,7 +2494,7 @@
               </widget>
             </child>
             <child>
-              <widget class="GtkButton" id="OKButton">
+              <widget class="GtkButton" id="OKButton1">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
