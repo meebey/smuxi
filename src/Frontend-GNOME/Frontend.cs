@@ -198,24 +198,15 @@ namespace Smuxi.Frontend.Gnome
  
             _MainWindow = new MainWindow();
 
-            /*
-            // druid disabled, as infamous and not really required
-            if (_FrontendConfig.IsCleanConfig) {
-#if UI_GNOME
-                 new FirstStartDruid();
-#endif
+            if (String.IsNullOrEmpty((string) FrontendConfig["Engines/Default"])) {
+                InitLocalEngine();
             } else {
-            */
-                if (((string)FrontendConfig["Engines/Default"]).Length == 0) {
-                    InitLocalEngine();
-                } else {
-                    // there is a default engine set, means we want a remote engine
-                    _SplashScreenWindow.Destroy();
-                    _SplashScreenWindow = null;
-                    ShowEngineManagerDialog();
-                }
-            //}
-           
+                // there is a default engine set, means we want a remote engine
+                _SplashScreenWindow.Destroy();
+                _SplashScreenWindow = null;
+                ShowEngineManagerDialog();
+            }
+            
             if (_SplashScreenWindow != null) {
                 _SplashScreenWindow.Destroy();
             }

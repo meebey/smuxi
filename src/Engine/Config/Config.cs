@@ -217,6 +217,13 @@ namespace Smuxi.Engine
             Get(prefix+"TopicPosition", "top");
             Get(prefix+"NickColors", false);
 
+            prefix = "Engine/Users/DEFAULT/Interface/Chat/";
+            Get(prefix+"BackgroundColor", String.Empty);
+            Get(prefix+"ForegroundColor", String.Empty);
+            Get(prefix+"FontFamily", String.Empty);
+            Get(prefix+"FontStyle",  String.Empty);
+            Get(prefix+"FontSize",   0);
+            
             prefix = "Engine/Users/DEFAULT/Interface/Entry/";
             Get(prefix+"CompletionCharacter", ":");
             Get(prefix+"CommandCharacter", "/");
@@ -348,6 +355,11 @@ namespace Smuxi.Engine
                 LoadUserEntry(user, "Interface/Notebook/Channel/UserListPosition", null);
                 LoadUserEntry(user, "Interface/Notebook/Channel/TopicPosition", null);
                 LoadUserEntry(user, "Interface/Notebook/Channel/NickColors", null);
+                LoadUserEntry(user, "Interface/Chat/ForegroundColor", null);
+                LoadUserEntry(user, "Interface/Chat/BackgroundColor", null);
+                LoadUserEntry(user, "Interface/Chat/FontFamily", null);
+                LoadUserEntry(user, "Interface/Chat/FontStyle", null);
+                LoadUserEntry(user, "Interface/Chat/FontSize", null);
                 LoadUserEntry(user, "Interface/Entry/CompletionCharacter", null);
                 LoadUserEntry(user, "Interface/Entry/CommandCharacter", null);
                 LoadUserEntry(user, "Interface/Entry/BashStyleCompletion", null);

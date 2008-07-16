@@ -94,6 +94,10 @@ namespace Smuxi.Frontend.Gnome
             ((Gtk.TextView)_Glade["OnConnectCommandsTextView"]).Buffer.Changed += new EventHandler(_OnChanged);
             ((Gtk.TextView)_Glade["OnStartupCommandsTextView"]).Buffer.Changed += new EventHandler(_OnChanged);
             
+            ((Gtk.CheckButton)_Glade["OverrideForegroundColorCheckButton"]).Toggled += OnOverrideForegroundColorCheckButtonToggled;
+            ((Gtk.CheckButton)_Glade["OverrideBackgroundColorCheckButton"]).Toggled += OnOverrideBackgroundColorCheckButtonToggled;
+            ((Gtk.CheckButton)_Glade["OverrideFontCheckButton"]).Toggled += OnOverrideFontCheckButtonToggled;
+            
             _Notebook.ShowTabs = false;
             
             Gtk.ListStore ls = new Gtk.ListStore(typeof(Page), typeof(Gdk.Pixbuf), typeof(string));
@@ -280,6 +284,54 @@ namespace Smuxi.Frontend.Gnome
             colorHexCode = (string)Frontend.UserConfig["Interface/Notebook/Tab/HighlightColor"];
             colorButton.Color = _HexStringToGdkColor(colorHexCode);
             
+            // Interface/Chat
+            colorButton = (Gtk.ColorButton)_Glade["ForegroundColorButton"];
+            colorHexCode = (string)Frontend.UserConfig["Interface/Chat/ForegroundColor"];
+            if (String.IsNullOrEmpty(colorHexCode)) {
+                ((Gtk.CheckButton)_Glade["OverrideForegroundColorCheckButton"]).Active = false;
+            } else {
+                ((Gtk.CheckButton)_Glade["OverrideForegroundColorCheckButton"]).Active = true;
+                colorButton.Color = _HexStringToGdkColor(colorHexCode);
+            }
+            
+            colorButton = (Gtk.ColorButton)_Glade["BackgroundColorButton"];
+            colorHexCode = (string)Frontend.UserConfig["Interface/Chat/BackgroundColor"];
+            if (String.IsNullOrEmpty(colorHexCode)) {
+                ((Gtk.CheckButton)_Glade["OverrideBackgroundColorCheckButton"]).Active = false;
+            } else {
+                ((Gtk.CheckButton)_Glade["OverrideBackgroundColorCheckButton"]).Active = true;
+                colorButton.Color = _HexStringToGdkColor(colorHexCode);
+            }
+            
+            Gtk.FontButton fontButton = (Gtk.FontButton)_Glade["FontButton"];
+            string fontFamily = (string)Frontend.UserConfig["Interface/Chat/FontFamily"];
+            string fontStyle = (string)Frontend.UserConfig["Interface/Chat/FontStyle"];
+            int fontSize = 0;
+            if (Frontend.UserConfig["Interface/Chat/FontSize"] != null) {
+                fontSize = (int) Frontend.UserConfig["Interface/Chat/FontSize"];
+            }
+            if (String.IsNullOrEmpty(fontFamily) &&
+                String.IsNullOrEmpty(fontStyle) &&
+                fontSize == 0) {
+                ((Gtk.CheckButton)_Glade["OverrideFontCheckButton"]).Active = false;
+            } else {
+                ((Gtk.CheckButton)_Glade["OverrideFontCheckButton"]).Active = true;
+                Pango.FontDescription fontDescription = new Pango.FontDescription();
+                fontDescription.Family = fontFamily;
+                string frontWeigth = null;
+                if (fontStyle.Contains(" ")) {
+                    int pos = fontStyle.IndexOf(" ");
+                    frontWeigth = fontStyle.Substring(0, pos);
+                    fontStyle = fontStyle.Substring(pos + 1);
+                }
+                fontDescription.Style = (Pango.Style) Enum.Parse(typeof(Pango.Style), fontStyle);
+                if (frontWeigth != null) {
+                    fontDescription.Weight = (Pango.Weight) Enum.Parse(typeof(Pango.Weight), frontWeigth);
+                }
+                fontDescription.Size = fontSize * 1024;
+                fontButton.FontName = fontDescription.ToString();
+            }
+            
             // Interface/Entry
             ((Gtk.Entry)_Glade["CompletionCharacterEntry"]).Text =
                 (string)Frontend.UserConfig["Interface/Entry/CompletionCharacter"];
@@ -389,6 +441,32 @@ namespace Smuxi.Frontend.Gnome
             Frontend.UserConfig[prefix + "HighlightColor"] =
                 _GdkColorToHexString(((Gtk.ColorButton)_Glade["HighlightColorButton"]).Color);
             
+            // Interface/Chat
+            prefix = "Interface/Chat/";
+            if (((Gtk.CheckButton)_Glade["OverrideForegroundColorCheckButton"]).Active) {
+                Frontend.UserConfig[prefix + "ForegroundColor"] = 
+                    _GdkColorToHexString(((Gtk.ColorButton)_Glade["ForegroundColorButton"]).Color);
+            } else {
+                Frontend.UserConfig[prefix + "ForegroundColor"] = String.Empty;
+            }
+            if (((Gtk.CheckButton)_Glade["OverrideBackgroundColorCheckButton"]).Active) {
+                Frontend.UserConfig[prefix + "BackgroundColor"] = 
+                    _GdkColorToHexString(((Gtk.ColorButton)_Glade["BackgroundColorButton"]).Color);
+            } else {
+                Frontend.UserConfig[prefix + "BackgroundColor"] = String.Empty;
+            }
+            if (((Gtk.CheckButton)_Glade["OverrideFontCheckButton"]).Active) {
+                string fontName = ((Gtk.FontButton)_Glade["FontButton"]).FontName;
+                Pango.FontDescription fontDescription = Pango.FontDescription.FromString(fontName);
+                Frontend.UserConfig[prefix + "FontFamily"] = fontDescription.Family;
+                Frontend.UserConfig[prefix + "FontStyle"] = fontDescription.Weight + " " + fontDescription.Style;
+                Frontend.UserConfig[prefix + "FontSize"] = fontDescription.Size / 1024;
+            } else {
+                Frontend.UserConfig[prefix + "FontFamily"] = String.Empty;
+                Frontend.UserConfig[prefix + "FontStyle"] = String.Empty;
+                Frontend.UserConfig[prefix + "FontSize"] = 0;
+            }
+            
             // Entry
             Frontend.UserConfig["Interface/Entry/CompletionCharacter"] =
                 ((Gtk.Entry)_Glade["CompletionCharacterEntry"]).Text;
@@ -411,17 +489,27 @@ namespace Smuxi.Frontend.Gnome
             Frontend.Config.Save();
         }
         
-        private Gdk.Color _HexStringToGdkColor(string color)
+        private Gdk.Color _HexStringToGdkColor(string colorStr)
         {
-            color = color.Substring(1); // remove #
-            int red   = Int16.Parse(color.Substring(0, 2), NumberStyles.HexNumber);
-            int green = Int16.Parse(color.Substring(2, 2), NumberStyles.HexNumber);
-            int blue  = Int16.Parse(color.Substring(4, 2), NumberStyles.HexNumber);
+            colorStr = colorStr.Substring(1); // remove #
+            ushort red   = ushort.Parse(colorStr.Substring(0, 2), NumberStyles.HexNumber);
+            ushort green = ushort.Parse(colorStr.Substring(2, 2), NumberStyles.HexNumber);
+            ushort blue  = ushort.Parse(colorStr.Substring(4, 2), NumberStyles.HexNumber);
             return new Gdk.Color((byte)red, (byte)green, (byte)blue);
+            /*
+            Gdk.Color color = Gdk.Color.Zero;
+            Gdk.Color.Parse(colorStr, ref color);
+            return color;
+            */
         }
         
         private string _GdkColorToHexString(Gdk.Color color)
         {
+            /*
+            Console.WriteLine("Red: " + color.Red);
+            Console.WriteLine("Green: " + color.Green);
+            Console.WriteLine("Blue: " + color.Blue);
+            */
             string res = "#";
             res += ((byte)color.Red).ToString("X2");
             res += ((byte)color.Green).ToString("X2"); 
@@ -442,6 +530,7 @@ namespace Smuxi.Frontend.Gnome
                 _Save();
                 Frontend.Config.Load();
                 Frontend.UserConfig.ClearCache();
+                Frontend.MainWindow.ApplyConfig(Frontend.UserConfig);
                 _Dialog.Destroy();
             } catch (Exception ex) {
 #if LOG4NET
@@ -461,6 +550,7 @@ namespace Smuxi.Frontend.Gnome
                 Frontend.Config.Load();
                 Frontend.UserConfig.ClearCache();
                 _Load();
+                Frontend.MainWindow.ApplyConfig(Frontend.UserConfig);
             } catch (Exception ex) {
 #if LOG4NET
                 _Logger.Error(ex);
@@ -492,6 +582,42 @@ namespace Smuxi.Frontend.Gnome
             if (_MenuTreeView.Selection.GetSelected(out model, out iter)) {
                 Page activePage = (Page)model.GetValue(iter, 0);
                 _Notebook.CurrentPage = (int)activePage;
+            }
+        }
+        
+        private void OnOverrideForegroundColorCheckButtonToggled(object sender, EventArgs e)
+        {
+            Trace.Call(sender, e);
+            
+            try {
+                ((Gtk.ColorButton) _Glade["ForegroundColorButton"]).Sensitive = 
+                    ((Gtk.CheckButton) _Glade["OverrideForegroundColorCheckButton"]).Active;
+            } catch (Exception ex) {
+                Frontend.ShowException(ex);
+            }
+        }
+        
+        private void OnOverrideBackgroundColorCheckButtonToggled(object sender, EventArgs e)
+        {
+            Trace.Call(sender, e);
+            
+            try {
+                ((Gtk.ColorButton) _Glade["BackgroundColorButton"]).Sensitive = 
+                    ((Gtk.CheckButton) _Glade["OverrideBackgroundColorCheckButton"]).Active;
+            } catch (Exception ex) {
+                Frontend.ShowException(ex);
+            }
+        }
+
+        private void OnOverrideFontCheckButtonToggled(object sender, EventArgs e)
+        {
+            Trace.Call(sender, e);
+            
+            try {
+                ((Gtk.FontButton) _Glade["FontButton"]).Sensitive = 
+                    ((Gtk.CheckButton) _Glade["OverrideFontCheckButton"]).Active;
+            } catch (Exception ex) {
+                Frontend.ShowException(ex);
             }
         }
         

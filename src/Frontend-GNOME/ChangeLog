@@ -1,3 +1,9 @@
+2008-07-16  Mirco Bauer <meebey@meebey.net> 
+
+	* MainWindow.cs, Frontend.cs, Preferences/PreferencesDialog.cs,
+	  Chats/GroupChatView.cs, Chats/ChatView.cs, Entry.cs, ChatViewManager.cs:
+	  Implemented basic theming support (closes trac bug #19).
+
 2008-07-15  Mirco Bauer <meebey@meebey.net> 
 
 	* MainWindow.cs, Frontend.cs, GnomeUI.cs, ChatViewManager.cs: Failed attempt

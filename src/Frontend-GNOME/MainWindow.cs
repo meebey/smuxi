@@ -302,7 +302,15 @@ namespace Smuxi.Frontend.Gnome
 
         public void ApplyConfig(UserConfig userConfig)
         {
+            Trace.Call(userConfig);
+            
+            if (userConfig == null) {
+                throw new ArgumentNullException("userConfig");
+            }
+                    
+            _Entry.ApplyConfig(userConfig);
             _Notebook.ApplyConfig(userConfig);
+            _ChatViewManager.ApplyConfig(userConfig);
         }
         
         private void _OnQuitButtonClicked(object obj, EventArgs args)
@@ -452,6 +460,10 @@ namespace Smuxi.Frontend.Gnome
             
             try {
                 new PreferencesDialog();
+                /*
+                SteticPreferencesDialog dialog = new SteticPreferencesDialog();
+                dialog.Run();
+                */
             } catch (Exception e) {
 #if LOG4NET
                 f_Logger.Error(e);

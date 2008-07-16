@@ -256,7 +256,7 @@ namespace Smuxi.Frontend.Gnome
                 //_PersonScrolledWindow.WidthRequest = layout.Width;
                 Console.WriteLine("layout.Width: " + layout.Width);
                 _PersonScrolledWindow.SetSizeRequest(layout.Width, 0);
-                  */
+                */
                 
                 UpdatePersonCount(); 
                
@@ -359,6 +359,65 @@ namespace Smuxi.Frontend.Gnome
             UpdatePersonCount();
         }
         
+        public override void ApplyConfig(UserConfig config)
+        {
+            Trace.Call(config);
+            
+            if (config == null) {
+                throw new ArgumentNullException("config");
+            }
+            
+            base.ApplyConfig(config);
+            
+            string bgStr = (string) config["Interface/Chat/BackgroundColor"];
+            if (!String.IsNullOrEmpty(bgStr)) {
+                Gdk.Color bgColor = Gdk.Color.Zero;
+                if (Gdk.Color.Parse(bgStr, ref bgColor)) {
+                    _PersonTreeView.ModifyBase(Gtk.StateType.Normal, bgColor);
+                    _TopicEntry.ModifyBase(Gtk.StateType.Normal, bgColor);
+                }
+            } else {
+                _PersonTreeView.ModifyBase(Gtk.StateType.Normal);
+                _TopicEntry.ModifyBase(Gtk.StateType.Normal);
+            }
+            
+            string fgStr = (string) config["Interface/Chat/ForegroundColor"];
+            if (!String.IsNullOrEmpty(fgStr)) {
+                Gdk.Color fgColor = Gdk.Color.Zero;
+                if (Gdk.Color.Parse(fgStr, ref fgColor)) {
+                    _PersonTreeView.ModifyText(Gtk.StateType.Normal, fgColor);
+                    _TopicEntry.ModifyText(Gtk.StateType.Normal, fgColor);
+                }
+            } else {
+                _PersonTreeView.ModifyText(Gtk.StateType.Normal);
+                _TopicEntry.ModifyText(Gtk.StateType.Normal);
+            }
+            
+            string fontFamily = (string) config["Interface/Chat/FontFamily"];
+            string fontStyle = (string) config["Interface/Chat/FontStyle"];
+            int fontSize = 0;
+            if (config["Interface/Chat/FontSize"] != null) {
+                fontSize = (int) config["Interface/Chat/FontSize"];
+            }
+            Pango.FontDescription fontDescription = new Pango.FontDescription();
+            if (!String.IsNullOrEmpty(fontFamily)) {
+                fontDescription.Family = fontFamily;
+                string frontWeigth = null;
+                if (fontStyle.Contains(" ")) {
+                    int pos = fontStyle.IndexOf(" ");
+                    frontWeigth = fontStyle.Substring(0, pos);
+                    fontStyle = fontStyle.Substring(pos + 1);
+                }
+                fontDescription.Style = (Pango.Style) Enum.Parse(typeof(Pango.Style), fontStyle);
+                if (frontWeigth != null) {
+                    fontDescription.Weight = (Pango.Weight) Enum.Parse(typeof(Pango.Weight), frontWeigth);
+                }
+                fontDescription.Size = fontSize * 1024;
+            }
+            _PersonTreeView.ModifyFont(fontDescription);
+            _TopicEntry.ModifyFont(fontDescription);
+        }
+
         private void _RenderPersonIdentityName(Gtk.TreeViewColumn column,
                                                Gtk.CellRenderer cellr,
                                                Gtk.TreeModel model, Gtk.TreeIter iter)

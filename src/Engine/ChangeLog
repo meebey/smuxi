@@ -1,3 +1,7 @@
+2008-07-16  Mirco Bauer <meebey@meebey.net> 
+
+	* Config/Config.cs: Implemented basic theming support (closes trac bug #19).
+
 2008-07-15  Mirco Bauer <meebey@meebey.net> 
 
 	* Protocols/IProtocolManager.cs, Protocols/ProtocolManagerBase.cs: Added

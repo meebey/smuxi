@@ -46,7 +46,7 @@ namespace Smuxi.Frontend.Gnome
         private List<ChatView> f_Chats = new List<ChatView>();
         private Notebook       f_Notebook;
         private Gtk.TreeView   f_TreeView;
-        //private UserConfig   _Config;
+        private UserConfig     f_Config;
         
         public override IChatView ActiveChat {
             get {
@@ -60,11 +60,10 @@ namespace Smuxi.Frontend.Gnome
             }
         }
         
-        public ChatViewManager(Notebook notebook, Gtk.TreeView treeView /*, UserConfig userConfig*/)
+        public ChatViewManager(Notebook notebook, Gtk.TreeView treeView)
         {
             f_Notebook = notebook;
             f_TreeView = treeView;
-            //_Config = userConfig;
         }
         
         /*
@@ -86,9 +85,11 @@ namespace Smuxi.Frontend.Gnome
         public override void AddChat(ChatModel chat)
         {
             ChatView chatView = (ChatView) CreateChatView(chat);
-            
             f_Chats.Add(chatView);
-            //Frontend.UserConfig[""]
+            
+            if (f_Config != null) {
+                chatView.ApplyConfig(f_Config);
+            }
             //_Notebook.InsertPage(chatView, chatView.LabelEventBox, pos);
             f_Notebook.AppendPage(chatView, chatView.LabelWidget);
             //_Notebook.SetTabReorderable(chatView, true);
@@ -118,6 +119,20 @@ namespace Smuxi.Frontend.Gnome
         public ChatView GetChat(ChatModel chatModel)
         {
             return f_Notebook.GetChat(chatModel);
+        }
+        
+        public virtual void ApplyConfig(UserConfig config)
+        {
+            Trace.Call(config);
+
+            if (config == null) {
+                throw new ArgumentNullException("config");
+            }
+            
+            f_Config = config;
+            foreach (ChatView chat in f_Chats) {
+                chat.ApplyConfig(f_Config);
+            }
         }
     }   
 }
