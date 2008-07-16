@@ -78,7 +78,7 @@ namespace Smuxi.Frontend.Gnome
                 unban_item.Activated += new EventHandler(_OnUserListMenuUnbanActivated);
                 PersonMenu.Append(unban_item);
                 
-                // TODO: add devider
+                PersonMenu.Append(new Gtk.SeparatorMenuItem());
                 
                 Gtk.ImageMenuItem query_item = new Gtk.ImageMenuItem(_("Query"));
                 query_item.Activated += new EventHandler(_OnUserListMenuQueryActivated);
