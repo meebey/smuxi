@@ -6,7 +6,7 @@
  * $Date$
  */
 
-This is the creditslist for smuxi
+This is the credit list for smuxi
 
 The fields are:
 (N) name
@@ -36,11 +36,17 @@ E: admin@nectarine.info
 W: www.nectarine.info
 D: Preferences Abstraction Layer and Backend (patch)
 
-Linux Alpha/Beta Testers:
+Alpha/Beta Testers
+------------------
+GNOME on Linux:
 Frank Besler			<besfred@gmx.net>	Ubuntu 5.04 (Hoary)
 Bjarke Sørensen			<bs@wasd.dk>		Ubuntu 6.10 (Edgy Eft)
 
-Windows Alpha/Beta Testers:
+GNOME on Windows:
+cobrian@cobrian.net
+
+Windows:
 <noia@wanadoo.nl>
 <klaus@capitalfocus.org>
 <aaron@wormus.com>
+

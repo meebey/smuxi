@@ -6,21 +6,6 @@
  * $Date$
  */
 
-in-work:
-
-smuxi 0.6 goals:
-X server manager GUI
-  X on connected commands
-- channel list GUI
-- engines manager GUI
-X colors in channels (highlighting)
-X create debian package
-X make preferences smaller!
-- add date stamps between days like irssi
-- smarter /op /deop /voice /devoice (using multiple modes)
-- /ban
-X /mode without params should show the current mode
-- IRC channel manager gui with topic / bans / modes
 - release smuxi.meebey.net
 - release www.meebey.net
 - release sourceforge
@@ -28,18 +13,15 @@ X /mode without params should show the current mode
 - release gfiles
 - release go-mono.org
 - release mono-announce
-- basic theming: foreground/backgroun color, font size, font type
-- different colors available for different messages (chanmsg/privmsg/mode/join/part/ctcp/action)
 
 Bugs:
 X https://foo ftp://foo opens incorect URLs
-- theming: per-channel settings
 - join #gentoo on freenode, syncing bug?
-- /away needs to set away on _all_ networks
 - after join ops/voices are not synced correctly?
-- scrolling notebook doesnt work?
 - /quit reconnects?
 - track rename for person chats 19:02 -!- Nils`- is now known as Nils`aw
+- clear highlight after sync
+- exclude () from URLs: (https://bugzilla.novell.com/show_bug.cgi?id=350188)
 X when reconnecting it needs to re-sync the pages: reconnect -> disable pages -> enabled pages -> sync
 X erste message im query wird nicht formatiert, z.b. /msg foo hallo _bar_
 X Nick highlight is case-sensitive
@@ -50,31 +32,23 @@ X "/msg nick hi" creates unusable query tab
 X don't use GNOME.Vfs.Show() on Win32, use Process.Start() instead.
 X show failing attempts to a join a channel
 X show kick message before rejoin
-- exclude () from URLs: (https://bugzilla.novell.com/show_bug.cgi?id=350188)
-- messages with URL breaks highlight
-- clear highlight after sync
+X messages with URL breaks highlight, formatting and colors
+X /part done. doesnt work?
+X foobarmehttp://la.de is recognized as URL, while it shouldn't
+X clicking an URL in smuxi, froze the frontend for about 10 seconds then worked [frontend-gnome on win32]
+X if channel is moderated, an error message needs to be replied
+X trailing spaces in op/deop command produces MODE +o commands.
+X "/msg meebey plopp" sends 2 private messages
+X ^X doesn't switch to the next network in the smuxi window
+X no MOTD on freenode / gimpnet? when connecting manually using /connect irc .....
 
 Feature Requests:
-- IPv6 support by making a "use ipv6" option
-- lag indicator between frontend <-> server
-- pass unknown commands raw to the server like /foobar (but being an option)
-- color settings (background/fonts etc)
-- auto-retry joining channels
-- encoding setting per server (Cobrian)
-- support mIRC colors in topic (Cobrian)
-- show away-msg only once per query, on each message it's annoying
-- make #channel clickable
-- handle irc:// urls (gnome)
-- banshee plugin via dbus (now playing...)
-- dbus support
-- GUI for changing topic (enjoi)
+- theming: per-channel settings
 - apply config changes without restart (enjoi)
 - mini identd server for windows support (enjoi)
-- GUI for manual server connect (enjoi)
-- banlist manager in smuxi-frontend-gnome-irc
 - align nicknames in output area [nasty]
 - replace smileys with images
-- GUI for swichting current network
+- GUI for swichting current protocol manager
 - path completion in frontend
 - auto-away (AFK) plugin
 - compare smuxi with all other common IRC clients on the website
