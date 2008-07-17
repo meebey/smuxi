@@ -359,9 +359,9 @@ namespace Smuxi.Engine
                 channel = filter.Name;
             }
             
-            IList<ListInfo> infos = _IrcClient.GetListInfos(channel);
+            IList<ChannelInfo> infos = _IrcClient.GetChannelList(channel);
             List<GroupChatModel> chats = new List<GroupChatModel>(infos.Count);
-            foreach (ListInfo info in infos) {
+            foreach (ChannelInfo info in infos) {
                 GroupChatModel chat = new GroupChatModel(
                     info.Channel,
                     info.Channel,
@@ -902,7 +902,7 @@ namespace Smuxi.Engine
                 return;
             }
             
-            IList<WhoInfo> infos = _IrcClient.GetWhoInfos(cd.DataArray[1]);
+            IList<WhoInfo> infos = _IrcClient.GetWhoList(cd.DataArray[1]);
             // irssi: * meebey    H   1  ~meebey@e176002059.adsl.alicedsl.de [Mirco Bauer]
             foreach (WhoInfo info in infos) {
                 string mode;
@@ -1045,8 +1045,28 @@ namespace Smuxi.Engine
                     _IrcClient.Ban(channel, nick);
                 }
             } else {
-                // TODO: implemement listing banlist
-                _NotEnoughParameters(cd);
+                IList<BanInfo> infos = _IrcClient.GetBanList(channel);
+                int i = 1;
+                foreach (BanInfo info in infos) {
+                    string msg = String.Format(
+                        "-!- {0} - {1}: {2} {3}",
+                        i++,
+                        info.Channel,
+                        _("ban"),
+                        info.Mask
+                    );
+                    Session.AddTextToChat(cd.Chat, msg);
+                }
+                if (infos.Count == 0) {
+                    Session.AddTextToChat(
+                        cd.Chat,
+                        String.Format(
+                            "-!- {0} {1}",
+                            _("No bans in channel"),
+                            channel
+                        )
+                    );
+                }
             }
         }
 
