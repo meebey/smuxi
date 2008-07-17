@@ -61,6 +61,7 @@ namespace Smuxi.Frontend.Gnome
         private ChatViewManager  _ChatViewManager;
         private IFrontendUI      _UI;
         private EngineManager    _EngineManager;
+        private Gtk.MenuItem     _CloseChatMenuItem;
         
         public bool CaretMode {
             get {
@@ -149,7 +150,7 @@ namespace Smuxi.Frontend.Gnome
             item = new Gtk.MenuItem(_("_File"));
             item.Submenu = menu;
             mb.Append(item);
-            
+
             item = new Gtk.ImageMenuItem(Gtk.Stock.Preferences, agrp);
             item.Activated += new EventHandler(_OnPreferencesButtonClicked);
             menu.Append(item);
@@ -182,7 +183,7 @@ namespace Smuxi.Frontend.Gnome
             image_item.Activated += OnServerManageServersButtonClicked;
             menu.Append(image_item);
             
-            // Menu - Server
+            // Menu - Chat
             menu = new Gtk.Menu();
             item = new Gtk.MenuItem(_("_Chat"));
             item.Submenu = menu;
@@ -193,6 +194,12 @@ namespace Smuxi.Frontend.Gnome
             image_item.Activated += OnChatFindGroupChatButtonClicked;
             menu.Append(image_item);
             
+            menu.Append(new Gtk.SeparatorMenuItem());
+                    
+            _CloseChatMenuItem = new Gtk.ImageMenuItem(Gtk.Stock.Close, agrp);
+            _CloseChatMenuItem.Activated += OnCloseChatMenuItemActivated;
+            menu.Append(_CloseChatMenuItem);
+
             // Menu - Engine
             menu = new Gtk.Menu();
             item = new Gtk.MenuItem(_("_Engine"));
@@ -245,6 +252,7 @@ namespace Smuxi.Frontend.Gnome
             
             // TODO: network treeview
             _Notebook = new Notebook();
+            _Notebook.SwitchPage += OnNotebookSwitchPage;
             
             _ChatViewManager = new ChatViewManager(_Notebook, null);
             Assembly asm = Assembly.GetExecutingAssembly();
@@ -436,6 +444,28 @@ namespace Smuxi.Frontend.Gnome
                 }
                 
                 manager.OpenChat(Frontend.FrontendManager, groupChat);
+            } catch (Exception ex) {
+                Frontend.ShowException(this, ex);
+            }
+        }
+        
+        protected virtual void OnCloseChatMenuItemActivated(object sender, EventArgs e)
+        {
+            Trace.Call(sender, e);
+            
+            try {
+                _Notebook.CurrentChatView.Close();
+            } catch (Exception ex) {
+                Frontend.ShowException(this, ex);
+            }
+        }
+        
+        protected virtual void OnNotebookSwitchPage(object sender, EventArgs e)
+        {
+            Trace.Call(sender, e);
+            
+            try {
+                _CloseChatMenuItem.Sensitive = _Notebook.CurrentChatView is GroupChatView;
             } catch (Exception ex) {
                 Frontend.ShowException(this, ex);
             }

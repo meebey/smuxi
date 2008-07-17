@@ -41,7 +41,7 @@ namespace Smuxi.Frontend.Gnome
             Trace.Call(personChat);
         }
         
-        protected override void Close()
+        public override void Close()
         {
             Trace.Call();
             

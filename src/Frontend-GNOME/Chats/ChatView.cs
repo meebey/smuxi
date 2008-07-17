@@ -214,11 +214,9 @@ namespace Smuxi.Frontend.Gnome
             _OutputScrolledWindow = sw;
             
             // popup menu
-            Gtk.AccelGroup agrp = new Gtk.AccelGroup();
-            Frontend.MainWindow.AddAccelGroup(agrp);
             _TabMenu = new Gtk.Menu();
             
-            Gtk.ImageMenuItem close_item = new Gtk.ImageMenuItem(Gtk.Stock.Close, agrp);
+            Gtk.ImageMenuItem close_item = new Gtk.ImageMenuItem(Gtk.Stock.Close, null);
             close_item.Activated += new EventHandler(OnTabMenuCloseActivated);  
             _TabMenu.Append(close_item);
             
@@ -508,6 +506,11 @@ namespace Smuxi.Frontend.Gnome
             _OutputTextView.ModifyFont(fontDescription);
         }
 
+        public virtual void Close()
+        {
+            Trace.Call();
+        }
+        
         private string _GetTextTagName(TextColor fg_color, TextColor bg_color)
         {
              string hexcode;
@@ -672,11 +675,6 @@ namespace Smuxi.Frontend.Gnome
             Trace.Call(sender, e);
             
             Close();
-        }
-        
-        protected virtual void Close()
-        {
-            Trace.Call();
         }
         
         private static string _(string msg)

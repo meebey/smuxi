@@ -58,7 +58,7 @@ namespace Smuxi.Frontend.Gnome
             ShowAll();
         }
         
-        protected override void Close()
+        public override void Close()
         {
             Trace.Call();
             
