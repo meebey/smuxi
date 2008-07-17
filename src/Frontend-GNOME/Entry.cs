@@ -151,6 +151,7 @@ namespace Smuxi.Frontend.Gnome
 #endif
                 _HistoryPosition--;
                 Text = HistoryCurrent();
+                Position = -1;
             }
         }
 

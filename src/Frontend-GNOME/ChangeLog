@@ -1,5 +1,10 @@
 2008-07-17  Mirco Bauer <meebey@meebey.net> 
 
+	* Entry.cs: Reset cursor position to the end when going up in the command
+	  history.
+
+2008-07-17  Mirco Bauer <meebey@meebey.net> 
+
 	* Frontend.cs: Don't rely on Application.Quit(), call Environment.Quit()
 	  afterwards to be sure we are quitting.
 
