@@ -41,9 +41,9 @@ namespace Smuxi.Frontend.Gnome
         private Glade.XML                _Glade;
         [Glade.Widget("ServerDialog")]
         private Gtk.Dialog               _Dialog;
-        [Glade.Widget("OKButton")]
+        [Glade.Widget("OKButton1")]
         private Gtk.Button               _OKButton;
-        [Glade.Widget("CancelButton")]
+        [Glade.Widget("CancelButton1")]
         private Gtk.Button               _CancelButton;
         [Glade.Widget("ProtocolComboBox")]
         private Gtk.ComboBox             _ProtocolComboBox;
@@ -59,7 +59,7 @@ namespace Smuxi.Frontend.Gnome
         private Gtk.Entry                _PasswordEntry;
         [Glade.Widget("OnStartupConnectCheckButton")]
         private Gtk.CheckButton          _OnStartupConnectCheckButton;
-        [Glade.Widget("OnConnectCommandsTextView")]
+        [Glade.Widget("OnConnectCommandsTextView1")]
         private Gtk.TextView             _OnConnectCommandsTextView;
         private ServerModel              _ServerModel;
         
