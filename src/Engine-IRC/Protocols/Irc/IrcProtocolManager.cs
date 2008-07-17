@@ -359,16 +359,16 @@ namespace Smuxi.Engine
                 channel = filter.Name;
             }
             
-            IList<ListChannelInfo> channelInfos = _IrcClient.GetChannelInfos(channel);
-            List<GroupChatModel> chats = new List<GroupChatModel>(channelInfos.Count);
-            foreach (ListChannelInfo channelInfo in channelInfos) {
+            IList<ListInfo> infos = _IrcClient.GetListInfos(channel);
+            List<GroupChatModel> chats = new List<GroupChatModel>(infos.Count);
+            foreach (ListInfo info in infos) {
                 GroupChatModel chat = new GroupChatModel(
-                    channelInfo.Channel,
-                    channelInfo.Channel,
+                    info.Channel,
+                    info.Channel,
                     null
                 );
-                chat.PersonCount = channelInfo.UserCount;
-                chat.Topic = channelInfo.Topic;
+                chat.PersonCount = info.UserCount;
+                chat.Topic = info.Topic;
                 chats.Add(chat);
             }
             
@@ -448,6 +448,10 @@ namespace Smuxi.Engine
                             break;
                         case "ping":
                             CommandPing(command);
+                            handled = true;
+                            break;
+                        case "who":
+                            CommandWho(command);
                             handled = true;
                             break;
                         case "whois":
@@ -605,6 +609,7 @@ namespace Smuxi.Engine
             "me actionmessage",
             "notice (channel|nick) message",
             "invite nick",
+            "who nick/channel",
             "whois nick",
             "whowas nick",
             "ping nick",
@@ -612,7 +617,7 @@ namespace Smuxi.Engine
             "away [awaymessage]",
             "kick nick(s) [reason]",
             "kickban/kb nick(s) [reason]",
-            "ban mask",
+            "ban [mask]",
             "unban mask",
             "voice nick",
             "devoice nick",
@@ -890,6 +895,40 @@ namespace Smuxi.Engine
             }
         }
         
+        public void CommandWho(CommandModel cd)
+        {
+            if (cd.DataArray.Length < 2) {
+                _NotEnoughParameters(cd);
+                return;
+            }
+            
+            IList<WhoInfo> infos = _IrcClient.GetWhoInfos(cd.DataArray[1]);
+            // irssi: * meebey    H   1  ~meebey@e176002059.adsl.alicedsl.de [Mirco Bauer]
+            foreach (WhoInfo info in infos) {
+                string mode;
+                if (info.IsIrcOp) {
+                    mode = _("IRC Op");
+                } else if (info.IsOp) {
+                    mode = _("Op");
+                } else if (info.IsVoice) {
+                    mode = _("Voice");
+                } else {
+                    mode = String.Empty;
+                }
+                string msg = String.Format(
+                    "-!- {0} {1} {2}{3} {4} {5}@{6} [{7}]",
+                    info.Channel,
+                    info.Nick,
+                    mode,
+                    info.IsAway ? " (" + _("away") + ")" : String.Empty,
+                    info.HopCount,
+                    info.Ident,
+                    info.Host,
+                    info.Realname);
+                Session.AddTextToChat(cd.Chat, msg);
+            }
+        }
+
         public void CommandWhoIs(CommandModel cd)
         {
             if (cd.DataArray.Length >= 2) {
