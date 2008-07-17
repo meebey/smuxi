@@ -1,3 +1,8 @@
+2008-07-17  Mirco Bauer <meebey@meebey.net> 
+
+	* IrcGroupChatView.cs: Fixed sort order of op + voice, should be above voice
+	  not below.
+
 2008-07-16  Mirco Bauer <meebey@meebey.net> 
 
 	* IrcGroupChatView.cs: Added devider to person popup menu.

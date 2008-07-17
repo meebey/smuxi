@@ -263,40 +263,25 @@ namespace Smuxi.Frontend.Gnome
             
             int status1 = 0;
             if (person1.IsOp) {
-                status1 += 1;
-            }
-            if (person1.IsVoice) {
                 status1 += 2;
-            }
-            if (status1 == 0) {
-                status1 = 4;
+            } else if (person1.IsVoice) {
+                status1 += 1;
             }
             
             int status2 = 0;
             if (person2.IsOp) {
+                status2 += 2;
+            } else if (person2.IsVoice) {
                 status2 += 1;
             }
-            if (person2.IsVoice) {
-                status2 += 2;
-            }
-            if (status2 == 0) {
-                status2 = 4;
-            }
             
-            int mode_res = 0;
-            if (status1 > status2) {
-                mode_res = 1;
-            }
-            if (status1 < status2) {
-                mode_res = -1;
-            }
-            
-            if (mode_res == 0 ) {
+            int res = status2.CompareTo(status1);
+            if (res == 0 ) {
                 // the mode is equal, so the name decides
                 return base.SortPersonListStore(model, iter1, iter2);
             }
             
-            return mode_res;
+            return res;
         }
 
         private static string _(string msg)
