@@ -1,3 +1,7 @@
+2008-07-17  Mirco Bauer <meebey@meebey.net> 
+
+	* MD5.cs: Fixed whitespace.
+
 2008-04-01  Mirco Bauer <meebey@meebey.net> 
 
 	* AssemblyInfo.cs: Bumped version to 0.5.31

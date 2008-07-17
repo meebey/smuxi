@@ -32,10 +32,10 @@ using System.Security.Cryptography;
 
 namespace Smuxi.Common
 {
-	public class MD5
-	{
-	    public static string FromString(string cleartext)
-	    {
+    public class MD5
+    {
+        public static string FromString(string cleartext)
+        {
             MD5CryptoServiceProvider csp = new MD5CryptoServiceProvider();
             byte[] md5bytes = csp.ComputeHash(Encoding.UTF8.GetBytes(cleartext));
             StringBuilder md5text = new StringBuilder();
@@ -44,5 +44,5 @@ namespace Smuxi.Common
             }
             return md5text.ToString();
         }
-	}
+    }
 }
