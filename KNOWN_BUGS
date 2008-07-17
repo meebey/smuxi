@@ -7,13 +7,13 @@
  */
 
 Open:
-- when many channels are joined the window will grow out of screen.
 - when multiple frontends are connect a remoting exception occurs sometimes and
   kills all remoting clients except one. (Mono bug?)
 - when putting special chars in the config (like UTF-8) the config will loose
   on the next start.
 
 Fixed:
+- when many channels are joined the window will grow out of screen.
 - write away message to query page, not server page
 - "/connect  foo" throws exception
 - umlauts corrupts textview (Gtk# wants UTF-8)

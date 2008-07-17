@@ -20,8 +20,9 @@ X https://foo ftp://foo opens incorect URLs
 - after join ops/voices are not synced correctly?
 - /quit reconnects?
 - track rename for person chats 19:02 -!- Nils`- is now known as Nils`aw
-- clear highlight after sync
+- /who command (basher)
 - exclude () from URLs: (https://bugzilla.novell.com/show_bug.cgi?id=350188)
+X clear highlight after sync
 X when reconnecting it needs to re-sync the pages: reconnect -> disable pages -> enabled pages -> sync
 X erste message im query wird nicht formatiert, z.b. /msg foo hallo _bar_
 X Nick highlight is case-sensitive
@@ -52,7 +53,6 @@ Feature Requests:
 - path completion in frontend
 - auto-away (AFK) plugin
 - compare smuxi with all other common IRC clients on the website
-- remember highlight and activity states, even after reconnecting the frontend 
 - /squery command (SQUERY service: command)
 - telepathy support
 - show smuxi in tray when minimized
@@ -65,16 +65,14 @@ Feature Requests:
 - /network save, save servers and joined channels for auto-connect/join (basher)
 - add marker for disabled pages
 - use treeview as alternative to notebook tabs.
-- theme support
 - keep nick (Salz)
 - different identities per server (Salz)
 - overview page, showing all channels and queries on one page (Salz)
 - mark last seen line when switching to other pages and a button to jump it (basher)
 - SSL support (TCW)
-- added sed support to correct the last said line, below the sed line
+- add sed support to correct the last said line, below the sed line
 - support ^G (beep), option to either flash screen, ignore or play audio/system beep (basher)
 - /ignore users, joins/parts (basher)
-- /who command (basher)
 - auto-cleanup query windows after X hours/days of inactivity
 - use treeview as alternative to notebook tabs.
 - whois in userlist context menu (DevGet)
@@ -95,6 +93,7 @@ Feature Requests:
 channel (showing it in the tab as pixmap) (Salz)
 
 Done:
+- theme support
 - connection checks between frontend <-> server
 - smarter fallback nicknames, nick_ nick__ should be tried as default if no alternative nicks are defined
 - clickable URLs (DevGet)
