@@ -35,7 +35,6 @@ endif
 if ENABLE_DEBUG
 ASSEMBLY_COMPILER_COMMAND = gmcs
 ASSEMBLY_COMPILER_FLAGS =  -noconfig -codepage:utf8 -warn:4 -optimize+ -debug -define:DEBUG "-define:DEBUG,TRACE,LOG4NET"
-
 ASSEMBLY = ../../bin/debug/smuxi-frontend-gnome-irc.dll
 ASSEMBLY_MDB = $(ASSEMBLY).mdb
 COMPILE_TARGET = library
@@ -86,9 +85,11 @@ PROGRAMFILES = \
 LINUX_PKGCONFIG = \
 	$(FRONTEND_GNOME_IRC_PC)  
 
-
-	
+if ENABLE_IRC
 all: $(ASSEMBLY) $(PROGRAMFILES) $(LINUX_PKGCONFIG) 
+else
+all:
+endif
 
 FILES = \
 	AssemblyInfo.cs \

@@ -47,9 +47,7 @@ AL=al2
 SATELLITE_ASSEMBLY_NAME=.resources.dll
 
 PROGRAMFILES = \
-	$(LOG4NET_DLL) \
 	$(SMUXI_ENGINE_DLL_MDB) \
-	$(NINI_DLL) \
 	$(SMUXI_ENGINE_DLL) \
 	$(SMUXI_COMMON_DLL)  
 
@@ -82,8 +80,7 @@ REFERENCES =  \
 	System.Runtime.Remoting \
 	Mono.Posix
 
-DLL_REFERENCES =  \
-	../../lib/log4net.dll
+DLL_REFERENCES = 
 
 CLEANFILES = $(PROGRAMFILES) $(LINUX_PKGCONFIG) 
 
@@ -111,4 +108,4 @@ $(build_resx_resources) : %.resources: %.resx
 
 $(ASSEMBLY) $(ASSEMBLY_MDB): $(build_sources) $(build_resources) $(build_datafiles) $(DLL_REFERENCES) $(PROJECT_REFERENCES) $(build_xamlg_list) $(build_satellite_assembly_list)
 	mkdir -p $(dir $(ASSEMBLY))
-	$(ASSEMBLY_COMPILER_COMMAND) $(ASSEMBLY_COMPILER_FLAGS) -out:$(ASSEMBLY) -target:$(COMPILE_TARGET) $(build_sources_embed) $(build_resources_embed) $(build_references_ref)
+	$(ASSEMBLY_COMPILER_COMMAND) $(ASSEMBLY_COMPILER_FLAGS) -out:$(ASSEMBLY) -target:$(COMPILE_TARGET) $(build_sources_embed) $(build_resources_embed) $(build_references_ref) $(LOG4NET_LIBS)

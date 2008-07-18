@@ -75,11 +75,8 @@ PROGRAMFILES = \
 	$(SMUXI_FRONTEND_DLL) \
 	$(SMUXI_ENGINE_DLL_MDB) \
 	$(SMUXI_FRONTEND_DLL_MDB) \
-	$(NINI_DLL) \
 	$(SMUXI_FRONTEND_GNOME_EXE) \
-	$(LOG4NET_DLL) \
-	$(SMUXI_ENGINE_DLL) \
-	$(JABBER_NET_DLL)  
+	$(SMUXI_ENGINE_DLL)
 
 LINUX_PKGCONFIG = \
 	$(FRONTEND_GNOME_XMPP_PC)  
@@ -139,4 +136,4 @@ $(build_resx_resources) : %.resources: %.resx
 
 $(ASSEMBLY) $(ASSEMBLY_MDB): $(build_sources) $(build_resources) $(build_datafiles) $(DLL_REFERENCES) $(PROJECT_REFERENCES) $(build_xamlg_list) $(build_satellite_assembly_list)
 	mkdir -p $(dir $(ASSEMBLY))
-	$(ASSEMBLY_COMPILER_COMMAND) $(ASSEMBLY_COMPILER_FLAGS) -out:$(ASSEMBLY) -target:$(COMPILE_TARGET) $(build_sources_embed) $(build_resources_embed) $(build_references_ref)
+	$(ASSEMBLY_COMPILER_COMMAND) $(ASSEMBLY_COMPILER_FLAGS) -out:$(ASSEMBLY) -target:$(COMPILE_TARGET) $(build_sources_embed) $(build_resources_embed) $(build_references_ref) $(JABBER_NET_LIBS) $(LOG4NET_LIBS)

@@ -16,12 +16,12 @@ AC_PROG_INSTALL
 
 AC_PATH_PROG(MONO, mono)
 if test "x$MONO" = "x"; then
-        AC_MSG_ERROR([Can't find "mono" in your PATH])
+	AC_MSG_ERROR([You need to install the Mono runtime])
 fi
 
 AC_PATH_PROG(GMCS, gmcs)
 if test "x$GMCS" = "x"; then
-        AC_MSG_ERROR([Can't find "gmcs" in your PATH])
+	AC_MSG_ERROR([You need to install the Mono gmcs compiler])
 fi
 
 AC_ARG_ENABLE(release,
@@ -51,6 +51,72 @@ PKG_CHECK_MODULES([GNOME_SHARP_20], [gnome-sharp-2.0])
 PKG_CHECK_MODULES([GLADE_SHARP_20], [glade-sharp-2.0])
 PKG_CHECK_MODULES([GLIB_SHARP_20], [glib-sharp-2.0])
 PKG_CHECK_MODULES([GTK_SHARP_20], [gtk-sharp-2.0])
+PKG_CHECK_MODULES([LOG4NET], [log4net])
+PKG_CHECK_MODULES([NINI], [nini-1.1])
+
+AC_ARG_ENABLE([irc],
+	AC_HELP_STRING([--enable-irc], [Enable IRC protocol support (default yes)]),
+	ENABLE_IRC=$enableval,
+	ENABLE_IRC=yes
+)
+if test "x$ENABLE_IRC" != "xno"; then
+	PKG_CHECK_MODULES([SMARTIRC4NET], [smartirc4net >= 0.4.5], IRC_SUPPORT=yes, IRC_SUPPORT=no)
+	AC_SUBST(SMARTIRC4NET_LIBS)
+	if test "x$ENABLE_IRC" = "xyes" -a "x$IRC_SUPPORT" != "xyes"; then
+		AC_MSG_ERROR([SmartIrc4net >= 0.4.5 not found])
+	else
+		ENABLE_IRC=$IRC_SUPPORT
+	fi
+fi
+AM_CONDITIONAL(ENABLE_IRC, test "x$ENABLE_IRC" = "xyes")
+
+AC_ARG_ENABLE([oscar],
+	AC_HELP_STRING([--enable-oscar], [Enable OSCAR (AIM/ICQ) protocol support (default no)]),
+	ENABLE_OSCAR=$enableval,
+	ENABLE_OSCAR=no
+)
+if test "x$ENABLE_OSCAR" != "xno"; then
+	PKG_CHECK_MODULES([OSCARLIB], [oscarlib], OSCAR_SUPPORT=yes, OSCAR_SUPPORT=no)
+	AC_SUBST(OSCARLIB_LIBS)
+	if test "x$ENABLE_OSCAR" = "xyes" -a "x$OSCAR_SUPPORT" != "xyes"; then
+		AC_MSG_ERROR([OscarLib not found])
+	else
+		ENABLE_OSCARC=$OSCAR_SUPPORT
+	fi
+fi
+AM_CONDITIONAL(ENABLE_OSCAR, test "x$ENABLE_OSCAR" = "xyes")
+
+AC_ARG_ENABLE([xmpp],
+	AC_HELP_STRING([--enable-xmpp], [Enable XMPP (Jabber) protocol support (default no)]),
+	ENABLE_XMPP=$enableval,
+	ENABLE_XMPP=no
+)
+if test "x$ENABLE_XMPP" != "xno"; then
+	PKG_CHECK_MODULES([JABBER_NET], [jabber-net], XMPP_SUPPORT=yes, XMPP_SUPPORT=no)
+	AC_SUBST(JABBER_NET_LIBS)
+	if test "x$ENABLE_XMPP" = "xyes" -a "x$XMPP_SUPPORT" != "xyes"; then
+		AC_MSG_ERROR([jabber-net not found])
+	else
+		ENABLE_XMPP=$XMPP_SUPPORT
+	fi
+fi
+AM_CONDITIONAL(ENABLE_XMPP, test "x$ENABLE_XMPP" = "xyes")
+
+AC_ARG_ENABLE([msnp],
+	AC_HELP_STRING([--enable-msnp], [Enable MSNP protocol support (default no)]),
+	ENABLE_MSNP=$enableval,
+	ENABLE_MSNP=no
+)
+if test "x$ENABLE_XMPP" != "xno"; then
+	PKG_CHECK_MODULES([MSNPSHARP],  [msnp-sharp], MSNP_SUPPORT=yes, MSNP_SUPPORT=no)
+	AC_SUBST(MSNPSHARP_LIBS)
+	if test "x$ENABLE_MSNP" = "xyes" -a "x$MSNP_SUPPORT" != "xyes"; then
+		AC_MSG_ERROR([MSNPSharp not found])
+	else
+		ENABLE_MSNP=$MSNP_SUPPORT
+	fi
+fi
+AM_CONDITIONAL(ENABLE_MSNP, test "x$ENABLE_MSNP" = "xyes")
 
 dnl package checks, per config
 
@@ -61,15 +127,19 @@ AM_PROG_LIBTOOL
 POSUB="po po/Engine po/Frontend-GNOME"
 AC_SUBST(POSUB)
   
-#ALL_LINGUAS="de da"
+GETTEXT_PACKAGE=smuxi
+AC_SUBST(GETTEXT_PACKAGE)
+
 GETTEXT_PACKAGE_ENGINE=smuxi-engine
-GETTEXT_PACKAGE_ENGINE_IRC=smuxi-engine-irc
-GETTEXT_PACKAGE_FRONTEND_GNOME=smuxi-frontend-gnome
 AC_SUBST(GETTEXT_PACKAGE_ENGINE)
-AC_SUBST(GETTEXT_PACKAGE_ENGINE_IRC)
-AC_SUBST(GETTEXT_PACKAGE_FRONTEND_GNOME)
 AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE_ENGINE, "$GETTEXT_PACKAGE_ENGINE", [Gettext package])
+
+GETTEXT_PACKAGE_ENGINE_IRC=smuxi-engine-irc
+AC_SUBST(GETTEXT_PACKAGE_ENGINE_IRC)
 AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE_ENGINE_IRC, "$GETTEXT_PACKAGE_ENGINE_IRC", [Gettext package])
+
+GETTEXT_PACKAGE_FRONTEND_GNOME=smuxi-frontend-gnome
+AC_SUBST(GETTEXT_PACKAGE_FRONTEND_GNOME)
 AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE_FRONTEND_GNOME, "$GETTEXT_PACKAGE_FRONTEND_GNOME", [Gettext package])
 
 AM_GNU_GETTEXT([external])
@@ -78,6 +148,7 @@ AM_GNU_GETTEXT_VERSION([0.17])
 
 AC_CONFIG_FILES([
 Makefile
+src/Makefile
 src/Common/Makefile
 src/Common/common.pc
 src/Engine/Makefile
@@ -122,3 +193,15 @@ po/Makefile.in
 po/Engine/Makefile.in
 po/Frontend-GNOME/Makefile.in
 ])
+
+echo "
+	smuxi version:           ${VERSION}
+	Prefix:                  ${prefix}
+	
+	Protocol Support
+	----------------
+	IRC:                     ${ENABLE_IRC}
+	XMPP:                    ${ENABLE_XMPP}
+	OSCAR:                   ${ENABLE_OSCAR}
+	MSNP:                    ${ENABLE_MSNP}
+"

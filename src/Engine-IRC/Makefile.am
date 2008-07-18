@@ -26,7 +26,6 @@ endif
 if ENABLE_DEBUG
 ASSEMBLY_COMPILER_COMMAND = gmcs
 ASSEMBLY_COMPILER_FLAGS =  -noconfig -codepage:utf8 -warn:4 -optimize+ -debug -define:DEBUG "-define:DEBUG,TRACE,LOG4NET"
-
 ASSEMBLY = ../../bin/debug/smuxi-engine-irc.dll
 ASSEMBLY_MDB = $(ASSEMBLY).mdb
 COMPILE_TARGET = library
@@ -59,9 +58,11 @@ PROGRAMFILES = \
 LINUX_PKGCONFIG = \
 	$(ENGINE_IRC_PC)  
 
-
-	
+if ENABLE_IRC	
 all: $(ASSEMBLY) $(PROGRAMFILES) $(LINUX_PKGCONFIG) 
+else
+all:
+endif
 
 FILES = \
 	Protocols/Irc/IrcGroupPersonModel.cs \
@@ -81,19 +82,14 @@ REFERENCES =  \
 	System \
 	Mono.Posix
 
-DLL_REFERENCES =  \
-	../../lib/Meebey.SmartIrc4net.dll \
-	../../lib/log4net.dll
+DLL_REFERENCES =
 
 CLEANFILES = $(PROGRAMFILES) $(LINUX_PKGCONFIG) 
 
 include $(top_srcdir)/Makefile.include
 
 ENGINE_IRC_PC = $(BUILD_DIR)/engine-irc.pc
-LOG4NET_DLL = $(BUILD_DIR)/log4net.dll
-NINI_DLL = $(BUILD_DIR)/Nini.dll
 SMUXI_ENGINE_DLL = $(BUILD_DIR)/smuxi-engine.dll
-MEEBEY_SMARTIRC4NET_DLL = $(BUILD_DIR)/Meebey.SmartIrc4net.dll
 SMUXI_COMMON_DLL = $(BUILD_DIR)/smuxi-common.dll
 
 $(eval $(call emit-deploy-wrapper,ENGINE_IRC_PC,engine-irc.pc))
@@ -113,4 +109,4 @@ $(build_resx_resources) : %.resources: %.resx
 
 $(ASSEMBLY) $(ASSEMBLY_MDB): $(build_sources) $(build_resources) $(build_datafiles) $(DLL_REFERENCES) $(PROJECT_REFERENCES) $(build_xamlg_list) $(build_satellite_assembly_list)
 	mkdir -p $(dir $(ASSEMBLY))
-	$(ASSEMBLY_COMPILER_COMMAND) $(ASSEMBLY_COMPILER_FLAGS) -out:$(ASSEMBLY) -target:$(COMPILE_TARGET) $(build_sources_embed) $(build_resources_embed) $(build_references_ref)
+	$(ASSEMBLY_COMPILER_COMMAND) $(ASSEMBLY_COMPILER_FLAGS) -out:$(ASSEMBLY) -target:$(COMPILE_TARGET) $(build_sources_embed) $(build_resources_embed) $(build_references_ref) $(SMARTIRC4NET_LIBS) $(LOG4NET_LIBS)

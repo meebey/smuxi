@@ -49,10 +49,7 @@ AL=al2
 SATELLITE_ASSEMBLY_NAME=.resources.dll
 
 PROGRAMFILES = \
-	$(OSCARLIB_DLL) \
 	$(SMUXI_ENGINE_DLL_MDB) \
-	$(LOG4NET_DLL) \
-	$(NINI_DLL) \
 	$(SMUXI_ENGINE_DLL) \
 	$(SMUXI_COMMON_DLL)  
 
@@ -86,10 +83,7 @@ CLEANFILES = $(PROGRAMFILES) $(LINUX_PKGCONFIG)
 
 include $(top_srcdir)/Makefile.include
 
-OSCARLIB_DLL = $(BUILD_DIR)/OscarLib.dll
-LOG4NET_DLL = $(BUILD_DIR)/log4net.dll
 ENGINE_OSCAR_PC = $(BUILD_DIR)/engine-oscar.pc
-NINI_DLL = $(BUILD_DIR)/Nini.dll
 SMUXI_ENGINE_DLL = $(BUILD_DIR)/smuxi-engine.dll
 SMUXI_COMMON_DLL = $(BUILD_DIR)/smuxi-common.dll
 
@@ -110,4 +104,4 @@ $(build_resx_resources) : %.resources: %.resx
 
 $(ASSEMBLY) $(ASSEMBLY_MDB): $(build_sources) $(build_resources) $(build_datafiles) $(DLL_REFERENCES) $(PROJECT_REFERENCES) $(build_xamlg_list) $(build_satellite_assembly_list)
 	mkdir -p $(dir $(ASSEMBLY))
-	$(ASSEMBLY_COMPILER_COMMAND) $(ASSEMBLY_COMPILER_FLAGS) -out:$(ASSEMBLY) -target:$(COMPILE_TARGET) $(build_sources_embed) $(build_resources_embed) $(build_references_ref)
+	$(ASSEMBLY_COMPILER_COMMAND) $(ASSEMBLY_COMPILER_FLAGS) -out:$(ASSEMBLY) -target:$(COMPILE_TARGET) $(build_sources_embed) $(build_resources_embed) $(build_references_ref) $(OSCARLIB_LIBS) $(LOG4NET_LIBS)

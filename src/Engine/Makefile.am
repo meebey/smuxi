@@ -41,8 +41,6 @@ AL=al2
 SATELLITE_ASSEMBLY_NAME=.resources.dll
 
 PROGRAMFILES = \
-	$(LOG4NET_DLL) \
-	$(NINI_DLL) \
 	$(SMUXI_COMMON_DLL)  
 
 LINUX_PKGCONFIG = \
@@ -101,16 +99,12 @@ REFERENCES =  \
 	System \
 	Mono.Posix
 
-DLL_REFERENCES =  \
-	../../lib/log4net.dll \
-	../../lib/Nini.dll
+DLL_REFERENCES = 
 
 CLEANFILES = $(PROGRAMFILES) $(LINUX_PKGCONFIG) 
 
 include $(top_srcdir)/Makefile.include
 
-LOG4NET_DLL = $(BUILD_DIR)/log4net.dll
-NINI_DLL = $(BUILD_DIR)/Nini.dll
 ENGINE_PC = $(BUILD_DIR)/engine.pc
 SMUXI_COMMON_DLL = $(BUILD_DIR)/smuxi-common.dll
 
@@ -128,4 +122,4 @@ $(build_resx_resources) : %.resources: %.resx
 
 $(ASSEMBLY) $(ASSEMBLY_MDB): $(build_sources) $(build_resources) $(build_datafiles) $(DLL_REFERENCES) $(PROJECT_REFERENCES) $(build_xamlg_list) $(build_satellite_assembly_list)
 	mkdir -p $(dir $(ASSEMBLY))
-	$(ASSEMBLY_COMPILER_COMMAND) $(ASSEMBLY_COMPILER_FLAGS) -out:$(ASSEMBLY) -target:$(COMPILE_TARGET) $(build_sources_embed) $(build_resources_embed) $(build_references_ref)
+	$(ASSEMBLY_COMPILER_COMMAND) $(ASSEMBLY_COMPILER_FLAGS) -out:$(ASSEMBLY) -target:$(COMPILE_TARGET) $(build_sources_embed) $(build_resources_embed) $(build_references_ref) $(NINI_LIBS) $(LOG4NET_LIBS)
