@@ -1,6 +1,8 @@
 
 EXTRA_DIST =  
 
+FRONTEND_GNOME_DESKTOP_SOURCE = smuxi-frontend-gnome.desktop
+
 # Warning: This is an automatically generated file, do not edit!
 
 if ENABLE_RELEASE
@@ -61,10 +63,13 @@ PROGRAMFILES = \
 	$(SMUXI_FRONTEND_DLL) \
 	$(SMUXI_COMMON_DLL)  
 
+LINUX_DESKTOPAPPLICATIONS = \
+	$(FRONTEND_GNOME_DESKTOP_DESKTOP)  
+
 BINARIES = \
 	$(FRONTEND_GNOME)  
 
-all: $(ASSEMBLY) $(PROGRAMFILES) $(BINARIES) 
+all: $(ASSEMBLY) $(PROGRAMFILES) $(LINUX_DESKTOPAPPLICATIONS) $(BINARIES) 
 
 FILES = \
 	AboutDialog.cs \
@@ -99,7 +104,8 @@ FILES = \
 	FindGroupChatDialog.cs \
 	gtk-gui/Smuxi.Frontend.Gnome.FindGroupChatDialog.cs 
 
-DATA_FILES = 
+DATA_FILES = \
+	smuxi-frontend-gnome.desktop
 
 RESOURCES = \
 	gtk-gui/gui.stetic \
@@ -130,20 +136,20 @@ REFERENCES =  \
 
 DLL_REFERENCES = 
 
-CLEANFILES = $(PROGRAMFILES) $(BINARIES) 
+CLEANFILES = $(LINUX_DESKTOPAPPLICATIONS) $(PROGRAMFILES) $(BINARIES) 
 
 include $(top_srcdir)/Makefile.include
 
-LOG4NET_DLL = $(BUILD_DIR)/log4net.dll
-NINI_DLL = $(BUILD_DIR)/Nini.dll
 SMUXI_ENGINE_DLL = $(BUILD_DIR)/smuxi-engine.dll
 FRONTEND_GNOME = $(BUILD_DIR)/smuxi-frontend-gnome
+FRONTEND_GNOME_DESKTOP = $(BUILD_DIR)/smuxi-frontend-gnome.desktop
 FRONTEND_GNOME_PC = $(BUILD_DIR)/smuxi-frontend-gnome.pc
 SMUXI_FRONTEND_DLL = $(BUILD_DIR)/smuxi-frontend.dll
 SMUXI_COMMON_DLL = $(BUILD_DIR)/smuxi-common.dll
 
 $(eval $(call emit-deploy-wrapper,FRONTEND_GNOME,smuxi-frontend-gnome,x))
 $(eval $(call emit-deploy-wrapper,FRONTEND_GNOME_PC,smuxi-frontend-gnome.pc))
+$(eval $(call emit-deploy-target,FRONTEND_GNOME_DESKTOP))
 $(eval $(call emit-deploy-target,SMUXI_ENGINE_DLL_MDB))
 $(eval $(call emit-deploy-target,SMUXI_ENGINE_DLL))
 $(eval $(call emit-deploy-target,SMUXI_FRONTEND_DLL_MDB))

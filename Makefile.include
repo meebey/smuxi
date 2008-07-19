@@ -41,9 +41,12 @@ bin_SCRIPTS = $(BINARIES)
 
 programfilesdir = @libdir@/@PACKAGE@
 programfiles_DATA = $(PROGRAMFILES)
+programfilesiconsdir = @libdir@/@PACKAGE@/icons
+programfilesicons_DATA = $(PROGRAMFILES_ICONS)
 linuxpkgconfigdir = @libdir@/pkgconfig
 linuxpkgconfig_DATA = $(LINUX_PKGCONFIG)
-
+linuxdesktopapplicationsdir = @prefix@/share/applications
+linuxdesktopapplications_DATA = $(LINUX_DESKTOPAPPLICATIONS)
 
 # macros
 
