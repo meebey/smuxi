@@ -102,16 +102,16 @@ FILES = \
 DATA_FILES = 
 
 RESOURCES = \
-	resources/about.png \
-	resources/splashscreen.png \
-	resources/smuxi-frontend-gnome.glade \
-	resources/connect.png \
-	resources/edit.png \
 	gtk-gui/gui.stetic \
-	resources/group-chat.svg \
-	resources/person-chat.svg \
-	resources/protocol-chat.svg \
-	resources/session-chat.svg 
+	$(top_srcdir)/images/about.png \
+	$(top_srcdir)/images/splashscreen.png \
+	$(top_srcdir)/glade/smuxi-frontend-gnome.glade \
+	$(top_srcdir)/images/connect.png \
+	$(top_srcdir)/images/edit.png \
+	$(top_srcdir)/images/group-chat.svg \
+	$(top_srcdir)/images/person-chat.svg \
+	$(top_srcdir)/images/protocol-chat.svg \
+	$(top_srcdir)/images/session-chat.svg 
 
 EXTRAS = \
 	smuxi-frontend-gnome.in \
