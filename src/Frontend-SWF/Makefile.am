@@ -91,7 +91,7 @@ FILES = \
 DATA_FILES = 
 
 RESOURCES = \
-	resources/splashscreen.png 
+	$(top_srcdir)/images/splashscreen.png 
 
 EXTRAS = \
 	smuxi-frontend-swf.in 
