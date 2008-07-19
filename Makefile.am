@@ -1,7 +1,6 @@
 EXTRA_DIST =	expansions.m4 \
-		intltool-update.in \
-		intltool-extract.in \
-		intltool-merge.in \
+		mono.m4 \
+		programs.4 \
 		LICENSE \
 		README \
 		CREDITS \
