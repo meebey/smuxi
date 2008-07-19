@@ -11,10 +11,10 @@ In order to run smuxi you need the following software
 Linux Installation (Gtk#/Gnome#)
 ------------------
 On Linux smuxi can use the Gnome# or the Gtk# GUI library, Gnome# is 
-prefered, as configuration backend GConf is used.
+prefered, as configuration backend an INI file is used.
 
 you need:
-- Mono >= 1.2.5 [0]
+- Mono >= 1.2.6 [0]
 - Gtk# >= 2.8.0 [1]
 
 [0] http://www.mono-project.com/Downloads
@@ -27,7 +27,7 @@ or
 apt-get install libgtk2.0-cil (if you want to use Gtk#)
 
 Or using the official Debian packages just do:
-apt-get instlal smuxi-frontend-gnome-irc
+apt-get install smuxi-frontend-gnome-irc
 
 Windows Installation
 --------------------
@@ -45,4 +45,3 @@ or
 [1] http://sourceforge.net/project/showfiles.php?group_id=110719
 [2] http://forge.novell.com/modules/xfmod/project/showfiles.php?group_id=1430&release_id=1637#selected
 [3] http://forge.novell.com/modules/xfmod/project/showfiles.php?group_id=1395&release_id=1945#selected
-

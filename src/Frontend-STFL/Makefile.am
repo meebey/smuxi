@@ -90,22 +90,21 @@ RESOURCES = \
 	MainWindow.stfl 
 
 EXTRAS = \
-	frontend-stfl.in 
+	smuxi-frontend-stfl.in 
 
 REFERENCES =  \
 	System \
 	Mono.Posix
+	$(STFL_LIBS) \
+	$(LOG4NET_LIBS)
 
-DLL_REFERENCES =  \
-	../../lib/log4net.dll \
-	../../lib/Stfl.dll \
-	../../lib/Nini.dll
+DLL_REFERENCES = 
 
 CLEANFILES = $(PROGRAMFILES) $(BINARIES) 
 
 include $(top_srcdir)/Makefile.include
 
-FRONTEND_STFL = $(BUILD_DIR)/frontend-stfl
+FRONTEND_STFL = $(BUILD_DIR)/smuxi-frontend-stfl
 LOG4NET_DLL = $(BUILD_DIR)/log4net.dll
 NINI_DLL = $(BUILD_DIR)/Nini.dll
 SMUXI_ENGINE_DLL = $(BUILD_DIR)/smuxi-engine.dll
@@ -113,12 +112,9 @@ STFL_DLL = $(BUILD_DIR)/Stfl.dll
 SMUXI_FRONTEND_DLL = $(BUILD_DIR)/smuxi-frontend.dll
 SMUXI_COMMON_DLL = $(BUILD_DIR)/smuxi-common.dll
 
-$(eval $(call emit-deploy-wrapper,FRONTEND_STFL,frontend-stfl,x))
-$(eval $(call emit-deploy-target,LOG4NET_DLL))
+$(eval $(call emit-deploy-wrapper,FRONTEND_STFL,smuxi-frontend-stfl,x))
 $(eval $(call emit-deploy-target,SMUXI_ENGINE_DLL_MDB))
-$(eval $(call emit-deploy-target,NINI_DLL))
 $(eval $(call emit-deploy-target,SMUXI_ENGINE_DLL))
-$(eval $(call emit-deploy-target,STFL_DLL))
 $(eval $(call emit-deploy-target,SMUXI_FRONTEND_DLL_MDB))
 $(eval $(call emit-deploy-target,SMUXI_FRONTEND_DLL))
 $(eval $(call emit-deploy-target,SMUXI_COMMON_DLL))

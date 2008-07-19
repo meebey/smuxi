@@ -80,8 +80,6 @@ PROGRAMFILES = \
 
 LINUX_PKGCONFIG = \
 	$(FRONTEND_GNOME_XMPP_PC)  
-
-
 	
 all: $(ASSEMBLY) $(PROGRAMFILES) $(LINUX_PKGCONFIG) 
 
@@ -93,7 +91,7 @@ DATA_FILES =
 RESOURCES = 
 
 EXTRAS = \
-	frontend-gnome-xmpp.pc.in 
+	smuxi-frontend-gnome-xmpp.pc.in 
 
 REFERENCES = 
 
@@ -103,7 +101,7 @@ CLEANFILES = $(PROGRAMFILES) $(LINUX_PKGCONFIG)
 
 include $(top_srcdir)/Makefile.include
 
-FRONTEND_GNOME_XMPP_PC = $(BUILD_DIR)/frontend-gnome-xmpp.pc
+FRONTEND_GNOME_XMPP_PC = $(BUILD_DIR)/smuxi-frontend-gnome-xmpp.pc
 SMUXI_COMMON_DLL = $(BUILD_DIR)/smuxi-common.dll
 SMUXI_ENGINE_XMPP_DLL = $(BUILD_DIR)/smuxi-engine-xmpp.dll
 SMUXI_FRONTEND_DLL = $(BUILD_DIR)/smuxi-frontend.dll
@@ -113,7 +111,7 @@ LOG4NET_DLL = $(BUILD_DIR)/log4net.dll
 SMUXI_ENGINE_DLL = $(BUILD_DIR)/smuxi-engine.dll
 JABBER_NET_DLL = $(BUILD_DIR)/jabber-net.dll
 
-$(eval $(call emit-deploy-wrapper,FRONTEND_GNOME_XMPP_PC,frontend-gnome-xmpp.pc))
+$(eval $(call emit-deploy-wrapper,FRONTEND_GNOME_XMPP_PC,smuxi-frontend-gnome-xmpp.pc))
 $(eval $(call emit-deploy-target,SMUXI_COMMON_DLL))
 $(eval $(call emit-deploy-target,SMUXI_ENGINE_XMPP_DLL_MDB))
 $(eval $(call emit-deploy-target,SMUXI_ENGINE_XMPP_DLL))
@@ -121,11 +119,8 @@ $(eval $(call emit-deploy-target,SMUXI_FRONTEND_GNOME_EXE_MDB))
 $(eval $(call emit-deploy-target,SMUXI_FRONTEND_DLL))
 $(eval $(call emit-deploy-target,SMUXI_ENGINE_DLL_MDB))
 $(eval $(call emit-deploy-target,SMUXI_FRONTEND_DLL_MDB))
-$(eval $(call emit-deploy-target,NINI_DLL))
 $(eval $(call emit-deploy-target,SMUXI_FRONTEND_GNOME_EXE))
-$(eval $(call emit-deploy-target,LOG4NET_DLL))
 $(eval $(call emit-deploy-target,SMUXI_ENGINE_DLL))
-$(eval $(call emit-deploy-target,JABBER_NET_DLL))
 
 
 $(build_xamlg_list): %.xaml.g.cs: %.xaml

@@ -1,0 +1,6 @@
+Name: Frontend-GNOME
+Description: Frontend-GNOME
+Version: @VERSION@
+
+Requires: smuxi-frontend smuxi-engine
+Libs: -r:@expanded_libdir@/@PACKAGE@/smuxi-frontend-gnome.exe

@@ -72,15 +72,15 @@ DATA_FILES =
 RESOURCES = 
 
 EXTRAS = \
-	engine-msnp.pc.in 
+	smuxi-engine-msnp.pc.in 
 
 REFERENCES =  \
 	System \
-	Mono.Posix
+	Mono.Posix \
+	$(MSNPSHARP_LIBS) \
+	$(LOG4NET_LIBS)
 
-DLL_REFERENCES =  \
-	../../lib/log4net.dll \
-	../../lib/MSNPSharp.dll
+DLL_REFERENCES = 
 
 CLEANFILES = $(PROGRAMFILES) $(LINUX_PKGCONFIG) 
 
@@ -90,7 +90,7 @@ LOG4NET_DLL = $(BUILD_DIR)/log4net.dll
 MSNPSHARP_DLL = $(BUILD_DIR)/MSNPSharp.dll
 NINI_DLL = $(BUILD_DIR)/Nini.dll
 SMUXI_ENGINE_DLL = $(BUILD_DIR)/smuxi-engine.dll
-ENGINE_MSNP_PC = $(BUILD_DIR)/engine-msnp.pc
+ENGINE_MSNP_PC = $(BUILD_DIR)/smuxi-engine-msnp.pc
 SMUXI_COMMON_DLL = $(BUILD_DIR)/smuxi-common.dll
 
 $(eval $(call emit-deploy-target,LOG4NET_DLL))
@@ -98,7 +98,7 @@ $(eval $(call emit-deploy-target,SMUXI_ENGINE_DLL_MDB))
 $(eval $(call emit-deploy-target,MSNPSHARP_DLL))
 $(eval $(call emit-deploy-target,NINI_DLL))
 $(eval $(call emit-deploy-target,SMUXI_ENGINE_DLL))
-$(eval $(call emit-deploy-wrapper,ENGINE_MSNP_PC,engine-msnp.pc))
+$(eval $(call emit-deploy-wrapper,ENGINE_MSNP_PC,smuxi-engine-msnp.pc))
 $(eval $(call emit-deploy-target,SMUXI_COMMON_DLL))
 
 

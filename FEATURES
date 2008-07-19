@@ -6,7 +6,7 @@
  * $Date$
  */
 
-- Gtk frontend
+- GTK+ frontend
 - GNOME frontend
 - multiplexed engine
 - multiple user support

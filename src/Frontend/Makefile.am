@@ -73,7 +73,7 @@ DATA_FILES =
 RESOURCES = 
 
 EXTRAS = \
-	frontend.pc.in 
+	smuxi-frontend.pc.in 
 
 REFERENCES =  \
 	System \
@@ -86,16 +86,14 @@ CLEANFILES = $(PROGRAMFILES) $(LINUX_PKGCONFIG)
 
 include $(top_srcdir)/Makefile.include
 
-FRONTEND_PC = $(BUILD_DIR)/frontend.pc
+FRONTEND_PC = $(BUILD_DIR)/smuxi-frontend.pc
 LOG4NET_DLL = $(BUILD_DIR)/log4net.dll
 NINI_DLL = $(BUILD_DIR)/Nini.dll
 SMUXI_ENGINE_DLL = $(BUILD_DIR)/smuxi-engine.dll
 SMUXI_COMMON_DLL = $(BUILD_DIR)/smuxi-common.dll
 
-$(eval $(call emit-deploy-wrapper,FRONTEND_PC,frontend.pc))
-$(eval $(call emit-deploy-target,LOG4NET_DLL))
+$(eval $(call emit-deploy-wrapper,FRONTEND_PC,smuxi-frontend.pc))
 $(eval $(call emit-deploy-target,SMUXI_ENGINE_DLL_MDB))
-$(eval $(call emit-deploy-target,NINI_DLL))
 $(eval $(call emit-deploy-target,SMUXI_ENGINE_DLL))
 $(eval $(call emit-deploy-target,SMUXI_COMMON_DLL))
 

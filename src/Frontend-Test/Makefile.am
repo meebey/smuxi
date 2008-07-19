@@ -47,9 +47,7 @@ AL=al2
 SATELLITE_ASSEMBLY_NAME=.resources.dll
 
 PROGRAMFILES = \
-	$(LOG4NET_DLL) \
 	$(SMUXI_ENGINE_DLL_MDB) \
-	$(NINI_DLL) \
 	$(SMUXI_ENGINE_DLL) \
 	$(SMUXI_COMMON_DLL)  
 
@@ -71,13 +69,13 @@ DATA_FILES =
 RESOURCES = 
 
 EXTRAS = \
-	frontend-test.in 
+	smuxi-frontend-test.in 
 
 REFERENCES =  \
-	System.Runtime.Remoting
+	System.Runtime.Remoting \
+	$(LOG4NET_LIBS)
 
-DLL_REFERENCES =  \
-	../../lib/log4net.dll
+DLL_REFERENCES = 
 
 CLEANFILES = $(PROGRAMFILES) $(BINARIES) 
 
@@ -86,14 +84,14 @@ include $(top_srcdir)/Makefile.include
 LOG4NET_DLL = $(BUILD_DIR)/log4net.dll
 NINI_DLL = $(BUILD_DIR)/Nini.dll
 SMUXI_ENGINE_DLL = $(BUILD_DIR)/smuxi-engine.dll
-FRONTEND_TEST = $(BUILD_DIR)/frontend-test
+FRONTEND_TEST = $(BUILD_DIR)/smuxi-frontend-test
 SMUXI_COMMON_DLL = $(BUILD_DIR)/smuxi-common.dll
 
 $(eval $(call emit-deploy-target,LOG4NET_DLL))
 $(eval $(call emit-deploy-target,SMUXI_ENGINE_DLL_MDB))
 $(eval $(call emit-deploy-target,NINI_DLL))
 $(eval $(call emit-deploy-target,SMUXI_ENGINE_DLL))
-$(eval $(call emit-deploy-wrapper,FRONTEND_TEST,frontend-test,x))
+$(eval $(call emit-deploy-wrapper,FRONTEND_TEST,smuxi-frontend-test,x))
 $(eval $(call emit-deploy-target,SMUXI_COMMON_DLL))
 
 

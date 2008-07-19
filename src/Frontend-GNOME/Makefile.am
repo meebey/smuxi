@@ -64,8 +64,6 @@ PROGRAMFILES = \
 BINARIES = \
 	$(FRONTEND_GNOME)  
 
-
-	
 all: $(ASSEMBLY) $(PROGRAMFILES) $(BINARIES) 
 
 FILES = \
@@ -116,7 +114,8 @@ RESOURCES = \
 	resources/session-chat.svg 
 
 EXTRAS = \
-	frontend-gnome.in 
+	smuxi-frontend-gnome.in \
+	smuxi-frontend-gnome.pc.in
 
 REFERENCES =  \
 	System.Runtime.Remoting \
@@ -137,15 +136,15 @@ include $(top_srcdir)/Makefile.include
 LOG4NET_DLL = $(BUILD_DIR)/log4net.dll
 NINI_DLL = $(BUILD_DIR)/Nini.dll
 SMUXI_ENGINE_DLL = $(BUILD_DIR)/smuxi-engine.dll
-FRONTEND_GNOME = $(BUILD_DIR)/frontend-gnome
+FRONTEND_GNOME = $(BUILD_DIR)/smuxi-frontend-gnome
+FRONTEND_GNOME_PC = $(BUILD_DIR)/smuxi-frontend-gnome.pc
 SMUXI_FRONTEND_DLL = $(BUILD_DIR)/smuxi-frontend.dll
 SMUXI_COMMON_DLL = $(BUILD_DIR)/smuxi-common.dll
 
-$(eval $(call emit-deploy-target,LOG4NET_DLL))
+$(eval $(call emit-deploy-wrapper,FRONTEND_GNOME,smuxi-frontend-gnome,x))
+$(eval $(call emit-deploy-wrapper,FRONTEND_GNOME_PC,smuxi-frontend-gnome.pc))
 $(eval $(call emit-deploy-target,SMUXI_ENGINE_DLL_MDB))
-$(eval $(call emit-deploy-target,NINI_DLL))
 $(eval $(call emit-deploy-target,SMUXI_ENGINE_DLL))
-$(eval $(call emit-deploy-wrapper,FRONTEND_GNOME,frontend-gnome,x))
 $(eval $(call emit-deploy-target,SMUXI_FRONTEND_DLL_MDB))
 $(eval $(call emit-deploy-target,SMUXI_FRONTEND_DLL))
 $(eval $(call emit-deploy-target,SMUXI_COMMON_DLL))

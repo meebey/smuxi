@@ -1,0 +1,6 @@
+Name: Engine-OSCAR
+Description: Engine-OSCAR
+Version: @VERSION@
+
+Requires: smuxi-engine
+Libs: -r:@expanded_libdir@/@PACKAGE@/smuxi-engine-oscar.dll

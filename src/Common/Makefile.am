@@ -38,8 +38,6 @@ PROGRAMFILES =
 
 LINUX_PKGCONFIG = \
 	$(COMMON_PC)  
-
-
 	
 all: $(ASSEMBLY) $(PROGRAMFILES) $(LINUX_PKGCONFIG) 
 
@@ -55,7 +53,7 @@ DATA_FILES =
 RESOURCES = 
 
 EXTRAS = \
-	common.pc.in 
+	smuxi-common.pc.in 
 
 REFERENCES =  \
 	System
@@ -67,10 +65,9 @@ CLEANFILES = $(PROGRAMFILES) $(LINUX_PKGCONFIG)
 include $(top_srcdir)/Makefile.include
 
 LOG4NET_DLL = $(BUILD_DIR)/log4net.dll
-COMMON_PC = $(BUILD_DIR)/common.pc
+COMMON_PC = $(BUILD_DIR)/smuxi-common.pc
 
-$(eval $(call emit-deploy-target,LOG4NET_DLL))
-$(eval $(call emit-deploy-wrapper,COMMON_PC,common.pc))
+$(eval $(call emit-deploy-wrapper,COMMON_PC,smuxi-common.pc))
 
 
 $(build_xamlg_list): %.xaml.g.cs: %.xaml

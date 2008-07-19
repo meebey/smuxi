@@ -58,11 +58,7 @@ PROGRAMFILES = \
 LINUX_PKGCONFIG = \
 	$(ENGINE_IRC_PC)  
 
-if ENABLE_IRC	
 all: $(ASSEMBLY) $(PROGRAMFILES) $(LINUX_PKGCONFIG) 
-else
-all:
-endif
 
 FILES = \
 	Protocols/Irc/IrcGroupPersonModel.cs \
@@ -76,7 +72,7 @@ DATA_FILES =
 RESOURCES = 
 
 EXTRAS = \
-	engine-irc.pc.in 
+	smuxi-engine-irc.pc.in 
 
 REFERENCES =  \
 	System \
@@ -88,16 +84,13 @@ CLEANFILES = $(PROGRAMFILES) $(LINUX_PKGCONFIG)
 
 include $(top_srcdir)/Makefile.include
 
-ENGINE_IRC_PC = $(BUILD_DIR)/engine-irc.pc
+ENGINE_IRC_PC = $(BUILD_DIR)/smuxi-engine-irc.pc
 SMUXI_ENGINE_DLL = $(BUILD_DIR)/smuxi-engine.dll
 SMUXI_COMMON_DLL = $(BUILD_DIR)/smuxi-common.dll
 
-$(eval $(call emit-deploy-wrapper,ENGINE_IRC_PC,engine-irc.pc))
+$(eval $(call emit-deploy-wrapper,ENGINE_IRC_PC,smuxi-engine-irc.pc))
 $(eval $(call emit-deploy-target,SMUXI_ENGINE_DLL_MDB))
-$(eval $(call emit-deploy-target,LOG4NET_DLL))
-$(eval $(call emit-deploy-target,NINI_DLL))
 $(eval $(call emit-deploy-target,SMUXI_ENGINE_DLL))
-$(eval $(call emit-deploy-target,MEEBEY_SMARTIRC4NET_DLL))
 $(eval $(call emit-deploy-target,SMUXI_COMMON_DLL))
 
 

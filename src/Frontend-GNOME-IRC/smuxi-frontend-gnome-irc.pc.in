@@ -1,0 +1,6 @@
+Name: Frontend-GNOME-IRC
+Description: Frontend-GNOME-IRC
+Version: @VERSION@
+
+Requires: smuxi-frontend-gnome smuxi-engine-irc
+Libs: -r:@expanded_libdir@/@PACKAGE@/smuxi-frontend-gnome-irc.dll

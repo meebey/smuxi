@@ -1,0 +1,6 @@
+Name: smuxi-engine
+Description: smuxi's engine library
+Version: @VERSION@
+
+Requires: smuxi-common
+Libs: -r:@expanded_libdir@/@PACKAGE@/smuxi-engine.dll

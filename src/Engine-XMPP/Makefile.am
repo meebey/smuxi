@@ -72,15 +72,15 @@ DATA_FILES =
 RESOURCES = 
 
 EXTRAS = \
-	engine-xmpp.pc.in 
+	smuxi-engine-xmpp.pc.in 
 
 REFERENCES =  \
 	System \
-	Mono.Posix
+	Mono.Posix \
+	$(JABBER_NET_LIBS) \
+	$(LOG4NET_LIBS)
 
-DLL_REFERENCES =  \
-	../../lib/jabber-net.dll \
-	../../lib/log4net.dll
+DLL_REFERENCES =  
 
 CLEANFILES = $(PROGRAMFILES) $(LINUX_PKGCONFIG) 
 
@@ -90,15 +90,12 @@ LOG4NET_DLL = $(BUILD_DIR)/log4net.dll
 NINI_DLL = $(BUILD_DIR)/Nini.dll
 SMUXI_ENGINE_DLL = $(BUILD_DIR)/smuxi-engine.dll
 JABBER_NET_DLL = $(BUILD_DIR)/jabber-net.dll
-ENGINE_XMPP_PC = $(BUILD_DIR)/engine-xmpp.pc
+ENGINE_XMPP_PC = $(BUILD_DIR)/smuxi-engine-xmpp.pc
 SMUXI_COMMON_DLL = $(BUILD_DIR)/smuxi-common.dll
 
 $(eval $(call emit-deploy-target,SMUXI_ENGINE_DLL_MDB))
-$(eval $(call emit-deploy-target,LOG4NET_DLL))
-$(eval $(call emit-deploy-target,NINI_DLL))
 $(eval $(call emit-deploy-target,SMUXI_ENGINE_DLL))
-$(eval $(call emit-deploy-target,JABBER_NET_DLL))
-$(eval $(call emit-deploy-wrapper,ENGINE_XMPP_PC,engine-xmpp.pc))
+$(eval $(call emit-deploy-wrapper,ENGINE_XMPP_PC,smuxi-engine-xmpp.pc))
 $(eval $(call emit-deploy-target,SMUXI_COMMON_DLL))
 
 

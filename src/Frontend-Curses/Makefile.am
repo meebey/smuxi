@@ -87,15 +87,15 @@ DATA_FILES =
 RESOURCES = 
 
 EXTRAS = \
-	frontend-curses.in 
+	smuxi-frontend-curses.in 
 
 REFERENCES =  \
 	System \
-	Mono.Posix
+	Mono.Posix \
+	$(MONO_CURSES_LIBS) \
+	$(LOG4NET_LIBS)
 
-DLL_REFERENCES =  \
-	../../lib/log4net.dll \
-	../../lib/mono-curses/mono-curses.dll
+DLL_REFERENCES = 
 
 CLEANFILES = $(PROGRAMFILES) $(BINARIES) 
 
@@ -104,17 +104,14 @@ include $(top_srcdir)/Makefile.include
 LOG4NET_DLL = $(BUILD_DIR)/log4net.dll
 NINI_DLL = $(BUILD_DIR)/Nini.dll
 SMUXI_ENGINE_DLL = $(BUILD_DIR)/smuxi-engine.dll
-FRONTEND_CURSES = $(BUILD_DIR)/frontend-curses
+FRONTEND_CURSES = $(BUILD_DIR)/smuxi-frontend-curses
 MONO_CURSES_DLL = $(BUILD_DIR)/mono-curses.dll
 SMUXI_FRONTEND_DLL = $(BUILD_DIR)/smuxi-frontend.dll
 SMUXI_COMMON_DLL = $(BUILD_DIR)/smuxi-common.dll
 
-$(eval $(call emit-deploy-target,LOG4NET_DLL))
 $(eval $(call emit-deploy-target,SMUXI_ENGINE_DLL_MDB))
-$(eval $(call emit-deploy-target,NINI_DLL))
 $(eval $(call emit-deploy-target,SMUXI_ENGINE_DLL))
-$(eval $(call emit-deploy-wrapper,FRONTEND_CURSES,frontend-curses,x))
-$(eval $(call emit-deploy-target,MONO_CURSES_DLL))
+$(eval $(call emit-deploy-wrapper,FRONTEND_CURSES,frontend-smuxi-curses,x))
 $(eval $(call emit-deploy-target,SMUXI_FRONTEND_DLL_MDB))
 $(eval $(call emit-deploy-target,SMUXI_FRONTEND_DLL))
 $(eval $(call emit-deploy-target,SMUXI_COMMON_DLL))

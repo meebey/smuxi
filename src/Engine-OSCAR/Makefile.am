@@ -69,29 +69,26 @@ DATA_FILES =
 RESOURCES = 
 
 EXTRAS = \
-	engine-oscar.pc.in 
+	smuxi-engine-oscar.pc.in 
 
 REFERENCES =  \
 	Mono.Posix \
-	System
+	System \
+	$(OSCARLIB_LIBS) \
+	$(LOG4NET_LIBS)
 
-DLL_REFERENCES =  \
-	../../lib/OscarLib.dll \
-	../../lib/log4net.dll
+DLL_REFERENCES = 
 
 CLEANFILES = $(PROGRAMFILES) $(LINUX_PKGCONFIG) 
 
 include $(top_srcdir)/Makefile.include
 
-ENGINE_OSCAR_PC = $(BUILD_DIR)/engine-oscar.pc
+ENGINE_OSCAR_PC = $(BUILD_DIR)/smuxi-engine-oscar.pc
 SMUXI_ENGINE_DLL = $(BUILD_DIR)/smuxi-engine.dll
 SMUXI_COMMON_DLL = $(BUILD_DIR)/smuxi-common.dll
 
-$(eval $(call emit-deploy-target,OSCARLIB_DLL))
 $(eval $(call emit-deploy-target,SMUXI_ENGINE_DLL_MDB))
-$(eval $(call emit-deploy-target,LOG4NET_DLL))
-$(eval $(call emit-deploy-wrapper,ENGINE_OSCAR_PC,engine-oscar.pc))
-$(eval $(call emit-deploy-target,NINI_DLL))
+$(eval $(call emit-deploy-wrapper,ENGINE_OSCAR_PC,smuxi-engine-oscar.pc))
 $(eval $(call emit-deploy-target,SMUXI_ENGINE_DLL))
 $(eval $(call emit-deploy-target,SMUXI_COMMON_DLL))
 

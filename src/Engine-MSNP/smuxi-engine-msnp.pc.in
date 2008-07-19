@@ -1,0 +1,6 @@
+Name: Engine-MSNP
+Description: Engine-MSNP
+Version: @VERSION@
+
+Requires: smuxi-engine
+Libs: -r:@expanded_libdir@/@PACKAGE@/smuxi-engine-msnp.dll

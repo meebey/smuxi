@@ -1,0 +1,6 @@
+Name: smuxi-engine-irc
+Description: Engine-IRC
+Version: @VERSION@
+
+Requires: smuxi-engine
+Libs: -r:@expanded_libdir@/@PACKAGE@/smuxi-engine-irc.dll

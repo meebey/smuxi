@@ -1,0 +1,16 @@
+/**
+ * $Id$
+ * $URL$
+ * $Rev$
+ * $Author$
+ * $Date$
+ */
+
+For checking known bugs, please visit:
+http://smuxi.meebey.net/cgi-bin/trac/trac.cgi/query?status=new&status=assigned&status=reopened&type=defect&order=id&desc=1
+
+For checking known feature requests, please visit:
+http://smuxi.meebey.net/cgi-bin/trac/trac.cgi/query?status=new&status=assigned&status=reopened&type=enhancement&order=id&desc=1
+
+For reporting a new bugs or feature request, please visit:
+http://smuxi.meebey.net/cgi-bin/trac/trac.cgi/newticket

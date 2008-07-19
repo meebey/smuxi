@@ -45,8 +45,6 @@ PROGRAMFILES = \
 
 LINUX_PKGCONFIG = \
 	$(ENGINE_PC)  
-
-
 	
 all: $(ASSEMBLY) $(PROGRAMFILES) $(LINUX_PKGCONFIG) 
 
@@ -92,7 +90,7 @@ DATA_FILES =
 RESOURCES = 
 
 EXTRAS = \
-	engine.pc.in 
+	smuxi-engine.pc.in 
 
 REFERENCES =  \
 	System.Runtime.Remoting \
@@ -105,12 +103,10 @@ CLEANFILES = $(PROGRAMFILES) $(LINUX_PKGCONFIG)
 
 include $(top_srcdir)/Makefile.include
 
-ENGINE_PC = $(BUILD_DIR)/engine.pc
+ENGINE_PC = $(BUILD_DIR)/smuxi-engine.pc
 SMUXI_COMMON_DLL = $(BUILD_DIR)/smuxi-common.dll
 
-$(eval $(call emit-deploy-target,LOG4NET_DLL))
-$(eval $(call emit-deploy-target,NINI_DLL))
-$(eval $(call emit-deploy-wrapper,ENGINE_PC,engine.pc))
+$(eval $(call emit-deploy-wrapper,ENGINE_PC,smuxi-engine.pc))
 $(eval $(call emit-deploy-target,SMUXI_COMMON_DLL))
 
 

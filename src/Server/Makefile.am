@@ -68,7 +68,7 @@ DATA_FILES =
 RESOURCES = 
 
 EXTRAS = \
-	server.in 
+	smuxi-server.in 
 
 REFERENCES =  \
 	System.Runtime.Remoting \
@@ -83,16 +83,13 @@ include $(top_srcdir)/Makefile.include
 LOG4NET_DLL = $(BUILD_DIR)/log4net.dll
 NINI_DLL = $(BUILD_DIR)/Nini.dll
 SMUXI_ENGINE_DLL = $(BUILD_DIR)/smuxi-engine.dll
-SERVER = $(BUILD_DIR)/server
+SERVER = $(BUILD_DIR)/smuxi-server
 TCPEXCHANNEL_DLL = $(BUILD_DIR)/TcpExChannel.dll
 SMUXI_COMMON_DLL = $(BUILD_DIR)/smuxi-common.dll
 
-$(eval $(call emit-deploy-target,LOG4NET_DLL))
 $(eval $(call emit-deploy-target,SMUXI_ENGINE_DLL_MDB))
-$(eval $(call emit-deploy-target,NINI_DLL))
 $(eval $(call emit-deploy-target,SMUXI_ENGINE_DLL))
-$(eval $(call emit-deploy-wrapper,SERVER,server,x))
-$(eval $(call emit-deploy-target,TCPEXCHANNEL_DLL))
+$(eval $(call emit-deploy-wrapper,SERVER,smuxi-server,x))
 $(eval $(call emit-deploy-target,SMUXI_COMMON_DLL))
 
 

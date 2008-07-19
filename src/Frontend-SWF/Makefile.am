@@ -94,16 +94,16 @@ RESOURCES = \
 	resources/splashscreen.png 
 
 EXTRAS = \
-	frontend-swf.in 
+	smuxi-frontend-swf.in 
 
 REFERENCES =  \
 	System \
 	System.Windows.Forms \
 	System.Drawing \
-	Mono.Posix
+	Mono.Posix \
+	$(LOG4NET_LIBS)
 
-DLL_REFERENCES =  \
-	../../lib/log4net.dll
+DLL_REFERENCES = 
 
 CLEANFILES = $(PROGRAMFILES) $(BINARIES) 
 
@@ -112,15 +112,13 @@ include $(top_srcdir)/Makefile.include
 LOG4NET_DLL = $(BUILD_DIR)/log4net.dll
 NINI_DLL = $(BUILD_DIR)/Nini.dll
 SMUXI_ENGINE_DLL = $(BUILD_DIR)/smuxi-engine.dll
-FRONTEND_SWF = $(BUILD_DIR)/frontend-swf
+FRONTEND_SWF = $(BUILD_DIR)/smuxi-frontend-swf
 SMUXI_FRONTEND_DLL = $(BUILD_DIR)/smuxi-frontend.dll
 SMUXI_COMMON_DLL = $(BUILD_DIR)/smuxi-common.dll
 
 $(eval $(call emit-deploy-target,SMUXI_ENGINE_DLL_MDB))
-$(eval $(call emit-deploy-target,LOG4NET_DLL))
-$(eval $(call emit-deploy-target,NINI_DLL))
 $(eval $(call emit-deploy-target,SMUXI_ENGINE_DLL))
-$(eval $(call emit-deploy-wrapper,FRONTEND_SWF,frontend-swf,x))
+$(eval $(call emit-deploy-wrapper,FRONTEND_SWF,smuxi-frontend-swf,x))
 $(eval $(call emit-deploy-target,SMUXI_FRONTEND_DLL_MDB))
 $(eval $(call emit-deploy-target,SMUXI_FRONTEND_DLL))
 $(eval $(call emit-deploy-target,SMUXI_COMMON_DLL))

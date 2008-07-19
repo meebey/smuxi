@@ -1,0 +1,375 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: 0.6.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2008-07-17 22:40+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: Mirco Bauer <meebey@meebey.net>\n"
+"Language-Team: German <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../../src/Engine/FrontendManager.cs:192
+msgid "no network connections"
+msgstr "keine Netzwerkverbindungen"
+
+#: ../../src/Engine/Protocols/ProtocolManagerBase.cs:139
+#: ../../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1311
+msgid "Not connected to server"
+msgstr "Nicht mit dem Server verbunden"
+
+#: ../../src/Engine/Protocols/ProtocolManagerBase.cs:145
+#: ../../src/Engine/Session.cs:632
+#: ../../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1306
+#, csharp-format
+msgid "Not enough parameters for {0} command"
+msgstr "Nicht genug Parameter fr den Befehl: {0}"
+
+#: ../../src/Engine/Session.cs:117
+msgid "Welcome to Smuxi"
+msgstr "Willkommen zu Smuxi"
+
+#: ../../src/Engine/Session.cs:186
+#, csharp-format
+msgid "Automatic connect to {0} failed!"
+msgstr "Automatisches verbinden mit {0} ist fehlgeschlagen!"
+
+#: ../../src/Engine/Session.cs:344
+msgid "[Engine Commands]"
+msgstr "[Engine Befehle]"
+
+#: ../../src/Engine/Session.cs:448
+#, csharp-format
+msgid "Disconnect failed, could not find server: {0}"
+msgstr "Trennung fehlgeschlagen, konnte Server: {0} nicht finden"
+
+#: ../../src/Engine/Session.cs:508
+msgid "Configuration reloaded"
+msgstr "Konfiguration neugeladen"
+
+#: ../../src/Engine/Session.cs:513
+msgid "Configuration saved"
+msgstr "Konfiguration gespeichert"
+
+#: ../../src/Engine/Session.cs:517
+msgid "Invalid paramater for config, use load or save"
+msgstr "Ungltiger Parameter fr \"config\", bergebe \"load\" oder \"save\""
+
+#: ../../src/Engine/Session.cs:547
+msgid "Invalid paramater for network, use list, switch or close"
+msgstr ""
+"Ungltiger Parameter fr \"network\", bergebe \"list\", \"switch\" oder \"close"
+"\""
+
+#: ../../src/Engine/Session.cs:558
+msgid "Networks"
+msgstr "Netzwerke"
+
+#: ../../src/Engine/Session.cs:561
+msgid "Type"
+msgstr "Typ"
+
+#: ../../src/Engine/Session.cs:562
+msgid "Host"
+msgstr "Host"
+
+#: ../../src/Engine/Session.cs:563
+msgid "Port"
+msgstr "Port"
+
+#: ../../src/Engine/Session.cs:582
+#, csharp-format
+msgid "Network close failed, could not find network with host: {0}"
+msgstr ""
+"Schlieen des Netzwerks fehlgeschlagen, konnte Netzwerk mit Host: {0} nicht "
+"finden"
+
+#: ../../src/Engine/Session.cs:614
+#, csharp-format
+msgid "Network switch failed, could not find network with host: {0}"
+msgstr ""
+"Wechseln des Netzwerks fehlgeschlagen, konnte Netzwerk mit Host: {0} nicht "
+"finden"
+
+#: ../../src/Engine/Session.cs:626
+msgid "Not connected to any network"
+msgstr "Keine Verbindung zu einem Netzwerk"
+
+#: ../../src/Engine/Session.cs:866
+#, csharp-format
+msgid "Unknown protocol: {0}"
+msgstr "Unbekanntes Protokoll: {0}"
+
+#: ../../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:192
+#: ../../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:923
+msgid "away"
+msgstr "abwesend"
+
+#: ../../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:195
+#: ../../src/Engine-MSNP/Protocols/Msnp/MsnpProtocolManager.cs:142
+#: ../../src/Engine-OSCAR/Protocols/Oscar/OscarProtocolManager.cs:142
+#: ../../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:141
+msgid "not connected"
+msgstr "nicht verbunden"
+
+#: ../../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:201
+msgid "lag"
+msgstr "Verzgerung"
+
+#: ../../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:203
+msgid "seconds"
+msgstr "sekunden"
+
+#: ../../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:264
+#, csharp-format
+msgid "Connecting to {0} port {1}..."
+msgstr "Verbinde zu {0} port {1}..."
+
+#: ../../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:270
+#, csharp-format
+msgid "Connection to {0} established"
+msgstr "Verbindung zu {0} hergestellt"
+
+#: ../../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:273
+msgid "Logging in..."
+msgstr "Anmelden..."
+
+#: ../../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:295
+msgid "Connection failed!"
+msgstr "Verbindung fehlgeschlagen!"
+
+#: ../../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:296
+msgid "Connection failed! Reason: "
+msgstr "Verbindung fehlgeschlagen! Grund: "
+
+#: ../../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:305
+msgid "Disconnecting..."
+msgstr "Trenne..."
+
+#: ../../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:308
+#, csharp-format
+msgid "Disconnecting from {0}..."
+msgstr "Trenne von {0}..."
+
+#: ../../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:312
+#, csharp-format
+msgid "Disconnected from {0}"
+msgstr "Getrennt von {0}"
+
+#: ../../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:314
+msgid "Connection closed"
+msgstr "Verbindung geschlossen"
+
+#: ../../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:318
+msgid "Not connected!"
+msgstr "Nicht Verbunden!"
+
+#: ../../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:320
+msgid "Not connected"
+msgstr "Nicht Verbunden"
+
+#: ../../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:594
+msgid "[IrcProtocolManager Commands]"
+msgstr "[IrcProtocolManager Befehle]"
+
+#: ../../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:654
+#: ../../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:239
+#, csharp-format
+msgid "Invalid port: {0}"
+msgstr "Ungltiger Port: {0}"
+
+#: ../../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:740
+#, csharp-format
+msgid "Already joined to channel: {0}. Type /window {0} to switch to it."
+msgstr ""
+"Channel: {0} schon beigetreten. Tippe /window {0} um dorthin zu wechseln."
+
+#: ../../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:910
+msgid "IRC Op"
+msgstr "IRC Op"
+
+#: ../../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:912
+msgid "Op"
+msgstr "Op"
+
+#: ../../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:914
+msgid "Voice"
+msgstr "Voice"
+
+#: ../../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:962
+#, csharp-format
+msgid "Topic for {0}: {1}"
+msgstr "Thema fr {0}: {1}"
+
+#: ../../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:965
+#, csharp-format
+msgid "No topic set for {0}"
+msgstr "Kein Thema gesetzt fr {0}"
+
+#: ../../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1055
+msgid "ban"
+msgstr "Sperre"
+
+#: ../../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1065
+msgid "No bans in channel"
+msgstr "Keine Sperren in diesem Channel"
+
+#: ../../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1175
+#, csharp-format
+msgid "Inviting {0} to {1}"
+msgstr "Lade {0} in {1} ein"
+
+#: ../../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1179
+#, csharp-format
+msgid "{0} is already on channel"
+msgstr "{0} ist bereits im Channel"
+
+#: ../../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1298
+msgid "Connection error! Reason: "
+msgstr "Verbindungsfehler! Grund: "
+
+#: ../../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1562
+#, csharp-format
+msgid "{0}: No such nick/channel"
+msgstr "{0}: Kein solcher Nick/Channel"
+
+#: ../../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1625
+msgid "Nick"
+msgstr "Nick"
+
+#: ../../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1634
+msgid "is already in use"
+msgstr "ist bereits in Benutzung"
+
+#: ../../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1646
+msgid "Cannot join to channel:"
+msgstr "Konnte Channel nicht beitreten:"
+
+#: ../../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1655
+msgid "You are banned"
+msgstr "Sie sind gesperrt"
+
+#: ../../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1728
+#, csharp-format
+msgid "{0} [{1}] requested CTCP {2} from {3}: {4}"
+msgstr "{0} [{1}] fragt ab CTCP {2} von {3}: {4}"
+
+#: ../../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1745
+#, csharp-format
+msgid "CTCP PING reply from {0}: {1} seconds"
+msgstr "CTCP PING  Antwort von {0}: {1} sekunden"
+
+#: ../../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1751
+#, csharp-format
+msgid "CTCP {0} reply from {1}: {2}"
+msgstr "CTCP {0] Antwort von {1}: {2}"
+
+#: ../../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1944
+#, csharp-format
+msgid "{0} [{1}] has joined {2}"
+msgstr "{0} [{1}] ist {2} beigetreten"
+
+#: ../../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2063
+#, csharp-format
+msgid "{0} [{1}] has left {2} [{3}]"
+msgstr "{0} [{1}] hat {2} verlassen [{3}]"
+
+#: ../../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2082
+#, csharp-format
+msgid "You was kicked from {0} by {1} [{2}]"
+msgstr "Sie wurden aus {0} von {1} rausgeworfen [{2}]"
+
+#: ../../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2090
+#, csharp-format
+msgid "{0} was kicked from {1} by {2} [{3}]"
+msgstr "{0} wurde aus {1} von {2} rausgeworfen [{3}]"
+
+#: ../../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2105
+msgid "You're now known as"
+msgstr "Sie sind nun bekannt als"
+
+#: ../../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2143
+#, csharp-format
+msgid "You're now known as {0}"
+msgstr "Sie sind nun bekannt als {0}"
+
+#: ../../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2147
+#, csharp-format
+msgid "{0} is now known as {1}"
+msgstr "{0} ist nun bekannt als {1}"
+
+#: ../../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2165
+#, csharp-format
+msgid "{0} changed the topic of {1} to: {2}"
+msgstr "{0} hat das Thema von {1} gendert auf: {2}"
+
+#: ../../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2232
+#, csharp-format
+msgid "Mode change [{0}] for user {1}"
+msgstr "Mode gendert [{0}] fr Benutzer {1}"
+
+#: ../../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2245
+#, csharp-format
+msgid "mode/{0} [{1}] by {2}"
+msgstr "mode/{0} [{1}] von {2}"
+
+#: ../../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2273
+#: ../../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2279
+#, csharp-format
+msgid "{0} [{1}] has quit [{2}]"
+msgstr "{0} [{1}] hat uns verlassen [{2}]"
+
+#: ../../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2335
+#, csharp-format
+msgid "{0} is away: {1}"
+msgstr "{0} ist abwesend: {1}"
+
+#: ../../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2341
+msgid "You are no longer marked as being away"
+msgstr "Sie sind nicht mehr als abwesend gekenntzeichet"
+
+#: ../../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2347
+msgid "You have been marked as being away"
+msgstr "Sie sind als abwesend gekenntzeichnet"
+
+#: ../../src/Engine-MSNP/Protocols/Msnp/MsnpProtocolManager.cs:144
+msgid "connected"
+msgstr "verbunden"
+
+#: ../../src/Engine-MSNP/Protocols/Msnp/MsnpProtocolManager.cs:226
+msgid "[MsnProtocolManager Commands]"
+msgstr "[MsnProtocolManager Befehle]"
+
+#: ../../src/Engine-OSCAR/Protocols/Oscar/OscarProtocolManager.cs:238
+msgid "[OscarProtocolManager Commands]"
+msgstr "[OscarProtocolManager Commands]"
+
+#: ../../src/Engine-OSCAR/Protocols/Oscar/OscarProtocolManager.cs:289
+msgid "Login successful"
+msgstr "Anmeldung erfolgreich"
+
+#: ../../src/Engine-OSCAR/Protocols/Oscar/OscarProtocolManager.cs:300
+#, csharp-format
+msgid "Login failed: {0}"
+msgstr "Anmeldung fehlgeschlagen: {0}"
+
+#: ../../src/Engine-OSCAR/Protocols/Oscar/OscarProtocolManager.cs:311
+#, csharp-format
+msgid "Connection Error: {0}"
+msgstr "Verbindungsfehler: {0}"
+
+#: ../../src/Engine-OSCAR/Protocols/Oscar/OscarProtocolManager.cs:317
+#, csharp-format
+msgid "Connection Warning: {0}"
+msgstr "Verbindungswarnung: {0}"
+
+#: ../../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:205
+msgid "[XmppProtocolManager Commands]"
+msgstr "[XmppProtocolManager Befehle]"

@@ -1,0 +1,6 @@
+Name: smuxi-common
+Description: Common
+Version: @VERSION@
+
+Requires: 
+Libs: -r:@expanded_libdir@/@PACKAGE@/smuxi-common.dll

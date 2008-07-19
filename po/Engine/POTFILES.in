@@ -1,7 +1,7 @@
-../src/Engine/FrontendManager.cs
-../src/Engine/Protocols/ProtocolManagerBase.cs
-../src/Engine/Session.cs
-../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs
-../src/Engine-MSNP/Protocols/Msnp/MsnpProtocolManager.cs
-../src/Engine-OSCAR/Protocols/Oscar/OscarProtocolManager.cs
-../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs
+src/Engine/FrontendManager.cs
+src/Engine/Protocols/ProtocolManagerBase.cs
+src/Engine/Session.cs
+src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs
+src/Engine-MSNP/Protocols/Msnp/MsnpProtocolManager.cs
+src/Engine-OSCAR/Protocols/Oscar/OscarProtocolManager.cs
+src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs
