@@ -1,6 +1,6 @@
 EXTRA_DIST =	expansions.m4 \
 		mono.m4 \
-		programs.4 \
+		programs.m4 \
 		LICENSE \
 		README \
 		CREDITS \
