@@ -1,7 +1,8 @@
 
 EXTRA_DIST =  
 
-SERVER_EXE_CONFIG = smuxi-server.exe.config
+SERVER_EXE_CONFIG_SOURCE = smuxi-server.exe.config
+SERVER_EXE_CONFIG = $(BUILD_DIR)/smuxi-server.exe.config
 
 # Warning: This is an automatically generated file, do not edit!
 
@@ -71,7 +72,8 @@ DATA_FILES =
 RESOURCES = 
 
 EXTRAS = \
-	smuxi-server.in 
+	smuxi-server.in \
+	$(SERVER_EXE_CONFIG_SOURCE)
 
 REFERENCES =  \
 	System.Runtime.Remoting \
@@ -90,11 +92,11 @@ SERVER = $(BUILD_DIR)/smuxi-server
 TCPEXCHANNEL_DLL = $(BUILD_DIR)/TcpExChannel.dll
 SMUXI_COMMON_DLL = $(BUILD_DIR)/smuxi-common.dll
 
+$(eval $(call emit-deploy-wrapper,SERVER,smuxi-server,x))
 $(eval $(call emit-deploy-target,SMUXI_ENGINE_DLL_MDB))
 $(eval $(call emit-deploy-target,SMUXI_ENGINE_DLL))
-$(eval $(call emit-deploy-wrapper,SERVER,smuxi-server,x))
 $(eval $(call emit-deploy-target,SMUXI_COMMON_DLL))
-
+$(eval $(call emit-deploy-target,SERVER_EXE_CONFIG))
 
 $(build_xamlg_list): %.xaml.g.cs: %.xaml
 	xamlg '$<'

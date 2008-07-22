@@ -1,5 +1,9 @@
 2008-07-22  Mirco Bauer <meebey@meebey.net> 
 
+	* Makefile.am: Distribute and install .exe.config files.
+
+2008-07-22  Mirco Bauer <meebey@meebey.net> 
+
 	* AssemblyInfo.cs, AssemblyInfo.cs.in, Server.mdp, Main.cs, Makefile.am:
 	  Made debug logging an explicit command line parameter (closes trac
 	  bug#60).

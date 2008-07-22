@@ -4,7 +4,8 @@ EXTRA_DIST =
 desktopdir = $(datadir)/applications
 desktop_DATA = smuxi-frontend-gnome.desktop
 
-FRONTEND_GNOME_EXE_CONFIG = smuxi-frontend-gnome.exe.config
+FRONTEND_GNOME_EXE_CONFIG_SOURCE = smuxi-frontend-gnome.exe.config
+FRONTEND_GNOME_EXE_CONFIG = $(BUILD_DIR)/smuxi-frontend-gnome.exe.config
 
 # Warning: This is an automatically generated file, do not edit!
 
@@ -125,7 +126,8 @@ RESOURCES = \
 
 EXTRAS = \
 	smuxi-frontend-gnome.in \
-	smuxi-frontend-gnome.pc.in
+	smuxi-frontend-gnome.pc.in \
+	$(FRONTEND_GNOME_EXE_CONFIG_SOURCE)
 
 REFERENCES =  \
 	System.Runtime.Remoting \
@@ -154,12 +156,12 @@ SMUXI_COMMON_DLL = $(BUILD_DIR)/smuxi-common.dll
 $(eval $(call emit-deploy-wrapper,FRONTEND_GNOME,smuxi-frontend-gnome,x))
 $(eval $(call emit-deploy-wrapper,FRONTEND_GNOME_PC,smuxi-frontend-gnome.pc))
 $(eval $(call emit-deploy-target,FRONTEND_GNOME_DESKTOP))
+$(eval $(call emit-deploy-target,FRONTEND_GNOME_EXE_CONFIG))
 $(eval $(call emit-deploy-target,SMUXI_ENGINE_DLL_MDB))
 $(eval $(call emit-deploy-target,SMUXI_ENGINE_DLL))
 $(eval $(call emit-deploy-target,SMUXI_FRONTEND_DLL_MDB))
 $(eval $(call emit-deploy-target,SMUXI_FRONTEND_DLL))
 $(eval $(call emit-deploy-target,SMUXI_COMMON_DLL))
-
 
 $(build_xamlg_list): %.xaml.g.cs: %.xaml
 	xamlg '$<'

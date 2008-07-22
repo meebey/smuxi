@@ -1,5 +1,9 @@
 2008-07-22  Mirco Bauer <meebey@meebey.net> 
 
+	* Makefile.am: Distribute and install .exe.config files.
+
+2008-07-22  Mirco Bauer <meebey@meebey.net> 
+
 	* Frontend.cs: Disabled splashscreen (we have no current logo anyhow).
 
 2008-07-22  Mirco Bauer <meebey@meebey.net> 
