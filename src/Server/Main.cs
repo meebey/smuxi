@@ -35,12 +35,38 @@ namespace Smuxi.Server
 #if LOG4NET
         private static readonly log4net.ILog _Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 #endif
-
+        
         public static void Main(string[] args)
         {
+            bool debug = false;
+            foreach (string arg in args) {
+                switch (arg) {
+                    case "-d":
+                    case "--debug":
+                        debug = true;
+                        break;
+                    case "-h":
+                    case "--help":
+                        ShowHelp();
+                        Environment.Exit(0);
+                        break;
+                    default:
+                        Console.WriteLine("Invalid option: " + arg);
+                        Environment.Exit(1);
+                        break;
+                }
+            }
+            
 #if LOG4NET
-            log4net.Config.BasicConfigurator.Configure();
+            // initialize log level
+            log4net.Repository.ILoggerRepository repo = log4net.LogManager.GetRepository();
+            if (debug) {
+                repo.Threshold = log4net.Core.Level.Debug;
+            } else {
+                repo.Threshold = log4net.Core.Level.Info;
+            }
 #endif
+
             try {
                 Server.Init(args);
             } catch (Exception e) {
@@ -50,6 +76,15 @@ namespace Smuxi.Server
                 // rethrow the exception for console output
                 throw;
             }
+        }
+        
+        private static void ShowHelp()
+        {
+            Console.WriteLine("Usage: smuxi-server [options]");
+            Console.WriteLine();
+            Console.WriteLine("Options:");
+            Console.WriteLine("  -h --help   Show this help");
+            Console.WriteLine("  -d --debug  Enable debug output");
         }
     }
 }

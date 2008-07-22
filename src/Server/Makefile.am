@@ -1,6 +1,8 @@
 
 EXTRA_DIST =  
 
+SERVER_EXE_CONFIG = smuxi-server.exe.config
+
 # Warning: This is an automatically generated file, do not edit!
 
 if ENABLE_RELEASE
@@ -49,7 +51,8 @@ SATELLITE_ASSEMBLY_NAME=.resources.dll
 PROGRAMFILES = \
 	$(SMUXI_ENGINE_DLL_MDB) \
 	$(SMUXI_ENGINE_DLL) \
-	$(SMUXI_COMMON_DLL)  
+	$(SMUXI_COMMON_DLL) \
+	$(SERVER_EXE_CONFIG)
 
 BINARIES = \
 	$(SERVER)  
