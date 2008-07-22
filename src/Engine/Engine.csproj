@@ -70,8 +70,8 @@
     <Compile Include="Chats\ChatModel.cs" />
     <Compile Include="Chats\ChatType.cs" />
     <Compile Include="Chats\GroupChatModel.cs" />
-    <Compile Include="Chats\NetworkChatModel.cs" />
     <Compile Include="Chats\PersonChatModel.cs" />
+    <Compile Include="Chats\ProtocolChatModel.cs" />
     <Compile Include="Chats\SessionChatModel.cs" />
     <Compile Include="CommandModel.cs" />
     <Compile Include="Config\ChannelFilterListController.cs" />

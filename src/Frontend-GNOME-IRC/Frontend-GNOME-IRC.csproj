@@ -59,6 +59,7 @@
   <ItemGroup>
     <Compile Include="AssemblyInfo.cs" />
     <Compile Include="IrcGroupChatView.cs" />
+    <Compile Include="IrcPersonChatView.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="atk-sharp, Version=2.8.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f">

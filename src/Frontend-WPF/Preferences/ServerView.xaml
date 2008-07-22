@@ -31,8 +31,7 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     Title="ServerView" Height="300" Width="300"
-    WindowStartupLocation="CenterOwner" ResizeMode="NoResize"
-    Icon="/preferences-system.png">
+    WindowStartupLocation="CenterOwner" ResizeMode="NoResize">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>

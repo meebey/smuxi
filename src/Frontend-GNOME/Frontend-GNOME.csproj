@@ -129,26 +129,33 @@
     <Compile Include="AssemblyInfo.cs" />
     <Compile Include="Chats\ChatView.cs" />
     <Compile Include="Chats\GroupChatView.cs" />
-    <Compile Include="Chats\NetworkChatView.cs" />
     <Compile Include="Chats\PersonChatView.cs" />
+    <Compile Include="Chats\ProtocolChatView.cs" />
     <Compile Include="Chats\SessionChatView.cs" />
     <Compile Include="ChatViewManager.cs" />
     <Compile Include="CrashDialog.cs" />
+    <Compile Include="EngineDruid.cs" />
     <Compile Include="EngineManagerDialog.cs" />
     <Compile Include="Entry.cs" />
+    <Compile Include="FindGroupChatDialog.cs" />
     <Compile Include="FirstStartDruid.cs" />
     <Compile Include="Frontend.cs" />
     <Compile Include="GnomeUI.cs" />
+    <Compile Include="gtk-gui\generated.cs" />
+    <Compile Include="gtk-gui\Smuxi.Frontend.Gnome.FindGroupChatDialog.cs" />
+    <Compile Include="gtk-gui\Smuxi.Frontend.Gnome.QuickConnectDialog.cs" />
+    <Compile Include="gtk-gui\Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="MainWindow.cs" />
-    <Compile Include="NewEngineDruid.cs" />
     <Compile Include="Notebook.cs" />
     <Compile Include="NotImplementedMessageDialog.cs" />
     <Compile Include="Preferences\ChannelFilterListView.cs" />
     <Compile Include="Preferences\PreferencesDialog.cs" />
     <Compile Include="Preferences\ServerListView.cs" />
     <Compile Include="Preferences\ServerView.cs" />
+    <Compile Include="QuickConnectDialog.cs" />
     <Compile Include="SplashScreenWindow.cs" />
+    <Compile Include="SteticPreferencesDialog.cs" />
     <Compile Include="ViewManager.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -175,26 +182,12 @@
     <EmbeddedResource Include="..\..\images\edit.png">
       <Link>edit.png</Link>
     </EmbeddedResource>
-    <EmbeddedResource Include="..\..\images\icon_default.png">
-      <Link>icon_default.png</Link>
-    </EmbeddedResource>
-    <EmbeddedResource Include="..\..\images\icon_halfop.png">
-      <Link>icon_halfop.png</Link>
-    </EmbeddedResource>
-    <EmbeddedResource Include="..\..\images\icon_op.png">
-      <Link>icon_op.png</Link>
-    </EmbeddedResource>
-    <EmbeddedResource Include="..\..\images\icon_voice.png">
-      <Link>icon_voice.png</Link>
-    </EmbeddedResource>
     <EmbeddedResource Include="..\..\images\server.png">
       <Link>server.png</Link>
     </EmbeddedResource>
     <EmbeddedResource Include="..\..\images\splashscreen.png">
       <Link>splashscreen.png</Link>
     </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="..\..\glade\smuxi-frontend-gnome.glade">
       <Link>smuxi-frontend-gnome.glade</Link>
     </EmbeddedResource>
@@ -220,6 +213,23 @@
       <ProductName>Windows Installer 3.1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="gtk-gui\gui.stetic" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="..\..\images\group-chat.svg">
+      <Link>group-chat.svg</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\images\person-chat.svg">
+      <Link>person-chat.svg</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\images\protocol-chat.svg">
+      <Link>protocol-chat.svg</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\images\session-chat.svg">
+      <Link>session-chat.svg</Link>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSHARP.Targets" />
   <ProjectExtensions>

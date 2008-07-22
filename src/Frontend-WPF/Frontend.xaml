@@ -289,7 +289,7 @@
                 </Setter.Value>
             </Setter>
         </Style>
-        <Style TargetType="{x:Type TabItem}">
+        <Style x:Key="{x:Type TabItem}" TargetType="{x:Type TabItem}">
         	<Setter Property="Template">
         		<Setter.Value>
         			<ControlTemplate TargetType="{x:Type TabItem}">
@@ -315,5 +315,31 @@
         		</Setter.Value>
         	</Setter>
         </Style>
-	</Application.Resources>
+        <Style x:Key="{x:Type Window}" TargetType="{x:Type Window}">
+        	<Setter Property="Background" Value="{DynamicResource WindowBackground}"/>
+        	<Setter Property="Foreground" Value="{DynamicResource Text}"/>
+        </Style>
+        <Style x:Key="{x:Type smuxi:PreferencesDialog}"
+               TargetType="{x:Type smuxi:PreferencesDialog}" 
+               BasedOn="{StaticResource {x:Type Window}}"/>
+		<Style x:Key="OptionList" TargetType="{x:Type TabControl}">
+			<Setter Property="Template">
+				<Setter.Value>
+					<ControlTemplate TargetType="{x:Type TabControl}">
+						<DockPanel LastChildFill="True">
+							<Border DockPanel.Dock="{TemplateBinding TabStripPlacement}"
+					    		    Background="{DynamicResource TextBoxBackground}"
+									BorderBrush="{DynamicResource TextBoxBorder}"
+									BorderThickness="1"
+									Margin="3">
+								<StackPanel IsItemsHost="True"/>
+							</Border>
+							<ContentPresenter  Grid.Column="1" ContentSource="SelectedContent" Margin="3"/>
+						</DockPanel>
+					</ControlTemplate>
+				</Setter.Value>
+			</Setter>
+			<Setter Property="TabStripPlacement" Value="Left"/>
+		</Style>
+    </Application.Resources>
 </Application>

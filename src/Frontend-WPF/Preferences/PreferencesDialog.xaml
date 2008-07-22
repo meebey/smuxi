@@ -33,7 +33,7 @@
         Title="Preferences"
         Height="500" Width="500"
         ResizeMode="NoResize"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" Background="{DynamicResource WindowBackground}"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" 
         >
 	<Window.Resources>
  			<TabItem Header="Connection" x:Key="ConnectionTabItem">
@@ -224,22 +224,7 @@
 			<Button IsCancel="True" Content="Cancel"/>
 			<Button IsDefault="True" Content="OK"/>
 		</UniformGrid>
-		<TabControl TabStripPlacement="Left">
-			<TabControl.Template>
-				<ControlTemplate TargetType="{x:Type TabControl}">
-					<DockPanel LastChildFill="True">
-						<Border DockPanel.Dock="{TemplateBinding TabStripPlacement}"
-						        Background="{DynamicResource TextBoxBackground}"
-								BorderBrush="{DynamicResource TextBoxBorder}"
-								BorderThickness="1"
-								Margin="3">
-							<StackPanel IsItemsHost="True"/>
-						</Border>
-						<ContentPresenter  Grid.Column="1" ContentSource="SelectedContent" Margin="3"/>
-
-					</DockPanel>
-				</ControlTemplate>
-			</TabControl.Template>
+		<TabControl Style="{DynamicResource OptionList}">
             <StaticResource ResourceKey="ConnectionTabItem"/>
             <StaticResource ResourceKey="InterfaceGeneralTabItem"/>
             <StaticResource ResourceKey="InterfaceTabsTabItem"/>

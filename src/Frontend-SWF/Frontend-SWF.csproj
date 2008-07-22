@@ -90,6 +90,9 @@
     <Compile Include="Chats\ChatView.Designer.cs">
       <DependentUpon>ChatView.cs</DependentUpon>
     </Compile>
+    <Compile Include="Chats\SessionChatView.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Chats\GroupChatView.cs">
       <SubType>Component</SubType>
     </Compile>
