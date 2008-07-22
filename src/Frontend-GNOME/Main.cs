@@ -38,9 +38,35 @@ namespace Smuxi.Frontend.Gnome
 
         public static void Main(string[] args)
         {
+            bool debug = false;
+            foreach (string arg in args) {
+                switch (arg) {
+                    case "-d":
+                    case "--debug":
+                        debug = true;
+                        break;
+                    case "-h":
+                    case "--help":
+                        ShowHelp();
+                        Environment.Exit(0);
+                        break;
+                    default:
+                        Console.WriteLine("Invalid option: " + arg);
+                        Environment.Exit(1);
+                        break;
+                }
+            }
+            
 #if LOG4NET
-            log4net.Config.BasicConfigurator.Configure();
+            // initialize log level
+            log4net.Repository.ILoggerRepository repo = log4net.LogManager.GetRepository();
+            if (debug) {
+                repo.Threshold = log4net.Core.Level.Debug;
+            } else {
+                repo.Threshold = log4net.Core.Level.Info;
+            }
 #endif
+
             try {
                 Frontend.Init(args);
             } catch (Exception e) {
@@ -53,6 +79,15 @@ namespace Smuxi.Frontend.Gnome
                 // rethrow the exception for console output
                 throw;
             }
+        }
+
+        private static void ShowHelp()
+        {
+            Console.WriteLine("Usage: smuxi-frontend-gnome [options]");
+            Console.WriteLine();
+            Console.WriteLine("Options:");
+            Console.WriteLine("  -h --help   Show this help");
+            Console.WriteLine("  -d --debug  Enable debug output");
         }
     }
 }

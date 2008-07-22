@@ -1,7 +1,10 @@
 
 EXTRA_DIST =  
 
-FRONTEND_GNOME_DESKTOP_SOURCE = smuxi-frontend-gnome.desktop
+desktopdir = $(datadir)/applications
+desktop_DATA = smuxi-frontend-gnome.desktop
+
+FRONTEND_GNOME_EXE_CONFIG = smuxi-frontend-gnome.exe.config
 
 # Warning: This is an automatically generated file, do not edit!
 
@@ -61,7 +64,8 @@ PROGRAMFILES = \
 	$(SMUXI_ENGINE_DLL) \
 	$(SMUXI_FRONTEND_DLL_MDB) \
 	$(SMUXI_FRONTEND_DLL) \
-	$(SMUXI_COMMON_DLL)  
+	$(SMUXI_COMMON_DLL)  \
+	$(FRONTEND_GNOME_EXE_CONFIG)
 
 LINUX_DESKTOPAPPLICATIONS = \
 	$(FRONTEND_GNOME_DESKTOP_DESKTOP)  

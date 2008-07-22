@@ -1,5 +1,11 @@
 2008-07-22  Mirco Bauer <meebey@meebey.net> 
 
+	* Makefile.am, Main.cs, Frontend-GNOME.mdp, AssemblyInfo.cs.in,
+	  AssemblyInfo.cs: Made debug logging an explicit command line parameter
+	  (closes trac bug#59).
+
+2008-07-22  Mirco Bauer <meebey@meebey.net> 
+
 	* Entry.cs: Pass "/window close" to IProtocolManager.CloseChat() instead of
 	  doing nothing (before it was a disabled protocol specific hack) (closes
 	  trac bug #67).
