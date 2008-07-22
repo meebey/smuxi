@@ -1,3 +1,7 @@
+2008-07-22  Mirco Bauer <meebey@meebey.net> 
+
+	* Server.cs: Call superseded method of ChannelServices.RegisterChannel().
+
 2008-07-17  Mirco Bauer <meebey@meebey.net> 
 
 	* AssemblyInfo.cs: Bumped version to 0.6.0.

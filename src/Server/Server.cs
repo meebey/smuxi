@@ -81,7 +81,7 @@ namespace Smuxi.Server
                     _Logger.Debug("Registering TcpChannel port: "+props["port"]);
 #endif
                     try {
-                        ChannelServices.RegisterChannel(new TcpChannel(props, cprovider, sprovider));
+                        ChannelServices.RegisterChannel(new TcpChannel(props, cprovider, sprovider), false);
                     } catch (System.Net.Sockets.SocketException ex) {
                         Console.WriteLine("Could not register remoting channel on port {0} " +
                                           "(server already running on that port?) Error: " + ex.Message, port);
@@ -94,7 +94,7 @@ namespace Smuxi.Server
 #if LOG4NET
                     _Logger.Debug("Registering TcpExChannel port: "+props["port"]);
 #endif            
-                    ChannelServices.RegisterChannel(new TcpExChannel(props, null, null));
+                    ChannelServices.RegisterChannel(new TcpExChannel(props, null, null), false);
                     break;
 #endif
                 case "HTTP":
@@ -102,7 +102,7 @@ namespace Smuxi.Server
 #if LOG4NET
                     _Logger.Debug("Registering HttpChannel port: "+props["port"]);
 #endif            
-                    ChannelServices.RegisterChannel(new HttpChannel(props, null, null));
+                    ChannelServices.RegisterChannel(new HttpChannel(props, null, null), false);
                     break;
                 default:
                     Console.WriteLine("Unknown channel ("+channel+"), aborting...");
