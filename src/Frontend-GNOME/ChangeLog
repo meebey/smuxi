@@ -1,3 +1,9 @@
+2008-07-22  Mirco Bauer <meebey@meebey.net> 
+
+	* Entry.cs: Pass "/window close" to IProtocolManager.CloseChat() instead of
+	  doing nothing (before it was a disabled protocol specific hack) (closes
+	  trac bug #67).
+
 2008-07-17  Mirco Bauer <meebey@meebey.net> 
 
 	* AssemblyInfo.cs: Bumped version to 0.6.0.

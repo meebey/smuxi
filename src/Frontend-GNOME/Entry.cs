@@ -558,22 +558,7 @@ namespace Smuxi.Frontend.Gnome
                 ChatModel currentChatModel = _Notebook.CurrentChatView.ChatModel;
                 string name;
                 if (cd.DataArray[1].ToLower() == "close") {
-                    name = currentChatModel.Name;
-                    // BUG: handle this in GNOME-IRC
-                    /*
-                    if (currentChatModel.ChatType != ChatType.Network) {
-                        if (currentChatModel.ProtocolManager is IrcProtocolManager) {
-                            IrcProtocolManager ircm = (IrcProtocolManager) currentChatModel.ProtocolManager; 
-                            if (currentChatModel.ChatType == ChatType.Group) {
-                                // channel
-                                ircm.CommandPart(new CommandModel(fm, currentChatModel, name));
-                            } else {
-                                // query
-                                Frontend.Session.RemoveChat(currentChatModel);
-                            }
-                        }
-                    }
-                    */
+                    cd.Chat.ProtocolManager.CloseChat(fm, cd.Chat);
                 } else {
                     bool is_number = false;
                     int pagecount = _Notebook.NPages;
