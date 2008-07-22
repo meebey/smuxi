@@ -189,7 +189,7 @@ namespace Smuxi.Frontend.Gnome
 #if GTK_SHARP_2_10
             GLib.ExceptionManager.UnhandledException += _OnUnhandledException;
 #endif           
-            _SplashScreenWindow = new SplashScreenWindow();
+            //_SplashScreenWindow = new SplashScreenWindow();
 
             _FrontendConfig = new FrontendConfig(UIName);
             // loading and setting defaults
@@ -202,7 +202,7 @@ namespace Smuxi.Frontend.Gnome
                 InitLocalEngine();
             } else {
                 // there is a default engine set, means we want a remote engine
-                _SplashScreenWindow.Destroy();
+                //_SplashScreenWindow.Destroy();
                 _SplashScreenWindow = null;
                 ShowEngineManagerDialog();
             }
