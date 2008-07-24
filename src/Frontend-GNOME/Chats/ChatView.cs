@@ -62,6 +62,7 @@ namespace Smuxi.Frontend.Gnome
         private   Gtk.ScrolledWindow _OutputScrolledWindow;
         private   Gtk.TextView       _OutputTextView;
         private   Gtk.TextTagTable   _OutputTextTagTable;
+        private   Pango.FontDescription _FontDescription;
         
         public ChatModel ChatModel {
             get {
@@ -152,6 +153,12 @@ namespace Smuxi.Frontend.Gnome
         protected Gtk.HBox TabHBox {
             get {
                 return _TabHBox;
+            }
+        }
+
+        protected Pango.FontDescription FontDescription {
+            get {
+                return _FontDescription;
             }
         }
         
@@ -489,7 +496,11 @@ namespace Smuxi.Frontend.Gnome
                 fontSize = (int) config["Interface/Chat/FontSize"];
             }
             Pango.FontDescription fontDescription = new Pango.FontDescription();
-            if (!String.IsNullOrEmpty(fontFamily)) {
+            if (String.IsNullOrEmpty(fontFamily)) {
+                // use Monospace and Bold by default
+                fontDescription.Family = "monospace";
+                fontDescription.Weight = Pango.Weight.Bold;
+            } else {
                 fontDescription.Family = fontFamily;
                 string frontWeigth = null;
                 if (fontStyle.Contains(" ")) {
@@ -503,7 +514,9 @@ namespace Smuxi.Frontend.Gnome
                 }
                 fontDescription.Size = fontSize * 1024;
             }
-            _OutputTextView.ModifyFont(fontDescription);
+            _FontDescription = fontDescription;
+            
+            _OutputTextView.ModifyFont(_FontDescription);
         }
 
         public virtual void Close()

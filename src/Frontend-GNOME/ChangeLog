@@ -1,3 +1,10 @@
+2008-07-24  Mirco Bauer <meebey@meebey.net> 
+
+	* Chats/GroupChatView.cs, Chats/ChatView.cs, Entry.cs: Use monospace bold as
+	  default font.
+	
+	  Parse pango font description once.
+
 2008-07-22  Mirco Bauer <meebey@meebey.net> 
 
 	* Makefile.am: Distribute and install .exe.config files.

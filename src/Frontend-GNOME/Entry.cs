@@ -760,7 +760,11 @@ namespace Smuxi.Frontend.Gnome
                 fontSize = (int) config["Interface/Chat/FontSize"];
             }
             Pango.FontDescription fontDescription = new Pango.FontDescription();
-            if (!String.IsNullOrEmpty(fontFamily)) {
+            if (String.IsNullOrEmpty(fontFamily)) {
+                // use Monospace and Bold by default
+                fontDescription.Family = "monospace";
+                fontDescription.Weight = Pango.Weight.Bold;
+            } else {
                 fontDescription.Family = fontFamily;
                 string frontWeigth = null;
                 if (fontStyle.Contains(" ")) {
