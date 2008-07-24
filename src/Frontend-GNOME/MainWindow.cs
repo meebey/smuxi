@@ -7,7 +7,7 @@
  *
  * smuxi - Smart MUltipleXed Irc
  *
- * Copyright (c) 2005-2006 Mirco Bauer <meebey@meebey.net>
+ * Copyright (c) 2005-2008 Mirco Bauer <meebey@meebey.net>
  *
  * Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
  *
@@ -465,7 +465,7 @@ namespace Smuxi.Frontend.Gnome
             Trace.Call(sender, e);
             
             try {
-                _CloseChatMenuItem.Sensitive = _Notebook.CurrentChatView is GroupChatView;
+                _CloseChatMenuItem.Sensitive = !(_Notebook.CurrentChatView is SessionChatView);
             } catch (Exception ex) {
                 Frontend.ShowException(this, ex);
             }

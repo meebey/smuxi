@@ -1,3 +1,11 @@
+2008-07-25  Mirco Bauer <meebey@meebey.net> 
+
+	* MainWindow.cs: Allow to close a chat using ctrl+w if it's not the session
+	  chat (instead of checking for group chat only) (really closes trac bug
+	  #67)
+	
+	  Updated copyright year.
+
 2008-07-24  Mirco Bauer <meebey@meebey.net> 
 
 	* Chats/GroupChatView.cs, Chats/ChatView.cs, Entry.cs: Use monospace bold as
