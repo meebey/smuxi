@@ -30,6 +30,7 @@ using System.Reflection;
 using System.Runtime.CompilerServices;
 
 [assembly: AssemblyTitle("smuxi - server")]
+[assembly: AssemblyCopyright("2005-2008 (C) Mirco Bauer <meebey@meebey.net>")]
 
 [assembly: AssemblyDelaySign(false)]
 [assembly: AssemblyKeyFile("")]

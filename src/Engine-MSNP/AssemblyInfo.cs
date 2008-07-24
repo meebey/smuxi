@@ -32,6 +32,7 @@ using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 [assembly: AssemblyTitle("smuxi - MSNP protocol support for engine")]
+[assembly: AssemblyCopyright("2005-2008 (C) Mirco Bauer <meebey@meebey.net>")]
 
 [assembly: AssemblyDelaySign(false)]
 [assembly: AssemblyKeyFile("")]

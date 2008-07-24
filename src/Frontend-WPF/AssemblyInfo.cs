@@ -8,6 +8,7 @@
  * smuxi - Smart MUltipleXed Irc
  *
  * Copyright (c) 2007 Mirco Bauer <meebey@meebey.net>
+ * Copyright (c) 2007-2008 Jeffrey Mann Richardson <themann@indyfantasysports.net>
  *
  * Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
  *
@@ -30,6 +31,7 @@ using System.Reflection;
 using System.Runtime.CompilerServices;
 
 [assembly: AssemblyTitle("smuxi - WPF frontend")]
+[assembly: AssemblyCopyright("2007-2008 (C) Jeffrey Mann Richardson <themann@indyfantasysports.net>")]
 
 [assembly: AssemblyDelaySign(false)]
 [assembly: AssemblyKeyFile("")]

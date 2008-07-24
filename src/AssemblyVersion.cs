@@ -33,7 +33,6 @@ using System.Runtime.CompilerServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("qNETp")]
 [assembly: AssemblyProduct("smuxi")]
-[assembly: AssemblyCopyright("2005-2008 (C) Mirco Bauer <meebey@meebey.net>")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
