@@ -66,6 +66,9 @@
     <Reference Include="Mono.Posix" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\AssemblyVersion.cs">
+      <Link>AssemblyVersion.cs</Link>
+    </Compile>
     <Compile Include="AssemblyInfo.cs" />
     <Compile Include="Chats\ChatModel.cs" />
     <Compile Include="Chats\ChatType.cs" />

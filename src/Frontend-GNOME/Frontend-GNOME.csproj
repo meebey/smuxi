@@ -125,6 +125,9 @@
     <Reference Include="System.Runtime.Remoting" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\AssemblyVersion.cs">
+      <Link>AssemblyVersion.cs</Link>
+    </Compile>
     <Compile Include="AboutDialog.cs" />
     <Compile Include="AssemblyInfo.cs" />
     <Compile Include="Chats\ChatView.cs" />

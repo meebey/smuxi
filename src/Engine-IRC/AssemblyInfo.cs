@@ -32,15 +32,6 @@ using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 [assembly: AssemblyTitle("smuxi - IRC protocol support for engine")]
-[assembly: AssemblyDescription("Smart MUltipleXed Irc")]
-[assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("qNETp")]
-[assembly: AssemblyProduct("smuxi")]
-[assembly: AssemblyCopyright("2005-2008 (C) Mirco Bauer <meebey@meebey.net>")]
-[assembly: AssemblyTrademark("")]
-[assembly: AssemblyCulture("")]
-
-[assembly: AssemblyVersion("0.6.0.*")]
 
 [assembly: AssemblyDelaySign(false)]
 [assembly: AssemblyKeyFile("")]

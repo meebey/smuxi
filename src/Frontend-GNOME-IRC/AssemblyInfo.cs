@@ -34,15 +34,6 @@ using System.Runtime.CompilerServices;
 #elif UI_GNOME
 [assembly: AssemblyTitle("smuxi - IRC support for GNOME frontend")]
 #endif
-[assembly: AssemblyDescription("Smart MUltipleXed Irc")]
-[assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("qNETp")]
-[assembly: AssemblyProduct("smuxi")]
-[assembly: AssemblyCopyright("2005-2008 (C) Mirco Bauer <meebey@meebey.net>")]
-[assembly: AssemblyTrademark("")]
-[assembly: AssemblyCulture("")]
-
-[assembly: AssemblyVersion("0.6.0.*")]
 
 [assembly: AssemblyDelaySign(false)]
 [assembly: AssemblyKeyFile("")]
