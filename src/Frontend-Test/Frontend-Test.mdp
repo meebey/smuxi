@@ -18,6 +18,7 @@
     <File name="Frontend.cs" subtype="Code" buildaction="Compile" />
     <File name="Main.cs" subtype="Code" buildaction="Compile" />
     <File name="TestUI.cs" subtype="Code" buildaction="Compile" />
+    <File name="../AssemblyVersion.cs" subtype="Code" buildaction="Compile" />
   </Contents>
   <References>
     <ProjectReference type="Project" localcopy="True" refto="Engine" />

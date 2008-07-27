@@ -7,7 +7,7 @@
  *
  * smuxi - Smart MUltipleXed Irc
  *
- * Copyright (c) 2005-2006 Mirco Bauer <meebey@meebey.net>
+ * Copyright (c) 2005-2008 Mirco Bauer <meebey@meebey.net>
  *
  * Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
  *
@@ -63,6 +63,8 @@ namespace Smuxi.Frontend.Gnome
         private   Gtk.TextView       _OutputTextView;
         private   Gtk.TextTagTable   _OutputTextTagTable;
         private   Pango.FontDescription _FontDescription;
+        private   Gdk.Color          _BackgroundColor = Gdk.Color.Zero;
+        private   Gdk.Color          _ForegroundColor = Gdk.Color.Zero;
         
         public ChatModel ChatModel {
             get {
@@ -159,6 +161,18 @@ namespace Smuxi.Frontend.Gnome
         protected Pango.FontDescription FontDescription {
             get {
                 return _FontDescription;
+            }
+        }
+
+        protected Gdk.Color BackgroundColor {
+            get {
+                return _BackgroundColor;
+            }
+        }
+
+        protected Gdk.Color ForegroundColor {
+            get {
+                return _ForegroundColor;
             }
         }
         
@@ -474,6 +488,7 @@ namespace Smuxi.Frontend.Gnome
                 Gdk.Color bgColor = Gdk.Color.Zero;
                 if (Gdk.Color.Parse(bgStr, ref bgColor)) {
                     _OutputTextView.ModifyBase(Gtk.StateType.Normal, bgColor);
+                    _BackgroundColor = bgColor;
                 }
             } else {
                 _OutputTextView.ModifyBase(Gtk.StateType.Normal);
@@ -484,6 +499,7 @@ namespace Smuxi.Frontend.Gnome
                 Gdk.Color fgColor = Gdk.Color.Zero;
                 if (Gdk.Color.Parse(fgStr, ref fgColor)) {
                     _OutputTextView.ModifyText(Gtk.StateType.Normal, fgColor);
+                    _ForegroundColor = fgColor;
                 }
             } else {
                 _OutputTextView.ModifyText(Gtk.StateType.Normal);
@@ -499,7 +515,8 @@ namespace Smuxi.Frontend.Gnome
             if (String.IsNullOrEmpty(fontFamily)) {
                 // use Monospace and Bold by default
                 fontDescription.Family = "monospace";
-                fontDescription.Weight = Pango.Weight.Bold;
+                // black bold font on white background looks odd 
+                //fontDescription.Weight = Pango.Weight.Bold;
             } else {
                 fontDescription.Family = fontFamily;
                 string frontWeigth = null;

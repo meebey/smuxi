@@ -369,25 +369,19 @@ namespace Smuxi.Frontend.Gnome
             
             base.ApplyConfig(config);
             
-            string bgStr = (string) config["Interface/Chat/BackgroundColor"];
-            if (!String.IsNullOrEmpty(bgStr)) {
-                Gdk.Color bgColor = Gdk.Color.Zero;
-                if (Gdk.Color.Parse(bgStr, ref bgColor)) {
-                    _PersonTreeView.ModifyBase(Gtk.StateType.Normal, bgColor);
-                    _TopicEntry.ModifyBase(Gtk.StateType.Normal, bgColor);
-                }
+            // HACK: using .Equals() as Gdk.Color doesn't implement != and ==
+            if (!BackgroundColor.Equals(Gdk.Color.Zero)) {
+                _PersonTreeView.ModifyBase(Gtk.StateType.Normal, BackgroundColor);
+                _TopicEntry.ModifyBase(Gtk.StateType.Normal, BackgroundColor);
             } else {
                 _PersonTreeView.ModifyBase(Gtk.StateType.Normal);
                 _TopicEntry.ModifyBase(Gtk.StateType.Normal);
             }
             
-            string fgStr = (string) config["Interface/Chat/ForegroundColor"];
-            if (!String.IsNullOrEmpty(fgStr)) {
-                Gdk.Color fgColor = Gdk.Color.Zero;
-                if (Gdk.Color.Parse(fgStr, ref fgColor)) {
-                    _PersonTreeView.ModifyText(Gtk.StateType.Normal, fgColor);
-                    _TopicEntry.ModifyText(Gtk.StateType.Normal, fgColor);
-                }
+            // HACK: using .Equals() as Gdk.Color doesn't implement != and ==
+            if (!ForegroundColor.Equals(Gdk.Color.Zero)) {
+                _PersonTreeView.ModifyText(Gtk.StateType.Normal, ForegroundColor);
+                _TopicEntry.ModifyText(Gtk.StateType.Normal, ForegroundColor);
             } else {
                 _PersonTreeView.ModifyText(Gtk.StateType.Normal);
                 _TopicEntry.ModifyText(Gtk.StateType.Normal);

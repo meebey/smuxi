@@ -32,6 +32,7 @@
     <File name="Main.cs" subtype="Code" buildaction="Compile" />
     <File name="Chats/NetworkChatView.cs" subtype="Code" buildaction="Compile" />
     <File name="Chats/PersonChatView.cs" subtype="Code" buildaction="Compile" />
+    <File name="../AssemblyVersion.cs" subtype="Code" buildaction="Compile" />
   </Contents>
   <References>
     <ProjectReference type="Project" localcopy="True" refto="Common" />

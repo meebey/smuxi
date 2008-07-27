@@ -763,7 +763,7 @@ namespace Smuxi.Frontend.Gnome
             if (String.IsNullOrEmpty(fontFamily)) {
                 // use Monospace and Bold by default
                 fontDescription.Family = "monospace";
-                fontDescription.Weight = Pango.Weight.Bold;
+                //fontDescription.Weight = Pango.Weight.Bold;
             } else {
                 fontDescription.Family = fontFamily;
                 string frontWeigth = null;

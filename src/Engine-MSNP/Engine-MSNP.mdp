@@ -16,6 +16,7 @@
   <Contents>
     <File name="AssemblyInfo.cs" subtype="Code" buildaction="Compile" />
     <File name="Protocols/Msnp/MsnpProtocolManager.cs" subtype="Code" buildaction="Compile" />
+    <File name="../AssemblyVersion.cs" subtype="Code" buildaction="Compile" />
   </Contents>
   <References>
     <ProjectReference type="Project" localcopy="True" refto="Engine" />

@@ -30,15 +30,7 @@ using System.Reflection;
 using System.Runtime.CompilerServices;
 
 [assembly: AssemblyTitle("smuxi - Curses frontend")]
-[assembly: AssemblyDescription("Smart MUltipleXed Irc")]
-[assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("qNETp")]
-[assembly: AssemblyProduct("smuxi")]
 [assembly: AssemblyCopyright("2007-2008 (C) Mirco Bauer <meebey@meebey.net>")]
-[assembly: AssemblyTrademark("")]
-[assembly: AssemblyCulture("")]
-
-[assembly: AssemblyVersion("0.6.0.*")]
 
 [assembly: AssemblyDelaySign(false)]
 [assembly: AssemblyKeyFile("")]

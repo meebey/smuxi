@@ -22,6 +22,7 @@
     <File name="CursesUI.cs" subtype="Code" buildaction="Compile" />
     <File name="TextView.cs" subtype="Code" buildaction="Compile" />
     <File name="LogWidget.cs" subtype="Code" buildaction="Compile" />
+    <File name="../AssemblyVersion.cs" subtype="Code" buildaction="Compile" />
   </Contents>
   <References>
     <ProjectReference type="Project" localcopy="True" refto="Frontend" />

@@ -1,3 +1,8 @@
+2008-07-27  Mirco Bauer <meebey@meebey.net> 
+
+	* smuxi.mds: Removed assembly attributes that are now part of the shared
+	  AssemblyVersion.cs file.
+
 2007-12-25  Mirco Bauer <meebey@meebey.net> 
 
 	* smuxi.mds: Updated using MonoDevelop 0.18.1

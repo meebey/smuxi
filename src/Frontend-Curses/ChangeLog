@@ -1,3 +1,8 @@
+2008-07-27  Mirco Bauer <meebey@meebey.net> 
+
+	* AssemblyInfo.cs, Frontend-Curses.mdp: Removed assembly attributes that are
+	  now part of the shared AssemblyVersion.cs file.
+
 2008-07-17  Mirco Bauer <meebey@meebey.net> 
 
 	* AssemblyInfo.cs: Bumped version to 0.6.0.
