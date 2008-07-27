@@ -242,11 +242,7 @@ namespace Smuxi.Frontend.Gnome
             item.Submenu = menu;
             mb.Append(item);
             
-#if UI_GNOME
-            image_item = new Gtk.ImageMenuItem(GNOME.Stock.About, agrp);
-#elif UI_GTK
-            image_item = new Gtk.ImageMenuItem(_("_About"), agrp);
-#endif
+            image_item = new Gtk.ImageMenuItem(Gtk.Stock.About, agrp);
             image_item.Activated += new EventHandler(_OnAboutButtonClicked);
             menu.Append(image_item);
             
