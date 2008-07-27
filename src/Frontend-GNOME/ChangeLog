@@ -1,5 +1,10 @@
 2008-07-27  Mirco Bauer <meebey@meebey.net> 
 
+	* ChatViewManager.cs: Implemented grouping person and group chats to their
+	  protocol chat. (closes trac bug #54)
+
+2008-07-27  Mirco Bauer <meebey@meebey.net> 
+
 	* Frontend-GNOME.mdp: Removed AssemblyInfo.cs.in from project.
 
 2008-07-27  Mirco Bauer <meebey@meebey.net> 

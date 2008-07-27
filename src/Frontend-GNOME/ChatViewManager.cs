@@ -66,22 +66,6 @@ namespace Smuxi.Frontend.Gnome
             f_TreeView = treeView;
         }
         
-        /*
-        protected override IChatView CreateChatView(ChatModel chat)
-        {
-            switch (chat.ChatType) {
-                case ChatType.Network:
-                    return new NetworkChatView(chat);
-                case ChatType.Person:
-                    return new PersonChatView(chat);
-                case ChatType.Group:
-                    return new GroupChatView(chat as GroupChatModel);
-            }
-            
-            throw new ApplicationException("Unsupported ChatModel type: " + chat.GetType());
-        }
-        */
-        
         public override void AddChat(ChatModel chat)
         {
             ChatView chatView = (ChatView) CreateChatView(chat);
@@ -90,9 +74,42 @@ namespace Smuxi.Frontend.Gnome
             if (f_Config != null) {
                 chatView.ApplyConfig(f_Config);
             }
-            // TODO: implement ordering, chats should go behind their protocol chat
-            //_Notebook.InsertPage(chatView, chatView.LabelEventBox, pos);
-            f_Notebook.AppendPage(chatView, chatView.LabelWidget);
+            
+            int idx = -1;
+            ChatType type = chat.ChatType;
+            // group person and group chats behind their protocol chat
+            if (type == ChatType.Person ||
+                type == ChatType.Group) {
+                IProtocolManager pm = chat.ProtocolManager;
+                for (int i = 0; i < f_Notebook.NPages; i++) {
+                    ChatView page = (ChatView) f_Notebook.GetNthPage(i);
+                    ChatModel pageChat = page.ChatModel;
+                    if (pageChat.ChatType == ChatType.Protocol &&
+                        pageChat.ProtocolManager == pm) {
+                        idx = i + 1;
+                        break;
+                    }
+                }
+                
+                if (idx != -1) {
+                    // now find the first chat with a different protocol manager
+                    for (int i = idx; i < f_Notebook.NPages; i++) {
+                        ChatView page = (ChatView) f_Notebook.GetNthPage(i);
+                        ChatModel pageChat = page.ChatModel;
+                        if (pageChat.ProtocolManager != pm) {
+                            idx = i;
+                            break;
+                        }
+                    }
+                }
+            }
+            
+            if (idx == -1) {
+                f_Notebook.AppendPage(chatView, chatView.LabelWidget);
+            } else {
+                f_Notebook.InsertPage(chatView, chatView.LabelWidget, idx);
+            }
+            
 #if GTK_SHARP_2_10
             f_Notebook.SetTabReorderable(chatView, true);
 #endif
