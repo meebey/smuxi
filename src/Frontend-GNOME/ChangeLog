@@ -1,5 +1,9 @@
 2008-07-27  Mirco Bauer <meebey@meebey.net> 
 
+	* Frontend-GNOME.mdp: Removed AssemblyInfo.cs.in from project.
+
+2008-07-27  Mirco Bauer <meebey@meebey.net> 
+
 	* MainWindow.cs: Use Gtk.Stock.About button.
 
 2008-07-27  Mirco Bauer <meebey@meebey.net> 
