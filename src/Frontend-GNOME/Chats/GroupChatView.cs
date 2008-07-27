@@ -486,7 +486,7 @@ namespace Smuxi.Frontend.Gnome
             Trace.Call(sender, e);
             
             // if there is an existing selection prevent making a new one using the right mouse button 
-            if (e.Event.Button == 3 && _PersonTreeView.Selection.CountSelectedRows() > 0) {
+            if (e.Event.Button == 3 && _PersonTreeView.Selection.CountSelectedRows() > 1) {
                 e.RetVal = true;
             }
         }

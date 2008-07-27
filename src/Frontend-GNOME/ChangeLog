@@ -1,5 +1,10 @@
 2008-07-27  Mirco Bauer <meebey@meebey.net> 
 
+	* Chats/GroupChatView.cs: Only prevent making a new selection using the
+	  right mouse button if the selection is actually multiple (>= 2 persons).
+
+2008-07-27  Mirco Bauer <meebey@meebey.net> 
+
 	* Chats/GroupChatView.cs, Chats/ChatView.cs: Implemented selecting multiple
 	  person in a group chat. (closes trac bug #73)
 	
