@@ -10,6 +10,7 @@ EXTRA_DIST =	expansions.m4 \
 		TODO
 
 SUBDIRS = 	src \
+		po \
 		po-Engine \
 		po-Engine-IRC \
 		po-Server \
