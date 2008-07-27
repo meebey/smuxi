@@ -1,5 +1,10 @@
 2008-07-27  Mirco Bauer <meebey@meebey.net> 
 
+	* IrcGroupChatView.cs: Implemented Kick + Ban in popup menu. (closes trac
+	  bug #58)
+
+2008-07-27  Mirco Bauer <meebey@meebey.net> 
+
 	* IrcGroupChatView.cs: Implemented selecting multiple person in a group
 	  chat. (closes trac bug #73)
 	

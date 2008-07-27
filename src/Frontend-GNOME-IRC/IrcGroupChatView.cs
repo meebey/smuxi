@@ -71,6 +71,10 @@ namespace Smuxi.Frontend.Gnome
                 kick_item.Activated += new EventHandler(_OnUserListMenuKickActivated);
                 PersonMenu.Append(kick_item);
 
+                Gtk.ImageMenuItem kickban_item = new Gtk.ImageMenuItem(_("Kick + Ban"));
+                kickban_item.Activated += new EventHandler(_OnUserListMenuKickBanActivated);
+                PersonMenu.Append(kickban_item);
+                
                 Gtk.ImageMenuItem ban_item = new Gtk.ImageMenuItem(_("Ban"));
                 ban_item.Activated += new EventHandler(_OnUserListMenuBanActivated);
                 PersonMenu.Append(ban_item);
@@ -237,6 +241,26 @@ namespace Smuxi.Frontend.Gnome
 
             foreach (PersonModel person in persons) {
                 _IrcProtocolManager.CommandKick(
+                    new CommandModel(
+                        Frontend.FrontendManager,
+                        ChatModel,
+                        person.ID
+                    )
+                );
+            }
+        }
+        
+        private void _OnUserListMenuKickBanActivated(object sender, EventArgs e)
+        {
+            Trace.Call(sender, e);
+
+            IList<PersonModel> persons = GetSelectedPersons();
+            if (persons == null) {
+                return;
+            }
+
+            foreach (PersonModel person in persons) {
+                _IrcProtocolManager.CommandKickban(
                     new CommandModel(
                         Frontend.FrontendManager,
                         ChatModel,
