@@ -90,10 +90,12 @@ namespace Smuxi.Frontend.Gnome
             if (f_Config != null) {
                 chatView.ApplyConfig(f_Config);
             }
+            // TODO: implement ordering, chats should go behind their protocol chat
             //_Notebook.InsertPage(chatView, chatView.LabelEventBox, pos);
             f_Notebook.AppendPage(chatView, chatView.LabelWidget);
-            //_Notebook.SetTabReorderable(chatView, true);
-            // it's better to do automatic (re-)ordering
+#if GTK_SHARP_2_10
+            f_Notebook.SetTabReorderable(chatView, true);
+#endif
             chatView.ShowAll();
         }
         

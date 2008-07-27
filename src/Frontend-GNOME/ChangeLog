@@ -1,5 +1,10 @@
 2008-07-27  Mirco Bauer <meebey@meebey.net> 
 
+	* ChatViewManager.cs, Makefile.am: Allow re-ordering of tabs if GTK# 2.10 is
+	  available. (closes tac bug #68)
+
+2008-07-27  Mirco Bauer <meebey@meebey.net> 
+
 	* AssemblyInfo.cs.in: Removed AssemblyInfo.cs.in files, not needed anymore
 	  as we use a shared AssemblyVersion.cs(.in) now.
 
