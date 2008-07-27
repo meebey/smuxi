@@ -15,6 +15,7 @@ AC_PROG_INTLTOOL([0.25])
 AM_PROG_LIBTOOL
 
 POSUB="
+	po
 	po-Engine
 	po-Engine-IRC
 	po-Engine-XMPP
@@ -310,6 +311,7 @@ src/Frontend-Test/smuxi-frontend-test
 
 AC_OUTPUT([
 src/AssemblyVersion.cs
+po/Makefile.in
 po-Engine/Makefile.in
 po-Engine-IRC/Makefile.in
 po-Server/Makefile.in
