@@ -1,5 +1,13 @@
 2008-07-27  Mirco Bauer <meebey@meebey.net> 
 
+	* Chats/GroupChatView.cs: Implemented applying topic and user list position
+	  settings for existing chats. (closes trac bug #56)
+	
+	  Refactored code to apply layout changes for topic and user list
+	  position.
+
+2008-07-27  Mirco Bauer <meebey@meebey.net> 
+
 	* ChatViewManager.cs, Makefile.am: Allow re-ordering of tabs if GTK# 2.10 is
 	  available. (closes tac bug #68)
 

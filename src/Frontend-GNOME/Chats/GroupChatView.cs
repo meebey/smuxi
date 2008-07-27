@@ -46,6 +46,9 @@ namespace Smuxi.Frontend.Gnome
         private Gtk.TreeView       _PersonTreeView;
         private Gtk.ListStore      _PersonListStore;
         private Gtk.Menu           _PersonMenu;
+        private Gtk.VBox           _OutputVBox;
+        private Gtk.Frame          _PersonTreeViewFrame;
+        private Gtk.HPaned         _OutputHPaned;
         private Gtk.Entry          _TopicEntry;
         private Gtk.TreeViewColumn _IdentityNameColumn;
         private Gtk.Image          _TabImage;
@@ -92,93 +95,59 @@ namespace Smuxi.Frontend.Gnome
             
             _GroupChatModel = groupChat;
             
-            // userlist
-            Gtk.Frame frame = null;
-            string userlist_pos = (string)Frontend.UserConfig["Interface/Notebook/Channel/UserListPosition"];
-            if ((userlist_pos == "left") ||
-                (userlist_pos == "right")) {
-                Gtk.ScrolledWindow sw = new Gtk.ScrolledWindow();
-                //sw.WidthRequest = 150;
-                sw.HscrollbarPolicy = Gtk.PolicyType.Never;
-                _PersonScrolledWindow = sw;
-                
-                Gtk.TreeView tv = new Gtk.TreeView();
-                //tv.CanFocus = false;
-                tv.BorderWidth = 0;
-                tv.Selection.Mode = Gtk.SelectionMode.Multiple;
-                sw.Add(tv);
-                _PersonTreeView = tv;
-                
-                Gtk.TreeViewColumn column;
-                Gtk.CellRendererText cellr = new Gtk.CellRendererText();
-                cellr.WidthChars = 15;
-                column = new Gtk.TreeViewColumn(String.Empty, cellr);
-                column.SortColumnId = 0;
-                column.Spacing = 0;
-                column.SortIndicator = false;
-                column.Sizing = Gtk.TreeViewColumnSizing.Autosize;
-                column.SetCellDataFunc(cellr, new Gtk.TreeCellDataFunc(_RenderPersonIdentityName));
-                tv.AppendColumn(column);
-                _IdentityNameColumn = column;
-                
-                Gtk.ListStore liststore = new Gtk.ListStore(typeof(PersonModel));
-                liststore.SetSortColumnId(0, Gtk.SortType.Ascending);
-                liststore.SetSortFunc(0, new Gtk.TreeIterCompareFunc(SortPersonListStore));
-                _PersonListStore = liststore;
-                
-                tv.Model = liststore;
-                tv.RowActivated += new Gtk.RowActivatedHandler(OnPersonsRowActivated);
-               
-                // popup menu
-                _PersonMenu = new Gtk.Menu();
-                
-                _PersonTreeView.ButtonPressEvent += _OnPersonTreeViewButtonPressEvent;
-                // frame needed for events when selecting something in the treeview
-                frame = new Gtk.Frame();
-                frame.ButtonReleaseEvent += new Gtk.ButtonReleaseEventHandler(_OnUserListButtonReleaseEvent);
-                frame.Add(sw);
-            } else if (userlist_pos == "none") {
-            } else {
-#if LOG4NET
-                _Logger.Error("GroupChatView..ctor(): unknown value in Interface/Notebook/Channel/UserListPosition: "+userlist_pos);
-#endif
-            }
+            // person list
+            _OutputHPaned = new Gtk.HPaned();
+            
+            Gtk.ScrolledWindow sw = new Gtk.ScrolledWindow();
+            _PersonScrolledWindow = sw;
+            //sw.WidthRequest = 150;
+            sw.HscrollbarPolicy = Gtk.PolicyType.Never;
+            
+            Gtk.TreeView tv = new Gtk.TreeView();
+            _PersonTreeView = tv;
+            //tv.CanFocus = false;
+            tv.BorderWidth = 0;
+            tv.Selection.Mode = Gtk.SelectionMode.Multiple;
+            sw.Add(tv);
+            
+            Gtk.TreeViewColumn column;
+            Gtk.CellRendererText cellr = new Gtk.CellRendererText();
+            cellr.WidthChars = 15;
+            column = new Gtk.TreeViewColumn(String.Empty, cellr);
+            column.SortColumnId = 0;
+            column.Spacing = 0;
+            column.SortIndicator = false;
+            column.Sizing = Gtk.TreeViewColumnSizing.Autosize;
+            column.SetCellDataFunc(cellr, new Gtk.TreeCellDataFunc(_RenderPersonIdentityName));
+            tv.AppendColumn(column);
+            _IdentityNameColumn = column;
+            
+            Gtk.ListStore liststore = new Gtk.ListStore(typeof(PersonModel));
+            liststore.SetSortColumnId(0, Gtk.SortType.Ascending);
+            liststore.SetSortFunc(0, new Gtk.TreeIterCompareFunc(SortPersonListStore));
+            _PersonListStore = liststore;
+            
+            tv.Model = liststore;
+            tv.RowActivated += new Gtk.RowActivatedHandler(OnPersonsRowActivated);
+           
+            // popup menu
+            _PersonMenu = new Gtk.Menu();
+            
+            _PersonTreeView.ButtonPressEvent += _OnPersonTreeViewButtonPressEvent;
+            // frame needed for events when selecting something in the treeview
+            _PersonTreeViewFrame = new Gtk.Frame();
+            _PersonTreeViewFrame.ButtonReleaseEvent += new Gtk.ButtonReleaseEventHandler(_OnUserListButtonReleaseEvent);
+            _PersonTreeViewFrame.Add(sw);
             
             // topic
-            Gtk.VBox vbox = new Gtk.VBox();
-            string topic_pos = (string)Frontend.UserConfig["Interface/Notebook/Channel/TopicPosition"];
-            if (topic_pos == "top" || topic_pos == "bottom") {
-                Gtk.Entry topic = new Gtk.Entry();
-                topic.IsEditable = false;
-                _TopicEntry = topic;
-                if (topic_pos == "top") {
-                    vbox.PackStart(topic, false, false, 2);
-                    vbox.PackStart(OutputScrolledWindow, true, true, 0);
-                } else {
-                    vbox.PackStart(OutputScrolledWindow, true, true, 0);
-                    vbox.PackStart(topic, false, false, 2);
-                }
-            } else if (topic_pos == "none") {
-                vbox.PackStart(OutputScrolledWindow, true, true, 0);
-            } else {
-#if LOG4NET
-                _Logger.Error("GroupChatView..ctor(): unknown value in Interface/Notebook/Channel/TopicPosition: "+topic_pos);
-#endif
-            }
+            _OutputVBox = new Gtk.VBox();
             
-            if (userlist_pos == "left" || userlist_pos == "right") { 
-                Gtk.HPaned hpaned = new Gtk.HPaned();
-                if (userlist_pos == "left") {
-                    hpaned.Pack1(frame, false, false);
-                    hpaned.Pack2(vbox, true, true);
-                } else {
-                    hpaned.Pack1(vbox, true, true);
-                    hpaned.Pack2(frame, false, false);
-                }
-                Add(hpaned);
-            } else {
-                Add(vbox);
-            }
+            _TopicEntry = new Gtk.Entry();
+            _TopicEntry.IsEditable = false;
+            
+            Add(_OutputHPaned);
+            
+            ApplyConfig(Frontend.UserConfig);
             
             _TabImage = new Gtk.Image(
                 new Gdk.Pixbuf(
@@ -401,6 +370,52 @@ namespace Smuxi.Frontend.Gnome
             
             _PersonTreeView.ModifyFont(FontDescription);
             _TopicEntry.ModifyFont(FontDescription);
+            
+            // topic
+            string topic_pos = (string) config["Interface/Notebook/Channel/TopicPosition"];
+            if (_TopicEntry.IsAncestor(_OutputVBox)) {
+                _OutputVBox.Remove(_TopicEntry);
+            }
+            if (OutputScrolledWindow.IsAncestor(_OutputVBox)) {
+                _OutputVBox.Remove(OutputScrolledWindow);
+            }
+            if (topic_pos == "top") {
+                _OutputVBox.PackStart(_TopicEntry, false, false, 2);
+                _OutputVBox.PackStart(OutputScrolledWindow, true, true, 0);
+            } else if  (topic_pos == "bottom") {
+                _OutputVBox.PackStart(OutputScrolledWindow, true, true, 0);
+                _OutputVBox.PackStart(_TopicEntry, false, false, 2);
+            } else if (topic_pos == "none") {
+                _OutputVBox.PackStart(OutputScrolledWindow, true, true, 0);
+            } else {
+#if LOG4NET
+                _Logger.Error("ApplyConfig(): unsupported value in Interface/Notebook/Channel/TopicPosition: " + topic_pos);
+#endif
+            }
+            _OutputVBox.ShowAll();
+
+            // person list
+            string userlist_pos = (string) config["Interface/Notebook/Channel/UserListPosition"];
+            if (_PersonTreeViewFrame.IsAncestor(_OutputHPaned)) {
+                _OutputHPaned.Remove(_PersonTreeViewFrame);
+            }
+            if (_OutputVBox.IsAncestor(_OutputHPaned)) {
+                _OutputHPaned.Remove(_OutputVBox);
+            }
+            if (userlist_pos == "left") {
+                _OutputHPaned.Pack1(_PersonTreeViewFrame, false, false);
+                _OutputHPaned.Pack2(_OutputVBox, true, true);
+            } else if (userlist_pos == "right") {
+                _OutputHPaned.Pack1(_OutputVBox, true, true);
+                _OutputHPaned.Pack2(_PersonTreeViewFrame, false, false);
+            } else if (userlist_pos == "none") {
+                _OutputHPaned.Pack1(_OutputVBox, true, true);
+            } else {
+#if LOG4NET
+                _Logger.Error("ApplyConfig(): unsupported value in Interface/Notebook/Channel/UserListPosition: " + userlist_pos);
+#endif
+            }
+            _OutputHPaned.ShowAll();
         }
 
         private void _RenderPersonIdentityName(Gtk.TreeViewColumn column,
