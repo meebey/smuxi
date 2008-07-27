@@ -1,5 +1,10 @@
 2008-07-27  Mirco Bauer <meebey@meebey.net> 
 
+	* AssemblyInfo.cs.in: Removed AssemblyInfo.cs.in files, not needed anymore
+	  as we use a shared AssemblyVersion.cs(.in) now.
+
+2008-07-27  Mirco Bauer <meebey@meebey.net> 
+
 	* Chats/GroupChatView.cs: Only prevent making a new selection using the
 	  right mouse button if the selection is actually multiple (>= 2 persons).
 
