@@ -63,8 +63,8 @@ namespace Smuxi.Frontend.Gnome
         private   Gtk.TextView       _OutputTextView;
         private   Gtk.TextTagTable   _OutputTextTagTable;
         private   Pango.FontDescription _FontDescription;
-        private   Gdk.Color          _BackgroundColor = Gdk.Color.Zero;
-        private   Gdk.Color          _ForegroundColor = Gdk.Color.Zero;
+        private   Gdk.Color?         _BackgroundColor;
+        private   Gdk.Color?         _ForegroundColor;
         
         public ChatModel ChatModel {
             get {
@@ -164,13 +164,13 @@ namespace Smuxi.Frontend.Gnome
             }
         }
 
-        protected Gdk.Color BackgroundColor {
+        protected Gdk.Color? BackgroundColor {
             get {
                 return _BackgroundColor;
             }
         }
 
-        protected Gdk.Color ForegroundColor {
+        protected Gdk.Color? ForegroundColor {
             get {
                 return _ForegroundColor;
             }
@@ -492,6 +492,7 @@ namespace Smuxi.Frontend.Gnome
                 }
             } else {
                 _OutputTextView.ModifyBase(Gtk.StateType.Normal);
+                _BackgroundColor = null;
             }
             
             string fgStr = (string) config["Interface/Chat/ForegroundColor"];
@@ -503,6 +504,7 @@ namespace Smuxi.Frontend.Gnome
                 }
             } else {
                 _OutputTextView.ModifyText(Gtk.StateType.Normal);
+                _ForegroundColor = null;
             }
             
             string fontFamily = (string) config["Interface/Chat/FontFamily"];

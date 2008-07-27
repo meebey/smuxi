@@ -49,7 +49,7 @@ namespace Smuxi.Frontend.Gnome
         private Gtk.Entry          _TopicEntry;
         private Gtk.TreeViewColumn _IdentityNameColumn;
         private Gtk.Image          _TabImage;
-                
+        
         public Gtk.Entry TopicEntry {
             get {
                 return _TopicEntry;
@@ -93,6 +93,7 @@ namespace Smuxi.Frontend.Gnome
                 Gtk.TreeView tv = new Gtk.TreeView();
                 tv.CanFocus = false;
                 tv.BorderWidth = 0;
+                tv.Selection.Mode = Gtk.SelectionMode.Multiple;
                 sw.Add(tv);
                 _PersonTreeView = tv;
                 
@@ -369,19 +370,17 @@ namespace Smuxi.Frontend.Gnome
             
             base.ApplyConfig(config);
             
-            // HACK: using .Equals() as Gdk.Color doesn't implement != and ==
-            if (!BackgroundColor.Equals(Gdk.Color.Zero)) {
-                _PersonTreeView.ModifyBase(Gtk.StateType.Normal, BackgroundColor);
-                _TopicEntry.ModifyBase(Gtk.StateType.Normal, BackgroundColor);
+            if (BackgroundColor != null) {
+                _PersonTreeView.ModifyBase(Gtk.StateType.Normal, BackgroundColor.Value);
+                _TopicEntry.ModifyBase(Gtk.StateType.Normal, BackgroundColor.Value);
             } else {
                 _PersonTreeView.ModifyBase(Gtk.StateType.Normal);
                 _TopicEntry.ModifyBase(Gtk.StateType.Normal);
             }
             
-            // HACK: using .Equals() as Gdk.Color doesn't implement != and ==
-            if (!ForegroundColor.Equals(Gdk.Color.Zero)) {
-                _PersonTreeView.ModifyText(Gtk.StateType.Normal, ForegroundColor);
-                _TopicEntry.ModifyText(Gtk.StateType.Normal, ForegroundColor);
+            if (ForegroundColor != null) {
+                _PersonTreeView.ModifyText(Gtk.StateType.Normal, ForegroundColor.Value);
+                _TopicEntry.ModifyText(Gtk.StateType.Normal, ForegroundColor.Value);
             } else {
                 _PersonTreeView.ModifyText(Gtk.StateType.Normal);
                 _TopicEntry.ModifyText(Gtk.StateType.Normal);

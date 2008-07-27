@@ -1,5 +1,11 @@
 2008-07-27  Mirco Bauer <meebey@meebey.net> 
 
+	* Chats/GroupChatView.cs, Chats/ChatView.cs: Initialize _Background and
+	  _Foregroundcolor correctly using Nullable<Gdk.Color> as Gdk.Color.Zero
+	  == color black.
+
+2008-07-27  Mirco Bauer <meebey@meebey.net> 
+
 	* Frontend-GNOME.mdp: Removed assembly attributes that are now part of the
 	  shared AssemblyVersion.cs file.
 
