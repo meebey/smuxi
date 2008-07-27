@@ -107,7 +107,7 @@ namespace Smuxi.Frontend.Gnome
             }
         }
         
-        public bool HasSelection {
+        public virtual bool HasSelection {
             get {
 #if GTK_SHARP_2_10
                 return _OutputTextView.Buffer.HasSelection;
@@ -119,7 +119,7 @@ namespace Smuxi.Frontend.Gnome
             }
         }
         
-        public new bool HasFocus {
+        public virtual new bool HasFocus {
             get {
                 return base.HasFocus || _OutputTextView.HasFocus;
             }

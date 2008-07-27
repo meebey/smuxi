@@ -27,6 +27,7 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.Globalization;
 using Smuxi.Engine;
 using Smuxi.Common;
@@ -137,104 +138,177 @@ namespace Smuxi.Frontend.Gnome
         {
             Trace.Call(sender, e);
             
-            PersonModel person = GetSelectedPerson();
-            if (person == null) {
+            IList<PersonModel> persons = GetSelectedPersons();
+            if (persons == null) {
                 return;
             }
 
-            _IrcProtocolManager.CommandOp(new CommandModel(Frontend.FrontendManager, ChatModel,
-                person.ID));
+            // do smart mode changes
+            List<string> nicks = new List<string>(); 
+            foreach (PersonModel person in persons) {
+                nicks.Add(person.ID);
+            }
+            _IrcProtocolManager.CommandOp(
+                new CommandModel(
+                    Frontend.FrontendManager,
+                    ChatModel,
+                    String.Join(" ", nicks.ToArray())
+                )
+            );
         } 
         
         private void _OnUserListMenuDeopActivated(object sender, EventArgs e)
         {
             Trace.Call(sender, e);
             
-            PersonModel person = GetSelectedPerson();
-            if (person == null) {
+            IList<PersonModel> persons = GetSelectedPersons();
+            if (persons == null) {
                 return;
             }
-            
-            _IrcProtocolManager.CommandDeop(new CommandModel(Frontend.FrontendManager, ChatModel,
-                person.ID));
+
+            // do smart mode changes
+            List<string> nicks = new List<string>(); 
+            foreach (PersonModel person in persons) {
+                nicks.Add(person.ID);
+            }
+            _IrcProtocolManager.CommandDeop(
+                new CommandModel(
+                    Frontend.FrontendManager,
+                    ChatModel,
+                    String.Join(" ", nicks.ToArray())
+                )
+            );
         }
-         
+        
         private void _OnUserListMenuVoiceActivated(object sender, EventArgs e)
         {
             Trace.Call(sender, e);
             
-            PersonModel person = GetSelectedPerson();
-            if (person == null) {
+            IList<PersonModel> persons = GetSelectedPersons();
+            if (persons == null) {
                 return;
             }
-            
-            _IrcProtocolManager.CommandVoice(new CommandModel(Frontend.FrontendManager, ChatModel,
-                    person.ID));
+
+            // do smart mode changes
+            List<string> nicks = new List<string>(); 
+            foreach (PersonModel person in persons) {
+                nicks.Add(person.ID);
+            }
+            _IrcProtocolManager.CommandVoice(
+                new CommandModel(
+                    Frontend.FrontendManager,
+                    ChatModel,
+                    String.Join(" ", nicks.ToArray())
+                )
+            );
         }
         
         private void _OnUserListMenuDevoiceActivated(object sender, EventArgs e)
         {
             Trace.Call(sender, e);
 
-            PersonModel person = GetSelectedPerson();
-            if (person == null) {
+            IList<PersonModel> persons = GetSelectedPersons();
+            if (persons == null) {
                 return;
             }
-            
-            _IrcProtocolManager.CommandDevoice(new CommandModel(Frontend.FrontendManager,
-                                                                ChatModel, person.ID));
-        } 
+
+            // do smart mode changes
+            List<string> nicks = new List<string>(); 
+            foreach (PersonModel person in persons) {
+                nicks.Add(person.ID);
+            }
+            _IrcProtocolManager.CommandDevoice(
+                new CommandModel(
+                    Frontend.FrontendManager,
+                    ChatModel,
+                    String.Join(" ", nicks.ToArray())
+                )
+            );
+        }
         
         private void _OnUserListMenuKickActivated(object sender, EventArgs e)
         {
             Trace.Call(sender, e);
 
-            PersonModel person = GetSelectedPerson();
-            if (person == null) {
+            IList<PersonModel> persons = GetSelectedPersons();
+            if (persons == null) {
                 return;
             }
-            
-            _IrcProtocolManager.CommandKick(new CommandModel(Frontend.FrontendManager, ChatModel,
-                    person.ID));
+
+            foreach (PersonModel person in persons) {
+                _IrcProtocolManager.CommandKick(
+                    new CommandModel(
+                        Frontend.FrontendManager,
+                        ChatModel,
+                        person.ID
+                    )
+                );
+            }
         }
         
         private void _OnUserListMenuBanActivated(object sender, EventArgs e)
         {
             Trace.Call(sender, e);
 
-            PersonModel person = GetSelectedPerson();
-            if (person == null) {
+            IList<PersonModel> persons = GetSelectedPersons();
+            if (persons == null) {
                 return;
             }
-            
-            _IrcProtocolManager.CommandBan(new CommandModel(Frontend.FrontendManager, ChatModel,
-                    person.ID));
+
+            // do smart mode changes
+            List<string> nicks = new List<string>(); 
+            foreach (PersonModel person in persons) {
+                nicks.Add(person.ID);
+            }
+            _IrcProtocolManager.CommandBan(
+                new CommandModel(
+                    Frontend.FrontendManager,
+                    ChatModel,
+                    String.Join(" ", nicks.ToArray())
+                )
+            );
         }
         
         private void _OnUserListMenuUnbanActivated(object sender, EventArgs e)
         {
             Trace.Call(sender, e);
 
-            PersonModel person = GetSelectedPerson();
-            if (person == null) {
+            IList<PersonModel> persons = GetSelectedPersons();
+            if (persons == null) {
                 return;
             }
-            
-            _IrcProtocolManager.CommandUnban(new CommandModel(Frontend.FrontendManager, ChatModel,
-                    person.ID));
+
+            List<string> nicks = new List<string>(); 
+            foreach (PersonModel person in persons) {
+                nicks.Add(person.ID);
+            }
+            _IrcProtocolManager.CommandUnban(
+                new CommandModel(
+                    Frontend.FrontendManager,
+                    ChatModel,
+                    String.Join(" ", nicks.ToArray())
+                )
+            );
         }
         
         private void _OnUserListMenuQueryActivated(object sender, EventArgs e)
         {
             Trace.Call(sender, e);
 
-            PersonModel person = GetSelectedPerson();
-            if (person == null) {
+            IList<PersonModel> persons = GetSelectedPersons();
+            if (persons == null) {
                 return;
             }
-            
-            _IrcProtocolManager.CommandMessageQuery(new CommandModel(Frontend.FrontendManager, ChatModel,
-                    person.ID));
+
+            foreach (PersonModel person in persons) {
+                _IrcProtocolManager.CommandMessageQuery(
+                    new CommandModel(
+                        Frontend.FrontendManager,
+                        ChatModel,
+                        person.ID
+                    )
+                );
+            }
         }
         
         protected override void OnPersonsRowActivated(object sender, Gtk.RowActivatedArgs e)
@@ -243,13 +317,20 @@ namespace Smuxi.Frontend.Gnome
             
             base.OnPersonsRowActivated(sender, e);
             
-            PersonModel person = GetSelectedPerson();
-            if (person == null) {
+            IList<PersonModel> persons = GetSelectedPersons();
+            if (persons == null) {
                 return;
             }
-            
-            _IrcProtocolManager.CommandMessageQuery(new CommandModel(Frontend.FrontendManager,
-                                                          ChatModel, person.ID));
+
+            foreach (PersonModel person in persons) {
+                _IrcProtocolManager.CommandMessageQuery(
+                    new CommandModel(
+                        Frontend.FrontendManager,
+                        ChatModel,
+                        person.ID
+                    )
+                );
+            }
         }
 
         protected override int SortPersonListStore(Gtk.TreeModel model,

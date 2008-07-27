@@ -1,5 +1,12 @@
 2008-07-27  Mirco Bauer <meebey@meebey.net> 
 
+	* Chats/GroupChatView.cs, Chats/ChatView.cs: Implemented selecting multiple
+	  person in a group chat. (closes trac bug #73)
+	
+	  Refactored person context menu commands to support a list of persons.
+
+2008-07-27  Mirco Bauer <meebey@meebey.net> 
+
 	* Chats/GroupChatView.cs, Chats/ChatView.cs: Initialize _Background and
 	  _Foregroundcolor correctly using Nullable<Gdk.Color> as Gdk.Color.Zero
 	  == color black.

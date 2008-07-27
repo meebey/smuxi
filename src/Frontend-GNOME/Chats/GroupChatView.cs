@@ -56,6 +56,18 @@ namespace Smuxi.Frontend.Gnome
             }
         }
         
+        public override bool HasSelection {
+            get {
+                return base.HasSelection || _PersonTreeView.Selection.CountSelectedRows() > 0;
+            }
+        }
+        
+        public override bool HasFocus {
+            get {
+                return base.HasFocus || _PersonTreeView.HasFocus;
+            }
+        }
+        
         protected Gtk.TreeView PersonTreeView {
             get {
                 return _PersonTreeView;
@@ -91,7 +103,7 @@ namespace Smuxi.Frontend.Gnome
                 _PersonScrolledWindow = sw;
                 
                 Gtk.TreeView tv = new Gtk.TreeView();
-                tv.CanFocus = false;
+                //tv.CanFocus = false;
                 tv.BorderWidth = 0;
                 tv.Selection.Mode = Gtk.SelectionMode.Multiple;
                 sw.Add(tv);
@@ -120,6 +132,7 @@ namespace Smuxi.Frontend.Gnome
                 // popup menu
                 _PersonMenu = new Gtk.Menu();
                 
+                _PersonTreeView.ButtonPressEvent += _OnPersonTreeViewButtonPressEvent;
                 // frame needed for events when selecting something in the treeview
                 frame = new Gtk.Frame();
                 frame.ButtonReleaseEvent += new Gtk.ButtonReleaseEventHandler(_OnUserListButtonReleaseEvent);
@@ -461,21 +474,35 @@ namespace Smuxi.Frontend.Gnome
         {
             Trace.Call(sender, e);
 
-            if (e.Event.Button == 3) {
+            if (e.Event.Button == 3 && _PersonTreeView.Selection.CountSelectedRows() > 0) {
                 _PersonMenu.Popup(null, null, null, e.Event.Button, e.Event.Time);
                 _PersonMenu.ShowAll();
             }
         }
         
-        protected PersonModel GetSelectedPerson()
+        [GLib.ConnectBefore]
+        private void _OnPersonTreeViewButtonPressEvent(object sender, Gtk.ButtonPressEventArgs e)
+        {
+            Trace.Call(sender, e);
+            
+            // if there is an existing selection prevent making a new one using the right mouse button 
+            if (e.Event.Button == 3 && _PersonTreeView.Selection.CountSelectedRows() > 0) {
+                e.RetVal = true;
+            }
+        }
+        
+        protected IList<PersonModel> GetSelectedPersons()
         {
             Gtk.TreeIter iter;
             Gtk.TreeModel model;
-            if (_PersonTreeView.Selection.GetSelected(out model, out iter)) {
-                return (PersonModel) model.GetValue(iter, 0);
+            List<PersonModel> persons = new List<PersonModel>();
+            Gtk.TreePath[] paths = _PersonTreeView.Selection.GetSelectedRows(out model);
+            foreach (Gtk.TreePath path in paths) {
+                model.GetIter(out iter, path);
+                persons.Add((PersonModel) model.GetValue(iter, 0));
             }
             
-            return null;
+            return persons;
         }
         
         private static string _(string msg)
