@@ -1,6 +1,10 @@
 glade/
+src/Frontend/
 src/Frontend-GNOME/
 src/Frontend-GNOME-IRC/
 src/Frontend-SWF/
 src/Frontend-WPF/
-src/Frontend/
+src/Engine-IRC/
+src/Engine-MSNP/
+src/Engine-OSCAR/
+src/Engine-XMPP/
