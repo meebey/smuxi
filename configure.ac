@@ -1,5 +1,5 @@
 AC_PREREQ([2.54])
-AC_INIT([smuxi], [0.6.0], http://smuxi.meebey.net/cgi-bin/trac/trac.cgi/newticket)
+AC_INIT([smuxi], [0.6.0], [http://smuxi.meebey.net/cgi-bin/trac/trac.cgi/newticket])
 AM_INIT_AUTOMAKE([foreign])
 AM_MAINTAINER_MODE
 
@@ -198,10 +198,20 @@ AC_ARG_ENABLE([frontend-gnome],
 	ENABLE_FRONTEND_GNOME=yes
 )
 if test "x$ENABLE_FRONTEND_GNOME" != "xno"; then
-	PKG_CHECK_MODULES([GLIB_SHARP_20], [glib-sharp-2.0])
-	PKG_CHECK_MODULES([GTK_SHARP_20], [gtk-sharp-2.0])
-	PKG_CHECK_MODULES([GLADE_SHARP_20], [glade-sharp-2.0])
-	PKG_CHECK_MODULES([GNOME_SHARP_20], [gnome-sharp-2.0])
+	PKG_CHECK_MODULES([GLIB_SHARP_20], [glib-sharp-2.0 >= 2.8])
+	PKG_CHECK_MODULES([GTK_SHARP_20], [gtk-sharp-2.0 >= 2.8])
+	PKG_CHECK_MODULES([GLADE_SHARP_20], [glade-sharp-2.0 >= 2.8])
+	PKG_CHECK_MODULES([GNOME_SHARP_20], [gnome-sharp-2.0 >= 2.8])
+	
+	AC_MSG_CHECKING([for gtk-sharp version >= 2.10])
+	if $PKG_CONFIG 'gtk-sharp-2.0 >= 2.10'; then
+		AC_MSG_RESULT(yes)
+		AC_DEFINE(GTK_SHARP_2_10,1,[System has gtk-sharp 2.10 or better])
+		FRONTEND_GNOME_COMPILER_FLAGS=-define:GTK_SHARP_2_10
+	else
+		AC_MSG_RESULT(no)
+	fi
+	AC_SUBST(FRONTEND_GNOME_COMPILER_FLAGS)
 	
 	ENABLE_FRONTEND_GNOME_IRC=$ENABLE_ENGINE_IRC;
 	ENABLE_FRONTEND_GNOME_XMPP=$ENABLE_ENGINE_XMPP;
@@ -299,13 +309,7 @@ src/Frontend-Test/smuxi-frontend-test
 ])
 
 AC_OUTPUT([
-src/Common/AssemblyInfo.cs
-src/Engine/AssemblyInfo.cs
-src/Engine-IRC/AssemblyInfo.cs
-src/Server/AssemblyInfo.cs
-src/Frontend/AssemblyInfo.cs
-src/Frontend-GNOME/AssemblyInfo.cs
-src/Frontend-GNOME-IRC/AssemblyInfo.cs
+src/AssemblyVersion.cs
 po/Makefile.in
 po/Engine/Makefile.in
 po/Engine-IRC/Makefile.in
@@ -314,26 +318,25 @@ po/Frontend-GNOME/Makefile.in
 po/Frontend-GNOME-IRC/Makefile.in
 ])
 
-echo "---"
-echo "Configuration summary for $PACKAGE_NAME ($VERSION)"
-echo ""
-echo "  * Installation prefix: $prefix"
-echo "  * Debug build:         $enable_debug"
-echo ""
-echo "  * Engines"
-echo "    -------"
-echo "    IRC:                 $ENABLE_ENGINE_IRC"
-echo "    XMPP:                $ENABLE_ENGINE_XMPP"
-echo "    OSCAR:               $ENABLE_ENGINE_OSCAR"
-echo "    MSNP:                $ENABLE_ENGINE_MSNP"
-echo ""
-echo "  * Frontends"
-echo "    ---------"
-echo "    GNOME:               $ENABLE_FRONTEND_GNOME (IRC: $ENABLE_FRONTEND_GNOME_IRC XMPP: $ENABLE_FRONTEND_GNOME_XMPP)"
-echo "    Ncurses:             $ENABLE_FRONTEND_CURSES"
-echo "    STFL:                $ENABLE_FRONTEND_STFL"
-echo "    SWF (WinForms):      $ENABLE_FRONTEND_SWF"
-echo "    WPF:                 $ENABLE_FRONTEND_WPF"
-echo "    Test:                $ENABLE_FRONTEND_TEST"
-echo ""
-echo "---"
+AC_MSG_RESULT([
+  Configuration summary for $PACKAGE_NAME ($VERSION)
+  
+  * Installation prefix: $prefix
+  * Debug build:         $enable_debug
+  
+  * Engines
+    -------
+    IRC:                 $ENABLE_ENGINE_IRC
+    XMPP:                $ENABLE_ENGINE_XMPP
+    OSCAR:               $ENABLE_ENGINE_OSCAR
+    MSNP:                $ENABLE_ENGINE_MSNP
+ 
+  * Frontends
+    ---------
+    GNOME:               $ENABLE_FRONTEND_GNOME (IRC: $ENABLE_FRONTEND_GNOME_IRC XMPP: $ENABLE_FRONTEND_GNOME_XMPP)
+    Ncurses:             $ENABLE_FRONTEND_CURSES
+    STFL:                $ENABLE_FRONTEND_STFL
+    SWF (WinForms):      $ENABLE_FRONTEND_SWF
+    WPF:                 $ENABLE_FRONTEND_WPF
+    Test:                $ENABLE_FRONTEND_TEST
+])
