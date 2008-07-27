@@ -9,8 +9,7 @@ Standards-Version: 3.7.2
 Package: smuxi
 Architecture: all
 Suggests: smuxi-server
-Depends: smuxi-frontend-gnome (= ${Source-Version})
-Recommends: smuxi-frontend-gnome-irc (= ${Source-Version})
+Depends: smuxi-frontend-gnome-irc (= ${Source-Version})
 Description: IRC client for advanced users
  Smart MUtipleXed Irc (smuxi) is an IRC client for advanced users.
  It is split into 2 parts, engine and frontend. The frontend can be detached
@@ -18,7 +17,7 @@ Description: IRC client for advanced users
  state.
  .
  This is a meta package which depends on the default flavor of smuxi, which is
- the GNOME frontend.
+ the GNOME frontend with extended IRC support.
 
 Package: smuxi-engine
 Architecture: all
