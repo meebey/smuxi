@@ -3,22 +3,25 @@ person-chat.svg
 Origin:     gnome-icon-theme
 Filename:   stock_person.svg
 License:    GPL2+
+Author:     Jakub Steiner <jimmac@ximian.com>
 
 group-chat.svg
 --------------
 Origin:     gnome-icon-theme
 Filename:   system-users.svg
 License:    GPL2+
+Author:     Jakub Steiner <jimmac@ximian.com>
 
 session-chat.svg
 ----------------
 Origin:     gnome-icon-theme
 Filename:   go-home.svg
 License:    GPL2+
+Author:     Rodney Dawes  <dobey@novell.com>
 
 protocol-chat.svg
 -----------------
 Origin:     gnome-icon-theme
 Filename:   preferences-system-network.svg
 License:    GPL2+
-
+Author:     Lapo Calamandrei <calamandrei@gmail.com>

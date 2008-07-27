@@ -77,6 +77,8 @@ namespace Smuxi.Frontend.Gnome
                     ShowTabs = false;
                     break;
             }
+            
+            // TODO: Homogeneous = true;
         }
         
         public ChatView GetChat(ChatModel chat)

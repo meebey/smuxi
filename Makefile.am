@@ -10,9 +10,8 @@ EXTRA_DIST =	expansions.m4 \
 		TODO
 
 SUBDIRS = 	src \
-		po \
-		po/Engine \
-		po/Engine-IRC \
-		po/Server \
-		po/Frontend-GNOME \
-		po/Frontend-GNOME-IRC
+		po-Engine \
+		po-Engine-IRC \
+		po-Server \
+		po-Frontend-GNOME \
+		po-Frontend-GNOME-IRC

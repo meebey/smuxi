@@ -1,0 +1,10 @@
+glade/
+src/Frontend/
+src/Frontend-GNOME-IRC/
+src/Frontend-SWF/
+src/Frontend-WPF/
+src/Engine/
+src/Engine-IRC/
+src/Engine-MSNP/
+src/Engine-OSCAR/
+src/Engine-XMPP/

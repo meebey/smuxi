@@ -15,17 +15,17 @@ AC_PROG_INTLTOOL([0.25])
 AM_PROG_LIBTOOL
 
 POSUB="
-	po/Engine
-	po/Engine-IRC
-	po/Engine-XMPP
-	po/Engine-OSCAR
-	po/Engine-MSNP
-	po/Server
-	po/Frontend
-	po/Frontend-GNOME
-	po/Frontend-GNOME-IRC
-	po/Frontend-GNOME-XMPP
-	po/Frontend-SWF
+	po-Engine
+	po-Engine-IRC
+	po-Engine-XMPP
+	po-Engine-OSCAR
+	po-Engine-MSNP
+	po-Server
+	po-Frontend
+	po-Frontend-GNOME
+	po-Frontend-GNOME-IRC
+	po-Frontend-GNOME-XMPP
+	po-Frontend-SWF
 "
 AC_SUBST(POSUB)
 GETTEXT_PACKAGE=smuxi
@@ -310,12 +310,11 @@ src/Frontend-Test/smuxi-frontend-test
 
 AC_OUTPUT([
 src/AssemblyVersion.cs
-po/Makefile.in
-po/Engine/Makefile.in
-po/Engine-IRC/Makefile.in
-po/Server/Makefile.in
-po/Frontend-GNOME/Makefile.in
-po/Frontend-GNOME-IRC/Makefile.in
+po-Engine/Makefile.in
+po-Engine-IRC/Makefile.in
+po-Server/Makefile.in
+po-Frontend-GNOME/Makefile.in
+po-Frontend-GNOME-IRC/Makefile.in
 ])
 
 AC_MSG_RESULT([

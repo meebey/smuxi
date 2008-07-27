@@ -26,7 +26,7 @@
     <ProjectReference type="Project" localcopy="True" refto="Engine-IRC" />
     <ProjectReference type="Gac" localcopy="True" refto="Mono.Posix, Version=2.0.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756" />
     <ProjectReference type="Project" localcopy="True" refto="Frontend" />
-    <ProjectReference type="Assembly" localcopy="True" refto="../../lib/log4net.dll" />
+    <ProjectReference type="Assembly" localcopy="False" refto="../../lib/log4net.dll" />
     <ProjectReference type="Gac" localcopy="True" refto="gtk-sharp, Version=2.8.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
   </References>
 </Project>

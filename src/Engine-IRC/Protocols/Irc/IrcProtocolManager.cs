@@ -979,6 +979,10 @@ namespace Smuxi.Engine
                 foreach (string nick in candidates) {
                     _IrcClient.Op(channel, nick);
                 }
+                /*
+                // requires SmartIrc4net >= 0.4.6
+                _IrcClient.Op(channel, candidates);
+                */
             } else {
                 _NotEnoughParameters(cd);
             }
