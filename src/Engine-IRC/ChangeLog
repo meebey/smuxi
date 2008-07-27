@@ -1,5 +1,10 @@
 2008-07-27  Mirco Bauer <meebey@meebey.net> 
 
+	* Protocols/Irc/IrcProtocolManager.cs: Don't pass ReceiveType.List to
+	  protocol chat.
+
+2008-07-27  Mirco Bauer <meebey@meebey.net> 
+
 	* AssemblyInfo.cs, AssemblyInfo.cs.in: Removed AssemblyInfo.cs.in files, not
 	  needed anymore as we use a shared AssemblyVersion.cs(.in) now.
 

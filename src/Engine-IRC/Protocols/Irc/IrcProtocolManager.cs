@@ -1535,7 +1535,7 @@ namespace Smuxi.Engine
                         break;
                     case ReceiveType.Info:
                     case ReceiveType.Invite:
-                    case ReceiveType.List:
+                    //case ReceiveType.List:
                     case ReceiveType.Login:
                         Session.AddTextToChat(_NetworkChat, e.Data.Message);
                         break;

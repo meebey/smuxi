@@ -1,4 +1,4 @@
-<Combine releaseversion="0.6.0" name="smuxi" fileversion="2.0" outputpath="../bin/" MakePkgConfig="False" MakeLibPC="True">
+<Combine releaseversion="0.6.1" name="smuxi" fileversion="2.0" outputpath="../bin/" MakePkgConfig="False" MakeLibPC="True">
   <Configurations active="Debug">
     <Configuration name="Release" ctype="CombineConfiguration">
       <Entry build="True" name="Engine" configuration="Release" />
