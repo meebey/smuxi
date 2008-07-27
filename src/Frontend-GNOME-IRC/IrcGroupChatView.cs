@@ -88,6 +88,10 @@ namespace Smuxi.Frontend.Gnome
                 Gtk.ImageMenuItem query_item = new Gtk.ImageMenuItem(_("Query"));
                 query_item.Activated += new EventHandler(_OnUserListMenuQueryActivated);
                 PersonMenu.Append(query_item);
+                
+                Gtk.ImageMenuItem whois_item = new Gtk.ImageMenuItem(_("Whois"));
+                whois_item.Activated += _OnUserListMenuWhoisActivated;
+                PersonMenu.Append(whois_item);
             }
             
             if (PersonTreeView != null) {
@@ -326,6 +330,26 @@ namespace Smuxi.Frontend.Gnome
 
             foreach (PersonModel person in persons) {
                 _IrcProtocolManager.CommandMessageQuery(
+                    new CommandModel(
+                        Frontend.FrontendManager,
+                        ChatModel,
+                        person.ID
+                    )
+                );
+            }
+        }
+        
+        private void _OnUserListMenuWhoisActivated(object sender, EventArgs e)
+        {
+            Trace.Call(sender, e);
+
+            IList<PersonModel> persons = GetSelectedPersons();
+            if (persons == null) {
+                return;
+            }
+
+            foreach (PersonModel person in persons) {
+                _IrcProtocolManager.CommandWhoIs(
                     new CommandModel(
                         Frontend.FrontendManager,
                         ChatModel,
