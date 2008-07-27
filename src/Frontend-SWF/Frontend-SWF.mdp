@@ -2,7 +2,7 @@
   <Configurations active="Debug">
     <Configuration name="Debug" ctype="DotNetProjectConfiguration">
       <Output directory="../../bin/debug" assembly="smuxi-frontend-swf" />
-      <Build debugmode="True" target="Exe" />
+      <Build debugmode="True" target="WinExe" />
       <Execution runwithwarnings="True" externalconsole="True" consolepause="True" runtime="MsNet" clr-version="Net_2_0" />
       <CodeGeneration compiler="Mcs" warninglevel="4" optimize="True" unsafecodeallowed="False" generateoverflowchecks="True" mainclass="" definesymbols="DEBUG,TRACE,LOG4NET" generatexmldocumentation="False" win32Icon="." ctype="CSharpCompilerParameters" />
     </Configuration>

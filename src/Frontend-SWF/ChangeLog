@@ -1,3 +1,7 @@
+2008-07-28  Mirco Bauer <meebey@meebey.net> 
+
+	* Frontend-SWF.mdp: Build as WinExe.
+
 2008-07-27  Mirco Bauer <meebey@meebey.net> 
 
 	* Frontend-SWF.mdp: Removed assembly attributes that are now part of the
