@@ -65,6 +65,7 @@ FILES = \
 	Protocols/Irc/IrcProtocolManager.cs \
 	Protocols/Irc/IrcPersonModel.cs \
 	Protocols/Irc/IrcTextColor.cs \
+	$(top_srcdir)/src/AssemblyVersion.cs \
 	AssemblyInfo.cs 
 
 DATA_FILES = 

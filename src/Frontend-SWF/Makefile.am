@@ -73,6 +73,7 @@ FILES = \
 	SplashScreenWindow.cs \
 	SplashScreenWindow.designer.cs \
 	NotImplementedMessageDialog.cs \
+	$(top_srcdir)/src/AssemblyVersion.cs \
 	AssemblyInfo.cs \
 	MainWindow.Designer.cs \
 	MainWindow.cs \

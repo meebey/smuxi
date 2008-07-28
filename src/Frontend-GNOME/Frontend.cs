@@ -167,7 +167,6 @@ namespace Smuxi.Frontend.Gnome
             _Logger.Info(_VersionString + " starting");
 #endif
             
-            
 #if GTK_SHARP_2_8 || GTK_SHARP_2_10
             if (!GLib.Thread.Supported) {
                 GLib.Thread.Init();
