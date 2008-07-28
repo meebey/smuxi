@@ -134,10 +134,10 @@ AC_ARG_ENABLE([engine-irc],
 	ENABLE_ENGINE_IRC=yes
 )
 if test "x$ENABLE_ENGINE_IRC" != "xno"; then
-	PKG_CHECK_MODULES([SMARTIRC4NET], [smartirc4net >= 0.4.5.1], IRC_SUPPORT=yes, IRC_SUPPORT=no)
+	PKG_CHECK_MODULES([SMARTIRC4NET], [smartirc4net >= 0.4.5], IRC_SUPPORT=yes, IRC_SUPPORT=no)
 	AC_SUBST(SMARTIRC4NET_LIBS)
 	if test "x$ENABLE_ENGINE_IRC" = "xyes" -a "x$IRC_SUPPORT" != "xyes"; then
-		AC_MSG_ERROR([SmartIrc4net >= 0.4.5.1 not found])
+		AC_MSG_ERROR([SmartIrc4net >= 0.4.5 not found])
 	else
 		ENABLE_ENGINE_IRC=$IRC_SUPPORT
 	fi
