@@ -65,6 +65,7 @@ all: $(ASSEMBLY) $(PROGRAMFILES) $(LINUX_PKGCONFIG)
 
 FILES = \
 	Protocols/Xmpp/XmppProtocolManager.cs \
+	$(top_srcdir)/src/AssemblyVersion.cs \
 	AssemblyInfo.cs 
 
 DATA_FILES = 

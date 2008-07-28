@@ -74,6 +74,7 @@ all: $(ASSEMBLY) $(PROGRAMFILES) $(BINARIES)
 
 FILES = \
 	Main.cs \
+	$(top_srcdir)/src/AssemblyVersion.cs \
 	AssemblyInfo.cs \
 	Frontend.cs \
 	MainWindow.cs \

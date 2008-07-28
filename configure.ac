@@ -134,10 +134,10 @@ AC_ARG_ENABLE([engine-irc],
 	ENABLE_ENGINE_IRC=yes
 )
 if test "x$ENABLE_ENGINE_IRC" != "xno"; then
-	PKG_CHECK_MODULES([SMARTIRC4NET], [smartirc4net >= 0.4.5], IRC_SUPPORT=yes, IRC_SUPPORT=no)
+	PKG_CHECK_MODULES([SMARTIRC4NET], [smartirc4net >= 0.4.5.1], IRC_SUPPORT=yes, IRC_SUPPORT=no)
 	AC_SUBST(SMARTIRC4NET_LIBS)
 	if test "x$ENABLE_ENGINE_IRC" = "xyes" -a "x$IRC_SUPPORT" != "xyes"; then
-		AC_MSG_ERROR([SmartIrc4net >= 0.4.5 not found])
+		AC_MSG_ERROR([SmartIrc4net >= 0.4.5.1 not found])
 	else
 		ENABLE_ENGINE_IRC=$IRC_SUPPORT
 	fi
@@ -274,70 +274,69 @@ AC_ARG_ENABLE([frontend-test],
 AM_CONDITIONAL(ENABLE_FRONTEND_TEST, test "x$ENABLE_FRONTEND_TEST" = "xyes")
 
 AC_CONFIG_FILES([
-Makefile
-src/Makefile
-src/Common/Makefile
-src/Common/smuxi-common.pc
-src/Engine/Makefile
-src/Engine/smuxi-engine.pc
-src/Engine-IRC/Makefile
-src/Engine-IRC/smuxi-engine-irc.pc
-src/Engine-MSNP/Makefile
-src/Engine-MSNP/smuxi-engine-msnp.pc
-src/Engine-OSCAR/Makefile
-src/Engine-OSCAR/smuxi-engine-oscar.pc
-src/Engine-XMPP/Makefile
-src/Engine-XMPP/smuxi-engine-xmpp.pc
-src/Server/Makefile
-src/Server/smuxi-server
-src/Frontend/Makefile
-src/Frontend/smuxi-frontend.pc
-src/Frontend-GNOME/Makefile
-src/Frontend-GNOME/smuxi-frontend-gnome
-src/Frontend-GNOME/smuxi-frontend-gnome.pc
-src/Frontend-GNOME-IRC/Makefile
-src/Frontend-GNOME-IRC/smuxi-frontend-gnome-irc.pc
-src/Frontend-GNOME-XMPP/Makefile
-src/Frontend-GNOME-XMPP/smuxi-frontend-gnome-xmpp.pc
-src/Frontend-Curses/Makefile
-src/Frontend-Curses/smuxi-frontend-curses
-src/Frontend-STFL/Makefile
-src/Frontend-STFL/smuxi-frontend-stfl
-src/Frontend-SWF/Makefile
-src/Frontend-SWF/smuxi-frontend-swf
-src/Frontend-Test/Makefile
-src/Frontend-Test/smuxi-frontend-test
+	Makefile
+	src/Makefile
+	src/AssemblyVersion.cs
+	src/Common/Makefile
+	src/Common/smuxi-common.pc
+	src/Engine/Makefile
+	src/Engine/smuxi-engine.pc
+	src/Engine-IRC/Makefile
+	src/Engine-IRC/smuxi-engine-irc.pc
+	src/Engine-MSNP/Makefile
+	src/Engine-MSNP/smuxi-engine-msnp.pc
+	src/Engine-OSCAR/Makefile
+	src/Engine-OSCAR/smuxi-engine-oscar.pc
+	src/Engine-XMPP/Makefile
+	src/Engine-XMPP/smuxi-engine-xmpp.pc
+	src/Server/Makefile
+	src/Server/smuxi-server
+	src/Frontend/Makefile
+	src/Frontend/smuxi-frontend.pc
+	src/Frontend-GNOME/Makefile
+	src/Frontend-GNOME/smuxi-frontend-gnome
+	src/Frontend-GNOME/smuxi-frontend-gnome.pc
+	src/Frontend-GNOME-IRC/Makefile
+	src/Frontend-GNOME-IRC/smuxi-frontend-gnome-irc.pc
+	src/Frontend-GNOME-XMPP/Makefile
+	src/Frontend-GNOME-XMPP/smuxi-frontend-gnome-xmpp.pc
+	src/Frontend-Curses/Makefile
+	src/Frontend-Curses/smuxi-frontend-curses
+	src/Frontend-STFL/Makefile
+	src/Frontend-STFL/smuxi-frontend-stfl
+	src/Frontend-SWF/Makefile
+	src/Frontend-SWF/smuxi-frontend-swf
+	src/Frontend-Test/Makefile
+	src/Frontend-Test/smuxi-frontend-test
+	po/Makefile.in
+	po-Engine/Makefile.in
+	po-Engine-IRC/Makefile.in
+	po-Server/Makefile.in
+	po-Frontend-GNOME/Makefile.in
+	po-Frontend-GNOME-IRC/Makefile.in
 ])
 
-AC_OUTPUT([
-src/AssemblyVersion.cs
-po/Makefile.in
-po-Engine/Makefile.in
-po-Engine-IRC/Makefile.in
-po-Server/Makefile.in
-po-Frontend-GNOME/Makefile.in
-po-Frontend-GNOME-IRC/Makefile.in
-])
+AC_OUTPUT
 
 AC_MSG_RESULT([
-  Configuration summary for $PACKAGE_NAME ($VERSION)
-  
-  * Installation prefix: $prefix
-  * Debug build:         $enable_debug
-  
-  * Engines
-    -------
-    IRC:                 $ENABLE_ENGINE_IRC
-    XMPP:                $ENABLE_ENGINE_XMPP
-    OSCAR:               $ENABLE_ENGINE_OSCAR
-    MSNP:                $ENABLE_ENGINE_MSNP
- 
-  * Frontends
-    ---------
-    GNOME:               $ENABLE_FRONTEND_GNOME (IRC: $ENABLE_FRONTEND_GNOME_IRC XMPP: $ENABLE_FRONTEND_GNOME_XMPP)
-    Ncurses:             $ENABLE_FRONTEND_CURSES
-    STFL:                $ENABLE_FRONTEND_STFL
-    SWF (WinForms):      $ENABLE_FRONTEND_SWF
-    WPF:                 $ENABLE_FRONTEND_WPF
-    Test:                $ENABLE_FRONTEND_TEST
+	Configuration summary for $PACKAGE_NAME ($VERSION)
+	
+	* Installation prefix: $prefix
+	* Debug build:         $enable_debug
+
+	* Engines
+	  -------
+	  IRC:                 $ENABLE_ENGINE_IRC
+	  XMPP:                $ENABLE_ENGINE_XMPP
+	  OSCAR:               $ENABLE_ENGINE_OSCAR
+	  MSNP:                $ENABLE_ENGINE_MSNP
+
+	* Frontends
+	  ---------
+	  GNOME:               $ENABLE_FRONTEND_GNOME (IRC: $ENABLE_FRONTEND_GNOME_IRC XMPP: $ENABLE_FRONTEND_GNOME_XMPP)
+	  Ncurses:             $ENABLE_FRONTEND_CURSES
+	  STFL:                $ENABLE_FRONTEND_STFL
+	  SWF (WinForms):      $ENABLE_FRONTEND_SWF
+	  WPF:                 $ENABLE_FRONTEND_WPF
+	  Test:                $ENABLE_FRONTEND_TEST
 ])

@@ -63,6 +63,7 @@ BINARIES = \
 all: $(ASSEMBLY) $(PROGRAMFILES) $(BINARIES) 
 
 FILES = \
+	$(top_srcdir)/src/AssemblyVersion.cs \
 	AssemblyInfo.cs \
 	Main.cs \
 	Server.cs 

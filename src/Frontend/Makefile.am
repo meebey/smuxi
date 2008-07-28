@@ -59,6 +59,7 @@ LINUX_PKGCONFIG = \
 all: $(ASSEMBLY) $(PROGRAMFILES) $(LINUX_PKGCONFIG) 
 
 FILES = \
+	$(top_srcdir)/src/AssemblyVersion.cs \
 	AssemblyInfo.cs \
 	EntryController.cs \
 	EntryHistoryModel.cs \

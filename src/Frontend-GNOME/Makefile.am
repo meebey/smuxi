@@ -78,6 +78,7 @@ all: $(ASSEMBLY) $(PROGRAMFILES) $(LINUX_DESKTOPAPPLICATIONS) $(BINARIES)
 
 FILES = \
 	AboutDialog.cs \
+	$(top_srcdir)/src/AssemblyVersion.cs \
 	AssemblyInfo.cs \
 	CrashDialog.cs \
 	EngineManagerDialog.cs \
