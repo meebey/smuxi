@@ -1374,6 +1374,10 @@ namespace Smuxi.Engine
                             bold = false;
                             underline = false;
                             italic = false;
+                            
+                            color = false;
+                            fg_color = IrcTextColor.Normal;
+                            bg_color = IrcTextColor.Normal;
                             break;
                         case IrcControlCode.Bold:
 #if LOG4NET
@@ -1437,8 +1441,6 @@ namespace Smuxi.Engine
                             _Logger.Debug("_IrcMessageToMessageModel(): fg_color.HexCode: " + String.Format("0x{0:X6}", fg_color.HexCode));
                             _Logger.Debug("_IrcMessageToMessageModel(): bg_color.HexCode: " + String.Format("0x{0:X6}", bg_color.HexCode));
 #endif
-                            break;
-                        default:
                             break;
                     }
 #if LOG4NET
