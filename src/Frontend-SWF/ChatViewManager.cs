@@ -27,6 +27,7 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.Globalization;
 using Mono.Unix;
 using Smuxi.Common;
@@ -40,50 +41,69 @@ namespace Smuxi.Frontend.Swf
 #if LOG4NET
         private static readonly log4net.ILog _Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 #endif
-        private Notebook     _Notebook;
-        //private UserConfig   _Config;
+        private List<ChatView> f_Chats = new List<ChatView>();
+        private Notebook       f_Notebook;
+        private UserConfig     f_Config;
         
         public override IChatView ActiveChat {
             get {
-                return _Notebook.CurrentChatView;
+                return f_Notebook.CurrentChatView;
             }
         }
         
-        public ChatViewManager(Notebook notebook /*, UserConfig userConfig*/)
+        public ChatViewManager(Notebook notebook)
         {
-            _Notebook = notebook;
-            //_Config = userConfig;
+            f_Notebook = notebook;
         }
         
         public override void AddChat(ChatModel chat)
         {
             ChatView chatView = (ChatView) CreateChatView(chat);
-            //_Notebook.Controls.Add(chatView);
-            _Notebook.TabPages.Add(chatView);
+            f_Chats.Add(chatView);
+
+            if (f_Config != null) {
+                chatView.ApplyConfig(f_Config);
+            }
+            
+            f_Notebook.TabPages.Add(chatView);
         }
         
         public override void RemoveChat(ChatModel chat)
         {
-            ChatView chatView = _Notebook.GetChat(chat);
-            //_Notebook.Controls.Remove(chatView);
-            _Notebook.TabPages.Remove(chatView);
+            ChatView chatView = f_Notebook.GetChat(chat);
+            f_Notebook.TabPages.Remove(chatView);
+            f_Chats.Remove(chatView);
         }
         
         public override void EnableChat(ChatModel chat)
         {
-            ChatView chatView = _Notebook.GetChat(chat);
+            ChatView chatView = f_Notebook.GetChat(chat);
             chatView.Enable();
         }
         
         public override void DisableChat(ChatModel chat)
         {
-            ChatView chatView = _Notebook.GetChat(chat);
+            ChatView chatView = f_Notebook.GetChat(chat);
             chatView.Disable();
         }
         
         public ChatView GetChat(ChatModel chatModel)
         {
-            return _Notebook.GetChat(chatModel);
+            return f_Notebook.GetChat(chatModel);
+        }
+        
+        public virtual void ApplyConfig(UserConfig config)
+        {
+            Trace.Call(config);
+
+            if (config == null) {
+                throw new ArgumentNullException("config");
+            }
+            
+            f_Config = config;
+            foreach (ChatView chat in f_Chats) {
+                chat.ApplyConfig(f_Config);
+            }
         }
     }
 }

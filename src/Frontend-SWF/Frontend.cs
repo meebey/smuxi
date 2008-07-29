@@ -154,7 +154,7 @@ namespace Smuxi.Frontend.Swf
             _SplashScreenWindow = new SplashScreenWindow();
             
             _MainWindow = new MainWindow();
-            // HACK: force created of window handle, else the engine will have problems adding stuff
+            // HACK: force creation of window handle, else the engine will have problems adding stuff
             IntPtr handle = _MainWindow.Handle;
             
             _FrontendConfig = new FrontendConfig(UIName);
@@ -206,8 +206,9 @@ namespace Smuxi.Frontend.Swf
                 // when our UserConfig is cached, we need to invalidate the cache
                 _FrontendManager.ConfigChangedDelegate = new SimpleDelegate(_UserConfig.ClearCache);
             }
+            
             _MainWindow.Show();
-            //_MainWindow.ApplyConfig(_UserConfig);
+            _MainWindow.ApplyConfig(_UserConfig);
             // make sure entry got attention :-P
             _MainWindow.Entry.Select();
         }

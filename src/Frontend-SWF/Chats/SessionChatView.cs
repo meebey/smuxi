@@ -1,13 +1,13 @@
 /*
- * $Id: ChannelPage.cs 138 2006-12-23 17:11:57Z meebey $
- * $URL: svn+ssh://svn.qnetp.net/svn/smuxi/smuxi/trunk/src/Frontend-GNOME/ChannelPage.cs $
- * $Rev: 138 $
+ * $Id: NetworkChatView.cs 218 2007-11-12 19:50:25Z meebey $
+ * $URL: svn+ssh://svn.qnetp.net/svn/smuxi/smuxi/trunk/src/Frontend-GNOME/Chats/NetworkChatView.cs $
+ * $Rev: 218 $
  * $Author: meebey $
- * $Date: 2006-12-23 18:11:57 +0100 (Sat, 23 Dec 2006) $
+ * $Date: 2007-11-12 20:50:25 +0100 (Mon, 12 Nov 2007) $
  *
  * smuxi - Smart MUltipleXed Irc
  *
- * Copyright (c) 2007 Mirco Bauer <meebey@meebey.net>
+ * Copyright (c) 2008 Mirco Bauer <meebey@meebey.net>
  *
  * Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
  *
@@ -27,17 +27,26 @@
  */
 
 using System;
-using Mono.Unix;
 using Smuxi.Engine;
+using Smuxi.Common;
 
 namespace Smuxi.Frontend.Swf
 {
     [ChatViewInfo(ChatType = ChatType.Session)]
     public class SessionChatView : ChatView
     {
-        public SessionChatView(ChatModel chat) :
-                        base(chat)
+        public SessionChatView(ChatModel chat) : base(chat)
         {
+            Trace.Call(chat);
         }
+        
+        /*
+        protected override void OnTabButtonPress(object sender, Gtk.ButtonPressEventArgs e)
+        {
+            Trace.Call(sender, e);
+            
+            // disable menu for session chats
+        }
+        */
     }
 }

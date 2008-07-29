@@ -19,7 +19,9 @@ namespace Smuxi.Frontend.Swf
         private   ChatModel          _ChatModel;
         private   bool               _HasHighlight;
         private   RichTextBox        _OutputTextView;
-
+        private   Color?             _BackgroundColor;
+        private   Color?             _ForegroundColor;
+        
         //protected override void OnPaint(PaintEventArgs pe)
         //{
         //    // TODO: Add custom paint code here
@@ -123,7 +125,90 @@ namespace Smuxi.Frontend.Swf
             }
         }
 
-        public void AddMessage(MessageModel msg)
+        public virtual void ApplyConfig(UserConfig config)
+        {
+            Trace.Call(config);
+            
+            if (config == null) {
+                throw new ArgumentNullException("config");
+            }
+            
+            string bgStr = (string) config["Interface/Chat/BackgroundColor"];
+            if (!String.IsNullOrEmpty(bgStr)) {
+                try {
+                    // remove leading "#" character
+                    bgStr = bgStr.Substring(1);
+                    int red   = Int16.Parse(bgStr.Substring(0, 2), NumberStyles.HexNumber);
+                    int green = Int16.Parse(bgStr.Substring(2, 2), NumberStyles.HexNumber);
+                    int blue  = Int16.Parse(bgStr.Substring(4, 2), NumberStyles.HexNumber);
+                    Color color = Color.FromArgb(red, green, blue);
+                    _BackgroundColor = color;
+                    BackColor = color;
+                } catch (FormatException ex) {
+#if LOG4NET
+                    _Logger.Error("setting background color failed", ex); 
+#endif
+                }
+            } else {
+                _BackgroundColor = null;
+                BackColor = Color.Empty;
+            }
+            
+            string fgStr = (string) config["Interface/Chat/ForegroundColor"];
+            if (!String.IsNullOrEmpty(fgStr)) {
+                try {
+                    // remove leading "#" character
+                    fgStr = fgStr.Substring(1);
+                    int red   = Int16.Parse(fgStr.Substring(0, 2), NumberStyles.HexNumber);
+                    int green = Int16.Parse(fgStr.Substring(2, 2), NumberStyles.HexNumber);
+                    int blue  = Int16.Parse(fgStr.Substring(4, 2), NumberStyles.HexNumber);
+                    Color color = Color.FromArgb(red, green, blue);
+                    _ForegroundColor = color;
+                    ForeColor = color;
+                } catch (FormatException ex) {
+#if LOG4NET
+                    _Logger.Error("setting foreground color failed", ex); 
+#endif
+                }
+            } else {
+                _ForegroundColor = null;
+                ForeColor = Color.Empty;
+            }
+            
+            /*
+            string fontFamily = (string) config["Interface/Chat/FontFamily"];
+            string fontStyle = (string) config["Interface/Chat/FontStyle"];
+            int fontSize = 0;
+            if (config["Interface/Chat/FontSize"] != null) {
+                fontSize = (int) config["Interface/Chat/FontSize"];
+            }
+            Pango.FontDescription fontDescription = new Pango.FontDescription();
+            if (String.IsNullOrEmpty(fontFamily)) {
+                // use Monospace and Bold by default
+                fontDescription.Family = "monospace";
+                // black bold font on white background looks odd 
+                //fontDescription.Weight = Pango.Weight.Bold;
+            } else {
+                fontDescription.Family = fontFamily;
+                string frontWeigth = null;
+                if (fontStyle.Contains(" ")) {
+                    int pos = fontStyle.IndexOf(" ");
+                    frontWeigth = fontStyle.Substring(0, pos);
+                    fontStyle = fontStyle.Substring(pos + 1);
+                }
+                fontDescription.Style = (Pango.Style) Enum.Parse(typeof(Pango.Style), fontStyle);
+                if (frontWeigth != null) {
+                    fontDescription.Weight = (Pango.Weight) Enum.Parse(typeof(Pango.Weight), frontWeigth);
+                }
+                fontDescription.Size = fontSize * 1024;
+            }
+            _FontDescription = fontDescription;
+            
+            _OutputTextView.ModifyFont(_FontDescription);
+            */
+        }
+        
+        public virtual void AddMessage(MessageModel msg)
         {
             Trace.Call(msg);
             

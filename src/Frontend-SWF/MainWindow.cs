@@ -7,17 +7,17 @@ using Smuxi.Engine;
 
 namespace Smuxi.Frontend.Swf
 {
-	public partial class MainWindow : Form
-	{
+    public partial class MainWindow : Form
+    {
 #if LOG4NET
         private static readonly log4net.ILog _Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 #endif
         private bool             _CaretMode;
-	    private ChatViewManager  _ChatViewManager;
-	    private IFrontendUI      _UI;
-	    private Notebook         _Notebook;
-	    private Entry            _Entry;
-	    
+        private ChatViewManager  _ChatViewManager;
+        private IFrontendUI      _UI;
+        private Notebook         _Notebook;
+        private Entry            _Entry;
+        
         public bool CaretMode {
             get {
                 return _CaretMode;
@@ -60,24 +60,37 @@ namespace Smuxi.Frontend.Swf
             }
         }
 
-		public MainWindow()
-		{
-			InitializeComponent();
-			
-			_Entry.Notebook = _Notebook;
+        public MainWindow()
+        {
+            InitializeComponent();
             
-			_Notebook.Show();
+            _Entry.Notebook = _Notebook;
             
-			_ChatViewManager = new ChatViewManager(_Notebook);
-		    Assembly asm = Assembly.GetExecutingAssembly();
-		    _ChatViewManager.Load(asm);
-		    _ChatViewManager.LoadAll(System.IO.Path.GetDirectoryName(asm.Location),
-		                             "smuxi-frontend-swf-*.dll");
-		    
+            _Notebook.Show();
+            
+            _ChatViewManager = new ChatViewManager(_Notebook);
+            Assembly asm = Assembly.GetExecutingAssembly();
+            _ChatViewManager.Load(asm);
+            _ChatViewManager.LoadAll(System.IO.Path.GetDirectoryName(asm.Location),
+                                     "smuxi-frontend-swf-*.dll");
+            
             _UI = new SwfUI(_ChatViewManager, this);
             
             _NetworkStatusbar.Text = String.Empty;
             _Statusbar.Text = String.Empty;
-		}
-	}
+        }
+        
+        public void ApplyConfig(UserConfig userConfig)
+        {
+            Trace.Call(userConfig);
+            
+            if (userConfig == null) {
+                throw new ArgumentNullException("userConfig");
+            }
+            
+            //_Entry.ApplyConfig(userConfig);
+            _Notebook.ApplyConfig(userConfig);
+            _ChatViewManager.ApplyConfig(userConfig);
+        }
+    }
 }
