@@ -88,7 +88,7 @@ namespace Smuxi.Frontend.Swf
                 throw new ArgumentNullException("userConfig");
             }
             
-            //_Entry.ApplyConfig(userConfig);
+            _Entry.ApplyConfig(userConfig);
             _Notebook.ApplyConfig(userConfig);
             _ChatViewManager.ApplyConfig(userConfig);
         }

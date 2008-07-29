@@ -1,5 +1,10 @@
 2008-07-29  Mirco Bauer <meebey@meebey.net> 
 
+	* MainWindow.cs, Frontend-SWF.mdp, Chats/ChatView.cs, ColorTools.cs,
+	  Entry.cs: Implemented theming support for chat page and command entry.
+
+2008-07-29  Mirco Bauer <meebey@meebey.net> 
+
 	* MainWindow.cs: Fixed indention.
 	
 	  Apply theming settings.

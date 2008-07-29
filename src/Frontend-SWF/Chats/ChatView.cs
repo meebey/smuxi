@@ -21,6 +21,7 @@ namespace Smuxi.Frontend.Swf
         private   RichTextBox        _OutputTextView;
         private   Color?             _BackgroundColor;
         private   Color?             _ForegroundColor;
+        private   Font               _Font;
         
         //protected override void OnPaint(PaintEventArgs pe)
         //{
@@ -51,6 +52,24 @@ namespace Smuxi.Frontend.Swf
             }
         }
 
+        protected Font Font {
+            get {
+                return _Font;
+            }
+        }
+
+        protected Color? BackgroundColor {
+            get {
+                return _BackgroundColor;
+            }
+        }
+
+        protected Color? ForegroundColor {
+            get {
+                return _ForegroundColor;
+            }
+        }
+        
         protected ChatView(ChatModel chat)
         {
             _ChatModel = chat;
@@ -136,14 +155,9 @@ namespace Smuxi.Frontend.Swf
             string bgStr = (string) config["Interface/Chat/BackgroundColor"];
             if (!String.IsNullOrEmpty(bgStr)) {
                 try {
-                    // remove leading "#" character
-                    bgStr = bgStr.Substring(1);
-                    int red   = Int16.Parse(bgStr.Substring(0, 2), NumberStyles.HexNumber);
-                    int green = Int16.Parse(bgStr.Substring(2, 2), NumberStyles.HexNumber);
-                    int blue  = Int16.Parse(bgStr.Substring(4, 2), NumberStyles.HexNumber);
-                    Color color = Color.FromArgb(red, green, blue);
+                    Color color = ColorTools.GetColor(bgStr);
                     _BackgroundColor = color;
-                    BackColor = color;
+                    _OutputTextView.BackColor = color;
                 } catch (FormatException ex) {
 #if LOG4NET
                     _Logger.Error("setting background color failed", ex); 
@@ -151,20 +165,15 @@ namespace Smuxi.Frontend.Swf
                 }
             } else {
                 _BackgroundColor = null;
-                BackColor = Color.Empty;
+                _OutputTextView.BackColor = Color.Empty;
             }
             
             string fgStr = (string) config["Interface/Chat/ForegroundColor"];
             if (!String.IsNullOrEmpty(fgStr)) {
                 try {
-                    // remove leading "#" character
-                    fgStr = fgStr.Substring(1);
-                    int red   = Int16.Parse(fgStr.Substring(0, 2), NumberStyles.HexNumber);
-                    int green = Int16.Parse(fgStr.Substring(2, 2), NumberStyles.HexNumber);
-                    int blue  = Int16.Parse(fgStr.Substring(4, 2), NumberStyles.HexNumber);
-                    Color color = Color.FromArgb(red, green, blue);
+                    Color color = ColorTools.GetColor(fgStr);
                     _ForegroundColor = color;
-                    ForeColor = color;
+                    _OutputTextView.ForeColor = color;
                 } catch (FormatException ex) {
 #if LOG4NET
                     _Logger.Error("setting foreground color failed", ex); 
@@ -172,40 +181,41 @@ namespace Smuxi.Frontend.Swf
                 }
             } else {
                 _ForegroundColor = null;
-                ForeColor = Color.Empty;
+                _OutputTextView.ForeColor = Color.Empty;
             }
             
-            /*
             string fontFamily = (string) config["Interface/Chat/FontFamily"];
             string fontStyle = (string) config["Interface/Chat/FontStyle"];
             int fontSize = 0;
             if (config["Interface/Chat/FontSize"] != null) {
                 fontSize = (int) config["Interface/Chat/FontSize"];
             }
-            Pango.FontDescription fontDescription = new Pango.FontDescription();
+            Font font = null;
             if (String.IsNullOrEmpty(fontFamily)) {
-                // use Monospace and Bold by default
-                fontDescription.Family = "monospace";
-                // black bold font on white background looks odd 
-                //fontDescription.Weight = Pango.Weight.Bold;
+                // use Monospace by default
+                float? defaultSize; 
+                try {
+                    defaultSize = Font.Size;
+                } catch (NullReferenceException) {
+#if LOG4NET
+                    _Logger.Error("could not get default system font size, using internal default");
+#endif
+                    // Mono bug?
+                    defaultSize = 12f; 
+                }
+                font = new Font(FontFamily.GenericMonospace, defaultSize.Value);
             } else {
-                fontDescription.Family = fontFamily;
-                string frontWeigth = null;
+                string fontWeigth = null;
                 if (fontStyle.Contains(" ")) {
                     int pos = fontStyle.IndexOf(" ");
-                    frontWeigth = fontStyle.Substring(0, pos);
+                    fontWeigth = fontStyle.Substring(0, pos);
                     fontStyle = fontStyle.Substring(pos + 1);
                 }
-                fontDescription.Style = (Pango.Style) Enum.Parse(typeof(Pango.Style), fontStyle);
-                if (frontWeigth != null) {
-                    fontDescription.Weight = (Pango.Weight) Enum.Parse(typeof(Pango.Weight), frontWeigth);
-                }
-                fontDescription.Size = fontSize * 1024;
+                FontStyle style = (FontStyle) Enum.Parse(typeof(FontStyle), fontStyle);
+                font = new Font(fontFamily, fontSize, style);
             }
-            _FontDescription = fontDescription;
-            
-            _OutputTextView.ModifyFont(_FontDescription);
-            */
+            _Font = font;
+            _OutputTextView.Font = font;
         }
         
         public virtual void AddMessage(MessageModel msg)
@@ -247,7 +257,7 @@ namespace Smuxi.Frontend.Swf
                     _OutputTextView.AppendText(fmsgti.Text);
 
                     // HACK: Mono's RichTextBox has problems with colors
-                    if (Type.GetType("Mono.Runtime") == null) {
+                    //if (Type.GetType("Mono.Runtime") == null) {
                         if (fmsgti.ForegroundColor.HexCode != -1) {
                             _OutputTextView.SelectionStart = oldTextLength;
                             _OutputTextView.SelectionLength = fmsgti.Text.Length;
@@ -255,9 +265,9 @@ namespace Smuxi.Frontend.Swf
                             _Logger.Debug("AddMessage(): SelectionStart: " + _OutputTextView.SelectionStart);
                             _Logger.Debug("AddMessage(): SelectionLength: " + _OutputTextView.SelectionLength);
 #endif
-                            _OutputTextView.SelectionColor = GetDrawingColorFromTextColor(fmsgti.ForegroundColor);
+                            _OutputTextView.SelectionColor = ColorTools.GetColor(fmsgti.ForegroundColor);
                         }
-                    }
+                    //}
                     
                     if (fmsgti.Underline) {
 #if LOG4NET
@@ -301,15 +311,6 @@ namespace Smuxi.Frontend.Swf
                     /*TODO: Color the associated Tab*/
                 }
             }
-        }
-                        
-        private Color GetDrawingColorFromTextColor(TextColor textColor)
-        {
-            string hexcode = textColor.HexCode.ToString("X6");
-            int red   = Int16.Parse(hexcode.Substring(0, 2), NumberStyles.HexNumber);
-            int green = Int16.Parse(hexcode.Substring(2, 2), NumberStyles.HexNumber);
-            int blue  = Int16.Parse(hexcode.Substring(4, 2), NumberStyles.HexNumber);
-            return Color.FromArgb(red, green, blue);
         }
     }
 }

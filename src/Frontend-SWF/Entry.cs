@@ -27,6 +27,7 @@
  */
 
 using System;
+using System.Drawing;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
@@ -138,6 +139,73 @@ namespace Smuxi.Frontend.Swf
             }
         }
 
+        public virtual void ApplyConfig(UserConfig config)
+        {
+            Trace.Call(config);
+            
+            if (config == null) {
+                throw new ArgumentNullException("config");
+            }
+            
+            string bgStr = (string) config["Interface/Chat/BackgroundColor"];
+            if (!String.IsNullOrEmpty(bgStr)) {
+                try {
+                    BackColor = ColorTools.GetColor(bgStr);
+                } catch (FormatException ex) {
+#if LOG4NET
+                    _Logger.Error("setting background color failed", ex); 
+#endif
+                }
+            } else {
+                BackColor = Color.Empty;
+            }
+            
+            string fgStr = (string) config["Interface/Chat/ForegroundColor"];
+            if (!String.IsNullOrEmpty(fgStr)) {
+                try {
+                    ForeColor = ColorTools.GetColor(fgStr);
+                } catch (FormatException ex) {
+#if LOG4NET
+                    _Logger.Error("setting foreground color failed", ex); 
+#endif
+                }
+            } else {
+                ForeColor = Color.Empty;
+            }
+            
+            string fontFamily = (string) config["Interface/Chat/FontFamily"];
+            string fontStyle = (string) config["Interface/Chat/FontStyle"];
+            int fontSize = 0;
+            if (config["Interface/Chat/FontSize"] != null) {
+                fontSize = (int) config["Interface/Chat/FontSize"];
+            }
+            Font font = null;
+            if (String.IsNullOrEmpty(fontFamily)) {
+                // use Monospace by default
+                float? defaultSize; 
+                try {
+                    defaultSize = Font.Size;
+                } catch (NullReferenceException) {
+#if LOG4NET
+                    _Logger.Error("could not get default system font size, using internal default");
+#endif
+                    // Mono bug?
+                    defaultSize = 12f; 
+                }
+                font = new Font(FontFamily.GenericMonospace, defaultSize.Value);
+            } else {
+                string fontWeigth = null;
+                if (fontStyle.Contains(" ")) {
+                    int pos = fontStyle.IndexOf(" ");
+                    fontWeigth = fontStyle.Substring(0, pos);
+                    fontStyle = fontStyle.Substring(pos + 1);
+                }
+                FontStyle style = (FontStyle) Enum.Parse(typeof(FontStyle), fontStyle);
+                font = new Font(fontFamily, fontSize, style);
+            }
+            Font = font;
+        }
+        
         public string HistoryCurrent()
         {
             return _History[_HistoryPosition];
