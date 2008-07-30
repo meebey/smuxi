@@ -1,3 +1,8 @@
+2008-07-30  Mirco Bauer <meebey@meebey.net> 
+
+	* Server.mdp, smuxi-server.exe.config: Added .exe.config for log4net
+	  configuration to project.
+
 2008-07-27  Mirco Bauer <meebey@meebey.net> 
 
 	* AssemblyInfo.cs.in, Server.mdp: Removed AssemblyInfo.cs.in files, not
