@@ -226,6 +226,7 @@ namespace Smuxi.Frontend.Gnome
                     return;
                 }
                 
+                f_ServerModel = server;
                 Respond(Gtk.ResponseType.Ok);
             } catch (Exception ex) {
                 Frontend.ShowException(ex);

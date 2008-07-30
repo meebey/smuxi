@@ -1,3 +1,9 @@
+2008-07-30  Mirco Bauer <meebey@meebey.net> 
+
+	* QuickConnectDialog.cs: Fixed server selection using "double click", by
+	  setting f_ServerModel before confirming the dialog. (closes trac bug
+	  #80)
+
 2008-07-28  Mirco Bauer <meebey@meebey.net> 
 
 	* Frontend-GNOME.mdp: Build as WinExe.
