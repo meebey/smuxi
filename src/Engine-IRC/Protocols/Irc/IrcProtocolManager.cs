@@ -595,7 +595,7 @@ namespace Smuxi.Engine
             fmsgti.Bold = true;
             fmsg.MessageParts.Add(fmsgti);
             
-            Session.AddMessageToChat(cd.FrontendManager.CurrentChat, fmsg);
+            cd.FrontendManager.AddMessageToChat(cd.FrontendManager.CurrentChat, fmsg);
             
             string[] help = {
             "help",
