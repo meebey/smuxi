@@ -700,7 +700,7 @@ namespace Smuxi.Engine
         
             msgPart = new TextMessagePartModel();
             msgPart.Text = _IrcClient.Nickname;
-            msgPart.ForegroundColor = IrcTextColor.Blue;
+            msgPart.ForegroundColor = GetNickColor(_IrcClient.Nickname);
             msg.MessageParts.Add(msgPart);
             
             msgPart = new TextMessagePartModel();
@@ -1208,7 +1208,7 @@ namespace Smuxi.Engine
 
                 textMsg = new TextMessagePartModel();
                 textMsg.Text = _IrcClient.Nickname + " ";
-                textMsg.ForegroundColor = IrcTextColor.Blue;
+                textMsg.ForegroundColor = GetNickColor(_IrcClient.Nickname);
                 msg.MessageParts.Add(textMsg);
                 
                 _IrcMessageToMessageModel(ref msg, cd.Parameter);
@@ -1761,8 +1761,12 @@ namespace Smuxi.Engine
         
         protected TextColor GetNickColor(string nickname)
         {
+            if (_IrcClient.IsMe(nickname)) {
+                return IrcTextColor.Blue;
+            }
+            
             if ((bool) Session.UserConfig["Interface/Notebook/Channel/NickColors"]) {
-                return new TextColor(nickname.GetHashCode());
+                return new TextColor(nickname.GetHashCode() & 0xFFFFFF);
             }
             
             return TextColor.None;
@@ -2114,6 +2118,7 @@ namespace Smuxi.Engine
                 textMsg = new TextMessagePartModel();
                 textMsg.Text = e.NewNickname;
                 textMsg.Bold = true;
+                textMsg.ForegroundColor = GetNickColor(e.NewNickname);
                 msg.MessageParts.Add(textMsg);
 
                 Session.AddMessageToChat(_NetworkChat, msg);
@@ -2145,13 +2150,42 @@ namespace Smuxi.Engine
                     Session.UpdatePersonInGroupChat(cchat, olduser, newuser);
                     
                     if (e.Data.Irc.IsMe(e.NewNickname)) {
-                        Session.AddTextToChat(cchat, "-!- " + String.Format(
-                                                                _("You're now known as {0}"),
-                                                                e.NewNickname));
+                        MessageModel msg = new MessageModel();
+                        TextMessagePartModel textMsg;
+                        
+                        textMsg = new TextMessagePartModel();
+                        textMsg.Text = "-!- " + _("You're now known as") + " ";
+                        msg.MessageParts.Add(textMsg);
+
+                        textMsg = new TextMessagePartModel();
+                        textMsg.Text = e.NewNickname;
+                        textMsg.Bold = true;
+                        textMsg.ForegroundColor = GetNickColor(e.NewNickname);
+                        msg.MessageParts.Add(textMsg);
+
+                        Session.AddMessageToChat(cchat, msg);
                     } else {
-                        Session.AddTextToChat(cchat, "-!- " + String.Format(
-                                                                _("{0} is now known as {1}"),
-                                                                e.OldNickname, e.NewNickname));
+                        MessageModel msg = new MessageModel();
+                        TextMessagePartModel textMsg;
+                
+                        textMsg = new TextMessagePartModel();
+                        textMsg.Text = "-!- ";
+                        msg.MessageParts.Add(textMsg);
+                        
+                        textMsg = new TextMessagePartModel();
+                        textMsg.Text = e.OldNickname;
+                        textMsg.ForegroundColor = GetNickColor(e.OldNickname);
+                        
+                        textMsg = new TextMessagePartModel();
+                        textMsg.Text = " " + _("is now known as") + " ";
+                        msg.MessageParts.Add(textMsg);
+
+                        textMsg = new TextMessagePartModel();
+                        textMsg.Text = e.NewNickname;
+                        textMsg.ForegroundColor = GetNickColor(e.NewNickname);
+                        msg.MessageParts.Add(textMsg);
+                        
+                        Session.AddMessageToChat(cchat, msg);
                     }
                 }
             }

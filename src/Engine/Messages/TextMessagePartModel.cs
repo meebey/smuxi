@@ -164,8 +164,8 @@ namespace Smuxi.Engine
         {
             base.GetObjectData(sw);
 
-            sw.Write(_ForegroundColor.HexCode);
-            sw.Write(_BackgroundColor.HexCode);
+            sw.Write(_ForegroundColor.Value);
+            sw.Write(_BackgroundColor.Value);
             sw.Write(_Underline);
             sw.Write(_Bold);
             sw.Write(_Italic);

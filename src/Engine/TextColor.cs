@@ -37,24 +37,53 @@ namespace Smuxi.Engine
     {
         public static readonly TextColor None = new TextColor();
         
-        private int _HexCode;
+        private int f_Value;
         
-        public int HexCode {
+        public int Value {
             get {
-                return _HexCode;
+                return f_Value;
+            }
+        }
+        
+        public string HexCode {
+            get {
+                return f_Value.ToString("X6");
+            }
+        }
+        
+        public byte Red {
+            get {
+                return (byte) ((f_Value & 0xFF0000) >> 16);
+            }
+        }
+        
+        public byte Green {
+            get {
+                return (byte) ((f_Value & 0xFF00) >> 8);
+            }
+        }
+        
+        public byte Blue {
+            get {
+                return (byte) (f_Value & 0xFF);
             }
         }
         
         public TextColor()
         {
-            _HexCode = -1;
+            f_Value = -1;
         }
         
-        public TextColor(int hexcode)
+        public TextColor(int value)
         {
-            _HexCode = hexcode;
+            f_Value = value;
         }
-
+        
+        public TextColor(byte red, byte green, byte blue)
+        {
+            f_Value = red << 16 | green << 8 | blue;
+        }
+        
         protected TextColor(SerializationInfo info, StreamingContext ctx)
         {
             SerializationReader sr = SerializationReader.GetReader(info);
@@ -63,12 +92,12 @@ namespace Smuxi.Engine
         
         protected virtual void SetObjectData(SerializationReader sr)
         {
-            _HexCode = sr.ReadInt32();
+            f_Value = sr.ReadInt32();
         }
         
         protected virtual void GetObjectData(SerializationWriter sw)
         {
-            sw.Write(_HexCode);
+            sw.Write(f_Value);
         }
         
         public virtual void GetObjectData(SerializationInfo info, StreamingContext ctx) 
@@ -76,6 +105,49 @@ namespace Smuxi.Engine
             SerializationWriter sw = SerializationWriter.GetWriter(); 
             GetObjectData(sw);
             sw.AddToInfo(info);
+        }
+        
+        public override string ToString()
+        {
+            return String.Format("#{0}", HexCode);
+        }
+        
+        public override bool Equals(object obj)
+        {
+            TextColor value = obj as TextColor;
+            return Equals(value);
+        }
+        
+        public bool Equals(TextColor value)
+        {
+            if ((object) value == null) {
+                return false;
+            }
+            
+            return f_Value == value.Value; 
+        }
+
+        public override int GetHashCode()
+        {
+            return f_Value.GetHashCode();
+        }
+        
+        public static bool operator ==(TextColor x, TextColor y)
+        {
+            if (Object.ReferenceEquals(x, y)) {
+                return true;
+            }
+
+            if (((object) x == null) || ((object) y == null)) {
+                return false;
+            }
+
+            return x.Equals(y);
+        }
+        
+        public static bool operator !=(TextColor x, TextColor y)
+        {
+            return !(x == y);
         }
     }
 }

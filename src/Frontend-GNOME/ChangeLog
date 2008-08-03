@@ -1,3 +1,9 @@
+2008-08-04  Mirco Bauer <meebey@meebey.net> 
+
+	* Chats/ChatView.cs, ColorTools.cs: Implemented getting a good color based
+	  on the background color for a good contrast. Thanks to Mikael and Zhila
+	  for the algorithm!
+
 2008-07-30  Mirco Bauer <meebey@meebey.net> 
 
 	* Frontend-GNOME.mdp, smuxi-frontend-gnome.exe.config: Added .exe.config for

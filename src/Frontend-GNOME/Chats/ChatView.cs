@@ -384,9 +384,19 @@ namespace Smuxi.Frontend.Gnome
                     hasHighlight = true;
                 }
                 
+                Gdk.Color bgColor = _OutputTextView.DefaultAttributes.Appearance.BgColor;
+                TextColor bgTextColor = ColorTools.GetTextColor(bgColor);
                 // TODO: implement all types
                 if (msgPart is UrlMessagePartModel) {
                     UrlMessagePartModel fmsgui = (UrlMessagePartModel) msgPart;
+                    // HACK: the engine should set a color for us!
+                    Gtk.TextTag urlTag = _OutputTextTagTable.Lookup("url");
+                    Gdk.Color urlColor = urlTag.ForegroundGdk;
+                    Console.WriteLine("urlColor: " + urlColor);
+                    TextColor urlTextColor = ColorTools.GetTextColor(urlColor);
+                    urlTextColor = ColorTools.GetBestTextColor(urlTextColor, bgTextColor);
+                    Console.WriteLine("GetBestTextColor({0}, {1}): {2}",  urlColor, bgTextColor, urlTextColor);
+                    urlTag.ForegroundGdk = ColorTools.GetGdkColor(urlTextColor);
                     _OutputTextView.Buffer.InsertWithTagsByName(ref iter, fmsgui.Url, "url");
                 } else if (msgPart is TextMessagePartModel) {
                     TextMessagePartModel fmsgti = (TextMessagePartModel) msgPart;
@@ -394,35 +404,17 @@ namespace Smuxi.Frontend.Gnome
                     _Logger.Debug("AddMessage(): fmsgti.Text: '" + fmsgti.Text + "'");
 #endif
                     List<string> tags = new List<string>();
-                    
-                    if (fmsgti.ForegroundColor.HexCode != -1) {
-                        // TODO: if the color is too near our background color,
-                        // we should invert it
-                        // use HSV
-                        Gdk.Color bgcolor = _OutputTextView.DefaultAttributes.Appearance.BgColor;
-                        /*
-                        if (
-                        bgcolor.Red
-                        bgcolor.Green
-                        bgcolor.Blue
-                        
-                        TextColor color;
-                        if () {
-                           color = -fmsgti.ForegroundColor;
-                        } else {
-                           color = fmsgti.ForegroundColor;
-                        }
-                        
-                        System.Drawing.Color color = Color.FromArgb(0, (int)bgcolor.Red, (int)bgcolor.Green, (int)bgcolor.Blue);
-                        */
-                        string tagname = _GetTextTagName(fmsgti.ForegroundColor, null);
+                    if (fmsgti.ForegroundColor != TextColor.None) {
+                        TextColor color = ColorTools.GetBestTextColor(fmsgti.ForegroundColor, bgTextColor);
+                        Console.WriteLine("GetBestTextColor({0}, {1}): {2}",  fmsgti.ForegroundColor, bgColor, color);
+                        string tagname = _GetTextTagName(color, null);
+                        //string tagname = _GetTextTagName(fmsgti.ForegroundColor, null);
                         tags.Add(tagname);
                     }
-                    if (fmsgti.BackgroundColor.HexCode != -1) {
+                    if (fmsgti.BackgroundColor != TextColor.None) {
                         string tagname = _GetTextTagName(null, fmsgti.BackgroundColor);
                         tags.Add(tagname);
                     }
-                    
                     if (fmsgti.Underline) {
 #if LOG4NET
                         _Logger.Debug("AddMessage(): fmsgti.Underline is true");
@@ -543,15 +535,15 @@ namespace Smuxi.Frontend.Gnome
             Trace.Call();
         }
         
-        private string _GetTextTagName(TextColor fg_color, TextColor bg_color)
+        private string _GetTextTagName(TextColor fgColor, TextColor bgColor)
         {
              string hexcode;
              string tagname;
-             if (fg_color != null) {
-                hexcode = fg_color.HexCode.ToString("X6");
+             if (fgColor != null) {
+                hexcode = fgColor.HexCode;
                 tagname = "fg_color:" + hexcode;
-             } else if (bg_color != null) {
-                hexcode = bg_color.HexCode.ToString("X6");
+             } else if (bgColor != null) {
+                hexcode = bgColor.HexCode;
                 tagname = "bg_color:" + hexcode;
              } else {
                 return null;
@@ -563,9 +555,9 @@ namespace Smuxi.Frontend.Gnome
                  int blue  = Int16.Parse(hexcode.Substring(4, 2), NumberStyles.HexNumber);
                  Gdk.Color c = new Gdk.Color((byte)red, (byte)green, (byte)blue);
                  Gtk.TextTag tt = new Gtk.TextTag(tagname);
-                 if (fg_color != null) {
+                 if (fgColor != null) {
                     tt.ForegroundGdk = c;
-                 } else if (bg_color != null) {
+                 } else if (bgColor != null) {
                     tt.BackgroundGdk = c;
                  }
 #if LOG4NET
@@ -575,7 +567,7 @@ namespace Smuxi.Frontend.Gnome
              }
              return tagname;
         }
-        
+                        
         private void _OnTextBufferChanged(object sender, EventArgs e)
         {
             Trace.Call(sender, e);
@@ -693,7 +685,7 @@ namespace Smuxi.Frontend.Gnome
         protected virtual void OnTabButtonPress(object sender, Gtk.ButtonPressEventArgs e)
         {
             Trace.Call(sender, e);
-
+            
             if (e.Event.Button == 3) {
                 _TabMenu.Popup(null, null, null, e.Event.Button, e.Event.Time);
                 _TabMenu.ShowAll();

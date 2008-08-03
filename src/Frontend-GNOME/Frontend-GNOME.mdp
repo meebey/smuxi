@@ -71,6 +71,7 @@
     <File name="../AssemblyVersion.cs" subtype="Code" buildaction="Compile" />
     <File name="EngineAssistant.cs" subtype="Code" buildaction="Compile" />
     <File name="smuxi-frontend-gnome.exe.config" subtype="Code" buildaction="FileCopy" />
+    <File name="ColorTools.cs" subtype="Code" buildaction="Compile" />
   </Contents>
   <References>
     <ProjectReference type="Project" localcopy="True" refto="Engine" />

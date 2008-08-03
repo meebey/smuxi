@@ -1,3 +1,13 @@
+2008-08-04  Mirco Bauer <meebey@meebey.net> 
+
+	* TextColor.cs: Renamed HexCode to Value.
+	
+	  Added HexCode property returning a #XXXXXX string.
+	
+	  Implemented ToString(), GetHashCode(), Equals(), ==, and !=.
+	
+	  Added ctor with RGB as byte parameters.
+
 2008-07-27  Mirco Bauer <meebey@meebey.net> 
 
 	* AssemblyInfo.cs, AssemblyInfo.cs.in: Removed AssemblyInfo.cs.in files, not
