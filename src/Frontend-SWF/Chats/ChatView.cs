@@ -258,7 +258,7 @@ namespace Smuxi.Frontend.Swf
 
                     // HACK: Mono's RichTextBox has problems with colors
                     //if (Type.GetType("Mono.Runtime") == null) {
-                        if (fmsgti.ForegroundColor.HexCode != -1) {
+                        if (fmsgti.ForegroundColor != TextColor.None) {
                             _OutputTextView.SelectionStart = oldTextLength;
                             _OutputTextView.SelectionLength = fmsgti.Text.Length;
 #if LOG4NET

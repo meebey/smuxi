@@ -1,3 +1,8 @@
+2008-08-04  Mirco Bauer <meebey@meebey.net> 
+
+	* Chats/ChatView.cs: Don't use hardcoded value.
+	* ColorTools.cs: Using HexCode property now.
+
 2008-07-29  Mirco Bauer <meebey@meebey.net> 
 
 	* MainWindow.cs, Frontend-SWF.mdp, Chats/ChatView.cs, ColorTools.cs,

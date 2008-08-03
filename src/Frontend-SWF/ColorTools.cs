@@ -38,8 +38,7 @@ namespace Smuxi.Frontend.Swf
     {
         public static Color GetColor(TextColor textColor)
         {
-            string hexcode = textColor.HexCode.ToString("X6");
-            return GetColor(hexcode); 
+            return GetColor(textColor.HexCode); 
         }
         
         public static Color GetColor(string hexcode)
