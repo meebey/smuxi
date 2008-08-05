@@ -385,6 +385,9 @@ namespace Smuxi.Frontend.Gnome
                 }
                 
                 Gdk.Color bgColor = _OutputTextView.DefaultAttributes.Appearance.BgColor;
+                if (_BackgroundColor != null) {
+                    bgColor = _BackgroundColor.Value;
+                }
                 TextColor bgTextColor = ColorTools.GetTextColor(bgColor);
                 // TODO: implement all types
                 if (msgPart is UrlMessagePartModel) {
@@ -406,7 +409,7 @@ namespace Smuxi.Frontend.Gnome
                     List<string> tags = new List<string>();
                     if (fmsgti.ForegroundColor != TextColor.None) {
                         TextColor color = ColorTools.GetBestTextColor(fmsgti.ForegroundColor, bgTextColor);
-                        Console.WriteLine("GetBestTextColor({0}, {1}): {2}",  fmsgti.ForegroundColor, bgColor, color);
+                        Console.WriteLine("GetBestTextColor({0}, {1}): {2}",  fmsgti.ForegroundColor, bgTextColor, color);
                         string tagname = _GetTextTagName(color, null);
                         //string tagname = _GetTextTagName(fmsgti.ForegroundColor, null);
                         tags.Add(tagname);

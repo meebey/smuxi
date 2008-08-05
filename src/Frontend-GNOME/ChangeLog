@@ -1,3 +1,17 @@
+2008-08-05  Mirco Bauer <meebey@meebey.net> 
+
+	* Preferences/PreferencesDialog.cs: Use ColorTools instead of broken local
+	  conversion methods.
+	* Chats/ChatView.cs: Apply overriden background color in AddMessage().
+	
+	  Better debug output for GetBestTextColor().
+	* ColorTools.cs: Implemented GetHexCodeColor(Gdk.Color).
+	
+	  Check hex code length in GetGdkColor(string).
+	
+	  Fixed Gdk.Color to hex code conversion using bit shifting. (thanks to
+	  Zhila)
+
 2008-08-04  Mirco Bauer <meebey@meebey.net> 
 
 	* Chats/ChatView.cs, ColorTools.cs: Implemented getting a good color based

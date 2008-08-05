@@ -270,19 +270,19 @@ namespace Smuxi.Frontend.Gnome
             
             colorButton = (Gtk.ColorButton)_Glade["NoActivityColorButton"];
             colorHexCode = (string)Frontend.UserConfig["Interface/Notebook/Tab/NoActivityColor"];
-            colorButton.Color = _HexStringToGdkColor(colorHexCode);
+            colorButton.Color = ColorTools.GetGdkColor(colorHexCode);
 
             colorButton = (Gtk.ColorButton)_Glade["ActivityColorButton"];
             colorHexCode = (string)Frontend.UserConfig["Interface/Notebook/Tab/ActivityColor"];
-            colorButton.Color = _HexStringToGdkColor(colorHexCode);
+            colorButton.Color = ColorTools.GetGdkColor(colorHexCode);
 
             colorButton = (Gtk.ColorButton)_Glade["ModeColorButton"];
             colorHexCode = (string)Frontend.UserConfig["Interface/Notebook/Tab/ModeColor"];
-            colorButton.Color = _HexStringToGdkColor(colorHexCode);
+            colorButton.Color = ColorTools.GetGdkColor(colorHexCode);
             
             colorButton = (Gtk.ColorButton)_Glade["HighlightColorButton"];
             colorHexCode = (string)Frontend.UserConfig["Interface/Notebook/Tab/HighlightColor"];
-            colorButton.Color = _HexStringToGdkColor(colorHexCode);
+            colorButton.Color = ColorTools.GetGdkColor(colorHexCode);
             
             // Interface/Chat
             colorButton = (Gtk.ColorButton)_Glade["ForegroundColorButton"];
@@ -291,7 +291,7 @@ namespace Smuxi.Frontend.Gnome
                 ((Gtk.CheckButton)_Glade["OverrideForegroundColorCheckButton"]).Active = false;
             } else {
                 ((Gtk.CheckButton)_Glade["OverrideForegroundColorCheckButton"]).Active = true;
-                colorButton.Color = _HexStringToGdkColor(colorHexCode);
+                colorButton.Color = ColorTools.GetGdkColor(colorHexCode);
             }
             
             colorButton = (Gtk.ColorButton)_Glade["BackgroundColorButton"];
@@ -300,7 +300,7 @@ namespace Smuxi.Frontend.Gnome
                 ((Gtk.CheckButton)_Glade["OverrideBackgroundColorCheckButton"]).Active = false;
             } else {
                 ((Gtk.CheckButton)_Glade["OverrideBackgroundColorCheckButton"]).Active = true;
-                colorButton.Color = _HexStringToGdkColor(colorHexCode);
+                colorButton.Color = ColorTools.GetGdkColor(colorHexCode);
             }
             
             Gtk.FontButton fontButton = (Gtk.FontButton)_Glade["FontButton"];
@@ -433,25 +433,25 @@ namespace Smuxi.Frontend.Gnome
             // Interface/Notebook/Tab
             prefix = "Interface/Notebook/Tab/";
             Frontend.UserConfig[prefix + "NoActivityColor"] =
-                _GdkColorToHexString(((Gtk.ColorButton)_Glade["NoActivityColorButton"]).Color);
+                ColorTools.GetHexCodeColor(((Gtk.ColorButton)_Glade["NoActivityColorButton"]).Color);
             Frontend.UserConfig[prefix + "ActivityColor"] =
-                _GdkColorToHexString(((Gtk.ColorButton)_Glade["ActivityColorButton"]).Color);
+                ColorTools.GetHexCodeColor(((Gtk.ColorButton)_Glade["ActivityColorButton"]).Color);
             Frontend.UserConfig[prefix + "ModeColor"] =
-                _GdkColorToHexString(((Gtk.ColorButton)_Glade["ModeColorButton"]).Color);
+                ColorTools.GetHexCodeColor(((Gtk.ColorButton)_Glade["ModeColorButton"]).Color);
             Frontend.UserConfig[prefix + "HighlightColor"] =
-                _GdkColorToHexString(((Gtk.ColorButton)_Glade["HighlightColorButton"]).Color);
+                ColorTools.GetHexCodeColor(((Gtk.ColorButton)_Glade["HighlightColorButton"]).Color);
             
             // Interface/Chat
             prefix = "Interface/Chat/";
             if (((Gtk.CheckButton)_Glade["OverrideForegroundColorCheckButton"]).Active) {
                 Frontend.UserConfig[prefix + "ForegroundColor"] = 
-                    _GdkColorToHexString(((Gtk.ColorButton)_Glade["ForegroundColorButton"]).Color);
+                    ColorTools.GetHexCodeColor(((Gtk.ColorButton)_Glade["ForegroundColorButton"]).Color);
             } else {
                 Frontend.UserConfig[prefix + "ForegroundColor"] = String.Empty;
             }
             if (((Gtk.CheckButton)_Glade["OverrideBackgroundColorCheckButton"]).Active) {
                 Frontend.UserConfig[prefix + "BackgroundColor"] = 
-                    _GdkColorToHexString(((Gtk.ColorButton)_Glade["BackgroundColorButton"]).Color);
+                    ColorTools.GetHexCodeColor(((Gtk.ColorButton)_Glade["BackgroundColorButton"]).Color);
             } else {
                 Frontend.UserConfig[prefix + "BackgroundColor"] = String.Empty;
             }
@@ -487,34 +487,6 @@ namespace Smuxi.Frontend.Gnome
             //_ServerListView.Save();
             
             Frontend.Config.Save();
-        }
-        
-        private Gdk.Color _HexStringToGdkColor(string colorStr)
-        {
-            colorStr = colorStr.Substring(1); // remove #
-            ushort red   = ushort.Parse(colorStr.Substring(0, 2), NumberStyles.HexNumber);
-            ushort green = ushort.Parse(colorStr.Substring(2, 2), NumberStyles.HexNumber);
-            ushort blue  = ushort.Parse(colorStr.Substring(4, 2), NumberStyles.HexNumber);
-            return new Gdk.Color((byte)red, (byte)green, (byte)blue);
-            /*
-            Gdk.Color color = Gdk.Color.Zero;
-            Gdk.Color.Parse(colorStr, ref color);
-            return color;
-            */
-        }
-        
-        private string _GdkColorToHexString(Gdk.Color color)
-        {
-            /*
-            Console.WriteLine("Red: " + color.Red);
-            Console.WriteLine("Green: " + color.Green);
-            Console.WriteLine("Blue: " + color.Blue);
-            */
-            string res = "#";
-            res += ((byte)color.Red).ToString("X2");
-            res += ((byte)color.Green).ToString("X2"); 
-            res += ((byte)color.Blue).ToString("X2");
-            return res;
         }
         
         private void _OnChanged(object sender, EventArgs e)

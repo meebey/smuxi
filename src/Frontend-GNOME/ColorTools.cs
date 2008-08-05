@@ -29,18 +29,34 @@
 using System;
 using System.Globalization;
 
+using Smuxi.Common;
 using Smuxi.Engine;
 
 namespace Smuxi.Frontend.Gnome
 {
     public static class ColorTools
     {
+        public static string GetHexCodeColor(Gdk.Color color)
+        {
+            /*
+            // this approach is changing the color instead of converting it, as byte wraps
+            string hexcode = String.Format("{0}{1}{2}",
+                                           ((byte) color.Red).ToString("X2"),
+                                           ((byte) color.Green).ToString("X2"),
+                                           ((byte) color.Blue).ToString("X2"));
+            */
+            string hexcode = String.Format("#{0}{1}{2}",
+                                           (color.Red >> 8).ToString("X2"),
+                                           (color.Green >> 8).ToString("X2"),
+                                           (color.Blue >> 8).ToString("X2"));
+            return hexcode;
+        }
+        
         public static TextColor GetTextColor(Gdk.Color color)
         {
-            string hexcode = String.Format("{0}{1}{2}",
-                                           color.Red.ToString("X2"),
-                                           color.Green.ToString("X2"),
-                                           color.Blue.ToString("X2"));
+            string hexcode = GetHexCodeColor(color);
+            // remove leading "#" character
+            hexcode = hexcode.Substring(1);
             int value  = Int32.Parse(hexcode, NumberStyles.HexNumber);
             return new TextColor(value);
         }
@@ -56,6 +72,8 @@ namespace Smuxi.Frontend.Gnome
         
         public static Gdk.Color GetGdkColor(string hexCode)
         {
+            Trace.Call(hexCode);
+            
             if (hexCode == null) {
                 throw new ArgumentNullException("hexcode");
             }
@@ -63,6 +81,10 @@ namespace Smuxi.Frontend.Gnome
             if (hexCode.StartsWith("#")) {
                 // remove leading "#" character
                 hexCode = hexCode.Substring(1);
+            }
+            
+            if (hexCode.Length != 6) {
+                throw new ArgumentException("Hexcode value must be exact 6 characters long (without prefix).", "hexCode");
             }
             
             int red   = Int16.Parse(hexCode.Substring(0, 2), NumberStyles.HexNumber);
