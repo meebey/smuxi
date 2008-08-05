@@ -1,3 +1,8 @@
+2008-08-05  Mirco Bauer <meebey@meebey.net> 
+
+	* Protocols/Irc/IrcProtocolManager.cs: Colorize nicks in nick changes and
+	  quit messages.
+
 2008-08-04  Mirco Bauer <meebey@meebey.net> 
 
 	* Protocols/Irc/IrcProtocolManager.cs: _OnNickChange(): Nick changes now use

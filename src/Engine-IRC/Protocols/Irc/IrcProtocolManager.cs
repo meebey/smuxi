@@ -1905,7 +1905,10 @@ namespace Smuxi.Engine
             TextMessagePartModel fmsgti;
             
             fmsgti = new TextMessagePartModel();
-            fmsgti.Text = String.Format("-{0} ({1}@{2})- ", e.Data.Nick, e.Data.Ident, e.Data.Host);
+            fmsgti.Text = String.Format("-{0} ({1}@{2})- ",
+                                        e.Data.Nick,
+                                        e.Data.Ident,
+                                        e.Data.Host);
             fmsgti.IsHighlight = true;
             fmsg.MessageParts.Add(fmsgti);
             
@@ -2070,11 +2073,12 @@ namespace Smuxi.Engine
             msg.MessageParts.Add(textMsgPart);
 
             textMsgPart = new TextMessagePartModel();
-            textMsgPart.Text = String.Format(_("{0} [{1}] has left {2} [{3}]"),
-                                             String.Empty,
-                                             e.Data.Ident + "@" + e.Data.Host,
-                                             e.Channel,
-                                             e.PartMessage);
+            textMsgPart.Text = String.Format(
+                                    _("{0} [{1}] has left {2} [{3}]"),
+                                    String.Empty,
+                                    e.Data.Ident + "@" + e.Data.Host,
+                                    e.Channel,
+                                    e.PartMessage);
             msg.MessageParts.Add(textMsgPart);
             
             Session.AddMessageToChat(groupChat, msg);
@@ -2112,7 +2116,9 @@ namespace Smuxi.Engine
                 TextMessagePartModel textMsg;
                 
                 textMsg = new TextMessagePartModel();
-                textMsg.Text = "-!- " + _("You're now known as") + " ";
+                textMsg.Text = "-!- " + String.Format(
+                                            _("You're now known as {0}"),
+                                            String.Empty);
                 msg.MessageParts.Add(textMsg);
 
                 textMsg = new TextMessagePartModel();
@@ -2154,7 +2160,9 @@ namespace Smuxi.Engine
                         TextMessagePartModel textMsg;
                         
                         textMsg = new TextMessagePartModel();
-                        textMsg.Text = "-!- " + _("You're now known as") + " ";
+                        textMsg.Text = "-!- " + String.Format(
+                                                    _("You're now known as {0}"),
+                                                    String.Empty);
                         msg.MessageParts.Add(textMsg);
 
                         textMsg = new TextMessagePartModel();
@@ -2175,9 +2183,13 @@ namespace Smuxi.Engine
                         textMsg = new TextMessagePartModel();
                         textMsg.Text = e.OldNickname;
                         textMsg.ForegroundColor = GetNickColor(e.OldNickname);
+                        msg.MessageParts.Add(textMsg);
                         
                         textMsg = new TextMessagePartModel();
-                        textMsg.Text = " " + _("is now known as") + " ";
+                        textMsg.Text = String.Format(
+                                            _("{0} is now known as {1}"),
+                                            String.Empty,
+                                            String.Empty);
                         msg.MessageParts.Add(textMsg);
 
                         textMsg = new TextMessagePartModel();
@@ -2296,6 +2308,26 @@ namespace Smuxi.Engine
             if (e.Data.Irc.IsMe(e.Who)) {
                 // _OnDisconnect() handles this
             } else {
+                MessageModel quitMsg = new MessageModel();
+                TextMessagePartModel textMsg;
+        
+                textMsg = new TextMessagePartModel();
+                textMsg.Text = "-!- ";
+                quitMsg.MessageParts.Add(textMsg);
+                
+                textMsg = new TextMessagePartModel();
+                textMsg.Text = e.Who;
+                textMsg.ForegroundColor = GetNickColor(e.Who);
+                quitMsg.MessageParts.Add(textMsg);
+                
+                textMsg = new TextMessagePartModel();
+                textMsg.Text = String.Format(
+                                    _("{0} [{1}] has quit [{2}]"),
+                                    String.Empty,
+                                    e.Data.Ident + "@" + e.Data.Host,
+                                    e.QuitMessage);
+                quitMsg.MessageParts.Add(textMsg);
+                
                 foreach (ChatModel chat in Session.Chats) {
                     if (chat.ProtocolManager != this) {
                         // we don't care about channels and queries the user was
@@ -2309,15 +2341,11 @@ namespace Smuxi.Engine
                         if (user != null) {
                             // he is on this channel, let's remove him
                             Session.RemovePersonFromGroupChat(cchat, user);
-                            Session.AddTextToChat(cchat, "-!- " + String.Format(
-                                                                    _("{0} [{1}] has quit [{2}]"),
-                                                                    e.Who, e.Data.Ident + "@" + e.Data.Host, e.QuitMessage));
+                            Session.AddMessageToChat(cchat, quitMsg);
                         }
                     } else if ((chat.ChatType == ChatType.Person) &&
                                (chat.ID == e.Who)) {
-                        Session.AddTextToChat(chat, "-!- " + String.Format(
-                                                                _("{0} [{1}] has quit [{2}]"),
-                                                                e.Who, e.Data.Ident + "@" + e.Data.Host, e.QuitMessage));
+                        Session.AddMessageToChat(chat, quitMsg);
                     }
                 }
             }
