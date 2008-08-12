@@ -1,0 +1,100 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2008-08-12 22:17+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../src/Engine/FrontendManager.cs:192
+msgid "no network connections"
+msgstr ""
+
+#: ../src/Engine/Protocols/ProtocolManagerBase.cs:139
+msgid "Not connected to server"
+msgstr ""
+
+#: ../src/Engine/Protocols/ProtocolManagerBase.cs:145
+#: ../src/Engine/Session.cs:632
+#, csharp-format
+msgid "Not enough parameters for {0} command"
+msgstr ""
+
+#: ../src/Engine/Session.cs:117
+msgid "Welcome to Smuxi"
+msgstr ""
+
+#: ../src/Engine/Session.cs:186
+#, csharp-format
+msgid "Automatic connect to {0} failed!"
+msgstr ""
+
+#: ../src/Engine/Session.cs:344
+msgid "[Engine Commands]"
+msgstr ""
+
+#: ../src/Engine/Session.cs:448
+#, csharp-format
+msgid "Disconnect failed, could not find server: {0}"
+msgstr ""
+
+#: ../src/Engine/Session.cs:508
+msgid "Configuration reloaded"
+msgstr ""
+
+#: ../src/Engine/Session.cs:513
+msgid "Configuration saved"
+msgstr ""
+
+#: ../src/Engine/Session.cs:517
+msgid "Invalid paramater for config, use load or save"
+msgstr ""
+
+#: ../src/Engine/Session.cs:547
+msgid "Invalid paramater for network, use list, switch or close"
+msgstr ""
+
+#: ../src/Engine/Session.cs:558
+msgid "Networks"
+msgstr ""
+
+#: ../src/Engine/Session.cs:561
+msgid "Type"
+msgstr ""
+
+#: ../src/Engine/Session.cs:562
+msgid "Host"
+msgstr ""
+
+#: ../src/Engine/Session.cs:563
+msgid "Port"
+msgstr ""
+
+#: ../src/Engine/Session.cs:582
+#, csharp-format
+msgid "Network close failed, could not find network with host: {0}"
+msgstr ""
+
+#: ../src/Engine/Session.cs:614
+#, csharp-format
+msgid "Network switch failed, could not find network with host: {0}"
+msgstr ""
+
+#: ../src/Engine/Session.cs:626
+msgid "Not connected to any network"
+msgstr ""
+
+#: ../src/Engine/Session.cs:866
+#, csharp-format
+msgid "Unknown protocol: {0}"
+msgstr ""
