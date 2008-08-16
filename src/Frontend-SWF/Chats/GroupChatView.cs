@@ -27,6 +27,7 @@
  */
 
 using System;
+using System.Windows.Forms;
 using Mono.Unix;
 using Smuxi.Engine;
 
@@ -35,24 +36,90 @@ namespace Smuxi.Frontend.Swf
     [ChatViewInfo(ChatType = ChatType.Group)]
     public class GroupChatView : ChatView
     {
+        private TextBox _TopicTextView;
+        private ListBox _PersonListBox;
+
         public GroupChatView(ChatModel chat) :
                         base(chat)
         {
+            InitializeComponents();
+
         }
-        
+
+
+        public GroupChatModel GroupChatModel {
+            get {
+                return (GroupChatModel)base.ChatModel;
+            }
+        }
+
+        private void InitializeComponents()
+        {
+            Splitter personListBoxSplitter = new Splitter();
+            this._TopicTextView = new TextBox();
+            this._PersonListBox = new ListBox();
+            this.SuspendLayout();
+
+            // _TopicTextView
+            this._TopicTextView.ReadOnly = true;
+            this._TopicTextView.Name = "_TopicTextView";
+            this._TopicTextView.Dock = DockStyle.Top;
+
+            // _PersonListBox
+            this._PersonListBox.Name = "_PersonListBox";
+            this._PersonListBox.Dock = DockStyle.Right;
+            this._PersonListBox.IntegralHeight = false;
+
+            // personListBoxSplitter
+            personListBoxSplitter.Dock = DockStyle.Right;
+
+            this.Controls.Add(base.OutputTextView);
+            this.Controls.Add(_TopicTextView);
+            this.Controls.Add(personListBoxSplitter);
+            this.Controls.Add(_PersonListBox);
+
+            this.ResumeLayout();
+
+        }
+
+        public override void ApplyConfig(UserConfig config)
+        {
+            base.ApplyConfig(config);
+            if (BackgroundColor.HasValue) _PersonListBox.BackColor = _TopicTextView.BackColor = BackgroundColor.Value;
+            if (BackgroundColor.HasValue) _PersonListBox.ForeColor = _TopicTextView.ForeColor = ForegroundColor.Value;
+            _PersonListBox.Font = _TopicTextView.Font = Font;
+            _PersonListBox.Width = TextRenderer.MeasureText("999999999", Font).Width;
+        }
+
         public void AddPerson(PersonModel person)
         {
-            // TODO
+            _PersonListBox.Items.Add(person.IdentityName);
         }
 
         public void UpdatePerson(PersonModel oldPerson, PersonModel newPerson)
         {
-            // TODO
+            _PersonListBox.Items.Remove(oldPerson.IdentityName);
+            _PersonListBox.Items.Add(newPerson.IdentityName);
         }
 
         public void RemovePerson(PersonModel person)
         {
-            // TODO
+            _PersonListBox.Items.Remove(person.IdentityName);
+        }
+
+        public override void Sync()
+        {
+            base.Sync();
+            foreach (PersonModel person in GroupChatModel.Persons.Values) {
+                _PersonListBox.Items.Add(person.IdentityName);
+            }
+        }
+
+        public override void Disable()
+        {
+            base.Disable();
+            _PersonListBox.Items.Clear();
+            _TopicTextView.Clear();
         }
     }
 }

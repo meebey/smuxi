@@ -18,7 +18,7 @@ namespace Smuxi.Frontend.Swf
 #endif
         private   ChatModel          _ChatModel;
         private   bool               _HasHighlight;
-        private   RichTextBox        _OutputTextView;
+        private   RichTextBoxEx      _OutputTextView;
         private   Color?             _BackgroundColor;
         private   Color?             _ForegroundColor;
         private   Font               _Font;
@@ -30,6 +30,7 @@ namespace Smuxi.Frontend.Swf
         //    // Calling the base class OnPaint
         //    base.OnPaint(pe);
         //}
+
 
         public ChatModel ChatModel {
             get {
@@ -75,12 +76,40 @@ namespace Smuxi.Frontend.Swf
             _ChatModel = chat;
 
             InitializeComponent();
-            // BUG? the designer doesn't add the control to the TabPage
-            Controls.Add(_OutputTextView);
-            
+
             Name = chat.Name;
             Text = chat.Name;
+
+            _OutputTextView.SelectionChanged += new EventHandler(OutputSelectionChanged);
         }
+
+        private void OutputSelectionChanged(object sender, EventArgs e)
+        {
+#if LOG4NET
+            if (!_OutputTextView.CaretEndPosition) {
+                _Logger.Debug("OutputSelectionChanged()");
+            }
+#endif
+        }
+
+		private void InitializeComponent()
+		{
+            this._OutputTextView = new RichTextBoxEx();
+            this.SuspendLayout();
+            // 
+            // _OutputTextView
+            // 
+            this._OutputTextView.DetectUrls = false;
+            this._OutputTextView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this._OutputTextView.HideSelection = false;
+            this._OutputTextView.Name = "_OutputTextView";
+            this._OutputTextView.ReadOnly = true;
+            this._OutputTextView.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedVertical;
+            this._OutputTextView.ShowSelectionMargin = true;
+            this._OutputTextView.TabIndex = 0;
+            this.ResumeLayout(false);
+
+		}
 
         public void ScrollUp()
         {
@@ -106,10 +135,8 @@ namespace Smuxi.Frontend.Swf
         public void ScrollToEnd()
         {
             Trace.Call();
+            _OutputTextView.ScrollToEnd();
             
-            _OutputTextView.SelectionStart = _OutputTextView.Text.Length;
-            _OutputTextView.SelectionLength = 0;
-            _OutputTextView.ScrollToCaret();
         }
 
         public void Enable()
@@ -119,7 +146,7 @@ namespace Smuxi.Frontend.Swf
             Enabled = true;
         }
 
-        public void Disable()
+        public virtual void Disable()
         {
             Trace.Call();
 
@@ -230,7 +257,10 @@ namespace Smuxi.Frontend.Swf
                 timestamp = "Timestamp Format ERROR: " + e.Message;
             }
 
-            _OutputTextView.AppendText(timestamp + " ");
+            timestamp += " ";
+            _OutputTextView.SelectionHangingIndent = TextRenderer.MeasureText(timestamp, _Font).Width;
+            
+            _OutputTextView.AppendText(timestamp);
             
             bool hasHighlight = false;
             foreach (MessagePartModel msgPart in msg.MessageParts) {
@@ -245,6 +275,9 @@ namespace Smuxi.Frontend.Swf
                 if (msgPart is UrlMessagePartModel) {
                     UrlMessagePartModel fmsgui = (UrlMessagePartModel) msgPart;
                     /*TODO: Create a link in the TextView (possibly requiring WinAPI hacks...)*/
+                    _OutputTextView.SelectionColor = Color.Blue;
+                    _OutputTextView.SelectionFont = new Font(_Font, FontStyle.Underline);
+                    
                     _OutputTextView.AppendText(fmsgui.Url);
                 } else if (msgPart is TextMessagePartModel) {
                     /*TODO: Add required formatting to the TextView (possibly requiring WinAPI hacks...)*/
@@ -252,38 +285,52 @@ namespace Smuxi.Frontend.Swf
 #if LOG4NET
                     _Logger.Debug("AddMessage(): fmsgti.Text: '" + fmsgti.Text + "'");
 #endif
-                    
-                    int oldTextLength = _OutputTextView.TextLength;
-                    _OutputTextView.AppendText(fmsgti.Text);
+                    FontStyle fstyle = FontStyle.Regular;
 
-                    // HACK: Mono's RichTextBox has problems with colors
-                    //if (Type.GetType("Mono.Runtime") == null) {
-                        if (fmsgti.ForegroundColor != TextColor.None) {
-                            _OutputTextView.SelectionStart = oldTextLength;
-                            _OutputTextView.SelectionLength = fmsgti.Text.Length;
+                    if (fmsgti.ForegroundColor == TextColor.None) {
+                         _OutputTextView.SelectionColor = _ForegroundColor ?? Color.White;
+                    } else {
 #if LOG4NET
-                            _Logger.Debug("AddMessage(): SelectionStart: " + _OutputTextView.SelectionStart);
-                            _Logger.Debug("AddMessage(): SelectionLength: " + _OutputTextView.SelectionLength);
+                        _Logger.Debug("AddMessage(): fmsgti.ForegroundColor: '" + fmsgti.ForegroundColor.ToString() + "'");
 #endif
-                            _OutputTextView.SelectionColor = ColorTools.GetColor(fmsgti.ForegroundColor);
-                        }
-                    //}
-                    
+                        _OutputTextView.SelectionColor = ColorTools.GetColor(fmsgti.ForegroundColor);
+                    }
+
+                    if (fmsgti.BackgroundColor == TextColor.None) {
+                        _OutputTextView.SelectionBackColor = _BackgroundColor ?? Color.Black;
+                    } else {
+#if LOG4NET
+                        _Logger.Debug("AddMessage(): fmsgti.BackgroundColor: '" + fmsgti.BackgroundColor.ToString() + "'");
+#endif
+                        _OutputTextView.SelectionBackColor = ColorTools.GetColor(fmsgti.BackgroundColor);
+                    }
+
+
                     if (fmsgti.Underline) {
 #if LOG4NET
                         _Logger.Debug("AddMessage(): fmsgti.Underline is true");
 #endif
+                        fstyle |= FontStyle.Underline;
+
                     }
                     if (fmsgti.Bold) {
 #if LOG4NET
                         _Logger.Debug("AddMessage(): fmsgti.Bold is true");
 #endif
+                        fstyle |= FontStyle.Bold;
                     }
                     if (fmsgti.Italic) {
 #if LOG4NET
                         _Logger.Debug("AddMessage(): fmsgti.Italic is true");
 #endif
+                        fstyle |= FontStyle.Italic;
                     }
+
+                    _OutputTextView.SelectionFont = new Font(Font, fstyle);
+
+                    _OutputTextView.AppendText(fmsgti.Text);
+
+                    
                 } 
             }
             _OutputTextView.AppendText("\n");

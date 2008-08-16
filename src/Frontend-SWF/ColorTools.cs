@@ -53,5 +53,15 @@ namespace Smuxi.Frontend.Swf
             int blue  = Int16.Parse(hexcode.Substring(4, 2), NumberStyles.HexNumber);
             return Color.FromArgb(red, green, blue);
         }
+
+        public static Color GetColor(int value)
+        {
+            // value may or may not have the alpha section set
+            // thus we need to be sure it's filled.  Bitwise
+            // OR on the 8 most significant bits does just
+            // this.
+            //return Color.FromArgb(value | (int)0xFF000000);
+            return Color.Empty;
+        }
     }
 }

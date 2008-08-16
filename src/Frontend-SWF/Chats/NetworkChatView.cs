@@ -38,6 +38,7 @@ namespace Smuxi.Frontend.Swf
         public NetworkChatView(ChatModel chat) :
                         base(chat)
         {
+            this.Controls.Add(base.OutputTextView);
         }
     }
 }
