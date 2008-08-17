@@ -5,7 +5,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{0CA3B4CA-9CE0-4F3C-8C54-D01EDBAAD9B9}</ProjectGuid>
     <AssemblyName>smuxi-frontend-swf</AssemblyName>
-    <StartupObject>Smuxi.Frontend.Swf.MainClass</StartupObject>
+    <StartupObject>Smuxi.Frontend.Swf.PreferencesDialog</StartupObject>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
     <OldToolsVersion>2.0</OldToolsVersion>
