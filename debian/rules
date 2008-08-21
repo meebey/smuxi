@@ -19,6 +19,7 @@ include /usr/share/dpatch/dpatch.make
 build: patch build-stamp
 build-stamp:
 	dh_testdir
+	./configure --prefix=/usr --enable-engine-irc --enable-frontend-gnome
 	$(MAKE)
 	touch build-stamp
 
