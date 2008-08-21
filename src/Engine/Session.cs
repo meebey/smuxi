@@ -313,10 +313,6 @@ namespace Smuxi.Engine
                         CommandConfig(cd);
                         handled = true;
                         break;
-                    case "quit":
-                        CommandQuit(cd);
-                        handled = true;
-                        break;
                 }
             } else {
                 // normal text
@@ -463,32 +459,6 @@ namespace Smuxi.Engine
             
             FrontendManager fm = cd.FrontendManager;
             fm.CurrentProtocolManager.Reconnect(fm);
-        }
-        
-        public void CommandQuit(CommandModel cd)
-        {
-            Trace.Call(cd);
-            
-            if (cd == null) {
-                throw new ArgumentNullException("cd");
-            }
-            
-            FrontendManager fm = cd.FrontendManager;
-            string message = cd.Parameter;
-            foreach (IProtocolManager nm in _ProtocolManagers) {
-                if (message == null) {
-                    nm.Disconnect(fm);
-                } else {
-                    /*
-                    if (nm is IrcProtocolManager) {
-                        IrcProtocolManager im = (IrcProtocolManager)nm;
-                        im.CommandQuit(cd);
-                    } else {
-                        nm.Disconnect(fm);
-                    }
-                    */
-                }
-            }
         }
         
         public void CommandConfig(CommandModel cd)

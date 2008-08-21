@@ -1250,6 +1250,7 @@ namespace Smuxi.Engine
             } else {
                 _IrcClient.RfcQuit();
             }
+            Dispose();
         }
         
         private void _Run()
