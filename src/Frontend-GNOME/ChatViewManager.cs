@@ -41,7 +41,7 @@ namespace Smuxi.Frontend.Gnome
     public class ChatViewManager : ChatViewManagerBase
     {
 #if LOG4NET
-        private static readonly log4net.ILog _Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly log4net.ILog f_Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 #endif
         private List<ChatView> f_Chats = new List<ChatView>();
         private Notebook       f_Notebook;
@@ -93,13 +93,20 @@ namespace Smuxi.Frontend.Gnome
                 
                 if (idx != -1) {
                     // now find the first chat with a different protocol manager
+                    bool found = false;
                     for (int i = idx; i < f_Notebook.NPages; i++) {
                         ChatView page = (ChatView) f_Notebook.GetNthPage(i);
                         ChatModel pageChat = page.ChatModel;
                         if (pageChat.ProtocolManager != pm) {
+                            found = true;
                             idx = i;
                             break;
                         }
+                    }
+                    if (!found) {
+                        // if there was no next protocol manager, simply append 
+                        // the chat way to the end
+                        idx = -1;
                     }
                 }
             }
@@ -107,6 +114,9 @@ namespace Smuxi.Frontend.Gnome
             if (idx == -1) {
                 f_Notebook.AppendPage(chatView, chatView.LabelWidget);
             } else {
+#if LOG4NET
+                f_Logger.Debug("AddChat(): adding chat at: " + idx); 
+#endif
                 f_Notebook.InsertPage(chatView, chatView.LabelWidget, idx);
             }
             
