@@ -1,5 +1,10 @@
 2008-08-21  Mirco Bauer <meebey@meebey.net> 
 
+	* Chats/ChatView.cs: Whitespace fix.
+	* RichTextBoxEx.cs: Coding Standards.
+
+2008-08-21  Mirco Bauer <meebey@meebey.net> 
+
 	* MainWindow.Designer.cs, Frontend-SWF.mdp, SwfUI.cs, RichTextBoxEx.cs,
 	  Entry.cs, NotImplementedMessageDialog.cs: Fixed whitespace (replaced \t
 	  with 4 spaces).

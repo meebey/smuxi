@@ -17,9 +17,18 @@ namespace Smuxi.Frontend.Swf
         private const int SB_TOP =      6;
         private const int SB_BOTTOM =   7;
 
-        public RichTextBoxEx() : base(){}
+        public bool CaretEndPosition {
+            get {
+                return SelectionStart == TextLength;
+            }
+        }
 
-        private IntPtr SendMessage(int msg, IntPtr wParam, IntPtr lParam){
+        public RichTextBoxEx() : base()
+        {
+        }
+
+        private IntPtr SendMessage(int msg, IntPtr wParam, IntPtr lParam)
+        {
             Message m = new Message();
             m.HWnd = Handle;
             m.Msg = msg;
@@ -29,16 +38,14 @@ namespace Smuxi.Frontend.Swf
             return m.Result;
         }
         
-        public void ScrollToEnd(){
+        public void ScrollToEnd()
+        {
             SendMessage(WM_VSCROLL, (IntPtr)SB_BOTTOM, IntPtr.Zero);
         }
 
-        public bool CaretEndPosition {
-            get { return SelectionStart == TextLength; }
-        }
-
-        public void SetCaretEndPosition() {
+        public void SetCaretEndPosition()
+        {
             SelectionStart = TextLength;
         }
-	}
+    }
 }

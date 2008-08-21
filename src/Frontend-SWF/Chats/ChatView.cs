@@ -92,8 +92,8 @@ namespace Smuxi.Frontend.Swf
 #endif
         }
 
-		private void InitializeComponent()
-		{
+    	private void InitializeComponent()
+    	{
             this._OutputTextView = new RichTextBoxEx();
             this.SuspendLayout();
             // 
@@ -109,7 +109,7 @@ namespace Smuxi.Frontend.Swf
             this._OutputTextView.TabIndex = 0;
             this.ResumeLayout(false);
 
-		}
+    	}
 
         public void ScrollUp()
         {
