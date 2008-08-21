@@ -1,5 +1,11 @@
 2008-08-21  Mirco Bauer <meebey@meebey.net> 
 
+	* Preferences/PreferencesDialog.cs: Use the more descriptive "<System
+	  Default>" as text for encodings instead of an empty string. (closes trac
+	  bug #82)
+
+2008-08-21  Mirco Bauer <meebey@meebey.net> 
+
 	* ChatViewManager.cs: Fixed sorting order of group and person chats when
 	  there is no next protocol chat available. (Closes trac bug #87)
 

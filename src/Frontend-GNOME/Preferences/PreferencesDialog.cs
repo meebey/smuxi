@@ -162,7 +162,7 @@ namespace Smuxi.Frontend.Gnome
             cb.PackStart(cell, false);
             cb.AddAttribute(cell, "text", 0);
             Gtk.ListStore store = new Gtk.ListStore(typeof(string), typeof(string));
-            store.AppendValues(String.Empty, String.Empty);
+            store.AppendValues(String.Format("<{0}>", _("System Default")), String.Empty);
             ArrayList encodingList = new ArrayList();
             ArrayList bodyNameList = new ArrayList();
             foreach (EncodingInfo encInfo in Encoding.GetEncodings()) {
