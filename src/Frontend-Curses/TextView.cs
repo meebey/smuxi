@@ -36,8 +36,8 @@ using Smuxi.Engine;
 
 namespace Smuxi.Frontend.Curses
 {
-	public class TextView : Container
-	{
+    public class TextView : Container
+    {
 #if LOG4NET
         private static readonly log4net.ILog _Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 #endif

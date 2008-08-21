@@ -36,8 +36,8 @@ using Smuxi.Engine;
 
 namespace Smuxi.Frontend.Stfl
 {
-	public class Entry
-	{
+    public class Entry
+    {
 #if LOG4NET
         private static readonly log4net.ILog _Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 #endif

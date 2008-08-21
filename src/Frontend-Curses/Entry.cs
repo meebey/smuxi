@@ -36,8 +36,8 @@ using Smuxi.Engine;
 
 namespace Smuxi.Frontend.Curses
 {
-	public class Entry : Mono.Terminal.Entry
-	{
+    public class Entry : Mono.Terminal.Entry
+    {
 #if LOG4NET
         private static readonly log4net.ILog _Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 #endif
@@ -51,13 +51,13 @@ namespace Smuxi.Frontend.Curses
         {
             Trace.Call(key);
             
-        	bool res = base.ProcessKey(key);
-        	
-        	if (key == 10) {
-        	    OnActivated(EventArgs.Empty);
-        	}
-        	
-        	return res;
+            bool res = base.ProcessKey(key);
+            
+            if (key == 10) {
+                OnActivated(EventArgs.Empty);
+            }
+            
+            return res;
         }
 
         public virtual void OnActivated(EventArgs e)

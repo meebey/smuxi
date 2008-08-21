@@ -138,7 +138,7 @@ namespace Smuxi.Engine
         
         public virtual string ToTraceString()
         {
-        	return _NetworkID + "/" + _IdentityName; 
+            return _NetworkID + "/" + _IdentityName; 
         }
     }
 }

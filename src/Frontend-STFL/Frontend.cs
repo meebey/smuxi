@@ -226,7 +226,7 @@ namespace Smuxi.Frontend.Stfl
             }
             */
 
-	        Environment.Exit(0);
+            Environment.Exit(0);
         }
         
         public static void ShowException(Exception ex)

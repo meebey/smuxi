@@ -162,8 +162,8 @@ namespace Smuxi.Frontend.Curses
             }
             
             Application.Timeout = 100;
-    		Application.Iteration += delegate {
-    			Application.Refresh ();
+        	Application.Iteration += delegate {
+        		Application.Refresh ();
     		};
             
 		    Application.Run(_MainWindow);

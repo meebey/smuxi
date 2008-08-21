@@ -33,10 +33,10 @@ using Mono.Unix;
 namespace Smuxi.Frontend.Swf
 {
     public static class NotImplementedMessageDialog
-	{
+    {
         public static void Show()
         {
             MessageBox.Show(Catalog.GetString("Sorry, not implemented yet!"), null, MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
-	}
+    }
 }

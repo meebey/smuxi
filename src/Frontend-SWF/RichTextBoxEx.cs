@@ -5,8 +5,8 @@ using System.Windows.Forms;
 
 namespace Smuxi.Frontend.Swf
 {
-	class RichTextBoxEx : RichTextBox
-	{
+    class RichTextBoxEx : RichTextBox
+    {
         private const int WM_VSCROLL =  0x115;
         private const int WM_HSCROLL =  0x114;
 

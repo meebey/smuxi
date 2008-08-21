@@ -30,8 +30,8 @@ using System;
 
 namespace Smuxi.Common
 {
-	public interface ITraceable
-	{
-		string ToTraceString();
-	}
+    public interface ITraceable
+    {
+    	string ToTraceString();
+    }
 }

@@ -94,8 +94,8 @@ namespace Smuxi.Frontend.Stfl
             }
         }
         
-		public void AddMessage(MessageModel msg)
-		{
+    	public void AddMessage(MessageModel msg)
+    	{
             string finalMsg = String.Empty;
             foreach (MessagePartModel msgPart in msg.MessageParts) {
                 // TODO: implement other types
@@ -116,24 +116,24 @@ namespace Smuxi.Frontend.Stfl
             _MainWindow.Modify("output_textview", "append", "{listitem text:" + STFL.quote(finalMsg) + "}"); 
             
             //ScrollToEnd();
-		}
-		
-		public void ScrollUp()
+    	}
+    	
+    	public void ScrollUp()
         {
             Trace.Call();
         }
         
-		public void ScrollDown()
+    	public void ScrollDown()
         {
             Trace.Call();
         }
         
-		public void ScrollToStart()
+    	public void ScrollToStart()
         {
             Trace.Call();
         }
         
-		public void ScrollToEnd()
+    	public void ScrollToEnd()
         {
             Trace.Call();
             

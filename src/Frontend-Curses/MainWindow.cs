@@ -36,8 +36,8 @@ using Smuxi.Engine;
 
 namespace Smuxi.Frontend.Curses
 {
-	public class MainWindow : Container
-	{
+    public class MainWindow : Container
+    {
 #if LOG4NET
         private static readonly log4net.ILog _Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 #endif
@@ -60,37 +60,37 @@ namespace Smuxi.Frontend.Curses
         
         public MainWindow() : base(0, 0, Application.Cols, Application.Lines)
         {
-    		//Frame layout = new Frame(0,0, Application.Cols, Application.Lines, "smuxi");
-    		//Add(layout);
-    		
-    		// menu
-    		Button fileButton = new Button(0, 0, "File");
-    		fileButton.Clicked += delegate {
+        	//Frame layout = new Frame(0,0, Application.Cols, Application.Lines, "smuxi");
+        	//Add(layout);
+        	
+        	// menu
+        	Button fileButton = new Button(0, 0, "File");
+        	fileButton.Clicked += delegate {
                 Dialog dialog = new Dialog(40, 6, "File Menu");
                 
-		        Button quitButton = new Button(0, 0, "Quit");
-		        quitButton.Clicked += delegate {
+    	        Button quitButton = new Button(0, 0, "Quit");
+    	        quitButton.Clicked += delegate {
                     Frontend.Quit();
-	    	    };
+                };
                 dialog.AddButton(quitButton);
                 
-		        Button closeButton = new Button(0, 0, "Close");
-		        closeButton.Clicked += delegate {
-		            dialog.Running = false;
-		            dialog.Clear();
-	    	    };
+    	        Button closeButton = new Button(0, 0, "Close");
+    	        closeButton.Clicked += delegate {
+    	            dialog.Running = false;
+    	            dialog.Clear();
+                };
                 dialog.AddButton(closeButton);
 
                 Application.Run(dialog);
-    		};
-		    Add(fileButton);
+        	};
+    	    Add(fileButton);
 
-    		Button helpButton = new Button(10, 0, "Help");
-    		helpButton.Clicked += delegate {
+        	Button helpButton = new Button(10, 0, "Help");
+        	helpButton.Clicked += delegate {
                 Dialog dialog = new Dialog(30, 6, "Help Menu");
 
-		        Button aboutButton = new Button(0, 0, "About");
-		        aboutButton.Clicked += delegate {
+    	        Button aboutButton = new Button(0, 0, "About");
+    	        aboutButton.Clicked += delegate {
                     Dialog aboutDialog = new Dialog(70, 10, "About smuxi");
                     
                     aboutDialog.Add(new Label(0, 0, "smuxi"));
@@ -106,39 +106,39 @@ namespace Smuxi.Frontend.Curses
                     aboutDialog.AddButton(closeButton);
                     
                     Application.Run(aboutDialog);
-	    	    };
+                };
                 dialog.AddButton(aboutButton);
 
-		        Button helpCloseButton = new Button(0, 0, "Close");
-		        helpCloseButton.Clicked += delegate {
-		            dialog.Running = false;
-		            dialog.Clear();
-	    	    };
+    	        Button helpCloseButton = new Button(0, 0, "Close");
+    	        helpCloseButton.Clicked += delegate {
+    	            dialog.Running = false;
+    	            dialog.Clear();
+                };
                 dialog.AddButton(helpCloseButton);
 
                 Application.Run(dialog);
-    		};
-    		Add(helpButton);
-    		
-		    // output
-    		/*
-    		TextView textView = new TextView(0, 1, Application.Cols, Application.Lines -2);
-    		textView.Add("Hello World!");
-    		textView.Add("Foo bar me!");
-    		Add(textView);
-    		*/
-    		LogWidget log = new LogWidget(0, 1, Application.Cols, Application.Lines -2);
-    		Add(log);
-    		
+        	};
+        	Add(helpButton);
+        	
+    	    // output
+        	/*
+        	TextView textView = new TextView(0, 1, Application.Cols, Application.Lines -2);
+        	textView.Add("Hello World!");
+        	textView.Add("Foo bar me!");
+        	Add(textView);
+        	*/
+        	LogWidget log = new LogWidget(0, 1, Application.Cols, Application.Lines -2);
+        	Add(log);
+        	
             _UI = new CursesUI(log);
             
-    		// input
-    		Entry entry = new Entry(0, Application.Lines - 1, Application.Cols, String.Empty);
-    		Add(entry);
-    		_Entry = entry;
-    		
-    		// status
-    		
-		}
+        	// input
+        	Entry entry = new Entry(0, Application.Lines - 1, Application.Cols, String.Empty);
+        	Add(entry);
+        	_Entry = entry;
+        	
+        	// status
+        	
+    	}
     }
 }

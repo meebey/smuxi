@@ -73,14 +73,14 @@ namespace Smuxi.Frontend.Stfl
         
         public override void EnableChat(ChatModel chat)
         {
-       	    ChatView chatView = _ChatViews[chat];
-       	    chatView.Enable();
+               ChatView chatView = _ChatViews[chat];
+               chatView.Enable();
         }
         
         public override void DisableChat(ChatModel chat)
         {
-       	    ChatView chatView = _ChatViews[chat];
-       	    chatView.Disable();
+               ChatView chatView = _ChatViews[chat];
+               chatView.Disable();
         }
         
         public ChatView GetChat(ChatModel chat)

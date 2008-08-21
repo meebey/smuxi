@@ -33,8 +33,8 @@ using SysTrace = System.Diagnostics.Trace;
 
 namespace Smuxi.Common
 {
-	public sealed class Trace
-	{
+    public sealed class Trace
+    {
 #if LOG4NET
         private static readonly log4net.ILog _Logger = log4net.LogManager.GetLogger("TRACE");
 #else
@@ -109,16 +109,16 @@ namespace Smuxi.Common
         private static string _ParameterizeQuote(object obj)
         {
             if (obj == null) {
-            	return "(null)";
+                return "(null)";
             }
             
             if (obj is string) {
                 return "'" + obj + "'";
             } else if (obj is ITraceable) {
-            	return "<" + ((ITraceable)obj).ToTraceString() + ">";
+                return "<" + ((ITraceable)obj).ToTraceString() + ">";
             }
             
             return obj.ToString();
         }
-	}
+    }
 }

@@ -119,26 +119,26 @@ namespace Smuxi.Frontend.Swf
         
         public void EnableChat(ChatModel chat)
         {
-        	TraceRemotingCall(chat);
+            TraceRemotingCall(chat);
 
             MethodBase mb = Trace.GetMethodBase();
             _Control.Invoke(new MethodInvoker(delegate {
-            	TraceRemotingCall(mb, chat);
+                TraceRemotingCall(mb, chat);
                 
                 _ChatViewManager.EnableChat(chat);
-        	}));
+            }));
         }
         
         public void DisableChat(ChatModel chat)
         {
-        	TraceRemotingCall(chat);
-        	
+            TraceRemotingCall(chat);
+            
             MethodBase mb = Trace.GetMethodBase();
             _Control.Invoke(new MethodInvoker(delegate {
-            	TraceRemotingCall(mb, chat);
-            	
+                TraceRemotingCall(mb, chat);
+                
                 _ChatViewManager.DisableChat(chat);
-        	}));
+            }));
         }
         
         public void SyncChat(ChatModel chatModel)

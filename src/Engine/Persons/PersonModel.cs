@@ -79,8 +79,8 @@ namespace Smuxi.Engine
                                       
         public override string ToTraceString()
         {
-        	string nm = (_ProtocolManager != null) ? _ProtocolManager.ToString() : "(null)";  
-        	return  nm + "/" + IdentityName; 
+            string nm = (_ProtocolManager != null) ? _ProtocolManager.ToString() : "(null)";  
+            return  nm + "/" + IdentityName; 
         }
     }
 }

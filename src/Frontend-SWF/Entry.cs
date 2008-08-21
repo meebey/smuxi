@@ -423,11 +423,11 @@ namespace Smuxi.Frontend.Swf
                 }
                 
                 if (Text.IndexOf("\n") != -1) {
-                	// seems to be a paste, so let's break it apart
-                	string[] msgParts = Text.Split(new char[] {'\n'});
-                	if (msgParts.Length > 3) {
-                		string msg = String.Format(_("You are going to paste {0} lines, do you want to continue?"),
-                								   msgParts.Length);
+                    // seems to be a paste, so let's break it apart
+                    string[] msgParts = Text.Split(new char[] {'\n'});
+                    if (msgParts.Length > 3) {
+                    	string msg = String.Format(_("You are going to paste {0} lines, do you want to continue?"),
+                    							   msgParts.Length);
                         /*
                 		Gtk.MessageDialog md = new Gtk.MessageDialog(
                 									Frontend.MainWindow,
