@@ -210,6 +210,8 @@ namespace Smuxi.Frontend.Gnome
             
             try {
                 Add();
+            } catch (InvalidOperationException ex) {
+                Frontend.ShowError(_("Unable to add server: ") + ex.Message);
             } catch (Exception ex) {
                 Frontend.ShowException(ex);
             }

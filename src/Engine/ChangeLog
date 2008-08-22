@@ -1,3 +1,10 @@
+2008-08-22  Mirco Bauer <meebey@meebey.net> 
+
+	* Config/ServerListController.cs: Throw exception in AddServer() if the
+	  server exists already. (closes trac bug #100)
+	
+	  Added null checks to all methods.
+
 2008-08-21  Mirco Bauer <meebey@meebey.net> 
 
 	* Persons/ContactModel.cs, Persons/PersonModel.cs: Fixed whitespace

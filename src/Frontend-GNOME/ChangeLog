@@ -1,5 +1,10 @@
 2008-08-22  Mirco Bauer <meebey@meebey.net> 
 
+	* Frontend.cs: Implemtend ShowError(string) method.
+	* Preferences/ServerListView.cs: Handle InvalidOperationException.
+
+2008-08-22  Mirco Bauer <meebey@meebey.net> 
+
 	* Chats/ChatView.cs: Support empty timestamp formats. (closes trac bug #84)
 
 2008-08-21  Mirco Bauer <meebey@meebey.net> 

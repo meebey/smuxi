@@ -304,6 +304,15 @@ namespace Smuxi.Frontend.Gnome
             Environment.Exit(0);
         }
         
+        public static void ShowError(string msg)
+        {
+            Gtk.MessageDialog md = new Gtk.MessageDialog(_MainWindow,
+                Gtk.DialogFlags.Modal, Gtk.MessageType.Error,
+                Gtk.ButtonsType.Ok, msg);
+            md.Run();
+            md.Destroy();
+        }
+        
         public static void ShowException(Gtk.Window parent, Exception ex)
         {
             CrashDialog cd = new CrashDialog(parent, ex);

@@ -41,6 +41,10 @@ namespace Smuxi.Engine
         
         public ServerListController(UserConfig userConfig)
         {
+            if (userConfig == null) {
+                throw new ArgumentNullException("userConfig");
+            }
+            
             _UserConfig = userConfig;
         }
         
@@ -71,6 +75,13 @@ namespace Smuxi.Engine
         public ServerModel GetServer(string protocol, string servername)
         {
             Trace.Call(protocol, servername);
+            
+            if (protocol == null) {
+                throw new ArgumentNullException("protocol");
+            }
+            if (servername == null) {
+                throw new ArgumentNullException("servername");
+            }
             
             string prefix = "Servers/" + protocol + "/" + servername + "/";
             ServerModel server = new ServerModel();
@@ -107,6 +118,13 @@ namespace Smuxi.Engine
         {
             Trace.Call(server);
             
+            if (server == null) {
+                throw new ArgumentNullException("server");
+            }
+            if (GetServer(server.Protocol, server.Hostname) != null) {
+                throw new InvalidOperationException("Server '" + server.Hostname + "' already exists.");
+            }
+            
             string prefix = "Servers/" + server.Protocol + "/" + server.Hostname + "/";
             _UserConfig[prefix + "Hostname"] = server.Hostname;
             _UserConfig[prefix + "Port"]     = server.Port;
@@ -129,6 +147,10 @@ namespace Smuxi.Engine
         {
             Trace.Call(server);
             
+            if (server == null) {
+                throw new ArgumentNullException("server");
+            }
+            
             string prefix = "Servers/" + server.Protocol + "/" + server.Hostname + "/";
             _UserConfig[prefix + "Hostname"] = server.Hostname;
             _UserConfig[prefix + "Port"]     = server.Port;
@@ -142,6 +164,13 @@ namespace Smuxi.Engine
         public void RemoveServer(string protocol, string servername)
         {
             Trace.Call(protocol, servername);
+            
+            if (protocol == null) {
+                throw new ArgumentNullException("protocol");
+            }
+            if (servername == null) {
+                throw new ArgumentNullException("servername");
+            }
             
             string server = "Servers/" + protocol + "/" + servername + "/";
             _UserConfig.Remove(server);
