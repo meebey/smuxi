@@ -402,7 +402,7 @@ namespace Smuxi.Frontend.Gnome
                     Console.WriteLine("urlColor: " + urlColor);
                     TextColor urlTextColor = ColorTools.GetTextColor(urlColor);
                     urlTextColor = ColorTools.GetBestTextColor(urlTextColor, bgTextColor);
-                    Console.WriteLine("GetBestTextColor({0}, {1}): {2}",  urlColor, bgTextColor, urlTextColor);
+                    //Console.WriteLine("GetBestTextColor({0}, {1}): {2}",  urlColor, bgTextColor, urlTextColor);
                     urlTag.ForegroundGdk = ColorTools.GetGdkColor(urlTextColor);
                     _OutputTextView.Buffer.InsertWithTagsByName(ref iter, fmsgui.Url, "url");
                 } else if (msgPart is TextMessagePartModel) {
@@ -413,7 +413,7 @@ namespace Smuxi.Frontend.Gnome
                     List<string> tags = new List<string>();
                     if (fmsgti.ForegroundColor != TextColor.None) {
                         TextColor color = ColorTools.GetBestTextColor(fmsgti.ForegroundColor, bgTextColor);
-                        Console.WriteLine("GetBestTextColor({0}, {1}): {2}",  fmsgti.ForegroundColor, bgTextColor, color);
+                        //Console.WriteLine("GetBestTextColor({0}, {1}): {2}",  fmsgti.ForegroundColor, bgTextColor, color);
                         string tagname = _GetTextTagName(color, null);
                         //string tagname = _GetTextTagName(fmsgti.ForegroundColor, null);
                         tags.Add(tagname);
@@ -645,6 +645,11 @@ namespace Smuxi.Frontend.Gnome
                 string msg = String.Format(_("Opening URL ({0}) failed."), url);
                 Frontend.ShowException(new ApplicationException(msg, ex));
             }
+#else
+            // hopefully Mono finds some way to handle the URL
+            ThreadPool.QueueUserWorkItem(delegate {
+                SysDiag.Process.Start(url);
+            });
 #endif
         }
         
