@@ -364,16 +364,20 @@ namespace Smuxi.Frontend.Gnome
         {
             Trace.Call(msg);
             
-            string timestamp;
+            string timestamp = null;
             try {
                 string format = (string)Frontend.UserConfig["Interface/Notebook/TimestampFormat"];
-                timestamp = msg.TimeStamp.ToLocalTime().ToString(format);
+                if (!String.IsNullOrEmpty(format)) {
+                    timestamp = msg.TimeStamp.ToLocalTime().ToString(format);
+                }
             } catch (FormatException e) {
                 timestamp = "Timestamp Format ERROR: " + e.Message;
             }
             
             Gtk.TextIter iter = _OutputTextView.Buffer.EndIter;
-            _OutputTextView.Buffer.Insert(ref iter, timestamp + " ");
+            if (timestamp != null) {
+                _OutputTextView.Buffer.Insert(ref iter, timestamp + " ");
+            }
             
             bool hasHighlight = false;
             foreach (MessagePartModel msgPart in msg.MessageParts) {

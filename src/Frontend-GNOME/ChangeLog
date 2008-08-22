@@ -1,3 +1,7 @@
+2008-08-22  Mirco Bauer <meebey@meebey.net> 
+
+	* Chats/ChatView.cs: Support empty timestamp formats. (closes trac bug #84)
+
 2008-08-21  Mirco Bauer <meebey@meebey.net> 
 
 	* Preferences/PreferencesDialog.cs: Use the more descriptive "<System
