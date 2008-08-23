@@ -74,7 +74,7 @@ msgstr "Aktivität"
 
 #: ../glade/smuxi-frontend-gnome.glade.h:13
 msgid "Automaticly connect to server at startup"
-msgstr "Beim Start automisch zum Server verbinden"
+msgstr "Beim Start automatisch zum Server verbinden"
 
 #: ../glade/smuxi-frontend-gnome.glade.h:14
 msgid "Background"
