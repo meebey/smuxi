@@ -180,6 +180,18 @@ namespace Smuxi.Frontend.Gnome
             }
 #endif
 
+            string appDir = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
+            string localeDir = Path.Combine(appDir, "locale");
+            if (!Directory.Exists(localeDir)) {
+                localeDir = Path.Combine("/usr", "share");
+                localeDir = Path.Combine(localeDir, "locale");
+            }
+
+            Mono.Unix.Catalog.Init("smuxi-frontend-gnome", localeDir);
+#if LOG4NET
+            _Logger.Debug("Using locale data from: " + localeDir);
+#endif
+            
 #if UI_GNOME
             _Program = new GNOME.Program(Name, Version.ToString(), GNOME.Modules.UI, args);
 #elif UI_GTK

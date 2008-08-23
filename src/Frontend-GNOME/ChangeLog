@@ -1,3 +1,7 @@
+2008-08-24  Mirco Bauer <meebey@meebey.net> 
+
+	* Frontend.cs: Initialize gettext during startup.
+
 2008-08-22  Mirco Bauer <meebey@meebey.net> 
 
 	* Chats/ChatView.cs: Disabled console writelines.

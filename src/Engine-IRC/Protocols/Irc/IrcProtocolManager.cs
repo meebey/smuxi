@@ -64,6 +64,8 @@ namespace Smuxi.Engine
         private bool            _Listening;
         private ChatModel       _NetworkChat;
         private TimeSpan        _LastLag;
+        private Thread          _RunThread;
+        private Thread          _LagWatcherThread;
         
         public override bool IsConnected {
             get {
@@ -245,14 +247,14 @@ namespace Smuxi.Engine
             Session.AddChat(_NetworkChat);
             Session.SyncChat(_NetworkChat);
 
-            Thread thread = new Thread(new ThreadStart(_Run));
-            thread.IsBackground = true;
-            thread.Name = "IrcProtocolManager ("+server+":"+port+") listener";
-            thread.Start();
+            _RunThread = new Thread(new ThreadStart(_Run));
+            _RunThread.IsBackground = true;
+            _RunThread.Name = "IrcProtocolManager ("+server+":"+port+") listener";
+            _RunThread.Start();
             
-            Thread lagWatcherThread = new Thread(new ThreadStart(_LagWatcher));
-            lagWatcherThread.Name = "IrcProtocolManager ("+server+":"+port+") lag watcher";
-            lagWatcherThread.Start();
+            _LagWatcherThread = new Thread(new ThreadStart(_LagWatcher));
+            _LagWatcherThread.Name = "IrcProtocolManager ("+server+":"+port+") lag watcher";
+            _LagWatcherThread.Start();
         }
 
         public void Connect(FrontendManager fm)
@@ -319,6 +321,26 @@ namespace Smuxi.Engine
                 fm.AddTextToChat(_NetworkChat, "-!- " +
                     _("Not connected"));
             }
+            
+            if (_RunThread != null && _RunThread.IsAlive) {
+                try {
+                    _RunThread.Abort();
+                } catch (Exception ex) {
+#if LOG4NET
+                    _Logger.Error("_RunThread.Abort() failed:", ex);
+#endif
+                }
+            }
+            if (_LagWatcherThread != null && _LagWatcherThread.IsAlive) {
+                try {
+                    _LagWatcherThread.Abort();
+                } catch (Exception ex) {
+#if LOG4NET
+                    _Logger.Error("_LagWatcherThread.Abort() failed:", ex);
+#endif
+                }
+            }
+            
             fm.UpdateNetworkStatus();
         }
         
@@ -1250,6 +1272,7 @@ namespace Smuxi.Engine
             } else {
                 _IrcClient.RfcQuit();
             }
+            
             Dispose();
         }
         
