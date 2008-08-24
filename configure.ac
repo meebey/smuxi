@@ -278,6 +278,7 @@ AC_CONFIG_FILES([
 	src/Makefile
 	src/AssemblyVersion.cs
 	src/Common/Makefile
+	src/Common/Defines.cs
 	src/Common/smuxi-common.pc
 	src/Engine/Makefile
 	src/Engine/smuxi-engine.pc
