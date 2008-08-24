@@ -131,10 +131,40 @@ namespace Smuxi.Frontend.Gnome
         public MainWindow() : base("smuxi - Smart MUtipleXed Irc")
 #endif
         {
-            SetDefaultSize(800, 600);
+            // restore window size / position
+            int width, heigth;
+            if (Frontend.FrontendConfig[Frontend.UIName + "/Interface/Width"] != null) {
+                width  = (int) Frontend.FrontendConfig[Frontend.UIName + "/Interface/Width"];
+            } else {
+                width = 800;
+            }
+            if (Frontend.FrontendConfig[Frontend.UIName + "/Interface/Heigth"] != null) {
+                heigth = (int) Frontend.FrontendConfig[Frontend.UIName + "/Interface/Heigth"];
+            } else {
+                heigth = 600;
+            }
+            SetDefaultSize(width, heigth);
+            
+            int x, y;
+            if (Frontend.FrontendConfig[Frontend.UIName + "/Interface/XPosition"] != null) {
+                x = (int) Frontend.FrontendConfig[Frontend.UIName + "/Interface/XPosition"];
+            } else {
+                x = 0;
+            }
+            if (Frontend.FrontendConfig[Frontend.UIName + "/Interface/YPosition"] != null) {
+                y = (int) Frontend.FrontendConfig[Frontend.UIName + "/Interface/YPosition"];
+            } else {
+                y = 0;
+            }
+            if (x == 0 && y == 0) {
+                SetPosition(Gtk.WindowPosition.Center);
+            } else {
+                Move(x, y);
+            }
+            
             Destroyed += new EventHandler(_OnDestroyed);
             FocusInEvent += new Gtk.FocusInEventHandler(_OnFocusInEvent);
-             
+            
             Gtk.AccelGroup agrp = new Gtk.AccelGroup();
             Gtk.AccelKey   akey;
             AddAccelGroup(agrp);

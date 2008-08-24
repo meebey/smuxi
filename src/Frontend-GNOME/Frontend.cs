@@ -295,6 +295,18 @@ namespace Smuxi.Frontend.Gnome
         
         public static void Quit()
         {
+            // save window size
+            int width, heigth;
+            _MainWindow.GetSize(out width, out heigth);
+            _FrontendConfig[Frontend.UIName + "/Interface/Width"] = width;
+            _FrontendConfig[Frontend.UIName + "/Interface/Heigth"] = heigth;
+            
+            int x, y;
+            _MainWindow.GetPosition(out x, out y);
+            _FrontendConfig[Frontend.UIName + "/Interface/XPosition"] = x;
+            _FrontendConfig[Frontend.UIName + "/Interface/YPosition"] = y;
+            _FrontendConfig.Save();
+            
             if (_FrontendManager != null) {
                 _FrontendManager.IsFrontendDisconnecting = true;
             }
