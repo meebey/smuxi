@@ -1,3 +1,8 @@
+2008-08-24  Mirco Bauer <meebey@meebey.net> 
+
+	* FrontendManager.cs, Protocols/ProtocolManagerBase.cs, Session.cs: Using
+	  LibraryCatalog now.
+
 2008-08-22  Mirco Bauer <meebey@meebey.net> 
 
 	* Config/ServerListController.cs: Throw exception in AddServer() if the

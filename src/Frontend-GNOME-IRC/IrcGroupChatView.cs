@@ -40,6 +40,7 @@ namespace Smuxi.Frontend.Gnome
 #if LOG4NET
         private static readonly log4net.ILog _Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 #endif
+        private static readonly string       _LibraryTextDomain = "smuxi-frontend-gnome-irc";
         //private IrcGroupChatModel  _IrcGroupChatModel; 
         private IrcProtocolManager _IrcProtocolManager;
         
@@ -415,7 +416,7 @@ namespace Smuxi.Frontend.Gnome
 
         private static string _(string msg)
         {
-            return Mono.Unix.Catalog.GetString(msg);
+            return LibraryCatalog.GetString(msg, _LibraryTextDomain);
         }
     }
 }

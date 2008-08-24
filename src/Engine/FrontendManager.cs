@@ -42,6 +42,7 @@ namespace Smuxi.Engine
 #if LOG4NET
         private static readonly log4net.ILog _Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 #endif
+        private static readonly string       _LibraryTextDomain = "smuxi-engine";
         private int              _Version = 0;
         // queue needs to be thread-safe for different protocol manager threads
         private Queue            _Queue  = Queue.Synchronized(new Queue()); 
@@ -54,7 +55,7 @@ namespace Smuxi.Engine
         private SimpleDelegate   _ConfigChangedDelegate;
         private bool             _IsFrontendSynced;
         private IList<ChatModel> _SyncedChats = new List<ChatModel>();
-        
+
         public int Version {
             get {
                 return _Version;
@@ -434,7 +435,7 @@ namespace Smuxi.Engine
         
         private static string _(string msg)
         {
-            return Mono.Unix.Catalog.GetString(msg);
+            return LibraryCatalog.GetString(msg, _LibraryTextDomain);
         }
     }
 }

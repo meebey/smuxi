@@ -74,7 +74,7 @@ namespace Smuxi.Frontend.Gnome
             Gtk.Image edit_image = new Gtk.Image(new Gdk.Pixbuf(null,
                 "edit.png"));
             edit_hbox.Add(edit_image);
-            edit_hbox.Add(new Gtk.Label(Catalog.GetString("_Edit")));
+            edit_hbox.Add(new Gtk.Label(_("_Edit")));
             Gtk.Button edit_button = new Gtk.Button(edit_hbox);
             _EditButton = edit_button;
             AddActionWidget(edit_button, 2);
@@ -86,13 +86,13 @@ namespace Smuxi.Frontend.Gnome
             
             Gtk.VBox vbox = new Gtk.VBox();
             Gtk.Label label = new Gtk.Label("<b>" + 
-                                            Catalog.GetString("Select to which smuxi engine you want to connect") +
+                                            _("Select to which smuxi engine you want to connect") +
                                             "</b>");
             label.UseMarkup = true;
             vbox.PackStart(label, false, false, 5);
             
             Gtk.HBox hbox = new Gtk.HBox();
-            hbox.PackStart(new Gtk.Label(Catalog.GetString("Engine:")), false, false, 5);
+            hbox.PackStart(new Gtk.Label(_("Engine:")), false, false, 5);
             
             _ListStore = new Gtk.ListStore(typeof(string));
             _ComboBox = new Gtk.ComboBox();
@@ -180,7 +180,7 @@ namespace Smuxi.Frontend.Gnome
             if (_SelectedEngine == null || _SelectedEngine == String.Empty) {
                 Gtk.MessageDialog md = new Gtk.MessageDialog(this,
                     Gtk.DialogFlags.Modal, Gtk.MessageType.Error,
-                    Gtk.ButtonsType.Close, Catalog.GetString("Please select an engine!"));
+                    Gtk.ButtonsType.Close, _("Please select an engine!"));
                 md.Run();
                 md.Destroy();
                 // Re-run the Dialog

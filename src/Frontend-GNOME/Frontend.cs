@@ -183,11 +183,11 @@ namespace Smuxi.Frontend.Gnome
             string appDir = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
             string localeDir = Path.Combine(appDir, "locale");
             if (!Directory.Exists(localeDir)) {
-                localeDir = Path.Combine("/usr", "share");
+                localeDir = Path.Combine(Defines.InstallPrefix, "share");
                 localeDir = Path.Combine(localeDir, "locale");
             }
 
-            Mono.Unix.Catalog.Init("smuxi-frontend-gnome", localeDir);
+            LibraryCatalog.Init("smuxi-frontend-gnome", localeDir);
 #if LOG4NET
             _Logger.Debug("Using locale data from: " + localeDir);
 #endif

@@ -27,6 +27,9 @@
  */
 
 using System;
+using System.IO;
+using System.Reflection;
+using Smuxi.Common;
 
 namespace Smuxi.Server
 {
@@ -67,6 +70,17 @@ namespace Smuxi.Server
             }
 #endif
 
+            string appDir = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
+            string localeDir = Path.Combine(appDir, "locale");
+            if (!Directory.Exists(localeDir)) {
+                localeDir = Path.Combine(Defines.InstallPrefix, "share");
+                localeDir = Path.Combine(localeDir, "locale");
+            }
+
+            LibraryCatalog.Init("smuxi-server", localeDir);
+#if LOG4NET
+            _Logger.Debug("Using locale data from: " + localeDir);
+#endif
             try {
                 Server.Init(args);
             } catch (Exception e) {

@@ -1,3 +1,7 @@
+2008-08-24  Mirco Bauer <meebey@meebey.net> 
+
+	* IrcGroupChatView.cs: Use LibraryCatalog now.
+
 2008-07-27  Mirco Bauer <meebey@meebey.net> 
 
 	* AssemblyInfo.cs, AssemblyInfo.cs.in: Removed AssemblyInfo.cs.in files, not

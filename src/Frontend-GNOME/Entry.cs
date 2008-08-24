@@ -609,7 +609,7 @@ namespace Smuxi.Frontend.Gnome
         private void _CommandUnknown(CommandModel cd)
         {
             cd.FrontendManager.AddTextToCurrentChat("-!- " +
-                                String.Format(Catalog.GetString(
+                                String.Format(_(
                                               "Unknown Command: {0}"),
                                               cd.Command));
         }

@@ -1,5 +1,9 @@
 2008-08-24  Mirco Bauer <meebey@meebey.net> 
 
+	* EngineManagerDialog.cs, Entry.cs, Frontend.cs: Use _() wrapper.
+
+2008-08-24  Mirco Bauer <meebey@meebey.net> 
+
 	* Frontend.cs: Initialize gettext during startup.
 
 2008-08-22  Mirco Bauer <meebey@meebey.net> 

@@ -1,3 +1,7 @@
+2008-08-24  Mirco Bauer <meebey@meebey.net> 
+
+	* Main.cs, Server.cs, Server.mdp: Init gettext. (closes trac bug #95)
+
 2008-07-30  Mirco Bauer <meebey@meebey.net> 
 
 	* Server.mdp, smuxi-server.exe.config: Added .exe.config for log4net

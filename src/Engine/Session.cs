@@ -39,6 +39,7 @@ namespace Smuxi.Engine
 #if LOG4NET
         private static readonly log4net.ILog _Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 #endif
+        private static readonly string       _LibraryTextDomain = "smuxi-engine";
         private int                                   _Version = 0;
         private IDictionary<string, FrontendManager>  _FrontendManagers; 
         private IList<IProtocolManager>               _ProtocolManagers;
@@ -841,7 +842,7 @@ namespace Smuxi.Engine
         
         private static string _(string msg)
         {
-            return Mono.Unix.Catalog.GetString(msg);
+            return LibraryCatalog.GetString(msg, _LibraryTextDomain);
         }
     }
 }

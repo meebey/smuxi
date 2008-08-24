@@ -7,7 +7,7 @@
  *
  * smuxi - Smart MUltipleXed Irc
  *
- * Copyright (c) 2005-2006 Mirco Bauer <meebey@meebey.net>
+ * Copyright (c) 2008 Mirco Bauer <meebey@meebey.net>
  *
  * Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
  *
@@ -30,8 +30,14 @@ using System;
 
 namespace Smuxi.Common
 {
-    public interface ITraceable
+    public static class Defines
     {
-        string ToTraceString();
+        private static readonly string f_InstallPrefix = "/usr/local";
+        
+        public static string InstallPrefix {
+            get {
+                return f_InstallPrefix;
+            }
+        }
     }
 }

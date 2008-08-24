@@ -1,3 +1,9 @@
+2008-08-24  Mirco Bauer <meebey@meebey.net> 
+
+	* Defines.cs, Common.mdp: Provide Defines.
+	* LibraryCatalog.cs: Catalog (gettext) wrapper that allows multiple
+	  text-domains.
+
 2008-08-21  Mirco Bauer <meebey@meebey.net> 
 
 	* ITraceable.cs, Trace.cs: Fixed whitespace (replaced \t with 4 spaces).

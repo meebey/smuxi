@@ -53,6 +53,7 @@ namespace Smuxi.Engine
 #if LOG4NET
         private static readonly log4net.ILog _Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 #endif
+        private static readonly string       _LibraryTextDomain = "smuxi-engine-irc";
         private static char[]   _IrcControlChars;
         private IrcClient       _IrcClient;
         private string          _Host;
@@ -2474,7 +2475,7 @@ namespace Smuxi.Engine
         
         private static string _(string msg)
         {
-            return Mono.Unix.Catalog.GetString(msg);
+            return LibraryCatalog.GetString(msg, _LibraryTextDomain);
         }
     }
 }
