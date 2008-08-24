@@ -1,5 +1,9 @@
 2008-08-24  Mirco Bauer <meebey@meebey.net> 
 
+	* MainWindow.cs, Entry.cs: Moved ctrl+page up/down handling to menu.
+
+2008-08-24  Mirco Bauer <meebey@meebey.net> 
+
 	* MainWindow.cs, Frontend.cs: Implemented store and restore window size /
 	  position. (closes trac ticket #91)
 

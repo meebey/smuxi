@@ -34,6 +34,7 @@ using Smuxi.Common;
 namespace Smuxi.Engine
 {
     public enum UrlProtocol {
+        None,
         Unknown,
         Irc,
         Http,
@@ -73,6 +74,9 @@ namespace Smuxi.Engine
                               base(url)
         {
             _Protocol = ParseProtocol(url);
+            if (_Protocol == UrlProtocol.None) {
+                _Protocol = UrlProtocol.Http;
+            }
         }
         
         public UrlMessagePartModel(string url, UrlProtocol protocol) :
@@ -104,10 +108,7 @@ namespace Smuxi.Engine
         {
             Match match = Regex.Match(url, @"^([a-zA-Z0-9\-]+):\/\/");
             if (!match.Success) {
-#if LOG4NET
-                _Logger.Error("ParseProtocol(url): could not parse (via regex) protocol in URL: " + url);
-#endif
-                return UrlProtocol.Unknown;
+                return UrlProtocol.None;
             }
             
             string protocol = match.Groups[1].Value;

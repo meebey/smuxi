@@ -226,6 +226,38 @@ namespace Smuxi.Frontend.Gnome
             
             menu.Append(new Gtk.SeparatorMenuItem());
                     
+            image_item = new Gtk.ImageMenuItem(_("_Next Chat"));
+            image_item.Image = new Gtk.Image(Gtk.Stock.GoForward, Gtk.IconSize.Menu);
+            image_item.Activated += OnNextChatMenuItemActivated;
+            akey = new Gtk.AccelKey();
+            akey.AccelFlags = Gtk.AccelFlags.Visible;
+            akey.AccelMods = Gdk.ModifierType.ControlMask;
+            akey.Key = Gdk.Key.Page_Down;
+            image_item.AddAccelerator("activate", agrp, akey);
+            menu.Append(image_item);
+            
+            image_item = new Gtk.ImageMenuItem(_("_Previous Chat"));
+            image_item.Image = new Gtk.Image(Gtk.Stock.GoBack, Gtk.IconSize.Menu);
+            image_item.Activated += OnPreviousChatMenuItemActivated;
+            akey = new Gtk.AccelKey();
+            akey.AccelFlags = Gtk.AccelFlags.Visible;
+            akey.AccelMods = Gdk.ModifierType.ControlMask;
+            akey.Key = Gdk.Key.Page_Up;
+            image_item.AddAccelerator("activate", agrp, akey);
+            menu.Append(image_item);
+            
+            menu.Append(new Gtk.SeparatorMenuItem());
+                    
+            /*
+            // TODO: make a radio item for each chat hotkey
+            Gtk.RadioMenuItem radio_item;
+            radio_item = new Gtk.RadioMenuItem();
+            radio_item = new Gtk.RadioMenuItem(radio_item);
+            radio_item = new Gtk.RadioMenuItem(radio_item);
+                    
+            menu.Append(new Gtk.SeparatorMenuItem());
+            */
+            
             _CloseChatMenuItem = new Gtk.ImageMenuItem(Gtk.Stock.Close, agrp);
             _CloseChatMenuItem.Activated += OnCloseChatMenuItemActivated;
             menu.Append(_CloseChatMenuItem);
@@ -481,6 +513,32 @@ namespace Smuxi.Frontend.Gnome
             
             try {
                 _Notebook.CurrentChatView.Close();
+            } catch (Exception ex) {
+                Frontend.ShowException(this, ex);
+            }
+        }
+        
+        protected virtual void OnNextChatMenuItemActivated(object sender, EventArgs e)
+        {
+            Trace.Call(sender, e);
+            
+            try {
+                if (_Notebook.CurrentPage < _Notebook.NPages) {
+                    _Notebook.CurrentPage++;
+                }
+            } catch (Exception ex) {
+                Frontend.ShowException(this, ex);
+            }
+        }
+        
+        protected virtual void OnPreviousChatMenuItemActivated(object sender, EventArgs e)
+        {
+            Trace.Call(sender, e);
+            
+            try {
+                if (_Notebook.CurrentPage > 0) {
+                    _Notebook.CurrentPage--;
+                }
             } catch (Exception ex) {
                 Frontend.ShowException(this, ex);
             }

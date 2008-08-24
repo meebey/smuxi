@@ -1,5 +1,9 @@
 2008-08-24  Mirco Bauer <meebey@meebey.net> 
 
+	* Messages/UrlMessagePartModel.cs: Fallback to HTTP.
+
+2008-08-24  Mirco Bauer <meebey@meebey.net> 
+
 	* FrontendManager.cs, Protocols/ProtocolManagerBase.cs, Session.cs: Using
 	  LibraryCatalog now.
 

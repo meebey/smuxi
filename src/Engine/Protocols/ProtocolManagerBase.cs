@@ -215,7 +215,6 @@ namespace Smuxi.Engine
                     string textPartPart = textPartParts[i];
                     urlMatch = reg.Match(textPartPart);
                     if (urlMatch.Success) {
-                        // BUG: prefix URLs without protocol in the beginning like www.foo.com with http://
                         UrlMessagePartModel urlPart = new UrlMessagePartModel(textPartPart);
                         //urlPart.ForegroundColor = new TextColor();
                         msg.MessageParts.Insert(idx++, urlPart);

@@ -210,7 +210,7 @@ namespace Smuxi.Frontend.Gnome
                     // don't break copy/paste
                     case Gdk.Key.c:
                     case Gdk.Key.v:
-                    // don't select all
+                    // don't break select all
                     case Gdk.Key.a:
                     // don't break jump one word left/right
                     case Gdk.Key.Right:
@@ -218,16 +218,6 @@ namespace Smuxi.Frontend.Gnome
                     // don't break delete last word
                     case Gdk.Key.BackSpace:
                         e.RetVal = false;
-                        break;
-                    case Gdk.Key.Page_Down:
-                        if (_Notebook.CurrentPage < _Notebook.NPages) {
-                            _Notebook.CurrentPage++;
-                        }
-                        break;
-                    case Gdk.Key.Page_Up:
-                        if (_Notebook.CurrentPage > 0) {
-                            _Notebook.CurrentPage--;
-                        }
                         break;
                     case Gdk.Key.Home:
                         _Notebook.CurrentChatView.ScrollToStart();
