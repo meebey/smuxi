@@ -1,5 +1,9 @@
 2008-08-25  Mirco Bauer <meebey@meebey.net> 
 
+	* Engine.cs: Show platform and CPU bit count in version string.
+
+2008-08-25  Mirco Bauer <meebey@meebey.net> 
+
 	* Engine.cs: Fixed switching between local engine and remote engine back and
 	  forth. (closes trac bug #106)
 

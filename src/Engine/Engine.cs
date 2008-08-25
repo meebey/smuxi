@@ -90,7 +90,7 @@ namespace Smuxi.Engine
             AssemblyProductAttribute pr = (AssemblyProductAttribute)asm.GetCustomAttributes(typeof(AssemblyProductAttribute), false)[0];
             _Version = asm_name.Version;
             _VersionNumber = asm_name.Version.ToString();
-            _VersionString = pr.Product + " " + _Version;
+            _VersionString = String.Format("{0} {1} - running on {2} {3}-bit", pr.Product, _Version, Environment.OSVersion.Platform.ToString(), IntPtr.Size * 8); 
             
             _Config = new Config();
             _Config.Load();
