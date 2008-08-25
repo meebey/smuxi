@@ -13,6 +13,7 @@ ASSEMBLY = ../../bin/release/smuxi-server.exe
 ASSEMBLY_MDB = 
 COMPILE_TARGET = exe
 PROJECT_REFERENCES =  \
+	../../bin/release/smuxi-common.dll \
 	../../bin/release/smuxi-engine.dll
 BUILD_DIR = ../../bin/release
 
@@ -33,6 +34,7 @@ ASSEMBLY = ../../bin/debug/smuxi-server.exe
 ASSEMBLY_MDB = $(ASSEMBLY).mdb
 COMPILE_TARGET = exe
 PROJECT_REFERENCES =  \
+	../../bin/debug/smuxi-common.dll \
 	../../bin/debug/smuxi-engine.dll
 BUILD_DIR = ../../bin/debug
 
