@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-08-12 22:18+0200\n"
+"POT-Creation-Date: 2008-08-25 23:53+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,42 +16,42 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:54
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:55
 msgid "Op"
 msgstr ""
 
-#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:58
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:59
 msgid "Deop"
 msgstr ""
 
-#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:62
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:63
 msgid "Voice"
 msgstr ""
 
-#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:66
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:67
 msgid "Devoice"
 msgstr ""
 
-#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:70
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:71
 msgid "Kick"
 msgstr ""
 
-#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:74
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:75
 msgid "Kick + Ban"
 msgstr ""
 
-#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:78
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:79
 msgid "Ban"
 msgstr ""
 
-#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:82
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:83
 msgid "Unban"
 msgstr ""
 
-#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:88
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:89
 msgid "Query"
 msgstr ""
 
-#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:92
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:93
 msgid "Whois"
 msgstr ""

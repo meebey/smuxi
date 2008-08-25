@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.6.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-07-27 22:14+0200\n"
+"POT-Creation-Date: 2008-08-25 23:53+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Mirco Bauer <meebey@meebey.net>\n"
 "Language-Team: German <LL@li.org>\n"
@@ -325,6 +325,28 @@ msgstr "smuxi - Einstellungen"
 msgid "smuxi - Server"
 msgstr "smuxi - Server"
 
+#: ../glade/smuxi-frontend-gnome.glade.h:61
+msgid ""
+"ss = second\n"
+"mm = minute\n"
+"hh = hour (1 - 12)\n"
+"HH = hour (0 - 23)\n"
+"tt = AM/PM\n"
+"\n"
+"dd = day\n"
+"MM = month\n"
+"yy/yyyy = year"
+msgstr ""
+"ss = Sekunde\n"
+"mm = Minute\n"
+"hh = Stunde (1 - 12)\n"
+"HH = Stunde (0 - 23)\n"
+"tt = AM/PM\n"
+"\n"
+"dd = Tag\n"
+"MM = Monat\n"
+"yy/yyyy = Jahr"
+
 #: ../src/Frontend-GNOME/CrashDialog.cs:39
 msgid "Oops, I did it again..."
 msgstr "Ups, ich habs wieder getan..."
@@ -359,7 +381,7 @@ msgstr "Engine:"
 
 #: ../src/Frontend-GNOME/EngineManagerDialog.cs:121
 #: ../src/Frontend-GNOME/EngineManagerDialog.cs:191
-#: ../src/Frontend-GNOME/EngineManagerDialog.cs:314
+#: ../src/Frontend-GNOME/EngineManagerDialog.cs:316
 msgid "Local Engine"
 msgstr "Lokale Engine"
 
@@ -367,42 +389,42 @@ msgstr "Lokale Engine"
 msgid "Please select an engine!"
 msgstr "Bitte wählen Sie eine Engine aus!"
 
-#: ../src/Frontend-GNOME/EngineManagerDialog.cs:204
+#: ../src/Frontend-GNOME/EngineManagerDialog.cs:205
 #, csharp-format
 msgid "Your frontend version ({0}) is not matching the engine version ({1})!"
 msgstr ""
 "Ihre Frontend-Version ({0}) stimmt nicht mit der Engine-Version ({1}) "
 "überein!"
 
-#: ../src/Frontend-GNOME/EngineManagerDialog.cs:223
+#: ../src/Frontend-GNOME/EngineManagerDialog.cs:224
 msgid "Error occured while connecting to the engine!"
 msgstr "Fehler beim Verbinden zur Engine aufgetreten!"
 
-#: ../src/Frontend-GNOME/EngineManagerDialog.cs:224
+#: ../src/Frontend-GNOME/EngineManagerDialog.cs:225
 #, csharp-format
 msgid "Engine URL: {0}"
 msgstr "Engine URL: {0}"
 
-#: ../src/Frontend-GNOME/EngineManagerDialog.cs:227
+#: ../src/Frontend-GNOME/EngineManagerDialog.cs:228
 #, csharp-format
 msgid "Error: {0}"
 msgstr "Fehler: {0}"
 
-#: ../src/Frontend-GNOME/EngineManagerDialog.cs:260
+#: ../src/Frontend-GNOME/EngineManagerDialog.cs:261
 #, csharp-format
 msgid "Are you sure you want to delete the engine \"{0}\"?"
 msgstr "Möchten Sie wirklich die Engine \"{0}\" löschen?"
 
-#: ../src/Frontend-GNOME/Entry.cs:393
+#: ../src/Frontend-GNOME/Entry.cs:383
 #, csharp-format
 msgid "You are going to paste {0} lines, do you want to continue?"
 msgstr "Sie sind dabei {0} Zeilen einzufügen. Möchten Sie fortfahren?"
 
-#: ../src/Frontend-GNOME/Entry.cs:501
+#: ../src/Frontend-GNOME/Entry.cs:491
 msgid "[Frontend Commands]"
 msgstr "[Frontend Befehle]"
 
-#: ../src/Frontend-GNOME/Entry.cs:613
+#: ../src/Frontend-GNOME/Entry.cs:603
 #, csharp-format
 msgid "Unknown Command: {0}"
 msgstr "Unbekannter Befehl: {0}"
@@ -454,59 +476,67 @@ msgstr "Nun können Sie smuxi benutzen"
 msgid "First Start Druid"
 msgstr "Erster Start Druide"
 
-#: ../src/Frontend-GNOME/MainWindow.cs:150
+#: ../src/Frontend-GNOME/MainWindow.cs:180
 msgid "_File"
 msgstr "_Datei"
 
-#: ../src/Frontend-GNOME/MainWindow.cs:166
+#: ../src/Frontend-GNOME/MainWindow.cs:196
 msgid "_Server"
 msgstr "_Server"
 
-#: ../src/Frontend-GNOME/MainWindow.cs:170
+#: ../src/Frontend-GNOME/MainWindow.cs:200
 msgid "_Quick Connect"
 msgstr "_Schnelles Verbinden"
 
-#: ../src/Frontend-GNOME/MainWindow.cs:181
+#: ../src/Frontend-GNOME/MainWindow.cs:211
 msgid "_Manage"
 msgstr "_Verwalten"
 
-#: ../src/Frontend-GNOME/MainWindow.cs:188
+#: ../src/Frontend-GNOME/MainWindow.cs:218
 msgid "_Chat"
 msgstr "_Chat"
 
-#: ../src/Frontend-GNOME/MainWindow.cs:192
+#: ../src/Frontend-GNOME/MainWindow.cs:222
 msgid "_Find Group Chat"
 msgstr "_Finde Gruppen-Chat"
 
-#: ../src/Frontend-GNOME/MainWindow.cs:205
+#: ../src/Frontend-GNOME/MainWindow.cs:229
+msgid "_Next Chat"
+msgstr "_Nächster Chat"
+
+#: ../src/Frontend-GNOME/MainWindow.cs:239
+msgid "_Previous Chat"
+msgstr "_Voriger Chat"
+
+#: ../src/Frontend-GNOME/MainWindow.cs:267
 msgid "_Engine"
 msgstr "_Engine"
 
-#: ../src/Frontend-GNOME/MainWindow.cs:209
+#: ../src/Frontend-GNOME/MainWindow.cs:271
 msgid "_Use Local Engine"
 msgstr "_Verwende lokale Engine"
 
-#: ../src/Frontend-GNOME/MainWindow.cs:215
+#: ../src/Frontend-GNOME/MainWindow.cs:277
 msgid "_Add Remote Engine"
 msgstr "_Füge entfernte Engine hinzu"
 
-#: ../src/Frontend-GNOME/MainWindow.cs:220
+#: ../src/Frontend-GNOME/MainWindow.cs:282
 msgid "_Switch Remote Engine"
 msgstr "_Entfernte Engine wechseln"
 
-#: ../src/Frontend-GNOME/MainWindow.cs:227
+#: ../src/Frontend-GNOME/MainWindow.cs:289
 msgid "_View"
 msgstr "_Anzeige"
 
-#: ../src/Frontend-GNOME/MainWindow.cs:231
+#: ../src/Frontend-GNOME/MainWindow.cs:293
 msgid "_Caret Mode"
 msgstr "_Caret-Modus"
 
-#: ../src/Frontend-GNOME/MainWindow.cs:241
+#: ../src/Frontend-GNOME/MainWindow.cs:303
 msgid "_Help"
 msgstr "_Hilfe"
 
-#: ../src/Frontend-GNOME/MainWindow.cs:508
+#: ../src/Frontend-GNOME/MainWindow.cs:596
 msgid ""
 "Switching to local engine will disconnect you from the current engine!\n"
 "Are you sure you want to do this?"
@@ -514,7 +544,7 @@ msgstr ""
 "Das Wechseln zur lokalen Engine wird Sie von der jetzigen Engine trennen!\n"
 "Möchten Sie das wirklich tun?"
 
-#: ../src/Frontend-GNOME/MainWindow.cs:540
+#: ../src/Frontend-GNOME/MainWindow.cs:628
 msgid ""
 "Switching the remote engine will disconnect you from the current engine!\n"
 "Are you sure you want to do this?"
@@ -641,6 +671,10 @@ msgstr "Server"
 msgid "Filters"
 msgstr "Filter"
 
+#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:165
+msgid "System Default"
+msgstr "System-Standard"
+
 #: ../src/Frontend-GNOME/FindGroupChatDialog.cs:60
 msgid "#"
 msgstr "#"
@@ -663,7 +697,7 @@ msgstr ""
 "eine Weile dauern oder es funktioniert gar nicht.\n"
 "Möchten Sie fortfahren?"
 
-#: ../src/Frontend-GNOME/Frontend.cs:360
+#: ../src/Frontend-GNOME/Frontend.cs:402
 msgid ""
 "The server has lost the connection to the frontend.\n"
 " Do you want to reconnect now?"
@@ -681,7 +715,7 @@ msgstr "Protokoll"
 msgid "Hostname"
 msgstr "Hostname"
 
-#: ../src/Frontend-GNOME/Chats/ChatView.cs:646
+#: ../src/Frontend-GNOME/Chats/ChatView.cs:645
 #, csharp-format
 msgid "Opening URL ({0}) failed."
 msgstr "Öffnen der URL ({0}) fehlgeschlagen."
@@ -728,6 +762,10 @@ msgstr "Trennen"
 msgid "Are you sure you want to delete the selected server?"
 msgstr "Möchten Sie wirklich den ausgewählten Server löschen?"
 
+#: ../src/Frontend-GNOME/Preferences/ServerListView.cs:214
+msgid "Unable to add server: "
+msgstr "Fehler beim Hinzufügen des Servers:"
+
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.FindGroupChatDialog.cs:40
 msgid "smuxi - Find Group Chat"
 msgstr "smuxi - Finde Gruppen-Chat"
@@ -755,6 +793,3 @@ msgstr "<b> Position der Benutzer-Liste </b>"
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1642
 msgid "<b> Channel </b>"
 msgstr "<b> Channel </b>"
-
-#~ msgid "_About"
-#~ msgstr "_Über"

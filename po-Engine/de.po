@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.6.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-07-27 22:42+0200\n"
+"POT-Creation-Date: 2008-08-25 23:53+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Mirco Bauer <meebey@meebey.net>\n"
 "Language-Team: German <LL@li.org>\n"
@@ -16,91 +16,91 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../src/Engine/FrontendManager.cs:192
+#: ../src/Engine/FrontendManager.cs:193
 msgid "no network connections"
 msgstr "keine Netzwerkverbindungen"
 
-#: ../src/Engine/Protocols/ProtocolManagerBase.cs:139
+#: ../src/Engine/Protocols/ProtocolManagerBase.cs:140
 msgid "Not connected to server"
 msgstr "Nicht mit dem Server verbunden"
 
-#: ../src/Engine/Protocols/ProtocolManagerBase.cs:145
-#: ../src/Engine/Session.cs:632
+#: ../src/Engine/Protocols/ProtocolManagerBase.cs:146
+#: ../src/Engine/Session.cs:603
 #, csharp-format
 msgid "Not enough parameters for {0} command"
 msgstr "Nicht genug Parameter für den Befehl: {0}"
 
-#: ../src/Engine/Session.cs:117
+#: ../src/Engine/Session.cs:118
 msgid "Welcome to Smuxi"
 msgstr "Willkommen zu Smuxi"
 
-#: ../src/Engine/Session.cs:186
+#: ../src/Engine/Session.cs:187
 #, csharp-format
 msgid "Automatic connect to {0} failed!"
 msgstr "Automatisches verbinden mit {0} ist fehlgeschlagen!"
 
-#: ../src/Engine/Session.cs:344
+#: ../src/Engine/Session.cs:341
 msgid "[Engine Commands]"
 msgstr "[Engine Befehle]"
 
-#: ../src/Engine/Session.cs:448
+#: ../src/Engine/Session.cs:445
 #, csharp-format
 msgid "Disconnect failed, could not find server: {0}"
 msgstr "Trennung fehlgeschlagen, konnte Server: {0} nicht finden"
 
-#: ../src/Engine/Session.cs:508
+#: ../src/Engine/Session.cs:479
 msgid "Configuration reloaded"
 msgstr "Konfiguration neugeladen"
 
-#: ../src/Engine/Session.cs:513
+#: ../src/Engine/Session.cs:484
 msgid "Configuration saved"
 msgstr "Konfiguration gespeichert"
 
-#: ../src/Engine/Session.cs:517
+#: ../src/Engine/Session.cs:488
 msgid "Invalid paramater for config, use load or save"
 msgstr "Ungültiger Parameter für \"config\", übergebe \"load\" oder \"save\""
 
-#: ../src/Engine/Session.cs:547
+#: ../src/Engine/Session.cs:518
 msgid "Invalid paramater for network, use list, switch or close"
 msgstr ""
 "Ungltiger Parameter für \"network\", übergebe \"list\", \"switch\" oder "
 "\"close\""
 
-#: ../src/Engine/Session.cs:558
+#: ../src/Engine/Session.cs:529
 msgid "Networks"
 msgstr "Netzwerke"
 
-#: ../src/Engine/Session.cs:561
+#: ../src/Engine/Session.cs:532
 msgid "Type"
 msgstr "Typ"
 
-#: ../src/Engine/Session.cs:562
+#: ../src/Engine/Session.cs:533
 msgid "Host"
 msgstr "Host"
 
-#: ../src/Engine/Session.cs:563
+#: ../src/Engine/Session.cs:534
 msgid "Port"
 msgstr "Port"
 
-#: ../src/Engine/Session.cs:582
+#: ../src/Engine/Session.cs:553
 #, csharp-format
 msgid "Network close failed, could not find network with host: {0}"
 msgstr ""
 "Schließen des Netzwerks fehlgeschlagen, konnte Netzwerk mit Host: {0} nicht "
 "finden"
 
-#: ../src/Engine/Session.cs:614
+#: ../src/Engine/Session.cs:585
 #, csharp-format
 msgid "Network switch failed, could not find network with host: {0}"
 msgstr ""
 "Wechseln des Netzwerks fehlgeschlagen, konnte Netzwerk mit Host: {0} nicht "
 "finden"
 
-#: ../src/Engine/Session.cs:626
+#: ../src/Engine/Session.cs:597
 msgid "Not connected to any network"
 msgstr "Keine Verbindung zu einem Netzwerk"
 
-#: ../src/Engine/Session.cs:866
+#: ../src/Engine/Session.cs:837
 #, csharp-format
 msgid "Unknown protocol: {0}"
 msgstr "Unbekanntes Protokoll: {0}"
