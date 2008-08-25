@@ -94,6 +94,7 @@ FILES = \
 	SplashScreenWindow.cs \
 	Preferences/ChannelFilterListView.cs \
 	ChatViewManager.cs \
+	ColorTools.cs \
 	Preferences/ServerListView.cs \
 	Preferences/ServerView.cs \
 	Preferences/PreferencesDialog.cs \
