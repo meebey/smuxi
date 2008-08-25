@@ -190,6 +190,7 @@ namespace Smuxi.Frontend.Gnome
             
             if (_SelectedEngine == "<" + _("Local Engine") + ">") {
                 Frontend.InitLocalEngine();
+                Frontend.ConnectEngineToGUI();
                 Destroy();
                 return;
             }
@@ -280,6 +281,7 @@ namespace Smuxi.Frontend.Gnome
             }
             string[] new_engines_array = new string[new_engines.Count]; 
             new_engines.CopyTo(new_engines_array, 0);
+            // UGLY: refactor this to a proper controller class, see ServerListController
             Frontend.FrontendConfig["Engines/Engines"] = new_engines_array;
             Frontend.FrontendConfig.Remove("Engines/"+engine+"/Username");
             Frontend.FrontendConfig.Remove("Engines/"+engine+"/Password");

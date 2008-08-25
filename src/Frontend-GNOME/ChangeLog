@@ -1,5 +1,10 @@
 2008-08-25  Mirco Bauer <meebey@meebey.net> 
 
+	* Frontend.cs, EngineManagerDialog.cs, Notebook.cs: Fixed switching between
+	  local engine and remote engine back and forth. (closes trac bug #106)
+
+2008-08-25  Mirco Bauer <meebey@meebey.net> 
+
 	* GnomeUI.cs: Disabled highlight reset hack in SyncChat() as that confuses
 	  local engine users (as it causes a bug for the first message) and
 	  doesn't really help remote engine users anyway (as they miss highlights

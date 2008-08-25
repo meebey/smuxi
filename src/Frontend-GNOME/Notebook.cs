@@ -100,12 +100,15 @@ namespace Smuxi.Frontend.Gnome
         
         public void RemoveAllPages()
         {
+            Trace.Call();
+            
             int npages = NPages;
+            CurrentPage = 0;
             for (int i = 0; i < npages; i++) {
                 // *doh* this would be too easy, ugly Gtk.Notebook doesn't
                 // like it though, index based vs array based?
                 //RemovePage(i);
-                
+
                 NextPage();
                 RemovePage(CurrentPage);
             }

@@ -34,6 +34,7 @@ namespace Smuxi.Engine
 {
     public class Engine
     {
+        private static bool             _IsInitialized;
         private static Version          _Version;
         private static string           _VersionNumber;
         private static string           _VersionString;
@@ -70,9 +71,20 @@ namespace Smuxi.Engine
                 return _SessionManager;
             } 
         }
+
+        public static bool IsInitialized {
+            get {
+                return _IsInitialized;
+            }
+        }
         
         public static void Init()
         {
+            if (_IsInitialized) {
+                return;
+            }
+            _IsInitialized = true;
+            
             Assembly asm = Assembly.GetAssembly(typeof(Engine));
             AssemblyName asm_name = asm.GetName(false);
             AssemblyProductAttribute pr = (AssemblyProductAttribute)asm.GetCustomAttributes(typeof(AssemblyProductAttribute), false)[0];

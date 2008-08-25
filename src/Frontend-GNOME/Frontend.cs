@@ -57,6 +57,7 @@ namespace Smuxi.Frontend.Gnome
         private static SplashScreenWindow _SplashScreenWindow;
         private static MainWindow         _MainWindow;
         private static FrontendConfig     _FrontendConfig;
+        private static Session            _LocalSession;
         private static Session            _Session;
         private static UserConfig         _UserConfig;
         private static FrontendManager    _FrontendManager;
@@ -211,6 +212,7 @@ namespace Smuxi.Frontend.Gnome
 
             if (String.IsNullOrEmpty((string) FrontendConfig["Engines/Default"])) {
                 InitLocalEngine();
+                ConnectEngineToGUI();
             } else {
                 // there is a default engine set, means we want a remote engine
                 //_SplashScreenWindow.Destroy();
@@ -236,18 +238,21 @@ namespace Smuxi.Frontend.Gnome
         
         public static void InitLocalEngine()
         {
-            Engine.Engine.Init();
+            if (!Engine.Engine.IsInitialized) {
+                // only initialize a local engine once
+                Engine.Engine.Init();
+                _LocalSession = new Engine.Session(Engine.Engine.Config,
+                                                   Engine.Engine.ProtocolManagerFactory,
+                                                   "local");
+            }
             _EngineVersion = Engine.Engine.Version;
-            _Session = new Engine.Session(Engine.Engine.Config,
-                                          Engine.Engine.ProtocolManagerFactory,
-                                          "local");
-            _Session.RegisterFrontendUI(_MainWindow.UI);
+            _Session = _LocalSession;
             _UserConfig = _Session.UserConfig;
-            ConnectEngineToGUI();
         }
         
         public static void ConnectEngineToGUI()
         {
+            _Session.RegisterFrontendUI(_MainWindow.UI);
             _FrontendManager = _Session.GetFrontendManager(_MainWindow.UI);
             _FrontendManager.Sync();
             
@@ -380,6 +385,11 @@ namespace Smuxi.Frontend.Gnome
             Trace.Call();
             
             try {
+                if (_FrontendManager == null) {
+                    // we lost the frontend manager, nothing to check
+                    return false;
+                }
+                
                 if (_FrontendManager.IsAlive) {
                     return true;
                 }
