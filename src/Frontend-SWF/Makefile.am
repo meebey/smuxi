@@ -79,7 +79,7 @@ FILES = \
 	MainWindow.cs \
 	Notebook.cs \
 	Entry.cs \
-	Chats/ChatView.Designer.cs \
+	RichTextBoxEx.cs \
 	Chats/ChatView.cs \
 	Frontend.cs \
 	SwfUI.cs \
