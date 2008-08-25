@@ -94,8 +94,7 @@ DATA_FILES =
 
 RESOURCES = 
 
-EXTRAS = \
-	smuxi-frontend-gnome-irc.pc.in 
+EXTRAS =
 
 REFERENCES =  \
 	Mono.Posix \
@@ -111,7 +110,6 @@ SMUXI_COMMON_DLL = $(BUILD_DIR)/smuxi-common.dll
 MEEBEY_SMARTIRC4NET_DLL = $(BUILD_DIR)/Meebey.SmartIrc4net.dll
 SMUXI_FRONTEND_DLL = $(BUILD_DIR)/smuxi-frontend.dll
 SMUXI_ENGINE_IRC_DLL = $(BUILD_DIR)/smuxi-engine-irc.dll
-FRONTEND_GNOME_IRC_PC = $(BUILD_DIR)/smuxi-frontend-gnome-irc.pc
 SMUXI_FRONTEND_GNOME_EXE = $(BUILD_DIR)/smuxi-frontend-gnome.exe
 NINI_DLL = $(BUILD_DIR)/Nini.dll
 LOG4NET_DLL = $(BUILD_DIR)/log4net.dll
@@ -123,7 +121,6 @@ $(eval $(call emit-deploy-target,SMUXI_FRONTEND_DLL))
 $(eval $(call emit-deploy-target,SMUXI_ENGINE_IRC_DLL))
 $(eval $(call emit-deploy-target,SMUXI_ENGINE_IRC_DLL_MDB))
 $(eval $(call emit-deploy-target,SMUXI_ENGINE_DLL_MDB))
-$(eval $(call emit-deploy-wrapper,FRONTEND_GNOME_IRC_PC,smuxi-frontend-gnome-irc.pc))
 $(eval $(call emit-deploy-target,SMUXI_FRONTEND_DLL_MDB))
 $(eval $(call emit-deploy-target,SMUXI_FRONTEND_GNOME_EXE))
 $(eval $(call emit-deploy-target,SMUXI_ENGINE_DLL))

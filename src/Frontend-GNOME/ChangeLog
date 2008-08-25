@@ -1,5 +1,10 @@
 2008-08-25  Mirco Bauer <meebey@meebey.net> 
 
+	* Makefile.am, smuxi-frontend-gnome.pc.in: Removed unneeded pkg-config
+	  files.
+
+2008-08-25  Mirco Bauer <meebey@meebey.net> 
+
 	* Frontend.cs, EngineManagerDialog.cs, Notebook.cs: Fixed switching between
 	  local engine and remote engine back and forth. (closes trac bug #106)
 

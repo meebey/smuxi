@@ -1,3 +1,8 @@
+2008-08-25  Mirco Bauer <meebey@meebey.net> 
+
+	* Makefile.am, smuxi-frontend-gnome-xmpp.pc.in: Removed unneeded pkg-config
+	  files.
+
 2008-07-27  Mirco Bauer <meebey@meebey.net> 
 
 	* Frontend-GNOME-XMPP.mdp: Removed assembly attributes that are now part of

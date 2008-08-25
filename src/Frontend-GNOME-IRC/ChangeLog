@@ -1,3 +1,8 @@
+2008-08-25  Mirco Bauer <meebey@meebey.net> 
+
+	* Makefile.am, smuxi-frontend-gnome-irc.pc.in: Removed unneeded pkg-config
+	  files.
+
 2008-08-24  Mirco Bauer <meebey@meebey.net> 
 
 	* IrcGroupChatView.cs: Use LibraryCatalog now.
