@@ -1,5 +1,5 @@
 AC_PREREQ([2.54])
-AC_INIT([smuxi], [0.6.1], [http://smuxi.meebey.net/cgi-bin/trac/trac.cgi/newticket])
+AC_INIT([smuxi], [0.6.2], [http://smuxi.meebey.net/cgi-bin/trac/trac.cgi/newticket])
 AM_INIT_AUTOMAKE([foreign])
 AM_MAINTAINER_MODE
 
@@ -296,11 +296,8 @@ AC_CONFIG_FILES([
 	src/Frontend/smuxi-frontend.pc
 	src/Frontend-GNOME/Makefile
 	src/Frontend-GNOME/smuxi-frontend-gnome
-	src/Frontend-GNOME/smuxi-frontend-gnome.pc
 	src/Frontend-GNOME-IRC/Makefile
-	src/Frontend-GNOME-IRC/smuxi-frontend-gnome-irc.pc
 	src/Frontend-GNOME-XMPP/Makefile
-	src/Frontend-GNOME-XMPP/smuxi-frontend-gnome-xmpp.pc
 	src/Frontend-Curses/Makefile
 	src/Frontend-Curses/smuxi-frontend-curses
 	src/Frontend-STFL/Makefile
