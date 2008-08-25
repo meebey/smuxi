@@ -2388,6 +2388,9 @@ namespace Smuxi.Engine
                 if (chat.ProtocolManager == this &&
                     chat.ChatType == ChatType.Person) {
                     Session.EnableChat(chat);
+                    // and re-sync them else new messages are not processed in
+                    // the FrontendManager
+                    Session.SyncChat(chat);
                 }
             }
             
