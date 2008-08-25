@@ -48,7 +48,8 @@ FILES = \
 	Trace.cs \
 	MD5.cs \
 	FastSerializer.cs \
-	LibraryCatalog.cs 
+	LibraryCatalog.cs \
+	Defines.cs
 
 DATA_FILES = 
 
@@ -58,9 +59,10 @@ EXTRAS = \
 	smuxi-common.pc.in 
 
 REFERENCES =  \
-	System
+	System \
+	Mono.Posix
 
-DLL_REFERENCES =
+DLL_REFERENCES = 
 
 CLEANFILES = $(PROGRAMFILES) $(LINUX_PKGCONFIG) 
 
