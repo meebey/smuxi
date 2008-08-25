@@ -47,7 +47,8 @@ FILES = \
 	ITraceable.cs \
 	Trace.cs \
 	MD5.cs \
-	FastSerializer.cs 
+	FastSerializer.cs \
+	LibraryCatalog.cs 
 
 DATA_FILES = 
 
