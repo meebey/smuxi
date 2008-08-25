@@ -163,10 +163,14 @@ namespace Smuxi.Frontend.Gnome
                 // BUG: doesn't work?!?
                 chatView.ScrollToEnd();
                 
+                /*
+                // this hack is bad for local engine users, and doesn't really
+                // make things better for remote engine users, so it stays disabled for now
                 // BUG: clearing highlight here is a bad idea, highlight in
                 // person chats for the first message go lost here!
                 // no better way currently to fix this, see trac bug #50
                 chatView.HasHighlight = false;
+                */
             });
         }
         

@@ -1,3 +1,10 @@
+2008-08-25  Mirco Bauer <meebey@meebey.net> 
+
+	* GnomeUI.cs: Disabled highlight reset hack in SyncChat() as that confuses
+	  local engine users (as it causes a bug for the first message) and
+	  doesn't really help remote engine users anyway (as they miss highlights
+	  they received since the last connect).
+
 2008-08-24  Mirco Bauer <meebey@meebey.net> 
 
 	* MainWindow.cs, Entry.cs: Moved ctrl+page up/down handling to menu.
