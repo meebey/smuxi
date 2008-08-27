@@ -77,15 +77,20 @@ namespace Smuxi.Frontend.Gnome
             }
         }
         
-        public PreferencesDialog()
+        public PreferencesDialog(Gtk.Window parent)
         {
-            Trace.Call();
+            Trace.Call(parent);
 
+            if (parent == null) {
+                throw new ArgumentNullException("parent");
+            }
+            
             _Glade = new Glade.XML(null, Frontend.GladeFilename, "PreferencesDialog", null);
             //_Glade.BindFields(this);
             // changed signal is used in all settings, so use glade for now
             _Glade.Autoconnect(this);
             _Dialog = (Gtk.Dialog)_Glade["PreferencesDialog"];
+            _Dialog.TransientFor = parent;
             
             ((Gtk.Button)_Glade["OKButton"]).Clicked += new EventHandler(_OnOKButtonClicked);
             ((Gtk.Button)_Glade["ApplyButton"]).Clicked += new EventHandler(_OnApplyButtonClicked);
@@ -131,7 +136,7 @@ namespace Smuxi.Frontend.Gnome
             _MenuTreeView.Selection.SelectIter(iter);
             
             _ChannelFilterListView = new ChannelFilterListView(_Glade);
-            _ServerListView = new ServerListView(_Glade);
+            _ServerListView = new ServerListView(parent, _Glade);
             
             _Load();
         }

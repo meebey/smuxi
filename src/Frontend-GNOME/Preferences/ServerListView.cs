@@ -36,6 +36,7 @@ namespace Smuxi.Frontend.Gnome
     public class ServerListView
     {
         private ServerListController     _Controller;
+        private Gtk.Window               _Parent;
         
 #region Widgets
         [Glade.Widget("ServersTreeView")]
@@ -49,10 +50,15 @@ namespace Smuxi.Frontend.Gnome
         private Gtk.Button               _RemoveButton;
 #endregion
         
-        public ServerListView(Glade.XML gladeXml)
+        public ServerListView(Gtk.Window parent, Glade.XML gladeXml)
         {
-            Trace.Call(gladeXml);
+            Trace.Call(parent, gladeXml);
             
+            if (parent == null) {
+                throw new ArgumentNullException("parent");
+            }
+            
+            _Parent = parent;
             _Controller = new ServerListController(Frontend.UserConfig);
             
             gladeXml.BindFields(this);
@@ -125,7 +131,7 @@ namespace Smuxi.Frontend.Gnome
         {
             Trace.Call();
             
-            ServerView serverView = new ServerView(null, Frontend.Session.GetSupportedProtocols(), _Controller.GetNetworks());
+            ServerView serverView = new ServerView(_Parent, null, Frontend.Session.GetSupportedProtocols(), _Controller.GetNetworks());
             int res = serverView.Run();
             serverView.Destroy();
             if (res != (int) Gtk.ResponseType.Ok) {
@@ -147,7 +153,7 @@ namespace Smuxi.Frontend.Gnome
                 throw new ArgumentNullException("server");
             }
             
-            ServerView serverView = new ServerView(server, Frontend.Session.GetSupportedProtocols(), _Controller.GetNetworks());
+            ServerView serverView = new ServerView(_Parent, server, Frontend.Session.GetSupportedProtocols(), _Controller.GetNetworks());
             int res = serverView.Run();
             serverView.Destroy();
             if (res != (int) Gtk.ResponseType.Ok) {

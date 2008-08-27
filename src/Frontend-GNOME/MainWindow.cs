@@ -417,7 +417,7 @@ namespace Smuxi.Frontend.Gnome
             Trace.Call(sender, e);
             
             try {
-                QuickConnectDialog dialog = new QuickConnectDialog();
+                QuickConnectDialog dialog = new QuickConnectDialog(this);
                 dialog.Load();
                 int res = dialog.Run();
                 ServerModel server = dialog.Server;
@@ -457,7 +457,8 @@ namespace Smuxi.Frontend.Gnome
             
             try {
                 ServerListController controller = new ServerListController(Frontend.UserConfig);
-                ServerView serverView = new ServerView(null,
+                ServerView serverView = new ServerView(this,
+                                                       null,
                                                        Frontend.Session.GetSupportedProtocols(),
                                                        controller.GetNetworks());
                 int res = serverView.Run();
@@ -478,7 +479,7 @@ namespace Smuxi.Frontend.Gnome
             Trace.Call(sender, e);
             
             try {
-                PreferencesDialog dialog = new PreferencesDialog();
+                PreferencesDialog dialog = new PreferencesDialog(this);
                 dialog.CurrentPage = PreferencesDialog.Page.Servers;
             } catch (Exception ex) {
                 Frontend.ShowException(this, ex);
@@ -560,7 +561,7 @@ namespace Smuxi.Frontend.Gnome
             Trace.Call(obj, args);
             
             try {
-                AboutDialog ad = new AboutDialog();
+                AboutDialog ad = new AboutDialog(this);
                 ad.Run();
                 ad.Destroy();
             } catch (Exception ex) {
@@ -573,7 +574,7 @@ namespace Smuxi.Frontend.Gnome
             Trace.Call(obj, args);
             
             try {
-                new PreferencesDialog();
+                new PreferencesDialog(this);
                 /*
                 SteticPreferencesDialog dialog = new SteticPreferencesDialog();
                 dialog.Run();

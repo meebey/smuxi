@@ -33,8 +33,13 @@ namespace Smuxi.Frontend.Gnome
 {
     public class AboutDialog : Gtk.AboutDialog
     {
-        public AboutDialog()
+        public AboutDialog(Gtk.Window parent)
         {
+            if (parent == null) {
+                throw new ArgumentNullException("parent");
+            }
+            
+            TransientFor = parent;
             Name = Frontend.Name;
             Version = "\n Frontend: " + Frontend.UIName + " " + Frontend.Version +
                       "\n Engine: " + Frontend.EngineVersion;

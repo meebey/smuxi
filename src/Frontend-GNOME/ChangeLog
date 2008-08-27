@@ -1,3 +1,10 @@
+2008-08-27  Mirco Bauer <meebey@meebey.net> 
+
+	* MainWindow.cs, Preferences/ServerListView.cs, Preferences/ServerView.cs,
+	  Preferences/PreferencesDialog.cs, AboutDialog.cs, QuickConnectDialog.cs:
+	  Set TransientFor property correctly for all dialogs. (thanks to George
+	  Retsinas for reporting this)
+
 2008-08-25  Mirco Bauer <meebey@meebey.net> 
 
 	* Makefile.am, smuxi-frontend-gnome.pc.in: Removed unneeded pkg-config

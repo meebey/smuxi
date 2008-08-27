@@ -45,11 +45,17 @@ namespace Smuxi.Frontend.Gnome
             }
         }
         
-        public QuickConnectDialog()
+        public QuickConnectDialog(Gtk.Window parent)
         {
-            Trace.Call();
-            
+            Trace.Call(parent);
+
+            if (parent == null) {
+                throw new ArgumentNullException("parent");
+            }
+                
             Build();
+            
+            TransientFor = parent;
             
             f_Controller = new ServerListController(Frontend.UserConfig);
             

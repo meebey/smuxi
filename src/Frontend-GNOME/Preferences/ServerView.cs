@@ -69,12 +69,23 @@ namespace Smuxi.Frontend.Gnome
             }
         }
         
-        public ServerView(ServerModel server, IList<string> supportedProtocols, IList<string> networks)
+        public ServerView(Gtk.Window parent, ServerModel server, IList<string> supportedProtocols, IList<string> networks)
         {
-            Trace.Call(server);
+            Trace.Call(server, supportedProtocols, networks);
 
+            if (parent == null) {
+                throw new ArgumentNullException("parent");
+            }
+            if (supportedProtocols == null) {
+                throw new ArgumentNullException("supportedProtocols");
+            }
+            if (networks == null) {
+                throw new ArgumentNullException("networks");
+            }
+            
             _Glade = new Glade.XML(null, Frontend.GladeFilename, "ServerDialog", null);
             _Glade.BindFields(this);
+            _Dialog.TransientFor = parent;
             
             Gtk.ComboBox cb;
             Gtk.CellRendererText cell;
