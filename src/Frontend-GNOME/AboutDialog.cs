@@ -43,10 +43,17 @@ namespace Smuxi.Frontend.Gnome
             Name = Frontend.Name;
             Version = "\n Frontend: " + Frontend.UIName + " " + Frontend.Version +
                       "\n Engine: " + Frontend.EngineVersion;
-            Copyright = "2005-2008 (C) Mirco Bauer <meebey@meebey.net>";
+            Copyright = "Copyright © 2005-2008 Mirco Bauer <meebey@meebey.net>";
             Authors = new string[] {"Mirco Bauer <meebey@meebey.net>"};
             TranslatorCredits = "German - Mirco Bauer <meebey@meebey.net>";
             Logo = new Gdk.Pixbuf(null, "about.png");
+            Website = "http://www.smuxi.org/";
+            WebsiteLabel = _("Smuxi Website");
+        }
+        
+        private static string _(string msg)
+        {
+            return Mono.Unix.Catalog.GetString(msg);
         }
     }
 }

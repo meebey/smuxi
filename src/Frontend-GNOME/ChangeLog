@@ -1,5 +1,12 @@
 2008-08-27  Mirco Bauer <meebey@meebey.net> 
 
+	* AboutDialog.cs: Replaced (C) with © (copyright character).
+	
+	  Added link to smuxi's website. (thanks to George Retsinas for noticing
+	  this)
+
+2008-08-27  Mirco Bauer <meebey@meebey.net> 
+
 	* MainWindow.cs, Preferences/ServerListView.cs, Preferences/ServerView.cs,
 	  Preferences/PreferencesDialog.cs, AboutDialog.cs, QuickConnectDialog.cs:
 	  Set TransientFor property correctly for all dialogs. (thanks to George
