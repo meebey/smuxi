@@ -451,6 +451,9 @@ namespace Smuxi.Frontend.Gnome
             // HACK: out of scope?
             if (hasHighlight && !Frontend.MainWindow.HasToplevelFocus) {
                 Frontend.MainWindow.UrgencyHint = true;
+#if GTK_SHARP_2_10
+                Frontend.StatusIcon.Blinking = true;
+#endif
                 if (Frontend.UserConfig["Sound/BeepOnHighlight"] != null &&
                     (bool)Frontend.UserConfig["Sound/BeepOnHighlight"]) {
                     Frontend.MainWindow.Display.Beep();
