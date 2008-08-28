@@ -1,3 +1,8 @@
+2008-08-28  Mirco Bauer <meebey@meebey.net> 
+
+	* AssemblyInfo.cs: Set eol-style to native and converted files using
+	  dos2unix where needed.
+
 2008-07-27  Mirco Bauer <meebey@meebey.net> 
 
 	* Engine-XMPP.mdp: Removed assembly attributes that are now part of the

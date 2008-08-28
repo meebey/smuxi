@@ -1,9 +1,12 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Linq;
-using System.Reflection;using System.Windows;using Smuxi.Engine;using Smuxi.Common;
+using System.Reflection;
+using System.Windows;
+using Smuxi.Engine;
+using Smuxi.Common;
 namespace Smuxi.Frontend.Wpf
 {
 	/// <summary>
@@ -236,6 +239,6 @@ namespace Smuxi.Frontend.Wpf
         private void RunEngineManagerDialog()
         {
 
-        }
+        }
 	}
 }

@@ -1,3 +1,8 @@
+2008-08-28  Mirco Bauer <meebey@meebey.net> 
+
+	* AssemblyInfo.cs: Set eol-style to native and converted files using
+	  dos2unix where needed.
+
 2008-08-25  Mirco Bauer <meebey@meebey.net> 
 
 	* Makefile.am, smuxi-frontend-gnome-xmpp.pc.in: Removed unneeded pkg-config
