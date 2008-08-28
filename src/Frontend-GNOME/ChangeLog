@@ -1,4 +1,9 @@
-2008-08-27  Mirco Bauer <meebey@meebey.net> 
+2008-08-28  Mirco Bauer <meebey@meebey.net> 
+
+	* Frontend.cs, MainWindow.cs, ChatView.cs: Implementated tray icon support
+	  (requires GTK# >= 2.10). (closes trac bug #55)
+
+2008-08-27  Mirco Bauer <meebey@meebey.net>
 
 	* AboutDialog.cs: Replaced (C) with © (copyright character).
 	
