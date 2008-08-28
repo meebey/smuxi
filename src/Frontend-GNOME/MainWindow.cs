@@ -407,6 +407,9 @@ namespace Smuxi.Frontend.Gnome
             
             try {
                 UrgencyHint = false;
+#if GTK_SHARP_2_10
+                Frontend.StatusIcon.Blinking = false;
+#endif
             } catch (Exception ex) {
                 Frontend.ShowException(this, ex);
             }

@@ -56,6 +56,9 @@ namespace Smuxi.Frontend.Gnome
         private static Version            _EngineVersion;
         private static SplashScreenWindow _SplashScreenWindow;
         private static MainWindow         _MainWindow;
+#if GTK_SHARP_2_10
+        private static Gtk.StatusIcon     _StatusIcon;
+#endif
         private static FrontendConfig     _FrontendConfig;
         private static Session            _LocalSession;
         private static Session            _Session;
@@ -115,7 +118,15 @@ namespace Smuxi.Frontend.Gnome
                 return _MainWindow;
             }
         }
-    
+        
+#if GTK_SHARP_2_10
+        public static Gtk.StatusIcon StatusIcon {
+            get {
+                return _StatusIcon;
+            }
+        }
+#endif
+        
         public static Session Session {
             get {
                 return _Session;
@@ -223,6 +234,26 @@ namespace Smuxi.Frontend.Gnome
             if (_SplashScreenWindow != null) {
                 _SplashScreenWindow.Destroy();
             }
+            
+#if GTK_SHARP_2_10
+            _StatusIcon = new Gtk.StatusIcon();
+            _StatusIcon.Pixbuf = new Gdk.Pixbuf(null, "icon.svg");
+            _StatusIcon.Visible = true;
+            _StatusIcon.Activate += delegate {
+                try {
+                    if (_StatusIcon.Blinking) {
+                        _MainWindow.Present();
+                        return;
+                    }
+                    _MainWindow.Visible = !_MainWindow.Visible;
+                } catch (Exception ex) {
+                    ShowException(ex);
+                }
+            };
+            _StatusIcon.PopupMenu += OnStatusIconPopupMenu;
+            _StatusIcon.Tooltip = "Smuxi";
+#endif
+            
 #if UI_GNOME
             _Program.Run();
     #if LOG4NET
@@ -363,6 +394,24 @@ namespace Smuxi.Frontend.Gnome
             EngineManagerDialog diag = new EngineManagerDialog(_MainWindow.EngineManager);
             diag.Run();
             diag.Destroy();
+        }
+        
+        private static void OnStatusIconPopupMenu(object sender, EventArgs e)
+        {
+            Trace.Call(sender, e);
+            
+            Gtk.Menu menu = new Gtk.Menu();
+            Gtk.ImageMenuItem quitItem = new Gtk.ImageMenuItem(Gtk.Stock.Quit, null);
+            quitItem.Activated += delegate {
+                try {
+                    Quit();
+                } catch (Exception ex) {
+                    ShowException(ex);
+                }
+            };
+            menu.Add(quitItem);
+            menu.ShowAll();
+            menu.Popup();
         }
         
 #if GTK_SHARP_2_10
