@@ -25,3 +25,10 @@ Origin:     gnome-icon-theme
 Filename:   preferences-system-network.svg
 License:    GPL2+
 Author:     Lapo Calamandrei <calamandrei@gmail.com>
+
+icon.svg
+--------
+Origin:     vinagre
+Filename:   icon.svg
+License:    GPL2+
+Author:     ?
