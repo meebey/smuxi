@@ -1,3 +1,12 @@
+2008-08-31  Mirco Bauer <meebey@meebey.net> 
+
+	* Protocols/Irc/IrcProtocolManager.cs: Implemented new commands: /amsg
+	  /anotice /ame. (closes trac ticket #109)
+	
+	  Fixed crash bug in /notice command. (closes trac ticket #108)
+	
+	  Fixed display bug in /msg #channel when being in the channel.
+
 2008-08-25  Mirco Bauer <meebey@meebey.net> 
 
 	* Protocols/Irc/IrcProtocolManager.cs: Sync person chats after re-enabling

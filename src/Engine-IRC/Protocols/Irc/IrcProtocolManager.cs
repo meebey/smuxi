@@ -456,6 +456,18 @@ namespace Smuxi.Engine
                             CommandMessage(command);
                             handled = true;
                             break;
+                        case "amsg":
+                            CommandAllMessage(command);
+                            handled = true;
+                            break;
+                        case "anotice":
+                            CommandAllNotice(command);
+                            handled = true;
+                            break;
+                        case "ame":
+                            CommandAllMe(command);
+                            handled = true;
+                            break;
                         case "notice":
                             CommandNotice(command);
                             handled = true;
@@ -625,19 +637,22 @@ namespace Smuxi.Engine
             "connect irc server port [password] [nicknames]",
             "say",
             "join/j channel(s) [key]",
-            "part/p [channel(s)] [partmessage]",
-            "topic [newtopic]",
+            "part/p [channel(s)] [part-message]",
+            "topic [new-topic]",
             "cycle/rejoin",
-            "msg/query nick message",
-            "me actionmessage",
+            "msg/query (channel|nick) message",
+            "amsg message",
+            "me action-message",
+            "ame action-message",
             "notice (channel|nick) message",
+            "anotice message",
             "invite nick",
             "who nick/channel",
             "whois nick",
             "whowas nick",
             "ping nick",
-            "mode newmode",
-            "away [awaymessage]",
+            "mode new-mode",
+            "away [away-message]",
             "kick nick(s) [reason]",
             "kickban/kb nick(s) [reason]",
             "ban [mask]",
@@ -648,8 +663,8 @@ namespace Smuxi.Engine
             "deop nick",
             "nick newnick",
             "ctcp destination command [data]",
-            "raw/quote irccommand",
-            "quit [quitmessage]",
+            "raw/quote irc-command",
+            "quit [quit-message]",
             };
             
             foreach (string line in help) { 
@@ -837,11 +852,82 @@ namespace Smuxi.Engine
                 if (chat == null) {
                     // server chat as fallback if we are not joined
                     chat = _NetworkChat;
+                    Session.AddTextToChat(chat, "<" + _IrcClient.Nickname + ":" + channelname + "> " + message);
+                } else {
+                    _Say(chat, message);
                 }
                 _IrcClient.SendMessage(SendType.Message, channelname, message);
-                Session.AddTextToChat(chat, "<" + _IrcClient.Nickname + ":" + channelname + "> " + message);
             } else {
                 _NotEnoughParameters(cd);
+            }
+        }
+        
+        public void CommandAllMessage(CommandModel cd)
+        {
+            if (cd.DataArray.Length < 2) {
+                _NotEnoughParameters(cd);
+                return;
+            }
+            
+            string message = cd.Parameter;
+            foreach (ChatModel chat in Chats) {
+                if (chat.ChatType != ChatType.Group) {
+                    // only show on group chats
+                    continue;
+                }
+                
+                CommandModel msgCmd = new CommandModel(
+                    cd.FrontendManager,
+                    cd.Chat,
+                    String.Format("{0} {1}", chat.ID, message)
+                );
+                CommandMessageChannel(msgCmd);
+            }
+        }
+        
+        public void CommandAllNotice(CommandModel cd)
+        {
+            if (cd.DataArray.Length < 2) {
+                _NotEnoughParameters(cd);
+                return;
+            }
+            
+            string message = cd.Parameter;
+            foreach (ChatModel chat in Chats) {
+                if (chat.ChatType != ChatType.Group) {
+                    // only show on group chats
+                    continue;
+                }
+                
+                CommandModel msgCmd = new CommandModel(
+                    cd.FrontendManager,
+                    cd.Chat,
+                    String.Format("{0} {1}", chat.ID, message)
+                );
+                CommandNotice(msgCmd);
+            }
+        }
+        
+        public void CommandAllMe(CommandModel cd)
+        {
+            if (cd.DataArray.Length < 2) {
+                _NotEnoughParameters(cd);
+                return;
+            }
+            
+            string message = cd.Parameter;
+            foreach (ChatModel chat in Chats) {
+                if (chat.ChatType != ChatType.Group) {
+                    // only show on group chats
+                    continue;
+                }
+                
+                CommandModel msgCmd = new CommandModel(
+                    cd.FrontendManager,
+                    chat,
+                    message
+                );
+                CommandMe(msgCmd);
             }
         }
         
@@ -1218,26 +1304,28 @@ namespace Smuxi.Engine
     
         public void CommandMe(CommandModel cd)
         {
-            ChatModel chat = cd.FrontendManager.CurrentChat;
-            if (cd.DataArray.Length >= 2) {
-                _IrcClient.SendMessage(SendType.Action, chat.ID, cd.Parameter);
-                
-                MessageModel msg = new MessageModel();
-                TextMessagePartModel textMsg;
-            
-                textMsg = new TextMessagePartModel();
-                textMsg.Text = " * ";
-                msg.MessageParts.Add(textMsg);
-
-                textMsg = new TextMessagePartModel();
-                textMsg.Text = _IrcClient.Nickname + " ";
-                textMsg.ForegroundColor = GetNickColor(_IrcClient.Nickname);
-                msg.MessageParts.Add(textMsg);
-                
-                _IrcMessageToMessageModel(ref msg, cd.Parameter);
-                
-                Session.AddMessageToChat(chat, msg);
+            if (cd.DataArray.Length < 2) {
+                _NotEnoughParameters(cd);
+                return;
             }
+            
+            _IrcClient.SendMessage(SendType.Action, cd.Chat.ID, cd.Parameter);
+            
+            MessageModel msg = new MessageModel();
+            TextMessagePartModel textMsg;
+        
+            textMsg = new TextMessagePartModel();
+            textMsg.Text = " * ";
+            msg.MessageParts.Add(textMsg);
+
+            textMsg = new TextMessagePartModel();
+            textMsg.Text = _IrcClient.Nickname + " ";
+            textMsg.ForegroundColor = GetNickColor(_IrcClient.Nickname);
+            msg.MessageParts.Add(textMsg);
+            
+            _IrcMessageToMessageModel(ref msg, cd.Parameter);
+            
+            Session.AddMessageToChat(cd.Chat, msg);
         }
         
         public void CommandNotice(CommandModel cd)
@@ -1247,17 +1335,20 @@ namespace Smuxi.Engine
                 string message = String.Join(" ", cd.DataArray, 2, cd.DataArray.Length-2);  
                 _IrcClient.SendMessage(SendType.Notice, target, message);
                 
-                // BUG: probing via GetChat() is more reliable
                 ChatModel chat;
                 if (_IrcClient.IsJoined(target)) {
-                    chat = GetChat(target, ChatType.Person);
+                    chat = GetChat(target, ChatType.Group);
                 } else {
+                    // wasn't a channel but maybe a query
+                    chat = GetChat(target, ChatType.Person);
+                }
+                if (chat == null) {
                     chat = _NetworkChat;
                 }
                 Session.AddTextToChat(chat, "[notice(" + target + ")] " + message);
             }
         }
-    
+        
         public void CommandNick(CommandModel cd)
         {
             if (cd.DataArray.Length >= 2) {
