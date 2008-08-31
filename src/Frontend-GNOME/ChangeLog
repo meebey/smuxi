@@ -1,3 +1,8 @@
+2008-08-31  Mirco Bauer <meebey@meebey.net> 
+
+	* AboutDialog.cs: Added Juan Miguel Carrero <streinleght@gmail.com> to
+	  translator credits.
+
 2008-08-28  Mirco Bauer <meebey@meebey.net> 
 
 	* ColorTools.cs: Set eol-style to native and converted files using dos2unix
