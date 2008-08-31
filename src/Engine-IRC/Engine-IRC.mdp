@@ -20,6 +20,8 @@
     <File name="Protocols/Irc/IrcTextColor.cs" subtype="Code" buildaction="Compile" />
     <File name="AssemblyInfo.cs" subtype="Code" buildaction="Compile" />
     <File name="../AssemblyVersion.cs" subtype="Code" buildaction="Compile" />
+    <File name="../../po-Engine-IRC/de.po" subtype="Code" buildaction="Nothing" />
+    <File name="../../po-Engine-IRC/es.po" subtype="Code" buildaction="Nothing" />
   </Contents>
   <References>
     <ProjectReference type="Project" localcopy="True" refto="Common" />

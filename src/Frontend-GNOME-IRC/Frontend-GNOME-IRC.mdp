@@ -18,6 +18,8 @@
     <File name="IrcGroupChatView.cs" subtype="Code" buildaction="Compile" />
     <File name="IrcPersonChatView.cs" subtype="Code" buildaction="Compile" />
     <File name="../AssemblyVersion.cs" subtype="Code" buildaction="Compile" />
+    <File name="../../po-Frontend-GNOME-IRC/es.po" subtype="Code" buildaction="Nothing" />
+    <File name="../../po-Frontend-GNOME-IRC/de.po" subtype="Code" buildaction="Nothing" />
   </Contents>
   <References>
     <ProjectReference type="Project" localcopy="True" refto="Common" />

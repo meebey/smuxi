@@ -72,9 +72,10 @@
     <File name="EngineAssistant.cs" subtype="Code" buildaction="Compile" />
     <File name="smuxi-frontend-gnome.exe.config" subtype="Code" buildaction="FileCopy" />
     <File name="ColorTools.cs" subtype="Code" buildaction="Compile" />
-    <File name="../../po-Frontend-GNOME/de.po" subtype="Code" buildaction="Nothing" />
     <File name="../../images/icon.svg" subtype="Code" buildaction="EmbedAsResource" />
     <File name="ChangeLog" subtype="Code" buildaction="Nothing" />
+    <File name="../../po-Engine/de.po" subtype="Code" buildaction="Nothing" />
+    <File name="../../po-Frontend-GNOME/es.po" subtype="Code" buildaction="Nothing" />
   </Contents>
   <References>
     <ProjectReference type="Project" localcopy="True" refto="Engine" />
