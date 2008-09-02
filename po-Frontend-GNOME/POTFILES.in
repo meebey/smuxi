@@ -1,4 +1,5 @@
 glade/smuxi-frontend-gnome.glade
+src/Frontend-GNOME/AboutDialog.cs
 src/Frontend-GNOME/CrashDialog.cs
 src/Frontend-GNOME/EngineManagerDialog.cs
 src/Frontend-GNOME/Entry.cs

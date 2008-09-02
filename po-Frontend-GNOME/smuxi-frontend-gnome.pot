@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-08-31 14:45+0200\n"
+"POT-Creation-Date: 2008-09-02 23:13+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -346,6 +346,26 @@ msgid ""
 "dd = day\n"
 "MM = month\n"
 "yy/yyyy = year"
+msgstr ""
+
+#: ../src/Frontend-GNOME/AboutDialog.cs:48
+msgid "German"
+msgstr ""
+
+#: ../src/Frontend-GNOME/AboutDialog.cs:49
+msgid "Spanish"
+msgstr ""
+
+#: ../src/Frontend-GNOME/AboutDialog.cs:50
+msgid "British English"
+msgstr ""
+
+#: ../src/Frontend-GNOME/AboutDialog.cs:51
+msgid "French"
+msgstr ""
+
+#: ../src/Frontend-GNOME/AboutDialog.cs:54
+msgid "Smuxi Website"
 msgstr ""
 
 #: ../src/Frontend-GNOME/CrashDialog.cs:39

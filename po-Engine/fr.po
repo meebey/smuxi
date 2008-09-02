@@ -99,4 +99,3 @@ msgstr "Connecté à aucun réseau"
 #, csharp-format
 msgid "Unknown protocol: {0}"
 msgstr "Protocole inconnu : {0}"
-

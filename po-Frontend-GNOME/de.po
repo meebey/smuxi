@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.6.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-08-31 14:45+0200\n"
+"POT-Creation-Date: 2008-09-02 23:13+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Mirco Bauer <meebey@meebey.net>\n"
 "Language-Team: German <LL@li.org>\n"
@@ -360,6 +360,26 @@ msgstr ""
 "dd = Tag\n"
 "MM = Monat\n"
 "yy/yyyy = Jahr"
+
+#: ../src/Frontend-GNOME/AboutDialog.cs:48
+msgid "German"
+msgstr "Deutsch"
+
+#: ../src/Frontend-GNOME/AboutDialog.cs:49
+msgid "Spanish"
+msgstr "Spanisch"
+
+#: ../src/Frontend-GNOME/AboutDialog.cs:50
+msgid "British English"
+msgstr "Britisches English"
+
+#: ../src/Frontend-GNOME/AboutDialog.cs:51
+msgid "French"
+msgstr "Französisch"
+
+#: ../src/Frontend-GNOME/AboutDialog.cs:54
+msgid "Smuxi Website"
+msgstr "Smuxi Webseite"
 
 #: ../src/Frontend-GNOME/CrashDialog.cs:39
 msgid "Oops, I did it again..."
