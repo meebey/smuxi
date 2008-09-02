@@ -1,0 +1,59 @@
+# Smuxi - IRC client for advanced users
+# Copyright (C) 2005-2008 Mirco Bauer <meebey@meebey.net>
+# This file is distributed under the same license as the Smuxi package.
+# Clement BOURGEOIS <moonpyk@gmail.com>, 2008.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: 0.6.2\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2008-08-25 23:53+0200\n"
+"PO-Revision-Date: 2008-09-02 14:26+0100\n"
+"Last-Translator: Clement BOURGEOIS <moonpyk@gmail.com>\n"
+"Language-Team: French <moonpyk@gmail.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: French\n"
+"X-Poedit-Country: FRANCE\n"
+
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:55
+msgid "Op"
+msgstr "Opper"
+
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:59
+msgid "Deop"
+msgstr "Enlever l'Op"
+
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:63
+msgid "Voice"
+msgstr "Voicer"
+
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:67
+msgid "Devoice"
+msgstr "Enlever le Voice"
+
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:71
+msgid "Kick"
+msgstr "Kicker"
+
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:75
+msgid "Kick + Ban"
+msgstr "Kicker + Bannir"
+
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:79
+msgid "Ban"
+msgstr "Bannur"
+
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:83
+msgid "Unban"
+msgstr "Enlever le ban"
+
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:89
+msgid "Query"
+msgstr "Chat privé"
+
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:93
+msgid "Whois"
+msgstr "Whois"
+
