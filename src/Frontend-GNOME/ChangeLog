@@ -1,3 +1,7 @@
+2008-09-02  Mirco Bauer <meebey@meebey.net> 
+
+	* AboutDialog.cs: Added credits for British English and French translation.
+
 2008-08-31  Mirco Bauer <meebey@meebey.net> 
 
 	* Frontend-GNOME.mdp: Added po files to MonoDevelop projects.
