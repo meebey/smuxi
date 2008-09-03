@@ -116,6 +116,12 @@ namespace Smuxi.Engine
             msg.MessageParts.Add(
                 new TextMessagePartModel(new TextColor(0xFF0000), null, false,
                         true, false, _("Welcome to Smuxi")));
+            msg.MessageParts.Add(
+                new TextMessagePartModel(null, null, false,
+                        true, false, _("Type /help to get a list of available commands.")));
+            msg.MessageParts.Add(
+                new TextMessagePartModel(null, null, false,
+                        true, false, _("After you have made a connection the list of available commands changes, just use /help again.")));
             AddMessageToChat(_SessionChat, msg); 
         }
         
