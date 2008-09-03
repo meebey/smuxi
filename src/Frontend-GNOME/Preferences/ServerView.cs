@@ -7,7 +7,7 @@
  *
  * smuxi - Smart MUltipleXed Irc
  *
- * Copyright (c) 2005-2006 Mirco Bauer <meebey@meebey.net>
+ * Copyright (c) 2005-2006,2008 Mirco Bauer <meebey@meebey.net>
  *
  * Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
  *
@@ -61,6 +61,8 @@ namespace Smuxi.Frontend.Gnome
         private Gtk.CheckButton          _OnStartupConnectCheckButton;
         [Glade.Widget("OnConnectCommandsTextView1")]
         private Gtk.TextView             _OnConnectCommandsTextView;
+        [Glade.Widget("ShowPasswordCheckButton")]
+        private Gtk.CheckButton          _ShowPasswordCheckButton;
         private ServerModel              _ServerModel;
         
         public ServerModel Server {
@@ -86,6 +88,8 @@ namespace Smuxi.Frontend.Gnome
             _Glade = new Glade.XML(null, Frontend.GladeFilename, "ServerDialog", null);
             _Glade.BindFields(this);
             _Dialog.TransientFor = parent;
+            
+            _ShowPasswordCheckButton.Clicked += OnShowPasswordCheckButtonClicked;
             
             Gtk.ComboBox cb;
             Gtk.CellRendererText cell;
@@ -175,39 +179,56 @@ namespace Smuxi.Frontend.Gnome
             _Dialog.Destroy();
         }
         
+        protected virtual void OnShowPasswordCheckButtonClicked(object sender, EventArgs e)
+        {
+            Trace.Call(sender, e);
+
+            try {
+                _PasswordEntry.Visibility = _ShowPasswordCheckButton.Active;
+            } catch (Exception ex) {
+                Frontend.ShowException(ex);
+            }
+        }
+        
         private void _OnProtocolComboBoxChanged(object sender, EventArgs e)
         {
-            // HACK: hardcoded default list, not so nice
-            // suggest sane port defaults
-            switch (_ProtocolComboBox.ActiveText) {
-                case "IRC":
-                    _HostnameEntry.Sensitive = true;
-                    
-                    _PortSpinButton.Value = 6667;
-                    _PortSpinButton.Sensitive = true;
-                    
-                    _NetworkComboBoxEntry.Sensitive = true;
-                    break;
-                case "XMPP":
-                    _HostnameEntry.Sensitive = true;
-                    
-                    _PortSpinButton.Value = 5222;
-                    _PortSpinButton.Sensitive = true;
-                    
-                    _NetworkComboBoxEntry.Sensitive = true;
-                    break;
-                case "AIM":
-                case "ICQ":
-                case "MSNP":
-                    _HostnameEntry.Text = String.Empty;
-                    _HostnameEntry.Sensitive = false;
-                    
-                    _PortSpinButton.Value = 0;
-                    _PortSpinButton.Sensitive = false;
-                    
-                    _NetworkComboBoxEntry.Entry.Text = String.Empty;
-                    _NetworkComboBoxEntry.Sensitive = false;
-                    break;
+            Trace.Call(sender, e);
+            
+            try {
+                // HACK: hardcoded default list, not so nice
+                // suggest sane port defaults
+                switch (_ProtocolComboBox.ActiveText) {
+                    case "IRC":
+                        _HostnameEntry.Sensitive = true;
+                        
+                        _PortSpinButton.Value = 6667;
+                        _PortSpinButton.Sensitive = true;
+                        
+                        _NetworkComboBoxEntry.Sensitive = true;
+                        break;
+                    case "XMPP":
+                        _HostnameEntry.Sensitive = true;
+                        
+                        _PortSpinButton.Value = 5222;
+                        _PortSpinButton.Sensitive = true;
+                        
+                        _NetworkComboBoxEntry.Sensitive = true;
+                        break;
+                    case "AIM":
+                    case "ICQ":
+                    case "MSNP":
+                        _HostnameEntry.Text = String.Empty;
+                        _HostnameEntry.Sensitive = false;
+                        
+                        _PortSpinButton.Value = 0;
+                        _PortSpinButton.Sensitive = false;
+                        
+                        _NetworkComboBoxEntry.Entry.Text = String.Empty;
+                        _NetworkComboBoxEntry.Sensitive = false;
+                        break;
+                }
+            } catch (Exception ex) {
+                Frontend.ShowException(ex);
             }
         }
     }

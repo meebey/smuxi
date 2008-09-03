@@ -1,3 +1,11 @@
+2008-09-04  Mirco Bauer <meebey@meebey.net> 
+
+	* Preferences/ServerView.cs,
+	  gtk-gui/Smuxi.Frontend.Gnome.QuickConnectDialog.cs,
+	  gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs,
+	  gtk-gui/gui.stetic, QuickConnectDialog.cs: Implemented hide/unhide
+	  password entries. (closes trac ticket #116)
+
 2008-09-03  Mirco Bauer <meebey@meebey.net> 
 
 	* FindGroupChatDialog.cs: Use a new thread when calling FindGroupChat on the

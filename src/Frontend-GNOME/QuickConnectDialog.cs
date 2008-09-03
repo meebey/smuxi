@@ -261,6 +261,13 @@ namespace Smuxi.Frontend.Gnome
             return Mono.Unix.Catalog.GetString(msg);
         }
 
+        protected virtual void CheckShowPasswordCheckButton()
+        {
+            Trace.Call();
+
+            f_PasswordEntry.Visibility = f_ShowPasswordCheckButton.Active;
+        }
+        
         protected virtual void CheckConnectButton()
         {
             Trace.Call();
@@ -275,6 +282,17 @@ namespace Smuxi.Frontend.Gnome
             
             try {
                 CheckConnectButton();
+            } catch (Exception ex) {
+                Frontend.ShowException(ex);
+            }
+        }
+
+        protected virtual void OnShowPasswordCheckButtonClicked (object sender, System.EventArgs e)
+        {
+            Trace.Call(sender, e);
+            
+            try {
+                CheckShowPasswordCheckButton();
             } catch (Exception ex) {
                 Frontend.ShowException(ex);
             }

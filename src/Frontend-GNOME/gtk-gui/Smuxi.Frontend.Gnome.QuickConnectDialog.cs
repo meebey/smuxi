@@ -23,8 +23,6 @@ namespace Smuxi.Frontend.Gnome {
         
         private Gtk.Table table2;
         
-        private Gtk.Entry f_PasswordEntry;
-        
         private Gtk.ComboBox f_ProtocolComboBox;
         
         private Gtk.Entry f_UsernameEntry;
@@ -38,6 +36,12 @@ namespace Smuxi.Frontend.Gnome {
         private Gtk.Label label20;
         
         private Gtk.SpinButton f_PortSpinButton;
+        
+        private Gtk.HBox hbox2;
+        
+        private Gtk.Entry f_PasswordEntry;
+        
+        private Gtk.CheckButton f_ShowPasswordCheckButton;
         
         private Gtk.Label label11;
         
@@ -89,34 +93,23 @@ namespace Smuxi.Frontend.Gnome {
             this.table2.RowSpacing = ((uint)(5));
             this.table2.ColumnSpacing = ((uint)(5));
             // Container child table2.Gtk.Table+TableChild
-            this.f_PasswordEntry = new Gtk.Entry();
-            this.f_PasswordEntry.Name = "f_PasswordEntry";
-            this.f_PasswordEntry.IsEditable = true;
-            this.f_PasswordEntry.InvisibleChar = '●';
-            this.table2.Add(this.f_PasswordEntry);
-            Gtk.Table.TableChild w4 = ((Gtk.Table.TableChild)(this.table2[this.f_PasswordEntry]));
-            w4.TopAttach = ((uint)(3));
-            w4.BottomAttach = ((uint)(4));
-            w4.LeftAttach = ((uint)(1));
-            w4.RightAttach = ((uint)(2));
-            // Container child table2.Gtk.Table+TableChild
             this.f_ProtocolComboBox = new Gtk.ComboBox();
             this.f_ProtocolComboBox.Name = "f_ProtocolComboBox";
             this.table2.Add(this.f_ProtocolComboBox);
-            Gtk.Table.TableChild w5 = ((Gtk.Table.TableChild)(this.table2[this.f_ProtocolComboBox]));
-            w5.LeftAttach = ((uint)(1));
-            w5.RightAttach = ((uint)(2));
+            Gtk.Table.TableChild w4 = ((Gtk.Table.TableChild)(this.table2[this.f_ProtocolComboBox]));
+            w4.LeftAttach = ((uint)(1));
+            w4.RightAttach = ((uint)(2));
             // Container child table2.Gtk.Table+TableChild
             this.f_UsernameEntry = new Gtk.Entry();
             this.f_UsernameEntry.Name = "f_UsernameEntry";
             this.f_UsernameEntry.IsEditable = true;
             this.f_UsernameEntry.InvisibleChar = '●';
             this.table2.Add(this.f_UsernameEntry);
-            Gtk.Table.TableChild w6 = ((Gtk.Table.TableChild)(this.table2[this.f_UsernameEntry]));
-            w6.TopAttach = ((uint)(2));
-            w6.BottomAttach = ((uint)(3));
-            w6.LeftAttach = ((uint)(1));
-            w6.RightAttach = ((uint)(2));
+            Gtk.Table.TableChild w5 = ((Gtk.Table.TableChild)(this.table2[this.f_UsernameEntry]));
+            w5.TopAttach = ((uint)(2));
+            w5.BottomAttach = ((uint)(3));
+            w5.LeftAttach = ((uint)(1));
+            w5.RightAttach = ((uint)(2));
             // Container child table2.Gtk.Table+TableChild
             this.hbox10 = new Gtk.HBox();
             this.hbox10.Name = "hbox10";
@@ -126,8 +119,8 @@ namespace Smuxi.Frontend.Gnome {
             this.f_HostnameEntry.IsEditable = true;
             this.f_HostnameEntry.InvisibleChar = '●';
             this.hbox10.Add(this.f_HostnameEntry);
-            Gtk.Box.BoxChild w7 = ((Gtk.Box.BoxChild)(this.hbox10[this.f_HostnameEntry]));
-            w7.Position = 0;
+            Gtk.Box.BoxChild w6 = ((Gtk.Box.BoxChild)(this.hbox10[this.f_HostnameEntry]));
+            w6.Position = 0;
             // Container child hbox10.Gtk.Box+BoxChild
             this.hbox11 = new Gtk.HBox();
             this.hbox11.Name = "hbox11";
@@ -138,8 +131,8 @@ namespace Smuxi.Frontend.Gnome {
             this.label20.LabelProp = Mono.Unix.Catalog.GetString("_Port:");
             this.label20.UseUnderline = true;
             this.hbox11.Add(this.label20);
-            Gtk.Box.BoxChild w8 = ((Gtk.Box.BoxChild)(this.hbox11[this.label20]));
-            w8.Position = 0;
+            Gtk.Box.BoxChild w7 = ((Gtk.Box.BoxChild)(this.hbox11[this.label20]));
+            w7.Position = 0;
             // Container child hbox11.Gtk.Box+BoxChild
             this.f_PortSpinButton = new Gtk.SpinButton(0, 65535, 1);
             this.f_PortSpinButton.Name = "f_PortSpinButton";
@@ -148,17 +141,48 @@ namespace Smuxi.Frontend.Gnome {
             this.f_PortSpinButton.ClimbRate = 1;
             this.f_PortSpinButton.Numeric = true;
             this.hbox11.Add(this.f_PortSpinButton);
-            Gtk.Box.BoxChild w9 = ((Gtk.Box.BoxChild)(this.hbox11[this.f_PortSpinButton]));
-            w9.Position = 1;
+            Gtk.Box.BoxChild w8 = ((Gtk.Box.BoxChild)(this.hbox11[this.f_PortSpinButton]));
+            w8.Position = 1;
             this.hbox10.Add(this.hbox11);
-            Gtk.Box.BoxChild w10 = ((Gtk.Box.BoxChild)(this.hbox10[this.hbox11]));
-            w10.Position = 1;
+            Gtk.Box.BoxChild w9 = ((Gtk.Box.BoxChild)(this.hbox10[this.hbox11]));
+            w9.Position = 1;
             this.table2.Add(this.hbox10);
-            Gtk.Table.TableChild w11 = ((Gtk.Table.TableChild)(this.table2[this.hbox10]));
-            w11.TopAttach = ((uint)(1));
-            w11.BottomAttach = ((uint)(2));
-            w11.LeftAttach = ((uint)(1));
-            w11.RightAttach = ((uint)(2));
+            Gtk.Table.TableChild w10 = ((Gtk.Table.TableChild)(this.table2[this.hbox10]));
+            w10.TopAttach = ((uint)(1));
+            w10.BottomAttach = ((uint)(2));
+            w10.LeftAttach = ((uint)(1));
+            w10.RightAttach = ((uint)(2));
+            // Container child table2.Gtk.Table+TableChild
+            this.hbox2 = new Gtk.HBox();
+            this.hbox2.Name = "hbox2";
+            this.hbox2.Spacing = 6;
+            // Container child hbox2.Gtk.Box+BoxChild
+            this.f_PasswordEntry = new Gtk.Entry();
+            this.f_PasswordEntry.Name = "f_PasswordEntry";
+            this.f_PasswordEntry.IsEditable = true;
+            this.f_PasswordEntry.Visibility = false;
+            this.f_PasswordEntry.InvisibleChar = '●';
+            this.hbox2.Add(this.f_PasswordEntry);
+            Gtk.Box.BoxChild w11 = ((Gtk.Box.BoxChild)(this.hbox2[this.f_PasswordEntry]));
+            w11.Position = 0;
+            // Container child hbox2.Gtk.Box+BoxChild
+            this.f_ShowPasswordCheckButton = new Gtk.CheckButton();
+            this.f_ShowPasswordCheckButton.CanFocus = true;
+            this.f_ShowPasswordCheckButton.Name = "f_ShowPasswordCheckButton";
+            this.f_ShowPasswordCheckButton.Label = Mono.Unix.Catalog.GetString("Show Password");
+            this.f_ShowPasswordCheckButton.DrawIndicator = true;
+            this.f_ShowPasswordCheckButton.UseUnderline = true;
+            this.hbox2.Add(this.f_ShowPasswordCheckButton);
+            Gtk.Box.BoxChild w12 = ((Gtk.Box.BoxChild)(this.hbox2[this.f_ShowPasswordCheckButton]));
+            w12.Position = 1;
+            this.table2.Add(this.hbox2);
+            Gtk.Table.TableChild w13 = ((Gtk.Table.TableChild)(this.table2[this.hbox2]));
+            w13.TopAttach = ((uint)(3));
+            w13.BottomAttach = ((uint)(4));
+            w13.LeftAttach = ((uint)(1));
+            w13.RightAttach = ((uint)(2));
+            w13.XOptions = ((Gtk.AttachOptions)(4));
+            w13.YOptions = ((Gtk.AttachOptions)(4));
             // Container child table2.Gtk.Table+TableChild
             this.label11 = new Gtk.Label();
             this.label11.Name = "label11";
@@ -166,9 +190,9 @@ namespace Smuxi.Frontend.Gnome {
             this.label11.LabelProp = Mono.Unix.Catalog.GetString("_Hostname:");
             this.label11.UseUnderline = true;
             this.table2.Add(this.label11);
-            Gtk.Table.TableChild w12 = ((Gtk.Table.TableChild)(this.table2[this.label11]));
-            w12.TopAttach = ((uint)(1));
-            w12.BottomAttach = ((uint)(2));
+            Gtk.Table.TableChild w14 = ((Gtk.Table.TableChild)(this.table2[this.label11]));
+            w14.TopAttach = ((uint)(1));
+            w14.BottomAttach = ((uint)(2));
             // Container child table2.Gtk.Table+TableChild
             this.label21 = new Gtk.Label();
             this.label21.Name = "label21";
@@ -176,9 +200,9 @@ namespace Smuxi.Frontend.Gnome {
             this.label21.LabelProp = Mono.Unix.Catalog.GetString("_Username:");
             this.label21.UseUnderline = true;
             this.table2.Add(this.label21);
-            Gtk.Table.TableChild w13 = ((Gtk.Table.TableChild)(this.table2[this.label21]));
-            w13.TopAttach = ((uint)(2));
-            w13.BottomAttach = ((uint)(3));
+            Gtk.Table.TableChild w15 = ((Gtk.Table.TableChild)(this.table2[this.label21]));
+            w15.TopAttach = ((uint)(2));
+            w15.BottomAttach = ((uint)(3));
             // Container child table2.Gtk.Table+TableChild
             this.label22 = new Gtk.Label();
             this.label22.Name = "label22";
@@ -186,9 +210,9 @@ namespace Smuxi.Frontend.Gnome {
             this.label22.LabelProp = Mono.Unix.Catalog.GetString("_Password:");
             this.label22.UseUnderline = true;
             this.table2.Add(this.label22);
-            Gtk.Table.TableChild w14 = ((Gtk.Table.TableChild)(this.table2[this.label22]));
-            w14.TopAttach = ((uint)(3));
-            w14.BottomAttach = ((uint)(4));
+            Gtk.Table.TableChild w16 = ((Gtk.Table.TableChild)(this.table2[this.label22]));
+            w16.TopAttach = ((uint)(3));
+            w16.BottomAttach = ((uint)(4));
             // Container child table2.Gtk.Table+TableChild
             this.label5 = new Gtk.Label();
             this.label5.Name = "label5";
@@ -197,23 +221,23 @@ namespace Smuxi.Frontend.Gnome {
             this.label5.UseUnderline = true;
             this.table2.Add(this.label5);
             this.vbox16.Add(this.table2);
-            Gtk.Box.BoxChild w16 = ((Gtk.Box.BoxChild)(this.vbox16[this.table2]));
-            w16.Position = 0;
-            w16.Expand = false;
-            this.hbox1.Add(this.vbox16);
-            Gtk.Box.BoxChild w17 = ((Gtk.Box.BoxChild)(this.hbox1[this.vbox16]));
-            w17.Position = 1;
-            w17.Expand = false;
-            w17.Fill = false;
-            w1.Add(this.hbox1);
-            Gtk.Box.BoxChild w18 = ((Gtk.Box.BoxChild)(w1[this.hbox1]));
+            Gtk.Box.BoxChild w18 = ((Gtk.Box.BoxChild)(this.vbox16[this.table2]));
             w18.Position = 0;
+            w18.Expand = false;
+            this.hbox1.Add(this.vbox16);
+            Gtk.Box.BoxChild w19 = ((Gtk.Box.BoxChild)(this.hbox1[this.vbox16]));
+            w19.Position = 1;
+            w19.Expand = false;
+            w19.Fill = false;
+            w1.Add(this.hbox1);
+            Gtk.Box.BoxChild w20 = ((Gtk.Box.BoxChild)(w1[this.hbox1]));
+            w20.Position = 0;
             // Internal child Smuxi.Frontend.Gnome.QuickConnectDialog.ActionArea
-            Gtk.HButtonBox w19 = this.ActionArea;
-            w19.Name = "dialog-action_area2";
-            w19.Spacing = 6;
-            w19.BorderWidth = ((uint)(5));
-            w19.LayoutStyle = ((Gtk.ButtonBoxStyle)(4));
+            Gtk.HButtonBox w21 = this.ActionArea;
+            w21.Name = "dialog-action_area2";
+            w21.Spacing = 6;
+            w21.BorderWidth = ((uint)(5));
+            w21.LayoutStyle = ((Gtk.ButtonBoxStyle)(4));
             // Container child dialog-action_area2.Gtk.ButtonBox+ButtonBoxChild
             this.f_CancelButton = new Gtk.Button();
             this.f_CancelButton.Name = "f_CancelButton";
@@ -228,8 +252,8 @@ namespace Smuxi.Frontend.Gnome {
             this.f_ConnectButton.UseUnderline = true;
             this.f_ConnectButton.Label = "gtk-connect";
             this.AddActionWidget(this.f_ConnectButton, -5);
-            Gtk.ButtonBox.ButtonBoxChild w21 = ((Gtk.ButtonBox.ButtonBoxChild)(w19[this.f_ConnectButton]));
-            w21.Position = 1;
+            Gtk.ButtonBox.ButtonBoxChild w23 = ((Gtk.ButtonBox.ButtonBoxChild)(w21[this.f_ConnectButton]));
+            w23.Position = 1;
             if ((this.Child != null)) {
                 this.Child.ShowAll();
             }
@@ -241,6 +265,7 @@ namespace Smuxi.Frontend.Gnome {
             this.label22.MnemonicWidget = this.f_PasswordEntry;
             this.label5.MnemonicWidget = this.f_ProtocolComboBox;
             this.Show();
+            this.f_ShowPasswordCheckButton.Clicked += new System.EventHandler(this.OnShowPasswordCheckButtonClicked);
             this.f_HostnameEntry.Changed += new System.EventHandler(this.OnHostnameEntryChanged);
             this.f_ConnectButton.Clicked += new System.EventHandler(this.OnConnectButtonClicked);
         }
