@@ -48,6 +48,7 @@ namespace Smuxi.Frontend.Gnome
         private static readonly string    _UIName = "GTK+";
 #elif UI_GNOME
         private static readonly string    _UIName = "GNOME";
+        private static int                _UIThreadID;
         private static GNOME.Program      _Program;
 #endif
         private static Version            _Version;
@@ -183,6 +184,7 @@ namespace Smuxi.Frontend.Gnome
             if (!GLib.Thread.Supported) {
                 GLib.Thread.Init();
             }
+            _UIThreadID = System.Threading.Thread.CurrentThread.ManagedThreadId;
 #else
             // with GTK# 2.8 we can do this better, see above
             // GTK# 2.7.1 for MS .NET doesn't support that though.
@@ -364,8 +366,25 @@ namespace Smuxi.Frontend.Gnome
             Environment.Exit(0);
         }
         
-        public static void ShowError(string msg)
+        private static bool IsGuiThread()
         {
+            return System.Threading.Thread.CurrentThread.ManagedThreadId == _UIThreadID;
+        }
+                
+        public static void ShowError(string msg, Exception ex)
+        {
+            Trace.Call(msg, ex);
+            
+            if (!IsGuiThread()) {
+                Gtk.Application.Invoke(delegate {
+                    ShowError(msg, ex);
+                });
+            }
+            
+            if (ex != null) {
+                msg += "\n" + String.Format(_("Cause: {0}"), ex.Message);
+            }
+               
             Gtk.MessageDialog md = new Gtk.MessageDialog(_MainWindow,
                 Gtk.DialogFlags.Modal, Gtk.MessageType.Error,
                 Gtk.ButtonsType.Ok, msg);
@@ -373,8 +392,27 @@ namespace Smuxi.Frontend.Gnome
             md.Destroy();
         }
         
+        public static void ShowError(string msg)
+        {
+            Trace.Call(msg);
+            
+            ShowError(msg, null);
+        }
+        
         public static void ShowException(Gtk.Window parent, Exception ex)
         {
+            Trace.Call(parent, ex);
+            
+            if (parent == null) {
+                parent = _MainWindow;
+            }
+            
+            if (!IsGuiThread()) {
+                Gtk.Application.Invoke(delegate {
+                    ShowException(parent, ex);
+                });
+            }
+                
             CrashDialog cd = new CrashDialog(parent, ex);
             cd.Run();
             cd.Destroy();
@@ -384,6 +422,8 @@ namespace Smuxi.Frontend.Gnome
         
         public static void ShowException(Exception ex)
         {
+            Trace.Call(ex);
+            
             ShowException(null, ex);
         }
         

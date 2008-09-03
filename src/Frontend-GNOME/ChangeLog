@@ -1,3 +1,16 @@
+2008-09-03  Mirco Bauer <meebey@meebey.net> 
+
+	* FindGroupChatDialog.cs: Use a new thread when calling FindGroupChat on the
+	  protocol manager, as that one might block and never returns which would
+	  let the GUI freeze forever. (closes trac ticket #104)
+	
+	  Set mouse cursor to busy when searching for chats. (closes trac bug
+	  #115)
+	* Frontend.cs: Support calls from non-GUI threads in ShowException() and
+	  ShowError().
+	
+	  Added overload of ShowError() with Exception as parameter.
+
 2008-09-02  Mirco Bauer <meebey@meebey.net> 
 
 	* AboutDialog.cs: Added credits for British English and French translation.

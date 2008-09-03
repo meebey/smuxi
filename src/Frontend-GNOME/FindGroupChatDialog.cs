@@ -27,6 +27,7 @@
  */
 
 using System;
+using System.Threading;
 using System.Collections.Generic;
 using Mono.Unix;
 using Smuxi.Common;
@@ -36,9 +37,13 @@ namespace Smuxi.Frontend.Gnome
 {
     public partial class FindGroupChatDialog : Gtk.Dialog
     {
+#if LOG4NET
+        private static readonly log4net.ILog f_Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+#endif
         private IProtocolManager f_ProtocolManager;
         private Gtk.ListStore    f_ListStore;
         private GroupChatModel   f_GroupChatModel;
+        private Thread           f_FindThread;
         
         public GroupChatModel GroupChat {
             get {
@@ -108,14 +113,56 @@ namespace Smuxi.Frontend.Gnome
                 }
                 
                 f_ListStore.Clear();
+                CancelFindThread();
+                
                 GroupChatModel filter =  new GroupChatModel(null, nameFilter, null);
-                // TODO: use extra thread and show progress dialog
-                IList<GroupChatModel> chats = f_ProtocolManager.FindGroupChats(filter);
-                foreach (GroupChatModel chat in chats) {
-                    f_ListStore.AppendValues(chat, chat.PersonCount, chat.Name, chat.Topic);
-                }
+                f_FindThread = new Thread(new ThreadStart(delegate {
+                    try {
+                        Gtk.Application.Invoke(delegate {
+                            GdkWindow.Cursor = new Gdk.Cursor(Gdk.CursorType.Watch);
+                        });
+                        
+                        IList<GroupChatModel> chats = f_ProtocolManager.FindGroupChats(filter);
+                        
+                        Gtk.Application.Invoke(delegate {
+                            foreach (GroupChatModel chat in chats) {
+                                f_ListStore.AppendValues(chat, chat.PersonCount, chat.Name, chat.Topic);
+                            }
+                        });
+                    } catch (ThreadAbortException ex) {
+#if LOG4NET
+                        f_Logger.Debug("FindThread aborted");
+#endif
+                        Thread.ResetAbort();
+                    } catch (Exception ex) {
+                        Frontend.ShowError(_("Error while fetching the list of group chats from the server."), ex);
+                    } finally {
+                        Gtk.Application.Invoke(delegate {
+                            GdkWindow.Cursor = null;
+                        });
+                    }
+                }));
+                f_FindThread.Start();
             } catch (Exception ex) {
                 Frontend.ShowException(ex);
+            }
+        }
+        
+        private void CancelFindThread()
+        {
+            if (f_FindThread != null && f_FindThread.IsAlive) {
+                try {
+#if LOG4NET
+                    f_Logger.Debug("Aborting FindThread...");
+#endif
+                    f_FindThread.Abort();
+                } catch (Exception ex) {
+#if LOG4NET
+                    f_Logger.Error(ex);
+#endif
+                }
+                f_FindThread = null;
+                GdkWindow.Cursor = null;
             }
         }
         
@@ -161,8 +208,13 @@ namespace Smuxi.Frontend.Gnome
         {
             Trace.Call(responseType);
             
-            if (responseType == Gtk.ResponseType.Ok) {
-                f_GroupChatModel = GetCurrentGroupChat();
+            switch (responseType) {
+                case Gtk.ResponseType.Ok:
+                    f_GroupChatModel = GetCurrentGroupChat();
+                    break;
+                case Gtk.ResponseType.Cancel:
+                    CancelFindThread();
+                    break;
             }
             
             base.OnResponse(responseType);
