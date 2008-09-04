@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.6.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-08-25 23:53+0200\n"
-"PO-Revision-Date: 2008-09-02 14:19+0100\n"
+"POT-Creation-Date: 2008-09-05 01:33+0200\n"
+"PO-Revision-Date: 2008-09-05 01:34+0100\n"
 "Last-Translator: Clement BOURGEOIS <moonpyk@gmail.com>\n"
 "Language-Team: French <moonpyk@gmail.com>\n"
 "MIME-Version: 1.0\n"
@@ -26,7 +26,7 @@ msgid "Not connected to server"
 msgstr "Non connecté au serveur"
 
 #: ../src/Engine/Protocols/ProtocolManagerBase.cs:146
-#: ../src/Engine/Session.cs:603
+#: ../src/Engine/Session.cs:609
 #, csharp-format
 msgid "Not enough parameters for {0} command"
 msgstr "Pas assez d'arguments pour la commande {0}"
@@ -35,67 +35,76 @@ msgstr "Pas assez d'arguments pour la commande {0}"
 msgid "Welcome to Smuxi"
 msgstr "Bienvenue dans Smuxi"
 
-#: ../src/Engine/Session.cs:187
+#: ../src/Engine/Session.cs:121
+msgid "Type /help to get a list of available commands."
+msgstr "Tapez /help pour obtenir la liste des commandes disponibles."
+
+#: ../src/Engine/Session.cs:124
+msgid "After you have made a connection the list of available commands changes, just use /help again."
+msgstr "Une fois la connexion établie, la liste des commandes disponibles change, vous pouvez retaper /help encore une fois pour voir celles-ci."
+
+#: ../src/Engine/Session.cs:193
 #, csharp-format
 msgid "Automatic connect to {0} failed!"
 msgstr "Connexion automatique à {0} impossible !"
 
-#: ../src/Engine/Session.cs:341
+#: ../src/Engine/Session.cs:347
 msgid "[Engine Commands]"
 msgstr "[Commandes du moteur]"
 
-#: ../src/Engine/Session.cs:445
+#: ../src/Engine/Session.cs:451
 #, csharp-format
 msgid "Disconnect failed, could not find server: {0}"
 msgstr "Deconnexion impossible, serveur \"{0}\" introuvable"
 
-#: ../src/Engine/Session.cs:479
+#: ../src/Engine/Session.cs:485
 msgid "Configuration reloaded"
 msgstr "Configuration rechargée"
 
-#: ../src/Engine/Session.cs:484
+#: ../src/Engine/Session.cs:490
 msgid "Configuration saved"
 msgstr "Configuration sauvegardée"
 
-#: ../src/Engine/Session.cs:488
+#: ../src/Engine/Session.cs:494
 msgid "Invalid paramater for config, use load or save"
 msgstr "Paramètre invalide pour la configuration utilisez load ou save"
 
-#: ../src/Engine/Session.cs:518
+#: ../src/Engine/Session.cs:524
 msgid "Invalid paramater for network, use list, switch or close"
 msgstr "Paramètre invalide pour le réseau, utilisez list, switch ou close"
 
-#: ../src/Engine/Session.cs:529
+#: ../src/Engine/Session.cs:535
 msgid "Networks"
 msgstr "Réseaux"
 
-#: ../src/Engine/Session.cs:532
+#: ../src/Engine/Session.cs:538
 msgid "Type"
 msgstr "Type"
 
-#: ../src/Engine/Session.cs:533
+#: ../src/Engine/Session.cs:539
 msgid "Host"
 msgstr "Hôte"
 
-#: ../src/Engine/Session.cs:534
+#: ../src/Engine/Session.cs:540
 msgid "Port"
 msgstr "Port"
 
-#: ../src/Engine/Session.cs:553
+#: ../src/Engine/Session.cs:559
 #, csharp-format
 msgid "Network close failed, could not find network with host: {0}"
 msgstr "Fermeture réseau impossible, aucun réseau trouvé pour l'hôte : {0}"
 
-#: ../src/Engine/Session.cs:585
+#: ../src/Engine/Session.cs:591
 #, csharp-format
 msgid "Network switch failed, could not find network with host: {0}"
 msgstr "Changement de réseau impossible, aucun réseau pour l'hôte : {0}"
 
-#: ../src/Engine/Session.cs:597
+#: ../src/Engine/Session.cs:603
 msgid "Not connected to any network"
 msgstr "Connecté à aucun réseau"
 
-#: ../src/Engine/Session.cs:837
+#: ../src/Engine/Session.cs:843
 #, csharp-format
 msgid "Unknown protocol: {0}"
 msgstr "Protocole inconnu : {0}"
+

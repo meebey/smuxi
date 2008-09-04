@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.6.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-08-25 23:53+0200\n"
+"POT-Creation-Date: 2008-09-05 01:35+0200\n"
 "PO-Revision-Date: 2008-09-02 14:26+0100\n"
 "Last-Translator: Clement BOURGEOIS <moonpyk@gmail.com>\n"
 "Language-Team: French <moonpyk@gmail.com>\n"
@@ -56,4 +56,3 @@ msgstr "Chat privé"
 #: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:93
 msgid "Whois"
 msgstr "Whois"
-

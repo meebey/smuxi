@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.6.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-09-02 23:13+0200\n"
-"PO-Revision-Date: 2008-09-02 14:31+0100\n"
+"POT-Creation-Date: 2008-09-05 01:21+0200\n"
+"PO-Revision-Date: 2008-09-05 01:32+0100\n"
 "Last-Translator: Clement BOURGEOIS <moonpyk@gmail.com>\n"
 "Language-Team: French <moonpyk@gmail.com>\n"
 "MIME-Version: 1.0\n"
@@ -59,12 +59,12 @@ msgid "<b> Topic Position </b>"
 msgstr "<b> Position du sujet </b>"
 
 #: ../glade/smuxi-frontend-gnome.glade.h:10
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1843
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1844
 msgid "<b>Channel Filters</b>"
 msgstr "<b>Filtres de canaux</b>"
 
 #: ../glade/smuxi-frontend-gnome.glade.h:11
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1860
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1861
 msgid "<b>User Filters</b>"
 msgstr "<b>Filtres d'utilisateurs</b>"
 
@@ -274,15 +274,8 @@ msgid "Tabs"
 msgstr "Onglets"
 
 #: ../glade/smuxi-frontend-gnome.glade.h:51
-msgid ""
-"The nickname to use. You can specify more that one nickname, seperated by a "
-"space which will be used as fallback when the nickname was not available. By "
-"default $nick_ and $nick__ will be used as fallback."
-msgstr ""
-"Le surnom est déjà en cours d'utilisation. Vous pouvez spécifier plus d'un "
-"seul surnom, séparés par des espaces. Ceux ci seront utilisés comme solution "
-"de repli si le premier surnom n'est pas disponible. Par défaut, $nick et "
-"$nick__ sont utilisés."
+msgid "The nickname to use. You can specify more that one nickname, seperated by a space which will be used as fallback when the nickname was not available. By default $nick_ and $nick__ will be used as fallback."
+msgstr "Le surnom est déjà en cours d'utilisation. Vous pouvez spécifier plus d'un seul surnom, séparés par des espaces. Ceux ci seront utilisés comme solution de repli si le premier surnom n'est pas disponible. Par défaut, $nick et $nick__ sont utilisés."
 
 #: ../glade/smuxi-frontend-gnome.glade.h:52
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:727
@@ -309,7 +302,7 @@ msgid "Username:"
 msgstr "Nom d'utilisateur :"
 
 #: ../glade/smuxi-frontend-gnome.glade.h:56
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1872
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1873
 msgid "_Filters"
 msgstr "_Filtres"
 
@@ -363,25 +356,24 @@ msgstr ""
 "yy/yyyy = année"
 
 #: ../src/Frontend-GNOME/AboutDialog.cs:48
-#, fuzzy
 msgid "German"
-msgstr "Général"
+msgstr "Allemand"
 
 #: ../src/Frontend-GNOME/AboutDialog.cs:49
 msgid "Spanish"
-msgstr ""
+msgstr "Espagnol"
 
 #: ../src/Frontend-GNOME/AboutDialog.cs:50
 msgid "British English"
-msgstr ""
+msgstr "Anglais de Grande-Bretagne"
 
 #: ../src/Frontend-GNOME/AboutDialog.cs:51
 msgid "French"
-msgstr ""
+msgstr "Français"
 
 #: ../src/Frontend-GNOME/AboutDialog.cs:54
 msgid "Smuxi Website"
-msgstr ""
+msgstr "Site web de Smuxi"
 
 #: ../src/Frontend-GNOME/CrashDialog.cs:39
 msgid "Oops, I did it again..."
@@ -428,9 +420,7 @@ msgstr "Sélectionnez un moteur s'il vous plaît !"
 #: ../src/Frontend-GNOME/EngineManagerDialog.cs:205
 #, csharp-format
 msgid "Your frontend version ({0}) is not matching the engine version ({1})!"
-msgstr ""
-"Votre version de l'interface utilisateur ({0}) ne correspond pas à celle du "
-"moteur ({1}) !"
+msgstr "Votre version de l'interface utilisateur ({0}) ne correspond pas à celle du moteur ({1}) !"
 
 #: ../src/Frontend-GNOME/EngineManagerDialog.cs:224
 msgid "Error occured while connecting to the engine!"
@@ -454,9 +444,7 @@ msgstr "Êtes vous sûr(e) de vouloir supprimer le moteur \"{0}\" ?"
 #: ../src/Frontend-GNOME/Entry.cs:383
 #, csharp-format
 msgid "You are going to paste {0} lines, do you want to continue?"
-msgstr ""
-"Vous vous apprêtez à coller {0} lignes de texte, êtes vous sûr(e) de vouloir "
-"continuer ?"
+msgstr "Vous vous apprêtez à coller {0} lignes de texte, êtes vous sûr(e) de vouloir continuer ?"
 
 #: ../src/Frontend-GNOME/Entry.cs:491
 msgid "[Frontend Commands]"
@@ -479,8 +467,7 @@ msgid ""
 "Click \"Forward\" to begin."
 msgstr ""
 "Bienvenue sur Smuxi\n"
-"Vous utilisez Smuxi pour la première fois et l'application a besoin de "
-"certaines réponses de votre part.\n"
+"Vous utilisez Smuxi pour la première fois et l'application a besoin de certaines réponses de votre part.\n"
 "\n"
 "Cliquez sur \"Suivant\" pour commencer."
 
@@ -579,8 +566,7 @@ msgid ""
 "Switching to local engine will disconnect you from the current engine!\n"
 "Are you sure you want to do this?"
 msgstr ""
-"Changer de moteur vers le moteur local va vous déconnecter du moteur "
-"actuel !\n"
+"Changer de moteur vers le moteur local va vous déconnecter du moteur actuel !\n"
 "Êtes vous sûr(e) de vouloir continuer ?"
 
 #: ../src/Frontend-GNOME/MainWindow.cs:632
@@ -588,8 +574,7 @@ msgid ""
 "Switching the remote engine will disconnect you from the current engine!\n"
 "Are you sure you want to do this?"
 msgstr ""
-"Changer de moteur pour un moteur distant va vous déconnecter du moteur "
-"actuel !\n"
+"Changer de moteur pour un moteur distant va vous déconnecter du moteur actuel !\n"
 "Êtes vous sûr(e) de vouloir continuer ?"
 
 #: ../src/Frontend-GNOME/EngineDruid.cs:75
@@ -604,8 +589,7 @@ msgid ""
 "Click \"Forward\" to begin."
 msgstr ""
 "Bienvenue sur l'assistant de configuration du moteur Smuxi.\n"
-"Vous devez entrer plusieurs informations avant de pouvoir utiliser le "
-"moteur.\n"
+"Vous devez entrer plusieurs informations avant de pouvoir utiliser le moteur.\n"
 "\n"
 "Cliquez sur \"Suivant\" pour commencer."
 
@@ -626,7 +610,7 @@ msgid "DNS or IP address of the smuxi engine"
 msgstr "DNS ou adresse IP du moteur Smuxi"
 
 #: ../src/Frontend-GNOME/EngineDruid.cs:104
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.QuickConnectDialog.cs:138
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.QuickConnectDialog.cs:131
 msgid "_Port:"
 msgstr "_Port"
 
@@ -655,18 +639,16 @@ msgid ".NET Remoting Data Formatter"
 msgstr "Moteur de formatage de données du canal de contrôle .NET"
 
 #: ../src/Frontend-GNOME/EngineDruid.cs:129
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.QuickConnectDialog.cs:176
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.QuickConnectDialog.cs:200
 msgid "_Username:"
 msgstr "_Nom d'utilisateur :"
 
 #: ../src/Frontend-GNOME/EngineDruid.cs:130
 msgid "Username which will be used to register at the smuxi engine"
-msgstr ""
-"Nom d'utilisateur qui sera utilisé pour l'enregistrement auprès du moteur "
-"Smuxi"
+msgstr "Nom d'utilisateur qui sera utilisé pour l'enregistrement auprès du moteur Smuxi"
 
 #: ../src/Frontend-GNOME/EngineDruid.cs:135
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.QuickConnectDialog.cs:186
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.QuickConnectDialog.cs:210
 msgid "_Password:"
 msgstr "Mot de _passe :"
 
@@ -714,26 +696,34 @@ msgstr "Filtres"
 msgid "System Default"
 msgstr "Défaut du système"
 
-#: ../src/Frontend-GNOME/FindGroupChatDialog.cs:60
+#: ../src/Frontend-GNOME/FindGroupChatDialog.cs:65
 msgid "#"
 msgstr "#"
 
-#: ../src/Frontend-GNOME/FindGroupChatDialog.cs:64
+#: ../src/Frontend-GNOME/FindGroupChatDialog.cs:69
 msgid "Name"
 msgstr "Nom"
 
-#: ../src/Frontend-GNOME/FindGroupChatDialog.cs:69
+#: ../src/Frontend-GNOME/FindGroupChatDialog.cs:74
 msgid "Topic"
 msgstr "Sujet"
 
-#: ../src/Frontend-GNOME/FindGroupChatDialog.cs:98
+#: ../src/Frontend-GNOME/FindGroupChatDialog.cs:103
 msgid ""
-"Searching for group chats without a filter is not recommended.  This may "
-"take a while, or may not work at all.\n"
+"Searching for group chats without a filter is not recommended.  This may take a while, or may not work at all.\n"
 "Do you wish to continue?"
 msgstr "Chercher des groupes de discussion"
 
-#: ../src/Frontend-GNOME/Frontend.cs:451
+#: ../src/Frontend-GNOME/FindGroupChatDialog.cs:138
+msgid "Error while fetching the list of group chats from the server."
+msgstr "Erreur durant la récupération de la liste des groupes de discussion du serveur."
+
+#: ../src/Frontend-GNOME/Frontend.cs:385
+#, csharp-format
+msgid "Cause: {0}"
+msgstr "Cause : {0}"
+
+#: ../src/Frontend-GNOME/Frontend.cs:491
 msgid ""
 "The server has lost the connection to the frontend.\n"
 " Do you want to reconnect now?"
@@ -774,8 +764,7 @@ msgid ""
 "Closing the protocol chat will also close all open chats connected to it!\n"
 "Are you sure you want to do this?"
 msgstr ""
-"Fermer la fenêtre de chat du protocole va aussi fermer toutes discussions "
-"connectées sur celui-ci !\n"
+"Fermer la fenêtre de chat du protocole va aussi fermer toutes discussions connectées sur celui-ci !\n"
 "Êtes vous sûr(e) de vouloir continuer ?"
 
 #: ../src/Frontend-GNOME/Preferences/ChannelFilterListView.cs:81
@@ -810,15 +799,19 @@ msgstr "smuxi - Trouver un groupe de discussion"
 msgid "_Name:"
 msgstr "_Nom :"
 
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.QuickConnectDialog.cs:58
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.QuickConnectDialog.cs:62
 msgid "smuxi - Quick Connect"
 msgstr "smuxi - Connexion rapide"
 
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.QuickConnectDialog.cs:166
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.QuickConnectDialog.cs:172
+msgid "Show Password"
+msgstr "Afficher le mot de passe"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.QuickConnectDialog.cs:190
 msgid "_Hostname:"
 msgstr "_Nom d'hôte :"
 
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.QuickConnectDialog.cs:196
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.QuickConnectDialog.cs:220
 msgid "_Protocol:"
 msgstr "_Protocole :"
 
@@ -833,3 +826,4 @@ msgstr "<b> Position de la liste d'utilisateurs </b>"
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1642
 msgid "<b> Channel </b>"
 msgstr "<b> Canal </b>"
+
