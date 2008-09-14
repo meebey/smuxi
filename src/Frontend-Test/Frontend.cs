@@ -34,6 +34,7 @@ using System.Runtime.Remoting.Channels.Http;
 using System.Runtime.Remoting.Channels.Tcp;
 using System.Runtime.Serialization.Formatters;
 using Smuxi;
+using Smuxi.Frontend;
 using Smuxi.Engine;
 
 namespace Smuxi.FrontendTest
@@ -78,8 +79,8 @@ namespace Smuxi.FrontendTest
             System.Threading.Thread.CurrentThread.Name = "Main";
             
             if (!(args.Length >= 1)) {
-                Console.WriteLine("Usage: smuxi-test.exe profile");
-                return;
+                Console.Error.WriteLine("Usage: smuxi-test.exe profile");
+                Environment.Exit(1);
             }
             
 #if LOG4NET
@@ -90,61 +91,34 @@ namespace Smuxi.FrontendTest
             _FrontendConfig.Load();
             
             string profile = args[0];
+            if (String.IsNullOrEmpty(profile)) {
+                Console.Error.WriteLine("profile parameter must not be empty!");
+                Environment.Exit(1);
+            }
 
             IFrontendUI ui = new TestUI();
             
-            SessionManager sessionManager = null;
             Session session = null;
             if (profile == "local") {
                 Engine.Engine.Init();
-                sessionManager = Engine.Engine.SessionManager;
                 session = new Engine.Session(Engine.Engine.Config,
                                              Engine.Engine.ProtocolManagerFactory,
                                              "local");
                 session.RegisterFrontendUI(ui);
-                _UserConfig = session.UserConfig;
             } else {
                 // remote engine
-                string username = (string)_FrontendConfig["Engines/"+profile+"/Username"];
-                string password = (string)_FrontendConfig["Engines/"+profile+"/Password"];
-                string hostname = (string)_FrontendConfig["Engines/"+profile+"/Hostname"];
-                int    port     = (int)_FrontendConfig["Engines/"+profile+"/Port"];
-                string channel  = (string)_FrontendConfig["Engines/"+profile+"/Channel"];
-                
-                IDictionary props = new Hashtable();
-                props["port"] = 0;
-                switch (channel) {
-                    case "TCP":
-                        BinaryClientFormatterSinkProvider cprovider =
-                            new BinaryClientFormatterSinkProvider();
-
-                        BinaryServerFormatterSinkProvider sprovider =
-                            new BinaryServerFormatterSinkProvider();
-                        // required for MS .NET 1.1
-                        sprovider.TypeFilterLevel = TypeFilterLevel.Full;
-
-                        ChannelServices.RegisterChannel(new TcpChannel(props, cprovider, sprovider));
-                        sessionManager = (SessionManager)Activator.GetObject(typeof(SessionManager),
-                            "tcp://"+hostname+":"+port+"/SessionManager");
-                        break;
-                    case "HTTP":
-                        ChannelServices.RegisterChannel(new HttpChannel());
-                        sessionManager = (SessionManager)Activator.GetObject(typeof(SessionManager),
-                            "http://"+hostname+":"+port+"/SessionManager");
-                        break;
-                    default:
-                        Console.WriteLine("Unknown channel ("+channel+"), aborting...");
-                        Environment.Exit(1);
-                        break;
-                }
-                session = sessionManager.Register(username, password, ui);
-                
-                // setup cached config
-                _UserConfig = new UserConfig(session.Config, username);
-                _UserConfig.IsCaching = true;
+                EngineManager engineManager = new EngineManager(_FrontendConfig, ui);
+                engineManager.Connect(profile);
+                session = engineManager.Session;
+            }
+            
+            if (session == null) {
+                Console.Error.WriteLine("Session is null, something went wrong setting up or connecting to the engine!");
+                Environment.Exit(1);
             }
             
             _Session = session;
+            _UserConfig = session.UserConfig;
             _FrontendManager = session.GetFrontendManager(ui);
             _FrontendManager.Sync();
             

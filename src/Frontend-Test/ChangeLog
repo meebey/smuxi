@@ -1,3 +1,8 @@
+2008-09-14   <> 
+
+	* Frontend.cs, Frontend-Test.mdp: Refactored Frontend-Test to use the
+	  EngineManager class of the Frontend library instead of homebrew code.
+
 2008-07-27  Mirco Bauer <meebey@meebey.net> 
 
 	* Frontend-Test.mdp: Removed assembly attributes that are now part of the
