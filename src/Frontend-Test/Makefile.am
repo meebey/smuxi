@@ -11,7 +11,8 @@ ASSEMBLY_MDB = $(ASSEMBLY).mdb
 COMPILE_TARGET = exe
 PROJECT_REFERENCES =  \
 	../../bin/release/smuxi-engine.dll \
-	../../bin/release/smuxi-common.dll
+	../../bin/release/smuxi-common.dll \
+	../../bin/release/smuxi-frontend.dll
 BUILD_DIR = ../../bin/release
 
 LOG4NET_DLL_SOURCE=../../lib/log4net.dll
@@ -31,7 +32,8 @@ ASSEMBLY_MDB = $(ASSEMBLY).mdb
 COMPILE_TARGET = exe
 PROJECT_REFERENCES =  \
 	../../bin/debug/smuxi-engine.dll \
-	../../bin/debug/smuxi-common.dll
+	../../bin/debug/smuxi-common.dll \
+	../../bin/debug/smuxi-frontend.dll
 BUILD_DIR = ../../bin/debug
 
 LOG4NET_DLL_SOURCE=../../lib/log4net.dll
