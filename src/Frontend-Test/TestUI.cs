@@ -70,7 +70,7 @@ namespace Smuxi.FrontendTest
             } catch (FormatException e) {
                 timestamp = "Timestamp Format ERROR: " + e.Message;
             }
-            finalMsg = timestamp + " " + page.Name + " " + msg;
+            finalMsg = timestamp + " " + page.Name + " " + finalMsg;
             
             Console.WriteLine(finalMsg);
         }
@@ -97,6 +97,8 @@ namespace Smuxi.FrontendTest
             Trace.Call(page);
             
             Console.WriteLine("Synced page: "+page.Name+" type: "+page.ChatType);
+            
+            Frontend.FrontendManager.AddSyncedChat(page);
         }
         
         public void AddPersonToGroupChat(GroupChatModel cpage, PersonModel user)

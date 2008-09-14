@@ -1,5 +1,11 @@
 2008-09-14   <> 
 
+	* TestUI.cs: Fixed SyncChat().
+	
+	  Fixed AddMessageToChat():
+
+2008-09-14   <> 
+
 	* Frontend.cs, Frontend-Test.mdp: Refactored Frontend-Test to use the
 	  EngineManager class of the Frontend library instead of homebrew code.
 
