@@ -1,3 +1,8 @@
+2008-09-23   <> 
+
+	* FrontendManager.cs: Replaced poor mans Queue in FrontendManager with
+	  TaskQueue from Alan McGovern <alan.mcgovern@gmail.com>.
+
 2008-09-04  Mirco Bauer <meebey@meebey.net> 
 
 	* Session.cs: Added hint about /help command to smuxi page.

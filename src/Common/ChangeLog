@@ -1,3 +1,8 @@
+2008-09-23   <> 
+
+	* Common.mdp, TaskQueue.cs: Replaced poor mans Queue in FrontendManager with
+	  TaskQueue from Alan McGovern <alan.mcgovern@gmail.com>.
+
 2008-08-28  Mirco Bauer <meebey@meebey.net> 
 
 	* FastSerializer.cs: Set eol-style to native and converted files using

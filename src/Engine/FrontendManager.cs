@@ -36,17 +36,12 @@ namespace Smuxi.Engine
 {
     public delegate void SimpleDelegate(); 
     
-    // TODO: use generics for the queue
     public class FrontendManager : PermanentRemoteObject, IFrontendUI
     {
 #if LOG4NET
         private static readonly log4net.ILog _Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 #endif
         private static readonly string       _LibraryTextDomain = "smuxi-engine";
-        private int              _Version = 0;
-        // queue needs to be thread-safe for different protocol manager threads
-        private Queue            _Queue  = Queue.Synchronized(new Queue()); 
-        private Thread           _Thread;
         private Session          _Session;
         private IFrontendUI      _UI;
         private ChatModel        _CurrentChat;
@@ -55,10 +50,11 @@ namespace Smuxi.Engine
         private SimpleDelegate   _ConfigChangedDelegate;
         private bool             _IsFrontendSynced;
         private IList<ChatModel> _SyncedChats = new List<ChatModel>();
-
+        private TaskQueue        f_TaskQueue;
+        
         public int Version {
             get {
-                return _Version;
+                return 0;
             }
         }
         
@@ -97,7 +93,7 @@ namespace Smuxi.Engine
         
         public bool IsAlive {
             get {
-                return _Thread.IsAlive;
+                return  !f_TaskQueue.Disposed;
             }
         }
         
@@ -114,9 +110,9 @@ namespace Smuxi.Engine
             
             _Session = session;
             _UI = ui;
-            _Thread = new Thread(new ThreadStart(_Worker));
-            _Thread.IsBackground = true;
-            _Thread.Start();
+            f_TaskQueue = new TaskQueue("FrontendManager");
+            f_TaskQueue.ExceptionEvent += OnTaskQueueExceptionEvent;
+            f_TaskQueue.ExceptionEvent += OnTaskQueueAbortedEvent;
             
             // register event for config invalidation
             // BUG: when the frontend disconnects there are dangling methods registered!
@@ -203,7 +199,9 @@ namespace Smuxi.Engine
         
         private void _AddChat(ChatModel chat)
         {
-            _Queue.Enqueue(new UICommandContainer(UICommand.AddChat, chat));
+            f_TaskQueue.Queue(delegate {
+                _UI.AddChat(chat);
+            });
         }
         
         public void AddTextToChat(ChatModel chat, string text)
@@ -218,7 +216,9 @@ namespace Smuxi.Engine
         
         public void EnableChat(ChatModel chat)
         {
-            _Queue.Enqueue(new UICommandContainer(UICommand.EnableChat, chat));
+            f_TaskQueue.Queue(delegate {
+                _UI.EnableChat(chat);
+            });
         }
         
         public void DisableChat(ChatModel chat)
@@ -226,7 +226,9 @@ namespace Smuxi.Engine
             if (_SyncedChats.Contains(chat)) {
                 _SyncedChats.Remove(chat);
             }
-            _Queue.Enqueue(new UICommandContainer(UICommand.DisableChat, chat));
+            f_TaskQueue.Queue(delegate {
+                _UI.DisableChat(chat);
+            });
         }
         
         public void AddMessageToChat(ChatModel chat, MessageModel msg)
@@ -238,7 +240,9 @@ namespace Smuxi.Engine
         
         private void _AddMessageToChat(ChatModel chat, MessageModel msg)
         {
-            _Queue.Enqueue(new UICommandContainer(UICommand.AddMessageToChat, chat, msg));
+            f_TaskQueue.Queue(delegate {
+                _UI.AddMessageToChat(chat, msg);
+            });
         }
         
         public void AddMessageToCurrentChat(MessageModel msg)
@@ -255,7 +259,9 @@ namespace Smuxi.Engine
         
         private void _RemoveChat(ChatModel chat)
         {
-            _Queue.Enqueue(new UICommandContainer(UICommand.RemoveChat, chat));
+            f_TaskQueue.Queue(delegate {
+                _UI.RemoveChat(chat);
+            });
         }
         
         public void SyncChat(ChatModel chat)
@@ -267,7 +273,9 @@ namespace Smuxi.Engine
         
         private void _SyncChat(ChatModel chat)
         {
-            _Queue.Enqueue(new UICommandContainer(UICommand.SyncChat, chat));
+            f_TaskQueue.Queue(delegate {
+                _UI.SyncChat(chat);
+            });
         }
         
         public void AddPersonToGroupChat(GroupChatModel groupChat, PersonModel person)
@@ -279,7 +287,9 @@ namespace Smuxi.Engine
         
         private void _AddPersonToGroupChat(GroupChatModel groupChat, PersonModel person)
         {
-            _Queue.Enqueue(new UICommandContainer(UICommand.AddPersonToGroupChat, groupChat, person));
+            f_TaskQueue.Queue(delegate {
+                _UI.AddPersonToGroupChat(groupChat, person);
+            });
         }
         
         public void UpdatePersonInGroupChat(GroupChatModel groupChat, PersonModel oldPerson, PersonModel newPerson)
@@ -291,7 +301,9 @@ namespace Smuxi.Engine
         
         private void _UpdatePersonInGroupChat(GroupChatModel groupChat, PersonModel oldPerson, PersonModel newPerson)
         {
-            _Queue.Enqueue(new UICommandContainer(UICommand.UpdatePersonInGroupChat, groupChat, oldPerson, newPerson));
+            f_TaskQueue.Queue(delegate {
+                _UI.UpdatePersonInGroupChat(groupChat, oldPerson, newPerson);
+            });
         }
     
         public void UpdateTopicInGroupChat(GroupChatModel groupChat, string topic)
@@ -303,7 +315,9 @@ namespace Smuxi.Engine
         
         private void _UpdateTopicInGroupChat(GroupChatModel groupChat, string topic)
         {
-            _Queue.Enqueue(new UICommandContainer(UICommand.UpdateTopicInGroupChat, groupChat, topic));
+            f_TaskQueue.Queue(delegate {
+                _UI.UpdateTopicInGroupChat(groupChat, topic);
+            });
         }
     
         public void RemovePersonFromGroupChat(GroupChatModel groupChat, PersonModel person)
@@ -315,104 +329,23 @@ namespace Smuxi.Engine
         
         private void _RemovePersonFromGroupChat(GroupChatModel groupChat, PersonModel person)
         {
-            _Queue.Enqueue(new UICommandContainer(UICommand.RemovePersonFromGroupChat, groupChat, person));
+            f_TaskQueue.Queue(delegate {
+                _UI.RemovePersonFromGroupChat(groupChat, person);
+            });
         }
         
         public void SetNetworkStatus(string status)
         {
-            _Queue.Enqueue(new UICommandContainer(UICommand.SetNetworkStatus, status));
+            f_TaskQueue.Queue(delegate {
+                _UI.SetNetworkStatus(status);
+            });
         }
         
         public void SetStatus(string status)
         {
-            _Queue.Enqueue(new UICommandContainer(UICommand.SetStatus, status));
-        }
-        
-        private void _Worker()
-        {
-            while (true) {
-                if (_Queue.Count > 0) {
-                    try {
-                        UICommandContainer com = (UICommandContainer)_Queue.Dequeue();
-                        switch (com.Command) {
-                            case UICommand.AddChat:
-                                _UI.AddChat((ChatModel)com.Parameters[0]);
-                                break;
-                            case UICommand.RemoveChat:
-                                _UI.RemoveChat((ChatModel)com.Parameters[0]);
-                                break;
-                            case UICommand.EnableChat:
-                                _UI.EnableChat((ChatModel)com.Parameters[0]);
-                                break;
-                            case UICommand.DisableChat:
-                                _UI.DisableChat((ChatModel)com.Parameters[0]);
-                                break;
-                            case UICommand.SyncChat:
-                                _UI.SyncChat((ChatModel)com.Parameters[0]);
-                                break;
-                            case UICommand.AddMessageToChat:
-                                _UI.AddMessageToChat((ChatModel)com.Parameters[0],
-                                    (MessageModel)com.Parameters[1]);
-                                break;
-                            case UICommand.AddPersonToGroupChat:
-                                _UI.AddPersonToGroupChat((GroupChatModel)com.Parameters[0],
-                                    (PersonModel)com.Parameters[1]);
-                                break;
-                            case UICommand.UpdatePersonInGroupChat:
-                                _UI.UpdatePersonInGroupChat((GroupChatModel)com.Parameters[0],
-                                    (PersonModel)com.Parameters[1], (PersonModel)com.Parameters[2]);
-                                break;
-                            case UICommand.UpdateTopicInGroupChat:
-                                _UI.UpdateTopicInGroupChat((GroupChatModel)com.Parameters[0],
-                                    (string)com.Parameters[1]);
-                                break;
-                            case UICommand.RemovePersonFromGroupChat:
-                                _UI.RemovePersonFromGroupChat((GroupChatModel)com.Parameters[0],
-                                    (PersonModel)com.Parameters[1]);
-                                break;
-                            case UICommand.SetNetworkStatus:
-                                _UI.SetNetworkStatus((string)com.Parameters[0]);
-                                break;
-                            case UICommand.SetStatus:
-                                _UI.SetStatus((string)com.Parameters[0]);
-                                break;
-                            default:
-#if LOG4NET
-                                _Logger.Error("_Worker(): Unknown UICommand: "+com.Command);
-#endif
-                                break;
-                        }
-                    } catch (System.Runtime.Remoting.RemotingException e) {
-#if LOG4NET
-                        if (!_IsFrontendDisconnecting) {
-                            // we didn't expect this problem
-                            _Logger.Error("RemotingException in _Worker(), aborting FrontendManager thread...", e);
-                            _Logger.Error("Inner-Exception: ", e.InnerException);
-                        }
-#endif
-                        // TODO: setup a timer and wait up to 10 minutes to let
-                        // the frontend resume the session, after that timeout
-                        // clean it good
-                        break;
-                    } catch (Exception e) {
-#if LOG4NET
-                        _Logger.Error("Exception in _Worker(), aborting FrontendManager thread...", e);
-                        _Logger.Error("Inner-Exception: ", e.InnerException);
-#endif
-                        break;
-                    }
-                } else {
-                    // no better way?
-                    // wrap Queue and raise an event when Add() is called
-                    Thread.Sleep(10);
-                }
-            }
-            
-            // we can't rely on the UI object here, the connection is probably
-            // gone and doesn't come back
-            //_Session.DeregisterFrontendUI(_UI);
-            // thus we can deregister the hardway (using ourself)
-            _Session.DeregisterFrontendManager(this);
+            f_TaskQueue.Queue(delegate {
+                _UI.SetStatus(status);
+            });
         }
         
         private void _OnConfigChanged(object sender, EventArgs e)
@@ -431,6 +364,40 @@ namespace Smuxi.Engine
                 _Logger.Error(ex);
 #endif
             }
+        }
+        
+        protected virtual void OnTaskQueueExceptionEvent(object sender, TaskQueueExceptionEventArgs e)
+        {
+            Trace.Call(sender, e);
+            
+            if (e.Exception is System.Runtime.Remoting.RemotingException) {
+#if LOG4NET
+                if (!_IsFrontendDisconnecting) {
+                    // we didn't expect this problem
+                    _Logger.Error("RemotingException in TaskQueue, aborting thread...", e.Exception);
+                    _Logger.Error("Inner-Exception: ", e.Exception.InnerException);
+                }
+#endif
+                // TODO: setup a timer and wait up to 10 minutes to let
+                // the frontend resume the session, after that timeout
+                // clean it good
+            } else {
+#if LOG4NET
+                _Logger.Error("Exception in TaskQueue, aborting thread...", e.Exception);
+                _Logger.Error("Inner-Exception: ", e.Exception.InnerException);
+#endif
+            }
+        }
+        
+        protected virtual void OnTaskQueueAbortedEvent(object sender, EventArgs e)
+        {
+            Trace.Call(sender, e);
+            
+            // we can't rely on the UI (proxy) object here, the connection is probably
+            // gone and doesn't come back
+            //_Session.DeregisterFrontendUI(_UI);
+            // thus we can deregister the hardway (using ourself)
+            _Session.DeregisterFrontendManager(this);            
         }
         
         private static string _(string msg)
