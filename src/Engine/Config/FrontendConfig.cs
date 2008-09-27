@@ -97,6 +97,12 @@ namespace Smuxi.Engine
                 LoadEntry(eprefix+"Port", null);
                 LoadEntry(eprefix+"Channel", null);
                 LoadEntry(eprefix+"Formatter", null);
+                LoadEntry(eprefix+"UseSshTunnel", null);
+                LoadEntry(eprefix+"SshProgram", null);
+                LoadEntry(eprefix+"SshHostname", null);
+                LoadEntry(eprefix+"SshPort", null);
+                LoadEntry(eprefix+"SshUsername", null);
+                LoadEntry(eprefix+"SshPassword", null);
             }
             
             LoadAllEntries("Frontend/"+_UIName);

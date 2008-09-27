@@ -1,3 +1,7 @@
+2008-09-28   <> 
+
+	* EngineManager.cs: Implemented SSH tunnel support. (closes trac ticket #64)
+
 2008-07-27  Mirco Bauer <meebey@meebey.net> 
 
 	* AssemblyInfo.cs, AssemblyInfo.cs.in: Removed AssemblyInfo.cs.in files, not

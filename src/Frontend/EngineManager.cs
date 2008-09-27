@@ -27,12 +27,15 @@
  */
 
 using System;
+using System.Net;
+using System.Net.Sockets;
 using System.Collections;
 using System.Runtime.Remoting;
 using System.Runtime.Remoting.Channels;
 using System.Runtime.Remoting.Channels.Http;
 using System.Runtime.Remoting.Channels.Tcp;
 using System.Runtime.Serialization.Formatters;
+using SysDiag = System.Diagnostics;
 //using Smuxi.Channels.Tcp;
 #if CHANNEL_TCPEX
 using TcpEx;
@@ -48,44 +51,45 @@ namespace Smuxi.Frontend
     public class EngineManager
     {
 #if LOG4NET
-        private static readonly log4net.ILog _Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly log4net.ILog f_Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 #endif
-        private SessionManager _SessionManager;
-        private FrontendConfig _FrontendConfig;
-        private IFrontendUI    _FrontendUI;
-        private string         _Engine;
-        private string         _EngineUrl;
-        private Version        _EngineVersion;
-        private UserConfig     _UserConfig;
-        private Session        _Session;
+        private SessionManager  f_SessionManager;
+        private FrontendConfig  f_FrontendConfig;
+        private IFrontendUI     f_FrontendUI;
+        private string          f_Engine;
+        private string          f_EngineUrl;
+        private Version         f_EngineVersion;
+        private UserConfig      f_UserConfig;
+        private Session         f_Session;
+        private SysDiag.Process f_SshTunnelProcess;
         
         public SessionManager SessionManager {
             get {
-                return _SessionManager;
+                return f_SessionManager;
             }
         }
         
         public string EngineUrl {
             get {
-                return _EngineUrl;
+                return f_EngineUrl;
             }
         }
         
         public Version EngineVersion {
             get {
-                return _EngineVersion;
+                return f_EngineVersion;
             }
         }
         
         public Session Session {
             get {
-                return _Session;
+                return f_Session;
             }
         }
         
         public UserConfig UserConfig {
             get {
-                return _UserConfig;
+                return f_UserConfig;
             }
         }
         
@@ -100,25 +104,129 @@ namespace Smuxi.Frontend
                 throw new ArgumentNullException("frontendUI");
             }
             
-            _FrontendConfig = frontendConfig;
-            _FrontendUI = frontendUI;
+            f_FrontendConfig = frontendConfig;
+            f_FrontendUI = frontendUI;
         }
         
         public void Connect(string engine)
         {
             Trace.Call(engine);
             
-            _Engine = engine;
-            string username = (string) _FrontendConfig["Engines/"+engine+"/Username"];
-            string password = (string) _FrontendConfig["Engines/"+engine+"/Password"];
-            string hostname = (string) _FrontendConfig["Engines/"+engine+"/Hostname"];
-            string bindAddress = (string) _FrontendConfig["Engines/"+engine+"/BindAddress"];
-            int port = (int) _FrontendConfig["Engines/"+engine+"/Port"];
+            f_Engine = engine;
+            string username = (string) f_FrontendConfig["Engines/"+engine+"/Username"];
+            string password = (string) f_FrontendConfig["Engines/"+engine+"/Password"];
+            string hostname = (string) f_FrontendConfig["Engines/"+engine+"/Hostname"];
+            string bindAddress = (string) f_FrontendConfig["Engines/"+engine+"/BindAddress"];
+            int port = (int) f_FrontendConfig["Engines/"+engine+"/Port"];
             //string formatter = (string) _FrontendConfig["Engines/"+engine+"/Formatter"];
-            string channel = (string) _FrontendConfig["Engines/"+engine+"/Channel"];
+            string channel = (string) f_FrontendConfig["Engines/"+engine+"/Channel"];
+            
+            // SSH tunnel support
+            bool useSshTunnel = false;
+            if (f_FrontendConfig["Engines/"+engine+"/UseSshTunnel"] != null) {
+                useSshTunnel = (bool) f_FrontendConfig["Engines/"+engine+"/UseSshTunnel"];
+            }
+            string sshProgram = (string) f_FrontendConfig["Engines/"+engine+"/SshProgram"];
+            string sshHostname = (string) f_FrontendConfig["Engines/"+engine+"/SshHostname"];
+            int sshPort = -1;
+            if (f_FrontendConfig["Engines/"+engine+"/SshPort"] != null) {
+                sshPort = (int) f_FrontendConfig["Engines/"+engine+"/SshPort"];
+            }
+            string sshUsername = (string) f_FrontendConfig["Engines/"+engine+"/SshUsername"];
+            string sshPassword = (string) f_FrontendConfig["Engines/"+engine+"/SshPassword"];
+            
+            int remotingPort = 0;
+            if (useSshTunnel) {
+                // find free remoting back-channel port
+                TcpListener listener = new TcpListener(IPAddress.Loopback, 0);
+                listener.Start();
+                remotingPort = ((IPEndPoint)listener.LocalEndpoint).Port;
+                listener.Stop();
+#if LOG4NET
+                f_Logger.Debug("Connect(): found local free port for remoting back-channel: " + remotingPort);
+#endif
+                
+                if (String.IsNullOrEmpty(sshProgram)) {
+                    // TODO: find ssh
+                    sshProgram = "ssh";
+                }
+                // TODO: check path of sshProgram
+                
+                string sshCommand = sshProgram;
+                // ssh options
+                // don't ask for SSH key fingerprints
+                sshCommand += " -o StrictHostKeyChecking=no";
+                // exit if the tunnel setup didn't work somehow
+                sshCommand += " -o ExitOnForwardFailure=yes";
+                // don't execute a remote command
+                sshCommand += " -N";
+                // run in the background (detach)
+                sshCommand += " -f";
+                // HACK: force SSH to always flush the send buffer, as needed by
+                // .NET remoting just like the X11 protocol
+                sshCommand += " -X";
+                if (!String.IsNullOrEmpty(sshUsername)) {
+                    sshCommand += String.Format(" -l {0}", sshUsername);
+                }
+                if (!String.IsNullOrEmpty(sshPassword)) {
+                    // TODO: pass password,  but how?
+                }
+                if (sshPort != -1) {
+                    sshCommand += String.Format(" -p {0}", sshPort);
+                }
+                
+                // ssh tunnel
+                sshCommand += String.Format(" -L 127.0.0.1:{0}:{1}:{2}", port, hostname, port);
+                
+                // ssh back tunnel
+                sshCommand += String.Format(" -R {0}:127.0.0.1:{1}", remotingPort, remotingPort);
+                
+                // ssh host
+                sshCommand += String.Format(" {0}", sshHostname);
+                
+#if LOG4NET
+                f_Logger.Debug("Connect(): setting up ssh tunnel using command: " + sshCommand); 
+#endif
+                f_SshTunnelProcess = SysDiag.Process.Start(sshCommand);
+
+                /*
+                // HACK: give the process some time to fail (exiting)
+                System.Threading.Thread.Sleep(2000);
+                */
+                
+                // wait till the tunnels are ready and timeout after 30 seconds
+                bool exited = f_SshTunnelProcess.WaitForExit(30 * 1000);
+                
+                if (!exited) {
+                    string msg = String.Format(_("Timeout setting SSH tunnel up (30 seconds)."));
+#if LOG4NET
+                    f_Logger.Error("Connect(): " + msg);
+                    f_Logger.Debug("Connect(): killing SSH tunnel process...");
+#endif
+                    f_SshTunnelProcess.Kill();
+                    
+                    throw new ApplicationException(msg);
+                }
+                
+                if (f_SshTunnelProcess.ExitCode != 0) {
+                    string msg = String.Format(_("SSH tunnel setup failed: {0}"), f_SshTunnelProcess.ExitCode);
+#if LOG4NET
+                    f_Logger.Error("Connect(): " + msg);
+#endif
+                    throw new ApplicationException(msg);
+                }
+                
+                // so we want connect to connect via the SSH tunnel now
+                // (no need to override the port, as we use the same port as the smuxi-server)
+                hostname = "127.0.0.1";
+                
+                // the smuxi-server has to connect via the SSH tunnel too
+                bindAddress = "127.0.0.1";
+            }
             
             IDictionary props = new Hashtable();
-            props["port"] = "0";
+            // ugly remoting expects the port as string ;)
+            props["port"] = remotingPort.ToString();
             string error_msg = null;
             string connection_url = null;
             SessionManager sessm = null;
@@ -142,7 +250,7 @@ namespace Smuxi.Frontend
                     }
                     connection_url = "tcp://"+hostname+":"+port+"/SessionManager"; 
 #if LOG4NET
-                    _Logger.Info("Connecting to: "+connection_url);
+                    f_Logger.Info("Connecting to: "+connection_url);
 #endif
                     sessm = (SessionManager)Activator.GetObject(typeof(SessionManager),
                         connection_url);
@@ -182,7 +290,7 @@ namespace Smuxi.Frontend
                         ChannelServices.RegisterChannel(new HttpChannel(), false);
                     }
 #if LOG4NET
-                    _Logger.Info("Connecting to: "+connection_url);
+                    f_Logger.Info("Connecting to: "+connection_url);
 #endif
                     sessm = (SessionManager)Activator.GetObject(typeof(SessionManager),
                         connection_url);
@@ -193,24 +301,36 @@ namespace Smuxi.Frontend
                                       "only following channel types are supported:"),
                                     channel) + " HTTP TCP");
             }
-            _SessionManager = sessm;
-            _EngineUrl = connection_url;
+            f_SessionManager = sessm;
+            f_EngineUrl = connection_url;
             
-            _Session = sessm.Register(username, MD5.FromString(password), _FrontendUI);
-            if (_Session == null) {
+            f_Session = sessm.Register(username, MD5.FromString(password), f_FrontendUI);
+            if (f_Session == null) {
                 throw new ApplicationException(_("Registration at engine failed, "+
                                "username and/or password was wrong, please verify them."));
             }
             
-            _EngineVersion = sessm.EngineVersion;
-            _UserConfig = new UserConfig(_Session.Config,
+            f_EngineVersion = sessm.EngineVersion;
+            f_UserConfig = new UserConfig(f_Session.Config,
                                          username);
-            _UserConfig.IsCaching = true;
+            f_UserConfig.IsCaching = true;
         }
 
         public void Reconnect()
         {
-            Connect(_Engine);
+            Trace.Call();
+            
+            Disconnect();
+            Connect(f_Engine);
+        }
+        
+        public void Disconnect()
+        {
+            Trace.Call();
+            
+            if (f_SshTunnelProcess != null && !f_SshTunnelProcess.HasExited) {
+                f_SshTunnelProcess.Kill();
+            }
         }
         
         private static string _(string msg)
