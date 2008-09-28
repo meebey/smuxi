@@ -154,6 +154,9 @@ namespace Smuxi.Frontend
                 if (!File.Exists(sshProgram)) {
                     throw new ApplicationException(_("SSH client application was not found: " + sshProgram));
                 }
+                if (sshProgram.ToLower().EndsWith("putty.exe")) {
+                    throw new ApplicationException(_("SSH client must be either OpenSSH (ssh) or Plink (plink.exe, _not_ putty.exe)"));
+                }
                 
                 string sshCommand = sshProgram;
                 // ssh options
@@ -175,8 +178,8 @@ namespace Smuxi.Frontend
                     // TODO: pass password,  but how?
                 }
                 if (sshPort != -1) {
-                    // HACK: putty uses -P instead of -p for specifing port
-                    if (sshProgram.ToLower().EndsWith("putty.exe")) {
+                    // HACK: putty/plink use -P instead of -p for specifing port
+                    if (sshProgram.ToLower().EndsWith("plink.exe")) {
                         sshCommand += String.Format(" -P {0}", sshPort);
                     } else {
                         sshCommand += String.Format(" -p {0}", sshPort);

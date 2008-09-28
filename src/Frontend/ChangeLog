@@ -1,5 +1,10 @@
 2008-09-28   <> 
 
+	* EngineManager.cs: We have to use and check for plink.exe and not
+	  putty.exe.
+
+2008-09-28   <> 
+
 	* EngineManager.cs: Check if sshProgram is present on the harddisk.
 	
 	  Added hack for putty support: if sshProgram is putty.exe use -P instead
