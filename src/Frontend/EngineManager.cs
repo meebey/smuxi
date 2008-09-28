@@ -27,6 +27,7 @@
  */
 
 using System;
+using System.IO;
 using System.Net;
 using System.Net.Sockets;
 using System.Collections;
@@ -148,9 +149,11 @@ namespace Smuxi.Frontend
                 
                 if (String.IsNullOrEmpty(sshProgram)) {
                     // TODO: find ssh
-                    sshProgram = "ssh";
+                    sshProgram = "/usr/bin/ssh";
                 }
-                // TODO: check path of sshProgram
+                if (!File.Exists(sshProgram)) {
+                    throw new ApplicationException(_("SSH client application was not found: " + sshProgram));
+                }
                 
                 string sshCommand = sshProgram;
                 // ssh options
@@ -172,7 +175,12 @@ namespace Smuxi.Frontend
                     // TODO: pass password,  but how?
                 }
                 if (sshPort != -1) {
-                    sshCommand += String.Format(" -p {0}", sshPort);
+                    // HACK: putty uses -P instead of -p for specifing port
+                    if (sshProgram.ToLower().EndsWith("putty.exe")) {
+                        sshCommand += String.Format(" -P {0}", sshPort);
+                    } else {
+                        sshCommand += String.Format(" -p {0}", sshPort);
+                    }
                 }
                 
                 // ssh tunnel
