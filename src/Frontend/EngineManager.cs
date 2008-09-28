@@ -158,53 +158,33 @@ namespace Smuxi.Frontend
                     throw new ApplicationException(_("SSH client must be either OpenSSH (ssh) or Plink (plink.exe, _not_ putty.exe)"));
                 }
                 
-                string sshCommand = sshProgram;
-                // ssh options
-                // don't ask for SSH key fingerprints
-                sshCommand += " -o StrictHostKeyChecking=no";
-                // exit if the tunnel setup didn't work somehow
-                sshCommand += " -o ExitOnForwardFailure=yes";
-                // don't execute a remote command
-                sshCommand += " -N";
-                // run in the background (detach)
-                sshCommand += " -f";
-                // HACK: force SSH to always flush the send buffer, as needed by
-                // .NET remoting just like the X11 protocol
-                sshCommand += " -X";
-                if (!String.IsNullOrEmpty(sshUsername)) {
-                    sshCommand += String.Format(" -l {0}", sshUsername);
-                }
-                if (!String.IsNullOrEmpty(sshPassword)) {
-                    // TODO: pass password,  but how?
-                }
-                if (sshPort != -1) {
-                    // HACK: putty/plink use -P instead of -p for specifing port
-                    if (sshProgram.ToLower().EndsWith("plink.exe")) {
-                        sshCommand += String.Format(" -P {0}", sshPort);
-                    } else {
-                        sshCommand += String.Format(" -p {0}", sshPort);
-                    }
+                bool isPutty = false;
+                if (sshProgram.ToLower().EndsWith("plink.exe")) {
+                    isPutty = true;
                 }
                 
-                // ssh tunnel
-                sshCommand += String.Format(" -L 127.0.0.1:{0}:{1}:{2}", port, hostname, port);
-                
-                // ssh back tunnel
-                sshCommand += String.Format(" -R {0}:127.0.0.1:{1}", remotingPort, remotingPort);
-                
-                // ssh host
-                sshCommand += String.Format(" {0}", sshHostname);
+                SysDiag.ProcessStartInfo psi; 
+                if (isPutty) {
+                    psi = CreatePlinkProcessStartInfo(hostname, port, remotingPort,
+                                                      sshProgram, sshUsername,
+                                                      sshPassword, null,
+                                                      sshHostname, sshPort);
+                } else {
+                    psi = CreateOpenSshProcessStartInfo(hostname, port, remotingPort,
+                                                        sshProgram, sshUsername,
+                                                        sshPassword, null,
+                                                        sshHostname, sshPort);
+                }
                 
 #if LOG4NET
-                f_Logger.Debug("Connect(): setting up ssh tunnel using command: " + sshCommand); 
+                f_Logger.Debug("Connect(): setting up ssh tunnel using command: " + psi.FileName + " " + psi.Arguments); 
 #endif
-                f_SshTunnelProcess = SysDiag.Process.Start(sshCommand);
+                f_SshTunnelProcess = SysDiag.Process.Start(psi);
 
-                /*
                 // HACK: give the process some time to fail (exiting)
                 System.Threading.Thread.Sleep(2000);
-                */
                 
+                /*
                 // wait till the tunnels are ready and timeout after 30 seconds
                 bool exited = f_SshTunnelProcess.WaitForExit(30 * 1000);
                 
@@ -218,9 +198,23 @@ namespace Smuxi.Frontend
                     
                     throw new ApplicationException(msg);
                 }
+                */
                 
-                if (f_SshTunnelProcess.ExitCode != 0) {
-                    string msg = String.Format(_("SSH tunnel setup failed: {0}"), f_SshTunnelProcess.ExitCode);
+                if (f_SshTunnelProcess.HasExited && f_SshTunnelProcess.ExitCode != 0) {
+                    string output = f_SshTunnelProcess.StandardOutput.ReadToEnd();
+                    string error = f_SshTunnelProcess.StandardError.ReadToEnd();
+                    string msg = String.Format(
+                        _("SSH tunnel setup failed with (exit code: {0})\n\n" +
+                          "SSH program: {1}\n\n" +
+                          "Program Error:\n" +
+                          "{2}\n" +
+                          "Prgram Output:\n" +
+                          "{3}\n"),
+                        f_SshTunnelProcess.ExitCode,
+                        sshProgram,
+                        error,
+                        output
+                    );
 #if LOG4NET
                     f_Logger.Error("Connect(): " + msg);
 #endif
@@ -342,6 +336,115 @@ namespace Smuxi.Frontend
             if (f_SshTunnelProcess != null && !f_SshTunnelProcess.HasExited) {
                 f_SshTunnelProcess.Kill();
             }
+        }
+        
+        private SysDiag.ProcessStartInfo CreateOpenSshProcessStartInfo(
+                string smuxiHostname, int smuxiPort, int remotingPort,
+                string sshProgram, string sshUsername,
+                string sshPassword, string sshKeyfile,
+                string sshHostname, int sshPort)
+        {
+            Trace.Call(sshProgram, sshUsername, "XXX", sshKeyfile, sshHostname, sshPort);
+        
+            string sshArguments = String.Empty;
+
+            // don't ask for SSH key fingerprints
+            // TOO NASTY!
+            //sshCommand += " -o StrictHostKeyChecking=no";
+            // exit if the tunnel setup didn't work somehow
+            sshArguments += " -o ExitOnForwardFailure=yes";
+            
+            // run in the background (detach)
+            // plink doesn't support this and we can't control the process this way!
+            //sshArguments += " -f";
+            
+            // don't execute a remote command
+            sshArguments += " -N";
+            
+            // HACK: force SSH to always flush the send buffer, as needed by
+            // .NET remoting just like the X11 protocol
+            sshArguments += " -X";
+            
+            if (!String.IsNullOrEmpty(sshUsername)) {
+                sshArguments += String.Format(" -l {0}", sshUsername);
+            }
+            if (!String.IsNullOrEmpty(sshPassword)) {
+                // TODO: pass password,  but how?
+            }
+            if (sshPort != -1) {
+                sshArguments += String.Format(" -p {0}", sshPort);
+            }
+            
+            // ssh tunnel
+            sshArguments += String.Format(" -L 127.0.0.1:{0}:{1}:{2}", smuxiPort, smuxiHostname, smuxiPort);
+            
+            // ssh back tunnel
+            sshArguments += String.Format(" -R {0}:127.0.0.1:{1}", remotingPort, remotingPort);
+            
+            // ssh host
+            sshArguments += String.Format(" {0}", sshHostname);
+        
+            SysDiag.ProcessStartInfo psi = new SysDiag.ProcessStartInfo();
+            psi.FileName = sshProgram;
+            psi.Arguments = sshArguments;
+            psi.UseShellExecute = false;
+            psi.RedirectStandardOutput = true;
+            psi.RedirectStandardError = true;
+            return psi;
+        }
+        
+        private SysDiag.ProcessStartInfo CreatePlinkProcessStartInfo(
+                string smuxiHostname, int smuxiPort, int remotingPort,
+                string sshProgram, string sshUsername,
+                string sshPassword, string sshKeyfile,
+                string sshHostname, int sshPort)
+        {
+            Trace.Call(sshProgram, sshUsername, "XXX", sshKeyfile, sshHostname, sshPort);
+            
+            string sshArguments = String.Empty;
+            
+            // don't ask for SSH key fingerprints
+            // TOO NASTY!
+            //sshArguments += " -auto_store_key_in_cache";
+            
+            // no interactive mode please
+            sshArguments += " -batch";
+            // don't execute a remote command
+            sshArguments += " -N";
+            
+            // HACK: force SSH to always flush the send buffer, as needed by
+            // .NET remoting just like the X11 protocol
+            sshArguments += " -X";
+            
+            if (String.IsNullOrEmpty(sshUsername)) {
+                throw new ApplicationException(_("PuTTY / Plink requeries a username to be set."));
+            }
+            sshArguments += String.Format(" -l {0}", sshUsername);
+            
+            if (!String.IsNullOrEmpty(sshPassword)) {
+                sshArguments += String.Format(" -pw {0}", sshPassword);
+            }
+            
+            if (sshPort != -1) {
+                sshArguments += String.Format(" -P {0}", sshPort);
+            }
+            
+            // ssh tunnel
+            sshArguments += String.Format(" -L 127.0.0.1:{0}:{1}:{2}", smuxiPort, smuxiHostname, smuxiPort);
+            
+            // ssh back tunnel
+            sshArguments += String.Format(" -R {0}:127.0.0.1:{1}", remotingPort, remotingPort);
+            
+            // ssh host
+            sshArguments += String.Format(" {0}", sshHostname);
+        
+            SysDiag.ProcessStartInfo psi = new SysDiag.ProcessStartInfo();
+            psi.FileName = sshProgram;
+            psi.Arguments = sshArguments;
+            psi.UseShellExecute = false;
+            psi.RedirectStandardOutput = true;
+            psi.RedirectStandardError = true;
+            return psi;
         }
         
         private static string _(string msg)

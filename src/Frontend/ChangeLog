@@ -1,5 +1,15 @@
 2008-09-28   <> 
 
+	* EngineManager.cs: Refactored SSH command code into
+	  CreatePlinkProcessStartInfo() and CreateOpenSshProcessStartInfo().
+	
+	  Don't let OpenSSH detach, as that makes process control impossible, and
+	  plink doesn't support it anyhow.
+	
+	  Added ssh program, stderror and stdout to error message.
+
+2008-09-28   <> 
+
 	* EngineManager.cs: We have to use and check for plink.exe and not
 	  putty.exe.
 
