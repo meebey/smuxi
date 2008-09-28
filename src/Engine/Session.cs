@@ -37,7 +37,7 @@ namespace Smuxi.Engine
     public class Session : PermanentRemoteObject, IFrontendUI 
     {
 #if LOG4NET
-        private static readonly log4net.ILog _Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly log4net.ILog f_Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 #endif
         private static readonly string       _LibraryTextDomain = "smuxi-engine";
         private int                                   _Version = 0;
@@ -138,7 +138,7 @@ namespace Smuxi.Engine
                 uri = "local";
             }
 #if LOG4NET
-            _Logger.Debug("Registering UI with URI: "+uri);
+            f_Logger.Debug("Registering UI with URI: "+uri);
 #endif
             // add the FrontendManager to the hashtable with an unique .NET remoting identifier
             FrontendManager fm = new FrontendManager(this, ui);
@@ -230,7 +230,13 @@ namespace Smuxi.Engine
                 }
             }
             if (key == null) {
-                throw new InvalidOperationException("Could not find key for frontend manager in _FrontendManagers.");
+#if LOG4NET
+                f_Logger.Debug("DeregisterFrontendManager(fm): could not find " +
+                               "frontend manager (probably already cleanly " +
+                               " deregistered), ignoring...");
+#endif
+                //throw new InvalidOperationException("Could not find key for frontend manager in _FrontendManagers.");
+                return;
             }
             _FrontendManagers.Remove(key);
         }
@@ -248,7 +254,7 @@ namespace Smuxi.Engine
                 uri = "local";
             }
 #if LOG4NET
-            _Logger.Debug("Deregistering UI with URI: "+uri);
+            f_Logger.Debug("Deregistering UI with URI: "+uri);
 #endif
             _FrontendManagers.Remove(uri);
         }
@@ -734,7 +740,7 @@ namespace Smuxi.Engine
             }
             
 #if LOG4NET
-            _Logger.Debug("AddPersonToGroupChat() groupChat.Name: "+groupChat.Name+" person.IdentityName: "+person.IdentityName);
+            f_Logger.Debug("AddPersonToGroupChat() groupChat.Name: "+groupChat.Name+" person.IdentityName: "+person.IdentityName);
 #endif
             foreach (FrontendManager fm in _FrontendManagers.Values) {
                 fm.AddPersonToGroupChat(groupChat, person);
@@ -754,7 +760,7 @@ namespace Smuxi.Engine
             }
             
 #if LOG4NET
-            _Logger.Debug("UpdatePersonInGroupChat()" +
+            f_Logger.Debug("UpdatePersonInGroupChat()" +
                           " groupChat.Name: " + groupChat.Name +
                           " oldPerson.IdentityName: " + oldPerson.IdentityName +
                           " newPerson.IdentityName: " + newPerson.IdentityName);
@@ -776,7 +782,7 @@ namespace Smuxi.Engine
             }
 
 #if LOG4NET
-            _Logger.Debug("UpdateTopicInGroupChat() groupChat.Name: " + groupChat.Name + " topic: " + topic);
+            f_Logger.Debug("UpdateTopicInGroupChat() groupChat.Name: " + groupChat.Name + " topic: " + topic);
 #endif
             groupChat.Topic = topic;
             foreach (FrontendManager fm in _FrontendManagers.Values) {
@@ -794,7 +800,7 @@ namespace Smuxi.Engine
             }
             
 #if LOG4NET
-            _Logger.Debug("RemovePersonFromGroupChat() groupChat.Name: " + groupChat.Name + " person.ID: "+person.ID);
+            f_Logger.Debug("RemovePersonFromGroupChat() groupChat.Name: " + groupChat.Name + " person.ID: "+person.ID);
 #endif
             groupChat.UnsafePersons.Remove(person.ID.ToLower());
             foreach (FrontendManager fm in _FrontendManagers.Values) {
@@ -809,7 +815,7 @@ namespace Smuxi.Engine
             }
             
 #if LOG4NET
-            _Logger.Debug("SetNetworkStatus() status: "+status);
+            f_Logger.Debug("SetNetworkStatus() status: "+status);
 #endif
             foreach (FrontendManager fm in _FrontendManagers.Values) {
                 fm.SetNetworkStatus(status);
@@ -823,7 +829,7 @@ namespace Smuxi.Engine
             }
             
 #if LOG4NET
-            _Logger.Debug("SetStatus() status: "+status);
+            f_Logger.Debug("SetStatus() status: "+status);
 #endif
             foreach (FrontendManager fm in _FrontendManagers.Values) {
                 fm.SetStatus(status);

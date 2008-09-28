@@ -1,5 +1,11 @@
 2008-09-28   <> 
 
+	* Session.cs: Don't throw exception in
+	  DeregisterFrontendManager(FrontendManager) as the frontend manager might
+	  be cleanly gone already at that point. (closes trac ticket #117)
+
+2008-09-28   <> 
+
 	* Config/FrontendConfig.cs: Implemented SSH tunnel support. (closes trac
 	  ticket #64)
 
