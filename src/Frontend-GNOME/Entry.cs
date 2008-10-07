@@ -207,6 +207,8 @@ namespace Smuxi.Frontend.Gnome
                             e.RetVal = false;
                         }
                         break;
+                    // don't break unicode input
+                    case Gdk.Key.U:
                     // don't break copy/paste
                     case Gdk.Key.c:
                     case Gdk.Key.v:
