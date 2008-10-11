@@ -1,0 +1,102 @@
+# Italian translations for Smuxi package
+# Traduzioni italiane per il pacchetto Smuxi.
+# Copyright (C) 2008 THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# David Paleino <d.paleino@gmail.com>, 2008.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2008-08-25 23:53+0200\n"
+"PO-Revision-Date: 2008-09-29 00:13+0100\n"
+"Last-Translator: David Paleino <d.paleino@gmail.com>\n"
+"Language-Team: Italian\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: ../src/Engine/FrontendManager.cs:193
+msgid "no network connections"
+msgstr "nessuna connessione di rete"
+
+#: ../src/Engine/Protocols/ProtocolManagerBase.cs:140
+msgid "Not connected to server"
+msgstr "Non connesso ad un server"
+
+#: ../src/Engine/Protocols/ProtocolManagerBase.cs:146
+#: ../src/Engine/Session.cs:603
+#, csharp-format
+msgid "Not enough parameters for {0} command"
+msgstr "Non sono stati forniti abbastanza parametri per il comando {0}"
+
+#: ../src/Engine/Session.cs:118
+msgid "Welcome to Smuxi"
+msgstr "Benvenuto in Smuxi"
+
+#: ../src/Engine/Session.cs:187
+#, csharp-format
+msgid "Automatic connect to {0} failed!"
+msgstr "Connessione automatica a {0} fallita!"
+
+#: ../src/Engine/Session.cs:341
+msgid "[Engine Commands]"
+msgstr "[Comandi Engine]"
+
+#: ../src/Engine/Session.cs:445
+#, csharp-format
+msgid "Disconnect failed, could not find server: {0}"
+msgstr "Disconnessione fallita, impossibile trovare il server: {0}"
+
+#: ../src/Engine/Session.cs:479
+msgid "Configuration reloaded"
+msgstr "Configurazione ricaricata"
+
+#: ../src/Engine/Session.cs:484
+msgid "Configuration saved"
+msgstr "Configurazione salvata"
+
+#: ../src/Engine/Session.cs:488
+msgid "Invalid paramater for config, use load or save"
+msgstr "Parametro non valido per config, utilizza load o save"
+
+#: ../src/Engine/Session.cs:518
+msgid "Invalid paramater for network, use list, switch or close"
+msgstr "Parametro non valido per la rete, utilizza list, switch o close"
+
+#: ../src/Engine/Session.cs:529
+msgid "Networks"
+msgstr "Reti"
+
+#: ../src/Engine/Session.cs:532
+msgid "Type"
+msgstr "Tipo"
+
+#: ../src/Engine/Session.cs:533
+msgid "Host"
+msgstr "Host"
+
+#: ../src/Engine/Session.cs:534
+msgid "Port"
+msgstr "Porta"
+
+#: ../src/Engine/Session.cs:553
+#, csharp-format
+msgid "Network close failed, could not find network with host: {0}"
+msgstr "Chiusura rete fallita, impossibile trovare rete con host: {0}"
+
+#: ../src/Engine/Session.cs:585
+#, csharp-format
+msgid "Network switch failed, could not find network with host: {0}"
+msgstr "Cambio di rete fallito, impossibile trovare rete con host: {0}"
+
+#: ../src/Engine/Session.cs:597
+msgid "Not connected to any network"
+msgstr "Non connesso ad alcuna rete"
+
+#: ../src/Engine/Session.cs:837
+#, csharp-format
+msgid "Unknown protocol: {0}"
+msgstr "Protocollo sconosciuto: {0}"
+

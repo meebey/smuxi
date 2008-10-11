@@ -48,7 +48,8 @@ namespace Smuxi.Frontend.Gnome
             TranslatorCredits = _("German") + " - Mirco Bauer <meebey@meebey.net>\n" +
                                 _("Spanish") + " - Juan Miguel Carrero <streinleght@gmail.com>\n" +
                                 _("British English") + " - Ryan Smith-Evans <Kimera.Kimera@gmail.com>\n" +
-                                _("French") + " - Clement BOURGEOIS <moonpyk@gmail.com>";
+                                _("French") + " - Clement BOURGEOIS <moonpyk@gmail.com>\n" +
+                                _("Italian") + " - David Paleino <d.paleino@gmail.com>";
             Logo = new Gdk.Pixbuf(null, "about.png");
             Website = "http://www.smuxi.org/";
             WebsiteLabel = _("Smuxi Website");

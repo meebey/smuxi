@@ -376,7 +376,11 @@ msgstr "British English"
 msgid "French"
 msgstr "French"
 
-#: ../src/Frontend-GNOME/AboutDialog.cs:54
+#: ../src/Frontend-GNOME/AboutDialog.cs:52
+msgid "Italian"
+msgstr "Italian"
+
+#: ../src/Frontend-GNOME/AboutDialog.cs:55
 msgid "Smuxi Website"
 msgstr "Smuxi Website"
 

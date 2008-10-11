@@ -1,0 +1,252 @@
+# Italian translations for Smuxi package
+# Traduzioni italiane per il pacchetto Smuxi..
+# Copyright (C) 2008 THE Smuxi'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the Smuxi package.
+# David Paleino <d.paleino@gmail.com>, 2008.
+#
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Smuxi VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2008-09-02 23:09+0200\n"
+"PO-Revision-Date: 2008-09-29 00:26+0100\n"
+"Last-Translator: David Paleino <d.paleino@gmail.com>\n"
+"Language-Team: Italian\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:195
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1032
+msgid "away"
+msgstr "non presente"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:198
+msgid "not connected"
+msgstr "non connesso"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:204
+msgid "lag"
+msgstr "ritardo"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:206
+msgid "seconds"
+msgstr "secondi"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:267
+#, csharp-format
+msgid "Connecting to {0} port {1}..."
+msgstr "Connessione a {0} porta {1}..."
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:273
+#, csharp-format
+msgid "Connection to {0} established"
+msgstr "Connessione a {0} stabilita"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:276
+msgid "Logging in..."
+msgstr "Accesso in corso..."
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:298
+msgid "Connection failed!"
+msgstr "Connessione fallita!"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:299
+msgid "Connection failed! Reason: "
+msgstr "Connessione fallita! Motivo: "
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:308
+msgid "Disconnecting..."
+msgstr "Disconnessione..."
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:311
+#, csharp-format
+msgid "Disconnecting from {0}..."
+msgstr "Disconnessione da {0}..."
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:315
+#, csharp-format
+msgid "Disconnected from {0}"
+msgstr "Disconnesso da {0}"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:317
+msgid "Connection closed"
+msgstr "Connessione chiusa"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:321
+msgid "Not connected!"
+msgstr "Non connesso!"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:323
+msgid "Not connected"
+msgstr "Non connesso"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:629
+msgid "[IrcProtocolManager Commands]"
+msgstr "[Comandi IrcProtocolManager]"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:692
+#, csharp-format
+msgid "Invalid port: {0}"
+msgstr "Porta non valida: {0}"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:778
+#, csharp-format
+msgid "Already joined to channel: {0}. Type /window {0} to switch to it."
+msgstr "Già nel canale: {0}. Scrivi /window {0} per potervi accedere."
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1019
+msgid "IRC Op"
+msgstr "Operatore IRC"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1021
+msgid "Op"
+msgstr "Operatore"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1023
+msgid "Voice"
+msgstr "Voce"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1071
+#, csharp-format
+msgid "Topic for {0}: {1}"
+msgstr "Argomento per {0}: {1}"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1074
+#, csharp-format
+msgid "No topic set for {0}"
+msgstr "Nessun argomento impostato per {0}"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1168
+msgid "ban"
+msgstr "ban"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1178
+msgid "No bans in channel"
+msgstr "Nessun ban nel canale"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1288
+#, csharp-format
+msgid "Inviting {0} to {1}"
+msgstr "Invito in corso di {0} su {1}"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1292
+#, csharp-format
+msgid "{0} is already on channel"
+msgstr "{0} è già nel canale"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1418
+msgid "Connection error! Reason: "
+msgstr "Errore di connessione! Motivo: "
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1426
+#, csharp-format
+msgid "Not enough parameters for {0} command"
+msgstr "Non sono stati forniti abbastanza parametri per il comando {0}"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1431
+msgid "Not connected to server"
+msgstr "Non connesso ad un server"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1684
+#, csharp-format
+msgid "{0}: No such nick/channel"
+msgstr "{0}: Nessun nick o canale simile"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1747
+msgid "Nick"
+msgstr "Nick"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1756
+msgid "is already in use"
+msgstr "è già in uso"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1768
+msgid "Cannot join to channel:"
+msgstr "Impossibile accedere al canale:"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1777
+msgid "You are banned"
+msgstr "Sei bandito"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1850
+#, csharp-format
+msgid "{0} [{1}] requested CTCP {2} from {3}: {4}"
+msgstr "{0} [{1}] ha richiesto CTCP {2} da {3}: {4}"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1867
+#, csharp-format
+msgid "CTCP PING reply from {0}: {1} seconds"
+msgstr "Risposta CTCP PING da {0}: {1} secondi"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1873
+#, csharp-format
+msgid "CTCP {0} reply from {1}: {2}"
+msgstr "Risposta CTCP {0} da {1}: {2}"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2073
+#, csharp-format
+msgid "{0} [{1}] has joined {2}"
+msgstr "{0} [{1}] è entrato in {2}"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2193
+#, csharp-format
+msgid "{0} [{1}] has left {2} [{3}]"
+msgstr "{0} [{1}] ha lasciato {2} [{3}]"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2212
+#, csharp-format
+msgid "You was kicked from {0} by {1} [{2}]"
+msgstr "Sei stato cacciato da {0} da {1} [{2}]"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2220
+#, csharp-format
+msgid "{0} was kicked from {1} by {2} [{3}]"
+msgstr "{0} è stato cacciato da {1} da {2} [{3}]"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2236
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2280
+#, csharp-format
+msgid "You're now known as {0}"
+msgstr "Sei ora conosciuto come {0}"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2306
+#, csharp-format
+msgid "{0} is now known as {1}"
+msgstr "{0} è ora conosciuto come {1}"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2333
+#, csharp-format
+msgid "{0} changed the topic of {1} to: {2}"
+msgstr "{0} ha cambiato l'argomento di {1} in: {2}"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2400
+#, csharp-format
+msgid "Mode change [{0}] for user {1}"
+msgstr "Cambio modalità [{0}] per l'utente {1}"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2413
+#, csharp-format
+msgid "mode/{0} [{1}] by {2}"
+msgstr "mode/{0} [{1}] di {2}"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2441
+#, csharp-format
+msgid "{0} [{1}] has quit [{2}]"
+msgstr "{0} [{1}] si è disconnesso [{2}]"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2522
+#, csharp-format
+msgid "{0} is away: {1}"
+msgstr "{0} non è presente: {1}"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2528
+msgid "You are no longer marked as being away"
+msgstr "Non sei più segnato come non presente"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2534
+msgid "You have been marked as being away"
+msgstr "Sei stato segnato come non presente"
+
