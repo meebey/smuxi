@@ -108,21 +108,35 @@ namespace Smuxi.Engine
             _ProtocolManagers = new List<IProtocolManager>();
             _Chats = new List<ChatModel>();
             _UserConfig = new UserConfig(config, username);
+            if (username == "local") {
+                // OPT: disable engine buffer lines for local sessions
+                // well, we can't disable them completly because the time between
+                // a chat is created and then synced might be messages added!
+                // hopefully 10 messages will always be enough....
+                _UserConfig["Interface/Notebook/EngineBufferLines"] = 10;
+            }
             
             _SessionChat = new SessionChatModel("smuxi", "smuxi");
             _Chats.Add(_SessionChat);
             
-            MessageModel msg = new MessageModel();
+            MessageModel msg;
+            msg = new MessageModel();
             msg.MessageParts.Add(
                 new TextMessagePartModel(new TextColor(0xFF0000), null, false,
                         true, false, _("Welcome to Smuxi")));
+            AddMessageToChat(_SessionChat, msg);
+            
+            msg = new MessageModel();
             msg.MessageParts.Add(
                 new TextMessagePartModel(null, null, false,
                         true, false, _("Type /help to get a list of available commands.")));
+            AddMessageToChat(_SessionChat, msg);
+
+            msg = new MessageModel();
             msg.MessageParts.Add(
                 new TextMessagePartModel(null, null, false,
                         true, false, _("After you have made a connection the list of available commands changes, just use /help again.")));
-            AddMessageToChat(_SessionChat, msg); 
+            AddMessageToChat(_SessionChat, msg);
         }
         
         public void RegisterFrontendUI(IFrontendUI ui)
@@ -717,7 +731,7 @@ namespace Smuxi.Engine
                 throw new ArgumentNullException("msg");
             }
             
-            int buffer_lines = (int)UserConfig["Interface/Notebook/EngineBufferLines"];
+            int buffer_lines = (int) UserConfig["Interface/Notebook/EngineBufferLines"];
             if (buffer_lines > 0) {
                 chat.UnsafeMessages.Add(msg);
                 if (chat.UnsafeMessages.Count > buffer_lines) {

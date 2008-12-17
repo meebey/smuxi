@@ -1,3 +1,10 @@
+2008-12-18   <> 
+
+	* Session.cs: Limit engine buffer lines to 10 for local sessions. (closes
+	  trac ticket #114)
+	
+	  Fixed help message on the smuxi page.
+
 2008-12-17   <> 
 
 	* Messages/MessagePartModel.cs, Messages/TextMessagePartModel.cs: Use nicer
