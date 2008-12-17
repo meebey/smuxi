@@ -1,5 +1,10 @@
 2008-12-18   <> 
 
+	* Config/Config.cs: Increased default buffer lines from 100 to 500, else we
+	  have almost no backlog.
+
+2008-12-18   <> 
+
 	* Session.cs: Limit engine buffer lines to 10 for local sessions. (closes
 	  trac ticket #114)
 	

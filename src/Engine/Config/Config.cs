@@ -201,7 +201,7 @@ namespace Smuxi.Engine
             prefix = "Engine/Users/DEFAULT/Interface/Notebook/";
             Get(prefix+"TimestampFormat", "HH:mm");
             Get(prefix+"TabPosition", "top");
-            Get(prefix+"BufferLines", 100);
+            Get(prefix+"BufferLines", 500);
             Get(prefix+"EngineBufferLines", 100);
             Get(prefix+"StripColors", false);
             Get(prefix+"StripFormattings", false);
