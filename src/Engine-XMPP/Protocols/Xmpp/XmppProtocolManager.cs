@@ -37,6 +37,7 @@ using System.Globalization;
 using jabber.client;
 using jabber.connection;
 using jabber.protocol.client;
+using jabberMessageType = jabber.protocol.client.MessageType;
 
 using Smuxi.Common;
 
@@ -318,7 +319,7 @@ namespace Smuxi.Engine
         private void _OnMessage(object sender, Message xmppMsg)
         {
             // TODO: implement group chat
-            if (xmppMsg.Type == MessageType.chat) {
+            if (xmppMsg.Type == jabberMessageType.chat) {
                 string jid = xmppMsg.From.ToString();
                 string user = xmppMsg.From.User;
                 ChatModel chat = Session.GetChat(user, ChatType.Person, this);

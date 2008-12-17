@@ -1659,6 +1659,7 @@ namespace Smuxi.Engine
                         break;
                     case ReceiveType.Motd:
                         MessageModel fmsg = new MessageModel();
+                        fmsg.MessageType = MessageType.Event;
                         _IrcMessageToMessageModel(ref fmsg, e.Data.Message);
                         Session.AddMessageToChat(_NetworkChat, fmsg);
                         break;
@@ -2058,6 +2059,7 @@ namespace Smuxi.Engine
             }
             
             MessageModel msg = new MessageModel();
+            msg.MessageType = MessageType.Event;
             TextMessagePartModel textMsgPart;
             
             textMsgPart = new TextMessagePartModel();
@@ -2177,6 +2179,7 @@ namespace Smuxi.Engine
             Session.RemovePersonFromGroupChat(groupChat, person);
             
             MessageModel msg = new MessageModel();
+            msg.MessageType = MessageType.Event;
             TextMessagePartModel textMsgPart;
             
             textMsgPart = new TextMessagePartModel();
@@ -2229,6 +2232,7 @@ namespace Smuxi.Engine
 #endif
             if (e.Data.Irc.IsMe(e.NewNickname)) {
                 MessageModel msg = new MessageModel();
+                msg.MessageType = MessageType.Event;
                 TextMessagePartModel textMsg;
                 
                 textMsg = new TextMessagePartModel();
@@ -2273,6 +2277,7 @@ namespace Smuxi.Engine
                     
                     if (e.Data.Irc.IsMe(e.NewNickname)) {
                         MessageModel msg = new MessageModel();
+                        msg.MessageType = MessageType.Event;
                         TextMessagePartModel textMsg;
                         
                         textMsg = new TextMessagePartModel();
@@ -2290,6 +2295,7 @@ namespace Smuxi.Engine
                         Session.AddMessageToChat(cchat, msg);
                     } else {
                         MessageModel msg = new MessageModel();
+                        msg.MessageType = MessageType.Event;
                         TextMessagePartModel textMsg;
                 
                         textMsg = new TextMessagePartModel();
@@ -2425,6 +2431,7 @@ namespace Smuxi.Engine
                 // _OnDisconnect() handles this
             } else {
                 MessageModel quitMsg = new MessageModel();
+                quitMsg.MessageType = MessageType.Event;
                 TextMessagePartModel textMsg;
         
                 textMsg = new TextMessagePartModel();

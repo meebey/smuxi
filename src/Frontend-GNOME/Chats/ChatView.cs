@@ -54,6 +54,8 @@ namespace Smuxi.Frontend.Gnome
         private   bool               _AtUrlTag;
         private   ChatModel          _ChatModel;
         private   bool               _HasHighlight;
+        private   bool               _HasActivity;
+        private   bool               _HasEvent;
         private   Gtk.TextMark       _EndMark;
         private   Gtk.Menu           _TabMenu;
         private   Gtk.Label          _TabLabel;
@@ -91,7 +93,12 @@ namespace Smuxi.Frontend.Gnome
         }
         
         public bool HasActivity {
+            get {
+                return _HasActivity;
+            }
             set {
+                _HasActivity = value;
+                
                 if (HasHighlight) {
                     // don't show activity if there is a highlight active
                     return;
@@ -103,6 +110,29 @@ namespace Smuxi.Frontend.Gnome
                 } else {
                     color = (string) Frontend.UserConfig["Interface/Notebook/Tab/NoActivityColor"];
                 }
+                _TabLabel.Markup = String.Format("<span foreground=\"{0}\">{1}</span>", color, _Name);
+            }
+        }
+        
+        public bool HasEvent {
+            get {
+                return _HasEvent;
+            }
+            set {
+                if (HasHighlight) {
+                    return;
+                }
+                if (HasActivity) {
+                    return;
+                }
+                
+                if (!value) {
+                    // clear event with "no activity"
+                    HasActivity = false;
+                    return;
+                }
+                
+                string color = (string) Frontend.UserConfig["Interface/Notebook/Tab/EventColor"];
                 _TabLabel.Markup = String.Format("<span foreground=\"{0}\">{1}</span>", color, _Name);
             }
         }
@@ -466,7 +496,14 @@ namespace Smuxi.Frontend.Gnome
                     HasHighlight = true;
                 }
                 
-                HasActivity = true;
+                switch (msg.MessageType) {
+                    case MessageType.Normal:
+                        HasActivity = true;
+                        break;
+                    case MessageType.Event:
+                        HasEvent = true;
+                        break;
+                }
             }
         }
         

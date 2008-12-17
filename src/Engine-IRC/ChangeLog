@@ -1,3 +1,8 @@
+2008-12-17   <> 
+
+	* Protocols/Irc/IrcProtocolManager.cs: Implemented distinction of event and
+	  normal messages. (closes trac ticket #66)
+
 2008-08-31  Mirco Bauer <meebey@meebey.net> 
 
 	* Engine-IRC.mdp: Added po files to MonoDevelop projects.

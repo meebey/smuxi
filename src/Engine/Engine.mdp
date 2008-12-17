@@ -59,6 +59,7 @@
     <File name="../../po-Engine/da.po" subtype="Code" buildaction="Nothing" />
     <File name="../../po-Engine/de.po" subtype="Code" buildaction="Nothing" />
     <File name="../../po-Engine/es.po" subtype="Code" buildaction="Nothing" />
+    <File name="Messages/MessageType.cs" subtype="Code" buildaction="Compile" />
   </Contents>
   <References>
     <ProjectReference type="Assembly" localcopy="True" refto="../../lib/log4net.dll" />

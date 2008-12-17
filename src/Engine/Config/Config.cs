@@ -209,7 +209,7 @@ namespace Smuxi.Engine
             prefix = "Engine/Users/DEFAULT/Interface/Notebook/Tab/";
             Get(prefix+"NoActivityColor", "#000000");
             Get(prefix+"ActivityColor",   "#0080FF");
-            Get(prefix+"ModeColor",       "#2020C0");
+            Get(prefix+"EventColor",      "#2020C0");
             Get(prefix+"HighlightColor",  "#E80000");
             
             prefix = "Engine/Users/DEFAULT/Interface/Notebook/Channel/";

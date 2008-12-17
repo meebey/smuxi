@@ -36,32 +36,47 @@ namespace Smuxi.Engine
     [Serializable]
     public class MessageModel : ISerializable
     {
-        private DateTime                _TimeStamp;
-        private IList<MessagePartModel> _MessageParts;
+        private DateTime                f_TimeStamp;
+        private IList<MessagePartModel> f_MessageParts;
+        private MessageType             f_MessageType;
 
         public DateTime TimeStamp {
             get {
-                return _TimeStamp;
+                return f_TimeStamp;
             }
         }
         
         public IList<MessagePartModel> MessageParts {
             get {
-                return _MessageParts;
+                return f_MessageParts;
+            }
+        }
+        
+        public MessageType MessageType {
+            get {
+                return f_MessageType;
+            }
+            set {
+                f_MessageType = value;
             }
         }
         
         public MessageModel()
         {
-            _TimeStamp    = DateTime.UtcNow;
-            _MessageParts = new List<MessagePartModel>();
+            f_TimeStamp    = DateTime.UtcNow;
+            f_MessageParts = new List<MessagePartModel>();
         }
         
-        public MessageModel(string text) : this()
+        public MessageModel(string text, MessageType msgType) : this()
         {
-            _MessageParts.Add(new TextMessagePartModel(null, null, false, false, false, text));
+            f_MessageParts.Add(new TextMessagePartModel(null, null, false, false, false, text));
+            f_MessageType = msgType;
         }
 
+        public MessageModel(string text) : this(text, MessageType.Normal)
+        {
+        }
+        
         protected MessageModel(SerializationInfo info, StreamingContext ctx)
         {
             SerializationReader sr = SerializationReader.GetReader(info);
@@ -70,14 +85,16 @@ namespace Smuxi.Engine
         
         protected virtual void SetObjectData(SerializationReader sr)
         {
-            _TimeStamp    = sr.ReadDateTime();
-            _MessageParts = sr.ReadList<MessagePartModel>();
+            f_TimeStamp    = sr.ReadDateTime();
+            f_MessageParts = sr.ReadList<MessagePartModel>();
+            f_MessageType  = (MessageType) sr.ReadInt32();
         }
         
         protected virtual void GetObjectData(SerializationWriter sw)
         {
-            sw.Write(_TimeStamp);
-            sw.Write(_MessageParts);
+            sw.Write(f_TimeStamp);
+            sw.Write(f_MessageParts);
+            sw.Write((Int32) f_MessageType);
         }
         
         public virtual void GetObjectData(SerializationInfo info, StreamingContext ctx) 

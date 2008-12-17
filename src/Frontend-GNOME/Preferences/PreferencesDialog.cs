@@ -282,7 +282,7 @@ namespace Smuxi.Frontend.Gnome
             colorButton.Color = ColorTools.GetGdkColor(colorHexCode);
 
             colorButton = (Gtk.ColorButton)_Glade["ModeColorButton"];
-            colorHexCode = (string)Frontend.UserConfig["Interface/Notebook/Tab/ModeColor"];
+            colorHexCode = (string)Frontend.UserConfig["Interface/Notebook/Tab/EventColor"];
             colorButton.Color = ColorTools.GetGdkColor(colorHexCode);
             
             colorButton = (Gtk.ColorButton)_Glade["HighlightColorButton"];
@@ -441,7 +441,7 @@ namespace Smuxi.Frontend.Gnome
                 ColorTools.GetHexCodeColor(((Gtk.ColorButton)_Glade["NoActivityColorButton"]).Color);
             Frontend.UserConfig[prefix + "ActivityColor"] =
                 ColorTools.GetHexCodeColor(((Gtk.ColorButton)_Glade["ActivityColorButton"]).Color);
-            Frontend.UserConfig[prefix + "ModeColor"] =
+            Frontend.UserConfig[prefix + "EventColor"] =
                 ColorTools.GetHexCodeColor(((Gtk.ColorButton)_Glade["ModeColorButton"]).Color);
             Frontend.UserConfig[prefix + "HighlightColor"] =
                 ColorTools.GetHexCodeColor(((Gtk.ColorButton)_Glade["HighlightColorButton"]).Color);

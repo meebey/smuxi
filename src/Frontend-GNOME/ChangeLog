@@ -1,3 +1,9 @@
+2008-12-17   <> 
+
+	* Preferences/PreferencesDialog.cs: Renamed ModeColor to EventColor.
+	* Chats/ChatView.cs: Added HasEvent property and use it in AddMesage() with
+	  checking MessageType.
+
 2008-10-08   <> 
 
 	* Entry.cs: support unicode input using ctrl+shift+u+hexnumber
