@@ -7,7 +7,7 @@
  *
  * smuxi - Smart MUltipleXed Irc
  *
- * Copyright (c) 2008 Alan McGovern Alan McGovern <alan.mcgovern@gmail.com>
+ * Copyright (c) 2008 Alan McGovern <alan.mcgovern@gmail.com>
  * Copyright (c) 2008 Mirco Bauer <meebey@meebey.net>
  *
  * Full GPL License: <http://www.gnu.org/licenses/gpl.txt>

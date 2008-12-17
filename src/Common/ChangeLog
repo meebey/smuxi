@@ -1,3 +1,7 @@
+2008-12-17   <> 
+
+	* TaskQueue.cs: Fixed name.
+
 2008-09-23   <> 
 
 	* Common.mdp, TaskQueue.cs: Replaced poor mans Queue in FrontendManager with

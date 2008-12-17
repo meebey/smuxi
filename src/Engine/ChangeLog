@@ -1,5 +1,10 @@
 2008-12-17   <> 
 
+	* Messages/MessagePartModel.cs, Messages/TextMessagePartModel.cs: Use nicer
+	  field name convention.
+
+2008-12-17   <> 
+
 	* Config/Config.cs: Renamed ModeColor to EventColor.
 	* Messages/MessageModel.cs: Added MessageType.
 

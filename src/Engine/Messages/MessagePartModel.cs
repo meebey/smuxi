@@ -35,14 +35,14 @@ namespace Smuxi.Engine
     [Serializable]
     public abstract class MessagePartModel : ISerializable
     {
-        private bool                     _IsHighlight;
+        private bool                     f_IsHighlight;
         
         public bool IsHighlight {
             get {
-                return _IsHighlight;
+                return f_IsHighlight;
             }
             set {
-                _IsHighlight = value;
+                f_IsHighlight = value;
             }
         }
         
@@ -52,7 +52,7 @@ namespace Smuxi.Engine
 
         protected MessagePartModel(bool highlight)
         {
-            _IsHighlight = highlight;
+            f_IsHighlight = highlight;
         }
 
         protected MessagePartModel(SerializationInfo info, StreamingContext ctx)
@@ -63,12 +63,12 @@ namespace Smuxi.Engine
         
         protected virtual void SetObjectData(SerializationReader sr)
         {
-            _IsHighlight = sr.ReadBoolean();
+            f_IsHighlight = sr.ReadBoolean();
         }
         
         protected virtual void GetObjectData(SerializationWriter sw)
         {
-            sw.Write(_IsHighlight);
+            sw.Write(f_IsHighlight);
         }
         
         public virtual void GetObjectData(SerializationInfo info, StreamingContext ctx) 

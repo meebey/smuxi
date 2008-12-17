@@ -35,72 +35,72 @@ namespace Smuxi.Engine
     [Serializable]
     public class TextMessagePartModel : MessagePartModel
     {
-        private TextColor _ForegroundColor;
-        private TextColor _BackgroundColor;
-        private bool      _Underline;
-        private bool      _Bold;
-        private bool      _Italic;
-        private string    _Text;
+        private TextColor f_ForegroundColor;
+        private TextColor f_BackgroundColor;
+        private bool      f_Underline;
+        private bool      f_Bold;
+        private bool      f_Italic;
+        private string    f_Text;
         
         public TextColor ForegroundColor {
             get {
-                return _ForegroundColor;
+                return f_ForegroundColor;
             }
             set {
-                _ForegroundColor = value;
+                f_ForegroundColor = value;
             }
         }
         
         public TextColor BackgroundColor {
             get {
-                return _BackgroundColor;
+                return f_BackgroundColor;
             }
             set {
-                _BackgroundColor = value;
+                f_BackgroundColor = value;
             }
         }
         
         public bool Underline {
             get {
-                return _Underline;
+                return f_Underline;
             }
             set {
-                _Underline = value;
+                f_Underline = value;
             }
         }
         
         public bool Bold {
             get {
-                return _Bold;
+                return f_Bold;
             }
             set {
-                _Bold = value;
+                f_Bold = value;
             }
         }
         
         public bool Italic {
             get {
-                return _Italic;
+                return f_Italic;
             }
             set {
-                _Italic = value;
+                f_Italic = value;
             }
         }
         
         public string Text {
             get {
-                return _Text;
+                return f_Text;
             }
             set {
-                _Text = value;
+                f_Text = value;
             }
         }
         
         public TextMessagePartModel() :
                                base()
         {
-            _ForegroundColor = new TextColor();
-            _BackgroundColor = new TextColor();
+            f_ForegroundColor = new TextColor();
+            f_BackgroundColor = new TextColor();
         }
         
         public TextMessagePartModel(string text) :
@@ -119,21 +119,21 @@ namespace Smuxi.Engine
                                base(highlight)
         {
             if (fgColor != null) {
-                _ForegroundColor = fgColor;
+                f_ForegroundColor = fgColor;
             } else {
-                _ForegroundColor = new TextColor();
+                f_ForegroundColor = new TextColor();
             }
             
             if (bgColor != null) {
-                _BackgroundColor = bgColor;
+                f_BackgroundColor = bgColor;
             } else {
-                _BackgroundColor = new TextColor();
+                f_BackgroundColor = new TextColor();
             }
             
-            _Underline = underline;
-            _Bold      = bold;
-            _Italic    = italic;
-            _Text      = text;
+            f_Underline = underline;
+            f_Bold      = bold;
+            f_Italic    = italic;
+            f_Text      = text;
         }
         
         public TextMessagePartModel(TextColor fgColor, TextColor bgColor,
@@ -152,24 +152,24 @@ namespace Smuxi.Engine
         {
             base.SetObjectData(sr);
             
-            _ForegroundColor = new TextColor(sr.ReadInt32());
-            _BackgroundColor = new TextColor(sr.ReadInt32());
-            _Underline       = sr.ReadBoolean();
-            _Bold            = sr.ReadBoolean();
-            _Italic          = sr.ReadBoolean();
-            _Text            = sr.ReadString();
+            f_ForegroundColor = new TextColor(sr.ReadInt32());
+            f_BackgroundColor = new TextColor(sr.ReadInt32());
+            f_Underline       = sr.ReadBoolean();
+            f_Bold            = sr.ReadBoolean();
+            f_Italic          = sr.ReadBoolean();
+            f_Text            = sr.ReadString();
         }
         
         protected override void GetObjectData(SerializationWriter sw)
         {
             base.GetObjectData(sw);
 
-            sw.Write(_ForegroundColor.Value);
-            sw.Write(_BackgroundColor.Value);
-            sw.Write(_Underline);
-            sw.Write(_Bold);
-            sw.Write(_Italic);
-            sw.Write(_Text);
+            sw.Write(f_ForegroundColor.Value);
+            sw.Write(f_BackgroundColor.Value);
+            sw.Write(f_Underline);
+            sw.Write(f_Bold);
+            sw.Write(f_Italic);
+            sw.Write(f_Text);
         }
     }
 }
