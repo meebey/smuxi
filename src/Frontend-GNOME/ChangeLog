@@ -1,5 +1,14 @@
 2008-12-17   <> 
 
+	* Chats/ChatView.cs: Only check if text was selected, instead of checking if
+	  the chat has a selection, as the property is overridden in
+	  GroupChatView. (part of fixing trac bug #112)
+	* Chats/GroupChatView.cs: Destroy the selection when the treeview looses the
+	  focus and don't let the context menu grab the focus. (part of fixing
+	  trac bug #112)
+
+2008-12-17   <> 
+
 	* Preferences/PreferencesDialog.cs: Renamed ModeColor to EventColor.
 	* Chats/ChatView.cs: Added HasEvent property and use it in AddMesage() with
 	  checking MessageType.

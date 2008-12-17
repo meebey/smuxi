@@ -129,9 +129,13 @@ namespace Smuxi.Frontend.Gnome
             
             tv.Model = liststore;
             tv.RowActivated += new Gtk.RowActivatedHandler(OnPersonsRowActivated);
-           
+            tv.FocusOutEvent += OnPersonTreeViewFocusOutEvent;
+            
             // popup menu
             _PersonMenu = new Gtk.Menu();
+            // don't loose the focus else we loose the selection too!
+            // see OnPersonTreeViewFocusOutEvent()
+            _PersonMenu.TakeFocus = false;
             
             _PersonTreeView.ButtonPressEvent += _OnPersonTreeViewButtonPressEvent;
             // frame needed for events when selecting something in the treeview
@@ -485,6 +489,14 @@ namespace Smuxi.Frontend.Gnome
             Trace.Call(sender, e);
         }
         
+        protected virtual void OnPersonTreeViewFocusOutEvent(object sender, EventArgs e)
+        {
+            Trace.Call(sender, e);
+
+            // clear the selection when we loose the focus
+            _PersonTreeView.Selection.UnselectAll();
+        }
+        
         private void _OnUserListButtonReleaseEvent(object sender, Gtk.ButtonReleaseEventArgs e)
         {
             Trace.Call(sender, e);
@@ -500,7 +512,9 @@ namespace Smuxi.Frontend.Gnome
         {
             Trace.Call(sender, e);
             
-            // if there is an existing selection prevent making a new one using the right mouse button 
+            // If there is an existing selection prevent making a new one using
+            // the right mouse button.
+            // We have to check > 1 though, because you can't undo a single row selection!
             if (e.Event.Button == 3 && _PersonTreeView.Selection.CountSelectedRows() > 1) {
                 e.RetVal = true;
             }

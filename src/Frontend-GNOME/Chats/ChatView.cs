@@ -137,7 +137,7 @@ namespace Smuxi.Frontend.Gnome
             }
         }
         
-        public virtual bool HasSelection {
+        public bool HasTextViewSelection {
             get {
 #if GTK_SHARP_2_10
                 return _OutputTextView.Buffer.HasSelection;
@@ -146,6 +146,12 @@ namespace Smuxi.Frontend.Gnome
                 _OutputTextView.Buffer.GetSelectionBounds(out start, out end);
                 return start.Offset != end.Offset;
 #endif
+            }
+        }
+        
+        public virtual bool HasSelection {
+            get {
+                return HasTextViewSelection;
             }
         }
         
@@ -651,8 +657,8 @@ namespace Smuxi.Frontend.Gnome
             Gtk.TextIter start = Gtk.TextIter.Zero;
             Gtk.TextIter end = Gtk.TextIter.Zero;
 
-            // if something is selected, bail out
-            if (HasSelection) {
+            // if something in the textview is selected, bail out
+            if (HasTextViewSelection) {
                 return;
             }
             
