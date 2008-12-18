@@ -1,3 +1,9 @@
+2008-12-19   <> 
+
+	* MainWindow.cs: Changed the event that quits the application from Destroyed
+	  to DeleteEvent, else we can't get the last window size when the window
+	  is already gone. (closes trac bug #121)
+
 2008-12-17   <> 
 
 	* Chats/ChatView.cs: Only check if text was selected, instead of checking if

@@ -162,8 +162,8 @@ namespace Smuxi.Frontend.Gnome
                 Move(x, y);
             }
             
-            Destroyed += new EventHandler(_OnDestroyed);
-            FocusInEvent += new Gtk.FocusInEventHandler(_OnFocusInEvent);
+            DeleteEvent += OnDeleteEvent;
+            FocusInEvent += OnFocusInEvent;
             
             Gtk.AccelGroup agrp = new Gtk.AccelGroup();
             Gtk.AccelKey   akey;
@@ -256,6 +256,30 @@ namespace Smuxi.Frontend.Gnome
             radio_item = new Gtk.RadioMenuItem(radio_item);
                     
             menu.Append(new Gtk.SeparatorMenuItem());
+            */
+            
+            /*
+            image_item = new Gtk.ImageMenuItem(Gtk.Stock.Find, agrp);
+            image_item.Activated += OnFindChatMenuItemActivated;
+            menu.Append(image_item);
+            
+            item = new Gtk.MenuItem(_("Find _Next"));
+            item.Activated += OnFindNextChatMenuItemActivated;
+            akey = new Gtk.AccelKey();
+            akey.AccelFlags = Gtk.AccelFlags.Visible;
+            akey.AccelMods = Gdk.ModifierType.ControlMask;
+            akey.Key = Gdk.Key.G;
+            item.AddAccelerator("activate", agrp, akey);
+            menu.Append(item);
+            
+            item = new Gtk.MenuItem(_("Find _Previous"));
+            item.Activated += OnFindPreviousChatMenuItemActivated;
+            akey = new Gtk.AccelKey();
+            akey.AccelFlags = Gtk.AccelFlags.Visible;
+            akey.AccelMods = Gdk.ModifierType.ControlMask | Gdk.ModifierType.ShiftMask;
+            akey.Key = Gdk.Key.G;
+            item.AddAccelerator("activate", agrp, akey);
+            menu.Append(item);
             */
             
             _CloseChatMenuItem = new Gtk.ImageMenuItem(Gtk.Stock.Close, agrp);
@@ -390,9 +414,9 @@ namespace Smuxi.Frontend.Gnome
             }
         }
 
-        private void _OnDestroyed(object obj, EventArgs args)
+        protected virtual void OnDeleteEvent(object sender, EventArgs e)
         {
-            Trace.Call(obj, args);
+            Trace.Call(sender, e);
             
             try {
                 Frontend.Quit();
@@ -401,9 +425,9 @@ namespace Smuxi.Frontend.Gnome
             }
         }
     
-        private void _OnFocusInEvent(object obj, EventArgs args)
+        protected virtual void OnFocusInEvent(object sender, EventArgs e)
         {
-            Trace.Call(obj, args);
+            Trace.Call(sender, e);
             
             try {
                 UrgencyHint = false;
@@ -454,6 +478,7 @@ namespace Smuxi.Frontend.Gnome
             }
         }
 
+#region Item Event Handlers
         protected virtual void OnServerAddButtonClicked(object sender, EventArgs e)
         {
             Trace.Call(sender, e);
@@ -511,6 +536,36 @@ namespace Smuxi.Frontend.Gnome
             }
         }
         
+        protected virtual void OnFindChatMenuItemActivated(object sender, EventArgs e)
+        {
+            Trace.Call(sender, e);
+            
+            try {
+            } catch (Exception ex) {
+                Frontend.ShowException(this, ex);
+            }
+        }
+        
+        protected virtual void OnFindNextChatMenuItemActivated(object sender, EventArgs e)
+        {
+            Trace.Call(sender, e);
+            
+            try {
+            } catch (Exception ex) {
+                Frontend.ShowException(this, ex);
+            }
+        }
+        
+        protected virtual void OnFindPreviousChatMenuItemActivated(object sender, EventArgs e)
+        {
+            Trace.Call(sender, e);
+            
+            try {
+            } catch (Exception ex) {
+                Frontend.ShowException(this, ex);
+            }
+        }
+        
         protected virtual void OnCloseChatMenuItemActivated(object sender, EventArgs e)
         {
             Trace.Call(sender, e);
@@ -547,6 +602,7 @@ namespace Smuxi.Frontend.Gnome
                 Frontend.ShowException(this, ex);
             }
         }
+#endregion
         
         protected virtual void OnNotebookSwitchPage(object sender, EventArgs e)
         {
