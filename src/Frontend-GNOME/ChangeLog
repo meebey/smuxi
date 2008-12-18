@@ -1,5 +1,10 @@
 2008-12-19   <> 
 
+	* FindGroupChatDialog.cs: Only change cursor back if the GdkWindow is still
+	  available.
+
+2008-12-19   <> 
+
 	* MainWindow.cs: Changed the event that quits the application from Destroyed
 	  to DeleteEvent, else we can't get the last window size when the window
 	  is already gone. (closes trac bug #121)

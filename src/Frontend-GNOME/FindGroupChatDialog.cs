@@ -138,7 +138,10 @@ namespace Smuxi.Frontend.Gnome
                         Frontend.ShowError(_("Error while fetching the list of group chats from the server."), ex);
                     } finally {
                         Gtk.Application.Invoke(delegate {
-                            GdkWindow.Cursor = null;
+                            // if the dialog is gone the GdkWindow might be destroyed already
+                            if (GdkWindow != null) {
+                                GdkWindow.Cursor = null;
+                            }
                         });
                     }
                 }));
