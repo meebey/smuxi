@@ -1,8 +1,8 @@
-2008-12-17   <> 
+2008-12-17  Mirco Bauer <meebey@meebey.net> 
 
 	* TaskQueue.cs: Fixed name.
 
-2008-09-23   <> 
+2008-09-23  Mirco Bauer <meebey@meebey.net> 
 
 	* Common.mdp, TaskQueue.cs: Replaced poor mans Queue in FrontendManager with
 	  TaskQueue from Alan McGovern <alan.mcgovern@gmail.com>.

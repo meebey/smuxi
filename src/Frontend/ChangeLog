@@ -1,4 +1,4 @@
-2008-09-28   <> 
+2008-09-28  Mirco Bauer <meebey@meebey.net> 
 
 	* EngineManager.cs: Refactored SSH command code into
 	  CreatePlinkProcessStartInfo() and CreateOpenSshProcessStartInfo().
@@ -8,19 +8,19 @@
 	
 	  Added ssh program, stderror and stdout to error message.
 
-2008-09-28   <> 
+2008-09-28  Mirco Bauer <meebey@meebey.net> 
 
 	* EngineManager.cs: We have to use and check for plink.exe and not
 	  putty.exe.
 
-2008-09-28   <> 
+2008-09-28  Mirco Bauer <meebey@meebey.net> 
 
 	* EngineManager.cs: Check if sshProgram is present on the harddisk.
 	
 	  Added hack for putty support: if sshProgram is putty.exe use -P instead
 	  of -p.
 
-2008-09-28   <> 
+2008-09-28  Mirco Bauer <meebey@meebey.net> 
 
 	* EngineManager.cs: Implemented SSH tunnel support. (closes trac ticket #64)
 

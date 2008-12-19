@@ -1,21 +1,21 @@
-2008-12-19   <> 
+2008-12-19  Mirco Bauer <meebey@meebey.net> 
 
 	* Preferences/PreferencesDialog.cs, Chats/ChatView.cs: Implemented support
 	  for changing the text wrap mode from character to word. (closes trac
 	  ticket #5)
 
-2008-12-19   <> 
+2008-12-19  Mirco Bauer <meebey@meebey.net> 
 
 	* FindGroupChatDialog.cs: Only change cursor back if the GdkWindow is still
 	  available.
 
-2008-12-19   <> 
+2008-12-19  Mirco Bauer <meebey@meebey.net> 
 
 	* MainWindow.cs: Changed the event that quits the application from Destroyed
 	  to DeleteEvent, else we can't get the last window size when the window
 	  is already gone. (closes trac bug #121)
 
-2008-12-17   <> 
+2008-12-17  Mirco Bauer <meebey@meebey.net> 
 
 	* Chats/ChatView.cs: Only check if text was selected, instead of checking if
 	  the chat has a selection, as the property is overridden in
@@ -24,13 +24,13 @@
 	  focus and don't let the context menu grab the focus. (part of fixing
 	  trac bug #112)
 
-2008-12-17   <> 
+2008-12-17  Mirco Bauer <meebey@meebey.net> 
 
 	* Preferences/PreferencesDialog.cs: Renamed ModeColor to EventColor.
 	* Chats/ChatView.cs: Added HasEvent property and use it in AddMesage() with
 	  checking MessageType.
 
-2008-10-08   <> 
+2008-10-08  Mirco Bauer <meebey@meebey.net> 
 
 	* Entry.cs: support unicode input using ctrl+shift+u+hexnumber
 

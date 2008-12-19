@@ -1,15 +1,15 @@
-2008-12-19   <> 
+2008-12-19  Mirco Bauer <meebey@meebey.net> 
 
 	* Protocols/Irc/IrcProtocolManager.cs: Don't create a new chat for outgoing
 	  notices, only use it if it's already there.
 
-2008-12-19   <> 
+2008-12-19  Mirco Bauer <meebey@meebey.net> 
 
 	* Protocols/Irc/IrcProtocolManager.cs: Notices are not highlights and
 	  incoming and outgoing notices always create a chat (when missing).
 	  (closes trac bug #45)
 
-2008-12-17   <> 
+2008-12-17  Mirco Bauer <meebey@meebey.net> 
 
 	* Protocols/Irc/IrcProtocolManager.cs: Implemented distinction of event and
 	  normal messages. (closes trac ticket #66)

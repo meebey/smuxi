@@ -1,47 +1,47 @@
-2008-12-19   <> 
+2008-12-19  Mirco Bauer <meebey@meebey.net> 
 
 	* Protocols/ProtocolManagerBase.cs: Ignore case for matching URLs. (closes
 	  trac bug #131)
 
-2008-12-19   <> 
+2008-12-19  Mirco Bauer <meebey@meebey.net> 
 
 	* Config/Config.cs: Implemented support for changing the text wrap mode from
 	  character to word. (closes trac ticket #5)
 
-2008-12-18   <> 
+2008-12-18  Mirco Bauer <meebey@meebey.net> 
 
 	* Config/Config.cs: Increased default buffer lines from 100 to 500, else we
 	  have almost no backlog.
 
-2008-12-18   <> 
+2008-12-18  Mirco Bauer <meebey@meebey.net> 
 
 	* Session.cs: Limit engine buffer lines to 10 for local sessions. (closes
 	  trac ticket #114)
 	
 	  Fixed help message on the smuxi page.
 
-2008-12-17   <> 
+2008-12-17  Mirco Bauer <meebey@meebey.net> 
 
 	* Messages/MessagePartModel.cs, Messages/TextMessagePartModel.cs: Use nicer
 	  field name convention.
 
-2008-12-17   <> 
+2008-12-17  Mirco Bauer <meebey@meebey.net> 
 
 	* Config/Config.cs: Renamed ModeColor to EventColor.
 	* Messages/MessageModel.cs: Added MessageType.
 
-2008-09-28   <> 
+2008-09-28  Mirco Bauer <meebey@meebey.net> 
 
 	* Session.cs: Don't throw exception in
 	  DeregisterFrontendManager(FrontendManager) as the frontend manager might
 	  be cleanly gone already at that point. (closes trac ticket #117)
 
-2008-09-28   <> 
+2008-09-28  Mirco Bauer <meebey@meebey.net> 
 
 	* Config/FrontendConfig.cs: Implemented SSH tunnel support. (closes trac
 	  ticket #64)
 
-2008-09-23   <> 
+2008-09-23  Mirco Bauer <meebey@meebey.net> 
 
 	* FrontendManager.cs: Replaced poor mans Queue in FrontendManager with
 	  TaskQueue from Alan McGovern <alan.mcgovern@gmail.com>.
