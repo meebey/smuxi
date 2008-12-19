@@ -1,5 +1,11 @@
 2008-12-19   <> 
 
+	* Preferences/PreferencesDialog.cs, Chats/ChatView.cs: Implemented support
+	  for changing the text wrap mode from character to word. (closes trac
+	  ticket #5)
+
+2008-12-19   <> 
+
 	* FindGroupChatDialog.cs: Only change cursor back if the GdkWindow is still
 	  available.
 

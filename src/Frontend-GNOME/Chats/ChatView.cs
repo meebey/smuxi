@@ -256,7 +256,6 @@ namespace Smuxi.Frontend.Gnome
             tv.Editable = false;
             //tv.CursorVisible = false;
             tv.CursorVisible = true;
-            //tv.WrapMode = Gtk.WrapMode.WordChar;
             tv.WrapMode = Gtk.WrapMode.Char;
             tv.Buffer.Changed += new EventHandler(_OnTextBufferChanged);
             tv.MotionNotifyEvent += new Gtk.MotionNotifyEventHandler(_OnMotionNotifyEvent);
@@ -581,8 +580,14 @@ namespace Smuxi.Frontend.Gnome
             _FontDescription = fontDescription;
             
             _OutputTextView.ModifyFont(_FontDescription);
+            
+            string wrapModeStr = (string) config["Interface/Chat/WrapMode"];
+            if (!String.IsNullOrEmpty(wrapModeStr)) {
+                Gtk.WrapMode wrapMode = (Gtk.WrapMode) Enum.Parse(typeof(Gtk.WrapMode), wrapModeStr);
+                _OutputTextView.WrapMode = wrapMode;
+            }
         }
-
+        
         public virtual void Close()
         {
             Trace.Call();

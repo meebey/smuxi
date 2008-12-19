@@ -1,3 +1,8 @@
+2008-12-19   <> 
+
+	* Config/Config.cs: Implemented support for changing the text wrap mode from
+	  character to word. (closes trac ticket #5)
+
 2008-12-18   <> 
 
 	* Config/Config.cs: Increased default buffer lines from 100 to 500, else we

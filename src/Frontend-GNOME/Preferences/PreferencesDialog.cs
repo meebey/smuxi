@@ -102,6 +102,21 @@ namespace Smuxi.Frontend.Gnome
             ((Gtk.CheckButton)_Glade["OverrideForegroundColorCheckButton"]).Toggled += OnOverrideForegroundColorCheckButtonToggled;
             ((Gtk.CheckButton)_Glade["OverrideBackgroundColorCheckButton"]).Toggled += OnOverrideBackgroundColorCheckButtonToggled;
             ((Gtk.CheckButton)_Glade["OverrideFontCheckButton"]).Toggled += OnOverrideFontCheckButtonToggled;
+
+            Gtk.ComboBox wrapModeComboBox = (Gtk.ComboBox)_Glade["WrapModeComboBox"];
+            // initialize wrap modes
+            // glade might initialize it already!
+            wrapModeComboBox.Clear();
+            wrapModeComboBox.Changed += _OnChanged;
+            Gtk.CellRendererText cell = new Gtk.CellRendererText();
+            wrapModeComboBox.PackStart(cell, false);
+            wrapModeComboBox.AddAttribute(cell, "text", 1);
+            Gtk.ListStore store = new Gtk.ListStore(typeof(Gtk.WrapMode), typeof(string));
+            // fill ListStore
+            store.AppendValues(Gtk.WrapMode.Char,     _("Character"));
+            store.AppendValues(Gtk.WrapMode.WordChar, _("Word"));
+            wrapModeComboBox.Model = store;
+            wrapModeComboBox.Active = 0;
             
             _Notebook.ShowTabs = false;
             
@@ -337,6 +352,20 @@ namespace Smuxi.Frontend.Gnome
                 fontButton.FontName = fontDescription.ToString();
             }
             
+            Gtk.ComboBox wrapModeComboBox = ((Gtk.ComboBox)_Glade["WrapModeComboBox"]);
+            Gtk.WrapMode wrapMode = (Gtk.WrapMode) Enum.Parse(
+                typeof(Gtk.WrapMode),
+                (string) Frontend.UserConfig["Interface/Chat/WrapMode"]
+            );
+            int i = 0;
+            foreach (object[] row in  (Gtk.ListStore) wrapModeComboBox.Model) {
+                if (((Gtk.WrapMode) row[0]) == wrapMode) {
+                    wrapModeComboBox.Active = i;
+                    break;
+                }
+                i++;
+            }
+            
             // Interface/Entry
             ((Gtk.Entry)_Glade["CompletionCharacterEntry"]).Text =
                 (string)Frontend.UserConfig["Interface/Entry/CompletionCharacter"];
@@ -472,6 +501,18 @@ namespace Smuxi.Frontend.Gnome
                 Frontend.UserConfig[prefix + "FontSize"] = 0;
             }
             
+            Gtk.ComboBox wrapModeComboBox = (Gtk.ComboBox) _Glade["WrapModeComboBox"];
+            Gtk.WrapMode wrapMode = Gtk.WrapMode.Char;
+            int i = 0;
+            foreach (object[] row in (Gtk.ListStore) wrapModeComboBox.Model) {
+                if (wrapModeComboBox.Active == i) {
+                    wrapMode = (Gtk.WrapMode) row[0];
+                    break;
+                }
+                i++;
+            }
+            Frontend.UserConfig[prefix + "WrapMode"] = wrapMode.ToString();
+            
             // Entry
             Frontend.UserConfig["Interface/Entry/CompletionCharacter"] =
                 ((Gtk.Entry)_Glade["CompletionCharacterEntry"]).Text;
@@ -494,7 +535,7 @@ namespace Smuxi.Frontend.Gnome
             Frontend.Config.Save();
         }
         
-        private void _OnChanged(object sender, EventArgs e)
+        protected virtual void _OnChanged(object sender, EventArgs e)
         {
             ((Gtk.Button)_Glade["ApplyButton"]).Sensitive = true;
         }
