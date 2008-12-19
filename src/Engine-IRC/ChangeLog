@@ -1,5 +1,10 @@
 2008-12-19   <> 
 
+	* Protocols/Irc/IrcProtocolManager.cs: Don't create a new chat for outgoing
+	  notices, only use it if it's already there.
+
+2008-12-19   <> 
+
 	* Protocols/Irc/IrcProtocolManager.cs: Notices are not highlights and
 	  incoming and outgoing notices always create a chat (when missing).
 	  (closes trac bug #45)

@@ -1341,27 +1341,6 @@ namespace Smuxi.Engine
                 } else {
                     // wasn't a channel but maybe a query
                     chat = GetChat(target, ChatType.Person);
-                    // really create a new person chat here when we send a notice?!?
-                    if (chat == null) {
-                        bool isChannel = false;
-                        switch (target[0]) {
-                            case '#':
-                            case '&':
-                            case '!':
-                            case '+':
-                                isChannel = true;
-                                break;
-                        }
-                        if (!isChannel) {
-                            // create a new person chat
-                            IrcPersonModel person = new IrcPersonModel(target,
-                                                                       NetworkID,
-                                                                       this);
-                            chat = new PersonChatModel(person, target, target, this);
-                            Session.AddChat(chat);
-                            Session.SyncChat(chat);
-                        }
-                    }
                 }
                 if (chat == null) {
                     chat = _NetworkChat;
