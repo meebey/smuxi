@@ -1,5 +1,10 @@
 2008-12-19   <> 
 
+	* Protocols/ProtocolManagerBase.cs: Ignore case for matching URLs. (closes
+	  trac bug #131)
+
+2008-12-19   <> 
+
 	* Config/Config.cs: Implemented support for changing the text wrap mode from
 	  character to word. (closes trac ticket #5)
 

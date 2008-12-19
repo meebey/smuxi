@@ -189,7 +189,7 @@ namespace Smuxi.Engine
             */ 
 
             urlRegex = @"(^| )(((https?|ftp):\/\/)|www\.)(([0-9]+\.[0-9]+\.[0-9]+\.[0-9]+)|localhost|([a-zA-Z0-9\-]+\.)*[a-zA-Z0-9\-]+\.(com|net|org|info|biz|gov|name|edu|[a-zA-Z][a-zA-Z]))(:[0-9]+)?((\/|\?)[^ ""]*[^ ,;\.:"">)])?";
-            Regex reg = new Regex(urlRegex);
+            Regex reg = new Regex(urlRegex, RegexOptions.IgnoreCase);
             // clone MessageParts
             IList<MessagePartModel> parts = new List<MessagePartModel>(msg.MessageParts);
             foreach (MessagePartModel part in parts) {
