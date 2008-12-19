@@ -1341,6 +1341,27 @@ namespace Smuxi.Engine
                 } else {
                     // wasn't a channel but maybe a query
                     chat = GetChat(target, ChatType.Person);
+                    // really create a new person chat here when we send a notice?!?
+                    if (chat == null) {
+                        bool isChannel = false;
+                        switch (target[0]) {
+                            case '#':
+                            case '&':
+                            case '!':
+                            case '+':
+                                isChannel = true;
+                                break;
+                        }
+                        if (!isChannel) {
+                            // create a new person chat
+                            IrcPersonModel person = new IrcPersonModel(target,
+                                                                       NetworkID,
+                                                                       this);
+                            chat = new PersonChatModel(person, target, target, this);
+                            Session.AddChat(chat);
+                            Session.SyncChat(chat);
+                        }
+                    }
                 }
                 if (chat == null) {
                     chat = _NetworkChat;
@@ -2015,7 +2036,21 @@ namespace Smuxi.Engine
             }
             if (chat == null) {
                 // use server chat as fallback
-                chat = _NetworkChat;
+                if (e.Data.Nick == null) {
+                    // this seems to be a notice from the server
+                    chat = _NetworkChat;
+                } else {
+                    // create new chat
+                    IrcPersonModel person = new IrcPersonModel(e.Data.Nick,
+                                                               null,
+                                                               e.Data.Ident,
+                                                               e.Data.Host,
+                                                               NetworkID,
+                                                               this);
+                    chat = new PersonChatModel(person, e.Data.Nick, e.Data.Nick, this);
+                    Session.AddChat(chat);
+                    Session.SyncChat(chat);
+                }
             }
 
             MessageModel fmsg = new MessageModel();
@@ -2026,7 +2061,8 @@ namespace Smuxi.Engine
                                         e.Data.Nick,
                                         e.Data.Ident,
                                         e.Data.Host);
-            fmsgti.IsHighlight = true;
+            // notice shouldn't be a highlight
+            //fmsgti.IsHighlight = true;
             fmsg.MessageParts.Add(fmsgti);
             
             _IrcMessageToMessageModel(ref fmsg, e.Data.Message);

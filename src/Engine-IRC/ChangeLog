@@ -1,3 +1,9 @@
+2008-12-19   <> 
+
+	* Protocols/Irc/IrcProtocolManager.cs: Notices are not highlights and
+	  incoming and outgoing notices always create a chat (when missing).
+	  (closes trac bug #45)
+
 2008-12-17   <> 
 
 	* Protocols/Irc/IrcProtocolManager.cs: Implemented distinction of event and
