@@ -27,6 +27,7 @@
     <File name="ChatView.cs" subtype="Code" buildaction="Compile" />
     <File name="ChatViewManager.cs" subtype="Code" buildaction="Compile" />
     <File name="../AssemblyVersion.cs" subtype="Code" buildaction="Compile" />
+    <File name="STFL/StflApi.cs" subtype="Code" buildaction="Compile" />
   </Contents>
   <References>
     <ProjectReference type="Project" localcopy="True" refto="Engine" />

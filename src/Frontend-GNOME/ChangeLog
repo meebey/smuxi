@@ -1,5 +1,10 @@
 2008-12-22  Mirco Bauer <meebey@meebey.net> 
 
+	* Chats/GroupChatView.cs: Some cleanup.
+	* EngineManagerDialog.cs: Take care of failed Disconnect() attempts.
+
+2008-12-22  Mirco Bauer <meebey@meebey.net> 
+
 	* Frontend.cs: Made notification area icon configurable, supporting: never,
 	  always, minimize to tray, close to tray. (closes trac ticket #137)
 	

@@ -214,7 +214,15 @@ namespace Smuxi.Frontend.Gnome
 #if LOG4NET
                 _Logger.Error(ex);
 #endif
-
+                // clean-up
+                try {
+                    _EngineManager.Disconnect();
+                } catch (Exception disEx) {
+#if LOG4NET
+                    _Logger.Error(disEx);
+#endif
+                }
+                
                 string error_msg = ex.Message + "\n";
                 if (ex.InnerException != null) {
                     error_msg += " [" + ex.InnerException.Message + "]\n";

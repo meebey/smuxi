@@ -1,3 +1,7 @@
+2008-12-22  Mirco Bauer <meebey@meebey.net> 
+
+	
+
 2008-08-21  Mirco Bauer <meebey@meebey.net> 
 
 	* MainWindow.cs, Frontend.cs, Entry.cs, ChatViewManager.cs, ChatView.cs:

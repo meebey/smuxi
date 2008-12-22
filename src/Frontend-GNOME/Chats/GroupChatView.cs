@@ -133,7 +133,7 @@ namespace Smuxi.Frontend.Gnome
             
             // popup menu
             _PersonMenu = new Gtk.Menu();
-            // don't loose the focus else we loose the selection too!
+            // don't loose the focus else we lose the selection too!
             // see OnPersonTreeViewFocusOutEvent()
             _PersonMenu.TakeFocus = false;
             
@@ -430,47 +430,6 @@ namespace Smuxi.Frontend.Gnome
             (cellr as Gtk.CellRendererText).Text = person.IdentityName;
         }
        
-        /*
-        private static int _OnStatusSort(Gtk.TreeModel model, Gtk.TreeIter itera, Gtk.TreeIter iterb)
-        {
-            //Trace.Call(model, itera, iterb);
-            
-            Gtk.ListStore liststore = (Gtk.ListStore)model;
-            // status
-            int    status1a   = 0;
-            string column1a = (string)liststore.GetValue(itera, 0);
-            int    status1b   = 0;
-            string column1b = (string)liststore.GetValue(iterb, 0);
-            // nickname
-            string column2a = (string)liststore.GetValue(itera, 1);
-            string column2b = (string)liststore.GetValue(iterb, 1);
-        
-            if (column1a.IndexOf("@") != -1) {
-                status1a += 1;
-            }
-            if (column1a.IndexOf("+") != -1) {
-                status1a += 2;
-            }
-            if (status1a == 0) {
-                status1a = 4;
-            }
-            column2a = status1a+column2a;
-        
-            if (column1b.IndexOf("@") != -1) {
-                status1b += 1;
-            }
-            if (column1b.IndexOf("+") != -1) {
-                status1b += 2;
-            }
-            if (status1b == 0) {
-                status1b = 4;
-            }
-            column2b = status1b+column2b;
-            
-            return String.Compare(column2a, column2b, true, CultureInfo.InvariantCulture);
-        }
-        */
-        
         protected virtual int SortPersonListStore(Gtk.TreeModel model,
                                                   Gtk.TreeIter iter1,
                                                   Gtk.TreeIter iter2)
