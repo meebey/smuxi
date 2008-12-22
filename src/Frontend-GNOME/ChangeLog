@@ -1,3 +1,17 @@
+2008-12-22  Mirco Bauer <meebey@meebey.net> 
+
+	* Frontend.cs: Made notification area icon configurable, supporting: never,
+	  always, minimize to tray, close to tray. (closes trac ticket #137)
+	
+	  When a RemotingException happens allow the user to reconnect to the
+	  server instead of killing the frontend.
+	
+	  Added preferences to notification area icon context menu as per GNOME
+	  HIG.
+	* MainWindow.cs, Preferences/PreferencesDialog.cs: Made notification area
+	  icon configurable, supporting: never, always, minimize to tray, close to
+	  tray. (closes trac ticket #137)
+
 2008-12-19  Mirco Bauer <meebey@meebey.net> 
 
 	* Preferences/PreferencesDialog.cs, Chats/ChatView.cs: Implemented support

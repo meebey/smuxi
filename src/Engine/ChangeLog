@@ -1,3 +1,9 @@
+2008-12-22  Mirco Bauer <meebey@meebey.net> 
+
+	* Config/Config.cs, Config/NotificationAreaIconMode.cs, Engine.mdp: Made
+	  notification area icon configurable, supporting: never, always, minimize
+	  to tray, close to tray. (closes trac ticket #137)
+
 2008-12-19  Mirco Bauer <meebey@meebey.net> 
 
 	* Protocols/ProtocolManagerBase.cs: Ignore case for matching URLs. (closes

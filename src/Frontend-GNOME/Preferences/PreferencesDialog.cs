@@ -32,6 +32,7 @@ using System.Collections;
 using System.Globalization;
 using Smuxi;
 using Smuxi.Common;
+using Smuxi.Engine;
 
 namespace Smuxi.Frontend.Gnome
 {
@@ -44,6 +45,14 @@ namespace Smuxi.Frontend.Gnome
             Filters,
         }
         
+        public enum InterfacePage : int {
+            General = 0,
+            Tabs,
+            Input,
+            Output,
+            Notification
+        }
+        
 #if LOG4NET
         private static readonly log4net.ILog _Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 #endif
@@ -53,6 +62,8 @@ namespace Smuxi.Frontend.Gnome
 #region Widgets
         [Glade.Widget("Notebook")]
         private Gtk.Notebook _Notebook;
+        [Glade.Widget("InterfaceNotebook")]
+        private Gtk.Notebook _InterfaceNotebook;
         [Glade.Widget("MenuTreeView")]
         private Gtk.TreeView _MenuTreeView;
 #endregion
@@ -77,6 +88,15 @@ namespace Smuxi.Frontend.Gnome
             }
         }
         
+        public InterfacePage CurrentInterfacePage {
+            get {
+                return (InterfacePage) _InterfaceNotebook.CurrentPage;
+            }
+            set {
+                _InterfaceNotebook.CurrentPage = (int) value;
+            }
+        }
+        
         public PreferencesDialog(Gtk.Window parent)
         {
             Trace.Call(parent);
@@ -98,6 +118,12 @@ namespace Smuxi.Frontend.Gnome
             
             ((Gtk.TextView)_Glade["OnConnectCommandsTextView"]).Buffer.Changed += new EventHandler(_OnChanged);
             ((Gtk.TextView)_Glade["OnStartupCommandsTextView"]).Buffer.Changed += new EventHandler(_OnChanged);
+            
+            ((Gtk.CheckButton) _Glade["NotificationAreaIconCheckButton"]).Toggled += OnNotificationAreaIconCheckButtonToggled;
+            ((Gtk.CheckButton) _Glade["NotificationAreaIconCheckButton"]).Toggled += _OnChanged;
+            ((Gtk.RadioButton) _Glade["NotificationAreaIconRadioButtonAlways"]).Toggled += _OnChanged;
+            ((Gtk.RadioButton) _Glade["NotificationAreaIconRadioButtonMinimized"]).Toggled += _OnChanged;
+            ((Gtk.RadioButton) _Glade["NotificationAreaIconRadioButtonClosed"]).Toggled += _OnChanged;
             
             ((Gtk.CheckButton)_Glade["OverrideForegroundColorCheckButton"]).Toggled += OnOverrideForegroundColorCheckButtonToggled;
             ((Gtk.CheckButton)_Glade["OverrideBackgroundColorCheckButton"]).Toggled += OnOverrideBackgroundColorCheckButtonToggled;
@@ -379,6 +405,31 @@ namespace Smuxi.Frontend.Gnome
             ((Gtk.CheckButton)_Glade["BeepOnHighlightCheckButton"]).Active =
                 (bool)Frontend.UserConfig["Sound/BeepOnHighlight"];
             
+            // Interface/Notification
+            string modeStr = (string) Frontend.UserConfig["Interface/Notification/NotificationAreaIconMode"];
+            NotificationAreaIconMode mode = (NotificationAreaIconMode) Enum.Parse(
+                typeof(NotificationAreaIconMode),
+                modeStr
+            );
+            switch (mode) {
+                case NotificationAreaIconMode.Never:
+                    ((Gtk.CheckButton) _Glade["NotificationAreaIconCheckButton"]).Active = false;
+                    ((Gtk.RadioButton) _Glade["NotificationAreaIconRadioButtonMinimized"]).Active = true;
+                    break;
+                case NotificationAreaIconMode.Always:
+                    ((Gtk.CheckButton) _Glade["NotificationAreaIconCheckButton"]).Active = true;
+                    ((Gtk.RadioButton) _Glade["NotificationAreaIconRadioButtonAlways"]).Active = true;
+                    break;
+                case NotificationAreaIconMode.Minimized:
+                    ((Gtk.CheckButton) _Glade["NotificationAreaIconCheckButton"]).Active = true;
+                    ((Gtk.RadioButton) _Glade["NotificationAreaIconRadioButtonMinimized"]).Active = true;
+                    break;
+                case NotificationAreaIconMode.Closed:
+                    ((Gtk.CheckButton) _Glade["NotificationAreaIconCheckButton"]).Active = true;
+                    ((Gtk.RadioButton) _Glade["NotificationAreaIconRadioButtonClosed"]).Active = true;
+                    break;
+            }
+            
             // Filters
             _ChannelFilterListView.Load();
             
@@ -526,6 +577,23 @@ namespace Smuxi.Frontend.Gnome
             Frontend.UserConfig["Sound/BeepOnHighlight"] =
                 ((Gtk.CheckButton)_Glade["BeepOnHighlightCheckButton"]).Active;
             
+            // Interface/Notification
+            if (((Gtk.CheckButton) _Glade["NotificationAreaIconCheckButton"]).Active) {
+                if (((Gtk.RadioButton) _Glade["NotificationAreaIconRadioButtonAlways"]).Active) {
+                    Frontend.UserConfig["Interface/Notification/NotificationAreaIconMode"] =
+                        NotificationAreaIconMode.Always.ToString();
+                } else if (((Gtk.RadioButton) _Glade["NotificationAreaIconRadioButtonMinimized"]).Active) {
+                        Frontend.UserConfig["Interface/Notification/NotificationAreaIconMode"] =
+                            NotificationAreaIconMode.Minimized.ToString();
+                } else if (((Gtk.RadioButton) _Glade["NotificationAreaIconRadioButtonClosed"]).Active) {
+                        Frontend.UserConfig["Interface/Notification/NotificationAreaIconMode"] =
+                            NotificationAreaIconMode.Closed.ToString();
+                }
+            } else {
+                    Frontend.UserConfig["Interface/Notification/NotificationAreaIconMode"] =
+                        NotificationAreaIconMode.Never.ToString();
+            }
+            
             // Filters
             _ChannelFilterListView.Save();
             
@@ -548,7 +616,7 @@ namespace Smuxi.Frontend.Gnome
                 _Save();
                 Frontend.Config.Load();
                 Frontend.UserConfig.ClearCache();
-                Frontend.MainWindow.ApplyConfig(Frontend.UserConfig);
+                Frontend.ApplyConfig(Frontend.UserConfig);
                 _Dialog.Destroy();
             } catch (Exception ex) {
 #if LOG4NET
@@ -568,7 +636,7 @@ namespace Smuxi.Frontend.Gnome
                 Frontend.Config.Load();
                 Frontend.UserConfig.ClearCache();
                 _Load();
-                Frontend.MainWindow.ApplyConfig(Frontend.UserConfig);
+                Frontend.ApplyConfig(Frontend.UserConfig);
             } catch (Exception ex) {
 #if LOG4NET
                 _Logger.Error(ex);
@@ -634,6 +702,23 @@ namespace Smuxi.Frontend.Gnome
             try {
                 ((Gtk.FontButton) _Glade["FontButton"]).Sensitive = 
                     ((Gtk.CheckButton) _Glade["OverrideFontCheckButton"]).Active;
+            } catch (Exception ex) {
+                Frontend.ShowException(ex);
+            }
+        }
+        
+        protected virtual void OnNotificationAreaIconCheckButtonToggled(object sender, EventArgs e)
+        {
+            Trace.Call(sender, e);
+            
+            try {
+                bool isActive = ((Gtk.CheckButton) _Glade["NotificationAreaIconCheckButton"]).Active;
+                if (!isActive) {
+                    ((Gtk.RadioButton) _Glade["NotificationAreaIconRadioButtonMinimized"]).Active = true;
+                }
+                ((Gtk.RadioButton) _Glade["NotificationAreaIconRadioButtonAlways"]).Sensitive = isActive;
+                ((Gtk.RadioButton) _Glade["NotificationAreaIconRadioButtonMinimized"]).Sensitive = isActive;
+                ((Gtk.RadioButton) _Glade["NotificationAreaIconRadioButtonClosed"]).Sensitive = isActive;
             } catch (Exception ex) {
                 Frontend.ShowException(ex);
             }

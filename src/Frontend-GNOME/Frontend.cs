@@ -223,24 +223,10 @@ namespace Smuxi.Frontend.Gnome
  
             _MainWindow = new MainWindow();
 
-            if (String.IsNullOrEmpty((string) FrontendConfig["Engines/Default"])) {
-                InitLocalEngine();
-                ConnectEngineToGUI();
-            } else {
-                // there is a default engine set, means we want a remote engine
-                //_SplashScreenWindow.Destroy();
-                _SplashScreenWindow = null;
-                ShowEngineManagerDialog();
-            }
-            
-            if (_SplashScreenWindow != null) {
-                _SplashScreenWindow.Destroy();
-            }
-            
 #if GTK_SHARP_2_10
             _StatusIcon = new Gtk.StatusIcon();
+            _StatusIcon.Visible = false;
             _StatusIcon.Pixbuf = new Gdk.Pixbuf(null, "icon.svg");
-            _StatusIcon.Visible = true;
             _StatusIcon.Activate += delegate {
                 try {
                     if (_StatusIcon.Blinking) {
@@ -255,6 +241,20 @@ namespace Smuxi.Frontend.Gnome
             _StatusIcon.PopupMenu += OnStatusIconPopupMenu;
             _StatusIcon.Tooltip = "Smuxi";
 #endif
+            
+            if (String.IsNullOrEmpty((string) FrontendConfig["Engines/Default"])) {
+                InitLocalEngine();
+                ConnectEngineToGUI();
+            } else {
+                // there is a default engine set, means we want a remote engine
+                //_SplashScreenWindow.Destroy();
+                _SplashScreenWindow = null;
+                ShowEngineManagerDialog();
+            }
+            
+            if (_SplashScreenWindow != null) {
+                _SplashScreenWindow.Destroy();
+            }
             
 #if UI_GNOME
             _Program.Run();
@@ -300,7 +300,7 @@ namespace Smuxi.Frontend.Gnome
             }
             */
             
-            // MS .NET doesn't like this?
+            // MS .NET doesn't like this with Remoting?
             if (Type.GetType("Mono.Runtime") != null) {
                 // when are running on Mono, all should be good
                 if (_UserConfig.IsCaching) {
@@ -309,8 +309,9 @@ namespace Smuxi.Frontend.Gnome
                 }
             }
             
+            ApplyConfig(_UserConfig);
+            
             _MainWindow.ShowAll();
-            _MainWindow.ApplyConfig(_UserConfig);
             // make sure entry got attention :-P
             _MainWindow.Entry.HasFocus = true;
             
@@ -333,6 +334,8 @@ namespace Smuxi.Frontend.Gnome
         
         public static void Quit()
         {
+            Trace.Call();
+            
             // save window size
             int width, heigth;
             _MainWindow.GetSize(out width, out heigth);
@@ -413,6 +416,20 @@ namespace Smuxi.Frontend.Gnome
                 });
             }
                 
+            if (ex is System.Runtime.Remoting.RemotingException) {
+                Gtk.MessageDialog md = new Gtk.MessageDialog(_MainWindow,
+                    Gtk.DialogFlags.Modal, Gtk.MessageType.Error,
+                    Gtk.ButtonsType.OkCancel, _("The frontend has lost the connection to the server.\n Do you want to reconnect now?"));
+                Gtk.ResponseType res = (Gtk.ResponseType) md.Run();
+                md.Destroy();
+                
+                if (res == Gtk.ResponseType.Ok) {
+                    Frontend.DisconnectEngineFromGUI();
+                    _MainWindow.EngineManager.Reconnect();
+                }
+                return;
+            }
+            
             CrashDialog cd = new CrashDialog(parent, ex);
             cd.Run();
             cd.Destroy();
@@ -436,11 +453,58 @@ namespace Smuxi.Frontend.Gnome
             diag.Destroy();
         }
         
+        public static void ApplyConfig(UserConfig userConfig)
+        {
+            Trace.Call(userConfig);
+            
+            if (userConfig == null) {
+                throw new ArgumentNullException("userConfig");
+            }
+            
+#if GTK_SHARP_2_10
+            string modeStr = (string) userConfig["Interface/Notification/NotificationAreaIconMode"];
+            NotificationAreaIconMode mode = (NotificationAreaIconMode) Enum.Parse(
+                typeof(NotificationAreaIconMode),
+                modeStr
+            );
+            switch (mode) {
+                case NotificationAreaIconMode.Never:
+                    _StatusIcon.Visible = false;
+                    break;
+                case NotificationAreaIconMode.Always:
+                    _StatusIcon.Visible = true;
+                    break;
+                case NotificationAreaIconMode.Minimized:
+                case NotificationAreaIconMode.Closed:
+                    // at application startup the main window is not visible but also not yet realized 
+                    _StatusIcon.Visible = _MainWindow.IsRealized && !_MainWindow.Visible;
+                    break;
+            }
+#endif
+            
+            _MainWindow.ApplyConfig(userConfig);
+        }
+        
         private static void OnStatusIconPopupMenu(object sender, EventArgs e)
         {
             Trace.Call(sender, e);
             
             Gtk.Menu menu = new Gtk.Menu();
+            
+            Gtk.ImageMenuItem preferencesItem = new Gtk.ImageMenuItem(Gtk.Stock.Preferences, null);
+            preferencesItem.Activated += delegate {
+                try {
+                    PreferencesDialog dialog = new PreferencesDialog(_MainWindow);
+                    dialog.CurrentPage = PreferencesDialog.Page.Interface;
+                    dialog.CurrentInterfacePage = PreferencesDialog.InterfacePage.Notification;
+                } catch (Exception ex) {
+                    ShowException(ex);
+                }
+            };
+            menu.Add(preferencesItem);
+            
+            menu.Add(new Gtk.SeparatorMenuItem());
+            
             Gtk.ImageMenuItem quitItem = new Gtk.ImageMenuItem(Gtk.Stock.Quit, null);
             quitItem.Activated += delegate {
                 try {
@@ -450,6 +514,7 @@ namespace Smuxi.Frontend.Gnome
                 }
             };
             menu.Add(quitItem);
+            
             menu.ShowAll();
             menu.Popup();
         }

@@ -62,6 +62,7 @@ namespace Smuxi.Frontend.Gnome
         private IFrontendUI      _UI;
         private EngineManager    _EngineManager;
         private Gtk.MenuItem     _CloseChatMenuItem;
+        private NotificationAreaIconMode _NotificationAreaIconMode;
         
         public bool CaretMode {
             get {
@@ -164,6 +165,7 @@ namespace Smuxi.Frontend.Gnome
             
             DeleteEvent += OnDeleteEvent;
             FocusInEvent += OnFocusInEvent;
+            WindowStateEvent += OnWindowStateEvent;
             
             Gtk.AccelGroup agrp = new Gtk.AccelGroup();
             Gtk.AccelKey   akey;
@@ -398,6 +400,13 @@ namespace Smuxi.Frontend.Gnome
                 throw new ArgumentNullException("userConfig");
             }
                     
+            string modeStr = (string) userConfig["Interface/Notification/NotificationAreaIconMode"];
+            NotificationAreaIconMode mode = (NotificationAreaIconMode) Enum.Parse(
+                typeof(NotificationAreaIconMode),
+                modeStr
+            );
+            _NotificationAreaIconMode = mode;
+            
             _Entry.ApplyConfig(userConfig);
             _Notebook.ApplyConfig(userConfig);
             _ChatViewManager.ApplyConfig(userConfig);
@@ -414,11 +423,20 @@ namespace Smuxi.Frontend.Gnome
             }
         }
 
-        protected virtual void OnDeleteEvent(object sender, EventArgs e)
+        protected virtual void OnDeleteEvent(object sender, Gtk.DeleteEventArgs e)
         {
             Trace.Call(sender, e);
             
             try {
+                if (_NotificationAreaIconMode == NotificationAreaIconMode.Closed) {
+                    // showing the tray icon is handled in OnWindowStateEvent
+                    Hide();
+                    
+                    // don't destroy the window nor quit smuxi!
+                    e.RetVal = true;
+                    return;
+                }
+                
                 Frontend.Quit();
             } catch (Exception ex) {
                 Frontend.ShowException(this, ex);
@@ -432,6 +450,7 @@ namespace Smuxi.Frontend.Gnome
             try {
                 UrgencyHint = false;
 #if GTK_SHARP_2_10
+                // HACK: out of scope?
                 Frontend.StatusIcon.Blinking = false;
 #endif
             } catch (Exception ex) {
@@ -598,6 +617,40 @@ namespace Smuxi.Frontend.Gnome
                 if (_Notebook.CurrentPage > 0) {
                     _Notebook.CurrentPage--;
                 }
+            } catch (Exception ex) {
+                Frontend.ShowException(this, ex);
+            }
+        }
+                
+        protected virtual void OnWindowStateEvent(object sender, Gtk.WindowStateEventArgs e)
+        {
+            Trace.Call(sender, e);
+            
+            try {
+#if GTK_SHARP_2_10
+                // handle minimize / un-minimize
+                if (_NotificationAreaIconMode == NotificationAreaIconMode.Minimized &&
+                    (e.Event.ChangedMask & Gdk.WindowState.Iconified) != 0) {
+                    bool isMinimized = (e.Event.NewWindowState & Gdk.WindowState.Iconified) != 0;
+#if LOG4NET
+                    f_Logger.Debug("OnWindowStateEvent(): isMinimized: " + isMinimized);
+#endif
+                    Frontend.StatusIcon.Visible = isMinimized;
+                    if (isMinimized) {
+                        Hide();
+                    }
+                }
+
+                // handle hide / show
+                if (_NotificationAreaIconMode == NotificationAreaIconMode.Closed &&
+                    (e.Event.ChangedMask & Gdk.WindowState.Withdrawn) != 0) {
+                    bool isHidden = (e.Event.NewWindowState & Gdk.WindowState.Withdrawn) != 0;
+#if LOG4NET
+                    f_Logger.Debug("OnWindowStateEvent(): isHidden: " + isHidden);
+#endif
+                    Frontend.StatusIcon.Visible = isHidden;
+                }
+#endif
             } catch (Exception ex) {
                 Frontend.ShowException(this, ex);
             }

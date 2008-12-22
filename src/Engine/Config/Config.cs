@@ -230,7 +230,10 @@ namespace Smuxi.Engine
             Get(prefix+"CommandCharacter", "/");
             Get(prefix+"BashStyleCompletion", false);
             Get(prefix+"CommandHistorySize", 30);
-            
+
+            prefix = "Engine/Users/DEFAULT/Interface/Notification/";
+            Get(prefix+"NotificationAreaIconMode", "Minimized");
+
             prefix = "Engine/Users/DEFAULT/Sound/";
             Get(prefix+"BeepOnHighlight", false);
             
@@ -366,6 +369,7 @@ namespace Smuxi.Engine
                 LoadUserEntry(user, "Interface/Entry/CommandCharacter", null);
                 LoadUserEntry(user, "Interface/Entry/BashStyleCompletion", null);
                 LoadUserEntry(user, "Interface/Entry/CommandHistorySize", null);
+                LoadUserEntry(user, "Interface/Notification/NotificationAreaIconMode", null);
                 
                 LoadUserEntry(user, "Sound/BeepOnHighlight", null);
                 
