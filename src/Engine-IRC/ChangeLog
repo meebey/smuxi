@@ -1,3 +1,9 @@
+2008-12-24  Mirco Bauer <meebey@meebey.net> 
+
+	* Protocols/Irc/IrcProtocolManager.cs: Fixed CommandQuit(), it will not
+	  cause a reconnect anymore by preparing the IRC library and the Listen()
+	  thread before we send the QUIT to the server. (closes trac bug #139)
+
 2008-12-19  Mirco Bauer <meebey@meebey.net> 
 
 	* Protocols/Irc/IrcProtocolManager.cs: Don't create a new chat for outgoing

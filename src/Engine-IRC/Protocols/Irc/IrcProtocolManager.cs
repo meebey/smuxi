@@ -1271,7 +1271,6 @@ namespace Smuxi.Engine
                     cd.FrontendManager.AddTextToChat(cd.Chat, String.Format(
                                                                 "-!- Your user mode is [{0}]",
                                                                 _IrcClient.Usermode));
-                    
                 }
             }
         }
@@ -1358,14 +1357,27 @@ namespace Smuxi.Engine
     
         public void CommandQuit(CommandModel cd)
         {
-            string message = cd.Parameter; 
+            Trace.Call(cd);
+            
+            string message = cd.Parameter;
+            
+            // else SmartIrc4net would reconnect us
+            _IrcClient.AutoReconnect = false;
+            // else the Listen() thread would try to connect again
+            _Listening = false;
+            
+            // when we are disconnected, remove all chats
+            _IrcClient.OnDisconnected += delegate {
+                // cleanup all open chats
+                Dispose();
+            };
+            
+            // ok now we are ready to die
             if (message != null) {
                 _IrcClient.RfcQuit(message);
             } else {
                 _IrcClient.RfcQuit();
             }
-            
-            Dispose();
         }
         
         private void _Run()
