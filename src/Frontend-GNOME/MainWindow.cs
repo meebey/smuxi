@@ -63,6 +63,7 @@ namespace Smuxi.Frontend.Gnome
         private EngineManager    _EngineManager;
         private Gtk.MenuItem     _CloseChatMenuItem;
         private NotificationAreaIconMode _NotificationAreaIconMode;
+        private bool             _IsMaximized;
         
         public bool CaretMode {
             get {
@@ -125,7 +126,13 @@ namespace Smuxi.Frontend.Gnome
                 return _Entry;
             }
         }
-     
+        
+        public bool IsMaximized {
+            get {
+                return _IsMaximized;
+            }
+        }
+        
 #if UI_GNOME
         public MainWindow() : base("smuxi", "smuxi - Smart MUtipleXed Irc")
 #elif UI_GTK
@@ -144,7 +151,12 @@ namespace Smuxi.Frontend.Gnome
             } else {
                 heigth = 600;
             }
-            SetDefaultSize(width, heigth);
+            if (width == -1 && heigth == -1) {
+                SetDefaultSize(800, 600);
+                Maximize();
+            } else {
+                SetDefaultSize(width, heigth);
+            }
             
             int x, y;
             if (Frontend.FrontendConfig[Frontend.UIName + "/Interface/XPosition"] != null) {
@@ -632,9 +644,9 @@ namespace Smuxi.Frontend.Gnome
                 if (_NotificationAreaIconMode == NotificationAreaIconMode.Minimized &&
                     (e.Event.ChangedMask & Gdk.WindowState.Iconified) != 0) {
                     bool isMinimized = (e.Event.NewWindowState & Gdk.WindowState.Iconified) != 0;
-#if LOG4NET
+    #if LOG4NET
                     f_Logger.Debug("OnWindowStateEvent(): isMinimized: " + isMinimized);
-#endif
+    #endif
                     Frontend.StatusIcon.Visible = isMinimized;
                     if (isMinimized) {
                         Hide();
@@ -645,17 +657,24 @@ namespace Smuxi.Frontend.Gnome
                 if (_NotificationAreaIconMode == NotificationAreaIconMode.Closed &&
                     (e.Event.ChangedMask & Gdk.WindowState.Withdrawn) != 0) {
                     bool isHidden = (e.Event.NewWindowState & Gdk.WindowState.Withdrawn) != 0;
-#if LOG4NET
+    #if LOG4NET
                     f_Logger.Debug("OnWindowStateEvent(): isHidden: " + isHidden);
-#endif
+    #endif
                     Frontend.StatusIcon.Visible = isHidden;
                 }
 #endif
+                
+                // handle maximize / un-maximize
+                if ((e.Event.ChangedMask & Gdk.WindowState.Maximized) != 0) {
+                    _IsMaximized = (e.Event.NewWindowState & Gdk.WindowState.Maximized) != 0;
+#if LOG4NET
+                    f_Logger.Debug("OnWindowStateEvent(): _IsMaximized: " + _IsMaximized);
+#endif
+                }
             } catch (Exception ex) {
                 Frontend.ShowException(this, ex);
             }
         }
-#endregion
         
         protected virtual void OnNotebookSwitchPage(object sender, EventArgs e)
         {
@@ -772,6 +791,7 @@ namespace Smuxi.Frontend.Gnome
                 Frontend.ShowException(this, ex);
             }
         }
+#endregion
         
         private static string _(string msg)
         {

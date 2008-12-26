@@ -327,7 +327,12 @@ namespace Smuxi.Frontend.Gnome
             
             // save window size
             int width, heigth;
-            _MainWindow.GetSize(out width, out heigth);
+            if (_MainWindow.IsMaximized) {
+                width = -1;
+                heigth = -1;
+            } else {
+                _MainWindow.GetSize(out width, out heigth);
+            }
             _FrontendConfig[Frontend.UIName + "/Interface/Width"] = width;
             _FrontendConfig[Frontend.UIName + "/Interface/Heigth"] = heigth;
             

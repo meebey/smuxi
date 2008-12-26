@@ -1,5 +1,9 @@
 2008-12-26  Mirco Bauer <meebey@meebey.net> 
 
+	* MainWindow.cs, Frontend.cs: Save / Restore maxmized windows correctly.
+
+2008-12-26  Mirco Bauer <meebey@meebey.net> 
+
 	* Chats/ChatView.cs: Disabled Console.WriteLine call.
 	* gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs: funny stetic
 	  insisting doing useless changes
