@@ -1,5 +1,9 @@
 2008-12-26  Mirco Bauer <meebey@meebey.net> 
 
+	* Frontend.cs: Updated copyright year.
+
+2008-12-26  Mirco Bauer <meebey@meebey.net> 
+
 	* MainWindow.cs, Frontend.cs: Save / Restore maxmized windows correctly.
 
 2008-12-26  Mirco Bauer <meebey@meebey.net> 
