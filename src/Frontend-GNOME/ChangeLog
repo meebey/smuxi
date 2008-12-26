@@ -1,3 +1,15 @@
+2008-12-27  Mirco Bauer <meebey@meebey.net> 
+
+	* FindGroupChatDialog.cs, Preferences/ServerListView.cs: Pass parent to
+	  ShowError.
+	* gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs: lol, useless
+	  stetic change again
+	* Frontend.cs: Support parent in ShowError() method and use MainWindow as
+	  fallback.
+	
+	  Fixed threading bug in ShowError() and ShowException() when marshalling
+	  the call into the GUI-thread.
+
 2008-12-26  Mirco Bauer <meebey@meebey.net> 
 
 	* Frontend.cs: Updated copyright year.

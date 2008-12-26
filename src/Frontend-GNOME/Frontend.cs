@@ -368,32 +368,40 @@ namespace Smuxi.Frontend.Gnome
             return System.Threading.Thread.CurrentThread.ManagedThreadId == _UIThreadID;
         }
                 
-        public static void ShowError(string msg, Exception ex)
+        public static void ShowError(Gtk.Window parent, string msg, Exception ex)
         {
-            Trace.Call(msg, ex);
+            Trace.Call(parent, msg, ex);
             
             if (!IsGuiThread()) {
                 Gtk.Application.Invoke(delegate {
-                    ShowError(msg, ex);
+                    ShowError(parent, msg, ex);
                 });
+                return;
             }
             
             if (ex != null) {
                 msg += "\n" + String.Format(_("Cause: {0}"), ex.Message);
             }
-               
-            Gtk.MessageDialog md = new Gtk.MessageDialog(_MainWindow,
-                Gtk.DialogFlags.Modal, Gtk.MessageType.Error,
-                Gtk.ButtonsType.Ok, msg);
+            if (parent == null) {
+                parent = _MainWindow;
+            }
+            
+            Gtk.MessageDialog md = new Gtk.MessageDialog(
+                parent,
+                Gtk.DialogFlags.Modal,
+                Gtk.MessageType.Error,
+                Gtk.ButtonsType.Ok,
+                msg
+            );
             md.Run();
             md.Destroy();
         }
         
-        public static void ShowError(string msg)
+        public static void ShowError(Gtk.Window parent, string msg)
         {
-            Trace.Call(msg);
+            Trace.Call(parent, msg);
             
-            ShowError(msg, null);
+            ShowError(parent, msg, null);
         }
         
         public static void ShowException(Gtk.Window parent, Exception ex)
@@ -408,8 +416,9 @@ namespace Smuxi.Frontend.Gnome
                 Gtk.Application.Invoke(delegate {
                     ShowException(parent, ex);
                 });
+                return;
             }
-                
+            
             if (ex is System.Runtime.Remoting.RemotingException) {
                 Gtk.MessageDialog md = new Gtk.MessageDialog(_MainWindow,
                     Gtk.DialogFlags.Modal, Gtk.MessageType.Error,

@@ -1813,6 +1813,7 @@ namespace Smuxi.Frontend.Gnome {
             w163.Position = 0;
             // Container child vbox16.Gtk.Box+BoxChild
             this.hbuttonbox1 = new Gtk.HButtonBox();
+            this.hbuttonbox1.Name = "hbuttonbox1";
             this.hbuttonbox1.LayoutStyle = ((Gtk.ButtonBoxStyle)(1));
             // Container child hbuttonbox1.Gtk.ButtonBox+ButtonBoxChild
             this.ChannelFiltersAddButton = new Gtk.Button();
