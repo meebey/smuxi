@@ -434,7 +434,7 @@ namespace Smuxi.Frontend.Gnome
                     // HACK: the engine should set a color for us!
                     Gtk.TextTag urlTag = _OutputTextTagTable.Lookup("url");
                     Gdk.Color urlColor = urlTag.ForegroundGdk;
-                    Console.WriteLine("urlColor: " + urlColor);
+                    //Console.WriteLine("urlColor: " + urlColor);
                     TextColor urlTextColor = ColorTools.GetTextColor(urlColor);
                     urlTextColor = ColorTools.GetBestTextColor(urlTextColor, bgTextColor);
                     //Console.WriteLine("GetBestTextColor({0}, {1}): {2}",  urlColor, bgTextColor, urlTextColor);

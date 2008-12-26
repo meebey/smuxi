@@ -36,7 +36,7 @@ namespace Smuxi.Engine
 {
     public delegate void SimpleDelegate(); 
     
-    public class FrontendManager : PermanentRemoteObject, IFrontendUI
+    public class FrontendManager : PermanentRemoteObject, IFrontendUI, IDisposable
     {
 #if LOG4NET
         private static readonly log4net.ILog _Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
@@ -112,17 +112,35 @@ namespace Smuxi.Engine
             _UI = ui;
             f_TaskQueue = new TaskQueue("FrontendManager");
             f_TaskQueue.ExceptionEvent += OnTaskQueueExceptionEvent;
-            f_TaskQueue.ExceptionEvent += OnTaskQueueAbortedEvent;
+            f_TaskQueue.AbortedEvent   += OnTaskQueueAbortedEvent;
             
             // register event for config invalidation
             // BUG: when the frontend disconnects there are dangling methods registered!
             //_Session.Config.Changed += new EventHandler(_OnConfigChanged);
+        }
+        
+        ~FrontendManager()
+        {
+            Trace.Call();
             
-            // BUG: Session adds stuff to the queue but the frontend is not ready yet!
-            // The frontend must Sync() _first_!
-            // HACK: so this bug doesn't happen for now
-            // actually there is no other way, the frontend must tell us when he is ready to sync!
-            //Sync();
+            Dispose(false);
+        }
+        
+        public void Dispose()
+        {
+            Trace.Call();
+            
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+        
+        protected void Dispose(bool disposing)
+        {
+            Trace.Call(disposing);
+            
+            if (disposing) {
+                f_TaskQueue.Dispose();
+            }
         }
         
         public void Sync()
@@ -175,7 +193,7 @@ namespace Smuxi.Engine
                 } else {
                     pos = 0;
                 }
-                CurrentProtocolManager = (IProtocolManager) _Session.ProtocolManagers[pos];
+                CurrentProtocolManager = _Session.ProtocolManagers[pos];
             }
             
             UpdateNetworkStatus();
@@ -233,9 +251,14 @@ namespace Smuxi.Engine
         
         public void AddMessageToChat(ChatModel chat, MessageModel msg)
         {
-            if (_SyncedChats.Contains(chat)) {
-                _AddMessageToChat(chat, msg);
+            if (!_SyncedChats.Contains(chat)) {
+#if LOG4NET
+                _Logger.Warn("AddMessageToChat(): chat: " + chat + " is not synced yet, ignoring call...");
+#endif
+                return;
             }
+            
+            _AddMessageToChat(chat, msg);
         }
         
         private void _AddMessageToChat(ChatModel chat, MessageModel msg)
@@ -252,9 +275,11 @@ namespace Smuxi.Engine
         
         public void RemoveChat(ChatModel chat)
         {
-            if (_SyncedChats.Contains(chat)) {
-                _RemoveChat(chat);
+            if (!_SyncedChats.Contains(chat)) {
+                return;
             }
+            
+            _RemoveChat(chat);
         }
         
         private void _RemoveChat(ChatModel chat)
@@ -280,9 +305,11 @@ namespace Smuxi.Engine
         
         public void AddPersonToGroupChat(GroupChatModel groupChat, PersonModel person)
         {
-            if (_SyncedChats.Contains(groupChat)) {
-                _AddPersonToGroupChat(groupChat, person);
+            if (!_SyncedChats.Contains(groupChat)) {
+                return;
             }
+            
+            _AddPersonToGroupChat(groupChat, person);
         }
         
         private void _AddPersonToGroupChat(GroupChatModel groupChat, PersonModel person)
@@ -294,9 +321,11 @@ namespace Smuxi.Engine
         
         public void UpdatePersonInGroupChat(GroupChatModel groupChat, PersonModel oldPerson, PersonModel newPerson)
         {
-            if (_SyncedChats.Contains(groupChat)) {
-                _UpdatePersonInGroupChat(groupChat, oldPerson, newPerson);
+            if (!_SyncedChats.Contains(groupChat)) {
+                return;
             }
+            
+            _UpdatePersonInGroupChat(groupChat, oldPerson, newPerson);
         }
         
         private void _UpdatePersonInGroupChat(GroupChatModel groupChat, PersonModel oldPerson, PersonModel newPerson)
@@ -308,9 +337,11 @@ namespace Smuxi.Engine
     
         public void UpdateTopicInGroupChat(GroupChatModel groupChat, string topic)
         {
-            if (_SyncedChats.Contains(groupChat)) {
-                _UpdateTopicInGroupChat(groupChat, topic);
+            if (!_SyncedChats.Contains(groupChat)) {
+                return;
             }
+            
+            _UpdateTopicInGroupChat(groupChat, topic);
         }
         
         private void _UpdateTopicInGroupChat(GroupChatModel groupChat, string topic)
@@ -322,9 +353,11 @@ namespace Smuxi.Engine
     
         public void RemovePersonFromGroupChat(GroupChatModel groupChat, PersonModel person)
         {
-            if (_SyncedChats.Contains(groupChat)) {
-                _RemovePersonFromGroupChat(groupChat, person);
+            if (!_SyncedChats.Contains(groupChat)) {
+                return;
             }
+            
+            _RemovePersonFromGroupChat(groupChat, person);
         }
         
         private void _RemovePersonFromGroupChat(GroupChatModel groupChat, PersonModel person)
@@ -396,7 +429,7 @@ namespace Smuxi.Engine
             // we can't rely on the UI (proxy) object here, the connection is probably
             // gone and doesn't come back
             //_Session.DeregisterFrontendUI(_UI);
-            // thus we can deregister the hardway (using ourself)
+            // thus we can deregister the hardway (by using our instance)
             _Session.DeregisterFrontendManager(this);            
         }
         

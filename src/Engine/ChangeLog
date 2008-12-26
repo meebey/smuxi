@@ -1,3 +1,18 @@
+2008-12-26  Mirco Bauer <meebey@meebey.net> 
+
+	* Session.cs: Added GetUri() method.
+	
+	  Moved smuxi welcome message code to RegisterFrontendUI().
+	
+	  Added IsLocal property.
+	* FrontendManager.cs: Fixed TaskQueue usage, AbortedEvent was not used.
+	
+	  Use Finalizer/Dispose pattern to shut-down TaskQueue.
+	
+	  Removed some unneeded casts.
+	
+	  Refactored some if () blocks to if (!) return.
+
 2008-12-22  Mirco Bauer <meebey@meebey.net> 
 
 	* Messages/MessageType.cs: Ups forgot to commit this one.

@@ -289,17 +289,6 @@ namespace Smuxi.Frontend.Gnome
             _FrontendManager = _Session.GetFrontendManager(_MainWindow.UI);
             _FrontendManager.Sync();
             
-            /*
-            // clear all current highlights, annoying to see them each time you
-            // connect to the engine
-            // BUG: this is useless here, the Sync() call triggers only a queue, so
-            // at this point we don't have any chat views yet :(
-            // this was an attempt to fix trac bug #50
-            foreach (ChatView chat in _MainWindow.ChatViewManager.Chats) {
-                chat.HasHighlight = false;
-            }
-            */
-            
             // MS .NET doesn't like this with Remoting?
             if (Type.GetType("Mono.Runtime") != null) {
                 // when are running on Mono, all should be good
@@ -353,7 +342,7 @@ namespace Smuxi.Frontend.Gnome
             }
             
             /*
-            // BUG: don't do this, the access to config is lost and the entry will
+            // WASBUG: don't do this, the access to config is lost and the entry will
             // throw an exception then.
             if (_FrontendManager != null) {
                 DisconnectEngineFromGUI();

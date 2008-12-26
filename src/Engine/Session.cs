@@ -39,13 +39,14 @@ namespace Smuxi.Engine
 #if LOG4NET
         private static readonly log4net.ILog f_Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 #endif
-        private static readonly string       _LibraryTextDomain = "smuxi-engine";
+        private static readonly string                _LibraryTextDomain = "smuxi-engine";
         private int                                   _Version = 0;
         private IDictionary<string, FrontendManager>  _FrontendManagers; 
         private IList<IProtocolManager>               _ProtocolManagers;
         private IList<ChatModel>                      _Chats;
         private SessionChatModel                      _SessionChat;
         private Config                                _Config;
+        private string                                _Username;
         private ProtocolManagerFactory                _ProtocolManagerFactory;
         private UserConfig                            _UserConfig;
         private bool                                  _OnStartupCommandsProcessed;
@@ -86,6 +87,12 @@ namespace Smuxi.Engine
             }
         }
         
+        public bool IsLocal {
+            get {
+                return _Username == "local";
+            }
+        }
+        
         public Session(Config config, ProtocolManagerFactory protocolManagerFactory,
                        string username)
         {
@@ -103,40 +110,15 @@ namespace Smuxi.Engine
             
             _Config = config;
             _ProtocolManagerFactory = protocolManagerFactory;
+            _Username = username;
             
             _FrontendManagers = new Dictionary<string, FrontendManager>();
             _ProtocolManagers = new List<IProtocolManager>();
-            _Chats = new List<ChatModel>();
             _UserConfig = new UserConfig(config, username);
-            if (username == "local") {
-                // OPT: disable engine buffer lines for local sessions
-                // well, we can't disable them completly because the time between
-                // a chat is created and then synced might be messages added!
-                // hopefully 10 messages will always be enough....
-                _UserConfig["Interface/Notebook/EngineBufferLines"] = 10;
-            }
+            _Chats = new List<ChatModel>();
             
             _SessionChat = new SessionChatModel("smuxi", "smuxi");
             _Chats.Add(_SessionChat);
-            
-            MessageModel msg;
-            msg = new MessageModel();
-            msg.MessageParts.Add(
-                new TextMessagePartModel(new TextColor(0xFF0000), null, false,
-                        true, false, _("Welcome to Smuxi")));
-            AddMessageToChat(_SessionChat, msg);
-            
-            msg = new MessageModel();
-            msg.MessageParts.Add(
-                new TextMessagePartModel(null, null, false,
-                        true, false, _("Type /help to get a list of available commands.")));
-            AddMessageToChat(_SessionChat, msg);
-
-            msg = new MessageModel();
-            msg.MessageParts.Add(
-                new TextMessagePartModel(null, null, false,
-                        true, false, _("After you have made a connection the list of available commands changes, just use /help again.")));
-            AddMessageToChat(_SessionChat, msg);
         }
         
         public void RegisterFrontendUI(IFrontendUI ui)
@@ -147,12 +129,9 @@ namespace Smuxi.Engine
                 throw new ArgumentNullException("ui");
             }
             
-            string uri = RemotingServices.GetObjectUri((MarshalByRefObject)ui);
-            if (uri == null) {
-                uri = "local";
-            }
+            string uri = GetUri(ui);
 #if LOG4NET
-            f_Logger.Debug("Registering UI with URI: "+uri);
+            f_Logger.Debug("Registering UI with URI: " + uri);
 #endif
             // add the FrontendManager to the hashtable with an unique .NET remoting identifier
             FrontendManager fm = new FrontendManager(this, ui);
@@ -161,13 +140,31 @@ namespace Smuxi.Engine
             // if this is the first frontend, we process OnStartupCommands
             if (!_OnStartupCommandsProcessed) {
                 _OnStartupCommandsProcessed = true;
-                ChatModel smuxiChat = GetChat("smuxi", ChatType.Protocol, null);
+                
+                MessageModel msg;
+                msg = new MessageModel();
+                msg.MessageParts.Add(
+                    new TextMessagePartModel(new TextColor(0xFF0000), null, false,
+                            true, false, _("Welcome to Smuxi")));
+                AddMessageToChat(_SessionChat, msg);
+                
+                msg = new MessageModel();
+                msg.MessageParts.Add(
+                    new TextMessagePartModel(null, null, false,
+                            true, false, _("Type /help to get a list of available commands.")));
+                AddMessageToChat(_SessionChat, msg);
+
+                msg = new MessageModel();
+                msg.MessageParts.Add(
+                    new TextMessagePartModel(null, null, false,
+                            true, false, _("After you have made a connection the list of available commands changes, just use /help again.")));
+                AddMessageToChat(_SessionChat, msg);
                 
                 foreach (string command in (string[])_UserConfig["OnStartupCommands"]) {
                     if (command.Length == 0) {
                         continue;
                     }
-                    CommandModel cd = new CommandModel(fm, smuxiChat,
+                    CommandModel cd = new CommandModel(fm, _SessionChat,
                         (string)_UserConfig["Interface/Entry/CommandCharacter"],
                         command);
                     bool handled;
@@ -204,7 +201,7 @@ namespace Smuxi.Engine
                     // if the connect command was correct, we should be able to get
                     // the chat model
                     if (protocolManager.Chat == null) {
-                        fm.AddTextToChat(smuxiChat, String.Format(_("Automatic connect to {0} failed!"), server.Hostname + ":" + server.Port));
+                        fm.AddTextToChat(_SessionChat, String.Format(_("Automatic connect to {0} failed!"), server.Hostname + ":" + server.Port));
                         continue;
                     }
                     
@@ -252,6 +249,7 @@ namespace Smuxi.Engine
                 //throw new InvalidOperationException("Could not find key for frontend manager in _FrontendManagers.");
                 return;
             }
+            
             _FrontendManagers.Remove(key);
         }
         
@@ -263,10 +261,7 @@ namespace Smuxi.Engine
                 throw new ArgumentNullException("ui");
             }
             
-            string uri = RemotingServices.GetObjectUri((MarshalByRefObject)ui);
-            if (uri == null) {
-                uri = "local";
-            }
+            string uri = GetUri(ui);
 #if LOG4NET
             f_Logger.Debug("Deregistering UI with URI: "+uri);
 #endif
@@ -281,11 +276,29 @@ namespace Smuxi.Engine
                 throw new ArgumentNullException("ui");
             }
             
-            string uri = RemotingServices.GetObjectUri((MarshalByRefObject)ui);
-            if (uri == null) {
-                uri = "local";
+            return _FrontendManagers[GetUri(ui)];
+        }
+        
+        private string GetUri(IFrontendUI ui)
+        {
+            if (ui == null) {
+                throw new ArgumentNullException("ui");
             }
-            return (FrontendManager)_FrontendManagers[uri];
+            
+            if (IsLocal) {
+                return "local";
+            }
+            
+            return RemotingServices.GetObjectUri((MarshalByRefObject)ui);
+        }
+        
+        public static bool IsLocalFrontend(IFrontendUI ui)
+        {
+            if (ui == null) {
+                throw new ArgumentNullException("ui");
+            }
+            
+            return RemotingServices.GetObjectUri((MarshalByRefObject)ui) == null;
         }
         
         public ChatModel GetChat(string id, ChatType chatType, IProtocolManager networkManager)
@@ -371,14 +384,13 @@ namespace Smuxi.Engine
             cd.FrontendManager.AddMessageToChat(cd.Chat, msg);
             
             string[] help = {
-            "help",
-            "connect/server protocol [protocol-parameters]",
-            "disconnect",
-            "network list",
-            "network close [server]",
-            "network switch [server]",
-            "config (save|load)",
-            "quit [quitmessage]",
+                "help",
+                "connect/server protocol [protocol-parameters]",
+                "disconnect",
+                "network list",
+                "network close [server]",
+                "network switch [server]",
+                "config (save|load)",
             };
             
             foreach (string line in help) { 
@@ -467,9 +479,13 @@ namespace Smuxi.Engine
                         return;
                     }
                 }
-                fm.AddTextToCurrentChat("-!- " + String.Format(
-                                                    _("Disconnect failed, could not find server: {0}"),
-                                                    server));
+                fm.AddTextToCurrentChat(
+                    "-!- " +
+                    String.Format(
+                        _("Disconnect failed, could not find server: {0}"),
+                        server
+                    )
+                );
             } else {
                 fm.CurrentProtocolManager.Disconnect(fm);
                 _ProtocolManagers.Remove(fm.CurrentProtocolManager);
@@ -649,9 +665,6 @@ namespace Smuxi.Engine
             _Chats.Add(chat);
             foreach (FrontendManager fm in _FrontendManagers.Values) {
                 fm.AddChat(chat);
-                // BUG: race condition: the (group) chat isn't fully ready yet to be synced
-                // The ProtocolManager will tell us when the chat is ready to be synced
-                //fm.SyncChat(chat);
             }
         }
         

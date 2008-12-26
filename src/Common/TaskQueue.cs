@@ -213,6 +213,8 @@ namespace Smuxi.Common
         {
             if (disposed)
                 return;
+            
+            disposed = true;
         }
     }
 }

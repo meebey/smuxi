@@ -1,3 +1,10 @@
+2008-12-26  Mirco Bauer <meebey@meebey.net> 
+
+	* Chats/ChatView.cs: Disabled Console.WriteLine call.
+	* gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs: funny stetic
+	  insisting doing useless changes
+	* Frontend.cs: Code clean-up.
+
 2008-12-22  Mirco Bauer <meebey@meebey.net> 
 
 	* Chats/GroupChatView.cs: Some cleanup.
