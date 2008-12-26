@@ -443,6 +443,10 @@ namespace Smuxi.Frontend.Gnome
         {
             Trace.Call();
             
+            if (((Gtk.Entry)_Glade["ConnectionNicknamesEntry"]).Text.Trim().Length == 0) {
+                throw new ApplicationException(_("Nicknames(s) field must not be empty."));
+            }
+            
             string prefix;
             
             // root
@@ -618,6 +622,8 @@ namespace Smuxi.Frontend.Gnome
                 Frontend.UserConfig.ClearCache();
                 Frontend.ApplyConfig(Frontend.UserConfig);
                 _Dialog.Destroy();
+            } catch (ApplicationException ex) {
+                Frontend.ShowError(_Dialog, ex.Message);
             } catch (Exception ex) {
 #if LOG4NET
                 _Logger.Error(ex);

@@ -1,5 +1,10 @@
 2008-12-27  Mirco Bauer <meebey@meebey.net> 
 
+	* Preferences/PreferencesDialog.cs: Check for empty nickname field. (closes
+	  trac bug #123)
+
+2008-12-27  Mirco Bauer <meebey@meebey.net> 
+
 	* FindGroupChatDialog.cs, Preferences/ServerListView.cs: Pass parent to
 	  ShowError.
 	* gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs: lol, useless
