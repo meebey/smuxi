@@ -124,6 +124,25 @@ namespace Smuxi.Common
             thread.Start();
         }
 
+        ~TaskQueue()
+        {
+            Dispose(false);
+        }
+        
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+        
+        protected void Dispose(bool disposing)
+        {
+            if (disposed)
+                return;
+            
+            disposed = true;
+        }
+        
         void Loop()
         {
             while (true)
@@ -207,14 +226,6 @@ namespace Smuxi.Common
             t.Handle.Close();
 
             return t.Result;
-        }
-
-        public void Dispose()
-        {
-            if (disposed)
-                return;
-            
-            disposed = true;
         }
     }
 }

@@ -1,5 +1,9 @@
 2008-12-26  Mirco Bauer <meebey@meebey.net> 
 
+	* TaskQueue.cs: Call Dispose() in destructor as fallback.
+
+2008-12-26  Mirco Bauer <meebey@meebey.net> 
+
 	* TaskQueue.cs: Set disposed in Dispose() else the Thread will never
 	  terminate as long there is no exception thrown.
 

@@ -232,17 +232,62 @@ namespace Smuxi.Engine
                         msg.MessageParts.Insert(idx++, notUrlPart);
                     }
                 }
+            }
+        }
+        
+        protected void ParseSmileys(MessageModel msg)
+        {
+            string simleyRegex;
+            simleyRegex = @":-?(\(|\))";
+            Regex reg = new Regex(simleyRegex);
+            // clone MessageParts
+            IList<MessagePartModel> parts = new List<MessagePartModel>(msg.MessageParts);
+            foreach (MessagePartModel part in parts) {
+                if (!(part is TextMessagePartModel)) {
+                    continue;
+                }
                 
-                /*
-                do {
-                    string url = urlMatch.Groups[0];
-                    _Logger.Debug("found url: " + url);
-                    
-                    UrlMessagePartModel urlPart = new UrlMessagePartModel(url);
-                    
-                    urlMatch = urlMatch.NextMatch();
-                } while (urlMatch.Success);
-                */
+                TextMessagePartModel textPart = (TextMessagePartModel) part;
+                Match simleyMatch = reg.Match(textPart.Text);
+                // OPT: fast regex scan
+                if (!simleyMatch.Success) {
+                    // no smileys in this MessagePart, nothing to do
+                    continue;
+                }
+                
+                // found smiley(s)
+                // remove current MessagePartModel as we need to split it
+                int idx = msg.MessageParts.IndexOf(part);
+                msg.MessageParts.RemoveAt(idx);
+                
+                string[] textPartParts = textPart.Text.Split(new char[] {' '});
+                for (int i = 0; i < textPartParts.Length; i++) {
+                    string textPartPart = textPartParts[i];
+                    simleyMatch = reg.Match(textPartPart);
+                    if (simleyMatch.Success) {
+                        string filename = null;
+                        if (textPartPart == ":-)") {
+                            filename = "smile.png";
+                        }
+                        ImageMessagePartModel imagePart = new ImageMessagePartModel(
+                            filename,
+                            textPartPart
+                        );
+                        msg.MessageParts.Insert(idx++, imagePart);
+                        msg.MessageParts.Insert(idx++, new TextMessagePartModel(" "));
+                    } else {
+                        // FIXME: we put each text part into it's own object, instead of combining them (the smart way)
+                        TextMessagePartModel notUrlPart = new TextMessagePartModel(textPartPart + " ");
+                        // restore formatting / colors from the original text part
+                        notUrlPart.IsHighlight     = textPart.IsHighlight;
+                        notUrlPart.ForegroundColor = textPart.ForegroundColor;
+                        notUrlPart.BackgroundColor = textPart.BackgroundColor;
+                        notUrlPart.Bold            = textPart.Bold;
+                        notUrlPart.Italic          = textPart.Italic;
+                        notUrlPart.Underline       = textPart.Underline;
+                        msg.MessageParts.Insert(idx++, notUrlPart);
+                    }
+                }
             }
         }
     }
