@@ -49,8 +49,9 @@ FILES = \
 	MD5.cs \
 	FastSerializer.cs \
 	LibraryCatalog.cs \
-	Defines.cs
-
+	Defines.cs \
+	TaskQueue.cs
+	
 DATA_FILES = 
 
 RESOURCES = 

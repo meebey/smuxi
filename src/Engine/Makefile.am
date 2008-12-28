@@ -65,26 +65,29 @@ FILES = \
 	Messages/MessagePartModel.cs \
 	Messages/TextMessagePartModel.cs \
 	Messages/UrlMessagePartModel.cs \
+	Messages/ImageMessagePartModel.cs \
+	Messages/MessageType.cs \
 	Chats/ChatType.cs \
 	Chats/ChatModel.cs \
 	Chats/GroupChatModel.cs \
 	Chats/PersonChatModel.cs \
-	Protocols/ProtocolManagerBase.cs \
+	Chats/SessionChatModel.cs \
 	Chats/ProtocolChatModel.cs \
-	Protocols/ProtocolManagerFactory.cs \
-	Protocols/ProtocolManagerInfoModel.cs \
-	Protocols/ProtocolManagerInfoAttribute.cs \
-	Protocols/IProtocolManager.cs \
+	Config/FrontendConfig.cs \
+	Config/ChannelFilterModel.cs \
+	Config/ChannelFilterListController.cs \
+	Config/NotificationAreaIconMode.cs \
 	Config/UserConfig.cs \
 	Config/Config.cs \
 	Config/ServerModel.cs \
 	Config/ServerListController.cs \
+	Protocols/ProtocolManagerBase.cs \
+	Protocols/ProtocolManagerFactory.cs \
+	Protocols/ProtocolManagerInfoModel.cs \
+	Protocols/ProtocolManagerInfoAttribute.cs \
+	Protocols/IProtocolManager.cs \
 	Persons/PersonModel.cs \
-	Persons/ContactModel.cs \
-	Config/FrontendConfig.cs \
-	Config/ChannelFilterModel.cs \
-	Config/ChannelFilterListController.cs \
-	Chats/SessionChatModel.cs 
+	Persons/ContactModel.cs
 
 DATA_FILES = 
 

@@ -10,10 +10,17 @@ EXTRA_DIST =	install-sh \
 		BUGS \
 		TODO
 
-SUBDIRS = 	src \
-		po \
+PODIRS =	po \
 		po-Engine \
 		po-Engine-IRC \
 		po-Server \
 		po-Frontend-GNOME \
 		po-Frontend-GNOME-IRC
+
+SUBDIRS = 	src \
+		$(PODIRS)
+
+update-po:
+	for PODIR in $(PODIRS); do \
+		$(MAKE) -C $$PODIR $@; \
+	done
