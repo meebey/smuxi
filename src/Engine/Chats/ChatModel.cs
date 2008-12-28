@@ -7,7 +7,7 @@
  *
  * smuxi - Smart MUltipleXed Irc
  *
- * Copyright (c) 2005-2006 Mirco Bauer <meebey@meebey.net>
+ * Copyright (c) 2005-2008 Mirco Bauer <meebey@meebey.net>
  *
  * Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
  *
@@ -41,6 +41,7 @@ namespace Smuxi.Engine
         private IProtocolManager     _ProtocolManager;
         private List<MessageModel>   _Messages = new List<MessageModel>();
         private bool                 _IsEnabled = true;
+        private DateTime             _LastSeenHighlight;
         
         public string ID {
             get {
@@ -89,6 +90,15 @@ namespace Smuxi.Engine
             }
             internal set {
                 _IsEnabled = value;
+            }
+        }
+
+        public DateTime LastSeenHighlight {
+            get {
+                return _LastSeenHighlight;
+            }
+            set {
+                _LastSeenHighlight = value;
             }
         }
         

@@ -497,7 +497,8 @@ namespace Smuxi.Frontend.Gnome
             
             // HACK: out of scope?
             if (Frontend.MainWindow.Notebook.CurrentChatView != this) {
-                if (hasHighlight) {
+                if (hasHighlight &&
+                    _ChatModel.LastSeenHighlight < msg.TimeStamp) {
                     HasHighlight = true;
                 }
                 

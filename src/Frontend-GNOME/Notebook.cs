@@ -132,6 +132,10 @@ namespace Smuxi.Frontend.Gnome
                     // even when we have no network manager, we still want to update the state
                     Frontend.FrontendManager.UpdateNetworkStatus();
 
+                    // update last seen highlight 
+                    if (chatView.HasHighlight) {
+                        chatModel.LastSeenHighlight = DateTime.UtcNow;
+                    }
                     // clear activity and highlight
                     chatView.HasHighlight = false;
                     chatView.HasActivity = false;
@@ -142,9 +146,6 @@ namespace Smuxi.Frontend.Gnome
                         Frontend.MainWindow.Title = network + chatView.Name +
                                                     " - smuxi - Smart MUtipleXed Irc";
                     }
-                    
-                    // switching pages might grab the focus, so let's move it back to the entry
-                    //Frontend.MainWindow.Entry.HasFocus = true;
                 }
             } catch (Exception ex) {
                 Frontend.ShowException(null, ex);

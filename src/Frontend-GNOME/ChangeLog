@@ -1,3 +1,9 @@
+2008-12-28  Mirco Bauer <meebey@meebey.net> 
+
+	* Chats/ChatView.cs, Notebook.cs: Implemented remembering last seen
+	  highlight in chats, so frontends will not re-highlight when
+	  re-attaching. (closes trac ticket #97)
+
 2008-12-27  Mirco Bauer <meebey@meebey.net> 
 
 	* Preferences/PreferencesDialog.cs: Check for empty nickname field. (closes
