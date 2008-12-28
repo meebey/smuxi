@@ -1,5 +1,9 @@
 2008-12-28  Mirco Bauer <meebey@meebey.net> 
 
+	* Makefile.am: Replaced hardcoded gmcs calls with configure variable.
+
+2008-12-28  Mirco Bauer <meebey@meebey.net> 
+
 	* Protocols/Irc/IrcProtocolManager.cs: Implemented /names command. (closes
 	  trac ticket #120)
 

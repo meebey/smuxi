@@ -1,3 +1,7 @@
+2008-12-28  Mirco Bauer <meebey@meebey.net> 
+
+	* Makefile.am: Replaced hardcoded gmcs calls with configure variable.
+
 2008-08-21  Mirco Bauer <meebey@meebey.net> 
 
 	* MainWindow.cs, Frontend.cs, TextView.cs, Entry.cs, LogWidget.cs: Fixed

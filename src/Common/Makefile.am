@@ -4,7 +4,7 @@ EXTRA_DIST =
 # Warning: This is an automatically generated file, do not edit!
 
 if ENABLE_RELEASE
-ASSEMBLY_COMPILER_COMMAND = gmcs
+ASSEMBLY_COMPILER_COMMAND = @MCS@
 ASSEMBLY_COMPILER_FLAGS =  -noconfig -codepage:utf8 -warn:4 -optimize+ "-define:NET_2_0"
 
 ASSEMBLY = ../../bin/release/smuxi-common.dll
@@ -18,7 +18,7 @@ LOG4NET_DLL_SOURCE=../../lib/log4net.dll
 endif
 
 if ENABLE_DEBUG
-ASSEMBLY_COMPILER_COMMAND = gmcs
+ASSEMBLY_COMPILER_COMMAND = @MCS@
 ASSEMBLY_COMPILER_FLAGS =  -noconfig -codepage:utf8 -warn:4 -optimize+ "-define:DEBUG,TRACE,LOG4NET,NET_2_0"
 
 ASSEMBLY = ../../bin/debug/smuxi-common.dll

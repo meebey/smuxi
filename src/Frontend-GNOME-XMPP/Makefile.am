@@ -4,7 +4,7 @@ EXTRA_DIST =
 # Warning: This is an automatically generated file, do not edit!
 
 if ENABLE_RELEASE
-ASSEMBLY_COMPILER_COMMAND = gmcs
+ASSEMBLY_COMPILER_COMMAND = @MCS@
 ASSEMBLY_COMPILER_FLAGS =  -noconfig -codepage:utf8 -warn:4 -optimize+
 ASSEMBLY = ../../bin/release/smuxi-frontend-gnome-xmpp.dll
 ASSEMBLY_MDB = 
@@ -32,7 +32,7 @@ JABBER_NET_DLL_SOURCE=../../lib/jabber-net.dll
 endif
 
 if ENABLE_DEBUG
-ASSEMBLY_COMPILER_COMMAND = gmcs
+ASSEMBLY_COMPILER_COMMAND = @MCS@
 ASSEMBLY_COMPILER_FLAGS =  -noconfig -codepage:utf8 -warn:4 -optimize+ -debug -define:DEBUG "-define:DEBUG,TRACE,LOG4NET"
 
 ASSEMBLY = ../../bin/debug/smuxi-frontend-gnome-xmpp.dll
