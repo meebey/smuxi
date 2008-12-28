@@ -178,6 +178,8 @@ namespace Smuxi.Frontend.Gnome
             DeleteEvent += OnDeleteEvent;
             FocusInEvent += OnFocusInEvent;
             WindowStateEvent += OnWindowStateEvent;
+                    
+            
             
             Gtk.AccelGroup agrp = new Gtk.AccelGroup();
             Gtk.AccelKey   akey;
