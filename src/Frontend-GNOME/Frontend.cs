@@ -209,7 +209,7 @@ namespace Smuxi.Frontend.Gnome
 #if UI_GNOME
             _Program = new GNOME.Program(Name, Version.ToString(), GNOME.Modules.UI, args);
 #elif UI_GTK
-            Gtk.Application.Init();
+            Gtk.Application.Init(Name, args);
 #endif
 #if GTK_SHARP_2_10
             GLib.ExceptionManager.UnhandledException += _OnUnhandledException;
@@ -220,6 +220,8 @@ namespace Smuxi.Frontend.Gnome
             // loading and setting defaults
             _FrontendConfig.Load();
             _FrontendConfig.Save();
+            
+            Gtk.Window.DefaultIcon = new Gdk.Pixbuf(null, "icon.svg");
  
             _MainWindow = new MainWindow();
 
@@ -324,26 +326,33 @@ namespace Smuxi.Frontend.Gnome
         public static void Quit()
         {
             Trace.Call();
-            
-            // save window size
-            int width, heigth;
-            if (_MainWindow.IsMaximized) {
-                width = -1;
-                heigth = -1;
-            } else {
-                _MainWindow.GetSize(out width, out heigth);
+
+            // only save windows size when we are not in the engine manager dialog
+            if (_MainWindow.Visible) {
+                // save window size
+                int width, heigth;
+                if (_MainWindow.IsMaximized) {
+                    width = -1;
+                    heigth = -1;
+                } else {
+                    _MainWindow.GetSize(out width, out heigth);
+                }
+                _FrontendConfig[Frontend.UIName + "/Interface/Width"] = width;
+                _FrontendConfig[Frontend.UIName + "/Interface/Heigth"] = heigth;
+                
+                int x, y;
+                _MainWindow.GetPosition(out x, out y);
+                _FrontendConfig[Frontend.UIName + "/Interface/XPosition"] = x;
+                _FrontendConfig[Frontend.UIName + "/Interface/YPosition"] = y;
+                _FrontendConfig.Save();
             }
-            _FrontendConfig[Frontend.UIName + "/Interface/Width"] = width;
-            _FrontendConfig[Frontend.UIName + "/Interface/Heigth"] = heigth;
-            
-            int x, y;
-            _MainWindow.GetPosition(out x, out y);
-            _FrontendConfig[Frontend.UIName + "/Interface/XPosition"] = x;
-            _FrontendConfig[Frontend.UIName + "/Interface/YPosition"] = y;
-            _FrontendConfig.Save();
             
             if (_FrontendManager != null) {
-                _FrontendManager.IsFrontendDisconnecting = true;
+                try {
+                    _FrontendManager.IsFrontendDisconnecting = true;
+                } catch (System.Runtime.Remoting.RemotingException ex) {
+                    // the connection is maybe already gone
+                }
             }
             
             /*
@@ -370,7 +379,7 @@ namespace Smuxi.Frontend.Gnome
                 
         public static void ShowError(Gtk.Window parent, string msg, Exception ex)
         {
-            Trace.Call(parent, msg, ex);
+            Trace.Call(parent, msg, ex != null ? ex.GetType() : null);
             
             if (!IsGuiThread()) {
                 Gtk.Application.Invoke(delegate {
@@ -406,7 +415,7 @@ namespace Smuxi.Frontend.Gnome
         
         public static void ShowException(Gtk.Window parent, Exception ex)
         {
-            Trace.Call(parent, ex);
+            Trace.Call(parent, ex != null ? ex.GetType() : null);
             
             if (parent == null) {
                 parent = _MainWindow;
@@ -419,8 +428,12 @@ namespace Smuxi.Frontend.Gnome
                 return;
             }
             
+#if LOG4NET
+            _Logger.Error("ShowException(): Exception:", ex);
+#endif
+            
             if (ex is System.Runtime.Remoting.RemotingException) {
-                Gtk.MessageDialog md = new Gtk.MessageDialog(_MainWindow,
+                Gtk.MessageDialog md = new Gtk.MessageDialog(parent,
                     Gtk.DialogFlags.Modal, Gtk.MessageType.Error,
                     Gtk.ButtonsType.OkCancel, _("The frontend has lost the connection to the server.\n Do you want to reconnect now?"));
                 Gtk.ResponseType res = (Gtk.ResponseType) md.Run();
@@ -429,7 +442,10 @@ namespace Smuxi.Frontend.Gnome
                 if (res == Gtk.ResponseType.Ok) {
                     Frontend.DisconnectEngineFromGUI();
                     _MainWindow.EngineManager.Reconnect();
+                    return;
                 }
+                
+                Quit();
                 return;
             }
             
@@ -442,7 +458,7 @@ namespace Smuxi.Frontend.Gnome
         
         public static void ShowException(Exception ex)
         {
-            Trace.Call(ex);
+            Trace.Call(ex != null ? ex.GetType() : null);
             
             ShowException(null, ex);
         }
@@ -479,7 +495,7 @@ namespace Smuxi.Frontend.Gnome
                     break;
                 case NotificationAreaIconMode.Minimized:
                 case NotificationAreaIconMode.Closed:
-                    // at application startup the main window is not visible but also not yet realized 
+                    // at application startup the main window is not realized but not visible
                     _StatusIcon.Visible = _MainWindow.IsRealized && !_MainWindow.Visible;
                     break;
             }

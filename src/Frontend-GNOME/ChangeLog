@@ -1,5 +1,23 @@
 2008-12-28  Mirco Bauer <meebey@meebey.net> 
 
+	* Frontend.cs: Init(): Pass application name and parameters to GTK
+	  initialization.
+	
+	  Init(): Set default icon.
+	
+	  Quit(): Only store window size / state and position if the MainWindow is
+	  visible, else quitting when being in the engine manager dialog would
+	  reset the values in the config.
+	
+	  Quit(): catch RemotingException when telling the frontend manager that
+	  we are disconnecting, else Quit() would throw an exception when we try
+	  to quit like when we lost the connection to the server.
+	
+	  Only log exception type instead of full message (via ToString) in
+	  Trace.Call() else it clutters the log.
+
+2008-12-28  Mirco Bauer <meebey@meebey.net> 
+
 	* Main.cs: Disabled bailing out when unknown options are passed, as GTK+ and
 	  GNOME handles some too.
 
