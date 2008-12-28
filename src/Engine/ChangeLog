@@ -1,5 +1,10 @@
 2008-12-28  Mirco Bauer <meebey@meebey.net> 
 
+	* Config/Config.cs: Make sure Username and Password are initialized empty,
+	  as there can't be default values in the config for those.
+
+2008-12-28  Mirco Bauer <meebey@meebey.net> 
+
 	* Makefile.am: Replaced hardcoded gmcs calls with configure variable.
 
 2008-12-28  Mirco Bauer <meebey@meebey.net> 

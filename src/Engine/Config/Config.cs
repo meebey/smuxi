@@ -254,7 +254,11 @@ namespace Smuxi.Engine
             Get(prefix + "Port", 6667);
             Get(prefix + "Network", "OFTC");
             Get(prefix + "OnStartupConnect", true);
-            Get(prefix + "OnConnectCommands", new string[] { "/join #smuxi" });
+            Get(prefix + "OnConnectCommands",
+                new string[] {
+                    "/join #smuxi",
+                }
+            );
             
             prefix = "Engine/Users/DEFAULT/Servers/IRC/irc.gimp.org/";
             Get(prefix + "Hostname", "irc.gimp.org");
@@ -334,7 +338,7 @@ namespace Smuxi.Engine
                     }
                 } catch (Exception ex) {
 #if LOG4NET
-                    _Logger.Warn("Load(): error getting realname from gecos", ex);
+                    _Logger.Warn("Load(): error getting realname from gecos (ignoring)", ex);
 #endif
                 }
                 if (String.IsNullOrEmpty(realname)) {
@@ -415,8 +419,8 @@ namespace Smuxi.Engine
                     LoadEntry(sprefix+"Port", null);
                     LoadEntry(sprefix+"Network", null);
                     LoadEntry(sprefix+"Encoding", null);
-                    LoadEntry(sprefix+"Username", null);
-                    LoadEntry(sprefix+"Password", null);
+                    LoadEntry(sprefix+"Username", String.Empty);
+                    LoadEntry(sprefix+"Password", String.Empty);
                     LoadEntry(sprefix+"OnStartupConnect", false);
                     string[] commands = GetList(sprefix + "OnConnectCommands");
                     if (commands == null) {
