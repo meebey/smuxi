@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-12-28 23:25+0100\n"
-"PO-Revision-Date: 2008-09-29 00:13+0100\n"
+"PO-Revision-Date: 2008-12-28 23:55+0100\n"
 "Last-Translator: David Paleino <d.paleino@gmail.com>\n"
 "Language-Team: Italian\n"
 "MIME-Version: 1.0\n"
@@ -37,13 +37,15 @@ msgstr "Benvenuto in Smuxi"
 
 #: ../src/Engine/Session.cs:154
 msgid "Type /help to get a list of available commands."
-msgstr ""
+msgstr "Digita /help per ottenere una lista di comandi disponibili."
 
 #: ../src/Engine/Session.cs:160
 msgid ""
 "After you have made a connection the list of available commands changes, "
 "just use /help again."
 msgstr ""
+"Dopo aver effettuato una connessione la lista dei comandi disponibili "
+"cambia, usa di nuovo /help."
 
 #: ../src/Engine/Session.cs:204
 #, csharp-format

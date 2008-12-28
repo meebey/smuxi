@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: smuxi VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-12-28 23:20+0100\n"
-"PO-Revision-Date: 2008-09-29 09:38+0100\n"
+"PO-Revision-Date: 2008-12-28 23:53+0100\n"
 "Last-Translator: David Paleino <d.paleino@gmail.com>\n"
 "Language-Team: Italian\n"
 "MIME-Version: 1.0\n"
@@ -42,7 +42,7 @@ msgstr "<b> Evidenziazione </b>"
 
 #: ../glade/smuxi-frontend-gnome.glade.h:6
 msgid "<b> Notification Area Icon </b>"
-msgstr ""
+msgstr "<b> Icona Area di Notifica </b>"
 
 #: ../glade/smuxi-frontend-gnome.glade.h:7
 msgid "<b> Person List Position </b>"
@@ -133,7 +133,7 @@ msgstr "Carattere Completamento:"
 
 #: ../glade/smuxi-frontend-gnome.glade.h:24
 msgid "Enable"
-msgstr ""
+msgstr "Abilita"
 
 #: ../glade/smuxi-frontend-gnome.glade.h:25
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:560
@@ -218,7 +218,7 @@ msgstr "Nessuna"
 
 #: ../glade/smuxi-frontend-gnome.glade.h:40
 msgid "Notification"
-msgstr ""
+msgstr "Notifica"
 
 #: ../glade/smuxi-frontend-gnome.glade.h:41
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:582
@@ -268,21 +268,20 @@ msgstr "Destra"
 
 #: ../glade/smuxi-frontend-gnome.glade.h:50
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.QuickConnectDialog.cs:172
-#, fuzzy
 msgid "Show Password"
-msgstr "Password:"
+msgstr "Mostra Password:"
 
 #: ../glade/smuxi-frontend-gnome.glade.h:51
 msgid "Show always"
-msgstr ""
+msgstr "Mostra sempre"
 
 #: ../glade/smuxi-frontend-gnome.glade.h:52
 msgid "Show when window is closed"
-msgstr ""
+msgstr "Mostra quando la finestra viene chiusa"
 
 #: ../glade/smuxi-frontend-gnome.glade.h:53
 msgid "Show when window is minimized"
-msgstr ""
+msgstr "Chiudi quando la finestra viene minimizzata"
 
 #: ../glade/smuxi-frontend-gnome.glade.h:54
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:829
@@ -351,9 +350,8 @@ msgid "_Servers"
 msgstr "_Server"
 
 #: ../glade/smuxi-frontend-gnome.glade.h:65
-#, fuzzy
 msgid "_Wrap Mode:"
-msgstr "_Modalità Caret"
+msgstr "_Modalità a capo automatico:"
 
 #: ../glade/smuxi-frontend-gnome.glade.h:66
 msgid "gtk-cancel"
@@ -677,11 +675,11 @@ msgstr ""
 
 #: ../src/Frontend-GNOME/EngineDruid.cs:119
 msgid "_Formatter:"
-msgstr ""
+msgstr "_Formatter:"
 
 #: ../src/Frontend-GNOME/EngineDruid.cs:120
 msgid ".NET Remoting Data Formatter"
-msgstr ""
+msgstr "Gestore formato dati .NET Remoting"
 
 #: ../src/Frontend-GNOME/EngineDruid.cs:129
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.QuickConnectDialog.cs:200
@@ -723,13 +721,12 @@ msgstr "Spiacente, non ancora implementato!"
 
 #. fill ListStore
 #: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:142
-#, fuzzy
 msgid "Character"
-msgstr "Carattere Comando:"
+msgstr "Carattere"
 
 #: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:143
 msgid "Word"
-msgstr ""
+msgstr "Parola"
 
 #: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:153
 msgid "Connection"
@@ -749,7 +746,7 @@ msgstr "Predefinito di Sistema"
 
 #: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:449
 msgid "Nicknames(s) field must not be empty."
-msgstr ""
+msgstr "I campi nickname non devono essere vuoti."
 
 #: ../src/Frontend-GNOME/FindGroupChatDialog.cs:65
 msgid "#"
@@ -775,20 +772,19 @@ msgstr ""
 
 #: ../src/Frontend-GNOME/FindGroupChatDialog.cs:138
 msgid "Error while fetching the list of group chats from the server."
-msgstr ""
+msgstr "Errore durante il prelievo della lista dei gruppi dal server."
 
 #: ../src/Frontend-GNOME/Frontend.cs:392
 #, csharp-format
 msgid "Cause: {0}"
-msgstr ""
+msgstr "Causa: {0}"
 
 #: ../src/Frontend-GNOME/Frontend.cs:438
-#, fuzzy
 msgid ""
 "The frontend has lost the connection to the server.\n"
 " Do you want to reconnect now?"
 msgstr ""
-"Il server ha perso la connessione al frontend.\n"
+"Il frontend ha perso la connessione al server.\n"
 " Vuoi riconnetterti ora?"
 
 #: ../src/Frontend-GNOME/Frontend.cs:575

@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: Smuxi VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-12-28 23:25+0100\n"
-"PO-Revision-Date: 2008-09-29 00:26+0100\n"
+"PO-Revision-Date: 2008-12-28 23:54+0100\n"
 "Last-Translator: David Paleino <d.paleino@gmail.com>\n"
 "Language-Team: Italian\n"
 "MIME-Version: 1.0\n"
@@ -139,12 +139,12 @@ msgstr "{0} è già nel canale"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1323
 msgid "Users"
-msgstr ""
+msgstr "Utenti"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1366
 #, csharp-format
 msgid "Total of {0} users [{1} ops, {2} voices, {3} normal]"
-msgstr ""
+msgstr "Totale di {0} utenti [{1} operatori, {2} voce, {3} normali}"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1506
 msgid "Connection error! Reason: "
