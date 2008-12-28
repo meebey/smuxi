@@ -581,6 +581,10 @@ namespace Smuxi.Engine
                             CommandInvite(command);
                             handled = true;
                             break;
+                        case "names":
+                            CommandNames(command);
+                            handled = true;
+                            break;
                         case "quit":
                             CommandQuit(command);
                             handled = true;
@@ -1294,6 +1298,80 @@ namespace Smuxi.Engine
             } else {
                 _NotEnoughParameters(cd);
             }
+        }
+        
+        public void CommandNames(CommandModel cd)
+        {
+            /*
+            13:10 [Users #smuxi]
+            13:10 [ CIA-5] [ d-best] [ meebey] [ meebey_] [ NotZh817] [ RAOF] 
+            13:10 -!- Irssi: #smuxi: Total of 6 nicks [0 ops, 0 halfops, 0 voices, 6 normal]
+            */
+            
+            FrontendManager fm = cd.FrontendManager;
+            ChatModel chat = fm.CurrentChat;
+            if (!(chat is GroupChatModel)) {
+                return;
+            }
+            GroupChatModel groupChat = (GroupChatModel) chat;
+            
+            MessageModel msg;
+            TextMessagePartModel textMsg;
+            
+            msg = new MessageModel();
+            textMsg = new TextMessagePartModel();
+            textMsg.Text = String.Format("-!- [{0} {1}]", _("Users"), groupChat.Name); 
+            msg.MessageParts.Add(textMsg);
+            fm.AddMessageToCurrentChat(msg);
+            
+            int opCount = 0;
+            int voiceCount = 0;
+            int normalCount = 0;
+            msg = new MessageModel();
+            textMsg = new TextMessagePartModel();
+            textMsg.Text = "-!- ";
+            msg.MessageParts.Add(textMsg);
+            foreach (IrcGroupPersonModel ircPerson in groupChat.Persons.Values) {
+                string mode;
+                if (ircPerson.IsOp) {
+                    opCount++;
+                    mode = "@";
+                } else if (ircPerson.IsVoice) {
+                    voiceCount++;
+                    mode = "+";
+                } else {
+                    normalCount++;
+                    mode = " ";
+                }
+                textMsg = new TextMessagePartModel();
+                textMsg.Text = String.Format("[{0}", mode);
+                msg.MessageParts.Add(textMsg);
+                
+                textMsg = new TextMessagePartModel();
+                textMsg.Text = ircPerson.NickName;
+                textMsg.ForegroundColor = GetNickColor(ircPerson.NickName);
+                msg.MessageParts.Add(textMsg);
+                
+                textMsg = new TextMessagePartModel();
+                textMsg.Text = "] ";
+                msg.MessageParts.Add(textMsg);
+            }
+            fm.AddMessageToCurrentChat(msg);
+
+            msg = new MessageModel();
+            textMsg = new TextMessagePartModel();
+            textMsg.Text = String.Format(
+                "-!- {0}",
+                String.Format(
+                    _("Total of {0} users [{1} ops, {2} voices, {3} normal]"),
+                    opCount + voiceCount + normalCount,
+                    opCount,
+                    voiceCount,
+                    normalCount
+                )
+            );
+            msg.MessageParts.Add(textMsg);
+            fm.AddMessageToCurrentChat(msg);
         }
 
         public void CommandRaw(CommandModel cd)
