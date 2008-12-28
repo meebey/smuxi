@@ -159,10 +159,12 @@ namespace Smuxi.Frontend.Gnome
                                                 Gtk.Stock.Network,
                                                 Gtk.IconSize.SmallToolbar, null),
                             _("Servers"));
+            /*
             ls.AppendValues(Page.Filters, _Dialog.RenderIcon(
                                                 Gtk.Stock.Delete,
                                                 Gtk.IconSize.SmallToolbar, null),
                             _("Filters"));
+            */
             
             int i = 1;
             _MenuTreeView.AppendColumn(null, new Gtk.CellRendererPixbuf(), "pixbuf",i++);
