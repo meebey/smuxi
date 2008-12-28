@@ -1,5 +1,5 @@
 AC_PREREQ([2.54])
-AC_INIT([smuxi], [0.6.2], [http://smuxi.meebey.net/cgi-bin/trac/trac.cgi/newticket])
+AC_INIT([smuxi], [0.6.3], [http://smuxi.meebey.net/cgi-bin/trac/trac.cgi/newticket])
 AM_INIT_AUTOMAKE([foreign])
 AM_MAINTAINER_MODE
 
