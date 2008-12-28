@@ -50,10 +50,14 @@ namespace Smuxi.Frontend.Gnome
                         ShowHelp();
                         Environment.Exit(0);
                         break;
+                    /*
+                    // don't block other parameters as we pass them to
+                    // GTK+ / GNOME too
                     default:
                         Console.WriteLine("Invalid option: " + arg);
                         Environment.Exit(1);
                         break;
+                    */
                 }
             }
             
