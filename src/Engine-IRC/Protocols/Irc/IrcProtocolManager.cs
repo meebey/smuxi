@@ -1471,14 +1471,8 @@ namespace Smuxi.Engine
 #if LOG4NET
                         _Logger.Warn("_Run(): _Listen() returned.");
 #endif
-                        // should we care if listen returns?!?
-                        /*
-                        // only connect if we were listing and the connection
-                        // is suddenly gone
-                        if (_Listening && !IsConnected) {
-                            Connect(_FrontendManager);
-                        }
-                        */
+                    } catch (ThreadAbortException ex) {
+                        throw;
                     } catch (Exception ex) {
 #if LOG4NET
                         _Logger.Error("_Run(): exception in _Listen() occurred!" ,ex);
@@ -1490,6 +1484,10 @@ namespace Smuxi.Engine
                     // sleep for 10 seconds, we don't want to be abusive
                     System.Threading.Thread.Sleep(10000);
                 }
+            } catch (ThreadAbortException ex) {
+#if LOG4NET
+                _Logger.Debug("_Run(): thread aborted");
+#endif
             } catch (Exception ex) {
 #if LOG4NET
                 _Logger.Error(ex);
@@ -2672,6 +2670,10 @@ namespace Smuxi.Engine
                     }
                     _LastLag = lag;
                 }
+            } catch (ThreadAbortException ex) {
+#if LOG4NET
+                _Logger.Debug("_LagWatcher(): thread aborted");
+#endif
             } catch (Exception ex) {
 #if LOG4NET
                 _Logger.Error(ex);
