@@ -1,6 +1,11 @@
 
 EXTRA_DIST =  
 
+ICON = smuxi-frontend-gnome.svg
+
+pixmapdir =  $(datadir)/pixmaps
+pixmap_DATA = $(ICON)
+
 desktopdir = $(datadir)/applications
 desktop_DATA = smuxi-frontend-gnome.desktop
 
@@ -74,8 +79,11 @@ LINUX_DESKTOPAPPLICATIONS = \
 BINARIES = \
 	$(FRONTEND_GNOME)  
 
-all: $(ASSEMBLY) $(PROGRAMFILES) $(LINUX_DESKTOPAPPLICATIONS) $(BINARIES) 
+all: $(ASSEMBLY) $(PROGRAMFILES) $(LINUX_DESKTOPAPPLICATIONS) $(BINARIES) $(ICON)
 
+$(ICON):
+	cp $(top_srcdir)/images/icon.svg $(ICON)
+	
 FILES = \
 	AboutDialog.cs \
 	$(top_srcdir)/src/AssemblyVersion.cs \
@@ -144,7 +152,7 @@ REFERENCES =  \
 
 DLL_REFERENCES = 
 
-CLEANFILES = $(LINUX_DESKTOPAPPLICATIONS) $(PROGRAMFILES) $(BINARIES) 
+CLEANFILES = $(LINUX_DESKTOPAPPLICATIONS) $(PROGRAMFILES) $(BINARIES) $(ICON)
 
 include $(top_srcdir)/Makefile.include
 

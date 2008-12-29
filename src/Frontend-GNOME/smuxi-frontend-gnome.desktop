@@ -8,4 +8,4 @@ Exec=smuxi-frontend-gnome
 Terminal=false
 Type=Application
 Categories=Network;GNOME;Chat;IRCClient
-Icon=gnome-talk.png
+Icon=smuxi-frontend-gnome.svg
