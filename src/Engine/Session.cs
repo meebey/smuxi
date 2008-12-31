@@ -868,6 +868,29 @@ namespace Smuxi.Engine
             return _ProtocolManagerFactory.GetProtocols();
         }
         
+        public void Connect(FrontendManager frontendManager, string protocol,
+                            string hostname, int port,
+                            string username, string password)
+        {
+            Trace.Call(frontendManager, protocol, hostname, port, username, "XXX");
+            
+            IProtocolManager protocolManager = _CreateProtocolManager(
+                frontendManager,
+                protocol
+            );
+            if (protocolManager == null) {
+                throw new ApplicationException(_("No protocol manager found for that protocol: " + protocol));
+            }
+            
+            _ProtocolManagers.Add(protocolManager);
+            // only pass non-empty passwords to Connect()
+            if (String.IsNullOrEmpty(password)) {
+                password = null;
+            }
+            protocolManager.Connect(frontendManager, hostname, port,
+                                    username, password);
+        }
+        
         private IProtocolManager _CreateProtocolManager(FrontendManager fm, string protocol)
         {
             ProtocolManagerInfoModel info = _ProtocolManagerFactory.GetProtocolManagerInfoByAlias(protocol); 

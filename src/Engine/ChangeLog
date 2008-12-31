@@ -1,3 +1,8 @@
+2008-12-31  Mirco Bauer <meebey@meebey.net> 
+
+	* Session.cs: Added Connect() method that allows frontends to create new
+	  connections in a protocol neutral way.
+
 2008-12-28  Mirco Bauer <meebey@meebey.net> 
 
 	* Config/Config.cs: Make sure Username and Password are initialized empty,
