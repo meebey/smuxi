@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.6.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-12-28 23:25+0100\n"
+"POT-Creation-Date: 2009-01-01 18:39+0100\n"
 "PO-Revision-Date: 2008-09-05 01:34+0100\n"
 "Last-Translator: Clement BOURGEOIS <moonpyk@gmail.com>\n"
 "Language-Team: French <moonpyk@gmail.com>\n"
@@ -107,7 +107,12 @@ msgstr "Changement de réseau impossible, aucun réseau pour l'hôte : {0}"
 msgid "Not connected to any network"
 msgstr "Connecté à aucun réseau"
 
-#: ../src/Engine/Session.cs:876
+#: ../src/Engine/Session.cs:884
+#, csharp-format
+msgid "No protocol manager found for the protocol: {0}"
+msgstr ""
+
+#: ../src/Engine/Session.cs:904
 #, csharp-format
 msgid "Unknown protocol: {0}"
 msgstr "Protocole inconnu : {0}"

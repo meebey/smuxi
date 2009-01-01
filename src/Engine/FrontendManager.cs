@@ -275,15 +275,6 @@ namespace Smuxi.Engine
         
         public void RemoveChat(ChatModel chat)
         {
-            if (!_SyncedChats.Contains(chat)) {
-                return;
-            }
-            
-            _RemoveChat(chat);
-        }
-        
-        private void _RemoveChat(ChatModel chat)
-        {
             f_TaskQueue.Queue(delegate {
                 _UI.RemoveChat(chat);
             });

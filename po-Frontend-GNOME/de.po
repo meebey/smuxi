@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.6.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-12-28 23:20+0100\n"
+"POT-Creation-Date: 2009-01-01 17:35+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Mirco Bauer <meebey@meebey.net>\n"
 "Language-Team: German <LL@li.org>\n"
@@ -603,7 +603,7 @@ msgstr "_Caret-Modus"
 msgid "_Help"
 msgstr "_Hilfe"
 
-#: ../src/Frontend-GNOME/MainWindow.cs:730
+#: ../src/Frontend-GNOME/MainWindow.cs:724
 msgid ""
 "Switching to local engine will disconnect you from the current engine!\n"
 "Are you sure you want to do this?"
@@ -611,7 +611,7 @@ msgstr ""
 "Das Wechseln zur lokalen Engine wird Sie von der jetzigen Engine trennen!\n"
 "Möchten Sie das wirklich tun?"
 
-#: ../src/Frontend-GNOME/MainWindow.cs:762
+#: ../src/Frontend-GNOME/MainWindow.cs:756
 msgid ""
 "Switching the remote engine will disconnect you from the current engine!\n"
 "Are you sure you want to do this?"

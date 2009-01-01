@@ -492,20 +492,14 @@ namespace Smuxi.Frontend.Gnome
 #endif
                 }
                 
-                CommandModel cmd = new CommandModel(
-                    Frontend.FrontendManager,
-                    Frontend.Session.SessionChat,
-                    "/",
-                    String.Format(
-                        "/connect {0} {1} {2} {3}",
+                Frontend.Session.Connect(
+                        Frontend.FrontendManager,
                         server.Protocol,
                         server.Hostname,
                         server.Port,
                         server.Username,
                         server.Password
-                    )
                 );
-                Frontend.Session.CommandConnect(cmd);
             } catch (Exception ex) {
                 Frontend.ShowException(this, ex);
             }
