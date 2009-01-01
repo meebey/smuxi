@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.6.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-12-28 23:25+0100\n"
+"POT-Creation-Date: 2009-01-01 18:01+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Mirco Bauer <meebey@meebey.net>\n"
 "Language-Team: German <LL@li.org>\n"
@@ -112,7 +112,12 @@ msgstr ""
 msgid "Not connected to any network"
 msgstr "Keine Verbindung zu einem Netzwerk"
 
-#: ../src/Engine/Session.cs:876
+#: ../src/Engine/Session.cs:884
+#, csharp-format
+msgid "No protocol manager found for the protocol: {0}"
+msgstr "Kein Protokoll-Manager gefunden für das Protokoll: {0}"
+
+#: ../src/Engine/Session.cs:904
 #, csharp-format
 msgid "Unknown protocol: {0}"
 msgstr "Unbekanntes Protokoll: {0}"
