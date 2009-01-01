@@ -1,7 +1,7 @@
 <CombineEntry name="Packages" fileversion="2.0" ctype="PackagingProject">
   <Packages>
     <Package name="Linux">
-      <Builder rootEntry="smuxi.mds" targetFile="../../releases/smuxi-0.6.2-bin.zip" platform="Linux" ctype="BinariesZipPackageBuilder">
+      <Builder rootEntry="smuxi.mds" targetFile="../../releases/smuxi-0.6.3-bin.tar.gz" platform="Linux" ctype="BinariesZipPackageBuilder">
         <ChildEntries>
           <Entry>Frontend-GNOME-IRC/Frontend-GNOME-IRC.mdp</Entry>
           <Entry>Engine/Engine.mdp</Entry>
@@ -24,7 +24,7 @@
       </Builder>
     </Package>
     <Package name="Windows">
-      <Builder rootEntry="smuxi.mds" targetFile="../../releases/smuxi-0.6.2-bin-win32.zip" platform="Windows" ctype="BinariesZipPackageBuilder">
+      <Builder rootEntry="smuxi.mds" targetFile="../../releases/smuxi-0.6.3-bin-win32.zip" platform="Windows" ctype="BinariesZipPackageBuilder">
         <ChildEntries>
           <Entry>Engine/Engine.mdp</Entry>
           <Entry>Common/Common.mdp</Entry>
