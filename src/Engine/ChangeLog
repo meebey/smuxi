@@ -1,3 +1,11 @@
+2009-01-01  Mirco Bauer <meebey@meebey.net> 
+
+	* FrontendManager.cs: Don't prevent removing chats when they are not synced
+	  yet, as that causes a race condition when someone enters and leaves
+	  right-away a chat and thus is not being on the frontend side. Also
+	  problematic servers (like psyBNC) could cause such "enter chat, no sync,
+	  can't remove chat" situation. (closes trac bug #144)
+
 2008-12-31  Mirco Bauer <meebey@meebey.net> 
 
 	* Session.cs: Added Connect() method that allows frontends to create new
