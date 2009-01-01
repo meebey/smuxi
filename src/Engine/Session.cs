@@ -879,7 +879,12 @@ namespace Smuxi.Engine
                 protocol
             );
             if (protocolManager == null) {
-                throw new ApplicationException(_("No protocol manager found for the protocol: " + protocol));
+                throw new ApplicationException(
+                    String.Format(
+                        _("No protocol manager found for the protocol: {0}"),
+                        protocol
+                    )
+                );
             }
             
             _ProtocolManagers.Add(protocolManager);
