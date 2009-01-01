@@ -22,5 +22,6 @@ SUBDIRS = 	src \
 
 update-po:
 	for PODIR in $(PODIRS); do \
-		$(MAKE) -C $$PODIR $@; \
+		echo $$PODIR; \
+		$(MAKE) -C $$PODIR $@ | egrep -e '(:$$|messages)'; \
 	done
