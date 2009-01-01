@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: smuxi VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-12-28 23:20+0100\n"
+"POT-Creation-Date: 2009-01-01 17:35+0100\n"
 "PO-Revision-Date: 2008-12-28 23:53+0100\n"
 "Last-Translator: David Paleino <d.paleino@gmail.com>\n"
 "Language-Team: Italian\n"
@@ -604,7 +604,7 @@ msgstr "_Modalità Caret"
 msgid "_Help"
 msgstr "_Aiuto"
 
-#: ../src/Frontend-GNOME/MainWindow.cs:730
+#: ../src/Frontend-GNOME/MainWindow.cs:724
 msgid ""
 "Switching to local engine will disconnect you from the current engine!\n"
 "Are you sure you want to do this?"
@@ -612,7 +612,7 @@ msgstr ""
 "Cambiare all'engine locale ti disconnetterà dall'engine attuale!\n"
 "Sei sicuro di volerlo fare?"
 
-#: ../src/Frontend-GNOME/MainWindow.cs:762
+#: ../src/Frontend-GNOME/MainWindow.cs:756
 msgid ""
 "Switching the remote engine will disconnect you from the current engine!\n"
 "Are you sure you want to do this?"

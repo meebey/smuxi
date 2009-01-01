@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-12-28 23:25+0100\n"
+"POT-Creation-Date: 2009-01-01 18:39+0100\n"
 "PO-Revision-Date: 2006-12-11 00:21+0100\n"
 "Last-Translator: Bjarke Sørensen <bs@wasd.dk>\n"
 "Language-Team: Danish <bs@wasd.dk>\n"
@@ -105,7 +105,12 @@ msgstr "Afbrydelse fejlede, kunne ikke finde server: {0}"
 msgid "Not connected to any network"
 msgstr "Ikke forbundet til noget netværk"
 
-#: ../src/Engine/Session.cs:876
+#: ../src/Engine/Session.cs:884
+#, csharp-format
+msgid "No protocol manager found for the protocol: {0}"
+msgstr ""
+
+#: ../src/Engine/Session.cs:904
 #, csharp-format
 msgid "Unknown protocol: {0}"
 msgstr ""
