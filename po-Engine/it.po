@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-12-28 23:25+0100\n"
+"POT-Creation-Date: 2009-01-01 18:01+0100\n"
 "PO-Revision-Date: 2008-12-28 23:55+0100\n"
 "Last-Translator: David Paleino <d.paleino@gmail.com>\n"
 "Language-Team: Italian\n"
@@ -107,7 +107,12 @@ msgstr "Cambio di rete fallito, impossibile trovare rete con host: {0}"
 msgid "Not connected to any network"
 msgstr "Non connesso ad alcuna rete"
 
-#: ../src/Engine/Session.cs:876
+#: ../src/Engine/Session.cs:884
+#, csharp-format
+msgid "No protocol manager found for the protocol: {0}"
+msgstr "Nessun gestore trovato per il protocollo {0}"
+
+#: ../src/Engine/Session.cs:904
 #, csharp-format
 msgid "Unknown protocol: {0}"
 msgstr "Protocollo sconosciuto: {0}"
