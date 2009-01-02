@@ -209,8 +209,8 @@ namespace Smuxi.Frontend.Gnome
                 TraceRemotingCall(mb, ecpage, topic);
                 
                 GroupChatView cpage = (GroupChatView)Frontend.MainWindow.Notebook.GetChat(ecpage);
-                if (cpage.TopicEntry != null) {
-                    cpage.TopicEntry.Text = topic;
+                if (cpage.TopicTextView.Buffer != null) {
+                    cpage.TopicTextView.Buffer.Text = topic;
                 }
             });
         }

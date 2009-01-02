@@ -799,7 +799,7 @@ namespace Smuxi.Engine
             }
         }
     
-        public void UpdateTopicInGroupChat(GroupChatModel groupChat, string topic)
+        public void UpdateTopicInGroupChat(GroupChatModel groupChat, MessageModel topic)
         {
             if (groupChat == null) {
                 throw new ArgumentNullException("groupChat");
@@ -809,7 +809,51 @@ namespace Smuxi.Engine
             }
 
 #if LOG4NET
-            f_Logger.Debug("UpdateTopicInGroupChat() groupChat.Name: " + groupChat.Name + " topic: " + topic);
+            // non-trivial hack to get the content of the topic.
+            
+            foreach (MessagePartModel topicPart in topic.MessageParts) {
+                if (msgPart is UrlMessagePartModel) {
+                    UrlMessagePartModel fmsgui = (UrlMessagePartModel)msgPart;
+                    // HACK: the engine should set a color for us!
+                    Gtk.TextTag urlTag = _OutputTextTagTable.Lookup("url");
+                    Gdk.Color urlColor = urlTag.ForegroundGdk;
+                    //Console.WriteLine("urlColor: " + urlColor);
+                    TextColor urlTextColor = ColorTools.GetTextColor(urlColor);
+                    urlTextColor = ColorTools.GetBestTextColor(urlTextColor, bgTextColor);
+                    //Console.WriteLine("GetBestTextColor({0}, {1}): {2}",  urlColor, bgTextColor, urlTextColor);
+                    urlTag.ForegroundGdk = ColorTools.GetGdkColor(urlTextColor);
+                    _OutputTextView.Buffer.InsertWithTagsByName(ref iter, fmsgui.Url, "url");
+                } else if (msgPart is TextMessagePartModel) {
+                    TextMessagePartModel fmsgti = (TextMessagePartModel) msgPart;
+                    List<string> tags = new List<string>();
+                    if (fmsgti.ForegroundColor != TextColor.None) {
+                        TextColor color = ColorTools.GetBestTextColor(fmsgti.ForegroundColor, bgTextColor);
+                        //Console.WriteLine("GetBestTextColor({0}, {1}): {2}",  fmsgti.ForegroundColor, bgTextColor, color);
+                        string tagname = _GetTextTagName(color, null);
+                        //string tagname = _GetTextTagName(fmsgti.ForegroundColor, null);
+                        tags.Add(tagname);
+                    }
+                    if (fmsgti.BackgroundColor != TextColor.None) {
+                        string tagname = _GetTextTagName(null, fmsgti.BackgroundColor);
+                        tags.Add(tagname);
+                    }
+                    if (fmsgti.Underline) {
+                        tags.Add("underline");
+                    }
+                    if (fmsgti.Bold) {
+                        tags.Add("bold");
+                    }
+                    if (fmsgti.Italic) {
+                        tags.Add("italic");
+                    }
+                    
+                    _OutputTextView.Buffer.InsertWithTagsByName(ref iter,
+                                                                fmsgti.Text,
+                                                                tags.ToArray());
+                } 
+            }
+            
+            f_Logger.Debug("UpdateTopicInGroupChat() groupChat.Name: " + groupChat.Name + " topic: " + topic.ToString());
 #endif
             groupChat.Topic = topic;
             foreach (FrontendManager fm in _FrontendManagers.Values) {

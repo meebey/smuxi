@@ -49,13 +49,20 @@ namespace Smuxi.Frontend.Gnome
         private Gtk.VBox           _OutputVBox;
         private Gtk.Frame          _PersonTreeViewFrame;
         private Gtk.HPaned         _OutputHPaned;
-        private Gtk.Entry          _TopicEntry;
+        private Gtk.ScrolledWindow _TopicScrolledWindow;
+        private Gtk.TextView       _TopicTextView;
         private Gtk.TreeViewColumn _IdentityNameColumn;
         private Gtk.Image          _TabImage;
         
-        public Gtk.Entry TopicEntry {
+        public Gtk.ScrolledWindow TopicScrolledWindow {
             get {
-                return _TopicEntry;
+                return _TopicScrolledWindow;
+            }
+        }
+
+        public Gtk.TextView TopicTextView {
+            get {
+                return _TopicTextView;
             }
         }
         
@@ -145,9 +152,15 @@ namespace Smuxi.Frontend.Gnome
             
             // topic
             _OutputVBox = new Gtk.VBox();
+
+            _TopicTextView = new Gtk.TextView();
+            _TopicTextView.Editable = false;
+            _TopicTextView.WrapMode = Gtk.WrapMode.WordChar;
             
-            _TopicEntry = new Gtk.Entry();
-            _TopicEntry.IsEditable = false;
+            _TopicScrolledWindow = new Gtk.ScrolledWindow();
+            _TopicScrolledWindow.HscrollbarPolicy = Gtk.PolicyType.Never;
+            _TopicScrolledWindow.VscrollbarPolicy = Gtk.PolicyType.Automatic;
+            _TopicScrolledWindow.Add(_TopicTextView);
             
             Add(_OutputHPaned);
             
@@ -174,7 +187,7 @@ namespace Smuxi.Frontend.Gnome
             
             base.Disable();
             
-            _TopicEntry.Text = String.Empty;
+            _TopicTextView.Buffer.Text = String.Empty;
             _PersonListStore.Clear();
             UpdatePersonCount();
         }
@@ -262,9 +275,9 @@ namespace Smuxi.Frontend.Gnome
 #endif
             // sync topic
             string topic = _GroupChatModel.Topic;
-            if ((_TopicEntry != null) &&
+            if ((_TopicTextView.Buffer != null) &&
                (topic != null)) {
-                _TopicEntry.Text = topic;
+                _TopicTextView.Buffer.Text = topic;
             }
             
             base.Sync();
@@ -358,37 +371,37 @@ namespace Smuxi.Frontend.Gnome
             
             if (BackgroundColor != null) {
                 _PersonTreeView.ModifyBase(Gtk.StateType.Normal, BackgroundColor.Value);
-                _TopicEntry.ModifyBase(Gtk.StateType.Normal, BackgroundColor.Value);
+                _TopicTextView.ModifyBase(Gtk.StateType.Normal, BackgroundColor.Value);
             } else {
                 _PersonTreeView.ModifyBase(Gtk.StateType.Normal);
-                _TopicEntry.ModifyBase(Gtk.StateType.Normal);
+                _TopicTextView.ModifyBase(Gtk.StateType.Normal);
             }
             
             if (ForegroundColor != null) {
                 _PersonTreeView.ModifyText(Gtk.StateType.Normal, ForegroundColor.Value);
-                _TopicEntry.ModifyText(Gtk.StateType.Normal, ForegroundColor.Value);
+                _TopicTextView.ModifyText(Gtk.StateType.Normal, ForegroundColor.Value);
             } else {
                 _PersonTreeView.ModifyText(Gtk.StateType.Normal);
-                _TopicEntry.ModifyText(Gtk.StateType.Normal);
+                _TopicTextView.ModifyText(Gtk.StateType.Normal);
             }
             
             _PersonTreeView.ModifyFont(FontDescription);
-            _TopicEntry.ModifyFont(FontDescription);
+            _TopicTextView.ModifyFont(FontDescription);
             
             // topic
             string topic_pos = (string) config["Interface/Notebook/Channel/TopicPosition"];
-            if (_TopicEntry.IsAncestor(_OutputVBox)) {
-                _OutputVBox.Remove(_TopicEntry);
+            if (_TopicTextView.IsAncestor(_OutputVBox)) {
+                _OutputVBox.Remove(_TopicTextView);
             }
             if (OutputScrolledWindow.IsAncestor(_OutputVBox)) {
                 _OutputVBox.Remove(OutputScrolledWindow);
             }
             if (topic_pos == "top") {
-                _OutputVBox.PackStart(_TopicEntry, false, false, 2);
+                _OutputVBox.PackStart(_TopicScrolledWindow, false, false, 2);
                 _OutputVBox.PackStart(OutputScrolledWindow, true, true, 0);
             } else if  (topic_pos == "bottom") {
                 _OutputVBox.PackStart(OutputScrolledWindow, true, true, 0);
-                _OutputVBox.PackStart(_TopicEntry, false, false, 2);
+                _OutputVBox.PackStart(_TopicScrolledWindow, false, false, 2);
             } else if (topic_pos == "none") {
                 _OutputVBox.PackStart(OutputScrolledWindow, true, true, 0);
             } else {

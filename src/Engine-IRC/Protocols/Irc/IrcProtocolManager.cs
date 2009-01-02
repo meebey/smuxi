@@ -2431,13 +2431,13 @@ namespace Smuxi.Engine
         private void _OnTopic(object sender, TopicEventArgs e)
         {
             GroupChatModel cchat = (GroupChatModel)GetChat(e.Channel, ChatType.Group);
-            Session.UpdateTopicInGroupChat(cchat, e.Topic);
+            Session.UpdateTopicInGroupChat(cchat, new MessageModel(e.Topic));
         }
         
         private void _OnTopicChange(object sender, TopicChangeEventArgs e)
         {
             GroupChatModel cchat = (GroupChatModel)GetChat(e.Channel, ChatType.Group);
-            Session.UpdateTopicInGroupChat(cchat, e.NewTopic);
+            Session.UpdateTopicInGroupChat(cchat, new MessageModel(e.NewTopic));
             Session.AddTextToChat(cchat, "-!- " + String.Format(
                                                     _("{0} changed the topic of {1} to: {2}"),
                                                     e.Who, e.Channel, e.NewTopic));

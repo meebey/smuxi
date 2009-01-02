@@ -326,7 +326,7 @@ namespace Smuxi.Engine
             });
         }
     
-        public void UpdateTopicInGroupChat(GroupChatModel groupChat, string topic)
+        public void UpdateTopicInGroupChat(GroupChatModel groupChat, MessageModel topic)
         {
             if (!_SyncedChats.Contains(groupChat)) {
                 return;
@@ -335,7 +335,7 @@ namespace Smuxi.Engine
             _UpdateTopicInGroupChat(groupChat, topic);
         }
         
-        private void _UpdateTopicInGroupChat(GroupChatModel groupChat, string topic)
+        private void _UpdateTopicInGroupChat(GroupChatModel groupChat, MessageModel topic)
         {
             f_TaskQueue.Queue(delegate {
                 _UI.UpdateTopicInGroupChat(groupChat, topic);
