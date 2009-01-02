@@ -126,7 +126,7 @@ namespace Smuxi.Frontend.Gnome
                         
                         Gtk.Application.Invoke(delegate {
                             foreach (GroupChatModel chat in chats) {
-                                f_ListStore.AppendValues(chat, chat.PersonCount, chat.Name, chat.Topic);
+                                f_ListStore.AppendValues(chat, chat.PersonCount, chat.Name, chat.Topic.ToString());
                             }
                         });
                     } catch (ThreadAbortException ex) {

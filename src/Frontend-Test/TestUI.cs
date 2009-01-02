@@ -111,11 +111,12 @@ namespace Smuxi.FrontendTest
             Trace.Call(cpage, olduser, newuser);
         }
     
-        public void UpdateTopicInGroupChat(GroupChatModel cpage, string topic)
+        public void UpdateTopicInGroupChat(GroupChatModel cpage, MessageModel topic)
         {
             Trace.Call(cpage, topic);
             
-            Console.WriteLine("Topic changed to: "+topic+ " on "+cpage.Name);
+            // XXX
+            Console.WriteLine("Topic changed to: "+topic.ToString()+ " on "+cpage.Name);
         }
         
         public void RemovePersonFromGroupChat(GroupChatModel cpage, PersonModel user)

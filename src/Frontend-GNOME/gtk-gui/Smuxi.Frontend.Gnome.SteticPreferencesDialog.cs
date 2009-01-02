@@ -423,7 +423,6 @@ namespace Smuxi.Frontend.Gnome {
             this.MenuTreeView.Name = "MenuTreeView";
             this.MenuTreeView.EnableSearch = false;
             this.MenuTreeView.HeadersVisible = false;
-            this.MenuTreeView.HeadersClickable = true;
             this.MenuScrolledWindow.Add(this.MenuTreeView);
             this.hbox1.Add(this.MenuScrolledWindow);
             Gtk.Box.BoxChild w3 = ((Gtk.Box.BoxChild)(this.hbox1[this.MenuScrolledWindow]));
@@ -1736,7 +1735,6 @@ namespace Smuxi.Frontend.Gnome {
             // Container child scrolledwindow3.Gtk.Container+ContainerChild
             this.ServersTreeView = new Gtk.TreeView();
             this.ServersTreeView.Name = "ServersTreeView";
-            this.ServersTreeView.HeadersClickable = true;
             this.scrolledwindow3.Add(this.ServersTreeView);
             this.hbox27.Add(this.scrolledwindow3);
             Gtk.Box.BoxChild w156 = ((Gtk.Box.BoxChild)(this.hbox27[this.scrolledwindow3]));
@@ -1806,14 +1804,12 @@ namespace Smuxi.Frontend.Gnome {
             // Container child scrolledwindow5.Gtk.Container+ContainerChild
             this.ChannelFiltersTreeView = new Gtk.TreeView();
             this.ChannelFiltersTreeView.Name = "ChannelFiltersTreeView";
-            this.ChannelFiltersTreeView.HeadersClickable = true;
             this.scrolledwindow5.Add(this.ChannelFiltersTreeView);
             this.vbox16.Add(this.scrolledwindow5);
             Gtk.Box.BoxChild w163 = ((Gtk.Box.BoxChild)(this.vbox16[this.scrolledwindow5]));
             w163.Position = 0;
             // Container child vbox16.Gtk.Box+BoxChild
             this.hbuttonbox1 = new Gtk.HButtonBox();
-            this.hbuttonbox1.Name = "hbuttonbox1";
             this.hbuttonbox1.LayoutStyle = ((Gtk.ButtonBoxStyle)(1));
             // Container child hbuttonbox1.Gtk.ButtonBox+ButtonBoxChild
             this.ChannelFiltersAddButton = new Gtk.Button();

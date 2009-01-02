@@ -200,7 +200,7 @@ namespace Smuxi.Frontend.Gnome
             });
         }
         
-        public void UpdateTopicInGroupChat(GroupChatModel ecpage, string topic)
+        public void UpdateTopicInGroupChat(GroupChatModel ecpage, MessageModel topic)
         {
             TraceRemotingCall(ecpage, topic);
 
@@ -209,9 +209,7 @@ namespace Smuxi.Frontend.Gnome
                 TraceRemotingCall(mb, ecpage, topic);
                 
                 GroupChatView cpage = (GroupChatView)Frontend.MainWindow.Notebook.GetChat(ecpage);
-                if (cpage.TopicTextView.Buffer != null) {
-                    cpage.TopicTextView.Buffer.Text = topic;
-                }
+                cpage.SetTopic(topic);
             });
         }
         

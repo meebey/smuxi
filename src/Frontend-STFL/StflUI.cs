@@ -108,7 +108,7 @@ namespace Smuxi.Frontend.Stfl
             Trace.Call(groupChat, olduser, newuser);
         }
     
-        public void UpdateTopicInGroupChat(GroupChatModel groupChat, string topic)
+        public void UpdateTopicInGroupChat(GroupChatModel groupChat, MessageModel topic)
         {
             Trace.Call(groupChat, topic);
             

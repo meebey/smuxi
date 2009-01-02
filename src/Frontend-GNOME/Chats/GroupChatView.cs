@@ -51,6 +51,7 @@ namespace Smuxi.Frontend.Gnome
         private Gtk.HPaned         _OutputHPaned;
         private Gtk.ScrolledWindow _TopicScrolledWindow;
         private Gtk.TextView       _TopicTextView;
+        private Gtk.TextTagTable   _TopicTextTagTable;
         private Gtk.TreeViewColumn _IdentityNameColumn;
         private Gtk.Image          _TabImage;
         
@@ -65,7 +66,13 @@ namespace Smuxi.Frontend.Gnome
                 return _TopicTextView;
             }
         }
-        
+
+        protected Gtk.TextTagTable TopicTextTagTable {
+            get {
+                return _TopicTextTagTable;
+            }
+        }
+
         public override bool HasSelection {
             get {
                 return base.HasSelection || _PersonTreeView.Selection.CountSelectedRows() > 0;
@@ -161,6 +168,9 @@ namespace Smuxi.Frontend.Gnome
             _TopicScrolledWindow.HscrollbarPolicy = Gtk.PolicyType.Never;
             _TopicScrolledWindow.VscrollbarPolicy = Gtk.PolicyType.Automatic;
             _TopicScrolledWindow.Add(_TopicTextView);
+            
+            _TopicTextTagTable = new Gtk.TextTagTable();
+            _TopicTextTagTable = base.OutputTextTagTable;
             
             Add(_OutputHPaned);
             
@@ -274,10 +284,12 @@ namespace Smuxi.Frontend.Gnome
             _Logger.Debug("Sync() syncing topic");
 #endif
             // sync topic
-            string topic = _GroupChatModel.Topic;
+            MessageModel topic = _GroupChatModel.Topic;
             if ((_TopicTextView.Buffer != null) &&
                (topic != null)) {
-                _TopicTextView.Buffer.Text = topic;
+                // XXX
+                SetTopic(topic);
+                _TopicTextView.Buffer.Text = topic.ToString();
             }
             
             base.Sync();
@@ -359,6 +371,77 @@ namespace Smuxi.Frontend.Gnome
             UpdatePersonCount();
         }
         
+        public void SetTopic(MessageModel topic)
+        {
+            Trace.Call(topic);
+            _TopicTextView.Buffer = new Gtk.TextBuffer(IntPtr.Zero);
+            Gtk.TextIter iter = _TopicTextView.Buffer.EndIter;
+
+            foreach (MessagePartModel topicPart in topic.MessageParts) {
+#if LOG4NET
+                _Logger.Debug("SetTopic(): topicPart.GetType(): " + topicPart.GetType());
+#endif
+                Gdk.Color bgColor = _TopicTextView.DefaultAttributes.Appearance.BgColor;
+//                if (_BackgroundColor != null) {
+//                    bgColor = _BackgroundColor.Value;
+//                }
+                TextColor bgTextColor = ColorTools.GetTextColor(bgColor);
+                // TODO: implement all types
+                if (topicPart is UrlMessagePartModel) {
+                    UrlMessagePartModel fmsgui = (UrlMessagePartModel) topicPart;
+                    // HACK: the engine should set a color for us!
+                    Gtk.TextTag urlTag = _TopicTextTagTable.Lookup("url");
+                    Gdk.Color urlColor = urlTag.ForegroundGdk;
+                    //Console.WriteLine("urlColor: " + urlColor);
+                    TextColor urlTextColor = ColorTools.GetTextColor(urlColor);
+                    urlTextColor = ColorTools.GetBestTextColor(urlTextColor, bgTextColor);
+                    //Console.WriteLine("GetBestTextColor({0}, {1}): {2}",  urlColor, bgTextColor, urlTextColor);
+                    urlTag.ForegroundGdk = ColorTools.GetGdkColor(urlTextColor);
+                    _TopicTextView.Buffer.InsertWithTagsByName(ref iter, fmsgui.Url, "url");
+                } else if (topicPart is TextMessagePartModel) {
+                    TextMessagePartModel fmsgti = (TextMessagePartModel) topicPart;
+#if LOG4NET
+                    _Logger.Debug("SetTopic(): fmsgti.Text: '" + fmsgti.Text + "'");
+#endif
+                    List<string> tags = new List<string>();
+                    if (fmsgti.ForegroundColor != TextColor.None) {
+                        TextColor color = ColorTools.GetBestTextColor(fmsgti.ForegroundColor, bgTextColor);
+                        //Console.WriteLine("GetBestTextColor({0}, {1}): {2}",  fmsgti.ForegroundColor, bgTextColor, color);
+                        string tagname = _GetTextTagName(color, null);
+                        //string tagname = _GetTextTagName(fmsgti.ForegroundColor, null);
+                        tags.Add(tagname);
+                    }
+                    if (fmsgti.BackgroundColor != TextColor.None) {
+                        string tagname = _GetTextTagName(null, fmsgti.BackgroundColor);
+                        tags.Add(tagname);
+                    }
+                    if (fmsgti.Underline) {
+#if LOG4NET
+                        _Logger.Debug("SetTopic(): fmsgti.Underline is true");
+#endif
+                        tags.Add("underline");
+                    }
+                    if (fmsgti.Bold) {
+#if LOG4NET
+                        _Logger.Debug("SetTopic(): fmsgti.Bold is true");
+#endif
+                        tags.Add("bold");
+                    }
+                    if (fmsgti.Italic) {
+#if LOG4NET
+                        _Logger.Debug("SetTopic(): fmsgti.Italic is true");
+#endif
+                        tags.Add("italic");
+                    }
+                    
+                    _TopicTextView.Buffer.InsertWithTagsByName(ref iter,
+                                                               fmsgti.Text,
+                                                               tags.ToArray());
+                } 
+            }
+            _TopicTextView.Buffer.Insert(ref iter, "\n");
+        }
+
         public override void ApplyConfig(UserConfig config)
         {
             Trace.Call(config);

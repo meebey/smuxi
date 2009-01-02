@@ -43,8 +43,8 @@ namespace Smuxi.Engine
         private IDictionary<string, PersonModel> _Persons = new Dictionary<string, PersonModel>();
         private bool                             _IsSynced;
         // IRC specific?
-        private string    _Topic;
-        private int       _PersonCount = -1;
+        private MessageModel _Topic;
+        private int          _PersonCount = -1;
         
         public override bool IsEnabled {
             get {
@@ -60,7 +60,7 @@ namespace Smuxi.Engine
             }
         }
         
-        public string Topic {
+        public MessageModel Topic {
             get {
                 return _Topic;
             }

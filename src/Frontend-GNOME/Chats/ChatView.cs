@@ -176,7 +176,7 @@ namespace Smuxi.Frontend.Gnome
             }
         }
         
-        protected Gtk.TextTagTable OutputTextTagTable {
+        internal Gtk.TextTagTable OutputTextTagTable {
             get {
                 return _OutputTextTagTable;
             }
@@ -594,7 +594,7 @@ namespace Smuxi.Frontend.Gnome
             Trace.Call();
         }
         
-        private string _GetTextTagName(TextColor fgColor, TextColor bgColor)
+        internal string _GetTextTagName(TextColor fgColor, TextColor bgColor)
         {
              string hexcode;
              string tagname;
@@ -654,7 +654,7 @@ namespace Smuxi.Frontend.Gnome
             tv.Buffer.MoveMark(_EndMark, tv.Buffer.EndIter);
         }
         
-        private void _OnTextTagUrlTextEvent(object sender, Gtk.TextEventArgs e)
+        internal void _OnTextTagUrlTextEvent(object sender, Gtk.TextEventArgs e)
         {
             if (e.Event.Type != Gdk.EventType.ButtonRelease) {
                 return;
