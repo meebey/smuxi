@@ -391,8 +391,10 @@ namespace Smuxi.Engine
                     null
                 );
                 chat.PersonCount = info.UserCount;
-                // XXX
-                chat.Topic = new MessageModel(info.Topic);
+
+                MessageModel topic = new MessageModel();
+                _IrcMessageToMessageModel(ref topic, info.Topic);
+                chat.Topic = topic;
                 chats.Add(chat);
             }
             

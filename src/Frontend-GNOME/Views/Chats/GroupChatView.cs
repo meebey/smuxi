@@ -170,7 +170,9 @@ namespace Smuxi.Frontend.Gnome
             _TopicScrolledWindow.Add(_TopicTextView);
             
             _TopicTextTagTable = new Gtk.TextTagTable();
-            _TopicTextTagTable = base.OutputTextTagTable;
+            _TopicTextTagTable = OutputTextTagTable;
+
+            _TopicTextView.Buffer = new Gtk.TextBuffer(_TopicTextTagTable);
             
             Add(_OutputHPaned);
             
@@ -285,11 +287,10 @@ namespace Smuxi.Frontend.Gnome
 #endif
             // sync topic
             MessageModel topic = _GroupChatModel.Topic;
-            if ((_TopicTextView.Buffer != null) &&
+            if ((_TopicTextView != null) &&
                (topic != null)) {
                 // XXX
                 SetTopic(topic);
-                _TopicTextView.Buffer.Text = topic.ToString();
             }
             
             base.Sync();
@@ -374,7 +375,6 @@ namespace Smuxi.Frontend.Gnome
         public void SetTopic(MessageModel topic)
         {
             Trace.Call(topic);
-            _TopicTextView.Buffer = new Gtk.TextBuffer(IntPtr.Zero);
             Gtk.TextIter iter = _TopicTextView.Buffer.EndIter;
 
             foreach (MessagePartModel topicPart in topic.MessageParts) {

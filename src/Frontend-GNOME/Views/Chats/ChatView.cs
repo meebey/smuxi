@@ -62,11 +62,7 @@ namespace Smuxi.Frontend.Gnome
         private   Gtk.EventBox       _TabEventBox;
         private   Gtk.HBox           _TabHBox;
         private   Gtk.ScrolledWindow _OutputScrolledWindow;
-        private   Gtk.TextView       _OutputTextView;
-        private   Gtk.TextTagTable   _OutputTextTagTable;
-        private   Pango.FontDescription _FontDescription;
-        private   Gdk.Color?         _BackgroundColor;
-        private   Gdk.Color?         _ForegroundColor;
+        private   MessageTextView    _OutputMessageTextView;
         
         public ChatModel ChatModel {
             get {
@@ -76,21 +72,23 @@ namespace Smuxi.Frontend.Gnome
         
         public bool HasHighlight {
             get {
-                return _HasHighlight;
-            }
-            set {
-                _HasHighlight = value;
-                
-                if (!value) {
-                    // clear highlight with "no activity"
-                    HasActivity = false;
-                    return;
-                }
-                
-                string color = (string) Frontend.UserConfig["Interface/Notebook/Tab/HighlightColor"];
-                _TabLabel.Markup = String.Format("<span foreground=\"{0}\">{1}</span>", color, _Name);
+                return _OutputMessageTextView.HasHighlight;
             }
         }
+        
+//            set {
+//                _HasHighlight = value;
+//                
+//                if (!value) {
+//                    // clear highlight with "no activity"
+//                    HasActivity = false;
+//                    return;
+//                }
+//                
+//                string color = (string) Frontend.UserConfig["Interface/Notebook/Tab/HighlightColor"];
+//                _TabLabel.Markup = String.Format("<span foreground=\"{0}\">{1}</span>", color, _Name);
+//            }
+//        }
         
         public bool HasActivity {
             get {
@@ -137,18 +135,6 @@ namespace Smuxi.Frontend.Gnome
             }
         }
         
-        public bool HasTextViewSelection {
-            get {
-#if GTK_SHARP_2_10
-                return _OutputTextView.Buffer.HasSelection;
-#else
-                Gtk.TextIter start, end;
-                _OutputTextView.Buffer.GetSelectionBounds(out start, out end);
-                return start.Offset != end.Offset;
-#endif
-            }
-        }
-        
         public virtual bool HasSelection {
             get {
                 return HasTextViewSelection;
@@ -157,10 +143,10 @@ namespace Smuxi.Frontend.Gnome
         
         public virtual new bool HasFocus {
             get {
-                return base.HasFocus || _OutputTextView.HasFocus;
+                return base.HasFocus || _OutputMessageTextView.HasFocus;
             }
             set {
-                _OutputTextView.HasFocus = value;
+                _OutputMessageTextView.HasFocus = value;
             }
         }
         
@@ -170,18 +156,12 @@ namespace Smuxi.Frontend.Gnome
             }
         }
         
-        public Gtk.TextView OutputTextView {
+        public MessageTextView OutputMessageTextView {
             get {
-                return _OutputTextView;
+                return _OutputMessageTextView;
             }
         }
         
-        internal Gtk.TextTagTable OutputTextTagTable {
-            get {
-                return _OutputTextTagTable;
-            }
-        }
-
         protected Gtk.ScrolledWindow OutputScrolledWindow {
             get {
                 return _OutputScrolledWindow;
@@ -194,24 +174,6 @@ namespace Smuxi.Frontend.Gnome
             }
         }
 
-        protected Pango.FontDescription FontDescription {
-            get {
-                return _FontDescription;
-            }
-        }
-
-        protected Gdk.Color? BackgroundColor {
-            get {
-                return _BackgroundColor;
-            }
-        }
-
-        protected Gdk.Color? ForegroundColor {
-            get {
-                return _ForegroundColor;
-            }
-        }
-        
         public ChatView(ChatModel chat)
         {
             Trace.Call(chat);
@@ -220,38 +182,7 @@ namespace Smuxi.Frontend.Gnome
             _Name = _ChatModel.Name;
             Name = _Name;
             
-            // TextTags
-            Gtk.TextTagTable ttt = new Gtk.TextTagTable();
-            _OutputTextTagTable = ttt;
-            Gtk.TextTag tt;
-            Pango.FontDescription fd;
-            
-            tt = new Gtk.TextTag("bold");
-            fd = new Pango.FontDescription();
-            fd.Weight = Pango.Weight.Bold;
-            tt.FontDesc = fd;
-            ttt.Add(tt);
-
-            tt = new Gtk.TextTag("italic");
-            fd = new Pango.FontDescription();
-            fd.Style = Pango.Style.Italic;
-            tt.FontDesc = fd;
-            ttt.Add(tt);
-            
-            tt = new Gtk.TextTag("underline");
-            tt.Underline = Pango.Underline.Single;
-            ttt.Add(tt);
-            
-            tt = new Gtk.TextTag("url");
-            tt.Underline = Pango.Underline.Single;
-            tt.Foreground = "darkblue";
-            tt.TextEvent += new Gtk.TextEventHandler(_OnTextTagUrlTextEvent);
-            fd = new Pango.FontDescription();
-            tt.FontDesc = fd;
-            ttt.Add(tt);
-            
-            Gtk.TextView tv = new Gtk.TextView();
-            tv.Buffer = new Gtk.TextBuffer(ttt);
+            MessageTextView tv = new MessageTextView(this);
             _EndMark = tv.Buffer.CreateMark("end", tv.Buffer.EndIter, false); 
             tv.Editable = false;
             //tv.CursorVisible = false;
@@ -259,14 +190,14 @@ namespace Smuxi.Frontend.Gnome
             tv.WrapMode = Gtk.WrapMode.Char;
             tv.Buffer.Changed += new EventHandler(_OnTextBufferChanged);
             tv.MotionNotifyEvent += new Gtk.MotionNotifyEventHandler(_OnMotionNotifyEvent);
-            _OutputTextView = tv;
+            _OutputMessageTextView = tv;
             
             Gtk.ScrolledWindow sw = new Gtk.ScrolledWindow();
             //sw.HscrollbarPolicy = Gtk.PolicyType.Never;
             sw.HscrollbarPolicy = Gtk.PolicyType.Automatic;
             sw.VscrollbarPolicy = Gtk.PolicyType.Always;
             sw.ShadowType = Gtk.ShadowType.In;
-            sw.Add(_OutputTextView);
+            sw.Add(_OutputMessageTextView);
             _OutputScrolledWindow = sw;
             
             // popup menu
@@ -386,138 +317,13 @@ namespace Smuxi.Frontend.Gnome
 #endif
             // sync messages
             // cleanup, be sure the output is empty
-            _OutputTextView.Buffer.Clear();
+            _OutputMessageTextView.Buffer.Clear();
             IList<MessageModel> messages = _ChatModel.Messages;
             if (messages.Count > 0) {
                 foreach (MessageModel msg in messages) {
                     AddMessage(msg);
                 }
             }
-        }
-        
-        public virtual void AddMessage(MessageModel msg)
-        {
-            Trace.Call(msg);
-            
-            string timestamp = null;
-            try {
-                string format = (string)Frontend.UserConfig["Interface/Notebook/TimestampFormat"];
-                if (!String.IsNullOrEmpty(format)) {
-                    timestamp = msg.TimeStamp.ToLocalTime().ToString(format);
-                }
-            } catch (FormatException e) {
-                timestamp = "Timestamp Format ERROR: " + e.Message;
-            }
-            
-            Gtk.TextIter iter = _OutputTextView.Buffer.EndIter;
-            if (timestamp != null) {
-                _OutputTextView.Buffer.Insert(ref iter, timestamp + " ");
-            }
-            
-            bool hasHighlight = false;
-            foreach (MessagePartModel msgPart in msg.MessageParts) {
-#if LOG4NET
-                _Logger.Debug("AddMessage(): msgPart.GetType(): " + msgPart.GetType());
-#endif
-                if (msgPart.IsHighlight) {
-                    hasHighlight = true;
-                }
-                
-                Gdk.Color bgColor = _OutputTextView.DefaultAttributes.Appearance.BgColor;
-                if (_BackgroundColor != null) {
-                    bgColor = _BackgroundColor.Value;
-                }
-                TextColor bgTextColor = ColorTools.GetTextColor(bgColor);
-                // TODO: implement all types
-                if (msgPart is UrlMessagePartModel) {
-                    UrlMessagePartModel fmsgui = (UrlMessagePartModel) msgPart;
-                    // HACK: the engine should set a color for us!
-                    Gtk.TextTag urlTag = _OutputTextTagTable.Lookup("url");
-                    Gdk.Color urlColor = urlTag.ForegroundGdk;
-                    //Console.WriteLine("urlColor: " + urlColor);
-                    TextColor urlTextColor = ColorTools.GetTextColor(urlColor);
-                    urlTextColor = ColorTools.GetBestTextColor(urlTextColor, bgTextColor);
-                    //Console.WriteLine("GetBestTextColor({0}, {1}): {2}",  urlColor, bgTextColor, urlTextColor);
-                    urlTag.ForegroundGdk = ColorTools.GetGdkColor(urlTextColor);
-                    _OutputTextView.Buffer.InsertWithTagsByName(ref iter, fmsgui.Url, "url");
-                } else if (msgPart is TextMessagePartModel) {
-                    TextMessagePartModel fmsgti = (TextMessagePartModel) msgPart;
-#if LOG4NET
-                    _Logger.Debug("AddMessage(): fmsgti.Text: '" + fmsgti.Text + "'");
-#endif
-                    List<string> tags = new List<string>();
-                    if (fmsgti.ForegroundColor != TextColor.None) {
-                        TextColor color = ColorTools.GetBestTextColor(fmsgti.ForegroundColor, bgTextColor);
-                        //Console.WriteLine("GetBestTextColor({0}, {1}): {2}",  fmsgti.ForegroundColor, bgTextColor, color);
-                        string tagname = _GetTextTagName(color, null);
-                        //string tagname = _GetTextTagName(fmsgti.ForegroundColor, null);
-                        tags.Add(tagname);
-                    }
-                    if (fmsgti.BackgroundColor != TextColor.None) {
-                        string tagname = _GetTextTagName(null, fmsgti.BackgroundColor);
-                        tags.Add(tagname);
-                    }
-                    if (fmsgti.Underline) {
-#if LOG4NET
-                        _Logger.Debug("AddMessage(): fmsgti.Underline is true");
-#endif
-                        tags.Add("underline");
-                    }
-                    if (fmsgti.Bold) {
-#if LOG4NET
-                        _Logger.Debug("AddMessage(): fmsgti.Bold is true");
-#endif
-                        tags.Add("bold");
-                    }
-                    if (fmsgti.Italic) {
-#if LOG4NET
-                        _Logger.Debug("AddMessage(): fmsgti.Italic is true");
-#endif
-                        tags.Add("italic");
-                    }
-                    
-                    _OutputTextView.Buffer.InsertWithTagsByName(ref iter,
-                                                                fmsgti.Text,
-                                                                tags.ToArray());
-                } 
-            }
-            _OutputTextView.Buffer.Insert(ref iter, "\n");
-            
-            // HACK: out of scope?
-            if (hasHighlight && !Frontend.MainWindow.HasToplevelFocus) {
-                Frontend.MainWindow.UrgencyHint = true;
-#if GTK_SHARP_2_10
-                Frontend.StatusIcon.Blinking = true;
-#endif
-                if (Frontend.UserConfig["Sound/BeepOnHighlight"] != null &&
-                    (bool)Frontend.UserConfig["Sound/BeepOnHighlight"]) {
-                    Frontend.MainWindow.Display.Beep();
-                }
-            }
-            
-            // HACK: out of scope?
-            if (Frontend.MainWindow.Notebook.CurrentChatView != this) {
-                if (hasHighlight &&
-                    _ChatModel.LastSeenHighlight < msg.TimeStamp) {
-                    HasHighlight = true;
-                }
-                
-                switch (msg.MessageType) {
-                    case MessageType.Normal:
-                        HasActivity = true;
-                        break;
-                    case MessageType.Event:
-                        HasEvent = true;
-                        break;
-                }
-            }
-        }
-        
-        public virtual void Clear()
-        {
-            Trace.Call();
-            
-            _OutputTextView.Buffer.Clear();
         }
         
         public virtual void ApplyConfig(UserConfig config)
@@ -528,65 +334,7 @@ namespace Smuxi.Frontend.Gnome
                 throw new ArgumentNullException("config");
             }
             
-            string bgStr = (string) config["Interface/Chat/BackgroundColor"];
-            if (!String.IsNullOrEmpty(bgStr)) {
-                Gdk.Color bgColor = Gdk.Color.Zero;
-                if (Gdk.Color.Parse(bgStr, ref bgColor)) {
-                    _OutputTextView.ModifyBase(Gtk.StateType.Normal, bgColor);
-                    _BackgroundColor = bgColor;
-                }
-            } else {
-                _OutputTextView.ModifyBase(Gtk.StateType.Normal);
-                _BackgroundColor = null;
-            }
-            
-            string fgStr = (string) config["Interface/Chat/ForegroundColor"];
-            if (!String.IsNullOrEmpty(fgStr)) {
-                Gdk.Color fgColor = Gdk.Color.Zero;
-                if (Gdk.Color.Parse(fgStr, ref fgColor)) {
-                    _OutputTextView.ModifyText(Gtk.StateType.Normal, fgColor);
-                    _ForegroundColor = fgColor;
-                }
-            } else {
-                _OutputTextView.ModifyText(Gtk.StateType.Normal);
-                _ForegroundColor = null;
-            }
-            
-            string fontFamily = (string) config["Interface/Chat/FontFamily"];
-            string fontStyle = (string) config["Interface/Chat/FontStyle"];
-            int fontSize = 0;
-            if (config["Interface/Chat/FontSize"] != null) {
-                fontSize = (int) config["Interface/Chat/FontSize"];
-            }
-            Pango.FontDescription fontDescription = new Pango.FontDescription();
-            if (String.IsNullOrEmpty(fontFamily)) {
-                // use Monospace and Bold by default
-                fontDescription.Family = "monospace";
-                // black bold font on white background looks odd 
-                //fontDescription.Weight = Pango.Weight.Bold;
-            } else {
-                fontDescription.Family = fontFamily;
-                string frontWeigth = null;
-                if (fontStyle.Contains(" ")) {
-                    int pos = fontStyle.IndexOf(" ");
-                    frontWeigth = fontStyle.Substring(0, pos);
-                    fontStyle = fontStyle.Substring(pos + 1);
-                }
-                fontDescription.Style = (Pango.Style) Enum.Parse(typeof(Pango.Style), fontStyle);
-                if (frontWeigth != null) {
-                    fontDescription.Weight = (Pango.Weight) Enum.Parse(typeof(Pango.Weight), frontWeigth);
-                }
-                fontDescription.Size = fontSize * 1024;
-            }
-            _FontDescription = fontDescription;
-            
-            _OutputTextView.ModifyFont(_FontDescription);
-            
-            string wrapModeStr = (string) config["Interface/Chat/WrapMode"];
-            if (!String.IsNullOrEmpty(wrapModeStr)) {
-                Gtk.WrapMode wrapMode = (Gtk.WrapMode) Enum.Parse(typeof(Gtk.WrapMode), wrapModeStr);
-                _OutputTextView.WrapMode = wrapMode;
-            }
+            _OutputMessageTextView.ApplyConfig(config);
         }
         
         public virtual void Close()
