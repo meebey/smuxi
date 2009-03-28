@@ -1,4 +1,2 @@
-*.exe
-*.exe.mdb
-*.dll
-*.dll.mdb
+*.exe*
+*.dll*
