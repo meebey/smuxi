@@ -27,9 +27,9 @@
  */
 
 using System;
+using System.Text;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
-using System.Text;
 using Smuxi.Common;
 
 namespace Smuxi.Engine
@@ -120,6 +120,5 @@ namespace Smuxi.Engine
             }
             return sb.ToString().Trim();
         }
-
     }
 }

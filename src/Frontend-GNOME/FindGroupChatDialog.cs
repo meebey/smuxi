@@ -126,6 +126,7 @@ namespace Smuxi.Frontend.Gnome
                         
                         Gtk.Application.Invoke(delegate {
                             foreach (GroupChatModel chat in chats) {
+                                // TODO: convert MessageModel into TreeView color
                                 f_ListStore.AppendValues(chat, chat.PersonCount, chat.Name, chat.Topic.ToString());
                             }
                         });

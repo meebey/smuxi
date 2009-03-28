@@ -42,7 +42,7 @@ namespace Smuxi.Engine
         // shouldn't need threadsafe wrapper, only the "owning" IRC thread should write to it
         private IDictionary<string, PersonModel> _Persons = new Dictionary<string, PersonModel>();
         private bool                             _IsSynced;
-        // IRC specific?
+        // HACK: IRC specific?
         private MessageModel _Topic;
         private int          _PersonCount = -1;
         
