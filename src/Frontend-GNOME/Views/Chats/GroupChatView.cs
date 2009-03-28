@@ -49,16 +49,23 @@ namespace Smuxi.Frontend.Gnome
         private Gtk.VBox           _OutputVBox;
         private Gtk.Frame          _PersonTreeViewFrame;
         private Gtk.HPaned         _OutputHPaned;
-        private Gtk.Entry          _TopicEntry;
+        private Gtk.ScrolledWindow _TopicScrolledWindow;
+        private MessageTextView    _TopicTextView;
         private Gtk.TreeViewColumn _IdentityNameColumn;
         private Gtk.Image          _TabImage;
         
-        public Gtk.Entry TopicEntry {
+        public Gtk.ScrolledWindow TopicScrolledWindow {
             get {
-                return _TopicEntry;
+                return _TopicScrolledWindow;
             }
         }
-        
+
+        public MessageTextView TopicTextView {
+            get {
+                return _TopicTextView;
+            }
+        }
+
         public override bool HasSelection {
             get {
                 return base.HasSelection || _PersonTreeView.Selection.CountSelectedRows() > 0;
@@ -144,10 +151,27 @@ namespace Smuxi.Frontend.Gnome
             _PersonTreeViewFrame.Add(sw);
             
             // topic
+            // don't worry, ApplyConfig() will add us to the OutputVBox!
             _OutputVBox = new Gtk.VBox();
+
+            _TopicTextView = new MessageTextView();
+            _TopicTextView.Editable = false;
+            _TopicTextView.WrapMode = Gtk.WrapMode.WordChar;
+            _TopicScrolledWindow = new Gtk.ScrolledWindow();
+            _TopicScrolledWindow.ShadowType = Gtk.ShadowType.In;
+            // when using PolicyType.Never, it will try to grow but never shrinks!
+            _TopicScrolledWindow.HscrollbarPolicy = Gtk.PolicyType.Automatic;
+            _TopicScrolledWindow.VscrollbarPolicy = Gtk.PolicyType.Automatic;
+            _TopicScrolledWindow.Add(_TopicTextView);
             
-            _TopicEntry = new Gtk.Entry();
-            _TopicEntry.IsEditable = false;
+            // predict and set useful topic heigth
+            Pango.Layout layout = _TopicTextView.CreatePangoLayout("Test Topic");
+            int lineWidth, lineHeigth;
+            layout.GetPixelSize(out lineWidth, out lineHeigth);
+            // use 2 lines + a bit extra as the topic heigth
+            int bestHeigth = (lineHeigth * 2) + 5;
+            _TopicTextView.HeightRequest = bestHeigth;
+            _TopicScrolledWindow.HeightRequest = bestHeigth;
             
             Add(_OutputHPaned);
             
@@ -174,7 +198,7 @@ namespace Smuxi.Frontend.Gnome
             
             base.Disable();
             
-            _TopicEntry.Text = String.Empty;
+            _TopicTextView.Buffer.Text = String.Empty;
             _PersonListStore.Clear();
             UpdatePersonCount();
         }
@@ -261,10 +285,11 @@ namespace Smuxi.Frontend.Gnome
             _Logger.Debug("Sync() syncing topic");
 #endif
             // sync topic
-            string topic = _GroupChatModel.Topic;
-            if ((_TopicEntry != null) &&
+            MessageModel topic = _GroupChatModel.Topic;
+            if ((_TopicTextView != null) &&
                (topic != null)) {
-                _TopicEntry.Text = topic;
+                // XXX
+                SetTopic(topic);
             }
             
             base.Sync();
@@ -346,6 +371,81 @@ namespace Smuxi.Frontend.Gnome
             UpdatePersonCount();
         }
         
+        public void SetTopic(MessageModel topic)
+        {
+            Trace.Call(topic);
+            Gtk.TextIter iter = _TopicTextView.Buffer.EndIter;
+
+            _TopicTextView.Clear();
+            _TopicTextView.AddMessage(topic, false);
+                                     
+            /*
+            foreach (MessagePartModel topicPart in topic.MessageParts) {
+#if LOG4NET
+                _Logger.Debug("SetTopic(): topicPart.GetType(): " + topicPart.GetType());
+#endif
+                Gdk.Color bgColor = _TopicTextView.DefaultAttributes.Appearance.BgColor;
+//                if (_BackgroundColor != null) {
+//                    bgColor = _BackgroundColor.Value;
+//                }
+                TextColor bgTextColor = ColorTools.GetTextColor(bgColor);
+                // TODO: implement all types
+                if (topicPart is UrlMessagePartModel) {
+                    UrlMessagePartModel fmsgui = (UrlMessagePartModel) topicPart;
+                    // HACK: the engine should set a color for us!
+                    Gtk.TextTag urlTag = _TopicTextTagTable.Lookup("url");
+                    Gdk.Color urlColor = urlTag.ForegroundGdk;
+                    //Console.WriteLine("urlColor: " + urlColor);
+                    TextColor urlTextColor = ColorTools.GetTextColor(urlColor);
+                    urlTextColor = ColorTools.GetBestTextColor(urlTextColor, bgTextColor);
+                    //Console.WriteLine("GetBestTextColor({0}, {1}): {2}",  urlColor, bgTextColor, urlTextColor);
+                    urlTag.ForegroundGdk = ColorTools.GetGdkColor(urlTextColor);
+                    _TopicTextView.Buffer.InsertWithTagsByName(ref iter, fmsgui.Url, "url");
+                } else if (topicPart is TextMessagePartModel) {
+                    TextMessagePartModel fmsgti = (TextMessagePartModel) topicPart;
+#if LOG4NET
+                    _Logger.Debug("SetTopic(): fmsgti.Text: '" + fmsgti.Text + "'");
+#endif
+                    List<string> tags = new List<string>();
+                    if (fmsgti.ForegroundColor != TextColor.None) {
+                        TextColor color = ColorTools.GetBestTextColor(fmsgti.ForegroundColor, bgTextColor);
+                        //Console.WriteLine("GetBestTextColor({0}, {1}): {2}",  fmsgti.ForegroundColor, bgTextColor, color);
+                        string tagname = GetTextTagName(color, null);
+                        //string tagname = _GetTextTagName(fmsgti.ForegroundColor, null);
+                        tags.Add(tagname);
+                    }
+                    if (fmsgti.BackgroundColor != TextColor.None) {
+                        string tagname = GetTextTagName(null, fmsgti.BackgroundColor);
+                        tags.Add(tagname);
+                    }
+                    if (fmsgti.Underline) {
+#if LOG4NET
+                        _Logger.Debug("SetTopic(): fmsgti.Underline is true");
+#endif
+                        tags.Add("underline");
+                    }
+                    if (fmsgti.Bold) {
+#if LOG4NET
+                        _Logger.Debug("SetTopic(): fmsgti.Bold is true");
+#endif
+                        tags.Add("bold");
+                    }
+                    if (fmsgti.Italic) {
+#if LOG4NET
+                        _Logger.Debug("SetTopic(): fmsgti.Italic is true");
+#endif
+                        tags.Add("italic");
+                    }
+                    
+                    _TopicTextView.Buffer.InsertWithTagsByName(ref iter,
+                                                               fmsgti.Text,
+                                                               tags.ToArray());
+                } 
+            }
+            _TopicTextView.Buffer.Insert(ref iter, "\n");
+            */
+        }
+
         public override void ApplyConfig(UserConfig config)
         {
             Trace.Call(config);
@@ -358,37 +458,37 @@ namespace Smuxi.Frontend.Gnome
             
             if (BackgroundColor != null) {
                 _PersonTreeView.ModifyBase(Gtk.StateType.Normal, BackgroundColor.Value);
-                _TopicEntry.ModifyBase(Gtk.StateType.Normal, BackgroundColor.Value);
+                _TopicTextView.ModifyBase(Gtk.StateType.Normal, BackgroundColor.Value);
             } else {
                 _PersonTreeView.ModifyBase(Gtk.StateType.Normal);
-                _TopicEntry.ModifyBase(Gtk.StateType.Normal);
+                _TopicTextView.ModifyBase(Gtk.StateType.Normal);
             }
             
             if (ForegroundColor != null) {
                 _PersonTreeView.ModifyText(Gtk.StateType.Normal, ForegroundColor.Value);
-                _TopicEntry.ModifyText(Gtk.StateType.Normal, ForegroundColor.Value);
+                _TopicTextView.ModifyText(Gtk.StateType.Normal, ForegroundColor.Value);
             } else {
                 _PersonTreeView.ModifyText(Gtk.StateType.Normal);
-                _TopicEntry.ModifyText(Gtk.StateType.Normal);
+                _TopicTextView.ModifyText(Gtk.StateType.Normal);
             }
             
             _PersonTreeView.ModifyFont(FontDescription);
-            _TopicEntry.ModifyFont(FontDescription);
+            _TopicTextView.ModifyFont(FontDescription);
             
             // topic
             string topic_pos = (string) config["Interface/Notebook/Channel/TopicPosition"];
-            if (_TopicEntry.IsAncestor(_OutputVBox)) {
-                _OutputVBox.Remove(_TopicEntry);
+            if (_TopicScrolledWindow.IsAncestor(_OutputVBox)) {
+                _OutputVBox.Remove(_TopicScrolledWindow);
             }
             if (OutputScrolledWindow.IsAncestor(_OutputVBox)) {
                 _OutputVBox.Remove(OutputScrolledWindow);
             }
             if (topic_pos == "top") {
-                _OutputVBox.PackStart(_TopicEntry, false, false, 2);
+                _OutputVBox.PackStart(_TopicScrolledWindow, false, false, 2);
                 _OutputVBox.PackStart(OutputScrolledWindow, true, true, 0);
             } else if  (topic_pos == "bottom") {
                 _OutputVBox.PackStart(OutputScrolledWindow, true, true, 0);
-                _OutputVBox.PackStart(_TopicEntry, false, false, 2);
+                _OutputVBox.PackStart(_TopicScrolledWindow, false, false, 2);
             } else if (topic_pos == "none") {
                 _OutputVBox.PackStart(OutputScrolledWindow, true, true, 0);
             } else {

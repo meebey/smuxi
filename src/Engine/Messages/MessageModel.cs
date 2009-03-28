@@ -27,6 +27,7 @@
  */
 
 using System;
+using System.Text;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 using Smuxi.Common;
@@ -102,6 +103,22 @@ namespace Smuxi.Engine
             SerializationWriter sw = SerializationWriter.GetWriter(); 
             GetObjectData(sw);
             sw.AddToInfo(info);
+        }
+        
+        public override string ToString()
+        {
+            StringBuilder sb = new StringBuilder();
+
+            foreach (MessagePartModel part in MessageParts) {
+                if (part is UrlMessagePartModel) {
+                    UrlMessagePartModel url = (UrlMessagePartModel)part;
+                    sb.AppendFormat("{0} ", url.Url);
+                } else if (part is TextMessagePartModel) {
+                    TextMessagePartModel text = (TextMessagePartModel)part;
+                    sb.AppendFormat("{0} ", text.Text);
+                }
+            }
+            return sb.ToString().Trim();
         }
     }
 }

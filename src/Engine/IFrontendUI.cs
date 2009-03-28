@@ -43,7 +43,7 @@ namespace Smuxi.Engine
         
         void AddPersonToGroupChat(GroupChatModel groupChat, PersonModel person);
         void UpdatePersonInGroupChat(GroupChatModel groupChat, PersonModel oldPerson, PersonModel newPerson);
-        void UpdateTopicInGroupChat(GroupChatModel groupChat, string topic);
+        void UpdateTopicInGroupChat(GroupChatModel groupChat, MessageModel topic);
         void RemovePersonFromGroupChat(GroupChatModel groupChat, PersonModel person);
         
         void SetNetworkStatus(string status);

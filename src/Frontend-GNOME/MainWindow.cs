@@ -357,6 +357,8 @@ namespace Smuxi.Frontend.Gnome
             _ChatViewManager.Load(asm);
             _ChatViewManager.LoadAll(System.IO.Path.GetDirectoryName(asm.Location),
                                      "smuxi-frontend-gnome-*.dll");
+            _ChatViewManager.ChatAdded += OnChatViewManagerChatAdded;
+            _ChatViewManager.ChatRemoved += OnChatViewManagerChatRemoved;
             
             _UI = new GnomeUI(_ChatViewManager);
             
@@ -775,11 +777,11 @@ namespace Smuxi.Frontend.Gnome
                 
                 for (int i = 0; i < _Notebook.NPages; i++) {
                     ChatView chatView = _Notebook.GetChat(i);
-                    chatView.OutputTextView.CursorVisible = _CaretMode;
+                    chatView.OutputMessageTextView.CursorVisible = _CaretMode;
                 }
                 
                 if (_CaretMode) {
-                    _Notebook.CurrentChatView.OutputTextView.HasFocus = true;
+                    _Notebook.CurrentChatView.OutputMessageTextView.HasFocus = true;
                 } else {
                     _Entry.HasFocus = true;
                 }
@@ -789,6 +791,36 @@ namespace Smuxi.Frontend.Gnome
         }
 #endregion
         
+        protected void OnChatViewManagerChatAdded(object sender, ChatViewManagerChatAddedEventArgs e)
+        {
+            Trace.Call(sender, e);
+            
+            e.ChatView.OutputMessageTextView.MessageHighlighted += OnChatViewMessageHighlighted;
+        }
+        
+        protected void OnChatViewManagerChatRemoved(object sender, ChatViewManagerChatRemovedEventArgs e)
+        {
+            Trace.Call(sender, e);
+            
+            e.ChatView.OutputMessageTextView.MessageHighlighted -= OnChatViewMessageHighlighted;
+        }
+        
+        protected void OnChatViewMessageHighlighted(object sender, MessageTextViewMessageHighlightedEventArgs e)
+        {
+            Trace.Call(sender, e);
+            
+            if (!HasToplevelFocus) {
+                UrgencyHint = true;
+#if GTK_SHARP_2_10
+                Frontend.StatusIcon.Blinking = true;
+#endif
+                if (Frontend.UserConfig["Sound/BeepOnHighlight"] != null &&
+                    (bool)Frontend.UserConfig["Sound/BeepOnHighlight"]) {
+                    Display.Beep();
+                }
+            }
+        }
+
         private static string _(string msg)
         {
             return Mono.Unix.Catalog.GetString(msg);

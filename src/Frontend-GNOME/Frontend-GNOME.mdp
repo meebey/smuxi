@@ -1,28 +1,28 @@
-<Project name="Frontend-GNOME" fileversion="2.0" language="C#" clr-version="Net_2_0" ctype="DotNetProject">
+<Project name="Frontend-GNOME" fileversion="2.0" language="C#" clr-version="Net_2_0" targetFramework="2.0" ctype="DotNetProject">
   <Configurations active="Debug">
     <Configuration name="Debug" ctype="DotNetProjectConfiguration">
       <Output directory="../../bin/debug" assemblyKeyFile="." assembly="smuxi-frontend-gnome" />
       <Build debugmode="True" target="WinExe" />
       <Execution runwithwarnings="True" commandlineparameters="--debug" externalconsole="True" consolepause="True" runtime="MsNet" clr-version="Net_2_0" />
-      <CodeGeneration compiler="Csc" warninglevel="4" optimize="False" unsafecodeallowed="False" generateoverflowchecks="True" mainclass="" definesymbols="DEBUG,TRACE,LOG4NET,CONFIG_NINI,UI_GNOME,GTK_SHARP_2_10" generatexmldocumentation="False" win32Icon="." ctype="CSharpCompilerParameters" />
+      <CodeGeneration compiler="Mcs" warninglevel="4" optimize="False" unsafecodeallowed="False" generateoverflowchecks="True" definesymbols="DEBUG,TRACE,LOG4NET,CONFIG_NINI,UI_GNOME,GTK_SHARP_2_10" generatexmldocumentation="False" ctype="CSharpCompilerParameters" />
     </Configuration>
     <Configuration name="Release" ctype="DotNetProjectConfiguration">
       <Output directory="../../bin/release" assembly="smuxi-frontend-gnome" />
       <Build debugmode="False" target="WinExe" />
       <Execution runwithwarnings="False" consolepause="True" runtime="MsNet" clr-version="Net_2_0" />
-      <CodeGeneration compiler="Csc" warninglevel="4" optimize="True" unsafecodeallowed="False" generateoverflowchecks="True" mainclass="" definesymbols="CONFIG_NINI,UI_GNOME,GTK_SHARP_2_8" generatexmldocumentation="False" win32Icon="." ctype="CSharpCompilerParameters" />
+      <CodeGeneration compiler="Mcs" warninglevel="4" optimize="True" unsafecodeallowed="False" generateoverflowchecks="True" definesymbols="CONFIG_NINI,UI_GNOME,GTK_SHARP_2_8" generatexmldocumentation="False" ctype="CSharpCompilerParameters" />
     </Configuration>
     <Configuration name="Debug GTK" ctype="DotNetProjectConfiguration">
       <Output directory="../../bin/debug" assembly="smuxi-frontend-gtk" />
       <Build debugmode="True" target="WinExe" />
       <Execution runwithwarnings="True" commandlineparameters="--debug" externalconsole="True" consolepause="True" runtime="MsNet" clr-version="Net_2_0" />
-      <CodeGeneration compiler="Csc" warninglevel="4" optimize="False" unsafecodeallowed="False" generateoverflowchecks="True" mainclass="" definesymbols="DEBUG,TRACE,LOG4NET,CONFIG_NINI,UI_GTK,GTK_SHARP_2_8" generatexmldocumentation="False" win32Icon="." ctype="CSharpCompilerParameters" />
+      <CodeGeneration compiler="Mcs" warninglevel="4" optimize="False" unsafecodeallowed="False" generateoverflowchecks="True" definesymbols="DEBUG,TRACE,LOG4NET,CONFIG_NINI,UI_GTK,GTK_SHARP_2_8" generatexmldocumentation="False" ctype="CSharpCompilerParameters" />
     </Configuration>
     <Configuration name="Release GTK" ctype="DotNetProjectConfiguration">
       <Output directory="../../bin/debug" assembly="smuxi-frontend-gnome" />
       <Build debugmode="True" target="WinExe" />
       <Execution runwithwarnings="True" externalconsole="True" consolepause="True" runtime="MsNet" clr-version="Net_2_0" />
-      <CodeGeneration compiler="Csc" warninglevel="4" optimize="False" unsafecodeallowed="False" generateoverflowchecks="True" mainclass="" definesymbols="TRACE,DEBUG,LOG4NET,CONFIG_NINI,UI_GNOME,GTK_SHARP_2_8" generatexmldocumentation="False" win32Icon="." ctype="CSharpCompilerParameters" />
+      <CodeGeneration compiler="Mcs" warninglevel="4" optimize="False" unsafecodeallowed="False" generateoverflowchecks="True" definesymbols="TRACE,DEBUG,LOG4NET,CONFIG_NINI,UI_GNOME,GTK_SHARP_2_8" generatexmldocumentation="False" ctype="CSharpCompilerParameters" />
     </Configuration>
   </Configurations>
   <Contents>
@@ -50,12 +50,6 @@
     <File name="Preferences/ServerListView.cs" subtype="Code" buildaction="Compile" />
     <File name="Preferences/ServerView.cs" subtype="Code" buildaction="Compile" />
     <File name="Preferences/PreferencesDialog.cs" subtype="Code" buildaction="Compile" />
-    <File name="Chats" subtype="Directory" buildaction="Compile" />
-    <File name="Chats/ChatView.cs" subtype="Code" buildaction="Compile" />
-    <File name="Chats/GroupChatView.cs" subtype="Code" buildaction="Compile" />
-    <File name="Chats/PersonChatView.cs" subtype="Code" buildaction="Compile" />
-    <File name="Chats/ProtocolChatView.cs" subtype="Code" buildaction="Compile" />
-    <File name="Chats/SessionChatView.cs" subtype="Code" buildaction="Compile" />
     <File name="gtk-gui/gui.stetic" subtype="Code" buildaction="EmbedAsResource" />
     <File name="gtk-gui/generated.cs" subtype="Code" buildaction="Compile" />
     <File name="QuickConnectDialog.cs" subtype="Code" buildaction="Compile" />
@@ -78,6 +72,13 @@
     <File name="../../po-Frontend-GNOME/es.po" subtype="Code" buildaction="Nothing" />
     <File name="ChatFindDialog.cs" subtype="Code" buildaction="Compile" />
     <File name="gtk-gui/Smuxi.Frontend.Gnome.ChatFindDialog.cs" subtype="Code" buildaction="Compile" />
+    <File name="Views" subtype="Directory" buildaction="Compile" />
+    <File name="Views/Chats/ChatView.cs" subtype="Code" buildaction="Compile" />
+    <File name="Views/Chats/GroupChatView.cs" subtype="Code" buildaction="Compile" />
+    <File name="Views/Chats/PersonChatView.cs" subtype="Code" buildaction="Compile" />
+    <File name="Views/Chats/ProtocolChatView.cs" subtype="Code" buildaction="Compile" />
+    <File name="Views/Chats/SessionChatView.cs" subtype="Code" buildaction="Compile" />
+    <File name="Views/MessageTextView.cs" subtype="Code" buildaction="Compile" />
   </Contents>
   <References>
     <ProjectReference type="Project" localcopy="True" refto="Engine" />
@@ -97,9 +98,7 @@
     <ProjectReference type="Gac" localcopy="True" refto="gtk-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
     <ProjectReference type="Gac" localcopy="True" refto="gnome-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
   </References>
+  <LanguageParameters ApplicationIcon="." ctype="CSharpProjectParameters" />
   <Deployment.LinuxDeployData scriptName="smuxi-frontend-gnome" />
-  <GtkDesignInfo gtkVersion="2.12.1" />
-  <DeploymentInformation strategy="File">
-    <excludeFiles />
-  </DeploymentInformation>
+  <DeploymentInformation strategy="File" />
 </Project>

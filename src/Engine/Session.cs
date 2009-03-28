@@ -799,7 +799,7 @@ namespace Smuxi.Engine
             }
         }
     
-        public void UpdateTopicInGroupChat(GroupChatModel groupChat, string topic)
+        public void UpdateTopicInGroupChat(GroupChatModel groupChat, MessageModel topic)
         {
             if (groupChat == null) {
                 throw new ArgumentNullException("groupChat");
@@ -809,7 +809,7 @@ namespace Smuxi.Engine
             }
 
 #if LOG4NET
-            f_Logger.Debug("UpdateTopicInGroupChat() groupChat.Name: " + groupChat.Name + " topic: " + topic);
+            f_Logger.Debug("UpdateTopicInGroupChat() groupChat.Name: " + groupChat.Name + " topic: " + topic.ToString());
 #endif
             groupChat.Topic = topic;
             foreach (FrontendManager fm in _FrontendManagers.Values) {

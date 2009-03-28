@@ -104,7 +104,6 @@ namespace Smuxi.Frontend.Gnome {
             this.f_TreeView = new Gtk.TreeView();
             this.f_TreeView.CanFocus = true;
             this.f_TreeView.Name = "f_TreeView";
-            this.f_TreeView.HeadersClickable = true;
             this.GtkScrolledWindow.Add(this.f_TreeView);
             this.vbox2.Add(this.GtkScrolledWindow);
             Gtk.Box.BoxChild w8 = ((Gtk.Box.BoxChild)(this.vbox2[this.GtkScrolledWindow]));

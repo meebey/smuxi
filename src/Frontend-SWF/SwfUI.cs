@@ -195,7 +195,7 @@ namespace Smuxi.Frontend.Swf
             }));
         }
         
-        public void UpdateTopicInGroupChat(GroupChatModel ecpage, string topic)
+        public void UpdateTopicInGroupChat(GroupChatModel ecpage, MessageModel topic)
         {
             TraceRemotingCall(ecpage, topic);
 

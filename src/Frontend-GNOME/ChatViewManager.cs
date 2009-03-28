@@ -48,6 +48,9 @@ namespace Smuxi.Frontend.Gnome
         private Gtk.TreeView   f_TreeView;
         private UserConfig     f_Config;
         
+        public event ChatViewManagerChatAddedEventHandler   ChatAdded;
+        public event ChatViewManagerChatRemovedEventHandler ChatRemoved;
+            
         public override IChatView ActiveChat {
             get {
                 return f_Notebook.CurrentChatView;
@@ -124,6 +127,10 @@ namespace Smuxi.Frontend.Gnome
             f_Notebook.SetTabReorderable(chatView, true);
 #endif
             chatView.ShowAll();
+            
+            if (ChatAdded != null) {
+                ChatAdded(this, new ChatViewManagerChatAddedEventArgs(chatView));
+            }
         }
         
         public override void RemoveChat(ChatModel chat)
@@ -131,6 +138,10 @@ namespace Smuxi.Frontend.Gnome
             ChatView chatView = f_Notebook.GetChat(chat);
             f_Notebook.RemovePage(f_Notebook.PageNum(chatView));
             f_Chats.Remove(chatView);
+            
+            if (ChatRemoved != null) {
+                ChatRemoved(this, new ChatViewManagerChatRemovedEventArgs(chatView));
+            }
         }
         
         public override void EnableChat(ChatModel chat)
@@ -164,4 +175,40 @@ namespace Smuxi.Frontend.Gnome
             }
         }
     }   
+    
+    public delegate void ChatViewManagerChatAddedEventHandler(object sender, ChatViewManagerChatAddedEventArgs e);
+    
+    public class ChatViewManagerChatAddedEventArgs : EventArgs
+    {
+        private ChatView f_ChatView;
+        
+        public ChatView ChatView {
+            get {
+                return f_ChatView;
+            }
+        }
+         
+        public ChatViewManagerChatAddedEventArgs(ChatView chatView)
+        {
+            f_ChatView = chatView;
+        }
+    }
+    
+    public delegate void ChatViewManagerChatRemovedEventHandler(object sender, ChatViewManagerChatRemovedEventArgs e);
+    
+    public class ChatViewManagerChatRemovedEventArgs : EventArgs
+    {
+        private ChatView f_ChatView;
+        
+        public ChatView ChatView {
+            get {
+                return f_ChatView;
+            }
+        }
+         
+        public ChatViewManagerChatRemovedEventArgs(ChatView chatView)
+        {
+            f_ChatView = chatView;
+        }
+    }
 }

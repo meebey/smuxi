@@ -391,7 +391,11 @@ namespace Smuxi.Engine
                     null
                 );
                 chat.PersonCount = info.UserCount;
-                chat.Topic = info.Topic;
+
+                MessageModel topic = new MessageModel();
+                _IrcMessageToMessageModel(ref topic, info.Topic);
+                chat.Topic = topic;
+
                 chats.Add(chat);
             }
             
@@ -1071,8 +1075,16 @@ namespace Smuxi.Engine
                 if (_IrcClient.IsJoined(channel)) {
                     string topic = _IrcClient.GetChannel(channel).Topic;
                     if (topic.Length > 0) {
-                        fm.AddTextToChat(chat,
-                            "-!- " + String.Format(_("Topic for {0}: {1}"), channel, topic));
+                        MessageModel msg = new MessageModel();
+                        TextMessagePartModel textMsg;
+                   
+                        textMsg = new TextMessagePartModel();
+                        textMsg.Text = "-!- " + String.Format(_("Topic for {0}: {1}"), channel, String.Empty);
+                        msg.MessageParts.Add(textMsg);  
+
+                        _IrcMessageToMessageModel(ref msg, topic);
+
+                        fm.AddMessageToChat(chat, msg);
                     } else {
                         fm.AddTextToChat(chat,
                             "-!- " + String.Format(_("No topic set for {0}"), channel));
@@ -1521,6 +1533,8 @@ namespace Smuxi.Engine
         
         private void _IrcMessageToMessageModel(ref MessageModel msg, string message)
         {
+            Trace.Call(msg, message);
+            
             // strip color and formatting if configured
             if ((bool)Session.UserConfig["Interface/Notebook/StripColors"]) {
                 message = Regex.Replace(message, (char)IrcControlCode.Color +
@@ -2431,13 +2445,17 @@ namespace Smuxi.Engine
         private void _OnTopic(object sender, TopicEventArgs e)
         {
             GroupChatModel cchat = (GroupChatModel)GetChat(e.Channel, ChatType.Group);
-            Session.UpdateTopicInGroupChat(cchat, e.Topic);
+            MessageModel topic = new MessageModel();
+            _IrcMessageToMessageModel(ref topic, e.Topic);
+            Session.UpdateTopicInGroupChat(cchat, topic);
         }
         
         private void _OnTopicChange(object sender, TopicChangeEventArgs e)
         {
             GroupChatModel cchat = (GroupChatModel)GetChat(e.Channel, ChatType.Group);
-            Session.UpdateTopicInGroupChat(cchat, e.NewTopic);
+            MessageModel topic = new MessageModel();
+            _IrcMessageToMessageModel(ref topic, e.NewTopic);
+            Session.UpdateTopicInGroupChat(cchat, topic);
             Session.AddTextToChat(cchat, "-!- " + String.Format(
                                                     _("{0} changed the topic of {1} to: {2}"),
                                                     e.Who, e.Channel, e.NewTopic));

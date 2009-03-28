@@ -116,7 +116,7 @@ namespace Smuxi.Frontend.Curses
             Trace.Call(cpage, olduser, newuser);
         }
     
-        public void UpdateTopicInGroupChat(GroupChatModel cpage, string topic)
+        public void UpdateTopicInGroupChat(GroupChatModel cpage, MessageModel topic)
         {
             Trace.Call(cpage, topic);
             
