@@ -28,16 +28,10 @@
 
 using System;
 using System.Drawing;
-using SysDiag = System.Diagnostics;
-using System.Threading;
 using System.Collections.Generic;
-using System.Text.RegularExpressions;
 using Smuxi.Common;
 using Smuxi.Engine;
 using Smuxi.Frontend;
-#if UI_GNOME
-using GNOME = Gnome;
-#endif
 
 namespace Smuxi.Frontend.Gnome
 {
@@ -47,10 +41,7 @@ namespace Smuxi.Frontend.Gnome
 #if LOG4NET
         private static readonly log4net.ILog _Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 #endif
-        private static readonly Gdk.Cursor _NormalCursor = new Gdk.Cursor(Gdk.CursorType.Xterm);
-        private static readonly Gdk.Cursor _LinkCursor = new Gdk.Cursor(Gdk.CursorType.Hand2);
         private   string             _Name;
-        private   bool               _AtUrlTag;
         private   ChatModel          _ChatModel;
         private   bool               _HasHighlight;
         private   bool               _HasActivity;
@@ -200,14 +191,14 @@ namespace Smuxi.Frontend.Gnome
             _Name = _ChatModel.Name;
             Name = _Name;
             
-            MessageTextView tv = new MessageTextView(this);
+            MessageTextView tv = new MessageTextView();
             _EndMark = tv.Buffer.CreateMark("end", tv.Buffer.EndIter, false); 
             tv.Editable = false;
-            //tv.CursorVisible = false;
             tv.CursorVisible = true;
             tv.WrapMode = Gtk.WrapMode.Char;
             tv.Buffer.Changed += new EventHandler(_OnTextBufferChanged);
-            tv.MotionNotifyEvent += new Gtk.MotionNotifyEventHandler(_OnMotionNotifyEvent);
+            tv.MessageAdded += OnMessageTextViewMessageAdded;
+            tv.MessageHighlighted += OnMessageTextViewMessageHighlighted;
             _OutputMessageTextView = tv;
             
             Gtk.ScrolledWindow sw = new Gtk.ScrolledWindow();
@@ -335,7 +326,7 @@ namespace Smuxi.Frontend.Gnome
 #endif
             // sync messages
             // cleanup, be sure the output is empty
-            _OutputMessageTextView.Buffer.Clear();
+            _OutputMessageTextView.Clear();
             IList<MessageModel> messages = _ChatModel.Messages;
             if (messages.Count > 0) {
                 foreach (MessageModel msg in messages) {
@@ -355,7 +346,7 @@ namespace Smuxi.Frontend.Gnome
         {
             Trace.Call();
             
-            _OutputMessageTextView.Buffer.Clear();
+            _OutputMessageTextView.Clear();
         }
         
         public virtual void ApplyConfig(UserConfig config)
@@ -373,7 +364,6 @@ namespace Smuxi.Frontend.Gnome
         {
             Trace.Call();
         }
-        
                         
         private void _OnTextBufferChanged(object sender, EventArgs e)
         {
@@ -402,98 +392,6 @@ namespace Smuxi.Frontend.Gnome
             tv.Buffer.MoveMark(_EndMark, tv.Buffer.EndIter);
         }
         
-        internal void _OnTextTagUrlTextEvent(object sender, Gtk.TextEventArgs e)
-        {
-            if (e.Event.Type != Gdk.EventType.ButtonRelease) {
-                return;
-            }
-            
-            Gtk.TextIter start = Gtk.TextIter.Zero;
-            Gtk.TextIter end = Gtk.TextIter.Zero;
-
-            // if something in the textview is selected, bail out
-            if (_OutputMessageTextView.HasTextViewSelection) {
-                return;
-            }
-            
-            // get URL via TextTag from TextIter
-            Gtk.TextTag tag = (Gtk.TextTag) sender;
-            
-            start = e.Iter;
-            start.BackwardToTagToggle(tag);
-            end = e.Iter;
-            end.ForwardToTagToggle(tag);
-            string url = _OutputMessageTextView.Buffer.GetText(start, end, false);
-            
-            if (!Regex.IsMatch(url, @"^[a-zA-Z0-9\-]+:\/\/")) {
-                // URL doesn't start with a protocol
-                url = "http://" + url;
-            }
-            
-            if (Type.GetType("Mono.Runtime") == null) {
-                // this is not Mono, probably MS .NET, so ShellExecute is the better approach
-                ThreadPool.QueueUserWorkItem(delegate {
-                    SysDiag.Process.Start(url);
-                });
-                return;
-            }
-            
-#if UI_GNOME
-            try {
-                GNOME.Url.Show(url);
-            } catch (Exception ex) {
-                string msg = String.Format(_("Opening URL ({0}) failed."), url);
-                Frontend.ShowException(new ApplicationException(msg, ex));
-            }
-#else
-            // hopefully Mono finds some way to handle the URL
-            ThreadPool.QueueUserWorkItem(delegate {
-                SysDiag.Process.Start(url);
-            });
-#endif
-        }
-        
-        private void _OnMotionNotifyEvent(object sender, Gtk.MotionNotifyEventArgs e)
-        {
-            // GDK is ugly!
-            Gdk.ModifierType modifierType;
-            int windowX, windowY;
-            int bufferX, bufferY;
-            
-            // get the window position of the mouse
-            _OutputMessageTextView.GdkWindow.GetPointer(out windowX, out windowY, out modifierType);
-            // get buffer position with the window position
-            _OutputMessageTextView.WindowToBufferCoords(Gtk.TextWindowType.Widget,
-                                                 windowX, windowY,
-                                                 out bufferX, out bufferY);
-            // get TextIter with buffer position
-            Gtk.TextIter iter = _OutputMessageTextView.GetIterAtLocation(bufferX, bufferY);
-            bool atUrlTag = false;
-            foreach (Gtk.TextTag tag in iter.Tags) {
-                if (tag.Name == "url") {
-                    atUrlTag = true;
-                    break;
-                }
-            }
-            
-            Gdk.Window window = _OutputMessageTextView.GetWindow(Gtk.TextWindowType.Text); 
-            if (atUrlTag != _AtUrlTag) {
-                _AtUrlTag = atUrlTag;
-                
-                if (atUrlTag) {
-#if LOG4NET
-                    _Logger.Debug("_OnMotionNotifyEvent(): at url tag");
-#endif
-                    window.Cursor = _LinkCursor;
-                } else {
-#if LOG4NET
-                    _Logger.Debug("_OnMotionNotifyEvent(): not at url tag");
-#endif
-                    window.Cursor = _NormalCursor;
-                }
-            }
-        }
-        
         protected virtual void OnTabButtonPress(object sender, Gtk.ButtonPressEventArgs e)
         {
             Trace.Call(sender, e);
@@ -517,6 +415,8 @@ namespace Smuxi.Frontend.Gnome
         {
             Trace.Call(sender, e);
             
+            // HACK: out of scope?
+            // probably we should use the ChatViewManager instead?
             if (Frontend.MainWindow.Notebook.CurrentChatView == this) {
                 return;
             }

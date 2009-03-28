@@ -51,7 +51,6 @@ namespace Smuxi.Frontend.Gnome
         private Gtk.HPaned         _OutputHPaned;
         private Gtk.ScrolledWindow _TopicScrolledWindow;
         private MessageTextView    _TopicTextView;
-        private Gtk.TextTagTable   _TopicTextTagTable;
         private Gtk.TreeViewColumn _IdentityNameColumn;
         private Gtk.Image          _TabImage;
         
@@ -64,12 +63,6 @@ namespace Smuxi.Frontend.Gnome
         public MessageTextView TopicTextView {
             get {
                 return _TopicTextView;
-            }
-        }
-
-        protected Gtk.TextTagTable TopicTextTagTable {
-            get {
-                return _TopicTextTagTable;
             }
         }
 
@@ -161,7 +154,7 @@ namespace Smuxi.Frontend.Gnome
             // don't worry, ApplyConfig() will add us to the OutputVBox!
             _OutputVBox = new Gtk.VBox();
 
-            _TopicTextView = new MessageTextView(this);
+            _TopicTextView = new MessageTextView();
             _TopicTextView.Editable = false;
             _TopicTextView.WrapMode = Gtk.WrapMode.WordChar;
             _TopicScrolledWindow = new Gtk.ScrolledWindow();
@@ -171,10 +164,14 @@ namespace Smuxi.Frontend.Gnome
             _TopicScrolledWindow.VscrollbarPolicy = Gtk.PolicyType.Automatic;
             _TopicScrolledWindow.Add(_TopicTextView);
             
-            _TopicTextTagTable = new Gtk.TextTagTable();
-            _TopicTextTagTable = OutputMessageTextView.MessageTextTagTable;
-
-            _TopicTextView.Buffer = new Gtk.TextBuffer(_TopicTextTagTable);
+            // predict and set useful topic heigth
+            Pango.Layout layout = _TopicTextView.CreatePangoLayout("Test Topic");
+            int lineWidth, lineHeigth;
+            layout.GetPixelSize(out lineWidth, out lineHeigth);
+            // use 2 lines + a bit extra as the topic heigth
+            int bestHeigth = (lineHeigth * 2) + 5;
+            _TopicTextView.HeightRequest = bestHeigth;
+            _TopicScrolledWindow.HeightRequest = bestHeigth;
             
             Add(_OutputHPaned);
             
