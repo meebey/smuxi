@@ -395,6 +395,7 @@ namespace Smuxi.Engine
                 MessageModel topic = new MessageModel();
                 _IrcMessageToMessageModel(ref topic, info.Topic);
                 chat.Topic = topic;
+
                 chats.Add(chat);
             }
             
@@ -1072,10 +1073,18 @@ namespace Smuxi.Engine
                 _IrcClient.RfcTopic(channel, cd.Parameter);
             } else {
                 if (_IrcClient.IsJoined(channel)) {
-                    MessageModel topic = new MessageModel(_IrcClient.GetChannel(channel).Topic);
-                    if (topic.ToString().Length > 0) {
-                        fm.AddTextToChat(chat,
-                            "-!- " + String.Format(_("Topic for {0}: {1}"), channel, topic.ToString()));
+                    string topic = _IrcClient.GetChannel(channel).Topic;
+                    if (topic.Length > 0) {
+                        MessageModel msg = new MessageModel();
+                        TextMessagePartModel textMsg;
+                   
+                        textMsg = new TextMessagePartModel();
+                        textMsg.Text = "-!- " + String.Format(_("Topic for {0}: {1}"), channel, String.Empty);
+                        msg.MessageParts.Add(textMsg);  
+
+                        _IrcMessageToMessageModel(ref msg, topic);
+
+                        fm.AddMessageToChat(chat, msg);
                     } else {
                         fm.AddTextToChat(chat,
                             "-!- " + String.Format(_("No topic set for {0}"), channel));
@@ -2436,8 +2445,6 @@ namespace Smuxi.Engine
         private void _OnTopic(object sender, TopicEventArgs e)
         {
             GroupChatModel cchat = (GroupChatModel)GetChat(e.Channel, ChatType.Group);
-            // shouldn't be a string maybe.
-            // XXX
             MessageModel topic = new MessageModel();
             _IrcMessageToMessageModel(ref topic, e.Topic);
             Session.UpdateTopicInGroupChat(cchat, topic);
