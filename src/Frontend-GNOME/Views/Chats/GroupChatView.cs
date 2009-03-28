@@ -50,7 +50,7 @@ namespace Smuxi.Frontend.Gnome
         private Gtk.Frame          _PersonTreeViewFrame;
         private Gtk.HPaned         _OutputHPaned;
         private Gtk.ScrolledWindow _TopicScrolledWindow;
-        private Gtk.TextView       _TopicTextView;
+        private MessageTextView    _TopicTextView;
         private Gtk.TextTagTable   _TopicTextTagTable;
         private Gtk.TreeViewColumn _IdentityNameColumn;
         private Gtk.Image          _TabImage;
@@ -61,7 +61,7 @@ namespace Smuxi.Frontend.Gnome
             }
         }
 
-        public Gtk.TextView TopicTextView {
+        public MessageTextView TopicTextView {
             get {
                 return _TopicTextView;
             }
@@ -158,19 +158,21 @@ namespace Smuxi.Frontend.Gnome
             _PersonTreeViewFrame.Add(sw);
             
             // topic
+            // don't worry, ApplyConfig() will add us to the OutputVBox!
             _OutputVBox = new Gtk.VBox();
 
-            _TopicTextView = new Gtk.TextView();
+            _TopicTextView = new MessageTextView(this);
             _TopicTextView.Editable = false;
             _TopicTextView.WrapMode = Gtk.WrapMode.WordChar;
-            
             _TopicScrolledWindow = new Gtk.ScrolledWindow();
-            _TopicScrolledWindow.HscrollbarPolicy = Gtk.PolicyType.Never;
+            _TopicScrolledWindow.ShadowType = Gtk.ShadowType.In;
+            // when using PolicyType.Never, it will try to grow but never shrinks!
+            _TopicScrolledWindow.HscrollbarPolicy = Gtk.PolicyType.Automatic;
             _TopicScrolledWindow.VscrollbarPolicy = Gtk.PolicyType.Automatic;
             _TopicScrolledWindow.Add(_TopicTextView);
             
             _TopicTextTagTable = new Gtk.TextTagTable();
-            _TopicTextTagTable = OutputTextTagTable;
+            _TopicTextTagTable = OutputMessageTextView.MessageTextTagTable;
 
             _TopicTextView.Buffer = new Gtk.TextBuffer(_TopicTextTagTable);
             
@@ -377,6 +379,10 @@ namespace Smuxi.Frontend.Gnome
             Trace.Call(topic);
             Gtk.TextIter iter = _TopicTextView.Buffer.EndIter;
 
+            _TopicTextView.Clear();
+            _TopicTextView.AddMessage(topic, false);
+                                     
+            /*
             foreach (MessagePartModel topicPart in topic.MessageParts) {
 #if LOG4NET
                 _Logger.Debug("SetTopic(): topicPart.GetType(): " + topicPart.GetType());
@@ -407,12 +413,12 @@ namespace Smuxi.Frontend.Gnome
                     if (fmsgti.ForegroundColor != TextColor.None) {
                         TextColor color = ColorTools.GetBestTextColor(fmsgti.ForegroundColor, bgTextColor);
                         //Console.WriteLine("GetBestTextColor({0}, {1}): {2}",  fmsgti.ForegroundColor, bgTextColor, color);
-                        string tagname = _GetTextTagName(color, null);
+                        string tagname = GetTextTagName(color, null);
                         //string tagname = _GetTextTagName(fmsgti.ForegroundColor, null);
                         tags.Add(tagname);
                     }
                     if (fmsgti.BackgroundColor != TextColor.None) {
-                        string tagname = _GetTextTagName(null, fmsgti.BackgroundColor);
+                        string tagname = GetTextTagName(null, fmsgti.BackgroundColor);
                         tags.Add(tagname);
                     }
                     if (fmsgti.Underline) {
@@ -440,6 +446,7 @@ namespace Smuxi.Frontend.Gnome
                 } 
             }
             _TopicTextView.Buffer.Insert(ref iter, "\n");
+            */
         }
 
         public override void ApplyConfig(UserConfig config)
@@ -473,8 +480,8 @@ namespace Smuxi.Frontend.Gnome
             
             // topic
             string topic_pos = (string) config["Interface/Notebook/Channel/TopicPosition"];
-            if (_TopicTextView.IsAncestor(_OutputVBox)) {
-                _OutputVBox.Remove(_TopicTextView);
+            if (_TopicScrolledWindow.IsAncestor(_OutputVBox)) {
+                _OutputVBox.Remove(_TopicScrolledWindow);
             }
             if (OutputScrolledWindow.IsAncestor(_OutputVBox)) {
                 _OutputVBox.Remove(OutputScrolledWindow);

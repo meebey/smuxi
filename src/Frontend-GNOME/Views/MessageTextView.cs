@@ -1,13 +1,9 @@
 /*
  * $Id$
- * $URL$
- * $Rev$
- * $Author$
- * $Date$
  *
  * smuxi - Smart MUltipleXed Irc
  *
- * Copyright (c) 2005-2006 Mirco Bauer <meebey@meebey.net>
+ * Copyright (c) 2009 Mirco Bauer <meebey@meebey.net>
  *
  * Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
  *
@@ -26,26 +22,69 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA
  */
 
-using Gtk;
+using System;
+using System.Collections.Generic;
+using System.Globalization;
 using Smuxi.Common;
 using Smuxi.Engine;
-using System;
 
 namespace Smuxi.Frontend.Gnome
 {
-    public class MessageTextView : TextView
+    public delegate void MessageTextViewMessageAddedEventHandler(object sender, MessageTextViewMessageAddedEventArgs e);
+    
+    public class MessageTextViewMessageAddedEventArgs : EventArgs
     {
-        private TextTagTable _MessageTextTagTable;
+        private MessageModel f_Message;
+        
+        public MessageModel Message {
+            get {
+                return f_Message;
+            }
+        }
+         
+        public MessageTextViewMessageAddedEventArgs(MessageModel message)
+        {
+            f_Message = message;
+        }
+    }
+    
+    public delegate void MessageTextViewMessageHighlightedEventHandler(object sender, MessageTextViewMessageHighlightedEventArgs e);
+    
+    public class MessageTextViewMessageHighlightedEventArgs : EventArgs
+    {
+        private MessageModel f_Message;
+        
+        public MessageModel Message {
+            get {
+                return f_Message;
+            }
+        }
+         
+        public MessageTextViewMessageHighlightedEventArgs(MessageModel message)
+        {
+            f_Message = message;
+        }
+    }
+    
+    public class MessageTextView : Gtk.TextView
+    {
+#if LOG4NET
+        private static readonly log4net.ILog _Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+#endif        
+        private Gtk.TextTagTable _MessageTextTagTable;
         private MessageModel _MessageModel;
         private bool         _ShowTimestamps;
         private bool         _ShowHighlight;
-        private bool?        _HasHighlight;
+        private bool         _HasHighlight;
         private ChatView     _ChatView;
         private UserConfig   _Config;
         private Gdk.Color?   _BackgroundColor;
         private Gdk.Color?   _ForegroundColor;
         private Pango.FontDescription _FontDescription;
 
+        public event MessageTextViewMessageAddedEventHandler       MessageAdded;
+        public event MessageTextViewMessageHighlightedEventHandler MessageHighlighted;
+        
         /*
          * Properties
          */
@@ -79,7 +118,7 @@ namespace Smuxi.Frontend.Gnome
             }
         }
 
-        public bool? HasHighlight
+        public bool HasHighlight
         {
             get {
                 return _HasHighlight;
@@ -116,22 +155,20 @@ namespace Smuxi.Frontend.Gnome
             }
         }
 
-        /*
-         * Constructors
-         */
-        public MessageTextView()
-        {
-            MessageTextView(null);
+        public Gtk.TextTagTable MessageTextTagTable {
+            get {
+                return _MessageTextTagTable;
+            }
         }
 
         public MessageTextView(ChatView chatview)
         {
-            Trace.Call(cview);
+            Trace.Call(chatview);
 
             _MessageTextTagTable = BuildTagTable();
             _ChatView = chatview;
             
-            this.Buffer = new TextBuffer(_MessageTextTagTable);
+            Buffer = new Gtk.TextBuffer(_MessageTextTagTable);
         }
 
         /*
@@ -194,24 +231,32 @@ namespace Smuxi.Frontend.Gnome
             
             ModifyFont(_FontDescription);
             
+            /*
             string wrapModeStr = (string) config["Interface/Chat/WrapMode"];
             if (!String.IsNullOrEmpty(wrapModeStr)) {
                 Gtk.WrapMode wrapMode = (Gtk.WrapMode) Enum.Parse(typeof(Gtk.WrapMode), wrapModeStr);
                 WrapMode = wrapMode;
             }
+            */
         }
 
         public void Clear()
         {
             Trace.Call();
+            
             Buffer.Clear();
         }
 
         public void AddMessage(MessageModel msg)
         {
-            Trace.Call(msg);
+            AddMessage(msg, true);
+        }
+        
+        public void AddMessage(MessageModel msg, bool addLinebreak)
+        {
+            Trace.Call(msg, addLinebreak);
             
-            TextIter iter = Buffer.EndIter;
+            Gtk.TextIter iter = Buffer.EndIter;
             
             if (_ShowTimestamps) {
                 string timestamp = null;
@@ -225,18 +270,18 @@ namespace Smuxi.Frontend.Gnome
                 }
 
                 if (timestamp != null) {
-                    _OutputTextView.Buffer.Insert(ref iter, timestamp + " ");
+                    Buffer.Insert(ref iter, timestamp + " ");
                 }
             }
 
-            _HasHighlight = false;
+            bool hasHighlight = false;
             foreach (MessagePartModel msgPart in msg.MessageParts) {
 #if LOG4NET
                 _Logger.Debug("AddMessage(): msgPart.GetType(): " + msgPart.GetType());
 #endif
                 // supposed to be used only in a ChatView
                 if (_ShowHighlight && msgPart.IsHighlight) {
-                    _HasHighlight = true;
+                    hasHighlight = true;
                 }
                     
 //                            set {
@@ -262,7 +307,7 @@ namespace Smuxi.Frontend.Gnome
                 if (msgPart is UrlMessagePartModel) {
                     UrlMessagePartModel fmsgui = (UrlMessagePartModel) msgPart;
                     // HACK: the engine should set a color for us!
-                    Gtk.TextTag urlTag = _OutputTextTagTable.Lookup("url");
+                    Gtk.TextTag urlTag = _MessageTextTagTable.Lookup("url");
                     Gdk.Color urlColor = urlTag.ForegroundGdk;
                     //Console.WriteLine("urlColor: " + urlColor);
                     TextColor urlTextColor = ColorTools.GetTextColor(urlColor);
@@ -279,13 +324,13 @@ namespace Smuxi.Frontend.Gnome
                     if (fmsgti.ForegroundColor != TextColor.None) {
                         TextColor color = ColorTools.GetBestTextColor(fmsgti.ForegroundColor, bgTextColor);
                         //Console.WriteLine("GetBestTextColor({0}, {1}): {2}",  fmsgti.ForegroundColor, bgTextColor, color);
-                        string tagname = _GetTextTagName(color, null);
+                        string tagname = GetTextTagName(color, null);
                         //string tagname = _GetTextTagName(fmsgti.ForegroundColor, null);
                         tags.Add(tagname);
                     }
                     if (fmsgti.BackgroundColor != TextColor.None) {
                         // TODO: get this from ChatView
-                        string tagname = _GetTextTagName(null, fmsgti.BackgroundColor);
+                        string tagname = GetTextTagName(null, fmsgti.BackgroundColor);
                         tags.Add(tagname);
                     }
                     if (fmsgti.Underline) {
@@ -310,11 +355,14 @@ namespace Smuxi.Frontend.Gnome
                     Buffer.InsertWithTagsByName(ref iter, fmsgti.Text, tags.ToArray());
                 } 
             }
-            // FIXME: this shouldn't happen in a topic, spurious \n added
-            Buffer.Insert(ref iter, "\n");
+            if (addLinebreak) {
+                Buffer.Insert(ref iter, "\n");
+            }
             
-            // event MessageAdded
-            // event MessageHighlighted
+            if (MessageAdded != null) {
+                MessageAdded(this, new MessageTextViewMessageAddedEventArgs(msg));
+            }
+            
             // HACK: out of scope?
             if (hasHighlight && !Frontend.MainWindow.HasToplevelFocus) {
                 Frontend.MainWindow.UrgencyHint = true;
@@ -327,20 +375,9 @@ namespace Smuxi.Frontend.Gnome
                 }
             }
             
-            // HACK: out of scope?
-            if (Frontend.MainWindow.Notebook.CurrentChatView != this) {
-                if (hasHighlight &&
-                    _ChatModel.LastSeenHighlight < msg.TimeStamp) {
-                    HasHighlight = true;
-                }
-                
-                switch (msg.MessageType) {
-                    case MessageType.Normal:
-                        HasActivity = true;
-                        break;
-                    case MessageType.Event:
-                        HasEvent = true;
-                        break;
+            if (hasHighlight) {
+                if (MessageHighlighted != null) {
+                    MessageHighlighted(this, new MessageTextViewMessageHighlightedEventArgs(msg));
                 }
             }
         }
@@ -348,7 +385,7 @@ namespace Smuxi.Frontend.Gnome
         /*
          * Helper methods
          */
-        private TextTagTable BuildTagTable()
+        private Gtk.TextTagTable BuildTagTable()
         {
             // TextTags
             Gtk.TextTagTable ttt = new Gtk.TextTagTable();
@@ -378,6 +415,8 @@ namespace Smuxi.Frontend.Gnome
             fd = new Pango.FontDescription();
             tt.FontDesc = fd;
             ttt.Add(tt);
+            
+            return ttt;
         }
 
         /*
@@ -385,6 +424,39 @@ namespace Smuxi.Frontend.Gnome
          */
         public void _OnTextTagUrlTextEvent(object sender, EventArgs e)
         {
+        }
+        
+        private string GetTextTagName(TextColor fgColor, TextColor bgColor)
+        {
+             string hexcode;
+             string tagname;
+             if (fgColor != null) {
+                hexcode = fgColor.HexCode;
+                tagname = "fg_color:" + hexcode;
+             } else if (bgColor != null) {
+                hexcode = bgColor.HexCode;
+                tagname = "bg_color:" + hexcode;
+             } else {
+                return null;
+             }
+             
+             if (_MessageTextTagTable.Lookup(tagname) == null) {
+                 int red   = Int16.Parse(hexcode.Substring(0, 2), NumberStyles.HexNumber);
+                 int green = Int16.Parse(hexcode.Substring(2, 2), NumberStyles.HexNumber);
+                 int blue  = Int16.Parse(hexcode.Substring(4, 2), NumberStyles.HexNumber);
+                 Gdk.Color c = new Gdk.Color((byte)red, (byte)green, (byte)blue);
+                 Gtk.TextTag tt = new Gtk.TextTag(tagname);
+                 if (fgColor != null) {
+                    tt.ForegroundGdk = c;
+                 } else if (bgColor != null) {
+                    tt.BackgroundGdk = c;
+                 }
+#if LOG4NET
+                 _Logger.Debug("_GetTextTagName(): adding: " + tagname + " to _OutputTextTagTable");
+#endif
+                 _MessageTextTagTable.Add(tt);
+             }
+             return tagname;
         }
     }
 }

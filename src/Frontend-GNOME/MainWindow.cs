@@ -775,11 +775,11 @@ namespace Smuxi.Frontend.Gnome
                 
                 for (int i = 0; i < _Notebook.NPages; i++) {
                     ChatView chatView = _Notebook.GetChat(i);
-                    chatView.OutputTextView.CursorVisible = _CaretMode;
+                    chatView.OutputMessageTextView.CursorVisible = _CaretMode;
                 }
                 
                 if (_CaretMode) {
-                    _Notebook.CurrentChatView.OutputTextView.HasFocus = true;
+                    _Notebook.CurrentChatView.OutputMessageTextView.HasFocus = true;
                 } else {
                     _Entry.HasFocus = true;
                 }

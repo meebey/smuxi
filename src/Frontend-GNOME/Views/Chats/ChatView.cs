@@ -30,7 +30,6 @@ using System;
 using System.Drawing;
 using SysDiag = System.Diagnostics;
 using System.Threading;
-using System.Globalization;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using Smuxi.Common;
@@ -63,6 +62,9 @@ namespace Smuxi.Frontend.Gnome
         private   Gtk.HBox           _TabHBox;
         private   Gtk.ScrolledWindow _OutputScrolledWindow;
         private   MessageTextView    _OutputMessageTextView;
+        private   Gdk.Color?         _BackgroundColor;
+        private   Gdk.Color?         _ForegroundColor;
+        private   Pango.FontDescription _FontDescription;
         
         public ChatModel ChatModel {
             get {
@@ -74,21 +76,19 @@ namespace Smuxi.Frontend.Gnome
             get {
                 return _OutputMessageTextView.HasHighlight;
             }
+            set {
+                _HasHighlight = value;
+                
+                if (!value) {
+                    // clear highlight with "no activity"
+                    HasActivity = false;
+                    return;
+                }
+                
+                string color = (string) Frontend.UserConfig["Interface/Notebook/Tab/HighlightColor"];
+                _TabLabel.Markup = String.Format("<span foreground=\"{0}\">{1}</span>", color, _Name);
+            }
         }
-        
-//            set {
-//                _HasHighlight = value;
-//                
-//                if (!value) {
-//                    // clear highlight with "no activity"
-//                    HasActivity = false;
-//                    return;
-//                }
-//                
-//                string color = (string) Frontend.UserConfig["Interface/Notebook/Tab/HighlightColor"];
-//                _TabLabel.Markup = String.Format("<span foreground=\"{0}\">{1}</span>", color, _Name);
-//            }
-//        }
         
         public bool HasActivity {
             get {
@@ -137,7 +137,7 @@ namespace Smuxi.Frontend.Gnome
         
         public virtual bool HasSelection {
             get {
-                return HasTextViewSelection;
+                return _OutputMessageTextView.HasTextViewSelection;
             }
         }
         
@@ -174,6 +174,24 @@ namespace Smuxi.Frontend.Gnome
             }
         }
 
+        protected Pango.FontDescription FontDescription {
+            get {
+                return _FontDescription;
+            }
+        }
+
+        protected Gdk.Color? BackgroundColor {
+            get {
+                return _BackgroundColor;
+            }
+        }
+
+        protected Gdk.Color? ForegroundColor {
+            get {
+                return _ForegroundColor;
+            }
+        }
+        
         public ChatView(ChatModel chat)
         {
             Trace.Call(chat);
@@ -293,7 +311,7 @@ namespace Smuxi.Frontend.Gnome
             GLib.Idle.Add(new GLib.IdleHandler(delegate {
                 Trace.Call(mb);
                 
-                _OutputTextView.ScrollMarkOnscreen(_EndMark);
+                _OutputMessageTextView.ScrollMarkOnscreen(_EndMark);
                 return false;
             }));
         }
@@ -326,6 +344,20 @@ namespace Smuxi.Frontend.Gnome
             }
         }
         
+        public virtual void AddMessage(MessageModel msg)
+        {
+            Trace.Call(msg);
+            
+            _OutputMessageTextView.AddMessage(msg);
+        }
+        
+        public virtual void Clear()
+        {
+            Trace.Call();
+            
+            _OutputMessageTextView.Buffer.Clear();
+        }
+        
         public virtual void ApplyConfig(UserConfig config)
         {
             Trace.Call(config);
@@ -342,45 +374,13 @@ namespace Smuxi.Frontend.Gnome
             Trace.Call();
         }
         
-        internal string _GetTextTagName(TextColor fgColor, TextColor bgColor)
-        {
-             string hexcode;
-             string tagname;
-             if (fgColor != null) {
-                hexcode = fgColor.HexCode;
-                tagname = "fg_color:" + hexcode;
-             } else if (bgColor != null) {
-                hexcode = bgColor.HexCode;
-                tagname = "bg_color:" + hexcode;
-             } else {
-                return null;
-             }
-             
-             if (_OutputTextTagTable.Lookup(tagname) == null) {
-                 int red   = Int16.Parse(hexcode.Substring(0, 2), NumberStyles.HexNumber);
-                 int green = Int16.Parse(hexcode.Substring(2, 2), NumberStyles.HexNumber);
-                 int blue  = Int16.Parse(hexcode.Substring(4, 2), NumberStyles.HexNumber);
-                 Gdk.Color c = new Gdk.Color((byte)red, (byte)green, (byte)blue);
-                 Gtk.TextTag tt = new Gtk.TextTag(tagname);
-                 if (fgColor != null) {
-                    tt.ForegroundGdk = c;
-                 } else if (bgColor != null) {
-                    tt.BackgroundGdk = c;
-                 }
-#if LOG4NET
-                 _Logger.Debug("_GetTextTagName(): adding: " + tagname + " to _OutputTextTagTable");
-#endif
-                 _OutputTextTagTable.Add(tt);
-             }
-             return tagname;
-        }
                         
         private void _OnTextBufferChanged(object sender, EventArgs e)
         {
             Trace.Call(sender, e);
         
             Gtk.ScrolledWindow sw = _OutputScrolledWindow;
-            Gtk.TextView tv = _OutputTextView;
+            Gtk.TextView tv = _OutputMessageTextView;
             
             if (sw.Vadjustment.Upper == (sw.Vadjustment.Value + sw.Vadjustment.PageSize)) {
                 // the scrollbar is way at the end, lets autoscroll
@@ -412,7 +412,7 @@ namespace Smuxi.Frontend.Gnome
             Gtk.TextIter end = Gtk.TextIter.Zero;
 
             // if something in the textview is selected, bail out
-            if (HasTextViewSelection) {
+            if (_OutputMessageTextView.HasTextViewSelection) {
                 return;
             }
             
@@ -423,7 +423,7 @@ namespace Smuxi.Frontend.Gnome
             start.BackwardToTagToggle(tag);
             end = e.Iter;
             end.ForwardToTagToggle(tag);
-            string url = _OutputTextView.Buffer.GetText(start, end, false);
+            string url = _OutputMessageTextView.Buffer.GetText(start, end, false);
             
             if (!Regex.IsMatch(url, @"^[a-zA-Z0-9\-]+:\/\/")) {
                 // URL doesn't start with a protocol
@@ -461,13 +461,13 @@ namespace Smuxi.Frontend.Gnome
             int bufferX, bufferY;
             
             // get the window position of the mouse
-            _OutputTextView.GdkWindow.GetPointer(out windowX, out windowY, out modifierType);
+            _OutputMessageTextView.GdkWindow.GetPointer(out windowX, out windowY, out modifierType);
             // get buffer position with the window position
-            _OutputTextView.WindowToBufferCoords(Gtk.TextWindowType.Widget,
+            _OutputMessageTextView.WindowToBufferCoords(Gtk.TextWindowType.Widget,
                                                  windowX, windowY,
                                                  out bufferX, out bufferY);
             // get TextIter with buffer position
-            Gtk.TextIter iter = _OutputTextView.GetIterAtLocation(bufferX, bufferY);
+            Gtk.TextIter iter = _OutputMessageTextView.GetIterAtLocation(bufferX, bufferY);
             bool atUrlTag = false;
             foreach (Gtk.TextTag tag in iter.Tags) {
                 if (tag.Name == "url") {
@@ -476,7 +476,7 @@ namespace Smuxi.Frontend.Gnome
                 }
             }
             
-            Gdk.Window window = _OutputTextView.GetWindow(Gtk.TextWindowType.Text); 
+            Gdk.Window window = _OutputMessageTextView.GetWindow(Gtk.TextWindowType.Text); 
             if (atUrlTag != _AtUrlTag) {
                 _AtUrlTag = atUrlTag;
                 
@@ -511,6 +511,38 @@ namespace Smuxi.Frontend.Gnome
             Trace.Call(sender, e);
             
             Close();
+        }
+        
+        protected virtual void OnMessageTextViewMessageAdded(object sender, MessageTextViewMessageAddedEventArgs e)
+        {
+            Trace.Call(sender, e);
+            
+            if (Frontend.MainWindow.Notebook.CurrentChatView == this) {
+                return;
+            }
+            
+            switch (e.Message.MessageType) {
+                case MessageType.Normal:
+                    HasActivity = true;
+                    break;
+                case MessageType.Event:
+                    HasEvent = true;
+                    break;
+            }
+        }
+        
+        protected virtual void OnMessageTextViewMessageHighlighted(object sender, MessageTextViewMessageHighlightedEventArgs e)
+        {
+            Trace.Call(sender, e);
+            
+            // HACK: out of scope?
+            if (Frontend.MainWindow.Notebook.CurrentChatView == this) {
+                return;
+            }
+            
+            if (_ChatModel.LastSeenHighlight < e.Message.TimeStamp) {
+                HasHighlight = true;
+            }
         }
         
         private static string _(string msg)
