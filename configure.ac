@@ -1,5 +1,6 @@
 AC_PREREQ([2.54])
 AC_INIT([smuxi], [0.6.3], [http://smuxi.meebey.net/cgi-bin/trac/trac.cgi/newticket])
+# using the --foreign option makes automake less strict about GNU policy 
 AM_INIT_AUTOMAKE([foreign])
 AM_MAINTAINER_MODE
 
@@ -12,7 +13,6 @@ AC_PROG_INSTALL
 
 # I18N
 AC_PROG_INTLTOOL([0.25])  
-AM_PROG_LIBTOOL
 
 POSUB="
 	po
