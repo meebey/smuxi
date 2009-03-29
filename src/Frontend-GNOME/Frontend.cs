@@ -44,13 +44,8 @@ namespace Smuxi.Frontend.Gnome
 #endif
         private static readonly string    _Name = "smuxi";
         private static readonly string    _GladeFilename = "smuxi-frontend-gnome.glade";
-#if UI_GTK
         private static readonly string    _UIName = "GTK+";
-#elif UI_GNOME
-        private static readonly string    _UIName = "GNOME";
         private static int                _UIThreadID;
-        private static GNOME.Program      _Program;
-#endif
         private static Version            _Version;
         private static string             _VersionNumber;
         private static string             _VersionString;
@@ -206,14 +201,10 @@ namespace Smuxi.Frontend.Gnome
             _Logger.Debug("Using locale data from: " + localeDir);
 #endif
             
-#if UI_GNOME
-            _Program = new GNOME.Program(Name, Version.ToString(), GNOME.Modules.UI, args);
-#elif UI_GTK
-            Gtk.Application.Init(Name, args);
-#endif
+            Gtk.Application.Init(Name, ref args);
 #if GTK_SHARP_2_10
             GLib.ExceptionManager.UnhandledException += _OnUnhandledException;
-#endif           
+#endif
             //_SplashScreenWindow = new SplashScreenWindow();
 
             _FrontendConfig = new FrontendConfig(UIName);
@@ -258,16 +249,9 @@ namespace Smuxi.Frontend.Gnome
                 _SplashScreenWindow.Destroy();
             }
             
-#if UI_GNOME
-            _Program.Run();
-    #if LOG4NET
-            _Logger.Warn("_Program.Run() returned!");
-    #endif
-#elif UI_GTK
             Gtk.Application.Run();
-    #if LOG4NET
+#if LOG4NET
             _Logger.Warn("Gtk.Application.Run() returned!");
-    #endif
 #endif
         }
         

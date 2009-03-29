@@ -141,14 +141,12 @@ namespace Smuxi.Frontend.Gnome
                     case 1:
                         _OnConnectButtonPressed();
                         break;
-#if UI_GNOME
                     case 2:
                         _OnEditButtonPressed();
                         break;
                     case 3:
                         _OnNewButtonPressed();
                         break;
-#endif
                     case 4:
                         _OnDeleteButtonPressed();
                         break;
@@ -245,23 +243,21 @@ namespace Smuxi.Frontend.Gnome
             }
         }
 
-#if UI_GNOME
         private void _OnNewButtonPressed()
         {
             // the druid will spawn EngineManagerDialog when it's canceled or finished
             Destroy();
-            new EngineDruid(Frontend.FrontendConfig);
+            //new EngineDruid(Frontend.FrontendConfig);
+            EngineAssistant assistant = new EngineAssistant(Frontend.FrontendConfig);
+            assistant.ShowAll();
         }
-#endif
-
-#if UI_GNOME
+        
         private void _OnEditButtonPressed()
         {
             // the druid will spawn EngineManagerDialog when it's canceled or finished
-            Destroy();
-            new EngineDruid(Frontend.FrontendConfig, _SelectedEngine);
+            //Destroy();
+            //new EngineDruid(Frontend.FrontendConfig, _SelectedEngine);
         }
-#endif
         
         private void _OnDeleteButtonPressed()
         {

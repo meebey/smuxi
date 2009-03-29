@@ -7,7 +7,7 @@
  *
  * smuxi - Smart MUltipleXed Irc
  *
- * Copyright (c) 2008 Mirco Bauer <meebey@meebey.net>
+ * Copyright (c) 2009 Mirco Bauer <meebey@meebey.net>
  *
  * Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
  *
@@ -34,6 +34,37 @@ namespace Smuxi.Frontend.Gnome
 #if GTK_SHARP_2_10
     public class EngineAssistant : Gtk.Assistant
     {
+        private FrontendConfig f_Config;
+        
+        public EngineAssistant(FrontendConfig config)
+        {
+            if (config == null) {
+                throw new ArgumentNullException("config");
+            }
+            
+            f_Config = config;
+            
+            Title = _("Engine Assistant - Smuxi");
+            InitPages();
+        }
+        
+        private void InitPages()
+        {
+            InitIntroPage();
+        }
+        
+        private void InitIntroPage()
+        {
+            EngineAssistantIntroWidget page = new EngineAssistantIntroWidget();
+            AppendPage(page);
+            SetPageTitle(page, _("Add Smuxi Engine"));
+            SetPageType(page, Gtk.AssistantPageType.Intro);
+        }
+        
+        private static string _(string msg)
+        {
+            return Mono.Unix.Catalog.GetString(msg);
+        }
     }
 #endif
 }
