@@ -73,8 +73,8 @@ esac
 echo "Running $ACLOCAL $aclocalinclude ..."
 $ACLOCAL $aclocalinclude
 
-echo "Running $AUTOMAKE --gnu $am_opt ..."
-$AUTOMAKE --add-missing --gnu $am_opt
+echo "Running $AUTOMAKE --foreign $am_opt ..."
+$AUTOMAKE --add-missing --foreign $am_opt
 
 echo "Running $AUTOCONF ..."
 $AUTOCONF
