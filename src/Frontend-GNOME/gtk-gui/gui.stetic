@@ -2,8 +2,12 @@
 <stetic-interface>
   <configuration>
     <images-root-path>..</images-root-path>
-    <target-gtk-version>2.12.1</target-gtk-version>
+    <target-gtk-version>2.12</target-gtk-version>
   </configuration>
+  <import>
+    <widget-library name="glade-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
+    <widget-library name="../../../bin/debug/smuxi-frontend-gnome.exe" internal="true" />
+  </import>
   <widget class="Gtk.Dialog" id="Smuxi.Frontend.Gnome.SteticPreferencesDialog" design-size="524 579">
     <property name="MemberName" />
     <property name="Title" translatable="yes">smuxi - Preferences</property>
@@ -2955,6 +2959,20 @@
             <property name="Fill">False</property>
           </packing>
         </child>
+      </widget>
+    </child>
+  </widget>
+  <widget class="Gtk.Bin" id="Smuxi.Frontend.Gnome.EngineAssistantIntroWidget" design-size="426 300">
+    <property name="MemberName" />
+    <property name="Visible">False</property>
+    <child>
+      <widget class="Gtk.Label" id="label2">
+        <property name="MemberName" />
+        <property name="Xalign">0</property>
+        <property name="LabelProp" translatable="yes">Welcome to the Smuxi Engine Configuration Assistent.
+You need to enter some information before you can use the engine.
+
+Click "Forward" to begin.</property>
       </widget>
     </child>
   </widget>
