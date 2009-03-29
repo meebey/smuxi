@@ -57,8 +57,7 @@ namespace Smuxi.Frontend.Gnome
         public event MessageTextViewMessageAddedEventHandler       MessageAdded;
         public event MessageTextViewMessageHighlightedEventHandler MessageHighlighted;
         
-        public bool ShowTimestamps
-        {
+        public bool ShowTimestamps {
             get {
                 return _ShowTimestamps;
             }
@@ -67,8 +66,7 @@ namespace Smuxi.Frontend.Gnome
             }
         }
 
-        public bool ShowHighlight
-        {
+        public bool ShowHighlight {
             get {
                 return _ShowHighlight;
             }
