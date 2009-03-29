@@ -44,6 +44,7 @@ namespace Smuxi.Frontend.Gnome
         private static readonly Gdk.Cursor _NormalCursor = new Gdk.Cursor(Gdk.CursorType.Xterm);
         private static readonly Gdk.Cursor _LinkCursor = new Gdk.Cursor(Gdk.CursorType.Hand2);
         private Gtk.TextTagTable _MessageTextTagTable;
+        private MessageModel _LastMessage;
         private bool         _ShowTimestamps;
         private bool         _ShowHighlight;
         private bool         _HasHighlight;
@@ -219,6 +220,15 @@ namespace Smuxi.Frontend.Gnome
             Gtk.TextIter iter = Buffer.EndIter;
             
             if (_ShowTimestamps) {
+                if (_LastMessage != null &&
+                    _LastMessage.TimeStamp.Date != msg.TimeStamp.Date) {
+                    string dayLine = String.Format(
+                        "-!- " + _("Day changed to {0}"),
+                        msg.TimeStamp.ToLocalTime().Date.ToLongDateString()
+                    );
+                    Buffer.Insert(ref iter, dayLine + "\n");
+                }
+                
                 string timestamp = null;
                 try {
                     string format = (string)Frontend.UserConfig["Interface/Notebook/TimestampFormat"];
@@ -314,6 +324,8 @@ namespace Smuxi.Frontend.Gnome
                     MessageHighlighted(this, new MessageTextViewMessageHighlightedEventArgs(msg));
                 }
             }
+            
+            _LastMessage = msg;
         }
 
         /*
