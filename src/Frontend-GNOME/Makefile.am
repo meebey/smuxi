@@ -85,9 +85,9 @@ $(ICON):
 	cp $(top_srcdir)/images/icon.svg $(ICON)
 	
 FILES = \
-	AboutDialog.cs \
 	$(top_srcdir)/src/AssemblyVersion.cs \
 	AssemblyInfo.cs \
+	AboutDialog.cs \
 	CrashDialog.cs \
 	EngineManagerDialog.cs \
 	Entry.cs \
@@ -106,19 +106,22 @@ FILES = \
 	Preferences/ServerListView.cs \
 	Preferences/ServerView.cs \
 	Preferences/PreferencesDialog.cs \
-	Chats/ChatView.cs \
-	Chats/GroupChatView.cs \
-	Chats/PersonChatView.cs \
-	Chats/ProtocolChatView.cs \
-	Chats/SessionChatView.cs \
-	gtk-gui/generated.cs \
+	Views/MessageTextView.cs \
+	Views/Chats/ChatView.cs \
+	Views/Chats/GroupChatView.cs \
+	Views/Chats/PersonChatView.cs \
+	Views/Chats/ProtocolChatView.cs \
+	Views/Chats/SessionChatView.cs \
 	QuickConnectDialog.cs \
 	SteticPreferencesDialog.cs \
+	FindGroupChatDialog.cs \
+	ChatFindDialog.cs \
+	gtk-gui/generated.cs \
 	gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs \
 	gtk-gui/Smuxi.Frontend.Gnome.QuickConnectDialog.cs \
-	FindGroupChatDialog.cs \
-	gtk-gui/Smuxi.Frontend.Gnome.FindGroupChatDialog.cs 
-
+	gtk-gui/Smuxi.Frontend.Gnome.FindGroupChatDialog.cs \
+	gtk-gui/Smuxi.Frontend.Gnome.ChatFindDialog.cs
+	
 DATA_FILES = \
 	smuxi-frontend-gnome.desktop
 
