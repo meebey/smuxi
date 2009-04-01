@@ -31,7 +31,6 @@ using Smuxi.Engine;
 
 namespace Smuxi.Frontend.Gnome
 {
-#if GTK_SHARP_2_10
     public class EngineAssistant : Gtk.Assistant
     {
         private FrontendConfig f_Config;
@@ -44,6 +43,7 @@ namespace Smuxi.Frontend.Gnome
             
             f_Config = config;
             
+            SetDefaultSize(640, 480);
             Title = _("Engine Assistant - Smuxi");
             InitPages();
         }
@@ -51,6 +51,8 @@ namespace Smuxi.Frontend.Gnome
         private void InitPages()
         {
             InitIntroPage();
+            InitNamePage();
+            InitConfirmPage();
         }
         
         private void InitIntroPage()
@@ -59,6 +61,25 @@ namespace Smuxi.Frontend.Gnome
             AppendPage(page);
             SetPageTitle(page, _("Add Smuxi Engine"));
             SetPageType(page, Gtk.AssistantPageType.Intro);
+            SetPageComplete(page, true);
+        }
+        
+        private void InitNamePage()
+        {
+            EngineAssistantNameWidget page = new EngineAssistantNameWidget();
+            page.EngineNameEntry.Changed += delegate {
+                SetPageComplete(page, page.EngineNameEntry.Text.Trim().Length > 0);
+            };
+            AppendPage(page);
+            SetPageType(page, Gtk.AssistantPageType.Content);
+        }
+        
+        private void InitConfirmPage()
+        {
+            Gtk.Label page = new Gtk.Label(_("Now you can use the new Smuxi Engine"));
+            AppendPage(page);
+            SetPageTitle(page, _("Thank you"));
+            SetPageType(page, Gtk.AssistantPageType.Confirm);
         }
         
         private static string _(string msg)
@@ -66,5 +87,4 @@ namespace Smuxi.Frontend.Gnome
             return Mono.Unix.Catalog.GetString(msg);
         }
     }
-#endif
 }

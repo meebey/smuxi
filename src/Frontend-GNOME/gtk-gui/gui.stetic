@@ -32,7 +32,6 @@
                     <property name="MemberName" />
                     <property name="EnableSearch">False</property>
                     <property name="HeadersVisible">False</property>
-                    <property name="HeadersClickable">True</property>
                   </widget>
                 </child>
               </widget>
@@ -2029,7 +2028,6 @@
                         <child>
                           <widget class="Gtk.TreeView" id="ServersTreeView">
                             <property name="MemberName" />
-                            <property name="HeadersClickable">True</property>
                           </widget>
                         </child>
                       </widget>
@@ -2121,7 +2119,6 @@
                                     <child>
                                       <widget class="Gtk.TreeView" id="ChannelFiltersTreeView">
                                         <property name="MemberName" />
-                                        <property name="HeadersClickable">True</property>
                                       </widget>
                                     </child>
                                   </widget>
@@ -2316,7 +2313,6 @@
                     <property name="MemberName" />
                     <property name="CanFocus">True</property>
                     <property name="ShowScrollbars">True</property>
-                    <property name="HeadersClickable">True</property>
                   </widget>
                 </child>
               </widget>
@@ -2715,7 +2711,6 @@
                     <property name="MemberName" />
                     <property name="CanFocus">True</property>
                     <property name="ShowScrollbars">True</property>
-                    <property name="HeadersClickable">True</property>
                   </widget>
                 </child>
               </widget>
@@ -2974,6 +2969,67 @@ You need to enter some information before you can use the engine.
 
 Click "Forward" to begin.</property>
       </widget>
+    </child>
+  </widget>
+  <widget class="Gtk.Bin" id="Smuxi.Frontend.Gnome.EngineAssistantNameWidget" design-size="380 300">
+    <property name="MemberName" />
+    <property name="Visible">False</property>
+    <child>
+      <widget class="Gtk.VBox" id="vbox2">
+        <property name="MemberName" />
+        <property name="Spacing">6</property>
+        <property name="BorderWidth">5</property>
+        <child>
+          <widget class="Gtk.Label" id="f_EngineNameLabel">
+            <property name="MemberName" />
+            <property name="Xalign">0</property>
+            <property name="LabelProp" translatable="yes">_Engine Name:</property>
+            <property name="UseUnderline">True</property>
+            <property name="MnemonicWidget">f_EngineNameEntry</property>
+          </widget>
+          <packing>
+            <property name="Position">0</property>
+            <property name="AutoSize">True</property>
+            <property name="Expand">False</property>
+            <property name="Fill">False</property>
+          </packing>
+        </child>
+        <child>
+          <widget class="Gtk.Entry" id="f_EngineNameEntry">
+            <property name="MemberName" />
+            <property name="CanFocus">True</property>
+            <property name="IsEditable">True</property>
+            <property name="InvisibleChar">●</property>
+          </widget>
+          <packing>
+            <property name="Position">1</property>
+            <property name="AutoSize">True</property>
+            <property name="Expand">False</property>
+            <property name="Fill">False</property>
+          </packing>
+        </child>
+        <child>
+          <widget class="Gtk.Label" id="label2">
+            <property name="MemberName" />
+            <property name="Xalign">0.1</property>
+            <property name="LabelProp" translatable="yes">&lt;span size="small"&gt;Profile name of the new engine&lt;/span&gt;</property>
+            <property name="UseMarkup">True</property>
+          </widget>
+          <packing>
+            <property name="Position">2</property>
+            <property name="AutoSize">True</property>
+            <property name="Expand">False</property>
+            <property name="Fill">False</property>
+          </packing>
+        </child>
+      </widget>
+    </child>
+  </widget>
+  <widget class="Gtk.Bin" id="Smuxi.Frontend.Gnome.EngineAssistantConnectionWidget" design-size="300 300">
+    <property name="MemberName" />
+    <property name="Visible">False</property>
+    <child>
+      <placeholder />
     </child>
   </widget>
 </stetic-interface>

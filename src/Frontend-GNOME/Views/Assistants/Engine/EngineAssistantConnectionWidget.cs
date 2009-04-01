@@ -24,9 +24,9 @@ using System;
 
 namespace Smuxi.Frontend.Gnome
 {
-    public partial class EngineAssistantIntroWidget : Gtk.Bin
+    public partial class EngineAssistantConnectionWidget : Gtk.Bin
     {
-        public EngineAssistantIntroWidget()
+        public EngineAssistantConnectionWidget()
         {
             Build();
         }
