@@ -7,6 +7,7 @@ CONFIGURE=configure.ac
 : ${AUTOCONF=autoconf}
 : ${AUTOHEADER=autoheader}
 : ${AUTOMAKE=automake}
+: ${INTLTOOLIZE=intltoolize}
 : ${LIBTOOLIZE=libtoolize}
 : ${ACLOCAL=aclocal}
 : ${LIBTOOL=libtool}
@@ -37,6 +38,16 @@ DIE=0
         DIE=1
 }
 
+(grep "^IT_PROG_INTLTOOL" $CONFIGURE >/dev/null) && {
+  ($INTLTOOLIZE --version) < /dev/null > /dev/null 2>&1 || {
+    echo
+    echo "**Error**: You must have \`intltool' installed."
+    echo "You can get it from:"
+    echo "  ftp://ftp.gnome.org/pub/GNOME/sources/intltool/"
+    DIE=1
+  }
+}
+
 (grep "^AM_PROG_LIBTOOL" $CONFIGURE >/dev/null) && {
   ($LIBTOOL --version) < /dev/null > /dev/null 2>&1 || {
     echo
@@ -65,6 +76,11 @@ case $CC in
 *xlc | *xlc\ * | *lcc | *lcc\ *) am_opt=--include-deps;;
 esac
 
+if grep "^IT_PROG_INTLTOOL" $CONFIGURE >/dev/null; then
+	echo "Running $INTLTOOLIZE ..."
+	$INTLTOOLIZE --copy --force --automake
+fi
+
 (grep "^AM_PROG_LIBTOOL" $CONFIGURE >/dev/null) && {
     echo "Running $LIBTOOLIZE ..."
     $LIBTOOLIZE --force --copy
@@ -73,8 +89,13 @@ esac
 echo "Running $ACLOCAL $aclocalinclude ..."
 $ACLOCAL $aclocalinclude
 
-echo "Running $AUTOMAKE --gnu $am_opt ..."
-$AUTOMAKE --add-missing --gnu $am_opt
+if grep "^AM_CONFIG_HEADER" $CONFIGURE >/dev/null; then
+	echo "Running $AUTOHEADER ..."
+	$AUTOHEADER
+fi
+
+echo "Running $AUTOMAKE ..."
+$AUTOMAKE --add-missing --foreign $am_opt
 
 echo "Running $AUTOCONF ..."
 $AUTOCONF
