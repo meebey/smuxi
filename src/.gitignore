@@ -1,2 +1,5 @@
-*/*.pidb
+Makefile
+Makefile.in
 *.user*
+*/*.pidb
+*/*.pc
