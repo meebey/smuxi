@@ -41,7 +41,7 @@ namespace Smuxi.Engine
 #endif
         private static readonly string                _LibraryTextDomain = "smuxi-engine";
         private int                                   _Version = 0;
-        private IDictionary<string, FrontendManager>  _FrontendManagers; 
+        private IDictionary<string, FrontendManager>  _FrontendManagers;
         private IList<IProtocolManager>               _ProtocolManagers;
         private IList<ChatModel>                      _Chats;
         private SessionChatModel                      _SessionChat;
@@ -317,11 +317,13 @@ namespace Smuxi.Engine
                 throw new ArgumentNullException("id");
             }
             
-            foreach (ChatModel chat in _Chats) {
-                if ((chat.ID.ToLower() == id.ToLower()) &&
-                    (chat.ChatType == chatType) &&
-                    (chat.ProtocolManager == networkManager)) {
-                    return chat;
+            lock (_Chats) {
+                foreach (ChatModel chat in _Chats) {
+                    if ((chat.ID.ToLower() == id.ToLower()) &&
+                        (chat.ChatType == chatType) &&
+                        (chat.ProtocolManager == networkManager)) {
+                        return chat;
+                    }
                 }
             }
             
@@ -482,11 +484,13 @@ namespace Smuxi.Engine
             FrontendManager fm = cd.FrontendManager;
             if (cd.DataArray.Length >= 2) {
                 string server = cd.DataArray[1];
-                foreach (IProtocolManager nm in _ProtocolManagers) {
-                    if (nm.Host.ToLower() == server.ToLower()) {
-                        nm.Disconnect(fm);
-                        _ProtocolManagers.Remove(nm);
-                        return;
+                lock (_ProtocolManagers) {
+                    foreach (IProtocolManager nm in _ProtocolManagers) {
+                        if (nm.Host.ToLower() == server.ToLower()) {
+                            nm.Disconnect(fm);
+                            _ProtocolManagers.Remove(nm);
+                            return;
+                        }
                     }
                 }
                 fm.AddTextToCurrentChat(
@@ -579,11 +583,13 @@ namespace Smuxi.Engine
         {
             FrontendManager fm = cd.FrontendManager;
             fm.AddTextToCurrentChat("-!- " + _("Networks") + ":");
-            foreach (IProtocolManager nm in _ProtocolManagers) {
-                fm.AddTextToCurrentChat("-!- " +
-                    _("Type") + ": " + nm.Protocol + " " +
-                    _("Host") + ": " + nm.Host + " " + 
-                    _("Port") + ": " + nm.Port);
+            lock (_ProtocolManagers) {
+                foreach (IProtocolManager nm in _ProtocolManagers) {
+                    fm.AddTextToCurrentChat("-!- " +
+                        _("Type") + ": " + nm.Protocol + " " +
+                        _("Host") + ": " + nm.Host + " " + 
+                        _("Port") + ": " + nm.Port);
+                }
             }
         }
         
@@ -594,10 +600,12 @@ namespace Smuxi.Engine
             if (cd.DataArray.Length >= 3) {
                 // named protocol manager
                 string host = cd.DataArray[2].ToLower();
-                foreach (IProtocolManager protocolManager in _ProtocolManagers) {
-                    if (protocolManager.Host.ToLower() == host) {
-                        pm = protocolManager;
-                        break;
+                lock (_ProtocolManagers) {
+                    foreach (IProtocolManager protocolManager in _ProtocolManagers) {
+                        if (protocolManager.Host.ToLower() == host) {
+                            pm = protocolManager;
+                            break;
+                        }
                     }
                 }
                 if (pm == null) {
@@ -626,11 +634,13 @@ namespace Smuxi.Engine
             if (cd.DataArray.Length >= 3) {
                 // named network manager
                 string host = cd.DataArray[2].ToLower();
-                foreach (IProtocolManager nm in _ProtocolManagers) {
-                    if (nm.Host.ToLower() == host) {
-                        fm.CurrentProtocolManager = nm;
-                        fm.UpdateNetworkStatus();
-                        return;
+                lock (_ProtocolManagers) {
+                    foreach (IProtocolManager nm in _ProtocolManagers) {
+                        if (nm.Host.ToLower() == host) {
+                            fm.CurrentProtocolManager = nm;
+                            fm.UpdateNetworkStatus();
+                            return;
+                        }
                     }
                 }
                 fm.AddTextToCurrentChat("-!- " +
@@ -674,7 +684,9 @@ namespace Smuxi.Engine
                 throw new ArgumentNullException("chat");
             }
             
-            _Chats.Add(chat);
+            lock (_Chats) {
+                _Chats.Add(chat);
+            }
             
             lock (_FrontendManagers) {
                 foreach (FrontendManager fm in _FrontendManagers.Values) {
@@ -691,7 +703,9 @@ namespace Smuxi.Engine
                 throw new ArgumentNullException("chat");
             }
             
-            _Chats.Remove(chat);
+            lock (_Chats) {
+                _Chats.Remove(chat);
+            }
             
             lock (_FrontendManagers) {
                 foreach (FrontendManager fm in _FrontendManagers.Values) {

@@ -149,8 +149,10 @@ namespace Smuxi.Engine
             
             // TODO: sort pages network tabs then channel tabs (alphabeticly)
             // sync pages            
-            foreach (ChatModel chat in _Session.Chats) {
-                _AddChat(chat);
+            lock (_Session.Chats) {
+                foreach (ChatModel chat in _Session.Chats) {
+                    _AddChat(chat);
+                }
             }
             
             // sync current network manager (if any exists)
@@ -160,11 +162,15 @@ namespace Smuxi.Engine
             }
             
             // sync current page
-            _CurrentChat = _Session.Chats[0];
+            lock (_Session.Chats) {
+                _CurrentChat = _Session.Chats[0];
+            }
             
             // sync content of pages
-            foreach (ChatModel chat in _Session.Chats) {
-                _SyncChat(chat);
+            lock (_Session.Chats) {
+                foreach (ChatModel chat in _Session.Chats) {
+                    _SyncChat(chat);
+                }
             }
             
             _IsFrontendSynced = true;

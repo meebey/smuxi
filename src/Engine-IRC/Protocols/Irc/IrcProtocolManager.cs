@@ -2571,25 +2571,26 @@ namespace Smuxi.Engine
                                     e.Data.Ident + "@" + e.Data.Host,
                                     e.QuitMessage);
                 quitMsg.MessageParts.Add(textMsg);
-                
-                foreach (ChatModel chat in Session.Chats) {
-                    if (chat.ProtocolManager != this) {
-                        // we don't care about channels and queries the user was
-                        // on other networks
-                        continue;
-                    }
-                    
-                    if (chat.ChatType == ChatType.Group) {
-                        GroupChatModel cchat = (GroupChatModel)chat;
-                        PersonModel user = cchat.GetPerson(e.Who);
-                        if (user != null) {
-                            // he is on this channel, let's remove him
-                            Session.RemovePersonFromGroupChat(cchat, user);
-                            Session.AddMessageToChat(cchat, quitMsg);
+                lock (Session.Chats) {
+                    foreach (ChatModel chat in Session.Chats) {
+                        if (chat.ProtocolManager != this) {
+                            // we don't care about channels and queries the user was
+                            // on other networks
+                            continue;
                         }
-                    } else if ((chat.ChatType == ChatType.Person) &&
-                               (chat.ID == e.Who)) {
-                        Session.AddMessageToChat(chat, quitMsg);
+                        
+                        if (chat.ChatType == ChatType.Group) {
+                            GroupChatModel cchat = (GroupChatModel)chat;
+                            PersonModel user = cchat.GetPerson(e.Who);
+                            if (user != null) {
+                                // he is on this channel, let's remove him
+                                Session.RemovePersonFromGroupChat(cchat, user);
+                                Session.AddMessageToChat(cchat, quitMsg);
+                            }
+                        } else if ((chat.ChatType == ChatType.Person) &&
+                                   (chat.ID == e.Who)) {
+                            Session.AddMessageToChat(chat, quitMsg);
+                        }
                     }
                 }
             }
@@ -2602,14 +2603,16 @@ namespace Smuxi.Engine
         
         protected override void OnConnected(EventArgs e)
         {
-            foreach (ChatModel chat in Session.Chats) {
-                // re-enable all person chats
-                if (chat.ProtocolManager == this &&
-                    chat.ChatType == ChatType.Person) {
-                    Session.EnableChat(chat);
-                    // and re-sync them else new messages are not processed in
-                    // the FrontendManager
-                    Session.SyncChat(chat);
+            lock (Session.Chats) {
+                foreach (ChatModel chat in Session.Chats) {
+                    // re-enable all person chats
+                    if (chat.ProtocolManager == this &&
+                        chat.ChatType == ChatType.Person) {
+                        Session.EnableChat(chat);
+                        // and re-sync them else new messages are not processed in
+                        // the FrontendManager
+                        Session.SyncChat(chat);
+                    }
                 }
             }
             
@@ -2629,10 +2632,12 @@ namespace Smuxi.Engine
             // Don't disable the protocol chat though, else the user loses all
             // control for the protocol manager! (e.g. after manual reconnect)
             if (_Listening) {
-                foreach (ChatModel chat in Session.Chats) {
-                    if (chat.ProtocolManager == this &&
-                        chat.ChatType != ChatType.Protocol) {
-                        Session.DisableChat(chat);
+                lock (Session.Chats) {
+                    foreach (ChatModel chat in Session.Chats) {
+                        if (chat.ProtocolManager == this &&
+                            chat.ChatType != ChatType.Protocol) {
+                            Session.DisableChat(chat);
+                        }
                     }
                 }
             }

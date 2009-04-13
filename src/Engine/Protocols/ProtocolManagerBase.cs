@@ -89,9 +89,11 @@ namespace Smuxi.Engine
         public virtual IList<ChatModel> Chats {
             get {
                 IList<ChatModel> chats = new List<ChatModel>();
-                foreach (ChatModel chat in _Session.Chats) {
-                    if (chat.ProtocolManager == this) {
-                        chats.Add(chat);
+                lock (_Session.Chats) {
+                    foreach (ChatModel chat in _Session.Chats) {
+                        if (chat.ProtocolManager == this) {
+                            chats.Add(chat);
+                        }
                     }
                 }
                 return chats;
