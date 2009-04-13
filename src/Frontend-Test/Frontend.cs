@@ -147,11 +147,13 @@ namespace Smuxi.FrontendTest
                 switch (cd.Command) {
                     case "window":
                         bool found = false;
-                        foreach (ChatModel chatModel in _Session.Chats) {
-                            if (chatModel.Name.ToLower() == cd.Parameter.ToLower()) {
-                                found = true;
-                                ChangeActiveChat(chatModel);
-                                break;
+                        lock (_Session.Chats) {
+                            foreach (ChatModel chatModel in _Session.Chats) {
+                                if (chatModel.Name.ToLower() == cd.Parameter.ToLower()) {
+                                    found = true;
+                                    ChangeActiveChat(chatModel);
+                                    break;
+                                }
                             }
                         }
                         if (!found) {
