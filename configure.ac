@@ -125,7 +125,13 @@ if test -z "$CONFIG_REQUESTED" ; then
 fi
 
 PKG_CHECK_MODULES([LOG4NET], [log4net])
-PKG_CHECK_MODULES([NINI], [nini-1.1])
+
+PKG_CHECK_EXISTS([nini-1.1], FOUND_NINI=yes, FOUND_NINI=no)
+if test "x$FOUND_NINI" = "xyes"; then
+	PKG_CHECK_MODULES([NINI], [nini-1.1])
+else
+	PKG_CHECK_MODULES([NINI], [nini >= 1.1])
+fi
 
 # Engines
 AC_ARG_ENABLE([engine-irc],
