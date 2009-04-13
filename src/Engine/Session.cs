@@ -135,7 +135,9 @@ namespace Smuxi.Engine
 #endif
             // add the FrontendManager to the hashtable with an unique .NET remoting identifier
             FrontendManager fm = new FrontendManager(this, ui);
-            _FrontendManagers[uri] = fm;
+            lock (_FrontendManagers) {
+                _FrontendManagers[uri] = fm;
+            }
             
             // if this is the first frontend, we process OnStartupCommands
             if (!_OnStartupCommandsProcessed) {
@@ -234,10 +236,12 @@ namespace Smuxi.Engine
             }
             
             string key = null;
-            foreach (KeyValuePair<string, FrontendManager> kv in _FrontendManagers) {
-                if (kv.Value == fm) {
-                    key = kv.Key;
-                    break;
+            lock (_FrontendManagers) {
+                foreach (KeyValuePair<string, FrontendManager> kv in _FrontendManagers) {
+                    if (kv.Value == fm) {
+                        key = kv.Key;
+                        break;
+                    }
                 }
             }
             if (key == null) {
@@ -250,7 +254,9 @@ namespace Smuxi.Engine
                 return;
             }
             
-            _FrontendManagers.Remove(key);
+            lock (_FrontendManagers) {
+                _FrontendManagers.Remove(key);
+            }
         }
         
         public void DeregisterFrontendUI(IFrontendUI ui)
@@ -265,7 +271,9 @@ namespace Smuxi.Engine
 #if LOG4NET
             f_Logger.Debug("Deregistering UI with URI: "+uri);
 #endif
-            _FrontendManagers.Remove(uri);
+            lock (_FrontendManagers) {
+                _FrontendManagers.Remove(uri);
+            }
         }
         
         public FrontendManager GetFrontendManager(IFrontendUI ui)
@@ -276,7 +284,9 @@ namespace Smuxi.Engine
                 throw new ArgumentNullException("ui");
             }
             
-            return _FrontendManagers[GetUri(ui)];
+            lock (_FrontendManagers) {
+                return _FrontendManagers[GetUri(ui)];
+            }
         }
         
         private string GetUri(IFrontendUI ui)
@@ -649,8 +659,10 @@ namespace Smuxi.Engine
         {
             Trace.Call();
             
-            foreach (FrontendManager fm in _FrontendManagers.Values) {
-                fm.UpdateNetworkStatus();
+            lock (_FrontendManagers) {
+                foreach (FrontendManager fm in _FrontendManagers.Values) {
+                    fm.UpdateNetworkStatus();
+                }
             }
         }
         
@@ -663,8 +675,11 @@ namespace Smuxi.Engine
             }
             
             _Chats.Add(chat);
-            foreach (FrontendManager fm in _FrontendManagers.Values) {
-                fm.AddChat(chat);
+            
+            lock (_FrontendManagers) {
+                foreach (FrontendManager fm in _FrontendManagers.Values) {
+                    fm.AddChat(chat);
+                }
             }
         }
         
@@ -677,8 +692,11 @@ namespace Smuxi.Engine
             }
             
             _Chats.Remove(chat);
-            foreach (FrontendManager fm in _FrontendManagers.Values) {
-                fm.RemoveChat(chat);
+            
+            lock (_FrontendManagers) {
+                foreach (FrontendManager fm in _FrontendManagers.Values) {
+                    fm.RemoveChat(chat);
+                }
             }
         }
         
@@ -691,8 +709,10 @@ namespace Smuxi.Engine
             }
             
             chat.IsEnabled = true;
-            foreach (FrontendManager fm in _FrontendManagers.Values) {
-                fm.EnableChat(chat);
+            lock (_FrontendManagers) {
+                foreach (FrontendManager fm in _FrontendManagers.Values) {
+                    fm.EnableChat(chat);
+                }
             }
         }
         
@@ -705,8 +725,10 @@ namespace Smuxi.Engine
             }
             
             chat.IsEnabled = false;
-            foreach (FrontendManager fm in _FrontendManagers.Values) {
-                fm.DisableChat(chat);
+            lock (_FrontendManagers) {
+                foreach (FrontendManager fm in _FrontendManagers.Values) {
+                    fm.DisableChat(chat);
+                }
             }
         }
         
@@ -718,8 +740,10 @@ namespace Smuxi.Engine
                 throw new ArgumentNullException("chat");
             }
             
-            foreach (FrontendManager fm in _FrontendManagers.Values) {
-                fm.SyncChat(chat);
+            lock (_FrontendManagers) {
+                foreach (FrontendManager fm in _FrontendManagers.Values) {
+                    fm.SyncChat(chat);
+                }
             }
         }
         
@@ -752,8 +776,10 @@ namespace Smuxi.Engine
                 }
             }
             
-            foreach (FrontendManager fm in _FrontendManagers.Values) {
-                fm.AddMessageToChat(chat, msg);
+            lock (_FrontendManagers) {
+                foreach (FrontendManager fm in _FrontendManagers.Values) {
+                    fm.AddMessageToChat(chat, msg);
+                }
             }
         }
         
@@ -769,8 +795,10 @@ namespace Smuxi.Engine
 #if LOG4NET
             f_Logger.Debug("AddPersonToGroupChat() groupChat.Name: "+groupChat.Name+" person.IdentityName: "+person.IdentityName);
 #endif
-            foreach (FrontendManager fm in _FrontendManagers.Values) {
-                fm.AddPersonToGroupChat(groupChat, person);
+            lock (_FrontendManagers) {
+                foreach (FrontendManager fm in _FrontendManagers.Values) {
+                    fm.AddPersonToGroupChat(groupChat, person);
+                }
             }
         }
         
@@ -792,10 +820,15 @@ namespace Smuxi.Engine
                           " oldPerson.IdentityName: " + oldPerson.IdentityName +
                           " newPerson.IdentityName: " + newPerson.IdentityName);
 #endif
+            // FIXME: do we have to lock groupChat.UnsafePersons here?
+            // probably not, as long as the ProtocolManager who owns this chat
+            // is only running one thread
             groupChat.UnsafePersons.Remove(oldPerson.ID.ToLower());
             groupChat.UnsafePersons.Add(newPerson.ID.ToLower(), newPerson);
-            foreach (FrontendManager fm in _FrontendManagers.Values) {
-                fm.UpdatePersonInGroupChat(groupChat, oldPerson, newPerson);
+            lock (_FrontendManagers) {
+                foreach (FrontendManager fm in _FrontendManagers.Values) {
+                    fm.UpdatePersonInGroupChat(groupChat, oldPerson, newPerson);
+                }
             }
         }
     
@@ -812,8 +845,10 @@ namespace Smuxi.Engine
             f_Logger.Debug("UpdateTopicInGroupChat() groupChat.Name: " + groupChat.Name + " topic: " + topic.ToString());
 #endif
             groupChat.Topic = topic;
-            foreach (FrontendManager fm in _FrontendManagers.Values) {
-                fm.UpdateTopicInGroupChat(groupChat, topic);
+            lock (_FrontendManagers) {
+                foreach (FrontendManager fm in _FrontendManagers.Values) {
+                    fm.UpdateTopicInGroupChat(groupChat, topic);
+                }
             }
         }
     
@@ -830,8 +865,10 @@ namespace Smuxi.Engine
             f_Logger.Debug("RemovePersonFromGroupChat() groupChat.Name: " + groupChat.Name + " person.ID: "+person.ID);
 #endif
             groupChat.UnsafePersons.Remove(person.ID.ToLower());
-            foreach (FrontendManager fm in _FrontendManagers.Values) {
-                fm.RemovePersonFromGroupChat(groupChat, person);
+            lock (_FrontendManagers) {
+                foreach (FrontendManager fm in _FrontendManagers.Values) {
+                    fm.RemovePersonFromGroupChat(groupChat, person);
+                }
             }
         }
         
@@ -844,8 +881,10 @@ namespace Smuxi.Engine
 #if LOG4NET
             f_Logger.Debug("SetNetworkStatus() status: "+status);
 #endif
-            foreach (FrontendManager fm in _FrontendManagers.Values) {
-                fm.SetNetworkStatus(status);
+            lock (_FrontendManagers) {
+                foreach (FrontendManager fm in _FrontendManagers.Values) {
+                    fm.SetNetworkStatus(status);
+                }
             }
         }
         
@@ -858,8 +897,10 @@ namespace Smuxi.Engine
 #if LOG4NET
             f_Logger.Debug("SetStatus() status: "+status);
 #endif
-            foreach (FrontendManager fm in _FrontendManagers.Values) {
-                fm.SetStatus(status);
+            lock (_FrontendManagers) {
+                foreach (FrontendManager fm in _FrontendManagers.Values) {
+                    fm.SetStatus(status);
+                }
             }
         }
         
