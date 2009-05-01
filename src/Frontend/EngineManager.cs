@@ -157,7 +157,6 @@ namespace Smuxi.Frontend
                 f_Logger.Debug("Connect(): found free local forward port: " + localForwardPort);
 #endif
                 
-                // FIXME: use a dynamic as local forward port here
                 f_SshTunnelManager = new SshTunnelManager(
                     sshProgram, sshUsername, sshPassword, null,
                     sshHostname, sshPort,
