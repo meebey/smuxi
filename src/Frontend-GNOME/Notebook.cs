@@ -114,6 +114,17 @@ namespace Smuxi.Frontend.Gnome
             }
         }
         
+        public void ClearAllActivity()
+        {
+            Trace.Call();
+            
+            int npages = NPages;
+            for (int i = 0; i < npages; i++) {
+                ChatView chat = GetChat(i);
+                chat.HasActivity = false;
+            }
+        }
+        
         // events
         private void _OnSwitchPage(object sender, Gtk.SwitchPageArgs e)
         {
