@@ -158,6 +158,8 @@ namespace Smuxi.Frontend
 #endif
             f_Process = SysDiag.Process.Start(f_ProcessStartInfo);
 
+            // FIXME: don't wait forever, the tunnel may have failed, and thus
+            // we need to bail out at some point!
             bool connected = false;
             while (!connected) {
                 using (TcpClient tcpClient = new TcpClient()) {
