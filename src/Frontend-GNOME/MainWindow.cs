@@ -240,6 +240,11 @@ namespace Smuxi.Frontend.Gnome
             image_item.Activated += OnChatFindGroupChatButtonClicked;
             menu.Append(image_item);
             
+            image_item = new Gtk.ImageMenuItem(_("C_lear All Activity"));
+            image_item.Image = new Gtk.Image(Gtk.Stock.Clear, Gtk.IconSize.Menu);
+            image_item.Activated += OnChatClearAllActivityButtonClicked;
+            menu.Append(image_item);
+            
             menu.Append(new Gtk.SeparatorMenuItem());
                     
             image_item = new Gtk.ImageMenuItem(_("_Next Chat"));
@@ -560,6 +565,17 @@ namespace Smuxi.Frontend.Gnome
                 }
                 
                 manager.OpenChat(Frontend.FrontendManager, groupChat);
+            } catch (Exception ex) {
+                Frontend.ShowException(this, ex);
+            }
+        }
+        
+        protected virtual void OnChatClearAllActivityButtonClicked(object sender, EventArgs e)
+        {
+            Trace.Call(sender, e);
+            
+            try {
+                _Notebook.ClearAllActivity();
             } catch (Exception ex) {
                 Frontend.ShowException(this, ex);
             }
