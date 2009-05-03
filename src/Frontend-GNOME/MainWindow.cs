@@ -235,6 +235,11 @@ namespace Smuxi.Frontend.Gnome
             item.Submenu = menu;
             mb.Append(item);
             
+            image_item = new Gtk.ImageMenuItem(_("Open / Join Chat"));
+            image_item.Image = new Gtk.Image(Gtk.Stock.Open, Gtk.IconSize.Menu);
+            image_item.Activated += OnChatOpenChatButtonClicked;
+            menu.Append(image_item);
+                    
             image_item = new Gtk.ImageMenuItem(_("_Find Group Chat"));
             image_item.Image = new Gtk.Image(Gtk.Stock.Find, Gtk.IconSize.Menu);
             image_item.Activated += OnChatFindGroupChatButtonClicked;
@@ -543,6 +548,52 @@ namespace Smuxi.Frontend.Gnome
             try {
                 PreferencesDialog dialog = new PreferencesDialog(this);
                 dialog.CurrentPage = PreferencesDialog.Page.Servers;
+            } catch (Exception ex) {
+                Frontend.ShowException(this, ex);
+            }
+        }
+        
+        protected virtual void OnChatOpenChatButtonClicked(object sender, EventArgs e)
+        {
+            Trace.Call(sender, e);
+            
+            try {
+                OpenChatDialog dialog = new OpenChatDialog(this);
+                int res = dialog.Run();
+                
+                IProtocolManager manager = Frontend.FrontendManager.CurrentProtocolManager;
+                ChatModel chat;
+                switch (dialog.ChatType) {
+                    case ChatType.Group:
+                        chat = new GroupChatModel(
+                            dialog.ChatName, 
+                            dialog.ChatName,
+                            manager
+                        );
+                        break;
+                    case ChatType.Person:
+                        chat = new PersonChatModel(
+                            null,
+                            dialog.ChatName, 
+                            dialog.ChatName,
+                            manager
+                        );
+                        break;
+                    default:
+                        throw new ApplicationException(
+                            String.Format(
+                                _("Unknown ChatType: {0}"),
+                                dialog.ChatType
+                            )
+                        );
+                }
+                
+                dialog.Destroy();
+                if (res != (int) Gtk.ResponseType.Ok) {
+                    return;
+                }
+                
+                manager.OpenChat(Frontend.FrontendManager, chat);
             } catch (Exception ex) {
                 Frontend.ShowException(this, ex);
             }
