@@ -27,7 +27,6 @@
  */
 
 using System;
-using Smuxi;
 
 namespace Smuxi.Frontend.Gnome
 {

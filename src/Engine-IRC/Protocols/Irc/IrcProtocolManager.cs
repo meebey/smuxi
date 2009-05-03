@@ -7,7 +7,7 @@
  *
  * smuxi - Smart MUltipleXed Irc
  *
- * Copyright (c) 2005-2008 Mirco Bauer <meebey@meebey.net>
+ * Copyright (c) 2005-2009 Mirco Bauer <meebey@meebey.net>
  *
  * Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
  *
@@ -760,6 +760,8 @@ namespace Smuxi.Engine
         
         public void CommandJoin(CommandModel cd)
         {
+            Trace.Call(cd);
+            
             string channel = null;
             if ((cd.DataArray.Length >= 2) &&
                 (cd.DataArray[1].Length >= 1)) {
@@ -809,6 +811,8 @@ namespace Smuxi.Engine
         
         public void CommandMessage(CommandModel cd)
         {
+            Trace.Call(cd);
+            
             if ((cd.DataArray.Length >= 2) &&
                 (cd.DataArray[1].Length >= 1)) {
                 switch (cd.DataArray[1][0]) {
