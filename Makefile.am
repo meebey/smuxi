@@ -25,3 +25,38 @@ update-po:
 		echo $$PODIR; \
 		$(MAKE) -C $$PODIR $@ | egrep -e '(:$$|messages)'; \
 	done
+
+LIB_DIR = $(top_builddir)/lib
+WIN32_LIB_DIR = $(LIB_DIR)/win32
+BUILD_DIR = $(top_builddir)/bin/$(PROFILE)
+WIN32_BUILD_DIR = $(top_builddir)/bin-win32
+
+WIN32_EXE_FILES = \
+	$(BUILD_DIR)/smuxi-frontend-gnome.exe \
+	$(BUILD_DIR)/smuxi-server.exe
+
+WIN32_FILES = \
+	$(WIN32_EXE_FILES) \
+	$(LIB_DIR)/Meebey.SmartIrc4net.dll \
+	$(LIB_DIR)/Mono.Posix.dll \
+	$(LIB_DIR)/Nini.dll \
+	$(LIB_DIR)/log4net.dll \
+	$(WIN32_LIB_DIR)/MonoPosixHelper.dll \
+	$(WIN32_LIB_DIR)/zlib1.dll \
+	$(BUILD_DIR)/smuxi-common.dll \
+	$(BUILD_DIR)/smuxi-engine.dll \
+	$(BUILD_DIR)/smuxi-engine-irc.dll \
+	$(BUILD_DIR)/smuxi-frontend-gnome-irc.dll \
+	$(BUILD_DIR)/smuxi-frontend.dll \
+	$(WIN32_LIB_DIR)/smuxi-frontend-gnome.exe.config \
+	$(WIN32_LIB_DIR)/smuxi-server.exe.config
+		
+dist-win32:
+	mkdir -p $(WIN32_BUILD_DIR)
+	for FILE in $(WIN32_FILES); do \
+		cp $$FILE $(WIN32_BUILD_DIR); \
+	done
+	for FILE in $(WIN32_EXE_FILES); do \
+		wine ../releases/win32/build-env/CorFlags.exe /nologo /32BIT+ $$FILE; \
+	done
+	makensis $(top_srcdir)/src/smuxi-win32.nsis

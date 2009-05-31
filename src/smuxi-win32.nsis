@@ -89,7 +89,7 @@
 ###########################
 
 Name "${PRODUCT_NAME} ${PRODUCT_VERSION}"
-OutFile "../bin/debug/smuxi-win32-setup.exe"
+OutFile "smuxi-win32-setup.exe"
 InstallDir "$PROGRAMFILES\Smuxi"
 InstallDirRegKey HKLM "${PRODUCT_DIR_REGKEY}" ""
 ShowInstDetails show
@@ -392,26 +392,27 @@ Section "Main" SEC01
   !insertmacro CheckDotNET ${DOTNET_VERSION}
   !insertmacro CheckGtkSharp ${GTKSHARP_VERSION}
 
-  SetOutPath "$INSTDIR"
-  SetOverwrite try
-  File "../lib/log4net.dll"
-  File "../lib/Meebey.SmartIrc4net.dll"
-  File "../lib/Mono.Posix.dll"
-  File "../lib/win32/MonoPosixHelper.dll"
-  File "../lib/Nini.dll"
   CreateDirectory "$SMPROGRAMS\Smuxi"
   CreateShortCut "$SMPROGRAMS\Smuxi\Smuxi.lnk" "$INSTDIR\smuxi-frontend-gnome.exe"
   CreateShortCut "$DESKTOP\Smuxi.lnk" "$INSTDIR\smuxi-frontend-gnome.exe"
-  File "../bin/debug/smuxi-common.dll"
-  File "../bin/debug/smuxi-engine-irc.dll"
-  File "../bin/debug/smuxi-engine.dll"
-  File "../bin/debug/smuxi-frontend-gnome-irc.dll"
-  File "../bin/debug/smuxi-frontend-gnome.exe"
-  File "../lib/win32/smuxi-frontend-gnome.exe.config"
-  File "../bin/debug/smuxi-frontend.dll"
-  File "../bin/debug/smuxi-server.exe"
-  File "../lib/win32/smuxi-server.exe.config"
-  File "../lib/win32/zlib1.dll"
+
+  SetOutPath "$INSTDIR"
+  SetOverwrite try
+  File "../bin-win32/log4net.dll"
+  File "../bin-win32/Meebey.SmartIrc4net.dll"
+  File "../bin-win32/Mono.Posix.dll"
+  File "../bin-win32/MonoPosixHelper.dll"
+  File "../bin-win32/Nini.dll"
+  File "../bin-win32/smuxi-common.dll"
+  File "../bin-win32/smuxi-engine-irc.dll"
+  File "../bin-win32/smuxi-engine.dll"
+  File "../bin-win32/smuxi-frontend-gnome-irc.dll"
+  File "../bin-win32/smuxi-frontend-gnome.exe"
+  File "../bin-win32/smuxi-frontend-gnome.exe.config"
+  File "../bin-win32/smuxi-frontend.dll"
+  File "../bin-win32/smuxi-server.exe"
+  File "../bin-win32/smuxi-server.exe.config"
+  File "../bin-win32/zlib1.dll"
 SectionEnd
 
 Section -AdditionalIcons
