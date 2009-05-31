@@ -31,7 +31,8 @@
 !define PRODUCT_UNINST_KEY "Software\Microsoft\Windows\CurrentVersion\Uninstall\${PRODUCT_NAME}"
 !define PRODUCT_UNINST_ROOT_KEY "HKLM"
 !define DOTNET_VERSION "2"
-!define GTKSHARP_VERSION "2.12.9"
+#!define GTKSHARP_VERSION "2.12.9"
+!define GTKSHARP_VERSION "2.12.8"
 
 ############################
 # MUI 1.67 compatible mode #
@@ -118,6 +119,12 @@ FunctionEnd
         goto InstallGtkSharpConfirmation
     ${ElseIf} $GTKSHARP_FOUND_VERSION == ${GTKSHARP_REQ}
         DetailPrint "GTK# already installed"
+        goto End
+    ${ElseIf} $GTKSHARP_FOUND_VERSION == "2.12.8"
+        # HACK: accept 2.12.8 even though it's not the latest as an upgrade from
+        # 2.12.8 to 2.12.9 will remove all assemblies without installing them again
+        # leaving the GTK# install completely broken!
+        DetailPrint "GTK# 2.12.8 installed"
         goto End
     ${Else}
         DetailPrint "Unknown GTK# version installed: $GTKSHARP_FOUND_VERSION"
