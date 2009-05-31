@@ -1,0 +1,463 @@
+##############################################################
+#  NSIS install script for Smuxi                             #
+#  Copyright (C) 2009 Sebastian Schnur <ikkerus@ikkerus.net> #
+#  Copyright (C) 2009 Mirco Bauer <meebey@meebey.net>        #
+##############################################################
+
+#########################
+# main install settings #
+#########################
+
+!define PRODUCT_NAME "Smuxi"
+!define PRODUCT_VERSION "0.6.4-dev"
+!define PRODUCT_PUBLISHER "Mirco Bauer <meebey@meebey.net>"
+!define PRODUCT_WEB_SITE "http://www.smuxi.org"
+!define PRODUCT_DIR_REGKEY "Software\Microsoft\Windows\CurrentVersion\App Paths\smuxi-frontend-gnome.exe"
+!define PRODUCT_UNINST_KEY "Software\Microsoft\Windows\CurrentVersion\Uninstall\${PRODUCT_NAME}"
+!define PRODUCT_UNINST_ROOT_KEY "HKLM"
+!define DOTNET_VERSION "2"
+!define GTKSHARP_VERSION "2.12.9"
+
+############################
+# MUI 1.67 compatible mode #
+############################
+
+!include "MUI.nsh"
+
+; MUI Settings [please make the path relative]
+!define MUI_ABORTWARNING
+!define MUI_ICON "../images/icon_32x32.ico"
+!define MUI_UNICON "../images/icon_32x32.ico"
+
+######################
+# Language Selection #
+######################
+
+; Language Selection Dialog Settings
+!define MUI_LANGDLL_REGISTRY_ROOT "${PRODUCT_UNINST_ROOT_KEY}"
+!define MUI_LANGDLL_REGISTRY_KEY "${PRODUCT_UNINST_KEY}"
+!define MUI_LANGDLL_REGISTRY_VALUENAME "NSIS:Language"
+
+#################
+# install pages #
+#################
+
+; Welcome page
+!insertmacro MUI_PAGE_WELCOME
+; License page
+!define MUI_LICENSEPAGE_RADIOBUTTONS
+!insertmacro MUI_PAGE_LICENSE "../LICENSE"
+; Directory page
+!insertmacro MUI_PAGE_DIRECTORY
+; Instfiles page
+!insertmacro MUI_PAGE_INSTFILES
+; Finish page
+# BUG: if GTK# was installed by this installer, the PATH environment variable
+# is not refreshed and thus the direct start fails
+#!define MUI_FINISHPAGE_RUN "$SMPROGRAMS\Smuxi\Smuxi.lnk"
+!insertmacro MUI_PAGE_FINISH
+
+; Uninstaller pages
+!insertmacro MUI_UNPAGE_INSTFILES
+
+##################
+# Language files #
+##################
+
+!insertmacro MUI_LANGUAGE "English"
+!insertmacro MUI_LANGUAGE "French"
+!insertmacro MUI_LANGUAGE "German"
+!insertmacro MUI_LANGUAGE "Italian"
+
+###########################
+# MUI end                 #
+###########################
+
+Name "${PRODUCT_NAME} ${PRODUCT_VERSION}"
+OutFile "../bin/debug/smuxi-win32-setup.exe"
+InstallDir "$PROGRAMFILES\Smuxi"
+InstallDirRegKey HKLM "${PRODUCT_DIR_REGKEY}" ""
+ShowInstDetails show
+ShowUnInstDetails show
+
+Function .onInit
+  !insertmacro MUI_LANGDLL_DISPLAY
+FunctionEnd
+
+############
+# Macros   #
+############
+
+!macro CheckGtkSharp GTKSHARP_REQ
+    !define GTKSHARP_FILE         "gtk-sharp-2.12.9-1.win32.msi"
+    !define GTKSHARP_BASE_URL     "http://ftp.novell.com/pub/mono/gtk-sharp/"
+    !define GTKSHARP_DOWNLOAD_URL "${GTKSHARP_BASE_URL}${GTKSHARP_FILE}"
+    !define GTKSHARP_TEMP_FILE "$TEMP\${GTKSHARP_FILE}"
+
+    DetailPrint "Checking your GTK# version..."
+    Var /GLOBAL GTKSHARP_FOUND_VERSION
+    ReadRegStr $GTKSHARP_FOUND_VERSION HKLM \
+          "SOFTWARE\Novell\GtkSharp\Version" ""
+
+    ${If} $GTKSHARP_FOUND_VERSION == ""
+        goto InstallGtkSharpConfirmation
+    ${ElseIf} $GTKSHARP_FOUND_VERSION == ${GTKSHARP_REQ}
+        DetailPrint "GTK# already installed"
+        goto End
+    ${Else}
+        DetailPrint "Unknown GTK# version installed: $GTKSHARP_FOUND_VERSION"
+        goto InstallGtkSharpConfirmation
+    ${EndIf}
+
+    InstallGtkSharpConfirmation:
+        MessageBox MB_YESNOCANCEL|MB_ICONEXCLAMATION \
+            "Your GTK# version: $GTKSHARP_FOUND_VERSION $\nRequired Version: ${GTKSHARP_REQ} or greater.$\n$\nDownload GTK# from ftp.novell.com?" \
+            /SD IDYES IDYES InstallGtkSharp IDNO End
+        goto GiveUp ;IDCANCEL
+
+    InstallGtkSharp:
+        SetOutPath "$TEMP"
+        SetOverwrite on
+
+        DetailPrint "Beginning download of GTK#..."
+        NSISDL::download "${GTKSHARP_DOWNLOAD_URL}" "${GTKSHARP_TEMP_FILE}"
+        Pop $0
+        ${If} $0 == "cancel"
+            DetailPrint "Download failed."
+            MessageBox MB_YESNO|MB_ICONEXCLAMATION \
+            "Download cancelled.  Continue Installation?" \
+            IDYES End IDNO GiveUp
+        ${ElseIf} $0 != "success"
+            DetailPrint "Download failed."
+            MessageBox MB_YESNO|MB_ICONEXCLAMATION \
+            "Download failed:$\n$0$\n$\nContinue Installation?" \
+            IDYES End IDNO GiveUp
+        ${EndIf}
+        DetailPrint "Download completed."
+        DetailPrint "Pausing installation while downloaded GTK# installer runs."
+        ExecWait 'msiexec /i "${GTKSHARP_TEMP_FILE}" /passive' $0
+        DetailPrint "Completed GTK# install. Exit code = '$0'. Removing GTK# installer."
+        Delete "${GTKSHARP_TEMP_FILE}"
+        DetailPrint "GTK# installer removed."
+        goto End
+    
+    GiveUp:
+        Abort "Installation cancelled by user."
+
+    End:
+!macroend
+
+# DotNET and MSI version checking macro.
+# Written by AnarkiNet(AnarkiNet@gmail.com) originally, modified by eyal0 (for use in http://www.sourceforge.net/projects/itwister)
+# MSI check code based on http://www.codeproject.com/useritems/NSIS.asp
+# 2009-05-26 Mirco Bauer: updated DOTNET_URL location
+# Downloads the MSI version 3.1 and runs it if the user does not have the correct version.
+# Downloads and runs the Microsoft .NET Framework version 2.0 Redistributable and runs it if the user does not have the correct version.
+# To use, call the macro with a string:
+# Example: non real version numbers
+# !insertmacro CheckDotNET "2"
+# !insertmacro CheckDotNET "2.0.9"
+# (Version 2.0.9 is less than version 2.0.10.)
+# Example: latest real version number at time of writing
+# !insertmacro CheckDotNET "2.0.50727"
+# All register variables are saved and restored by CheckDotNet
+# No output
+ 
+!macro CheckDotNET DotNetReqVer
+  !define DOTNET_URL "http://download.microsoft.com/download/5/6/7/567758a3-759e-473e-bf8f-52154438565a/dotnetfx.exe"
+  !define MSI31_URL "http://download.microsoft.com/download/1/4/7/147ded26-931c-4daf-9095-ec7baf996f46/WindowsInstaller-KB893803-v2-x86.exe"
+ 
+  DetailPrint "Checking your .NET Framework version..."
+  ;callee register save
+  Push $0
+  Push $1
+  Push $2
+  Push $3
+  Push $4
+  Push $5
+  Push $6 ;backup of intsalled ver
+  Push $7 ;backup of DoNetReqVer
+ 
+ ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ ;                               MSI                                          ;
+ ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  GetDLLVersion "$SYSDIR\msi.dll" $R0 $R1
+  IntOp $R2 $R0 / 0x00010000 ; $R2 now contains major version
+  IntOp $R3 $R0 & 0x0000FFFF ; $R3 now contains minor version
+  IntOp $R4 $R1 / 0x00010000 ; $R4 now contains release
+  IntOp $R5 $R1 & 0x0000FFFF ; $R5 now contains build
+  StrCpy $0 "$R2.$R3.$R4.$R5" ; $0 now contains string like "1.2.0.192"
+ 
+  ${If} $R2 < '3'
+    ;options
+    SetOutPath "$TEMP"
+    SetOverwrite on
+ 
+    MessageBox MB_YESNOCANCEL|MB_ICONEXCLAMATION \
+    "Your MSI version: $0 $\nRequired Version: 3 or greater.$\n$\nDownload MSI version from www.microsoft.com?" \
+    /SD IDYES IDYES DownloadMSI IDNO NewMSI
+    goto GiveUpDotNET ;IDCANCEL
+ 
+  ${Else}
+ 
+    DetailPrint "MSI3.1 already installed"
+    goto NewMSI
+  ${EndIf}
+ 
+DownloadMSI:
+  DetailPrint "Beginning download of MSI3.1."
+  NSISDL::download ${MSI31_URL} "$TEMP\WindowsInstaller-KB893803-v2-x86.exe"
+  DetailPrint "Completed download."
+  Pop $0
+  ${If} $0 == "cancel"
+    MessageBox MB_YESNO|MB_ICONEXCLAMATION \
+    "Download cancelled.  Continue Installation?" \
+    IDYES NewMSI IDNO GiveUpDotNET
+  ${ElseIf} $0 != "success"
+    MessageBox MB_YESNO|MB_ICONEXCLAMATION \
+    "Download failed:$\n$0$\n$\nContinue Installation?" \
+    IDYES NewMSI IDNO GiveUpDotNET
+  ${EndIf}
+  DetailPrint "Pausing installation while downloaded MSI3.1 installer runs."
+  ExecWait '$TEMP\WindowsInstaller-KB893803-v2-x86.exe /quiet /norestart' $0
+  DetailPrint "Completed MSI3.1 install/update. Exit code = '$0'. Removing MSI3.1 installer."
+  Delete "$TEMP\WindowsInstaller-KB893803-v2-x86.exe"
+  DetailPrint "MSI3.1 installer removed."
+  goto NewMSI
+ 
+NewMSI:
+  DetailPrint "MSI3.1 installation done. Proceeding with remainder of installation."
+ ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ 
+ ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ ;                                  NetFX                                     ;
+ ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  StrCpy $7 ${DotNetReqVer}
+ 
+  System::Call "mscoree::GetCORVersion(w .r0, i ${NSIS_MAX_STRLEN}, *i r2r2) i .r1 ?u"
+ 
+  ${If} $0 == 0
+  	DetailPrint ".NET Framework not found, download is required for program to run."
+    Goto NoDotNET
+  ${EndIf}
+ 
+  ;at this point, $0 has maybe v2.345.678.
+  StrCpy $0 $0 $2 1 ;remove the starting "v", $0 has the installed version num as a string
+  StrCpy $6 $0
+  StrCpy $1 $7 ;$1 has the requested verison num as a string
+ 
+  ;MessageBox MB_OKCANCEL "found $0" IDCANCEL GiveUpDotNET
+ 
+  ;MessageBox MB_OKCANCEL "looking for $1" IDCANCEL GiveUpDotNET
+ 
+  ;now let's compare the versions, installed against required <part0>.<part1>.<part2>.
+  ${Do}
+    StrCpy $2 "" ;clear out the installed part
+    StrCpy $3 "" ;clear out the required part
+ 
+    ${Do}
+      ${If} $0 == "" ;if there are no more characters in the version
+        StrCpy $4 "." ;fake the end of the version string
+      ${Else}
+        StrCpy $4 $0 1 0 ;$4 = character from the installed ver
+        ${If} $4 != "."
+          StrCpy $0 $0 ${NSIS_MAX_STRLEN} 1 ;remove that first character from the remaining
+        ${EndIf}
+      ${EndIf}
+ 
+      ${If} $1 == ""  ;if there are no more characters in the version
+        StrCpy $5 "." ;fake the end of the version string
+      ${Else}
+        StrCpy $5 $1 1 0 ;$5 = character from the required ver
+        ${If} $5 != "."
+          StrCpy $1 $1 ${NSIS_MAX_STRLEN} 1 ;remove that first character from the remaining
+        ${EndIf}
+      ${EndIf}
+      ;MessageBox MB_OKCANCEL "installed $2,$4,$0 required $3,$5,$1" IDCANCEL GiveUpDotNET
+      ${If} $4 == "."
+      ${AndIf} $5 == "."
+        ${ExitDo} ;we're at the end of the part
+      ${EndIf}
+ 
+      ${If} $4 == "." ;if we're at the end of the current installed part
+        StrCpy $2 "0$2" ;put a zero on the front
+      ${Else} ;we have another character
+        StrCpy $2 "$2$4" ;put the next character on the back
+      ${EndIf}
+      ${If} $5 == "." ;if we're at the end of the current required part
+        StrCpy $3 "0$3" ;put a zero on the front
+      ${Else} ;we have another character
+        StrCpy $3 "$3$5" ;put the next character on the back
+      ${EndIf}
+    ${Loop}
+    ;MessageBox MB_OKCANCEL "finished parts: installed $2,$4,$0 required $3,$5,$1" IDCANCEL GiveUpDotNET
+ 
+    ${If} $0 != "" ;let's remove the leading period on installed part if it exists
+      StrCpy $0 $0 ${NSIS_MAX_STRLEN} 1
+    ${EndIf}
+    ${If} $1 != "" ;let's remove the leading period on required part if it exists
+      StrCpy $1 $1 ${NSIS_MAX_STRLEN} 1
+    ${EndIf}
+ 
+    ;$2 has the installed part, $3 has the required part
+    ${If} $2 S< $3
+      IntOp $0 0 - 1 ;$0 = -1, installed less than required
+      ${ExitDo}
+    ${ElseIf} $2 S> $3
+      IntOp $0 0 + 1 ;$0 = 1, installed greater than required
+      ${ExitDo}
+    ${ElseIf} $2 == ""
+    ${AndIf} $3 == ""
+      IntOp $0 0 + 0 ;$0 = 0, the versions are identical
+      ${ExitDo}
+    ${EndIf} ;otherwise we just keep looping through the parts
+  ${Loop}
+ 
+  ${If} $0 < 0
+    DetailPrint ".NET Framework Version found: $6, but is older than the required version: $7"
+    Goto OldDotNET
+  ${Else}
+    DetailPrint ".NET Framework Version found: $6, equal or newer to required version: $7."
+    Goto NewDotNET
+  ${EndIf}
+ 
+NoDotNET:
+    MessageBox MB_YESNOCANCEL|MB_ICONEXCLAMATION \
+    ".NET Framework not installed.$\nRequired Version: $7 or greater.$\n$\nDownload .NET Framework version from www.microsoft.com?" \
+    /SD IDYES IDYES DownloadDotNET IDNO NewDotNET
+    goto GiveUpDotNET ;IDCANCEL
+
+OldDotNET:
+    MessageBox MB_YESNOCANCEL|MB_ICONEXCLAMATION \
+    "Your .NET Framework version: $6 $\nRequired Version: $7 or greater.$\n$\nDownload .NET Framework version from www.microsoft.com?" \
+    /SD IDYES IDYES DownloadDotNET IDNO NewDotNET
+    goto GiveUpDotNET ;IDCANCEL
+ 
+DownloadDotNET:
+  DetailPrint "Beginning download of latest .NET Framework version."
+  NSISDL::download ${DOTNET_URL} "$TEMP\dotnetfx.exe"
+  DetailPrint "Completed download."
+  Pop $0
+  ${If} $0 == "cancel"
+    MessageBox MB_YESNO|MB_ICONEXCLAMATION \
+    "Download cancelled.  Continue Installation?" \
+    IDYES NewDotNET IDNO GiveUpDotNET
+  ${ElseIf} $0 != "success"
+    MessageBox MB_YESNO|MB_ICONEXCLAMATION \
+    "Download failed:$\n$0$\n$\nContinue Installation?" \
+    IDYES NewDotNET IDNO GiveUpDotNET
+  ${EndIf}
+  DetailPrint "Pausing installation while downloaded .NET Framework installer runs."
+  ExecWait '$TEMP\dotnetfx.exe /q /c:"install /q"'
+  DetailPrint "Completed .NET Framework install/update. Removing .NET Framework installer."
+  Delete "$TEMP\dotnetfx.exe"
+  DetailPrint ".NET Framework installer removed."
+  goto NewDotNet
+ 
+GiveUpDotNET:
+  Abort "Installation cancelled by user."
+ 
+NewDotNET:
+  DetailPrint "Proceeding with remainder of installation."
+  Pop $7
+  Pop $6
+  Pop $5
+  Pop $4
+  Pop $3
+  Pop $2
+  Pop $1
+  Pop $0
+!macroend
+
+############
+# Sections #
+############
+
+Section "Main" SEC01
+  !insertmacro CheckDotNET ${DOTNET_VERSION}
+  !insertmacro CheckGtkSharp ${GTKSHARP_VERSION}
+
+  SetOutPath "$INSTDIR"
+  SetOverwrite try
+  File "../lib/log4net.dll"
+  File "../lib/Meebey.SmartIrc4net.dll"
+  File "../lib/Mono.Posix.dll"
+  File "../lib/win32/MonoPosixHelper.dll"
+  File "../lib/Nini.dll"
+  CreateDirectory "$SMPROGRAMS\Smuxi"
+  CreateShortCut "$SMPROGRAMS\Smuxi\Smuxi.lnk" "$INSTDIR\smuxi-frontend-gnome.exe"
+  CreateShortCut "$DESKTOP\Smuxi.lnk" "$INSTDIR\smuxi-frontend-gnome.exe"
+  File "../bin/debug/smuxi-common.dll"
+  File "../bin/debug/smuxi-engine-irc.dll"
+  File "../bin/debug/smuxi-engine.dll"
+  File "../bin/debug/smuxi-frontend-gnome-irc.dll"
+  File "../bin/debug/smuxi-frontend-gnome.exe"
+  File "../lib/win32/smuxi-frontend-gnome.exe.config"
+  File "../bin/debug/smuxi-frontend.dll"
+  File "../bin/debug/smuxi-server.exe"
+  File "../lib/win32/smuxi-server.exe.config"
+  File "../lib/win32/zlib1.dll"
+SectionEnd
+
+Section -AdditionalIcons
+  WriteIniStr "$INSTDIR\${PRODUCT_NAME}.url" "InternetShortcut" "URL" "${PRODUCT_WEB_SITE}"
+  CreateShortCut "$SMPROGRAMS\Smuxi\Website.lnk" "$INSTDIR\${PRODUCT_NAME}.url"
+  CreateShortCut "$SMPROGRAMS\Smuxi\Uninstall.lnk" "$INSTDIR\uninst.exe"
+SectionEnd
+
+Section -Post
+  WriteUninstaller "$INSTDIR\uninst.exe"
+  WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_DIR_REGKEY}" "" "$INSTDIR\smuxi-frontend-gnome.exe"
+  WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "DisplayName" "$(^Name)"
+  WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "UninstallString" "$INSTDIR\uninst.exe"
+  WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "DisplayIcon" "$INSTDIR\smuxi-frontend-gnome.exe"
+  WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "DisplayVersion" "${PRODUCT_VERSION}"
+  WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "URLInfoAbout" "${PRODUCT_WEB_SITE}"
+  WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "Publisher" "${PRODUCT_PUBLISHER}"
+SectionEnd
+
+
+Function un.onUninstSuccess
+  HideWindow
+  MessageBox MB_ICONINFORMATION|MB_OK "$(^Name) was successfully unistalled."
+FunctionEnd
+
+Function un.onInit
+!insertmacro MUI_UNGETLANGUAGE
+  MessageBox MB_ICONQUESTION|MB_YESNO|MB_DEFBUTTON2 "Do you want to unistall $(^Name) and all it's components?" IDYES +2
+  Abort
+FunctionEnd
+
+Section Uninstall
+  Delete "$INSTDIR\${PRODUCT_NAME}.url"
+  Delete "$INSTDIR\uninst.exe"
+  Delete "$INSTDIR\zlib1.dll"
+  Delete "$INSTDIR\smuxi-server.exe.config"
+  Delete "$INSTDIR\smuxi-server.exe"
+  Delete "$INSTDIR\smuxi-server.log"
+  Delete "$INSTDIR\smuxi-frontend.dll"
+  Delete "$INSTDIR\smuxi-frontend-gnome.exe.config"
+  Delete "$INSTDIR\smuxi-frontend-gnome.exe"
+  Delete "$INSTDIR\smuxi-frontend-gnome.log"
+  Delete "$INSTDIR\smuxi-frontend-gnome-irc.dll"
+  Delete "$INSTDIR\smuxi-engine.dll"
+  Delete "$INSTDIR\smuxi-engine-irc.dll"
+  Delete "$INSTDIR\smuxi-common.dll"
+  Delete "$INSTDIR\Nini.dll"
+  Delete "$INSTDIR\MonoPosixHelper.dll"
+  Delete "$INSTDIR\Mono.Posix.dll"
+  Delete "$INSTDIR\Meebey.SmartIrc4net.dll"
+  Delete "$INSTDIR\log4net.dll"
+
+  Delete "$DESKTOP\Smuxi.lnk"
+  Delete "$SMPROGRAMS\Smuxi\Uninstall.lnk"
+  Delete "$SMPROGRAMS\Smuxi\Website.lnk"
+  Delete "$SMPROGRAMS\Smuxi\Smuxi.lnk"
+
+  RMDir "$SMPROGRAMS\Smuxi"
+  RMDir "$INSTDIR"
+
+  DeleteRegKey ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}"
+  DeleteRegKey ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_DIR_REGKEY}"
+  SetAutoClose true
+SectionEnd
