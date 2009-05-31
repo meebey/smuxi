@@ -4,7 +4,7 @@
       <Output directory="../../bin/debug" assemblyKeyFile="." assembly="smuxi-frontend-gnome" />
       <Build debugmode="True" target="WinExe" />
       <Execution runwithwarnings="True" commandlineparameters="--debug" externalconsole="True" consolepause="True" runtime="MsNet" clr-version="Net_2_0" />
-      <CodeGeneration compiler="Mcs" warninglevel="4" optimize="False" unsafecodeallowed="False" generateoverflowchecks="True" definesymbols="DEBUG,TRACE,LOG4NET,CONFIG_NINI,UI_GNOME,GTK_SHARP_2_10" generatexmldocumentation="False" ctype="CSharpCompilerParameters" />
+      <CodeGeneration compiler="Mcs" warninglevel="3" optimize="False" unsafecodeallowed="False" generateoverflowchecks="True" definesymbols="DEBUG,TRACE,LOG4NET,CONFIG_NINI,UI_GNOME,GTK_SHARP_2_10" generatexmldocumentation="False" ctype="CSharpCompilerParameters" />
     </Configuration>
     <Configuration name="Release" ctype="DotNetProjectConfiguration">
       <Output directory="../../bin/release" assembly="smuxi-frontend-gnome" />
@@ -102,7 +102,7 @@
     <ProjectReference type="Gac" localcopy="True" refto="gtk-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
     <ProjectReference type="Gac" localcopy="True" refto="gnome-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
   </References>
-  <LanguageParameters ApplicationIcon="." ctype="CSharpProjectParameters" />
+  <LanguageParameters ApplicationIcon="../../images/icon_32x32.ico" CodePage="65001" ctype="CSharpProjectParameters" />
   <Deployment.LinuxDeployData scriptName="smuxi-frontend-gnome" />
   <DeploymentInformation strategy="File" />
 </Project>
