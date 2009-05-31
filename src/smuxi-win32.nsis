@@ -89,7 +89,7 @@
 ###########################
 
 Name "${PRODUCT_NAME} ${PRODUCT_VERSION}"
-OutFile "smuxi-win32-setup.exe"
+OutFile "../smuxi-win32-setup.exe"
 InstallDir "$PROGRAMFILES\Smuxi"
 InstallDirRegKey HKLM "${PRODUCT_DIR_REGKEY}" ""
 ShowInstDetails show
@@ -154,6 +154,7 @@ FunctionEnd
         DetailPrint "Completed GTK# install. Exit code = '$0'. Removing GTK# installer."
         Delete "${GTKSHARP_TEMP_FILE}"
         DetailPrint "GTK# installer removed."
+	SetRebootFlag true
         goto End
     
     GiveUp:
