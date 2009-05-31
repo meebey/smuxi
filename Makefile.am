@@ -57,6 +57,6 @@ dist-win32:
 		cp $$FILE $(WIN32_BUILD_DIR); \
 	done
 	for FILE in $(WIN32_EXE_FILES); do \
-		wine ../releases/win32/build-env/CorFlags.exe /nologo /32BIT+ $$FILE; \
+		wine ../releases/win32/build-env/CorFlags.exe /nologo /32BIT+ $(WIN32_BUILD_DIR)/$$(basename $$FILE); \
 	done
 	makensis $(top_srcdir)/src/smuxi-win32.nsis
