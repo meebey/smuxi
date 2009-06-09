@@ -27,43 +27,62 @@
  */
 
 using System;
+using Smuxi.Common;
 using Smuxi.Engine;
 
 namespace Smuxi.Frontend.Gnome
 {
     public class EngineAssistant : Gtk.Assistant
     {
-        private FrontendConfig f_Config;
+        private FrontendConfig                  f_Config;
+        private string                          f_EngineName;
+        private EngineAssistantNameWidget       f_NameWidget;
+        private EngineAssistantConnectionWidget f_ConnectionWidget;
         
-        public EngineAssistant(FrontendConfig config)
+        public EngineAssistant(Gtk.Window parent, FrontendConfig config,
+                               string engineName)
         {
+            Trace.Call(parent, config);
+
+            if (parent == null) {
+                throw new ArgumentNullException("parent");
+            }
             if (config == null) {
                 throw new ArgumentNullException("config");
             }
-            
+
             f_Config = config;
-            
+
+            TransientFor = parent;
             SetDefaultSize(640, 480);
             Title = _("Engine Assistant - Smuxi");
+
+            Apply += OnApply;
+            
             InitPages();
         }
-        
+
         private void InitPages()
         {
             InitIntroPage();
             InitNamePage();
+            InitConnectionPage();
             InitConfirmPage();
         }
-        
+
         private void InitIntroPage()
         {
             EngineAssistantIntroWidget page = new EngineAssistantIntroWidget();
             AppendPage(page);
-            SetPageTitle(page, _("Add Smuxi Engine"));
+            if (f_EngineName == null) {
+                SetPageTitle(page, _("Add Smuxi Engine"));
+            } else {
+                SetPageTitle(page, _("Edit Smuxi Engine"));
+            }
             SetPageType(page, Gtk.AssistantPageType.Intro);
             SetPageComplete(page, true);
         }
-        
+
         private void InitNamePage()
         {
             EngineAssistantNameWidget page = new EngineAssistantNameWidget();
@@ -72,8 +91,20 @@ namespace Smuxi.Frontend.Gnome
             };
             AppendPage(page);
             SetPageType(page, Gtk.AssistantPageType.Content);
+            f_NameWidget = page;
         }
-        
+
+        private void InitConnectionPage()
+        {
+            EngineAssistantConnectionWidget page = new EngineAssistantConnectionWidget();
+            page.HostEntry.Changed += delegate {
+                SetPageComplete(page, page.HostEntry.Text.Trim().Length > 0);
+            };
+            AppendPage(page);
+            SetPageType(page, Gtk.AssistantPageType.Content);
+            f_ConnectionWidget = page;
+        }
+
         private void InitConfirmPage()
         {
             Gtk.Label page = new Gtk.Label(_("Now you can use the new Smuxi Engine"));
@@ -81,7 +112,44 @@ namespace Smuxi.Frontend.Gnome
             SetPageTitle(page, _("Thank you"));
             SetPageType(page, Gtk.AssistantPageType.Confirm);
         }
-        
+
+        protected virtual void OnApply(object sender, EventArgs e)
+        {
+            Trace.Call(sender, e);
+            
+            string engine = f_NameWidget.EngineNameEntry.Text;
+            if (f_EngineName == null) {
+                string[] engines = (string[]) _Config["Engines/Engines"];
+                
+                string[] newEngines;
+                if (engines.Length == 0) {
+                    // there was no existing engines
+                    newEngines = new string[] { engine };
+                } else {
+                    newEngines = new string[engines.Length + 1];
+                    engines.CopyTo(newEngines, 0);
+                    newEngines[engines.Length] = engine;
+                }
+                
+                if (engines.Length == 1 ||
+                    f_NameWidget.MakeDefaultEngineCheckButton.Active) {
+                    f_Config["Engines/Default"] = engine;
+                }
+                f_Config["Engines/Engines"] = newEngines;
+            }
+            
+            //f_Config["Engines/"+engine+"/Username"] = _UsernameEntry.Text;
+            //f_Config["Engines/"+engine+"/Password"] = _PasswordEntry.Text;
+            f_Config["Engines/"+engine+"/Hostname"] = f_ConnectionWidget.HostEntry.Text;
+            f_Config["Engines/"+engine+"/Port"] = f_ConnectionWidget.PortSpinButton.ValueAsInt;
+            
+            // HACK: we don't really support any other channels/formatters (yet)
+            f_Config["Engines/"+engine+"/Channel"] = "TCP";
+            f_Config["Engines/"+engine+"/Formatter"] = "binary";
+            
+            f_Config.Save();
+        }
+
         private static string _(string msg)
         {
             return Mono.Unix.Catalog.GetString(msg);

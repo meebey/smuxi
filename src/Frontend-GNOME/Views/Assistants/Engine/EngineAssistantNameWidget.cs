@@ -26,9 +26,15 @@ namespace Smuxi.Frontend.Gnome
 {
     public partial class EngineAssistantNameWidget : Gtk.Bin
     {
-         public Gtk.Entry EngineNameEntry {
+        public Gtk.Entry EngineNameEntry {
             get {
                 return f_EngineNameEntry;
+            }
+        }
+
+        public Gtk.CheckButton MakeDefaultEngineCheckButton {
+            get {
+                return f_MakeDefaultEngineCheckButton;
             }
         }
 

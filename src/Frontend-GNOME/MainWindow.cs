@@ -701,7 +701,10 @@ namespace Smuxi.Frontend.Gnome
             Trace.Call(obj, args);
             
             try {
-                EngineAssistant assistant = new EngineAssistant(Frontend.FrontendConfig);
+                EngineAssistant assistant = new EngineAssistant(
+                    this,
+                    Frontend.FrontendConfig
+                );
             } catch (Exception ex) {
                 Frontend.ShowException(this, ex);
             }

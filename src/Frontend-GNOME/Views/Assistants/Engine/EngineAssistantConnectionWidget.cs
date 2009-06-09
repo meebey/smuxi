@@ -26,6 +26,24 @@ namespace Smuxi.Frontend.Gnome
 {
     public partial class EngineAssistantConnectionWidget : Gtk.Bin
     {
+        public Gtk.Entry HostEntry {
+            get {
+                return f_HostEntry;
+            }
+        }
+
+        public Gtk.SpinButton PortSpinButton {
+            get {
+                return f_PortSpinButton;
+            }
+        }
+
+        public Gtk.CheckButton UseSshTunnelCheckButton {
+            get {
+                return UseSshTunnelCheckButton;
+            }
+        }
+
         public EngineAssistantConnectionWidget()
         {
             Build();
