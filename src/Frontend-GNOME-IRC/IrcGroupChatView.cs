@@ -97,7 +97,9 @@ namespace Smuxi.Frontend.Gnome
             
             if (PersonTreeView != null) {
                 Gtk.CellRendererText cellr = new Gtk.CellRendererText();
-                cellr.WidthChars = 1;
+                // HACK: for some reason GTK is giving the space of 2 chars which
+                // we workaround using a char width of 0
+                cellr.WidthChars = 0;
                 Gtk.TreeViewColumn column = new Gtk.TreeViewColumn(String.Empty, cellr);
                 column.Spacing = 0;
                 column.SortIndicator = false;
