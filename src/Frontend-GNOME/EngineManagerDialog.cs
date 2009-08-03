@@ -260,9 +260,18 @@ namespace Smuxi.Frontend.Gnome
         
         private void _OnEditButtonPressed()
         {
-            // the druid will spawn EngineManagerDialog when it's canceled or finished
-            //Destroy();
-            //new EngineDruid(Frontend.FrontendConfig, _SelectedEngine);
+            EngineAssistant assistant = new EngineAssistant(
+                this,
+                Frontend.FrontendConfig,
+                _SelectedEngine
+            );
+            assistant.Cancel += delegate {
+                assistant.Destroy();
+            };
+            assistant.Close += delegate {
+                assistant.Destroy();
+            };
+            assistant.ShowAll();
         }
         
         private void _OnDeleteButtonPressed()

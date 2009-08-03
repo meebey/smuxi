@@ -244,6 +244,9 @@ namespace Smuxi.Frontend.Gnome {
             this.f_CancelButton.UseUnderline = true;
             this.f_CancelButton.Label = "gtk-cancel";
             this.AddActionWidget(this.f_CancelButton, -6);
+            Gtk.ButtonBox.ButtonBoxChild w22 = ((Gtk.ButtonBox.ButtonBoxChild)(w21[this.f_CancelButton]));
+            w22.Expand = false;
+            w22.Fill = false;
             // Container child dialog-action_area2.Gtk.ButtonBox+ButtonBoxChild
             this.f_ConnectButton = new Gtk.Button();
             this.f_ConnectButton.Name = "f_ConnectButton";
@@ -253,6 +256,8 @@ namespace Smuxi.Frontend.Gnome {
             this.AddActionWidget(this.f_ConnectButton, -5);
             Gtk.ButtonBox.ButtonBoxChild w23 = ((Gtk.ButtonBox.ButtonBoxChild)(w21[this.f_ConnectButton]));
             w23.Position = 1;
+            w23.Expand = false;
+            w23.Fill = false;
             if ((this.Child != null)) {
                 this.Child.ShowAll();
             }

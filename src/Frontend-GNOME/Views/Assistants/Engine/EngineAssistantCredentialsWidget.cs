@@ -24,43 +24,35 @@ using System;
 
 namespace Smuxi.Frontend.Gnome
 {
-    public partial class EngineAssistantConnectionWidget : Gtk.Bin
+    public partial class EngineAssistantCredentialsWidget : Gtk.Bin
     {
-        public Gtk.CheckButton UseSshTunnelCheckButton {
+        public Gtk.Entry UsernameEntry {
             get {
-                return f_UseSshTunnelCheckButton;
+                return f_UsernameEntry1;
             }
         }
         
-        public Gtk.Entry SshHostEntry {
+        public Gtk.Entry PasswordEntry {
             get {
-                return f_SshHostEntry;
+                return f_PasswordEntry;
+            }
+        }
+            
+        public Gtk.Entry VerifyPasswordEntry {
+            get {
+                return f_VerifyPasswordEntry;
             }
         }
 
-        public Gtk.SpinButton SshPortSpinButton {
+        public Gtk.Entry SshUsernameEntry {
             get {
-                return f_SshPortSpinButton;
+                return f_SshUsernameEntry;
             }
         }
         
-        public Gtk.Entry HostEntry {
-            get {
-                return f_HostEntry;
-            }
-        }
-
-        public Gtk.SpinButton PortSpinButton {
-            get {
-                return f_PortSpinButton;
-            }
-        }
-
-        public EngineAssistantConnectionWidget()
+        public EngineAssistantCredentialsWidget()
         {
             Build();
-            
-            f_SshHostEntry.HasFocus = true;
         }
     }
 }
