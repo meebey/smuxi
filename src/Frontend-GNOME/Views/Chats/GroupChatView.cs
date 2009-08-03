@@ -119,7 +119,7 @@ namespace Smuxi.Frontend.Gnome
             
             Gtk.TreeViewColumn column;
             Gtk.CellRendererText cellr = new Gtk.CellRendererText();
-            cellr.WidthChars = 15;
+            cellr.WidthChars = 12;
             column = new Gtk.TreeViewColumn(String.Empty, cellr);
             column.SortColumnId = 0;
             column.Spacing = 0;
