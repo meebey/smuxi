@@ -308,6 +308,10 @@ namespace Smuxi.Frontend.Gnome
             Frontend.FrontendConfig.Remove("Engines/"+engine+"/Port");
             Frontend.FrontendConfig.Remove("Engines/"+engine+"/Channel");
             Frontend.FrontendConfig.Remove("Engines/"+engine+"/Formatter");
+            Frontend.FrontendConfig.Remove("Engines/"+engine+"/UseSshTunnel");
+            Frontend.FrontendConfig.Remove("Engines/"+engine+"/SshHostname");
+            Frontend.FrontendConfig.Remove("Engines/"+engine+"/SshPort");
+            Frontend.FrontendConfig.Remove("Engines/"+engine+"/SshUsername");
             Frontend.FrontendConfig.Remove("Engines/"+engine);
             Frontend.FrontendConfig.Save();
             Frontend.FrontendConfig.Load();
