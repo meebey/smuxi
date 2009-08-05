@@ -2999,7 +2999,7 @@ Click "Forward" to begin.</property>
       </widget>
     </child>
   </widget>
-  <widget class="Gtk.Bin" id="Smuxi.Frontend.Gnome.EngineAssistantNameWidget" design-size="558 165">
+  <widget class="Gtk.Bin" id="Smuxi.Frontend.Gnome.EngineAssistantNameWidget" design-size="401 179">
     <property name="MemberName" />
     <property name="Visible">False</property>
     <child>
@@ -3104,8 +3104,9 @@ Click "Forward" to begin.</property>
                 <property name="MemberName" />
                 <property name="Xpad">50</property>
                 <property name="Xalign">0</property>
-                <property name="LabelProp" translatable="yes">&lt;span size="small"&gt;If enabled this makes the new engine the default when starting Smuxi&lt;/span&gt;</property>
+                <property name="LabelProp" translatable="yes">&lt;span size="small"&gt;If enabled this makes the current engine the default when starting Smuxi next time&lt;/span&gt;</property>
                 <property name="UseMarkup">True</property>
+                <property name="Wrap">True</property>
               </widget>
               <packing>
                 <property name="Position">2</property>

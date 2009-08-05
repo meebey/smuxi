@@ -117,8 +117,9 @@ namespace Smuxi.Frontend.Gnome {
             this.label8.Name = "label8";
             this.label8.Xpad = 50;
             this.label8.Xalign = 0F;
-            this.label8.LabelProp = Mono.Unix.Catalog.GetString("<span size=\"small\">If enabled this makes the new engine the default when starting Smuxi</span>");
+            this.label8.LabelProp = Mono.Unix.Catalog.GetString("<span size=\"small\">If enabled this makes the current engine the default when starting Smuxi next time</span>");
             this.label8.UseMarkup = true;
+            this.label8.Wrap = true;
             this.vbox4.Add(this.label8);
             Gtk.Box.BoxChild w7 = ((Gtk.Box.BoxChild)(this.vbox4[this.label8]));
             w7.Position = 2;

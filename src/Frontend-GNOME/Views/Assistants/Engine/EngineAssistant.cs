@@ -1,9 +1,9 @@
 /*
- * $Id: PreferencesDialog.cs 73 2005-06-27 12:42:06Z meebey $
- * $URL: svn+ssh://svn.qnetp.net/svn/smuxi/smuxi/trunk/src/Frontend-GtkGnome/PreferencesDialog.cs $
- * $Rev: 73 $
- * $Author: meebey $
- * $Date: 2005-06-27 14:42:06 +0200 (Mon, 27 Jun 2005) $
+ * $Id$
+ * $URL$
+ * $Rev$
+ * $Author$
+ * $Date$
  *
  * smuxi - Smart MUltipleXed Irc
  *
@@ -36,16 +36,17 @@ namespace Smuxi.Frontend.Gnome
     {
         private FrontendConfig                   f_Config;
         private string                           f_EngineName;
+        private EngineAssistantIntroWidget       f_IntroWidget;
         private EngineAssistantNameWidget        f_NameWidget;
         private EngineAssistantConnectionWidget  f_ConnectionWidget;
         private EngineAssistantCredentialsWidget f_CredentialsWidget;
-        
+
         public EngineAssistant(Gtk.Window parent, FrontendConfig config) :
                           this(parent, config, null)
         {
             Trace.Call(parent, config);
         }
-        
+
         public EngineAssistant(Gtk.Window parent, FrontendConfig config,
                                string engineName)
         {
@@ -60,14 +61,14 @@ namespace Smuxi.Frontend.Gnome
 
             f_Config = config;
             f_EngineName = engineName;
-            
+
             TransientFor = parent;
             SetDefaultSize(640, 480);
             SetPosition(Gtk.WindowPosition.CenterOnParent);
             Title = _("Engine Assistant - Smuxi");
 
             Apply += OnApply;
-            
+
             InitPages();
         }
 
@@ -82,120 +83,178 @@ namespace Smuxi.Frontend.Gnome
 
         private void InitIntroPage()
         {
-            EngineAssistantIntroWidget page = new EngineAssistantIntroWidget();
-            AppendPage(page);
+            f_IntroWidget = new EngineAssistantIntroWidget();
+
+            AppendPage(f_IntroWidget);
             if (f_EngineName == null) {
-                SetPageTitle(page, _("Add Smuxi Engine"));
+                SetPageTitle(f_IntroWidget, _("Add Smuxi Engine"));
             } else {
-                SetPageTitle(page, _("Edit Smuxi Engine"));
+                SetPageTitle(f_IntroWidget, _("Edit Smuxi Engine"));
             }
-            SetPageType(page, Gtk.AssistantPageType.Intro);
-            SetPageComplete(page, true);
+            SetPageType(f_IntroWidget, Gtk.AssistantPageType.Intro);
+            SetPageComplete(f_IntroWidget, true);
         }
 
         private void InitNamePage()
         {
-            EngineAssistantNameWidget page = new EngineAssistantNameWidget();
-            page.EngineNameEntry.Changed += delegate {
-                SetPageComplete(page, page.EngineNameEntry.Text.Trim().Length > 0);
+            f_NameWidget = new EngineAssistantNameWidget();
+
+            AppendPage(f_NameWidget);
+            SetPageTitle(f_NameWidget, _("Name"));
+            SetPageType(f_NameWidget, Gtk.AssistantPageType.Content);
+            Prepare += delegate(object sender, Gtk.PrepareArgs e) {
+                if (e.Page != f_NameWidget) {
+                    return;
+                }
+                CheckNamePage();
             };
-            AppendPage(page);
-            SetPageTitle(page, _("Name"));
-            SetPageType(page, Gtk.AssistantPageType.Content);
-            f_NameWidget = page;
+
+            f_NameWidget.EngineNameEntry.Changed += delegate {
+                CheckNamePage();
+            };
 
             if (f_EngineName != null) {
                 // we can't rename engines for now
-                page.EngineNameEntry.Text = f_EngineName;
-                page.EngineNameEntry.Sensitive = false;
+                f_NameWidget.EngineNameEntry.Text = f_EngineName;
+                f_NameWidget.EngineNameEntry.Sensitive = false;
             }
+        }
+
+        private void CheckNamePage()
+        {
+            bool isComplete = true;
+            if (f_NameWidget.EngineNameEntry.Text.Trim().Length == 0) {
+                isComplete = false;
+            }
+            SetPageComplete(f_NameWidget, isComplete);
         }
 
         private void InitConnectionPage()
         {
-            EngineAssistantConnectionWidget page = new EngineAssistantConnectionWidget();
-            page.UseSshTunnelCheckButton.Toggled += delegate {
-                bool isActive = page.UseSshTunnelCheckButton.Active;
-                page.SshHostEntry.Sensitive = isActive;
-                page.SshPortSpinButton.Sensitive = isActive;
-                page.HostEntry.Sensitive = !isActive;
-                f_CredentialsWidget.SshUsernameEntry.Sensitive = isActive;
-                if (isActive) {
-                    page.HostEntry.Text = "localhost";
-                    SetPageComplete(page, false);
-                } else {
-                    page.SshHostEntry.Text = String.Empty;
-                    page.SshPortSpinButton.Value = 22d;
-                    f_CredentialsWidget.SshUsernameEntry.Text = String.Empty;
-                    SetPageComplete(page, true);
-                }
-            };
-            page.SshHostEntry.Changed += delegate {
-                if (!page.UseSshTunnelCheckButton.Active) {
+            f_ConnectionWidget = new EngineAssistantConnectionWidget();
+
+            AppendPage(f_ConnectionWidget);
+            SetPageTitle(f_ConnectionWidget, _("Connection"));
+            SetPageType(f_ConnectionWidget, Gtk.AssistantPageType.Content);
+            Prepare += delegate(object sender, Gtk.PrepareArgs e) {
+                if (e.Page != f_ConnectionWidget) {
                     return;
                 }
-                SetPageComplete(page, page.SshHostEntry.Text.Trim().Length > 0);
+                CheckConnectionPage();
             };
-            page.HostEntry.Changed += delegate {
-                SetPageComplete(page, page.HostEntry.Text.Trim().Length > 0);
+
+            f_ConnectionWidget.UseSshTunnelCheckButton.Toggled += delegate {
+                bool isActive = f_ConnectionWidget.UseSshTunnelCheckButton.Active;
+                f_ConnectionWidget.SshHostEntry.Sensitive = isActive;
+                f_ConnectionWidget.SshPortSpinButton.Sensitive = isActive;
+                f_ConnectionWidget.HostEntry.Sensitive = !isActive;
+                if (isActive) {
+                    f_ConnectionWidget.HostEntry.Text = "localhost";
+                } else {
+                    f_ConnectionWidget.SshHostEntry.Text = String.Empty;
+                    f_ConnectionWidget.SshPortSpinButton.Value = 22d;
+                }
+
+                CheckConnectionPage();
             };
-            AppendPage(page);
-            SetPageTitle(page, _("Connection"));
-            SetPageType(page, Gtk.AssistantPageType.Content);
-            f_ConnectionWidget = page;
-            
+            f_ConnectionWidget.SshHostEntry.Changed += delegate {
+                CheckConnectionPage();
+            };
+            f_ConnectionWidget.HostEntry.Changed += delegate {
+                CheckConnectionPage();
+            };
+
             if (f_EngineName != null) {
-                page.UseSshTunnelCheckButton.Active = (bool) f_Config["Engines/" + f_EngineName + "/UseSshTunnel"];
-                page.SshHostEntry.Text = (string) f_Config["Engines/" + f_EngineName + "/SshHostname"];
-                page.SshPortSpinButton.Value = (double)(int) f_Config["Engines/" + f_EngineName + "/SshPort"];
-                
-                page.HostEntry.Text = (string) f_Config["Engines/" + f_EngineName + "/Hostname"];
-                page.PortSpinButton.Value = (double)(int) f_Config["Engines/" + f_EngineName + "/Port"];
+                f_ConnectionWidget.UseSshTunnelCheckButton.Active = (bool)
+                    f_Config["Engines/" + f_EngineName + "/UseSshTunnel"];
+                f_ConnectionWidget.SshHostEntry.Text = (string)
+                    f_Config["Engines/" + f_EngineName + "/SshHostname"];
+                f_ConnectionWidget.SshPortSpinButton.Value = (double)(int)
+                    f_Config["Engines/" + f_EngineName + "/SshPort"];
+
+                f_ConnectionWidget.HostEntry.Text = (string)
+                    f_Config["Engines/" + f_EngineName + "/Hostname"];
+                f_ConnectionWidget.PortSpinButton.Value = (double)(int)
+                    f_Config["Engines/" + f_EngineName + "/Port"];
             }
+        }
+
+        private void CheckConnectionPage()
+        {
+            bool isComplete = true;
+            if (f_ConnectionWidget.UseSshTunnelCheckButton.Active &&
+                f_ConnectionWidget.SshHostEntry.Text.Trim().Length == 0) {
+                isComplete = false;
+            }
+            if (f_ConnectionWidget.HostEntry.Text.Trim().Length == 0) {
+                isComplete = false;
+            }
+            SetPageComplete(f_ConnectionWidget, isComplete);
         }
 
         private void InitCredentialsPage()
         {
-            EngineAssistantCredentialsWidget page = new EngineAssistantCredentialsWidget();
-            page.SshUsernameEntry.Changed += delegate {
+            f_CredentialsWidget = new EngineAssistantCredentialsWidget();
+
+            AppendPage(f_CredentialsWidget);
+            SetPageTitle(f_CredentialsWidget, _("Credentials"));
+            SetPageType(f_CredentialsWidget, Gtk.AssistantPageType.Content);
+            Prepare += delegate(object sender, Gtk.PrepareArgs e) {
+                if (e.Page != f_CredentialsWidget) {
+                    return;
+                }
                 CheckCredentialsPage();
             };
-            page.UsernameEntry.Changed += delegate {
+
+            f_CredentialsWidget.SshUsernameEntry.Changed += delegate {
                 CheckCredentialsPage();
             };
-            page.PasswordEntry.Changed += delegate {
+            f_CredentialsWidget.UsernameEntry.Changed += delegate {
                 CheckCredentialsPage();
             };
-            page.VerifyPasswordEntry.Changed += delegate {
+            f_CredentialsWidget.PasswordEntry.Changed += delegate {
                 CheckCredentialsPage();
             };
-            AppendPage(page);
-            SetPageTitle(page, _("Credentials"));
-            SetPageType(page, Gtk.AssistantPageType.Content);
-            f_CredentialsWidget = page;
-            
+            f_CredentialsWidget.VerifyPasswordEntry.Changed += delegate {
+                CheckCredentialsPage();
+            };
+
             if (f_EngineName != null) {
-                page.SshUsernameEntry.Text = (string) f_Config["Engines/" + f_EngineName + "/SshUsername"];
-                page.UsernameEntry.Text = (string) f_Config["Engines/" + f_EngineName + "/Username"];
-                page.PasswordEntry.Text = (string) f_Config["Engines/" + f_EngineName + "/Password"];
-                page.VerifyPasswordEntry.Text = (string) f_Config["Engines/" + f_EngineName + "/Password"];
+                f_CredentialsWidget.SshUsernameEntry.Text = (string)
+                    f_Config["Engines/" + f_EngineName + "/SshUsername"];
+                f_CredentialsWidget.UsernameEntry.Text = (string)
+                    f_Config["Engines/" + f_EngineName + "/Username"];
+                f_CredentialsWidget.PasswordEntry.Text = (string)
+                    f_Config["Engines/" + f_EngineName + "/Password"];
+                f_CredentialsWidget.VerifyPasswordEntry.Text = (string)
+                    f_Config["Engines/" + f_EngineName + "/Password"];
             }
         }
-        
+
         private void CheckCredentialsPage()
         {
-            SetPageComplete(
-                f_CredentialsWidget,
-                f_CredentialsWidget.UsernameEntry.Text.Trim().Length > 0 &&
-                    f_CredentialsWidget.PasswordEntry.Text.Trim().Length > 0 &&
-                    f_CredentialsWidget.PasswordEntry.Text ==
-                        f_CredentialsWidget.VerifyPasswordEntry.Text
-            );
+            bool useSsh = f_ConnectionWidget.UseSshTunnelCheckButton.Active;
+            f_CredentialsWidget.SshUsernameEntry.Sensitive = useSsh;
+            if (!useSsh) {
+                f_CredentialsWidget.SshUsernameEntry.Text = String.Empty;
+            }
+
+            bool isComplete = true;
+            if (f_CredentialsWidget.UsernameEntry.Text.Trim().Length == 0 ||
+                f_CredentialsWidget.PasswordEntry.Text.Trim().Length == 0) {
+                isComplete = false;
+            }
+            if (f_CredentialsWidget.PasswordEntry.Text !=
+                f_CredentialsWidget.VerifyPasswordEntry.Text) {
+                isComplete = false;
+            }
+            SetPageComplete(f_CredentialsWidget, isComplete);
         }
-        
+
         private void InitConfirmPage()
         {
             Gtk.Label page = new Gtk.Label(_("Now you can use the Smuxi Engine"));
+
             AppendPage(page);
             SetPageTitle(page, _("Thank you"));
             SetPageType(page, Gtk.AssistantPageType.Confirm);
@@ -205,11 +264,11 @@ namespace Smuxi.Frontend.Gnome
         protected virtual void OnApply(object sender, EventArgs e)
         {
             Trace.Call(sender, e);
-            
+
             string engine = f_NameWidget.EngineNameEntry.Text;
             if (f_EngineName == null) {
                 string[] engines = (string[]) f_Config["Engines/Engines"];
-                
+
                 string[] newEngines;
                 if (engines.Length == 0) {
                     // there was no existing engines
@@ -219,30 +278,44 @@ namespace Smuxi.Frontend.Gnome
                     engines.CopyTo(newEngines, 0);
                     newEngines[engines.Length] = engine;
                 }
-                
-                if (engines.Length == 1 ||
-                    f_NameWidget.MakeDefaultEngineCheckButton.Active) {
+
+                if (engines.Length == 1) {
                     f_Config["Engines/Default"] = engine;
                 }
                 f_Config["Engines/Engines"] = newEngines;
             }
-            
-            f_Config["Engines/"+engine+"/Username"] = f_CredentialsWidget.UsernameEntry.Text.Trim();
-            f_Config["Engines/"+engine+"/Password"] = f_CredentialsWidget.PasswordEntry.Text.Trim();
-            f_Config["Engines/"+engine+"/Hostname"] = f_ConnectionWidget.HostEntry.Text.Trim();
-            f_Config["Engines/"+engine+"/Port"] = f_ConnectionWidget.PortSpinButton.ValueAsInt;
+
+            if (f_NameWidget.MakeDefaultEngineCheckButton.Active) {
+                f_Config["Engines/Default"] = engine;
+            }
+
+            f_Config["Engines/"+engine+"/Username"] =
+                f_CredentialsWidget.UsernameEntry.Text.Trim();
+            f_Config["Engines/"+engine+"/Password"] =
+                f_CredentialsWidget.PasswordEntry.Text.Trim();
+            f_Config["Engines/"+engine+"/Hostname"] =
+                f_ConnectionWidget.HostEntry.Text.Trim();
+            f_Config["Engines/"+engine+"/Port"] =
+                f_ConnectionWidget.PortSpinButton.ValueAsInt;
             bool useSsh = f_ConnectionWidget.UseSshTunnelCheckButton.Active;
             f_Config["Engines/"+engine+"/UseSshTunnel"] = useSsh;
             if (useSsh) {
-                f_Config["Engines/"+engine+"/SshUsername"] = f_CredentialsWidget.SshUsernameEntry.Text.Trim();
-                f_Config["Engines/"+engine+"/SshHostname"] = f_ConnectionWidget.SshHostEntry.Text.Trim();
-                f_Config["Engines/"+engine+"/SshPort"] = f_ConnectionWidget.SshPortSpinButton.ValueAsInt;
+                f_Config["Engines/"+engine+"/SshUsername"] =
+                    f_CredentialsWidget.SshUsernameEntry.Text.Trim();
+                f_Config["Engines/"+engine+"/SshHostname"] =
+                    f_ConnectionWidget.SshHostEntry.Text.Trim();
+                f_Config["Engines/"+engine+"/SshPort"] =
+                    f_ConnectionWidget.SshPortSpinButton.ValueAsInt;
+            } else {
+                f_Config.Remove("Engines/"+engine+"/SshUsername");
+                f_Config.Remove("Engines/"+engine+"/SshHostname");
+                f_Config.Remove("Engines/"+engine+"/SshPort");
             }
-            
+
             // HACK: we don't really support any other channels/formatters (yet)
             f_Config["Engines/"+engine+"/Channel"] = "TCP";
             f_Config["Engines/"+engine+"/Formatter"] = "binary";
-            
+
             f_Config.Save();
         }
 
