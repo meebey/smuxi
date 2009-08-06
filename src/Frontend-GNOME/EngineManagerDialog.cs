@@ -156,14 +156,6 @@ namespace Smuxi.Frontend.Gnome
                     case (int)Gtk.ResponseType.DeleteEvent:
                         _OnDeleteEvent();
                         break;
-                    default:
-                        NotImplementedMessageDialog nid = new NotImplementedMessageDialog(this);
-                        nid.Run();
-                        nid.Destroy();
-                        
-                        // Re-run the Dialog
-                        Run();
-                        break;
                 }
             } catch (Exception ex) {
 #if LOG4NET
@@ -251,9 +243,21 @@ namespace Smuxi.Frontend.Gnome
             );
             assistant.Cancel += delegate {
                 assistant.Destroy();
+                
+                // Restart the Dialog
+                // HACK: holy shit, please refactor this mess!
+                EngineManagerDialog dialog = new EngineManagerDialog(_EngineManager);
+                dialog.Run();
+                dialog.Destroy();
             };
             assistant.Close += delegate {
                 assistant.Destroy();
+                
+                // Restart the Dialog
+                // HACK: holy shit, please refactor this mess!
+                EngineManagerDialog dialog = new EngineManagerDialog(_EngineManager);
+                dialog.Run();
+                dialog.Destroy();
             };
             assistant.ShowAll();
         }
@@ -267,9 +271,21 @@ namespace Smuxi.Frontend.Gnome
             );
             assistant.Cancel += delegate {
                 assistant.Destroy();
+
+                // Restart the Dialog
+                // HACK: holy shit, please refactor this mess!
+                EngineManagerDialog dialog = new EngineManagerDialog(_EngineManager);
+                dialog.Run();
+                dialog.Destroy();
             };
             assistant.Close += delegate {
                 assistant.Destroy();
+                
+                // Restart the Dialog
+                // HACK: holy shit, please refactor this mess!
+                EngineManagerDialog dialog = new EngineManagerDialog(_EngineManager);
+                dialog.Run();
+                dialog.Destroy();
             };
             assistant.ShowAll();
         }
@@ -283,12 +299,16 @@ namespace Smuxi.Frontend.Gnome
             Gtk.MessageType.Warning, Gtk.ButtonsType.YesNo, msg);
             int res = md.Run();
             md.Destroy();
+            
             if ((Gtk.ResponseType)res == Gtk.ResponseType.Yes) {
                 _DeleteEngine(_SelectedEngine);
-                _InitEngineList();
+                 _InitEngineList();
+                
+                // Re-run the Dialog
+                Run();
             }
         }
-        
+
         private void _DeleteEngine(string engine)
         {
             StringCollection new_engines = new StringCollection();
