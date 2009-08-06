@@ -151,6 +151,7 @@ namespace Smuxi.Frontend.Gnome
                 if (isActive) {
                     f_ConnectionWidget.HostEntry.Text = "localhost";
                 } else {
+                    f_ConnectionWidget.HostEntry.Text = String.Empty;
                     f_ConnectionWidget.SshHostEntry.Text = String.Empty;
                     f_ConnectionWidget.SshPortSpinButton.Value = 22d;
                 }
