@@ -141,14 +141,12 @@ namespace Smuxi.Frontend.Gnome
                     case 1:
                         _OnConnectButtonPressed();
                         break;
-#if UI_GNOME
                     case 2:
                         _OnEditButtonPressed();
                         break;
                     case 3:
                         _OnNewButtonPressed();
                         break;
-#endif
                     case 4:
                         _OnDeleteButtonPressed();
                         break;
@@ -157,14 +155,6 @@ namespace Smuxi.Frontend.Gnome
                         break;
                     case (int)Gtk.ResponseType.DeleteEvent:
                         _OnDeleteEvent();
-                        break;
-                    default:
-                        NotImplementedMessageDialog nid = new NotImplementedMessageDialog(this);
-                        nid.Run();
-                        nid.Destroy();
-                        
-                        // Re-run the Dialog
-                        Run();
                         break;
                 }
             } catch (Exception ex) {
@@ -245,23 +235,60 @@ namespace Smuxi.Frontend.Gnome
             }
         }
 
-#if UI_GNOME
         private void _OnNewButtonPressed()
         {
-            // the druid will spawn EngineManagerDialog when it's canceled or finished
-            Destroy();
-            new EngineDruid(Frontend.FrontendConfig);
+            EngineAssistant assistant = new EngineAssistant(
+                this,
+                Frontend.FrontendConfig
+            );
+            assistant.Cancel += delegate {
+                assistant.Destroy();
+                
+                // Restart the Dialog
+                // HACK: holy shit, please refactor this mess!
+                EngineManagerDialog dialog = new EngineManagerDialog(_EngineManager);
+                dialog.Run();
+                dialog.Destroy();
+            };
+            assistant.Close += delegate {
+                assistant.Destroy();
+                
+                // Restart the Dialog
+                // HACK: holy shit, please refactor this mess!
+                EngineManagerDialog dialog = new EngineManagerDialog(_EngineManager);
+                dialog.Run();
+                dialog.Destroy();
+            };
+            assistant.ShowAll();
         }
-#endif
-
-#if UI_GNOME
+        
         private void _OnEditButtonPressed()
         {
-            // the druid will spawn EngineManagerDialog when it's canceled or finished
-            Destroy();
-            new EngineDruid(Frontend.FrontendConfig, _SelectedEngine);
+            EngineAssistant assistant = new EngineAssistant(
+                this,
+                Frontend.FrontendConfig,
+                _SelectedEngine
+            );
+            assistant.Cancel += delegate {
+                assistant.Destroy();
+
+                // Restart the Dialog
+                // HACK: holy shit, please refactor this mess!
+                EngineManagerDialog dialog = new EngineManagerDialog(_EngineManager);
+                dialog.Run();
+                dialog.Destroy();
+            };
+            assistant.Close += delegate {
+                assistant.Destroy();
+                
+                // Restart the Dialog
+                // HACK: holy shit, please refactor this mess!
+                EngineManagerDialog dialog = new EngineManagerDialog(_EngineManager);
+                dialog.Run();
+                dialog.Destroy();
+            };
+            assistant.ShowAll();
         }
-#endif
         
         private void _OnDeleteButtonPressed()
         {
@@ -272,12 +299,16 @@ namespace Smuxi.Frontend.Gnome
             Gtk.MessageType.Warning, Gtk.ButtonsType.YesNo, msg);
             int res = md.Run();
             md.Destroy();
+            
             if ((Gtk.ResponseType)res == Gtk.ResponseType.Yes) {
                 _DeleteEngine(_SelectedEngine);
-                _InitEngineList();
+                 _InitEngineList();
+                
+                // Re-run the Dialog
+                Run();
             }
         }
-        
+
         private void _DeleteEngine(string engine)
         {
             StringCollection new_engines = new StringCollection();
@@ -297,6 +328,10 @@ namespace Smuxi.Frontend.Gnome
             Frontend.FrontendConfig.Remove("Engines/"+engine+"/Port");
             Frontend.FrontendConfig.Remove("Engines/"+engine+"/Channel");
             Frontend.FrontendConfig.Remove("Engines/"+engine+"/Formatter");
+            Frontend.FrontendConfig.Remove("Engines/"+engine+"/UseSshTunnel");
+            Frontend.FrontendConfig.Remove("Engines/"+engine+"/SshHostname");
+            Frontend.FrontendConfig.Remove("Engines/"+engine+"/SshPort");
+            Frontend.FrontendConfig.Remove("Engines/"+engine+"/SshUsername");
             Frontend.FrontendConfig.Remove("Engines/"+engine);
             Frontend.FrontendConfig.Save();
             Frontend.FrontendConfig.Load();

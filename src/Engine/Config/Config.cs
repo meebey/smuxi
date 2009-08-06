@@ -495,6 +495,9 @@ namespace Smuxi.Engine
             if (isSection) {
                 m_IniDocument.Sections.Remove(iniSection);
             } else {
+                if (m_IniDocument.Sections[key] == null) {
+                    return;
+                }
                 m_IniDocument.Sections[key].Remove(key);
             }
 #endif

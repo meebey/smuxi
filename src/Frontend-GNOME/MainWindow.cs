@@ -38,22 +38,13 @@ using Smuxi.Engine;
 
 namespace Smuxi.Frontend.Gnome
 {
-#if UI_GNOME
-    public class MainWindow : GNOME.App
-#elif UI_GTK
     public class MainWindow : Gtk.Window
-#endif
     {
 #if LOG4NET
         private static readonly log4net.ILog f_Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 #endif
-#if UI_GNOME
-        private GNOME.AppBar     _NetworkStatusbar;
-        private GNOME.AppBar     _Statusbar;
-#elif UI_GTK
         private Gtk.Statusbar    _NetworkStatusbar;
         private Gtk.Statusbar    _Statusbar;
-#endif
         private Gtk.ProgressBar  _ProgressBar;
         private Entry            _Entry;
         private Notebook         _Notebook;
@@ -95,21 +86,13 @@ namespace Smuxi.Frontend.Gnome
             }
         }
         
-#if UI_GNOME
-        public new GNOME.AppBar NetworkStatusbar {
-#elif UI_GTK
         public new Gtk.Statusbar NetworkStatusbar {
-#endif
             get {
                 return _NetworkStatusbar;
             }
         } 
 
-#if UI_GNOME
-        public new GNOME.AppBar Statusbar {
-#elif UI_GTK
         public new Gtk.Statusbar Statusbar {
-#endif
             get {
                 return _Statusbar;
             }
@@ -133,11 +116,7 @@ namespace Smuxi.Frontend.Gnome
             }
         }
         
-#if UI_GNOME
-        public MainWindow() : base("smuxi", "smuxi - Smart MUtipleXed Irc")
-#elif UI_GTK
         public MainWindow() : base("smuxi - Smart MUtipleXed Irc")
-#endif
         {
             // restore window size / position
             int width, heigth;
@@ -379,25 +358,6 @@ namespace Smuxi.Frontend.Gnome
             
             _ProgressBar = new Gtk.ProgressBar();
             
-#if UI_GNOME
-            Menus = mb;
-            mb.ShowAll();
-            Gtk.VBox vbox = new Gtk.VBox();
-            vbox.PackStart(_Notebook, true, true, 0);
-            vbox.PackStart(_Entry, false, false, 0);
-            Contents = vbox;
-            
-            _NetworkStatusbar = new GNOME.AppBar(false, true, GNOME.PreferencesType.Never);
-            _NetworkStatusbar.WidthRequest = 300;
-            
-            _Statusbar = new GNOME.AppBar(false, true, GNOME.PreferencesType.Never);
-            
-            Gtk.HBox sb_hbox = new Gtk.HBox();
-            sb_hbox.PackStart(_NetworkStatusbar, false, true, 0);
-            sb_hbox.PackStart(_Statusbar, true, true, 0);
-            sb_hbox.PackStart(_ProgressBar, false, false, 0);
-            base.Statusbar = sb_hbox;
-#elif UI_GTK
             Gtk.VBox vbox = new Gtk.VBox();
             vbox.PackStart(mb, false, false, 0);
             vbox.PackStart(_Notebook, true, true, 0);
@@ -415,7 +375,6 @@ namespace Smuxi.Frontend.Gnome
             sb_hbox.PackStart(_ProgressBar, false, false, 0);
             vbox.PackStart(sb_hbox, false, false, 0);
             Add(vbox);
-#endif
         }
 
         public void ApplyConfig(UserConfig userConfig)
@@ -809,7 +768,10 @@ namespace Smuxi.Frontend.Gnome
             Trace.Call(obj, args);
             
             try {
-                new EngineDruid(Frontend.FrontendConfig);
+                EngineAssistant assistant = new EngineAssistant(
+                    this,
+                    Frontend.FrontendConfig
+                );
             } catch (Exception ex) {
                 Frontend.ShowException(this, ex);
             }

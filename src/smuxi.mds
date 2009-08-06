@@ -4,7 +4,7 @@
       <MessageStyle LineAlign="0" />
     </ChangeLogPolicy>
     <VersionControlPolicy inheritsSet="Mono" />
-    <TextStylePolicy FileWidth="80" TabWidth="4" TabsToSpaces="True" NoTabsAfterNonTabs="False" RemoveTrailingWhitespace="False" EolMarker="Native" />
+    <TextStylePolicy FileWidth="80" TabWidth="4" TabsToSpaces="True" NoTabsAfterNonTabs="False" RemoveTrailingWhitespace="True" EolMarker="Native" />
     <DotNetNamingPolicy DirectoryNamespaceAssociation="None" ResourceNamePolicy="FileFormatDefault" />
     <StandardHeader Text="$Id$&#xA;&#xA;Smuxi - Smart MUltipleXed Irc&#xA;&#xA;Copyright (c) ${Year} ${CopyrightHolder}&#xA;&#xA;Full GPL License: &lt;http://www.gnu.org/licenses/gpl.txt&gt;&#xA;&#xA;This program is free software; you can redistribute it and/or modify&#xA;it under the terms of the GNU General Public License as published by&#xA;the Free Software Foundation; either version 2 of the License, or&#xA;(at your option) any later version.&#xA;&#xA;This program is distributed in the hope that it will be useful,&#xA;but WITHOUT ANY WARRANTY; without even the implied warranty of&#xA;MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the&#xA;GNU General Public License for more details.&#xA;&#xA;You should have received a copy of the GNU General Public License&#xA;along with this program; if not, write to the Free Software&#xA;Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA" inheritsSet="MITX11License" />
   </Policies>
