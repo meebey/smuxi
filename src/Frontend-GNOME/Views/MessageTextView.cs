@@ -188,13 +188,11 @@ namespace Smuxi.Frontend.Gnome
             
             ModifyFont(_FontDescription);
             
-            /*
             string wrapModeStr = (string) config["Interface/Chat/WrapMode"];
             if (!String.IsNullOrEmpty(wrapModeStr)) {
                 Gtk.WrapMode wrapMode = (Gtk.WrapMode) Enum.Parse(typeof(Gtk.WrapMode), wrapModeStr);
                 WrapMode = wrapMode;
             }
-            */
         }
 
         public void Clear()
