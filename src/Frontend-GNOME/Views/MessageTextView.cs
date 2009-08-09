@@ -310,6 +310,12 @@ namespace Smuxi.Frontend.Gnome
             if (addLinebreak) {
                 Buffer.Insert(ref iter, "\n");
             }
+
+            // HACK: force a redraw of the widget, as for some reason
+            // GTK+ 2.17.6 is not redrawing some lines we add here, especially
+            // for local messages. See:
+            // http://projects.qnetp.net/issues/show/185
+            QueueDraw();
             
             if (MessageAdded != null) {
                 MessageAdded(this, new MessageTextViewMessageAddedEventArgs(msg));
