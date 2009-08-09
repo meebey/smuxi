@@ -492,6 +492,8 @@ namespace Smuxi.Frontend.Gnome
                 
                 controller.AddServer(serverView.Server);
                 controller.Save();
+            } catch (InvalidOperationException ex) {
+                Frontend.ShowError(this, _("Unable to add server: "), ex);
             } catch (Exception ex) {
                 Frontend.ShowException(this, ex);
             }
