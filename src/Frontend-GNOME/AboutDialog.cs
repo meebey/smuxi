@@ -42,7 +42,7 @@ namespace Smuxi.Frontend.Gnome
             Name = Frontend.Name;
             Version = "\n Frontend: " + Frontend.UIName + " " + Frontend.Version +
                       "\n Engine: " + Frontend.EngineVersion;
-            Copyright = "Copyright © 2005-2008 Mirco Bauer <meebey@meebey.net>";
+            Copyright = "Copyright © 2005-2009 Mirco Bauer <meebey@meebey.net>";
             Authors = new string[] {"Mirco Bauer <meebey@meebey.net>"};
             TranslatorCredits = _("German") + " - Mirco Bauer <meebey@meebey.net>\n" +
                                 _("Spanish") + " - Juan Miguel Carrero <streinleght@gmail.com>\n" +
