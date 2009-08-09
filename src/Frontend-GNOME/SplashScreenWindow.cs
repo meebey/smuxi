@@ -5,7 +5,7 @@
  * $Author$
  * $Date$
  *
- * smuxi - Smart MUltipleXed Irc
+ * Smuxi - Smart MUltipleXed Irc
  *
  * Copyright (c) 2005-2006 Mirco Bauer <meebey@meebey.net>
  *
@@ -32,7 +32,7 @@ namespace Smuxi.Frontend.Gnome
 {
     public class SplashScreenWindow : Gtk.Window
     {
-        public SplashScreenWindow() : base("smuxi - Splashscreen")
+        public SplashScreenWindow() : base("Smuxi - Splashscreen")
         {
             Decorated = false;
             WindowPosition = Gtk.WindowPosition.Center;

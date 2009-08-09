@@ -5,7 +5,7 @@
  * $Author$
  * $Date$
  *
- * smuxi - Smart MUltipleXed Irc
+ * Smuxi - Smart MUltipleXed Irc
  *
  * Copyright (c) 2005-2006 Mirco Bauer <meebey@meebey.net>
  *
@@ -36,7 +36,7 @@ namespace Smuxi.Frontend.Gnome
         public CrashDialog(Gtk.Window parent, Exception e) : base()
         {
             SetDefaultSize(640, 480);
-            Title = "smuxi - " + _("Oops, I did it again...");
+            Title = "Smuxi - " + _("Oops, I did it again...");
             Parent = parent;
             
             Gtk.HBox hbox = new Gtk.HBox();
@@ -48,7 +48,7 @@ namespace Smuxi.Frontend.Gnome
             Gtk.Label label1 = new Gtk.Label();
             Gtk.Label label2 = new Gtk.Label();
             label1.Markup = "<b>" +
-                            _("smuxi crashed because an unhandled exception was thrown!") +
+                            _("Smuxi crashed because an unhandled exception was thrown!") +
                             "</b>";
             label2.Markup = _("Here is the stacktrace, please report this bug!");
             label_vbox.PackStart(label1, false, false, 0);

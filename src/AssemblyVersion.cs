@@ -5,7 +5,7 @@
  * $Author$
  * $Date$
  *
- * smuxi - Smart MUltipleXed Irc
+ * Smuxi - Smart MUltipleXed Irc
  *
  * Copyright (c) 2005-2006 Mirco Bauer <meebey@meebey.net>
  *
@@ -32,7 +32,7 @@ using System.Runtime.CompilerServices;
 [assembly: AssemblyDescription("Smart MUltipleXed Irc")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("qNETp")]
-[assembly: AssemblyProduct("smuxi")]
+[assembly: AssemblyProduct("Smuxi")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

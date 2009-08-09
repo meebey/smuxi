@@ -5,7 +5,7 @@
  * $Author$
  * $Date$
  *
- * smuxi - Smart MUltipleXed Irc
+ * Smuxi - Smart MUltipleXed Irc
  *
  * Copyright (c) 2005-2009 Mirco Bauer <meebey@meebey.net>
  *
@@ -29,7 +29,7 @@
 using System.Reflection;
 using System.Runtime.CompilerServices;
 
-[assembly: AssemblyTitle("smuxi - GNOME frontend")]
+[assembly: AssemblyTitle("Smuxi - GNOME frontend")]
 [assembly: AssemblyCopyright("2005-2009 (C) Mirco Bauer <meebey@meebey.net>")]
 
 [assembly: AssemblyDelaySign(false)]

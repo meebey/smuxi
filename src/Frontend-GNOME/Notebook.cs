@@ -5,7 +5,7 @@
  * $Author$
  * $Date$
  *
- * smuxi - Smart MUltipleXed Irc
+ * Smuxi - Smart MUltipleXed Irc
  *
  * Copyright (c) 2005-2006 Mirco Bauer <meebey@meebey.net>
  *
@@ -155,7 +155,7 @@ namespace Smuxi.Frontend.Gnome
                     if (Frontend.MainWindow != null) {
                         string network = nmanager != null ? nmanager.ToString() + " / " : "";
                         Frontend.MainWindow.Title = network + chatView.Name +
-                                                    " - smuxi - Smart MUtipleXed Irc";
+                                                    " - Smuxi - Smart MUtipleXed Irc";
                     }
                 }
             } catch (Exception ex) {

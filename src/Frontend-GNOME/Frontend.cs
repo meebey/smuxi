@@ -5,7 +5,7 @@
  * $Author$
  * $Date$
  *
- * smuxi - Smart MUltipleXed Irc
+ * Smuxi - Smart MUltipleXed Irc
  *
  * Copyright (c) 2005-2008 Mirco Bauer <meebey@meebey.net>
  *
@@ -39,7 +39,7 @@ namespace Smuxi.Frontend.Gnome
 #if LOG4NET
         private static readonly log4net.ILog _Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 #endif
-        private static readonly string    _Name = "smuxi";
+        private static readonly string    _Name = "Smuxi";
         private static readonly string    _GladeFilename = "smuxi-frontend-gnome.glade";
         private static readonly string    _UIName = "GTK+";
         private static int                _UIThreadID;

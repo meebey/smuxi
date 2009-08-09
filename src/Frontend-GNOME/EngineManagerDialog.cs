@@ -5,7 +5,7 @@
  * $Author$
  * $Date$
  *
- * smuxi - Smart MUltipleXed Irc
+ * Smuxi - Smart MUltipleXed Irc
  *
  * Copyright (c) 2005-2006 Mirco Bauer <meebey@meebey.net>
  *
@@ -58,7 +58,7 @@ namespace Smuxi.Frontend.Gnome
             _EngineManager = engineManager;
             
             Modal = true;
-            Title = "smuxi - " + _("Engine Manager");
+            Title = "Smuxi - " + _("Engine Manager");
                 
             Gtk.HBox connect_hbox = new Gtk.HBox();
             Gtk.Image connect_image = new Gtk.Image(new Gdk.Pixbuf(null,
@@ -86,7 +86,7 @@ namespace Smuxi.Frontend.Gnome
             
             Gtk.VBox vbox = new Gtk.VBox();
             Gtk.Label label = new Gtk.Label("<b>" + 
-                                            _("Select to which smuxi engine you want to connect") +
+                                            _("Select to which Smuxi engine you want to connect") +
                                             "</b>");
             label.UseMarkup = true;
             vbox.PackStart(label, false, false, 5);

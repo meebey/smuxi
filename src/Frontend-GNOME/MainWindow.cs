@@ -5,7 +5,7 @@
  * $Author$
  * $Date$
  *
- * smuxi - Smart MUltipleXed Irc
+ * Smuxi - Smart MUltipleXed Irc
  *
  * Copyright (c) 2005-2008 Mirco Bauer <meebey@meebey.net>
  *
@@ -113,7 +113,7 @@ namespace Smuxi.Frontend.Gnome
             }
         }
         
-        public MainWindow() : base("smuxi - Smart MUtipleXed Irc")
+        public MainWindow() : base("Smuxi - Smart MUtipleXed Irc")
         {
             // restore window size / position
             int width, heigth;
