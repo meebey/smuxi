@@ -28,9 +28,6 @@ using System.Threading;
 using System.Collections.Generic;
 using System.Globalization;
 using SysDiag = System.Diagnostics;
-#if UI_GNOME
-using GNOME = Gnome;
-#endif
 using Smuxi.Common;
 using Smuxi.Engine;
 
@@ -447,27 +444,10 @@ namespace Smuxi.Frontend.Gnome
                 url = "http://" + url;
             }
             
-            if (Type.GetType("Mono.Runtime") == null) {
-                // this is not Mono, probably MS .NET, so ShellExecute is the better approach
-                ThreadPool.QueueUserWorkItem(delegate {
-                    SysDiag.Process.Start(url);
-                });
-                return;
-            }
-            
-#if UI_GNOME
-            try {
-                GNOME.Url.Show(url);
-            } catch (Exception ex) {
-                string msg = String.Format(_("Opening URL ({0}) failed."), url);
-                Frontend.ShowException(new ApplicationException(msg, ex));
-            }
-#else
-            // hopefully Mono finds some way to handle the URL
+            // hopefully MS .NET / Mono finds some way to handle the URL
             ThreadPool.QueueUserWorkItem(delegate {
                 SysDiag.Process.Start(url);
             });
-#endif
         }
         
         private string GetTextTagName(TextColor fgColor, TextColor bgColor)

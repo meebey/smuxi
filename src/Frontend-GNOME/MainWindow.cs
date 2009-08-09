@@ -30,9 +30,6 @@ using System;
 using System.IO;
 using System.Reflection;
 using Mono.Unix;
-#if UI_GNOME
-using GNOME = Gnome;
-#endif
 using Smuxi.Common;
 using Smuxi.Engine;
 

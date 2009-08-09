@@ -29,9 +29,6 @@
 using System;
 using System.IO;
 using System.Reflection;
-#if UI_GNOME
-using GNOME = Gnome;
-#endif
 using Smuxi.Engine;
 using Smuxi.Common;
 
@@ -101,14 +98,6 @@ namespace Smuxi.Frontend.Gnome
             }
         }
     
-#if UI_GNOME
-        public static GNOME.Program Program {
-            get {
-                return _Program;
-            }
-        }
-#endif
- 
         public static MainWindow MainWindow {
             get {
                 return _MainWindow;
@@ -347,11 +336,7 @@ namespace Smuxi.Frontend.Gnome
             }
             */
             
-#if UI_GNOME
-            _Program.Quit();
-#elif UI_GTK
             Gtk.Application.Quit();
-#endif
             
             Environment.Exit(0);
         }

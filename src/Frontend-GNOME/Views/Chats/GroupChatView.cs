@@ -227,11 +227,7 @@ namespace Smuxi.Frontend.Gnome
                 string status = String.Format(
                                     _("Syncing chat persons of {0}..."),
                                     ChatModel.Name);
-#if UI_GNOME
-                Frontend.MainWindow.Statusbar.Push(status);
-#elif UI_GTK
                 Frontend.MainWindow.Statusbar.Push(0, status);
-#endif
     
                 Gtk.ListStore ls = (Gtk.ListStore) _PersonTreeView.Model;
                 // cleanup, be sure the list is empty
@@ -274,11 +270,7 @@ namespace Smuxi.Frontend.Gnome
                 // HACK: out of scope
                 Frontend.MainWindow.ProgressBar.Fraction = 0;
                 status += _(" done.");
-#if UI_GNOME
-                Frontend.MainWindow.Statusbar.Push(status);
-#elif UI_GTK
                 Frontend.MainWindow.Statusbar.Push(0, status);
-#endif
             }
            
 #if LOG4NET

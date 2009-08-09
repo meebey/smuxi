@@ -233,11 +233,7 @@ namespace Smuxi.Frontend.Gnome
             MethodBase mb = Trace.GetMethodBase();
             Gtk.Application.Invoke(delegate {
                 TraceRemotingCall(mb, status);
-#if UI_GNOME
-                Frontend.MainWindow.NetworkStatusbar.Push(status);
-#elif UI_GTK
                 Frontend.MainWindow.NetworkStatusbar.Push(0, status);
-#endif
             });
         }
         
@@ -248,11 +244,7 @@ namespace Smuxi.Frontend.Gnome
             MethodBase mb = Trace.GetMethodBase();
             Gtk.Application.Invoke(delegate {
                 TraceRemotingCall(mb, status);
-#if UI_GNOME
-                Frontend.MainWindow.Statusbar.Push(status);
-#elif UI_GTK
                 Frontend.MainWindow.Statusbar.Push(0, status);
-#endif
             });
         }
         
