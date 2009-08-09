@@ -41,7 +41,7 @@ namespace Smuxi.Frontend.Gnome
 #endif
         private static readonly string    _Name = "Smuxi";
         private static readonly string    _GladeFilename = "smuxi-frontend-gnome.glade";
-        private static readonly string    _UIName = "GTK+";
+        private static readonly string    _UIName = "GNOME";
         private static int                _UIThreadID;
         private static Version            _Version;
         private static string             _VersionNumber;
