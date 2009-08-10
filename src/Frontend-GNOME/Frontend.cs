@@ -215,6 +215,13 @@ namespace Smuxi.Frontend.Gnome
                         _MainWindow.Present();
                         return;
                     }
+                    // not everyone uses a window list applet thus we have to
+                    // restore from minimized state here, see:
+                    // http://projects.qnetp.net/issues/show/159
+                    if (_MainWindow.IsMinimized) {
+                        _MainWindow.Present();
+                        return;
+                    }
                     _MainWindow.Visible = !_MainWindow.Visible;
                 } catch (Exception ex) {
                     ShowException(ex);

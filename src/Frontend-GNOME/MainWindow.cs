@@ -51,6 +51,7 @@ namespace Smuxi.Frontend.Gnome
         private EngineManager    _EngineManager;
         private Gtk.MenuItem     _CloseChatMenuItem;
         private NotificationAreaIconMode _NotificationAreaIconMode;
+        private bool             _IsMinimized;
         private bool             _IsMaximized;
         
         public bool CaretMode {
@@ -110,6 +111,12 @@ namespace Smuxi.Frontend.Gnome
         public bool IsMaximized {
             get {
                 return _IsMaximized;
+            }
+        }
+        
+        public bool IsMinimized {
+            get {
+                return _IsMinimized;
             }
         }
         
@@ -663,26 +670,26 @@ namespace Smuxi.Frontend.Gnome
             
             try {
 #if GTK_SHARP_2_10
-                #if DISABLED
-                // BUG: metacity is not allowing us to use the minimize state
-                // to hide and enable the notfication area icon as switching
-                // to a different workspace sets WindowState.Iconified on all
-                // windows, thus this code is disabled. For more details see:
-                // http://projects.qnetp.net/issues/show/158
-                
                 // handle minimize / un-minimize
-                if (_NotificationAreaIconMode == NotificationAreaIconMode.Minimized &&
-                    (e.Event.ChangedMask & Gdk.WindowState.Iconified) != 0) {
-                    bool isMinimized = (e.Event.NewWindowState & Gdk.WindowState.Iconified) != 0;
+                if ((e.Event.ChangedMask & Gdk.WindowState.Iconified) != 0) {
+                    _IsMinimized = (e.Event.NewWindowState & Gdk.WindowState.Iconified) != 0;
     #if LOG4NET
-                    f_Logger.Debug("OnWindowStateEvent(): isMinimized: " + isMinimized);
+                    f_Logger.Debug("OnWindowStateEvent(): _IsMinimized: " + _IsMinimized);
     #endif
-                    Frontend.StatusIcon.Visible = isMinimized;
-                    if (isMinimized) {
-                        Hide();
+                    #if DISABLED
+                    if (_NotificationAreaIconMode == NotificationAreaIconMode.Minimized) {
+                        // BUG: metacity is not allowing us to use the minimize state
+                        // to hide and enable the notfication area icon as switching
+                        // to a different workspace sets WindowState.Iconified on all
+                        // windows, thus this code is disabled. For more details see:
+                        // http://projects.qnetp.net/issues/show/158
+                        Frontend.StatusIcon.Visible = _IsMinimized;
+                        if (isMinimized) {
+                            Hide();
+                        }
                     }
+                    #endif
                 }
-                #endif
 
                 // handle hide / show
                 if (_NotificationAreaIconMode == NotificationAreaIconMode.Closed &&
