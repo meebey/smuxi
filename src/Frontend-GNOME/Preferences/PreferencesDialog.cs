@@ -123,6 +123,8 @@ namespace Smuxi.Frontend.Gnome
             ((Gtk.CheckButton) _Glade["NotificationAreaIconCheckButton"]).Toggled += _OnChanged;
             ((Gtk.RadioButton) _Glade["NotificationAreaIconRadioButtonAlways"]).Toggled += _OnChanged;
             ((Gtk.RadioButton) _Glade["NotificationAreaIconRadioButtonMinimized"]).Toggled += _OnChanged;
+            // we can't support minimize for now, see: http://projects.qnetp.net/issues/show/158
+            ((Gtk.RadioButton) _Glade["NotificationAreaIconRadioButtonMinimized"]).Visible = false;
             ((Gtk.RadioButton) _Glade["NotificationAreaIconRadioButtonClosed"]).Toggled += _OnChanged;
             
             ((Gtk.CheckButton)_Glade["OverrideForegroundColorCheckButton"]).Toggled += OnOverrideForegroundColorCheckButtonToggled;
@@ -416,16 +418,26 @@ namespace Smuxi.Frontend.Gnome
             switch (mode) {
                 case NotificationAreaIconMode.Never:
                     ((Gtk.CheckButton) _Glade["NotificationAreaIconCheckButton"]).Active = false;
-                    ((Gtk.RadioButton) _Glade["NotificationAreaIconRadioButtonMinimized"]).Active = true;
+                    ((Gtk.RadioButton) _Glade["NotificationAreaIconRadioButtonClosed"]).Active = true;
+
+                    // the toggle event is not raised as the checkbox is already unchecked by default
+                    // thus we have to disable the radio buttons by hand
+                    ((Gtk.RadioButton) _Glade["NotificationAreaIconRadioButtonAlways"]).Sensitive = false;
+                    ((Gtk.RadioButton) _Glade["NotificationAreaIconRadioButtonMinimized"]).Sensitive = false;
+                    ((Gtk.RadioButton) _Glade["NotificationAreaIconRadioButtonClosed"]).Sensitive = false;
                     break;
                 case NotificationAreaIconMode.Always:
                     ((Gtk.CheckButton) _Glade["NotificationAreaIconCheckButton"]).Active = true;
                     ((Gtk.RadioButton) _Glade["NotificationAreaIconRadioButtonAlways"]).Active = true;
                     break;
                 case NotificationAreaIconMode.Minimized:
+                    // can't support this for now, see: http://projects.qnetp.net/issues/show/158
+                    goto case NotificationAreaIconMode.Never;
+                    /*
                     ((Gtk.CheckButton) _Glade["NotificationAreaIconCheckButton"]).Active = true;
                     ((Gtk.RadioButton) _Glade["NotificationAreaIconRadioButtonMinimized"]).Active = true;
                     break;
+                    */
                 case NotificationAreaIconMode.Closed:
                     ((Gtk.CheckButton) _Glade["NotificationAreaIconCheckButton"]).Active = true;
                     ((Gtk.RadioButton) _Glade["NotificationAreaIconRadioButtonClosed"]).Active = true;
@@ -722,7 +734,7 @@ namespace Smuxi.Frontend.Gnome
             try {
                 bool isActive = ((Gtk.CheckButton) _Glade["NotificationAreaIconCheckButton"]).Active;
                 if (!isActive) {
-                    ((Gtk.RadioButton) _Glade["NotificationAreaIconRadioButtonMinimized"]).Active = true;
+                    ((Gtk.RadioButton) _Glade["NotificationAreaIconRadioButtonClosed"]).Active = true;
                 }
                 ((Gtk.RadioButton) _Glade["NotificationAreaIconRadioButtonAlways"]).Sensitive = isActive;
                 ((Gtk.RadioButton) _Glade["NotificationAreaIconRadioButtonMinimized"]).Sensitive = isActive;

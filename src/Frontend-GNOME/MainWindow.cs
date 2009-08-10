@@ -663,6 +663,13 @@ namespace Smuxi.Frontend.Gnome
             
             try {
 #if GTK_SHARP_2_10
+                #if DISABLED
+                // BUG: metacity is not allowing us to use the minimize state
+                // to hide and enable the notfication area icon as switching
+                // to a different workspace sets WindowState.Iconified on all
+                // windows, thus this code is disabled. For more details see:
+                // http://projects.qnetp.net/issues/show/158
+                
                 // handle minimize / un-minimize
                 if (_NotificationAreaIconMode == NotificationAreaIconMode.Minimized &&
                     (e.Event.ChangedMask & Gdk.WindowState.Iconified) != 0) {
@@ -675,6 +682,7 @@ namespace Smuxi.Frontend.Gnome
                         Hide();
                     }
                 }
+                #endif
 
                 // handle hide / show
                 if (_NotificationAreaIconMode == NotificationAreaIconMode.Closed &&
