@@ -1871,8 +1871,10 @@ namespace Smuxi.Engine
 
             Session.AddMessageToChat(_NetworkChat, msg);
 
-            if (!_IrcClient.AutoNickHandling) {
-                // allright, we have to care then and try a different nick
+            if (!_IrcClient.AutoNickHandling &&
+                !_IrcClient.IsRegistered) {
+                // allright, we have to care then and try a different nick as
+                // we don't have a nick yet
                 string nick;
                 if (_CurrentNickname == _Nicknames.Length - 1) {
                     // we tried all nicks already, so fallback to random
