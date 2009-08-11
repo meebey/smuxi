@@ -59,6 +59,7 @@ namespace Smuxi.Engine
         private string          _Host;
         private int             _Port;
         private string[]        _Nicknames;
+        private int             _CurrentNickname;
         private string          _Username;
         private string          _Password;
         private FrontendManager _FrontendManager;
@@ -136,6 +137,11 @@ namespace Smuxi.Engine
             _IrcClient.AutoReconnect = true;
             _IrcClient.AutoRelogin = true;
             _IrcClient.AutoRejoin = true;
+            // HACK: SmartIrc4net <= 0.4.5.1 is not resetting the nickname list
+            // after disconnect. This causes random nicks to be used when there
+            // are many reconnects like when the network connection goes flaky,
+            // see: http://projects.qnetp.net/issues/show/163
+            _IrcClient.AutoNickHandling = false;
             _IrcClient.ActiveChannelSyncing = true;
             _IrcClient.CtcpVersion      = Engine.VersionString;
             _IrcClient.OnRawMessage     += new IrcEventHandler(_OnRawMessage);
@@ -1864,6 +1870,22 @@ namespace Smuxi.Engine
             msg.MessageParts.Add(textMsg);
 
             Session.AddMessageToChat(_NetworkChat, msg);
+
+            if (!_IrcClient.AutoNickHandling) {
+                // allright, we have to care then and try a different nick
+                string nick;
+                if (_CurrentNickname == _Nicknames.Length - 1) {
+                    // we tried all nicks already, so fallback to random
+                     Random rand = new Random();
+                    int number = rand.Next(999);
+                    nick = _Nicknames[_CurrentNickname].Substring(0, 5) + number;
+                } else {
+                    _CurrentNickname++;
+                    nick = _Nicknames[_CurrentNickname];
+                }
+                
+                _IrcClient.RfcNick(nick, Priority.Critical);
+            }
         }
         
         private void _OnErrorBannedFromChannel(IrcEventArgs e)
@@ -2645,7 +2667,11 @@ namespace Smuxi.Engine
                     }
                 }
             }
-            
+
+            // reset the nickname list, so if we connect again we will start
+            // using the best nickname again
+            _CurrentNickname = 0;
+
             base.OnDisconnected(e);
         }
         
