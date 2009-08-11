@@ -158,10 +158,31 @@ namespace Smuxi.Frontend
 #endif
             f_Process = SysDiag.Process.Start(f_ProcessStartInfo);
 
-            // FIXME: don't wait forever, the tunnel may have failed, and thus
-            // we need to bail out at some point!
+            // lets assume the tunnel didn't fail yet as long as the process is
+            // still running and keep checking if the port is ready during that
             bool connected = false;
             while (!connected) {
+                if (f_Process.HasExited && f_Process.ExitCode != 0) {
+                    string output = f_Process.StandardOutput.ReadToEnd();
+                    string error = f_Process.StandardError.ReadToEnd();
+                    string msg = String.Format(
+                        _("SSH tunnel setup failed with (exit code: {0})\n\n" +
+                          "SSH program: {1}\n\n" +
+                          "Program Error:\n" +
+                          "{2}\n" +
+                          "Prgram Output:\n" +
+                          "{3}\n"),
+                        f_Process.ExitCode,
+                        f_Program,
+                        error,
+                        output
+                    );
+#if LOG4NET
+                    f_Logger.Error("Connect(): " + msg);
+#endif
+                    throw new ApplicationException(msg);
+                }
+
                 using (TcpClient tcpClient = new TcpClient()) {
                     try {
                         tcpClient.Connect(f_ForwardBindAddress, f_ForwardBindPort);
@@ -173,43 +194,6 @@ namespace Smuxi.Frontend
                         System.Threading.Thread.Sleep(1000);
                     }
                 }
-            }
-            
-            /*
-            // wait till the tunnels are ready and timeout after 30 seconds
-            bool exited = f_SshTunnelProcess.WaitForExit(30 * 1000);
-            
-            if (!exited) {
-                string msg = String.Format(_("Timeout setting SSH tunnel up (30 seconds)."));
-#if LOG4NET
-                f_Logger.Error("Connect(): " + msg);
-                f_Logger.Debug("Connect(): killing SSH tunnel process...");
-#endif
-                f_SshTunnelProcess.Kill();
-                
-                throw new ApplicationException(msg);
-            }
-            */
-            
-            if (f_Process.HasExited && f_Process.ExitCode != 0) {
-                string output = f_Process.StandardOutput.ReadToEnd();
-                string error = f_Process.StandardError.ReadToEnd();
-                string msg = String.Format(
-                    _("SSH tunnel setup failed with (exit code: {0})\n\n" +
-                      "SSH program: {1}\n\n" +
-                      "Program Error:\n" +
-                      "{2}\n" +
-                      "Prgram Output:\n" +
-                      "{3}\n"),
-                    f_Process.ExitCode,
-                    f_Program,
-                    error,
-                    output
-                );
-#if LOG4NET
-                f_Logger.Error("Connect(): " + msg);
-#endif
-                throw new ApplicationException(msg);
             }
         }
         
