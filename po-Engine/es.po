@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.6.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-01-01 18:39+0100\n"
+"POT-Creation-Date: 2009-08-12 06:41+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Juan Miguel Carrero <streinleght@gmail.com>\n"
 "Language-Team: Spanish <streinleght@gmail.com>\n"
@@ -15,100 +15,100 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../src/Engine/FrontendManager.cs:207
+#: ../src/Engine/FrontendManager.cs:213
 msgid "no network connections"
 msgstr "no hay conexiones a la red"
 
-#: ../src/Engine/Protocols/ProtocolManagerBase.cs:140
+#: ../src/Engine/Protocols/ProtocolManagerBase.cs:142
 msgid "Not connected to server"
 msgstr "No conectado al servidor"
 
-#: ../src/Engine/Protocols/ProtocolManagerBase.cs:146
-#: ../src/Engine/Session.cs:645
+#: ../src/Engine/Protocols/ProtocolManagerBase.cs:148
+#: ../src/Engine/Session.cs:665
 #, csharp-format
 msgid "Not enough parameters for {0} command"
 msgstr "Parámetros insuficientes para el comando {0}"
 
-#: ../src/Engine/Session.cs:148
+#: ../src/Engine/Session.cs:150
 msgid "Welcome to Smuxi"
 msgstr "Bienvenido a Smuxi"
 
-#: ../src/Engine/Session.cs:154
+#: ../src/Engine/Session.cs:156
 msgid "Type /help to get a list of available commands."
 msgstr ""
 
-#: ../src/Engine/Session.cs:160
+#: ../src/Engine/Session.cs:162
 msgid ""
 "After you have made a connection the list of available commands changes, "
 "just use /help again."
 msgstr ""
 
-#: ../src/Engine/Session.cs:204
+#: ../src/Engine/Session.cs:206
 #, csharp-format
 msgid "Automatic connect to {0} failed!"
 msgstr "Conexión automática a {0} fallida!"
 
-#: ../src/Engine/Session.cs:380
+#: ../src/Engine/Session.cs:392
 msgid "[Engine Commands]"
 msgstr "[Comandos del Motor]"
 
-#: ../src/Engine/Session.cs:485
+#: ../src/Engine/Session.cs:499
 #, csharp-format
 msgid "Disconnect failed, could not find server: {0}"
 msgstr "Desconexión fallida, no se encuentra el servidor: {0}"
 
-#: ../src/Engine/Session.cs:521
+#: ../src/Engine/Session.cs:535
 msgid "Configuration reloaded"
 msgstr "Configuración importada"
 
-#: ../src/Engine/Session.cs:526
+#: ../src/Engine/Session.cs:540
 msgid "Configuration saved"
 msgstr "Configuración guardada"
 
-#: ../src/Engine/Session.cs:530
+#: ../src/Engine/Session.cs:544
 msgid "Invalid paramater for config, use load or save"
 msgstr "Parámetro inválido de configuración , usa importar o guardar"
 
-#: ../src/Engine/Session.cs:560
+#: ../src/Engine/Session.cs:574
 msgid "Invalid paramater for network, use list, switch or close"
 msgstr "Paŕametro inválido de configuración, usa list , switch o close"
 
-#: ../src/Engine/Session.cs:571
+#: ../src/Engine/Session.cs:585
 msgid "Networks"
 msgstr "Redes"
 
-#: ../src/Engine/Session.cs:574
+#: ../src/Engine/Session.cs:589
 msgid "Type"
 msgstr "Tipo"
 
-#: ../src/Engine/Session.cs:575
+#: ../src/Engine/Session.cs:590
 msgid "Host"
 msgstr "Host"
 
-#: ../src/Engine/Session.cs:576
+#: ../src/Engine/Session.cs:591
 msgid "Port"
 msgstr "Puerto"
 
-#: ../src/Engine/Session.cs:595
+#: ../src/Engine/Session.cs:613
 #, csharp-format
 msgid "Network close failed, could not find network with host: {0}"
 msgstr "Cierre de red fallido , no se puede encontrar la red con host: {0}"
 
-#: ../src/Engine/Session.cs:627
+#: ../src/Engine/Session.cs:647
 #, csharp-format
 msgid "Network switch failed, could not find network with host: {0}"
 msgstr "Cambio de red fallido , no se puede encontrar la red con host: {0}"
 
-#: ../src/Engine/Session.cs:639
+#: ../src/Engine/Session.cs:659
 msgid "Not connected to any network"
 msgstr "No conectado a ninguna red"
 
-#: ../src/Engine/Session.cs:884
+#: ../src/Engine/Session.cs:939
 #, csharp-format
 msgid "No protocol manager found for the protocol: {0}"
 msgstr ""
 
-#: ../src/Engine/Session.cs:904
+#: ../src/Engine/Session.cs:959
 #, csharp-format
 msgid "Unknown protocol: {0}"
 msgstr "Protocolo desconocido: {0}"

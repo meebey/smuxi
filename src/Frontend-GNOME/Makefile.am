@@ -91,16 +91,15 @@ FILES = \
 	CrashDialog.cs \
 	EngineManagerDialog.cs \
 	Entry.cs \
-	FirstStartDruid.cs \
 	Frontend.cs \
 	GnomeUI.cs \
 	Main.cs \
 	MainWindow.cs \
-	EngineDruid.cs \
 	NotImplementedMessageDialog.cs \
 	Notebook.cs \
 	SplashScreenWindow.cs \
 	Preferences/ChannelFilterListView.cs \
+	ChatTypeWidget.cs \
 	ChatViewManager.cs \
 	ColorTools.cs \
 	Preferences/ServerListView.cs \
@@ -112,15 +111,27 @@ FILES = \
 	Views/Chats/PersonChatView.cs \
 	Views/Chats/ProtocolChatView.cs \
 	Views/Chats/SessionChatView.cs \
+	Views/Assistants/Engine/EngineAssistantNameWidget.cs \
+	Views/Assistants/Engine/EngineAssistantCredentialsWidget.cs \
+	Views/Assistants/Engine/EngineAssistantConnectionWidget.cs \
+	Views/Assistants/Engine/EngineAssistantIntroWidget.cs \
+	Views/Assistants/Engine/EngineAssistant.cs \
 	QuickConnectDialog.cs \
 	SteticPreferencesDialog.cs \
 	FindGroupChatDialog.cs \
 	ChatFindDialog.cs \
+	OpenChatDialog.cs \
 	gtk-gui/generated.cs \
+	gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantConnectionWidget.cs \
+	gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs \
+	gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantIntroWidget.cs \
+	gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantNameWidget.cs \
+	gtk-gui/Smuxi.Frontend.Gnome.OpenChatDialog.cs \
 	gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs \
 	gtk-gui/Smuxi.Frontend.Gnome.QuickConnectDialog.cs \
 	gtk-gui/Smuxi.Frontend.Gnome.FindGroupChatDialog.cs \
-	gtk-gui/Smuxi.Frontend.Gnome.ChatFindDialog.cs
+	gtk-gui/Smuxi.Frontend.Gnome.ChatFindDialog.cs \
+	gtk-gui/Smuxi.Frontend.Gnome.ChatTypeWidget.cs
 	
 DATA_FILES = \
 	smuxi-frontend-gnome.desktop

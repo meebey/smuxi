@@ -56,7 +56,7 @@ GETTEXT_PACKAGE_SERVER=smuxi-server
 AC_SUBST(GETTEXT_PACKAGE_SERVER)
 AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE_SERVER, "$GETTEXT_PACKAGE_SERVER", [Gettext package])
 
-GETTEXT_PACKAGE_FRONTEND_GNOME=smuxi-frontend
+GETTEXT_PACKAGE_FRONTEND=smuxi-frontend
 AC_SUBST(GETTEXT_PACKAGE_FRONTEND)
 AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE_FRONTEND, "$GETTEXT_PACKAGE_FRONTEND", [Gettext package])
 
@@ -320,6 +320,7 @@ AC_CONFIG_FILES([
 	po-Engine/Makefile.in
 	po-Engine-IRC/Makefile.in
 	po-Server/Makefile.in
+	po-Frontend/Makefile.in
 	po-Frontend-GNOME/Makefile.in
 	po-Frontend-GNOME-IRC/Makefile.in
 ])

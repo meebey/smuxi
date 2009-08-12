@@ -14,6 +14,7 @@ PODIRS =	po \
 		po-Engine \
 		po-Engine-IRC \
 		po-Server \
+		po-Frontend \
 		po-Frontend-GNOME \
 		po-Frontend-GNOME-IRC
 

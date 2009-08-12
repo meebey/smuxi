@@ -67,7 +67,8 @@ FILES = \
 	IChatView.cs \
 	ChatViewInfoAttribute.cs \
 	IEntryView.cs \
-	EngineManager.cs 
+	EngineManager.cs \
+	SshTunnelManager.cs
 
 DATA_FILES = 
 
