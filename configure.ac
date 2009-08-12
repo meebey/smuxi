@@ -1,5 +1,5 @@
 AC_PREREQ([2.54])
-AC_INIT([smuxi], [0.6.3], [http://www.smuxi.org/newticket])
+AC_INIT([smuxi], [0.6.4], [http://www.smuxi.org/newticket])
 # using the --foreign option makes automake less strict about GNU policy 
 AM_INIT_AUTOMAKE([foreign])
 AM_MAINTAINER_MODE
