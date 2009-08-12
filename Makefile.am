@@ -27,6 +27,20 @@ update-po:
 		$(MAKE) -C $$PODIR $@ | egrep -e '(:$$|messages)'; \
 	done
 
+mail-po: update-po
+	for PODIR in $(PODIRS); do \
+		echo $$PODIR; \
+		podebconf-report-po \
+			--nolanguageteam \
+			--deadline=1day \
+			--notdebconf \
+			--package="Smuxi ($$PODIR)" \
+			--utf8 \
+			--from="Mirco Bauer <meebey@meebey.net>" \
+			--smtp=booster.qnetp.net \
+			--podir=$$PODIR; \
+	done
+
 LIB_DIR = $(top_builddir)/lib
 WIN32_LIB_DIR = $(LIB_DIR)/win32
 BUILD_DIR = $(top_builddir)/bin/$(PROFILE)
