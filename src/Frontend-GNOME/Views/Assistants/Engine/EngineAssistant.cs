@@ -298,20 +298,15 @@ namespace Smuxi.Frontend.Gnome
                 f_ConnectionWidget.HostEntry.Text.Trim();
             f_Config["Engines/"+engine+"/Port"] =
                 f_ConnectionWidget.PortSpinButton.ValueAsInt;
-            bool useSsh = f_ConnectionWidget.UseSshTunnelCheckButton.Active;
-            f_Config["Engines/"+engine+"/UseSshTunnel"] = useSsh;
-            if (useSsh) {
-                f_Config["Engines/"+engine+"/SshUsername"] =
-                    f_CredentialsWidget.SshUsernameEntry.Text.Trim();
-                f_Config["Engines/"+engine+"/SshHostname"] =
-                    f_ConnectionWidget.SshHostEntry.Text.Trim();
-                f_Config["Engines/"+engine+"/SshPort"] =
-                    f_ConnectionWidget.SshPortSpinButton.ValueAsInt;
-            } else {
-                f_Config.Remove("Engines/"+engine+"/SshUsername");
-                f_Config.Remove("Engines/"+engine+"/SshHostname");
-                f_Config.Remove("Engines/"+engine+"/SshPort");
-            }
+            
+            f_Config["Engines/"+engine+"/UseSshTunnel"] =
+                    f_ConnectionWidget.UseSshTunnelCheckButton.Active;
+            f_Config["Engines/"+engine+"/SshUsername"] =
+                f_CredentialsWidget.SshUsernameEntry.Text.Trim();
+            f_Config["Engines/"+engine+"/SshHostname"] =
+                f_ConnectionWidget.SshHostEntry.Text.Trim();
+            f_Config["Engines/"+engine+"/SshPort"] =
+                f_ConnectionWidget.SshPortSpinButton.ValueAsInt;
 
             // HACK: we don't really support any other channels/formatters (yet)
             f_Config["Engines/"+engine+"/Channel"] = "TCP";
