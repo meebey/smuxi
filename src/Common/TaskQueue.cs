@@ -141,6 +141,10 @@ namespace Smuxi.Common
                 return;
             
             disposed = true;
+
+            // make sure the thread will notice the disposed state when
+            // disposing or finalizing this object
+            handle.Set();
         }
         
         void Loop()
@@ -160,6 +164,16 @@ namespace Smuxi.Common
                     if (disposed)
                         break;
 
+                    #if DISABLED
+                    // WARNING: if we are being disposed at _this_ point, there
+                    // are no new tasks added and we are waiting forever, then
+                    // we would leak this thread! The dispose check + break will
+                    // never happen, so we have to use a sane timeout here.
+                    // Checking every 60 seconds if we are disposed should be
+                    // reasonable.
+                    handle.WaitOne(60 * 1000);
+                    #endif
+                    // OPT: let Dispose() trigger the handle, but is this safe?
                     handle.WaitOne();
                 }
                 else
