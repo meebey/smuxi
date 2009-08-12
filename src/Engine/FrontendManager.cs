@@ -404,7 +404,7 @@ namespace Smuxi.Engine
 #if LOG4NET
                 if (!_IsFrontendDisconnecting) {
                     // we didn't expect this problem
-                    _Logger.Error("RemotingException in TaskQueue, aborting thread...", e.Exception);
+                    _Logger.Error("RemotingException in TaskQueue: ", e.Exception);
                     _Logger.Error("Inner-Exception: ", e.Exception.InnerException);
                 }
 #endif
@@ -413,10 +413,13 @@ namespace Smuxi.Engine
                 // clean it good
             } else {
 #if LOG4NET
-                _Logger.Error("Exception in TaskQueue, aborting thread...", e.Exception);
+                _Logger.Error("Exception in TaskQueue: ", e.Exception);
                 _Logger.Error("Inner-Exception: ", e.Exception.InnerException);
 #endif
             }
+
+            // no need to remove us from the Session here as
+            // OnTaskQueueAbortedEvent will be raised after this and handle it
         }
         
         protected virtual void OnTaskQueueAbortedEvent(object sender, EventArgs e)
