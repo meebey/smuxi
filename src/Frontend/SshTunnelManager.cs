@@ -24,6 +24,7 @@ using System;
 using System.IO;
 using System.Net;
 using System.Net.Sockets;
+using System.Text.RegularExpressions;
 using SysDiag = System.Diagnostics;
 using Smuxi.Common;
 
@@ -224,8 +225,15 @@ namespace Smuxi.Frontend
         {
             string sshArguments = String.Empty;
 
-            // exit if the tunnel setup didn't work somehow
-            sshArguments += " -o ExitOnForwardFailure=yes";
+            // starting with OpenSSH version 4.4p1 we can use the
+            // ExitOnForwardFailure option for detecting tunnel issues better
+            // as the process will quit nicely, for more details see:
+            // http://projects.qnetp.net/issues/show/145
+            // NOTE: the patch level is mapped to the micro component
+            if (GetOpenSshVersion() >= new Version("4.4.1")) {
+                // exit if the tunnel setup didn't work somehow
+                sshArguments += " -o ExitOnForwardFailure=yes";
+            }
             
             // run in the background (detach)
             // plink doesn't support this and we can't control the process this way!
@@ -277,7 +285,63 @@ namespace Smuxi.Frontend
             psi.RedirectStandardError = true;
             return psi;
         }
-        
+
+        private Version GetOpenSshVersion()
+        {
+            SysDiag.ProcessStartInfo psi = new SysDiag.ProcessStartInfo();
+            psi.FileName = f_Program;
+            psi.Arguments = "-V";
+            psi.UseShellExecute = false;
+            psi.RedirectStandardOutput = true;
+            psi.RedirectStandardError = true;
+
+            SysDiag.Process process = SysDiag.Process.Start(psi);
+            string error = process.StandardError.ReadToEnd();
+            string output = process.StandardOutput.ReadToEnd();
+            string haystack;
+            // we expect the version output on stderr
+            if (error.Length > 0) {
+                haystack = error;
+            } else {
+                haystack = output;
+            }
+            Match match = Regex.Match(haystack, @"OpenSSH[_\w](\d+).(\d+)(?:.(\d+))?");
+            if (match.Success) {
+                string major, minor, micro;
+                string version = null;
+                if (match.Groups.Count >= 3) {
+                    major = match.Groups[1].Value;
+                    minor = match.Groups[2].Value;
+                    version = String.Format("{0}.{1}", major, minor);
+                }
+                if (match.Groups.Count >= 4) {
+                    micro = match.Groups[3].Value;
+                    version = String.Format("{0}.{1}", version, micro);
+                }
+#if LOG4NET
+                f_Logger.Debug("GetOpenSshVersion(): found version: " + version);
+#endif
+                return new Version(version);
+            }
+
+            string msg = String.Format(
+                _("Couldn't get OpenSSH version (exit code: {0})\n\n" +
+                  "SSH program: {1}\n\n" +
+                  "Program Error:\n" +
+                  "{2}\n" +
+                  "Prgram Output:\n" +
+                  "{3}\n"),
+                f_Process.ExitCode,
+                f_Program,
+                error,
+                output
+            );
+#if LOG4NET
+            f_Logger.Error("GetOpenSshVersion(): " + msg);
+#endif
+            throw new ApplicationException(msg);
+        }
+
         private SysDiag.ProcessStartInfo CreatePlinkProcessStartInfo()
         {
             string sshArguments = String.Empty;
