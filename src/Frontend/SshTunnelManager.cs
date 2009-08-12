@@ -148,6 +148,16 @@ namespace Smuxi.Frontend
             } else {
                 f_ProcessStartInfo = CreateOpenSshProcessStartInfo();
             }
+
+            // make sure the tunnel is killed when smuxi is quitting
+            // BUG: this will not kill the tunnel if Smuxi was killed using a
+            // process signal like SIGTERM! Not sure how to handle that case...
+            System.AppDomain.CurrentDomain.ProcessExit += delegate {
+#if LOG4NET
+                f_Logger.Debug("Setup(): our process is exiting, let's dispose!");
+#endif
+                Dispose();
+            };
         }
         
         public void Connect()
