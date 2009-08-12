@@ -35,6 +35,7 @@ namespace Smuxi.Frontend
 #if LOG4NET
         private static readonly log4net.ILog f_Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 #endif
+        private static readonly string   f_LibraryTextDomain = "smuxi-frontend";
         private SysDiag.Process          f_Process;
         private SysDiag.ProcessStartInfo f_ProcessStartInfo;
         private int                      f_RemotingBackChannelPort;
@@ -398,7 +399,7 @@ namespace Smuxi.Frontend
 
         private static string _(string msg)
         {
-            return Mono.Unix.Catalog.GetString(msg);
+            return LibraryCatalog.GetString(msg, f_LibraryTextDomain);
         }
     }
 }
