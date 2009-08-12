@@ -1,0 +1,258 @@
+# English translations for smuxi package.
+# Copyright (C) 2009 THE smuxi'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the smuxi package.
+# Ryan Smith-Evans <Kimera.Kimera@gmail.com>, 2009.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: smuxi 0.6.4\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-08-12 06:41+0200\n"
+"PO-Revision-Date: 2009-08-12 08:39+0200\n"
+"Last-Translator: Mirco Bauer Ryan Smith-Evans <Kimera.Kimera@gmail.com>\n"
+"Language-Team: English (British)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:201
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1050
+msgid "away"
+msgstr "away"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:204
+msgid "not connected"
+msgstr "not connected"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:210
+msgid "lag"
+msgstr "lag"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:212
+msgid "seconds"
+msgstr "seconds"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:273
+#, csharp-format
+msgid "Connecting to {0} port {1}..."
+msgstr "Connecting to {0} port {1}..."
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:279
+#, csharp-format
+msgid "Connection to {0} established"
+msgstr "Connection to {0} established"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:282
+msgid "Logging in..."
+msgstr "Logging in..."
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:304
+msgid "Connection failed!"
+msgstr "Connection failed!"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:305
+msgid "Connection failed! Reason: "
+msgstr "Connection failed! Reason: "
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:314
+msgid "Disconnecting..."
+msgstr "Disconnecting..."
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:317
+#, csharp-format
+msgid "Disconnecting from {0}..."
+msgstr "Disconnecting from {0}..."
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:321
+#, csharp-format
+msgid "Disconnected from {0}"
+msgstr "Disconnected from {0}"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:323
+msgid "Connection closed"
+msgstr "Connection closed"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:327
+msgid "Not connected!"
+msgstr "Not connected!"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:329
+msgid "Not connected"
+msgstr "Not connected"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:643
+msgid "[IrcProtocolManager Commands]"
+msgstr "[IrcProtocolManager Commands]"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:706
+#, csharp-format
+msgid "Invalid port: {0}"
+msgstr "Invalid port: {0}"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:794
+#, csharp-format
+msgid "Already joined to channel: {0}. Type /window {0} to switch to it."
+msgstr "Already joined to channel: {0}. Type /window {0} to switch to it."
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1037
+msgid "IRC Op"
+msgstr "IRC Op"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1039
+msgid "Op"
+msgstr "Op"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1041
+msgid "Voice"
+msgstr "Voice"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1092
+#, csharp-format
+msgid "Topic for {0}: {1}"
+msgstr "Topic for {0}: {1}"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1100
+#, csharp-format
+msgid "No topic set for {0}"
+msgstr "No topic set for {0}"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1194
+msgid "ban"
+msgstr "ban"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1204
+msgid "No bans in channel"
+msgstr "No bans in channel"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1313
+#, csharp-format
+msgid "Inviting {0} to {1}"
+msgstr "Inviting {0} to {1}"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1317
+#, csharp-format
+msgid "{0} is already on channel"
+msgstr "{0} is already on channel"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1345
+msgid "Users"
+msgstr "Users"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1388
+#, csharp-format
+msgid "Total of {0} users [{1} ops, {2} voices, {3} normal]"
+msgstr "Total of {0} users [{1} ops, {2} voices, {3} normal]"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1528
+msgid "Connection error! Reason: "
+msgstr "Connection error! Reason: "
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1536
+#, csharp-format
+msgid "Not enough parameters for {0} command"
+msgstr "Not enough parameters for {0} command"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1541
+msgid "Not connected to server"
+msgstr "Not connected to server"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1797
+#, csharp-format
+msgid "{0}: No such nick/channel"
+msgstr "{0}: No such nick/channel"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1860
+msgid "Nick"
+msgstr "Nick"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1869
+msgid "is already in use"
+msgstr "is already in use"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1899
+msgid "Cannot join to channel:"
+msgstr "Cannot join to channel:"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1908
+msgid "You are banned"
+msgstr "You are banned"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1981
+#, csharp-format
+msgid "{0} [{1}] requested CTCP {2} from {3}: {4}"
+msgstr "{0} [{1}] requested CTCP {2} from {3}: {4}"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1998
+#, csharp-format
+msgid "CTCP PING reply from {0}: {1} seconds"
+msgstr "CTCP PING reply from {0}: {1} seconds"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2004
+#, csharp-format
+msgid "CTCP {0} reply from {1}: {2}"
+msgstr "CTCP {0} reply from {1}: {2}"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2220
+#, csharp-format
+msgid "{0} [{1}] has joined {2}"
+msgstr "{0} [{1}] has joined {2}"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2341
+#, csharp-format
+msgid "{0} [{1}] has left {2} [{3}]"
+msgstr "{0} [{1}] has left {2} [{3}]"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2360
+#, csharp-format
+msgid "You was kicked from {0} by {1} [{2}]"
+msgstr "You was kicked from {0} by {1} [{2}]"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2368
+#, csharp-format
+msgid "{0} was kicked from {1} by {2} [{3}]"
+msgstr "{0} was kicked from {1} by {2} [{3}]"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2385
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2430
+#, csharp-format
+msgid "You're now known as {0}"
+msgstr "You're now known as {0}"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2457
+#, csharp-format
+msgid "{0} is now known as {1}"
+msgstr "{0} is now known as {1}"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2488
+#, csharp-format
+msgid "{0} changed the topic of {1} to: {2}"
+msgstr "{0} changed the topic of {1} to: {2}"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2555
+#, csharp-format
+msgid "Mode change [{0}] for user {1}"
+msgstr "Mode change [{0}] for user {1}"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2568
+#, csharp-format
+msgid "mode/{0} [{1}] by {2}"
+msgstr "mode/{0} [{1}] by {2}"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2597
+#, csharp-format
+msgid "{0} [{1}] has quit [{2}]"
+msgstr "{0} [{1}] has quit [{2}]"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2687
+#, csharp-format
+msgid "{0} is away: {1}"
+msgstr "{0} is away: {1}"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2693
+msgid "You are no longer marked as being away"
+msgstr "You are no longer marked as being away"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2699
+msgid "You have been marked as being away"
+msgstr "You have been marked as being away"
