@@ -355,7 +355,7 @@ namespace Smuxi.Frontend
             sshArguments += " -X";
             
             if (String.IsNullOrEmpty(f_Username)) {
-                throw new ApplicationException(_("PuTTY / Plink requeries a username to be set."));
+                throw new ApplicationException(_("PuTTY / Plink requires a username to be set."));
             }
             sshArguments += String.Format(" -l {0}", f_Username);
             
