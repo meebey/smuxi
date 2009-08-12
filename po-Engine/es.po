@@ -1,14 +1,14 @@
 # Smuxi - IRC client for advanced users
-# Copyright (C) 2005-2008 Mirco Bauer <meebey@meebey.net>
+# Copyright (C) 2005-2009 Mirco Bauer <meebey@meebey.net>
 # This file is distributed under the same license as the smuxi package.
-# Juan Miguel Carrero <streinleght@gmail.com>, 2008.
+# Juan Miguel Carrero <streinleght@gmail.com>, 2008-2009.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: 0.6.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-08-12 06:41+0200\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: 2009-08-12 17:04+0100\n"
 "Last-Translator: Juan Miguel Carrero <streinleght@gmail.com>\n"
 "Language-Team: Spanish <streinleght@gmail.com>\n"
 "MIME-Version: 1.0\n"
@@ -35,13 +35,11 @@ msgstr "Bienvenido a Smuxi"
 
 #: ../src/Engine/Session.cs:156
 msgid "Type /help to get a list of available commands."
-msgstr ""
+msgstr "Escribe /help para obtener una lista de comandos disponibles."
 
 #: ../src/Engine/Session.cs:162
-msgid ""
-"After you have made a connection the list of available commands changes, "
-"just use /help again."
-msgstr ""
+msgid "After you have made a connection the list of available commands changes, just use /help again."
+msgstr "Despues de efectuar una conexión la lista de comandos disponibles cambia , usa /help de nuevo."
 
 #: ../src/Engine/Session.cs:206
 #, csharp-format
@@ -83,7 +81,7 @@ msgstr "Tipo"
 
 #: ../src/Engine/Session.cs:590
 msgid "Host"
-msgstr "Host"
+msgstr "Servidor"
 
 #: ../src/Engine/Session.cs:591
 msgid "Port"
@@ -106,9 +104,10 @@ msgstr "No conectado a ninguna red"
 #: ../src/Engine/Session.cs:939
 #, csharp-format
 msgid "No protocol manager found for the protocol: {0}"
-msgstr ""
+msgstr "No existe gestor para el protocolo: {0}"
 
 #: ../src/Engine/Session.cs:959
 #, csharp-format
 msgid "Unknown protocol: {0}"
 msgstr "Protocolo desconocido: {0}"
+
