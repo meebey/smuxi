@@ -1,7 +1,7 @@
 <CombineEntry name="Packages" fileversion="2.0" ctype="PackagingProject">
   <Packages>
     <Package name="Linux">
-      <Builder rootEntry="smuxi.mds" targetFile="../../releases/smuxi-0.6.3-bin.tar.gz" platform="Linux" ctype="BinariesZipPackageBuilder">
+      <Builder rootEntry="smuxi.mds" targetFile="../../releases/smuxi-0.6.4-bin.tar.gz" platform="Linux" ctype="BinariesZipPackageBuilder">
         <ExcludedFiles>
           <File>Common,Linux.PkgConfig,common.pc</File>
           <File>Engine,Linux.PkgConfig,engine.pc</File>
@@ -20,31 +20,6 @@
           <Entry>Server/Server.mdp</Entry>
           <Entry>Frontend-GNOME/Frontend-GNOME.mdp</Entry>
           <Entry>Frontend/Frontend.mdp</Entry>
-        </ChildEntries>
-      </Builder>
-    </Package>
-    <Package name="Windows">
-      <Builder rootEntry="smuxi.mds" targetFile="../../releases/smuxi-0.6.3-bin-win32.zip" platform="Windows" ctype="BinariesZipPackageBuilder">
-        <ExcludedFiles>
-          <File>Frontend-GNOME-IRC,ProgramFiles,smuxi-engine-irc.dll.mdb</File>
-          <File>Engine-IRC,ProgramFiles,smuxi-engine.dll.mdb</File>
-          <File>Frontend,ProgramFiles,smuxi-engine.dll.mdb</File>
-          <File>Frontend-GNOME,ProgramFiles,smuxi-engine.dll.mdb</File>
-          <File>Frontend-GNOME-IRC,ProgramFiles,smuxi-engine.dll.mdb</File>
-          <File>Server,ProgramFiles,smuxi-engine.dll.mdb</File>
-          <File>Frontend-GNOME-IRC,ProgramFiles,smuxi-frontend-gnome.exe.mdb</File>
-          <File>Frontend-GNOME,ProgramFiles,smuxi-frontend.dll.mdb</File>
-          <File>Server,ProgramFiles,TcpExChannel.dll</File>
-          <File>Frontend-GNOME-IRC,ProgramFiles,smuxi-frontend.dll.mdb</File>
-        </ExcludedFiles>
-        <ChildEntries>
-          <Entry>Engine/Engine.mdp</Entry>
-          <Entry>Common/Common.mdp</Entry>
-          <Entry>Server/Server.mdp</Entry>
-          <Entry>Frontend/Frontend.mdp</Entry>
-          <Entry>Frontend-GNOME/Frontend-GNOME.mdp</Entry>
-          <Entry>Frontend-GNOME-IRC/Frontend-GNOME-IRC.mdp</Entry>
-          <Entry>Engine-IRC/Engine-IRC.mdp</Entry>
         </ChildEntries>
       </Builder>
     </Package>
