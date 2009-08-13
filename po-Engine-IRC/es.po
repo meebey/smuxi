@@ -255,4 +255,3 @@ msgstr "No estás más tiempo como ausente"
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2699
 msgid "You have been marked as being away"
 msgstr "Estás ahora ausente"
-

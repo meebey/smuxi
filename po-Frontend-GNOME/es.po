@@ -301,7 +301,10 @@ msgid "Tabs"
 msgstr "Pestañas"
 
 #: ../glade/smuxi-frontend-gnome.glade.h:58
-msgid "The nickname to use. You can specify more that one nickname, seperated by a space which will be used as fallback when the nickname was not available. By default $nick_ and $nick__ will be used as fallback."
+msgid ""
+"The nickname to use. You can specify more that one nickname, seperated by a "
+"space which will be used as fallback when the nickname was not available. By "
+"default $nick_ and $nick__ will be used as fallback."
 msgstr "El apodo "
 
 #: ../glade/smuxi-frontend-gnome.glade.h:59
@@ -451,7 +454,8 @@ msgstr "Seleccione un motor por favor!"
 #: ../src/Frontend-GNOME/EngineManagerDialog.cs:195
 #, csharp-format
 msgid "Your frontend version ({0}) is not matching the engine version ({1})!"
-msgstr "La version de tu frontend ({0}) no corresponde a la version del motor ({1})!"
+msgstr ""
+"La version de tu frontend ({0}) no corresponde a la version del motor ({1})!"
 
 #: ../src/Frontend-GNOME/EngineManagerDialog.cs:222
 msgid "Error occured while connecting to the engine!"
@@ -629,15 +633,18 @@ msgstr "Topic"
 
 #: ../src/Frontend-GNOME/FindGroupChatDialog.cs:103
 msgid ""
-"Searching for group chats without a filter is not recommended.  This may take a while, or may not work at all.\n"
+"Searching for group chats without a filter is not recommended.  This may "
+"take a while, or may not work at all.\n"
 "Do you wish to continue?"
 msgstr ""
-"Buscar un grupo de canales sin filtrar no se recomienda.  Esto puede tardar un rato, o puede no funcionar.\n"
+"Buscar un grupo de canales sin filtrar no se recomienda.  Esto puede tardar "
+"un rato, o puede no funcionar.\n"
 "¿Desea continuar?"
 
 #: ../src/Frontend-GNOME/FindGroupChatDialog.cs:139
 msgid "Error while fetching the list of group chats from the server."
-msgstr "Se ha producido un error mientras se descargaba la lista salas del servidor."
+msgstr ""
+"Se ha producido un error mientras se descargaba la lista salas del servidor."
 
 #: ../src/Frontend-GNOME/Frontend.cs:368
 #, csharp-format
@@ -725,7 +732,8 @@ msgid ""
 "Closing the protocol chat will also close all open chats connected to it!\n"
 "Are you sure you want to do this?"
 msgstr ""
-"Cerrar el protocolo también cerrará todos los canales abiertos que estés conectado!\n"
+"Cerrar el protocolo también cerrará todos los canales abiertos que estés "
+"conectado!\n"
 "¿Estás seguro de querer hacer ésto?"
 
 #: ../src/Frontend-GNOME/Preferences/ChannelFilterListView.cs:81
@@ -826,8 +834,14 @@ msgid "Use _SSH tunnel"
 msgstr "Usar Tunel _SSH"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantConnectionWidget.cs:78
-msgid "<span size=\"small\">Enables the use of SSH for the connection.  This has a small performance impact, but is more secure and required when using NAT or port-based firewalls</span>"
-msgstr "<span size=\"small\">Permite el uso de SSH para la conexión. Esto conlleva a una pequeña bajada de rendimiento , pero se aumenta la seguridad y es un requisito para el uso de NAT o un cortafuegos </span>"
+msgid ""
+"<span size=\"small\">Enables the use of SSH for the connection.  This has a "
+"small performance impact, but is more secure and required when using NAT or "
+"port-based firewalls</span>"
+msgstr ""
+"<span size=\"small\">Permite el uso de SSH para la conexión. Esto conlleva a "
+"una pequeña bajada de rendimiento , pero se aumenta la seguridad y es un "
+"requisito para el uso de NAT o un cortafuegos </span>"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantConnectionWidget.cs:101
 msgid "localhost"
@@ -838,12 +852,16 @@ msgid "SSH _Host:"
 msgstr "_Servidor SSH:"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantConnectionWidget.cs:168
-msgid "<span size=\"small\">DNS or IP address and port of the SSH server</span>"
-msgstr "<span size=\"small\">DNS o dirección IP y puerto del servidor SSH</span>"
+msgid ""
+"<span size=\"small\">DNS or IP address and port of the SSH server</span>"
+msgstr ""
+"<span size=\"small\">DNS o dirección IP y puerto del servidor SSH</span>"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantConnectionWidget.cs:208
-msgid "<span size=\"small\">DNS or IP address and port of the Smuxi server</span>"
-msgstr "<span size=\"small\">DNS o dirección IP y puerto del servidor Smuxi</span>"
+msgid ""
+"<span size=\"small\">DNS or IP address and port of the Smuxi server</span>"
+msgstr ""
+"<span size=\"small\">DNS o dirección IP y puerto del servidor Smuxi</span>"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantConnectionWidget.cs:221
 msgid "_Smuxi Host:"
@@ -854,12 +872,20 @@ msgid "_SSH Username: (optional)"
 msgstr "_Usuario SSH: (opcional)"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:91
-msgid "<span size=\"small\">Username which will be used to log into the SSH server</span>"
-msgstr "<span size=\"small\">Usuario que sere usado para logear en el servidor SSH</span>"
+msgid ""
+"<span size=\"small\">Username which will be used to log into the SSH server</"
+"span>"
+msgstr ""
+"<span size=\"small\">Usuario que sere usado para logear en el servidor SSH</"
+"span>"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:134
-msgid "<span size=\"small\">Username which will be used to log into the Smuxi server</span>"
-msgstr "<span size=\"small\">Usuario que sere usado para logear en el servidor Smuxi</span>"
+msgid ""
+"<span size=\"small\">Username which will be used to log into the Smuxi "
+"server</span>"
+msgstr ""
+"<span size=\"small\">Usuario que sere usado para logear en el servidor "
+"Smuxi</span>"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:178
 msgid "<span size=\"small\">Password of the user</span>"
@@ -902,8 +928,12 @@ msgid "Use as new default engine"
 msgstr "Usar como motor por defecto"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantNameWidget.cs:120
-msgid "<span size=\"small\">If enabled this makes the current engine the default when starting Smuxi next time</span>"
-msgstr "<span size=\"small\">Si se habilita modifica el motor actual por defecto cuando Smuxi arranque la próxima vez</span>"
+msgid ""
+"<span size=\"small\">If enabled this makes the current engine the default "
+"when starting Smuxi next time</span>"
+msgstr ""
+"<span size=\"small\">Si se habilita modifica el motor actual por defecto "
+"cuando Smuxi arranque la próxima vez</span>"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.OpenChatDialog.cs:34
 msgid "Smuxi - Open Chat"

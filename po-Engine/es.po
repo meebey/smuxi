@@ -38,8 +38,12 @@ msgid "Type /help to get a list of available commands."
 msgstr "Escribe /help para obtener una lista de comandos disponibles."
 
 #: ../src/Engine/Session.cs:162
-msgid "After you have made a connection the list of available commands changes, just use /help again."
-msgstr "Despues de efectuar una conexión la lista de comandos disponibles cambia , usa /help de nuevo."
+msgid ""
+"After you have made a connection the list of available commands changes, "
+"just use /help again."
+msgstr ""
+"Despues de efectuar una conexión la lista de comandos disponibles cambia , "
+"usa /help de nuevo."
 
 #: ../src/Engine/Session.cs:206
 #, csharp-format
@@ -110,4 +114,3 @@ msgstr "No existe gestor para el protocolo: {0}"
 #, csharp-format
 msgid "Unknown protocol: {0}"
 msgstr "Protocolo desconocido: {0}"
-
