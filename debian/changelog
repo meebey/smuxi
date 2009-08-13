@@ -1,3 +1,9 @@
+smuxi (0.6.4-1~pre1) unstable; urgency=low
+
+  * New upstream release
+
+ -- Mirco Bauer <meebey@debian.org>  Wed, 12 Aug 2009 07:33:02 +0200
+
 smuxi (0.6.2-1~pre1) unstable; urgency=low
 
   * New upstream release
