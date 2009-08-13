@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: smuxi 0.6.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-08-12 19:13+0200\n"
+"POT-Creation-Date: 2009-08-13 21:44+0200\n"
 "PO-Revision-Date: 2009-08-12 08:30+0200\n"
 "Last-Translator: Ryan Smith-Evans <Kimera.Kimera@gmail.com>\n"
 "Language-Team: English (British)\n"
@@ -81,6 +81,5 @@ msgstr ""
 "{3}\n"
 
 #: ../src/Frontend/SshTunnelManager.cs:358
-#, fuzzy
 msgid "PuTTY / Plink requires a username to be set."
 msgstr "PuTTY / Plink requires a username to be set."
