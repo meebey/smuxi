@@ -288,9 +288,12 @@ namespace Smuxi.Frontend.Gnome
             _MainWindow.ShowAll();
             // make sure entry got attention :-P
             _MainWindow.Entry.HasFocus = true;
-            
-            // check once per minute the status of the frontend manager
-            GLib.Timeout.Add(60 * 1000, _CheckFrontendManagerStatus);
+
+            // local sessions can't have network issues :)
+            if (_Session != _LocalSession) {
+                // check once per minute the status of the frontend manager
+                GLib.Timeout.Add(60 * 1000, _CheckFrontendManagerStatus);
+            }
         }
         
         public static void DisconnectEngineFromGUI()
