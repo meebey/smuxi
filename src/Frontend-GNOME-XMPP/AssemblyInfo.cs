@@ -29,11 +29,7 @@
 using System.Reflection;
 using System.Runtime.CompilerServices;
 
-#if UI_GTK
-[assembly: AssemblyTitle("Smuxi - XMPP support for GTK+ frontend")]
-#elif UI_GNOME
 [assembly: AssemblyTitle("Smuxi - XMPP support for GNOME frontend")]
-#endif
 [assembly: AssemblyCopyright("2005-2008 (C) Mirco Bauer <meebey@meebey.net>")]
 
 [assembly: AssemblyDelaySign(false)]
