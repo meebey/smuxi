@@ -8,9 +8,9 @@
     <widget-library name="glade-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
     <widget-library name="../../../bin/debug/smuxi-frontend-gnome.exe" internal="true" />
   </import>
-  <widget class="Gtk.Dialog" id="Smuxi.Frontend.Gnome.SteticPreferencesDialog" design-size="524 579">
+  <widget class="Gtk.Dialog" id="Smuxi.Frontend.Gnome.SteticPreferencesDialog" design-size="526 579">
     <property name="MemberName" />
-    <property name="Title" translatable="yes">smuxi - Preferences</property>
+    <property name="Title" translatable="yes">Smuxi - Preferences</property>
     <property name="TypeHint">Dialog</property>
     <property name="Buttons">3</property>
     <property name="HelpButton">False</property>
@@ -2312,7 +2312,7 @@
   </widget>
   <widget class="Gtk.Dialog" id="Smuxi.Frontend.Gnome.QuickConnectDialog" design-size="559 374">
     <property name="MemberName" />
-    <property name="Title" translatable="yes">smuxi - Quick Connect</property>
+    <property name="Title" translatable="yes">Smuxi - Quick Connect</property>
     <property name="TypeHint">Dialog</property>
     <property name="BorderWidth">5</property>
     <property name="Buttons">2</property>

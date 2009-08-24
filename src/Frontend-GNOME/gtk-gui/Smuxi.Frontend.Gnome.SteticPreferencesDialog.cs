@@ -403,7 +403,7 @@ namespace Smuxi.Frontend.Gnome {
             Stetic.Gui.Initialize(this);
             // Widget Smuxi.Frontend.Gnome.SteticPreferencesDialog
             this.Name = "Smuxi.Frontend.Gnome.SteticPreferencesDialog";
-            this.Title = Mono.Unix.Catalog.GetString("smuxi - Preferences");
+            this.Title = Mono.Unix.Catalog.GetString("Smuxi - Preferences");
             this.TypeHint = ((Gdk.WindowTypeHint)(1));
             // Internal child Smuxi.Frontend.Gnome.SteticPreferencesDialog.VBox
             Gtk.VBox w1 = this.VBox;
@@ -943,7 +943,6 @@ namespace Smuxi.Frontend.Gnome {
             this.TabPositionRadioButtonTop = new Gtk.RadioButton(Mono.Unix.Catalog.GetString("Top"));
             this.TabPositionRadioButtonTop.CanFocus = true;
             this.TabPositionRadioButtonTop.Name = "TabPositionRadioButtonTop";
-            this.TabPositionRadioButtonTop.Active = true;
             this.TabPositionRadioButtonTop.DrawIndicator = true;
             this.TabPositionRadioButtonTop.UseUnderline = true;
             this.TabPositionRadioButtonTop.Group = new GLib.SList(System.IntPtr.Zero);
@@ -1419,7 +1418,6 @@ namespace Smuxi.Frontend.Gnome {
             // Container child vbox11.Gtk.Box+BoxChild
             this.TopicPositionRadioButtonTop = new Gtk.RadioButton(Mono.Unix.Catalog.GetString("Top"));
             this.TopicPositionRadioButtonTop.Name = "TopicPositionRadioButtonTop";
-            this.TopicPositionRadioButtonTop.Active = true;
             this.TopicPositionRadioButtonTop.DrawIndicator = true;
             this.TopicPositionRadioButtonTop.UseUnderline = true;
             this.TopicPositionRadioButtonTop.Group = new GLib.SList(System.IntPtr.Zero);
@@ -1534,7 +1532,6 @@ namespace Smuxi.Frontend.Gnome {
             // Container child vbox12.Gtk.Box+BoxChild
             this.UserListPositionRadioButtonLeft = new Gtk.RadioButton(Mono.Unix.Catalog.GetString("Left"));
             this.UserListPositionRadioButtonLeft.Name = "UserListPositionRadioButtonLeft";
-            this.UserListPositionRadioButtonLeft.Active = true;
             this.UserListPositionRadioButtonLeft.DrawIndicator = true;
             this.UserListPositionRadioButtonLeft.UseUnderline = true;
             this.UserListPositionRadioButtonLeft.Group = new GLib.SList(System.IntPtr.Zero);
@@ -1930,7 +1927,7 @@ namespace Smuxi.Frontend.Gnome {
             if ((this.Child != null)) {
                 this.Child.ShowAll();
             }
-            this.DefaultWidth = 524;
+            this.DefaultWidth = 526;
             this.DefaultHeight = 579;
             this.label44.MnemonicWidget = this.Notebook;
             this.label45.MnemonicWidget = this.Notebook;

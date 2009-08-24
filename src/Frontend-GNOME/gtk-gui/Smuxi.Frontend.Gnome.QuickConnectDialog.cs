@@ -59,7 +59,7 @@ namespace Smuxi.Frontend.Gnome {
             Stetic.Gui.Initialize(this);
             // Widget Smuxi.Frontend.Gnome.QuickConnectDialog
             this.Name = "Smuxi.Frontend.Gnome.QuickConnectDialog";
-            this.Title = Mono.Unix.Catalog.GetString("smuxi - Quick Connect");
+            this.Title = Mono.Unix.Catalog.GetString("Smuxi - Quick Connect");
             this.TypeHint = ((Gdk.WindowTypeHint)(1));
             this.BorderWidth = ((uint)(5));
             // Internal child Smuxi.Frontend.Gnome.QuickConnectDialog.VBox
