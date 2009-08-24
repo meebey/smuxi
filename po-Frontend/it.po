@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: smuxi 0.6.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-08-13 21:44+0200\n"
+"POT-Creation-Date: 2009-08-24 17:13+0200\n"
 "PO-Revision-Date: 2009-08-12 08:34+0200\n"
 "Last-Translator: David Paleino <d.paleino@gmail.com>\n"
 "Language-Team: Italian\n"
@@ -15,12 +15,12 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../src/Frontend/EngineManager.cs:251
+#: ../src/Frontend/EngineManager.cs:263
 #, csharp-format
 msgid "Unknown channel ({0}), only following channel types are supported:"
 msgstr ""
 
-#: ../src/Frontend/EngineManager.cs:260
+#: ../src/Frontend/EngineManager.cs:272
 msgid ""
 "Registration at engine failed, username and/or password was wrong, please "
 "verify them."
@@ -48,7 +48,7 @@ msgid ""
 "{3}\n"
 msgstr ""
 
-#: ../src/Frontend/SshTunnelManager.cs:323
+#: ../src/Frontend/SshTunnelManager.cs:353
 #, csharp-format
 msgid ""
 "Couldn't get OpenSSH version (exit code: {0})\n"
@@ -61,6 +61,6 @@ msgid ""
 "{3}\n"
 msgstr ""
 
-#: ../src/Frontend/SshTunnelManager.cs:358
+#: ../src/Frontend/SshTunnelManager.cs:388
 msgid "PuTTY / Plink requires a username to be set."
 msgstr ""
