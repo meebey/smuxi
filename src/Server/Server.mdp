@@ -4,12 +4,14 @@
       <Output directory="../../bin/debug" assemblyKeyFile="." assembly="smuxi-server" />
       <Build debugmode="True" target="Exe" />
       <Execution runwithwarnings="False" commandlineparameters="--debug" externalconsole="True" consolepause="True" runtime="MsNet" clr-version="Net_2_0" />
+      <EnvironmentVariables />
       <CodeGeneration compiler="Mcs" warninglevel="4" optimize="False" unsafecodeallowed="False" generateoverflowchecks="True" definesymbols="TRACE,DEBUG,LOG4NET" generatexmldocumentation="False" ctype="CSharpCompilerParameters" />
     </Configuration>
     <Configuration name="Release" ctype="DotNetProjectConfiguration">
       <Output directory="../../bin/release" assembly="smuxi-server" />
       <Build debugmode="False" target="Exe" />
       <Execution runwithwarnings="False" consolepause="True" runtime="MsNet" clr-version="Net_2_0" />
+      <EnvironmentVariables />
       <CodeGeneration compiler="Mcs" warninglevel="4" optimize="True" unsafecodeallowed="False" generateoverflowchecks="True" generatexmldocumentation="False" ctype="CSharpCompilerParameters" />
     </Configuration>
   </Configurations>

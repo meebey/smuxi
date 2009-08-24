@@ -11,6 +11,7 @@
       <Output directory="../../bin/release" assembly="smuxi-frontend-gnome" />
       <Build debugmode="False" target="WinExe" />
       <Execution runwithwarnings="False" consolepause="True" runtime="MsNet" clr-version="Net_2_0" />
+      <EnvironmentVariables />
       <CodeGeneration compiler="Mcs" warninglevel="4" optimize="True" unsafecodeallowed="False" generateoverflowchecks="True" definesymbols="CONFIG_NINI,UI_GNOME,GTK_SHARP_2_8" generatexmldocumentation="False" ctype="CSharpCompilerParameters" />
     </Configuration>
     <Configuration name="Debug GTK" ctype="DotNetProjectConfiguration">
