@@ -194,6 +194,7 @@ namespace Smuxi.Engine
             
             // setting required default values
             prefix = "Server/";
+            Get(prefix+"BindAddress", "127.0.0.1");
             Get(prefix+"Port", 7689);
             Get(prefix+"Channel", "TCP");
             Get(prefix+"Formatter", "binary");
