@@ -157,11 +157,16 @@ namespace Smuxi.Frontend
                 f_Logger.Debug("Connect(): found free local backward port (for remoting back-channel): " + remotingPort);
                 f_Logger.Debug("Connect(): found free local forward port: " + localForwardPort);
 #endif
-                
+
+                // HACK: we can't use localForwardPort here as .NET remoting
+                // will announce the server port in the server Session object
+                // thus the client will try to reach it using the original
+                // server port :(
                 f_SshTunnelManager = new SshTunnelManager(
                     sshProgram, sshUsername, sshPassword, null,
                     sshHostname, sshPort,
-                    "127.0.0.1", localForwardPort, "127.0.0.1", port,
+                    //"127.0.0.1", localForwardPort, "127.0.0.1", port,
+                    "127.0.0.1", port, "127.0.0.1", port,
                     "127.0.0.1", remotingPort, "127.0.0.1", remotingPort
                 );
                 f_SshTunnelManager.Setup();
@@ -169,7 +174,8 @@ namespace Smuxi.Frontend
                 
                 // so we want to connect via the SSH tunnel now
                 hostname = "127.0.0.1";
-                port = localForwardPort;
+                // HACK: see above
+                //port = localForwardPort;
                 
                 // the smuxi-server has to connect to us via the SSH tunnel too
                 bindAddress = "127.0.0.1";
@@ -183,22 +189,28 @@ namespace Smuxi.Frontend
             SessionManager sessm = null;
             switch (channel) {
                 case "TCP":
-                    if (ChannelServices.GetChannel("tcp") == null) {
-                        // frontend -> engine
-                        BinaryClientFormatterSinkProvider cprovider =
-                            new BinaryClientFormatterSinkProvider();
-
-                        // engine -> frontend (back-connection)
-                        BinaryServerFormatterSinkProvider sprovider =
-                            new BinaryServerFormatterSinkProvider();
-                        // required for MS .NET 1.1
-                        sprovider.TypeFilterLevel = TypeFilterLevel.Full;
-                        
-                        if (bindAddress != null) {
-                            props["machineName"] = bindAddress;
-                        }
-                        ChannelServices.RegisterChannel(new TcpChannel(props, cprovider, sprovider), false);
+                    // Make sure the channel is really using our random
+                    // remotingPort. Already registered channel will for sure
+                    // not to that and thus the back-connection fails!
+                    IChannel oldChannel = ChannelServices.GetChannel("tcp");
+                    if (oldChannel != null) {
+                        ChannelServices.UnregisterChannel(oldChannel);
                     }
+                    
+                    // frontend -> engine
+                    BinaryClientFormatterSinkProvider cprovider =
+                        new BinaryClientFormatterSinkProvider();
+
+                    // engine -> frontend (back-connection)
+                    BinaryServerFormatterSinkProvider sprovider =
+                        new BinaryServerFormatterSinkProvider();
+                    // required for MS .NET 1.1
+                    sprovider.TypeFilterLevel = TypeFilterLevel.Full;
+                    
+                    if (bindAddress != null) {
+                        props["machineName"] = bindAddress;
+                    }
+                    ChannelServices.RegisterChannel(new TcpChannel(props, cprovider, sprovider), false);
                     connection_url = "tcp://"+hostname+":"+port+"/SessionManager"; 
 #if LOG4NET
                     f_Logger.Info("Connecting to: "+connection_url);
