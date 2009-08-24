@@ -304,6 +304,8 @@ namespace Smuxi.Frontend.Gnome
             _Session.DeregisterFrontendUI(_MainWindow.UI);
             _MainWindow.Hide();
             _MainWindow.Notebook.RemoveAllPages();
+            // make sure no stray SSH tunnel leaves behind
+            _MainWindow.EngineManager.Disconnect();
             
             _FrontendManager = null;
             _Session = null;
