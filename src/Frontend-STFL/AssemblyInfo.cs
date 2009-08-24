@@ -29,7 +29,7 @@
 using System.Reflection;
 using System.Runtime.CompilerServices;
 
-[assembly: AssemblyTitle("smuxi - STFL frontend")]
+[assembly: AssemblyTitle("Smuxi - STFL frontend")]
 [assembly: AssemblyCopyright("2007-2008 (C) Mirco Bauer <meebey@meebey.net>")]
 
 [assembly: AssemblyDelaySign(false)]

@@ -30,7 +30,7 @@
 using System.Reflection;
 using System.Runtime.CompilerServices;
 
-[assembly: AssemblyTitle("smuxi - SWF frontend")]
+[assembly: AssemblyTitle("Smuxi - SWF frontend")]
 [assembly: AssemblyCopyright("2005-2008 (C) Jeffrey Mann Richardson <themann@indyfantasysports.net>")]
 
 [assembly: AssemblyDelaySign(false)]

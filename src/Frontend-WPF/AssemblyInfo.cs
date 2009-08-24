@@ -30,7 +30,7 @@
 using System.Reflection;
 using System.Runtime.CompilerServices;
 
-[assembly: AssemblyTitle("smuxi - WPF frontend")]
+[assembly: AssemblyTitle("Smuxi - WPF frontend")]
 [assembly: AssemblyCopyright("2007-2008 (C) Jeffrey Mann Richardson <themann@indyfantasysports.net>")]
 
 [assembly: AssemblyDelaySign(false)]

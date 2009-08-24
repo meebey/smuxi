@@ -31,7 +31,7 @@ using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
-[assembly: AssemblyTitle("smuxi - OSCAR protocol support for engine")]
+[assembly: AssemblyTitle("Smuxi - OSCAR protocol support for engine")]
 [assembly: AssemblyCopyright("2007-2008 (C) Mirco Bauer <meebey@meebey.net>")]
 
 [assembly: AssemblyDelaySign(false)]
