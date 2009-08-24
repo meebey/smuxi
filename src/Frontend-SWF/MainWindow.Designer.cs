@@ -233,7 +233,7 @@ namespace Smuxi.Frontend.Swf
             this.Controls.Add(menuStrip1);
             this.MainMenuStrip = menuStrip1;
             this.Name = "MainWindow";
-            this.Text = "smuxi - Smart MUltipleXed Irc";
+            this.Text = "Smuxi - Smart MUltipleXed Irc";
             menuStrip1.ResumeLayout(false);
             menuStrip1.PerformLayout();
             this.statusStrip1.ResumeLayout(false);

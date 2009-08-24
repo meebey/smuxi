@@ -5,7 +5,7 @@
  * $Author: meebey $
  * $Date: 2007-09-10 23:25:36 +0200 (Mon, 10 Sep 2007) $
  *
- * smuxi - Smart MUltipleXed Irc
+ * Smuxi - Smart MUltipleXed Irc
  *
  * Copyright (c) 2007 Mirco Bauer <meebey@meebey.net>
  *
