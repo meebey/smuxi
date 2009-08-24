@@ -321,7 +321,7 @@ namespace Smuxi.Engine
                     // clean typical disallowed characters
                     nick = nick.Replace(" ", String.Empty);
                     if (String.IsNullOrEmpty(nick)) {
-                        nick = "smuxi";
+                        nick = "Smuxi";
                     }
                     m_Preferences[prefix+user+"/Connection/Nicknames"] = new string[] { nick };
                 }
@@ -342,7 +342,7 @@ namespace Smuxi.Engine
 #endif
                 }
                 if (String.IsNullOrEmpty(realname)) {
-                    realname = "http://smuxi.meebey.net";
+                    realname = "http://www.smuxi.org/";
                 }
                 LoadUserEntry(user, "Connection/Realname", realname);
                 LoadUserEntry(user, "Connection/Encoding", String.Empty);
