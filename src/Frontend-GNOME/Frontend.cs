@@ -267,7 +267,10 @@ namespace Smuxi.Frontend.Gnome
         
         public static void ConnectEngineToGUI()
         {
-            _Session.RegisterFrontendUI(_MainWindow.UI);
+            if (_Session == _LocalSession) {
+                // HACK: SessionManager.Register() is not used for local engines
+                _LocalSession.RegisterFrontendUI(_MainWindow.UI);
+            }
             _FrontendManager = _Session.GetFrontendManager(_MainWindow.UI);
             _FrontendManager.Sync();
             
