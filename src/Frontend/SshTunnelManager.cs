@@ -172,8 +172,8 @@ namespace Smuxi.Frontend
 
             // lets assume the tunnel didn't fail yet as long as the process is
             // still running and keep checking if the port is ready during that
-            bool connected = false;
-            while (!connected) {
+            bool forwardPortReady = false, backwardPortReady  = false;
+            while (!forwardPortReady || !backwardPortReady) {
                 if (f_Process.HasExited && f_Process.ExitCode != 0) {
                     string output = f_Process.StandardOutput.ReadToEnd();
                     string error = f_Process.StandardError.ReadToEnd();
@@ -195,18 +195,48 @@ namespace Smuxi.Frontend
                     throw new ApplicationException(msg);
                 }
 
+                // check forward port
                 using (TcpClient tcpClient = new TcpClient()) {
                     try {
                         tcpClient.Connect(f_ForwardBindAddress, f_ForwardBindPort);
-                        connected = true;
+#if LOG4NET
+                        f_Logger.Debug("Connect(): ssh tunnel's forward port is ready");
+#endif
+                        forwardPortReady = true;
                     } catch (SocketException ex) {
 #if LOG4NET
-                        f_Logger.Info("Connect(): ssh tunnel is not reading yet, retrying...", ex);
+                        f_Logger.Debug("Connect(): ssh tunnel's forward port is not reading yet, retrying...", ex);
 #endif
-                        System.Threading.Thread.Sleep(1000);
                     }
                 }
+
+                backwardPortReady = true;
+                // we can't test the back-port as the .NET remoting channel
+                // would need to be ready at this point, which isn't
+                /*
+                // check backward port
+                using (TcpClient tcpClient = new TcpClient()) {
+                    try {
+                        tcpClient.Connect(f_BackwardBindAddress, f_BackwardBindPort);
+#if LOG4NET
+                        f_Logger.Debug("Connect(): ssh tunnel's backward port is ready");
+#endif
+                        backwardPortReady = true;
+                    } catch (SocketException ex) {
+#if LOG4NET
+                        f_Logger.Debug("Connect(): ssh tunnel's backward port is not reading yet, retrying...", ex);
+#endif
+                    }
+                }
+                */
+#if LOG4NET
+                f_Logger.Info("Connect(): ssh tunnel is not ready yet, retrying...");
+#endif
+                System.Threading.Thread.Sleep(1000);
             }
+#if LOG4NET
+            f_Logger.Info("Connect(): ssh tunnel is ready");
+#endif
         }
         
         public void Disconnect()
