@@ -32,9 +32,9 @@ using System.Runtime.CompilerServices;
 [assembly: AssemblyDescription("Smart MUltipleXed Irc")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("qNETp")]
-[assembly: AssemblyProduct("smuxi")]
+[assembly: AssemblyProduct("Smuxi")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
-[assembly: AssemblyVersion("@VERSION@.*")]
+[assembly: AssemblyVersion("@VERSION@.0")]
 
