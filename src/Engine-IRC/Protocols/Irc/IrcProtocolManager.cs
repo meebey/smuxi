@@ -758,7 +758,23 @@ namespace Smuxi.Engine
             msgPart = new TextMessagePartModel();
             msgPart.Text = "> ";
             msg.MessageParts.Add(msgPart);
-            
+
+            Match m = Regex.Match(message, String.Format(@"^@(?<nick>\S+)|^(?<nick>\S+)(?:\:|,)"));
+            if (m.Success) {
+                // this is probably a reply with a nickname
+                string nick = m.Groups["nick"].Value;
+#if LOG4NET
+                _Logger.Debug("_Say(): detected reply with possible nick: '" + nick + "' in: '" + m.Value + "'");
+#endif
+                if (_IrcClient.GetChannelUser(chat.ID, nick) != null) {
+                    // bingo, it's a nick on this channel
+                    message = message.Substring(m.Value.Length);
+                    msgPart = new TextMessagePartModel();
+                    msgPart.Text = m.Value;
+                    msgPart.ForegroundColor = GetNickColor(nick);
+                    msg.MessageParts.Add(msgPart);
+                }
+            }
             _IrcMessageToMessageModel(ref msg, message);
             
             Session.AddMessageToChat(chat, msg);
