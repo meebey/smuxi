@@ -53,9 +53,7 @@ namespace Smuxi.Frontend.Gnome
         private   Gtk.HBox           _TabHBox;
         private   Gtk.ScrolledWindow _OutputScrolledWindow;
         private   MessageTextView    _OutputMessageTextView;
-        private   Gdk.Color?         _BackgroundColor;
-        private   Gdk.Color?         _ForegroundColor;
-        private   Pango.FontDescription _FontDescription;
+        private   ThemeSettings      _ThemeSettings;
         
         public ChatModel ChatModel {
             get {
@@ -165,24 +163,12 @@ namespace Smuxi.Frontend.Gnome
             }
         }
 
-        protected Pango.FontDescription FontDescription {
+        protected ThemeSettings ThemeSettings {
             get {
-                return _FontDescription;
+                return _ThemeSettings;
             }
         }
 
-        protected Gdk.Color? BackgroundColor {
-            get {
-                return _BackgroundColor;
-            }
-        }
-
-        protected Gdk.Color? ForegroundColor {
-            get {
-                return _ForegroundColor;
-            }
-        }
-        
         public ChatView(ChatModel chat)
         {
             Trace.Call(chat);
@@ -233,6 +219,8 @@ namespace Smuxi.Frontend.Gnome
             _TabEventBox.ButtonPressEvent += new Gtk.ButtonPressEventHandler(OnTabButtonPress);
             _TabEventBox.Add(_TabHBox);
             _TabEventBox.ShowAll();
+
+            _ThemeSettings = new ThemeSettings();
         }
         
         public virtual void ScrollUp()
@@ -357,6 +345,8 @@ namespace Smuxi.Frontend.Gnome
             if (config == null) {
                 throw new ArgumentNullException("config");
             }
+            
+            _ThemeSettings = new ThemeSettings(config);
             
             _OutputMessageTextView.ApplyConfig(config);
         }

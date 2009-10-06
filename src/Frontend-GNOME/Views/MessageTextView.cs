@@ -47,9 +47,7 @@ namespace Smuxi.Frontend.Gnome
         private bool         _HasHighlight;
         private bool         _AtUrlTag;
         private UserConfig   _Config;
-        private Gdk.Color?   _BackgroundColor;
-        private Gdk.Color?   _ForegroundColor;
-        private Pango.FontDescription _FontDescription;
+        private ThemeSettings _ThemeSettings;
 
         public event MessageTextViewMessageAddedEventHandler       MessageAdded;
         public event MessageTextViewMessageHighlightedEventHandler MessageHighlighted;
@@ -91,24 +89,6 @@ namespace Smuxi.Frontend.Gnome
             }
         }
 
-        protected Pango.FontDescription FontDescription {
-            get {
-                return _FontDescription;
-            }
-        }
-
-        protected Gdk.Color? BackgroundColor {
-            get {
-                return _BackgroundColor;
-            }
-        }
-
-        protected Gdk.Color? ForegroundColor {
-            get {
-                return _ForegroundColor;
-            }
-        }
-
         public Gtk.TextTagTable MessageTextTagTable {
             get {
                 return _MessageTextTagTable;
@@ -120,70 +100,26 @@ namespace Smuxi.Frontend.Gnome
             Trace.Call();
 
             _MessageTextTagTable = BuildTagTable();
+            _ThemeSettings = new ThemeSettings();
             
             Buffer = new Gtk.TextBuffer(_MessageTextTagTable);
             MotionNotifyEvent += OnMotionNotifyEvent;
         }
 
-        /*
-         * Public methods
-         */
         public void ApplyConfig(UserConfig config)
         {
-            _Config = config;
-            string bgStr = (string) config["Interface/Chat/BackgroundColor"];
-            if (!String.IsNullOrEmpty(bgStr)) {
-                Gdk.Color bgColor = Gdk.Color.Zero;
-                if (Gdk.Color.Parse(bgStr, ref bgColor)) {
-                    ModifyBase(Gtk.StateType.Normal, bgColor);
-                    _BackgroundColor = bgColor;
-                }
-            } else {
+            _ThemeSettings = new ThemeSettings(config);
+            if (_ThemeSettings.BackgroundColor == null) {
                 ModifyBase(Gtk.StateType.Normal);
-                _BackgroundColor = null;
-            }
-
-            string fgStr = (string) config["Interface/Chat/ForegroundColor"];
-            if (!String.IsNullOrEmpty(fgStr)) {
-                Gdk.Color fgColor = Gdk.Color.Zero;
-                if (Gdk.Color.Parse(fgStr, ref fgColor)) {
-                    ModifyText(Gtk.StateType.Normal, fgColor);
-                    _ForegroundColor = fgColor;
-                }
             } else {
+                ModifyBase(Gtk.StateType.Normal, _ThemeSettings.BackgroundColor.Value);
+            }
+            if (_ThemeSettings.ForegroundColor == null) {
                 ModifyText(Gtk.StateType.Normal);
-                _ForegroundColor = null;
-            }
-            
-            string fontFamily = (string) config["Interface/Chat/FontFamily"];
-            string fontStyle = (string) config["Interface/Chat/FontStyle"];
-            int fontSize = 0;
-            if (config["Interface/Chat/FontSize"] != null) {
-                fontSize = (int) config["Interface/Chat/FontSize"];
-            }
-            Pango.FontDescription fontDescription = new Pango.FontDescription();
-            if (String.IsNullOrEmpty(fontFamily)) {
-                // use Monospace and Bold by default
-                fontDescription.Family = "monospace";
-                // black bold font on white background looks odd 
-                //fontDescription.Weight = Pango.Weight.Bold;
             } else {
-                fontDescription.Family = fontFamily;
-                string frontWeigth = null;
-                if (fontStyle.Contains(" ")) {
-                    int pos = fontStyle.IndexOf(" ");
-                    frontWeigth = fontStyle.Substring(0, pos);
-                    fontStyle = fontStyle.Substring(pos + 1);
-                }
-                fontDescription.Style = (Pango.Style) Enum.Parse(typeof(Pango.Style), fontStyle);
-                if (frontWeigth != null) {
-                    fontDescription.Weight = (Pango.Weight) Enum.Parse(typeof(Pango.Weight), frontWeigth);
-                }
-                fontDescription.Size = fontSize * 1024;
+                ModifyText(Gtk.StateType.Normal, _ThemeSettings.ForegroundColor.Value);
             }
-            _FontDescription = fontDescription;
-            
-            ModifyFont(_FontDescription);
+            ModifyFont(_ThemeSettings.FontDescription);
             
             string wrapModeStr = (string) config["Interface/Chat/WrapMode"];
             if (!String.IsNullOrEmpty(wrapModeStr)) {
@@ -248,8 +184,8 @@ namespace Smuxi.Frontend.Gnome
                 }
                 
                 Gdk.Color bgColor = DefaultAttributes.Appearance.BgColor;
-                if (_BackgroundColor != null) {
-                    bgColor = _BackgroundColor.Value;
+                if (_ThemeSettings.BackgroundColor != null) {
+                    bgColor = _ThemeSettings.BackgroundColor.Value;
                 }
                 TextColor bgTextColor = ColorTools.GetTextColor(bgColor);
                 // TODO: implement all types

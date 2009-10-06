@@ -93,6 +93,7 @@
     <File name="Views/Assistants/Engine/EngineAssistantNameWidget.cs" subtype="Code" buildaction="Compile" />
     <File name="Views/Assistants/Engine/EngineAssistantConnectionWidget.cs" subtype="Code" buildaction="Compile" />
     <File name="Views/Assistants/Engine/EngineAssistantCredentialsWidget.cs" subtype="Code" buildaction="Compile" />
+    <File name="ThemeSettings.cs" subtype="Code" buildaction="Compile" />
   </Contents>
   <References>
     <ProjectReference type="Project" localcopy="True" refto="Engine" />

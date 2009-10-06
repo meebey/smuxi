@@ -447,27 +447,9 @@ namespace Smuxi.Frontend.Gnome
             }
             
             base.ApplyConfig(config);
-            
-            if (BackgroundColor != null) {
-                _PersonTreeView.ModifyBase(Gtk.StateType.Normal, BackgroundColor.Value);
-                _TopicTextView.ModifyBase(Gtk.StateType.Normal, BackgroundColor.Value);
-            } else {
-                _PersonTreeView.ModifyBase(Gtk.StateType.Normal);
-                _TopicTextView.ModifyBase(Gtk.StateType.Normal);
-            }
-            
-            if (ForegroundColor != null) {
-                _PersonTreeView.ModifyText(Gtk.StateType.Normal, ForegroundColor.Value);
-                _TopicTextView.ModifyText(Gtk.StateType.Normal, ForegroundColor.Value);
-            } else {
-                _PersonTreeView.ModifyText(Gtk.StateType.Normal);
-                _TopicTextView.ModifyText(Gtk.StateType.Normal);
-            }
-            
-            _PersonTreeView.ModifyFont(FontDescription);
-            _TopicTextView.ModifyFont(FontDescription);
-            
+
             // topic
+            _TopicTextView.ApplyConfig(config);
             string topic_pos = (string) config["Interface/Notebook/Channel/TopicPosition"];
             if (_TopicScrolledWindow.IsAncestor(_OutputVBox)) {
                 _OutputVBox.Remove(_TopicScrolledWindow);
@@ -491,6 +473,18 @@ namespace Smuxi.Frontend.Gnome
             _OutputVBox.ShowAll();
 
             // person list
+            if (ThemeSettings.BackgroundColor == null) {
+                _PersonTreeView.ModifyBase(Gtk.StateType.Normal);
+            } else {
+                _PersonTreeView.ModifyBase(Gtk.StateType.Normal, ThemeSettings.BackgroundColor.Value);
+            }
+            if (ThemeSettings.ForegroundColor == null) {
+                _PersonTreeView.ModifyText(Gtk.StateType.Normal);
+            } else {
+                _PersonTreeView.ModifyText(Gtk.StateType.Normal, ThemeSettings.ForegroundColor.Value);
+            }
+            _PersonTreeView.ModifyFont(ThemeSettings.FontDescription);
+            
             string userlist_pos = (string) config["Interface/Notebook/Channel/UserListPosition"];
             if (_PersonTreeViewFrame.IsAncestor(_OutputHPaned)) {
                 _OutputHPaned.Remove(_PersonTreeViewFrame);
