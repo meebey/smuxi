@@ -121,6 +121,7 @@ FILES = \
 	FindGroupChatDialog.cs \
 	ChatFindDialog.cs \
 	OpenChatDialog.cs \
+	ThemeSettings.cs \
 	gtk-gui/generated.cs \
 	gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantConnectionWidget.cs \
 	gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs \
