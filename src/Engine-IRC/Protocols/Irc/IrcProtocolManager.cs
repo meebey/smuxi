@@ -2500,9 +2500,27 @@ namespace Smuxi.Engine
             MessageModel topic = new MessageModel();
             _IrcMessageToMessageModel(ref topic, e.NewTopic);
             Session.UpdateTopicInGroupChat(cchat, topic);
-            Session.AddTextToChat(cchat, "-!- " + String.Format(
-                                                    _("{0} changed the topic of {1} to: {2}"),
-                                                    e.Who, e.Channel, e.NewTopic));
+
+            MessageModel msg = new MessageModel();
+            msg.MessageType = MessageType.Event;
+            TextMessagePartModel textMsg;
+
+            textMsg = new TextMessagePartModel();
+            textMsg.Text = "-!- ";
+            msg.MessageParts.Add(textMsg);
+
+            textMsg = new TextMessagePartModel();
+            textMsg.Text = e.Who;
+            textMsg.ForegroundColor = GetNickColor(e.Who);
+            msg.MessageParts.Add(textMsg);
+
+            textMsg = new TextMessagePartModel();
+            textMsg.Text = String.Format(
+                                _("{0} changed the topic of {1} to: {2}"),
+                                String.Empty, e.Channel, e.NewTopic);
+            msg.MessageParts.Add(textMsg);
+
+            Session.AddMessageToChat(cchat, msg);
         }
         
         private void _OnOp(object sender, OpEventArgs e)
@@ -2563,28 +2581,53 @@ namespace Smuxi.Engine
         
         private void _OnModeChange(object sender, IrcEventArgs e)
         {
+            MessageModel msg = new MessageModel();
+            msg.MessageType = MessageType.Event;
+            TextMessagePartModel textMsg;
+
+            textMsg = new TextMessagePartModel();
+            textMsg.Text = "-!- ";
+            msg.MessageParts.Add(textMsg);
+
             string modechange;
+            string who = null;
+            ChatModel target = null;
             switch (e.Data.Type) {
                 case ReceiveType.UserModeChange:
                     modechange = e.Data.Message;
-                    Session.AddTextToChat(_NetworkChat, "-!- " + String.Format(
-                                                            _("Mode change [{0}] for user {1}"),
-                                                            modechange, e.Data.Irc.Nickname));
-                break;
+                    who = e.Data.Irc.Nickname;
+                    target = _NetworkChat;
+
+                    textMsg = new TextMessagePartModel();
+                    textMsg.Text =  String.Format(
+                                        _("Mode change [{0}] for user {1}"),
+                                        modechange, String.Empty);
+                    msg.MessageParts.Add(textMsg);
+                    break;
                 case ReceiveType.ChannelModeChange:
-                    modechange = String.Join(" ", e.Data.RawMessageArray, 3, e.Data.RawMessageArray.Length-3);
-                    string who;
+                    modechange = String.Join(" ", e.Data.RawMessageArray, 3,
+                                             e.Data.RawMessageArray.Length - 3);
+                    target = GetChat(e.Data.Channel, ChatType.Group);
                     if (e.Data.Nick != null && e.Data.Nick.Length > 0) {
                         who = e.Data.Nick;
                     } else {
                         who = e.Data.From;
                     }
-                    ChatModel chat = GetChat(e.Data.Channel, ChatType.Group);
-                    Session.AddTextToChat(chat, "-!- " + String.Format(
-                                                            _("mode/{0} [{1}] by {2}"),
-                                                            e.Data.Channel, modechange, who));
-                break;
+
+                    textMsg = new TextMessagePartModel();
+                    textMsg.Text =   String.Format(
+                                        _("mode/{0} [{1}] by {2}"),
+                                        e.Data.Channel, modechange, String.Empty);
+                    msg.MessageParts.Add(textMsg);
+                    break;
             }
+            
+            textMsg = new TextMessagePartModel();
+            textMsg.Text = who;
+            textMsg.ForegroundColor = GetNickColor(who);
+            msg.MessageParts.Add(textMsg);
+            
+            Session.AddMessageToChat(target, msg);
         }
         
         private void _OnQuit(object sender, QuitEventArgs e)
