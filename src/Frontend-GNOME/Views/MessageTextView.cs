@@ -149,11 +149,12 @@ namespace Smuxi.Frontend.Gnome
             Gtk.TextIter iter = Buffer.EndIter;
             
             if (_ShowTimestamps) {
+                DateTime localTimestamp = msg.TimeStamp.ToLocalTime();
                 if (_LastMessage != null &&
-                    _LastMessage.TimeStamp.Date != msg.TimeStamp.Date) {
+                    _LastMessage.TimeStamp.ToLocalTime().Date != localTimestamp.Date) {
                     string dayLine = String.Format(
                         "-!- " + _("Day changed to {0}"),
-                        msg.TimeStamp.ToLocalTime().Date.ToLongDateString()
+                        localTimestamp.Date.ToLongDateString()
                     );
                     Buffer.Insert(ref iter, dayLine + "\n");
                 }
@@ -162,7 +163,7 @@ namespace Smuxi.Frontend.Gnome
                 try {
                     string format = (string)Frontend.UserConfig["Interface/Notebook/TimestampFormat"];
                     if (!String.IsNullOrEmpty(format)) {
-                        timestamp = msg.TimeStamp.ToLocalTime().ToString(format);
+                        timestamp = localTimestamp.ToString(format);
                     }
                 } catch (FormatException e) {
                     timestamp = "Timestamp Format ERROR: " + e.Message;
