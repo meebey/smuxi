@@ -88,6 +88,7 @@ namespace Smuxi.Frontend
             f_Program = program;
             f_Parameters = parameters;
             f_Username = username;
+            f_Password = password;
             f_Hostname = hostname;
             f_Port = port;
             
