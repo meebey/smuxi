@@ -99,6 +99,7 @@ namespace Smuxi.Engine
                 LoadEntry(eprefix+"Formatter", null);
                 LoadEntry(eprefix+"UseSshTunnel", false);
                 LoadEntry(eprefix+"SshProgram", null);
+                LoadEntry(eprefix+"SshParameters", null);
                 LoadEntry(eprefix+"SshHostname", String.Empty);
                 LoadEntry(eprefix+"SshPort", 22);
                 LoadEntry(eprefix+"SshUsername", String.Empty);

@@ -40,6 +40,7 @@ namespace Smuxi.Frontend
         private SysDiag.ProcessStartInfo f_ProcessStartInfo;
         private int                      f_RemotingBackChannelPort;
         private string                   f_Program;
+        private string                   f_Parameters;
         private string                   f_Username;
         private string                   f_Password;
         private string                   f_Keyfile;
@@ -54,16 +55,16 @@ namespace Smuxi.Frontend
         private string                   f_BackwardHostName;
         private int                      f_BackwardHostPort;
         
-        public SshTunnelManager(string program, string username,
-                                string password, string keyfile,
+        public SshTunnelManager(string program, string parameters,
+                                string username, string password, string keyfile,
                                 string hostname, int port,
                                 string forwardBindAddress, int forwardBindPort,
                                 string forwardHostName, int forwardHostPort,
                                 string backwardBindAddress, int backwardBindPort,
                                 string backwardHostName, int backwardHostPort)
         {
-            Trace.Call(program, username, "XXX", keyfile, hostname, port,
-                       forwardBindAddress, forwardBindPort,
+            Trace.Call(program, parameters, username, "XXX", keyfile, hostname,
+                       port, forwardBindAddress, forwardBindPort,
                        forwardHostName, forwardHostPort,
                        backwardBindAddress, backwardBindPort,
                        backwardHostName, backwardHostPort);
@@ -85,6 +86,7 @@ namespace Smuxi.Frontend
             }
             
             f_Program = program;
+            f_Parameters = parameters;
             f_Username = username;
             f_Hostname = hostname;
             f_Port = port;
@@ -179,13 +181,15 @@ namespace Smuxi.Frontend
                     string error = f_Process.StandardError.ReadToEnd();
                     string msg = String.Format(
                         _("SSH tunnel setup failed with (exit code: {0})\n\n" +
-                          "SSH program: {1}\n\n" +
+                          "SSH program: {1}\n" +
+                          "SSH parameters: {2}\n\n" +
                           "Program Error:\n" +
-                          "{2}\n" +
+                          "{3}\n" +
                           "Prgram Output:\n" +
-                          "{3}\n"),
+                          "{4}\n"),
                         f_Process.ExitCode,
-                        f_Program,
+                        f_ProcessStartInfo.FileName,
+                        f_ProcessStartInfo.Arguments,
                         error,
                         output
                     );
@@ -298,10 +302,13 @@ namespace Smuxi.Frontend
                 f_BackwardHostName,
                 f_BackwardHostPort
             );
-            
+
+            // custom ssh parameters
+            sshArguments += String.Format(" {0}", f_Parameters);
+
             // ssh host
             sshArguments += String.Format(" {0}", f_Hostname);
-        
+            
             SysDiag.ProcessStartInfo psi = new SysDiag.ProcessStartInfo();
             psi.FileName = f_Program;
             psi.Arguments = sshArguments;
@@ -415,9 +422,12 @@ namespace Smuxi.Frontend
                 f_BackwardHostPort
             );
 
+            // custom ssh parameters
+            sshArguments += String.Format(" {0}", f_Parameters);
+
             // ssh host
             sshArguments += String.Format(" {0}", f_Hostname);
-        
+
             SysDiag.ProcessStartInfo psi = new SysDiag.ProcessStartInfo();
             psi.FileName = f_Program;
             psi.Arguments = sshArguments;

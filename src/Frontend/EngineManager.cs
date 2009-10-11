@@ -129,6 +129,7 @@ namespace Smuxi.Frontend
                 useSshTunnel = (bool) f_FrontendConfig["Engines/"+engine+"/UseSshTunnel"];
             }
             string sshProgram = (string) f_FrontendConfig["Engines/"+engine+"/SshProgram"];
+            string sshParameters = (string) f_FrontendConfig["Engines/"+engine+"/SshParameters"];
             string sshHostname = (string) f_FrontendConfig["Engines/"+engine+"/SshHostname"];
             int sshPort = -1;
             if (f_FrontendConfig["Engines/"+engine+"/SshPort"] != null) {
@@ -163,7 +164,7 @@ namespace Smuxi.Frontend
                 // thus the client will try to reach it using the original
                 // server port :(
                 f_SshTunnelManager = new SshTunnelManager(
-                    sshProgram, sshUsername, sshPassword, null,
+                    sshProgram, sshParameters, sshUsername, sshPassword, null,
                     sshHostname, sshPort,
                     //"127.0.0.1", localForwardPort, "127.0.0.1", port,
                     "127.0.0.1", port, "127.0.0.1", port,
