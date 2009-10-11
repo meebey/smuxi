@@ -337,19 +337,11 @@ namespace Smuxi.Frontend.Gnome
             
             if (_FrontendManager != null) {
                 try {
-                    _FrontendManager.IsFrontendDisconnecting = true;
+                    DisconnectEngineFromGUI();
                 } catch (System.Runtime.Remoting.RemotingException ex) {
                     // the connection is maybe already gone
                 }
             }
-            
-            /*
-            // WASBUG: don't do this, the access to config is lost and the entry will
-            // throw an exception then.
-            if (_FrontendManager != null) {
-                DisconnectEngineFromGUI();
-            }
-            */
             
             Gtk.Application.Quit();
             
