@@ -384,9 +384,10 @@ namespace Smuxi.Frontend
         {
             string sshArguments = String.Empty;
             
-            // don't ask for SSH key fingerprints
-            // TOO NASTY!
-            //sshArguments += " -auto_store_key_in_cache";
+            // HACK: don't ask for SSH key fingerprints
+            // this is nasty but plink.exe can't ask for fingerprint
+            // confirmation and thus the connect would always fail
+            sshArguments += " -auto_store_key_in_cache";
             
             // no interactive mode please
             sshArguments += " -batch";
