@@ -436,6 +436,7 @@ namespace Smuxi.Frontend
             SysDiag.ProcessStartInfo psi = new SysDiag.ProcessStartInfo();
             psi.FileName = f_Program;
             psi.Arguments = sshArguments;
+            psi.CreateNoWindow = true;
             psi.UseShellExecute = false;
             psi.RedirectStandardOutput = true;
             psi.RedirectStandardError = true;
