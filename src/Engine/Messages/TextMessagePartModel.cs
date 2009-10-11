@@ -47,6 +47,9 @@ namespace Smuxi.Engine
                 return f_ForegroundColor;
             }
             set {
+                if (value == null) {
+                    value = TextColor.None;
+                }
                 f_ForegroundColor = value;
             }
         }
@@ -56,6 +59,9 @@ namespace Smuxi.Engine
                 return f_BackgroundColor;
             }
             set {
+                if (value == null) {
+                    value = TextColor.None;
+                }
                 f_BackgroundColor = value;
             }
         }
@@ -121,13 +127,13 @@ namespace Smuxi.Engine
             if (fgColor != null) {
                 f_ForegroundColor = fgColor;
             } else {
-                f_ForegroundColor = new TextColor();
+                f_ForegroundColor = TextColor.None;
             }
             
             if (bgColor != null) {
                 f_BackgroundColor = bgColor;
             } else {
-                f_BackgroundColor = new TextColor();
+                f_BackgroundColor = TextColor.None;
             }
             
             f_Underline = underline;

@@ -1771,7 +1771,24 @@ namespace Smuxi.Engine
                     return IrcTextColor.Normal;
             }
         }
-        
+
+        private void ClearHighlights(MessageModel msg)
+        {
+            if (msg == null) {
+                throw new ArgumentNullException("msg");
+            }
+
+            foreach (MessagePartModel msgPart in msg.MessageParts) {
+                if (!msgPart.IsHighlight || !(msgPart is TextMessagePartModel)) {
+                    continue;
+                }
+
+                TextMessagePartModel textMsg = (TextMessagePartModel) msgPart;
+                textMsg.IsHighlight = false;
+                textMsg.ForegroundColor = null;
+            }
+        }
+
         private void _OnRawMessage(object sender, IrcEventArgs e)
         {
             if (e.Data.Message != null) {
@@ -2491,6 +2508,8 @@ namespace Smuxi.Engine
             GroupChatModel cchat = (GroupChatModel)GetChat(e.Channel, ChatType.Group);
             MessageModel topic = new MessageModel();
             _IrcMessageToMessageModel(ref topic, e.Topic);
+            // HACK: clear possible highlights set in _IrcMessageToMessageModel()
+            ClearHighlights(topic);
             Session.UpdateTopicInGroupChat(cchat, topic);
         }
         
@@ -2499,6 +2518,8 @@ namespace Smuxi.Engine
             GroupChatModel cchat = (GroupChatModel)GetChat(e.Channel, ChatType.Group);
             MessageModel topic = new MessageModel();
             _IrcMessageToMessageModel(ref topic, e.NewTopic);
+            // HACK: clear possible highlights set in _IrcMessageToMessageModel()
+            ClearHighlights(topic);
             Session.UpdateTopicInGroupChat(cchat, topic);
 
             MessageModel msg = new MessageModel();
