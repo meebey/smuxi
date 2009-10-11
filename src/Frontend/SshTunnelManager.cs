@@ -131,8 +131,13 @@ namespace Smuxi.Frontend
         public void Setup()
         {
             if (String.IsNullOrEmpty(f_Program)) {
-                // TODO: find ssh
-                f_Program = "/usr/bin/ssh";
+                // use plink by default if it's there
+                if (File.Exists("plink.exe")) {
+                    f_Program = "plink.exe";
+                } else {
+                    // TODO: find ssh
+                    f_Program = "/usr/bin/ssh";
+                }
             }
             if (!File.Exists(f_Program)) {
                 throw new ApplicationException(_("SSH client application was not found: " + f_Program));
