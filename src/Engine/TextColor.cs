@@ -35,7 +35,9 @@ namespace Smuxi.Engine
     [Serializable]
     public class TextColor : ISerializable
     {
-        public static readonly TextColor None = new TextColor();
+        public static readonly TextColor None  = new TextColor();
+        public static readonly TextColor Black = new TextColor(0, 0, 0);
+        public static readonly TextColor White = new TextColor(255, 255, 255);
         
         private int f_Value;
         

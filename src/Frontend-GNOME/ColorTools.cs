@@ -27,6 +27,7 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.Globalization;
 
 using Smuxi.Common;
@@ -36,6 +37,15 @@ namespace Smuxi.Frontend.Gnome
 {
     public static class ColorTools
     {
+#if LOG4NET
+        private static readonly log4net.ILog f_Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+#endif
+        private static Dictionary<KeyValuePair<TextColor, TextColor>, TextColor> f_BestContrastColors;
+
+        static ColorTools() {
+            f_BestContrastColors = new Dictionary<KeyValuePair<TextColor, TextColor>, TextColor>();
+        }
+        
         public static string GetHexCodeColor(Gdk.Color color)
         {
             /*
@@ -145,7 +155,8 @@ namespace Smuxi.Frontend.Gnome
             return new TextColor(bestColor);
         }
         */
-        
+
+        /*
         public static TextColor GetBestTextColor(TextColor fgColor, TextColor bgColor)
         {
             if (fgColor == null) {
@@ -165,6 +176,121 @@ namespace Smuxi.Frontend.Gnome
             }
             
             return new TextColor((byte) bestColors[0], (byte) bestColors[1], (byte) bestColors[2]);
+        }
+        */
+        
+        public static TextColor GetBestTextColor(TextColor fgColor, TextColor bgColor)
+        {
+            if (fgColor == null) {
+                throw new ArgumentNullException("fgColor");
+            }
+            if (bgColor == null) {
+                throw new ArgumentNullException("bgColor");
+            }
+
+            TextColor bestColor;
+            KeyValuePair<TextColor, TextColor> key =
+                new KeyValuePair<TextColor, TextColor>(fgColor, bgColor);
+            if (f_BestContrastColors.TryGetValue(key, out bestColor)) {
+                return bestColor;
+            }
+            
+            double brDiff = GetBritnessDifference(bgColor, TextColor.White);
+            int modifier = 0;
+            // for bright backgrounds we need to go from bright to dark colors
+            // for better contrast and for dark backgrounds the opposite
+            if (brDiff < 127) {
+                // bright background
+                modifier = -10;
+            } else {
+                // dark background
+                modifier = 10;
+            }
+
+            double lastDifference = 0;
+            bestColor = fgColor;
+            while (true) {
+                double difference = GetLuminanceDifference(bestColor, bgColor);
+                if (difference > 3.5) {
+                    break;
+                }
+
+#if LOG4NET
+                f_Logger.Debug("GetBestTextColor(): color has bad contrast: " +
+                               bestColor + " difference: " + difference);
+#endif
+
+                // change the fg color
+                int red   = bestColor.Red   + modifier;
+                int green = bestColor.Green + modifier;
+                int blue  = bestColor.Blue  + modifier;
+
+                // cap to allowed values
+                if (modifier > 0) {
+                    if (red > 255) {
+                        red = 255;
+                    }
+                    if (green > 255) {
+                        green = 255;
+                    }
+                    if (blue > 255) {
+                        blue = 255;
+                    }
+                } else {
+                    if (red < 0) {
+                        red = 0;
+                    }
+                    if (green < 0) {
+                        green = 0;
+                    }
+                    if (blue < 0) {
+                        blue = 0;
+                    }
+                }
+
+                bestColor = new TextColor((byte) red, (byte) green, (byte) blue);
+                
+                // in case we found no good color
+                if (bestColor == TextColor.White ||
+                    bestColor == TextColor.Black) {
+                    break;
+                }
+            }
+#if LOG4NET
+            f_Logger.Debug("GetBestTextColor(): color has good contrast: " +
+                           bestColor);
+#endif
+            f_BestContrastColors.Add(key, bestColor);
+
+            return bestColor;
+        }
+
+        // algorithm ported from PHP to C# from:
+        // http://www.splitbrain.org/blog/2008-09/18-calculating_color_contrast_with_php
+        public static double GetLuminanceDifference(TextColor color1, TextColor color2)
+        {
+            double L1 = 0.2126d * Math.Pow(color1.Red   / 255d, 2.2d) +
+                        0.7152d * Math.Pow(color1.Green / 255d, 2.2d) +
+                        0.0722d * Math.Pow(color1.Blue  / 255d, 2.2d);
+            double L2 = 0.2126d * Math.Pow(color2.Red   / 255d, 2.2d) +
+                        0.7152d * Math.Pow(color2.Green / 255d, 2.2d) +
+                        0.0722d * Math.Pow(color2.Blue  / 255d, 2.2d);
+            if (L1 > L2) {
+                return (L1 + 0.05d) / (L2 + 0.05d);
+            } else {
+                return (L2 + 0.05d) / (L1 + 0.05d);
+            }
+        }
+
+        public static double GetBritnessDifference(TextColor color1, TextColor color2)
+        {
+            double br1 = (299d * color1.Red +
+                          587d * color1.Green +
+                          114d * color1.Blue) / 1000d;
+            double br2 = (299d * color2.Red +
+                          587d * color2.Green +
+                          114d * color2.Blue) / 1000d;
+            return Math.Abs(br1 - br2);
         }
     }
 }
