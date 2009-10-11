@@ -59,7 +59,8 @@ namespace Smuxi.Frontend.Gnome
             
             Modal = true;
             Title = "Smuxi - " + _("Engine Manager");
-                
+            SetPosition(Gtk.WindowPosition.CenterAlways);
+
             Gtk.HBox connect_hbox = new Gtk.HBox();
             Gtk.Image connect_image = new Gtk.Image(new Gdk.Pixbuf(null,
                 "connect.png"));
