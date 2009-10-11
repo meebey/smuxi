@@ -181,7 +181,7 @@ namespace Smuxi.Frontend
             // still running and keep checking if the port is ready during that
             bool forwardPortReady = false, backwardPortReady  = false;
             while (!forwardPortReady || !backwardPortReady) {
-                if (f_Process.HasExited && f_Process.ExitCode != 0) {
+                if (f_Process.HasExited) {
                     string output = f_Process.StandardOutput.ReadToEnd();
                     string error = f_Process.StandardError.ReadToEnd();
                     string msg = String.Format(
