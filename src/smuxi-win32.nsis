@@ -400,11 +400,12 @@ Section "Main" SEC01
   !insertmacro CheckDotNET ${DOTNET_VERSION}
   !insertmacro CheckGtkSharp ${GTKSHARP_VERSION}
 
+  SetOutPath "$INSTDIR"
+
   CreateDirectory "$SMPROGRAMS\Smuxi"
   CreateShortCut "$SMPROGRAMS\Smuxi\Smuxi.lnk" "$INSTDIR\smuxi-frontend-gnome.exe"
   CreateShortCut "$DESKTOP\Smuxi.lnk" "$INSTDIR\smuxi-frontend-gnome.exe"
 
-  SetOutPath "$INSTDIR"
   SetOverwrite try
   File "../bin-win32/log4net.dll"
   File "../bin-win32/Meebey.SmartIrc4net.dll"
@@ -421,6 +422,7 @@ Section "Main" SEC01
   File "../bin-win32/smuxi-server.exe"
   File "../bin-win32/smuxi-server.exe.config"
   File "../bin-win32/zlib1.dll"
+  File "../bin-win32/plink.exe"
 SectionEnd
 
 Section -AdditionalIcons
@@ -472,6 +474,7 @@ Section Uninstall
   Delete "$INSTDIR\Mono.Posix.dll"
   Delete "$INSTDIR\Meebey.SmartIrc4net.dll"
   Delete "$INSTDIR\log4net.dll"
+  Delete "$INSTDIR\plink.exe"
 
   Delete "$DESKTOP\Smuxi.lnk"
   Delete "$SMPROGRAMS\Smuxi\Uninstall.lnk"
