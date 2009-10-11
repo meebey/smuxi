@@ -3295,7 +3295,7 @@ Click "Forward" to begin.</property>
       </widget>
     </child>
   </widget>
-  <widget class="Gtk.Bin" id="Smuxi.Frontend.Gnome.EngineAssistantConnectionWidget" design-size="441 187">
+  <widget class="Gtk.Bin" id="Smuxi.Frontend.Gnome.EngineAssistantConnectionWidget" design-size="494 187">
     <property name="MemberName" />
     <property name="Visible">False</property>
     <child>
@@ -3599,7 +3599,7 @@ Click "Forward" to begin.</property>
       </widget>
     </child>
   </widget>
-  <widget class="Gtk.Bin" id="Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget" design-size="466 320">
+  <widget class="Gtk.Bin" id="Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget" design-size="736 372">
     <property name="MemberName" />
     <property name="Visible">False</property>
     <child>
@@ -3664,6 +3664,64 @@ Click "Forward" to begin.</property>
           </packing>
         </child>
         <child>
+          <widget class="Gtk.VBox" id="f_SshPasswordVBox">
+            <property name="MemberName" />
+            <property name="Spacing">6</property>
+            <child>
+              <widget class="Gtk.Label" id="label14">
+                <property name="MemberName" />
+                <property name="Xalign">0</property>
+                <property name="LabelProp" translatable="yes">_SSH Password: (optional)</property>
+                <property name="UseUnderline">True</property>
+                <property name="MnemonicWidget">f_SshUsernameEntry</property>
+              </widget>
+              <packing>
+                <property name="Position">0</property>
+                <property name="AutoSize">True</property>
+                <property name="Expand">False</property>
+                <property name="Fill">False</property>
+              </packing>
+            </child>
+            <child>
+              <widget class="Gtk.Entry" id="f_SshPasswordEntry">
+                <property name="MemberName" />
+                <property name="CanFocus">True</property>
+                <property name="IsEditable">True</property>
+                <property name="Visibility">False</property>
+                <property name="InvisibleChar">●</property>
+              </widget>
+              <packing>
+                <property name="Position">1</property>
+                <property name="AutoSize">True</property>
+                <property name="Expand">False</property>
+                <property name="Fill">False</property>
+              </packing>
+            </child>
+            <child>
+              <widget class="Gtk.Label" id="label15">
+                <property name="MemberName" />
+                <property name="Xpad">50</property>
+                <property name="Xalign">0</property>
+                <property name="LabelProp" translatable="yes">&lt;span size="small"&gt;Password which will be used to log into the SSH server. The password is optional if SSH key authorization is used (via Pageant from the PuTTY tools).&lt;/span&gt;</property>
+                <property name="UseMarkup">True</property>
+                <property name="Wrap">True</property>
+              </widget>
+              <packing>
+                <property name="Position">2</property>
+                <property name="AutoSize">True</property>
+                <property name="Expand">False</property>
+                <property name="Fill">False</property>
+              </packing>
+            </child>
+          </widget>
+          <packing>
+            <property name="Position">1</property>
+            <property name="AutoSize">True</property>
+            <property name="Expand">False</property>
+            <property name="Fill">False</property>
+          </packing>
+        </child>
+        <child>
           <widget class="Gtk.VBox" id="vbox16">
             <property name="MemberName" />
             <property name="Spacing">6</property>
@@ -3683,7 +3741,7 @@ Click "Forward" to begin.</property>
               </packing>
             </child>
             <child>
-              <widget class="Gtk.Entry" id="f_UsernameEntry1">
+              <widget class="Gtk.Entry" id="f_UsernameEntry">
                 <property name="MemberName" />
                 <property name="CanFocus">True</property>
                 <property name="IsEditable">True</property>
@@ -3713,7 +3771,7 @@ Click "Forward" to begin.</property>
             </child>
           </widget>
           <packing>
-            <property name="Position">1</property>
+            <property name="Position">2</property>
             <property name="AutoSize">True</property>
             <property name="Expand">False</property>
             <property name="Fill">False</property>
@@ -3770,7 +3828,7 @@ Click "Forward" to begin.</property>
             </child>
           </widget>
           <packing>
-            <property name="Position">2</property>
+            <property name="Position">3</property>
             <property name="AutoSize">True</property>
             <property name="Expand">False</property>
             <property name="Fill">False</property>
@@ -3827,7 +3885,7 @@ Click "Forward" to begin.</property>
             </child>
           </widget>
           <packing>
-            <property name="Position">3</property>
+            <property name="Position">4</property>
             <property name="AutoSize">True</property>
             <property name="Expand">False</property>
             <property name="Fill">False</property>

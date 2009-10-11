@@ -27,6 +27,7 @@
  */
 
 using System;
+using System.IO;
 using Smuxi.Common;
 using Smuxi.Engine;
 
@@ -220,9 +221,15 @@ namespace Smuxi.Frontend.Gnome
                 CheckCredentialsPage();
             };
 
+            // HACK: only show the SSH password field if plink is present as
+            // OpenSSH doesn't support passing passwords via command line
+            f_CredentialsWidget.SshPasswordVBox.Visible = File.Exists("plink.exe");
+
             if (f_EngineName != null) {
                 f_CredentialsWidget.SshUsernameEntry.Text = (string)
                     f_Config["Engines/" + f_EngineName + "/SshUsername"];
+                f_CredentialsWidget.SshPasswordEntry.Text = (string)
+                    f_Config["Engines/" + f_EngineName + "/SshPassword"];
                 f_CredentialsWidget.UsernameEntry.Text = (string)
                     f_Config["Engines/" + f_EngineName + "/Username"];
                 f_CredentialsWidget.PasswordEntry.Text = (string)
@@ -303,6 +310,10 @@ namespace Smuxi.Frontend.Gnome
                     f_ConnectionWidget.UseSshTunnelCheckButton.Active;
             f_Config["Engines/"+engine+"/SshUsername"] =
                 f_CredentialsWidget.SshUsernameEntry.Text.Trim();
+            if (f_CredentialsWidget.SshPasswordVBox.Visible) {
+                f_Config["Engines/"+engine+"/SshPassword"] =
+                    f_CredentialsWidget.SshPasswordEntry.Text;
+            }
             f_Config["Engines/"+engine+"/SshHostname"] =
                 f_ConnectionWidget.SshHostEntry.Text.Trim();
             f_Config["Engines/"+engine+"/SshPort"] =

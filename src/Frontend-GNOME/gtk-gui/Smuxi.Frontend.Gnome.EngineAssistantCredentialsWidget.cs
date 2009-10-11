@@ -23,11 +23,19 @@ namespace Smuxi.Frontend.Gnome {
         
         private Gtk.Label label9;
         
+        private Gtk.VBox f_SshPasswordVBox;
+        
+        private Gtk.Label label14;
+        
+        private Gtk.Entry f_SshPasswordEntry;
+        
+        private Gtk.Label label15;
+        
         private Gtk.VBox vbox16;
         
         private Gtk.Label label12;
         
-        private Gtk.Entry f_UsernameEntry1;
+        private Gtk.Entry f_UsernameEntry;
         
         private Gtk.Label label13;
         
@@ -101,6 +109,51 @@ namespace Smuxi.Frontend.Gnome {
             w4.Expand = false;
             w4.Fill = false;
             // Container child vbox12.Gtk.Box+BoxChild
+            this.f_SshPasswordVBox = new Gtk.VBox();
+            this.f_SshPasswordVBox.Name = "f_SshPasswordVBox";
+            this.f_SshPasswordVBox.Spacing = 6;
+            // Container child f_SshPasswordVBox.Gtk.Box+BoxChild
+            this.label14 = new Gtk.Label();
+            this.label14.Name = "label14";
+            this.label14.Xalign = 0F;
+            this.label14.LabelProp = Mono.Unix.Catalog.GetString("_SSH Password: (optional)");
+            this.label14.UseUnderline = true;
+            this.f_SshPasswordVBox.Add(this.label14);
+            Gtk.Box.BoxChild w5 = ((Gtk.Box.BoxChild)(this.f_SshPasswordVBox[this.label14]));
+            w5.Position = 0;
+            w5.Expand = false;
+            w5.Fill = false;
+            // Container child f_SshPasswordVBox.Gtk.Box+BoxChild
+            this.f_SshPasswordEntry = new Gtk.Entry();
+            this.f_SshPasswordEntry.CanFocus = true;
+            this.f_SshPasswordEntry.Name = "f_SshPasswordEntry";
+            this.f_SshPasswordEntry.IsEditable = true;
+            this.f_SshPasswordEntry.Visibility = false;
+            this.f_SshPasswordEntry.InvisibleChar = '●';
+            this.f_SshPasswordVBox.Add(this.f_SshPasswordEntry);
+            Gtk.Box.BoxChild w6 = ((Gtk.Box.BoxChild)(this.f_SshPasswordVBox[this.f_SshPasswordEntry]));
+            w6.Position = 1;
+            w6.Expand = false;
+            w6.Fill = false;
+            // Container child f_SshPasswordVBox.Gtk.Box+BoxChild
+            this.label15 = new Gtk.Label();
+            this.label15.Name = "label15";
+            this.label15.Xpad = 50;
+            this.label15.Xalign = 0F;
+            this.label15.LabelProp = Mono.Unix.Catalog.GetString("<span size=\"small\">Password which will be used to log into the SSH server. The password is optional if SSH key authorization is used (via Pageant from the PuTTY tools).</span>");
+            this.label15.UseMarkup = true;
+            this.label15.Wrap = true;
+            this.f_SshPasswordVBox.Add(this.label15);
+            Gtk.Box.BoxChild w7 = ((Gtk.Box.BoxChild)(this.f_SshPasswordVBox[this.label15]));
+            w7.Position = 2;
+            w7.Expand = false;
+            w7.Fill = false;
+            this.vbox12.Add(this.f_SshPasswordVBox);
+            Gtk.Box.BoxChild w8 = ((Gtk.Box.BoxChild)(this.vbox12[this.f_SshPasswordVBox]));
+            w8.Position = 1;
+            w8.Expand = false;
+            w8.Fill = false;
+            // Container child vbox12.Gtk.Box+BoxChild
             this.vbox16 = new Gtk.VBox();
             this.vbox16.Name = "vbox16";
             this.vbox16.Spacing = 6;
@@ -111,21 +164,21 @@ namespace Smuxi.Frontend.Gnome {
             this.label12.LabelProp = Mono.Unix.Catalog.GetString("_Username:");
             this.label12.UseUnderline = true;
             this.vbox16.Add(this.label12);
-            Gtk.Box.BoxChild w5 = ((Gtk.Box.BoxChild)(this.vbox16[this.label12]));
-            w5.Position = 0;
-            w5.Expand = false;
-            w5.Fill = false;
+            Gtk.Box.BoxChild w9 = ((Gtk.Box.BoxChild)(this.vbox16[this.label12]));
+            w9.Position = 0;
+            w9.Expand = false;
+            w9.Fill = false;
             // Container child vbox16.Gtk.Box+BoxChild
-            this.f_UsernameEntry1 = new Gtk.Entry();
-            this.f_UsernameEntry1.CanFocus = true;
-            this.f_UsernameEntry1.Name = "f_UsernameEntry1";
-            this.f_UsernameEntry1.IsEditable = true;
-            this.f_UsernameEntry1.InvisibleChar = '●';
-            this.vbox16.Add(this.f_UsernameEntry1);
-            Gtk.Box.BoxChild w6 = ((Gtk.Box.BoxChild)(this.vbox16[this.f_UsernameEntry1]));
-            w6.Position = 1;
-            w6.Expand = false;
-            w6.Fill = false;
+            this.f_UsernameEntry = new Gtk.Entry();
+            this.f_UsernameEntry.CanFocus = true;
+            this.f_UsernameEntry.Name = "f_UsernameEntry";
+            this.f_UsernameEntry.IsEditable = true;
+            this.f_UsernameEntry.InvisibleChar = '●';
+            this.vbox16.Add(this.f_UsernameEntry);
+            Gtk.Box.BoxChild w10 = ((Gtk.Box.BoxChild)(this.vbox16[this.f_UsernameEntry]));
+            w10.Position = 1;
+            w10.Expand = false;
+            w10.Fill = false;
             // Container child vbox16.Gtk.Box+BoxChild
             this.label13 = new Gtk.Label();
             this.label13.Name = "label13";
@@ -134,15 +187,15 @@ namespace Smuxi.Frontend.Gnome {
             this.label13.LabelProp = Mono.Unix.Catalog.GetString("<span size=\"small\">Username which will be used to log into the Smuxi server</span>");
             this.label13.UseMarkup = true;
             this.vbox16.Add(this.label13);
-            Gtk.Box.BoxChild w7 = ((Gtk.Box.BoxChild)(this.vbox16[this.label13]));
-            w7.Position = 2;
-            w7.Expand = false;
-            w7.Fill = false;
+            Gtk.Box.BoxChild w11 = ((Gtk.Box.BoxChild)(this.vbox16[this.label13]));
+            w11.Position = 2;
+            w11.Expand = false;
+            w11.Fill = false;
             this.vbox12.Add(this.vbox16);
-            Gtk.Box.BoxChild w8 = ((Gtk.Box.BoxChild)(this.vbox12[this.vbox16]));
-            w8.Position = 1;
-            w8.Expand = false;
-            w8.Fill = false;
+            Gtk.Box.BoxChild w12 = ((Gtk.Box.BoxChild)(this.vbox12[this.vbox16]));
+            w12.Position = 2;
+            w12.Expand = false;
+            w12.Fill = false;
             // Container child vbox12.Gtk.Box+BoxChild
             this.vbox14 = new Gtk.VBox();
             this.vbox14.Name = "vbox14";
@@ -154,10 +207,10 @@ namespace Smuxi.Frontend.Gnome {
             this.label7.LabelProp = Mono.Unix.Catalog.GetString("_Password:");
             this.label7.UseUnderline = true;
             this.vbox14.Add(this.label7);
-            Gtk.Box.BoxChild w9 = ((Gtk.Box.BoxChild)(this.vbox14[this.label7]));
-            w9.Position = 0;
-            w9.Expand = false;
-            w9.Fill = false;
+            Gtk.Box.BoxChild w13 = ((Gtk.Box.BoxChild)(this.vbox14[this.label7]));
+            w13.Position = 0;
+            w13.Expand = false;
+            w13.Fill = false;
             // Container child vbox14.Gtk.Box+BoxChild
             this.f_PasswordEntry = new Gtk.Entry();
             this.f_PasswordEntry.CanFocus = true;
@@ -166,10 +219,10 @@ namespace Smuxi.Frontend.Gnome {
             this.f_PasswordEntry.Visibility = false;
             this.f_PasswordEntry.InvisibleChar = '●';
             this.vbox14.Add(this.f_PasswordEntry);
-            Gtk.Box.BoxChild w10 = ((Gtk.Box.BoxChild)(this.vbox14[this.f_PasswordEntry]));
-            w10.Position = 1;
-            w10.Expand = false;
-            w10.Fill = false;
+            Gtk.Box.BoxChild w14 = ((Gtk.Box.BoxChild)(this.vbox14[this.f_PasswordEntry]));
+            w14.Position = 1;
+            w14.Expand = false;
+            w14.Fill = false;
             // Container child vbox14.Gtk.Box+BoxChild
             this.label10 = new Gtk.Label();
             this.label10.Name = "label10";
@@ -178,15 +231,15 @@ namespace Smuxi.Frontend.Gnome {
             this.label10.LabelProp = Mono.Unix.Catalog.GetString("<span size=\"small\">Password of the user</span>");
             this.label10.UseMarkup = true;
             this.vbox14.Add(this.label10);
-            Gtk.Box.BoxChild w11 = ((Gtk.Box.BoxChild)(this.vbox14[this.label10]));
-            w11.Position = 2;
-            w11.Expand = false;
-            w11.Fill = false;
+            Gtk.Box.BoxChild w15 = ((Gtk.Box.BoxChild)(this.vbox14[this.label10]));
+            w15.Position = 2;
+            w15.Expand = false;
+            w15.Fill = false;
             this.vbox12.Add(this.vbox14);
-            Gtk.Box.BoxChild w12 = ((Gtk.Box.BoxChild)(this.vbox12[this.vbox14]));
-            w12.Position = 2;
-            w12.Expand = false;
-            w12.Fill = false;
+            Gtk.Box.BoxChild w16 = ((Gtk.Box.BoxChild)(this.vbox12[this.vbox14]));
+            w16.Position = 3;
+            w16.Expand = false;
+            w16.Fill = false;
             // Container child vbox12.Gtk.Box+BoxChild
             this.vbox15 = new Gtk.VBox();
             this.vbox15.Name = "vbox15";
@@ -198,10 +251,10 @@ namespace Smuxi.Frontend.Gnome {
             this.label8.LabelProp = Mono.Unix.Catalog.GetString("_Verify Password:");
             this.label8.UseUnderline = true;
             this.vbox15.Add(this.label8);
-            Gtk.Box.BoxChild w13 = ((Gtk.Box.BoxChild)(this.vbox15[this.label8]));
-            w13.Position = 0;
-            w13.Expand = false;
-            w13.Fill = false;
+            Gtk.Box.BoxChild w17 = ((Gtk.Box.BoxChild)(this.vbox15[this.label8]));
+            w17.Position = 0;
+            w17.Expand = false;
+            w17.Fill = false;
             // Container child vbox15.Gtk.Box+BoxChild
             this.f_VerifyPasswordEntry = new Gtk.Entry();
             this.f_VerifyPasswordEntry.CanFocus = true;
@@ -210,10 +263,10 @@ namespace Smuxi.Frontend.Gnome {
             this.f_VerifyPasswordEntry.Visibility = false;
             this.f_VerifyPasswordEntry.InvisibleChar = '●';
             this.vbox15.Add(this.f_VerifyPasswordEntry);
-            Gtk.Box.BoxChild w14 = ((Gtk.Box.BoxChild)(this.vbox15[this.f_VerifyPasswordEntry]));
-            w14.Position = 1;
-            w14.Expand = false;
-            w14.Fill = false;
+            Gtk.Box.BoxChild w18 = ((Gtk.Box.BoxChild)(this.vbox15[this.f_VerifyPasswordEntry]));
+            w18.Position = 1;
+            w18.Expand = false;
+            w18.Fill = false;
             // Container child vbox15.Gtk.Box+BoxChild
             this.label11 = new Gtk.Label();
             this.label11.Name = "label11";
@@ -222,20 +275,22 @@ namespace Smuxi.Frontend.Gnome {
             this.label11.LabelProp = Mono.Unix.Catalog.GetString("<span size=\"small\">Repeat the password for verification</span>");
             this.label11.UseMarkup = true;
             this.vbox15.Add(this.label11);
-            Gtk.Box.BoxChild w15 = ((Gtk.Box.BoxChild)(this.vbox15[this.label11]));
-            w15.Position = 2;
-            w15.Expand = false;
-            w15.Fill = false;
+            Gtk.Box.BoxChild w19 = ((Gtk.Box.BoxChild)(this.vbox15[this.label11]));
+            w19.Position = 2;
+            w19.Expand = false;
+            w19.Fill = false;
             this.vbox12.Add(this.vbox15);
-            Gtk.Box.BoxChild w16 = ((Gtk.Box.BoxChild)(this.vbox12[this.vbox15]));
-            w16.Position = 3;
-            w16.Expand = false;
-            w16.Fill = false;
+            Gtk.Box.BoxChild w20 = ((Gtk.Box.BoxChild)(this.vbox12[this.vbox15]));
+            w20.Position = 4;
+            w20.Expand = false;
+            w20.Fill = false;
             this.Add(this.vbox12);
             if ((this.Child != null)) {
                 this.Child.ShowAll();
             }
             this.label6.MnemonicWidget = this.f_SshUsernameEntry;
+            this.label14.MnemonicWidget = this.f_SshUsernameEntry;
+            this.label12.MnemonicWidget = this.f_UsernameEntry;
             this.label7.MnemonicWidget = this.f_PasswordEntry;
             this.label8.MnemonicWidget = this.f_VerifyPasswordEntry;
             this.Hide();

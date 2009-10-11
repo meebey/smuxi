@@ -28,7 +28,7 @@ namespace Smuxi.Frontend.Gnome
     {
         public Gtk.Entry UsernameEntry {
             get {
-                return f_UsernameEntry1;
+                return f_UsernameEntry;
             }
         }
         
@@ -47,6 +47,18 @@ namespace Smuxi.Frontend.Gnome
         public Gtk.Entry SshUsernameEntry {
             get {
                 return f_SshUsernameEntry;
+            }
+        }
+
+        public Gtk.Entry SshPasswordEntry {
+            get {
+                return f_SshPasswordEntry;
+            }
+        }
+
+        public Gtk.VBox SshPasswordVBox {
+            get {
+                return f_SshPasswordVBox;
             }
         }
         
