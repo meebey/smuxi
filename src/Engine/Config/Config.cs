@@ -216,7 +216,7 @@ namespace Smuxi.Engine
             prefix = "Engine/Users/DEFAULT/Interface/Notebook/Channel/";
             Get(prefix+"UserListPosition", "left");
             Get(prefix+"TopicPosition", "top");
-            Get(prefix+"NickColors", false);
+            Get(prefix+"NickColors", true);
 
             prefix = "Engine/Users/DEFAULT/Interface/Chat/";
             Get(prefix+"BackgroundColor", String.Empty);
