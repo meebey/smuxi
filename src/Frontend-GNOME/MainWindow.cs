@@ -786,6 +786,13 @@ namespace Smuxi.Frontend.Gnome
                     this,
                     Frontend.FrontendConfig
                 );
+                assistant.Cancel += delegate {
+                    assistant.Destroy();
+                };
+                assistant.Close += delegate {
+                    assistant.Destroy();
+                };
+                assistant.ShowAll();
             } catch (Exception ex) {
                 Frontend.ShowException(this, ex);
             }
