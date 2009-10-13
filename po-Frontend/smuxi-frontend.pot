@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-08-24 17:13+0200\n"
+"POT-Creation-Date: 2009-10-14 01:01+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,40 +16,41 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../src/Frontend/EngineManager.cs:263
+#: ../src/Frontend/EngineManager.cs:264
 #, csharp-format
 msgid "Unknown channel ({0}), only following channel types are supported:"
 msgstr ""
 
-#: ../src/Frontend/EngineManager.cs:272
+#: ../src/Frontend/EngineManager.cs:273
 msgid ""
 "Registration at engine failed, username and/or password was wrong, please "
 "verify them."
 msgstr ""
 
-#: ../src/Frontend/SshTunnelManager.cs:136
+#: ../src/Frontend/SshTunnelManager.cs:144
 msgid "SSH client application was not found: "
 msgstr ""
 
-#: ../src/Frontend/SshTunnelManager.cs:139
+#: ../src/Frontend/SshTunnelManager.cs:147
 msgid ""
 "SSH client must be either OpenSSH (ssh) or Plink (plink.exe, _not_ putty.exe)"
 msgstr ""
 
-#: ../src/Frontend/SshTunnelManager.cs:181
+#: ../src/Frontend/SshTunnelManager.cs:189
 #, csharp-format
 msgid ""
 "SSH tunnel setup failed with (exit code: {0})\n"
 "\n"
 "SSH program: {1}\n"
+"SSH parameters: {2}\n"
 "\n"
 "Program Error:\n"
-"{2}\n"
-"Prgram Output:\n"
 "{3}\n"
+"Prgram Output:\n"
+"{4}\n"
 msgstr ""
 
-#: ../src/Frontend/SshTunnelManager.cs:353
+#: ../src/Frontend/SshTunnelManager.cs:366
 #, csharp-format
 msgid ""
 "Couldn't get OpenSSH version (exit code: {0})\n"
@@ -62,6 +63,6 @@ msgid ""
 "{3}\n"
 msgstr ""
 
-#: ../src/Frontend/SshTunnelManager.cs:388
+#: ../src/Frontend/SshTunnelManager.cs:402
 msgid "PuTTY / Plink requires a username to be set."
 msgstr ""
