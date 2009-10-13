@@ -1369,7 +1369,11 @@ namespace Smuxi.Engine
             textMsg = new TextMessagePartModel();
             textMsg.Text = "-!- ";
             msg.MessageParts.Add(textMsg);
-            foreach (IrcGroupPersonModel ircPerson in groupChat.Persons.Values) {
+
+            // sort nicklist
+            List<PersonModel> ircPersons = new List<PersonModel>(groupChat.Persons.Values);
+            ircPersons.Sort((a, b) => (a.IdentityName.CompareTo(b.IdentityName)));
+            foreach (IrcGroupPersonModel ircPerson in ircPersons) {
                 string mode;
                 if (ircPerson.IsOp) {
                     opCount++;
