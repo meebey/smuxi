@@ -506,7 +506,16 @@ Section "Main" SEC01
   File "../bin-win32/smuxi-server.exe.config"
   File "../bin-win32/zlib1.dll"
   File "../bin-win32/plink.exe"
+  File "../bin-win32/Fixedsys500c.ttf"
   File /r "../bin-win32/locale"
+
+  DetailPrint "Installing Fixed-Sys font..."
+  CopyFiles "$INSTDIR\Fixedsys500c.ttf" "$FONTS"
+  System::Call "GDI32::AddFontResourceA(t) i ('Fixedsys500c.ttf') .s"
+  WriteRegStr "HKLM" "Software\Microsoft\Windows NT\CurrentVersion\Fonts" "Fixedsys TTF V5.00c (TrueType)" "Fixedsys500c.ttf"
+  #SetRebootFlag true
+  SendMessage ${HWND_BROADCAST} ${WM_FONTCHANGE} 0 0 /TIMEOUT=5000
+  DetailPrint "Done."
 SectionEnd
 
 Section -AdditionalIcons
@@ -559,6 +568,7 @@ Section Uninstall
   Delete "$INSTDIR\Meebey.SmartIrc4net.dll"
   Delete "$INSTDIR\log4net.dll"
   Delete "$INSTDIR\plink.exe"
+  Delete "$INSTDIR\Fixedsys500c.ttf"
   RMDir /r "$INSTDIR\locale"
 
   Delete "$DESKTOP\Smuxi.lnk"

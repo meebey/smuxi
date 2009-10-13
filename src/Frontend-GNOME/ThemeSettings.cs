@@ -21,6 +21,7 @@
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA
 
 using System;
+using System.IO;
 using Smuxi.Engine;
 
 namespace Smuxi.Frontend.Gnome
@@ -87,10 +88,19 @@ namespace Smuxi.Frontend.Gnome
             }
             Pango.FontDescription fontDescription = new Pango.FontDescription();
             if (String.IsNullOrEmpty(fontFamily)) {
-                // use Monospace and Bold by default
-                fontDescription.Family = "monospace";
-                // black bold font on white background looks odd 
-                //fontDescription.Weight = Pango.Weight.Bold;
+                // HACK: use fixed-sys by default if present
+                if (File.Exists("Fixedsys500c.ttf")) {
+                    fontDescription.Family = "FixedsysTTF, monospace";
+                    // fixed-sys only looks good in size 11
+                    fontDescription.Size = 11 * 1024;
+                    fontDescription.Weight = Pango.Weight.Bold;
+                    fontDescription.Style = Pango.Style.Normal;
+                } else {
+                    // use Monospace and Bold by default
+                    fontDescription.Family = "monospace";
+                    // black bold font on white background looks odd 
+                    //fontDescription.Weight = Pango.Weight.Bold;
+                }
             } else {
                 fontDescription.Family = fontFamily;
                 string frontWeigth = null;

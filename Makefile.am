@@ -59,6 +59,7 @@ WIN32_FILES = \
 	$(WIN32_LIB_DIR)/MonoPosixHelper.dll \
 	$(WIN32_LIB_DIR)/zlib1.dll \
 	$(WIN32_LIB_DIR)/plink.exe \
+	$(WIN32_LIB_DIR)/fixedsys500c/Fixedsys500c.ttf \
 	$(BUILD_DIR)/smuxi-common.dll \
 	$(BUILD_DIR)/smuxi-engine.dll \
 	$(BUILD_DIR)/smuxi-engine-irc.dll \
