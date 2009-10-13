@@ -63,7 +63,7 @@ namespace Smuxi.Frontend.Gnome
         
         public bool HasHighlight {
             get {
-                return _OutputMessageTextView.HasHighlight;
+                return _HasHighlight;
             }
             set {
                 _HasHighlight = value;

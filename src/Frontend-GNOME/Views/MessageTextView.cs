@@ -44,7 +44,6 @@ namespace Smuxi.Frontend.Gnome
         private MessageModel _LastMessage;
         private bool         _ShowTimestamps;
         private bool         _ShowHighlight;
-        private bool         _HasHighlight;
         private bool         _AtUrlTag;
         private UserConfig   _Config;
         private ThemeSettings _ThemeSettings;
@@ -67,13 +66,6 @@ namespace Smuxi.Frontend.Gnome
             }
             set {
                 _ShowHighlight = value;
-            }
-        }
-
-        public bool HasHighlight
-        {
-            get {
-                return _HasHighlight;
             }
         }
 
