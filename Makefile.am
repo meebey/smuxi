@@ -32,7 +32,7 @@ mail-po: update-po
 		echo $$PODIR; \
 		podebconf-report-po \
 			--nolanguageteam \
-			--deadline=1day \
+			--deadline=7days \
 			--notdebconf \
 			--package="Smuxi ($$PODIR)" \
 			--utf8 \
@@ -58,6 +58,7 @@ WIN32_FILES = \
 	$(LIB_DIR)/log4net.dll \
 	$(WIN32_LIB_DIR)/MonoPosixHelper.dll \
 	$(WIN32_LIB_DIR)/zlib1.dll \
+	$(WIN32_LIB_DIR)/plink.exe \
 	$(BUILD_DIR)/smuxi-common.dll \
 	$(BUILD_DIR)/smuxi-engine.dll \
 	$(BUILD_DIR)/smuxi-engine-irc.dll \
