@@ -67,9 +67,9 @@
 ; Instfiles page
 !insertmacro MUI_PAGE_INSTFILES
 ; Finish page
-# BUG: if GTK# was installed by this installer, the PATH environment variable
-# is not refreshed and thus the direct start fails
-#!define MUI_FINISHPAGE_RUN "$SMPROGRAMS\Smuxi\Smuxi.lnk"
+!define MUI_FINISHPAGE_RUN
+!define MUI_FINISHPAGE_RUN_TEXT "Run Smuxi"
+!define MUI_FINISHPAGE_RUN_FUNCTION "RunSmuxi"
 !insertmacro MUI_PAGE_FINISH
 
 ; Uninstaller pages
@@ -159,9 +159,17 @@ FunctionEnd
         DetailPrint "Completed GTK# install. Exit code = '$0'. Removing GTK# installer."
         Delete "${GTKSHARP_TEMP_FILE}"
         DetailPrint "GTK# installer removed."
-	SetRebootFlag true
+
+        # HACK: force reloading the PATH environment variable for the installer
+        Var /GLOBAL PATH
+        ReadRegStr $PATH HKLM "SYSTEM\CurrentControlSet\Control\Session Manager\Environment" "Path"
+        System::Call 'Kernel32::SetEnvironmentVariableA(t, t) i("PATH", "$PATH")'
+
+        # HACK: announce the PATH change to all other applications
+        SendMessage ${HWND_BROADCAST} ${WM_WININICHANGE} 0 "STR:Environment" /TIMEOUT=5000
+
         goto End
-    
+
     GiveUp:
         Abort "Installation cancelled by user."
 
@@ -475,6 +483,10 @@ Function VersionCompare
 	Exch $0
 FunctionEnd
 
+Function RunSmuxi
+	ExecShell "" "$SMPROGRAMS\Smuxi\Smuxi.lnk"
+FunctionEnd
+
 ############
 # Sections #
 ############
@@ -513,7 +525,6 @@ Section "Main" SEC01
   CopyFiles "$INSTDIR\Fixedsys500c.ttf" "$FONTS"
   System::Call "GDI32::AddFontResourceA(t) i ('Fixedsys500c.ttf') .s"
   WriteRegStr "HKLM" "Software\Microsoft\Windows NT\CurrentVersion\Fonts" "Fixedsys TTF V5.00c (TrueType)" "Fixedsys500c.ttf"
-  #SetRebootFlag true
   SendMessage ${HWND_BROADCAST} ${WM_FONTCHANGE} 0 0 /TIMEOUT=5000
   DetailPrint "Done."
 SectionEnd
