@@ -149,6 +149,11 @@ namespace Smuxi.Engine
         {
         }
 
+        public override string ToString()
+        {
+            return Text;
+        }
+
         protected TextMessagePartModel(SerializationInfo info, StreamingContext ctx) :
                                   base(info, ctx)
         {

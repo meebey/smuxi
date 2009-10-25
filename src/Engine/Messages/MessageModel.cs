@@ -108,17 +108,10 @@ namespace Smuxi.Engine
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
-
             foreach (MessagePartModel part in MessageParts) {
-                if (part is UrlMessagePartModel) {
-                    UrlMessagePartModel url = (UrlMessagePartModel)part;
-                    sb.AppendFormat("{0} ", url.Url);
-                } else if (part is TextMessagePartModel) {
-                    TextMessagePartModel text = (TextMessagePartModel)part;
-                    sb.AppendFormat("{0} ", text.Text);
-                }
+               sb.Append(part.ToString());
             }
-            return sb.ToString().Trim();
+            return sb.ToString();
         }
     }
 }

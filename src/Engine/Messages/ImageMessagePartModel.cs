@@ -73,7 +73,12 @@ namespace Smuxi.Engine
         public ImageMessagePartModel(string imageFileName) : this(imageFileName, null)
         {
         }
-        
+
+        public override string ToString()
+        {
+            return AlternativeText;
+        }
+
         protected ImageMessagePartModel(SerializationInfo info, StreamingContext ctx) :
                                    base(info, ctx)
         {
