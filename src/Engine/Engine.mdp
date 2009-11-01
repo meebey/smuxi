@@ -1,67 +1,67 @@
-<Project name="Engine" fileversion="2.0" language="C#" clr-version="Net_2_0" targetFramework="2.0" ctype="DotNetProject">
+<Project name="Engine" fileversion="2.0" DefaultNamespace="Smuxi.Engine" language="C#" clr-version="Net_2_0" targetFramework="2.0" ctype="DotNetProject">
   <Configurations active="Debug">
     <Configuration name="Debug" ctype="DotNetProjectConfiguration">
-      <Output directory="../../bin/debug" assemblyKeyFile="." assembly="smuxi-engine" />
+      <Output directory="../../bin/debug" assembly="smuxi-engine" assemblyKeyFile="." />
       <Build debugmode="True" target="Library" />
-      <Execution runwithwarnings="False" consolepause="False" runtime="MsNet" clr-version="Net_2_0" />
+      <Execution consolepause="False" runwithwarnings="False" runtime="MsNet" clr-version="Net_2_0" />
       <CodeGeneration compiler="Mcs" warninglevel="4" optimize="False" unsafecodeallowed="False" generateoverflowchecks="True" definesymbols="DEBUG,TRACE,LOG4NET,CONFIG_NINI" generatexmldocumentation="False" ctype="CSharpCompilerParameters" />
     </Configuration>
     <Configuration name="Release" ctype="DotNetProjectConfiguration">
-      <Output directory="../../bin/release" assemblyKeyFile="." assembly="smuxi-engine" />
+      <Output directory="../../bin/release" assembly="smuxi-engine" assemblyKeyFile="." />
       <Build debugmode="False" target="Library" />
-      <Execution runwithwarnings="False" consolepause="False" runtime="MsNet" clr-version="Net_2_0" />
+      <Execution consolepause="False" runwithwarnings="False" runtime="MsNet" clr-version="Net_2_0" />
       <CodeGeneration compiler="Mcs" warninglevel="4" optimize="True" unsafecodeallowed="False" generateoverflowchecks="True" definesymbols="CONFIG_NINI" generatexmldocumentation="False" ctype="CSharpCompilerParameters" />
     </Configuration>
   </Configurations>
   <Contents>
-    <File name="AssemblyInfo.cs" subtype="Code" buildaction="Compile" />
-    <File name="CommandModel.cs" subtype="Code" buildaction="Compile" />
-    <File name="Engine.cs" subtype="Code" buildaction="Compile" />
-    <File name="FrontendManager.cs" subtype="Code" buildaction="Compile" />
-    <File name="IFrontendUI.cs" subtype="Code" buildaction="Compile" />
-    <File name="PermanentRemoteObject.cs" subtype="Code" buildaction="Compile" />
-    <File name="Session.cs" subtype="Code" buildaction="Compile" />
-    <File name="SessionManager.cs" subtype="Code" buildaction="Compile" />
-    <File name="TextColor.cs" subtype="Code" buildaction="Compile" />
-    <File name="UICommand.cs" subtype="Code" buildaction="Compile" />
-    <File name="UICommandContainer.cs" subtype="Code" buildaction="Compile" />
-    <File name="Protocols" subtype="Directory" buildaction="Compile" />
-    <File name="Messages" subtype="Directory" buildaction="Compile" />
-    <File name="Messages/MessageModel.cs" subtype="Code" buildaction="Compile" />
-    <File name="Messages/MessagePartModel.cs" subtype="Code" buildaction="Compile" />
-    <File name="Messages/TextMessagePartModel.cs" subtype="Code" buildaction="Compile" />
-    <File name="Messages/UrlMessagePartModel.cs" subtype="Code" buildaction="Compile" />
-    <File name="Chats" subtype="Directory" buildaction="Compile" />
-    <File name="Chats/ChatType.cs" subtype="Code" buildaction="Compile" />
-    <File name="Chats/ChatModel.cs" subtype="Code" buildaction="Compile" />
-    <File name="Chats/GroupChatModel.cs" subtype="Code" buildaction="Compile" />
-    <File name="Chats/PersonChatModel.cs" subtype="Code" buildaction="Compile" />
-    <File name="Protocols/ProtocolManagerBase.cs" subtype="Code" buildaction="Compile" />
-    <File name="Chats/ProtocolChatModel.cs" subtype="Code" buildaction="Compile" />
-    <File name="Plugins" subtype="Directory" buildaction="Compile" />
-    <File name="Protocols/ProtocolManagerFactory.cs" subtype="Code" buildaction="Compile" />
-    <File name="Protocols/ProtocolManagerInfoModel.cs" subtype="Code" buildaction="Compile" />
-    <File name="Protocols/ProtocolManagerInfoAttribute.cs" subtype="Code" buildaction="Compile" />
-    <File name="Protocols/IProtocolManager.cs" subtype="Code" buildaction="Compile" />
-    <File name="Config" subtype="Directory" buildaction="Compile" />
-    <File name="Config/UserConfig.cs" subtype="Code" buildaction="Compile" />
-    <File name="Config/Config.cs" subtype="Code" buildaction="Compile" />
-    <File name="Config/ServerModel.cs" subtype="Code" buildaction="Compile" />
-    <File name="Config/ServerListController.cs" subtype="Code" buildaction="Compile" />
-    <File name="Persons" subtype="Directory" buildaction="Compile" />
-    <File name="Persons/PersonModel.cs" subtype="Code" buildaction="Compile" />
-    <File name="Persons/ContactModel.cs" subtype="Code" buildaction="Compile" />
-    <File name="Config/FrontendConfig.cs" subtype="Code" buildaction="Compile" />
-    <File name="Config/ChannelFilterModel.cs" subtype="Code" buildaction="Compile" />
-    <File name="Config/ChannelFilterListController.cs" subtype="Code" buildaction="Compile" />
-    <File name="Chats/SessionChatModel.cs" subtype="Code" buildaction="Compile" />
-    <File name="../AssemblyVersion.cs" subtype="Code" buildaction="Compile" />
-    <File name="../../po-Engine/da.po" subtype="Code" buildaction="Nothing" />
-    <File name="../../po-Engine/de.po" subtype="Code" buildaction="Nothing" />
-    <File name="../../po-Engine/es.po" subtype="Code" buildaction="Nothing" />
-    <File name="Messages/MessageType.cs" subtype="Code" buildaction="Compile" />
-    <File name="Messages/ImageMessagePartModel.cs" subtype="Code" buildaction="Compile" />
-    <File name="Config/NotificationAreaIconMode.cs" subtype="Code" buildaction="Compile" />
+    <File subtype="Code" buildaction="Compile" name="AssemblyInfo.cs" />
+    <File subtype="Code" buildaction="Compile" name="CommandModel.cs" />
+    <File subtype="Code" buildaction="Compile" name="Engine.cs" />
+    <File subtype="Code" buildaction="Compile" name="FrontendManager.cs" />
+    <File subtype="Code" buildaction="Compile" name="IFrontendUI.cs" />
+    <File subtype="Code" buildaction="Compile" name="PermanentRemoteObject.cs" />
+    <File subtype="Code" buildaction="Compile" name="Session.cs" />
+    <File subtype="Code" buildaction="Compile" name="SessionManager.cs" />
+    <File subtype="Code" buildaction="Compile" name="TextColor.cs" />
+    <File subtype="Code" buildaction="Compile" name="UICommand.cs" />
+    <File subtype="Code" buildaction="Compile" name="UICommandContainer.cs" />
+    <File subtype="Directory" buildaction="Compile" name="Protocols" />
+    <File subtype="Directory" buildaction="Compile" name="Messages" />
+    <File subtype="Code" buildaction="Compile" name="Messages/MessageModel.cs" />
+    <File subtype="Code" buildaction="Compile" name="Messages/MessagePartModel.cs" />
+    <File subtype="Code" buildaction="Compile" name="Messages/TextMessagePartModel.cs" />
+    <File subtype="Code" buildaction="Compile" name="Messages/UrlMessagePartModel.cs" />
+    <File subtype="Directory" buildaction="Compile" name="Chats" />
+    <File subtype="Code" buildaction="Compile" name="Chats/ChatType.cs" />
+    <File subtype="Code" buildaction="Compile" name="Chats/ChatModel.cs" />
+    <File subtype="Code" buildaction="Compile" name="Chats/GroupChatModel.cs" />
+    <File subtype="Code" buildaction="Compile" name="Chats/PersonChatModel.cs" />
+    <File subtype="Code" buildaction="Compile" name="Protocols/ProtocolManagerBase.cs" />
+    <File subtype="Code" buildaction="Compile" name="Chats/ProtocolChatModel.cs" />
+    <File subtype="Directory" buildaction="Compile" name="Plugins" />
+    <File subtype="Code" buildaction="Compile" name="Protocols/ProtocolManagerFactory.cs" />
+    <File subtype="Code" buildaction="Compile" name="Protocols/ProtocolManagerInfoModel.cs" />
+    <File subtype="Code" buildaction="Compile" name="Protocols/ProtocolManagerInfoAttribute.cs" />
+    <File subtype="Code" buildaction="Compile" name="Protocols/IProtocolManager.cs" />
+    <File subtype="Directory" buildaction="Compile" name="Config" />
+    <File subtype="Code" buildaction="Compile" name="Config/UserConfig.cs" />
+    <File subtype="Code" buildaction="Compile" name="Config/Config.cs" />
+    <File subtype="Code" buildaction="Compile" name="Config/ServerModel.cs" />
+    <File subtype="Code" buildaction="Compile" name="Config/ServerListController.cs" />
+    <File subtype="Directory" buildaction="Compile" name="Persons" />
+    <File subtype="Code" buildaction="Compile" name="Persons/PersonModel.cs" />
+    <File subtype="Code" buildaction="Compile" name="Persons/ContactModel.cs" />
+    <File subtype="Code" buildaction="Compile" name="Config/FrontendConfig.cs" />
+    <File subtype="Code" buildaction="Compile" name="Config/ChannelFilterModel.cs" />
+    <File subtype="Code" buildaction="Compile" name="Config/ChannelFilterListController.cs" />
+    <File subtype="Code" buildaction="Compile" name="Chats/SessionChatModel.cs" />
+    <File subtype="Code" buildaction="Compile" name="../AssemblyVersion.cs" />
+    <File subtype="Code" buildaction="Nothing" name="../../po-Engine/da.po" />
+    <File subtype="Code" buildaction="Nothing" name="../../po-Engine/de.po" />
+    <File subtype="Code" buildaction="Nothing" name="../../po-Engine/es.po" />
+    <File subtype="Code" buildaction="Compile" name="Messages/MessageType.cs" />
+    <File subtype="Code" buildaction="Compile" name="Messages/ImageMessagePartModel.cs" />
+    <File subtype="Code" buildaction="Compile" name="Config/NotificationAreaIconMode.cs" />
   </Contents>
   <References>
     <ProjectReference type="Assembly" localcopy="True" refto="../../lib/log4net.dll" />

@@ -1,25 +1,25 @@
-<Project name="Frontend-GNOME-IRC" fileversion="2.0" language="C#" clr-version="Net_2_0" targetFramework="2.0" ctype="DotNetProject">
+<Project name="Frontend-GNOME-IRC" fileversion="2.0" DefaultNamespace="FrontendGNOMEIRC" language="C#" clr-version="Net_2_0" targetFramework="2.0" ctype="DotNetProject">
   <Configurations active="Debug">
     <Configuration name="Debug" ctype="DotNetProjectConfiguration">
       <Output directory="../../bin/debug" assembly="smuxi-frontend-gnome-irc" />
       <Build debugmode="True" target="Library" />
-      <Execution runwithwarnings="True" consolepause="True" runtime="MsNet" clr-version="Net_2_0" />
+      <Execution consolepause="True" runwithwarnings="True" runtime="MsNet" clr-version="Net_2_0" />
       <CodeGeneration compiler="Mcs" warninglevel="4" optimize="True" unsafecodeallowed="False" generateoverflowchecks="True" definesymbols="DEBUG,TRACE,LOG4NET" generatexmldocumentation="False" ctype="CSharpCompilerParameters" />
     </Configuration>
     <Configuration name="Release" ctype="DotNetProjectConfiguration">
       <Output directory="../../bin/release" assembly="smuxi-frontend-gnome-irc" />
       <Build debugmode="False" target="Library" />
-      <Execution runwithwarnings="True" consolepause="True" runtime="MsNet" clr-version="Net_2_0" />
+      <Execution consolepause="True" runwithwarnings="True" runtime="MsNet" clr-version="Net_2_0" />
       <CodeGeneration compiler="Mcs" warninglevel="4" optimize="True" unsafecodeallowed="False" generateoverflowchecks="True" generatexmldocumentation="False" ctype="CSharpCompilerParameters" />
     </Configuration>
   </Configurations>
   <Contents>
-    <File name="AssemblyInfo.cs" subtype="Code" buildaction="Compile" />
-    <File name="IrcGroupChatView.cs" subtype="Code" buildaction="Compile" />
-    <File name="IrcPersonChatView.cs" subtype="Code" buildaction="Compile" />
-    <File name="../AssemblyVersion.cs" subtype="Code" buildaction="Compile" />
-    <File name="../../po-Frontend-GNOME-IRC/es.po" subtype="Code" buildaction="Nothing" />
-    <File name="../../po-Frontend-GNOME-IRC/de.po" subtype="Code" buildaction="Nothing" />
+    <File subtype="Code" buildaction="Compile" name="AssemblyInfo.cs" />
+    <File subtype="Code" buildaction="Compile" name="IrcGroupChatView.cs" />
+    <File subtype="Code" buildaction="Compile" name="IrcPersonChatView.cs" />
+    <File subtype="Code" buildaction="Compile" name="../AssemblyVersion.cs" />
+    <File subtype="Code" buildaction="Nothing" name="../../po-Frontend-GNOME-IRC/es.po" />
+    <File subtype="Code" buildaction="Nothing" name="../../po-Frontend-GNOME-IRC/de.po" />
   </Contents>
   <References>
     <ProjectReference type="Project" localcopy="True" refto="Common" />

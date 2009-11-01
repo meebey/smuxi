@@ -1,99 +1,97 @@
-<Project name="Frontend-GNOME" fileversion="2.0" language="C#" clr-version="Net_2_0" targetFramework="2.0" ctype="DotNetProject">
+<Project name="Frontend-GNOME" fileversion="2.0" DefaultNamespace="FrontendGNOME" language="C#" clr-version="Net_2_0" targetFramework="2.0" ctype="DotNetProject">
   <Configurations active="Debug">
     <Configuration name="Debug" ctype="DotNetProjectConfiguration">
-      <Output directory="../../bin/debug" assemblyKeyFile="." assembly="smuxi-frontend-gnome" />
+      <Output directory="../../bin/debug" assembly="smuxi-frontend-gnome" assemblyKeyFile="." />
       <Build debugmode="True" target="WinExe" />
-      <Execution runwithwarnings="True" commandlineparameters="--debug" externalconsole="True" consolepause="True" runtime="MsNet" clr-version="Net_2_0" />
-      <EnvironmentVariables />
+      <Execution consolepause="True" externalconsole="True" commandlineparameters="--debug" runwithwarnings="True" runtime="MsNet" clr-version="Net_2_0" />
       <CodeGeneration compiler="Mcs" warninglevel="4" optimize="False" unsafecodeallowed="False" generateoverflowchecks="True" definesymbols="DEBUG,TRACE,LOG4NET,CONFIG_NINI,GTK_SHARP_2_10" generatexmldocumentation="False" ctype="CSharpCompilerParameters" />
     </Configuration>
     <Configuration name="Release" ctype="DotNetProjectConfiguration">
       <Output directory="../../bin/release" assembly="smuxi-frontend-gnome" />
       <Build debugmode="False" target="WinExe" />
-      <Execution runwithwarnings="False" consolepause="True" runtime="MsNet" clr-version="Net_2_0" />
-      <EnvironmentVariables />
+      <Execution consolepause="True" runwithwarnings="False" runtime="MsNet" clr-version="Net_2_0" />
       <CodeGeneration compiler="Mcs" warninglevel="4" optimize="True" unsafecodeallowed="False" generateoverflowchecks="True" definesymbols="CONFIG_NINI,UI_GNOME,GTK_SHARP_2_8" generatexmldocumentation="False" ctype="CSharpCompilerParameters" />
     </Configuration>
     <Configuration name="Debug GTK" ctype="DotNetProjectConfiguration">
       <Output directory="../../bin/debug" assembly="smuxi-frontend-gtk" />
       <Build debugmode="True" target="WinExe" />
-      <Execution runwithwarnings="True" commandlineparameters="--debug" externalconsole="True" consolepause="True" runtime="MsNet" clr-version="Net_2_0" />
+      <Execution consolepause="True" externalconsole="True" commandlineparameters="--debug" runwithwarnings="True" runtime="MsNet" clr-version="Net_2_0" />
       <CodeGeneration compiler="Mcs" warninglevel="4" optimize="False" unsafecodeallowed="False" generateoverflowchecks="True" definesymbols="DEBUG,TRACE,LOG4NET,CONFIG_NINI,UI_GTK,GTK_SHARP_2_8" generatexmldocumentation="False" ctype="CSharpCompilerParameters" />
     </Configuration>
     <Configuration name="Release GTK" ctype="DotNetProjectConfiguration">
       <Output directory="../../bin/debug" assembly="smuxi-frontend-gnome" />
       <Build debugmode="True" target="WinExe" />
-      <Execution runwithwarnings="True" externalconsole="True" consolepause="True" runtime="MsNet" clr-version="Net_2_0" />
+      <Execution consolepause="True" externalconsole="True" runwithwarnings="True" runtime="MsNet" clr-version="Net_2_0" />
       <CodeGeneration compiler="Mcs" warninglevel="4" optimize="False" unsafecodeallowed="False" generateoverflowchecks="True" definesymbols="TRACE,DEBUG,LOG4NET,CONFIG_NINI,UI_GNOME,GTK_SHARP_2_8" generatexmldocumentation="False" ctype="CSharpCompilerParameters" />
     </Configuration>
   </Configurations>
   <Contents>
-    <File name="../../images/about.png" subtype="Code" buildaction="EmbedAsResource" />
-    <File name="../../images/splashscreen.png" subtype="Code" buildaction="EmbedAsResource" />
-    <File name="../../glade/smuxi-frontend-gnome.glade" subtype="Code" buildaction="EmbedAsResource" />
-    <File name="../../images/connect.png" subtype="Code" buildaction="EmbedAsResource" />
-    <File name="../../images/edit.png" subtype="Code" buildaction="EmbedAsResource" />
-    <File name="AboutDialog.cs" subtype="Code" buildaction="Compile" />
-    <File name="AssemblyInfo.cs" subtype="Code" buildaction="Compile" />
-    <File name="CrashDialog.cs" subtype="Code" buildaction="Compile" />
-    <File name="EngineManagerDialog.cs" subtype="Code" buildaction="Compile" />
-    <File name="Entry.cs" subtype="Code" buildaction="Compile" />
-    <File name="Frontend.cs" subtype="Code" buildaction="Compile" />
-    <File name="GnomeUI.cs" subtype="Code" buildaction="Compile" />
-    <File name="Main.cs" subtype="Code" buildaction="Compile" />
-    <File name="MainWindow.cs" subtype="Code" buildaction="Compile" />
-    <File name="NotImplementedMessageDialog.cs" subtype="Code" buildaction="Compile" />
-    <File name="Notebook.cs" subtype="Code" buildaction="Compile" />
-    <File name="SplashScreenWindow.cs" subtype="Code" buildaction="Compile" />
-    <File name="Preferences/ChannelFilterListView.cs" subtype="Code" buildaction="Compile" />
-    <File name="ChatViewManager.cs" subtype="Code" buildaction="Compile" />
-    <File name="Preferences/ServerListView.cs" subtype="Code" buildaction="Compile" />
-    <File name="Preferences/ServerView.cs" subtype="Code" buildaction="Compile" />
-    <File name="Preferences/PreferencesDialog.cs" subtype="Code" buildaction="Compile" />
-    <File name="gtk-gui/gui.stetic" subtype="Code" buildaction="EmbedAsResource" />
-    <File name="gtk-gui/generated.cs" subtype="Code" buildaction="Compile" />
-    <File name="QuickConnectDialog.cs" subtype="Code" buildaction="Compile" />
-    <File name="SteticPreferencesDialog.cs" subtype="Code" buildaction="Compile" />
-    <File name="gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs" subtype="Code" buildaction="Compile" />
-    <File name="gtk-gui/Smuxi.Frontend.Gnome.QuickConnectDialog.cs" subtype="Code" buildaction="Compile" />
-    <File name="../../images/group-chat.svg" subtype="Code" buildaction="EmbedAsResource" />
-    <File name="../../images/person-chat.svg" subtype="Code" buildaction="EmbedAsResource" />
-    <File name="../../images/protocol-chat.svg" subtype="Code" buildaction="EmbedAsResource" />
-    <File name="../../images/session-chat.svg" subtype="Code" buildaction="EmbedAsResource" />
-    <File name="FindGroupChatDialog.cs" subtype="Code" buildaction="Compile" />
-    <File name="gtk-gui/Smuxi.Frontend.Gnome.FindGroupChatDialog.cs" subtype="Code" buildaction="Compile" />
-    <File name="../AssemblyVersion.cs" subtype="Code" buildaction="Compile" />
-    <File name="smuxi-frontend-gnome.exe.config" subtype="Code" buildaction="FileCopy" />
-    <File name="ColorTools.cs" subtype="Code" buildaction="Compile" />
-    <File name="../../images/icon.svg" subtype="Code" buildaction="EmbedAsResource" />
-    <File name="ChangeLog" subtype="Code" buildaction="Nothing" />
-    <File name="../../po-Engine/de.po" subtype="Code" buildaction="Nothing" />
-    <File name="../../po-Frontend-GNOME/es.po" subtype="Code" buildaction="Nothing" />
-    <File name="ChatFindDialog.cs" subtype="Code" buildaction="Compile" />
-    <File name="gtk-gui/Smuxi.Frontend.Gnome.ChatFindDialog.cs" subtype="Code" buildaction="Compile" />
-    <File name="Views" subtype="Directory" buildaction="Compile" />
-    <File name="Views/Chats/ChatView.cs" subtype="Code" buildaction="Compile" />
-    <File name="Views/Chats/GroupChatView.cs" subtype="Code" buildaction="Compile" />
-    <File name="Views/Chats/PersonChatView.cs" subtype="Code" buildaction="Compile" />
-    <File name="Views/Chats/ProtocolChatView.cs" subtype="Code" buildaction="Compile" />
-    <File name="Views/Chats/SessionChatView.cs" subtype="Code" buildaction="Compile" />
-    <File name="Views/MessageTextView.cs" subtype="Code" buildaction="Compile" />
-    <File name="OpenChatDialog.cs" subtype="Code" buildaction="Compile" />
-    <File name="gtk-gui/Smuxi.Frontend.Gnome.OpenChatDialog.cs" subtype="Code" buildaction="Compile" />
-    <File name="ChatTypeWidget.cs" subtype="Code" buildaction="Compile" />
-    <File name="gtk-gui/Smuxi.Frontend.Gnome.ChatTypeWidget.cs" subtype="Code" buildaction="Compile" />
-    <File name="gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantIntroWidget.cs" subtype="Code" buildaction="Compile" />
-    <File name="gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantNameWidget.cs" subtype="Code" buildaction="Compile" />
-    <File name="gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantConnectionWidget.cs" subtype="Code" buildaction="Compile" />
-    <File name="gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs" subtype="Code" buildaction="Compile" />
-    <File name="Views/Assistants" subtype="Directory" buildaction="Compile" />
-    <File name="Views/Assistants/Engine" subtype="Directory" buildaction="Compile" />
-    <File name="Views/Assistants/Engine/EngineAssistantIntroWidget.cs" subtype="Code" buildaction="Compile" />
-    <File name="Views/Assistants/Engine/EngineAssistant.cs" subtype="Code" buildaction="Compile" />
-    <File name="Views/Assistants/Engine/EngineAssistantNameWidget.cs" subtype="Code" buildaction="Compile" />
-    <File name="Views/Assistants/Engine/EngineAssistantConnectionWidget.cs" subtype="Code" buildaction="Compile" />
-    <File name="Views/Assistants/Engine/EngineAssistantCredentialsWidget.cs" subtype="Code" buildaction="Compile" />
-    <File name="ThemeSettings.cs" subtype="Code" buildaction="Compile" />
+    <File subtype="Code" buildaction="EmbedAsResource" name="../../images/about.png" />
+    <File subtype="Code" buildaction="EmbedAsResource" name="../../images/splashscreen.png" />
+    <File subtype="Code" buildaction="EmbedAsResource" name="../../glade/smuxi-frontend-gnome.glade" />
+    <File subtype="Code" buildaction="EmbedAsResource" name="../../images/connect.png" />
+    <File subtype="Code" buildaction="EmbedAsResource" name="../../images/edit.png" />
+    <File subtype="Code" buildaction="Compile" name="AboutDialog.cs" />
+    <File subtype="Code" buildaction="Compile" name="AssemblyInfo.cs" />
+    <File subtype="Code" buildaction="Compile" name="CrashDialog.cs" />
+    <File subtype="Code" buildaction="Compile" name="EngineManagerDialog.cs" />
+    <File subtype="Code" buildaction="Compile" name="Entry.cs" />
+    <File subtype="Code" buildaction="Compile" name="Frontend.cs" />
+    <File subtype="Code" buildaction="Compile" name="GnomeUI.cs" />
+    <File subtype="Code" buildaction="Compile" name="Main.cs" />
+    <File subtype="Code" buildaction="Compile" name="MainWindow.cs" />
+    <File subtype="Code" buildaction="Compile" name="NotImplementedMessageDialog.cs" />
+    <File subtype="Code" buildaction="Compile" name="Notebook.cs" />
+    <File subtype="Code" buildaction="Compile" name="SplashScreenWindow.cs" />
+    <File subtype="Code" buildaction="Compile" name="Preferences/ChannelFilterListView.cs" />
+    <File subtype="Code" buildaction="Compile" name="ChatViewManager.cs" />
+    <File subtype="Code" buildaction="Compile" name="Preferences/ServerListView.cs" />
+    <File subtype="Code" buildaction="Compile" name="Preferences/ServerView.cs" />
+    <File subtype="Code" buildaction="Compile" name="Preferences/PreferencesDialog.cs" />
+    <File subtype="Code" buildaction="EmbedAsResource" name="gtk-gui/gui.stetic" />
+    <File subtype="Code" buildaction="Compile" name="gtk-gui/generated.cs" />
+    <File subtype="Code" buildaction="Compile" name="QuickConnectDialog.cs" />
+    <File subtype="Code" buildaction="Compile" name="SteticPreferencesDialog.cs" />
+    <File subtype="Code" buildaction="Compile" name="gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs" />
+    <File subtype="Code" buildaction="Compile" name="gtk-gui/Smuxi.Frontend.Gnome.QuickConnectDialog.cs" />
+    <File subtype="Code" buildaction="EmbedAsResource" name="../../images/group-chat.svg" />
+    <File subtype="Code" buildaction="EmbedAsResource" name="../../images/person-chat.svg" />
+    <File subtype="Code" buildaction="EmbedAsResource" name="../../images/protocol-chat.svg" />
+    <File subtype="Code" buildaction="EmbedAsResource" name="../../images/session-chat.svg" />
+    <File subtype="Code" buildaction="Compile" name="FindGroupChatDialog.cs" />
+    <File subtype="Code" buildaction="Compile" name="gtk-gui/Smuxi.Frontend.Gnome.FindGroupChatDialog.cs" />
+    <File subtype="Code" buildaction="Compile" name="../AssemblyVersion.cs" />
+    <File subtype="Code" name="smuxi-frontend-gnome.exe.config" buildaction="FileCopy" />
+    <File subtype="Code" buildaction="Compile" name="ColorTools.cs" />
+    <File subtype="Code" buildaction="EmbedAsResource" name="../../images/icon.svg" />
+    <File subtype="Code" buildaction="Nothing" name="ChangeLog" />
+    <File subtype="Code" buildaction="Nothing" name="../../po-Engine/de.po" />
+    <File subtype="Code" buildaction="Nothing" name="../../po-Frontend-GNOME/es.po" />
+    <File subtype="Code" buildaction="Compile" name="ChatFindDialog.cs" />
+    <File subtype="Code" buildaction="Compile" name="gtk-gui/Smuxi.Frontend.Gnome.ChatFindDialog.cs" />
+    <File subtype="Directory" buildaction="Compile" name="Views" />
+    <File subtype="Code" buildaction="Compile" name="Views/Chats/ChatView.cs" />
+    <File subtype="Code" buildaction="Compile" name="Views/Chats/GroupChatView.cs" />
+    <File subtype="Code" buildaction="Compile" name="Views/Chats/PersonChatView.cs" />
+    <File subtype="Code" buildaction="Compile" name="Views/Chats/ProtocolChatView.cs" />
+    <File subtype="Code" buildaction="Compile" name="Views/Chats/SessionChatView.cs" />
+    <File subtype="Code" buildaction="Compile" name="Views/MessageTextView.cs" />
+    <File subtype="Code" buildaction="Compile" name="OpenChatDialog.cs" />
+    <File subtype="Code" buildaction="Compile" name="gtk-gui/Smuxi.Frontend.Gnome.OpenChatDialog.cs" />
+    <File subtype="Code" buildaction="Compile" name="ChatTypeWidget.cs" />
+    <File subtype="Code" buildaction="Compile" name="gtk-gui/Smuxi.Frontend.Gnome.ChatTypeWidget.cs" />
+    <File subtype="Code" buildaction="Compile" name="gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantIntroWidget.cs" />
+    <File subtype="Code" buildaction="Compile" name="gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantNameWidget.cs" />
+    <File subtype="Code" buildaction="Compile" name="gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantConnectionWidget.cs" />
+    <File subtype="Code" buildaction="Compile" name="gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs" />
+    <File subtype="Directory" buildaction="Compile" name="Views/Assistants" />
+    <File subtype="Directory" buildaction="Compile" name="Views/Assistants/Engine" />
+    <File subtype="Code" buildaction="Compile" name="Views/Assistants/Engine/EngineAssistantIntroWidget.cs" />
+    <File subtype="Code" buildaction="Compile" name="Views/Assistants/Engine/EngineAssistant.cs" />
+    <File subtype="Code" buildaction="Compile" name="Views/Assistants/Engine/EngineAssistantNameWidget.cs" />
+    <File subtype="Code" buildaction="Compile" name="Views/Assistants/Engine/EngineAssistantConnectionWidget.cs" />
+    <File subtype="Code" buildaction="Compile" name="Views/Assistants/Engine/EngineAssistantCredentialsWidget.cs" />
+    <File subtype="Code" buildaction="Compile" name="ThemeSettings.cs" />
   </Contents>
   <References>
     <ProjectReference type="Project" localcopy="True" refto="Engine" />

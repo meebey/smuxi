@@ -1,28 +1,28 @@
-<Project name="Frontend-Curses" fileversion="2.0" language="C#" clr-version="Net_2_0" targetFramework="2.0" ctype="DotNetProject">
+<Project name="Frontend-Curses" fileversion="2.0" DefaultNamespace="FrontendCurses" language="C#" clr-version="Net_2_0" targetFramework="2.0" ctype="DotNetProject">
   <Configurations active="Debug">
     <Configuration name="Debug" ctype="DotNetProjectConfiguration">
       <Output directory="../../bin/debug" assembly="smuxi-frontend-curses" />
       <Build debugmode="True" target="Exe" />
-      <Execution runwithwarnings="True" externalconsole="True" consolepause="True" runtime="MsNet" clr-version="Net_2_0" />
+      <Execution consolepause="True" externalconsole="True" runwithwarnings="True" runtime="MsNet" clr-version="Net_2_0" />
       <CodeGeneration compiler="Mcs" warninglevel="4" optimize="True" unsafecodeallowed="False" generateoverflowchecks="True" definesymbols="DEBUG,TRACE,LOG4NET" generatexmldocumentation="False" ctype="CSharpCompilerParameters" />
     </Configuration>
     <Configuration name="Release" ctype="DotNetProjectConfiguration">
       <Output directory="../../bin/release" assembly="smuxi-frontend-curses" />
       <Build debugmode="False" target="Exe" />
-      <Execution runwithwarnings="True" externalconsole="True" consolepause="True" runtime="MsNet" clr-version="Net_2_0" />
+      <Execution consolepause="True" externalconsole="True" runwithwarnings="True" runtime="MsNet" clr-version="Net_2_0" />
       <CodeGeneration compiler="Mcs" warninglevel="4" optimize="True" unsafecodeallowed="False" generateoverflowchecks="True" generatexmldocumentation="False" ctype="CSharpCompilerParameters" />
     </Configuration>
   </Configurations>
   <Contents>
-    <File name="Main.cs" subtype="Code" buildaction="Compile" />
-    <File name="AssemblyInfo.cs" subtype="Code" buildaction="Compile" />
-    <File name="Frontend.cs" subtype="Code" buildaction="Compile" />
-    <File name="MainWindow.cs" subtype="Code" buildaction="Compile" />
-    <File name="Entry.cs" subtype="Code" buildaction="Compile" />
-    <File name="CursesUI.cs" subtype="Code" buildaction="Compile" />
-    <File name="TextView.cs" subtype="Code" buildaction="Compile" />
-    <File name="LogWidget.cs" subtype="Code" buildaction="Compile" />
-    <File name="../AssemblyVersion.cs" subtype="Code" buildaction="Compile" />
+    <File subtype="Code" buildaction="Compile" name="Main.cs" />
+    <File subtype="Code" buildaction="Compile" name="AssemblyInfo.cs" />
+    <File subtype="Code" buildaction="Compile" name="Frontend.cs" />
+    <File subtype="Code" buildaction="Compile" name="MainWindow.cs" />
+    <File subtype="Code" buildaction="Compile" name="Entry.cs" />
+    <File subtype="Code" buildaction="Compile" name="CursesUI.cs" />
+    <File subtype="Code" buildaction="Compile" name="TextView.cs" />
+    <File subtype="Code" buildaction="Compile" name="LogWidget.cs" />
+    <File subtype="Code" buildaction="Compile" name="../AssemblyVersion.cs" />
   </Contents>
   <References>
     <ProjectReference type="Project" localcopy="True" refto="Frontend" />

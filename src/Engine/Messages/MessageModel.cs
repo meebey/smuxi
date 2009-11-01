@@ -90,14 +90,14 @@ namespace Smuxi.Engine
             f_MessageParts = sr.ReadList<MessagePartModel>();
             f_MessageType  = (MessageType) sr.ReadInt32();
         }
-        
+
         protected virtual void GetObjectData(SerializationWriter sw)
         {
             sw.Write(f_TimeStamp);
             sw.Write(f_MessageParts);
             sw.Write((Int32) f_MessageType);
         }
-        
+
         public virtual void GetObjectData(SerializationInfo info, StreamingContext ctx) 
         {
             SerializationWriter sw = SerializationWriter.GetWriter(); 

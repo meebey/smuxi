@@ -1,40 +1,40 @@
-<Project name="Frontend-SWF" fileversion="2.0" language="C#" clr-version="Net_2_0" targetFramework="2.0" ctype="DotNetProject">
+<Project name="Frontend-SWF" fileversion="2.0" DefaultNamespace="FrontendSWF" language="C#" clr-version="Net_2_0" targetFramework="2.0" ctype="DotNetProject">
   <Configurations active="Debug">
     <Configuration name="Debug" ctype="DotNetProjectConfiguration">
       <Output directory="../../bin/debug" assembly="smuxi-frontend-swf" />
       <Build debugmode="True" target="WinExe" />
-      <Execution runwithwarnings="True" externalconsole="True" consolepause="True" runtime="MsNet" clr-version="Net_2_0" />
+      <Execution consolepause="True" externalconsole="True" runwithwarnings="True" runtime="MsNet" clr-version="Net_2_0" />
       <CodeGeneration compiler="Mcs" warninglevel="4" optimize="True" unsafecodeallowed="False" generateoverflowchecks="True" definesymbols="DEBUG,TRACE,LOG4NET" generatexmldocumentation="False" ctype="CSharpCompilerParameters" />
     </Configuration>
     <Configuration name="Release" ctype="DotNetProjectConfiguration">
       <Output directory="../../bin/release" assembly="smuxi-frontend-swf" />
       <Build debugmode="False" target="WinExe" />
-      <Execution runwithwarnings="True" externalconsole="True" consolepause="True" runtime="MsNet" clr-version="Net_2_0" />
+      <Execution consolepause="True" externalconsole="True" runwithwarnings="True" runtime="MsNet" clr-version="Net_2_0" />
       <CodeGeneration compiler="Mcs" warninglevel="4" optimize="True" unsafecodeallowed="False" generateoverflowchecks="True" generatexmldocumentation="False" ctype="CSharpCompilerParameters" />
     </Configuration>
   </Configurations>
   <Contents>
-    <File name="SplashScreenWindow.cs" subtype="Code" buildaction="Compile" />
-    <File name="SplashScreenWindow.designer.cs" subtype="Code" buildaction="Compile" />
-    <File name="../../images/splashscreen.png" subtype="Code" buildaction="EmbedAsResource" />
-    <File name="NotImplementedMessageDialog.cs" subtype="Code" buildaction="Compile" />
-    <File name="AssemblyInfo.cs" subtype="Code" buildaction="Compile" />
-    <File name="MainWindow.Designer.cs" subtype="Code" buildaction="Compile" />
-    <File name="MainWindow.cs" subtype="Code" buildaction="Compile" />
-    <File name="Notebook.cs" subtype="Code" buildaction="Compile" />
-    <File name="Entry.cs" subtype="Code" buildaction="Compile" />
-    <File name="Chats/ChatView.cs" subtype="Code" buildaction="Compile" />
-    <File name="Frontend.cs" subtype="Code" buildaction="Compile" />
-    <File name="SwfUI.cs" subtype="Code" buildaction="Compile" />
-    <File name="ChatViewManager.cs" subtype="Code" buildaction="Compile" />
-    <File name="Chats/GroupChatView.cs" subtype="Code" buildaction="Compile" />
-    <File name="Main.cs" subtype="Code" buildaction="Compile" />
-    <File name="Chats/NetworkChatView.cs" subtype="Code" buildaction="Compile" />
-    <File name="Chats/PersonChatView.cs" subtype="Code" buildaction="Compile" />
-    <File name="../AssemblyVersion.cs" subtype="Code" buildaction="Compile" />
-    <File name="Chats/SessionChatView.cs" subtype="Code" buildaction="Compile" />
-    <File name="ColorTools.cs" subtype="Code" buildaction="Compile" />
-    <File name="RichTextBoxEx.cs" subtype="Code" buildaction="Compile" />
+    <File subtype="Code" buildaction="Compile" name="SplashScreenWindow.cs" />
+    <File subtype="Code" buildaction="Compile" name="SplashScreenWindow.designer.cs" />
+    <File subtype="Code" buildaction="EmbedAsResource" name="../../images/splashscreen.png" />
+    <File subtype="Code" buildaction="Compile" name="NotImplementedMessageDialog.cs" />
+    <File subtype="Code" buildaction="Compile" name="AssemblyInfo.cs" />
+    <File subtype="Code" buildaction="Compile" name="MainWindow.Designer.cs" />
+    <File subtype="Code" buildaction="Compile" name="MainWindow.cs" />
+    <File subtype="Code" buildaction="Compile" name="Notebook.cs" />
+    <File subtype="Code" buildaction="Compile" name="Entry.cs" />
+    <File subtype="Code" buildaction="Compile" name="Chats/ChatView.cs" />
+    <File subtype="Code" buildaction="Compile" name="Frontend.cs" />
+    <File subtype="Code" buildaction="Compile" name="SwfUI.cs" />
+    <File subtype="Code" buildaction="Compile" name="ChatViewManager.cs" />
+    <File subtype="Code" buildaction="Compile" name="Chats/GroupChatView.cs" />
+    <File subtype="Code" buildaction="Compile" name="Main.cs" />
+    <File subtype="Code" buildaction="Compile" name="Chats/NetworkChatView.cs" />
+    <File subtype="Code" buildaction="Compile" name="Chats/PersonChatView.cs" />
+    <File subtype="Code" buildaction="Compile" name="../AssemblyVersion.cs" />
+    <File subtype="Code" buildaction="Compile" name="Chats/SessionChatView.cs" />
+    <File subtype="Code" buildaction="Compile" name="ColorTools.cs" />
+    <File subtype="Code" buildaction="Compile" name="RichTextBoxEx.cs" />
   </Contents>
   <References>
     <ProjectReference type="Project" localcopy="True" refto="Common" />

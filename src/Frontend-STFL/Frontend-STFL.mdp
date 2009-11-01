@@ -1,33 +1,33 @@
-<Project name="Frontend-STFL" fileversion="2.0" language="C#" clr-version="Net_2_0" targetFramework="2.0" ctype="DotNetProject">
+<Project name="Frontend-STFL" fileversion="2.0" DefaultNamespace="FrontendSTFL" language="C#" clr-version="Net_2_0" targetFramework="2.0" ctype="DotNetProject">
   <Configurations active="Debug">
     <Configuration name="Debug" ctype="DotNetProjectConfiguration">
       <Output directory="../../bin/debug" assembly="smuxi-frontend-stfl" />
       <Build debugmode="True" target="Exe" />
-      <Execution runwithwarnings="True" externalconsole="True" consolepause="True" runtime="MsNet" clr-version="Net_2_0" />
+      <Execution consolepause="True" externalconsole="True" runwithwarnings="True" runtime="MsNet" clr-version="Net_2_0" />
       <CodeGeneration compiler="Mcs" warninglevel="4" optimize="True" unsafecodeallowed="False" generateoverflowchecks="True" definesymbols="DEBUG,TRACE,LOG4NET" generatexmldocumentation="False" ctype="CSharpCompilerParameters" />
     </Configuration>
     <Configuration name="Release" ctype="DotNetProjectConfiguration">
       <Output directory="../../bin/release" assembly="smuxi-frontend-stfl" />
       <Build debugmode="False" target="Exe" />
-      <Execution runwithwarnings="True" externalconsole="True" consolepause="True" runtime="MsNet" clr-version="Net_2_0" />
+      <Execution consolepause="True" externalconsole="True" runwithwarnings="True" runtime="MsNet" clr-version="Net_2_0" />
       <CodeGeneration compiler="Mcs" warninglevel="4" optimize="True" unsafecodeallowed="False" generateoverflowchecks="True" generatexmldocumentation="False" ctype="CSharpCompilerParameters" />
     </Configuration>
   </Configurations>
   <Contents>
-    <File name="Main.cs" subtype="Code" buildaction="Compile" />
-    <File name="AssemblyInfo.cs" subtype="Code" buildaction="Compile" />
-    <File name="Frontend.cs" subtype="Code" buildaction="Compile" />
-    <File name="MainWindow.cs" subtype="Code" buildaction="Compile" />
-    <File name="StflUI.cs" subtype="Code" buildaction="Compile" />
-    <File name="MainWindow.stfl" subtype="Code" buildaction="EmbedAsResource" />
-    <File name="Entry.cs" subtype="Code" buildaction="Compile" />
-    <File name="STFL" subtype="Directory" buildaction="Compile" />
-    <File name="STFL/Form.cs" subtype="Code" buildaction="Compile" />
-    <File name="STFL/KeyPressedEventArgs.cs" subtype="Code" buildaction="Compile" />
-    <File name="ChatView.cs" subtype="Code" buildaction="Compile" />
-    <File name="ChatViewManager.cs" subtype="Code" buildaction="Compile" />
-    <File name="../AssemblyVersion.cs" subtype="Code" buildaction="Compile" />
-    <File name="STFL/StflApi.cs" subtype="Code" buildaction="Compile" />
+    <File subtype="Code" buildaction="Compile" name="Main.cs" />
+    <File subtype="Code" buildaction="Compile" name="AssemblyInfo.cs" />
+    <File subtype="Code" buildaction="Compile" name="Frontend.cs" />
+    <File subtype="Code" buildaction="Compile" name="MainWindow.cs" />
+    <File subtype="Code" buildaction="Compile" name="StflUI.cs" />
+    <File subtype="Code" buildaction="EmbedAsResource" name="MainWindow.stfl" />
+    <File subtype="Code" buildaction="Compile" name="Entry.cs" />
+    <File subtype="Directory" buildaction="Compile" name="STFL" />
+    <File subtype="Code" buildaction="Compile" name="STFL/Form.cs" />
+    <File subtype="Code" buildaction="Compile" name="STFL/KeyPressedEventArgs.cs" />
+    <File subtype="Code" buildaction="Compile" name="ChatView.cs" />
+    <File subtype="Code" buildaction="Compile" name="ChatViewManager.cs" />
+    <File subtype="Code" buildaction="Compile" name="../AssemblyVersion.cs" />
+    <File subtype="Code" buildaction="Compile" name="STFL/StflApi.cs" />
   </Contents>
   <References>
     <ProjectReference type="Project" localcopy="True" refto="Engine" />
