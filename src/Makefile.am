@@ -15,6 +15,10 @@ if ENABLE_ENGINE_MSNP
 ENGINE_MSNP = Engine-MSNP
 endif
 
+if ENABLE_ENGINE_TWITTER
+ENGINE_TWITTER = Engine-Twitter
+endif
+
 # Frontends
 if ENABLE_FRONTEND_GNOME
 FRONTEND_GNOME = Frontend-GNOME
@@ -54,6 +58,7 @@ SUBDIRS =	Common \
 		$(ENGINE_XMPP) \
 		$(ENGINE_OSCAR) \
 		$(ENGINE_MSNP) \
+		$(ENGINE_TWITTER) \
 		Server \
 		Frontend \
 		$(FRONTEND_GNOME) \

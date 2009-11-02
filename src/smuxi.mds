@@ -30,6 +30,7 @@
       <Entry build="True" name="Engine-MSNP" configuration="Release" />
       <Entry build="True" name="Engine-OSCAR" configuration="Release" />
       <Entry build="True" name="Packages" configuration="Release" />
+      <Entry build="True" name="Engine-Twitter" configuration="Release" />
     </Configuration>
     <Configuration name="Debug" ctype="CombineConfiguration">
       <Entry build="True" name="Common" configuration="Debug" />
@@ -49,6 +50,7 @@
       <Entry build="True" name="Engine-MSNP" configuration="Debug" />
       <Entry build="True" name="Engine-OSCAR" configuration="Debug" />
       <Entry build="True" name="Packages" configuration="Debug" />
+      <Entry build="True" name="Engine-Twitter" configuration="Debug" />
     </Configuration>
   </Configurations>
   <StartMode startupentry="Server" single="False">
@@ -69,6 +71,7 @@
     <Execute type="None" entry="Engine-MSNP" />
     <Execute type="None" entry="Engine-OSCAR" />
     <Execute type="None" entry="Packages" />
+    <Execute type="None" entry="Engine-Twitter" />
   </StartMode>
   <Entries>
     <Entry filename="Common/Common.mdp" />
@@ -88,5 +91,6 @@
     <Entry filename="Engine-MSNP/Engine-MSNP.mdp" />
     <Entry filename="Engine-OSCAR/Engine-OSCAR.mdp" />
     <Entry filename="Packages.mdse" />
+    <Entry filename="Engine-Twitter/Engine-Twitter.mdp" />
   </Entries>
 </Combine>

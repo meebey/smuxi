@@ -19,6 +19,7 @@ PODIRS =	po \
 		po-Frontend-GNOME-IRC
 
 SUBDIRS = 	src \
+		lib \
 		$(PODIRS)
 
 update-po:
