@@ -163,7 +163,12 @@ namespace Smuxi.Frontend.Gnome
             _TopicScrolledWindow.HscrollbarPolicy = Gtk.PolicyType.Automatic;
             _TopicScrolledWindow.VscrollbarPolicy = Gtk.PolicyType.Automatic;
             _TopicScrolledWindow.Add(_TopicTextView);
-            
+            // make sure the topic is invisible and remains by default and
+            // visible when a topic gets set
+            _TopicScrolledWindow.ShowAll();
+            _TopicScrolledWindow.Visible = false;
+            _TopicScrolledWindow.NoShowAll = true;
+
             // predict and set useful topic heigth
             Pango.Layout layout = _TopicTextView.CreatePangoLayout("Test Topic");
             int lineWidth, lineHeigth;
@@ -370,7 +375,8 @@ namespace Smuxi.Frontend.Gnome
 
             _TopicTextView.Clear();
             _TopicTextView.AddMessage(topic, false);
-                                     
+            _TopicScrolledWindow.Visible = true;
+
             /*
             foreach (MessagePartModel topicPart in topic.MessageParts) {
 #if LOG4NET
