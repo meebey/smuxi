@@ -2049,11 +2049,7 @@ namespace Smuxi.Engine
                 return IrcTextColor.Blue;
             }
             
-            if ((bool) Session.UserConfig["Interface/Notebook/Channel/NickColors"]) {
-                return new TextColor(nickname.GetHashCode() & 0xFFFFFF);
-            }
-            
-            return TextColor.None;
+            return GetIdentityNameColor(nickname);
         }
         
         private void _OnChannelMessage(object sender, IrcEventArgs e)
