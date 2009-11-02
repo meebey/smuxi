@@ -125,7 +125,7 @@ namespace Smuxi.Frontend.Gnome
             column.Spacing = 0;
             column.SortIndicator = false;
             column.Sizing = Gtk.TreeViewColumnSizing.Autosize;
-            column.SetCellDataFunc(cellr, new Gtk.TreeCellDataFunc(_RenderPersonIdentityName));
+            column.SetCellDataFunc(cellr, new Gtk.TreeCellDataFunc(RenderPersonIdentityName));
             tv.AppendColumn(column);
             _IdentityNameColumn = column;
             
@@ -514,9 +514,9 @@ namespace Smuxi.Frontend.Gnome
             _OutputHPaned.ShowAll();
         }
 
-        private void _RenderPersonIdentityName(Gtk.TreeViewColumn column,
-                                               Gtk.CellRenderer cellr,
-                                               Gtk.TreeModel model, Gtk.TreeIter iter)
+        public virtual void RenderPersonIdentityName(Gtk.TreeViewColumn column,
+                                                     Gtk.CellRenderer cellr,
+                                                     Gtk.TreeModel model, Gtk.TreeIter iter)
         {
             PersonModel person = (PersonModel) model.GetValue(iter, 0);
             (cellr as Gtk.CellRendererText).Text = person.IdentityName;
