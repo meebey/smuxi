@@ -643,6 +643,13 @@ namespace Smuxi.Frontend.Gnome
                 return;
             }
 
+            bool leadingAt = false;
+            // remove leading @ character
+            if (word.StartsWith("@")) {
+                word = word.Substring(1);
+                leadingAt = true;
+            }
+
             // find the possible nickname
             bool found = false;
             bool partial_found = false;
@@ -673,6 +680,15 @@ namespace Smuxi.Frontend.Gnome
                  }
             }
 
+            string completionChar = (string)
+                Frontend.UserConfig["Interface/Entry/CompletionCharacter"];
+            // add leading @ back and supress completion character
+            if (leadingAt) {
+                word = String.Format("@{0}", word);
+                nick = String.Format("@{0}", nick);
+                completionChar = String.Empty;
+            }
+
             if (found) {
                 // put the found nickname in place
                 if (previous_space != -1 && next_space != -1) {
@@ -692,7 +708,7 @@ namespace Smuxi.Frontend.Gnome
                     if (partial_found) {
                         Text = temp;
                     } else {
-                        Text = temp+" ";
+                        Text = temp + " ";
                     }
                     Position = previous_space + 2 + nick.Length;
                 } else if (next_space != -1) {
@@ -702,15 +718,16 @@ namespace Smuxi.Frontend.Gnome
                         Text = nick + " " + temp;
                         Position = nick.Length;
                     } else {
-                        Text = nick+(string)Frontend.UserConfig["Interface/Entry/CompletionCharacter"] + " " + temp;
-                        Position = nick.Length + 2;
+                        Text = String.Format("{0}{1} {2}", nick,
+                                             completionChar, temp);
+                        Position = nick.Length + completionChar.Length + 1;
                     }
                 } else {
                     // no spaces
                     if (partial_found) {
                         Text = nick;
                     } else {
-                        Text = nick+(string)Frontend.UserConfig["Interface/Entry/CompletionCharacter"]+" ";
+                        Text = String.Format("{0}{1} ", nick, completionChar);
                     }
                     Position = -1;
                 }
