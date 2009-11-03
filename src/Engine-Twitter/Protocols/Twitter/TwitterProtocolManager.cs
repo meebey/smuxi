@@ -28,6 +28,11 @@ using Smuxi.Common;
 
 namespace Smuxi.Engine
 {
+    public enum TwitterChatType {
+        FriendsTimeline,
+        Replies
+    }
+
     [ProtocolManagerInfo(Name = "Twitter", Description = "Twitter Micro-Blogging", Alias = "twitter")]
     public class TwitterProtocolManager : ProtocolManagerBase
     {
@@ -36,15 +41,19 @@ namespace Smuxi.Engine
 #endif
         static readonly string f_LibraryTextDomain = "smuxi-engine-twitter";
         static readonly TextColor f_BlueTextColor = new TextColor(0x0000FF);
-        Twitter           f_Twitter;
-        TwitterUser       f_TwitterUser;
-        ProtocolChatModel f_ProtocolChat;
-        GroupChatModel    f_FriendsTimelineChat;
-        AutoResetEvent    f_FriendsTimelineEvent = new AutoResetEvent(false);
-        Int64?            f_LastFriendsTimelineStatusID;
-        Thread            f_RunThread;
-        bool              f_Listening;
-        bool              f_IsConnected;
+        Twitter                 f_Twitter;
+        TwitterUser             f_TwitterUser;
+        AutoResetEvent          f_TwitterUserEvent = new AutoResetEvent(false);
+        ProtocolChatModel       f_ProtocolChat;
+        List<GroupChatModel>    f_GroupChats = new List<GroupChatModel>();
+        GroupChatModel          f_FriendsTimelineChat;
+        AutoResetEvent          f_FriendsTimelineEvent = new AutoResetEvent(false);
+        Int64?                  f_LastFriendsTimelineStatusID;
+        DateTime                f_LastFriendsUpdate;
+        Thread                  f_UpdateFriendsTimelineThread;
+        GroupChatModel          f_RepliesChat;
+        bool                    f_Listening;
+        bool                    f_IsConnected;
 
         public override string NetworkID {
             get {
@@ -67,6 +76,20 @@ namespace Smuxi.Engine
         public TwitterProtocolManager(Session session) : base(session)
         {
             Trace.Call(session);
+
+            f_FriendsTimelineChat = new GroupChatModel(
+                TwitterChatType.FriendsTimeline.ToString(),
+                _("Friends Timeline"),
+                this
+            );
+            f_GroupChats.Add(f_FriendsTimelineChat);
+
+            f_RepliesChat = new GroupChatModel(
+                TwitterChatType.Replies.ToString(),
+                _("Replies"),
+                this
+            );
+            f_GroupChats.Add(f_RepliesChat);
         }
 
         public override void Connect(FrontendManager fm, string host, int port,
@@ -84,14 +107,10 @@ namespace Smuxi.Engine
             msg = String.Format(_("Connecting to Twitter..."));
             fm.SetStatus(msg);
             Session.AddTextToChat(f_ProtocolChat, "-!- " + msg);
-            TwitterUserCollection friends;
             try {
                 // for some reason VerifyCredentials() always fails
                 //bool login = Twitter.VerifyCredentials(username, password);
                 bool login = true;
-                // as workaround we try to fetch the friend list here which
-                // only works if the authorization was good
-                friends = f_Twitter.User.Friends();
                 if (!login) {
                     fm.SetStatus(_("Login failed!"));
                     Session.AddTextToChat(f_ProtocolChat,
@@ -112,29 +131,29 @@ namespace Smuxi.Engine
             fm.SetStatus(msg);
             Session.AddTextToChat(f_ProtocolChat, "-!- " + msg);
 
-            f_TwitterUser = f_Twitter.User.Show(username);
-
-            f_FriendsTimelineChat = new GroupChatModel(NetworkID, _("Friends Timeline"), this);
-            Session.AddChat(f_FriendsTimelineChat);
+            // twitter is sometimes pretty slow, so fetch this in the background
+            ThreadPool.QueueUserWorkItem(delegate {
+                try {
+#if LOG4NET
+                    f_Logger.Debug("Connect(): getting user details from twitter...");
+#endif
+                    f_TwitterUser = f_Twitter.User.Show(username);
+#if LOG4NET
+                    f_Logger.Debug("Connect(): done.");
+#endif
+                    f_TwitterUserEvent.Set();
+                    f_FriendsTimelineChat.PersonCount = f_TwitterUser.NumberOfFriends;
+                } catch (Exception ex) {
+                    msg =_("Failed to fetch user details from Twitter. Reason: ");
+#if LOG4NET
+                    f_Logger.Error("Connect(): " + msg, ex);
+#endif
+                    Session.AddTextToChat(f_ProtocolChat, "-!- " + msg + ex.Message);
+                }
+            });
 
             f_Listening = true;
-            f_RunThread = new Thread(new ThreadStart(Run));
-            f_RunThread.IsBackground = true;
-            f_RunThread.Name = "TwitterProtocolManager listener";
-            f_RunThread.Start();
-
-            foreach (TwitterUser friend in friends) {
-                PersonModel person = new PersonModel(
-                    friend.ID.ToString(),
-                    friend.ScreenName,
-                    NetworkID,
-                    Protocol,
-                    this
-                );
-                f_FriendsTimelineChat.UnsafePersons.Add(person.ID, person);
-            }
-            Session.SyncChat(f_FriendsTimelineChat);
-     }
+        }
 
         public override void Reconnect(FrontendManager fm)
         {
@@ -153,14 +172,80 @@ namespace Smuxi.Engine
         {
             Trace.Call(filter);
 
-            throw new NotImplementedException();
+            return f_GroupChats;
         }
 
         public override void OpenChat(FrontendManager fm, ChatModel chat)
         {
             Trace.Call(fm, chat);
 
-            throw new NotImplementedException();
+            if (chat.ChatType == ChatType.Group) {
+               TwitterChatType twitterChatType = (TwitterChatType)
+                    Enum.Parse(typeof(TwitterChatType), chat.ID);
+               switch (twitterChatType) {
+                    case TwitterChatType.FriendsTimeline:
+                        OpenFriendsTimelineChat();
+                        break;
+                    case TwitterChatType.Replies:
+                        OpenRepliesChat();
+                        break;
+                }
+                return;
+            }
+
+            OpenPrivateChat(chat.ID);
+        }
+
+        private void OpenFriendsTimelineChat()
+        {
+            ChatModel chat =  Session.GetChat(
+                TwitterChatType.FriendsTimeline.ToString(),
+                ChatType.Group,
+                this
+            );
+
+            if (chat != null) {
+                return;
+            }
+
+            Session.AddChat(f_FriendsTimelineChat);
+            f_UpdateFriendsTimelineThread = new Thread(
+                new ThreadStart(UpdateFriendsTimelineThread)
+            );
+            f_UpdateFriendsTimelineThread.IsBackground = true;
+            f_UpdateFriendsTimelineThread.Name =
+                "TwitterProtocolManager friends timeline listener";
+            f_UpdateFriendsTimelineThread.Start();
+        }
+
+        private void OpenRepliesChat()
+        {
+            ChatModel chat =  Session.GetChat(
+                TwitterChatType.Replies.ToString(),
+                ChatType.Group,
+                this
+            );
+
+            if (chat != null) {
+                return;
+            }
+
+            // TODO: implement me!
+        }
+
+        private void OpenPrivateChat(string identityName)
+        {
+            ChatModel chat =  Session.GetChat(
+                identityName,
+                ChatType.Person,
+                this
+            );
+
+            if (chat != null) {
+                return;
+            }
+
+            // TODO: implement me!
         }
 
         public override void CloseChat(FrontendManager fm, ChatModel chat)
@@ -195,13 +280,6 @@ namespace Smuxi.Engine
             }
 
             return handled;
-        }
-
-        private void NotConnected(CommandModel cd)
-        {
-            cd.FrontendManager.AddTextToCurrentChat(
-                "-!- " + _("Not connected to Twitter")
-            );
         }
 
         public override string ToString()
@@ -252,70 +330,112 @@ namespace Smuxi.Engine
             Connect(cd.FrontendManager, null, 0, user, pass);
         }
 
-        private void Run()
+        private void UpdateFriendsTimelineThread()
         {
             Trace.Call();
 
             try {
+                // query the timeline only after we have fetched the user
+                f_TwitterUserEvent.WaitOne();
                 while (f_Listening) {
-#if LOG4NET
-                    f_Logger.Debug("Run(): getting friend timeline from twitter...");
-#endif
-                    TwitterParameters parameters = new TwitterParameters();
-                    parameters.Add(TwitterParameterNames.Count, 50);
-                    if (f_LastFriendsTimelineStatusID != null) {
-                        parameters.Add(TwitterParameterNames.SinceID,
-                                       f_LastFriendsTimelineStatusID);
-                    }
-                    TwitterStatusCollection timeline =
-                        f_Twitter.Status.FriendsTimeline(parameters);
-#if LOG4NET
-                    f_Logger.Debug("Run(): done. New tweets: " +
-                        (timeline == null ? 0 : timeline.Count));
-#endif
-                    if (timeline == null || timeline.Count == 0) {
-                        f_FriendsTimelineEvent.WaitOne(60 * 1000);
-                        continue;
-                    }
+                    UpdateFriends();
+                    UpdateFriendsTimeline();
 
-                    // sort timeline
-                    List<TwitterStatus> sortedTimeline =
-                        new List<TwitterStatus>(
-                            timeline.Count
-                        );
-                    foreach (TwitterStatus status in timeline) {
-                        sortedTimeline.Add(status);
-                    }
-                    sortedTimeline.Sort(
-                        (a, b) => (a.Created.CompareTo(b.Created))
-                    );
-
-                    foreach (TwitterStatus status in sortedTimeline) {
-                        MessageModel msg = CreateMessage(
-                            status.Created,
-                            status.TwitterUser.ScreenName,
-                            status.Text
-                        );
-                        Session.AddMessageToChat(f_FriendsTimelineChat, msg);
-
-                        f_LastFriendsTimelineStatusID = status.ID;
-                    }
-
-                    // only poll once per minute
+                    // only poll once per minute or when we get fired
                     f_FriendsTimelineEvent.WaitOne(60 * 1000);
                 }
-            } catch (ThreadAbortException ex) {
+            } catch (ThreadAbortException) {
 #if LOG4NET
-                f_Logger.Debug("Run(): thread aborted");
+                f_Logger.Debug("UpdateFriendsTimelineThread(): thread aborted");
 #endif
             } catch (Exception ex) {
 #if LOG4NET
-                f_Logger.Error("Run(): Exception", ex);
+                f_Logger.Error("UpdateFriendsTimelineThread(): Exception", ex);
 #endif
+                string msg =_("Error occured while fetching the friends timeline from Twitter. Reason: ");
+                Session.AddTextToChat(f_ProtocolChat, "-!- " + msg + ex.Message);
             }
 #if LOG4NET
-            f_Logger.Debug("Run(): finishing thread.");
+            f_Logger.Debug("UpdateFriendsTimelineThread(): finishing thread.");
 #endif
+        }
+
+        private void UpdateFriends()
+        {
+            Trace.Call();
+
+            if (f_FriendsTimelineChat.IsSynced) {
+                return;
+            }
+
+#if LOG4NET
+            f_Logger.Debug("UpdateFriends(): getting friends from twitter...");
+#endif
+            TwitterUserCollection friends = f_Twitter.User.Friends();
+#if LOG4NET
+            f_Logger.Debug("UpdateFriends(): done. Friends: " +
+                (friends == null ? 0 : friends.Count));
+#endif
+            foreach (TwitterUser friend in friends) {
+                PersonModel person = new PersonModel(
+                    friend.ID.ToString(),
+                    friend.ScreenName,
+                    NetworkID,
+                    Protocol,
+                    this
+                );
+                f_FriendsTimelineChat.UnsafePersons.Add(person.ID, person);
+            }
+            f_FriendsTimelineChat.IsSynced = true;
+
+            Session.SyncChat(f_FriendsTimelineChat);
+        }
+
+        private void UpdateFriendsTimeline()
+        {
+            Trace.Call();
+
+#if LOG4NET
+            f_Logger.Debug("UpdateFriendsTimeline(): getting friend timeline from twitter...");
+#endif
+            TwitterParameters parameters = new TwitterParameters();
+            parameters.Add(TwitterParameterNames.Count, 50);
+            if (f_LastFriendsTimelineStatusID != null) {
+                parameters.Add(TwitterParameterNames.SinceID,
+                               f_LastFriendsTimelineStatusID);
+            }
+            TwitterStatusCollection timeline =
+                f_Twitter.Status.FriendsTimeline(parameters);
+#if LOG4NET
+            f_Logger.Debug("UpdateFriendsTimeline(): done. New tweets: " +
+                (timeline == null ? 0 : timeline.Count));
+#endif
+            if (timeline == null || timeline.Count == 0) {
+                return;
+            }
+
+            // sort timeline
+            List<TwitterStatus> sortedTimeline =
+                new List<TwitterStatus>(
+                    timeline.Count
+                );
+            foreach (TwitterStatus status in timeline) {
+                sortedTimeline.Add(status);
+            }
+            sortedTimeline.Sort(
+                (a, b) => (a.Created.CompareTo(b.Created))
+            );
+
+            foreach (TwitterStatus status in sortedTimeline) {
+                MessageModel msg = CreateMessage(
+                    status.Created,
+                    status.TwitterUser.ScreenName,
+                    status.Text
+                );
+                Session.AddMessageToChat(f_FriendsTimelineChat, msg);
+
+                f_LastFriendsTimelineStatusID = status.ID;
+            }
         }
 
         protected override TextColor GetIdentityNameColor(string identityName)
