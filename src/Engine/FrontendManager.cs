@@ -146,7 +146,13 @@ namespace Smuxi.Engine
         public void Sync()
         {
             Trace.Call();
-            
+
+            // DESIGN BUG: Something is fishy here, if a chat is created and
+            // added to the session right before we sync it will be in an
+            // unpopulated state. For example no populated person list... how
+            // should we handle this? Only sync ready chats and sync those
+            // later using some kind of delayed queue?!?
+
             // TODO: sort pages network tabs then channel tabs (alphabeticly)
             // sync pages            
             lock (_Session.Chats) {
