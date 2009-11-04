@@ -125,7 +125,7 @@ namespace Smuxi.Frontend.Gnome
             column.Spacing = 0;
             column.SortIndicator = false;
             column.Sizing = Gtk.TreeViewColumnSizing.Autosize;
-            column.SetCellDataFunc(cellr, new Gtk.TreeCellDataFunc(_RenderPersonIdentityName));
+            column.SetCellDataFunc(cellr, new Gtk.TreeCellDataFunc(RenderPersonIdentityName));
             tv.AppendColumn(column);
             _IdentityNameColumn = column;
             
@@ -163,7 +163,12 @@ namespace Smuxi.Frontend.Gnome
             _TopicScrolledWindow.HscrollbarPolicy = Gtk.PolicyType.Automatic;
             _TopicScrolledWindow.VscrollbarPolicy = Gtk.PolicyType.Automatic;
             _TopicScrolledWindow.Add(_TopicTextView);
-            
+            // make sure the topic is invisible and remains by default and
+            // visible when a topic gets set
+            _TopicScrolledWindow.ShowAll();
+            _TopicScrolledWindow.Visible = false;
+            _TopicScrolledWindow.NoShowAll = true;
+
             // predict and set useful topic heigth
             Pango.Layout layout = _TopicTextView.CreatePangoLayout("Test Topic");
             int lineWidth, lineHeigth;
@@ -370,7 +375,8 @@ namespace Smuxi.Frontend.Gnome
 
             _TopicTextView.Clear();
             _TopicTextView.AddMessage(topic, false);
-                                     
+            _TopicScrolledWindow.Visible = true;
+
             /*
             foreach (MessagePartModel topicPart in topic.MessageParts) {
 #if LOG4NET
@@ -508,9 +514,9 @@ namespace Smuxi.Frontend.Gnome
             _OutputHPaned.ShowAll();
         }
 
-        private void _RenderPersonIdentityName(Gtk.TreeViewColumn column,
-                                               Gtk.CellRenderer cellr,
-                                               Gtk.TreeModel model, Gtk.TreeIter iter)
+        public virtual void RenderPersonIdentityName(Gtk.TreeViewColumn column,
+                                                     Gtk.CellRenderer cellr,
+                                                     Gtk.TreeModel model, Gtk.TreeIter iter)
         {
             PersonModel person = (PersonModel) model.GetValue(iter, 0);
             (cellr as Gtk.CellRendererText).Text = person.IdentityName;
@@ -532,8 +538,29 @@ namespace Smuxi.Frontend.Gnome
         protected virtual void OnPersonsRowActivated(object sender, Gtk.RowActivatedArgs e)
         {
             Trace.Call(sender, e);
+
+            IList<PersonModel> persons = GetSelectedPersons();
+            if (persons == null) {
+                return;
+            }
+
+            // this is a generic implemention that should be able to open/create
+            // a private chat in most cases, as it depends what OpenChat()
+            // of the specific protocol actually expects/needs
+            foreach (PersonModel person in persons) {
+                PersonChatModel personChat = new PersonChatModel(
+                    person,
+                    person.ID,
+                    person.IdentityName,
+                    ChatModel.ProtocolManager
+                );
+                ChatModel.ProtocolManager.OpenChat(
+                    Frontend.FrontendManager,
+                    personChat
+                );
+            }
         }
-        
+
         protected virtual void OnPersonTreeViewFocusOutEvent(object sender, EventArgs e)
         {
             Trace.Call(sender, e);

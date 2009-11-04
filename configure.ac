@@ -53,6 +53,10 @@ GETTEXT_PACKAGE_ENGINE_MSNP=smuxi-engine-msnp
 AC_SUBST(GETTEXT_PACKAGE_ENGINE_MNSP)
 AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE_ENGINE_MSNP, "$GETTEXT_PACKAGE_ENGINE_MSNP", [Gettext package])
 
+GETTEXT_PACKAGE_ENGINE_MSNP=smuxi-engine-twitter
+AC_SUBST(GETTEXT_PACKAGE_ENGINE_TWITTER)
+AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE_ENGINE_TWITTER, "$GETTEXT_PACKAGE_ENGINE_TWITTER", [Gettext package])
+
 GETTEXT_PACKAGE_SERVER=smuxi-server
 AC_SUBST(GETTEXT_PACKAGE_SERVER)
 AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE_SERVER, "$GETTEXT_PACKAGE_SERVER", [Gettext package])
@@ -203,6 +207,13 @@ if test "x$ENABLE_ENGINE_MSNP" != "xno"; then
 fi
 AM_CONDITIONAL(ENABLE_ENGINE_MSNP, test "x$ENABLE_ENGINE_MSNP" = "xyes")
 
+AC_ARG_ENABLE([engine-msnp],
+	AC_HELP_STRING([--enable-engine-twitter], [Enable Twitter support (default yes)]),
+	ENABLE_ENGINE_TWITTER=$enableval,
+	ENABLE_ENGINE_TWITTER=yes
+)
+AM_CONDITIONAL(ENABLE_ENGINE_TWITTER, test "x$ENABLE_ENGINE_TWITTER" = "xyes")
+
 # Frontends
 AC_ARG_ENABLE([frontend-gnome],
 	AC_HELP_STRING([--enable-frontend-gnome], [Enable GNOME frontend (default yes)]),
@@ -317,6 +328,8 @@ AC_CONFIG_FILES([
 	src/Frontend-SWF/smuxi-frontend-swf
 	src/Frontend-Test/Makefile
 	src/Frontend-Test/smuxi-frontend-test
+	lib/Makefile
+	lib/Twitterizer.Framework/Makefile
 	po/Makefile.in
 	po-Engine/Makefile.in
 	po-Engine-IRC/Makefile.in
@@ -340,6 +353,7 @@ AC_MSG_RESULT([
 	  XMPP:                $ENABLE_ENGINE_XMPP
 	  OSCAR:               $ENABLE_ENGINE_OSCAR
 	  MSNP:                $ENABLE_ENGINE_MSNP
+	  Twitter:             $ENABLE_ENGINE_TWITTER
 
 	* Frontends
 	  ---------

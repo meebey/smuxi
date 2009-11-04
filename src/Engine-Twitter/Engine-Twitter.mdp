@@ -1,0 +1,29 @@
+<Project name="Engine-Twitter" fileversion="2.0" DefaultNamespace="Smuxi.Engine" language="C#" targetFramework="3.5" ctype="DotNetProject">
+  <Configurations active="Debug">
+    <Configuration name="Debug" ctype="DotNetProjectConfiguration">
+      <Output directory="../../bin/debug" assembly="smuxi-engine-twitter" />
+      <Build debugmode="True" target="Library" />
+      <Execution consolepause="False" runwithwarnings="True" runtime="MsNet" />
+      <CodeGeneration compiler="Mcs" warninglevel="4" optimize="False" unsafecodeallowed="False" generateoverflowchecks="False" definesymbols="DEBUG LOG4NET" generatexmldocumentation="False" ctype="CSharpCompilerParameters" />
+    </Configuration>
+    <Configuration name="Release" ctype="DotNetProjectConfiguration">
+      <Output directory="../../bin/release" assembly="smuxi-engine-twitter" />
+      <Build debugmode="False" target="Library" />
+      <Execution consolepause="False" runwithwarnings="True" runtime="MsNet" />
+      <CodeGeneration compiler="Mcs" warninglevel="4" optimize="False" unsafecodeallowed="False" generateoverflowchecks="False" generatexmldocumentation="False" ctype="CSharpCompilerParameters" />
+    </Configuration>
+  </Configurations>
+  <Contents>
+    <File subtype="Code" buildaction="Compile" name="AssemblyInfo.cs" />
+    <File subtype="Directory" buildaction="Compile" name="Protocols" />
+    <File subtype="Directory" buildaction="Compile" name="Protocols/Twitter" />
+    <File subtype="Code" buildaction="Compile" name="Protocols/Twitter/TwitterProtocolManager.cs" />
+  </Contents>
+  <References>
+    <ProjectReference type="Gac" localcopy="True" refto="System, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+    <ProjectReference type="Project" localcopy="True" refto="Engine" />
+    <ProjectReference type="Assembly" localcopy="True" specificVersion="False" refto="../../lib/Twitterizer.Framework/bin/Debug/Twitterizer.Framework.dll" />
+    <ProjectReference type="Project" localcopy="True" refto="Common" />
+    <ProjectReference type="Assembly" localcopy="True" specificVersion="False" refto="../../lib/log4net.dll" />
+  </References>
+</Project>

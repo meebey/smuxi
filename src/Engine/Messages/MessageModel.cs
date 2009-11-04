@@ -45,6 +45,9 @@ namespace Smuxi.Engine
             get {
                 return f_TimeStamp;
             }
+            set {
+                f_TimeStamp = value;
+            }
         }
         
         public IList<MessagePartModel> MessageParts {

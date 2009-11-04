@@ -292,5 +292,18 @@ namespace Smuxi.Engine
                 }
             }
         }
+
+        protected virtual TextColor GetIdentityNameColor(string identityName)
+        {
+            if (identityName == null) {
+                throw new ArgumentNullException("identityName");
+            }
+
+            if ((bool) Session.UserConfig["Interface/Notebook/Channel/NickColors"]) {
+                return new TextColor(identityName.GetHashCode() & 0xFFFFFF);
+            }
+
+            return TextColor.None;
+         }
     }
 }
