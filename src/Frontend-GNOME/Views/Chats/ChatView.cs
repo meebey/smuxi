@@ -354,8 +354,13 @@ namespace Smuxi.Frontend.Gnome
         public virtual void Close()
         {
             Trace.Call();
+
+            ChatModel.ProtocolManager.CloseChat(
+                Frontend.FrontendManager,
+                ChatModel
+            );
         }
-                        
+
         private void _OnTextBufferChanged(object sender, EventArgs e)
         {
             Trace.Call(sender, e);
