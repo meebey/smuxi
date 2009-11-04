@@ -538,8 +538,29 @@ namespace Smuxi.Frontend.Gnome
         protected virtual void OnPersonsRowActivated(object sender, Gtk.RowActivatedArgs e)
         {
             Trace.Call(sender, e);
+
+            IList<PersonModel> persons = GetSelectedPersons();
+            if (persons == null) {
+                return;
+            }
+
+            // this is a generic implemention that should be able to open/create
+            // a private chat in most cases, as it depends what OpenChat()
+            // of the specific protocol actually expects/needs
+            foreach (PersonModel person in persons) {
+                PersonChatModel personChat = new PersonChatModel(
+                    person,
+                    person.ID,
+                    person.IdentityName,
+                    ChatModel.ProtocolManager
+                );
+                ChatModel.ProtocolManager.OpenChat(
+                    Frontend.FrontendManager,
+                    personChat
+                );
+            }
         }
-        
+
         protected virtual void OnPersonTreeViewFocusOutEvent(object sender, EventArgs e)
         {
             Trace.Call(sender, e);
