@@ -182,7 +182,7 @@ msgstr "Sie sind gesperrt"
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2018
 #, csharp-format
 msgid "{0} [{1}] requested CTCP {2} from {3}: {4}"
-msgstr "{0} [{1}] fragt ab CTCP {2} von {3}: {4}"
+msgstr "{0} [{1}] fragt CTCP {2} von {3} ab: {4}"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2035
 #, csharp-format
