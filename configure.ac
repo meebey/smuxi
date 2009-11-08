@@ -310,6 +310,7 @@ AC_CONFIG_FILES([
 	src/Engine-MSNP/smuxi-engine-msnp.pc
 	src/Engine-OSCAR/Makefile
 	src/Engine-OSCAR/smuxi-engine-oscar.pc
+	src/Engine-Twitter/Makefile
 	src/Engine-XMPP/Makefile
 	src/Engine-XMPP/smuxi-engine-xmpp.pc
 	src/Server/Makefile
