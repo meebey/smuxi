@@ -55,10 +55,10 @@ endif
 SUBDIRS =	Common \
 		Engine \
 		$(ENGINE_IRC) \
-		$(ENGINE_XMPP) \
-		$(ENGINE_OSCAR) \
 		$(ENGINE_MSNP) \
+		$(ENGINE_OSCAR) \
 		$(ENGINE_TWITTER) \
+		$(ENGINE_XMPP) \
 		Server \
 		Frontend \
 		$(FRONTEND_GNOME) \
