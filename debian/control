@@ -71,7 +71,7 @@ Description: Frontend library for smuxi
 Package: smuxi-frontend-gnome
 Architecture: all
 Replaces: smuxi (<< 0.5.25)
-Depends: ${shlibs:Depends}, ${misc:Depends}, ${cli:Depends}, smuxi-engine (= ${Source-Version}), smuxi-frontend (= ${Source-Version})
+Depends: ${shlibs:Depends}, ${misc:Depends}, ${cli:Depends}, smuxi-engine (= ${Source-Version}), smuxi-frontend (= ${Source-Version}), librsvg2-common
 Description: GNOME frontend for smuxi
  Smart MUtipleXed Irc (smuxi) is an IRC client for advanced users.
  It is split into 2 parts, engine and frontend. The frontend can be detached
