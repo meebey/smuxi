@@ -3,12 +3,15 @@ ASSEMBLY_NAME = smuxi-engine-twitter
 ASSEMBLY_FILENAME = $(ASSEMBLY_NAME).dll
 ASSEMBLY_TARGET = $(TARGET_DIR)/$(ASSEMBLY_FILENAME)
 #ASSEMBLY_PC = $(top_srcdir)/$(PACKAGE_NAME).pc
+
 SOURCE_FILES = 	$(top_srcdir)/src/AssemblyVersion.cs \
 		AssemblyInfo.cs \
 		Protocols/Twitter/TwitterProtocolManager.cs
+
+REFERENCES = 		$(LOG4NET_LIBS) \
+			$(SMARTIRC4NET_LIBS)
+
 DLL_REFERENCES =	$(top_srcdir)/lib/Twitterizer.Framework/bin/Debug/Twitterizer.Framework.dll \
-			$(LOG4NET_LIBS) \
-			$(SMARTIRC4NET_LIBS) \
 			$(TARGET_DIR)/smuxi-common.dll \
 			$(TARGET_DIR)/smuxi-engine.dll
 
