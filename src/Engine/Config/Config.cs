@@ -224,7 +224,7 @@ namespace Smuxi.Engine
             Get(prefix+"FontFamily", String.Empty);
             Get(prefix+"FontStyle",  String.Empty);
             Get(prefix+"FontSize",   0);
-            Get(prefix+"WrapMode",   "Char");
+            Get(prefix+"WrapMode",   "Word");
             
             prefix = "Engine/Users/DEFAULT/Interface/Entry/";
             Get(prefix+"CompletionCharacter", ":");
