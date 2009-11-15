@@ -32,7 +32,6 @@ mail-po: update-po
 	for PODIR in $(PODIRS); do \
 		echo $$PODIR; \
 		podebconf-report-po \
-			--nolanguageteam \
 			--deadline=7days \
 			--notdebconf \
 			--package="Smuxi ($$PODIR)" \
@@ -42,6 +41,20 @@ mail-po: update-po
 			--podir=$$PODIR; \
 	done
 
+call-po: update-po
+	for PODIR in $(PODIRS); do \
+		echo $$PODIR; \
+		podebconf-report-po \
+			--deadline=14days \
+			--notdebconf \
+			--package="Smuxi ($$PODIR)" \
+			--utf8 \
+			--from="Mirco Bauer <meebey@debian.org>" \
+			--smtp=booster.qnetp.net \
+			--podir=$$PODIR; \
+			--call
+	done
+	
 LIB_DIR = $(top_builddir)/lib
 WIN32_LIB_DIR = $(LIB_DIR)/win32
 BUILD_DIR = $(top_builddir)/bin/$(PROFILE)
