@@ -1,13 +1,13 @@
-# English translations for smuxi package.
-# Copyright (C) 2009 THE smuxi'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the smuxi package.
+# Smuxi - IRC client for sophisticated users
+# Copyright (C) 2005-2009 Mirco Bauer <meebey@meebey.net>
+# This file is distributed under the same license as the Smuxi package.
 # Ryan Smith-Evans <Kimera.Kimera@gmail.com>, 2009.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: smuxi 0.6.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-10-14 01:01+0200\n"
+"POT-Creation-Date: 2009-11-15 16:08+0100\n"
 "PO-Revision-Date: 2009-08-12 08:30+0200\n"
 "Last-Translator: Ryan Smith-Evans <Kimera.Kimera@gmail.com>\n"
 "Language-Team: English (British)\n"

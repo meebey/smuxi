@@ -1,17 +1,16 @@
-# Smuxi - IRC client for advanced users
-# Copyright (C) 2005-2008 Mirco Bauer <meebey@meebey.net>
-# This file is distributed under the same license as the smuxi package.
+# Smuxi - IRC client for sophisticated users
+# Copyright (C) 2005-2009 Mirco Bauer <meebey@meebey.net>
+# This file is distributed under the same license as the Smuxi package.
 # Mirco Bauer <meebey@meebey.net>, 2008.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: 0.6.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-10-14 01:01+0200\n"
+"POT-Creation-Date: 2009-11-15 16:08+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Mirco Bauer <meebey@meebey.net>\n"
-"Language-Team: German <LL@li.org>\n"
+"Language-Team: German Localization <debian-l10n-german@lists.debian.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -108,153 +107,155 @@ msgstr "Op"
 msgid "Voice"
 msgstr "Voice"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1108
+#. For translators: do NOT change the position of {1}!
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1109
 #, csharp-format
 msgid "Topic for {0}: {1}"
 msgstr "Thema für {0}: {1}"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1116
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1117
 #, csharp-format
 msgid "No topic set for {0}"
 msgstr "Kein Thema gesetzt für {0}"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1210
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1211
 msgid "ban"
 msgstr "Sperre"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1220
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1221
 msgid "No bans in channel"
 msgstr "Keine Sperren in diesem Channel"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1329
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1330
 #, csharp-format
 msgid "Inviting {0} to {1}"
 msgstr "Lade {0} in {1} ein"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1333
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1334
 #, csharp-format
 msgid "{0} is already on channel"
 msgstr "{0} ist bereits im Channel"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1361
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1362
 msgid "Users"
 msgstr "Benutzer"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1408
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1409
 #, csharp-format
 msgid "Total of {0} users [{1} ops, {2} voices, {3} normal]"
 msgstr "Insgesamt {0} Benutzer [{1} Ops, {2} Voices, {3} normal]"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1548
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1549
 msgid "Connection error! Reason: "
 msgstr "Verbindungsfehler! Grund: "
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1556
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1557
 #, csharp-format
 msgid "Not enough parameters for {0} command"
 msgstr "Nicht genug Parameter für den Befehl: {0}"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1561
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1562
 msgid "Not connected to server"
 msgstr "Nicht mit Server Verbunden"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1834
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1835
 #, csharp-format
 msgid "{0}: No such nick/channel"
 msgstr "{0}: Kein solcher Nick/Channel"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1897
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1898
 msgid "Nick"
 msgstr "Nick"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1906
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1907
 msgid "is already in use"
 msgstr "ist bereits in Benutzung"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1936
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1937
 msgid "Cannot join to channel:"
 msgstr "Konnte Channel nicht beitreten:"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1945
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1946
 msgid "You are banned"
 msgstr "Sie sind gesperrt"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2018
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2019
 #, csharp-format
 msgid "{0} [{1}] requested CTCP {2} from {3}: {4}"
 msgstr "{0} [{1}] fragt CTCP {2} von {3} ab: {4}"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2035
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2036
 #, csharp-format
 msgid "CTCP PING reply from {0}: {1} seconds"
 msgstr "CTCP PING  Antwort von {0}: {1} Sekunden"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2041
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2042
 #, csharp-format
 msgid "CTCP {0} reply from {1}: {2}"
 msgstr "CTCP {0] Antwort von {1}: {2}"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2257
+#. For translators: do NOT change the position of {0}!
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2255
 #, csharp-format
 msgid "{0} [{1}] has joined {2}"
 msgstr "{0} [{1}] ist {2} beigetreten"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2378
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2376
 #, csharp-format
 msgid "{0} [{1}] has left {2} [{3}]"
 msgstr "{0} [{1}] hat {2} verlassen [{3}]"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2397
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2395
 #, csharp-format
 msgid "You was kicked from {0} by {1} [{2}]"
 msgstr "Sie wurden aus {0} von {1} rausgeworfen [{2}]"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2405
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2403
 #, csharp-format
 msgid "{0} was kicked from {1} by {2} [{3}]"
 msgstr "{0} wurde aus {1} von {2} rausgeworfen [{3}]"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2422
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2421
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2467
 #, csharp-format
 msgid "You're now known as {0}"
-msgstr "Sie sind nun bekannt als {0}"
+msgstr "Sie sind nun bekannt als: {0}"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2494
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2495
 #, csharp-format
 msgid "{0} is now known as {1}"
-msgstr "{0} ist nun bekannt als {1}"
+msgstr "{0} ist nun bekannt als: {1}"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2544
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2546
 #, csharp-format
 msgid "{0} changed the topic of {1} to: {2}"
-msgstr "{0} hat das Thema von {1} gendert auf: {2}"
+msgstr "{0} hat das Thema von {1} geändert auf: {2}"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2628
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2631
 #, csharp-format
 msgid "Mode change [{0}] for user {1}"
-msgstr "Mode geändert [{0}] für Benutzer {1}"
+msgstr "Mode geändert [{0}] für Benutzer: {1}"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2644
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2648
 #, csharp-format
 msgid "mode/{0} [{1}] by {2}"
 msgstr "mode/{0} [{1}] von {2}"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2681
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2685
 #, csharp-format
 msgid "{0} [{1}] has quit [{2}]"
 msgstr "{0} [{1}] hat uns verlassen [{2}]"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2771
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2775
 #, csharp-format
 msgid "{0} is away: {1}"
 msgstr "{0} ist abwesend: {1}"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2777
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2781
 msgid "You are no longer marked as being away"
 msgstr "Sie sind nicht mehr als abwesend gekenntzeichet"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2783
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2787
 msgid "You have been marked as being away"
 msgstr "Sie sind als abwesend gekenntzeichnet"
 

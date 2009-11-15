@@ -1,17 +1,16 @@
-# German translations for smuxi package
-# German messages for smuxi.
-# Copyright (C) 2009 THE smuxi'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the smuxi package.
+# Smuxi - IRC client for sophisticated users
+# Copyright (C) 2005-2009 Mirco Bauer <meebey@meebey.net>
+# This file is distributed under the same license as the Smuxi package.
 # Mirco Bauer <meebey@meebey.net>, 2009.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: smuxi 0.6.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-10-14 01:01+0200\n"
+"POT-Creation-Date: 2009-11-15 16:08+0100\n"
 "PO-Revision-Date: 2009-08-13 23:43+0100\n"
 "Last-Translator: Mirco Bauer <meebey@meebey.net>\n"
-"Language-Team: German\n"
+"Language-Team: German Localization <debian-l10n-german@lists.debian.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"

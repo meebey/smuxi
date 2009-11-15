@@ -1,16 +1,17 @@
-# Smuxi - IRC client for advanced users
-# Copyright (C) 2005-2008 Mirco Bauer <meebey@meebey.net>
-# This file is distributed under the same license as the smuxi package.
+# Smuxi - IRC client for sophisticated users
+# Copyright (C) 2005-2009 Mirco Bauer <meebey@meebey.net>
+# This file is distributed under the same license as the Smuxi package.
 # Juan Miguel Carrero <streinleght@gmail.com>, 2008.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: 0.6.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-08-24 17:13+0200\n"
+"POT-Creation-Date: 2009-11-15 16:08+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Juan Miguel Carrero <streinleght@gmail.com>\n"
-"Language-Team: Spanish <streinleght@gmail.com>\n"
+"Language-Team: Spanish Spanish Localization <debian-l10n-spanish@lists."
+"debian.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"

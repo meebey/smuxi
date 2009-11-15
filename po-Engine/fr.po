@@ -1,5 +1,5 @@
-# Smuxi - IRC client for advanced users
-# Copyright (C) 2005-2008 Mirco Bauer <meebey@meebey.net>
+# Smuxi - IRC client for sophisticated users
+# Copyright (C) 2005-2009 Mirco Bauer <meebey@meebey.net>
 # This file is distributed under the same license as the Smuxi package.
 # Clement BOURGEOIS <moonpyk@gmail.com>, 2008.
 #
@@ -7,17 +7,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.6.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-08-24 17:13+0200\n"
+"POT-Creation-Date: 2009-11-15 16:08+0100\n"
 "PO-Revision-Date: 2008-09-05 01:34+0100\n"
 "Last-Translator: Clement BOURGEOIS <moonpyk@gmail.com>\n"
-"Language-Team: French <moonpyk@gmail.com>\n"
+"Language-Team: French Localization <debian-l10n-french@lists.debian.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Poedit-Language: French\n"
 "X-Poedit-Country: FRANCE\n"
 
-#: ../src/Engine/FrontendManager.cs:213
+#: ../src/Engine/FrontendManager.cs:219
 msgid "no network connections"
 msgstr "aucune connexion réseau"
 
