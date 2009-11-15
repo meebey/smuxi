@@ -1105,6 +1105,7 @@ namespace Smuxi.Engine
                         TextMessagePartModel textMsg;
                    
                         textMsg = new TextMessagePartModel();
+                        // For translators: do NOT change the position of {1}!
                         textMsg.Text = "-!- " + String.Format(_("Topic for {0}: {1}"), channel, String.Empty);
                         msg.MessageParts.Add(textMsg);  
 
@@ -2020,7 +2021,7 @@ namespace Smuxi.Engine
                                             e.CtcpCommand, _IrcClient.Nickname,
                                             e.CtcpParameter));
         }
-        
+
         private void _OnCtcpReply(object sender, CtcpEventArgs e)
         {
             if (e.CtcpCommand == "PING") {
@@ -2250,6 +2251,7 @@ namespace Smuxi.Engine
             msg.MessageParts.Add(textMsgPart);
 
             textMsgPart = new TextMessagePartModel();
+            // For translators: do NOT change the position of {0}!
             textMsgPart.Text = String.Format(_("{0} [{1}] has joined {2}"),
                                              String.Empty,
                                              e.Data.Ident + "@" + e.Data.Host,
@@ -2414,6 +2416,7 @@ namespace Smuxi.Engine
                 TextMessagePartModel textMsg;
                 
                 textMsg = new TextMessagePartModel();
+                // For translators: do NOT change the position of {0}!
                 textMsg.Text = "-!- " + String.Format(
                                             _("You're now known as {0}"),
                                             String.Empty);
@@ -2459,6 +2462,7 @@ namespace Smuxi.Engine
                         TextMessagePartModel textMsg;
                         
                         textMsg = new TextMessagePartModel();
+                        // For translators: do NOT change the position of {0}!
                         textMsg.Text = "-!- " + String.Format(
                                                     _("You're now known as {0}"),
                                                     String.Empty);
@@ -2486,6 +2490,7 @@ namespace Smuxi.Engine
                         msg.MessageParts.Add(textMsg);
                         
                         textMsg = new TextMessagePartModel();
+                        // For translators: do NOT change the position of {0} or {1}!
                         textMsg.Text = String.Format(
                                             _("{0} is now known as {1}"),
                                             String.Empty,
@@ -2536,6 +2541,7 @@ namespace Smuxi.Engine
             msg.MessageParts.Add(textMsg);
 
             textMsg = new TextMessagePartModel();
+            // For translators: do NOT change the position of {0}!
             textMsg.Text = String.Format(
                                 _("{0} changed the topic of {1} to: {2}"),
                                 String.Empty, e.Channel, e.NewTopic);
@@ -2620,6 +2626,7 @@ namespace Smuxi.Engine
                     target = _NetworkChat;
 
                     textMsg = new TextMessagePartModel();
+                    // For translators: do NOT change the position of {1}!
                     textMsg.Text =  String.Format(
                                         _("Mode change [{0}] for user {1}"),
                                         modechange, String.Empty);
@@ -2636,6 +2643,7 @@ namespace Smuxi.Engine
                     }
 
                     textMsg = new TextMessagePartModel();
+                    // For translators: do NOT change the position of {2}!
                     textMsg.Text =   String.Format(
                                         _("mode/{0} [{1}] by {2}"),
                                         e.Data.Channel, modechange, String.Empty);
