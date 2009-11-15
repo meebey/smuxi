@@ -51,8 +51,8 @@ call-po: update-po
 			--utf8 \
 			--from="Mirco Bauer <meebey@debian.org>" \
 			--smtp=booster.qnetp.net \
-			--podir=$$PODIR; \
-			--call
+			--podir=$$PODIR \
+			--call; \
 	done
 	
 LIB_DIR = $(top_builddir)/lib
