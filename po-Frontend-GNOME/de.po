@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.6.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-11-16 01:10+0100\n"
+"POT-Creation-Date: 2009-11-17 00:34+0100\n"
 "PO-Revision-Date: 2009-08-14 00:24+0100\n"
 "Last-Translator: Mirco Bauer <meebey@meebey.net>\n"
 "Language-Team: German Localization <debian-l10n-german@lists.debian.org>\n"
@@ -76,7 +76,8 @@ msgid "Activity"
 msgstr "Aktivität"
 
 #: ../glade/smuxi-frontend-gnome.glade.h:14
-msgid "Automaticly connect to server at startup"
+#, fuzzy
+msgid "Automatically connect to server at startup"
 msgstr "Beim Start automatisch zum Server verbinden"
 
 #: ../glade/smuxi-frontend-gnome.glade.h:15
@@ -310,9 +311,10 @@ msgid "Tabs"
 msgstr "Reiter"
 
 #: ../glade/smuxi-frontend-gnome.glade.h:60
+#, fuzzy
 msgid ""
-"The nickname to use. You can specify more that one nickname, seperated by a "
-"space which will be used as fallback when the nickname was not available. By "
+"The nickname to use. You can specify extra nicknames (separated by spaces) "
+"which will be used as fallbacks when the first choice is not available. By "
 "default $nick_ and $nick__ will be used as fallback."
 msgstr ""
 "Der Nickname der verwendet werden soll. Sie können mehr als einen Nicknamen "
@@ -368,11 +370,12 @@ msgid "gtk-ok"
 msgstr "gtk-ok"
 
 #: ../glade/smuxi-frontend-gnome.glade.h:70
+#, fuzzy
 msgid ""
 "ss = second\n"
 "mm = minute\n"
-"hh = hour (1 - 12)\n"
-"HH = hour (0 - 23)\n"
+"hh = hour (01 - 12)\n"
+"HH = hour (00 - 23)\n"
 "tt = AM/PM\n"
 "\n"
 "dd = day\n"
@@ -438,7 +441,8 @@ msgid "_Edit"
 msgstr "_Bearbeiten"
 
 #: ../src/Frontend-GNOME/EngineManagerDialog.cs:90
-msgid "Select to which Smuxi engine you want to connect"
+#, fuzzy
+msgid "Select which Smuxi engine you want to connect to"
 msgstr "Wählen Sie aus zu welcher Smuxi-Engine Sie sich verbinden möchten"
 
 #: ../src/Frontend-GNOME/EngineManagerDialog.cs:96
@@ -456,14 +460,15 @@ msgid "Please select an engine!"
 msgstr "Bitte wählen Sie eine Engine aus!"
 
 #: ../src/Frontend-GNOME/EngineManagerDialog.cs:196
-#, csharp-format
-msgid "Your frontend version ({0}) is not matching the engine version ({1})!"
+#, fuzzy, csharp-format
+msgid "Your frontend version ({0}) does not match the engine version ({1})!"
 msgstr ""
 "Ihre Frontend-Version ({0}) stimmt nicht mit der Engine-Version ({1}) "
 "überein!"
 
 #: ../src/Frontend-GNOME/EngineManagerDialog.cs:223
-msgid "Error occured while connecting to the engine!"
+#, fuzzy
+msgid "An error occurred while connecting to the engine!"
 msgstr "Fehler beim Verbinden zur Engine aufgetreten!"
 
 #: ../src/Frontend-GNOME/EngineManagerDialog.cs:224
@@ -482,8 +487,8 @@ msgid "Are you sure you want to delete the engine \"{0}\"?"
 msgstr "Möchten Sie wirklich die Engine \"{0}\" löschen?"
 
 #: ../src/Frontend-GNOME/Entry.cs:385
-#, csharp-format
-msgid "You are going to paste {0} lines, do you want to continue?"
+#, fuzzy, csharp-format
+msgid "You are going to paste {0} lines. Do you want to continue?"
 msgstr "Sie sind dabei {0} Zeilen einzufügen. Möchten Sie fortfahren?"
 
 #: ../src/Frontend-GNOME/Entry.cs:493

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: smuxi 0.6.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-11-15 16:08+0100\n"
+"POT-Creation-Date: 2009-11-17 00:34+0100\n"
 "PO-Revision-Date: 2006-12-11 00:21+0100\n"
 "Last-Translator: Bjarke Sørensen <bs@wasd.dk>\n"
 "Language-Team: Danish Localization <debian-l10n-danish@lists.debian.org>\n"
@@ -24,93 +24,93 @@ msgid "Not connected to server"
 msgstr "Ikke forbundet til server"
 
 #: ../src/Engine/Protocols/ProtocolManagerBase.cs:148
-#: ../src/Engine/Session.cs:665
+#: ../src/Engine/Session.cs:669
 #, csharp-format
 msgid "Not enough parameters for {0} command"
 msgstr "Ikke nok parametre for kanalen {0}"
 
-#: ../src/Engine/Session.cs:150
+#: ../src/Engine/Session.cs:151
 msgid "Welcome to Smuxi"
 msgstr "Velkommen til Smuxi"
 
-#: ../src/Engine/Session.cs:156
+#: ../src/Engine/Session.cs:157
 msgid "Type /help to get a list of available commands."
 msgstr ""
 
-#: ../src/Engine/Session.cs:162
+#: ../src/Engine/Session.cs:160
 msgid ""
-"After you have made a connection the list of available commands changes, "
-"just use /help again."
+"After you have made a connection the list of available commands changes. Use "
+"the /help command again to see the extended command list."
 msgstr ""
 
-#: ../src/Engine/Session.cs:206
+#: ../src/Engine/Session.cs:210
 #, fuzzy, csharp-format
 msgid "Automatic connect to {0} failed!"
 msgstr "Forbindelse mislykkedes!"
 
-#: ../src/Engine/Session.cs:392
+#: ../src/Engine/Session.cs:396
 msgid "[Engine Commands]"
 msgstr ""
 
-#: ../src/Engine/Session.cs:499
-#, csharp-format
-msgid "Disconnect failed, could not find server: {0}"
+#: ../src/Engine/Session.cs:503
+#, fuzzy, csharp-format
+msgid "Disconnect failed - could not find server: {0}"
 msgstr "Afbrydelse fejlede, kunne ikke finde server: {0}"
 
-#: ../src/Engine/Session.cs:535
+#: ../src/Engine/Session.cs:539
 #, fuzzy
 msgid "Configuration reloaded"
 msgstr "Forbindelse lukket"
 
-#: ../src/Engine/Session.cs:540
+#: ../src/Engine/Session.cs:544
 #, fuzzy
 msgid "Configuration saved"
 msgstr "Forbindelse lukket"
 
-#: ../src/Engine/Session.cs:544
-msgid "Invalid paramater for config, use load or save"
+#: ../src/Engine/Session.cs:548
+msgid "Invalid parameter for config; use load or save"
 msgstr ""
 
-#: ../src/Engine/Session.cs:574
-msgid "Invalid paramater for network, use list, switch or close"
-msgstr ""
-
-#: ../src/Engine/Session.cs:585
-msgid "Networks"
+#: ../src/Engine/Session.cs:578
+msgid "Invalid parameter for network; use list, switch, or close"
 msgstr ""
 
 #: ../src/Engine/Session.cs:589
+msgid "Networks"
+msgstr ""
+
+#: ../src/Engine/Session.cs:593
 msgid "Type"
 msgstr ""
 
-#: ../src/Engine/Session.cs:590
+#: ../src/Engine/Session.cs:594
 msgid "Host"
 msgstr ""
 
-#: ../src/Engine/Session.cs:591
+#: ../src/Engine/Session.cs:595
 msgid "Port"
 msgstr ""
 
-#: ../src/Engine/Session.cs:613
+#: ../src/Engine/Session.cs:617
 #, fuzzy, csharp-format
-msgid "Network close failed, could not find network with host: {0}"
+msgid "Network close failed - could not find network with host: {0}"
 msgstr "Afbrydelse fejlede, kunne ikke finde server: {0}"
 
-#: ../src/Engine/Session.cs:647
+#: ../src/Engine/Session.cs:651
 #, fuzzy, csharp-format
-msgid "Network switch failed, could not find network with host: {0}"
+msgid "Network switch failed - could not find network with host: {0}"
 msgstr "Afbrydelse fejlede, kunne ikke finde server: {0}"
 
-#: ../src/Engine/Session.cs:659
+#: ../src/Engine/Session.cs:663
 msgid "Not connected to any network"
 msgstr "Ikke forbundet til noget netværk"
 
-#: ../src/Engine/Session.cs:939
+#: ../src/Engine/Session.cs:943
 #, csharp-format
 msgid "No protocol manager found for the protocol: {0}"
 msgstr ""
 
-#: ../src/Engine/Session.cs:959
+#: ../src/Engine/Session.cs:963
 #, csharp-format
 msgid "Unknown protocol: {0}"
 msgstr ""

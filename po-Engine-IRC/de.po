@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.6.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-11-15 16:08+0100\n"
+"POT-Creation-Date: 2009-11-17 00:34+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Mirco Bauer <meebey@meebey.net>\n"
 "Language-Team: German Localization <debian-l10n-german@lists.debian.org>\n"
@@ -206,8 +206,8 @@ msgid "{0} [{1}] has left {2} [{3}]"
 msgstr "{0} [{1}] hat {2} verlassen [{3}]"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2395
-#, csharp-format
-msgid "You was kicked from {0} by {1} [{2}]"
+#, fuzzy, csharp-format
+msgid "You were kicked from {0} by {1} [{2}]"
 msgstr "Sie wurden aus {0} von {1} rausgeworfen [{2}]"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2403

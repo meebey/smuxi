@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: smuxi 0.6.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-11-15 16:08+0100\n"
+"POT-Creation-Date: 2009-11-17 00:34+0100\n"
 "PO-Revision-Date: 2009-08-13 23:43+0100\n"
 "Last-Translator: Mirco Bauer <meebey@meebey.net>\n"
 "Language-Team: German Localization <debian-l10n-german@lists.debian.org>\n"
@@ -17,16 +17,17 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: ../src/Frontend/EngineManager.cs:264
-#, csharp-format
-msgid "Unknown channel ({0}), only following channel types are supported:"
+#, fuzzy, csharp-format
+msgid "Unknown channel ({0}) - only the following channel types are supported:"
 msgstr ""
 "Unbekannter Channel ({0}), nur die folgenden Channel-Typen werden "
 "unterstützt:"
 
 #: ../src/Frontend/EngineManager.cs:273
+#, fuzzy
 msgid ""
-"Registration at engine failed, username and/or password was wrong, please "
-"verify them."
+"Registration with engine failed!  The username and/or password were wrong - "
+"please verify them."
 msgstr ""
 "Registierung in der Engine fehlgeschlagen. Benutzer und/oder Passwort ist "
 "falsch, bitte Überprüfen Sie ihre EIngabe."
@@ -36,23 +37,24 @@ msgid "SSH client application was not found: "
 msgstr "SSH-Klientenprogramm wurde nicht gefunden: "
 
 #: ../src/Frontend/SshTunnelManager.cs:147
+#, fuzzy
 msgid ""
-"SSH client must be either OpenSSH (ssh) or Plink (plink.exe, _not_ putty.exe)"
+"SSH client must be either OpenSSH (ssh) or Plink (plink.exe, not putty.exe)"
 msgstr ""
 "SSH-Klient darf nur OpenSSH (ssh) oder Plink (plink.exe, _nicht_ putty.exe) "
 "sein"
 
 #: ../src/Frontend/SshTunnelManager.cs:189
-#, csharp-format
+#, fuzzy, csharp-format
 msgid ""
-"SSH tunnel setup failed with (exit code: {0})\n"
+"SSH tunnel setup failed (exit code: {0})\n"
 "\n"
 "SSH program: {1}\n"
 "SSH parameters: {2}\n"
 "\n"
 "Program Error:\n"
 "{3}\n"
-"Prgram Output:\n"
+"Program Output:\n"
 "{4}\n"
 msgstr ""
 "SSH-Tunnel-Einrichtung ist fehlgeschlagen mit (Exit-Code: {0})\n"
@@ -66,7 +68,7 @@ msgstr ""
 "{4}\n"
 
 #: ../src/Frontend/SshTunnelManager.cs:366
-#, csharp-format
+#, fuzzy, csharp-format
 msgid ""
 "Couldn't get OpenSSH version (exit code: {0})\n"
 "\n"
@@ -74,7 +76,7 @@ msgid ""
 "\n"
 "Program Error:\n"
 "{2}\n"
-"Prgram Output:\n"
+"Program Output:\n"
 "{3}\n"
 msgstr ""
 "OpenSSH-Version konnte nicht ermittelt werden (Exit-Code: {0})\n"

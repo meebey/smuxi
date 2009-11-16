@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: smuxi 0.6.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-11-15 16:08+0100\n"
+"POT-Creation-Date: 2009-11-17 00:34+0100\n"
 "PO-Revision-Date: 2009-08-12 08:30+0200\n"
 "Last-Translator: Ryan Smith-Evans <Kimera.Kimera@gmail.com>\n"
 "Language-Team: English (British)\n"
@@ -16,14 +16,15 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #: ../src/Frontend/EngineManager.cs:264
-#, csharp-format
-msgid "Unknown channel ({0}), only following channel types are supported:"
+#, fuzzy, csharp-format
+msgid "Unknown channel ({0}) - only the following channel types are supported:"
 msgstr "Unknown channel ({0}), only following channel types are supported:"
 
 #: ../src/Frontend/EngineManager.cs:273
+#, fuzzy
 msgid ""
-"Registration at engine failed, username and/or password was wrong, please "
-"verify them."
+"Registration with engine failed!  The username and/or password were wrong - "
+"please verify them."
 msgstr ""
 "Registration at engine failed, username and/or password was wrong, please "
 "verify them."
@@ -33,22 +34,23 @@ msgid "SSH client application was not found: "
 msgstr "SSH client application was not found: "
 
 #: ../src/Frontend/SshTunnelManager.cs:147
+#, fuzzy
 msgid ""
-"SSH client must be either OpenSSH (ssh) or Plink (plink.exe, _not_ putty.exe)"
+"SSH client must be either OpenSSH (ssh) or Plink (plink.exe, not putty.exe)"
 msgstr ""
 "SSH client must be either OpenSSH (ssh) or Plink (plink.exe, _not_ putty.exe)"
 
 #: ../src/Frontend/SshTunnelManager.cs:189
-#, csharp-format
+#, fuzzy, csharp-format
 msgid ""
-"SSH tunnel setup failed with (exit code: {0})\n"
+"SSH tunnel setup failed (exit code: {0})\n"
 "\n"
 "SSH program: {1}\n"
 "SSH parameters: {2}\n"
 "\n"
 "Program Error:\n"
 "{3}\n"
-"Prgram Output:\n"
+"Program Output:\n"
 "{4}\n"
 msgstr ""
 "SSH tunnel setup failed with (exit code: {0})\n"
@@ -62,7 +64,7 @@ msgstr ""
 "{4}\n"
 
 #: ../src/Frontend/SshTunnelManager.cs:366
-#, csharp-format
+#, fuzzy, csharp-format
 msgid ""
 "Couldn't get OpenSSH version (exit code: {0})\n"
 "\n"
@@ -70,7 +72,7 @@ msgid ""
 "\n"
 "Program Error:\n"
 "{2}\n"
-"Prgram Output:\n"
+"Program Output:\n"
 "{3}\n"
 msgstr ""
 "Couldn't get OpenSSH version (exit code: {0})\n"

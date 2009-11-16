@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Smuxi 0.6.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-11-15 16:08+0100\n"
+"POT-Creation-Date: 2009-11-17 00:34+0100\n"
 "PO-Revision-Date: 2009-11-15 23:47+0100\n"
 "Last-Translator: Clément BOURGEOIS <moonpyk@gmail.com>\n"
 "Language-Team: French Localization <debian-l10n-french@lists.debian.org>\n"
@@ -210,8 +210,8 @@ msgid "{0} [{1}] has left {2} [{3}]"
 msgstr "{0} [{1}] a quitté {2} [{3}]"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2395
-#, csharp-format
-msgid "You was kicked from {0} by {1} [{2}]"
+#, fuzzy, csharp-format
+msgid "You were kicked from {0} by {1} [{2}]"
 msgstr "Vous avez été kické du canal {0} par {1} [{2}]"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2403

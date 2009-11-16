@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.6.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-11-15 16:08+0100\n"
+"POT-Creation-Date: 2009-11-17 00:34+0100\n"
 "PO-Revision-Date: 2009-08-12 17:04+0100\n"
 "Last-Translator: Juan Miguel Carrero <streinleght@gmail.com>\n"
 "Language-Team: Spanish Spanish Localization <debian-l10n-spanish@lists."
@@ -25,93 +25,96 @@ msgid "Not connected to server"
 msgstr "No conectado al servidor"
 
 #: ../src/Engine/Protocols/ProtocolManagerBase.cs:148
-#: ../src/Engine/Session.cs:665
+#: ../src/Engine/Session.cs:669
 #, csharp-format
 msgid "Not enough parameters for {0} command"
 msgstr "Parámetros insuficientes para el comando {0}"
 
-#: ../src/Engine/Session.cs:150
+#: ../src/Engine/Session.cs:151
 msgid "Welcome to Smuxi"
 msgstr "Bienvenido a Smuxi"
 
-#: ../src/Engine/Session.cs:156
+#: ../src/Engine/Session.cs:157
 msgid "Type /help to get a list of available commands."
 msgstr "Escribe /help para obtener una lista de comandos disponibles."
 
-#: ../src/Engine/Session.cs:162
+#: ../src/Engine/Session.cs:160
+#, fuzzy
 msgid ""
-"After you have made a connection the list of available commands changes, "
-"just use /help again."
+"After you have made a connection the list of available commands changes. Use "
+"the /help command again to see the extended command list."
 msgstr ""
 "Despues de efectuar una conexión la lista de comandos disponibles cambia , "
 "usa /help de nuevo."
 
-#: ../src/Engine/Session.cs:206
+#: ../src/Engine/Session.cs:210
 #, csharp-format
 msgid "Automatic connect to {0} failed!"
 msgstr "Conexión automática a {0} fallida!"
 
-#: ../src/Engine/Session.cs:392
+#: ../src/Engine/Session.cs:396
 msgid "[Engine Commands]"
 msgstr "[Comandos del Motor]"
 
-#: ../src/Engine/Session.cs:499
-#, csharp-format
-msgid "Disconnect failed, could not find server: {0}"
+#: ../src/Engine/Session.cs:503
+#, fuzzy, csharp-format
+msgid "Disconnect failed - could not find server: {0}"
 msgstr "Desconexión fallida, no se encuentra el servidor: {0}"
 
-#: ../src/Engine/Session.cs:535
+#: ../src/Engine/Session.cs:539
 msgid "Configuration reloaded"
 msgstr "Configuración importada"
 
-#: ../src/Engine/Session.cs:540
+#: ../src/Engine/Session.cs:544
 msgid "Configuration saved"
 msgstr "Configuración guardada"
 
-#: ../src/Engine/Session.cs:544
-msgid "Invalid paramater for config, use load or save"
+#: ../src/Engine/Session.cs:548
+#, fuzzy
+msgid "Invalid parameter for config; use load or save"
 msgstr "Parámetro inválido de configuración , usa importar o guardar"
 
-#: ../src/Engine/Session.cs:574
-msgid "Invalid paramater for network, use list, switch or close"
+#: ../src/Engine/Session.cs:578
+#, fuzzy
+msgid "Invalid parameter for network; use list, switch, or close"
 msgstr "Paŕametro inválido de configuración, usa list , switch o close"
 
-#: ../src/Engine/Session.cs:585
+#: ../src/Engine/Session.cs:589
 msgid "Networks"
 msgstr "Redes"
 
-#: ../src/Engine/Session.cs:589
+#: ../src/Engine/Session.cs:593
 msgid "Type"
 msgstr "Tipo"
 
-#: ../src/Engine/Session.cs:590
+#: ../src/Engine/Session.cs:594
 msgid "Host"
 msgstr "Servidor"
 
-#: ../src/Engine/Session.cs:591
+#: ../src/Engine/Session.cs:595
 msgid "Port"
 msgstr "Puerto"
 
-#: ../src/Engine/Session.cs:613
-#, csharp-format
-msgid "Network close failed, could not find network with host: {0}"
+#: ../src/Engine/Session.cs:617
+#, fuzzy, csharp-format
+msgid "Network close failed - could not find network with host: {0}"
 msgstr "Cierre de red fallido , no se puede encontrar la red con host: {0}"
 
-#: ../src/Engine/Session.cs:647
-#, csharp-format
-msgid "Network switch failed, could not find network with host: {0}"
+#: ../src/Engine/Session.cs:651
+#, fuzzy, csharp-format
+msgid "Network switch failed - could not find network with host: {0}"
 msgstr "Cambio de red fallido , no se puede encontrar la red con host: {0}"
 
-#: ../src/Engine/Session.cs:659
+#: ../src/Engine/Session.cs:663
 msgid "Not connected to any network"
 msgstr "No conectado a ninguna red"
 
-#: ../src/Engine/Session.cs:939
+#: ../src/Engine/Session.cs:943
 #, csharp-format
 msgid "No protocol manager found for the protocol: {0}"
 msgstr "No existe gestor para el protocolo: {0}"
 
-#: ../src/Engine/Session.cs:959
+#: ../src/Engine/Session.cs:963
 #, csharp-format
 msgid "Unknown protocol: {0}"
 msgstr "Protocolo desconocido: {0}"

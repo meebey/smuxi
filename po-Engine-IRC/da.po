@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: smuxi 0.6.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-11-15 16:08+0100\n"
+"POT-Creation-Date: 2009-11-17 00:34+0100\n"
 "PO-Revision-Date: 2009-08-12 08:38+0200\n"
 "Last-Translator: Bjarke Sørensen <bs@wasd.dk>\n"
 "Language-Team: Danish Localization <debian-l10n-danish@lists.debian.org>\n"
@@ -206,7 +206,7 @@ msgstr ""
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2395
 #, csharp-format
-msgid "You was kicked from {0} by {1} [{2}]"
+msgid "You were kicked from {0} by {1} [{2}]"
 msgstr ""
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2403

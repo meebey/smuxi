@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: smuxi 0.6.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-11-15 16:08+0100\n"
+"POT-Creation-Date: 2009-11-17 00:34+0100\n"
 "PO-Revision-Date: 2009-08-12 08:34+0200\n"
 "Last-Translator: David Paleino <d.paleino@gmail.com>\n"
 "Language-Team: Italian Localization <debian-l10n-italian@lists.debian.org>\n"
@@ -17,13 +17,13 @@ msgstr ""
 
 #: ../src/Frontend/EngineManager.cs:264
 #, csharp-format
-msgid "Unknown channel ({0}), only following channel types are supported:"
+msgid "Unknown channel ({0}) - only the following channel types are supported:"
 msgstr ""
 
 #: ../src/Frontend/EngineManager.cs:273
 msgid ""
-"Registration at engine failed, username and/or password was wrong, please "
-"verify them."
+"Registration with engine failed!  The username and/or password were wrong - "
+"please verify them."
 msgstr ""
 
 #: ../src/Frontend/SshTunnelManager.cs:144
@@ -32,20 +32,20 @@ msgstr ""
 
 #: ../src/Frontend/SshTunnelManager.cs:147
 msgid ""
-"SSH client must be either OpenSSH (ssh) or Plink (plink.exe, _not_ putty.exe)"
+"SSH client must be either OpenSSH (ssh) or Plink (plink.exe, not putty.exe)"
 msgstr ""
 
 #: ../src/Frontend/SshTunnelManager.cs:189
 #, csharp-format
 msgid ""
-"SSH tunnel setup failed with (exit code: {0})\n"
+"SSH tunnel setup failed (exit code: {0})\n"
 "\n"
 "SSH program: {1}\n"
 "SSH parameters: {2}\n"
 "\n"
 "Program Error:\n"
 "{3}\n"
-"Prgram Output:\n"
+"Program Output:\n"
 "{4}\n"
 msgstr ""
 
@@ -58,7 +58,7 @@ msgid ""
 "\n"
 "Program Error:\n"
 "{2}\n"
-"Prgram Output:\n"
+"Program Output:\n"
 "{3}\n"
 msgstr ""
 
