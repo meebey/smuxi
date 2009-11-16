@@ -142,24 +142,28 @@ namespace Smuxi.Engine
             // if this is the first frontend, we process OnStartupCommands
             if (!_OnStartupCommandsProcessed) {
                 _OnStartupCommandsProcessed = true;
-                
+
+                string str;
                 MessageModel msg;
                 msg = new MessageModel();
                 msg.MessageParts.Add(
                     new TextMessagePartModel(new TextColor(0xFF0000), null, false,
                             true, false, _("Welcome to Smuxi")));
                 AddMessageToChat(_SessionChat, msg);
-                
+
                 msg = new MessageModel();
                 msg.MessageParts.Add(
                     new TextMessagePartModel(null, null, false,
                             true, false, _("Type /help to get a list of available commands.")));
                 AddMessageToChat(_SessionChat, msg);
 
+                str = _("After you have made a connection the list of " +
+                        "available commands changes. Use the /help command " +
+                        "again to see the extended command list.");
                 msg = new MessageModel();
                 msg.MessageParts.Add(
                     new TextMessagePartModel(null, null, false,
-                            true, false, _("After you have made a connection the list of available commands changes, just use /help again.")));
+                            true, false, str));
                 AddMessageToChat(_SessionChat, msg);
                 
                 foreach (string command in (string[])_UserConfig["OnStartupCommands"]) {
@@ -496,7 +500,7 @@ namespace Smuxi.Engine
                 fm.AddTextToCurrentChat(
                     "-!- " +
                     String.Format(
-                        _("Disconnect failed, could not find server: {0}"),
+                        _("Disconnect failed - could not find server: {0}"),
                         server
                     )
                 );
@@ -541,7 +545,7 @@ namespace Smuxi.Engine
                         break;
                     default:
                         fm.AddTextToCurrentChat("-!- " + 
-                            _("Invalid paramater for config, use load or save"));
+                            _("Invalid parameter for config; use load or save"));
                         break;
                 }
             } else {
@@ -571,7 +575,7 @@ namespace Smuxi.Engine
                         break;
                     default:
                         fm.AddTextToCurrentChat("-!- " + 
-                            _("Invalid paramater for network, use list, switch or close"));
+                            _("Invalid parameter for network; use list, switch, or close"));
                         break;
                 }
             } else {
@@ -610,7 +614,7 @@ namespace Smuxi.Engine
                 }
                 if (pm == null) {
                     fm.AddTextToCurrentChat("-!- " +
-                        String.Format(_("Network close failed, could not find network with host: {0}"),
+                        String.Format(_("Network close failed - could not find network with host: {0}"),
                                       host));
                     return;
                 }
@@ -644,7 +648,7 @@ namespace Smuxi.Engine
                     }
                 }
                 fm.AddTextToCurrentChat("-!- " +
-                    String.Format(_("Network switch failed, could not find network with host: {0}"),
+                    String.Format(_("Network switch failed - could not find network with host: {0}"),
                                   host));
             } else if (cd.DataArray.Length >= 2) {
                 // next network manager

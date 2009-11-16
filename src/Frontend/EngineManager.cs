@@ -261,8 +261,8 @@ namespace Smuxi.Frontend
                     break;
                 default:
                     throw new ApplicationException(String.Format(
-                                    _("Unknown channel ({0}), "+
-                                      "only following channel types are supported:"),
+                                    _("Unknown channel ({0}) - "+
+                                      "only the following channel types are supported:"),
                                     channel) + " HTTP TCP");
             }
             f_SessionManager = sessm;
@@ -270,8 +270,8 @@ namespace Smuxi.Frontend
             
             f_Session = sessm.Register(username, MD5.FromString(password), f_FrontendUI);
             if (f_Session == null) {
-                throw new ApplicationException(_("Registration at engine failed, "+
-                               "username and/or password was wrong, please verify them."));
+                throw new ApplicationException(_("Registration with engine failed!  "+
+                               "The username and/or password were wrong - please verify them."));
             }
             
             f_EngineVersion = sessm.EngineVersion;

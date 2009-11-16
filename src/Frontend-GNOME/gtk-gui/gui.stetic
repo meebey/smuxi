@@ -3161,14 +3161,14 @@
       <widget class="Gtk.Label" id="label2">
         <property name="MemberName" />
         <property name="Xalign">0</property>
-        <property name="LabelProp" translatable="yes">Welcome to the Smuxi Engine Configuration Assistent.
+        <property name="LabelProp" translatable="yes">Welcome to the Smuxi Engine Configuration Assistant.
 You need to enter some information before you can use the engine.
 
 Click "Forward" to begin.</property>
       </widget>
     </child>
   </widget>
-  <widget class="Gtk.Bin" id="Smuxi.Frontend.Gnome.EngineAssistantNameWidget" design-size="401 179">
+  <widget class="Gtk.Bin" id="Smuxi.Frontend.Gnome.EngineAssistantNameWidget" design-size="524 179">
     <property name="MemberName" />
     <property name="Visible">False</property>
     <child>
@@ -3273,7 +3273,7 @@ Click "Forward" to begin.</property>
                 <property name="MemberName" />
                 <property name="Xpad">50</property>
                 <property name="Xalign">0</property>
-                <property name="LabelProp" translatable="yes">&lt;span size="small"&gt;If enabled this makes the current engine the default when starting Smuxi next time&lt;/span&gt;</property>
+                <property name="LabelProp" translatable="yes">&lt;span size="small"&gt;If enabled, the current engine will be the default next time Smuxi is started&lt;/span&gt;</property>
                 <property name="UseMarkup">True</property>
                 <property name="Wrap">True</property>
               </widget>

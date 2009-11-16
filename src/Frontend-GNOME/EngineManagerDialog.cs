@@ -86,8 +86,8 @@ namespace Smuxi.Frontend.Gnome
             Response += new Gtk.ResponseHandler(_OnResponse);
             
             Gtk.VBox vbox = new Gtk.VBox();
-            Gtk.Label label = new Gtk.Label("<b>" + 
-                                            _("Select to which Smuxi engine you want to connect") +
+            Gtk.Label label = new Gtk.Label("<b>" +
+                                            _("Select which Smuxi engine you want to connect to") +
                                             "</b>");
             label.UseMarkup = true;
             vbox.PackStart(label, false, false, 5);
@@ -193,7 +193,7 @@ namespace Smuxi.Frontend.Gnome
                     _EngineManager.EngineVersion.Minor != Frontend.Version.Minor ||
                     _EngineManager.EngineVersion.Build != Frontend.Version.Build) {                        
                     throw new ApplicationException(String.Format(
-                                _("Your frontend version ({0}) is not matching the engine version ({1})!"),
+                                _("Your frontend version ({0}) does not match the engine version ({1})!"),
                                 Frontend.Version, _EngineManager.EngineVersion));
                 }
                 
@@ -220,7 +220,7 @@ namespace Smuxi.Frontend.Gnome
                 }
                 
                 string msg;
-                msg = _("Error occured while connecting to the engine!") + "\n\n";
+                msg = _("An error occurred while connecting to the engine!") + "\n\n";
                 msg += String.Format(_("Engine URL: {0}") + "\n",
                                      _EngineManager.EngineUrl);
                 

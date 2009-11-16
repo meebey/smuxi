@@ -2392,7 +2392,7 @@ namespace Smuxi.Engine
             if (e.Data.Irc.IsMe(e.Whom)) {
                 Session.AddTextToChat(cchat,
                     "-!- " + String.Format(
-                                _("You was kicked from {0} by {1} [{2}]"),
+                                _("You were kicked from {0} by {1} [{2}]"),
                                 e.Channel, e.Who, e.KickReason));
                 Session.DisableChat(cchat);
             } else {

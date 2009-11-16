@@ -382,7 +382,7 @@ namespace Smuxi.Frontend.Gnome
                     // seems to be a paste, so let's break it apart
                     string[] msgParts = Text.Split(new char[] {'\n'});
                     if (msgParts.Length > 3) {
-                        string msg = String.Format(_("You are going to paste {0} lines, do you want to continue?"),
+                        string msg = String.Format(_("You are going to paste {0} lines. Do you want to continue?"),
                                                    msgParts.Length);
                         Gtk.MessageDialog md = new Gtk.MessageDialog(
                                                     Frontend.MainWindow,

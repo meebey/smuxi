@@ -144,7 +144,7 @@ namespace Smuxi.Frontend
                 throw new ApplicationException(_("SSH client application was not found: " + f_Program));
             }
             if (f_Program.ToLower().EndsWith("putty.exe")) {
-                throw new ApplicationException(_("SSH client must be either OpenSSH (ssh) or Plink (plink.exe, _not_ putty.exe)"));
+                throw new ApplicationException(_("SSH client must be either OpenSSH (ssh) or Plink (plink.exe, not putty.exe)"));
             }
             
             bool isPutty = false;
@@ -186,12 +186,12 @@ namespace Smuxi.Frontend
                     string output = f_Process.StandardOutput.ReadToEnd();
                     string error = f_Process.StandardError.ReadToEnd();
                     string msg = String.Format(
-                        _("SSH tunnel setup failed with (exit code: {0})\n\n" +
+                        _("SSH tunnel setup failed (exit code: {0})\n\n" +
                           "SSH program: {1}\n" +
                           "SSH parameters: {2}\n\n" +
                           "Program Error:\n" +
                           "{3}\n" +
-                          "Prgram Output:\n" +
+                          "Program Output:\n" +
                           "{4}\n"),
                         f_Process.ExitCode,
                         f_ProcessStartInfo.FileName,
@@ -367,7 +367,7 @@ namespace Smuxi.Frontend
                   "SSH program: {1}\n\n" +
                   "Program Error:\n" +
                   "{2}\n" +
-                  "Prgram Output:\n" +
+                  "Program Output:\n" +
                   "{3}\n"),
                 f_Process.ExitCode,
                 f_Program,
