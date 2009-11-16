@@ -1,16 +1,16 @@
-# Smuxi - IRC client for advanced users
-# Copyright (C) 2005-2008 Mirco Bauer <meebey@meebey.net>
+# Smuxi - IRC client for sophisticated users
+# Copyright (C) 2005-2009 Mirco Bauer <meebey@meebey.net>
 # This file is distributed under the same license as the Smuxi package.
 # Clement BOURGEOIS <moonpyk@gmail.com>, 2008.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 0.6.2\n"
+"Project-Id-Version: Smuxi 0.6.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-11-15 16:08+0100\n"
 "PO-Revision-Date: 2009-11-15 23:47+0100\n"
 "Last-Translator: Clément BOURGEOIS <moonpyk@gmail.com>\n"
-"Language-Team: Clément BOURGEOIS <moonpyk@gmail.com>\n"
+"Language-Team: French Localization <debian-l10n-french@lists.debian.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -94,7 +94,9 @@ msgstr "Port invalide : {0}"
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:810
 #, csharp-format
 msgid "Already joined to channel: {0}. Type /window {0} to switch to it."
-msgstr "Vous êtes déjà sur le canal: {0}. Utilisez /window {0} pour passer sur celui-ci."
+msgstr ""
+"Vous êtes déjà sur le canal: {0}. Utilisez /window {0} pour passer sur celui-"
+"ci."
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1053
 msgid "IRC Op"
@@ -144,7 +146,8 @@ msgstr "Utilisateurs"
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1409
 #, csharp-format
 msgid "Total of {0} users [{1} ops, {2} voices, {3} normal]"
-msgstr "Total de {0} utilisateurs, [{1} opérateur(s), {2} voicé(s), {3} normal(ux)]"
+msgstr ""
+"Total de {0} utilisateurs, [{1} opérateur(s), {2} voicé(s), {3} normal(ux)]"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1549
 msgid "Connection error! Reason: "
@@ -259,4 +262,3 @@ msgstr "Vous n'êtes plus marqué comme étant parti"
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2787
 msgid "You have been marked as being away"
 msgstr "Vous avez été marqué comme étant parti"
-

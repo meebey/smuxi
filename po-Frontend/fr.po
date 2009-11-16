@@ -5,7 +5,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: smuxi 0.6.4\n"
+"Project-Id-Version: Smuxi 0.6.4\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-11-15 16:08+0100\n"
 "PO-Revision-Date: 2009-11-15 23:46+0100\n"
@@ -18,19 +18,27 @@ msgstr ""
 #: ../src/Frontend/EngineManager.cs:264
 #, csharp-format
 msgid "Unknown channel ({0}), only following channel types are supported:"
-msgstr "Canal inconny ({0}), seuls les types de cannaux suivants sont supportés :"
+msgstr ""
+"Canal inconny ({0}), seuls les types de cannaux suivants sont supportés :"
 
 #: ../src/Frontend/EngineManager.cs:273
-msgid "Registration at engine failed, username and/or password was wrong, please verify them."
-msgstr "Impossible de s'enregistrer auprès du moteur, le nom d'utilisateur ou le mot de passe etaient mauvais, veuillez les vérifier."
+msgid ""
+"Registration at engine failed, username and/or password was wrong, please "
+"verify them."
+msgstr ""
+"Impossible de s'enregistrer auprès du moteur, le nom d'utilisateur ou le mot "
+"de passe etaient mauvais, veuillez les vérifier."
 
 #: ../src/Frontend/SshTunnelManager.cs:144
 msgid "SSH client application was not found: "
 msgstr "L'application SSH client n'a pas été trouvée :"
 
 #: ../src/Frontend/SshTunnelManager.cs:147
-msgid "SSH client must be either OpenSSH (ssh) or Plink (plink.exe, _not_ putty.exe)"
-msgstr "Le client SSH doit être soit OpenSSH (ssh) ou Plink (plink.exe, et _non_ putty.exe)"
+msgid ""
+"SSH client must be either OpenSSH (ssh) or Plink (plink.exe, _not_ putty.exe)"
+msgstr ""
+"Le client SSH doit être soit OpenSSH (ssh) ou Plink (plink.exe, et _non_ "
+"putty.exe)"
 
 #: ../src/Frontend/SshTunnelManager.cs:189
 #, csharp-format
@@ -79,4 +87,3 @@ msgstr ""
 #: ../src/Frontend/SshTunnelManager.cs:402
 msgid "PuTTY / Plink requires a username to be set."
 msgstr "PuTTY ou Plink necessitent un nom d'utilisateur pour fonctionner."
-

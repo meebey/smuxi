@@ -5,12 +5,12 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Smuxi\n"
+"Project-Id-Version: Smuxi 0.6.4\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-11-15 16:08+0100\n"
 "PO-Revision-Date: 2009-11-15 23:21+0100\n"
 "Last-Translator: Clément BOURGEOIS <moonpyk@gmail.com>\n"
-"Language-Team: Clément BOURGEOIS <moonpyk@gmail.com>\n"
+"Language-Team: French Localization <debian-l10n-french@lists.debian.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -40,8 +40,12 @@ msgid "Type /help to get a list of available commands."
 msgstr "Tapez /help pour obtenir la liste des commandes disponibles."
 
 #: ../src/Engine/Session.cs:162
-msgid "After you have made a connection the list of available commands changes, just use /help again."
-msgstr "Une fois la connexion établie, la liste des commandes disponibles change, vous pouvez retaper /help encore une fois pour voir celles-ci."
+msgid ""
+"After you have made a connection the list of available commands changes, "
+"just use /help again."
+msgstr ""
+"Une fois la connexion établie, la liste des commandes disponibles change, "
+"vous pouvez retaper /help encore une fois pour voir celles-ci."
 
 #: ../src/Engine/Session.cs:206
 #, csharp-format
@@ -112,4 +116,3 @@ msgstr "Aucun gestionnaire de protocole trouvé pour le protocole : {0}"
 #, csharp-format
 msgid "Unknown protocol: {0}"
 msgstr "Protocole inconnu : {0}"
-
