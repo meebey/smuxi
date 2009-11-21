@@ -35,7 +35,7 @@ msgstr "Willkommen zu Smuxi"
 
 #: ../src/Engine/Session.cs:157
 msgid "Type /help to get a list of available commands."
-msgstr "Gebe /help ein um eine Liste der verfügbaren Befehle zu erhalten."
+msgstr "Gib /help ein, um eine Liste der verfügbaren Befehle zu erhalten."
 
 #: ../src/Engine/Session.cs:160
 #, fuzzy
