@@ -275,7 +275,7 @@ namespace Smuxi.Frontend.Gnome
                 // HACK: out of scope
                 Frontend.MainWindow.ProgressBar.Fraction = 0;
                 // TRANSLATOR: this string will be appended to the one above
-                status += Sting.Format(" {0}", _("done."));
+                status += String.Format(" {0}", _("done."));
                 Frontend.MainWindow.Statusbar.Push(0, status);
             }
 
