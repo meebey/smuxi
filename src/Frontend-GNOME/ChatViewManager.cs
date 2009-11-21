@@ -113,54 +113,75 @@ namespace Smuxi.Frontend.Gnome
                     }
                 }
             }
-            
+
             if (idx == -1) {
                 f_Notebook.AppendPage(chatView, chatView.LabelWidget);
             } else {
 #if LOG4NET
-                f_Logger.Debug("AddChat(): adding chat at: " + idx); 
+                f_Logger.Debug("AddChat(): adding chat at: " + idx);
 #endif
                 f_Notebook.InsertPage(chatView, chatView.LabelWidget, idx);
             }
-            
+
 #if GTK_SHARP_2_10
             f_Notebook.SetTabReorderable(chatView, true);
 #endif
             chatView.ShowAll();
-            
+
             if (ChatAdded != null) {
                 ChatAdded(this, new ChatViewManagerChatAddedEventArgs(chatView));
             }
         }
-        
+
         public override void RemoveChat(ChatModel chat)
         {
-            ChatView chatView = f_Notebook.GetChat(chat);
+            ChatView chatView = GetChat(chat);
+            if (chatView == null) {
+ #if LOG4NET
+                f_Logger.Warn("RemoveChat(): chatView is null!");
+#endif
+                return;
+            }
+
             f_Notebook.RemovePage(f_Notebook.PageNum(chatView));
             f_Chats.Remove(chatView);
-            
+
             if (ChatRemoved != null) {
                 ChatRemoved(this, new ChatViewManagerChatRemovedEventArgs(chatView));
             }
         }
-        
+
         public override void EnableChat(ChatModel chat)
         {
-            ChatView chatView = f_Notebook.GetChat(chat);
+            ChatView chatView = GetChat(chat);
+            if (chatView == null) {
+ #if LOG4NET
+                f_Logger.Warn("RemoveChat(): chatView is null!");
+#endif
+                return;
+            }
+
             chatView.Enable();
         }
-        
+
         public override void DisableChat(ChatModel chat)
         {
-            ChatView chatView = f_Notebook.GetChat(chat);
+            ChatView chatView = GetChat(chat);
+            if (chatView == null) {
+ #if LOG4NET
+                f_Logger.Warn("RemoveChat(): chatView is null!");
+#endif
+                return;
+            }
+
             chatView.Disable();
         }
-        
+
         public ChatView GetChat(ChatModel chatModel)
         {
             return f_Notebook.GetChat(chatModel);
         }
-        
+
         public virtual void ApplyConfig(UserConfig config)
         {
             Trace.Call(config);
