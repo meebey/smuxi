@@ -147,7 +147,6 @@ namespace Smuxi.Frontend.Gnome {
             this.DefaultWidth = 588;
             this.DefaultHeight = 347;
             this.label1.MnemonicWidget = this.f_NameEntry;
-            this.f_NameEntry.HasDefault = true;
             this.Show();
             this.f_NameEntry.Activated += new System.EventHandler(this.OnNameEntryActivated);
             this.f_FindButton.Clicked += new System.EventHandler(this.OnFindButtonClicked);

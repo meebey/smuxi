@@ -61,7 +61,7 @@ namespace Smuxi.Frontend.Gnome {
             this.f_UseSshTunnelCheckButton = new Gtk.CheckButton();
             this.f_UseSshTunnelCheckButton.CanFocus = true;
             this.f_UseSshTunnelCheckButton.Name = "f_UseSshTunnelCheckButton";
-            this.f_UseSshTunnelCheckButton.Label = Mono.Unix.Catalog.GetString("Use _SSH tunnel");
+            this.f_UseSshTunnelCheckButton.Label = Mono.Unix.Catalog.GetString("Use _SSH Tunnel");
             this.f_UseSshTunnelCheckButton.Active = true;
             this.f_UseSshTunnelCheckButton.DrawIndicator = true;
             this.f_UseSshTunnelCheckButton.UseUnderline = true;
@@ -98,7 +98,7 @@ namespace Smuxi.Frontend.Gnome {
             this.f_HostEntry.Sensitive = false;
             this.f_HostEntry.CanFocus = true;
             this.f_HostEntry.Name = "f_HostEntry";
-            this.f_HostEntry.Text = Mono.Unix.Catalog.GetString("localhost");
+            this.f_HostEntry.Text = "localhost";
             this.f_HostEntry.IsEditable = true;
             this.f_HostEntry.InvisibleChar = '●';
             this.table1.Add(this.f_HostEntry);

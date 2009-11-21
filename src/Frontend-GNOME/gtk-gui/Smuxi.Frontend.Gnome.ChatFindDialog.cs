@@ -88,7 +88,7 @@ namespace Smuxi.Frontend.Gnome {
             this.f_MatchCaseCheckButton = new Gtk.CheckButton();
             this.f_MatchCaseCheckButton.CanFocus = true;
             this.f_MatchCaseCheckButton.Name = "f_MatchCaseCheckButton";
-            this.f_MatchCaseCheckButton.Label = Mono.Unix.Catalog.GetString("_Match case");
+            this.f_MatchCaseCheckButton.Label = Mono.Unix.Catalog.GetString("_Match Case");
             this.f_MatchCaseCheckButton.DrawIndicator = true;
             this.f_MatchCaseCheckButton.UseUnderline = true;
             this.vbox3.Add(this.f_MatchCaseCheckButton);
@@ -100,7 +100,7 @@ namespace Smuxi.Frontend.Gnome {
             this.f_SearchBackwardsCheckButton = new Gtk.CheckButton();
             this.f_SearchBackwardsCheckButton.CanFocus = true;
             this.f_SearchBackwardsCheckButton.Name = "f_SearchBackwardsCheckButton";
-            this.f_SearchBackwardsCheckButton.Label = Mono.Unix.Catalog.GetString("Search _backwards");
+            this.f_SearchBackwardsCheckButton.Label = Mono.Unix.Catalog.GetString("Search _Backwards");
             this.f_SearchBackwardsCheckButton.DrawIndicator = true;
             this.f_SearchBackwardsCheckButton.UseUnderline = true;
             this.vbox3.Add(this.f_SearchBackwardsCheckButton);
@@ -112,7 +112,7 @@ namespace Smuxi.Frontend.Gnome {
             this.f_WrapAroundCheckButton = new Gtk.CheckButton();
             this.f_WrapAroundCheckButton.CanFocus = true;
             this.f_WrapAroundCheckButton.Name = "f_WrapAroundCheckButton";
-            this.f_WrapAroundCheckButton.Label = Mono.Unix.Catalog.GetString("_Wrap around");
+            this.f_WrapAroundCheckButton.Label = Mono.Unix.Catalog.GetString("_Wrap Around");
             this.f_WrapAroundCheckButton.Active = true;
             this.f_WrapAroundCheckButton.DrawIndicator = true;
             this.f_WrapAroundCheckButton.UseUnderline = true;
