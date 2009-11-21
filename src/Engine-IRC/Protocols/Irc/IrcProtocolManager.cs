@@ -46,7 +46,7 @@ namespace Smuxi.Engine
         Italic    = 26,
         Underline = 31,
     }
-    
+
     [ProtocolManagerInfo(Name = "IRC", Description = "Internet Relay Chat", Alias = "irc")]
     public class IrcProtocolManager : ProtocolManagerBase
     {
@@ -68,7 +68,9 @@ namespace Smuxi.Engine
         private TimeSpan        _LastLag;
         private Thread          _RunThread;
         private Thread          _LagWatcherThread;
-        
+        private TaskQueue       _JoinChannelQueue = new TaskQueue("JoinChannelQueue");
+        private AutoResetEvent  _JoinChannelHandle = new AutoResetEvent(true);
+
         public override bool IsConnected {
             get {
                 if ((_IrcClient != null) &&
@@ -172,7 +174,7 @@ namespace Smuxi.Engine
             _IrcClient.OnNowAway        += new IrcEventHandler(_OnNowAway);
             _IrcClient.OnCtcpRequest    += new CtcpEventHandler(_OnCtcpRequest);
             _IrcClient.OnCtcpReply      += new CtcpEventHandler(_OnCtcpReply);
-            
+
             string encodingName = (string) Session.UserConfig["Connection/Encoding"];
             if (!String.IsNullOrEmpty(encodingName)) {
                 try {
@@ -246,7 +248,7 @@ namespace Smuxi.Engine
             if (String.IsNullOrEmpty(_Username)) {
                 _Username = (string) Session.UserConfig["Connection/Username"];
             }
-            
+
             // TODO: use config for single network chat or once per network manager
             _NetworkChat = new ProtocolChatModel(NetworkID, "IRC " + server, this);
             
@@ -381,7 +383,16 @@ namespace Smuxi.Engine
             }
             fm.UpdateNetworkStatus();
         }
-        
+
+        public override void Dispose()
+        {
+            Trace.Call();
+
+            _JoinChannelQueue.Dispose();
+
+            base.Dispose();
+        }
+
         public override IList<GroupChatModel> FindGroupChats(GroupChatModel filter)
         {
             Trace.Call(filter);
@@ -636,7 +647,7 @@ namespace Smuxi.Engine
             
             return handled;
         }
-        
+
         public void CommandHelp(CommandModel cd)
         {
             MessageModel fmsg = new MessageModel();
@@ -787,7 +798,7 @@ namespace Smuxi.Engine
         {
             Trace.Call(cd);
             
-            string channel = null;
+            string channelStr = null;
             if ((cd.DataArray.Length >= 2) &&
                 (cd.DataArray[1].Length >= 1)) {
                 switch (cd.DataArray[1][0]) {
@@ -795,10 +806,10 @@ namespace Smuxi.Engine
                     case '!':
                     case '+':
                     case '&':
-                        channel = cd.DataArray[1];
+                        channelStr = cd.DataArray[1];
                         break;
                     default:
-                        channel = "#" + cd.DataArray[1];  
+                        channelStr = "#" + cd.DataArray[1];
                         break;
                 }
             } else {
@@ -806,23 +817,59 @@ namespace Smuxi.Engine
                 return;
             }
             
-            if (_IrcClient.IsJoined(channel)) {
-                cd.FrontendManager.AddTextToCurrentChat(
-                    "-!- " +
-                    String.Format(
-                        _("Already joined to channel: {0}." +
-                        " Type /window {0} to switch to it."),
-                        channel));
-                return;
+
+            string[] channels = channelStr.Split(',');
+            string[] keys = null;
+            if (cd.DataArray.Length > 2) {
+                keys = cd.DataArray[2].Split(',');
             }
-            
-            if (cd.DataArray.Length == 2) {
-                _IrcClient.RfcJoin(channel);
-            } else if (cd.DataArray.Length > 2) {
-                _IrcClient.RfcJoin(channel, cd.DataArray[2]);
+            int i = 0;
+            foreach (string channel in channels) {
+                string key = keys != null && keys.Length > i ? keys[i] : null;
+                if (_IrcClient.IsJoined(channel)) {
+                    cd.FrontendManager.AddTextToCurrentChat(
+                        "-!- " +
+                        String.Format(
+                            _("Already joined to channel: {0}." +
+                            " Type /window {0} to switch to it."),
+                            channel));
+                    return;
+                }
+
+                // HACK: copy channel from foreach() into our scope
+                string chan = channel;
+                _JoinChannelQueue.Queue(delegate {
+                    try {
+#if LOG4NET
+                        _Logger.Debug("CommandJoin(): waiting to join: " + chan);
+#endif
+                        _JoinChannelHandle.WaitOne();
+#if LOG4NET
+                        _Logger.Debug("CommandJoin(): joining: " + chan);
+#endif
+                        // we have a slot, show time!
+                        if (key == null) {
+                            _IrcClient.RfcJoin(chan);
+                        } else {
+                            _IrcClient.RfcJoin(chan, key);
+                        }
+
+                        // delay the queue for one extra seconds so new join
+                        // attempts will not happen too early as some IRCds
+                        // limit this and disconnect us if we are not brave
+                        Thread.Sleep(2000);
+                    } catch (Exception ex) {
+#if LOG4NET
+                        _Logger.Error("Exception when trying to join channel: "
+                                      + chan, ex);
+#endif
+                    }
+                });
+
+                i++;
             }
         }
-        
+
         public void CommandCycle(CommandModel cd)
         {
             FrontendManager fm = cd.FrontendManager;
@@ -2285,7 +2332,7 @@ namespace Smuxi.Engine
                 // nothing todo for us
                 return;
             }
-            
+
             // would be nice if SmartIrc4net would take care of removing prefixes
             foreach (string user in e.UserList) {
                 // skip empty users (some IRC servers send an extra space)
@@ -2322,7 +2369,11 @@ namespace Smuxi.Engine
 #if LOG4NET
             _Logger.Debug("_OnChannelActiveSynced() e.Data.Channel: " + e.Data.Channel);
 #endif
-            
+
+            // tell the currently waiting join task item from the task queue
+            // that one channel is finished
+            _JoinChannelHandle.Set();
+
             GroupChatModel groupChat = (GroupChatModel) GetChat(e.Data.Channel, ChatType.Group);
             if (groupChat == null) {
 #if LOG4NET
@@ -2330,7 +2381,7 @@ namespace Smuxi.Engine
 #endif
                 return;
             }
-            
+
             Channel channel = _IrcClient.GetChannel(e.Data.Channel);
             foreach (ChannelUser channelUser in channel.Users.Values) {
                 IrcGroupPersonModel groupPerson = (IrcGroupPersonModel) groupChat.GetPerson(channelUser.Nick);
@@ -2348,7 +2399,7 @@ namespace Smuxi.Engine
                 groupPerson.IsOp     = channelUser.IsOp;
                 groupPerson.IsVoice  = channelUser.IsVoice;
             }
-            
+
             // prime-time
             Session.SyncChat(groupChat);
         }
