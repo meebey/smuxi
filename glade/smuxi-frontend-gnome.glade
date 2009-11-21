@@ -55,7 +55,7 @@
                           <widget class="GtkEntry" id="ConnectionNicknamesEntry">
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
-                            <property name="tooltip" translatable="yes">The nickname to use. You can specify extra nicknames (separated by spaces) which will be used as fallbacks when the first choice is not available. By default $nick_ and $nick__ will be used as fallback.</property>
+                            <property name="tooltip" translatable="yes">The nickname to use. You can specify extra nicknames (separated by spaces) which will be used as fallbacks when the first choice is not available. By default $nick_ and $nick__ will be used as fallbacks.</property>
                             <property name="invisible_char">*</property>
                             <signal name="changed" handler="_OnChanged"/>
                           </widget>
