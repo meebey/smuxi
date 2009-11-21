@@ -274,10 +274,11 @@ namespace Smuxi.Frontend.Gnome
                
                 // HACK: out of scope
                 Frontend.MainWindow.ProgressBar.Fraction = 0;
-                status += _(" done.");
+                // TRANSLATOR: this string will be appended to the one above
+                status += Sting.Format(" {0}", _("done."));
                 Frontend.MainWindow.Statusbar.Push(0, status);
             }
-           
+
 #if LOG4NET
             _Logger.Debug("Sync() syncing topic");
 #endif

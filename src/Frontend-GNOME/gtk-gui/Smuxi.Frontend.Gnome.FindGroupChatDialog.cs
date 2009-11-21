@@ -39,7 +39,6 @@ namespace Smuxi.Frontend.Gnome {
             this.Name = "Smuxi.Frontend.Gnome.FindGroupChatDialog";
             this.Title = Mono.Unix.Catalog.GetString("Smuxi - Find Group Chat");
             this.WindowPosition = ((Gtk.WindowPosition)(4));
-            this.HasSeparator = false;
             // Internal child Smuxi.Frontend.Gnome.FindGroupChatDialog.VBox
             Gtk.VBox w1 = this.VBox;
             w1.Name = "dialog1_VBox";

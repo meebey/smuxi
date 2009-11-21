@@ -487,10 +487,10 @@
                                 <property name="width_request">60</property>
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
-                                <property name="tooltip" translatable="yes">ss = second
-mm = minute
-hh = hour (01 - 12)
-HH = hour (00 - 23)
+                                <property name="tooltip" translatable="yes">ss = seconds
+mm = minutes
+hh = hours (01 - 12)
+HH = hours (00 - 23)
 tt = AM/PM
 
 dd = day
@@ -2651,7 +2651,7 @@ yy/yyyy = year</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
                 <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
-                <property name="label" translatable="yes">gtk-cancel</property>
+                <property name="label">gtk-cancel</property>
                 <property name="use_stock">True</property>
                 <property name="response_id">-6</property>
               </widget>
@@ -2662,7 +2662,7 @@ yy/yyyy = year</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
                 <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
-                <property name="label" translatable="yes">gtk-ok</property>
+                <property name="label">gtk-ok</property>
                 <property name="use_stock">True</property>
                 <property name="response_id">-5</property>
               </widget>

@@ -117,7 +117,7 @@ namespace Smuxi.Frontend.Gnome {
             this.label8.Name = "label8";
             this.label8.Xpad = 50;
             this.label8.Xalign = 0F;
-            this.label8.LabelProp = Mono.Unix.Catalog.GetString("<span size=\"small\">If enabled this makes the current engine the default when starting Smuxi next time</span>");
+            this.label8.LabelProp = Mono.Unix.Catalog.GetString("<span size=\"small\">If enabled, the current engine will be the default next time Smuxi is started</span>");
             this.label8.UseMarkup = true;
             this.label8.Wrap = true;
             this.vbox4.Add(this.label8);

@@ -2653,7 +2653,6 @@
     <property name="WindowPosition">CenterOnParent</property>
     <property name="Buttons">2</property>
     <property name="HelpButton">False</property>
-    <property name="HasSeparator">False</property>
     <child internal-child="VBox">
       <widget class="Gtk.VBox" id="dialog1_VBox">
         <property name="MemberName" />
@@ -2688,7 +2687,6 @@
                       <widget class="Gtk.Entry" id="f_NameEntry">
                         <property name="MemberName" />
                         <property name="CanDefault">True</property>
-                        <property name="HasDefault">True</property>
                         <property name="CanFocus">True</property>
                         <property name="IsEditable">True</property>
                         <property name="InvisibleChar">●</property>
@@ -2806,7 +2804,6 @@
     <property name="AllowGrow">False</property>
     <property name="Buttons">2</property>
     <property name="HelpButton">False</property>
-    <property name="HasSeparator">False</property>
     <child internal-child="VBox">
       <widget class="Gtk.VBox" id="dialog1_VBox">
         <property name="MemberName" />
@@ -2862,7 +2859,7 @@
                   <widget class="Gtk.CheckButton" id="f_MatchCaseCheckButton">
                     <property name="MemberName" />
                     <property name="CanFocus">True</property>
-                    <property name="Label" translatable="yes">_Match case</property>
+                    <property name="Label" translatable="yes">_Match Case</property>
                     <property name="DrawIndicator">True</property>
                     <property name="HasLabel">True</property>
                     <property name="UseUnderline">True</property>
@@ -2878,7 +2875,7 @@
                   <widget class="Gtk.CheckButton" id="f_SearchBackwardsCheckButton">
                     <property name="MemberName" />
                     <property name="CanFocus">True</property>
-                    <property name="Label" translatable="yes">Search _backwards</property>
+                    <property name="Label" translatable="yes">Search _Backwards</property>
                     <property name="DrawIndicator">True</property>
                     <property name="HasLabel">True</property>
                     <property name="UseUnderline">True</property>
@@ -2894,7 +2891,7 @@
                   <widget class="Gtk.CheckButton" id="f_WrapAroundCheckButton">
                     <property name="MemberName" />
                     <property name="CanFocus">True</property>
-                    <property name="Label" translatable="yes">_Wrap around</property>
+                    <property name="Label" translatable="yes">_Wrap Around</property>
                     <property name="Active">True</property>
                     <property name="DrawIndicator">True</property>
                     <property name="HasLabel">True</property>
@@ -3311,7 +3308,7 @@ Click "Forward" to begin.</property>
               <widget class="Gtk.CheckButton" id="f_UseSshTunnelCheckButton">
                 <property name="MemberName" />
                 <property name="CanFocus">True</property>
-                <property name="Label" translatable="yes">Use _SSH tunnel</property>
+                <property name="Label" translatable="yes">Use _SSH Tunnel</property>
                 <property name="Active">True</property>
                 <property name="DrawIndicator">True</property>
                 <property name="HasLabel">True</property>
@@ -3360,7 +3357,7 @@ Click "Forward" to begin.</property>
                 <property name="MemberName" />
                 <property name="Sensitive">False</property>
                 <property name="CanFocus">True</property>
-                <property name="Text" translatable="yes">localhost</property>
+                <property name="Text">localhost</property>
                 <property name="IsEditable">True</property>
                 <property name="InvisibleChar">●</property>
               </widget>

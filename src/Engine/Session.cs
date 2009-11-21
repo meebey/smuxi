@@ -393,12 +393,14 @@ namespace Smuxi.Engine
             TextMessagePartModel msgPart;
             
             msgPart = new TextMessagePartModel();
-            msgPart.Text = _("[Engine Commands]");
+            // for translators: this line is used as a label / category for a
+            // list of commands below
+            msgPart.Text = "[" + _("Engine Commands") + "]";
             msgPart.Bold = true;
             msg.MessageParts.Add(msgPart);
-            
+
             cd.FrontendManager.AddMessageToChat(cd.Chat, msg);
-            
+
             string[] help = {
                 "help",
                 "connect/server protocol [protocol-parameters]",

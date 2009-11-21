@@ -206,15 +206,18 @@ namespace Smuxi.Engine
             
             TimeSpan lag = _IrcClient.Lag;
             if (_IrcClient != null && lag > TimeSpan.FromSeconds(5)) {
-                result += String.Format(" ({0}: {1} {2})",
-                                        _("lag"),
-                                        (int) lag.TotalSeconds,
-                                        _("seconds")); 
+                result += String.Format(" ({0})",
+                                String.Format(
+                                    // TRANSLATOR: {0} is the amount of seconds
+                                    _("lag: {0} seconds"),
+                                    (int) lag.TotalSeconds
+                                )
+                          );
             }
-            
+
             return result;
         }
-        
+
         public override void Connect(FrontendManager fm, string server, int port, string user, string pass)
         {
             Trace.Call(fm, server, port, user, pass);
@@ -1895,6 +1898,8 @@ namespace Smuxi.Engine
             TextMessagePartModel textMsg;
             
             textMsg = new TextMessagePartModel();
+            // TRANSLATOR: the final line will look like this:
+            // -!- Nick {0} is already in use
             textMsg.Text = "-!- " + _("Nick") + " ";
             msg.MessageParts.Add(textMsg);
 
@@ -1904,6 +1909,8 @@ namespace Smuxi.Engine
             msg.MessageParts.Add(textMsg);
 
             textMsg = new TextMessagePartModel();
+            // TRANSLATOR: the final line will look like this:
+            // -!- Nick {0} is already in use
             textMsg.Text = " " + _("is already in use");
             msg.MessageParts.Add(textMsg);
 
@@ -2015,11 +2022,18 @@ namespace Smuxi.Engine
         
         private void _OnCtcpRequest(object sender, CtcpEventArgs e)
         {
-            Session.AddTextToChat(_NetworkChat, String.Format(
-                                            _("{0} [{1}] requested CTCP {2} from {3}: {4}"),
-                                            e.Data.Nick, e.Data.Ident+"@"+e.Data.Host,
-                                            e.CtcpCommand, _IrcClient.Nickname,
-                                            e.CtcpParameter));
+            Session.AddTextToChat(_NetworkChat,
+                String.Format(
+                    // TRANSLATOR: {0}: nickname, {1}: ident@host,
+                    // {2}: CTCP command, {3}: own nickname, {4}: CTCP parameter
+                    // example:
+                    // meebey [meebey@example.com] requested CTCP VERSION from meebey:
+                    _("{0} [{1}] requested CTCP {2} from {3}: {4}"),
+                    e.Data.Nick, e.Data.Ident+"@"+e.Data.Host,
+                    e.CtcpCommand, _IrcClient.Nickname,
+                    e.CtcpParameter
+                )
+            );
         }
 
         private void _OnCtcpReply(object sender, CtcpEventArgs e)

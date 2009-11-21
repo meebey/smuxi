@@ -411,7 +411,7 @@ namespace Smuxi.Frontend.Gnome
             if (ex is System.Runtime.Remoting.RemotingException) {
                 Gtk.MessageDialog md = new Gtk.MessageDialog(parent,
                     Gtk.DialogFlags.Modal, Gtk.MessageType.Error,
-                    Gtk.ButtonsType.OkCancel, _("The frontend has lost the connection to the server.\n Do you want to reconnect now?"));
+                    Gtk.ButtonsType.OkCancel, _("The frontend has lost the connection to the server.\nDo you want to reconnect now?"));
                 Gtk.ResponseType res = (Gtk.ResponseType) md.Run();
                 md.Destroy();
                 
@@ -548,7 +548,7 @@ namespace Smuxi.Frontend.Gnome
 #endif
                 Gtk.MessageDialog md = new Gtk.MessageDialog(_MainWindow,
                     Gtk.DialogFlags.Modal, Gtk.MessageType.Error,
-                    Gtk.ButtonsType.OkCancel, _("The server has lost the connection to the frontend.\n Do you want to reconnect now?"));
+                    Gtk.ButtonsType.OkCancel, _("The server has lost the connection to the frontend.\nDo you want to reconnect now?"));
                 Gtk.ResponseType res = (Gtk.ResponseType) md.Run();
                 md.Destroy();
                 

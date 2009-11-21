@@ -216,7 +216,7 @@ namespace Smuxi.Engine
             if (CurrentProtocolManager != null) {
                 SetNetworkStatus(CurrentProtocolManager.ToString());
             } else {
-                SetNetworkStatus(String.Format("({0})", _("no network connections")));
+                SetNetworkStatus(String.Format("({0})", _("No network connections")));
             }
         }
         

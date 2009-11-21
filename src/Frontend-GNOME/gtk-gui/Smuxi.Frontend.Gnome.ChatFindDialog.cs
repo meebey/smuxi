@@ -43,7 +43,6 @@ namespace Smuxi.Frontend.Gnome {
             this.WindowPosition = ((Gtk.WindowPosition)(4));
             this.Resizable = false;
             this.AllowGrow = false;
-            this.HasSeparator = false;
             // Internal child Smuxi.Frontend.Gnome.ChatFindDialog.VBox
             Gtk.VBox w1 = this.VBox;
             w1.Name = "dialog1_VBox";

@@ -62,7 +62,7 @@ namespace Smuxi.Frontend.Gnome
             Gtk.TreeViewColumn column;
             
             columnID++;
-            column = f_TreeView.AppendColumn(_("#"), new Gtk.CellRendererText(), "text", columnID);
+            column = f_TreeView.AppendColumn("#", new Gtk.CellRendererText(), "text", columnID);
             column.SortColumnId = columnID;
             
             columnID++;

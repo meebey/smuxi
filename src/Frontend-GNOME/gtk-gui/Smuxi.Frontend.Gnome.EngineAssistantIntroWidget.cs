@@ -24,7 +24,7 @@ namespace Smuxi.Frontend.Gnome {
             this.label2 = new Gtk.Label();
             this.label2.Name = "label2";
             this.label2.Xalign = 0F;
-            this.label2.LabelProp = Mono.Unix.Catalog.GetString("Welcome to the Smuxi Engine Configuration Assistent.\nYou need to enter some information before you can use the engine.\n\nClick \"Forward\" to begin.");
+            this.label2.LabelProp = Mono.Unix.Catalog.GetString("Welcome to the Smuxi Engine Configuration Assistant.\nYou need to enter some information before you can use the engine.\n\nClick \"Forward\" to begin.");
             this.Add(this.label2);
             if ((this.Child != null)) {
                 this.Child.ShowAll();
