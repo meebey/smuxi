@@ -230,7 +230,7 @@ namespace Smuxi.Frontend.Gnome
                 
                 // HACK: out of scope
                 string status = String.Format(
-                                    _("Syncing chat persons of {0}..."),
+                                    _("Retrieving user list for {0}..."),
                                     ChatModel.Name);
                 Frontend.MainWindow.Statusbar.Push(0, status);
     

@@ -363,7 +363,7 @@ namespace Smuxi.Frontend
             }
 
             string msg = String.Format(
-                _("Couldn't get OpenSSH version (exit code: {0})\n\n" +
+                _("OpenSSH version number not found (exit code: {0})\n\n" +
                   "SSH program: {1}\n\n" +
                   "Program Error:\n" +
                   "{2}\n" +
