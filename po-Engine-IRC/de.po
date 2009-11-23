@@ -26,9 +26,9 @@ msgstr "nicht verbunden"
 
 #. TRANSLATOR: {0} is the amount of seconds
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:214
-#, fuzzy, csharp-format
+#, csharp-format
 msgid "lag: {0} seconds"
-msgstr "Sekunden"
+msgstr "Verzögerung: {0} Sekunden"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:278
 #, csharp-format
@@ -212,7 +212,7 @@ msgid "{0} [{1}] has left {2} [{3}]"
 msgstr "{0} [{1}] hat {2} verlassen [{3}]"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2460
-#, fuzzy, csharp-format
+#, csharp-format
 msgid "You were kicked from {0} by {1} [{2}]"
 msgstr "Sie wurden aus {0} von {1} rausgeworfen [{2}]"
 
