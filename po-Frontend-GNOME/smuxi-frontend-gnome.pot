@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-11-22 01:46+0100\n"
+"POT-Creation-Date: 2009-11-25 23:08+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -464,11 +464,13 @@ msgstr ""
 msgid "You are going to paste {0} lines. Do you want to continue?"
 msgstr ""
 
-#: ../src/Frontend-GNOME/Entry.cs:493
-msgid "[Frontend Commands]"
+#. TRANSLATOR: this line is used as a label / category for a
+#. list of commands below
+#: ../src/Frontend-GNOME/Entry.cs:495
+msgid "Frontend Commands"
 msgstr ""
 
-#: ../src/Frontend-GNOME/Entry.cs:605
+#: ../src/Frontend-GNOME/Entry.cs:607
 #, csharp-format
 msgid "Unknown Command: {0}"
 msgstr ""

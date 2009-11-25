@@ -536,7 +536,9 @@ namespace Smuxi.Frontend.Swf
             TextMessagePartModel msgPart;
             
             msgPart = new TextMessagePartModel();
-            msgPart.Text = _("[Frontend Commands]");
+            // TRANSLATOR: this line is used as a label / category for a
+            // list of commands below
+            msgPart.Text = "[" + _("Frontend Commands") + "]";
             msgPart.Bold = true;
             msg.MessageParts.Add(msgPart);
             

@@ -393,7 +393,7 @@ namespace Smuxi.Engine
             TextMessagePartModel msgPart;
             
             msgPart = new TextMessagePartModel();
-            // for translators: this line is used as a label / category for a
+            // TRANSLATOR: this line is used as a label / category for a
             // list of commands below
             msgPart.Text = "[" + _("Engine Commands") + "]";
             msgPart.Bold = true;

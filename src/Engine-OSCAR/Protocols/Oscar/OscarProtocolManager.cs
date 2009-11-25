@@ -235,7 +235,9 @@ namespace Smuxi.Engine
             TextMessagePartModel fmsgti;
 
             fmsgti = new TextMessagePartModel();
-            fmsgti.Text = _("[OscarProtocolManager Commands]");
+            // TRANSLATOR: this line is used as a label / category for a
+            // list of commands below. {0} would be AIM or ICQ for example.
+            fmsgti.Text = "[" + String.Format(_("{0} Commands"), NetworkID) + "]";
             fmsgti.Bold = true;
             fmsg.MessageParts.Add(fmsgti);
             

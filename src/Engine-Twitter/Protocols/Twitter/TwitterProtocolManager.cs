@@ -407,7 +407,9 @@ namespace Smuxi.Engine
             TextMessagePartModel fmsgti;
 
             fmsgti = new TextMessagePartModel();
-            fmsgti.Text = _("[TwitterProtocolManager Commands]");
+            // TRANSLATOR: this line is used as a label / category for a
+            // list of commands below
+            fmsgti.Text = "[" + _("Twitter Commands") + "]";
             fmsgti.Bold = true;
             fmsg.MessageParts.Add(fmsgti);
 
