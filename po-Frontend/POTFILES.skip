@@ -8,3 +8,4 @@ src/Engine-IRC/
 src/Engine-MSNP/
 src/Engine-OSCAR/
 src/Engine-XMPP/
+src/Engine-Twitter/

@@ -13,6 +13,7 @@ EXTRA_DIST =	install-sh \
 PODIRS =	po \
 		po-Engine \
 		po-Engine-IRC \
+		po-Engine-Twitter \
 		po-Server \
 		po-Frontend \
 		po-Frontend-GNOME \

@@ -334,6 +334,7 @@ AC_CONFIG_FILES([
 	po/Makefile.in
 	po-Engine/Makefile.in
 	po-Engine-IRC/Makefile.in
+	po-Engine-Twitter/Makefile.in
 	po-Server/Makefile.in
 	po-Frontend/Makefile.in
 	po-Frontend-GNOME/Makefile.in
