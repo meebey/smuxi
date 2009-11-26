@@ -460,7 +460,7 @@ namespace Smuxi.Engine
                     case TwitterChatType.DirectMessages:
                         fm.AddTextToCurrentChat(
                             "-!- " +
-                            _("Cannot send message, no target specified. "+
+                            _("Cannot send message - no target specified. "+
                               "Use: /msg $nick message")
                         );
                         break;
@@ -492,7 +492,7 @@ namespace Smuxi.Engine
             }
             if (user == null) {
                 fm.AddTextToCurrentChat("-!- " +
-                    _("Could not send message, the specified user does not exist.")
+                    _("Could not send message - the specified user does not exist.")
                 );
                 return;
             }
