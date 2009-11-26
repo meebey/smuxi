@@ -563,7 +563,7 @@ namespace Smuxi.Engine
 #if LOG4NET
                 f_Logger.Error("UpdateFriendsTimelineThread(): Exception", ex);
 #endif
-                string msg =_("Error occured while fetching the friends timeline from Twitter. Reason: ");
+                string msg =_("An error occurred while fetching the friends timeline from Twitter. Reason: ");
                 Session.AddTextToChat(f_ProtocolChat, "-!- " + msg + ex.Message);
             }
 #if LOG4NET
@@ -648,7 +648,7 @@ namespace Smuxi.Engine
 #if LOG4NET
                 f_Logger.Error("UpdateRepliesThread(): Exception", ex);
 #endif
-                string msg =_("Error occured while fetching the replies from Twitter. Reason: ");
+                string msg =_("An error occurred while fetching the replies from Twitter. Reason: ");
                 Session.AddTextToChat(f_ProtocolChat, "-!- " + msg + ex.Message);
             }
 #if LOG4NET
@@ -738,7 +738,7 @@ namespace Smuxi.Engine
 #if LOG4NET
                 f_Logger.Error("UpdateDirectMessagesThread(): Exception", ex);
 #endif
-                string msg =_("Error occured while fetching direct messages from Twitter. Reason: ");
+                string msg =_("An error occurred while fetching direct messages from Twitter. Reason: ");
                 Session.AddTextToChat(f_ProtocolChat, "-!- " + msg + ex.Message);
             }
 #if LOG4NET
