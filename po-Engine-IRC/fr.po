@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Smuxi 0.6.2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-11-22 01:46+0100\n"
-"PO-Revision-Date: 2009-11-15 23:47+0100\n"
+"PO-Revision-Date: 2009-11-26 01:45+0100\n"
 "Last-Translator: Clément BOURGEOIS <moonpyk@gmail.com>\n"
 "Language-Team: French Localization <debian-l10n-french@lists.debian.org>\n"
 "MIME-Version: 1.0\n"
@@ -28,9 +28,9 @@ msgstr "non connecté"
 
 #. TRANSLATOR: {0} is the amount of seconds
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:214
-#, fuzzy, csharp-format
+#, csharp-format
 msgid "lag: {0} seconds"
-msgstr "secondes"
+msgstr "lag : {0} secondes"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:278
 #, csharp-format
@@ -92,9 +92,7 @@ msgstr "Port invalide : {0}"
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:833
 #, csharp-format
 msgid "Already joined to channel: {0}. Type /window {0} to switch to it."
-msgstr ""
-"Vous êtes déjà sur le canal: {0}. Utilisez /window {0} pour passer sur celui-"
-"ci."
+msgstr "Vous êtes déjà sur le canal: {0}. Utilisez /window {0} pour passer sur celui-ci."
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1103
 msgid "IRC Op"
@@ -144,8 +142,7 @@ msgstr "Utilisateurs"
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1459
 #, csharp-format
 msgid "Total of {0} users [{1} ops, {2} voices, {3} normal]"
-msgstr ""
-"Total de {0} utilisateurs, [{1} opérateur(s), {2} voicé(s), {3} normal(ux)]"
+msgstr "Total de {0} utilisateurs, [{1} opérateur(s), {2} voicé(s), {3} normal(ux)]"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1599
 msgid "Connection error! Reason: "
@@ -216,7 +213,7 @@ msgid "{0} [{1}] has left {2} [{3}]"
 msgstr "{0} [{1}] a quitté {2} [{3}]"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2460
-#, fuzzy, csharp-format
+#, csharp-format
 msgid "You were kicked from {0} by {1} [{2}]"
 msgstr "Vous avez été kické du canal {0} par {1} [{2}]"
 
@@ -271,3 +268,4 @@ msgstr "Vous avez été marqué comme étant parti"
 
 #~ msgid "lag"
 #~ msgstr "latence"
+

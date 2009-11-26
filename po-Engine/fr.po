@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Smuxi 0.6.4\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-11-22 01:46+0100\n"
-"PO-Revision-Date: 2009-11-15 23:21+0100\n"
+"PO-Revision-Date: 2009-11-26 01:49+0100\n"
 "Last-Translator: Clément BOURGEOIS <moonpyk@gmail.com>\n"
 "Language-Team: French Localization <debian-l10n-french@lists.debian.org>\n"
 "MIME-Version: 1.0\n"
@@ -18,9 +18,8 @@ msgstr ""
 "X-Poedit-Country: FRANCE\n"
 
 #: ../src/Engine/FrontendManager.cs:219
-#, fuzzy
 msgid "No network connections"
-msgstr "aucune connexion réseau"
+msgstr "Aucune connexion réseau"
 
 #: ../src/Engine/Protocols/ProtocolManagerBase.cs:142
 msgid "Not connected to server"
@@ -41,13 +40,8 @@ msgid "Type /help to get a list of available commands."
 msgstr "Tapez /help pour obtenir la liste des commandes disponibles."
 
 #: ../src/Engine/Session.cs:160
-#, fuzzy
-msgid ""
-"After you have made a connection the list of available commands changes. Use "
-"the /help command again to see the extended command list."
-msgstr ""
-"Une fois la connexion établie, la liste des commandes disponibles change, "
-"vous pouvez retaper /help encore une fois pour voir celles-ci."
+msgid "After you have made a connection the list of available commands changes. Use the /help command again to see the extended command list."
+msgstr "Une fois la connexion établie, la liste des commandes disponibles change, vous pouvez retaper /help encore une fois pour obtenir une liste étendue de celles-ci."
 
 #: ../src/Engine/Session.cs:210
 #, csharp-format
@@ -57,14 +51,13 @@ msgstr "Connexion automatique à {0} impossible !"
 #. for translators: this line is used as a label / category for a
 #. list of commands below
 #: ../src/Engine/Session.cs:398
-#, fuzzy
 msgid "Engine Commands"
-msgstr "[Commandes du moteur]"
+msgstr "Commandes du moteur"
 
 #: ../src/Engine/Session.cs:505
-#, fuzzy, csharp-format
+#, csharp-format
 msgid "Disconnect failed - could not find server: {0}"
-msgstr "Deconnexion impossible, serveur \"{0}\" introuvable"
+msgstr "Deconnexion impossible : serveur \"{0}\" introuvable"
 
 #: ../src/Engine/Session.cs:541
 msgid "Configuration reloaded"
@@ -75,14 +68,12 @@ msgid "Configuration saved"
 msgstr "Configuration sauvegardée"
 
 #: ../src/Engine/Session.cs:550
-#, fuzzy
 msgid "Invalid parameter for config; use load or save"
-msgstr "Paramètre invalide pour la configuration utilisez load ou save"
+msgstr "Paramètre invalide pour la configuration ; utilisez load ou save"
 
 #: ../src/Engine/Session.cs:580
-#, fuzzy
 msgid "Invalid parameter for network; use list, switch, or close"
-msgstr "Paramètre invalide pour le réseau, utilisez list, switch ou close"
+msgstr "Paramètre invalide pour le réseau ; utilisez list, switch ou close"
 
 #: ../src/Engine/Session.cs:591
 msgid "Networks"
@@ -101,12 +92,12 @@ msgid "Port"
 msgstr "Port"
 
 #: ../src/Engine/Session.cs:619
-#, fuzzy, csharp-format
+#, csharp-format
 msgid "Network close failed - could not find network with host: {0}"
 msgstr "Fermeture réseau impossible, aucun réseau trouvé pour l'hôte : {0}"
 
 #: ../src/Engine/Session.cs:653
-#, fuzzy, csharp-format
+#, csharp-format
 msgid "Network switch failed - could not find network with host: {0}"
 msgstr "Changement de réseau impossible, aucun réseau pour l'hôte : {0}"
 
@@ -123,3 +114,4 @@ msgstr "Aucun gestionnaire de protocole trouvé pour le protocole : {0}"
 #, csharp-format
 msgid "Unknown protocol: {0}"
 msgstr "Protocole inconnu : {0}"
+
