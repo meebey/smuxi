@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: smuxi 0.6.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-11-22 01:46+0100\n"
+"POT-Creation-Date: 2009-11-25 23:08+0100\n"
 "PO-Revision-Date: 2008-12-28 23:55+0100\n"
 "Last-Translator: David Paleino <d.paleino@gmail.com>\n"
 "Language-Team: Italian Localization <debian-l10n-italian@lists.debian.org>\n"
@@ -53,7 +53,7 @@ msgstr ""
 msgid "Automatic connect to {0} failed!"
 msgstr "Connessione automatica a {0} fallita!"
 
-#. for translators: this line is used as a label / category for a
+#. TRANSLATOR: this line is used as a label / category for a
 #. list of commands below
 #: ../src/Engine/Session.cs:398
 #, fuzzy

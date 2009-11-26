@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: smuxi 0.6.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-11-22 01:46+0100\n"
+"POT-Creation-Date: 2009-11-25 23:08+0100\n"
 "PO-Revision-Date: 2008-12-28 23:53+0100\n"
 "Last-Translator: David Paleino <d.paleino@gmail.com>\n"
 "Language-Team: Italian Localization <debian-l10n-italian@lists.debian.org>\n"
@@ -484,11 +484,14 @@ msgstr "Sicuro di voler eliminare l'engine \"{0}\"?"
 msgid "You are going to paste {0} lines. Do you want to continue?"
 msgstr "Stai per incollare {0} linee, vuoi continuare?"
 
-#: ../src/Frontend-GNOME/Entry.cs:493
-msgid "[Frontend Commands]"
+#. TRANSLATOR: this line is used as a label / category for a
+#. list of commands below
+#: ../src/Frontend-GNOME/Entry.cs:495
+#, fuzzy
+msgid "Frontend Commands"
 msgstr "[Comandi Frontend]"
 
-#: ../src/Frontend-GNOME/Entry.cs:605
+#: ../src/Frontend-GNOME/Entry.cs:607
 #, csharp-format
 msgid "Unknown Command: {0}"
 msgstr "Comando Sconosciuto: {0}"

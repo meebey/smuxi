@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.6.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-11-22 01:46+0100\n"
+"POT-Creation-Date: 2009-11-25 23:08+0100\n"
 "PO-Revision-Date: 2009-08-12 17:04+0100\n"
 "Last-Translator: Juan Miguel Carrero <streinleght@gmail.com>\n"
 "Language-Team: Spanish Spanish Localization <debian-l10n-spanish@lists."
@@ -53,7 +53,7 @@ msgstr ""
 msgid "Automatic connect to {0} failed!"
 msgstr "Conexión automática a {0} fallida!"
 
-#. for translators: this line is used as a label / category for a
+#. TRANSLATOR: this line is used as a label / category for a
 #. list of commands below
 #: ../src/Engine/Session.cs:398
 #, fuzzy

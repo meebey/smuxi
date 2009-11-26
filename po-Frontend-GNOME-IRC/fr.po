@@ -56,4 +56,3 @@ msgstr "Chat privé"
 #: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:93
 msgid "Whois"
 msgstr "Whois"
-

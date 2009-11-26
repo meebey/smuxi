@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.6.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-11-22 01:46+0100\n"
+"POT-Creation-Date: 2009-11-25 23:08+0100\n"
 "PO-Revision-Date: 2009-08-14 00:24+0100\n"
 "Last-Translator: Mirco Bauer <meebey@meebey.net>\n"
 "Language-Team: German Localization <debian-l10n-german@lists.debian.org>\n"
@@ -483,11 +483,14 @@ msgstr "Möchten Sie wirklich die Engine \"{0}\" löschen?"
 msgid "You are going to paste {0} lines. Do you want to continue?"
 msgstr "Sie sind dabei {0} Zeilen einzufügen. Möchten Sie fortfahren?"
 
-#: ../src/Frontend-GNOME/Entry.cs:493
-msgid "[Frontend Commands]"
+#. TRANSLATOR: this line is used as a label / category for a
+#. list of commands below
+#: ../src/Frontend-GNOME/Entry.cs:495
+#, fuzzy
+msgid "Frontend Commands"
 msgstr "[Frontend Befehle]"
 
-#: ../src/Frontend-GNOME/Entry.cs:605
+#: ../src/Frontend-GNOME/Entry.cs:607
 #, csharp-format
 msgid "Unknown Command: {0}"
 msgstr "Unbekannter Befehl: {0}"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.6.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-11-22 01:46+0100\n"
+"POT-Creation-Date: 2009-11-25 23:08+0100\n"
 "PO-Revision-Date: 2009-08-12 13:17+0100\n"
 "Last-Translator: Ryan Smith-Evans <Kimera.Kimera@gmail.com>\n"
 "Language-Team: English-GB <Kimera.Kimera@gmail.com>\n"
@@ -480,11 +480,14 @@ msgstr "Are you sure you want to delete the engine \"{0}\"?"
 msgid "You are going to paste {0} lines. Do you want to continue?"
 msgstr "You are going to paste {0} lines, do you want to continue?"
 
-#: ../src/Frontend-GNOME/Entry.cs:493
-msgid "[Frontend Commands]"
+#. TRANSLATOR: this line is used as a label / category for a
+#. list of commands below
+#: ../src/Frontend-GNOME/Entry.cs:495
+#, fuzzy
+msgid "Frontend Commands"
 msgstr "[Front-end Commands]"
 
-#: ../src/Frontend-GNOME/Entry.cs:605
+#: ../src/Frontend-GNOME/Entry.cs:607
 #, csharp-format
 msgid "Unknown Command: {0}"
 msgstr "Unknown Command: {0}"

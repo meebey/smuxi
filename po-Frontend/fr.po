@@ -18,19 +18,27 @@ msgstr ""
 #: ../src/Frontend/EngineManager.cs:264
 #, csharp-format
 msgid "Unknown channel ({0}) - only the following channel types are supported:"
-msgstr "Canal inconnu ({0}), seuls les types de cannaux suivants sont supportés :"
+msgstr ""
+"Canal inconnu ({0}), seuls les types de cannaux suivants sont supportés :"
 
 #: ../src/Frontend/EngineManager.cs:273
-msgid "Registration with engine failed!  The username and/or password were wrong - please verify them."
-msgstr "Impossible de s'enregistrer auprès du moteur, le nom d'utilisateur et/ou le mot de passe etait(ent) mauvais, veuillez le(s) vérifier."
+msgid ""
+"Registration with engine failed!  The username and/or password were wrong - "
+"please verify them."
+msgstr ""
+"Impossible de s'enregistrer auprès du moteur, le nom d'utilisateur et/ou le "
+"mot de passe etait(ent) mauvais, veuillez le(s) vérifier."
 
 #: ../src/Frontend/SshTunnelManager.cs:144
 msgid "SSH client application was not found: "
 msgstr "L'application SSH client n'a pas été trouvée :"
 
 #: ../src/Frontend/SshTunnelManager.cs:147
-msgid "SSH client must be either OpenSSH (ssh) or Plink (plink.exe, not putty.exe)"
-msgstr "Le client SSH doit être soit OpenSSH (ssh) ou Plink (plink.exe, et non putty.exe)"
+msgid ""
+"SSH client must be either OpenSSH (ssh) or Plink (plink.exe, not putty.exe)"
+msgstr ""
+"Le client SSH doit être soit OpenSSH (ssh) ou Plink (plink.exe, et non putty."
+"exe)"
 
 #: ../src/Frontend/SshTunnelManager.cs:189
 #, csharp-format
@@ -79,4 +87,3 @@ msgstr ""
 #: ../src/Frontend/SshTunnelManager.cs:402
 msgid "PuTTY / Plink requires a username to be set."
 msgstr "PuTTY ou Plink necessitent un nom d'utilisateur pour fonctionner."
-
