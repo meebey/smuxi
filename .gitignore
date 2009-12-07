@@ -21,3 +21,4 @@ po-*/Makefile
 po-*/Makefile.in
 po-*/POTFILES
 po-*/*.gmo
+po-*/*~
