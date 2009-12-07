@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Smuxi 0.6.2\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: Mirco Bauer <meebey@meebey.net>\n"
 "POT-Creation-Date: 2009-11-15 16:08+0100\n"
 "PO-Revision-Date: 2009-11-26 01:47+0100\n"
 "Last-Translator: Clément BOURGEOIS <moonpyk@gmail.com>\n"

@@ -92,7 +92,9 @@ msgstr "Neplatný port: {0}"
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:835
 #, csharp-format
 msgid "Already joined to channel: {0}. Type /window {0} to switch to it."
-msgstr "Již jste připojeni na kanálu: {0}. Pro přepnutí na tento kanál zadejte /window {0}."
+msgstr ""
+"Již jste připojeni na kanálu: {0}. Pro přepnutí na tento kanál zadejte /"
+"window {0}."
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1105
 msgid "IRC Op"

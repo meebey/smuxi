@@ -83,7 +83,8 @@ msgstr "Příkazy Twitteru"
 
 #: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:463
 msgid "Cannot send message - no target specified. Use: /msg $nick message"
-msgstr "Zprávu nelze odeslat - nezadali jste příjemce. Zadejte: /msg $nick zpráva"
+msgstr ""
+"Zprávu nelze odeslat - nezadali jste příjemce. Zadejte: /msg $nick zpráva"
 
 #: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:495
 msgid "Could not send message - the specified user does not exist."
@@ -92,8 +93,7 @@ msgstr "Zprávu nelze odeslat - zadaný uživatel neexistuje."
 #: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:566
 msgid ""
 "An error occurred while fetching the friends timeline from Twitter. Reason: "
-msgstr ""
-"Během přijmu časové osy přátel z Twitteru nastala chyba z důvodu: "
+msgstr "Během přijmu časové osy přátel z Twitteru nastala chyba z důvodu: "
 
 #: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:651
 msgid "An error occurred while fetching the replies from Twitter. Reason: "

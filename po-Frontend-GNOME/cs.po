@@ -316,8 +316,9 @@ msgid ""
 "default $nick_ and $nick__ will be used as fallbacks."
 msgstr ""
 "Použít tuto přezdívku. Můžete zvolit více přezdívek (oddělených mezerami), "
-"které se použijí jako náhradní v případě, že první přezdívka nebude dostupná. "
-"Ve výchozím nastavení budou použity náhradní přezdívky $nick_ a $nick__."
+"které se použijí jako náhradní v případě, že první přezdívka nebude "
+"dostupná. Ve výchozím nastavení budou použity náhradní přezdívky $nick_ a "
+"$nick__."
 
 #: ../glade/smuxi-frontend-gnome.glade.h:61
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:726
@@ -629,8 +630,8 @@ msgid ""
 "take a while, or may not work at all.\n"
 "Do you wish to continue?"
 msgstr ""
-"Vyhledávání skupinových chatů bez filtru není doporučeno.  Nemusí "
-"vždy fungovat, nebo zabere hodně času.\n"
+"Vyhledávání skupinových chatů bez filtru není doporučeno.  Nemusí vždy "
+"fungovat, nebo zabere hodně času.\n"
 "Přejete si pokračovat?"
 
 #: ../src/Frontend-GNOME/FindGroupChatDialog.cs:145
@@ -724,7 +725,8 @@ msgid ""
 "Closing the protocol chat will also close all open chats connected to it!\n"
 "Are you sure you want to do this?"
 msgstr ""
-"Zavření tohoto chatového protokolu také zavře všechny otevřené chaty na něm připojené!\n"
+"Zavření tohoto chatového protokolu také zavře všechny otevřené chaty na něm "
+"připojené!\n"
 "Opravdu si přejete pokračovat?"
 
 #: ../src/Frontend-GNOME/Preferences/ChannelFilterListView.cs:81
@@ -831,8 +833,8 @@ msgid ""
 "port-based firewalls</span>"
 msgstr ""
 "<span size=\"small\">Povolí používat SSH pro toto připojení.  To má malý "
-"dopad na výkon, ale je to mnohem bezpečnější a je potřeba pokud používáte NAT nebo "
-"firewally založené na portech</span>"
+"dopad na výkon, ale je to mnohem bezpečnější a je potřeba pokud používáte "
+"NAT nebo firewally založené na portech</span>"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantConnectionWidget.cs:157
 msgid "SSH _Host:"
@@ -841,14 +843,12 @@ msgstr "_Hostitel SSH:"
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantConnectionWidget.cs:168
 msgid ""
 "<span size=\"small\">DNS or IP address and port of the SSH server</span>"
-msgstr ""
-"<span size=\"small\">DNS nebo IP adresa a port serveru SSH</span>"
+msgstr "<span size=\"small\">DNS nebo IP adresa a port serveru SSH</span>"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantConnectionWidget.cs:208
 msgid ""
 "<span size=\"small\">DNS or IP address and port of the Smuxi server</span>"
-msgstr ""
-"<span size=\"small\">DNS nebo IP adresa a port serveru Smuxi</span>"
+msgstr "<span size=\"small\">DNS nebo IP adresa a port serveru Smuxi</span>"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantConnectionWidget.cs:221
 msgid "_Smuxi Host:"
@@ -863,8 +863,7 @@ msgid ""
 "<span size=\"small\">Username which will be used to log into the SSH server</"
 "span>"
 msgstr ""
-"<span size=\"small\">Uživatleské jméno pro přihlášení k serveru SSH</"
-"span>"
+"<span size=\"small\">Uživatleské jméno pro přihlášení k serveru SSH</span>"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:119
 msgid "_SSH Password: (optional)"
@@ -876,17 +875,16 @@ msgid ""
 "The password is optional if SSH key authorization is used (via Pageant from "
 "the PuTTY tools).</span>"
 msgstr ""
-"<span size=\"small\">Heslo pro přihlášení k serveru SSH. "
-"Heslo je volitelné pokud se používá SSH autorizace klíčem (prostřednictvím Pageant z "
-"nástrojů PuTTY).</span>"
+"<span size=\"small\">Heslo pro přihlášení k serveru SSH. Heslo je volitelné "
+"pokud se používá SSH autorizace klíčem (prostřednictvím Pageant z nástrojů "
+"PuTTY).</span>"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:187
 msgid ""
 "<span size=\"small\">Username which will be used to log into the Smuxi "
 "server</span>"
 msgstr ""
-"<span size=\"small\">Uživatelské jméno pro přihlášení k serveru "
-"Smuxi</span>"
+"<span size=\"small\">Uživatelské jméno pro přihlášení k serveru Smuxi</span>"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:231
 msgid "<span size=\"small\">Password of the user</span>"

@@ -36,7 +36,8 @@ msgstr "Klientská aplikace SSH nebyla nalezena: "
 msgid ""
 "SSH client must be either OpenSSH (ssh) or Plink (plink.exe, not putty.exe)"
 msgstr ""
-"Klient SSH musí být buď OpenSSH (ssh) nebo Plink (plink.exe, nikoli putty.exe)"
+"Klient SSH musí být buď OpenSSH (ssh) nebo Plink (plink.exe, nikoli putty."
+"exe)"
 
 #: ../src/Frontend/SshTunnelManager.cs:189
 #, csharp-format
