@@ -1,0 +1,118 @@
+# Smuxi - IRC client for sophisticated users
+# Copyright (C) 2005-2009 Mirco Bauer <meebey@meebey.net>
+# This file is distributed under the same license as the Smuxi package.
+# Michal Simunek <michal.simunek@gmail.com>, 2009.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: smuxi-engine 0.6.4.1-1\n"
+"Report-Msgid-Bugs-To: Mirco Bauer <meebey@meebey.net>\n"
+"POT-Creation-Date: 2009-11-25 23:08+0100\n"
+"PO-Revision-Date: 2009-12-05 16:29+0100\n"
+"Last-Translator: Michal Simunek <michal.simunek@gmail.com>\n"
+"Language-Team: Czech <debian-l10n-czech@lists.debian.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../src/Engine/FrontendManager.cs:219
+msgid "No network connections"
+msgstr "Žádná připojení k sítí"
+
+#: ../src/Engine/Protocols/ProtocolManagerBase.cs:142
+msgid "Not connected to server"
+msgstr "Není připojeno k serveru"
+
+#: ../src/Engine/Protocols/ProtocolManagerBase.cs:148
+#: ../src/Engine/Session.cs:671
+#, csharp-format
+msgid "Not enough parameters for {0} command"
+msgstr "Pro příkaz {0} není vloženo dostatek parametrů"
+
+#: ../src/Engine/Session.cs:151
+msgid "Welcome to Smuxi"
+msgstr "Vítejte ve Smuxi"
+
+#: ../src/Engine/Session.cs:157
+msgid "Type /help to get a list of available commands."
+msgstr "Pro zobrazení seznamu dostupných příkazů napište /help."
+
+#: ../src/Engine/Session.cs:160
+msgid ""
+"After you have made a connection the list of available commands changes. Use "
+"the /help command again to see the extended command list."
+msgstr ""
+"Seznam dostupných příkazů se změní po té, co se přihlásíte. Pro zobrazení "
+"rozšířeného seznamu dostupných příkazů zadejte příkaz /help znovu."
+
+#: ../src/Engine/Session.cs:210
+#, csharp-format
+msgid "Automatic connect to {0} failed!"
+msgstr "Automatické připojení k {0} selhalo!"
+
+#. TRANSLATOR: this line is used as a label / category for a
+#. list of commands below
+#: ../src/Engine/Session.cs:398
+msgid "Engine Commands"
+msgstr "Příkazy enginu"
+
+#: ../src/Engine/Session.cs:505
+#, csharp-format
+msgid "Disconnect failed - could not find server: {0}"
+msgstr "Odpojení selhalo - nepodařilo se najít server: {0}"
+
+#: ../src/Engine/Session.cs:541
+msgid "Configuration reloaded"
+msgstr "Nastavení bylo načteno"
+
+#: ../src/Engine/Session.cs:546
+msgid "Configuration saved"
+msgstr "Nastavení bylo uloženo"
+
+#: ../src/Engine/Session.cs:550
+msgid "Invalid parameter for config; use load or save"
+msgstr "Neplatný parametr pro config; zadejte load nebo save"
+
+#: ../src/Engine/Session.cs:580
+msgid "Invalid parameter for network; use list, switch, or close"
+msgstr "Neplatný parametr pro network; zadejte list, switch nebo close"
+
+#: ../src/Engine/Session.cs:591
+msgid "Networks"
+msgstr "Sítě"
+
+#: ../src/Engine/Session.cs:595
+msgid "Type"
+msgstr "Typ"
+
+#: ../src/Engine/Session.cs:596
+msgid "Host"
+msgstr "Hostitel"
+
+#: ../src/Engine/Session.cs:597
+msgid "Port"
+msgstr "Port"
+
+#: ../src/Engine/Session.cs:619
+#, csharp-format
+msgid "Network close failed - could not find network with host: {0}"
+msgstr "Připojení uzavřeno - hostitelská síť nebyla nalezena: {0}"
+
+#: ../src/Engine/Session.cs:653
+#, csharp-format
+msgid "Network switch failed - could not find network with host: {0}"
+msgstr "Síťový uzel selhal - hostitelská síť nebyla nalezena: {0}"
+
+#: ../src/Engine/Session.cs:665
+msgid "Not connected to any network"
+msgstr "Není připojeno k žádné síti"
+
+#: ../src/Engine/Session.cs:945
+#, csharp-format
+msgid "No protocol manager found for the protocol: {0}"
+msgstr "Pro protokol nebyl nalezen správce protokolu: {0}"
+
+#: ../src/Engine/Session.cs:965
+#, csharp-format
+msgid "Unknown protocol: {0}"
+msgstr "Neznámý protokol: {0}"
