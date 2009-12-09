@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Smuxi 0.6.2\n"
 "Report-Msgid-Bugs-To: Mirco Bauer <meebey@meebey.net>\n"
 "POT-Creation-Date: 2009-11-25 23:08+0100\n"
-"PO-Revision-Date: 2009-11-26 01:45+0100\n"
+"PO-Revision-Date: 2009-12-09 05:16+0100\n"
 "Last-Translator: Clément BOURGEOIS <moonpyk@gmail.com>\n"
 "Language-Team: French Localization <debian-l10n-french@lists.debian.org>\n"
 "MIME-Version: 1.0\n"
@@ -83,9 +83,8 @@ msgstr "Non connecté"
 #. TRANSLATOR: this line is used as label / category for a
 #. list of commands below
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:659
-#, fuzzy
 msgid "IrcProtocolManager Commands"
-msgstr "[Commandes IrcProtocolManager]"
+msgstr "Commandes IrcProtocolManager"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:722
 #, csharp-format
@@ -95,9 +94,7 @@ msgstr "Port invalide : {0}"
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:835
 #, csharp-format
 msgid "Already joined to channel: {0}. Type /window {0} to switch to it."
-msgstr ""
-"Vous êtes déjà sur le canal: {0}. Utilisez /window {0} pour passer sur celui-"
-"ci."
+msgstr "Vous êtes déjà sur le canal: {0}. Utilisez /window {0} pour passer sur celui-ci."
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1105
 msgid "IRC Op"
@@ -147,8 +144,7 @@ msgstr "Utilisateurs"
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1461
 #, csharp-format
 msgid "Total of {0} users [{1} ops, {2} voices, {3} normal]"
-msgstr ""
-"Total de {0} utilisateurs, [{1} opérateur(s), {2} voicé(s), {3} normal(ux)]"
+msgstr "Total de {0} utilisateurs, [{1} opérateur(s), {2} voicé(s), {3} normal(ux)]"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1601
 msgid "Connection error! Reason: "
@@ -266,7 +262,7 @@ msgstr "{0} est parti : {1}"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2848
 msgid "You are no longer marked as being away"
-msgstr "Vous n'êtes plus marqué comme étant parti"
+msgstr "Vous êtes marqué comme étant revenu"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2854
 msgid "You have been marked as being away"
@@ -274,3 +270,4 @@ msgstr "Vous avez été marqué comme étant parti"
 
 #~ msgid "lag"
 #~ msgstr "latence"
+

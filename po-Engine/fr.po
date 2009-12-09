@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Smuxi 0.6.4\n"
 "Report-Msgid-Bugs-To: Mirco Bauer <meebey@meebey.net>\n"
 "POT-Creation-Date: 2009-11-25 23:08+0100\n"
-"PO-Revision-Date: 2009-11-26 01:49+0100\n"
+"PO-Revision-Date: 2009-12-09 05:15+0100\n"
 "Last-Translator: Clément BOURGEOIS <moonpyk@gmail.com>\n"
 "Language-Team: French Localization <debian-l10n-french@lists.debian.org>\n"
 "MIME-Version: 1.0\n"
@@ -40,13 +40,8 @@ msgid "Type /help to get a list of available commands."
 msgstr "Tapez /help pour obtenir la liste des commandes disponibles."
 
 #: ../src/Engine/Session.cs:160
-msgid ""
-"After you have made a connection the list of available commands changes. Use "
-"the /help command again to see the extended command list."
-msgstr ""
-"Une fois la connexion établie, la liste des commandes disponibles change, "
-"vous pouvez retaper /help encore une fois pour obtenir une liste étendue de "
-"celles-ci."
+msgid "After you have made a connection the list of available commands changes. Use the /help command again to see the extended command list."
+msgstr "Une fois la connexion établie, la liste des commandes disponibles change, vous pouvez retaper /help encore une fois pour obtenir une liste étendue de celles-ci."
 
 #: ../src/Engine/Session.cs:210
 #, csharp-format
@@ -108,7 +103,7 @@ msgstr "Changement de réseau impossible, aucun réseau pour l'hôte : {0}"
 
 #: ../src/Engine/Session.cs:665
 msgid "Not connected to any network"
-msgstr "Connecté à aucun réseau"
+msgstr "Aucun réseau connecté"
 
 #: ../src/Engine/Session.cs:945
 #, csharp-format
@@ -119,3 +114,4 @@ msgstr "Aucun gestionnaire de protocole trouvé pour le protocole : {0}"
 #, csharp-format
 msgid "Unknown protocol: {0}"
 msgstr "Protocole inconnu : {0}"
+
