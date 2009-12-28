@@ -73,9 +73,13 @@ namespace Smuxi.Frontend.Gnome
                     HasActivity = false;
                     return;
                 }
-                
+
                 string color = (string) Frontend.UserConfig["Interface/Notebook/Tab/HighlightColor"];
-                _TabLabel.Markup = String.Format("<span foreground=\"{0}\">{1}</span>", color, _Name);
+                _TabLabel.Markup = String.Format(
+                    "<span foreground=\"{0}\">{1}</span>",
+                    GLib.Markup.EscapeText(color),
+                    GLib.Markup.EscapeText(_Name)
+                );
             }
         }
         
@@ -97,7 +101,11 @@ namespace Smuxi.Frontend.Gnome
                 } else {
                     color = (string) Frontend.UserConfig["Interface/Notebook/Tab/NoActivityColor"];
                 }
-                _TabLabel.Markup = String.Format("<span foreground=\"{0}\">{1}</span>", color, _Name);
+                _TabLabel.Markup = String.Format(
+                    "<span foreground=\"{0}\">{1}</span>",
+                    GLib.Markup.EscapeText(color),
+                    GLib.Markup.EscapeText(_Name)
+                );
             }
         }
         
@@ -120,7 +128,11 @@ namespace Smuxi.Frontend.Gnome
                 }
                 
                 string color = (string) Frontend.UserConfig["Interface/Notebook/Tab/EventColor"];
-                _TabLabel.Markup = String.Format("<span foreground=\"{0}\">{1}</span>", color, _Name);
+                _TabLabel.Markup = String.Format(
+                    "<span foreground=\"{0}\">{1}</span>",
+                    GLib.Markup.EscapeText(color),
+                    GLib.Markup.EscapeText(_Name)
+                );
             }
         }
         
@@ -144,7 +156,7 @@ namespace Smuxi.Frontend.Gnome
                 return _TabEventBox;
             }
         }
-        
+
         public MessageTextView OutputMessageTextView {
             get {
                 return _OutputMessageTextView;
