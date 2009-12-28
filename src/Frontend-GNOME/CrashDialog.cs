@@ -47,10 +47,15 @@ namespace Smuxi.Frontend.Gnome
             Gtk.VBox label_vbox = new Gtk.VBox();
             Gtk.Label label1 = new Gtk.Label();
             Gtk.Label label2 = new Gtk.Label();
-            label1.Markup = "<b>" +
-                            _("Smuxi crashed because an unhandled exception was thrown!") +
-                            "</b>";
-            label2.Markup = _("Here is the stacktrace, please report this bug!");
+            label1.Markup = String.Format(
+                "<b>{0}</b>",
+                GLib.Markup.EscapeText(
+                    _("Smuxi crashed because an unhandled exception was thrown!")
+                )
+            );
+            label2.Markup = GLib.Markup.EscapeText(
+                _("Here is the stacktrace, please report this bug!")
+            );
             label_vbox.PackStart(label1, false, false, 0);
             label_vbox.PackStart(new Gtk.Fixed(), true, true, 0);
             label_vbox.PackStart(label2, false, false, 0);
