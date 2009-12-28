@@ -155,7 +155,7 @@ namespace Smuxi.Frontend.Gnome
                     if (Frontend.MainWindow != null) {
                         string network = nmanager != null ? nmanager.ToString() + " / " : "";
                         Frontend.MainWindow.Title = network + chatView.Name +
-                                                    " - Smuxi - Smart MUtipleXed Irc";
+                                                    " - Smuxi - Smart MUltipleXed Irc";
                     }
                 }
             } catch (Exception ex) {
