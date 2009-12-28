@@ -2290,16 +2290,26 @@ namespace Smuxi.Engine
                 }
             } else {
                 // someone else joined, let's add him to the channel chat
-                IrcUser siuser = _IrcClient.GetIrcUser(e.Who);
-                IrcGroupPersonModel icuser = new IrcGroupPersonModel(e.Who,
-                                                                     NetworkID,
-                                                                     this);
-                icuser.Ident = siuser.Ident;
-                icuser.Host = siuser.Host;
-                groupChat.UnsafePersons.Add(icuser.NickName.ToLower(), icuser);
-                Session.AddPersonToGroupChat(groupChat, icuser);
+                // HACK: some buggy networks might send JOIN messages for users
+                // that are already on the channel
+                if (groupChat.UnsafePersons.ContainsKey(e.Who.ToLower())) {
+#if LOG4NET
+                   _Logger.Error("_OnJoin(): groupChat.UnsafePerson contains " +
+                                  "already: '" + e.Who + "', ignoring...");
+#endif
+                    // ignore
+                } else {
+                    IrcUser siuser = _IrcClient.GetIrcUser(e.Who);
+                    IrcGroupPersonModel icuser = new IrcGroupPersonModel(e.Who,
+                                                                         NetworkID,
+                                                                         this);
+                    icuser.Ident = siuser.Ident;
+                    icuser.Host = siuser.Host;
+                    groupChat.UnsafePersons.Add(icuser.NickName.ToLower(), icuser);
+                    Session.AddPersonToGroupChat(groupChat, icuser);
+                }
             }
-            
+
             MessageModel msg = new MessageModel();
             msg.MessageType = MessageType.Event;
             TextMessagePartModel textMsgPart;
@@ -2423,8 +2433,14 @@ namespace Smuxi.Engine
             }
             
             PersonModel person = groupChat.GetPerson(e.Who);
-            Session.RemovePersonFromGroupChat(groupChat, person);
-            
+            if (person == null) {
+                // HACK: some buggy networks might send PART messages for users
+                // that are not on the channel
+                _Logger.Error("_OnPart(): groupChat.GetPerson(" + e.Who + ") returned null!");
+            } else {
+                Session.RemovePersonFromGroupChat(groupChat, person);
+            }
+
             MessageModel msg = new MessageModel();
             msg.MessageType = MessageType.Event;
             TextMessagePartModel textMsgPart;
