@@ -62,6 +62,8 @@ namespace Smuxi.Engine
         private int             _CurrentNickname;
         private string          _Username;
         private string          _Password;
+        private string          _Ident;
+        private string          _ClientHost;
         private FrontendManager _FrontendManager;
         private bool            _Listening;
         private ChatModel       _NetworkChat;
@@ -116,6 +118,17 @@ namespace Smuxi.Engine
         public override ChatModel Chat {
             get {
                 return _NetworkChat;
+            }
+        }
+
+        private string Prefix {
+            get {
+                if (_IrcClient == null) {
+                    return String.Empty;
+                }
+
+                return String.Format("{0}!{1}@{2}", _IrcClient.Nickname,
+                                     _Ident, _ClientHost);
             }
         }
 
@@ -174,6 +187,7 @@ namespace Smuxi.Engine
             _IrcClient.OnNowAway        += new IrcEventHandler(_OnNowAway);
             _IrcClient.OnCtcpRequest    += new CtcpEventHandler(_OnCtcpRequest);
             _IrcClient.OnCtcpReply      += new CtcpEventHandler(_OnCtcpReply);
+            _IrcClient.OnWho            += OnWho;
 
             string encodingName = (string) Session.UserConfig["Connection/Encoding"];
             if (!String.IsNullOrEmpty(encodingName)) {
@@ -190,7 +204,16 @@ namespace Smuxi.Engine
                 _IrcClient.Encoding = Encoding.Default;
             }
         }
-        
+
+        private void OnWho(object sender, WhoEventArgs e)
+        {
+            if (e.WhoInfo.Nick == _IrcClient.Nickname) {
+                // that's me!
+                _Ident = e.WhoInfo.Ident;
+                _ClientHost = e.WhoInfo.Host;
+            }
+        }
+
         public override string ToString()
         {
             string result = "IRC ";
@@ -223,7 +246,7 @@ namespace Smuxi.Engine
         public override void Connect(FrontendManager fm, string server, int port, string user, string pass)
         {
             Trace.Call(fm, server, port, user, pass);
-            
+
             string[] nicks = (string[]) Session.UserConfig["Connection/Nicknames"];
             Connect(fm, server, port, nicks, user, pass);
         }
@@ -621,7 +644,12 @@ namespace Smuxi.Engine
                         // we are on the session chat or protocol chat 
                         _IrcClient.WriteLine(command.Data);
                     } else {
-                        _Say(command.Chat, command.Data);
+                        // split too long messages
+                        var messages = SplitMessage("PRIVMSG", command.Chat.ID,
+                                                    command.Data);
+                        foreach (string message in messages) {
+                            _Say(command.Chat, message);
+                        }
                     }
                     handled = true;
                 }
@@ -696,7 +724,7 @@ namespace Smuxi.Engine
             "raw/quote irc-command",
             "quit [quit-message]",
             };
-            
+
             foreach (string line in help) { 
                 cd.FrontendManager.AddTextToCurrentChat("-!- " + line);
             }
@@ -936,20 +964,58 @@ namespace Smuxi.Engine
             if (cd.DataArray.Length >= 3) {
                 string message = String.Join(" ", cd.DataArray, 2, cd.DataArray.Length-2);
                 string channelname = cd.DataArray[1];
+
                 ChatModel chat = GetChat(channelname, ChatType.Group);
                 if (chat == null) {
                     // server chat as fallback if we are not joined
                     chat = _NetworkChat;
                     Session.AddTextToChat(chat, "<" + _IrcClient.Nickname + ":" + channelname + "> " + message);
                 } else {
-                    _Say(chat, message);
+                     _Say(chat, message);
                 }
+
                 _IrcClient.SendMessage(SendType.Message, channelname, message);
             } else {
                 _NotEnoughParameters(cd);
             }
         }
-        
+
+        private IList<string> SplitMessage(string command, string target, string message)
+        {
+            List<string> messages = new List<string>();
+            int length;
+            int line = 0;
+            do {
+                length = GetProtocolMessageLength(command, target, message);
+                if (length <= 512) {
+                    if (line > 0) {
+                        // remove leading spaces as we are a new line
+                        messages.Add(message.TrimStart(new char[] {' '}));
+                    } else {
+                        messages.Add(message);
+                    }
+                    break;
+                }
+                line++;
+
+                int maxMsgLen = message.Length - (length - 512);
+                string chunk = message.Substring(0, maxMsgLen);
+                string nextChar = message.Substring(maxMsgLen, 1);
+                if (nextChar != " ") {
+                    // we split in the middle of a word, split it better!
+                    int lastWordPos = chunk.LastIndexOf(" ");
+                    if (lastWordPos != -1) {
+                        chunk = chunk.Substring(0, lastWordPos);
+                    }
+                }
+                // remove leading spaces as we are a new line
+                messages.Add(chunk.TrimStart(new char[] {' '}));
+                message = message.Substring(chunk.Length);
+            } while (true);
+
+            return messages;
+        }
+
         public void CommandAllMessage(CommandModel cd)
         {
             if (cd.DataArray.Length < 2) {
@@ -963,7 +1029,7 @@ namespace Smuxi.Engine
                     // only show on group chats
                     continue;
                 }
-                
+
                 CommandModel msgCmd = new CommandModel(
                     cd.FrontendManager,
                     cd.Chat,
@@ -2019,7 +2085,7 @@ namespace Smuxi.Engine
         {
             MessageModel msg = new MessageModel();
             TextMessagePartModel textMsg;
-            
+
             textMsg = new TextMessagePartModel();
             // TRANSLATOR: the final line will look like this:
             // -!- Nick {0} is already in use
@@ -2349,7 +2415,7 @@ namespace Smuxi.Engine
             
             Session.AddMessageToChat(chat, fmsg);
         }
-        
+
         private void _OnJoin(object sender, JoinEventArgs e)
         {
             GroupChatModel groupChat = (GroupChatModel) GetChat(e.Channel, ChatType.Group);
@@ -2812,7 +2878,7 @@ namespace Smuxi.Engine
             textMsg.Text = who;
             textMsg.ForegroundColor = GetNickColor(who);
             msg.MessageParts.Add(textMsg);
-            
+
             Session.AddMessageToChat(target, msg);
         }
         
@@ -2872,8 +2938,11 @@ namespace Smuxi.Engine
         private void _OnRegistered(object sender, EventArgs e)
         {
             OnConnected(EventArgs.Empty);
+
+            // WHO ourself so OnWho() can retrieve our ident and host
+            _IrcClient.RfcWho(_IrcClient.Nickname);
         }
-        
+
         protected override void OnConnected(EventArgs e)
         {
             lock (Session.Chats) {
@@ -2980,7 +3049,18 @@ namespace Smuxi.Engine
 #endif
             }
         }
-        
+
+        private int GetProtocolMessageLength(string command,
+                                             string target,
+                                             string message)
+        {
+            // :<prefix> <command> <target> :<message><crlf>
+            return 1 + Prefix.Length + 1 +
+                   command.Length + 1 +
+                   target.Length + 2 +
+                   _IrcClient.Encoding.GetByteCount(message) + 2;
+        }
+
         private static string _(string msg)
         {
             return LibraryCatalog.GetString(msg, _LibraryTextDomain);
