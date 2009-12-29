@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: Mirco Bauer <meebey@meebey.net>\n"
 "POT-Creation-Date: 2009-11-25 23:08+0100\n"
 "PO-Revision-Date: 2009-12-28 21:55+0100\n"
 "Last-Translator: Martin Bagge <brother@bsnet.se>\n"
@@ -40,8 +40,12 @@ msgid "Type /help to get a list of available commands."
 msgstr "Skriv /help för en lista med tillgängliga kommandon."
 
 #: ../src/Engine/Session.cs:160
-msgid "After you have made a connection the list of available commands changes. Use the /help command again to see the extended command list."
-msgstr "När du har gjort en anslutning kommer listan med tillgängliga kommandon att ändras. Använd kommandot /help igen för att se den utökade kommandolistan."
+msgid ""
+"After you have made a connection the list of available commands changes. Use "
+"the /help command again to see the extended command list."
+msgstr ""
+"När du har gjort en anslutning kommer listan med tillgängliga kommandon att "
+"ändras. Använd kommandot /help igen för att se den utökade kommandolistan."
 
 #: ../src/Engine/Session.cs:210
 #, csharp-format
@@ -94,12 +98,14 @@ msgstr "Port"
 #: ../src/Engine/Session.cs:619
 #, csharp-format
 msgid "Network close failed - could not find network with host: {0}"
-msgstr "Stängning av nätverk misslyckades - kunde inte hitta nätverk med värd: {0}"
+msgstr ""
+"Stängning av nätverk misslyckades - kunde inte hitta nätverk med värd: {0}"
 
 #: ../src/Engine/Session.cs:653
 #, csharp-format
 msgid "Network switch failed - could not find network with host: {0}"
-msgstr "Byte av nätverk misslyckades - kunde inte hitta nätverk med värden: {0}"
+msgstr ""
+"Byte av nätverk misslyckades - kunde inte hitta nätverk med värden: {0}"
 
 #: ../src/Engine/Session.cs:665
 msgid "Not connected to any network"
@@ -114,4 +120,3 @@ msgstr "Ingen protokollshanterare funnen för protokollet: {0}"
 #, csharp-format
 msgid "Unknown protocol: {0}"
 msgstr "Okänt protokoll: {0}"
-

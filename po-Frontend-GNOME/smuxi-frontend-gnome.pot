@@ -1,14 +1,14 @@
-# Smuxi - IRC client for sophisticated users
-# Copyright (C) 2005-2009 Mirco Bauer <meebey@meebey.net>
-# This file is distributed under the same license as the Smuxi package.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"Report-Msgid-Bugs-To: Mirco Bauer <meebey@meebey.net>\n"
-"POT-Creation-Date: 2009-11-25 23:08+0100\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-12-29 03:24+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -352,11 +352,12 @@ msgstr ""
 msgid "_Servers"
 msgstr ""
 
-#: ../glade/smuxi-frontend-gnome.glade.h:67
+#. This is a setting for character based line wrapping vs word based when showing messages
+#: ../glade/smuxi-frontend-gnome.glade.h:68
 msgid "_Wrap Mode:"
 msgstr ""
 
-#: ../glade/smuxi-frontend-gnome.glade.h:68
+#: ../glade/smuxi-frontend-gnome.glade.h:69
 msgid ""
 "ss = seconds\n"
 "mm = minutes\n"
@@ -397,11 +398,11 @@ msgstr ""
 msgid "Oops, I did it again..."
 msgstr ""
 
-#: ../src/Frontend-GNOME/CrashDialog.cs:51
+#: ../src/Frontend-GNOME/CrashDialog.cs:53
 msgid "Smuxi crashed because an unhandled exception was thrown!"
 msgstr ""
 
-#: ../src/Frontend-GNOME/CrashDialog.cs:53
+#: ../src/Frontend-GNOME/CrashDialog.cs:57
 msgid "Here is the stacktrace, please report this bug!"
 msgstr ""
 
@@ -683,17 +684,17 @@ msgstr ""
 msgid "Day changed to {0}"
 msgstr ""
 
-#: ../src/Frontend-GNOME/Views/Chats/GroupChatView.cs:233
+#: ../src/Frontend-GNOME/Views/Chats/GroupChatView.cs:237
 #, csharp-format
 msgid "Retrieving user list for {0}..."
 msgstr ""
 
 #. TRANSLATOR: this string will be appended to the one above
-#: ../src/Frontend-GNOME/Views/Chats/GroupChatView.cs:278
+#: ../src/Frontend-GNOME/Views/Chats/GroupChatView.cs:282
 msgid "done."
 msgstr ""
 
-#: ../src/Frontend-GNOME/Views/Chats/GroupChatView.cs:298
+#: ../src/Frontend-GNOME/Views/Chats/GroupChatView.cs:302
 msgid "Person"
 msgstr ""
 

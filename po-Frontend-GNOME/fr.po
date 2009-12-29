@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Smuxi 0.6.4\n"
-"Report-Msgid-Bugs-To: Mirco Bauer <meebey@meebey.net>\n"
-"POT-Creation-Date: 2009-11-25 23:08+0100\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-12-29 03:24+0100\n"
 "PO-Revision-Date: 2009-12-09 05:18+0100\n"
 "Last-Translator: Clément BOURGEOIS <moonpyk@gmail.com>\n"
 "Language-Team: French Localization <debian-l10n-french@lists.debian.org>\n"
@@ -312,8 +312,15 @@ msgid "Tabs"
 msgstr "Onglets"
 
 #: ../glade/smuxi-frontend-gnome.glade.h:60
-msgid "The nickname to use. You can specify extra nicknames (separated by spaces) which will be used as fallbacks when the first choice is not available. By default $nick_ and $nick__ will be used as fallbacks."
-msgstr "Le surnom est déjà en cours d'utilisation. Vous pouvez spécifier plus d'un seul surnom, séparés par des espaces. Ceux ci seront utilisés comme solution de repli si le premier surnom n'est pas disponible. Par défaut, $nick et $nick__ sont utilisés."
+msgid ""
+"The nickname to use. You can specify extra nicknames (separated by spaces) "
+"which will be used as fallbacks when the first choice is not available. By "
+"default $nick_ and $nick__ will be used as fallbacks."
+msgstr ""
+"Le surnom est déjà en cours d'utilisation. Vous pouvez spécifier plus d'un "
+"seul surnom, séparés par des espaces. Ceux ci seront utilisés comme solution "
+"de repli si le premier surnom n'est pas disponible. Par défaut, $nick et "
+"$nick__ sont utilisés."
 
 #: ../glade/smuxi-frontend-gnome.glade.h:61
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:726
@@ -350,11 +357,12 @@ msgstr "_Interface"
 msgid "_Servers"
 msgstr "_Serveurs"
 
-#: ../glade/smuxi-frontend-gnome.glade.h:67
+#. This is a setting for character based line wrapping vs word based when showing messages
+#: ../glade/smuxi-frontend-gnome.glade.h:68
 msgid "_Wrap Mode:"
 msgstr "Mode _circulaire :"
 
-#: ../glade/smuxi-frontend-gnome.glade.h:68
+#: ../glade/smuxi-frontend-gnome.glade.h:69
 msgid ""
 "ss = seconds\n"
 "mm = minutes\n"
@@ -404,11 +412,11 @@ msgstr "Site web de Smuxi"
 msgid "Oops, I did it again..."
 msgstr "OoOps, boulette..."
 
-#: ../src/Frontend-GNOME/CrashDialog.cs:51
+#: ../src/Frontend-GNOME/CrashDialog.cs:53
 msgid "Smuxi crashed because an unhandled exception was thrown!"
 msgstr "Smuxi a planté en raison de la levée d'une exception non gérée !"
 
-#: ../src/Frontend-GNOME/CrashDialog.cs:53
+#: ../src/Frontend-GNOME/CrashDialog.cs:57
 msgid "Here is the stacktrace, please report this bug!"
 msgstr "Voici la pile d'appels, envoyez le rapport de bug s'il-vous-plaît ! "
 
@@ -445,7 +453,9 @@ msgstr "Sélectionnez un moteur s'il vous plaît !"
 #: ../src/Frontend-GNOME/EngineManagerDialog.cs:196
 #, csharp-format
 msgid "Your frontend version ({0}) does not match the engine version ({1})!"
-msgstr "Votre version de l'interface utilisateur ({0}) ne correspond pas à celle du moteur ({1}) !"
+msgstr ""
+"Votre version de l'interface utilisateur ({0}) ne correspond pas à celle du "
+"moteur ({1}) !"
 
 #: ../src/Frontend-GNOME/EngineManagerDialog.cs:223
 msgid "An error occurred while connecting to the engine!"
@@ -469,7 +479,9 @@ msgstr "Êtes vous sûr(e) de vouloir supprimer le moteur \"{0}\" ?"
 #: ../src/Frontend-GNOME/Entry.cs:385
 #, csharp-format
 msgid "You are going to paste {0} lines. Do you want to continue?"
-msgstr "Vous vous apprêtez à coller {0} lignes de texte, êtes vous sûr(e) de vouloir continuer ?"
+msgstr ""
+"Vous vous apprêtez à coller {0} lignes de texte, êtes vous sûr(e) de vouloir "
+"continuer ?"
 
 #. TRANSLATOR: this line is used as a label / category for a
 #. list of commands below
@@ -565,7 +577,8 @@ msgid ""
 "Switching to local engine will disconnect you from the current engine!\n"
 "Are you sure you want to do this?"
 msgstr ""
-"Changer de moteur vers le moteur local va vous déconnecter du moteur actuel !\n"
+"Changer de moteur vers le moteur local va vous déconnecter du moteur "
+"actuel !\n"
 "Êtes vous sûr(e) de vouloir continuer ?"
 
 #: ../src/Frontend-GNOME/MainWindow.cs:808
@@ -573,7 +586,8 @@ msgid ""
 "Switching the remote engine will disconnect you from the current engine!\n"
 "Are you sure you want to do this?"
 msgstr ""
-"Changer de moteur pour un moteur distant va vous déconnecter du moteur actuel !\n"
+"Changer de moteur pour un moteur distant va vous déconnecter du moteur "
+"actuel !\n"
 "Êtes vous sûr(e) de vouloir continuer ?"
 
 #: ../src/Frontend-GNOME/NotImplementedMessageDialog.cs:40
@@ -621,13 +635,16 @@ msgstr "Sujet"
 
 #: ../src/Frontend-GNOME/FindGroupChatDialog.cs:103
 msgid ""
-"Searching for group chats without a filter is not recommended.  This may take a while, or may not work at all.\n"
+"Searching for group chats without a filter is not recommended.  This may "
+"take a while, or may not work at all.\n"
 "Do you wish to continue?"
 msgstr "Chercher des groupes de discussion"
 
 #: ../src/Frontend-GNOME/FindGroupChatDialog.cs:145
 msgid "Error while fetching the list of group chats from the server."
-msgstr "Erreur durant la récupération de la liste des groupes de discussion du serveur."
+msgstr ""
+"Erreur durant la récupération de la liste des groupes de discussion du "
+"serveur."
 
 #: ../src/Frontend-GNOME/Frontend.cs:368
 #, csharp-format
@@ -697,17 +714,17 @@ msgstr "Merci"
 msgid "Day changed to {0}"
 msgstr "Jour changé à {0}"
 
-#: ../src/Frontend-GNOME/Views/Chats/GroupChatView.cs:233
+#: ../src/Frontend-GNOME/Views/Chats/GroupChatView.cs:237
 #, csharp-format
 msgid "Retrieving user list for {0}..."
 msgstr "Téléchargement de la liste des utilisateurs pour {0}..."
 
 #. TRANSLATOR: this string will be appended to the one above
-#: ../src/Frontend-GNOME/Views/Chats/GroupChatView.cs:278
+#: ../src/Frontend-GNOME/Views/Chats/GroupChatView.cs:282
 msgid "done."
 msgstr " terminé."
 
-#: ../src/Frontend-GNOME/Views/Chats/GroupChatView.cs:298
+#: ../src/Frontend-GNOME/Views/Chats/GroupChatView.cs:302
 msgid "Person"
 msgstr "Personne"
 
@@ -716,7 +733,8 @@ msgid ""
 "Closing the protocol chat will also close all open chats connected to it!\n"
 "Are you sure you want to do this?"
 msgstr ""
-"Fermer la fenêtre de chat du protocole va aussi fermer toutes discussions connectées sur celui-ci !\n"
+"Fermer la fenêtre de chat du protocole va aussi fermer toutes discussions "
+"connectées sur celui-ci !\n"
 "Êtes vous sûr(e) de vouloir continuer ?"
 
 #: ../src/Frontend-GNOME/Preferences/ChannelFilterListView.cs:81
@@ -817,19 +835,28 @@ msgid "Use _SSH Tunnel"
 msgstr "Utiliser un tunnel _SSH"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantConnectionWidget.cs:78
-msgid "<span size=\"small\">Enables the use of SSH for the connection.  This has a small performance impact, but is more secure and required when using NAT or port-based firewalls</span>"
-msgstr "<span size=\"small\">Active l'utilisation de SSH pour la connexion.  Ceci a un leger impact négatif sur les performances, mais améliore la sécurité et est parfois nécéssaire en cas d'utilisation d'un systeme NAT ou d'un firewall régi par ports</span>"
+msgid ""
+"<span size=\"small\">Enables the use of SSH for the connection.  This has a "
+"small performance impact, but is more secure and required when using NAT or "
+"port-based firewalls</span>"
+msgstr ""
+"<span size=\"small\">Active l'utilisation de SSH pour la connexion.  Ceci a "
+"un leger impact négatif sur les performances, mais améliore la sécurité et "
+"est parfois nécéssaire en cas d'utilisation d'un systeme NAT ou d'un "
+"firewall régi par ports</span>"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantConnectionWidget.cs:157
 msgid "SSH _Host:"
 msgstr "SSH _Hôte:"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantConnectionWidget.cs:168
-msgid "<span size=\"small\">DNS or IP address and port of the SSH server</span>"
+msgid ""
+"<span size=\"small\">DNS or IP address and port of the SSH server</span>"
 msgstr "<span size=\"small\">Adresse IP ou DNS et port du serveur SSH</span>"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantConnectionWidget.cs:208
-msgid "<span size=\"small\">DNS or IP address and port of the Smuxi server</span>"
+msgid ""
+"<span size=\"small\">DNS or IP address and port of the Smuxi server</span>"
 msgstr "<span size=\"small\">Adresse IP ou DNS et port du serveur Smuxi</span>"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantConnectionWidget.cs:221
@@ -841,20 +868,34 @@ msgid "_SSH Username: (optional)"
 msgstr "Nom d'utilisateur _SSH (optionnel) :"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:99
-msgid "<span size=\"small\">Username which will be used to log into the SSH server</span>"
-msgstr "<span size=\"small\">Nom d'utilisateur qui sera utilisé pour l'enregistrement auprès du moteur Smuxi</span>"
+msgid ""
+"<span size=\"small\">Username which will be used to log into the SSH server</"
+"span>"
+msgstr ""
+"<span size=\"small\">Nom d'utilisateur qui sera utilisé pour "
+"l'enregistrement auprès du moteur Smuxi</span>"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:119
 msgid "_SSH Password: (optional)"
 msgstr "Mot de passe _SSH (optionnel) :"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:143
-msgid "<span size=\"small\">Password which will be used to log into the SSH server. The password is optional if SSH key authorization is used (via Pageant from the PuTTY tools).</span>"
-msgstr "<span size=\"small\">Mot de passe utilisé pour la connexion au serveur SSH. Le mot de passe est optionnel si un mécanisme d'autorisation par clé SSH est utilisé (via Pageant de la suite d'outils PuTTY).</span>"
+msgid ""
+"<span size=\"small\">Password which will be used to log into the SSH server. "
+"The password is optional if SSH key authorization is used (via Pageant from "
+"the PuTTY tools).</span>"
+msgstr ""
+"<span size=\"small\">Mot de passe utilisé pour la connexion au serveur SSH. "
+"Le mot de passe est optionnel si un mécanisme d'autorisation par clé SSH est "
+"utilisé (via Pageant de la suite d'outils PuTTY).</span>"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:187
-msgid "<span size=\"small\">Username which will be used to log into the Smuxi server</span>"
-msgstr "<span size=\"small\">Nom d'utilisateur qui sera utilisé pour l'enregistrement auprès du moteur Smuxi</span>"
+msgid ""
+"<span size=\"small\">Username which will be used to log into the Smuxi "
+"server</span>"
+msgstr ""
+"<span size=\"small\">Nom d'utilisateur qui sera utilisé pour "
+"l'enregistrement auprès du moteur Smuxi</span>"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:231
 msgid "<span size=\"small\">Password of the user</span>"
@@ -876,7 +917,8 @@ msgid ""
 "Click \"Forward\" to begin."
 msgstr ""
 "Bienvenue sur l'assistant de configuration du moteur Smuxi.\n"
-"Vous devez entrer plusieurs informations avant de pouvoir utiliser le moteur.\n"
+"Vous devez entrer plusieurs informations avant de pouvoir utiliser le "
+"moteur.\n"
 "\n"
 "Cliquez sur \"Suivant\" pour commencer."
 
@@ -886,7 +928,8 @@ msgstr "Nom du _moteur :"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantNameWidget.cs:75
 msgid "<span size=\"small\">Profile name of the new engine</span>"
-msgstr "<span size=\"small\">Nom du profil pour l'entrée du nouveau moteur</span>"
+msgstr ""
+"<span size=\"small\">Nom du profil pour l'entrée du nouveau moteur</span>"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantNameWidget.cs:96
 msgid "_Default Engine:"
@@ -897,8 +940,12 @@ msgid "Use as new default engine"
 msgstr "Utiliser comme moteur par défaut"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantNameWidget.cs:120
-msgid "<span size=\"small\">If enabled, the current engine will be the default next time Smuxi is started</span>"
-msgstr "<span size=\"small\">Activé, cette fonctionnalité rend le moteur courant par défaut au prochain démarage de Smuxi</span>"
+msgid ""
+"<span size=\"small\">If enabled, the current engine will be the default next "
+"time Smuxi is started</span>"
+msgstr ""
+"<span size=\"small\">Activé, cette fonctionnalité rend le moteur courant par "
+"défaut au prochain démarage de Smuxi</span>"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.OpenChatDialog.cs:34
 msgid "Smuxi - Open Chat"
@@ -910,18 +957,25 @@ msgstr "_Type :"
 
 #~ msgid "gtk-cancel"
 #~ msgstr "gtk-cancel"
+
 #~ msgid "gtk-ok"
 #~ msgstr "gtk-ok"
+
 #~ msgid "#"
 #~ msgstr "#"
+
 #~ msgid "Syncing chat persons of {0}..."
 #~ msgstr "Synchronisation des utilisateurs de la discussion {0}..."
+
 #~ msgid "localhost"
 #~ msgstr "localhost"
+
 #~ msgid "smuxi - Preferences"
 #~ msgstr "smuxi - Preferences"
+
 #~ msgid "Smuxi's first start"
 #~ msgstr "Premier démarrage de Smuxi"
+
 #~ msgid ""
 #~ "Welcome to the smuxi\n"
 #~ "You started smuxi for the first time and it needs some answers from you.\n"
@@ -933,36 +987,49 @@ msgstr "_Type :"
 #~ "certaines réponses de votre part.\n"
 #~ "\n"
 #~ "Cliquez sur \"Suivant\" pour commencer."
+
 #~ msgid "Local"
 #~ msgstr "Local"
+
 #~ msgid "Remote"
 #~ msgstr "Distant"
+
 #~ msgid "When smuxi is started which mode it should use by default"
 #~ msgstr "Mode par défaut devant être utilisé quand Smuxi démarre"
+
 #~ msgid "Now you can use smuxi"
 #~ msgstr "Maintenant, vous pouvez commencer à utiliser Smuxi"
+
 #~ msgid "First Start Druid"
 #~ msgstr "Lancer d'abord Druid"
+
 #~ msgid "DNS or IP address of the smuxi engine"
 #~ msgstr "DNS ou adresse IP du moteur Smuxi"
+
 #~ msgid "TCP port of the smuxi engine"
 #~ msgstr "Port TCP du moteur Smuxi"
+
 #~ msgid "_Channel:"
 #~ msgstr "_Canal :"
+
 #~ msgid ""
 #~ ".NET Remoting Channel which will be used for communication\n"
 #~ "between the frontend and the engine"
 #~ msgstr ""
 #~ "Canal de contrôle .NET qui sera utilisé pour la communication\n"
 #~ "entre l'interface et le moteur"
+
 #~ msgid "_Formatter:"
 #~ msgstr "_Formateur :"
+
 #~ msgid ".NET Remoting Data Formatter"
 #~ msgstr "Moteur de formatage de données du canal de contrôle .NET"
+
 #~ msgid "Opening URL ({0}) failed."
 #~ msgstr "Ouverture de l'URL {0} impossible."
+
 #~ msgid "Tray"
 #~ msgstr "Barre des tâches"
+
 #~ msgid "Filters"
 #~ msgstr "Filtres"
-

@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 0.6.2\n"
-"Report-Msgid-Bugs-To: Mirco Bauer <meebey@meebey.net>\n"
-"POT-Creation-Date: 2009-11-25 23:08+0100\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-12-29 03:24+0100\n"
 "PO-Revision-Date: 2009-08-12 13:17+0100\n"
 "Last-Translator: Ryan Smith-Evans <Kimera.Kimera@gmail.com>\n"
 "Language-Team: English-GB <Kimera.Kimera@gmail.com>\n"
@@ -356,11 +356,12 @@ msgstr "_Interface"
 msgid "_Servers"
 msgstr "_Servers"
 
-#: ../glade/smuxi-frontend-gnome.glade.h:67
+#. This is a setting for character based line wrapping vs word based when showing messages
+#: ../glade/smuxi-frontend-gnome.glade.h:68
 msgid "_Wrap Mode:"
 msgstr "_Wrap Mode"
 
-#: ../glade/smuxi-frontend-gnome.glade.h:68
+#: ../glade/smuxi-frontend-gnome.glade.h:69
 #, fuzzy
 msgid ""
 "ss = seconds\n"
@@ -411,11 +412,11 @@ msgstr "Smuxi Website"
 msgid "Oops, I did it again..."
 msgstr "Oops, I did it again..."
 
-#: ../src/Frontend-GNOME/CrashDialog.cs:51
+#: ../src/Frontend-GNOME/CrashDialog.cs:53
 msgid "Smuxi crashed because an unhandled exception was thrown!"
 msgstr "Smuxi crashed because an unhandled exception was thrown!"
 
-#: ../src/Frontend-GNOME/CrashDialog.cs:53
+#: ../src/Frontend-GNOME/CrashDialog.cs:57
 msgid "Here is the stacktrace, please report this bug!"
 msgstr "Here is the stacktrace, please report this bug!"
 
@@ -713,18 +714,18 @@ msgstr "Thank You"
 msgid "Day changed to {0}"
 msgstr "Day changed to {0}"
 
-#: ../src/Frontend-GNOME/Views/Chats/GroupChatView.cs:233
+#: ../src/Frontend-GNOME/Views/Chats/GroupChatView.cs:237
 #, csharp-format
 msgid "Retrieving user list for {0}..."
 msgstr ""
 
 #. TRANSLATOR: this string will be appended to the one above
-#: ../src/Frontend-GNOME/Views/Chats/GroupChatView.cs:278
+#: ../src/Frontend-GNOME/Views/Chats/GroupChatView.cs:282
 #, fuzzy
 msgid "done."
 msgstr " done."
 
-#: ../src/Frontend-GNOME/Views/Chats/GroupChatView.cs:298
+#: ../src/Frontend-GNOME/Views/Chats/GroupChatView.cs:302
 msgid "Person"
 msgstr "Person"
 

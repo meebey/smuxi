@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: Mirco Bauer <meebey@meebey.net>\n"
 "POT-Creation-Date: 2009-11-22 01:46+0100\n"
 "PO-Revision-Date: 2009-12-28 21:46+0100\n"
 "Last-Translator: Martin Bagge <brother@bsnet.se>\n"
@@ -23,16 +23,23 @@ msgid "Unknown channel ({0}) - only the following channel types are supported:"
 msgstr "Okänd kanal ({0}) - endast följande kanaltyper stöds:"
 
 #: ../src/Frontend/EngineManager.cs:273
-msgid "Registration with engine failed!  The username and/or password were wrong - please verify them."
-msgstr "Kunde inte ansluta till motorn! Användarnamnet och/eller lösenordet var fel - kontrollera dessa."
+msgid ""
+"Registration with engine failed!  The username and/or password were wrong - "
+"please verify them."
+msgstr ""
+"Kunde inte ansluta till motorn! Användarnamnet och/eller lösenordet var fel "
+"- kontrollera dessa."
 
 #: ../src/Frontend/SshTunnelManager.cs:144
 msgid "SSH client application was not found: "
 msgstr "SSH-klient-applikationen kunde inte hittas:"
 
 #: ../src/Frontend/SshTunnelManager.cs:147
-msgid "SSH client must be either OpenSSH (ssh) or Plink (plink.exe, not putty.exe)"
-msgstr "SSH-klienten måste vara antingen OpenSSH (ssh) eller Plink (plink.exe, inte putty.exe)"
+msgid ""
+"SSH client must be either OpenSSH (ssh) or Plink (plink.exe, not putty.exe)"
+msgstr ""
+"SSH-klienten måste vara antingen OpenSSH (ssh) eller Plink (plink.exe, inte "
+"putty.exe)"
 
 #: ../src/Frontend/SshTunnelManager.cs:189
 #, csharp-format
@@ -81,4 +88,3 @@ msgstr ""
 #: ../src/Frontend/SshTunnelManager.cs:402
 msgid "PuTTY / Plink requires a username to be set."
 msgstr "PuTTY/Plink kräver att ett användarnamn används."
-

@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: smuxi-frontend-gnome 0.6.4.1-1\n"
-"Report-Msgid-Bugs-To: Mirco Bauer <meebey@meebey.net>\n"
-"POT-Creation-Date: 2009-11-25 23:08+0100\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-12-29 03:24+0100\n"
 "PO-Revision-Date: 2009-12-05 19:18+0100\n"
 "Last-Translator: Michal Simunek <michal.simunek@gmail.com>\n"
 "Language-Team: Czech <debian-l10n-czech@lists.debian.org>\n"
@@ -355,11 +355,12 @@ msgstr "Vzhled"
 msgid "_Servers"
 msgstr "_Servery"
 
-#: ../glade/smuxi-frontend-gnome.glade.h:67
+#. This is a setting for character based line wrapping vs word based when showing messages
+#: ../glade/smuxi-frontend-gnome.glade.h:68
 msgid "_Wrap Mode:"
 msgstr "Režim zalamování:"
 
-#: ../glade/smuxi-frontend-gnome.glade.h:68
+#: ../glade/smuxi-frontend-gnome.glade.h:69
 msgid ""
 "ss = seconds\n"
 "mm = minutes\n"
@@ -409,11 +410,11 @@ msgstr "Web Smuxi"
 msgid "Oops, I did it again..."
 msgstr "Hups, zkouším to znovu..."
 
-#: ../src/Frontend-GNOME/CrashDialog.cs:51
+#: ../src/Frontend-GNOME/CrashDialog.cs:53
 msgid "Smuxi crashed because an unhandled exception was thrown!"
 msgstr "Smuxi spadl, protože obdržel nezpracovatelný požadavek!"
 
-#: ../src/Frontend-GNOME/CrashDialog.cs:53
+#: ../src/Frontend-GNOME/CrashDialog.cs:57
 msgid "Here is the stacktrace, please report this bug!"
 msgstr "Zde je výpis, nahlaste prosím tuto chybu!"
 
@@ -706,17 +707,17 @@ msgstr "Děkujeme"
 msgid "Day changed to {0}"
 msgstr "Den změněn na {0}"
 
-#: ../src/Frontend-GNOME/Views/Chats/GroupChatView.cs:233
+#: ../src/Frontend-GNOME/Views/Chats/GroupChatView.cs:237
 #, csharp-format
 msgid "Retrieving user list for {0}..."
 msgstr "Přijímání seznamu uživatelů pro {0}..."
 
 #. TRANSLATOR: this string will be appended to the one above
-#: ../src/Frontend-GNOME/Views/Chats/GroupChatView.cs:278
+#: ../src/Frontend-GNOME/Views/Chats/GroupChatView.cs:282
 msgid "done."
 msgstr "dokončeno"
 
-#: ../src/Frontend-GNOME/Views/Chats/GroupChatView.cs:298
+#: ../src/Frontend-GNOME/Views/Chats/GroupChatView.cs:302
 msgid "Person"
 msgstr "Osoba"
 

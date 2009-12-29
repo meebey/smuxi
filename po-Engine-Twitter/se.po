@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: Mirco Bauer <meebey@meebey.net>\n"
 "POT-Creation-Date: 2009-11-26 12:20+0100\n"
 "PO-Revision-Date: 2009-12-28 22:03+0100\n"
 "Last-Translator: Martin Bagge <brother@bsnet.se>\n"
@@ -39,7 +39,8 @@ msgstr "Inloggning misslyckades!"
 
 #: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:142
 msgid "Login failed! Username and/or password are incorrect."
-msgstr "Inloggning misslyckades! Användarnamn och/eller lösenord var felaktigt."
+msgstr ""
+"Inloggning misslyckades! Användarnamn och/eller lösenord var felaktigt."
 
 #: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:148
 msgid "Connection failed!"
@@ -63,7 +64,8 @@ msgstr "Hämtade användarinformation."
 
 #: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:175
 msgid "Failed to fetch user details from Twitter. Reason: "
-msgstr "Misslyckades med att hämta användarinformation från Twitter. Anledning: "
+msgstr ""
+"Misslyckades med att hämta användarinformation från Twitter. Anledning: "
 
 #: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:184
 msgid "Fetching friends from Twitter, please wait..."
@@ -85,14 +87,18 @@ msgstr "Twitter-kommandon"
 
 #: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:463
 msgid "Cannot send message - no target specified. Use: /msg $nick message"
-msgstr "Kan inte skicka meddelande - inget mål specificerades. Använd /msg $nick meddelande"
+msgstr ""
+"Kan inte skicka meddelande - inget mål specificerades. Använd /msg $nick "
+"meddelande"
 
 #: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:495
 msgid "Could not send message - the specified user does not exist."
-msgstr "Kunde inte skicka meddelande - den specificerade användaren hittades inte."
+msgstr ""
+"Kunde inte skicka meddelande - den specificerade användaren hittades inte."
 
 #: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:566
-msgid "An error occurred while fetching the friends timeline from Twitter. Reason: "
+msgid ""
+"An error occurred while fetching the friends timeline from Twitter. Reason: "
 msgstr "Ett fel uppstod vid hämtning av kvitter från dina vänner. Anledning: "
 
 #: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:651
@@ -101,5 +107,5 @@ msgstr "Ett fel uppstod vid hämtning av svar från Twitter. Anledning: "
 
 #: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:741
 msgid "An error occurred while fetching direct messages from Twitter. Reason: "
-msgstr "Ett fel uppstod vid hämtning av direktmeddelanden från Twitter. Anledning: "
-
+msgstr ""
+"Ett fel uppstod vid hämtning av direktmeddelanden från Twitter. Anledning: "
