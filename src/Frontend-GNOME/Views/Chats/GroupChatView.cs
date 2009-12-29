@@ -216,7 +216,10 @@ namespace Smuxi.Frontend.Gnome
         {
             Trace.Call();
 
-            IDictionary<string, PersonModel> persons = _GroupChatModel.Persons; 
+            IDictionary<string, PersonModel> persons = _GroupChatModel.Persons;
+            if (persons == null) {
+                persons = new Dictionary<string, PersonModel>(0);
+            }
 #if LOG4NET
             _Logger.Debug("Sync() syncing persons");
 #endif

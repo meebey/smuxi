@@ -74,6 +74,12 @@ namespace Smuxi.Engine
             get {
                 // during cloning, someone could modify it and break the enumerator
                 lock (_Persons) {
+                    // HACK: return null if the dictionary is empty as MS .NET
+                    // deserializer doesn't like the Mono one, see:
+                    // http://projects.qnetp.net/issues/show/198
+                    if (_Persons.Count == 0) {
+                        return null;
+                    }
                     return new Dictionary<string, PersonModel>(_Persons);
                 }
             }
@@ -134,8 +140,12 @@ namespace Smuxi.Engine
             _Logger.Debug("PersonLookup(): GroupChatModel.Name: " + Name);
 #endif
             int identityNameLength = identityName.Length; 
-            // must use a safe version (copy) here of Users, public method which can be used by a frontend (or many)
-            foreach (PersonModel person in Persons.Values) {
+            // must use a safe version (copy) here of Users, public methods which can be used by a frontend (or many)
+            var persons = Persons;
+            if (persons == null) {
+                return null;
+            }
+            foreach (PersonModel person in persons.Values) {
                 if ((person.IdentityName.Length >= identityNameLength) &&
                     (person.IdentityName.Substring(0, identityNameLength).ToLower() == identityName.ToLower())) {
 #if LOG4NET
@@ -144,7 +154,7 @@ namespace Smuxi.Engine
                     return person;
                 }   
             }
-            
+
 #if LOG4NET
             _Logger.Debug("PersonLookup() no matching identityName found");
 #endif
@@ -160,7 +170,11 @@ namespace Smuxi.Engine
             int identityNameLength = identityName.Length;
             string longestIdentityName = String.Empty;
             // must use a copy here of Users, public method which can be used by a frontend (or many)
-            foreach (PersonModel person in Persons.Values) {
+            var persons = Persons;
+            if (persons == null) {
+                return foundIdentityNames;
+            }
+            foreach (PersonModel person in persons.Values) {
                 if ((person.IdentityName.Length >= identityNameLength) &&
                     (person.IdentityName.Substring(0, identityNameLength).ToLower() == identityName.ToLower())) {
                     foundIdentityNames.Add(person.IdentityName);

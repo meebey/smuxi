@@ -1492,7 +1492,11 @@ namespace Smuxi.Engine
             msg.MessageParts.Add(textMsg);
 
             // sort nicklist
-            List<PersonModel> ircPersons = new List<PersonModel>(groupChat.Persons.Values);
+            var persons = groupChat.Persons;
+            if (persons == null) {
+                persons = new Dictionary<string, PersonModel>(0);
+            }
+            List<PersonModel> ircPersons = new List<PersonModel>(persons.Values);
             ircPersons.Sort((a, b) => (a.IdentityName.CompareTo(b.IdentityName)));
             foreach (IrcGroupPersonModel ircPerson in ircPersons) {
                 string mode;
@@ -1509,12 +1513,12 @@ namespace Smuxi.Engine
                 textMsg = new TextMessagePartModel();
                 textMsg.Text = String.Format("[{0}", mode);
                 msg.MessageParts.Add(textMsg);
-                
+
                 textMsg = new TextMessagePartModel();
                 textMsg.Text = ircPerson.NickName;
                 textMsg.ForegroundColor = GetNickColor(ircPerson.NickName);
                 msg.MessageParts.Add(textMsg);
-                
+
                 textMsg = new TextMessagePartModel();
                 textMsg.Text = "] ";
                 msg.MessageParts.Add(textMsg);

@@ -27,6 +27,7 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
 using Mono.Unix;
 using Smuxi.Engine;
@@ -110,7 +111,11 @@ namespace Smuxi.Frontend.Swf
         public override void Sync()
         {
             base.Sync();
-            foreach (PersonModel person in GroupChatModel.Persons.Values) {
+            var persons = GroupChatModel.Persons;
+            if (persons == null) {
+                persons = new Dictionary<string, PersonModel>(0);
+            }
+            foreach (PersonModel person in persons.Values) {
                 _PersonListBox.Items.Add(person.IdentityName);
             }
         }
