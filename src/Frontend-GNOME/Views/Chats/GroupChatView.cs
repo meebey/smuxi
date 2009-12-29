@@ -68,13 +68,17 @@ namespace Smuxi.Frontend.Gnome
 
         public override bool HasSelection {
             get {
-                return base.HasSelection || _PersonTreeView.Selection.CountSelectedRows() > 0;
+                return base.HasSelection ||
+                       _PersonTreeView.Selection.CountSelectedRows() > 0 ||
+                       _TopicTextView.HasTextViewSelection;
             }
         }
-        
+
         public override bool HasFocus {
             get {
-                return base.HasFocus || _PersonTreeView.HasFocus;
+                return base.HasFocus ||
+                       _PersonTreeView.HasFocus ||
+                       _TopicTextView.HasFocus;
             }
         }
         
