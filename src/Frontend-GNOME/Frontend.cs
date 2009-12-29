@@ -407,8 +407,12 @@ namespace Smuxi.Frontend.Gnome
 #if LOG4NET
             _Logger.Error("ShowException(): Exception:", ex);
 #endif
-            
-            if (ex is System.Runtime.Remoting.RemotingException) {
+
+            // HACK: ugly MS .NET throws underlaying SocketException instead of
+            // wrapping those into a nice RemotingException, see:
+            // http://projects.qnetp.net/issues/show/232
+            if (ex is System.Runtime.Remoting.RemotingException ||
+                ex is System.Net.Sockets.SocketException) {
                 Gtk.MessageDialog md = new Gtk.MessageDialog(parent,
                     Gtk.DialogFlags.Modal, Gtk.MessageType.Error,
                     Gtk.ButtonsType.OkCancel, _("The frontend has lost the connection to the server.\nDo you want to reconnect now?"));
