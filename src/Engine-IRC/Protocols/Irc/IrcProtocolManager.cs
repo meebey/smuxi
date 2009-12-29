@@ -761,7 +761,7 @@ namespace Smuxi.Engine
             TextMessagePartModel msgPart;
             
             _IrcClient.SendMessage(SendType.Message, chat.ID, message);
-            
+
             msgPart = new TextMessagePartModel();
             msgPart.Text = "<";
             msg.MessageParts.Add(msgPart);
@@ -792,7 +792,9 @@ namespace Smuxi.Engine
                 }
             }
             _IrcMessageToMessageModel(ref msg, message);
-            
+            // HACK: clear possible highlights so we can't highlight ourself!
+            ClearHighlights(msg);
+
             Session.AddMessageToChat(chat, msg);
         }
         
