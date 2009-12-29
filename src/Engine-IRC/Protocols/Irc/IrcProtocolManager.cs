@@ -1848,37 +1848,47 @@ namespace Smuxi.Engine
 
         private void _OnRawMessage(object sender, IrcEventArgs e)
         {
+            bool handled = false;
+            switch (e.Data.Type) {
+                case ReceiveType.Who:
+                case ReceiveType.List:
+                case ReceiveType.Name:
+                case ReceiveType.Login:
+                case ReceiveType.Topic:
+                case ReceiveType.BanList:
+                case ReceiveType.ChannelMode:
+                    // ignore
+                    handled = true;
+                    break;
+            }
+
             if (e.Data.Message != null) {
                 switch (e.Data.Type) {
                     case ReceiveType.Error:
                         _OnError(e);
-                        break;
-                    case ReceiveType.Info:
-                    case ReceiveType.Invite:
-                    //case ReceiveType.List:
-                    case ReceiveType.Login:
-                        Session.AddTextToChat(_NetworkChat, e.Data.Message);
-                        break;
-                    case ReceiveType.Motd:
-                        MessageModel fmsg = new MessageModel();
-                        fmsg.MessageType = MessageType.Event;
-                        _IrcMessageToMessageModel(ref fmsg, e.Data.Message);
-                        Session.AddMessageToChat(_NetworkChat, fmsg);
+                       handled = true;
                         break;
                     case ReceiveType.WhoIs:
                         _OnReceiveTypeWhois(e);
+                       handled = true;
                         break;
                     case ReceiveType.WhoWas:
                         _OnReceiveTypeWhowas(e);
+                        handled = true;
                         break;
                 }
             }
-            
+
             string chan;
             string nick;
             string msg;
-            ChatModel chat;            
+            ChatModel chat;
             switch (e.Data.ReplyCode) {
+                case ReplyCode.Null:
+                case (ReplyCode) 329: // RPL_CREATIONTIME
+                case (ReplyCode) 333: // RPL_TOPICWHOTIME: who set topic + timestamp
+                    // ignore
+                    break;
                 case ReplyCode.ErrorUnknownCommand:
                     Session.AddTextToChat(_NetworkChat, e.Data.Message);
                     break;
@@ -1915,7 +1925,7 @@ namespace Smuxi.Engine
                     _OnErrorNicknameInUse(e);
                     break;
                 case ReplyCode.EndOfNames:
-                    chan = e.Data.RawMessageArray[3]; 
+                    chan = e.Data.RawMessageArray[3];
                     GroupChatModel groupChat = (GroupChatModel)GetChat(
                        chan, ChatType.Group);
                     groupChat.IsSynced = true;
@@ -1923,14 +1933,76 @@ namespace Smuxi.Engine
                     _Logger.Debug("_OnRawMessage(): " + chan + " synced");
 #endif
                     break;
+                default:
+                    if (!handled) {
+                        MessageModel fmsg = new MessageModel();
+                        fmsg.MessageType = MessageType.Event;
+
+                        int replyCode = (int) e.Data.ReplyCode;
+                        string numeric = String.Format("{0:000}", replyCode);
+                        string constant;
+                        if (Enum.IsDefined(typeof(ReplyCode), e.Data.ReplyCode)) {
+                            constant = e.Data.ReplyCode.ToString();
+                        } else {
+                            constant = "?";
+                        }
+
+                        string parameters = String.Empty;
+                        if (e.Data.RawMessageArray.Length >= 4) {
+                            parameters = String.Join(
+                                " ", e.Data.RawMessageArray, 3,
+                                e.Data.RawMessageArray.Length - 3
+                            );
+                        }
+                        int colonPosition = parameters.IndexOf(':');
+                        if (colonPosition > 0) {
+                            parameters = " " + parameters.Substring(0, colonPosition - 1);
+                        } else {
+                            parameters = String.Empty;
+                        }
+
+                        TextMessagePartModel msgPart;
+                        msgPart = new TextMessagePartModel("[");
+                        msgPart.ForegroundColor = IrcTextColor.Grey;
+                        msgPart.Bold = true;
+                        fmsg.MessageParts.Add(msgPart);
+
+                        msgPart = new TextMessagePartModel(numeric);
+                        if (replyCode >= 400 && replyCode <= 599) {
+                            msgPart.ForegroundColor = new TextColor(255, 0, 0);
+                        }
+                        msgPart.Bold = true;
+                        fmsg.MessageParts.Add(msgPart);
+
+                        var response = String.Format(
+                            " ({0}){1}",
+                            constant,
+                            parameters
+                        );
+                        msgPart = new TextMessagePartModel(response);
+                        fmsg.MessageParts.Add(msgPart);
+
+                        msgPart = new TextMessagePartModel("] ");
+                        msgPart.ForegroundColor = IrcTextColor.Grey;
+                        msgPart.Bold = true;
+                        fmsg.MessageParts.Add(msgPart);
+
+                        if (e.Data.Message != null) {
+                            fmsg.MessageType = MessageType.Normal;
+                            _IrcMessageToMessageModel(ref fmsg, e.Data.Message);
+                        }
+
+                        Session.AddMessageToChat(_NetworkChat, fmsg);
+                    }
+                    break;
             }
         }
-        
+
         private void _OnError(IrcEventArgs e)
         {
             MessageModel msg = new MessageModel();
             TextMessagePartModel textMsg;
-            
+
             textMsg = new TextMessagePartModel();
             textMsg.Text = e.Data.Message;
             textMsg.ForegroundColor = IrcTextColor.Red;
