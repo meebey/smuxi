@@ -39,7 +39,9 @@ msgstr "Impossible de se logger !"
 
 #: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:142
 msgid "Login failed! Username and/or password are incorrect."
-msgstr "Impossible de se logger ! Le nom d'utilisateur et/ou le mot de passe étaient incorrects."
+msgstr ""
+"Impossible de se logger ! Le nom d'utilisateur et/ou le mot de passe étaient "
+"incorrects."
 
 #: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:148
 msgid "Connection failed!"
@@ -67,7 +69,8 @@ msgstr "Impossible de télécharger les détails utilisateur de Twitter. Raison 
 
 #: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:184
 msgid "Fetching friends from Twitter, please wait..."
-msgstr "Téléchargement de la liste des amis Twitter en cours, veuillez patienter..."
+msgstr ""
+"Téléchargement de la liste des amis Twitter en cours, veuillez patienter..."
 
 #: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:189
 msgid "Finished fetching friends."
@@ -85,21 +88,29 @@ msgstr "Commandes Twitter"
 
 #: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:463
 msgid "Cannot send message - no target specified. Use: /msg $nick message"
-msgstr "Impossible d'envoyer le message. Aucune cible spécifiée. Utilisez /msg $nick message"
+msgstr ""
+"Impossible d'envoyer le message. Aucune cible spécifiée. Utilisez /msg $nick "
+"message"
 
 #: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:495
 msgid "Could not send message - the specified user does not exist."
 msgstr "Impossible d'envoyer le message. L'utilisateur spécifié n'existe pas."
 
 #: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:566
-msgid "An error occurred while fetching the friends timeline from Twitter. Reason: "
-msgstr "Une erreur c'est produite pendant le téléchargement de la chronologie des amis Twitter. Raison :"
+msgid ""
+"An error occurred while fetching the friends timeline from Twitter. Reason: "
+msgstr ""
+"Une erreur c'est produite pendant le téléchargement de la chronologie des "
+"amis Twitter. Raison :"
 
 #: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:651
 msgid "An error occurred while fetching the replies from Twitter. Reason: "
-msgstr "Une erreur c'est produite pendant le téléchargement des réponses Twitter. Raison :"
+msgstr ""
+"Une erreur c'est produite pendant le téléchargement des réponses Twitter. "
+"Raison :"
 
 #: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:741
 msgid "An error occurred while fetching direct messages from Twitter. Reason: "
-msgstr "Un erreur s'est produite pendant le téléchargement des messages directs Twitter. Raison :"
-
+msgstr ""
+"Un erreur s'est produite pendant le téléchargement des messages directs "
+"Twitter. Raison :"
