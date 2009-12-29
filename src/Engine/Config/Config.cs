@@ -271,8 +271,8 @@ namespace Smuxi.Engine
             Get(prefix + "Port", 6667);
             Get(prefix + "Network", "EFnet");
                 
-            prefix = "Engine/Users/DEFAULT/Servers/IRC/irc.ircnet.com/";
-            Get(prefix + "Hostname", "irc.ircnet.com");
+            prefix = "Engine/Users/DEFAULT/Servers/IRC/irc.ircnet.org/";
+            Get(prefix + "Hostname", "irc.ircnet.org");
             Get(prefix + "Port", 6667);
             Get(prefix + "Network", "IRCnet");
                 
