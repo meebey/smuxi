@@ -27,7 +27,9 @@
  */
 
 using System;
+using System.Text;
 using System.Reflection;
+using System.Collections;
 using System.Diagnostics;
 using SysTrace = System.Diagnostics.Trace;
 
@@ -41,84 +43,171 @@ namespace Smuxi.Common
         static Trace()
         {
             TextWriterTraceListener myWriter = new TextWriterTraceListener(Console.Out);
-            SysTrace.Listeners.Add(myWriter); 
+            SysTrace.Listeners.Add(myWriter);
         }
 #endif
 
-        [Conditional("TRACE")]
-        public static void CallFull(params object[] args)
+        public static MethodBase GetMethodBase()
         {
-            string line = Environment.NewLine;
+            return new StackTrace(new StackFrame(1)).GetFrame(0).GetMethod();
+        }
+
+        public static string GetStackTrace()
+        {
+            string line = null;
             StackTrace st = new StackTrace();
             for (int i = st.FrameCount - 1; i >= 1 ; i--) {
                 StackFrame sf = new StackFrame();
                 sf = st.GetFrame(i);
                 MethodBase method = sf.GetMethod();
                 string methodname = method.DeclaringType + "." + method.Name;
-                line += methodname + "(" + _Parameterize(args) + ")" + Environment.NewLine;
+                line += methodname + "()" + Environment.NewLine;
             }
+
+            return line;
+        }
+
+        [Conditional("TRACE")]
+        public static void CallFull(params object[] args)
+        {
+            MethodBase mb = new StackTrace(new StackFrame(1)).GetFrame(0).GetMethod();
+            string methodname = mb.DeclaringType.Name + "." + mb.Name;
+            string line = GetStackTrace();
+            line += methodname + "(" + _Parameterize(mb, args) + ")";
 #if LOG4NET
             _Logger.Debug(line);
-#else
+#elif
             SysTrace.Write(line);
 #endif
-        }
-        
-        public static MethodBase GetMethodBase()
-        {
-            MethodBase mb = new StackTrace().GetFrame(1).GetMethod();
-            return mb;
         }
         
         [Conditional("TRACE")]
         public static void Call(params object[] args)
         {
-            MethodBase mb = new StackTrace().GetFrame(1).GetMethod();
-            Call(mb, args);
-        }
-        
-        [Conditional("TRACE")]
-        public static void Call(MethodBase mb, params object[] args)
-        {
-            string methodname = mb.DeclaringType.Name + "." + mb.Name;
-            string line;
-            line = methodname + "(" + _Parameterize(args) + ")";
+            MethodBase mb = new StackTrace(new StackFrame(1)).GetFrame(0).GetMethod();
+            
+            StringBuilder line = new StringBuilder();
+            line.Append("[");
+            line.Append(System.IO.Path.GetFileName(Assembly.GetCallingAssembly().Location));
+            line.Append("] ");
+            line.Append(mb.DeclaringType.Name);
+            line.Append(".");
+            line.Append(mb.Name);
+            line.Append("(");
+            line.Append(_Parameterize(mb, args));
+            line.Append(")");
+            
 #if LOG4NET
-            _Logger.Debug(line);
-#else
-            SysTrace.WriteLine(line);
+            _Logger.Debug(line.ToString());
+#elif
+            SysTrace.WriteLine(line.ToString());
 #endif
         }
         
-        private static string _Parameterize(object[] parameters)
+        private static string _Parameterize(MethodBase method, params object[] parameters)
         {
-            string res = null;
-            if (parameters.Length > 0) {
-                res += _ParameterizeQuote(parameters[0]);
-                for (int i = 1; i < parameters.Length; i++) {
-                    res += ", ";
-                    res += _ParameterizeQuote(parameters[i]);
+            StringBuilder res = new StringBuilder();
+            ParameterInfo[] parameter_info = method.GetParameters();
+            if (parameter_info.Length > 0) {
+                res.Append(parameter_info[0].Name).Append(" = ");
+                if (parameters == null) {
+                    res.Append(_ParameterizeQuote(null));
+                } else if (parameters != null && parameters.Length > 0) {
+                    res.Append(_ParameterizeQuote(parameters[0]));
+                } else {
+                    // empty array
+                    res.Append("[]");
+                }
+                
+                for (int i = 1; i < parameter_info.Length; i++) {
+                    res.Append(", ");
+                    
+                    res.Append(parameter_info[i].Name).Append(" = ");
+                    if (parameters == null) {
+                        res.Append(_ParameterizeQuote(null));
+                    } else if (parameters != null && parameters.Length > i) {
+                        res.Append(_ParameterizeQuote(parameters[i]));
+                    } else {
+                        // empty array
+                        res.Append("[]");
+                    }
                 }
             } else {
-                res = String.Empty;
+                // no parameters
+                res.Append(String.Empty);
             }
-            
-            return res;
+
+            return res.ToString();
         }
-        
+
         private static string _ParameterizeQuote(object obj)
         {
             if (obj == null) {
                 return "(null)";
             }
-            
+
+            StringBuilder line = new StringBuilder();
             if (obj is string) {
-                return "'" + obj + "'";
+                line.Append("'").Append(obj).Append("'");
             } else if (obj is ITraceable) {
-                return "<" + ((ITraceable)obj).ToTraceString() + ">";
+                line.AppendFormat("<{0}>", ((ITraceable) obj).ToTraceString());
+            } else if (obj is IList) {
+                line.Append("[");
+                foreach (object val in (IList) obj) {
+                    if (val is IList || val is IDictionary) {
+                        line.Append(_ParameterizeQuote(val));
+                        line.Append(", ");
+                        continue;
+                    }
+                    line.Append((val == null ? "(null)" : val.ToString()));
+                    line.Append(", ");
+                }
+                // remove last ", "
+                if (line.Length > 1) {
+                    line.Remove(line.Length - 2, 2);
+                }
+                line.Append("]");
+            } else if (obj is IDictionary) {
+                line.Append("{");
+                foreach (DictionaryEntry de in (IDictionary) obj) {
+                    if (de.Value is IList || de.Value is IDictionary) {
+                        line.Append(de.Key.ToString());
+                        line.Append("=");
+                        line.Append(_ParameterizeQuote(de.Value));
+                        line.Append(", ");
+                        continue;
+                    }
+                    line.Append(de.Key.ToString());
+                    line.Append("=");
+                    line.Append((de.Value == null ? "(null)" : de.Value.ToString()));
+                    line.Append(", ");
+                }
+                if (line.Length > 1) {
+                    line.Remove(line.Length - 2, 2);
+                }
+                line.Append("}");
+            } else {
+                line.Append(obj.ToString());
             }
-            
-            return obj.ToString();
+
+            return line.ToString();
         }
+
+        /*
+        private static string Dump(Hashtable ht)
+        {
+            string line = null;
+            line += "{";
+            foreach (DictionaryEntry de in (Hashtable)obj) {
+                line += de.Key.ToString();
+                line += "=";
+                line += (de.Value == null ? "(null)" : de.Value.ToString());
+                line += ", ";
+            }
+            line = line.Substring(0, line.Length - 2);
+            line += "}";
+            return line;
+        }
+        */
     }
 }
