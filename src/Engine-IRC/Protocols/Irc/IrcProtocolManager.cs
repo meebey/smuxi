@@ -329,7 +329,7 @@ namespace Smuxi.Engine
                 }
                 _Listening = true;
             } catch (CouldNotConnectException ex) {
-                _FrontendManager.SetStatus(_("Connection failed!"));
+                fm.SetStatus(_("Connection failed!"));
                 Session.AddTextToChat(_NetworkChat, "-!- " + _("Connection failed! Reason: ") + ex.Message);
                 throw;
             }
