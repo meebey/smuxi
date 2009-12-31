@@ -29,7 +29,6 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
-
 using Smuxi.Common;
 using Smuxi.Engine;
 
@@ -40,12 +39,12 @@ namespace Smuxi.Frontend.Gnome
 #if LOG4NET
         private static readonly log4net.ILog f_Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 #endif
-        private static Dictionary<KeyValuePair<TextColor, TextColor>, TextColor> f_BestContrastColors;
+        private static Dictionary<int, TextColor> f_BestContrastColors;
 
         static ColorTools() {
-            f_BestContrastColors = new Dictionary<KeyValuePair<TextColor, TextColor>, TextColor>();
+            f_BestContrastColors = new Dictionary<int, TextColor>(1024);
         }
-        
+
         public static string GetHexCodeColor(Gdk.Color color)
         {
             /*
@@ -76,111 +75,23 @@ namespace Smuxi.Frontend.Gnome
             if (textColor == null) {
                 throw new ArgumentNullException("textColor");
             }
-            
-            return GetGdkColor(textColor.HexCode); 
+
+            return GetGdkColor(textColor.HexCode);
         }
-        
+
         public static Gdk.Color GetGdkColor(string hexCode)
         {
             Trace.Call(hexCode);
-            
-            if (hexCode == null) {
-                throw new ArgumentNullException("hexcode");
-            }
-            
-            if (hexCode.StartsWith("#")) {
-                // remove leading "#" character
-                hexCode = hexCode.Substring(1);
-            }
-            
-            if (hexCode.Length != 6) {
-                throw new ArgumentException("Hexcode value must be exact 6 characters long (without prefix).", "hexCode");
-            }
-            
-            int red   = Int16.Parse(hexCode.Substring(0, 2), NumberStyles.HexNumber);
-            int green = Int16.Parse(hexCode.Substring(2, 2), NumberStyles.HexNumber);
-            int blue  = Int16.Parse(hexCode.Substring(4, 2), NumberStyles.HexNumber);
-            return new Gdk.Color((byte)red, (byte)green, (byte)blue);
-        }
-        
-        /*
-        public static TextColor GetBestTextColor(TextColor fgColor, TextColor bgColor)
-        {
-            if (fgColor == null) {
-                throw new ArgumentNullException("fgColor");
-            }
-            if (bgColor == null) {
-                throw new ArgumentNullException("bgColor");
-            }
-            
-            int bestColor  = fgColor.Value;
-            int minDiff    = int.Parse("303030", NumberStyles.HexNumber); // Min difference
-            int maxHex     = int.Parse("FFFFFF", NumberStyles.HexNumber); // White, so we don't get higher.
-            int fgIntColor = fgColor.Value;
-            int bgIntColor = bgColor.Value;
-            
-            int lowerDiff;
-            if (bgIntColor - minDiff > 0) { // If the bgColor - the difference is still less than black...
-                lowerDiff = bgIntColor - minDiff; // ... set lower diff to the value.
-            } else { // else set it to black.
-                lowerDiff = 0;
-            }
-            
-            int upperDiff;
-            if (bgIntColor + minDiff < maxHex) { // If the bgColor + the difference is still less than white...
-                upperDiff = bgIntColor + minDiff; // ... set the upper diff to the value.
-            } else { // Else set it to white.
-                upperDiff = maxHex;
-            }
-            
-            if (fgIntColor > lowerDiff && fgIntColor < upperDiff) { // If the foreground color is within the range of the minimum accepted difference...
-                bestColor = maxHex - fgIntColor; // ... invert the color.
-                if (bestColor > lowerDiff && bestColor < upperDiff) { // If it happens that it's still within the range after the inversion...
-                    if (bestColor < bgIntColor ) { // ... see if it's bigger or smaller than the background color...
-                        bestColor = fgIntColor - minDiff; // ... so we can either substract the difference ...
-                    } else  {
-                        bestColor = fgIntColor + minDiff; // ... or add the difference.
-                    }
-                }
-            }
-            
-            // cap color to allowed values
-            if (bestColor < 0) {
-                bestColor = 0;
-            }
-            if (bestColor > maxHex) {
-                bestColor = maxHex;
-            }
-            
-            return new TextColor(bestColor);
-        }
-        */
 
-        /*
-        public static TextColor GetBestTextColor(TextColor fgColor, TextColor bgColor)
-        {
-            if (fgColor == null) {
-                throw new ArgumentNullException("fgColor");
-            }
-            if (bgColor == null) {
-                throw new ArgumentNullException("bgColor");
-            }
-            
-            int[] fgColors   = { fgColor.Red, fgColor.Green, fgColor.Blue  };
-            int[] bgColors   = { bgColor.Red, bgColor.Green, bgColor.Blue };
-            int[] bestColors = new int[3];
-
-            for (int i = 0; i < 3; i++ ) {
-                bestColors[i] = (Math.Abs(bgColors[i] - fgColors[i]) < 0x40) ?
-                                fgColors[i] | 0x80 : fgColors[i];
-            }
-            
-            return new TextColor((byte) bestColors[0], (byte) bestColors[1], (byte) bestColors[2]);
+            var color = TextColor.Parse(hexCode);
+            return new Gdk.Color(color.Red, color.Green, color.Blue);
         }
-        */
-        
+
         public static TextColor GetBestTextColor(TextColor fgColor, TextColor bgColor)
         {
+            // TRACER VERY EXPENSIVE HERE: 0.5ms per call!
+            //Trace.Call(fgColor, bgColor);
+
             if (fgColor == null) {
                 throw new ArgumentNullException("fgColor");
             }
@@ -189,12 +100,11 @@ namespace Smuxi.Frontend.Gnome
             }
 
             TextColor bestColor;
-            KeyValuePair<TextColor, TextColor> key =
-                new KeyValuePair<TextColor, TextColor>(fgColor, bgColor);
+            int key = fgColor.Value ^ bgColor.Value;
             if (f_BestContrastColors.TryGetValue(key, out bestColor)) {
                 return bestColor;
             }
-            
+
             double brDiff = GetBritnessDifference(bgColor, TextColor.White);
             int modifier = 0;
             // for bright backgrounds we need to go from bright to dark colors

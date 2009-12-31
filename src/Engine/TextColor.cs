@@ -28,6 +28,7 @@
 
 using System;
 using System.Runtime.Serialization;
+using System.Globalization;
 using Smuxi.Common;
 
 namespace Smuxi.Engine
@@ -108,7 +109,28 @@ namespace Smuxi.Engine
             GetObjectData(sw);
             sw.AddToInfo(info);
         }
-        
+
+        public static TextColor Parse(string hexCode)
+        {
+            if (hexCode == null) {
+                throw new ArgumentNullException("hexCode");
+            }
+
+            if (hexCode.StartsWith("#")) {
+                // remove leading "#" character
+                hexCode = hexCode.Substring(1);
+            }
+
+            if (hexCode.Length != 6) {
+                throw new ArgumentException("Hexcode value must be exact 6 characters long (without prefix).", "hexCode");
+            }
+
+            int red   = Int16.Parse(hexCode.Substring(0, 2), NumberStyles.HexNumber);
+            int green = Int16.Parse(hexCode.Substring(2, 2), NumberStyles.HexNumber);
+            int blue  = Int16.Parse(hexCode.Substring(4, 2), NumberStyles.HexNumber);
+            return new TextColor((byte) red, (byte) green, (byte) blue);
+        }
+
         public override string ToString()
         {
             return String.Format("#{0}", HexCode);
