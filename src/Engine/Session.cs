@@ -465,10 +465,14 @@ namespace Smuxi.Engine
             // constructed correctly beginning with /connect
             // So make sure it's like it needs to be!
             if (cd.Command != "connect") {
-                throw new ArgumentException("cd.Command must be 'connect' but was: '" + cd.Command + "'.", "cd");
+                string cmd = String.Format("{0}connect {1}",
+                                cd.CommandCharacter,
+                                String.Join(" ", cd.DataArray, 1,
+                                            cd.DataArray.Length - 1));
+                cd = new CommandModel(fm, cd.Chat, cd.CommandCharacter, cmd);
             }
             protocolManager.Command(cd);
-            
+
             // set this as current protocol manager
             // but only if there was none set (we might be on a chat for example)
             // or if this is the neutral "smuxi" tab
