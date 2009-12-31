@@ -168,14 +168,11 @@ namespace Smuxi.Frontend.Gnome
 
             bool hasHighlight = false;
             foreach (MessagePartModel msgPart in msg.MessageParts) {
-#if LOG4NET
-                _Logger.Debug("AddMessage(): msgPart.GetType(): " + msgPart.GetType());
-#endif
                 // supposed to be used only in a ChatView
                 if (msgPart.IsHighlight) {
                     hasHighlight = true;
                 }
-                
+
                 Gdk.Color bgColor = DefaultAttributes.Appearance.BgColor;
                 if (_ThemeSettings.BackgroundColor != null) {
                     bgColor = _ThemeSettings.BackgroundColor.Value;
@@ -195,9 +192,6 @@ namespace Smuxi.Frontend.Gnome
                     Buffer.InsertWithTagsByName(ref iter, fmsgui.Url, "url");
                 } else if (msgPart is TextMessagePartModel) {
                     TextMessagePartModel fmsgti = (TextMessagePartModel) msgPart;
-#if LOG4NET
-                    _Logger.Debug("AddMessage(): fmsgti.Text: '" + fmsgti.Text + "'");
-#endif
                     List<string> tags = new List<string>();
                     if (fmsgti.ForegroundColor != TextColor.None) {
                         TextColor color = ColorTools.GetBestTextColor(fmsgti.ForegroundColor, bgTextColor);
@@ -229,9 +223,13 @@ namespace Smuxi.Frontend.Gnome
 #endif
                         tags.Add("italic");
                     }
-                    
-                    Buffer.InsertWithTagsByName(ref iter, fmsgti.Text, tags.ToArray());
-                } 
+
+                    if (tags.Count > 0) {
+                        Buffer.InsertWithTagsByName(ref iter, fmsgti.Text, tags.ToArray());
+                    } else {
+                        Buffer.Insert(ref iter, fmsgti.Text);
+                    }
+                }
             }
             if (addLinebreak) {
                 Buffer.Insert(ref iter, "\n");
@@ -242,11 +240,11 @@ namespace Smuxi.Frontend.Gnome
             // for local messages. See:
             // http://projects.qnetp.net/issues/show/185
             QueueDraw();
-            
+
             if (MessageAdded != null) {
                 MessageAdded(this, new MessageTextViewMessageAddedEventArgs(msg));
             }
-            
+
             if (hasHighlight) {
                 if (MessageHighlighted != null) {
                     MessageHighlighted(this, new MessageTextViewMessageHighlightedEventArgs(msg));
