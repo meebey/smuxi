@@ -110,18 +110,7 @@ namespace Smuxi.Frontend.Gnome
                 PersonTreeView.MoveColumnAfter(IdentityNameColumn, column);
             }
         }
-        
-        public override void Close()
-        {
-            Trace.Call();
-            
-            base.Close();
-            
-            _IrcProtocolManager.CommandPart(new CommandModel(Frontend.FrontendManager,
-                                                      ChatModel,
-                                                      ChatModel.ID));
-        }
-        
+
         private void _RenderIrcGroupPersonMode(Gtk.TreeViewColumn column,
                                                Gtk.CellRenderer cellr,
                                                Gtk.TreeModel model, Gtk.TreeIter iter)
