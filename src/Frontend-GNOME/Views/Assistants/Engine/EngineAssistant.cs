@@ -39,6 +39,7 @@ namespace Smuxi.Frontend.Gnome
         private string                           f_EngineName;
         private EngineAssistantIntroWidget       f_IntroWidget;
         private EngineAssistantNameWidget        f_NameWidget;
+        private int                              f_NamePage;
         private EngineAssistantConnectionWidget  f_ConnectionWidget;
         private EngineAssistantCredentialsWidget f_CredentialsWidget;
 
@@ -100,7 +101,7 @@ namespace Smuxi.Frontend.Gnome
         {
             f_NameWidget = new EngineAssistantNameWidget();
 
-            AppendPage(f_NameWidget);
+            f_NamePage = AppendPage(f_NameWidget);
             SetPageTitle(f_NameWidget, _("Name"));
             SetPageType(f_NameWidget, Gtk.AssistantPageType.Content);
             Prepare += delegate(object sender, Gtk.PrepareArgs e) {
@@ -275,7 +276,24 @@ namespace Smuxi.Frontend.Gnome
 
             string engine = f_NameWidget.EngineNameEntry.Text;
             if (f_EngineName == null) {
+                // check if an engine wit that name exists already
                 string[] engines = (string[]) f_Config["Engines/Engines"];
+                foreach (string oldEngine in engines) {
+                    if (engine == oldEngine) {
+                        Gtk.MessageDialog md = new Gtk.MessageDialog(this,
+                            Gtk.DialogFlags.Modal, Gtk.MessageType.Error,
+                            Gtk.ButtonsType.Close, _("An engine with this name already exists! Please specify a different one."));
+                        md.Run();
+                        md.Destroy();
+
+                        // jump back to the name page
+                        // HACK: assistant API is buggy here, the "Apply" button
+                        // will trigger a next page signal, thus we have to jump
+                        // to one page before the name page :(
+                        CurrentPage = f_NamePage - 1;
+                        return;
+                    }
+                }
 
                 string[] newEngines;
                 if (engines.Length == 0) {
