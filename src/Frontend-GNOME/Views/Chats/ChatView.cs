@@ -195,7 +195,6 @@ namespace Smuxi.Frontend.Gnome
             tv.Editable = false;
             tv.CursorVisible = true;
             tv.WrapMode = Gtk.WrapMode.Char;
-            tv.Buffer.Changed += new EventHandler(_OnTextBufferChanged);
             tv.MessageAdded += OnMessageTextViewMessageAdded;
             tv.MessageHighlighted += OnMessageTextViewMessageHighlighted;
             _OutputMessageTextView = tv;
@@ -373,33 +372,6 @@ namespace Smuxi.Frontend.Gnome
             );
         }
 
-        private void _OnTextBufferChanged(object sender, EventArgs e)
-        {
-            Trace.Call(sender, e);
-        
-            Gtk.ScrolledWindow sw = _OutputScrolledWindow;
-            Gtk.TextView tv = _OutputMessageTextView;
-            
-            if (sw.Vadjustment.Upper == (sw.Vadjustment.Value + sw.Vadjustment.PageSize)) {
-                // the scrollbar is way at the end, lets autoscroll
-                Gtk.TextIter endit = tv.Buffer.EndIter;
-                tv.Buffer.PlaceCursor(endit);
-                tv.Buffer.MoveMark(tv.Buffer.InsertMark, endit);
-                tv.ScrollMarkOnscreen(tv.Buffer.InsertMark);
-            }
-            
-            int buffer_lines = (int)Frontend.UserConfig["Interface/Notebook/BufferLines"];
-            if (tv.Buffer.LineCount > buffer_lines) {
-                Gtk.TextIter start_iter = tv.Buffer.StartIter; 
-                // TODO: maybe we should delete chunks instead of each line
-                Gtk.TextIter end_iter = tv.Buffer.GetIterAtLine(tv.Buffer.LineCount - buffer_lines);
-                tv.Buffer.Delete(ref start_iter, ref end_iter);
-            }
-
-            // update the end mark
-            tv.Buffer.MoveMark(_EndMark, tv.Buffer.EndIter);
-        }
-        
         protected virtual void OnTabButtonPress(object sender, Gtk.ButtonPressEventArgs e)
         {
             Trace.Call(sender, e);
@@ -425,18 +397,38 @@ namespace Smuxi.Frontend.Gnome
             
             // HACK: out of scope?
             // probably we should use the ChatViewManager instead?
-            if (Frontend.MainWindow.Notebook.CurrentChatView == this) {
-                return;
+            if (Frontend.MainWindow.Notebook.CurrentChatView != this) {
+                switch (e.Message.MessageType) {
+                    case MessageType.Normal:
+                        HasActivity = true;
+                        break;
+                    case MessageType.Event:
+                        HasEvent = true;
+                        break;
+                }
             }
-            
-            switch (e.Message.MessageType) {
-                case MessageType.Normal:
-                    HasActivity = true;
-                    break;
-                case MessageType.Event:
-                    HasEvent = true;
-                    break;
+
+            Gtk.ScrolledWindow sw = _OutputScrolledWindow;
+            Gtk.TextView tv = _OutputMessageTextView;
+
+            if (sw.Vadjustment.Upper == (sw.Vadjustment.Value + sw.Vadjustment.PageSize)) {
+                // the scrollbar is way at the end, lets autoscroll
+                Gtk.TextIter endit = tv.Buffer.EndIter;
+                tv.Buffer.PlaceCursor(endit);
+                tv.Buffer.MoveMark(tv.Buffer.InsertMark, endit);
+                tv.ScrollMarkOnscreen(tv.Buffer.InsertMark);
             }
+
+            int buffer_lines = (int)Frontend.UserConfig["Interface/Notebook/BufferLines"];
+            if (tv.Buffer.LineCount > buffer_lines) {
+                Gtk.TextIter start_iter = tv.Buffer.StartIter;
+                // TODO: maybe we should delete chunks instead of each line
+                Gtk.TextIter end_iter = tv.Buffer.GetIterAtLine(tv.Buffer.LineCount - buffer_lines);
+                tv.Buffer.Delete(ref start_iter, ref end_iter);
+            }
+
+            // update the end mark
+            tv.Buffer.MoveMark(_EndMark, tv.Buffer.EndIter);
         }
         
         protected virtual void OnMessageTextViewMessageHighlighted(object sender, MessageTextViewMessageHighlightedEventArgs e)
