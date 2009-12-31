@@ -83,11 +83,22 @@ namespace Smuxi.Frontend.Gnome
             ChatView chatView = _ChatViewManager.GetChat(epage);
 #if LOG4NET
             if (chatView == null) {
-                _Logger.Fatal(String.Format("_AddMessageToChat(): Notebook.GetPage(epage) epage.Name: {0} returned null!", epage.Name));
+                _Logger.Fatal(String.Format("_AddMessageToChat(): _ChatViewManager.GetChat(epage) epage.Name: {0} returned null!", epage.Name));
                 return;
             }
 #endif
+            DateTime start, stop;
+            start = DateTime.UtcNow;
             chatView.AddMessage(msg);
+            stop = DateTime.UtcNow;
+#if LOG4NET
+            _Logger.Debug(
+                String.Format(
+                    "_AddMessageToChat(): chatView.AddMessage() took: {0:0.00} ms",
+                    (stop - start).TotalMilliseconds
+                )
+            );
+#endif
         }
         
         public void AddMessageToChat(ChatModel epage, MessageModel fmsg)
