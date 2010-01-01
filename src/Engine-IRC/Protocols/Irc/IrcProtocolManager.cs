@@ -787,7 +787,11 @@ namespace Smuxi.Engine
 
             MessageModel msg = new MessageModel();
             TextMessagePartModel msgPart;
-            
+
+            PersonModel person = ((PersonChatModel) chat).Person;
+            IrcPersonModel ircperson = (IrcPersonModel) person;
+            ircperson.IsAway = false;
+
             _IrcClient.SendMessage(SendType.Message, chat.ID, message);
 
             msgPart = new TextMessagePartModel();
@@ -2998,8 +3002,23 @@ namespace Smuxi.Engine
         private void _OnAway(object sender, AwayEventArgs e)
         {
             ChatModel chat = GetChat(e.Who, ChatType.Person);
+
             if (chat == null) {
                 chat = _NetworkChat;
+            } else {
+                PersonModel person = ((PersonChatModel) chat).Person;
+                IrcPersonModel ircperson = (IrcPersonModel) person;
+
+                if (ircperson.AwayMessage != e.AwayMessage) {
+                    ircperson.AwayMessage = e.AwayMessage;
+                    ircperson.IsAwaySeen = false;
+                    ircperson.IsAway = true;
+                }
+
+                if (ircperson.IsAwaySeen) {
+                    return;
+                }
+                ircperson.IsAwaySeen = true;
             }
             Session.AddTextToChat(chat, "-!- " + String.Format(
                                                     _("{0} is away: {1}"),
