@@ -156,7 +156,7 @@ namespace Smuxi.Frontend.Gnome
             ChatView chatView = GetChat(chat);
             if (chatView == null) {
  #if LOG4NET
-                f_Logger.Warn("RemoveChat(): chatView is null!");
+                f_Logger.Warn("EnableChat(): chatView is null!");
 #endif
                 return;
             }
@@ -169,7 +169,7 @@ namespace Smuxi.Frontend.Gnome
             ChatView chatView = GetChat(chat);
             if (chatView == null) {
  #if LOG4NET
-                f_Logger.Warn("RemoveChat(): chatView is null!");
+                f_Logger.Warn("DisableChat(): chatView is null!");
 #endif
                 return;
             }
