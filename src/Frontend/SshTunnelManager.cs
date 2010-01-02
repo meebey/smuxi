@@ -171,6 +171,22 @@ namespace Smuxi.Frontend
         
         public void Connect()
         {
+            Trace.Call();
+
+#if LOG4NET
+            f_Logger.Debug("Connect(): checking if local forward port is free...");
+#endif
+            using (TcpClient tcpClient = new TcpClient()) {
+                try {
+                    tcpClient.Connect(f_ForwardBindAddress, f_ForwardBindPort);
+                    // the connect worked, panic!
+                    var msg = _("Local SSH forward port is already in use. "+
+                                "Old SSH tunnel still active?");
+                    throw new ApplicationException(msg);
+                } catch (SocketException ex) {
+                }
+            }
+
 #if LOG4NET
             f_Logger.Debug("Connect(): setting up ssh tunnel using command: " +
                            f_ProcessStartInfo.FileName + " " +
