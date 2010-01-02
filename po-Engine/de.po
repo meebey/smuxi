@@ -8,17 +8,16 @@ msgstr ""
 "Project-Id-Version: 0.6.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-01-02 19:00+0100\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Mirco Bauer <meebey@meebey.net>\n"
+"PO-Revision-Date: 2010-01-02 19:52+0100\n"
+"Last-Translator: Bianca Mix <heavydemon@freenet.de>\n"
 "Language-Team: German Localization <debian-l10n-german@lists.debian.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #: ../src/Engine/FrontendManager.cs:219
-#, fuzzy
 msgid "No network connections"
-msgstr "keine Netzwerkverbindungen"
+msgstr "Keine Netzwerkverbindungen"
 
 #: ../src/Engine/Protocols/ProtocolManagerBase.cs:142
 msgid "Not connected to server"
@@ -28,61 +27,60 @@ msgstr "Nicht mit dem Server verbunden"
 #: ../src/Engine/Session.cs:675
 #, csharp-format
 msgid "Not enough parameters for {0} command"
-msgstr "Nicht genug Parameter für den Befehl: {0}"
+msgstr "Nicht genügend Parameter für den Befehl: {0}"
 
 #: ../src/Engine/Session.cs:151
 msgid "Welcome to Smuxi"
-msgstr "Willkommen zu Smuxi"
+msgstr "Willkommen bei Smuxi"
 
 #: ../src/Engine/Session.cs:157
 msgid "Type /help to get a list of available commands."
-msgstr "Gib /help ein, um eine Liste der verfügbaren Befehle zu erhalten."
+msgstr ""
+"Geben Sie /help ein, um eine Liste der verfügbaren Befehle zu erhalten."
 
 #: ../src/Engine/Session.cs:160
-#, fuzzy
 msgid ""
 "After you have made a connection the list of available commands changes. Use "
 "the /help command again to see the extended command list."
 msgstr ""
-"Nach dem Verbindungsaufbau stehen ihnen weitere Befehle zur Verfuegung. "
-"Verwenden Sie /help einfach erneut."
+"Nach dem Verbindungsaufbau stehen Ihnen weitere Befehle zur Verfügung. "
+"Verwenden Sie Befehl /help einfach erneut, um die erweiterte Befehlsliste zu "
+"erhalten."
 
 #: ../src/Engine/Session.cs:210
 #, csharp-format
 msgid "Automatic connect to {0} failed!"
-msgstr "Automatisches verbinden mit {0} ist fehlgeschlagen!"
+msgstr "Automatische Verbindung zu {0} ist fehlgeschlagen!"
 
 #. TRANSLATOR: this line is used as a label / category for a
 #. list of commands below
 #: ../src/Engine/Session.cs:398
-#, fuzzy
 msgid "Engine Commands"
-msgstr "[Engine Befehle]"
+msgstr "Engine Befehle"
 
 #: ../src/Engine/Session.cs:509
-#, fuzzy, csharp-format
+#, csharp-format
 msgid "Disconnect failed - could not find server: {0}"
-msgstr "Trennung fehlgeschlagen, konnte Server: {0} nicht finden"
+msgstr "Die Trennung ist fehlgeschlagen - konnte den Server {0} nicht finden"
 
 #: ../src/Engine/Session.cs:545
 msgid "Configuration reloaded"
-msgstr "Konfiguration neugeladen"
+msgstr "Konfiguration wurde erneuert"
 
 #: ../src/Engine/Session.cs:550
 msgid "Configuration saved"
-msgstr "Konfiguration gespeichert"
+msgstr "Konfiguration wurde gespeichert"
 
 #: ../src/Engine/Session.cs:554
-#, fuzzy
 msgid "Invalid parameter for config; use load or save"
-msgstr "Ungültiger Parameter für \"config\", übergebe \"load\" oder \"save\""
+msgstr ""
+"Ungültiger Parameter für \"config\", verwenden Sie \"load\" oder \"save\""
 
 #: ../src/Engine/Session.cs:584
-#, fuzzy
 msgid "Invalid parameter for network; use list, switch, or close"
 msgstr ""
-"Ungltiger Parameter für \"network\", übergebe \"list\", \"switch\" oder "
-"\"close\""
+"Ungültiger Parameter für \"network\", verwenden Sie \"list\", \"switch\" "
+"oder \"close\""
 
 #: ../src/Engine/Session.cs:595
 msgid "Networks"
@@ -101,22 +99,22 @@ msgid "Port"
 msgstr "Port"
 
 #: ../src/Engine/Session.cs:623
-#, fuzzy, csharp-format
+#, csharp-format
 msgid "Network close failed - could not find network with host: {0}"
 msgstr ""
-"Schließen des Netzwerks fehlgeschlagen, konnte Netzwerk mit Host: {0} nicht "
-"finden"
+"Beenden der Verbindung zum Netzwerk fehlgeschlagen, konnte das Netzwerk mit "
+"Host: {0} nicht finden"
 
 #: ../src/Engine/Session.cs:657
-#, fuzzy, csharp-format
+#, csharp-format
 msgid "Network switch failed - could not find network with host: {0}"
 msgstr ""
-"Wechseln des Netzwerks fehlgeschlagen, konnte Netzwerk mit Host: {0} nicht "
-"finden"
+"Wechseln des Netzwerks fehlgeschlagen, konnte das Netzwerk mit Host: {0} "
+"nicht finden"
 
 #: ../src/Engine/Session.cs:669
 msgid "Not connected to any network"
-msgstr "Keine Verbindung zu einem Netzwerk"
+msgstr "Zu keinem Netzwerk verbunden"
 
 #: ../src/Engine/Session.cs:949
 #, csharp-format

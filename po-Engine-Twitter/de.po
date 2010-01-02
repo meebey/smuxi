@@ -1,0 +1,115 @@
+# Smuxi - IRC client for sophisticated users
+# Copyright (C) 2005-2009 Mirco Bauer <meebey@meebey.net>
+# This file is distributed under the same license as the Smuxi package.
+# Clement BOURGEOIS <moonpyk@gmail.com>, 2009.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Smuxi 0.6.4\n"
+"Report-Msgid-Bugs-To: Mirco Bauer <meebey@meebey.net>\n"
+"POT-Creation-Date: 2009-11-26 12:20+0100\n"
+"PO-Revision-Date: 2010-01-02 21:59+0100\n"
+"Last-Translator: Bianca Mix <heavydemon@freenet.de>\n"
+"Language-Team: French Localization <debian-l10n-french@lists.debian.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Poedit-Language: French\n"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:100
+msgid "Friends Timeline"
+msgstr "Freunde Zeitachse"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:107
+msgid "Replies"
+msgstr "Antworten"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:114
+msgid "Direct Messages"
+msgstr "Direktnachrichten"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:132
+msgid "Connecting to Twitter..."
+msgstr "Verbinde zu Twitter..."
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:140
+msgid "Login failed!"
+msgstr "Das Anmelden ist fehlgeschlagen!"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:142
+msgid "Login failed! Username and/or password are incorrect."
+msgstr ""
+"Das Verbinden ist fehlgeschlagen! Benutzername und/oder Passwort ist nicht "
+"korrekt."
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:148
+msgid "Connection failed!"
+msgstr "Verbindung ist fehlgeschlagen!"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:150
+msgid "Connection failed! Reason: "
+msgstr "Verbindung ist fehlgeschlagen! Grund: "
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:155
+msgid "Successfully connected to Twitter."
+msgstr "Erfolgreich zu Twitter verbunden."
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:163
+msgid "Fetching user details from Twitter, please wait..."
+msgstr "Rufe die Benutzerinformationen von Twitter ab, bitte warten Sie..."
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:168
+msgid "Finished fetching user details."
+msgstr "Abrufen der Benutzerinformationen abgeschlossen."
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:175
+msgid "Failed to fetch user details from Twitter. Reason: "
+msgstr "Abrufen der Benutzerinformationen fehlgeschlagen. Grund:"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:184
+msgid "Fetching friends from Twitter, please wait..."
+msgstr "Rufe Freunde von Twitter ab, bitte warten Sie..."
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:189
+msgid "Finished fetching friends."
+msgstr "Abrufen der Freunde abgeschlossen."
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:192
+msgid "Failed to fetch friends from Twitter. Reason: "
+msgstr "Abrufen der Freunde von Twitter fehlgeschlagen. Grund :"
+
+#. TRANSLATOR: this line is used as a label / category for a
+#. list of commands below
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:412
+msgid "Twitter Commands"
+msgstr "Twitter Befehle"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:463
+msgid "Cannot send message - no target specified. Use: /msg $nick message"
+msgstr ""
+"Kann Nachricht nicht senden - Ziel ist nicht definiert. Verwenden Sie /msg "
+"$nick Nachricht"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:495
+msgid "Could not send message - the specified user does not exist."
+msgstr "Konnte Nachricht nicht senden - der gewählte Benutzer existiert nicht"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:566
+msgid ""
+"An error occurred while fetching the friends timeline from Twitter. Reason: "
+msgstr ""
+"Ein Fehler ist aufgetreten, während die Freunde Zeitachse von Twitter "
+"abgerufen wurde. Grund:"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:651
+msgid "An error occurred while fetching the replies from Twitter. Reason: "
+msgstr ""
+"Während des Abrufens der Antworten von Twitter ist ein Fehler aufgetreten. "
+"Grund:"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:741
+msgid "An error occurred while fetching direct messages from Twitter. Reason: "
+msgstr ""
+"Während des Abrufens der Direktenachrichten von Twitter ist ein Fehler "
+"aufgetreten. Grund:"
