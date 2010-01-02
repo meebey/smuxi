@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Smuxi 0.6.4\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-01-02 05:11+0100\n"
-"PO-Revision-Date: 2009-11-26 01:47+0100\n"
+"PO-Revision-Date: 2010-01-02 06:29+0100\n"
 "Last-Translator: Clément BOURGEOIS <moonpyk@gmail.com>\n"
 "Language-Team: French Localization <debian-l10n-french@lists.debian.org>\n"
 "MIME-Version: 1.0\n"
@@ -44,6 +44,8 @@ msgstr ""
 #: ../src/Frontend/SshTunnelManager.cs:185
 msgid "Local SSH forward port is already in use. Old SSH tunnel still active?"
 msgstr ""
+"La redirection locale de port est toujours en cours d'utitilisation. "
+"L'ancien tunnel SSH est-il toujours actif ?"
 
 #: ../src/Frontend/SshTunnelManager.cs:207
 #, csharp-format
