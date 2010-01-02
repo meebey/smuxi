@@ -287,16 +287,25 @@ namespace Smuxi.Frontend
         {
             string sshArguments = String.Empty;
 
+            Version sshVersion = GetOpenSshVersion();
             // starting with OpenSSH version 4.4p1 we can use the
             // ExitOnForwardFailure option for detecting tunnel issues better
             // as the process will quit nicely, for more details see:
             // http://projects.qnetp.net/issues/show/145
             // NOTE: the patch level is mapped to the micro component
-            if (GetOpenSshVersion() >= new Version("4.4.1")) {
+            if (sshVersion >= new Version("4.4.1")) {
                 // exit if the tunnel setup didn't work somehow
                 sshArguments += " -o ExitOnForwardFailure=yes";
             }
-            
+
+            // with OpenSSH 3.8 we can use the keep-alive feature of SSH that
+            // will check the remote peer in defined intervals and kills the
+            // tunnel if it reached the max value
+            if (sshVersion >= new Version("3.8")) {
+                // exit if the peer can't be reached for more than 90 seconds
+                sshArguments += " -o ServerAliveInterval=30 -o ServerAliveCountMax=3";
+            }
+
             // run in the background (detach)
             // plink doesn't support this and we can't control the process this way!
             //sshArguments += " -f";
