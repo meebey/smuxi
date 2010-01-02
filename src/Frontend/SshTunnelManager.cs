@@ -131,6 +131,8 @@ namespace Smuxi.Frontend
         
         public void Setup()
         {
+            Trace.Call();
+
             if (String.IsNullOrEmpty(f_Program)) {
                 // use plink by default if it's there
                 if (File.Exists("plink.exe")) {
@@ -267,8 +269,17 @@ namespace Smuxi.Frontend
         
         public void Disconnect()
         {
+            Trace.Call();
+
             if (f_Process != null && !f_Process.HasExited) {
+#if LOG4NET
+                f_Logger.Debug("Disconnect(): killing ssh tunnel...");
+#endif
                 f_Process.Kill();
+                f_Process.WaitForExit();
+#if LOG4NET
+                f_Logger.Debug("Disconnect(): ssh tunnel exited");
+#endif
             }
         }
         
