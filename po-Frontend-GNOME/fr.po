@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Smuxi 0.6.4\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-01-02 05:12+0100\n"
-"PO-Revision-Date: 2009-12-09 05:18+0100\n"
+"PO-Revision-Date: 2010-01-02 06:31+0100\n"
 "Last-Translator: Clément BOURGEOIS <moonpyk@gmail.com>\n"
 "Language-Team: French Localization <debian-l10n-french@lists.debian.org>\n"
 "MIME-Version: 1.0\n"
@@ -660,12 +660,11 @@ msgstr ""
 "Voulez-vous vous reconnecter maintenant ?"
 
 #: ../src/Frontend-GNOME/Frontend.cs:445
-#, fuzzy
 msgid ""
 "Reconnecting to the server has failed.\n"
 "Do you want to try again?"
 msgstr ""
-"Le serveur a perdu la connexion a l'interface.\n"
+"La reconnexion au serveur a échoué.\n"
 "Voulez-vous vous reconnecter maintenant ?"
 
 #: ../src/Frontend-GNOME/Frontend.cs:593
@@ -721,7 +720,7 @@ msgstr "Merci"
 #: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:285
 msgid ""
 "An engine with this name already exists! Please specify a different one."
-msgstr ""
+msgstr "Un moteur avec ce nom éxiste deja ! Veuillez en spécifier un autre."
 
 #: ../src/Frontend-GNOME/Views/MessageTextView.cs:148
 #, csharp-format
