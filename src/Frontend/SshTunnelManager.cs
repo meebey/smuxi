@@ -182,8 +182,11 @@ namespace Smuxi.Frontend
                 try {
                     tcpClient.Connect(f_ForwardBindAddress, f_ForwardBindPort);
                     // the connect worked, panic!
-                    var msg = _("Local SSH forward port is already in use. "+
-                                "Old SSH tunnel still active?");
+                    var msg = String.Format(
+                        _("The local SSH forwarding port {0} is already in " +
+                          "use. Is there an old SSH tunnel still active?"),
+                        f_ForwardBindPort
+                    );
                     throw new ApplicationException(msg);
                 } catch (SocketException ex) {
                 }
