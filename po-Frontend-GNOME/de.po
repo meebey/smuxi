@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.6.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-12-29 03:24+0100\n"
+"POT-Creation-Date: 2010-01-02 05:12+0100\n"
 "PO-Revision-Date: 2009-08-14 00:24+0100\n"
 "Last-Translator: Mirco Bauer <meebey@meebey.net>\n"
 "Language-Team: German Localization <debian-l10n-german@lists.debian.org>\n"
@@ -479,19 +479,19 @@ msgstr "Fehler: {0}"
 msgid "Are you sure you want to delete the engine \"{0}\"?"
 msgstr "Möchten Sie wirklich die Engine \"{0}\" löschen?"
 
-#: ../src/Frontend-GNOME/Entry.cs:385
+#: ../src/Frontend-GNOME/Entry.cs:389
 #, fuzzy, csharp-format
 msgid "You are going to paste {0} lines. Do you want to continue?"
 msgstr "Sie sind dabei {0} Zeilen einzufügen. Möchten Sie fortfahren?"
 
 #. TRANSLATOR: this line is used as a label / category for a
 #. list of commands below
-#: ../src/Frontend-GNOME/Entry.cs:495
+#: ../src/Frontend-GNOME/Entry.cs:499
 #, fuzzy
 msgid "Frontend Commands"
 msgstr "[Frontend Befehle]"
 
-#: ../src/Frontend-GNOME/Entry.cs:607
+#: ../src/Frontend-GNOME/Entry.cs:611
 #, csharp-format
 msgid "Unknown Command: {0}"
 msgstr "Unbekannter Befehl: {0}"
@@ -605,7 +605,7 @@ msgid "Word"
 msgstr "Wort"
 
 #: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:155
-#: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:138
+#: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:139
 msgid "Connection"
 msgstr "Verbindung"
 
@@ -626,7 +626,7 @@ msgid "Nicknames(s) field must not be empty."
 msgstr "Nickname(n)-Feld darf nicht leer sein."
 
 #: ../src/Frontend-GNOME/FindGroupChatDialog.cs:69
-#: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:104
+#: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:105
 msgid "Name"
 msgstr "Name"
 
@@ -648,12 +648,12 @@ msgstr ""
 msgid "Error while fetching the list of group chats from the server."
 msgstr "Fehler beim Holen der Gruppen-Chat-Liste vom Server."
 
-#: ../src/Frontend-GNOME/Frontend.cs:368
+#: ../src/Frontend-GNOME/Frontend.cs:381
 #, csharp-format
 msgid "Cause: {0}"
 msgstr "Grund: {0}"
 
-#: ../src/Frontend-GNOME/Frontend.cs:414
+#: ../src/Frontend-GNOME/Frontend.cs:431
 #, fuzzy
 msgid ""
 "The frontend has lost the connection to the server.\n"
@@ -662,7 +662,16 @@ msgstr ""
 "Der Server hat die Verbindung zum Frontend verloren.\n"
 " Möchten Sie diese nun Neuaufbauen?"
 
-#: ../src/Frontend-GNOME/Frontend.cs:551
+#: ../src/Frontend-GNOME/Frontend.cs:445
+#, fuzzy
+msgid ""
+"Reconnecting to the server has failed.\n"
+"Do you want to try again?"
+msgstr ""
+"Der Server hat die Verbindung zum Frontend verloren.\n"
+" Möchten Sie diese nun Neuaufbauen?"
+
+#: ../src/Frontend-GNOME/Frontend.cs:593
 #, fuzzy
 msgid ""
 "The server has lost the connection to the frontend.\n"
@@ -689,47 +698,52 @@ msgstr "Person / Privat"
 msgid "Group / Public"
 msgstr "Gruppe / Öffentlich"
 
-#: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:69
+#: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:70
 msgid "Engine Assistant - Smuxi"
 msgstr "Engine-Assistent - Smuxi"
 
-#: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:91
+#: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:92
 msgid "Add Smuxi Engine"
 msgstr "Smuxi-Engine hinzufügen"
 
-#: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:93
+#: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:94
 msgid "Edit Smuxi Engine"
 msgstr "Smuxi-Engine hinzufügen"
 
-#: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:202
+#: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:203
 msgid "Credentials"
 msgstr "Zugangsdaten"
 
-#: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:264
+#: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:265
 msgid "Now you can use the Smuxi Engine"
 msgstr "Nun können Sie die Smuxi-Engine verwenden"
 
-#: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:267
+#: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:268
 msgid "Thank you"
 msgstr "Vielen Dank"
+
+#: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:285
+msgid ""
+"An engine with this name already exists! Please specify a different one."
+msgstr ""
 
 #: ../src/Frontend-GNOME/Views/MessageTextView.cs:148
 #, csharp-format
 msgid "Day changed to {0}"
 msgstr "Tageswechsel: {0}"
 
-#: ../src/Frontend-GNOME/Views/Chats/GroupChatView.cs:237
+#: ../src/Frontend-GNOME/Views/Chats/GroupChatView.cs:240
 #, csharp-format
 msgid "Retrieving user list for {0}..."
 msgstr ""
 
 #. TRANSLATOR: this string will be appended to the one above
-#: ../src/Frontend-GNOME/Views/Chats/GroupChatView.cs:282
+#: ../src/Frontend-GNOME/Views/Chats/GroupChatView.cs:285
 #, fuzzy
 msgid "done."
 msgstr " fertig."
 
-#: ../src/Frontend-GNOME/Views/Chats/GroupChatView.cs:302
+#: ../src/Frontend-GNOME/Views/Chats/GroupChatView.cs:305
 msgid "Person"
 msgstr "Person"
 

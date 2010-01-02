@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: smuxi-frontend 0.6.4.1-1\n"
-"Report-Msgid-Bugs-To: Mirco Bauer <meebey@meebey.net>\n"
-"POT-Creation-Date: 2009-11-22 01:46+0100\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-01-02 05:11+0100\n"
 "PO-Revision-Date: 2009-12-05 18:55+0100\n"
 "Last-Translator: Michal Simunek <michal.simunek@gmail.com>\n"
 "Language-Team: Czech <debian-l10n-czech@lists.debian.org>\n"
@@ -15,12 +15,12 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../src/Frontend/EngineManager.cs:264
+#: ../src/Frontend/EngineManager.cs:292
 #, csharp-format
 msgid "Unknown channel ({0}) - only the following channel types are supported:"
 msgstr "Neznámý kanál ({0}) - podporovány jsou pouze následující typy kanálů:"
 
-#: ../src/Frontend/EngineManager.cs:273
+#: ../src/Frontend/EngineManager.cs:301
 msgid ""
 "Registration with engine failed!  The username and/or password were wrong - "
 "please verify them."
@@ -28,18 +28,23 @@ msgstr ""
 "Registrace selhala!  Uživatelské jméno nebo heslo bylo chybné - zkontrolujte "
 "je prosím."
 
-#: ../src/Frontend/SshTunnelManager.cs:144
+#: ../src/Frontend/SshTunnelManager.cs:146
 msgid "SSH client application was not found: "
 msgstr "Klientská aplikace SSH nebyla nalezena: "
 
-#: ../src/Frontend/SshTunnelManager.cs:147
+#: ../src/Frontend/SshTunnelManager.cs:149
 msgid ""
 "SSH client must be either OpenSSH (ssh) or Plink (plink.exe, not putty.exe)"
 msgstr ""
 "Klient SSH musí být buď OpenSSH (ssh) nebo Plink (plink.exe, nikoli putty."
 "exe)"
 
-#: ../src/Frontend/SshTunnelManager.cs:189
+#. the connect worked, panic!
+#: ../src/Frontend/SshTunnelManager.cs:185
+msgid "Local SSH forward port is already in use. Old SSH tunnel still active?"
+msgstr ""
+
+#: ../src/Frontend/SshTunnelManager.cs:207
 #, csharp-format
 msgid ""
 "SSH tunnel setup failed (exit code: {0})\n"
@@ -62,7 +67,7 @@ msgstr ""
 "Výstup programu:\n"
 "{4}\n"
 
-#: ../src/Frontend/SshTunnelManager.cs:366
+#: ../src/Frontend/SshTunnelManager.cs:402
 #, csharp-format
 msgid ""
 "OpenSSH version number not found (exit code: {0})\n"
@@ -83,6 +88,6 @@ msgstr ""
 "Výstup programu:\n"
 "{3}\n"
 
-#: ../src/Frontend/SshTunnelManager.cs:402
+#: ../src/Frontend/SshTunnelManager.cs:438
 msgid "PuTTY / Plink requires a username to be set."
 msgstr "PuTTY / Plink potřebuje mít nastavené uživatelské jméno."

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: smuxi 0.6.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-12-29 03:24+0100\n"
+"POT-Creation-Date: 2010-01-02 05:11+0100\n"
 "PO-Revision-Date: 2009-08-12 08:39+0200\n"
 "Last-Translator: Mirco Bauer Ryan Smith-Evans <Kimera.Kimera@gmail.com>\n"
 "Language-Team: English (British)\n"
@@ -16,171 +16,171 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:203
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1120
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:226
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1186
 msgid "away"
 msgstr "away"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:206
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:229
 msgid "not connected"
 msgstr "not connected"
 
 #. TRANSLATOR: {0} is the amount of seconds
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:214
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:237
 #, fuzzy, csharp-format
 msgid "lag: {0} seconds"
 msgstr "seconds"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:278
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:301
 #, csharp-format
 msgid "Connecting to {0} port {1}..."
 msgstr "Connecting to {0} port {1}..."
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:284
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:307
 #, csharp-format
 msgid "Connection to {0} established"
 msgstr "Connection to {0} established"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:287
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:310
 msgid "Logging in..."
 msgstr "Logging in..."
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:309
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:332
 msgid "Connection failed!"
 msgstr "Connection failed!"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:310
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:333
 msgid "Connection failed! Reason: "
 msgstr "Connection failed! Reason: "
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:319
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:342
 msgid "Disconnecting..."
 msgstr "Disconnecting..."
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:322
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:345
 #, csharp-format
 msgid "Disconnecting from {0}..."
 msgstr "Disconnecting from {0}..."
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:326
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:349
 #, csharp-format
 msgid "Disconnected from {0}"
 msgstr "Disconnected from {0}"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:328
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:351
 msgid "Connection closed"
 msgstr "Connection closed"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:332
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:355
 msgid "Not connected!"
 msgstr "Not connected!"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:334
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:357
 msgid "Not connected"
 msgstr "Not connected"
 
 #. TRANSLATOR: this line is used as label / category for a
 #. list of commands below
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:659
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:687
 #, fuzzy
 msgid "IrcProtocolManager Commands"
 msgstr "[IrcProtocolManager Commands]"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:722
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:750
 #, csharp-format
 msgid "Invalid port: {0}"
 msgstr "Invalid port: {0}"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:837
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:865
 #, csharp-format
 msgid "Already joined to channel: {0}. Type /window {0} to switch to it."
 msgstr "Already joined to channel: {0}. Type /window {0} to switch to it."
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1107
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1173
 msgid "IRC Op"
 msgstr "IRC Op"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1109
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1175
 msgid "Op"
 msgstr "Op"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1111
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1177
 msgid "Voice"
 msgstr "Voice"
 
 #. For translators: do NOT change the position of {1}!
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1163
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1229
 #, csharp-format
 msgid "Topic for {0}: {1}"
 msgstr "Topic for {0}: {1}"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1171
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1237
 #, csharp-format
 msgid "No topic set for {0}"
 msgstr "No topic set for {0}"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1265
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1331
 msgid "ban"
 msgstr "ban"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1275
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1341
 msgid "No bans in channel"
 msgstr "No bans in channel"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1384
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1450
 #, csharp-format
 msgid "Inviting {0} to {1}"
 msgstr "Inviting {0} to {1}"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1388
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1454
 #, csharp-format
 msgid "{0} is already on channel"
 msgstr "{0} is already on channel"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1416
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1482
 msgid "Users"
 msgstr "Users"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1463
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1533
 #, csharp-format
 msgid "Total of {0} users [{1} ops, {2} voices, {3} normal]"
 msgstr "Total of {0} users [{1} ops, {2} voices, {3} normal]"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1603
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1673
 msgid "Connection error! Reason: "
 msgstr "Connection error! Reason: "
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1611
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1681
 #, csharp-format
 msgid "Not enough parameters for {0} command"
 msgstr "Not enough parameters for {0} command"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1616
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1686
 msgid "Not connected to server"
 msgstr "Not connected to server"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1899
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1969
 #, csharp-format
 msgid "{0}: No such nick/channel"
 msgstr "{0}: No such nick/channel"
 
 #. TRANSLATOR: the final line will look like this:
 #. -!- Nick {0} is already in use
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2026
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2096
 msgid "Nick"
 msgstr "Nick"
 
 #. TRANSLATOR: the final line will look like this:
 #. -!- Nick {0} is already in use
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2037
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2107
 msgid "is already in use"
 msgstr "is already in use"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2067
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2137
 msgid "Cannot join to channel:"
 msgstr "Cannot join to channel:"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2076
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2146
 msgid "You are banned"
 msgstr "You are banned"
 
@@ -188,83 +188,83 @@ msgstr "You are banned"
 #. {2}: CTCP command, {3}: own nickname, {4}: CTCP parameter
 #. example:
 #. meebey [meebey@example.com] requested CTCP VERSION from meebey:
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2154
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2224
 #, csharp-format
 msgid "{0} [{1}] requested CTCP {2} from {3}: {4}"
 msgstr "{0} [{1}] requested CTCP {2} from {3}: {4}"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2173
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2243
 #, csharp-format
 msgid "CTCP PING reply from {0}: {1} seconds"
 msgstr "CTCP PING reply from {0}: {1} seconds"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2179
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2249
 #, csharp-format
 msgid "CTCP {0} reply from {1}: {2}"
 msgstr "CTCP {0} reply from {1}: {2}"
 
 #. For translators: do NOT change the position of {0}!
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2402
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2472
 #, csharp-format
 msgid "{0} [{1}] has joined {2}"
 msgstr "{0} [{1}] has joined {2}"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2533
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2603
 #, csharp-format
 msgid "{0} [{1}] has left {2} [{3}]"
 msgstr "{0} [{1}] has left {2} [{3}]"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2552
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2622
 #, fuzzy, csharp-format
 msgid "You were kicked from {0} by {1} [{2}]"
 msgstr "You was kicked from {0} by {1} [{2}]"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2560
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2630
 #, csharp-format
 msgid "{0} was kicked from {1} by {2} [{3}]"
 msgstr "{0} was kicked from {1} by {2} [{3}]"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2578
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2624
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2648
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2694
 #, csharp-format
 msgid "You're now known as {0}"
 msgstr "You're now known as {0}"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2652
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2722
 #, csharp-format
 msgid "{0} is now known as {1}"
 msgstr "{0} is now known as {1}"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2703
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2773
 #, csharp-format
 msgid "{0} changed the topic of {1} to: {2}"
 msgstr "{0} changed the topic of {1} to: {2}"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2788
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2858
 #, csharp-format
 msgid "Mode change [{0}] for user {1}"
 msgstr "Mode change [{0}] for user {1}"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2805
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2875
 #, csharp-format
 msgid "mode/{0} [{1}] by {2}"
 msgstr "mode/{0} [{1}] by {2}"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2842
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2912
 #, csharp-format
 msgid "{0} [{1}] has quit [{2}]"
 msgstr "{0} [{1}] has quit [{2}]"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2932
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3005
 #, csharp-format
 msgid "{0} is away: {1}"
 msgstr "{0} is away: {1}"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2938
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3011
 msgid "You are no longer marked as being away"
 msgstr "You are no longer marked as being away"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2944
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3017
 msgid "You have been marked as being away"
 msgstr "You have been marked as being away"
 

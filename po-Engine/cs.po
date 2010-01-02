@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: smuxi-engine 0.6.4.1-1\n"
-"Report-Msgid-Bugs-To: Mirco Bauer <meebey@meebey.net>\n"
-"POT-Creation-Date: 2009-11-25 23:08+0100\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-01-02 05:11+0100\n"
 "PO-Revision-Date: 2009-12-05 16:29+0100\n"
 "Last-Translator: Michal Simunek <michal.simunek@gmail.com>\n"
 "Language-Team: Czech <debian-l10n-czech@lists.debian.org>\n"
@@ -24,7 +24,7 @@ msgid "Not connected to server"
 msgstr "Není připojeno k serveru"
 
 #: ../src/Engine/Protocols/ProtocolManagerBase.cs:148
-#: ../src/Engine/Session.cs:671
+#: ../src/Engine/Session.cs:675
 #, csharp-format
 msgid "Not enough parameters for {0} command"
 msgstr "Pro příkaz {0} není vloženo dostatek parametrů"
@@ -56,63 +56,63 @@ msgstr "Automatické připojení k {0} selhalo!"
 msgid "Engine Commands"
 msgstr "Příkazy enginu"
 
-#: ../src/Engine/Session.cs:505
+#: ../src/Engine/Session.cs:509
 #, csharp-format
 msgid "Disconnect failed - could not find server: {0}"
 msgstr "Odpojení selhalo - nepodařilo se najít server: {0}"
 
-#: ../src/Engine/Session.cs:541
+#: ../src/Engine/Session.cs:545
 msgid "Configuration reloaded"
 msgstr "Nastavení bylo načteno"
 
-#: ../src/Engine/Session.cs:546
+#: ../src/Engine/Session.cs:550
 msgid "Configuration saved"
 msgstr "Nastavení bylo uloženo"
 
-#: ../src/Engine/Session.cs:550
+#: ../src/Engine/Session.cs:554
 msgid "Invalid parameter for config; use load or save"
 msgstr "Neplatný parametr pro config; zadejte load nebo save"
 
-#: ../src/Engine/Session.cs:580
+#: ../src/Engine/Session.cs:584
 msgid "Invalid parameter for network; use list, switch, or close"
 msgstr "Neplatný parametr pro network; zadejte list, switch nebo close"
 
-#: ../src/Engine/Session.cs:591
+#: ../src/Engine/Session.cs:595
 msgid "Networks"
 msgstr "Sítě"
 
-#: ../src/Engine/Session.cs:595
+#: ../src/Engine/Session.cs:599
 msgid "Type"
 msgstr "Typ"
 
-#: ../src/Engine/Session.cs:596
+#: ../src/Engine/Session.cs:600
 msgid "Host"
 msgstr "Hostitel"
 
-#: ../src/Engine/Session.cs:597
+#: ../src/Engine/Session.cs:601
 msgid "Port"
 msgstr "Port"
 
-#: ../src/Engine/Session.cs:619
+#: ../src/Engine/Session.cs:623
 #, csharp-format
 msgid "Network close failed - could not find network with host: {0}"
 msgstr "Připojení uzavřeno - hostitelská síť nebyla nalezena: {0}"
 
-#: ../src/Engine/Session.cs:653
+#: ../src/Engine/Session.cs:657
 #, csharp-format
 msgid "Network switch failed - could not find network with host: {0}"
 msgstr "Síťový uzel selhal - hostitelská síť nebyla nalezena: {0}"
 
-#: ../src/Engine/Session.cs:665
+#: ../src/Engine/Session.cs:669
 msgid "Not connected to any network"
 msgstr "Není připojeno k žádné síti"
 
-#: ../src/Engine/Session.cs:945
+#: ../src/Engine/Session.cs:949
 #, csharp-format
 msgid "No protocol manager found for the protocol: {0}"
 msgstr "Pro protokol nebyl nalezen správce protokolu: {0}"
 
-#: ../src/Engine/Session.cs:965
+#: ../src/Engine/Session.cs:969
 #, csharp-format
 msgid "Unknown protocol: {0}"
 msgstr "Neznámý protokol: {0}"

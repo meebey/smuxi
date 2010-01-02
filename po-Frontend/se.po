@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"Report-Msgid-Bugs-To: Mirco Bauer <meebey@meebey.net>\n"
-"POT-Creation-Date: 2009-11-22 01:46+0100\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-01-02 05:11+0100\n"
 "PO-Revision-Date: 2009-12-28 21:46+0100\n"
 "Last-Translator: Martin Bagge <brother@bsnet.se>\n"
 "Language-Team: Swedish <debian-l10n-swedish@lists.debian.org>\n"
@@ -17,12 +17,12 @@ msgstr ""
 "X-Poedit-Language: Swedish\n"
 "X-Poedit-Country: Sweden\n"
 
-#: ../src/Frontend/EngineManager.cs:264
+#: ../src/Frontend/EngineManager.cs:292
 #, csharp-format
 msgid "Unknown channel ({0}) - only the following channel types are supported:"
 msgstr "Okänd kanal ({0}) - endast följande kanaltyper stöds:"
 
-#: ../src/Frontend/EngineManager.cs:273
+#: ../src/Frontend/EngineManager.cs:301
 msgid ""
 "Registration with engine failed!  The username and/or password were wrong - "
 "please verify them."
@@ -30,18 +30,23 @@ msgstr ""
 "Kunde inte ansluta till motorn! Användarnamnet och/eller lösenordet var fel "
 "- kontrollera dessa."
 
-#: ../src/Frontend/SshTunnelManager.cs:144
+#: ../src/Frontend/SshTunnelManager.cs:146
 msgid "SSH client application was not found: "
 msgstr "SSH-klient-applikationen kunde inte hittas:"
 
-#: ../src/Frontend/SshTunnelManager.cs:147
+#: ../src/Frontend/SshTunnelManager.cs:149
 msgid ""
 "SSH client must be either OpenSSH (ssh) or Plink (plink.exe, not putty.exe)"
 msgstr ""
 "SSH-klienten måste vara antingen OpenSSH (ssh) eller Plink (plink.exe, inte "
 "putty.exe)"
 
-#: ../src/Frontend/SshTunnelManager.cs:189
+#. the connect worked, panic!
+#: ../src/Frontend/SshTunnelManager.cs:185
+msgid "Local SSH forward port is already in use. Old SSH tunnel still active?"
+msgstr ""
+
+#: ../src/Frontend/SshTunnelManager.cs:207
 #, csharp-format
 msgid ""
 "SSH tunnel setup failed (exit code: {0})\n"
@@ -64,7 +69,7 @@ msgstr ""
 "Utdata från applikation:\n"
 "{4}\n"
 
-#: ../src/Frontend/SshTunnelManager.cs:366
+#: ../src/Frontend/SshTunnelManager.cs:402
 #, csharp-format
 msgid ""
 "OpenSSH version number not found (exit code: {0})\n"
@@ -85,6 +90,6 @@ msgstr ""
 "Utdata från applikation:\n"
 "{3}\n"
 
-#: ../src/Frontend/SshTunnelManager.cs:402
+#: ../src/Frontend/SshTunnelManager.cs:438
 msgid "PuTTY / Plink requires a username to be set."
 msgstr "PuTTY/Plink kräver att ett användarnamn används."
