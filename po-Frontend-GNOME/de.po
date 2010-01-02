@@ -2,13 +2,14 @@
 # Copyright (C) 2005-2009 Mirco Bauer <meebey@meebey.net>
 # This file is distributed under the same license as the Smuxi package.
 # Mirco Bauer <meebey@meebey.net>, 2008-2009.
+# Bianca Mix <heavydemon@freenet.de>, 2010
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: 0.6.1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-01-02 19:00+0100\n"
-"PO-Revision-Date: 2010-01-02 21:51+0100\n"
+"PO-Revision-Date: 2010-01-03 00:10+0100\n"
 "Last-Translator: Bianca Mix <heavydemon@freenet.de>\n"
 "Language-Team: German Localization <debian-l10n-german@lists.debian.org>\n"
 "MIME-Version: 1.0\n"
@@ -43,7 +44,7 @@ msgstr "<b> Symbol im Benachrichtigungsfeld </b>"
 
 #: ../glade/smuxi-frontend-gnome.glade.h:7
 msgid "<b> Person List Position </b>"
-msgstr "<b> Symbol der Personenliste </b>"
+msgstr "<b> Position der Personenliste </b>"
 
 #: ../glade/smuxi-frontend-gnome.glade.h:8
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1209
@@ -787,7 +788,7 @@ msgstr "_Rückwärts suchen"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ChatFindDialog.cs:115
 msgid "_Wrap Around"
-msgstr "_Wieder am Anfang beginnen, wenn am Ende erreicht ist"
+msgstr "_Wieder am Anfang beginnen, wenn das Ende erreicht ist"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ChatFindDialog.cs:128
 msgid "Use _Regular Expressions"

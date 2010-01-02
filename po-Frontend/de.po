@@ -1,7 +1,8 @@
 # Smuxi - IRC client for sophisticated users
 # Copyright (C) 2005-2009 Mirco Bauer <meebey@meebey.net>
 # This file is distributed under the same license as the Smuxi package.
-# Mirco Bauer <meebey@meebey.net>, 2009.
+# Mirco Bauer <meebey@meebey.net>, 2009
+# Bianca Mix <heavydemon@freenet.de>, 2010
 #
 msgid ""
 msgstr ""
