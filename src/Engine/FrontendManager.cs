@@ -265,7 +265,8 @@ namespace Smuxi.Engine
         {
             if (!_SyncedChats.Contains(chat)) {
 #if LOG4NET
-                _Logger.Warn("AddMessageToChat(): chat: " + chat + " is not synced yet, ignoring call...");
+                // too much logging noise
+                //_Logger.Warn("AddMessageToChat(): chat: " + chat + " is not synced yet, ignoring call...");
 #endif
                 return;
             }
