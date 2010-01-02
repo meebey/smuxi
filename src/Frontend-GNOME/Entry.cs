@@ -186,11 +186,15 @@ namespace Smuxi.Frontend.Gnome
         [GLib.ConnectBefore]
         private void _OnKeyPress(object sender, Gtk.KeyPressEventArgs e)
         {
-            Trace.Call(sender, e);
-            
+            // too much logging noise
+            //Trace.Call(sender, e);
+
 #if LOG4NET
-            _Logger.Debug("_OnKeyPress(): Key: " + e.Event.Key.ToString() + 
+            // too much logging noise
+            /*
+            _Logger.Debug("_OnKeyPress(): Key: " + e.Event.Key.ToString() +
                           " KeyValue: " + e.Event.KeyValue);
+            */
 #endif
 
             int keynumber = (int)e.Event.KeyValue;
