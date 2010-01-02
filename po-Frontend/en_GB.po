@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: smuxi 0.6.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-02 05:11+0100\n"
+"POT-Creation-Date: 2010-01-02 19:00+0100\n"
 "PO-Revision-Date: 2009-08-12 08:30+0200\n"
 "Last-Translator: Ryan Smith-Evans <Kimera.Kimera@gmail.com>\n"
 "Language-Team: English (British)\n"
@@ -40,12 +40,14 @@ msgid ""
 msgstr ""
 "SSH client must be either OpenSSH (ssh) or Plink (plink.exe, _not_ putty.exe)"
 
-#. the connect worked, panic!
-#: ../src/Frontend/SshTunnelManager.cs:185
-msgid "Local SSH forward port is already in use. Old SSH tunnel still active?"
+#: ../src/Frontend/SshTunnelManager.cs:186
+#, csharp-format
+msgid ""
+"The local SSH forwarding port {0} is already in use. Is there an old SSH "
+"tunnel still active?"
 msgstr ""
 
-#: ../src/Frontend/SshTunnelManager.cs:207
+#: ../src/Frontend/SshTunnelManager.cs:210
 #, fuzzy, csharp-format
 msgid ""
 "SSH tunnel setup failed (exit code: {0})\n"
@@ -68,7 +70,7 @@ msgstr ""
 "Prgram Output:\n"
 "{4}\n"
 
-#: ../src/Frontend/SshTunnelManager.cs:402
+#: ../src/Frontend/SshTunnelManager.cs:405
 #, fuzzy, csharp-format
 msgid ""
 "OpenSSH version number not found (exit code: {0})\n"
@@ -89,6 +91,6 @@ msgstr ""
 "Prgram Output:\n"
 "{3}\n"
 
-#: ../src/Frontend/SshTunnelManager.cs:438
+#: ../src/Frontend/SshTunnelManager.cs:441
 msgid "PuTTY / Plink requires a username to be set."
 msgstr "PuTTY / Plink requires a username to be set."
