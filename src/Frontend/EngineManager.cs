@@ -64,7 +64,8 @@ namespace Smuxi.Frontend
         private UserConfig      f_UserConfig;
         private Session         f_Session;
         private SshTunnelManager f_SshTunnelManager;
-        
+        private string          f_ChannelName;
+
         public SessionManager SessionManager {
             get {
                 return f_SessionManager;
@@ -193,11 +194,16 @@ namespace Smuxi.Frontend
                     // Make sure the channel is really using our random
                     // remotingPort. Already registered channel will for sure
                     // not to that and thus the back-connection fails!
-                    IChannel oldChannel = ChannelServices.GetChannel("tcp");
-                    if (oldChannel != null) {
-                        ChannelServices.UnregisterChannel(oldChannel);
+                    if (f_ChannelName != null) {
+                        IChannel oldChannel = ChannelServices.GetChannel(f_ChannelName);
+                        if (oldChannel != null) {
+#if LOG4NET
+                            f_Logger.Debug("Connect(): found old remoting channel, unregistering...");
+#endif
+                            ChannelServices.UnregisterChannel(oldChannel);
+                        }
                     }
-                    
+
                     // frontend -> engine
                     BinaryClientFormatterSinkProvider cprovider =
                         new BinaryClientFormatterSinkProvider();
@@ -211,8 +217,12 @@ namespace Smuxi.Frontend
                     if (bindAddress != null) {
                         props["machineName"] = bindAddress;
                     }
-                    ChannelServices.RegisterChannel(new TcpChannel(props, cprovider, sprovider), false);
-                    connection_url = "tcp://"+hostname+":"+port+"/SessionManager"; 
+                    var tcpChannel = new TcpChannel(props, cprovider, sprovider);
+                    f_ChannelName = tcpChannel.ChannelName;
+                    ChannelServices.RegisterChannel(tcpChannel, false);
+
+
+                    connection_url = "tcp://"+hostname+":"+port+"/SessionManager";
 #if LOG4NET
                     f_Logger.Info("Connecting to: "+connection_url);
 #endif
