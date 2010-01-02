@@ -221,6 +221,24 @@ namespace Smuxi.Frontend
                     f_ChannelName = tcpChannel.ChannelName;
                     ChannelServices.RegisterChannel(tcpChannel, false);
 
+                    // make sure the listen port of channel is ready before we
+                    // connect to the engine, as it will make a call back!
+                    while (true) {
+                        using (TcpClient tcpClient = new TcpClient()) {
+                            try {
+                                tcpClient.Connect(hostname, port);
+#if LOG4NET
+                                f_Logger.Debug("Connect(): listen port of remoting channel is ready");
+#endif
+                                break;
+                            } catch (SocketException ex) {
+#if LOG4NET
+                                f_Logger.Debug("Connect(): listen port of remoting channel is not reading yet, retrying...", ex);
+#endif
+                            }
+                            System.Threading.Thread.Sleep(1000);
+                        }
+                    }
 
                     connection_url = "tcp://"+hostname+":"+port+"/SessionManager";
 #if LOG4NET
