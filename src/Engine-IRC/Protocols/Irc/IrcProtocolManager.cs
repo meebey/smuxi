@@ -188,21 +188,6 @@ namespace Smuxi.Engine
             _IrcClient.OnCtcpRequest    += new CtcpEventHandler(_OnCtcpRequest);
             _IrcClient.OnCtcpReply      += new CtcpEventHandler(_OnCtcpReply);
             _IrcClient.OnWho            += OnWho;
-
-            string encodingName = (string) Session.UserConfig["Connection/Encoding"];
-            if (!String.IsNullOrEmpty(encodingName)) {
-                try {
-                    _IrcClient.Encoding = Encoding.GetEncoding(encodingName);
-                } catch (Exception ex) {
-#if LOG4NET
-                    _Logger.Warn("IrcProtocolManager(): Error getting encoding for: " +
-                                 encodingName + " falling back to system encoding.", ex);
-#endif
-                    _IrcClient.Encoding = Encoding.Default;
-                }
-            } else {
-                _IrcClient.Encoding = Encoding.Default;
-            }
         }
 
         private void OnWho(object sender, WhoEventArgs e)
@@ -268,9 +253,7 @@ namespace Smuxi.Engine
                 _Nicknames = new string[] { _Nicknames[0], _Nicknames[0] + "_", _Nicknames[0] + "__" };
             }
 
-            if (String.IsNullOrEmpty(_Username)) {
-                _Username = (string) Session.UserConfig["Connection/Username"];
-            }
+            ApplyConfig(Session.UserConfig);
 
             // TODO: use config for single network chat or once per network manager
             _NetworkChat = new ProtocolChatModel(NetworkID, "IRC " + server, this);
@@ -389,6 +372,7 @@ namespace Smuxi.Engine
                 if (_IrcClient != null) {
                     if (_IrcClient.IsConnected) {
                         Session.AddTextToChat(_NetworkChat, "-!- Reconnecting to " + _IrcClient.Address + "...");
+                        ApplyConfig(Session.UserConfig);
                         _IrcClient.Reconnect(true);
                         msg = "Connection to " + _IrcClient.Address + " established";
                         fm.SetStatus(msg); 
@@ -1915,6 +1899,28 @@ namespace Smuxi.Engine
                 TextMessagePartModel textMsg = (TextMessagePartModel) msgPart;
                 textMsg.IsHighlight = false;
                 textMsg.ForegroundColor = null;
+            }
+        }
+
+        private void ApplyConfig(UserConfig config)
+        {
+            if (String.IsNullOrEmpty(_Username)) {
+                _Username = (string) config["Connection/Username"];
+            }
+
+            string encodingName = (string) config["Connection/Encoding"];
+            if (String.IsNullOrEmpty(encodingName)) {
+                _IrcClient.Encoding = Encoding.Default;
+            } else {
+                try {
+                    _IrcClient.Encoding = Encoding.GetEncoding(encodingName);
+                } catch (Exception ex) {
+#if LOG4NET
+                    _Logger.Warn("ApplyConfig(): Error getting encoding for: " +
+                                 encodingName + " falling back to system encoding.", ex);
+#endif
+                    _IrcClient.Encoding = Encoding.Default;
+                }
             }
         }
 
