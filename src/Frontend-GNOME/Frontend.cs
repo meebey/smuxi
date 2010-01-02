@@ -299,9 +299,15 @@ namespace Smuxi.Frontend.Gnome
         public static void DisconnectEngineFromGUI()
         {
             Trace.Call();
-            
-            _FrontendManager.IsFrontendDisconnecting = true;
-            _Session.DeregisterFrontendUI(_MainWindow.UI);
+
+            try {
+                _FrontendManager.IsFrontendDisconnecting = true;
+                _Session.DeregisterFrontendUI(_MainWindow.UI);
+            } catch (System.Net.Sockets.SocketException ex) {
+                // ignore as the connection is maybe already broken
+            } catch (System.Runtime.Remoting.RemotingException ex) {
+                // ignore as the connection is maybe already broken
+            }
             _MainWindow.Hide();
             _MainWindow.Notebook.RemoveAllPages();
             // make sure no stray SSH tunnel leaves behind
@@ -310,7 +316,18 @@ namespace Smuxi.Frontend.Gnome
             _FrontendManager = null;
             _Session = null;
         }
-        
+
+        public static void ReconnectEngineToGUI()
+        {
+            Trace.Call();
+
+            Frontend.DisconnectEngineFromGUI();
+            _MainWindow.EngineManager.Reconnect();
+            _Session = _MainWindow.EngineManager.Session;
+            _UserConfig = _MainWindow.EngineManager.UserConfig;
+            Frontend.ConnectEngineToGUI();
+        }
+
         public static void Quit()
         {
             Trace.Call();
@@ -334,13 +351,9 @@ namespace Smuxi.Frontend.Gnome
                 _FrontendConfig[Frontend.UIName + "/Interface/YPosition"] = y;
                 _FrontendConfig.Save();
             }
-            
+
             if (_FrontendManager != null) {
-                try {
-                    DisconnectEngineFromGUI();
-                } catch (System.Runtime.Remoting.RemotingException ex) {
-                    // the connection is maybe already gone
-                }
+                DisconnectEngineFromGUI();
             }
             
             Gtk.Application.Quit();
@@ -420,8 +433,33 @@ namespace Smuxi.Frontend.Gnome
                 md.Destroy();
                 
                 if (res == Gtk.ResponseType.Ok) {
-                    Frontend.DisconnectEngineFromGUI();
-                    _MainWindow.EngineManager.Reconnect();
+                    while (true) {
+                        try {
+                            Frontend.ReconnectEngineToGUI();
+                            // yay, we made it
+                            break;
+                        } catch (Exception e) {
+#if LOG4NET
+                             _Logger.Error("ShowException(): Reconnect failed, exception:", e);
+#endif
+                            var msg = _("Reconnecting to the server has failed.\nDo you want to try again?");
+                            // the parent window is hidden (MainWindow) at this
+                            // point thus modal doesn't make sense here
+                            md = new Gtk.MessageDialog(parent,
+                                Gtk.DialogFlags.DestroyWithParent,
+                                Gtk.MessageType.Error,
+                                Gtk.ButtonsType.OkCancel, msg);
+                            md.SetPosition(Gtk.WindowPosition.CenterAlways);
+                            res = (Gtk.ResponseType) md.Run();
+                            md.Destroy();
+
+                            if (res != Gtk.ResponseType.Ok) {
+                                // give up
+                                Quit();
+                                return;
+                            }
+                        }
+                    }
                     return;
                 }
                 
@@ -559,9 +597,8 @@ namespace Smuxi.Frontend.Gnome
                 if (res != Gtk.ResponseType.Ok) {
                     return false;
                 }
-                
-                Frontend.DisconnectEngineFromGUI();
-                _MainWindow.EngineManager.Reconnect();
+
+                Frontend.ReconnectEngineToGUI();
             } catch (Exception ex) {
                 Frontend.ShowException(ex);
             }

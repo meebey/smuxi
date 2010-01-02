@@ -319,7 +319,13 @@ namespace Smuxi.Frontend
         public void Disconnect()
         {
             Trace.Call();
-            
+
+            // HACK: the transparent proxy object is not automatically updating
+            // changed channel data and thus will re-use the obsolete TCP port
+            // for the next remoting back connection, thus we have to destroy
+            // the proxy object here!
+            RemotingServices.Disconnect((MarshalByRefObject) f_FrontendUI);
+
             if (f_SshTunnelManager != null) {
                 f_SshTunnelManager.Disconnect();
                 f_SshTunnelManager.Dispose();

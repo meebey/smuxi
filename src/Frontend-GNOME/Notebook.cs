@@ -101,7 +101,13 @@ namespace Smuxi.Frontend.Gnome
         public void RemoveAllPages()
         {
             Trace.Call();
-            
+
+            // OPT: don't trigger lots of SwitchPage events while we remove all pages
+            // this also breaks the Frontend.ReconnectEngineToGUI() as that one
+            // has to cleanup all chats regardless of a working network
+            // connection
+            SwitchPage -= _OnSwitchPage;
+
             int npages = NPages;
             CurrentPage = 0;
             for (int i = 0; i < npages; i++) {
@@ -112,6 +118,9 @@ namespace Smuxi.Frontend.Gnome
                 NextPage();
                 RemovePage(CurrentPage);
             }
+
+            // reconnect the event handler
+            SwitchPage += _OnSwitchPage;
         }
         
         public void ClearAllActivity()
