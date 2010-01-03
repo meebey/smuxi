@@ -69,8 +69,8 @@
   </Target>
   <Target Name="AfterBuild">
   </Target>
-  -->
   <PropertyGroup>
     <PreBuildEvent>$(SolutionDir)Lib\TortoiseSVN\subwcrev.exe $(ProjectDir). $(ProjectDir)Properties\AssemblyInfo.cs.tmpl $(ProjectDir)Properties\AssemblyInfo.cs</PreBuildEvent>
   </PropertyGroup>
+  -->
 </Project>
