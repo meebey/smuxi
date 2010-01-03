@@ -207,7 +207,7 @@ if test "x$ENABLE_ENGINE_MSNP" != "xno"; then
 fi
 AM_CONDITIONAL(ENABLE_ENGINE_MSNP, test "x$ENABLE_ENGINE_MSNP" = "xyes")
 
-AC_ARG_ENABLE([engine-msnp],
+AC_ARG_ENABLE([engine-twitter],
 	AC_HELP_STRING([--enable-engine-twitter], [Enable Twitter support (default yes)]),
 	ENABLE_ENGINE_TWITTER=$enableval,
 	ENABLE_ENGINE_TWITTER=yes
