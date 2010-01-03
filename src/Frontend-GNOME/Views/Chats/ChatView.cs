@@ -74,41 +74,52 @@ namespace Smuxi.Frontend.Gnome
                     return;
                 }
 
-                string color = (string) Frontend.UserConfig["Interface/Notebook/Tab/HighlightColor"];
+                var color = ColorTools.GetBestTextColor(
+                    ColorTools.GetTextColor(_ThemeSettings.HighlightColor),
+                    ColorTools.GetTextColor(
+                        Gtk.Rc.GetStyle(_TabLabel).Base(Gtk.StateType.Normal)
+                    ), ColorContrast.High
+                );
                 _TabLabel.Markup = String.Format(
                     "<span foreground=\"{0}\">{1}</span>",
-                    GLib.Markup.EscapeText(color),
+                    GLib.Markup.EscapeText(color.ToString()),
                     GLib.Markup.EscapeText(_Name)
                 );
             }
         }
-        
+
         public bool HasActivity {
             get {
                 return _HasActivity;
             }
             set {
                 _HasActivity = value;
-                
+
                 if (HasHighlight) {
                     // don't show activity if there is a highlight active
                     return;
                 }
-                
-                string color = null;
+
+                Gdk.Color colorValue;
                 if (value) {
-                    color = (string) Frontend.UserConfig["Interface/Notebook/Tab/ActivityColor"];
+                    colorValue = _ThemeSettings.ActivityColor;
                 } else {
-                    color = (string) Frontend.UserConfig["Interface/Notebook/Tab/NoActivityColor"];
+                    colorValue = _ThemeSettings.NoActivityColor;
                 }
+                var color = ColorTools.GetBestTextColor(
+                    ColorTools.GetTextColor(colorValue),
+                    ColorTools.GetTextColor(
+                        Gtk.Rc.GetStyle(_TabLabel).Base(Gtk.StateType.Normal)
+                    ), ColorContrast.High
+                );
                 _TabLabel.Markup = String.Format(
                     "<span foreground=\"{0}\">{1}</span>",
-                    GLib.Markup.EscapeText(color),
+                    GLib.Markup.EscapeText(color.ToString()),
                     GLib.Markup.EscapeText(_Name)
                 );
             }
         }
-        
+
         public bool HasEvent {
             get {
                 return _HasEvent;
@@ -126,11 +137,16 @@ namespace Smuxi.Frontend.Gnome
                     HasActivity = false;
                     return;
                 }
-                
-                string color = (string) Frontend.UserConfig["Interface/Notebook/Tab/EventColor"];
+
+                var color = ColorTools.GetBestTextColor(
+                    ColorTools.GetTextColor(_ThemeSettings.EventColor),
+                    ColorTools.GetTextColor(
+                        Gtk.Rc.GetStyle(_TabLabel).Base(Gtk.StateType.Normal)
+                    ), ColorContrast.High
+                );
                 _TabLabel.Markup = String.Format(
                     "<span foreground=\"{0}\">{1}</span>",
-                    GLib.Markup.EscapeText(color),
+                    GLib.Markup.EscapeText(color.ToString()),
                     GLib.Markup.EscapeText(_Name)
                 );
             }
@@ -358,7 +374,7 @@ namespace Smuxi.Frontend.Gnome
             }
             
             _ThemeSettings = new ThemeSettings(config);
-            
+
             _OutputMessageTextView.ApplyConfig(config);
         }
         

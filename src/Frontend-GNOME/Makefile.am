@@ -102,6 +102,7 @@ FILES = \
 	ChatTypeWidget.cs \
 	ChatViewManager.cs \
 	ColorTools.cs \
+	ColorContrast.cs \
 	Preferences/ServerListView.cs \
 	Preferences/ServerView.cs \
 	Preferences/PreferencesDialog.cs \
