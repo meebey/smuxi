@@ -2584,9 +2584,11 @@ namespace Smuxi.Engine
             
             PersonModel person = groupChat.GetPerson(e.Who);
             if (person == null) {
+#if LOG4NET
                 // HACK: some buggy networks might send PART messages for users
                 // that are not on the channel
                 _Logger.Error("_OnPart(): groupChat.GetPerson(" + e.Who + ") returned null!");
+#endif
             } else {
                 Session.RemovePersonFromGroupChat(groupChat, person);
             }
