@@ -76,7 +76,7 @@ namespace Smuxi.Common
             line += methodname + "(" + _Parameterize(mb, args) + ")";
 #if LOG4NET
             _Logger.Debug(line);
-#elif
+#else
             SysTrace.Write(line);
 #endif
         }
@@ -99,7 +99,7 @@ namespace Smuxi.Common
             
 #if LOG4NET
             _Logger.Debug(line.ToString());
-#elif
+#else
             SysTrace.WriteLine(line.ToString());
 #endif
         }
