@@ -89,8 +89,15 @@ namespace Smuxi.Frontend.Gnome
 
         public static TextColor GetBestTextColor(TextColor fgColor, TextColor bgColor)
         {
-            // TRACER VERY EXPENSIVE HERE: 0.5ms per call!
-            //Trace.Call(fgColor, bgColor);
+            return GetBestTextColor(fgColor, bgColor, ColorContrast.Medium);
+        }
+
+        public static TextColor GetBestTextColor(TextColor fgColor,
+                                                 TextColor bgColor,
+                                                 ColorContrast neededContrast)
+        {
+            // logging noise
+            //Trace.Call(fgColor, bgColor, neededContrast);
 
             if (fgColor == null) {
                 throw new ArgumentNullException("fgColor");
@@ -121,7 +128,7 @@ namespace Smuxi.Frontend.Gnome
             bestColor = fgColor;
             while (true) {
                 double difference = GetLuminanceDifference(bestColor, bgColor);
-                if (difference > 3.5) {
+                if (difference > (int) neededContrast / 10d) {
                     break;
                 }
 
