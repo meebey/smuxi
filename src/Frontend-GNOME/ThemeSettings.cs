@@ -31,6 +31,10 @@ namespace Smuxi.Frontend.Gnome
         private Gdk.Color?            f_BackgroundColor;
         private Gdk.Color?            f_ForegroundColor;
         private Pango.FontDescription f_FontDescription;
+        private Gdk.Color             f_HighlightColor;
+        private Gdk.Color             f_ActivityColor;
+        private Gdk.Color             f_NoActivityColor;
+        private Gdk.Color             f_EventColor;
 
         public Nullable<Gdk.Color> BackgroundColor {
             get {
@@ -47,6 +51,30 @@ namespace Smuxi.Frontend.Gnome
         public Nullable<Gdk.Color> ForegroundColor {
             get {
                 return f_ForegroundColor;
+            }
+        }
+
+        public Gdk.Color ActivityColor {
+            get {
+                return f_ActivityColor;
+            }
+        }
+
+        public Gdk.Color EventColor {
+            get {
+                return f_EventColor;
+            }
+        }
+
+        public Gdk.Color HighlightColor {
+            get {
+                return f_HighlightColor;
+            }
+        }
+
+        public Gdk.Color NoActivityColor {
+            get {
+                return f_NoActivityColor;
             }
         }
         
@@ -79,7 +107,33 @@ namespace Smuxi.Frontend.Gnome
             } else {
                 f_ForegroundColor = null;
             }
-            
+
+            string colorStr;
+            Gdk.Color color;
+            colorStr = (string) config["Interface/Notebook/Tab/HighlightColor"];
+            color = Gdk.Color.Zero;
+            if (Gdk.Color.Parse(colorStr, ref color)) {
+                f_HighlightColor = color;
+            }
+
+            colorStr = (string) config["Interface/Notebook/Tab/ActivityColor"];
+            color = Gdk.Color.Zero;
+            if (Gdk.Color.Parse(colorStr, ref color)) {
+                f_ActivityColor = color;
+            }
+
+            colorStr = (string) config["Interface/Notebook/Tab/NoActivityColor"];
+            color = Gdk.Color.Zero;
+            if (Gdk.Color.Parse(colorStr, ref color)) {
+                f_NoActivityColor = color;
+            }
+
+            colorStr = (string) config["Interface/Notebook/Tab/EventColor"];
+            color = Gdk.Color.Zero;
+            if (Gdk.Color.Parse(colorStr, ref color)) {
+                f_EventColor = color;
+            }
+
             string fontFamily = (string) config["Interface/Chat/FontFamily"];
             string fontStyle = (string) config["Interface/Chat/FontStyle"];
             int fontSize = 0;
