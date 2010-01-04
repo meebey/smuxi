@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Smuxi 0.6.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-02 05:12+0100\n"
+"POT-Creation-Date: 2010-01-05 00:55+0100\n"
 "PO-Revision-Date: 2009-11-26 01:47+0100\n"
 "Last-Translator: Clément BOURGEOIS <moonpyk@gmail.com>\n"
 "Language-Team: French Localization <debian-l10n-french@lists.debian.org>\n"
@@ -17,42 +17,68 @@ msgstr ""
 "X-Poedit-Language: French\n"
 "X-Poedit-Country: FRANCE\n"
 
-#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:55
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:53
 msgid "Op"
 msgstr "Opper"
 
-#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:59
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:57
 msgid "Deop"
 msgstr "Enlever l'Op"
 
-#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:63
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:61
 msgid "Voice"
 msgstr "Voicer"
 
-#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:67
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:65
 msgid "Devoice"
 msgstr "Enlever le Voice"
 
-#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:71
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:69
 msgid "Kick"
 msgstr "Kicker"
 
-#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:75
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:73
 msgid "Kick + Ban"
 msgstr "Kicker + Bannir"
 
-#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:79
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:77
 msgid "Ban"
 msgstr "Bannir"
 
-#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:83
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:81
 msgid "Unban"
 msgstr "Enlever le ban"
 
-#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:89
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:87
 msgid "Query"
 msgstr "Chat privé"
 
-#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:93
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:91
+#: ../src/Frontend-GNOME-IRC/IrcPersonChatView.cs:67
 msgid "Whois"
 msgstr "Whois"
+
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:96
+#: ../src/Frontend-GNOME-IRC/IrcPersonChatView.cs:71
+msgid "CTCP"
+msgstr ""
+
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:99
+#: ../src/Frontend-GNOME-IRC/IrcPersonChatView.cs:76
+msgid "Ping"
+msgstr ""
+
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:103
+#: ../src/Frontend-GNOME-IRC/IrcPersonChatView.cs:80
+msgid "Version"
+msgstr ""
+
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:107
+#: ../src/Frontend-GNOME-IRC/IrcPersonChatView.cs:84
+msgid "Time"
+msgstr ""
+
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:111
+#: ../src/Frontend-GNOME-IRC/IrcPersonChatView.cs:88
+msgid "Finger"
+msgstr ""
