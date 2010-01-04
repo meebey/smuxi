@@ -406,7 +406,11 @@ namespace Smuxi.Engine
             
             string channel = null;
             if (filter != null) {
-                channel = filter.Name;
+                if (!filter.Name.StartsWith("*") && !filter.Name.EndsWith("*")) {
+                    channel = String.Format("*{0}*", filter.Name);
+                } else {
+                    channel = filter.Name;
+                }
             }
             
             IList<ChannelInfo> infos = _IrcClient.GetChannelList(channel);
