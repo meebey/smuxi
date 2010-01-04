@@ -582,7 +582,12 @@ namespace Smuxi.Frontend.Gnome
             Trace.Call(sender, e);
 
             if (e.Event.Button == 3 && _PersonTreeView.Selection.CountSelectedRows() > 0) {
-                _PersonMenu.Popup(null, null, null, e.Event.Button, e.Event.Time);
+                // HACK: don't pass the real mouse button that was used to
+                // initiate the menu, as sub-menus will only respond to that
+                // button for some reason! As workaround we always pass
+                // 0 == left mouse button here
+                //_PersonMenu.Popup(null, null, null, e.Event.Button, e.Event.Time);
+                _PersonMenu.Popup(null, null, null, 0, e.Event.Time);
                 _PersonMenu.ShowAll();
             }
         }

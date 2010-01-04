@@ -41,21 +41,15 @@ namespace Smuxi.Frontend.Gnome
         private static readonly log4net.ILog _Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 #endif
         private static readonly string       _LibraryTextDomain = "smuxi-frontend-gnome-irc";
-        //private IrcGroupChatModel  _IrcGroupChatModel;
         private IrcProtocolManager _IrcProtocolManager;
 
-        private Gtk.Menu _CtcpMenu;
-        
         public IrcGroupChatView(GroupChatModel groupChat) : base(groupChat)
         {
             Trace.Call(groupChat);
-            
-            //_IrcGroupChatModel = ircGroupChat;
+
             _IrcProtocolManager = (IrcProtocolManager) groupChat.ProtocolManager;
             
             if (PersonMenu != null) {
-                _CtcpMenu = new Gtk.Menu();
-                
                 Gtk.ImageMenuItem op_item = new Gtk.ImageMenuItem(_("Op"));
                 op_item.Activated += new EventHandler(_OnUserListMenuOpActivated);
                 PersonMenu.Append(op_item);
@@ -94,30 +88,32 @@ namespace Smuxi.Frontend.Gnome
                 query_item.Activated += new EventHandler(_OnUserListMenuQueryActivated);
                 PersonMenu.Append(query_item);
 
-                Gtk.ImageMenuItem ctcp_item = new Gtk.ImageMenuItem(_("CTCP"));
+                Gtk.ImageMenuItem whois_item = new Gtk.ImageMenuItem(_("Whois"));
+                whois_item.Activated += _OnUserListMenuWhoisActivated;
+                PersonMenu.Append(whois_item);
+
+                Gtk.Menu ctcp_menu = new Gtk.Menu();
+                Gtk.MenuItem ctcp_item = new Gtk.MenuItem(_("CTCP"));
+                ctcp_item.Submenu = ctcp_menu;
 
                 Gtk.MenuItem ctcp_ping_item = new Gtk.MenuItem(_("Ping"));
-                ctcp_ping_item.Activated += new EventHandler(_OnUserListMenuCtcpPingActivated);
-                _CtcpMenu.Append(ctcp_ping_item);
+                ctcp_ping_item.Activated += _OnUserListMenuCtcpPingActivated;
+                ctcp_menu.Append(ctcp_ping_item);
 
                 Gtk.MenuItem ctcp_version_item = new Gtk.MenuItem(_("Version"));
-                ctcp_version_item.Activated += new EventHandler(_OnUserListMenuCtcpVersionActivated);
-                _CtcpMenu.Append(ctcp_version_item);
+                ctcp_version_item.Activated += _OnUserListMenuCtcpVersionActivated;
+                ctcp_menu.Append(ctcp_version_item);
 
                 Gtk.MenuItem ctcp_time_item = new Gtk.MenuItem(_("Time"));
-                ctcp_time_item.Activated += new EventHandler(_OnUserListMenuCtcpTimeActivated);
-                _CtcpMenu.Append(ctcp_time_item);
+                ctcp_time_item.Activated += _OnUserListMenuCtcpTimeActivated;
+                ctcp_menu.Append(ctcp_time_item);
 
                 Gtk.MenuItem ctcp_finger_item = new Gtk.MenuItem(_("Finger"));
-                ctcp_finger_item.Activated += new EventHandler(_OnUserListMenuCtcpFingerActivated);
-                _CtcpMenu.Append(ctcp_finger_item);
+                ctcp_finger_item.Activated += _OnUserListMenuCtcpFingerActivated;
+                ctcp_menu.Append(ctcp_finger_item);
 
-                ctcp_item.Submenu = _CtcpMenu;
+                ctcp_menu.ShowAll();
                 PersonMenu.Append(ctcp_item);
-
-                Gtk.ImageMenuItem whois_item = new Gtk.ImageMenuItem(_("Whois"));
-                whois_item.Activated += new EventHandler(_OnUserListMenuWhoisActivated);
-                PersonMenu.Append(whois_item);
             }
             
             if (PersonTreeView != null) {
