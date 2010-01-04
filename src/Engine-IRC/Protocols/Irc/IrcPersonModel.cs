@@ -38,7 +38,10 @@ namespace Smuxi.Engine
         private string _RealName;
         private string _Ident;
         private string _Host;
-        
+        private string _AwayMessage;
+        private bool   _IsAwaySeen;
+        private bool   _IsAway;
+
         public string NickName {
             get {
                 return IdentityName;
@@ -74,7 +77,43 @@ namespace Smuxi.Engine
                 _Host = value;
             }
         }
-        
+
+        /// <summary>
+        /// Store the last away message.
+        /// </summary>
+        public string AwayMessage {
+            get {
+                return this._AwayMessage;
+            }
+            set {
+                this._AwayMessage = value;
+            }
+        }
+
+        /// <summary>
+        /// Whether <see cref="AwayMessage"/> has been shown or not.
+        /// </summary>
+        public bool IsAwaySeen {
+            get {
+                return this._IsAwaySeen;
+            }
+            set {
+                this._IsAwaySeen = value;
+            }
+        }
+
+        /// <summary>
+        /// Whether this user is away or not.
+        /// </summary>
+        public bool IsAway {
+            get {
+                return this._IsAway;
+            }
+            set {
+                this._IsAway = value;
+            }
+        }
+
         internal IrcPersonModel(string nickName, string realName, string ident,
                                 string host, string networkID,
                                 IProtocolManager protocolManager) :
