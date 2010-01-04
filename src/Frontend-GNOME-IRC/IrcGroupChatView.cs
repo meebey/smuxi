@@ -41,14 +41,12 @@ namespace Smuxi.Frontend.Gnome
         private static readonly log4net.ILog _Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 #endif
         private static readonly string       _LibraryTextDomain = "smuxi-frontend-gnome-irc";
-        //private IrcGroupChatModel  _IrcGroupChatModel; 
         private IrcProtocolManager _IrcProtocolManager;
-        
+
         public IrcGroupChatView(GroupChatModel groupChat) : base(groupChat)
         {
             Trace.Call(groupChat);
-            
-            //_IrcGroupChatModel = ircGroupChat;
+
             _IrcProtocolManager = (IrcProtocolManager) groupChat.ProtocolManager;
             
             if (PersonMenu != null) {
@@ -89,10 +87,33 @@ namespace Smuxi.Frontend.Gnome
                 Gtk.ImageMenuItem query_item = new Gtk.ImageMenuItem(_("Query"));
                 query_item.Activated += new EventHandler(_OnUserListMenuQueryActivated);
                 PersonMenu.Append(query_item);
-                
+
                 Gtk.ImageMenuItem whois_item = new Gtk.ImageMenuItem(_("Whois"));
                 whois_item.Activated += _OnUserListMenuWhoisActivated;
                 PersonMenu.Append(whois_item);
+
+                Gtk.Menu ctcp_menu = new Gtk.Menu();
+                Gtk.MenuItem ctcp_item = new Gtk.MenuItem(_("CTCP"));
+                ctcp_item.Submenu = ctcp_menu;
+
+                Gtk.MenuItem ctcp_ping_item = new Gtk.MenuItem(_("Ping"));
+                ctcp_ping_item.Activated += _OnUserListMenuCtcpPingActivated;
+                ctcp_menu.Append(ctcp_ping_item);
+
+                Gtk.MenuItem ctcp_version_item = new Gtk.MenuItem(_("Version"));
+                ctcp_version_item.Activated += _OnUserListMenuCtcpVersionActivated;
+                ctcp_menu.Append(ctcp_version_item);
+
+                Gtk.MenuItem ctcp_time_item = new Gtk.MenuItem(_("Time"));
+                ctcp_time_item.Activated += _OnUserListMenuCtcpTimeActivated;
+                ctcp_menu.Append(ctcp_time_item);
+
+                Gtk.MenuItem ctcp_finger_item = new Gtk.MenuItem(_("Finger"));
+                ctcp_finger_item.Activated += _OnUserListMenuCtcpFingerActivated;
+                ctcp_menu.Append(ctcp_finger_item);
+
+                ctcp_menu.ShowAll();
+                PersonMenu.Append(ctcp_item);
             }
             
             if (PersonTreeView != null) {
@@ -322,6 +343,86 @@ namespace Smuxi.Frontend.Gnome
 
             foreach (PersonModel person in persons) {
                 _IrcProtocolManager.CommandMessageQuery(
+                    new CommandModel(
+                        Frontend.FrontendManager,
+                        ChatModel,
+                        person.ID
+                    )
+                );
+            }
+        }
+
+        private void _OnUserListMenuCtcpPingActivated(object sender, EventArgs e)
+        {
+            Trace.Call(sender, e);
+
+            IList<PersonModel> persons = GetSelectedPersons();
+            if (persons == null) {
+                return;
+            }
+
+            foreach (PersonModel person in persons) {
+                _IrcProtocolManager.CommandPing(
+                    new CommandModel(
+                        Frontend.FrontendManager,
+                        ChatModel,
+                        person.ID
+                    )
+                );
+            }
+        }
+
+        private void _OnUserListMenuCtcpVersionActivated(object sender, EventArgs e)
+        {
+            Trace.Call(sender, e);
+
+            IList<PersonModel> persons = GetSelectedPersons();
+            if (persons == null) {
+                return;
+            }
+
+            foreach (PersonModel person in persons) {
+                _IrcProtocolManager.CommandVersion(
+                    new CommandModel(
+                        Frontend.FrontendManager,
+                        ChatModel,
+                        person.ID
+                    )
+                );
+            }
+        }
+
+        private void _OnUserListMenuCtcpTimeActivated(object sender, EventArgs e)
+        {
+            Trace.Call(sender, e);
+
+            IList<PersonModel> persons = GetSelectedPersons();
+            if (persons == null) {
+                return;
+            }
+
+            foreach (PersonModel person in persons) {
+                _IrcProtocolManager.CommandTime(
+                    new CommandModel(
+                        Frontend.FrontendManager,
+                        ChatModel,
+                        person.ID
+                    )
+                );
+            }
+        }
+
+        private void _OnUserListMenuCtcpFingerActivated(object sender, EventArgs e)
+        {
+            Trace.Call(sender, e);
+
+            IList<PersonModel> persons = GetSelectedPersons();
+            if (persons == null) {
+                return;
+            }
+
+            foreach (PersonModel person in persons) {
+                _IrcProtocolManager.CommandFinger(
                     new CommandModel(
                         Frontend.FrontendManager,
                         ChatModel,
