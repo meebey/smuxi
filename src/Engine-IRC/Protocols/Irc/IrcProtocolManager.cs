@@ -516,6 +516,18 @@ namespace Smuxi.Engine
                             CommandPing(command);
                             handled = true;
                             break;
+                        case "version":
+                            CommandVersion(command);
+                            handled = true;
+                            break;
+                        case "time":
+                            CommandTime(command);
+                            handled = true;
+                            break;
+                        case "finger":
+                            CommandFinger(command);
+                            handled = true;
+                            break;
                         case "who":
                             CommandWho(command);
                             handled = true;
@@ -693,6 +705,9 @@ namespace Smuxi.Engine
             "whois nick",
             "whowas nick",
             "ping nick",
+            "version nick",
+            "time nick",
+            "finger nick",
             "mode new-mode",
             "away [away-message]",
             "kick nick(s) [reason]",
@@ -1137,6 +1152,39 @@ namespace Smuxi.Engine
                 string timestamp = DateTime.Now.ToFileTime().ToString();
                 Session.AddTextToChat(_NetworkChat, "[ctcp(" + destination + ")] PING " + timestamp);
                 _IrcClient.SendMessage(SendType.CtcpRequest, destination, "PING " + timestamp);
+            } else {
+                _NotEnoughParameters(cd);
+            }
+        }
+
+        public void CommandTime(CommandModel cd)
+        {
+            if (cd.DataArray.Length >= 2) {
+                string destination = cd.DataArray[1];
+                Session.AddTextToChat(_NetworkChat, "[ctcp(" + destination + ")] TIME");
+                _IrcClient.SendMessage(SendType.CtcpRequest, destination, "TIME");
+            } else {
+                _NotEnoughParameters(cd);
+            }
+        }
+
+        public void CommandVersion(CommandModel cd)
+        {
+            if (cd.DataArray.Length >= 2) {
+                string destination = cd.DataArray[1];
+                Session.AddTextToChat(_NetworkChat, "[ctcp(" + destination + ")] VERSION");
+                _IrcClient.SendMessage(SendType.CtcpRequest, destination, "VERSION");
+            } else {
+                _NotEnoughParameters(cd);
+            }
+        }
+
+        public void CommandFinger(CommandModel cd)
+        {
+            if (cd.DataArray.Length >= 2) {
+                string destination = cd.DataArray[1];
+                Session.AddTextToChat(_NetworkChat, "[ctcp(" + destination + ")] FINGER");
+                _IrcClient.SendMessage(SendType.CtcpRequest, destination, "FINGER");
             } else {
                 _NotEnoughParameters(cd);
             }
