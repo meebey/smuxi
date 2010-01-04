@@ -36,9 +36,16 @@ namespace Smuxi.Frontend.Gnome
     [ChatViewInfo(ChatType = ChatType.Person, ProtocolManagerType = typeof(IrcProtocolManager))]
     public class IrcPersonChatView : PersonChatView
     {
+        private static readonly string _LibraryTextDomain = "smuxi-frontend-gnome-irc";
+        private IrcProtocolManager _IrcProtocolManager;
+
         public IrcPersonChatView(PersonChatModel personChat) : base(personChat)
         {
             Trace.Call(personChat);
+
+            _IrcProtocolManager = (IrcProtocolManager)personChat.ProtocolManager;
+
+            OutputMessageTextView.PopulatePopup += _OnOutputMessageTextViewPopulatePopup;
         }
         
         public override void Close()
@@ -49,6 +56,110 @@ namespace Smuxi.Frontend.Gnome
             
             // BUG: out of scope?
             Frontend.Session.RemoveChat(ChatModel);
+        }
+
+        private void _OnOutputMessageTextViewPopulatePopup (object o, Gtk.PopulatePopupArgs args)
+        {
+            Gtk.Menu popup = args.Menu;
+
+            popup.Append(new Gtk.SeparatorMenuItem());
+
+            Gtk.ImageMenuItem whois_item = new Gtk.ImageMenuItem(_("Whois"));
+            whois_item.Activated += _OnMenuWhoisItemActivated;
+            popup.Append(whois_item);
+
+            Gtk.ImageMenuItem ctcp_item = new Gtk.ImageMenuItem(_("CTCP"));
+            Gtk.Menu ctcp_menu_item = new Gtk.Menu();
+            ctcp_item.Submenu = ctcp_menu_item;
+            popup.Append(ctcp_item);
+
+            Gtk.ImageMenuItem ctcp_ping_item = new Gtk.ImageMenuItem(_("Ping"));
+            ctcp_ping_item.Activated += _OnMenuCtcpPingItemActivated;
+            ctcp_menu_item.Append(ctcp_ping_item);
+
+            Gtk.ImageMenuItem ctcp_version_item = new Gtk.ImageMenuItem(_("Version"));
+            ctcp_version_item.Activated += _OnMenuCtcpVersionItemActivated;
+            ctcp_menu_item.Append(ctcp_version_item);
+
+            Gtk.ImageMenuItem ctcp_time_item = new Gtk.ImageMenuItem(_("Time"));
+            ctcp_time_item.Activated += _OnMenuCtcpTimeItemActivated;
+            ctcp_menu_item.Append(ctcp_time_item);
+
+            Gtk.ImageMenuItem ctcp_finger_item = new Gtk.ImageMenuItem(_("Finger"));
+            ctcp_finger_item.Activated += _OnMenuCtcpFingerItemActivated;
+            ctcp_menu_item.Append(ctcp_finger_item);
+
+            popup.ShowAll();
+        }
+
+        void _OnMenuWhoisItemActivated (object sender, EventArgs e)
+        {
+            Trace.Call(sender, e);
+
+            _IrcProtocolManager.CommandWhoIs(
+                new CommandModel(
+                    Frontend.FrontendManager,
+                    ChatModel,
+                    ChatModel.ID
+                )
+             );
+        }
+
+        void _OnMenuCtcpPingItemActivated (object sender, EventArgs e)
+        {
+            Trace.Call(sender, e);
+
+            _IrcProtocolManager.CommandPing(
+                new CommandModel(
+                    Frontend.FrontendManager,
+                    ChatModel,
+                    ChatModel.ID
+                )
+             );
+        }
+
+        void _OnMenuCtcpVersionItemActivated (object sender, EventArgs e)
+        {
+            Trace.Call(sender, e);
+
+            _IrcProtocolManager.CommandVersion(
+                new CommandModel(
+                    Frontend.FrontendManager,
+                    ChatModel,
+                    ChatModel.ID
+                )
+             );
+        }
+
+        void _OnMenuCtcpTimeItemActivated (object sender, EventArgs e)
+        {
+            Trace.Call(sender, e);
+
+            _IrcProtocolManager.CommandTime(
+                new CommandModel(
+                    Frontend.FrontendManager,
+                    ChatModel,
+                    ChatModel.ID
+                )
+             );
+        }
+
+        void _OnMenuCtcpFingerItemActivated (object sender, EventArgs e)
+        {
+            Trace.Call(sender, e);
+
+            _IrcProtocolManager.CommandFinger(
+                new CommandModel(
+                    Frontend.FrontendManager,
+                    ChatModel,
+                    ChatModel.ID
+                )
+             );
+        }
+
+        private static string _(string msg)
+        {
+            return LibraryCatalog.GetString(msg, _LibraryTextDomain);
         }
     }
 }
