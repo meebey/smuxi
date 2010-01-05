@@ -45,6 +45,7 @@ namespace Smuxi.Frontend.Gnome
         private bool         _ShowTimestamps;
         private bool         _ShowHighlight;
         private bool         _AtUrlTag;
+        private string       _Url;
         private UserConfig   _Config;
         private ThemeSettings _ThemeSettings;
 
@@ -96,6 +97,7 @@ namespace Smuxi.Frontend.Gnome
             
             Buffer = new Gtk.TextBuffer(_MessageTextTagTable);
             MotionNotifyEvent += OnMotionNotifyEvent;
+            PopulatePopup += OnPopulatePopup;
         }
 
         public void ApplyConfig(UserConfig config)
@@ -334,11 +336,8 @@ namespace Smuxi.Frontend.Gnome
         
         protected virtual void OnTextTagUrlTextEvent(object sender, Gtk.TextEventArgs e)
         {
-            Trace.Call(sender, e);
-            
-            if (e.Event.Type != Gdk.EventType.ButtonRelease) {
-                return;
-            }
+            // logging noise
+            //Trace.Call(sender, e);
             
             Gtk.TextIter start = Gtk.TextIter.Zero;
             Gtk.TextIter end = Gtk.TextIter.Zero;
@@ -358,29 +357,76 @@ namespace Smuxi.Frontend.Gnome
             start.BackwardToTagToggle(tag);
             end = e.Iter;
             end.ForwardToTagToggle(tag);
-            string url = Buffer.GetText(start, end, false);
-            if (String.IsNullOrEmpty(url)) {
+            _Url = Buffer.GetText(start, end, false);
+
+            if (e.Event.Type != Gdk.EventType.ButtonRelease) {
+                return;
+            }
+
+            if (String.IsNullOrEmpty(_Url)) {
 #if LOG4NET
                 _Logger.Warn("OnTextTagUrlTextEvent(): url is empty, ignoring...");
 #endif
                 return;
             }
-            
-            if (!Regex.IsMatch(url, @"^[a-zA-Z0-9\-]+:\/\/")) {
+
+            OpenLink(_Url);
+        }
+
+        protected virtual void OnPopulatePopup(object sender, Gtk.PopulatePopupArgs e)
+        {
+            Trace.Call(sender, e);
+
+            if (!_AtUrlTag) {
+                return;
+            }
+
+            Gtk.Menu popup = e.Menu;
+            // remove all items
+            foreach (Gtk.Widget children in popup.Children) {
+                popup.Remove(children);
+            }
+
+            Gtk.ImageMenuItem open_item = new Gtk.ImageMenuItem(_("_Open Link"));
+            open_item.Image = new Gtk.Image(Gtk.Stock.Open, Gtk.IconSize.Menu);
+            open_item.Activated += delegate {
+                if (!String.IsNullOrEmpty(_Url)) {
+                    OpenLink(_Url);
+                }
+            };
+            popup.Append(open_item);
+
+            Gtk.ImageMenuItem copy_item = new Gtk.ImageMenuItem(_("Copy _Link"));
+            copy_item.Image = new Gtk.Image(Gtk.Stock.Copy, Gtk.IconSize.Menu);
+            copy_item.Activated += delegate {
+                Gdk.Atom clipboardAtom = Gdk.Atom.Intern("CLIPBOARD", false);
+                Gtk.Clipboard clipboard = Gtk.Clipboard.Get(clipboardAtom);
+                clipboard.Text = _Url;
+            };
+            popup.Append(copy_item);
+
+            popup.ShowAll();
+        }
+
+        private void OpenLink(string link)
+        {
+            Trace.Call(link);
+
+            if (!Regex.IsMatch(link, @"^[a-zA-Z0-9\-]+:\/\/")) {
                 // URL doesn't start with a protocol
-                url = "http://" + url;
+                link = "http://" + link;
             }
             
             // hopefully MS .NET / Mono finds some way to handle the URL
             ThreadPool.QueueUserWorkItem(delegate {
                 try {
-                    SysDiag.Process.Start(url);
+                    SysDiag.Process.Start(link);
                 } catch (Exception ex) {
                     // exceptions in the thread pool would kill the process, see:
                     // http://msdn.microsoft.com/en-us/library/0ka9477y.aspx
                     // http://projects.qnetp.net/issues/show/194
 #if LOG4NET
-                    _Logger.Error("OnTextTagUrlTextEvent(): opening URL failed", ex);
+                    _Logger.Error("OpenLink(): opening URL: '" + link + "' failed", ex);
 #endif
                 }
             });
