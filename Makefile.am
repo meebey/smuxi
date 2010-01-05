@@ -33,7 +33,7 @@ mail-po: update-po
 	for PODIR in $(PODIRS); do \
 		echo $$PODIR; \
 		podebconf-report-po \
-			--deadline=7days \
+			--deadline=+7days \
 			--notdebconf \
 			--package="Smuxi ($$PODIR)" \
 			--utf8 \
@@ -46,7 +46,7 @@ call-po: update-po
 	for PODIR in $(PODIRS); do \
 		echo $$PODIR; \
 		podebconf-report-po \
-			--deadline=14days \
+			--deadline=+14days \
 			--notdebconf \
 			--package="Smuxi ($$PODIR)" \
 			--utf8 \
