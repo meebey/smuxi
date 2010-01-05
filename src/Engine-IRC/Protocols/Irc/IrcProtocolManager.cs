@@ -2293,6 +2293,11 @@ namespace Smuxi.Engine
 
         private void _OnCtcpReply(object sender, CtcpEventArgs e)
         {
+            ChatModel chat = GetChat(e.Data.Nick, ChatType.Person);
+            if (chat == null) {
+                chat = _NetworkChat;
+            }
+
             if (e.CtcpCommand == "PING") {
                 try {
                     long timestamp = Int64.Parse(e.CtcpParameter);
@@ -2301,13 +2306,16 @@ namespace Smuxi.Engine
                     }
                     DateTime sent = DateTime.FromFileTime(timestamp);
                     string duration = DateTime.Now.Subtract(sent).TotalSeconds.ToString();
-                    Session.AddTextToChat(_NetworkChat, String.Format(
+
+                    Session.AddTextToChat(chat, String.Format(
                                                     _("CTCP PING reply from {0}: {1} seconds"),
                                                     e.Data.Nick, duration));
+
+
                 } catch (FormatException) {
                 }
             } else {
-                Session.AddTextToChat(_NetworkChat, String.Format(
+                Session.AddTextToChat(chat, String.Format(
                                             _("CTCP {0} reply from {1}: {2}"),
                                             e.CtcpCommand, e.Data.Nick, e.CtcpParameter));
             }
