@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-01-05 00:55+0100\n"
-"PO-Revision-Date: 2009-12-28 23:17+0100\n"
+"PO-Revision-Date: 2010-01-05 22:37+0100\n"
 "Last-Translator: Martin Bagge <brother@bsnet.se>\n"
 "Language-Team: Swedish <debian-l10n-swedish@lists.debian.org>\n"
 "MIME-Version: 1.0\n"
@@ -312,14 +312,8 @@ msgid "Tabs"
 msgstr "Flikar"
 
 #: ../glade/smuxi-frontend-gnome.glade.h:60
-msgid ""
-"The nickname to use. You can specify extra nicknames (separated by spaces) "
-"which will be used as fallbacks when the first choice is not available. By "
-"default $nick_ and $nick__ will be used as fallbacks."
-msgstr ""
-"Smeknamn att använda. Du kan ange flera smeknamn (separerade med mellanslag) "
-"som ska användas som alternativ om det första valet inte är ledigt. "
-"Standardalternativ är $nick_ och $nick__."
+msgid "The nickname to use. You can specify extra nicknames (separated by spaces) which will be used as fallbacks when the first choice is not available. By default $nick_ and $nick__ will be used as fallbacks."
+msgstr "Smeknamn att använda. Du kan ange flera smeknamn (separerade med mellanslag) som ska användas som alternativ om det första valet inte är ledigt. Standardalternativ är $nick_ och $nick__."
 
 #: ../glade/smuxi-frontend-gnome.glade.h:61
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:726
@@ -417,9 +411,7 @@ msgstr "Smuxi krashade på grund av ett ohanterat fel."
 
 #: ../src/Frontend-GNOME/CrashDialog.cs:57
 msgid "Here is the stacktrace, please report this bug!"
-msgstr ""
-"Kan du vara bussig och rapportera denna bugg. Ta med utskriften från "
-"kraschen i felrapporten!"
+msgstr "Kan du vara bussig och rapportera denna bugg. Ta med utskriften från kraschen i felrapporten!"
 
 #: ../src/Frontend-GNOME/EngineManagerDialog.cs:61
 msgid "Engine Manager"
@@ -454,9 +446,7 @@ msgstr "Välj en motor!"
 #: ../src/Frontend-GNOME/EngineManagerDialog.cs:196
 #, csharp-format
 msgid "Your frontend version ({0}) does not match the engine version ({1})!"
-msgstr ""
-"Versionen för din framdel ({0}) stämmer inte överrens med motorns version "
-"({1})!"
+msgstr "Versionen för din framdel ({0}) stämmer inte överrens med motorns version ({1})!"
 
 #: ../src/Frontend-GNOME/EngineManagerDialog.cs:223
 msgid "An error occurred while connecting to the engine!"
@@ -632,12 +622,10 @@ msgstr "Rubrik"
 
 #: ../src/Frontend-GNOME/FindGroupChatDialog.cs:103
 msgid ""
-"Searching for group chats without a filter is not recommended.  This may "
-"take a while, or may not work at all.\n"
+"Searching for group chats without a filter is not recommended.  This may take a while, or may not work at all.\n"
 "Do you wish to continue?"
 msgstr ""
-"Sökning efter gruppchattar utan att använda filter är inte rekomenderat. Det "
-"kan ta lång tid eller inte fungera alls.\n"
+"Sökning efter gruppchattar utan att använda filter är inte rekomenderat. Det kan ta lång tid eller inte fungera alls.\n"
 "Vill du verkligen fortsätta?"
 
 #: ../src/Frontend-GNOME/FindGroupChatDialog.cs:145
@@ -658,13 +646,12 @@ msgstr ""
 "Vill du återansluta?"
 
 #: ../src/Frontend-GNOME/Frontend.cs:445
-#, fuzzy
 msgid ""
 "Reconnecting to the server has failed.\n"
 "Do you want to try again?"
 msgstr ""
-"Framdelen tappade anslutningen till server.\n"
-"Vill du återansluta?"
+"Återanslutningsförsöket fungerade inte.\n"
+"Vill du försöka igen?"
 
 #: ../src/Frontend-GNOME/Frontend.cs:593
 msgid ""
@@ -717,9 +704,8 @@ msgid "Thank you"
 msgstr "Tack"
 
 #: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:285
-msgid ""
-"An engine with this name already exists! Please specify a different one."
-msgstr ""
+msgid "An engine with this name already exists! Please specify a different one."
+msgstr "En motor med detta namn finns reda. Ange ett annat."
 
 #: ../src/Frontend-GNOME/Views/MessageTextView.cs:148
 #, csharp-format
@@ -745,8 +731,7 @@ msgid ""
 "Closing the protocol chat will also close all open chats connected to it!\n"
 "Are you sure you want to do this?"
 msgstr ""
-"När protokollchatten stängs kommer även alla öppna chattar som är anslutna "
-"till den att stängas!\n"
+"När protokollchatten stängs kommer även alla öppna chattar som är anslutna till den att stängas!\n"
 "Är du säker på att du vill göra detta?"
 
 #: ../src/Frontend-GNOME/Preferences/ChannelFilterListView.cs:81
@@ -847,30 +832,20 @@ msgid "Use _SSH Tunnel"
 msgstr "_Använd SSH-Tunnel"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantConnectionWidget.cs:78
-msgid ""
-"<span size=\"small\">Enables the use of SSH for the connection.  This has a "
-"small performance impact, but is more secure and required when using NAT or "
-"port-based firewalls</span>"
-msgstr ""
-"<span size=\"small\">Aktiverar användning av SSH för anslutningen. Detta kan "
-"innebära en liten negativ inverka på hastigheten men är säkrare och krävs "
-"när NAT eller port-baserade brändväggar används</span>"
+msgid "<span size=\"small\">Enables the use of SSH for the connection.  This has a small performance impact, but is more secure and required when using NAT or port-based firewalls</span>"
+msgstr "<span size=\"small\">Aktiverar användning av SSH för anslutningen. Detta kan innebära en liten negativ inverka på hastigheten men är säkrare och krävs när NAT eller port-baserade brändväggar används</span>"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantConnectionWidget.cs:157
 msgid "SSH _Host:"
 msgstr "SS_H-värd:"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantConnectionWidget.cs:168
-msgid ""
-"<span size=\"small\">DNS or IP address and port of the SSH server</span>"
-msgstr ""
-"<span size=\"small\">DNS eller IP-adress och port för SSH-servern</span>"
+msgid "<span size=\"small\">DNS or IP address and port of the SSH server</span>"
+msgstr "<span size=\"small\">DNS eller IP-adress och port för SSH-servern</span>"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantConnectionWidget.cs:208
-msgid ""
-"<span size=\"small\">DNS or IP address and port of the Smuxi server</span>"
-msgstr ""
-"<span size=\"small\">DNS eller IP-adress och port för Smuxi-servern</span>"
+msgid "<span size=\"small\">DNS or IP address and port of the Smuxi server</span>"
+msgstr "<span size=\"small\">DNS eller IP-adress och port för Smuxi-servern</span>"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantConnectionWidget.cs:221
 msgid "_Smuxi Host:"
@@ -881,34 +856,20 @@ msgid "_SSH Username: (optional)"
 msgstr "_SSH-avnändarnamn: (valbart)"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:99
-msgid ""
-"<span size=\"small\">Username which will be used to log into the SSH server</"
-"span>"
-msgstr ""
-"<span size=\"small\">Användarnamn som ska användas för att logga in i SSH-"
-"servern</span>"
+msgid "<span size=\"small\">Username which will be used to log into the SSH server</span>"
+msgstr "<span size=\"small\">Användarnamn som ska användas för att logga in i SSH-servern</span>"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:119
 msgid "_SSH Password: (optional)"
 msgstr "SSH-_lösenord: (valbart)"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:143
-msgid ""
-"<span size=\"small\">Password which will be used to log into the SSH server. "
-"The password is optional if SSH key authorization is used (via Pageant from "
-"the PuTTY tools).</span>"
-msgstr ""
-"<span size=\"small\">Lösenord för att logga in i SSH-servern. Lösenordet är "
-"valbart om användarverifiering kan ske via SSH-nyckel (via Pageant i PuTTY-"
-"verktygen).</span>"
+msgid "<span size=\"small\">Password which will be used to log into the SSH server. The password is optional if SSH key authorization is used (via Pageant from the PuTTY tools).</span>"
+msgstr "<span size=\"small\">Lösenord för att logga in i SSH-servern. Lösenordet är valbart om användarverifiering kan ske via SSH-nyckel (via Pageant i PuTTY-verktygen).</span>"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:187
-msgid ""
-"<span size=\"small\">Username which will be used to log into the Smuxi "
-"server</span>"
-msgstr ""
-"<span size=\"small\">Användarnamnet som ska användas för att logga in i "
-"Smuxi-server</span>"
+msgid "<span size=\"small\">Username which will be used to log into the Smuxi server</span>"
+msgstr "<span size=\"small\">Användarnamnet som ska användas för att logga in i Smuxi-server</span>"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:231
 msgid "<span size=\"small\">Password of the user</span>"
@@ -951,12 +912,8 @@ msgid "Use as new default engine"
 msgstr "Använd som ny standardmotor"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantNameWidget.cs:120
-msgid ""
-"<span size=\"small\">If enabled, the current engine will be the default next "
-"time Smuxi is started</span>"
-msgstr ""
-"<span size=\"small\">Om detta väljs kommer den aktuella motorn att bli "
-"standardmotor nästa gång Smuxi startas</span>"
+msgid "<span size=\"small\">If enabled, the current engine will be the default next time Smuxi is started</span>"
+msgstr "<span size=\"small\">Om detta väljs kommer den aktuella motorn att bli standardmotor nästa gång Smuxi startas</span>"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.OpenChatDialog.cs:34
 msgid "Smuxi - Open Chat"
@@ -965,3 +922,4 @@ msgstr "Smuxi - Öppen hatt"
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.OpenChatDialog.cs:77
 msgid "_Type:"
 msgstr "_Typ:"
+

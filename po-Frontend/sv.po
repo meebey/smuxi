@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-01-02 19:00+0100\n"
-"PO-Revision-Date: 2009-12-28 21:46+0100\n"
+"PO-Revision-Date: 2010-01-05 22:37+0100\n"
 "Last-Translator: Martin Bagge <brother@bsnet.se>\n"
 "Language-Team: Swedish <debian-l10n-swedish@lists.debian.org>\n"
 "MIME-Version: 1.0\n"
@@ -23,30 +23,21 @@ msgid "Unknown channel ({0}) - only the following channel types are supported:"
 msgstr "Okänd kanal ({0}) - endast följande kanaltyper stöds:"
 
 #: ../src/Frontend/EngineManager.cs:301
-msgid ""
-"Registration with engine failed!  The username and/or password were wrong - "
-"please verify them."
-msgstr ""
-"Kunde inte ansluta till motorn! Användarnamnet och/eller lösenordet var fel "
-"- kontrollera dessa."
+msgid "Registration with engine failed!  The username and/or password were wrong - please verify them."
+msgstr "Kunde inte ansluta till motorn! Användarnamnet och/eller lösenordet var fel - kontrollera dessa."
 
 #: ../src/Frontend/SshTunnelManager.cs:146
 msgid "SSH client application was not found: "
 msgstr "SSH-klient-applikationen kunde inte hittas:"
 
 #: ../src/Frontend/SshTunnelManager.cs:149
-msgid ""
-"SSH client must be either OpenSSH (ssh) or Plink (plink.exe, not putty.exe)"
-msgstr ""
-"SSH-klienten måste vara antingen OpenSSH (ssh) eller Plink (plink.exe, inte "
-"putty.exe)"
+msgid "SSH client must be either OpenSSH (ssh) or Plink (plink.exe, not putty.exe)"
+msgstr "SSH-klienten måste vara antingen OpenSSH (ssh) eller Plink (plink.exe, inte putty.exe)"
 
 #: ../src/Frontend/SshTunnelManager.cs:186
 #, csharp-format
-msgid ""
-"The local SSH forwarding port {0} is already in use. Is there an old SSH "
-"tunnel still active?"
-msgstr ""
+msgid "The local SSH forwarding port {0} is already in use. Is there an old SSH tunnel still active?"
+msgstr "Den lokala porten för vidaresändning av SSH {0} används redan. Finns där en gammal SSH-tunnel som fortfarande är aktiv?"
 
 #: ../src/Frontend/SshTunnelManager.cs:210
 #, csharp-format
@@ -95,3 +86,4 @@ msgstr ""
 #: ../src/Frontend/SshTunnelManager.cs:441
 msgid "PuTTY / Plink requires a username to be set."
 msgstr "PuTTY/Plink kräver att ett användarnamn används."
+
