@@ -62,6 +62,7 @@
     <File subtype="Code" buildaction="Compile" name="Messages/MessageType.cs" />
     <File subtype="Code" buildaction="Compile" name="Messages/ImageMessagePartModel.cs" />
     <File subtype="Code" buildaction="Compile" name="Config/NotificationAreaIconMode.cs" />
+    <File subtype="Code" buildaction="Compile" name="Config/UserListController.cs" />
   </Contents>
   <References>
     <ProjectReference type="Assembly" localcopy="True" refto="../../lib/log4net.dll" />

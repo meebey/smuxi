@@ -81,6 +81,7 @@ FILES = \
 	Config/Config.cs \
 	Config/ServerModel.cs \
 	Config/ServerListController.cs \
+	Config/UserListController.cs \
 	Protocols/ProtocolManagerBase.cs \
 	Protocols/ProtocolManagerFactory.cs \
 	Protocols/ProtocolManagerInfoModel.cs \

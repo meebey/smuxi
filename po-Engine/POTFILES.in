@@ -1,3 +1,4 @@
 src/Engine/FrontendManager.cs
 src/Engine/Protocols/ProtocolManagerBase.cs
 src/Engine/Session.cs
+src/Engine/Config/UserListController.cs
