@@ -788,12 +788,14 @@ namespace Smuxi.Engine
                 return;
             }
 
+            if (chat is PersonChatModel) {
+                PersonModel person = ((PersonChatModel) chat).Person;
+                IrcPersonModel ircperson = (IrcPersonModel) person;
+                ircperson.IsAway = false;
+            }
+
             MessageModel msg = new MessageModel();
             TextMessagePartModel msgPart;
-
-            PersonModel person = ((PersonChatModel) chat).Person;
-            IrcPersonModel ircperson = (IrcPersonModel) person;
-            ircperson.IsAway = false;
 
             _IrcClient.SendMessage(SendType.Message, chat.ID, message);
 
