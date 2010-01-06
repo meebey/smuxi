@@ -70,8 +70,9 @@ namespace Smuxi.Engine
         private TimeSpan        _LastLag;
         private Thread          _RunThread;
         private Thread          _LagWatcherThread;
+        private List<string>    _JoinChannelList = new List<string>();
         private TaskQueue       _JoinChannelQueue = new TaskQueue("JoinChannelQueue");
-        private AutoResetEvent  _JoinChannelHandle = new AutoResetEvent(true);
+        private AutoResetEvent  _JoinChannelHandle = new AutoResetEvent(false);
 
         public override bool IsConnected {
             get {
@@ -881,10 +882,16 @@ namespace Smuxi.Engine
                 string chan = channel;
                 _JoinChannelQueue.Queue(delegate {
                     try {
+                        int count = 0;
+                        lock (_JoinChannelList) {
+                            count = _JoinChannelList.Count;
+                        }
+                        if (count > 0) {
 #if LOG4NET
-                        _Logger.Debug("CommandJoin(): waiting to join: " + chan);
+                            _Logger.Debug("CommandJoin(): waiting to join: " + chan);
 #endif
-                        _JoinChannelHandle.WaitOne();
+                            _JoinChannelHandle.WaitOne();
+                        }
 #if LOG4NET
                         _Logger.Debug("CommandJoin(): joining: " + chan);
 #endif
@@ -2555,6 +2562,11 @@ namespace Smuxi.Engine
 #if LOG4NET
             _Logger.Debug("_OnNames() e.Channel: " + e.Channel);
 #endif
+            // tell join handlers, that they need to wait!!
+            lock (_JoinChannelList) {
+                _JoinChannelList.Add(e.Channel.ToLower());
+            }
+
             GroupChatModel groupChat = (GroupChatModel) GetChat(e.Data.Channel, ChatType.Group);
             if (groupChat.IsSynced) {
                 // nothing todo for us
@@ -2601,6 +2613,9 @@ namespace Smuxi.Engine
             // tell the currently waiting join task item from the task queue
             // that one channel is finished
             _JoinChannelHandle.Set();
+            lock (_JoinChannelList) {
+                _JoinChannelList.Remove(e.Data.Channel.ToLower());
+            }
 
             GroupChatModel groupChat = (GroupChatModel) GetChat(e.Data.Channel, ChatType.Group);
             if (groupChat == null) {
