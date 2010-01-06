@@ -149,6 +149,7 @@ namespace Smuxi.Frontend.Gnome
             _PersonMenu.TakeFocus = false;
             
             _PersonTreeView.ButtonPressEvent += _OnPersonTreeViewButtonPressEvent;
+            _PersonTreeView.KeyPressEvent += OnPersonTreeViewKeyPressEvent;
             // frame needed for events when selecting something in the treeview
             _PersonTreeViewFrame = new Gtk.Frame();
             _PersonTreeViewFrame.ButtonReleaseEvent += new Gtk.ButtonReleaseEventHandler(_OnUserListButtonReleaseEvent);
@@ -577,6 +578,25 @@ namespace Smuxi.Frontend.Gnome
             _PersonTreeView.Selection.UnselectAll();
         }
         
+        protected virtual void OnPersonTreeViewKeyPressEvent(object sender, Gtk.KeyPressEventArgs e)
+        {
+            Trace.Call(sender, e);
+
+            if ((e.Event.State & Gdk.ModifierType.Mod1Mask) != 0 ||
+                (e.Event.State & Gdk.ModifierType.ControlMask) != 0 ||
+                (e.Event.State & Gdk.ModifierType.ShiftMask) != 0) {
+                // alt, ctrl or shift pushed, returning
+                return;
+            }
+
+            if (e.Event.Key == Gdk.Key.Menu &&
+                _PersonTreeView.Selection.CountSelectedRows() > 0) {
+                _Logger.Debug("POPUP!!!");
+                _PersonMenu.Popup(null, null, null, 0, e.Event.Time);
+                _PersonMenu.ShowAll();
+            }
+        }
+
         private void _OnUserListButtonReleaseEvent(object sender, Gtk.ButtonReleaseEventArgs e)
         {
             Trace.Call(sender, e);
