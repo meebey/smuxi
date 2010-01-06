@@ -48,16 +48,6 @@ namespace Smuxi.Frontend.Gnome
             OutputMessageTextView.PopulatePopup += _OnOutputMessageTextViewPopulatePopup;
         }
         
-        public override void Close()
-        {
-            Trace.Call();
-            
-            base.Close();
-            
-            // BUG: out of scope?
-            Frontend.Session.RemoveChat(ChatModel);
-        }
-
         private void _OnOutputMessageTextViewPopulatePopup (object o, Gtk.PopulatePopupArgs args)
         {
             Gtk.Menu popup = args.Menu;
