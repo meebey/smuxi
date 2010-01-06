@@ -160,7 +160,6 @@ REFERENCES =  \
 	System \
 	Mono.Posix \
 	System.Drawing \
-	$(GNOME_SHARP_20_LIBS) \
 	$(GLIB_SHARP_20_LIBS) \
 	$(GLADE_SHARP_20_LIBS) \
 	$(GTK_SHARP_20_LIBS) \
