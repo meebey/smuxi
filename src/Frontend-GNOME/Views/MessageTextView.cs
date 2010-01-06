@@ -387,8 +387,7 @@ namespace Smuxi.Frontend.Gnome
                 popup.Remove(children);
             }
 
-            Gtk.ImageMenuItem open_item = new Gtk.ImageMenuItem(_("_Open Link"));
-            open_item.Image = new Gtk.Image(Gtk.Stock.Open, Gtk.IconSize.Menu);
+            Gtk.ImageMenuItem open_item = new Gtk.ImageMenuItem(Gtk.Stock.Open, null);
             open_item.Activated += delegate {
                 if (!String.IsNullOrEmpty(_Url)) {
                     OpenLink(_Url);
@@ -396,8 +395,7 @@ namespace Smuxi.Frontend.Gnome
             };
             popup.Append(open_item);
 
-            Gtk.ImageMenuItem copy_item = new Gtk.ImageMenuItem(_("Copy _Link"));
-            copy_item.Image = new Gtk.Image(Gtk.Stock.Copy, Gtk.IconSize.Menu);
+            Gtk.ImageMenuItem copy_item = new Gtk.ImageMenuItem(Gtk.Stock.Copy, null);
             copy_item.Activated += delegate {
                 Gdk.Atom clipboardAtom = Gdk.Atom.Intern("CLIPBOARD", false);
                 Gtk.Clipboard clipboard = Gtk.Clipboard.Get(clipboardAtom);
