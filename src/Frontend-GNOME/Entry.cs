@@ -312,16 +312,14 @@ namespace Smuxi.Frontend.Gnome
             UpdateHistoryChangedLine();
             switch (key) {
                 case Gdk.Key.Tab:
+                    // don't let GTK handle the focus, as we will do it
                     e.RetVal = true;
                     if (Frontend.MainWindow.CaretMode) {
                         // when we are in caret-mode change focus to output textview
                         _Notebook.CurrentChatView.HasFocus = true;
                     } else {
-                        // don't loose the focus (if we are not in caret-mode)
-                        if (_Notebook.CurrentChatView.ChatModel is GroupChatModel) {
-                            if (Text.Length > 0) {
-                                _NickCompletion();
-                            }
+                        if (Text.Length > 0) {
+                            _NickCompletion();
                         }
                     }
                     break;
@@ -611,9 +609,15 @@ namespace Smuxi.Frontend.Gnome
         {
             _Notebook.CurrentChatView.Clear();
         }
-        
+
         private void _NickCompletion()
         {
+            // return if we don't support the current ChatView
+            if (!(_Notebook.CurrentChatView is GroupChatView) &&
+                !(_Notebook.CurrentChatView is PersonChatView)) {
+                return;
+            }
+
             int position = CursorPosition;
             string text = Text;
             string word;
@@ -660,30 +664,41 @@ namespace Smuxi.Frontend.Gnome
             bool found = false;
             bool partial_found = false;
             string nick = null;
-            //GroupChatModel cp = (GroupChatModel) Frontend.FrontendManager.CurrentChat;
-            GroupChatModel cp = (GroupChatModel) _Notebook.CurrentChatView.ChatModel;
-            if ((bool)Frontend.UserConfig["Interface/Entry/BashStyleCompletion"]) {
-                IList<string> result = cp.PersonLookupAll(word);
-                if (result == null || result.Count == 0) {
-                    // no match
-                } else if (result.Count == 1) {
-                    found = true;
-                    nick = result[0];
-                } else if (result.Count >= 2) {
-                    string[] nickArray = new string[result.Count];
-                    result.CopyTo(nickArray, 0);
-                    string nicks = String.Join(" ", nickArray, 1, nickArray.Length - 1);
-                    Frontend.FrontendManager.AddTextToCurrentChat("-!- " + nicks);
-                    found = true;
-                    partial_found = true;
-                    nick = result[0];
+
+            ChatModel chat = _Notebook.CurrentChatView.ChatModel;
+            if (chat.ChatType == ChatType.Group) {
+                GroupChatModel cp = (GroupChatModel) chat;
+                if ((bool)Frontend.UserConfig["Interface/Entry/BashStyleCompletion"]) {
+                    IList<string> result = cp.PersonLookupAll(word);
+                    if (result == null || result.Count == 0) {
+                        // no match
+                    } else if (result.Count == 1) {
+                        found = true;
+                        nick = result[0];
+                    } else if (result.Count >= 2) {
+                        string[] nickArray = new string[result.Count];
+                        result.CopyTo(nickArray, 0);
+                        string nicks = String.Join(" ", nickArray, 1, nickArray.Length - 1);
+                        Frontend.FrontendManager.AddTextToCurrentChat("-!- " + nicks);
+                        found = true;
+                        partial_found = true;
+                        nick = result[0];
+                    }
+                } else {
+                    PersonModel person = cp.PersonLookup(word);
+                    if (person != null) {
+                        found = true;
+                        nick = person.IdentityName;
+                     }
                 }
             } else {
-                PersonModel person = cp.PersonLookup(word);
-                if (person != null) {
+                PersonChatModel cp = (PersonChatModel) chat;
+                PersonModel person = cp.Person;
+
+                if (person.IdentityName.StartsWith(word, StringComparison.InvariantCultureIgnoreCase)) {
                     found = true;
-                    nick = person.IdentityName;
-                 }
+                    nick = cp.Person.IdentityName;
+                }
             }
 
             string completionChar = (string)
