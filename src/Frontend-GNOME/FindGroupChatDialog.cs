@@ -50,7 +50,23 @@ namespace Smuxi.Frontend.Gnome
                 return f_GroupChatModel;
             }
         }
-        
+
+        private void RenderMessageModel (Gtk.TreeViewColumn Column,
+            Gtk.CellRenderer Renderer, Gtk.TreeModel Model, Gtk.TreeIter Iter)
+        {
+            MessageModel topic;
+            Gtk.CellRendererText renderer = (Gtk.CellRendererText) Renderer;
+
+            object val = Model.GetValue(Iter, 3);
+            if (val == null) {
+                renderer.Text = String.Empty;
+                return;
+            } else {
+                topic = (MessageModel) val;
+            }
+            renderer.Markup = PangoTools.ToMarkup(topic);
+        }
+
         public FindGroupChatDialog(Gtk.Window parent, IProtocolManager protocolManager) :
                               base(null, parent, Gtk.DialogFlags.DestroyWithParent)
         {
@@ -71,16 +87,16 @@ namespace Smuxi.Frontend.Gnome
             column.Resizable = true;
             
             columnID++;
-            column = f_TreeView.AppendColumn(_("Topic"), new Gtk.CellRendererText(), "text", columnID);
+            column = f_TreeView.AppendColumn(_("Topic"), new Gtk.CellRendererText(), RenderMessageModel);
             column.SortColumnId = columnID;
             column.Sizing = Gtk.TreeViewColumnSizing.Fixed;
             column.Resizable = true;
-            
+
             f_ListStore = new Gtk.ListStore(
                 typeof(GroupChatModel),
                 typeof(int), // person count
                 typeof(string), // name
-                typeof(string) // topic
+                typeof(MessageModel) // topic
             );
             f_TreeView.RowActivated += OnTreeViewRowActivated;
             f_TreeView.Selection.Changed += OnTreeViewSelectionChanged;
@@ -131,8 +147,7 @@ namespace Smuxi.Frontend.Gnome
                                     chat,
                                     chat.PersonCount,
                                     chat.Name,
-                                    chat.Topic == null ?
-                                        String.Empty : chat.Topic.ToString()
+                                    chat.Topic
                                 );
                             }
                         });

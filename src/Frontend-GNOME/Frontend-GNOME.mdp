@@ -93,6 +93,7 @@
     <File subtype="Code" buildaction="Compile" name="Views/Assistants/Engine/EngineAssistantCredentialsWidget.cs" />
     <File subtype="Code" buildaction="Compile" name="ThemeSettings.cs" />
     <File subtype="Code" buildaction="Compile" name="ColorContrast.cs" />
+    <File subtype="Code" buildaction="Compile" name="PangoTools.cs" />
   </Contents>
   <References>
     <ProjectReference type="Project" localcopy="True" refto="Engine" />
