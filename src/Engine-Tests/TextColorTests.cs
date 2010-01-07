@@ -47,5 +47,35 @@ namespace Smuxi.Frontend.Gnome
                 (stop - start).TotalMilliseconds / runs
             );
         }
+
+        [Test]
+        public void Equals()
+        {
+            TextColor a, b;
+
+            a = TextColor.None;
+            b = TextColor.None;
+            Assert.IsTrue(a == b);
+
+            a = TextColor.Black;
+            b = TextColor.Black;
+            Assert.IsTrue(a == b);
+
+            a = TextColor.None;
+            b = TextColor.Black;
+            Assert.IsFalse(a == b);
+
+            a = TextColor.None;
+            b = TextColor.White;
+            Assert.IsFalse(a == b);
+
+            a = TextColor.Black;
+            b = TextColor.White;
+            Assert.IsFalse(a == b);
+
+            a = TextColor.White;
+            b = TextColor.White;
+            Assert.IsTrue(a == b);
+        }
     }
 }
