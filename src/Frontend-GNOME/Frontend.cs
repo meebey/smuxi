@@ -58,7 +58,9 @@ namespace Smuxi.Frontend.Gnome
         private static UserConfig         _UserConfig;
         private static FrontendManager    _FrontendManager;
         private static object             _UnhandledExceptionSyncRoot = new Object();
-        
+
+        public static event EventHandler  SessionPropertyChanged;
+
         public static string Name {
             get {
                 return _Name;
@@ -118,6 +120,10 @@ namespace Smuxi.Frontend.Gnome
             }
             set {
                 _Session = value;
+
+                if (SessionPropertyChanged != null) {
+                    SessionPropertyChanged(value, EventArgs.Empty);
+                }
             }
         }
         
@@ -261,7 +267,7 @@ namespace Smuxi.Frontend.Gnome
                                                    "local");
             }
             _EngineVersion = Engine.Engine.Version;
-            _Session = _LocalSession;
+            Session = _LocalSession;
             _UserConfig = _Session.UserConfig;
         }
         
@@ -314,7 +320,7 @@ namespace Smuxi.Frontend.Gnome
             _MainWindow.EngineManager.Disconnect();
             
             _FrontendManager = null;
-            _Session = null;
+            Session = null;
         }
 
         public static void ReconnectEngineToGUI()
@@ -323,7 +329,7 @@ namespace Smuxi.Frontend.Gnome
 
             Frontend.DisconnectEngineFromGUI();
             _MainWindow.EngineManager.Reconnect();
-            _Session = _MainWindow.EngineManager.Session;
+            Session = _MainWindow.EngineManager.Session;
             _UserConfig = _MainWindow.EngineManager.UserConfig;
             Frontend.ConnectEngineToGUI();
         }
