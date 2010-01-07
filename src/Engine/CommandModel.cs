@@ -169,7 +169,7 @@ namespace Smuxi.Engine
         
         public string ToTraceString()
         {
-            return (_IsCommand ? _CommandCharacter + _Command + " " : String.Empty) +  _Parameter;
+            return _Data;
         }
     }
 }
