@@ -60,31 +60,31 @@ namespace Smuxi.Frontend.Gnome
                     markup.Append(str);
                 } else if (msgPart is TextMessagePartModel) {
                     TextMessagePartModel text = (TextMessagePartModel) msgPart;
-                    Stack<string> tags = new Stack<string>();
+                    List<string> tags = new List<string>();
 
                     string str = GLib.Markup.EscapeText(text.Text);
                     if (text.ForegroundColor != TextColor.None) {
-                        tags.Push(String.Format("span color='#{0}'",
+                        tags.Add(String.Format("span color='#{0}'",
                                                 text.ForegroundColor.HexCode));
                     }
                     // TODO: do contrast checks here like we do in MessageTextView?
                     if (text.Underline) {
-                        tags.Push("u");
+                        tags.Add("u");
                     }
                     if (text.Bold) {
-                        tags.Push("b");
+                        tags.Add("b");
                     }
                     if (text.Italic) {
-                        tags.Push("i");
+                        tags.Add("i");
                     }
 
                     if (tags.Count > 0) {
-                        for (int i = 0; i <= tags.Count; i++) {
-                            string tag = tags.Pop();
+                        foreach (string tag in tags) {
                             str = String.Format("{0}{1}{2}",
                                 "<"+tag+">", str, "</"+tag.Split(' ')[0]+">");
                         }
                     }
+
                     markup.Append(str);
                 }
             }
