@@ -637,6 +637,10 @@ namespace Smuxi.Engine
                             CommandQuit(command);
                             handled = true;
                             break;
+                        default:
+                            CommandFallback(command);
+                            handled = true;
+                            break;
                     }
                 } else {
                     // normal text
@@ -675,6 +679,31 @@ namespace Smuxi.Engine
             }
             
             return handled;
+        }
+
+        private void CommandFallback(CommandModel cmd)
+        {
+            string parameters;
+            if (cmd.DataArray.Length <= 3) {
+                parameters = cmd.Parameter;
+            } else {
+                parameters = String.Format("{0} :{1}",
+                    cmd.DataArray[1],
+                    String.Join(" ",
+                        cmd.DataArray, 2,
+                        cmd.DataArray.Length - 2));
+            }
+            string data = String.Format("{0}raw {1} {2}",
+                                        cmd.CommandCharacter,
+                                        cmd.Command,
+                                        parameters);
+            CommandModel command = new CommandModel(
+                cmd.FrontendManager,
+                cmd.Chat,
+                cmd.CommandCharacter,
+                data
+            );
+            CommandRaw(command);
         }
 
         public void CommandHelp(CommandModel cd)
@@ -2031,9 +2060,6 @@ namespace Smuxi.Engine
                 case (ReplyCode) 329: // RPL_CREATIONTIME
                 case (ReplyCode) 333: // RPL_TOPICWHOTIME: who set topic + timestamp
                     // ignore
-                    break;
-                case ReplyCode.ErrorUnknownCommand:
-                    Session.AddTextToChat(_NetworkChat, e.Data.Message);
                     break;
                 case ReplyCode.ErrorNoSuchNickname:
                     nick = e.Data.RawMessageArray[3];
