@@ -45,6 +45,7 @@ namespace Smuxi.Frontend.Gnome
         private int              _HistoryPosition;
         private bool             _HistoryChangedLine;
         private Notebook         _Notebook;
+        private CommandManager   _CommandManager;
         
         /*
         public StringCollection History {
@@ -78,10 +79,21 @@ namespace Smuxi.Frontend.Gnome
 
         public Entry(Notebook notebook)
         {
+            Trace.Call(notebook);
+
+            if (notebook == null) {
+                throw new ArgumentNullException("notebook");
+            }
+
             _History.Add(String.Empty);
             
             _Notebook = notebook;
-            
+
+            InitCommandManager();
+            Frontend.SessionPropertyChanged += delegate {
+                InitCommandManager();
+            };
+
             Activated += new EventHandler(_OnActivated);
             KeyPressEvent += new Gtk.KeyPressEventHandler(_OnKeyPress);
             FocusOutEvent += new Gtk.FocusOutEventHandler(_OnFocusOut);
@@ -349,10 +361,14 @@ namespace Smuxi.Frontend.Gnome
             GLib.Timeout.Add(250, new GLib.TimeoutHandler(delegate {
                 // TODO: check mouse buttons, if left mouse button is still pressed
                 // we should not interrupt either, as the user is going to make a selection!
-                
+
+                ChatView chat = Frontend.MainWindow.Notebook.CurrentChatView;
+                if (chat == null) {
+                    return false;
+                }
+
                 // don't interrupt on-going selections
-                if (Frontend.MainWindow.Notebook.CurrentChatView.HasSelection &&
-                    Frontend.MainWindow.Notebook.CurrentChatView.HasFocus) {
+                if (chat.HasSelection && chat.HasFocus) {
 #if LOG4NET
                     //_Logger.Debug("_OnFocusOut(): CurrentChatView has on-going selection, waiting..."); 
 #endif
@@ -429,27 +445,19 @@ namespace Smuxi.Frontend.Gnome
             if (!(cmd.Length > 0)) {
                 return;
             }
-            
-            bool handled;
-            CommandModel cd = new CommandModel(Frontend.FrontendManager, _Notebook.CurrentChatView.ChatModel,
-                                    (string)Frontend.UserConfig["Interface/Entry/CommandCharacter"],
-                                    cmd);
-            handled = _Command(cd);
-            if (!handled) {
-                handled = Frontend.Session.Command(cd);
+
+            CommandModel cd = new CommandModel(
+                Frontend.FrontendManager,
+                _Notebook.CurrentChatView.ChatModel,
+                (string) Frontend.UserConfig["Interface/Entry/CommandCharacter"],
+                cmd
+            );
+
+            if (_Command(cd)) {
+                return;
             }
-            if (!handled) {
-                // we may have no network manager yet
-                Engine.IProtocolManager nm = Frontend.FrontendManager.CurrentProtocolManager;
-                if (nm != null) {
-                    handled = nm.Command(cd);
-                } else {
-                    handled = false;
-                }
-            }
-            if (!handled) {
-               _CommandUnknown(cd);
-            }
+
+            _CommandManager.Execute(cd);
         }
         
         private bool _Command(CommandModel cd)
@@ -602,14 +610,6 @@ namespace Smuxi.Frontend.Gnome
         private void _CommandClear(CommandModel cd)
         {
             _Notebook.CurrentChatView.Clear();
-        }
-        
-        private void _CommandUnknown(CommandModel cd)
-        {
-            cd.FrontendManager.AddTextToCurrentChat("-!- " +
-                                String.Format(_(
-                                              "Unknown Command: {0}"),
-                                              cd.Command));
         }
         
         private void _NickCompletion()
@@ -794,6 +794,26 @@ namespace Smuxi.Frontend.Gnome
                 fontDescription.Size = fontSize * 1024;
             }
             ModifyFont(fontDescription);
+        }
+
+
+        private void InitCommandManager()
+        {
+            if (_CommandManager != null) {
+                _CommandManager.Dispose();
+            }
+
+            if (Frontend.Session == null) {
+                _CommandManager = null;
+            } else {
+                _CommandManager = new CommandManager(Frontend.Session);
+                _CommandManager.ExceptionEvent +=
+                delegate(object sender, CommandExceptionEventArgs e) {
+                    Gtk.Application.Invoke(delegate {
+                        Frontend.ShowException(e.Exception);
+                    });
+                };
+            }
         }
 
         private static string _(string msg)
