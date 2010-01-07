@@ -1,0 +1,26 @@
+<Project name="Engine-Tests" fileversion="2.0" DefaultNamespace="EngineTests" language="C#" targetFramework="3.5" ctype="DotNetProject">
+  <Configurations active="Debug">
+    <Configuration name="Debug" ctype="DotNetProjectConfiguration">
+      <Output directory="../../bin/debug" assembly="smuxi-engine-tests" />
+      <Build debugmode="True" target="Library" />
+      <Execution consolepause="True" runwithwarnings="True" runtime="MsNet" />
+      <CodeGeneration compiler="Mcs" warninglevel="4" optimize="False" unsafecodeallowed="False" generateoverflowchecks="False" definesymbols="DEBUG" generatexmldocumentation="False" ctype="CSharpCompilerParameters" />
+    </Configuration>
+    <Configuration name="Release" ctype="DotNetProjectConfiguration">
+      <Output directory="../../bin/release" assembly="smuxi-engine-tests" />
+      <Build debugmode="False" target="Library" />
+      <Execution consolepause="True" runwithwarnings="True" runtime="MsNet" />
+      <CodeGeneration compiler="Mcs" warninglevel="4" optimize="False" unsafecodeallowed="False" generateoverflowchecks="False" generatexmldocumentation="False" ctype="CSharpCompilerParameters" />
+    </Configuration>
+  </Configurations>
+  <Contents>
+    <File subtype="Directory" buildaction="Compile" name="." />
+    <File subtype="Code" buildaction="Compile" name="TextColorTests.cs" />
+  </Contents>
+  <References>
+    <ProjectReference type="Gac" localcopy="True" refto="System, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+    <ProjectReference type="Project" localcopy="True" refto="Engine" />
+    <ProjectReference type="Gac" localcopy="True" specificVersion="False" refto="nunit.core, Version=2.4.7.0, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77" />
+    <ProjectReference type="Gac" localcopy="True" specificVersion="False" refto="nunit.framework, Version=2.4.7.0, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77" />
+  </References>
+</Project>

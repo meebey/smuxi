@@ -31,6 +31,9 @@
       <Entry build="True" name="Engine-OSCAR" configuration="Release" />
       <Entry build="True" name="Packages" configuration="Release" />
       <Entry build="True" name="Engine-Twitter" configuration="Release" />
+      <Entry build="True" name="Common-Tests" configuration="Release" />
+      <Entry build="True" name="Engine-Tests" configuration="Release" />
+      <Entry build="True" name="Frontend-GNOME-Tests" configuration="Release" />
     </Configuration>
     <Configuration name="Debug" ctype="CombineConfiguration">
       <Entry build="True" name="Common" configuration="Debug" />
@@ -51,6 +54,9 @@
       <Entry build="True" name="Engine-OSCAR" configuration="Debug" />
       <Entry build="True" name="Packages" configuration="Debug" />
       <Entry build="True" name="Engine-Twitter" configuration="Debug" />
+      <Entry build="True" name="Common-Tests" configuration="Debug" />
+      <Entry build="True" name="Engine-Tests" configuration="Debug" />
+      <Entry build="True" name="Frontend-GNOME-Tests" configuration="Debug" />
     </Configuration>
   </Configurations>
   <StartMode startupentry="Server" single="False">
@@ -72,6 +78,9 @@
     <Execute type="None" entry="Engine-OSCAR" />
     <Execute type="None" entry="Packages" />
     <Execute type="None" entry="Engine-Twitter" />
+    <Execute type="None" entry="Common-Tests" />
+    <Execute type="None" entry="Engine-Tests" />
+    <Execute type="None" entry="Frontend-GNOME-Tests" />
   </StartMode>
   <Entries>
     <Entry filename="Common/Common.mdp" />
@@ -92,5 +101,8 @@
     <Entry filename="Engine-OSCAR/Engine-OSCAR.mdp" />
     <Entry filename="Packages.mdse" />
     <Entry filename="Engine-Twitter/Engine-Twitter.mdp" />
+    <Entry filename="Common-Tests/Common-Tests.mdp" />
+    <Entry filename="Engine-Tests/Engine-Tests.mdp" />
+    <Entry filename="Frontend-GNOME-Tests/Frontend-GNOME-Tests.mdp" />
   </Entries>
 </Combine>

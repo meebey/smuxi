@@ -2,4 +2,5 @@ Makefile
 Makefile.in
 *.user*
 */*.pidb
+*-Tests/test-results/
 */*.pc
