@@ -7,7 +7,8 @@
  *
  * Smuxi - Smart MUltipleXed Irc
  *
- * Copyright (c) 2005-2006 Mirco Bauer <meebey@meebey.net>
+ * Copyright (c) 2005-2006, 2008, 2010 Mirco Bauer <meebey@meebey.net>
+ * Copyright (c) 2010 Clement Bourgeois <moonpyk@gmail.com>
  *
  * Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
  *
@@ -26,14 +27,12 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA
  */
 
-using NDesk.Options;
-
-using Smuxi.Common;
-using Smuxi.Engine;
-
 using System;
 using System.IO;
 using System.Reflection;
+using NDesk.Options;
+using Smuxi.Common;
+using Smuxi.Engine;
 
 namespace Smuxi.Server
 {
@@ -54,56 +53,51 @@ namespace Smuxi.Server
             string username = null;
             string password = null;
 
-#if LOG4NET
-            // initialize log level
-            log4net.Repository.ILoggerRepository repo = log4net.LogManager.GetRepository();
-            if (debug) {
-                repo.Threshold = log4net.Core.Level.Debug;
-            } else {
-                repo.Threshold = log4net.Core.Level.Info;
-            }
-#endif
-
             InitLocale();
 
             OptionSet parser = new OptionSet();
 
             parser.Add(
-                "a|add-user",
-                _("Add user to Smuxi"),
+                "add-user",
+                _("Add user to Server"),
                 delegate(string val) {
                     addUser = true;
+                    CheckExclusiveParameters(addUser, modUser, delUser);
                 }
             );
 
             parser.Add(
-                "m|modify-user",
-                _("Modify existing user of Smuxi"),
+                "modify-user",
+                _("Modify existing user of Server"),
                 delegate(string val) {
                     modUser = true;
+                    CheckExclusiveParameters(addUser, modUser, delUser);
                 }
             );
 
             parser.Add(
-                "D|delete-user",
-                _("Delete user of Smuxi"),
+                "delete-user",
+                _("Delete user from Server"),
                 delegate(string val) {
                     delUser = true;
+                    CheckExclusiveParameters(addUser, modUser, delUser);
                 }
             );
 
             parser.Add(
-                "u|username=",
-                _("User to create/modifiy/delete"),
+                "username=",
+                _("User to create, modify or delete"),
                 delegate(string val) {
+                    CheckUsernameParameter(val);
                     username = val;
                 }
             );
 
             parser.Add(
-                "p|password=",
-                _("Password to create/modify for user"),
+                "password=",
+                _("Password of the user when creating or modifying a user"),
                 delegate(string val) {
+                    CheckPasswordParameter(val);
                     password = val;
                 }
             );
@@ -130,13 +124,28 @@ namespace Smuxi.Server
 
             try {
                 parser.Parse(args);
-
-            } catch (OptionException) {
-                // Exception details will be shown and explained later to a more
-                // understandable form than NDesk.Options gives
+                if (addUser || modUser) {
+                    CheckUsernameParameter(username);
+                    CheckPasswordParameter(password);
+                }
+                if (delUser) {
+                    CheckUsernameParameter(username);
+                }
+                ManageUser(addUser, delUser, modUser, username, password);
+            } catch (OptionException ex) {
+                Console.Error.WriteLine(_("Command line error: {0}"), ex.Message);
+                Environment.Exit(1);
             }
 
-            ManageUsers (addUser, delUser, modUser, username, password);
+#if LOG4NET
+            // initialize log level
+            log4net.Repository.ILoggerRepository repo = log4net.LogManager.GetRepository();
+            if (debug) {
+                repo.Threshold = log4net.Core.Level.Debug;
+            } else {
+                repo.Threshold = log4net.Core.Level.Info;
+            }
+#endif
 
             try {
                 Server.Init(args);
@@ -149,7 +158,7 @@ namespace Smuxi.Server
             }
         }
 
-        private static void InitLocale ()
+        private static void InitLocale()
         {
             string appDir = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
             string localeDir = Path.Combine(appDir, "locale");
@@ -163,80 +172,94 @@ namespace Smuxi.Server
             _Logger.Debug("Using locale data from: " + localeDir);
 #endif
         }
-        
-        private static void ManageUsers(bool addUser, bool delUser, bool modUser, string username, string password)
+
+        private static void CheckExclusiveParameters(bool addUser, bool modUser, bool delUser)
         {
-            if ((addUser || modUser) && delUser) {
-                Console.Error.WriteLine(_("Error: -a|--add-user or -m|--modify-user and -d|-delete-user options can't be used together"));
-                Environment.Exit(1);
+            int enabled = 0;
+            if (addUser) {
+                enabled++;
+            }
+            if (modUser) {
+                enabled++;
+            }
+            if (delUser) {
+                enabled++;
             }
 
+            if (enabled <= 1 ) {
+                return;
+            }
+
+            throw new OptionException(
+                _("At most one of --add-user, --modify-user, and --delete-user " +
+                  "may be used at a time."),
+                String.Empty
+            );
+        }
+
+        private static void CheckUsernameParameter(string username)
+        {
+            if (username == null) {
+                throw new OptionException(
+                    _("You must specify a username with the --username option."),
+                    String.Empty
+                );
+            }
+            if (username.Trim().Length == 0) {
+                throw new OptionException(
+                    _("Username must not be empty."),
+                    String.Empty
+                );
+            }
+        }
+
+        private static void CheckPasswordParameter(string password)
+        {
+            if (password == null) {
+                throw new OptionException(
+                    _("You must specify a password with the --password option."),
+                    String.Empty
+                );
+            }
+            if (password.Trim().Length == 0) {
+                throw new OptionException(
+                    _("Password must not be empty."),
+                    String.Empty
+                );
+            }
+        }
+
+        private static void ManageUser(bool addUser, bool delUser, bool modUser, string username, string password)
+        {
             Config config = new Config();
-            config.Load();
-
-            UserListController controller =
-                new UserListController(config);
-
-            if (addUser || modUser) {
-                if (modUser && addUser) {
-                   Console.Error.WriteLine(_("Error: -a|--add-user and -m|--modify-user options can't be used together"));
-                   Environment.Exit(1);
-                }
-
-                if (username == null || password == null) {
-                   Console.Error.WriteLine(_("Error: -a|--add-user and -m|--modify-user options require -u|--username=VALUE and -p|--password=VALUE options to be set"));
-                   Environment.Exit(1);
-                }
-
-                if (addUser) {
-                    try {
-                        controller.AddUser(username, password);
-                        config.Save();
-                        Console.WriteLine(
-                             _("User: \"{0}\" successfully added to configuration with password: \"{1}\""),
-                             username,
-                             password
-                        );
-                        Environment.Exit(0);
-
-                    } catch(ArgumentException ex) {
-                        Console.Error.WriteLine("Error: " + ex.Message);
-                        Environment.Exit(1);
-                    }
-
-                } else {
-                    try {
-                        controller.ModifyUser(username, password);
-                        config.Save();
-                        Console.WriteLine(
-                             _("User: \"{0}\" password successfully changed to: \"{1}\""),
-                             username,
-                             password
-                        );
-                        Environment.Exit(0);
-
-                    } catch(ArgumentException ex) {
-                        Console.Error.WriteLine("Error: " + ex.Message);
-                        Environment.Exit(1);
-                    }
-                }
-
-            } else if(delUser) {
-                if(username == null) {
-                    Console.Error.WriteLine(_("Error: -D|--delete-user option require -u|--username=VALUE option"));
-                    Environment.Exit(1);
-                }
-
-                try {
-                    controller.DelUser(username);
-                    config.Save();
-                    Console.WriteLine(_("User: \"{0}\" successfully removed from configuration"), username);
-                    Environment.Exit(0);
-
-                } catch(ArgumentException ex) {
-                    Console.Error.WriteLine("Error: " + ex.Message);
-                    Environment.Exit(1);
-                }
+            UserListController controller = new UserListController(config);
+            if (addUser) {
+                config.Load();
+                controller.AddUser(username, password);
+                config.Save();
+                Console.WriteLine(
+                     _("User \"{0}\" successfully added to server."),
+                     username
+                );
+                Environment.Exit(0);
+            } else if (modUser) {
+                config.Load();
+                controller.ModifyUser(username, password);
+                config.Save();
+                Console.WriteLine(
+                     _("User \"{0}\" password successfully changed to."),
+                     username
+                );
+                Environment.Exit(0);
+            } else if (delUser) {
+                config.Load();
+                controller.DeleteUser(username);
+                config.Save();
+                Console.WriteLine(
+                    _("User \"{0}\" successfully deleted from server."),
+                    username
+                );
+                Environment.Exit(0);
             }
         }
 

@@ -3,7 +3,8 @@
 // Smuxi - Smart MUltipleXed Irc
 // 
 // Copyright (c) 2010 Clement Bourgeois <moonpyk@gmail.com>
-// 
+// Copyright (c) 2010 Mirco Bauer <meebey@meebey.net>
+//
 // Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
 // 
 // This program is free software; you can redistribute it and/or modify
@@ -29,9 +30,9 @@ namespace Smuxi.Engine
 {
     public class UserListController
     {
-        private Config _Config;
-        private string _Prefix;
-        private static readonly string  _LibraryTextDomain = "smuxi-engine";
+        private static readonly string f_LibraryTextDomain = "smuxi-engine";
+        private Config f_Config;
+        private string f_Prefix;
 
         public UserListController(Config config)
         {
@@ -39,78 +40,58 @@ namespace Smuxi.Engine
                 throw new ArgumentNullException("config");
             }
 
-            _Config = config;
-            _Prefix = "Engine/Users";
+            f_Config = config;
+            f_Prefix = "Engine/Users";
         }
 
         public void AddUser(string username, string password)
         {
             if (username == null) {
                 throw new ArgumentNullException("username");
-
-            } else if (password == null) {
+            }
+            if (password == null) {
                 throw new ArgumentNullException("password");
             }
 
-            if (UserExists(username)) {
-                throw new ArgumentException(
-                     String.Format(
-                         _("User named: \"{0}\" already exists !"),
-                         username
-                     )
-                );
-            }
+            CheckUsername(username);
+            CheckPassword(password);
+            CheckUserNotExists(username);
 
-            List<string> userList = UserList();
-
+            List<string> userList = GetUserList();
             userList.Add(username);
-
-            _Config[_Prefix + "/Users"] = userList.ToArray();
-            _Config[_Prefix + "/" + username + "/Password"] = password;
+            f_Config[f_Prefix + "/Users"] = userList.ToArray();
+            f_Config[f_Prefix + "/" + username + "/Password"] = password;
         }
 
         public void ModifyUser(string username, string password)
         {
             if (username == null) {
                 throw new ArgumentNullException("username");
-
-            } else if (password == null) {
+            }
+            if (password == null) {
                 throw new ArgumentNullException("password");
             }
 
-            if (!UserExists(username)) {
-                throw new ArgumentException(
-                     String.Format(
-                        _("User named: \"{0}\" doesn't exists !"),
-                        username
-                     )
-                );
-            }
+            CheckUsername(username);
+            CheckPassword(password);
+            CheckUserExists(username);
 
-            _Config[_Prefix + "/" + username + "/Password"] = password;
+            f_Config[f_Prefix + "/" + username + "/Password"] = password;
         }
 
-        public void DelUser(string username)
+        public void DeleteUser(string username)
         {
             if (username == null) {
                 throw new ArgumentNullException("username");
             }
 
-            if (!UserExists(username)) {
-                throw new ArgumentException(
-                     String.Format(
-                        _("User named: \"{0}\" doesn't exists !"),
-                        username
-                     )
-                );
-            }
+            CheckUsername(username);
+            CheckUserExists(username);
 
-            List<string> userList = UserList();
-
+            List<string> userList = GetUserList();
             userList.Remove(username);
-
-            _Config[_Prefix + "/Users"] = userList.ToArray();
-            _Config.Remove(_Prefix + "/" + username + "/");
+            f_Config[f_Prefix + "/Users"] = userList.ToArray();
+            f_Config.Remove(f_Prefix + "/" + username + "/");
         }
 
         public bool UserExists(string username)
@@ -119,19 +100,56 @@ namespace Smuxi.Engine
                 throw new ArgumentNullException("username");
             }
 
-            List<string> usersList = UserList();
-
+            List<string> usersList = GetUserList();
             return usersList.Contains(username);
         }
 
-        protected List<string> UserList()
+        protected void CheckUsername(string username)
         {
-            return new List<string>((string[])_Config[_Prefix + "/Users"]);
+            if (String.IsNullOrEmpty(username) ||
+                username.Trim().Length == 0) {
+                throw new ApplicationException(
+                     String.Format(_("Username must not be empty."), username)
+                );
+            }
+        }
+
+        protected void CheckPassword(string password)
+        {
+            if (String.IsNullOrEmpty(password) ||
+                password.Trim().Length == 0) {
+                throw new ApplicationException(
+                     String.Format(_("Password must not be empty."), password)
+                );
+            }
+        }
+
+        protected void CheckUserExists(string username)
+        {
+            if (!UserExists(username)) {
+                throw new ApplicationException(
+                     String.Format(_("User \"{0}\" doesn't exist."), username)
+                );
+            }
+        }
+
+        protected void CheckUserNotExists(string username)
+        {
+            if (UserExists(username)) {
+                throw new ApplicationException(
+                    String.Format(_("User \"{0}\" already exists."), username)
+                );
+            }
+        }
+
+        protected List<string> GetUserList()
+        {
+            return new List<string>((string[]) f_Config[f_Prefix + "/Users"]);
         }
 
         private static string _(string msg)
         {
-            return LibraryCatalog.GetString(msg, _LibraryTextDomain);
+            return LibraryCatalog.GetString(msg, f_LibraryTextDomain);
         }
     }
 }
