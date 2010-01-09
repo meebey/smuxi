@@ -591,7 +591,6 @@ namespace Smuxi.Frontend.Gnome
 
             if (e.Event.Key == Gdk.Key.Menu &&
                 _PersonTreeView.Selection.CountSelectedRows() > 0) {
-                _Logger.Debug("POPUP!!!");
                 _PersonMenu.Popup(null, null, null, 0, e.Event.Time);
                 _PersonMenu.ShowAll();
             }
