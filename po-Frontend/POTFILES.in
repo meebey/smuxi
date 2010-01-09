@@ -1,2 +1,3 @@
+src/Frontend/CommandManager.cs
 src/Frontend/EngineManager.cs
 src/Frontend/SshTunnelManager.cs

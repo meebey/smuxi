@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: smuxi-frontend-gnome 0.6.4.1-1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-05 00:55+0100\n"
+"POT-Creation-Date: 2010-01-09 15:32+0100\n"
 "PO-Revision-Date: 2009-12-05 19:18+0100\n"
 "Last-Translator: Michal Simunek <michal.simunek@gmail.com>\n"
 "Language-Team: Czech <debian-l10n-czech@lists.debian.org>\n"
@@ -472,21 +472,16 @@ msgstr "Chyba: {0}"
 msgid "Are you sure you want to delete the engine \"{0}\"?"
 msgstr "Opravdu si přejete odstranit engine \"{0}\"?"
 
-#: ../src/Frontend-GNOME/Entry.cs:389
+#: ../src/Frontend-GNOME/Entry.cs:403
 #, csharp-format
 msgid "You are going to paste {0} lines. Do you want to continue?"
 msgstr "Chystáte se vložit {0} řádků. Chcete pokračovat?"
 
 #. TRANSLATOR: this line is used as a label / category for a
 #. list of commands below
-#: ../src/Frontend-GNOME/Entry.cs:499
+#: ../src/Frontend-GNOME/Entry.cs:505
 msgid "Frontend Commands"
 msgstr "Příkazy rozhraní"
-
-#: ../src/Frontend-GNOME/Entry.cs:611
-#, csharp-format
-msgid "Unknown Command: {0}"
-msgstr "Neznámý příkaz: {0}"
 
 #: ../src/Frontend-GNOME/MainWindow.cs:179
 msgid "_File"
@@ -616,16 +611,16 @@ msgstr "Podle systému"
 msgid "Nicknames(s) field must not be empty."
 msgstr "Políčko Přezdívka(y) nemůže být prázdné."
 
-#: ../src/Frontend-GNOME/FindGroupChatDialog.cs:69
+#: ../src/Frontend-GNOME/FindGroupChatDialog.cs:85
 #: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:105
 msgid "Name"
 msgstr "Název"
 
-#: ../src/Frontend-GNOME/FindGroupChatDialog.cs:74
+#: ../src/Frontend-GNOME/FindGroupChatDialog.cs:90
 msgid "Topic"
 msgstr "Téma"
 
-#: ../src/Frontend-GNOME/FindGroupChatDialog.cs:103
+#: ../src/Frontend-GNOME/FindGroupChatDialog.cs:119
 msgid ""
 "Searching for group chats without a filter is not recommended.  This may "
 "take a while, or may not work at all.\n"
@@ -635,16 +630,16 @@ msgstr ""
 "fungovat, nebo zabere hodně času.\n"
 "Přejete si pokračovat?"
 
-#: ../src/Frontend-GNOME/FindGroupChatDialog.cs:145
+#: ../src/Frontend-GNOME/FindGroupChatDialog.cs:160
 msgid "Error while fetching the list of group chats from the server."
 msgstr "Chyba při přijmu seznamu skupinových chatů ze serveru."
 
-#: ../src/Frontend-GNOME/Frontend.cs:381
+#: ../src/Frontend-GNOME/Frontend.cs:387
 #, csharp-format
 msgid "Cause: {0}"
 msgstr "Způsobeno: {0}"
 
-#: ../src/Frontend-GNOME/Frontend.cs:431
+#: ../src/Frontend-GNOME/Frontend.cs:437
 msgid ""
 "The frontend has lost the connection to the server.\n"
 "Do you want to reconnect now?"
@@ -652,7 +647,7 @@ msgstr ""
 "Rozhraní ztratilo spojení se serverem.\n"
 "Chcete se nyní znovu připojit?"
 
-#: ../src/Frontend-GNOME/Frontend.cs:445
+#: ../src/Frontend-GNOME/Frontend.cs:451
 #, fuzzy
 msgid ""
 "Reconnecting to the server has failed.\n"
@@ -661,7 +656,7 @@ msgstr ""
 "Rozhraní ztratilo spojení se serverem.\n"
 "Chcete se nyní znovu připojit?"
 
-#: ../src/Frontend-GNOME/Frontend.cs:593
+#: ../src/Frontend-GNOME/Frontend.cs:599
 msgid ""
 "The server has lost the connection to the frontend.\n"
 "Do you want to reconnect now?"
@@ -716,22 +711,22 @@ msgid ""
 "An engine with this name already exists! Please specify a different one."
 msgstr ""
 
-#: ../src/Frontend-GNOME/Views/MessageTextView.cs:148
+#: ../src/Frontend-GNOME/Views/MessageTextView.cs:150
 #, csharp-format
 msgid "Day changed to {0}"
 msgstr "Den změněn na {0}"
 
-#: ../src/Frontend-GNOME/Views/Chats/GroupChatView.cs:240
+#: ../src/Frontend-GNOME/Views/Chats/GroupChatView.cs:241
 #, csharp-format
 msgid "Retrieving user list for {0}..."
 msgstr "Přijímání seznamu uživatelů pro {0}..."
 
 #. TRANSLATOR: this string will be appended to the one above
-#: ../src/Frontend-GNOME/Views/Chats/GroupChatView.cs:285
+#: ../src/Frontend-GNOME/Views/Chats/GroupChatView.cs:286
 msgid "done."
 msgstr "dokončeno"
 
-#: ../src/Frontend-GNOME/Views/Chats/GroupChatView.cs:305
+#: ../src/Frontend-GNOME/Views/Chats/GroupChatView.cs:306
 msgid "Person"
 msgstr "Osoba"
 
@@ -956,3 +951,6 @@ msgstr "Smuxi - Otevřít chat"
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.OpenChatDialog.cs:77
 msgid "_Type:"
 msgstr "_Typ"
+
+#~ msgid "Unknown Command: {0}"
+#~ msgstr "Neznámý příkaz: {0}"

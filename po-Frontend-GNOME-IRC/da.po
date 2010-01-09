@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: smuxi 0.6.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-05 00:55+0100\n"
+"POT-Creation-Date: 2010-01-09 15:32+0100\n"
 "PO-Revision-Date: 2009-08-12 08:42+0200\n"
 "Last-Translator: Bjarke Sørensen <bs@wasd.dk>\n"
 "Language-Team: Danish Localization <debian-l10n-danish@lists.debian.org>\n"
@@ -53,31 +53,31 @@ msgid "Query"
 msgstr ""
 
 #: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:91
-#: ../src/Frontend-GNOME-IRC/IrcPersonChatView.cs:67
+#: ../src/Frontend-GNOME-IRC/IrcPersonChatView.cs:57
 msgid "Whois"
 msgstr ""
 
 #: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:96
-#: ../src/Frontend-GNOME-IRC/IrcPersonChatView.cs:71
+#: ../src/Frontend-GNOME-IRC/IrcPersonChatView.cs:61
 msgid "CTCP"
 msgstr ""
 
 #: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:99
-#: ../src/Frontend-GNOME-IRC/IrcPersonChatView.cs:76
+#: ../src/Frontend-GNOME-IRC/IrcPersonChatView.cs:66
 msgid "Ping"
 msgstr ""
 
 #: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:103
-#: ../src/Frontend-GNOME-IRC/IrcPersonChatView.cs:80
+#: ../src/Frontend-GNOME-IRC/IrcPersonChatView.cs:70
 msgid "Version"
 msgstr ""
 
 #: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:107
-#: ../src/Frontend-GNOME-IRC/IrcPersonChatView.cs:84
+#: ../src/Frontend-GNOME-IRC/IrcPersonChatView.cs:74
 msgid "Time"
 msgstr ""
 
 #: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:111
-#: ../src/Frontend-GNOME-IRC/IrcPersonChatView.cs:88
+#: ../src/Frontend-GNOME-IRC/IrcPersonChatView.cs:78
 msgid "Finger"
 msgstr ""

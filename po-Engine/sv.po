@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-02 19:00+0100\n"
+"POT-Creation-Date: 2010-01-09 15:29+0100\n"
 "PO-Revision-Date: 2009-12-28 21:55+0100\n"
 "Last-Translator: Martin Bagge <brother@bsnet.se>\n"
 "Language-Team: Swedish <debian-l10n-swedish@lists.debian.org>\n"
@@ -120,3 +120,21 @@ msgstr "Ingen protokollshanterare funnen för protokollet: {0}"
 #, csharp-format
 msgid "Unknown protocol: {0}"
 msgstr "Okänt protokoll: {0}"
+
+#: ../src/Engine/Config/UserListController.cs:112
+msgid "Username must not be empty."
+msgstr ""
+
+#: ../src/Engine/Config/UserListController.cs:122
+msgid "Password must not be empty."
+msgstr ""
+
+#: ../src/Engine/Config/UserListController.cs:131
+#, csharp-format
+msgid "User \"{0}\" doesn't exist."
+msgstr ""
+
+#: ../src/Engine/Config/UserListController.cs:140
+#, csharp-format
+msgid "User \"{0}\" already exists."
+msgstr ""

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-02 19:00+0100\n"
+"POT-Creation-Date: 2010-01-09 15:29+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -114,4 +114,22 @@ msgstr ""
 #: ../src/Engine/Session.cs:969
 #, csharp-format
 msgid "Unknown protocol: {0}"
+msgstr ""
+
+#: ../src/Engine/Config/UserListController.cs:112
+msgid "Username must not be empty."
+msgstr ""
+
+#: ../src/Engine/Config/UserListController.cs:122
+msgid "Password must not be empty."
+msgstr ""
+
+#: ../src/Engine/Config/UserListController.cs:131
+#, csharp-format
+msgid "User \"{0}\" doesn't exist."
+msgstr ""
+
+#: ../src/Engine/Config/UserListController.cs:140
+#, csharp-format
+msgid "User \"{0}\" already exists."
 msgstr ""

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.6.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-02 19:00+0100\n"
+"POT-Creation-Date: 2010-01-09 15:29+0100\n"
 "PO-Revision-Date: 2009-11-29 17:04-0300\n"
 "Last-Translator: Damian Kleiman <osiservicios@fibertel.com.ar>\n"
 "Language-Team: Spanish Spanish Localization <debian-l10n-spanish@lists."
@@ -124,3 +124,21 @@ msgstr "No existe gestor para el protocolo: {0}"
 #, csharp-format
 msgid "Unknown protocol: {0}"
 msgstr "Protocolo desconocido: {0}"
+
+#: ../src/Engine/Config/UserListController.cs:112
+msgid "Username must not be empty."
+msgstr ""
+
+#: ../src/Engine/Config/UserListController.cs:122
+msgid "Password must not be empty."
+msgstr ""
+
+#: ../src/Engine/Config/UserListController.cs:131
+#, csharp-format
+msgid "User \"{0}\" doesn't exist."
+msgstr ""
+
+#: ../src/Engine/Config/UserListController.cs:140
+#, csharp-format
+msgid "User \"{0}\" already exists."
+msgstr ""

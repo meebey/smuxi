@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.6.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-05 00:55+0100\n"
+"POT-Creation-Date: 2010-01-09 15:32+0100\n"
 "PO-Revision-Date: 2009-08-12 16:47+0100\n"
 "Last-Translator: Damian Kleiman <osiservicios@fibertel.com.ar>\n"
 "Language-Team: Spanish Spanish Localization <debian-l10n-spanish@lists."
@@ -475,22 +475,17 @@ msgstr "Error: {0}"
 msgid "Are you sure you want to delete the engine \"{0}\"?"
 msgstr "Estas seguro de que quieres borrar el motor \"{0}\"?"
 
-#: ../src/Frontend-GNOME/Entry.cs:389
+#: ../src/Frontend-GNOME/Entry.cs:403
 #, fuzzy, csharp-format
 msgid "You are going to paste {0} lines. Do you want to continue?"
 msgstr "Vas a pegar {0} líneas , quieres continuar?"
 
 #. TRANSLATOR: this line is used as a label / category for a
 #. list of commands below
-#: ../src/Frontend-GNOME/Entry.cs:499
+#: ../src/Frontend-GNOME/Entry.cs:505
 #, fuzzy
 msgid "Frontend Commands"
 msgstr "[Comandos Frontend]"
-
-#: ../src/Frontend-GNOME/Entry.cs:611
-#, csharp-format
-msgid "Unknown Command: {0}"
-msgstr "Comando desconocido: {0}"
 
 #: ../src/Frontend-GNOME/MainWindow.cs:179
 msgid "_File"
@@ -620,16 +615,16 @@ msgstr "Sistema por defecto"
 msgid "Nicknames(s) field must not be empty."
 msgstr "El campo Nick(s) no debe estar vacío."
 
-#: ../src/Frontend-GNOME/FindGroupChatDialog.cs:69
+#: ../src/Frontend-GNOME/FindGroupChatDialog.cs:85
 #: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:105
 msgid "Name"
 msgstr "Nombre"
 
-#: ../src/Frontend-GNOME/FindGroupChatDialog.cs:74
+#: ../src/Frontend-GNOME/FindGroupChatDialog.cs:90
 msgid "Topic"
 msgstr "Topic"
 
-#: ../src/Frontend-GNOME/FindGroupChatDialog.cs:103
+#: ../src/Frontend-GNOME/FindGroupChatDialog.cs:119
 msgid ""
 "Searching for group chats without a filter is not recommended.  This may "
 "take a while, or may not work at all.\n"
@@ -639,17 +634,17 @@ msgstr ""
 "un rato, o puede no funcionar.\n"
 "¿Desea continuar?"
 
-#: ../src/Frontend-GNOME/FindGroupChatDialog.cs:145
+#: ../src/Frontend-GNOME/FindGroupChatDialog.cs:160
 msgid "Error while fetching the list of group chats from the server."
 msgstr ""
 "Se ha producido un error mientras se descargaba la lista salas del servidor."
 
-#: ../src/Frontend-GNOME/Frontend.cs:381
+#: ../src/Frontend-GNOME/Frontend.cs:387
 #, csharp-format
 msgid "Cause: {0}"
 msgstr "Motivo: {0}"
 
-#: ../src/Frontend-GNOME/Frontend.cs:431
+#: ../src/Frontend-GNOME/Frontend.cs:437
 #, fuzzy
 msgid ""
 "The frontend has lost the connection to the server.\n"
@@ -658,7 +653,7 @@ msgstr ""
 "El servidor ha perdido la conexión con el frontend.\n"
 "¿Desea reconectar ahora?"
 
-#: ../src/Frontend-GNOME/Frontend.cs:445
+#: ../src/Frontend-GNOME/Frontend.cs:451
 #, fuzzy
 msgid ""
 "Reconnecting to the server has failed.\n"
@@ -667,7 +662,7 @@ msgstr ""
 "El servidor ha perdido la conexión con el frontend.\n"
 "¿Desea reconectar ahora?"
 
-#: ../src/Frontend-GNOME/Frontend.cs:593
+#: ../src/Frontend-GNOME/Frontend.cs:599
 #, fuzzy
 msgid ""
 "The server has lost the connection to the frontend.\n"
@@ -723,23 +718,23 @@ msgid ""
 "An engine with this name already exists! Please specify a different one."
 msgstr ""
 
-#: ../src/Frontend-GNOME/Views/MessageTextView.cs:148
+#: ../src/Frontend-GNOME/Views/MessageTextView.cs:150
 #, csharp-format
 msgid "Day changed to {0}"
 msgstr "El día ha cambiado a {0}"
 
-#: ../src/Frontend-GNOME/Views/Chats/GroupChatView.cs:240
+#: ../src/Frontend-GNOME/Views/Chats/GroupChatView.cs:241
 #, csharp-format
 msgid "Retrieving user list for {0}..."
 msgstr ""
 
 #. TRANSLATOR: this string will be appended to the one above
-#: ../src/Frontend-GNOME/Views/Chats/GroupChatView.cs:285
+#: ../src/Frontend-GNOME/Views/Chats/GroupChatView.cs:286
 #, fuzzy
 msgid "done."
 msgstr "hecho."
 
-#: ../src/Frontend-GNOME/Views/Chats/GroupChatView.cs:305
+#: ../src/Frontend-GNOME/Views/Chats/GroupChatView.cs:306
 msgid "Person"
 msgstr "Persona"
 
@@ -971,6 +966,9 @@ msgstr "Smuxi - Chat Abierto"
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.OpenChatDialog.cs:77
 msgid "_Type:"
 msgstr "_Tipo:"
+
+#~ msgid "Unknown Command: {0}"
+#~ msgstr "Comando desconocido: {0}"
 
 #~ msgid "gtk-cancel"
 #~ msgstr "gtk-cancel"
