@@ -5,7 +5,7 @@ EXTRA_DIST =
 
 if ENABLE_RELEASE
 ASSEMBLY_COMPILER_COMMAND = @MCS@
-ASSEMBLY_COMPILER_FLAGS =  -noconfig -codepage:utf8 -warn:4 -optimize+ "-define:NET_2_0"
+ASSEMBLY_COMPILER_FLAGS =  -noconfig -codepage:utf8 -warn:4 -optimize+ "-define:NET_2_0,NDESK_OPTIONS"
 
 ASSEMBLY = ../../bin/release/smuxi-common.dll
 ASSEMBLY_MDB = 
@@ -19,7 +19,7 @@ endif
 
 if ENABLE_DEBUG
 ASSEMBLY_COMPILER_COMMAND = @MCS@
-ASSEMBLY_COMPILER_FLAGS =  -noconfig -codepage:utf8 -warn:4 -optimize+ "-define:DEBUG,TRACE,LOG4NET,NET_2_0"
+ASSEMBLY_COMPILER_FLAGS =  -noconfig -codepage:utf8 -warn:4 -optimize+ "-define:DEBUG,TRACE,LOG4NET,NET_2_0,NDESK_OPTIONS"
 
 ASSEMBLY = ../../bin/debug/smuxi-common.dll
 ASSEMBLY_MDB = 
@@ -49,6 +49,7 @@ FILES = \
 	MD5.cs \
 	FastSerializer.cs \
 	LibraryCatalog.cs \
+	NDesk.Options.cs \
 	Defines.cs \
 	TaskQueue.cs
 	
