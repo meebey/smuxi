@@ -1,14 +1,14 @@
-# Smuxi - IRC client for sophisticated users
-# Copyright (C) 2005-2009 Mirco Bauer <meebey@meebey.net>
-# This file is distributed under the same license as the Smuxi package.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"Report-Msgid-Bugs-To: Mirco Bauer <meebey@meebey.net>\n"
-"POT-Creation-Date: 2009-11-26 12:20+0100\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-01-09 21:43+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -82,23 +82,23 @@ msgstr ""
 msgid "Twitter Commands"
 msgstr ""
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:463
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:464
 msgid "Cannot send message - no target specified. Use: /msg $nick message"
 msgstr ""
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:495
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:496
 msgid "Could not send message - the specified user does not exist."
 msgstr ""
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:566
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:567
 msgid ""
 "An error occurred while fetching the friends timeline from Twitter. Reason: "
 msgstr ""
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:651
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:652
 msgid "An error occurred while fetching the replies from Twitter. Reason: "
 msgstr ""
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:741
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:742
 msgid "An error occurred while fetching direct messages from Twitter. Reason: "
 msgstr ""

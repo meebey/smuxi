@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Smuxi 0.6.4\n"
-"Report-Msgid-Bugs-To: Mirco Bauer <meebey@meebey.net>\n"
-"POT-Creation-Date: 2009-11-26 12:20+0100\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-01-09 21:43+0100\n"
 "PO-Revision-Date: 2010-01-02 20:55+0100\n"
 "Last-Translator: Clement BOURGEOIS <moonpyk@gmail.com>\n"
 "Language-Team: French Localization <debian-l10n-french@lists.debian.org>\n"
@@ -86,30 +86,30 @@ msgstr "Impossible de télécharger la liste des amis Twitter. Raison :"
 msgid "Twitter Commands"
 msgstr "Commandes Twitter"
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:463
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:464
 msgid "Cannot send message - no target specified. Use: /msg $nick message"
 msgstr ""
 "Impossible d'envoyer le message. Aucune cible spécifiée. Utilisez /msg $nick "
 "message"
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:495
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:496
 msgid "Could not send message - the specified user does not exist."
 msgstr "Impossible d'envoyer le message. L'utilisateur spécifié n'existe pas."
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:566
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:567
 msgid ""
 "An error occurred while fetching the friends timeline from Twitter. Reason: "
 msgstr ""
 "Une erreur c'est produite pendant le téléchargement de la chronologie des "
 "amis Twitter. Raison :"
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:651
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:652
 msgid "An error occurred while fetching the replies from Twitter. Reason: "
 msgstr ""
 "Une erreur c'est produite pendant le téléchargement des réponses Twitter. "
 "Raison :"
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:741
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:742
 msgid "An error occurred while fetching direct messages from Twitter. Reason: "
 msgstr ""
 "Un erreur s'est produite pendant le téléchargement des messages directs "

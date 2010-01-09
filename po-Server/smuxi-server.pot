@@ -1,0 +1,95 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-01-09 21:43+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../src/Server/Main.cs:62
+msgid "Add user to Server"
+msgstr ""
+
+#: ../src/Server/Main.cs:71
+msgid "Modify existing user of Server"
+msgstr ""
+
+#: ../src/Server/Main.cs:80
+msgid "Delete user from Server"
+msgstr ""
+
+#: ../src/Server/Main.cs:89
+msgid "User to create, modify or delete"
+msgstr ""
+
+#: ../src/Server/Main.cs:98
+msgid "Password of the user when creating or modifying a user"
+msgstr ""
+
+#: ../src/Server/Main.cs:107
+msgid "Enable debug output"
+msgstr ""
+
+#: ../src/Server/Main.cs:115
+msgid "Show this help"
+msgstr ""
+
+#: ../src/Server/Main.cs:117
+msgid "Usage: smuxi-server [options]"
+msgstr ""
+
+#: ../src/Server/Main.cs:119
+msgid "Options:"
+msgstr ""
+
+#: ../src/Server/Main.cs:136
+#, csharp-format
+msgid "Command line error: {0}"
+msgstr ""
+
+#: ../src/Server/Main.cs:194
+msgid ""
+"At most one of --add-user, --modify-user, and --delete-user may be used at a "
+"time."
+msgstr ""
+
+#: ../src/Server/Main.cs:204
+msgid "You must specify a username with the --username option."
+msgstr ""
+
+#: ../src/Server/Main.cs:210
+msgid "Username must not be empty."
+msgstr ""
+
+#: ../src/Server/Main.cs:220
+msgid "You must specify a password with the --password option."
+msgstr ""
+
+#: ../src/Server/Main.cs:226
+msgid "Password must not be empty."
+msgstr ""
+
+#: ../src/Server/Main.cs:241
+#, csharp-format
+msgid "User \"{0}\" successfully added to server."
+msgstr ""
+
+#: ../src/Server/Main.cs:250
+#, csharp-format
+msgid "User \"{0}\" password successfully changed to."
+msgstr ""
+
+#: ../src/Server/Main.cs:259
+#, csharp-format
+msgid "User \"{0}\" successfully deleted from server."
+msgstr ""

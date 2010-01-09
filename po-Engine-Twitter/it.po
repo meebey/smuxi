@@ -7,8 +7,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: smuxi-engine-twitter\n"
-"Report-Msgid-Bugs-To: Mirco Bauer <meebey@meebey.net>\n"
-"POT-Creation-Date: 2009-11-26 12:20+0100\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-01-09 21:43+0100\n"
 "PO-Revision-Date: 2009-11-26 14:41+0100\n"
 "Last-Translator: Vincenzo Campanella <vinz65@gmail.com>\n"
 "Language-Team: Italian <tp@lists.linux.it>\n"
@@ -82,30 +82,30 @@ msgstr "Impossibile recuperare gli amici da Twitter. Motivo: "
 msgid "Twitter Commands"
 msgstr "Comandi di Twitter"
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:463
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:464
 msgid "Cannot send message - no target specified. Use: /msg $nick message"
 msgstr ""
 "Impossibile inviare il messaggio: nessun destinatario specificato. "
 "Utilizzare: /msg $nick messaggio"
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:495
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:496
 msgid "Could not send message - the specified user does not exist."
 msgstr "Impossibile inviare il messaggio: l'utente specificato non esiste."
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:566
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:567
 msgid ""
 "An error occurred while fetching the friends timeline from Twitter. Reason: "
 msgstr ""
 "Si è verificato un errore durante il recupero della cronologia degli amici "
 "da Twitter. Motivo: "
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:651
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:652
 msgid "An error occurred while fetching the replies from Twitter. Reason: "
 msgstr ""
 "Si è verificato un errore durante il recupero delle risposte da Twitter. "
 "Motivo: "
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:741
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:742
 msgid "An error occurred while fetching direct messages from Twitter. Reason: "
 msgstr ""
 "Si è verificato un errore durante il recupero dei messaggi diretti da "

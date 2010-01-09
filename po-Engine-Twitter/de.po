@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Smuxi 0.6.4\n"
-"Report-Msgid-Bugs-To: Mirco Bauer <meebey@meebey.net>\n"
-"POT-Creation-Date: 2009-11-26 12:20+0100\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-01-09 21:43+0100\n"
 "PO-Revision-Date: 2010-01-02 21:59+0100\n"
 "Last-Translator: Bianca Mix <heavydemon@freenet.de>\n"
 "Language-Team: French Localization <debian-l10n-french@lists.debian.org>\n"
@@ -85,30 +85,30 @@ msgstr "Abrufen der Freunde von Twitter fehlgeschlagen. Grund :"
 msgid "Twitter Commands"
 msgstr "Twitter Befehle"
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:463
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:464
 msgid "Cannot send message - no target specified. Use: /msg $nick message"
 msgstr ""
 "Kann Nachricht nicht senden - Ziel ist nicht definiert. Verwenden Sie /msg "
 "$nick Nachricht"
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:495
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:496
 msgid "Could not send message - the specified user does not exist."
 msgstr "Konnte Nachricht nicht senden - der gewählte Benutzer existiert nicht"
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:566
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:567
 msgid ""
 "An error occurred while fetching the friends timeline from Twitter. Reason: "
 msgstr ""
 "Ein Fehler ist aufgetreten, während die Freunde Zeitachse von Twitter "
 "abgerufen wurde. Grund:"
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:651
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:652
 msgid "An error occurred while fetching the replies from Twitter. Reason: "
 msgstr ""
 "Während des Abrufens der Antworten von Twitter ist ein Fehler aufgetreten. "
 "Grund:"
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:741
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:742
 msgid "An error occurred while fetching direct messages from Twitter. Reason: "
 msgstr ""
 "Während des Abrufens der Direktenachrichten von Twitter ist ein Fehler "
