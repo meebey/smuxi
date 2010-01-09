@@ -239,7 +239,7 @@ namespace Smuxi.Engine
             AddMessageToChat(chat, new MessageModel(text));
         }
 
-        [Obsolete("Use AddTextToChat(cmd.Chat, text) instead!")]
+        [Obsolete("This method is unsafe, use AddTextToChat(cmd.Chat, text) instead!", true)]
         public void AddTextToCurrentChat(string text)
         {
             AddTextToChat(CurrentChat, text);
@@ -282,7 +282,7 @@ namespace Smuxi.Engine
             });
         }
         
-        [Obsolete("Use AddMessageToChat(cmd.Chat, msg) instead!")]
+        [Obsolete("This method is unsafe, use AddMessageToChat(cmd.Chat, msg) instead!", true)]
         public void AddMessageToCurrentChat(MessageModel msg)
         {
             AddMessageToChat(CurrentChat, msg);

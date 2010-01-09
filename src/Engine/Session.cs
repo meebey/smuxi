@@ -412,7 +412,7 @@ namespace Smuxi.Engine
             };
             
             foreach (string line in help) { 
-                cd.FrontendManager.AddTextToCurrentChat("-!- " + line);
+                cd.FrontendManager.AddTextToChat(cd.Chat, "-!- " + line);
             }
         }
         
@@ -503,7 +503,8 @@ namespace Smuxi.Engine
                         }
                     }
                 }
-                fm.AddTextToCurrentChat(
+                fm.AddTextToChat(
+                    cd.Chat,
                     "-!- " +
                     String.Format(
                         _("Disconnect failed - could not find server: {0}"),
@@ -541,16 +542,16 @@ namespace Smuxi.Engine
                 switch (cd.DataArray[1].ToLower()) {
                     case "load":
                         _Config.Load();
-                        fm.AddTextToCurrentChat("-!- " +
+                        fm.AddTextToChat(cd.Chat, "-!- " +
                             _("Configuration reloaded"));
                         break;
                     case "save":
                         _Config.Save();
-                        fm.AddTextToCurrentChat("-!- " +
+                        fm.AddTextToChat(cd.Chat, "-!- " +
                             _("Configuration saved"));
                         break;
                     default:
-                        fm.AddTextToCurrentChat("-!- " + 
+                        fm.AddTextToChat(cd.Chat, "-!- " + 
                             _("Invalid parameter for config; use load or save"));
                         break;
                 }
@@ -580,7 +581,7 @@ namespace Smuxi.Engine
                         _CommandNetworkClose(cd);
                         break;
                     default:
-                        fm.AddTextToCurrentChat("-!- " + 
+                        fm.AddTextToChat(cd.Chat, "-!- " + 
                             _("Invalid parameter for network; use list, switch, or close"));
                         break;
                 }
@@ -592,10 +593,10 @@ namespace Smuxi.Engine
         private void _CommandNetworkList(CommandModel cd)
         {
             FrontendManager fm = cd.FrontendManager;
-            fm.AddTextToCurrentChat("-!- " + _("Networks") + ":");
+            fm.AddTextToChat(cd.Chat, "-!- " + _("Networks") + ":");
             lock (_ProtocolManagers) {
                 foreach (IProtocolManager nm in _ProtocolManagers) {
-                    fm.AddTextToCurrentChat("-!- " +
+                    fm.AddTextToChat(cd.Chat, "-!- " +
                         _("Type") + ": " + nm.Protocol + " " +
                         _("Host") + ": " + nm.Host + " " + 
                         _("Port") + ": " + nm.Port);
@@ -619,7 +620,7 @@ namespace Smuxi.Engine
                     }
                 }
                 if (pm == null) {
-                    fm.AddTextToCurrentChat("-!- " +
+                    fm.AddTextToChat(cd.Chat, "-!- " +
                         String.Format(_("Network close failed - could not find network with host: {0}"),
                                       host));
                     return;
@@ -653,7 +654,7 @@ namespace Smuxi.Engine
                         }
                     }
                 }
-                fm.AddTextToCurrentChat("-!- " +
+                fm.AddTextToChat(cd.Chat, "-!- " +
                     String.Format(_("Network switch failed - could not find network with host: {0}"),
                                   host));
             } else if (cd.DataArray.Length >= 2) {
@@ -666,13 +667,25 @@ namespace Smuxi.Engine
         
         private void _NotConnected(CommandModel cd)
         {
-            cd.FrontendManager.AddTextToCurrentChat("-!- " + _("Not connected to any network"));
+            cd.FrontendManager.AddTextToChat(
+                cd.Chat,
+                String.Format("-!- {0}",
+                    _("Not connected to any network")
+                )
+            );
         }
         
         private void _NotEnoughParameters(CommandModel cd)
         {
-            cd.FrontendManager.AddTextToCurrentChat("-!- " +
-                String.Format(_("Not enough parameters for {0} command"), cd.Command));
+            cd.FrontendManager.AddTextToChat(
+                cd.Chat,
+                String.Format("-!- {0}",
+                    String.Format(
+                        _("Not enough parameters for {0} command"),
+                        cd.Command
+                    )
+                )
+            );
         }
         
         public void UpdateNetworkStatus()
@@ -965,8 +978,15 @@ namespace Smuxi.Engine
         {
             ProtocolManagerInfoModel info = _ProtocolManagerFactory.GetProtocolManagerInfoByAlias(protocol); 
             if (info == null) {
-                fm.AddTextToCurrentChat("-!- " + String.Format(
-                        _("Unknown protocol: {0}"), protocol));
+                fm.AddTextToChat(
+                    fm.CurrentChat,
+                    String.Format("-!- {0}",
+                        String.Format(
+                            _("Unknown protocol: {0}"),
+                            protocol
+                        )
+                    )
+                );
                 return null;
             }
             return _ProtocolManagerFactory.CreateProtocolManager(info, this);

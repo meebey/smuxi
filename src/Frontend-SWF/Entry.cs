@@ -554,7 +554,7 @@ namespace Smuxi.Frontend.Swf
             };
             
             foreach (string line in help) { 
-                cd.FrontendManager.AddTextToCurrentChat("-!- " + line);
+                cd.FrontendManager.AddTextToChat(cd.Chat, "-!- " + line);
             }
         }
         
@@ -565,7 +565,7 @@ namespace Smuxi.Frontend.Swf
 
         private void _CommandEcho(CommandModel cd)
         {
-            cd.FrontendManager.AddTextToCurrentChat("-!- "+cd.Parameter);
+            cd.FrontendManager.AddTextToChat(cd.Chat, "-!- " + cd.Parameter);
         }
         
         private void _CommandExec(CommandModel cd)
@@ -585,7 +585,7 @@ namespace Smuxi.Frontend.Swf
                 try {
                     process.Start();
                     output = process.StandardOutput.ReadToEnd();
-                    cd.FrontendManager.AddTextToCurrentChat(output);
+                    cd.FrontendManager.AddTextToChat(cd.Chat, output);
                 } catch {
                 }
             }
@@ -663,7 +663,7 @@ namespace Smuxi.Frontend.Swf
         
         private void _CommandUnknown(CommandModel cd)
         {
-            cd.FrontendManager.AddTextToCurrentChat("-!- " +
+            cd.FrontendManager.AddTextToChat(cd.Chat, "-!- " +
                                 String.Format(Catalog.GetString(
                                               "Unknown Command: {0}"),
                                               cd.Command));
@@ -723,7 +723,7 @@ namespace Smuxi.Frontend.Swf
                     string[] nickArray = new string[result.Count];
                     result.CopyTo(nickArray, 0);
                     string nicks = String.Join(" ", nickArray, 1, nickArray.Length - 1);
-                    Frontend.FrontendManager.AddTextToCurrentChat("-!- " + nicks);
+                    Frontend.FrontendManager.AddTextToChat(cp, "-!- " + nicks);
                     found = true;
                     partial_found = true;
                     nick = result[0];

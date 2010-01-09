@@ -139,14 +139,27 @@ namespace Smuxi.Engine
         
         protected void NotConnected(CommandModel cmd)
         {
-            cmd.FrontendManager.AddTextToCurrentChat("-!- " + _("Not connected to server"));
+            cmd.FrontendManager.AddTextToChat(
+                cmd.Chat,
+                String.Format(
+                    "-!- {0}",
+                    _("Not connected to server")
+                )
+            );
         }
 
         protected void NotEnoughParameters(CommandModel cmd)
         {
-            cmd.FrontendManager.AddTextToCurrentChat(
-                "-!- " + String.Format(_("Not enough parameters for {0} command"),
-                cmd.Command));
+            cmd.FrontendManager.AddTextToChat(
+                cmd.Chat,
+                String.Format(
+                    "-!- {0}",
+                    String.Format(
+                        _("Not enough parameters for {0} command"),
+                        cmd.Command
+                    )
+                )
+            );
         }
         
         protected virtual void OnConnected(EventArgs e)

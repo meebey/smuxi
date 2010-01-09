@@ -241,7 +241,7 @@ namespace Smuxi.Engine
             fmsgti.Bold = true;
             fmsg.MessageParts.Add(fmsgti);
             
-            this.Session.AddMessageToChat(cd.FrontendManager.CurrentChat, fmsg);
+            this.Session.AddMessageToChat(cd.Chat, fmsg);
             
             string[] help = {
             "help",
@@ -249,7 +249,7 @@ namespace Smuxi.Engine
             };
             
             foreach (string line in help) { 
-                cd.FrontendManager.AddTextToCurrentChat("-!- " + line);
+                cd.FrontendManager.AddTextToChat(cd.Chat, "-!- " + line);
             }
         }
         

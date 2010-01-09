@@ -209,7 +209,7 @@ namespace Smuxi.Engine
             fmsgti.Bold = true;
             fmsg.MessageParts.Add(fmsgti);
             
-            Session.AddMessageToChat(cd.FrontendManager.CurrentChat, fmsg);
+            Session.AddMessageToChat(cd.Chat, fmsg);
             
             string[] help = {
             "help",
@@ -217,7 +217,7 @@ namespace Smuxi.Engine
             };
             
             foreach (string line in help) { 
-                cd.FrontendManager.AddTextToCurrentChat("-!- " + line);
+                cd.FrontendManager.AddTextToChat(cd.Chat, "-!- " + line);
             }
         }
         
@@ -238,9 +238,11 @@ namespace Smuxi.Engine
                 try {
                     port = Int32.Parse(cd.DataArray[3]);
                 } catch (FormatException) {
-                    fm.AddTextToCurrentChat("-!- " + String.Format(
-                                                        _("Invalid port: {0}"),
-                                                        cd.DataArray[3]));
+                    fm.AddTextToChat(
+                        cd.Chat,
+                        "-!- " + String.Format(
+                                    _("Invalid port: {0}"),
+                                    cd.DataArray[3]));
                     return;
                 }
             } else {

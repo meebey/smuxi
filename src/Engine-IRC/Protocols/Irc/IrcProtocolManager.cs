@@ -718,7 +718,7 @@ namespace Smuxi.Engine
             fmsgti.Bold = true;
             fmsg.MessageParts.Add(fmsgti);
             
-            cd.FrontendManager.AddMessageToChat(cd.FrontendManager.CurrentChat, fmsg);
+            cd.FrontendManager.AddMessageToChat(cd.Chat, fmsg);
             
             string[] help = {
             "help",
@@ -759,7 +759,7 @@ namespace Smuxi.Engine
             };
 
             foreach (string line in help) { 
-                cd.FrontendManager.AddTextToCurrentChat("-!- " + line);
+                cd.FrontendManager.AddTextToChat(cd.Chat, "-!- " + line);
             }
         }
         
@@ -779,9 +779,15 @@ namespace Smuxi.Engine
                 try {
                     port = Int32.Parse(cd.DataArray[3]);
                 } catch (FormatException) {
-                    fm.AddTextToCurrentChat("-!- " + String.Format(
-                                                        _("Invalid port: {0}"),
-                                                        cd.DataArray[3]));
+                    fm.AddTextToChat(
+                        cd.Chat,
+                        String.Format("-!- {0}",
+                            String.Format(
+                                _("Invalid port: {0}"),
+                                cd.DataArray[3]
+                            )
+                        )
+                    );
                     return;
                 }
             } else {
@@ -898,7 +904,8 @@ namespace Smuxi.Engine
             foreach (string channel in channels) {
                 string key = keys != null && keys.Length > i ? keys[i] : null;
                 if (_IrcClient.IsJoined(channel)) {
-                    cd.FrontendManager.AddTextToCurrentChat(
+                    cd.FrontendManager.AddTextToChat(
+                        cd.Chat,
                         "-!- " +
                         String.Format(
                             _("Already joined to channel: {0}." +
@@ -1132,6 +1139,7 @@ namespace Smuxi.Engine
         
         public void CommandPart(CommandModel cd)
         {
+            ChatModel chat = cd.Chat;
             if ((cd.DataArray.Length >= 2) &&
                 (cd.DataArray[1].Length >= 1)) {
                 // have to guess here if we got a channel passed or not
@@ -1156,12 +1164,10 @@ namespace Smuxi.Engine
                         break;
                     default:
                         // sems to be only a part message
-                        ChatModel chat = cd.FrontendManager.CurrentChat;
                         _IrcClient.RfcPart(chat.ID, cd.Parameter);
                         break;
                 }
             } else {
-                ChatModel chat = cd.FrontendManager.CurrentChat;
                 _IrcClient.RfcPart(chat.ID);
             }
         }
@@ -1291,7 +1297,7 @@ namespace Smuxi.Engine
         public void CommandTopic(CommandModel cd)
         {
             FrontendManager fm = cd.FrontendManager;
-            ChatModel chat = fm.CurrentChat;
+            ChatModel chat = cd.Chat;
             string channel = chat.ID;
             if (cd.DataArray.Length >= 2) {
                 _IrcClient.RfcTopic(channel, cd.Parameter);
@@ -1320,7 +1326,7 @@ namespace Smuxi.Engine
         
         public void CommandOp(CommandModel cd)
         {
-            ChatModel chat = cd.FrontendManager.CurrentChat;
+            ChatModel chat = cd.Chat;
             string channel = chat.ID;
             if (cd.DataArray.Length == 2) {
                 _IrcClient.Op(channel, cd.Parameter);
@@ -1340,7 +1346,7 @@ namespace Smuxi.Engine
     
         public void CommandDeop(CommandModel cd)
         {
-            ChatModel chat = cd.FrontendManager.CurrentChat;
+            ChatModel chat = cd.Chat;
             string channel = chat.ID;
             if (cd.DataArray.Length == 2) {
                 _IrcClient.Deop(channel, cd.Parameter);
@@ -1356,7 +1362,7 @@ namespace Smuxi.Engine
 
         public void CommandVoice(CommandModel cd)
         {
-            ChatModel chat = cd.FrontendManager.CurrentChat;
+            ChatModel chat = cd.Chat;
             string channel = chat.ID;
             if (cd.DataArray.Length == 2) {
                 _IrcClient.Voice(channel, cd.Parameter);
@@ -1372,7 +1378,7 @@ namespace Smuxi.Engine
 
         public void CommandDevoice(CommandModel cd)
         {
-            ChatModel chat = cd.FrontendManager.CurrentChat;
+            ChatModel chat = cd.Chat;
             string channel = chat.ID;
             if (cd.DataArray.Length == 2) {
                 _IrcClient.Devoice(channel, cd.Parameter);
@@ -1388,7 +1394,7 @@ namespace Smuxi.Engine
 
         public void CommandBan(CommandModel cd)
         {
-            ChatModel chat = cd.FrontendManager.CurrentChat;
+            ChatModel chat = cd.Chat;
             string channel = chat.ID;
             if (cd.DataArray.Length == 2) {
                 // TODO: use a smart mask by default
@@ -1426,7 +1432,7 @@ namespace Smuxi.Engine
 
         public void CommandUnban(CommandModel cd)
         {
-            ChatModel chat = cd.FrontendManager.CurrentChat;
+            ChatModel chat = cd.Chat;
             string channel = chat.ID;
             if (cd.DataArray.Length == 2) {
                 _IrcClient.Unban(channel, cd.Parameter);
@@ -1442,7 +1448,7 @@ namespace Smuxi.Engine
 
         public void CommandKick(CommandModel cd)
         {
-            ChatModel chat = cd.FrontendManager.CurrentChat;
+            ChatModel chat = cd.Chat;
             string channel = chat.ID;
             if (cd.DataArray.Length >= 2) {
                 string[] candidates = cd.DataArray[1].Split(new char[] {','});
@@ -1463,7 +1469,7 @@ namespace Smuxi.Engine
 
         public void CommandKickban(CommandModel cd)
         {
-            ChatModel chat = cd.FrontendManager.CurrentChat;
+            ChatModel chat = cd.Chat;
             string channel = chat.ID;
             IrcUser ircuser;
             if (cd.DataArray.Length >= 2) {
@@ -1519,7 +1525,7 @@ namespace Smuxi.Engine
         public void CommandInvite(CommandModel cd)
         {
             FrontendManager fm = cd.FrontendManager;
-            ChatModel chat = fm.CurrentChat;
+            ChatModel chat = cd.Chat;
             string channel = chat.ID;
             if (cd.DataArray.Length >= 2) {
                 if (!_IrcClient.IsJoined(channel, cd.DataArray[1])) {
@@ -1546,7 +1552,7 @@ namespace Smuxi.Engine
             */
             
             FrontendManager fm = cd.FrontendManager;
-            ChatModel chat = fm.CurrentChat;
+            ChatModel chat = cd.Chat;
             if (!(chat is GroupChatModel)) {
                 return;
             }
@@ -1559,7 +1565,7 @@ namespace Smuxi.Engine
             textMsg = new TextMessagePartModel();
             textMsg.Text = String.Format("-!- [{0} {1}]", _("Users"), groupChat.Name); 
             msg.MessageParts.Add(textMsg);
-            fm.AddMessageToCurrentChat(msg);
+            fm.AddMessageToChat(chat, msg);
             
             int opCount = 0;
             int voiceCount = 0;
@@ -1601,7 +1607,7 @@ namespace Smuxi.Engine
                 textMsg.Text = "] ";
                 msg.MessageParts.Add(textMsg);
             }
-            fm.AddMessageToCurrentChat(msg);
+            fm.AddMessageToChat(chat, msg);
 
             msg = new MessageModel();
             textMsg = new TextMessagePartModel();
@@ -1616,7 +1622,7 @@ namespace Smuxi.Engine
                 )
             );
             msg.MessageParts.Add(textMsg);
-            fm.AddMessageToCurrentChat(msg);
+            fm.AddMessageToChat(chat, msg);
         }
 
         public void CommandRaw(CommandModel cd)
@@ -1755,13 +1761,21 @@ namespace Smuxi.Engine
         
         private void _NotEnoughParameters(CommandModel cd)
         {
-            cd.FrontendManager.AddTextToCurrentChat(
-                "-!- " + String.Format(_("Not enough parameters for {0} command"), cd.Command));
+            cd.FrontendManager.AddTextToChat(
+                cd.Chat,
+                String.Format("-!- {0}",
+                    String.Format(_("Not enough parameters for {0} command"),
+                        cd.Command
+                    )
+                )
+            );
         }
         
         private void _NotConnected(CommandModel cd)
         {
-            cd.FrontendManager.AddTextToCurrentChat("-!- " + _("Not connected to server"));
+            cd.FrontendManager.AddTextToChat(
+                cd.Chat, String.Format("-!- {0}", _("Not connected to server"))
+            );
         }
         
         private void _IrcMessageToMessageModel(ref MessageModel msg, string message)

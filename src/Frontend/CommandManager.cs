@@ -136,10 +136,14 @@ namespace Smuxi.Frontend
 
         private void Unknown(CommandModel cmd)
         {
-            cmd.FrontendManager.AddTextToCurrentChat("-!- " +
+            cmd.FrontendManager.AddTextToChat(
+                cmd.Chat,
                 String.Format(
-                    _("Unknown Command: {0}"),
-                    cmd.Command
+                    "-!- {0}",
+                    String.Format(
+                        _("Unknown Command: {0}"),
+                        cmd.Command
+                    )
                 )
             );
         }

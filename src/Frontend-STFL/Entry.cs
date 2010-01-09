@@ -119,7 +119,7 @@ namespace Smuxi.Frontend.Stfl
 
         private void _CommandUnknown(CommandModel cd)
         {
-            cd.FrontendManager.AddTextToCurrentChat("-!- " +
+            cd.FrontendManager.AddTextToChat(cd.Chat, "-!- " +
                                 String.Format(Catalog.GetString(
                                               "Unknown Command: {0}"),
                                               cd.Command));

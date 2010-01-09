@@ -413,7 +413,7 @@ namespace Smuxi.Engine
             fmsgti.Bold = true;
             fmsg.MessageParts.Add(fmsgti);
 
-            Session.AddMessageToChat(cd.FrontendManager.CurrentChat, fmsg);
+            Session.AddMessageToChat(cd.Chat, fmsg);
 
             string[] help = {
                 "help",
@@ -421,7 +421,7 @@ namespace Smuxi.Engine
             };
 
             foreach (string line in help) {
-                cd.FrontendManager.AddTextToCurrentChat("-!- " + line);
+                cd.FrontendManager.AddTextToChat(cd.Chat, "-!- " + line);
             }
         }
 
@@ -458,7 +458,8 @@ namespace Smuxi.Engine
                         PostUpdate(cmd.Data);
                         break;
                     case TwitterChatType.DirectMessages:
-                        fm.AddTextToCurrentChat(
+                        fm.AddTextToChat(
+                            cmd.Chat,
                             "-!- " +
                             _("Cannot send message - no target specified. "+
                               "Use: /msg $nick message")
@@ -491,7 +492,7 @@ namespace Smuxi.Engine
                 // trying to handle this gracefully
             }
             if (user == null) {
-                fm.AddTextToCurrentChat("-!- " +
+                fm.AddTextToChat(cmd.Chat, "-!- " +
                     _("Could not send message - the specified user does not exist.")
                 );
                 return;

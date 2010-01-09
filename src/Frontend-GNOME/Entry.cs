@@ -518,7 +518,10 @@ namespace Smuxi.Frontend.Gnome
             };
             
             foreach (string line in help) { 
-                cd.FrontendManager.AddTextToCurrentChat("-!- " + line);
+                cd.FrontendManager.AddTextToChat(
+                    cd.Chat,
+                    String.Format("-!- {0}", line)
+                );
             }
         }
         
@@ -529,7 +532,10 @@ namespace Smuxi.Frontend.Gnome
 
         private void _CommandEcho(CommandModel cd)
         {
-            cd.FrontendManager.AddTextToCurrentChat("-!- "+cd.Parameter);
+            cd.FrontendManager.AddTextToChat(
+                cd.Chat,
+                String.Format("-!- {0}", cd.Parameter)
+            );
         }
         
         private void _CommandExec(CommandModel cd)
@@ -549,7 +555,7 @@ namespace Smuxi.Frontend.Gnome
                 try {
                     process.Start();
                     output = process.StandardOutput.ReadToEnd();
-                    cd.FrontendManager.AddTextToCurrentChat(output);
+                    cd.FrontendManager.AddTextToChat(cd.Chat, output);
                 } catch {
                 }
             }
