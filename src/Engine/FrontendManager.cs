@@ -238,7 +238,8 @@ namespace Smuxi.Engine
         {
             AddMessageToChat(chat, new MessageModel(text));
         }
-        
+
+        [Obsolete("Use AddTextToChat(cmd.Chat, text) instead!")]
         public void AddTextToCurrentChat(string text)
         {
             AddTextToChat(CurrentChat, text);
@@ -281,6 +282,7 @@ namespace Smuxi.Engine
             });
         }
         
+        [Obsolete("Use AddMessageToChat(cmd.Chat, msg) instead!")]
         public void AddMessageToCurrentChat(MessageModel msg)
         {
             AddMessageToChat(CurrentChat, msg);
