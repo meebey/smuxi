@@ -685,7 +685,9 @@ namespace Smuxi.Frontend.Gnome
                         string[] nickArray = new string[result.Count];
                         result.CopyTo(nickArray, 0);
                         string nicks = String.Join(" ", nickArray, 1, nickArray.Length - 1);
-                        Frontend.FrontendManager.AddTextToCurrentChat("-!- " + nicks);
+                        _Notebook.CurrentChatView.AddMessage(
+                            new MessageModel(String.Format("-!- {0}", nicks))
+                        );
                         found = true;
                         partial_found = true;
                         nick = result[0];
