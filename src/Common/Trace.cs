@@ -85,7 +85,12 @@ namespace Smuxi.Common
         public static void Call(params object[] args)
         {
             MethodBase mb = new StackTrace(new StackFrame(1)).GetFrame(0).GetMethod();
-            
+            Call(mb, args);
+        }
+
+        [Conditional("TRACE")]
+        public static void Call(MethodBase mb, params object[] args)
+        {
             StringBuilder line = new StringBuilder();
             line.Append("[");
             line.Append(System.IO.Path.GetFileName(Assembly.GetCallingAssembly().Location));
