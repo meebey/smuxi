@@ -39,7 +39,8 @@ namespace Smuxi.Frontend.Gnome
         private static readonly log4net.ILog f_Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 #endif
         //private Gtk.Menu     _QueryTabMenu;
-        
+        private TaskQueue f_SwitchPageQueue;
+
         public ChatView CurrentChatView {
             get {
                 return (ChatView) base.CurrentPageWidget;
@@ -50,8 +51,12 @@ namespace Smuxi.Frontend.Gnome
         {
             Trace.Call();
             
+            f_SwitchPageQueue = new TaskQueue("SwitchPage");
+            f_SwitchPageQueue.AbortedEvent += OnSwitchPageQueueAbortedEvent;
+            f_SwitchPageQueue.ExceptionEvent += OnSwitchPageQueueExceptionEvent;
+
             Scrollable = true;
-            SwitchPage += new Gtk.SwitchPageHandler(_OnSwitchPage);
+            SwitchPage += OnSwitchPage;
         }
         
         public void ApplyConfig(UserConfig userConfig)
@@ -106,7 +111,7 @@ namespace Smuxi.Frontend.Gnome
             // this also breaks the Frontend.ReconnectEngineToGUI() as that one
             // has to cleanup all chats regardless of a working network
             // connection
-            SwitchPage -= _OnSwitchPage;
+            SwitchPage -= OnSwitchPage;
 
             int npages = NPages;
             CurrentPage = 0;
@@ -120,7 +125,7 @@ namespace Smuxi.Frontend.Gnome
             }
 
             // reconnect the event handler
-            SwitchPage += _OnSwitchPage;
+            SwitchPage += OnSwitchPage;
         }
         
         public void ClearAllActivity()
@@ -134,42 +139,91 @@ namespace Smuxi.Frontend.Gnome
             }
         }
         
-        // events
-        private void _OnSwitchPage(object sender, Gtk.SwitchPageArgs e)
+        protected virtual void OnSwitchPageQueueExceptionEvent(object sender, TaskQueueExceptionEventArgs e)
+        {
+            Trace.Call(sender, e);
+
+#if LOG4NET
+            f_Logger.Error("Exception in TaskQueue: ", e.Exception);
+            f_Logger.Error("Inner-Exception: ", e.Exception.InnerException);
+#endif
+            Frontend.ShowException(e.Exception);
+        }
+
+        protected virtual void OnSwitchPageQueueAbortedEvent(object sender, EventArgs e)
+        {
+            Trace.Call(sender, e);
+
+#if LOG4NET
+            f_Logger.Debug("OnSwitchPageQueueAbortedEvent(): task queue aborted!");
+#endif
+        }
+
+        protected virtual void OnSwitchPage(object sender, Gtk.SwitchPageArgs e)
         {
             Trace.Call(sender, e);
             
-            try {
-                // synchronize FrontManager.CurrenPage
-                ChatView chatView = GetChat((int)e.PageNum);
-                if (chatView != null) {
-                    ChatModel chatModel = chatView.ChatModel;
-                    IProtocolManager nmanager = chatModel.ProtocolManager;
-                    Frontend.FrontendManager.CurrentChat = chatModel;
-                    if (nmanager != null) {
-                        Frontend.FrontendManager.CurrentProtocolManager = nmanager;
-                    }
-                    // even when we have no network manager, we still want to update the state
-                    Frontend.FrontendManager.UpdateNetworkStatus();
-
-                    // update last seen highlight 
-                    if (chatView.HasHighlight) {
-                        chatModel.LastSeenHighlight = DateTime.UtcNow;
-                    }
-                    // clear activity and highlight
-                    chatView.HasHighlight = false;
-                    chatView.HasActivity = false;
-                    
-                    // sync title
-                    if (Frontend.MainWindow != null) {
-                        string network = nmanager != null ? nmanager.ToString() + " / " : "";
-                        Frontend.MainWindow.Title = network + chatView.Name +
-                                                    " - Smuxi - Smart MUltipleXed Irc";
-                    }
-                }
-            } catch (Exception ex) {
-                Frontend.ShowException(null, ex);
+            // synchronize FrontManager.CurrenPage
+            ChatView chatView = GetChat((int)e.PageNum);
+            if (chatView == null) {
+                return;
             }
+
+            ChatModel chatModel = chatView.ChatModel;
+            bool hasHighlight = chatView.HasHighlight;
+
+            // clear activity and highlight
+            chatView.HasHighlight = false;
+            chatView.HasActivity = false;
+
+            var method = Trace.GetMethodBase();
+            f_SwitchPageQueue.Queue(delegate {
+                // HACK: don't pass the real parameters are it's unsafe from
+                // a non-main (GUI) thread!
+                Trace.Call(method, null, null);
+
+                DateTime start = DateTime.UtcNow, stop;
+                // OPT-TODO: we could use here a TaskStack instead which
+                // would make sure only the newest task gets executed
+                // instead of every task in the FIFO sequence!
+                // REMOTING CALL 1
+                IProtocolManager nmanager = chatModel.ProtocolManager;
+
+                // REMOTING CALL 2
+                Frontend.FrontendManager.CurrentChat = chatModel;
+                if (nmanager != null) {
+                    // REMOTING CALL 3
+                    Frontend.FrontendManager.CurrentProtocolManager = nmanager;
+                }
+
+                // even when we have no network manager, we still want to update the state
+                // REMOTING CALL 4
+                Frontend.FrontendManager.UpdateNetworkStatus();
+
+                // update last seen highlight
+                if (hasHighlight) {
+                    // REMOTING CALL 5
+                    chatModel.LastSeenHighlight = DateTime.UtcNow;
+                }
+
+                // sync title
+                // REMOTING CALL 6
+                string networkStatus = nmanager != null ?
+                                            nmanager.ToString() + " / " :
+                                            String.Empty;
+                Gtk.Application.Invoke(delegate {
+                    if (Frontend.MainWindow == null) {
+                        return;
+                    }
+                    Frontend.MainWindow.Title = String.Format("{0}{1} - Smuxi",
+                                                              networkStatus,
+                                                              chatView.Name);
+                });
+                stop = DateTime.UtcNow;
+#if LOG4NET
+                f_Logger.Debug("OnSwitchPage(): task took: " + (stop - start).Milliseconds + " ms");
+#endif
+            });
         }
     }
 }
