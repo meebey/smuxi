@@ -187,8 +187,10 @@ namespace Smuxi.Engine
 
         public void Load()
         {
+            Trace.Call();
+
 #if LOG4NET
-            _Logger.Info("Loading config");
+            _Logger.Debug("Loading config");
 #endif
             string prefix;
             
@@ -457,8 +459,10 @@ namespace Smuxi.Engine
 
         public void Save()
         {
+            Trace.Call();
+
 #if LOG4NET
-            _Logger.Info("Saving config");
+            _Logger.Debug("Saving config");
 #endif
             
             // update values in backend
