@@ -1,0 +1,122 @@
+# Smuxi - IRC client for sophisticated users
+# Copyright (C) 2005-2010 Mirco Bauer <meebey@meebey.net>
+# This file is distributed under the same license as the Smuxi package.
+# Clement Bourgeois <moonpyk@gmail.com>, 2010.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-01-09 22:46+0100\n"
+"PO-Revision-Date: 2010-01-09 22:56+0100\n"
+"Last-Translator: Clement BOURGEOIS <moonpyk@gmail.com>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../src/Server/Main.cs:62
+msgid "Add user to Server"
+msgstr "Ajouter un utilisateur au serveur"
+
+#: ../src/Server/Main.cs:71
+msgid "Modify existing user of Server"
+msgstr "Modifier un utilisateur existant du serveur"
+
+#: ../src/Server/Main.cs:80
+msgid "Delete user from Server"
+msgstr "Supprimer un utilisateur du serveur"
+
+#: ../src/Server/Main.cs:89
+msgid "User to create, modify or delete"
+msgstr "Utilisateur à créer, modifier ou supprimer"
+
+#: ../src/Server/Main.cs:98
+msgid "Password of the user when creating or modifying a user"
+msgstr ""
+"Mot de passe utilisé pendant la création ou la modification d'un utilisateur."
+
+#: ../src/Server/Main.cs:107
+msgid "Enable debug output"
+msgstr "Activer la sortie de déboguage"
+
+#: ../src/Server/Main.cs:115
+msgid "Show this help"
+msgstr "Affiche cette aide"
+
+#: ../src/Server/Main.cs:117
+msgid "Usage: smuxi-server [options]"
+msgstr "Usage : smuxi-server [options]"
+
+#: ../src/Server/Main.cs:119
+msgid "Options:"
+msgstr "Options :"
+
+#: ../src/Server/Main.cs:136
+#, csharp-format
+msgid "Command line error: {0}"
+msgstr "Erreur de ligne de commande : {0}"
+
+#: ../src/Server/Main.cs:194
+msgid ""
+"At most one of --add-user, --modify-user, and --delete-user may be used at a "
+"time."
+msgstr ""
+"Les options -a|--add-user ou -m|--modify-user et -d|-delete-user ne peuvent "
+"pas être utilisées en même temps."
+
+#: ../src/Server/Main.cs:204
+msgid "You must specify a username with the --username option."
+msgstr "Vous devez spécifier un nom d'utilisateur avec l'option --username."
+
+#: ../src/Server/Main.cs:210
+msgid "Username must not be empty."
+msgstr "Le nom d'utilisateur ne peut pas être vide."
+
+#: ../src/Server/Main.cs:220
+msgid "You must specify a password with the --password option."
+msgstr "Vous devez spécifier un mot de passe avec l'option --password."
+
+#: ../src/Server/Main.cs:226
+msgid "Password must not be empty."
+msgstr "Le mot de passe ne peut pas être vide."
+
+#: ../src/Server/Main.cs:241
+#, csharp-format
+msgid "User \"{0}\" successfully added to server."
+msgstr "L'utilisateur \"{0}\" a été ajouté avec succès au serveur."
+
+#: ../src/Server/Main.cs:250
+#, csharp-format
+msgid "User \"{0}\" successfully modified."
+msgstr "L'utilisateur \"{0}\" a été modifié avec succès."
+
+#: ../src/Server/Main.cs:259
+#, csharp-format
+msgid "User \"{0}\" successfully deleted from server."
+msgstr ""
+"L'utilisateur : \"{0}\" a été supprimé de la configuration avec succès."
+
+#~ msgid ""
+#~ "Error: -a|--add-user and -m|--modify-user options can't be used together"
+#~ msgstr ""
+#~ "Erreur : les options -a|--add-user and -m|--modify-user ne peuvent pas "
+#~ "être utilisées en même temps"
+
+#~ msgid ""
+#~ "Error: -a|--add-user and -m|--modify-user options require -u|--"
+#~ "username=VALUE and -p|--password=VALUE options to be set"
+#~ msgstr ""
+#~ "Erreur : les options -a|--add-user and -m|--modify-user nécessitent -u|--"
+#~ "username=VALEUR and -p|--password=VALEUR d'être précisées"
+
+#~ msgid ""
+#~ "User: \"{0}\" successfully added to configuration with password: \"{1}\""
+#~ msgstr ""
+#~ "L'utilisateur : \"{0}\", muni du mot de passe : \"{1}\" a été ajouté a la "
+#~ "configuration avec succès"
+
+#~ msgid "Error: -D|--delete-user option require -u|--username=VALUE option"
+#~ msgstr ""
+#~ "Erreur : l'option -D|--delete-user nécessite l'option -u|--"
+#~ "username=VALEUR d'être precisée"
