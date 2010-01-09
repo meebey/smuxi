@@ -1,4 +1,5 @@
 glade/
+src/Common/
 src/Engine/
 src/Engine-MSNP/
 src/Engine-OSCAR/
@@ -9,3 +10,4 @@ src/Frontend-GNOME/
 src/Frontend-GNOME-IRC/
 src/Frontend-SWF/
 src/Frontend-WPF/
+src/Server/

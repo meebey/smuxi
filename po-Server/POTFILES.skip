@@ -1,4 +1,5 @@
 glade/
+src/Common/
 src/Engine/
 src/Engine-IRC/
 src/Engine-MSNP/
