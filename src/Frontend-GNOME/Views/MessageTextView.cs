@@ -141,7 +141,13 @@ namespace Smuxi.Frontend.Gnome
             Trace.Call(msg, addLinebreak);
             
             Gtk.TextIter iter = Buffer.EndIter;
-            
+
+            Gdk.Color bgColor = DefaultAttributes.Appearance.BgColor;
+            if (_ThemeSettings.BackgroundColor != null) {
+                bgColor = _ThemeSettings.BackgroundColor.Value;
+            }
+            TextColor bgTextColor = ColorTools.GetTextColor(bgColor);
+
             if (_ShowTimestamps) {
                 DateTime localTimestamp = msg.TimeStamp.ToLocalTime();
                 if (_LastMessage != null &&
@@ -164,7 +170,23 @@ namespace Smuxi.Frontend.Gnome
                 }
 
                 if (timestamp != null) {
-                    Buffer.Insert(ref iter, timestamp + " ");
+                    timestamp = String.Format("{0} ", timestamp);
+                    if (msg.MessageType == MessageType.Event) {
+                        // get best contrast for the event font color
+                        Gtk.TextTag eventTag = _MessageTextTagTable.Lookup("event");
+                        Gdk.Color eventColor = eventTag.ForegroundGdk;
+                        TextColor eventTextColor = ColorTools.GetBestTextColor(
+                            ColorTools.GetTextColor(eventColor),
+                            bgTextColor,
+                            ColorContrast.High
+                        );
+                        eventTag.ForegroundGdk = ColorTools.GetGdkColor(
+                            eventTextColor
+                        );
+                        Buffer.InsertWithTagsByName(ref iter, timestamp, "event");
+                    } else {
+                        Buffer.Insert(ref iter, timestamp);
+                    }
                 }
             }
 
@@ -175,11 +197,6 @@ namespace Smuxi.Frontend.Gnome
                     hasHighlight = true;
                 }
 
-                Gdk.Color bgColor = DefaultAttributes.Appearance.BgColor;
-                if (_ThemeSettings.BackgroundColor != null) {
-                    bgColor = _ThemeSettings.BackgroundColor.Value;
-                }
-                TextColor bgTextColor = ColorTools.GetTextColor(bgColor);
                 // TODO: implement all types
                 if (msgPart is UrlMessagePartModel) {
                     UrlMessagePartModel fmsgui = (UrlMessagePartModel) msgPart;
@@ -224,6 +241,11 @@ namespace Smuxi.Frontend.Gnome
                         _Logger.Debug("AddMessage(): fmsgti.Italic is true");
 #endif
                         tags.Add("italic");
+                    }
+                    if (msg.MessageType == MessageType.Event &&
+                        fmsgti.ForegroundColor == TextColor.None) {
+                        // only mark parts that don't have a color set
+                        tags.Add("event");
                     }
 
                     if (tags.Count > 0) {
@@ -289,7 +311,11 @@ namespace Smuxi.Frontend.Gnome
             fd = new Pango.FontDescription();
             tt.FontDesc = fd;
             ttt.Add(tt);
-            
+
+            tt = new Gtk.TextTag("event");
+            tt.Foreground = "darkgray";
+            ttt.Add(tt);
+
             return ttt;
         }
 
