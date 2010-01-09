@@ -1,10 +1,10 @@
-TARGET_DIR = $(top_srcdir)/bin/$(PROFILE)
+TARGET_DIR = $(top_builddir)/bin/$(PROFILE)
 ASSEMBLY_NAME = smuxi-engine-twitter
 ASSEMBLY_FILENAME = $(ASSEMBLY_NAME).dll
 ASSEMBLY_TARGET = $(TARGET_DIR)/$(ASSEMBLY_FILENAME)
 #ASSEMBLY_PC = $(top_srcdir)/$(PACKAGE_NAME).pc
 
-SOURCE_FILES = 	$(top_srcdir)/src/AssemblyVersion.cs \
+SOURCES =	$(top_srcdir)/src/AssemblyVersion.cs \
 		AssemblyInfo.cs \
 		Protocols/Twitter/TwitterProtocolManager.cs
 
@@ -15,8 +15,11 @@ DLL_REFERENCES =	$(top_srcdir)/lib/Twitterizer.Framework/bin/Debug/Twitterizer.F
 			$(TARGET_DIR)/smuxi-common.dll \
 			$(TARGET_DIR)/smuxi-engine.dll
 
+SOURCES_BUILD = $(addprefix $(srcdir)/, $(SOURCES))
+
 # automake magic variables
-EXTRA_DIST = $(SOURCE_FILES)
+DIST_SOURCES = $(SOURCES_BUILD)
+EXTRA_DIST =
 CLEANFILES = $(ASSEMBLY_TARGET)
 
 pkglib_DATA = $(ASSEMBLY_TARGET)
@@ -28,5 +31,5 @@ include $(top_srcdir)/Makefile.include
 
 all: $(ASSEMBLY_TARGET)
 
-$(ASSEMBLY_TARGET): $(SOURCE_FILES) $(DLL_REFERENCES)
-	$(MCS) $(CSC_FLAGS) $(build_references_ref) -target:library -out:$@ $(SOURCE_FILES)
+$(ASSEMBLY_TARGET): $(SOURCES) $(DLL_REFERENCES)
+	$(MCS) $(CSC_FLAGS) $(build_references_ref) -target:library -out:$@ $(SOURCES_BUILD)
