@@ -247,7 +247,7 @@ namespace Smuxi.Server
                 controller.ModifyUser(username, password);
                 config.Save();
                 Console.WriteLine(
-                     _("User \"{0}\" password successfully changed to."),
+                     _("User \"{0}\" successfully modified."),
                      username
                 );
                 Environment.Exit(0);
