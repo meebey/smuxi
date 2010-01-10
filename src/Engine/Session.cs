@@ -237,13 +237,17 @@ namespace Smuxi.Engine
                                "frontend manager (probably already cleanly " +
                                " deregistered), ignoring...");
 #endif
-                //throw new InvalidOperationException("Could not find key for frontend manager in _FrontendManagers.");
                 return;
             }
             
             lock (_FrontendManagers) {
                 _FrontendManagers.Remove(key);
             }
+
+#if LOG4NET
+            f_Logger.Debug("DeregisterFrontendUI(fm): disposing FrontendManager");
+#endif
+            fm.Dispose();
         }
         
         public void DeregisterFrontendUI(IFrontendUI ui)
@@ -256,10 +260,22 @@ namespace Smuxi.Engine
             
             string uri = GetUri(ui);
 #if LOG4NET
-            f_Logger.Debug("Deregistering UI with URI: "+uri);
+            f_Logger.Debug("DeregisterFrontendUI(ui): deregistering UI with URI: "+uri);
 #endif
+            FrontendManager manager;
             lock (_FrontendManagers) {
+                _FrontendManagers.TryGetValue(uri, out manager);
                 _FrontendManagers.Remove(uri);
+            }
+            if (manager == null) {
+#if LOG4NET
+                f_Logger.Error("DeregisterFrontendUI(ui): can't dispose as FrontendManager not found with URI: " + uri);
+#endif
+            } else {
+#if LOG4NET
+                f_Logger.Debug("DeregisterFrontendUI(ui): disposing FrontendManager with URI: " + uri);
+#endif
+                manager.Dispose();
             }
         }
         
