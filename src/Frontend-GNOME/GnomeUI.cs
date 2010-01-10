@@ -47,17 +47,10 @@ namespace Smuxi.Frontend.Gnome
 #endif
         private int _Version = 0;
         private ChatViewManager _ChatViewManager;
-        private IList<ChatView> _SyncedChatViews;
         
         public int Version {
             get {
                 return _Version;
-            }
-        }
-        
-        public IList<ChatView> SyncedChatViews {
-            get {
-                return _SyncedChatViews;
             }
         }
         
@@ -167,10 +160,10 @@ namespace Smuxi.Frontend.Gnome
                 double duration = syncStop.Subtract(syncStart).TotalMilliseconds;
                 _Logger.Debug("SyncChat() done, syncing took: " + Math.Round(duration) + " ms");
 #endif
-                
+
                 // maybe a BUG here? should be tell the FrontendManager before we sync?
                 Frontend.FrontendManager.AddSyncedChat(chatModel);
-                //_SyncedChats.Add(chatView);
+
                 // BUG: doesn't work?!?
                 chatView.ScrollToEnd();
                 
