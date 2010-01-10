@@ -29,8 +29,17 @@ namespace Smuxi.Frontend.Gnome
 {
     public class PangoTools
     {
-        public static string ToMarkup(MessageModel Model)
+        public static string ToMarkup(MessageModel msg)
         {
+            return ToMarkup(msg, null);
+        }
+
+        public static string ToMarkup(MessageModel msg, Gdk.Color? bgColor)
+        {
+            if (msg == null) {
+                return String.Empty;
+            }
+
             /* Pango Markup doesn't support hyperlinks:
              *     (smuxi-frontend-gnome:9824): Gtk-WARNING **: Failed to set
              *     text from markup due to error parsing markup: Unknown tag
@@ -49,13 +58,24 @@ namespace Smuxi.Frontend.Gnome
              *    http://library.gnome.org/devel/pango/unstable/PangoMarkupFormat.html
              */
             StringBuilder markup = new StringBuilder ();
-            foreach (MessagePartModel msgPart in Model.MessageParts) {
+            foreach (MessagePartModel msgPart in msg.MessageParts) {
                 if (msgPart is UrlMessagePartModel) {
                     UrlMessagePartModel url = (UrlMessagePartModel) msgPart;
 
                     string str = GLib.Markup.EscapeText(url.Text);
-                    str = String.Format("<span color='{0}'><u>{1}</u></span>",
-                                        "darkblue",
+                    
+                    Gdk.Color gdkColor = Gdk.Color.Zero;
+                    Gdk.Color.Parse("darkblue", ref gdkColor);
+                    TextColor urlColor = ColorTools.GetTextColor(gdkColor);
+                    if (bgColor != null) {
+                        // we have a bg color so lets try to get a url color
+                        // with a good contrast
+                        urlColor = ColorTools.GetBestTextColor(
+                            urlColor, ColorTools.GetTextColor(bgColor.Value));
+                    }
+
+                    str = String.Format("<span color='#{0}'><u>{1}</u></span>",
+                                        urlColor.HexCode,
                                         str);
                     markup.Append(str);
                 } else if (msgPart is TextMessagePartModel) {

@@ -38,7 +38,10 @@ namespace Smuxi.Frontend.Gnome {
             // Widget Smuxi.Frontend.Gnome.FindGroupChatDialog
             this.Name = "Smuxi.Frontend.Gnome.FindGroupChatDialog";
             this.Title = Mono.Unix.Catalog.GetString("Smuxi - Find Group Chat");
+            this.Icon = Stetic.IconLoader.LoadIcon(this, "gtk-find", Gtk.IconSize.Menu, 16);
             this.WindowPosition = ((Gtk.WindowPosition)(4));
+            this.DefaultWidth = 640;
+            this.DefaultHeight = 480;
             // Internal child Smuxi.Frontend.Gnome.FindGroupChatDialog.VBox
             Gtk.VBox w1 = this.VBox;
             w1.Name = "dialog1_VBox";
@@ -144,8 +147,6 @@ namespace Smuxi.Frontend.Gnome {
             if ((this.Child != null)) {
                 this.Child.ShowAll();
             }
-            this.DefaultWidth = 588;
-            this.DefaultHeight = 347;
             this.label1.MnemonicWidget = this.f_NameEntry;
             this.Show();
             this.f_NameEntry.Activated += new System.EventHandler(this.OnNameEntryActivated);

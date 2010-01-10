@@ -51,22 +51,6 @@ namespace Smuxi.Frontend.Gnome
             }
         }
 
-        private void RenderMessageModel (Gtk.TreeViewColumn Column,
-            Gtk.CellRenderer Renderer, Gtk.TreeModel Model, Gtk.TreeIter Iter)
-        {
-            MessageModel topic;
-            Gtk.CellRendererText renderer = (Gtk.CellRendererText) Renderer;
-
-            object val = Model.GetValue(Iter, 3);
-            if (val == null) {
-                renderer.Text = String.Empty;
-                return;
-            } else {
-                topic = (MessageModel) val;
-            }
-            renderer.Markup = PangoTools.ToMarkup(topic);
-        }
-
         public FindGroupChatDialog(Gtk.Window parent, IProtocolManager protocolManager) :
                               base(null, parent, Gtk.DialogFlags.DestroyWithParent)
         {
@@ -87,16 +71,15 @@ namespace Smuxi.Frontend.Gnome
             column.Resizable = true;
             
             columnID++;
-            column = f_TreeView.AppendColumn(_("Topic"), new Gtk.CellRendererText(), RenderMessageModel);
+            column = f_TreeView.AppendColumn(_("Topic"), new Gtk.CellRendererText(), "markup", columnID);
             column.SortColumnId = columnID;
-            column.Sizing = Gtk.TreeViewColumnSizing.Fixed;
             column.Resizable = true;
 
             f_ListStore = new Gtk.ListStore(
                 typeof(GroupChatModel),
                 typeof(int), // person count
                 typeof(string), // name
-                typeof(MessageModel) // topic
+                typeof(string) // topic pango markup
             );
             f_TreeView.RowActivated += OnTreeViewRowActivated;
             f_TreeView.Selection.Changed += OnTreeViewSelectionChanged;
@@ -141,13 +124,13 @@ namespace Smuxi.Frontend.Gnome
                         IList<GroupChatModel> chats = f_ProtocolManager.FindGroupChats(filter);
                         
                         Gtk.Application.Invoke(delegate {
+                            Gdk.Color bgColor = f_TreeView.Style.Background(Gtk.StateType.Normal);
                             foreach (GroupChatModel chat in chats) {
-                                // TODO: convert MessageModel into TreeView color
                                 f_ListStore.AppendValues(
                                     chat,
                                     chat.PersonCount,
                                     chat.Name,
-                                    chat.Topic
+                                    PangoTools.ToMarkup(chat.Topic, bgColor)
                                 );
                             }
                         });
