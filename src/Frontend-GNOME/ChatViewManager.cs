@@ -149,6 +149,8 @@ namespace Smuxi.Frontend.Gnome
             if (ChatRemoved != null) {
                 ChatRemoved(this, new ChatViewManagerChatRemovedEventArgs(chatView));
             }
+
+            chatView.Dispose();
         }
 
         public override void EnableChat(ChatModel chat)

@@ -7,7 +7,7 @@
  *
  * Smuxi - Smart MUltipleXed Irc
  *
- * Copyright (c) 2005-2008 Mirco Bauer <meebey@meebey.net>
+ * Copyright (c) 2005-2010 Mirco Bauer <meebey@meebey.net>
  *
  * Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
  *
@@ -36,7 +36,7 @@ using Smuxi.Frontend;
 namespace Smuxi.Frontend.Gnome
 {
     // TODO: use Gtk.Bin
-    public abstract class ChatView : Gtk.EventBox, IChatView
+    public abstract class ChatView : Gtk.EventBox, IChatView, IDisposable
     {
 #if LOG4NET
         private static readonly log4net.ILog _Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
@@ -55,6 +55,7 @@ namespace Smuxi.Frontend.Gnome
         private   Gtk.ScrolledWindow _OutputScrolledWindow;
         private   MessageTextView    _OutputMessageTextView;
         private   ThemeSettings      _ThemeSettings;
+        private   TaskQueue          _LastSeenHighlightQueue;
         
         public ChatModel ChatModel {
             get {
@@ -249,8 +250,40 @@ namespace Smuxi.Frontend.Gnome
             _TabEventBox.ShowAll();
 
             _ThemeSettings = new ThemeSettings();
+
+            // OPT-TODO: this should use a TaskStack instead of TaskQueue
+            _LastSeenHighlightQueue = new TaskQueue("LastSeenHighlightQueue("+_Name+")");
+            _LastSeenHighlightQueue.AbortedEvent += OnLastSeenHighlightQueueAbortedEvent;
+            _LastSeenHighlightQueue.ExceptionEvent += OnLastSeenHighlightQueueExceptionEvent;
         }
         
+        ~ChatView()
+        {
+            Trace.Call();
+
+            Dispose(false);
+        }
+
+        public void Dispose()
+        {
+            Trace.Call();
+
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected void Dispose(bool disposing)
+        {
+            Trace.Call(disposing);
+
+            if (disposing) {
+                if (_LastSeenHighlightQueue != null) {
+                    _LastSeenHighlightQueue.Dispose();
+                }
+                _LastSeenHighlightQueue = null;
+            }
+        }
+
         public virtual void ScrollUp()
         {
             Trace.Call();
@@ -468,16 +501,53 @@ namespace Smuxi.Frontend.Gnome
                 Display.Beep();
             }
 
-            // HACK: out of scope?
-            if (Frontend.MainWindow.Notebook.CurrentChatView == this) {
-                return;
-            }
-            
-            if (_ChatModel.LastSeenHighlight < e.Message.TimeStamp) {
-                HasHighlight = true;
+            if (_IsSynced) {
+                var method = Trace.GetMethodBase();
+                // update last seen highlight
+                // OPT-TODO: we should use a TaskStack here OR at least a
+                // timeout approach that will only sync once per 30 seconds!
+                _LastSeenHighlightQueue.Queue(delegate {
+                    Trace.Call(method, null, null);
+
+                    // unhandled exception here would kill the whole app domain
+                    try {
+                        // REMOTING CALL 1
+                        if (_ChatModel.LastSeenHighlight < e.Message.TimeStamp) {
+                            Gtk.Application.Invoke(delegate {
+                                HasHighlight = true;
+                            });
+                        }
+                        // REMOTING CALL 2
+                        _ChatModel.LastSeenHighlight = DateTime.UtcNow;
+                    } catch (Exception ex) {
+#if LOG4NET
+                        _Logger.Error("OnMessageTextViewMessageHighlighted(): Exception: ", ex);
+#endif
+                    }
+                });
             }
         }
-        
+
+        protected virtual void OnLastSeenHighlightQueueExceptionEvent(object sender, TaskQueueExceptionEventArgs e)
+        {
+            Trace.Call(sender, e);
+
+#if LOG4NET
+            _Logger.Error("Exception in TaskQueue: ", e.Exception);
+            _Logger.Error("Inner-Exception: ", e.Exception.InnerException);
+#endif
+            Frontend.ShowException(e.Exception);
+        }
+
+        protected virtual void OnLastSeenHighlightQueueAbortedEvent(object sender, EventArgs e)
+        {
+            Trace.Call(sender, e);
+
+#if LOG4NET
+            _Logger.Debug("OnLastSeenHighlightQueueAbortedEvent(): task queue aborted!");
+#endif
+        }
+
         private static string _(string msg)
         {
             return Mono.Unix.Catalog.GetString(msg);

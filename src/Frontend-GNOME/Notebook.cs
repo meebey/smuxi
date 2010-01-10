@@ -170,7 +170,6 @@ namespace Smuxi.Frontend.Gnome
             }
 
             ChatModel chatModel = chatView.ChatModel;
-            bool hasHighlight = chatView.HasHighlight;
 
             // clear activity and highlight
             chatView.HasHighlight = false;
@@ -200,14 +199,8 @@ namespace Smuxi.Frontend.Gnome
                 // REMOTING CALL 4
                 Frontend.FrontendManager.UpdateNetworkStatus();
 
-                // update last seen highlight
-                if (hasHighlight) {
-                    // REMOTING CALL 5
-                    chatModel.LastSeenHighlight = DateTime.UtcNow;
-                }
-
                 // sync title
-                // REMOTING CALL 6
+                // REMOTING CALL 5
                 string networkStatus = nmanager != null ?
                                             nmanager.ToString() + " / " :
                                             String.Empty;

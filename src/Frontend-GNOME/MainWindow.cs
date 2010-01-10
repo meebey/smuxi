@@ -442,6 +442,12 @@ namespace Smuxi.Frontend.Gnome
                 // HACK: out of scope?
                 Frontend.StatusIcon.Blinking = false;
 #endif
+                ChatView chatView = _Notebook.CurrentChatView;
+                if (chatView != null) {
+                    // clear activity and highlight
+                    chatView.HasHighlight = false;
+                    chatView.HasActivity = false;
+                }
             } catch (Exception ex) {
                 Frontend.ShowException(this, ex);
             }
