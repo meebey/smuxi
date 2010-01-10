@@ -91,6 +91,10 @@ namespace Smuxi.Common
         [Conditional("TRACE")]
         public static void Call(MethodBase mb, params object[] args)
         {
+            if (mb == null) {
+                throw new ArgumentNullException("mb");
+            }
+
             StringBuilder line = new StringBuilder();
             line.Append("[");
             line.Append(System.IO.Path.GetFileName(Assembly.GetCallingAssembly().Location));
