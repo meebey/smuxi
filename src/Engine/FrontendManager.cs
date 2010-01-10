@@ -93,7 +93,7 @@ namespace Smuxi.Engine
         
         public bool IsAlive {
             get {
-                return  !f_TaskQueue.Disposed;
+                return !f_TaskQueue.Disposed;
             }
         }
         
