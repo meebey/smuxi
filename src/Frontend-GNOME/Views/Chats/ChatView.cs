@@ -46,6 +46,7 @@ namespace Smuxi.Frontend.Gnome
         private   bool               _HasHighlight;
         private   bool               _HasActivity;
         private   bool               _HasEvent;
+        private   bool               _IsSynced;
         private   Gtk.TextMark       _EndMark;
         private   Gtk.Menu           _TabMenu;
         private   Gtk.Label          _TabLabel;
@@ -349,6 +350,8 @@ namespace Smuxi.Frontend.Gnome
                     AddMessage(msg);
                 }
             }
+
+            _IsSynced = true;
         }
         
         public virtual void AddMessage(MessageModel msg)
@@ -451,6 +454,20 @@ namespace Smuxi.Frontend.Gnome
         {
             Trace.Call(sender, e);
             
+            // HACK: out of scope?
+            // only beep if the main windows has no focus (the user is
+            // elsewhere) and the chat is was already synced, as during sync we
+            // would get insane from all beeping caused by the old highlights
+            if (!Frontend.MainWindow.HasToplevelFocus &&
+                _IsSynced &&
+                Frontend.UserConfig["Sound/BeepOnHighlight"] != null &&
+                (bool) Frontend.UserConfig["Sound/BeepOnHighlight"]) {
+#if LOG4NET
+                _Logger.Debug("OnMessageTextViewMessageHighlighted(): BEEP!");
+#endif
+                Display.Beep();
+            }
+
             // HACK: out of scope?
             if (Frontend.MainWindow.Notebook.CurrentChatView == this) {
                 return;

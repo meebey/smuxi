@@ -857,10 +857,6 @@ namespace Smuxi.Frontend.Gnome
 #if GTK_SHARP_2_10
                 Frontend.StatusIcon.Blinking = true;
 #endif
-                if (Frontend.UserConfig["Sound/BeepOnHighlight"] != null &&
-                    (bool)Frontend.UserConfig["Sound/BeepOnHighlight"]) {
-                    Display.Beep();
-                }
             }
         }
 
