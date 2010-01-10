@@ -122,6 +122,19 @@ namespace Smuxi.Server
                  }
             );
 
+            parser.Add(
+                 "<>",
+                delegate(string val) {
+                    throw new OptionException(
+                        String.Format(
+                            _("Unknown option: '{0}'"),
+                            val
+                        ),
+                        val
+                    );
+                }
+            );
+
             try {
                 parser.Parse(args);
                 if (addUser || modUser) {
