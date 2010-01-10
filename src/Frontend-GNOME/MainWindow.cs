@@ -373,11 +373,16 @@ namespace Smuxi.Frontend.Gnome
             
             _Statusbar = new Gtk.Statusbar();
             
-            Gtk.HBox sb_hbox = new Gtk.HBox();
-            sb_hbox.PackStart(_NetworkStatusbar, false, true, 0);
-            sb_hbox.PackStart(_Statusbar, true, true, 0);
-            sb_hbox.PackStart(_ProgressBar, false, false, 0);
-            vbox.PackStart(sb_hbox, false, false, 0);
+            Gtk.HBox status_bar_hbox = new Gtk.HBox();
+            status_bar_hbox.Homogeneous = true;
+            status_bar_hbox.PackStart(_NetworkStatusbar, false, true, 0);
+            status_bar_hbox.PackStart(_Statusbar, true, true, 0);
+
+            Gtk.HBox status_hbox = new Gtk.HBox();
+            status_hbox.PackStart(status_bar_hbox);
+            status_hbox.PackStart(_ProgressBar, false, false, 0);
+
+            vbox.PackStart(status_hbox, false, false, 0);
             Add(vbox);
         }
 
