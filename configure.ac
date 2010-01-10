@@ -1,5 +1,5 @@
 AC_PREREQ([2.54])
-AC_INIT([smuxi], [0.6.4.1], [http://www.smuxi.org/newticket])
+AC_INIT([smuxi], [0.7], [http://www.smuxi.org/newticket])
 # using the --foreign option makes automake less strict about GNU policy 
 AC_CONFIG_MACRO_DIR([.])
 AM_INIT_AUTOMAKE([foreign])
