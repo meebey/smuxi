@@ -32,6 +32,7 @@ using Smuxi.Common;
 
 namespace Smuxi.Engine
 {
+    [Serializable]
     public class ServerModel
     {
         private string        _Protocol;

@@ -30,7 +30,7 @@ using System.Reflection;
 using System.Runtime.CompilerServices;
 
 [assembly: AssemblyTitle("Smuxi - GNOME frontend")]
-[assembly: AssemblyCopyright("2005-2009 (C) Mirco Bauer <meebey@meebey.net>")]
+[assembly: AssemblyCopyright("2005-2010 (C) Mirco Bauer <meebey@meebey.net>")]
 
 [assembly: AssemblyDelaySign(false)]
 [assembly: AssemblyKeyFile("")]
