@@ -28,6 +28,7 @@
 
 using System;
 using System.IO;
+using System.Threading;
 using System.Reflection;
 using Smuxi.Engine;
 using Smuxi.Common;
@@ -57,6 +58,7 @@ namespace Smuxi.Frontend.Gnome
         private static Session            _Session;
         private static UserConfig         _UserConfig;
         private static FrontendManager    _FrontendManager;
+        private static TaskQueue          _FrontendManagerCheckerQueue;
         private static object             _UnhandledExceptionSyncRoot = new Object();
 
         public static event EventHandler  SessionPropertyChanged;
@@ -297,8 +299,34 @@ namespace Smuxi.Frontend.Gnome
 
             // local sessions can't have network issues :)
             if (_Session != _LocalSession) {
-                // check once per minute the status of the frontend manager
-                GLib.Timeout.Add(60 * 1000, _CheckFrontendManagerStatus);
+                _FrontendManagerCheckerQueue = new TaskQueue("FrontendManagerCheckerQueue");
+                _FrontendManagerCheckerQueue.AbortedEvent += delegate {
+#if LOG4NET
+                    _Logger.Debug("_FrontendManagerCheckerQueue.AbortedEvent(): task queue aborted!");
+#endif
+                };
+
+                _FrontendManagerCheckerQueue.ExceptionEvent +=
+                delegate(object sender, TaskQueueExceptionEventArgs e) {
+#if LOG4NET
+                    _Logger.Error("Exception in TaskQueue: ", e.Exception);
+                    _Logger.Error("Inner-Exception: ", e.Exception.InnerException);
+#endif
+                    Frontend.ShowException(e.Exception);
+                };
+
+                _FrontendManagerCheckerQueue.Queue(delegate {
+                    // keep looping as long as the checker returns true
+                    while (CheckFrontendManagerStatus()) {
+                        // only check once per minute
+                        Thread.Sleep(60 * 1000);
+                    }
+#if LOG4NET
+                    _Logger.Debug("_FrontendManagerCheckerQueue(): " +
+                                  "CheckFrontendManagerStatus() returned false, "+
+                                  "time to say good bye!");
+#endif
+                });
             }
         }
         
@@ -577,23 +605,24 @@ namespace Smuxi.Frontend.Gnome
         }
 #endif
         
-        private static bool _CheckFrontendManagerStatus()
+        private static bool CheckFrontendManagerStatus()
         {
             Trace.Call();
+
+            if (_FrontendManager == null) {
+                // we lost the frontend manager, nothing to check
+                return false;
+            }
+
+            if (_FrontendManager.IsAlive) {
+                // everything is fine
+                return true;
+            }
             
-            try {
-                if (_FrontendManager == null) {
-                    // we lost the frontend manager, nothing to check
-                    return false;
-                }
-                
-                if (_FrontendManager.IsAlive) {
-                    return true;
-                }
-                
 #if LOG4NET
-                _Logger.Error("_CheckFrontendManagerStatus(): frontend manager is not alive anymore!");
+            _Logger.Error("CheckFrontendManagerStatus(): frontend manager is not alive anymore!");
 #endif
+            Gtk.Application.Invoke(delegate {
                 Gtk.MessageDialog md = new Gtk.MessageDialog(_MainWindow,
                     Gtk.DialogFlags.Modal, Gtk.MessageType.Error,
                     Gtk.ButtonsType.OkCancel, _("The server has lost the connection to the frontend.\nDo you want to reconnect now?"));
@@ -601,13 +630,13 @@ namespace Smuxi.Frontend.Gnome
                 md.Destroy();
                 
                 if (res != Gtk.ResponseType.Ok) {
-                    return false;
+                    // the frontend is unusable in this state -> say good bye
+                    Frontend.Quit();
+                    return;
                 }
 
                 Frontend.ReconnectEngineToGUI();
-            } catch (Exception ex) {
-                Frontend.ShowException(ex);
-            }
+            });
 
             return false;
         }
