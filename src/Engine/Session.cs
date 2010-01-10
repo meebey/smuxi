@@ -189,44 +189,33 @@ namespace Smuxi.Engine
                     if (!server.OnStartupConnect) {
                         continue;
                     }
-                    
-                    IProtocolManager protocolManager = _CreateProtocolManager(fm, server.Protocol);
-                    if (protocolManager == null) {
+
+                    bool isError = false;
+                    try {
+                        IProtocolManager protocolManager = Connect(server, fm);
+
+                        // if the connect command was correct, we should be
+                        // able to get the chat model
+                        if (protocolManager.Chat == null) {
+                            isError = true;
+                        }
+                    } catch (Exception ex) {
+#if LOG4NET
+                        f_Logger.Error("RegisterFrontendUI(): Exception during "+
+                                       "automatic connect: ", ex);
+#endif
+                        isError = true;
+                    }
+                    if (isError) {
+                        fm.AddTextToChat(
+                            _SessionChat,
+                            String.Format(
+                                _("Automatic connect to {0} failed!"),
+                                server.Hostname + ":" + server.Port
+                            )
+                        );
                         continue;
                     }
-                    
-                    _ProtocolManagers.Add(protocolManager);
-                    string password = null;
-                    // only pass non-empty passwords to Connect()
-                    if (!String.IsNullOrEmpty(server.Password)) {
-                        password = server.Password;
-                    }
-                    protocolManager.Connect(fm, server.Hostname, server.Port,
-                                            server.Username,
-                                            password);
-                    // if the connect command was correct, we should be able to get
-                    // the chat model
-                    if (protocolManager.Chat == null) {
-                        fm.AddTextToChat(_SessionChat, String.Format(_("Automatic connect to {0} failed!"), server.Hostname + ":" + server.Port));
-                        continue;
-                    }
-                    
-                    if (server.OnConnectCommands != null && server.OnConnectCommands.Count > 0) {
-                        // copy the server variable into the loop scope, else it will always be the same object in the anonymous method!
-                        ServerModel ser = server;
-                        protocolManager.Connected += delegate {
-                            foreach (string command in ser.OnConnectCommands) {
-                                if (command.Length == 0) {
-                                    continue;
-                                }
-                                CommandModel cd = new CommandModel(fm,
-                                                                   protocolManager.Chat,
-                                                                   (string)_UserConfig["Interface/Entry/CommandCharacter"],
-                                                                   command);
-                                protocolManager.Command(cd);
-                            }
-                        };
-                    }                                   
                 }
             }
         }
@@ -454,11 +443,19 @@ namespace Smuxi.Engine
             */
 
             if (protocolManager == null) {
-                protocolManager = _CreateProtocolManager(fm, protocol);
-                if (protocolManager == null) {
-                    return;
+                try {
+                    protocolManager = CreateProtocolManager(protocol);
+                    _ProtocolManagers.Add(protocolManager);
+                } catch (ArgumentException ex) {
+                    if (ex.ParamName != "protocol") {
+                        throw;
+                    }
+                    // this is an unknown protocol error
+                    fm.AddTextToChat(
+                        fm.CurrentChat,
+                        String.Format("-!- {0}", ex.Message)
+                    );
                 }
-                _ProtocolManagers.Add(protocolManager);
             }
             // HACK: this is hacky as the Command parser of the protocol manager
             // will pass this command to it's connect method only if cd was
@@ -946,49 +943,72 @@ namespace Smuxi.Engine
             return _ProtocolManagerFactory.GetProtocols();
         }
         
-        public void Connect(FrontendManager frontendManager, string protocol,
-                            string hostname, int port,
-                            string username, string password)
+        public IProtocolManager Connect(ServerModel server, FrontendManager frontendManager)
         {
-            Trace.Call(frontendManager, protocol, hostname, port, username, "XXX");
+            Trace.Call(server, frontendManager);
             
-            IProtocolManager protocolManager = _CreateProtocolManager(
-                frontendManager,
-                protocol
+            if (server == null) {
+                throw new ArgumentNullException("server");
+            }
+            if (String.IsNullOrEmpty(server.Protocol)) {
+                throw new ArgumentNullException("server.Protocol");
+            }
+            if (frontendManager == null) {
+                throw new ArgumentNullException("frontendManager");
+            }
+
+            IProtocolManager protocolManager = CreateProtocolManager(
+                server.Protocol
             );
-            if (protocolManager == null) {
-                throw new ApplicationException(
-                    String.Format(
-                        _("No protocol manager found for the protocol: {0}"),
-                        protocol
-                    )
-                );
-            }
-            
             _ProtocolManagers.Add(protocolManager);
+
+            string password = null;
             // only pass non-empty passwords to Connect()
-            if (String.IsNullOrEmpty(password)) {
-                password = null;
+            if (!String.IsNullOrEmpty(server.Password)) {
+                password = server.Password;
             }
-            protocolManager.Connect(frontendManager, hostname, port,
-                                    username, password);
+            protocolManager.Connect(frontendManager, server.Hostname,
+                                    server.Port, server.Username, password);
+            if (protocolManager.Chat == null) {
+                // just in case the ProtocolManager is not setting the
+                // protocol chat
+                throw new ApplicationException(_("Connect failed."));
+            }
+
+            if (server.OnConnectCommands != null && server.OnConnectCommands.Count > 0) {
+                protocolManager.Connected += delegate {
+                    foreach (string command in server.OnConnectCommands) {
+                        if (command.Length == 0) {
+                            continue;
+                        }
+                        CommandModel cd = new CommandModel(
+                            frontendManager,
+                            protocolManager.Chat,
+                            (string) _UserConfig["Interface/Entry/CommandCharacter"],
+                            command
+                        );
+                        protocolManager.Command(cd);
+                    }
+                };
+            }
+
+            return protocolManager;
         }
         
-        private IProtocolManager _CreateProtocolManager(FrontendManager fm, string protocol)
+        private IProtocolManager CreateProtocolManager(string protocol)
         {
-            ProtocolManagerInfoModel info = _ProtocolManagerFactory.GetProtocolManagerInfoByAlias(protocol); 
+            ProtocolManagerInfoModel info =
+                _ProtocolManagerFactory.GetProtocolManagerInfoByAlias(protocol);
             if (info == null) {
-                fm.AddTextToChat(
-                    fm.CurrentChat,
-                    String.Format("-!- {0}",
+                throw new ArgumentException(
                         String.Format(
-                            _("Unknown protocol: {0}"),
+                            _("No protocol manager found for the protocol: {0}"),
                             protocol
-                        )
-                    )
+                        ),
+                        "protocol"
                 );
-                return null;
             }
+
             return _ProtocolManagerFactory.CreateProtocolManager(info, this);
         }
         

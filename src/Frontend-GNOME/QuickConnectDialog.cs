@@ -180,6 +180,16 @@ namespace Smuxi.Frontend.Gnome
                 f_PortSpinButton.Value = server.Port;
                 f_UsernameEntry.Text = server.Username;
                 f_PasswordEntry.Text = server.Password;
+                if (server.OnConnectCommands == null) {
+                    f_OnConnectCommandsTextView.Buffer.Text = String.Empty;
+                } else {
+                    // LAME: replace me when we have .NET 3.0
+                    string[] commands = new string[server.OnConnectCommands.Count];
+                    server.OnConnectCommands.CopyTo(commands, 0);
+                    f_OnConnectCommandsTextView.Buffer.Text = String.Join(
+                        "\n", commands
+                    );
+                }
             } catch (Exception ex) {
                 Frontend.ShowException(ex);
             }
@@ -192,6 +202,8 @@ namespace Smuxi.Frontend.Gnome
             try {
                 // HACK: hardcoded default list, not so nice
                 // suggest sane port defaults
+                // TODO: this should be replaced with some ProtocolInfo class
+                // that contains exactly this kind of information
                 switch (f_ProtocolComboBox.ActiveText) {
                     case "IRC":
                         f_HostnameEntry.Sensitive = true;
@@ -205,14 +217,22 @@ namespace Smuxi.Frontend.Gnome
                         f_PortSpinButton.Value = 5222;
                         f_PortSpinButton.Sensitive = true;
                         break;
+                    // this protocols have static servers
                     case "AIM":
                     case "ICQ":
                     case "MSNP":
+                    case "Twitter":
                         f_HostnameEntry.Text = String.Empty;
                         f_HostnameEntry.Sensitive = false;
                         
                         f_PortSpinButton.Value = 0;
                         f_PortSpinButton.Sensitive = false;
+                        break;
+                    // in case we don't know / handle the protocol here, make
+                    // sure we grant maximum flexibility for the input
+                    default:
+                        f_HostnameEntry.Sensitive = true;
+                        f_PortSpinButton.Sensitive = true;
                         break;
                 }
                 
@@ -250,6 +270,10 @@ namespace Smuxi.Frontend.Gnome
                 f_ServerModel.Port     = f_PortSpinButton.ValueAsInt;
                 f_ServerModel.Username = f_UsernameEntry.Text;
                 f_ServerModel.Password = f_PasswordEntry.Text;
+                if (f_OnConnectCommandsTextView.Sensitive) {
+                    f_ServerModel.OnConnectCommands =
+                        f_OnConnectCommandsTextView.Buffer.Text.Split('\n');
+                }
             } catch (Exception ex) {
                 Frontend.ShowException(ex);
             }
@@ -293,6 +317,18 @@ namespace Smuxi.Frontend.Gnome
             
             try {
                 CheckShowPasswordCheckButton();
+            } catch (Exception ex) {
+                Frontend.ShowException(ex);
+            }
+        }
+
+        protected virtual void OnIgnoreOnConnectCommandsCheckButtonToggled(object sender, EventArgs e)
+        {
+            Trace.Call(sender, e);
+
+            try {
+                f_OnConnectCommandsTextView.Sensitive =
+                    !f_IgnoreOnConnectCommandsCheckButton.Active;
             } catch (Exception ex) {
                 Frontend.ShowException(ex);
             }

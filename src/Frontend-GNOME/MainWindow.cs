@@ -467,14 +467,7 @@ namespace Smuxi.Frontend.Gnome
 #endif
                 }
                 
-                Frontend.Session.Connect(
-                        Frontend.FrontendManager,
-                        server.Protocol,
-                        server.Hostname,
-                        server.Port,
-                        server.Username,
-                        server.Password
-                );
+                Frontend.Session.Connect(server, Frontend.FrontendManager);
             } catch (Exception ex) {
                 Frontend.ShowException(this, ex);
             }

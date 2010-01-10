@@ -44,7 +44,7 @@
             <child>
               <widget class="Gtk.Notebook" id="Notebook">
                 <property name="MemberName" />
-                <property name="CurrentPage">1</property>
+                <property name="CurrentPage">0</property>
                 <property name="ShowBorder">False</property>
                 <child>
                   <widget class="Gtk.VBox" id="vbox1">
@@ -2315,6 +2315,8 @@
     <property name="Title" translatable="yes">Smuxi - Quick Connect</property>
     <property name="TypeHint">Dialog</property>
     <property name="BorderWidth">5</property>
+    <property name="DefaultWidth">640</property>
+    <property name="DefaultHeight">480</property>
     <property name="Buttons">2</property>
     <property name="HelpButton">False</property>
     <child internal-child="VBox">
@@ -2346,6 +2348,7 @@
             <child>
               <widget class="Gtk.VBox" id="vbox16">
                 <property name="MemberName" />
+                <property name="Spacing">5</property>
                 <child>
                   <widget class="Gtk.Table" id="table2">
                     <property name="MemberName" />
@@ -2589,6 +2592,79 @@
                     <property name="Position">0</property>
                     <property name="AutoSize">False</property>
                     <property name="Expand">False</property>
+                  </packing>
+                </child>
+                <child>
+                  <widget class="Gtk.VBox" id="vbox2">
+                    <property name="MemberName" />
+                    <property name="Spacing">5</property>
+                    <child>
+                      <widget class="Gtk.HBox" id="hbox3">
+                        <property name="MemberName" />
+                        <property name="Spacing">6</property>
+                        <child>
+                          <widget class="Gtk.Label" id="label37">
+                            <property name="MemberName" />
+                            <property name="Xalign">0</property>
+                            <property name="LabelProp" translatable="yes">_On Connect Commands:</property>
+                            <property name="UseUnderline">True</property>
+                            <property name="MnemonicWidget">f_OnConnectCommandsTextView</property>
+                          </widget>
+                          <packing>
+                            <property name="Position">0</property>
+                            <property name="AutoSize">True</property>
+                            <property name="Expand">False</property>
+                            <property name="Fill">False</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <widget class="Gtk.CheckButton" id="f_IgnoreOnConnectCommandsCheckButton">
+                            <property name="MemberName" />
+                            <property name="CanFocus">True</property>
+                            <property name="Label" translatable="yes">_Ignore Commands</property>
+                            <property name="DrawIndicator">True</property>
+                            <property name="HasLabel">True</property>
+                            <property name="UseUnderline">True</property>
+                            <signal name="Toggled" handler="OnIgnoreOnConnectCommandsCheckButtonToggled" />
+                          </widget>
+                          <packing>
+                            <property name="Position">1</property>
+                            <property name="AutoSize">True</property>
+                          </packing>
+                        </child>
+                      </widget>
+                      <packing>
+                        <property name="Position">0</property>
+                        <property name="AutoSize">True</property>
+                        <property name="Expand">False</property>
+                        <property name="Fill">False</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <widget class="Gtk.ScrolledWindow" id="scrolledwindow1">
+                        <property name="MemberName" />
+                        <property name="WidthRequest">350</property>
+                        <property name="HeightRequest">100</property>
+                        <property name="ShadowType">In</property>
+                        <child>
+                          <widget class="Gtk.TextView" id="f_OnConnectCommandsTextView">
+                            <property name="MemberName" />
+                            <property name="WidthRequest">152</property>
+                            <property name="HeightRequest">168</property>
+                            <property name="Text" translatable="yes" />
+                            <property name="WrapMode">Word</property>
+                          </widget>
+                        </child>
+                      </widget>
+                      <packing>
+                        <property name="Position">1</property>
+                        <property name="AutoSize">True</property>
+                      </packing>
+                    </child>
+                  </widget>
+                  <packing>
+                    <property name="Position">1</property>
+                    <property name="AutoSize">True</property>
                   </packing>
                 </child>
               </widget>

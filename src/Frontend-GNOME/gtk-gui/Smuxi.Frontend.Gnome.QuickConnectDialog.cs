@@ -51,6 +51,18 @@ namespace Smuxi.Frontend.Gnome {
         
         private Gtk.Label label5;
         
+        private Gtk.VBox vbox2;
+        
+        private Gtk.HBox hbox3;
+        
+        private Gtk.Label label37;
+        
+        private Gtk.CheckButton f_IgnoreOnConnectCommandsCheckButton;
+        
+        private Gtk.ScrolledWindow scrolledwindow1;
+        
+        private Gtk.TextView f_OnConnectCommandsTextView;
+        
         private Gtk.Button f_CancelButton;
         
         private Gtk.Button f_ConnectButton;
@@ -62,6 +74,8 @@ namespace Smuxi.Frontend.Gnome {
             this.Title = Mono.Unix.Catalog.GetString("Smuxi - Quick Connect");
             this.TypeHint = ((Gdk.WindowTypeHint)(1));
             this.BorderWidth = ((uint)(5));
+            this.DefaultWidth = 640;
+            this.DefaultHeight = 480;
             // Internal child Smuxi.Frontend.Gnome.QuickConnectDialog.VBox
             Gtk.VBox w1 = this.VBox;
             w1.Name = "dialog-vbox2";
@@ -86,6 +100,7 @@ namespace Smuxi.Frontend.Gnome {
             // Container child hbox1.Gtk.Box+BoxChild
             this.vbox16 = new Gtk.VBox();
             this.vbox16.Name = "vbox16";
+            this.vbox16.Spacing = 5;
             // Container child vbox16.Gtk.Box+BoxChild
             this.table2 = new Gtk.Table(((uint)(4)), ((uint)(2)), false);
             this.table2.Name = "table2";
@@ -223,20 +238,73 @@ namespace Smuxi.Frontend.Gnome {
             Gtk.Box.BoxChild w18 = ((Gtk.Box.BoxChild)(this.vbox16[this.table2]));
             w18.Position = 0;
             w18.Expand = false;
-            this.hbox1.Add(this.vbox16);
-            Gtk.Box.BoxChild w19 = ((Gtk.Box.BoxChild)(this.hbox1[this.vbox16]));
-            w19.Position = 1;
+            // Container child vbox16.Gtk.Box+BoxChild
+            this.vbox2 = new Gtk.VBox();
+            this.vbox2.Name = "vbox2";
+            this.vbox2.Spacing = 5;
+            // Container child vbox2.Gtk.Box+BoxChild
+            this.hbox3 = new Gtk.HBox();
+            this.hbox3.Name = "hbox3";
+            this.hbox3.Spacing = 6;
+            // Container child hbox3.Gtk.Box+BoxChild
+            this.label37 = new Gtk.Label();
+            this.label37.Name = "label37";
+            this.label37.Xalign = 0F;
+            this.label37.LabelProp = Mono.Unix.Catalog.GetString("_On Connect Commands:");
+            this.label37.UseUnderline = true;
+            this.hbox3.Add(this.label37);
+            Gtk.Box.BoxChild w19 = ((Gtk.Box.BoxChild)(this.hbox3[this.label37]));
+            w19.Position = 0;
             w19.Expand = false;
             w19.Fill = false;
+            // Container child hbox3.Gtk.Box+BoxChild
+            this.f_IgnoreOnConnectCommandsCheckButton = new Gtk.CheckButton();
+            this.f_IgnoreOnConnectCommandsCheckButton.CanFocus = true;
+            this.f_IgnoreOnConnectCommandsCheckButton.Name = "f_IgnoreOnConnectCommandsCheckButton";
+            this.f_IgnoreOnConnectCommandsCheckButton.Label = Mono.Unix.Catalog.GetString("_Ignore Commands");
+            this.f_IgnoreOnConnectCommandsCheckButton.DrawIndicator = true;
+            this.f_IgnoreOnConnectCommandsCheckButton.UseUnderline = true;
+            this.hbox3.Add(this.f_IgnoreOnConnectCommandsCheckButton);
+            Gtk.Box.BoxChild w20 = ((Gtk.Box.BoxChild)(this.hbox3[this.f_IgnoreOnConnectCommandsCheckButton]));
+            w20.Position = 1;
+            this.vbox2.Add(this.hbox3);
+            Gtk.Box.BoxChild w21 = ((Gtk.Box.BoxChild)(this.vbox2[this.hbox3]));
+            w21.Position = 0;
+            w21.Expand = false;
+            w21.Fill = false;
+            // Container child vbox2.Gtk.Box+BoxChild
+            this.scrolledwindow1 = new Gtk.ScrolledWindow();
+            this.scrolledwindow1.WidthRequest = 350;
+            this.scrolledwindow1.HeightRequest = 100;
+            this.scrolledwindow1.Name = "scrolledwindow1";
+            this.scrolledwindow1.ShadowType = ((Gtk.ShadowType)(1));
+            // Container child scrolledwindow1.Gtk.Container+ContainerChild
+            this.f_OnConnectCommandsTextView = new Gtk.TextView();
+            this.f_OnConnectCommandsTextView.WidthRequest = 152;
+            this.f_OnConnectCommandsTextView.HeightRequest = 168;
+            this.f_OnConnectCommandsTextView.Name = "f_OnConnectCommandsTextView";
+            this.f_OnConnectCommandsTextView.WrapMode = ((Gtk.WrapMode)(2));
+            this.scrolledwindow1.Add(this.f_OnConnectCommandsTextView);
+            this.vbox2.Add(this.scrolledwindow1);
+            Gtk.Box.BoxChild w23 = ((Gtk.Box.BoxChild)(this.vbox2[this.scrolledwindow1]));
+            w23.Position = 1;
+            this.vbox16.Add(this.vbox2);
+            Gtk.Box.BoxChild w24 = ((Gtk.Box.BoxChild)(this.vbox16[this.vbox2]));
+            w24.Position = 1;
+            this.hbox1.Add(this.vbox16);
+            Gtk.Box.BoxChild w25 = ((Gtk.Box.BoxChild)(this.hbox1[this.vbox16]));
+            w25.Position = 1;
+            w25.Expand = false;
+            w25.Fill = false;
             w1.Add(this.hbox1);
-            Gtk.Box.BoxChild w20 = ((Gtk.Box.BoxChild)(w1[this.hbox1]));
-            w20.Position = 0;
+            Gtk.Box.BoxChild w26 = ((Gtk.Box.BoxChild)(w1[this.hbox1]));
+            w26.Position = 0;
             // Internal child Smuxi.Frontend.Gnome.QuickConnectDialog.ActionArea
-            Gtk.HButtonBox w21 = this.ActionArea;
-            w21.Name = "dialog-action_area2";
-            w21.Spacing = 6;
-            w21.BorderWidth = ((uint)(5));
-            w21.LayoutStyle = ((Gtk.ButtonBoxStyle)(4));
+            Gtk.HButtonBox w27 = this.ActionArea;
+            w27.Name = "dialog-action_area2";
+            w27.Spacing = 6;
+            w27.BorderWidth = ((uint)(5));
+            w27.LayoutStyle = ((Gtk.ButtonBoxStyle)(4));
             // Container child dialog-action_area2.Gtk.ButtonBox+ButtonBoxChild
             this.f_CancelButton = new Gtk.Button();
             this.f_CancelButton.Name = "f_CancelButton";
@@ -244,9 +312,9 @@ namespace Smuxi.Frontend.Gnome {
             this.f_CancelButton.UseUnderline = true;
             this.f_CancelButton.Label = "gtk-cancel";
             this.AddActionWidget(this.f_CancelButton, -6);
-            Gtk.ButtonBox.ButtonBoxChild w22 = ((Gtk.ButtonBox.ButtonBoxChild)(w21[this.f_CancelButton]));
-            w22.Expand = false;
-            w22.Fill = false;
+            Gtk.ButtonBox.ButtonBoxChild w28 = ((Gtk.ButtonBox.ButtonBoxChild)(w27[this.f_CancelButton]));
+            w28.Expand = false;
+            w28.Fill = false;
             // Container child dialog-action_area2.Gtk.ButtonBox+ButtonBoxChild
             this.f_ConnectButton = new Gtk.Button();
             this.f_ConnectButton.Name = "f_ConnectButton";
@@ -254,23 +322,23 @@ namespace Smuxi.Frontend.Gnome {
             this.f_ConnectButton.UseUnderline = true;
             this.f_ConnectButton.Label = "gtk-connect";
             this.AddActionWidget(this.f_ConnectButton, -5);
-            Gtk.ButtonBox.ButtonBoxChild w23 = ((Gtk.ButtonBox.ButtonBoxChild)(w21[this.f_ConnectButton]));
-            w23.Position = 1;
-            w23.Expand = false;
-            w23.Fill = false;
+            Gtk.ButtonBox.ButtonBoxChild w29 = ((Gtk.ButtonBox.ButtonBoxChild)(w27[this.f_ConnectButton]));
+            w29.Position = 1;
+            w29.Expand = false;
+            w29.Fill = false;
             if ((this.Child != null)) {
                 this.Child.ShowAll();
             }
-            this.DefaultWidth = 559;
-            this.DefaultHeight = 374;
             this.label20.MnemonicWidget = this.f_PortSpinButton;
             this.label11.MnemonicWidget = this.f_HostnameEntry;
             this.label21.MnemonicWidget = this.f_UsernameEntry;
             this.label22.MnemonicWidget = this.f_PasswordEntry;
             this.label5.MnemonicWidget = this.f_ProtocolComboBox;
+            this.label37.MnemonicWidget = this.f_OnConnectCommandsTextView;
             this.Show();
             this.f_ShowPasswordCheckButton.Clicked += new System.EventHandler(this.OnShowPasswordCheckButtonClicked);
             this.f_HostnameEntry.Changed += new System.EventHandler(this.OnHostnameEntryChanged);
+            this.f_IgnoreOnConnectCommandsCheckButton.Toggled += new System.EventHandler(this.OnIgnoreOnConnectCommandsCheckButtonToggled);
             this.f_ConnectButton.Clicked += new System.EventHandler(this.OnConnectButtonClicked);
         }
     }

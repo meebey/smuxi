@@ -431,7 +431,7 @@ namespace Smuxi.Frontend.Gnome {
             // Container child hbox1.Gtk.Box+BoxChild
             this.Notebook = new Gtk.Notebook();
             this.Notebook.Name = "Notebook";
-            this.Notebook.CurrentPage = 1;
+            this.Notebook.CurrentPage = 0;
             this.Notebook.ShowBorder = false;
             // Container child Notebook.Gtk.Notebook+NotebookChild
             this.vbox1 = new Gtk.VBox();
