@@ -19,14 +19,18 @@ endif
 
 if ENABLE_DEBUG
 ASSEMBLY_COMPILER_COMMAND = @MCS@
-ASSEMBLY_COMPILER_FLAGS =  -noconfig -codepage:utf8 -warn:4 -optimize+ "-define:DEBUG,TRACE,LOG4NET,NET_2_0,NDESK_OPTIONS"
+ASSEMBLY_COMPILER_FLAGS =  -noconfig -codepage:utf8 -warn:4 -debug -optimize+ "-define:DEBUG,TRACE,LOG4NET,NET_2_0,NDESK_OPTIONS"
 
 ASSEMBLY = ../../bin/debug/smuxi-common.dll
-ASSEMBLY_MDB = 
+ASSEMBLY_MDB = $(ASSEMBLY).mdb
 COMPILE_TARGET = library
 PROJECT_REFERENCES = 
 BUILD_DIR = ../../bin/debug
 
+SMUXI_COMMON_DLL=$(ASSEMBLY)
+SMUXI_COMMON_DLL_SOURCE=$(ASSEMBLY)
+SMUXI_COMMON_DLL_MDB=$(ASSEMBLY_MDB)
+SMUXI_COMMON_DLL_MDB_SOURCE=$(ASSEMBLY_MDB)
 LOG4NET_DLL_SOURCE=../../lib/log4net.dll
 
 endif
@@ -74,7 +78,8 @@ LOG4NET_DLL = $(BUILD_DIR)/log4net.dll
 COMMON_PC = $(BUILD_DIR)/smuxi-common.pc
 
 $(eval $(call emit-deploy-wrapper,COMMON_PC,smuxi-common.pc))
-
+$(eval $(call emit-deploy-target,SMUXI_COMMON_DLL))
+$(eval $(call emit-deploy-target,SMUXI_COMMON_DLL_MDB))
 
 $(build_xamlg_list): %.xaml.g.cs: %.xaml
 	xamlg '$<'
