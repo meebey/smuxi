@@ -214,6 +214,9 @@ AC_ARG_ENABLE([engine-twitter],
 )
 if test "x$ENABLE_ENGINE_TWITTER" != "xno"; then
 	AC_PATH_PROG(XBUILD, xbuild, no)
+	if test "x$XBUILD" = "xno"; then
+		AC_MSG_ERROR([You need to install xbuild for Twitter support])
+	fi
 fi
 AM_CONDITIONAL(ENABLE_ENGINE_TWITTER, test "x$ENABLE_ENGINE_TWITTER" = "xyes")
 
