@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: smuxi 0.7\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-11 01:36+0100\n"
+"POT-Creation-Date: 2010-01-09 22:46+0100\n"
 "PO-Revision-Date: 2010-01-11 00:47+0100\n"
 "Last-Translator: Bianca Mix <heavydemon@freenet.de>\n"
 "Language-Team: German Localization <debian-l10n-german@lists.debian.org>\n"
@@ -52,17 +52,12 @@ msgstr "Verwendung: smuxi-server [options]"
 msgid "Options:"
 msgstr "Optionen:"
 
-#: ../src/Server/Main.cs:130
-#, csharp-format
-msgid "Unknown option: '{0}'"
-msgstr ""
-
-#: ../src/Server/Main.cs:149
+#: ../src/Server/Main.cs:136
 #, csharp-format
 msgid "Command line error: {0}"
 msgstr "Kommandozeilenfehler: {0}"
 
-#: ../src/Server/Main.cs:207
+#: ../src/Server/Main.cs:194
 msgid ""
 "At most one of --add-user, --modify-user, and --delete-user may be used at a "
 "time."
@@ -70,33 +65,33 @@ msgstr ""
 "Höchstens einer der Optionen --add-user, --modify-user, und --delete-user "
 "darf gleichzeitig verwendet werden."
 
-#: ../src/Server/Main.cs:217
+#: ../src/Server/Main.cs:204
 msgid "You must specify a username with the --username option."
 msgstr "Sie müssen einen Benutzernamen mit der Option --username angeben."
 
-#: ../src/Server/Main.cs:223
+#: ../src/Server/Main.cs:210
 msgid "Username must not be empty."
 msgstr "Benutzername darf nicht leer sein."
 
-#: ../src/Server/Main.cs:233
+#: ../src/Server/Main.cs:220
 msgid "You must specify a password with the --password option."
 msgstr "Sie müssen ein Passwort mit der --password Option angeben."
 
-#: ../src/Server/Main.cs:239
+#: ../src/Server/Main.cs:226
 msgid "Password must not be empty."
 msgstr "Passwort darf nicht leer sein."
 
-#: ../src/Server/Main.cs:254
+#: ../src/Server/Main.cs:241
 #, csharp-format
 msgid "User \"{0}\" successfully added to server."
 msgstr "Benutzer \"{0}\" wurde erfolgreich zum Server hinzugefügt."
 
-#: ../src/Server/Main.cs:263
+#: ../src/Server/Main.cs:250
 #, csharp-format
 msgid "User \"{0}\" successfully modified."
 msgstr "Benutzer \"{0}\" wurde erfolgreich verändert."
 
-#: ../src/Server/Main.cs:272
+#: ../src/Server/Main.cs:259
 #, csharp-format
 msgid "User \"{0}\" successfully deleted from server."
 msgstr "Benutzer \"{0}\" wurde erfolgreich vom Server entfernt."
