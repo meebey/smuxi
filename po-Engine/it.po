@@ -2,31 +2,32 @@
 # Copyright (C) 2005-2009 Mirco Bauer <meebey@meebey.net>
 # This file is distributed under the same license as the Smuxi package.
 # David Paleino <d.paleino@gmail.com>, 2008.
+# Vincenzo Campanella <vinz65@gmail.com>, 2009-2010.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: smuxi 0.6.4\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-09 21:43+0100\n"
-"PO-Revision-Date: 2008-12-28 23:55+0100\n"
-"Last-Translator: David Paleino <d.paleino@gmail.com>\n"
-"Language-Team: Italian Localization <debian-l10n-italian@lists.debian.org>\n"
+"Report-Msgid-Bugs-To: Mirco Bauer <meebey@meebey.net>\n"
+"POT-Creation-Date: 2009-11-25 23:08+0100\n"
+"PO-Revision-Date: 2009-12-30 19:52+0100\n"
+"Last-Translator: Vincenzo Campanella <vinz65@gmail.com>\n"
+"Language-Team: Italian <tp@lists.linux.it>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: ../src/Engine/FrontendManager.cs:219
-#, fuzzy
+#
 msgid "No network connections"
-msgstr "nessuna connessione di rete"
+msgstr "Nessuna connessione di rete"
 
-#: ../src/Engine/Protocols/ProtocolManagerBase.cs:146
+#: ../src/Engine/Protocols/ProtocolManagerBase.cs:142
 msgid "Not connected to server"
-msgstr "Non connesso ad un server"
+msgstr "Non connesso a un server"
 
-#: ../src/Engine/Protocols/ProtocolManagerBase.cs:158
-#: ../src/Engine/Session.cs:684
+#: ../src/Engine/Protocols/ProtocolManagerBase.cs:148
+#: ../src/Engine/Session.cs:671
 #, csharp-format
 msgid "Not enough parameters for {0} command"
 msgstr "Non sono stati forniti abbastanza parametri per il comando {0}"
@@ -37,106 +38,90 @@ msgstr "Benvenuto in Smuxi"
 
 #: ../src/Engine/Session.cs:157
 msgid "Type /help to get a list of available commands."
-msgstr "Digita /help per ottenere una lista di comandi disponibili."
+msgstr "Digitare «/help» per ottenere un elenco dei comandi disponibili."
 
 #: ../src/Engine/Session.cs:160
-#, fuzzy
+#
 msgid ""
 "After you have made a connection the list of available commands changes. Use "
 "the /help command again to see the extended command list."
 msgstr ""
-"Dopo aver effettuato una connessione la lista dei comandi disponibili "
-"cambia, usa di nuovo /help."
+"Dopo aver effettuato una connessione, l'elenco dei comandi disponibili cambia. "
+"Usare nuovamente il comando «/help» per vedere l'elenco dei comandi estesi."
 
 #: ../src/Engine/Session.cs:210
 #, csharp-format
 msgid "Automatic connect to {0} failed!"
-msgstr "Connessione automatica a {0} fallita!"
+msgstr "La connessione automatica a {0} non è riuscita."
 
 #. TRANSLATOR: this line is used as a label / category for a
 #. list of commands below
 #: ../src/Engine/Session.cs:398
-#, fuzzy
+#
 msgid "Engine Commands"
-msgstr "[Comandi Engine]"
+msgstr "Comandi del motore"
 
-#: ../src/Engine/Session.cs:510
-#, fuzzy, csharp-format
+#: ../src/Engine/Session.cs:505
+#, csharp-format
 msgid "Disconnect failed - could not find server: {0}"
-msgstr "Disconnessione fallita, impossibile trovare il server: {0}"
+msgstr "La disconnessione non è riuscita, impossibile trovare il server: {0}"
 
-#: ../src/Engine/Session.cs:546
+#: ../src/Engine/Session.cs:541
 msgid "Configuration reloaded"
 msgstr "Configurazione ricaricata"
 
-#: ../src/Engine/Session.cs:551
+#: ../src/Engine/Session.cs:546
 msgid "Configuration saved"
 msgstr "Configurazione salvata"
 
-#: ../src/Engine/Session.cs:555
-#, fuzzy
+#: ../src/Engine/Session.cs:550
+#, 
 msgid "Invalid parameter for config; use load or save"
-msgstr "Parametro non valido per config, utilizza load o save"
+msgstr ""
+"Parametro non valido per la configurazione, utilizzare «load» o «save»"
 
-#: ../src/Engine/Session.cs:585
-#, fuzzy
+#: ../src/Engine/Session.cs:580
+#,
 msgid "Invalid parameter for network; use list, switch, or close"
-msgstr "Parametro non valido per la rete, utilizza list, switch o close"
+msgstr "Parametro non valido per la rete, utilizzare «list», «switch» o «close»"
 
-#: ../src/Engine/Session.cs:596
+#: ../src/Engine/Session.cs:591
 msgid "Networks"
 msgstr "Reti"
 
-#: ../src/Engine/Session.cs:600
+#: ../src/Engine/Session.cs:595
 msgid "Type"
 msgstr "Tipo"
 
-#: ../src/Engine/Session.cs:601
+#: ../src/Engine/Session.cs:596
 msgid "Host"
 msgstr "Host"
 
-#: ../src/Engine/Session.cs:602
+#: ../src/Engine/Session.cs:597
 msgid "Port"
 msgstr "Porta"
 
-#: ../src/Engine/Session.cs:624
-#, fuzzy, csharp-format
+#: ../src/Engine/Session.cs:619
+#, csharp-format
 msgid "Network close failed - could not find network with host: {0}"
-msgstr "Chiusura rete fallita, impossibile trovare rete con host: {0}"
+msgstr "La chiusura della rete non è riuscita, impossibile trovare la rete con l'host: {0}"
 
-#: ../src/Engine/Session.cs:658
-#, fuzzy, csharp-format
+#: ../src/Engine/Session.cs:653
+#, csharp-format
 msgid "Network switch failed - could not find network with host: {0}"
-msgstr "Cambio di rete fallito, impossibile trovare rete con host: {0}"
+msgstr "Il cambio di rete non è riuscito, impossibile trovare la rete con l'host: {0}"
 
-#: ../src/Engine/Session.cs:673
+#: ../src/Engine/Session.cs:665
 msgid "Not connected to any network"
 msgstr "Non connesso ad alcuna rete"
 
-#: ../src/Engine/Session.cs:962
+#: ../src/Engine/Session.cs:945
 #, csharp-format
 msgid "No protocol manager found for the protocol: {0}"
 msgstr "Nessun gestore trovato per il protocollo {0}"
 
-#: ../src/Engine/Session.cs:985
+#: ../src/Engine/Session.cs:965
 #, csharp-format
 msgid "Unknown protocol: {0}"
 msgstr "Protocollo sconosciuto: {0}"
 
-#: ../src/Engine/Config/UserListController.cs:112
-msgid "Username must not be empty."
-msgstr ""
-
-#: ../src/Engine/Config/UserListController.cs:122
-msgid "Password must not be empty."
-msgstr ""
-
-#: ../src/Engine/Config/UserListController.cs:131
-#, csharp-format
-msgid "User \"{0}\" doesn't exist."
-msgstr ""
-
-#: ../src/Engine/Config/UserListController.cs:140
-#, csharp-format
-msgid "User \"{0}\" already exists."
-msgstr ""
