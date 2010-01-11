@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-09 21:43+0100\n"
+"POT-Creation-Date: 2010-01-11 03:23+0100\n"
 "PO-Revision-Date: 2010-01-05 22:37+0100\n"
 "Last-Translator: Martin Bagge <brother@bsnet.se>\n"
 "Language-Team: Swedish <debian-l10n-swedish@lists.debian.org>\n"
@@ -63,12 +63,12 @@ msgid "<b> Topic Position </b>"
 msgstr "<b> Position för rubrik </b>"
 
 #: ../glade/smuxi-frontend-gnome.glade.h:11
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1852
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1853
 msgid "<b>Channel Filters</b>"
 msgstr "<b>Kanalfilter</b>"
 
 #: ../glade/smuxi-frontend-gnome.glade.h:12
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1869
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1870
 msgid "<b>User Filters</b>"
 msgstr "<b>Användarfilter</b>"
 
@@ -266,7 +266,7 @@ msgid "Right"
 msgstr "Höger"
 
 #: ../glade/smuxi-frontend-gnome.glade.h:50
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.QuickConnectDialog.cs:171
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.QuickConnectDialog.cs:186
 msgid "Show Password"
 msgstr "Visa lösenord"
 
@@ -342,7 +342,7 @@ msgid "Username:"
 msgstr "Användarnamn:"
 
 #: ../glade/smuxi-frontend-gnome.glade.h:64
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1881
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1882
 msgid "_Filters"
 msgstr "_Filter"
 
@@ -556,17 +556,17 @@ msgstr "_Markörläge"
 msgid "_Help"
 msgstr "_Hjälp"
 
-#: ../src/Frontend-GNOME/MainWindow.cs:503
+#: ../src/Frontend-GNOME/MainWindow.cs:507
 #: ../src/Frontend-GNOME/Preferences/ServerListView.cs:220
 msgid "Unable to add server: "
 msgstr "Kan inte lägga till server:"
 
-#: ../src/Frontend-GNOME/MainWindow.cs:550
+#: ../src/Frontend-GNOME/MainWindow.cs:554
 #, csharp-format
 msgid "Unknown ChatType: {0}"
 msgstr "Okänd chattyp: {0}"
 
-#: ../src/Frontend-GNOME/MainWindow.cs:766
+#: ../src/Frontend-GNOME/MainWindow.cs:770
 msgid ""
 "Switching to local engine will disconnect you from the current engine!\n"
 "Are you sure you want to do this?"
@@ -574,7 +574,7 @@ msgstr ""
 "Byte till lokal motor kommer att koppla bort dig från den aktuella motorn!\n"
 "Är du säker på att du vill göra detta?"
 
-#: ../src/Frontend-GNOME/MainWindow.cs:808
+#: ../src/Frontend-GNOME/MainWindow.cs:812
 msgid ""
 "Switching the remote engine will disconnect you from the current engine!\n"
 "Are you sure you want to do this?"
@@ -616,16 +616,16 @@ msgstr "Systemstandard"
 msgid "Nicknames(s) field must not be empty."
 msgstr "Fältet för smeknamn kan inte lämnas tomt."
 
-#: ../src/Frontend-GNOME/FindGroupChatDialog.cs:85
+#: ../src/Frontend-GNOME/FindGroupChatDialog.cs:69
 #: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:105
 msgid "Name"
 msgstr "Namn"
 
-#: ../src/Frontend-GNOME/FindGroupChatDialog.cs:90
+#: ../src/Frontend-GNOME/FindGroupChatDialog.cs:74
 msgid "Topic"
 msgstr "Rubrik"
 
-#: ../src/Frontend-GNOME/FindGroupChatDialog.cs:119
+#: ../src/Frontend-GNOME/FindGroupChatDialog.cs:102
 msgid ""
 "Searching for group chats without a filter is not recommended.  This may "
 "take a while, or may not work at all.\n"
@@ -635,16 +635,16 @@ msgstr ""
 "kan ta lång tid eller inte fungera alls.\n"
 "Vill du verkligen fortsätta?"
 
-#: ../src/Frontend-GNOME/FindGroupChatDialog.cs:160
+#: ../src/Frontend-GNOME/FindGroupChatDialog.cs:143
 msgid "Error while fetching the list of group chats from the server."
 msgstr "Fel vid hämtning av lista för gruppchattar från servern."
 
-#: ../src/Frontend-GNOME/Frontend.cs:387
+#: ../src/Frontend-GNOME/Frontend.cs:415
 #, csharp-format
 msgid "Cause: {0}"
 msgstr "Anledning: {0}"
 
-#: ../src/Frontend-GNOME/Frontend.cs:437
+#: ../src/Frontend-GNOME/Frontend.cs:465
 msgid ""
 "The frontend has lost the connection to the server.\n"
 "Do you want to reconnect now?"
@@ -652,7 +652,7 @@ msgstr ""
 "Framdelen tappade anslutningen till server.\n"
 "Vill du återansluta?"
 
-#: ../src/Frontend-GNOME/Frontend.cs:451
+#: ../src/Frontend-GNOME/Frontend.cs:479
 msgid ""
 "Reconnecting to the server has failed.\n"
 "Do you want to try again?"
@@ -660,7 +660,7 @@ msgstr ""
 "Återanslutningsförsöket fungerade inte.\n"
 "Vill du försöka igen?"
 
-#: ../src/Frontend-GNOME/Frontend.cs:599
+#: ../src/Frontend-GNOME/Frontend.cs:628
 msgid ""
 "The server has lost the connection to the frontend.\n"
 "Do you want to reconnect now?"
@@ -715,7 +715,7 @@ msgid ""
 "An engine with this name already exists! Please specify a different one."
 msgstr "En motor med detta namn finns reda. Ange ett annat."
 
-#: ../src/Frontend-GNOME/Views/MessageTextView.cs:150
+#: ../src/Frontend-GNOME/Views/MessageTextView.cs:162
 #, csharp-format
 msgid "Day changed to {0}"
 msgstr "Dygnsskifte, {0}"
@@ -791,38 +791,48 @@ msgstr "Använd _reguljära uttryck"
 msgid "Smuxi - Find Group Chat"
 msgstr "Smuxi - Hitta gruppchatt"
 
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.FindGroupChatDialog.cs:61
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.FindGroupChatDialog.cs:64
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.OpenChatDialog.cs:87
 msgid "_Name:"
 msgstr "_Namn:"
 
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.QuickConnectDialog.cs:62
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.QuickConnectDialog.cs:74
 msgid "Smuxi - Quick Connect"
 msgstr "Smuxi - Snabbanslutning"
 
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.QuickConnectDialog.cs:130
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.QuickConnectDialog.cs:145
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantConnectionWidget.cs:181
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantConnectionWidget.cs:195
 msgid "_Port:"
 msgstr "_Port"
 
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.QuickConnectDialog.cs:189
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.QuickConnectDialog.cs:204
 msgid "_Hostname:"
 msgstr "_Värdnamn:"
 
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.QuickConnectDialog.cs:199
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.QuickConnectDialog.cs:214
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:164
 msgid "_Username:"
 msgstr "_Användarnamn:"
 
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.QuickConnectDialog.cs:209
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.QuickConnectDialog.cs:224
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:207
 msgid "_Password:"
 msgstr "_Lösenord:"
 
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.QuickConnectDialog.cs:219
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.QuickConnectDialog.cs:234
 msgid "_Protocol:"
 msgstr "P_rotokoll:"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.QuickConnectDialog.cs:253
+#, fuzzy
+msgid "_On Connect Commands:"
+msgstr "Kommando vid anslutning:"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.QuickConnectDialog.cs:264
+#, fuzzy
+msgid "_Ignore Commands"
+msgstr "Kommando vid anslutning:"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:495
 msgid "Nicknames:"

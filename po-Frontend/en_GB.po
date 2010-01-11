@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: smuxi 0.6.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-02 19:00+0100\n"
+"POT-Creation-Date: 2010-01-09 21:43+0100\n"
 "PO-Revision-Date: 2010-01-09 00:08+0100\n"
 "Last-Translator: Ryan Smith-Evans <Kimera.Kimera@gmail.com>\n"
 "Language-Team: English (British)\n"
@@ -15,27 +15,42 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
+#: ../src/Frontend/CommandManager.cs:144
+#, csharp-format
+msgid "Unknown Command: {0}"
+msgstr ""
+
 #: ../src/Frontend/EngineManager.cs:292
 #, csharp-format
 msgid "Unknown channel ({0}) - only the following channel types are supported:"
 msgstr "Unknown channel ({0}). Only the following channel types are supported:"
 
 #: ../src/Frontend/EngineManager.cs:301
-msgid "Registration with engine failed!  The username and/or password were wrong - please verify them."
-msgstr "Registration with engine failed!  The username and/or password are incorrect - please verify them."
+msgid ""
+"Registration with engine failed!  The username and/or password were wrong - "
+"please verify them."
+msgstr ""
+"Registration with engine failed!  The username and/or password are incorrect "
+"- please verify them."
 
 #: ../src/Frontend/SshTunnelManager.cs:146
 msgid "SSH client application was not found: "
 msgstr "SSH client application was not found: "
 
 #: ../src/Frontend/SshTunnelManager.cs:149
-msgid "SSH client must be either OpenSSH (ssh) or Plink (plink.exe, not putty.exe)"
-msgstr "SSH client must be either OpenSSH (ssh) or Plink (plink.exe, not putty.exe)"
+msgid ""
+"SSH client must be either OpenSSH (ssh) or Plink (plink.exe, not putty.exe)"
+msgstr ""
+"SSH client must be either OpenSSH (ssh) or Plink (plink.exe, not putty.exe)"
 
 #: ../src/Frontend/SshTunnelManager.cs:186
 #, csharp-format
-msgid "The local SSH forwarding port {0} is already in use. Is there an old SSH tunnel still active?"
-msgstr "The local SSH forwarding port {0} is already in use. Is there an old SSH tunnel still active?"
+msgid ""
+"The local SSH forwarding port {0} is already in use. Is there an old SSH "
+"tunnel still active?"
+msgstr ""
+"The local SSH forwarding port {0} is already in use. Is there an old SSH "
+"tunnel still active?"
 
 #: ../src/Frontend/SshTunnelManager.cs:210
 #, csharp-format
@@ -84,4 +99,3 @@ msgstr ""
 #: ../src/Frontend/SshTunnelManager.cs:441
 msgid "PuTTY / Plink requires a username to be set."
 msgstr "PuTTY / Plink requires a username to be set."
-

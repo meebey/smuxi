@@ -7,8 +7,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: smuxi 0.6.4\n"
-"Report-Msgid-Bugs-To: Mirco Bauer <meebey@meebey.net>\n"
-"POT-Creation-Date: 2009-11-15 16:08+0100\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-01-09 15:32+0100\n"
 "PO-Revision-Date: 2009-12-30 19:02+0100\n"
 "Last-Translator: Vincenzo Campanella <vinz65@gmail.com>\n"
 "Language-Team: Italian <tp@lists.linux.it>\n"
@@ -17,42 +17,68 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:55
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:53
 msgid "Op"
 msgstr "Operatore"
 
-#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:59
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:57
 msgid "Deop"
 msgstr "Rimuovi l'operatore"
 
-#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:63
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:61
 msgid "Voice"
 msgstr "Dai la parola"
 
-#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:67
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:65
 msgid "Devoice"
 msgstr "Togli la parola"
 
-#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:71
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:69
 msgid "Kick"
 msgstr "Espelli (kick)"
 
-#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:75
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:73
 msgid "Kick + Ban"
 msgstr "Espelli (kick) e allontana (ban)"
 
-#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:79
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:77
 msgid "Ban"
 msgstr "Allontana (ban)"
 
-#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:83
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:81
 msgid "Unban"
 msgstr "Rimuovi l'allontanamento (unban)"
 
-#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:89
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:87
 msgid "Query"
 msgstr "Messaggio privato"
 
-#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:93
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:91
+#: ../src/Frontend-GNOME-IRC/IrcPersonChatView.cs:57
 msgid "Whois"
 msgstr "Whois"
+
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:96
+#: ../src/Frontend-GNOME-IRC/IrcPersonChatView.cs:61
+msgid "CTCP"
+msgstr ""
+
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:99
+#: ../src/Frontend-GNOME-IRC/IrcPersonChatView.cs:66
+msgid "Ping"
+msgstr ""
+
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:103
+#: ../src/Frontend-GNOME-IRC/IrcPersonChatView.cs:70
+msgid "Version"
+msgstr ""
+
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:107
+#: ../src/Frontend-GNOME-IRC/IrcPersonChatView.cs:74
+msgid "Time"
+msgstr ""
+
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:111
+#: ../src/Frontend-GNOME-IRC/IrcPersonChatView.cs:78
+msgid "Finger"
+msgstr ""

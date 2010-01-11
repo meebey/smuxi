@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: smuxi-frontend-gnome 0.6.4.1-1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-05 00:55+0100\n"
+"POT-Creation-Date: 2010-01-11 03:23+0100\n"
 "PO-Revision-Date: 2010-01-09 13:47+0100\n"
 "Last-Translator: Michal Simunek <michal.simunek@gmail.com>\n"
 "Language-Team: Czech <debian-l10n-czech@lists.debian.org>\n"
@@ -61,12 +61,12 @@ msgid "<b> Topic Position </b>"
 msgstr "<b> Umístění témata </b>"
 
 #: ../glade/smuxi-frontend-gnome.glade.h:11
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1852
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1853
 msgid "<b>Channel Filters</b>"
 msgstr "<b>Filtry kanálů</b>"
 
 #: ../glade/smuxi-frontend-gnome.glade.h:12
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1869
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1870
 msgid "<b>User Filters</b>"
 msgstr "<b>Filtry uživatelů</b>"
 
@@ -264,7 +264,7 @@ msgid "Right"
 msgstr "Vpravo"
 
 #: ../glade/smuxi-frontend-gnome.glade.h:50
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.QuickConnectDialog.cs:171
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.QuickConnectDialog.cs:186
 msgid "Show Password"
 msgstr "Ukázat heslo"
 
@@ -341,7 +341,7 @@ msgid "Username:"
 msgstr "Uživatelské jméno:"
 
 #: ../glade/smuxi-frontend-gnome.glade.h:64
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1881
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1882
 msgid "_Filters"
 msgstr "_Filtry"
 
@@ -472,21 +472,16 @@ msgstr "Chyba: {0}"
 msgid "Are you sure you want to delete the engine \"{0}\"?"
 msgstr "Opravdu si přejete odstranit engine \"{0}\"?"
 
-#: ../src/Frontend-GNOME/Entry.cs:389
+#: ../src/Frontend-GNOME/Entry.cs:403
 #, csharp-format
 msgid "You are going to paste {0} lines. Do you want to continue?"
 msgstr "Chystáte se vložit {0} řádků. Chcete pokračovat?"
 
 #. TRANSLATOR: this line is used as a label / category for a
 #. list of commands below
-#: ../src/Frontend-GNOME/Entry.cs:499
+#: ../src/Frontend-GNOME/Entry.cs:505
 msgid "Frontend Commands"
 msgstr "Příkazy rozhraní"
-
-#: ../src/Frontend-GNOME/Entry.cs:611
-#, csharp-format
-msgid "Unknown Command: {0}"
-msgstr "Neznámý příkaz: {0}"
 
 #: ../src/Frontend-GNOME/MainWindow.cs:179
 msgid "_File"
@@ -556,17 +551,17 @@ msgstr "Z_nakový režim"
 msgid "_Help"
 msgstr "Nápo_věda"
 
-#: ../src/Frontend-GNOME/MainWindow.cs:503
+#: ../src/Frontend-GNOME/MainWindow.cs:507
 #: ../src/Frontend-GNOME/Preferences/ServerListView.cs:220
 msgid "Unable to add server: "
 msgstr "Nelze přidat server: "
 
-#: ../src/Frontend-GNOME/MainWindow.cs:550
+#: ../src/Frontend-GNOME/MainWindow.cs:554
 #, csharp-format
 msgid "Unknown ChatType: {0}"
 msgstr "Neznámý typ chatu: {0}"
 
-#: ../src/Frontend-GNOME/MainWindow.cs:766
+#: ../src/Frontend-GNOME/MainWindow.cs:770
 msgid ""
 "Switching to local engine will disconnect you from the current engine!\n"
 "Are you sure you want to do this?"
@@ -574,7 +569,7 @@ msgstr ""
 "Přepnutím na místní engine se odpojíte od aktuálního enginu!\n"
 "Opravdu si přejete pokračovat?"
 
-#: ../src/Frontend-GNOME/MainWindow.cs:808
+#: ../src/Frontend-GNOME/MainWindow.cs:812
 msgid ""
 "Switching the remote engine will disconnect you from the current engine!\n"
 "Are you sure you want to do this?"
@@ -625,7 +620,7 @@ msgstr "Název"
 msgid "Topic"
 msgstr "Téma"
 
-#: ../src/Frontend-GNOME/FindGroupChatDialog.cs:103
+#: ../src/Frontend-GNOME/FindGroupChatDialog.cs:102
 msgid ""
 "Searching for group chats without a filter is not recommended.  This may "
 "take a while, or may not work at all.\n"
@@ -635,16 +630,16 @@ msgstr ""
 "fungovat, nebo zabere hodně času.\n"
 "Přejete si pokračovat?"
 
-#: ../src/Frontend-GNOME/FindGroupChatDialog.cs:145
+#: ../src/Frontend-GNOME/FindGroupChatDialog.cs:143
 msgid "Error while fetching the list of group chats from the server."
 msgstr "Chyba při přijmu seznamu skupinových chatů ze serveru."
 
-#: ../src/Frontend-GNOME/Frontend.cs:381
+#: ../src/Frontend-GNOME/Frontend.cs:415
 #, csharp-format
 msgid "Cause: {0}"
 msgstr "Způsobeno: {0}"
 
-#: ../src/Frontend-GNOME/Frontend.cs:431
+#: ../src/Frontend-GNOME/Frontend.cs:465
 msgid ""
 "The frontend has lost the connection to the server.\n"
 "Do you want to reconnect now?"
@@ -652,7 +647,7 @@ msgstr ""
 "Rozhraní ztratilo spojení se serverem.\n"
 "Chcete se nyní znovu připojit?"
 
-#: ../src/Frontend-GNOME/Frontend.cs:445
+#: ../src/Frontend-GNOME/Frontend.cs:479
 msgid ""
 "Reconnecting to the server has failed.\n"
 "Do you want to try again?"
@@ -660,7 +655,7 @@ msgstr ""
 "Opětovné připojení k serveru selhalo.\n"
 "Chcete to zkusit znovu?"
 
-#: ../src/Frontend-GNOME/Frontend.cs:593
+#: ../src/Frontend-GNOME/Frontend.cs:628
 msgid ""
 "The server has lost the connection to the frontend.\n"
 "Do you want to reconnect now?"
@@ -715,22 +710,22 @@ msgid ""
 "An engine with this name already exists! Please specify a different one."
 msgstr "Engine s tímto názvem již existuje. Zadejte prosím jiný název."
 
-#: ../src/Frontend-GNOME/Views/MessageTextView.cs:148
+#: ../src/Frontend-GNOME/Views/MessageTextView.cs:162
 #, csharp-format
 msgid "Day changed to {0}"
 msgstr "Den změněn na {0}"
 
-#: ../src/Frontend-GNOME/Views/Chats/GroupChatView.cs:240
+#: ../src/Frontend-GNOME/Views/Chats/GroupChatView.cs:241
 #, csharp-format
 msgid "Retrieving user list for {0}..."
 msgstr "Přijímání seznamu uživatelů pro {0}..."
 
 #. TRANSLATOR: this string will be appended to the one above
-#: ../src/Frontend-GNOME/Views/Chats/GroupChatView.cs:285
+#: ../src/Frontend-GNOME/Views/Chats/GroupChatView.cs:286
 msgid "done."
 msgstr "dokončeno"
 
-#: ../src/Frontend-GNOME/Views/Chats/GroupChatView.cs:305
+#: ../src/Frontend-GNOME/Views/Chats/GroupChatView.cs:306
 msgid "Person"
 msgstr "Osoba"
 
@@ -791,38 +786,48 @@ msgstr "Použít re_gulární výrazy"
 msgid "Smuxi - Find Group Chat"
 msgstr "Smuxi - Najít skupinový chat"
 
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.FindGroupChatDialog.cs:61
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.FindGroupChatDialog.cs:64
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.OpenChatDialog.cs:87
 msgid "_Name:"
 msgstr "_Název:"
 
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.QuickConnectDialog.cs:62
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.QuickConnectDialog.cs:74
 msgid "Smuxi - Quick Connect"
 msgstr "Smuxi - Rychlé připojení"
 
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.QuickConnectDialog.cs:130
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.QuickConnectDialog.cs:145
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantConnectionWidget.cs:181
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantConnectionWidget.cs:195
 msgid "_Port:"
 msgstr "_Port:"
 
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.QuickConnectDialog.cs:189
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.QuickConnectDialog.cs:204
 msgid "_Hostname:"
 msgstr "_Hostitel:"
 
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.QuickConnectDialog.cs:199
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.QuickConnectDialog.cs:214
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:164
 msgid "_Username:"
 msgstr "_Uživatel:"
 
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.QuickConnectDialog.cs:209
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.QuickConnectDialog.cs:224
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:207
 msgid "_Password:"
 msgstr "H_eslo:"
 
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.QuickConnectDialog.cs:219
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.QuickConnectDialog.cs:234
 msgid "_Protocol:"
 msgstr "P_rotokol:"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.QuickConnectDialog.cs:253
+#, fuzzy
+msgid "_On Connect Commands:"
+msgstr "Příkazy při připojení:"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.QuickConnectDialog.cs:264
+#, fuzzy
+msgid "_Ignore Commands"
+msgstr "Příkazy při připojení:"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:495
 msgid "Nicknames:"
@@ -955,3 +960,6 @@ msgstr "Smuxi - Otevřít chat"
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.OpenChatDialog.cs:77
 msgid "_Type:"
 msgstr "_Typ"
+
+#~ msgid "Unknown Command: {0}"
+#~ msgstr "Neznámý příkaz: {0}"
