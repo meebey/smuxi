@@ -212,6 +212,9 @@ AC_ARG_ENABLE([engine-twitter],
 	ENABLE_ENGINE_TWITTER=$enableval,
 	ENABLE_ENGINE_TWITTER=yes
 )
+if test "x$ENABLE_ENGINE_TWITTER" != "xno"; then
+	AC_PATH_PROG(XBUILD, xbuild, no)
+fi
 AM_CONDITIONAL(ENABLE_ENGINE_TWITTER, test "x$ENABLE_ENGINE_TWITTER" = "xyes")
 
 # Frontends
