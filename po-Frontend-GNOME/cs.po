@@ -1,14 +1,14 @@
 # Smuxi - IRC client for sophisticated users
 # Copyright (C) 2005-2009 Mirco Bauer <meebey@meebey.net>
 # This file is distributed under the same license as the Smuxi package.
-# Michal Simunek <michal.simunek@gmail.com>, 2009.
 #
+# Michal Simunek <michal.simunek@gmail.com>, 2009, 2010.
 msgid ""
 msgstr ""
 "Project-Id-Version: smuxi-frontend-gnome 0.6.4.1-1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-09 21:43+0100\n"
-"PO-Revision-Date: 2009-12-05 19:18+0100\n"
+"POT-Creation-Date: 2010-01-05 00:55+0100\n"
+"PO-Revision-Date: 2010-01-09 13:47+0100\n"
 "Last-Translator: Michal Simunek <michal.simunek@gmail.com>\n"
 "Language-Team: Czech <debian-l10n-czech@lists.debian.org>\n"
 "MIME-Version: 1.0\n"
@@ -472,16 +472,21 @@ msgstr "Chyba: {0}"
 msgid "Are you sure you want to delete the engine \"{0}\"?"
 msgstr "Opravdu si přejete odstranit engine \"{0}\"?"
 
-#: ../src/Frontend-GNOME/Entry.cs:403
+#: ../src/Frontend-GNOME/Entry.cs:389
 #, csharp-format
 msgid "You are going to paste {0} lines. Do you want to continue?"
 msgstr "Chystáte se vložit {0} řádků. Chcete pokračovat?"
 
 #. TRANSLATOR: this line is used as a label / category for a
 #. list of commands below
-#: ../src/Frontend-GNOME/Entry.cs:505
+#: ../src/Frontend-GNOME/Entry.cs:499
 msgid "Frontend Commands"
 msgstr "Příkazy rozhraní"
+
+#: ../src/Frontend-GNOME/Entry.cs:611
+#, csharp-format
+msgid "Unknown Command: {0}"
+msgstr "Neznámý příkaz: {0}"
 
 #: ../src/Frontend-GNOME/MainWindow.cs:179
 msgid "_File"
@@ -611,16 +616,16 @@ msgstr "Podle systému"
 msgid "Nicknames(s) field must not be empty."
 msgstr "Políčko Přezdívka(y) nemůže být prázdné."
 
-#: ../src/Frontend-GNOME/FindGroupChatDialog.cs:85
+#: ../src/Frontend-GNOME/FindGroupChatDialog.cs:69
 #: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:105
 msgid "Name"
 msgstr "Název"
 
-#: ../src/Frontend-GNOME/FindGroupChatDialog.cs:90
+#: ../src/Frontend-GNOME/FindGroupChatDialog.cs:74
 msgid "Topic"
 msgstr "Téma"
 
-#: ../src/Frontend-GNOME/FindGroupChatDialog.cs:119
+#: ../src/Frontend-GNOME/FindGroupChatDialog.cs:103
 msgid ""
 "Searching for group chats without a filter is not recommended.  This may "
 "take a while, or may not work at all.\n"
@@ -630,16 +635,16 @@ msgstr ""
 "fungovat, nebo zabere hodně času.\n"
 "Přejete si pokračovat?"
 
-#: ../src/Frontend-GNOME/FindGroupChatDialog.cs:160
+#: ../src/Frontend-GNOME/FindGroupChatDialog.cs:145
 msgid "Error while fetching the list of group chats from the server."
 msgstr "Chyba při přijmu seznamu skupinových chatů ze serveru."
 
-#: ../src/Frontend-GNOME/Frontend.cs:387
+#: ../src/Frontend-GNOME/Frontend.cs:381
 #, csharp-format
 msgid "Cause: {0}"
 msgstr "Způsobeno: {0}"
 
-#: ../src/Frontend-GNOME/Frontend.cs:437
+#: ../src/Frontend-GNOME/Frontend.cs:431
 msgid ""
 "The frontend has lost the connection to the server.\n"
 "Do you want to reconnect now?"
@@ -647,16 +652,15 @@ msgstr ""
 "Rozhraní ztratilo spojení se serverem.\n"
 "Chcete se nyní znovu připojit?"
 
-#: ../src/Frontend-GNOME/Frontend.cs:451
-#, fuzzy
+#: ../src/Frontend-GNOME/Frontend.cs:445
 msgid ""
 "Reconnecting to the server has failed.\n"
 "Do you want to try again?"
 msgstr ""
-"Rozhraní ztratilo spojení se serverem.\n"
-"Chcete se nyní znovu připojit?"
+"Opětovné připojení k serveru selhalo.\n"
+"Chcete to zkusit znovu?"
 
-#: ../src/Frontend-GNOME/Frontend.cs:599
+#: ../src/Frontend-GNOME/Frontend.cs:593
 msgid ""
 "The server has lost the connection to the frontend.\n"
 "Do you want to reconnect now?"
@@ -709,24 +713,24 @@ msgstr "Děkujeme"
 #: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:285
 msgid ""
 "An engine with this name already exists! Please specify a different one."
-msgstr ""
+msgstr "Engine s tímto názvem již existuje. Zadejte prosím jiný název."
 
-#: ../src/Frontend-GNOME/Views/MessageTextView.cs:150
+#: ../src/Frontend-GNOME/Views/MessageTextView.cs:148
 #, csharp-format
 msgid "Day changed to {0}"
 msgstr "Den změněn na {0}"
 
-#: ../src/Frontend-GNOME/Views/Chats/GroupChatView.cs:241
+#: ../src/Frontend-GNOME/Views/Chats/GroupChatView.cs:240
 #, csharp-format
 msgid "Retrieving user list for {0}..."
 msgstr "Přijímání seznamu uživatelů pro {0}..."
 
 #. TRANSLATOR: this string will be appended to the one above
-#: ../src/Frontend-GNOME/Views/Chats/GroupChatView.cs:286
+#: ../src/Frontend-GNOME/Views/Chats/GroupChatView.cs:285
 msgid "done."
 msgstr "dokončeno"
 
-#: ../src/Frontend-GNOME/Views/Chats/GroupChatView.cs:306
+#: ../src/Frontend-GNOME/Views/Chats/GroupChatView.cs:305
 msgid "Person"
 msgstr "Osoba"
 
@@ -951,6 +955,3 @@ msgstr "Smuxi - Otevřít chat"
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.OpenChatDialog.cs:77
 msgid "_Type:"
 msgstr "_Typ"
-
-#~ msgid "Unknown Command: {0}"
-#~ msgstr "Neznámý příkaz: {0}"
