@@ -553,7 +553,7 @@ namespace Smuxi.Engine
 
                     // only poll once per interval or when we get fired
                     f_FriendsTimelineEvent.WaitOne(
-                        f_UpdateFriendsTimelineInterval * 1000
+                        f_UpdateFriendsTimelineInterval * 1000, false
                     );
                 }
             } catch (ThreadAbortException) {
@@ -728,7 +728,7 @@ namespace Smuxi.Engine
 
                     // only poll once per interval or when we get fired
                     f_DirectMessageEvent.WaitOne(
-                        f_UpdateDirectMessagesInterval * 1000
+                        f_UpdateDirectMessagesInterval * 1000, false
                     );
                 }
             } catch (ThreadAbortException) {
