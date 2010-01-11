@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.6.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-09 21:43+0100\n"
-"PO-Revision-Date: 2010-01-02 19:52+0100\n"
+"POT-Creation-Date: 2010-01-11 01:36+0100\n"
+"PO-Revision-Date: 2010-01-10 23:54+0100\n"
 "Last-Translator: Bianca Mix <heavydemon@freenet.de>\n"
 "Language-Team: German Localization <debian-l10n-german@lists.debian.org>\n"
 "MIME-Version: 1.0\n"
@@ -25,21 +25,21 @@ msgid "Not connected to server"
 msgstr "Nicht mit dem Server verbunden"
 
 #: ../src/Engine/Protocols/ProtocolManagerBase.cs:158
-#: ../src/Engine/Session.cs:684
+#: ../src/Engine/Session.cs:691
 #, csharp-format
 msgid "Not enough parameters for {0} command"
 msgstr "Nicht genügend Parameter für den Befehl: {0}"
 
-#: ../src/Engine/Session.cs:151
+#: ../src/Engine/Session.cs:145
 msgid "Welcome to Smuxi"
 msgstr "Willkommen bei Smuxi"
 
-#: ../src/Engine/Session.cs:157
+#: ../src/Engine/Session.cs:151
 msgid "Type /help to get a list of available commands."
 msgstr ""
 "Geben Sie /help ein, um eine Liste der verfügbaren Befehle zu erhalten."
 
-#: ../src/Engine/Session.cs:160
+#: ../src/Engine/Session.cs:154
 msgid ""
 "After you have made a connection the list of available commands changes. Use "
 "the /help command again to see the extended command list."
@@ -48,99 +48,103 @@ msgstr ""
 "Verwenden Sie Befehl /help einfach erneut, um die erweiterte Befehlsliste zu "
 "erhalten."
 
-#: ../src/Engine/Session.cs:210
+#: ../src/Engine/Session.cs:207
 #, csharp-format
 msgid "Automatic connect to {0} failed!"
 msgstr "Automatische Verbindung zu {0} ist fehlgeschlagen!"
 
 #. TRANSLATOR: this line is used as a label / category for a
 #. list of commands below
-#: ../src/Engine/Session.cs:398
+#: ../src/Engine/Session.cs:397
 msgid "Engine Commands"
 msgstr "Engine Befehle"
 
-#: ../src/Engine/Session.cs:510
+#: ../src/Engine/Session.cs:517
 #, csharp-format
 msgid "Disconnect failed - could not find server: {0}"
 msgstr "Die Trennung ist fehlgeschlagen - konnte den Server {0} nicht finden"
 
-#: ../src/Engine/Session.cs:546
+#: ../src/Engine/Session.cs:553
 msgid "Configuration reloaded"
 msgstr "Konfiguration wurde erneuert"
 
-#: ../src/Engine/Session.cs:551
+#: ../src/Engine/Session.cs:558
 msgid "Configuration saved"
 msgstr "Konfiguration wurde gespeichert"
 
-#: ../src/Engine/Session.cs:555
+#: ../src/Engine/Session.cs:562
 msgid "Invalid parameter for config; use load or save"
 msgstr ""
 "Ungültiger Parameter für \"config\", verwenden Sie \"load\" oder \"save\""
 
-#: ../src/Engine/Session.cs:585
+#: ../src/Engine/Session.cs:592
 msgid "Invalid parameter for network; use list, switch, or close"
 msgstr ""
 "Ungültiger Parameter für \"network\", verwenden Sie \"list\", \"switch\" "
 "oder \"close\""
 
-#: ../src/Engine/Session.cs:596
+#: ../src/Engine/Session.cs:603
 msgid "Networks"
 msgstr "Netzwerke"
 
-#: ../src/Engine/Session.cs:600
+#: ../src/Engine/Session.cs:607
 msgid "Type"
 msgstr "Typ"
 
-#: ../src/Engine/Session.cs:601
+#: ../src/Engine/Session.cs:608
 msgid "Host"
 msgstr "Host"
 
-#: ../src/Engine/Session.cs:602
+#: ../src/Engine/Session.cs:609
 msgid "Port"
 msgstr "Port"
 
-#: ../src/Engine/Session.cs:624
+#: ../src/Engine/Session.cs:631
 #, csharp-format
 msgid "Network close failed - could not find network with host: {0}"
 msgstr ""
 "Beenden der Verbindung zum Netzwerk fehlgeschlagen, konnte das Netzwerk mit "
 "Host: {0} nicht finden"
 
-#: ../src/Engine/Session.cs:658
+#: ../src/Engine/Session.cs:665
 #, csharp-format
 msgid "Network switch failed - could not find network with host: {0}"
 msgstr ""
 "Wechseln des Netzwerks fehlgeschlagen, konnte das Netzwerk mit Host: {0} "
 "nicht finden"
 
-#: ../src/Engine/Session.cs:673
+#: ../src/Engine/Session.cs:680
 msgid "Not connected to any network"
 msgstr "Zu keinem Netzwerk verbunden"
 
-#: ../src/Engine/Session.cs:962
+#. just in case the ProtocolManager is not setting the
+#. protocol chat
+#: ../src/Engine/Session.cs:985
+msgid "Connect failed."
+msgstr ""
+
+#: ../src/Engine/Session.cs:1015
 #, csharp-format
 msgid "No protocol manager found for the protocol: {0}"
 msgstr "Kein Protokoll-Manager gefunden für das Protokoll: {0}"
 
-#: ../src/Engine/Session.cs:985
-#, csharp-format
-msgid "Unknown protocol: {0}"
-msgstr "Unbekanntes Protokoll: {0}"
-
 #: ../src/Engine/Config/UserListController.cs:112
 msgid "Username must not be empty."
-msgstr ""
+msgstr "Benutzername darf nicht leer sein."
 
 #: ../src/Engine/Config/UserListController.cs:122
 msgid "Password must not be empty."
-msgstr ""
+msgstr "Passwort darf nicht leer sein."
 
 #: ../src/Engine/Config/UserListController.cs:131
 #, csharp-format
 msgid "User \"{0}\" doesn't exist."
-msgstr ""
+msgstr "Benutzer \"{0}\" ist nicht vorhanden."
 
 #: ../src/Engine/Config/UserListController.cs:140
 #, csharp-format
 msgid "User \"{0}\" already exists."
-msgstr ""
+msgstr "Benutzer \"{0}\" ist bereits vorhanden."
+
+#~ msgid "Unknown protocol: {0}"
+#~ msgstr "Unbekanntes Protokoll: {0}"
