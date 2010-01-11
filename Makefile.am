@@ -78,8 +78,10 @@ WIN32_FILES = \
 	$(BUILD_DIR)/smuxi-common.dll \
 	$(BUILD_DIR)/smuxi-engine.dll \
 	$(BUILD_DIR)/smuxi-engine-irc.dll \
+	$(BUILD_DIR)/smuxi-engine-twitter.dll \
 	$(BUILD_DIR)/smuxi-frontend-gnome-irc.dll \
 	$(BUILD_DIR)/smuxi-frontend.dll \
+	$(BUILD_DIR)/Twitterizer.Framework.dll \
 	$(WIN32_LIB_DIR)/smuxi-frontend-gnome.exe.config \
 	$(WIN32_LIB_DIR)/smuxi-server.exe.config
 		
