@@ -107,7 +107,7 @@ namespace Smuxi.Frontend.Gnome
             }
 
             TextColor bestColor;
-            int key = fgColor.Value ^ bgColor.Value;
+            int key = fgColor.Value ^ bgColor.Value ^ (int) neededContrast;
             if (f_BestContrastColors.TryGetValue(key, out bestColor)) {
                 return bestColor;
             }
@@ -126,15 +126,20 @@ namespace Smuxi.Frontend.Gnome
 
             double lastDifference = 0;
             bestColor = fgColor;
+            int attempts = 1;
             while (true) {
                 double difference = GetLuminanceDifference(bestColor, bgColor);
-                if (difference > (int) neededContrast / 10d) {
+                double needed = ((int) neededContrast) / 10d;
+                if (difference > needed) {
                     break;
                 }
 
 #if LOG4NET
+                /* logging noise
                 f_Logger.Debug("GetBestTextColor(): color has bad contrast: " +
-                               bestColor + " difference: " + difference);
+                               bestColor + " difference: " + difference +
+                               " needed: " + needed);
+                */
 #endif
 
                 // change the fg color
@@ -172,10 +177,16 @@ namespace Smuxi.Frontend.Gnome
                     bestColor == TextColor.Black) {
                     break;
                 }
+                attempts++;
             }
 #if LOG4NET
-            f_Logger.Debug("GetBestTextColor(): color has good contrast: " +
-                           bestColor);
+            f_Logger.Debug(
+                String.Format(
+                    "GetBestTextColor(): found good contrast: {0}|{1}={2} " +
+                    "({3}) attempts: {4}", fgColor, bgColor,  bestColor,
+                    neededContrast, attempts
+                )
+            );
 #endif
             f_BestContrastColors.Add(key, bestColor);
 
