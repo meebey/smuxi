@@ -514,6 +514,14 @@ namespace Smuxi.Frontend.Gnome
                         // REMOTING CALL 1
                         if (_ChatModel.LastSeenHighlight < e.Message.TimeStamp) {
                             Gtk.Application.Invoke(delegate {
+                                // don't highlight the tab if the Smuxi window
+                                // is active and we are currently on this chat
+                                // HACK: out of scope!
+                                if (Frontend.MainWindow.HasToplevelFocus &&
+                                    Frontend.MainWindow.Notebook.CurrentChatView ==
+                                    this) {
+                                    return;
+                                }
                                 HasHighlight = true;
                             });
                         }
