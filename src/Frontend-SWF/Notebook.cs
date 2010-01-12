@@ -115,7 +115,7 @@ namespace Smuxi.Frontend.Swf
                     if (Frontend.MainWindow != null) {
                         string network = nmanager != null ? nmanager.ToString() + " / " : "";
                         Frontend.MainWindow.Text = network + chatView.Text +
-                                                    " - Smuxi - Smart MUtipleXed Irc";
+                                                    " - Smuxi";
                     }
                 }
             } catch (Exception ex) {

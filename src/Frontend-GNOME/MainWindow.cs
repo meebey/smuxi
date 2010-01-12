@@ -120,7 +120,7 @@ namespace Smuxi.Frontend.Gnome
             }
         }
         
-        public MainWindow() : base("Smuxi - Smart MUtipleXed Irc")
+        public MainWindow() : base("Smuxi")
         {
             // restore window size / position
             int width, heigth;
