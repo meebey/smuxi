@@ -326,19 +326,20 @@ namespace Smuxi.Engine
             fm.SetStatus(_("Disconnecting..."));
             if (IsConnected) {
                 Session.AddTextToChat(_NetworkChat, "-!- " + 
-                    String.Format(_("Disconnecting from {0}..."), _IrcClient.Address));
+                    String.Format(_("Disconnecting from {0}..."),
+                                  _IrcClient.Address));
                 // else the Listen() thread would try to connect again
                 _Listening = false;
                 _IrcClient.Disconnect();
-                fm.SetStatus(String.Format(_("Disconnected from {0}"), _IrcClient.Address));
+                fm.SetStatus(String.Format(_("Disconnected from {0}"),
+                                           _IrcClient.Address));
                 Session.AddTextToChat(_NetworkChat, "-!- " +
                     _("Connection closed"));
                 
                 // TODO: set someone else as current network manager?
             } else {
-                fm.SetStatus(_("Not connected!"));
-                fm.AddTextToChat(_NetworkChat, "-!- " +
-                    _("Not connected"));
+                fm.SetStatus(String.Empty);
+                fm.AddTextToChat(_NetworkChat, "-!- " + _("Not connected"));
             }
             
             if (_RunThread != null && _RunThread.IsAlive) {
@@ -367,27 +368,35 @@ namespace Smuxi.Engine
         {
             Trace.Call(fm);
             
-            fm.SetStatus("Reconnecting...");
+            fm.SetStatus(_("Reconnecting..."));
             try {
                 string msg;
                 if (_IrcClient != null) {
                     if (_IrcClient.IsConnected) {
-                        Session.AddTextToChat(_NetworkChat, "-!- Reconnecting to " + _IrcClient.Address + "...");
+                        Session.AddTextToChat(
+                            _NetworkChat,
+                            String.Format(
+                                "-!- " + _("Reconnecting to {0}..."),
+                                _IrcClient.Address
+                            )
+                        );
                         ApplyConfig(Session.UserConfig);
                         _IrcClient.Reconnect(true);
-                        msg = "Connection to " + _IrcClient.Address + " established";
+                        msg = String.Format(_("Connection to {0} established"),
+                                            _IrcClient.Address);
                         fm.SetStatus(msg); 
-                        Session.AddTextToChat(_NetworkChat, "-!- "+msg);
+                        Session.AddTextToChat(_NetworkChat, "-!- " + msg);
                     } else {
                         Connect(fm);
                     }
                 } else {
-                    fm.SetStatus("Reconnect Error");
-                    Session.AddTextToChat(_NetworkChat, "-!- Reconnect Error");
+                    msg =  _("Reconnect Error");
+                    fm.SetStatus(msg);
+                    Session.AddTextToChat(_NetworkChat, "-!- " + msg);
                 }
             } catch (ConnectionException) {
-                fm.SetStatus("Not connected!");
-                fm.AddTextToChat(_NetworkChat, "-!- Not connected");
+                fm.SetStatus(String.Empty);
+                fm.AddTextToChat(_NetworkChat, "-!- " + _("Not connected"));
             }
             fm.UpdateNetworkStatus();
         }
