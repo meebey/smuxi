@@ -71,15 +71,23 @@ namespace Smuxi.Frontend.Gnome
             });
         }
         
-        private void _AddMessageToChat(ChatModel epage, MessageModel msg)
+        private void _AddMessageToChat(ChatModel chatModel, MessageModel msg)
         {
-            ChatView chatView = _ChatViewManager.GetChat(epage);
-#if LOG4NET
+            ChatView chatView = _ChatViewManager.GetChat(chatModel);
             if (chatView == null) {
-                _Logger.Fatal(String.Format("_AddMessageToChat(): _ChatViewManager.GetChat(epage) epage.Name: {0} returned null!", epage.Name));
+#if LOG4NET
+                _Logger.Fatal(
+                    String.Format(
+                        "_AddMessageToChat(): " +
+                        "_ChatViewManager.GetChat(chatModel) " +
+                        "chatView.Name: {0} returned null!",
+                        chatView.Name
+                    )
+                );
+#endif
                 return;
             }
-#endif
+            
             DateTime start, stop;
             start = DateTime.UtcNow;
             chatView.AddMessage(msg);
@@ -151,6 +159,20 @@ namespace Smuxi.Frontend.Gnome
                 TraceRemotingCall(mb, chatModel);
 
                 ChatView chatView = _ChatViewManager.GetChat(chatModel);
+                if (chatView == null) {
+#if LOG4NET
+                    _Logger.Fatal(
+                        String.Format(
+                            "SyncChat(): " +
+                            "_ChatViewManager.GetChat(chatModel) " +
+                            "chatView.Name: {0} returned null!",
+                            chatView.Name
+                        )
+                    );
+#endif
+                    return;
+                }
+
 #if LOG4NET
                 DateTime syncStart = DateTime.UtcNow;
 #endif
@@ -187,6 +209,19 @@ namespace Smuxi.Frontend.Gnome
                 TraceRemotingCall(mb, groupChat, person);
                 
                 GroupChatView groupChatView = (GroupChatView) _ChatViewManager.GetChat(groupChat);
+                if (groupChatView == null) {
+#if LOG4NET
+                    _Logger.Fatal(
+                        String.Format(
+                            "AddPersonToGroupChat(): " +
+                            "_ChatViewManager.GetChat(groupChat) " +
+                            "groupChatView.Name: {0} returned null!",
+                            groupChatView.Name
+                        )
+                    );
+#endif
+                    return;
+                }
                 groupChatView.AddPerson(person);
             });
         }
@@ -200,20 +235,46 @@ namespace Smuxi.Frontend.Gnome
                 TraceRemotingCall(mb, groupChat, oldPerson, newPerson);
                 
                 GroupChatView groupChatView = (GroupChatView) _ChatViewManager.GetChat(groupChat);
+                if (groupChatView == null) {
+#if LOG4NET
+                    _Logger.Fatal(
+                        String.Format(
+                            "UpdatePersonInGroupChat(): " +
+                            "_ChatViewManager.GetChat(groupChat) " +
+                            "groupChatView.Name: {0} returned null!",
+                            groupChatView.Name
+                        )
+                    );
+#endif
+                    return;
+                }
                 groupChatView.UpdatePerson(oldPerson, newPerson);
             });
         }
         
-        public void UpdateTopicInGroupChat(GroupChatModel ecpage, MessageModel topic)
+        public void UpdateTopicInGroupChat(GroupChatModel groupChat, MessageModel topic)
         {
-            TraceRemotingCall(ecpage, topic);
+            TraceRemotingCall(groupChat, topic);
 
             MethodBase mb = Trace.GetMethodBase();
             Gtk.Application.Invoke(delegate {
-                TraceRemotingCall(mb, ecpage, topic);
+                TraceRemotingCall(mb, groupChat, topic);
                 
-                GroupChatView cpage = (GroupChatView)Frontend.MainWindow.Notebook.GetChat(ecpage);
-                cpage.SetTopic(topic);
+                GroupChatView groupChatView = (GroupChatView)Frontend.MainWindow.Notebook.GetChat(groupChat);
+                if (groupChatView == null) {
+#if LOG4NET
+                    _Logger.Fatal(
+                        String.Format(
+                            "UpdateTopicInGroupChat(): " +
+                            "_ChatViewManager.GetChat(groupChat) " +
+                            "groupChatView.Name: {0} returned null!",
+                            groupChatView.Name
+                        )
+                    );
+#endif
+                    return;
+                }
+                groupChatView.SetTopic(topic);
             });
         }
         
@@ -226,6 +287,19 @@ namespace Smuxi.Frontend.Gnome
                 TraceRemotingCall(mb, groupChat, person);
             
                 GroupChatView groupChatView = (GroupChatView) _ChatViewManager.GetChat(groupChat);
+                if (groupChatView == null) {
+#if LOG4NET
+                    _Logger.Fatal(
+                        String.Format(
+                            "RemovePersonFromGroupChat(): " +
+                            "_ChatViewManager.GetChat(groupChat) " +
+                            "groupChatView.Name: {0} returned null!",
+                            groupChatView.Name
+                        )
+                    );
+#endif
+                    return;
+                }
                 groupChatView.RemovePerson(person);
             });
         }
