@@ -193,6 +193,19 @@ FunctionEnd
 # No output
  
 !macro CheckDotNET DotNetReqVer
+# .NET 2.0 - 22 MB
+# http://download.microsoft.com/download/5/6/7/567758a3-759e-473e-bf8f-52154438565a/dotnetfx.exe
+# .NET 2.0 SP2 - 24 MB
+# http://download.microsoft.com/download/c/6/e/c6e88215-0178-4c6c-b5f3-158ff77b1f38/NetFx20SP2_x86.exe
+# .NET 3.0 - 50 MB
+# http://go.microsoft.com/fwlink/?LinkId=70848
+# .NET 3.5 - 197 MB
+# http://download.microsoft.com/download/6/0/f/60fc5854-3cb8-4892-b6db-bd4f42510f28/dotnetfx35.exe
+# .NET 3.5 SP1 - 231 MB
+# http://download.microsoft.com/download/2/0/e/20e90413-712f-438c-988e-fdaa79a8ac3d/dotnetfx35.exe
+# .NET 3.5 SP1 Installer - 3 MB
+# http://download.microsoft.com/download/0/6/1/061F001C-8752-4600-A198-53214C69B51F/dotnetfx35setup.exe
+
   !define DOTNET_URL "http://download.microsoft.com/download/5/6/7/567758a3-759e-473e-bf8f-52154438565a/dotnetfx.exe"
   !define MSI31_URL "http://download.microsoft.com/download/1/4/7/147ded26-931c-4daf-9095-ec7baf996f46/WindowsInstaller-KB893803-v2-x86.exe"
  
