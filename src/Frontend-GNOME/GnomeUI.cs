@@ -80,8 +80,8 @@ namespace Smuxi.Frontend.Gnome
                     String.Format(
                         "_AddMessageToChat(): " +
                         "_ChatViewManager.GetChat(chatModel) " +
-                        "chatView.Name: {0} returned null!",
-                        chatView.Name
+                        "chatModel.Name: {0} returned null!",
+                        chatModel.Name
                     )
                 );
 #endif
@@ -165,8 +165,8 @@ namespace Smuxi.Frontend.Gnome
                         String.Format(
                             "SyncChat(): " +
                             "_ChatViewManager.GetChat(chatModel) " +
-                            "chatView.Name: {0} returned null!",
-                            chatView.Name
+                            "chatModel.Name: {0} returned null!",
+                            chatModel.Name
                         )
                     );
 #endif
@@ -215,8 +215,8 @@ namespace Smuxi.Frontend.Gnome
                         String.Format(
                             "AddPersonToGroupChat(): " +
                             "_ChatViewManager.GetChat(groupChat) " +
-                            "groupChatView.Name: {0} returned null!",
-                            groupChatView.Name
+                            "groupChat.Name: {0} returned null!",
+                            groupChat.Name
                         )
                     );
 #endif
@@ -241,8 +241,8 @@ namespace Smuxi.Frontend.Gnome
                         String.Format(
                             "UpdatePersonInGroupChat(): " +
                             "_ChatViewManager.GetChat(groupChat) " +
-                            "groupChatView.Name: {0} returned null!",
-                            groupChatView.Name
+                            "groupChat.Name: {0} returned null!",
+                            groupChat.Name
                         )
                     );
 #endif
@@ -267,8 +267,8 @@ namespace Smuxi.Frontend.Gnome
                         String.Format(
                             "UpdateTopicInGroupChat(): " +
                             "_ChatViewManager.GetChat(groupChat) " +
-                            "groupChatView.Name: {0} returned null!",
-                            groupChatView.Name
+                            "groupChat.Name: {0} returned null!",
+                            groupChat.Name
                         )
                     );
 #endif
@@ -293,8 +293,8 @@ namespace Smuxi.Frontend.Gnome
                         String.Format(
                             "RemovePersonFromGroupChat(): " +
                             "_ChatViewManager.GetChat(groupChat) " +
-                            "groupChatView.Name: {0} returned null!",
-                            groupChatView.Name
+                            "groupChat.Name: {0} returned null!",
+                            groupChat.Name
                         )
                     );
 #endif
