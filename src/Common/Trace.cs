@@ -97,7 +97,7 @@ namespace Smuxi.Common
 
             StringBuilder line = new StringBuilder();
             line.Append("[");
-            line.Append(System.IO.Path.GetFileName(Assembly.GetCallingAssembly().Location));
+            line.Append(System.IO.Path.GetFileName(mb.DeclaringType.Assembly.Location));
             line.Append("] ");
             line.Append(mb.DeclaringType.Name);
             line.Append(".");
