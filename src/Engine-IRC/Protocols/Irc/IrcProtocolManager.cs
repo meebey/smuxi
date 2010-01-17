@@ -292,10 +292,8 @@ namespace Smuxi.Engine
                 fm.SetStatus(msg);
                 Session.AddTextToChat(_NetworkChat, "-!- " + msg);
                 Session.AddTextToChat(_NetworkChat, "-!- " + _("Logging in..."));
-                if (_Password != null) {
-                    _IrcClient.RfcPass(_Password, Priority.Critical);
-                }
-                _IrcClient.Login(_Nicknames, (string) Session.UserConfig["Connection/Realname"], 0, _Username);
+                string realname = (string) Session.UserConfig["Connection/Realname"];
+                _IrcClient.Login(_Nicknames, realname, 0, _Username, _Password);
                 
                 foreach (string command in (string[]) Session.UserConfig["Connection/OnConnectCommands"]) {
                     if (command.Length == 0) {
