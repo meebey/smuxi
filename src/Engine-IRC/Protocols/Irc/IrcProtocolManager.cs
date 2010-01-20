@@ -2379,6 +2379,10 @@ namespace Smuxi.Engine
         
         protected TextColor GetNickColor(string nickname)
         {
+            if (nickname == null) {
+                throw new ArgumentNullException("nickname");
+            }
+
             if (_IrcClient.IsMe(nickname)) {
                 return IrcTextColor.Blue;
             }
@@ -2898,9 +2902,15 @@ namespace Smuxi.Engine
             textMsg.Text = "-!- ";
             msg.MessageParts.Add(textMsg);
 
+            string who;
+            if (String.IsNullOrEmpty(e.Who)) {
+                who = e.Data.From;
+            } else {
+                who = e.Who;
+            }
             textMsg = new TextMessagePartModel();
-            textMsg.Text = e.Who;
-            textMsg.ForegroundColor = GetNickColor(e.Who);
+            textMsg.Text = who;
+            textMsg.ForegroundColor = GetNickColor(who);
             msg.MessageParts.Add(textMsg);
 
             textMsg = new TextMessagePartModel();
