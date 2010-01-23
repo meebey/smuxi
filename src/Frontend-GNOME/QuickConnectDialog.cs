@@ -70,37 +70,28 @@ namespace Smuxi.Frontend.Gnome
             f_TreeView.RowActivated += OnTreeViewRowActivated;
             f_TreeView.Selection.Changed += OnTreeViewSelectionChanged;
             f_TreeView.Model = f_TreeStore;
+
+            f_Widget.InitProtocols(Frontend.Session.GetSupportedProtocols());
+            // these fields doesn't make sense here
+            f_Widget.OnStartupConnectCheckButton.Visible = false;
+            f_Widget.NetworkComboBoxEntry.Sensitive = false;
+            f_Widget.ProtocolComboBox.Changed += delegate {
+                CheckConnectButton();
+            };
+            f_Widget.HostnameEntry.Changed += delegate {
+                CheckConnectButton();
+            };
         }
         
         public virtual void Load()
         {
             Trace.Call();
             
-            LoadProtocols();
             LoadServers();
             
             CheckConnectButton();
         }
-        
-        protected void LoadProtocols()
-        {
-            Trace.Call();
-            
-            f_ProtocolComboBox.Clear();
-            f_ProtocolComboBox.Changed += OnProtocolComboBoxChanged;
-            Gtk.CellRenderer cell = new Gtk.CellRendererText();
-            f_ProtocolComboBox.PackStart(cell, false);
-            f_ProtocolComboBox.AddAttribute(cell, "text", 0);
-            IList<string> supportedProtocols = Frontend.Session.GetSupportedProtocols();
-            Gtk.ListStore store = new Gtk.ListStore(typeof(string));
-            foreach (string protocol in supportedProtocols) {
-                store.AppendValues(protocol);
-            }
-            store.SetSortColumnId(0, Gtk.SortType.Ascending);
-            f_ProtocolComboBox.Model = store;
-            f_ProtocolComboBox.Active = 0;
-        }
-        
+
         protected void LoadServers()
         {
             Trace.Call();
@@ -160,83 +151,17 @@ namespace Smuxi.Frontend.Gnome
                     return;
                 }
                 
-                int protocolPosition = -1;
-                int i = 0;
-                foreach (object[] row in (Gtk.ListStore) f_ProtocolComboBox.Model) {
-                    string protocol = (string) row[0];
-                    if (protocol == server.Protocol) {
-                        protocolPosition = i;
-                        break;
-                    }
-                    i++;
+                f_Widget.Load(server);
+                // we are not editing server entries here instead we use
+                // whatever values are entered
+                f_Widget.ProtocolComboBox.Sensitive = true;
+                // this field doesn't make sense here
+                f_Widget.NetworkComboBoxEntry.Sensitive = false;
+                // only enable the hostname field if there it's not empty, as
+                // some protocols don't allow custom hosts, e.g. twitter
+                if (!String.IsNullOrEmpty(f_Widget.HostnameEntry.Text)) {
+                    f_Widget.HostnameEntry.Sensitive = true;
                 }
-                
-                if (protocolPosition == -1) {
-                    throw new ApplicationException("Unsupported protocol: " + server.Protocol);
-                }
-                
-                f_ProtocolComboBox.Active = protocolPosition;
-                f_HostnameEntry.Text = server.Hostname;
-                f_PortSpinButton.Value = server.Port;
-                f_UsernameEntry.Text = server.Username;
-                f_PasswordEntry.Text = server.Password;
-                if (server.OnConnectCommands == null) {
-                    f_OnConnectCommandsTextView.Buffer.Text = String.Empty;
-                } else {
-                    // LAME: replace me when we have .NET 3.0
-                    string[] commands = new string[server.OnConnectCommands.Count];
-                    server.OnConnectCommands.CopyTo(commands, 0);
-                    f_OnConnectCommandsTextView.Buffer.Text = String.Join(
-                        "\n", commands
-                    );
-                }
-            } catch (Exception ex) {
-                Frontend.ShowException(ex);
-            }
-        }
-        
-        protected virtual void OnProtocolComboBoxChanged(object sender, EventArgs e)
-        {
-            Trace.Call(sender, e);
-            
-            try {
-                // HACK: hardcoded default list, not so nice
-                // suggest sane port defaults
-                // TODO: this should be replaced with some ProtocolInfo class
-                // that contains exactly this kind of information
-                switch (f_ProtocolComboBox.ActiveText) {
-                    case "IRC":
-                        f_HostnameEntry.Sensitive = true;
-                        
-                        f_PortSpinButton.Value = 6667;
-                        f_PortSpinButton.Sensitive = true;
-                        break;
-                    case "XMPP":
-                        f_HostnameEntry.Sensitive = true;
-                        
-                        f_PortSpinButton.Value = 5222;
-                        f_PortSpinButton.Sensitive = true;
-                        break;
-                    // this protocols have static servers
-                    case "AIM":
-                    case "ICQ":
-                    case "MSNP":
-                    case "Twitter":
-                        f_HostnameEntry.Text = String.Empty;
-                        f_HostnameEntry.Sensitive = false;
-                        
-                        f_PortSpinButton.Value = 0;
-                        f_PortSpinButton.Sensitive = false;
-                        break;
-                    // in case we don't know / handle the protocol here, make
-                    // sure we grant maximum flexibility for the input
-                    default:
-                        f_HostnameEntry.Sensitive = true;
-                        f_PortSpinButton.Sensitive = true;
-                        break;
-                }
-                
-                CheckConnectButton();
             } catch (Exception ex) {
                 Frontend.ShowException(ex);
             }
@@ -264,16 +189,7 @@ namespace Smuxi.Frontend.Gnome
             Trace.Call(sender, e);
             
             try {
-                f_ServerModel = new ServerModel();
-                f_ServerModel.Protocol = f_ProtocolComboBox.ActiveText;
-                f_ServerModel.Hostname = f_HostnameEntry.Text;
-                f_ServerModel.Port     = f_PortSpinButton.ValueAsInt;
-                f_ServerModel.Username = f_UsernameEntry.Text;
-                f_ServerModel.Password = f_PasswordEntry.Text;
-                if (f_OnConnectCommandsTextView.Sensitive) {
-                    f_ServerModel.OnConnectCommands =
-                        f_OnConnectCommandsTextView.Buffer.Text.Split('\n');
-                }
+                f_ServerModel = f_Widget.GetServer();
             } catch (Exception ex) {
                 Frontend.ShowException(ex);
             }
@@ -285,19 +201,13 @@ namespace Smuxi.Frontend.Gnome
             return Mono.Unix.Catalog.GetString(msg);
         }
 
-        protected virtual void CheckShowPasswordCheckButton()
-        {
-            Trace.Call();
-
-            f_PasswordEntry.Visibility = f_ShowPasswordCheckButton.Active;
-        }
-        
         protected virtual void CheckConnectButton()
         {
             Trace.Call();
             
-            f_ConnectButton.Sensitive = !f_HostnameEntry.Sensitive ||
-                                        f_HostnameEntry.Text.Trim().Length > 0;
+            f_ConnectButton.Sensitive =
+                !f_Widget.HostnameEntry.Sensitive ||
+                f_Widget.HostnameEntry.Text.Trim().Length > 0;
         }
         
         protected virtual void OnHostnameEntryChanged(object sender, EventArgs e)
@@ -306,29 +216,6 @@ namespace Smuxi.Frontend.Gnome
             
             try {
                 CheckConnectButton();
-            } catch (Exception ex) {
-                Frontend.ShowException(ex);
-            }
-        }
-
-        protected virtual void OnShowPasswordCheckButtonClicked (object sender, System.EventArgs e)
-        {
-            Trace.Call(sender, e);
-            
-            try {
-                CheckShowPasswordCheckButton();
-            } catch (Exception ex) {
-                Frontend.ShowException(ex);
-            }
-        }
-
-        protected virtual void OnIgnoreOnConnectCommandsCheckButtonToggled(object sender, EventArgs e)
-        {
-            Trace.Call(sender, e);
-
-            try {
-                f_OnConnectCommandsTextView.Sensitive =
-                    !f_IgnoreOnConnectCommandsCheckButton.Active;
             } catch (Exception ex) {
                 Frontend.ShowException(ex);
             }

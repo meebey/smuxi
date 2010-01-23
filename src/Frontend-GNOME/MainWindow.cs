@@ -491,17 +491,18 @@ namespace Smuxi.Frontend.Gnome
             
             try {
                 ServerListController controller = new ServerListController(Frontend.UserConfig);
-                ServerView serverView = new ServerView(this,
+                ServerDialog dialog = new ServerDialog(this,
                                                        null,
                                                        Frontend.Session.GetSupportedProtocols(),
                                                        controller.GetNetworks());
-                int res = serverView.Run();
-                serverView.Destroy();
+                int res = dialog.Run();
+                ServerModel server = dialog.GetServer();
+                dialog.Destroy();
                 if (res != (int) Gtk.ResponseType.Ok) {
                     return;
                 }
                 
-                controller.AddServer(serverView.Server);
+                controller.AddServer(server);
                 controller.Save();
             } catch (InvalidOperationException ex) {
                 Frontend.ShowError(this, _("Unable to add server: "), ex);

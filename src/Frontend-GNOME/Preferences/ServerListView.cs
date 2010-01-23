@@ -131,14 +131,15 @@ namespace Smuxi.Frontend.Gnome
         {
             Trace.Call();
             
-            ServerView serverView = new ServerView(_Parent, null, Frontend.Session.GetSupportedProtocols(), _Controller.GetNetworks());
-            int res = serverView.Run();
-            serverView.Destroy();
+            ServerDialog dialog = new ServerDialog(_Parent, null, Frontend.Session.GetSupportedProtocols(), _Controller.GetNetworks());
+            int res = dialog.Run();
+            ServerModel server = dialog.GetServer();
+            dialog.Destroy();
             if (res != (int) Gtk.ResponseType.Ok) {
                 return;
             }
             
-            _Controller.AddServer(serverView.Server);
+            _Controller.AddServer(server);
             _Controller.Save();
             
             // refresh view
@@ -153,14 +154,15 @@ namespace Smuxi.Frontend.Gnome
                 throw new ArgumentNullException("server");
             }
             
-            ServerView serverView = new ServerView(_Parent, server, Frontend.Session.GetSupportedProtocols(), _Controller.GetNetworks());
-            int res = serverView.Run();
-            serverView.Destroy();
+            ServerDialog dialog = new ServerDialog(_Parent, server, Frontend.Session.GetSupportedProtocols(), _Controller.GetNetworks());
+            int res = dialog.Run();
+            server = dialog.GetServer();
+            dialog.Destroy();
             if (res != (int) Gtk.ResponseType.Ok) {
                 return;
             }
             
-            _Controller.SetServer(serverView.Server);
+            _Controller.SetServer(server);
             _Controller.Save();
             
             // refresh the view
