@@ -110,7 +110,10 @@ namespace Smuxi.Engine
         
         public override string ToString()
         {
-            StringBuilder sb = new StringBuilder();
+            // OPT: StringBuilder's default of 16 chars is way too short for
+            // a regular message. A regular message should be around 128 to
+            // 256 chars
+            StringBuilder sb = new StringBuilder(256);
             foreach (MessagePartModel part in MessageParts) {
                sb.Append(part.ToString());
             }
