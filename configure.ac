@@ -116,7 +116,6 @@ AC_ARG_ENABLE(release,
 AM_CONDITIONAL(ENABLE_RELEASE, test x$enable_release = xyes)
 if test "x$enable_release" = "xyes" ; then
 	PROFILE=release
-	CONFIG_REQUESTED="yes"
 fi
 AC_ARG_ENABLE(debug,
 	AC_HELP_STRING([--enable-debug],
@@ -125,13 +124,17 @@ AC_ARG_ENABLE(debug,
 AM_CONDITIONAL(ENABLE_DEBUG, test x$enable_debug = xyes)
 if test "x$enable_debug" = "xyes" ; then
 	PROFILE=debug
-	CONFIG_REQUESTED="yes"
-fi
-if test -z "$CONFIG_REQUESTED" ; then
-	AM_CONDITIONAL(ENABLE_DEBUG, true)
-	enable_debug=yes
 fi
 AC_SUBST(PROFILE)
+
+CSC_FLAGS=
+if test "x$PROFILE" = "xdebug"; then
+	AM_CONDITIONAL(ENABLE_DEBUG, true)
+	CSC_FLAGS+=-define:DEBUG,TRACE,LOG4NET
+else
+	AM_CONDITIONAL(ENABLE_RELEASE, true)
+fi
+AC_SUBST(CSC_FLAGS)
 	
 PKG_CHECK_MODULES([LOG4NET], [log4net])
 
@@ -352,7 +355,7 @@ AC_MSG_RESULT([
 	Configuration summary for $PACKAGE_NAME ($VERSION)
 	
 	* Installation prefix: $prefix
-	* Debug build:         $enable_debug
+	* Build profile:       $PROFILE
 
 	* Engines
 	  -------
