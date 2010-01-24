@@ -465,6 +465,7 @@ namespace Smuxi.Engine
                         fm.CurrentChat,
                         String.Format("-!- {0}", ex.Message)
                     );
+                    return;
                 }
             }
             // HACK: this is hacky as the Command parser of the protocol manager
