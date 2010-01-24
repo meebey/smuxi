@@ -6,6 +6,7 @@
     <AssemblyName>smuxi-frontend-gnome</AssemblyName>
     <RootNamespace>Smuxi.Frontend.Gnome</RootNamespace>
     <StartupObject>Smuxi.Frontend.Gnome.MainClass</StartupObject>
+    <CodePage>65001</CodePage>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <DebugSymbols>true</DebugSymbols>

@@ -7,6 +7,7 @@
     <AssemblyName>smuxi-frontend-curses</AssemblyName>
     <StartupObject>Smuxi.Frontend.Curses.MainClass</StartupObject>
     <RootNamespace>Smuxi.Frontend.Curses</RootNamespace>
+    <CodePage>65001</CodePage>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>

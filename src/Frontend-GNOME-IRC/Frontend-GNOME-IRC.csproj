@@ -6,6 +6,7 @@
     <OutputType>Library</OutputType>
     <AssemblyName>smuxi-frontend-gnome-irc</AssemblyName>
     <RootNamespace>Smuxi.Frontend.Gnome</RootNamespace>
+    <CodePage>65001</CodePage>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <DebugSymbols>true</DebugSymbols>

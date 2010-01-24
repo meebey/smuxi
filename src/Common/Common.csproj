@@ -6,6 +6,7 @@
     <OutputType>Library</OutputType>
     <AssemblyName>smuxi-common</AssemblyName>
     <RootNamespace>Smuxi.Common</RootNamespace>
+    <CodePage>65001</CodePage>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>

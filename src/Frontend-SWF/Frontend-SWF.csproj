@@ -7,6 +7,7 @@
     <AssemblyName>smuxi-frontend-swf</AssemblyName>
     <StartupObject>Smuxi.Frontend.Swf.MainClass</StartupObject>
     <RootNamespace>Smuxi.Frontend.Swf</RootNamespace>
+    <CodePage>65001</CodePage>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
