@@ -1,37 +1,36 @@
-﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
+﻿<Project DefaultTargets="Build" ToolsVersion="3.5" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{CC1477C9-6292-4797-A4EB-9A95386F2822}</ProjectGuid>
+    <Configuration Condition="'$(Configuration)'==''">Debug</Configuration>
+    <Configuration Condition="'$(Platform)'==''">AnyCPU</Configuration>
+    <ProjectGuid>{202B53E9-5CC8-4CC9-8F6F-F8F1A051C59D}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <AssemblyName>smuxi-engine-xmpp</AssemblyName>
+    <AssemblyName>smuxi-engine-oscar</AssemblyName>
     <RootNamespace>Smuxi.Engine</RootNamespace>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\bin\debug\</OutputPath>
+    <OutputPath>..\..\bin\debug</OutputPath>
     <DefineConstants>TRACE;DEBUG;LOG4NET</DefineConstants>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\..\bin\release\</OutputPath>
+    <OutputPath>..\..\bin\release</OutputPath>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="jabber-net"/>
-    <Reference Include="log4net"/>
-    <Reference Include="Mono.Posix"/>
+    <Reference Include="log4net" />
+    <Reference Include="Mono.Posix" />
     <Reference Include="System"/>
-    <Reference Include="System.Xml"/>
+    <Reference Include="OscarLib" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\AssemblyVersion.cs">
       <Link>AssemblyVersion.cs</Link>
     </Compile>
-    <Compile Include="AssemblyInfo.cs" />
-    <Compile Include="Protocols\Xmpp\XmppProtocolManager.cs" />
+    <Compile Include="AssemblyInfo.cs"/>
+    <Compile Include="Protocols\Oscar\OscarProtocolManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Common\Common.csproj">
