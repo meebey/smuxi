@@ -21,6 +21,7 @@
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA
 
 using System;
+using System.Net;
 using System.Threading;
 using System.Collections.Generic;
 using Twitterizer.Framework;
@@ -544,11 +545,9 @@ namespace Smuxi.Engine
                     try {
                         UpdateFriendsTimeline();
                     } catch (TwitterizerException ex) {
-                        if (ex.Message.Contains("rate limited")) {
-                            // ignore and keep trying
-                        } else {
-                            throw;
-                        }
+                        CheckTwitterizerException(ex);
+                    } catch (WebException ex) {
+                        CheckWebException(ex);
                     }
 
                     // only poll once per interval or when we get fired
@@ -631,11 +630,9 @@ namespace Smuxi.Engine
                     try {
                         UpdateReplies();
                     } catch (TwitterizerException ex) {
-                        if (ex.Message.Contains("rate limited")) {
-                            // ignore and keep trying
-                        } else {
-                            throw;
-                        }
+                        CheckTwitterizerException(ex);
+                    } catch (WebException ex) {
+                        CheckWebException(ex);
                     }
 
                     // only poll once per interval
@@ -719,11 +716,9 @@ namespace Smuxi.Engine
                     try {
                         UpdateDirectMessages();
                     } catch (TwitterizerException ex) {
-                        if (ex.Message.Contains("rate limited")) {
-                            // ignore and keep trying
-                        } else {
-                            throw;
-                        }
+                        CheckTwitterizerException(ex);
+                    } catch (WebException ex) {
+                        CheckWebException(ex);
                     }
 
                     // only poll once per interval or when we get fired
@@ -949,6 +944,75 @@ namespace Smuxi.Engine
         {
             f_Twitter.DirectMessages.New(target, text);
             f_DirectMessageEvent.Set();
+        }
+        
+        private void CheckTwitterizerException(TwitterizerException exception)
+        {
+            Trace.Call(exception == null ? null : exception.GetType());
+
+            if (exception.InnerException is WebException) {
+                CheckWebException((WebException) exception.InnerException);
+            }
+
+            throw exception;
+        }
+        
+        private void CheckWebException(WebException exception)
+        {
+            Trace.Call(exception == null ? null : exception.GetType());
+
+            switch (exception.Status) {
+                case WebExceptionStatus.ConnectFailure:
+                case WebExceptionStatus.ReceiveFailure:
+                    // ignore temporarly issues
+#if LOG4NET
+                    f_Logger.Warn("CheckWebException(): ignored exception", exception);
+#endif
+                    return;
+            }
+
+            /*
+            http://apiwiki.twitter.com/HTTP-Response-Codes-and-Errors
+            * 200 OK: Success!
+            * 304 Not Modified: There was no new data to return.
+            * 400 Bad Request: The request was invalid.  An accompanying error
+            *     message will explain why. This is the status code will be
+            *     returned during rate limiting.
+            * 401 Unauthorized: Authentication credentials were missing or
+            *     incorrect.
+            * 403 Forbidden: The request is understood, but it has been
+            *     refused.  An accompanying error message will explain why.
+            *     This code is used when requests are being denied due to
+            *     update limits.
+            * 404 Not Found: The URI requested is invalid or the resource
+            *     requested, such as a user, does not exists.
+            * 406 Not Acceptable: Returned by the Search API when an invalid
+            *     format is specified in the request.
+            * 500 Internal Server Error: Something is broken.  Please post to
+            *     the group so the Twitter team can investigate.
+            * 502 Bad Gateway: Twitter is down or being upgraded.
+            * 503 Service Unavailable: The Twitter servers are up, but
+            *     overloaded with requests. Try again later. The search and
+            *     trend methods use this to indicate when you are being rate
+            *     limited.
+            */
+            HttpWebResponse httpRes = exception.Response as HttpWebResponse;
+            if (httpRes == null) {
+                throw exception;
+            }
+            switch (httpRes.StatusCode) {
+                case HttpStatusCode.BadGateway:
+                case HttpStatusCode.BadRequest:
+                case HttpStatusCode.Forbidden:
+                case HttpStatusCode.ServiceUnavailable:
+                    // ignore temporarly issues
+#if LOG4NET
+                    f_Logger.Warn("CheckWebException(): ignored exception", exception);
+#endif
+                    return;
+                default:
+                    throw exception;
+            }
         }
 
         private static string _(string msg)
