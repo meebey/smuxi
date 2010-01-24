@@ -25,16 +25,16 @@
     <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="atk-sharp"/>
-    <Reference Include="gdk-sharp"/>
-    <Reference Include="glade-sharp"/>
-    <Reference Include="glib-sharp"/>
-    <Reference Include="gtk-sharp"/>
-    <Reference Include="log4net"/>
-    <Reference Include="Mono.Posix"/>
-    <Reference Include="pango-sharp"/>
-    <Reference Include="System"/>
-    <Reference Include="System.Drawing"/>
+    <Reference Include="atk-sharp" />
+    <Reference Include="gdk-sharp" />
+    <Reference Include="glade-sharp" />
+    <Reference Include="glib-sharp" />
+    <Reference Include="gtk-sharp" />
+    <Reference Include="log4net" />
+    <Reference Include="Mono.Posix" />
+    <Reference Include="pango-sharp" />
+    <Reference Include="System" />
+    <Reference Include="System.Drawing" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\AssemblyVersion.cs">
@@ -63,6 +63,8 @@
     <Compile Include="gtk-gui\Smuxi.Frontend.Gnome.FindGroupChatDialog.cs" />
     <Compile Include="gtk-gui\Smuxi.Frontend.Gnome.OpenChatDialog.cs" />
     <Compile Include="gtk-gui\Smuxi.Frontend.Gnome.QuickConnectDialog.cs" />
+    <Compile Include="gtk-gui\Smuxi.Frontend.Gnome.ServerDialog.cs" />
+    <Compile Include="gtk-gui\Smuxi.Frontend.Gnome.ServerWidget.cs" />
     <Compile Include="gtk-gui\Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="MainWindow.cs" />
@@ -73,7 +75,6 @@
     <Compile Include="Preferences\ChannelFilterListView.cs" />
     <Compile Include="Preferences\PreferencesDialog.cs" />
     <Compile Include="Preferences\ServerListView.cs" />
-    <Compile Include="Preferences\ServerView.cs" />
     <Compile Include="QuickConnectDialog.cs" />
     <Compile Include="SplashScreenWindow.cs" />
     <Compile Include="SteticPreferencesDialog.cs" />
@@ -90,6 +91,8 @@
     <Compile Include="Views\Chats\ProtocolChatView.cs" />
     <Compile Include="Views\Chats\SessionChatView.cs" />
     <Compile Include="Views\MessageTextView.cs" />
+    <Compile Include="Views\ServerDialog.cs" />
+    <Compile Include="Views\ServerWidget.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Common\Common.csproj">
