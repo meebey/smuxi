@@ -96,7 +96,7 @@ namespace Smuxi.Engine
             server.Username    = (string) _UserConfig[prefix + "Username"];
             server.Password    = (string) _UserConfig[prefix + "Password"];
             server.OnStartupConnect = (bool) _UserConfig[prefix + "OnStartupConnect"];
-            server.OnConnectCommands  = (IList<string>) _UserConfig[prefix + "OnConnectCommands"];
+            server.OnConnectCommands  = _UserConfig[prefix + "OnConnectCommands"] as IList<string>;
             return server;
         }
         
