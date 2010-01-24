@@ -1011,13 +1011,19 @@ namespace Smuxi.Engine
             ProtocolManagerInfoModel info =
                 _ProtocolManagerFactory.GetProtocolManagerInfoByAlias(protocol);
             if (info == null) {
-                throw new ArgumentException(
-                        String.Format(
-                            _("No protocol manager found for the protocol: {0}"),
-                            protocol
-                        ),
-                        "protocol"
-                );
+                if (_ProtocolManagerFactory.ProtocolManagerInfos.Count != 1) {
+                    throw new ArgumentException(
+                            String.Format(
+                                _("No protocol manager found for the protocol: {0}"),
+                                protocol
+                            ),
+                            "protocol"
+                    );
+                }
+
+                // ok, we forgive the user not passing a valid protocol by
+                // falling back to the only available protocol
+                info = _ProtocolManagerFactory.ProtocolManagerInfos[0];
             }
 
             return _ProtocolManagerFactory.CreateProtocolManager(info, this);
