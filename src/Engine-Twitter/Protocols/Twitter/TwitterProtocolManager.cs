@@ -952,6 +952,7 @@ namespace Smuxi.Engine
 
             if (exception.InnerException is WebException) {
                 CheckWebException((WebException) exception.InnerException);
+                return;
             }
 
             throw exception;
