@@ -4,13 +4,13 @@
       <Output directory="../../bin/debug" assembly="smuxi-engine-twitter" />
       <Build debugmode="True" target="Library" />
       <Execution consolepause="False" runwithwarnings="True" runtime="MsNet" />
-      <CodeGeneration compiler="Mcs" warninglevel="4" optimize="False" unsafecodeallowed="False" generateoverflowchecks="False" definesymbols="DEBUG LOG4NET" generatexmldocumentation="False" ctype="CSharpCompilerParameters" />
+      <CodeGeneration compiler="Mcs" warninglevel="4" optimize="True" unsafecodeallowed="False" generateoverflowchecks="True" definesymbols="DEBUG,TRACE,LOG4NET" generatexmldocumentation="False" ctype="CSharpCompilerParameters" />
     </Configuration>
     <Configuration name="Release" ctype="DotNetProjectConfiguration">
       <Output directory="../../bin/release" assembly="smuxi-engine-twitter" />
       <Build debugmode="False" target="Library" />
       <Execution consolepause="False" runwithwarnings="True" runtime="MsNet" />
-      <CodeGeneration compiler="Mcs" warninglevel="4" optimize="False" unsafecodeallowed="False" generateoverflowchecks="False" generatexmldocumentation="False" ctype="CSharpCompilerParameters" />
+      <CodeGeneration compiler="Mcs" warninglevel="4" optimize="True" unsafecodeallowed="False" generateoverflowchecks="False" generatexmldocumentation="False" ctype="CSharpCompilerParameters" />
     </Configuration>
   </Configurations>
   <Contents>
