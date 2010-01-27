@@ -1,4 +1,4 @@
-<Project name="Engine-Tests" fileversion="2.0" DefaultNamespace="EngineTests" language="C#" targetFramework="3.5" ctype="DotNetProject">
+<Project name="Engine-Tests" fileversion="2.0" DefaultNamespace="Smuxi.Engine" language="C#" targetFramework="3.5" ctype="DotNetProject">
   <Configurations active="Debug">
     <Configuration name="Debug" ctype="DotNetProjectConfiguration">
       <Output directory="../../bin/debug" assembly="smuxi-engine-tests" />
