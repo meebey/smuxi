@@ -265,9 +265,11 @@ namespace Smuxi.Frontend.Gnome
             Dispose(false);
         }
 
-        public void Dispose()
+        public override void Dispose()
         {
             Trace.Call();
+
+            base.Dispose();
 
             Dispose(true);
             GC.SuppressFinalize(this);
