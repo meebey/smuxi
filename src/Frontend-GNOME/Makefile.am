@@ -105,9 +105,10 @@ FILES = \
 	ColorContrast.cs \
 	PangoTools.cs \
 	Preferences/ServerListView.cs \
-	Preferences/ServerView.cs \
 	Preferences/PreferencesDialog.cs \
 	Views/MessageTextView.cs \
+	Views/ServerWidget.cs \
+	Views/ServerDialog.cs \
 	Views/Chats/ChatView.cs \
 	Views/Chats/GroupChatView.cs \
 	Views/Chats/PersonChatView.cs \
@@ -134,7 +135,9 @@ FILES = \
 	gtk-gui/Smuxi.Frontend.Gnome.QuickConnectDialog.cs \
 	gtk-gui/Smuxi.Frontend.Gnome.FindGroupChatDialog.cs \
 	gtk-gui/Smuxi.Frontend.Gnome.ChatFindDialog.cs \
-	gtk-gui/Smuxi.Frontend.Gnome.ChatTypeWidget.cs
+	gtk-gui/Smuxi.Frontend.Gnome.ChatTypeWidget.cs \
+	gtk-gui/Smuxi.Frontend.Gnome.ServerDialog.cs \
+	gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs
 	
 DATA_FILES = \
 	smuxi-frontend-gnome.desktop
