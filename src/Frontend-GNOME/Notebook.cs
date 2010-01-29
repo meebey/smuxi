@@ -212,6 +212,11 @@ namespace Smuxi.Frontend.Gnome
                                                               networkStatus,
                                                               chatView.Name);
                 });
+
+                // update last seen highlight
+                // REMOTING CALL 6
+                chatModel.LastSeenHighlight = DateTime.UtcNow;
+
                 stop = DateTime.UtcNow;
 #if LOG4NET
                 f_Logger.Debug("OnSwitchPage(): task took: " + (stop - start).Milliseconds + " ms");

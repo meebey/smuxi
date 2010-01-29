@@ -28,6 +28,7 @@
 
 using System;
 using System.IO;
+using System.Threading;
 using System.Reflection;
 using Mono.Unix;
 using Smuxi.Common;
@@ -452,6 +453,17 @@ namespace Smuxi.Frontend.Gnome
                     // clear activity and highlight
                     chatView.HasHighlight = false;
                     chatView.HasActivity = false;
+                    // update last seen highlight
+                    ThreadPool.QueueUserWorkItem(delegate {
+                        try {
+                            // REMOTING CALL 1
+                            chatView.ChatModel.LastSeenHighlight = DateTime.UtcNow;
+                        } catch (Exception ex) {
+#if LOG4NET
+                            f_Logger.Error("OnFocusInEvent(): Exception", ex);
+#endif
+                        }
+                    });
                 }
             } catch (Exception ex) {
                 Frontend.ShowException(this, ex);

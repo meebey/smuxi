@@ -55,6 +55,7 @@ namespace Smuxi.Frontend.Gnome
         private   Gtk.ScrolledWindow _OutputScrolledWindow;
         private   MessageTextView    _OutputMessageTextView;
         private   ThemeSettings      _ThemeSettings;
+        private   DateTime           _LastHighlight;
         private   TaskQueue          _LastSeenHighlightQueue;
         
         public ChatModel ChatModel {
@@ -383,6 +384,10 @@ namespace Smuxi.Frontend.Gnome
                     AddMessage(msg);
                 }
             }
+            // REMOTING CALL
+            if (_LastHighlight > _ChatModel.LastSeenHighlight) {
+                HasHighlight = true;
+            }
 
             _IsSynced = true;
         }
@@ -502,6 +507,13 @@ namespace Smuxi.Frontend.Gnome
             }
 
             if (_IsSynced) {
+                bool isActiveChat =
+                    Frontend.MainWindow.HasToplevelFocus &&
+                    Object.ReferenceEquals(
+                        Frontend.MainWindow.Notebook.CurrentChatView,
+                        this
+                    );
+
                 var method = Trace.GetMethodBase();
                 // update last seen highlight
                 // OPT-TODO: we should use a TaskStack here OR at least a
@@ -509,30 +521,27 @@ namespace Smuxi.Frontend.Gnome
                 _LastSeenHighlightQueue.Queue(delegate {
                     Trace.Call(method, null, null);
 
-                    // unhandled exception here would kill the whole app domain
+                    // unhandled exception here would kill the syncer thread
                     try {
-                        // REMOTING CALL 1
-                        if (_ChatModel.LastSeenHighlight < e.Message.TimeStamp) {
-                            Gtk.Application.Invoke(delegate {
-                                // don't highlight the tab if the Smuxi window
-                                // is active and we are currently on this chat
-                                // HACK: out of scope!
-                                if (Frontend.MainWindow.HasToplevelFocus &&
-                                    Frontend.MainWindow.Notebook.CurrentChatView ==
-                                    this) {
-                                    return;
-                                }
-                                HasHighlight = true;
-                            });
+                        if (isActiveChat) {
+                            // REMOTING CALL 1
+                            _ChatModel.LastSeenHighlight = e.Message.TimeStamp;
+                        } else {
+                            // REMOTING CALL 1
+                            if (_ChatModel.LastSeenHighlight < e.Message.TimeStamp) {
+                                Gtk.Application.Invoke(delegate {
+                                    HasHighlight = true;
+                                });
+                            }
                         }
-                        // REMOTING CALL 2
-                        _ChatModel.LastSeenHighlight = DateTime.UtcNow;
                     } catch (Exception ex) {
 #if LOG4NET
                         _Logger.Error("OnMessageTextViewMessageHighlighted(): Exception: ", ex);
 #endif
                     }
                 });
+            } else {
+                _LastHighlight = e.Message.TimeStamp;
             }
         }
 
