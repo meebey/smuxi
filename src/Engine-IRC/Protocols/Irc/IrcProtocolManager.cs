@@ -1941,8 +1941,6 @@ namespace Smuxi.Engine
                 // BUG: don't highlight everything, like nicknames, maybe require whitespace?
                 if (submessage.IndexOf(_IrcClient.Nickname, StringComparison.CurrentCultureIgnoreCase) != -1) {
                     highlight = true;
-                    string highlightColor = (string) Session.UserConfig["Interface/Notebook/Tab/HighlightColor"];
-                    fg_color = new TextColor(Int32.Parse(highlightColor.Substring(1), NumberStyles.HexNumber));
                 }
                 
                 TextMessagePartModel msgPart = new TextMessagePartModel();
@@ -1953,6 +1951,11 @@ namespace Smuxi.Engine
                 msgPart.ForegroundColor = fg_color;
                 msgPart.BackgroundColor = bg_color;
                 msgPart.IsHighlight = highlight;
+                if (highlight) {
+                    msgPart.ForegroundColor = TextColor.Parse(
+                        (string) Session.UserConfig["Interface/Notebook/Tab/HighlightColor"]
+                    );
+                }
                 msg.MessageParts.Add(msgPart);
             } while (controlCharFound);
 
