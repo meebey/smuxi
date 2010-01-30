@@ -1,13 +1,21 @@
-ASSEMBLY_TARGET = bin/Debug/Twitterizer.Framework.dll
+TARGET_DIR = bin/Debug
+OBJECT_DIR = obj
+SOURCE_PATTERNS = *.cs */*.cs
+SOURCE_FILES = $(foreach pattern, $(SOURCE_PATTERNS), $(wildcard $(pattern)))
+ASSEMBLY_NAME = Twitterizer.Framework.dll
+ASSEMBLY_TARGET = $(TARGET_DIR)/$(ASSEMBLY_NAME)
+KEY_FILE = $(srcdir)/Twitterizer.Framework.snk
+BUILD_FILE = $(srcdir)/Twitterizer.Framework.vs2008.csproj
 
+# magic automake variables
 pkglib_DATA = $(ASSEMBLY_TARGET) $(ASSEMBLY_TARGET).mdb
-
-CLEANFILES = obj/Twitterizer.Framework.vs2008.csproj.FilesWrittenAbsolute.txt
+EXTRA_DIST = $(KEY_FILE) $(BUILD_FILE)
+# end of magic
 
 all: $(ASSEMBLY_TARGET)
 
-$(ASSEMBLY_TARGET) $(ASSEMBLY_TARGET).mdb:
-	$(XBUILD) Twitterizer.Framework.vs2008.csproj
+$(ASSEMBLY_TARGET) $(ASSEMBLY_TARGET).mdb: $(KEY_FILE) $(BUILD_FILE) $(SOURCE_FILES)
+	$(XBUILD) /p:Configuration=Debug $(BUILD_FILE)
 
-clean:
-	$(XBUILD) /t:Clean Twitterizer.Framework.vs2008.csproj
+clean-local:
+	$(XBUILD) /t:Clean $(BUILD_FILE)
