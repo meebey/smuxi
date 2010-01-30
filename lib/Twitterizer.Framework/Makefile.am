@@ -8,11 +8,12 @@ KEY_FILE = $(srcdir)/Twitterizer.Framework.snk
 BUILD_FILE = $(srcdir)/Twitterizer.Framework.vs2008.csproj
 
 # magic automake variables
+if ENABLE_ENGINE_TWITTER
 pkglib_DATA = $(ASSEMBLY_TARGET) $(ASSEMBLY_TARGET).mdb
+endif
+
 EXTRA_DIST = $(KEY_FILE) $(BUILD_FILE)
 # end of magic
-
-all: $(ASSEMBLY_TARGET)
 
 $(ASSEMBLY_TARGET) $(ASSEMBLY_TARGET).mdb: $(KEY_FILE) $(BUILD_FILE) $(SOURCE_FILES)
 	$(XBUILD) /p:Configuration=Debug $(BUILD_FILE)

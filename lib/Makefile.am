@@ -1,7 +1,1 @@
-EXTRA_DIST = Twitterizer.Framework
-
-if ENABLE_ENGINE_TWITTER
-TWITTERIZER_FRAMEWORK = Twitterizer.Framework
-endif
-
-SUBDIRS = $(TWITTERIZER_FRAMEWORK)
+SUBDIRS = Twitterizer.Framework
