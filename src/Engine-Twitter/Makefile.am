@@ -11,7 +11,7 @@ SOURCES =	$(top_srcdir)/src/AssemblyVersion.cs \
 REFERENCES = 		$(LOG4NET_LIBS) \
 			$(SMARTIRC4NET_LIBS)
 
-DLL_REFERENCES =	$(top_srcdir)/lib/Twitterizer.Framework/bin/Debug/Twitterizer.Framework.dll \
+DLL_REFERENCES =	$(TARGET_DIR)/Twitterizer.Framework.dll \
 			$(TARGET_DIR)/smuxi-common.dll \
 			$(TARGET_DIR)/smuxi-engine.dll
 
