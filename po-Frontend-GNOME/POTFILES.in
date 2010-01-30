@@ -28,3 +28,5 @@ src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget
 src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantIntroWidget.cs
 src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantNameWidget.cs
 src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.OpenChatDialog.cs
+src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerDialog.cs
+src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs
