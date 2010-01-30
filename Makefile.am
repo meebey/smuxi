@@ -1,3 +1,5 @@
+ACLOCAL_AMFLAGS = -I .
+
 EXTRA_DIST =	install-sh \
 		expansions.m4 \
 		mono.m4 \
