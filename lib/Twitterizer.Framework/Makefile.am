@@ -1,11 +1,12 @@
-TARGET_DIR = bin/Debug
-OBJECT_DIR = obj
+OUTPUT_DIR = $(top_builddir)/bin/$(PROFILE)
+OBJECT_DIR = $(OUTPUT_DIR)/obj
 SOURCE_PATTERNS = *.cs */*.cs
 SOURCE_FILES = $(foreach pattern, $(SOURCE_PATTERNS), $(wildcard $(pattern)))
 ASSEMBLY_NAME = Twitterizer.Framework.dll
-ASSEMBLY_TARGET = $(TARGET_DIR)/$(ASSEMBLY_NAME)
+ASSEMBLY_TARGET = $(OUTPUT_DIR)/$(ASSEMBLY_NAME)
 KEY_FILE = $(srcdir)/Twitterizer.Framework.snk
 BUILD_FILE = $(srcdir)/Twitterizer.Framework.vs2008.csproj
+XBUILD_FLAGS = /p:Configuration=Debug /p:OutputPath=$(OUTPUT_DIR) /p:BaseIntermediateOutputPath=$(OBJECT_DIR)/
 
 # magic automake variables
 if ENABLE_ENGINE_TWITTER
@@ -16,7 +17,7 @@ EXTRA_DIST = $(KEY_FILE) $(BUILD_FILE)
 # end of magic
 
 $(ASSEMBLY_TARGET) $(ASSEMBLY_TARGET).mdb: $(KEY_FILE) $(BUILD_FILE) $(SOURCE_FILES)
-	$(XBUILD) /p:Configuration=Debug $(BUILD_FILE)
+	$(XBUILD) $(XBUILD_FLAGS) $(BUILD_FILE)
 
 clean-local:
-	$(XBUILD) /t:Clean $(BUILD_FILE)
+	$(XBUILD) $(XBUILD_FLAGS) /t:Clean $(BUILD_FILE)
