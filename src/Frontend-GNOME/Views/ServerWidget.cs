@@ -133,6 +133,15 @@ namespace Smuxi.Frontend.Gnome
         {
             Trace.Call(protocols);
 
+            if (protocols == null) {
+                throw new ArgumentNullException("protocols");
+            }
+
+            f_ProtocolComboBox.Clear();
+            var cell = new Gtk.CellRendererText();
+            f_ProtocolComboBox.PackStart(cell, false);
+            f_ProtocolComboBox.AddAttribute(cell, "text", 0);
+
             Gtk.ListStore store = new Gtk.ListStore(typeof(string));
             // fill protocols in ListStore
             foreach (string protocol in protocols) {
@@ -146,6 +155,10 @@ namespace Smuxi.Frontend.Gnome
         public void InitNetworks(IList<string> networks)
         {
             Trace.Call(networks);
+
+            if (networks == null) {
+                throw new ArgumentNullException("networks");
+            }
 
             f_NetworkComboBoxEntry.Visible = true;
             
