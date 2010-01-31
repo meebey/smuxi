@@ -2255,6 +2255,9 @@ namespace Smuxi.Engine
                     chan = e.Data.RawMessageArray[3];
                     GroupChatModel groupChat = (GroupChatModel)GetChat(
                        chan, ChatType.Group);
+                    if (groupChat == null) {
+                        break;
+                    }
                     groupChat.IsSynced = true;
 #if LOG4NET
                     _Logger.Debug("_OnRawMessage(): " + chan + " synced");
@@ -2768,7 +2771,7 @@ namespace Smuxi.Engine
             _Logger.Debug("_OnNames() e.Channel: " + e.Channel);
 #endif
             GroupChatModel groupChat = (GroupChatModel) GetChat(e.Data.Channel, ChatType.Group);
-            if (groupChat.IsSynced) {
+            if (groupChat != null && groupChat.IsSynced) {
                 // nothing todo for us
                 return;
             }
