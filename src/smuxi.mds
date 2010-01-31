@@ -34,6 +34,7 @@
       <Entry build="True" name="Common-Tests" configuration="Release" />
       <Entry build="True" name="Engine-Tests" configuration="Release" />
       <Entry build="True" name="Frontend-GNOME-Tests" configuration="Release" />
+      <Entry build="True" name="Twitterizer.Framework.vs2008" configuration="Release" />
     </Configuration>
     <Configuration name="Debug" ctype="CombineConfiguration">
       <Entry build="True" name="Common" configuration="Debug" />
@@ -57,6 +58,7 @@
       <Entry build="True" name="Common-Tests" configuration="Debug" />
       <Entry build="True" name="Engine-Tests" configuration="Debug" />
       <Entry build="True" name="Frontend-GNOME-Tests" configuration="Debug" />
+      <Entry build="True" name="Twitterizer.Framework.vs2008" configuration="Debug" />
     </Configuration>
   </Configurations>
   <StartMode startupentry="Server" single="False">
@@ -81,6 +83,7 @@
     <Execute type="None" entry="Common-Tests" />
     <Execute type="None" entry="Engine-Tests" />
     <Execute type="None" entry="Frontend-GNOME-Tests" />
+    <Execute type="None" entry="Twitterizer.Framework.vs2008" />
   </StartMode>
   <Entries>
     <Entry filename="Common/Common.mdp" />
@@ -104,5 +107,6 @@
     <Entry filename="Common-Tests/Common-Tests.mdp" />
     <Entry filename="Engine-Tests/Engine-Tests.mdp" />
     <Entry filename="Frontend-GNOME-Tests/Frontend-GNOME-Tests.mdp" />
+    <Entry filename="../lib/Twitterizer.Framework/Twitterizer.Framework.vs2008.csproj" />
   </Entries>
 </Combine>
