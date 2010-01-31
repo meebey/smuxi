@@ -58,6 +58,7 @@ namespace Smuxi.Engine
         private IrcClient       _IrcClient;
         private string          _Host;
         private int             _Port;
+        private string          _Network;
         private string[]        _Nicknames;
         private int             _CurrentNickname;
         private string          _Username;
@@ -105,9 +106,10 @@ namespace Smuxi.Engine
         
         public override string NetworkID {
             get {
-                // TODO: implement me
-                //return _IrcClient.Network;
-                return _IrcClient.Address;
+                if (String.IsNullOrEmpty(_Network)) {
+                    return _IrcClient.Address;
+                }
+                return _Network;
             }
         }
         
@@ -2176,6 +2178,27 @@ namespace Smuxi.Engine
                 case (ReplyCode) 329: // RPL_CREATIONTIME
                 case (ReplyCode) 333: // RPL_TOPICWHOTIME: who set topic + timestamp
                     // ignore
+                    break;
+                case ReplyCode.Bounce: // RPL_ISUPPORT
+                    // :friendly.landlord.eloxoph.com 005 meebey CHANTYPES=# PREFIX=(ohv)@%+ NETWORK=Eloxoph AWAYLEN=200 TOPICLEN=300 :are supported by this server
+                    // :friendly.landlord.eloxoph.com 005 meebey CHANLIMIT=#:12 IRCD=WeIRCd NICKLEN=25 CASEMAPPING=ascii USERLEN=9 :are supported by this server
+                    // :friendly.landlord.eloxoph.com 005 meebey CHANMODE=b,kl,,cimnOrst PENALTY MAXTARGETS=1 MAXBANS=50 MODES=5 LISTMODE=997 :are supported by this server
+                    string line = String.Empty;
+                    if (e.Data.RawMessageArray.Length >= 4) {
+                        line = String.Join(
+                            " ", e.Data.RawMessageArray, 3,
+                            e.Data.RawMessageArray.Length - 3
+                        );
+                    }
+                    string[] supportList = line.Split(' ');
+                    foreach (string support in supportList) {
+                        if (support.StartsWith("NETWORK=")) {
+                            _Network = support.Split('=')[1];
+#if LOG4NET
+                            _Logger.Debug("_OnRawMessage(): detected IRC network: '" + _Network + "'");
+#endif
+                        }
+                    }
                     break;
                 case ReplyCode.ErrorNoSuchNickname:
                     nick = e.Data.RawMessageArray[3];
