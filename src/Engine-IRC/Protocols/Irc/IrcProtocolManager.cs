@@ -1038,10 +1038,28 @@ namespace Smuxi.Engine
                             _IrcClient.RfcJoin(chan, key);
                         }
 
-                        // delay the queue for one extra seconds so new join
-                        // attempts will not happen too early as some IRCds
-                        // limit this and disconnect us if we are not brave
-                        Thread.Sleep(2000);
+                        // Some IRC networks are very kick happy and thus need
+                        // some artificial delay between JOINs.
+                        // We know our friendly networks though :)
+                        string network = _Network == null ? String.Empty : _Network.ToLower();
+                        switch (network) {
+                            case "efnet":
+                            case "freenode":
+                            case "gimpnet":
+                            case "ircnet":
+                            case "oftc":
+                                // give the IRCd some time to actually sent us a JOIN
+                                // confirmation, else we will just hammer all channels
+                                // in a single row
+                                _ActiveChannelJoinHandle.WaitOne(2 * 1000, false);
+                                break;
+                            default:
+                                // delay the queue for some extra seconds so new join
+                                // attempts will not happen too early as some IRCds
+                                // limit this and disconnect us if we are not brave
+                                Thread.Sleep(2000);
+                                break;
+                        }
                     } catch (Exception ex) {
 #if LOG4NET
                         _Logger.Error("Exception when trying to join channel: "
