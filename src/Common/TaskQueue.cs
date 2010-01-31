@@ -107,6 +107,7 @@ namespace Smuxi.Common
         AutoResetEvent handle = new AutoResetEvent(false);
         Queue<DelegateTask> tasks = new Queue<DelegateTask>();
         Thread thread;
+        string name;
         
         public TaskQueueExceptionEventHandler ExceptionEvent;
         public EventHandler                   AbortedEvent;
@@ -118,10 +119,8 @@ namespace Smuxi.Common
 
         public TaskQueue(string name)
         {
-            thread = new Thread(new ThreadStart(Loop));
-            thread.Name = name;
-            thread.IsBackground = true;
-            thread.Start();
+            this.name = name;
+            InitThread();
         }
 
         ~TaskQueue()
@@ -129,6 +128,14 @@ namespace Smuxi.Common
             Dispose(false);
         }
         
+        void InitThread()
+        {
+            thread = new Thread(new ThreadStart(Loop));
+            thread.Name = name;
+            thread.IsBackground = true;
+            thread.Start();
+        }
+
         public void Dispose()
         {
             Dispose(true);
@@ -240,6 +247,20 @@ namespace Smuxi.Common
             t.Handle.Close();
 
             return t.Result;
+        }
+        
+        public void Reset(bool abortActiveTask)
+        {
+            if (abortActiveTask) {
+                thread.Abort();
+                InitThread();
+            }
+            tasks.Clear();
+        }
+        
+        public void Reset()
+        {
+            Reset(false);
         }
     }
 }
