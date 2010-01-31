@@ -163,6 +163,7 @@ namespace Smuxi.Engine
             _IrcClient.AutoNickHandling = false;
             _IrcClient.ActiveChannelSyncing = true;
             _IrcClient.CtcpVersion      = Engine.VersionString;
+            _IrcClient.SendDelay        = 250;
             _IrcClient.OnRawMessage     += new IrcEventHandler(_OnRawMessage);
             _IrcClient.OnChannelMessage += new IrcEventHandler(_OnChannelMessage);
             _IrcClient.OnChannelAction  += new ActionEventHandler(_OnChannelAction);
@@ -2317,8 +2318,20 @@ namespace Smuxi.Engine
             textMsg.Bold = true;
             textMsg.IsHighlight = true;
             msg.MessageParts.Add(textMsg);
-
             Session.AddMessageToChat(_NetworkChat, msg);
+
+            if (e.Data.Message.ToLower().Contains("flood")) {
+                _IrcClient.SendDelay += 250;
+
+                Session.AddTextToChat(
+                    _NetworkChat,
+                    "-!- " + String.Format(
+                         _("Increased send delay to {0}ms to avoid being " +
+                           "flooded off the server again."),
+                        _IrcClient.SendDelay
+                    )
+                );
+            }
         }
         
         private void _OnErrorNicknameInUse(IrcEventArgs e)
