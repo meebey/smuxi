@@ -70,9 +70,10 @@ namespace Smuxi.Engine
         private TimeSpan        _LastLag;
         private Thread          _RunThread;
         private Thread          _LagWatcherThread;
-        private List<string>    _JoinChannelList = new List<string>();
-        private TaskQueue       _JoinChannelQueue = new TaskQueue("JoinChannelQueue");
-        private AutoResetEvent  _JoinChannelHandle = new AutoResetEvent(false);
+        private TaskQueue       _ChannelJoinQueue = new TaskQueue("JoinChannelQueue");
+        private List<string>    _QueuedChannelJoinList = new List<string>();
+        private List<string>    _ActiveChannelJoinList = new List<string>();
+        private AutoResetEvent  _ActiveChannelJoinHandle = new AutoResetEvent(false);
 
         public override bool IsConnected {
             get {
@@ -403,7 +404,7 @@ namespace Smuxi.Engine
         {
             Trace.Call();
 
-            _JoinChannelQueue.Dispose();
+            _ChannelJoinQueue.Dispose();
 
             base.Dispose();
         }
@@ -907,6 +908,23 @@ namespace Smuxi.Engine
             if (cd.DataArray.Length > 2) {
                 keys = cd.DataArray[2].Split(',');
             }
+            
+            int activeCount;
+            lock (_ActiveChannelJoinList) {
+                activeCount = _ActiveChannelJoinList.Count;
+            }
+            if (activeCount > 0) {
+                // ok, these channels will be queued
+                cd.FrontendManager.AddTextToChat(
+                    _NetworkChat,
+                    "-!- " +
+                    String.Format(
+                        _("Queuing joins: {0}"),
+                        String.Join(" ", channels)
+                    )
+                );
+            }
+
             int i = 0;
             foreach (string channel in channels) {
                 string key = keys != null && keys.Length > i ? keys[i] : null;
@@ -918,22 +936,94 @@ namespace Smuxi.Engine
                             _("Already joined to channel: {0}." +
                             " Type /window {0} to switch to it."),
                             channel));
-                    return;
+                    continue;
+                }
+
+                lock (_QueuedChannelJoinList) {
+                    _QueuedChannelJoinList.Add(channel);
                 }
 
                 // HACK: copy channel from foreach() into our scope
                 string chan = channel;
-                _JoinChannelQueue.Queue(delegate {
+                _ChannelJoinQueue.Queue(delegate {
                     try {
                         int count = 0;
-                        lock (_JoinChannelList) {
-                            count = _JoinChannelList.Count;
+                        string activeChans = null;
+                        lock (_ActiveChannelJoinList) {
+                            count = _ActiveChannelJoinList.Count;
+                            if (count > 0) {
+                                activeChans = String.Join(
+                                    " ",  _ActiveChannelJoinList.ToArray()
+                                );
+                            }
                         }
                         if (count > 0) {
+                            string queuedChans;
+                            lock (_QueuedChannelJoinList) {
+                                queuedChans = String.Join(
+                                    " ",  _QueuedChannelJoinList.ToArray()
+                                );
+                            }
+                            cd.FrontendManager.AddTextToChat(
+                                _NetworkChat,
+                                "-!- " +
+                                String.Format(
+                                    _("Active joins: {0} - Queued joins: {1}"),
+                                    activeChans, queuedChans
+                                )
+                            );
+
 #if LOG4NET
                             _Logger.Debug("CommandJoin(): waiting to join: " + chan);
 #endif
-                            _JoinChannelHandle.WaitOne();
+                            _ActiveChannelJoinHandle.WaitOne();
+
+                            lock (_ActiveChannelJoinList) {
+                                activeChans = String.Join(
+                                    " ",  _ActiveChannelJoinList.ToArray()
+                                );
+                            }
+                            lock (_QueuedChannelJoinList) {
+                                _QueuedChannelJoinList.Remove(chan);
+                                queuedChans = String.Join(
+                                    " ",  _QueuedChannelJoinList.ToArray()
+                                );
+                            }
+                            // TRANSLATORS: final message will look like this:
+                            // Joining: #chan1 - Remaining active joins: #chan2 / queued joins: #chan3
+                            string msg = String.Format(_("Joining: {0}"), chan);
+                            if (activeChans.Length > 0 || queuedChans.Length > 0) {
+                                msg += String.Format(" - {0} ", _("Remaining"));
+                                
+                            }
+                            if (activeChans.Length > 0) {
+                                msg += String.Format(
+                                    _("active joins: {0}"),
+                                    activeChans
+                                );
+                            }
+                            if (queuedChans.Length > 0) {
+                                if (activeChans.Length > 0) {
+                                    msg += " / ";
+                                }
+                                msg += String.Format(
+                                    _("queued joins: {0}"),
+                                    queuedChans
+                                );
+                            }
+                            cd.FrontendManager.AddTextToChat(
+                                _NetworkChat,
+                                "-!- " + msg
+                            );
+                        } else {
+                            lock (_QueuedChannelJoinList) {
+                                _QueuedChannelJoinList.Remove(chan);
+                            }
+                            cd.FrontendManager.AddTextToChat(
+                                _NetworkChat,
+                                "-!- " +
+                                String.Format(_("Joining: {0}"), chan)
+                            );
                         }
 #if LOG4NET
                         _Logger.Debug("CommandJoin(): joining: " + chan);
@@ -2559,6 +2649,11 @@ namespace Smuxi.Engine
         {
             GroupChatModel groupChat = (GroupChatModel) GetChat(e.Channel, ChatType.Group);
             if (e.Data.Irc.IsMe(e.Who)) {
+                // tell join handlers, that they need to wait!!
+                lock (_ActiveChannelJoinList) {
+                    _ActiveChannelJoinList.Add(e.Channel.ToLower());
+                }
+
                 if (groupChat == null) {
                     groupChat = new GroupChatModel(e.Channel, e.Channel, this);
                     Session.AddChat(groupChat);
@@ -2618,11 +2713,6 @@ namespace Smuxi.Engine
 #if LOG4NET
             _Logger.Debug("_OnNames() e.Channel: " + e.Channel);
 #endif
-            // tell join handlers, that they need to wait!!
-            lock (_JoinChannelList) {
-                _JoinChannelList.Add(e.Channel.ToLower());
-            }
-
             GroupChatModel groupChat = (GroupChatModel) GetChat(e.Data.Channel, ChatType.Group);
             if (groupChat.IsSynced) {
                 // nothing todo for us
@@ -2666,12 +2756,12 @@ namespace Smuxi.Engine
             _Logger.Debug("_OnChannelActiveSynced() e.Data.Channel: " + e.Data.Channel);
 #endif
 
+            lock (_ActiveChannelJoinList) {
+                _ActiveChannelJoinList.Remove(e.Data.Channel.ToLower());
+            }
             // tell the currently waiting join task item from the task queue
             // that one channel is finished
-            _JoinChannelHandle.Set();
-            lock (_JoinChannelList) {
-                _JoinChannelList.Remove(e.Data.Channel.ToLower());
-            }
+            _ActiveChannelJoinHandle.Set();
 
             GroupChatModel groupChat = (GroupChatModel) GetChat(e.Data.Channel, ChatType.Group);
             if (groupChat == null) {
@@ -3118,6 +3208,18 @@ namespace Smuxi.Engine
         
         private void _OnDisconnected(object sender, EventArgs e)
         {
+            Trace.Call(sender, e);
+
+            // reset join queue
+            lock (_ActiveChannelJoinList) {
+                _ActiveChannelJoinList.Clear();
+            }
+            lock (_QueuedChannelJoinList) {
+                _QueuedChannelJoinList.Clear();
+            }
+            _ChannelJoinQueue.Reset(true);
+            _ActiveChannelJoinHandle.Reset();
+
             OnDisconnected(EventArgs.Empty);
         }
         
