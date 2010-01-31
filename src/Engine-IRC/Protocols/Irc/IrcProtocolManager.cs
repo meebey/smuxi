@@ -1321,6 +1321,8 @@ namespace Smuxi.Engine
                         msg.MessageParts.Add(textMsg);  
 
                         _IrcMessageToMessageModel(ref msg, topic);
+                        // clear possible highlights in topic
+                        ClearHighlights(msg);
 
                         fm.AddMessageToChat(chat, msg);
                     } else {
