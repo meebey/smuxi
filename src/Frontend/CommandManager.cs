@@ -91,7 +91,6 @@ namespace Smuxi.Frontend
 
             if (disposing) {
                 f_TaskQueue.Dispose();
-                f_TaskQueue = null;
             }
         }
 
