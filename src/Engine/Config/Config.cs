@@ -106,10 +106,38 @@ namespace Smuxi.Engine
 #endif
         }
         
-        protected object Get(string key, object defaultvalue)
+        protected T Get<T>(string key, T defaultvalue)
         {
             Trace.Call(key, defaultvalue);
             
+            string inisection = _IniGetSection(key);
+            string inikey = _IniGetKey(key);
+            IniSection section = m_IniDocument.Sections[inisection];
+            if ((section == null) ||
+                (!section.Contains(inikey))) {
+                if (defaultvalue != null) {
+                    _Set(key, defaultvalue);
+                }
+                return defaultvalue;
+            } else {
+                // the section and key exist
+                string strValue = section.GetValue(inikey);
+                Type targetType = typeof(T);
+                if (String.IsNullOrEmpty(strValue)) {
+                    return default(T);
+                }
+                if (targetType == typeof(string[])) {
+                    return (T)(object) GetList(key);
+                }
+
+                return (T) Convert.ChangeType(strValue, targetType);
+            }
+       }
+
+        protected object Get(string key, object defaultvalue)
+        {
+            Trace.Call(key, defaultvalue);
+
 #if CONFIG_GCONF
             try {
                 return _GConf.Get(_GConfPrefix+key);
@@ -134,7 +162,7 @@ namespace Smuxi.Engine
                 return _Parse(section.GetValue(inikey));
             }
 #endif
-       }
+        }
 
         protected string[] GetList(string key)
         {
@@ -532,7 +560,12 @@ namespace Smuxi.Engine
         {
             Trace.Call(key, defaultvalue);
             
-            object obj = Get(key, defaultvalue);
+            object obj;
+            if (defaultvalue is string) {
+                obj = Get<string>(key, (string) defaultvalue);
+            } else {
+                obj = Get(key, defaultvalue);
+            }
             if (obj != null) {
                 m_Preferences[key] = obj;             
             }
