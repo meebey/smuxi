@@ -1,3 +1,21 @@
+# Engines
+if ENABLE_ENGINE_IRC
+PO_ENGINE_IRC = po-Engine-IRC
+endif
+
+if ENABLE_ENGINE_TWITTER
+PO_ENGINE_TWITTER = po-Engine-Twitter
+endif
+
+# Frontends
+if ENABLE_FRONTEND_GNOME
+PO_FRONTEND_GNOME = po-Frontend-GNOME
+endif
+
+if ENABLE_FRONTEND_GNOME_IRC
+PO_FRONTEND_GNOME_IRC = po-Frontend-GNOME-IRC
+endif
+
 ACLOCAL_AMFLAGS = -I .
 
 EXTRA_DIST =	install-sh \
@@ -14,12 +32,12 @@ EXTRA_DIST =	install-sh \
 
 PODIRS =	po \
 		po-Engine \
-		po-Engine-IRC \
-		po-Engine-Twitter \
+		$(PO_ENGINE_IRC) \
+		$(PO_ENGINE_TWITTER) \
 		po-Server \
 		po-Frontend \
-		po-Frontend-GNOME \
-		po-Frontend-GNOME-IRC
+		$(PO_FRONTEND_GNOME) \
+		$(PO_FRONTEND_GNOME_IRC)
 
 SUBDIRS = 	lib \
 		src \
