@@ -162,6 +162,8 @@ namespace Smuxi.Frontend.Gnome
                 if (!String.IsNullOrEmpty(f_Widget.HostnameEntry.Text)) {
                     f_Widget.HostnameEntry.Sensitive = true;
                 }
+            } catch (ApplicationException ex) {
+                Frontend.ShowError(this, _("Unable to load server: "), ex);
             } catch (Exception ex) {
                 Frontend.ShowException(ex);
             }

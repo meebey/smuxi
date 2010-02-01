@@ -51,7 +51,12 @@ namespace Smuxi.Frontend.Gnome
             f_Widget.InitProtocols(supportedProtocols);
             f_Widget.InitNetworks(networks);
             if (server != null) {
-                f_Widget.Load(server);
+                try {
+                    f_Widget.Load(server);
+                } catch (Exception ex) {
+                    Destroy();
+                    throw;
+                }
             }
         }
 

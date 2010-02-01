@@ -236,6 +236,8 @@ namespace Smuxi.Frontend.Gnome
                 }
                 
                 Edit(server);
+            } catch (ApplicationException ex) {
+                Frontend.ShowError(_Parent, _("Unable to edit server: "), ex);
             } catch (Exception ex) {
                 Frontend.ShowException(ex);
             }
@@ -268,6 +270,8 @@ namespace Smuxi.Frontend.Gnome
                 }
                 
                 Edit(server);
+            } catch (ApplicationException ex) {
+                Frontend.ShowError(_Parent, _("Unable to edit server: "), ex);
             } catch (Exception ex) {
                 Frontend.ShowException(ex);
             }
