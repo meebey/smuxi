@@ -1076,9 +1076,11 @@ namespace Smuxi.Engine
         {
             FrontendManager fm = cd.FrontendManager;
             if (cd.Chat.ChatType == ChatType.Group) {
-                // disable chat so we don't loose the message buffer
-                Session.DisableChat(cd.Chat);
-                _IrcClient.RfcPart(cd.Chat.ID);
+                if (cd.Chat.IsEnabled) {
+                    // disable chat so we don't loose the message buffer
+                    Session.DisableChat(cd.Chat);
+                    _IrcClient.RfcPart(cd.Chat.ID);
+                }
                 _IrcClient.RfcJoin(cd.Chat.ID);
             }
         }
