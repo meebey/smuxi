@@ -118,7 +118,7 @@ namespace Smuxi.Frontend
             handled = f_Session.Command(cmd);
             if (!handled) {
                 // we maybe have no network manager yet
-                IProtocolManager pm = cmd.FrontendManager.CurrentProtocolManager;
+                IProtocolManager pm = cmd.Chat.ProtocolManager;
                 if (pm != null) {
                     handled = pm.Command(cmd);
                 } else {
