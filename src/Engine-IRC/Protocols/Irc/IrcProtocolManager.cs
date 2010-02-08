@@ -463,14 +463,30 @@ namespace Smuxi.Engine
         public override void CloseChat(FrontendManager fm, ChatModel chat)
         {
             Trace.Call(fm, chat);
-            
+
+            if (fm == null) {
+                throw new ArgumentNullException("chat");
+            }
+            if (chat == null) {
+                throw new ArgumentNullException("chat");
+            }
+
+            // get real chat object from session
+            chat = Session.GetChat(chat.ID, chat.ChatType, this);
+            if (chat == null) {
+#if LOG4NET
+                _Logger.Error("CloseChat(): Session.GetChat(" + chat.ID + ", " + chat.ChatType + ", this) return null!");
+#endif
+                return;
+            }
+            if (!chat.IsEnabled) {
+                Session.RemoveChat(chat);
+                return;
+            }
+
             switch (chat.ChatType) {
                 case ChatType.Person:
-                    // get real chat object from session
-                    chat = Session.GetChat(chat.ID, chat.ChatType, this);
-                    if (chat != null) {
-                        Session.RemoveChat(chat);
-                    }
+                    Session.RemoveChat(chat);
                     break;
                 case ChatType.Group:
                     CommandModel cmd = new CommandModel(fm, _NetworkChat, chat.ID);
