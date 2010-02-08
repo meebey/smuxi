@@ -335,7 +335,9 @@ namespace Smuxi.Frontend.Gnome
             Trace.Call();
 
             try {
-                _FrontendManager.IsFrontendDisconnecting = true;
+                if (_FrontendManager != null) {
+                    _FrontendManager.IsFrontendDisconnecting = true;
+                }
                 _Session.DeregisterFrontendUI(_MainWindow.UI);
             } catch (System.Net.Sockets.SocketException ex) {
                 // ignore as the connection is maybe already broken
