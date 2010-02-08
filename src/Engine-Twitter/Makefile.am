@@ -20,8 +20,7 @@ DLL_REFERENCES =	$(TARGET_DIR)/Twitterizer2.dll \
 SOURCES_BUILD = $(addprefix $(srcdir)/, $(SOURCES))
 
 # automake magic variables
-DIST_SOURCES = $(SOURCES_BUILD)
-EXTRA_DIST =
+EXTRA_DIST = $(SOURCES_BUILD)
 CLEANFILES = $(ASSEMBLY_TARGET)
 
 pkglib_DATA = $(ASSEMBLY_TARGET)
