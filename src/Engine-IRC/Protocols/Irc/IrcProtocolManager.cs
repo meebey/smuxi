@@ -2052,11 +2052,7 @@ namespace Smuxi.Engine
                     submessage = message;
                 }
                 
-                bool highlight = false;
-                // BUG: don't highlight everything, like nicknames, maybe require whitespace?
-                if (submessage.IndexOf(_IrcClient.Nickname, StringComparison.CurrentCultureIgnoreCase) != -1) {
-                    highlight = true;
-                }
+                bool highlight = ContainsHighlight(submessage);
                 
                 TextMessagePartModel msgPart = new TextMessagePartModel();
                 msgPart.Text = submessage;
@@ -2078,6 +2074,21 @@ namespace Smuxi.Engine
             ParseUrls(msg);
         }
         
+        protected override bool ContainsHighlight (string msg)
+        {
+            // BUG: don't highlight everything, like nicknames?
+
+            Regex regex;
+
+            // First check to see if our current nick is in there.
+            regex = new Regex(String.Format("(^|\\W){0}($|\\W)", _IrcClient.Nickname), RegexOptions.IgnoreCase);
+            if (regex.Match(msg).Success) {
+                return true;
+            } else {
+                return base.ContainsHighlight(msg);
+            }
+        }
+
         private TextColor _IrcTextColorToTextColor(int color)
         {
             switch (color) {

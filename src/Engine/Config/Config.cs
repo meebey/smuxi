@@ -385,6 +385,13 @@ namespace Smuxi.Engine
                     m_Preferences[prefix+user+"/Connection/OnConnectCommands"] = new string[] {};
                 }
                 
+                string[] highlight_words = GetList(prefix+user+"/Interface/Chat/HighlightWords");
+                if (highlight_words != null) {
+                    m_Preferences[prefix+user+"/Interface/Chat/HighlightWords"] = highlight_words;
+                } else {
+                    m_Preferences[prefix+user+"/Interface/Chat/HighlightWords"] = new string[] {};
+                }
+
                 LoadUserEntry(user, "Interface/Notebook/TimestampFormat", null);
                 LoadUserEntry(user, "Interface/Notebook/TabPosition", null);
                 LoadUserEntry(user, "Interface/Notebook/BufferLines", null);

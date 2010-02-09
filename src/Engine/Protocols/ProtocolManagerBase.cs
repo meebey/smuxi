@@ -318,5 +318,27 @@ namespace Smuxi.Engine
 
             return TextColor.None;
          }
+
+        protected virtual bool ContainsHighlight(string msg)
+        {
+            Regex regex;
+            //go through the user's custom highlight words and check for them.
+            foreach (string HighlightString in (string[]) Session.UserConfig["Interface/Chat/HighlightWords"]) {
+                if (HighlightString.StartsWith("/") && HighlightString.EndsWith("/")) {
+                    // This is a regex, so just build a regex out of the string.
+                    regex = new Regex(HighlightString.Substring(1,HighlightString.Length-2));
+                } else {
+                    // Plain text - make a regex that matches the word as long as it's separated properly.
+                    string regex_string = String.Format("(^|\\W){0}($|\\W)", Regex.Escape(HighlightString));
+                    regex = new Regex(regex_string, RegexOptions.IgnoreCase);
+                }
+
+                if (regex.Match(msg).Success) {
+                    return true;
+                }
+            }
+            
+            return false;
+        }
     }
 }
