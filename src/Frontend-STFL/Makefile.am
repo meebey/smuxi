@@ -1,3 +1,4 @@
+SUBDIRS = STFL
 
 EXTRA_DIST =  
 

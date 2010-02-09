@@ -30,7 +30,7 @@ using System;
 using System.IO;
 using System.Reflection;
 using Mono.Unix;
-//using Stfl;
+using Stfl;
 using Smuxi.Common;
 using Smuxi.Engine;
 
@@ -65,14 +65,17 @@ namespace Smuxi.Frontend.Stfl
             Trace.Call(sender, e);
             
 #if LOG4NET
-            _Logger.Debug("_OnKeyPressed(): e.Key: " + e.Key + " e.Focus: " + e.Focus);
+            _Logger.Debug("_OnKeyPressed(): e.Key: '" + e.Key + "' e.Focus: '" + e.Focus + "'");
 #endif
             switch (e.Key) {
                 case "ENTER":
                     OnActivated(EventArgs.Empty);
                     break;
+                case "PPAGE":
+                    _MainWindow.ChatViewManager.ActiveChat.ScrollUp();
+                    break;
                 case "NPAGE":
-                    _MainWindow.ChatViewManager.ActiveChat.ScrollToEnd();
+                    _MainWindow.ChatViewManager.ActiveChat.ScrollDown();
                     break;
             } 
         }

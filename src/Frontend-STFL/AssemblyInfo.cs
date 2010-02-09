@@ -34,3 +34,8 @@ using System.Runtime.CompilerServices;
 
 [assembly: AssemblyDelaySign(false)]
 [assembly: AssemblyKeyFile("")]
+
+#if LOG4NET
+// let log4net use .exe.config file
+[assembly: log4net.Config.XmlConfigurator]
+#endif

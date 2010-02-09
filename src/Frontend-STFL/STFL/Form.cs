@@ -28,67 +28,61 @@
 
 using System;
 using System.IO;
+using System.Text;
+using System.Runtime.InteropServices;
 using System.Reflection;
-//using Stfl;
-using Smuxi.Common;
 
-namespace Smuxi.Frontend.Stfl
+namespace Stfl
 {
     public class Form : IDisposable
     {
-        private stfl_form _StflForm;
+        IntPtr f_Handle;
         
         public event KeyPressedEventHandler KeyPressed;
         
         public string this[string name] {
             get {
-                return _StflForm.get(name);
+                return StflApi.stfl_get(f_Handle, name);
             }
             set {
-                _StflForm.set(name, value);
+                StflApi.stfl_set(f_Handle, name, value);
             }
         }
-        
+
         public Form(string text)
         {
-            _CreateForm(text);
+            f_Handle = StflApi.stfl_create(text);
         }
-        
+
         public Form(Assembly assembly, string resourceName)
         {
             if (assembly == null) {
                 assembly = Assembly.GetCallingAssembly();
             }
 
-            using (Stream str = assembly.GetManifestResourceStream(resourceName)) {
-                if (str == null) {
+            using (Stream stream = assembly.GetManifestResourceStream(resourceName))
+            using (StreamReader reader = new StreamReader(stream)) {
+                if (stream == null) {
                     throw new ArgumentException(resourceName + " could not be found in assembly", "resourceName");
                 }
-                StreamReader reader = new StreamReader(str);
                 string text = reader.ReadToEnd();
-                reader.Dispose();
-                _CreateForm(text);
+                if (String.IsNullOrEmpty(text)) {
+                    throw new ArgumentException(resourceName + " in assembly is missing or empty.", "resourceName");
+                }
+                f_Handle = StflApi.stfl_create(text);
             }
         }
-        
-        private void _CreateForm(string text)
-        {
-            _StflForm = new stfl_form(text);
-        }
 
-        private void _DestroyForm()
-        {
-            _StflForm.Dispose();
-        }
-        
         public virtual void Dispose()
         {
-            _DestroyForm();
+            if (f_Handle != IntPtr.Zero) {
+                StflApi.stfl_free(f_Handle);
+            }
         }
-        
+
         public virtual void Run(int timeout)
         {
-            string @event = _StflForm.run(timeout);
+            string @event = StflApi.stfl_run(f_Handle, timeout);
             ProcessEvent(@event);
         }
 
@@ -96,27 +90,25 @@ namespace Smuxi.Frontend.Stfl
         {
             Run(0);
         }
-        
+
         public void Modify(string name, string mode, string text)
         {
-            _StflForm.modify(name, mode, text);
+            StflApi.stfl_modify(f_Handle, name, mode, text);
         }
-        
+
         protected virtual void ProcessEvent(string key)
         {
             if (key != null && key != "TIMEOUT") {
                 ProcessKey(key);
             }
         }
-        
+
         protected virtual void ProcessKey(string key)
         {
-            Trace.Call(key);
-            
-            string focus = _StflForm.get_focus();
+            string focus = StflApi.stfl_get_focus(f_Handle);
             OnKeyPressed(new KeyPressedEventArgs(key, focus));
         }
-        
+
         protected virtual void OnKeyPressed(KeyPressedEventArgs e)
         {
             if (KeyPressed != null) {

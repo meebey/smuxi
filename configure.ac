@@ -12,6 +12,10 @@ fi
 
 AC_PROG_INSTALL
 
+AC_DISABLE_STATIC
+AC_PROG_LIBTOOL
+#LT_INIT([disable-static])
+
 # I18N
 IT_PROG_INTLTOOL([0.25])
 
@@ -351,10 +355,10 @@ AC_ARG_ENABLE([frontend-stfl],
 	ENABLE_FRONTEND_STFL=$enableval,
 	ENABLE_FRONTEND_STFL=no
 )
-if test "x$ENABLE_FRONTEND_STFL" != "xno"; then
-	# TODO: check deps
-	AC_MSG_ERROR([STFL frontend not supported (yet)])
-fi
+#if test "x$ENABLE_FRONTEND_STFL" != "xno"; then
+#	# TODO: check deps
+#	AC_MSG_ERROR([STFL frontend not supported (yet)])
+#fi
 AM_CONDITIONAL(ENABLE_FRONTEND_STFL, test "x$ENABLE_FRONTEND_STFL" = "xyes")
 
 AC_ARG_ENABLE([frontend-curses],
@@ -429,6 +433,7 @@ AC_CONFIG_FILES([
 	src/Frontend-Curses/smuxi-frontend-curses
 	src/Frontend-STFL/Makefile
 	src/Frontend-STFL/smuxi-frontend-stfl
+	src/Frontend-STFL/STFL/Makefile
 	src/Frontend-SWF/Makefile
 	src/Frontend-SWF/smuxi-frontend-swf
 	src/Frontend-Test/Makefile

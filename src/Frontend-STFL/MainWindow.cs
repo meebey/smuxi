@@ -32,6 +32,7 @@ using System.Reflection;
 using Mono.Unix;
 using Smuxi.Common;
 using Smuxi.Engine;
+using Stfl;
 
 namespace Smuxi.Frontend.Stfl
 {

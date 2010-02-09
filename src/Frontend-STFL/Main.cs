@@ -39,10 +39,23 @@ namespace Smuxi.Frontend.Stfl
 
         public static void Main(string[] args)
         {
+            bool debug = false;
+            foreach (string arg in args) {
+                switch (arg) {
+                    case "-d":
+                    case "--debug":
+                        debug = true;
+                        break;
+                }
+            }
 #if LOG4NET
-            //log4net.Config.BasicConfigurator.Configure();
-            FileInfo config = new FileInfo("smuxi-frontend-stfl.log.config");
-            log4net.Config.XmlConfigurator.Configure(config);
+            // initialize log level
+            log4net.Repository.ILoggerRepository repo = log4net.LogManager.GetRepository();
+            if (debug) {
+                repo.Threshold = log4net.Core.Level.Debug;
+            } else {
+                repo.Threshold = log4net.Core.Level.Info;
+            }
 #endif
             try {
                 Frontend.Init(args);

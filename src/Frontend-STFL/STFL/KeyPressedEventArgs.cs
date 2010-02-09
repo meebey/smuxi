@@ -28,7 +28,7 @@
 
 using System;
 
-namespace Smuxi.Frontend.Stfl
+namespace Stfl
 {
     public delegate void KeyPressedEventHandler(object sender, KeyPressedEventArgs e);
     
