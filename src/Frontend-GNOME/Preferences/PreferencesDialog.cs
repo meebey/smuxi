@@ -657,9 +657,12 @@ namespace Smuxi.Frontend.Gnome
                 Frontend.UserConfig.ClearCache();
                 _Load();
                 Frontend.ApplyConfig(Frontend.UserConfig);
+            } catch (ApplicationException ex) {
+                Frontend.ShowError(_Dialog, ex.Message);
             } catch (Exception ex) {
 #if LOG4NET
                 _Logger.Error(ex);
+                _Logger.Error("BaseException", ex.GetBaseException());
 #endif                
                 Frontend.ShowException(_Dialog, ex);
             }
