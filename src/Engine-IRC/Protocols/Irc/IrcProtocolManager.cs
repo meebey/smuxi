@@ -2542,7 +2542,7 @@ namespace Smuxi.Engine
                 return IrcTextColor.Blue;
             }
             
-            return GetIdentityNameColor(nickname);
+            return GetIdentityNameColor(NormalizeNick(nickname.TrimEnd("_")));
         }
         
         private void _OnChannelMessage(object sender, IrcEventArgs e)
@@ -3396,6 +3396,24 @@ namespace Smuxi.Engine
         private static string _(string msg)
         {
             return LibraryCatalog.GetString(msg, _LibraryTextDomain);
+        }
+        
+        public static string NormalizeNick(string nickname)
+        {
+            string normalized = nickname;
+
+            normalized = normalized.ToLower();
+            normalized = normalized.Replace("[", "{");
+            normalized = normalized.Replace("]", "}");
+            normalized = normalized.Replace("\\", "|");
+            normalized = normalized.Replace("~", "^");
+
+            return normalized;
+        }
+        
+        public static bool CompareNicks(string a, string b)
+        {
+            return NormalizeNick(a) == NormalizeNick(b);
         }
     }
 }
