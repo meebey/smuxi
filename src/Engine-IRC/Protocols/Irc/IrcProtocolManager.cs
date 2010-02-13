@@ -215,21 +215,19 @@ namespace Smuxi.Engine
                 if (_IrcClient.IsAway) {
                     result += " (" + _("away") + ")";
                 }
+                if (_IrcClient.Lag > TimeSpan.FromSeconds(5)) {
+                    result += String.Format(" ({0})",
+                                    String.Format(
+                                        // TRANSLATOR: {0} is the amount of seconds
+                                        _("lag: {0} seconds"),
+                                        (int) _IrcClient.Lag.TotalSeconds
+                                    )
+                              );
+                }
             } else {
                 result += " (" + _("not connected") + ")";
             }
             
-            TimeSpan lag = _IrcClient.Lag;
-            if (_IrcClient != null && lag > TimeSpan.FromSeconds(5)) {
-                result += String.Format(" ({0})",
-                                String.Format(
-                                    // TRANSLATOR: {0} is the amount of seconds
-                                    _("lag: {0} seconds"),
-                                    (int) lag.TotalSeconds
-                                )
-                          );
-            }
-
             return result;
         }
 
