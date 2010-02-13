@@ -368,6 +368,8 @@ namespace Smuxi.Frontend.Gnome
         public virtual void Disable()
         {
             Trace.Call();
+
+            _IsSynced = false;
         }
         
         public virtual void Sync()
