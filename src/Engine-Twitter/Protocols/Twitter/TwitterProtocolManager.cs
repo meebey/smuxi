@@ -965,6 +965,7 @@ namespace Smuxi.Engine
             switch (exception.Status) {
                 case WebExceptionStatus.ConnectFailure:
                 case WebExceptionStatus.ReceiveFailure:
+                case WebExceptionStatus.NameResolutionFailure:
                     // ignore temporarly issues
 #if LOG4NET
                     f_Logger.Warn("CheckWebException(): ignored exception", exception);
