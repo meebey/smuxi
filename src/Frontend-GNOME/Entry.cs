@@ -444,6 +444,7 @@ namespace Smuxi.Frontend.Gnome
                 return;
             }
 
+            // BUG? REMOTING CALLs here?!? (would block GUI!)
             CommandModel cd = new CommandModel(
                 Frontend.FrontendManager,
                 _Notebook.CurrentChatView.ChatModel,
