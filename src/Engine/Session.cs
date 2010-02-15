@@ -634,10 +634,10 @@ namespace Smuxi.Engine
                     return;
                 }
             } else if (cd.DataArray.Length >= 2) {
-                // current network manager
-                pm = fm.CurrentProtocolManager;
+                // network manager of chat
+                pm = cd.Chat.ProtocolManager;
             }
-            
+
             if (pm != null) {
                 pm.Disconnect(fm);
                 pm.Dispose();
