@@ -486,7 +486,7 @@ namespace Smuxi.Engine
             // but only if there was none set (we might be on a chat for example)
             // or if this is the neutral "smuxi" tab
             if (fm.CurrentProtocolManager == null ||
-                fm.CurrentChat != null && fm.CurrentChat.ChatType == ChatType.Session) {
+                (fm.CurrentChat != null && fm.CurrentChat.ChatType == ChatType.Session)) {
                 fm.CurrentProtocolManager = protocolManager;
                 fm.UpdateNetworkStatus();
             }
