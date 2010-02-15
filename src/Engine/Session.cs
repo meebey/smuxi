@@ -371,7 +371,8 @@ namespace Smuxi.Engine
                 }
             } else {
                 // normal text
-                if (cd.FrontendManager.CurrentProtocolManager == null) {
+                if (cd.Chat.ChatType == ChatType.Session &&
+                    cd.FrontendManager.CurrentProtocolManager == null) {
                     _NotConnected(cd);
                     handled = true;
                 }
