@@ -520,8 +520,12 @@ namespace Smuxi.Engine
                     )
                 );
             } else {
-                fm.CurrentProtocolManager.Disconnect(fm);
-                _ProtocolManagers.Remove(fm.CurrentProtocolManager);
+                var pm = cd.Chat.ProtocolManager;
+                if (pm == null) {
+                    return;
+                }
+                pm.Disconnect(fm);
+                _ProtocolManagers.Remove(pm);
             }
         }
         
@@ -533,8 +537,11 @@ namespace Smuxi.Engine
                 throw new ArgumentNullException("cd");
             }
             
-            FrontendManager fm = cd.FrontendManager;
-            fm.CurrentProtocolManager.Reconnect(fm);
+            var pm = cd.Chat.ProtocolManager;
+            if (pm == null) {
+                return;
+            }
+            pm.Reconnect(fm);
         }
         
         public void CommandConfig(CommandModel cd)
