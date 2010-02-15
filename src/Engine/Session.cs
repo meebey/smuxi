@@ -542,7 +542,7 @@ namespace Smuxi.Engine
             if (pm == null) {
                 return;
             }
-            pm.Reconnect(fm);
+            pm.Reconnect(cd.FrontendManager);
         }
         
         public void CommandConfig(CommandModel cd)
