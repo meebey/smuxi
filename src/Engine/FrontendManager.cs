@@ -290,6 +290,9 @@ namespace Smuxi.Engine
         
         public void RemoveChat(ChatModel chat)
         {
+            if (_SyncedChats.Contains(chat)) {
+                _SyncedChats.Remove(chat);
+            }
             f_TaskQueue.Queue(delegate {
                 _UI.RemoveChat(chat);
             });
