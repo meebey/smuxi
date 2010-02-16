@@ -259,6 +259,11 @@ namespace Smuxi.Engine
                 return;
             }
 
+            if (f_UpdateFriendsTimelineThread != null &&
+                f_UpdateFriendsTimelineThread.IsAlive) {
+                return;
+            }
+
             // BUG: causes a race condition as the frontend syncs the
             // unpopulated chat! So only add it if it's ready
             //Session.AddChat(f_FriendsTimelineChat);
@@ -283,6 +288,11 @@ namespace Smuxi.Engine
                 return;
             }
 
+            if (f_UpdateRepliesThread != null &&
+                f_UpdateRepliesThread.IsAlive) {
+                return;
+            }
+
             // BUG: causes a race condition as the frontend syncs the
             // unpopulated chat! So only add it if it's ready
             //Session.AddChat(f_RepliesChat);
@@ -304,6 +314,11 @@ namespace Smuxi.Engine
             );
 
             if (chat != null) {
+                return;
+            }
+
+            if (f_UpdateDirectMessagesThread != null &&
+                f_UpdateDirectMessagesThread.IsAlive) {
                 return;
             }
 
@@ -357,6 +372,31 @@ namespace Smuxi.Engine
         public override void CloseChat(FrontendManager fm, ChatModel chat)
         {
             Trace.Call(fm, chat);
+
+            if (chat.ChatType == ChatType.Group) {
+               TwitterChatType twitterChatType = (TwitterChatType)
+                    Enum.Parse(typeof(TwitterChatType), chat.ID);
+               switch (twitterChatType) {
+                    case TwitterChatType.FriendsTimeline:
+                        if (f_UpdateFriendsTimelineThread != null &&
+                            f_UpdateFriendsTimelineThread.IsAlive) {
+                            f_UpdateFriendsTimelineThread.Abort();
+                        }
+                        break;
+                    case TwitterChatType.Replies:
+                        if (f_UpdateRepliesThread != null &&
+                            f_UpdateRepliesThread.IsAlive) {
+                            f_UpdateRepliesThread.Abort();
+                        }
+                        break;
+                    case TwitterChatType.DirectMessages:
+                        if (f_UpdateDirectMessagesThread != null &&
+                            f_UpdateDirectMessagesThread.IsAlive) {
+                            f_UpdateDirectMessagesThread.Abort();
+                        }
+                        break;
+                }
+            }
 
             Session.RemoveChat(chat);
         }
