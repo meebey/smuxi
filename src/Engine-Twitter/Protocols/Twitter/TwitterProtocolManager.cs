@@ -605,10 +605,17 @@ namespace Smuxi.Engine
 #endif
                 string msg =_("An error occurred while fetching the friends timeline from Twitter. Reason: ");
                 Session.AddTextToChat(f_ProtocolChat, "-!- " + msg + ex.Message);
-            }
+            } finally {
 #if LOG4NET
-            f_Logger.Debug("UpdateFriendsTimelineThread(): finishing thread.");
+                f_Logger.Debug("UpdateFriendsTimelineThread(): finishing thread.");
 #endif
+                lock (Session.Chats) {
+                    if (Session.Chats.Contains(f_FriendsTimelineChat)) {
+                        Session.RemoveChat(f_FriendsTimelineChat);
+                    }
+                }
+                f_FriendsTimelineChat.UnsafePersons.Clear();
+            }
         }
 
         private void UpdateFriendsTimeline()
@@ -688,10 +695,17 @@ namespace Smuxi.Engine
 #endif
                 string msg =_("An error occurred while fetching the replies from Twitter. Reason: ");
                 Session.AddTextToChat(f_ProtocolChat, "-!- " + msg + ex.Message);
-            }
+            } finally {
 #if LOG4NET
-            f_Logger.Debug("UpdateRepliesThread(): finishing thread.");
+                f_Logger.Debug("UpdateRepliesThread(): finishing thread.");
 #endif
+                lock (Session.Chats) {
+                    if (Session.Chats.Contains(f_RepliesChat)) {
+                        Session.RemoveChat(f_RepliesChat);
+                    }
+                }
+                f_RepliesChat.UnsafePersons.Clear();
+            }
         }
 
         private void UpdateReplies()
@@ -776,10 +790,17 @@ namespace Smuxi.Engine
 #endif
                 string msg =_("An error occurred while fetching direct messages from Twitter. Reason: ");
                 Session.AddTextToChat(f_ProtocolChat, "-!- " + msg + ex.Message);
-            }
+            } finally {
 #if LOG4NET
-            f_Logger.Debug("UpdateDirectMessagesThread(): finishing thread.");
+                f_Logger.Debug("UpdateDirectMessagesThread(): finishing thread.");
 #endif
+                lock (Session.Chats) {
+                    if (Session.Chats.Contains(f_DirectMessagesChat)) {
+                        Session.RemoveChat(f_DirectMessagesChat);
+                    }
+                }
+                f_DirectMessagesChat.UnsafePersons.Clear();
+            }
         }
 
         private void UpdateDirectMessages()
