@@ -161,40 +161,40 @@ namespace Smuxi.Engine
             // twitter is sometimes pretty slow, so fetch this in the background
             ThreadPool.QueueUserWorkItem(delegate {
                 try {
-                    msg =_("Fetching user details from Twitter, please wait...");
-                    Session.AddTextToChat(f_ProtocolChat, "-!- " + msg);
+                    var message = _("Fetching user details from Twitter, please wait...");
+                    Session.AddTextToChat(f_ProtocolChat, "-!- " + message);
 
                     UpdateUser();
 
-                    msg =_("Finished fetching user details.");
-                    Session.AddTextToChat(f_ProtocolChat, "-!- " + msg);
+                    message = _("Finished fetching user details.");
+                    Session.AddTextToChat(f_ProtocolChat, "-!- " + message);
 
                     f_FriendsTimelineChat.PersonCount = f_TwitterUser.NumberOfFriends;
                     f_RepliesChat.PersonCount = f_TwitterUser.NumberOfFriends;
                     f_DirectMessagesChat.PersonCount = f_TwitterUser.NumberOfFriends;
                 } catch (Exception ex) {
-                    msg =_("Failed to fetch user details from Twitter. Reason: ");
+                    var message = _("Failed to fetch user details from Twitter. Reason: ");
 #if LOG4NET
-                    f_Logger.Error("Connect(): " + msg, ex);
+                    f_Logger.Error("Connect(): " + message, ex);
 #endif
-                    Session.AddTextToChat(f_ProtocolChat, "-!- " + msg + ex.Message);
+                    Session.AddTextToChat(f_ProtocolChat, "-!- " + message + ex.Message);
                 }
             });
             ThreadPool.QueueUserWorkItem(delegate {
                 try {
-                    msg =_("Fetching friends from Twitter, please wait...");
-                    Session.AddTextToChat(f_ProtocolChat, "-!- " + msg);
+                    var message = _("Fetching friends from Twitter, please wait...");
+                    Session.AddTextToChat(f_ProtocolChat, "-!- " + message);
 
                     UpdateFriends();
 
-                    msg =_("Finished fetching friends.");
-                    Session.AddTextToChat(f_ProtocolChat, "-!- " + msg);
+                    message = _("Finished fetching friends.");
+                    Session.AddTextToChat(f_ProtocolChat, "-!- " + message);
                 } catch (Exception ex) {
-                    msg =_("Failed to fetch friends from Twitter. Reason: ");
+                    var message = _("Failed to fetch friends from Twitter. Reason: ");
 #if LOG4NET
-                    f_Logger.Error("Connect(): " + msg, ex);
+                    f_Logger.Error("Connect(): " + message, ex);
 #endif
-                    Session.AddTextToChat(f_ProtocolChat, "-!- " + msg + ex.Message);
+                    Session.AddTextToChat(f_ProtocolChat, "-!- " + message + ex.Message);
                 }
             });
 
