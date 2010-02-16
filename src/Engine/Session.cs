@@ -743,7 +743,12 @@ namespace Smuxi.Engine
             }
             
             lock (_Chats) {
-                _Chats.Remove(chat);
+                if (!_Chats.Remove(chat)) {
+#if LOG4NET
+                    f_Logger.Warn("RemoveChat(): _Chats.Remove(" + chat + ") failed, ignoring...");
+#endif
+                    return;
+                }
             }
             
             lock (_FrontendManagers) {
