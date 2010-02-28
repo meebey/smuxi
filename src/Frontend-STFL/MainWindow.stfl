@@ -1,20 +1,44 @@
 vbox
   autobind:0
-  textview[output_textview]
-    .expand:vh
-    offset[output_textview_offset]:0
-    style_end:""
+  hbox[menu_hbox]
+    .expand:0 .height:1
+    @style_normal:fg=white,bg=blue
+    label
+      text:"Server"
+    label
+      text:"Chat"
+    label
+      text:"Engine"
+    label
+      text:"View"
+    label
+      text:"Help"
+  vbox[output_vbox]
   vbox[status]
     .expand:0 .height:1
     @style_normal:fg=white,bg=blue
     label
-      text:"Test"
+      text[navigation_label_text]:"Test"
   hbox[input_hbox]
     .expand:0 .height:1
-    label
+    label[input_label]
       .expand:0
-      text[input_label]:"[smuxi] "
+      text[input_label_text]:"[smuxi] "
     !input[input]
       on_TAB:TAB
-      on_M4:alt4
+      on_^1:CTRL1
+      on_^2:CTRL2
+      on_^3:CTRL3
+      on_^4:CTRL4
+      on_^5:CTRL5
+      on_^6:CTRL6
+      on_^7:CTRL7
+      on_^8:CTRL8
+      on_^9:CTRL9
+      on_^0:CTRL0
+      on_^@:CTRL2
+      on_^]:CTRL5
+      on_^^:CTRL6
+      on_^_:CTRL7
+      on_^]:CTRL5
       text[input_text]:

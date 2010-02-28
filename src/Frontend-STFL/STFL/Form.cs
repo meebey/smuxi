@@ -52,6 +52,11 @@ namespace Stfl
         public Form(string text)
         {
             f_Handle = StflApi.stfl_create(text);
+
+            // initialize ncurses
+            StflApi.stfl_run(f_Handle, -3);
+            //StflApi.raw();
+            NcursesApi.nocbreak();
         }
 
         public Form(Assembly assembly, string resourceName)
@@ -94,6 +99,11 @@ namespace Stfl
         public void Modify(string name, string mode, string text)
         {
             StflApi.stfl_modify(f_Handle, name, mode, text);
+        }
+
+        public string Dump(string name, string prefix, int focus)
+        {
+            return StflApi.stfl_dump(f_Handle, name, prefix, focus);
         }
 
         protected virtual void ProcessEvent(string key)

@@ -60,7 +60,7 @@ namespace Smuxi.Frontend.Stfl
         public MainWindow() : base(null, "MainWindow.stfl")
         {
             _ChatViewManager = new ChatViewManager(this);
-            _Entry = new Entry(this);
+            _Entry = new Entry(this, _ChatViewManager);
             _UI = new StflUI(_ChatViewManager);
     	    Assembly asm = Assembly.GetExecutingAssembly();
     	    _ChatViewManager.Load(asm);

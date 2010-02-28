@@ -66,7 +66,7 @@ namespace Smuxi.Frontend
             return null;
         }
         
-        protected IChatView CreateChatView(ChatModel chat)
+        protected IChatView CreateChatView(ChatModel chat, params object[] parameters)
         {
             Trace.Call(chat);
             
@@ -81,7 +81,16 @@ namespace Smuxi.Frontend
                 throw new ApplicationException("Unsupported ChatModel type: " + chat.GetType());
             }
             
-            return (IChatView) Activator.CreateInstance(type, chat);
+            object[] ctorParams;
+            if (parameters != null && parameters.Length > 0) {
+                ctorParams = new object[parameters.Length + 1];
+                ctorParams[0] = chat;
+                parameters.CopyTo(ctorParams, 1);
+            } else {
+                ctorParams = new object[] {chat};
+            }
+
+            return (IChatView) Activator.CreateInstance(type, ctorParams);
         }
         
         public void LoadAll(string path, string pattern)

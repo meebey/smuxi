@@ -41,26 +41,37 @@ namespace Smuxi.Frontend.Stfl
 #if LOG4NET
         private static readonly log4net.ILog _Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 #endif
-        private MainWindow _MainWindow;
-        
-        public event EventHandler Activated;
-        
+        MainWindow      f_MainWindow;
+        ChatViewManager f_ChatViewManager;
+
+        event EventHandler Activated;
+
         public string Text {
             get {
-                return _MainWindow["input_text"];
+                return f_MainWindow["input_text"];
             }
             set {
-                _MainWindow["input_text"] = value;
+                f_MainWindow["input_text"] = value;
             }
         }
         
-        public Entry(MainWindow mainWindow)
+        public Entry(MainWindow mainWindow, ChatViewManager chatViewManager)
         {
-            _MainWindow = mainWindow;
-            _MainWindow.KeyPressed += new KeyPressedEventHandler(_OnKeyPressed);
+           if (mainWindow == null) {
+                throw new ArgumentNullException("mainWindow");
+           }
+           if (chatViewManager == null) {
+                throw new ArgumentNullException("chatViewManager");
+           }
+
+            f_MainWindow = mainWindow;
+            f_MainWindow.KeyPressed += OnKeyPressed;
+            
+            f_ChatViewManager = chatViewManager;
+            f_ChatViewManager.CurrentChatSwitched += OnChatSwitched;
         }
         
-        private void _OnKeyPressed(object sender, KeyPressedEventArgs e)
+        private void OnKeyPressed(object sender, KeyPressedEventArgs e)
         {
             Trace.Call(sender, e);
             
@@ -72,12 +83,20 @@ namespace Smuxi.Frontend.Stfl
                     OnActivated(EventArgs.Empty);
                     break;
                 case "PPAGE":
-                    _MainWindow.ChatViewManager.ActiveChat.ScrollUp();
+                    f_MainWindow.ChatViewManager.ActiveChat.ScrollUp();
                     break;
                 case "NPAGE":
-                    _MainWindow.ChatViewManager.ActiveChat.ScrollDown();
+                    f_MainWindow.ChatViewManager.ActiveChat.ScrollDown();
                     break;
             } 
+        }
+
+        private void OnChatSwitched(object sender, ChatSwitchedEventArgs e)
+        {
+            Trace.Call(sender, e);
+
+            f_MainWindow["input_label_text"] = String.Format("[{0}] ",
+                                                e.ChatView.ChatModel.ID);
         }
 
         public virtual void OnActivated(EventArgs e)
@@ -99,10 +118,10 @@ namespace Smuxi.Frontend.Stfl
             
             bool handled = false;
             CommandModel cd = new CommandModel(Frontend.FrontendManager,
-                                               _MainWindow.ChatViewManager.ActiveChat.ChatModel,
+                                               f_MainWindow.ChatViewManager.ActiveChat.ChatModel,
                                                (string)Frontend.UserConfig["Interface/Entry/CommandCharacter"],
                                                cmd);
-            //handled = _Command(cd);
+            handled = Command(cd);
             if (!handled) {
                 handled = Frontend.Session.Command(cd);
             }
@@ -118,6 +137,45 @@ namespace Smuxi.Frontend.Stfl
             if (!handled) {
                _CommandUnknown(cd);
             }
+        }
+
+        private bool Command(CommandModel cmd)
+        {
+            bool handled = false;
+            if (cmd.IsCommand) {
+                switch (cmd.Command.ToLower()) {
+                    case "window":
+                        CommandWindow(cmd);
+                        handled = true;
+                        break;
+                    case "gc":
+#if LOG4NET
+                        _Logger.Debug("GC.Collect()");
+#endif
+                        cmd.FrontendManager.AddTextToChat(cmd.Chat,
+                            "-!- GCing...");
+                        GC.Collect();
+                        handled = true;
+                        break;
+                }
+            }
+            return handled;
+        }
+
+        private void CommandWindow(CommandModel cmd)
+        {
+            int window;
+            if (!Int32.TryParse(cmd.Parameter, out window)) {
+                return;
+            }
+            if (window < 1) {
+                return;
+            }
+            ChatView chat = f_ChatViewManager.GetChat(window - 1);
+            if (chat == null) {
+                return;
+            }
+            f_ChatViewManager.CurrentChat = chat;
         }
 
         private void _CommandUnknown(CommandModel cd)

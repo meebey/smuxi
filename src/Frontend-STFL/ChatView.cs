@@ -43,29 +43,101 @@ namespace Smuxi.Frontend.Stfl
     public class ChatView : IChatView
     {
 #if LOG4NET
-        private static readonly log4net.ILog _Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        static readonly log4net.ILog _Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 #endif
-        private ChatModel  _ChatModel;
-        private MainWindow _MainWindow;
-        
+        // HACK: STFL crashes if we use 0 in a widget name
+        static int f_NextID = 1;
+        int        f_WidgetID;
+        string     f_WidgetName;
+        ChatModel  f_ChatModel;
+        MainWindow f_MainWindow;
+
         public ChatModel ChatModel {
             get {
-                return _ChatModel;
+                return f_ChatModel;
             }
         }
-        
-        public MainWindow MainWindow {
+
+        public bool IsVisible {
             get {
-                return _MainWindow;
+                return f_MainWindow[f_WidgetName + "_display"] == "1";
             }
             set {
-                _MainWindow = value;
+                /*
+                f_MainWindow.Modify(f_WidgetName, "replace",
+                                   ".display:" + (value ?  "1" : "0"));
+                */
+                //f_MainWindow[f_WidgetName + ":.display"] = value ?  "1" : "0";
+                f_MainWindow[f_WidgetID + "d"] = value ?  "1" : "0";
+           }
+        }
+
+        public string WidgetName {
+            get {
+                return f_WidgetName;
             }
         }
         
-        public ChatView(ChatModel chat)
+        public int Offset {
+            get {
+                int offset;
+                string offsetStr = f_MainWindow[f_WidgetID + "os"];
+                if (!Int32.TryParse(offsetStr, out offset)) {
+#if LOG4NET
+                    _Logger.Error("Offset(): Int32.Parse(\"" + offsetStr + "\")  failed!");
+#endif
+                    return 0;
+                }
+                return offset;
+            }
+            set {
+                f_MainWindow[f_WidgetID + "os"] = value.ToString();
+            }
+        }
+        
+        public int Heigth {
+            get {
+                // force height refresh
+                f_MainWindow.Run(-3);
+                string heigthStr = f_MainWindow["output_vbox:h"];
+                int heigth;
+                if (!Int32.TryParse(heigthStr, out heigth)) {
+#if LOG4NET
+                    _Logger.Error("get_Heigth(): Int32.Parse(\"" + heigthStr + "\") failed!");
+#endif
+                    return 0;
+                }
+                return heigth;
+            }
+        }
+
+        public ChatView(ChatModel chat, MainWindow window)
         {
-            _ChatModel = chat;
+            Trace.Call(chat, window);
+
+            if (chat == null) {
+                throw new ArgumentNullException("chat");
+            }
+            if (window == null) {
+                throw new ArgumentNullException("window");
+            }
+
+            f_ChatModel = chat;
+            f_MainWindow = window;
+            f_WidgetID = f_NextID++;
+            f_WidgetName = "output_textview_" + f_WidgetID;
+
+            // FIXME: move me to the caller scope
+            //f_MainWindow.Modify("output_vbox", "append", "{textview[ " + f_WidgetName + "] .expand:vh .display:0 offset:0}");
+            f_MainWindow.Modify("output_vbox", "append",
+                "{" +
+                    "textview[" + f_WidgetName + "] " +
+                        ".expand:vh " +
+                        ".display[" + f_WidgetID + "d]:0 " +
+                        "offset[" + f_WidgetID + "os]:0 " +
+                        "style_end:\"\" " +
+                "}"
+            );
         }
         
         public virtual void Enable()
@@ -85,9 +157,9 @@ namespace Smuxi.Frontend.Stfl
 #endif
             // sync messages
             // cleanup, be sure the output is empty
-            _MainWindow.Modify("output_textview", "replace_inner", "");
+            f_MainWindow.Modify("output_textview", "replace_inner", "");
             
-            IList<MessageModel> messages = _ChatModel.Messages;
+            IList<MessageModel> messages = f_ChatModel.Messages;
             if (messages.Count > 0) {
                 foreach (MessageModel msg in messages) {
                     AddMessage(msg);
@@ -95,8 +167,8 @@ namespace Smuxi.Frontend.Stfl
             }
         }
         
-    	public void AddMessage(MessageModel msg)
-    	{
+        public void AddMessage(MessageModel msg)
+        {
             string finalMsg = String.Empty;
             foreach (MessagePartModel msgPart in msg.MessageParts) {
                 // TODO: implement other types
@@ -112,38 +184,61 @@ namespace Smuxi.Frontend.Stfl
             } catch (FormatException e) {
                 timestamp = "Timestamp Format ERROR: " + e.Message;
             }
-            finalMsg = timestamp + " " + _ChatModel.Name + " " + finalMsg;
+            finalMsg = timestamp + " " + finalMsg;
             
-            _MainWindow.Modify("output_textview", "append", "{listitem text:" + StflApi.stfl_quote(finalMsg) + "}"); 
-            
-            ScrollToEnd();
-    	}
-    	
-    	public void ScrollUp()
-        {
-            Trace.Call();
-        }
-        
-    	public void ScrollDown()
-        {
-            Trace.Call();
+            f_MainWindow.Modify(f_WidgetName, "append", "{listitem text:" + StflApi.stfl_quote(finalMsg) + "}"); 
             
             ScrollToEnd();
         }
         
-    	public void ScrollToStart()
-        {
-            Trace.Call();
-        }
-        
-    	public void ScrollToEnd()
+        public void ScrollUp()
         {
             Trace.Call();
             
-            // let height refresh
-            //_MainWindow.Run(-1);
-            //_MainWindow.Modify("output_textview", "replace", "offset:-1");
-            _MainWindow["output_textview_offset"] = (_ChatModel.Messages.Count - 1).ToString();
-        }     
+            Scroll(-0.9);
+        }
+        
+        public void ScrollDown()
+        {
+            Trace.Call();
+            
+            Scroll(0.9);
+        }
+
+        protected void Scroll(double scrollFactor)
+        {
+            int currentOffset = Offset;
+            int newOffset = (int) (currentOffset + (Heigth * scrollFactor));
+#if LOG4NET
+            _Logger.Debug("Scroll(" + scrollFactor + "):" + 
+                          " chat: " + ChatModel.ID +
+                          " old offset: " + currentOffset +
+                          " new offset: " + newOffset);
+#endif
+            if (newOffset < 0) {
+                newOffset = 0;
+            } else if (newOffset > f_ChatModel.Messages.Count) {
+                newOffset = f_ChatModel.Messages.Count;
+            }
+            Offset = newOffset;
+        }
+
+        public void ScrollToStart()
+        {
+            Trace.Call();
+            
+        }
+        
+        public void ScrollToEnd()
+        {
+            Trace.Call();
+            
+#if LOG4NET
+            //_Logger.Debug("output_textview_offset: " + f_MainWindow["output_textview_offset"]);
+            //_Logger.Debug("output_textview_pos: " + f_MainWindow["output_textview_pos"]);
+            //_Logger.Debug("dump: " + _MainWindow.Dump("output_textview", "", 0));
+#endif
+            //f_MainWindow["output_textview_offset"] = (f_ChatModel.Messages.Count - 1).ToString();
+        }
     }
 }

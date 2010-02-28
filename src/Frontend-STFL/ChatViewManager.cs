@@ -41,52 +41,99 @@ namespace Smuxi.Frontend.Stfl
 #if LOG4NET
         private static readonly log4net.ILog _Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 #endif
-        private MainWindow                      _MainWindow;
-        private ChatView                        _ActiveChat;
-        private Dictionary<ChatModel, ChatView> _ChatViews = new Dictionary<ChatModel, ChatView>();
-        
+        private MainWindow                      f_MainWindow;
+        private ChatView                        f_CurrentChat;
+        private Dictionary<ChatModel, ChatView> f_ChatViews = new Dictionary<ChatModel, ChatView>();
+        private List<ChatView>                  f_ChatViewList = new List<ChatView>();
+
+        public event ChatSwitchedEventHandler CurrentChatSwitched;
+
         public override IChatView ActiveChat {
             get {
-                return _ActiveChat;
+                return CurrentChat;
+            }
+        }
+        
+        public ChatView CurrentChat {
+            get {
+                return f_CurrentChat;
+            }
+            set {
+                if (f_CurrentChat != null) {
+                    f_CurrentChat.IsVisible = false;
+                }
+
+                f_CurrentChat = value;
+                if (f_CurrentChat != null) {
+#if LOG4NET
+                    _Logger.Debug("set_CurrentChat(): making " + value.ChatModel.ID + " visible");
+#endif
+                    f_CurrentChat.IsVisible = true;
+                }
+
+                if (CurrentChatSwitched != null) {
+                    CurrentChatSwitched(this, new ChatSwitchedEventArgs(f_CurrentChat));
+                }
             }
         }
 
         public ChatViewManager(MainWindow mainWindow)
         {
-            _MainWindow = mainWindow;
+           if (mainWindow == null) {
+                throw new ArgumentNullException("mainWindow");
+           }
+
+           f_MainWindow = mainWindow;
         }
         
         public override void AddChat(ChatModel chat)
         {
-            ChatView chatView = (ChatView) CreateChatView(chat);
-            chatView.MainWindow = _MainWindow;
-            _ChatViews.Add(chat, chatView);
-            
-            _ActiveChat = chatView;
+            ChatView chatView = (ChatView) CreateChatView(chat, f_MainWindow);
+            f_ChatViews.Add(chat, chatView);
+            f_ChatViewList.Add(chatView);
+
+            if (CurrentChat == null) {
+                CurrentChat = chatView;
+            }
         }
-        
+
         public override void RemoveChat(ChatModel chat)
         {
-            ChatView chatView = _ChatViews[chat];
-            _ChatViews.Remove(chat);
+            f_ChatViews.Remove(chat);
         }
         
         public override void EnableChat(ChatModel chat)
         {
-               ChatView chatView = _ChatViews[chat];
-               chatView.Enable();
+           ChatView chatView = f_ChatViews[chat];
+           chatView.Enable();
         }
         
         public override void DisableChat(ChatModel chat)
         {
-               ChatView chatView = _ChatViews[chat];
-               chatView.Disable();
+           ChatView chatView = f_ChatViews[chat];
+           chatView.Disable();
         }
         
         public ChatView GetChat(ChatModel chat)
         {
-            return _ChatViews[chat];
-            //return _ActiveChat;
+            return f_ChatViews[chat];
         }
-    }   
+        
+        public ChatView GetChat(int chat)
+        {
+            return f_ChatViewList[chat];
+        }
+    }
+
+    public delegate void ChatSwitchedEventHandler(object sender, ChatSwitchedEventArgs e);
+    
+    public class ChatSwitchedEventArgs : EventArgs
+    {
+        public ChatView ChatView { get; set; }
+        
+        public ChatSwitchedEventArgs(ChatView chatView)
+        {
+            ChatView = chatView;
+        }
+    }
 }

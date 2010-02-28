@@ -4,7 +4,7 @@
     <Configuration name="Debug" ctype="DotNetProjectConfiguration">
       <Output directory="../../bin/debug" assembly="smuxi-frontend-stfl" />
       <Build debugmode="True" target="Exe" />
-      <Execution consolepause="True" externalconsole="True" runwithwarnings="True" runtime="MsNet" clr-version="Net_2_0" />
+      <Execution consolepause="True" externalconsole="True" commandlineparameters="-d" runwithwarnings="True" runtime="MsNet" clr-version="Net_2_0" />
       <CodeGeneration compiler="Mcs" warninglevel="4" optimize="True" unsafecodeallowed="False" generateoverflowchecks="True" definesymbols="DEBUG,TRACE,LOG4NET" generatexmldocumentation="False" ctype="CSharpCompilerParameters" />
     </Configuration>
     <Configuration name="Release" ctype="DotNetProjectConfiguration">
@@ -31,6 +31,7 @@
     <File subtype="Code" buildaction="Compile" name="STFL/StflApi.cs" />
     <File subtype="Code" buildaction="Compile" name="STFL/Test.cs" />
     <File subtype="Code" buildaction="Nothing" name="STFL/libstflsharp.so" copyToOutputDirectory="PreserveNewest" Gettext.ScanForTranslations="False" />
+    <File subtype="Code" buildaction="Compile" name="STFL/NcursesApi.cs" />
   </Contents>
   <References>
     <ProjectReference type="Project" localcopy="True" refto="Engine" />
