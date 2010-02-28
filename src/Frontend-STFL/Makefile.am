@@ -83,6 +83,8 @@ FILES = \
 	Entry.cs \
 	STFL/Form.cs \
 	STFL/KeyPressedEventArgs.cs \
+	STFL/NcursesApi.cs \
+	STFL/StflApi.cs \
 	ChatView.cs \
 	ChatViewManager.cs 
 
@@ -96,7 +98,7 @@ EXTRAS = \
 
 REFERENCES =  \
 	System \
-	Mono.Posix
+	Mono.Posix \
 	$(STFL_LIBS) \
 	$(LOG4NET_LIBS)
 
