@@ -324,6 +324,10 @@ namespace Smuxi.Engine
             Regex regex;
             //go through the user's custom highlight words and check for them.
             foreach (string HighlightString in (string[]) Session.UserConfig["Interface/Chat/HighlightWords"]) {
+                if (String.IsNullOrEmpty(HighlightString)) {
+                    continue;
+                }
+
                 if (HighlightString.StartsWith("/") && HighlightString.EndsWith("/")) {
                     // This is a regex, so just build a regex out of the string.
                     regex = new Regex(HighlightString.Substring(1,HighlightString.Length-2));
