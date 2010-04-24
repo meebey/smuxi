@@ -33,6 +33,7 @@ using System.Globalization;
 using Smuxi;
 using Smuxi.Common;
 using Smuxi.Engine;
+using System.Text.RegularExpressions;
 
 namespace Smuxi.Frontend.Gnome
 {
@@ -131,6 +132,8 @@ namespace Smuxi.Frontend.Gnome
             ((Gtk.CheckButton)_Glade["OverrideBackgroundColorCheckButton"]).Toggled += OnOverrideBackgroundColorCheckButtonToggled;
             ((Gtk.CheckButton)_Glade["OverrideFontCheckButton"]).Toggled += OnOverrideFontCheckButtonToggled;
 
+            ((Gtk.TextView)_Glade["HighlightWordsTextView"]).Buffer.Changed += _OnChanged;
+
             Gtk.ComboBox wrapModeComboBox = (Gtk.ComboBox)_Glade["WrapModeComboBox"];
             // initialize wrap modes
             // glade might initialize it already!
@@ -201,7 +204,7 @@ namespace Smuxi.Frontend.Gnome
             ((Gtk.Entry)_Glade["ConnectionRealnameEntry"]).Text  = (string)Frontend.UserConfig["Connection/Realname"];
             string connect_commands = String.Join("\n", (string[])Frontend.UserConfig["Connection/OnConnectCommands"]);
             ((Gtk.TextView)_Glade["OnConnectCommandsTextView"]).Buffer.Text = connect_commands;
-            
+
             string encoding = (string)Frontend.UserConfig["Connection/Encoding"];
             encoding = encoding.ToUpper();
 
@@ -406,6 +409,9 @@ namespace Smuxi.Frontend.Gnome
             ((Gtk.SpinButton)_Glade["CommandHistorySizeSpinButton"]).Value =
                 (double)(int)Frontend.UserConfig["Interface/Entry/CommandHistorySize"];
 
+            string highlight_words = String.Join("\n", (string[])Frontend.UserConfig["Interface/Chat/HighlightWords"]);
+            ((Gtk.TextView)_Glade["HighlightWordsTextView"]).Buffer.Text  = highlight_words;
+
             ((Gtk.CheckButton)_Glade["BeepOnHighlightCheckButton"]).Active =
                 (bool)Frontend.UserConfig["Sound/BeepOnHighlight"];
             
@@ -592,6 +598,21 @@ namespace Smuxi.Frontend.Gnome
             Frontend.UserConfig["Interface/Entry/CommandHistorySize"] =
                 (int)((Gtk.SpinButton)_Glade["CommandHistorySizeSpinButton"]).Value;
             
+            Frontend.UserConfig["Interface/Chat/HighlightWords"] = null;
+
+            string[] highlight_words = ((Gtk.TextView) _Glade["HighlightWordsTextView"]).Buffer.Text.Split(new char[] { '\n' });
+            foreach (string word in highlight_words) {
+                if (word.StartsWith("/") && word.EndsWith("/")) {
+                    try {
+                        Regex regex = new Regex(word.Substring(1, word.Length - 2));
+                    } catch (ArgumentException ex) {
+                        throw new ApplicationException(String.Format("Invalid custom highlight: '{0}' is an invalid regular expression: {1}", word, ex.Message));
+                    }
+                }
+            }
+
+            Frontend.UserConfig["Interface/Chat/HighlightWords"] = highlight_words;
+
             Frontend.UserConfig["Sound/BeepOnHighlight"] =
                 ((Gtk.CheckButton)_Glade["BeepOnHighlightCheckButton"]).Active;
             

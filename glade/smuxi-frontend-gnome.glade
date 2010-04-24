@@ -1872,6 +1872,7 @@ yy/yyyy = year</property>
                                     <property name="border_width">5</property>
                                     <child>
                                       <widget class="GtkVBox" id="vbox12">
+                                        <property name="visible">True</property>
                                         <child>
                                           <widget class="GtkLabel" id="label62">
                                             <property name="visible">True</property>
