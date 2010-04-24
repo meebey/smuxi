@@ -29,7 +29,7 @@ endif
 
 if ENABLE_DEBUG
 ASSEMBLY_COMPILER_COMMAND = @MCS@
-ASSEMBLY_COMPILER_FLAGS =  -noconfig -codepage:utf8 -warn:4 -optimize+ -debug -define:DEBUG "-define:DEBUG,TRACE,LOG4NET"
+ASSEMBLY_COMPILER_FLAGS =  -noconfig -codepage:utf8 -warn:4 -optimize+ -debug -define:DEBUG "-define:DEBUG,TRACE"
 
 ASSEMBLY = ../../bin/debug/smuxi-frontend-stfl.exe
 ASSEMBLY_MDB = $(ASSEMBLY).mdb
@@ -116,13 +116,18 @@ STFL_DLL = $(BUILD_DIR)/Stfl.dll
 SMUXI_FRONTEND_DLL = $(BUILD_DIR)/smuxi-frontend.dll
 SMUXI_COMMON_DLL = $(BUILD_DIR)/smuxi-common.dll
 
+STFLSHARP_SO_SOURCE = $(builddir)/STFL/libstflsharp.so
+STFLSHARP_SO = $(BUILD_DIR)/libstflsharp.so
+
+build_datafiles = $(STFLSHARP_SO)
+
 $(eval $(call emit-deploy-wrapper,FRONTEND_STFL,smuxi-frontend-stfl,x))
 $(eval $(call emit-deploy-target,SMUXI_ENGINE_DLL_MDB))
 $(eval $(call emit-deploy-target,SMUXI_ENGINE_DLL))
 $(eval $(call emit-deploy-target,SMUXI_FRONTEND_DLL_MDB))
 $(eval $(call emit-deploy-target,SMUXI_FRONTEND_DLL))
 $(eval $(call emit-deploy-target,SMUXI_COMMON_DLL))
-
+$(eval $(call emit-deploy-target,STFLSHARP_SO))
 
 $(build_xamlg_list): %.xaml.g.cs: %.xaml
 	xamlg '$<'
