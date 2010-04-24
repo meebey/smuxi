@@ -2567,7 +2567,7 @@ namespace Smuxi.Engine
                 return IrcTextColor.Blue;
             }
             
-            return GetIdentityNameColor(NormalizeNick(nickname.TrimEnd("_")));
+            return GetIdentityNameColor(NormalizeNick(nickname.TrimEnd('_')));
         }
         
         private void _OnChannelMessage(object sender, IrcEventArgs e)
