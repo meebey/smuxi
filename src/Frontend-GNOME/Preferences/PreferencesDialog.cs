@@ -606,7 +606,12 @@ namespace Smuxi.Frontend.Gnome
                     try {
                         Regex regex = new Regex(word.Substring(1, word.Length - 2));
                     } catch (ArgumentException ex) {
-                        throw new ApplicationException(String.Format("Invalid custom highlight: '{0}' is an invalid regular expression: {1}", word, ex.Message));
+                        throw new ApplicationException(
+                            String.Format(
+                                _("Invalid highlight regex: '{0}'. Reason: {1}"),
+                                word, ex.Message
+                            )
+                        );
                     }
                 }
             }
