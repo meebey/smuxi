@@ -121,6 +121,9 @@ namespace Smuxi.Frontend.Stfl
         
         public ChatView GetChat(int chat)
         {
+            if (chat < 0 || chat >= f_ChatViewList.Count) {
+                return null;
+            }
             return f_ChatViewList[chat];
         }
     }

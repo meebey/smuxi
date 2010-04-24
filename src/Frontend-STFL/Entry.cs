@@ -168,9 +168,6 @@ namespace Smuxi.Frontend.Stfl
             if (!Int32.TryParse(cmd.Parameter, out window)) {
                 return;
             }
-            if (window < 1) {
-                return;
-            }
             ChatView chat = f_ChatViewManager.GetChat(window - 1);
             if (chat == null) {
                 return;
