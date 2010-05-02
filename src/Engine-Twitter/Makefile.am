@@ -13,7 +13,7 @@ REFERENCES = 		$(LOG4NET_LIBS) \
 			$(SMARTIRC4NET_LIBS) \
 			System.Web
 
-DLL_REFERENCES =	$(TARGET_DIR)/Twitterizer.Framework.dll \
+DLL_REFERENCES =	$(TARGET_DIR)/Twitterizer2.dll \
 			$(TARGET_DIR)/smuxi-common.dll \
 			$(TARGET_DIR)/smuxi-engine.dll
 

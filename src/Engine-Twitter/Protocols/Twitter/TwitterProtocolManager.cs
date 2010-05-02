@@ -20,10 +20,12 @@
 
 using System;
 using System.Net;
+using System.Net.Security;
 using System.Web;
+using System.Security.Cryptography.X509Certificates;
 using System.Threading;
 using System.Collections.Generic;
-using Twitterizer.Framework;
+using Twitterizer;
 using Smuxi.Common;
 
 namespace Smuxi.Engine
@@ -42,8 +44,12 @@ namespace Smuxi.Engine
 #endif
         static readonly string f_LibraryTextDomain = "smuxi-engine-twitter";
         static readonly TextColor f_BlueTextColor = new TextColor(0x0000FF);
-        Twitter                 f_Twitter;
+        
+        OAuthTokens             f_OAuthTokens;
+        string                  f_RequestToken;
+        OptionalProperties      f_OptionalProperties;
         TwitterUser             f_TwitterUser;
+        WebProxy                f_WebProxy;
         string                  f_Username;
         ProtocolChatModel       f_ProtocolChat;
         Dictionary<string, PersonModel> f_Friends;
@@ -53,27 +59,31 @@ namespace Smuxi.Engine
         AutoResetEvent          f_FriendsTimelineEvent = new AutoResetEvent(false);
         Thread                  f_UpdateFriendsTimelineThread;
         int                     f_UpdateFriendsTimelineInterval = 120;
-        Int64?                  f_LastFriendsTimelineStatusID;
+        decimal                 f_LastFriendsTimelineStatusID;
         DateTime                f_LastFriendsUpdate;
 
         GroupChatModel          f_RepliesChat;
         Thread                  f_UpdateRepliesThread;
         int                     f_UpdateRepliesInterval = 120;
-        Int64?                  f_LastReplyStatusID;
+        decimal                 f_LastReplyStatusID;
 
         GroupChatModel          f_DirectMessagesChat;
         AutoResetEvent          f_DirectMessageEvent = new AutoResetEvent(false);
         Thread                  f_UpdateDirectMessagesThread;
         int                     f_UpdateDirectMessagesInterval = 120;
-        Int64?                  f_LastDirectMessageReceivedStatusID;
-        Int64?                  f_LastDirectMessageSentStatusID;
+        decimal                 f_LastDirectMessageReceivedStatusID;
+        decimal                 f_LastDirectMessageSentStatusID;
 
         bool                    f_Listening;
         bool                    f_IsConnected;
 
         public override string NetworkID {
             get {
-                return "Twitter";
+                if (f_TwitterUser == null) {
+                    return "Twitter";
+                }
+
+                return String.Format("Twitter/{0}", f_TwitterUser.ScreenName);
             }
         }
 
@@ -88,12 +98,27 @@ namespace Smuxi.Engine
                 return f_ProtocolChat;
             }
         }
+        
+        protected bool HasTokens {
+            get {
+                return f_OAuthTokens != null &&
+                       !String.IsNullOrEmpty(f_OAuthTokens.ConsumerKey) &&
+                       !String.IsNullOrEmpty(f_OAuthTokens.ConsumerSecret) &&
+                       !String.IsNullOrEmpty(f_OAuthTokens.AccessToken) &&
+                       !String.IsNullOrEmpty(f_OAuthTokens.AccessTokenSecret);
+            }
+        }
+
+        static TwitterProtocolManager()
+        {
+            //ServicePointManager.CertificatePolicy = new CertificateValidator();
+            ServicePointManager.ServerCertificateValidationCallback =
+                ValidateCertificate;
+        }
 
         public TwitterProtocolManager(Session session) : base(session)
         {
             Trace.Call(session);
-
-            f_ProtocolChat = new ProtocolChatModel(NetworkID, "Twitter", this);
 
             f_FriendsTimelineChat = new GroupChatModel(
                 TwitterChatType.FriendsTimeline.ToString(),
@@ -133,11 +158,15 @@ namespace Smuxi.Engine
                 uriBuilder.UserName = (string) Session.UserConfig["Connection/ProxyUsername"];
                 uriBuilder.Password = (string) Session.UserConfig["Connection/ProxyPassword"];
                 var proxyUri = uriBuilder.ToString();
-                f_Twitter = new Twitter(username, password, "Smuxi", proxyUri);
-            } else {
-                f_Twitter = new Twitter(username, password, "Smuxi");
+                f_WebProxy = new WebProxy(proxyUri);
             }
 
+            f_OptionalProperties = new OptionalProperties();
+            if (f_WebProxy != null) {
+                f_OptionalProperties.Proxy = f_WebProxy;
+            }
+
+            f_ProtocolChat = new ProtocolChatModel(NetworkID, "Twitter " + username, this);
             Session.AddChat(f_ProtocolChat);
             Session.SyncChat(f_ProtocolChat);
 
@@ -146,33 +175,94 @@ namespace Smuxi.Engine
             fm.SetStatus(msg);
             Session.AddTextToChat(f_ProtocolChat, "-!- " + msg);
             try {
-                // for some reason VerifyCredentials() always fails
-                //bool login = Twitter.VerifyCredentials(username, password);
-                bool login = true;
-                if (!login) {
-                    fm.SetStatus(_("Login failed!"));
-                    Session.AddTextToChat(f_ProtocolChat,
-                        "-!- " + _("Login failed! Username and/or password are " +
-                        "incorrect.")
+                var key = GetApiKey();
+                f_OAuthTokens = new OAuthTokens();
+                f_OAuthTokens.ConsumerKey = key[0];
+                f_OAuthTokens.ConsumerSecret = key[1];
+
+                MessageBuilder builder;
+                var servers = new ServerListController(Session.UserConfig);
+                var server = servers.GetServer(Protocol, username);
+                if (server != null) {
+                    if (password == null) {
+                        // no password passed, use server password
+                        password = server.Password;
+                    }
+                }
+
+                password = password ?? String.Empty;
+                var access = password.Split('|');
+                if (password.Length == 0 || access.Length == 1) {
+                    // new account or basic auth user that needs to be migrated
+                    var reqToken = OAuthUtility.GetRequestToken(key[0], key[1],
+                                                            "oob", f_WebProxy);
+                    f_RequestToken = reqToken.Token;
+                    var authUri = OAuthUtility.BuildAuthorizationUri(f_RequestToken);
+                    builder = CreateMessageBuilder();
+                    builder.AppendEventPrefix();
+                    builder.AppendText(_("Twitter authorization required."));
+                    Session.AddMessageToChat(f_ProtocolChat, builder.ToMessage());
+                    
+                    /*
+                        _("Twitter authorization required, please open the " +
+                          "following URL and enter the returned PIN using the " +
+                          "/pin command: {0}"),
+                        String.Empty
                     );
-                    return;
+                    */
+
+                    builder = CreateMessageBuilder();
+                    builder.AppendEventPrefix();
+                    // TRANSLATOR: do NOT change the position of {0}!
+                    builder.AppendText(
+                        _("Please open the following URL and click " +
+                          "\"Allow\" to allow Smuxi to connect to your " +
+                          "Twitter account: {0}"),
+                        String.Empty
+                    );
+                    Session.AddMessageToChat(f_ProtocolChat, builder.ToMessage());
+
+                    builder = CreateMessageBuilder();
+                    builder.AppendEventPrefix();
+                    builder.AppendText(" ");
+                    builder.AppendUrl(authUri.AbsoluteUri);
+                    Session.AddMessageToChat(f_ProtocolChat, builder.ToMessage());
+
+                    builder = CreateMessageBuilder();
+                    builder.AppendEventPrefix();
+                    builder.AppendText(
+                        _("Once you have allowed Smuxi to access your " +
+                          "Twitter account, Twitter will provide a PIN.")
+                    );
+                    Session.AddMessageToChat(f_ProtocolChat, builder.ToMessage());
+
+                    builder = CreateMessageBuilder();
+                    builder.AppendEventPrefix();
+                    builder.AppendText(_("Please type: /pin PIN_FROM_TWITTER"));
+                    Session.AddMessageToChat(f_ProtocolChat, builder.ToMessage());
+                } else {
+                    f_OAuthTokens.AccessToken = access[0];
+                    f_OAuthTokens.AccessTokenSecret = access[1];
                 }
             } catch (Exception ex) {
+#if LOG4NET
+                f_Logger.Error("Connect(): Exception", ex);
+#endif
                 fm.SetStatus(_("Connection failed!"));
                 Session.AddTextToChat(f_ProtocolChat,
                     "-!- " + _("Connection failed! Reason: ") + ex.Message
                 );
                 return;
             }
-            f_IsConnected = true;
-            msg =_("Successfully connected to Twitter.");
-            fm.SetStatus(msg);
-            Session.AddTextToChat(f_ProtocolChat, "-!- " + msg);
 
-            f_Listening = true;
             // twitter is sometimes pretty slow, so fetch this in the background
             ThreadPool.QueueUserWorkItem(delegate {
                 try {
+                    // FIXME: replace with AutoResetEvent
+                    while (!HasTokens) {
+                        Thread.Sleep(1000);
+                    }
+                    
                     var message = _("Fetching user details from Twitter, please wait...");
                     Session.AddTextToChat(f_ProtocolChat, "-!- " + message);
 
@@ -181,19 +271,38 @@ namespace Smuxi.Engine
                     message = _("Finished fetching user details.");
                     Session.AddTextToChat(f_ProtocolChat, "-!- " + message);
 
-                    f_FriendsTimelineChat.PersonCount = f_TwitterUser.NumberOfFriends;
-                    f_RepliesChat.PersonCount = f_TwitterUser.NumberOfFriends;
-                    f_DirectMessagesChat.PersonCount = f_TwitterUser.NumberOfFriends;
+                    f_IsConnected = true;
+                    fm.UpdateNetworkStatus();
+                    msg =_("Successfully connected to Twitter.");
+                    fm.SetStatus(msg);
+                    Session.AddTextToChat(f_ProtocolChat, "-!- " + msg);
+                    f_Listening = true;
+
+                    f_FriendsTimelineChat.PersonCount = 
+                    f_RepliesChat.PersonCount = 
+                    f_DirectMessagesChat.PersonCount = (int) f_TwitterUser.NumberOfFriends;
                 } catch (Exception ex) {
                     var message = _("Failed to fetch user details from Twitter. Reason: ");
 #if LOG4NET
                     f_Logger.Error("Connect(): " + message, ex);
 #endif
                     Session.AddTextToChat(f_ProtocolChat, "-!- " + message + ex.Message);
+
+                    fm.SetStatus(_("Connection failed!"));
+                    Session.AddTextToChat(f_ProtocolChat,
+                        "-!- " + _("Connection failed! Reason: ") + ex.Message
+                    );
                 }
             });
             ThreadPool.QueueUserWorkItem(delegate {
                 try {
+                    // FIXME: replace with AutoResetEvent
+                    // f_TwitterUser needed for proper self detection in the
+                    // CreatePerson() method
+                    while (!HasTokens || f_TwitterUser == null) {
+                        Thread.Sleep(1000);
+                    }
+
                     var message = _("Fetching friends from Twitter, please wait...");
                     Session.AddTextToChat(f_ProtocolChat, "-!- " + message);
 
@@ -346,15 +455,15 @@ namespace Smuxi.Engine
             f_UpdateDirectMessagesThread.Start();
         }
 
-        private ChatModel OpenPrivateChat(int userId)
-        {
-            return OpenPrivateChat(userId.ToString());
-        }
-
         private ChatModel OpenPrivateChat(string userId)
         {
+            return OpenPrivateChat(Decimal.Parse(userId));
+        }
+
+        private ChatModel OpenPrivateChat(decimal userId)
+        {
             ChatModel chat =  Session.GetChat(
-                userId,
+                userId.ToString(),
                 ChatType.Person,
                 this
             );
@@ -363,11 +472,12 @@ namespace Smuxi.Engine
                 return chat;
             }
 
-            TwitterUser user = f_Twitter.User.Show(userId);
+            TwitterUser user = TwitterUser.Show(f_OAuthTokens, userId,
+                                                f_OptionalProperties);
             PersonModel person = CreatePerson(user);
             PersonChatModel personChat = new PersonChatModel(
                 person,
-                user.ID.ToString(),
+                user.Id.ToString(),
                 user.ScreenName,
                 this
             );
@@ -440,6 +550,10 @@ namespace Smuxi.Engine
                         CommandConnect(command);
                         handled = true;
                         break;
+                    case "pin":
+                        CommandPin(command);
+                        handled = true;
+                        break;
                 }
             } else {
                 if (f_IsConnected) {
@@ -456,7 +570,11 @@ namespace Smuxi.Engine
 
         public override string ToString()
         {
-            return NetworkID;
+            if (f_TwitterUser == null) {
+                return NetworkID;
+            }
+
+            return String.Format("{0} (Twitter)", f_TwitterUser.ScreenName);
         }
 
         public void CommandHelp(CommandModel cd)
@@ -475,7 +593,8 @@ namespace Smuxi.Engine
 
             string[] help = {
                 "help",
-                "connect twitter username password",
+                "connect twitter username",
+                "pin pin-number",
             };
 
             foreach (string line in help) {
@@ -493,15 +612,119 @@ namespace Smuxi.Engine
                 return;
             }
 
-            string pass;
-            if (cd.DataArray.Length >= 4) {
-                pass = cd.DataArray[3];
+            Connect(cd.FrontendManager, null, 0, user, null);
+        }
+
+        public void CommandPin(CommandModel cd)
+        {
+            string pin;
+            if (cd.DataArray.Length >= 2) {
+                pin = cd.DataArray[1];
             } else {
                 NotEnoughParameters(cd);
                 return;
             }
 
-            Connect(cd.FrontendManager, null, 0, user, pass);
+            MessageBuilder builder;
+            if (String.IsNullOrEmpty(f_RequestToken)) {
+                builder = CreateMessageBuilder();
+                builder.AppendEventPrefix();
+                builder.AppendText(_("No pending authorization request!"));
+                Session.AddMessageToChat(f_ProtocolChat, builder.ToMessage());
+                return;
+            }
+            var reqToken = f_RequestToken;
+            f_RequestToken = null;
+
+            var key = GetApiKey();
+            OAuthTokenResponse response;
+            try {
+                response = OAuthUtility.GetAccessToken(key[0], key[1],
+                                                       reqToken, pin,
+                                                       f_WebProxy);
+            } catch (Exception ex) {
+#if LOG4NET
+                f_Logger.Error("CommandPin(): GetAccessToken() threw Exception!", ex);
+#endif
+                builder = CreateMessageBuilder();
+                builder.AppendEventPrefix();
+                // TRANSLATOR: {0} contains the reason of the failure
+                builder.AppendText(
+                    _("Failed to authorize with Twitter: {0}"),
+                    ex.Message
+                );
+                Session.AddMessageToChat(f_ProtocolChat, builder.ToMessage());
+
+                builder = CreateMessageBuilder();
+                builder.AppendEventPrefix();
+                builder.AppendText(
+                    _("Twitter did not accept your PIN.  "  +
+                      "Did you enter it correctly?")
+                );
+                Session.AddMessageToChat(f_ProtocolChat, builder.ToMessage());
+
+                builder = CreateMessageBuilder();
+                builder.AppendEventPrefix();
+                builder.AppendText(
+                    _("Please retry by closing this tab and reconnecting to " +
+                      "the Twitter \"{0}\" account."),
+                    f_Username
+                );
+
+                // allow the user to re-enter the pin
+                // LAME: An incorrect PIN invalidates the request token!
+                //f_RequestToken = reqToken;
+                return;
+            }
+#if LOG4NET
+            f_Logger.Debug("CommandPin(): retrieved " +
+                           " AccessToken: " + response.Token + 
+                           " AccessTokenSecret: " + response.TokenSecret +
+                           " ScreenName: " + response.ScreenName +
+                           " UserId: " + response.UserId);
+#endif
+            var servers = new ServerListController(Session.UserConfig);
+            var server = servers.GetServer(Protocol, response.ScreenName);
+            if (server == null) {
+                server = new ServerModel() {
+                    Protocol = Protocol,
+                    Hostname = response.ScreenName,
+                    Username = response.ScreenName,
+                    Password = String.Format("{0}|{1}", response.Token,
+                                             response.TokenSecret),
+                    OnStartupConnect = true
+                };
+                servers.AddServer(server);
+                
+                var obsoleteServer = servers.GetServer(Protocol, String.Empty);
+                if (obsoleteServer != null &&
+                    obsoleteServer.Username.ToLower() == response.ScreenName.ToLower()) {
+                    // found an old server entry for this user using basic auth
+                    servers.RemoveServer(Protocol, String.Empty);
+
+                    builder = CreateMessageBuilder();
+                    builder.AppendEventPrefix();
+                    builder.AppendText(
+                        _("Migrated Twitter account from basic auth to OAuth.")
+                    );
+                    Session.AddMessageToChat(f_ProtocolChat, builder.ToMessage());
+                }
+            } else {
+                // update token
+                server.Password = String.Format("{0}|{1}", response.Token,
+                                                response.TokenSecret);
+            }
+            servers.Save();
+
+            builder = CreateMessageBuilder();
+            builder.AppendEventPrefix();
+            builder.AppendText(_("Successfully authorized Twitter account " +
+                                 "\"{0}\" for Smuxi"), response.ScreenName);
+            Session.AddMessageToChat(f_ProtocolChat, builder.ToMessage());
+
+            f_OAuthTokens.AccessToken = response.Token;
+            f_OAuthTokens.AccessTokenSecret = response.TokenSecret;
+            f_Username = response.ScreenName;
         }
 
         public void CommandSay(CommandModel cmd)
@@ -533,7 +756,7 @@ namespace Smuxi.Engine
                 }
             } else if (cmd.Chat.ChatType == ChatType.Person) {
                 try {
-                    SendMessage(cmd.Chat.ID, cmd.Data);
+                    SendMessage(cmd.Chat.Name, cmd.Data);
                 } catch (Exception ex) {
 #if LOG4NET
                     f_Logger.Error(ex);
@@ -559,26 +782,21 @@ namespace Smuxi.Engine
                 return;
             }
 
-            TwitterUser user = null;
-            try {
-                user = f_Twitter.User.Show(nickname);
-            } catch (NullReferenceException) {
-                // HACK: User.Show() might throw an NRE if the user does not exist
-                // trying to handle this gracefully
-            }
-            if (user == null) {
+            TwitterUser user = TwitterUser.Show(f_OAuthTokens, nickname,
+                                                f_OptionalProperties);
+            if (user.RequestStatus.Status != RequestResult.Success) {
                 fm.AddTextToChat(cmd.Chat, "-!- " +
                     _("Could not send message - the specified user does not exist.")
                 );
                 return;
             }
 
-            var chat = OpenPrivateChat(user.ID);
+            var chat = OpenPrivateChat(user.Id);
 
             if (cmd.DataArray.Length >= 3) {
                 string message = String.Join(" ", cmd.DataArray, 2, cmd.DataArray.Length-2);
                 try {
-                    SendMessage(user.ID.ToString(), message);
+                    SendMessage(user.ScreenName, message);
                 } catch (Exception ex) {
                     fm.AddTextToChat(chat, "-!- " +
                         String.Format(_("Could not send message - Reason: {0}"),
@@ -598,7 +816,19 @@ namespace Smuxi.Engine
                 sortedTimeline.Add(status);
             }
             sortedTimeline.Sort(
-                (a, b) => (a.Created.CompareTo(b.Created))
+                (a, b) => (a.CreatedDate.CompareTo(b.CreatedDate))
+            );
+            return sortedTimeline;
+        }
+
+        private List<TwitterDirectMessage> SortTimeline(TwitterDirectMessageCollection timeline)
+        {
+            var sortedTimeline = new List<TwitterDirectMessage>(timeline.Count);
+            foreach (TwitterDirectMessage msg in timeline) {
+                sortedTimeline.Add(msg);
+            }
+            sortedTimeline.Sort(
+                (a, b) => (a.CreatedDate.CompareTo(b.CreatedDate))
             );
             return sortedTimeline;
         }
@@ -609,7 +839,8 @@ namespace Smuxi.Engine
 
             try {
                 // query the timeline only after we have fetched the user and friends
-                while (f_TwitterUser == null || f_Friends == null) {
+                while (f_TwitterUser == null /*|| f_TwitterUser.IsEmpty*/ ||
+                       f_Friends == null) {
                     Thread.Sleep(1000);
                 }
 
@@ -666,14 +897,13 @@ namespace Smuxi.Engine
 #if LOG4NET
             f_Logger.Debug("UpdateFriendsTimeline(): getting friend timeline from twitter...");
 #endif
-            TwitterParameters parameters = new TwitterParameters();
-            parameters.Add(TwitterParameterNames.Count, 50);
-            if (f_LastFriendsTimelineStatusID != null) {
-                parameters.Add(TwitterParameterNames.SinceID,
-                               f_LastFriendsTimelineStatusID);
-            }
-            TwitterStatusCollection timeline =
-                f_Twitter.Status.HomeTimeline(parameters);
+            var options = new TimelineOptions() {
+                Proxy = f_WebProxy,
+                SinceStatusId = f_LastFriendsTimelineStatusID,
+                Count = 50
+            };
+            var timeline = TwitterTimeline.HomeTimeline(f_OAuthTokens,
+                                                        options);
 #if LOG4NET
             f_Logger.Debug("UpdateFriendsTimeline(): done. New tweets: " +
                 (timeline == null ? 0 : timeline.Count));
@@ -685,23 +915,24 @@ namespace Smuxi.Engine
             List<TwitterStatus> sortedTimeline = SortTimeline(timeline);
             foreach (TwitterStatus status in sortedTimeline) {
                 String text;
-                if (!status.IsTruncated || status.RetweetedStatus == null) {
+                if ((status.IsTruncated != null && !status.IsTruncated.Value) ||
+                    status.RetweetedStatus == null) {
                     text = status.Text;
                 } else {
                     text = String.Format(
                         "RT @{0}: {1}",
-                        status.RetweetedStatus.TwitterUser.ScreenName,
+                        status.RetweetedStatus.User.ScreenName,
                         status.RetweetedStatus.Text
                     );
                 }
                 MessageModel msg = CreateMessage(
-                    status.Created,
-                    status.TwitterUser,
+                    status.CreatedDate,
+                    status.User,
                     text
                 );
                 Session.AddMessageToChat(f_FriendsTimelineChat, msg);
 
-                f_LastFriendsTimelineStatusID = status.ID;
+                f_LastFriendsTimelineStatusID = status.Id;
             }
         }
 
@@ -711,7 +942,8 @@ namespace Smuxi.Engine
 
             try {
                 // query the replies only after we have fetched the user and friends
-                while (f_TwitterUser == null || f_Friends == null) {
+                while (f_TwitterUser == null /*|| f_TwitterUser.IsEmpty*/ ||
+                       f_Friends == null) {
                     Thread.Sleep(1000);
                 }
 
@@ -766,14 +998,11 @@ namespace Smuxi.Engine
 #if LOG4NET
             f_Logger.Debug("UpdateReplies(): getting replies from twitter...");
 #endif
-            TwitterParameters parameters = new TwitterParameters();
-            parameters.Add(TwitterParameterNames.Count, 50);
-            if (f_LastReplyStatusID != null) {
-                parameters.Add(TwitterParameterNames.SinceID,
-                               f_LastReplyStatusID);
-            }
-            TwitterStatusCollection timeline =
-                f_Twitter.Status.Replies(parameters);
+            var options = new TimelineOptions() {
+                Proxy = f_WebProxy,
+                SinceStatusId = f_LastReplyStatusID
+            };
+            var timeline = TwitterTimeline.Mentions(f_OAuthTokens, options);
 #if LOG4NET
             f_Logger.Debug("UpdateReplies(): done. New replies: " +
                 (timeline == null ? 0 : timeline.Count));
@@ -783,18 +1012,18 @@ namespace Smuxi.Engine
             }
 
             // if this isn't the first time we receive replies, this is new!
-            bool highlight = f_LastReplyStatusID != null;
+            bool highlight = f_LastReplyStatusID != 0;
             List<TwitterStatus> sortedTimeline = SortTimeline(timeline);
             foreach (TwitterStatus status in sortedTimeline) {
                 MessageModel msg = CreateMessage(
-                    status.Created,
-                    status.TwitterUser,
+                    status.CreatedDate,
+                    status.User,
                     status.Text,
                     highlight
                 );
                 Session.AddMessageToChat(f_RepliesChat, msg);
 
-                f_LastReplyStatusID = status.ID;
+                f_LastReplyStatusID = status.Id;
             }
         }
 
@@ -804,7 +1033,8 @@ namespace Smuxi.Engine
 
             try {
                 // query the messages only after we have fetched the user and friends
-                while (f_TwitterUser == null || f_Friends == null) {
+                while (f_TwitterUser == null ||
+                       f_Friends == null) {
                     Thread.Sleep(1000);
                 }
 
@@ -858,18 +1088,17 @@ namespace Smuxi.Engine
         {
             Trace.Call();
 
-            TwitterParameters parameters;
 #if LOG4NET
             f_Logger.Debug("UpdateDirectMessages(): getting received direct messages from twitter...");
 #endif
-            parameters = new TwitterParameters();
-            parameters.Add(TwitterParameterNames.Count, 50);
-            if (f_LastDirectMessageReceivedStatusID != null) {
-                parameters.Add(TwitterParameterNames.SinceID,
-                               f_LastDirectMessageReceivedStatusID);
-            }
-            TwitterStatusCollection receivedTimeline =
-                f_Twitter.DirectMessages.DirectMessages(parameters);
+            var options = new DirectMessagesOptions() {
+                Proxy = f_WebProxy,
+                SinceStatusId = f_LastDirectMessageReceivedStatusID,
+                Count = 50
+            };
+            var receivedTimeline = TwitterDirectMessage.DirectMessages(
+                f_OAuthTokens, options
+            );
 #if LOG4NET
             f_Logger.Debug("UpdateDirectMessages(): done. New messages: " +
                 (receivedTimeline == null ? 0 : receivedTimeline.Count));
@@ -878,28 +1107,28 @@ namespace Smuxi.Engine
 #if LOG4NET
             f_Logger.Debug("UpdateDirectMessages(): getting sent direct messages from twitter...");
 #endif
-            parameters = new TwitterParameters();
-            parameters.Add(TwitterParameterNames.Count, 50);
-            if (f_LastDirectMessageSentStatusID != null) {
-                parameters.Add(TwitterParameterNames.SinceID,
-                               f_LastDirectMessageSentStatusID);
-            }
-            TwitterStatusCollection sentTimeline =
-                f_Twitter.DirectMessages.DirectMessagesSent(parameters);
+            var sentOptions = new DirectMessagesSentOptions() {
+                Proxy = f_WebProxy,
+                SinceStatusId = f_LastDirectMessageSentStatusID,
+                Count = 50
+            };
+            var sentTimeline = TwitterDirectMessage.DirectMessagesSent(
+                f_OAuthTokens, sentOptions
+            );
 #if LOG4NET
             f_Logger.Debug("UpdateDirectMessages(): done. New messages: " +
                 (sentTimeline == null ? 0 : sentTimeline.Count));
 #endif
 
-            TwitterStatusCollection timeline = new TwitterStatusCollection();
+            var timeline = new TwitterDirectMessageCollection();
             if (receivedTimeline != null) {
-                foreach (TwitterStatus status in receivedTimeline) {
-                    timeline.Add(status);
+                foreach (TwitterDirectMessage msg in receivedTimeline) {
+                    timeline.Add(msg);
                 }
             }
             if (sentTimeline != null) {
-                foreach (TwitterStatus status in sentTimeline) {
-                    timeline.Add(status);
+                foreach (TwitterDirectMessage msg in sentTimeline) {
+                    timeline.Add(msg);
                 }
             }
 
@@ -908,28 +1137,28 @@ namespace Smuxi.Engine
                 return;
             }
 
-            List<TwitterStatus> sortedTimeline = SortTimeline(timeline);
-            foreach (TwitterStatus status in sortedTimeline) {
+            var sortedTimeline = SortTimeline(timeline);
+            foreach (TwitterDirectMessage directMsg in sortedTimeline) {
                 // if this isn't the first time a receive a direct message,
                 // this is a new one!
-                bool highlight = receivedTimeline.Contains(status) &&
-                                 f_LastDirectMessageReceivedStatusID != null;
+                bool highlight = receivedTimeline.Contains(directMsg) &&
+                                 f_LastDirectMessageReceivedStatusID != 0;
                 MessageModel msg = CreateMessage(
-                    status.Created,
-                    status.TwitterUser,
-                    status.Text,
+                    directMsg.CreatedDate,
+                    directMsg.Sender,
+                    directMsg.Text,
                     highlight
                 );
                 Session.AddMessageToChat(f_DirectMessagesChat, msg);
 
                 // if there is a tab open for this user put the message there too
                 string userId;
-                if (receivedTimeline.Contains(status)) {
+                if (receivedTimeline.Contains(directMsg)) {
                     // this is a received message
-                    userId =  status.TwitterUser.ID.ToString();
+                    userId =  directMsg.SenderId.ToString();
                 } else {
                     // this is a sent message
-                    userId = status.Recipient.ID.ToString();
+                    userId = directMsg.RecipientId.ToString();
                 }
                 ChatModel chat =  Session.GetChat(
                     userId,
@@ -943,15 +1172,15 @@ namespace Smuxi.Engine
 
             if (receivedTimeline != null) {
                 // first one is the newest
-                foreach (TwitterStatus status in receivedTimeline) {
-                    f_LastDirectMessageReceivedStatusID = status.ID;
+                foreach (TwitterDirectMessage msg in receivedTimeline) {
+                    f_LastDirectMessageReceivedStatusID = msg.Id;
                     break;
                 }
             }
             if (sentTimeline != null) {
                 // first one is the newest
-                foreach (TwitterStatus status in sentTimeline) {
-                    f_LastDirectMessageSentStatusID = status.ID;
+                foreach (TwitterDirectMessage msg in sentTimeline) {
+                    f_LastDirectMessageSentStatusID = msg.Id;
                     break;
                 }
             }
@@ -968,7 +1197,12 @@ namespace Smuxi.Engine
 #if LOG4NET
             f_Logger.Debug("UpdateFriends(): getting friends from twitter...");
 #endif
-            TwitterUserCollection friends = f_Twitter.User.Friends();
+            var options = new FriendsOptions() {
+                Proxy = f_WebProxy
+            };
+            TwitterUserCollection friends = TwitterFriendship.Friends(
+                f_OAuthTokens, options
+            );
 #if LOG4NET
             f_Logger.Debug("UpdateFriends(): done. Friends: " +
                 (friends == null ? 0 : friends.Count));
@@ -990,7 +1224,12 @@ namespace Smuxi.Engine
 #if LOG4NET
             f_Logger.Debug("UpdateUser(): getting user details from twitter...");
 #endif
-            f_TwitterUser = f_Twitter.User.Show(f_Username);
+            var user = TwitterUser.Show(f_OAuthTokens, f_Username,
+                                        f_OptionalProperties);
+            if (user == null || user.RequestStatus.Status != RequestResult.Success) {
+                throw new ApplicationException(user.RequestStatus.ErrorDetails.ErrorMessage);
+            }
+            f_TwitterUser = user;
 #if LOG4NET
             f_Logger.Debug("UpdateUser(): done.");
 #endif
@@ -1021,13 +1260,27 @@ namespace Smuxi.Engine
 
         private void PostUpdate(string text)
         {
-            f_Twitter.Status.Update(text);
+            var options = new StatusUpdateOptions() {
+                Proxy = f_WebProxy
+            };
+            var res = TwitterStatus.Update(f_OAuthTokens, text, options);
+            if (res.RequestStatus.Status != RequestResult.Success) {
+                throw new ApplicationException(
+                    res.RequestStatus.ErrorDetails.ErrorMessage
+                );
+            }
             f_FriendsTimelineEvent.Set();
         }
 
         private void SendMessage(string target, string text)
         {
-            f_Twitter.DirectMessages.New(target, text);
+            var res = TwitterDirectMessage.Send(f_OAuthTokens, target, text,
+                                                f_OptionalProperties);
+            if (res.RequestStatus.Status != RequestResult.Success) {
+                throw new ApplicationException(
+                    res.RequestStatus.ErrorDetails.ErrorMessage
+                );
+            }
             f_DirectMessageEvent.Set();
         }
         
@@ -1035,11 +1288,12 @@ namespace Smuxi.Engine
         {
             Trace.Call(exception == null ? null : exception.GetType());
 
+            /*
             if (exception.RequestData != null &&
                 exception.RequestData.ResponseException != null) {
                 CheckWebException(exception.RequestData.ResponseException);
                 return;
-            } else if (exception.InnerException is WebException) {
+            } else */ if (exception.InnerException is WebException) {
                 CheckWebException((WebException) exception.InnerException);
                 return;
             } else if (exception.InnerException != null) {
@@ -1121,7 +1375,7 @@ namespace Smuxi.Engine
             }
 
             PersonModel person;
-            if (!f_Friends.TryGetValue(user.ID.ToString(), out person)) {
+            if (!f_Friends.TryGetValue(user.Id.ToString(), out person)) {
                 return CreatePerson(user);
             }
             return person;
@@ -1134,7 +1388,7 @@ namespace Smuxi.Engine
             }
 
             var person = new PersonModel(
-                user.ID.ToString(),
+                user.Id.ToString(),
                 user.ScreenName,
                 NetworkID,
                 Protocol,
@@ -1143,6 +1397,8 @@ namespace Smuxi.Engine
             if (f_TwitterUser != null &&
                 f_TwitterUser.ScreenName == user.ScreenName) {
                 person.IdentityNameColored.ForegroundColor = f_BlueTextColor;
+                person.IdentityNameColored.BackgroundColor = TextColor.None;
+                person.IdentityNameColored.Bold = true;
             }
             return person;
         }
@@ -1152,6 +1408,44 @@ namespace Smuxi.Engine
             var builder = new TwitterMessageBuilder();
             builder.ApplyConfig(Session.UserConfig);
             return builder;
+        }
+
+        private static bool ValidateCertificate(object sender,
+                                         X509Certificate certificate,
+                                         X509Chain chain,
+                                         SslPolicyErrors sslPolicyErrors)
+        {
+            if (sslPolicyErrors == SslPolicyErrors.None) {
+                return true;
+            }
+
+            // HACK: Mono's 2.6.7 certificate chain validator is buggy
+            if (sslPolicyErrors == SslPolicyErrors.RemoteCertificateChainErrors &&
+                sender is HttpWebRequest) {
+                var request = (HttpWebRequest) sender;
+                if (request.RequestUri.Host == "api.twitter.com" &&
+                    certificate.Issuer == "OU=Equifax Secure Certificate Authority, O=Equifax, C=US") {
+                    return true;
+                }
+            }
+
+#if LOG4NET
+            f_Logger.Error(
+                "ValidateCertificate(): Certificate error: " +
+                sslPolicyErrors
+            );
+#endif
+            return false;
+        }
+
+        private string[] GetApiKey()
+        {
+            var key = Defines.TwitterApiKey.Split('|');
+            if (key.Length != 2) {
+                throw new InvalidOperationException("Invalid Twitter API key!");
+            }
+
+            return key;
         }
 
         private static string _(string msg)

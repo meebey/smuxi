@@ -259,12 +259,24 @@ if test "x$ENABLE_ENGINE_TWITTER" != "xno"; then
 	if test "x$XBUILD" = "xno"; then
 		AC_MSG_ERROR([You need to install xbuild for Twitter support])
 	fi
+	if test ! -f "$srcdir/lib/Newtonsoft.Json/Src/Newtonsoft.Json/Newtonsoft.Json.csproj"; then
+		AC_MSG_ERROR([lib/Newtonsoft.Json is empty! Used git submodule init; git submodule update?])
+	fi
+	if test ! -f "$srcdir/lib/Twitterizer/Twitterizer2/Twitterizer2.csproj"; then
+		AC_MSG_ERROR([lib/Twitterizer is empty! Used git submodule init; git submodule update?])
+	fi
 	SHAMROCK_CHECK_MONO_2_0_GAC_ASSEMBLIES([
 		System.Web
 		System.Xml
 	])
 fi
 AM_CONDITIONAL(ENABLE_ENGINE_TWITTER, test "x$ENABLE_ENGINE_TWITTER" = "xyes")
+AC_ARG_WITH([twitter-api-key],
+	AC_HELP_STRING([--with-twitter-api-key], [Specify custom Twitter API key]),
+	[],
+	with_twitter_api_key="G0fxRfJqvcMPAuNat15YQ|j77MQDIuZJFa0CXehYzGPBZidF8DT3OXAi6sb5ucE"
+)
+AC_SUBST([twitter_api_key], $with_twitter_api_key)
 
 # Frontends
 AC_ARG_ENABLE([frontend-gnome],
@@ -394,7 +406,6 @@ AC_CONFIG_FILES([
 	src/Frontend-Test/Makefile
 	src/Frontend-Test/smuxi-frontend-test
 	lib/Makefile
-	lib/Twitterizer.Framework/Makefile
 	po/Makefile.in
 	po-Engine/Makefile.in
 	po-Engine-IRC/Makefile.in

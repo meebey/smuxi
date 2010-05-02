@@ -73,6 +73,16 @@ namespace Smuxi.Engine
             StripFormattings = (bool) userConfig["Interface/Notebook/StripFormattings"];
         }
 
+        public virtual MessageBuilder Append(MessagePartModel msgPart)
+        {
+            if (msgPart == null) {
+                throw new ArgumentNullException("msgPart");
+            }
+
+            Message.MessageParts.Add(msgPart);
+            return this;
+        }
+
         public virtual TextMessagePartModel CreateText(TextMessagePartModel text)
         {
             if (text == null) {
@@ -102,11 +112,7 @@ namespace Smuxi.Engine
 
         public virtual MessageBuilder AppendText(TextMessagePartModel textPart)
         {
-            if (textPart == null) {
-                throw new ArgumentNullException("textPart");
-            }
-            Message.MessageParts.Add(textPart);
-            return this;
+            return Append(textPart);
         }
 
         public MessageBuilder AppendText(IEnumerable<TextMessagePartModel> text)
@@ -163,6 +169,20 @@ namespace Smuxi.Engine
         public virtual MessageBuilder AppendAction()
         {
             return AppendText(CreateAction());
+        }
+
+        public virtual UrlMessagePartModel CreateUrl(string url)
+        {
+            if (url == null) {
+                throw new ArgumentNullException("url");
+            }
+
+            return new UrlMessagePartModel(url);
+        }
+
+        public virtual MessageBuilder AppendUrl(string url)
+        {
+            return Append(CreateUrl(url));
         }
 
         public virtual MessageBuilder AppendMessage(string msg)

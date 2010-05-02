@@ -33,10 +33,17 @@ namespace Smuxi.Common
     public static class Defines
     {
         private static readonly string f_InstallPrefix = "/usr/local";
-        
+        private static readonly string f_TwitterApiKey = "G0fxRfJqvcMPAuNat15YQ|j77MQDIuZJFa0CXehYzGPBZidF8DT3OXAi6sb5ucE";
+
         public static string InstallPrefix {
             get {
                 return f_InstallPrefix;
+            }
+        }
+
+        public static string TwitterApiKey {
+            get {
+                return f_TwitterApiKey;
             }
         }
     }

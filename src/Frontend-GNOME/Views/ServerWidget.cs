@@ -55,6 +55,30 @@ namespace Smuxi.Frontend.Gnome
                 return f_OnStartupConnectCheckButton;
             }
         }
+        
+        public bool ShowHostname {
+            set {
+                f_HostnameLabel.Visible = value;
+                f_HostnameEntry.Visible = value;
+                f_PortLabel.Visible = value;
+                f_PortSpinButton.Visible = value;
+            }
+        }
+
+        public bool ShowNetwork {
+            set {
+                f_NetworkLabel.Visible = value;
+                f_NetworkComboBoxEntry.Visible = value;
+            }
+        }
+
+        public bool ShowPassword {
+            set {
+                f_PasswordLabel.Visible = value;
+                f_PasswordEntry.Visible = value;
+                f_ShowPasswordCheckButton.Visible = value;
+            }
+        }
 
         public ServerWidget()
         {
@@ -96,6 +120,10 @@ namespace Smuxi.Frontend.Gnome
             f_PortSpinButton.Value = server.Port;
             f_NetworkComboBoxEntry.Entry.Text = server.Network;
             f_UsernameEntry.Text = server.Username;
+            // HACK: Twitter username is part of the PKEY, not allowed to change
+            if (server.Protocol == "Twitter") {
+                f_UsernameEntry.Sensitive = false;
+            }
             f_PasswordEntry.Text = server.Password;
             f_UseEncryptionCheckButton.Active = server.UseEncryption;
             f_ValidateServerCertificateCheckButton.Active =
@@ -122,6 +150,10 @@ namespace Smuxi.Frontend.Gnome
             server.Network  = f_NetworkComboBoxEntry.Entry.Text.Trim();
             server.Port     = f_PortSpinButton.ValueAsInt;
             server.Username = f_UsernameEntry.Text.Trim();
+            // HACK: use Twitter username as hostname for multi-account support
+            if (f_ProtocolComboBox.ActiveText == "Twitter") {
+                server.Hostname = server.Username;
+            }
             server.Password = f_PasswordEntry.Text;
             server.UseEncryption = f_UseEncryptionCheckButton.Active;
             server.ValidateServerCertificate =
@@ -232,6 +264,10 @@ namespace Smuxi.Frontend.Gnome
             // that contains exactly this kind of information
             switch (f_ProtocolComboBox.ActiveText) {
                 case "IRC":
+                    ShowHostname = true;
+                    ShowNetwork = true;
+                    ShowPassword = true;
+
                     f_HostnameEntry.Sensitive = true;
                     f_NetworkComboBoxEntry.Sensitive = true;
 
@@ -243,6 +279,10 @@ namespace Smuxi.Frontend.Gnome
                     f_ValidateServerCertificateCheckButton.Sensitive = true;
                     break;
                 case "XMPP":
+                    ShowHostname = true;
+                    ShowNetwork = false;
+                    ShowPassword = true;
+                
                     f_HostnameEntry.Sensitive = true;
                     f_NetworkComboBoxEntry.Entry.Text = String.Empty;
                     f_NetworkComboBoxEntry.Sensitive = false;
@@ -258,7 +298,10 @@ namespace Smuxi.Frontend.Gnome
                 case "AIM":
                 case "ICQ":
                 case "MSNP":
-                case "Twitter":
+                    ShowHostname = false;
+                    ShowNetwork = false;
+                    ShowPassword = true;
+
                     f_HostnameEntry.Text = String.Empty;
                     f_HostnameEntry.Sensitive = false;
                     f_NetworkComboBoxEntry.Entry.Text = String.Empty;
@@ -271,9 +314,28 @@ namespace Smuxi.Frontend.Gnome
                     f_ValidateServerCertificateCheckButton.Active = false;
                     f_ValidateServerCertificateCheckButton.Sensitive = false;
                     break;
+                case "Twitter":
+                    ShowHostname = false;
+                    ShowNetwork = false;
+                    ShowPassword = false;
+
+                    f_HostnameEntry.Text = String.Empty;
+                    f_PortSpinButton.Value = 0;
+                    f_NetworkComboBoxEntry.Entry.Text = String.Empty;
+                    f_PasswordEntry.Text = String.Empty;
+
+                    f_UseEncryptionCheckButton.Active = false;
+                    f_UseEncryptionCheckButton.Sensitive = false;
+                    f_ValidateServerCertificateCheckButton.Active = false;
+                    f_ValidateServerCertificateCheckButton.Sensitive = false;
+                    break;
                 // in case we don't know / handle the protocol here, make
                 // sure we grant maximum flexibility for the input
                 default:
+                    ShowHostname = true;
+                    ShowNetwork = true;
+                    ShowPassword = true;
+
                     f_HostnameEntry.Sensitive = true;
                     f_PortSpinButton.Sensitive = true;
                     f_UseEncryptionCheckButton.Sensitive = true;

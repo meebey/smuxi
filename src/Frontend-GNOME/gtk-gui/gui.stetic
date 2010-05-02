@@ -3733,6 +3733,26 @@ Click "Forward" to begin.</property>
             <property name="RowSpacing">5</property>
             <property name="ColumnSpacing">5</property>
             <child>
+              <widget class="Gtk.Label" id="f_HostnameLabel">
+                <property name="MemberName" />
+                <property name="Xalign">0</property>
+                <property name="LabelProp" translatable="yes">_Hostname:</property>
+                <property name="UseUnderline">True</property>
+                <property name="MnemonicWidget">f_HostnameEntry</property>
+              </widget>
+              <packing>
+                <property name="TopAttach">1</property>
+                <property name="BottomAttach">2</property>
+                <property name="AutoSize">False</property>
+                <property name="XExpand">True</property>
+                <property name="XFill">True</property>
+                <property name="XShrink">False</property>
+                <property name="YExpand">True</property>
+                <property name="YFill">True</property>
+                <property name="YShrink">False</property>
+              </packing>
+            </child>
+            <child>
               <widget class="Gtk.ComboBoxEntry" id="f_NetworkComboBoxEntry">
                 <property name="MemberName" />
                 <property name="IsTextCombo">True</property>
@@ -3772,6 +3792,26 @@ Click "Forward" to begin.</property>
                 <property name="XFill">True</property>
                 <property name="XShrink">False</property>
                 <property name="YExpand">False</property>
+                <property name="YFill">True</property>
+                <property name="YShrink">False</property>
+              </packing>
+            </child>
+            <child>
+              <widget class="Gtk.Label" id="f_PasswordLabel">
+                <property name="MemberName" />
+                <property name="Xalign">0</property>
+                <property name="LabelProp" translatable="yes">_Password:</property>
+                <property name="UseUnderline">True</property>
+                <property name="MnemonicWidget">f_PasswordEntry</property>
+              </widget>
+              <packing>
+                <property name="TopAttach">4</property>
+                <property name="BottomAttach">5</property>
+                <property name="AutoSize">False</property>
+                <property name="XExpand">True</property>
+                <property name="XFill">True</property>
+                <property name="XShrink">False</property>
+                <property name="YExpand">True</property>
                 <property name="YFill">True</property>
                 <property name="YShrink">False</property>
               </packing>
@@ -3833,7 +3873,7 @@ Click "Forward" to begin.</property>
                     <property name="MemberName" />
                     <property name="Spacing">5</property>
                     <child>
-                      <widget class="Gtk.Label" id="label20">
+                      <widget class="Gtk.Label" id="f_PortLabel">
                         <property name="MemberName" />
                         <property name="LabelProp" translatable="yes">_Port:</property>
                         <property name="UseUnderline">True</property>
@@ -3928,26 +3968,6 @@ Click "Forward" to begin.</property>
               </packing>
             </child>
             <child>
-              <widget class="Gtk.Label" id="label11">
-                <property name="MemberName" />
-                <property name="Xalign">0</property>
-                <property name="LabelProp" translatable="yes">_Hostname:</property>
-                <property name="UseUnderline">True</property>
-                <property name="MnemonicWidget">f_HostnameEntry</property>
-              </widget>
-              <packing>
-                <property name="TopAttach">1</property>
-                <property name="BottomAttach">2</property>
-                <property name="AutoSize">False</property>
-                <property name="XExpand">True</property>
-                <property name="XFill">True</property>
-                <property name="XShrink">False</property>
-                <property name="YExpand">True</property>
-                <property name="YFill">True</property>
-                <property name="YShrink">False</property>
-              </packing>
-            </child>
-            <child>
               <widget class="Gtk.Label" id="label21">
                 <property name="MemberName" />
                 <property name="Xalign">0</property>
@@ -3958,26 +3978,6 @@ Click "Forward" to begin.</property>
               <packing>
                 <property name="TopAttach">3</property>
                 <property name="BottomAttach">4</property>
-                <property name="AutoSize">False</property>
-                <property name="XExpand">True</property>
-                <property name="XFill">True</property>
-                <property name="XShrink">False</property>
-                <property name="YExpand">True</property>
-                <property name="YFill">True</property>
-                <property name="YShrink">False</property>
-              </packing>
-            </child>
-            <child>
-              <widget class="Gtk.Label" id="label22">
-                <property name="MemberName" />
-                <property name="Xalign">0</property>
-                <property name="LabelProp" translatable="yes">_Password:</property>
-                <property name="UseUnderline">True</property>
-                <property name="MnemonicWidget">f_PasswordEntry</property>
-              </widget>
-              <packing>
-                <property name="TopAttach">4</property>
-                <property name="BottomAttach">5</property>
                 <property name="AutoSize">False</property>
                 <property name="XExpand">True</property>
                 <property name="XFill">True</property>

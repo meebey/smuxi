@@ -5,6 +5,9 @@
       <Output directory="../../bin/debug" assembly="smuxi-frontend-gnome" assemblyKeyFile="/home/meebey/data/projects/c-sharp/smuxi/git/src/Frontend-GNOME/." />
       <Build debugmode="True" target="WinExe" />
       <Execution consolepause="True" externalconsole="True" commandlineparameters="--debug" runwithwarnings="True" runtime="MsNet" clr-version="Net_2_0" />
+      <EnvironmentVariables>
+        <Variable name="MONO_TRACE_LISTENER" value="Console.Out" />
+      </EnvironmentVariables>
       <CodeGeneration compiler="Mcs" warninglevel="4" optimize="False" unsafecodeallowed="False" generateoverflowchecks="True" definesymbols="DEBUG,TRACE,LOG4NET,CONFIG_NINI,GTK_SHARP_2_10,INDICATE_SHARP,NOTIFY_SHARP" generatexmldocumentation="False" ctype="CSharpCompilerParameters" />
     </Configuration>
     <Configuration name="Release" ctype="DotNetProjectConfiguration">

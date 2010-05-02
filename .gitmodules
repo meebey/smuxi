@@ -1,3 +1,9 @@
 [submodule "lib/SmartIrc4net"]
 	path = lib/SmartIrc4net
 	url = git://git.qnetp.net/smartirc4net.git
+[submodule "lib/Twitterizer"]
+	path = lib/Twitterizer
+	url = git://git.qnetp.net/twitterizer.git
+[submodule "lib/Newtonsoft.Json"]
+	path = lib/Newtonsoft.Json
+	url = git://git.qnetp.net/json-net.git

@@ -33,10 +33,17 @@ namespace Smuxi.Common
     public static class Defines
     {
         private static readonly string f_InstallPrefix = "@prefix@";
-        
+        private static readonly string f_TwitterApiKey = "@twitter_api_key@";
+
         public static string InstallPrefix {
             get {
                 return f_InstallPrefix;
+            }
+        }
+
+        public static string TwitterApiKey {
+            get {
+                return f_TwitterApiKey;
             }
         }
     }
