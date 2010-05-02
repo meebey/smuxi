@@ -201,16 +201,30 @@ namespace Smuxi.Frontend.Gnome
 
                 // sync title
                 // REMOTING CALL 5
-                string networkStatus = nmanager != null ?
-                                            nmanager.ToString() + " / " :
-                                            String.Empty;
+                string networkStatus = nmanager == null ? null :
+                                        nmanager.ToString();
                 Gtk.Application.Invoke(delegate {
                     if (Frontend.MainWindow == null) {
                         return;
                     }
-                    Frontend.MainWindow.Title = String.Format("{0}{1} - Smuxi",
-                                                              networkStatus,
-                                                              chatView.Name);
+
+                    // update window title
+                    string title;
+                    if (chatView is SessionChatView) {
+                        title = String.Empty;
+                    } else if (chatView is ProtocolChatView) {
+                        title = networkStatus;
+                    } else {
+                        title = String.Format("{0} @ {1}",
+                                              chatView.Name,
+                                              networkStatus);
+                    }
+                    if (!String.IsNullOrEmpty(title)) {
+                        title += " - ";
+                    }
+                    title += "Smuxi";
+
+                    Frontend.MainWindow.Title = title;
                 });
 
                 // update last seen highlight

@@ -206,10 +206,15 @@ namespace Smuxi.Engine
 
         public override string ToString()
         {
-            string result = "IRC ";
+            string result = null;
             if (_IrcClient != null) {
-                result += _IrcClient.Address + ":" + _IrcClient.Port;
+                if (String.IsNullOrEmpty(_Network)) {
+                    result += _IrcClient.Address;
+                } else {
+                    result += _Network;
+                }
             }
+            result += " (IRC)";
             
             if (IsConnected) {
                 if (_IrcClient.IsAway) {
