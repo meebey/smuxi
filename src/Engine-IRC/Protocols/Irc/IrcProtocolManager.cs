@@ -1146,7 +1146,10 @@ namespace Smuxi.Engine
             
             if (cd.DataArray.Length >= 3) {
                 string message = String.Join(" ", cd.DataArray, 2, cd.DataArray.Length-2);
-                _Say(chat, message);
+                // ignore empty messages
+                if (message.TrimEnd(' ').Length > 0) {
+                    _Say(chat, message);
+                }
             }
         }
         
