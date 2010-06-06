@@ -6,7 +6,7 @@ ASSEMBLY_NAME = Twitterizer.Framework.dll
 ASSEMBLY_TARGET = $(OUTPUT_DIR)/$(ASSEMBLY_NAME)
 KEY_FILE = $(srcdir)/Twitterizer.Framework.snk
 BUILD_FILE = $(srcdir)/Twitterizer.Framework.vs2008.csproj
-XBUILD_FLAGS = /p:Configuration=Debug /p:NoWarn=CS0168 /p:OutputPath=$(abspath $(OUTPUT_DIR)) /p:BaseIntermediateOutputPath=$(abspath $(OBJECT_DIR))/
+XBUILD_FLAGS = /p:Configuration=Debug /p:NoWarn=0168 /p:OutputPath=$(abspath $(OUTPUT_DIR)) /p:BaseIntermediateOutputPath=$(abspath $(OBJECT_DIR))/
 
 # magic automake variables
 if ENABLE_ENGINE_TWITTER
