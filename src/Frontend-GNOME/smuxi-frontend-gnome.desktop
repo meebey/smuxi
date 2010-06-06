@@ -7,5 +7,5 @@ GenericName=IRC Chat
 Exec=smuxi-frontend-gnome
 Terminal=false
 Type=Application
-Categories=Network;GNOME;Chat;IRCClient
+Categories=Network;GNOME;GTK;Chat;InstantMessaging;IRCClient;
 Icon=smuxi-frontend-gnome.svg
