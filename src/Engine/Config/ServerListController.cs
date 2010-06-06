@@ -95,7 +95,9 @@ namespace Smuxi.Engine
             server.Network     = (string) _UserConfig[prefix + "Network"];
             server.Username    = (string) _UserConfig[prefix + "Username"];
             server.Password    = (string) _UserConfig[prefix + "Password"];
-            server.OnStartupConnect = (bool) _UserConfig[prefix + "OnStartupConnect"];
+            if (_UserConfig[prefix + "OnStartupConnect"] != null) {
+                server.OnStartupConnect = (bool) _UserConfig[prefix + "OnStartupConnect"];
+            }
             server.OnConnectCommands  = _UserConfig[prefix + "OnConnectCommands"] as IList<string>;
             return server;
         }
@@ -121,10 +123,13 @@ namespace Smuxi.Engine
             if (server == null) {
                 throw new ArgumentNullException("server");
             }
-            if (GetServer(server.Protocol, server.Hostname) != null) {
-                throw new InvalidOperationException("Server '" + server.Hostname + "' already exists.");
+            foreach (var s in GetServerList()) {
+                if (s.Protocol == server.Protocol &&
+                    s.Hostname == server.Hostname) {
+                    throw new InvalidOperationException("Server '" + server.Hostname + "' already exists.");
+                }
             }
-            
+
             string prefix = "Servers/" + server.Protocol + "/" + server.Hostname + "/";
             _UserConfig[prefix + "Hostname"] = server.Hostname;
             _UserConfig[prefix + "Port"]     = server.Port;
