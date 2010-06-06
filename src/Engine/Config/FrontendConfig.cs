@@ -103,7 +103,7 @@ namespace Smuxi.Engine
                 LoadEntry(eprefix+"SshHostname", String.Empty);
                 LoadEntry(eprefix+"SshPort", 22);
                 LoadEntry(eprefix+"SshUsername", String.Empty);
-                LoadEntry(eprefix+"SshPassword", null);
+                LoadEntry(eprefix+"SshPassword", String.Empty);
             }
             
             LoadAllEntries("Frontend/"+_UIName);
