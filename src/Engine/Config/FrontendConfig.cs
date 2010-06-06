@@ -90,9 +90,9 @@ namespace Smuxi.Engine
             m_Preferences[prefix+"Engines"] = engines;
             foreach (string engine in engines) {
                 string eprefix = prefix+engine+"/"; 
-                LoadEntry(eprefix+"Username", null);
-                LoadEntry(eprefix+"Password", null);
-                LoadEntry(eprefix+"Hostname", null);
+                LoadEntry(eprefix+"Username", String.Empty);
+                LoadEntry(eprefix+"Password", String.Empty);
+                LoadEntry(eprefix+"Hostname", String.Empty);
                 LoadEntry(eprefix+"BindAddress", null);
                 LoadEntry(eprefix+"Port", null);
                 LoadEntry(eprefix+"Channel", null);
