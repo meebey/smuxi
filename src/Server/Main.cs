@@ -48,6 +48,7 @@ namespace Smuxi.Server
             bool addUser    = false;
             bool delUser    = false;
             bool modUser    = false;
+            bool listUsers  = false;
             bool debug      = false;
 
             string username = null;
@@ -62,7 +63,7 @@ namespace Smuxi.Server
                 _("Add user to Server"),
                 delegate(string val) {
                     addUser = true;
-                    CheckExclusiveParameters(addUser, modUser, delUser);
+                    CheckExclusiveParameters(addUser, modUser, delUser, listUsers);
                 }
             );
 
@@ -71,7 +72,7 @@ namespace Smuxi.Server
                 _("Modify existing user of Server"),
                 delegate(string val) {
                     modUser = true;
-                    CheckExclusiveParameters(addUser, modUser, delUser);
+                    CheckExclusiveParameters(addUser, modUser, delUser, listUsers);
                 }
             );
 
@@ -80,7 +81,16 @@ namespace Smuxi.Server
                 _("Delete user from Server"),
                 delegate(string val) {
                     delUser = true;
-                    CheckExclusiveParameters(addUser, modUser, delUser);
+                    CheckExclusiveParameters(addUser, modUser, delUser, listUsers);
+                }
+            );
+
+            parser.Add(
+                "list-users",
+                _("List all existing users of Server"),
+                delegate(string val) {
+                    listUsers = true;
+                    CheckExclusiveParameters(addUser, modUser, delUser, listUsers);
                 }
             );
 
@@ -144,7 +154,7 @@ namespace Smuxi.Server
                 if (delUser) {
                     CheckUsernameParameter(username);
                 }
-                ManageUser(addUser, delUser, modUser, username, password);
+                ManageUser(addUser, delUser, modUser, listUsers, username, password);
             } catch (OptionException ex) {
                 Console.Error.WriteLine(_("Command line error: {0}"), ex.Message);
                 Environment.Exit(1);
@@ -186,17 +196,13 @@ namespace Smuxi.Server
 #endif
         }
 
-        private static void CheckExclusiveParameters(bool addUser, bool modUser, bool delUser)
+        private static void CheckExclusiveParameters(params bool[] parameters)
         {
             int enabled = 0;
-            if (addUser) {
-                enabled++;
-            }
-            if (modUser) {
-                enabled++;
-            }
-            if (delUser) {
-                enabled++;
+            foreach (bool parameter in parameters) {
+                if (parameter) {
+                    enabled++;
+                }
             }
 
             if (enabled <= 1 ) {
@@ -242,7 +248,9 @@ namespace Smuxi.Server
             }
         }
 
-        private static void ManageUser(bool addUser, bool delUser, bool modUser, string username, string password)
+        private static void ManageUser(bool addUser, bool delUser, bool modUser,
+                                       bool listUsers,
+                                       string username, string password)
         {
             Config config = new Config();
             UserListController controller = new UserListController(config);
@@ -272,6 +280,18 @@ namespace Smuxi.Server
                     _("User \"{0}\" successfully deleted from server."),
                     username
                 );
+                Environment.Exit(0);
+            } else if (listUsers) {
+                config.Load();
+                var users = controller.GetUsers();
+                Console.WriteLine(_("Users:"));
+                foreach (var user in users) {
+                    if (user == "local") {
+                        // is not a real user and could cause confusion
+                        continue;
+                    }
+                    Console.WriteLine("\t{0}", user);
+                }
                 Environment.Exit(0);
             }
         }

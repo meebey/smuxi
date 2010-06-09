@@ -57,7 +57,7 @@ namespace Smuxi.Engine
             CheckPassword(password);
             CheckUserNotExists(username);
 
-            List<string> userList = GetUserList();
+            List<string> userList = GetUsers();
             userList.Add(username);
             f_Config[f_Prefix + "/Users"] = userList.ToArray();
             f_Config[f_Prefix + "/" + username + "/Password"] = password;
@@ -88,7 +88,7 @@ namespace Smuxi.Engine
             CheckUsername(username);
             CheckUserExists(username);
 
-            List<string> userList = GetUserList();
+            List<string> userList = GetUsers();
             userList.Remove(username);
             f_Config[f_Prefix + "/Users"] = userList.ToArray();
             f_Config.Remove(f_Prefix + "/" + username + "/");
@@ -100,8 +100,13 @@ namespace Smuxi.Engine
                 throw new ArgumentNullException("username");
             }
 
-            List<string> usersList = GetUserList();
+            List<string> usersList = GetUsers();
             return usersList.Contains(username);
+        }
+
+        public List<string> GetUsers()
+        {
+            return new List<string>((string[]) f_Config[f_Prefix + "/Users"]);
         }
 
         protected void CheckUsername(string username)
@@ -140,11 +145,6 @@ namespace Smuxi.Engine
                     String.Format(_("User \"{0}\" already exists."), username)
                 );
             }
-        }
-
-        protected List<string> GetUserList()
-        {
-            return new List<string>((string[]) f_Config[f_Prefix + "/Users"]);
         }
 
         private static string _(string msg)
