@@ -33,6 +33,7 @@ namespace Smuxi.Common
                 try {
                     var pinfo = new ProcessStartInfo("uname");
                     pinfo.UseShellExecute = false;
+                    pinfo.RedirectStandardOutput = true;
                     Process.Start(pinfo);
                 } catch (Exception) {
                     // fall back to runtime detector
@@ -73,6 +74,7 @@ namespace Smuxi.Common
                 try {
                     var pinfo = new ProcessStartInfo("uname");
                     pinfo.UseShellExecute = false;
+                    pinfo.RedirectStandardOutput = true;
                     Process.Start(pinfo);
                 } catch (Exception) {
                     // fall back to pointer size
