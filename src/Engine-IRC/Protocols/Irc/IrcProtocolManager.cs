@@ -2521,6 +2521,24 @@ namespace Smuxi.Engine
         
         private void _OnCtcpRequest(object sender, CtcpEventArgs e)
         {
+            // DoS protection
+            try {
+                if (e.CtcpCommand.ToLower() == "time") {
+                    _IrcClient.SendMessage(
+                        SendType.CtcpReply, e.Data.Nick,
+                        String.Format("{0} {1}",
+                            e.CtcpCommand,
+                            DateTime.Now.ToString("ddd MMM dd HH:mm:ss yyyy",
+                                                  DateTimeFormatInfo.InvariantInfo)
+                        )
+                    );
+                }
+            } catch (Exception ex) {
+#if LOG4NET
+                _Logger.Error("_OnCtcpRequest()", ex);
+#endif
+            }
+
             Session.AddTextToChat(_NetworkChat,
                 String.Format(
                     // TRANSLATOR: {0}: nickname, {1}: ident@host,
