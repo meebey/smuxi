@@ -45,6 +45,12 @@ namespace Smuxi.Server
 
         public static void Main(string[] args)
         {
+#if LOG4NET
+            // initialize log level
+            log4net.Repository.ILoggerRepository repo = log4net.LogManager.GetRepository();
+            repo.Threshold = log4net.Core.Level.Error;
+#endif
+
             bool addUser    = false;
             bool delUser    = false;
             bool modUser    = false;
@@ -147,6 +153,11 @@ namespace Smuxi.Server
 
             try {
                 parser.Parse(args);
+#if LOG4NET
+                if (debug) {
+                    repo.Threshold = log4net.Core.Level.Debug;
+                }
+#endif
                 if (addUser || modUser) {
                     CheckUsernameParameter(username);
                     CheckPasswordParameter(password);
@@ -159,16 +170,6 @@ namespace Smuxi.Server
                 Console.Error.WriteLine(_("Command line error: {0}"), ex.Message);
                 Environment.Exit(1);
             }
-
-#if LOG4NET
-            // initialize log level
-            log4net.Repository.ILoggerRepository repo = log4net.LogManager.GetRepository();
-            if (debug) {
-                repo.Threshold = log4net.Core.Level.Debug;
-            } else {
-                repo.Threshold = log4net.Core.Level.Info;
-            }
-#endif
 
             try {
                 Server.Init(args);
