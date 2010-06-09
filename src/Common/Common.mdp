@@ -24,6 +24,7 @@
     <File subtype="Code" buildaction="Compile" name="Defines.cs" />
     <File subtype="Code" buildaction="Compile" name="TaskQueue.cs" />
     <File subtype="Code" buildaction="Compile" name="NDesk.Options.cs" />
+    <File subtype="Code" buildaction="Compile" name="Platform.cs" />
   </Contents>
   <References>
     <ProjectReference type="Assembly" localcopy="True" refto="../../lib/log4net.dll" />

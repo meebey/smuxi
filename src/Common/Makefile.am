@@ -55,7 +55,8 @@ FILES = \
 	LibraryCatalog.cs \
 	NDesk.Options.cs \
 	Defines.cs \
-	TaskQueue.cs
+	TaskQueue.cs \
+	Platform.cs
 	
 DATA_FILES = 
 

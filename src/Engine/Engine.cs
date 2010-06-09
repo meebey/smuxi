@@ -29,6 +29,7 @@
 using System;
 using System.IO;
 using System.Reflection;
+using Smuxi.Common;
 
 namespace Smuxi.Engine
 {
@@ -90,7 +91,7 @@ namespace Smuxi.Engine
             AssemblyProductAttribute pr = (AssemblyProductAttribute)asm.GetCustomAttributes(typeof(AssemblyProductAttribute), false)[0];
             _Version = asm_name.Version;
             _VersionNumber = asm_name.Version.ToString();
-            _VersionString = String.Format("{0} {1} - running on {2} {3}-bit", pr.Product, _Version, Environment.OSVersion.Platform.ToString(), IntPtr.Size * 8); 
+            _VersionString = String.Format("{0} {1} - running on {2} {3}", pr.Product, _Version, Platform.OperatingSystem, Platform.Architecture);
             
             _Config = new Config();
             _Config.Load();
