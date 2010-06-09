@@ -274,7 +274,7 @@ namespace Smuxi.Frontend.Gnome
 #endif
                     return;
                 }
-                groupChatView.SetTopic(topic);
+                groupChatView.Topic = topic;
             });
         }
         

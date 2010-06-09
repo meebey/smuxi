@@ -88,6 +88,12 @@ namespace Smuxi.Frontend.Gnome
             }
         }
 
+        public bool IsEmpty {
+            get {
+                return Buffer.CharCount == 0;
+            }
+        }
+
         public MessageTextView()
         {
             Trace.Call();
@@ -145,7 +151,11 @@ namespace Smuxi.Frontend.Gnome
         public void AddMessage(MessageModel msg, bool addLinebreak)
         {
             Trace.Call(msg, addLinebreak);
-            
+
+            if (msg == null) {
+                throw new ArgumentNullException("msg");
+            }
+
             Gtk.TextIter iter = Buffer.EndIter;
 
             Gdk.Color bgColor = DefaultAttributes.Appearance.BgColor;

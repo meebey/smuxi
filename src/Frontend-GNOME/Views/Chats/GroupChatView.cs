@@ -51,20 +51,9 @@ namespace Smuxi.Frontend.Gnome
         private Gtk.HPaned         _OutputHPaned;
         private Gtk.ScrolledWindow _TopicScrolledWindow;
         private MessageTextView    _TopicTextView;
+        private MessageModel       _Topic;
         private Gtk.TreeViewColumn _IdentityNameColumn;
         private Gtk.Image          _TabImage;
-        
-        public Gtk.ScrolledWindow TopicScrolledWindow {
-            get {
-                return _TopicScrolledWindow;
-            }
-        }
-
-        public MessageTextView TopicTextView {
-            get {
-                return _TopicTextView;
-            }
-        }
 
         public override bool HasSelection {
             get {
@@ -81,7 +70,21 @@ namespace Smuxi.Frontend.Gnome
                        _TopicTextView.HasFocus;
             }
         }
-        
+
+        public MessageModel Topic {
+            get {
+                return _Topic;
+            }
+            set {
+                _Topic = value;
+                _TopicTextView.Clear();
+                if (value != null) {
+                    _TopicTextView.AddMessage(value, false);
+                }
+                _TopicScrolledWindow.Visible = !_TopicTextView.IsEmpty;
+            }
+        }
+
         protected Gtk.TreeView PersonTreeView {
             get {
                 return _PersonTreeView;
@@ -291,13 +294,8 @@ namespace Smuxi.Frontend.Gnome
             _Logger.Debug("Sync() syncing topic");
 #endif
             // sync topic
-            MessageModel topic = _GroupChatModel.Topic;
-            if ((_TopicTextView != null) &&
-               (topic != null)) {
-                // XXX
-                SetTopic(topic);
-            }
-            
+            Topic = _GroupChatModel.Topic;
+
             base.Sync();
         }
         
@@ -377,16 +375,6 @@ namespace Smuxi.Frontend.Gnome
             UpdatePersonCount();
         }
         
-        public void SetTopic(MessageModel topic)
-        {
-            Trace.Call(topic);
-            Gtk.TextIter iter = _TopicTextView.Buffer.EndIter;
-
-            _TopicTextView.Clear();
-            _TopicTextView.AddMessage(topic, false);
-            _TopicScrolledWindow.Visible = true;
-        }
-
         public override void ApplyConfig(UserConfig config)
         {
             Trace.Call(config);
