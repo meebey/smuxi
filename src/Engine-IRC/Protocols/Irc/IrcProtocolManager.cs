@@ -2074,8 +2074,6 @@ namespace Smuxi.Engine
                     submessage = message;
                 }
                 
-                bool highlight = ContainsHighlight(submessage);
-                
                 TextMessagePartModel msgPart = new TextMessagePartModel();
                 msgPart.Text = submessage;
                 msgPart.Bold = bold;
@@ -2083,14 +2081,10 @@ namespace Smuxi.Engine
                 msgPart.Italic = italic;
                 msgPart.ForegroundColor = fg_color;
                 msgPart.BackgroundColor = bg_color;
-                msgPart.IsHighlight = highlight;
-                if (highlight) {
-                    msgPart.ForegroundColor = TextColor.Parse(
-                        (string) Session.UserConfig["Interface/Notebook/Tab/HighlightColor"]
-                    );
-                }
                 msg.MessageParts.Add(msgPart);
             } while (controlCharFound);
+
+            MarkHighlights(msg);
 
             // parse URLs
             ParseUrls(msg);
@@ -2098,10 +2092,7 @@ namespace Smuxi.Engine
         
         protected override bool ContainsHighlight (string msg)
         {
-            // BUG: don't highlight everything, like nicknames?
-
             Regex regex;
-
             // First check to see if our current nick is in there.
             regex = new Regex(String.Format("(^|\\W){0}($|\\W)", _IrcClient.Nickname), RegexOptions.IgnoreCase);
             if (regex.Match(msg).Success) {
@@ -2165,6 +2156,53 @@ namespace Smuxi.Engine
                 TextMessagePartModel textMsg = (TextMessagePartModel) msgPart;
                 textMsg.IsHighlight = false;
                 textMsg.ForegroundColor = null;
+            }
+        }
+
+        private void MarkHighlights(MessageModel msg)
+        {
+            if (msg == null) {
+                throw new ArgumentNullException("msg");
+            }
+
+            bool containsHighlight = false;
+            foreach (MessagePartModel msgPart in msg.MessageParts) {
+                if (!(msgPart is TextMessagePartModel)) {
+                    continue;
+                }
+
+                TextMessagePartModel textMsg = (TextMessagePartModel) msgPart;
+                if (ContainsHighlight(textMsg.Text)) {
+                    containsHighlight = true;
+                }
+            }
+
+            if (!containsHighlight) {
+                // nothing to do
+                return;
+            }
+
+            // colorize the whole message
+            var highlightColor = TextColor.Parse(
+                (string) Session.UserConfig["Interface/Notebook/Tab/HighlightColor"]
+            );
+            foreach (MessagePartModel msgPart in msg.MessageParts) {
+                if (!(msgPart is TextMessagePartModel)) {
+                    continue;
+                }
+
+                TextMessagePartModel textMsg = (TextMessagePartModel) msgPart;
+                if (textMsg.ForegroundColor != null &&
+                    textMsg.ForegroundColor != TextColor.None) {
+                    // HACK: don't overwrite colors as that would replace
+                    // nick-colors for example
+                    continue;
+                }
+                // HACK: we have to mark all parts as highlight else
+                // ClearHighlights() has no chance to properly undo all
+                // highlights
+                textMsg.IsHighlight = true;
+                textMsg.ForegroundColor = highlightColor;
             }
         }
 
