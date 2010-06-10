@@ -169,6 +169,51 @@ namespace Twitterizer.Framework
         }
 
         /// <summary>
+        /// Returns the 20 most recent statuses posted by the authenticating user and that user's friends. This is the equivalent of /home on the Web.
+        /// </summary>
+        /// <returns></returns>
+        public TwitterStatusCollection HomeTimeline()
+        {
+            return FriendsTimeline(null);
+        }
+
+        /// <summary>
+        /// Returns the 20 most recent statuses posted by the authenticating user and that user's friends. This is the equivalent of /home on the Web.
+        /// </summary>
+        /// <param name="Parameters">Accepts Since, SinceID, Count, and Page parameters.</param>
+        /// <returns></returns>
+        /// <remarks>See: http://apiwiki.twitter.com/Twitter-REST-API-Method:-statuses-friends_timeline </remarks>
+        public TwitterStatusCollection HomeTimeline(TwitterParameters Parameters)
+        {
+            TwitterRequest Request = new TwitterRequest(proxyUri);
+            TwitterRequestData Data = new TwitterRequestData();
+            Data.UserName = userName;
+            Data.Password = password;
+
+            // Validate the parameters that are given.
+            if (Parameters != null)
+                foreach (TwitterParameterNames param in Parameters.Keys)
+                    switch (param)
+                    {
+                        case TwitterParameterNames.SinceID:
+                        case TwitterParameterNames.MaxID:
+                        case TwitterParameterNames.Count:
+                        case TwitterParameterNames.Page:
+                            break;
+                        default:
+                            throw new InvalidTwitterParameterException(param, InvalidTwitterParameterReason.ParameterNotSupported);
+                    }
+
+
+            string actionUri = (Parameters == null ? "http://twitter.com/statuses/home_timeline.xml" : Parameters.BuildActionUri("http://twitter.com/statuses/home_timeline.xml"));
+            Data.ActionUri = new Uri(actionUri);
+
+            Data = Request.PerformWebRequest(Data, "GET");
+
+            return Data.Statuses;
+        }
+
+        /// <summary>
         /// Updates the authenticating user's status.
         /// </summary>
         /// <param name="Status">Required.  The text of your status update.</param>

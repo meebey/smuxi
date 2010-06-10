@@ -98,7 +98,7 @@ namespace Smuxi.Engine
 
             f_FriendsTimelineChat = new GroupChatModel(
                 TwitterChatType.FriendsTimeline.ToString(),
-                _("Friends Timeline"),
+                _("Home Timeline"),
                 this
             );
             f_GroupChats.Add(f_FriendsTimelineChat);
@@ -632,7 +632,7 @@ namespace Smuxi.Engine
                                f_LastFriendsTimelineStatusID);
             }
             TwitterStatusCollection timeline =
-                f_Twitter.Status.FriendsTimeline(parameters);
+                f_Twitter.Status.HomeTimeline(parameters);
 #if LOG4NET
             f_Logger.Debug("UpdateFriendsTimeline(): done. New tweets: " +
                 (timeline == null ? 0 : timeline.Count));
