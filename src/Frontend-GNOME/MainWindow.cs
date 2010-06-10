@@ -406,7 +406,41 @@ namespace Smuxi.Frontend.Gnome
             _Notebook.ApplyConfig(userConfig);
             _ChatViewManager.ApplyConfig(userConfig);
         }
-        
+
+        public void UpdateTitle()
+        {
+            UpdateTitle(null, null);
+        }
+
+        public void UpdateTitle(ChatView chatView, string protocolStatus)
+        {
+            Trace.Call(chatView, protocolStatus);
+
+            if (chatView == null) {
+                chatView = Notebook.CurrentChatView;
+            }
+            if (chatView == null) {
+                return;
+            }
+
+            string title;
+            if (chatView is SessionChatView) {
+                title = String.Empty;
+            } else if (chatView is ProtocolChatView) {
+                title = protocolStatus;
+            } else {
+                title = String.Format("{0} @ {1}",
+                                      chatView.Name,
+                                      protocolStatus);
+            }
+            if (!String.IsNullOrEmpty(title)) {
+                title += " - ";
+            }
+            title += "Smuxi";
+
+            Title = title;
+        }
+
         private void _OnQuitButtonClicked(object obj, EventArgs args)
         {
             Trace.Call(obj, args);

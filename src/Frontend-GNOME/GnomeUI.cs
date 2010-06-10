@@ -312,6 +312,7 @@ namespace Smuxi.Frontend.Gnome
             Gtk.Application.Invoke(delegate {
                 TraceRemotingCall(mb, status);
                 Frontend.MainWindow.NetworkStatusbar.Push(0, status);
+                Frontend.MainWindow.UpdateTitle(null, status);
             });
         }
         

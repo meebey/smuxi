@@ -195,40 +195,13 @@ namespace Smuxi.Frontend.Gnome
                     Frontend.FrontendManager.CurrentProtocolManager = nmanager;
                 }
 
-                // even when we have no network manager, we still want to update the state
+                // even when we have no network manager, we still want to update
+                // the network status and title
                 // REMOTING CALL 4
                 Frontend.FrontendManager.UpdateNetworkStatus();
 
-                // sync title
-                // REMOTING CALL 5
-                string networkStatus = nmanager == null ? null :
-                                        nmanager.ToString();
-                Gtk.Application.Invoke(delegate {
-                    if (Frontend.MainWindow == null) {
-                        return;
-                    }
-
-                    // update window title
-                    string title;
-                    if (chatView is SessionChatView) {
-                        title = String.Empty;
-                    } else if (chatView is ProtocolChatView) {
-                        title = networkStatus;
-                    } else {
-                        title = String.Format("{0} @ {1}",
-                                              chatView.Name,
-                                              networkStatus);
-                    }
-                    if (!String.IsNullOrEmpty(title)) {
-                        title += " - ";
-                    }
-                    title += "Smuxi";
-
-                    Frontend.MainWindow.Title = title;
-                });
-
                 // update last seen highlight
-                // REMOTING CALL 6
+                // REMOTING CALL 5
                 chatModel.LastSeenHighlight = DateTime.UtcNow;
 
                 stop = DateTime.UtcNow;
