@@ -764,7 +764,7 @@ namespace Smuxi.Engine
             "ame action-message",
             "notice (channel|nick) message",
             "anotice message",
-            "invite nick",
+            "invite nick [channel]",
             "who nick/channel",
             "whois nick",
             "whowas nick",
@@ -1670,7 +1670,12 @@ namespace Smuxi.Engine
         {
             FrontendManager fm = cd.FrontendManager;
             ChatModel chat = cd.Chat;
-            string channel = chat.ID;
+            string channel;
+            if (cd.DataArray.Length >= 3) {
+                channel = cd.DataArray[2];
+            } else {
+                channel = chat.ID;
+            }
             if (cd.DataArray.Length >= 2) {
                 if (!_IrcClient.IsJoined(channel, cd.DataArray[1])) {
                     _IrcClient.RfcInvite(cd.DataArray[1], channel);
@@ -1679,8 +1684,8 @@ namespace Smuxi.Engine
                                                         cd.DataArray[1], channel));
                 } else {
                     fm.AddTextToChat(chat, "-!- " + String.Format(
-                                                        _("{0} is already on channel"),
-                                                        cd.DataArray[1]));
+                                                        _("{0} is already on {1}"),
+                                                        cd.DataArray[1], channel));
                 }
             } else {
                 _NotEnoughParameters(cd);
