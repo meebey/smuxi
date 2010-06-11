@@ -150,6 +150,7 @@ namespace Smuxi.Frontend.Gnome
             // don't loose the focus else we lose the selection too!
             // see OnPersonTreeViewFocusOutEvent()
             _PersonMenu.TakeFocus = false;
+            _PersonMenu.Shown += OnPersonMenuShown;
             
             _PersonTreeView.ButtonPressEvent += _OnPersonTreeViewButtonPressEvent;
             _PersonTreeView.KeyPressEvent += OnPersonTreeViewKeyPressEvent;
@@ -516,6 +517,10 @@ namespace Smuxi.Frontend.Gnome
                 _PersonMenu.Popup(null, null, null, 0, e.Event.Time);
                 _PersonMenu.ShowAll();
             }
+        }
+
+        protected virtual void OnPersonMenuShown(object sender, EventArgs e)
+        {
         }
 
         private void _OnUserListButtonReleaseEvent(object sender, Gtk.ButtonReleaseEventArgs e)

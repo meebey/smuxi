@@ -20,6 +20,8 @@
     <File subtype="Code" buildaction="Compile" name="../AssemblyVersion.cs" />
     <File subtype="Code" buildaction="Nothing" name="../../po-Frontend-GNOME-IRC/es.po" />
     <File subtype="Code" buildaction="Nothing" name="../../po-Frontend-GNOME-IRC/de.po" />
+    <File subtype="Code" buildaction="Compile" name="InviteToMenu.cs" />
+    <File subtype="Code" buildaction="Compile" name="CtcpMenu.cs" />
   </Contents>
   <References>
     <ProjectReference type="Project" localcopy="True" refto="Common" />

@@ -41,6 +41,7 @@ namespace Smuxi.Frontend.Gnome
 #if LOG4NET
         private static readonly log4net.ILog _Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 #endif
+        public    string             ID { get; private set; }
         private   string             _Name;
         private   ChatModel          _ChatModel;
         private   bool               _HasHighlight;
@@ -206,6 +207,7 @@ namespace Smuxi.Frontend.Gnome
             
             _ChatModel = chat;
             _Name = _ChatModel.Name;
+            ID = _ChatModel.ID;
             Name = _Name;
             
             MessageTextView tv = new MessageTextView();

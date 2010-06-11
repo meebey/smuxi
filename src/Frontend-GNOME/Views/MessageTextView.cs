@@ -94,6 +94,12 @@ namespace Smuxi.Frontend.Gnome
             }
         }
 
+        public bool IsAtUrlTag {
+            get {
+                return _AtUrlTag;
+            }
+        }
+
         public MessageTextView()
         {
             Trace.Call();

@@ -50,6 +50,10 @@ namespace Smuxi.Frontend.Gnome
         
         private void _OnOutputMessageTextViewPopulatePopup (object o, Gtk.PopulatePopupArgs args)
         {
+            if (OutputMessageTextView.IsAtUrlTag) {
+                return;
+            }
+
             Gtk.Menu popup = args.Menu;
 
             popup.Append(new Gtk.SeparatorMenuItem());
@@ -59,25 +63,18 @@ namespace Smuxi.Frontend.Gnome
             popup.Append(whois_item);
 
             Gtk.ImageMenuItem ctcp_item = new Gtk.ImageMenuItem(_("CTCP"));
-            Gtk.Menu ctcp_menu_item = new Gtk.Menu();
+            Gtk.Menu ctcp_menu_item = new CtcpMenu(_IrcProtocolManager,
+                                                   Frontend.MainWindow.ChatViewManager,
+                                                   PersonModel);
             ctcp_item.Submenu = ctcp_menu_item;
             popup.Append(ctcp_item);
 
-            Gtk.ImageMenuItem ctcp_ping_item = new Gtk.ImageMenuItem(_("Ping"));
-            ctcp_ping_item.Activated += _OnMenuCtcpPingItemActivated;
-            ctcp_menu_item.Append(ctcp_ping_item);
-
-            Gtk.ImageMenuItem ctcp_version_item = new Gtk.ImageMenuItem(_("Version"));
-            ctcp_version_item.Activated += _OnMenuCtcpVersionItemActivated;
-            ctcp_menu_item.Append(ctcp_version_item);
-
-            Gtk.ImageMenuItem ctcp_time_item = new Gtk.ImageMenuItem(_("Time"));
-            ctcp_time_item.Activated += _OnMenuCtcpTimeItemActivated;
-            ctcp_menu_item.Append(ctcp_time_item);
-
-            Gtk.ImageMenuItem ctcp_finger_item = new Gtk.ImageMenuItem(_("Finger"));
-            ctcp_finger_item.Activated += _OnMenuCtcpFingerItemActivated;
-            ctcp_menu_item.Append(ctcp_finger_item);
+            Gtk.ImageMenuItem invite_to_item = new Gtk.ImageMenuItem(_("Invite to"));
+            Gtk.Menu invite_to_menu_item = new InviteToMenu(_IrcProtocolManager,
+                                                            Frontend.MainWindow.ChatViewManager,
+                                                            PersonModel);
+            invite_to_item.Submenu = invite_to_menu_item;
+            popup.Append(invite_to_item);
 
             popup.ShowAll();
         }
@@ -87,58 +84,6 @@ namespace Smuxi.Frontend.Gnome
             Trace.Call(sender, e);
 
             _IrcProtocolManager.CommandWhoIs(
-                new CommandModel(
-                    Frontend.FrontendManager,
-                    ChatModel,
-                    ChatModel.ID
-                )
-             );
-        }
-
-        void _OnMenuCtcpPingItemActivated (object sender, EventArgs e)
-        {
-            Trace.Call(sender, e);
-
-            _IrcProtocolManager.CommandPing(
-                new CommandModel(
-                    Frontend.FrontendManager,
-                    ChatModel,
-                    ChatModel.ID
-                )
-             );
-        }
-
-        void _OnMenuCtcpVersionItemActivated (object sender, EventArgs e)
-        {
-            Trace.Call(sender, e);
-
-            _IrcProtocolManager.CommandVersion(
-                new CommandModel(
-                    Frontend.FrontendManager,
-                    ChatModel,
-                    ChatModel.ID
-                )
-             );
-        }
-
-        void _OnMenuCtcpTimeItemActivated (object sender, EventArgs e)
-        {
-            Trace.Call(sender, e);
-
-            _IrcProtocolManager.CommandTime(
-                new CommandModel(
-                    Frontend.FrontendManager,
-                    ChatModel,
-                    ChatModel.ID
-                )
-             );
-        }
-
-        void _OnMenuCtcpFingerItemActivated (object sender, EventArgs e)
-        {
-            Trace.Call(sender, e);
-
-            _IrcProtocolManager.CommandFinger(
                 new CommandModel(
                     Frontend.FrontendManager,
                     ChatModel,

@@ -88,7 +88,9 @@ FILES = \
 	$(top_srcdir)/src/AssemblyVersion.cs \
 	AssemblyInfo.cs \
 	IrcGroupChatView.cs \
-	IrcPersonChatView.cs 
+	IrcPersonChatView.cs \
+	InviteToMenu.cs \
+	CtcpMenu.cs
 
 DATA_FILES = 
 
