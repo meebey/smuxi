@@ -334,12 +334,12 @@ namespace Smuxi.Engine
             f_UpdateDirectMessagesThread.Start();
         }
 
-        private void OpenPrivateChat(int userId)
+        private ChatModel OpenPrivateChat(int userId)
         {
-            OpenPrivateChat(userId.ToString());
+            return OpenPrivateChat(userId.ToString());
         }
 
-        private void OpenPrivateChat(string userId)
+        private ChatModel OpenPrivateChat(string userId)
         {
             ChatModel chat =  Session.GetChat(
                 userId,
@@ -348,7 +348,7 @@ namespace Smuxi.Engine
             );
 
             if (chat != null) {
-                return;
+                return chat;
             }
 
             TwitterUser user = f_Twitter.User.Show(userId);
@@ -367,6 +367,7 @@ namespace Smuxi.Engine
             );
             Session.AddChat(personChat);
             Session.SyncChat(personChat);
+            return personChat;
         }
 
         public override void CloseChat(FrontendManager fm, ChatModel chat)
@@ -496,7 +497,14 @@ namespace Smuxi.Engine
                 switch (twitterChatType) {
                     case TwitterChatType.FriendsTimeline:
                     case TwitterChatType.Replies:
-                        PostUpdate(cmd.Data);
+                        try {
+                            PostUpdate(cmd.Data);
+                        } catch (Exception ex) {
+                            fm.AddTextToChat(cmd.Chat, "-!- " +
+                                String.Format(_("Could not update status - Reason: {0}"),
+                                              ex.Message)
+                            );
+                        }
                         break;
                     case TwitterChatType.DirectMessages:
                         fm.AddTextToChat(
@@ -508,7 +516,17 @@ namespace Smuxi.Engine
                         break;
                 }
             } else if (cmd.Chat.ChatType == ChatType.Person) {
-                SendMessage(cmd.Chat.ID, cmd.Data);
+                try {
+                    SendMessage(cmd.Chat.ID, cmd.Data);
+                } catch (Exception ex) {
+#if LOG4NET
+                    f_Logger.Error(ex);
+#endif
+                    fm.AddTextToChat(cmd.Chat, "-!- " +
+                        String.Format(_("Could not send message - Reason: {0}"),
+                                      ex.Message)
+                    );
+                }
             } else {
                 // ignore protocol chat
             }
@@ -539,11 +557,18 @@ namespace Smuxi.Engine
                 return;
             }
 
-            OpenPrivateChat(user.ID);
+            var chat = OpenPrivateChat(user.ID);
 
             if (cmd.DataArray.Length >= 3) {
                 string message = String.Join(" ", cmd.DataArray, 2, cmd.DataArray.Length-2);
-                SendMessage(user.ID.ToString(), message);
+                try {
+                    SendMessage(user.ID.ToString(), message);
+                } catch (Exception ex) {
+                    fm.AddTextToChat(chat, "-!- " +
+                        String.Format(_("Could not send message - Reason: {0}"),
+                                      ex.Message)
+                    );
+                }
             }
          }
 
