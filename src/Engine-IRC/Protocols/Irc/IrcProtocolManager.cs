@@ -2566,15 +2566,29 @@ namespace Smuxi.Engine
         {
             // DoS protection
             try {
-                if (e.CtcpCommand.ToLower() == "time") {
-                    _IrcClient.SendMessage(
-                        SendType.CtcpReply, e.Data.Nick,
-                        String.Format("{0} {1}",
-                            e.CtcpCommand,
-                            DateTime.Now.ToString("ddd MMM dd HH:mm:ss yyyy",
-                                                  DateTimeFormatInfo.InvariantInfo)
-                        )
-                    );
+                switch (e.CtcpCommand.ToLower()) {
+                    case "time":
+                        _IrcClient.SendMessage(
+                            SendType.CtcpReply, e.Data.Nick,
+                            String.Format("{0} {1}",
+                                e.CtcpCommand,
+                                DateTime.Now.ToString(
+                                    "ddd MMM dd HH:mm:ss yyyy",
+                                    DateTimeFormatInfo.InvariantInfo
+                                )
+                            )
+                        );
+                        break;
+                    case "finger":
+                    case "userinfo":
+                        _IrcClient.SendMessage(
+                            SendType.CtcpReply, e.Data.Nick,
+                            String.Format("{0} {1}",
+                                e.CtcpCommand,
+                                (string) Session.UserConfig["Connection/Realname"]
+                            )
+                        );
+                        break;
                 }
             } catch (Exception ex) {
 #if LOG4NET
