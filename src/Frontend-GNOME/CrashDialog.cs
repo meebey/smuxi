@@ -7,7 +7,7 @@
  *
  * Smuxi - Smart MUltipleXed Irc
  *
- * Copyright (c) 2005-2006 Mirco Bauer <meebey@meebey.net>
+ * Copyright (c) 2005-2006, 2010 Mirco Bauer <meebey@meebey.net>
  *
  * Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
  *
@@ -28,17 +28,21 @@
 
 using System;
 using Mono.Unix;
+using Smuxi.Common;
 
 namespace Smuxi.Frontend.Gnome
 {
     public class CrashDialog : Gtk.Dialog
     {
-        public CrashDialog(Gtk.Window parent, Exception e) : base()
+#if LOG4NET
+        private static readonly log4net.ILog f_Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+#endif
+
+        public CrashDialog(Gtk.Window parent, Exception e) : base(null, parent, Gtk.DialogFlags.Modal)
         {
             SetDefaultSize(640, 480);
             Title = "Smuxi - " + _("Oops, I did it again...");
-            Parent = parent;
-            
+
             Gtk.HBox hbox = new Gtk.HBox();
 
             Gtk.Image image = new Gtk.Image(Gtk.Stock.DialogError, Gtk.IconSize.Dialog);
@@ -74,6 +78,7 @@ namespace Smuxi.Frontend.Gnome
             
             // add to the dialog
             VBox.PackStart(vbox, true, true, 2);
+            AddButton(_("_Report Bug"), -1);
             AddButton(Gtk.Stock.Quit, 0);
             
             string message = String.Empty;
@@ -97,6 +102,25 @@ namespace Smuxi.Frontend.Gnome
             cd.Destroy();
         }
         
+        public new int Run()
+        {
+            int res;
+            do {
+                res = base.Run();
+                if (res == -1) {
+                    try {
+                        System.Diagnostics.Process.Start("http://www.smuxi.org/newticket");
+                    } catch (Exception ex) {
+#if LOG4NET
+                        f_Logger.Error(ex);
+#endif
+                    }
+                }
+            } while (res == -1);
+
+            return res;
+        }
+
         private static string _(string msg)
         {
             return Mono.Unix.Catalog.GetString(msg);
