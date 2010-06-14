@@ -88,6 +88,11 @@ namespace Smuxi.Frontend.Gnome
                 item.Activated += OnFingerItemActivated;
                 item.Show();
                 Append(item);
+
+                item = new Gtk.MenuItem(_("Userinfo"));
+                item.Activated += OnUserinfoItemActivated;
+                item.Show();
+                Append(item);
             }
 
             base.OnShown();
@@ -148,6 +153,21 @@ namespace Smuxi.Frontend.Gnome
                         Frontend.FrontendManager,
                         ChatViewManager.ActiveChat.ChatModel,
                         target.ID
+                    )
+                );
+            }
+        }
+
+        void OnUserinfoItemActivated(object sender, EventArgs e)
+        {
+            Trace.Call(sender, e);
+
+            foreach (PersonModel target in Targets) {
+                ProtocolManager.CommandCtcp(
+                    new CommandModel(
+                        Frontend.FrontendManager,
+                        ChatViewManager.ActiveChat.ChatModel,
+                        String.Format("{0} {1}", target.ID, "USERINFO")
                     )
                 );
             }
