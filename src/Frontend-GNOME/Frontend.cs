@@ -60,6 +60,8 @@ namespace Smuxi.Frontend.Gnome
         private static FrontendManager    _FrontendManager;
         private static TaskQueue          _FrontendManagerCheckerQueue;
         private static object             _UnhandledExceptionSyncRoot = new Object();
+        private static bool               _InCrashHandler;
+        private static bool               _InReconnectHandler;
 
         public static event EventHandler  SessionPropertyChanged;
 
@@ -462,6 +464,12 @@ namespace Smuxi.Frontend.Gnome
             // http://projects.qnetp.net/issues/show/232
             if (ex is System.Runtime.Remoting.RemotingException ||
                 ex is System.Net.Sockets.SocketException) {
+                if (_InReconnectHandler || _InCrashHandler) {
+                    // one reconnect is good enough and a crash we won't survive
+                    return;
+                }
+                _InReconnectHandler = true;
+
                 Gtk.MessageDialog md = new Gtk.MessageDialog(parent,
                     Gtk.DialogFlags.Modal, Gtk.MessageType.Error,
                     Gtk.ButtonsType.OkCancel, _("The frontend has lost the connection to the server.\nDo you want to reconnect now?"));
@@ -473,6 +481,7 @@ namespace Smuxi.Frontend.Gnome
                         try {
                             Frontend.ReconnectEngineToGUI();
                             // yay, we made it
+                            _InReconnectHandler = false;
                             break;
                         } catch (Exception e) {
 #if LOG4NET
@@ -502,7 +511,14 @@ namespace Smuxi.Frontend.Gnome
                 Quit();
                 return;
             }
-            
+
+            if (_InCrashHandler) {
+                // only show not more than one crash dialog, else the user
+                // will not be able to copy/paste the stack trace and stuff
+                return;
+            }
+            _InCrashHandler = true;
+
             CrashDialog cd = new CrashDialog(parent, ex);
             cd.Run();
             cd.Destroy();
