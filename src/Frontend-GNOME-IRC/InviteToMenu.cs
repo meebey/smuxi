@@ -71,7 +71,8 @@ namespace Smuxi.Frontend.Gnome
                         continue;
                     }
 
-                    var item = new Gtk.MenuItem(chatView.Name);
+                    var item = new Gtk.ImageMenuItem(chatView.Name);
+                    item.Image = new Gtk.Image(GroupChatView.IconPixbuf);
                     // HACK: anonymous methods inside foreach loops needs this
                     var chat = chatView;
                     item.Activated += delegate {
