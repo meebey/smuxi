@@ -174,6 +174,7 @@ namespace Smuxi.Frontend.Gnome
             // clear activity and highlight
             chatView.HasHighlight = false;
             chatView.HasActivity = false;
+            var lastMsg = chatView.OutputMessageTextView.LastMessage;
 
             var method = Trace.GetMethodBase();
             f_SwitchPageQueue.Queue(delegate {
@@ -202,7 +203,9 @@ namespace Smuxi.Frontend.Gnome
 
                 // update last seen highlight
                 // REMOTING CALL 5
-                chatModel.LastSeenHighlight = DateTime.UtcNow;
+                if (lastMsg != null) {
+                    chatModel.LastSeenHighlight = lastMsg.TimeStamp;
+                }
 
                 stop = DateTime.UtcNow;
 #if LOG4NET

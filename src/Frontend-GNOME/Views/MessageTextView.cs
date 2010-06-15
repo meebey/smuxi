@@ -100,6 +100,12 @@ namespace Smuxi.Frontend.Gnome
             }
         }
 
+        public MessageModel LastMessage {
+            get {
+                return _LastMessage;
+            }
+        }
+
         public MessageTextView()
         {
             Trace.Call();

@@ -487,11 +487,15 @@ namespace Smuxi.Frontend.Gnome
                     // clear activity and highlight
                     chatView.HasHighlight = false;
                     chatView.HasActivity = false;
+                    var lastMsg = chatView.OutputMessageTextView.LastMessage;
                     // update last seen highlight
                     ThreadPool.QueueUserWorkItem(delegate {
                         try {
+                            if (lastMsg == null) {
+                                return;
+                            }
                             // REMOTING CALL 1
-                            chatView.ChatModel.LastSeenHighlight = DateTime.UtcNow;
+                            chatView.ChatModel.LastSeenHighlight = lastMsg.TimeStamp;
                         } catch (Exception ex) {
 #if LOG4NET
                             f_Logger.Error("OnFocusInEvent(): Exception", ex);
