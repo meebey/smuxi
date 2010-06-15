@@ -41,6 +41,7 @@ namespace Smuxi.Frontend.Gnome
 #if LOG4NET
         private static readonly log4net.ILog _Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 #endif
+        public static Gdk.Pixbuf   IconPixbuf { get; private set; }
         private GroupChatModel     _GroupChatModel;
         private Gtk.ScrolledWindow _PersonScrolledWindow;
         private Gtk.TreeView       _PersonTreeView;
@@ -53,7 +54,6 @@ namespace Smuxi.Frontend.Gnome
         private MessageTextView    _TopicTextView;
         private MessageModel       _Topic;
         private Gtk.TreeViewColumn _IdentityNameColumn;
-        private Gtk.Image          _TabImage;
 
         public override bool HasSelection {
             get {
@@ -103,6 +103,10 @@ namespace Smuxi.Frontend.Gnome
             }
         }
         
+        static GroupChatView() {
+            IconPixbuf = new Gdk.Pixbuf(null, "group-chat.svg", 16, 16);
+       }
+
         public GroupChatView(GroupChatModel groupChat) : base(groupChat)
         {
             Trace.Call(groupChat);
@@ -191,16 +195,8 @@ namespace Smuxi.Frontend.Gnome
             
             ApplyConfig(Frontend.UserConfig);
             
-            _TabImage = new Gtk.Image(
-                new Gdk.Pixbuf(
-                    null,
-                    "group-chat.svg",
-                    16,
-                    16
-                )
-            );
-
-            TabHBox.PackStart(_TabImage, false, false, 2);
+            var tabImage = new Gtk.Image(IconPixbuf);
+            TabHBox.PackStart(tabImage, false, false, 2);
             TabHBox.ShowAll();
             
             ShowAll();

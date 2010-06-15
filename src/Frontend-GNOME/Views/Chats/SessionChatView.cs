@@ -35,22 +35,18 @@ namespace Smuxi.Frontend.Gnome
     [ChatViewInfo(ChatType = ChatType.Session)]
     public class SessionChatView : ChatView
     {
-        private Gtk.Image   _TabImage;
+        public static Gdk.Pixbuf IconPixbuf { get; private set; }
         
+        static SessionChatView() {
+            IconPixbuf = new Gdk.Pixbuf(null, "session-chat.svg", 16, 16);
+        }
+
         public SessionChatView(ChatModel chat) : base(chat)
         {
             Trace.Call(chat);
             
-            _TabImage = new Gtk.Image(
-                new Gdk.Pixbuf(
-                    null,
-                    "session-chat.svg",
-                    16,
-                    16
-                )
-            );
-            
-            TabHBox.PackStart(_TabImage, false, false, 2);
+            var tabImage = new Gtk.Image(IconPixbuf);
+            TabHBox.PackStart(tabImage, false, false, 2);
             TabHBox.ShowAll();
             
             Add(OutputScrolledWindow);

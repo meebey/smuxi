@@ -35,22 +35,18 @@ namespace Smuxi.Frontend.Gnome
     [ChatViewInfo(ChatType = ChatType.Protocol)]
     public class ProtocolChatView : ChatView
     {
-        private Gtk.Image   _TabImage;
+        public static Gdk.Pixbuf IconPixbuf { get; private set; }
         
+        static ProtocolChatView() {
+            IconPixbuf = new Gdk.Pixbuf(null, "protocol-chat.svg", 16, 16);
+        }
+
         public ProtocolChatView(ChatModel chat) : base(chat)
         {
             Trace.Call(chat);
             
-            _TabImage = new Gtk.Image(
-                new Gdk.Pixbuf(
-                    null,
-                    "protocol-chat.svg",
-                    16,
-                    16
-                )
-            );
-            
-            TabHBox.PackStart(_TabImage, false, false, 2);
+            var tabImage = new Gtk.Image(IconPixbuf);
+            TabHBox.PackStart(tabImage, false, false, 2);
             TabHBox.ShowAll();
             
             Add(OutputScrolledWindow);

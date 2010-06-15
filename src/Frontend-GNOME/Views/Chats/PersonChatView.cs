@@ -35,8 +35,13 @@ namespace Smuxi.Frontend.Gnome
     [ChatViewInfo(ChatType = ChatType.Person)]
     public class PersonChatView : ChatView
     {
+        public static Gdk.Pixbuf IconPixbuf { get; private set; }
         public  PersonChatModel PersonChatModel { get; private set; }
         public  PersonModel     PersonModel { get; private set; }
+
+        static PersonChatView() {
+            IconPixbuf = new Gdk.Pixbuf(null, "person-chat.svg", 16, 16);
+        }
 
         public PersonChatView(PersonChatModel chat) : base(chat)
         {
@@ -44,15 +49,7 @@ namespace Smuxi.Frontend.Gnome
             
             PersonChatModel = chat;
 
-            var tabImage = new Gtk.Image(
-                new Gdk.Pixbuf(
-                    null,
-                    "person-chat.svg",
-                    16,
-                    16
-                )
-            );
-            
+            var tabImage = new Gtk.Image(IconPixbuf);
             TabHBox.PackStart(tabImage, false, false, 2);
             TabHBox.ShowAll();
             
