@@ -1801,7 +1801,9 @@ namespace Smuxi.Engine
             msg.MessageParts.Add(textMsg);
             
             _IrcMessageToMessageModel(ref msg, cd.Parameter);
-            
+            // HACK: clear possible highlights so we can't highlight ourself!
+            ClearHighlights(msg);
+
             Session.AddMessageToChat(cd.Chat, msg);
         }
         
