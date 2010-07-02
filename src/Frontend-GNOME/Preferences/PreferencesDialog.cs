@@ -390,6 +390,9 @@ namespace Smuxi.Frontend.Gnome
                 typeof(Gtk.WrapMode),
                 (string) Frontend.UserConfig["Interface/Chat/WrapMode"]
             );
+            if (wrapMode == Gtk.WrapMode.Word) {
+                wrapMode = Gtk.WrapMode.WordChar;
+            }
             int i = 0;
             foreach (object[] row in  (Gtk.ListStore) wrapModeComboBox.Model) {
                 if (((Gtk.WrapMode) row[0]) == wrapMode) {
