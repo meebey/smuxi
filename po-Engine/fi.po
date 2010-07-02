@@ -1,0 +1,137 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Smuxi-engine\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-01-09 21:43+0100\n"
+"PO-Revision-Date: 2010-06-28 11:57+0200\n"
+"Last-Translator: Kalle Kaitala <cobrian@cobrian.net>\n"
+"Language-Team: Finnish\n"
+"Language: fi\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: Finnish\n"
+"X-Poedit-Country: FINLAND\n"
+"X-Poedit-SourceCharset: utf-8\n"
+
+#: ../src/Engine/FrontendManager.cs:219
+msgid "No network connections"
+msgstr "Ei verkkoyhteyttä"
+
+#: ../src/Engine/Protocols/ProtocolManagerBase.cs:146
+msgid "Not connected to server"
+msgstr "Yhteys palvelimeen katkaistu"
+
+#: ../src/Engine/Protocols/ProtocolManagerBase.cs:158
+#: ../src/Engine/Session.cs:684
+#, csharp-format
+msgid "Not enough parameters for {0} command"
+msgstr "Ei tarpeeksi parametrejä komennolle {0}"
+
+#: ../src/Engine/Session.cs:151
+msgid "Welcome to Smuxi"
+msgstr "Tervetuloa Smuxi:in"
+
+#: ../src/Engine/Session.cs:157
+msgid "Type /help to get a list of available commands."
+msgstr "Kirjoita /help saadaksesi listan käytössäolevista komennoista."
+
+#: ../src/Engine/Session.cs:160
+msgid "After you have made a connection the list of available commands changes. Use the /help command again to see the extended command list."
+msgstr "Yhteydenmuodostuksen jälkeen lista käytettävistä komennoista muuttuu. Käytä /help -komentoa uudelleen nähdäksesi laajennetun komentolistauksen."
+
+#: ../src/Engine/Session.cs:210
+#, csharp-format
+msgid "Automatic connect to {0} failed!"
+msgstr "Automaattinen yhdistys palvelimeen {0} epäonnistui!"
+
+#. TRANSLATOR: this line is used as a label / category for a
+#. list of commands below
+#: ../src/Engine/Session.cs:398
+msgid "Engine Commands"
+msgstr "Moottorin komennot"
+
+#: ../src/Engine/Session.cs:510
+#, csharp-format
+msgid "Disconnect failed - could not find server: {0}"
+msgstr "Yhteyden katkaisu epäonnistui - palvelinta {0} ei löydetty"
+
+#: ../src/Engine/Session.cs:546
+msgid "Configuration reloaded"
+msgstr "Asetukset ladattu uudelleen"
+
+#: ../src/Engine/Session.cs:551
+msgid "Configuration saved"
+msgstr "Asetukset tallennettu"
+
+#: ../src/Engine/Session.cs:555
+msgid "Invalid parameter for config; use load or save"
+msgstr "Epäkelpo parametri config:lle; käytä komentoja load tai save"
+
+#: ../src/Engine/Session.cs:585
+msgid "Invalid parameter for network; use list, switch, or close"
+msgstr "Epäkelpo parametri network:lle, käytä komentoja list, switch tai close"
+
+#: ../src/Engine/Session.cs:596
+msgid "Networks"
+msgstr "Verkot"
+
+#: ../src/Engine/Session.cs:600
+msgid "Type"
+msgstr "Tyyppi"
+
+#: ../src/Engine/Session.cs:601
+msgid "Host"
+msgstr "Isäntä"
+
+#: ../src/Engine/Session.cs:602
+msgid "Port"
+msgstr "Portti"
+
+#: ../src/Engine/Session.cs:624
+#, csharp-format
+msgid "Network close failed - could not find network with host: {0}"
+msgstr "Verkon sulkeminen epäonnistui - verkkoa isännällä {0} ei löytynyt"
+
+#: ../src/Engine/Session.cs:658
+#, csharp-format
+msgid "Network switch failed - could not find network with host: {0}"
+msgstr "Verkon vaihtaminen epäonnistui - verkkoa isännällä {0} ei löytynyt"
+
+#: ../src/Engine/Session.cs:673
+msgid "Not connected to any network"
+msgstr "Ei yhdistettynä yhteenkään verkkoon"
+
+#: ../src/Engine/Session.cs:962
+#, csharp-format
+msgid "No protocol manager found for the protocol: {0}"
+msgstr "Protokollan hallintaa ei löydetty protokollalle {0}"
+
+#: ../src/Engine/Session.cs:985
+#, csharp-format
+msgid "Unknown protocol: {0}"
+msgstr "Tuntematon protokolla: {0}"
+
+#: ../src/Engine/Config/UserListController.cs:112
+msgid "Username must not be empty."
+msgstr "Käyttäjänimi ei saa olla tyhjä."
+
+#: ../src/Engine/Config/UserListController.cs:122
+msgid "Password must not be empty."
+msgstr "Salasana ei saa olla tyhjä."
+
+#: ../src/Engine/Config/UserListController.cs:131
+#, csharp-format
+msgid "User \"{0}\" doesn't exist."
+msgstr "Käyttäjää \"{0}\" ei ole olemassa."
+
+#: ../src/Engine/Config/UserListController.cs:140
+#, csharp-format
+msgid "User \"{0}\" already exists."
+msgstr "Käyttäjä \"{0}\" on jo olemassa."
+
