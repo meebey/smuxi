@@ -52,6 +52,9 @@ namespace Smuxi.Frontend.Gnome
         private EngineManager    _EngineManager;
         private Gtk.MenuItem     _CloseChatMenuItem;
         private NotificationAreaIconMode _NotificationAreaIconMode;
+#if GTK_SHARP_2_10
+        private StatusIconManager _StatusIconManager;
+#endif
         private bool             _IsMinimized;
         private bool             _IsMaximized;
         
@@ -120,7 +123,10 @@ namespace Smuxi.Frontend.Gnome
                 return _IsMinimized;
             }
         }
-        
+
+        public EventHandler Minimized;
+        public EventHandler Unminimized;
+
         public MainWindow() : base("Smuxi")
         {
             // restore window size / position
@@ -354,6 +360,10 @@ namespace Smuxi.Frontend.Gnome
             _ChatViewManager.ChatAdded += OnChatViewManagerChatAdded;
             _ChatViewManager.ChatRemoved += OnChatViewManagerChatRemoved;
             
+#if GTK_SHARP_2_10
+            _StatusIconManager = new StatusIconManager(this, _ChatViewManager);
+#endif
+
             _UI = new GnomeUI(_ChatViewManager);
             
             // HACK: Frontend.FrontendConfig out of scope
@@ -402,6 +412,9 @@ namespace Smuxi.Frontend.Gnome
             );
             _NotificationAreaIconMode = mode;
             
+#if GTK_SHARP_2_10
+            _StatusIconManager.ApplyConfig(userConfig);
+#endif
             _Entry.ApplyConfig(userConfig);
             _Notebook.ApplyConfig(userConfig);
             _ChatViewManager.ApplyConfig(userConfig);
@@ -478,10 +491,6 @@ namespace Smuxi.Frontend.Gnome
             
             try {
                 UrgencyHint = false;
-#if GTK_SHARP_2_10
-                // HACK: out of scope?
-                Frontend.StatusIcon.Blinking = false;
-#endif
                 ChatView chatView = _Notebook.CurrentChatView;
                 if (chatView != null) {
                     // clear activity and highlight
@@ -724,39 +733,31 @@ namespace Smuxi.Frontend.Gnome
             Trace.Call(sender, e);
             
             try {
-#if GTK_SHARP_2_10
                 // handle minimize / un-minimize
                 if ((e.Event.ChangedMask & Gdk.WindowState.Iconified) != 0) {
                     _IsMinimized = (e.Event.NewWindowState & Gdk.WindowState.Iconified) != 0;
-    #if LOG4NET
+#if LOG4NET
                     f_Logger.Debug("OnWindowStateEvent(): _IsMinimized: " + _IsMinimized);
-    #endif
+#endif
                     #if DISABLED
-                    if (_NotificationAreaIconMode == NotificationAreaIconMode.Minimized) {
-                        // BUG: metacity is not allowing us to use the minimize state
-                        // to hide and enable the notfication area icon as switching
-                        // to a different workspace sets WindowState.Iconified on all
-                        // windows, thus this code is disabled. For more details see:
-                        // http://projects.qnetp.net/issues/show/158
-                        Frontend.StatusIcon.Visible = _IsMinimized;
-                        if (isMinimized) {
-                            Hide();
+                    // BUG: metacity is not allowing us to use the minimize state
+                    // to hide and enable the notfication area icon as switching
+                    // to a different workspace sets WindowState.Iconified on all
+                    // windows, thus this code is disabled. For more details see:
+                    // http://projects.qnetp.net/issues/show/158
+                    Hide();
+                    #endif
+                    if (_IsMinimized) {
+                        if (Minimized != null) {
+                            Minimized(this, EventArgs.Empty);
+                        }
+                    } else {
+                        if (Unminimized != null) {
+                            Unminimized(this, EventArgs.Empty);
                         }
                     }
-                    #endif
                 }
 
-                // handle hide / show
-                if (_NotificationAreaIconMode == NotificationAreaIconMode.Closed &&
-                    (e.Event.ChangedMask & Gdk.WindowState.Withdrawn) != 0) {
-                    bool isHidden = (e.Event.NewWindowState & Gdk.WindowState.Withdrawn) != 0;
-    #if LOG4NET
-                    f_Logger.Debug("OnWindowStateEvent(): isHidden: " + isHidden);
-    #endif
-                    Frontend.StatusIcon.Visible = isHidden;
-                }
-#endif
-                
                 // handle maximize / un-maximize
                 if ((e.Event.ChangedMask & Gdk.WindowState.Maximized) != 0) {
                     _IsMaximized = (e.Event.NewWindowState & Gdk.WindowState.Maximized) != 0;
@@ -916,9 +917,6 @@ namespace Smuxi.Frontend.Gnome
             
             if (!HasToplevelFocus) {
                 UrgencyHint = true;
-#if GTK_SHARP_2_10
-                Frontend.StatusIcon.Blinking = true;
-#endif
             }
         }
 

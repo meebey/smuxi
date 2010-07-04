@@ -51,7 +51,7 @@ namespace Smuxi.Frontend.Gnome
         private static SplashScreenWindow _SplashScreenWindow;
         private static MainWindow         _MainWindow;
 #if GTK_SHARP_2_10
-        private static Gtk.StatusIcon     _StatusIcon;
+        private static StatusIconManager  _StatusIconManager;
 #endif
         private static FrontendConfig     _FrontendConfig;
         private static Session            _LocalSession;
@@ -109,15 +109,7 @@ namespace Smuxi.Frontend.Gnome
                 return _MainWindow;
             }
         }
-        
-#if GTK_SHARP_2_10
-        public static Gtk.StatusIcon StatusIcon {
-            get {
-                return _StatusIcon;
-            }
-        }
-#endif
-        
+
         public static Session Session {
             get {
                 return _Session;
@@ -215,32 +207,6 @@ namespace Smuxi.Frontend.Gnome
  
             _MainWindow = new MainWindow();
 
-#if GTK_SHARP_2_10
-            _StatusIcon = new Gtk.StatusIcon();
-            _StatusIcon.Visible = false;
-            _StatusIcon.Pixbuf = new Gdk.Pixbuf(null, "icon.svg");
-            _StatusIcon.Activate += delegate {
-                try {
-                    if (_StatusIcon.Blinking) {
-                        _MainWindow.Present();
-                        return;
-                    }
-                    // not everyone uses a window list applet thus we have to
-                    // restore from minimized state here, see:
-                    // http://projects.qnetp.net/issues/show/159
-                    if (_MainWindow.IsMinimized) {
-                        _MainWindow.Present();
-                        return;
-                    }
-                    _MainWindow.Visible = !_MainWindow.Visible;
-                } catch (Exception ex) {
-                    ShowException(ex);
-                }
-            };
-            _StatusIcon.PopupMenu += OnStatusIconPopupMenu;
-            _StatusIcon.Tooltip = "Smuxi";
-#endif
-            
             if (String.IsNullOrEmpty((string) FrontendConfig["Engines/Default"])) {
                 InitLocalEngine();
                 ConnectEngineToGUI();
@@ -550,64 +516,9 @@ namespace Smuxi.Frontend.Gnome
                 throw new ArgumentNullException("userConfig");
             }
             
-#if GTK_SHARP_2_10
-            string modeStr = (string) userConfig["Interface/Notification/NotificationAreaIconMode"];
-            NotificationAreaIconMode mode = (NotificationAreaIconMode) Enum.Parse(
-                typeof(NotificationAreaIconMode),
-                modeStr
-            );
-            switch (mode) {
-                case NotificationAreaIconMode.Never:
-                    _StatusIcon.Visible = false;
-                    break;
-                case NotificationAreaIconMode.Always:
-                    _StatusIcon.Visible = true;
-                    break;
-                case NotificationAreaIconMode.Minimized:
-                case NotificationAreaIconMode.Closed:
-                    // at application startup the main window is not realized but not visible
-                    _StatusIcon.Visible = _MainWindow.IsRealized && !_MainWindow.Visible;
-                    break;
-            }
-#endif
-            
             _MainWindow.ApplyConfig(userConfig);
         }
-        
-        private static void OnStatusIconPopupMenu(object sender, EventArgs e)
-        {
-            Trace.Call(sender, e);
-            
-            Gtk.Menu menu = new Gtk.Menu();
-            
-            Gtk.ImageMenuItem preferencesItem = new Gtk.ImageMenuItem(Gtk.Stock.Preferences, null);
-            preferencesItem.Activated += delegate {
-                try {
-                    PreferencesDialog dialog = new PreferencesDialog(_MainWindow);
-                    dialog.CurrentPage = PreferencesDialog.Page.Interface;
-                    dialog.CurrentInterfacePage = PreferencesDialog.InterfacePage.Notification;
-                } catch (Exception ex) {
-                    ShowException(ex);
-                }
-            };
-            menu.Add(preferencesItem);
-            
-            menu.Add(new Gtk.SeparatorMenuItem());
-            
-            Gtk.ImageMenuItem quitItem = new Gtk.ImageMenuItem(Gtk.Stock.Quit, null);
-            quitItem.Activated += delegate {
-                try {
-                    Quit();
-                } catch (Exception ex) {
-                    ShowException(ex);
-                }
-            };
-            menu.Add(quitItem);
-            
-            menu.ShowAll();
-            menu.Popup();
-        }
-        
+
 #if GTK_SHARP_2_10
         private static void _OnUnhandledException(GLib.UnhandledExceptionArgs e)
         {

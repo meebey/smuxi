@@ -85,6 +85,7 @@
     <File subtype="Code" buildaction="Compile" name="Views/ServerDialog.cs" />
     <File subtype="Code" buildaction="Compile" name="gtk-gui/Smuxi.Frontend.Gnome.ServerDialog.cs" />
     <File subtype="Code" buildaction="Compile" name="gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs" />
+    <File subtype="Code" buildaction="Compile" name="StatusIconManager.cs" />
   </Contents>
   <References>
     <ProjectReference type="Project" localcopy="True" refto="Engine" />
