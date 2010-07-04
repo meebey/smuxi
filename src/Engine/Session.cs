@@ -24,6 +24,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.Remoting;
+using System.Threading;
 using Smuxi.Common;
 
 namespace Smuxi.Engine
@@ -480,16 +481,27 @@ namespace Smuxi.Engine
                                             cd.DataArray.Length - 1));
                 cd = new CommandModel(fm, cd.Chat, cd.CommandCharacter, cmd);
             }
-            protocolManager.Command(cd);
 
-            // set this as current protocol manager
-            // but only if there was none set (we might be on a chat for example)
-            // or if this is the neutral "smuxi" tab
-            if (fm.CurrentProtocolManager == null ||
-                (fm.CurrentChat != null && fm.CurrentChat.ChatType == ChatType.Session)) {
-                fm.CurrentProtocolManager = protocolManager;
-                fm.UpdateNetworkStatus();
-            }
+            // run in background so it can't block the command queue
+            ThreadPool.QueueUserWorkItem(delegate {
+                try {
+                    protocolManager.Command(cd);
+
+                    // set this as current protocol manager
+                    // but only if there was none set (we might be on a chat for example)
+                    // or if this is the neutral "smuxi" tab
+                    if (fm.CurrentProtocolManager == null ||
+                        (fm.CurrentChat != null && fm.CurrentChat.ChatType == ChatType.Session)) {
+                        fm.CurrentProtocolManager = protocolManager;
+                        fm.UpdateNetworkStatus();
+                    }
+                } catch (Exception ex) {
+#if LOG4NET
+                    f_Logger.Error("CommandConnect(): ", ex);
+#endif
+                    fm.AddTextToChat(cd.Chat, "-!- " + _("Connect failed!"));
+                }
+            });
         }
         
         public void CommandDisconnect(CommandModel cd)
@@ -542,7 +554,18 @@ namespace Smuxi.Engine
             if (pm == null) {
                 return;
             }
-            pm.Reconnect(cd.FrontendManager);
+
+            ThreadPool.QueueUserWorkItem(delegate {
+                try {
+                    pm.Reconnect(cd.FrontendManager);
+                } catch (Exception ex) {
+#if LOG4NET
+                    f_Logger.Error("CommandReconnect(): ", ex);
+#endif
+                    cd.FrontendManager.AddTextToChat(cd.Chat, "-!- " +
+                        _("Reconnect failed!"));
+                }
+            });
         }
         
         public void CommandConfig(CommandModel cd)
