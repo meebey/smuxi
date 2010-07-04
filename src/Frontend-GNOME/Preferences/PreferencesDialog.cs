@@ -27,9 +27,11 @@
  */
 
 using System;
+using System.IO;
 using System.Text;
 using System.Collections;
 using System.Globalization;
+using Process = System.Diagnostics.Process;
 using Smuxi;
 using Smuxi.Common;
 using Smuxi.Engine;
@@ -44,6 +46,7 @@ namespace Smuxi.Frontend.Gnome
             Interface,
             Servers,
             Filters,
+            Logging,
         }
         
         public enum InterfacePage : int {
@@ -134,6 +137,17 @@ namespace Smuxi.Frontend.Gnome
 
             ((Gtk.TextView)_Glade["HighlightWordsTextView"]).Buffer.Changed += _OnChanged;
 
+            ((Gtk.Button)_Glade["LoggingOpenButton"]).Clicked += delegate {
+                try {
+                    var logPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+                    logPath = Path.Combine(logPath, "smuxi");
+                    logPath = Path.Combine(logPath, "logs");
+                    Process.Start(logPath);
+                } catch (Exception ex) {
+                    Frontend.ShowException(ex);
+                }
+            };
+
             Gtk.ComboBox wrapModeComboBox = (Gtk.ComboBox)_Glade["WrapModeComboBox"];
             // initialize wrap modes
             // glade might initialize it already!
@@ -170,6 +184,10 @@ namespace Smuxi.Frontend.Gnome
                                                 Gtk.IconSize.SmallToolbar, null),
                             _("Filters"));
             */
+            ls.AppendValues(Page.Logging, _Dialog.RenderIcon(
+                                                Gtk.Stock.JustifyLeft,
+                                                Gtk.IconSize.SmallToolbar, null),
+                            _("Logging"));
             
             int i = 1;
             _MenuTreeView.AppendColumn(null, new Gtk.CellRendererPixbuf(), "pixbuf",i++);
@@ -459,6 +477,16 @@ namespace Smuxi.Frontend.Gnome
             // Servers
             _ServerListView.Load();
             
+            // Logging
+            ((Gtk.Button) _Glade["LoggingOpenButton"]).Visible = false;
+            if (Frontend.UserConfig["Logging/Enabled"] != null) {
+                ((Gtk.CheckButton) _Glade["LoggingEnabledCheckButton"]).Active =
+                    (bool) Frontend.UserConfig["Logging/Enabled"];
+                if (Frontend.IsLocalEngine) {
+                    ((Gtk.Button) _Glade["LoggingOpenButton"]).Visible = true;
+                }
+            }
+
             ((Gtk.Button)_Glade["ApplyButton"]).Sensitive = false;
         }
         
@@ -647,6 +675,10 @@ namespace Smuxi.Frontend.Gnome
             // Servers
             //_ServerListView.Save();
             
+            // Logging
+            Frontend.UserConfig["Logging/Enabled"] =
+                ((Gtk.CheckButton) _Glade["LoggingEnabledCheckButton"]).Active;
+
             Frontend.Config.Save();
         }
         

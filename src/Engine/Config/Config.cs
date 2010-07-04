@@ -271,6 +271,9 @@ namespace Smuxi.Engine
             prefix = "Engine/Users/DEFAULT/Connection/";
             Get(prefix+"Encoding", String.Empty);
             
+            prefix = "Engine/Users/DEFAULT/Logging/";
+            Get(prefix+"Enabled", false);
+
             prefix = "Engine/Users/DEFAULT/Servers/";
             Get(prefix + "Servers", new string[] {
                 "IRC/irc.oftc.net",
@@ -419,6 +422,8 @@ namespace Smuxi.Engine
                 
                 LoadUserEntry(user, "Sound/BeepOnHighlight", null);
                 
+                LoadUserEntry(user, "Logging/Enabled", null);
+
                 string[] servers = null;
                 string sprefix = prefix + user + "/Servers/";
                 servers = GetList(sprefix + "Servers");

@@ -1,14 +1,15 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!DOCTYPE glade-interface SYSTEM "glade-2.0.dtd">
-<!--*- mode: xml -*-->
+<?xml version="1.0"?>
 <glade-interface>
+  <!-- interface-requires gtk+ 2.6 -->
+  <!-- interface-naming-policy toplevel-contextual -->
   <widget class="GtkDialog" id="PreferencesDialog">
     <property name="visible">True</property>
     <property name="title" translatable="yes">Smuxi - Preferences</property>
-    <property name="type_hint">GDK_WINDOW_TYPE_HINT_DIALOG</property>
+    <property name="type_hint">dialog</property>
     <child internal-child="vbox">
       <widget class="GtkVBox" id="dialog-vbox1">
         <property name="visible">True</property>
+        <property name="orientation">vertical</property>
         <child>
           <widget class="GtkHBox" id="hbox1">
             <property name="visible">True</property>
@@ -18,9 +19,9 @@
                 <property name="width_request">128</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
-                <property name="hscrollbar_policy">GTK_POLICY_AUTOMATIC</property>
-                <property name="vscrollbar_policy">GTK_POLICY_AUTOMATIC</property>
-                <property name="shadow_type">GTK_SHADOW_IN</property>
+                <property name="hscrollbar_policy">automatic</property>
+                <property name="vscrollbar_policy">automatic</property>
+                <property name="shadow_type">in</property>
                 <child>
                   <widget class="GtkTreeView" id="MenuTreeView">
                     <property name="visible">True</property>
@@ -32,6 +33,7 @@
               </widget>
               <packing>
                 <property name="expand">False</property>
+                <property name="position">0</property>
               </packing>
             </child>
             <child>
@@ -43,6 +45,7 @@
                   <widget class="GtkVBox" id="vbox1">
                     <property name="visible">True</property>
                     <property name="border_width">5</property>
+                    <property name="orientation">vertical</property>
                     <property name="spacing">5</property>
                     <child>
                       <widget class="GtkTable" id="table1">
@@ -56,7 +59,6 @@
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="tooltip" translatable="yes">The nickname to use. You can specify extra nicknames (separated by spaces) which will be used as fallbacks when the first choice is not available. By default $nick_ and $nick__ will be used as fallbacks.</property>
-                            <property name="invisible_char">*</property>
                             <signal name="changed" handler="_OnChanged"/>
                           </widget>
                           <packing>
@@ -69,7 +71,6 @@
                           <widget class="GtkEntry" id="ConnectionUsernameEntry">
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
-                            <property name="invisible_char">*</property>
                             <signal name="changed" handler="_OnChanged"/>
                           </widget>
                           <packing>
@@ -84,7 +85,6 @@
                           <widget class="GtkEntry" id="ConnectionRealnameEntry">
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
-                            <property name="invisible_char">*</property>
                             <signal name="changed" handler="_OnChanged"/>
                           </widget>
                           <packing>
@@ -106,6 +106,7 @@
                               <packing>
                                 <property name="expand">False</property>
                                 <property name="fill">False</property>
+                                <property name="position">0</property>
                               </packing>
                             </child>
                             <child>
@@ -133,6 +134,7 @@
                               <packing>
                                 <property name="expand">False</property>
                                 <property name="fill">False</property>
+                                <property name="position">0</property>
                               </packing>
                             </child>
                             <child>
@@ -162,6 +164,7 @@
                               <packing>
                                 <property name="expand">False</property>
                                 <property name="fill">False</property>
+                                <property name="position">0</property>
                               </packing>
                             </child>
                             <child>
@@ -210,14 +213,17 @@
                       </widget>
                       <packing>
                         <property name="expand">False</property>
+                        <property name="position">0</property>
                       </packing>
                     </child>
                     <child>
                       <widget class="GtkVBox" id="vbox2">
                         <property name="visible">True</property>
+                        <property name="orientation">vertical</property>
                         <child>
                           <widget class="GtkVBox" id="vbox3">
                             <property name="visible">True</property>
+                            <property name="orientation">vertical</property>
                             <child>
                               <widget class="GtkHBox" id="hbox2">
                                 <property name="visible">True</property>
@@ -229,6 +235,7 @@
                                   <packing>
                                     <property name="expand">False</property>
                                     <property name="fill">False</property>
+                                    <property name="position">0</property>
                                   </packing>
                                 </child>
                                 <child>
@@ -243,6 +250,7 @@
                               <packing>
                                 <property name="expand">False</property>
                                 <property name="fill">False</property>
+                                <property name="position">0</property>
                               </packing>
                             </child>
                             <child>
@@ -251,15 +259,15 @@
                                 <property name="height_request">100</property>
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
-                                <property name="hscrollbar_policy">GTK_POLICY_AUTOMATIC</property>
-                                <property name="shadow_type">GTK_SHADOW_IN</property>
+                                <property name="hscrollbar_policy">automatic</property>
+                                <property name="shadow_type">in</property>
                                 <child>
                                   <widget class="GtkTextView" id="OnConnectCommandsTextView">
                                     <property name="width_request">152</property>
                                     <property name="height_request">168</property>
                                     <property name="visible">True</property>
                                     <property name="can_focus">True</property>
-                                    <property name="wrap_mode">GTK_WRAP_WORD</property>
+                                    <property name="wrap_mode">word</property>
                                   </widget>
                                 </child>
                               </widget>
@@ -268,10 +276,14 @@
                               </packing>
                             </child>
                           </widget>
+                          <packing>
+                            <property name="position">0</property>
+                          </packing>
                         </child>
                         <child>
                           <widget class="GtkVBox" id="vbox4">
                             <property name="visible">True</property>
+                            <property name="orientation">vertical</property>
                             <child>
                               <widget class="GtkHBox" id="hbox3">
                                 <property name="visible">True</property>
@@ -283,6 +295,7 @@
                                   <packing>
                                     <property name="expand">False</property>
                                     <property name="fill">False</property>
+                                    <property name="position">0</property>
                                   </packing>
                                 </child>
                                 <child>
@@ -297,6 +310,7 @@
                               <packing>
                                 <property name="expand">False</property>
                                 <property name="fill">False</property>
+                                <property name="position">0</property>
                               </packing>
                             </child>
                             <child>
@@ -305,15 +319,15 @@
                                 <property name="height_request">100</property>
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
-                                <property name="hscrollbar_policy">GTK_POLICY_AUTOMATIC</property>
-                                <property name="shadow_type">GTK_SHADOW_IN</property>
+                                <property name="hscrollbar_policy">automatic</property>
+                                <property name="shadow_type">in</property>
                                 <child>
                                   <widget class="GtkTextView" id="OnStartupCommandsTextView">
                                     <property name="width_request">152</property>
                                     <property name="height_request">168</property>
                                     <property name="visible">True</property>
                                     <property name="can_focus">True</property>
-                                    <property name="wrap_mode">GTK_WRAP_WORD</property>
+                                    <property name="wrap_mode">word</property>
                                   </widget>
                                 </child>
                               </widget>
@@ -341,8 +355,8 @@
                     <property name="mnemonic_widget">Notebook</property>
                   </widget>
                   <packing>
-                    <property name="type">tab</property>
                     <property name="tab_fill">False</property>
+                    <property name="type">tab</property>
                   </packing>
                 </child>
                 <child>
@@ -353,6 +367,7 @@
                     <child>
                       <widget class="GtkVBox" id="vbox10">
                         <property name="visible">True</property>
+                        <property name="orientation">vertical</property>
                         <child>
                           <widget class="GtkTable" id="table5">
                             <property name="visible">True</property>
@@ -372,6 +387,7 @@
                                   <packing>
                                     <property name="expand">False</property>
                                     <property name="fill">False</property>
+                                    <property name="position">0</property>
                                   </packing>
                                 </child>
                                 <child>
@@ -399,6 +415,7 @@
                                   <packing>
                                     <property name="expand">False</property>
                                     <property name="fill">False</property>
+                                    <property name="position">0</property>
                                   </packing>
                                 </child>
                                 <child>
@@ -428,6 +445,7 @@
                                   <packing>
                                     <property name="expand">False</property>
                                     <property name="fill">False</property>
+                                    <property name="position">0</property>
                                   </packing>
                                 </child>
                                 <child>
@@ -496,7 +514,6 @@ tt = AM/PM
 dd = day
 MM = month
 yy/yyyy = year</property>
-                                <property name="invisible_char">*</property>
                                 <property name="text">HH:mm</property>
                                 <signal name="changed" handler="_OnChanged"/>
                               </widget>
@@ -510,13 +527,14 @@ yy/yyyy = year</property>
                           <packing>
                             <property name="expand">False</property>
                             <property name="fill">False</property>
+                            <property name="position">0</property>
                           </packing>
                         </child>
                         <child>
                           <widget class="GtkCheckButton" id="StripColorsCheckButton">
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
-                            <property name="response_id">0</property>
+                            <property name="receives_default">False</property>
                             <property name="draw_indicator">True</property>
                             <signal name="toggled" handler="_OnChanged"/>
                             <child>
@@ -536,6 +554,7 @@ yy/yyyy = year</property>
                                       <packing>
                                         <property name="expand">False</property>
                                         <property name="fill">False</property>
+                                        <property name="position">0</property>
                                       </packing>
                                     </child>
                                     <child>
@@ -565,7 +584,7 @@ yy/yyyy = year</property>
                           <widget class="GtkCheckButton" id="StripFormattingsCheckButton">
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
-                            <property name="response_id">0</property>
+                            <property name="receives_default">False</property>
                             <property name="draw_indicator">True</property>
                             <signal name="toggled" handler="_OnChanged"/>
                             <child>
@@ -585,6 +604,7 @@ yy/yyyy = year</property>
                                       <packing>
                                         <property name="expand">False</property>
                                         <property name="fill">False</property>
+                                        <property name="position">0</property>
                                       </packing>
                                     </child>
                                     <child>
@@ -615,7 +635,7 @@ yy/yyyy = year</property>
                             <property name="visible">True</property>
                             <property name="sensitive">False</property>
                             <property name="can_focus">True</property>
-                            <property name="response_id">0</property>
+                            <property name="receives_default">False</property>
                             <property name="draw_indicator">True</property>
                             <signal name="toggled" handler="_OnChanged"/>
                             <child>
@@ -635,6 +655,7 @@ yy/yyyy = year</property>
                                       <packing>
                                         <property name="expand">False</property>
                                         <property name="fill">False</property>
+                                        <property name="position">0</property>
                                       </packing>
                                     </child>
                                     <child>
@@ -669,14 +690,15 @@ yy/yyyy = year</property>
                         <property name="label" translatable="yes">General</property>
                       </widget>
                       <packing>
-                        <property name="type">tab</property>
                         <property name="tab_fill">False</property>
+                        <property name="type">tab</property>
                       </packing>
                     </child>
                     <child>
                       <widget class="GtkVBox" id="vbox5">
                         <property name="visible">True</property>
                         <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
+                        <property name="orientation">vertical</property>
                         <property name="spacing">5</property>
                         <child>
                           <widget class="GtkFrame" id="frame1">
@@ -689,11 +711,12 @@ yy/yyyy = year</property>
                                 <child>
                                   <widget class="GtkVBox" id="vbox6">
                                     <property name="visible">True</property>
+                                    <property name="orientation">vertical</property>
                                     <child>
                                       <widget class="GtkRadioButton" id="TabPositionRadioButtonTop">
                                         <property name="visible">True</property>
                                         <property name="can_focus">True</property>
-                                        <property name="response_id">0</property>
+                                        <property name="receives_default">False</property>
                                         <property name="draw_indicator">True</property>
                                         <signal name="toggled" handler="_OnChanged"/>
                                         <child>
@@ -713,6 +736,7 @@ yy/yyyy = year</property>
                                                   <packing>
                                                     <property name="expand">False</property>
                                                     <property name="fill">False</property>
+                                                    <property name="position">0</property>
                                                   </packing>
                                                 </child>
                                                 <child>
@@ -735,13 +759,14 @@ yy/yyyy = year</property>
                                       <packing>
                                         <property name="expand">False</property>
                                         <property name="fill">False</property>
+                                        <property name="position">0</property>
                                       </packing>
                                     </child>
                                     <child>
                                       <widget class="GtkRadioButton" id="TabPositionRadioButtonBottom">
                                         <property name="visible">True</property>
                                         <property name="can_focus">True</property>
-                                        <property name="response_id">0</property>
+                                        <property name="receives_default">False</property>
                                         <property name="draw_indicator">True</property>
                                         <property name="group">TabPositionRadioButtonTop</property>
                                         <signal name="toggled" handler="_OnChanged"/>
@@ -762,6 +787,7 @@ yy/yyyy = year</property>
                                                   <packing>
                                                     <property name="expand">False</property>
                                                     <property name="fill">False</property>
+                                                    <property name="position">0</property>
                                                   </packing>
                                                 </child>
                                                 <child>
@@ -791,7 +817,7 @@ yy/yyyy = year</property>
                                       <widget class="GtkRadioButton" id="TabPositionRadioButtonLeft">
                                         <property name="visible">True</property>
                                         <property name="can_focus">True</property>
-                                        <property name="response_id">0</property>
+                                        <property name="receives_default">False</property>
                                         <property name="active">True</property>
                                         <property name="draw_indicator">True</property>
                                         <property name="group">TabPositionRadioButtonTop</property>
@@ -813,6 +839,7 @@ yy/yyyy = year</property>
                                                   <packing>
                                                     <property name="expand">False</property>
                                                     <property name="fill">False</property>
+                                                    <property name="position">0</property>
                                                   </packing>
                                                 </child>
                                                 <child>
@@ -842,7 +869,7 @@ yy/yyyy = year</property>
                                       <widget class="GtkRadioButton" id="TabPositionRadioButtonRight">
                                         <property name="visible">True</property>
                                         <property name="can_focus">True</property>
-                                        <property name="response_id">0</property>
+                                        <property name="receives_default">False</property>
                                         <property name="draw_indicator">True</property>
                                         <property name="group">TabPositionRadioButtonTop</property>
                                         <signal name="toggled" handler="_OnChanged"/>
@@ -863,6 +890,7 @@ yy/yyyy = year</property>
                                                   <packing>
                                                     <property name="expand">False</property>
                                                     <property name="fill">False</property>
+                                                    <property name="position">0</property>
                                                   </packing>
                                                 </child>
                                                 <child>
@@ -890,11 +918,11 @@ yy/yyyy = year</property>
                                     </child>
                                     <child>
                                       <widget class="GtkRadioButton" id="TabPositionRadioButtonNone">
+                                        <property name="label" translatable="yes">None</property>
                                         <property name="visible">True</property>
                                         <property name="can_focus">True</property>
-                                        <property name="label" translatable="yes">None</property>
+                                        <property name="receives_default">False</property>
                                         <property name="use_underline">True</property>
-                                        <property name="response_id">0</property>
                                         <property name="draw_indicator">True</property>
                                         <property name="group">TabPositionRadioButtonTop</property>
                                         <signal name="toggled" handler="_OnChanged"/>
@@ -922,6 +950,7 @@ yy/yyyy = year</property>
                           </widget>
                           <packing>
                             <property name="expand">False</property>
+                            <property name="position">0</property>
                           </packing>
                         </child>
                         <child>
@@ -943,7 +972,7 @@ yy/yyyy = year</property>
                                       <widget class="GtkColorButton" id="ActivityColorButton">
                                         <property name="visible">True</property>
                                         <property name="can_focus">True</property>
-                                        <property name="response_id">0</property>
+                                        <property name="receives_default">False</property>
                                         <signal name="color_set" handler="_OnChanged"/>
                                       </widget>
                                       <packing>
@@ -959,7 +988,7 @@ yy/yyyy = year</property>
                                       <widget class="GtkColorButton" id="ModeColorButton">
                                         <property name="visible">True</property>
                                         <property name="can_focus">True</property>
-                                        <property name="response_id">0</property>
+                                        <property name="receives_default">False</property>
                                         <signal name="color_set" handler="_OnChanged"/>
                                       </widget>
                                       <packing>
@@ -975,7 +1004,7 @@ yy/yyyy = year</property>
                                       <widget class="GtkColorButton" id="NoActivityColorButton">
                                         <property name="visible">True</property>
                                         <property name="can_focus">True</property>
-                                        <property name="response_id">0</property>
+                                        <property name="receives_default">False</property>
                                         <signal name="color_set" handler="_OnChanged"/>
                                       </widget>
                                       <packing>
@@ -1039,7 +1068,7 @@ yy/yyyy = year</property>
                                       <widget class="GtkColorButton" id="HighlightColorButton">
                                         <property name="visible">True</property>
                                         <property name="can_focus">True</property>
-                                        <property name="response_id">0</property>
+                                        <property name="receives_default">False</property>
                                         <signal name="color_set" handler="_OnChanged"/>
                                       </widget>
                                       <packing>
@@ -1083,9 +1112,9 @@ yy/yyyy = year</property>
                         <property name="label" translatable="yes">Tabs</property>
                       </widget>
                       <packing>
-                        <property name="type">tab</property>
                         <property name="position">1</property>
                         <property name="tab_fill">False</property>
+                        <property name="type">tab</property>
                       </packing>
                     </child>
                     <child>
@@ -1099,6 +1128,7 @@ yy/yyyy = year</property>
                             <child>
                               <widget class="GtkVBox" id="vbox7">
                                 <property name="visible">True</property>
+                                <property name="orientation">vertical</property>
                                 <property name="spacing">5</property>
                                 <child>
                                   <widget class="GtkTable" id="table4">
@@ -1119,6 +1149,7 @@ yy/yyyy = year</property>
                                           <packing>
                                             <property name="expand">False</property>
                                             <property name="fill">False</property>
+                                            <property name="position">0</property>
                                           </packing>
                                         </child>
                                         <child>
@@ -1146,6 +1177,7 @@ yy/yyyy = year</property>
                                           <packing>
                                             <property name="expand">False</property>
                                             <property name="fill">False</property>
+                                            <property name="position">0</property>
                                           </packing>
                                         </child>
                                         <child>
@@ -1175,6 +1207,7 @@ yy/yyyy = year</property>
                                           <packing>
                                             <property name="expand">False</property>
                                             <property name="fill">False</property>
+                                            <property name="position">0</property>
                                           </packing>
                                         </child>
                                         <child>
@@ -1217,7 +1250,6 @@ yy/yyyy = year</property>
                                         <property name="visible">True</property>
                                         <property name="can_focus">True</property>
                                         <property name="max_length">1</property>
-                                        <property name="invisible_char">*</property>
                                         <property name="text">/</property>
                                         <signal name="changed" handler="_OnChanged"/>
                                       </widget>
@@ -1235,7 +1267,6 @@ yy/yyyy = year</property>
                                         <property name="visible">True</property>
                                         <property name="can_focus">True</property>
                                         <property name="max_length">1</property>
-                                        <property name="invisible_char">*</property>
                                         <property name="text">:</property>
                                         <signal name="changed" handler="_OnChanged"/>
                                       </widget>
@@ -1249,15 +1280,16 @@ yy/yyyy = year</property>
                                   <packing>
                                     <property name="expand">False</property>
                                     <property name="fill">False</property>
+                                    <property name="position">0</property>
                                   </packing>
                                 </child>
                                 <child>
                                   <widget class="GtkCheckButton" id="BashStyleCompletionCheckButton">
+                                    <property name="label" translatable="yes">Bash-Style Completion</property>
                                     <property name="visible">True</property>
                                     <property name="can_focus">True</property>
-                                    <property name="label" translatable="yes">Bash-Style Completion</property>
+                                    <property name="receives_default">False</property>
                                     <property name="use_underline">True</property>
-                                    <property name="response_id">0</property>
                                     <property name="draw_indicator">True</property>
                                     <signal name="toggled" handler="_OnChanged"/>
                                   </widget>
@@ -1293,15 +1325,16 @@ yy/yyyy = year</property>
                         <property name="label" translatable="yes">Input</property>
                       </widget>
                       <packing>
-                        <property name="type">tab</property>
                         <property name="position">2</property>
                         <property name="tab_fill">False</property>
+                        <property name="type">tab</property>
                       </packing>
                     </child>
                     <child>
                       <widget class="GtkVBox" id="vbox8">
                         <property name="visible">True</property>
                         <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
+                        <property name="orientation">vertical</property>
                         <child>
                           <widget class="GtkFrame" id="frame2">
                             <property name="visible">True</property>
@@ -1319,11 +1352,11 @@ yy/yyyy = year</property>
                                     <property name="row_spacing">2</property>
                                     <child>
                                       <widget class="GtkCheckButton" id="NickColorsCheckButton">
+                                        <property name="label" translatable="yes">Nick Colors</property>
                                         <property name="visible">True</property>
                                         <property name="can_focus">True</property>
+                                        <property name="receives_default">False</property>
                                         <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
-                                        <property name="label" translatable="yes">Nick Colors</property>
-                                        <property name="response_id">0</property>
                                         <property name="draw_indicator">True</property>
                                         <signal name="toggled" handler="_OnChanged"/>
                                       </widget>
@@ -1344,11 +1377,12 @@ yy/yyyy = year</property>
                                             <child>
                                               <widget class="GtkVBox" id="vbox17">
                                                 <property name="visible">True</property>
+                                                <property name="orientation">vertical</property>
                                                 <child>
                                                   <widget class="GtkRadioButton" id="UserListPositionRadioButtonLeft">
                                                     <property name="visible">True</property>
                                                     <property name="can_focus">True</property>
-                                                    <property name="response_id">0</property>
+                                                    <property name="receives_default">False</property>
                                                     <property name="active">True</property>
                                                     <property name="draw_indicator">True</property>
                                                     <signal name="toggled" handler="_OnChanged"/>
@@ -1362,26 +1396,27 @@ yy/yyyy = year</property>
                                                             <property name="visible">True</property>
                                                             <property name="spacing">2</property>
                                                             <child>
-                                                              <widget class="GtkImage" id="image3">
-                                                                <property name="visible">True</property>
-                                                                <property name="stock">gtk-goto-first</property>
-                                                              </widget>
-                                                              <packing>
-                                                                <property name="expand">False</property>
-                                                                <property name="fill">False</property>
-                                                              </packing>
+                                                            <widget class="GtkImage" id="image3">
+                                                            <property name="visible">True</property>
+                                                            <property name="stock">gtk-goto-first</property>
+                                                            </widget>
+                                                            <packing>
+                                                            <property name="expand">False</property>
+                                                            <property name="fill">False</property>
+                                                            <property name="position">0</property>
+                                                            </packing>
                                                             </child>
                                                             <child>
-                                                              <widget class="GtkLabel" id="label48">
-                                                                <property name="visible">True</property>
-                                                                <property name="label" translatable="yes">Left</property>
-                                                                <property name="use_underline">True</property>
-                                                              </widget>
-                                                              <packing>
-                                                                <property name="expand">False</property>
-                                                                <property name="fill">False</property>
-                                                                <property name="position">1</property>
-                                                              </packing>
+                                                            <widget class="GtkLabel" id="label48">
+                                                            <property name="visible">True</property>
+                                                            <property name="label" translatable="yes">Left</property>
+                                                            <property name="use_underline">True</property>
+                                                            </widget>
+                                                            <packing>
+                                                            <property name="expand">False</property>
+                                                            <property name="fill">False</property>
+                                                            <property name="position">1</property>
+                                                            </packing>
                                                             </child>
                                                           </widget>
                                                         </child>
@@ -1391,13 +1426,14 @@ yy/yyyy = year</property>
                                                   <packing>
                                                     <property name="expand">False</property>
                                                     <property name="fill">False</property>
+                                                    <property name="position">0</property>
                                                   </packing>
                                                 </child>
                                                 <child>
                                                   <widget class="GtkRadioButton" id="UserListPositionRadioButtonRight">
                                                     <property name="visible">True</property>
                                                     <property name="can_focus">True</property>
-                                                    <property name="response_id">0</property>
+                                                    <property name="receives_default">False</property>
                                                     <property name="draw_indicator">True</property>
                                                     <property name="group">UserListPositionRadioButtonLeft</property>
                                                     <signal name="toggled" handler="_OnChanged"/>
@@ -1411,26 +1447,27 @@ yy/yyyy = year</property>
                                                             <property name="visible">True</property>
                                                             <property name="spacing">2</property>
                                                             <child>
-                                                              <widget class="GtkImage" id="image4">
-                                                                <property name="visible">True</property>
-                                                                <property name="stock">gtk-goto-last</property>
-                                                              </widget>
-                                                              <packing>
-                                                                <property name="expand">False</property>
-                                                                <property name="fill">False</property>
-                                                              </packing>
+                                                            <widget class="GtkImage" id="image4">
+                                                            <property name="visible">True</property>
+                                                            <property name="stock">gtk-goto-last</property>
+                                                            </widget>
+                                                            <packing>
+                                                            <property name="expand">False</property>
+                                                            <property name="fill">False</property>
+                                                            <property name="position">0</property>
+                                                            </packing>
                                                             </child>
                                                             <child>
-                                                              <widget class="GtkLabel" id="label49">
-                                                                <property name="visible">True</property>
-                                                                <property name="label" translatable="yes">Right</property>
-                                                                <property name="use_underline">True</property>
-                                                              </widget>
-                                                              <packing>
-                                                                <property name="expand">False</property>
-                                                                <property name="fill">False</property>
-                                                                <property name="position">1</property>
-                                                              </packing>
+                                                            <widget class="GtkLabel" id="label49">
+                                                            <property name="visible">True</property>
+                                                            <property name="label" translatable="yes">Right</property>
+                                                            <property name="use_underline">True</property>
+                                                            </widget>
+                                                            <packing>
+                                                            <property name="expand">False</property>
+                                                            <property name="fill">False</property>
+                                                            <property name="position">1</property>
+                                                            </packing>
                                                             </child>
                                                           </widget>
                                                         </child>
@@ -1445,11 +1482,11 @@ yy/yyyy = year</property>
                                                 </child>
                                                 <child>
                                                   <widget class="GtkRadioButton" id="UserListPositionRadioButtonNone">
+                                                    <property name="label" translatable="yes">None</property>
                                                     <property name="visible">True</property>
                                                     <property name="can_focus">True</property>
-                                                    <property name="label" translatable="yes">None</property>
+                                                    <property name="receives_default">False</property>
                                                     <property name="use_underline">True</property>
-                                                    <property name="response_id">0</property>
                                                     <property name="draw_indicator">True</property>
                                                     <property name="group">UserListPositionRadioButtonLeft</property>
                                                     <signal name="toggled" handler="_OnChanged"/>
@@ -1493,13 +1530,16 @@ yy/yyyy = year</property>
                                                 <property name="visible">True</property>
                                                 <child>
                                                   <widget class="GtkCheckButton" id="OverrideFontCheckButton">
+                                                    <property name="label" translatable="yes">Override</property>
                                                     <property name="visible">True</property>
                                                     <property name="can_focus">True</property>
-                                                    <property name="label" translatable="yes">Override</property>
-                                                    <property name="response_id">0</property>
+                                                    <property name="receives_default">False</property>
                                                     <property name="draw_indicator">True</property>
                                                     <signal name="toggled" handler="_OnChanged"/>
                                                   </widget>
+                                                  <packing>
+                                                    <property name="position">0</property>
+                                                  </packing>
                                                 </child>
                                                 <child>
                                                   <widget class="GtkFontButton" id="FontButton">
@@ -1507,7 +1547,6 @@ yy/yyyy = year</property>
                                                     <property name="sensitive">False</property>
                                                     <property name="can_focus">True</property>
                                                     <property name="receives_default">True</property>
-                                                    <property name="response_id">0</property>
                                                     <signal name="font_set" handler="_OnChanged"/>
                                                   </widget>
                                                   <packing>
@@ -1547,11 +1586,12 @@ yy/yyyy = year</property>
                                             <child>
                                               <widget class="GtkVBox" id="vbox15">
                                                 <property name="visible">True</property>
+                                                <property name="orientation">vertical</property>
                                                 <child>
                                                   <widget class="GtkRadioButton" id="TopicPositionRadioButtonTop">
                                                     <property name="visible">True</property>
                                                     <property name="can_focus">True</property>
-                                                    <property name="response_id">0</property>
+                                                    <property name="receives_default">False</property>
                                                     <property name="active">True</property>
                                                     <property name="draw_indicator">True</property>
                                                     <signal name="toggled" handler="_OnChanged"/>
@@ -1565,26 +1605,27 @@ yy/yyyy = year</property>
                                                             <property name="visible">True</property>
                                                             <property name="spacing">2</property>
                                                             <child>
-                                                              <widget class="GtkImage" id="image7">
-                                                                <property name="visible">True</property>
-                                                                <property name="stock">gtk-goto-top</property>
-                                                              </widget>
-                                                              <packing>
-                                                                <property name="expand">False</property>
-                                                                <property name="fill">False</property>
-                                                              </packing>
+                                                            <widget class="GtkImage" id="image7">
+                                                            <property name="visible">True</property>
+                                                            <property name="stock">gtk-goto-top</property>
+                                                            </widget>
+                                                            <packing>
+                                                            <property name="expand">False</property>
+                                                            <property name="fill">False</property>
+                                                            <property name="position">0</property>
+                                                            </packing>
                                                             </child>
                                                             <child>
-                                                              <widget class="GtkLabel" id="label52">
-                                                                <property name="visible">True</property>
-                                                                <property name="label" translatable="yes">Top</property>
-                                                                <property name="use_underline">True</property>
-                                                              </widget>
-                                                              <packing>
-                                                                <property name="expand">False</property>
-                                                                <property name="fill">False</property>
-                                                                <property name="position">1</property>
-                                                              </packing>
+                                                            <widget class="GtkLabel" id="label52">
+                                                            <property name="visible">True</property>
+                                                            <property name="label" translatable="yes">Top</property>
+                                                            <property name="use_underline">True</property>
+                                                            </widget>
+                                                            <packing>
+                                                            <property name="expand">False</property>
+                                                            <property name="fill">False</property>
+                                                            <property name="position">1</property>
+                                                            </packing>
                                                             </child>
                                                           </widget>
                                                         </child>
@@ -1594,13 +1635,14 @@ yy/yyyy = year</property>
                                                   <packing>
                                                     <property name="expand">False</property>
                                                     <property name="fill">False</property>
+                                                    <property name="position">0</property>
                                                   </packing>
                                                 </child>
                                                 <child>
                                                   <widget class="GtkRadioButton" id="TopicPositionRadioButtonBottom">
                                                     <property name="visible">True</property>
                                                     <property name="can_focus">True</property>
-                                                    <property name="response_id">0</property>
+                                                    <property name="receives_default">False</property>
                                                     <property name="draw_indicator">True</property>
                                                     <property name="group">TopicPositionRadioButtonTop</property>
                                                     <signal name="toggled" handler="_OnChanged"/>
@@ -1614,26 +1656,27 @@ yy/yyyy = year</property>
                                                             <property name="visible">True</property>
                                                             <property name="spacing">2</property>
                                                             <child>
-                                                              <widget class="GtkImage" id="image6">
-                                                                <property name="visible">True</property>
-                                                                <property name="stock">gtk-goto-bottom</property>
-                                                              </widget>
-                                                              <packing>
-                                                                <property name="expand">False</property>
-                                                                <property name="fill">False</property>
-                                                              </packing>
+                                                            <widget class="GtkImage" id="image6">
+                                                            <property name="visible">True</property>
+                                                            <property name="stock">gtk-goto-bottom</property>
+                                                            </widget>
+                                                            <packing>
+                                                            <property name="expand">False</property>
+                                                            <property name="fill">False</property>
+                                                            <property name="position">0</property>
+                                                            </packing>
                                                             </child>
                                                             <child>
-                                                              <widget class="GtkLabel" id="label51">
-                                                                <property name="visible">True</property>
-                                                                <property name="label" translatable="yes">Bottom</property>
-                                                                <property name="use_underline">True</property>
-                                                              </widget>
-                                                              <packing>
-                                                                <property name="expand">False</property>
-                                                                <property name="fill">False</property>
-                                                                <property name="position">1</property>
-                                                              </packing>
+                                                            <widget class="GtkLabel" id="label51">
+                                                            <property name="visible">True</property>
+                                                            <property name="label" translatable="yes">Bottom</property>
+                                                            <property name="use_underline">True</property>
+                                                            </widget>
+                                                            <packing>
+                                                            <property name="expand">False</property>
+                                                            <property name="fill">False</property>
+                                                            <property name="position">1</property>
+                                                            </packing>
                                                             </child>
                                                           </widget>
                                                         </child>
@@ -1648,11 +1691,11 @@ yy/yyyy = year</property>
                                                 </child>
                                                 <child>
                                                   <widget class="GtkRadioButton" id="TopicPositionRadioButtonNone">
+                                                    <property name="label" translatable="yes">None</property>
                                                     <property name="visible">True</property>
                                                     <property name="can_focus">True</property>
-                                                    <property name="label" translatable="yes">None</property>
+                                                    <property name="receives_default">False</property>
                                                     <property name="use_underline">True</property>
-                                                    <property name="response_id">0</property>
                                                     <property name="draw_indicator">True</property>
                                                     <property name="group">TopicPositionRadioButtonTop</property>
                                                     <signal name="toggled" handler="_OnChanged"/>
@@ -1730,7 +1773,6 @@ yy/yyyy = year</property>
                                                     <property name="sensitive">False</property>
                                                     <property name="can_focus">True</property>
                                                     <property name="receives_default">True</property>
-                                                    <property name="response_id">0</property>
                                                     <property name="color">#000000000000</property>
                                                     <signal name="color_set" handler="_OnChanged"/>
                                                   </widget>
@@ -1746,7 +1788,6 @@ yy/yyyy = year</property>
                                                     <property name="sensitive">False</property>
                                                     <property name="can_focus">True</property>
                                                     <property name="receives_default">True</property>
-                                                    <property name="response_id">0</property>
                                                     <property name="color">#000000000000</property>
                                                     <signal name="color_set" handler="_OnChanged"/>
                                                   </widget>
@@ -1760,10 +1801,10 @@ yy/yyyy = year</property>
                                                 </child>
                                                 <child>
                                                   <widget class="GtkCheckButton" id="OverrideForegroundColorCheckButton">
+                                                    <property name="label" translatable="yes">Override</property>
                                                     <property name="visible">True</property>
                                                     <property name="can_focus">True</property>
-                                                    <property name="label" translatable="yes">Override</property>
-                                                    <property name="response_id">0</property>
+                                                    <property name="receives_default">False</property>
                                                     <property name="draw_indicator">True</property>
                                                     <signal name="toggled" handler="_OnChanged"/>
                                                   </widget>
@@ -1773,10 +1814,10 @@ yy/yyyy = year</property>
                                                 </child>
                                                 <child>
                                                   <widget class="GtkCheckButton" id="OverrideBackgroundColorCheckButton">
+                                                    <property name="label" translatable="yes">Override</property>
                                                     <property name="visible">True</property>
                                                     <property name="can_focus">True</property>
-                                                    <property name="label" translatable="yes">Override</property>
-                                                    <property name="response_id">0</property>
+                                                    <property name="receives_default">False</property>
                                                     <property name="draw_indicator">True</property>
                                                     <signal name="toggled" handler="_OnChanged"/>
                                                   </widget>
@@ -1821,6 +1862,7 @@ yy/yyyy = year</property>
                                           </widget>
                                           <packing>
                                             <property name="expand">False</property>
+                                            <property name="position">0</property>
                                           </packing>
                                         </child>
                                         <child>
@@ -1856,6 +1898,7 @@ yy/yyyy = year</property>
                           </widget>
                           <packing>
                             <property name="expand">False</property>
+                            <property name="position">0</property>
                           </packing>
                         </child>
                         <child>
@@ -1870,9 +1913,11 @@ yy/yyyy = year</property>
                                   <widget class="GtkVBox" id="vbox11">
                                     <property name="visible">True</property>
                                     <property name="border_width">5</property>
+                                    <property name="orientation">vertical</property>
                                     <child>
                                       <widget class="GtkVBox" id="vbox12">
                                         <property name="visible">True</property>
+                                        <property name="orientation">vertical</property>
                                         <child>
                                           <widget class="GtkLabel" id="label62">
                                             <property name="visible">True</property>
@@ -1882,15 +1927,16 @@ yy/yyyy = year</property>
                                           <packing>
                                             <property name="expand">False</property>
                                             <property name="fill">False</property>
+                                            <property name="position">0</property>
                                           </packing>
                                         </child>
                                         <child>
                                           <widget class="GtkScrolledWindow" id="scrolledwindow4">
                                             <property name="visible">True</property>
                                             <property name="can_focus">True</property>
-                                            <property name="hscrollbar_policy">GTK_POLICY_AUTOMATIC</property>
-                                            <property name="vscrollbar_policy">GTK_POLICY_AUTOMATIC</property>
-                                            <property name="shadow_type">GTK_SHADOW_IN</property>
+                                            <property name="hscrollbar_policy">automatic</property>
+                                            <property name="vscrollbar_policy">automatic</property>
+                                            <property name="shadow_type">in</property>
                                             <child>
                                               <widget class="GtkTextView" id="HighlightWordsTextView">
                                                 <property name="visible">True</property>
@@ -1903,14 +1949,17 @@ yy/yyyy = year</property>
                                           </packing>
                                         </child>
                                       </widget>
+                                      <packing>
+                                        <property name="position">0</property>
+                                      </packing>
                                     </child>
                                     <child>
                                       <widget class="GtkCheckButton" id="BeepOnHighlightCheckButton">
+                                        <property name="label" translatable="yes">Beep on highlight</property>
                                         <property name="visible">True</property>
                                         <property name="can_focus">True</property>
-                                        <property name="label" translatable="yes">Beep on highlight</property>
+                                        <property name="receives_default">False</property>
                                         <property name="use_underline">True</property>
-                                        <property name="response_id">0</property>
                                         <property name="draw_indicator">True</property>
                                         <signal name="toggled" handler="_OnChanged"/>
                                       </widget>
@@ -1951,9 +2000,9 @@ yy/yyyy = year</property>
                         <property name="label" translatable="yes">Output</property>
                       </widget>
                       <packing>
-                        <property name="type">tab</property>
                         <property name="position">3</property>
                         <property name="tab_fill">False</property>
+                        <property name="type">tab</property>
                       </packing>
                     </child>
                     <child>
@@ -1967,40 +2016,44 @@ yy/yyyy = year</property>
                             <child>
                               <widget class="GtkVBox" id="vbox9">
                                 <property name="visible">True</property>
+                                <property name="orientation">vertical</property>
                                 <child>
                                   <widget class="GtkCheckButton" id="NotificationAreaIconCheckButton">
+                                    <property name="label" translatable="yes">Enable</property>
                                     <property name="visible">True</property>
                                     <property name="can_focus">True</property>
-                                    <property name="label" translatable="yes">Enable</property>
-                                    <property name="response_id">0</property>
+                                    <property name="receives_default">False</property>
                                     <property name="draw_indicator">True</property>
                                   </widget>
                                   <packing>
                                     <property name="expand">False</property>
+                                    <property name="position">0</property>
                                   </packing>
                                 </child>
                                 <child>
                                   <widget class="GtkVBox" id="vbox19">
                                     <property name="visible">True</property>
+                                    <property name="orientation">vertical</property>
                                     <child>
                                       <widget class="GtkRadioButton" id="NotificationAreaIconRadioButtonAlways">
+                                        <property name="label" translatable="yes">Show always</property>
                                         <property name="visible">True</property>
                                         <property name="can_focus">True</property>
-                                        <property name="label" translatable="yes">Show always</property>
-                                        <property name="response_id">0</property>
+                                        <property name="receives_default">False</property>
                                         <property name="active">True</property>
                                         <property name="draw_indicator">True</property>
                                       </widget>
                                       <packing>
                                         <property name="expand">False</property>
+                                        <property name="position">0</property>
                                       </packing>
                                     </child>
                                     <child>
                                       <widget class="GtkRadioButton" id="NotificationAreaIconRadioButtonMinimized">
+                                        <property name="label" translatable="yes">Show when window is minimized</property>
                                         <property name="visible">True</property>
                                         <property name="can_focus">True</property>
-                                        <property name="label" translatable="yes">Show when window is minimized</property>
-                                        <property name="response_id">0</property>
+                                        <property name="receives_default">False</property>
                                         <property name="active">True</property>
                                         <property name="draw_indicator">True</property>
                                         <property name="group">NotificationAreaIconRadioButtonAlways</property>
@@ -2012,10 +2065,10 @@ yy/yyyy = year</property>
                                     </child>
                                     <child>
                                       <widget class="GtkRadioButton" id="NotificationAreaIconRadioButtonClosed">
+                                        <property name="label" translatable="yes">Show when window is closed</property>
                                         <property name="visible">True</property>
                                         <property name="can_focus">True</property>
-                                        <property name="label" translatable="yes">Show when window is closed</property>
-                                        <property name="response_id">0</property>
+                                        <property name="receives_default">False</property>
                                         <property name="active">True</property>
                                         <property name="draw_indicator">True</property>
                                         <property name="group">NotificationAreaIconRadioButtonAlways</property>
@@ -2055,9 +2108,9 @@ yy/yyyy = year</property>
                         <property name="label" translatable="yes">Notification</property>
                       </widget>
                       <packing>
-                        <property name="type">tab</property>
                         <property name="position">4</property>
                         <property name="tab_fill">False</property>
+                        <property name="type">tab</property>
                       </packing>
                     </child>
                   </widget>
@@ -2073,9 +2126,9 @@ yy/yyyy = year</property>
                     <property name="mnemonic_widget">Notebook</property>
                   </widget>
                   <packing>
-                    <property name="type">tab</property>
                     <property name="position">1</property>
                     <property name="tab_fill">False</property>
+                    <property name="type">tab</property>
                   </packing>
                 </child>
                 <child>
@@ -2086,9 +2139,9 @@ yy/yyyy = year</property>
                       <widget class="GtkScrolledWindow" id="scrolledwindow3">
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
-                        <property name="hscrollbar_policy">GTK_POLICY_AUTOMATIC</property>
-                        <property name="vscrollbar_policy">GTK_POLICY_AUTOMATIC</property>
-                        <property name="shadow_type">GTK_SHADOW_IN</property>
+                        <property name="hscrollbar_policy">automatic</property>
+                        <property name="vscrollbar_policy">automatic</property>
+                        <property name="shadow_type">in</property>
                         <child>
                           <widget class="GtkTreeView" id="ServersTreeView">
                             <property name="visible">True</property>
@@ -2096,45 +2149,57 @@ yy/yyyy = year</property>
                           </widget>
                         </child>
                       </widget>
+                      <packing>
+                        <property name="position">0</property>
+                      </packing>
                     </child>
                     <child>
                       <widget class="GtkVButtonBox" id="vbuttonbox1">
                         <property name="visible">True</property>
                         <property name="border_width">5</property>
-                        <property name="layout_style">GTK_BUTTONBOX_START</property>
+                        <property name="layout_style">start</property>
                         <child>
                           <widget class="GtkButton" id="ServersAddButton">
+                            <property name="label">gtk-add</property>
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="can_default">True</property>
-                            <property name="label">gtk-add</property>
+                            <property name="receives_default">False</property>
                             <property name="use_stock">True</property>
-                            <property name="response_id">0</property>
                           </widget>
+                          <packing>
+                            <property name="expand">False</property>
+                            <property name="fill">False</property>
+                            <property name="position">0</property>
+                          </packing>
                         </child>
                         <child>
                           <widget class="GtkButton" id="ServersEditButton">
+                            <property name="label">gtk-edit</property>
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="can_default">True</property>
-                            <property name="label">gtk-edit</property>
+                            <property name="receives_default">False</property>
                             <property name="use_stock">True</property>
-                            <property name="response_id">0</property>
                           </widget>
                           <packing>
+                            <property name="expand">False</property>
+                            <property name="fill">False</property>
                             <property name="position">1</property>
                           </packing>
                         </child>
                         <child>
                           <widget class="GtkButton" id="ServersRemoveButton">
+                            <property name="label">gtk-remove</property>
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="can_default">True</property>
-                            <property name="label">gtk-remove</property>
+                            <property name="receives_default">False</property>
                             <property name="use_stock">True</property>
-                            <property name="response_id">0</property>
                           </widget>
                           <packing>
+                            <property name="expand">False</property>
+                            <property name="fill">False</property>
                             <property name="position">2</property>
                           </packing>
                         </child>
@@ -2157,15 +2222,16 @@ yy/yyyy = year</property>
                     <property name="mnemonic_widget">Notebook</property>
                   </widget>
                   <packing>
-                    <property name="type">tab</property>
                     <property name="position">2</property>
                     <property name="tab_fill">False</property>
+                    <property name="type">tab</property>
                   </packing>
                 </child>
                 <child>
                   <widget class="GtkVBox" id="vbox13">
                     <property name="visible">True</property>
                     <property name="border_width">5</property>
+                    <property name="orientation">vertical</property>
                     <child>
                       <widget class="GtkFrame" id="frame12">
                         <property name="visible">True</property>
@@ -2178,13 +2244,14 @@ yy/yyyy = year</property>
                             <child>
                               <widget class="GtkVBox" id="vbox14">
                                 <property name="visible">True</property>
+                                <property name="orientation">vertical</property>
                                 <child>
                                   <widget class="GtkScrolledWindow" id="scrolledwindow5">
                                     <property name="visible">True</property>
                                     <property name="can_focus">True</property>
-                                    <property name="hscrollbar_policy">GTK_POLICY_AUTOMATIC</property>
-                                    <property name="vscrollbar_policy">GTK_POLICY_AUTOMATIC</property>
-                                    <property name="shadow_type">GTK_SHADOW_IN</property>
+                                    <property name="hscrollbar_policy">automatic</property>
+                                    <property name="vscrollbar_policy">automatic</property>
+                                    <property name="shadow_type">in</property>
                                     <child>
                                       <widget class="GtkTreeView" id="ChannelFiltersTreeView">
                                         <property name="visible">True</property>
@@ -2192,33 +2259,43 @@ yy/yyyy = year</property>
                                       </widget>
                                     </child>
                                   </widget>
+                                  <packing>
+                                    <property name="position">0</property>
+                                  </packing>
                                 </child>
                                 <child>
                                   <widget class="GtkHButtonBox" id="hbuttonbox1">
                                     <property name="visible">True</property>
-                                    <property name="layout_style">GTK_BUTTONBOX_SPREAD</property>
+                                    <property name="layout_style">spread</property>
                                     <child>
                                       <widget class="GtkButton" id="ChannelFiltersAddButton">
+                                        <property name="label">gtk-add</property>
                                         <property name="visible">True</property>
                                         <property name="sensitive">False</property>
                                         <property name="can_focus">True</property>
                                         <property name="can_default">True</property>
-                                        <property name="label">gtk-add</property>
+                                        <property name="receives_default">False</property>
                                         <property name="use_stock">True</property>
-                                        <property name="response_id">0</property>
                                       </widget>
+                                      <packing>
+                                        <property name="expand">False</property>
+                                        <property name="fill">False</property>
+                                        <property name="position">0</property>
+                                      </packing>
                                     </child>
                                     <child>
                                       <widget class="GtkButton" id="ChannelFiltersRemoveButton">
+                                        <property name="label">gtk-remove</property>
                                         <property name="visible">True</property>
                                         <property name="sensitive">False</property>
                                         <property name="can_focus">True</property>
                                         <property name="can_default">True</property>
-                                        <property name="label">gtk-remove</property>
+                                        <property name="receives_default">False</property>
                                         <property name="use_stock">True</property>
-                                        <property name="response_id">0</property>
                                       </widget>
                                       <packing>
+                                        <property name="expand">False</property>
+                                        <property name="fill">False</property>
                                         <property name="position">1</property>
                                       </packing>
                                     </child>
@@ -2243,6 +2320,9 @@ yy/yyyy = year</property>
                           </packing>
                         </child>
                       </widget>
+                      <packing>
+                        <property name="position">0</property>
+                      </packing>
                     </child>
                     <child>
                       <widget class="GtkFrame" id="frame13">
@@ -2286,9 +2366,87 @@ yy/yyyy = year</property>
                     <property name="mnemonic_widget">Notebook</property>
                   </widget>
                   <packing>
-                    <property name="type">tab</property>
                     <property name="position">3</property>
                     <property name="tab_fill">False</property>
+                    <property name="type">tab</property>
+                  </packing>
+                </child>
+                <child>
+                  <widget class="GtkTable" id="table2">
+                    <property name="visible">True</property>
+                    <property name="border_width">5</property>
+                    <property name="n_rows">2</property>
+                    <property name="n_columns">2</property>
+                    <property name="column_spacing">5</property>
+                    <property name="row_spacing">5</property>
+                    <child>
+                      <widget class="GtkCheckButton" id="LoggingEnabledCheckButton">
+                        <property name="label" translatable="yes">Enabled</property>
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="receives_default">False</property>
+                        <property name="draw_indicator">True</property>
+                        <signal name="toggled" handler="_OnChanged"/>
+                      </widget>
+                      <packing>
+                        <property name="x_options">GTK_FILL</property>
+                        <property name="y_options">GTK_FILL</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <widget class="GtkButton" id="LoggingOpenButton">
+                        <property name="label">gtk-open</property>
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="receives_default">True</property>
+                        <property name="use_stock">True</property>
+                      </widget>
+                      <packing>
+                        <property name="top_attach">1</property>
+                        <property name="bottom_attach">2</property>
+                        <property name="x_options">GTK_FILL</property>
+                        <property name="y_options">GTK_FILL</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <widget class="GtkFixed" id="fixed1">
+                        <property name="visible">True</property>
+                      </widget>
+                      <packing>
+                        <property name="left_attach">1</property>
+                        <property name="right_attach">2</property>
+                        <property name="x_options">GTK_FILL</property>
+                        <property name="y_options">GTK_FILL</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <widget class="GtkFixed" id="fixed2">
+                        <property name="visible">True</property>
+                      </widget>
+                      <packing>
+                        <property name="left_attach">1</property>
+                        <property name="right_attach">2</property>
+                        <property name="top_attach">1</property>
+                        <property name="bottom_attach">2</property>
+                        <property name="x_options">GTK_FILL</property>
+                        <property name="y_options">GTK_FILL</property>
+                      </packing>
+                    </child>
+                  </widget>
+                  <packing>
+                    <property name="position">4</property>
+                  </packing>
+                </child>
+                <child>
+                  <widget class="GtkLabel" id="label5">
+                    <property name="visible">True</property>
+                    <property name="label" translatable="yes">_Logging</property>
+                    <property name="use_underline">True</property>
+                  </widget>
+                  <packing>
+                    <property name="position">4</property>
+                    <property name="tab_fill">False</property>
+                    <property name="type">tab</property>
                   </packing>
                 </child>
               </widget>
@@ -2304,48 +2462,61 @@ yy/yyyy = year</property>
         <child internal-child="action_area">
           <widget class="GtkHButtonBox" id="dialog-action_area1">
             <property name="visible">True</property>
-            <property name="layout_style">GTK_BUTTONBOX_END</property>
+            <property name="layout_style">end</property>
             <child>
               <widget class="GtkButton" id="CancelButton">
+                <property name="label">gtk-cancel</property>
+                <property name="response_id">-6</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="can_default">True</property>
-                <property name="label">gtk-cancel</property>
+                <property name="receives_default">False</property>
                 <property name="use_stock">True</property>
-                <property name="response_id">-6</property>
               </widget>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">False</property>
+                <property name="position">0</property>
+              </packing>
             </child>
             <child>
               <widget class="GtkButton" id="ApplyButton">
+                <property name="label">gtk-apply</property>
+                <property name="response_id">-10</property>
                 <property name="visible">True</property>
                 <property name="sensitive">False</property>
                 <property name="can_focus">True</property>
                 <property name="can_default">True</property>
-                <property name="label">gtk-apply</property>
+                <property name="receives_default">False</property>
                 <property name="use_stock">True</property>
-                <property name="response_id">-10</property>
               </widget>
               <packing>
+                <property name="expand">False</property>
+                <property name="fill">False</property>
                 <property name="position">1</property>
               </packing>
             </child>
             <child>
               <widget class="GtkButton" id="OKButton">
+                <property name="label">gtk-ok</property>
+                <property name="response_id">-5</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="can_default">True</property>
-                <property name="label">gtk-ok</property>
+                <property name="receives_default">False</property>
                 <property name="use_stock">True</property>
-                <property name="response_id">-5</property>
               </widget>
               <packing>
+                <property name="expand">False</property>
+                <property name="fill">False</property>
                 <property name="position">2</property>
               </packing>
             </child>
           </widget>
           <packing>
             <property name="expand">False</property>
-            <property name="pack_type">GTK_PACK_END</property>
+            <property name="pack_type">end</property>
+            <property name="position">0</property>
           </packing>
         </child>
       </widget>
@@ -2355,9 +2526,9 @@ yy/yyyy = year</property>
     <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
     <property name="border_width">5</property>
     <property name="title" translatable="yes">Smuxi - Server</property>
-    <property name="window_position">GTK_WIN_POS_CENTER_ON_PARENT</property>
+    <property name="window_position">center-on-parent</property>
     <property name="icon_name">gtk-preferences</property>
-    <property name="type_hint">GDK_WINDOW_TYPE_HINT_DIALOG</property>
+    <property name="type_hint">dialog</property>
     <child internal-child="vbox">
       <widget class="GtkVBox" id="dialog-vbox2">
         <property name="visible">True</property>
@@ -2367,6 +2538,7 @@ yy/yyyy = year</property>
           <widget class="GtkVBox" id="vbox16">
             <property name="visible">True</property>
             <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
+            <property name="orientation">vertical</property>
             <child>
               <widget class="GtkTable" id="table2">
                 <property name="visible">True</property>
@@ -2385,16 +2557,23 @@ yy/yyyy = year</property>
                         <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
                         <property name="visibility">False</property>
                       </widget>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">False</property>
+                        <property name="position">0</property>
+                      </packing>
                     </child>
                     <child>
                       <widget class="GtkCheckButton" id="ShowPasswordCheckButton">
+                        <property name="label" translatable="yes">Show Password</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
-                        <property name="label" translatable="yes">Show Password</property>
-                        <property name="response_id">0</property>
+                        <property name="receives_default">False</property>
                         <property name="draw_indicator">True</property>
                       </widget>
                       <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">False</property>
                         <property name="position">1</property>
                       </packing>
                     </child>
@@ -2408,11 +2587,11 @@ yy/yyyy = year</property>
                 </child>
                 <child>
                   <widget class="GtkCheckButton" id="OnStartupConnectCheckButton">
+                    <property name="label" translatable="yes">Automatically connect to server at startup</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <property name="receives_default">False</property>
                     <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
-                    <property name="label" translatable="yes">Automatically connect to server at startup</property>
-                    <property name="response_id">0</property>
                     <property name="draw_indicator">True</property>
                   </widget>
                   <packing>
@@ -2462,13 +2641,6 @@ yy/yyyy = year</property>
                   <widget class="GtkComboBoxEntry" id="NetworkComboBoxEntry">
                     <property name="visible">True</property>
                     <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
-                    <child internal-child="entry">
-                      <widget class="GtkEntry" id="comboboxentry-entry1">
-                        <property name="visible">True</property>
-                        <property name="can_focus">True</property>
-                        <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
-                      </widget>
-                    </child>
                   </widget>
                   <packing>
                     <property name="left_attach">1</property>
@@ -2487,6 +2659,9 @@ yy/yyyy = year</property>
                         <property name="can_focus">True</property>
                         <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
                       </widget>
+                      <packing>
+                        <property name="position">0</property>
+                      </packing>
                     </child>
                     <child>
                       <widget class="GtkHBox" id="hbox11">
@@ -2499,6 +2674,9 @@ yy/yyyy = year</property>
                             <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
                             <property name="label" translatable="yes">Port:</property>
                           </widget>
+                          <packing>
+                            <property name="position">0</property>
+                          </packing>
                         </child>
                         <child>
                           <widget class="GtkSpinButton" id="PortSpinButton">
@@ -2575,11 +2753,13 @@ yy/yyyy = year</property>
               </widget>
               <packing>
                 <property name="expand">False</property>
+                <property name="position">0</property>
               </packing>
             </child>
             <child>
               <widget class="GtkVBox" id="vbox18">
                 <property name="visible">True</property>
+                <property name="orientation">vertical</property>
                 <child>
                   <widget class="GtkHBox" id="hbox20">
                     <property name="visible">True</property>
@@ -2591,6 +2771,7 @@ yy/yyyy = year</property>
                       <packing>
                         <property name="expand">False</property>
                         <property name="fill">False</property>
+                        <property name="position">0</property>
                       </packing>
                     </child>
                     <child>
@@ -2606,6 +2787,7 @@ yy/yyyy = year</property>
                   <packing>
                     <property name="expand">False</property>
                     <property name="fill">False</property>
+                    <property name="position">0</property>
                   </packing>
                 </child>
                 <child>
@@ -2614,15 +2796,15 @@ yy/yyyy = year</property>
                     <property name="height_request">100</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
-                    <property name="hscrollbar_policy">GTK_POLICY_AUTOMATIC</property>
-                    <property name="shadow_type">GTK_SHADOW_IN</property>
+                    <property name="hscrollbar_policy">automatic</property>
+                    <property name="shadow_type">in</property>
                     <child>
                       <widget class="GtkTextView" id="OnConnectCommandsTextView1">
                         <property name="width_request">152</property>
                         <property name="height_request">168</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
-                        <property name="wrap_mode">GTK_WRAP_WORD</property>
+                        <property name="wrap_mode">word</property>
                       </widget>
                     </child>
                   </widget>
@@ -2645,36 +2827,44 @@ yy/yyyy = year</property>
           <widget class="GtkHButtonBox" id="dialog-action_area2">
             <property name="visible">True</property>
             <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
-            <property name="layout_style">GTK_BUTTONBOX_END</property>
+            <property name="layout_style">end</property>
             <child>
               <widget class="GtkButton" id="CancelButton1">
+                <property name="label">gtk-cancel</property>
+                <property name="response_id">-6</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
                 <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
-                <property name="label">gtk-cancel</property>
                 <property name="use_stock">True</property>
-                <property name="response_id">-6</property>
               </widget>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">False</property>
+                <property name="position">0</property>
+              </packing>
             </child>
             <child>
               <widget class="GtkButton" id="OKButton1">
+                <property name="label">gtk-ok</property>
+                <property name="response_id">-5</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
                 <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
-                <property name="label">gtk-ok</property>
                 <property name="use_stock">True</property>
-                <property name="response_id">-5</property>
               </widget>
               <packing>
+                <property name="expand">False</property>
+                <property name="fill">False</property>
                 <property name="position">1</property>
               </packing>
             </child>
           </widget>
           <packing>
             <property name="expand">False</property>
-            <property name="pack_type">GTK_PACK_END</property>
+            <property name="pack_type">end</property>
+            <property name="position">0</property>
           </packing>
         </child>
       </widget>

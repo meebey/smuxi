@@ -122,7 +122,13 @@ namespace Smuxi.Frontend.Gnome
                 }
             }
         }
-        
+
+        public static bool IsLocalEngine {
+            get {
+                return _Session == _LocalSession;
+            }
+        }
+
         public static FrontendManager FrontendManager {
             get {
                 return _FrontendManager;
@@ -243,7 +249,7 @@ namespace Smuxi.Frontend.Gnome
         
         public static void ConnectEngineToGUI()
         {
-            if (_Session == _LocalSession) {
+            if (IsLocalEngine) {
                 // HACK: SessionManager.Register() is not used for local engines
                 _LocalSession.RegisterFrontendUI(_MainWindow.UI);
             }
