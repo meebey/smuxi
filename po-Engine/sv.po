@@ -1,7 +1,7 @@
 # Smuxi - IRC client for sophisticated users
 # Copyright (C) 2005-2009 Mirco Bauer <meebey@meebey.net>
 # This file is distributed under the same license as the Smuxi package.
-#
+# 
 # Martin Bagge <brother@bsnet.se>, 2009
 msgid ""
 msgstr ""
@@ -40,12 +40,8 @@ msgid "Type /help to get a list of available commands."
 msgstr "Skriv /help för en lista med tillgängliga kommandon."
 
 #: ../src/Engine/Session.cs:160
-msgid ""
-"After you have made a connection the list of available commands changes. Use "
-"the /help command again to see the extended command list."
-msgstr ""
-"När du har gjort en anslutning kommer listan med tillgängliga kommandon att "
-"ändras. Använd kommandot /help igen för att se den utökade kommandolistan."
+msgid "After you have made a connection the list of available commands changes. Use the /help command again to see the extended command list."
+msgstr "När du har gjort en anslutning kommer listan med tillgängliga kommandon att ändras. Använd kommandot /help igen för att se den utökade kommandolistan."
 
 #: ../src/Engine/Session.cs:210
 #, csharp-format
@@ -98,14 +94,12 @@ msgstr "Port"
 #: ../src/Engine/Session.cs:624
 #, csharp-format
 msgid "Network close failed - could not find network with host: {0}"
-msgstr ""
-"Stängning av nätverk misslyckades - kunde inte hitta nätverk med värd: {0}"
+msgstr "Stängning av nätverk misslyckades - kunde inte hitta nätverk med värd: {0}"
 
 #: ../src/Engine/Session.cs:658
 #, csharp-format
 msgid "Network switch failed - could not find network with host: {0}"
-msgstr ""
-"Byte av nätverk misslyckades - kunde inte hitta nätverk med värden: {0}"
+msgstr "Byte av nätverk misslyckades - kunde inte hitta nätverk med värden: {0}"
 
 #: ../src/Engine/Session.cs:673
 msgid "Not connected to any network"
@@ -123,18 +117,18 @@ msgstr "Okänt protokoll: {0}"
 
 #: ../src/Engine/Config/UserListController.cs:112
 msgid "Username must not be empty."
-msgstr ""
+msgstr "Användarnamnet får inte vara tomt."
 
 #: ../src/Engine/Config/UserListController.cs:122
 msgid "Password must not be empty."
-msgstr ""
+msgstr "Lösenordet får inte vara tomt."
 
 #: ../src/Engine/Config/UserListController.cs:131
 #, csharp-format
 msgid "User \"{0}\" doesn't exist."
-msgstr ""
+msgstr "Användaren \"{0}\" finns inte."
 
 #: ../src/Engine/Config/UserListController.cs:140
 #, csharp-format
 msgid "User \"{0}\" already exists."
-msgstr ""
+msgstr "Användaren \"{0}\" finns redan."
