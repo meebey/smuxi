@@ -1,7 +1,7 @@
 # Smuxi - IRC client for sophisticated users
 # Copyright (C) 2005-2009 Mirco Bauer <meebey@meebey.net>
 # This file is distributed under the same license as the Smuxi package.
-#
+# 
 # Martin Bagge <brother@bsnet.se>, 2009
 msgid ""
 msgstr ""
@@ -60,25 +60,29 @@ msgstr "Användarinformation"
 
 #: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:96
 #: ../src/Frontend-GNOME-IRC/IrcPersonChatView.cs:61
+#, fuzzy
 msgid "CTCP"
-msgstr ""
+msgstr "CTCP"
 
 #: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:99
 #: ../src/Frontend-GNOME-IRC/IrcPersonChatView.cs:66
+#, fuzzy
 msgid "Ping"
-msgstr ""
+msgstr "Ping"
 
 #: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:103
 #: ../src/Frontend-GNOME-IRC/IrcPersonChatView.cs:70
+#, fuzzy
 msgid "Version"
-msgstr ""
+msgstr "Version"
 
 #: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:107
 #: ../src/Frontend-GNOME-IRC/IrcPersonChatView.cs:74
 msgid "Time"
-msgstr ""
+msgstr "Tid"
 
 #: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:111
 #: ../src/Frontend-GNOME-IRC/IrcPersonChatView.cs:78
+#, fuzzy
 msgid "Finger"
-msgstr ""
+msgstr "Finger"
