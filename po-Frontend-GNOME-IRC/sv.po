@@ -60,19 +60,16 @@ msgstr "Användarinformation"
 
 #: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:96
 #: ../src/Frontend-GNOME-IRC/IrcPersonChatView.cs:61
-#, fuzzy
 msgid "CTCP"
 msgstr "CTCP"
 
 #: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:99
 #: ../src/Frontend-GNOME-IRC/IrcPersonChatView.cs:66
-#, fuzzy
 msgid "Ping"
 msgstr "Ping"
 
 #: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:103
 #: ../src/Frontend-GNOME-IRC/IrcPersonChatView.cs:70
-#, fuzzy
 msgid "Version"
 msgstr "Version"
 
@@ -83,6 +80,5 @@ msgstr "Tid"
 
 #: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:111
 #: ../src/Frontend-GNOME-IRC/IrcPersonChatView.cs:78
-#, fuzzy
 msgid "Finger"
 msgstr "Finger"
