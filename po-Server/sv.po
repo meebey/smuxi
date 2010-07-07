@@ -1,0 +1,93 @@
+# Smuxi - IRC client for sophisticated users
+# Copyright (C) 2005-2009 Mirco Bauer <meebey@meebey.net>
+# This file is distributed under the same license as the Smuxi package.
+#
+# Martin Bagge <brother@bsnet.se>, 2010
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-01-09 22:46+0100\n"
+"PO-Revision-Date: 2010-07-08 00:36+0100\n"
+"Last-Translator: Martin Bagge <brother@bsnet.se>\n"
+"Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../src/Server/Main.cs:62
+msgid "Add user to Server"
+msgstr "Lägg till användare till server"
+
+#: ../src/Server/Main.cs:71
+msgid "Modify existing user of Server"
+msgstr "Redigera existerande användare på server"
+
+#: ../src/Server/Main.cs:80
+msgid "Delete user from Server"
+msgstr "Radera användare från server"
+
+#: ../src/Server/Main.cs:89
+msgid "User to create, modify or delete"
+msgstr "Användare att skapa, redigera eller radera"
+
+#: ../src/Server/Main.cs:98
+msgid "Password of the user when creating or modifying a user"
+msgstr "Lösenord för användaren som skapas eller redigeras"
+
+#: ../src/Server/Main.cs:107
+msgid "Enable debug output"
+msgstr "Aktivera utskrift av fellogg"
+
+#: ../src/Server/Main.cs:115
+msgid "Show this help"
+msgstr "Visa den här hjälpen"
+
+#: ../src/Server/Main.cs:117
+msgid "Usage: smuxi-server [options]"
+msgstr "Använding: smuxi-server [flaggor]"
+
+#: ../src/Server/Main.cs:119
+msgid "Options:"
+msgstr "Flaggor:"
+
+#: ../src/Server/Main.cs:136
+#, csharp-format
+msgid "Command line error: {0}"
+msgstr "Komandoradsfel: {0}"
+
+#: ../src/Server/Main.cs:194
+msgid "At most one of --add-user, --modify-user, and --delete-user may be used at a time."
+msgstr "Endast en av --add-user, --modify-user eller --delete-user kan användas i taget."
+
+#: ../src/Server/Main.cs:204
+msgid "You must specify a username with the --username option."
+msgstr "Du måste ange ett användarnamn med flaggan --username."
+
+#: ../src/Server/Main.cs:210
+msgid "Username must not be empty."
+msgstr "Användarnamnet får inte vara tomt."
+
+#: ../src/Server/Main.cs:220
+msgid "You must specify a password with the --password option."
+msgstr "Du måste ange ett lösenord med flaggan --pasword."
+
+#: ../src/Server/Main.cs:226
+msgid "Password must not be empty."
+msgstr "Lösenordet kan inte vara tomt."
+
+#: ../src/Server/Main.cs:241
+#, csharp-format
+msgid "User \"{0}\" successfully added to server."
+msgstr "Användaren \"{0}\" lades till korrekt i servern."
+
+#: ../src/Server/Main.cs:250
+#, csharp-format
+msgid "User \"{0}\" successfully modified."
+msgstr "Användaren \"{0}\" redigerades utan besvär."
+
+#: ../src/Server/Main.cs:259
+#, csharp-format
+msgid "User \"{0}\" successfully deleted from server."
+msgstr "Användaren \"{0}\" raderades från servern utan besvär."
+
