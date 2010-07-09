@@ -1,0 +1,275 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Smuxi 0.7.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-01-09 21:43+0100\n"
+"PO-Revision-Date: 2010-07-09 09:26+0200\n"
+"Last-Translator: Kalle Kaitala <cobrian@cobrian.net>\n"
+"Language-Team: Finnish\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: Finnish\n"
+"X-Poedit-Country: FINLAND\n"
+"X-Poedit-SourceCharset: utf-8\n"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:212
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1270
+msgid "away"
+msgstr "poissa"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:215
+#, fuzzy
+msgid "not connected"
+msgstr "ei yhdistetty"
+
+#. TRANSLATOR: {0} is the amount of seconds
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:223
+#, csharp-format
+msgid "lag: {0} seconds"
+msgstr "viive {0} sekuntia"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:285
+#, csharp-format
+msgid "Connecting to {0} port {1}..."
+msgstr "Yhdistetään palvelimeen {0} porttiin {1}..."
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:291
+#, csharp-format
+msgid "Connection to {0} established"
+msgstr "Yhteys palvelimeen {0} muodostettu"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:294
+msgid "Logging in..."
+msgstr "Kirjaudutaan sisään..."
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:316
+msgid "Connection failed!"
+msgstr "Yhteydenmuodostus epäonnistui!"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:317
+msgid "Connection failed! Reason: "
+msgstr "Yhteydenmuodostus epäonnistui! Syy:"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:326
+msgid "Disconnecting..."
+msgstr "Katkaistaan..."
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:329
+#, csharp-format
+msgid "Disconnecting from {0}..."
+msgstr "Katkaistaan yhteyttä palvelimeen {0}..."
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:333
+#, csharp-format
+msgid "Disconnected from {0}"
+msgstr "Yhteys palvelimeen {0} katkaistu"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:335
+msgid "Connection closed"
+msgstr "Yhteys katkaistu"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:339
+#, fuzzy
+msgid "Not connected!"
+msgstr "Ei yhdistetty!"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:341
+msgid "Not connected"
+msgstr "Ei yhdistetty"
+
+#. TRANSLATOR: this line is used as label / category for a
+#. list of commands below
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:717
+#, fuzzy
+msgid "IrcProtocolManager Commands"
+msgstr "IRCProtokollaHallitsijan Komennot"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:786
+#, csharp-format
+msgid "Invalid port: {0}"
+msgstr "Epäkelpo portti: {0}"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:911
+#, csharp-format
+msgid "Already joined to channel: {0}. Type /window {0} to switch to it."
+msgstr "Kanava {0} on jo auki. Kirjoita /window {0} siirtyäksesi sinne."
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1257
+msgid "IRC Op"
+msgstr "IRC-operaattori"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1259
+msgid "Op"
+msgstr "Operaattori"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1261
+#, fuzzy
+msgid "Voice"
+msgstr "Äänellinen"
+
+#. For translators: do NOT change the position of {1}!
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1313
+#, csharp-format
+msgid "Topic for {0}: {1}"
+msgstr "Aihe kanavalle {0}: {1}"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1321
+#, csharp-format
+msgid "No topic set for {0}"
+msgstr "Ei aihetta kanavalle {0}"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1415
+msgid "ban"
+msgstr "Porttikielto"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1425
+msgid "No bans in channel"
+msgstr "Ei porttikieltoja kanavalla"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1534
+#, csharp-format
+msgid "Inviting {0} to {1}"
+msgstr "Kutsutaan {0} kanavalle {1}"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1538
+#, csharp-format
+msgid "{0} is already on channel"
+msgstr "{0} on jo kanavalla"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1566
+msgid "Users"
+msgstr "Käyttäjät"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1617
+#, csharp-format
+msgid "Total of {0} users [{1} ops, {2} voices, {3} normal]"
+msgstr "Yhteensä {0} käyttäjää [{1} operaattoria, {2} äänellistä, {3} normaalia]"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1757
+msgid "Connection error! Reason: "
+msgstr "Yhteysvirhe! Syy:"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1767
+#, csharp-format
+msgid "Not enough parameters for {0} command"
+msgstr "Ei tarpeeksi parametrejä komennolle {0}"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1777
+msgid "Not connected to server"
+msgstr "Ei yhdistettynä palvelimelle"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2080
+#, csharp-format
+msgid "{0}: No such nick/channel"
+msgstr "{0}: Ei tällaista käyttäjää/kanavaa"
+
+#. TRANSLATOR: the final line will look like this:
+#. -!- Nick {0} is already in use
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2207
+msgid "Nick"
+msgstr "Lempinimi"
+
+#. TRANSLATOR: the final line will look like this:
+#. -!- Nick {0} is already in use
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2218
+msgid "is already in use"
+msgstr "on jo käytössä"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2248
+msgid "Cannot join to channel:"
+msgstr "Ei voi liittyä kanavalle:"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2257
+msgid "You are banned"
+msgstr "Sinulla on porttikielto"
+
+#. TRANSLATOR: {0}: nickname, {1}: ident@host,
+#. {2}: CTCP command, {3}: own nickname, {4}: CTCP parameter
+#. example:
+#. meebey [meebey@example.com] requested CTCP VERSION from meebey:
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2335
+#, fuzzy, csharp-format
+msgid "{0} [{1}] requested CTCP {2} from {3}: {4}"
+msgstr "{0} [{1}] teki CTCP {3} -pyynnön käyttäjälle {3}: {4}"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2360
+#, csharp-format
+msgid "CTCP PING reply from {0}: {1} seconds"
+msgstr "CTCP PING -vastaus käyttäjältä {0}: {1} sekuntia"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2368
+#, csharp-format
+msgid "CTCP {0} reply from {1}: {2}"
+msgstr "CTCP {0} -vastaus käyttäjältä {1}: {2}"
+
+#. For translators: do NOT change the position of {0}!
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2591
+#, csharp-format
+msgid "{0} [{1}] has joined {2}"
+msgstr "{0} [{1}] liittyi kanavalle {2}"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2732
+#, csharp-format
+msgid "{0} [{1}] has left {2} [{3}]"
+msgstr "{0} [{1}] poistui kanavalta {2} [{3}]"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2751
+#, csharp-format
+msgid "You were kicked from {0} by {1} [{2}]"
+msgstr "Sinut poistettiin kanavalta {0} käyttäjän {1} toimesta [{2}]"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2759
+#, csharp-format
+msgid "{0} was kicked from {1} by {2} [{3}]"
+msgstr "{2} potkaisi käyttäjän {0} kanavalta {1} [{3}]"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2777
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2823
+#, fuzzy, csharp-format
+msgid "You're now known as {0}"
+msgstr "Lempinimesi on nyt {0}"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2851
+#, csharp-format
+msgid "{0} is now known as {1}"
+msgstr "{0} on nyt nimeltään {1}"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2902
+#, csharp-format
+msgid "{0} changed the topic of {1} to: {2}"
+msgstr "{0} muutti kanavan {1} aiheeksi: {2}"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2987
+#, fuzzy, csharp-format
+msgid "Mode change [{0}] for user {1}"
+msgstr "Tilan vaihto [{0}] käyttäjälle {1}"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3004
+#, fuzzy, csharp-format
+msgid "mode/{0} [{1}] by {2}"
+msgstr "{2} asettaa tilan {0} [{1}]"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3041
+#, fuzzy, csharp-format
+msgid "{0} [{1}] has quit [{2}]"
+msgstr "{0} [{1}] lopetti [{2}]"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3149
+#, csharp-format
+msgid "{0} is away: {1}"
+msgstr "{0} on poissa: {1}"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3155
+msgid "You are no longer marked as being away"
+msgstr "Poissaolomerkintä poistettu"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3161
+msgid "You have been marked as being away"
+msgstr "Poissaolomerkintä päällä"
+
