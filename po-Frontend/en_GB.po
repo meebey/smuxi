@@ -2,7 +2,7 @@
 # Copyright (C) 2005-2009 Mirco Bauer <meebey@meebey.net>
 # This file is distributed under the same license as the Smuxi package.
 # Ryan Smith-Evans <Kimera.Kimera@gmail.com>, 2009.
-#
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: smuxi 0.6.4\n"
@@ -18,7 +18,7 @@ msgstr ""
 #: ../src/Frontend/CommandManager.cs:144
 #, csharp-format
 msgid "Unknown Command: {0}"
-msgstr ""
+msgstr "Unknown Command: {0}"
 
 #: ../src/Frontend/EngineManager.cs:292
 #, csharp-format
@@ -26,31 +26,21 @@ msgid "Unknown channel ({0}) - only the following channel types are supported:"
 msgstr "Unknown channel ({0}). Only the following channel types are supported:"
 
 #: ../src/Frontend/EngineManager.cs:301
-msgid ""
-"Registration with engine failed!  The username and/or password were wrong - "
-"please verify them."
-msgstr ""
-"Registration with engine failed!  The username and/or password are incorrect "
-"- please verify them."
+msgid "Registration with engine failed!  The username and/or password were wrong - please verify them."
+msgstr "Registration with engine failed!  The username and/or password are incorrect - please verify them."
 
 #: ../src/Frontend/SshTunnelManager.cs:146
 msgid "SSH client application was not found: "
 msgstr "SSH client application was not found: "
 
 #: ../src/Frontend/SshTunnelManager.cs:149
-msgid ""
-"SSH client must be either OpenSSH (ssh) or Plink (plink.exe, not putty.exe)"
-msgstr ""
-"SSH client must be either OpenSSH (ssh) or Plink (plink.exe, not putty.exe)"
+msgid "SSH client must be either OpenSSH (ssh) or Plink (plink.exe, not putty.exe)"
+msgstr "SSH client must be either OpenSSH (ssh) or Plink (plink.exe, not putty.exe)"
 
 #: ../src/Frontend/SshTunnelManager.cs:186
 #, csharp-format
-msgid ""
-"The local SSH forwarding port {0} is already in use. Is there an old SSH "
-"tunnel still active?"
-msgstr ""
-"The local SSH forwarding port {0} is already in use. Is there an old SSH "
-"tunnel still active?"
+msgid "The local SSH forwarding port {0} is already in use. Is there an old SSH tunnel still active?"
+msgstr "The local SSH forwarding port {0} is already in use. Is there an old SSH tunnel still active?"
 
 #: ../src/Frontend/SshTunnelManager.cs:210
 #, csharp-format
