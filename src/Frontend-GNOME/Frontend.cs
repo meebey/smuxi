@@ -388,6 +388,9 @@ namespace Smuxi.Frontend.Gnome
             }
             
             if (ex != null) {
+#if LOG4NET
+                _Logger.Error("ShowError(): Exception: ", ex);
+#endif
                 msg += "\n" + String.Format(_("Cause: {0}"), ex.Message);
             }
             if (parent == null) {
@@ -412,6 +415,20 @@ namespace Smuxi.Frontend.Gnome
             ShowError(parent, msg, null);
         }
         
+        public static void ShowError(Gtk.Window parent, Exception ex)
+        {
+            Trace.Call(parent, ex != null ? ex.GetType() : null);
+
+            if (ex == null) {
+                throw new ArgumentNullException("ex");
+            }
+
+#if LOG4NET
+            _Logger.Error("ShowError(): Exception:", ex);
+#endif
+            ShowError(parent, ex.Message, null);
+        }
+
         public static void ShowException(Gtk.Window parent, Exception ex)
         {
             Trace.Call(parent, ex != null ? ex.GetType() : null);
