@@ -2,7 +2,7 @@
 # Copyright (C) 2005-2009 Mirco Bauer <meebey@meebey.net>
 # This file is distributed under the same license as the Smuxi package.
 # Ryan Smith-Evans <Kimera.Kimera@gmail.com>, 2008.
-#
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: 0.6.2\n"
@@ -310,14 +310,8 @@ msgid "Tabs"
 msgstr "Tabs"
 
 #: ../glade/smuxi-frontend-gnome.glade.h:60
-msgid ""
-"The nickname to use. You can specify extra nicknames (separated by spaces) "
-"which will be used as fallbacks when the first choice is not available. By "
-"default $nick_ and $nick__ will be used as fallbacks."
-msgstr ""
-"The nickname used. You can specify more than one nickname, separated by a "
-"space, which will be used as fall-back when the nickname was not available. "
-"By default $nick_ and $nick__ will be used as a fall-back."
+msgid "The nickname to use. You can specify extra nicknames (separated by spaces) which will be used as fallbacks when the first choice is not available. By default $nick_ and $nick__ will be used as fallbacks."
+msgstr "The nickname used. You can specify more than one nickname, separated by a space, which will be used as fall-back when the nickname was not available. By default $nick_ and $nick__ will be used as a fall-back."
 
 #: ../glade/smuxi-frontend-gnome.glade.h:61
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:726
@@ -354,7 +348,8 @@ msgstr "_Interface"
 msgid "_Servers"
 msgstr "_Servers"
 
-#. This is a setting for character based line wrapping vs word based when showing messages
+#. This is a setting for character based line wrapping vs word based when
+#. showing messages
 #: ../glade/smuxi-frontend-gnome.glade.h:68
 msgid "_Wrap Mode:"
 msgstr "_Wrap Mode"
@@ -621,12 +616,10 @@ msgstr "Topic"
 
 #: ../src/Frontend-GNOME/FindGroupChatDialog.cs:102
 msgid ""
-"Searching for group chats without a filter is not recommended.  This may "
-"take a while, or may not work at all.\n"
+"Searching for group chats without a filter is not recommended.  This may take a while, or may not work at all.\n"
 "Do you wish to continue?"
 msgstr ""
-"Searching for group chats without a filter is not recommended.  This may "
-"take a while, or may not work at all.\n"
+"Searching for group chats without a filter is not recommended.  This may take a while, or may not work at all.\n"
 "Do you wish to continue?"
 
 #: ../src/Frontend-GNOME/FindGroupChatDialog.cs:143
@@ -705,10 +698,8 @@ msgid "Thank you"
 msgstr "Thank You"
 
 #: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:285
-msgid ""
-"An engine with this name already exists! Please specify a different one."
-msgstr ""
-"An engine with this name already exists! Please specify a different one."
+msgid "An engine with this name already exists! Please specify a different one."
+msgstr "An engine with this name already exists! Please specify a different one."
 
 #: ../src/Frontend-GNOME/Views/MessageTextView.cs:162
 #, csharp-format
@@ -819,14 +810,12 @@ msgid "_Protocol:"
 msgstr "_Protocol:"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.QuickConnectDialog.cs:253
-#, fuzzy
 msgid "_On Connect Commands:"
-msgstr "On Connect Commands:"
+msgstr "_On Connect Commands:"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.QuickConnectDialog.cs:264
-#, fuzzy
 msgid "_Ignore Commands"
-msgstr "On Connect Commands:"
+msgstr "_Ignore Commands"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:495
 msgid "Nicknames:"
@@ -845,30 +834,20 @@ msgid "Use _SSH Tunnel"
 msgstr "Use _SSH Tunnel"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantConnectionWidget.cs:78
-msgid ""
-"<span size=\"small\">Enables the use of SSH for the connection.  This has a "
-"small performance impact, but is more secure and required when using NAT or "
-"port-based firewalls</span>"
-msgstr ""
-"<span size=\"small\">Enables the use of SSH for the connection.  This has a "
-"small performance impact, but is more secure and required when using NAT or "
-"port-based firewalls</span>"
+msgid "<span size=\"small\">Enables the use of SSH for the connection.  This has a small performance impact, but is more secure and required when using NAT or port-based firewalls</span>"
+msgstr "<span size=\"small\">Enables the use of SSH for the connection.  This has a small performance impact, but is more secure and required when using NAT or port-based firewalls</span>"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantConnectionWidget.cs:157
 msgid "SSH _Host:"
 msgstr "SSH _Host:"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantConnectionWidget.cs:168
-msgid ""
-"<span size=\"small\">DNS or IP address and port of the SSH server</span>"
-msgstr ""
-"<span size=\"small\">DNS or IP address and port of the SSH server</span>"
+msgid "<span size=\"small\">DNS or IP address and port of the SSH server</span>"
+msgstr "<span size=\"small\">DNS or IP address and port of the SSH server</span>"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantConnectionWidget.cs:208
-msgid ""
-"<span size=\"small\">DNS or IP address and port of the Smuxi server</span>"
-msgstr ""
-"<span size=\"small\">DNS or IP address and port of the Smuxi server</span>"
+msgid "<span size=\"small\">DNS or IP address and port of the Smuxi server</span>"
+msgstr "<span size=\"small\">DNS or IP address and port of the Smuxi server</span>"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantConnectionWidget.cs:221
 msgid "_Smuxi Host:"
@@ -879,34 +858,20 @@ msgid "_SSH Username: (optional)"
 msgstr "_SSH Username: (optional)"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:99
-msgid ""
-"<span size=\"small\">Username which will be used to log into the SSH server</"
-"span>"
-msgstr ""
-"<span size=\"small\">Username which will be used to log into the SSH server</"
-"span>"
+msgid "<span size=\"small\">Username which will be used to log into the SSH server</span>"
+msgstr "<span size=\"small\">Username which will be used to log into the SSH server</span>"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:119
 msgid "_SSH Password: (optional)"
 msgstr "_SSH Password: (optional)"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:143
-msgid ""
-"<span size=\"small\">Password which will be used to log into the SSH server. "
-"The password is optional if SSH key authorization is used (via Pageant from "
-"the PuTTY tools).</span>"
-msgstr ""
-"<span size=\"small\">Password which will be used to log into the SSH server. "
-"The password is optional if SSH key authorization is used (via Pageant from "
-"the PuTTY tools).</span>"
+msgid "<span size=\"small\">Password which will be used to log into the SSH server. The password is optional if SSH key authorization is used (via Pageant from the PuTTY tools).</span>"
+msgstr "<span size=\"small\">Password which will be used to log into the SSH server. The password is optional if SSH key authorization is used (via Pageant from the PuTTY tools).</span>"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:187
-msgid ""
-"<span size=\"small\">Username which will be used to log into the Smuxi "
-"server</span>"
-msgstr ""
-"<span size=\"small\">Username which will be used to log into the Smuxi "
-"server</span>"
+msgid "<span size=\"small\">Username which will be used to log into the Smuxi server</span>"
+msgstr "<span size=\"small\">Username which will be used to log into the Smuxi server</span>"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:231
 msgid "<span size=\"small\">Password of the user</span>"
@@ -949,12 +914,8 @@ msgid "Use as new default engine"
 msgstr "Use as new default engine"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantNameWidget.cs:120
-msgid ""
-"<span size=\"small\">If enabled, the current engine will be the default next "
-"time Smuxi is started</span>"
-msgstr ""
-"<span size=\"small\">If enabled, the current engine will be the default next "
-"time Smuxi is started</span>"
+msgid "<span size=\"small\">If enabled, the current engine will be the default next time Smuxi is started</span>"
+msgstr "<span size=\"small\">If enabled, the current engine will be the default next time Smuxi is started</span>"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.OpenChatDialog.cs:34
 msgid "Smuxi - Open Chat"
