@@ -28,6 +28,7 @@
 
 using System;
 using System.Text;
+using System.Threading;
 using System.Collections;
 using System.Globalization;
 using Process = System.Diagnostics.Process;
@@ -137,11 +138,13 @@ namespace Smuxi.Frontend.Gnome
             ((Gtk.TextView)_Glade["HighlightWordsTextView"]).Buffer.Changed += _OnChanged;
 
             ((Gtk.Button)_Glade["LoggingOpenButton"]).Clicked += delegate {
-                try {
-                    Process.Start(Platform.LogPath);
-                } catch (Exception ex) {
-                    Frontend.ShowException(ex);
-                }
+                ThreadPool.QueueUserWorkItem(delegate {
+                    try {
+                        Process.Start(Platform.LogPath);
+                    } catch (Exception ex) {
+                        Frontend.ShowError(parent, ex);
+                    }
+                });
             };
 
             Gtk.ComboBox wrapModeComboBox = (Gtk.ComboBox)_Glade["WrapModeComboBox"];
