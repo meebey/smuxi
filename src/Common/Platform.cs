@@ -21,6 +21,7 @@
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA
 
 using System;
+using System.IO;
 using System.Diagnostics;
 
 namespace Smuxi.Common
@@ -94,6 +95,17 @@ namespace Smuxi.Common
                 }
 
                 return "Unknown";
+            }
+        }
+
+        public static string LogPath {
+            get {
+                var logPath = Environment.GetFolderPath(
+                    Environment.SpecialFolder.LocalApplicationData
+                );
+                logPath = Path.Combine(logPath, "smuxi");
+                logPath = Path.Combine(logPath, "logs");
+                return logPath;
             }
         }
     }

@@ -1081,9 +1081,7 @@ namespace Smuxi.Engine
             }
 
             try {
-                var logPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
-                logPath = Path.Combine(logPath, "smuxi");
-                logPath = Path.Combine(logPath, "logs");
+                var logPath = Platform.LogPath;
                 var protocol = chat.ProtocolManager.Protocol.ToLower();
                 // HACK: twitter retrieves older messages and we don't want to
                 // re-log those when the twitter connection is re-opened

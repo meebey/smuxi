@@ -27,7 +27,6 @@
  */
 
 using System;
-using System.IO;
 using System.Text;
 using System.Collections;
 using System.Globalization;
@@ -139,10 +138,7 @@ namespace Smuxi.Frontend.Gnome
 
             ((Gtk.Button)_Glade["LoggingOpenButton"]).Clicked += delegate {
                 try {
-                    var logPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
-                    logPath = Path.Combine(logPath, "smuxi");
-                    logPath = Path.Combine(logPath, "logs");
-                    Process.Start(logPath);
+                    Process.Start(Platform.LogPath);
                 } catch (Exception ex) {
                     Frontend.ShowException(ex);
                 }
