@@ -113,6 +113,29 @@ namespace Smuxi.Frontend.Gnome
             do {
                 var filter = (FilterModel) f_ListStore.GetValue(iter, 0);
                 var key = (int) f_ListStore.GetValue(iter, 1);
+
+                // test patterns
+                try {
+                    Pattern.IsMatch(String.Empty, filter.ChatID);
+                } catch (ArgumentException ex) {
+                    throw new ApplicationException(
+                        String.Format(
+                            _("Invalid filter regex: '{0}'. Reason: {1}"),
+                            filter.ChatID, ex.Message
+                        )
+                    );
+                }
+                try {
+                    Pattern.IsMatch(String.Empty, filter.MessagePattern);
+                } catch (ArgumentException ex) {
+                    throw new ApplicationException(
+                        String.Format(
+                            _("Invalid filter regex: '{0}'. Reason: {1}"),
+                            filter.MessagePattern, ex.Message
+                        )
+                    );
+                }
+
                 if (key == -1) {
                     // new filter
                     if (String.IsNullOrEmpty(filter.Protocol) &&
