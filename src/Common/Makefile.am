@@ -56,7 +56,8 @@ FILES = \
 	NDesk.Options.cs \
 	Defines.cs \
 	TaskQueue.cs \
-	Platform.cs
+	Platform.cs \
+	Pattern.cs 
 	
 DATA_FILES = 
 

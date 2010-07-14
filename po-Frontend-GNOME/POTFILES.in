@@ -14,10 +14,10 @@ src/Frontend-GNOME/QuickConnectDialog.cs
 src/Frontend-GNOME/ChatTypeWidget.cs
 src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs
 src/Frontend-GNOME/Views/MessageTextView.cs
+src/Frontend-GNOME/Views/FilterListWidget.cs
 src/Frontend-GNOME/Views/Chats/ChatView.cs
 src/Frontend-GNOME/Views/Chats/GroupChatView.cs
 src/Frontend-GNOME/Views/Chats/ProtocolChatView.cs
-src/Frontend-GNOME/Preferences/ChannelFilterListView.cs
 src/Frontend-GNOME/Preferences/ServerListView.cs
 src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ChatFindDialog.cs
 src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.FindGroupChatDialog.cs
@@ -30,3 +30,4 @@ src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantNameWidget.cs
 src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.OpenChatDialog.cs
 src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerDialog.cs
 src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs
+src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.FilterListWidget.cs

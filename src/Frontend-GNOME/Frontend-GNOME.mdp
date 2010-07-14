@@ -31,7 +31,6 @@
     <File subtype="Code" buildaction="Compile" name="NotImplementedMessageDialog.cs" />
     <File subtype="Code" buildaction="Compile" name="Notebook.cs" />
     <File subtype="Code" buildaction="Compile" name="SplashScreenWindow.cs" />
-    <File subtype="Code" buildaction="Compile" name="Preferences/ChannelFilterListView.cs" />
     <File subtype="Code" buildaction="Compile" name="ChatViewManager.cs" />
     <File subtype="Code" buildaction="Compile" name="Preferences/ServerListView.cs" />
     <File subtype="Code" buildaction="Compile" name="Preferences/PreferencesDialog.cs" />
@@ -86,6 +85,8 @@
     <File subtype="Code" buildaction="Compile" name="gtk-gui/Smuxi.Frontend.Gnome.ServerDialog.cs" />
     <File subtype="Code" buildaction="Compile" name="gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs" />
     <File subtype="Code" buildaction="Compile" name="StatusIconManager.cs" />
+    <File subtype="Code" buildaction="Compile" name="gtk-gui/Smuxi.Frontend.Gnome.FilterListWidget.cs" />
+    <File subtype="Code" buildaction="Compile" name="Views/FilterListWidget.cs" />
   </Contents>
   <References>
     <ProjectReference type="Project" localcopy="True" refto="Engine" />

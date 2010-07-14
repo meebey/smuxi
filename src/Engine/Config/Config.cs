@@ -56,7 +56,7 @@ namespace Smuxi.Engine
 #endif
         protected bool          m_IsCleanConfig;
         protected Hashtable     m_Preferences = Hashtable.Synchronized(new Hashtable());
-        public event EventHandler Changed;
+        public event EventHandler<ConfigChangedEventArgs> Changed;
         
         public object this[string key] {
             get {
@@ -69,9 +69,14 @@ namespace Smuxi.Engine
 #endif
                     return;
                 }
+                var oldValue = m_Preferences[key];
                 m_Preferences[key] = value;
-                if (Changed != null) {
-                    Changed(this, EventArgs.Empty);
+
+                // only raise event if the value changed
+                if (!value.Equals(oldValue)) {
+                    if (Changed != null) {
+                        Changed(this, new ConfigChangedEventArgs(key, value));
+                    }
                 }
             }
         }
@@ -177,7 +182,7 @@ namespace Smuxi.Engine
             
 #elif CONFIG_NINI
             // Nini does not support native string lists, have to emulate them
-            string result_str = (string)Get(key, null);
+            string result_str = Get<string>(key, null);
             if (result_str != null) {
                 if (result_str.Length > 0) {
                     result = result_str.Split('|');
@@ -273,6 +278,7 @@ namespace Smuxi.Engine
             
             prefix = "Engine/Users/DEFAULT/Logging/";
             Get(prefix+"Enabled", false);
+            Get(prefix+"LogFilteredMessages", false);
 
             prefix = "Engine/Users/DEFAULT/Servers/";
             Get(prefix + "Servers", new string[] {
@@ -423,6 +429,7 @@ namespace Smuxi.Engine
                 LoadUserEntry(user, "Sound/BeepOnHighlight", null);
                 
                 LoadUserEntry(user, "Logging/Enabled", null);
+                LoadUserEntry(user, "Logging/LogFilteredMessages", null);
 
                 string[] servers = null;
                 string sprefix = prefix + user + "/Servers/";
@@ -478,21 +485,22 @@ namespace Smuxi.Engine
                     }
                 }
 
-                string[] channelFilters = null;
-                string cprefix = "Filters/Channel/";
-                channelFilters = GetList(prefix + user + "/" + cprefix + "Patterns");
-                if (channelFilters == null) {
-                    channelFilters = new string[] {};
-                    m_Preferences[prefix + user + "/" + cprefix + "Patterns"] = new string[] {};
+                string[] filters = null;
+                string cprefix = "Filters/";
+                filters = GetList(prefix + user + "/" + cprefix + "Filters");
+                if (filters == null) {
+                    filters = new string[] {};
+                    m_Preferences[prefix + user + "/" + cprefix + "Filters"] = new string[] {};
                 } else {
-                    m_Preferences[prefix + user + "/" + cprefix + "Patterns"] = channelFilters;
+                    m_Preferences[prefix + user + "/" + cprefix + "Filters"] = filters;
                 }
-                foreach (string filter in channelFilters) {
-                    cprefix = "Filters/Channel/" + filter + "/";
-                    LoadUserEntry(user, cprefix + "Pattern", null);
-                    LoadUserEntry(user, cprefix + "FilterJoins", null);
-                    LoadUserEntry(user, cprefix + "FilterParts", null);
-                    LoadUserEntry(user, cprefix + "FilterQuits", null);
+                foreach (string filter in filters) {
+                    cprefix = "Filters/" + filter + "/";
+                    LoadUserEntry(user, cprefix + "Protocol", null);
+                    LoadUserEntry(user, cprefix + "ChatType", null);
+                    LoadUserEntry(user, cprefix + "ChatID", null);
+                    LoadUserEntry(user, cprefix + "MessageType", null);
+                    LoadUserEntry(user, cprefix + "MessagePattern", null);
                 }
             }
         }
@@ -552,7 +560,7 @@ namespace Smuxi.Engine
 #endif
             
             if (Changed != null) {
-                Changed(this, EventArgs.Empty);
+                Changed(this, new ConfigChangedEventArgs(key, null));
             }
         }
 
@@ -639,5 +647,17 @@ namespace Smuxi.Engine
             return inisection;
         }
 #endif
+    }
+
+    public class ConfigChangedEventArgs : EventArgs
+    {
+        public string Key { get; private set; }
+        public object Value { get; private set; }
+
+        public ConfigChangedEventArgs(string key, object value)
+        {
+            Key = key;
+            Value = value;
+        }
     }
 }

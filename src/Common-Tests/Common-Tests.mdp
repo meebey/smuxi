@@ -16,11 +16,12 @@
   <Contents>
     <File subtype="Directory" buildaction="Compile" name="." />
     <File subtype="Code" buildaction="Compile" name="TraceTests.cs" />
+    <File subtype="Code" buildaction="Compile" name="PatternTests.cs" />
   </Contents>
   <References>
     <ProjectReference type="Gac" localcopy="True" refto="System, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
     <ProjectReference type="Project" localcopy="True" refto="Common" />
-    <ProjectReference type="Gac" localcopy="True" specificVersion="False" refto="nunit.core, Version=2.4.7.0, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77" />
-    <ProjectReference type="Gac" localcopy="True" specificVersion="False" refto="nunit.framework, Version=2.4.7.0, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77" />
+    <ProjectReference specificVersion="False" type="Gac" localcopy="True" refto="nunit.core, Version=2.4.7.0, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77" />
+    <ProjectReference specificVersion="False" type="Gac" localcopy="True" refto="nunit.framework, Version=2.4.7.0, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77" />
   </References>
 </Project>

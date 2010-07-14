@@ -98,7 +98,6 @@ FILES = \
 	NotImplementedMessageDialog.cs \
 	Notebook.cs \
 	SplashScreenWindow.cs \
-	Preferences/ChannelFilterListView.cs \
 	ChatTypeWidget.cs \
 	ChatViewManager.cs \
 	ColorTools.cs \
@@ -109,6 +108,7 @@ FILES = \
 	Views/MessageTextView.cs \
 	Views/ServerWidget.cs \
 	Views/ServerDialog.cs \
+	Views/FilterListWidget.cs \
 	Views/Chats/ChatView.cs \
 	Views/Chats/GroupChatView.cs \
 	Views/Chats/PersonChatView.cs \
@@ -138,7 +138,8 @@ FILES = \
 	gtk-gui/Smuxi.Frontend.Gnome.ChatFindDialog.cs \
 	gtk-gui/Smuxi.Frontend.Gnome.ChatTypeWidget.cs \
 	gtk-gui/Smuxi.Frontend.Gnome.ServerDialog.cs \
-	gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs
+	gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs \
+	gtk-gui/Smuxi.Frontend.Gnome.FilterListWidget.cs
 	
 DATA_FILES = \
 	smuxi-frontend-gnome.desktop

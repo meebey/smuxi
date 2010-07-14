@@ -74,14 +74,14 @@ FILES = \
 	Chats/SessionChatModel.cs \
 	Chats/ProtocolChatModel.cs \
 	Config/FrontendConfig.cs \
-	Config/ChannelFilterModel.cs \
-	Config/ChannelFilterListController.cs \
 	Config/NotificationAreaIconMode.cs \
 	Config/UserConfig.cs \
 	Config/Config.cs \
 	Config/ServerModel.cs \
 	Config/ServerListController.cs \
 	Config/UserListController.cs \
+	Config/FilterListController.cs \
+	Config/FilterModel.cs \
 	Protocols/ProtocolManagerBase.cs \
 	Protocols/ProtocolManagerFactory.cs \
 	Protocols/ProtocolManagerInfoModel.cs \

@@ -23,6 +23,7 @@
 using System;
 using System.IO;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.Remoting;
@@ -46,6 +47,8 @@ namespace Smuxi.Engine
         private string                                _Username;
         private ProtocolManagerFactory                _ProtocolManagerFactory;
         private UserConfig                            _UserConfig;
+        private FilterListController                  _FilterListController;
+        private ICollection<FilterModel>              _Filters;
         private bool                                  _OnStartupCommandsProcessed;
         
         public IList<IProtocolManager> ProtocolManagers {
@@ -112,12 +115,15 @@ namespace Smuxi.Engine
             _FrontendManagers = new Dictionary<string, FrontendManager>();
             _ProtocolManagers = new List<IProtocolManager>();
             _UserConfig = new UserConfig(config, username);
+            _UserConfig.Changed += OnUserConfigChanged;
+            _FilterListController = new FilterListController(_UserConfig);
+            _Filters = _FilterListController.GetFilterList().Values;
             _Chats = new List<ChatModel>();
             
             _SessionChat = new SessionChatModel("smuxi", "smuxi");
             _Chats.Add(_SessionChat);
         }
-        
+
         public void RegisterFrontendUI(IFrontendUI ui)
         {
             Trace.Call(ui);
@@ -832,6 +838,11 @@ namespace Smuxi.Engine
         
         public void AddTextToChat(ChatModel chat, string text)
         {
+            AddTextToChat(chat, text, false);
+        }
+
+        public void AddTextToChat(ChatModel chat, string text, bool ignoreFilters)
+        {
             if (chat == null) {
                 throw new ArgumentNullException("chat");
             }
@@ -839,10 +850,16 @@ namespace Smuxi.Engine
                 throw new ArgumentNullException("text");
             }
             
-            AddMessageToChat(chat, new MessageModel(text));
+            AddMessageToChat(chat, new MessageModel(text), ignoreFilters);
         }
         
         public void AddMessageToChat(ChatModel chat, MessageModel msg)
+        {
+            AddMessageToChat(chat, msg, false);
+        }
+
+        public void AddMessageToChat(ChatModel chat, MessageModel msg,
+                                     bool ignoreFilters)
         {
             if (chat == null) {
                 throw new ArgumentNullException("chat");
@@ -851,6 +868,12 @@ namespace Smuxi.Engine
                 throw new ArgumentNullException("msg");
             }
             
+            bool isFiltered = !ignoreFilters && IsFilteredMessage(chat, msg);
+            LogMessage(chat, msg, isFiltered);
+            if (isFiltered) {
+                return;
+            }
+
             int buffer_lines = (int) UserConfig["Interface/Notebook/EngineBufferLines"];
             if (buffer_lines > 0) {
                 chat.UnsafeMessages.Add(msg);
@@ -864,8 +887,6 @@ namespace Smuxi.Engine
                     fm.AddMessageToChat(chat, msg);
                 }
             }
-
-            LogMessage(chat, msg);
         }
         
         public void AddPersonToGroupChat(GroupChatModel groupChat, PersonModel person)
@@ -1069,9 +1090,19 @@ namespace Smuxi.Engine
             return _ProtocolManagerFactory.CreateProtocolManager(info, this);
         }
         
-        private void LogMessage(ChatModel chat, MessageModel msg)
+        public void LogMessage(ChatModel chat, MessageModel msg, bool isFiltered)
         {
+            if (chat == null) {
+                throw new ArgumentNullException("chat");
+            }
+            if (msg == null) {
+                throw new ArgumentNullException("msg");
+            }
+
             if (!(bool) UserConfig["Logging/Enabled"]) {
+                return;
+            }
+            if (isFiltered && !(bool) UserConfig["Logging/LogFilteredMessages"]) {
                 return;
             }
 
@@ -1113,6 +1144,77 @@ namespace Smuxi.Engine
 #endif
             }
         }
+
+        public bool IsFilteredMessage(ChatModel chat, MessageModel msg)
+        {
+            if (chat == null) {
+                throw new ArgumentNullException("chat");
+            }
+            if (msg == null) {
+                throw new ArgumentNullException("msg");
+            }
+
+            return IsFilteredMessage(chat, msg.ToString(), msg.MessageType);
+        }
+
+        public bool IsFilteredMessage(ChatModel chat, string msg,
+                                      MessageType msgType)
+        {
+            if (chat == null) {
+                throw new ArgumentNullException("chat");
+            }
+            if (msg == null) {
+                throw new ArgumentNullException("msg");
+            }
+
+            lock (_Filters) {
+                foreach (var filter in _Filters) {
+                    if (!String.IsNullOrEmpty(filter.Protocol) &&
+                        chat.ProtocolManager != null &&
+                        filter.Protocol != chat.ProtocolManager.Protocol) {
+                        continue;
+                    }
+                    if (filter.ChatType.HasValue &&
+                        filter.ChatType != chat.ChatType) {
+                        continue;
+                    }
+                    if (!String.IsNullOrEmpty(filter.ChatID) &&
+                        !Pattern.IsMatch(chat.ID, filter.ChatID)) {
+                        continue;
+                    }
+                    if (filter.MessageType.HasValue &&
+                        filter.MessageType != msgType) {
+                        continue;
+                    }
+                    if (!String.IsNullOrEmpty(filter.MessagePattern)) {
+                        var pattern = filter.MessagePattern;
+                        if (!Pattern.ContainsPatternCharacters(pattern)) {
+                            // use globbing by default
+                            pattern = String.Format("*{0}*", pattern);
+                        }
+                        if (!Pattern.IsMatch(msg, pattern)) {
+                            continue;
+                        }
+                    }
+
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+       void OnUserConfigChanged(object sender, ConfigChangedEventArgs e)
+       {
+            if (e.Key.StartsWith("Filters/")) {
+#if LOG4NET
+                f_Logger.Debug("OnUserConfigChanged(): refreshing filters");
+#endif
+                // referesh filters
+                // TODO: use a timeout here to only refresh once in 1 second
+                _Filters = _FilterListController.GetFilterList().Values;
+            }
+       }
 
         private static string _(string msg)
         {

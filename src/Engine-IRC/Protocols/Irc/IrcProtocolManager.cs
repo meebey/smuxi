@@ -898,7 +898,7 @@ namespace Smuxi.Engine
             // HACK: clear possible highlights so we can't highlight ourself!
             ClearHighlights(msg);
 
-            Session.AddMessageToChat(chat, msg);
+            Session.AddMessageToChat(chat, msg, true);
         }
         
         public void CommandJoin(CommandModel cd)
@@ -1163,7 +1163,7 @@ namespace Smuxi.Engine
                 if (chat == null) {
                     // server chat as fallback if we are not joined
                     chat = _NetworkChat;
-                    Session.AddTextToChat(chat, "<" + _IrcClient.Nickname + ":" + channelname + "> " + message);
+                    Session.AddTextToChat(chat, "<" + _IrcClient.Nickname + ":" + channelname + "> " + message, true);
                 } else {
                      _Say(chat, message);
                 }
@@ -1804,7 +1804,7 @@ namespace Smuxi.Engine
             // HACK: clear possible highlights so we can't highlight ourself!
             ClearHighlights(msg);
 
-            Session.AddMessageToChat(cd.Chat, msg);
+            Session.AddMessageToChat(cd.Chat, msg, true);
         }
         
         public void CommandNotice(CommandModel cd)
@@ -1824,7 +1824,8 @@ namespace Smuxi.Engine
                 if (chat == null) {
                     chat = _NetworkChat;
                 }
-                Session.AddTextToChat(chat, "[notice(" + target + ")] " + message);
+                Session.AddTextToChat(chat, "[notice(" + target + ")] " +
+                                      message, true);
             }
         }
         
@@ -2719,6 +2720,16 @@ namespace Smuxi.Engine
         
         private void _OnQueryMessage(object sender, IrcEventArgs e)
         {
+            MessageModel msg = new MessageModel();
+            TextMessagePartModel msgPart;
+
+            msgPart = new TextMessagePartModel();
+            msgPart.Text = String.Format("<{0}> ", e.Data.Nick);
+            msgPart.IsHighlight = true;
+            msg.MessageParts.Add(msgPart);
+
+            _IrcMessageToMessageModel(ref msg, e.Data.Message);
+
             ChatModel chat = GetChat(e.Data.Nick, ChatType.Person);
             if (chat == null) {
                 IrcPersonModel person = new IrcPersonModel(e.Data.Nick,
@@ -2728,25 +2739,30 @@ namespace Smuxi.Engine
                                                            NetworkID,
                                                            this);
                 chat = new PersonChatModel(person, e.Data.Nick, e.Data.Nick, this);
+                // don't create chats for filtered messages
+                if (Session.IsFilteredMessage(chat, msg)) {
+                    Session.LogMessage(chat, msg, true);
+                    return;
+                }
                 Session.AddChat(chat);
                 Session.SyncChat(chat);
             }
-            
-            MessageModel fmsg = new MessageModel();
-            TextMessagePartModel fmsgti;
-            
-            fmsgti = new TextMessagePartModel();
-            fmsgti.Text = String.Format("<{0}> ", e.Data.Nick);
-            fmsgti.IsHighlight = true;
-            fmsg.MessageParts.Add(fmsgti);
-            
-            _IrcMessageToMessageModel(ref fmsg, e.Data.Message);
-            
-            Session.AddMessageToChat(chat, fmsg);
+
+            Session.AddMessageToChat(chat, msg);
         }
         
         private void _OnQueryAction(object sender, ActionEventArgs e)
         {
+            MessageModel msg = new MessageModel();
+            TextMessagePartModel msgPart;
+
+            msgPart = new TextMessagePartModel();
+            msgPart.Text = String.Format(" * {0} ", e.Data.Nick);
+            msgPart.IsHighlight = true;
+            msg.MessageParts.Add(msgPart);
+
+            _IrcMessageToMessageModel(ref msg, e.ActionMessage);
+
             ChatModel chat = GetChat(e.Data.Nick, ChatType.Person);
             if (chat == null) {
                 IrcPersonModel person = new IrcPersonModel(e.Data.Nick,
@@ -2756,25 +2772,34 @@ namespace Smuxi.Engine
                                                            NetworkID,
                                                            this);
                 chat = new PersonChatModel(person, e.Data.Nick, e.Data.Nick, this);
+                // don't create chats for filtered messages
+                if (Session.IsFilteredMessage(chat, msg)) {
+                    Session.LogMessage(chat, msg, true);
+                    return;
+                }
                 Session.AddChat(chat);
                 Session.SyncChat(chat);
             }
-            
-            MessageModel fmsg = new MessageModel();
-            TextMessagePartModel fmsgti;
-            
-            fmsgti = new TextMessagePartModel();
-            fmsgti.Text = String.Format(" * {0} ", e.Data.Nick);
-            fmsgti.IsHighlight = true;
-            fmsg.MessageParts.Add(fmsgti);
-            
-            _IrcMessageToMessageModel(ref fmsg, e.ActionMessage);
-            
-            Session.AddMessageToChat(chat, fmsg);
+
+            Session.AddMessageToChat(chat, msg);
         }
         
         private void _OnQueryNotice(object sender, IrcEventArgs e)
         {
+            MessageModel msg = new MessageModel();
+            TextMessagePartModel msgPart;
+
+            msgPart = new TextMessagePartModel();
+            msgPart.Text = String.Format("-{0} ({1}@{2})- ",
+                                        e.Data.Nick,
+                                        e.Data.Ident,
+                                        e.Data.Host);
+            // notice shouldn't be a highlight
+            //fmsgti.IsHighlight = true;
+            msg.MessageParts.Add(msgPart);
+
+            _IrcMessageToMessageModel(ref msg, e.Data.Message);
+
             ChatModel chat = null;
             if (e.Data.Nick != null) {
                 chat = GetChat(e.Data.Nick, ChatType.Person);
@@ -2793,26 +2818,17 @@ namespace Smuxi.Engine
                                                                NetworkID,
                                                                this);
                     chat = new PersonChatModel(person, e.Data.Nick, e.Data.Nick, this);
+                    // don't create chats for filtered messages
+                    if (Session.IsFilteredMessage(chat, msg)) {
+                        Session.LogMessage(chat, msg, true);
+                        return;
+                    }
                     Session.AddChat(chat);
                     Session.SyncChat(chat);
                 }
             }
 
-            MessageModel fmsg = new MessageModel();
-            TextMessagePartModel fmsgti;
-            
-            fmsgti = new TextMessagePartModel();
-            fmsgti.Text = String.Format("-{0} ({1}@{2})- ",
-                                        e.Data.Nick,
-                                        e.Data.Ident,
-                                        e.Data.Host);
-            // notice shouldn't be a highlight
-            //fmsgti.IsHighlight = true;
-            fmsg.MessageParts.Add(fmsgti);
-            
-            _IrcMessageToMessageModel(ref fmsg, e.Data.Message);
-            
-            Session.AddMessageToChat(chat, fmsg);
+            Session.AddMessageToChat(chat, msg);
         }
 
         private void _OnJoin(object sender, JoinEventArgs e)

@@ -70,9 +70,11 @@ namespace Smuxi.Frontend.Gnome
         private Gtk.Notebook _InterfaceNotebook;
         [Glade.Widget("MenuTreeView")]
         private Gtk.TreeView _MenuTreeView;
+        [Glade.Widget("FilterListEventBox")]
+        private Gtk.EventBox _FilterListEventBox;
 #endregion
         
-        private ChannelFilterListView _ChannelFilterListView;
+        private FilterListWidget _FilterListWidget;
         private ServerListView _ServerListView;
         
         public Page CurrentPage {
@@ -177,12 +179,10 @@ namespace Smuxi.Frontend.Gnome
                                                 Gtk.Stock.Network,
                                                 Gtk.IconSize.SmallToolbar, null),
                             _("Servers"));
-            /*
             ls.AppendValues(Page.Filters, _Dialog.RenderIcon(
                                                 Gtk.Stock.Delete,
                                                 Gtk.IconSize.SmallToolbar, null),
                             _("Filters"));
-            */
             ls.AppendValues(Page.Logging, _Dialog.RenderIcon(
                                                 Gtk.Stock.JustifyLeft,
                                                 Gtk.IconSize.SmallToolbar, null),
@@ -200,9 +200,12 @@ namespace Smuxi.Frontend.Gnome
             ls.GetIterFirst(out iter);
             _MenuTreeView.Selection.SelectIter(iter);
             
-            _ChannelFilterListView = new ChannelFilterListView(_Glade);
-            _ServerListView = new ServerListView(parent, _Glade);
-            
+            _ServerListView = new ServerListView(_Dialog, _Glade);
+            _FilterListWidget = new FilterListWidget(_Dialog, Frontend.UserConfig);
+            _FilterListWidget.Changed += _OnChanged;
+            _FilterListEventBox.Add(_FilterListWidget);
+            _FilterListEventBox.ShowAll();
+
             _Load();
         }
         
@@ -471,7 +474,8 @@ namespace Smuxi.Frontend.Gnome
             }
             
             // Filters
-            _ChannelFilterListView.Load();
+            _FilterListWidget.InitProtocols(Frontend.Session.GetSupportedProtocols());
+            _FilterListWidget.Load();
             
             // Servers
             _ServerListView.Load();
@@ -484,6 +488,10 @@ namespace Smuxi.Frontend.Gnome
                 if (Frontend.IsLocalEngine) {
                     ((Gtk.Button) _Glade["LoggingOpenButton"]).Visible = true;
                 }
+            }
+            if (Frontend.UserConfig["Logging/LogFilteredMessages"] != null) {
+                ((Gtk.CheckButton) _Glade["LoggingLogFilteredMessagesCheckButton"]).Active =
+                    (bool) Frontend.UserConfig["Logging/LogFilteredMessages"];
             }
 
             ((Gtk.Button)_Glade["ApplyButton"]).Sensitive = false;
@@ -669,14 +677,17 @@ namespace Smuxi.Frontend.Gnome
             }
             
             // Filters
-            _ChannelFilterListView.Save();
-            
+            _FilterListWidget.Save();
+
             // Servers
+            // _ServerListView saves directly after each change
             //_ServerListView.Save();
             
             // Logging
             Frontend.UserConfig["Logging/Enabled"] =
                 ((Gtk.CheckButton) _Glade["LoggingEnabledCheckButton"]).Active;
+            Frontend.UserConfig["Logging/LogFilteredMessages"] =
+                ((Gtk.CheckButton) _Glade["LoggingLogFilteredMessagesCheckButton"]).Active;
 
             Frontend.Config.Save();
         }

@@ -41,6 +41,8 @@ namespace Smuxi.Engine
         private string    _DefaultPrefix = "Engine/Users/DEFAULT/";
         private Hashtable _Cache; 
         
+        public event EventHandler<ConfigChangedEventArgs> Changed;
+
         public bool IsCaching
         {
             get {
@@ -98,9 +100,10 @@ namespace Smuxi.Engine
         public UserConfig(Config config, string username)
         {
             _Config = config;
+            _Config.Changed += OnConfigChanged;
             _UserPrefix = "Engine/Users/"+username+"/";
         }
-        
+
         public void ClearCache()
         {
             if (IsCaching) {
@@ -127,6 +130,22 @@ namespace Smuxi.Engine
         public void Save()
         {
             _Config.Save();
+        }
+
+        void OnConfigChanged(object sender, ConfigChangedEventArgs e)
+        {
+            if (Changed == null) {
+                // no listeners
+                return;
+            }
+
+            if (!e.Key.StartsWith(_UserPrefix)) {
+                // setting for some other user has changed
+                return;
+            }
+
+            var key = e.Key.Substring(_UserPrefix.Length);
+            Changed(this, new ConfigChangedEventArgs(key, e.Value));
         }
     }
 }
