@@ -49,6 +49,12 @@ update-po:
 		$(MAKE) -C $$PODIR $@ | egrep -e '(:$$|messages)'; \
 	done
 
+update-pot:
+	for PODIR in $(PODIRS); do \
+		echo $$PODIR; \
+		$(MAKE) -C $$PODIR check; \
+	done
+
 mail-po: update-po
 	for PODIR in $(PODIRS); do \
 		echo $$PODIR; \
