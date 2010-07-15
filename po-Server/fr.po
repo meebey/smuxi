@@ -7,57 +7,66 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-09 22:46+0100\n"
-"PO-Revision-Date: 2010-01-09 22:56+0100\n"
-"Last-Translator: Clement BOURGEOIS <moonpyk@gmail.com>\n"
+"POT-Creation-Date: 2010-07-15 01:40+0200\n"
+"PO-Revision-Date: 2010-07-15 22:28+0100\n"
+"Last-Translator: Clément Bourgeois <moonpyk@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../src/Server/Main.cs:62
+#: ../src/Server/Main.cs:69
 msgid "Add user to Server"
 msgstr "Ajouter un utilisateur au serveur"
 
-#: ../src/Server/Main.cs:71
+#: ../src/Server/Main.cs:78
 msgid "Modify existing user of Server"
 msgstr "Modifier un utilisateur existant du serveur"
 
-#: ../src/Server/Main.cs:80
+#: ../src/Server/Main.cs:87
 msgid "Delete user from Server"
 msgstr "Supprimer un utilisateur du serveur"
 
-#: ../src/Server/Main.cs:89
+#: ../src/Server/Main.cs:96
+msgid "List all existing users of Server"
+msgstr "Lister tous les utilisateurs existants du serveur"
+
+#: ../src/Server/Main.cs:105
 msgid "User to create, modify or delete"
 msgstr "Utilisateur à créer, modifier ou supprimer"
 
-#: ../src/Server/Main.cs:98
+#: ../src/Server/Main.cs:114
 msgid "Password of the user when creating or modifying a user"
 msgstr ""
 "Mot de passe utilisé pendant la création ou la modification d'un utilisateur."
 
-#: ../src/Server/Main.cs:107
+#: ../src/Server/Main.cs:123
 msgid "Enable debug output"
 msgstr "Activer la sortie de déboguage"
 
-#: ../src/Server/Main.cs:115
+#: ../src/Server/Main.cs:131
 msgid "Show this help"
 msgstr "Affiche cette aide"
 
-#: ../src/Server/Main.cs:117
+#: ../src/Server/Main.cs:133
 msgid "Usage: smuxi-server [options]"
 msgstr "Usage : smuxi-server [options]"
 
-#: ../src/Server/Main.cs:119
+#: ../src/Server/Main.cs:135
 msgid "Options:"
 msgstr "Options :"
 
-#: ../src/Server/Main.cs:136
+#: ../src/Server/Main.cs:146
+#, csharp-format
+msgid "Unknown option: '{0}'"
+msgstr "Option inconnue : '{0}'"
+
+#: ../src/Server/Main.cs:170
 #, csharp-format
 msgid "Command line error: {0}"
 msgstr "Erreur de ligne de commande : {0}"
 
-#: ../src/Server/Main.cs:194
+#: ../src/Server/Main.cs:214
 msgid ""
 "At most one of --add-user, --modify-user, and --delete-user may be used at a "
 "time."
@@ -65,37 +74,41 @@ msgstr ""
 "Les options -a|--add-user ou -m|--modify-user et -d|-delete-user ne peuvent "
 "pas être utilisées en même temps."
 
-#: ../src/Server/Main.cs:204
+#: ../src/Server/Main.cs:224
 msgid "You must specify a username with the --username option."
 msgstr "Vous devez spécifier un nom d'utilisateur avec l'option --username."
 
-#: ../src/Server/Main.cs:210
+#: ../src/Server/Main.cs:230
 msgid "Username must not be empty."
 msgstr "Le nom d'utilisateur ne peut pas être vide."
 
-#: ../src/Server/Main.cs:220
+#: ../src/Server/Main.cs:240
 msgid "You must specify a password with the --password option."
 msgstr "Vous devez spécifier un mot de passe avec l'option --password."
 
-#: ../src/Server/Main.cs:226
+#: ../src/Server/Main.cs:246
 msgid "Password must not be empty."
 msgstr "Le mot de passe ne peut pas être vide."
 
-#: ../src/Server/Main.cs:241
+#: ../src/Server/Main.cs:263
 #, csharp-format
 msgid "User \"{0}\" successfully added to server."
 msgstr "L'utilisateur \"{0}\" a été ajouté avec succès au serveur."
 
-#: ../src/Server/Main.cs:250
+#: ../src/Server/Main.cs:272
 #, csharp-format
 msgid "User \"{0}\" successfully modified."
 msgstr "L'utilisateur \"{0}\" a été modifié avec succès."
 
-#: ../src/Server/Main.cs:259
+#: ../src/Server/Main.cs:281
 #, csharp-format
 msgid "User \"{0}\" successfully deleted from server."
 msgstr ""
 "L'utilisateur : \"{0}\" a été supprimé de la configuration avec succès."
+
+#: ../src/Server/Main.cs:288
+msgid "Users:"
+msgstr "Utilisateurs :"
 
 #~ msgid ""
 #~ "Error: -a|--add-user and -m|--modify-user options can't be used together"
