@@ -300,6 +300,9 @@ namespace Smuxi.Engine
                 Session.AddTextToChat(_NetworkChat, "-!- " + msg);
                 Session.AddTextToChat(_NetworkChat, "-!- " + _("Logging in..."));
                 string realname = (string) Session.UserConfig["Connection/Realname"];
+                if (realname.Trim().Length == 0) {
+                    realname = "unset";
+                }
                 _IrcClient.Login(_Nicknames, realname, 0, _Username, _Password);
                 
                 foreach (string command in (string[]) Session.UserConfig["Connection/OnConnectCommands"]) {
