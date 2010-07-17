@@ -2,12 +2,12 @@
 # Copyright (C) 2005-2009 Mirco Bauer <meebey@meebey.net>
 # This file is distributed under the same license as the Smuxi package.
 # Mirco Bauer <meebey@meebey.net>, 2008-2009.
-#
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: 0.6.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-09 15:32+0100\n"
+"POT-Creation-Date: 2010-07-15 01:40+0200\n"
 "PO-Revision-Date: 2010-01-10 23:57+0100\n"
 "Last-Translator: Bianca Mix <heavydemon@freenet.de>\n"
 "Language-Team: German Localization <debian-l10n-german@lists.debian.org>\n"
@@ -15,68 +15,73 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:53
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:340
 msgid "Op"
 msgstr "Op"
 
-#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:57
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:344
 msgid "Deop"
 msgstr "Deop"
 
-#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:61
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:348
 msgid "Voice"
 msgstr "Voice"
 
-#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:65
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:352
 msgid "Devoice"
 msgstr "Devoice"
 
-#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:69
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:356
 msgid "Kick"
 msgstr "Kick"
 
-#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:73
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:360
 msgid "Kick + Ban"
 msgstr "Kick + Ban"
 
-#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:77
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:364
 msgid "Ban"
 msgstr "Ban"
 
-#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:81
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:368
 msgid "Unban"
 msgstr "Unban"
 
-#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:87
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:374
 msgid "Query"
 msgstr "Query"
 
-#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:91
-#: ../src/Frontend-GNOME-IRC/IrcPersonChatView.cs:57
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:378
+#: ../src/Frontend-GNOME-IRC/IrcPersonChatView.cs:61
 msgid "Whois"
 msgstr "Whois"
 
-#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:96
-#: ../src/Frontend-GNOME-IRC/IrcPersonChatView.cs:61
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:382
+#: ../src/Frontend-GNOME-IRC/IrcPersonChatView.cs:65
 msgid "CTCP"
 msgstr "CTCP"
 
-#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:99
-#: ../src/Frontend-GNOME-IRC/IrcPersonChatView.cs:66
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:391
+#: ../src/Frontend-GNOME-IRC/IrcPersonChatView.cs:72
+msgid "Invite to"
+msgstr "Einladen zu"
+
+#: ../src/Frontend-GNOME-IRC/CtcpMenu.cs:72
 msgid "Ping"
 msgstr "Ping"
 
-#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:103
-#: ../src/Frontend-GNOME-IRC/IrcPersonChatView.cs:70
+#: ../src/Frontend-GNOME-IRC/CtcpMenu.cs:77
 msgid "Version"
 msgstr "Version"
 
-#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:107
-#: ../src/Frontend-GNOME-IRC/IrcPersonChatView.cs:74
+#: ../src/Frontend-GNOME-IRC/CtcpMenu.cs:82
 msgid "Time"
 msgstr "Zeit"
 
-#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:111
-#: ../src/Frontend-GNOME-IRC/IrcPersonChatView.cs:78
+#: ../src/Frontend-GNOME-IRC/CtcpMenu.cs:87
 msgid "Finger"
 msgstr "Finger"
+
+#: ../src/Frontend-GNOME-IRC/CtcpMenu.cs:92
+msgid "Userinfo"
+msgstr "Benutzerinformationen"
