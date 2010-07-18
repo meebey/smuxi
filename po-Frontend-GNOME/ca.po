@@ -2,7 +2,7 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: Smuxi\n"
@@ -11,10 +11,10 @@ msgstr ""
 "PO-Revision-Date: 2010-07-18 14:46+0100\n"
 "Last-Translator: Siegfried-Angel Gevatter Pujals <rainct@ubuntu.com>\n"
 "Language-Team: Siegfried-Angel Gevatter Pujals <siegfried@gevatter.com>\n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: \n"
 "Plural-Forms: nplurals=2; plural=n != 1\n"
 "X-Poedit-Language: Catalan\n"
 
@@ -355,7 +355,8 @@ msgstr "_Registre"
 msgid "_Servers"
 msgstr "_Servidors"
 
-#. This is a setting for character based line wrapping vs word based when showing messages
+#. This is a setting for character based line wrapping vs word based when
+#. showing messages
 #: ../glade/smuxi-frontend-gnome.glade.h:69
 msgid "_Wrap Mode:"
 msgstr "_Ajustament de línia:"
@@ -783,7 +784,7 @@ msgstr "fet."
 
 #: ../src/Frontend-GNOME/Views/Chats/GroupChatView.cs:301
 msgid "Person"
-msgstr "Persona"
+msgstr "Persones"
 
 #: ../src/Frontend-GNOME/Views/Chats/ProtocolChatView.cs:68
 msgid ""
@@ -991,8 +992,9 @@ msgstr "_Ignora les ordres"
 
 #~ msgid "Joins"
 #~ msgstr "Entrades"
+
 #~ msgid "Parts"
 #~ msgstr "Sortides"
+
 #~ msgid "Quits"
 #~ msgstr "Desconnexions"
-
