@@ -8,13 +8,13 @@ msgstr ""
 "Project-Id-Version: Smuxi\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-07-15 01:35+0200\n"
-"PO-Revision-Date: 2010-07-18 14:46+0100\n"
+"PO-Revision-Date: 2010-07-18 19:35+0100\n"
 "Last-Translator: Siegfried-Angel Gevatter Pujals <rainct@ubuntu.com>\n"
 "Language-Team: Siegfried-Angel Gevatter Pujals <siegfried@gevatter.com>\n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: \n"
 "Plural-Forms: nplurals=2; plural=n != 1\n"
 "X-Poedit-Language: Catalan\n"
 
@@ -61,7 +61,7 @@ msgstr "<b> Posició de les pestanyes </b>"
 #: ../glade/smuxi-frontend-gnome.glade.h:10
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1515
 msgid "<b> Topic Position </b>"
-msgstr "<b> Topic Position </b>"
+msgstr "<b> Posició del títol </b>"
 
 #: ../glade/smuxi-frontend-gnome.glade.h:11
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1161
@@ -71,7 +71,7 @@ msgstr "Activitat"
 #: ../glade/smuxi-frontend-gnome.glade.h:12
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:107
 msgid "Automatically connect to server at startup"
-msgstr "Connecta automàticament al servidor a l'inici"
+msgstr "Connecta't automàticament al servidor a l'inici"
 
 #: ../glade/smuxi-frontend-gnome.glade.h:13
 msgid "Background"
@@ -85,7 +85,7 @@ msgstr "Completat semblant al del Bash"
 #: ../glade/smuxi-frontend-gnome.glade.h:15
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1690
 msgid "Beep on highlight"
-msgstr "Fes un avís sonor al ressaltar una paraula"
+msgstr "Fes un avís sonor en ressaltar una paraula"
 
 #. Container child vbox6.Gtk.Box+BoxChild
 #. Container child vbox11.Gtk.Box+BoxChild
@@ -203,7 +203,7 @@ msgstr "Sobrenom(s):"
 #: ../glade/smuxi-frontend-gnome.glade.h:38
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1153
 msgid "No Activity"
-msgstr "Cap activitat"
+msgstr "Sense activitat"
 
 #. Container child vbox6.Gtk.Box+BoxChild
 #. Container child vbox11.Gtk.Box+BoxChild
@@ -314,7 +314,7 @@ msgstr "Pestanyes"
 
 #: ../glade/smuxi-frontend-gnome.glade.h:60
 msgid "The nickname to use. You can specify extra nicknames (separated by spaces) which will be used as fallbacks when the first choice is not available. By default $nick_ and $nick__ will be used as fallbacks."
-msgstr "El sobrenom a utilitzar. Podeu especificar sobrenoms addicionals (separats per comes) a utilitzar alternativament en cas que la primera tria no estigui disponible. Per defecte, s'utilitza $nick_ i $nick__ com a sobrenoms alternatius."
+msgstr "El sobrenom a utilitzar. Podeu especificar sobrenoms addicionals (separats per comes) a utilitzar alternativament en cas que la primera tria no estigui disponible. Per omissió, s'utilitza $nick_ i $nick__ com a sobrenoms alternatius."
 
 #: ../glade/smuxi-frontend-gnome.glade.h:61
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:726
@@ -355,7 +355,8 @@ msgstr "_Registre"
 msgid "_Servers"
 msgstr "_Servidors"
 
-#. This is a setting for character based line wrapping vs word based when showing messages
+#. This is a setting for character based line wrapping vs word based when
+#. showing messages
 #: ../glade/smuxi-frontend-gnome.glade.h:69
 msgid "_Wrap Mode:"
 msgstr "_Ajustament de línia:"
@@ -412,7 +413,7 @@ msgstr "Ups, ho he tornat a fer..."
 
 #: ../src/Frontend-GNOME/CrashDialog.cs:57
 msgid "Smuxi crashed because an unhandled exception was thrown!"
-msgstr "El Smuxi ha petat perquè s'ha produït una excepció no tractada!"
+msgstr "El Smuxi ha petat perquè s'ha produït una excepció imprevista."
 
 #: ../src/Frontend-GNOME/CrashDialog.cs:61
 msgid "Here is the stacktrace, please report this bug!"
@@ -455,11 +456,11 @@ msgstr "Trieu un motor!"
 #: ../src/Frontend-GNOME/EngineManagerDialog.cs:195
 #, csharp-format
 msgid "Your frontend version ({0}) does not match the engine version ({1})!"
-msgstr "La versió del frontal ({0}) no coincideix amb la versió del motor ({1})!"
+msgstr "La versió del frontal ({0}) no coincideix amb la versió del motor ({1})."
 
 #: ../src/Frontend-GNOME/EngineManagerDialog.cs:222
 msgid "An error occurred while connecting to the engine!"
-msgstr "S'ha produït un error al intentar connectar al motor!"
+msgstr "S'ha produït un error al intentar connectar al motor."
 
 #: ../src/Frontend-GNOME/EngineManagerDialog.cs:223
 #, csharp-format
@@ -570,7 +571,7 @@ msgid ""
 "Switching to local engine will disconnect you from the current engine!\n"
 "Are you sure you want to do this?"
 msgstr ""
-"Si canvieu al motor local sereu desconnectat del vostre motor actual!\n"
+"Si canvieu al motor local us desconnectareu del vostre motor actual!\n"
 "Esteu segur que voleu fer això?"
 
 #: ../src/Frontend-GNOME/MainWindow.cs:864
@@ -578,7 +579,7 @@ msgid ""
 "Switching the remote engine will disconnect you from the current engine!\n"
 "Are you sure you want to do this?"
 msgstr ""
-"Si canvieu el motor remot sereu desconnectat del vostre motor actual!\n"
+"Si canvieu el motor remot us desconnectareu del vostre motor actual!\n"
 "Esteu segur que voleu fer això?"
 
 #: ../src/Frontend-GNOME/NotImplementedMessageDialog.cs:40
@@ -648,7 +649,7 @@ msgstr ""
 
 #: ../src/Frontend-GNOME/FindGroupChatDialog.cs:143
 msgid "Error while fetching the list of group chats from the server."
-msgstr "S'ha produït un error al recuperar la llista de xats en grup del servidor."
+msgstr "S'ha produït un error en recuperar la llista de xats en grup del servidor."
 
 #: ../src/Frontend-GNOME/Frontend.cs:394
 #, csharp-format
@@ -660,15 +661,15 @@ msgid ""
 "The frontend has lost the connection to the server.\n"
 "Do you want to reconnect now?"
 msgstr ""
-"El frontal ha perdut la connexió al servidor.\n"
-"Voleu tornar-hi a connectar?"
+"El frontal ha perdut la connexió amb el servidor.\n"
+"Voleu tornar a connectar-hi?"
 
 #: ../src/Frontend-GNOME/Frontend.cs:479
 msgid ""
 "Reconnecting to the server has failed.\n"
 "Do you want to try again?"
 msgstr ""
-"L'intent de reconnexió al servidor ha fallat.\n"
+"L'intent de reconnexió amb el servidor ha fallat.\n"
 "Voleu tornar-ho a intentar?"
 
 #: ../src/Frontend-GNOME/Frontend.cs:580
@@ -677,7 +678,7 @@ msgid ""
 "Do you want to reconnect now?"
 msgstr ""
 "El servidor ha perdut la connexió al frontal.\n"
-"Voleu tornar-hi a connectar?"
+"Voleu tornar a connectar-hi?"
 
 #: ../src/Frontend-GNOME/QuickConnectDialog.cs:62
 #: ../src/Frontend-GNOME/Views/FilterListWidget.cs:238
@@ -783,14 +784,14 @@ msgstr "fet."
 
 #: ../src/Frontend-GNOME/Views/Chats/GroupChatView.cs:301
 msgid "Person"
-msgstr "Persona"
+msgstr "Persones"
 
 #: ../src/Frontend-GNOME/Views/Chats/ProtocolChatView.cs:68
 msgid ""
 "Closing the protocol chat will also close all open chats connected to it!\n"
 "Are you sure you want to do this?"
 msgstr ""
-"Si tanqueu la pestanya del protocol es tancaran també totes les sales de xat que en depenen!\n"
+"Si tanqueu la pestanya del protocol es tancaran també totes les sales de xat que en depenen.\n"
 "Esteu segur que voleu fer això?"
 
 #: ../src/Frontend-GNOME/Preferences/ServerListView.cs:184
@@ -820,7 +821,7 @@ msgstr "Cerca cap endarrere"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ChatFindDialog.cs:115
 msgid "_Wrap Around"
-msgstr "_Torna a començar al principi a l'arribar al final"
+msgstr "_Torna a començar pel principi en arribar al final"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ChatFindDialog.cs:128
 msgid "Use _Regular Expressions"
@@ -853,11 +854,11 @@ msgstr "<b> Sala </b>"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1852
 msgid "<b>Channel Filters</b>"
-msgstr "<b>Channel Filters</b>"
+msgstr "<b>Filtres de canal</b>"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1869
 msgid "<b>User Filters</b>"
-msgstr "<b>User Filters</b>"
+msgstr "<b>Filtres d'usuari</b>"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantConnectionWidget.cs:64
 msgid "Use _SSH Tunnel"
@@ -865,7 +866,7 @@ msgstr "Utilitza un _túnel SSH"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantConnectionWidget.cs:78
 msgid "<span size=\"small\">Enables the use of SSH for the connection.  This has a small performance impact, but is more secure and required when using NAT or port-based firewalls</span>"
-msgstr "<span size=\"small\">Habilita l'ús de l'SSH per a la connexió. Això afectarà lleugerament el rendiment però és més segur i és necessari quan s'utilitza NAT o tallafocs que bloquegin certs ports.</span>"
+msgstr "<span size=\"small\">Habilita l'ús de l'SSH per a la connexió. Això afectarà lleugerament el rendiment, però és més segur i és necessari quan s'utilitza NAT o tallafocs que bloquegin certs ports.</span>"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantConnectionWidget.cs:157
 msgid "SSH _Host:"
@@ -895,7 +896,7 @@ msgstr "Nom d'usuari de l'SSH: (opcional)"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:99
 msgid "<span size=\"small\">Username which will be used to log into the SSH server</span>"
-msgstr "<span size=\"small\">Nom d'usuari que s'utilitzarà per a iniciar sessió al servidor SSH</span>"
+msgstr "<span size=\"small\">Nom d'usuari que s'utilitzarà per iniciar sessió al servidor SSH</span>"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:119
 msgid "_SSH Password: (optional)"
@@ -903,7 +904,7 @@ msgstr "Contrasenya de l'SSH: (opcional)"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:143
 msgid "<span size=\"small\">Password which will be used to log into the SSH server. The password is optional if SSH key authorization is used (via Pageant from the PuTTY tools).</span>"
-msgstr "<span size=\"small\">Contrasenya que s'utilitzarà per a iniciar sessió al servidor SSH. La contrasenya és opcional si s'utilitza autenticació via claus SSH (mitjançant Pageant, de les eines PuTTY).</span>"
+msgstr "<span size=\"small\">Contrasenya que s'utilitzarà per iniciar sessió al servidor SSH. La contrasenya és opcional si s'utilitza autenticació via claus SSH (mitjançant Pageant, de les eines PuTTY).</span>"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:164
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:223
@@ -912,7 +913,7 @@ msgstr "_Sobrenom:"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:187
 msgid "<span size=\"small\">Username which will be used to log into the Smuxi server</span>"
-msgstr "<span size=\"small\">Nom d'usuari que s'utilitzarà per a iniciar sessió al servidor del Smuxi.</span>"
+msgstr "<span size=\"small\">Nom d'usuari que s'utilitzarà per iniciar sessió al servidor del Smuxi.</span>"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:207
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:233
@@ -929,7 +930,7 @@ msgstr "_Repetiu la contrasenya:"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:275
 msgid "<span size=\"small\">Repeat the password for verification</span>"
-msgstr "<span size=\"small\">Repetiu la contrasenya per a assegurar que l'heu escrita correctament</span>"
+msgstr "<span size=\"small\">Repetiu la contrasenya per assegurar que l'heu escrita correctament</span>"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantIntroWidget.cs:27
 msgid ""
@@ -939,7 +940,7 @@ msgid ""
 "Click \"Forward\" to begin."
 msgstr ""
 "Benvingut a l'assistent de configuració de motors dels Smuxi.\n"
-"Cal que introduïu una mica d'informació abans de començar a utilitzar el motor.Premeu «Endavant» per a començar."
+"Cal que introduïu una mica d'informació abans de començar a utilitzar el motor. Premeu «Endavant» per a començar."
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantNameWidget.cs:52
 msgid "_Engine Name:"
