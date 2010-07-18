@@ -168,8 +168,6 @@ namespace Smuxi.Frontend.Gnome
 
         public void AddMessage(MessageModel msg)
         {
-            Trace.Call(msg);
-            
             AddMessage(msg, true);
         }
         
