@@ -1,0 +1,90 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Smuxi\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-07-15 01:40+0200\n"
+"PO-Revision-Date: \n"
+"Last-Translator: Siegfried-Angel Gevatter Pujals <rainct@ubuntu.com>\n"
+"Language-Team: Siegfried-Angel Gevatter Pujals <siegfried@gevatter.com>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1\n"
+"X-Poedit-Language: Catalan\n"
+
+#: ../src/Frontend/CommandManager.cs:143
+#, csharp-format
+msgid "Unknown Command: {0}"
+msgstr "Orde desconeguda: {0}"
+
+#: ../src/Frontend/EngineManager.cs:292
+#, csharp-format
+msgid "Unknown channel ({0}) - only the following channel types are supported:"
+msgstr "Sala desconeguda ({0}) - només s'admeten els següent tipus de sales:"
+
+#: ../src/Frontend/EngineManager.cs:301
+msgid "Registration with engine failed!  The username and/or password were wrong - please verify them."
+msgstr "No s'ha pogut registrar amb el motor!  El nom d'usuari i/o la contrasenya són incorrectes - comproveu-les."
+
+#: ../src/Frontend/SshTunnelManager.cs:146
+msgid "SSH client application was not found: "
+msgstr "No s'ha trobat cap client d'SSH:"
+
+#: ../src/Frontend/SshTunnelManager.cs:149
+msgid "SSH client must be either OpenSSH (ssh) or Plink (plink.exe, not putty.exe)"
+msgstr "El client d'SSH ha de ser l'OpenSSH (ssh) o bé el Plink (plink.exe, no putty.exe)"
+
+#: ../src/Frontend/SshTunnelManager.cs:186
+#, csharp-format
+msgid "The local SSH forwarding port {0} is already in use. Is there an old SSH tunnel still active?"
+msgstr "El port local de reenviament de l'SSH {0} ja està en ús. Hi ha un túnel SSH vell que encara estigui actiu?"
+
+#: ../src/Frontend/SshTunnelManager.cs:210
+#, csharp-format
+msgid ""
+"SSH tunnel setup failed (exit code: {0})\n"
+"\n"
+"SSH program: {1}\n"
+"SSH parameters: {2}\n"
+"\n"
+"Program Error:\n"
+"{3}\n"
+"Program Output:\n"
+"{4}\n"
+msgstr ""
+"Ha fallat la creació del túnel SSH (codi de sortida: {0})\n"
+"\n"
+"Programa SSH: {1}\n"
+"Paràmetres SSH: {2}\n"
+"\n"
+"Missatges d'error del programa:\n"
+"{3}\n"
+"Sortida del programa:\n"
+"{4}\n"
+
+#: ../src/Frontend/SshTunnelManager.cs:405
+#, csharp-format
+msgid ""
+"OpenSSH version number not found (exit code: {0})\n"
+"\n"
+"SSH program: {1}\n"
+"\n"
+"Program Error:\n"
+"{2}\n"
+"Program Output:\n"
+"{3}\n"
+msgstr ""
+"No s'ha trobat el nombre de versió de l'OpenSSH (codi de sortida: {0})\n"
+"\n"
+"Programa SSH: {1}\n"
+"\n"
+"Missatge d'error del programa:\n"
+"{2}\n"
+"Sortida del programa:\n"
+"{3}\n"
+
+#: ../src/Frontend/SshTunnelManager.cs:441
+msgid "PuTTY / Plink requires a username to be set."
+msgstr "El PuTTY / Plink requereix que un nom d'usuari estigui establert."
+
