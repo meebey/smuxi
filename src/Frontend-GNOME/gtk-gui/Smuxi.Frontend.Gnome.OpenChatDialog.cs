@@ -133,6 +133,7 @@ namespace Smuxi.Frontend.Gnome {
             }
             this.DefaultWidth = 236;
             this.DefaultHeight = 153;
+            this.f_OpenButton.HasDefault = true;
             this.Show();
         }
     }
