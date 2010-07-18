@@ -1426,7 +1426,12 @@ namespace Smuxi.Engine
             if (cd.DataArray.Length >= 2) {
                 _IrcClient.RfcWhois(cd.DataArray[1]);
             } else {
-                _NotEnoughParameters(cd);
+                if (cd.Chat is PersonChatModel) {
+                    var pchat = (PersonChatModel) cd.Chat;
+                    _IrcClient.RfcWhois(pchat.Person.ID);
+                } else {
+                    _NotEnoughParameters(cd);
+                }
             }
         }
         
@@ -1435,7 +1440,12 @@ namespace Smuxi.Engine
             if (cd.DataArray.Length >= 2) {
                 _IrcClient.RfcWhowas(cd.DataArray[1]);
             } else {
-                _NotEnoughParameters(cd);
+                if (cd.Chat is PersonChatModel) {
+                    var pchat = (PersonChatModel) cd.Chat;
+                    _IrcClient.RfcWhowas(pchat.Person.ID);
+                } else {
+                    _NotEnoughParameters(cd);
+                }
             }
         }
         
