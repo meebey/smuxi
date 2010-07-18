@@ -5,107 +5,113 @@
 # Martin Bagge <brother@bsnet.se>, 2009
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: Smuxi Engine Twitter\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-09 21:43+0100\n"
-"PO-Revision-Date: 2009-12-28 22:03+0100\n"
-"Last-Translator: Martin Bagge <brother@bsnet.se>\n"
-"Language-Team: Swedish <debian-l10n-swedish@lists.debian.org>\n"
+"POT-Creation-Date: 2010-07-15 01:40+0200\n"
+"PO-Revision-Date: 2010-07-15 13:12+0100\n"
+"Last-Translator: Martin Bagge / brother <brother@bsnet.se>\n"
+"Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
+"Language: sv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Poedit-Language: Swedish\n"
 "X-Poedit-Country: Sweden\n"
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:100
-msgid "Friends Timeline"
-msgstr "Tidslinje"
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:101
+msgid "Home Timeline"
+msgstr "Hem Tidslinje"
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:107
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:108
 msgid "Replies"
 msgstr "Svar"
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:114
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:115
 msgid "Direct Messages"
 msgstr "Direktmeddelanden"
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:132
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:133
 msgid "Connecting to Twitter..."
 msgstr "Ansluter till Twitter..."
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:140
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:141
 msgid "Login failed!"
 msgstr "Inloggning misslyckades!"
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:142
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:143
 msgid "Login failed! Username and/or password are incorrect."
-msgstr ""
-"Inloggning misslyckades! Användarnamn och/eller lösenord var felaktigt."
+msgstr "Inloggning misslyckades! Användarnamn och/eller lösenord var felaktigt."
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:148
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:149
 msgid "Connection failed!"
 msgstr "Anslutning misslyckades!"
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:150
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:151
 msgid "Connection failed! Reason: "
 msgstr "Anslutning misslyckades! Anledning: "
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:155
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:156
 msgid "Successfully connected to Twitter."
 msgstr "Ansluten till Twitter."
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:163
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:164
 msgid "Fetching user details from Twitter, please wait..."
 msgstr "Hämtar användarinformation från Twitter. Vänligen vänta..."
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:168
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:169
 msgid "Finished fetching user details."
 msgstr "Hämtade användarinformation."
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:175
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:176
 msgid "Failed to fetch user details from Twitter. Reason: "
-msgstr ""
-"Misslyckades med att hämta användarinformation från Twitter. Anledning: "
+msgstr "Misslyckades med att hämta användarinformation från Twitter. Anledning: "
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:184
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:185
 msgid "Fetching friends from Twitter, please wait..."
 msgstr "Hämtar vänner från Twitter. Vänligen vänta..."
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:189
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:190
 msgid "Finished fetching friends."
 msgstr "Hämtade vänner."
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:192
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:193
 msgid "Failed to fetch friends from Twitter. Reason: "
 msgstr "Misslyckades med att hämta vänner från Twitter. Anledning: "
 
 #. TRANSLATOR: this line is used as a label / category for a
 #. list of commands below
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:412
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:454
 msgid "Twitter Commands"
 msgstr "Twitter-kommandon"
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:464
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:504
+#, csharp-format
+msgid "Could not update status - Reason: {0}"
+msgstr "Kunde inte uppdatera status - Anledning: {0}"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:513
 msgid "Cannot send message - no target specified. Use: /msg $nick message"
-msgstr ""
-"Kan inte skicka meddelande - inget mål specificerades. Använd /msg $nick "
-"meddelande"
+msgstr "Kan inte skicka meddelande - inget mål specificerades. Använd /msg $nick meddelande"
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:496
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:526
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:568
+#, csharp-format
+msgid "Could not send message - Reason: {0}"
+msgstr "Kunde inte skicka meddelande - Anledning: {0}"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:555
 msgid "Could not send message - the specified user does not exist."
-msgstr ""
-"Kunde inte skicka meddelande - den specificerade användaren hittades inte."
+msgstr "Kunde inte skicka meddelande - den specificerade användaren hittades inte."
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:567
-msgid ""
-"An error occurred while fetching the friends timeline from Twitter. Reason: "
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:631
+msgid "An error occurred while fetching the friends timeline from Twitter. Reason: "
 msgstr "Ett fel uppstod vid hämtning av kvitter från dina vänner. Anledning: "
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:652
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:721
 msgid "An error occurred while fetching the replies from Twitter. Reason: "
 msgstr "Ett fel uppstod vid hämtning av svar från Twitter. Anledning: "
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:742
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:816
 msgid "An error occurred while fetching direct messages from Twitter. Reason: "
-msgstr ""
-"Ett fel uppstod vid hämtning av direktmeddelanden från Twitter. Anledning: "
+msgstr "Ett fel uppstod vid hämtning av direktmeddelanden från Twitter. Anledning: "
+
