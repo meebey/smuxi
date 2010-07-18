@@ -167,6 +167,7 @@ namespace Smuxi.Frontend.Gnome
             
             DeleteEvent += OnDeleteEvent;
             FocusInEvent += OnFocusInEvent;
+            FocusOutEvent += OnFocusOutEvent;
             WindowStateEvent += OnWindowStateEvent;
                     
             
@@ -517,6 +518,18 @@ namespace Smuxi.Frontend.Gnome
             }
         }
         
+        protected virtual void OnFocusOutEvent(object sender, EventArgs e)
+        {
+            Trace.Call(sender, e);
+
+            try {
+                var chatView = _Notebook.CurrentChatView;
+                chatView.OutputMessageTextView.UpdateMarkerline();
+            } catch (Exception ex) {
+                Frontend.ShowException(this, ex);
+            }
+        }
+
         protected virtual void OnServerQuickConnectButtonClicked(object sender, EventArgs e)
         {
             Trace.Call(sender, e);

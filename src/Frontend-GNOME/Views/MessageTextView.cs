@@ -44,10 +44,13 @@ namespace Smuxi.Frontend.Gnome
         private MessageModel _LastMessage;
         private bool         _ShowTimestamps;
         private bool         _ShowHighlight;
+        private bool         _ShowMarkerline;
         private bool         _AtUrlTag;
         private string       _Url;
         private UserConfig   _Config;
         private ThemeSettings _ThemeSettings;
+        private Gdk.Color    _MarkerlineColor = new Gdk.Color(255, 0, 0);
+        private int          _MarkerlineBufferPosition;
 
         public event MessageTextViewMessageAddedEventHandler       MessageAdded;
         public event MessageTextViewMessageHighlightedEventHandler MessageHighlighted;
@@ -67,6 +70,15 @@ namespace Smuxi.Frontend.Gnome
             }
             set {
                 _ShowHighlight = value;
+            }
+        }
+
+        public bool ShowMarkerline {
+            get {
+                return _ShowMarkerline;
+            }
+            set {
+                _ShowMarkerline = value;
             }
         }
 
@@ -116,6 +128,7 @@ namespace Smuxi.Frontend.Gnome
             Buffer = new Gtk.TextBuffer(_MessageTextTagTable);
             MotionNotifyEvent += OnMotionNotifyEvent;
             PopulatePopup += OnPopulatePopup;
+            ExposeEvent += OnExposeEvent;
         }
 
         public void ApplyConfig(UserConfig config)
@@ -304,6 +317,18 @@ namespace Smuxi.Frontend.Gnome
             }
             
             _LastMessage = msg;
+        }
+
+        public void UpdateMarkerline()
+        {
+            Trace.Call();
+
+            if (IsEmpty) {
+                return;
+            }
+
+            _MarkerlineBufferPosition = Buffer.EndIter.Offset - 1;
+            QueueDraw();
         }
 
         /*
@@ -517,6 +542,33 @@ namespace Smuxi.Frontend.Gnome
              return tagname;
         }
         
+        void OnExposeEvent(object sender, Gtk.ExposeEventArgs e)
+        {
+            if (!_ShowMarkerline || _MarkerlineBufferPosition == 0) {
+                return;
+            }
+
+            var window = e.Event.Window;
+            var gc = new Gdk.GC(window);
+            gc.RgbFgColor = _MarkerlineColor;
+
+            var iter = Buffer.GetIterAtOffset(_MarkerlineBufferPosition);
+            var location = GetIterLocation(iter);
+            int last_y = location.Y + location.Height;
+            // padding
+            last_y += PixelsAboveLines + PixelsBelowLines / 2;
+
+            int x, y;
+            BufferToWindowCoords(Gtk.TextWindowType.Text, 0,
+                                 last_y, out x, out y);
+
+            if (y < e.Event.Area.Y) {
+                return;
+            }
+
+            window.DrawLine(gc, 0, y, VisibleRect.Width, y);
+        }
+
         private static string _(string msg)
         {
             return Mono.Unix.Catalog.GetString(msg);

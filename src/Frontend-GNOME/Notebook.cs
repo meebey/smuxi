@@ -57,6 +57,7 @@ namespace Smuxi.Frontend.Gnome
 
             Scrollable = true;
             SwitchPage += OnSwitchPage;
+            SwitchPage += OnBeforeSwitchPage;
         }
         
         public void ApplyConfig(UserConfig userConfig)
@@ -157,6 +158,13 @@ namespace Smuxi.Frontend.Gnome
 #if LOG4NET
             f_Logger.Debug("OnSwitchPageQueueAbortedEvent(): task queue aborted!");
 #endif
+        }
+
+        [GLib.ConnectBefore]
+        protected virtual void OnBeforeSwitchPage(object sender, Gtk.SwitchPageArgs e)
+        {
+            var chatView = CurrentChatView;
+            chatView.OutputMessageTextView.UpdateMarkerline();
         }
 
         protected virtual void OnSwitchPage(object sender, Gtk.SwitchPageArgs e)

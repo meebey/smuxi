@@ -213,6 +213,7 @@ namespace Smuxi.Frontend.Gnome
             MessageTextView tv = new MessageTextView();
             _EndMark = tv.Buffer.CreateMark("end", tv.Buffer.EndIter, false); 
             tv.ShowTimestamps = true;
+            tv.ShowMarkerline = true;
             tv.Editable = false;
             tv.CursorVisible = true;
             tv.WrapMode = Gtk.WrapMode.Char;
