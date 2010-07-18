@@ -1,104 +1,116 @@
 # Smuxi - IRC client for sophisticated users
 # Copyright (C) 2005-2009 Mirco Bauer <meebey@meebey.net>
 # This file is distributed under the same license as the Smuxi package.
-# Michal Simunek <michal.simunek@gmail.com>, 2009.
+# Michal Simunek <michal.simunek@gmail.com>, 2009 - 2010.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: smuxi-engine-twitter 0.6.4.1-1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-09 21:43+0100\n"
-"PO-Revision-Date: 2009-12-05 15:22+0100\n"
+"POT-Creation-Date: 2010-07-15 01:40+0200\n"
+"PO-Revision-Date: 2010-07-15 13:22+0200\n"
 "Last-Translator: Michal Simunek <michal.simunek@gmail.com>\n"
 "Language-Team: Czech <debian-l10n-czech@lists.debian.org>\n"
+"Language: cs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:100
-msgid "Friends Timeline"
-msgstr "Časová osa přátel"
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:101
+msgid "Home Timeline"
+msgstr "Domovské časové pásmo"
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:107
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:108
 msgid "Replies"
 msgstr "Odpovědi"
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:114
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:115
 msgid "Direct Messages"
 msgstr "Přímé zprávy"
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:132
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:133
 msgid "Connecting to Twitter..."
 msgstr "Připojování ke Twitteru..."
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:140
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:141
 msgid "Login failed!"
 msgstr "Přihlášení selhalo!"
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:142
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:143
 msgid "Login failed! Username and/or password are incorrect."
 msgstr "Přihlášení selhalo! Chybné uživatelské jméno nebo heslo."
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:148
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:149
 msgid "Connection failed!"
 msgstr "Připojování selhalo!"
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:150
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:151
 msgid "Connection failed! Reason: "
 msgstr "Připojování selhalo z důvodu: "
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:155
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:156
 msgid "Successfully connected to Twitter."
 msgstr "Připojení ke Twitteru proběhlo úspěšně."
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:163
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:164
 msgid "Fetching user details from Twitter, please wait..."
 msgstr "Probíhá příjem podrobností o uživateli z Twitteru, čekejte prosím..."
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:168
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:169
 msgid "Finished fetching user details."
 msgstr "Příjem podrobností o uživateli dokončen."
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:175
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:176
 msgid "Failed to fetch user details from Twitter. Reason: "
 msgstr "Příjem podrobností o uživateli z Twitteru selhal z důvodu: "
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:184
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:185
 msgid "Fetching friends from Twitter, please wait..."
 msgstr "Probíhá příjem seznamu přátel z Twitteru, čekejte prosím..."
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:189
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:190
 msgid "Finished fetching friends."
 msgstr "Příjem seznamu přátel dokončen."
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:192
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:193
 msgid "Failed to fetch friends from Twitter. Reason: "
 msgstr "Příjem seznamu přátel z Twitteru selhal z důvodu: "
 
 #. TRANSLATOR: this line is used as a label / category for a
 #. list of commands below
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:412
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:454
 msgid "Twitter Commands"
 msgstr "Příkazy Twitteru"
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:464
-msgid "Cannot send message - no target specified. Use: /msg $nick message"
-msgstr ""
-"Zprávu nelze odeslat - nezadali jste příjemce. Zadejte: /msg $nick zpráva"
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:504
+#, csharp-format
+msgid "Could not update status - Reason: {0}"
+msgstr "Nelze aktualizovat stav - Příčina: {0}"
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:496
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:513
+msgid "Cannot send message - no target specified. Use: /msg $nick message"
+msgstr "Zprávu nelze odeslat - nezadali jste příjemce. Zadejte: /msg $nick zpráva"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:526
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:568
+#, csharp-format
+msgid "Could not send message - Reason: {0}"
+msgstr "Zprávu nelze odeslat - Příčina: {0}"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:555
 msgid "Could not send message - the specified user does not exist."
 msgstr "Zprávu nelze odeslat - zadaný uživatel neexistuje."
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:567
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:631
 msgid ""
 "An error occurred while fetching the friends timeline from Twitter. Reason: "
-msgstr "Během přijmu časové osy přátel z Twitteru nastala chyba z důvodu: "
+msgstr ""
+"Během přijmu časového pásma přátel z Twitteru nastala chyba. Příčina: "
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:652
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:721
 msgid "An error occurred while fetching the replies from Twitter. Reason: "
 msgstr "Během přijmu odpovědí z Twitteru nastala chyba z důvodu: "
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:742
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:816
 msgid "An error occurred while fetching direct messages from Twitter. Reason: "
 msgstr "Během přijmu přímých zpráv z Twitteru nastala chyba z důvodu: "
