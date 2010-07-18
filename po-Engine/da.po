@@ -1,24 +1,24 @@
-# Smuxi - IRC client for sophisticated users
-# Copyright (C) 2005-2009 Mirco Bauer <meebey@meebey.net>
-# This file is distributed under the same license as the Smuxi package.
+# Danish translation smuxi-engine.
+# Copyright (C) 2010 smuxi-engine & nedenstående oversættere.
+# This file is distributed under the same license as the smuxi-engine package.
 # Bjarke Sørensen <bs@wasd.dk>, 2006.
+# Joe Hansen (joedalton2@yahoo.dk), 2010.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: smuxi 0.6.4\n"
+"Project-Id-Version: smuxi-engine\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-01-09 21:43+0100\n"
-"PO-Revision-Date: 2006-12-11 00:21+0100\n"
-"Last-Translator: Bjarke Sørensen <bs@wasd.dk>\n"
-"Language-Team: Danish Localization <debian-l10n-danish@lists.debian.org>\n"
+"PO-Revision-Date: 2010-07-16 12:42+0000\n"
+"Last-Translator: Joe Hansen <joedalton2@yahoo.dk>\n"
+"Language-Team: Danish <debian-l10n-danish@lists.debian.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #: ../src/Engine/FrontendManager.cs:219
-#, fuzzy
 msgid "No network connections"
-msgstr "ingen netværksforbindelser"
+msgstr "Ingen netværksforbindelser"
 
 #: ../src/Engine/Protocols/ProtocolManagerBase.cs:146
 msgid "Not connected to server"
@@ -28,7 +28,7 @@ msgstr "Ikke forbundet til server"
 #: ../src/Engine/Session.cs:684
 #, csharp-format
 msgid "Not enough parameters for {0} command"
-msgstr "Ikke nok parametre for kanalen {0}"
+msgstr "Ikke nok parametre for kommandoen {0}"
 
 #: ../src/Engine/Session.cs:151
 msgid "Welcome to Smuxi"
@@ -36,245 +36,107 @@ msgstr "Velkommen til Smuxi"
 
 #: ../src/Engine/Session.cs:157
 msgid "Type /help to get a list of available commands."
-msgstr ""
+msgstr "Tast /help for en liste over tilgængelige kommandoer."
 
 #: ../src/Engine/Session.cs:160
 msgid ""
 "After you have made a connection the list of available commands changes. Use "
 "the /help command again to see the extended command list."
 msgstr ""
+"Efter du har foretaget en tilslutning ændres listen over tilgængelige kommandoer. "
+"Brug kommandoen /help igen for at se den udvidede kommandoliste."
 
 #: ../src/Engine/Session.cs:210
-#, fuzzy, csharp-format
+#, csharp-format
 msgid "Automatic connect to {0} failed!"
-msgstr "Forbindelse mislykkedes!"
+msgstr "Automatisk tilslutning til {0} mislykkedes!"
 
 #. TRANSLATOR: this line is used as a label / category for a
 #. list of commands below
 #: ../src/Engine/Session.cs:398
 msgid "Engine Commands"
-msgstr ""
+msgstr "Motorkommandoer"
 
 #: ../src/Engine/Session.cs:510
-#, fuzzy, csharp-format
+#, csharp-format
 msgid "Disconnect failed - could not find server: {0}"
-msgstr "Afbrydelse fejlede, kunne ikke finde server: {0}"
+msgstr "Afbrydelse fejlede - kunne ikke finde server: {0}"
 
 #: ../src/Engine/Session.cs:546
-#, fuzzy
 msgid "Configuration reloaded"
-msgstr "Forbindelse lukket"
+msgstr "Konfiguration genindlæst"
 
 #: ../src/Engine/Session.cs:551
-#, fuzzy
 msgid "Configuration saved"
-msgstr "Forbindelse lukket"
+msgstr "Konfiguration gemt"
 
 #: ../src/Engine/Session.cs:555
 msgid "Invalid parameter for config; use load or save"
-msgstr ""
+msgstr "Ugyldigt parameter for konfig; brug load (indlæs) eller save (gem)"
 
 #: ../src/Engine/Session.cs:585
 msgid "Invalid parameter for network; use list, switch, or close"
 msgstr ""
+"Ugyldigt parameter for netværk; brug list (vis), switch (skift) eller close (luk)"
 
 #: ../src/Engine/Session.cs:596
 msgid "Networks"
-msgstr ""
+msgstr "Netværk"
 
 #: ../src/Engine/Session.cs:600
 msgid "Type"
-msgstr ""
+msgstr "Type"
 
 #: ../src/Engine/Session.cs:601
 msgid "Host"
-msgstr ""
+msgstr "Vært"
 
 #: ../src/Engine/Session.cs:602
 msgid "Port"
-msgstr ""
+msgstr "Port"
 
 #: ../src/Engine/Session.cs:624
-#, fuzzy, csharp-format
+#, csharp-format
 msgid "Network close failed - could not find network with host: {0}"
-msgstr "Afbrydelse fejlede, kunne ikke finde server: {0}"
+msgstr "Lukning af netværk mislykkedes - kunne ikke finde netværk med vært: {0}"
 
 #: ../src/Engine/Session.cs:658
-#, fuzzy, csharp-format
+#, csharp-format
 msgid "Network switch failed - could not find network with host: {0}"
-msgstr "Afbrydelse fejlede, kunne ikke finde server: {0}"
+msgstr "Skift af netværk mislykkedes - kunne ikke finde netværk med vært: {0}"
 
 #: ../src/Engine/Session.cs:673
 msgid "Not connected to any network"
-msgstr "Ikke forbundet til noget netværk"
+msgstr "Ikke tilsluttet til noget netværk"
 
 #: ../src/Engine/Session.cs:962
 #, csharp-format
 msgid "No protocol manager found for the protocol: {0}"
-msgstr ""
+msgstr "Ingen protokolhåndtering fundet til denne protokol: {0}"
 
 #: ../src/Engine/Session.cs:985
 #, csharp-format
 msgid "Unknown protocol: {0}"
-msgstr ""
+msgstr "Ukendt protokol: {0}"
 
 #: ../src/Engine/Config/UserListController.cs:112
 msgid "Username must not be empty."
-msgstr ""
+msgstr "Brugernavn må ikke være tomt."
 
 #: ../src/Engine/Config/UserListController.cs:122
 msgid "Password must not be empty."
-msgstr ""
+msgstr "Adgangskode må ikke være tom."
 
 #: ../src/Engine/Config/UserListController.cs:131
 #, csharp-format
 msgid "User \"{0}\" doesn't exist."
-msgstr ""
+msgstr "Bruger »{0}« findes ikke."
 
 #: ../src/Engine/Config/UserListController.cs:140
 #, csharp-format
 msgid "User \"{0}\" already exists."
-msgstr ""
+msgstr "Bruger »{0}« findes allerede."
 
-#, fuzzy
-#~ msgid "not connected"
-#~ msgstr "(ikke forbundet)"
 
-#~ msgid "Connecting to {0} port {1}..."
-#~ msgstr "Forbinder til {0} port {1}..."
 
-#~ msgid "Connection to {0} established"
-#~ msgstr "Forbindelse til {0} oprettet"
 
-#~ msgid "Logging in..."
-#~ msgstr "Logger ind..."
-
-#~ msgid "Connection failed!"
-#~ msgstr "Forbindelse mislykkedes!"
-
-#~ msgid "Connection failed! Reason: "
-#~ msgstr "Forbindelse mislykkedes! Grund:"
-
-#~ msgid "Disconnecting..."
-#~ msgstr "Afbryder forbindelse..."
-
-#~ msgid "Disconnecting from {0}..."
-#~ msgstr "Afbryder fra {0}..."
-
-#~ msgid "Disconnected from {0}"
-#~ msgstr "Afbrudt fra {0}"
-
-#~ msgid "Connection closed"
-#~ msgstr "Forbindelse lukket"
-
-#~ msgid "Not connected!"
-#~ msgstr "Ikke forbundet!"
-
-#~ msgid "Not connected"
-#~ msgstr "Ikke forbundet"
-
-#~ msgid "Invalid port: {0}"
-#~ msgstr "Invalid port: {0}"
-
-#, fuzzy
-#~ msgid "Already joined to channel: {0}. Type /window {0} to switch to it."
-#~ msgstr ""
-#~ "Du er allerede i kanalen: {0}.Skriv /window {0} for at skifte til den"
-
-#~ msgid "Topic for {0}: {1}"
-#~ msgstr "Emnet for {0}: {1}"
-
-#~ msgid "No topic set for {0}"
-#~ msgstr "Intet emne sat for {0}"
-
-#, fuzzy
-#~ msgid "No bans in channel"
-#~ msgstr "{0}: Intet sådan kaldenavn/kanal"
-
-#~ msgid "Inviting {0} to {1}"
-#~ msgstr "Inviterer {0} til {1}"
-
-#~ msgid "{0} is already on channel"
-#~ msgstr "{0} er allerede i kanalen"
-
-#, fuzzy
-#~ msgid "Connection error! Reason: "
-#~ msgstr "Forbindelse mislykkedes! Grund:"
-
-#~ msgid "{0}: No such nick/channel"
-#~ msgstr "{0}: Intet sådan kaldenavn/kanal"
-
-#, fuzzy
-#~ msgid "is already in use"
-#~ msgstr "{0} er allerede i kanalen"
-
-#~ msgid "{0} [{1}] requested CTCP {2} from {3}: {4}"
-#~ msgstr "{0} [{1}] udbedte CTCP {2} fra {3}: {4}"
-
-#~ msgid "CTCP PING reply from {0}: {1} seconds"
-#~ msgstr "CTCP PING svar fra {0}: {1} sekunder"
-
-#, fuzzy
-#~ msgid "CTCP {0} reply from {1}: {2}"
-#~ msgstr "CTCP PING svar fra {0}: {1} sekunder"
-
-#~ msgid "{0} [{1}] has joined {2}"
-#~ msgstr "{0} [{1}] kom ind i {2}"
-
-#~ msgid "{0} [{1}] has left {2} [{3}]"
-#~ msgstr "{0} [{1}] har forladt {2} [{3}]"
-
-#~ msgid "You was kicked from {0} by {1} [{2}]"
-#~ msgstr "Du blev sparket ud fra {0} af {1} [{2}]"
-
-#~ msgid "{0} was kicked from {1} by {2} [{3}]"
-#~ msgstr "{0} blev sparket ud fra {1} af {2} [{3}]"
-
-#, fuzzy
-#~ msgid "You're now known as"
-#~ msgstr "Du kendes nu som  {0}"
-
-#~ msgid "You're now known as {0}"
-#~ msgstr "Du kendes nu som  {0}"
-
-#~ msgid "{0} is now known as {1}"
-#~ msgstr "{0} kendes nu som {1}"
-
-#~ msgid "{0} changed the topic of {1} to: {2}"
-#~ msgstr "{0} har ændret emnet i {1} til: {2}"
-
-#, fuzzy
-#~ msgid "Mode change [{0}] for user {1}"
-#~ msgstr "Modus [{0}] ændret for brugeren {1}"
-
-#, fuzzy
-#~ msgid "mode/{0} [{1}] by {2}"
-#~ msgstr "modus/{0} [{1}] af {2}"
-
-#, fuzzy
-#~ msgid "{0} [{1}] has quit [{2}]"
-#~ msgstr "{0} [{1}] har afsluttet [{2}]"
-
-#~ msgid "{0} is away: {1}"
-#~ msgstr "{0} er væk: {1}"
-
-#~ msgid "You are no longer marked as being away"
-#~ msgstr "Du er ikke længere markeret som værende væk"
-
-#~ msgid "You have been marked as being away"
-#~ msgstr "Du er blevet markeret som værende væk"
-
-#, fuzzy
-#~ msgid "connected"
-#~ msgstr "Ikke forbundet"
-
-#, fuzzy
-#~ msgid "Connection Error: {0}"
-#~ msgstr "Afbryder fra {0}..."
-
-#, fuzzy
-#~ msgid "Connection Warning: {0}"
-#~ msgstr "Forbindelse mislykkedes! Grund:"
-
-#~ msgid "Not joined to channel: {0}. Please rejoin."
-#~ msgstr "Ikke i kanalen: {0}.Gå derind igen."
