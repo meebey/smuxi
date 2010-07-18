@@ -1,0 +1,314 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Smuxi\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-07-15 01:40+0200\n"
+"PO-Revision-Date: \n"
+"Last-Translator: Siegfried-Angel Gevatter Pujals <rainct@ubuntu.com>\n"
+"Language-Team: Siegfried-Angel Gevatter Pujals <siegfried@gevatter.com>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1\n"
+"X-Poedit-Language: Catalan\n"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:221
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1412
+msgid "away"
+msgstr "absent"
+
+#. TRANSLATOR: {0} is the amount of seconds
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:227
+#, csharp-format
+msgid "lag: {0} seconds"
+msgstr "retard: {0} segons"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:233
+msgid "not connected"
+msgstr "no esteu connectat"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:292
+#, csharp-format
+msgid "Connecting to {0} port {1}..."
+msgstr "S'està connectant a {0} al port {1}..."
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:298
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:390
+#, csharp-format
+msgid "Connection to {0} established"
+msgstr "S'ha establert la connexió a {0}"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:301
+msgid "Logging in..."
+msgstr "S'està iniciant sessió..."
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:321
+msgid "Connection failed!"
+msgstr "Ha fallat la connexió!"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:322
+msgid "Connection failed! Reason: "
+msgstr "Ha fallat la connexió! Motiu:"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:331
+msgid "Disconnecting..."
+msgstr "S'està desconnectant..."
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:334
+#, csharp-format
+msgid "Disconnecting from {0}..."
+msgstr "S'està desconnectant de {0}..."
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:339
+#, csharp-format
+msgid "Disconnected from {0}"
+msgstr "S'ha desconnectat de {0}"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:342
+msgid "Connection closed"
+msgstr "S'ha tancat la connexió"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:347
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:404
+msgid "Not connected"
+msgstr "No esteu connectat"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:376
+msgid "Reconnecting..."
+msgstr "S'està tornant a connectar..."
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:384
+#, csharp-format
+msgid "Reconnecting to {0}..."
+msgstr "S'està tornant a connectar a {0}..."
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:398
+msgid "Reconnect Error"
+msgstr "Error al tornar a connectar"
+
+#. TRANSLATOR: this line is used as label / category for a
+#. list of commands below
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:747
+msgid "IrcProtocolManager Commands"
+msgstr "Ordres del protocol IRC"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:816
+#, csharp-format
+msgid "Invalid port: {0}"
+msgstr "Port invàlid: {0}"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:944
+#, csharp-format
+msgid "Queuing joins: {0}"
+msgstr ""
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:958
+#, csharp-format
+msgid "Already joined to channel: {0}. Type /window {0} to switch to it."
+msgstr "Ja esteu a la sala {0}. Escriviu /window {0} per a canviar-hi."
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:993
+#, csharp-format
+msgid "Active joins: {0} - Queued joins: {1}"
+msgstr ""
+
+#. TRANSLATORS: final message will look like this:
+#. Joining: #chan1 - Remaining active joins: #chan2 / queued joins: #chan3
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1016
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1047
+#, csharp-format
+msgid "Joining: {0}"
+msgstr ""
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1018
+msgid "Remaining"
+msgstr ""
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1023
+#, csharp-format
+msgid "active joins: {0}"
+msgstr ""
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1032
+#, csharp-format
+msgid "queued joins: {0}"
+msgstr ""
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1399
+msgid "IRC Op"
+msgstr "Operador d'IRC"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1401
+msgid "Op"
+msgstr "Op"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1403
+msgid "Voice"
+msgstr "Dóna veu"
+
+#. For translators: do NOT change the position of {1}!
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1455
+#, csharp-format
+msgid "Topic for {0}: {1}"
+msgstr "Títol de {0}: {1}"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1465
+#, csharp-format
+msgid "No topic set for {0}"
+msgstr "No hi ha cap títol a {0}"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1559
+msgid "ban"
+msgstr "expulsa"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1569
+msgid "No bans in channel"
+msgstr "No hi ha bandejaments en aquesta sala"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1683
+#, csharp-format
+msgid "Inviting {0} to {1}"
+msgstr "S'està invitant {0} a {1}"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1687
+#, csharp-format
+msgid "{0} is already on {1}"
+msgstr "{0} ja està a {1}"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1715
+msgid "Users"
+msgstr "Usuaris"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1766
+#, csharp-format
+msgid "Total of {0} users [{1} ops, {2} voices, {3} normal]"
+msgstr "Total de {0} usuaris [{1} operadors, {2} amb veus, {3} normals]"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1909
+msgid "Connection error! Reason: "
+msgstr "Error de connexió! Motiu:"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1919
+#, csharp-format
+msgid "Not enough parameters for {0} command"
+msgstr "No heu proporcionat preu paràmetres per a l'ordre {0}"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1929
+msgid "Not connected to server"
+msgstr "No esteu connectat al servidor"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2306
+#, csharp-format
+msgid "{0}: No such nick/channel"
+msgstr "{0}: No existeix aquest usuari o aquesta sala"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2432
+#, csharp-format
+msgid "Increased send delay to {0}ms to avoid being flooded off the server again."
+msgstr "S'ha incrementat el retard de l'enviament a {0}ms per evitar ser expulsat un altre cop pel control d'inundacions del servidor."
+
+#. TRANSLATOR: the final line will look like this:
+#. -!- Nick {0} is already in use
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2448
+msgid "Nick"
+msgstr "El nom d'usuari"
+
+#. TRANSLATOR: the final line will look like this:
+#. -!- Nick {0} is already in use
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2459
+msgid "is already in use"
+msgstr "ja està en ús"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2489
+msgid "Cannot join to channel:"
+msgstr "No podeu unir-vos a la sala:"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2498
+msgid "You are banned"
+msgstr "Esteu bandejats"
+
+#. TRANSLATOR: {0}: nickname, {1}: ident@host,
+#. {2}: CTCP command, {3}: own nickname, {4}: CTCP parameter
+#. example:
+#. meebey [meebey@example.com] requested CTCP VERSION from meebey:
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2608
+#, csharp-format
+msgid "{0} [{1}] requested CTCP {2} from {3}: {4}"
+msgstr "{0} [{1}] ha enviat una petició CTCP {2} a {3}: {4}"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2633
+#, csharp-format
+msgid "CTCP PING reply from {0}: {1} seconds"
+msgstr "Resposta a CTCP PING de {0}: {1} segons"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2641
+#, csharp-format
+msgid "CTCP {0} reply from {1}: {2}"
+msgstr "Resposta a CTCP {0} de {1}: {2}"
+
+#. For translators: do NOT change the position of {0}!
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2888
+#, csharp-format
+msgid "{0} [{1}] has joined {2}"
+msgstr "{0} [{1}] s'ha unit a {2}"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3024
+#, csharp-format
+msgid "{0} [{1}] has left {2} [{3}]"
+msgstr "{0} [{1}] ha deixat {2} [{3}]"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3043
+#, csharp-format
+msgid "You were kicked from {0} by {1} [{2}]"
+msgstr "Heu estat expulsat de {0} per {1} [{2}]"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3051
+#, csharp-format
+msgid "{0} was kicked from {1} by {2} [{3}]"
+msgstr "{0} ha estat expulsat de {1} per {2} [{3}]"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3069
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3115
+#, csharp-format
+msgid "You're now known as {0}"
+msgstr "El vostre sobrenom ha canviat a {0}"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3143
+#, csharp-format
+msgid "{0} is now known as {1}"
+msgstr "{0} s'ha canviat el sobrenom per {1}"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3200
+#, csharp-format
+msgid "{0} changed the topic of {1} to: {2}"
+msgstr "{0} ha canviat el títol de {1} a: {2}"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3285
+#, csharp-format
+msgid "Mode change [{0}] for user {1}"
+msgstr "S'ha canviat el mode [{0}] a l'usuari {1}"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3302
+#, csharp-format
+msgid "mode/{0} [{1}] by {2}"
+msgstr "mode/{0} [{1}] per {2}"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3339
+#, csharp-format
+msgid "{0} [{1}] has quit [{2}]"
+msgstr "{0} [{1}] ha sortit [{2}]"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3459
+#, csharp-format
+msgid "{0} is away: {1}"
+msgstr "{0} està absent: {1}"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3465
+msgid "You are no longer marked as being away"
+msgstr "Ja no esteu marcat com a absent"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3471
+msgid "You have been marked as being away"
+msgstr "Heu estat marcat com a absent"
+
