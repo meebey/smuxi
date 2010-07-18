@@ -424,7 +424,8 @@ namespace Smuxi.Engine
             
             string channel = null;
             if (filter != null) {
-                if (!filter.Name.StartsWith("*") && !filter.Name.EndsWith("*")) {
+                if (!String.IsNullOrEmpty(filter.Name) &&
+                    !filter.Name.StartsWith("*") && !filter.Name.EndsWith("*")) {
                     channel = String.Format("*{0}*", filter.Name);
                 } else {
                     channel = filter.Name;
