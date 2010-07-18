@@ -1,0 +1,112 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Smuxi\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-07-15 01:40+0200\n"
+"PO-Revision-Date: \n"
+"Last-Translator: Siegfried-Angel Gevatter Pujals <rainct@ubuntu.com>\n"
+"Language-Team: Siegfried-Angel Gevatter Pujals <siegfried@gevatter.com>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1\n"
+"X-Poedit-Language: Catalan\n"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:101
+msgid "Home Timeline"
+msgstr "Línia temporal"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:108
+msgid "Replies"
+msgstr "Respostes"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:115
+msgid "Direct Messages"
+msgstr "Missatges directes"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:133
+msgid "Connecting to Twitter..."
+msgstr "S'està connectant al Twitter..."
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:141
+msgid "Login failed!"
+msgstr "No s'ha pogut iniciar sessió!"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:143
+msgid "Login failed! Username and/or password are incorrect."
+msgstr "No s'ha pogut iniciar sessió! El nom d'usuari i/o la contrasenya són incorrectes."
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:149
+msgid "Connection failed!"
+msgstr "Ha fallat la connexió!"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:151
+msgid "Connection failed! Reason: "
+msgstr "Ha fallat la connexió! Motiu:"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:156
+msgid "Successfully connected to Twitter."
+msgstr "S'ha connectat correctament amb Twitter."
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:164
+msgid "Fetching user details from Twitter, please wait..."
+msgstr "S'està recuperant els detalls de l'usuari de Twitter, espereu..."
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:169
+msgid "Finished fetching user details."
+msgstr "S'ha acabat de recuperar els detalls de l'usuari."
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:176
+msgid "Failed to fetch user details from Twitter. Reason: "
+msgstr "No s'ha pogut recuperar els detalls de l'usuari de Twitter. Motiu:"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:185
+msgid "Fetching friends from Twitter, please wait..."
+msgstr "S'està recuperant la llista d'amics de Twitter, espereu..."
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:190
+msgid "Finished fetching friends."
+msgstr "S'ha acabat de recuperar la llista d'amics."
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:193
+msgid "Failed to fetch friends from Twitter. Reason: "
+msgstr "No s'ha pogut recuperar la llista d'amics de Twitter. Motiu:"
+
+#. TRANSLATOR: this line is used as a label / category for a
+#. list of commands below
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:454
+msgid "Twitter Commands"
+msgstr "Ordres del Twitter"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:504
+#, csharp-format
+msgid "Could not update status - Reason: {0}"
+msgstr "No s'ha pogut actualitzar l'estat - Motiu: {0}"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:513
+msgid "Cannot send message - no target specified. Use: /msg $nick message"
+msgstr "No es pot enviar el missatge - no s'ha especificat cap destinatari. Utilitzeu: /msg $sobrenom missatge"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:526
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:568
+#, csharp-format
+msgid "Could not send message - Reason: {0}"
+msgstr "No s'ha pogut enviar el missatge - Motiu: {0}"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:555
+msgid "Could not send message - the specified user does not exist."
+msgstr "No s'ha pogut enviar el missatge - l'usuari especificat no existeix."
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:631
+msgid "An error occurred while fetching the friends timeline from Twitter. Reason: "
+msgstr "S'ha produït un error al recuperar la línia temporal de l'amic de Twitter. Motiu:"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:721
+msgid "An error occurred while fetching the replies from Twitter. Reason: "
+msgstr "S'ha produït un error al recuperar les respostes de Twitter. Motiu:"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:816
+msgid "An error occurred while fetching direct messages from Twitter. Reason: "
+msgstr "S'ha produït un error al recuperar els missatges directes de Twitter. Motiu:"
+
