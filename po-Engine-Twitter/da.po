@@ -1,0 +1,115 @@
+# Danish translation smuxi-engine-twitter.
+# Copyright (C) 2010 smuxi-engine & nedenstående oversættere.
+# This file is distributed under the same license as the smuxi-engine-twitter package.
+# Joe Hansen (joedalton2@yahoo.dk), 2010.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: smuxi-engine-twitter\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-07-15 01:40+0200\n"
+"PO-Revision-Date: 2010-07-16 12:42+0000\n"
+"Last-Translator: Joe Hansen <joedalton2@yahoo.dk>\n"
+"Language-Team: Danish <debian-l10n-danish@lists.debian.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:101
+msgid "Home Timeline"
+msgstr "Hjemmetidslinje"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:108
+msgid "Replies"
+msgstr "Svar"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:115
+msgid "Direct Messages"
+msgstr "Direkte beskeder"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:133
+msgid "Connecting to Twitter..."
+msgstr "Tilslutter til Twitter..."
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:141
+msgid "Login failed!"
+msgstr "Logind mislykkedes!"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:143
+msgid "Login failed! Username and/or password are incorrect."
+msgstr "Logind mislykkedes! Brugernavn og/eller adgangskode er forkerte."
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:149
+msgid "Connection failed!"
+msgstr "Tilslutning mislykkedes!"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:151
+msgid "Connection failed! Reason: "
+msgstr "Tilslutning mislykkedes! Årsag: "
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:156
+msgid "Successfully connected to Twitter."
+msgstr "Tilsluttet Twitter."
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:164
+msgid "Fetching user details from Twitter, please wait..."
+msgstr "Henter brugerdetaljer fra Twitter, vent venligst..."
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:169
+msgid "Finished fetching user details."
+msgstr "Færdig med hentning af brugerdetaljer."
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:176
+msgid "Failed to fetch user details from Twitter. Reason: "
+msgstr "Kunne ikke hente brugerdetaljer fra Twitter. Årsag: "
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:185
+msgid "Fetching friends from Twitter, please wait..."
+msgstr "Henter venneliste fra Twitter, vent venligst..."
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:190
+msgid "Finished fetching friends."
+msgstr "Afsluttede hentning af venneliste."
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:193
+msgid "Failed to fetch friends from Twitter. Reason: "
+msgstr "Kunen ikke hente venneliste fra Twitter. Årsag: "
+
+#. TRANSLATOR: this line is used as a label / category for a
+#. list of commands below
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:454
+msgid "Twitter Commands"
+msgstr "Twitterkommandoer"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:504
+#, csharp-format
+msgid "Could not update status - Reason: {0}"
+msgstr "Kunne ikke opdatere status - årsag: {0}"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:513
+msgid "Cannot send message - no target specified. Use: /msg $nick message"
+msgstr "Kan ikke sende besked - intet mål angivet. Brug: /msg $nick besked"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:526
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:568
+#, csharp-format
+msgid "Could not send message - Reason: {0}"
+msgstr "Kunne ikke sende besked - årsag: {0}"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:555
+msgid "Could not send message - the specified user does not exist."
+msgstr "Kunne ikke sende besked - den angivne bruger findes ikke."
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:631
+msgid ""
+"An error occurred while fetching the friends timeline from Twitter. Reason: "
+msgstr ""
+"En fejl opstod under hentning af vennetidslinjen fra Twitter. Årsag: "
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:721
+msgid "An error occurred while fetching the replies from Twitter. Reason: "
+msgstr "En fejl opstod under hentning af svar fra Twitter. Årsag: "
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:816
+msgid "An error occurred while fetching direct messages from Twitter. Reason: "
+msgstr "En fejl opstod under hentning af direkte beskeder fra Twitter. Årsag: "
