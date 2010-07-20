@@ -1,7 +1,7 @@
 <CombineEntry name="Packages" fileversion="2.0" ctype="PackagingProject">
   <Packages>
     <Package name="Linux">
-      <Builder rootEntry="smuxi.mds" targetFile="../../releases/smuxi-0.7.1-1-bin.tar.gz" platform="Linux" configuration="Debug" ctype="BinariesZipPackageBuilder">
+      <Builder rootEntry="smuxi.mds" targetFile="../../releases/smuxi-0.7.2-1-bin.tar.gz" platform="Linux" configuration="Debug" ctype="BinariesZipPackageBuilder">
         <ExcludedFiles>
           <File>Common,Linux.PkgConfig,common.pc</File>
           <File>Engine,Linux.PkgConfig,engine.pc</File>
