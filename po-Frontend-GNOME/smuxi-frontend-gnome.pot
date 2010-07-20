@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-07-15 01:35+0200\n"
+"POT-Creation-Date: 2010-07-21 00:46+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -375,27 +375,11 @@ msgid ""
 "yy/yyyy = year"
 msgstr ""
 
-#: ../src/Frontend-GNOME/AboutDialog.cs:47
-msgid "German"
+#: ../src/Frontend-GNOME/AboutDialog.cs:52
+msgid "translator-credits"
 msgstr ""
 
-#: ../src/Frontend-GNOME/AboutDialog.cs:48
-msgid "Spanish"
-msgstr ""
-
-#: ../src/Frontend-GNOME/AboutDialog.cs:49
-msgid "British English"
-msgstr ""
-
-#: ../src/Frontend-GNOME/AboutDialog.cs:50
-msgid "French"
-msgstr ""
-
-#: ../src/Frontend-GNOME/AboutDialog.cs:51
-msgid "Italian"
-msgstr ""
-
-#: ../src/Frontend-GNOME/AboutDialog.cs:54
+#: ../src/Frontend-GNOME/AboutDialog.cs:55
 msgid "Smuxi Website"
 msgstr ""
 
@@ -480,91 +464,91 @@ msgstr ""
 msgid "Frontend Commands"
 msgstr ""
 
-#: ../src/Frontend-GNOME/MainWindow.cs:186
+#: ../src/Frontend-GNOME/MainWindow.cs:187
 msgid "_File"
 msgstr ""
 
-#: ../src/Frontend-GNOME/MainWindow.cs:202
+#: ../src/Frontend-GNOME/MainWindow.cs:203
 msgid "_Server"
 msgstr ""
 
-#: ../src/Frontend-GNOME/MainWindow.cs:206
+#: ../src/Frontend-GNOME/MainWindow.cs:207
 msgid "_Quick Connect"
 msgstr ""
 
-#: ../src/Frontend-GNOME/MainWindow.cs:217
+#: ../src/Frontend-GNOME/MainWindow.cs:218
 msgid "_Manage"
 msgstr ""
 
-#: ../src/Frontend-GNOME/MainWindow.cs:224
+#: ../src/Frontend-GNOME/MainWindow.cs:225
 msgid "_Chat"
 msgstr ""
 
-#: ../src/Frontend-GNOME/MainWindow.cs:228
+#: ../src/Frontend-GNOME/MainWindow.cs:229
 msgid "Open / Join Chat"
 msgstr ""
 
-#: ../src/Frontend-GNOME/MainWindow.cs:233
+#: ../src/Frontend-GNOME/MainWindow.cs:234
 msgid "_Find Group Chat"
 msgstr ""
 
-#: ../src/Frontend-GNOME/MainWindow.cs:238
+#: ../src/Frontend-GNOME/MainWindow.cs:239
 msgid "C_lear All Activity"
 msgstr ""
 
-#: ../src/Frontend-GNOME/MainWindow.cs:245
+#: ../src/Frontend-GNOME/MainWindow.cs:246
 msgid "_Next Chat"
 msgstr ""
 
-#: ../src/Frontend-GNOME/MainWindow.cs:255
+#: ../src/Frontend-GNOME/MainWindow.cs:256
 msgid "_Previous Chat"
 msgstr ""
 
-#: ../src/Frontend-GNOME/MainWindow.cs:307
+#: ../src/Frontend-GNOME/MainWindow.cs:308
 msgid "_Engine"
 msgstr ""
 
-#: ../src/Frontend-GNOME/MainWindow.cs:311
+#: ../src/Frontend-GNOME/MainWindow.cs:312
 msgid "_Use Local Engine"
 msgstr ""
 
-#: ../src/Frontend-GNOME/MainWindow.cs:317
+#: ../src/Frontend-GNOME/MainWindow.cs:318
 msgid "_Add Remote Engine"
 msgstr ""
 
-#: ../src/Frontend-GNOME/MainWindow.cs:322
+#: ../src/Frontend-GNOME/MainWindow.cs:323
 msgid "_Switch Remote Engine"
 msgstr ""
 
-#: ../src/Frontend-GNOME/MainWindow.cs:329
+#: ../src/Frontend-GNOME/MainWindow.cs:330
 msgid "_View"
 msgstr ""
 
-#: ../src/Frontend-GNOME/MainWindow.cs:333
+#: ../src/Frontend-GNOME/MainWindow.cs:334
 msgid "_Caret Mode"
 msgstr ""
 
-#: ../src/Frontend-GNOME/MainWindow.cs:343
+#: ../src/Frontend-GNOME/MainWindow.cs:344
 msgid "_Help"
 msgstr ""
 
-#: ../src/Frontend-GNOME/MainWindow.cs:567
+#: ../src/Frontend-GNOME/MainWindow.cs:580
 #: ../src/Frontend-GNOME/Preferences/ServerListView.cs:222
 msgid "Unable to add server: "
 msgstr ""
 
-#: ../src/Frontend-GNOME/MainWindow.cs:614
+#: ../src/Frontend-GNOME/MainWindow.cs:627
 #, csharp-format
 msgid "Unknown ChatType: {0}"
 msgstr ""
 
-#: ../src/Frontend-GNOME/MainWindow.cs:822
+#: ../src/Frontend-GNOME/MainWindow.cs:835
 msgid ""
 "Switching to local engine will disconnect you from the current engine!\n"
 "Are you sure you want to do this?"
 msgstr ""
 
-#: ../src/Frontend-GNOME/MainWindow.cs:864
+#: ../src/Frontend-GNOME/MainWindow.cs:877
 msgid ""
 "Switching the remote engine will disconnect you from the current engine!\n"
 "Are you sure you want to do this?"
@@ -715,7 +699,7 @@ msgid ""
 "An engine with this name already exists! Please specify a different one."
 msgstr ""
 
-#: ../src/Frontend-GNOME/Views/MessageTextView.cs:182
+#: ../src/Frontend-GNOME/Views/MessageTextView.cs:195
 #, csharp-format
 msgid "Day changed to {0}"
 msgstr ""
