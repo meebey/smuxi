@@ -384,6 +384,10 @@ msgstr ""
 "MM = måned\n"
 "yy/yyyy = år"
 
+#: ../src/Frontend-GNOME/AboutDialog.cs:52
+msgid "translator-credits"
+msgstr "Joe Hansen <joedalton2@yahoo.dk>"
+
 #: ../src/Frontend-GNOME/AboutDialog.cs:47
 msgid "German"
 msgstr "Tysk"

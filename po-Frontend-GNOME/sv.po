@@ -382,6 +382,10 @@ msgstr ""
 "MM = månad\n"
 "yy/yyyy = år"
 
+#: ../src/Frontend-GNOME/AboutDialog.cs:52
+msgid "translator-credits"
+msgstr "Martin Bagge <brother@bsnet.se>"
+
 #: ../src/Frontend-GNOME/AboutDialog.cs:47
 msgid "German"
 msgstr "German"

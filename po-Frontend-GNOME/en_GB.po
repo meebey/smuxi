@@ -376,6 +376,10 @@ msgstr ""
 "MM = month\n"
 "yy/yyyy = year"
 
+#: ../src/Frontend-GNOME/AboutDialog.cs:52
+msgid "translator-credits"
+msgstr "Ryan Smith-Evans <Kimera.Kimera@gmail.com>"
+
 #: ../src/Frontend-GNOME/AboutDialog.cs:47
 msgid "German"
 msgstr "German"

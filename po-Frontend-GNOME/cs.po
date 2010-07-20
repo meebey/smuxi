@@ -387,6 +387,10 @@ msgstr ""
 "MM = měsíc\n"
 "yy/yyyy = rok"
 
+#: ../src/Frontend-GNOME/AboutDialog.cs:52
+msgid "translator-credits"
+msgstr "Michal Simunek <michal.simunek@gmail.com>"
+
 #: ../src/Frontend-GNOME/AboutDialog.cs:47
 msgid "German"
 msgstr "Němčina"

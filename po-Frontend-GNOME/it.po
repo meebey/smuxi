@@ -392,6 +392,10 @@ msgstr ""
 "MM = mese\n"
 "yy/yyyy = anno"
 
+#: ../src/Frontend-GNOME/AboutDialog.cs:52
+msgid "translator-credits"
+msgstr "David Paleino <d.paleino@gmail.com>\nVincenzo Campanella <vinz65@gmail.com>"
+
 #: ../src/Frontend-GNOME/AboutDialog.cs:47
 msgid "German"
 msgstr "Tedesco"

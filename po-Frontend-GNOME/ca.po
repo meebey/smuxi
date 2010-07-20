@@ -383,6 +383,10 @@ msgstr ""
 "MM = mes\n"
 "yy/yyyy = any"
 
+#: ../src/Frontend-GNOME/AboutDialog.cs:52
+msgid "translator-credits"
+msgstr "Siegfried-Angel Gevatter Pujals <rainct@ubuntu.com>"
+
 #: ../src/Frontend-GNOME/AboutDialog.cs:47
 msgid "German"
 msgstr "Alemany"

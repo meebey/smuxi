@@ -382,6 +382,10 @@ msgstr ""
 "MM = mes\n"
 "yy/yyyy = año"
 
+#: ../src/Frontend-GNOME/AboutDialog.cs:52
+msgid "translator-credits"
+msgstr "Juan Miguel Carrero <streinleght@gmail.com>"
+
 #: ../src/Frontend-GNOME/AboutDialog.cs:47
 msgid "German"
 msgstr "Alemán"
