@@ -42,13 +42,14 @@ namespace Smuxi.Frontend.Gnome
             Name = Frontend.Name;
             Version = "\n Frontend: " + Frontend.UIName + " " + Frontend.Version +
                       "\n Engine: " + Frontend.EngineVersion;
-            Copyright = "Copyright © 2005-2009 Mirco Bauer <meebey@meebey.net>";
-            Authors = new string[] {"Mirco Bauer <meebey@meebey.net>"};
-            TranslatorCredits = _("German") + " - Mirco Bauer <meebey@meebey.net>\n" +
-                                _("Spanish") + " - Juan Miguel Carrero <streinleght@gmail.com>\n" +
-                                _("British English") + " - Ryan Smith-Evans <Kimera.Kimera@gmail.com>\n" +
-                                _("French") + " - Clément Bourgeois <moonpyk@gmail.com>\n" +
-                                _("Italian") + " - David Paleino <d.paleino@gmail.com>";
+            Copyright = "Copyright © 2005-2010 Mirco Bauer <meebey@meebey.net>";
+            Authors = new string[] {
+                "Mirco Bauer <meebey@meebey.net>",
+                "David Paleino <dapal@debian.org>",
+                "Clément Bourgeois <moonpyk@gmail.com>",
+                "Chris Le Sueur <c.m.lesueur@gmail.com>"
+            };
+            TranslatorCredits = _("translator-credits");
             Logo = new Gdk.Pixbuf(null, "about.png");
             Website = "http://www.smuxi.org/";
             WebsiteLabel = _("Smuxi Website");
