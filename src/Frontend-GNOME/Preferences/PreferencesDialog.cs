@@ -138,6 +138,10 @@ namespace Smuxi.Frontend.Gnome
             ((Gtk.CheckButton)_Glade["OverrideFontCheckButton"]).Toggled += OnOverrideFontCheckButtonToggled;
 
             ((Gtk.TextView)_Glade["HighlightWordsTextView"]).Buffer.Changed += _OnChanged;
+            if (Frontend.EngineVersion < new Version("0.7.2")) {
+                // feature introduced in >= 0.7.2
+                ((Gtk.TextView)_Glade["HighlightWordsTextView"]).Sensitive = false;
+            }
 
             ((Gtk.Button)_Glade["LoggingOpenButton"]).Clicked += delegate {
                 ThreadPool.QueueUserWorkItem(delegate {
@@ -179,15 +183,19 @@ namespace Smuxi.Frontend.Gnome
                                                 Gtk.Stock.Network,
                                                 Gtk.IconSize.SmallToolbar, null),
                             _("Servers"));
-            ls.AppendValues(Page.Filters, _Dialog.RenderIcon(
-                                                Gtk.Stock.Delete,
-                                                Gtk.IconSize.SmallToolbar, null),
-                            _("Filters"));
-            ls.AppendValues(Page.Logging, _Dialog.RenderIcon(
-                                                Gtk.Stock.JustifyLeft,
-                                                Gtk.IconSize.SmallToolbar, null),
-                            _("Logging"));
-            
+
+            if (Frontend.EngineVersion >= new Version("0.7.2")) {
+                // features introduced in >= 0.7.2
+                ls.AppendValues(Page.Filters, _Dialog.RenderIcon(
+                                                    Gtk.Stock.Delete,
+                                                    Gtk.IconSize.SmallToolbar, null),
+                                _("Filters"));
+                ls.AppendValues(Page.Logging, _Dialog.RenderIcon(
+                                                    Gtk.Stock.JustifyLeft,
+                                                    Gtk.IconSize.SmallToolbar, null),
+                                _("Logging"));
+            }
+
             int i = 1;
             _MenuTreeView.AppendColumn(null, new Gtk.CellRendererPixbuf(), "pixbuf",i++);
             _MenuTreeView.AppendColumn(null, new Gtk.CellRendererText(), "text", i++);
@@ -432,8 +440,14 @@ namespace Smuxi.Frontend.Gnome
             ((Gtk.SpinButton)_Glade["CommandHistorySizeSpinButton"]).Value =
                 (double)(int)Frontend.UserConfig["Interface/Entry/CommandHistorySize"];
 
-            string highlight_words = String.Join("\n", (string[])Frontend.UserConfig["Interface/Chat/HighlightWords"]);
-            ((Gtk.TextView)_Glade["HighlightWordsTextView"]).Buffer.Text  = highlight_words;
+            var highlight_words =
+                (string[]) Frontend.UserConfig["Interface/Chat/HighlightWords"];
+            // backwards compatibility with 0.7.x servers
+            if (highlight_words == null) {
+                highlight_words = new string[] {};
+            }
+            ((Gtk.TextView)_Glade["HighlightWordsTextView"]).Buffer.Text  =
+                    String.Join("\n", highlight_words);
 
             ((Gtk.CheckButton)_Glade["BeepOnHighlightCheckButton"]).Active =
                 (bool)Frontend.UserConfig["Sound/BeepOnHighlight"];

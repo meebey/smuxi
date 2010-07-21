@@ -100,7 +100,20 @@ namespace Smuxi.Engine
         public UserConfig(Config config, string username)
         {
             _Config = config;
-            _Config.Changed += OnConfigChanged;
+            // HACK: The Changed event was introduced in 0.7.2, for backwards
+            // compatibility with 0.7.x server we need to suppress remoting
+            // exceptions here
+            try {
+                _Config.Changed += OnConfigChanged;
+            } catch (Exception ex) {
+#if LOG4NET
+                _Logger.Warn(
+                    "UserConfig() registration of Config.Changed event failed, " +
+                    "ignoring for backwards compatibility with 0.7.x servers...",
+                    ex
+                );
+#endif
+            }
             _UserPrefix = "Engine/Users/"+username+"/";
         }
 
