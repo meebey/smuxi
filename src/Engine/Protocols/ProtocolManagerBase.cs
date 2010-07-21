@@ -165,7 +165,9 @@ namespace Smuxi.Engine
         protected virtual void OnConnected(EventArgs e)
         {
             Trace.Call(e);
-            
+
+            Session.UpdateNetworkStatus();
+
             if (Connected != null) {
                 Connected(this, e);
             }
@@ -174,6 +176,8 @@ namespace Smuxi.Engine
         protected virtual void OnDisconnected(EventArgs e)
         {
             Trace.Call(e);
+
+            Session.UpdateNetworkStatus();
 
             if (Disconnected != null) {
                 Disconnected(this, e);
