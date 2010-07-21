@@ -267,6 +267,8 @@ namespace Smuxi.Frontend.Gnome
                     */
                 }
                 // attach the model again
+                // BUG? TreeView doesn't seem to recognize existing values in the model?!?
+                // see: http://www.smuxi.org/issues/show/132
                 _PersonTreeView.Model = ls;
                 
                 /*
