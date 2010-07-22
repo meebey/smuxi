@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: smuxi-frontend-gnome-irc\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-09 15:32+0100\n"
+"POT-Creation-Date: 2010-07-15 01:40+0200\n"
 "PO-Revision-Date: 2010-07-16 12:42+0000\n"
 "Last-Translator: Joe Hansen <joedalton2@yahoo.dk>\n"
 "Language-Team: Danish <debian-l10n-danish@lists.debian.org>\n"
@@ -16,68 +16,73 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:53
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:340
 msgid "Op"
 msgstr "Op"
 
-#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:57
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:344
 msgid "Deop"
 msgstr "Deop"
 
-#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:61
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:348
 msgid "Voice"
 msgstr "Voice"
 
-#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:65
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:352
 msgid "Devoice"
 msgstr "Devoice"
 
-#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:69
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:356
 msgid "Kick"
 msgstr "Smid ud"
 
-#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:73
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:360
 msgid "Kick + Ban"
 msgstr "Smid ud + giv karantæne"
 
-#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:77
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:364
 msgid "Ban"
 msgstr "Giv karantæne"
 
-#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:81
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:368
 msgid "Unban"
 msgstr "Fjern karantæne"
 
-#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:87
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:374
 msgid "Query"
 msgstr "Forespørgsel"
 
-#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:91
-#: ../src/Frontend-GNOME-IRC/IrcPersonChatView.cs:57
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:378
+#: ../src/Frontend-GNOME-IRC/IrcPersonChatView.cs:61
 msgid "Whois"
 msgstr "Hvem er"
 
-#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:96
-#: ../src/Frontend-GNOME-IRC/IrcPersonChatView.cs:61
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:382
+#: ../src/Frontend-GNOME-IRC/IrcPersonChatView.cs:65
 msgid "CTCP"
 msgstr "CTCP"
 
-#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:99
-#: ../src/Frontend-GNOME-IRC/IrcPersonChatView.cs:66
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:391
+#: ../src/Frontend-GNOME-IRC/IrcPersonChatView.cs:72
+msgid "Invite to"
+msgstr "Inviter til"
+
+#: ../src/Frontend-GNOME-IRC/CtcpMenu.cs:72
 msgid "Ping"
 msgstr "Ping"
 
-#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:103
-#: ../src/Frontend-GNOME-IRC/IrcPersonChatView.cs:70
+#: ../src/Frontend-GNOME-IRC/CtcpMenu.cs:77
 msgid "Version"
 msgstr "Version"
 
-#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:107
-#: ../src/Frontend-GNOME-IRC/IrcPersonChatView.cs:74
+#: ../src/Frontend-GNOME-IRC/CtcpMenu.cs:82
 msgid "Time"
 msgstr "Tid"
 
-#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:111
-#: ../src/Frontend-GNOME-IRC/IrcPersonChatView.cs:78
+#: ../src/Frontend-GNOME-IRC/CtcpMenu.cs:87
 msgid "Finger"
 msgstr "Finger"
+
+#: ../src/Frontend-GNOME-IRC/CtcpMenu.cs:92
+msgid "Userinfo"
+msgstr "Brugerinfo"
