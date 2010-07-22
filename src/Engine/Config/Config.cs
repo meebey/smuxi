@@ -293,6 +293,8 @@ namespace Smuxi.Engine
             Get(prefix + "Hostname", "irc.oftc.net");
             Get(prefix + "Port", 6667);
             Get(prefix + "Network", "OFTC");
+            Get(prefix + "Username", String.Empty);
+            Get(prefix + "Password", String.Empty);
             Get(prefix + "OnStartupConnect", true);
             Get(prefix + "OnConnectCommands",
                 new string[] {
@@ -304,21 +306,29 @@ namespace Smuxi.Engine
             Get(prefix + "Hostname", "irc.gimp.org");
             Get(prefix + "Port", 6667);
             Get(prefix + "Network", "GIMPNet");
+            Get(prefix + "Username", String.Empty);
+            Get(prefix + "Password", String.Empty);
 
             prefix = "Engine/Users/DEFAULT/Servers/IRC/irc.efnet.org/";
             Get(prefix + "Hostname", "irc.efnet.org");
             Get(prefix + "Port", 6667);
             Get(prefix + "Network", "EFnet");
+            Get(prefix + "Username", String.Empty);
+            Get(prefix + "Password", String.Empty);
                 
             prefix = "Engine/Users/DEFAULT/Servers/IRC/irc.ircnet.org/";
             Get(prefix + "Hostname", "irc.ircnet.org");
             Get(prefix + "Port", 6667);
             Get(prefix + "Network", "IRCnet");
+            Get(prefix + "Username", String.Empty);
+            Get(prefix + "Password", String.Empty);
                 
             prefix = "Engine/Users/DEFAULT/Servers/IRC/irc.freenode.net/";
             Get(prefix + "Hostname", "irc.freenode.net");
             Get(prefix + "Port", 6667);
             Get(prefix + "Network", "freenode");
+            Get(prefix + "Username", String.Empty);
+            Get(prefix + "Password", String.Empty);
             
             prefix = "Engine/Users/";
             Get(prefix+"Users", new string[] { "local" });
