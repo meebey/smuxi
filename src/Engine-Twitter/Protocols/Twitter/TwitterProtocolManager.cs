@@ -1058,6 +1058,8 @@ namespace Smuxi.Engine
 
             switch (exception.Status) {
                 case WebExceptionStatus.ConnectFailure:
+                case WebExceptionStatus.ConnectionClosed:
+                case WebExceptionStatus.Timeout:
                 case WebExceptionStatus.ReceiveFailure:
                 case WebExceptionStatus.NameResolutionFailure:
                     // ignore temporarly issues
