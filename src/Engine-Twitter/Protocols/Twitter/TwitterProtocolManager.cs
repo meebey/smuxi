@@ -22,6 +22,7 @@
 
 using System;
 using System.Net;
+using System.Web;
 using System.Threading;
 using System.Collections.Generic;
 using Twitterizer.Framework;
@@ -1011,7 +1012,7 @@ namespace Smuxi.Engine
             msgPart.Text = "> ";
             msg.MessageParts.Add(msgPart);
 
-            msgPart = new TextMessagePartModel(message);
+            msgPart = new TextMessagePartModel(HttpUtility.HtmlDecode(message));
             msgPart.IsHighlight = highlight;
             msg.MessageParts.Add(msgPart);
 

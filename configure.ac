@@ -220,6 +220,10 @@ if test "x$ENABLE_ENGINE_TWITTER" != "xno"; then
 	if test "x$XBUILD" = "xno"; then
 		AC_MSG_ERROR([You need to install xbuild for Twitter support])
 	fi
+	SHAMROCK_CHECK_MONO_2_0_GAC_ASSEMBLIES([
+		System.Web
+		System.Xml
+	])
 fi
 AM_CONDITIONAL(ENABLE_ENGINE_TWITTER, test "x$ENABLE_ENGINE_TWITTER" = "xyes")
 

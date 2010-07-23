@@ -25,5 +25,6 @@
     <ProjectReference type="Project" localcopy="True" refto="Common" />
     <ProjectReference type="Assembly" localcopy="True" specificVersion="False" refto="../../lib/log4net.dll" />
     <ProjectReference type="Project" localcopy="True" refto="Twitterizer.Framework.vs2008" />
+    <ProjectReference type="Gac" localcopy="True" refto="System.Web, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   </References>
 </Project>

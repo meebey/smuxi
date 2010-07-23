@@ -9,7 +9,8 @@ SOURCES =	$(top_srcdir)/src/AssemblyVersion.cs \
 		Protocols/Twitter/TwitterProtocolManager.cs
 
 REFERENCES = 		$(LOG4NET_LIBS) \
-			$(SMARTIRC4NET_LIBS)
+			$(SMARTIRC4NET_LIBS) \
+			System.Web
 
 DLL_REFERENCES =	$(TARGET_DIR)/Twitterizer.Framework.dll \
 			$(TARGET_DIR)/smuxi-common.dll \
