@@ -1062,6 +1062,7 @@ namespace Smuxi.Engine
                 case WebExceptionStatus.Timeout:
                 case WebExceptionStatus.ReceiveFailure:
                 case WebExceptionStatus.NameResolutionFailure:
+                case WebExceptionStatus.ProxyNameResolutionFailure:
                     // ignore temporarly issues
 #if LOG4NET
                     f_Logger.Warn("CheckWebException(): ignored exception", exception);
@@ -1103,6 +1104,7 @@ namespace Smuxi.Engine
                 case HttpStatusCode.BadRequest:
                 case HttpStatusCode.Forbidden:
                 case HttpStatusCode.ServiceUnavailable:
+                case HttpStatusCode.GatewayTimeout:
                     // ignore temporarly issues
 #if LOG4NET
                     f_Logger.Warn("CheckWebException(): ignored exception", exception);
