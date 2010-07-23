@@ -80,7 +80,7 @@ namespace Smuxi.Engine
             
             // setting required default values
             prefix = "Frontend/Engines/";
-            Get(prefix+"Engines", new string[] {});
+            Get<string[]>(prefix+"Engines", new string[] {});
             Get(prefix+"Default", String.Empty);
             
             prefix = "Frontend/Engines/";

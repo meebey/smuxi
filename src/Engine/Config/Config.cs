@@ -128,11 +128,15 @@ namespace Smuxi.Engine
                 // the section and key exist
                 string strValue = section.GetValue(inikey);
                 Type targetType = typeof(T);
-                if (String.IsNullOrEmpty(strValue)) {
-                    return default(T);
+                if (targetType == typeof(string)) {
+                    return (T)(object) strValue;
                 }
                 if (targetType == typeof(string[])) {
                     return (T)(object) GetList(key);
+                }
+                // handle empty booleans and integers
+                if (targetType.IsValueType && String.IsNullOrEmpty(strValue)) {
+                    return default(T);
                 }
 
                 return (T) Convert.ChangeType(strValue, targetType);
