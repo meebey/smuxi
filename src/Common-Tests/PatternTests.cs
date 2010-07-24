@@ -70,5 +70,18 @@ namespace Smuxi.Common
             Assert.IsTrue(Pattern.IsMatch("foo", "/foo$/"), "#3");
             Assert.IsTrue(Pattern.IsMatch("foo", "/.*/"),   "#4");
         }
+
+        [Test]
+        public void ContainsPatternCharacters()
+        {
+            Assert.IsTrue(Pattern.ContainsPatternCharacters("*foo"),  "#1");
+            Assert.IsTrue(Pattern.ContainsPatternCharacters("foo*"),  "#2");
+            Assert.IsTrue(Pattern.ContainsPatternCharacters("*foo*"), "#3");
+            Assert.IsTrue(Pattern.ContainsPatternCharacters("*"),     "#4");
+            Assert.IsTrue(Pattern.ContainsPatternCharacters("/foo/"), "#5");
+            Assert.IsFalse(Pattern.ContainsPatternCharacters(""),     "#6");
+            Assert.IsFalse(Pattern.ContainsPatternCharacters("foo"),  "#7");
+            Assert.IsFalse(Pattern.ContainsPatternCharacters("/"),    "#8");
+        }
     }
 }

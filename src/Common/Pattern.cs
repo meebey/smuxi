@@ -76,8 +76,9 @@ namespace Smuxi.Common
                 return false;
             }
 
-            return !input.StartsWith("*") && !input.EndsWith("*") &&
-                   !(input.StartsWith("/") && input.EndsWith("/"));
+            return input.StartsWith("*") || input.EndsWith("*") ||
+                   (input.Length >= 2 &&
+                    input.StartsWith("/") && input.EndsWith("/"));
         }
     }
 }
