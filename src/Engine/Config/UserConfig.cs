@@ -27,6 +27,7 @@
  */
 
 using System;
+using System.Runtime.Remoting;
 using System.Collections;
 
 namespace Smuxi.Engine
@@ -104,7 +105,10 @@ namespace Smuxi.Engine
             // compatibility with 0.7.x server we need to suppress remoting
             // exceptions here
             try {
-                _Config.Changed += OnConfigChanged;
+                // we can't use events over remoting
+                if (!RemotingServices.IsTransparentProxy(config)) {
+                    _Config.Changed += OnConfigChanged;
+                }
             } catch (Exception ex) {
 #if LOG4NET
                 _Logger.Warn(
