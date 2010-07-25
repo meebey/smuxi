@@ -51,6 +51,7 @@ namespace Smuxi.Frontend.Gnome
         private ThemeSettings _ThemeSettings;
         private Gdk.Color    _MarkerlineColor = new Gdk.Color(255, 0, 0);
         private int          _MarkerlineBufferPosition;
+        private int          _BufferLines = -1;
 
         public event MessageTextViewMessageAddedEventHandler       MessageAdded;
         public event MessageTextViewMessageHighlightedEventHandler MessageHighlighted;
@@ -157,6 +158,8 @@ namespace Smuxi.Frontend.Gnome
                 }
                 WrapMode = wrapMode;
             }
+
+            _BufferLines = (int) config["Interface/Notebook/BufferLines"];
         }
 
         public void Clear()
@@ -297,6 +300,8 @@ namespace Smuxi.Frontend.Gnome
             if (addLinebreak) {
                 Buffer.Insert(ref iter, "\n");
             }
+
+            CheckBufferSize();
 
             // HACK: force a redraw of the widget, as for some reason
             // GTK+ 2.17.6 is not redrawing some lines we add here, especially
@@ -565,6 +570,32 @@ namespace Smuxi.Frontend.Gnome
             }
 
             window.DrawLine(gc, 0, y, VisibleRect.Width, y);
+        }
+
+        void CheckBufferSize()
+        {
+            if (_BufferLines == -1) {
+                // no limit defined
+                return;
+            }
+
+            if (Buffer.LineCount > _BufferLines) {
+                Gtk.TextIter start_iter = Buffer.StartIter;
+                // TODO: maybe we should delete chunks instead of each line
+                Gtk.TextIter end_iter = Buffer.GetIterAtLine(Buffer.LineCount -
+                                                             _BufferLines);
+                int offset = end_iter.Offset;
+                Buffer.Delete(ref start_iter, ref end_iter);
+
+                // update markerline offset if present
+                if (_MarkerlineBufferPosition != 0) {
+                    _MarkerlineBufferPosition -= offset;
+                    // remove markerline if it went out of buffer
+                    if (_MarkerlineBufferPosition < 0) {
+                        _MarkerlineBufferPosition = 0;
+                    }
+                }
+            }
         }
 
         private static string _(string msg)

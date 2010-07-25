@@ -483,14 +483,6 @@ namespace Smuxi.Frontend.Gnome
                 tv.ScrollMarkOnscreen(tv.Buffer.InsertMark);
             }
 
-            int buffer_lines = (int)Frontend.UserConfig["Interface/Notebook/BufferLines"];
-            if (tv.Buffer.LineCount > buffer_lines) {
-                Gtk.TextIter start_iter = tv.Buffer.StartIter;
-                // TODO: maybe we should delete chunks instead of each line
-                Gtk.TextIter end_iter = tv.Buffer.GetIterAtLine(tv.Buffer.LineCount - buffer_lines);
-                tv.Buffer.Delete(ref start_iter, ref end_iter);
-            }
-
             // update the end mark
             tv.Buffer.MoveMark(_EndMark, tv.Buffer.EndIter);
         }
