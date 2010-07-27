@@ -289,7 +289,7 @@ namespace Smuxi.Engine
                 "IRC/irc.oftc.net",
                 "IRC/irc.gimp.org",
                 "IRC/irc.efnet.org",
-                "IRC/irc.ircnet.com",
+                "IRC/irc.ircnet.org",
                 "IRC/irc.freenode.net"
             });
             
