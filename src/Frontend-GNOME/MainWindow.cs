@@ -30,6 +30,7 @@ using System;
 using System.IO;
 using System.Threading;
 using System.Reflection;
+using SysDiag = System.Diagnostics;
 using Mono.Unix;
 using Smuxi.Common;
 using Smuxi.Engine;
@@ -51,6 +52,7 @@ namespace Smuxi.Frontend.Gnome
         private IFrontendUI      _UI;
         private EngineManager    _EngineManager;
         private Gtk.MenuItem     _CloseChatMenuItem;
+        private Gtk.ImageMenuItem _OpenLogChatMenuItem;
         private NotificationAreaIconMode _NotificationAreaIconMode;
 #if GTK_SHARP_2_10
         private StatusIconManager _StatusIconManager;
@@ -299,6 +301,14 @@ namespace Smuxi.Frontend.Gnome
             menu.Append(item);
             */
             
+            _OpenLogChatMenuItem = new Gtk.ImageMenuItem(_("Open Log"));
+            _OpenLogChatMenuItem.Image = new Gtk.Image(Gtk.Stock.Open,
+                                                       Gtk.IconSize.Menu);
+            _OpenLogChatMenuItem.Activated += OnOpenLogChatMenuItemActivated;
+            _OpenLogChatMenuItem.Sensitive = false;
+            _OpenLogChatMenuItem.NoShowAll = true;
+            menu.Append(_OpenLogChatMenuItem);
+
             _CloseChatMenuItem = new Gtk.ImageMenuItem(Gtk.Stock.Close, agrp);
             _CloseChatMenuItem.Activated += OnCloseChatMenuItemActivated;
             menu.Append(_CloseChatMenuItem);
@@ -413,7 +423,9 @@ namespace Smuxi.Frontend.Gnome
                 modeStr
             );
             _NotificationAreaIconMode = mode;
-            
+
+            _OpenLogChatMenuItem.Visible = Frontend.IsLocalEngine;
+
 #if GTK_SHARP_2_10
             _StatusIconManager.ApplyConfig(userConfig);
 #endif
@@ -715,7 +727,24 @@ namespace Smuxi.Frontend.Gnome
                 Frontend.ShowException(this, ex);
             }
         }
-        
+
+        protected virtual void OnOpenLogChatMenuItemActivated(object sender, EventArgs e)
+        {
+            Trace.Call(sender, e);
+
+            try {
+                ThreadPool.QueueUserWorkItem(delegate {
+                    try {
+                        SysDiag.Process.Start(_Notebook.CurrentChatView.ChatModel.LogFile);
+                    } catch (Exception ex) {
+                        Frontend.ShowError(this, ex);
+                    }
+                });
+            } catch (Exception ex) {
+                Frontend.ShowException(this, ex);
+            }
+        }
+
         protected virtual void OnNextChatMenuItemActivated(object sender, EventArgs e)
         {
             Trace.Call(sender, e);
@@ -790,6 +819,10 @@ namespace Smuxi.Frontend.Gnome
             
             try {
                 _CloseChatMenuItem.Sensitive = !(_Notebook.CurrentChatView is SessionChatView);
+                if (Frontend.IsLocalEngine) {
+                    _OpenLogChatMenuItem.Sensitive =
+                        File.Exists(_Notebook.CurrentChatView.ChatModel.LogFile);
+                }
             } catch (Exception ex) {
                 Frontend.ShowException(this, ex);
             }
