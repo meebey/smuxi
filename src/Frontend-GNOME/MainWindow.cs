@@ -384,6 +384,7 @@ namespace Smuxi.Frontend.Gnome
             _NetworkStatusbar.HasResizeGrip = false;
             
             _Statusbar = new Gtk.Statusbar();
+            _Statusbar.HasResizeGrip = false;
             
             Gtk.HBox status_bar_hbox = new Gtk.HBox();
             status_bar_hbox.Homogeneous = true;
