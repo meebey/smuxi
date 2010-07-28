@@ -27,6 +27,7 @@
  */
 
 using System;
+using System.IO;
 using System.Text;
 using System.Threading;
 using System.Collections;
@@ -146,7 +147,11 @@ namespace Smuxi.Frontend.Gnome
             ((Gtk.Button)_Glade["LoggingOpenButton"]).Clicked += delegate {
                 ThreadPool.QueueUserWorkItem(delegate {
                     try {
-                        Process.Start(Platform.LogPath);
+                        var logPath = Platform.LogPath;
+                        if (!Directory.Exists(logPath)) {
+                            Directory.CreateDirectory(logPath);
+                        }
+                        Process.Start(logPath);
                     } catch (Exception ex) {
                         Frontend.ShowError(parent, ex);
                     }
