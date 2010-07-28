@@ -146,8 +146,6 @@ DATA_FILES = \
 
 RESOURCES = \
 	gtk-gui/gui.stetic \
-	$(top_srcdir)/images/about.png \
-	$(top_srcdir)/images/splashscreen.png \
 	$(top_srcdir)/glade/smuxi-frontend-gnome.glade \
 	$(top_srcdir)/images/connect.png \
 	$(top_srcdir)/images/edit.png \

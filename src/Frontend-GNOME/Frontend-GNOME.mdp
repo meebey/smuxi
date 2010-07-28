@@ -1,4 +1,5 @@
 <Project name="Frontend-GNOME" fileversion="2.0" DefaultNamespace="Smuxi.Frontend.Gnome" language="C#" clr-version="Net_2_0" targetFramework="2.0" ctype="DotNetProject">
+  <Deployment.LinuxDeployData scriptName="smuxi-frontend-gnome" />
   <Configurations active="Debug">
     <Configuration name="Debug" ctype="DotNetProjectConfiguration">
       <Output directory="../../bin/debug" assembly="smuxi-frontend-gnome" assemblyKeyFile="/home/meebey/data/projects/c-sharp/smuxi/git/src/Frontend-GNOME/." />
@@ -14,8 +15,6 @@
     </Configuration>
   </Configurations>
   <Contents>
-    <File subtype="Code" buildaction="EmbedAsResource" name="../../images/about.png" />
-    <File subtype="Code" buildaction="EmbedAsResource" name="../../images/splashscreen.png" />
     <File subtype="Code" buildaction="EmbedAsResource" name="../../glade/smuxi-frontend-gnome.glade" />
     <File subtype="Code" buildaction="EmbedAsResource" name="../../images/connect.png" />
     <File subtype="Code" buildaction="EmbedAsResource" name="../../images/edit.png" />
@@ -105,6 +104,5 @@
     <ProjectReference type="Gac" localcopy="True" refto="gtk-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
   </References>
   <LanguageParameters ApplicationIcon="../../images/icon_32x32.ico" CodePage="65001" ctype="CSharpProjectParameters" />
-  <Deployment.LinuxDeployData scriptName="smuxi-frontend-gnome" />
   <DeploymentInformation strategy="File" />
 </Project>

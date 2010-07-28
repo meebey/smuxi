@@ -49,8 +49,17 @@ namespace Smuxi.Frontend.Gnome
                 "Clément Bourgeois <moonpyk@gmail.com>",
                 "Chris Le Sueur <c.m.lesueur@gmail.com>"
             };
+            Artists = new string[] {
+                "Jakub Steiner <jimmac@ximian.com>",
+                "Rodney Dawes  <dobey@novell.com>",
+                "Lapo Calamandrei <calamandrei@gmail.com>",
+                "Vinicius Depizzol <vdepizzol@gmail.com>",
+                "Luca Ferretti <elle.uca@libero.it>",
+                "Bruno Depizzol <bdepizzol@gmail.com>",
+                "Ahmed Abdellah <a3dman1@gmail.com>"
+            };
             TranslatorCredits = _("translator-credits");
-            Logo = new Gdk.Pixbuf(null, "about.png");
+            Logo = new Gdk.Pixbuf(null, "icon.svg", 256, 256);
             Website = "http://www.smuxi.org/";
             WebsiteLabel = _("Smuxi Website");
         }
