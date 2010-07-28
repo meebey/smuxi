@@ -1112,24 +1112,13 @@ namespace Smuxi.Engine
             }
 
             try {
-                var logPath = Platform.LogPath;
-                var protocol = chat.ProtocolManager.Protocol.ToLower();
                 // HACK: twitter retrieves older messages and we don't want to
                 // re-log those when the twitter connection is re-opened
+                var protocol = chat.ProtocolManager.Protocol.ToLower();
                 if (protocol == "twitter") {
                     return;
                 }
-                var network = chat.ProtocolManager.NetworkID.ToLower();
-                logPath = Path.Combine(logPath, protocol);
-                if (network != protocol) {
-                    logPath = Path.Combine(logPath, network);
-                }
-                if (!Directory.Exists(logPath)) {
-                    Directory.CreateDirectory(logPath);
-                }
-                var chatId = chat.ID.Replace(" ", "_").ToLower();
-                logPath = Path.Combine(logPath, String.Format("{0}.log", chatId));
-                using (var stream = File.AppendText(logPath)) {
+                using (var stream = File.AppendText(chat.LogFile)) {
                     stream.WriteLine(
                         String.Format(
                             "[{0:yyyy-MM-dd HH:mm:ss}] {1}",

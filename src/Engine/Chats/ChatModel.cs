@@ -1,13 +1,7 @@
 /*
- * $Id: Page.cs 138 2006-12-23 17:11:57Z meebey $
- * $URL: svn+ssh://svn.qnetp.net/svn/smuxi/smuxi/trunk/src/Engine/Page.cs $
- * $Rev: 138 $
- * $Author: meebey $
- * $Date: 2006-12-23 18:11:57 +0100 (Sat, 23 Dec 2006) $
- *
  * Smuxi - Smart MUltipleXed Irc
  *
- * Copyright (c) 2005-2008 Mirco Bauer <meebey@meebey.net>
+ * Copyright (c) 2005-2008, 2010 Mirco Bauer <meebey@meebey.net>
  *
  * Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
  *
@@ -27,6 +21,7 @@
  */
 
 using System;
+using System.IO;
 using System.Collections;
 using System.Collections.Generic;
 using Smuxi.Common;
@@ -42,6 +37,7 @@ namespace Smuxi.Engine
         private List<MessageModel>   _Messages = new List<MessageModel>();
         private bool                 _IsEnabled = true;
         private DateTime             _LastSeenHighlight;
+        private string               _LogFile;
         
         public string ID {
             get {
@@ -101,7 +97,16 @@ namespace Smuxi.Engine
                 _LastSeenHighlight = value;
             }
         }
-        
+
+        public string LogFile {
+            get {
+                if (_LogFile == null) {
+                    _LogFile = GetLogFile();
+                }
+                return _LogFile;
+            }
+        }
+
         protected ChatModel(string id, string name, ChatType chatType, IProtocolManager networkManager)
         {
             _ID = id;
@@ -114,6 +119,26 @@ namespace Smuxi.Engine
         {
             string nm = (_ProtocolManager != null) ? _ProtocolManager.ToString() : "(null)";  
             return  nm + "/" + _Name; 
+        }
+        
+        private string GetLogFile()
+        {
+            if (_ProtocolManager == null) {
+                return null;
+            }
+
+            var logPath = Platform.LogPath;
+            var protocol = _ProtocolManager.Protocol.ToLower();
+            var network = _ProtocolManager.NetworkID.ToLower();
+            logPath = Path.Combine(logPath, protocol);
+            if (network != protocol) {
+                logPath = Path.Combine(logPath, network);
+            }
+            if (!Directory.Exists(logPath)) {
+                Directory.CreateDirectory(logPath);
+            }
+            var chatId = ID.Replace(" ", "_").ToLower();
+            return Path.Combine(logPath, String.Format("{0}.log", chatId));
         }
     }
 }
