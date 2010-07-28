@@ -51,11 +51,8 @@ namespace Smuxi.Frontend.Gnome
             };
             Artists = new string[] {
                 "Jakub Steiner <jimmac@ximian.com>",
-                "Rodney Dawes  <dobey@novell.com>",
+                "Rodney Dawes <dobey@novell.com>",
                 "Lapo Calamandrei <calamandrei@gmail.com>",
-                "Vinicius Depizzol <vdepizzol@gmail.com>",
-                "Luca Ferretti <elle.uca@libero.it>",
-                "Bruno Depizzol <bdepizzol@gmail.com>",
                 "Ahmed Abdellah <a3dman1@gmail.com>"
             };
             TranslatorCredits = _("translator-credits");

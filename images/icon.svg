@@ -2768,8 +2768,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="16"
-     inkscape:cx="13.519354"
-     inkscape:cy="24.51378"
+     inkscape:cx="2.019354"
+     inkscape:cy="24.38878"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -2797,8 +2797,7 @@
         </dc:creator>
         <dc:contributor>
           <cc:Agent>
-            <dc:title>Vinicius Depizzol &lt;vdepizzol@gmail.com&gt; Jakub Steiner &lt;jimmac@ximian.com&gt; Luca Ferretti &lt;elle.uca@libero.it&gt;
-Bruno Depizzol &lt;bdepizzol@gmail.com&gt;</dc:title>
+            <dc:title>Jakub Steiner &lt;jimmac@ximian.com&gt;</dc:title>
           </cc:Agent>
         </dc:contributor>
         <cc:license
