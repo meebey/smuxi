@@ -28,7 +28,12 @@ Author:     Lapo Calamandrei <calamandrei@gmail.com>
 
 icon.svg
 --------
-Origin:     vinagre
 Filename:   icon.svg
 License:    GPL2+
-Author:     ?
+Author:     Ahmed Abdellah <a3dman1@gmail.com>
+Origin:     Portions based on vinagre and gnome-icon-theme
+Authors:    Vinicius Depizzol <vdepizzol@gmail.com>
+            Jakub Steiner <jimmac@ximian.com>
+            Luca Ferretti <elle.uca@libero.it>
+            Bruno Depizzol <bdepizzol@gmail.com>
+
