@@ -62,21 +62,15 @@ namespace Smuxi.Frontend.Gnome
             SetPosition(Gtk.WindowPosition.CenterAlways);
 
             Gtk.HBox connect_hbox = new Gtk.HBox();
-            Gtk.Image connect_image = new Gtk.Image(new Gdk.Pixbuf(null,
-                "connect.png"));
+            Gtk.Image connect_image = new Gtk.Image(
+                new Gdk.Pixbuf(null, "connect-button.svg", 22, 22));
             connect_hbox.Add(connect_image);
             connect_hbox.Add(new Gtk.Label(_("_Connect")));
-            Gtk.Button connect_button = new Gtk.Button(connect_hbox);
-            AddActionWidget(connect_button, 1);
+            AddActionWidget(new Gtk.Button(connect_hbox), 1);
             
             AddActionWidget(new Gtk.Button(Gtk.Stock.New), 3);
             
-            Gtk.HBox edit_hbox = new Gtk.HBox();
-            Gtk.Image edit_image = new Gtk.Image(new Gdk.Pixbuf(null,
-                "edit.png"));
-            edit_hbox.Add(edit_image);
-            edit_hbox.Add(new Gtk.Label(_("_Edit")));
-            Gtk.Button edit_button = new Gtk.Button(edit_hbox);
+            Gtk.Button edit_button = new Gtk.Button(Gtk.Stock.Edit);
             _EditButton = edit_button;
             AddActionWidget(edit_button, 2);
             

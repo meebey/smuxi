@@ -147,8 +147,7 @@ DATA_FILES = \
 RESOURCES = \
 	gtk-gui/gui.stetic \
 	$(top_srcdir)/glade/smuxi-frontend-gnome.glade \
-	$(top_srcdir)/images/connect.png \
-	$(top_srcdir)/images/edit.png \
+	$(top_srcdir)/images/connect-button.svg \
 	$(top_srcdir)/images/icon.svg \
 	$(top_srcdir)/images/group-chat.svg \
 	$(top_srcdir)/images/person-chat.svg \

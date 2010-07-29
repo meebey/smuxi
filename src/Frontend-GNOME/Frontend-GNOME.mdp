@@ -16,8 +16,6 @@
   </Configurations>
   <Contents>
     <File subtype="Code" buildaction="EmbedAsResource" name="../../glade/smuxi-frontend-gnome.glade" />
-    <File subtype="Code" buildaction="EmbedAsResource" name="../../images/connect.png" />
-    <File subtype="Code" buildaction="EmbedAsResource" name="../../images/edit.png" />
     <File subtype="Code" buildaction="Compile" name="AboutDialog.cs" />
     <File subtype="Code" buildaction="Compile" name="AssemblyInfo.cs" />
     <File subtype="Code" buildaction="Compile" name="CrashDialog.cs" />
@@ -39,16 +37,11 @@
     <File subtype="Code" buildaction="Compile" name="SteticPreferencesDialog.cs" />
     <File subtype="Code" buildaction="Compile" name="gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs" />
     <File subtype="Code" buildaction="Compile" name="gtk-gui/Smuxi.Frontend.Gnome.QuickConnectDialog.cs" />
-    <File subtype="Code" buildaction="EmbedAsResource" name="../../images/group-chat.svg" />
-    <File subtype="Code" buildaction="EmbedAsResource" name="../../images/person-chat.svg" />
-    <File subtype="Code" buildaction="EmbedAsResource" name="../../images/protocol-chat.svg" />
-    <File subtype="Code" buildaction="EmbedAsResource" name="../../images/session-chat.svg" />
     <File subtype="Code" buildaction="Compile" name="FindGroupChatDialog.cs" />
     <File subtype="Code" buildaction="Compile" name="gtk-gui/Smuxi.Frontend.Gnome.FindGroupChatDialog.cs" />
     <File subtype="Code" buildaction="Compile" name="../AssemblyVersion.cs" />
     <File subtype="Code" name="smuxi-frontend-gnome.exe.config" buildaction="FileCopy" />
     <File subtype="Code" buildaction="Compile" name="ColorTools.cs" />
-    <File subtype="Code" buildaction="EmbedAsResource" name="../../images/icon.svg" />
     <File subtype="Code" buildaction="Nothing" name="ChangeLog" />
     <File subtype="Code" buildaction="Nothing" name="../../po-Engine/de.po" />
     <File subtype="Code" buildaction="Nothing" name="../../po-Frontend-GNOME/es.po" />
@@ -86,6 +79,13 @@
     <File subtype="Code" buildaction="Compile" name="StatusIconManager.cs" />
     <File subtype="Code" buildaction="Compile" name="gtk-gui/Smuxi.Frontend.Gnome.FilterListWidget.cs" />
     <File subtype="Code" buildaction="Compile" name="Views/FilterListWidget.cs" />
+    <File subtype="Directory" buildaction="Compile" name="images" />
+    <File subtype="Code" buildaction="EmbedAsResource" name="../../images/group-chat.svg" />
+    <File subtype="Code" buildaction="EmbedAsResource" name="../../images/icon.svg" />
+    <File subtype="Code" buildaction="EmbedAsResource" name="../../images/session-chat.svg" />
+    <File subtype="Code" buildaction="EmbedAsResource" name="../../images/protocol-chat.svg" />
+    <File subtype="Code" buildaction="EmbedAsResource" name="../../images/person-chat.svg" />
+    <File subtype="Code" buildaction="EmbedAsResource" name="../../images/connect-button.svg" />
   </Contents>
   <References>
     <ProjectReference type="Project" localcopy="True" refto="Engine" />
