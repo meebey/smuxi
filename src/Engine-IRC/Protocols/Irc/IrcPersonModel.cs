@@ -119,13 +119,6 @@ namespace Smuxi.Engine
                                 IProtocolManager protocolManager) :
                            base(nickName, nickName, networkID, "IRC", protocolManager)
         {
-            if (ident == null) {
-                throw new ArgumentNullException("ident");
-            }
-            if (host == null) {
-                throw new ArgumentNullException("host");
-            }
-
             _RealName = realName;
             _Ident = ident;
             _Host = host;
