@@ -22,6 +22,7 @@
 
 using System;
 using System.IO;
+using System.Text.RegularExpressions;
 using System.Diagnostics;
 
 namespace Smuxi.Common
@@ -35,12 +36,14 @@ namespace Smuxi.Common
                     var pinfo = new ProcessStartInfo("uname");
                     pinfo.UseShellExecute = false;
                     pinfo.RedirectStandardOutput = true;
+                    pinfo.RedirectStandardError = true;
                     Process.Start(pinfo);
                 } catch (Exception) {
                     // fall back to runtime detector
                     return Environment.OSVersion.Platform.ToString();
                 }
 
+                string os = null;
                 // GNU/Linux
                 // GNU/kFreeBSD
                 var info = new ProcessStartInfo("uname", "-o");
@@ -49,23 +52,54 @@ namespace Smuxi.Common
                 var process = Process.Start(info);
                 process.WaitForExit();
                 if (process.ExitCode == 0) {
-                    return process.StandardOutput.ReadLine();
+                    os = process.StandardOutput.ReadLine();
                 }
 
-                // not all operating systems support -o so lets fallback to -s
-                // Linux
-                // FreeBSD
-                // Darwin
-                info = new ProcessStartInfo("uname", "-s");
-                info.UseShellExecute = false;
-                info.RedirectStandardOutput = true;
-                process = Process.Start(info);
-                process.WaitForExit();
-                if (process.ExitCode == 0) {
-                    return process.StandardOutput.ReadLine();
+                if (String.IsNullOrEmpty(os)) {
+                    // not all operating systems support -o so lets fallback to -s
+                    // Linux
+                    // FreeBSD
+                    // Darwin
+                    info = new ProcessStartInfo("uname", "-s");
+                    info.UseShellExecute = false;
+                    info.RedirectStandardOutput = true;
+                    process = Process.Start(info);
+                    process.WaitForExit();
+                    if (process.ExitCode == 0) {
+                        os = process.StandardOutput.ReadLine();
+                    }
                 }
 
-                return "Unknown";
+                if (String.IsNullOrEmpty(os)) {
+                    return "Unknown";
+                }
+
+                string distro = null;
+                try {
+                    info = new ProcessStartInfo("lsb_release", "-i");
+                    info.UseShellExecute = false;
+                    info.RedirectStandardOutput = true;
+                    info.RedirectStandardError = true;
+                    process = Process.Start(info);
+                    process.WaitForExit();
+                    if (process.ExitCode == 0) {
+                        distro = process.StandardOutput.ReadLine();
+                        var match = Regex.Match(distro,
+                                                @"^Distributor ID:\s+(.+)");
+                        if (match.Success && match.Groups.Count > 1) {
+                            distro = match.Groups[1].Value;
+                        } else {
+                            distro = null;
+                        }
+                    }
+                } catch (Exception) {
+                }
+
+                if (String.IsNullOrEmpty(distro)) {
+                    return os;
+                }
+
+                return String.Format("{0} ({1})", os, distro);
             }
         }
         
