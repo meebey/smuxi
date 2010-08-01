@@ -37,7 +37,7 @@ namespace Smuxi.Common
                     pinfo.UseShellExecute = false;
                     pinfo.RedirectStandardOutput = true;
                     pinfo.RedirectStandardError = true;
-                    Process.Start(pinfo);
+                    Process.Start(pinfo).WaitForExit();
                 } catch (Exception) {
                     // fall back to runtime detector
                     return Environment.OSVersion.Platform.ToString();
@@ -110,7 +110,7 @@ namespace Smuxi.Common
                     var pinfo = new ProcessStartInfo("uname");
                     pinfo.UseShellExecute = false;
                     pinfo.RedirectStandardOutput = true;
-                    Process.Start(pinfo);
+                    Process.Start(pinfo).WaitForExit();
                 } catch (Exception) {
                     // fall back to pointer size
                     return String.Format("{0}-bit", IntPtr.Size * 8);
