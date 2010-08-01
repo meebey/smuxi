@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Smuxi 0.6.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-07-15 01:35+0200\n"
-"PO-Revision-Date: 2010-07-15 22:26+0100\n"
+"POT-Creation-Date: 2010-07-29 22:46+0200\n"
+"PO-Revision-Date: 2010-07-28 18:05+0100\n"
 "Last-Translator: Clément Bourgeois <moonpyk@gmail.com>\n"
 "Language-Team: French Localization <debian-l10n-french@lists.debian.org>\n"
 "MIME-Version: 1.0\n"
@@ -388,31 +388,11 @@ msgstr ""
 "MM = mois\n"
 "yy/yyyy = année"
 
-#: ../src/Frontend-GNOME/AboutDialog.cs:52
+#: ../src/Frontend-GNOME/AboutDialog.cs:58
 msgid "translator-credits"
 msgstr "Clément Bourgeois <moonpyk@gmail.com>"
 
-#: ../src/Frontend-GNOME/AboutDialog.cs:47
-msgid "German"
-msgstr "Allemand"
-
-#: ../src/Frontend-GNOME/AboutDialog.cs:48
-msgid "Spanish"
-msgstr "Espagnol"
-
-#: ../src/Frontend-GNOME/AboutDialog.cs:49
-msgid "British English"
-msgstr "Anglais (Grande-Bretagne)"
-
-#: ../src/Frontend-GNOME/AboutDialog.cs:50
-msgid "French"
-msgstr "Français"
-
-#: ../src/Frontend-GNOME/AboutDialog.cs:51
-msgid "Italian"
-msgstr "Italien"
-
-#: ../src/Frontend-GNOME/AboutDialog.cs:54
+#: ../src/Frontend-GNOME/AboutDialog.cs:61
 msgid "Smuxi Website"
 msgstr "Site web de Smuxi"
 
@@ -440,50 +420,46 @@ msgstr "Gestionnaire de moteurs"
 msgid "_Connect"
 msgstr "_Connexion"
 
-#: ../src/Frontend-GNOME/EngineManagerDialog.cs:78
-msgid "_Edit"
-msgstr "_Edition"
-
-#: ../src/Frontend-GNOME/EngineManagerDialog.cs:90
+#: ../src/Frontend-GNOME/EngineManagerDialog.cs:84
 msgid "Select which Smuxi engine you want to connect to"
 msgstr "Sélectionnez le moteur Smuxi auquel vous voulez vous connecter"
 
-#: ../src/Frontend-GNOME/EngineManagerDialog.cs:96
+#: ../src/Frontend-GNOME/EngineManagerDialog.cs:90
 msgid "Engine:"
 msgstr "Moteur :"
 
-#: ../src/Frontend-GNOME/EngineManagerDialog.cs:122
-#: ../src/Frontend-GNOME/EngineManagerDialog.cs:182
-#: ../src/Frontend-GNOME/EngineManagerDialog.cs:359
+#: ../src/Frontend-GNOME/EngineManagerDialog.cs:116
+#: ../src/Frontend-GNOME/EngineManagerDialog.cs:176
+#: ../src/Frontend-GNOME/EngineManagerDialog.cs:353
 msgid "Local Engine"
 msgstr "Moteur local"
 
-#: ../src/Frontend-GNOME/EngineManagerDialog.cs:174
+#: ../src/Frontend-GNOME/EngineManagerDialog.cs:168
 msgid "Please select an engine!"
 msgstr "Sélectionnez un moteur s'il vous plaît !"
 
-#: ../src/Frontend-GNOME/EngineManagerDialog.cs:195
+#: ../src/Frontend-GNOME/EngineManagerDialog.cs:189
 #, csharp-format
 msgid "Your frontend version ({0}) does not match the engine version ({1})!"
 msgstr ""
 "Votre version de l'interface utilisateur ({0}) ne correspond pas à celle du "
 "moteur ({1}) !"
 
-#: ../src/Frontend-GNOME/EngineManagerDialog.cs:222
+#: ../src/Frontend-GNOME/EngineManagerDialog.cs:216
 msgid "An error occurred while connecting to the engine!"
 msgstr "Une erreur est survenue durant la connexion au moteur !"
 
-#: ../src/Frontend-GNOME/EngineManagerDialog.cs:223
+#: ../src/Frontend-GNOME/EngineManagerDialog.cs:217
 #, csharp-format
 msgid "Engine URL: {0}"
 msgstr "URL du moteur : {0}"
 
-#: ../src/Frontend-GNOME/EngineManagerDialog.cs:226
+#: ../src/Frontend-GNOME/EngineManagerDialog.cs:220
 #, csharp-format
 msgid "Error: {0}"
 msgstr "Erreur : {0}"
 
-#: ../src/Frontend-GNOME/EngineManagerDialog.cs:296
+#: ../src/Frontend-GNOME/EngineManagerDialog.cs:290
 #, csharp-format
 msgid "Are you sure you want to delete the engine \"{0}\"?"
 msgstr "Êtes vous sûr(e) de vouloir supprimer le moteur \"{0}\" ?"
@@ -501,85 +477,121 @@ msgstr ""
 msgid "Frontend Commands"
 msgstr "Commandes Frontend"
 
-#: ../src/Frontend-GNOME/MainWindow.cs:186
+#: ../src/Frontend-GNOME/MainWindow.cs:189
 msgid "_File"
 msgstr "_Fichier"
 
-#: ../src/Frontend-GNOME/MainWindow.cs:202
+#: ../src/Frontend-GNOME/MainWindow.cs:205
 msgid "_Server"
 msgstr "_Serveur"
 
-#: ../src/Frontend-GNOME/MainWindow.cs:206
+#: ../src/Frontend-GNOME/MainWindow.cs:209
 msgid "_Quick Connect"
 msgstr "_Connexion rapide"
 
-#: ../src/Frontend-GNOME/MainWindow.cs:217
+#: ../src/Frontend-GNOME/MainWindow.cs:220
 msgid "_Manage"
 msgstr "_Gestion"
 
-#: ../src/Frontend-GNOME/MainWindow.cs:224
+#: ../src/Frontend-GNOME/MainWindow.cs:227
 msgid "_Chat"
 msgstr "_Discussion"
 
-#: ../src/Frontend-GNOME/MainWindow.cs:228
+#: ../src/Frontend-GNOME/MainWindow.cs:231
 msgid "Open / Join Chat"
 msgstr "Ouvrir / Rejoindre chat"
 
-#: ../src/Frontend-GNOME/MainWindow.cs:233
+#: ../src/Frontend-GNOME/MainWindow.cs:236
 msgid "_Find Group Chat"
 msgstr "_Rechercher le groupe de discussion"
 
-#: ../src/Frontend-GNOME/MainWindow.cs:238
+#: ../src/Frontend-GNOME/MainWindow.cs:241
 msgid "C_lear All Activity"
 msgstr "_Supprimer toute activité"
 
-#: ../src/Frontend-GNOME/MainWindow.cs:245
+#: ../src/Frontend-GNOME/MainWindow.cs:248
 msgid "_Next Chat"
 msgstr "Discussion _suivante"
 
-#: ../src/Frontend-GNOME/MainWindow.cs:255
+#: ../src/Frontend-GNOME/MainWindow.cs:258
 msgid "_Previous Chat"
 msgstr "Discussion _précédente"
 
-#: ../src/Frontend-GNOME/MainWindow.cs:307
+#.
+#. // TODO: make a radio item for each chat hotkey
+#. Gtk.RadioMenuItem radio_item;
+#. radio_item = new Gtk.RadioMenuItem();
+#. radio_item = new Gtk.RadioMenuItem(radio_item);
+#. radio_item = new Gtk.RadioMenuItem(radio_item);
+#.
+#. menu.Append(new Gtk.SeparatorMenuItem());
+#.
+#.
+#. image_item = new Gtk.ImageMenuItem(Gtk.Stock.Find, agrp);
+#. image_item.Activated += OnFindChatMenuItemActivated;
+#. menu.Append(image_item);
+#.
+#. item = new Gtk.MenuItem(_("Find _Next"));
+#. item.Activated += OnFindNextChatMenuItemActivated;
+#. akey = new Gtk.AccelKey();
+#. akey.AccelFlags = Gtk.AccelFlags.Visible;
+#. akey.AccelMods = Gdk.ModifierType.ControlMask;
+#. akey.Key = Gdk.Key.G;
+#. item.AddAccelerator("activate", agrp, akey);
+#. menu.Append(item);
+#.
+#. item = new Gtk.MenuItem(_("Find _Previous"));
+#. item.Activated += OnFindPreviousChatMenuItemActivated;
+#. akey = new Gtk.AccelKey();
+#. akey.AccelFlags = Gtk.AccelFlags.Visible;
+#. akey.AccelMods = Gdk.ModifierType.ControlMask | Gdk.ModifierType.ShiftMask;
+#. akey.Key = Gdk.Key.G;
+#. item.AddAccelerator("activate", agrp, akey);
+#. menu.Append(item);
+#.
+#: ../src/Frontend-GNOME/MainWindow.cs:304
+msgid "Open Log"
+msgstr "Ouvrir le journal"
+
+#: ../src/Frontend-GNOME/MainWindow.cs:318
 msgid "_Engine"
 msgstr "_Moteur"
 
-#: ../src/Frontend-GNOME/MainWindow.cs:311
+#: ../src/Frontend-GNOME/MainWindow.cs:322
 msgid "_Use Local Engine"
 msgstr "_Utiliser le moteur local"
 
-#: ../src/Frontend-GNOME/MainWindow.cs:317
+#: ../src/Frontend-GNOME/MainWindow.cs:328
 msgid "_Add Remote Engine"
 msgstr "_Ajouter un moteur distant"
 
-#: ../src/Frontend-GNOME/MainWindow.cs:322
+#: ../src/Frontend-GNOME/MainWindow.cs:333
 msgid "_Switch Remote Engine"
 msgstr "_Changer de moteur distant"
 
-#: ../src/Frontend-GNOME/MainWindow.cs:329
+#: ../src/Frontend-GNOME/MainWindow.cs:340
 msgid "_View"
 msgstr "_Vue"
 
-#: ../src/Frontend-GNOME/MainWindow.cs:333
+#: ../src/Frontend-GNOME/MainWindow.cs:344
 msgid "_Caret Mode"
 msgstr "Mode _curseur"
 
-#: ../src/Frontend-GNOME/MainWindow.cs:343
+#: ../src/Frontend-GNOME/MainWindow.cs:354
 msgid "_Help"
 msgstr "_Aide"
 
-#: ../src/Frontend-GNOME/MainWindow.cs:567
+#: ../src/Frontend-GNOME/MainWindow.cs:593
 #: ../src/Frontend-GNOME/Preferences/ServerListView.cs:222
 msgid "Unable to add server: "
 msgstr "Impossible d'ajouter le serveur :"
 
-#: ../src/Frontend-GNOME/MainWindow.cs:614
+#: ../src/Frontend-GNOME/MainWindow.cs:640
 #, csharp-format
 msgid "Unknown ChatType: {0}"
 msgstr "ChatType inconnu : {0}"
 
-#: ../src/Frontend-GNOME/MainWindow.cs:822
+#: ../src/Frontend-GNOME/MainWindow.cs:869
 msgid ""
 "Switching to local engine will disconnect you from the current engine!\n"
 "Are you sure you want to do this?"
@@ -588,7 +600,7 @@ msgstr ""
 "actuel !\n"
 "Êtes vous sûr(e) de vouloir continuer ?"
 
-#: ../src/Frontend-GNOME/MainWindow.cs:864
+#: ../src/Frontend-GNOME/MainWindow.cs:911
 msgid ""
 "Switching the remote engine will disconnect you from the current engine!\n"
 "Are you sure you want to do this?"
@@ -602,44 +614,44 @@ msgid "Sorry, not implemented yet!"
 msgstr "Désolé, fonctionnalité pas encore implémentée !"
 
 #. fill ListStore
-#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:162
+#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:171
 msgid "Character"
 msgstr "Caractère"
 
-#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:163
+#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:172
 msgid "Word"
 msgstr "Mot"
 
-#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:173
+#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:182
 #: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:139
 msgid "Connection"
 msgstr "Connexion"
 
-#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:177
+#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:186
 msgid "Interface"
 msgstr "Interface"
 
-#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:181
+#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:190
 msgid "Servers"
 msgstr "Serveurs"
 
-#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:185
+#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:197
 msgid "Filters"
 msgstr "Filtres"
 
-#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:189
+#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:201
 msgid "Logging"
 msgstr "_Journalisation"
 
-#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:238
+#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:251
 msgid "System Default"
 msgstr "Défaut du système"
 
-#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:505
+#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:524
 msgid "Nicknames(s) field must not be empty."
 msgstr "Le champ surnom(s) ne doit pas être vide."
 
-#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:649
+#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:668
 #, csharp-format
 msgid "Invalid highlight regex: '{0}'. Reason: {1}"
 msgstr "Expression régulière de surlignage invalide '{0}'. Raison : {1} "
@@ -750,7 +762,7 @@ msgid ""
 "An engine with this name already exists! Please specify a different one."
 msgstr "Un moteur avec ce nom éxiste deja ! Veuillez en spécifier un autre."
 
-#: ../src/Frontend-GNOME/Views/MessageTextView.cs:182
+#: ../src/Frontend-GNOME/Views/MessageTextView.cs:198
 #, csharp-format
 msgid "Day changed to {0}"
 msgstr "Jour changé à {0}"
@@ -795,11 +807,11 @@ msgid "Retrieving user list for {0}..."
 msgstr "Téléchargement de la liste des utilisateurs pour {0}..."
 
 #. TRANSLATOR: this string will be appended to the one above
-#: ../src/Frontend-GNOME/Views/Chats/GroupChatView.cs:286
+#: ../src/Frontend-GNOME/Views/Chats/GroupChatView.cs:288
 msgid "done."
 msgstr "terminé."
 
-#: ../src/Frontend-GNOME/Views/Chats/GroupChatView.cs:301
+#: ../src/Frontend-GNOME/Views/Chats/GroupChatView.cs:303
 msgid "Person"
 msgstr "Personne"
 
@@ -1038,6 +1050,24 @@ msgstr "Commandes de _connexion :"
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:273
 msgid "_Ignore Commands"
 msgstr "_Ignorer les commandes"
+
+#~ msgid "_Edit"
+#~ msgstr "_Edition"
+
+#~ msgid "German"
+#~ msgstr "Allemand"
+
+#~ msgid "Spanish"
+#~ msgstr "Espagnol"
+
+#~ msgid "British English"
+#~ msgstr "Anglais (Grande-Bretagne)"
+
+#~ msgid "French"
+#~ msgstr "Français"
+
+#~ msgid "Italian"
+#~ msgstr "Italien"
 
 #~ msgid "Joins"
 #~ msgstr "Joins"
