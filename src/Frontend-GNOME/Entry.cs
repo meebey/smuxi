@@ -360,6 +360,15 @@ namespace Smuxi.Frontend.Gnome
                 // TODO: check mouse buttons, if left mouse button is still pressed
                 // we should not interrupt either, as the user is going to make a selection!
 
+                // don't interrupt on-going entry selections
+                int start, end;
+                if (GetSelectionBounds(out start, out end)) {
+#if LOG4NET
+                    //_Logger.Debug("_OnFocusOut(): Entry has on-going selection, waiting..."); 
+#endif
+                    return true;
+                }
+
                 ChatView chat = Frontend.MainWindow.Notebook.CurrentChatView;
                 if (chat == null) {
                     return false;
