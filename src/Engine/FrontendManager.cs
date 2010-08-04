@@ -185,7 +185,17 @@ namespace Smuxi.Engine
         public void AddSyncedChat(ChatModel chatModel)
         {
             Trace.Call(chatModel);
-            
+
+            if (!chatModel.IsEnabled) {
+                // The frontend synced a disabled chat, this means the content
+                // was is not in a clean state and thus we need to ignore this
+                // sync so that a "re-sync" will bring the chat into a clean
+                // state again. If we would not do this a re-sync would be
+                // ignored, see SyncChat() and
+                // http://www.smuxi.org/issues/show/132
+                return;
+            }
+
             _SyncedChats.Add(chatModel);
         }
         
