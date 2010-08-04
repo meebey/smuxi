@@ -300,7 +300,11 @@ namespace Smuxi.Frontend.Gnome
             item.AddAccelerator("activate", agrp, akey);
             menu.Append(item);
             */
-            
+
+            // ROFL: the empty code statement below is needed to keep stupid
+            // gettext away from using all the commented code from above as
+            // translator comment
+            ;
             _OpenLogChatMenuItem = new Gtk.ImageMenuItem(_("Open Log"));
             _OpenLogChatMenuItem.Image = new Gtk.Image(Gtk.Stock.Open,
                                                        Gtk.IconSize.Menu);
