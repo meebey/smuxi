@@ -3434,19 +3434,19 @@ namespace Smuxi.Engine
         
         protected override void OnDisconnected(EventArgs e)
         {
-            // only disable chats if we are listening, else we might be
-            // disconnecting and removing disabled chats is prevented in the
-            // FrontendManager.
-            // Don't disable the protocol chat though, else the user loses all
-            // control for the protocol manager! (e.g. after manual reconnect)
-            if (_Listening) {
-                lock (Session.Chats) {
-                    foreach (ChatModel chat in Session.Chats) {
-                        if (chat.ProtocolManager == this &&
-                            chat.ChatType != ChatType.Protocol) {
-                            Session.DisableChat(chat);
-                        }
+            lock (Session.Chats) {
+                foreach (ChatModel chat in Session.Chats) {
+                    if (chat.ProtocolManager != this) {
+                        return;
                     }
+                    // don't disable the protocol chat, else the user loses all
+                    // control for the protocol manager! e.g. after a manual
+                    // reconnect or server-side disconnect
+                    if (chat.ChatType == ChatType.Protocol) {
+                        return;
+                    }
+
+                    Session.DisableChat(chat);
                 }
             }
 
