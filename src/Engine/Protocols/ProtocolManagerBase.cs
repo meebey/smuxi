@@ -166,6 +166,17 @@ namespace Smuxi.Engine
         {
             Trace.Call(e);
 
+            Session.AddTextToChat(
+                Chat,
+                String.Format(
+                    "-!- {0}",
+                    String.Format(
+                        _("Connected to {0}"),
+                        NetworkID
+                    )
+                )
+            );
+
             Session.UpdateNetworkStatus();
 
             if (Connected != null) {
@@ -176,6 +187,17 @@ namespace Smuxi.Engine
         protected virtual void OnDisconnected(EventArgs e)
         {
             Trace.Call(e);
+
+            Session.AddTextToChat(
+                Chat,
+                String.Format(
+                    "-!- {0}",
+                    String.Format(
+                        _("Disconnected from {0}"),
+                        NetworkID
+                    )
+                )
+            );
 
             Session.UpdateNetworkStatus();
 
