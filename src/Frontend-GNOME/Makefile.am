@@ -2,12 +2,15 @@
 EXTRA_DIST =  
 
 ICON = smuxi-frontend-gnome.svg
+DESKTOP_FILE = smuxi-frontend-gnome.desktop
 
 pixmapdir =  $(datadir)/pixmaps
 pixmap_DATA = $(ICON)
 
 desktopdir = $(datadir)/applications
-desktop_DATA = smuxi-frontend-gnome.desktop
+desktop_in_files = $(DESKTOP_FILE).in
+desktop_DATA = $(DESKTOP_FILE)
+build_datafiles = $(DESKTOP_FILE)
 
 FRONTEND_GNOME_EXE_CONFIG_SOURCE = smuxi-frontend-gnome.exe.config
 FRONTEND_GNOME_EXE_CONFIG = $(BUILD_DIR)/smuxi-frontend-gnome.exe.config
@@ -83,7 +86,7 @@ all: $(ASSEMBLY) $(PROGRAMFILES) $(LINUX_DESKTOPAPPLICATIONS) $(BINARIES) $(ICON
 
 $(ICON):
 	cp $(top_srcdir)/images/icon.svg $(ICON)
-	
+
 FILES = \
 	$(top_srcdir)/src/AssemblyVersion.cs \
 	AssemblyInfo.cs \
@@ -142,7 +145,7 @@ FILES = \
 	gtk-gui/Smuxi.Frontend.Gnome.FilterListWidget.cs
 	
 DATA_FILES = \
-	smuxi-frontend-gnome.desktop
+	$(DESKTOP_FILE)
 
 RESOURCES = \
 	gtk-gui/gui.stetic \
@@ -176,7 +179,7 @@ include $(top_srcdir)/Makefile.include
 
 SMUXI_ENGINE_DLL = $(BUILD_DIR)/smuxi-engine.dll
 FRONTEND_GNOME = $(BUILD_DIR)/smuxi-frontend-gnome
-FRONTEND_GNOME_DESKTOP = $(BUILD_DIR)/smuxi-frontend-gnome.desktop
+FRONTEND_GNOME_DESKTOP = $(BUILD_DIR)/$(DESKTOP_FILE)
 SMUXI_FRONTEND_DLL = $(BUILD_DIR)/smuxi-frontend.dll
 SMUXI_COMMON_DLL = $(BUILD_DIR)/smuxi-common.dll
 
@@ -198,3 +201,6 @@ $(build_resx_resources) : %.resources: %.resx
 $(ASSEMBLY) $(ASSEMBLY_MDB): $(build_sources) $(build_resources) $(build_datafiles) $(DLL_REFERENCES) $(PROJECT_REFERENCES) $(build_xamlg_list) $(build_satellite_assembly_list)
 	mkdir -p $(dir $(ASSEMBLY))
 	$(ASSEMBLY_COMPILER_COMMAND) $(ASSEMBLY_COMPILER_FLAGS) -out:$(ASSEMBLY) -target:$(COMPILE_TARGET) $(build_sources_embed) $(build_resources_embed) $(build_references_ref)
+
+%.desktop: %.desktop.in $(INTLTOOL_MERGE) $(wildcard $(top_srcdir)/po-Frontend-GNOME/*.po)
+	LC_ALL=C $(INTLTOOL_MERGE) -d -u -c $(top_builddir)/po-Frontend-GNOME/.intltool-merge-cache $(top_srcdir)/po-Frontend-GNOME $< $@

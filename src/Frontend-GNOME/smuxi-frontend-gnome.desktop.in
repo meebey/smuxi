@@ -1,9 +1,9 @@
 [Desktop Entry]
 Version=1.0
 Encoding=UTF-8
-Name=Smuxi IRC Client
-Comment=Chat with other people on IRC
-GenericName=IRC Chat
+_Name=Smuxi IRC Client
+_GenericName=IRC Chat
+_Comment=Chat with other people on IRC
 Exec=smuxi-frontend-gnome
 Terminal=false
 Type=Application
