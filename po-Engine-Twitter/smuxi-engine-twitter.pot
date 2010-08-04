@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-07-15 01:40+0200\n"
+"POT-Creation-Date: 2010-08-04 02:49+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,100 +17,100 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:101
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:102
 msgid "Home Timeline"
 msgstr ""
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:108
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:109
 msgid "Replies"
 msgstr ""
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:115
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:116
 msgid "Direct Messages"
 msgstr ""
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:133
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:134
 msgid "Connecting to Twitter..."
 msgstr ""
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:141
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:142
 msgid "Login failed!"
 msgstr ""
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:143
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:144
 msgid "Login failed! Username and/or password are incorrect."
 msgstr ""
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:149
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:150
 msgid "Connection failed!"
 msgstr ""
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:151
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:152
 msgid "Connection failed! Reason: "
 msgstr ""
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:156
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:157
 msgid "Successfully connected to Twitter."
 msgstr ""
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:164
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:165
 msgid "Fetching user details from Twitter, please wait..."
 msgstr ""
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:169
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:170
 msgid "Finished fetching user details."
 msgstr ""
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:176
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:177
 msgid "Failed to fetch user details from Twitter. Reason: "
 msgstr ""
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:185
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:186
 msgid "Fetching friends from Twitter, please wait..."
 msgstr ""
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:190
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:191
 msgid "Finished fetching friends."
 msgstr ""
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:193
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:194
 msgid "Failed to fetch friends from Twitter. Reason: "
 msgstr ""
 
 #. TRANSLATOR: this line is used as a label / category for a
 #. list of commands below
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:454
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:455
 msgid "Twitter Commands"
 msgstr ""
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:504
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:505
 #, csharp-format
 msgid "Could not update status - Reason: {0}"
 msgstr ""
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:513
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:514
 msgid "Cannot send message - no target specified. Use: /msg $nick message"
 msgstr ""
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:526
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:568
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:527
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:569
 #, csharp-format
 msgid "Could not send message - Reason: {0}"
 msgstr ""
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:555
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:556
 msgid "Could not send message - the specified user does not exist."
 msgstr ""
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:631
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:632
 msgid ""
 "An error occurred while fetching the friends timeline from Twitter. Reason: "
 msgstr ""
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:721
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:722
 msgid "An error occurred while fetching the replies from Twitter. Reason: "
 msgstr ""
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:816
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:817
 msgid "An error occurred while fetching direct messages from Twitter. Reason: "
 msgstr ""
