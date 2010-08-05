@@ -521,33 +521,38 @@ namespace Smuxi.Engine
             }
             
             FrontendManager fm = cd.FrontendManager;
+            IProtocolManager victim = null;
             if (cd.DataArray.Length >= 2) {
                 string server = cd.DataArray[1];
                 lock (_ProtocolManagers) {
                     foreach (IProtocolManager nm in _ProtocolManagers) {
                         if (nm.Host.ToLower() == server.ToLower()) {
-                            nm.Disconnect(fm);
-                            _ProtocolManagers.Remove(nm);
-                            return;
+                            victim = nm;
+                            break;
                         }
                     }
                 }
-                fm.AddTextToChat(
-                    cd.Chat,
-                    "-!- " +
-                    String.Format(
-                        _("Disconnect failed - could not find server: {0}"),
-                        server
-                    )
-                );
-            } else {
-                var pm = cd.Chat.ProtocolManager;
-                if (pm == null) {
+                if (victim == null) {
+                    fm.AddTextToChat(
+                        cd.Chat,
+                        "-!- " +
+                        String.Format(
+                            _("Disconnect failed - could not find server: {0}"),
+                            server
+                        )
+                    );
                     return;
                 }
-                pm.Disconnect(fm);
-                _ProtocolManagers.Remove(pm);
+            } else {
+                victim = cd.Chat.ProtocolManager;
             }
+
+            if (victim == null) {
+                return;
+            }
+            victim.Disconnect(fm);
+            victim.Dispose();
+            _ProtocolManagers.Remove(victim);
         }
         
         public void CommandReconnect(CommandModel cd)
