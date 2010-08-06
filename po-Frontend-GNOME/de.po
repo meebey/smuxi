@@ -386,14 +386,12 @@ msgid "Chat with other people on IRC"
 msgstr "Kommuniziere mit anderen Leuten im IRC"
 
 #: ../src/Frontend-GNOME/smuxi-frontend-gnome.desktop.in.h:2
-#, fuzzy
 msgid "IRC Chat"
-msgstr "_Chat"
+msgstr "IRC Chat"
 
 #: ../src/Frontend-GNOME/smuxi-frontend-gnome.desktop.in.h:3
-#, fuzzy
 msgid "Smuxi IRC Client"
-msgstr "Smuxi - Chat Öffnen"
+msgstr "Smuxi - Chat Client"
 
 #: ../src/Frontend-GNOME/AboutDialog.cs:58
 msgid "translator-credits"
