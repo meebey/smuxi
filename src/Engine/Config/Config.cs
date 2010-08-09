@@ -273,6 +273,7 @@ namespace Smuxi.Engine
 
             prefix = "Engine/Users/DEFAULT/Interface/Notification/";
             Get(prefix+"NotificationAreaIconMode", "Minimized");
+            Get(prefix+"MessagingMenuEnabled", true);
 
             prefix = "Engine/Users/DEFAULT/Sound/";
             Get(prefix+"BeepOnHighlight", false);
@@ -439,6 +440,7 @@ namespace Smuxi.Engine
                 LoadUserEntry(user, "Interface/Entry/BashStyleCompletion", null);
                 LoadUserEntry(user, "Interface/Entry/CommandHistorySize", null);
                 LoadUserEntry(user, "Interface/Notification/NotificationAreaIconMode", null);
+                LoadUserEntry(user, "Interface/Notification/MessagingMenuEnabled", null);
                 
                 LoadUserEntry(user, "Sound/BeepOnHighlight", null);
                 

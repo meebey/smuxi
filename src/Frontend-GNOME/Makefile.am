@@ -96,6 +96,7 @@ FILES = \
 	Entry.cs \
 	Frontend.cs \
 	GnomeUI.cs \
+	IndicateManager.cs \
 	Main.cs \
 	MainWindow.cs \
 	NotImplementedMessageDialog.cs \
@@ -169,7 +170,8 @@ REFERENCES =  \
 	$(GLIB_SHARP_20_LIBS) \
 	$(GLADE_SHARP_20_LIBS) \
 	$(GTK_SHARP_20_LIBS) \
-	$(LOG4NET_LIBS)
+	$(LOG4NET_LIBS) \
+	$(INDICATE_SHARP_LIBS)
 
 DLL_REFERENCES = 
 

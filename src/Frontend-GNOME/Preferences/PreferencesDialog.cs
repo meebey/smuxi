@@ -491,6 +491,8 @@ namespace Smuxi.Frontend.Gnome
                     ((Gtk.RadioButton) _Glade["NotificationAreaIconRadioButtonClosed"]).Active = true;
                     break;
             }
+            ((Gtk.CheckButton) _Glade["MessagingMenuCheckButton"]).Active =
+                (bool) Frontend.UserConfig["Interface/Notification/MessagingMenuEnabled"];
             
             // Filters
             _FilterListWidget.InitProtocols(Frontend.Session.GetSupportedProtocols());
@@ -694,7 +696,9 @@ namespace Smuxi.Frontend.Gnome
                     Frontend.UserConfig["Interface/Notification/NotificationAreaIconMode"] =
                         NotificationAreaIconMode.Never.ToString();
             }
-            
+            Frontend.UserConfig["Interface/Notification/MessagingMenuEnabled"] =
+                ((Gtk.CheckButton)_Glade["MessagingMenuCheckButton"]).Active;
+
             // Filters
             _FilterListWidget.Save();
 

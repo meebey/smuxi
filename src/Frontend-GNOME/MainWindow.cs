@@ -57,6 +57,9 @@ namespace Smuxi.Frontend.Gnome
 #if GTK_SHARP_2_10
         private StatusIconManager _StatusIconManager;
 #endif
+#if INDICATE_SHARP
+        private IndicateManager  _IndicateManager;
+#endif
         private bool             _IsMinimized;
         private bool             _IsMaximized;
         
@@ -378,6 +381,9 @@ namespace Smuxi.Frontend.Gnome
 #if GTK_SHARP_2_10
             _StatusIconManager = new StatusIconManager(this, _ChatViewManager);
 #endif
+#if INDICATE_SHARP
+            _IndicateManager = new IndicateManager(this, _ChatViewManager);
+#endif
 
             _UI = new GnomeUI(_ChatViewManager);
             
@@ -432,6 +438,9 @@ namespace Smuxi.Frontend.Gnome
 
 #if GTK_SHARP_2_10
             _StatusIconManager.ApplyConfig(userConfig);
+#endif
+#if INDICATE_SHARP
+            _IndicateManager.ApplyConfig(userConfig);
 #endif
             _Entry.ApplyConfig(userConfig);
             _Notebook.ApplyConfig(userConfig);
