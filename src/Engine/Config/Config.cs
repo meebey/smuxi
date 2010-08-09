@@ -272,7 +272,7 @@ namespace Smuxi.Engine
             Get(prefix+"CommandHistorySize", 30);
 
             prefix = "Engine/Users/DEFAULT/Interface/Notification/";
-            Get(prefix+"NotificationAreaIconMode", "Minimized");
+            Get(prefix+"NotificationAreaIconMode", "Never");
             Get(prefix+"MessagingMenuEnabled", true);
 
             prefix = "Engine/Users/DEFAULT/Sound/";
