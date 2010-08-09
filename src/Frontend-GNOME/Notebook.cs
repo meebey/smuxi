@@ -45,6 +45,13 @@ namespace Smuxi.Frontend.Gnome
             get {
                 return (ChatView) base.CurrentPageWidget;
             }
+            set {
+                if (value == null) {
+                    CurrentPage = 0;
+                    return;
+                }
+                CurrentPage = GetPageNumber(value);
+            }
         }
         
         public Notebook() : base ()
@@ -103,7 +110,19 @@ namespace Smuxi.Frontend.Gnome
         {
             return (ChatView) base.GetNthPage(pageNumber);
         }
-        
+
+        public int GetPageNumber(ChatView chatView)
+        {
+            for (int i = 0; i < NPages; i++) {
+                ChatView page = (ChatView) GetNthPage(i);
+                if (page == chatView) {
+                    return i;
+                }
+            }
+
+            return -1;
+        }
+
         public void RemoveAllPages()
         {
             Trace.Call();
@@ -196,6 +215,9 @@ namespace Smuxi.Frontend.Gnome
                 // instead of every task in the FIFO sequence!
                 // REMOTING CALL 1
                 IProtocolManager nmanager = chatModel.ProtocolManager;
+
+                // TODO: only set the protocol manager and update network
+                // status if the protocol manager differs from the old one
 
                 // REMOTING CALL 2
                 Frontend.FrontendManager.CurrentChat = chatModel;
