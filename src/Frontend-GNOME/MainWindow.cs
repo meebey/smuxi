@@ -152,6 +152,9 @@ namespace Smuxi.Frontend.Gnome
             if (width == -1 && heigth == -1) {
                 SetDefaultSize(800, 600);
                 Maximize();
+            } else if (width == 0 && heigth == 0) {
+                // HACK: map 0/0 to default size as it crashes on Windows :/
+                SetDefaultSize(800, 600);
             } else {
                 SetDefaultSize(width, heigth);
             }
