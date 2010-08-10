@@ -15,11 +15,6 @@ PROJECT_REFERENCES =  \
 BUILD_DIR = ../../bin/release
 
 LOG4NET_DLL_SOURCE=../../lib/log4net.dll
-if BUNDLE_NINI
-NINI_DLL_SOURCE=$(NINI_LIBRARIES)
-else
-NINI_DLL_SOURCE=../../lib/Nini.dll
-endif
 SMUXI_COMMON_DLL_SOURCE=../../bin/release/smuxi-common.dll
 
 endif
@@ -43,14 +38,8 @@ endif
 AL=al2
 SATELLITE_ASSEMBLY_NAME=.resources.dll
 
-if BUNDLE_NINI
 PROGRAMFILES = \
-	$(SMUXI_COMMON_DLL)  \
-	$(NINI_DLL)
-else
-PROGRAMFILES = \
-	$(SMUXI_COMMON_DLL)  
-endif
+	$(SMUXI_COMMON_DLL)
 
 LINUX_PKGCONFIG = \
 	$(ENGINE_PC)  
@@ -109,7 +98,9 @@ EXTRAS = \
 REFERENCES =  \
 	System.Runtime.Remoting \
 	System \
-	Mono.Posix
+	Mono.Posix \
+	$(NINI_LIBS) \
+	$(LOG4NET_LIBS)
 
 DLL_REFERENCES = 
 
@@ -119,15 +110,16 @@ include $(top_srcdir)/Makefile.include
 
 ENGINE_PC = $(BUILD_DIR)/smuxi-engine.pc
 SMUXI_COMMON_DLL = $(BUILD_DIR)/smuxi-common.dll
-NINI_DLL = $(BUILD_DIR)/Nini.dll
 
 $(eval $(call emit-deploy-wrapper,ENGINE_PC,smuxi-engine.pc))
 $(eval $(call emit-deploy-target,SMUXI_COMMON_DLL))
 
 if BUNDLE_NINI
+NINI_DLL = $(BUILD_DIR)/Nini.dll
+NINI_DLL_SOURCE = $(NINI_LIBS)
+PROGRAMFILES += $(NINI_DLL)
 $(eval $(call emit-deploy-target,NINI_DLL))
 endif
-
 
 $(build_xamlg_list): %.xaml.g.cs: %.xaml
 	xamlg '$<'
@@ -137,4 +129,4 @@ $(build_resx_resources) : %.resources: %.resx
 
 $(ASSEMBLY) $(ASSEMBLY_MDB): $(build_sources) $(build_resources) $(build_datafiles) $(DLL_REFERENCES) $(PROJECT_REFERENCES) $(build_xamlg_list) $(build_satellite_assembly_list)
 	mkdir -p $(dir $(ASSEMBLY))
-	$(ASSEMBLY_COMPILER_COMMAND) $(ASSEMBLY_COMPILER_FLAGS) -out:$(ASSEMBLY) -target:$(COMPILE_TARGET) $(build_sources_embed) $(build_resources_embed) $(build_references_ref) $(NINI_LIBS) $(LOG4NET_LIBS)
+	$(ASSEMBLY_COMPILER_COMMAND) $(ASSEMBLY_COMPILER_FLAGS) -out:$(ASSEMBLY) -target:$(COMPILE_TARGET) $(build_sources_embed) $(build_resources_embed) $(build_references_ref)

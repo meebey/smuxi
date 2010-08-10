@@ -147,8 +147,7 @@ if test "x$FOUND_NINI" = "xyes"; then
 		PKG_CHECK_MODULES([NINI], [nini-1.1])
 	else
 		# openSUSE has Nini as a private assembly; need to copy it.
-		AC_SUBST([NINI_LIBRARIES], "$nini_files")
-		AC_SUBST([NINI_LIBS], '$(NINI_LIBRARIES:%=-r:%)')
+		AC_SUBST([NINI_LIBS], "$nini_files")
 	fi
 else
 	PKG_CHECK_MODULES([NINI], [nini >= 1.1])
