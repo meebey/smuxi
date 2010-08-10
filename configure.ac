@@ -140,7 +140,16 @@ PKG_CHECK_MODULES([LOG4NET], [log4net])
 
 PKG_CHECK_EXISTS([nini-1.1], FOUND_NINI=yes, FOUND_NINI=no)
 if test "x$FOUND_NINI" = "xyes"; then
-	PKG_CHECK_MODULES([NINI], [nini-1.1])
+	nini_files=`pkg-config --variable=Libraries nini-1.1`
+	AM_CONDITIONAL([BUNDLE_NINI], test -n "$nini_files")
+	if test -z "$nini_files" ; then
+		# Debian-based distros place Nini into the GAC
+		PKG_CHECK_MODULES([NINI], [nini-1.1])
+	else
+		# openSUSE has Nini as a private assembly; need to copy it.
+		AC_SUBST([NINI_LIBRARIES], "$nini_files")
+		AC_SUBST([NINI_LIBS], '$(NINI_LIBRARIES:%=-r:%)')
+	fi
 else
 	PKG_CHECK_MODULES([NINI], [nini >= 1.1])
 fi
