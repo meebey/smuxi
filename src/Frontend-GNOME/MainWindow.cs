@@ -60,6 +60,9 @@ namespace Smuxi.Frontend.Gnome
 #if INDICATE_SHARP
         private IndicateManager  _IndicateManager;
 #endif
+#if NOTIFY_SHARP
+        private NotifyManager    _NotifyManager;
+#endif
         private bool             _IsMinimized;
         private bool             _IsMaximized;
         
@@ -174,9 +177,7 @@ namespace Smuxi.Frontend.Gnome
             FocusInEvent += OnFocusInEvent;
             FocusOutEvent += OnFocusOutEvent;
             WindowStateEvent += OnWindowStateEvent;
-                    
-            
-            
+
             Gtk.AccelGroup agrp = new Gtk.AccelGroup();
             Gtk.AccelKey   akey;
             AddAccelGroup(agrp);
@@ -384,6 +385,9 @@ namespace Smuxi.Frontend.Gnome
 #if INDICATE_SHARP
             _IndicateManager = new IndicateManager(this, _ChatViewManager);
 #endif
+#if NOTIFY_SHARP
+            _NotifyManager = new NotifyManager(this, _ChatViewManager);
+#endif
 
             _UI = new GnomeUI(_ChatViewManager);
             
@@ -441,6 +445,9 @@ namespace Smuxi.Frontend.Gnome
 #endif
 #if INDICATE_SHARP
             _IndicateManager.ApplyConfig(userConfig);
+#endif
+#if NOTIFY_SHARP
+            _NotifyManager.ApplyConfig(userConfig);
 #endif
             _Entry.ApplyConfig(userConfig);
             _Notebook.ApplyConfig(userConfig);

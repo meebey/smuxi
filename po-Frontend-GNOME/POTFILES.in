@@ -10,6 +10,7 @@ src/Frontend-GNOME/Preferences/PreferencesDialog.cs
 src/Frontend-GNOME/FindGroupChatDialog.cs
 src/Frontend-GNOME/Frontend.cs
 src/Frontend-GNOME/Notebook.cs
+src/Frontend-GNOME/NotifyManager.cs
 src/Frontend-GNOME/QuickConnectDialog.cs
 src/Frontend-GNOME/ChatTypeWidget.cs
 src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs

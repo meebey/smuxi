@@ -493,7 +493,9 @@ namespace Smuxi.Frontend.Gnome
             }
             ((Gtk.CheckButton) _Glade["MessagingMenuCheckButton"]).Active =
                 (bool) Frontend.UserConfig["Interface/Notification/MessagingMenuEnabled"];
-            
+            ((Gtk.CheckButton) _Glade["NotificationPopupsCheckButton"]).Active =
+                (bool) Frontend.UserConfig["Interface/Notification/PopupsEnabled"];
+
             // Filters
             _FilterListWidget.InitProtocols(Frontend.Session.GetSupportedProtocols());
             _FilterListWidget.Load();
@@ -698,6 +700,8 @@ namespace Smuxi.Frontend.Gnome
             }
             Frontend.UserConfig["Interface/Notification/MessagingMenuEnabled"] =
                 ((Gtk.CheckButton)_Glade["MessagingMenuCheckButton"]).Active;
+            Frontend.UserConfig["Interface/Notification/PopupsEnabled"] =
+                ((Gtk.CheckButton)_Glade["NotificationPopupsCheckButton"]).Active;
 
             // Filters
             _FilterListWidget.Save();

@@ -106,6 +106,7 @@ FILES = \
 	ChatViewManager.cs \
 	ColorTools.cs \
 	ColorContrast.cs \
+	NotifyManager.cs \
 	PangoTools.cs \
 	Preferences/ServerListView.cs \
 	Preferences/PreferencesDialog.cs \
@@ -171,7 +172,8 @@ REFERENCES =  \
 	$(GLADE_SHARP_20_LIBS) \
 	$(GTK_SHARP_20_LIBS) \
 	$(LOG4NET_LIBS) \
-	$(INDICATE_SHARP_LIBS)
+	$(INDICATE_SHARP_LIBS) \
+	$(NOTIFY_SHARP_LIBS)
 
 DLL_REFERENCES = 
 
