@@ -154,6 +154,57 @@ namespace Smuxi.Engine
             return Text;
         }
 
+        public override bool Equals(object obj)
+        {
+            if (!(obj is TextMessagePartModel)) {
+                return false;
+            }
+
+            var textPart = (TextMessagePartModel) obj;
+            return Equals(textPart);
+        }
+
+        public bool AttributesEquals(TextMessagePartModel textPart)
+        {
+            if ((object) textPart == null) {
+                return false;
+            }
+
+            if (f_ForegroundColor != textPart.ForegroundColor) {
+                return false;
+            }
+            if (f_BackgroundColor != textPart.BackgroundColor) {
+                return false;
+            }
+            if (f_Underline != textPart.Underline) {
+                return false;
+            }
+            if (f_Bold != textPart.Bold) {
+                return false;
+            }
+            if (f_Italic != textPart.Italic) {
+                return false;
+            }
+
+            return base.Equals(textPart);
+        }
+
+        public bool Equals(TextMessagePartModel textPart)
+        {
+            if ((object) textPart == null) {
+                return false;
+            }
+
+            if (!AttributesEquals(textPart)) {
+                return false;
+            }
+            if (f_Text != textPart.Text) {
+                return false;
+            }
+
+            return base.Equals(textPart);
+        }
+
         protected TextMessagePartModel(SerializationInfo info, StreamingContext ctx) :
                                   base(info, ctx)
         {
@@ -181,6 +232,26 @@ namespace Smuxi.Engine
             sw.Write(f_Bold);
             sw.Write(f_Italic);
             sw.Write(f_Text);
+        }
+
+        public static bool operator ==(TextMessagePartModel a,
+                                       TextMessagePartModel b)
+        {
+            if (System.Object.ReferenceEquals(a, b)) {
+                return true;
+            }
+
+            if ((object) a == null || (object) b == null) {
+                return false;
+            }
+
+            return a.Equals(b);
+        }
+
+        public static bool operator !=(TextMessagePartModel a,
+                                       TextMessagePartModel b)
+        {
+            return !(a == b);
         }
     }
 }

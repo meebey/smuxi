@@ -60,7 +60,7 @@ namespace Smuxi.Engine
             SerializationReader sr = SerializationReader.GetReader(info);
             SetObjectData(sr);
         }
-        
+
         protected virtual void SetObjectData(SerializationReader sr)
         {
             f_IsHighlight = sr.ReadBoolean();
@@ -76,6 +76,47 @@ namespace Smuxi.Engine
             SerializationWriter sw = SerializationWriter.GetWriter(); 
             GetObjectData(sw);
             sw.AddToInfo(info);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (!(obj is MessagePartModel)) {
+                return false;
+            }
+
+            var part = (MessagePartModel) obj;
+            return Equals(part);
+        }
+
+        public bool Equals(MessagePartModel part)
+        {
+            if ((object) part == null) {
+                return false;
+            }
+
+            if (f_IsHighlight != part.IsHighlight) {
+                return false;
+            }
+
+            return true;
+        }
+
+        public static bool operator ==(MessagePartModel a, MessagePartModel b)
+        {
+            if (System.Object.ReferenceEquals(a, b)) {
+                return true;
+            }
+
+            if ((object) a == null || (object) b == null) {
+                return false;
+            }
+
+            return a.Equals(b);
+        }
+
+        public static bool operator !=(MessagePartModel a, MessagePartModel b)
+        {
+            return !(a == b);
         }
     }
 }

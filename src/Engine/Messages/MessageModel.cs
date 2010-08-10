@@ -1,13 +1,7 @@
 /*
- * $Id: Config.cs 100 2005-08-07 14:54:22Z meebey $
- * $URL: svn+ssh://svn.qnetp.net/svn/smuxi/smuxi/trunk/src/Engine/Config.cs $
- * $Rev: 100 $
- * $Author: meebey $
- * $Date: 2005-08-07 16:54:22 +0200 (Sun, 07 Aug 2005) $
- *
  * Smuxi - Smart MUltipleXed Irc
  *
- * Copyright (c) 2005-2006 Mirco Bauer <meebey@meebey.net>
+ * Copyright (c) 2005-2010 Mirco Bauer <meebey@meebey.net>
  *
  * Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
  *
@@ -28,6 +22,7 @@
 
 using System;
 using System.Text;
+using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 using Smuxi.Common;
@@ -96,6 +91,9 @@ namespace Smuxi.Engine
 
         protected virtual void GetObjectData(SerializationWriter sw)
         {
+            // OPT: compact all parts before serialization
+            Compact();
+
             sw.Write(f_TimeStamp);
             sw.Write(f_MessageParts);
             sw.Write((Int32) f_MessageType);
@@ -118,6 +116,117 @@ namespace Smuxi.Engine
                sb.Append(part.ToString());
             }
             return sb.ToString();
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (!(obj is MessageModel)) {
+                return false;
+            }
+
+            var msg = (MessageModel) obj;
+            return Equals(msg);
+        }
+
+        public bool Equals(MessageModel msg)
+        {
+            if ((object) msg == null) {
+                return false;
+            }
+
+            if (f_TimeStamp != msg.TimeStamp) {
+                return false;
+            }
+            if (f_MessageType != msg.MessageType) {
+                return false;
+            }
+            if (f_MessageParts.Count != msg.MessageParts.Count) {
+                return false;
+            }
+            for (int i = 0; i < f_MessageParts.Count; i++) {
+                if (f_MessageParts[i] != msg.MessageParts[i]) {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        public void Compact()
+        {
+            // the idea is to glue each text part that has the same attributes
+            // to a combined new one to reduce the number of parts as they are
+            // expensive when serialized
+
+            // nothing to glue
+            if (MessageParts.Count <= 1) {
+                return;
+            }
+
+            var parts = new List<MessagePartModel>(MessageParts.Count);
+            StringBuilder gluedText = null;
+            bool dontMoveNext = false;
+            var iter = MessageParts.GetEnumerator();
+            while (dontMoveNext || iter.MoveNext()) {
+                dontMoveNext = false;
+                var current = iter.Current;
+                parts.Add(current);
+
+                // we can only glue pure text (not URLs etc)
+                if (current.GetType() != typeof(TextMessagePartModel)) {
+                    continue;
+                }
+
+                var currentText = (TextMessagePartModel) current;
+                while (iter.MoveNext()) {
+                    var next = iter.Current;
+                    if (next.GetType() != typeof(TextMessagePartModel)) {
+                        parts.Add(next);
+                        break;
+                    }
+
+                    var nextText = (TextMessagePartModel) next;
+                    if (!currentText.AttributesEquals(nextText)) {
+                        // they aren't the same! no candidate for glueing :/
+                        // but maybe the next part is
+                        dontMoveNext = true;
+                        break;
+                    }
+
+                    // glue time!
+                    if (gluedText == null) {
+                        // this is the first element of the gluing
+                        gluedText = new StringBuilder(256);
+                        gluedText.Append(currentText.Text);
+                    }
+                    gluedText.Append(nextText.Text);
+                }
+
+                if (gluedText != null) {
+                    currentText.Text = gluedText.ToString();
+                    gluedText = null;
+                }
+            }
+
+            f_MessageParts = parts;
+        }
+
+        public static bool operator ==(MessageModel a, MessageModel b)
+        {
+            if (System.Object.ReferenceEquals(a, b)) {
+                return true;
+            }
+
+            if ((object) a == null || (object) b == null) {
+                return false;
+            }
+
+            return a.Equals(b);
+        }
+
+        public static bool operator !=(MessageModel a, MessageModel b)
+        {
+            return !(a == b);
         }
     }
 }
