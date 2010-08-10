@@ -557,6 +557,10 @@ namespace Smuxi.Frontend.Gnome
 
             try {
                 var chatView = _Notebook.CurrentChatView;
+                if (chatView == null) {
+                    return;
+                }
+
                 chatView.OutputMessageTextView.UpdateMarkerline();
             } catch (Exception ex) {
                 Frontend.ShowException(this, ex);
