@@ -35,6 +35,7 @@ namespace Smuxi.Engine
         private DateTime                f_TimeStamp;
         private IList<MessagePartModel> f_MessageParts;
         private MessageType             f_MessageType;
+        public  bool                    IsCompactable { get; set; }
 
         public DateTime TimeStamp {
             get {
@@ -64,6 +65,7 @@ namespace Smuxi.Engine
         {
             f_TimeStamp    = DateTime.UtcNow;
             f_MessageParts = new List<MessagePartModel>();
+            IsCompactable  = true;
         }
         
         public MessageModel(string text, MessageType msgType) : this()
@@ -91,8 +93,10 @@ namespace Smuxi.Engine
 
         protected virtual void GetObjectData(SerializationWriter sw)
         {
-            // OPT: compact all parts before serialization
-            Compact();
+            if (IsCompactable) {
+                // OPT: compact all parts before serialization
+                Compact();
+            }
 
             sw.Write(f_TimeStamp);
             sw.Write(f_MessageParts);
