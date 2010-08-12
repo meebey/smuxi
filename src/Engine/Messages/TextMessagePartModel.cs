@@ -101,7 +101,16 @@ namespace Smuxi.Engine
                 f_Text = value;
             }
         }
-        
+
+        public int Length {
+            get {
+                if (f_Text == null) {
+                    return 0;
+                }
+                return f_Text.Length;
+            }
+        }
+
         public TextMessagePartModel() :
                                base()
         {
@@ -147,6 +156,20 @@ namespace Smuxi.Engine
                                     string text) :
                                this(fgColor, bgColor, underline, bold, italic, text, false)
         {
+        }
+
+        public TextMessagePartModel(TextMessagePartModel msgPart)
+        {
+            if (msgPart == null) {
+                throw new ArgumentNullException("msgPart");
+            }
+
+            f_ForegroundColor = msgPart.ForegroundColor;
+            f_BackgroundColor = msgPart.BackgroundColor;
+            f_Underline = msgPart.Underline;
+            f_Bold = msgPart.Bold;
+            f_Italic = msgPart.Italic;
+            f_Text = msgPart.Text;
         }
 
         public override string ToString()
