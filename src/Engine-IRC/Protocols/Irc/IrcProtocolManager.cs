@@ -2914,6 +2914,13 @@ namespace Smuxi.Engine
                     break;
             }
 
+            if (target == null) {
+#if LOG4NET
+                 _Logger.Error("_OnModeChange(): target is null!");
+#endif
+                return;
+            }
+
             Session.AddMessageToChat(target, builder.ToMessage());
         }
         
