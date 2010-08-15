@@ -661,10 +661,20 @@ namespace Smuxi.Engine
 
             List<TwitterStatus> sortedTimeline = SortTimeline(timeline);
             foreach (TwitterStatus status in sortedTimeline) {
+                String text;
+                if (!status.IsTruncated || status.RetweetedStatus == null) {
+                    text = status.Text;
+                } else {
+                    text = String.Format(
+                        "RT @{0}: {1}",
+                        status.RetweetedStatus.TwitterUser.ScreenName,
+                        status.RetweetedStatus.Text
+                    );
+                }
                 MessageModel msg = CreateMessage(
                     status.Created,
                     status.TwitterUser,
-                    status.Text
+                    text
                 );
                 Session.AddMessageToChat(f_FriendsTimelineChat, msg);
 

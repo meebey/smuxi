@@ -289,6 +289,8 @@ namespace Twitterizer.Framework
                 Status.TwitterUser = ParseUserNode(Element["sender"]);
             if (Element["recipient"] != null)
                 Status.Recipient = ParseUserNode(Element["recipient"]);
+            if (Element["retweeted_status"] != null)
+                Status.RetweetedStatus = ParseStatusNode(Element["retweeted_status"]);
 
 			return Status;
 		}

@@ -46,5 +46,6 @@ namespace Twitterizer.Framework
         public TwitterUser TwitterUser { get; set; }
         public TwitterUser Recipient { get; set; }
         public Boolean IsDirectMessage { get; set; }
+        public TwitterStatus RetweetedStatus { get; set; }
     }
 }
