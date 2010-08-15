@@ -8,15 +8,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: smuxi-engine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-07-15 01:40+0200\n"
-"PO-Revision-Date: 2010-07-21 12:42+0000\n"
+"POT-Creation-Date: 2010-08-05 01:46+0200\n"
+"PO-Revision-Date: 2010-08-14 12:42+0000\n"
 "Last-Translator: Joe Hansen <joedalton2@yahoo.dk>\n"
 "Language-Team: Danish <debian-l10n-danish@lists.debian.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../src/Engine/FrontendManager.cs:219
+#: ../src/Engine/FrontendManager.cs:223
 msgid "No network connections"
 msgstr "Ingen netværksforbindelser"
 
@@ -25,10 +25,20 @@ msgid "Not connected to server"
 msgstr "Ikke forbundet til server"
 
 #: ../src/Engine/Protocols/ProtocolManagerBase.cs:158
-#: ../src/Engine/Session.cs:731
+#: ../src/Engine/Session.cs:736
 #, csharp-format
 msgid "Not enough parameters for {0} command"
 msgstr "Ikke nok parametre for kommandoen {0}"
+
+#: ../src/Engine/Protocols/ProtocolManagerBase.cs:174
+#, csharp-format
+msgid "Connected to {0}"
+msgstr "Forbundet til {0}"
+
+#: ../src/Engine/Protocols/ProtocolManagerBase.cs:196
+#, csharp-format
+msgid "Disconnected from {0}"
+msgstr "Ikke længere forbundet til {0}"
 
 #: ../src/Engine/Session.cs:154
 msgid "Welcome to Smuxi"
@@ -61,71 +71,71 @@ msgstr "Motorkommandoer"
 msgid "Connect failed!"
 msgstr "Tilslutning mislykkedes!"
 
-#: ../src/Engine/Session.cs:539
+#: ../src/Engine/Session.cs:540
 #, csharp-format
 msgid "Disconnect failed - could not find server: {0}"
 msgstr "Afbrydelse fejlede - kunne ikke finde server: {0}"
 
-#: ../src/Engine/Session.cs:574
+#: ../src/Engine/Session.cs:579
 msgid "Reconnect failed!"
 msgstr "Gentilslutning mislykkedes!"
 
-#: ../src/Engine/Session.cs:593
+#: ../src/Engine/Session.cs:598
 msgid "Configuration reloaded"
 msgstr "Konfiguration genindlæst"
 
-#: ../src/Engine/Session.cs:598
+#: ../src/Engine/Session.cs:603
 msgid "Configuration saved"
 msgstr "Konfiguration gemt"
 
-#: ../src/Engine/Session.cs:602
+#: ../src/Engine/Session.cs:607
 msgid "Invalid parameter for config; use load or save"
 msgstr "Ugyldigt parameter for konfig; brug load (indlæs) eller save (gem)"
 
-#: ../src/Engine/Session.cs:632
+#: ../src/Engine/Session.cs:637
 msgid "Invalid parameter for network; use list, switch, or close"
 msgstr ""
 "Ugyldigt parameter for netværk; brug list (vis), switch (skift) eller close "
 "(luk)"
 
-#: ../src/Engine/Session.cs:643
+#: ../src/Engine/Session.cs:648
 msgid "Networks"
 msgstr "Netværk"
 
-#: ../src/Engine/Session.cs:647
+#: ../src/Engine/Session.cs:652
 msgid "Type"
 msgstr "Type"
 
-#: ../src/Engine/Session.cs:648
+#: ../src/Engine/Session.cs:653
 msgid "Host"
 msgstr "Vært"
 
-#: ../src/Engine/Session.cs:649
+#: ../src/Engine/Session.cs:654
 msgid "Port"
 msgstr "Port"
 
-#: ../src/Engine/Session.cs:671
+#: ../src/Engine/Session.cs:676
 #, csharp-format
 msgid "Network close failed - could not find network with host: {0}"
 msgstr ""
 "Lukning af netværk mislykkedes - kunne ikke finde netværk med vært: {0}"
 
-#: ../src/Engine/Session.cs:705
+#: ../src/Engine/Session.cs:710
 #, csharp-format
 msgid "Network switch failed - could not find network with host: {0}"
 msgstr "Skift af netværk mislykkedes - kunne ikke finde netværk med vært: {0}"
 
-#: ../src/Engine/Session.cs:720
+#: ../src/Engine/Session.cs:725
 msgid "Not connected to any network"
 msgstr "Ikke tilsluttet til noget netværk"
 
 #. just in case the ProtocolManager is not setting the
 #. protocol chat
-#: ../src/Engine/Session.cs:1047
+#: ../src/Engine/Session.cs:1052
 msgid "Connect failed."
 msgstr "Tilslutning mislykkedes."
 
-#: ../src/Engine/Session.cs:1078
+#: ../src/Engine/Session.cs:1083
 #, csharp-format
 msgid "No protocol manager found for the protocol: {0}"
 msgstr "Ingen protokolhåndtering fundet til denne protokol: {0}"
@@ -148,5 +158,4 @@ msgstr "Bruger »{0}« findes ikke."
 msgid "User \"{0}\" already exists."
 msgstr "Bruger »{0}« findes allerede."
 
-#~ msgid "Unknown protocol: {0}"
-#~ msgstr "Ukendt protokol: {0}"
+
