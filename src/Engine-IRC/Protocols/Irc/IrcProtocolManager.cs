@@ -3012,7 +3012,7 @@ namespace Smuxi.Engine
                 // control for the protocol manager! e.g. after a manual
                 // reconnect or server-side disconnect
                 if (chat.ChatType == ChatType.Protocol) {
-                    return;
+                    continue;
                 }
 
                 Session.DisableChat(chat);
