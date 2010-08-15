@@ -42,6 +42,7 @@ namespace Smuxi.Frontend.Gnome
         private static readonly log4net.ILog _Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 #endif
         public static Gdk.Pixbuf   IconPixbuf { get; private set; }
+        private bool               NickColors { get; set; }
         private GroupChatModel     _GroupChatModel;
         private Gtk.ScrolledWindow _PersonScrolledWindow;
         private Gtk.TreeView       _PersonTreeView;
@@ -442,6 +443,8 @@ namespace Smuxi.Frontend.Gnome
 #endif
             }
             _OutputHPaned.ShowAll();
+
+            NickColors = (bool) config["Interface/Notebook/Channel/NickColors"];
         }
 
         public virtual void RenderPersonIdentityName(Gtk.TreeViewColumn column,
@@ -449,7 +452,18 @@ namespace Smuxi.Frontend.Gnome
                                                      Gtk.TreeModel model, Gtk.TreeIter iter)
         {
             PersonModel person = (PersonModel) model.GetValue(iter, 0);
-            (cellr as Gtk.CellRendererText).Text = person.IdentityName;
+            var renderer = (Gtk.CellRendererText) cellr;
+            if (NickColors) {
+                // TODO: do we need to optimize this? it's called very often...
+                Gdk.Color bgColor = _PersonTreeView.Style.Base(Gtk.StateType.Normal);
+                var builder = new MessageBuilder();
+                builder.NickColors = true;
+                builder.AppendNick(person);
+                renderer.Markup = PangoTools.ToMarkup(builder.ToMessage(),
+                                                      bgColor);
+            } else {
+                renderer.Text = person.IdentityName;
+            }
         }
        
         protected virtual int SortPersonListStore(Gtk.TreeModel model,
