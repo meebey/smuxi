@@ -2578,7 +2578,8 @@ namespace Smuxi.Engine
         private void _OnNames(object sender, NamesEventArgs e)
         {
 #if LOG4NET
-            _Logger.Debug("_OnNames() e.Channel: " + e.Channel);
+            // logging noise
+            //_Logger.Debug("_OnNames() e.Channel: " + e.Channel);
 #endif
             GroupChatModel groupChat = (GroupChatModel) GetChat(e.Data.Channel, ChatType.Group);
             if (groupChat != null && groupChat.IsSynced) {
@@ -2610,7 +2611,8 @@ namespace Smuxi.Engine
                 
                 groupChat.UnsafePersons.Add(groupPerson.NickName.ToLower(), groupPerson);
 #if LOG4NET
-                _Logger.Debug("_OnNames() added user: " + username + " to: " + groupChat.Name);
+                // logging noise
+                //_Logger.Debug("_OnNames() added user: " + username + " to: " + groupChat.Name);
 #endif
             }
         }
@@ -2918,7 +2920,8 @@ namespace Smuxi.Engine
         private void _OnQuit(object sender, QuitEventArgs e)
         {
 #if LOG4NET
-            _Logger.Debug("_Quit() e.Who: "+e.Who);
+            // logging noise
+            //_Logger.Debug("_Quit() e.Who: "+e.Who);
 #endif
             if (e.Data.Irc.IsMe(e.Who)) {
                 // _OnDisconnect() handles this
