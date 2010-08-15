@@ -26,7 +26,7 @@ namespace Smuxi.Engine
     public class MessageBuilder
     {
         MessageModel Message { get; set; }
-        public bool ColorNicks { get; set; }
+        public bool NickColors { get; set; }
         public bool StripFormattings { get; set; }
         public bool StripColors { get; set; }
 
@@ -51,7 +51,7 @@ namespace Smuxi.Engine
         public MessageBuilder()
         {
             Message = new MessageModel();
-            ColorNicks = true;
+            NickColors = true;
         }
 
         public MessageModel ToMessage()
@@ -68,7 +68,7 @@ namespace Smuxi.Engine
                 throw new ArgumentNullException("userConfig");
             }
 
-            ColorNicks = (bool) userConfig["Interface/Notebook/Channel/NickColors"];
+            NickColors = (bool) userConfig["Interface/Notebook/Channel/NickColors"];
             StripColors = (bool) userConfig["Interface/Notebook/StripColors"];
             StripFormattings = (bool) userConfig["Interface/Notebook/StripFormattings"];
         }
@@ -178,7 +178,7 @@ namespace Smuxi.Engine
                 throw new ArgumentNullException("identity");
             }
 
-            if (!ColorNicks) {
+            if (!NickColors) {
                 return CreateText(identity.IdentityName);
             }
 
@@ -214,13 +214,15 @@ namespace Smuxi.Engine
             var prefix = CreateText("<");
             var suffix = CreateText(">");
             var nick = CreateIdendityName(contact);
-            // using bg colors for the nick texts are too intrusive, thus map
-            // the bg color to the fg color of the surrounding tags
-            var senderBgColor = contact.IdentityNameColored.BackgroundColor;
-            if (senderBgColor != TextColor.None) {
-                prefix.ForegroundColor = senderBgColor;
-                suffix.ForegroundColor = senderBgColor;
-                nick.BackgroundColor = TextColor.None;
+            if (NickColors) {
+                // using bg colors for the nick texts are too intrusive, thus
+                // map the bg color to the fg color of the surrounding tags
+                var senderBgColor = contact.IdentityNameColored.BackgroundColor;
+                if (senderBgColor != TextColor.None) {
+                    prefix.ForegroundColor = senderBgColor;
+                    suffix.ForegroundColor = senderBgColor;
+                    nick.BackgroundColor = TextColor.None;
+                }
             }
 
             var senderMsg = new List<TextMessagePartModel>(3);
