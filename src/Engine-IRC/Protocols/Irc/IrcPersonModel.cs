@@ -162,5 +162,12 @@ namespace Smuxi.Engine
             _Ident    = sr.ReadString();
             _Host     = sr.ReadString();
         }
+
+        protected override TextMessagePartModel GetColoredIdentityName(
+            string idendityName, string normalized)
+        {
+            normalized = IrcProtocolManager.NormalizeNick(idendityName.TrimEnd('_'));
+            return base.GetColoredIdentityName(idendityName, normalized);
+        }
     }
 }

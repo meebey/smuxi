@@ -1,13 +1,7 @@
 /*
- * $Id: IrcProtocolManager.cs 149 2007-04-11 16:47:52Z meebey $
- * $URL: svn+ssh://svn.qnetp.net/svn/smuxi/smuxi/trunk/src/Engine/IrcProtocolManager.cs $
- * $Rev: 149 $
- * $Author: meebey $
- * $Date: 2007-04-11 18:47:52 +0200 (Wed, 11 Apr 2007) $
- *
  * Smuxi - Smart MUltipleXed Irc
  *
- * Copyright (c) 2005-2009 Mirco Bauer <meebey@meebey.net>
+ * Copyright (c) 2005-2010 Mirco Bauer <meebey@meebey.net>
  *
  * Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
  *
@@ -38,15 +32,6 @@ using Smuxi.Common;
 
 namespace Smuxi.Engine
 {
-    public enum IrcControlCode : int
-    {
-        Bold      = 2,
-        Color     = 3,
-        Clear     = 15,
-        Italic    = 26,
-        Underline = 31,
-    }
-
     [ProtocolManagerInfo(Name = "IRC", Description = "Internet Relay Chat", Alias = "irc")]
     public class IrcProtocolManager : ProtocolManagerBase
     {
@@ -54,7 +39,6 @@ namespace Smuxi.Engine
         private static readonly log4net.ILog _Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 #endif
         private static readonly string       _LibraryTextDomain = "smuxi-engine-irc";
-        private static char[]   _IrcControlChars;
         private IrcClient       _IrcClient;
         private string          _Host;
         private int             _Port;
@@ -136,17 +120,6 @@ namespace Smuxi.Engine
             }
         }
 
-        static IrcProtocolManager()
-        {
-            int[] intValues = (int[])Enum.GetValues(typeof(IrcControlCode));
-            char[] chars = new char[intValues.Length];
-            int i = 0;
-            foreach (int intValue in intValues) {
-                chars[i++] = (char)intValue;
-            }
-            _IrcControlChars = chars;
-        }
-        
         public IrcProtocolManager(Session session) : base(session)
         {
             Trace.Call(session);
@@ -451,9 +424,9 @@ namespace Smuxi.Engine
                 );
                 chat.PersonCount = info.UserCount;
 
-                MessageModel topic = new MessageModel();
-                _IrcMessageToMessageModel(ref topic, info.Topic);
-                chat.Topic = topic;
+                var topic = CreateMessageBuilder();
+                topic.AppendMessage(info.Topic);
+                chat.Topic = topic.ToMessage();
 
                 chats.Add(chat);
             }
@@ -751,18 +724,14 @@ namespace Smuxi.Engine
 
         public void CommandHelp(CommandModel cd)
         {
-            MessageModel fmsg = new MessageModel();
-            TextMessagePartModel fmsgti;
-
-            fmsgti = new TextMessagePartModel();
+            var builder = CreateMessageBuilder();
             // TRANSLATOR: this line is used as label / category for a
             // list of commands below
-            fmsgti.Text = "[" + _("IrcProtocolManager Commands") + "]";
-            fmsgti.Bold = true;
-            fmsg.MessageParts.Add(fmsgti);
-            
-            cd.FrontendManager.AddMessageToChat(cd.Chat, fmsg);
-            
+            var text = builder.CreateText("[{0}]", _("IrcProtocolManager Commands"));
+            text.Bold = true;
+            builder.AppendText(text);
+            cd.FrontendManager.AddMessageToChat(cd.Chat, builder.ToMessage());
+
             string[] help = {
             "help",
             "connect irc server port [password] [nicknames]",
@@ -802,7 +771,10 @@ namespace Smuxi.Engine
             };
 
             foreach (string line in help) { 
-                cd.FrontendManager.AddTextToChat(cd.Chat, "-!- " + line);
+                builder = CreateMessageBuilder();
+                builder.AppendEventPrefix();
+                builder.AppendText(line);
+                cd.FrontendManager.AddMessageToChat(cd.Chat, builder.ToMessage());
             }
         }
         
@@ -873,24 +845,10 @@ namespace Smuxi.Engine
                 ircperson.IsAway = false;
             }
 
-            MessageModel msg = new MessageModel();
-            TextMessagePartModel msgPart;
-
             _IrcClient.SendMessage(SendType.Message, chat.ID, message);
 
-            msgPart = new TextMessagePartModel();
-            msgPart.Text = "<";
-            msg.MessageParts.Add(msgPart);
-        
-            msgPart = new TextMessagePartModel();
-            msgPart.Text = _IrcClient.Nickname;
-            msgPart.ForegroundColor = GetNickColor(_IrcClient.Nickname);
-            msg.MessageParts.Add(msgPart);
-            
-            msgPart = new TextMessagePartModel();
-            msgPart.Text = "> ";
-            msg.MessageParts.Add(msgPart);
-
+            var builder = CreateMessageBuilder();
+            builder.AppendSenderPrefix(GetPerson(chat, _IrcClient.Nickname));
             Match m = Regex.Match(message, String.Format(@"^@(?<nick>\S+)|^(?<nick>\S+)(?:\:|,)"));
             if (m.Success) {
                 // this is probably a reply with a nickname
@@ -901,17 +859,13 @@ namespace Smuxi.Engine
                 if (_IrcClient.GetChannelUser(chat.ID, nick) != null) {
                     // bingo, it's a nick on this channel
                     message = message.Substring(m.Value.Length);
-                    msgPart = new TextMessagePartModel();
-                    msgPart.Text = m.Value;
-                    msgPart.ForegroundColor = GetNickColor(nick);
-                    msg.MessageParts.Add(msgPart);
+                    var coloredNick = builder.CreateIdendityName(GetPerson(chat, nick));
+                    coloredNick.Text = m.Value;
+                    builder.AppendText(coloredNick);
                 }
             }
-            _IrcMessageToMessageModel(ref msg, message);
-            // HACK: clear possible highlights so we can't highlight ourself!
-            ClearHighlights(msg);
-
-            Session.AddMessageToChat(chat, msg, true);
+            builder.AppendMessage(message);
+            Session.AddMessageToChat(chat, builder.ToMessage(), true);
         }
         
         public void CommandJoin(CommandModel cd)
@@ -1092,6 +1046,11 @@ namespace Smuxi.Engine
                                 Thread.Sleep(2000);
                                 break;
                         }
+                    } catch (ThreadAbortException ex) {
+#if LOG4NET
+                        _Logger.Warn("ThreadAbortException when trying to join channel: "
+                                      + chan, ex);
+#endif
                     } catch (Exception ex) {
 #if LOG4NET
                         _Logger.Error("Exception when trying to join channel: "
@@ -1148,9 +1107,7 @@ namespace Smuxi.Engine
                 string nickname = cd.DataArray[1];
                 chat = GetChat(nickname, ChatType.Person);
                 if (chat == null) {
-                    IrcPersonModel person = new IrcPersonModel(nickname,
-                                                               NetworkID,
-                                                               this);
+                    var person = CreatePerson(nickname);
                     chat = new PersonChatModel(person, nickname, nickname, this);
                     Session.AddChat(chat);
                     Session.SyncChat(chat);
@@ -1470,19 +1427,12 @@ namespace Smuxi.Engine
                 if (_IrcClient.IsJoined(channel)) {
                     string topic = _IrcClient.GetChannel(channel).Topic;
                     if (topic.Length > 0) {
-                        MessageModel msg = new MessageModel();
-                        TextMessagePartModel textMsg;
-                   
-                        textMsg = new TextMessagePartModel();
-                        // For translators: do NOT change the position of {1}!
-                        textMsg.Text = "-!- " + String.Format(_("Topic for {0}: {1}"), channel, String.Empty);
-                        msg.MessageParts.Add(textMsg);  
-
-                        _IrcMessageToMessageModel(ref msg, topic);
-                        // clear possible highlights in topic
-                        ClearHighlights(msg);
-
-                        fm.AddMessageToChat(chat, msg);
+                        var builder = CreateMessageBuilder();
+                        builder.AppendEventPrefix();
+                        // TRANSLATOR: do NOT change the position of {1}!
+                        builder.AppendText(_("Topic for {0}: {1}"), channel, String.Empty);
+                        builder.AppendMessage(topic);
+                        fm.AddMessageToChat(chat, builder.ToMessage());
                     } else {
                         fm.AddTextToChat(chat,
                             "-!- " + String.Format(_("No topic set for {0}"), channel));
@@ -1730,22 +1680,16 @@ namespace Smuxi.Engine
             }
             GroupChatModel groupChat = (GroupChatModel) chat;
             
-            MessageModel msg;
-            TextMessagePartModel textMsg;
+            var builder = CreateMessageBuilder();
+            builder.AppendEventPrefix();
+            builder.AppendText("[{0} {1}]", _("Users"), groupChat.Name);
+            fm.AddMessageToChat(chat, builder.ToMessage());
             
-            msg = new MessageModel();
-            textMsg = new TextMessagePartModel();
-            textMsg.Text = String.Format("-!- [{0} {1}]", _("Users"), groupChat.Name); 
-            msg.MessageParts.Add(textMsg);
-            fm.AddMessageToChat(chat, msg);
-            
+            builder = CreateMessageBuilder();
             int opCount = 0;
             int voiceCount = 0;
             int normalCount = 0;
-            msg = new MessageModel();
-            textMsg = new TextMessagePartModel();
-            textMsg.Text = "-!- ";
-            msg.MessageParts.Add(textMsg);
+            builder.AppendEventPrefix();
 
             // sort nicklist
             var persons = groupChat.Persons;
@@ -1754,6 +1698,7 @@ namespace Smuxi.Engine
             }
             List<PersonModel> ircPersons = new List<PersonModel>(persons.Values);
             ircPersons.Sort((a, b) => (a.IdentityName.CompareTo(b.IdentityName)));
+            builder.AppendText("[ ");
             foreach (IrcGroupPersonModel ircPerson in ircPersons) {
                 string mode;
                 if (ircPerson.IsOp) {
@@ -1764,27 +1709,20 @@ namespace Smuxi.Engine
                     mode = "+";
                 } else {
                     normalCount++;
-                    mode = " ";
+                    mode = String.Empty;
                 }
-                textMsg = new TextMessagePartModel();
-                textMsg.Text = String.Format("[{0}", mode);
-                msg.MessageParts.Add(textMsg);
-
-                textMsg = new TextMessagePartModel();
-                textMsg.Text = ircPerson.NickName;
-                textMsg.ForegroundColor = GetNickColor(ircPerson.NickName);
-                msg.MessageParts.Add(textMsg);
-
-                textMsg = new TextMessagePartModel();
-                textMsg.Text = "] ";
-                msg.MessageParts.Add(textMsg);
+                if (!String.IsNullOrEmpty(mode)) {
+                    builder.AppendText(mode);
+                }
+                builder.AppendNick(ircPerson);
+                builder.AppendSpace();
             }
-            fm.AddMessageToChat(chat, msg);
+            builder.AppendText("]");
+            fm.AddMessageToChat(chat, builder.ToMessage());
 
-            msg = new MessageModel();
-            textMsg = new TextMessagePartModel();
-            textMsg.Text = String.Format(
-                "-!- {0}",
+            builder = CreateMessageBuilder();
+            builder.AppendEventPrefix();
+            builder.AppendText(
                 String.Format(
                     _("Total of {0} users [{1} ops, {2} voices, {3} normal]"),
                     opCount + voiceCount + normalCount,
@@ -1793,8 +1731,7 @@ namespace Smuxi.Engine
                     normalCount
                 )
             );
-            msg.MessageParts.Add(textMsg);
-            fm.AddMessageToChat(chat, msg);
+            fm.AddMessageToChat(chat, builder.ToMessage());
         }
 
         public void CommandRaw(CommandModel cd)
@@ -1810,24 +1747,13 @@ namespace Smuxi.Engine
             }
             
             _IrcClient.SendMessage(SendType.Action, cd.Chat.ID, cd.Parameter);
-            
-            MessageModel msg = new MessageModel();
-            TextMessagePartModel textMsg;
-        
-            textMsg = new TextMessagePartModel();
-            textMsg.Text = " * ";
-            msg.MessageParts.Add(textMsg);
 
-            textMsg = new TextMessagePartModel();
-            textMsg.Text = _IrcClient.Nickname + " ";
-            textMsg.ForegroundColor = GetNickColor(_IrcClient.Nickname);
-            msg.MessageParts.Add(textMsg);
-            
-            _IrcMessageToMessageModel(ref msg, cd.Parameter);
-            // HACK: clear possible highlights so we can't highlight ourself!
-            ClearHighlights(msg);
-
-            Session.AddMessageToChat(cd.Chat, msg, true);
+            var builder = CreateMessageBuilder();
+            builder.AppendAction();
+            builder.AppendIdendityName(GetPerson(cd.Chat, _IrcClient.Nickname));
+            builder.AppendText(" ");
+            builder.AppendMessage(cd.Parameter);
+            Session.AddMessageToChat(cd.Chat, builder.ToMessage(), true);
         }
         
         public void CommandNotice(CommandModel cd)
@@ -1952,175 +1878,7 @@ namespace Smuxi.Engine
                 cd.Chat, String.Format("-!- {0}", _("Not connected to server"))
             );
         }
-        
-        private void _IrcMessageToMessageModel(ref MessageModel msg, string message)
-        {
-            Trace.Call(msg, message);
-            
-            // strip color and formatting if configured
-            if ((bool)Session.UserConfig["Interface/Notebook/StripColors"]) {
-                message = Regex.Replace(message, (char)IrcControlCode.Color +
-                            "[0-9]{1,2}(,[0-9]{1,2})?", String.Empty);
-            }
-            if ((bool)Session.UserConfig["Interface/Notebook/StripFormattings"]) {
-                message = Regex.Replace(message, String.Format("({0}|{1}|{2}|{3})",
-                                                    (char)IrcControlCode.Bold,
-                                                    (char)IrcControlCode.Clear,
-                                                    (char)IrcControlCode.Italic,
-                                                    (char)IrcControlCode.Underline), String.Empty);
-            }
 
-            // convert * / _ to mIRC control characters
-            string[] messageParts = message.Split(new char[] {' '});
-            // better regex? \*([^ *]+)\*
-            //string pattern = @"^({0})([A-Za-z0-9]+?){0}$";
-            string pattern = @"^({0})([^ *]+){0}$";
-            for (int i = 0; i < messageParts.Length; i++) {
-                messageParts[i] = Regex.Replace(messageParts[i], String.Format(pattern, @"\*"), (char)IrcControlCode.Bold      + "$1$2$1" + (char)IrcControlCode.Bold);
-                messageParts[i] = Regex.Replace(messageParts[i], String.Format(pattern,  "_"),  (char)IrcControlCode.Underline + "$1$2$1" + (char)IrcControlCode.Underline);
-                messageParts[i] = Regex.Replace(messageParts[i], String.Format(pattern,  "/"),  (char)IrcControlCode.Italic    + "$1$2$1" + (char)IrcControlCode.Italic);
-            }
-            message = String.Join(" ", messageParts);
-            
-            // crash: ^C^C0,7Dj Ler #Dj KanaL?na Girmek ZorunDaD?rLar UnutMay?N @>'^C0,4WwW.MaViGuL.NeT ^C4]^O ^C4]'
-            // parse colors
-            bool bold = false;
-            bool underline = false;
-            bool italic = false;
-            bool color = false;
-            TextColor fg_color = IrcTextColor.Normal;
-            TextColor bg_color = IrcTextColor.Normal;
-            bool controlCharFound;
-            do {
-                string submessage;
-                int controlPos = message.IndexOfAny(_IrcControlChars);
-                if (controlPos > 0) {
-                    // control char found and we have normal text infront
-                    controlCharFound = true;
-                    submessage = message.Substring(0, controlPos);
-                    message = message.Substring(controlPos);
-                } else if (controlPos != -1) {
-                    // control char found
-                    controlCharFound = true;
-                    
-                    char controlChar = message.Substring(controlPos, 1)[0];
-                    IrcControlCode controlCode = (IrcControlCode)controlChar;
-                    string controlChars = controlChar.ToString();
-                    switch (controlCode) {
-                        case IrcControlCode.Clear:
-#if LOG4NET
-                            _Logger.Debug("_IrcMessageToMessageModel(): found clear control character");
-#endif
-                            bold = false;
-                            underline = false;
-                            italic = false;
-                            
-                            color = false;
-                            fg_color = IrcTextColor.Normal;
-                            bg_color = IrcTextColor.Normal;
-                            break;
-                        case IrcControlCode.Bold:
-#if LOG4NET
-                            _Logger.Debug("_IrcMessageToMessageModel(): found bold control character");
-#endif
-                            bold = !bold;
-                            break;
-                        case IrcControlCode.Underline:
-#if LOG4NET
-                            _Logger.Debug("_IrcMessageToMessageModel(): found underline control character");
-#endif
-                            underline = !underline;
-                            break;
-                        case IrcControlCode.Italic:
-#if LOG4NET
-                            _Logger.Debug("_IrcMessageToMessageModel(): found italic control character");
-#endif
-                            italic = !italic;
-                            break;
-                        case IrcControlCode.Color:
-#if LOG4NET
-                            _Logger.Debug("_IrcMessageToMessageModel(): found color control character");
-#endif
-                            color = !color;
-                            string colorMessage = message.Substring(controlPos);
-#if LOG4NET
-                            _Logger.Debug("_IrcMessageToMessageModel(): colorMessage: '" + colorMessage + "'");
-#endif
-                            Match match = Regex.Match(colorMessage, (char)IrcControlCode.Color + "(?<fg>[0-9][0-9]?)(,(?<bg>[0-9][0-9]?))?");
-                            if (match.Success) {
-                                controlChars = match.Value;
-                                int color_code;
-                                if (match.Groups["fg"] != null) {
-#if LOG4NET
-                                    _Logger.Debug("_IrcMessageToMessageModel(): match.Groups[fg].Value: " + match.Groups["fg"].Value);
-#endif
-                                    try {
-                                        color_code = Int32.Parse(match.Groups["fg"].Value);
-                                        fg_color = _IrcTextColorToTextColor(color_code);
-                                    } catch (FormatException) {
-                                        fg_color = IrcTextColor.Normal;
-                                    }
-                                }
-                                if (match.Groups["bg"] != null) {
-#if LOG4NET
-                                    _Logger.Debug("_IrcMessageToMessageModel(): match.Groups[bg].Value: " + match.Groups["bg"].Value);
-#endif
-                                    try {
-                                        color_code = Int32.Parse(match.Groups["bg"].Value);
-                                        bg_color = _IrcTextColorToTextColor(color_code);
-                                    } catch (FormatException) {
-                                        bg_color = IrcTextColor.Normal;
-                                    }
-                                }
-                            } else {
-                                controlChars = controlChar.ToString();
-                                fg_color = IrcTextColor.Normal;
-                                bg_color = IrcTextColor.Normal;
-                            }
-#if LOG4NET
-                            _Logger.Debug("_IrcMessageToMessageModel(): fg_color.HexCode: " + String.Format("0x{0:X6}", fg_color.HexCode));
-                            _Logger.Debug("_IrcMessageToMessageModel(): bg_color.HexCode: " + String.Format("0x{0:X6}", bg_color.HexCode));
-#endif
-                            break;
-                    }
-#if LOG4NET
-                    _Logger.Debug("_IrcMessageToMessageModel(): controlChars.Length: " + controlChars.Length);
-#endif
-
-                    // check if there are more control chars in the rest of the message
-                    int nextControlPos = message.IndexOfAny(_IrcControlChars, controlPos + controlChars.Length);
-                    if (nextControlPos != -1) {
-                        // more control chars found
-                        submessage = message.Substring(controlChars.Length, nextControlPos - controlChars.Length);
-                        message = message.Substring(nextControlPos);
-                    } else {
-                        // no next control char
-                        // skip the control chars
-                        submessage = message.Substring(controlChars.Length);
-                        message = String.Empty;
-                    }
-                } else {
-                    // no control char, nothing to do
-                    controlCharFound = false;
-                    submessage = message;
-                }
-                
-                TextMessagePartModel msgPart = new TextMessagePartModel();
-                msgPart.Text = submessage;
-                msgPart.Bold = bold;
-                msgPart.Underline = underline;
-                msgPart.Italic = italic;
-                msgPart.ForegroundColor = fg_color;
-                msgPart.BackgroundColor = bg_color;
-                msg.MessageParts.Add(msgPart);
-            } while (controlCharFound);
-
-            MarkHighlights(msg);
-
-            // parse URLs
-            ParseUrls(msg);
-        }
-        
         protected override bool ContainsHighlight (string msg)
         {
             Regex regex;
@@ -2130,46 +1888,6 @@ namespace Smuxi.Engine
                 return true;
             } else {
                 return base.ContainsHighlight(msg);
-            }
-        }
-
-        private TextColor _IrcTextColorToTextColor(int color)
-        {
-            switch (color) {
-                case 0:
-                    return IrcTextColor.White;
-                case 1:
-                    return IrcTextColor.Black;
-                case 2:
-                    return IrcTextColor.Blue;
-                case 3:
-                    return IrcTextColor.Green;
-                case 4:
-                    return IrcTextColor.Red;
-                case 5:
-                    return IrcTextColor.Brown;
-                case 6:
-                    return IrcTextColor.Purple;
-                case 7:
-                    return IrcTextColor.Orange;
-                case 8:
-                    return IrcTextColor.Yellow;
-                case 9:
-                    return IrcTextColor.LightGreen;
-                case 10:
-                    return IrcTextColor.Teal;
-                case 11:
-                    return IrcTextColor.LightCyan;
-                case 12:
-                    return IrcTextColor.LightBlue;
-                case 13:
-                    return IrcTextColor.LightPurple;
-                case 14:
-                    return IrcTextColor.Grey;
-                case 15:
-                    return IrcTextColor.LightGrey;
-                default:
-                    return IrcTextColor.Normal;
             }
         }
 
@@ -2261,6 +1979,9 @@ namespace Smuxi.Engine
 
         private void _OnRawMessage(object sender, IrcEventArgs e)
         {
+#if LOG4NET
+            //_Logger.Debug("_OnRawMessage(): received: '" + e.Data.RawMessage + "'");
+#endif
             bool handled = false;
             switch (e.Data.Type) {
                 case ReceiveType.Who:
@@ -2370,8 +2091,8 @@ namespace Smuxi.Engine
                     break;
                 default:
                     if (!handled) {
-                        MessageModel fmsg = new MessageModel();
-                        fmsg.MessageType = MessageType.Event;
+                        var builder = CreateMessageBuilder();
+                        builder.MessageType = MessageType.Event;
 
                         int replyCode = (int) e.Data.ReplyCode;
                         string numeric = String.Format("{0:000}", replyCode);
@@ -2400,34 +2121,34 @@ namespace Smuxi.Engine
                         msgPart = new TextMessagePartModel("[");
                         msgPart.ForegroundColor = IrcTextColor.Grey;
                         msgPart.Bold = true;
-                        fmsg.MessageParts.Add(msgPart);
+                        builder.AppendText(msgPart);
 
                         msgPart = new TextMessagePartModel(numeric);
                         if (replyCode >= 400 && replyCode <= 599) {
                             msgPart.ForegroundColor = new TextColor(255, 0, 0);
                         }
                         msgPart.Bold = true;
-                        fmsg.MessageParts.Add(msgPart);
+                        builder.AppendText(msgPart);
 
                         var response = String.Format(
                             " ({0}){1}",
                             constant,
                             parameters
                         );
-                        msgPart = new TextMessagePartModel(response);
-                        fmsg.MessageParts.Add(msgPart);
+                        builder.AppendText(response);
 
                         msgPart = new TextMessagePartModel("] ");
                         msgPart.ForegroundColor = IrcTextColor.Grey;
                         msgPart.Bold = true;
-                        fmsg.MessageParts.Add(msgPart);
+                        builder.AppendText(msgPart);
 
                         if (e.Data.Message != null) {
-                            fmsg.MessageType = MessageType.Normal;
-                            _IrcMessageToMessageModel(ref fmsg, e.Data.Message);
+                            builder.MessageType = MessageType.Normal;
+                            builder.AppendMessage(e.Data.Message);
                         }
 
-                        Session.AddMessageToChat(_NetworkChat, fmsg);
+                        Session.AddMessageToChat(_NetworkChat,
+                                                 builder.ToMessage());
                     }
                     break;
             }
@@ -2435,16 +2156,13 @@ namespace Smuxi.Engine
 
         private void _OnError(IrcEventArgs e)
         {
-            MessageModel msg = new MessageModel();
-            TextMessagePartModel textMsg;
-
-            textMsg = new TextMessagePartModel();
-            textMsg.Text = e.Data.Message;
-            textMsg.ForegroundColor = IrcTextColor.Red;
-            textMsg.Bold = true;
-            textMsg.IsHighlight = true;
-            msg.MessageParts.Add(textMsg);
-            Session.AddMessageToChat(_NetworkChat, msg);
+            var builder = CreateMessageBuilder();
+            var text = builder.CreateText(e.Data.Message);
+            text.ForegroundColor = IrcTextColor.Red;
+            text.Bold = true;
+            text.IsHighlight = true;
+            builder.AppendText(text);
+            Session.AddMessageToChat(_NetworkChat, builder.ToMessage());
 
             if (e.Data.Message.ToLower().Contains("flood")) {
                 _IrcClient.SendDelay += 250;
@@ -2462,27 +2180,22 @@ namespace Smuxi.Engine
         
         private void _OnErrorNicknameInUse(IrcEventArgs e)
         {
-            MessageModel msg = new MessageModel();
-            TextMessagePartModel textMsg;
-
-            textMsg = new TextMessagePartModel();
+            var builder = CreateMessageBuilder();
+            builder.AppendEventPrefix();
             // TRANSLATOR: the final line will look like this:
             // -!- Nick {0} is already in use
-            textMsg.Text = "-!- " + _("Nick") + " ";
-            msg.MessageParts.Add(textMsg);
+            builder.AppendText(_("Nick"));
+            builder.AppendSpace();
 
-            textMsg = new TextMessagePartModel();
-            textMsg.Text = e.Data.RawMessageArray[3];
-            textMsg.Bold = true;
-            msg.MessageParts.Add(textMsg);
+            var text = builder.CreateText(e.Data.RawMessageArray[3]);
+            text.Bold = true;
+            builder.AppendText(text);
+            builder.AppendSpace();
 
-            textMsg = new TextMessagePartModel();
             // TRANSLATOR: the final line will look like this:
             // -!- Nick {0} is already in use
-            textMsg.Text = " " + _("is already in use");
-            msg.MessageParts.Add(textMsg);
-
-            Session.AddMessageToChat(_NetworkChat, msg);
+            builder.AppendText(_("is already in use"));
+            Session.AddMessageToChat(_NetworkChat, builder.ToMessage());
 
             if (!_IrcClient.AutoNickHandling &&
                 !_IrcClient.IsRegistered) {
@@ -2505,23 +2218,18 @@ namespace Smuxi.Engine
         
         private void _OnErrorBannedFromChannel(IrcEventArgs e)
         {
-            MessageModel msg = new MessageModel();
-            TextMessagePartModel textMsg;
-            
-            textMsg = new TextMessagePartModel();
-            textMsg.Text = "-!- " + _("Cannot join to channel:") + " ";
-            msg.MessageParts.Add(textMsg);
+            var builder = CreateMessageBuilder();
+            builder.AppendEventPrefix();
+            builder.AppendText(_("Cannot join to channel:"));
+            builder.AppendSpace();
 
-            textMsg = new TextMessagePartModel();
-            textMsg.Text = e.Data.RawMessageArray[3];
-            textMsg.Bold = true;
-            msg.MessageParts.Add(textMsg);
+            var text = builder.CreateText(e.Data.RawMessageArray[3]);
+            text.Bold = true;
+            builder.AppendText(text);
+            builder.AppendSpace();
 
-            textMsg = new TextMessagePartModel();
-            textMsg.Text = " (" + _("You are banned") + ")";
-            msg.MessageParts.Add(textMsg);
-
-            Session.AddMessageToChat(_NetworkChat, msg);
+            builder.AppendText("({0})", _("You are banned"));
+            Session.AddMessageToChat(_NetworkChat, builder.ToMessage());
         }
         
         private void _OnReceiveTypeWhois(IrcEventArgs e)
@@ -2665,103 +2373,65 @@ namespace Smuxi.Engine
                                             e.CtcpCommand, e.Data.Nick, e.CtcpParameter));
             }
         }
-        
-        protected TextColor GetNickColor(string nickname)
-        {
-            if (nickname == null) {
-                throw new ArgumentNullException("nickname");
-            }
 
-            if (_IrcClient.IsMe(nickname)) {
-                return IrcTextColor.Blue;
-            }
-            
-            return GetIdentityNameColor(NormalizeNick(nickname.TrimEnd('_')));
-        }
-        
         private void _OnChannelMessage(object sender, IrcEventArgs e)
         {
             ChatModel chat = GetChat(e.Data.Channel, ChatType.Group);
 
-            MessageModel fmsg = new MessageModel();
-            TextMessagePartModel fmsgti;
-            
-            fmsgti = new TextMessagePartModel();
-            fmsgti.Text = "<";
-            fmsg.MessageParts.Add(fmsgti);
+            var builder = CreateMessageBuilder();
+            builder.AppendMessage(GetPerson(chat, e.Data.Nick), e.Data.Message);
 
-            fmsgti = new TextMessagePartModel();
-            fmsgti.ForegroundColor = GetNickColor(e.Data.Nick);
-            fmsgti.Text = e.Data.Nick;
-            fmsg.MessageParts.Add(fmsgti);
-
-            fmsgti = new TextMessagePartModel();
-            fmsgti.Text = "> ";
-            fmsg.MessageParts.Add(fmsgti);
-            
-            _IrcMessageToMessageModel(ref fmsg, e.Data.Message);
-            
-            Session.AddMessageToChat(chat, fmsg);
+            var msg = builder.ToMessage();
+            MarkHighlights(msg);
+            Session.AddMessageToChat(chat, msg);
         }
         
         private void _OnChannelAction(object sender, ActionEventArgs e)
         {
             ChatModel chat = GetChat(e.Data.Channel, ChatType.Group);
 
-            MessageModel fmsg = new MessageModel();
-            TextMessagePartModel fmsgti;
+            var builder = CreateMessageBuilder();
+            builder.AppendAction();
+            builder.AppendIdendityName(GetPerson(chat, e.Data.Nick));
+            builder.AppendText(" ");
+            builder.AppendMessage(e.ActionMessage);
             
-            fmsgti = new TextMessagePartModel();
-            fmsgti.Text = " * ";
-            fmsg.MessageParts.Add(fmsgti);
-            
-            fmsgti = new TextMessagePartModel();
-            fmsgti.ForegroundColor = GetNickColor(e.Data.Nick);
-            fmsgti.Text = e.Data.Nick + " ";
-            fmsg.MessageParts.Add(fmsgti);
-            
-            _IrcMessageToMessageModel(ref fmsg, e.ActionMessage);
-            
-            Session.AddMessageToChat(chat, fmsg);
+            var msg = builder.ToMessage();
+            MarkHighlights(msg);
+            Session.AddMessageToChat(chat, msg);
         }
         
         private void _OnChannelNotice(object sender, IrcEventArgs e)
         {
             ChatModel chat = GetChat(e.Data.Channel, ChatType.Group);
 
-            MessageModel fmsg = new MessageModel();
-            TextMessagePartModel fmsgti;
-            
-            fmsgti = new TextMessagePartModel();
-            fmsgti.Text = String.Format("-{0}:{1}- ", e.Data.Nick, e.Data.Channel);
-            fmsg.MessageParts.Add(fmsgti);
-            
-            _IrcMessageToMessageModel(ref fmsg, e.Data.Message);
-            
-            Session.AddMessageToChat(chat, fmsg);
+            var builder = CreateMessageBuilder();
+            builder.AppendText("-{0}:{1}- ", e.Data.Nick, e.Data.Channel);
+            builder.AppendMessage(e.Data.Message);
+
+            var msg = builder.ToMessage();
+            MarkHighlights(msg);
+            Session.AddMessageToChat(chat, msg);
         }
         
         private void _OnQueryMessage(object sender, IrcEventArgs e)
         {
-            MessageModel msg = new MessageModel();
-            TextMessagePartModel msgPart;
-
-            msgPart = new TextMessagePartModel();
-            msgPart.Text = String.Format("<{0}> ", e.Data.Nick);
-            msgPart.IsHighlight = true;
-            msg.MessageParts.Add(msgPart);
-
-            _IrcMessageToMessageModel(ref msg, e.Data.Message);
-
-            ChatModel chat = GetChat(e.Data.Nick, ChatType.Person);
+            var chat = (PersonChatModel) GetChat(e.Data.Nick, ChatType.Person);
+            bool newChat = false;
             if (chat == null) {
-                IrcPersonModel person = new IrcPersonModel(e.Data.Nick,
-                                                           null,
-                                                           e.Data.Ident,
-                                                           e.Data.Host,
-                                                           NetworkID,
-                                                           this);
+                var person = CreatePerson(e.Data.Nick);
+                person.Ident = e.Data.Ident;
+                person.Host = e.Data.Host;
                 chat = new PersonChatModel(person, e.Data.Nick, e.Data.Nick, this);
+                newChat = true;
+            }
+
+            var builder = CreateMessageBuilder();
+            builder.AppendSenderPrefix(chat.Person, true);
+            builder.AppendMessage(e.Data.Message);
+            var msg = builder.ToMessage();
+
+            if (newChat) {
                 // don't create chats for filtered messages
                 if (Session.IsFilteredMessage(chat, msg)) {
                     Session.LogMessage(chat, msg, true);
@@ -2776,25 +2446,25 @@ namespace Smuxi.Engine
         
         private void _OnQueryAction(object sender, ActionEventArgs e)
         {
-            MessageModel msg = new MessageModel();
-            TextMessagePartModel msgPart;
-
-            msgPart = new TextMessagePartModel();
-            msgPart.Text = String.Format(" * {0} ", e.Data.Nick);
-            msgPart.IsHighlight = true;
-            msg.MessageParts.Add(msgPart);
-
-            _IrcMessageToMessageModel(ref msg, e.ActionMessage);
-
-            ChatModel chat = GetChat(e.Data.Nick, ChatType.Person);
+            var chat = (PersonChatModel) GetChat(e.Data.Nick, ChatType.Person);
+            bool newChat = false;
             if (chat == null) {
-                IrcPersonModel person = new IrcPersonModel(e.Data.Nick,
-                                                           null,
-                                                           e.Data.Ident,
-                                                           e.Data.Host,
-                                                           NetworkID,
-                                                           this);
+                var person = CreatePerson(e.Data.Nick);
+                person.Ident = e.Data.Ident;
+                person.Host = e.Data.Host;
                 chat = new PersonChatModel(person, e.Data.Nick, e.Data.Nick, this);
+                newChat = true;
+            }
+
+            var builder = CreateMessageBuilder();
+            builder.AppendAction();
+            builder.AppendIdendityName(chat.Person, true);
+            builder.AppendSpace();
+            builder.AppendMessage(e.ActionMessage);
+            var msg = builder.ToMessage();
+            MarkHighlights(msg);
+
+            if (newChat) {
                 // don't create chats for filtered messages
                 if (Session.IsFilteredMessage(chat, msg)) {
                     Session.LogMessage(chat, msg, true);
@@ -2809,21 +2479,8 @@ namespace Smuxi.Engine
         
         private void _OnQueryNotice(object sender, IrcEventArgs e)
         {
-            MessageModel msg = new MessageModel();
-            TextMessagePartModel msgPart;
-
-            msgPart = new TextMessagePartModel();
-            msgPart.Text = String.Format("-{0} ({1}@{2})- ",
-                                        e.Data.Nick,
-                                        e.Data.Ident,
-                                        e.Data.Host);
-            // notice shouldn't be a highlight
-            //fmsgti.IsHighlight = true;
-            msg.MessageParts.Add(msgPart);
-
-            _IrcMessageToMessageModel(ref msg, e.Data.Message);
-
             ChatModel chat = null;
+            bool newChat = false;
             if (e.Data.Nick != null) {
                 chat = GetChat(e.Data.Nick, ChatType.Person);
             }
@@ -2834,23 +2491,37 @@ namespace Smuxi.Engine
                     chat = _NetworkChat;
                 } else {
                     // create new chat
-                    IrcPersonModel person = new IrcPersonModel(e.Data.Nick,
-                                                               null,
-                                                               e.Data.Ident,
-                                                               e.Data.Host,
-                                                               NetworkID,
-                                                               this);
+                    IrcPersonModel person = CreatePerson(e.Data.Nick,
+                                                         null,
+                                                         e.Data.Ident,
+                                                         e.Data.Host);
                     chat = new PersonChatModel(person, e.Data.Nick, e.Data.Nick, this);
-                    // don't create chats for filtered messages
-                    if (Session.IsFilteredMessage(chat, msg)) {
-                        Session.LogMessage(chat, msg, true);
-                        return;
-                    }
-                    Session.AddChat(chat);
-                    Session.SyncChat(chat);
+                    newChat = true;
                 }
             }
 
+            var builder = CreateMessageBuilder();
+            if (e.Data.Nick == null) {
+                // server message
+                builder.AppendText("!{0} ", e.Data.From);
+            } else {
+                builder.AppendText("-");
+                builder.AppendIdendityName(GetPerson(chat, e.Data.Nick));
+                builder.AppendText(" ({0}@{1})- ", e.Data.Ident, e.Data.Host);
+            }
+            builder.AppendMessage(e.Data.Message);
+            var msg = builder.ToMessage();
+            MarkHighlights(msg);
+
+            if (newChat) {
+                // don't create chats for filtered messages
+                if (Session.IsFilteredMessage(chat, msg)) {
+                    Session.LogMessage(chat, msg, true);
+                    return;
+                }
+                Session.AddChat(chat);
+                Session.SyncChat(chat);
+            }
             Session.AddMessageToChat(chat, msg);
         }
 
@@ -2883,9 +2554,7 @@ namespace Smuxi.Engine
                     // ignore
                 } else {
                     IrcUser siuser = _IrcClient.GetIrcUser(e.Who);
-                    IrcGroupPersonModel icuser = new IrcGroupPersonModel(e.Who,
-                                                                         NetworkID,
-                                                                         this);
+                    var icuser = CreateGroupPerson(e.Who);
                     icuser.Ident = siuser.Ident;
                     icuser.Host = siuser.Host;
                     groupChat.UnsafePersons.Add(icuser.NickName.ToLower(), icuser);
@@ -2893,27 +2562,16 @@ namespace Smuxi.Engine
                 }
             }
 
-            MessageModel msg = new MessageModel();
-            msg.MessageType = MessageType.Event;
-            TextMessagePartModel textMsgPart;
-            
-            textMsgPart = new TextMessagePartModel();
-            textMsgPart.Text = "-!- ";
-            msg.MessageParts.Add(textMsgPart);
-            
-            textMsgPart = new TextMessagePartModel();
-            textMsgPart.ForegroundColor = GetNickColor(e.Data.Nick);
-            textMsgPart.Text = e.Who;
-            msg.MessageParts.Add(textMsgPart);
+            var builder = CreateMessageBuilder();
+            builder.AppendEventPrefix();
+            builder.AppendIdendityName(GetPerson(groupChat, e.Who));
+            // TRANSLATOR: do NOT change the position of {0}!
+            builder.AppendText(_("{0} [{1}] has joined {2}"),
+                               String.Empty,
+                               String.Format("{0}@{1}", e.Data.Ident, e.Data.Host),
+                               e.Channel);
 
-            textMsgPart = new TextMessagePartModel();
-            // For translators: do NOT change the position of {0}!
-            textMsgPart.Text = String.Format(_("{0} [{1}] has joined {2}"),
-                                             String.Empty,
-                                             e.Data.Ident + "@" + e.Data.Host,
-                                             e.Channel);
-            msg.MessageParts.Add(textMsgPart);
-            
+            var msg = builder.ToMessage();
             Session.AddMessageToChat(groupChat, msg);
         }
         
@@ -2948,9 +2606,7 @@ namespace Smuxi.Engine
                         break;
                 }
                 
-                IrcGroupPersonModel groupPerson = new IrcGroupPersonModel(username,
-                                                                     NetworkID,
-                                                                     this);
+                var groupPerson = CreateGroupPerson(username);
                 
                 groupChat.UnsafePersons.Add(groupPerson.NickName.ToLower(), groupPerson);
 #if LOG4NET
@@ -3029,29 +2685,25 @@ namespace Smuxi.Engine
                 Session.RemovePersonFromGroupChat(groupChat, person);
             }
 
-            MessageModel msg = new MessageModel();
-            msg.MessageType = MessageType.Event;
-            TextMessagePartModel textMsgPart;
-            
-            textMsgPart = new TextMessagePartModel();
-            textMsgPart.Text = "-!- ";
-            msg.MessageParts.Add(textMsgPart);
-            
-            textMsgPart = new TextMessagePartModel();
-            textMsgPart.ForegroundColor = GetNickColor(e.Data.Nick);
-            textMsgPart.Text = e.Who;
-            msg.MessageParts.Add(textMsgPart);
+            var builder = CreateMessageBuilder();
+            builder.MessageType = MessageType.Event;
+            builder.AppendEventPrefix();
+            builder.AppendIdendityName(GetPerson(groupChat, e.Who));
+            // TRANSLATOR: do NOT change the position of {0}!
+            builder.AppendText(_("{0} [{1}] has left {2}"),
+                               String.Empty,
+                               String.Format("{0}@{1}", e.Data.Ident, e.Data.Host),
+                               e.Channel);
 
-            textMsgPart = new TextMessagePartModel();
-            textMsgPart.Text = String.Format(
-                                    _("{0} [{1}] has left {2} [{3}]"),
-                                    String.Empty,
-                                    e.Data.Ident + "@" + e.Data.Host,
-                                    e.Channel,
-                                    e.PartMessage);
-            msg.MessageParts.Add(textMsgPart);
-            
-            Session.AddMessageToChat(groupChat, msg);
+            if (!String.IsNullOrEmpty(e.PartMessage)) {
+                builder.AppendText("[");
+                // colors in part messages are annoying
+                builder.StripColors = true;
+                builder.AppendMessage(e.PartMessage);
+                builder.AppendText("]");
+            }
+
+            Session.AddMessageToChat(groupChat, builder.ToMessage());
         }
         
         private void _OnKick(object sender, KickEventArgs e)
@@ -3082,24 +2734,14 @@ namespace Smuxi.Engine
             _Logger.Debug("_OnNickChange() e.OldNickname: "+e.OldNickname+" e.NewNickname: "+e.NewNickname);
 #endif
             if (e.Data.Irc.IsMe(e.NewNickname)) {
-                MessageModel msg = new MessageModel();
-                msg.MessageType = MessageType.Event;
-                TextMessagePartModel textMsg;
-                
-                textMsg = new TextMessagePartModel();
-                // For translators: do NOT change the position of {0}!
-                textMsg.Text = "-!- " + String.Format(
-                                            _("You're now known as {0}"),
-                                            String.Empty);
-                msg.MessageParts.Add(textMsg);
+                var builder = CreateMessageBuilder();
+                builder.AppendEventPrefix();
+                // TRANSLATOR: do NOT change the position of {0}!
+                builder.AppendText(_("You're now known as {0}"),
+                                  String.Empty);
+                builder.AppendIdendityName(CreatePerson(e.NewNickname));
 
-                textMsg = new TextMessagePartModel();
-                textMsg.Text = e.NewNickname;
-                textMsg.Bold = true;
-                textMsg.ForegroundColor = GetNickColor(e.NewNickname);
-                msg.MessageParts.Add(textMsg);
-
-                Session.AddMessageToChat(_NetworkChat, msg);
+                Session.AddMessageToChat(_NetworkChat, builder.ToMessage());
             }
             
             IrcUser ircuser = e.Data.Irc.GetIrcUser(e.NewNickname);
@@ -3115,10 +2757,7 @@ namespace Smuxi.Engine
 #endif
                         continue;
                     }
-                    IrcGroupPersonModel newuser = new IrcGroupPersonModel(
-                                                        e.NewNickname,
-                                                        NetworkID,
-                                                        this);
+                    var newuser = CreateGroupPerson(e.NewNickname);
                     newuser.RealName = olduser.RealName;
                     newuser.Ident = olduser.Ident;
                     newuser.Host = olduser.Host;
@@ -3127,54 +2766,21 @@ namespace Smuxi.Engine
                     
                     Session.UpdatePersonInGroupChat(cchat, olduser, newuser);
                     
+                    var builder = CreateMessageBuilder();
+                    builder.AppendEventPrefix();
                     if (e.Data.Irc.IsMe(e.NewNickname)) {
-                        MessageModel msg = new MessageModel();
-                        msg.MessageType = MessageType.Event;
-                        TextMessagePartModel textMsg;
-                        
-                        textMsg = new TextMessagePartModel();
-                        // For translators: do NOT change the position of {0}!
-                        textMsg.Text = "-!- " + String.Format(
-                                                    _("You're now known as {0}"),
-                                                    String.Empty);
-                        msg.MessageParts.Add(textMsg);
-
-                        textMsg = new TextMessagePartModel();
-                        textMsg.Text = e.NewNickname;
-                        textMsg.Bold = true;
-                        textMsg.ForegroundColor = GetNickColor(e.NewNickname);
-                        msg.MessageParts.Add(textMsg);
-
-                        Session.AddMessageToChat(cchat, msg);
+                        // TRANSLATOR: do NOT change the position of {0}!
+                        builder.AppendText(_("You're now known as {0}"),
+                                           String.Empty);
                     } else {
-                        MessageModel msg = new MessageModel();
-                        msg.MessageType = MessageType.Event;
-                        TextMessagePartModel textMsg;
-                
-                        textMsg = new TextMessagePartModel();
-                        textMsg.Text = "-!- ";
-                        msg.MessageParts.Add(textMsg);
-                        
-                        textMsg = new TextMessagePartModel();
-                        textMsg.Text = e.OldNickname;
-                        textMsg.ForegroundColor = GetNickColor(e.OldNickname);
-                        msg.MessageParts.Add(textMsg);
-                        
-                        textMsg = new TextMessagePartModel();
-                        // For translators: do NOT change the position of {0} or {1}!
-                        textMsg.Text = String.Format(
-                                            _("{0} is now known as {1}"),
-                                            String.Empty,
-                                            String.Empty);
-                        msg.MessageParts.Add(textMsg);
-
-                        textMsg = new TextMessagePartModel();
-                        textMsg.Text = e.NewNickname;
-                        textMsg.ForegroundColor = GetNickColor(e.NewNickname);
-                        msg.MessageParts.Add(textMsg);
-                        
-                        Session.AddMessageToChat(cchat, msg);
+                        builder.AppendIdendityName(olduser);
+                        // TRANSLATOR: do NOT change the position of {0} or {1}!
+                        builder.AppendText(_("{0} is now known as {1}"),
+                                           String.Empty,
+                                           String.Empty);
                     }
+                    builder.AppendIdendityName(newuser);
+                    Session.AddMessageToChat(cchat, builder.ToMessage());
                 }
             }
         }
@@ -3182,49 +2788,33 @@ namespace Smuxi.Engine
         private void _OnTopic(object sender, TopicEventArgs e)
         {
             GroupChatModel cchat = (GroupChatModel)GetChat(e.Channel, ChatType.Group);
-            MessageModel topic = new MessageModel();
-            _IrcMessageToMessageModel(ref topic, e.Topic);
-            // HACK: clear possible highlights set in _IrcMessageToMessageModel()
-            ClearHighlights(topic);
-            Session.UpdateTopicInGroupChat(cchat, topic);
+            var topic = CreateMessageBuilder();
+            topic.AppendMessage(e.Topic);
+            Session.UpdateTopicInGroupChat(cchat, topic.ToMessage());
         }
         
         private void _OnTopicChange(object sender, TopicChangeEventArgs e)
         {
             GroupChatModel cchat = (GroupChatModel)GetChat(e.Channel, ChatType.Group);
-            MessageModel topic = new MessageModel();
-            _IrcMessageToMessageModel(ref topic, e.NewTopic);
-            // HACK: clear possible highlights set in _IrcMessageToMessageModel()
-            ClearHighlights(topic);
-            Session.UpdateTopicInGroupChat(cchat, topic);
+            var builder = CreateMessageBuilder();
+            builder.AppendMessage(e.NewTopic);
+            Session.UpdateTopicInGroupChat(cchat, builder.ToMessage());
 
-            MessageModel msg = new MessageModel();
-            msg.MessageType = MessageType.Event;
-            TextMessagePartModel textMsg;
-
-            textMsg = new TextMessagePartModel();
-            textMsg.Text = "-!- ";
-            msg.MessageParts.Add(textMsg);
+            builder = CreateMessageBuilder();
+            builder.AppendEventPrefix();
 
             string who;
             if (String.IsNullOrEmpty(e.Who)) {
-                who = e.Data.From;
+                // server changed topic
+                builder.AppendText(e.Data.From);
             } else {
-                who = e.Who;
+                builder.AppendIdendityName(GetPerson(cchat, e.Who));
             }
-            textMsg = new TextMessagePartModel();
-            textMsg.Text = who;
-            textMsg.ForegroundColor = GetNickColor(who);
-            msg.MessageParts.Add(textMsg);
 
-            textMsg = new TextMessagePartModel();
-            // For translators: do NOT change the position of {0}!
-            textMsg.Text = String.Format(
-                                _("{0} changed the topic of {1} to: {2}"),
-                                String.Empty, e.Channel, e.NewTopic);
-            msg.MessageParts.Add(textMsg);
-
-            Session.AddMessageToChat(cchat, msg);
+            // TRANSLATOR: do NOT change the position of {0}!
+            builder.AppendText(_("{0} changed the topic of {1} to: {2}"),
+                             String.Empty, e.Channel, e.NewTopic);
+            Session.AddMessageToChat(cchat, builder.ToMessage());
         }
         
         private void _OnOp(object sender, OpEventArgs e)
@@ -3285,13 +2875,8 @@ namespace Smuxi.Engine
         
         private void _OnModeChange(object sender, IrcEventArgs e)
         {
-            MessageModel msg = new MessageModel();
-            msg.MessageType = MessageType.Event;
-            TextMessagePartModel textMsg;
-
-            textMsg = new TextMessagePartModel();
-            textMsg.Text = "-!- ";
-            msg.MessageParts.Add(textMsg);
+            var builder = CreateMessageBuilder();
+            builder.AppendEventPrefix();
 
             string modechange;
             string who = null;
@@ -3302,38 +2887,32 @@ namespace Smuxi.Engine
                     who = e.Data.Irc.Nickname;
                     target = _NetworkChat;
 
-                    textMsg = new TextMessagePartModel();
-                    // For translators: do NOT change the position of {1}!
-                    textMsg.Text =  String.Format(
-                                        _("Mode change [{0}] for user {1}"),
-                                        modechange, String.Empty);
-                    msg.MessageParts.Add(textMsg);
+                    // TRANSLATOR: do NOT change the position of {1}!
+                    builder.AppendText(_("Mode change [{0}] for user {1}"),
+                                       modechange, String.Empty);
+                    builder.AppendIdendityName(CreatePerson(who));
                     break;
                 case ReceiveType.ChannelModeChange:
                     modechange = String.Join(" ", e.Data.RawMessageArray, 3,
                                              e.Data.RawMessageArray.Length - 3);
                     target = GetChat(e.Data.Channel, ChatType.Group);
+
+                    // TRANSLATOR: do NOT change the position of {2}!
+                    builder.AppendText(_("mode/{0} [{1}] by {2}"),
+                                       e.Data.Channel, modechange, String.Empty);
+
                     if (e.Data.Nick != null && e.Data.Nick.Length > 0) {
                         who = e.Data.Nick;
+                        builder.AppendIdendityName(GetPerson(target, who));
                     } else {
+                        // server changed mode
                         who = e.Data.From;
+                        builder.AppendText(who);
                     }
-
-                    textMsg = new TextMessagePartModel();
-                    // For translators: do NOT change the position of {2}!
-                    textMsg.Text =   String.Format(
-                                        _("mode/{0} [{1}] by {2}"),
-                                        e.Data.Channel, modechange, String.Empty);
-                    msg.MessageParts.Add(textMsg);
                     break;
             }
-            
-            textMsg = new TextMessagePartModel();
-            textMsg.Text = who;
-            textMsg.ForegroundColor = GetNickColor(who);
-            msg.MessageParts.Add(textMsg);
 
-            Session.AddMessageToChat(target, msg);
+            Session.AddMessageToChat(target, builder.ToMessage());
         }
         
         private void _OnQuit(object sender, QuitEventArgs e)
@@ -3344,26 +2923,20 @@ namespace Smuxi.Engine
             if (e.Data.Irc.IsMe(e.Who)) {
                 // _OnDisconnect() handles this
             } else {
-                MessageModel quitMsg = new MessageModel();
-                quitMsg.MessageType = MessageType.Event;
-                TextMessagePartModel textMsg;
-        
-                textMsg = new TextMessagePartModel();
-                textMsg.Text = "-!- ";
-                quitMsg.MessageParts.Add(textMsg);
-                
-                textMsg = new TextMessagePartModel();
-                textMsg.Text = e.Who;
-                textMsg.ForegroundColor = GetNickColor(e.Who);
-                quitMsg.MessageParts.Add(textMsg);
-                
-                textMsg = new TextMessagePartModel();
-                textMsg.Text = String.Format(
-                                    _("{0} [{1}] has quit [{2}]"),
-                                    String.Empty,
-                                    e.Data.Ident + "@" + e.Data.Host,
-                                    e.QuitMessage);
-                quitMsg.MessageParts.Add(textMsg);
+                var builder = CreateMessageBuilder();
+                builder.AppendEventPrefix();
+                builder.AppendIdendityName(CreatePerson(e.Who));
+                // TRANSLATOR: do NOT change the position of {0}!
+                builder.AppendText(_("{0} [{1}] has quit"),
+                                   String.Empty,
+                                   String.Format("{0}@{1}",
+                                                 e.Data.Ident, e.Data.Host));
+                builder.AppendText(" [");
+                // colors are annoying in quit messages
+                builder.StripColors = true;
+                builder.AppendMessage(e.QuitMessage);
+                builder.AppendText("]");
+                var quitMsg = builder.ToMessage();
                 lock (Session.Chats) {
                     foreach (ChatModel chat in Session.Chats) {
                         if (chat.ProtocolManager != this) {
@@ -3409,6 +2982,7 @@ namespace Smuxi.Engine
                         // the FrontendManager
                         Session.SyncChat(chat);
                     }
+                    // group chats are handled in _OnJoin()
                 }
             }
             
@@ -3540,6 +3114,70 @@ namespace Smuxi.Engine
                    command.Length + 1 +
                    target.Length + 2 +
                    _IrcClient.Encoding.GetByteCount(message) + 2;
+        }
+
+        private IrcPersonModel GetPerson(ChatModel chat, string nick)
+        {
+            if (chat == null) {
+                throw new ArgumentNullException("chat");
+            }
+            if (nick == null) {
+                throw new ArgumentNullException("nick");
+            }
+
+            IrcPersonModel person = null;
+            if (chat is GroupChatModel) {
+                var groupChat = (GroupChatModel) chat;
+                person = (IrcPersonModel) groupChat.GetPerson(nick);
+            } else if (chat is PersonChatModel) {
+                var personChat = (PersonChatModel) chat;
+                person = (IrcPersonModel) personChat.Person;
+            }
+
+            if (person == null) {
+#if LOG4NET
+                _Logger.Warn("GetPerson(" + chat + ", " + nick + "): person is null!");
+#endif
+                person = CreatePerson(nick);
+            }
+
+            return person;
+        }
+
+        private IrcPersonModel CreatePerson(string nick)
+        {
+            return CreatePerson(nick, null, null, null);
+        }
+
+        private IrcPersonModel CreatePerson(string nick, string realname,
+                                            string ident, string host)
+        {
+            var person = new IrcPersonModel(nick, realname,ident, host,
+                                            NetworkID, this);
+            if (_IrcClient.IsMe(nick)) {
+                person.IdentityNameColored.ForegroundColor = IrcTextColor.Blue;
+                person.IdentityNameColored.BackgroundColor = TextColor.None;
+                person.IdentityNameColored.Bold = true;
+            }
+            return person;
+        }
+
+        private IrcGroupPersonModel CreateGroupPerson(string nick)
+        {
+            var person = new IrcGroupPersonModel(nick, NetworkID, this);
+            if (_IrcClient.IsMe(nick)) {
+                person.IdentityNameColored.ForegroundColor = IrcTextColor.Blue;
+                person.IdentityNameColored.BackgroundColor = TextColor.None;
+                person.IdentityNameColored.Bold = true;
+            }
+            return person;
+        }
+
+        protected override MessageBuilder CreateMessageBuilder()
+        {
+            var builder = new IrcMessageBuilder();
+            builder.ApplyConfig(Session.UserConfig);
+            return builder;
         }
 
         private static string _(string msg)

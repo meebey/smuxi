@@ -48,6 +48,7 @@ all: $(ASSEMBLY) $(PROGRAMFILES) $(LINUX_PKGCONFIG)
 FILES = \
 	$(top_srcdir)/src/AssemblyVersion.cs \
 	AssemblyInfo.cs \
+	Crc32.cs \
 	ITraceable.cs \
 	Trace.cs \
 	MD5.cs \

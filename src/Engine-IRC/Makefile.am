@@ -62,6 +62,7 @@ all: $(ASSEMBLY) $(PROGRAMFILES) $(LINUX_PKGCONFIG)
 
 FILES = \
 	Protocols/Irc/IrcGroupPersonModel.cs \
+	Protocols/Irc/IrcMessageBuilder.cs \
 	Protocols/Irc/IrcProtocolManager.cs \
 	Protocols/Irc/IrcPersonModel.cs \
 	Protocols/Irc/IrcTextColor.cs \

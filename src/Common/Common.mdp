@@ -2,7 +2,7 @@
   <Configurations active="Debug">
     <Configuration name="Debug" ctype="DotNetProjectConfiguration">
       <Output directory="../../bin/debug" assembly="smuxi-common" />
-      <Build debugmode="False" target="Library" />
+      <Build debugmode="True" target="Library" />
       <Execution consolepause="True" runwithwarnings="False" runtime="MsNet" clr-version="Net_2_0" />
       <CodeGeneration compiler="Mcs" warninglevel="4" optimize="True" unsafecodeallowed="False" generateoverflowchecks="True" definesymbols="DEBUG,TRACE,LOG4NET,NET_2_0,NDESK_OPTIONS" generatexmldocumentation="False" ctype="CSharpCompilerParameters" />
     </Configuration>
@@ -26,6 +26,7 @@
     <File subtype="Code" buildaction="Compile" name="NDesk.Options.cs" />
     <File subtype="Code" buildaction="Compile" name="Platform.cs" />
     <File subtype="Code" buildaction="Compile" name="Pattern.cs" />
+    <File subtype="Code" buildaction="Compile" name="Crc32.cs" />
   </Contents>
   <References>
     <ProjectReference type="Assembly" localcopy="True" refto="../../lib/log4net.dll" />

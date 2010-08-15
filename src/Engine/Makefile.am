@@ -59,7 +59,9 @@ FILES = \
 	TextColor.cs \
 	UICommand.cs \
 	UICommandContainer.cs \
+	Messages/MessageBuilder.cs \
 	Messages/MessageModel.cs \
+	Messages/MessageParser.cs \
 	Messages/MessagePartModel.cs \
 	Messages/TextMessagePartModel.cs \
 	Messages/UrlMessagePartModel.cs \

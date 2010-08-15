@@ -6,7 +6,8 @@ ASSEMBLY_TARGET = $(TARGET_DIR)/$(ASSEMBLY_FILENAME)
 
 SOURCES =	$(top_srcdir)/src/AssemblyVersion.cs \
 		AssemblyInfo.cs \
-		Protocols/Twitter/TwitterProtocolManager.cs
+		Protocols/Twitter/TwitterProtocolManager.cs \
+		Protocols/Twitter/TwitterMessageBuilder.cs
 
 REFERENCES = 		$(LOG4NET_LIBS) \
 			$(SMARTIRC4NET_LIBS) \

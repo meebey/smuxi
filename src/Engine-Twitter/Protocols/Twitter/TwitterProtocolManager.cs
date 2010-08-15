@@ -1,8 +1,6 @@
-// $Id$
-// 
 // Smuxi - Smart MUltipleXed Irc
 // 
-// Copyright (c) 2009 Mirco Bauer <meebey@meebey.net>
+// Copyright (c) 2009-2010 Mirco Bauer <meebey@meebey.net>
 // 
 // Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
 // 
@@ -48,7 +46,7 @@ namespace Smuxi.Engine
         TwitterUser             f_TwitterUser;
         string                  f_Username;
         ProtocolChatModel       f_ProtocolChat;
-        List<PersonModel>       f_Friends;
+        Dictionary<string, PersonModel> f_Friends;
         List<GroupChatModel>    f_GroupChats = new List<GroupChatModel>();
 
         GroupChatModel          f_FriendsTimelineChat;
@@ -353,13 +351,7 @@ namespace Smuxi.Engine
             }
 
             TwitterUser user = f_Twitter.User.Show(userId);
-            PersonModel person = new PersonModel(
-                user.ID.ToString(),
-                user.ScreenName,
-                NetworkID,
-                Protocol,
-                this
-            );
+            PersonModel person = CreatePerson(user);
             PersonChatModel personChat = new PersonChatModel(
                 person,
                 user.ID.ToString(),
@@ -600,7 +592,7 @@ namespace Smuxi.Engine
 
                 // populate friend list
                 lock (f_Friends) {
-                    foreach (PersonModel friend in f_Friends) {
+                    foreach (PersonModel friend in f_Friends.Values) {
                         f_FriendsTimelineChat.UnsafePersons.Add(friend.ID, friend);
                     }
                 }
@@ -671,7 +663,7 @@ namespace Smuxi.Engine
             foreach (TwitterStatus status in sortedTimeline) {
                 MessageModel msg = CreateMessage(
                     status.Created,
-                    status.TwitterUser.ScreenName,
+                    status.TwitterUser,
                     status.Text
                 );
                 Session.AddMessageToChat(f_FriendsTimelineChat, msg);
@@ -692,7 +684,7 @@ namespace Smuxi.Engine
 
                 // populate friend list
                 lock (f_Friends) {
-                    foreach (PersonModel friend in f_Friends) {
+                    foreach (PersonModel friend in f_Friends.Values) {
                         f_RepliesChat.UnsafePersons.Add(friend.ID, friend);
                     }
                 }
@@ -763,7 +755,7 @@ namespace Smuxi.Engine
             foreach (TwitterStatus status in sortedTimeline) {
                 MessageModel msg = CreateMessage(
                     status.Created,
-                    status.TwitterUser.ScreenName,
+                    status.TwitterUser,
                     status.Text,
                     highlight
                 );
@@ -785,7 +777,7 @@ namespace Smuxi.Engine
 
                 // populate friend list
                 lock (f_Friends) {
-                    foreach (PersonModel friend in f_Friends) {
+                    foreach (PersonModel friend in f_Friends.Values) {
                         f_DirectMessagesChat.UnsafePersons.Add(friend.ID, friend);
                     }
                 }
@@ -891,7 +883,7 @@ namespace Smuxi.Engine
                                  f_LastDirectMessageReceivedStatusID != null;
                 MessageModel msg = CreateMessage(
                     status.Created,
-                    status.TwitterUser.ScreenName,
+                    status.TwitterUser,
                     status.Text,
                     highlight
                 );
@@ -952,16 +944,10 @@ namespace Smuxi.Engine
                 return;
             }
 
-            List<PersonModel> persons = new List<PersonModel>(friends.Count);
+            var persons = new Dictionary<string, PersonModel>(friends.Count);
             foreach (TwitterUser friend in friends) {
-                PersonModel person = new PersonModel(
-                    friend.ID.ToString(),
-                    friend.ScreenName,
-                    NetworkID,
-                    Protocol,
-                    this
-                );
-                persons.Add(person);
+                var person = CreatePerson(friend);
+                persons.Add(person.ID, person);
             }
             f_Friends = persons;
         }
@@ -977,48 +963,27 @@ namespace Smuxi.Engine
 #endif
         }
 
-        protected override TextColor GetIdentityNameColor(string identityName)
-        {
-            if (identityName == f_TwitterUser.ScreenName) {
-                return f_BlueTextColor;
-            }
-
-            return base.GetIdentityNameColor(identityName);
-        }
-
-        private MessageModel CreateMessage(DateTime when, string from,
+        private MessageModel CreateMessage(DateTime when, TwitterUser from,
                                            string message)
         {
             return CreateMessage(when, from, message, false);
         }
 
-        private MessageModel CreateMessage(DateTime when, string from,
+        private MessageModel CreateMessage(DateTime when, TwitterUser from,
                                            string message, bool highlight)
         {
-            MessageModel msg = new MessageModel();
-            TextMessagePartModel msgPart;
-            msg.TimeStamp = when;
+            if (from == null) {
+                throw new ArgumentNullException("from");
+            }
+            if (message == null) {
+                throw new ArgumentNullException("message");
+            }
 
-            msgPart = new TextMessagePartModel();
-            msgPart.Text = "<";
-            msg.MessageParts.Add(msgPart);
-
-            msgPart = new TextMessagePartModel();
-            msgPart.Text = from;
-            msgPart.ForegroundColor = GetIdentityNameColor(from);
-            msg.MessageParts.Add(msgPart);
-
-            msgPart = new TextMessagePartModel();
-            msgPart.Text = "> ";
-            msg.MessageParts.Add(msgPart);
-
-            msgPart = new TextMessagePartModel(HttpUtility.HtmlDecode(message));
-            msgPart.IsHighlight = highlight;
-            msg.MessageParts.Add(msgPart);
-
-            ParseUrls(msg);
-
-            return msg;
+            var builder = CreateMessageBuilder();
+            builder.TimeStamp = when;
+            builder.AppendSenderPrefix(GetPerson(from), highlight);
+            builder.AppendMessage(message);
+            return builder.ToMessage();
         }
 
         private void PostUpdate(string text)
@@ -1114,6 +1079,46 @@ namespace Smuxi.Engine
                 default:
                     throw exception;
             }
+        }
+
+        private PersonModel GetPerson(TwitterUser user)
+        {
+            if (user == null) {
+                throw new ArgumentNullException("user");
+            }
+
+            PersonModel person;
+            if (!f_Friends.TryGetValue(user.ID.ToString(), out person)) {
+                return CreatePerson(user);
+            }
+            return person;
+        }
+
+        private PersonModel CreatePerson(TwitterUser user)
+        {
+            if (user == null) {
+                throw new ArgumentNullException("user");
+            }
+
+            var person = new PersonModel(
+                user.ID.ToString(),
+                user.ScreenName,
+                NetworkID,
+                Protocol,
+                this
+            );
+            if (f_TwitterUser != null &&
+                f_TwitterUser.ScreenName == user.ScreenName) {
+                person.IdentityNameColored.ForegroundColor = f_BlueTextColor;
+            }
+            return person;
+        }
+
+        protected override MessageBuilder CreateMessageBuilder()
+        {
+            var builder = new TwitterMessageBuilder();
+            builder.ApplyConfig(Session.UserConfig);
+            return builder;
         }
 
         private static string _(string msg)

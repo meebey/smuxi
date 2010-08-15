@@ -39,6 +39,7 @@ namespace Smuxi.Engine
         public static readonly TextColor None  = new TextColor();
         public static readonly TextColor Black = new TextColor(0, 0, 0);
         public static readonly TextColor White = new TextColor(255, 255, 255);
+        public static readonly TextColor Grey  = new TextColor(128, 128, 128);
         
         private int f_Value;
         
@@ -82,6 +83,11 @@ namespace Smuxi.Engine
             f_Value = value;
         }
         
+        public TextColor(uint value)
+        {
+            f_Value = checked((int) value);
+        }
+
         public TextColor(byte red, byte green, byte blue)
         {
             f_Value = red << 16 | green << 8 | blue;

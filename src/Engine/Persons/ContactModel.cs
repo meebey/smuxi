@@ -7,7 +7,7 @@
  *
  * Smuxi - Smart MUltipleXed Irc
  *
- * Copyright (c) 2005-2006 Mirco Bauer <meebey@meebey.net>
+ * Copyright (c) 2005-2006, 2010 Mirco Bauer <meebey@meebey.net>
  *
  * Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
  *
@@ -27,7 +27,9 @@
  */
 
 using System;
+using System.Text;
 using System.Runtime.Serialization;
+using System.Security.Cryptography;
 using Smuxi.Common;
 
 namespace Smuxi.Engine
@@ -39,7 +41,8 @@ namespace Smuxi.Engine
         private string          _IdentityName;
         private string          _NetworkID;
         private string          _NetworkProtocol;
-        
+        private TextMessagePartModel _IdentityNameColored;
+
         public string ID {
             get {
                 return _ID;
@@ -52,6 +55,19 @@ namespace Smuxi.Engine
             }
             set {
                 _IdentityName = value;
+            }
+        }
+
+        public TextMessagePartModel IdentityNameColored {
+            get {
+                if (_IdentityNameColored == null) {
+                    _IdentityNameColored = GetColoredIdentityName(_IdentityName,
+                                                                  null);
+                }
+                return _IdentityNameColored;
+            }
+            set {
+                _IdentityNameColored = value;
             }
         }
         
@@ -135,7 +151,41 @@ namespace Smuxi.Engine
             sw.Write(_NetworkID);
             sw.Write(_NetworkProtocol);
         }
-        
+
+        protected virtual TextMessagePartModel GetColoredIdentityName(
+            string idendityName, string normalized)
+        {
+            var name =  new TextMessagePartModel(idendityName);
+            if (normalized == null) {
+                normalized = idendityName;
+            }
+
+            var crc = new Crc32();
+            crc.ComputeHash(Encoding.UTF8.GetBytes(normalized));
+            var hash = crc.CrcValue;
+            var upper24 = hash >> 8;
+            /*
+            var lower24 = hash & 0xFFFFFFU;
+            var merged = upper24 ^ lower24;
+            var rotated = (hash >> 16) | ((hash & 0xFFFFU) << 16);
+            */
+            uint flippedHash = (hash >> 16) | (hash << 16);
+            var flippedMergedHash = (flippedHash >> 8) ^ (flippedHash & 0xFFFFFFU);
+            name.ForegroundColor = new TextColor(upper24);
+            name.BackgroundColor = new TextColor(flippedMergedHash);
+
+            /*
+            MD5CryptoServiceProvider csp = new MD5CryptoServiceProvider();
+            var md5hash = csp.ComputeHash(Encoding.UTF8.GetBytes(normalized));
+            var fgHash = BitConverter.ToUInt32(md5hash, 0);
+            var bgHash = BitConverter.ToUInt32(md5hash, 4);
+            name.ForegroundColor = new TextColor(fgHash >> 8);
+            name.BackgroundColor = new TextColor(bgHash >> 8);
+            */
+
+            return name;
+        }
+
         public virtual string ToTraceString()
         {
             return _NetworkID + "/" + _IdentityName; 

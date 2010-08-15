@@ -19,6 +19,8 @@
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA
 
 using System;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 using NUnit.Framework;
 
 namespace Smuxi.Engine
@@ -66,7 +68,7 @@ namespace Smuxi.Engine
             msgB.Compact();
             Assert.AreEqual(2, msg.MessageParts.Count);
             Assert.AreEqual(msgA, msgB);
-            
+
             msg = new MessageModel();
             msg.MessageParts.Add(new TextMessagePartModel("foo "));
             msg.MessageParts.Add(new UrlMessagePartModel("http://foo.tld"));
@@ -99,6 +101,90 @@ namespace Smuxi.Engine
             textPart = (TextMessagePartModel) msg.MessageParts[4];
             Assert.AreEqual(" real good", textPart.Text);
             Assert.IsFalse(textPart.IsHighlight);
+        }
+
+        [Test]
+        public void CompactBenchmark()
+        {
+            var formatter = new BinaryFormatter();
+            var topic = "Smuxi the IRC client for sophisticated users: http://smuxi.org/ | Smuxi 0.7.2.2 'Lovegood' released (2010-07-27) http://bit.ly/9nvsZF | FAQ: http://smuxi.org/faq/ | Deutsch? -> #smuxi.de | Español? -> #smuxi.es | Smuxi @ FOSDEM 2010 talk: http://bit.ly/anHJfm";
+            var msg = new MessageModel(topic) {
+                IsCompactable = false
+            };
+            MessageParser.ParseUrls(msg);
+
+            var stream = new MemoryStream(1024);
+            formatter.Serialize(stream, msg);
+            Console.WriteLine("Parts: " + msg.MessageParts.Count);
+            Console.WriteLine("Size: " + stream.Length);
+
+            msg.Compact();
+            stream = new MemoryStream(1024);
+            formatter.Serialize(stream, msg);
+            Console.WriteLine("Compacted Parts: " + msg.MessageParts.Count);
+            Console.WriteLine("Compacted Size: " + stream.Length);
+
+
+            // regular message without URL
+            // <meebey> solange eine message aber keine url hat ist der vorteil nur gering (wenn ueberhaupt)
+            msg = new MessageModel() {
+                IsCompactable = false
+            };
+            msg.MessageParts.Add(new TextMessagePartModel("<"));
+            msg.MessageParts.Add(
+                new TextMessagePartModel(
+                    TextColor.White, null, false, false, false, "meebey"
+                )
+            );
+            msg.MessageParts.Add(new TextMessagePartModel("> "));
+            msg.MessageParts.Add(
+                new TextMessagePartModel(
+                    "solange eine message aber keine url hat ist der " +
+                    "vorteil nur gering (wenn ueberhaupt)"
+                )
+            );
+            stream = new MemoryStream(1024);
+            formatter.Serialize(stream, msg);
+            Console.WriteLine("Parts: " + msg.MessageParts.Count);
+            Console.WriteLine("Size: " + stream.Length);
+
+            msg.Compact();
+            stream = new MemoryStream(1024);
+            formatter.Serialize(stream, msg);
+            Console.WriteLine("Compacted Parts: " + msg.MessageParts.Count);
+            Console.WriteLine("Compacted Size: " + stream.Length);
+
+
+            // regular short message with URL
+            // <meebey> http://www.smuxi.org/issues/show/107 kannst ja watchen
+            msg = new MessageModel() {
+                IsCompactable = false
+            };
+            msg.MessageParts.Add(new TextMessagePartModel("<"));
+            msg.MessageParts.Add(
+                new TextMessagePartModel(
+                    TextColor.White, null, false, false, false, "meebey"
+                )
+            );
+            msg.MessageParts.Add(new TextMessagePartModel("> "));
+            msg.MessageParts.Add(
+                new UrlMessagePartModel(
+                    "http://www.smuxi.org/issues/show/107"
+                )
+            );
+            msg.MessageParts.Add(new TextMessagePartModel(" kannst ja watchen"));
+            MessageParser.ParseUrls(msg);
+
+            stream = new MemoryStream(1024);
+            formatter.Serialize(stream, msg);
+            Console.WriteLine("Parts: " + msg.MessageParts.Count);
+            Console.WriteLine("Size: " + stream.Length);
+
+            msg.Compact();
+            stream = new MemoryStream(1024);
+            formatter.Serialize(stream, msg);
+            Console.WriteLine("Compacted Parts: " + msg.MessageParts.Count);
+            Console.WriteLine("Compacted Size: " + stream.Length);
         }
     }
 }

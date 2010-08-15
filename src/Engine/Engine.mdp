@@ -63,6 +63,8 @@
     <File subtype="Code" buildaction="Compile" name="Config/UserListController.cs" />
     <File subtype="Code" buildaction="Compile" name="Config/FilterListController.cs" />
     <File subtype="Code" buildaction="Compile" name="Config/FilterModel.cs" />
+    <File subtype="Code" buildaction="Compile" name="Messages/MessageParser.cs" />
+    <File subtype="Code" buildaction="Compile" name="Messages/MessageBuilder.cs" />
   </Contents>
   <References>
     <ProjectReference type="Assembly" localcopy="True" refto="../../lib/log4net.dll" />
