@@ -48,7 +48,9 @@ namespace Smuxi.Frontend.Gnome
 			global::Gtk.Box.BoxChild w3 = ((global::Gtk.Box.BoxChild)(this.hbox1[this.f_ScrolledWindow]));
 			w3.Position = 0;
 			// Container child hbox1.Gtk.Box+BoxChild
-			this.f_Widget = null;
+			this.f_Widget = new global::Smuxi.Frontend.Gnome.ServerWidget ();
+			this.f_Widget.Events = ((global::Gdk.EventMask)(256));
+			this.f_Widget.Name = "f_Widget";
 			this.hbox1.Add (this.f_Widget);
 			global::Gtk.Box.BoxChild w4 = ((global::Gtk.Box.BoxChild)(this.hbox1[this.f_Widget]));
 			w4.Position = 1;

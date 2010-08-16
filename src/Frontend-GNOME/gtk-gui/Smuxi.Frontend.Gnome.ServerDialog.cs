@@ -22,7 +22,9 @@ namespace Smuxi.Frontend.Gnome
 			w1.Name = "dialog1_VBox";
 			w1.BorderWidth = ((uint)(2));
 			// Container child dialog1_VBox.Gtk.Box+BoxChild
-			this.f_Widget = null;
+			this.f_Widget = new global::Smuxi.Frontend.Gnome.ServerWidget ();
+			this.f_Widget.Events = ((global::Gdk.EventMask)(256));
+			this.f_Widget.Name = "f_Widget";
 			w1.Add (this.f_Widget);
 			global::Gtk.Box.BoxChild w2 = ((global::Gtk.Box.BoxChild)(w1[this.f_Widget]));
 			w2.Position = 0;

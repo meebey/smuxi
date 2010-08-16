@@ -38,7 +38,9 @@ namespace Smuxi.Frontend.Gnome
 			this.table1.ColumnSpacing = ((uint)(6));
 			this.table1.BorderWidth = ((uint)(5));
 			// Container child table1.Gtk.Table+TableChild
-			this.f_ChatTypeWidget = null;
+			this.f_ChatTypeWidget = new global::Smuxi.Frontend.Gnome.ChatTypeWidget ();
+			this.f_ChatTypeWidget.Events = ((global::Gdk.EventMask)(256));
+			this.f_ChatTypeWidget.Name = "f_ChatTypeWidget";
 			this.table1.Add (this.f_ChatTypeWidget);
 			global::Gtk.Table.TableChild w2 = ((global::Gtk.Table.TableChild)(this.table1[this.f_ChatTypeWidget]));
 			w2.LeftAttach = ((uint)(1));
