@@ -1,4 +1,5 @@
 <Project name="Frontend-WPF" fileversion="2.0" DefaultNamespace="FrontendWPF" language="C#" clr-version="Net_2_0" targetFramework="2.0" ctype="DotNetProject">
+  <Deployment.LinuxDeployData scriptName="smuxi-frontend-wpf" />
   <Configurations active="Debug">
     <Configuration name="Debug" ctype="DotNetProjectConfiguration">
       <Output directory="../../bin/debug" assembly="smuxi-frontend-wpf" />
@@ -27,5 +28,4 @@
     <ProjectReference type="Gac" localcopy="True" refto="Mono.Posix, Version=2.0.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756" />
   </References>
   <LanguageParameters ApplicationIcon="." ctype="CSharpProjectParameters" />
-  <Deployment.LinuxDeployData scriptName="smuxi-frontend-wpf" />
 </Project>

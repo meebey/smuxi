@@ -1,4 +1,5 @@
 <Project name="Frontend-Test" fileversion="2.0" DefaultNamespace="FrontendTest" language="C#" clr-version="Net_2_0" targetFramework="2.0" ctype="DotNetProject">
+  <Deployment.LinuxDeployData scriptName="smuxi-frontend-test" />
   <Configurations active="Debug">
     <Configuration name="Debug" ctype="DotNetProjectConfiguration">
       <Output directory="../../bin/debug" assembly="smuxi-frontend-test" />
@@ -27,6 +28,5 @@
     <ProjectReference type="Gac" localcopy="True" refto="System.Runtime.Remoting, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
     <ProjectReference type="Project" localcopy="True" refto="Frontend" />
   </References>
-  <Deployment.LinuxDeployData scriptName="smuxi-frontend-test" />
   <DeploymentInformation strategy="File" />
 </Project>

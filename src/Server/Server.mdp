@@ -1,4 +1,5 @@
 <Project name="Server" fileversion="2.0" DefaultNamespace="Server" language="C#" clr-version="Net_2_0" targetFramework="2.0" ctype="DotNetProject">
+  <Deployment.LinuxDeployData scriptName="smuxi-server" />
   <Configurations active="Debug">
     <Configuration name="Debug" ctype="DotNetProjectConfiguration">
       <Output directory="../../bin/debug" assembly="smuxi-server" assemblyKeyFile="." />
@@ -29,6 +30,5 @@
     <ProjectReference type="Project" localcopy="True" refto="Common" />
   </References>
   <LanguageParameters ApplicationIcon="." ctype="CSharpProjectParameters" />
-  <Deployment.LinuxDeployData scriptName="smuxi-server" />
   <DeploymentInformation strategy="File" />
 </Project>
