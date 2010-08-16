@@ -40,6 +40,7 @@ namespace Smuxi.Frontend.Gnome
 #endif
         //private Gtk.Menu     _QueryTabMenu;
         private TaskQueue f_SwitchPageQueue;
+        private bool      f_IsBrowseModeEnabled;
 
         public ChatView CurrentChatView {
             get {
@@ -53,7 +54,30 @@ namespace Smuxi.Frontend.Gnome
                 CurrentPage = GetPageNumber(value);
             }
         }
-        
+
+        public bool IsBrowseModeEnabled {
+            get {
+                return f_IsBrowseModeEnabled;
+            }
+            set {
+                if (value && !f_IsBrowseModeEnabled) {
+#if LOG4NET
+                    f_Logger.Debug("set_IsBrowseModeEnabled(): enabling browse mode");
+#endif
+                    SwitchPage -= OnBeforeSwitchPage;
+                    SwitchPage -= OnSwitchPage;
+                }
+                if (!value && f_IsBrowseModeEnabled) {
+#if LOG4NET
+                    f_Logger.Debug("set_IsBrowseModeEnabled(): disabling browse mode");
+#endif
+                    SwitchPage += OnBeforeSwitchPage;
+                    SwitchPage += OnSwitchPage;
+                }
+                f_IsBrowseModeEnabled = value;
+            }
+        }
+
         public Notebook() : base ()
         {
             Trace.Call();
@@ -131,7 +155,7 @@ namespace Smuxi.Frontend.Gnome
             // this also breaks the Frontend.ReconnectEngineToGUI() as that one
             // has to cleanup all chats regardless of a working network
             // connection
-            SwitchPage -= OnSwitchPage;
+            IsBrowseModeEnabled = true;
 
             int npages = NPages;
             CurrentPage = 0;
@@ -145,7 +169,7 @@ namespace Smuxi.Frontend.Gnome
             }
 
             // reconnect the event handler
-            SwitchPage += OnSwitchPage;
+            IsBrowseModeEnabled = false;
         }
         
         public void ClearAllActivity()

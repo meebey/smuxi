@@ -360,6 +360,20 @@ namespace Smuxi.Frontend.Gnome
             item.AddAccelerator("activate", agrp, akey);
             menu.Append(item);
             
+            item = new Gtk.CheckMenuItem(_("_Browse Mode"));
+            item.Activated += delegate {
+                try {
+                    _Notebook.IsBrowseModeEnabled = !_Notebook.IsBrowseModeEnabled;
+                } catch (Exception ex) {
+                    Frontend.ShowException(this, ex);
+                }
+            };
+            akey = new Gtk.AccelKey();
+            akey.AccelFlags = Gtk.AccelFlags.Visible;
+            akey.Key = Gdk.Key.F8;
+            item.AddAccelerator("activate", agrp, akey);
+            menu.Append(item);
+
             // Menu - Help
             menu = new Gtk.Menu();
             item = new Gtk.MenuItem(_("_Help"));
