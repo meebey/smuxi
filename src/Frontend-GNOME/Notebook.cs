@@ -73,6 +73,11 @@ namespace Smuxi.Frontend.Gnome
 #endif
                     SwitchPage += OnBeforeSwitchPage;
                     SwitchPage += OnSwitchPage;
+
+                    // HACK: force switch page event
+                    var chat = CurrentChatView;
+                    CurrentChatView = null;
+                    CurrentChatView = chat;
                 }
                 f_IsBrowseModeEnabled = value;
             }
