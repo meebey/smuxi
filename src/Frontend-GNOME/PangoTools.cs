@@ -1,8 +1,7 @@
-// $Id$
-//
 // Smuxi - Smart MUltipleXed Irc
 //
 // Copyright (c) 2010 David Paleino <dapal@debian.org>
+// Copyright (c) 2010 Mirco Bauer <meebey@meebey.net>
 //
 // Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
 //
@@ -84,10 +83,18 @@ namespace Smuxi.Frontend.Gnome
 
                     string str = GLib.Markup.EscapeText(text.Text);
                     if (text.ForegroundColor != TextColor.None) {
+                        TextColor fgColor;
+                        if (bgColor == null) {
+                            fgColor = text.ForegroundColor;
+                        } else {
+                            var bgTextColor = ColorTools.GetTextColor(bgColor.Value);
+                            fgColor = ColorTools.GetBestTextColor(
+                                text.ForegroundColor, bgTextColor);
+                        }
                         tags.Add(String.Format("span color='#{0}'",
-                                                text.ForegroundColor.HexCode));
+                                                fgColor.HexCode));
                     }
-                    // TODO: do contrast checks here like we do in MessageTextView?
+                    
                     if (text.Underline) {
                         tags.Add("u");
                     }
@@ -99,9 +106,17 @@ namespace Smuxi.Frontend.Gnome
                     }
 
                     if (tags.Count > 0) {
+                        tags.Reverse();
                         foreach (string tag in tags) {
-                            str = String.Format("{0}{1}{2}",
-                                "<"+tag+">", str, "</"+tag.Split(' ')[0]+">");
+                            string endTag;
+                            if (tag.Contains(" ")) {
+                                // tag contains attributes, only get tag name
+                                endTag = tag.Split(' ')[0];
+                            } else {
+                                endTag = tag;
+                            }
+                            str = String.Format("<{0}>{1}</{2}>",
+                                                tag, str, endTag);
                         }
                     }
 

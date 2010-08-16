@@ -1,5 +1,3 @@
-// $Id$
-//
 // Smuxi - Smart MUltipleXed Irc
 //
 // Copyright (c) 2010 David Paleino <dapal@debian.org>
@@ -33,6 +31,7 @@ namespace Smuxi.Frontend.Gnome
         public void ToMarkup()
         {
             MessageModel testmodel = new MessageModel();
+            testmodel.IsCompactable = false;
             TextMessagePartModel textmodel;
             UrlMessagePartModel urlmodel;
 
@@ -75,7 +74,7 @@ namespace Smuxi.Frontend.Gnome
             string expected = "normal<span color='#0000FF'>blue</span>" +
                 "<b>bold</b><b>bold2</b>normal<u>underline</u>" +
                 "<span color='#00FF00'><u><b><i>combined</i></b></u></span>" +
-                "<span color='darkblue'><u>http://www.smuxi.org</u></span>normal";
+                "<span color='#00008B'><u>http://www.smuxi.org</u></span>normal";
             string tested = PangoTools.ToMarkup(testmodel);
 
             Assert.AreEqual(expected, tested);
