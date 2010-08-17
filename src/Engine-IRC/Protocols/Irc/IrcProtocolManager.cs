@@ -123,6 +123,15 @@ namespace Smuxi.Engine
             }
         }
 
+        private IrcPersonModel MyPerson {
+            get {
+                if (_MyPerson == null) {
+                    _MyPerson = CreatePerson(_IrcClient.Nickname);
+                }
+                return _MyPerson;
+            }
+        }
+        
         public IrcProtocolManager(Session session) : base(session)
         {
             Trace.Call(session);
@@ -175,9 +184,9 @@ namespace Smuxi.Engine
         {
             if (e.WhoInfo.Nick == _IrcClient.Nickname) {
                 // that's me!
-                _MyPerson.Ident = e.WhoInfo.Ident;
-                _MyPerson.Host = e.WhoInfo.Host;
-                _MyPerson.RealName = e.WhoInfo.Realname;
+                MyPerson.Ident = e.WhoInfo.Ident;
+                MyPerson.Host = e.WhoInfo.Host;
+                MyPerson.RealName = e.WhoInfo.Realname;
             }
         }
 
@@ -852,7 +861,7 @@ namespace Smuxi.Engine
             _IrcClient.SendMessage(SendType.Message, chat.ID, message);
 
             var builder = CreateMessageBuilder();
-            builder.AppendSenderPrefix(_MyPerson);
+            builder.AppendSenderPrefix(MyPerson);
             Match m = Regex.Match(message, String.Format(@"^@(?<nick>\S+)|^(?<nick>\S+)(?:\:|,)"));
             if (m.Success) {
                 // this is probably a reply with a nickname
@@ -1754,7 +1763,7 @@ namespace Smuxi.Engine
 
             var builder = CreateMessageBuilder();
             builder.AppendAction();
-            builder.AppendIdendityName(_MyPerson);
+            builder.AppendIdendityName(MyPerson);
             builder.AppendText(" ");
             builder.AppendMessage(cd.Parameter);
             Session.AddMessageToChat(cd.Chat, builder.ToMessage(), true);
@@ -2740,8 +2749,8 @@ namespace Smuxi.Engine
             _Logger.Debug("_OnNickChange() e.OldNickname: "+e.OldNickname+" e.NewNickname: "+e.NewNickname);
 #endif
             if (e.Data.Irc.IsMe(e.NewNickname)) {
-                _MyPerson = CreatePerson(e.NewNickname, _MyPerson.RealName,
-                                         _MyPerson.Ident, _MyPerson.Host);
+                _MyPerson = CreatePerson(e.NewNickname, MyPerson.RealName,
+                                         MyPerson.Ident, MyPerson.Host);
 
                 var builder = CreateMessageBuilder();
                 builder.AppendEventPrefix();
@@ -3137,8 +3146,8 @@ namespace Smuxi.Engine
                 var personChat = (PersonChatModel) chat;
                 if (nick == personChat.Person.ID) {
                     person = (IrcPersonModel) personChat.Person;
-                } else if (nick == _IrcClient.Nickname) {
-                    person = _MyPerson;
+                } else if (nick == MyPerson.ID) {
+                    person = MyPerson;
                 }
             }
 
