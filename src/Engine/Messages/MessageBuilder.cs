@@ -124,6 +124,12 @@ namespace Smuxi.Engine
         public virtual MessageBuilder AppendText(string text,
                                                  params object[] args)
         {
+            msg = msg ?? "";
+
+            if (msg.Length == 0) {
+                return this;
+            }
+
             var textPart = CreateText(text, args);
             return AppendText(textPart);
         }
