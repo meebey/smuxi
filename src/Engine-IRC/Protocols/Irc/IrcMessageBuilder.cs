@@ -53,6 +53,9 @@ namespace Smuxi.Engine
         {
             msg = msg ?? "";
 
+            if (msg.Length == 0)
+                return this;
+
             // strip color and formatting if configured
             if (StripColors) {
                 msg = Regex.Replace(msg, (char)IrcControlCode.Color +
