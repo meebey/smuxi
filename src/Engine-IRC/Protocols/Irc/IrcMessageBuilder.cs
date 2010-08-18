@@ -51,9 +51,7 @@ namespace Smuxi.Engine
 
         public override MessageBuilder AppendMessage(string msg)
         {
-            if (msg == null) {
-                throw new ArgumentNullException("msg");
-            }
+            msg = msg ?? "";
 
             // strip color and formatting if configured
             if (StripColors) {
