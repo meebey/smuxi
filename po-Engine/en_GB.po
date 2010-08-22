@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: smuxi 0.6.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-09 21:43+0100\n"
+"POT-Creation-Date: 2010-08-05 01:46+0200\n"
 "PO-Revision-Date: 2010-01-08 23:46+0100\n"
 "Last-Translator: Ryan Smith-Evans <Kimera.Kimera@gmail.com>\n"
 "Language-Team: English (British)\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../src/Engine/FrontendManager.cs:219
+#: ../src/Engine/FrontendManager.cs:223
 msgid "No network connections"
 msgstr "No network connections"
 
@@ -25,109 +25,132 @@ msgid "Not connected to server"
 msgstr "Not connected to server"
 
 #: ../src/Engine/Protocols/ProtocolManagerBase.cs:158
-#: ../src/Engine/Session.cs:684
+#: ../src/Engine/Session.cs:736
 #, csharp-format
 msgid "Not enough parameters for {0} command"
 msgstr "Not enough parameters for {0} command"
 
-#: ../src/Engine/Session.cs:151
+#: ../src/Engine/Protocols/ProtocolManagerBase.cs:174
+#, fuzzy, csharp-format
+msgid "Connected to {0}"
+msgstr "Not connected to server"
+
+#: ../src/Engine/Protocols/ProtocolManagerBase.cs:196
+#, csharp-format
+msgid "Disconnected from {0}"
+msgstr "Disconnected from {0}"
+
+#: ../src/Engine/Session.cs:154
 msgid "Welcome to Smuxi"
 msgstr "Welcome to Smuxi"
 
-#: ../src/Engine/Session.cs:157
+#: ../src/Engine/Session.cs:160
 msgid "Type /help to get a list of available commands."
 msgstr "Type /help to get a list of available commands."
 
-#: ../src/Engine/Session.cs:160
+#: ../src/Engine/Session.cs:163
 msgid "After you have made a connection the list of available commands changes. Use the /help command again to see the extended command list."
 msgstr "After you have made a connection the list of available commands changes. Use the /help command again to see the extended command list."
 
-#: ../src/Engine/Session.cs:210
+#: ../src/Engine/Session.cs:216
 #, csharp-format
 msgid "Automatic connect to {0} failed!"
 msgstr "Automatic connect to {0} failed!"
 
 #. TRANSLATOR: this line is used as a label / category for a
 #. list of commands below
-#: ../src/Engine/Session.cs:398
+#: ../src/Engine/Session.cs:407
 msgid "Engine Commands"
 msgstr "Engine Commands"
 
 #: ../src/Engine/Session.cs:510
+msgid "Connect failed!"
+msgstr "Connect failed!"
+
+#: ../src/Engine/Session.cs:540
 #, csharp-format
 msgid "Disconnect failed - could not find server: {0}"
 msgstr "Disconnect failed. Could not find server: {0}"
 
-#: ../src/Engine/Session.cs:546
+#: ../src/Engine/Session.cs:579
+#, fuzzy
+msgid "Reconnect failed!"
+msgstr "Automatic connect to {0} failed!"
+
+#: ../src/Engine/Session.cs:598
 msgid "Configuration reloaded"
 msgstr "Configuration reloaded"
 
-#: ../src/Engine/Session.cs:551
+#: ../src/Engine/Session.cs:603
 msgid "Configuration saved"
 msgstr "Configuration saved"
 
-#: ../src/Engine/Session.cs:555
+#: ../src/Engine/Session.cs:607
 msgid "Invalid parameter for config; use load or save"
 msgstr "Invalid parameter for config. Use load or save"
 
-#: ../src/Engine/Session.cs:585
+#: ../src/Engine/Session.cs:637
 msgid "Invalid parameter for network; use list, switch, or close"
 msgstr "Invalid parameter for network. Use list, switch or close"
 
-#: ../src/Engine/Session.cs:596
+#: ../src/Engine/Session.cs:648
 msgid "Networks"
 msgstr "Networks"
 
-#: ../src/Engine/Session.cs:600
+#: ../src/Engine/Session.cs:652
 msgid "Type"
 msgstr "Type"
 
-#: ../src/Engine/Session.cs:601
+#: ../src/Engine/Session.cs:653
 msgid "Host"
 msgstr "Host"
 
-#: ../src/Engine/Session.cs:602
+#: ../src/Engine/Session.cs:654
 msgid "Port"
 msgstr "Port"
 
-#: ../src/Engine/Session.cs:624
+#: ../src/Engine/Session.cs:676
 #, csharp-format
 msgid "Network close failed - could not find network with host: {0}"
 msgstr "Network close failed. Could not find network with host: {0}"
 
-#: ../src/Engine/Session.cs:658
+#: ../src/Engine/Session.cs:710
 #, csharp-format
 msgid "Network switch failed - could not find network with host: {0}"
 msgstr "Network switch failed. Could not find network with host: {0}"
 
-#: ../src/Engine/Session.cs:673
+#: ../src/Engine/Session.cs:725
 msgid "Not connected to any network"
 msgstr "Not connected to any network"
 
-#: ../src/Engine/Session.cs:962
+#. just in case the ProtocolManager is not setting the
+#. protocol chat
+#: ../src/Engine/Session.cs:1052
+msgid "Connect failed."
+msgstr "Connection failed."
+
+#: ../src/Engine/Session.cs:1083
 #, csharp-format
 msgid "No protocol manager found for the protocol: {0}"
 msgstr "No protocol manager found for the protocol: {0}"
 
-#: ../src/Engine/Session.cs:985
-#, csharp-format
-msgid "Unknown protocol: {0}"
-msgstr "Unknown protocol: {0}"
-
-#: ../src/Engine/Config/UserListController.cs:112
+#: ../src/Engine/Config/UserListController.cs:117
 msgid "Username must not be empty."
 msgstr "Username must not be empty."
 
-#: ../src/Engine/Config/UserListController.cs:122
+#: ../src/Engine/Config/UserListController.cs:127
 msgid "Password must not be empty."
 msgstr "Password must not be empty."
 
-#: ../src/Engine/Config/UserListController.cs:131
+#: ../src/Engine/Config/UserListController.cs:136
 #, csharp-format
 msgid "User \"{0}\" doesn't exist."
 msgstr "User \"{0}\" doesn't exist."
 
-#: ../src/Engine/Config/UserListController.cs:140
+#: ../src/Engine/Config/UserListController.cs:145
 #, csharp-format
 msgid "User \"{0}\" already exists."
 msgstr "User \"{0}\" already exists."
+
+#~ msgid "Unknown protocol: {0}"
+#~ msgstr "Unknown protocol: {0}"
