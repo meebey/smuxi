@@ -2056,6 +2056,8 @@ namespace Smuxi.Engine
             switch (e.Data.ReplyCode) {
                 case ReplyCode.Null:
                 case ReplyCode.Away: // already handled via _OnAway()
+                case ReplyCode.NowAway: // already handled via _OnNowAway()
+                case ReplyCode.UnAway: // already handled via _OnUnAway()
                 case (ReplyCode) 329: // RPL_CREATIONTIME
                 case (ReplyCode) 333: // RPL_TOPICWHOTIME: who set topic + timestamp
                     // ignore
