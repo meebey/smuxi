@@ -54,6 +54,7 @@ FILES = \
 	FrontendManager.cs \
 	IFrontendUI.cs \
 	PermanentRemoteObject.cs \
+	PresenceStatus.cs \
 	Session.cs \
 	SessionManager.cs \
 	TextColor.cs \

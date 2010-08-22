@@ -65,6 +65,7 @@
     <File subtype="Code" buildaction="Compile" name="Config/FilterModel.cs" />
     <File subtype="Code" buildaction="Compile" name="Messages/MessageParser.cs" />
     <File subtype="Code" buildaction="Compile" name="Messages/MessageBuilder.cs" />
+    <File subtype="Code" buildaction="Compile" name="PresenceStatus.cs" />
   </Contents>
   <References>
     <ProjectReference type="Assembly" localcopy="True" refto="../../lib/log4net.dll" />

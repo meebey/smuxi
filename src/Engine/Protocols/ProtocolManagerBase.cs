@@ -44,7 +44,8 @@ namespace Smuxi.Engine
         private string          _Host;
         private int             _Port;
         private bool            _IsConnected;
-        
+        private PresenceStatus  _PresenceStatus;
+
         public event EventHandler Connected;
         public event EventHandler Disconnected;
         
@@ -75,6 +76,16 @@ namespace Smuxi.Engine
             }
         }
         
+        public virtual PresenceStatus PresenceStatus {
+            get {
+                return _PresenceStatus;
+            }
+            set {
+                _PresenceStatus = value;
+                SetPresenceStatus(value, null);
+            }
+        }
+
         public abstract string NetworkID {
             get;
         }
@@ -86,7 +97,7 @@ namespace Smuxi.Engine
         public abstract ChatModel Chat {
             get;
         }
-        
+
         public virtual IList<ChatModel> Chats {
             get {
                 IList<ChatModel> chats = new List<ChatModel>();
@@ -137,7 +148,10 @@ namespace Smuxi.Engine
         public abstract IList<GroupChatModel> FindGroupChats(GroupChatModel filter);
         public abstract void OpenChat(FrontendManager fm, ChatModel chat);
         public abstract void CloseChat(FrontendManager fm, ChatModel chat);
-        
+
+        public abstract void SetPresenceStatus(PresenceStatus status,
+                                               string message);
+
         protected void NotConnected(CommandModel cmd)
         {
             cmd.FrontendManager.AddTextToChat(
@@ -178,6 +192,8 @@ namespace Smuxi.Engine
                 )
             );
 
+            _PresenceStatus = PresenceStatus.Online;
+
             Session.UpdateNetworkStatus();
 
             if (Connected != null) {
@@ -200,8 +216,10 @@ namespace Smuxi.Engine
                 )
             );
 
-            Session.UpdateNetworkStatus();
+            _PresenceStatus = PresenceStatus.Offline;
 
+            Session.UpdateNetworkStatus();
+            
             if (Disconnected != null) {
                 Disconnected(this, e);
             }

@@ -61,6 +61,10 @@ namespace Smuxi.Engine
             get;
         }
         
+        PresenceStatus PresenceStatus {
+            get;
+        }
+
         void Connect(FrontendManager frontendManager, string hostname, int port, string username, string password);
         void Disconnect(FrontendManager frontendManager);
         void Reconnect(FrontendManager frontendManager);
@@ -74,5 +78,7 @@ namespace Smuxi.Engine
         IList<GroupChatModel> FindGroupChats(GroupChatModel filter);
         void OpenChat(FrontendManager fm, ChatModel chat);
         void CloseChat(FrontendManager fm, ChatModel chat);
+
+        void SetPresenceStatus(PresenceStatus status, string message);
     }
 }

@@ -164,6 +164,15 @@ namespace Smuxi.Engine
             throw new NotImplementedException();
         }
         
+
+        public override void SetPresenceStatus(PresenceStatus status,
+                                               string message)
+        {
+            Trace.Call(status, message);
+
+            // TODO: implement me
+        }
+
         public override bool Command(CommandModel command)
         {
             Trace.Call(command);

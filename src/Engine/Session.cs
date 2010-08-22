@@ -257,6 +257,8 @@ namespace Smuxi.Engine
             f_Logger.Debug("DeregisterFrontendUI(fm): disposing FrontendManager");
 #endif
             fm.Dispose();
+
+            CheckPresenceStatus();
         }
         
         public void DeregisterFrontendUI(IFrontendUI ui)
@@ -286,6 +288,8 @@ namespace Smuxi.Engine
 #endif
                 manager.Dispose();
             }
+
+            CheckPresenceStatus();
         }
         
         public FrontendManager GetFrontendManager(IFrontendUI ui)
@@ -1220,6 +1224,37 @@ namespace Smuxi.Engine
                 _Filters = _FilterListController.GetFilterList().Values;
             }
        }
+
+        public void CheckPresenceStatus()
+        {
+            Trace.Call();
+
+            var newStatus = PresenceStatus.Unknown;
+            var newMessage = String.Empty;
+            lock (_FrontendManagers) {
+                if (_FrontendManagers.Count == 0) {
+                    newStatus = PresenceStatus.Away;
+                    newMessage = "away from keyboard";
+                } else {
+                    newStatus = PresenceStatus.Online;
+                }
+            }
+
+            if (newStatus == PresenceStatus.Unknown) {
+                return;
+            }
+
+            UpdatePresenceStatus(newStatus, newMessage);
+        }
+
+        void UpdatePresenceStatus(PresenceStatus status, string message)
+        {
+            lock (_ProtocolManagers) {
+                foreach (var manager in _ProtocolManagers) {
+                    manager.SetPresenceStatus(status, message);
+                }
+            }
+        }
 
         private static string _(string msg)
         {

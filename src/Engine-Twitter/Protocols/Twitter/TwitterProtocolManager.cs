@@ -395,6 +395,16 @@ namespace Smuxi.Engine
             Session.RemoveChat(chat);
         }
 
+        public override void SetPresenceStatus(PresenceStatus status,
+                                               string message)
+        {
+            Trace.Call(status, message);
+
+            // TODO: implement me
+
+            // should we send updates here?!?
+        }
+
         public override bool Command(CommandModel command)
         {
             bool handled = false;

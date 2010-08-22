@@ -497,6 +497,29 @@ namespace Smuxi.Engine
             }
         }
         
+        public override void SetPresenceStatus(PresenceStatus status,
+                                               string message)
+        {
+            Trace.Call(status, message);
+
+            if (!_IrcClient.IsConnected) {
+                return;
+            }
+
+            switch (status) {
+                case PresenceStatus.Online:
+                    _IrcClient.RfcAway();
+                    break;
+                case PresenceStatus.Away:
+                    if (String.IsNullOrEmpty(message)) {
+                        // HACK: empty away message unsets away state on IRC
+                        message = "away";
+                    }
+                    _IrcClient.RfcAway(message);
+                    break;
+            }
+        }
+
         public override bool Command(CommandModel command)
         {
             Trace.Call(command);

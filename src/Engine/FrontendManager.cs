@@ -180,6 +180,8 @@ namespace Smuxi.Engine
             }
             
             _IsFrontendSynced = true;
+
+            _Session.CheckPresenceStatus();
         }
         
         public void AddSyncedChat(ChatModel chatModel)

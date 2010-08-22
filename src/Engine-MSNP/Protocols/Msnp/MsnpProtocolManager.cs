@@ -39,6 +39,7 @@ using XihSolutions.DotMSN.Core;
 */
 using MSNPSharp;
 using MSNPSharp.Core;
+using MsnPresenceStatus = MSNPSharp.PresenceStatus;
 using Smuxi.Common;
 
 namespace Smuxi.Engine
@@ -186,7 +187,15 @@ namespace Smuxi.Engine
             
             throw new NotImplementedException();
         }
-        
+
+        public override void SetPresenceStatus(PresenceStatus status,
+                                               string message)
+        {
+            Trace.Call(status, message);
+
+            // TODO: implement me
+        }
+
         public override bool Command(CommandModel command)
         {
             bool handled = false;
@@ -384,7 +393,7 @@ namespace Smuxi.Engine
             Session.AddTextToChat(_NetworkChat, "-!- Signed into MSN.");
             _Conversation = _MsnClient.CreateConversation();
             _Conversation.Switchboard.TextMessageReceived += new TextMessageReceivedEventHandler(TextMessageReceived);    
-            _MsnClient.Owner.Status = PresenceStatus.Online;
+            _MsnClient.Owner.Status = MsnPresenceStatus.Online;
             _MsnClient.Owner.Name = "Test";
         }
         
