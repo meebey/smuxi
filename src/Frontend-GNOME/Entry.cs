@@ -209,6 +209,15 @@ namespace Smuxi.Frontend.Gnome
             */
 #endif
 
+            try {
+                ProcessKey(e);
+            } catch (Exception ex) {
+                Frontend.ShowException(ex);
+            }
+        }
+        
+        protected virtual void ProcessKey(Gtk.KeyPressEventArgs e)
+        {
             int keynumber = (int)e.Event.KeyValue;
             Gdk.Key key = e.Event.Key;
             if ((e.Event.State & Gdk.ModifierType.ControlMask) != 0) {
