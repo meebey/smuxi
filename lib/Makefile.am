@@ -1,1 +1,2 @@
-SUBDIRS = Twitterizer.Framework
+SUBDIRS =	Twitterizer.Framework \
+		SmartIrc4net

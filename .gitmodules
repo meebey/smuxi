@@ -1,0 +1,3 @@
+[submodule "lib/SmartIrc4net"]
+	path = lib/SmartIrc4net
+	url = git://git.qnetp.net/smartirc4net.git

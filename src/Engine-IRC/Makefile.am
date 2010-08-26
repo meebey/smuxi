@@ -48,12 +48,14 @@ AL=al2
 SATELLITE_ASSEMBLY_NAME=.resources.dll
 
 PROGRAMFILES = \
-	$(SMUXI_ENGINE_DLL_MDB) \
 	$(LOG4NET_DLL) \
 	$(NINI_DLL) \
+	$(SMARTIRC4NET_DLL) \
+	$(SMARTIRC4NET_DLL_MDB) \
+	$(SMUXI_COMMON_DLL) \
+	$(SMUXI_COMMON_DLL_MDB) \
 	$(SMUXI_ENGINE_DLL) \
-	$(MEEBEY_SMARTIRC4NET_DLL) \
-	$(SMUXI_COMMON_DLL)  
+	$(SMUXI_ENGINE_DLL_MDB)
 
 LINUX_PKGCONFIG = \
 	$(ENGINE_IRC_PC)  
@@ -76,9 +78,17 @@ RESOURCES =
 EXTRAS = \
 	smuxi-engine-irc.pc.in 
 
+SMARTIRC4NET_LIBS = $(foreach file, $(SMARTIRC4NET_FILES), $(top_builddir)/$(file))
+SMARTIRC4NET_DLL_SOURCE = $(SMARTIRC4NET_LIBS)
+SMARTIRC4NET_DLL = $(foreach file, $(SMARTIRC4NET_FILES), $(BUILD_DIR)/$(shell basename $(file)))
+SMARTIRC4NET_DLL_MDB_SOURCE = $(foreach file, $(SMARTIRC4NET_DLL_SOURCE), $(file).mdb)
+SMARTIRC4NET_DLL_MDB = $(foreach file, $(SMARTIRC4NET_DLL), $(file).mdb)
+
 REFERENCES =  \
 	System \
-	Mono.Posix
+	Mono.Posix \
+	$(SMARTIRC4NET_LIBS) \
+	$(LOG4NET_LIBS)
 
 DLL_REFERENCES =
 
@@ -91,6 +101,8 @@ SMUXI_ENGINE_DLL = $(BUILD_DIR)/smuxi-engine.dll
 SMUXI_COMMON_DLL = $(BUILD_DIR)/smuxi-common.dll
 
 $(eval $(call emit-deploy-wrapper,ENGINE_IRC_PC,smuxi-engine-irc.pc))
+$(eval $(call emit-deploy-target,SMARTIRC4NET_DLL_MDB))
+$(eval $(call emit-deploy-target,SMARTIRC4NET_DLL))
 $(eval $(call emit-deploy-target,SMUXI_ENGINE_DLL_MDB))
 $(eval $(call emit-deploy-target,SMUXI_ENGINE_DLL))
 $(eval $(call emit-deploy-target,SMUXI_COMMON_DLL))
@@ -104,4 +116,4 @@ $(build_resx_resources) : %.resources: %.resx
 
 $(ASSEMBLY) $(ASSEMBLY_MDB): $(build_sources) $(build_resources) $(build_datafiles) $(DLL_REFERENCES) $(PROJECT_REFERENCES) $(build_xamlg_list) $(build_satellite_assembly_list)
 	mkdir -p $(dir $(ASSEMBLY))
-	$(ASSEMBLY_COMPILER_COMMAND) $(ASSEMBLY_COMPILER_FLAGS) -out:$(ASSEMBLY) -target:$(COMPILE_TARGET) $(build_sources_embed) $(build_resources_embed) $(build_references_ref) $(SMARTIRC4NET_LIBS) $(LOG4NET_LIBS)
+	$(ASSEMBLY_COMPILER_COMMAND) $(ASSEMBLY_COMPILER_FLAGS) -out:$(ASSEMBLY) -target:$(COMPILE_TARGET) $(build_sources_embed) $(build_resources_embed) $(build_references_ref)

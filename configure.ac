@@ -2,7 +2,7 @@ AC_PREREQ([2.54])
 AC_INIT([smuxi], [0.7.2.2], [http://www.smuxi.org/issues/new])
 # using the --foreign option makes automake less strict about GNU policy 
 AC_CONFIG_MACRO_DIR([.])
-AM_INIT_AUTOMAKE([foreign])
+AM_INIT_AUTOMAKE([foreign tar-ustar])
 AM_MAINTAINER_MODE
 
 AC_PATH_PROG(PKG_CONFIG, pkg-config, no)
@@ -134,6 +134,7 @@ if test "x$PROFILE" = "xdebug"; then
 else
 	AM_CONDITIONAL(ENABLE_RELEASE, true)
 fi
+AC_SUBST(CSC, "$MCS")
 AC_SUBST(CSC_FLAGS)
 	
 PKG_CHECK_MODULES([LOG4NET], [log4net])
@@ -158,16 +159,13 @@ AC_ARG_ENABLE([engine-irc],
 	AC_HELP_STRING([--enable-engine-irc], [Enable IRC protocol support (default yes)]),
 	ENABLE_ENGINE_IRC=$enableval,
 	ENABLE_ENGINE_IRC=yes
-)
-if test "x$ENABLE_ENGINE_IRC" != "xno"; then
-	PKG_CHECK_MODULES([SMARTIRC4NET], [smartirc4net >= 0.4.5], IRC_SUPPORT=yes, IRC_SUPPORT=no)
-	AC_SUBST(SMARTIRC4NET_LIBS)
-	if test "x$ENABLE_ENGINE_IRC" = "xyes" -a "x$IRC_SUPPORT" != "xyes"; then
-		AC_MSG_ERROR([SmartIrc4net >= 0.4.5 not found])
-	else
-		ENABLE_ENGINE_IRC=$IRC_SUPPORT
+	if test ! -d "$srcdir/lib/SmartIrc4net"; then
+		AC_MSG_ERROR([lib/SmartIrc4net not found])
 	fi
-fi
+	ac_configure_args="$ac_configure_args --disable-pkg-config --disable-pkg-lib --disable-pkg-gac"
+	AC_CONFIG_SUBDIRS([lib/SmartIrc4net])
+	AC_SUBST([SMARTIRC4NET_FILES], "lib/SmartIrc4net/bin/Meebey.SmartIrc4net.dll")
+)
 AM_CONDITIONAL(ENABLE_ENGINE_IRC, test "x$ENABLE_ENGINE_IRC" = "xyes")
 
 AC_ARG_ENABLE([engine-oscar],
