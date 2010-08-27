@@ -1,13 +1,7 @@
 /*
- * $Id$
- * $URL$
- * $Rev$
- * $Author$
- * $Date$
- *
  * Smuxi - Smart MUltipleXed Irc
  *
- * Copyright (c) 2005-2006 Mirco Bauer <meebey@meebey.net>
+ * Copyright (c) 2005-2010 Mirco Bauer <meebey@meebey.net>
  *
  * Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
  *
@@ -33,7 +27,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Globalization; 
 using System.ComponentModel;
-using Mono.Unix;
 using Smuxi.Common;
 using Smuxi.Engine;
 using Smuxi.Frontend;
@@ -66,8 +59,12 @@ namespace Smuxi.Frontend.Gnome
             MethodBase mb = Trace.GetMethodBase();
             Gtk.Application.Invoke(delegate {
                 TraceRemotingCall(mb, chat);
-                
-                _ChatViewManager.AddChat(chat);
+
+                try {
+                    _ChatViewManager.AddChat(chat);
+                } catch (Exception ex) {
+                    Frontend.ShowException(ex);
+                }
             });
         }
         
@@ -109,8 +106,12 @@ namespace Smuxi.Frontend.Gnome
             MethodBase mb = Trace.GetMethodBase();
             Gtk.Application.Invoke(delegate {
                 TraceRemotingCall(mb, epage, fmsg);
-                
-                _AddMessageToChat(epage, fmsg);
+
+                try {
+                    _AddMessageToChat(epage, fmsg);
+                } catch (Exception ex) {
+                    Frontend.ShowException(ex);
+                }
             });
         }
         
@@ -121,8 +122,12 @@ namespace Smuxi.Frontend.Gnome
             MethodBase mb = Trace.GetMethodBase();
             Gtk.Application.Invoke(delegate {
                 TraceRemotingCall(mb, chat);
-                
-                _ChatViewManager.RemoveChat(chat);
+
+                try {
+                    _ChatViewManager.RemoveChat(chat);
+                } catch (Exception ex) {
+                    Frontend.ShowException(ex);
+                }
             });
         }
         
@@ -133,8 +138,12 @@ namespace Smuxi.Frontend.Gnome
             MethodBase mb = Trace.GetMethodBase();
             Gtk.Application.Invoke(delegate {
                 TraceRemotingCall(mb, chat);
-                
-                _ChatViewManager.EnableChat(chat);
+
+                try {
+                    _ChatViewManager.EnableChat(chat);
+                } catch (Exception ex) {
+                    Frontend.ShowException(ex);
+                }
             });
         }
         
@@ -145,8 +154,12 @@ namespace Smuxi.Frontend.Gnome
             MethodBase mb = Trace.GetMethodBase();
             Gtk.Application.Invoke(delegate {
                 TraceRemotingCall(mb, chat);
-                
-                _ChatViewManager.DisableChat(chat);
+
+                try {
+                    _ChatViewManager.DisableChat(chat);
+                } catch (Exception ex) {
+                    Frontend.ShowException(ex);
+                }
             });
         }
         
@@ -158,45 +171,49 @@ namespace Smuxi.Frontend.Gnome
             Gtk.Application.Invoke(delegate {
                 TraceRemotingCall(mb, chatModel);
 
-                ChatView chatView = _ChatViewManager.GetChat(chatModel);
-                if (chatView == null) {
+                try {
+                    ChatView chatView = _ChatViewManager.GetChat(chatModel);
+                    if (chatView == null) {
 #if LOG4NET
-                    _Logger.Fatal(
-                        String.Format(
-                            "SyncChat(): " +
-                            "_ChatViewManager.GetChat(chatModel) " +
-                            "chatModel.Name: {0} returned null!",
-                            chatModel.Name
-                        )
-                    );
+                        _Logger.Fatal(
+                            String.Format(
+                                "SyncChat(): " +
+                                "_ChatViewManager.GetChat(chatModel) " +
+                                "chatModel.Name: {0} returned null!",
+                                chatModel.Name
+                            )
+                        );
 #endif
-                    return;
+                        return;
+                    }
+
+#if LOG4NET
+                    DateTime syncStart = DateTime.UtcNow;
+#endif
+                    chatView.Sync();
+#if LOG4NET
+                    DateTime syncStop = DateTime.UtcNow;
+                    double duration = syncStop.Subtract(syncStart).TotalMilliseconds;
+                    _Logger.Debug("SyncChat() done, syncing took: " + Math.Round(duration) + " ms");
+#endif
+
+                    // maybe a BUG here? should be tell the FrontendManager before we sync?
+                    Frontend.FrontendManager.AddSyncedChat(chatModel);
+
+                    // BUG: doesn't work?!?
+                    chatView.ScrollToEnd();
+
+                    /*
+                    // this hack is bad for local engine users, and doesn't really
+                    // make things better for remote engine users, so it stays disabled for now
+                    // BUG: clearing highlight here is a bad idea, highlight in
+                    // person chats for the first message go lost here!
+                    // no better way currently to fix this, see trac bug #50
+                    chatView.HasHighlight = false;
+                    */
+                } catch (Exception ex) {
+                    Frontend.ShowException(ex);
                 }
-
-#if LOG4NET
-                DateTime syncStart = DateTime.UtcNow;
-#endif
-                chatView.Sync();
-#if LOG4NET
-                DateTime syncStop = DateTime.UtcNow;
-                double duration = syncStop.Subtract(syncStart).TotalMilliseconds;
-                _Logger.Debug("SyncChat() done, syncing took: " + Math.Round(duration) + " ms");
-#endif
-
-                // maybe a BUG here? should be tell the FrontendManager before we sync?
-                Frontend.FrontendManager.AddSyncedChat(chatModel);
-
-                // BUG: doesn't work?!?
-                chatView.ScrollToEnd();
-                
-                /*
-                // this hack is bad for local engine users, and doesn't really
-                // make things better for remote engine users, so it stays disabled for now
-                // BUG: clearing highlight here is a bad idea, highlight in
-                // person chats for the first message go lost here!
-                // no better way currently to fix this, see trac bug #50
-                chatView.HasHighlight = false;
-                */
             });
         }
         
@@ -207,22 +224,26 @@ namespace Smuxi.Frontend.Gnome
             MethodBase mb = Trace.GetMethodBase();
             Gtk.Application.Invoke(delegate {
                 TraceRemotingCall(mb, groupChat, person);
-                
-                GroupChatView groupChatView = (GroupChatView) _ChatViewManager.GetChat(groupChat);
-                if (groupChatView == null) {
+
+                try {
+                    GroupChatView groupChatView = (GroupChatView) _ChatViewManager.GetChat(groupChat);
+                    if (groupChatView == null) {
 #if LOG4NET
-                    _Logger.Fatal(
-                        String.Format(
-                            "AddPersonToGroupChat(): " +
-                            "_ChatViewManager.GetChat(groupChat) " +
-                            "groupChat.Name: {0} returned null!",
-                            groupChat.Name
-                        )
-                    );
+                        _Logger.Fatal(
+                            String.Format(
+                                "AddPersonToGroupChat(): " +
+                                "_ChatViewManager.GetChat(groupChat) " +
+                                "groupChat.Name: {0} returned null!",
+                                groupChat.Name
+                            )
+                        );
 #endif
-                    return;
+                        return;
+                    }
+                    groupChatView.AddPerson(person);
+                } catch (Exception ex) {
+                    Frontend.ShowException(ex);
                 }
-                groupChatView.AddPerson(person);
             });
         }
         
@@ -233,22 +254,26 @@ namespace Smuxi.Frontend.Gnome
             MethodBase mb = Trace.GetMethodBase();
             Gtk.Application.Invoke(delegate {
                 TraceRemotingCall(mb, groupChat, oldPerson, newPerson);
-                
-                GroupChatView groupChatView = (GroupChatView) _ChatViewManager.GetChat(groupChat);
-                if (groupChatView == null) {
+
+                try {
+                    GroupChatView groupChatView = (GroupChatView) _ChatViewManager.GetChat(groupChat);
+                    if (groupChatView == null) {
 #if LOG4NET
-                    _Logger.Fatal(
-                        String.Format(
-                            "UpdatePersonInGroupChat(): " +
-                            "_ChatViewManager.GetChat(groupChat) " +
-                            "groupChat.Name: {0} returned null!",
-                            groupChat.Name
-                        )
-                    );
+                        _Logger.Fatal(
+                            String.Format(
+                                "UpdatePersonInGroupChat(): " +
+                                "_ChatViewManager.GetChat(groupChat) " +
+                                "groupChat.Name: {0} returned null!",
+                                groupChat.Name
+                            )
+                        );
 #endif
-                    return;
+                        return;
+                    }
+                    groupChatView.UpdatePerson(oldPerson, newPerson);
+                } catch (Exception ex) {
+                    Frontend.ShowException(ex);
                 }
-                groupChatView.UpdatePerson(oldPerson, newPerson);
             });
         }
         
@@ -259,22 +284,26 @@ namespace Smuxi.Frontend.Gnome
             MethodBase mb = Trace.GetMethodBase();
             Gtk.Application.Invoke(delegate {
                 TraceRemotingCall(mb, groupChat, topic);
-                
-                GroupChatView groupChatView = (GroupChatView)Frontend.MainWindow.Notebook.GetChat(groupChat);
-                if (groupChatView == null) {
+
+                try {
+                    GroupChatView groupChatView = (GroupChatView)Frontend.MainWindow.Notebook.GetChat(groupChat);
+                    if (groupChatView == null) {
 #if LOG4NET
-                    _Logger.Fatal(
-                        String.Format(
-                            "UpdateTopicInGroupChat(): " +
-                            "_ChatViewManager.GetChat(groupChat) " +
-                            "groupChat.Name: {0} returned null!",
-                            groupChat.Name
-                        )
-                    );
+                        _Logger.Fatal(
+                            String.Format(
+                                "UpdateTopicInGroupChat(): " +
+                                "_ChatViewManager.GetChat(groupChat) " +
+                                "groupChat.Name: {0} returned null!",
+                                groupChat.Name
+                            )
+                        );
 #endif
-                    return;
+                        return;
+                    }
+                    groupChatView.Topic = topic;
+                } catch (Exception ex) {
+                    Frontend.ShowException(ex);
                 }
-                groupChatView.Topic = topic;
             });
         }
         
@@ -285,22 +314,26 @@ namespace Smuxi.Frontend.Gnome
             MethodBase mb = Trace.GetMethodBase();
             Gtk.Application.Invoke(delegate {
                 TraceRemotingCall(mb, groupChat, person);
-            
-                GroupChatView groupChatView = (GroupChatView) _ChatViewManager.GetChat(groupChat);
-                if (groupChatView == null) {
+
+                try {
+                    GroupChatView groupChatView = (GroupChatView) _ChatViewManager.GetChat(groupChat);
+                    if (groupChatView == null) {
 #if LOG4NET
-                    _Logger.Fatal(
-                        String.Format(
-                            "RemovePersonFromGroupChat(): " +
-                            "_ChatViewManager.GetChat(groupChat) " +
-                            "groupChat.Name: {0} returned null!",
-                            groupChat.Name
-                        )
-                    );
+                        _Logger.Fatal(
+                            String.Format(
+                                "RemovePersonFromGroupChat(): " +
+                                "_ChatViewManager.GetChat(groupChat) " +
+                                "groupChat.Name: {0} returned null!",
+                                groupChat.Name
+                            )
+                        );
 #endif
-                    return;
+                        return;
+                    }
+                    groupChatView.RemovePerson(person);
+                } catch (Exception ex) {
+                    Frontend.ShowException(ex);
                 }
-                groupChatView.RemovePerson(person);
             });
         }
         
@@ -311,8 +344,13 @@ namespace Smuxi.Frontend.Gnome
             MethodBase mb = Trace.GetMethodBase();
             Gtk.Application.Invoke(delegate {
                 TraceRemotingCall(mb, status);
-                Frontend.MainWindow.NetworkStatusbar.Push(0, status);
-                Frontend.MainWindow.UpdateTitle(null, status);
+
+                try {
+                    Frontend.MainWindow.NetworkStatusbar.Push(0, status);
+                    Frontend.MainWindow.UpdateTitle(null, status);
+                } catch (Exception ex) {
+                    Frontend.ShowException(ex);
+                }
             });
         }
         
@@ -323,15 +361,15 @@ namespace Smuxi.Frontend.Gnome
             MethodBase mb = Trace.GetMethodBase();
             Gtk.Application.Invoke(delegate {
                 TraceRemotingCall(mb, status);
-                Frontend.MainWindow.Statusbar.Push(0, status);
+
+                try {
+                    Frontend.MainWindow.Statusbar.Push(0, status);
+                } catch (Exception ex) {
+                    Frontend.ShowException(ex);
+                }
             });
         }
-        
-        private static string _(string msg)
-        {
-            return Mono.Unix.Catalog.GetString(msg);
-        }
-        
+
         [SysDiag.Conditional("REMOTING_TRACE")]
         protected static void TraceRemotingCall(MethodBase mb, params object[] parameters)
         {
