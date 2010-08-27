@@ -328,6 +328,7 @@ AC_CONFIG_FILES([
 	Makefile
 	src/Makefile
 	src/AssemblyVersion.cs
+	src/smuxi-win32.nsis
 	src/Common/Makefile
 	src/Common/Defines.cs
 	src/Common/smuxi-common.pc

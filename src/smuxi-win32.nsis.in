@@ -2,7 +2,7 @@
 # NSIS install script for Smuxi                                            #
 #                                                                          #
 # Copyright (C) 2009 Sebastian Schnur <ikkerus@ikkerus.net>                #
-# Copyright (C) 2009-2010 Mirco Bauer <meebey@meebey.net>                   #
+# Copyright (C) 2009-2010 Mirco Bauer <meebey@meebey.net>                  #
 #                                                                          #
 # This program is free software; you can redistribute it and/or modify     #
 # it under the terms of the GNU General Public License as published by     #
@@ -27,13 +27,13 @@
 SetCompressor lzma
 
 !define PRODUCT_NAME "Smuxi"
-!define PRODUCT_VERSION "0.7.2.2"
+!define PRODUCT_VERSION "@VERSION@"
 !define PRODUCT_PUBLISHER "Mirco Bauer <meebey@meebey.net>"
 !define PRODUCT_WEB_SITE "http://www.smuxi.org"
 !define PRODUCT_DIR_REGKEY "Software\Microsoft\Windows\CurrentVersion\App Paths\smuxi-frontend-gnome.exe"
 !define PRODUCT_UNINST_KEY "Software\Microsoft\Windows\CurrentVersion\Uninstall\${PRODUCT_NAME}"
 !define PRODUCT_UNINST_ROOT_KEY "HKLM"
-!define DOTNET_VERSION "2"
+!define DOTNET_VERSION "3.5"
 !define GTKSHARP_VERSION "2.12.9"
 
 ############################
@@ -41,6 +41,7 @@ SetCompressor lzma
 ############################
 
 !include "MUI.nsh"
+!include "WinVer.nsh"
 
 ; MUI Settings [please make the path relative]
 !define MUI_ABORTWARNING
@@ -105,6 +106,28 @@ FunctionEnd
 ############
 # Macros   #
 ############
+
+!macro CheckXPServicePack
+    ${If} ${IsWinXP}
+        goto CheckXP
+    ${Else}
+        goto CheckXPServicePackEnd
+    ${EndIf}
+
+    CheckXP:
+        ${If} ${AtLeastServicePack} 2
+            DetailPrint "Found Windows XP Service Pack 2 or later"
+            goto CheckXPServicePackEnd
+        ${Else}
+            DetailPrint "Found Windows XP without Service Pack 2."
+            MessageBox MB_OK|MB_ICONEXCLAMATION "Smuxi requires Windows XP Service Pack 2 or later." IDOK Abort
+        ${EndIf}
+
+    Abort:
+        Abort
+
+    CheckXPServicePackEnd:
+!macroend
 
 !macro CheckGtkSharp GTKSHARP_REQ
     !define GTKSHARP_FILE         "gtk-sharp-2.12.9-2.win32.msi"
@@ -208,8 +231,10 @@ FunctionEnd
 # http://download.microsoft.com/download/2/0/e/20e90413-712f-438c-988e-fdaa79a8ac3d/dotnetfx35.exe
 # .NET 3.5 SP1 Installer - 3 MB
 # http://download.microsoft.com/download/0/6/1/061F001C-8752-4600-A198-53214C69B51F/dotnetfx35setup.exe
+# .NET 3.5 Web Installer - 2.4 MB
+# http://download.microsoft.com/download/7/0/3/703455ee-a747-4cc8-bd3e-98a615c3aedb/dotNetFx35setup.exe
 
-  !define DOTNET_URL "http://download.microsoft.com/download/5/6/7/567758a3-759e-473e-bf8f-52154438565a/dotnetfx.exe"
+  !define DOTNET_URL "http://download.microsoft.com/download/7/0/3/703455ee-a747-4cc8-bd3e-98a615c3aedb/dotNetFx35setup.exe"
   !define MSI31_URL "http://download.microsoft.com/download/1/4/7/147ded26-931c-4daf-9095-ec7baf996f46/WindowsInstaller-KB893803-v2-x86.exe"
  
   DetailPrint "Checking your .NET Framework version..."
@@ -393,7 +418,8 @@ DownloadDotNET:
     IDYES NewDotNET IDNO GiveUpDotNET
   ${EndIf}
   DetailPrint "Pausing installation while downloaded .NET Framework installer runs."
-  ExecWait '$TEMP\dotnetfx.exe /q /c:"install /q"'
+  DetailPrint "Depending on your internet bandwidth and computer performance, this can take a while. Please be patient!"
+  ExecWait '$TEMP\dotnetfx.exe /quiet /norestart'
   DetailPrint "Completed .NET Framework install/update. Removing .NET Framework installer."
   Delete "$TEMP\dotnetfx.exe"
   DetailPrint ".NET Framework installer removed."
@@ -508,6 +534,7 @@ FunctionEnd
 ############
 
 Section "Main" SEC01
+  !insertmacro CheckXPServicePack
   !insertmacro CheckDotNET ${DOTNET_VERSION}
   !insertmacro CheckGtkSharp ${GTKSHARP_VERSION}
 
