@@ -502,7 +502,15 @@ namespace Smuxi.Frontend.Gnome
 #if LOG4NET
                 _Logger.Debug("OnMessageTextViewMessageHighlighted(): BEEP!");
 #endif
-                Display.Beep();
+                try {
+                    if (Display != null) {
+                        Display.Beep();
+                    }
+                } catch (Exception ex) {
+#if LOG4NET
+                    _Logger.Error("OnMessageTextViewMessageHighlighted(): Exception", ex);
+#endif
+                }
             }
 
             if (_IsSynced) {
