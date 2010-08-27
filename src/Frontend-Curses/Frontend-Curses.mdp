@@ -1,4 +1,4 @@
-<Project name="Frontend-Curses" fileversion="2.0" DefaultNamespace="FrontendCurses" language="C#" clr-version="Net_2_0" targetFramework="2.0" ctype="DotNetProject">
+<Project name="Frontend-Curses" fileversion="2.0" DefaultNamespace="FrontendCurses" language="C#" clr-version="Net_2_0" targetFramework="3.5" ctype="DotNetProject">
   <Deployment.LinuxDeployData scriptName="smuxi-frontend-curses" />
   <Configurations active="Debug">
     <Configuration name="Debug" ctype="DotNetProjectConfiguration">
