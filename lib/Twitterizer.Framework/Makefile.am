@@ -1,7 +1,7 @@
 OUTPUT_DIR = $(top_builddir)/bin/$(PROFILE)
 OBJECT_DIR = $(OUTPUT_DIR)/obj
 SOURCE_PATTERNS = *.cs */*.cs
-SOURCE_FILES = $(foreach pattern, $(SOURCE_PATTERNS), $(wildcard $(pattern)))
+SOURCE_FILES = $(foreach pattern, $(SOURCE_PATTERNS), $(wildcard $(srcdir)/$(pattern)))
 ASSEMBLY_NAME = Twitterizer.Framework.dll
 ASSEMBLY_TARGET = $(OUTPUT_DIR)/$(ASSEMBLY_NAME)
 KEY_FILE = $(srcdir)/Twitterizer.Framework.snk
