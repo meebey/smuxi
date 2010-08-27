@@ -93,7 +93,6 @@ WIN32_EXE_FILES = \
 
 WIN32_FILES = \
 	$(WIN32_EXE_FILES) \
-	$(LIB_DIR)/Meebey.SmartIrc4net.dll \
 	$(LIB_DIR)/Mono.Posix.dll \
 	$(LIB_DIR)/Nini.dll \
 	$(LIB_DIR)/log4net.dll \
@@ -107,6 +106,7 @@ WIN32_FILES = \
 	$(BUILD_DIR)/smuxi-engine-twitter.dll \
 	$(BUILD_DIR)/smuxi-frontend-gnome-irc.dll \
 	$(BUILD_DIR)/smuxi-frontend.dll \
+	$(BUILD_DIR)/Meebey.SmartIrc4net.dll \
 	$(BUILD_DIR)/Twitterizer.Framework.dll \
 	$(WIN32_LIB_DIR)/smuxi-frontend-gnome.exe.config \
 	$(WIN32_LIB_DIR)/smuxi-server.exe.config
