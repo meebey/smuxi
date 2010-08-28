@@ -43,7 +43,9 @@ namespace Smuxi.Engine
         private string        _Password;
         private bool          _OnStartupConnect;
         private IList<string> _OnConnectCommands;
-        
+        public bool UseEncryption { get; set; }
+        public bool ValidateServerCertificate { get; set; }
+
         public string Protocol {
             get {
                 return _Protocol;

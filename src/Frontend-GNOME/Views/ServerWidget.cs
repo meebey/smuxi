@@ -97,6 +97,9 @@ namespace Smuxi.Frontend.Gnome
             f_NetworkComboBoxEntry.Entry.Text = server.Network;
             f_UsernameEntry.Text = server.Username;
             f_PasswordEntry.Text = server.Password;
+            f_UseEncryptionCheckButton.Active = server.UseEncryption;
+            f_ValidateServerCertificateCheckButton.Active =
+                server.ValidateServerCertificate;
             OnStartupConnectCheckButton.Active = server.OnStartupConnect;
             if (server.OnConnectCommands == null ||
                 server.OnConnectCommands.Count == 0) {
@@ -120,6 +123,9 @@ namespace Smuxi.Frontend.Gnome
             server.Port     = f_PortSpinButton.ValueAsInt;
             server.Username = f_UsernameEntry.Text;
             server.Password = f_PasswordEntry.Text;
+            server.UseEncryption = f_UseEncryptionCheckButton.Active;
+            server.ValidateServerCertificate =
+                f_ValidateServerCertificateCheckButton.Active;
             server.OnStartupConnect = f_OnStartupConnectCheckButton.Active;
             if (f_OnConnectCommandsTextView.Sensitive) {
                 server.OnConnectCommands =
@@ -183,6 +189,9 @@ namespace Smuxi.Frontend.Gnome
             f_IgnoreOnConnectCommandsCheckButton.Toggled += delegate {
                 CheckIgnoreOnConnectCommandsCheckButton();            
             };
+            f_UseEncryptionCheckButton.Clicked += delegate {
+                CheckUseEncryptionCheckButton();
+            };
         }
 
         protected virtual void CheckIgnoreOnConnectCommandsCheckButton()
@@ -200,6 +209,19 @@ namespace Smuxi.Frontend.Gnome
             f_PasswordEntry.Visibility = f_ShowPasswordCheckButton.Active;
         }
 
+        protected virtual void CheckUseEncryptionCheckButton()
+        {
+            Trace.Call();
+
+            var useEncryption = f_UseEncryptionCheckButton.Active;
+            f_ValidateServerCertificateCheckButton.Sensitive = useEncryption;
+            switch (f_ProtocolComboBox.ActiveText) {
+                case "IRC":
+                    f_PortSpinButton.Value = useEncryption ? 6697 : 6669;
+                    break;
+            }
+        }
+
         protected virtual void CheckProtocolComboBox()
         {
             Trace.Call();
@@ -215,6 +237,10 @@ namespace Smuxi.Frontend.Gnome
 
                     f_PortSpinButton.Value = 6667;
                     f_PortSpinButton.Sensitive = true;
+                    f_UseEncryptionCheckButton.Active = false;
+                    f_UseEncryptionCheckButton.Sensitive = true;
+                    f_ValidateServerCertificateCheckButton.Active = false;
+                    f_ValidateServerCertificateCheckButton.Sensitive = true;
                     break;
                 case "XMPP":
                     f_HostnameEntry.Sensitive = true;
@@ -223,6 +249,10 @@ namespace Smuxi.Frontend.Gnome
 
                     f_PortSpinButton.Value = 5222;
                     f_PortSpinButton.Sensitive = true;
+                    f_UseEncryptionCheckButton.Active = false;
+                    f_UseEncryptionCheckButton.Sensitive = false;
+                    f_ValidateServerCertificateCheckButton.Active = false;
+                    f_ValidateServerCertificateCheckButton.Sensitive = false;
                     break;
                 // this protocols have static servers
                 case "AIM":
@@ -236,12 +266,18 @@ namespace Smuxi.Frontend.Gnome
 
                     f_PortSpinButton.Value = 0;
                     f_PortSpinButton.Sensitive = false;
+                    f_UseEncryptionCheckButton.Active = false;
+                    f_UseEncryptionCheckButton.Sensitive = false;
+                    f_ValidateServerCertificateCheckButton.Active = false;
+                    f_ValidateServerCertificateCheckButton.Sensitive = false;
                     break;
                 // in case we don't know / handle the protocol here, make
                 // sure we grant maximum flexibility for the input
                 default:
                     f_HostnameEntry.Sensitive = true;
                     f_PortSpinButton.Sensitive = true;
+                    f_UseEncryptionCheckButton.Sensitive = true;
+                    f_ValidateServerCertificateCheckButton.Sensitive = true;
                     break;
             }
         }

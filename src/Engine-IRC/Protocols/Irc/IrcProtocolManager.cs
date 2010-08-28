@@ -23,6 +23,7 @@
 using System;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Security.Cryptography.X509Certificates;
 using System.Globalization;
 using System.Threading;
 using System.Collections;
@@ -40,6 +41,7 @@ namespace Smuxi.Engine
 #endif
         private static readonly string       _LibraryTextDomain = "smuxi-engine-irc";
         private IrcFeatures     _IrcClient;
+        private ServerModel     _ServerModel;
         private string          _Host;
         private int             _Port;
         private string          _Network;
@@ -274,17 +276,19 @@ namespace Smuxi.Engine
                 _Nicknames = new string[] { _Nicknames[0], _Nicknames[0] + "_", _Nicknames[0] + "__" };
             }
 
-            ApplyConfig(Session.UserConfig);
-
             // TODO: use config for single network chat or once per network manager
             var servers = new ServerListController(Session.UserConfig);
             var serverModel = servers.GetServer(Protocol, server);
+            _ServerModel = serverModel;
+            ApplyConfig(Session.UserConfig, serverModel);
+
             string network;
             if (serverModel != null && !String.IsNullOrEmpty(serverModel.Network)) {
                 network = serverModel.Network;
             } else {
                 network = server;
             }
+
             _Network = network;
             _NetworkChat = new ProtocolChatModel(network, "IRC " + network, this);
             
@@ -410,7 +414,7 @@ namespace Smuxi.Engine
                                 _IrcClient.Address
                             )
                         );
-                        ApplyConfig(Session.UserConfig);
+                        ApplyConfig(Session.UserConfig, _ServerModel);
                         _IrcClient.Reconnect(true);
                         msg = String.Format(_("Connection to {0} established"),
                                             _IrcClient.Address);
@@ -2002,7 +2006,7 @@ namespace Smuxi.Engine
             }
         }
 
-        private void ApplyConfig(UserConfig config)
+        private void ApplyConfig(UserConfig config, ServerModel server)
         {
             if (String.IsNullOrEmpty(_Username)) {
                 _Username = (string) config["Connection/Username"];
@@ -2046,6 +2050,11 @@ namespace Smuxi.Engine
                 _IrcClient.ProxyPort = (int) config["Connection/ProxyPort"];
                 _IrcClient.ProxyUsername = (string) config["Connection/ProxyUsername"];
                 _IrcClient.ProxyPassword = (string) config["Connection/ProxyPassword"];
+            }
+
+            if (server != null) {
+                _IrcClient.UseSsl = server.UseEncryption;
+                _IrcClient.ValidateServerCertificate = server.ValidateServerCertificate;
             }
         }
 

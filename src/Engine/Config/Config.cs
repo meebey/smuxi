@@ -309,6 +309,8 @@ namespace Smuxi.Engine
             Get(prefix + "Network", "OFTC");
             Get(prefix + "Username", String.Empty);
             Get(prefix + "Password", String.Empty);
+            Get(prefix + "UseEncryption", false);
+            Get(prefix + "ValidateServerCertificate", false);
             Get(prefix + "OnStartupConnect", true);
             Get(prefix + "OnConnectCommands",
                 new string[] {
@@ -322,6 +324,8 @@ namespace Smuxi.Engine
             Get(prefix + "Network", "GIMPNet");
             Get(prefix + "Username", String.Empty);
             Get(prefix + "Password", String.Empty);
+            Get(prefix + "UseEncryption", false);
+            Get(prefix + "ValidateServerCertificate", false);
 
             prefix = "Engine/Users/DEFAULT/Servers/IRC/irc.efnet.org/";
             Get(prefix + "Hostname", "irc.efnet.org");
@@ -329,6 +333,8 @@ namespace Smuxi.Engine
             Get(prefix + "Network", "EFnet");
             Get(prefix + "Username", String.Empty);
             Get(prefix + "Password", String.Empty);
+            Get(prefix + "UseEncryption", false);
+            Get(prefix + "ValidateServerCertificate", false);
                 
             prefix = "Engine/Users/DEFAULT/Servers/IRC/irc.ircnet.org/";
             Get(prefix + "Hostname", "irc.ircnet.org");
@@ -336,6 +342,8 @@ namespace Smuxi.Engine
             Get(prefix + "Network", "IRCnet");
             Get(prefix + "Username", String.Empty);
             Get(prefix + "Password", String.Empty);
+            Get(prefix + "UseEncryption", false);
+            Get(prefix + "ValidateServerCertificate", false);
                 
             prefix = "Engine/Users/DEFAULT/Servers/IRC/irc.freenode.net/";
             Get(prefix + "Hostname", "irc.freenode.net");
@@ -343,6 +351,8 @@ namespace Smuxi.Engine
             Get(prefix + "Network", "freenode");
             Get(prefix + "Username", String.Empty);
             Get(prefix + "Password", String.Empty);
+            Get(prefix + "UseEncryption", false);
+            Get(prefix + "ValidateServerCertificate", false);
             
             prefix = "Engine/Users/";
             Get(prefix+"Users", new string[] { "local" });
@@ -489,6 +499,10 @@ namespace Smuxi.Engine
                                       Get(dprefix + server + "/Username", null));
                             LoadEntry(sprefix + server + "/Password",
                                       Get(dprefix + server + "/Password", null));
+                            LoadEntry(sprefix + server + "/UseEncryption",
+                                      Get(dprefix + server + "/UseEncryption", null));
+                            LoadEntry(sprefix + server + "/ValidateServerCertificate",
+                                      Get(dprefix + server + "/ValidateServerCertificate", null));
                             LoadEntry(sprefix + server + "/OnStartupConnect",
                                       Get(dprefix + server + "/OnStartupConnect", null));
                             LoadEntry(sprefix + server + "/OnConnectCommands",
@@ -508,6 +522,8 @@ namespace Smuxi.Engine
                     LoadEntry(sprefix+"Encoding", null);
                     LoadEntry(sprefix+"Username", String.Empty);
                     LoadEntry(sprefix+"Password", String.Empty);
+                    LoadEntry(sprefix+"UseEncryption", false);
+                    LoadEntry(sprefix+"ValidateServerCertificate", false);
                     LoadEntry(sprefix+"OnStartupConnect", false);
                     string[] commands = GetList(sprefix + "OnConnectCommands");
                     if (commands == null) {

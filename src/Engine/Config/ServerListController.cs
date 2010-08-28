@@ -95,6 +95,9 @@ namespace Smuxi.Engine
             server.Network     = (string) _UserConfig[prefix + "Network"];
             server.Username    = (string) _UserConfig[prefix + "Username"];
             server.Password    = (string) _UserConfig[prefix + "Password"];
+            server.UseEncryption = (bool) _UserConfig[prefix + "UseEncryption"];
+            server.ValidateServerCertificate =
+                (bool) _UserConfig[prefix + "ValidateServerCertificate"];
             if (_UserConfig[prefix + "OnStartupConnect"] != null) {
                 server.OnStartupConnect = (bool) _UserConfig[prefix + "OnStartupConnect"];
             }
@@ -136,6 +139,9 @@ namespace Smuxi.Engine
             _UserConfig[prefix + "Network"]  = server.Network;
             _UserConfig[prefix + "Username"] = server.Username;
             _UserConfig[prefix + "Password"] = server.Password;
+            _UserConfig[prefix + "UseEncryption"] = server.UseEncryption;
+            _UserConfig[prefix + "ValidateServerCertificate"] =
+                server.ValidateServerCertificate;
             _UserConfig[prefix + "OnStartupConnect"] = server.OnStartupConnect;
             _UserConfig[prefix + "OnConnectCommands"] = server.OnConnectCommands;
             
@@ -162,6 +168,9 @@ namespace Smuxi.Engine
             _UserConfig[prefix + "Network"]  = server.Network;
             _UserConfig[prefix + "Username"] = server.Username;
             _UserConfig[prefix + "Password"] = server.Password;
+            _UserConfig[prefix + "UseEncryption"] = server.UseEncryption;
+            _UserConfig[prefix + "ValidateServerCertificate"] =
+                server.ValidateServerCertificate;
             _UserConfig[prefix + "OnStartupConnect"] = server.OnStartupConnect;
             _UserConfig[prefix + "OnConnectCommands"] = server.OnConnectCommands;
         }
