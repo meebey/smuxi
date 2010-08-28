@@ -39,7 +39,7 @@ namespace Smuxi.Engine
         private static readonly log4net.ILog _Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 #endif
         private static readonly string       _LibraryTextDomain = "smuxi-engine-irc";
-        private IrcClient       _IrcClient;
+        private IrcFeatures     _IrcClient;
         private string          _Host;
         private int             _Port;
         private string          _Network;
@@ -136,7 +136,7 @@ namespace Smuxi.Engine
         {
             Trace.Call(session);
             
-            _IrcClient = new IrcClient();
+            _IrcClient = new IrcFeatures();
             _IrcClient.AutoRetry = true;
             _IrcClient.AutoReconnect = true;
             _IrcClient.AutoRelogin = true;
@@ -178,6 +178,33 @@ namespace Smuxi.Engine
             _IrcClient.OnCtcpRequest    += new CtcpEventHandler(_OnCtcpRequest);
             _IrcClient.OnCtcpReply      += new CtcpEventHandler(_OnCtcpReply);
             _IrcClient.OnWho            += OnWho;
+
+            _IrcClient.CtcpUserInfo = (string) Session.UserConfig["Connection/Realname"];
+            // disabled as we don't use / support DCC yet
+            _IrcClient.CtcpDelegates.Remove("dcc");
+            // finger we handle ourself, no little helga here!
+            _IrcClient.CtcpDelegates["finger"] = delegate(CtcpEventArgs e) {
+                _IrcClient.SendMessage(
+                    SendType.CtcpReply, e.Data.Nick,
+                    String.Format("{0} {1}",
+                        e.CtcpCommand,
+                        _IrcClient.CtcpUserInfo
+                    )
+                );
+            };
+            // time we handle ourself
+            _IrcClient.CtcpDelegates["time"] = delegate(CtcpEventArgs e) {
+                _IrcClient.SendMessage(
+                    SendType.CtcpReply, e.Data.Nick,
+                    String.Format("{0} {1}",
+                        e.CtcpCommand,
+                        DateTime.Now.ToString(
+                            "ddd MMM dd HH:mm:ss yyyy",
+                            DateTimeFormatInfo.InvariantInfo
+                        )
+                    )
+                );
+            };
         }
 
         private void OnWho(object sender, WhoEventArgs e)
@@ -2345,38 +2372,6 @@ namespace Smuxi.Engine
         
         private void _OnCtcpRequest(object sender, CtcpEventArgs e)
         {
-            // DoS protection
-            try {
-                switch (e.CtcpCommand.ToLower()) {
-                    case "time":
-                        _IrcClient.SendMessage(
-                            SendType.CtcpReply, e.Data.Nick,
-                            String.Format("{0} {1}",
-                                e.CtcpCommand,
-                                DateTime.Now.ToString(
-                                    "ddd MMM dd HH:mm:ss yyyy",
-                                    DateTimeFormatInfo.InvariantInfo
-                                )
-                            )
-                        );
-                        break;
-                    case "finger":
-                    case "userinfo":
-                        _IrcClient.SendMessage(
-                            SendType.CtcpReply, e.Data.Nick,
-                            String.Format("{0} {1}",
-                                e.CtcpCommand,
-                                (string) Session.UserConfig["Connection/Realname"]
-                            )
-                        );
-                        break;
-                }
-            } catch (Exception ex) {
-#if LOG4NET
-                _Logger.Error("_OnCtcpRequest()", ex);
-#endif
-            }
-
             Session.AddTextToChat(_NetworkChat,
                 String.Format(
                     // TRANSLATOR: {0}: nickname, {1}: ident@host,
