@@ -138,6 +138,14 @@ namespace Smuxi.Frontend.Gnome
             ((Gtk.CheckButton)_Glade["OverrideBackgroundColorCheckButton"]).Toggled += OnOverrideBackgroundColorCheckButtonToggled;
             ((Gtk.CheckButton)_Glade["OverrideFontCheckButton"]).Toggled += OnOverrideFontCheckButtonToggled;
 
+            ((Gtk.CheckButton)_Glade["ShowAdvancedSettingsCheckButton"]).Toggled += delegate {
+                CheckShowAdvancedSettingsCheckButton();
+            };
+
+            ((Gtk.CheckButton)_Glade["ProxyShowPasswordCheckButton"]).Toggled += delegate {
+                CheckProxyShowPasswordCheckButton();
+            };
+
             ((Gtk.TextView)_Glade["HighlightWordsTextView"]).Buffer.Changed += _OnChanged;
             if (Frontend.EngineVersion < new Version("0.7.2")) {
                 // feature introduced in >= 0.7.2
@@ -173,6 +181,28 @@ namespace Smuxi.Frontend.Gnome
             wrapModeComboBox.Model = store;
             wrapModeComboBox.Active = 0;
             
+            Gtk.ComboBox proxyTypeComboBox = (Gtk.ComboBox)_Glade["ProxyTypeComboBox"];
+            // initialize wrap modes
+            // glade might initialize it already!
+            proxyTypeComboBox.Clear();
+            proxyTypeComboBox.Changed += _OnChanged;
+            proxyTypeComboBox.Changed += delegate {
+                CheckProxyTypeComBoBox();
+            };
+            cell = new Gtk.CellRendererText();
+            proxyTypeComboBox.PackStart(cell, false);
+            proxyTypeComboBox.AddAttribute(cell, "text", 1);
+            store = new Gtk.ListStore(typeof(ProxyType), typeof(string));
+            // fill ListStore
+            store.AppendValues(ProxyType.None,    String.Format("<{0}>",
+                                                                _("No Proxy")));
+            store.AppendValues(ProxyType.Http,    "HTTP");
+            store.AppendValues(ProxyType.Socks4,  "SOCK 4");
+            store.AppendValues(ProxyType.Socks4a, "SOCK 4a");
+            store.AppendValues(ProxyType.Socks5,  "SOCK 5");
+            proxyTypeComboBox.Model = store;
+            proxyTypeComboBox.Active = 0;
+
             _Notebook.ShowTabs = false;
             
             Gtk.ListStore ls = new Gtk.ListStore(typeof(Page), typeof(Gdk.Pixbuf), typeof(string));
@@ -292,12 +322,42 @@ namespace Smuxi.Frontend.Gnome
                 }
                 j++;
             }
-            
+
+            // Connection - Proxy
+            Gtk.ComboBox proxyTypeComboBox = ((Gtk.ComboBox)_Glade["ProxyTypeComboBox"]);
+            ProxyType proxyType = (ProxyType) Enum.Parse(
+                typeof(ProxyType),
+                (string) Frontend.UserConfig["Connection/ProxyType"]
+            );
+            int i = 0;
+            foreach (object[] row in  (Gtk.ListStore) proxyTypeComboBox.Model) {
+                if (((ProxyType) row[0]) == proxyType) {
+                    proxyTypeComboBox.Active = i;
+                    break;
+                }
+                i++;
+            }
+            ((Gtk.Entry) _Glade["ProxyHostEntry"]).Text =
+                (string) Frontend.UserConfig["Connection/ProxyHostname"];
+            int proxyPort = (int) Frontend.UserConfig["Connection/ProxyPort"];
+            if (proxyPort == -1) {
+                proxyPort = 0;
+            }
+            ((Gtk.SpinButton) _Glade["ProxyPortSpinButton"]).Value = proxyPort;
+            ((Gtk.Entry) _Glade["ProxyUsernameEntry"]).Text =
+                (string) Frontend.UserConfig["Connection/ProxyUsername"];
+            ((Gtk.Entry) _Glade["ProxyPasswordEntry"]).Text =
+                (string) Frontend.UserConfig["Connection/ProxyPassword"];
+            CheckProxyShowPasswordCheckButton();
+
             // Interface
+            ((Gtk.CheckButton) _Glade["ShowAdvancedSettingsCheckButton"]).Active =
+                (bool) Frontend.UserConfig["Interface/ShowAdvancedSettings"];
+            CheckShowAdvancedSettingsCheckButton();
+
+            // Interface/Notebook
             ((Gtk.Entry)_Glade["TimestampFormatEntry"]).Text =
                 (string)Frontend.UserConfig["Interface/Notebook/TimestampFormat"];
-                
-            // Interface/Notebook
             ((Gtk.SpinButton)_Glade["BufferLinesSpinButton"]).Value =
                 (double)(int)Frontend.UserConfig["Interface/Notebook/BufferLines"];
             ((Gtk.SpinButton)_Glade["EngineBufferLinesSpinButton"]).Value =
@@ -426,7 +486,7 @@ namespace Smuxi.Frontend.Gnome
             if (wrapMode == Gtk.WrapMode.Word) {
                 wrapMode = Gtk.WrapMode.WordChar;
             }
-            int i = 0;
+            i = 0;
             foreach (object[] row in  (Gtk.ListStore) wrapModeComboBox.Model) {
                 if (((Gtk.WrapMode) row[0]) == wrapMode) {
                     wrapModeComboBox.Active = i;
@@ -549,11 +609,27 @@ namespace Smuxi.Frontend.Gnome
             cb.GetActiveIter(out iter);
             string bodyName = (string) cb.Model.GetValue(iter, 1);
             Frontend.UserConfig["Connection/Encoding"] = bodyName;
-            
+
+            // Connection - Proxy
+            cb = (Gtk.ComboBox) _Glade["ProxyTypeComboBox"];
+            cb.GetActiveIter(out iter);
+            var proxyType = (ProxyType) cb.Model.GetValue(iter, 0);
+            Frontend.UserConfig["Connection/ProxyType"] = proxyType.ToString();
+            Frontend.UserConfig["Connection/ProxyHostname"] =
+                ((Gtk.Entry) _Glade["ProxyHostEntry"]).Text;
+            Frontend.UserConfig["Connection/ProxyPort"] =
+                ((Gtk.SpinButton) _Glade["ProxyPortSpinButton"]).ValueAsInt;
+            Frontend.UserConfig["Connection/ProxyUsername"] =
+                ((Gtk.Entry) _Glade["ProxyUsernameEntry"]).Text;
+            Frontend.UserConfig["Connection/ProxyPassword"] =
+                ((Gtk.Entry) _Glade["ProxyPasswordEntry"]).Text;
+
             // Interface
+            Frontend.UserConfig["Interface/ShowAdvancedSettings"] =
+                ((Gtk.CheckButton)_Glade["ShowAdvancedSettingsCheckButton"]).Active;
+
             Frontend.UserConfig["Interface/Notebook/TimestampFormat"] =
                 ((Gtk.Entry)_Glade["TimestampFormatEntry"]).Text;
-                
             Frontend.UserConfig["Interface/Notebook/BufferLines"] =
                 (int)((Gtk.SpinButton)_Glade["BufferLinesSpinButton"]).Value;
             Frontend.UserConfig["Interface/Notebook/EngineBufferLines"] =
@@ -843,6 +919,67 @@ namespace Smuxi.Frontend.Gnome
             }
         }
         
+        private void CheckShowAdvancedSettingsCheckButton()
+        {
+            Trace.Call();
+
+            bool showAdvanced =
+                ((Gtk.CheckButton) _Glade["ShowAdvancedSettingsCheckButton"]).Active;
+            ((Gtk.Label) _Glade["ConnectionUsernameLabel"]).Visible = showAdvanced;
+            ((Gtk.Entry) _Glade["ConnectionUsernameEntry"]).Visible = showAdvanced;
+            ((Gtk.Label) _Glade["EncodingLabel"]).Visible = showAdvanced;
+            ((Gtk.ComboBox) _Glade["EncodingComboBox"]).Visible = showAdvanced;
+            ((Gtk.Frame) _Glade["NetworkProxyFrame"]).Visible = showAdvanced;
+            ((Gtk.Frame) _Glade["GlobalCommandsFrame"]).Visible = showAdvanced;
+        }
+
+        private void CheckProxyShowPasswordCheckButton()
+        {
+            Trace.Call();
+
+            ((Gtk.Entry) _Glade["ProxyPasswordEntry"]).Visibility =
+                ((Gtk.CheckButton) _Glade["ProxyShowPasswordCheckButton"]).Active;
+        }
+
+        private void CheckProxyTypeComBoBox()
+        {
+            Trace.Call();
+
+            var typoComboBox = (Gtk.ComboBox) _Glade["ProxyTypeComboBox"];
+            var hostEntry = (Gtk.Entry) _Glade["ProxyHostEntry"];
+            var portSpinButton = (Gtk.SpinButton) _Glade["ProxyPortSpinButton"];
+            var userEntry = (Gtk.Entry) _Glade["ProxyUsernameEntry"];
+            var passEntry = (Gtk.Entry) _Glade["ProxyPasswordEntry"];
+
+            Gtk.TreeIter iter;
+            typoComboBox.GetActiveIter(out iter);
+            var proxyType = (ProxyType) typoComboBox.Model.GetValue(iter, 0);
+            switch (proxyType) {
+                case ProxyType.None:
+                    hostEntry.Sensitive = false;
+                    portSpinButton.Sensitive = false;
+                    userEntry.Sensitive = false;
+                    passEntry.Sensitive = false;
+                    break;
+                case ProxyType.Http:
+                    hostEntry.Sensitive = true;
+                    portSpinButton.Sensitive = true;
+                    userEntry.Sensitive = false;
+                    userEntry.Text = String.Empty;
+                    passEntry.Sensitive = false;
+                    passEntry.Text = String.Empty;
+                    break;
+                case ProxyType.Socks4:
+                case ProxyType.Socks4a:
+                case ProxyType.Socks5:
+                    hostEntry.Sensitive = true;
+                    portSpinButton.Sensitive = true;
+                    userEntry.Sensitive = true;
+                    passEntry.Sensitive = true;
+                    break;
+            }
+        }
+
         private static string _(string msg)
         {
             return Mono.Unix.Catalog.GetString(msg);

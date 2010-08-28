@@ -1995,6 +1995,31 @@ namespace Smuxi.Engine
                     _IrcClient.Encoding = Encoding.Default;
                 }
             }
+
+            string proxyTypeStr = (string) config["Connection/ProxyType"];
+            if (!String.IsNullOrEmpty(proxyTypeStr)) {
+                var proxyType = ProxyType.None;
+                try {
+                    proxyType = (ProxyType) Enum.Parse(typeof(ProxyType),
+                                                       proxyTypeStr);
+                } catch (ArgumentException ex) {
+#if LOG4NET
+                    _Logger.Error("ApplyConfig(): Couldn't parse proxy type: " +
+                                  proxyType, ex);
+#endif
+                }
+
+                // HACK: map our ProxyType to SmartIrc4net's ProxyType
+                var ircProxyType =
+                    (Meebey.SmartIrc4net.ProxyType) Enum.Parse(
+                        typeof(ProxyType), proxyType.ToString(), true
+                    );
+                _IrcClient.ProxyType = ircProxyType;
+                _IrcClient.ProxyHost = (string) config["Connection/ProxyHostname"];
+                _IrcClient.ProxyPort = (int) config["Connection/ProxyPort"];
+                _IrcClient.ProxyUsername = (string) config["Connection/ProxyUsername"];
+                _IrcClient.ProxyPassword = (string) config["Connection/ProxyPassword"];
+            }
         }
 
         private void _OnRawMessage(object sender, IrcEventArgs e)

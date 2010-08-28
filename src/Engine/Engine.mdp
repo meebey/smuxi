@@ -66,6 +66,7 @@
     <File subtype="Code" buildaction="Compile" name="Messages/MessageParser.cs" />
     <File subtype="Code" buildaction="Compile" name="Messages/MessageBuilder.cs" />
     <File subtype="Code" buildaction="Compile" name="PresenceStatus.cs" />
+    <File subtype="Code" buildaction="Compile" name="Config/ProxyType.cs" />
   </Contents>
   <References>
     <ProjectReference type="Assembly" localcopy="True" refto="../../lib/log4net.dll" />

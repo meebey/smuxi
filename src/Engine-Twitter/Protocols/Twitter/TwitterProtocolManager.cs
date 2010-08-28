@@ -123,7 +123,20 @@ namespace Smuxi.Engine
             Trace.Call(fm, host, port, username, "XXX");
 
             f_Username = username;
-            f_Twitter = new Twitter(username, password, "Smuxi");
+
+            var proxyType = (string) Session.UserConfig["Connection/ProxyType"];
+            if (proxyType.ToLower() == "http") {
+                var uriBuilder = new UriBuilder();
+                uriBuilder.Scheme = "http";
+                uriBuilder.Host = (string) Session.UserConfig["Connection/ProxyHostname"];
+                uriBuilder.Port = (int) Session.UserConfig["Connection/ProxyPort"];
+                uriBuilder.UserName = (string) Session.UserConfig["Connection/ProxyUsername"];
+                uriBuilder.Password = (string) Session.UserConfig["Connection/ProxyPassword"];
+                var proxyUri = uriBuilder.ToString();
+                f_Twitter = new Twitter(username, password, "Smuxi", proxyUri);
+            } else {
+                f_Twitter = new Twitter(username, password, "Smuxi");
+            }
 
             Session.AddChat(f_ProtocolChat);
             Session.SyncChat(f_ProtocolChat);

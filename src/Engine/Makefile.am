@@ -83,6 +83,7 @@ FILES = \
 	Config/UserListController.cs \
 	Config/FilterListController.cs \
 	Config/FilterModel.cs \
+	Config/ProxyType.cs \
 	Protocols/ProtocolManagerBase.cs \
 	Protocols/ProtocolManagerFactory.cs \
 	Protocols/ProtocolManagerInfoModel.cs \
