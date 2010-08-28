@@ -255,7 +255,11 @@ namespace Smuxi.Frontend.Gnome
                     TextMessagePartModel fmsgti = (TextMessagePartModel) msgPart;
                     List<string> tags = new List<string>();
                     if (fmsgti.ForegroundColor != TextColor.None) {
-                        TextColor color = ColorTools.GetBestTextColor(fmsgti.ForegroundColor, bgTextColor);
+                        var bg = bgTextColor;
+                        if (fmsgti.BackgroundColor != TextColor.None) {
+                            bg = fmsgti.BackgroundColor;
+                        }
+                        TextColor color = ColorTools.GetBestTextColor(fmsgti.ForegroundColor, bg);
                         //Console.WriteLine("GetBestTextColor({0}, {1}): {2}",  fmsgti.ForegroundColor, bgTextColor, color);
                         string tagname = GetTextTagName(color, null);
                         //string tagname = _GetTextTagName(fmsgti.ForegroundColor, null);
