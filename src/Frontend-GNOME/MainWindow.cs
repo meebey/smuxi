@@ -548,12 +548,12 @@ namespace Smuxi.Frontend.Gnome
                     chatView.HasHighlight = false;
                     chatView.HasActivity = false;
                     var lastMsg = chatView.OutputMessageTextView.LastMessage;
+                    if (lastMsg == null) {
+                        return;
+                    }
                     // update last seen highlight
                     ThreadPool.QueueUserWorkItem(delegate {
                         try {
-                            if (lastMsg == null) {
-                                return;
-                            }
                             // REMOTING CALL 1
                             chatView.ChatModel.LastSeenHighlight = lastMsg.TimeStamp;
                         } catch (Exception ex) {
