@@ -22,9 +22,8 @@
 
 using System;
 using NUnit.Framework;
-using Smuxi.Engine;
 
-namespace Smuxi.Frontend.Gnome
+namespace Smuxi.Engine
 {
     [TestFixture]
     public class TextColorTests
