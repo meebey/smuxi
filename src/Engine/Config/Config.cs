@@ -238,6 +238,9 @@ namespace Smuxi.Engine
             Get(prefix+"Channel", "TCP");
             Get(prefix+"Formatter", "binary");
             
+            prefix = "Engine/Users/DEFAULT/Interface/";
+            Get(prefix+"ShowAdvancedSettings", false);
+
             prefix = "Engine/Users/DEFAULT/Interface/Notebook/";
             Get(prefix+"TimestampFormat", "HH:mm");
             Get(prefix+"TabPosition", "top");
@@ -281,7 +284,12 @@ namespace Smuxi.Engine
             
             prefix = "Engine/Users/DEFAULT/Connection/";
             Get(prefix+"Encoding", String.Empty);
-            
+            Get(prefix+"ProxyType", "None");
+            Get(prefix+"ProxyHostname", String.Empty);
+            Get(prefix+"ProxyPort", -1);
+            Get(prefix+"ProxyUsername", String.Empty);
+            Get(prefix+"ProxyPassword", String.Empty);
+
             prefix = "Engine/Users/DEFAULT/Logging/";
             Get(prefix+"Enabled", false);
             Get(prefix+"LogFilteredMessages", false);
@@ -402,7 +410,13 @@ namespace Smuxi.Engine
                 }
                 LoadUserEntry(user, "Connection/Realname", realname);
                 LoadUserEntry(user, "Connection/Encoding", String.Empty);
-                
+
+                LoadUserEntry(user, "Connection/ProxyType", "None");
+                LoadUserEntry(user, "Connection/ProxyHostname", String.Empty);
+                LoadUserEntry(user, "Connection/ProxyPort", -1);
+                LoadUserEntry(user, "Connection/ProxyUsername", null);
+                LoadUserEntry(user, "Connection/ProxyPassword", null);
+
                 string[] command_list = GetList(prefix+user+"/Connection/OnConnectCommands");
                 if (command_list != null) {
                     m_Preferences[prefix+user+"/Connection/OnConnectCommands"] = command_list;
@@ -417,6 +431,7 @@ namespace Smuxi.Engine
                     m_Preferences[prefix+user+"/Interface/Chat/HighlightWords"] = new string[] {};
                 }
 
+                LoadUserEntry(user, "Interface/ShowAdvancedSettings", null);
                 LoadUserEntry(user, "Interface/Notebook/TimestampFormat", null);
                 LoadUserEntry(user, "Interface/Notebook/TabPosition", null);
                 LoadUserEntry(user, "Interface/Notebook/BufferLines", null);
