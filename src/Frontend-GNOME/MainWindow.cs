@@ -615,15 +615,14 @@ namespace Smuxi.Frontend.Gnome
         {
             Trace.Call(sender, e);
             
+            ServerDialog dialog = null;
             try {
                 ServerListController controller = new ServerListController(Frontend.UserConfig);
-                ServerDialog dialog = new ServerDialog(this,
-                                                       null,
-                                                       Frontend.Session.GetSupportedProtocols(),
-                                                       controller.GetNetworks());
+                dialog = new ServerDialog(this, null,
+                                          Frontend.Session.GetSupportedProtocols(),
+                                          controller.GetNetworks());
                 int res = dialog.Run();
                 ServerModel server = dialog.GetServer();
-                dialog.Destroy();
                 if (res != (int) Gtk.ResponseType.Ok) {
                     return;
                 }
@@ -634,6 +633,10 @@ namespace Smuxi.Frontend.Gnome
                 Frontend.ShowError(this, _("Unable to add server: "), ex);
             } catch (Exception ex) {
                 Frontend.ShowException(this, ex);
+            } finally {
+                if (dialog != null) {
+                    dialog.Destroy();
+                }
             }
         }
 
