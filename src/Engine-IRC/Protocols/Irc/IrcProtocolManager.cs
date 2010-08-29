@@ -2401,7 +2401,7 @@ namespace Smuxi.Engine
 
         private void _OnCtcpReply(object sender, CtcpEventArgs e)
         {
-            ChatModel chat = GetChat(e.Data.Nick, ChatType.Person);
+            ChatModel chat = GetChat(e.Data);
             if (chat == null) {
                 chat = _NetworkChat;
             }
@@ -3243,6 +3243,28 @@ namespace Smuxi.Engine
                 person.IdentityNameColored.Bold = true;
             }
             return person;
+        }
+
+        private ChatModel GetChat(IrcMessageData msg)
+        {
+            if (msg == null) {
+                throw new ArgumentNullException("msg");
+            }
+
+            if (msg.Channel != null) {
+                // group chat message
+                return GetChat(msg.Channel, ChatType.Group);
+            }
+            if (msg.Nick != null) {
+                // person chat message
+                return GetChat(msg.Nick, ChatType.Person);
+            }
+            if (msg.From != null) {
+                // server message
+                return _NetworkChat;
+            }
+
+            return null;
         }
 
         protected override MessageBuilder CreateMessageBuilder()
