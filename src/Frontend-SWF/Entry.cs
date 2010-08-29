@@ -274,8 +274,7 @@ namespace Smuxi.Frontend.Swf
                 e.Handled = true;
                 switch (key) {
                     case Keys.X:
-                        if (_Notebook.CurrentChatView.ChatModel.ChatType == ChatType.Protocol &&
-                            _Notebook.CurrentChatView.ChatModel.Name == "smuxi") {
+                        if (_Notebook.CurrentChatView is SessionChatView) {
                             Frontend.FrontendManager.NextProtocolManager();
                         } else {
                             // don't break cut
