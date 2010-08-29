@@ -140,6 +140,9 @@ namespace Smuxi.Engine
             
             _IrcClient = new IrcFeatures();
             _IrcClient.AutoRetry = true;
+            // keep retrying to connect forever
+            _IrcClient.AutoRetryLimit = 0;
+            _IrcClient.AutoRetryDelay = 120;
             _IrcClient.AutoReconnect = true;
             _IrcClient.AutoRelogin = true;
             _IrcClient.AutoRejoin = true;
@@ -174,6 +177,7 @@ namespace Smuxi.Engine
             _IrcClient.OnQuit           += new QuitEventHandler(_OnQuit);
             _IrcClient.OnRegistered     += new EventHandler(_OnRegistered);
             _IrcClient.OnDisconnected   += new EventHandler(_OnDisconnected);
+            _IrcClient.OnAutoConnectError += OnAutoConnectError;
             _IrcClient.OnAway           += new AwayEventHandler(_OnAway);
             _IrcClient.OnUnAway         += new IrcEventHandler(_OnUnAway);
             _IrcClient.OnNowAway        += new IrcEventHandler(_OnNowAway);
@@ -3061,7 +3065,20 @@ namespace Smuxi.Engine
 
             OnDisconnected(EventArgs.Empty);
         }
-        
+
+        private void OnAutoConnectError(object sender, AutoConnectErrorEventArgs e)
+        {
+            Trace.Call(sender, e);
+
+            var builder = CreateMessageBuilder();
+            builder.AppendEventPrefix();
+            builder.AppendText(_("Connection to {0} port {1} has failed " +
+                                 "(attempt {2}), retrying in {3} seconds..."),
+                               e.Address, e.Port, _IrcClient.AutoRetryAttempt,
+                               _IrcClient.AutoRetryDelay);
+            Session.AddMessageToChat(_NetworkChat, builder.ToMessage());
+        }
+
         protected override void OnDisconnected(EventArgs e)
         {
             foreach (ChatModel chat in Chats) {
