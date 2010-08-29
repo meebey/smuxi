@@ -120,7 +120,7 @@ namespace Smuxi.Engine
             _Filters = _FilterListController.GetFilterList().Values;
             _Chats = new List<ChatModel>();
             
-            _SessionChat = new SessionChatModel("smuxi", "smuxi");
+            _SessionChat = new SessionChatModel("smuxi", "Smuxi");
             _Chats.Add(_SessionChat);
         }
 

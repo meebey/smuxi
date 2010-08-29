@@ -93,7 +93,7 @@ namespace Smuxi.Frontend.Curses
     	        aboutButton.Clicked += delegate {
                     Dialog aboutDialog = new Dialog(70, 10, "About smuxi");
                     
-                    aboutDialog.Add(new Label(0, 0, "smuxi"));
+                    aboutDialog.Add(new Label(0, 0, "Smuxi"));
                     aboutDialog.Add(new Label(0, 1, "Frontend: " + Frontend.UIName + " " + Frontend.Version));
                     aboutDialog.Add(new Label(0, 2, "Engine: " + Frontend.EngineVersion));
                     aboutDialog.Add(new Label(0, 4, "Copyright(C) 2005-2007 (C) Mirco Bauer <meebey@meebey.net>"));
