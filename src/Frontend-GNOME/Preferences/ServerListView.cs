@@ -132,18 +132,21 @@ namespace Smuxi.Frontend.Gnome
             Trace.Call();
             
             ServerDialog dialog = new ServerDialog(_Parent, null, Frontend.Session.GetSupportedProtocols(), _Controller.GetNetworks());
-            int res = dialog.Run();
-            ServerModel server = dialog.GetServer();
-            dialog.Destroy();
-            if (res != (int) Gtk.ResponseType.Ok) {
-                return;
+            try {
+                int res = dialog.Run();
+                ServerModel server = dialog.GetServer();
+                if (res != (int) Gtk.ResponseType.Ok) {
+                    return;
+                }
+
+                _Controller.AddServer(server);
+                _Controller.Save();
+
+                // refresh view
+                Load();
+            } finally {
+                dialog.Destroy();
             }
-            
-            _Controller.AddServer(server);
-            _Controller.Save();
-            
-            // refresh view
-            Load();
         }
         
         public virtual void Edit(ServerModel server)

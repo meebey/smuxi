@@ -118,10 +118,10 @@ namespace Smuxi.Frontend.Gnome
         {
             ServerModel server = new ServerModel();
             server.Protocol = f_ProtocolComboBox.ActiveText;
-            server.Hostname = f_HostnameEntry.Text;
-            server.Network  = f_NetworkComboBoxEntry.Entry.Text;
+            server.Hostname = f_HostnameEntry.Text.Trim();
+            server.Network  = f_NetworkComboBoxEntry.Entry.Text.Trim();
             server.Port     = f_PortSpinButton.ValueAsInt;
-            server.Username = f_UsernameEntry.Text;
+            server.Username = f_UsernameEntry.Text.Trim();
             server.Password = f_PasswordEntry.Text;
             server.UseEncryption = f_UseEncryptionCheckButton.Active;
             server.ValidateServerCertificate =

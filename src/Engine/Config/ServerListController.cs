@@ -37,6 +37,7 @@ namespace Smuxi.Engine
 #if LOG4NET
         private static readonly log4net.ILog _Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 #endif
+        private static readonly string _LibraryTextDomain = "smuxi-engine";
         private UserConfig _UserConfig;
         
         public ServerListController(UserConfig userConfig)
@@ -126,10 +127,19 @@ namespace Smuxi.Engine
             if (server == null) {
                 throw new ArgumentNullException("server");
             }
+            if (String.IsNullOrEmpty(server.Hostname)) {
+                throw new InvalidOperationException(_("Server hostname must not be empty."));
+            }
+            if (server.Hostname.Contains("\n")) {
+                throw new InvalidOperationException(_("Server hostname contains invalid characters (newline)."));
+            }
             foreach (var s in GetServerList()) {
                 if (s.Protocol == server.Protocol &&
                     s.Hostname == server.Hostname) {
-                    throw new InvalidOperationException("Server '" + server.Hostname + "' already exists.");
+                    throw new InvalidOperationException(
+                        String.Format(_("Server '{0}' already exists."),
+                                      server.Hostname)
+                    );
                 }
             }
 
@@ -202,6 +212,11 @@ namespace Smuxi.Engine
         public void Save()
         {
             _UserConfig.Save();
+        }
+
+        private static string _(string msg)
+        {
+            return LibraryCatalog.GetString(msg, _LibraryTextDomain);
         }
     }
 }
