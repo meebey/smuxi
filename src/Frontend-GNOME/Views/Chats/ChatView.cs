@@ -64,7 +64,20 @@ namespace Smuxi.Frontend.Gnome
                 return _ChatModel;
             }
         }
-        
+
+        // this property is thread-safe
+        public bool IsActive {
+            get {
+                // is it really safe to query a property value of glib owned
+                // object?!?
+                return Frontend.MainWindow.HasToplevelFocus &&
+                        Object.ReferenceEquals(
+                            Frontend.MainWindow.Notebook.CurrentChatView,
+                            this
+                        );
+            }
+        }
+
         public bool HasHighlight {
             get {
                 return _HasHighlight;
@@ -170,7 +183,7 @@ namespace Smuxi.Frontend.Gnome
                 _OutputMessageTextView.HasFocus = value;
             }
         }
-        
+
         public Gtk.Widget LabelWidget {
             get {
                 return _TabEventBox;
@@ -515,12 +528,7 @@ namespace Smuxi.Frontend.Gnome
             }
 
             if (_IsSynced) {
-                bool isActiveChat =
-                    Frontend.MainWindow.HasToplevelFocus &&
-                    Object.ReferenceEquals(
-                        Frontend.MainWindow.Notebook.CurrentChatView,
-                        this
-                    );
+                bool isActiveChat = IsActive;
 
                 var method = Trace.GetMethodBase();
                 // update last seen highlight
@@ -538,6 +546,14 @@ namespace Smuxi.Frontend.Gnome
                             // REMOTING CALL 1
                             if (_ChatModel.LastSeenHighlight < e.Message.TimeStamp) {
                                 Gtk.Application.Invoke(delegate {
+                                    // we have to make sure we only highlight
+                                    // the chat if it still isn't the active
+                                    // one as isActiveChat state is probably
+                                    // obsolete by now
+                                    if (IsActive) {
+                                        return;
+                                    }
+
                                     HasHighlight = true;
                                 });
                             }
