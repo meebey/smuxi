@@ -67,6 +67,7 @@ namespace Smuxi.Frontend.Gnome
 #endif
         private bool             _IsMinimized;
         private bool             _IsMaximized;
+        private bool             _IsFullscreen;
         
         public bool ShowMenuBar {
             get {
@@ -140,6 +141,20 @@ namespace Smuxi.Frontend.Gnome
         public bool IsMinimized {
             get {
                 return _IsMinimized;
+            }
+        }
+
+        public bool IsFullscreen {
+            get {
+                return _IsFullscreen;
+            }
+            set {
+                _IsFullscreen = value;
+                if (value) {
+                    Fullscreen();
+                } else {
+                    Unfullscreen();
+                }
             }
         }
 
@@ -395,6 +410,20 @@ namespace Smuxi.Frontend.Gnome
                 }
             };
             menu.Append(_ShowMenuBarItem);
+
+            item = new Gtk.ImageMenuItem(Gtk.Stock.Fullscreen, agrp);
+            item.Activated += delegate {
+                try {
+                    IsFullscreen = !IsFullscreen;
+                } catch (Exception ex) {
+                    Frontend.ShowException(this, ex);
+                }
+            };
+            akey = new Gtk.AccelKey();
+            akey.AccelFlags = Gtk.AccelFlags.Visible;
+            akey.Key = Gdk.Key.F11;
+            item.AddAccelerator("activate", agrp, akey);
+            menu.Append(item);
 
             // Menu - Help
             menu = new Gtk.Menu();
