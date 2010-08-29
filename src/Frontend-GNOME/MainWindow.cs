@@ -42,6 +42,8 @@ namespace Smuxi.Frontend.Gnome
 #if LOG4NET
         private static readonly log4net.ILog f_Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 #endif
+        private Gtk.MenuBar      _MenuBar;
+        private Gtk.CheckMenuItem _ShowMenuBarItem;
         private Gtk.Statusbar    _NetworkStatusbar;
         private Gtk.Statusbar    _Statusbar;
         private Gtk.ProgressBar  _ProgressBar;
@@ -66,6 +68,15 @@ namespace Smuxi.Frontend.Gnome
         private bool             _IsMinimized;
         private bool             _IsMaximized;
         
+        public bool ShowMenuBar {
+            get {
+                return _MenuBar.Visible;
+            }
+            set {
+                _ShowMenuBarItem.Active = value;
+            }
+        }
+
         public bool CaretMode {
             get {
                 return _CaretMode;
@@ -186,7 +197,7 @@ namespace Smuxi.Frontend.Gnome
             AddAccelGroup(agrp);
             
             // Menu
-            Gtk.MenuBar mb = new Gtk.MenuBar();
+            _MenuBar = new Gtk.MenuBar();
             Gtk.Menu menu;
             Gtk.MenuItem item;
             Gtk.ImageMenuItem image_item;
@@ -195,7 +206,7 @@ namespace Smuxi.Frontend.Gnome
             menu = new Gtk.Menu();
             item = new Gtk.MenuItem(_("_File"));
             item.Submenu = menu;
-            mb.Append(item);
+            _MenuBar.Append(item);
 
             item = new Gtk.ImageMenuItem(Gtk.Stock.Preferences, agrp);
             item.Activated += new EventHandler(_OnPreferencesButtonClicked);
@@ -211,7 +222,7 @@ namespace Smuxi.Frontend.Gnome
             menu = new Gtk.Menu();
             item = new Gtk.MenuItem(_("_Server"));
             item.Submenu = menu;
-            mb.Append(item);
+            _MenuBar.Append(item);
             
             image_item = new Gtk.ImageMenuItem(_("_Quick Connect"));
             image_item.Image = new Gtk.Image(Gtk.Stock.Connect, Gtk.IconSize.Menu);
@@ -233,7 +244,7 @@ namespace Smuxi.Frontend.Gnome
             menu = new Gtk.Menu();
             item = new Gtk.MenuItem(_("_Chat"));
             item.Submenu = menu;
-            mb.Append(item);
+            _MenuBar.Append(item);
             
             image_item = new Gtk.ImageMenuItem(_("Open / Join Chat"));
             image_item.Image = new Gtk.Image(Gtk.Stock.Open, Gtk.IconSize.Menu);
@@ -328,7 +339,7 @@ namespace Smuxi.Frontend.Gnome
             menu = new Gtk.Menu();
             item = new Gtk.MenuItem(_("_Engine"));
             item.Submenu = menu;
-            mb.Append(item);
+            _MenuBar.Append(item);
 
             item = new Gtk.MenuItem(_("_Use Local Engine"));
             item.Activated += new EventHandler(_OnUseLocalEngineButtonClicked);
@@ -350,7 +361,7 @@ namespace Smuxi.Frontend.Gnome
             menu = new Gtk.Menu();
             item = new Gtk.MenuItem(_("_View"));
             item.Submenu = menu;
-            mb.Append(item);
+            _MenuBar.Append(item);
             
             item = new Gtk.CheckMenuItem(_("_Caret Mode"));
             item.Activated += new EventHandler(_OnCaretModeButtonClicked);
@@ -374,11 +385,22 @@ namespace Smuxi.Frontend.Gnome
             item.AddAccelerator("activate", agrp, akey);
             menu.Append(item);
 
+            _ShowMenuBarItem = new Gtk.CheckMenuItem(_("Show _Menubar"));
+            _ShowMenuBarItem.Active = true;
+            _ShowMenuBarItem.Activated += delegate {
+                try {
+                    _MenuBar.Visible = !_MenuBar.Visible;
+                } catch (Exception ex) {
+                    Frontend.ShowException(this, ex);
+                }
+            };
+            menu.Append(_ShowMenuBarItem);
+
             // Menu - Help
             menu = new Gtk.Menu();
             item = new Gtk.MenuItem(_("_Help"));
             item.Submenu = menu;
-            mb.Append(item);
+            _MenuBar.Append(item);
             
             image_item = new Gtk.ImageMenuItem(Gtk.Stock.About, agrp);
             image_item.Activated += new EventHandler(_OnAboutButtonClicked);
@@ -416,7 +438,7 @@ namespace Smuxi.Frontend.Gnome
             _ProgressBar = new Gtk.ProgressBar();
             
             Gtk.VBox vbox = new Gtk.VBox();
-            vbox.PackStart(mb, false, false, 0);
+            vbox.PackStart(_MenuBar, false, false, 0);
             vbox.PackStart(_Notebook, true, true, 0);
             vbox.PackStart(_Entry, false, false, 0);
 

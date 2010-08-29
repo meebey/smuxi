@@ -219,8 +219,9 @@ namespace Smuxi.Frontend.Gnome
             tv.WrapMode = Gtk.WrapMode.Char;
             tv.MessageAdded += OnMessageTextViewMessageAdded;
             tv.MessageHighlighted += OnMessageTextViewMessageHighlighted;
+            tv.PopulatePopup += OnMessageTextViewPopulatePopup;
             _OutputMessageTextView = tv;
-            
+
             Gtk.ScrolledWindow sw = new Gtk.ScrolledWindow();
             //sw.HscrollbarPolicy = Gtk.PolicyType.Never;
             sw.HscrollbarPolicy = Gtk.PolicyType.Automatic;
@@ -550,6 +551,33 @@ namespace Smuxi.Frontend.Gnome
             } else {
                 _LastHighlight = e.Message.TimeStamp;
             }
+        }
+
+        protected virtual void OnMessageTextViewPopulatePopup(object sender, Gtk.PopulatePopupArgs e)
+        {
+            Trace.Call(sender, e);
+
+            if (OutputMessageTextView.IsAtUrlTag) {
+                return;
+            }
+            if (Frontend.MainWindow.ShowMenuBar) {
+                return;
+            }
+
+            Gtk.Menu popup = e.Menu;
+            popup.Prepend(new Gtk.SeparatorMenuItem());
+
+            var item = new Gtk.CheckMenuItem(_("Show _Menubar"));
+            item.Active = Frontend.MainWindow.ShowMenuBar;
+            item.Activated += delegate {
+                try {
+                    Frontend.MainWindow.ShowMenuBar = true;
+                } catch (Exception ex) {
+                    Frontend.ShowException(ex);
+                }
+            };
+            popup.Prepend(item);
+            popup.ShowAll();
         }
 
         protected virtual void OnLastSeenHighlightQueueExceptionEvent(object sender, TaskQueueExceptionEventArgs e)
