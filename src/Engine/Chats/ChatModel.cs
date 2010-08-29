@@ -30,6 +30,9 @@ namespace Smuxi.Engine
 {
     public abstract class ChatModel : PermanentRemoteObject, ITraceable
     {
+#if LOG4NET
+        private static readonly log4net.ILog _Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+#endif
         private string               _ID;
         private string               _Name;
         private ChatType             _ChatType;
@@ -134,11 +137,41 @@ namespace Smuxi.Engine
             if (network != protocol) {
                 logPath = Path.Combine(logPath, network);
             }
+            if (logPath.IndexOfAny(Path.GetInvalidPathChars()) != -1) {
+#if LOG4NET
+                _Logger.Warn(
+                    "GetLogFile(): logPath '" + logPath + "' contains " +
+                     "invalid chars, removing them!"
+                );
+#endif
+                // remove invalid chars
+                foreach (char invalidChar in Path.GetInvalidPathChars()) {
+                    logPath = logPath.Replace(invalidChar.ToString(),
+                                              String.Empty);
+                }
+            }
+
             if (!Directory.Exists(logPath)) {
                 Directory.CreateDirectory(logPath);
             }
+            
             var chatId = ID.Replace(" ", "_").ToLower();
-            return Path.Combine(logPath, String.Format("{0}.log", chatId));
+            if (chatId.IndexOfAny(Path.GetInvalidFileNameChars()) != -1) {
+#if LOG4NET
+                _Logger.Warn(
+                    "GetLogFile(): chatId '" + logPath + "' contains " +
+                     "invalid chars, removing them!"
+                );
+#endif
+                // remove invalid chars
+                foreach (char invalidChar in Path.GetInvalidFileNameChars()) {
+                    chatId = chatId.Replace(invalidChar.ToString(),
+                                            String.Empty);
+                }
+            }
+            logPath = Path.Combine(logPath, String.Format("{0}.log", chatId));
+            logPath = logPath.Replace("..", String.Empty);
+            return logPath;
         }
     }
 }
