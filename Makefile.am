@@ -112,6 +112,8 @@ WIN32_FILES = \
 	$(WIN32_LIB_DIR)/smuxi-server.exe.config
 		
 dist-win32:
+	./autogen.sh --without-indicate --without-notify
+	$(MAKE)
 	mkdir -p $(WIN32_BUILD_DIR)
 	for FILE in $(WIN32_FILES); do \
 		cp $$FILE $(WIN32_BUILD_DIR); \
