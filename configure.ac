@@ -104,6 +104,7 @@ SHAMROCK_FIND_MONO_RUNTIME
 SHAMROCK_FIND_MONO_2_0_COMPILER
 SHAMROCK_CHECK_MONO_2_0_GAC_ASSEMBLIES([
 	System
+	System.Core
 	System.Runtime.Remoting
 	Mono.Posix
 ])
@@ -136,7 +137,8 @@ else
 fi
 AC_SUBST(CSC, "$MCS")
 AC_SUBST(CSC_FLAGS)
-	
+
+# Required Libraries	
 PKG_CHECK_MODULES([LOG4NET], [log4net])
 
 PKG_CHECK_EXISTS([nini-1.1], FOUND_NINI=yes, FOUND_NINI=no)
@@ -154,18 +156,49 @@ else
 	PKG_CHECK_MODULES([NINI], [nini >= 1.1])
 fi
 
+# Optional Libraries
+AC_ARG_WITH([indicate],
+	AC_HELP_STRING([--with-indicate], [Support Messaging Menu @<:@default=auto@:>@]),
+	[],
+	with_indicate=auto
+)
+WITH_INDICATE=$with_indicate
+PKG_CHECK_EXISTS([indicate-sharp-0.1], INDICATE_SHARP_SUPPORT=yes, INDICATE_SHARP_SUPPORT=no)
+if test "x$WITH_INDICATE" = "xauto"; then
+	WITH_INDICATE=$INDICATE_SHARP_SUPPORT
+fi
+if test "x$WITH_INDICATE" = "xyes"; then
+	PKG_CHECK_MODULES([INDICATE_SHARP], [indicate-sharp-0.1])
+fi
+
+AC_ARG_WITH([notify],
+	AC_HELP_STRING([--with-notify], [Support Desktop Notifications @<:@default=auto@:>@]),
+	[],
+	with_notify=auto
+)
+WITH_NOTIFY=$with_notify
+PKG_CHECK_EXISTS([notify-sharp], NOTIFY_SHARP_SUPPORT=yes, NOTIFY_SHARP_SUPPORT=no)
+if test "x$WITH_NOTIFY" = "xauto"; then
+	WITH_NOTIFY=$NOTIFY_SHARP_SUPPORT
+fi
+if test "x$WITH_NOTIFY" = "xyes"; then
+	PKG_CHECK_MODULES([NOTIFY_SHARP], [notify-sharp])
+fi
+
 # Engines
 AC_ARG_ENABLE([engine-irc],
 	AC_HELP_STRING([--enable-engine-irc], [Enable IRC protocol support (default yes)]),
 	ENABLE_ENGINE_IRC=$enableval,
 	ENABLE_ENGINE_IRC=yes
-	if test ! -d "$srcdir/lib/SmartIrc4net"; then
+)
+if test "x$ENABLE_ENGINE_IRC" != "xno"; then
+	if test ! -f "$srcdir/lib/SmartIrc4net/configure.ac"; then
 		AC_MSG_ERROR([lib/SmartIrc4net not found])
 	fi
 	ac_configure_args="$ac_configure_args --disable-pkg-config --disable-pkg-lib --disable-pkg-gac"
 	AC_CONFIG_SUBDIRS([lib/SmartIrc4net])
 	AC_SUBST([SMARTIRC4NET_FILES], "lib/SmartIrc4net/bin/Meebey.SmartIrc4net.dll")
-)
+fi
 AM_CONDITIONAL(ENABLE_ENGINE_IRC, test "x$ENABLE_ENGINE_IRC" = "xyes")
 
 AC_ARG_ENABLE([engine-oscar],
@@ -253,13 +286,14 @@ if test "x$ENABLE_FRONTEND_GNOME" != "xno"; then
 		AC_MSG_RESULT(no)
 	fi
 	
-	PKG_CHECK_MODULES([INDICATE_SHARP], [indicate-sharp-0.1], INDICATE_SHARP_SUPPORT=yes, INDICATE_SHARP_SUPPORT=no)
-	if test "x$INDICATE_SHARP_SUPPORT" = "xyes"; then
+	SHAMROCK_CHECK_MONO_2_0_GAC_ASSEMBLIES([
+		System.Drawing
+	])
+	
+	if test "x$WITH_INDICATE" = "xyes"; then
 		FRONTEND_GNOME_COMPILER_FLAGS+=" -define:INDICATE_SHARP"
 	fi
-
-	PKG_CHECK_MODULES([NOTIFY_SHARP], [notify-sharp], NOTIFY_SHARP_SUPPORT=yes, NOTIFY_SHARP_SUPPORT=no)
-	if test "x$NOTIFY_SHARP_SUPPORT" = "xyes"; then
+	if test "x$WITH_NOTIFY" = "xyes"; then
 		FRONTEND_GNOME_COMPILER_FLAGS+=" -define:NOTIFY_SHARP"
 	fi
 	
@@ -390,8 +424,8 @@ AC_MSG_RESULT([
 	* Frontends
 	  ---------
 	  GNOME:               $ENABLE_FRONTEND_GNOME (IRC: $ENABLE_FRONTEND_GNOME_IRC XMPP: $ENABLE_FRONTEND_GNOME_XMPP)
-	  + Messaging Menu:    $INDICATE_SHARP_SUPPORT
-	  + Notifications:     $NOTIFY_SHARP_SUPPORT
+	  + Messaging Menu:    $WITH_INDICATE
+	  + Notifications:     $WITH_NOTIFY
 	  Ncurses:             $ENABLE_FRONTEND_CURSES
 	  STFL:                $ENABLE_FRONTEND_STFL
 	  SWF (WinForms):      $ENABLE_FRONTEND_SWF
