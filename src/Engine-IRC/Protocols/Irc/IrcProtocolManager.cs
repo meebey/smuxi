@@ -184,6 +184,7 @@ namespace Smuxi.Engine
             _IrcClient.OnCtcpRequest    += new CtcpEventHandler(_OnCtcpRequest);
             _IrcClient.OnCtcpReply      += new CtcpEventHandler(_OnCtcpReply);
             _IrcClient.OnWho            += OnWho;
+            _IrcClient.OnInvite         += OnInvite;
 
             _IrcClient.CtcpUserInfo = (string) Session.UserConfig["Connection/Realname"];
             // disabled as we don't use / support DCC yet
@@ -221,6 +222,20 @@ namespace Smuxi.Engine
                 MyPerson.Host = e.WhoInfo.Host;
                 MyPerson.RealName = e.WhoInfo.Realname;
             }
+        }
+
+        private void OnInvite(object sender, InviteEventArgs e)
+        {
+            var builder = CreateMessageBuilder();
+            builder.AppendEventPrefix();
+            builder.MessageType = MessageType.Normal;
+            builder.AppendIdendityName(CreatePerson(e.Who));
+            // TRANSLATOR: do NOT change the position of {0}!
+            var text = builder.CreateText(_("{0} invites you to {1}"),
+                                          String.Empty, e.Channel);
+            text.IsHighlight = true;
+            builder.AppendText(text);
+            Session.AddMessageToChat(_NetworkChat, builder.ToMessage());
         }
 
         public override string ToString()
