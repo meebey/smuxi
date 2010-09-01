@@ -217,7 +217,7 @@ namespace Smuxi.Frontend.Gnome
                 InitLocalEngine();
                 ConnectEngineToGUI();
             } else {
-                // there is more than one engine set, means we have to ask
+                // there are remote engines defined, means we have to ask
                 //_SplashScreenWindow.Destroy();
                 _SplashScreenWindow = null;
                 ShowEngineManagerDialog();
