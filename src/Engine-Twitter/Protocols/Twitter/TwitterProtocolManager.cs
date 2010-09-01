@@ -688,6 +688,7 @@ namespace Smuxi.Engine
             if (server == null) {
                 server = new ServerModel() {
                     Protocol = Protocol,
+                    Network  = String.Empty,
                     Hostname = response.ScreenName,
                     Username = response.ScreenName,
                     Password = String.Format("{0}|{1}", response.Token,
