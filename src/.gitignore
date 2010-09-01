@@ -1,5 +1,6 @@
 Makefile
 Makefile.in
+smuxi-win32.nsis
 *.user*
 */*.pidb
 *-Tests/test-results/
