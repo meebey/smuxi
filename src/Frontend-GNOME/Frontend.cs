@@ -213,11 +213,11 @@ namespace Smuxi.Frontend.Gnome
  
             _MainWindow = new MainWindow();
 
-            if (String.IsNullOrEmpty((string) FrontendConfig["Engines/Default"])) {
+            if (((string[]) FrontendConfig["Engines/Engines"]).Length == 0) {
                 InitLocalEngine();
                 ConnectEngineToGUI();
             } else {
-                // there is a default engine set, means we want a remote engine
+                // there is more than one engine set, means we have to ask
                 //_SplashScreenWindow.Destroy();
                 _SplashScreenWindow = null;
                 ShowEngineManagerDialog();
