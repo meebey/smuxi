@@ -249,7 +249,7 @@ namespace Smuxi.Frontend.Gnome
             f_ValidateServerCertificateCheckButton.Sensitive = useEncryption;
             switch (f_ProtocolComboBox.ActiveText) {
                 case "IRC":
-                    f_PortSpinButton.Value = useEncryption ? 6697 : 6669;
+                    f_PortSpinButton.Value = useEncryption ? 6697 : 6667;
                     break;
             }
         }
