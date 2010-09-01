@@ -655,7 +655,14 @@ namespace Smuxi.Frontend.Gnome
 #endif
                 }
                 
-                Frontend.Session.Connect(server, Frontend.FrontendManager);
+                // do connect as background task as it might take a while
+                ThreadPool.QueueUserWorkItem(delegate {
+                    try {
+                        Frontend.Session.Connect(server, Frontend.FrontendManager);
+                    } catch (Exception ex) {
+                        Frontend.ShowException(this, ex);
+                    }
+                });
             } catch (Exception ex) {
                 Frontend.ShowException(this, ex);
             }
