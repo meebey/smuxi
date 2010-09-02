@@ -259,15 +259,43 @@ if test "x$ENABLE_ENGINE_TWITTER" != "xno"; then
 	if test "x$XBUILD" = "xno"; then
 		AC_MSG_ERROR([You need to install xbuild for Twitter support])
 	fi
+
+	# compiling Json.NET with the C# compiler of Mono 2.4 will result in
+	# a endless loop with eating all memory :/
+	AC_MSG_CHECKING([for Mono >= 2.6])
+	if $PKG_CONFIG 'mono >= 2.6'; then
+		AC_MSG_RESULT(yes)
+	else
+		AC_MSG_RESULT(no)
+		AC_MSG_ERROR([You need Mono 2.6 or later for Twitter support])
+	fi
+
 	if test ! -f "$srcdir/lib/Newtonsoft.Json/Src/Newtonsoft.Json/Newtonsoft.Json.csproj"; then
 		AC_MSG_ERROR([lib/Newtonsoft.Json is empty! Used git submodule init; git submodule update?])
 	fi
+	SHAMROCK_CHECK_MONO_2_0_GAC_ASSEMBLIES([
+		System
+		System.Core
+		System.Data
+		System.Runtime.Serialization
+		System.Web
+		System.Xml
+		System.Xml.Linq
+	])
+
 	if test ! -f "$srcdir/lib/Twitterizer/Twitterizer2/Twitterizer2.csproj"; then
 		AC_MSG_ERROR([lib/Twitterizer is empty! Used git submodule init; git submodule update?])
 	fi
 	SHAMROCK_CHECK_MONO_2_0_GAC_ASSEMBLIES([
+		System
+		System.Configuration
+		System.Core
+		System.Data
+		System.Drawing
 		System.Web
+		System.Web.Extensions
 		System.Xml
+		System.Xml.Linq
 	])
 fi
 AM_CONDITIONAL(ENABLE_ENGINE_TWITTER, test "x$ENABLE_ENGINE_TWITTER" = "xyes")
