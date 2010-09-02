@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.6.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-08-05 01:46+0200\n"
+"POT-Creation-Date: 2010-09-02 15:23+0200\n"
 "PO-Revision-Date: 2010-01-10 23:54+0100\n"
 "Last-Translator: Bianca Mix <heavydemon@freenet.de>\n"
 "Language-Team: German Localization <debian-l10n-german@lists.debian.org>\n"
@@ -16,26 +16,26 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../src/Engine/FrontendManager.cs:223
+#: ../src/Engine/FrontendManager.cs:230
 msgid "No network connections"
 msgstr "Keine Netzwerkverbindungen"
 
-#: ../src/Engine/Protocols/ProtocolManagerBase.cs:146
+#: ../src/Engine/Protocols/ProtocolManagerBase.cs:161
 msgid "Not connected to server"
 msgstr "Nicht mit dem Server verbunden"
 
-#: ../src/Engine/Protocols/ProtocolManagerBase.cs:158
-#: ../src/Engine/Session.cs:736
+#: ../src/Engine/Protocols/ProtocolManagerBase.cs:173
+#: ../src/Engine/Session.cs:751
 #, csharp-format
 msgid "Not enough parameters for {0} command"
 msgstr "Nicht genügend Parameter für den Befehl: {0}"
 
-#: ../src/Engine/Protocols/ProtocolManagerBase.cs:174
+#: ../src/Engine/Protocols/ProtocolManagerBase.cs:189
 #, csharp-format
 msgid "Connected to {0}"
 msgstr "Verbunden zu {0}"
 
-#: ../src/Engine/Protocols/ProtocolManagerBase.cs:196
+#: ../src/Engine/Protocols/ProtocolManagerBase.cs:213
 #, csharp-format
 msgid "Disconnected from {0}"
 msgstr "Getrennt von {0}"
@@ -59,76 +59,76 @@ msgstr "Automatische Verbindung zu {0} ist fehlgeschlagen!"
 
 #. TRANSLATOR: this line is used as a label / category for a
 #. list of commands below
-#: ../src/Engine/Session.cs:407
+#: ../src/Engine/Session.cs:411
 msgid "Engine Commands"
 msgstr "Engine Befehle"
 
-#: ../src/Engine/Session.cs:510
+#: ../src/Engine/Session.cs:514
 msgid "Connect failed!"
 msgstr "Verbindung ist fehlgeschlagen!"
 
-#: ../src/Engine/Session.cs:540
+#: ../src/Engine/Session.cs:544
 #, csharp-format
 msgid "Disconnect failed - could not find server: {0}"
 msgstr "Die Trennung ist fehlgeschlagen - konnte den Server {0} nicht finden"
 
-#: ../src/Engine/Session.cs:579
+#: ../src/Engine/Session.cs:583
 msgid "Reconnect failed!"
 msgstr "Wiederverbinden ist fehlgeschlagen!"
 
-#: ../src/Engine/Session.cs:598
+#: ../src/Engine/Session.cs:602
 msgid "Configuration reloaded"
 msgstr "Konfiguration wurde erneuert"
 
-#: ../src/Engine/Session.cs:603
+#: ../src/Engine/Session.cs:607
 msgid "Configuration saved"
 msgstr "Konfiguration wurde gespeichert"
 
-#: ../src/Engine/Session.cs:607
+#: ../src/Engine/Session.cs:611
 msgid "Invalid parameter for config; use load or save"
 msgstr "Ungültiger Parameter für \"config\", verwenden Sie \"load\" oder \"save\""
 
-#: ../src/Engine/Session.cs:637
+#: ../src/Engine/Session.cs:641
 msgid "Invalid parameter for network; use list, switch, or close"
 msgstr "Ungültiger Parameter für \"network\", verwenden Sie \"list\", \"switch\" oder \"close\""
 
-#: ../src/Engine/Session.cs:648
+#: ../src/Engine/Session.cs:652
 msgid "Networks"
 msgstr "Netzwerke"
 
-#: ../src/Engine/Session.cs:652
+#: ../src/Engine/Session.cs:656
 msgid "Type"
 msgstr "Typ"
 
-#: ../src/Engine/Session.cs:653
+#: ../src/Engine/Session.cs:657
 msgid "Host"
 msgstr "Host"
 
-#: ../src/Engine/Session.cs:654
+#: ../src/Engine/Session.cs:658
 msgid "Port"
 msgstr "Port"
 
-#: ../src/Engine/Session.cs:676
+#: ../src/Engine/Session.cs:680
 #, csharp-format
 msgid "Network close failed - could not find network with host: {0}"
 msgstr "Beenden der Verbindung zum Netzwerk fehlgeschlagen, konnte das Netzwerk mit Host: {0} nicht finden"
 
-#: ../src/Engine/Session.cs:710
+#: ../src/Engine/Session.cs:725
 #, csharp-format
 msgid "Network switch failed - could not find network with host: {0}"
 msgstr "Wechseln des Netzwerks fehlgeschlagen, konnte das Netzwerk mit Host: {0} nicht finden"
 
-#: ../src/Engine/Session.cs:725
+#: ../src/Engine/Session.cs:740
 msgid "Not connected to any network"
 msgstr "Zu keinem Netzwerk verbunden"
 
 #. just in case the ProtocolManager is not setting the
 #. protocol chat
-#: ../src/Engine/Session.cs:1052
+#: ../src/Engine/Session.cs:1067
 msgid "Connect failed."
 msgstr "Verbindung ist fehlgeschlagen."
 
-#: ../src/Engine/Session.cs:1083
+#: ../src/Engine/Session.cs:1098
 #, csharp-format
 msgid "No protocol manager found for the protocol: {0}"
 msgstr "Kein Protokoll-Manager gefunden für das Protokoll: {0}"
@@ -150,6 +150,19 @@ msgstr "Benutzer \"{0}\" ist nicht vorhanden."
 #, csharp-format
 msgid "User \"{0}\" already exists."
 msgstr "Benutzer \"{0}\" ist bereits vorhanden."
+
+#: ../src/Engine/Config/ServerListController.cs:131
+msgid "Server hostname must not be empty."
+msgstr "Hostname des Servers darf nicht leer sein."
+
+#: ../src/Engine/Config/ServerListController.cs:134
+msgid "Server hostname contains invalid characters (newline)."
+msgstr "Hostname des Servers enthält unzuläissige Zeichen (neue Zeile)."
+
+#: ../src/Engine/Config/ServerListController.cs:140
+#, csharp-format
+msgid "Server '{0}' already exists."
+msgstr "Server \"{0}\" ist bereits vorhanden."
 
 #~ msgid "Unknown protocol: {0}"
 #~ msgstr "Unbekanntes Protokoll: {0}"
