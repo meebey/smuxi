@@ -52,7 +52,8 @@ update-po:
 update-pot:
 	for PODIR in $(PODIRS); do \
 		echo $$PODIR; \
-		$(MAKE) -C $$PODIR check; \
+		$(MAKE) -C $$PODIR clean; \
+		$(MAKE) -C $$PODIR check 2>&1 | grep -v 'mismatched quotes at line' 2>&1; \
 	done
 
 mail-po: update-po
