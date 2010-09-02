@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Smuxi 0.6.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-08-10 19:14+0200\n"
+"POT-Creation-Date: 2010-09-02 15:23+0200\n"
 "PO-Revision-Date: 2010-07-28 18:05+0100\n"
 "Last-Translator: Clément Bourgeois <moonpyk@gmail.com>\n"
 "Language-Team: French Localization <debian-l10n-french@lists.debian.org>\n"
@@ -63,40 +63,52 @@ msgid "<b> Topic Position </b>"
 msgstr "<b> Position du sujet </b>"
 
 #: ../glade/smuxi-frontend-gnome.glade.h:11
+msgid "<b>General</b>"
+msgstr "<b>Général</b>"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:12
+msgid "<b>Global Commands</b>"
+msgstr "<b>Commandes globales</b>"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:13
 msgid "<b>Messaging Menu</b>"
 msgstr "<b>Menu de messagerie</b>"
 
-#: ../glade/smuxi-frontend-gnome.glade.h:12
+#: ../glade/smuxi-frontend-gnome.glade.h:14
+msgid "<b>Network Proxy</b>"
+msgstr "<b>Proxy réseau</b>"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:15
 msgid "<b>Notification Popups</b>"
 msgstr "<b>Popups de notification</b>"
 
-#: ../glade/smuxi-frontend-gnome.glade.h:13
+#: ../glade/smuxi-frontend-gnome.glade.h:16
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1153
 msgid "Activity"
 msgstr "Activité"
 
-#: ../glade/smuxi-frontend-gnome.glade.h:14
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:99
+#: ../glade/smuxi-frontend-gnome.glade.h:17
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:235
 msgid "Automatically connect to server at startup"
 msgstr "Se connecter automatiquement au serveur à chaque démarrage"
 
-#: ../glade/smuxi-frontend-gnome.glade.h:15
+#: ../glade/smuxi-frontend-gnome.glade.h:18
 msgid "Background"
 msgstr "Arrière plan"
 
-#: ../glade/smuxi-frontend-gnome.glade.h:16
+#: ../glade/smuxi-frontend-gnome.glade.h:19
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1352
 msgid "Bash-Style Completion"
 msgstr "Complétion style Bash"
 
-#: ../glade/smuxi-frontend-gnome.glade.h:17
+#: ../glade/smuxi-frontend-gnome.glade.h:20
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1682
 msgid "Beep on highlight"
 msgstr "Émettre un son en cas de surlignage"
 
 #. Container child vbox6.Gtk.Box+BoxChild
 #. Container child vbox11.Gtk.Box+BoxChild
-#: ../glade/smuxi-frontend-gnome.glade.h:18
+#: ../glade/smuxi-frontend-gnome.glade.h:21
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:972
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:994
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1453
@@ -104,85 +116,89 @@ msgstr "Émettre un son en cas de surlignage"
 msgid "Bottom"
 msgstr "Bas"
 
-#: ../glade/smuxi-frontend-gnome.glade.h:19
+#: ../glade/smuxi-frontend-gnome.glade.h:22
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:738
 msgid "Buffer Lines:"
 msgstr "Lignes du tampon :"
 
-#: ../glade/smuxi-frontend-gnome.glade.h:20
+#: ../glade/smuxi-frontend-gnome.glade.h:23
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:663
 msgid "C_onnection"
 msgstr "C_onnexion"
 
-#: ../glade/smuxi-frontend-gnome.glade.h:21
+#: ../glade/smuxi-frontend-gnome.glade.h:24
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1304
 msgid "Command Character:"
 msgstr "Caractère des commandes :"
 
-#: ../glade/smuxi-frontend-gnome.glade.h:22
+#: ../glade/smuxi-frontend-gnome.glade.h:25
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1327
 msgid "Command History Size:"
 msgstr "Taille de l'historique des commandes :"
 
-#: ../glade/smuxi-frontend-gnome.glade.h:23
+#: ../glade/smuxi-frontend-gnome.glade.h:26
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1284
 msgid "Completion Character:"
 msgstr "Caractère de complétion :"
 
-#: ../glade/smuxi-frontend-gnome.glade.h:24
+#: ../glade/smuxi-frontend-gnome.glade.h:27
 msgid "Enable"
 msgstr "Activer"
 
-#: ../glade/smuxi-frontend-gnome.glade.h:25
+#: ../glade/smuxi-frontend-gnome.glade.h:28
 msgid "Enabled"
 msgstr "Activé"
 
-#: ../glade/smuxi-frontend-gnome.glade.h:26
+#: ../glade/smuxi-frontend-gnome.glade.h:29
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:551
 msgid "Encoding:"
 msgstr "Encodage :"
 
-#: ../glade/smuxi-frontend-gnome.glade.h:27
+#: ../glade/smuxi-frontend-gnome.glade.h:30
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:761
 msgid "Engine Buffer Lines:"
 msgstr "Lignes du tampon moteur"
 
-#: ../glade/smuxi-frontend-gnome.glade.h:28
+#: ../glade/smuxi-frontend-gnome.glade.h:31
 msgid "Foreground"
 msgstr "Texte"
 
-#: ../glade/smuxi-frontend-gnome.glade.h:29
+#: ../glade/smuxi-frontend-gnome.glade.h:32
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:917
 msgid "General"
 msgstr "Général"
 
-#: ../glade/smuxi-frontend-gnome.glade.h:30
+#: ../glade/smuxi-frontend-gnome.glade.h:33
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1173
 msgid "Highlight"
 msgstr "Surligner"
 
-#: ../glade/smuxi-frontend-gnome.glade.h:31
+#: ../glade/smuxi-frontend-gnome.glade.h:34
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1658
 msgid "Highlight words:"
 msgstr "Mots surlignés :"
 
-#: ../glade/smuxi-frontend-gnome.glade.h:32
+#: ../glade/smuxi-frontend-gnome.glade.h:35
+msgid "Host:"
+msgstr "Nom d'hôte :"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:36
 msgid "Hostname:"
 msgstr "Nom d'hôte"
 
-#: ../glade/smuxi-frontend-gnome.glade.h:33
+#: ../glade/smuxi-frontend-gnome.glade.h:37
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1373
 msgid "Input"
 msgstr "Entrée"
 
-#: ../glade/smuxi-frontend-gnome.glade.h:34
+#: ../glade/smuxi-frontend-gnome.glade.h:38
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1163
 msgid "Join/Part/Mode"
 msgstr "Join/Part/Mode"
 
 #. Container child vbox6.Gtk.Box+BoxChild
 #. Container child vbox12.Gtk.Box+BoxChild
-#: ../glade/smuxi-frontend-gnome.glade.h:35
+#: ../glade/smuxi-frontend-gnome.glade.h:39
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1008
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1033
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1527
@@ -190,24 +206,24 @@ msgstr "Join/Part/Mode"
 msgid "Left"
 msgstr "Gauche"
 
-#: ../glade/smuxi-frontend-gnome.glade.h:36
+#: ../glade/smuxi-frontend-gnome.glade.h:40
 msgid "Log Filtered Messages"
 msgstr "Journaliser les messages filtrés"
 
-#: ../glade/smuxi-frontend-gnome.glade.h:37
+#: ../glade/smuxi-frontend-gnome.glade.h:41
 msgid "Network:"
 msgstr "Réseau :"
 
-#: ../glade/smuxi-frontend-gnome.glade.h:38
+#: ../glade/smuxi-frontend-gnome.glade.h:42
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1394
 msgid "Nick Colors"
 msgstr "Couleur du surnom"
 
-#: ../glade/smuxi-frontend-gnome.glade.h:39
+#: ../glade/smuxi-frontend-gnome.glade.h:43
 msgid "Nickname(s):"
 msgstr "Surnom(s) :"
 
-#: ../glade/smuxi-frontend-gnome.glade.h:40
+#: ../glade/smuxi-frontend-gnome.glade.h:44
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1145
 msgid "No Activity"
 msgstr "Aucune activité"
@@ -215,56 +231,56 @@ msgstr "Aucune activité"
 #. Container child vbox6.Gtk.Box+BoxChild
 #. Container child vbox11.Gtk.Box+BoxChild
 #. Container child vbox12.Gtk.Box+BoxChild
-#: ../glade/smuxi-frontend-gnome.glade.h:41
+#: ../glade/smuxi-frontend-gnome.glade.h:45
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1088
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1493
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1608
 msgid "None"
 msgstr "Aucun"
 
-#: ../glade/smuxi-frontend-gnome.glade.h:42
+#: ../glade/smuxi-frontend-gnome.glade.h:46
 msgid "Notification"
 msgstr "Notification"
 
-#: ../glade/smuxi-frontend-gnome.glade.h:43
+#: ../glade/smuxi-frontend-gnome.glade.h:47
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:573
 msgid "On Connect Commands:"
 msgstr "Commandes de connexion :"
 
-#: ../glade/smuxi-frontend-gnome.glade.h:44
+#: ../glade/smuxi-frontend-gnome.glade.h:48
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:619
 msgid "On Startup Commands:"
 msgstr "Commandes de démarrage :"
 
-#: ../glade/smuxi-frontend-gnome.glade.h:45
+#: ../glade/smuxi-frontend-gnome.glade.h:49
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1706
 msgid "Output"
 msgstr "Sortie"
 
-#: ../glade/smuxi-frontend-gnome.glade.h:46
+#: ../glade/smuxi-frontend-gnome.glade.h:50
 msgid "Override"
 msgstr "Ignorer"
 
-#: ../glade/smuxi-frontend-gnome.glade.h:47
+#: ../glade/smuxi-frontend-gnome.glade.h:51
 msgid "Password:"
 msgstr "Mot de passe :"
 
-#: ../glade/smuxi-frontend-gnome.glade.h:48
+#: ../glade/smuxi-frontend-gnome.glade.h:52
 msgid "Port:"
 msgstr "Port :"
 
-#: ../glade/smuxi-frontend-gnome.glade.h:49
+#: ../glade/smuxi-frontend-gnome.glade.h:53
 msgid "Protocol:"
 msgstr "Protocole :"
 
-#: ../glade/smuxi-frontend-gnome.glade.h:50
+#: ../glade/smuxi-frontend-gnome.glade.h:54
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:530
 msgid "Realname:"
 msgstr "Nom réel :"
 
 #. Container child vbox6.Gtk.Box+BoxChild
 #. Container child vbox12.Gtk.Box+BoxChild
-#: ../glade/smuxi-frontend-gnome.glade.h:51
+#: ../glade/smuxi-frontend-gnome.glade.h:55
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1048
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1073
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1568
@@ -272,73 +288,77 @@ msgstr "Nom réel :"
 msgid "Right"
 msgstr "Droite"
 
-#: ../glade/smuxi-frontend-gnome.glade.h:52
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:187
+#: ../glade/smuxi-frontend-gnome.glade.h:56
+msgid "Show Advanced Settings"
+msgstr "Afficher les reglages avancés"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:57
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:196
 msgid "Show Password"
 msgstr "Afficher le mot de passe"
 
-#: ../glade/smuxi-frontend-gnome.glade.h:53
+#: ../glade/smuxi-frontend-gnome.glade.h:58
 msgid "Show Smuxi in the messaging menu"
 msgstr "Afficher Smuxi dans le menu messagerie"
 
-#: ../glade/smuxi-frontend-gnome.glade.h:54
+#: ../glade/smuxi-frontend-gnome.glade.h:59
 msgid "Show always"
 msgstr "Toujours montrer"
 
-#: ../glade/smuxi-frontend-gnome.glade.h:55
+#: ../glade/smuxi-frontend-gnome.glade.h:60
 msgid "Show notification popups"
 msgstr "Afficher les popups de notification"
 
-#: ../glade/smuxi-frontend-gnome.glade.h:56
+#: ../glade/smuxi-frontend-gnome.glade.h:61
 msgid "Show when window is closed"
 msgstr "Montrer quand la fenêtre est fermée"
 
-#: ../glade/smuxi-frontend-gnome.glade.h:57
+#: ../glade/smuxi-frontend-gnome.glade.h:62
 msgid "Show when window is minimized"
 msgstr "Montrer quand la fenêtre est minimisée"
 
-#: ../glade/smuxi-frontend-gnome.glade.h:58
+#: ../glade/smuxi-frontend-gnome.glade.h:63
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:398
 msgid "Smuxi - Preferences"
 msgstr "Smuxi - Préférences"
 
-#: ../glade/smuxi-frontend-gnome.glade.h:59
+#: ../glade/smuxi-frontend-gnome.glade.h:64
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerDialog.cs:18
 msgid "Smuxi - Server"
 msgstr "Smuxi - Serveur"
 
-#: ../glade/smuxi-frontend-gnome.glade.h:60
+#: ../glade/smuxi-frontend-gnome.glade.h:65
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:820
 msgid "Strip Colors"
 msgstr "Ignorer les couleurs"
 
-#: ../glade/smuxi-frontend-gnome.glade.h:61
+#: ../glade/smuxi-frontend-gnome.glade.h:66
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:859
 msgid "Strip Formattings"
 msgstr "Ignorer le formatage"
 
-#: ../glade/smuxi-frontend-gnome.glade.h:62
+#: ../glade/smuxi-frontend-gnome.glade.h:67
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:899
 msgid "Strip UTF-8"
 msgstr "Ignorer l'UTF-8"
 
-#: ../glade/smuxi-frontend-gnome.glade.h:63
+#: ../glade/smuxi-frontend-gnome.glade.h:68
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1214
 msgid "Tabs"
 msgstr "Onglets"
 
-#: ../glade/smuxi-frontend-gnome.glade.h:64
+#: ../glade/smuxi-frontend-gnome.glade.h:69
 msgid "The nickname to use. You can specify extra nicknames (separated by spaces) which will be used as fallbacks when the first choice is not available. By default $nick_ and $nick__ will be used as fallbacks."
 msgstr "Le surnom est déjà en cours d'utilisation. Vous pouvez spécifier plus d'un seul surnom, séparés par des espaces. Ceux ci seront utilisés comme solution de repli si le premier surnom n'est pas disponible. Par défaut, $nick et $nick__ sont utilisés."
 
-#: ../glade/smuxi-frontend-gnome.glade.h:65
+#: ../glade/smuxi-frontend-gnome.glade.h:70
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:718
 msgid "Timestamp Format:"
 msgstr "Format temporel :"
 
 #. Container child vbox6.Gtk.Box+BoxChild
 #. Container child vbox11.Gtk.Box+BoxChild
-#: ../glade/smuxi-frontend-gnome.glade.h:66
+#: ../glade/smuxi-frontend-gnome.glade.h:71
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:935
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:959
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1412
@@ -346,37 +366,41 @@ msgstr "Format temporel :"
 msgid "Top"
 msgstr "Haut"
 
-#: ../glade/smuxi-frontend-gnome.glade.h:67
+#: ../glade/smuxi-frontend-gnome.glade.h:72
+msgid "Type:"
+msgstr "Type :"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:73
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:507
 msgid "Username:"
 msgstr "Nom d'utilisateur :"
 
-#: ../glade/smuxi-frontend-gnome.glade.h:68
+#: ../glade/smuxi-frontend-gnome.glade.h:74
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1873
 msgid "_Filters"
 msgstr "_Filtres"
 
-#: ../glade/smuxi-frontend-gnome.glade.h:69
+#: ../glade/smuxi-frontend-gnome.glade.h:75
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1715
 msgid "_Interface"
 msgstr "_Interface"
 
-#: ../glade/smuxi-frontend-gnome.glade.h:70
+#: ../glade/smuxi-frontend-gnome.glade.h:76
 msgid "_Logging"
 msgstr "_Journalisation"
 
-#: ../glade/smuxi-frontend-gnome.glade.h:71
+#: ../glade/smuxi-frontend-gnome.glade.h:77
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1781
 msgid "_Servers"
 msgstr "_Serveurs"
 
 #. This is a setting for character based line wrapping vs word based when
 #. showing messages
-#: ../glade/smuxi-frontend-gnome.glade.h:73
+#: ../glade/smuxi-frontend-gnome.glade.h:79
 msgid "_Wrap Mode:"
 msgstr "Mode _circulaire :"
 
-#: ../glade/smuxi-frontend-gnome.glade.h:74
+#: ../glade/smuxi-frontend-gnome.glade.h:80
 msgid ""
 "ss = seconds\n"
 "mm = minutes\n"
@@ -484,100 +508,109 @@ msgstr "Erreur : {0}"
 msgid "Are you sure you want to delete the engine \"{0}\"?"
 msgstr "Êtes vous sûr(e) de vouloir supprimer le moteur \"{0}\" ?"
 
-#: ../src/Frontend-GNOME/Entry.cs:412
+#: ../src/Frontend-GNOME/Entry.cs:421
 #, csharp-format
 msgid "You are going to paste {0} lines. Do you want to continue?"
 msgstr "Vous vous apprêtez à coller {0} lignes de texte, êtes vous sûr(e) de vouloir continuer ?"
 
 #. TRANSLATOR: this line is used as a label / category for a
 #. list of commands below
-#: ../src/Frontend-GNOME/Entry.cs:515
+#: ../src/Frontend-GNOME/Entry.cs:524
 msgid "Frontend Commands"
 msgstr "Commandes Frontend"
 
-#: ../src/Frontend-GNOME/MainWindow.cs:193
+#: ../src/Frontend-GNOME/MainWindow.cs:222
 msgid "_File"
 msgstr "_Fichier"
 
-#: ../src/Frontend-GNOME/MainWindow.cs:209
+#: ../src/Frontend-GNOME/MainWindow.cs:238
 msgid "_Server"
 msgstr "_Serveur"
 
-#: ../src/Frontend-GNOME/MainWindow.cs:213
+#: ../src/Frontend-GNOME/MainWindow.cs:242
 msgid "_Quick Connect"
 msgstr "_Connexion rapide"
 
-#: ../src/Frontend-GNOME/MainWindow.cs:224
+#: ../src/Frontend-GNOME/MainWindow.cs:253
 msgid "_Manage"
 msgstr "_Gestion"
 
-#: ../src/Frontend-GNOME/MainWindow.cs:231
+#: ../src/Frontend-GNOME/MainWindow.cs:260
 msgid "_Chat"
 msgstr "_Discussion"
 
-#: ../src/Frontend-GNOME/MainWindow.cs:235
+#: ../src/Frontend-GNOME/MainWindow.cs:264
 msgid "Open / Join Chat"
 msgstr "Ouvrir / Rejoindre chat"
 
-#: ../src/Frontend-GNOME/MainWindow.cs:240
+#: ../src/Frontend-GNOME/MainWindow.cs:269
 msgid "_Find Group Chat"
 msgstr "_Rechercher le groupe de discussion"
 
-#: ../src/Frontend-GNOME/MainWindow.cs:245
+#: ../src/Frontend-GNOME/MainWindow.cs:274
 msgid "C_lear All Activity"
 msgstr "_Supprimer toute activité"
 
-#: ../src/Frontend-GNOME/MainWindow.cs:252
+#: ../src/Frontend-GNOME/MainWindow.cs:281
 msgid "_Next Chat"
 msgstr "Discussion _suivante"
 
-#: ../src/Frontend-GNOME/MainWindow.cs:262
+#: ../src/Frontend-GNOME/MainWindow.cs:291
 msgid "_Previous Chat"
 msgstr "Discussion _précédente"
 
-#: ../src/Frontend-GNOME/MainWindow.cs:312
+#: ../src/Frontend-GNOME/MainWindow.cs:341
 msgid "Open Log"
 msgstr "Ouvrir le journal"
 
-#: ../src/Frontend-GNOME/MainWindow.cs:326
+#: ../src/Frontend-GNOME/MainWindow.cs:355
 msgid "_Engine"
 msgstr "_Moteur"
 
-#: ../src/Frontend-GNOME/MainWindow.cs:330
+#: ../src/Frontend-GNOME/MainWindow.cs:359
 msgid "_Use Local Engine"
 msgstr "_Utiliser le moteur local"
 
-#: ../src/Frontend-GNOME/MainWindow.cs:336
+#: ../src/Frontend-GNOME/MainWindow.cs:365
 msgid "_Add Remote Engine"
 msgstr "_Ajouter un moteur distant"
 
-#: ../src/Frontend-GNOME/MainWindow.cs:341
+#: ../src/Frontend-GNOME/MainWindow.cs:370
 msgid "_Switch Remote Engine"
 msgstr "_Changer de moteur distant"
 
-#: ../src/Frontend-GNOME/MainWindow.cs:348
+#: ../src/Frontend-GNOME/MainWindow.cs:377
 msgid "_View"
 msgstr "_Vue"
 
-#: ../src/Frontend-GNOME/MainWindow.cs:352
+#: ../src/Frontend-GNOME/MainWindow.cs:381
 msgid "_Caret Mode"
 msgstr "Mode _curseur"
 
-#: ../src/Frontend-GNOME/MainWindow.cs:362
+#: ../src/Frontend-GNOME/MainWindow.cs:389
+msgid "_Browse Mode"
+msgstr "Mode _navigateur"
+
+#: ../src/Frontend-GNOME/MainWindow.cs:403
+#: ../src/Frontend-GNOME/Views/Chats/ChatView.cs:586
+msgid "Show _Menubar"
+msgstr "Afficher la barre de _menus"
+
+#: ../src/Frontend-GNOME/MainWindow.cs:430
 msgid "_Help"
 msgstr "_Aide"
 
-#: ../src/Frontend-GNOME/MainWindow.cs:616
-#: ../src/Frontend-GNOME/Preferences/ServerListView.cs:222
+#: ../src/Frontend-GNOME/MainWindow.cs:691
+#: ../src/Frontend-GNOME/Preferences/ServerListView.cs:225
 msgid "Unable to add server: "
 msgstr "Impossible d'ajouter le serveur :"
 
-#: ../src/Frontend-GNOME/MainWindow.cs:663
+#: ../src/Frontend-GNOME/MainWindow.cs:742
 #, csharp-format
 msgid "Unknown ChatType: {0}"
 msgstr "ChatType inconnu : {0}"
 
-#: ../src/Frontend-GNOME/MainWindow.cs:892
+#: ../src/Frontend-GNOME/MainWindow.cs:971
 msgid ""
 "Switching to local engine will disconnect you from the current engine!\n"
 "Are you sure you want to do this?"
@@ -585,7 +618,7 @@ msgstr ""
 "Changer de moteur vers le moteur local va vous déconnecter du moteur actuel !\n"
 "Êtes vous sûr(e) de vouloir continuer ?"
 
-#: ../src/Frontend-GNOME/MainWindow.cs:934
+#: ../src/Frontend-GNOME/MainWindow.cs:1013
 msgid ""
 "Switching the remote engine will disconnect you from the current engine!\n"
 "Are you sure you want to do this?"
@@ -598,44 +631,48 @@ msgid "Sorry, not implemented yet!"
 msgstr "Désolé, fonctionnalité pas encore implémentée !"
 
 #. fill ListStore
-#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:171
+#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:179
 msgid "Character"
 msgstr "Caractère"
 
-#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:172
+#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:180
 msgid "Word"
 msgstr "Mot"
 
-#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:182
+#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:198
+msgid "No Proxy"
+msgstr "Pas de proxy"
+
+#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:212
 #: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:139
 msgid "Connection"
 msgstr "Connexion"
 
-#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:186
+#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:216
 msgid "Interface"
 msgstr "Interface"
 
-#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:190
+#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:220
 msgid "Servers"
 msgstr "Serveurs"
 
-#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:197
+#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:227
 msgid "Filters"
 msgstr "Filtres"
 
-#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:201
+#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:231
 msgid "Logging"
 msgstr "_Journalisation"
 
-#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:251
+#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:281
 msgid "System Default"
 msgstr "Défaut du système"
 
-#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:528
+#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:588
 msgid "Nicknames(s) field must not be empty."
 msgstr "Le champ surnom(s) ne doit pas être vide."
 
-#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:672
+#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:748
 #, csharp-format
 msgid "Invalid highlight regex: '{0}'. Reason: {1}"
 msgstr "Expression régulière de surlignage invalide '{0}'. Raison : {1} "
@@ -660,12 +697,12 @@ msgstr "Chercher des groupes de discussion"
 msgid "Error while fetching the list of group chats from the server."
 msgstr "Erreur durant la récupération de la liste des groupes de discussion du serveur."
 
-#: ../src/Frontend-GNOME/Frontend.cs:394
+#: ../src/Frontend-GNOME/Frontend.cs:399
 #, csharp-format
 msgid "Cause: {0}"
 msgstr "Cause : {0}"
 
-#: ../src/Frontend-GNOME/Frontend.cs:464
+#: ../src/Frontend-GNOME/Frontend.cs:469
 msgid ""
 "The frontend has lost the connection to the server.\n"
 "Do you want to reconnect now?"
@@ -673,7 +710,7 @@ msgstr ""
 "Le serveur a perdu la connexion a l'interface.\n"
 "Voulez-vous vous reconnecter maintenant ?"
 
-#: ../src/Frontend-GNOME/Frontend.cs:479
+#: ../src/Frontend-GNOME/Frontend.cs:484
 msgid ""
 "Reconnecting to the server has failed.\n"
 "Do you want to try again?"
@@ -681,7 +718,7 @@ msgstr ""
 "La reconnexion au serveur a échoué.\n"
 "Voulez-vous vous reconnecter maintenant ?"
 
-#: ../src/Frontend-GNOME/Frontend.cs:580
+#: ../src/Frontend-GNOME/Frontend.cs:585
 msgid ""
 "The server has lost the connection to the frontend.\n"
 "Do you want to reconnect now?"
@@ -785,17 +822,17 @@ msgstr "Type :"
 msgid "Pattern"
 msgstr "Motif"
 
-#: ../src/Frontend-GNOME/Views/Chats/GroupChatView.cs:241
+#: ../src/Frontend-GNOME/Views/Chats/GroupChatView.cs:242
 #, csharp-format
 msgid "Retrieving user list for {0}..."
 msgstr "Téléchargement de la liste des utilisateurs pour {0}..."
 
 #. TRANSLATOR: this string will be appended to the one above
-#: ../src/Frontend-GNOME/Views/Chats/GroupChatView.cs:288
+#: ../src/Frontend-GNOME/Views/Chats/GroupChatView.cs:289
 msgid "done."
 msgstr "terminé."
 
-#: ../src/Frontend-GNOME/Views/Chats/GroupChatView.cs:303
+#: ../src/Frontend-GNOME/Views/Chats/GroupChatView.cs:304
 msgid "Person"
 msgstr "Personne"
 
@@ -807,12 +844,12 @@ msgstr ""
 "Fermer la fenêtre de chat du protocole va aussi fermer toutes discussions connectées sur celui-ci !\n"
 "Êtes vous sûr(e) de vouloir continuer ?"
 
-#: ../src/Frontend-GNOME/Preferences/ServerListView.cs:184
+#: ../src/Frontend-GNOME/Preferences/ServerListView.cs:187
 msgid "Are you sure you want to delete the selected server?"
 msgstr "Êtes vous sûr(e) de vouloir supprimer le serveur sélectionné ?"
 
-#: ../src/Frontend-GNOME/Preferences/ServerListView.cs:240
-#: ../src/Frontend-GNOME/Preferences/ServerListView.cs:274
+#: ../src/Frontend-GNOME/Preferences/ServerListView.cs:243
+#: ../src/Frontend-GNOME/Preferences/ServerListView.cs:277
 msgid "Unable to edit server: "
 msgstr "Impossible d'editer le serveur :"
 
@@ -891,7 +928,7 @@ msgstr "<span size=\"small\">Adresse IP ou DNS et port du serveur SSH</span>"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantConnectionWidget.cs:173
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantConnectionWidget.cs:187
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:146
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:155
 msgid "_Port:"
 msgstr "_Port"
 
@@ -920,7 +957,7 @@ msgid "<span size=\"small\">Password which will be used to log into the SSH serv
 msgstr "<span size=\"small\">Mot de passe utilisé pour la connexion au serveur SSH. Le mot de passe est optionnel si un mécanisme d'autorisation par clé SSH est utilisé (via Pageant de la suite d'outils PuTTY).</span>"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:156
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:215
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:214
 msgid "_Username:"
 msgstr "_Nom d'utilisateur :"
 
@@ -929,7 +966,7 @@ msgid "<span size=\"small\">Username which will be used to log into the Smuxi se
 msgstr "<span size=\"small\">Nom d'utilisateur qui sera utilisé pour l'enregistrement auprès du moteur Smuxi</span>"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:199
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:225
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:113
 msgid "_Password:"
 msgstr "Mot de _passe :"
 
@@ -985,23 +1022,31 @@ msgstr "Smuxi - Ouvrir un chat"
 msgid "_Type:"
 msgstr "_Type :"
 
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:87
-msgid "_Network:"
-msgstr "_Réseau :"
-
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:205
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:80
 msgid "_Hostname:"
 msgstr "_Nom d'hôte :"
 
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:235
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:101
+msgid "_Network:"
+msgstr "_Réseau :"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:224
 msgid "_Protocol:"
 msgstr "_Protocole :"
 
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:254
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:248
+msgid "Use Encryption"
+msgstr "Utiliser le chiffrement"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:260
+msgid "Validate Server Certificate"
+msgstr "Valider le certificat du serveur"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:280
 msgid "_On Connect Commands:"
 msgstr "Commandes de _connexion :"
 
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:265
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:291
 msgid "_Ignore Commands"
 msgstr "_Ignorer les commandes"
 
