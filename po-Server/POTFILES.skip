@@ -11,3 +11,4 @@ src/Frontend-GNOME-IRC/
 src/Frontend-GNOME/
 src/Frontend-SWF/
 src/Frontend-WPF/
+lib/

@@ -12,3 +12,4 @@ src/Engine-OSCAR/
 src/Engine-XMPP/
 src/Engine-Twitter/
 src/Server/
+lib/
