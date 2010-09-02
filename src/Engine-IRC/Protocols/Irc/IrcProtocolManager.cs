@@ -1991,6 +1991,10 @@ namespace Smuxi.Engine
                 }
 
                 TextMessagePartModel textMsg = (TextMessagePartModel) msgPart;
+                if (String.IsNullOrEmpty(textMsg.Text)) {
+                    // URLs without a link name don't have text
+                    continue;
+                }
                 if (ContainsHighlight(textMsg.Text)) {
                     containsHighlight = true;
                 }
