@@ -147,32 +147,37 @@ namespace Smuxi.Engine
         {
             Trace.Call();
 
-            // TODO: sort pages network tabs then channel tabs (alphabeticly)
-            // sync pages            
+            // sync current page
+            List<ChatModel> chats;
             lock (_Session.Chats) {
-                foreach (ChatModel chat in _Session.Chats) {
-                    _AddChat(chat);
-                }
+                _CurrentChat = _Session.Chats[0];
+                chats = new List<ChatModel>(_Session.Chats);
             }
-            
+
+            // restore page positions
+            if (_CurrentChat.Position != -1) {
+                // looks like the positions were synced, sort it good
+                chats.Sort(
+                    (a, b) => (a.Position.CompareTo(b.Position))
+                );
+            }
+
+            // sync pages
+            foreach (ChatModel chat in chats) {
+                _AddChat(chat);
+            }
+
             // sync current network manager (if any exists)
             if (_Session.ProtocolManagers.Count > 0) {
                 IProtocolManager nm = _Session.ProtocolManagers[0];
                 CurrentProtocolManager = nm;
             }
-            
-            // sync current page
-            lock (_Session.Chats) {
-                _CurrentChat = _Session.Chats[0];
-            }
-            
+
             // sync content of pages
-            lock (_Session.Chats) {
-                foreach (ChatModel chat in _Session.Chats) {
-                    _SyncChat(chat);
-                }
+            foreach (ChatModel chat in chats) {
+                _SyncChat(chat);
             }
-            
+
             _IsFrontendSynced = true;
 
             _Session.CheckPresenceStatus();

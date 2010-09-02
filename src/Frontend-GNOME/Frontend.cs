@@ -309,6 +309,11 @@ namespace Smuxi.Frontend.Gnome
             Trace.Call();
 
             try {
+                // sync tab positions
+                if (!IsLocalEngine) {
+                    _MainWindow.Notebook.SyncPagePositions();
+                }
+
                 if (_FrontendManager != null) {
                     _FrontendManager.IsFrontendDisconnecting = true;
                 }

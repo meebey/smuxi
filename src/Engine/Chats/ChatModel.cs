@@ -41,7 +41,8 @@ namespace Smuxi.Engine
         private bool                 _IsEnabled = true;
         private DateTime             _LastSeenHighlight;
         private string               _LogFile;
-        
+        public  int                  Position { get; set; }
+
         public string ID {
             get {
                 return _ID;
@@ -116,6 +117,7 @@ namespace Smuxi.Engine
             _Name = name;
             _ChatType = chatType;
             _ProtocolManager = networkManager;
+            Position = -1;
         }
         
         public string ToTraceString()

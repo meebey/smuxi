@@ -78,11 +78,12 @@ namespace Smuxi.Frontend.Gnome
                 chatView.ApplyConfig(f_Config);
             }
             
-            int idx = -1;
+            int idx = chat.Position;
             ChatType type = chat.ChatType;
-            // group person and group chats behind their protocol chat
-            if (type == ChatType.Person ||
-                type == ChatType.Group) {
+            // new group person and group chats behind their protocol chat
+            if (idx == -1 &&
+                (type == ChatType.Person ||
+                 type == ChatType.Group)) {
                 IProtocolManager pm = chat.ProtocolManager;
                 for (int i = 0; i < f_Notebook.NPages; i++) {
                     ChatView page = (ChatView) f_Notebook.GetNthPage(i);

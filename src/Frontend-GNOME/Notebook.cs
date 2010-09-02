@@ -176,7 +176,17 @@ namespace Smuxi.Frontend.Gnome
             // reconnect the event handler
             IsBrowseModeEnabled = false;
         }
-        
+
+        public void SyncPagePositions()
+        {
+            Trace.Call();
+
+            for (int i = 0; i < NPages; i++) {
+                var chatView = (ChatView) GetNthPage(i);
+                chatView.ChatModel.Position = i;
+            }
+        }
+
         public void ClearAllActivity()
         {
             Trace.Call();
