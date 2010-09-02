@@ -51,13 +51,17 @@ namespace Smuxi.Engine
         private static readonly log4net.ILog _Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 #endif
         private UrlProtocol _Protocol;
+        private string      _Url;
         
         public string Url {
             get {
-                return Text;
+                if (_Url == null) {
+                    return Text;
+                }
+                return _Url;
             }
             set {
-                Text = value;
+                _Url = value;
             }
         }
         
@@ -71,7 +75,13 @@ namespace Smuxi.Engine
         }
         
         public UrlMessagePartModel(string url) :
-                              base(url)
+                              this(url, null)
+        {
+        }
+
+        public UrlMessagePartModel(string url, string text):
+                              this(url, text, UrlProtocol.None)
+
         {
             _Protocol = ParseProtocol(url);
             if (_Protocol == UrlProtocol.None) {
@@ -79,9 +89,10 @@ namespace Smuxi.Engine
             }
         }
         
-        public UrlMessagePartModel(string url, UrlProtocol protocol) :
-                              base(url)
+        public UrlMessagePartModel(string url, string text, UrlProtocol protocol) :
+                              base(text)
         {
+            _Url = url;
             _Protocol = protocol;
         }
         
@@ -95,6 +106,7 @@ namespace Smuxi.Engine
             base.SetObjectData(sr);
             
             _Protocol = (UrlProtocol) sr.ReadInt32();
+            _Url = sr.ReadString();
         }
         
         protected override void GetObjectData(SerializationWriter sw)
@@ -102,6 +114,7 @@ namespace Smuxi.Engine
             base.GetObjectData(sw);
 
             sw.Write((Int32) _Protocol);
+            sw.Write(_Url);
         }
 
         protected static UrlProtocol ParseProtocol(string url)

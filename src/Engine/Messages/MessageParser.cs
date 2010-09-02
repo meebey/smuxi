@@ -44,6 +44,10 @@ namespace Smuxi.Engine
             // clone MessageParts
             IList<MessagePartModel> parts = new List<MessagePartModel>(msg.MessageParts);
             foreach (MessagePartModel part in parts) {
+                if (part is UrlMessagePartModel) {
+                    // no need to reparse URL parts
+                    continue;
+                }
                 if (!(part is TextMessagePartModel)) {
                     continue;
                 }

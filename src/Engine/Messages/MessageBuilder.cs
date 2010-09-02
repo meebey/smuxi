@@ -171,18 +171,28 @@ namespace Smuxi.Engine
             return AppendText(CreateAction());
         }
 
-        public virtual UrlMessagePartModel CreateUrl(string url)
+        public virtual UrlMessagePartModel CreateUrl(string url, string text)
         {
             if (url == null) {
                 throw new ArgumentNullException("url");
             }
 
-            return new UrlMessagePartModel(url);
+            return new UrlMessagePartModel(url, text);
         }
 
-        public virtual MessageBuilder AppendUrl(string url)
+        public UrlMessagePartModel CreateUrl(string url)
         {
-            return Append(CreateUrl(url));
+            return CreateUrl(url, null);
+        }
+
+        public virtual MessageBuilder AppendUrl(string url, string text)
+        {
+            return Append(CreateUrl(url, text));
+        }
+
+        public MessageBuilder AppendUrl(string url)
+        {
+            return AppendUrl(url, null);
         }
 
         public virtual MessageBuilder AppendMessage(string msg)
