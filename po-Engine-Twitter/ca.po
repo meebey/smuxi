@@ -96,27 +96,27 @@ msgid "No pending authorization request!"
 msgstr "No hi ha cap petició d'autorització pendent."
 
 #: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:653
-#, fuzzy, csharp-format
+#, csharp-format
 msgid "Failed to authorize with Twitter: {0}"
-msgstr "No s'ha pogut recuperar la llista d'amics de Twitter. Motiu:"
+msgstr "No s'ha pogut autoritzar l'accés al Twitter: {0}"
 
 #: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:661
 msgid "Twitter did not accept your PIN.  Did you enter it correctly?"
-msgstr ""
+msgstr "Twitter no ha acceptat el PIN. L'heu introduït correctament?"
 
 #: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:669
 #, csharp-format
 msgid "Please retry by closing this tab and reconnecting to the Twitter \"{0}\" account."
-msgstr ""
+msgstr "Torneu a intentar-ho tancant aquesta pestanya i tornant a connectar al compte de Twitter \"{0}\"."
 
 #: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:709
 msgid "Migrated Twitter account from basic auth to OAuth."
-msgstr ""
+msgstr "S'ha migrat el compte de Twitter de l'autenticació bàsica a OAuth."
 
 #: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:722
 #, csharp-format
 msgid "Successfully authorized Twitter account \"{0}\" for Smuxi"
-msgstr ""
+msgstr "L'Smuxi ha estat autoritzat per a accedir al compte de Twitter \"{0}\"."
 
 #: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:744
 #, csharp-format
