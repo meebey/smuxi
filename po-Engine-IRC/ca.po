@@ -108,7 +108,7 @@ msgstr "Port invàlid: {0}"
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:997
 #, csharp-format
 msgid "Queuing joins: {0}"
-msgstr ""
+msgstr "S'està afegint les unions a la cua: {0}"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1011
 #, csharp-format
@@ -118,7 +118,7 @@ msgstr "Ja esteu a la sala {0}. Escriviu /window {0} per a canviar-hi."
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1046
 #, csharp-format
 msgid "Active joins: {0} - Queued joins: {1}"
-msgstr ""
+msgstr "Unions actives: {0} - Unions a la cua: {1}"
 
 #. TRANSLATORS: final message will look like this:
 #. Joining: #chan1 - Remaining active joins: #chan2 / queued joins: #chan3
@@ -135,12 +135,12 @@ msgstr ""
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1076
 #, csharp-format
 msgid "active joins: {0}"
-msgstr ""
+msgstr "unions actives: {0}"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1085
 #, csharp-format
 msgid "queued joins: {0}"
-msgstr ""
+msgstr "unions a la cua: {0}"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1455
 msgid "IRC Op"
