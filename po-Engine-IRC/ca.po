@@ -16,9 +16,9 @@ msgstr ""
 
 #. TRANSLATOR: do NOT change the position of {0}!
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:234
-#, fuzzy, csharp-format
+#, csharp-format
 msgid "{0} invites you to {1}"
-msgstr "{0} ja està a {1}"
+msgstr "{0} us invita a {1}"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:255
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1468
@@ -130,7 +130,7 @@ msgstr "Unint-se a: {0}"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1071
 msgid "Remaining"
-msgstr ""
+msgstr "En cua:"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1076
 #, csharp-format
@@ -262,9 +262,9 @@ msgstr "{0} [{1}] s'ha unit a {2}"
 
 #. TRANSLATOR: do NOT change the position of {0}!
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2769
-#, fuzzy, csharp-format
+#, csharp-format
 msgid "{0} [{1}] has left {2}"
-msgstr "{0} [{1}] ha deixat {2} [{3}]"
+msgstr "{0} [{1}] ha deixat {2}"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2794
 #, csharp-format
@@ -309,9 +309,9 @@ msgstr "mode/{0} [{1}] per {2}"
 
 #. TRANSLATOR: do NOT change the position of {0}!
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3017
-#, fuzzy, csharp-format
+#, csharp-format
 msgid "{0} [{1}] has quit"
-msgstr "{0} [{1}] ha sortit [{2}]"
+msgstr "{0} [{1}] ha sortit"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3094
 #, csharp-format
