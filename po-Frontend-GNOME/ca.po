@@ -589,9 +589,8 @@ msgid "_Caret Mode"
 msgstr "Navega amb el _cursor"
 
 #: ../src/Frontend-GNOME/MainWindow.cs:389
-#, fuzzy
 msgid "_Browse Mode"
-msgstr "Navega amb el _cursor"
+msgstr "Mode d'_exploració"
 
 #: ../src/Frontend-GNOME/MainWindow.cs:403
 #: ../src/Frontend-GNOME/Views/Chats/ChatView.cs:586
