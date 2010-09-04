@@ -1,3 +1,4 @@
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: Smuxi\n"
@@ -6,10 +7,10 @@ msgstr ""
 "PO-Revision-Date: \n"
 "Last-Translator: Siegfried-Angel Gevatter Pujals <rainct@ubuntu.com>\n"
 "Language-Team: Siegfried Gevatter <siegfried@gevatter.com>\n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: \n"
 "X-Poedit-Language: Catalan\n"
 
 #: ../src/Engine/FrontendManager.cs:230
@@ -18,7 +19,7 @@ msgstr "No hi ha connexions de xarxa"
 
 #: ../src/Engine/Protocols/ProtocolManagerBase.cs:161
 msgid "Not connected to server"
-msgstr ""
+msgstr "No esteu connectat al servidor."
 
 #: ../src/Engine/Protocols/ProtocolManagerBase.cs:173
 #: ../src/Engine/Session.cs:751
@@ -82,11 +83,11 @@ msgstr "S'ha desat la configuració"
 
 #: ../src/Engine/Session.cs:611
 msgid "Invalid parameter for config; use load or save"
-msgstr ""
+msgstr "Paràmetre invàlid per a config; utilitzeu load o save"
 
 #: ../src/Engine/Session.cs:641
 msgid "Invalid parameter for network; use list, switch, or close"
-msgstr ""
+msgstr "Paràmetre invàlid per a network; utilitzeu list, switch o close"
 
 #: ../src/Engine/Session.cs:652
 msgid "Networks"
@@ -107,16 +108,16 @@ msgstr "Port"
 #: ../src/Engine/Session.cs:680
 #, csharp-format
 msgid "Network close failed - could not find network with host: {0}"
-msgstr ""
+msgstr "Ha fallat la desconnexió de la xarxa - no s'ha pogut trobar la màquina: {0}"
 
 #: ../src/Engine/Session.cs:725
 #, csharp-format
 msgid "Network switch failed - could not find network with host: {0}"
-msgstr ""
+msgstr "Ha fallat el canvi de xarxa - no s'ha pogut trobar la màquina: {0}"
 
 #: ../src/Engine/Session.cs:740
 msgid "Not connected to any network"
-msgstr ""
+msgstr "No esteu connectat a cap xarxa"
 
 #. just in case the ProtocolManager is not setting the
 #. protocol chat
@@ -127,11 +128,11 @@ msgstr "No s'ha pogut connectar."
 #: ../src/Engine/Session.cs:1098
 #, csharp-format
 msgid "No protocol manager found for the protocol: {0}"
-msgstr ""
+msgstr "No s'ha trobat cap gestor de protocol per al protocol: {0}"
 
 #: ../src/Engine/Config/UserListController.cs:117
 msgid "Username must not be empty."
-msgstr ""
+msgstr "El nom d'usuari no pot estar buit."
 
 #: ../src/Engine/Config/UserListController.cs:127
 msgid "Password must not be empty."
@@ -140,23 +141,22 @@ msgstr "La contrasenya no pot ser buida."
 #: ../src/Engine/Config/UserListController.cs:136
 #, csharp-format
 msgid "User \"{0}\" doesn't exist."
-msgstr ""
+msgstr "L'usuari «{0}» no existeix."
 
 #: ../src/Engine/Config/UserListController.cs:145
 #, csharp-format
 msgid "User \"{0}\" already exists."
-msgstr ""
+msgstr "L'usuari «{0}» ja existeix."
 
 #: ../src/Engine/Config/ServerListController.cs:131
 msgid "Server hostname must not be empty."
-msgstr ""
+msgstr "El nom del servidor no pot estar buit."
 
 #: ../src/Engine/Config/ServerListController.cs:134
 msgid "Server hostname contains invalid characters (newline)."
-msgstr ""
+msgstr "El nom del servidor conté caràcters invàlids (salt de línia)."
 
 #: ../src/Engine/Config/ServerListController.cs:140
 #, csharp-format
 msgid "Server '{0}' already exists."
-msgstr ""
-
+msgstr "El servidor «{0}» ja existeix."
