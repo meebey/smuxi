@@ -1,0 +1,104 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: smuxi\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-09-02 15:23+0200\n"
+"PO-Revision-Date: \n"
+"Last-Translator: Siegfried-Angel Gevatter Pujals <rainct@ubuntu.com>\n"
+"Language-Team: Siegfried Gevatter <siegfried@gevatter.com>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1\n"
+"X-Poedit-Language: Catalan\n"
+
+#: ../src/Server/Main.cs:69
+msgid "Add user to Server"
+msgstr "Afegeix un usuari al servidor"
+
+#: ../src/Server/Main.cs:78
+msgid "Modify existing user of Server"
+msgstr "Modifica un usuari existent"
+
+#: ../src/Server/Main.cs:87
+msgid "Delete user from Server"
+msgstr "Elimina un usuari del servidor"
+
+#: ../src/Server/Main.cs:96
+msgid "List all existing users of Server"
+msgstr "Llista tots els usuaris existents al servidor"
+
+#: ../src/Server/Main.cs:105
+msgid "User to create, modify or delete"
+msgstr "Usuari a crear, modificar o eliminar"
+
+#: ../src/Server/Main.cs:114
+msgid "Password of the user when creating or modifying a user"
+msgstr "Contrasenya de l'usuari quan se n'està creant o modificant un"
+
+#: ../src/Server/Main.cs:123
+msgid "Enable debug output"
+msgstr "Habilita la sortida de depuració"
+
+#: ../src/Server/Main.cs:131
+msgid "Show this help"
+msgstr "Mostra aquesta ajuda"
+
+#: ../src/Server/Main.cs:133
+msgid "Usage: smuxi-server [options]"
+msgstr "Ús: smuxi-server [opcions]"
+
+#: ../src/Server/Main.cs:135
+msgid "Options:"
+msgstr "Opcions:"
+
+#: ../src/Server/Main.cs:146
+#, csharp-format
+msgid "Unknown option: '{0}'"
+msgstr "Opció desconeguda: «{0}»"
+
+#: ../src/Server/Main.cs:170
+#, csharp-format
+msgid "Command line error: {0}"
+msgstr "Error de línia d'ordres: {0}"
+
+#: ../src/Server/Main.cs:214
+msgid "At most one of --add-user, --modify-user, and --delete-user may be used at a time."
+msgstr "Podeu utilitzar com a molt una opció d'entre --add-user, --modify-user i --delete-user alhora."
+
+#: ../src/Server/Main.cs:224
+msgid "You must specify a username with the --username option."
+msgstr "Cal especificar un nom d'usuari amb l'opció --username."
+
+#: ../src/Server/Main.cs:230
+msgid "Username must not be empty."
+msgstr "El nom d'usuari no pot ser buit."
+
+#: ../src/Server/Main.cs:240
+msgid "You must specify a password with the --password option."
+msgstr "Cal especificar una contrasenya amb l'opció --password."
+
+#: ../src/Server/Main.cs:246
+msgid "Password must not be empty."
+msgstr "La contrasenya no pot ser buida."
+
+#: ../src/Server/Main.cs:263
+#, csharp-format
+msgid "User \"{0}\" successfully added to server."
+msgstr "S'ha afegit l'usuari «{0}» al servidor."
+
+#: ../src/Server/Main.cs:272
+#, csharp-format
+msgid "User \"{0}\" successfully modified."
+msgstr "S'ha modificat l'usuari «{0}»."
+
+#: ../src/Server/Main.cs:281
+#, csharp-format
+msgid "User \"{0}\" successfully deleted from server."
+msgstr "S'ha eliminat l'usuari «{0}»."
+
+#: ../src/Server/Main.cs:288
+msgid "Users:"
+msgstr "Usuaris:"
+
