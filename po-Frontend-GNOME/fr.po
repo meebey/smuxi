@@ -662,7 +662,7 @@ msgstr "Filtres"
 
 #: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:231
 msgid "Logging"
-msgstr "_Journalisation"
+msgstr "Journalisation"
 
 #: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:281
 msgid "System Default"
