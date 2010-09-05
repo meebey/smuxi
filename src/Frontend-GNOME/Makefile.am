@@ -1,7 +1,8 @@
 
-EXTRA_DIST =  
+EXTRA_DIST = $(WIN_ICON)
 
 ICON = smuxi-frontend-gnome.svg
+WIN_ICON = $(top_srcdir)/images/icon_48x48.ico
 DESKTOP_FILE = smuxi-frontend-gnome.desktop
 
 pixmapdir =  $(datadir)/pixmaps
@@ -19,7 +20,7 @@ FRONTEND_GNOME_EXE_CONFIG = $(BUILD_DIR)/smuxi-frontend-gnome.exe.config
 
 if ENABLE_RELEASE
 ASSEMBLY_COMPILER_COMMAND = @MCS@
-ASSEMBLY_COMPILER_FLAGS =  -noconfig -codepage:utf8 -warn:4 -optimize+ "-define:CONFIG_NINI,UI_GNOME,GTK_SHARP_2_8" @FRONTEND_GNOME_COMPILER_FLAGS@
+ASSEMBLY_COMPILER_FLAGS =  -noconfig -codepage:utf8 -warn:4 -optimize+ "-define:CONFIG_NINI,UI_GNOME,GTK_SHARP_2_8" -win32icon:$(WIN_ICON) @FRONTEND_GNOME_COMPILER_FLAGS@
 
 ASSEMBLY = ../../bin/release/smuxi-frontend-gnome.exe
 ASSEMBLY_MDB = 
@@ -42,7 +43,7 @@ endif
 
 if ENABLE_DEBUG
 ASSEMBLY_COMPILER_COMMAND = @MCS@
-ASSEMBLY_COMPILER_FLAGS =  -noconfig -codepage:utf8 -warn:4 -optimize- -debug -define:DEBUG "-define:DEBUG,TRACE,LOG4NET,CONFIG_NINI,UI_GNOME,GTK_SHARP_2_8" @FRONTEND_GNOME_COMPILER_FLAGS@
+ASSEMBLY_COMPILER_FLAGS =  -noconfig -codepage:utf8 -warn:4 -optimize- -debug -define:DEBUG "-define:DEBUG,TRACE,LOG4NET,CONFIG_NINI,UI_GNOME,GTK_SHARP_2_8" -win32icon:$(WIN_ICON) @FRONTEND_GNOME_COMPILER_FLAGS@
 
 ASSEMBLY = ../../bin/debug/smuxi-frontend-gnome.exe
 ASSEMBLY_MDB = $(ASSEMBLY).mdb
