@@ -33,7 +33,7 @@ SetCompressor lzma
 !define PRODUCT_DIR_REGKEY "Software\Microsoft\Windows\CurrentVersion\App Paths\smuxi-frontend-gnome.exe"
 !define PRODUCT_UNINST_KEY "Software\Microsoft\Windows\CurrentVersion\Uninstall\${PRODUCT_NAME}"
 !define PRODUCT_UNINST_ROOT_KEY "HKLM"
-!define DOTNET_VERSION "3.5"
+!define DOTNET_VERSION "3.5 SP1"
 !define GTKSHARP_VERSION "2.12.9"
 
 ############################
@@ -227,14 +227,14 @@ FunctionEnd
 # http://go.microsoft.com/fwlink/?LinkId=70848
 # .NET 3.5 - 197 MB
 # http://download.microsoft.com/download/6/0/f/60fc5854-3cb8-4892-b6db-bd4f42510f28/dotnetfx35.exe
-# .NET 3.5 SP1 - 231 MB
-# http://download.microsoft.com/download/2/0/e/20e90413-712f-438c-988e-fdaa79a8ac3d/dotnetfx35.exe
-# .NET 3.5 SP1 Installer - 3 MB
-# http://download.microsoft.com/download/0/6/1/061F001C-8752-4600-A198-53214C69B51F/dotnetfx35setup.exe
 # .NET 3.5 Web Installer - 2.4 MB
 # http://download.microsoft.com/download/7/0/3/703455ee-a747-4cc8-bd3e-98a615c3aedb/dotNetFx35setup.exe
+# .NET 3.5 SP1 - 231 MB
+# http://download.microsoft.com/download/2/0/e/20e90413-712f-438c-988e-fdaa79a8ac3d/dotnetfx35.exe
+# .NET 3.5 SP1 Web Installer - 3 MB  .NET 2.0 -> 3.5: 52 MB
+# http://download.microsoft.com/download/0/6/1/061F001C-8752-4600-A198-53214C69B51F/dotnetfx35setup.exe
 
-  !define DOTNET_URL "http://download.microsoft.com/download/7/0/3/703455ee-a747-4cc8-bd3e-98a615c3aedb/dotNetFx35setup.exe"
+  !define DOTNET_URL "http://download.microsoft.com/download/0/6/1/061F001C-8752-4600-A198-53214C69B51F/dotnetfx35setup.exe"
   !define MSI31_URL "http://download.microsoft.com/download/1/4/7/147ded26-931c-4daf-9095-ec7baf996f46/WindowsInstaller-KB893803-v2-x86.exe"
  
   DetailPrint "Checking your .NET Framework version..."
