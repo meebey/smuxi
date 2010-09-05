@@ -361,8 +361,10 @@ DownloadDotNET:
     IDYES NewDotNET IDNO GiveUpDotNET
   ${EndIf}
   DetailPrint "Pausing installation while downloaded .NET Framework installer runs."
-  DetailPrint "Depending on your internet bandwidth and computer performance, this can take a while. Please be patient!"
-  ExecWait '$TEMP\dotnetfx.exe /quiet /norestart'
+  DetailPrint ""
+  DetailPrint "!!! Depending on your internet bandwidth and computer performance"
+  DetailPrint "!!! this can take a while (up to 10 minutes). Please be patient!"
+  ExecWait '$TEMP\dotnetfx.exe /passive /norestart'
   DetailPrint "Completed .NET Framework install/update. Removing .NET Framework installer."
   Delete "$TEMP\dotnetfx.exe"
   DetailPrint ".NET Framework installer removed."
