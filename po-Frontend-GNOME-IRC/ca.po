@@ -1,0 +1,85 @@
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: Smuxi\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-09-02 15:23+0200\n"
+"PO-Revision-Date: \n"
+"Last-Translator: Siegfried-Angel Gevatter Pujals <rainct@ubuntu.com>\n"
+"Language-Team: Siegfried Gevatter <siegfried@gevatter.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: \n"
+"X-Poedit-Language: Catalan\n"
+
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:340
+msgid "Op"
+msgstr "Dóna l'estatus d'operador"
+
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:344
+msgid "Deop"
+msgstr "Treu l'estatus d'operador"
+
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:348
+msgid "Voice"
+msgstr "Dóna l'estatus de veu"
+
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:352
+msgid "Devoice"
+msgstr "Treu l'estatus de veu"
+
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:356
+msgid "Kick"
+msgstr "Expulsa"
+
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:360
+msgid "Kick + Ban"
+msgstr "Expulsa i bandeja"
+
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:364
+msgid "Ban"
+msgstr "Bandeja"
+
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:368
+msgid "Unban"
+msgstr "Readmet l'usuari"
+
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:374
+msgid "Query"
+msgstr "Conversa privada"
+
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:378
+#: ../src/Frontend-GNOME-IRC/IrcPersonChatView.cs:61
+msgid "Whois"
+msgstr "Informació de l'usuari"
+
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:382
+#: ../src/Frontend-GNOME-IRC/IrcPersonChatView.cs:65
+msgid "CTCP"
+msgstr "CTCP"
+
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:391
+#: ../src/Frontend-GNOME-IRC/IrcPersonChatView.cs:72
+msgid "Invite to"
+msgstr "Invita a"
+
+#: ../src/Frontend-GNOME-IRC/CtcpMenu.cs:72
+msgid "Ping"
+msgstr "Ping"
+
+#: ../src/Frontend-GNOME-IRC/CtcpMenu.cs:77
+msgid "Version"
+msgstr "Versió del client d'IRC"
+
+#: ../src/Frontend-GNOME-IRC/CtcpMenu.cs:82
+msgid "Time"
+msgstr "Hora"
+
+#: ../src/Frontend-GNOME-IRC/CtcpMenu.cs:87
+msgid "Finger"
+msgstr "Finger"
+
+#: ../src/Frontend-GNOME-IRC/CtcpMenu.cs:92
+msgid "Userinfo"
+msgstr "Informació de l'usuari"

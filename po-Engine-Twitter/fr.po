@@ -40,7 +40,7 @@ msgstr "Autorisation de Twitter nécessaire"
 #: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:218
 #, csharp-format
 msgid "Please open the following URL and click \"Allow\" to allow Smuxi to connect to your Twitter account: {0}"
-msgstr "Veuillez ouvrir l'URL suivante et cliquez sur \"Autoriser\\” (ou \"Allow\") pour autoriser Smuxi à se connecter sur votre compte Twitter : {0}"
+msgstr "Veuillez ouvrir l'URL suivante et cliquez sur \"Autoriser\\” pour autoriser Smuxi à se connecter sur votre compte Twitter : {0}"
 
 #: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:234
 msgid "Once you have allowed Smuxi to access your Twitter account, Twitter will provide a PIN."
