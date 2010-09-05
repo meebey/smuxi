@@ -23,7 +23,7 @@ ASSEMBLY_COMPILER_FLAGS =  -noconfig -codepage:utf8 -warn:4 -optimize+ "-define:
 
 ASSEMBLY = ../../bin/release/smuxi-frontend-gnome.exe
 ASSEMBLY_MDB = 
-COMPILE_TARGET = exe
+COMPILE_TARGET = winexe
 PROJECT_REFERENCES =  \
 	../../bin/release/smuxi-engine.dll \
 	../../bin/release/smuxi-common.dll \
@@ -46,7 +46,7 @@ ASSEMBLY_COMPILER_FLAGS =  -noconfig -codepage:utf8 -warn:4 -optimize- -debug -d
 
 ASSEMBLY = ../../bin/debug/smuxi-frontend-gnome.exe
 ASSEMBLY_MDB = $(ASSEMBLY).mdb
-COMPILE_TARGET = exe
+COMPILE_TARGET = winexe
 PROJECT_REFERENCES =  \
 	../../bin/debug/smuxi-engine.dll \
 	../../bin/debug/smuxi-common.dll \
