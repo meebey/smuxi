@@ -33,7 +33,7 @@ SetCompressor lzma
 !define PRODUCT_DIR_REGKEY "Software\Microsoft\Windows\CurrentVersion\App Paths\smuxi-frontend-gnome.exe"
 !define PRODUCT_UNINST_KEY "Software\Microsoft\Windows\CurrentVersion\Uninstall\${PRODUCT_NAME}"
 !define PRODUCT_UNINST_ROOT_KEY "HKLM"
-!define DOTNET_VERSION "3.5"
+!define DOTNET_VERSION "3.5 SP1"
 !define GTKSHARP_VERSION "2.12.9"
 
 ############################
@@ -45,8 +45,8 @@ SetCompressor lzma
 
 ; MUI Settings [please make the path relative]
 !define MUI_ABORTWARNING
-!define MUI_ICON "../images/icon_32x32.ico"
-!define MUI_UNICON "../images/icon_32x32.ico"
+!define MUI_ICON "../images/icon_48x48.ico"
+!define MUI_UNICON "../images/icon_48x48.ico"
 
 ######################
 # Language Selection #
@@ -227,14 +227,14 @@ FunctionEnd
 # http://go.microsoft.com/fwlink/?LinkId=70848
 # .NET 3.5 - 197 MB
 # http://download.microsoft.com/download/6/0/f/60fc5854-3cb8-4892-b6db-bd4f42510f28/dotnetfx35.exe
-# .NET 3.5 SP1 - 231 MB
-# http://download.microsoft.com/download/2/0/e/20e90413-712f-438c-988e-fdaa79a8ac3d/dotnetfx35.exe
-# .NET 3.5 SP1 Installer - 3 MB
-# http://download.microsoft.com/download/0/6/1/061F001C-8752-4600-A198-53214C69B51F/dotnetfx35setup.exe
 # .NET 3.5 Web Installer - 2.4 MB
 # http://download.microsoft.com/download/7/0/3/703455ee-a747-4cc8-bd3e-98a615c3aedb/dotNetFx35setup.exe
+# .NET 3.5 SP1 - 231 MB
+# http://download.microsoft.com/download/2/0/e/20e90413-712f-438c-988e-fdaa79a8ac3d/dotnetfx35.exe
+# .NET 3.5 SP1 Web Installer - 3 MB  .NET 2.0 -> 3.5: 52 MB
+# http://download.microsoft.com/download/0/6/1/061F001C-8752-4600-A198-53214C69B51F/dotnetfx35setup.exe
 
-  !define DOTNET_URL "http://download.microsoft.com/download/7/0/3/703455ee-a747-4cc8-bd3e-98a615c3aedb/dotNetFx35setup.exe"
+  !define DOTNET_URL "http://download.microsoft.com/download/0/6/1/061F001C-8752-4600-A198-53214C69B51F/dotnetfx35setup.exe"
   !define MSI31_URL "http://download.microsoft.com/download/1/4/7/147ded26-931c-4daf-9095-ec7baf996f46/WindowsInstaller-KB893803-v2-x86.exe"
  
   DetailPrint "Checking your .NET Framework version..."
@@ -302,7 +302,7 @@ NewMSI:
  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
  ;                                  NetFX                                     ;
  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-  StrCpy $7 ${DotNetReqVer}
+  StrCpy $7 "${DotNetReqVer}"
  
   System::Call "mscoree::GetCORVersion(w .r0, i ${NSIS_MAX_STRLEN}, *i r2r2) i .r1 ?u"
  
@@ -311,86 +311,29 @@ NewMSI:
     Goto NoDotNET
   ${EndIf}
  
-  ;at this point, $0 has maybe v2.345.678.
-  StrCpy $0 $0 $2 1 ;remove the starting "v", $0 has the installed version num as a string
-  StrCpy $6 $0
-  StrCpy $1 $7 ;$1 has the requested verison num as a string
- 
-  ;MessageBox MB_OKCANCEL "found $0" IDCANCEL GiveUpDotNET
- 
-  ;MessageBox MB_OKCANCEL "looking for $1" IDCANCEL GiveUpDotNET
- 
-  ;now let's compare the versions, installed against required <part0>.<part1>.<part2>.
-  ${Do}
-    StrCpy $2 "" ;clear out the installed part
-    StrCpy $3 "" ;clear out the required part
- 
-    ${Do}
-      ${If} $0 == "" ;if there are no more characters in the version
-        StrCpy $4 "." ;fake the end of the version string
-      ${Else}
-        StrCpy $4 $0 1 0 ;$4 = character from the installed ver
-        ${If} $4 != "."
-          StrCpy $0 $0 ${NSIS_MAX_STRLEN} 1 ;remove that first character from the remaining
-        ${EndIf}
-      ${EndIf}
- 
-      ${If} $1 == ""  ;if there are no more characters in the version
-        StrCpy $5 "." ;fake the end of the version string
-      ${Else}
-        StrCpy $5 $1 1 0 ;$5 = character from the required ver
-        ${If} $5 != "."
-          StrCpy $1 $1 ${NSIS_MAX_STRLEN} 1 ;remove that first character from the remaining
-        ${EndIf}
-      ${EndIf}
-      ;MessageBox MB_OKCANCEL "installed $2,$4,$0 required $3,$5,$1" IDCANCEL GiveUpDotNET
-      ${If} $4 == "."
-      ${AndIf} $5 == "."
-        ${ExitDo} ;we're at the end of the part
-      ${EndIf}
- 
-      ${If} $4 == "." ;if we're at the end of the current installed part
-        StrCpy $2 "0$2" ;put a zero on the front
-      ${Else} ;we have another character
-        StrCpy $2 "$2$4" ;put the next character on the back
-      ${EndIf}
-      ${If} $5 == "." ;if we're at the end of the current required part
-        StrCpy $3 "0$3" ;put a zero on the front
-      ${Else} ;we have another character
-        StrCpy $3 "$3$5" ;put the next character on the back
-      ${EndIf}
-    ${Loop}
-    ;MessageBox MB_OKCANCEL "finished parts: installed $2,$4,$0 required $3,$5,$1" IDCANCEL GiveUpDotNET
- 
-    ${If} $0 != "" ;let's remove the leading period on installed part if it exists
-      StrCpy $0 $0 ${NSIS_MAX_STRLEN} 1
-    ${EndIf}
-    ${If} $1 != "" ;let's remove the leading period on required part if it exists
-      StrCpy $1 $1 ${NSIS_MAX_STRLEN} 1
-    ${EndIf}
- 
-    ;$2 has the installed part, $3 has the required part
-    ${If} $2 S< $3
-      IntOp $0 0 - 1 ;$0 = -1, installed less than required
-      ${ExitDo}
-    ${ElseIf} $2 S> $3
-      IntOp $0 0 + 1 ;$0 = 1, installed greater than required
-      ${ExitDo}
-    ${ElseIf} $2 == ""
-    ${AndIf} $3 == ""
-      IntOp $0 0 + 0 ;$0 = 0, the versions are identical
-      ${ExitDo}
-    ${EndIf} ;otherwise we just keep looping through the parts
-  ${Loop}
- 
-  ${If} $0 < 0
-    DetailPrint ".NET Framework Version found: $6, but is older than the required version: $7"
-    Goto OldDotNET
+  Var /GLOBAL NET35_INSTALL
+  Var /GLOBAL NET35_SP
+  ReadRegStr $NET35_INSTALL HKLM \
+          "SOFTWARE\Microsoft\NET Framework Setup\NDP\v3.5" "Install"
+  ReadRegStr $NET35_SP HKLM \
+          "SOFTWARE\Microsoft\NET Framework Setup\NDP\v3.5" "SP"
+
+  ${If} $NET35_INSTALL == ""
+      StrCpy $6 "$0"
+      DetailPrint ".NET Framework Version found: $6, but is older than the required version: $7"
+      goto OldDotNET
+  ${ElseIf} $NET35_INSTALL == "1"
+  ${AndIf} $NET35_SP == "1"
+      DetailPrint ".NET Framework Version 3.5 SP1 found"
+      goto NewDotNET
+  ${ElseIf} $NET35_INSTALL == "1"
+      DetailPrint ".NET Framework Version 3.5 found but without SP1"
+      StrCpy $6 "3.5"
+      goto OldDotNET
   ${Else}
-    DetailPrint ".NET Framework Version found: $6, equal or newer to required version: $7."
-    Goto NewDotNET
+      goto NoDotNET
   ${EndIf}
- 
+
 NoDotNET:
     MessageBox MB_YESNOCANCEL|MB_ICONEXCLAMATION \
     ".NET Framework not installed.$\nRequired Version: $7 or greater.$\n$\nDownload .NET Framework version from www.microsoft.com?" \
@@ -418,8 +361,10 @@ DownloadDotNET:
     IDYES NewDotNET IDNO GiveUpDotNET
   ${EndIf}
   DetailPrint "Pausing installation while downloaded .NET Framework installer runs."
-  DetailPrint "Depending on your internet bandwidth and computer performance, this can take a while. Please be patient!"
-  ExecWait '$TEMP\dotnetfx.exe /quiet /norestart'
+  DetailPrint ""
+  DetailPrint "!!! Depending on your internet bandwidth and computer performance"
+  DetailPrint "!!! this can take a while (up to 10 minutes). Please be patient!"
+  ExecWait '$TEMP\dotnetfx.exe /passive /norestart'
   DetailPrint "Completed .NET Framework install/update. Removing .NET Framework installer."
   Delete "$TEMP\dotnetfx.exe"
   DetailPrint ".NET Framework installer removed."
@@ -535,7 +480,7 @@ FunctionEnd
 
 Section "Main" SEC01
   !insertmacro CheckXPServicePack
-  !insertmacro CheckDotNET ${DOTNET_VERSION}
+  !insertmacro CheckDotNET "${DOTNET_VERSION}"
   !insertmacro CheckGtkSharp ${GTKSHARP_VERSION}
 
   SetOutPath "$INSTDIR"
@@ -550,7 +495,8 @@ Section "Main" SEC01
   File "../bin-win32/Mono.Posix.dll"
   File "../bin-win32/MonoPosixHelper.dll"
   File "../bin-win32/Nini.dll"
-  File "../bin-win32/Twitterizer.Framework.dll"
+  File "../bin-win32/Twitterizer2.dll"
+  File "../bin-win32/Newtonsoft.Json.dll"
   File "../bin-win32/smuxi-common.dll"
   File "../bin-win32/smuxi-engine-irc.dll"
   File "../bin-win32/smuxi-engine-twitter.dll"

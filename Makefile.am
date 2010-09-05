@@ -108,7 +108,8 @@ WIN32_FILES = \
 	$(BUILD_DIR)/smuxi-frontend-gnome-irc.dll \
 	$(BUILD_DIR)/smuxi-frontend.dll \
 	$(BUILD_DIR)/Meebey.SmartIrc4net.dll \
-	$(BUILD_DIR)/Twitterizer.Framework.dll \
+	$(BUILD_DIR)/Twitterizer2.dll \
+	$(BUILD_DIR)/Newtonsoft.Json.dll \
 	$(WIN32_LIB_DIR)/smuxi-frontend-gnome.exe.config \
 	$(WIN32_LIB_DIR)/smuxi-server.exe.config
 		

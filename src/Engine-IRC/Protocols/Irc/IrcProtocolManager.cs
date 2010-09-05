@@ -2450,7 +2450,7 @@ namespace Smuxi.Engine
 
         private void _OnChannelMessage(object sender, IrcEventArgs e)
         {
-            ChatModel chat = GetChat(e.Data.Channel, ChatType.Group);
+            ChatModel chat = GetChat(e.Data.Channel, ChatType.Group) ?? _NetworkChat;
 
             var builder = CreateMessageBuilder();
             builder.AppendMessage(GetPerson(chat, e.Data.Nick), e.Data.Message);
