@@ -1,4 +1,4 @@
-AC_PREREQ([2.54])
+AiCT_PREREQ([2.54])
 AC_INIT([smuxi], [0.8], [http://www.smuxi.org/issues/new])
 # using the --foreign option makes automake less strict about GNU policy 
 AC_CONFIG_MACRO_DIR([.])
@@ -193,7 +193,7 @@ AC_ARG_ENABLE([engine-irc],
 )
 if test "x$ENABLE_ENGINE_IRC" != "xno"; then
 	if test ! -f "$srcdir/lib/SmartIrc4net/configure.ac"; then
-		AC_MSG_ERROR([lib/SmartIrc4net not found])
+		AC_MSG_ERROR([lib/SmartIrc4net is empty!])
 	fi
 	ac_configure_args="$ac_configure_args --disable-pkg-config --disable-pkg-lib --disable-pkg-gac"
 	AC_CONFIG_SUBDIRS([lib/SmartIrc4net])
@@ -271,7 +271,7 @@ if test "x$ENABLE_ENGINE_TWITTER" != "xno"; then
 	fi
 
 	if test ! -f "$srcdir/lib/Newtonsoft.Json/Src/Newtonsoft.Json/Newtonsoft.Json.csproj"; then
-		AC_MSG_ERROR([lib/Newtonsoft.Json is empty! Used git submodule init; git submodule update?])
+		AC_MSG_ERROR([lib/Newtonsoft.Json is empty!])
 	fi
 	SHAMROCK_CHECK_MONO_2_0_GAC_ASSEMBLIES([
 		System
@@ -284,7 +284,7 @@ if test "x$ENABLE_ENGINE_TWITTER" != "xno"; then
 	])
 
 	if test ! -f "$srcdir/lib/Twitterizer/Twitterizer2/Twitterizer2.csproj"; then
-		AC_MSG_ERROR([lib/Twitterizer is empty! Used git submodule init; git submodule update?])
+		AC_MSG_ERROR([lib/Twitterizer is empty!])
 	fi
 	SHAMROCK_CHECK_MONO_2_0_GAC_ASSEMBLIES([
 		System

@@ -100,6 +100,9 @@ $AUTOMAKE --add-missing --foreign $am_opt
 echo "Running $AUTOCONF ..."
 $AUTOCONF
 
+git submodule init
+git submodule update
+
 if test -d $srcdir/lib/SmartIrc4net; then
     echo Running lib/SmartIrc4net/autogen.sh ...
     (cd $srcdir/lib/SmartIrc4net; NOCONFIGURE=1 ./autogen.sh "$@")
