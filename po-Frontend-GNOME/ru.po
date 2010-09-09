@@ -144,7 +144,7 @@ msgstr ""
 
 #: ../glade/smuxi-frontend-gnome.glade.h:28
 msgid "Enabled"
-msgstr ""
+msgstr "Запись в журнал"
 
 #: ../glade/smuxi-frontend-gnome.glade.h:29
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:551
@@ -158,7 +158,7 @@ msgstr ""
 
 #: ../glade/smuxi-frontend-gnome.glade.h:31
 msgid "Foreground"
-msgstr ""
+msgstr "Текст"
 
 #: ../glade/smuxi-frontend-gnome.glade.h:32
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:917
@@ -173,11 +173,11 @@ msgstr ""
 #: ../glade/smuxi-frontend-gnome.glade.h:34
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1658
 msgid "Highlight words:"
-msgstr ""
+msgstr "Подсвечивать слова"
 
 #: ../glade/smuxi-frontend-gnome.glade.h:35
 msgid "Host:"
-msgstr ""
+msgstr "Сервер:"
 
 #: ../glade/smuxi-frontend-gnome.glade.h:36
 msgid "Hostname:"
@@ -256,7 +256,7 @@ msgstr ""
 
 #: ../glade/smuxi-frontend-gnome.glade.h:50
 msgid "Override"
-msgstr ""
+msgstr "Изменить"
 
 #: ../glade/smuxi-frontend-gnome.glade.h:51
 msgid "Password:"
@@ -268,12 +268,12 @@ msgstr "Порт:"
 
 #: ../glade/smuxi-frontend-gnome.glade.h:53
 msgid "Protocol:"
-msgstr ""
+msgstr "Протокол:"
 
 #: ../glade/smuxi-frontend-gnome.glade.h:54
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:530
 msgid "Realname:"
-msgstr ""
+msgstr "Полное имя:"
 
 #. Container child vbox6.Gtk.Box+BoxChild
 #. Container child vbox12.Gtk.Box+BoxChild
@@ -283,20 +283,20 @@ msgstr ""
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1568
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1593
 msgid "Right"
-msgstr ""
+msgstr "Справа"
 
 #: ../glade/smuxi-frontend-gnome.glade.h:56
 msgid "Show Advanced Settings"
-msgstr ""
+msgstr "Показывать расширенные настройки"
 
 #: ../glade/smuxi-frontend-gnome.glade.h:57
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:196
 msgid "Show Password"
-msgstr ""
+msgstr "Отображать пароль"
 
 #: ../glade/smuxi-frontend-gnome.glade.h:58
 msgid "Show Smuxi in the messaging menu"
-msgstr ""
+msgstr "Включать Smuxi в меню сообщений"
 
 #: ../glade/smuxi-frontend-gnome.glade.h:59
 msgid "Show always"
@@ -317,7 +317,7 @@ msgstr ""
 #: ../glade/smuxi-frontend-gnome.glade.h:63
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:398
 msgid "Smuxi - Preferences"
-msgstr ""
+msgstr "Smuxi - параметры"
 
 #: ../glade/smuxi-frontend-gnome.glade.h:64
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerDialog.cs:18
@@ -351,7 +351,7 @@ msgstr ""
 #: ../glade/smuxi-frontend-gnome.glade.h:70
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:718
 msgid "Timestamp Format:"
-msgstr ""
+msgstr "Формат метки времени:"
 
 #. Container child vbox6.Gtk.Box+BoxChild
 #. Container child vbox11.Gtk.Box+BoxChild
@@ -365,37 +365,37 @@ msgstr "Сверху"
 
 #: ../glade/smuxi-frontend-gnome.glade.h:72
 msgid "Type:"
-msgstr ""
+msgstr "Тип:"
 
 #: ../glade/smuxi-frontend-gnome.glade.h:73
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:507
 msgid "Username:"
-msgstr ""
+msgstr "Имя пользователя:"
 
 #: ../glade/smuxi-frontend-gnome.glade.h:74
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1873
 msgid "_Filters"
-msgstr ""
+msgstr "_Фильтры"
 
 #: ../glade/smuxi-frontend-gnome.glade.h:75
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1715
 msgid "_Interface"
-msgstr ""
+msgstr "_Вид"
 
 #: ../glade/smuxi-frontend-gnome.glade.h:76
 msgid "_Logging"
-msgstr ""
+msgstr "_Журнал"
 
 #: ../glade/smuxi-frontend-gnome.glade.h:77
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1781
 msgid "_Servers"
-msgstr ""
+msgstr "_Серверы"
 
 #. This is a setting for character based line wrapping vs word based when
 #. showing messages
 #: ../glade/smuxi-frontend-gnome.glade.h:79
 msgid "_Wrap Mode:"
-msgstr ""
+msgstr "Режим п_ереноса:"
 
 #: ../glade/smuxi-frontend-gnome.glade.h:80
 msgid ""
@@ -412,15 +412,15 @@ msgstr ""
 
 #: ../src/Frontend-GNOME/smuxi-frontend-gnome.desktop.in.h:1
 msgid "Chat with other people on IRC"
-msgstr ""
+msgstr "Разговор с людьми в сети IRC"
 
 #: ../src/Frontend-GNOME/smuxi-frontend-gnome.desktop.in.h:2
 msgid "IRC Chat"
-msgstr ""
+msgstr "IRC-чат"
 
 #: ../src/Frontend-GNOME/smuxi-frontend-gnome.desktop.in.h:3
 msgid "Smuxi IRC Client"
-msgstr ""
+msgstr "IRC-клиент Smuxi"
 
 #: ../src/Frontend-GNOME/AboutDialog.cs:58
 msgid "translator-credits"
@@ -460,7 +460,7 @@ msgstr ""
 
 #: ../src/Frontend-GNOME/EngineManagerDialog.cs:90
 msgid "Engine:"
-msgstr ""
+msgstr "Ядро:"
 
 #: ../src/Frontend-GNOME/EngineManagerDialog.cs:116
 #: ../src/Frontend-GNOME/EngineManagerDialog.cs:176
@@ -479,12 +479,12 @@ msgstr ""
 
 #: ../src/Frontend-GNOME/EngineManagerDialog.cs:216
 msgid "An error occurred while connecting to the engine!"
-msgstr ""
+msgstr "Ошибка при подключении к ядру!"
 
 #: ../src/Frontend-GNOME/EngineManagerDialog.cs:217
 #, csharp-format
 msgid "Engine URL: {0}"
-msgstr ""
+msgstr "Адрес URL: {0}"
 
 #: ../src/Frontend-GNOME/EngineManagerDialog.cs:220
 #, csharp-format
@@ -505,15 +505,15 @@ msgstr ""
 #. list of commands below
 #: ../src/Frontend-GNOME/Entry.cs:524
 msgid "Frontend Commands"
-msgstr ""
+msgstr "Команды оболочки"
 
 #: ../src/Frontend-GNOME/MainWindow.cs:222
 msgid "_File"
-msgstr ""
+msgstr "_Файл"
 
 #: ../src/Frontend-GNOME/MainWindow.cs:238
 msgid "_Server"
-msgstr ""
+msgstr "_Сервер"
 
 #: ../src/Frontend-GNOME/MainWindow.cs:242
 msgid "_Quick Connect"
@@ -525,7 +525,7 @@ msgstr ""
 
 #: ../src/Frontend-GNOME/MainWindow.cs:260
 msgid "_Chat"
-msgstr ""
+msgstr "_Разговор"
 
 #: ../src/Frontend-GNOME/MainWindow.cs:264
 msgid "Open / Join Chat"
@@ -553,7 +553,7 @@ msgstr ""
 
 #: ../src/Frontend-GNOME/MainWindow.cs:355
 msgid "_Engine"
-msgstr ""
+msgstr "_Ядро"
 
 #: ../src/Frontend-GNOME/MainWindow.cs:359
 msgid "_Use Local Engine"
@@ -569,7 +569,7 @@ msgstr ""
 
 #: ../src/Frontend-GNOME/MainWindow.cs:377
 msgid "_View"
-msgstr ""
+msgstr "_Вид"
 
 #: ../src/Frontend-GNOME/MainWindow.cs:381
 msgid "_Caret Mode"
@@ -586,7 +586,7 @@ msgstr ""
 
 #: ../src/Frontend-GNOME/MainWindow.cs:430
 msgid "_Help"
-msgstr ""
+msgstr "Спр_авка"
 
 #: ../src/Frontend-GNOME/MainWindow.cs:691
 #: ../src/Frontend-GNOME/Preferences/ServerListView.cs:225
