@@ -1,3 +1,4 @@
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: smuxi 0.8\n"
@@ -15,48 +16,48 @@ msgstr ""
 
 #: ../glade/smuxi-frontend-gnome.glade.h:1
 msgid "<b> Chat </b>"
-msgstr ""
+msgstr "<b> Разговор </b>"
 
 #: ../glade/smuxi-frontend-gnome.glade.h:2
 msgid "<b> Color </b>"
-msgstr ""
+msgstr "<b> Цвета </b>"
 
 #: ../glade/smuxi-frontend-gnome.glade.h:3
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1364
 msgid "<b> Entry Field </b>"
-msgstr ""
+msgstr "<b> Строка ввода </b>"
 
 #: ../glade/smuxi-frontend-gnome.glade.h:4
 msgid "<b> Font </b>"
-msgstr ""
+msgstr "<b> Шрифт </b>"
 
 #: ../glade/smuxi-frontend-gnome.glade.h:5
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1694
 msgid "<b> Highlighting </b>"
-msgstr ""
+msgstr "<b> Подсветка </b>"
 
 #: ../glade/smuxi-frontend-gnome.glade.h:6
 msgid "<b> Notification Area Icon </b>"
-msgstr ""
+msgstr "<b> Значок в области уведомлений </b>"
 
 #: ../glade/smuxi-frontend-gnome.glade.h:7
 msgid "<b> Person List Position </b>"
-msgstr ""
+msgstr "<b> Список участников </b>"
 
 #: ../glade/smuxi-frontend-gnome.glade.h:8
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1201
 msgid "<b> Tab Colors </b>"
-msgstr ""
+msgstr "<b> Цвета вкладок </b>"
 
 #: ../glade/smuxi-frontend-gnome.glade.h:9
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1102
 msgid "<b> Tabs Position </b>"
-msgstr ""
+msgstr "<b> Положение </b>"
 
 #: ../glade/smuxi-frontend-gnome.glade.h:10
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1507
 msgid "<b> Topic Position </b>"
-msgstr ""
+msgstr "<b> Тема </b>"
 
 #: ../glade/smuxi-frontend-gnome.glade.h:11
 msgid "<b>General</b>"
@@ -90,7 +91,7 @@ msgstr ""
 
 #: ../glade/smuxi-frontend-gnome.glade.h:18
 msgid "Background"
-msgstr ""
+msgstr "Фон"
 
 #: ../glade/smuxi-frontend-gnome.glade.h:19
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1352
@@ -100,7 +101,7 @@ msgstr ""
 #: ../glade/smuxi-frontend-gnome.glade.h:20
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1682
 msgid "Beep on highlight"
-msgstr ""
+msgstr "Звуковой сигнал"
 
 #. Container child vbox6.Gtk.Box+BoxChild
 #. Container child vbox11.Gtk.Box+BoxChild
@@ -110,7 +111,7 @@ msgstr ""
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1453
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1478
 msgid "Bottom"
-msgstr ""
+msgstr "Снизу"
 
 #: ../glade/smuxi-frontend-gnome.glade.h:22
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:738
@@ -390,7 +391,8 @@ msgstr ""
 msgid "_Servers"
 msgstr ""
 
-#. This is a setting for character based line wrapping vs word based when showing messages
+#. This is a setting for character based line wrapping vs word based when
+#. showing messages
 #: ../glade/smuxi-frontend-gnome.glade.h:79
 msgid "_Wrap Mode:"
 msgstr ""
@@ -1019,4 +1021,3 @@ msgstr ""
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:291
 msgid "_Ignore Commands"
 msgstr ""
-
