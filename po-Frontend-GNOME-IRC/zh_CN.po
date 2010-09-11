@@ -1,0 +1,85 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: smuxi-frontend-gnome-irc\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-09-02 15:23+0200\n"
+"PO-Revision-Date: \n"
+"Last-Translator: Dean Lee <xslidian@gmail.com>\n"
+"Language-Team: Chinese Simp <xslidian+smuxi@gmail.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: Chinese\n"
+"X-Poedit-Country: CHINA\n"
+
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:340
+msgid "Op"
+msgstr "设为版主"
+
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:344
+msgid "Deop"
+msgstr "撤销版主"
+
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:348
+msgid "Voice"
+msgstr "设为认证用户"
+
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:352
+msgid "Devoice"
+msgstr "撤销认证用户"
+
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:356
+msgid "Kick"
+msgstr "踢除"
+
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:360
+msgid "Kick + Ban"
+msgstr "踢除+ 封禁"
+
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:364
+msgid "Ban"
+msgstr "封禁"
+
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:368
+msgid "Unban"
+msgstr "解封"
+
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:374
+msgid "Query"
+msgstr "私聊"
+
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:378
+#: ../src/Frontend-GNOME-IRC/IrcPersonChatView.cs:61
+msgid "Whois"
+msgstr "详情"
+
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:382
+#: ../src/Frontend-GNOME-IRC/IrcPersonChatView.cs:65
+msgid "CTCP"
+msgstr "CTCP"
+
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:391
+#: ../src/Frontend-GNOME-IRC/IrcPersonChatView.cs:72
+msgid "Invite to"
+msgstr "邀请加入"
+
+#: ../src/Frontend-GNOME-IRC/CtcpMenu.cs:72
+msgid "Ping"
+msgstr "Ping"
+
+#: ../src/Frontend-GNOME-IRC/CtcpMenu.cs:77
+msgid "Version"
+msgstr "版本"
+
+#: ../src/Frontend-GNOME-IRC/CtcpMenu.cs:82
+msgid "Time"
+msgstr "用户时间"
+
+#: ../src/Frontend-GNOME-IRC/CtcpMenu.cs:87
+msgid "Finger"
+msgstr "真实姓名与空闲时间"
+
+#: ../src/Frontend-GNOME-IRC/CtcpMenu.cs:92
+msgid "Userinfo"
+msgstr "用户信息"
+
