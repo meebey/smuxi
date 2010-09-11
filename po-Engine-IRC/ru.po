@@ -1,3 +1,4 @@
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: smuxi 0.8\n"
@@ -35,13 +36,13 @@ msgstr ""
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:337
 #, csharp-format
 msgid "Connecting to {0} port {1}..."
-msgstr ""
+msgstr "Подключение к {0} на порт {1}..."
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:343
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:438
 #, csharp-format
 msgid "Connection to {0} established"
-msgstr ""
+msgstr "Подключение к {0} установлено."
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:346
 msgid "Logging in..."
@@ -49,43 +50,43 @@ msgstr "Вход на сервер..."
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:369
 msgid "Connection failed!"
-msgstr ""
+msgstr "Сбой подключения!"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:370
 msgid "Connection failed! Reason: "
-msgstr ""
+msgstr "Сбой подключения! Причина:"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:379
 msgid "Disconnecting..."
-msgstr ""
+msgstr "Отключение..."
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:382
 #, csharp-format
 msgid "Disconnecting from {0}..."
-msgstr ""
+msgstr "Отключение от {0}..."
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:387
 #, csharp-format
 msgid "Disconnected from {0}"
-msgstr ""
+msgstr "Отключен от {0}"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:390
 msgid "Connection closed"
-msgstr ""
+msgstr "Соединение закрыто"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:395
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:452
 msgid "Not connected"
-msgstr ""
+msgstr "Нет соединения"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:424
 msgid "Reconnecting..."
-msgstr ""
+msgstr "Возобновление соединения..."
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:432
 #, csharp-format
 msgid "Reconnecting to {0}..."
-msgstr ""
+msgstr "Возобновление соединения с {0}..."
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:446
 msgid "Reconnect Error"
@@ -123,11 +124,11 @@ msgstr ""
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1100
 #, csharp-format
 msgid "Joining: {0}"
-msgstr ""
+msgstr "Вход на канал: {0}"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1071
 msgid "Remaining"
-msgstr ""
+msgstr "Осталось"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1076
 #, csharp-format
@@ -178,7 +179,7 @@ msgstr ""
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1730
 #, csharp-format
 msgid "{0} is already on {1}"
-msgstr ""
+msgstr "{0} уже на {1}"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1755
 msgid "Users"
@@ -226,7 +227,7 @@ msgstr "уже используется"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2329
 msgid "Cannot join to channel:"
-msgstr ""
+msgstr "Не удалось зайти на канал:"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2337
 msgid "You are banned"
@@ -239,12 +240,12 @@ msgstr ""
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2413
 #, csharp-format
 msgid "{0} [{1}] requested CTCP {2} from {3}: {4}"
-msgstr ""
+msgstr "{0} [{1}] запросил CTCP {2} у {3}: {4}"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2438
 #, csharp-format
 msgid "CTCP PING reply from {0}: {1} seconds"
-msgstr ""
+msgstr "Ответ CTCP PING от {0}: {1} сек."
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2446
 #, csharp-format
@@ -266,12 +267,12 @@ msgstr "{0} [{1}] вышел из канала {2}"
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2794
 #, csharp-format
 msgid "You were kicked from {0} by {1} [{2}]"
-msgstr ""
+msgstr "{1} выгнал вас из канала {0} [{2}]"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2802
 #, csharp-format
 msgid "{0} was kicked from {1} by {2} [{3}]"
-msgstr ""
+msgstr "{2} выгнал {0} из канала {1} [{3}]"
 
 #. TRANSLATOR: do NOT change the position of {0}!
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2819
@@ -296,7 +297,7 @@ msgstr "{0} изменил тему канала {1} на: {2}"
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2970
 #, csharp-format
 msgid "Mode change [{0}] for user {1}"
-msgstr ""
+msgstr "Изменен режим [{0}] для пользователя {1}"
 
 #. TRANSLATOR: do NOT change the position of {2}!
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2980
@@ -308,7 +309,7 @@ msgstr ""
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3017
 #, csharp-format
 msgid "{0} [{1}] has quit"
-msgstr ""
+msgstr "{0} [{1}] покинул канал"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3094
 #, csharp-format
@@ -327,4 +328,3 @@ msgstr ""
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3155
 msgid "You have been marked as being away"
 msgstr ""
-
