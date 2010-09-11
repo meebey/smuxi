@@ -1,0 +1,162 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: smuxi-engine\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-09-02 15:23+0200\n"
+"PO-Revision-Date: \n"
+"Last-Translator: Dean Lee <xslidian@gmail.com>\n"
+"Language-Team: Chinese Simp <xslidian+smuxi@gmail.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: Chinese\n"
+"X-Poedit-Country: CHINA\n"
+
+#: ../src/Engine/FrontendManager.cs:230
+msgid "No network connections"
+msgstr "无网络连接"
+
+#: ../src/Engine/Protocols/ProtocolManagerBase.cs:161
+msgid "Not connected to server"
+msgstr "未连接到服务器"
+
+#: ../src/Engine/Protocols/ProtocolManagerBase.cs:173
+#: ../src/Engine/Session.cs:751
+#, csharp-format
+msgid "Not enough parameters for {0} command"
+msgstr "{0} 命令参数不足"
+
+#: ../src/Engine/Protocols/ProtocolManagerBase.cs:189
+#, csharp-format
+msgid "Connected to {0}"
+msgstr "已连接到 {0}"
+
+#: ../src/Engine/Protocols/ProtocolManagerBase.cs:213
+#, csharp-format
+msgid "Disconnected from {0}"
+msgstr "已从 {0} 断开连接"
+
+#: ../src/Engine/Session.cs:154
+msgid "Welcome to Smuxi"
+msgstr "欢迎来到 Smuxi"
+
+#: ../src/Engine/Session.cs:160
+msgid "Type /help to get a list of available commands."
+msgstr "输入 /help 获取可用命令列表。"
+
+#: ../src/Engine/Session.cs:163
+msgid "After you have made a connection the list of available commands changes. Use the /help command again to see the extended command list."
+msgstr "连接成功之后可用命令列表会有所变更。请再次输入 /help 命令查看扩充后的命令列表。"
+
+#: ../src/Engine/Session.cs:216
+#, csharp-format
+msgid "Automatic connect to {0} failed!"
+msgstr "自动连接 {0} 失败!"
+
+#. TRANSLATOR: this line is used as a label / category for a
+#. list of commands below
+#: ../src/Engine/Session.cs:411
+msgid "Engine Commands"
+msgstr "引擎命令"
+
+#: ../src/Engine/Session.cs:514
+msgid "Connect failed!"
+msgstr "连接失败!"
+
+#: ../src/Engine/Session.cs:544
+#, csharp-format
+msgid "Disconnect failed - could not find server: {0}"
+msgstr "连接断开失败 - 找不到服务器: {0}"
+
+#: ../src/Engine/Session.cs:583
+msgid "Reconnect failed!"
+msgstr "重新连接失败!"
+
+#: ../src/Engine/Session.cs:602
+msgid "Configuration reloaded"
+msgstr "配置已重新载入"
+
+#: ../src/Engine/Session.cs:607
+msgid "Configuration saved"
+msgstr "配置已保存"
+
+#: ../src/Engine/Session.cs:611
+msgid "Invalid parameter for config; use load or save"
+msgstr "config 的参数无效; 使用 load 或 save"
+
+#: ../src/Engine/Session.cs:641
+msgid "Invalid parameter for network; use list, switch, or close"
+msgstr "network 的参数无效; 使用 list、switch 或 close"
+
+#: ../src/Engine/Session.cs:652
+msgid "Networks"
+msgstr "网络"
+
+#: ../src/Engine/Session.cs:656
+msgid "Type"
+msgstr "类型"
+
+#: ../src/Engine/Session.cs:657
+msgid "Host"
+msgstr "主机"
+
+#: ../src/Engine/Session.cs:658
+msgid "Port"
+msgstr "端口"
+
+#: ../src/Engine/Session.cs:680
+#, csharp-format
+msgid "Network close failed - could not find network with host: {0}"
+msgstr "网络关闭失败 - 无法找到主机网络: {0}"
+
+#: ../src/Engine/Session.cs:725
+#, csharp-format
+msgid "Network switch failed - could not find network with host: {0}"
+msgstr "网络切换失败 - 无法找到主机网络: {0}"
+
+#: ../src/Engine/Session.cs:740
+msgid "Not connected to any network"
+msgstr "未连接到任何网络"
+
+#. just in case the ProtocolManager is not setting the
+#. protocol chat
+#: ../src/Engine/Session.cs:1067
+msgid "Connect failed."
+msgstr "连接失败。"
+
+#: ../src/Engine/Session.cs:1098
+#, csharp-format
+msgid "No protocol manager found for the protocol: {0}"
+msgstr "未找到该协议的协议管理器: {0}"
+
+#: ../src/Engine/Config/UserListController.cs:117
+msgid "Username must not be empty."
+msgstr "用户名不能为空。"
+
+#: ../src/Engine/Config/UserListController.cs:127
+msgid "Password must not be empty."
+msgstr "密码不能为空。"
+
+#: ../src/Engine/Config/UserListController.cs:136
+#, csharp-format
+msgid "User \"{0}\" doesn't exist."
+msgstr "用户 \"{0}\" 不存在。"
+
+#: ../src/Engine/Config/UserListController.cs:145
+#, csharp-format
+msgid "User \"{0}\" already exists."
+msgstr "用户名 \"{0}\" 已存在。"
+
+#: ../src/Engine/Config/ServerListController.cs:131
+msgid "Server hostname must not be empty."
+msgstr "服务器主机名不能为空。"
+
+#: ../src/Engine/Config/ServerListController.cs:134
+msgid "Server hostname contains invalid characters (newline)."
+msgstr "服务器主机名包含无效字符 (换行)。"
+
+#: ../src/Engine/Config/ServerListController.cs:140
+#, csharp-format
+msgid "Server '{0}' already exists."
+msgstr "服务器 '{0}' 已存在。"
+
