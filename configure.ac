@@ -1,4 +1,4 @@
-AiCT_PREREQ([2.54])
+AC_PREREQ([2.54])
 AC_INIT([smuxi], [0.8], [http://www.smuxi.org/issues/new])
 # using the --foreign option makes automake less strict about GNU policy 
 AC_CONFIG_MACRO_DIR([.])
