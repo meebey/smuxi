@@ -1,15 +1,15 @@
 # Smuxi - IRC client for sophisticated users
 # Copyright (C) 2005-2010 Mirco Bauer <meebey@meebey.net>
 # This file is distributed under the same license as the Smuxi package.
-# David Paleino <d.paleino@gmail.com>, 2008.
 #
-# Vincenzo Campanella <vinz65@gmail.com>, 2009-2010, 2010.
+# David Paleino <d.paleino@gmail.com>, 2008.
+# Vincenzo Campanella <vinz65@gmail.com>, 2009, 2010.
 msgid ""
 msgstr ""
-"Project-Id-Version: smuxi 0.6.4\n"
+"Project-Id-Version: smuxi-engine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-07-15 01:40+0200\n"
-"PO-Revision-Date: 2010-07-15 12:59+0200\n"
+"POT-Creation-Date: 2010-09-02 15:23+0200\n"
+"PO-Revision-Date: 2010-09-11 09:33+0200\n"
 "Last-Translator: Vincenzo Campanella <vinz65@gmail.com>\n"
 "Language-Team: Italian <tp@lists.linux.it>\n"
 "Language: it\n"
@@ -19,19 +19,29 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #
-#: ../src/Engine/FrontendManager.cs:219
+#: ../src/Engine/FrontendManager.cs:230
 msgid "No network connections"
 msgstr "Nessuna connessione di rete"
 
-#: ../src/Engine/Protocols/ProtocolManagerBase.cs:146
+#: ../src/Engine/Protocols/ProtocolManagerBase.cs:161
 msgid "Not connected to server"
 msgstr "Non connesso a un server"
 
-#: ../src/Engine/Protocols/ProtocolManagerBase.cs:158
-#: ../src/Engine/Session.cs:731
+#: ../src/Engine/Protocols/ProtocolManagerBase.cs:173
+#: ../src/Engine/Session.cs:751
 #, csharp-format
 msgid "Not enough parameters for {0} command"
 msgstr "Non sono stati forniti abbastanza parametri per il comando {0}"
+
+#: ../src/Engine/Protocols/ProtocolManagerBase.cs:189
+#, csharp-format
+msgid "Connected to {0}"
+msgstr "Connesso a {0}"
+
+#: ../src/Engine/Protocols/ProtocolManagerBase.cs:213
+#, csharp-format
+msgid "Disconnected from {0}"
+msgstr "Disconnesso da {0}"
 
 #: ../src/Engine/Session.cs:154
 msgid "Welcome to Smuxi"
@@ -59,82 +69,83 @@ msgstr "La connessione automatica a {0} non è riuscita."
 #
 #. TRANSLATOR: this line is used as a label / category for a
 #. list of commands below
-#: ../src/Engine/Session.cs:407
+#: ../src/Engine/Session.cs:411
 msgid "Engine Commands"
 msgstr "Comandi del motore"
 
-#: ../src/Engine/Session.cs:510
+#: ../src/Engine/Session.cs:514
 msgid "Connect failed!"
 msgstr "La connessione non è riuscita."
 
-#: ../src/Engine/Session.cs:539
+#: ../src/Engine/Session.cs:544
 #, csharp-format
 msgid "Disconnect failed - could not find server: {0}"
 msgstr "La disconnessione non è riuscita, impossibile trovare il server: {0}"
 
-#: ../src/Engine/Session.cs:574
+#: ../src/Engine/Session.cs:583
 msgid "Reconnect failed!"
 msgstr "La riconnessione non è riuscita."
 
-#: ../src/Engine/Session.cs:593
+#: ../src/Engine/Session.cs:602
 msgid "Configuration reloaded"
 msgstr "Configurazione ricaricata"
 
-#: ../src/Engine/Session.cs:598
+#: ../src/Engine/Session.cs:607
 msgid "Configuration saved"
 msgstr "Configurazione salvata"
 
-#: ../src/Engine/Session.cs:602
+#: ../src/Engine/Session.cs:611
 msgid "Invalid parameter for config; use load or save"
 msgstr "Parametro non valido per la configurazione, utilizzare «load» o «save»"
 
-#: ../src/Engine/Session.cs:632
+#: ../src/Engine/Session.cs:641
 msgid "Invalid parameter for network; use list, switch, or close"
-msgstr "Parametro non valido per la rete, utilizzare «list», «switch» o «close»"
+msgstr ""
+"Parametro non valido per la rete, utilizzare «list», «switch» o «close»"
 
-#: ../src/Engine/Session.cs:643
+#: ../src/Engine/Session.cs:652
 msgid "Networks"
 msgstr "Reti"
 
-#: ../src/Engine/Session.cs:647
+#: ../src/Engine/Session.cs:656
 msgid "Type"
 msgstr "Tipo"
 
-#: ../src/Engine/Session.cs:648
+#: ../src/Engine/Session.cs:657
 msgid "Host"
 msgstr "Host"
 
-#: ../src/Engine/Session.cs:649
+#: ../src/Engine/Session.cs:658
 msgid "Port"
 msgstr "Porta"
 
-#: ../src/Engine/Session.cs:671
+#: ../src/Engine/Session.cs:680
 #, csharp-format
 msgid "Network close failed - could not find network with host: {0}"
 msgstr ""
 "La chiusura della rete non è riuscita, impossibile trovare la rete con "
 "l'host: {0}"
 
-#: ../src/Engine/Session.cs:705
+#: ../src/Engine/Session.cs:725
 #, csharp-format
 msgid "Network switch failed - could not find network with host: {0}"
 msgstr ""
 "Il cambio di rete non è riuscito, impossibile trovare la rete con l'host: {0}"
 
-#: ../src/Engine/Session.cs:720
+#: ../src/Engine/Session.cs:740
 msgid "Not connected to any network"
 msgstr "Non connesso ad alcuna rete"
 
 #. just in case the ProtocolManager is not setting the
 #. protocol chat
-#: ../src/Engine/Session.cs:1047
+#: ../src/Engine/Session.cs:1067
 msgid "Connect failed."
 msgstr "La connessione non è riuscita."
 
-#: ../src/Engine/Session.cs:1078
+#: ../src/Engine/Session.cs:1098
 #, csharp-format
 msgid "No protocol manager found for the protocol: {0}"
-msgstr "Nessun gestore trovato per il protocollo {0}"
+msgstr "Nessun gestore trovato per il protocollo: {0}"
 
 #: ../src/Engine/Config/UserListController.cs:117
 msgid "Username must not be empty."
@@ -153,6 +164,20 @@ msgstr "L'utente «{0}» non esiste."
 #, csharp-format
 msgid "User \"{0}\" already exists."
 msgstr "L'utente «{0}» esiste già."
+
+#: ../src/Engine/Config/ServerListController.cs:131
+msgid "Server hostname must not be empty."
+msgstr "Il nome host del server non può essere vuoto."
+
+#: ../src/Engine/Config/ServerListController.cs:134
+msgid "Server hostname contains invalid characters (newline)."
+msgstr ""
+"Il nome host del server contiene caratteri non validi (ritorno a capo)."
+
+#: ../src/Engine/Config/ServerListController.cs:140
+#, csharp-format
+msgid "Server '{0}' already exists."
+msgstr "Il server «{0}» esiste già."
 
 #~ msgid "Unknown protocol: {0}"
 #~ msgstr "Protocollo sconosciuto: {0}"
