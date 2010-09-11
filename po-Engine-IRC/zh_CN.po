@@ -2,11 +2,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: smuxi-engine-irc\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-09-11 11:54+0200\n"
+"POT-Creation-Date: 2010-09-02 15:23+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Dean Lee <xslidian@gmail.com>\n"
 "Language-Team: Chinese Simp <xslidian+smuxi@gmail.com>\n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -211,8 +210,7 @@ msgstr "{0}: 无此昵称/频道"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2279
 #, csharp-format
-msgid ""
-"Increased send delay to {0}ms to avoid being flooded off the server again."
+msgid "Increased send delay to {0}ms to avoid being flooded off the server again."
 msgstr "发送延时已增加到 {0}ms 以避免再次被服务器挤出。"
 
 #. TRANSLATOR: the final line will look like this:
@@ -315,9 +313,7 @@ msgstr "{0} [{1}] 已退出"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3094
 #, csharp-format
-msgid ""
-"Connection to {0} port {1} has failed (attempt {2}), retrying in {3} "
-"seconds..."
+msgid "Connection to {0} port {1} has failed (attempt {2}), retrying in {3} seconds..."
 msgstr "到 {0} 端口 {1} 的连接失败 (第 {2}次尝试), 将在 {3} 秒后重试..."
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3143
@@ -332,3 +328,4 @@ msgstr "您不再被标为离开状态"
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3155
 msgid "You have been marked as being away"
 msgstr "您已被标为离开状态"
+

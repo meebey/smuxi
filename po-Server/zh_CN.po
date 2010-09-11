@@ -2,11 +2,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: smuxi-server\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-09-11 11:54+0200\n"
+"POT-Creation-Date: 2010-09-02 15:23+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Dean Lee <xslidian@gmail.com>\n"
 "Language-Team: Chinese Simp <xslidian+smuxi@gmail.com>\n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -64,9 +63,7 @@ msgid "Command line error: {0}"
 msgstr "命令行错误: {0}"
 
 #: ../src/Server/Main.cs:214
-msgid ""
-"At most one of --add-user, --modify-user, and --delete-user may be used at a "
-"time."
+msgid "At most one of --add-user, --modify-user, and --delete-user may be used at a time."
 msgstr "--add-user、--modify-user 与 --delete-user 三者每次只能用一个。"
 
 #: ../src/Server/Main.cs:224
@@ -103,3 +100,4 @@ msgstr "成功将用户 \"{0}\" 从服务器删除。"
 #: ../src/Server/Main.cs:288
 msgid "Users:"
 msgstr "用户:"
+

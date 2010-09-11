@@ -2,11 +2,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: smuxi-frontend-gnome\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-09-11 11:54+0200\n"
+"POT-Creation-Date: 2010-09-02 15:23+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Dean Lee <xslidian@lidian.info>\n"
 "Language-Team: Chinese Simp <xslidian+smuxi@gmail.com>\n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -344,13 +343,8 @@ msgid "Tabs"
 msgstr "标签"
 
 #: ../glade/smuxi-frontend-gnome.glade.h:69
-msgid ""
-"The nickname to use. You can specify extra nicknames (separated by spaces) "
-"which will be used as fallbacks when the first choice is not available. By "
-"default $nick_ and $nick__ will be used as fallbacks."
-msgstr ""
-"要使用的昵称。您可以指定多个昵称（用空格分隔）作为首个选项不可用时的候选项。"
-"默认使用 $昵称_ 和 $昵称__ 作为候选项。"
+msgid "The nickname to use. You can specify extra nicknames (separated by spaces) which will be used as fallbacks when the first choice is not available. By default $nick_ and $nick__ will be used as fallbacks."
+msgstr "要使用的昵称。您可以指定多个昵称（用空格分隔）作为首个选项不可用时的候选项。默认使用 $昵称_ 和 $昵称__ 作为候选项。"
 
 #: ../glade/smuxi-frontend-gnome.glade.h:70
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:718
@@ -689,8 +683,7 @@ msgstr "主题"
 
 #: ../src/Frontend-GNOME/FindGroupChatDialog.cs:102
 msgid ""
-"Searching for group chats without a filter is not recommended.  This may "
-"take a while, or may not work at all.\n"
+"Searching for group chats without a filter is not recommended.  This may take a while, or may not work at all.\n"
 "Do you wish to continue?"
 msgstr ""
 "不建议不用过滤器搜索群组聊天。可能要耗费一些时间，也可能无法完成搜索。\n"
@@ -783,8 +776,7 @@ msgid "Thank you"
 msgstr "谢谢您"
 
 #: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:285
-msgid ""
-"An engine with this name already exists! Please specify a different one."
+msgid "An engine with this name already exists! Please specify a different one."
 msgstr "已存在同名引擎! 请另外指定一个。"
 
 #: ../src/Frontend-GNOME/Views/MessageTextView.cs:198
@@ -919,21 +911,15 @@ msgid "Use _SSH Tunnel"
 msgstr "使用 _SSH 隧道"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantConnectionWidget.cs:70
-msgid ""
-"<span size=\"small\">Enables the use of SSH for the connection.  This has a "
-"small performance impact, but is more secure and required when using NAT or "
-"port-based firewalls</span>"
-msgstr ""
-"<span size=\"small\">为连接启用 SSH。这对性能有一定影响，但更安全，且使用 "
-"NAT 或者基于端口的防火墙时必需</span>"
+msgid "<span size=\"small\">Enables the use of SSH for the connection.  This has a small performance impact, but is more secure and required when using NAT or port-based firewalls</span>"
+msgstr "<span size=\"small\">为连接启用 SSH。这对性能有一定影响，但更安全，且使用 NAT 或者基于端口的防火墙时必需</span>"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantConnectionWidget.cs:149
 msgid "SSH _Host:"
 msgstr "SS_H 主机:"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantConnectionWidget.cs:160
-msgid ""
-"<span size=\"small\">DNS or IP address and port of the SSH server</span>"
+msgid "<span size=\"small\">DNS or IP address and port of the SSH server</span>"
 msgstr "<span size=\"small\">SSH 服务器的 DNS 或者 IP 地址与端口</span>"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantConnectionWidget.cs:173
@@ -943,8 +929,7 @@ msgid "_Port:"
 msgstr "端口(_P):"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantConnectionWidget.cs:200
-msgid ""
-"<span size=\"small\">DNS or IP address and port of the Smuxi server</span>"
+msgid "<span size=\"small\">DNS or IP address and port of the Smuxi server</span>"
 msgstr "<span size=\"small\">Smuxi 服务器的 DNS 或者 IP 地址与端口</span>"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantConnectionWidget.cs:213
@@ -956,9 +941,7 @@ msgid "_SSH Username: (optional)"
 msgstr "_SSH 用户名: (可选)"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:91
-msgid ""
-"<span size=\"small\">Username which will be used to log into the SSH server</"
-"span>"
+msgid "<span size=\"small\">Username which will be used to log into the SSH server</span>"
 msgstr "<span size=\"small\">用于登录 SSH 服务器的用户名</span>"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:111
@@ -966,13 +949,8 @@ msgid "_SSH Password: (optional)"
 msgstr "_SSH 密码: (可选)"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:135
-msgid ""
-"<span size=\"small\">Password which will be used to log into the SSH server. "
-"The password is optional if SSH key authorization is used (via Pageant from "
-"the PuTTY tools).</span>"
-msgstr ""
-"<span size=\"small\">将用于登录 SSH 服务器的密码。如果使用 SSH 密钥验证 (通"
-"过 PuTTY 工具中的 Pageant) 则密码可选。</span>"
+msgid "<span size=\"small\">Password which will be used to log into the SSH server. The password is optional if SSH key authorization is used (via Pageant from the PuTTY tools).</span>"
+msgstr "<span size=\"small\">将用于登录 SSH 服务器的密码。如果使用 SSH 密钥验证 (通过 PuTTY 工具中的 Pageant) 则密码可选。</span>"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:156
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:214
@@ -980,9 +958,7 @@ msgid "_Username:"
 msgstr "用户名(_U):"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:179
-msgid ""
-"<span size=\"small\">Username which will be used to log into the Smuxi "
-"server</span>"
+msgid "<span size=\"small\">Username which will be used to log into the Smuxi server</span>"
 msgstr "<span size=\"small\">将用于登录 Smuxi 服务器的用户名</span>"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:199
@@ -1031,11 +1007,8 @@ msgid "Use as new default engine"
 msgstr "用作新的默认引擎"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantNameWidget.cs:112
-msgid ""
-"<span size=\"small\">If enabled, the current engine will be the default next "
-"time Smuxi is started</span>"
-msgstr ""
-"<span size=\"small\">如果启用，Smuxi 下次启动时当前引擎将作为默认引擎</span>"
+msgid "<span size=\"small\">If enabled, the current engine will be the default next time Smuxi is started</span>"
+msgstr "<span size=\"small\">如果启用，Smuxi 下次启动时当前引擎将作为默认引擎</span>"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.OpenChatDialog.cs:26
 msgid "Smuxi - Open Chat"
@@ -1072,3 +1045,4 @@ msgstr "连接时命令(_O):"
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:291
 msgid "_Ignore Commands"
 msgstr "忽略命令(_I)"
+

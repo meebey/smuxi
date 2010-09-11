@@ -2,11 +2,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: smuxi-engine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-09-11 11:54+0200\n"
+"POT-Creation-Date: 2010-09-02 15:23+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Dean Lee <xslidian@gmail.com>\n"
 "Language-Team: Chinese Simp <xslidian+smuxi@gmail.com>\n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -46,12 +45,8 @@ msgid "Type /help to get a list of available commands."
 msgstr "输入 /help 获取可用命令列表。"
 
 #: ../src/Engine/Session.cs:163
-msgid ""
-"After you have made a connection the list of available commands changes. Use "
-"the /help command again to see the extended command list."
-msgstr ""
-"连接成功之后可用命令列表会有所变更。请再次输入 /help 命令查看扩充后的命令列"
-"表。"
+msgid "After you have made a connection the list of available commands changes. Use the /help command again to see the extended command list."
+msgstr "连接成功之后可用命令列表会有所变更。请再次输入 /help 命令查看扩充后的命令列表。"
 
 #: ../src/Engine/Session.cs:216
 #, csharp-format
@@ -164,3 +159,4 @@ msgstr "服务器主机名包含无效字符 (换行)。"
 #, csharp-format
 msgid "Server '{0}' already exists."
 msgstr "服务器 '{0}' 已存在。"
+
