@@ -2,7 +2,7 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: smuxi 0.8\n"
@@ -14,9 +14,9 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Country: RUSSIAN FEDERATION\n"
 "Plural-Forms: nplurals=4; plural=(n==1) ? 0 : (n%10==1 && n%100!=11 ? 3 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Poedit-Language: Russian\n"
-"X-Poedit-Country: RUSSIAN FEDERATION\n"
 
 #: ../src/Engine/FrontendManager.cs:230
 msgid "No network connections"
@@ -30,7 +30,7 @@ msgstr "Нет подключения к серверу"
 #: ../src/Engine/Session.cs:751
 #, csharp-format
 msgid "Not enough parameters for {0} command"
-msgstr ""
+msgstr "Недостаточно параметров для команды {0}"
 
 #: ../src/Engine/Protocols/ProtocolManagerBase.cs:189
 #, csharp-format
@@ -48,7 +48,7 @@ msgstr ""
 
 #: ../src/Engine/Session.cs:160
 msgid "Type /help to get a list of available commands."
-msgstr ""
+msgstr "Для получения списка команд введите /help"
 
 #: ../src/Engine/Session.cs:163
 msgid "After you have made a connection the list of available commands changes. Use the /help command again to see the extended command list."
@@ -57,13 +57,13 @@ msgstr ""
 #: ../src/Engine/Session.cs:216
 #, csharp-format
 msgid "Automatic connect to {0} failed!"
-msgstr ""
+msgstr "Не удалось автоматически подключиться к {0}!"
 
 #. TRANSLATOR: this line is used as a label / category for a
 #. list of commands below
 #: ../src/Engine/Session.cs:411
 msgid "Engine Commands"
-msgstr ""
+msgstr "Команды ядра"
 
 #: ../src/Engine/Session.cs:514
 msgid "Connect failed!"
@@ -122,47 +122,46 @@ msgstr ""
 
 #: ../src/Engine/Session.cs:740
 msgid "Not connected to any network"
-msgstr ""
+msgstr "Нет подключения к сетям"
 
 #. just in case the ProtocolManager is not setting the
 #. protocol chat
 #: ../src/Engine/Session.cs:1067
 msgid "Connect failed."
-msgstr ""
+msgstr "Сбой соединения."
 
 #: ../src/Engine/Session.cs:1098
 #, csharp-format
 msgid "No protocol manager found for the protocol: {0}"
-msgstr ""
+msgstr "Не найден обработчик протокола: {0}"
 
 #: ../src/Engine/Config/UserListController.cs:117
 msgid "Username must not be empty."
-msgstr ""
+msgstr "Требуется указать имя пользователя."
 
 #: ../src/Engine/Config/UserListController.cs:127
 msgid "Password must not be empty."
-msgstr ""
+msgstr "Требуется указать пароль."
 
 #: ../src/Engine/Config/UserListController.cs:136
 #, csharp-format
 msgid "User \"{0}\" doesn't exist."
-msgstr ""
+msgstr "Пользователя \"{0}\" не существует."
 
 #: ../src/Engine/Config/UserListController.cs:145
 #, csharp-format
 msgid "User \"{0}\" already exists."
-msgstr ""
+msgstr "Пользователь \"{0}\" уже существует."
 
 #: ../src/Engine/Config/ServerListController.cs:131
 msgid "Server hostname must not be empty."
-msgstr ""
+msgstr "Требуется указать имя сервера."
 
 #: ../src/Engine/Config/ServerListController.cs:134
 msgid "Server hostname contains invalid characters (newline)."
-msgstr ""
+msgstr "Имя сервера содержит недопустимые символы или перенос строки."
 
 #: ../src/Engine/Config/ServerListController.cs:140
 #, csharp-format
 msgid "Server '{0}' already exists."
-msgstr ""
-
+msgstr "Сервер '{0}' уже существует."
