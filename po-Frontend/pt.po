@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: smuxi-frontend \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-07-15 01:40+0200\n"
+"POT-Creation-Date: 2010-09-11 11:54+0200\n"
 "PO-Revision-Date: 2010-07-15 01:46+0100\n"
 "Last-Translator: Américo Monteiro <a_monteiro@netcabo.pt>\n"
 "Language-Team: Portuguese <traduz@debianpt.org>\n"
@@ -104,4 +104,3 @@ msgstr ""
 #: ../src/Frontend/SshTunnelManager.cs:441
 msgid "PuTTY / Plink requires a username to be set."
 msgstr "PuTTY / Plink requer que seja definido um nome de utilizador."
-

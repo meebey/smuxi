@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: smuxi-server \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-07-15 01:40+0200\n"
+"POT-Creation-Date: 2010-09-11 11:54+0200\n"
 "PO-Revision-Date: 2010-07-19 22:21+0100\n"
 "Last-Translator: Américo Monteiro <a_monteiro@netcabo.pt>\n"
 "Language-Team: Portuguese <traduz@debianpt.org>\n"
@@ -73,8 +73,8 @@ msgid ""
 "At most one of --add-user, --modify-user, and --delete-user may be used at a "
 "time."
 msgstr ""
-"No máximo pode ser usado apenas um de --add-user, --modify-user, e "
-"--delete-user de cada vez."
+"No máximo pode ser usado apenas um de --add-user, --modify-user, e --delete-"
+"user de cada vez."
 
 #: ../src/Server/Main.cs:224
 msgid "You must specify a username with the --username option."
@@ -110,5 +110,3 @@ msgstr "Utilizador \"{0}\" apagado com sucesso do servidor."
 #: ../src/Server/Main.cs:288
 msgid "Users:"
 msgstr "Utilizadores:"
-
-

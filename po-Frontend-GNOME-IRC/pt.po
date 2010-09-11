@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: smuxi-frontend-gnome-irc \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-07-15 01:40+0200\n"
+"POT-Creation-Date: 2010-09-11 11:55+0200\n"
 "PO-Revision-Date: 2010-07-15 01:56+0100\n"
 "Last-Translator: Américo Monteiro <a_monteiro@netcabo.pt>\n"
 "Language-Team: Portuguese <traduz@debianpt.org>\n"
@@ -88,4 +88,3 @@ msgstr "Finger"
 #: ../src/Frontend-GNOME-IRC/CtcpMenu.cs:92
 msgid "Userinfo"
 msgstr "Informação do utilizador"
-
