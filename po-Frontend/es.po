@@ -2,61 +2,48 @@
 # Copyright (C) 2005-2009 Mirco Bauer <meebey@meebey.net>
 # This file is distributed under the same license as the Smuxi package.
 # Juan Miguel Carrero <streinleght@gmail.com>, 2008-2009.
-#
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: smuxi 0.6.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-09 21:43+0100\n"
+"POT-Creation-Date: 2010-09-02 15:23+0200\n"
 "PO-Revision-Date: 2009-08-12 17:11+0100\n"
 "Last-Translator: Juan Miguel Carrero <streinleght@gmail.com>\n"
-"Language-Team: Spanish Spanish Localization <debian-l10n-spanish@lists."
-"debian.org>\n"
+"Language-Team: Spanish Spanish Localization <debian-l10n-spanish@lists.debian.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../src/Frontend/CommandManager.cs:144
+#: ../src/Frontend/CommandManager.cs:143
 #, csharp-format
 msgid "Unknown Command: {0}"
-msgstr ""
+msgstr "Comando desconocido: {0}"
 
 #: ../src/Frontend/EngineManager.cs:292
-#, fuzzy, csharp-format
+#, csharp-format
 msgid "Unknown channel ({0}) - only the following channel types are supported:"
-msgstr ""
-"Canal desconocido ({0}), solo los siguientes tipos de canales estan "
-"soportados:"
+msgstr "Canal desconocido ({0}), solo los siguientes tipos de canales están soportados:"
 
 #: ../src/Frontend/EngineManager.cs:301
-#, fuzzy
-msgid ""
-"Registration with engine failed!  The username and/or password were wrong - "
-"please verify them."
-msgstr ""
-"Registro en el motor fallido , usuario o contraseña inválidos, compruebe los "
-"datos gracias."
+msgid "Registration with engine failed!  The username and/or password were wrong - please verify them."
+msgstr "Registro en el motor fallido! El usuario y/o la contraseña son erróneos. Por favor, verifíquelos. "
 
 #: ../src/Frontend/SshTunnelManager.cs:146
 msgid "SSH client application was not found: "
 msgstr "El programa del cliente SSH no se ha encontrado:"
 
 #: ../src/Frontend/SshTunnelManager.cs:149
-#, fuzzy
-msgid ""
-"SSH client must be either OpenSSH (ssh) or Plink (plink.exe, not putty.exe)"
-msgstr ""
-"El cliente SSH debe ser o OpenSSH (ssh) o Plink (plink.exe, _no_ putty.exe)"
+msgid "SSH client must be either OpenSSH (ssh) or Plink (plink.exe, not putty.exe)"
+msgstr "El cliente SSH debe ser OpenSSH (ssh) o Plink (plink.exe, no putty.exe)"
 
 #: ../src/Frontend/SshTunnelManager.cs:186
 #, csharp-format
-msgid ""
-"The local SSH forwarding port {0} is already in use. Is there an old SSH "
-"tunnel still active?"
-msgstr ""
+msgid "The local SSH forwarding port {0} is already in use. Is there an old SSH tunnel still active?"
+msgstr "El puerto local SSH {0} está actualmente en uso. ¿Existe un tunel SSH antiguo activo aún?"
 
 #: ../src/Frontend/SshTunnelManager.cs:210
-#, fuzzy, csharp-format
+#, csharp-format
 msgid ""
 "SSH tunnel setup failed (exit code: {0})\n"
 "\n"
@@ -68,17 +55,18 @@ msgid ""
 "Program Output:\n"
 "{4}\n"
 msgstr ""
-"Configuración del tunel SSH fallida (código de salida: {0})\n"
+"Configuración del tunel SHH fallida (código de salida: {0})\n"
 "\n"
 "Programa SSH: {1}\n"
+"Parámetros SSH: {2}\n"
 "\n"
-"Error de aplicación:\n"
-"{2}\n"
-"Salida de aplicaciónt:\n"
+"Error:\n"
 "{3}\n"
+"Salida:\n"
+"{4}\n"
 
 #: ../src/Frontend/SshTunnelManager.cs:405
-#, fuzzy, csharp-format
+#, csharp-format
 msgid ""
 "OpenSSH version number not found (exit code: {0})\n"
 "\n"
