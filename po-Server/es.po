@@ -1,0 +1,109 @@
+# po-Server/smuxi-server.pot Spanish translation file
+# Copyright (C) 2010
+# This file is distributed under the same license as the Smuxi - IRC Client package.
+# Ricardo A. Hermosilla Carrillo <ra.hermosillac@gmail.com>, 2010.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-09-02 15:23+0200\n"
+"PO-Revision-Date: 2010-09-12 23:30-0400\n"
+"Last-Translator: Ricardo A. Hermosilla Carrillo <ra.hermosillac@gmail.com>\n"
+"Language-Team: Spanish <ES@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../src/Server/Main.cs:69
+msgid "Add user to Server"
+msgstr "Agregar usuario al Servidor"
+
+#: ../src/Server/Main.cs:78
+msgid "Modify existing user of Server"
+msgstr "Modificar un usuario existente del Servidor"
+
+#: ../src/Server/Main.cs:87
+msgid "Delete user from Server"
+msgstr "Borrar usuario del Servidor"
+
+#: ../src/Server/Main.cs:96
+msgid "List all existing users of Server"
+msgstr "Listar todos los usuarios existentes del Servidor"
+
+#: ../src/Server/Main.cs:105
+msgid "User to create, modify or delete"
+msgstr "Usuario a crear, modificar o borrar"
+
+#: ../src/Server/Main.cs:114
+msgid "Password of the user when creating or modifying a user"
+msgstr "Contraseña del usuario que se está creando o modificando"
+
+#: ../src/Server/Main.cs:123
+msgid "Enable debug output"
+msgstr "Habilitar salida de depuración"
+
+#: ../src/Server/Main.cs:131
+msgid "Show this help"
+msgstr "Mostrar esta ayuda"
+
+#: ../src/Server/Main.cs:133
+msgid "Usage: smuxi-server [options]"
+msgstr "Modo de uso: smuxi-server [opciones]"
+
+#: ../src/Server/Main.cs:135
+msgid "Options:"
+msgstr "Opciones:"
+
+#: ../src/Server/Main.cs:146
+#, csharp-format
+msgid "Unknown option: '{0}'"
+msgstr "Opción desconocida: '{0}'"
+
+#: ../src/Server/Main.cs:170
+#, csharp-format
+msgid "Command line error: {0}"
+msgstr "Error de línea de comandos: {0}"
+
+#: ../src/Server/Main.cs:214
+msgid ""
+"At most one of --add-user, --modify-user, and --delete-user may be used at a "
+"time."
+msgstr ""
+"A lo más una de las opciones --add-user, --modify-user y --delete-user pueden "
+"ser usadas al mismo tiempo."
+
+#: ../src/Server/Main.cs:224
+msgid "You must specify a username with the --username option."
+msgstr "Debe especificar un nombre de usuario con la opción --username"
+
+#: ../src/Server/Main.cs:230
+msgid "Username must not be empty."
+msgstr "Nombre de Usuario no puede estar vacío."
+
+#: ../src/Server/Main.cs:240
+msgid "You must specify a password with the --password option."
+msgstr "Debe especificar una contraseña con la opción --password"
+
+#: ../src/Server/Main.cs:246
+msgid "Password must not be empty."
+msgstr "Contraseña no puede estar vacía."
+
+#: ../src/Server/Main.cs:263
+#, csharp-format
+msgid "User \"{0}\" successfully added to server."
+msgstr "El usuario \"{0}\" ha sido añadido satisfactoriamente al servidor."
+
+#: ../src/Server/Main.cs:272
+#, csharp-format
+msgid "User \"{0}\" successfully modified."
+msgstr "El usuario \"{0}\" ha sido modificado satisfactoriamente."
+
+#: ../src/Server/Main.cs:281
+#, csharp-format
+msgid "User \"{0}\" successfully deleted from server."
+msgstr "El usuario \"{0}\" ha sido borrado satisfactoriamente del servidor."
+
+#: ../src/Server/Main.cs:288
+msgid "Users:"
+msgstr "Usuarios:"
