@@ -619,7 +619,9 @@ namespace Smuxi.Engine
         {
             string pin;
             if (cd.DataArray.Length >= 2) {
-                pin = cd.DataArray[1];
+                var pinArray = cd.Data.Split(new char[]{' '}, 2); // Nasty fixe to make Smuxi more friendly with unneeded spaces
+                pin = pinArray[1].Trim();
+                
             } else {
                 NotEnoughParameters(cd);
                 return;
