@@ -2,7 +2,7 @@
 # Copyright (C) 2010
 # This file is distributed under the same license as the Smuxi - IRC Client package.
 # Ricardo A. Hermosilla Carrillo <ra.hermosillac@gmail.com>, 2010.
-#
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
@@ -37,20 +37,12 @@ msgstr "Autorización de Twitter requerida."
 
 #: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:218
 #, csharp-format
-msgid ""
-"Please open the following URL and click \"Allow\" to allow Smuxi to connect "
-"to your Twitter account: {0}"
-msgstr ""
-"Por favor, abra la siguiente dirección y haga click en \"Autorizar\" para "
-"permitir a Smuxi conectarse a su cuenta de Twitter: {0}"
+msgid "Please open the following URL and click \"Allow\" to allow Smuxi to connect to your Twitter account: {0}"
+msgstr "Por favor, abra la siguiente dirección y haga click en \"Autorizar\" para permitir a Smuxi conectarse a su cuenta de Twitter: {0}"
 
 #: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:234
-msgid ""
-"Once you have allowed Smuxi to access your Twitter account, Twitter will "
-"provide a PIN."
-msgstr ""
-"Una vez que haya autorizado a Smuxi acceder a su cuenta, Twitter le "
-"proveerá un número secreto."
+msgid "Once you have allowed Smuxi to access your Twitter account, Twitter will provide a PIN."
+msgstr "Una vez que haya autorizado a Smuxi acceder a su cuenta, Twitter le proveerá un número secreto."
 
 #: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:241
 msgid "Please type: /pin PIN_FROM_TWITTER"
@@ -115,15 +107,12 @@ msgstr "Twitter no ha aceptado tu número secreto. Lo has ingresado correctament
 
 #: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:669
 #, csharp-format
-msgid ""
-"Please retry by closing this tab and reconnecting to the Twitter \"{0}\" "
-"account."
-msgstr ""
-"Por favor, inténtelo nuevamente cerrando esta pestaña y reconectando "
-"a la cuenta \"{0}\" de Twitter."
+msgid "Please retry by closing this tab and reconnecting to the Twitter \"{0}\" account."
+msgstr "Por favor, inténtelo nuevamente cerrando esta pestaña y reconectando a la cuenta \"{0}\" de Twitter."
+
 #: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:709
 msgid "Migrated Twitter account from basic auth to OAuth."
-msgstr ""
+msgstr "Cuenta de Twitter migrada de autenticación básica para OAuth"
 
 #: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:722
 #, csharp-format
@@ -150,11 +139,8 @@ msgid "Could not send message - the specified user does not exist."
 msgstr "No se puede enviar el mensaje. El usuario especificado no existe."
 
 #: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:879
-msgid ""
-"An error occurred while fetching the friends timeline from Twitter. Reason: "
-msgstr ""
-"Un error ha ocurrido mientras se intentaba importar la línea de tiempo "
-"de sus amigos de Twitter. Razón: "
+msgid "An error occurred while fetching the friends timeline from Twitter. Reason: "
+msgstr "Un error ha ocurrido mientras se intentaba importar la línea de tiempo de sus amigos de Twitter. Razón: "
 
 #: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:980
 msgid "An error occurred while fetching the replies from Twitter. Reason: "
