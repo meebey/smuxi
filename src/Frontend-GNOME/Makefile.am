@@ -1,5 +1,5 @@
 
-EXTRA_DIST = $(WIN_ICON)
+EXTRA_DIST = $(WIN_ICON) $(DESKTOP_FILE).in
 
 ICON = smuxi-frontend-gnome.svg
 WIN_ICON = $(top_srcdir)/images/icon_48x48.ico
