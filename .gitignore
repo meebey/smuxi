@@ -8,6 +8,10 @@ config.status
 config.sub
 configure
 install-sh
+intltool-extract.in
+intltool-merge.in 
+intltool-update.in
+intltool.m4
 libtool
 ltmain.sh
 missing
