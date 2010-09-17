@@ -208,7 +208,7 @@ namespace Smuxi.Frontend.Gnome
             Trace.Call();
             
             f_ConnectButton.Sensitive =
-                !f_Widget.HostnameEntry.Sensitive ||
+                !f_Widget.HostnameEntry.Visible ||
                 f_Widget.HostnameEntry.Text.Trim().Length > 0;
         }
         
