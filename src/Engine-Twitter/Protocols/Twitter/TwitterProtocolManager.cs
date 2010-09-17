@@ -617,15 +617,11 @@ namespace Smuxi.Engine
 
         public void CommandPin(CommandModel cd)
         {
-            string pin;
-            if (cd.DataArray.Length >= 2) {
-                var pinArray = cd.Data.Split(new char[]{' '}, 2); // Nasty fixe to make Smuxi more friendly with unneeded spaces
-                pin = pinArray[1].Trim();
-                
-            } else {
+            if (String.IsNullOrEmpty(cd.Parameter)) {
                 NotEnoughParameters(cd);
                 return;
             }
+            var pin = cd.Parameter.Trim();
 
             MessageBuilder builder;
             if (String.IsNullOrEmpty(f_RequestToken)) {
