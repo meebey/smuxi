@@ -714,6 +714,7 @@ namespace Smuxi.Engine
                 // update token
                 server.Password = String.Format("{0}|{1}", response.Token,
                                                 response.TokenSecret);
+                servers.SetServer(server);
             }
             servers.Save();
 
