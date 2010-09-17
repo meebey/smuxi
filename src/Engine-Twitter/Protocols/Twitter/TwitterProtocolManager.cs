@@ -617,13 +617,11 @@ namespace Smuxi.Engine
 
         public void CommandPin(CommandModel cd)
         {
-            string pin;
-            if (cd.DataArray.Length >= 2) {
-                pin = cd.DataArray[1];
-            } else {
+            if (String.IsNullOrEmpty(cd.Parameter)) {
                 NotEnoughParameters(cd);
                 return;
             }
+            var pin = cd.Parameter.Trim();
 
             MessageBuilder builder;
             if (String.IsNullOrEmpty(f_RequestToken)) {
