@@ -587,7 +587,9 @@ namespace Smuxi.Frontend.Gnome
                 ChatModel currentChatModel = _Notebook.CurrentChatView.ChatModel;
                 string name;
                 if (cd.DataArray[1].ToLower() == "close") {
-                    cd.Chat.ProtocolManager.CloseChat(fm, cd.Chat);
+                    if (cd.Chat.ProtocolManager != null) {
+                        cd.Chat.ProtocolManager.CloseChat(fm, cd.Chat);
+                    }
                 } else {
                     bool is_number = false;
                     int pagecount = _Notebook.NPages;
