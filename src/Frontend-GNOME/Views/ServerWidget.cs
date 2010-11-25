@@ -117,7 +117,6 @@ namespace Smuxi.Frontend.Gnome
             f_HostnameEntry.Sensitive = false;
             f_HostnameEntry.Text = server.Hostname;
 
-            f_PortSpinButton.Value = server.Port;
             f_NetworkComboBoxEntry.Entry.Text = server.Network;
             f_UsernameEntry.Text = server.Username;
             // HACK: Twitter username is part of the PKEY, not allowed to change
@@ -128,6 +127,7 @@ namespace Smuxi.Frontend.Gnome
             f_UseEncryptionCheckButton.Active = server.UseEncryption;
             f_ValidateServerCertificateCheckButton.Active =
                 server.ValidateServerCertificate;
+            f_PortSpinButton.Value = server.Port;
             OnStartupConnectCheckButton.Active = server.OnStartupConnect;
             if (server.OnConnectCommands == null ||
                 server.OnConnectCommands.Count == 0) {
