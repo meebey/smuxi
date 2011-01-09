@@ -225,6 +225,7 @@ namespace Smuxi.Frontend.Gnome
                 e.RetVal = true;
                 switch (key) {
                     case Gdk.Key.x:
+                    case Gdk.Key.X:
                         if (_Notebook.CurrentChatView.ChatModel.ChatType == ChatType.Session) {
                             Frontend.FrontendManager.NextProtocolManager();
                         } else {
@@ -236,9 +237,12 @@ namespace Smuxi.Frontend.Gnome
                     case Gdk.Key.U:
                     // don't break copy/paste
                     case Gdk.Key.c:
+                    case Gdk.Key.C:
                     case Gdk.Key.v:
+                    case Gdk.Key.V:
                     // don't break select all
                     case Gdk.Key.a:
+                    case Gdk.Key.A:
                     // don't break jump one word left/right
                     case Gdk.Key.Right:
                     case Gdk.Key.Left:
