@@ -279,12 +279,18 @@ namespace Smuxi.Frontend.Gnome
         void OnMainWindowFocusInEvent(object sender, Gtk.FocusInEventArgs e)
         {
             var currentChatView = MainWindow.Notebook.CurrentChatView;
+            if (currentChatView == null) {
+                return;
+            }
             DisposeNotification(currentChatView);
         }
 
         void OnMainWindowNotebookSwitchPage(object sender, Gtk.SwitchPageArgs e)
         {
             var currentChatView = MainWindow.Notebook.CurrentChatView;
+            if (currentChatView == null) {
+                return;
+            }
             DisposeNotification(currentChatView);
         }
 
