@@ -145,6 +145,9 @@ namespace Smuxi.Frontend.Gnome
             Trace.Call(sender, e);
 
             var currentChatView = MainWindow.Notebook.CurrentChatView;
+            if (currentChatView == null) {
+                return;
+            }
             DisposeIndicator(currentChatView);
         }
 
@@ -153,6 +156,9 @@ namespace Smuxi.Frontend.Gnome
             Trace.Call(sender, e);
 
             var currentChatView = MainWindow.Notebook.CurrentChatView;
+            if (currentChatView == null) {
+                return;
+            }
             DisposeIndicator(currentChatView);
         }
 
