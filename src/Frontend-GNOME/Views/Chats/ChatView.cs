@@ -405,6 +405,13 @@ namespace Smuxi.Frontend.Gnome
                     AddMessage(msg);
                 }
             }
+
+            // as we don't track which messages were already seen it would
+            // show all chats with message activity after the frontend connect
+            HasActivity = false;
+            // let the user know at which position new messages start
+            _OutputMessageTextView.UpdateMarkerline();
+
             // REMOTING CALL
             if (_LastHighlight > _ChatModel.LastSeenHighlight) {
                 HasHighlight = true;
