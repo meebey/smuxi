@@ -351,7 +351,7 @@ namespace Smuxi.Engine
             if (xmppMsg.Type == jabberMessageType.chat) {
                 string jid = xmppMsg.From.ToString();
                 string user = xmppMsg.From.User;
-                var chat = (PersonChatModel) Session.GetChat(user, ChatType.Person, this);
+                var chat = (PersonChatModel) Session.GetChat(jid, ChatType.Person, this);
                 if (chat == null) {
                     PersonModel person = new PersonModel(jid, user, 
                                                 NetworkID, Protocol, this);
@@ -360,9 +360,11 @@ namespace Smuxi.Engine
                     Session.SyncChat(chat);
                 }
                 
-                var builder = CreateMessageBuilder();
-                builder.AppendMessage(chat.Person, xmppMsg.Body);
-                Session.AddMessageToChat(chat, builder.ToMessage());
+                if (xmppMsg.Body != null) {
+                    var builder = CreateMessageBuilder();
+                    builder.AppendMessage(chat.Person, xmppMsg.Body);
+                    Session.AddMessageToChat(chat, builder.ToMessage());
+                }
             }
         }
         
