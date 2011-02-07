@@ -88,7 +88,13 @@ namespace Smuxi.Frontend.Gnome
                 <ChatView,
                  MessageTextViewMessageHighlightedEventHandler>();
 
-            Init();
+            try {
+                Init();
+            } catch (Exception ex) {
+#if LOG4NET
+                Logger.Error("NotifyManager(): initialization failed: ", ex);
+#endif
+            }
         }
         
         public void Dispose()
