@@ -357,6 +357,7 @@ namespace Smuxi.Engine
                                                 NetworkID, Protocol, this);
                     chat = new PersonChatModel(person, jid, user, this);
                     Session.AddChat(chat);
+                    Session.SyncChat(chat);
                 }
                 
                 MessageModel msg = new MessageModel();
