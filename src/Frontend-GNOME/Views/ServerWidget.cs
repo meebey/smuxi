@@ -290,9 +290,9 @@ namespace Smuxi.Frontend.Gnome
                     f_PortSpinButton.Value = 5222;
                     f_PortSpinButton.Sensitive = true;
                     f_UseEncryptionCheckButton.Active = false;
-                    f_UseEncryptionCheckButton.Sensitive = false;
+                    f_UseEncryptionCheckButton.Sensitive = true;
                     f_ValidateServerCertificateCheckButton.Active = false;
-                    f_ValidateServerCertificateCheckButton.Sensitive = false;
+                    f_ValidateServerCertificateCheckButton.Sensitive = true;
                     break;
                 // this protocols have static servers
                 case "AIM":

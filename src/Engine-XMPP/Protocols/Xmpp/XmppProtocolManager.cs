@@ -27,8 +27,10 @@
  */
 
 using System;
+using System.Net.Security;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Security.Cryptography.X509Certificates;
 using System.Threading;
 using System.Collections;
 using System.Collections.Generic;
@@ -90,11 +92,13 @@ namespace Smuxi.Engine
             _JabberClient.OnMessage += new MessageHandler(_OnMessage);
             _JabberClient.OnConnect += new StanzaStreamHandler(_OnConnect);
             _JabberClient.OnDisconnect += new bedrock.ObjectHandler(_OnDisconnect);
+            _JabberClient.OnAuthenticate += OnAuthenticate;
+            _JabberClient.OnError += OnError;
 
             _JabberClient.OnReadText += new bedrock.TextHandler(_OnReadText);
             _JabberClient.OnWriteText += new bedrock.TextHandler(_OnWriteText);
         }
-        
+
         public override void Connect(FrontendManager fm, string host, int port, string username, string password)
         {
             Connect(fm, host, port, username, password, "smuxi");
@@ -113,11 +117,24 @@ namespace Smuxi.Engine
             Session.AddChat(_NetworkChat);
             Session.SyncChat(_NetworkChat);
             
-            _JabberClient.Server = host;
+            var servers = new ServerListController(Session.UserConfig);
+            var serverModel = servers.GetServer(Protocol, host);
+            ApplyConfig(Session.UserConfig, serverModel);
+
+            if (username.Contains("@")) {
+                var user = username.Split('@')[0];
+                var server = username.Split('@')[1];
+                _JabberClient.NetworkHost = host;
+                _JabberClient.Server = server;
+                _JabberClient.User = user;
+            } else {
+                _JabberClient.Server = host;
+                _JabberClient.User = username;
+            }
             _JabberClient.Port = port;
-            _JabberClient.User = username;
             _JabberClient.Password = password;
             _JabberClient.Resource = resource;
+
             _JabberClient.Connect();
         }
         
@@ -363,7 +380,39 @@ namespace Smuxi.Engine
         {
             IsConnected = false;
         }
-        
+
+        void OnError(object sender, Exception ex)
+        {
+            Trace.Call(sender);
+
+            Session.AddTextToChat(_NetworkChat, "Error: " + ex);
+        }
+
+        void OnAuthenticate(object sender)
+        {
+            Trace.Call(sender);
+
+            Session.AddTextToChat(_NetworkChat, "Authenticated");
+        }
+
+        private void ApplyConfig(UserConfig config, ServerModel server)
+        {
+            _JabberClient.OnInvalidCertificate -= ValidateCertificate;
+
+            _JabberClient.AutoStartTLS = server.UseEncryption;
+            if (!server.ValidateServerCertificate) {
+                _JabberClient.OnInvalidCertificate += ValidateCertificate;
+            }
+        }
+
+        private static bool ValidateCertificate(object sender,
+                                         X509Certificate certificate,
+                                         X509Chain chain,
+                                         SslPolicyErrors sslPolicyErrors)
+        {
+            return true;
+        }
+
         private static string _(string msg)
         {
             return Mono.Unix.Catalog.GetString(msg);
