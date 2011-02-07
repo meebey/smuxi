@@ -368,11 +368,15 @@ namespace Smuxi.Engine
         
         private void _OnConnect(object sender, StanzaStream stream)
         {
+            OnConnected(EventArgs.Empty);
+
             IsConnected = true;
         }
         
         private void _OnDisconnect(object sender)
         {
+            OnDisconnected(EventArgs.Empty);
+
             IsConnected = false;
         }
 
