@@ -14,7 +14,13 @@
       <Output directory="../../bin/release" assembly="smuxi-frontend-gnome" />
       <Build debugmode="False" target="WinExe" />
       <Execution consolepause="True" runwithwarnings="False" runtime="MsNet" clr-version="Net_2_0" />
-      <CodeGeneration compiler="Mcs" warninglevel="4" optimize="True" unsafecodeallowed="False" generateoverflowchecks="True" definesymbols="CONFIG_NINI,GTK_SHARP_2_10" generatexmldocumentation="False" ctype="CSharpCompilerParameters" />
+      <CodeGeneration compiler="Mcs" warninglevel="4" optimize="True" unsafecodeallowed="False" generateoverflowchecks="True" definesymbols="CONFIG_NINI,GTK_SHARP_2_10,INDICATE_SHARP,NOTIFY_SHARP" generatexmldocumentation="False" ctype="CSharpCompilerParameters" />
+    </Configuration>
+    <Configuration name="Debug-Win32" ctype="DotNetProjectConfiguration">
+      <Output directory="../../bin/debug" assembly="smuxi-frontend-gnome" />
+      <Build debugmode="False" target="WinExe" />
+      <Execution consolepause="True" runwithwarnings="True" runtime="MsNet" />
+      <CodeGeneration compiler="Mcs" warninglevel="4" optimize="True" unsafecodeallowed="False" generateoverflowchecks="True" definesymbols="DEBUG,TRACE,LOG4NET,CONFIG_NINI,GTK_SHARP_2_10" generatexmldocumentation="False" ctype="CSharpCompilerParameters" />
     </Configuration>
   </Configurations>
   <Contents>

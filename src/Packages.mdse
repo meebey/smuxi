@@ -1,7 +1,7 @@
 <CombineEntry name="Packages" fileversion="2.0" ctype="PackagingProject">
   <Packages>
     <Package name="Linux">
-      <Builder rootEntry="smuxi.mds" targetFile="../../releases/smuxi-0.7.2.2-1-bin.tar.gz" platform="Linux" configuration="Debug" ctype="BinariesZipPackageBuilder">
+      <Builder rootEntry="smuxi.mds" targetFile="../../releases/smuxi-0.8-2-bin.tar.gz" platform="Linux" configuration="Debug-Win32" ctype="BinariesZipPackageBuilder">
         <ExcludedFiles>
           <File>Common,Linux.PkgConfig,common.pc</File>
           <File>Engine,Linux.PkgConfig,engine.pc</File>
@@ -12,6 +12,29 @@
           <File>Server,Binaries,server</File>
           <File>Server,ProgramFiles,TcpExChannel.dll</File>
           <File>Engine-Twitter,Linux.PkgConfig,engine-twitter.pc</File>
+          <File>Common,ProgramFiles,smuxi-common.dll.mdb</File>
+          <File>Engine,ProgramFiles,smuxi-common.dll.mdb</File>
+          <File>Engine-IRC,ProgramFiles,smuxi-common.dll.mdb</File>
+          <File>Engine-Twitter,ProgramFiles,smuxi-common.dll.mdb</File>
+          <File>Frontend,ProgramFiles,smuxi-common.dll.mdb</File>
+          <File>Frontend-GNOME,ProgramFiles,smuxi-common.dll.mdb</File>
+          <File>Frontend-GNOME-IRC,ProgramFiles,smuxi-common.dll.mdb</File>
+          <File>Server,ProgramFiles,smuxi-common.dll.mdb</File>
+          <File>Engine,ProgramFiles,smuxi-engine.dll.mdb</File>
+          <File>Engine-IRC,ProgramFiles,smuxi-engine.dll.mdb</File>
+          <File>Engine-Twitter,ProgramFiles,smuxi-engine.dll.mdb</File>
+          <File>Frontend,ProgramFiles,smuxi-engine.dll.mdb</File>
+          <File>Frontend-GNOME,ProgramFiles,smuxi-engine.dll.mdb</File>
+          <File>Frontend-GNOME-IRC,ProgramFiles,smuxi-engine.dll.mdb</File>
+          <File>Server,ProgramFiles,smuxi-engine.dll.mdb</File>
+          <File>Engine-IRC,ProgramFiles,smuxi-engine-irc.dll.mdb</File>
+          <File>Frontend-GNOME-IRC,ProgramFiles,smuxi-engine-irc.dll.mdb</File>
+          <File>Engine-Twitter,ProgramFiles,smuxi-engine-twitter.dll.mdb</File>
+          <File>Frontend,ProgramFiles,smuxi-frontend.dll.mdb</File>
+          <File>Frontend-GNOME,ProgramFiles,smuxi-frontend.dll.mdb</File>
+          <File>Frontend-GNOME-IRC,ProgramFiles,smuxi-frontend.dll.mdb</File>
+          <File>Frontend-GNOME,ProgramFiles,smuxi-frontend-gnome.exe.mdb</File>
+          <File>Frontend-GNOME-IRC,ProgramFiles,smuxi-frontend-gnome.exe.mdb</File>
         </ExcludedFiles>
         <ChildEntries>
           <Entry>Frontend-GNOME-IRC/Frontend-GNOME-IRC.mdp</Entry>
