@@ -125,9 +125,24 @@ namespace Smuxi.Frontend.Gnome
             }
             */
 
-            var desktopFile = Path.Combine(Defines.InstallPrefix, "share");
-            desktopFile = Path.Combine(desktopFile, "applications");
-            desktopFile = Path.Combine(desktopFile, "smuxi-frontend-gnome.desktop");
+            var partialPath = "share";
+            partialPath = Path.Combine(partialPath, "applications");
+            partialPath = Path.Combine(partialPath, "smuxi-frontend-gnome.desktop");
+
+            var insDesktopFile = Path.Combine(Defines.InstallPrefix, partialPath);
+            var sysDesktopFile = Path.Combine("/usr", partialPath);
+            string desktopFile = null;
+            if (File.Exists(desktopFile)) {
+                desktopFile = insDesktopFile;
+            } else if (File.Exists(sysDesktopFile)) {
+                desktopFile = sysDesktopFile;
+            } else {
+#if LOG4NET
+                Logger.Error("Init(): smuxi-frontend-gnome.desktop could not " +
+                             " be found, thus no messaging menu :/");
+#endif
+                return;
+            }
 
             Server.SetType("message.im");
             Server.DesktopFile(desktopFile);
