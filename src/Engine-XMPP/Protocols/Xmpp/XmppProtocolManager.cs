@@ -351,7 +351,7 @@ namespace Smuxi.Engine
             if (xmppMsg.Type == jabberMessageType.chat) {
                 string jid = xmppMsg.From.ToString();
                 string user = xmppMsg.From.User;
-                ChatModel chat = Session.GetChat(user, ChatType.Person, this);
+                var chat = (PersonChatModel) Session.GetChat(user, ChatType.Person, this);
                 if (chat == null) {
                     PersonModel person = new PersonModel(jid, user, 
                                                 NetworkID, Protocol, this);
@@ -360,15 +360,9 @@ namespace Smuxi.Engine
                     Session.SyncChat(chat);
                 }
                 
-                MessageModel msg = new MessageModel();
-                TextMessagePartModel msgPart;
-                
-                // TODO: parse possible markup in body
-                msgPart = new TextMessagePartModel();
-                msgPart.Text = String.Format("<{0}> {1}", xmppMsg.From.User, xmppMsg.Body);
-                msg.MessageParts.Add(msgPart);
-                
-                Session.AddMessageToChat(chat, msg);
+                var builder = CreateMessageBuilder();
+                builder.AppendMessage(chat.Person, xmppMsg.Body);
+                Session.AddMessageToChat(chat, builder.ToMessage());
             }
         }
         
