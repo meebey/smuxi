@@ -60,6 +60,7 @@ namespace Smuxi.Engine
         private static readonly log4net.ILog _Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 #endif
         private JabberClient    _JabberClient;
+        private RosterManager   _RosterManager;
         private FrontendManager _FrontendManager;
         private ChatModel       _NetworkChat;
         
@@ -97,6 +98,9 @@ namespace Smuxi.Engine
 
             _JabberClient.OnReadText += new bedrock.TextHandler(_OnReadText);
             _JabberClient.OnWriteText += new bedrock.TextHandler(_OnWriteText);
+
+            _RosterManager = new RosterManager();
+            _RosterManager.Stream = _JabberClient;
         }
 
         public override void Connect(FrontendManager fm, string host, int port, string username, string password)
@@ -350,7 +354,7 @@ namespace Smuxi.Engine
             // TODO: implement group chat
             if (xmppMsg.Type == jabberMessageType.chat) {
                 string jid = xmppMsg.From.ToString();
-                string user = xmppMsg.From.User;
+                string user = _RosterManager[jid].Nickname;
                 var chat = (PersonChatModel) Session.GetChat(jid, ChatType.Person, this);
                 if (chat == null) {
                     PersonModel person = new PersonModel(jid, user, 
