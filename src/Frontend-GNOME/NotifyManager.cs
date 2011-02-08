@@ -43,6 +43,7 @@ namespace Smuxi.Frontend.Gnome
         MainWindow MainWindow { get; set; }
         ChatViewManager ChatViewManager { get; set; }
         Dictionary<ChatView, MessageTextViewMessageHighlightedEventHandler> HighlightEventHandlers { get; set; }
+        bool IsInitialized { get; set; }
         bool IsEnabled { get; set; }
 
         static NotifyManager()
@@ -110,6 +111,10 @@ namespace Smuxi.Frontend.Gnome
                 throw new ArgumentNullException("userConfig");
             }
 
+            if (!IsInitialized) {
+                return;
+            }
+
             IsEnabled = (bool) userConfig["Interface/Notification/PopupsEnabled"];
         }
 
@@ -161,6 +166,8 @@ namespace Smuxi.Frontend.Gnome
 
             ChatViewManager.ChatAdded   += OnChatViewManagerChatAdded;
             ChatViewManager.ChatRemoved += OnChatViewManagerChatRemoved;
+
+            IsInitialized = true;
         }
 
         void OnChatViewManagerChatAdded(object sender, ChatViewManagerChatAddedEventArgs e)
