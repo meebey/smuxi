@@ -43,6 +43,8 @@ namespace Smuxi.Frontend.Gnome
         ChatViewManager ChatViewManager { get; set; }
         Dictionary<ChatView, Indicator> Indicators { get; set; }
         Dictionary<ChatView, MessageTextViewMessageHighlightedEventHandler> HighlightEventHandlers { get; set; }
+        bool IsInitialized { get; set; }
+        bool IsEnabled { get; set; }
 
         static IndicateManager()
         {
@@ -73,7 +75,13 @@ namespace Smuxi.Frontend.Gnome
                 <ChatView,
                  MessageTextViewMessageHighlightedEventHandler>();
 
-            Init();
+            try {
+                Init();
+            } catch (Exception ex) {
+#if LOG4NET
+                Logger.Error("IndicateManager(): initialization failed: ", ex);
+#endif
+            }
         }
         
         public void Dispose()
@@ -98,10 +106,16 @@ namespace Smuxi.Frontend.Gnome
                 throw new ArgumentNullException("userConfig");
             }
 
+            if (!IsInitialized) {
+                return;
+            }
+
             if ((bool) userConfig["Interface/Notification/MessagingMenuEnabled"]) {
                 Server.Show();
+                IsEnabled = true;
             } else {
                 Server.Hide();
+                IsEnabled = false;
             }
         }
 
@@ -153,6 +167,8 @@ namespace Smuxi.Frontend.Gnome
 
             ChatViewManager.ChatAdded   += OnChatViewManagerChatAdded;
             ChatViewManager.ChatRemoved += OnChatViewManagerChatRemoved;
+
+            IsInitialized = true;
         }
 
         void OnMainWindowFocusInEvent(object sender, Gtk.FocusInEventArgs e)
@@ -221,7 +237,7 @@ namespace Smuxi.Frontend.Gnome
         {
             Trace.Call(sender, e, chatView);
 
-            if (MainWindow.HasToplevelFocus) {
+            if (MainWindow.HasToplevelFocus || !IsEnabled) {
                 return;
             }
 
