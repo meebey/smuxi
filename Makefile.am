@@ -87,6 +87,7 @@ LIB_DIR = $(top_builddir)/lib
 WIN32_LIB_DIR = $(LIB_DIR)/win32
 BUILD_DIR = $(top_builddir)/bin/$(PROFILE)
 WIN32_BUILD_DIR = $(top_builddir)/bin-win32
+LINUX_STATIC_BUILD_DIR = $(top_builddir)/bin-linux-static
 
 WIN32_EXE_FILES = \
 	$(BUILD_DIR)/smuxi-frontend-gnome.exe \
@@ -112,6 +113,18 @@ WIN32_FILES = \
 	$(BUILD_DIR)/Newtonsoft.Json.dll \
 	$(WIN32_LIB_DIR)/smuxi-frontend-gnome.exe.config \
 	$(WIN32_LIB_DIR)/smuxi-server.exe.config
+
+LINUX_STATIC_FILES = \
+	$(LIB_DIR)/Mono.Posix.dll \
+	$(LIB_DIR)/Nini.dll \
+	$(LIB_DIR)/log4net.dll \
+	$(BUILD_DIR)/smuxi-common.dll \
+	$(BUILD_DIR)/smuxi-engine.dll \
+	$(BUILD_DIR)/smuxi-engine-irc.dll \
+	$(BUILD_DIR)/smuxi-engine-twitter.dll \
+	$(BUILD_DIR)/Meebey.SmartIrc4net.dll \
+	$(BUILD_DIR)/Twitterizer2.dll \
+	$(BUILD_DIR)/Newtonsoft.Json.dll
 		
 dist-win32:
 	./autogen.sh --without-indicate --without-notify
@@ -127,3 +140,12 @@ dist-win32:
 		$(MAKE) -C $$PODIR install itlocaledir=$(abs_top_builddir)/$(WIN32_BUILD_DIR)/locale; \
 	done
 	makensis $(top_srcdir)/src/smuxi-win32.nsis
+
+dist-linux-x86-static:
+	$(MAKE)
+	mkdir -p $(LINUX_STATIC_BUILD_DIR)
+	mkbundle --static -o $(LINUX_STATIC_BUILD_DIR)/smuxi-server $(BUILD_DIR)/smuxi-server.exe
+	for FILE in $(LINUX_STATIC_FILES); do \
+		cp $$FILE $(LINUX_STATIC_BUILD_DIR); \
+	done
+	tar -czf smuxi-server-$(VERSION)-linux-x86-static.tar.gz $(LINUX_STATIC_BUILD_DIR)
