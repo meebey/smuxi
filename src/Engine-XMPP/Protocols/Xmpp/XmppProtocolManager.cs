@@ -36,9 +36,11 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 
+using jabber;
 using jabber.client;
 using jabber.connection;
 using jabber.protocol.client;
+using jabber.protocol.iq;
 using jabberMessageType = jabber.protocol.client.MessageType;
 
 using Smuxi.Common;
@@ -199,8 +201,23 @@ namespace Smuxi.Engine
             bool handled = false;
             if (IsConnected) {
                 if (command.IsCommand) {
+                    switch (command.Command) {
+                        case "help":
+                            CommandHelp(command);
+                            handled = true;
+                            break;
+                        case "msg":
+                        case "query":
+                            CommandMessageQuery(command);
+                            handled = true;
+                            break;
+                        case "say":
+                            CommandSay(command);
+                            handled = true;
+                            break;
+                    }
                 } else {
-                    _Say(command, command.Data);
+                    _Say(command.Chat, command.Data);
                     handled = true;
                 }
             } else {
@@ -305,13 +322,51 @@ namespace Smuxi.Engine
             Connect(fm, server, port, username, password, resource);
         }
         
-        private void _Say(CommandModel command, string text)
+        public void CommandMessageQuery(CommandModel cd)
         {
-            if (!command.Chat.IsEnabled) {
+            ChatModel chat = null;
+            if (cd.DataArray.Length >= 2) {
+                string nickname = cd.DataArray[1];
+                JID jid = null;
+                foreach (JID j in _RosterManager) {
+                    Item item = _RosterManager[j];
+                    if (item.Nickname.Replace(" ", "_") == nickname) {
+                        jid = item.JID;
+                        break;
+                    }
+                }
+                if (jid == null)
+                    return; // TODO error message
+                chat = GetChat(jid, ChatType.Person);
+                if (chat == null) {
+                    PersonModel person = new PersonModel(jid, nickname, NetworkID, Protocol, this);
+                    chat = new PersonChatModel(person, jid, nickname, this);
+                    Session.AddChat(chat);
+                    Session.SyncChat(chat);
+                }
+            }
+            
+            if (cd.DataArray.Length >= 3) {
+                string message = String.Join(" ", cd.DataArray, 2, cd.DataArray.Length-2);
+                // ignore empty messages
+                if (message.TrimEnd(' ').Length > 0) {
+                    _Say(chat, message);
+                }
+            }
+        }
+        
+        public void CommandSay(CommandModel cd)
+        {
+            _Say(cd.Chat, cd.Parameter);
+        }  
+        
+        private void _Say(ChatModel chat, string text)
+        {
+            if (!chat.IsEnabled) {
                 return;
             }
             
-            string target = command.Chat.ID;
+            string target = chat.ID;
             
             _JabberClient.Message(target, text);
             
@@ -336,7 +391,7 @@ namespace Smuxi.Engine
             msgPart.Text = text;
             msg.MessageParts.Add(msgPart);
             
-            this.Session.AddMessageToChat(command.Chat, msg);
+            this.Session.AddMessageToChat(chat, msg);
         }
         
         private void _OnReadText(object sender, string text)
@@ -354,12 +409,12 @@ namespace Smuxi.Engine
             // TODO: implement group chat
             if (xmppMsg.Type == jabberMessageType.chat) {
                 string jid = xmppMsg.From.ToString();
-                string user = _RosterManager[jid].Nickname;
+                string nickname = _RosterManager[jid].Nickname.Replace(" ", "_");
                 var chat = (PersonChatModel) Session.GetChat(jid, ChatType.Person, this);
                 if (chat == null) {
-                    PersonModel person = new PersonModel(jid, user, 
+                    PersonModel person = new PersonModel(jid, nickname, 
                                                 NetworkID, Protocol, this);
-                    chat = new PersonChatModel(person, jid, user, this);
+                    chat = new PersonChatModel(person, jid, nickname, this);
                     Session.AddChat(chat);
                     Session.SyncChat(chat);
                 }
