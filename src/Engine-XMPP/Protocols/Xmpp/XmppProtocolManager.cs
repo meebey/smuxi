@@ -91,7 +91,7 @@ namespace Smuxi.Engine
             _JabberClient = new JabberClient();
             _JabberClient.Resource = Engine.VersionString;
             _JabberClient.AutoLogin = true;
-            _JabberClient.AutoPresence = true;
+            _JabberClient.AutoPresence = false;
             _JabberClient.OnMessage += new MessageHandler(_OnMessage);
             _JabberClient.OnConnect += new StanzaStreamHandler(_OnConnect);
             _JabberClient.OnDisconnect += new bedrock.ObjectHandler(_OnDisconnect);
@@ -193,7 +193,30 @@ namespace Smuxi.Engine
         {
             Trace.Call(status, message);
 
-            // TODO: implement me
+            if (!IsConnected || !_JabberClient.IsAuthenticated) {
+                return;
+            }
+
+            PresenceType? xmppType = null;
+            string xmppShow = null;
+            switch (status) {
+                case PresenceStatus.Online:
+                    xmppType = PresenceType.available;
+                    break;
+                case PresenceStatus.Away:
+                    xmppType = PresenceType.available;
+                    xmppShow = "away";
+                    break;
+                case PresenceStatus.Offline:
+                    xmppType = PresenceType.unavailable;
+                    break;
+            }
+            if (xmppType == null) {
+                return;
+            }
+
+            _JabberClient.Presence(xmppType.Value, message, xmppShow,
+                                   _JabberClient.Priority);
         }
 
         public override bool Command(CommandModel command)
@@ -453,6 +476,8 @@ namespace Smuxi.Engine
             Trace.Call(sender);
 
             Session.AddTextToChat(_NetworkChat, "Authenticated");
+
+            SetPresenceStatus(PresenceStatus.Online, null);
         }
 
         private void ApplyConfig(UserConfig config, ServerModel server)
