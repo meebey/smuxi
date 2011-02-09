@@ -106,7 +106,7 @@ namespace Smuxi.Engine
 
             _RosterManager = new RosterManager();
             _RosterManager.Stream = _JabberClient;
-            
+
             _ConferenceManager = new ConferenceManager();
             _ConferenceManager.Stream = _JabberClient;
             _ConferenceManager.OnJoin += OnJoin;
@@ -384,7 +384,9 @@ namespace Smuxi.Engine
                     return; // TODO error message
                 chat = GetChat(jid, ChatType.Person);
                 if (chat == null) {
-                    PersonModel person = new PersonModel(jid, nickname, NetworkID, Protocol, this);
+                    PersonModel person = new PersonModel(jid, nickname,
+                                                         NetworkID, Protocol,
+                                                         this);
                     chat = new PersonChatModel(person, jid, nickname, this);
                     Session.AddChat(chat);
                     Session.SyncChat(chat);
@@ -400,15 +402,17 @@ namespace Smuxi.Engine
             }
         }
         
-        public void CommandJoin(CommandModel cd) {
+        public void CommandJoin(CommandModel cd)
+        {
             string jid = cd.DataArray[1];
             ChatModel chat = GetChat(jid, ChatType.Group);
             if (chat == null) {
                 _ConferenceManager.GetRoom(jid+"/"+_JabberClient.User).Join();
             }
         }
-        
-        public void CommandPart(CommandModel cd) {
+
+        public void CommandPart(CommandModel cd)
+        {
             string jid;
             if (cd.DataArray.Length >= 2)
                 jid = cd.DataArray[1];
@@ -419,7 +423,7 @@ namespace Smuxi.Engine
                 _ConferenceManager.GetRoom(jid+"/"+_JabberClient.User).Leave("Part");
             }
         }
-        
+
         public void CommandSay(CommandModel cd)
         {
             _Say(cd.Chat, cd.Parameter);
@@ -432,9 +436,9 @@ namespace Smuxi.Engine
             }
             
             string target = chat.ID;
-            if (chat.ChatType == ChatType.Person)
+            if (chat.ChatType == ChatType.Person) {
                 _JabberClient.Message(target, text);
-            else if (chat.ChatType == ChatType.Group) {
+            } else if (chat.ChatType == ChatType.Group) {
                 _ConferenceManager.GetRoom(target+"/"+_JabberClient.User).PublicMessage(text);
                 return; // don't show now. the message will be echoed back if it's sent successfully
             }
@@ -475,16 +479,19 @@ namespace Smuxi.Engine
         
         private void _OnMessage(object sender, Message xmppMsg)
         {
+            if (xmppMsg.Body == null) {
+                return;
+            }
+
             ChatModel chat = null;
             PersonModel person = null;
-
             if (xmppMsg.Type == jabberMessageType.chat) {
                 string jid = xmppMsg.From.ToString();
                 string nickname = _RosterManager[jid].Nickname.Replace(" ", "_");
                 PersonChatModel personChat = (PersonChatModel) Session.GetChat(jid, ChatType.Person, this);
                 if (personChat == null) {
-                    person = new PersonModel(jid, nickname, 
-                                                NetworkID, Protocol, this);
+                    person = new PersonModel(jid, nickname, NetworkID,
+                                             Protocol, this);
                     personChat = new PersonChatModel(person, jid, nickname, this);
                     Session.AddChat(personChat);
                     Session.SyncChat(personChat);
@@ -512,39 +519,39 @@ namespace Smuxi.Engine
                 chat = groupChat;
             }
 
-            if (xmppMsg.Body != null) {
-                var delay = xmppMsg["delay"];
-                string stamp = null;
-                bool display = true;
-                
-                if (delay != null) {
-                    stamp = delay.Attributes["stamp"].Value;
-                    if (stamp.CompareTo(latestSeenStamp) > 0)
-                        latestSeenStamp = stamp;
-                    else
-                        display = false; // already seen newer delayed message
-                    if (seenNewMessages)
-                        display = false; // already seen newer messages
+            var delay = xmppMsg["delay"];
+            string stamp = null;
+            bool display = true;
+
+            if (delay != null) {
+                stamp = delay.Attributes["stamp"].Value;
+                if (stamp.CompareTo(latestSeenStamp) > 0) {
+                    latestSeenStamp = stamp;
                 } else {
-                    seenNewMessages = true;
+                    display = false; // already seen newer delayed message
                 }
-                
-                if (display) {
-                    var builder = CreateMessageBuilder();
-                    builder.AppendMessage(person, xmppMsg.Body);
-                    var msg = builder.ToMessage();
-                    string format = DateTimeFormatInfo.InvariantInfo.UniversalSortableDateTimePattern.Replace(" ", "T");
-                    msg.TimeStamp = DateTime.ParseExact(stamp, format, null);
-                    Session.AddMessageToChat(chat, msg);
+                if (seenNewMessages) {
+                    display = false; // already seen newer messages
                 }
+            } else {
+                seenNewMessages = true;
+            }
+
+            if (display) {
+                var builder = CreateMessageBuilder();
+                builder.AppendMessage(person, xmppMsg.Body);
+                var msg = builder.ToMessage();
+                string format = DateTimeFormatInfo.InvariantInfo.UniversalSortableDateTimePattern.Replace(" ", "T");
+                msg.TimeStamp = DateTime.ParseExact(stamp, format, null);
+                Session.AddMessageToChat(chat, msg);
             }
         }
-        
+
         void OnJoin(Room room)
         {
             AddPersonToGroup(room, room.Nickname);
         }
-        
+
         void OnLeave(Room room, Presence presence)
         {
             var chat = Session.GetChat(room.JID.Bare, ChatType.Group, this);
@@ -552,12 +559,13 @@ namespace Smuxi.Engine
                 Session.RemoveChat(chat);
         }
 
-        public void OnParticipantJoin(Room room, RoomParticipant roomParticipant)
+        void OnParticipantJoin(Room room, RoomParticipant roomParticipant)
         {
             AddPersonToGroup(room, roomParticipant.Nick);
         }
-        
-        private void AddPersonToGroup(Room room, string nickname) {
+
+        private void AddPersonToGroup(Room room, string nickname)
+        {
             string jid = room.JID.Bare;
             var chat = (GroupChatModel) Session.GetChat(jid, ChatType.Group, this);
             // first notice we're joining a group chat is the participant info:
@@ -566,16 +574,16 @@ namespace Smuxi.Engine
                 Session.AddChat(chat);
                 Session.SyncChat(chat);
             }
-            
+
             var person = chat.GetPerson(nickname);
-            if (person == null) {
-                this.Session.AddTextToChat(_NetworkChat, "-!- Persons: " + chat.Persons);
-                this.Session.AddTextToChat(_NetworkChat, "-!- UnsafePersons: " + chat.UnsafePersons);
-                person = new PersonModel(nickname, nickname, 
-                                         NetworkID, Protocol, this);
-                chat.UnsafePersons.Add(nickname, person);
-                Session.AddPersonToGroupChat(chat, person);
+            if (person != null) {
+                return;
             }
+
+            person = new PersonModel(nickname, nickname,
+                                     NetworkID, Protocol, this);
+            chat.UnsafePersons.Add(nickname, person);
+            Session.AddPersonToGroupChat(chat, person);
         }
         
         public void OnParticipantLeave(Room room, RoomParticipant roomParticipant)
@@ -585,14 +593,14 @@ namespace Smuxi.Engine
             string nickname = roomParticipant.Nick;
 
             var person = chat.GetPerson(nickname);
-            if (person != null) {
-                this.Session.AddTextToChat(_NetworkChat, "-!- Persons: " + chat.Persons);
-                this.Session.AddTextToChat(_NetworkChat, "-!- UnsafePersons: " + chat.UnsafePersons);
-                chat.UnsafePersons.Remove(nickname);
-                Session.RemovePersonFromGroupChat(chat, person);
+            if (person == null) {
+                return;
             }
+
+            chat.UnsafePersons.Remove(nickname);
+            Session.RemovePersonFromGroupChat(chat, person);
         }
-        
+
         private void _OnConnect(object sender, StanzaStream stream)
         {
             OnConnected(EventArgs.Empty);
