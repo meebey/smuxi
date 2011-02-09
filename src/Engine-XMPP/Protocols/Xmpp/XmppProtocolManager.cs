@@ -123,9 +123,12 @@ namespace Smuxi.Engine
             Session.AddChat(_NetworkChat);
             Session.SyncChat(_NetworkChat);
             
+            // HACK: try to lookup settings via config
             var servers = new ServerListController(Session.UserConfig);
             var serverModel = servers.GetServer(Protocol, host);
-            ApplyConfig(Session.UserConfig, serverModel);
+            if (serverModel != null) {
+                ApplyConfig(Session.UserConfig, serverModel);
+            }
 
             if (username.Contains("@")) {
                 var user = username.Split('@')[0];
