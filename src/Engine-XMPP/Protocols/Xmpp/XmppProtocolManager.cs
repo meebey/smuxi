@@ -63,8 +63,11 @@ namespace Smuxi.Engine
 #endif
         private JabberClient    _JabberClient;
         private RosterManager   _RosterManager;
+        private ConferenceManager _ConferenceManager;
         private FrontendManager _FrontendManager;
         private ChatModel       _NetworkChat;
+        private string latestSeenStamp = null; // FIXME: should be per-chat or per-delay-from or something
+        private bool seenNewMessages = false;
         
         public override string NetworkID {
             get {
@@ -103,6 +106,13 @@ namespace Smuxi.Engine
 
             _RosterManager = new RosterManager();
             _RosterManager.Stream = _JabberClient;
+            
+            _ConferenceManager = new ConferenceManager();
+            _ConferenceManager.Stream = _JabberClient;
+            _ConferenceManager.OnJoin += OnJoin;
+            _ConferenceManager.OnLeave += OnLeave;
+            _ConferenceManager.OnParticipantJoin += OnParticipantJoin;
+            _ConferenceManager.OnParticipantLeave += OnParticipantLeave;
         }
 
         public override void Connect(FrontendManager fm, string host, int port, string username, string password)
@@ -188,7 +198,7 @@ namespace Smuxi.Engine
         {
             Trace.Call(fm, chat);
             
-            throw new NotImplementedException();
+            _ConferenceManager.GetRoom(chat.ID+"/"+_JabberClient.User).Leave("Closed");
         }
 
         public override void SetPresenceStatus(PresenceStatus status,
@@ -239,6 +249,15 @@ namespace Smuxi.Engine
                             break;
                         case "say":
                             CommandSay(command);
+                            handled = true;
+                            break;
+                        case "join":
+                            CommandJoin(command);
+                            handled = true;
+                            break;
+                        case "part":
+                        case "leave":
+                            CommandPart(command);
                             handled = true;
                             break;
                     }
@@ -381,6 +400,26 @@ namespace Smuxi.Engine
             }
         }
         
+        public void CommandJoin(CommandModel cd) {
+            string jid = cd.DataArray[1];
+            ChatModel chat = GetChat(jid, ChatType.Group);
+            if (chat == null) {
+                _ConferenceManager.GetRoom(jid+"/"+_JabberClient.User).Join();
+            }
+        }
+        
+        public void CommandPart(CommandModel cd) {
+            string jid;
+            if (cd.DataArray.Length >= 2)
+                jid = cd.DataArray[1];
+            else
+                jid = cd.Chat.ID;
+            ChatModel chat = GetChat(jid, ChatType.Group);
+            if (chat != null) {
+                _ConferenceManager.GetRoom(jid+"/"+_JabberClient.User).Leave("Part");
+            }
+        }
+        
         public void CommandSay(CommandModel cd)
         {
             _Say(cd.Chat, cd.Parameter);
@@ -393,8 +432,12 @@ namespace Smuxi.Engine
             }
             
             string target = chat.ID;
-            
-            _JabberClient.Message(target, text);
+            if (chat.ChatType == ChatType.Person)
+                _JabberClient.Message(target, text);
+            else if (chat.ChatType == ChatType.Group) {
+                _ConferenceManager.GetRoom(target+"/"+_JabberClient.User).PublicMessage(text);
+                return; // don't show now. the message will be echoed back if it's sent successfully
+            }
             
             MessageModel msg = new MessageModel();
             TextMessagePartModel msgPart;
@@ -432,24 +475,121 @@ namespace Smuxi.Engine
         
         private void _OnMessage(object sender, Message xmppMsg)
         {
-            // TODO: implement group chat
+            ChatModel chat = null;
+            PersonModel person = null;
+
             if (xmppMsg.Type == jabberMessageType.chat) {
                 string jid = xmppMsg.From.ToString();
                 string nickname = _RosterManager[jid].Nickname.Replace(" ", "_");
-                var chat = (PersonChatModel) Session.GetChat(jid, ChatType.Person, this);
-                if (chat == null) {
-                    PersonModel person = new PersonModel(jid, nickname, 
+                PersonChatModel personChat = (PersonChatModel) Session.GetChat(jid, ChatType.Person, this);
+                if (personChat == null) {
+                    person = new PersonModel(jid, nickname, 
                                                 NetworkID, Protocol, this);
-                    chat = new PersonChatModel(person, jid, nickname, this);
-                    Session.AddChat(chat);
-                    Session.SyncChat(chat);
+                    personChat = new PersonChatModel(person, jid, nickname, this);
+                    Session.AddChat(personChat);
+                    Session.SyncChat(personChat);
+                } else {
+                    person = personChat.Person;
+                }
+                chat = personChat;
+            } else if (xmppMsg.Type == jabberMessageType.groupchat) {
+                string group_jid = xmppMsg.From.Bare;
+                string group_name = group_jid;
+                string sender_jid = xmppMsg.From.ToString();
+                GroupChatModel groupChat = (GroupChatModel) Session.GetChat(group_jid, ChatType.Group, this);
+                if (groupChat == null) {
+                    // FIXME shouldn't happen?
+                    groupChat = new GroupChatModel(group_jid, group_name, this);
+                    Session.AddChat(groupChat);
+                    Session.SyncChat(groupChat);
+                }
+                person = groupChat.GetPerson(xmppMsg.From.Resource);
+                if (person == null) {
+                    // happens in case of a delayed message if the participant has left meanwhile
+                    person = new PersonModel(xmppMsg.From.Resource, xmppMsg.From.Resource, 
+                                             NetworkID, Protocol, this);
+                }
+                chat = groupChat;
+            }
+
+            if (xmppMsg.Body != null) {
+                var delay = xmppMsg["delay"];
+                string stamp = null;
+                bool display = true;
+                
+                if (delay != null) {
+                    stamp = delay.Attributes["stamp"].Value;
+                    if (stamp.CompareTo(latestSeenStamp) > 0)
+                        latestSeenStamp = stamp;
+                    else
+                        display = false; // already seen newer delayed message
+                    if (seenNewMessages)
+                        display = false; // already seen newer messages
+                } else {
+                    seenNewMessages = true;
                 }
                 
-                if (xmppMsg.Body != null) {
+                if (display) {
                     var builder = CreateMessageBuilder();
-                    builder.AppendMessage(chat.Person, xmppMsg.Body);
-                    Session.AddMessageToChat(chat, builder.ToMessage());
+                    builder.AppendMessage(person, xmppMsg.Body);
+                    var msg = builder.ToMessage();
+                    string format = DateTimeFormatInfo.InvariantInfo.UniversalSortableDateTimePattern.Replace(" ", "T");
+                    msg.TimeStamp = DateTime.ParseExact(stamp, format, null);
+                    Session.AddMessageToChat(chat, msg);
                 }
+            }
+        }
+        
+        void OnJoin(Room room)
+        {
+            AddPersonToGroup(room, room.Nickname);
+        }
+        
+        void OnLeave(Room room, Presence presence)
+        {
+            var chat = Session.GetChat(room.JID.Bare, ChatType.Group, this);
+            if (chat.IsEnabled)
+                Session.RemoveChat(chat);
+        }
+
+        public void OnParticipantJoin(Room room, RoomParticipant roomParticipant)
+        {
+            AddPersonToGroup(room, roomParticipant.Nick);
+        }
+        
+        private void AddPersonToGroup(Room room, string nickname) {
+            string jid = room.JID.Bare;
+            var chat = (GroupChatModel) Session.GetChat(jid, ChatType.Group, this);
+            // first notice we're joining a group chat is the participant info:
+            if (chat == null) {
+                chat = new GroupChatModel(jid, jid, this);
+                Session.AddChat(chat);
+                Session.SyncChat(chat);
+            }
+            
+            var person = chat.GetPerson(nickname);
+            if (person == null) {
+                this.Session.AddTextToChat(_NetworkChat, "-!- Persons: " + chat.Persons);
+                this.Session.AddTextToChat(_NetworkChat, "-!- UnsafePersons: " + chat.UnsafePersons);
+                person = new PersonModel(nickname, nickname, 
+                                         NetworkID, Protocol, this);
+                chat.UnsafePersons.Add(nickname, person);
+                Session.AddPersonToGroupChat(chat, person);
+            }
+        }
+        
+        public void OnParticipantLeave(Room room, RoomParticipant roomParticipant)
+        {
+            string jid = room.JID.Bare;
+            var chat = (GroupChatModel) Session.GetChat(jid, ChatType.Group, this);
+            string nickname = roomParticipant.Nick;
+
+            var person = chat.GetPerson(nickname);
+            if (person != null) {
+                this.Session.AddTextToChat(_NetworkChat, "-!- Persons: " + chat.Persons);
+                this.Session.AddTextToChat(_NetworkChat, "-!- UnsafePersons: " + chat.UnsafePersons);
+                chat.UnsafePersons.Remove(nickname);
+                Session.RemovePersonFromGroupChat(chat, person);
             }
         }
         
