@@ -541,8 +541,10 @@ namespace Smuxi.Engine
                 var builder = CreateMessageBuilder();
                 builder.AppendMessage(person, xmppMsg.Body);
                 var msg = builder.ToMessage();
-                string format = DateTimeFormatInfo.InvariantInfo.UniversalSortableDateTimePattern.Replace(" ", "T");
-                msg.TimeStamp = DateTime.ParseExact(stamp, format, null);
+                if (stamp != null) {
+                    string format = DateTimeFormatInfo.InvariantInfo.UniversalSortableDateTimePattern.Replace(" ", "T");
+                    msg.TimeStamp = DateTime.ParseExact(stamp, format, null);
+                }
                 Session.AddMessageToChat(chat, msg);
             }
         }
