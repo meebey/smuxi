@@ -48,6 +48,7 @@ namespace Smuxi.Frontend.Gnome
                 "David Paleino <dapal@debian.org>",
                 "Clément Bourgeois <moonpyk@gmail.com>",
                 "Chris Le Sueur <c.m.lesueur@gmail.com>"
+                "Tuukka Hastrup <Tuukka.Hastrup@iki.fi>"
             };
             Artists = new string[] {
                 "Jakub Steiner <jimmac@ximian.com>",
