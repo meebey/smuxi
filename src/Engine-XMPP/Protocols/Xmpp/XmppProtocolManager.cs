@@ -36,7 +36,7 @@ using jabber.client;
 using jabber.connection;
 using jabber.protocol.client;
 using jabber.protocol.iq;
-using jabberMessageType = jabber.protocol.client.MessageType;
+using XmppMessageType = jabber.protocol.client.MessageType;
 
 using Smuxi.Common;
 
@@ -480,7 +480,7 @@ namespace Smuxi.Engine
 
             ChatModel chat = null;
             PersonModel person = null;
-            if (xmppMsg.Type == jabberMessageType.chat) {
+            if (xmppMsg.Type == XmppMessageType.chat) {
                 string jid = xmppMsg.From.ToString();
                 string nickname = _RosterManager[jid].Nickname.Replace(" ", "_");
                 PersonChatModel personChat = (PersonChatModel) Session.GetChat(jid, ChatType.Person, this);
@@ -494,7 +494,7 @@ namespace Smuxi.Engine
                     person = personChat.Person;
                 }
                 chat = personChat;
-            } else if (xmppMsg.Type == jabberMessageType.groupchat) {
+            } else if (xmppMsg.Type == XmppMessageType.groupchat) {
                 string group_jid = xmppMsg.From.Bare;
                 string group_name = group_jid;
                 string sender_jid = xmppMsg.From.ToString();
