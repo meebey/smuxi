@@ -112,7 +112,7 @@ namespace Smuxi.Engine
         
         public void Connect(FrontendManager fm, string host, int port, string username, string password, string resource)
         {
-            Trace.Call(fm, host, port, username, password);
+            Trace.Call(fm, host, port, username, "XXX");
             
             _FrontendManager = fm;
             Host = host;
