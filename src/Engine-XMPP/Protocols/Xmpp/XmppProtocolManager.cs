@@ -85,14 +85,14 @@ namespace Smuxi.Engine
         public XmppProtocolManager(Session session) : base(session)
         {
             Trace.Call(session);
-            
+
             _JabberClient = new JabberClient();
             _JabberClient.Resource = Engine.VersionString;
             _JabberClient.AutoLogin = true;
             _JabberClient.AutoPresence = false;
             _JabberClient.OnMessage += new MessageHandler(_OnMessage);
-            _JabberClient.OnConnect += new StanzaStreamHandler(_OnConnect);
-            _JabberClient.OnDisconnect += new bedrock.ObjectHandler(_OnDisconnect);
+            _JabberClient.OnConnect += OnConnect;
+            _JabberClient.OnDisconnect += OnDisconnect;
             _JabberClient.OnAuthenticate += OnAuthenticate;
             _JabberClient.OnError += OnError;
 
@@ -598,18 +598,17 @@ namespace Smuxi.Engine
             Session.RemovePersonFromGroupChat(chat, person);
         }
 
-        private void _OnConnect(object sender, StanzaStream stream)
+        void OnConnect(object sender, StanzaStream stream)
         {
-            OnConnected(EventArgs.Empty);
-
-            IsConnected = true;
+            Trace.Call(sender, stream);
         }
-        
-        private void _OnDisconnect(object sender)
+
+        void OnDisconnect(object sender)
         {
-            OnDisconnected(EventArgs.Empty);
+            Trace.Call(sender);
 
             IsConnected = false;
+            OnDisconnected(EventArgs.Empty);
         }
 
         void OnError(object sender, Exception ex)
@@ -623,9 +622,14 @@ namespace Smuxi.Engine
         {
             Trace.Call(sender);
 
+            IsConnected = true;
+
             Session.AddTextToChat(_NetworkChat, "Authenticated");
 
+            // send initial presence
             SetPresenceStatus(PresenceStatus.Online, null);
+
+            OnConnected(EventArgs.Empty);
         }
 
         private void ApplyConfig(UserConfig config, ServerModel server)
