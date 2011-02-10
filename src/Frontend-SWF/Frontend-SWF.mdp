@@ -1,4 +1,4 @@
-<Project name="Frontend-SWF" fileversion="2.0" DefaultNamespace="FrontendSWF" language="C#" clr-version="Net_2_0" targetFramework="3.5" ctype="DotNetProject">
+<Project name="Frontend-SWF" fileversion="2.0" DefaultNamespace="Smuxi.Frontend.Swf" language="C#" clr-version="Net_2_0" targetFramework="3.5" ctype="DotNetProject">
   <Deployment.LinuxDeployData scriptName="smuxi-frontend-swf" />
   <Configurations active="Debug">
     <Configuration name="Debug" ctype="DotNetProjectConfiguration">

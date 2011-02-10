@@ -1,4 +1,4 @@
-<Project name="Frontend-GNOME-Tests" fileversion="2.0" DefaultNamespace="FrontendGNOMETests" language="C#" targetFramework="3.5" ctype="DotNetProject">
+<Project name="Frontend-GNOME-Tests" fileversion="2.0" DefaultNamespace="Smuxi.Frontend.Gnome" language="C#" targetFramework="3.5" ctype="DotNetProject">
   <Configurations active="Debug">
     <Configuration name="Debug" ctype="DotNetProjectConfiguration">
       <Output directory="../../bin/debug" assembly="smuxi-frontend-gnome-tests" />

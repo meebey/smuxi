@@ -1,4 +1,4 @@
-<Project name="Frontend-STFL" fileversion="2.0" DefaultNamespace="FrontendSTFL" language="C#" clr-version="Net_2_0" targetFramework="3.5" ctype="DotNetProject">
+<Project name="Frontend-STFL" fileversion="2.0" DefaultNamespace="Smuxi.Frontend.Stfl" language="C#" clr-version="Net_2_0" targetFramework="3.5" ctype="DotNetProject">
   <Deployment.LinuxDeployData scriptName="smuxi-frontend-stfl" />
   <Configurations active="Debug">
     <Configuration name="Debug" ctype="DotNetProjectConfiguration">

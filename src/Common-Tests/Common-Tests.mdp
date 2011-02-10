@@ -1,4 +1,4 @@
-<Project name="Common-Tests" fileversion="2.0" DefaultNamespace="CommonTests" language="C#" targetFramework="3.5" ctype="DotNetProject">
+<Project name="Common-Tests" fileversion="2.0" DefaultNamespace="Smuxi.Common" language="C#" targetFramework="3.5" ctype="DotNetProject">
   <Configurations active="Debug">
     <Configuration name="Debug" ctype="DotNetProjectConfiguration">
       <Output directory="../../bin/debug" assembly="smuxi-common-tests" />

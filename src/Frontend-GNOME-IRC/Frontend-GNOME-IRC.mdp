@@ -1,4 +1,4 @@
-<Project name="Frontend-GNOME-IRC" fileversion="2.0" DefaultNamespace="FrontendGNOMEIRC" language="C#" clr-version="Net_2_0" targetFramework="3.5" ctype="DotNetProject">
+<Project name="Frontend-GNOME-IRC" fileversion="2.0" DefaultNamespace="Smuxi.Frontend.Gnome" language="C#" clr-version="Net_2_0" targetFramework="3.5" ctype="DotNetProject">
   <Configurations active="Debug">
     <Configuration name="Debug" ctype="DotNetProjectConfiguration">
       <Output directory="../../bin/debug" assembly="smuxi-frontend-gnome-irc" />
