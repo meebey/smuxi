@@ -370,13 +370,16 @@ namespace Smuxi.Engine
                 JID jid = null;
                 foreach (JID j in _RosterManager) {
                     Item item = _RosterManager[j];
-                    if (item.Nickname.Replace(" ", "_") == nickname) {
+                    if (item.Nickname != null &&
+                        item.Nickname.Replace(" ", "_") == nickname) {
                         jid = item.JID;
                         break;
                     }
                 }
-                if (jid == null)
-                    return; // TODO error message
+                if (jid == null) {
+                    jid = nickname; // TODO check validity
+                }
+
                 chat = GetChat(jid, ChatType.Person);
                 if (chat == null) {
                     PersonModel person = new PersonModel(jid, nickname,
@@ -480,9 +483,13 @@ namespace Smuxi.Engine
 
             ChatModel chat = null;
             PersonModel person = null;
-            if (xmppMsg.Type == XmppMessageType.chat) {
-                string jid = xmppMsg.From.ToString();
-                string nickname = _RosterManager[jid].Nickname.Replace(" ", "_");
+            if (xmppMsg.Type != XmppMessageType.groupchat) {
+                string jid = xmppMsg.From.Bare;
+                var contact = _RosterManager[jid];
+                string nickname = jid;
+                if (contact != null && contact.Nickname != null) {
+                    nickname = contact.Nickname.Replace(" ", "_");
+                }
                 PersonChatModel personChat = (PersonChatModel) Session.GetChat(jid, ChatType.Person, this);
                 if (personChat == null) {
                     person = new PersonModel(jid, nickname, NetworkID,
@@ -494,7 +501,7 @@ namespace Smuxi.Engine
                     person = personChat.Person;
                 }
                 chat = personChat;
-            } else if (xmppMsg.Type == XmppMessageType.groupchat) {
+            } else {
                 string group_jid = xmppMsg.From.Bare;
                 string group_name = group_jid;
                 string sender_jid = xmppMsg.From.ToString();
@@ -520,7 +527,8 @@ namespace Smuxi.Engine
 
             if (delay != null) {
                 stamp = delay.Attributes["stamp"].Value;
-                if (stamp.CompareTo(latestSeenStamp) > 0) {
+                // XXX can't use > because of seconds precision :-(
+                if (stamp.CompareTo(latestSeenStamp) >= 0) {
                     latestSeenStamp = stamp;
                 } else {
                     display = false; // already seen newer delayed message
@@ -534,7 +542,12 @@ namespace Smuxi.Engine
 
             if (display) {
                 var builder = CreateMessageBuilder();
-                builder.AppendMessage(person, xmppMsg.Body);
+                if (xmppMsg.Type != XmppMessageType.error) {
+                    builder.AppendMessage(person, xmppMsg.Body);
+                } else {
+                    // TODO: nicer formatting
+                    builder.AppendMessage(xmppMsg.Error.ToString());
+                }
                 var msg = builder.ToMessage();
                 if (stamp != null) {
                     string format = DateTimeFormatInfo.InvariantInfo.UniversalSortableDateTimePattern.Replace(" ", "T");
