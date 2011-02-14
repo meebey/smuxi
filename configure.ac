@@ -355,10 +355,9 @@ AC_ARG_ENABLE([frontend-stfl],
 	ENABLE_FRONTEND_STFL=$enableval,
 	ENABLE_FRONTEND_STFL=no
 )
-#if test "x$ENABLE_FRONTEND_STFL" != "xno"; then
-#	# TODO: check deps
-#	AC_MSG_ERROR([STFL frontend not supported (yet)])
-#fi
+if test "x$ENABLE_FRONTEND_STFL" != "xno"; then
+	PKG_CHECK_MODULES([STFL], [stfl >= 0.21])
+fi
 AM_CONDITIONAL(ENABLE_FRONTEND_STFL, test "x$ENABLE_FRONTEND_STFL" = "xyes")
 
 AC_ARG_ENABLE([frontend-curses],
