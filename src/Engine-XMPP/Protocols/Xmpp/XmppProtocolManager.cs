@@ -527,16 +527,16 @@ namespace Smuxi.Engine
                 // XXX maybe only a Google Talk bug requires this:
                 if (stamp != null) {
                     // XXX can't use > because of seconds precision :-(
-                    if (stamp.CompareTo(groupChat.latestSeenStamp) >= 0) {
-                        groupChat.latestSeenStamp = stamp;
+                    if (stamp.CompareTo(groupChat.LatestSeenStamp) >= 0) {
+                        groupChat.LatestSeenStamp = stamp;
                     } else {
                         display = false; // already seen newer delayed message
                     }
-                    if (groupChat.seenNewMessages) {
+                    if (groupChat.SeenNewMessages) {
                         display = false; // already seen newer messages
                     }
                 } else {
-                    groupChat.seenNewMessages = true;
+                    groupChat.SeenNewMessages = true;
                 }
 
                 chat = groupChat;
