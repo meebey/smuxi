@@ -134,5 +134,20 @@ namespace Smuxi.Engine
             }
             return UrlProtocol.Unknown;
         }
+
+        public override string ToString()
+        {
+            if (Text == null) {
+                return _Url;
+            } else if (_Url == null) {
+                return Text;
+            } else if (Text == _Url) {
+                return _Url;
+            } else if (Text.Contains(_Url)) {
+                return Text;
+            } else {
+                return "[" + _Url + " " + Text + "]";
+            }
+        }
     }
 }
