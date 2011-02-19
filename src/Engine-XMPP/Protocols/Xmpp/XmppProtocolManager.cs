@@ -61,8 +61,6 @@ namespace Smuxi.Engine
         private ConferenceManager _ConferenceManager;
         private FrontendManager _FrontendManager;
         private ChatModel       _NetworkChat;
-        private string latestSeenStamp = null; // FIXME: should be per-chat or per-delay-from or something
-        private bool seenNewMessages = false;
         
         public override string NetworkID {
             get {
@@ -481,6 +479,13 @@ namespace Smuxi.Engine
                 return;
             }
 
+            var delay = xmppMsg["delay"];
+            string stamp = null;
+            if (delay != null) {
+                stamp = delay.Attributes["stamp"].Value;
+            }
+            bool display = true;
+
             ChatModel chat = null;
             PersonModel person = null;
             if (xmppMsg.Type != XmppMessageType.groupchat) {
@@ -505,10 +510,10 @@ namespace Smuxi.Engine
                 string group_jid = xmppMsg.From.Bare;
                 string group_name = group_jid;
                 string sender_jid = xmppMsg.From.ToString();
-                GroupChatModel groupChat = (GroupChatModel) Session.GetChat(group_jid, ChatType.Group, this);
+                XmppGroupChatModel groupChat = (XmppGroupChatModel) Session.GetChat(group_jid, ChatType.Group, this);
                 if (groupChat == null) {
                     // FIXME shouldn't happen?
-                    groupChat = new GroupChatModel(group_jid, group_name, this);
+                    groupChat = new XmppGroupChatModel(group_jid, group_name, this);
                     Session.AddChat(groupChat);
                     Session.SyncChat(groupChat);
                 }
@@ -518,26 +523,23 @@ namespace Smuxi.Engine
                     person = new PersonModel(xmppMsg.From.Resource, xmppMsg.From.Resource, 
                                              NetworkID, Protocol, this);
                 }
-                chat = groupChat;
-            }
 
-            var delay = xmppMsg["delay"];
-            string stamp = null;
-            bool display = true;
-
-            if (delay != null) {
-                stamp = delay.Attributes["stamp"].Value;
-                // XXX can't use > because of seconds precision :-(
-                if (stamp.CompareTo(latestSeenStamp) >= 0) {
-                    latestSeenStamp = stamp;
+                // XXX maybe only a Google Talk bug requires this:
+                if (stamp != null) {
+                    // XXX can't use > because of seconds precision :-(
+                    if (stamp.CompareTo(groupChat.latestSeenStamp) >= 0) {
+                        groupChat.latestSeenStamp = stamp;
+                    } else {
+                        display = false; // already seen newer delayed message
+                    }
+                    if (groupChat.seenNewMessages) {
+                        display = false; // already seen newer messages
+                    }
                 } else {
-                    display = false; // already seen newer delayed message
+                    groupChat.seenNewMessages = true;
                 }
-                if (seenNewMessages) {
-                    display = false; // already seen newer messages
-                }
-            } else {
-                seenNewMessages = true;
+
+                chat = groupChat;
             }
 
             if (display) {
@@ -580,7 +582,7 @@ namespace Smuxi.Engine
             var chat = (GroupChatModel) Session.GetChat(jid, ChatType.Group, this);
             // first notice we're joining a group chat is the participant info:
             if (chat == null) {
-                chat = new GroupChatModel(jid, jid, this);
+                chat = new XmppGroupChatModel(jid, jid, this);
                 Session.AddChat(chat);
                 Session.SyncChat(chat);
             }
