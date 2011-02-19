@@ -587,15 +587,18 @@ namespace Smuxi.Engine
                 Session.SyncChat(chat);
             }
 
-            var person = chat.GetPerson(nickname);
-            if (person != null) {
-                return;
-            }
+            PersonModel person;
+            lock(chat.UnsafePersons) {
+                person = chat.GetPerson(nickname);
+                if (person != null) {
+                    return;
+                }
 
-            person = new PersonModel(nickname, nickname,
-                                     NetworkID, Protocol, this);
-            chat.UnsafePersons.Add(nickname, person);
-            Session.AddPersonToGroupChat(chat, person);
+                person = new PersonModel(nickname, nickname,
+                                         NetworkID, Protocol, this);
+                chat.UnsafePersons.Add(nickname, person);
+                Session.AddPersonToGroupChat(chat, person);
+            }
         }
         
         public void OnParticipantLeave(Room room, RoomParticipant roomParticipant)
@@ -604,13 +607,16 @@ namespace Smuxi.Engine
             var chat = (GroupChatModel) Session.GetChat(jid, ChatType.Group, this);
             string nickname = roomParticipant.Nick;
 
-            var person = chat.GetPerson(nickname);
-            if (person == null) {
-                return;
-            }
+            PersonModel person;
+            lock(chat.UnsafePersons) {
+                person = chat.GetPerson(nickname);
+                if (person == null) {
+                    return;
+                }
 
-            chat.UnsafePersons.Remove(nickname);
-            Session.RemovePersonFromGroupChat(chat, person);
+                chat.UnsafePersons.Remove(nickname);
+                Session.RemovePersonFromGroupChat(chat, person);
+            }
         }
 
         void OnConnect(object sender, StanzaStream stream)
