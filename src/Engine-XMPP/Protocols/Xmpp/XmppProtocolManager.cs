@@ -477,7 +477,7 @@ namespace Smuxi.Engine
             xmlWriter.IndentChar =  ' ';
             tag.WriteTo(xmlWriter);
 
-            DebugRead(strWriter.ToString());
+            DebugRead("\n" + strWriter.ToString());
         }
 
         void OnWriteText(object sender, string text)
@@ -496,7 +496,7 @@ namespace Smuxi.Engine
             document.LoadXml(text);
             document.WriteContentTo(xmlWriter);
 
-            DebugWrite(strWriter.ToString());
+            DebugWrite("\n" + strWriter.ToString());
         }
 
         private void _OnMessage(object sender, Message xmppMsg)

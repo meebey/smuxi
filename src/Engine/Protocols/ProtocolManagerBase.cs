@@ -293,7 +293,7 @@ namespace Smuxi.Engine
 
             var msgBuilder = CreateMessageBuilder();
             msgBuilder.AppendEventPrefix();
-            msgBuilder.AppendText("READ:\n");
+            msgBuilder.AppendText("READ: ");
             msgBuilder.AppendText(data);
             Session.AddMessageToChat(Chat, msgBuilder.ToMessage());
         }
@@ -312,7 +312,7 @@ namespace Smuxi.Engine
 
             var msgBuilder = CreateMessageBuilder();
             msgBuilder.AppendEventPrefix();
-            msgBuilder.AppendText("WRITE:\n");
+            msgBuilder.AppendText("WRITE: ");
             msgBuilder.AppendText(data);
             Session.AddMessageToChat(Chat, msgBuilder.ToMessage());
         }
