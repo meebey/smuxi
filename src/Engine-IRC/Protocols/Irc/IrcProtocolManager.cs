@@ -185,6 +185,8 @@ namespace Smuxi.Engine
             _IrcClient.OnCtcpReply      += new CtcpEventHandler(_OnCtcpReply);
             _IrcClient.OnWho            += OnWho;
             _IrcClient.OnInvite         += OnInvite;
+            _IrcClient.OnReadLine       += OnReadLine;
+            _IrcClient.OnWriteLine      += OnWriteLine;
 
             _IrcClient.CtcpUserInfo = (string) Session.UserConfig["Connection/Realname"];
             // disabled as we don't use / support DCC yet
@@ -236,6 +238,16 @@ namespace Smuxi.Engine
             text.IsHighlight = true;
             builder.AppendText(text);
             Session.AddMessageToChat(_NetworkChat, builder.ToMessage());
+        }
+
+        void OnReadLine(object sender, ReadLineEventArgs e)
+        {
+            DebugRead(e.Line);
+        }
+
+        void OnWriteLine(object sender, WriteLineEventArgs e)
+        {
+            DebugWrite(e.Line);
         }
 
         public override string ToString()
