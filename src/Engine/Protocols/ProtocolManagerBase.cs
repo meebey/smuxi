@@ -117,6 +117,17 @@ namespace Smuxi.Engine
                 return _Session;
             }
         }
+
+        protected bool DebugProtocol {
+            get {
+#if LOG4NET
+                var repo = log4net.LogManager.GetRepository();
+                return repo.Threshold >= log4net.Core.Level.Debug;
+#else
+                return false;
+#endif
+            }
+        }
         
         protected ProtocolManagerBase(Session session)
         {
@@ -266,6 +277,44 @@ namespace Smuxi.Engine
             }
             
             return false;
+        }
+
+        protected virtual void DebugRead(string data)
+        {
+            if (data == null) {
+                throw new ArgumentNullException("data");
+            }
+            if (Chat == null) {
+                return;
+            }
+            if (!DebugProtocol) {
+                return;
+            }
+
+            var msgBuilder = CreateMessageBuilder();
+            msgBuilder.AppendEventPrefix();
+            msgBuilder.AppendText("READ:\n");
+            msgBuilder.AppendText(data);
+            Session.AddMessageToChat(Chat, msgBuilder.ToMessage());
+        }
+
+        protected virtual void DebugWrite(string data)
+        {
+            if (data == null) {
+                throw new ArgumentNullException("data");
+            }
+            if (Chat == null) {
+                return;
+            }
+            if (!DebugProtocol) {
+                return;
+            }
+
+            var msgBuilder = CreateMessageBuilder();
+            msgBuilder.AppendEventPrefix();
+            msgBuilder.AppendText("WRITE:\n");
+            msgBuilder.AppendText(data);
+            Session.AddMessageToChat(Chat, msgBuilder.ToMessage());
         }
     }
 }
