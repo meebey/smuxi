@@ -22,7 +22,9 @@
  */
 
 using System;
+using System.IO;
 using System.Net.Security;
+using System.Xml;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Security.Cryptography.X509Certificates;
@@ -93,9 +95,8 @@ namespace Smuxi.Engine
             _JabberClient.OnDisconnect += OnDisconnect;
             _JabberClient.OnAuthenticate += OnAuthenticate;
             _JabberClient.OnError += OnError;
-
-            _JabberClient.OnReadText += new bedrock.TextHandler(_OnReadText);
-            _JabberClient.OnWriteText += new bedrock.TextHandler(_OnWriteText);
+            _JabberClient.OnProtocol += OnProtocol;
+            _JabberClient.OnWriteText += OnWriteText;
 
             _RosterManager = new RosterManager();
             _RosterManager.Stream = _JabberClient;
@@ -463,16 +464,41 @@ namespace Smuxi.Engine
             this.Session.AddMessageToChat(chat, msg);
         }
         
-        private void _OnReadText(object sender, string text)
+        void OnProtocol(object sender, XmlElement tag)
         {
-            this.Session.AddTextToChat(_NetworkChat, "-!- RECV: " + text);
+            if (!DebugProtocol) {
+                return;
+            }
+
+            var strWriter = new StringWriter();
+            var xmlWriter = new XmlTextWriter(strWriter);
+            xmlWriter.Formatting = Formatting.Indented;
+            xmlWriter.Indentation = 2;
+            xmlWriter.IndentChar =  ' ';
+            tag.WriteTo(xmlWriter);
+
+            DebugRead(strWriter.ToString());
         }
-        
-        private void _OnWriteText(object sender, string text)
+
+        void OnWriteText(object sender, string text)
         {
-            this.Session.AddTextToChat(_NetworkChat, "-!- SENT: " + text);
+            if (!DebugProtocol) {
+                return;
+            }
+
+            var strWriter = new StringWriter();
+            var xmlWriter = new XmlTextWriter(strWriter);
+            xmlWriter.Formatting = Formatting.Indented;
+            xmlWriter.Indentation = 2;
+            xmlWriter.IndentChar =  ' ';
+
+            var document = new XmlDocument();
+            document.LoadXml(text);
+            document.WriteContentTo(xmlWriter);
+
+            DebugWrite(strWriter.ToString());
         }
-        
+
         private void _OnMessage(object sender, Message xmppMsg)
         {
             if (xmppMsg.Body == null) {
