@@ -45,6 +45,7 @@ namespace Smuxi.Frontend.Gnome
         private   string             _Name;
         private   ChatModel          _ChatModel;
         private   bool               _HasHighlight;
+        private   int                HighlightCount { get; set; }
         private   bool               _HasActivity;
         private   bool               _HasEvent;
         private   bool               _IsSynced;
@@ -84,10 +85,12 @@ namespace Smuxi.Frontend.Gnome
             }
             set {
                 _HasHighlight = value;
-                
+                HighlightCount++;
+
                 if (!value) {
                     // clear highlight with "no activity"
                     HasActivity = false;
+                    HighlightCount = 0;
                     return;
                 }
 
@@ -97,11 +100,22 @@ namespace Smuxi.Frontend.Gnome
                         Gtk.Rc.GetStyle(_TabLabel).Base(Gtk.StateType.Normal)
                     ), ColorContrast.High
                 );
-                _TabLabel.Markup = String.Format(
-                    "<span foreground=\"{0}\">{1}</span>",
-                    GLib.Markup.EscapeText(color.ToString()),
-                    GLib.Markup.EscapeText(_Name)
-                );
+
+                if (HighlightCount > 1) {
+                    _TabLabel.Markup = String.Format(
+                        "<span foreground=\"{0}\">{1} ({2})</span>",
+                        GLib.Markup.EscapeText(color.ToString()),
+                        GLib.Markup.EscapeText(_Name),
+                        GLib.Markup.EscapeText(HighlightCount.ToString())
+
+                    );
+                } else {
+                    _TabLabel.Markup = String.Format(
+                        "<span foreground=\"{0}\">{1}</span>",
+                        GLib.Markup.EscapeText(color.ToString()),
+                        GLib.Markup.EscapeText(_Name)
+                    );
+                }
             }
         }
 
