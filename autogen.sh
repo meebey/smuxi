@@ -48,7 +48,7 @@ DIE=0
   }
 }
 
-(grep "^AM_PROG_LIBTOOL" $CONFIGURE >/dev/null) && {
+(grep "^AC_PROG_LIBTOOL" $CONFIGURE >/dev/null) && {
   ($LIBTOOL --version) < /dev/null > /dev/null 2>&1 || {
     echo
     echo "**Error**: You must have \`libtool' installed to compile $PROJECT."
@@ -81,7 +81,7 @@ if grep "^IT_PROG_INTLTOOL" $CONFIGURE >/dev/null; then
 	$INTLTOOLIZE --copy --force --automake
 fi
 
-(grep "^AM_PROG_LIBTOOL" $CONFIGURE >/dev/null) && {
+(grep "^AC_PROG_LIBTOOL" $CONFIGURE >/dev/null) && {
     echo "Running $LIBTOOLIZE ..."
     $LIBTOOLIZE --force --copy
 }
