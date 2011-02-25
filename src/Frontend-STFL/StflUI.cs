@@ -55,21 +55,33 @@ namespace Smuxi.Frontend.Stfl
         {
             Trace.Call(chat);
             
-            _ChatViewManager.AddChat(chat);
+            try {
+                _ChatViewManager.AddChat(chat);
+            } catch (Exception ex) {
+#if LOG4NET
+                _Logger.Fatal(ex);
+#endif
+            }
         }
-        
+
         public void AddMessageToChat(ChatModel chat, MessageModel msg)
         {
             Trace.Call(chat, msg);
 
-            ChatView chatView = _ChatViewManager.GetChat(chat);
+            try {
+                ChatView chatView = _ChatViewManager.GetChat(chat);
 #if LOG4NET
-            if (chatView == null) {
-                _Logger.Fatal(String.Format("AddMessageToChat(): _ChatViewManager.GetChat(chat) chat.Name: {0} returned null!", chat.Name));
-                return;
-            }
+                if (chatView == null) {
+                    _Logger.Fatal(String.Format("AddMessageToChat(): _ChatViewManager.GetChat(chat) chat.Name: {0} returned null!", chat.Name));
+                    return;
+                }
 #endif
-            chatView.AddMessage(msg);
+                chatView.AddMessage(msg);
+            } catch (Exception ex) {
+#if LOG4NET
+                _Logger.Fatal(ex);
+#endif
+            }
         }
         
         public void RemoveChat(ChatModel chat)
