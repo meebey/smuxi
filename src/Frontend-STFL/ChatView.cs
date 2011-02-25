@@ -200,6 +200,10 @@ namespace Smuxi.Frontend.Stfl
                 // TODO: implement other types
                 if (msgPart is TextMessagePartModel) {
                     var txtPart = (TextMessagePartModel) msgPart;
+                    if (String.IsNullOrEmpty(txtPart.Text)) {
+                        continue;
+                    }
+
                     var tags = new List<string>();
                     if (txtPart.ForegroundColor != TextColor.None) {
                         // TODO: implement color mapping, see:
