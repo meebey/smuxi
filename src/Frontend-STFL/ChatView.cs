@@ -27,6 +27,7 @@
  */
 
 using System;
+using System.Text;
 using System.Collections.Generic;
 using System.Globalization;
 using Smuxi.Common;
@@ -99,6 +100,7 @@ namespace Smuxi.Frontend.Stfl
             get {
                 // force height refresh
                 f_MainWindow.Run(-3);
+                //string heigthStr = f_MainWindow[String.Format("{0}:h", f_WidgetName)];
                 string heigthStr = f_MainWindow["output_vbox:h"];
                 int heigth;
                 if (!Int32.TryParse(heigthStr, out heigth)) {
@@ -108,6 +110,23 @@ namespace Smuxi.Frontend.Stfl
                     return 0;
                 }
                 return heigth;
+            }
+        }
+
+        public int Width {
+            get {
+                // force height refresh
+                f_MainWindow.Run(-3);
+                //string widthStr = f_MainWindow[String.Format("{0}:w", f_WidgetName)];
+                string widthStr = f_MainWindow["output_vbox:w"];
+                int width;
+                if (!Int32.TryParse(widthStr, out width)) {
+#if LOG4NET
+                    _Logger.Error("get_Width(): Int32.Parse(\"" + widthStr + "\") failed!");
+#endif
+                    return 0;
+                }
+                return width;
             }
         }
 
@@ -136,6 +155,11 @@ namespace Smuxi.Frontend.Stfl
                         ".display[" + f_WidgetID + "d]:0 " +
                         "offset[" + f_WidgetID + "os]:0 " +
                         "style_end:\"\" " +
+                        "richtext:1 " +
+                        "style_red_normal:fg=red " +
+                        "style_u_normal:attr=underline " +
+                        "style_b_normal:attr=bold " +
+                        "style_i_normal:attr=standout " +
                 "}"
             );
         }
@@ -169,25 +193,55 @@ namespace Smuxi.Frontend.Stfl
         
         public void AddMessage(MessageModel msg)
         {
-            string finalMsg = String.Empty;
+            // OPT: typical message length
+            var line = new StringBuilder(512);
+            int msgLength = 0;
             foreach (MessagePartModel msgPart in msg.MessageParts) {
                 // TODO: implement other types
                 if (msgPart is TextMessagePartModel) {
-                    TextMessagePartModel fmsgti = (TextMessagePartModel) msgPart;
-                    finalMsg += fmsgti.Text;
-                } 
+                    var txtPart = (TextMessagePartModel) msgPart;
+                    var tags = new List<string>();
+                    if (txtPart.ForegroundColor != TextColor.None) {
+                        // TODO: implement color mapping, see:
+                        // http://www.calmar.ws/vim/256-xterm-24bit-rgb-color-chart.html
+                        //tags.Add("red");
+                    }
+                    if (txtPart.Underline) {
+                        tags.Add("u");
+                    }
+                    if (txtPart.Bold) {
+                        tags.Add("b");
+                    }
+                    if (txtPart.Italic) {
+                        tags.Add("i");
+                    }
+
+                    if (tags.Count > 0) {
+                        tags.Reverse();
+                        string markup = txtPart.Text;
+                        foreach (string tag in tags) {
+                            markup = String.Format("<{0}>{1}</{2}>",
+                                                   tag, markup, tag);
+                        }
+                        line.Append(markup);
+                    } else {
+                        line.Append(txtPart.Text);
+                    }
+                    msgLength += txtPart.Text.Length;
+                }
             }
-            
+
             string timestamp;
             try {
                 timestamp = msg.TimeStamp.ToLocalTime().ToString((string)Frontend.UserConfig["Interface/Notebook/TimestampFormat"]);
             } catch (FormatException e) {
                 timestamp = "Timestamp Format ERROR: " + e.Message;
             }
-            finalMsg = timestamp + " " + finalMsg;
-            
-            f_MainWindow.Modify(f_WidgetName, "append", "{listitem text:" + StflApi.stfl_quote(finalMsg) + "}"); 
-            
+            var finalMsg = String.Format("{0} {1}", timestamp, line.ToString());
+
+            // TODO: implement line wrap and re-wrap when console size changes
+            f_MainWindow.Modify(f_WidgetName, "append", "{listitem text:" + StflApi.stfl_quote(finalMsg) + "}");
+
             ScrollToEnd();
         }
         
