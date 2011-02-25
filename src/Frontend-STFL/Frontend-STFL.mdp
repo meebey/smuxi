@@ -30,7 +30,6 @@
     <File subtype="Code" buildaction="Compile" name="../AssemblyVersion.cs" />
     <File subtype="Code" buildaction="Compile" name="STFL/StflApi.cs" />
     <File subtype="Code" buildaction="Compile" name="STFL/Test.cs" />
-    <File subtype="Code" buildaction="Nothing" name="STFL/libstflsharp.so" copyToOutputDirectory="PreserveNewest" Gettext.ScanForTranslations="False" />
     <File subtype="Code" buildaction="Compile" name="STFL/NcursesApi.cs" />
     <File subtype="Code" buildaction="Nothing" name="smuxi-frontend-stfl.exe.config" copyToOutputDirectory="PreserveNewest" />
   </Contents>
