@@ -27,6 +27,7 @@
  */
 
 using System;
+using System.Text;
 using System.Globalization;
 using System.Collections.Generic;
 using Mono.Unix;
@@ -95,6 +96,8 @@ namespace Smuxi.Frontend.Stfl
             if (CurrentChat == null) {
                 CurrentChat = chatView;
             }
+
+            UpdateNavigation();
         }
 
         public override void RemoveChat(ChatModel chat)
@@ -125,6 +128,17 @@ namespace Smuxi.Frontend.Stfl
                 return null;
             }
             return f_ChatViewList[chat];
+        }
+
+        private void UpdateNavigation()
+        {
+            var nav = new StringBuilder();
+            foreach (var chat in f_ChatViewList) {
+                nav.AppendFormat("[{0}] ", chat.ChatModel.Name);
+            }
+            nav.Remove(nav.Length - 1, 1);
+
+            f_MainWindow.NavigationLabel = nav.ToString();
         }
     }
 

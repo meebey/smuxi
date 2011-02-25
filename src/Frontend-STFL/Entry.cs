@@ -95,8 +95,8 @@ namespace Smuxi.Frontend.Stfl
         {
             Trace.Call(sender, e);
 
-            f_MainWindow["input_label_text"] = String.Format("[{0}] ",
-                                                e.ChatView.ChatModel.ID);
+            f_MainWindow.InputLabel = String.Format("[{0}]",
+                                                    e.ChatView.ChatModel.Name);
         }
 
         public virtual void OnActivated(EventArgs e)

@@ -56,7 +56,25 @@ namespace Smuxi.Frontend.Stfl
                 return _UI;
             }
         }
-        
+
+        public string InputLabel {
+            get {
+                return this["input_label_text"];
+            }
+            set {
+                this["input_label_text"] = String.Format("{0} ", value);
+            }
+        }
+
+        public string NavigationLabel {
+            get {
+                return this["navigation_label_text"];
+            }
+            set {
+                this["navigation_label_text"] = value;
+            }
+        }
+
         public MainWindow() : base(null, "MainWindow.stfl")
         {
             _ChatViewManager = new ChatViewManager(this);

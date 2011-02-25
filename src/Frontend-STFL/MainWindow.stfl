@@ -18,12 +18,12 @@ vbox
     .expand:0 .height:1
     @style_normal:fg=white,bg=blue
     label
-      text[navigation_label_text]:"Test"
+      text[navigation_label_text]:"Navigation"
   hbox[input_hbox]
     .expand:0 .height:1
     label[input_label]
       .expand:0
-      text[input_label_text]:"[smuxi] "
+      text[input_label_text]:"[Chat] "
     !input[input]
       on_TAB:TAB
       on_^1:CTRL1
