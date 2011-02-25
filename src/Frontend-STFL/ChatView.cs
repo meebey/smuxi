@@ -220,16 +220,17 @@ namespace Smuxi.Frontend.Stfl
                         tags.Add("i");
                     }
 
+                    string escapedText = StflApi.EscapeRichText(txtPart.Text);
                     if (tags.Count > 0) {
                         tags.Reverse();
-                        string markup = txtPart.Text;
+                        string markup = escapedText;
                         foreach (string tag in tags) {
                             markup = String.Format("<{0}>{1}</{2}>",
                                                    tag, markup, tag);
                         }
                         line.Append(markup);
                     } else {
-                        line.Append(txtPart.Text);
+                        line.Append(escapedText);
                     }
                     msgLength += txtPart.Text.Length;
                 }

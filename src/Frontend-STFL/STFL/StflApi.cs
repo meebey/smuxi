@@ -39,6 +39,28 @@ namespace Stfl
 #if LOG4NET
         private static readonly log4net.ILog f_Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 #endif
+        static bool IsXterm { get; set; }
+        static string EscapeLessThanCharacter  { get; set; }
+        static string EscapeGreaterThanCharacter { get; set; }
+
+        static StflApi()
+        {
+            IsXterm = Environment.GetEnvironmentVariable("TERM") == "xterm";
+            if (IsXterm) {
+                // U+2039 SINGLE LEFT-POINTING ANGLE QUOTATION MARK
+                EscapeLessThanCharacter = Encoding.UTF8.GetString(
+                    new byte[] {0xE2, 0x80, 0xB9}
+                );
+                // U+203A SINGLE RIGHT-POINTING ANGLE QUOTATION MARK
+                EscapeGreaterThanCharacter = Encoding.UTF8.GetString(
+                    new byte[] {0xE2, 0x80, 0xBA}
+                );
+            } else {
+                // ASCII-safe version
+                EscapeLessThanCharacter = "(";
+                EscapeGreaterThanCharacter = ")";
+            }
+        }
 
         public static IntPtr ToUnixWideCharacters(string text)
         {
@@ -54,6 +76,15 @@ namespace Stfl
                 return null;
             }
             return UnixMarshal.PtrToString(text, Encoding.UTF32);
+        }
+
+        public static string EscapeRichText(string text)
+        {
+            // HACK: STFL has no support to escape "<" or ">" but uses
+            // them for style control, thus we have to replace them
+            text = text.Replace("<", EscapeLessThanCharacter);
+            text = text.Replace(">", EscapeGreaterThanCharacter);
+            return text;
         }
 
         [DllImport("stflsharp")]
