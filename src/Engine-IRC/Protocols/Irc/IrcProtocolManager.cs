@@ -2622,6 +2622,7 @@ namespace Smuxi.Engine
 
                 if (groupChat == null) {
                     groupChat = new GroupChatModel(e.Channel, e.Channel, this);
+                    groupChat.UnsafePersonsComparer = StringComparer.OrdinalIgnoreCase;
                     Session.AddChat(groupChat);
                 } else {
                     // chat still exists, so we we only need to enable it

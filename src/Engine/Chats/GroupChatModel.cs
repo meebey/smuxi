@@ -40,7 +40,7 @@ namespace Smuxi.Engine
 #endif
         //private Hashtable _Persons = Hashtable.Synchronized(new Hashtable());
         // shouldn't need threadsafe wrapper, only the "owning" IRC thread should write to it
-        private IDictionary<string, PersonModel> _Persons = new Dictionary<string, PersonModel>();
+        private Dictionary<string, PersonModel>  _Persons = new Dictionary<string, PersonModel>();
         private bool                             _IsSynced;
         // HACK: IRC specific?
         private MessageModel _Topic;
@@ -80,7 +80,7 @@ namespace Smuxi.Engine
                     if (_Persons.Count == 0) {
                         return null;
                     }
-                    return new Dictionary<string, PersonModel>(_Persons);
+                    return new Dictionary<string, PersonModel>(_Persons, _Persons.Comparer);
                 }
             }
         }
@@ -94,6 +94,23 @@ namespace Smuxi.Engine
             }
         }
         
+        public IEqualityComparer<string> UnsafePersonsComparer {
+            get {
+                lock (_Persons) {
+                    return _Persons.Comparer;
+                }
+            }
+            set {
+                if (value == null) {
+                    return;
+                }
+
+                lock (_Persons) {
+                    _Persons = new Dictionary<string, PersonModel>(_Persons, value);
+                }
+            }
+        }
+
         public int PersonCount {
             get {
                 if (_PersonCount != -1) {
@@ -128,7 +145,7 @@ namespace Smuxi.Engine
             }
             
             PersonModel personModel;
-            _Persons.TryGetValue(id.ToLower(), out personModel);
+            _Persons.TryGetValue(id, out personModel);
             return personModel;
         }
         
