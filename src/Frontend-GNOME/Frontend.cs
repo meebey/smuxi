@@ -30,6 +30,7 @@ using System;
 using System.IO;
 using System.Threading;
 using System.Reflection;
+using SysDiag = System.Diagnostics;
 using Smuxi.Engine;
 using Smuxi.Common;
 
@@ -516,7 +517,14 @@ namespace Smuxi.Frontend.Gnome
             CrashDialog cd = new CrashDialog(parent, ex);
             cd.Run();
             cd.Destroy();
-            
+
+            if (SysDiag.Debugger.IsAttached) {
+                // allow the debugger to examine the situation
+                //SysDiag.Debugger.Break();
+                // HACK: Break() would be nicer but crashes the runtime
+                throw ex;
+            }
+
             Quit();
         }
         
