@@ -122,7 +122,8 @@ namespace Smuxi.Engine
             get {
 #if LOG4NET
                 var repo = log4net.LogManager.GetRepository();
-                return repo.Threshold >= log4net.Core.Level.Debug;
+                // info is higher than debug
+                return repo.Threshold <= log4net.Core.Level.Debug;
 #else
                 return false;
 #endif
