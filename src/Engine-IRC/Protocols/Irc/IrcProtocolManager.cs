@@ -1965,7 +1965,9 @@ namespace Smuxi.Engine
         {
             Regex regex;
             // First check to see if our current nick is in there.
-            regex = new Regex(String.Format("(^|\\W){0}($|\\W)", _IrcClient.Nickname), RegexOptions.IgnoreCase);
+            regex = new Regex(String.Format("(^|\\W){0}($|\\W)",
+                                            Regex.Escape(_IrcClient.Nickname)),
+                              RegexOptions.IgnoreCase);
             if (regex.Match(msg).Success) {
                 return true;
             } else {
