@@ -263,6 +263,7 @@ namespace Smuxi.Frontend.Gnome
             Gtk.ImageMenuItem close_item = new Gtk.ImageMenuItem(Gtk.Stock.Close, null);
             close_item.Activated += new EventHandler(OnTabMenuCloseActivated);  
             _TabMenu.Append(close_item);
+            _TabMenu.ShowAll();
             
             //FocusChild = _OutputTextView;
             //CanFocus = false;
@@ -477,7 +478,6 @@ namespace Smuxi.Frontend.Gnome
             
             if (e.Event.Button == 3) {
                 _TabMenu.Popup(null, null, null, e.Event.Button, e.Event.Time);
-                _TabMenu.ShowAll();
             } else if (e.Event.Button == 2) {
                 Close();
             }

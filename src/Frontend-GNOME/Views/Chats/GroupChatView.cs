@@ -527,7 +527,6 @@ namespace Smuxi.Frontend.Gnome
             if (e.Event.Key == Gdk.Key.Menu &&
                 _PersonTreeView.Selection.CountSelectedRows() > 0) {
                 _PersonMenu.Popup(null, null, null, 0, e.Event.Time);
-                _PersonMenu.ShowAll();
             }
         }
 
@@ -546,7 +545,6 @@ namespace Smuxi.Frontend.Gnome
                 // 0 == left mouse button here
                 //_PersonMenu.Popup(null, null, null, e.Event.Button, e.Event.Time);
                 _PersonMenu.Popup(null, null, null, 0, e.Event.Time);
-                _PersonMenu.ShowAll();
             }
         }
         

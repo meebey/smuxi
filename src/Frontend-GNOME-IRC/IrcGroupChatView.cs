@@ -396,6 +396,8 @@ namespace Smuxi.Frontend.Gnome
             );
             invite_to_item.Submenu = invite_to_menu_item;
             PersonMenu.Append(invite_to_item);
+
+            PersonMenu.ShowAll();
         }
 
         protected override int SortPersonListStore(Gtk.TreeModel model,
