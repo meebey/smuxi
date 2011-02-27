@@ -53,8 +53,10 @@ namespace Smuxi.Frontend.Gnome
         private ChatViewManager  _ChatViewManager;
         private IFrontendUI      _UI;
         private EngineManager    _EngineManager;
+        private Gtk.ImageMenuItem _OpenChatMenuItem;
         private Gtk.MenuItem     _CloseChatMenuItem;
         private Gtk.ImageMenuItem _OpenLogChatMenuItem;
+        private Gtk.ImageMenuItem _FindGroupChatMenuItem;
         private NotificationAreaIconMode _NotificationAreaIconMode;
 #if GTK_SHARP_2_10
         private StatusIconManager _StatusIconManager;
@@ -261,15 +263,17 @@ namespace Smuxi.Frontend.Gnome
             item.Submenu = menu;
             _MenuBar.Append(item);
             
-            image_item = new Gtk.ImageMenuItem(_("Open / Join Chat"));
-            image_item.Image = new Gtk.Image(Gtk.Stock.Open, Gtk.IconSize.Menu);
-            image_item.Activated += OnChatOpenChatButtonClicked;
-            menu.Append(image_item);
+            _OpenChatMenuItem = new Gtk.ImageMenuItem(_("Open / Join Chat"));
+            _OpenChatMenuItem.Image = new Gtk.Image(Gtk.Stock.Open, Gtk.IconSize.Menu);
+            _OpenChatMenuItem.Activated += OnChatOpenChatButtonClicked;
+            _OpenChatMenuItem.Sensitive = false;
+            menu.Append(_OpenChatMenuItem);
                     
-            image_item = new Gtk.ImageMenuItem(_("_Find Group Chat"));
-            image_item.Image = new Gtk.Image(Gtk.Stock.Find, Gtk.IconSize.Menu);
-            image_item.Activated += OnChatFindGroupChatButtonClicked;
-            menu.Append(image_item);
+            _FindGroupChatMenuItem = new Gtk.ImageMenuItem(_("_Find Group Chat"));
+            _FindGroupChatMenuItem.Image = new Gtk.Image(Gtk.Stock.Find, Gtk.IconSize.Menu);
+            _FindGroupChatMenuItem.Activated += OnChatFindGroupChatButtonClicked;
+            _FindGroupChatMenuItem.Sensitive = false;
+            menu.Append(_FindGroupChatMenuItem);
             
             image_item = new Gtk.ImageMenuItem(_("C_lear All Activity"));
             image_item.Image = new Gtk.Image(Gtk.Stock.Clear, Gtk.IconSize.Menu);
@@ -717,8 +721,16 @@ namespace Smuxi.Frontend.Gnome
             try {
                 OpenChatDialog dialog = new OpenChatDialog(this);
                 int res = dialog.Run();
-                
-                IProtocolManager manager = Frontend.FrontendManager.CurrentProtocolManager;
+
+                var chatView = Notebook.CurrentChatView;
+                if (chatView == null) {
+                    return;
+                }
+
+                var manager = chatView.ChatModel.ProtocolManager;
+                if (manager == null) {
+                    return;
+                }
                 ChatModel chat;
                 switch (dialog.ChatType) {
                     case ChatType.Group:
@@ -761,7 +773,16 @@ namespace Smuxi.Frontend.Gnome
             Trace.Call(sender, e);
             
             try {
-                IProtocolManager manager = Frontend.FrontendManager.CurrentProtocolManager;
+                var chatView = Notebook.CurrentChatView;
+                if (chatView == null) {
+                    return;
+                }
+
+                var manager = chatView.ChatModel.ProtocolManager;
+                if (manager == null) {
+                    return;
+                }
+
                 FindGroupChatDialog dialog = new FindGroupChatDialog(
                     this, manager
                 );
@@ -920,10 +941,17 @@ namespace Smuxi.Frontend.Gnome
             Trace.Call(sender, e);
             
             try {
-                _CloseChatMenuItem.Sensitive = !(_Notebook.CurrentChatView is SessionChatView);
+                var chatView = Notebook.CurrentChatView;
+                if (chatView == null) {
+                    return;
+                }
+
+                _OpenChatMenuItem.Sensitive = !(chatView is SessionChatView);
+                _CloseChatMenuItem.Sensitive = !(chatView is SessionChatView);
+                _FindGroupChatMenuItem.Sensitive = !(chatView is SessionChatView);
                 if (Frontend.IsLocalEngine) {
                     _OpenLogChatMenuItem.Sensitive =
-                        File.Exists(_Notebook.CurrentChatView.ChatModel.LogFile);
+                        File.Exists(chatView.ChatModel.LogFile);
                 }
             } catch (Exception ex) {
                 Frontend.ShowException(this, ex);
