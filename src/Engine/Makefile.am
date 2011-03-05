@@ -58,6 +58,8 @@ FILES = \
 	Session.cs \
 	SessionManager.cs \
 	TextColor.cs \
+	TextColorContrast.cs \
+	TextColorTools.cs \
 	UICommand.cs \
 	UICommandContainer.cs \
 	Messages/MessageBuilder.cs \

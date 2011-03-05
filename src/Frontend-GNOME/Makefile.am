@@ -105,8 +105,7 @@ FILES = \
 	SplashScreenWindow.cs \
 	ChatTypeWidget.cs \
 	ChatViewManager.cs \
-	ColorTools.cs \
-	ColorContrast.cs \
+	ColorConverter.cs \
 	NotifyManager.cs \
 	PangoTools.cs \
 	Preferences/ServerListView.cs \
