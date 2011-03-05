@@ -57,16 +57,7 @@ namespace Smuxi.Frontend.Stfl
 
         public int Position {
             get {
-                int pos;
-                if (Int32.TryParse(f_MainWindow["input_pos"], out pos)) {
-                    return pos;
-                } else {
-                    // at startup, if we didn't type in anything into
-                    // input this will return an empty string
-                    // but we can return 0
-                    return 0;
-                }
-
+                return Int32.Parse(f_MainWindow["input_pos"]);
             }
             set {
                 f_MainWindow["input_pos"] = value.ToString();

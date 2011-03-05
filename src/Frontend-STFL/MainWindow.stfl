@@ -42,4 +42,4 @@ vbox
       on_^_:CTRL7
       on_^]:CTRL5
       text[input_text]:
-      pos[input_pos]:
+      pos[input_pos]:"0"
