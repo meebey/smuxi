@@ -54,6 +54,24 @@ namespace Smuxi.Frontend.Stfl
                 f_MainWindow["input_text"] = value;
             }
         }
+
+        public int Position {
+            get {
+                int pos;
+                if (Int32.TryParse(f_MainWindow["input_pos"], out pos)) {
+                    return pos;
+                } else {
+                    // at startup, if we didn't type in anything into
+                    // input this will return an empty string
+                    // but we can return 0
+                    return 0;
+                }
+
+            }
+            set {
+                f_MainWindow["input_pos"] = value.ToString();
+            }
+        }
         
         public Entry(MainWindow mainWindow, ChatViewManager chatViewManager)
         {
@@ -93,6 +111,9 @@ namespace Smuxi.Frontend.Stfl
                     break;
                 case "kNXT5": // CTRL + PAGE DOWN
                     f_ChatViewManager.CurrentChatNumber++;
+                    break;
+                case "^W":
+                    DeleteUntilSpace();
                     break;
             }
         }
@@ -187,6 +208,40 @@ namespace Smuxi.Frontend.Stfl
                                 String.Format(Catalog.GetString(
                                               "Unknown Command: {0}"),
                                               cd.Command));
+        }
+
+        private void DeleteUntilSpace()
+        {
+            int end = Position;
+
+            // nothing to delete, if we are at the very beginning
+            if (end == 0) {
+                return;
+            }
+
+            int start;
+
+            // are the first characters spaces?
+            bool firstSpace = true;
+
+            for (start = end; start > 0; start--) {
+                if (start >= Text.Length) {
+                    continue;
+                } else if (Text[start] == ' ') {
+                    if (firstSpace) {
+                        continue;
+                    } else {
+                        start++; // don't cut the last char
+                        break;
+                    }
+                } else {
+                    firstSpace = false;
+                }
+            }
+
+            Text = Text.Substring(0, start) + Text.Substring(end);
+
+            Position = start;
         }
     }
 }
