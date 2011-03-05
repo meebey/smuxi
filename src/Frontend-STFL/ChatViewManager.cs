@@ -118,7 +118,18 @@ namespace Smuxi.Frontend.Stfl
 
         public override void RemoveChat(ChatModel chat)
         {
+            var chatView = GetChat(chat);
+            chatView.IsVisible = false;
+
+            if (CurrentChat == chatView) {
+                CurrentChatNumber--;
+            }
+
+            chatView.Dispose();
             f_ChatViews.Remove(chat);
+            f_ChatViewList.Remove(chatView);
+
+            UpdateNavigation();
         }
         
         public override void EnableChat(ChatModel chat)

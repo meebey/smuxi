@@ -88,7 +88,13 @@ namespace Smuxi.Frontend.Stfl
         {
             Trace.Call(chat);
             
-            //Console.WriteLine("Removed page: "+page.Name+" type: "+page.ChatType);
+            try {
+                _ChatViewManager.RemoveChat(chat);
+            } catch (Exception ex) {
+#if LOG4NET
+                _Logger.Fatal(ex);
+#endif
+            }
         }
         
         public void EnableChat(ChatModel chat)

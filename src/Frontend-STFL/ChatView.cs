@@ -41,7 +41,7 @@ namespace Smuxi.Frontend.Stfl
     [ChatViewInfo(ChatType = ChatType.Protocol)]
     [ChatViewInfo(ChatType = ChatType.Person)]
     [ChatViewInfo(ChatType = ChatType.Group)]
-    public class ChatView : IChatView
+    public class ChatView : IChatView, IDisposable
     {
 #if LOG4NET
         static readonly log4net.ILog _Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
@@ -164,6 +164,22 @@ namespace Smuxi.Frontend.Stfl
             );
         }
         
+        ~ChatView()
+        {
+            Dispose(false);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            f_MainWindow.Modify(f_WidgetName, "delete", null);
+        }
+
+        public virtual void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
         public virtual void Enable()
         {
             Trace.Call();
