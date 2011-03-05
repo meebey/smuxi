@@ -100,20 +100,49 @@ namespace Smuxi.Frontend.Stfl
         public void EnableChat(ChatModel chat)
         {
             Trace.Call(chat);
+
+            try {
+                _ChatViewManager.EnableChat(chat);
+            } catch (Exception ex) {
+#if LOG4NET
+                _Logger.Fatal(ex);
+#endif
+            }
         }
         
         public void DisableChat(ChatModel chat)
         {
             Trace.Call(chat);
+
+            try {
+                _ChatViewManager.DisableChat(chat);
+            } catch (Exception ex) {
+#if LOG4NET
+                _Logger.Fatal(ex);
+#endif
+            }
         }
         
         public void SyncChat(ChatModel chat)
         {
             Trace.Call(chat);
             
-            //Console.WriteLine("Synced page: "+page.Name+" type: "+page.ChatType);
-            // HACK: fake that we synced the chat, else we get no messages
-            Frontend.FrontendManager.AddSyncedChat(chat);
+            try {
+                var chatView = _ChatViewManager.GetChat(chat);
+#if LOG4NET
+                if (chatView == null) {
+                    _Logger.Fatal(String.Format("SyncChat(): _ChatViewManager.GetChat(chat) chat.Name: {0} returned null!", chat.Name));
+                    return;
+                }
+#endif
+                chatView.Sync();
+
+                Frontend.FrontendManager.AddSyncedChat(chat);
+            } catch (Exception ex) {
+#if LOG4NET
+                _Logger.Fatal(ex);
+#endif
+            }
         }
         
         public void AddPersonToGroupChat(GroupChatModel groupChat, PersonModel person)
