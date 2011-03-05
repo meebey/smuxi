@@ -188,7 +188,7 @@ namespace Smuxi.Frontend.Gnome
             if (_ThemeSettings.BackgroundColor != null) {
                 bgColor = _ThemeSettings.BackgroundColor.Value;
             }
-            TextColor bgTextColor = ColorTools.GetTextColor(bgColor);
+            TextColor bgTextColor = ColorConverter.GetTextColor(bgColor);
 
             if (_ShowTimestamps) {
                 DateTime localTimestamp = msg.TimeStamp.ToLocalTime();
@@ -217,12 +217,12 @@ namespace Smuxi.Frontend.Gnome
                         // get best contrast for the event font color
                         Gtk.TextTag eventTag = _MessageTextTagTable.Lookup("event");
                         Gdk.Color eventColor = eventTag.ForegroundGdk;
-                        TextColor eventTextColor = ColorTools.GetBestTextColor(
-                            ColorTools.GetTextColor(eventColor),
+                        TextColor eventTextColor = TextColorTools.GetBestTextColor(
+                            ColorConverter.GetTextColor(eventColor),
                             bgTextColor,
-                            ColorContrast.High
+                            TextColorContrast.High
                         );
-                        eventTag.ForegroundGdk = ColorTools.GetGdkColor(
+                        eventTag.ForegroundGdk = ColorConverter.GetGdkColor(
                             eventTextColor
                         );
                         Buffer.InsertWithTagsByName(ref iter, timestamp, "event");
@@ -246,10 +246,10 @@ namespace Smuxi.Frontend.Gnome
                     Gtk.TextTag urlTag = _MessageTextTagTable.Lookup("url");
                     Gdk.Color urlColor = urlTag.ForegroundGdk;
                     //Console.WriteLine("urlColor: " + urlColor);
-                    TextColor urlTextColor = ColorTools.GetTextColor(urlColor);
-                    urlTextColor = ColorTools.GetBestTextColor(urlTextColor, bgTextColor);
+                    TextColor urlTextColor = ColorConverter.GetTextColor(urlColor);
+                    urlTextColor = TextColorTools.GetBestTextColor(urlTextColor, bgTextColor);
                     //Console.WriteLine("GetBestTextColor({0}, {1}): {2}",  urlColor, bgTextColor, urlTextColor);
-                    urlTag.ForegroundGdk = ColorTools.GetGdkColor(urlTextColor);
+                    urlTag.ForegroundGdk = ColorConverter.GetGdkColor(urlTextColor);
                     Buffer.InsertWithTagsByName(ref iter, fmsgui.Url, "url");
                 } else if (msgPart is TextMessagePartModel) {
                     TextMessagePartModel fmsgti = (TextMessagePartModel) msgPart;
@@ -259,7 +259,9 @@ namespace Smuxi.Frontend.Gnome
                         if (fmsgti.BackgroundColor != TextColor.None) {
                             bg = fmsgti.BackgroundColor;
                         }
-                        TextColor color = ColorTools.GetBestTextColor(fmsgti.ForegroundColor, bg);
+                        TextColor color = TextColorTools.GetBestTextColor(
+                            fmsgti.ForegroundColor, bg
+                        );
                         //Console.WriteLine("GetBestTextColor({0}, {1}): {2}",  fmsgti.ForegroundColor, bgTextColor, color);
                         string tagname = GetTextTagName(color, null);
                         //string tagname = _GetTextTagName(fmsgti.ForegroundColor, null);

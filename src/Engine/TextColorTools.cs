@@ -1,13 +1,7 @@
 /*
- * $Id: ChannelPage.cs 138 2006-12-23 17:11:57Z meebey $
- * $URL: svn+ssh://svn.qnetp.net/svn/smuxi/smuxi/trunk/src/Frontend-GNOME/ChannelPage.cs $
- * $Rev: 138 $
- * $Author: meebey $
- * $Date: 2006-12-23 18:11:57 +0100 (Sat, 23 Dec 2006) $
- *
  * Smuxi - Smart MUltipleXed Irc
  *
- * Copyright (c) 2008 Mirco Bauer <meebey@meebey.net>
+ * Copyright (c) 2008-2011 Mirco Bauer <meebey@meebey.net>
  *
  * Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
  *
@@ -30,75 +24,30 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using Smuxi.Common;
-using Smuxi.Engine;
 
-namespace Smuxi.Frontend.Gnome
+namespace Smuxi.Engine
 {
-    public static class ColorTools
+    public static class TextColorTools
     {
 #if LOG4NET
         private static readonly log4net.ILog f_Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 #endif
         private static Dictionary<int, TextColor> f_BestContrastColors;
 
-        static ColorTools() {
+        static TextColorTools()
+        {
             f_BestContrastColors = new Dictionary<int, TextColor>(1024);
-        }
-
-        public static string GetHexCodeColor(Gdk.Color color)
-        {
-            /*
-            // this approach is changing the color instead of converting it, as byte wraps
-            string hexcode = String.Format("{0}{1}{2}",
-                                           ((byte) color.Red).ToString("X2"),
-                                           ((byte) color.Green).ToString("X2"),
-                                           ((byte) color.Blue).ToString("X2"));
-            */
-            string hexcode = String.Format("#{0}{1}{2}",
-                                           (color.Red >> 8).ToString("X2"),
-                                           (color.Green >> 8).ToString("X2"),
-                                           (color.Blue >> 8).ToString("X2"));
-            return hexcode;
-        }
-        
-        public static TextColor GetTextColor(Gdk.Color color)
-        {
-            string hexcode = GetHexCodeColor(color);
-            // remove leading "#" character
-            hexcode = hexcode.Substring(1);
-            int value  = Int32.Parse(hexcode, NumberStyles.HexNumber);
-            return new TextColor(value);
-        }
-        
-        public static Gdk.Color GetGdkColor(TextColor textColor)
-        {
-            if (textColor == null) {
-                throw new ArgumentNullException("textColor");
-            }
-
-            return GetGdkColor(textColor.HexCode);
-        }
-
-        public static Gdk.Color GetGdkColor(string hexCode)
-        {
-            Trace.Call(hexCode);
-
-            var color = TextColor.Parse(hexCode);
-            return new Gdk.Color(color.Red, color.Green, color.Blue);
         }
 
         public static TextColor GetBestTextColor(TextColor fgColor, TextColor bgColor)
         {
-            return GetBestTextColor(fgColor, bgColor, ColorContrast.Medium);
+            return GetBestTextColor(fgColor, bgColor, TextColorContrast.Medium);
         }
 
         public static TextColor GetBestTextColor(TextColor fgColor,
                                                  TextColor bgColor,
-                                                 ColorContrast neededContrast)
+                                                 TextColorContrast neededContrast)
         {
-            // logging noise
-            //Trace.Call(fgColor, bgColor, neededContrast);
-
             if (fgColor == null) {
                 throw new ArgumentNullException("fgColor");
             }

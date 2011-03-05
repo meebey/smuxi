@@ -1,5 +1,3 @@
-// $Id$
-//
 // Smuxi - Smart MUltipleXed Irc
 //
 // Copyright (c) 2009 Mirco Bauer <meebey@meebey.net>
@@ -23,12 +21,11 @@
 using System;
 using System.Collections.Generic;
 using NUnit.Framework;
-using Smuxi.Engine;
 
-namespace Smuxi.Frontend.Gnome
+namespace Smuxi.Engine
 {
     [TestFixture]
-    public class ColorToolsTests
+    public class TextColorToolsTests
     {
         [Test]
         public void GetBestTextColorPerformance()
@@ -81,8 +78,8 @@ namespace Smuxi.Frontend.Gnome
                 );
             }
 
-            // warmup the ColorTools cache (trigger static ctors)
-            ColorTools.GetGdkColor("#000000");
+            // warmup the TextColorTools cache (trigger static ctors)
+            TextColorTools.GetBestTextColor(TextColor.Black, TextColor.Black);
 
             DateTime dstart = DateTime.UtcNow;
             DateTime dstop = DateTime.UtcNow;
@@ -91,8 +88,9 @@ namespace Smuxi.Frontend.Gnome
             foreach (var colorCombination in colorCombinations) {
                 DateTime start, stop;
                 start = DateTime.UtcNow;
-                var best = ColorTools.GetBestTextColor(colorCombination.Key,
-                                                       colorCombination.Value);
+                var best = TextColorTools.GetBestTextColor(
+                    colorCombination.Key, colorCombination.Value
+                );
                 stop = DateTime.UtcNow;
                 Console.WriteLine(
                     "GetBestTextColor(): #{0:00} {1}|{2}={3}  took: {4:0.00} ms",

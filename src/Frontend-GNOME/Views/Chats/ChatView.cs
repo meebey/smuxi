@@ -94,11 +94,11 @@ namespace Smuxi.Frontend.Gnome
                     return;
                 }
 
-                var color = ColorTools.GetBestTextColor(
-                    ColorTools.GetTextColor(_ThemeSettings.HighlightColor),
-                    ColorTools.GetTextColor(
+                var color = TextColorTools.GetBestTextColor(
+                    ColorConverter.GetTextColor(_ThemeSettings.HighlightColor),
+                    ColorConverter.GetTextColor(
                         Gtk.Rc.GetStyle(_TabLabel).Base(Gtk.StateType.Normal)
-                    ), ColorContrast.High
+                    ), TextColorContrast.High
                 );
 
                 if (HighlightCount > 1) {
@@ -137,11 +137,11 @@ namespace Smuxi.Frontend.Gnome
                 } else {
                     colorValue = _ThemeSettings.NoActivityColor;
                 }
-                var color = ColorTools.GetBestTextColor(
-                    ColorTools.GetTextColor(colorValue),
-                    ColorTools.GetTextColor(
+                var color = TextColorTools.GetBestTextColor(
+                    ColorConverter.GetTextColor(colorValue),
+                    ColorConverter.GetTextColor(
                         Gtk.Rc.GetStyle(_TabLabel).Base(Gtk.StateType.Normal)
-                    ), ColorContrast.High
+                    ), TextColorContrast.High
                 );
                 _TabLabel.Markup = String.Format(
                     "<span foreground=\"{0}\">{1}</span>",
@@ -169,11 +169,11 @@ namespace Smuxi.Frontend.Gnome
                     return;
                 }
 
-                var color = ColorTools.GetBestTextColor(
-                    ColorTools.GetTextColor(_ThemeSettings.EventColor),
-                    ColorTools.GetTextColor(
+                var color = TextColorTools.GetBestTextColor(
+                    ColorConverter.GetTextColor(_ThemeSettings.EventColor),
+                    ColorConverter.GetTextColor(
                         Gtk.Rc.GetStyle(_TabLabel).Base(Gtk.StateType.Normal)
-                    ), ColorContrast.High
+                    ), TextColorContrast.High
                 );
                 _TabLabel.Markup = String.Format(
                     "<span foreground=\"{0}\">{1}</span>",

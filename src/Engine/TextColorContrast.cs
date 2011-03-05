@@ -1,5 +1,3 @@
-// $Id$
-// 
 // Smuxi - Smart MUltipleXed Irc
 // 
 // Copyright (c) 2010 Mirco Bauer <meebey@meebey.net>
@@ -22,9 +20,9 @@
 
 using System;
 
-namespace Smuxi.Frontend.Gnome
+namespace Smuxi.Engine
 {
-    public enum ColorContrast : int
+    public enum TextColorContrast : int
     {
         None     = 0,
         VeryLow  = 10,

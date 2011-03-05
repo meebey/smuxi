@@ -20,6 +20,7 @@
     <File subtype="Code" buildaction="Compile" name="ChatModelTests.cs" />
     <File subtype="Code" buildaction="Compile" name="TestProtocolManager.cs" />
     <File subtype="Code" buildaction="Compile" name="CommandModelTests.cs" />
+    <File subtype="Code" buildaction="Compile" name="TextColorToolsTests.cs" />
   </Contents>
   <References>
     <ProjectReference type="Gac" localcopy="True" refto="System, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />

@@ -65,12 +65,13 @@ namespace Smuxi.Frontend.Gnome
                     
                     Gdk.Color gdkColor = Gdk.Color.Zero;
                     Gdk.Color.Parse("darkblue", ref gdkColor);
-                    TextColor urlColor = ColorTools.GetTextColor(gdkColor);
+                    TextColor urlColor = ColorConverter.GetTextColor(gdkColor);
                     if (bgColor != null) {
                         // we have a bg color so lets try to get a url color
                         // with a good contrast
-                        urlColor = ColorTools.GetBestTextColor(
-                            urlColor, ColorTools.GetTextColor(bgColor.Value));
+                        urlColor = TextColorTools.GetBestTextColor(
+                            urlColor, ColorConverter.GetTextColor(bgColor.Value)
+                        );
                     }
 
                     str = String.Format("<span color='#{0}'><u>{1}</u></span>",
@@ -87,9 +88,12 @@ namespace Smuxi.Frontend.Gnome
                         if (bgColor == null) {
                             fgColor = text.ForegroundColor;
                         } else {
-                            var bgTextColor = ColorTools.GetTextColor(bgColor.Value);
-                            fgColor = ColorTools.GetBestTextColor(
-                                text.ForegroundColor, bgTextColor);
+                            var bgTextColor = ColorConverter.GetTextColor(
+                                bgColor.Value
+                            );
+                            fgColor = TextColorTools.GetBestTextColor(
+                                text.ForegroundColor, bgTextColor
+                            );
                         }
                         tags.Add(String.Format("span color='#{0}'",
                                                 fgColor.HexCode));
