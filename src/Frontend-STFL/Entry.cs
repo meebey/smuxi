@@ -83,10 +83,10 @@ namespace Smuxi.Frontend.Stfl
                     OnActivated(EventArgs.Empty);
                     break;
                 case "PPAGE":
-                    f_MainWindow.ChatViewManager.ActiveChat.ScrollUp();
+                    f_ChatViewManager.ActiveChat.ScrollUp();
                     break;
                 case "NPAGE":
-                    f_MainWindow.ChatViewManager.ActiveChat.ScrollDown();
+                    f_ChatViewManager.ActiveChat.ScrollDown();
                     break;
                 case "kPRV5": // CTRL + PAGE UP
                     f_ChatViewManager.CurrentChatNumber--;
