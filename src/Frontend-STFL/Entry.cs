@@ -114,6 +114,9 @@ namespace Smuxi.Frontend.Stfl
                 case "kLFT5":
                     JumpWord(true);
                     break;
+                case "^D":
+                    DeleteChar();
+                    break;
             }
         }
 
@@ -292,6 +295,12 @@ namespace Smuxi.Frontend.Stfl
             } else {
                 Position = GetRightSpace(Position);
             }
+        }
+
+        private void DeleteChar()
+        {
+            Text = Text.Substring(0, Position) +
+                   Text.Substring(Math.Min(Position + 1, Text.Length));
         }
     }
 }
