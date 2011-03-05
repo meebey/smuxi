@@ -78,11 +78,22 @@ namespace Stfl
             }
         }
 
-        public virtual void Dispose()
+        ~Form()
+        {
+            Dispose(false);
+        }
+
+        protected virtual void Dispose(bool disposing)
         {
             if (f_Handle != IntPtr.Zero) {
                 StflApi.stfl_free(f_Handle);
             }
+        }
+
+        public virtual void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
         }
 
         public virtual void Run(int timeout)
