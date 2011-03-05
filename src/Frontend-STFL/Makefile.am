@@ -112,10 +112,12 @@ STFL_DLL = $(BUILD_DIR)/Stfl.dll
 SMUXI_FRONTEND_DLL = $(BUILD_DIR)/smuxi-frontend.dll
 SMUXI_COMMON_DLL = $(BUILD_DIR)/smuxi-common.dll
 
+if ENABLE_STATIC_STFL
 STFLSHARP_SO_SOURCE = $(builddir)/STFL/libstflsharp.so
 STFLSHARP_SO = $(BUILD_DIR)/libstflsharp.so
 
 build_datafiles = $(STFLSHARP_SO)
+endif
 
 $(eval $(call emit-deploy-wrapper,FRONTEND_STFL,smuxi-frontend-stfl,x))
 $(eval $(call emit-deploy-target,SMUXI_ENGINE_DLL_MDB))
@@ -123,7 +125,9 @@ $(eval $(call emit-deploy-target,SMUXI_ENGINE_DLL))
 $(eval $(call emit-deploy-target,SMUXI_FRONTEND_DLL_MDB))
 $(eval $(call emit-deploy-target,SMUXI_FRONTEND_DLL))
 $(eval $(call emit-deploy-target,SMUXI_COMMON_DLL))
+if ENABLE_STATIC_STFL
 $(eval $(call emit-deploy-target,STFLSHARP_SO))
+endif
 
 $(build_xamlg_list): %.xaml.g.cs: %.xaml
 	xamlg '$<'
