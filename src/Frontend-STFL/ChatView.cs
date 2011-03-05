@@ -61,14 +61,9 @@ namespace Smuxi.Frontend.Stfl
 
         public bool IsVisible {
             get {
-                return f_MainWindow[f_WidgetName + "_display"] == "1";
+                return f_MainWindow[f_WidgetID + "d"] == "1";
             }
             set {
-                /*
-                f_MainWindow.Modify(f_WidgetName, "replace",
-                                   ".display:" + (value ?  "1" : "0"));
-                */
-                //f_MainWindow[f_WidgetName + ":.display"] = value ?  "1" : "0";
                 f_MainWindow[f_WidgetID + "d"] = value ?  "1" : "0";
            }
         }
