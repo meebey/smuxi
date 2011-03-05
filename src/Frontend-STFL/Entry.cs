@@ -88,7 +88,13 @@ namespace Smuxi.Frontend.Stfl
                 case "NPAGE":
                     f_MainWindow.ChatViewManager.ActiveChat.ScrollDown();
                     break;
-            } 
+                case "kPRV5": // CTRL + PAGE UP
+                    f_ChatViewManager.CurrentChatNumber--;
+                    break;
+                case "kNXT5": // CTRL + PAGE DOWN
+                    f_ChatViewManager.CurrentChatNumber++;
+                    break;
+            }
         }
 
         private void OnChatSwitched(object sender, ChatSwitchedEventArgs e)

@@ -78,6 +78,22 @@ namespace Smuxi.Frontend.Stfl
             }
         }
 
+        public int CurrentChatNumber {
+            get {
+                if (CurrentChat == null) {
+                    return -1;
+                }
+                return f_ChatViewList.IndexOf(CurrentChat);
+            }
+            set {
+                if (value < 0 || value >= f_ChatViewList.Count) {
+                    return;
+                }
+
+                CurrentChat = f_ChatViewList[value];
+            }
+        }
+
         public ChatViewManager(MainWindow mainWindow)
         {
            if (mainWindow == null) {
