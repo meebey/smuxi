@@ -115,6 +115,12 @@ namespace Smuxi.Frontend.Stfl
                 case "^W":
                     DeleteUntilSpace();
                     break;
+                case "kRIT5":
+                    JumpWord(false);
+                    break;
+                case "kLFT5":
+                    JumpWord(true);
+                    break;
             }
         }
 
@@ -215,13 +221,12 @@ namespace Smuxi.Frontend.Stfl
                                               cd.Command));
         }
 
-        private void DeleteUntilSpace()
+        // gets the position of the first space left
+        private int GetLeftSpace(int end)
         {
-            int end = Position;
-
-            // nothing to delete, if we are at the very beginning
+            // we are already at the very beginning
             if (end == 0) {
-                return;
+                return 0;
             }
 
             int start;
@@ -244,9 +249,56 @@ namespace Smuxi.Frontend.Stfl
                 }
             }
 
+            return start;
+        }
+
+        private int GetRightSpace(int start)
+        {
+            bool firstSpace = true;
+
+            int end;
+            for (end = start; end < Text.Length; end++) {
+                if (Text[end] == ' ') {
+                    if (firstSpace) {
+                        continue;
+                    } else {
+                        break;
+                    }
+                } else {
+                    firstSpace = false;
+                }
+            }
+
+            return end;
+        }
+
+        private void DeleteUntilSpace()
+        {
+            int end = Position;
+
+            // nothing to delete, if we are at the very beginning
+            if (end == 0) {
+                return;
+            }
+
+            int start = GetLeftSpace(end);
+
             Text = Text.Substring(0, start) + Text.Substring(end);
 
             Position = start;
+        }
+
+        private void JumpWord(bool left)
+        {
+            if (left) {
+                int pos = GetLeftSpace(Position);
+                if (pos > 0) {
+                    pos--;
+                }
+                Position = pos;
+            } else {
+                Position = GetRightSpace(Position);
+            }
         }
     }
 }
