@@ -191,7 +191,24 @@ namespace Smuxi.Frontend.Stfl
             var manager = new EngineManager(_FrontendConfig,
                                             _MainWindow.UI);
             try {
-                manager.Connect(engine);
+                try {
+                    Console.WriteLine(
+                        _("Connecting to remote engine '{0}'..."), engine
+                    );
+                    manager.Connect(engine);
+                    Console.WriteLine(_("Connection established"));
+                } catch (Exception ex) {
+#if LOG4NET
+                    _Logger.Error(ex);
+#endif
+                    Console.WriteLine(
+                        _("Connection failed! Error: {1}"),
+                        engine,
+                        ex.Message
+                    );
+                    Environment.Exit(1);
+                }
+
                 _Session = manager.Session;
                 _UserConfig = manager.UserConfig;
                 _EngineVersion = manager.EngineVersion;
@@ -201,6 +218,7 @@ namespace Smuxi.Frontend.Stfl
                 _Logger.Error(ex);
 #endif
                 manager.Disconnect();
+                throw;
             }
         }
 
@@ -249,6 +267,11 @@ namespace Smuxi.Frontend.Stfl
         public static void ShowException(Exception ex)
         {
             //Application.Error("Error occurred!", ex.ToString());
+        }
+
+        static string _(string msg)
+        {
+            return Mono.Unix.Catalog.GetString(msg);
         }
     }
 }
