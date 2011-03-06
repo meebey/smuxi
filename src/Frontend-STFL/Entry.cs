@@ -98,9 +98,11 @@ namespace Smuxi.Frontend.Stfl
                     f_ChatViewManager.ActiveChat.ScrollDown();
                     break;
                 case "kPRV5": // CTRL + PAGE UP
+                case "^P":
                     f_ChatViewManager.CurrentChatNumber--;
                     break;
                 case "kNXT5": // CTRL + PAGE DOWN
+                case "^N":
                     f_ChatViewManager.CurrentChatNumber++;
                     break;
                 case "^W":
