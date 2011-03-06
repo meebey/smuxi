@@ -153,11 +153,11 @@ namespace Smuxi.Frontend.Stfl
             // loading and setting defaults
             _FrontendConfig.Load();
             _FrontendConfig.Save();
-           
+
             if (_FrontendConfig.IsCleanConfig) {
                 // first start assistant
             } else {
-                if (engine == "local") {
+                if (String.IsNullOrEmpty(engine) || engine == "local") {
                     InitLocalEngine();
                 } else {
                     InitRemoteEngine(engine);
