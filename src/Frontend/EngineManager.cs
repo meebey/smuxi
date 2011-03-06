@@ -114,7 +114,25 @@ namespace Smuxi.Frontend
         public void Connect(string engine)
         {
             Trace.Call(engine);
-            
+
+            if (engine == null) {
+                throw new ArgumentNullException("engine");
+            }
+            if (engine.Length == 0) {
+                throw new ArgumentException(_("Engine must not be empty."), "engine");
+            }
+
+            bool engineFound = false;
+            foreach (var entry in (string[]) f_FrontendConfig["Engines/Engines"]) {
+                if (entry == engine) {
+                    engineFound = true;
+                    break;
+                }
+            }
+            if (!engineFound) {
+                throw new ArgumentException(_("Engine does not exist."), "engine");
+            }
+
             f_Engine = engine;
             string username = (string) f_FrontendConfig["Engines/"+engine+"/Username"];
             string password = (string) f_FrontendConfig["Engines/"+engine+"/Password"];
