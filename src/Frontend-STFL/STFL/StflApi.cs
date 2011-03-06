@@ -40,13 +40,22 @@ namespace Stfl
         private static readonly log4net.ILog f_Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 #endif
         static bool IsXterm { get; set; }
+        static bool IsUtf8Locale { get; set; }
         static string EscapeLessThanCharacter  { get; set; }
         static string EscapeGreaterThanCharacter { get; set; }
 
         static StflApi()
         {
             IsXterm = Environment.GetEnvironmentVariable("TERM") == "xterm";
-            if (IsXterm) {
+            // detect UTF-8 locale according to:
+            // http://www.cl.cam.ac.uk/~mgk25/unicode.html#activate
+            var locale = Environment.GetEnvironmentVariable("LC_ALL") ??
+                         Environment.GetEnvironmentVariable("LC_LCTYPE") ??
+                         Environment.GetEnvironmentVariable("LANG") ??
+                         String.Empty;
+            locale = locale.ToUpperInvariant();
+            IsUtf8Locale = locale.Contains("UTF-8") || locale.Contains("UTF8");
+            if (IsXterm && IsUtf8Locale) {
                 // U+2039 SINGLE LEFT-POINTING ANGLE QUOTATION MARK
                 EscapeLessThanCharacter = Encoding.UTF8.GetString(
                     new byte[] {0xE2, 0x80, 0xB9}
