@@ -23,9 +23,9 @@
 using System;
 using System.IO;
 using System.Reflection;
-using Mono.Unix;
 using NDesk.Options;
 using Smuxi.Common;
+using Smuxi.Engine;
 
 namespace Smuxi.Frontend.Stfl
 { 
@@ -44,6 +44,7 @@ namespace Smuxi.Frontend.Stfl
 #endif
 
             bool debug = false;
+            bool listEngines = false;
             string engine = "local";
 
             OptionSet parser = new OptionSet();
@@ -61,6 +62,14 @@ namespace Smuxi.Frontend.Stfl
                 _("Engine to connect to"),
                 delegate (string value) {
                     engine = value;
+                }
+            );
+
+            parser.Add(
+                "l|list-engines",
+                _("List available engines"),
+                delegate (string value) {
+                    listEngines = true;
                 }
             );
 
@@ -101,6 +110,16 @@ namespace Smuxi.Frontend.Stfl
                 Environment.Exit(1);
             }
 
+            if (listEngines) {
+                Console.WriteLine(_("Available Engines:"));
+                var config = new FrontendConfig(Frontend.UIName);
+                config.Load();
+                foreach (var entry in  (string[]) config["Engines/Engines"]) {
+                    Console.WriteLine("\t{0}", entry);
+                }
+                return;
+            }
+
             try {
                 Frontend.Init(engine);
             } catch (Exception e) {
@@ -126,9 +145,9 @@ namespace Smuxi.Frontend.Stfl
 #endif
         }
 
-        private static string _(string msg)
+        static string _(string msg)
         {
-            return Catalog.GetString(msg);
+            return Mono.Unix.Catalog.GetString(msg);
         }
     }
 }
