@@ -169,6 +169,7 @@ namespace Smuxi.Frontend.Stfl
                         "style_end:\"\" " +
                         "richtext:1 " +
                         "style_red_normal:fg=red " +
+                        "style_url_normal:attr=underline " +
                         "style_u_normal:attr=underline " +
                         "style_b_normal:attr=bold " +
                         "style_i_normal:attr=standout " +
@@ -226,7 +227,12 @@ namespace Smuxi.Frontend.Stfl
             int msgLength = 0;
             foreach (MessagePartModel msgPart in msg.MessageParts) {
                 // TODO: implement other types
-                if (msgPart is TextMessagePartModel) {
+                if (msgPart is UrlMessagePartModel) {
+                    var urlPart = (UrlMessagePartModel) msgPart;
+                    var escapedUrl = StflApi.EscapeRichText(urlPart.Url);
+                    line.Append(String.Format("<url>{0}</url>", escapedUrl));
+                    msgLength += urlPart.Url.Length;
+                } else if (msgPart is TextMessagePartModel) {
                     var txtPart = (TextMessagePartModel) msgPart;
                     if (String.IsNullOrEmpty(txtPart.Text)) {
                         continue;
