@@ -128,7 +128,12 @@ namespace Smuxi.Frontend.Stfl
 
         public virtual void OnActivated(EventArgs e)
         {
-            ExecuteCommand(Text);
+            var text = Text;
+            if (String.IsNullOrEmpty(text)) {
+                return;
+            }
+
+            ExecuteCommand(text);
             
             if (Activated != null) {
                 Activated(this, EventArgs.Empty);
@@ -139,10 +144,10 @@ namespace Smuxi.Frontend.Stfl
         
         public void ExecuteCommand(string cmd)
         {
-            if (!(cmd.Length > 0)) {
-                return;
+            if (cmd == null) {
+                throw new ArgumentNullException("cmd");
             }
-            
+
             bool handled = false;
             CommandModel cd = new CommandModel(Frontend.FrontendManager,
                                                f_MainWindow.ChatViewManager.ActiveChat.ChatModel,
