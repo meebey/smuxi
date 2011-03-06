@@ -475,19 +475,27 @@ namespace Smuxi.Frontend.Gnome
         protected virtual void OnTabButtonPress(object sender, Gtk.ButtonPressEventArgs e)
         {
             Trace.Call(sender, e);
-            
-            if (e.Event.Button == 3) {
-                _TabMenu.Popup(null, null, null, e.Event.Button, e.Event.Time);
-            } else if (e.Event.Button == 2) {
-                Close();
+
+            try {
+                if (e.Event.Button == 3) {
+                    _TabMenu.Popup(null, null, null, e.Event.Button, e.Event.Time);
+                } else if (e.Event.Button == 2) {
+                    Close();
+                }
+            } catch (Exception ex) {
+                Frontend.ShowException(ex);
             }
         }
         
         protected virtual void OnTabMenuCloseActivated(object sender, EventArgs e)
         {
             Trace.Call(sender, e);
-            
-            Close();
+
+            try {
+                Close();
+            } catch (Exception ex) {
+                Frontend.ShowException(ex);
+            }
         }
         
         protected virtual void OnMessageTextViewMessageAdded(object sender, MessageTextViewMessageAddedEventArgs e)
