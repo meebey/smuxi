@@ -85,11 +85,19 @@ namespace Smuxi.Frontend.Gnome
             if (e.InnerException != null) {
                 message = "Inner-Exception Type:\n"+e.InnerException.GetType()+"\n\n"+
                           "Inner-Exception Message:\n"+e.InnerException.Message+"\n\n"+
-                          "Inner-Exception StackTrace:\n"+e.InnerException.StackTrace+"\n";
+                          "Inner-Exception StackTrace:\n"+e.InnerException.StackTrace+"\n\n";
+                if (e.StackTrace != null &&
+                    e.InnerException.StackTrace.Contains("System.Runtime.Remoting")) {
+                    message += "Inner-Exception.ToString():\n"+e.InnerException.ToString()+"\n\n";
+                }
             }
             message += "Exception Type:\n"+e.GetType()+"\n\n"+
                        "Exception Message:\n"+e.Message+"\n\n"+
-                       "Exception StackTrace:\n"+e.StackTrace;
+                       "Exception StackTrace:\n"+e.StackTrace+"\n\n";
+            if (e.StackTrace != null &&
+                e.StackTrace.Contains("System.Runtime.Remoting")) {
+                message += "Exception.ToString():\n"+e.ToString()+"\n\n";
+            }
             tv.Buffer.Text = message;
             
             ShowAll();
