@@ -1,13 +1,7 @@
 /*
- * $Id: Main.cs 183 2007-04-21 15:14:23Z meebey $
- * $URL: svn+ssh://svn.qnetp.net/svn/smuxi/smuxi/trunk/src/Frontend-GNOME/Main.cs $
- * $Rev: 183 $
- * $Author: meebey $
- * $Date: 2007-04-21 17:14:23 +0200 (Sat, 21 Apr 2007) $
- *
  * Smuxi - Smart MUltipleXed Irc
  *
- * Copyright (c) 2007 Mirco Bauer <meebey@meebey.net>
+ * Copyright (c) 2007, 2010-2011 Mirco Bauer <meebey@meebey.net>
  *
  * Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
  *
@@ -28,6 +22,10 @@
 
 using System;
 using System.IO;
+using System.Reflection;
+using Mono.Unix;
+using NDesk.Options;
+using Smuxi.Common;
 
 namespace Smuxi.Frontend.Stfl
 { 
@@ -39,32 +37,98 @@ namespace Smuxi.Frontend.Stfl
 
         public static void Main(string[] args)
         {
-            bool debug = false;
-            foreach (string arg in args) {
-                switch (arg) {
-                    case "-d":
-                    case "--debug":
-                        debug = true;
-                        break;
-                }
-            }
 #if LOG4NET
             // initialize log level
             log4net.Repository.ILoggerRepository repo = log4net.LogManager.GetRepository();
-            if (debug) {
-                repo.Threshold = log4net.Core.Level.Debug;
-            } else {
-                repo.Threshold = log4net.Core.Level.Info;
-            }
+            repo.Threshold = log4net.Core.Level.Error;
 #endif
+
+            bool debug = false;
+            string engine = "local";
+
+            OptionSet parser = new OptionSet();
+
+            parser.Add(
+                "d|debug",
+                _("Enable debug output"),
+                delegate (string value) {
+                    debug = true;
+                }
+            );
+
+            parser.Add(
+                "e|engine=",
+                _("Engine to connect to"),
+                delegate (string value) {
+                    engine = value;
+                }
+            );
+
+            parser.Add(
+                 "h|help",
+                 _("Show this help"),
+                 delegate(string value) {
+                    Console.WriteLine(_("Usage: smuxi-frontend-stfl [options]"));
+                    Console.WriteLine();
+                    Console.WriteLine(_("Options:"));
+                    parser.WriteOptionDescriptions(Console.Out);
+                    Environment.Exit(0);
+                 }
+            );
+
+            parser.Add(
+                 "<>",
+                delegate(string value) {
+                    throw new OptionException(
+                        String.Format(
+                            _("Unknown option: '{0}'"),
+                            value
+                        ),
+                        value
+                    );
+                }
+            );
+
             try {
-                Frontend.Init(args);
+                parser.Parse(args);
+#if LOG4NET
+                if (debug) {
+                    repo.Threshold = log4net.Core.Level.Debug;
+                }
+#endif
+            } catch (OptionException ex) {
+                Console.Error.WriteLine(_("Command line error: {0}"), ex.Message);
+                Environment.Exit(1);
+            }
+
+            try {
+                Frontend.Init(engine);
             } catch (Exception e) {
 #if LOG4NET
                 _Logger.Fatal(e);
 #endif
                 throw;
             }
+        }
+
+        private static void InitLocale()
+        {
+            string appDir = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
+            string localeDir = Path.Combine(appDir, "locale");
+            if (!Directory.Exists(localeDir)) {
+                localeDir = Path.Combine(Defines.InstallPrefix, "share");
+                localeDir = Path.Combine(localeDir, "locale");
+            }
+
+            LibraryCatalog.Init("smuxi-server", localeDir);
+#if LOG4NET
+            _Logger.Debug("Using locale data from: " + localeDir);
+#endif
+        }
+
+        private static string _(string msg)
+        {
+            return Catalog.GetString(msg);
         }
     }
 }

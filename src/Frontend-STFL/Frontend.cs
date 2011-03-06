@@ -128,10 +128,10 @@ namespace Smuxi.Frontend.Stfl
             }
         }
         
-        public static void Init(string[] args)
+        public static void Init(string engine)
         {
             System.Threading.Thread.CurrentThread.Name = "Main";
-            Trace.Call(args);
+            Trace.Call(engine);
            
             Assembly asm = Assembly.GetAssembly(typeof(Frontend));
             AssemblyName asm_name = asm.GetName(false);
@@ -157,12 +157,10 @@ namespace Smuxi.Frontend.Stfl
             if (_FrontendConfig.IsCleanConfig) {
                 // first start assistant
             } else {
-                if (((string)FrontendConfig["Engines/Default"]).Length == 0) {
+                if (engine == "local") {
                     InitLocalEngine();
                 } else {
-                    // there is a default engine set, means we want a remote engine
-                    //new EngineManagerDialog();
-                    InitLocalEngine();
+                    InitRemoteEngine(engine);
                 }
             }
             
@@ -188,6 +186,24 @@ namespace Smuxi.Frontend.Stfl
             ConnectEngineToGUI();
         }
         
+        public static void InitRemoteEngine(string engine)
+        {
+            var manager = new EngineManager(_FrontendConfig,
+                                            _MainWindow.UI);
+            try {
+                manager.Connect(engine);
+                _Session = manager.Session;
+                _UserConfig = manager.UserConfig;
+                _EngineVersion = manager.EngineVersion;
+                ConnectEngineToGUI();
+            } catch (Exception ex) {
+#if LOG4NET
+                _Logger.Error(ex);
+#endif
+                manager.Disconnect();
+            }
+        }
+
         public static void ConnectEngineToGUI()
         {
             _FrontendManager = _Session.GetFrontendManager(_MainWindow.UI);
