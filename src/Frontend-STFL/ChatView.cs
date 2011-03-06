@@ -52,6 +52,7 @@ namespace Smuxi.Frontend.Stfl
         string     f_WidgetName;
         ChatModel  f_ChatModel;
         MainWindow f_MainWindow;
+        int        f_LineCount;
 
         public ChatModel ChatModel {
             get {
@@ -90,7 +91,23 @@ namespace Smuxi.Frontend.Stfl
                 f_MainWindow[f_WidgetID + "os"] = value.ToString();
             }
         }
-        
+
+        public int OffsetStart {
+            get {
+                return 0;
+            }
+        }
+
+        public int OffsetEnd {
+            get {
+                int heigth = Heigth;
+                if (f_LineCount <= heigth) {
+                    return 0;
+                }
+                return f_LineCount - heigth;
+            }
+        }
+
         public int Heigth {
             get {
                 // force height refresh
@@ -257,6 +274,7 @@ namespace Smuxi.Frontend.Stfl
 
             // TODO: implement line wrap and re-wrap when console size changes
             f_MainWindow.Modify(f_WidgetName, "append", "{listitem text:" + StflApi.stfl_quote(finalMsg) + "}");
+            f_LineCount++;
 
             ScrollToEnd();
         }
@@ -279,36 +297,32 @@ namespace Smuxi.Frontend.Stfl
         {
             int currentOffset = Offset;
             int newOffset = (int) (currentOffset + (Heigth * scrollFactor));
+            if (newOffset < 0) {
+                newOffset = 0;
+            } else if (newOffset > OffsetEnd) {
+                newOffset = OffsetEnd;
+            }
 #if LOG4NET
             _Logger.Debug("Scroll(" + scrollFactor + "):" + 
                           " chat: " + ChatModel.ID +
                           " old offset: " + currentOffset +
                           " new offset: " + newOffset);
 #endif
-            if (newOffset < 0) {
-                newOffset = 0;
-            } else if (newOffset > f_ChatModel.Messages.Count) {
-                newOffset = f_ChatModel.Messages.Count;
-            }
             Offset = newOffset;
         }
 
         public void ScrollToStart()
         {
             Trace.Call();
-            
+
+            Offset = OffsetStart;
         }
         
         public void ScrollToEnd()
         {
             Trace.Call();
-            
-#if LOG4NET
-            //_Logger.Debug("output_textview_offset: " + f_MainWindow["output_textview_offset"]);
-            //_Logger.Debug("output_textview_pos: " + f_MainWindow["output_textview_pos"]);
-            //_Logger.Debug("dump: " + _MainWindow.Dump("output_textview", "", 0));
-#endif
-            //f_MainWindow["output_textview_offset"] = (f_ChatModel.Messages.Count - 1).ToString();
+
+            Offset = OffsetEnd;
         }
     }
 }
