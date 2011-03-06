@@ -73,9 +73,8 @@ namespace Smuxi.Frontend.Gnome
                     return;
                 }
             }
-            
-            base.Close();
-            
+
+            // no need to call base.Close() as CommandNetwork() will deal with it
             Frontend.Session.CommandNetwork(
                 new CommandModel(
                     Frontend.FrontendManager,
