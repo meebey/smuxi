@@ -47,6 +47,8 @@ namespace Smuxi.Frontend.Stfl
             bool listEngines = false;
             string engine = "local";
 
+            InitLocale();
+
             OptionSet parser = new OptionSet();
 
             parser.Add(
@@ -139,7 +141,7 @@ namespace Smuxi.Frontend.Stfl
                 localeDir = Path.Combine(localeDir, "locale");
             }
 
-            LibraryCatalog.Init("smuxi-server", localeDir);
+            LibraryCatalog.Init("smuxi-frontend-stfl", localeDir);
 #if LOG4NET
             _Logger.Debug("Using locale data from: " + localeDir);
 #endif
