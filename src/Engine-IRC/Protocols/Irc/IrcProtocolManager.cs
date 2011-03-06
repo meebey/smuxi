@@ -512,22 +512,24 @@ namespace Smuxi.Engine
             }
         }
 
-        public override void CloseChat(FrontendManager fm, ChatModel chat)
+        public override void CloseChat(FrontendManager fm, ChatModel chatInfo)
         {
-            Trace.Call(fm, chat);
+            Trace.Call(fm, chatInfo);
 
             if (fm == null) {
-                throw new ArgumentNullException("chat");
+                throw new ArgumentNullException("fm");
             }
-            if (chat == null) {
-                throw new ArgumentNullException("chat");
+            if (chatInfo == null) {
+                throw new ArgumentNullException("chatInfo");
             }
 
             // get real chat object from session
-            chat = Session.GetChat(chat.ID, chat.ChatType, this);
+            var chat = GetChat(chatInfo.ID, chatInfo.ChatType);
             if (chat == null) {
 #if LOG4NET
-                _Logger.Error("CloseChat(): Session.GetChat(" + chat.ID + ", " + chat.ChatType + ", this) return null!");
+                _Logger.Error("CloseChat(): Session.GetChat(" +
+                              chatInfo.ID + ", " + chatInfo.ChatType + ")" +
+                              " returned null!");
 #endif
                 return;
             }
