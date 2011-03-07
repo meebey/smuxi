@@ -272,7 +272,7 @@ namespace Smuxi.Frontend.Gnome
                 }
             }
             notification.Closed += delegate {
-                Notifications.Remove(chatView);
+                DisposeNotification(chatView);
             };
 
             try {
@@ -331,6 +331,8 @@ namespace Smuxi.Frontend.Gnome
 #endif
 
             notification.Close();
+
+            Notifications.Remove(chatView);
         }
 
         private static string _(string msg)
