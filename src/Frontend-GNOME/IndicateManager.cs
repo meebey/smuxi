@@ -312,12 +312,14 @@ namespace Smuxi.Frontend.Gnome
 
         void DisposeIndicator(ChatView chatView)
         {
-            Trace.Call(chatView);
-
             Indicator indicator;
             if (!Indicators.TryGetValue(chatView, out indicator)) {
                 return;
             }
+#if LOG4NET
+            Logger.Debug("DisposeNotification(): disposing indicator for: " +
+                         chatView.Name);
+#endif
 
             indicator.Hide();
             Indicators.Remove(chatView);
