@@ -597,6 +597,10 @@ namespace Smuxi.Frontend.Gnome
             
             try {
                 UrgencyHint = false;
+                if (_Notebook.IsBrowseModeEnabled) {
+                    return;
+                }
+
                 ChatView chatView = _Notebook.CurrentChatView;
                 if (chatView != null) {
                     // clear activity and highlight
@@ -628,6 +632,10 @@ namespace Smuxi.Frontend.Gnome
             Trace.Call(sender, e);
 
             try {
+                if (_Notebook.IsBrowseModeEnabled) {
+                    return;
+                }
+
                 var chatView = _Notebook.CurrentChatView;
                 if (chatView == null) {
                     return;

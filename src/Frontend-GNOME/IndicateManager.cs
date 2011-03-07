@@ -175,6 +175,10 @@ namespace Smuxi.Frontend.Gnome
         {
             Trace.Call(sender, e);
 
+            if (MainWindow.Notebook.IsBrowseModeEnabled) {
+                return;
+            }
+
             var currentChatView = MainWindow.Notebook.CurrentChatView;
             if (currentChatView == null) {
                 return;
@@ -185,6 +189,10 @@ namespace Smuxi.Frontend.Gnome
         void OnMainWindowNotebookSwitchPage(object sender, Gtk.SwitchPageArgs e)
         {
             Trace.Call(sender, e);
+
+            if (MainWindow.Notebook.IsBrowseModeEnabled) {
+                return;
+            }
 
             var currentChatView = MainWindow.Notebook.CurrentChatView;
             if (currentChatView == null) {
