@@ -46,9 +46,12 @@ FILES = \
 	StflUI.cs \
 	Entry.cs \
 	STFL/Form.cs \
+	STFL/EventReceivedEventArgs.cs \
 	STFL/KeyPressedEventArgs.cs \
 	STFL/NcursesApi.cs \
 	STFL/StflApi.cs \
+	STFL/TextView.cs \
+	STFL/Widget.cs \
 	ChatView.cs \
 	ChatViewManager.cs 
 

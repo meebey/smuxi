@@ -39,6 +39,7 @@ namespace Stfl
         IntPtr f_Handle;
         
         public event KeyPressedEventHandler KeyPressed;
+        public event EventHandler<EventReceivedEventArgs> EventReceived;
         
         public string this[string name] {
             get {
@@ -117,10 +118,18 @@ namespace Stfl
             return StflApi.stfl_dump(f_Handle, name, prefix, focus);
         }
 
-        protected virtual void ProcessEvent(string key)
+        protected virtual void ProcessEvent(string @event)
         {
-            if (key != null && key != "TIMEOUT") {
-                ProcessKey(key);
+            OnEventReceived(new EventReceivedEventArgs(@event));
+            if (@event != null && @event != "TIMEOUT") {
+                ProcessKey(@event);
+            }
+        }
+
+        protected virtual void OnEventReceived(EventReceivedEventArgs e)
+        {
+            if (EventReceived != null) {
+                EventReceived(this, e);
             }
         }
 

@@ -52,7 +52,7 @@ namespace Smuxi.Frontend.Stfl
         string     f_WidgetName;
         ChatModel  f_ChatModel;
         MainWindow f_MainWindow;
-        int        f_LineCount;
+        TextView   MessageTextView { get; set; }
 
         public ChatModel ChatModel {
             get {
@@ -74,73 +74,6 @@ namespace Smuxi.Frontend.Stfl
                 return f_WidgetName;
             }
         }
-        
-        public int Offset {
-            get {
-                int offset;
-                string offsetStr = f_MainWindow[f_WidgetID + "os"];
-                if (!Int32.TryParse(offsetStr, out offset)) {
-#if LOG4NET
-                    _Logger.Error("Offset(): Int32.Parse(\"" + offsetStr + "\")  failed!");
-#endif
-                    return 0;
-                }
-                return offset;
-            }
-            set {
-                f_MainWindow[f_WidgetID + "os"] = value.ToString();
-            }
-        }
-
-        public int OffsetStart {
-            get {
-                return 0;
-            }
-        }
-
-        public int OffsetEnd {
-            get {
-                int heigth = Heigth;
-                if (f_LineCount <= heigth) {
-                    return 0;
-                }
-                return f_LineCount - heigth;
-            }
-        }
-
-        public int Heigth {
-            get {
-                // force height refresh
-                f_MainWindow.Run(-3);
-                //string heigthStr = f_MainWindow[String.Format("{0}:h", f_WidgetName)];
-                string heigthStr = f_MainWindow["output_vbox:h"];
-                int heigth;
-                if (!Int32.TryParse(heigthStr, out heigth)) {
-#if LOG4NET
-                    _Logger.Error("get_Heigth(): Int32.Parse(\"" + heigthStr + "\") failed!");
-#endif
-                    return 0;
-                }
-                return heigth;
-            }
-        }
-
-        public int Width {
-            get {
-                // force height refresh
-                f_MainWindow.Run(-3);
-                //string widthStr = f_MainWindow[String.Format("{0}:w", f_WidgetName)];
-                string widthStr = f_MainWindow["output_vbox:w"];
-                int width;
-                if (!Int32.TryParse(widthStr, out width)) {
-#if LOG4NET
-                    _Logger.Error("get_Width(): Int32.Parse(\"" + widthStr + "\") failed!");
-#endif
-                    return 0;
-                }
-                return width;
-            }
-        }
 
         public ChatView(ChatModel chat, MainWindow window)
         {
@@ -158,15 +91,12 @@ namespace Smuxi.Frontend.Stfl
             f_WidgetID = f_NextID++;
             f_WidgetName = "output_textview_" + f_WidgetID;
 
-            // FIXME: move me to the caller scope
-            //f_MainWindow.Modify("output_vbox", "append", "{textview[ " + f_WidgetName + "] .expand:vh .display:0 offset:0}");
             f_MainWindow.Modify("output_vbox", "append",
                 "{" +
                     "textview[" + f_WidgetName + "] " +
                         ".expand:vh " +
                         ".display[" + f_WidgetID + "d]:0 " +
                         "offset[" + f_WidgetID + "os]:0 " +
-                        "style_end:\"\" " +
                         "richtext:1 " +
                         "style_red_normal:fg=red " +
                         "style_url_normal:attr=underline " +
@@ -175,6 +105,13 @@ namespace Smuxi.Frontend.Stfl
                         "style_i_normal:attr=standout " +
                 "}"
             );
+            MessageTextView = new TextView(f_MainWindow, f_WidgetName);
+            MessageTextView.OffsetVariableName = f_WidgetID + "os";
+            // HACK: as the chat is not always visible we can't extract the
+            // heigth and width information from the textview because it simply
+            // returns 0 when invisible, thus we need to abuse output_vbox
+            MessageTextView.HeigthVariableName = "output_vbox:h";
+            MessageTextView.WidthVariableName = "output_vbox:w";
         }
         
         ~ChatView()
@@ -277,58 +214,37 @@ namespace Smuxi.Frontend.Stfl
                 timestamp = "Timestamp Format ERROR: " + e.Message;
             }
             var finalMsg = String.Format("{0} {1}", timestamp, line.ToString());
-
-            // TODO: implement line wrap and re-wrap when console size changes
-            f_MainWindow.Modify(f_WidgetName, "append", "{listitem text:" + StflApi.stfl_quote(finalMsg) + "}");
-            f_LineCount++;
+            MessageTextView.Append(finalMsg);
 
             ScrollToEnd();
         }
-        
+
         public void ScrollUp()
         {
             Trace.Call();
-            
-            Scroll(-0.9);
+
+            MessageTextView.ScrollUp();
         }
-        
+
         public void ScrollDown()
         {
             Trace.Call();
-            
-            Scroll(0.9);
-        }
 
-        protected void Scroll(double scrollFactor)
-        {
-            int currentOffset = Offset;
-            int newOffset = (int) (currentOffset + (Heigth * scrollFactor));
-            if (newOffset < 0) {
-                newOffset = 0;
-            } else if (newOffset > OffsetEnd) {
-                newOffset = OffsetEnd;
-            }
-#if LOG4NET
-            _Logger.Debug("Scroll(" + scrollFactor + "):" + 
-                          " chat: " + ChatModel.ID +
-                          " old offset: " + currentOffset +
-                          " new offset: " + newOffset);
-#endif
-            Offset = newOffset;
+            MessageTextView.ScrollDown();
         }
 
         public void ScrollToStart()
         {
             Trace.Call();
 
-            Offset = OffsetStart;
+            MessageTextView.ScrollToStart();
         }
-        
+
         public void ScrollToEnd()
         {
             Trace.Call();
 
-            Offset = OffsetEnd;
+            MessageTextView.ScrollToEnd();
         }
     }
 }

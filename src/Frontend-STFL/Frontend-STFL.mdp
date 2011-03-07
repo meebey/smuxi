@@ -32,6 +32,9 @@
     <File subtype="Code" buildaction="Compile" name="STFL/Test.cs" />
     <File subtype="Code" buildaction="Compile" name="STFL/NcursesApi.cs" />
     <File subtype="Code" buildaction="Nothing" name="smuxi-frontend-stfl.exe.config" copyToOutputDirectory="PreserveNewest" />
+    <File subtype="Code" buildaction="Compile" name="STFL/TextView.cs" />
+    <File subtype="Code" buildaction="Compile" name="STFL/EventReceivedEventArgs.cs" />
+    <File subtype="Code" buildaction="Compile" name="STFL/Widget.cs" />
   </Contents>
   <References>
     <ProjectReference type="Project" localcopy="True" refto="Engine" />
