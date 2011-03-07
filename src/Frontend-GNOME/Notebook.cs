@@ -60,26 +60,21 @@ namespace Smuxi.Frontend.Gnome
                 return f_IsBrowseModeEnabled;
             }
             set {
-                if (value && !f_IsBrowseModeEnabled) {
+                f_IsBrowseModeEnabled = value;
+                if (value) {
 #if LOG4NET
                     f_Logger.Debug("set_IsBrowseModeEnabled(): enabling browse mode");
 #endif
-                    SwitchPage -= OnBeforeSwitchPage;
-                    SwitchPage -= OnSwitchPage;
-                }
-                if (!value && f_IsBrowseModeEnabled) {
+                } else {
 #if LOG4NET
                     f_Logger.Debug("set_IsBrowseModeEnabled(): disabling browse mode");
 #endif
-                    SwitchPage += OnBeforeSwitchPage;
-                    SwitchPage += OnSwitchPage;
-
-                    // HACK: force switch page event
+                    // HACK: force switch page event to clear activity and
+                    // update the markerline
                     var chat = CurrentChatView;
                     CurrentChatView = null;
                     CurrentChatView = chat;
                 }
-                f_IsBrowseModeEnabled = value;
             }
         }
 
@@ -160,7 +155,8 @@ namespace Smuxi.Frontend.Gnome
             // this also breaks the Frontend.ReconnectEngineToGUI() as that one
             // has to cleanup all chats regardless of a working network
             // connection
-            IsBrowseModeEnabled = true;
+            SwitchPage -= OnBeforeSwitchPage;
+            SwitchPage -= OnSwitchPage;
 
             int npages = NPages;
             CurrentPage = 0;
@@ -174,7 +170,8 @@ namespace Smuxi.Frontend.Gnome
             }
 
             // reconnect the event handler
-            IsBrowseModeEnabled = false;
+            SwitchPage += OnBeforeSwitchPage;
+            SwitchPage += OnSwitchPage;
         }
 
         public void SyncPagePositions()
@@ -221,6 +218,10 @@ namespace Smuxi.Frontend.Gnome
         [GLib.ConnectBefore]
         protected virtual void OnBeforeSwitchPage(object sender, Gtk.SwitchPageArgs e)
         {
+            if (f_IsBrowseModeEnabled) {
+                return;
+            }
+
             var chatView = CurrentChatView;
             chatView.OutputMessageTextView.UpdateMarkerline();
         }
@@ -228,7 +229,11 @@ namespace Smuxi.Frontend.Gnome
         protected virtual void OnSwitchPage(object sender, Gtk.SwitchPageArgs e)
         {
             Trace.Call(sender, e);
-            
+
+            if (f_IsBrowseModeEnabled) {
+                return;
+            }
+
             // synchronize FrontManager.CurrenPage
             ChatView chatView = GetChat((int)e.PageNum);
             if (chatView == null) {
