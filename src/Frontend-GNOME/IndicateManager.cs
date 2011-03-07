@@ -321,8 +321,16 @@ namespace Smuxi.Frontend.Gnome
                          chatView.Name);
 #endif
 
-            indicator.Hide();
-            Indicators.Remove(chatView);
+            try {
+                indicator.Hide();
+            } catch (Exception ex) {
+#if LOG4NET
+                Logger.Error("DisposeIndicator(): " +
+                             "indicator.Hide() thew exception", ex);
+#endif
+            } finally {
+                Indicators.Remove(chatView);
+            }
         }
 
         string GetNick(MessageModel msg)
