@@ -330,9 +330,16 @@ namespace Smuxi.Frontend.Gnome
                          chatView.Name);
 #endif
 
-            notification.Close();
-
-            Notifications.Remove(chatView);
+            try {
+                notification.Close();
+            } catch (Exception ex) {
+#if LOG4NET
+                Logger.Error("DisposeNotification(): " +
+                             "notification.Close() thew exception", ex);
+#endif
+            } finally {
+                Notifications.Remove(chatView);
+            }
         }
 
         private static string _(string msg)
