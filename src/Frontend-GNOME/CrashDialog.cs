@@ -37,6 +37,8 @@ namespace Smuxi.Frontend.Gnome
 #if LOG4NET
         private static readonly log4net.ILog f_Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 #endif
+        string ReportSubject { get; set; }
+        string ReportDescription { get; set; }
 
         public CrashDialog(Gtk.Window parent, Exception e) : base(null, parent, Gtk.DialogFlags.Modal)
         {
@@ -99,9 +101,27 @@ namespace Smuxi.Frontend.Gnome
                 message += "Exception.ToString():\n"+e.ToString()+"\n\n";
             }
             tv.Buffer.Text = message;
+            ReportSubject = "Exception: " + HtmlEncodeLame(e.Message);
+            ReportDescription = String.Format(
+                "<pre>{0}</pre>",
+                HtmlEncodeLame("\n" + message)
+            );
             
             ShowAll();
-       }
+        }
+
+        private string HtmlEncodeLame(string text)
+        {
+            if (text == null) {
+                return String.Empty;
+            }
+
+            return text.Replace("&", "%26").
+                        Replace(" ", "%20").
+                        Replace("\n", "%0A").
+                        Replace("<", "%3C").
+                        Replace(">", "%3E");
+        }
        
         public static void Show(Gtk.Window parent, Exception ex)
         {
@@ -117,7 +137,16 @@ namespace Smuxi.Frontend.Gnome
                 res = base.Run();
                 if (res == -1) {
                     try {
-                        System.Diagnostics.Process.Start("http://www.smuxi.org/newticket");
+                        System.Diagnostics.Process.Start(
+                            String.Format(
+                                "http://www.smuxi.org/issues/new" +
+                                    "?issue[tracker_id]=1" +
+                                    "&issue[subject]={0}" +
+                                    "&issue[description]={1}",
+                                ReportSubject,
+                                ReportDescription
+                            )
+                        );
                     } catch (Exception ex) {
 #if LOG4NET
                         f_Logger.Error(ex);
