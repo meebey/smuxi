@@ -42,10 +42,10 @@ namespace Stfl
 
         public int Width {
             get {
-                var variableName = HeigthVariableName;
+                var variableName = WidthVariableName;
                 if (variableName == null) {
                     Render();
-                    variableName = String.Format("{0}:h", WidgetName);
+                    variableName = String.Format("{0}:w", WidgetName);
                 }
                 return Int32.Parse(Form[variableName]);
             }
