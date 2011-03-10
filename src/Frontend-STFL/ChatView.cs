@@ -112,6 +112,7 @@ namespace Smuxi.Frontend.Stfl
             // returns 0 when invisible, thus we need to abuse output_vbox
             MessageTextView.HeigthVariableName = "output_vbox:h";
             MessageTextView.WidthVariableName = "output_vbox:w";
+            MessageTextView.AutoLineWrap = true;
         }
         
         ~ChatView()
@@ -214,7 +215,7 @@ namespace Smuxi.Frontend.Stfl
                 timestamp = "Timestamp Format ERROR: " + e.Message;
             }
             var finalMsg = String.Format("{0} {1}", timestamp, line.ToString());
-            MessageTextView.Append(finalMsg);
+            MessageTextView.AppendLine(finalMsg);
 
             ScrollToEnd();
         }

@@ -26,13 +26,22 @@ namespace Stfl
     public class TextView : Widget
     {
         public string OffsetVariableName { get; set; }
+        public bool AutoLineWrap { get; set; }
         List<string> Lines { get; set; }
+        int WrappedLineCount { get; set; }
 
         public int Offset {
             get {
                 return Int32.Parse(Form[OffsetVariableName]);
             }
             set {
+                var minOffset = OffsetStart;
+                var maxOffset = OffsetEnd;
+                if (value > maxOffset) {
+                    value = maxOffset;
+                } else if (value < minOffset) {
+                    value = minOffset;
+                }
                 Form[OffsetVariableName] = value.ToString();
             }
         }
@@ -46,10 +55,10 @@ namespace Stfl
         public int OffsetEnd {
             get {
                 int heigth = Heigth;
-                if (Lines.Count <= heigth) {
+                if (WrappedLineCount <= heigth) {
                     return 0;
                 }
-                return Lines.Count - heigth;
+                return WrappedLineCount - heigth;
             }
         }
 
@@ -60,12 +69,67 @@ namespace Stfl
             Form.EventReceived += OnEventReceived;
         }
 
-        public void Append(string text)
+        public void AppendWrappedLine(string line)
         {
-            Lines.Add(text);
-            // TODO: implement line wrap and re-wrap when console size changes
-            Form.Modify(WidgetName, "append", "{" +
-                        "listitem text:" + StflApi.stfl_quote(text) + "}");
+            WrappedLineCount++;
+            Form.Modify(
+                WidgetName,
+                "append",
+                "{" +
+                    "listitem text:" + StflApi.stfl_quote(line) +
+                "}"
+            );
+        }
+
+        public void AppendWrappedLines(IEnumerable<string> lines)
+        {
+            // FIXME: do one append instead
+            foreach (var line in lines) {
+                WrappedLineCount++;
+                Form.Modify(
+                    WidgetName,
+                    "append",
+                    "{" +
+                        "listitem text:" + StflApi.stfl_quote(line) +
+                    "}"
+                );
+            }
+        }
+
+        public void AppendLine(string line)
+        {
+            var width = Width;
+            if (!AutoLineWrap || width <= 0) {
+                // we don't know our width for whatever reason thus we can't
+                // apply any line wrapping
+                Lines.Add(line);
+                AppendWrappedLine(line);
+                return;
+            }
+
+            Lines.Add(line);
+            foreach (var wrappedLine in WrapLine(line, width)) {
+                AppendWrappedLine(wrappedLine);
+            }
+        }
+
+        public void AppendLines(IEnumerable<string> lines)
+        {
+            var width = Width;
+            if (!AutoLineWrap || width <= 0) {
+                // we don't know our width for whatever reason thus we can't
+                // apply any line wrapping
+                Lines.AddRange(lines);
+                AppendWrappedLines(lines);
+                return;
+            }
+
+            Lines.AddRange(lines);
+            foreach (var line in lines) {
+                foreach (var wrappedLine in WrapLine(line, width)) {
+                    AppendWrappedLine(wrappedLine);
+                }
+            }
         }
 
         public void ScrollUp()
@@ -100,14 +164,55 @@ namespace Stfl
             Offset = OffsetEnd;
         }
 
-        List<string> ResizeLine(string line)
+        public void Clear()
         {
-            var resizedLine = new List<string>();
-            return resizedLine;
+            Lines.Clear();
+            WrappedLineCount = 0;
+            Form.Modify(WidgetName, "replace_inner", "{list}");
+            ScrollToStart();
+        }
+
+        public static List<string> WrapLine(string line, int wrapWidth)
+        {
+            if (line == null) {
+                throw new ArgumentNullException("line");
+            }
+            if (wrapWidth <= 0) {
+                throw new ArgumentException("Wrap width must bigger than 0",
+                                            "wrapWidth");
+            }
+
+            var wrappedLine = new List<string>();
+            if (line.Length <= wrapWidth) {
+                wrappedLine.Add(line);
+                return wrappedLine;
+            }
+
+            var tags = new List<string>();
+            for (int i = 0; i < line.Length; i += wrapWidth) {
+                var chunkSize = Math.Min(line.Length - i, wrapWidth);
+                // FIXME: don't break style tags
+                // TODO: word wrapping
+                var chunk = line.Substring(i, chunkSize);
+                wrappedLine.Add(chunk);
+            }
+
+            return wrappedLine;
         }
 
         void Resize()
         {
+            if (!AutoLineWrap || Width <= 0) {
+                // nothing to do
+                return;
+            }
+
+            // re-add all lines
+            var offset = Offset;
+            var lines = new List<string>(Lines);
+            Clear();
+            AppendLines(lines);
+            Offset = offset;
         }
 
         void OnEventReceived(object sender, EventReceivedEventArgs e)
