@@ -19,6 +19,7 @@
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA
 
 using System;
+using System.Text;
 using System.Collections.Generic;
 
 namespace Stfl
@@ -75,24 +76,15 @@ namespace Stfl
             Form.Modify(
                 WidgetName,
                 "append",
-                "{" +
-                    "listitem text:" + StflApi.stfl_quote(line) +
-                "}"
+                String.Format("{{listitem text:{0}}}",
+                              StflApi.stfl_quote(line))
             );
         }
 
         public void AppendWrappedLines(IEnumerable<string> lines)
         {
-            // FIXME: do one append instead
             foreach (var line in lines) {
-                WrappedLineCount++;
-                Form.Modify(
-                    WidgetName,
-                    "append",
-                    "{" +
-                        "listitem text:" + StflApi.stfl_quote(line) +
-                    "}"
-                );
+                AppendWrappedLine(line);
             }
         }
 
@@ -108,9 +100,7 @@ namespace Stfl
             }
 
             Lines.Add(line);
-            foreach (var wrappedLine in WrapLine(line, width)) {
-                AppendWrappedLine(wrappedLine);
-            }
+            AppendWrappedLines(WrapLine(line, width));
         }
 
         public void AppendLines(IEnumerable<string> lines)
@@ -125,11 +115,11 @@ namespace Stfl
             }
 
             Lines.AddRange(lines);
+            var wrappedLines = new List<string>(lines);
             foreach (var line in lines) {
-                foreach (var wrappedLine in WrapLine(line, width)) {
-                    AppendWrappedLine(wrappedLine);
-                }
+                wrappedLines.AddRange(WrapLine(line, width));
             }
+            AppendWrappedLines(wrappedLines);
         }
 
         public void ScrollUp()
@@ -202,16 +192,25 @@ namespace Stfl
 
         void Resize()
         {
-            if (!AutoLineWrap || Width <= 0) {
+            var width = Width;
+            if (!AutoLineWrap || width <= 0) {
                 // nothing to do
                 return;
             }
 
-            // re-add all lines
+            // re-wrap all lines and re-apply offset
+            WrappedLineCount = 0;
             var offset = Offset;
-            var lines = new List<string>(Lines);
-            Clear();
-            AppendLines(lines);
+            var items = new StringBuilder("{list", Lines.Count + 2);
+            foreach (var line in Lines) {
+                foreach (var wrappedLine in WrapLine(line, width)) {
+                    WrappedLineCount++;
+                    items.AppendFormat("{{listitem text:{0}}}",
+                                       StflApi.stfl_quote(wrappedLine));
+                }
+            }
+            items.Append("}");
+            Form.Modify(WidgetName, "replace_inner", items.ToString());
             Offset = offset;
         }
 
