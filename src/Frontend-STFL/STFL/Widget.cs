@@ -31,9 +31,9 @@ namespace Stfl
 
         public int Heigth {
             get {
+                Render();
                 var variableName = HeigthVariableName;
                 if (variableName == null) {
-                    Render();
                     variableName = String.Format("{0}:w", WidgetName);
                 }
                 return Int32.Parse(Form[variableName]);
@@ -42,9 +42,9 @@ namespace Stfl
 
         public int Width {
             get {
+                Render();
                 var variableName = WidthVariableName;
                 if (variableName == null) {
-                    Render();
                     variableName = String.Format("{0}:w", WidgetName);
                 }
                 return Int32.Parse(Form[variableName]);
