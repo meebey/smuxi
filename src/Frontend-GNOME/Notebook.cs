@@ -211,7 +211,7 @@ namespace Smuxi.Frontend.Gnome
             Trace.Call(sender, e);
 
 #if LOG4NET
-            f_Logger.Debug("OnSwitchPageQueueAbortedEvent(): task queue aborted!");
+            f_Logger.Fatal("OnSwitchPageQueueAbortedEvent(): task queue aborted!");
 #endif
         }
 
@@ -253,38 +253,45 @@ namespace Smuxi.Frontend.Gnome
                 // a non-main (GUI) thread!
                 Trace.Call(method, null, null);
 
-                DateTime start = DateTime.UtcNow, stop;
-                // OPT-TODO: we could use here a TaskStack instead which
-                // would make sure only the newest task gets executed
-                // instead of every task in the FIFO sequence!
-                // REMOTING CALL 1
-                IProtocolManager nmanager = chatModel.ProtocolManager;
+                try {
+                    DateTime start = DateTime.UtcNow, stop;
+                    // OPT-TODO: we could use here a TaskStack instead which
+                    // would make sure only the newest task gets executed
+                    // instead of every task in the FIFO sequence!
+                    // REMOTING CALL 1
+                    IProtocolManager nmanager = chatModel.ProtocolManager;
 
-                // TODO: only set the protocol manager and update network
-                // status if the protocol manager differs from the old one
+                    // TODO: only set the protocol manager and update network
+                    // status if the protocol manager differs from the old one
 
-                // REMOTING CALL 2
-                Frontend.FrontendManager.CurrentChat = chatModel;
-                if (nmanager != null) {
-                    // REMOTING CALL 3
-                    Frontend.FrontendManager.CurrentProtocolManager = nmanager;
-                }
+                    // REMOTING CALL 2
+                    Frontend.FrontendManager.CurrentChat = chatModel;
+                    if (nmanager != null) {
+                        // REMOTING CALL 3
+                        Frontend.FrontendManager.CurrentProtocolManager = nmanager;
+                    }
 
-                // even when we have no network manager, we still want to update
-                // the network status and title
-                // REMOTING CALL 4
-                Frontend.FrontendManager.UpdateNetworkStatus();
+                    // even when we have no network manager, we still want to update
+                    // the network status and title
+                    // REMOTING CALL 4
+                    Frontend.FrontendManager.UpdateNetworkStatus();
 
-                // update last seen highlight
-                // REMOTING CALL 5
-                if (lastMsg != null) {
-                    chatModel.LastSeenHighlight = lastMsg.TimeStamp;
-                }
+                    // update last seen highlight
+                    // REMOTING CALL 5
+                    if (lastMsg != null) {
+                        chatModel.LastSeenHighlight = lastMsg.TimeStamp;
+                    }
 
-                stop = DateTime.UtcNow;
+                    stop = DateTime.UtcNow;
 #if LOG4NET
-                f_Logger.Debug("OnSwitchPage(): task took: " + (stop - start).Milliseconds + " ms");
+                    f_Logger.Debug("OnSwitchPage(): task took: " + (stop - start).Milliseconds + " ms");
 #endif
+                } catch (Exception ex) {
+#if LOG4NET
+                    f_Logger.Error("OnSwitchPage(): Exception", ex);
+#endif
+                    Frontend.ShowException(ex);
+                }
             });
         }
     }
