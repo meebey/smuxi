@@ -79,6 +79,12 @@ namespace Smuxi.Frontend.Gnome
             }
         }
 
+        public bool IsSynced {
+            get {
+                return _IsSynced;
+            }
+        }
+
         public bool HasHighlight {
             get {
                 return _HasHighlight;

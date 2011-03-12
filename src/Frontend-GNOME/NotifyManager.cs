@@ -205,7 +205,9 @@ namespace Smuxi.Frontend.Gnome
         {
             Trace.Call(sender, e, chatView);
 
-            if (MainWindow.HasToplevelFocus || !IsEnabled) {
+            if (!IsEnabled ||
+                !chatView.IsSynced ||
+                MainWindow.HasToplevelFocus) {
                 return;
             }
 
