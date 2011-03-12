@@ -23,6 +23,7 @@
 using System;
 using System.IO;
 using System.Reflection;
+using SysDiag = System.Diagnostics;
 using NDesk.Options;
 using Smuxi.Common;
 using Smuxi.Engine;
@@ -128,7 +129,9 @@ namespace Smuxi.Frontend.Stfl
 #if LOG4NET
                 _Logger.Fatal(e);
 #endif
-                throw;
+                if (SysDiag.Debugger.IsAttached) {
+                    throw;
+                }
             }
         }
 
