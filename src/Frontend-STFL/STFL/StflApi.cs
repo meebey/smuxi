@@ -55,20 +55,9 @@ namespace Stfl
                          String.Empty;
             locale = locale.ToUpperInvariant();
             IsUtf8Locale = locale.Contains("UTF-8") || locale.Contains("UTF8");
-            if (IsXterm && IsUtf8Locale) {
-                // U+2039 SINGLE LEFT-POINTING ANGLE QUOTATION MARK
-                EscapeLessThanCharacter = Encoding.UTF8.GetString(
-                    new byte[] {0xE2, 0x80, 0xB9}
-                );
-                // U+203A SINGLE RIGHT-POINTING ANGLE QUOTATION MARK
-                EscapeGreaterThanCharacter = Encoding.UTF8.GetString(
-                    new byte[] {0xE2, 0x80, 0xBA}
-                );
-            } else {
-                // ASCII-safe version
-                EscapeLessThanCharacter = "(";
-                EscapeGreaterThanCharacter = ")";
-            }
+
+            EscapeLessThanCharacter = "<>";
+            EscapeGreaterThanCharacter = ">";
         }
 
         public static IntPtr ToUnixWideCharacters(string text)
@@ -89,8 +78,6 @@ namespace Stfl
 
         public static string EscapeRichText(string text)
         {
-            // HACK: STFL has no support to escape "<" or ">" but uses
-            // them for style control, thus we have to replace them
             text = text.Replace("<", EscapeLessThanCharacter);
             text = text.Replace(">", EscapeGreaterThanCharacter);
             return text;
