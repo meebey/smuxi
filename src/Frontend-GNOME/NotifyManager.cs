@@ -206,7 +206,7 @@ namespace Smuxi.Frontend.Gnome
             Trace.Call(sender, e, chatView);
 
             if (!IsEnabled ||
-                !chatView.IsSynced ||
+                e.Message.TimeStamp <= chatView.SyncedLastSeenHighlight ||
                 MainWindow.HasToplevelFocus) {
                 return;
             }

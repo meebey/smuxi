@@ -57,9 +57,9 @@ namespace Smuxi.Frontend.Gnome
         private   Gtk.ScrolledWindow _OutputScrolledWindow;
         private   MessageTextView    _OutputMessageTextView;
         private   ThemeSettings      _ThemeSettings;
-        private   DateTime           _LastHighlight;
         private   TaskQueue          _LastSeenHighlightQueue;
-        
+        public    DateTime           SyncedLastSeenHighlight { get; private set; }
+
         public ChatModel ChatModel {
             get {
                 return _ChatModel;
@@ -76,12 +76,6 @@ namespace Smuxi.Frontend.Gnome
                             Frontend.MainWindow.Notebook.CurrentChatView,
                             this
                         );
-            }
-        }
-
-        public bool IsSynced {
-            get {
-                return _IsSynced;
             }
         }
 
@@ -162,6 +156,8 @@ namespace Smuxi.Frontend.Gnome
                 return _HasEvent;
             }
             set {
+                _HasEvent = value;
+
                 if (HasHighlight) {
                     return;
                 }
@@ -413,13 +409,17 @@ namespace Smuxi.Frontend.Gnome
         public virtual void Sync()
         {
             Trace.Call();
-            
+
+            // REMOTING CALL 1
+            SyncedLastSeenHighlight = _ChatModel.LastSeenHighlight;
+
 #if LOG4NET
             _Logger.Debug("Sync() syncing messages");
 #endif
             // sync messages
             // cleanup, be sure the output is empty
             _OutputMessageTextView.Clear();
+            // REMOTING CALL 2
             IList<MessageModel> messages = _ChatModel.Messages;
             if (messages.Count > 0) {
                 foreach (MessageModel msg in messages) {
@@ -429,14 +429,12 @@ namespace Smuxi.Frontend.Gnome
 
             // as we don't track which messages were already seen it would
             // show all chats with message activity after the frontend connect
-            HasActivity = false;
+            if (!HasHighlight) {
+                HasActivity = false;
+            }
+
             // let the user know at which position new messages start
             _OutputMessageTextView.UpdateMarkerline();
-
-            // REMOTING CALL
-            if (_LastHighlight > _ChatModel.LastSeenHighlight) {
-                HasHighlight = true;
-            }
 
             _IsSynced = true;
         }
@@ -600,7 +598,9 @@ namespace Smuxi.Frontend.Gnome
                     }
                 });
             } else {
-                _LastHighlight = e.Message.TimeStamp;
+                if (e.Message.TimeStamp > SyncedLastSeenHighlight) {
+                    HasHighlight = true;
+                }
             }
         }
 
