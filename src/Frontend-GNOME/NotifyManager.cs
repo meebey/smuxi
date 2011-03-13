@@ -274,7 +274,20 @@ namespace Smuxi.Frontend.Gnome
                 }
             }
             notification.Closed += delegate {
-                DisposeNotification(chatView);
+                try {
+#if LOG4NET
+                    Logger.Debug("OnChatViewMessageHighlighted(): received " +
+                                 "notification.Closed signal for: " +
+                                 chatView.Name);
+#endif
+                    Notifications.Remove(chatView);
+                } catch (Exception ex) {
+#if LOG4NET
+                    Logger.Error("OnChatViewMessageHighlighted(): " +
+                                 "Exception in notification.Closed handler",
+                                 ex);
+#endif
+                }
             };
 
             try {
@@ -333,6 +346,15 @@ namespace Smuxi.Frontend.Gnome
 #endif
 
             try {
+                // don't try to close already closed notifications (timeout)
+                if (notification.Id == 0) {
+#if LOG4NET
+                    Logger.Debug("DisposeNotification(): notification already " +
+                                 "closed for: " + chatView.Name);
+#endif
+                    return;
+                }
+
                 notification.Close();
             } catch (Exception ex) {
 #if LOG4NET
