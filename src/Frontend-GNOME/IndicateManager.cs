@@ -319,7 +319,7 @@ namespace Smuxi.Frontend.Gnome
                 return;
             }
 #if LOG4NET
-            Logger.Debug("DisposeNotification(): disposing indicator for: " +
+            Logger.Debug("DisposeIndicator(): disposing indicator for: " +
                          chatView.Name);
 #endif
 
