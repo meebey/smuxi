@@ -470,14 +470,20 @@ namespace Smuxi.Engine
                 return;
             }
 
-            var strWriter = new StringWriter();
-            var xmlWriter = new XmlTextWriter(strWriter);
-            xmlWriter.Formatting = Formatting.Indented;
-            xmlWriter.Indentation = 2;
-            xmlWriter.IndentChar =  ' ';
-            tag.WriteTo(xmlWriter);
+            try {
+                var strWriter = new StringWriter();
+                var xmlWriter = new XmlTextWriter(strWriter);
+                xmlWriter.Formatting = Formatting.Indented;
+                xmlWriter.Indentation = 2;
+                xmlWriter.IndentChar =  ' ';
+                tag.WriteTo(xmlWriter);
 
-            DebugRead("\n" + strWriter.ToString());
+                DebugRead("\n" + strWriter.ToString());
+            } catch (Exception ex) {
+#if LOG4NET
+                _Logger.Error("OnProtocol(): Exception", ex);
+#endif
+            }
         }
 
         void OnWriteText(object sender, string text)
@@ -486,17 +492,26 @@ namespace Smuxi.Engine
                 return;
             }
 
-            var strWriter = new StringWriter();
-            var xmlWriter = new XmlTextWriter(strWriter);
-            xmlWriter.Formatting = Formatting.Indented;
-            xmlWriter.Indentation = 2;
-            xmlWriter.IndentChar =  ' ';
+            try {
+                var strWriter = new StringWriter();
+                var xmlWriter = new XmlTextWriter(strWriter);
+                xmlWriter.Formatting = Formatting.Indented;
+                xmlWriter.Indentation = 2;
+                xmlWriter.IndentChar =  ' ';
 
-            var document = new XmlDocument();
-            document.LoadXml(text);
-            document.WriteContentTo(xmlWriter);
+                var document = new XmlDocument();
+                document.LoadXml(text);
+                document.WriteContentTo(xmlWriter);
 
-            DebugWrite("\n" + strWriter.ToString());
+                DebugWrite("\n" + strWriter.ToString());
+            } catch (Exception ex) {
+#if LOG4NET
+                _Logger.Error("OnWriteText(): Exception", ex);
+#endif
+                // HACK: in case of an invalid doucment fallback to
+                // plain string logging
+                DebugWrite("\n" + text);
+            }
         }
 
         private void _OnMessage(object sender, Message xmppMsg)
