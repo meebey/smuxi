@@ -506,7 +506,9 @@ namespace Smuxi.Frontend.Gnome
             // hopefully MS .NET / Mono finds some way to handle the URL
             ThreadPool.QueueUserWorkItem(delegate {
                 try {
-                    SysDiag.Process.Start(link);
+                    using (var process = SysDiag.Process.Start(link)) {
+                        process.WaitForExit();
+                    }
                 } catch (Exception ex) {
                     // exceptions in the thread pool would kill the process, see:
                     // http://msdn.microsoft.com/en-us/library/0ka9477y.aspx

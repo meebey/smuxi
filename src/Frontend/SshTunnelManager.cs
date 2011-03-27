@@ -122,10 +122,8 @@ namespace Smuxi.Frontend
         {
             Trace.Call(disposing);
             
-            if (disposing) {
-                if (f_Process != null) {
-                    f_Process.Dispose();
-                }
+            if (f_Process != null) {
+                f_Process.Dispose();
             }
         }
         
