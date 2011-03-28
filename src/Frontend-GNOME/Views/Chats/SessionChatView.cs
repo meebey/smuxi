@@ -46,6 +46,7 @@ namespace Smuxi.Frontend.Gnome
             Trace.Call(chat);
             
             OutputMessageTextView.ShowMarkerline = false;
+            OutputMessageTextView.ShowTimestamps = false;
 
             var tabImage = new Gtk.Image(IconPixbuf);
             TabHBox.PackStart(tabImage, false, false, 2);
