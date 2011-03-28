@@ -113,6 +113,8 @@ namespace Smuxi.Frontend.Gnome
             if ((bool) userConfig["Interface/Notification/MessagingMenuEnabled"]) {
                 Server.Show();
                 IsEnabled = true;
+                // hide the main window instead of closing it
+                MainWindow.NotificationAreaIconMode = NotificationAreaIconMode.Closed;
             } else {
                 Server.Hide();
                 IsEnabled = false;

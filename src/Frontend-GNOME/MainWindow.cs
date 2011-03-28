@@ -160,6 +160,15 @@ namespace Smuxi.Frontend.Gnome
             }
         }
 
+        public NotificationAreaIconMode NotificationAreaIconMode {
+            get {
+                return _NotificationAreaIconMode;
+            }
+            set {
+                _NotificationAreaIconMode = value;
+            }
+        }
+
         public EventHandler Minimized;
         public EventHandler Unminimized;
 
