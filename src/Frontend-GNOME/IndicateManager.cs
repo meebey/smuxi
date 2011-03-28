@@ -146,7 +146,7 @@ namespace Smuxi.Frontend.Gnome
             var insDesktopFile = Path.Combine(Defines.InstallPrefix, partialPath);
             var sysDesktopFile = Path.Combine("/usr", partialPath);
             string desktopFile = null;
-            if (File.Exists(desktopFile)) {
+            if (File.Exists(insDesktopFile)) {
                 desktopFile = insDesktopFile;
             } else if (File.Exists(sysDesktopFile)) {
                 desktopFile = sysDesktopFile;
