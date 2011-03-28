@@ -239,6 +239,9 @@ namespace Smuxi.Frontend.Gnome
             }
 
             e.ChatView.OutputMessageTextView.MessageHighlighted -= handler;
+
+            // close possibly active indicator
+            DisposeIndicator(e.ChatView);
         }
 
         void OnChatViewMessageHighlighted(object sender,
