@@ -83,12 +83,10 @@ namespace Smuxi.Engine
                     break;
                 }
 
-#if LOG4NET
-                /* logging noise
+#if LOG4NET && COLOR_DEBUG
                 f_Logger.Debug("GetBestTextColor(): color has bad contrast: " +
                                bestColor + " difference: " + difference +
                                " needed: " + needed);
-                */
 #endif
 
                 // change the fg color
@@ -128,7 +126,7 @@ namespace Smuxi.Engine
                 }
                 attempts++;
             }
-#if LOG4NET
+#if LOG4NET && COLOR_DEBUG
             f_Logger.Debug(
                 String.Format(
                     "GetBestTextColor(): found good contrast: {0}|{1}={2} " +
