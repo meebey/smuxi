@@ -207,9 +207,7 @@ namespace Smuxi.Frontend.Gnome
         {
             Trace.Call(sender, e);
 
-            MainWindow.PresentWithTime(
-                (uint) (DateTime.UtcNow - UnixEpoch).TotalSeconds
-            );
+            MainWindow.PresentWithTime(e.Timestamp);
         }
 
         void OnChatViewManagerChatAdded(object sender, ChatViewManagerChatAddedEventArgs e)
@@ -293,9 +291,7 @@ namespace Smuxi.Frontend.Gnome
             indicator.SetPropertyBool("draw-attention", true);
             indicator.UserDisplay += delegate {
                 try {
-                    MainWindow.PresentWithTime(
-                        (uint) (DateTime.UtcNow - UnixEpoch).TotalSeconds
-                    );
+                    MainWindow.Present();
                     MainWindow.Notebook.CurrentChatView = chatView;
                     DisposeIndicator(chatView);
                 } catch (Exception ex) {

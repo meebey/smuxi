@@ -243,9 +243,7 @@ namespace Smuxi.Frontend.Gnome
             if (Capabilites.Contains("actions")) {
                 notification.AddAction("show", _("Show"), delegate {
                     try {
-                        MainWindow.PresentWithTime(
-                            (uint) (DateTime.UtcNow - UnixEpoch).TotalSeconds
-                        );
+                        MainWindow.Present();
                         MainWindow.Notebook.CurrentChatView = chatView;
                         notification.Close();
                     } catch (Exception ex) {
