@@ -189,6 +189,36 @@ if test "x$WITH_NOTIFY" = "xyes"; then
 	PKG_CHECK_MODULES([NOTIFY_SHARP], [notify-sharp])
 fi
 
+AC_ARG_WITH([dbus],
+	AC_HELP_STRING([--with-dbus], [Support D-Bus @<:@default=auto@:>@]),
+	[],
+	with_dbus=auto
+)
+WITH_DBUS=$with_dbus
+PKG_CHECK_EXISTS([dbus-sharp-1.0], DBUS_SHARP_SUPPORT=yes, DBUS_SHARP_SUPPORT=no)
+PKG_CHECK_EXISTS([ndesk-dbus-1.0], NDESK_DBUS_SUPPORT=yes, NDESK_DBUS_SUPPORT=no)
+if test "x$WITH_DBUS" = "xauto"; then
+	if test "x$DBUS_SHARP_SUPPORT" = "xyes"; then
+		WITH_DBUS=$DBUS_SHARP_SUPPORT
+	else
+		WITH_DBUS=$NDESK_DBUS_SUPPORT
+	fi
+fi
+if test "x$WITH_DBUS" = "xyes"; then
+	if test "x$DBUS_SHARP_SUPPORT" = "xyes"; then
+		PKG_CHECK_MODULES([DBUS_SHARP], [dbus-sharp-1.0])
+		PKG_CHECK_MODULES([DBUS_SHARP_GLIB], [dbus-sharp-glib-1.0])
+		AC_SUBST([DBUS_LIBS], "$DBUS_SHARP_LIBS $DBUS_SHARP_GLIB_LIBS")
+		CSC_FLAGS+=" -define:IPC_DBUS -define:DBUS_SHARP"
+	else
+		# fallback to ndesk-dbus
+		PKG_CHECK_MODULES([NDESK_DBUS], [ndesk-dbus-1.0])
+		PKG_CHECK_MODULES([NDESK_DBUS_GLIB], [ndesk-dbus-glib-1.0])
+		AC_SUBST([DBUS_LIBS], "$NDESK_DBUS_LIBS $NDESK_DBUS_GLIB_LIBS")
+		CSC_FLAGS+=" -define:IPC_DBUS -define:NDESK_DBUS"
+	fi
+fi
+
 # Engines
 AC_ARG_ENABLE([engine-irc],
 	AC_HELP_STRING([--enable-engine-irc], [Enable IRC protocol support (default yes)]),
@@ -470,6 +500,7 @@ AC_MSG_RESULT([
 	  GNOME:               $ENABLE_FRONTEND_GNOME (IRC: $ENABLE_FRONTEND_GNOME_IRC XMPP: $ENABLE_FRONTEND_GNOME_XMPP)
 	  + Messaging Menu:    $WITH_INDICATE
 	  + Notifications:     $WITH_NOTIFY
+	  + D-Bus:             $WITH_DBUS
 	  Ncurses:             $ENABLE_FRONTEND_CURSES
 	  STFL:                $ENABLE_FRONTEND_STFL
 	  SWF (WinForms):      $ENABLE_FRONTEND_SWF

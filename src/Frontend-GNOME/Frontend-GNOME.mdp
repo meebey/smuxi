@@ -8,7 +8,7 @@
       <EnvironmentVariables>
         <Variable name="MONO_TRACE_LISTENER" value="Console.Out" />
       </EnvironmentVariables>
-      <CodeGeneration compiler="Mcs" warninglevel="4" optimize="False" unsafecodeallowed="False" generateoverflowchecks="True" definesymbols="DEBUG,TRACE,LOG4NET,CONFIG_NINI,GTK_SHARP_2_10,INDICATE_SHARP,NOTIFY_SHARP" generatexmldocumentation="False" ctype="CSharpCompilerParameters" />
+      <CodeGeneration compiler="Mcs" warninglevel="4" optimize="False" unsafecodeallowed="False" generateoverflowchecks="True" definesymbols="DEBUG,TRACE,LOG4NET,CONFIG_NINI,GTK_SHARP_2_10,INDICATE_SHARP,NOTIFY_SHARP,IPC_DBUS,NDESK_DBUS" generatexmldocumentation="False" ctype="CSharpCompilerParameters" />
     </Configuration>
     <Configuration name="Release" ctype="DotNetProjectConfiguration">
       <Output directory="../../bin/release" assembly="smuxi-frontend-gnome" />
@@ -116,6 +116,8 @@
     <ProjectReference type="Gac" localcopy="True" refto="gtk-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
     <ProjectReference type="Gac" localcopy="True" refto="indicate-sharp, Version=0.4.1.0, Culture=neutral, PublicKeyToken=2e8e49ba7d172cb0" />
     <ProjectReference type="Gac" localcopy="True" refto="notify-sharp, Version=0.4.0.0, Culture=neutral, PublicKeyToken=2df29c54e245917a" />
+    <ProjectReference type="Gac" localcopy="True" refto="NDesk.DBus, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f6716e4f9b2ed099" />
+    <ProjectReference type="Gac" localcopy="True" refto="NDesk.DBus.GLib, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f6716e4f9b2ed099" />
   </References>
   <LanguageParameters ApplicationIcon="../../images/icon_32x32.ico" CodePage="65001" ctype="CSharpProjectParameters" />
   <DeploymentInformation strategy="File" />

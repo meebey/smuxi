@@ -16,34 +16,8 @@ build_datafiles = $(DESKTOP_FILE)
 FRONTEND_GNOME_EXE_CONFIG_SOURCE = smuxi-frontend-gnome.exe.config
 FRONTEND_GNOME_EXE_CONFIG = $(BUILD_DIR)/smuxi-frontend-gnome.exe.config
 
-# Warning: This is an automatically generated file, do not edit!
-
-if ENABLE_RELEASE
 ASSEMBLY_COMPILER_COMMAND = @MCS@
-ASSEMBLY_COMPILER_FLAGS =  -noconfig -codepage:utf8 -warn:4 -optimize+ "-define:CONFIG_NINI,UI_GNOME,GTK_SHARP_2_8" -win32icon:$(WIN_ICON) @FRONTEND_GNOME_COMPILER_FLAGS@
-
-ASSEMBLY = ../../bin/release/smuxi-frontend-gnome.exe
-ASSEMBLY_MDB = 
-COMPILE_TARGET = winexe
-PROJECT_REFERENCES =  \
-	../../bin/release/smuxi-engine.dll \
-	../../bin/release/smuxi-common.dll \
-	../../bin/release/smuxi-frontend.dll
-BUILD_DIR = ../../bin/release
-
-LOG4NET_DLL_SOURCE=../../lib/log4net.dll
-SMUXI_ENGINE_DLL_MDB=
-NINI_DLL_SOURCE=../../lib/Nini.dll
-SMUXI_ENGINE_DLL_SOURCE=../../bin/release/smuxi-engine.dll
-SMUXI_FRONTEND_DLL_MDB=
-SMUXI_FRONTEND_DLL_SOURCE=../../bin/release/smuxi-frontend.dll
-SMUXI_COMMON_DLL_SOURCE=../../bin/release/smuxi-common.dll
-
-endif
-
-if ENABLE_DEBUG
-ASSEMBLY_COMPILER_COMMAND = @MCS@
-ASSEMBLY_COMPILER_FLAGS =  -noconfig -codepage:utf8 -warn:4 -optimize- -debug -define:DEBUG "-define:DEBUG,TRACE,LOG4NET,CONFIG_NINI,UI_GNOME,GTK_SHARP_2_8" -win32icon:$(WIN_ICON) @FRONTEND_GNOME_COMPILER_FLAGS@
+ASSEMBLY_COMPILER_FLAGS =  @CSC_FLAGS@ -noconfig -codepage:utf8 -warn:4 -optimize- -debug -define:DEBUG "-define:DEBUG,TRACE,LOG4NET,CONFIG_NINI,UI_GNOME,GTK_SHARP_2_8" -win32icon:$(WIN_ICON) @FRONTEND_GNOME_COMPILER_FLAGS@
 
 ASSEMBLY = ../../bin/debug/smuxi-frontend-gnome.exe
 ASSEMBLY_MDB = $(ASSEMBLY).mdb
@@ -63,8 +37,6 @@ SMUXI_FRONTEND_DLL_MDB_SOURCE=../../bin/debug/smuxi-frontend.dll.mdb
 SMUXI_FRONTEND_DLL_MDB=$(BUILD_DIR)/smuxi-frontend.dll.mdb
 SMUXI_FRONTEND_DLL_SOURCE=../../bin/debug/smuxi-frontend.dll
 SMUXI_COMMON_DLL_SOURCE=../../bin/debug/smuxi-common.dll
-
-endif
 
 AL=al2
 SATELLITE_ASSEMBLY_NAME=.resources.dll
@@ -173,7 +145,8 @@ REFERENCES =  \
 	$(GTK_SHARP_20_LIBS) \
 	$(LOG4NET_LIBS) \
 	$(INDICATE_SHARP_LIBS) \
-	$(NOTIFY_SHARP_LIBS)
+	$(NOTIFY_SHARP_LIBS) \
+	$(DBUS_LIBS)
 
 DLL_REFERENCES = 
 
