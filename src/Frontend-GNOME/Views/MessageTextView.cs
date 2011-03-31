@@ -545,9 +545,6 @@ namespace Smuxi.Frontend.Gnome
                  } else if (bgColor != null) {
                     tt.BackgroundGdk = c;
                  }
-#if LOG4NET
-                 _Logger.Debug("GetTextTagName(): adding: " + tagname + " to _OutputTextTagTable");
-#endif
                  _MessageTextTagTable.Add(tt);
              }
              return tagname;

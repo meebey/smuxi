@@ -955,8 +955,6 @@ namespace Smuxi.Frontend.Gnome
         
         protected virtual void OnNotebookSwitchPage(object sender, EventArgs e)
         {
-            Trace.Call(sender, e);
-            
             try {
                 var chatView = Notebook.CurrentChatView;
                 if (chatView == null) {

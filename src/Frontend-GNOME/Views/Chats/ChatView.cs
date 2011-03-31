@@ -441,8 +441,6 @@ namespace Smuxi.Frontend.Gnome
         
         public virtual void AddMessage(MessageModel msg)
         {
-            Trace.Call(msg);
-            
             _OutputMessageTextView.AddMessage(msg);
         }
         
@@ -504,8 +502,6 @@ namespace Smuxi.Frontend.Gnome
         
         protected virtual void OnMessageTextViewMessageAdded(object sender, MessageTextViewMessageAddedEventArgs e)
         {
-            Trace.Call(sender, e);
-            
             // HACK: out of scope?
             // probably we should use the ChatViewManager instead?
             if (Frontend.MainWindow.Notebook.CurrentChatView != this) {
@@ -536,8 +532,6 @@ namespace Smuxi.Frontend.Gnome
         
         protected virtual void OnMessageTextViewMessageHighlighted(object sender, MessageTextViewMessageHighlightedEventArgs e)
         {
-            Trace.Call(sender, e);
-            
             // HACK: out of scope?
             // only beep if the main windows has no focus (the user is
             // elsewhere) and the chat is was already synced, as during sync we

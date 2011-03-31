@@ -175,8 +175,6 @@ namespace Smuxi.Frontend.Gnome
 
         void OnMainWindowFocusInEvent(object sender, Gtk.FocusInEventArgs e)
         {
-            Trace.Call(sender, e);
-
             if (MainWindow.Notebook.IsBrowseModeEnabled) {
                 return;
             }
@@ -190,8 +188,6 @@ namespace Smuxi.Frontend.Gnome
 
         void OnMainWindowNotebookSwitchPage(object sender, Gtk.SwitchPageArgs e)
         {
-            Trace.Call(sender, e);
-
             if (MainWindow.Notebook.IsBrowseModeEnabled) {
                 return;
             }
@@ -246,8 +242,6 @@ namespace Smuxi.Frontend.Gnome
                                           MessageTextViewMessageHighlightedEventArgs e,
                                           ChatView chatView)
         {
-            Trace.Call(sender, e, chatView);
-
             if (!IsEnabled ||
                 e.Message.TimeStamp <= chatView.SyncedLastSeenHighlight ||
                 MainWindow.HasToplevelFocus) {
