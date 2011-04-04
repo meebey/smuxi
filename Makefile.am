@@ -149,3 +149,8 @@ dist-linux-x86-static:
 		cp $$FILE $(LINUX_STATIC_BUILD_DIR); \
 	done
 	tar -czf smuxi-server-$(VERSION)-linux-x86-static.tar.gz $(LINUX_STATIC_BUILD_DIR)
+
+run: run-gnome
+run-gnome: all
+	cd $(BUILD_DIR) && \
+		mono --debug ./smuxi-frontend-gnome.exe -d
