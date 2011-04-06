@@ -154,3 +154,7 @@ run: run-gnome
 run-gnome: all
 	cd $(BUILD_DIR) && \
 		mono --debug ./smuxi-frontend-gnome.exe -d
+
+run-server: all
+	cd $(BUILD_DIR) && \
+		mono --debug ./smuxi-server.exe -d
