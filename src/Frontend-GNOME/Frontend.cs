@@ -318,7 +318,9 @@ namespace Smuxi.Frontend.Gnome
                 if (_FrontendManager != null) {
                     _FrontendManager.IsFrontendDisconnecting = true;
                 }
-                _Session.DeregisterFrontendUI(_MainWindow.UI);
+                if (_Session != null) {
+                    _Session.DeregisterFrontendUI(_MainWindow.UI);
+                }
             } catch (System.Net.Sockets.SocketException ex) {
                 // ignore as the connection is maybe already broken
             } catch (System.Runtime.Remoting.RemotingException ex) {
