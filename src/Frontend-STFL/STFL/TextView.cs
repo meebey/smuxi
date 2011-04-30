@@ -33,12 +33,18 @@ namespace Stfl
 
         public int Offset {
             get {
-                return Int32.Parse(Form[OffsetVariableName]);
+                var offset = Form[OffsetVariableName];
+                if (String.IsNullOrEmpty(offset)) {
+                    return -1;
+                }
+                return Int32.Parse(offset);
             }
             set {
                 var minOffset = OffsetStart;
                 var maxOffset = OffsetEnd;
-                if (value > maxOffset) {
+                if (value == -1) {
+                    value = maxOffset;
+                 } else if (value > maxOffset) {
                     value = maxOffset;
                 } else if (value < minOffset) {
                     value = minOffset;
