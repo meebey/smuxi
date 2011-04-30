@@ -59,6 +59,7 @@ namespace Smuxi.Frontend.Gnome
         private   ThemeSettings      _ThemeSettings;
         private   TaskQueue          _LastSeenHighlightQueue;
         public    DateTime           SyncedLastSeenHighlight { get; private set; }
+        bool                         UseLowBandwidthMode { get; set; }
 
         public ChatModel ChatModel {
             get {
@@ -238,7 +239,8 @@ namespace Smuxi.Frontend.Gnome
             _Name = _ChatModel.Name;
             ID = _ChatModel.ID;
             Name = _Name;
-            
+            UseLowBandwidthMode = (bool) Frontend.FrontendConfig["UseLowBandwidthMode"];
+
             MessageTextView tv = new MessageTextView();
             _EndMark = tv.Buffer.CreateMark("end", tv.Buffer.EndIter, false); 
             tv.ShowTimestamps = true;
@@ -410,20 +412,28 @@ namespace Smuxi.Frontend.Gnome
         {
             Trace.Call();
 
-            // REMOTING CALL 1
-            SyncedLastSeenHighlight = _ChatModel.LastSeenHighlight;
-
 #if LOG4NET
             _Logger.Debug("Sync() syncing messages");
 #endif
             // sync messages
             // cleanup, be sure the output is empty
             _OutputMessageTextView.Clear();
-            // REMOTING CALL 2
-            IList<MessageModel> messages = _ChatModel.Messages;
-            if (messages.Count > 0) {
-                foreach (MessageModel msg in messages) {
-                    AddMessage(msg);
+
+            if (!Frontend.IsLocalEngine && UseLowBandwidthMode) {
+                var msg = new MessageBuilder();
+                msg.AppendEventPrefix();
+                msg.AppendMessage(_("Low Bandwidth Mode is active: no messages synced."));
+                AddMessage(msg.ToMessage());
+            } else {
+                // REMOTING CALL 1
+                SyncedLastSeenHighlight = _ChatModel.LastSeenHighlight;
+
+                // REMOTING CALL 2
+                IList<MessageModel> messages = _ChatModel.Messages;
+                if (messages.Count > 0) {
+                    foreach (MessageModel msg in messages) {
+                        AddMessage(msg);
+                    }
                 }
             }
 
@@ -554,7 +564,7 @@ namespace Smuxi.Frontend.Gnome
                 }
             }
 
-            if (_IsSynced) {
+            if (_IsSynced && (Frontend.IsLocalEngine || !UseLowBandwidthMode)) {
                 bool isActiveChat = IsActive;
 
                 var method = Trace.GetMethodBase();

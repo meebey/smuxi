@@ -98,9 +98,18 @@ namespace Smuxi.Frontend.Gnome
             _ComboBox.Model = _ListStore;
             _InitEngineList();
 
-            hbox.PackStart(_ComboBox, true, true, 10); 
-            
+            var lowBandWidthCheckBox = new Gtk.CheckButton(_("Use Low Bandwidth Mode"));
+            lowBandWidthCheckBox.Active = (bool) Frontend.FrontendConfig["UseLowBandwidthMode"];
+            lowBandWidthCheckBox.Clicked += delegate {
+                Frontend.FrontendConfig["UseLowBandwidthMode"] =
+                    lowBandWidthCheckBox.Active;
+                Frontend.FrontendConfig.Save();
+            };
+
+            hbox.PackStart(_ComboBox, true, true, 10);
+
             vbox.PackStart(hbox, false, false, 10);
+            vbox.PackStart(lowBandWidthCheckBox);
             
             VBox.Add(vbox);
             

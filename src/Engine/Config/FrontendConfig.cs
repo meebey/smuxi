@@ -79,6 +79,9 @@ namespace Smuxi.Engine
 #endif
             
             // setting required default values
+            prefix = "Frontend/";
+            LoadEntry(prefix+"UseLowBandwidthMode", false);
+
             prefix = "Frontend/Engines/";
             Get<string[]>(prefix+"Engines", new string[] {});
             Get(prefix+"Default", String.Empty);
