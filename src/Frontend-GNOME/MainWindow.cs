@@ -67,6 +67,9 @@ namespace Smuxi.Frontend.Gnome
 #if NOTIFY_SHARP
         private NotifyManager    _NotifyManager;
 #endif
+#if IPC_DBUS
+        private NetworkManager   _NetworkManager;
+#endif
         private bool             _IsMinimized;
         private bool             _IsMaximized;
         private bool             _IsFullscreen;
@@ -468,6 +471,9 @@ namespace Smuxi.Frontend.Gnome
 #endif
 #if NOTIFY_SHARP
             _NotifyManager = new NotifyManager(this, _ChatViewManager);
+#endif
+#if IPC_DBUS
+            _NetworkManager = new NetworkManager(_ChatViewManager);
 #endif
 
             _UI = new GnomeUI(_ChatViewManager);

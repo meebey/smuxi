@@ -72,6 +72,7 @@ FILES = \
 	IndicateManager.cs \
 	Main.cs \
 	MainWindow.cs \
+	NetworkManager.cs \
 	NotImplementedMessageDialog.cs \
 	Notebook.cs \
 	SplashScreenWindow.cs \

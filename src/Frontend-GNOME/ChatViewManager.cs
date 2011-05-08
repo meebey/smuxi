@@ -62,7 +62,16 @@ namespace Smuxi.Frontend.Gnome
                 return f_Chats;
             }
         }
-        
+
+        public bool IsSensitive {
+            set {
+                f_Notebook.Sensitive = value;
+            }
+            get {
+                return f_Notebook.Sensitive;
+            }
+        }
+
         public ChatViewManager(Notebook notebook, Gtk.TreeView treeView)
         {
             f_Notebook = notebook;
