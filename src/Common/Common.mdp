@@ -27,6 +27,7 @@
     <File subtype="Code" buildaction="Compile" name="Platform.cs" />
     <File subtype="Code" buildaction="Compile" name="Pattern.cs" />
     <File subtype="Code" buildaction="Compile" name="Crc32.cs" />
+    <File subtype="Code" buildaction="Compile" name="IOSecurity.cs" />
   </Contents>
   <References>
     <ProjectReference type="Assembly" localcopy="True" refto="../../lib/log4net.dll" />

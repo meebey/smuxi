@@ -35,7 +35,8 @@ namespace Smuxi.Engine
         private DateTime                f_TimeStamp;
         private IList<MessagePartModel> f_MessageParts;
         private MessageType             f_MessageType;
-        public  bool                    IsCompactable { get; set; }
+        [NonSerialized]
+        private bool                    f_IsCompactable;
 
         public DateTime TimeStamp {
             get {
@@ -61,6 +62,15 @@ namespace Smuxi.Engine
             }
         }
         
+        public bool IsCompactable {
+            get {
+                return f_IsCompactable;
+            }
+            set {
+                f_IsCompactable = value;
+            }
+        }
+
         public MessageModel()
         {
             f_TimeStamp    = DateTime.UtcNow;

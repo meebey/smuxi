@@ -294,6 +294,13 @@ namespace Smuxi.Engine
             Get(prefix+"Enabled", false);
             Get(prefix+"LogFilteredMessages", false);
 
+            prefix = "Engine/Users/DEFAULT/MessageBuffer/";
+            Get(prefix+"PersistencyType", "Volatile");
+            prefix = "Engine/Users/DEFAULT/MessageBuffer/Volatile/";
+            Get(prefix+"MaxCapacity", 200);
+            prefix = "Engine/Users/DEFAULT/MessageBuffer/Persistent/";
+            Get(prefix+"MaxCapacity", 50 * 1000);
+
             prefix = "Engine/Users/DEFAULT/Servers/";
             Get(prefix + "Servers", new string[] {
                 "IRC/irc.oftc.net",
@@ -473,6 +480,10 @@ namespace Smuxi.Engine
                 
                 LoadUserEntry(user, "Logging/Enabled", null);
                 LoadUserEntry(user, "Logging/LogFilteredMessages", null);
+
+                LoadUserEntry(user, "MessageBuffer/PersistencyType", null);
+                LoadUserEntry(user, "MessageBuffer/Volatile/MaxCapacity", null);
+                LoadUserEntry(user, "MessageBuffer/Persistent/MaxCapacity", null);
 
                 string[] servers = null;
                 string sprefix = prefix + user + "/Servers/";

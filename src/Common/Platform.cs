@@ -152,9 +152,21 @@ namespace Smuxi.Common
                     Environment.SpecialFolder.LocalApplicationData
                 );
                 logPath = Path.Combine(logPath, "smuxi");
+                // FIXME: include session username
                 logPath = Path.Combine(logPath, "logs");
                 return logPath;
             }
+        }
+
+        public static string GetBuffersPath(string username)
+        {
+            var dbPath = Environment.GetFolderPath(
+                Environment.SpecialFolder.LocalApplicationData
+            );
+            dbPath = Path.Combine(dbPath, "smuxi");
+            dbPath = Path.Combine(dbPath, "buffers");
+            dbPath = Path.Combine(dbPath, IOSecurity.GetFilteredPath(username));
+            return dbPath;
         }
     }
 }

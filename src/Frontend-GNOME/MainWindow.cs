@@ -760,7 +760,7 @@ namespace Smuxi.Frontend.Gnome
                         chat = new GroupChatModel(
                             dialog.ChatName, 
                             dialog.ChatName,
-                            manager
+                            null
                         );
                         break;
                     case ChatType.Person:
@@ -768,7 +768,7 @@ namespace Smuxi.Frontend.Gnome
                             null,
                             dialog.ChatName, 
                             dialog.ChatName,
-                            manager
+                            null
                         );
                         break;
                     default:

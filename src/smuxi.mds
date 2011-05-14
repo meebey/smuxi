@@ -38,6 +38,7 @@
       <Entry build="True" name="Newtonsoft.Json" configuration="Release" />
       <Entry build="True" name="Twitterizer2" configuration="Release" />
       <Entry build="True" name="Frontend-STFL-Tests" configuration="Release" />
+      <Entry build="True" name="Db4objects.Db4o-2008" configuration="Release" />
     </Configuration>
     <Configuration name="Debug" ctype="CombineConfiguration">
       <Entry build="True" name="Common" configuration="Debug" />
@@ -65,6 +66,7 @@
       <Entry build="True" name="Newtonsoft.Json" configuration="Debug" />
       <Entry build="True" name="Twitterizer2" configuration="Debug" />
       <Entry build="True" name="Frontend-STFL-Tests" configuration="Debug" />
+      <Entry build="True" name="Db4objects.Db4o-2008" configuration="Debug" />
     </Configuration>
     <Configuration name="Debug-Win32" ctype="CombineConfiguration">
       <Entry build="True" name="Common" configuration="Debug" />
@@ -92,6 +94,7 @@
       <Entry build="True" name="Newtonsoft.Json" configuration="Debug" />
       <Entry build="True" name="Twitterizer2" configuration="Debug" />
       <Entry build="True" name="Frontend-STFL-Tests" configuration="Debug" />
+      <Entry build="True" name="Db4objects.Db4o-2008" configuration="Debug" />
     </Configuration>
   </Configurations>
   <StartMode startupentry="Server" single="False">
@@ -120,6 +123,7 @@
     <Execute type="None" entry="Newtonsoft.Json" />
     <Execute type="None" entry="Twitterizer2" />
     <Execute type="None" entry="Frontend-STFL-Tests" />
+    <Execute type="None" entry="Db4objects.Db4o-2008" />
   </StartMode>
   <Entries>
     <Entry filename="Common/Common.mdp" />
@@ -147,5 +151,6 @@
     <Entry filename="../lib/Newtonsoft.Json/Src/Newtonsoft.Json/Newtonsoft.Json.csproj" />
     <Entry filename="../lib/Twitterizer/Twitterizer2/Twitterizer2.csproj" />
     <Entry filename="Frontend-STFL-Tests/Frontend-STFL-Tests.mdp" />
+    <Entry filename="../lib/db4o-net/Db4objects.Db4o/Db4objects.Db4o-2008.csproj" />
   </Entries>
 </Combine>

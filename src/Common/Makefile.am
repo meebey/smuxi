@@ -49,6 +49,7 @@ FILES = \
 	$(top_srcdir)/src/AssemblyVersion.cs \
 	AssemblyInfo.cs \
 	Crc32.cs \
+	IOSecurity.cs \
 	ITraceable.cs \
 	Trace.cs \
 	MD5.cs \

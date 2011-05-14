@@ -496,7 +496,7 @@ namespace Smuxi.Frontend.Gnome
                     person,
                     person.ID,
                     person.IdentityName,
-                    ChatModel.ProtocolManager
+                    null
                 );
                 ChatModel.ProtocolManager.OpenChat(
                     Frontend.FrontendManager,

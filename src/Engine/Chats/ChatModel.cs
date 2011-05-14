@@ -1,7 +1,7 @@
 /*
  * Smuxi - Smart MUltipleXed Irc
  *
- * Copyright (c) 2005-2008, 2010 Mirco Bauer <meebey@meebey.net>
+ * Copyright (c) 2005-2008, 2010-2011 Mirco Bauer <meebey@meebey.net>
  *
  * Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
  *
@@ -37,11 +37,15 @@ namespace Smuxi.Engine
         private string               _Name;
         private ChatType             _ChatType;
         private IProtocolManager     _ProtocolManager;
-        private List<MessageModel>   _Messages = new List<MessageModel>();
+        //private List<MessageModel>   _Messages = new List<MessageModel>();
         private bool                 _IsEnabled = true;
+        // TODO: make persistent
         private DateTime             _LastSeenHighlight;
         private string               _LogFile;
+        // TODO: make persistent
         public  int                  Position { get; set; }
+        public  IMessageBuffer       MessageBuffer { get; private set; }
+        public  int                  MessagesSyncCount { get; set; }
 
         public string ID {
             get {
@@ -66,20 +70,24 @@ namespace Smuxi.Engine
                 return _ProtocolManager;
             }
         }
-        
+
+        [Obsolete("Use ChatModel.MessageBuffer instead.")]
         public IList<MessageModel> Messages {
             get {
-                lock (_Messages) {
-                    // during cloning, someone could modify it and break the enumerator
-                    return new List<MessageModel>(_Messages);
-                }
-            }
-        }
-        
-        internal IList<MessageModel> UnsafeMessages {
-            get {
-                lock (_Messages) {
-                    return _Messages;
+                // during cloning, someone could modify it and break the enumerator
+                lock (MessageBuffer) {
+                    if (MessageBuffer.Count == 0) {
+                        return new List<MessageModel>(0);
+                    }
+                    if (MessagesSyncCount <= 0) {
+                        return new List<MessageModel>(MessageBuffer);
+                    } else {
+                        var offset = MessageBuffer.Count - MessagesSyncCount;
+                        if (offset < 0) {
+                            offset = 0;
+                        }
+                        return MessageBuffer.GetRange(offset, MessagesSyncCount);
+                    }
                 }
             }
         }
@@ -118,6 +126,9 @@ namespace Smuxi.Engine
             _ChatType = chatType;
             _ProtocolManager = networkManager;
             Position = -1;
+            if (ProtocolManager == null) {
+                InitMessageBuffer(MessageBufferPersistencyType.Volatile);
+            }
         }
         
         public string ToTraceString()
@@ -125,7 +136,41 @@ namespace Smuxi.Engine
             string nm = (_ProtocolManager != null) ? _ProtocolManager.ToString() : "(null)";  
             return  nm + "/" + _Name; 
         }
-        
+
+        public void ApplyConfig(UserConfig config)
+        {
+            if (config == null) {
+                throw new ArgumentNullException("config");
+            }
+
+            MessagesSyncCount =
+                (int) config["Interface/Notebook/EngineBufferLines"];
+
+            var enumStr = (string) config["MessageBuffer/PersistencyType"];
+            MessageBufferPersistencyType persistency;
+            try {
+                persistency = (MessageBufferPersistencyType) Enum.Parse(
+                    typeof(MessageBufferPersistencyType), enumStr, true
+                );
+            } catch (ArgumentException ex) {
+#if LOG4NET
+                _Logger.Error("ApplyConfig(): failed to parse " +
+                              "PersistencyType: " + enumStr, ex);
+#endif
+                persistency = MessageBufferPersistencyType.Volatile;
+            }
+            InitMessageBuffer(persistency);
+
+            var maxCapacityKey = String.Format("MessageBuffer/{0}/MaxCapacity",
+                                               persistency.ToString());
+            MessageBuffer.MaxCapacity = (int) config[maxCapacityKey];
+        }
+
+        public void Close()
+        {
+            MessageBuffer.Dispose();
+        }
+
         private string GetLogFile()
         {
             if (_ProtocolManager == null) {
@@ -174,6 +219,39 @@ namespace Smuxi.Engine
             logPath = Path.Combine(logPath, String.Format("{0}.log", chatId));
             logPath = logPath.Replace("..", String.Empty);
             return logPath;
+        }
+
+        void InitMessageBuffer(MessageBufferPersistencyType persistency)
+        {
+            Trace.Call(persistency);
+
+            if (MessageBuffer != null) {
+                return;
+            }
+
+            switch (persistency) {
+                case MessageBufferPersistencyType.Volatile:
+                    MessageBuffer = new ListMessageBuffer();
+                    break;
+                case MessageBufferPersistencyType.Persistent:
+                    try {
+                        MessageBuffer = new Db4oMessageBuffer(
+                            ProtocolManager.Session.Username,
+                            ProtocolManager.Protocol,
+                            ProtocolManager.NetworkID,
+                            ID
+                        );
+                    } catch (Exception ex) {
+#if LOG4NET
+                        _Logger.Error(
+                            "InitMessageBuffer(): Db4oMessageBuffer() threw " +
+                            "exception, falling back to memory backend!", ex
+                        );
+#endif
+                        MessageBuffer = new ListMessageBuffer();
+                    }
+                    break;
+            }
         }
     }
 }

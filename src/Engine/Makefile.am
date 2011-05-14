@@ -1,11 +1,11 @@
-
+TARGET_DIR = $(top_builddir)/bin/$(PROFILE)
 EXTRA_DIST =  
 
 # Warning: This is an automatically generated file, do not edit!
 
 if ENABLE_RELEASE
 ASSEMBLY_COMPILER_COMMAND = @MCS@
-ASSEMBLY_COMPILER_FLAGS =  -noconfig -codepage:utf8 -warn:4 -optimize+ "-define:CONFIG_NINI"
+ASSEMBLY_COMPILER_FLAGS =  -noconfig -codepage:utf8 -warn:4 -optimize+ "-define:CONFIG_NINI" -define:DB4O,DB4O_8_0
 
 ASSEMBLY = ../../bin/release/smuxi-engine.dll
 ASSEMBLY_MDB = 
@@ -21,7 +21,7 @@ endif
 
 if ENABLE_DEBUG
 ASSEMBLY_COMPILER_COMMAND = @MCS@
-ASSEMBLY_COMPILER_FLAGS =  -noconfig -codepage:utf8 -warn:4 -optimize- -debug -define:DEBUG "-define:DEBUG,TRACE,LOG4NET,CONFIG_NINI"
+ASSEMBLY_COMPILER_FLAGS =  -noconfig -codepage:utf8 -warn:4 -optimize- -debug -define:DEBUG "-define:DEBUG,TRACE,LOG4NET,CONFIG_NINI" -define:DB4O,DB4O_8_0
 
 ASSEMBLY = ../../bin/debug/smuxi-engine.dll
 ASSEMBLY_MDB = $(ASSEMBLY).mdb
@@ -62,6 +62,11 @@ FILES = \
 	TextColorTools.cs \
 	UICommand.cs \
 	UICommandContainer.cs \
+	MessageBuffers/Db4oMessageBuffer.cs \
+	MessageBuffers/IMessageBuffer.cs \
+	MessageBuffers/ListMessageBuffer.cs \
+	MessageBuffers/MessageBufferBase.cs \
+	MessageBuffers/MessageBufferPersistencyType.cs \
 	Messages/MessageBuilder.cs \
 	Messages/MessageModel.cs \
 	Messages/MessageParser.cs \
@@ -106,9 +111,11 @@ REFERENCES =  \
 	System \
 	Mono.Posix \
 	$(NINI_LIBS) \
-	$(LOG4NET_LIBS)
+	$(LOG4NET_LIBS) \
+	$(DB4O_LIBS) \
+	$(DB4O_INCLUDED_LIBS)
 
-DLL_REFERENCES = 
+DLL_REFERENCES =
 
 CLEANFILES = $(PROGRAMFILES) $(LINUX_PKGCONFIG) 
 
@@ -125,6 +132,11 @@ NINI_DLL = $(BUILD_DIR)/Nini.dll
 NINI_DLL_SOURCE = $(NINI_LIBS)
 PROGRAMFILES += $(NINI_DLL)
 $(eval $(call emit-deploy-target,NINI_DLL))
+endif
+
+if BUNDLE_DB4O
+DB4O_INCLUDED_LIBS := $(foreach file, $(DB4O_FILES), $(TARGET_DIR)/$(file))
+PROGRAMFILES += $(DB4O_INCLUDED_LIBS)
 endif
 
 $(build_xamlg_list): %.xaml.g.cs: %.xaml

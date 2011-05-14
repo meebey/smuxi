@@ -112,7 +112,7 @@ namespace Smuxi.Engine
             }
         }
         
-        protected Session Session {
+        public virtual Session Session {
             get {
                 return _Session;
             }

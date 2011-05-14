@@ -160,6 +160,33 @@ else
 	PKG_CHECK_MODULES([NINI], [nini >= 1.1])
 fi
 
+AC_ARG_WITH([db4o],
+	AC_HELP_STRING([--with-db4o=auto|system|included], [Use system or included db4o @<:@default=auto@:>@]),
+	[],
+	with_db4o=auto
+)
+WITH_DB4O=$with_db4o
+if test "x$WITH_DB4O" = "xauto"; then
+	PKG_CHECK_EXISTS([db4o >= 8.0], FOUND_DB4O=yes, FOUND_DB4O=no)
+	if test "x$FOUND_DB4O" = "xyes"; then
+		WITH_DB4O=system
+	else
+		WITH_DB4O=included
+	fi
+fi
+if test "x$WITH_DB4O" = "xsystem"; then
+	PKG_CHECK_MODULES([DB4O], [db4o >= 8.0])
+	AM_CONDITIONAL([BUNDLE_DB4O], false)
+fi
+if test "x$WITH_DB4O" = "xincluded"; then
+	if test ! -d "$srcdir/lib/db4o-net/Db4objects.Db4o"; then
+		AC_MSG_ERROR([lib/db4o-net is empty!])
+	fi
+	AM_CONDITIONAL([BUNDLE_DB4O], true)
+	#AC_SUBST([DB4O_FILES], "Db4objects.Db4o.dll Db4objects.Db4o.Instrumentation.dll Db4objects.Db4o.NativeQueries.dll")
+	AC_SUBST([DB4O_FILES], "Db4objects.Db4o.dll")
+fi
+
 # Optional Libraries
 AC_ARG_WITH([indicate],
 	AC_HELP_STRING([--with-indicate], [Support Messaging Menu @<:@default=auto@:>@]),
@@ -489,6 +516,7 @@ AC_MSG_RESULT([
 
 	* Engines
 	  -------
+	  Core:                (db4o: $WITH_DB4O)
 	  IRC:                 $ENABLE_ENGINE_IRC
 	  XMPP:                $ENABLE_ENGINE_XMPP
 	  OSCAR:               $ENABLE_ENGINE_OSCAR

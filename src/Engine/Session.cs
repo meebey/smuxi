@@ -87,6 +87,12 @@ namespace Smuxi.Engine
             }
         }
         
+        public string Username {
+            get {
+                return _Username;
+            }
+        }
+
         public bool IsLocal {
             get {
                 return _Username == "local";
@@ -765,7 +771,42 @@ namespace Smuxi.Engine
                 }
             }
         }
-        
+
+        public T CreateChat<T>(string id,
+                               string name,
+                               IProtocolManager protocolManager)
+                              where T : ChatModel
+        {
+            Trace.Call(id, name, protocolManager);
+
+            T chat;
+            Type chatType = typeof(T);
+            if (chatType == typeof(SessionChatModel)) {
+                chat = (T) Activator.CreateInstance(chatType, id, name);
+            } else if (chatType == typeof(PersonChatModel)) {
+                throw new NotSupportedException(
+                    "PersonModel is not supported, use " +
+                    "Session.CreatePersionChat() instead"
+                );
+            } else {
+                chat = (T) Activator.CreateInstance(chatType,
+                                                    id, name, protocolManager);
+            }
+            chat.ApplyConfig(UserConfig);
+            return chat;
+        }
+
+        public PersonChatModel CreatePersonChat(PersonModel person,
+                                                string id, string name,
+                                                IProtocolManager protocolManager)
+        {
+            Trace.Call(person, id, name, protocolManager);
+
+            var chat = new PersonChatModel(person, id, name, protocolManager);
+            chat.ApplyConfig(UserConfig);
+            return chat;
+        }
+
         public void AddChat(ChatModel chat)
         {
             Trace.Call(chat);
@@ -798,8 +839,10 @@ namespace Smuxi.Engine
 #if LOG4NET
                     f_Logger.Warn("RemoveChat(): _Chats.Remove(" + chat + ") failed, ignoring...");
 #endif
+                    chat.Close();
                     return;
                 }
+                chat.Close();
             }
             
             lock (_FrontendManagers) {
@@ -894,14 +937,7 @@ namespace Smuxi.Engine
                 return;
             }
 
-            int buffer_lines = (int) UserConfig["Interface/Notebook/EngineBufferLines"];
-            if (buffer_lines > 0) {
-                chat.UnsafeMessages.Add(msg);
-                if (chat.UnsafeMessages.Count > buffer_lines) {
-                    chat.UnsafeMessages.RemoveAt(0);
-                }
-            }
-            
+            chat.MessageBuffer.Add(msg);
             lock (_FrontendManagers) {
                 foreach (FrontendManager fm in _FrontendManagers.Values) {
                     fm.AddMessageToChat(chat, msg);

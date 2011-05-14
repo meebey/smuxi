@@ -321,8 +321,10 @@ namespace Smuxi.Engine
             }
 
             _Network = network;
-            _NetworkChat = new ProtocolChatModel(network, "IRC " + network, this);
-            
+            _NetworkChat = Session.CreateChat<ProtocolChatModel>(
+                network, "IRC " + network, this
+            );
+
             // BUG: race condition when we use Session.AddChat() as it pushes this already
             // to the connected frontend and the frontend will sync and get the page 2 times!
             //Session.Chats.Add(_NetworkChat);
@@ -1208,7 +1210,8 @@ namespace Smuxi.Engine
                 chat = GetChat(nickname, ChatType.Person);
                 if (chat == null) {
                     var person = CreatePerson(nickname);
-                    chat = new PersonChatModel(person, nickname, nickname, this);
+                    chat = Session.CreatePersonChat(person, nickname,
+                                                    nickname, this);
                     Session.AddChat(chat);
                     Session.SyncChat(chat);
                 }
@@ -2512,7 +2515,8 @@ namespace Smuxi.Engine
                 var person = CreatePerson(e.Data.Nick);
                 person.Ident = e.Data.Ident;
                 person.Host = e.Data.Host;
-                chat = new PersonChatModel(person, e.Data.Nick, e.Data.Nick, this);
+                chat = Session.CreatePersonChat(person, e.Data.Nick,
+                                                e.Data.Nick, this);
                 newChat = true;
             }
 
@@ -2542,7 +2546,8 @@ namespace Smuxi.Engine
                 var person = CreatePerson(e.Data.Nick);
                 person.Ident = e.Data.Ident;
                 person.Host = e.Data.Host;
-                chat = new PersonChatModel(person, e.Data.Nick, e.Data.Nick, this);
+                chat = Session.CreatePersonChat(person, e.Data.Nick,
+                                                e.Data.Nick, this);
                 newChat = true;
             }
 
@@ -2585,7 +2590,8 @@ namespace Smuxi.Engine
                                                          null,
                                                          e.Data.Ident,
                                                          e.Data.Host);
-                    chat = new PersonChatModel(person, e.Data.Nick, e.Data.Nick, this);
+                    chat = Session.CreatePersonChat(person, e.Data.Nick,
+                                                    e.Data.Nick, this);
                     newChat = true;
                 }
             }
@@ -2625,7 +2631,9 @@ namespace Smuxi.Engine
                 }
 
                 if (groupChat == null) {
-                    groupChat = new GroupChatModel(e.Channel, e.Channel, this);
+                    groupChat = Session.CreateChat<GroupChatModel>(
+                        e.Channel, e.Channel, this
+                    );
                     groupChat.UnsafePersonsComparer = StringComparer.OrdinalIgnoreCase;
                     Session.AddChat(groupChat);
                 } else {

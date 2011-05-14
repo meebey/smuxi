@@ -33,6 +33,10 @@ namespace Smuxi.Engine
 {
     public interface IProtocolManager : IDisposable
     {
+        Session Session {
+            get;
+        }
+
         string NetworkID {
             get;
         }

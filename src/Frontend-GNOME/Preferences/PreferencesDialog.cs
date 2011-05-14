@@ -181,6 +181,30 @@ namespace Smuxi.Frontend.Gnome
             wrapModeComboBox.Model = store;
             wrapModeComboBox.Active = 0;
             
+            Gtk.ComboBox persistencyTypeComboBox =
+                (Gtk.ComboBox) _Glade["PersistencyTypeComboBox"];
+            // glade might initialize it already!
+            persistencyTypeComboBox.Clear();
+            persistencyTypeComboBox.Changed += _OnChanged;
+            cell = new Gtk.CellRendererText();
+            persistencyTypeComboBox.PackStart(cell, false);
+            persistencyTypeComboBox.AddAttribute(cell, "text", 1);
+            store = new Gtk.ListStore(
+                typeof(MessageBufferPersistencyType), typeof(string)
+            );
+            // fill ListStore
+            store.AppendValues(MessageBufferPersistencyType.Volatile,
+                               _("Volatile"));
+            store.AppendValues(MessageBufferPersistencyType.Persistent,
+                               _("Persistent"));
+            persistencyTypeComboBox.Model = store;
+            persistencyTypeComboBox.Active = 0;
+            if (Frontend.EngineVersion < new Version("0.8.1")) {
+                persistencyTypeComboBox.Sensitive = false;
+                ((Gtk.SpinButton) _Glade["VolatileMaxCapacitySpinButton"]).Sensitive = false;
+                ((Gtk.SpinButton) _Glade["PersistentMaxCapacitySpinButton"]).Sensitive = false;
+            }
+
             Gtk.ComboBox proxyTypeComboBox = (Gtk.ComboBox)_Glade["ProxyTypeComboBox"];
             // initialize wrap modes
             // glade might initialize it already!
@@ -349,6 +373,29 @@ namespace Smuxi.Frontend.Gnome
             ((Gtk.Entry) _Glade["ProxyPasswordEntry"]).Text =
                 (string) Frontend.UserConfig["Connection/ProxyPassword"];
             CheckProxyShowPasswordCheckButton();
+
+            // MessageBuffer
+            if (Frontend.EngineVersion >= new Version("0.8.1")) {
+                // feature introduced in >= 0.8.1
+                Gtk.ComboBox persistencyTypeComboBox =
+                    ((Gtk.ComboBox)_Glade["PersistencyTypeComboBox"]);
+                var persistencyType = (MessageBufferPersistencyType) Enum.Parse(
+                    typeof(MessageBufferPersistencyType),
+                    (string) Frontend.UserConfig["MessageBuffer/PersistencyType"]
+                );
+                i = 0;
+                foreach (object[] row in (Gtk.ListStore) persistencyTypeComboBox.Model) {
+                    if (((MessageBufferPersistencyType) row[0]) == persistencyType) {
+                        persistencyTypeComboBox.Active = i;
+                        break;
+                    }
+                    i++;
+                }
+                ((Gtk.SpinButton)_Glade["VolatileMaxCapacitySpinButton"]).Value =
+                    (double)(int)Frontend.UserConfig["MessageBuffer/Volatile/MaxCapacity"];
+                ((Gtk.SpinButton)_Glade["PersistentMaxCapacitySpinButton"]).Value =
+                    (double)(int)Frontend.UserConfig["MessageBuffer/Persistent/MaxCapacity"];
+            }
 
             // Interface
             ((Gtk.CheckButton) _Glade["ShowAdvancedSettingsCheckButton"]).Active =
@@ -624,6 +671,27 @@ namespace Smuxi.Frontend.Gnome
             Frontend.UserConfig["Connection/ProxyPassword"] =
                 ((Gtk.Entry) _Glade["ProxyPasswordEntry"]).Text;
 
+            int i;
+            // MessageBuffer
+            if (Frontend.EngineVersion >= new Version("0.8.1")) {
+                var persistencyTypeComboBox = (Gtk.ComboBox) _Glade["PersistencyTypeComboBox"];
+                var persistencyType = MessageBufferPersistencyType.Volatile;
+                i = 0;
+                foreach (object[] row in (Gtk.ListStore) persistencyTypeComboBox.Model) {
+                    if (persistencyTypeComboBox.Active == i) {
+                        persistencyType = (MessageBufferPersistencyType) row[0];
+                        break;
+                    }
+                    i++;
+                }
+                Frontend.UserConfig["MessageBuffer/PersistencyType"] =
+                    persistencyType.ToString();
+                Frontend.UserConfig["MessageBuffer/Volatile/MaxCapacity"] =
+                    (int)((Gtk.SpinButton)_Glade["VolatileMaxCapacitySpinButton"]).Value;
+                Frontend.UserConfig["MessageBuffer/Persistent/MaxCapacity"] =
+                    (int)((Gtk.SpinButton)_Glade["PersistentMaxCapacitySpinButton"]).Value;
+            }
+
             // Interface
             Frontend.UserConfig["Interface/ShowAdvancedSettings"] =
                 ((Gtk.CheckButton)_Glade["ShowAdvancedSettingsCheckButton"]).Active;
@@ -715,7 +783,7 @@ namespace Smuxi.Frontend.Gnome
             
             Gtk.ComboBox wrapModeComboBox = (Gtk.ComboBox) _Glade["WrapModeComboBox"];
             Gtk.WrapMode wrapMode = Gtk.WrapMode.Char;
-            int i = 0;
+            i = 0;
             foreach (object[] row in (Gtk.ListStore) wrapModeComboBox.Model) {
                 if (wrapModeComboBox.Active == i) {
                     wrapMode = (Gtk.WrapMode) row[0];

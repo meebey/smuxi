@@ -429,7 +429,18 @@ namespace Smuxi.Frontend.Gnome
                 SyncedLastSeenHighlight = _ChatModel.LastSeenHighlight;
 
                 // REMOTING CALL 2
+                DateTime start, stop;
+                start = DateTime.UtcNow;
                 IList<MessageModel> messages = _ChatModel.Messages;
+                stop = DateTime.UtcNow;
+#if LOG4NET
+                _Logger.Debug(
+                    String.Format(
+                        "Sync(): retrieving ChatModel.Messages took: {0:0.00} ms",
+                        (stop - start).TotalMilliseconds
+                    )
+                );
+#endif
                 if (messages.Count > 0) {
                     foreach (MessageModel msg in messages) {
                         AddMessage(msg);
