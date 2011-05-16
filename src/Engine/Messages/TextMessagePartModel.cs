@@ -177,6 +177,20 @@ namespace Smuxi.Engine
             return Text;
         }
 
+        public override int GetHashCode()
+        {
+            int hash = base.GetHashCode();
+            hash ^= ForegroundColor.GetHashCode();
+            hash ^= BackgroundColor.GetHashCode();
+            hash ^= Underline.GetHashCode();
+            hash ^= Bold.GetHashCode();
+            hash ^= Italic.GetHashCode();
+            if (Text != null) {
+                hash ^= Text.GetHashCode();
+            }
+            return hash;
+        }
+
         public override bool Equals(object obj)
         {
             if (!(obj is TextMessagePartModel)) {

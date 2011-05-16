@@ -122,6 +122,11 @@ namespace Smuxi.Engine
             return sb.ToString();
         }
 
+        public override int GetHashCode()
+        {
+            return f_TimeStamp.GetHashCode();
+        }
+
         public override bool Equals(object obj)
         {
             if (!(obj is MessageModel)) {

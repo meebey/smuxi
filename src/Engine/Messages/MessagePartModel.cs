@@ -78,6 +78,11 @@ namespace Smuxi.Engine
             sw.AddToInfo(info);
         }
 
+        public override int GetHashCode()
+        {
+            return f_IsHighlight.GetHashCode();
+        }
+
         public override bool Equals(object obj)
         {
             if (!(obj is MessagePartModel)) {
