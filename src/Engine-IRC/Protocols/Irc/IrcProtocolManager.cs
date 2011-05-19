@@ -3189,11 +3189,11 @@ namespace Smuxi.Engine
                     TimeSpan lag = _IrcClient.Lag;
                     TimeSpan diff = lag - _LastLag;
                     int absDiff = Math.Abs((int) diff.TotalSeconds);
-#if LOG4NET
-                    _Logger.Debug("_LagWatcher(): lag: " + lag.TotalSeconds + " seconds, difference: " + absDiff + " seconds");
-#endif
                     // update network status if the lag changed over 5 seconds
                     if (absDiff > 5) {
+#if LOG4NET
+                        _Logger.Debug("_LagWatcher(): lag: " + lag.TotalSeconds + " seconds, difference: " + absDiff + " seconds");
+#endif
                         Session.UpdateNetworkStatus();
                     }
                     _LastLag = lag;
