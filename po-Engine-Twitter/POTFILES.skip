@@ -8,6 +8,7 @@ src/Engine-XMPP/
 src/Frontend/
 src/Frontend-GNOME/
 src/Frontend-GNOME-IRC/
+src/Frontend-STFL/
 src/Frontend-SWF/
 src/Frontend-WPF/
 src/Server/
