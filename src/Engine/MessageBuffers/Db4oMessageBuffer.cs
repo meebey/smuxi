@@ -102,7 +102,7 @@ namespace Smuxi.Engine
             DatabaseConfiguration.Common.ObjectClass(typeof(MessageModel)).
                                          ObjectField("f_TimeStamp").
                                          Indexed(true);
-            DatabaseConfiguration.Common.Diagnostic.AddListener(new DiagnosticToConsole());
+            //DatabaseConfiguration.Common.Diagnostic.AddListener(new DiagnosticToConsole());
 #else
             DatabaseConfiguration = Db4oFactory.Configure();
             DatabaseConfiguration.AllowVersionUpdates(true);
