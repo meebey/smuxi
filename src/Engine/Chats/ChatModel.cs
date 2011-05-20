@@ -221,7 +221,7 @@ namespace Smuxi.Engine
             return logPath;
         }
 
-        void InitMessageBuffer(MessageBufferPersistencyType persistency)
+        public void InitMessageBuffer(MessageBufferPersistencyType persistency)
         {
             Trace.Call(persistency);
 

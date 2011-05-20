@@ -125,6 +125,10 @@ namespace Smuxi.Engine
                 _("Home Timeline"),
                 this
             );
+            f_FriendsTimelineChat.InitMessageBuffer(
+                MessageBufferPersistencyType.Volatile
+            );
+            f_FriendsTimelineChat.ApplyConfig(Session.UserConfig);
             f_GroupChats.Add(f_FriendsTimelineChat);
 
             f_RepliesChat = new GroupChatModel(
@@ -132,6 +136,10 @@ namespace Smuxi.Engine
                 _("Replies"),
                 this
             );
+            f_RepliesChat.InitMessageBuffer(
+                MessageBufferPersistencyType.Volatile
+            );
+            f_RepliesChat.ApplyConfig(Session.UserConfig);
             f_GroupChats.Add(f_RepliesChat);
 
             f_DirectMessagesChat = new GroupChatModel(
@@ -139,6 +147,10 @@ namespace Smuxi.Engine
                 _("Direct Messages"),
                 this
             );
+            f_DirectMessagesChat.InitMessageBuffer(
+                MessageBufferPersistencyType.Volatile
+            );
+            f_DirectMessagesChat.ApplyConfig(Session.UserConfig);
             f_GroupChats.Add(f_DirectMessagesChat);
         }
 
@@ -167,6 +179,10 @@ namespace Smuxi.Engine
             }
 
             f_ProtocolChat = new ProtocolChatModel(NetworkID, "Twitter " + username, this);
+            f_ProtocolChat.InitMessageBuffer(
+                MessageBufferPersistencyType.Volatile
+            );
+            f_ProtocolChat.ApplyConfig(Session.UserConfig);
             Session.AddChat(f_ProtocolChat);
             Session.SyncChat(f_ProtocolChat);
 
@@ -481,6 +497,10 @@ namespace Smuxi.Engine
                 user.ScreenName,
                 this
             );
+            personChat.InitMessageBuffer(
+                MessageBufferPersistencyType.Volatile
+            );
+            personChat.ApplyConfig(Session.UserConfig);
             Session.AddChat(personChat);
             Session.SyncChat(personChat);
             return personChat;
