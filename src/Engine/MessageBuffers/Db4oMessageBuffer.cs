@@ -34,7 +34,9 @@ namespace Smuxi.Engine
 #if LOG4NET
         static readonly log4net.ILog Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 #endif
+        const int        IndexBufferSize = 16;
         IObjectSet       f_Index;
+        List<MessageModel> IndexBuffer { get; set; }
         IObjectContainer Database { get; set; }
         string           DatabaseFile { get; set; }
         string           SessionUsername { get; set; }
@@ -58,7 +60,10 @@ namespace Smuxi.Engine
 
         public override MessageModel this[int index] {
             get {
-                //return (MessageModel) Database.Ext().GetByID(index);
+                int indexCount = Index.Count;
+                if (index >= indexCount) {
+                    return IndexBuffer[index - indexCount];
+                }
                 return (MessageModel) Index[index];
             }
             set {
@@ -68,7 +73,7 @@ namespace Smuxi.Engine
 
         public override int Count {
             get {
-                return Index.Count;
+                return Index.Count + IndexBuffer.Count;
             }
         }
 
@@ -93,6 +98,7 @@ namespace Smuxi.Engine
             NetworkID = networkId;
             ChatID = chatId;
 
+            IndexBuffer = new List<MessageModel>(IndexBufferSize);
             DatabaseFile = GetDatabaseFile();
 #if DB4O_8_0
             DatabaseConfiguration = Db4oEmbedded.NewConfiguration();
@@ -134,16 +140,14 @@ namespace Smuxi.Engine
 
         protected void Dispose(bool disposing)
         {
-            var db = Database;
-            if (db == null) {
+            if (Database == null) {
                 return;
             }
+
+            CloseDatabase();
             Database = null;
             Index = null;
-
-            db.Commit();
-            db.Close();
-            db.Dispose();
+            IndexBuffer = null;
         }
 
         public override void Add(MessageModel item)
@@ -152,10 +156,13 @@ namespace Smuxi.Engine
                 RemoveAt(0);
             }
 
-            // TODO: commit every 60 seconds
-            Database.Store(item);
-
-            ResetIndex();
+            // TODO: auto-flush every 60 seconds
+            lock (IndexBuffer) {
+                IndexBuffer.Add(item);
+            }
+            if (IndexBuffer.Count == IndexBuffer.Capacity) {
+                Flush();
+            }
         }
 
         public override void Clear()
@@ -163,7 +170,7 @@ namespace Smuxi.Engine
             foreach (var msg in this) {
                 Database.Delete(msg);
             }
-
+            IndexBuffer.Clear();
             ResetIndex();
         }
 
@@ -187,6 +194,9 @@ namespace Smuxi.Engine
             foreach (var msg in Index) {
                yield return (MessageModel) msg;
             }
+            foreach (var msg in IndexBuffer) {
+               yield return msg;
+            }
         }
 
         public override int IndexOf(MessageModel item)
@@ -201,7 +211,8 @@ namespace Smuxi.Engine
             var res = Database.QueryByExample(item);
             // return -1 if not found
             if (res.Count == 0) {
-                return -1;
+                // fallback to index buffer
+                return IndexBuffer.IndexOf(item);
             }
             return Index.IndexOf(res[0]);
         }
@@ -213,7 +224,12 @@ namespace Smuxi.Engine
 
         public override void RemoveAt(int index)
         {
+            if (index >= Index.Count) {
+                IndexBuffer.RemoveAt(index - Index.Count);
+                return;
+            }
             Database.Delete(Index[index]);
+            // TODO: auto-commit after some timeout
         }
 
         public override bool Remove(MessageModel item)
@@ -221,7 +237,9 @@ namespace Smuxi.Engine
             if (!Contains(item)) {
                 return false;
             }
-
+            if (IndexBuffer.Remove(item)) {
+                return true;
+            }
             Database.Delete(item);
             return true;
         }
@@ -233,6 +251,9 @@ namespace Smuxi.Engine
                     "offset must be greater than or equal to 0.", "offset"
                 );
             }
+            // Neither Count nor the Indexer have to be synchronized as the
+            // messages might move from the buffer to the db4o index but that
+            // doesn't change the Count neither affects the combined indexer
             var bufferCount = Count;
             var rangeCount = Math.Min(bufferCount, limit);
             var range = new List<MessageModel>(rangeCount);
@@ -272,6 +293,14 @@ namespace Smuxi.Engine
 #endif
         }
 
+        void CloseDatabase()
+        {
+            Flush();
+
+            Database.Close();
+            Database.Dispose();
+        }
+
         void DefragDatabase()
         {
             if (!File.Exists(DatabaseFile)) {
@@ -308,14 +337,14 @@ namespace Smuxi.Engine
             */
             var query = Database.Query();
             query.Constrain(typeof(MessageModel));
-            query.Descend("f_TimeStamp");
+            query.Descend("f_TimeStamp").OrderAscending();
             var index = query.Execute();
             stop = DateTime.UtcNow;
 #if LOG4NET
             Logger.Debug(
                 String.Format(
-                    "BuildIndex(): query took: {0:0.00} ms",
-                    (stop - start).TotalMilliseconds
+                    "BuildIndex(): query took: {0:0.00} ms, items: {1}",
+                    (stop - start).TotalMilliseconds, index.Count
                 )
             );
 #endif
@@ -325,6 +354,30 @@ namespace Smuxi.Engine
         void ResetIndex()
         {
             Index = null;
+        }
+
+        void Flush()
+        {
+            int flushedItems = 0;
+            lock (IndexBuffer) {
+                if (IndexBuffer.Count == 0) {
+                    return;
+                }
+
+                foreach (var msg in IndexBuffer) {
+                    Database.Store(msg);
+                    flushedItems++;
+                }
+                IndexBuffer.Clear();
+            }
+            Database.Commit();
+#if LOG4NET
+            Logger.Debug(
+                String.Format("Flush(): flushed {0} items to disk",
+                              flushedItems)
+            );
+#endif
+            ResetIndex();
         }
     }
 }

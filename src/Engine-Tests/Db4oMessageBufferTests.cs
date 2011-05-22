@@ -20,6 +20,7 @@
 
 using System;
 using System.IO;
+using System.Collections.Generic;
 using NUnit.Framework;
 using Smuxi.Common;
 
@@ -47,6 +48,29 @@ namespace Smuxi.Engine
             Buffer.Dispose();
             Buffer = new Db4oMessageBuffer("testuser", "testprot", "testnet", "testchat");
             Enumerator();
+        }
+
+        [Test]
+        public void ImplicitFlush()
+        {
+            // generate 32 extra messsages to exceed the buffer size which
+            // forces a flush of the buffer to db4o
+            var msgs = new List<MessageModel>(Buffer);
+            for (int i = 1; i <= 32; i++) {
+                var builder = new MessageBuilder();
+                builder.AppendText("msg{0}", Buffer.Count + i);
+                msgs.Add(builder.ToMessage());
+            }
+
+            foreach (var msg in msgs) {
+                Buffer.Add(msg);
+            }
+
+            int j = 0;
+            foreach (var msg in Buffer) {
+                Assert.AreEqual(msgs[j++].ToString(), msg.ToString());
+            }
+            Assert.AreEqual(msgs.Count, j);
         }
     }
 }
