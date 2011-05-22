@@ -184,40 +184,13 @@ namespace Smuxi.Engine
             if (network != protocol) {
                 logPath = Path.Combine(logPath, network);
             }
-            if (logPath.IndexOfAny(Path.GetInvalidPathChars()) != -1) {
-#if LOG4NET
-                _Logger.Warn(
-                    "GetLogFile(): logPath '" + logPath + "' contains " +
-                     "invalid chars, removing them!"
-                );
-#endif
-                // remove invalid chars
-                foreach (char invalidChar in Path.GetInvalidPathChars()) {
-                    logPath = logPath.Replace(invalidChar.ToString(),
-                                              String.Empty);
-                }
-            }
-
+            logPath = IOSecurity.GetFilteredPath(logPath);
             if (!Directory.Exists(logPath)) {
                 Directory.CreateDirectory(logPath);
             }
-            
-            var chatId = ID.Replace(" ", "_").ToLower();
-            if (chatId.IndexOfAny(Path.GetInvalidFileNameChars()) != -1) {
-#if LOG4NET
-                _Logger.Warn(
-                    "GetLogFile(): chatId '" + logPath + "' contains " +
-                     "invalid chars, removing them!"
-                );
-#endif
-                // remove invalid chars
-                foreach (char invalidChar in Path.GetInvalidFileNameChars()) {
-                    chatId = chatId.Replace(invalidChar.ToString(),
-                                            String.Empty);
-                }
-            }
+
+            var chatId = IOSecurity.GetFilteredFileName(ID.ToLower());
             logPath = Path.Combine(logPath, String.Format("{0}.log", chatId));
-            logPath = logPath.Replace("..", String.Empty);
             return logPath;
         }
 
