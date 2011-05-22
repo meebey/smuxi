@@ -76,6 +76,17 @@ namespace Smuxi.Engine
         }
 
         [Test]
+        public void IndexOf()
+        {
+            Assert.AreEqual(1, Buffer.IndexOf(TestMessages[1]));
+
+            var builder = new MessageBuilder();
+            builder.AppendText("non-existent");
+            var msg = builder.ToMessage();
+            Assert.AreEqual(-1, Buffer.IndexOf(msg));
+        }
+
+        [Test]
         public void Contains()
         {
             Assert.IsTrue(Buffer.Contains(TestMessages[0]));
@@ -123,6 +134,17 @@ namespace Smuxi.Engine
         {
             Buffer.Clear();
             Assert.AreEqual(0, Buffer.Count);
+        }
+
+        [Test]
+        public void RemoveAt()
+        {
+            Buffer.RemoveAt(0);
+            Assert.AreEqual(TestMessages[1], Buffer[0]);
+            Assert.AreEqual(TestMessages[2], Buffer[1]);
+
+            Buffer.RemoveAt(1);
+            Assert.AreEqual(TestMessages[1], Buffer[0]);
         }
 
         [Test]
