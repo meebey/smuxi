@@ -105,6 +105,10 @@ namespace Smuxi.Common
         /// send the length of the array which is needed when it is retrieved </summary>
 
         public override void Write(byte[] b) {
+            WriteBytes(b);
+        }
+
+        public void WriteBytes(byte[] b) {
          if (b==null) {
            Write(-1);
          } else {
@@ -253,8 +257,13 @@ namespace Smuxi.Common
         /// <summary> Adds the SerializationWriter buffer to the SerializationInfo at the end of GetObjectData(). </summary>
         public void AddToInfo(SerializationInfo info)
         {
-            byte[] b = ((MemoryStream) BaseStream).ToArray();
+            var b = GetData();
             info.AddValue("X", b, typeof(byte[]));
+        }
+
+        public byte[] GetData()
+        {
+            return ((MemoryStream) BaseStream).ToArray();
         }
     }
 
@@ -279,6 +288,12 @@ namespace Smuxi.Common
         {
             byte[] byteArray = (byte[]) info.GetValue("X", typeof(byte[]));
             MemoryStream ms = new MemoryStream(byteArray);
+            return new SerializationReader(ms);
+        }
+
+        public static SerializationReader GetReader(byte[] data)
+        {
+            MemoryStream ms = new MemoryStream(data);
             return new SerializationReader(ms);
         }
 
