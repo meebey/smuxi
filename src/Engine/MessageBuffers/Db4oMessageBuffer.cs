@@ -34,9 +34,10 @@ namespace Smuxi.Engine
 #if LOG4NET
         static readonly log4net.ILog Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 #endif
-        const int        IndexBufferSize = 16;
-        IObjectSet       f_Index;
-        List<MessageModel> IndexBuffer { get; set; }
+        const int        DefaultFlushInterval = 16;
+        List<MessageModel> f_Index;
+        int              FlushInterval { get; set; }
+        int              FlushCounter { get; set; }
         IObjectContainer Database { get; set; }
         string           DatabaseFile { get; set; }
         string           SessionUsername { get; set; }
@@ -46,10 +47,10 @@ namespace Smuxi.Engine
         IConfiguration         DatabaseConfiguration { get; set; }
 #endif
 
-        private IObjectSet Index {
+        private List<MessageModel> Index {
             get {
                 if (f_Index == null) {
-                    BuildIndex();
+                    RestoreIndex();
                 }
                 return f_Index;
             }
@@ -60,11 +61,9 @@ namespace Smuxi.Engine
 
         public override MessageModel this[int index] {
             get {
-                int indexCount = Index.Count;
-                if (index >= indexCount) {
-                    return IndexBuffer[index - indexCount];
-                }
-                return (MessageModel) Index[index];
+                var dbMsg = Index[index];
+                var msg = GetMessage(dbMsg);
+                return msg;
             }
             set {
                 throw new NotImplementedException();
@@ -73,7 +72,7 @@ namespace Smuxi.Engine
 
         public override int Count {
             get {
-                return Index.Count + IndexBuffer.Count;
+                return Index.Count;
             }
         }
 
@@ -98,11 +97,12 @@ namespace Smuxi.Engine
             NetworkID = networkId;
             ChatID = chatId;
 
-            IndexBuffer = new List<MessageModel>(IndexBufferSize);
+            FlushInterval = DefaultFlushInterval;
             DatabaseFile = GetDatabaseFile();
 #if DB4O_8_0
             DatabaseConfiguration = Db4oEmbedded.NewConfiguration();
             DatabaseConfiguration.Common.AllowVersionUpdates = true;
+            DatabaseConfiguration.Common.ActivationDepth = 0;
             DatabaseConfiguration.Common.ObjectClass(typeof(MessageModel)).
                                          Indexed(true);
             DatabaseConfiguration.Common.ObjectClass(typeof(MessageModel)).
@@ -147,7 +147,6 @@ namespace Smuxi.Engine
             CloseDatabase();
             Database = null;
             Index = null;
-            IndexBuffer = null;
         }
 
         public override void Add(MessageModel item)
@@ -157,20 +156,21 @@ namespace Smuxi.Engine
             }
 
             // TODO: auto-flush every 60 seconds
-            lock (IndexBuffer) {
-                IndexBuffer.Add(item);
-            }
-            if (IndexBuffer.Count == IndexBuffer.Capacity) {
+            var dbMsg = new MessageModel(item);
+            Index.Add(dbMsg);
+            Database.Store(dbMsg);
+            FlushCounter++;
+            if (FlushCounter >= FlushInterval) {
+                FlushCounter = 0;
                 Flush();
             }
         }
 
         public override void Clear()
         {
-            foreach (var msg in this) {
+            foreach (var msg in Index) {
                 Database.Delete(msg);
             }
-            IndexBuffer.Clear();
             ResetIndex();
         }
 
@@ -191,11 +191,8 @@ namespace Smuxi.Engine
 
         public override IEnumerator<MessageModel> GetEnumerator()
         {
-            foreach (var msg in Index) {
-               yield return (MessageModel) msg;
-            }
-            foreach (var msg in IndexBuffer) {
-               yield return msg;
+            foreach (var dbMsg in Index) {
+                yield return GetMessage(dbMsg);
             }
         }
 
@@ -211,10 +208,9 @@ namespace Smuxi.Engine
             var res = Database.QueryByExample(item);
             // return -1 if not found
             if (res.Count == 0) {
-                // fallback to index buffer
-                return IndexBuffer.IndexOf(item);
+                return -1;
             }
-            return Index.IndexOf(res[0]);
+            return Index.IndexOf((MessageModel) res[0]);
         }
 
         public override void Insert(int index, MessageModel item)
@@ -224,11 +220,9 @@ namespace Smuxi.Engine
 
         public override void RemoveAt(int index)
         {
-            if (index >= Index.Count) {
-                IndexBuffer.RemoveAt(index - Index.Count);
-                return;
-            }
-            Database.Delete(Index[index]);
+            var item = Index[index];
+            Index.RemoveAt(index);
+            Database.Delete(item);
             // TODO: auto-commit after some timeout
         }
 
@@ -237,9 +231,7 @@ namespace Smuxi.Engine
             if (!Contains(item)) {
                 return false;
             }
-            if (IndexBuffer.Remove(item)) {
-                return true;
-            }
+            Index.Remove(item);
             Database.Delete(item);
             return true;
         }
@@ -296,6 +288,7 @@ namespace Smuxi.Engine
         void CloseDatabase()
         {
             Flush();
+            FlushIndex();
 
             Database.Close();
             Database.Dispose();
@@ -321,20 +314,77 @@ namespace Smuxi.Engine
             Defragment.Defrag(defragConfig);
         }
 
+        MessageModel GetMessage(MessageModel dbMsg)
+        {
+            Database.Activate(dbMsg, 5);
+            var msg = new MessageModel(dbMsg);
+            Database.Deactivate(dbMsg, 5);
+            return msg;
+        }
+
+        void RestoreIndex()
+        {
+            var index = FetchIndex();
+            if (index == null) {
+#if LOG4NET
+                Logger.Info("RestoreIndex(): Rebuilding index...");
+#endif
+                BuildIndex();
+                FlushIndex();
+                return;
+            }
+
+            f_Index = index;
+        }
+
+        List<MessageModel> FetchIndex()
+        {
+            DateTime start = DateTime.UtcNow, stop;
+            var indexes = Database.Query<List<MessageModel>>();
+            if (indexes.Count == 0) {
+                return null;
+            }
+            if (indexes.Count > 1) {
+                // we can't deal with multiple indexes, so drop them all
+                foreach (var idx in indexes) {
+                    Database.Activate(idx, 0);
+                    Database.Delete(idx);
+                }
+                return null;
+            }
+
+            var index = indexes[0];
+            Database.Activate(index, 1);
+            var msgCount = Database.Query<MessageModel>().Count;
+            if (index.Count != msgCount) {
+#if LOG4NET
+                Logger.Warn(
+                    String.Format(
+                        "FetchIndex(): index out of sync! index count: {0} " +
+                        "vs message count: {1}",
+                        index.Count, msgCount
+                    )
+                );
+#endif
+                Database.Delete(index);
+                return null;
+            }
+            stop = DateTime.UtcNow;
+#if LOG4NET
+            Logger.Debug(
+                String.Format(
+                    "FetchIndex(): query, activation and validation took: " +
+                    "{0:0.00} ms, items: {1}",
+                    (stop - start).TotalMilliseconds, index.Count
+                )
+            );
+#endif
+            return index;
+        }
+
         void BuildIndex()
         {
             DateTime start = DateTime.UtcNow, stop;
-            // EXTREMELY SLOW (probably evaluated)
-            /*
-            var msgs = Database.Query<MessageModel>(
-                delegate(MessageModel msg) {
-                    return true;
-                },
-                delegate(MessageModel first, MessageModel second) {
-                    return first.TimeStamp.CompareTo(second.TimeStamp);
-                }
-            );
-            */
             var query = Database.Query();
             query.Constrain(typeof(MessageModel));
             query.Descend("f_TimeStamp").OrderAscending();
@@ -348,7 +398,21 @@ namespace Smuxi.Engine
                 )
             );
 #endif
-            Index = index;
+            start = DateTime.UtcNow;
+            var indexCapacity = Math.Max(index.Count, MaxCapacity);
+            Index = new List<MessageModel>(indexCapacity);
+            foreach (var msg in index) {
+                Index.Add((MessageModel) msg);
+            }
+            stop = DateTime.UtcNow;
+#if LOG4NET
+            Logger.Debug(
+                String.Format(
+                    "BuildIndex(): building index took: {0:0.00} ms",
+                    (stop - start).TotalMilliseconds
+                )
+            );
+#endif
         }
 
         void ResetIndex()
@@ -356,28 +420,27 @@ namespace Smuxi.Engine
             Index = null;
         }
 
+        void FlushIndex()
+        {
+            Database.Store(f_Index);
+            Database.Commit();
+#if LOG4NET
+            Logger.Debug(
+                String.Format("FlushIndex(): flushed index with {0} items to"+
+                              "disk", f_Index.Count)
+            );
+#endif
+        }
+
         void Flush()
         {
-            int flushedItems = 0;
-            lock (IndexBuffer) {
-                if (IndexBuffer.Count == 0) {
-                    return;
-                }
-
-                foreach (var msg in IndexBuffer) {
-                    Database.Store(msg);
-                    flushedItems++;
-                }
-                IndexBuffer.Clear();
-            }
             Database.Commit();
 #if LOG4NET
             Logger.Debug(
                 String.Format("Flush(): flushed {0} items to disk",
-                              flushedItems)
+                              FlushCounter)
             );
 #endif
-            ResetIndex();
         }
     }
 }
