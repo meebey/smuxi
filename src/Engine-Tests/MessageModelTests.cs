@@ -29,6 +29,22 @@ namespace Smuxi.Engine
     public class MessageModelTests
     {
         [Test]
+        public void CopyConstructor()
+        {
+            var builder = new MessageBuilder();
+            builder.AppendEventPrefix();
+            builder.AppendUrl("http://example.com");
+            builder.AppendText("foobar");
+            var msg = builder.ToMessage();
+            var copiedMsg = new MessageModel(msg);
+
+            Assert.AreNotSame(msg, copiedMsg);
+            Assert.IsNotNull(copiedMsg.MessageParts);
+            Assert.AreNotSame(msg.MessageParts, copiedMsg.MessageParts);
+            Assert.AreEqual(msg, copiedMsg);
+        }
+
+        [Test]
         public void Compact()
         {
             var msg = new MessageModel("foo bar");

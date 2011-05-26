@@ -88,6 +88,19 @@ namespace Smuxi.Engine
         {
         }
         
+        public MessageModel(MessageModel msg) : this()
+        {
+            if (msg == null) {
+                throw new ArgumentNullException("msg");
+            }
+
+            var writer = SerializationWriter.GetWriter();
+            msg.GetObjectData(writer);
+            var data = writer.GetData();
+            var reader = SerializationReader.GetReader(data);
+            SetObjectData(reader);
+        }
+
         protected MessageModel(SerializationInfo info, StreamingContext ctx)
         {
             SerializationReader sr = SerializationReader.GetReader(info);
