@@ -59,10 +59,8 @@ namespace Smuxi.Engine
             for (int i = 1; i <= 32; i++) {
                 var builder = new MessageBuilder();
                 builder.AppendText("msg{0}", Buffer.Count + i);
-                msgs.Add(builder.ToMessage());
-            }
-
-            foreach (var msg in msgs) {
+                var msg = builder.ToMessage();
+                msgs.Add(msg);
                 Buffer.Add(msg);
             }
 
