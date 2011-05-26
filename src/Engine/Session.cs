@@ -937,7 +937,9 @@ namespace Smuxi.Engine
                 return;
             }
 
-            chat.MessageBuffer.Add(msg);
+            lock (chat.MessageBuffer) {
+                chat.MessageBuffer.Add(msg);
+            }
             lock (_FrontendManagers) {
                 foreach (FrontendManager fm in _FrontendManagers.Values) {
                     fm.AddMessageToChat(chat, msg);
