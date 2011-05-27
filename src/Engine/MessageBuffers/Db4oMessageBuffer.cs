@@ -165,8 +165,8 @@ namespace Smuxi.Engine
             Database.Store(dbMsg);
             FlushCounter++;
             if (FlushCounter >= FlushInterval) {
-                FlushCounter = 0;
                 Flush();
+                FlushCounter = 0;
             }
         }
 
