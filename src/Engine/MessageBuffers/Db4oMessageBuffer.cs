@@ -239,6 +239,8 @@ namespace Smuxi.Engine
 
             var item = Index[index];
             Index.RemoveAt(index);
+            // we have to pass an activated object in order to delete it :/
+            Database.Activate(item, 0);
             Database.Delete(item);
             // TODO: auto-commit after some timeout
         }
