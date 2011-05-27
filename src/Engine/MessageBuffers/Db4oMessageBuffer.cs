@@ -239,8 +239,17 @@ namespace Smuxi.Engine
 
             var item = Index[index];
             Index.RemoveAt(index);
+            if (item == null) {
+#if LOG4NET
+                Logger.Error(
+                    String.Format("RemoveAt(): index: {0} is null!", index)
+                );
+#endif
+                return;
+            }
+
             // we have to pass an activated object in order to delete it :/
-            Database.Activate(item, 0);
+            Database.Activate(item, 1);
             Database.Delete(item);
             // TODO: auto-commit after some timeout
         }
