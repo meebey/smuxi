@@ -151,6 +151,10 @@ namespace Smuxi.Engine
 
         public override void Add(MessageModel item)
         {
+            if (item == null) {
+                throw new ArgumentNullException("item");
+            }
+
             if (MaxCapacity > 0 && Count >= MaxCapacity) {
                 RemoveAt(0);
             }
@@ -176,6 +180,10 @@ namespace Smuxi.Engine
 
         public override bool Contains(MessageModel item)
         {
+            if (item == null) {
+                throw new ArgumentNullException("item");
+            }
+
             // TODO: benchmark me!
             //return Database.Query<MessageModel>().Contains(item);
             return IndexOf(item) != -1;
@@ -183,6 +191,10 @@ namespace Smuxi.Engine
 
         public override void CopyTo(MessageModel[] array, int arrayIndex)
         {
+            if (array == null) {
+                throw new ArgumentNullException("array");
+            }
+
             int i = arrayIndex;
             foreach (var msg in this) {
                 array[i++] = msg;
@@ -198,6 +210,10 @@ namespace Smuxi.Engine
 
         public override int IndexOf(MessageModel item)
         {
+            if (item == null) {
+                throw new ArgumentNullException("item");
+            }
+
             // TODO: benchmark me!
             /*
             var res = Database.Query<MessageModel>(delegate(MessageModel match) {
@@ -220,14 +236,18 @@ namespace Smuxi.Engine
 
         public override void RemoveAt(int index)
         {
-            var item = Index[index];
             Index.RemoveAt(index);
+            var item = Index[index];
             Database.Delete(item);
             // TODO: auto-commit after some timeout
         }
 
         public override bool Remove(MessageModel item)
         {
+            if (item == null) {
+                throw new ArgumentNullException("item");
+            }
+
             if (!Contains(item)) {
                 return false;
             }
