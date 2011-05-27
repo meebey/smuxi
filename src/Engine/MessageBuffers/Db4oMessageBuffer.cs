@@ -163,6 +163,7 @@ namespace Smuxi.Engine
             var dbMsg = new MessageModel(item);
             Index.Add(dbMsg);
             Database.Store(dbMsg);
+            Database.Deactivate(dbMsg, 5);
             FlushCounter++;
             if (FlushCounter >= FlushInterval) {
                 Flush();
@@ -214,19 +215,15 @@ namespace Smuxi.Engine
                 throw new ArgumentNullException("item");
             }
 
-            // TODO: benchmark me!
-            /*
-            var res = Database.Query<MessageModel>(delegate(MessageModel match) {
-                return match.Equals(item);
-            });
-            */
-            // TODO: use TimeStamp based hashtable as optimization?
             var res = Database.QueryByExample(item);
             // return -1 if not found
             if (res.Count == 0) {
                 return -1;
             }
-            return Index.IndexOf((MessageModel) res[0]);
+            var msg = (MessageModel) res[0];
+            return Index.FindIndex(delegate(MessageModel match) {
+                return Object.ReferenceEquals(msg, match);
+            });
         }
 
         public override void Insert(int index, MessageModel item)
