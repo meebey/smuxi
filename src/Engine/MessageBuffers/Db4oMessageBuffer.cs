@@ -267,6 +267,9 @@ namespace Smuxi.Engine
             // Neither Count nor the Indexer have to be synchronized as the
             // messages might move from the buffer to the db4o index but that
             // doesn't change the Count neither affects the combined indexer
+            // BUG?: but what about MaxCapacity which will remove oldest items
+            // when new messages are added, our loop here would become
+            // inconsistent!
             var bufferCount = Count;
             var rangeCount = Math.Min(bufferCount, limit);
             var range = new List<MessageModel>(rangeCount);
@@ -443,23 +446,31 @@ namespace Smuxi.Engine
 
         void FlushIndex()
         {
+            DateTime start = DateTime.UtcNow, stop;
             Database.Store(f_Index);
             Database.Commit();
+            stop = DateTime.UtcNow;
 #if LOG4NET
             Logger.Debug(
-                String.Format("FlushIndex(): flushed index with {0} items to"+
-                              "disk", f_Index.Count)
+                String.Format(
+                    "FlushIndex(): flushing index with {0} items took: {1} ms",
+                    f_Index.Count, (stop - start).TotalMilliseconds
+                )
             );
 #endif
         }
 
         void Flush()
         {
+            DateTime start = DateTime.UtcNow, stop;
             Database.Commit();
+            stop = DateTime.UtcNow;
 #if LOG4NET
             Logger.Debug(
-                String.Format("Flush(): flushed {0} items to disk",
-                              FlushCounter)
+                String.Format(
+                    "Flush(): flushing {0} items took: {1} ms",
+                    FlushCounter, (stop - start).TotalMilliseconds
+                )
             );
 #endif
         }
