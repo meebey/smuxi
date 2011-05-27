@@ -233,8 +233,12 @@ namespace Smuxi.Engine
 
         public override void RemoveAt(int index)
         {
-            Index.RemoveAt(index);
+            if (index < 0 || index >= Index.Count) {
+                throw new ArgumentOutOfRangeException("index");
+            }
+
             var item = Index[index];
+            Index.RemoveAt(index);
             Database.Delete(item);
             // TODO: auto-commit after some timeout
         }

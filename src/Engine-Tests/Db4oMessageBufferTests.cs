@@ -55,10 +55,11 @@ namespace Smuxi.Engine
         {
             // generate 32 extra messsages to exceed the buffer size which
             // forces a flush of the buffer to db4o
+            var bufferCount = Buffer.Count;
             var msgs = new List<MessageModel>(Buffer);
             for (int i = 1; i <= 32; i++) {
                 var builder = new MessageBuilder();
-                builder.AppendText("msg{0}", Buffer.Count + i);
+                builder.AppendText("msg{0}", bufferCount + i);
                 var msg = builder.ToMessage();
                 msgs.Add(msg);
                 Buffer.Add(msg);
@@ -69,6 +70,26 @@ namespace Smuxi.Engine
                 Assert.AreEqual(msgs[j++].ToString(), msg.ToString());
             }
             Assert.AreEqual(msgs.Count, j);
+        }
+
+        [Test]
+        public void ImplicitRemoveAt()
+        {
+            Buffer.MaxCapacity = 16;
+            // generate 32 extra messsages to exceed the max capacity which
+            // forces a RemoveAt() call of the oldest messages
+            var bufferCount = Buffer.Count;
+            var msgs = new List<MessageModel>(Buffer);
+            for (int i = 1; i <= 32; i++) {
+                var builder = new MessageBuilder();
+                builder.AppendText("msg{0}", bufferCount + i);
+                var msg = builder.ToMessage();
+                msgs.Add(msg);
+                Buffer.Add(msg);
+            }
+
+            Assert.AreEqual(Buffer.MaxCapacity, Buffer.Count);
+            Assert.AreEqual(msgs[19].ToString(), Buffer[0].ToString());
         }
     }
 }
