@@ -155,7 +155,7 @@ namespace Smuxi.Engine
                 throw new ArgumentNullException("item");
             }
 
-            if (MaxCapacity > 0 && Count >= MaxCapacity) {
+            if (MaxCapacity > 0 && Index.Count >= MaxCapacity) {
                 RemoveAt(0);
             }
 
