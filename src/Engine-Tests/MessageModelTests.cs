@@ -29,6 +29,16 @@ namespace Smuxi.Engine
     public class MessageModelTests
     {
         [Test]
+        public void Equals()
+        {
+            var msg = new MessageModel("test");
+            Assert.IsFalse(msg.Equals(null));
+            msg = new MessageModel();
+            Assert.IsFalse(msg.Equals(null));
+            Assert.IsFalse(msg == null);
+        }
+
+        [Test]
         public void CopyConstructor()
         {
             var builder = new MessageBuilder();
