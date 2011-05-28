@@ -103,6 +103,7 @@ namespace Smuxi.Engine
             DatabaseConfiguration = Db4oEmbedded.NewConfiguration();
             DatabaseConfiguration.Common.AllowVersionUpdates = true;
             DatabaseConfiguration.Common.ActivationDepth = 0;
+            DatabaseConfiguration.Common.WeakReferenceCollectionInterval = 60 * 1000;
             DatabaseConfiguration.Common.ObjectClass(typeof(MessageModel)).
                                          Indexed(true);
             DatabaseConfiguration.Common.ObjectClass(typeof(MessageModel)).
