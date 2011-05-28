@@ -1,10 +1,4 @@
 /*
- * $Id: Page.cs 111 2006-02-20 23:10:45Z meebey $
- * $URL: svn+ssh://svn.qnetp.net/svn/smuxi/smuxi/trunk/src/Frontend-GtkGnome/Page.cs $
- * $Rev: 111 $
- * $Author: meebey $
- * $Date: 2006-02-21 00:10:45 +0100 (Tue, 21 Feb 2006) $
- *
  * Smuxi - Smart MUltipleXed Irc
  *
  * Copyright (c) 2008 Mirco Bauer <meebey@meebey.net>
@@ -32,6 +26,9 @@ namespace Smuxi.Common
 {
     public static class Defines
     {
+        public const string GitBranch   = "@git_branch@";
+        public const string GitCommitHash = "@git_commit_hash@";
+
         private static readonly string f_InstallPrefix = "@prefix@";
         private static readonly string f_TwitterApiKey = "@twitter_api_key@";
 
@@ -44,6 +41,17 @@ namespace Smuxi.Common
         public static string TwitterApiKey {
             get {
                 return f_TwitterApiKey;
+            }
+        }
+
+        public static string GitVersion {
+            get {
+                if (String.IsNullOrEmpty(GitBranch) ||
+                    String.IsNullOrEmpty(GitCommitHash)) {
+                    return String.Empty;
+                }
+
+                return String.Format("{0}/{1}", GitBranch, GitCommitHash);
             }
         }
     }
