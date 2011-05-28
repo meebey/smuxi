@@ -404,6 +404,19 @@ namespace Smuxi.Engine
                 Database.Delete(index);
                 return null;
             }
+            var nullCount = index.RemoveAll(delegate(MessageModel item) {
+                return item == null;
+            });
+#if LOG4NET
+            if (nullCount > 0) {
+                Logger.Warn(
+                    String.Format(
+                        "FetchIndex(): dropped {0} null items from index!",
+                        nullCount
+                    )
+                );
+            }
+#endif
             stop = DateTime.UtcNow;
 #if LOG4NET
             Logger.Debug(
