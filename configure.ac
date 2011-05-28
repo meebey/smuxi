@@ -19,6 +19,17 @@ AC_PROG_LIBTOOL
 # I18N
 IT_PROG_INTLTOOL([0.25])
 
+AC_MSG_CHECKING([for git version])
+if git log --oneline 295b37c8ac4939829a3c7f9150943dba8fff07f0 > /dev/null 2>&1; then
+	GIT_BRANCH=$(git branch | grep '^\*' | cut -d ' ' -f 2)
+	GIT_COMMIT_HASH=$(git log --no-color --first-parent -n1 --pretty=format:%h)
+	AC_MSG_RESULT(yes)
+else
+	AC_MSG_RESULT(no)
+fi
+AC_SUBST([git_branch], "$GIT_BRANCH")
+AC_SUBST([git_commit_hash], "$GIT_COMMIT_HASH")
+
 POSUB="
 	po
 	po-Engine
