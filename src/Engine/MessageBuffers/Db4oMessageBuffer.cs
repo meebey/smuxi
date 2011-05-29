@@ -97,6 +97,7 @@ namespace Smuxi.Engine
             DatabaseConfiguration = Db4oEmbedded.NewConfiguration();
             DatabaseConfiguration.Common.AllowVersionUpdates = true;
             DatabaseConfiguration.Common.ActivationDepth = 0;
+            //DatabaseConfiguration.Common.Queries.EvaluationMode(QueryEvaluationMode.Lazy);
             DatabaseConfiguration.Common.WeakReferenceCollectionInterval = 60 * 1000;
             //DatabaseConfiguration.Common.Diagnostic.AddListener(new DiagnosticToConsole());
             var msgConf = DatabaseConfiguration.Common.ObjectClass(typeof(MessageModel));
@@ -438,10 +439,17 @@ namespace Smuxi.Engine
             start = DateTime.UtcNow;
             var indexCapacity = Math.Max(dbIndex.Count, MaxCapacity);
             var index = new List<Int64>(indexCapacity);
+            int purgeCounter = 0;
+            int purgeInterval = 1000;
             foreach (var dbMsg in dbIndex) {
                 var dbId = Database.Ext().GetID(dbMsg);
                 index.Add(dbId);
+                if (purgeCounter++ >= purgeInterval) {
+                    purgeCounter = 0;
+                    Database.Ext().Purge();
+                }
             }
+            Database.Ext().Purge();
             stop = DateTime.UtcNow;
 #if LOG4NET
             Logger.Debug(
