@@ -502,8 +502,6 @@ namespace Smuxi.Frontend.Gnome
             try {
                 if (e.Event.Button == 3) {
                     _TabMenu.Popup(null, null, null, e.Event.Button, e.Event.Time);
-                } else if (e.Event.Button == 2) {
-                    Close();
                 }
             } catch (Exception ex) {
                 Frontend.ShowException(ex);
