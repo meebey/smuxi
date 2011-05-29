@@ -104,12 +104,12 @@ namespace Smuxi.Engine
             DatabaseConfiguration.Common.AllowVersionUpdates = true;
             DatabaseConfiguration.Common.ActivationDepth = 0;
             DatabaseConfiguration.Common.WeakReferenceCollectionInterval = 60 * 1000;
-            DatabaseConfiguration.Common.ObjectClass(typeof(MessageModel)).
-                                         Indexed(true);
-            DatabaseConfiguration.Common.ObjectClass(typeof(MessageModel)).
-                                         ObjectField("f_TimeStamp").
-                                         Indexed(true);
             //DatabaseConfiguration.Common.Diagnostic.AddListener(new DiagnosticToConsole());
+            var msgConf = DatabaseConfiguration.Common.ObjectClass(typeof(MessageModel));
+            msgConf.CascadeOnActivate(true);
+            msgConf.CascadeOnDelete(true);
+            msgConf.Indexed(true);
+            msgConf.ObjectField("f_TimeStamp").Indexed(true);
 #else
             DatabaseConfiguration = Db4oFactory.Configure();
             DatabaseConfiguration.AllowVersionUpdates(true);
