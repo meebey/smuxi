@@ -57,6 +57,7 @@ namespace Smuxi.Server
             bool modUser    = false;
             bool listUsers  = false;
             bool debug      = false;
+            bool optBuffers = false;
 
             string username = null;
             string password = null;
@@ -128,6 +129,14 @@ namespace Smuxi.Server
             );
 
             parser.Add(
+                "optimize-message-buffers",
+                _("Optimize message buffers and exit"),
+                delegate (string val) {
+                    optBuffers = true;
+                }
+            );
+
+            parser.Add(
                  "h|help",
                  _("Show this help"),
                  delegate(string val) {
@@ -159,6 +168,9 @@ namespace Smuxi.Server
                     repo.Threshold = log4net.Core.Level.Debug;
                 }
 #endif
+                if (optBuffers) {
+                    OptimizeMessageBuffers();
+                }
                 if (addUser || modUser) {
                     CheckUsernameParameter(username);
                     CheckPasswordParameter(password);
@@ -296,6 +308,39 @@ namespace Smuxi.Server
                 }
                 Environment.Exit(0);
             }
+        }
+
+        private static void OptimizeMessageBuffers()
+        {
+            var logRepo = log4net.LogManager.GetRepository();
+            var origThreshold = logRepo.Threshold;
+            // don't spew errors of Db4oMessageBuffer
+            if (origThreshold == log4net.Core.Level.Error) {
+                logRepo.Threshold = log4net.Core.Level.Fatal;
+            }
+            try {
+                var bufferCount = Db4oMessageBuffer.OptimizeAllBuffers();
+                Console.WriteLine(
+                    String.Format(
+                        _("Successfully optimized {0} message buffers."),
+                        bufferCount
+                    )
+                );
+                Environment.Exit(0);
+            } catch (Exception ex) {
+                string error = ex.Message;
+                if (ex.InnerException != null) {
+                    // inner-exceptio is more useful for some reason...
+                    error = ex.InnerException.Message;
+                }
+                Console.WriteLine(
+                    String.Format(
+                        _("Failed to optimize message buffers: {0}"), error
+                    )
+                );
+                Environment.Exit(1);
+            }
+            logRepo.Threshold = origThreshold;
         }
 
         private static string _(string msg)
