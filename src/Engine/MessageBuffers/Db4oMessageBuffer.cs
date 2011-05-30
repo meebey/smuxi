@@ -365,7 +365,7 @@ namespace Smuxi.Engine
             var index = FetchIndex();
             if (index == null) {
 #if LOG4NET
-                Logger.Info("RestoreIndex(): Rebuilding index...");
+                Logger.Info("InitIndex(): No index found, building...");
 #endif
                 f_Index = BuildIndex();
                 FlushIndex();
@@ -469,20 +469,20 @@ namespace Smuxi.Engine
 
         void FlushIndex()
         {
-            if (Index == null || Index.Count == 0) {
+            if (f_Index == null || f_Index.Count == 0) {
                 // don't waste our time
                 return;
             }
 
             DateTime start = DateTime.UtcNow, stop;
-            Database.Store(Index);
+            Database.Store(f_Index);
             Database.Commit();
             stop = DateTime.UtcNow;
 #if LOG4NET
             Logger.Debug(
                 String.Format(
                     "FlushIndex(): flushing index with {0} items took: {1} ms",
-                    Index.Count, (stop - start).TotalMilliseconds
+                    f_Index.Count, (stop - start).TotalMilliseconds
                 )
             );
 #endif
