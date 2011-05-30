@@ -160,12 +160,18 @@ namespace Smuxi.Common
 
         public static string GetBuffersPath(string username)
         {
+            var dbPath = GetBuffersBasePath();
+            dbPath = Path.Combine(dbPath, IOSecurity.GetFilteredPath(username));
+            return dbPath;
+        }
+
+        public static string GetBuffersBasePath()
+        {
             var dbPath = Environment.GetFolderPath(
                 Environment.SpecialFolder.LocalApplicationData
             );
             dbPath = Path.Combine(dbPath, "smuxi");
             dbPath = Path.Combine(dbPath, "buffers");
-            dbPath = Path.Combine(dbPath, IOSecurity.GetFilteredPath(username));
             return dbPath;
         }
     }

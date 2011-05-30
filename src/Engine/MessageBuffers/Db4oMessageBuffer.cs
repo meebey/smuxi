@@ -34,6 +34,7 @@ namespace Smuxi.Engine
 #if LOG4NET
         static readonly log4net.ILog Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 #endif
+        const string     LibraryTextDomain = "smuxi-engine";
         const int        DefaultFlushInterval = 16;
         List<Int64>      f_Index;
         int              FlushInterval { get; set; }
@@ -70,8 +71,13 @@ namespace Smuxi.Engine
             }
         }
 
+        private Db4oMessageBuffer()
+        {
+            FlushInterval = DefaultFlushInterval;
+        }
+
         public Db4oMessageBuffer(string sessionUsername, string protocol,
-                                 string networkId, string chatId)
+                                 string networkId, string chatId) : this()
         {
             if (sessionUsername == null) {
                 throw new ArgumentNullException("sessionUsername");
@@ -91,36 +97,18 @@ namespace Smuxi.Engine
             NetworkID = networkId;
             ChatID = chatId;
 
-            FlushInterval = DefaultFlushInterval;
             DatabaseFile = GetDatabaseFile();
-#if DB4O_8_0
-            DatabaseConfiguration = Db4oEmbedded.NewConfiguration();
-            DatabaseConfiguration.Common.AllowVersionUpdates = true;
-            DatabaseConfiguration.Common.ActivationDepth = 0;
-            //DatabaseConfiguration.Common.Queries.EvaluationMode(QueryEvaluationMode.Lazy);
-            DatabaseConfiguration.Common.WeakReferenceCollectionInterval = 60 * 1000;
-            //DatabaseConfiguration.Common.Diagnostic.AddListener(new DiagnosticToConsole());
-            var msgConf = DatabaseConfiguration.Common.ObjectClass(typeof(MessageModel));
-            msgConf.CascadeOnActivate(true);
-            msgConf.CascadeOnDelete(true);
-            msgConf.Indexed(true);
-            msgConf.ObjectField("f_TimeStamp").Indexed(true);
-#else
-            DatabaseConfiguration = Db4oFactory.Configure();
-            DatabaseConfiguration.AllowVersionUpdates(true);
-            DatabaseConfiguration.ObjectClass(typeof(MessageModel)).
-                                  ObjectField("f_TimeStamp").Indexed(true);
-#endif
-            try {
-                //DefragDatabase();
-                OpenDatabase();
-            } catch (Exception ex) {
-#if LOG4NET
-                Logger.Error("Db4oMessageBuffer(): failed to open message " +
-                             "database: " + DatabaseFile, ex);
-#endif
-                throw;
+            InitDatabase();
+        }
+
+        public Db4oMessageBuffer(string dbPath) : this()
+        {
+            if (dbPath == null) {
+                throw new ArgumentNullException("dbPath");
             }
+
+            DatabaseFile = dbPath;
+            InitDatabase();
         }
 
         ~Db4oMessageBuffer()
@@ -283,6 +271,56 @@ namespace Smuxi.Engine
             return range;
         }
 
+        public static int OptimizeAllBuffers()
+        {
+            var dbPath = Platform.GetBuffersBasePath();
+            var dbFiles = Directory.GetFiles(dbPath, "*.db4o",
+                                             SearchOption.AllDirectories);
+            foreach (var dbFile in dbFiles) {
+#if LOG4NET
+                Logger.Info(String.Format(_("Optimizing: {0}..."), dbFile));
+#endif
+                using (var buffer = new Db4oMessageBuffer(dbFile)) {
+                    buffer.CloseDatabase();
+                    buffer.DefragDatabase();
+                    buffer.InitDatabase();
+                    buffer.InitIndex();
+                }
+            }
+            return dbFiles.Length;
+        }
+
+        private void InitDatabase()
+        {
+#if DB4O_8_0
+            DatabaseConfiguration = Db4oEmbedded.NewConfiguration();
+            DatabaseConfiguration.Common.AllowVersionUpdates = true;
+            DatabaseConfiguration.Common.ActivationDepth = 0;
+            //DatabaseConfiguration.Common.Queries.EvaluationMode(QueryEvaluationMode.Lazy);
+            DatabaseConfiguration.Common.WeakReferenceCollectionInterval = 60 * 1000;
+            //DatabaseConfiguration.Common.Diagnostic.AddListener(new DiagnosticToConsole());
+            var msgConf = DatabaseConfiguration.Common.ObjectClass(typeof(MessageModel));
+            msgConf.CascadeOnActivate(true);
+            msgConf.CascadeOnDelete(true);
+            msgConf.Indexed(true);
+            msgConf.ObjectField("f_TimeStamp").Indexed(true);
+#else
+            DatabaseConfiguration = Db4oFactory.Configure();
+            DatabaseConfiguration.AllowVersionUpdates(true);
+            DatabaseConfiguration.ObjectClass(typeof(MessageModel)).
+                                  ObjectField("f_TimeStamp").Indexed(true);
+#endif
+            try {
+                OpenDatabase();
+            } catch (Exception ex) {
+#if LOG4NET
+                Logger.Error("InitDatabase(): failed to open message " +
+                             "database: " + DatabaseFile, ex);
+#endif
+                throw;
+            }
+        }
+
         string GetDatabaseFile()
         {
             var dbPath = Platform.GetBuffersPath(SessionUsername);
@@ -315,6 +353,10 @@ namespace Smuxi.Engine
 
         void CloseDatabase()
         {
+            if (Database.Ext().IsClosed()) {
+                return;
+            }
+
             Flush();
             FlushIndex();
 
@@ -502,6 +544,11 @@ namespace Smuxi.Engine
                 )
             );
 #endif
+        }
+
+        static string _(string msg)
+        {
+            return LibraryCatalog.GetString(msg, LibraryTextDomain);
         }
     }
 }
