@@ -51,8 +51,6 @@ namespace Smuxi.Server
 
         public static void Init(string[] args)
         {
-            Thread.CurrentThread.Name = "Main";
-            
             Engine.Engine.Init();
             string channel = (string)Engine.Engine.Config["Server/Channel"];
             string formatter = (string)Engine.Engine.Config["Server/Formatter"];

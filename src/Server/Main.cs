@@ -45,6 +45,7 @@ namespace Smuxi.Server
 
         public static void Main(string[] args)
         {
+            System.Threading.Thread.CurrentThread.Name = "Main";
 #if LOG4NET
             // initialize log level
             log4net.Repository.ILoggerRepository repo = log4net.LogManager.GetRepository();
