@@ -229,7 +229,15 @@ namespace Smuxi.Engine
             Index.RemoveAt(index);
 
             var dbMsg = Database.Ext().GetByID(dbId);
-            //Database.Activate(dbMsg, 0);
+            if (dbMsg == null) {
+#if LOG4NET
+                Logger.Error(
+                    String.Format("RemoveAt(): Database.Ext().GetByID({0}) " +
+                                  "with index {1} returned null!", dbId, index)
+                );
+#endif
+                return;
+            }
             Database.Delete(dbMsg);
             // TODO: auto-commit after some timeout
         }
