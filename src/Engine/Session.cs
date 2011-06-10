@@ -938,7 +938,26 @@ namespace Smuxi.Engine
             }
 
             lock (chat.MessageBuffer) {
-                chat.MessageBuffer.Add(msg);
+                try {
+                    chat.MessageBuffer.Add(msg);
+                } catch (Exception ex) {
+#if LOG4NET
+                    f_Logger.Error(
+                        "AddMessageToChat(): " +
+                        "chat.MessageBuffer.Add() threw exception!", ex
+                    );
+#endif
+                    if (chat.MessageBuffer is Db4oMessageBuffer) {
+#if LOG4NET
+                        f_Logger.Error(
+                            "AddMessageToChat(): " +
+                            "Falling back to volatile message buffer..."
+                        );
+#endif
+                        chat.ResetMessageBuffer();
+                        chat.InitMessageBuffer(MessageBufferPersistencyType.Volatile);
+                    }
+                }
             }
             lock (_FrontendManagers) {
                 foreach (FrontendManager fm in _FrontendManagers.Values) {

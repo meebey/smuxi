@@ -226,5 +226,25 @@ namespace Smuxi.Engine
                     break;
             }
         }
+
+        public void ResetMessageBuffer()
+        {
+            if (MessageBuffer == null) {
+                // nothing to reset
+                return;
+            }
+
+            try {
+                MessageBuffer.Dispose();
+            } catch (Exception ex) {
+#if LOG4NET
+                _Logger.Warn(
+                    "ResetMessageBuffer(): MessageBuffer.Dispose() " +
+                    "threw exception!", ex
+                );
+#endif
+            }
+            MessageBuffer = null;
+        }
     }
 }
