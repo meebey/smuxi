@@ -532,6 +532,7 @@ namespace Smuxi.Engine
 
         void Flush()
         {
+            var counter = FlushCounter;
             DateTime start = DateTime.UtcNow, stop;
             FlushCounter = 0;
             Database.Commit();
@@ -540,7 +541,7 @@ namespace Smuxi.Engine
             Logger.Debug(
                 String.Format(
                     "Flush(): flushing {0} items took: {1} ms",
-                    FlushCounter, (stop - start).TotalMilliseconds
+                    counter, (stop - start).TotalMilliseconds
                 )
             );
 #endif
