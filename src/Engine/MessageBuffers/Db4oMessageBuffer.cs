@@ -492,21 +492,6 @@ namespace Smuxi.Engine
                 }
             }
             Database.Ext().Purge();
-
-            // HACK: for some reason the index sometimes contains null items
-            var nullCount = dbIndex.RemoveAll(delegate(MessageModel item) {
-                return item == null;
-            });
-#if LOG4NET
-            if (nullCount > 0) {
-                Logger.Warn(
-                    String.Format(
-                        "BuildIndex(): dropped {0} null items from index!",
-                        nullCount
-                    )
-                );
-            }
-#endif
             stop = DateTime.UtcNow;
 #if LOG4NET
             Logger.Debug(
