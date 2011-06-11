@@ -942,6 +942,7 @@ namespace Smuxi.Engine
                     chat.MessageBuffer.Add(msg);
                 } catch (Exception ex) {
 #if LOG4NET
+                    Trace.Call(chat, msg, ignoreFilters);
                     f_Logger.Error(
                         "AddMessageToChat(): " +
                         "chat.MessageBuffer.Add() threw exception!", ex
@@ -956,6 +957,7 @@ namespace Smuxi.Engine
 #endif
                         chat.ResetMessageBuffer();
                         chat.InitMessageBuffer(MessageBufferPersistencyType.Volatile);
+                        chat.MessageBuffer.Add(msg);
                     }
                 }
             }
