@@ -74,20 +74,30 @@ namespace Smuxi.Engine
         [Obsolete("Use ChatModel.MessageBuffer instead.")]
         public IList<MessageModel> Messages {
             get {
-                // during cloning, someone could modify it and break the enumerator
-                lock (MessageBuffer) {
-                    if (MessageBuffer.Count == 0) {
-                        return new List<MessageModel>(0);
+                try {
+                    return GetSyncMessages();
+                } catch (Exception ex) {
+                    _Logger.Error(
+                        String.Format(
+                            "{0}.get_Messages(): " +
+                            "GetSyncMessages() threw exception!", this
+                        ), ex
+                    );
+                    if (MessageBuffer is Db4oMessageBuffer) {
+#if LOG4NET
+                        _Logger.Error(
+                            String.Format(
+                                "{0}.get_Messages(): " +
+                                "Falling back to volatile message buffer...",
+                                this
+                            )
+                        );
+#endif
+                        ResetMessageBuffer();
+                        InitMessageBuffer(MessageBufferPersistencyType.Volatile);
+                        return GetSyncMessages();
                     }
-                    if (MessagesSyncCount <= 0) {
-                        return new List<MessageModel>(MessageBuffer);
-                    } else {
-                        var offset = MessageBuffer.Count - MessagesSyncCount;
-                        if (offset < 0) {
-                            offset = 0;
-                        }
-                        return MessageBuffer.GetRange(offset, MessagesSyncCount);
-                    }
+                    throw;
                 }
             }
         }
@@ -192,6 +202,25 @@ namespace Smuxi.Engine
             var chatId = IOSecurity.GetFilteredFileName(ID.ToLower());
             logPath = Path.Combine(logPath, String.Format("{0}.log", chatId));
             return logPath;
+        }
+
+        IList<MessageModel> GetSyncMessages()
+        {
+            // during cloning, someone could modify it and break the enumerator
+            lock (MessageBuffer) {
+                if (MessageBuffer.Count == 0) {
+                    return new List<MessageModel>(0);
+                }
+                if (MessagesSyncCount <= 0) {
+                    return new List<MessageModel>(MessageBuffer);
+                } else {
+                    var offset = MessageBuffer.Count - MessagesSyncCount;
+                    if (offset < 0) {
+                        offset = 0;
+                    }
+                    return MessageBuffer.GetRange(offset, MessagesSyncCount);
+                }
+            }
         }
 
         public void InitMessageBuffer(MessageBufferPersistencyType persistency)
