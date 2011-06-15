@@ -140,7 +140,12 @@ namespace Smuxi.Engine
                 InitMessageBuffer(MessageBufferPersistencyType.Volatile);
             }
         }
-        
+
+        public override string ToString()
+        {
+            return String.Format("<{0}>", ToTraceString());
+        }
+
         public string ToTraceString()
         {
             string nm = (_ProtocolManager != null) ? _ProtocolManager.ToString() : "(null)";  
