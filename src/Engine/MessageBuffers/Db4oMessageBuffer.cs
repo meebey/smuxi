@@ -417,8 +417,7 @@ namespace Smuxi.Engine
 #if LOG4NET
                 Logger.Info("InitIndex(): No index found, building...");
 #endif
-                f_Index = BuildIndex();
-                FlushIndex();
+                RebuildIndex();
                 return;
             }
 
@@ -433,16 +432,21 @@ namespace Smuxi.Engine
                 return null;
             }
             if (indexes.Count > 1) {
+#if LOG4NET
+                Logger.Warn(
+                    "FetchIndex(): found multiple indexes, dropping them..."
+                );
+#endif
                 // we can't deal with multiple indexes, so drop them all
                 foreach (var idx in indexes) {
-                    Database.Activate(idx, 0);
                     Database.Delete(idx);
                 }
+                Database.Commit();
                 return null;
             }
 
             var index = indexes[0];
-            Database.Activate(index, 5);
+            Database.Activate(index, 10);
             var msgCount = Database.Query<MessageModel>().Count;
             if (index.Count != msgCount) {
 #if LOG4NET
@@ -514,6 +518,11 @@ namespace Smuxi.Engine
 
         void RebuildIndex()
         {
+            if (f_Index != null && Database.Ext().IsStored(f_Index)) {
+                // drop old index first
+                Database.Delete(f_Index);
+            }
+
             f_Index = BuildIndex();
             FlushIndex();
         }
