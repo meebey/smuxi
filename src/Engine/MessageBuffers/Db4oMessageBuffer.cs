@@ -292,7 +292,7 @@ namespace Smuxi.Engine
                     buffer.CloseDatabase();
                     buffer.DefragDatabase();
                     buffer.InitDatabase();
-                    buffer.InitIndex();
+                    buffer.RebuildIndex();
                 }
             }
             return dbFiles.Length;
@@ -510,6 +510,12 @@ namespace Smuxi.Engine
             );
 #endif
             return index;
+        }
+
+        void RebuildIndex()
+        {
+            f_Index = BuildIndex();
+            FlushIndex();
         }
 
         void ResetIndex()
