@@ -518,9 +518,13 @@ namespace Smuxi.Engine
 
         void RebuildIndex()
         {
-            if (f_Index != null && Database.Ext().IsStored(f_Index)) {
-                // drop old index first
-                Database.Delete(f_Index);
+            var indexes = Database.Query<List<Int64>>();
+            if (indexes.Count > 0) {
+                // we can't deal with multiple indexes, so drop them all
+                foreach (var idx in indexes) {
+                    Database.Delete(idx);
+                }
+                Database.Commit();
             }
 
             f_Index = BuildIndex();
