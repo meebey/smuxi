@@ -42,6 +42,7 @@ namespace Smuxi.Engine
         IObjectContainer Database { get; set; }
         string           DatabaseFile { get; set; }
         string           SessionUsername { get; set; }
+        bool             AggressiveGC { get; set; }
 #if DB4O_8_0
         IEmbeddedConfiguration DatabaseConfiguration { get; set; }
 #else
@@ -97,6 +98,7 @@ namespace Smuxi.Engine
             NetworkID = networkId;
             ChatID = chatId;
 
+            AggressiveGC = true;
             DatabaseFile = GetDatabaseFile();
             InitDatabase();
         }
@@ -289,6 +291,7 @@ namespace Smuxi.Engine
                 Logger.Info(String.Format(_("Optimizing: {0}..."), dbFile));
 #endif
                 using (var buffer = new Db4oMessageBuffer(dbFile)) {
+                    buffer.AggressiveGC = false;
                     buffer.CloseDatabase();
                     buffer.DefragDatabase();
                     buffer.InitDatabase();
@@ -500,7 +503,9 @@ namespace Smuxi.Engine
                 index.Add(dbId);
                 if (purgeCounter++ >= purgeInterval) {
                     purgeCounter = 0;
-                    Database.Ext().Purge();
+                    if (AggressiveGC) {
+                        Database.Ext().Purge();
+                    }
                 }
             }
             Database.Ext().Purge();
