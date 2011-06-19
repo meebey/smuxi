@@ -391,6 +391,7 @@ namespace Smuxi.Engine
                 return;
             }
 
+            DateTime start = DateTime.UtcNow, stop;
             var backupFile = String.Format(
                 "{0}.bak_{1}.{2}",
                 DatabaseFile,
@@ -403,6 +404,15 @@ namespace Smuxi.Engine
             );
             defragConfig.ForceBackupDelete(true);
             Defragment.Defrag(defragConfig);
+            stop = DateTime.UtcNow;
+#if LOG4NET
+            Logger.Debug(
+                String.Format(
+                    "DefragDatabase(): defrag took: {0:0.0} ms",
+                    (stop - start).TotalMilliseconds
+                )
+            );
+#endif
         }
 
         MessageModel GetMessage(MessageModel dbMsg)
