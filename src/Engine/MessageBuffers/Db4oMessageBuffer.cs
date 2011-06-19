@@ -283,6 +283,7 @@ namespace Smuxi.Engine
 
         public static int OptimizeAllBuffers()
         {
+            DateTime start = DateTime.UtcNow, stop;
             var dbPath = Platform.GetBuffersBasePath();
             var dbFiles = Directory.GetFiles(dbPath, "*.db4o",
                                              SearchOption.AllDirectories);
@@ -298,6 +299,15 @@ namespace Smuxi.Engine
                     buffer.RebuildIndex();
                 }
             }
+            stop = DateTime.UtcNow;
+#if LOG4NET
+            Logger.Debug(
+                String.Format(
+                    "OptimizeAllBuffers(): optimizing buffers took: {0:0.0} ms",
+                    (stop - start).TotalMilliseconds
+                )
+            );
+#endif
             return dbFiles.Length;
         }
 
