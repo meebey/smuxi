@@ -41,6 +41,7 @@ namespace Smuxi.Engine
         int              FlushCounter { get; set; }
         IObjectContainer Database { get; set; }
         string           DatabaseFile { get; set; }
+        bool             IsEmptyDatabase { get; set; }
         string           SessionUsername { get; set; }
         bool             AggressiveGC { get; set; }
 #if DB4O_8_0
@@ -363,6 +364,7 @@ namespace Smuxi.Engine
 
         void OpenDatabase()
         {
+            IsEmptyDatabase = !File.Exists(DatabaseFile);
 #if DB4O_8_0
             Database = Db4oEmbedded.OpenFile(DatabaseConfiguration,
                                              DatabaseFile);
@@ -432,6 +434,14 @@ namespace Smuxi.Engine
         void InitIndex()
         {
             if (f_Index != null) {
+                return;
+            }
+
+            if (IsEmptyDatabase) {
+#if LOG4NET
+                Logger.Debug("InitIndex(): Creating initial index...");
+#endif
+                f_Index = new List<Int64>(MaxCapacity);
                 return;
             }
 
