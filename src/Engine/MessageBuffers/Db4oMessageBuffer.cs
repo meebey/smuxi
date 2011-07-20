@@ -273,6 +273,8 @@ namespace Smuxi.Engine
             // BUG?: but what about MaxCapacity which will remove oldest items
             // when new messages are added, our loop here would become
             // inconsistent!
+            // Session.AddMessageToChat() and ChatModel.get_Messages lock()s
+            // us though thus newly added messages are waiting for us to finish
             var bufferCount = Count;
             var rangeCount = Math.Min(bufferCount, limit);
             var range = new List<MessageModel>(rangeCount);
