@@ -652,8 +652,9 @@ namespace Smuxi.Engine
             lock (_ProtocolManagers) {
                 foreach (IProtocolManager nm in _ProtocolManagers) {
                     fm.AddTextToChat(cd.Chat, "-!- " +
-                        _("Type") + ": " + nm.Protocol + " " +
-                        _("Host") + ": " + nm.Host + " " + 
+                        _("Protocol") + ": " + nm.Protocol + " " +
+                        _("Network") + ": " + nm.NetworkID + " " +
+                        _("Host") + ": " + nm.Host + " " +
                         _("Port") + ": " + nm.Port);
                 }
             }
