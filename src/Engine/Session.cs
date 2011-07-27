@@ -423,10 +423,10 @@ namespace Smuxi.Engine
             string[] help = {
                 "help",
                 "connect/server protocol [protocol-parameters]",
-                "disconnect",
+                "disconnect [server]",
                 "network list",
-                "network close [server]",
-                "network switch [server]",
+                "network close [network]",
+                "network switch [network]",
                 "config (save|load)",
             };
             
@@ -534,14 +534,7 @@ namespace Smuxi.Engine
             IProtocolManager victim = null;
             if (cd.DataArray.Length >= 2) {
                 string server = cd.DataArray[1];
-                lock (_ProtocolManagers) {
-                    foreach (IProtocolManager nm in _ProtocolManagers) {
-                        if (nm.Host.ToLower() == server.ToLower()) {
-                            victim = nm;
-                            break;
-                        }
-                    }
-                }
+                victim = GetProtocolManagerByHost(server);
                 if (victim == null) {
                     fm.AddTextToChat(
                         cd.Chat,
@@ -672,19 +665,12 @@ namespace Smuxi.Engine
             IProtocolManager pm = null;
             if (cd.DataArray.Length >= 3) {
                 // named protocol manager
-                string host = cd.DataArray[2].ToLower();
-                lock (_ProtocolManagers) {
-                    foreach (IProtocolManager protocolManager in _ProtocolManagers) {
-                        if (protocolManager.Host.ToLower() == host) {
-                            pm = protocolManager;
-                            break;
-                        }
-                    }
-                }
+                string network = cd.DataArray[2];
+                pm = GetProtocolManagerByNetwork(network);
                 if (pm == null) {
                     fm.AddTextToChat(cd.Chat, "-!- " +
-                        String.Format(_("Network close failed - could not find network with host: {0}"),
-                                      host));
+                        String.Format(_("Network close failed - could not find network: {0}"),
+                                      network));
                     return;
                 }
             } else if (cd.DataArray.Length >= 2) {
@@ -717,19 +703,17 @@ namespace Smuxi.Engine
             FrontendManager fm = cd.FrontendManager;
             if (cd.DataArray.Length >= 3) {
                 // named network manager
-                string host = cd.DataArray[2].ToLower();
-                lock (_ProtocolManagers) {
-                    foreach (IProtocolManager nm in _ProtocolManagers) {
-                        if (nm.Host.ToLower() == host) {
-                            fm.CurrentProtocolManager = nm;
-                            fm.UpdateNetworkStatus();
-                            return;
-                        }
-                    }
+                string network = cd.DataArray[2];
+                var pm = GetProtocolManagerByNetwork(network);
+                if (pm == null) {
+                    fm.AddTextToChat(cd.Chat, "-!- " +
+                        String.Format(
+                            _("Network switch failed - could not find network: {0}"),
+                                  network));
+                    return;
                 }
-                fm.AddTextToChat(cd.Chat, "-!- " +
-                    String.Format(_("Network switch failed - could not find network with host: {0}"),
-                                  host));
+                fm.CurrentProtocolManager = pm;
+                fm.UpdateNetworkStatus();
             } else if (cd.DataArray.Length >= 2) {
                 // next network manager
                 fm.NextProtocolManager();
@@ -1313,6 +1297,30 @@ namespace Smuxi.Engine
                     manager.SetPresenceStatus(status, message);
                 }
             }
+        }
+
+        IProtocolManager GetProtocolManagerByHost(string network)
+        {
+            lock (_ProtocolManagers) {
+                foreach (var manager in _ProtocolManagers) {
+                    if (String.Compare(manager.Host, network, true) == 0) {
+                        return manager;
+                    }
+                }
+            }
+            return null;
+        }
+
+        IProtocolManager GetProtocolManagerByNetwork(string network)
+        {
+            lock (_ProtocolManagers) {
+                foreach (var manager in _ProtocolManagers) {
+                    if (String.Compare(manager.NetworkID, network, true) == 0) {
+                        return manager;
+                    }
+                }
+            }
+            return null;
         }
 
         private static string _(string msg)
