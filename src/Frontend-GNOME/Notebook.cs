@@ -278,7 +278,7 @@ namespace Smuxi.Frontend.Gnome
 
                     // update last seen highlight
                     // REMOTING CALL 5
-                    if (lastMsg != null) {
+                    if (lastMsg != null && !Frontend.UseLowBandwidthMode) {
                         chatModel.LastSeenHighlight = lastMsg.TimeStamp;
                     }
 

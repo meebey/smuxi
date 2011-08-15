@@ -156,7 +156,16 @@ namespace Smuxi.Frontend.Gnome
                 return _FrontendConfig;
             }
         }
-        
+
+        public static bool UseLowBandwidthMode {
+            get {
+                if (_FrontendConfig == null) {
+                    return false;
+                }
+                return (bool) _FrontendConfig["UseLowBandwidthMode"];
+            }
+        }
+
         public static void Init(string[] args)
         {
             System.Threading.Thread.CurrentThread.Name = "Main";
@@ -311,7 +320,7 @@ namespace Smuxi.Frontend.Gnome
 
             try {
                 // sync tab positions
-                if (!IsLocalEngine) {
+                if (!IsLocalEngine && !UseLowBandwidthMode) {
                     _MainWindow.Notebook.SyncPagePositions();
                 }
 

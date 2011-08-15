@@ -239,7 +239,6 @@ namespace Smuxi.Frontend.Gnome
             _Name = _ChatModel.Name;
             ID = _ChatModel.ID;
             Name = _Name;
-            UseLowBandwidthMode = (bool) Frontend.FrontendConfig["UseLowBandwidthMode"];
 
             MessageTextView tv = new MessageTextView();
             _EndMark = tv.Buffer.CreateMark("end", tv.Buffer.EndIter, false); 
@@ -419,7 +418,7 @@ namespace Smuxi.Frontend.Gnome
             // cleanup, be sure the output is empty
             _OutputMessageTextView.Clear();
 
-            if (!Frontend.IsLocalEngine && UseLowBandwidthMode) {
+            if (!Frontend.IsLocalEngine && Frontend.UseLowBandwidthMode) {
                 var msg = new MessageBuilder();
                 msg.AppendEventPrefix();
                 msg.AppendMessage(_("Low Bandwidth Mode is active: no messages synced."));
@@ -573,7 +572,8 @@ namespace Smuxi.Frontend.Gnome
                 }
             }
 
-            if (_IsSynced && (Frontend.IsLocalEngine || !UseLowBandwidthMode)) {
+            if (_IsSynced &&
+                (Frontend.IsLocalEngine || !Frontend.UseLowBandwidthMode)) {
                 bool isActiveChat = IsActive;
 
                 var method = Trace.GetMethodBase();

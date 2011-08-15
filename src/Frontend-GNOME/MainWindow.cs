@@ -622,7 +622,7 @@ namespace Smuxi.Frontend.Gnome
                     chatView.HasHighlight = false;
                     chatView.HasActivity = false;
                     var lastMsg = chatView.OutputMessageTextView.LastMessage;
-                    if (lastMsg == null) {
+                    if (lastMsg == null || Frontend.UseLowBandwidthMode) {
                         return;
                     }
                     // update last seen highlight
