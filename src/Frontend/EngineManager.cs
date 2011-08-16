@@ -156,7 +156,14 @@ namespace Smuxi.Frontend
             }
             string sshUsername = (string) f_FrontendConfig["Engines/"+engine+"/SshUsername"];
             string sshPassword = (string) f_FrontendConfig["Engines/"+engine+"/SshPassword"];
-            
+
+            // OPT: always use SSH compression (both openssh and plink support it)
+            // this reduces the .NET remoting traffic by about 75%
+            if (String.IsNullOrEmpty(sshParameters) ||
+                !sshParameters.Contains(" -C")) {
+                sshParameters += " -C";
+            }
+
             int remotingPort = 0;
             if (useSshTunnel) {
                 // find free remoting back-channel port
