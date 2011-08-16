@@ -572,9 +572,13 @@ namespace Smuxi.Frontend.Gnome
                 }
             }
 
-            if (_IsSynced &&
-                (Frontend.IsLocalEngine || !Frontend.UseLowBandwidthMode)) {
+            if (_IsSynced) {
                 bool isActiveChat = IsActive;
+
+                if (Frontend.UseLowBandwidthMode && !isActiveChat) {
+                    HasHighlight = true;
+                    return;
+                }
 
                 var method = Trace.GetMethodBase();
                 // update last seen highlight
