@@ -28,6 +28,7 @@
 
 using System;
 using System.Text;
+using System.Runtime.Remoting;
 using System.Reflection;
 using System.Collections;
 using System.Diagnostics;
@@ -153,6 +154,11 @@ namespace Smuxi.Common
         {
             if (obj == null) {
                 return "(null)";
+            }
+
+            // OPT: tracing over remote objects is too expensive!
+            if (RemotingServices.IsTransparentProxy(obj)) {
+                return obj.GetType().ToString();
             }
 
             StringBuilder line = new StringBuilder();
