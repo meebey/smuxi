@@ -182,7 +182,10 @@ namespace Smuxi.Engine
 
             _Session.CheckPresenceStatus();
         }
-        
+
+        /// <remarks>
+        /// This method is thread safe.
+        /// </remarks>
         public void AddSyncedChat(ChatModel chatModel)
         {
             Trace.Call(chatModel);
@@ -197,7 +200,11 @@ namespace Smuxi.Engine
                 return;
             }
 
-            _SyncedChats.Add(chatModel);
+            // this method must be thread-safe as the frontend might sync
+            // multiple chats at the same time
+            lock (_SyncedChats) {
+                _SyncedChats.Add(chatModel);
+            }
         }
         
         public void NextProtocolManager()
@@ -233,7 +240,7 @@ namespace Smuxi.Engine
         
         public void AddChat(ChatModel chat)
         {
-            if (!_SyncedChats.Contains(chat) && _IsFrontendSynced) {
+            if (!IsSynced(chat) && _IsFrontendSynced) {
                 _AddChat(chat);
             }
         }
@@ -265,7 +272,7 @@ namespace Smuxi.Engine
         
         public void DisableChat(ChatModel chat)
         {
-            if (_SyncedChats.Contains(chat)) {
+            lock (_SyncedChats) {
                 _SyncedChats.Remove(chat);
             }
             f_TaskQueue.Queue(delegate {
@@ -275,7 +282,7 @@ namespace Smuxi.Engine
         
         public void AddMessageToChat(ChatModel chat, MessageModel msg)
         {
-            if (!_SyncedChats.Contains(chat)) {
+            if (!IsSynced(chat)) {
 #if LOG4NET
                 // too much logging noise
                 //_Logger.Warn("AddMessageToChat(): chat: " + chat + " is not synced yet, ignoring call...");
@@ -302,7 +309,7 @@ namespace Smuxi.Engine
         
         public void RemoveChat(ChatModel chat)
         {
-            if (_SyncedChats.Contains(chat)) {
+            lock (_SyncedChats) {
                 _SyncedChats.Remove(chat);
             }
             f_TaskQueue.Queue(delegate {
@@ -312,7 +319,7 @@ namespace Smuxi.Engine
         
         public void SyncChat(ChatModel chat)
         {
-            if (!_SyncedChats.Contains(chat) && _IsFrontendSynced) {
+            if (!IsSynced(chat) && _IsFrontendSynced) {
                 _SyncChat(chat);
             }
         }
@@ -326,7 +333,7 @@ namespace Smuxi.Engine
         
         public void AddPersonToGroupChat(GroupChatModel groupChat, PersonModel person)
         {
-            if (!_SyncedChats.Contains(groupChat)) {
+            if (!IsSynced(groupChat)) {
                 return;
             }
             
@@ -342,7 +349,7 @@ namespace Smuxi.Engine
         
         public void UpdatePersonInGroupChat(GroupChatModel groupChat, PersonModel oldPerson, PersonModel newPerson)
         {
-            if (!_SyncedChats.Contains(groupChat)) {
+            if (!IsSynced(groupChat)) {
                 return;
             }
             
@@ -358,7 +365,7 @@ namespace Smuxi.Engine
     
         public void UpdateTopicInGroupChat(GroupChatModel groupChat, MessageModel topic)
         {
-            if (!_SyncedChats.Contains(groupChat)) {
+            if (!IsSynced(groupChat)) {
                 return;
             }
             
@@ -374,7 +381,7 @@ namespace Smuxi.Engine
     
         public void RemovePersonFromGroupChat(GroupChatModel groupChat, PersonModel person)
         {
-            if (!_SyncedChats.Contains(groupChat)) {
+            if (!IsSynced(groupChat)) {
                 return;
             }
             
@@ -419,7 +426,21 @@ namespace Smuxi.Engine
 #endif
             }
         }
-        
+
+        /// <remarks>
+        /// This method is thread safe.
+        /// </remarks>
+        bool IsSynced(ChatModel chatModel)
+        {
+            if (chatModel == null) {
+                throw new ArgumentNullException("chatModel");
+            }
+
+            lock (_SyncedChats) {
+                return _SyncedChats.Contains(chatModel);
+            }
+        }
+
         protected virtual void OnTaskQueueExceptionEvent(object sender, TaskQueueExceptionEventArgs e)
         {
             Trace.Call(sender, e);
