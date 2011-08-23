@@ -77,12 +77,14 @@ namespace Smuxi.Engine
                 try {
                     return GetSyncMessages();
                 } catch (Exception ex) {
+#if LOG4NET
                     _Logger.Error(
                         String.Format(
                             "{0}.get_Messages(): " +
                             "GetSyncMessages() threw exception!", this
                         ), ex
                     );
+#endif
                     if (MessageBuffer is Db4oMessageBuffer) {
 #if LOG4NET
                         _Logger.Error(
