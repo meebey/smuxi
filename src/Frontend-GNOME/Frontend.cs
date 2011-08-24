@@ -336,10 +336,10 @@ namespace Smuxi.Frontend.Gnome
                 // ignore as the connection is maybe already broken
             }
             _MainWindow.Hide();
-            _MainWindow.Notebook.RemoveAllPages();
+            _MainWindow.ChatViewManager.Clear();
             // make sure no stray SSH tunnel leaves behind
             _MainWindow.EngineManager.Disconnect();
-            
+
             _FrontendManager = null;
             Session = null;
         }
@@ -388,7 +388,7 @@ namespace Smuxi.Frontend.Gnome
             Environment.Exit(0);
         }
         
-        private static bool IsGuiThread()
+        public static bool IsGuiThread()
         {
             return System.Threading.Thread.CurrentThread.ManagedThreadId == _UIThreadID;
         }

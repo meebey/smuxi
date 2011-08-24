@@ -47,7 +47,8 @@ namespace Smuxi.Frontend.Gnome
         private Notebook       f_Notebook;
         private Gtk.TreeView   f_TreeView;
         private UserConfig     f_Config;
-        
+        ChatViewSyncManager    SyncManager { get; set; }
+
         public event ChatViewManagerChatAddedEventHandler   ChatAdded;
         public event ChatViewManagerChatRemovedEventHandler ChatRemoved;
             
@@ -76,71 +77,21 @@ namespace Smuxi.Frontend.Gnome
         {
             f_Notebook = notebook;
             f_TreeView = treeView;
+            SyncManager = new ChatViewSyncManager();
+            SyncManager.ChatAdded += OnChatAdded;
+            SyncManager.ChatSynced += OnChatSynced;
         }
-        
+
+        /// <remarks>
+        /// This method is thread safe.
+        /// </remarks>
         public override void AddChat(ChatModel chat)
         {
-            ChatView chatView = (ChatView) CreateChatView(chat);
-            f_Chats.Add(chatView);
-            
-            if (f_Config != null) {
-                chatView.ApplyConfig(f_Config);
-            }
-            
-            int idx = chat.Position;
-            ChatType type = chat.ChatType;
-            // new group person and group chats behind their protocol chat
-            if (idx == -1 &&
-                (type == ChatType.Person ||
-                 type == ChatType.Group)) {
-                IProtocolManager pm = chat.ProtocolManager;
-                for (int i = 0; i < f_Notebook.NPages; i++) {
-                    ChatView page = (ChatView) f_Notebook.GetNthPage(i);
-                    ChatModel pageChat = page.ChatModel;
-                    if (pageChat.ChatType == ChatType.Protocol &&
-                        pageChat.ProtocolManager == pm) {
-                        idx = i + 1;
-                        break;
-                    }
-                }
-                
-                if (idx != -1) {
-                    // now find the first chat with a different protocol manager
-                    bool found = false;
-                    for (int i = idx; i < f_Notebook.NPages; i++) {
-                        ChatView page = (ChatView) f_Notebook.GetNthPage(i);
-                        ChatModel pageChat = page.ChatModel;
-                        if (pageChat.ProtocolManager != pm) {
-                            found = true;
-                            idx = i;
-                            break;
-                        }
-                    }
-                    if (!found) {
-                        // if there was no next protocol manager, simply append 
-                        // the chat way to the end
-                        idx = -1;
-                    }
-                }
+            if (chat == null) {
+                throw new ArgumentNullException("chat");
             }
 
-            if (idx == -1) {
-                f_Notebook.AppendPage(chatView, chatView.LabelWidget);
-            } else {
-#if LOG4NET
-                f_Logger.Debug("AddChat(): adding chat at: " + idx);
-#endif
-                f_Notebook.InsertPage(chatView, chatView.LabelWidget, idx);
-            }
-
-#if GTK_SHARP_2_10
-            f_Notebook.SetTabReorderable(chatView, true);
-#endif
-            chatView.ShowAll();
-
-            if (ChatAdded != null) {
-                ChatAdded(this, new ChatViewManagerChatAddedEventArgs(chatView));
-            }
+            SyncManager.QueueAdd(chat);
         }
 
         public override void RemoveChat(ChatModel chat)
@@ -189,6 +140,18 @@ namespace Smuxi.Frontend.Gnome
             chatView.Disable();
         }
 
+        /// <remarks>
+        /// This method is thread safe.
+        /// </remarks>
+        public void SyncChat(ChatModel chat)
+        {
+            if (chat == null) {
+                throw new ArgumentNullException("chat");
+            }
+
+            SyncManager.QueueSync(chat);
+        }
+
         public ChatView GetChat(ChatModel chatModel)
         {
             return f_Notebook.GetChat(chatModel);
@@ -207,8 +170,149 @@ namespace Smuxi.Frontend.Gnome
                 chat.ApplyConfig(f_Config);
             }
         }
-    }   
-    
+
+        public void Clear()
+        {
+            Trace.Call();
+
+            f_Config = null;
+            f_Chats.Clear();
+            f_Notebook.RemoveAllPages();
+            SyncManager.Clear();
+        }
+
+        void OnChatAdded(object sender, ChatViewAddedEventArgs e)
+        {
+            Trace.Call(sender, e);
+
+            GLib.Idle.Add(delegate {
+                var chatView = (ChatView) CreateChatView(e.ChatModel,
+                                                         e.ChatType,
+                                                         e.ProtocolManagerType);
+                chatView.ID = e.ChatID;
+                chatView.Name = e.ChatID;
+                chatView.Position = e.ChatPosition;
+                f_Chats.Add(chatView);
+
+                if (f_Config != null) {
+                    chatView.ApplyConfig(f_Config);
+                }
+
+                // POSSIBLE REMOTING CALL
+                int idx = GetSortedChatPosition(chatView);
+#if LOG4NET
+                f_Logger.Debug("OnChatAdded(): adding " +
+                               "<" + chatView.ID + "> at: " + idx);
+#endif
+                if (idx == -1) {
+                    f_Notebook.AppendPage(chatView, chatView.LabelWidget);
+                } else {
+                    f_Notebook.InsertPage(chatView, chatView.LabelWidget, idx);
+                }
+
+                // notify the sync manager that the ChatView is ready to be synced
+                SyncManager.ReleaseSync(chatView);
+
+#if GTK_SHARP_2_10
+                f_Notebook.SetTabReorderable(chatView, true);
+#endif
+                chatView.ShowAll();
+
+                if (ChatAdded != null) {
+                    ChatAdded(this, new ChatViewManagerChatAddedEventArgs(chatView));
+                }
+                return false;
+            });
+        }
+
+        void OnChatSynced(object sender, ChatViewSyncedEventArgs e)
+        {
+            Trace.Call(sender, e);
+
+            // FIXME: should we tell the FrontendManager before we sync?
+            // no problem making remoting calls here as this event is called
+            // from worker threads
+            // REMOTING CALL 1
+            Frontend.FrontendManager.AddSyncedChat(e.ChatView.ChatModel);
+
+            GLib.Idle.Add(delegate {
+                var chatView = (ChatView) e.ChatView;
+                //f_Notebook.ReorderChild(chatView, chatView.Position);
+
+#if LOG4NET
+                DateTime start = DateTime.UtcNow;
+#endif
+                chatView.Populate();
+#if LOG4NET
+                DateTime stop = DateTime.UtcNow;
+                double duration = stop.Subtract(start).TotalMilliseconds;
+                f_Logger.Debug("OnChatSynced() " +
+                               "<" + chatView.ID + ">.Populate() " +
+                               "Position: " + chatView.Position +
+                               " done, took: " + Math.Round(duration) + " ms");
+#endif
+
+                chatView.ScrollToEnd();
+                return false;
+            });
+        }
+
+        int GetSortedChatPosition(ChatView chatView)
+        {
+            // starting with > 0.8 the Engine supplies ChatModel.Position for us
+            if (Frontend.EngineVersion > new Version("0.8")) {
+                return chatView.Position;
+            }
+
+            // COMPAT: Engine <= 0.8 doesn't populate ChatModel.Position thus
+            // _we_ have to find a good position
+            var chat = chatView.ChatModel;
+            // REMOTING CALL 1
+            int idx = chat.Position;
+            // REMOTING CALL 2
+            ChatType type = chat.ChatType;
+            // new group person and group chats behind their protocol chat
+            if (idx == -1 &&
+                (type == ChatType.Person ||
+                 type == ChatType.Group)) {
+                // REMOTING CALL 3
+                IProtocolManager pm = chat.ProtocolManager;
+                for (int i = 0; i < f_Notebook.NPages; i++) {
+                    ChatView page = (ChatView) f_Notebook.GetNthPage(i);
+                    ChatModel pageChat = page.ChatModel;
+                    // REMOTING CALL 4 and 5
+                    if (pageChat.ChatType == ChatType.Protocol &&
+                        pageChat.ProtocolManager == pm) {
+                        idx = i + 1;
+                        break;
+                    }
+                }
+
+                if (idx != -1) {
+                    // now find the first chat with a different protocol manager
+                    bool found = false;
+                    for (int i = idx; i < f_Notebook.NPages; i++) {
+                        ChatView page = (ChatView) f_Notebook.GetNthPage(i);
+                        ChatModel pageChat = page.ChatModel;
+                        // REMOTING CALL 6
+                        if (pageChat.ProtocolManager != pm) {
+                            found = true;
+                            idx = i;
+                            break;
+                        }
+                    }
+                    if (!found) {
+                        // if there was no next protocol manager, simply append
+                        // the chat way to the end
+                        idx = -1;
+                    }
+                }
+            }
+
+            return idx;
+        }
+    }
+
     public delegate void ChatViewManagerChatAddedEventHandler(object sender, ChatViewManagerChatAddedEventArgs e);
     
     public class ChatViewManagerChatAddedEventArgs : EventArgs

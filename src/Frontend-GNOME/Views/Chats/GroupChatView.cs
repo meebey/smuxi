@@ -55,6 +55,8 @@ namespace Smuxi.Frontend.Gnome
         private MessageTextView    _TopicTextView;
         private MessageModel       _Topic;
         private Gtk.TreeViewColumn _IdentityNameColumn;
+        IDictionary<string, PersonModel> SyncedPersons { get; set; }
+        MessageModel                     SyncedTopic  { get; set; }
 
         public override bool HasSelection {
             get {
@@ -103,7 +105,13 @@ namespace Smuxi.Frontend.Gnome
                 return _IdentityNameColumn;
             }
         }
-        
+
+        protected override Gtk.Image DefaultTabImage {
+            get {
+                return new Gtk.Image(IconPixbuf);
+            }
+        }
+
         static GroupChatView() {
             IconPixbuf = new Gdk.Pixbuf(null, "group-chat.svg", 16, 16);
        }
@@ -185,11 +193,7 @@ namespace Smuxi.Frontend.Gnome
 
             Add(_OutputHPaned);
             
-            ApplyConfig(Frontend.UserConfig);
-            
-            var tabImage = new Gtk.Image(IconPixbuf);
-            TabHBox.PackStart(tabImage, false, false, 2);
-            TabHBox.ShowAll();
+            //ApplyConfig(Frontend.UserConfig);
             
             ShowAll();
         }
@@ -209,16 +213,36 @@ namespace Smuxi.Frontend.Gnome
         {
             Trace.Call();
 
-            IDictionary<string, PersonModel> persons = _GroupChatModel.Persons;
-            if (persons == null) {
-                persons = new Dictionary<string, PersonModel>(0);
-            }
+            GLib.Idle.Add(delegate {
+                TabImage.SetFromStock(Gtk.Stock.Refresh, Gtk.IconSize.Menu);
+                return false;
+            });
+
 #if LOG4NET
             _Logger.Debug("Sync() syncing persons");
 #endif
+            // REMOTING CALL 1
+            SyncedPersons = _GroupChatModel.Persons;
+            if (SyncedPersons == null) {
+                SyncedPersons = new Dictionary<string, PersonModel>(0);
+            }
+
+#if LOG4NET
+            _Logger.Debug("Sync() syncing topic");
+#endif
+            // REMOTING CALL 2
+            SyncedTopic = _GroupChatModel.Topic;
+
+            base.Sync();
+        }
+
+        public override void Populate()
+        {
+            Trace.Call();
+
             // sync persons
             if (_PersonTreeView != null) {
-                int count = persons.Count;
+                int count = SyncedPersons.Count;
                 /*
                 if (count > 1) {
                     Frontend.MainWindow.ProgressBar.DiscreteBlocks = (uint)count;
@@ -241,7 +265,7 @@ namespace Smuxi.Frontend.Gnome
                 _PersonTreeView.Model = new Gtk.ListStore(typeof(PersonModel));
                 int i = 1;
                 string longestName = String.Empty;
-                foreach (PersonModel person in persons.Values) {
+                foreach (PersonModel person in SyncedPersons.Values) {
                     ls.AppendValues(person);
                     
                     if (person.IdentityName.Length > longestName.Length) {
@@ -281,13 +305,9 @@ namespace Smuxi.Frontend.Gnome
                 Frontend.MainWindow.Statusbar.Push(0, status);
             }
 
-#if LOG4NET
-            _Logger.Debug("Sync() syncing topic");
-#endif
-            // sync topic
-            Topic = _GroupChatModel.Topic;
+            Topic = SyncedTopic;
 
-            base.Sync();
+            base.Populate();
         }
         
         protected void UpdatePersonCount()

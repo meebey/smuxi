@@ -37,6 +37,12 @@ namespace Smuxi.Frontend.Gnome
     {
         public static Gdk.Pixbuf IconPixbuf { get; private set; }
         
+        protected override Gtk.Image DefaultTabImage {
+            get {
+                return new Gtk.Image(IconPixbuf);
+            }
+        }
+
         static SessionChatView() {
             IconPixbuf = new Gdk.Pixbuf(null, "session-chat.svg", 16, 16);
         }
@@ -48,10 +54,6 @@ namespace Smuxi.Frontend.Gnome
             OutputMessageTextView.ShowMarkerline = false;
             OutputMessageTextView.ShowTimestamps = false;
 
-            var tabImage = new Gtk.Image(IconPixbuf);
-            TabHBox.PackStart(tabImage, false, false, 2);
-            TabHBox.ShowAll();
-            
             Add(OutputScrolledWindow);
         }
         

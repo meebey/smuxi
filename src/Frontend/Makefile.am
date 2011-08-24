@@ -64,6 +64,7 @@ FILES = \
 	EntryController.cs \
 	EntryHistoryModel.cs \
 	ChatViewManagerBase.cs \
+	ChatViewSyncManager.cs \
 	IChatView.cs \
 	ChatViewInfoAttribute.cs \
 	IEntryView.cs \
@@ -80,6 +81,7 @@ EXTRAS = \
 
 REFERENCES =  \
 	System \
+	System.Core \
 	System.Runtime.Remoting \
 	Mono.Posix
 

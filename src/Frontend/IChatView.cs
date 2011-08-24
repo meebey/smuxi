@@ -33,13 +33,15 @@ namespace Smuxi.Frontend
 {
     public interface IChatView
     {
-        ChatModel ChatModel {
-            get;
-        }
-        
+        ChatModel ChatModel { get; }
+        string    ID { get; }
+        int       Position { get; }
+
         void Enable();
         void Disable();
-        
+        void Sync();
+        void Populate();
+
         void ScrollUp();
         void ScrollDown();
         void ScrollToStart();

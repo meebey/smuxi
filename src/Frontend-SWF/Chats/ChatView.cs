@@ -38,6 +38,18 @@ namespace Smuxi.Frontend.Swf
             }
         }
 
+        public string ID {
+            get {
+                return ChatModel.ID;
+            }
+        }
+
+        public int Position {
+            get {
+                return ChatModel.Position;
+            }
+        }
+
         public RichTextBox OutputTextView {
             get {
                 return _OutputTextView;
@@ -169,6 +181,10 @@ namespace Smuxi.Frontend.Swf
                     AddMessage(msg);
                 }
             }
+        }
+
+        public virtual void Populate()
+        {
         }
 
         public virtual void ApplyConfig(UserConfig config)

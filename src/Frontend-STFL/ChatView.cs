@@ -60,6 +60,18 @@ namespace Smuxi.Frontend.Stfl
             }
         }
 
+        public string ID {
+            get {
+                return ChatModel.ID;
+            }
+        }
+
+        public int Position {
+            get {
+                return ChatModel.Position;
+            }
+        }
+
         public bool IsVisible {
             get {
                 return f_MainWindow[f_WidgetID + "d"] == "1";
@@ -158,6 +170,10 @@ namespace Smuxi.Frontend.Stfl
             }
         }
         
+        public virtual void Populate()
+        {
+        }
+
         public void AddMessage(MessageModel msg)
         {
             // OPT: typical message length

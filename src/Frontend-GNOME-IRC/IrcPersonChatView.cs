@@ -43,11 +43,19 @@ namespace Smuxi.Frontend.Gnome
         {
             Trace.Call(personChat);
 
-            _IrcProtocolManager = (IrcProtocolManager)personChat.ProtocolManager;
-
             OutputMessageTextView.PopulatePopup += _OnOutputMessageTextViewPopulatePopup;
         }
-        
+
+        public override void Sync()
+        {
+            Trace.Call();
+
+            // REMOTING CALL 1
+            _IrcProtocolManager = (IrcProtocolManager) ChatModel.ProtocolManager;
+
+            base.Sync();
+        }
+
         private void _OnOutputMessageTextViewPopulatePopup (object o, Gtk.PopulatePopupArgs args)
         {
             if (OutputMessageTextView.IsAtUrlTag) {

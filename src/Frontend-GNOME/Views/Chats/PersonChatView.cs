@@ -39,6 +39,12 @@ namespace Smuxi.Frontend.Gnome
         public  PersonChatModel PersonChatModel { get; private set; }
         public  PersonModel     PersonModel { get; private set; }
 
+        protected override Gtk.Image DefaultTabImage {
+            get {
+                return new Gtk.Image(IconPixbuf);
+            }
+        }
+
         static PersonChatView() {
             IconPixbuf = new Gdk.Pixbuf(null, "person-chat.svg", 16, 16);
         }
@@ -49,10 +55,6 @@ namespace Smuxi.Frontend.Gnome
             
             PersonChatModel = chat;
 
-            var tabImage = new Gtk.Image(IconPixbuf);
-            TabHBox.PackStart(tabImage, false, false, 2);
-            TabHBox.ShowAll();
-            
             Add(OutputScrolledWindow);
         }
 
@@ -60,6 +62,12 @@ namespace Smuxi.Frontend.Gnome
         {
             Trace.Call();
 
+            GLib.Idle.Add(delegate {
+                TabImage.SetFromStock(Gtk.Stock.Refresh, Gtk.IconSize.Menu);
+                return false;
+            });
+
+            // REMOTING CALL 1
             PersonModel = PersonChatModel.Person;
 
             base.Sync();

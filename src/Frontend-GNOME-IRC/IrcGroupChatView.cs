@@ -47,8 +47,6 @@ namespace Smuxi.Frontend.Gnome
         {
             Trace.Call(groupChat);
 
-            _IrcProtocolManager = (IrcProtocolManager) groupChat.ProtocolManager;
-            
             if (PersonTreeView != null) {
                 Gtk.CellRendererText cellr = new Gtk.CellRendererText();
                 // HACK: for some reason GTK is giving the space of 2 chars which
@@ -63,6 +61,16 @@ namespace Smuxi.Frontend.Gnome
                 PersonTreeView.AppendColumn(column);
                 PersonTreeView.MoveColumnAfter(IdentityNameColumn, column);
             }
+        }
+
+        public override void Sync()
+        {
+            Trace.Call();
+
+            // REMOTING CALL 1
+            _IrcProtocolManager = (IrcProtocolManager) ChatModel.ProtocolManager;
+
+            base.Sync();
         }
 
         private void _RenderIrcGroupPersonMode(Gtk.TreeViewColumn column,

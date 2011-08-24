@@ -37,6 +37,12 @@ namespace Smuxi.Frontend.Gnome
     {
         public static Gdk.Pixbuf IconPixbuf { get; private set; }
         
+        protected override Gtk.Image DefaultTabImage {
+            get {
+                return new Gtk.Image(IconPixbuf);
+            }
+        }
+
         static ProtocolChatView() {
             IconPixbuf = new Gdk.Pixbuf(null, "protocol-chat.svg", 16, 16);
         }
@@ -44,10 +50,6 @@ namespace Smuxi.Frontend.Gnome
         public ProtocolChatView(ChatModel chat) : base(chat)
         {
             Trace.Call(chat);
-            
-            var tabImage = new Gtk.Image(IconPixbuf);
-            TabHBox.PackStart(tabImage, false, false, 2);
-            TabHBox.ShowAll();
             
             Add(OutputScrolledWindow);
             

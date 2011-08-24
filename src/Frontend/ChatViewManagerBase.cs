@@ -65,16 +65,29 @@ namespace Smuxi.Frontend
             }
             return null;
         }
-        
-        protected IChatView CreateChatView(ChatModel chat, params object[] parameters)
+
+        [Obsolete("Use CreateChatView(ChatModel, ChatType, Type) instead.")]
+        protected IChatView CreateChatView(ChatModel chat,
+                                           params object[] parameters)
         {
-            Trace.Call(chat);
-            
+            Trace.Call(chat, parameters);
+
+            // REMOTING CALL 1 + 2
+            return CreateChatView(chat, chat.ChatType,
+                                  chat.ProtocolManager.GetType());
+        }
+
+        protected IChatView CreateChatView(ChatModel chat,
+                                           ChatType chatType,
+                                           Type protocolManagerType,
+                                           params object[] parameters)
+        {
+            Trace.Call(chat, chatType, protocolManagerType, parameters);
+
             Type type;
-            type = _GetChatViewType(chat.ChatType, chat.ProtocolManager != null ?
-                                                   chat.ProtocolManager.GetType() : null);
+            type = _GetChatViewType(chatType, protocolManagerType);
             if (type == null) {
-                type = _GetChatViewType(chat.ChatType, null);
+                type = _GetChatViewType(chatType, null);
             }
             
             if (type == null) {

@@ -36,13 +36,13 @@ using Smuxi.Frontend;
 namespace Smuxi.Frontend.Gnome
 {
     // TODO: use Gtk.Bin
-    public abstract class ChatView : Gtk.EventBox, IChatView, IDisposable
+    public abstract class ChatView : Gtk.EventBox, IChatView, IDisposable, ITraceable
     {
 #if LOG4NET
         private static readonly log4net.ILog _Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 #endif
-        public    string             ID { get; private set; }
-        private   string             _Name;
+        public    string             ID { get; internal set; }
+        public    int                Position { get; internal set; }
         private   ChatModel          _ChatModel;
         private   bool               _HasHighlight;
         private   int                HighlightCount { get; set; }
@@ -59,11 +59,24 @@ namespace Smuxi.Frontend.Gnome
         private   ThemeSettings      _ThemeSettings;
         private   TaskQueue          _LastSeenHighlightQueue;
         public    DateTime           SyncedLastSeenHighlight { get; private set; }
+        IList<MessageModel>          SyncedMessages { get; set; }
+        string                       SyncedName { get; set; }
         bool                         UseLowBandwidthMode { get; set; }
+        protected Gtk.Image          TabImage { get; set; }
 
         public ChatModel ChatModel {
             get {
                 return _ChatModel;
+            }
+        }
+
+        public new string Name {
+            get {
+                return base.Name;
+            }
+            set {
+                base.Name = value;
+                _TabLabel.Text = value;
             }
         }
 
@@ -106,7 +119,7 @@ namespace Smuxi.Frontend.Gnome
                     _TabLabel.Markup = String.Format(
                         "<span foreground=\"{0}\">{1} ({2})</span>",
                         GLib.Markup.EscapeText(color.ToString()),
-                        GLib.Markup.EscapeText(_Name),
+                        GLib.Markup.EscapeText(Name),
                         GLib.Markup.EscapeText(HighlightCount.ToString())
 
                     );
@@ -114,7 +127,7 @@ namespace Smuxi.Frontend.Gnome
                     _TabLabel.Markup = String.Format(
                         "<span foreground=\"{0}\">{1}</span>",
                         GLib.Markup.EscapeText(color.ToString()),
-                        GLib.Markup.EscapeText(_Name)
+                        GLib.Markup.EscapeText(Name)
                     );
                 }
             }
@@ -147,7 +160,7 @@ namespace Smuxi.Frontend.Gnome
                 _TabLabel.Markup = String.Format(
                     "<span foreground=\"{0}\">{1}</span>",
                     GLib.Markup.EscapeText(color.ToString()),
-                    GLib.Markup.EscapeText(_Name)
+                    GLib.Markup.EscapeText(Name)
                 );
             }
         }
@@ -181,7 +194,7 @@ namespace Smuxi.Frontend.Gnome
                 _TabLabel.Markup = String.Format(
                     "<span foreground=\"{0}\">{1}</span>",
                     GLib.Markup.EscapeText(color.ToString()),
-                    GLib.Markup.EscapeText(_Name)
+                    GLib.Markup.EscapeText(Name)
                 );
             }
         }
@@ -231,14 +244,15 @@ namespace Smuxi.Frontend.Gnome
             }
         }
 
+        protected abstract Gtk.Image DefaultTabImage {
+            get;
+        }
+
         public ChatView(ChatModel chat)
         {
             Trace.Call(chat);
             
             _ChatModel = chat;
-            _Name = _ChatModel.Name;
-            ID = _ChatModel.ID;
-            Name = _Name;
 
             MessageTextView tv = new MessageTextView();
             _EndMark = tv.Buffer.CreateMark("end", tv.Buffer.EndIter, false); 
@@ -272,11 +286,12 @@ namespace Smuxi.Frontend.Gnome
             //CanFocus = false;
             
             _TabLabel = new Gtk.Label();
-            _TabLabel.Text = _Name;
-            
+
+            TabImage = DefaultTabImage;
             _TabHBox = new Gtk.HBox();
             _TabHBox.PackEnd(new Gtk.Fixed(), true, true, 0);
             _TabHBox.PackEnd(_TabLabel, false, false, 0);
+            _TabHBox.PackStart(TabImage, false, false, 2);
             _TabHBox.ShowAll();
             
             _TabEventBox = new Gtk.EventBox();
@@ -288,7 +303,7 @@ namespace Smuxi.Frontend.Gnome
             _ThemeSettings = new ThemeSettings();
 
             // OPT-TODO: this should use a TaskStack instead of TaskQueue
-            _LastSeenHighlightQueue = new TaskQueue("LastSeenHighlightQueue("+_Name+")");
+            _LastSeenHighlightQueue = new TaskQueue("LastSeenHighlightQueue("+ID+")");
             _LastSeenHighlightQueue.AbortedEvent += OnLastSeenHighlightQueueAbortedEvent;
             _LastSeenHighlightQueue.ExceptionEvent += OnLastSeenHighlightQueueExceptionEvent;
         }
@@ -411,9 +426,43 @@ namespace Smuxi.Frontend.Gnome
         {
             Trace.Call();
 
+            GLib.Idle.Add(delegate {
+                TabImage.SetFromStock(Gtk.Stock.Refresh, Gtk.IconSize.Menu);
+                return false;
+            });
+
+            // REMOTING CALL
+            SyncedName = _ChatModel.Name;
+
+            if (!Frontend.IsLocalEngine && Frontend.UseLowBandwidthMode) {
+                // FIXME: set TabImage back to normal
+                return;
+            }
+
+            // REMOTING CALL
+            SyncedLastSeenHighlight = _ChatModel.LastSeenHighlight;
+
+            DateTime start, stop;
+            start = DateTime.UtcNow;
+            // REMOTING CALL
+            SyncedMessages = _ChatModel.Messages;
+            stop = DateTime.UtcNow;
 #if LOG4NET
-            _Logger.Debug("Sync() syncing messages");
+            _Logger.Debug(
+                String.Format(
+                    "Sync(): retrieving ChatModel.Messages took: {0:0.00} ms",
+                    (stop - start).TotalMilliseconds
+                )
+            );
 #endif
+        }
+
+        public virtual void Populate()
+        {
+            Trace.Call();
+
+            Name = SyncedName;
+
             // sync messages
             // cleanup, be sure the output is empty
             _OutputMessageTextView.Clear();
@@ -424,24 +473,10 @@ namespace Smuxi.Frontend.Gnome
                 msg.AppendMessage(_("Low Bandwidth Mode is active: no messages synced."));
                 AddMessage(msg.ToMessage());
             } else {
-                // REMOTING CALL 1
-                SyncedLastSeenHighlight = _ChatModel.LastSeenHighlight;
-
-                // REMOTING CALL 2
-                DateTime start, stop;
-                start = DateTime.UtcNow;
-                IList<MessageModel> messages = _ChatModel.Messages;
-                stop = DateTime.UtcNow;
-#if LOG4NET
-                _Logger.Debug(
-                    String.Format(
-                        "Sync(): retrieving ChatModel.Messages took: {0:0.00} ms",
-                        (stop - start).TotalMilliseconds
-                    )
-                );
-#endif
-                if (messages.Count > 0) {
-                    foreach (MessageModel msg in messages) {
+                if (SyncedMessages.Count > 0) {
+                    // TODO: push messages in batches and give back control to
+                    // GTK+ in between for blocking the GUI thread less
+                    foreach (MessageModel msg in SyncedMessages) {
                         AddMessage(msg);
                     }
                 }
@@ -456,6 +491,10 @@ namespace Smuxi.Frontend.Gnome
             // let the user know at which position new messages start
             _OutputMessageTextView.UpdateMarkerline();
 
+            // reset tab icon to normal
+            TabImage.Pixbuf = DefaultTabImage.Pixbuf;
+
+            SyncedMessages = null;
             _IsSynced = true;
         }
         
@@ -492,6 +531,16 @@ namespace Smuxi.Frontend.Gnome
                 Frontend.FrontendManager,
                 ChatModel
             );
+        }
+
+        public override string ToString()
+        {
+            return String.Format("<{0}>", ToTraceString());
+        }
+
+        public string ToTraceString()
+        {
+            return ID;
         }
 
         protected virtual void OnTabButtonPress(object sender, Gtk.ButtonPressEventArgs e)

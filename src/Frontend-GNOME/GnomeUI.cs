@@ -55,17 +55,12 @@ namespace Smuxi.Frontend.Gnome
         public void AddChat(ChatModel chat)
         {
             TraceRemotingCall(chat);
-            
-            MethodBase mb = Trace.GetMethodBase();
-            Gtk.Application.Invoke(delegate {
-                TraceRemotingCall(mb, chat);
 
-                try {
-                    _ChatViewManager.AddChat(chat);
-                } catch (Exception ex) {
-                    Frontend.ShowException(ex);
-                }
-            });
+            try {
+                _ChatViewManager.AddChat(chat);
+            } catch (Exception ex) {
+                Frontend.ShowException(ex);
+            }
         }
         
         private void _AddMessageToChat(ChatModel chatModel, MessageModel msg)
@@ -167,54 +162,11 @@ namespace Smuxi.Frontend.Gnome
         {
             TraceRemotingCall(chatModel);
 
-            MethodBase mb = Trace.GetMethodBase();
-            Gtk.Application.Invoke(delegate {
-                TraceRemotingCall(mb, chatModel);
-
-                try {
-                    ChatView chatView = _ChatViewManager.GetChat(chatModel);
-                    if (chatView == null) {
-#if LOG4NET
-                        _Logger.Fatal(
-                            String.Format(
-                                "SyncChat(): " +
-                                "_ChatViewManager.GetChat(chatModel) " +
-                                "chatModel.Name: {0} returned null!",
-                                chatModel.Name
-                            )
-                        );
-#endif
-                        return;
-                    }
-
-#if LOG4NET
-                    DateTime syncStart = DateTime.UtcNow;
-#endif
-                    chatView.Sync();
-#if LOG4NET
-                    DateTime syncStop = DateTime.UtcNow;
-                    double duration = syncStop.Subtract(syncStart).TotalMilliseconds;
-                    _Logger.Debug("SyncChat() done, syncing took: " + Math.Round(duration) + " ms");
-#endif
-
-                    // maybe a BUG here? should be tell the FrontendManager before we sync?
-                    Frontend.FrontendManager.AddSyncedChat(chatModel);
-
-                    // BUG: doesn't work?!?
-                    chatView.ScrollToEnd();
-
-                    /*
-                    // this hack is bad for local engine users, and doesn't really
-                    // make things better for remote engine users, so it stays disabled for now
-                    // BUG: clearing highlight here is a bad idea, highlight in
-                    // person chats for the first message go lost here!
-                    // no better way currently to fix this, see trac bug #50
-                    chatView.HasHighlight = false;
-                    */
-                } catch (Exception ex) {
-                    Frontend.ShowException(ex);
-                }
-            });
+            try {
+                _ChatViewManager.SyncChat(chatModel);
+            } catch (Exception ex) {
+                Frontend.ShowException(ex);
+            }
         }
         
         public void AddPersonToGroupChat(GroupChatModel groupChat, PersonModel person)
