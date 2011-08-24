@@ -58,6 +58,7 @@ FILES = \
 	NDesk.Options.cs \
 	Defines.cs \
 	TaskQueue.cs \
+	ThreadPoolQueue.cs \
 	Platform.cs \
 	Pattern.cs 
 	
@@ -70,6 +71,7 @@ EXTRAS = \
 
 REFERENCES =  \
 	System \
+	System.Core \
 	Mono.Posix
 
 DLL_REFERENCES = 
