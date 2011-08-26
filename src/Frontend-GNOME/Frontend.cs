@@ -330,9 +330,9 @@ namespace Smuxi.Frontend.Gnome
                 if (_Session != null) {
                     _Session.DeregisterFrontendUI(_MainWindow.UI);
                 }
-            } catch (System.Net.Sockets.SocketException ex) {
+            } catch (System.Net.Sockets.SocketException) {
                 // ignore as the connection is maybe already broken
-            } catch (System.Runtime.Remoting.RemotingException ex) {
+            } catch (System.Runtime.Remoting.RemotingException) {
                 // ignore as the connection is maybe already broken
             }
             _MainWindow.Hide();
