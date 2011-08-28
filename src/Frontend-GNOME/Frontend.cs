@@ -475,46 +475,15 @@ namespace Smuxi.Frontend.Gnome
                     return;
                 }
                 _InReconnectHandler = true;
-
-                Gtk.MessageDialog md = new Gtk.MessageDialog(parent,
-                    Gtk.DialogFlags.Modal, Gtk.MessageType.Error,
-                    Gtk.ButtonsType.OkCancel, _("The frontend has lost the connection to the server.\nDo you want to reconnect now?"));
-                Gtk.ResponseType res = (Gtk.ResponseType) md.Run();
-                md.Destroy();
-                
-                if (res == Gtk.ResponseType.Ok) {
-                    while (true) {
-                        try {
-                            Frontend.ReconnectEngineToGUI();
-                            // yay, we made it
-                            _InReconnectHandler = false;
-                            break;
-                        } catch (Exception e) {
-#if LOG4NET
-                             _Logger.Error("ShowException(): Reconnect failed, exception:", e);
-#endif
-                            var msg = _("Reconnecting to the server has failed.\nDo you want to try again?");
-                            // the parent window is hidden (MainWindow) at this
-                            // point thus modal doesn't make sense here
-                            md = new Gtk.MessageDialog(parent,
-                                Gtk.DialogFlags.DestroyWithParent,
-                                Gtk.MessageType.Error,
-                                Gtk.ButtonsType.OkCancel, msg);
-                            md.SetPosition(Gtk.WindowPosition.CenterAlways);
-                            res = (Gtk.ResponseType) md.Run();
-                            md.Destroy();
-
-                            if (res != Gtk.ResponseType.Ok) {
-                                // give up
-                                Quit();
-                                return;
-                            }
-                        }
-                    }
-                    return;
+                if (MainWindow.HasToplevelFocus) {
+                    ShowReconnectDialog(parent);
+                } else {
+                    // the user isn't paying attention, no need to ask
+                    MainWindow.ChatViewManager.IsSensitive = false;
+                    Frontend.ReconnectEngineToGUI();
+                    MainWindow.ChatViewManager.IsSensitive = true;
                 }
-                
-                Quit();
+                _InReconnectHandler = false;
                 return;
             }
 
@@ -554,7 +523,53 @@ namespace Smuxi.Frontend.Gnome
             diag.Run();
             diag.Destroy();
         }
-        
+
+        public static bool ShowReconnectDialog(Gtk.Window parent)
+        {
+            Trace.Call(parent);
+
+            Gtk.MessageDialog md = new Gtk.MessageDialog(parent,
+                Gtk.DialogFlags.Modal, Gtk.MessageType.Error,
+                Gtk.ButtonsType.OkCancel, _("The frontend has lost the connection to the server.\nDo you want to reconnect now?"));
+            Gtk.ResponseType res = (Gtk.ResponseType) md.Run();
+            md.Destroy();
+
+            if (res != Gtk.ResponseType.Ok) {
+                Quit();
+                return false;
+            }
+
+            while (true) {
+                try {
+                    Frontend.ReconnectEngineToGUI();
+                    // yay, we made it
+                    _InReconnectHandler = false;
+                    break;
+                } catch (Exception e) {
+#if LOG4NET
+                     _Logger.Error("ShowReconnectDialog(): Reconnect failed, exception:", e);
+#endif
+                    var msg = _("Reconnecting to the server has failed.\nDo you want to try again?");
+                    // the parent window is hidden (MainWindow) at this
+                    // point thus modal doesn't make sense here
+                    md = new Gtk.MessageDialog(parent,
+                        Gtk.DialogFlags.DestroyWithParent,
+                        Gtk.MessageType.Error,
+                        Gtk.ButtonsType.OkCancel, msg);
+                    md.SetPosition(Gtk.WindowPosition.CenterAlways);
+                    res = (Gtk.ResponseType) md.Run();
+                    md.Destroy();
+
+                    if (res != Gtk.ResponseType.Ok) {
+                        // give up
+                        Quit();
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
+
         public static void ApplyConfig(UserConfig userConfig)
         {
             Trace.Call(userConfig);
