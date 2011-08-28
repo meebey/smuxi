@@ -446,8 +446,15 @@ namespace Smuxi.Engine
             FrontendManager fm = cd.FrontendManager;
             
             string protocol;
-            if (cd.DataArray.Length >= 2) {
+            if (cd.DataArray.Length >= 3) {
                 protocol = cd.DataArray[1];
+            } else if (cd.DataArray.Length >= 2) {
+                // HACK: simply assume the user meant irc if not specified as
+                // Smuxi is still primarly an IRC client
+                protocol = "irc";
+                string cmd = String.Format("{0}connect irc {1}",
+                                           cd.CommandCharacter, cd.Parameter);
+                cd = new CommandModel(fm, cd.Chat, cd.CommandCharacter, cmd);
             } else {
                 _NotEnoughParameters(cd);
                 return;
