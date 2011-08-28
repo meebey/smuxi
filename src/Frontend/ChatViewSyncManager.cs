@@ -33,8 +33,8 @@ namespace Smuxi.Frontend
         private static readonly log4net.ILog Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 #endif
         ThreadPoolQueue WorkerQueue { set; get; }
-        Dictionary<string, AutoResetEvent> SyncWaitQueue { set; get; }
-        Dictionary<string, IChatView> SyncReleaseQueue { set; get; }
+        Dictionary<object, AutoResetEvent> SyncWaitQueue { set; get; }
+        Dictionary<object, IChatView> SyncReleaseQueue { set; get; }
 
         public event EventHandler<ChatViewAddedEventArgs>  ChatAdded;
         public event EventHandler<ChatViewSyncedEventArgs> ChatSynced;
@@ -44,8 +44,8 @@ namespace Smuxi.Frontend
             WorkerQueue = new ThreadPoolQueue() {
                 MaxWorkers = 4
             };
-            SyncWaitQueue = new Dictionary<string, AutoResetEvent>();
-            SyncReleaseQueue = new Dictionary<string, IChatView>();
+            SyncWaitQueue = new Dictionary<object, AutoResetEvent>();
+            SyncReleaseQueue = new Dictionary<object, IChatView>();
         }
 
         public void Add(ChatModel chatModel)
@@ -115,9 +115,7 @@ namespace Smuxi.Frontend
                 throw new ArgumentNullException("chatModel");
             }
 
-            // HACK: we can't use ChatModel as Dictionary as it is
-            // a remoting object
-            var chatKey = RemotingServices.GetObjectUri(chatModel);
+            var chatKey = GetChatKey(chatModel);
             lock (SyncWaitQueue) {
                 SyncWaitQueue.Add(chatKey, new AutoResetEvent(false));
 #if LOG4NET
@@ -156,7 +154,7 @@ namespace Smuxi.Frontend
                 throw new ArgumentNullException("chatView");
             }
 
-            var chatKey = RemotingServices.GetObjectUri(chatView.ChatModel);
+            var chatKey = GetChatKey(chatView.ChatModel);
 #if LOG4NET
             Logger.Debug("ReleaseSync() <" + chatKey + "> releasing " +
                          "<" + chatView.ID + ">");
@@ -183,6 +181,16 @@ namespace Smuxi.Frontend
             }
         }
 
+        object GetChatKey(ChatModel chatModel)
+        {
+            if (RemotingServices.IsTransparentProxy(chatModel)) {
+                // HACK: we can't use ChatModel as Dictionary as it is
+                // a remoting object
+                return RemotingServices.GetObjectUri(chatModel);
+            }
+            return chatModel;
+        }
+
         void AddWorker(ChatModel chatModel)
         {
             try {
@@ -197,7 +205,7 @@ namespace Smuxi.Frontend
         void SyncWorker(ChatModel chatModel)
         {
             try {
-                var chatKey = RemotingServices.GetObjectUri(chatModel);
+                var chatKey = GetChatKey(chatModel);
                 AutoResetEvent syncWait = null;
                 lock (SyncWaitQueue) {
                     SyncWaitQueue.TryGetValue(chatKey, out syncWait);
