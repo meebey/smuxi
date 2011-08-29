@@ -237,7 +237,12 @@ namespace Smuxi.Frontend.Gnome
 
             GLib.Idle.Add(delegate {
                 var chatView = (ChatView) e.ChatView;
-                //f_Notebook.ReorderChild(chatView, chatView.Position);
+
+                // HACK: patch chat position as OnChatAdded is not honoring the
+                // AddChat order nor the complete range of chats
+                if (chatView.Position != -1) {
+                    f_Notebook.ReorderChild(chatView, chatView.Position);
+                }
 
 #if LOG4NET
                 DateTime start = DateTime.UtcNow;
