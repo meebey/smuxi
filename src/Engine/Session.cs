@@ -1,7 +1,7 @@
 /*
  * Smuxi - Smart MUltipleXed Irc
  *
- * Copyright (c) 2005-2010 Mirco Bauer <meebey@meebey.net>
+ * Copyright (c) 2005-2011 Mirco Bauer <meebey@meebey.net>
  *
  * Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
  *
@@ -22,6 +22,7 @@
 
 using System;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Collections;
@@ -806,11 +807,12 @@ namespace Smuxi.Engine
             if (chat == null) {
                 throw new ArgumentNullException("chat");
             }
-            
+
+            chat.Position = GetSortedChatPosition(chat);
             lock (_Chats) {
                 _Chats.Add(chat);
             }
-            
+
             lock (_FrontendManagers) {
                 foreach (FrontendManager fm in _FrontendManagers.Values) {
                     fm.AddChat(chat);
@@ -1329,6 +1331,46 @@ namespace Smuxi.Engine
                 }
             }
             return null;
+        }
+
+        int GetSortedChatPosition(ChatModel chatModel)
+        {
+            int position = chatModel.Position;
+            if (position != -1) {
+                return position;
+            }
+
+            ChatType type = chatModel.ChatType;
+            if (type != ChatType.Person &&
+                type != ChatType.Group) {
+                return position;
+            }
+
+            // new group person and group chats behind their protocol chat
+            IProtocolManager pm = chatModel.ProtocolManager;
+            lock (_Chats) {
+                foreach (var chat in _Chats) {
+                    if (chat.ChatType == ChatType.Protocol &&
+                        chat.ProtocolManager == pm) {
+                        position = _Chats.IndexOf(chat) + 1;
+                        break;
+                    }
+                }
+            }
+            if (position == -1) {
+                return position;
+            }
+
+            // now find the first chat with a different protocol manager
+            foreach (var chat in _Chats.Skip(position)) {
+                if (chat.ProtocolManager != pm) {
+                    return _Chats.IndexOf(chat);
+                }
+            }
+
+            // if there was no next protocol manager, simply append
+            // the chat way to the end
+            return -1;
         }
 
         private static string _(string msg)

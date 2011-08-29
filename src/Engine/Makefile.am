@@ -109,6 +109,7 @@ EXTRAS = \
 REFERENCES =  \
 	System.Runtime.Remoting \
 	System \
+	System.Core \
 	Mono.Posix \
 	$(NINI_LIBS) \
 	$(LOG4NET_LIBS) \
