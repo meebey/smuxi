@@ -74,7 +74,7 @@ namespace Smuxi.Frontend
 
             // REMOTING CALL 1 + 2
             return CreateChatView(chat, chat.ChatType,
-                                  chat.ProtocolManager.GetType());
+                                  chat.ProtocolManager.GetType(), parameters);
         }
 
         protected IChatView CreateChatView(ChatModel chat,
