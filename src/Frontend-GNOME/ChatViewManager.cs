@@ -38,6 +38,7 @@ namespace Smuxi.Frontend.Gnome
         private static readonly log4net.ILog f_Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 #endif
         private List<ChatView> f_Chats = new List<ChatView>();
+        public  IList<ChatView> SyncedChats { get; private set; }
         private Notebook       f_Notebook;
         private Gtk.TreeView   f_TreeView;
         private UserConfig     f_Config;
@@ -45,7 +46,8 @@ namespace Smuxi.Frontend.Gnome
 
         public event ChatViewManagerChatAddedEventHandler   ChatAdded;
         public event ChatViewManagerChatRemovedEventHandler ChatRemoved;
-            
+        public event EventHandler<ChatViewManagerChatSyncedEventArgs> ChatSynced;
+
         public override IChatView ActiveChat {
             get {
                 return f_Notebook.CurrentChatView;
@@ -71,6 +73,7 @@ namespace Smuxi.Frontend.Gnome
         {
             f_Notebook = notebook;
             f_TreeView = treeView;
+            SyncedChats = new List<ChatView>();
             SyncManager = new ChatViewSyncManager();
             SyncManager.ChatAdded += OnChatAdded;
             SyncManager.ChatSynced += OnChatSynced;
@@ -172,6 +175,7 @@ namespace Smuxi.Frontend.Gnome
             f_Config = null;
             f_Chats.Clear();
             f_Notebook.RemoveAllPages();
+            SyncedChats.Clear();
             SyncManager.Clear();
         }
 
@@ -252,6 +256,11 @@ namespace Smuxi.Frontend.Gnome
 #endif
 
                 chatView.ScrollToEnd();
+
+                SyncedChats.Add(chatView);
+                if (ChatSynced != null) {
+                    ChatSynced(this, new ChatViewManagerChatSyncedEventArgs(chatView));
+                }
                 return false;
             });
         }
@@ -345,6 +354,16 @@ namespace Smuxi.Frontend.Gnome
         public ChatViewManagerChatRemovedEventArgs(ChatView chatView)
         {
             f_ChatView = chatView;
+        }
+    }
+
+    public class ChatViewManagerChatSyncedEventArgs : EventArgs
+    {
+        public ChatView ChatView { get; private set; }
+
+        public ChatViewManagerChatSyncedEventArgs(ChatView chatView)
+        {
+            ChatView = chatView;
         }
     }
 }

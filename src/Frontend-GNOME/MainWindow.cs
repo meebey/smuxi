@@ -215,7 +215,7 @@ namespace Smuxi.Frontend.Gnome
             } else {
                 Move(x, y);
             }
-            
+
             DeleteEvent += OnDeleteEvent;
             FocusInEvent += OnFocusInEvent;
             FocusOutEvent += OnFocusOutEvent;
@@ -461,6 +461,7 @@ namespace Smuxi.Frontend.Gnome
             _ChatViewManager.LoadAll(System.IO.Path.GetDirectoryName(asm.Location),
                                      "smuxi-frontend-gnome-*.dll");
             _ChatViewManager.ChatAdded += OnChatViewManagerChatAdded;
+            _ChatViewManager.ChatSynced += OnChatViewManagerChatSynced;
             _ChatViewManager.ChatRemoved += OnChatViewManagerChatRemoved;
             
 #if GTK_SHARP_2_10
@@ -484,7 +485,8 @@ namespace Smuxi.Frontend.Gnome
             _Entry = new Entry(_Notebook);
             
             _ProgressBar = new Gtk.ProgressBar();
-            
+            _ProgressBar.BarStyle = Gtk.ProgressBarStyle.Continuous;
+
             Gtk.VBox vbox = new Gtk.VBox();
             vbox.PackStart(_MenuBar, false, false, 0);
             vbox.PackStart(_Notebook, true, true, 0);
@@ -1098,10 +1100,18 @@ namespace Smuxi.Frontend.Gnome
         protected void OnChatViewManagerChatAdded(object sender, ChatViewManagerChatAddedEventArgs e)
         {
             Trace.Call(sender, e);
-            
+
             e.ChatView.OutputMessageTextView.MessageHighlighted += OnChatViewMessageHighlighted;
+            UpdateProgressBar();
         }
         
+        protected void OnChatViewManagerChatSynced(object sender, ChatViewManagerChatSyncedEventArgs e)
+        {
+            Trace.Call(sender, e);
+
+            UpdateProgressBar();
+        }
+
         protected void OnChatViewManagerChatRemoved(object sender, ChatViewManagerChatRemovedEventArgs e)
         {
             Trace.Call(sender, e);
@@ -1115,6 +1125,21 @@ namespace Smuxi.Frontend.Gnome
             
             if (!HasToplevelFocus) {
                 UrgencyHint = true;
+            }
+        }
+
+        private void UpdateProgressBar()
+        {
+            var totalChatCount = _ChatViewManager.Chats.Count;
+            var syncedChatCount =  _ChatViewManager.SyncedChats.Count;
+            _ProgressBar.Fraction = (double)syncedChatCount / totalChatCount;
+            _ProgressBar.Text = String.Format("{0} / {1}",
+                                              syncedChatCount,
+                                              totalChatCount);
+            if (syncedChatCount == totalChatCount) {
+                _ProgressBar.Hide();
+            } else {
+                _ProgressBar.Show();
             }
         }
 

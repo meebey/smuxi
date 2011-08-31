@@ -242,16 +242,6 @@ namespace Smuxi.Frontend.Gnome
 
             // sync persons
             if (_PersonTreeView != null) {
-                int count = SyncedPersons.Count;
-                /*
-                if (count > 1) {
-                    Frontend.MainWindow.ProgressBar.DiscreteBlocks = (uint)count;
-                } else {
-                    Frontend.MainWindow.ProgressBar.DiscreteBlocks = 2;
-                }
-                Frontend.MainWindow.ProgressBar.BarStyle = Gtk.ProgressBarStyle.Continuous;
-                */
-                
                 // HACK: out of scope
                 string status = String.Format(
                                     _("Retrieving user list for {0}..."),
@@ -263,7 +253,6 @@ namespace Smuxi.Frontend.Gnome
                 ls.Clear();
                 // detach the model (less CPU load)
                 _PersonTreeView.Model = new Gtk.ListStore(typeof(PersonModel));
-                int i = 1;
                 string longestName = String.Empty;
                 foreach (PersonModel person in SyncedPersons.Values) {
                     ls.AppendValues(person);
@@ -271,16 +260,6 @@ namespace Smuxi.Frontend.Gnome
                     if (person.IdentityName.Length > longestName.Length) {
                         longestName = person.IdentityName;
                     }
-                    
-                    //Frontend.MainWindow.ProgressBar.Fraction = (double)i++ / count;
-                    /*
-                    // this seems to break the sync when it's remote engine is used,
-                    // guess it does some other GUI processing, like removing users from
-                    // the userlist....
-                    while (Gtk.Application.EventsPending()) {
-                        Gtk.Application.RunIteration(false);
-                    }
-                    */
                 }
                 // attach the model again
                 // BUG? TreeView doesn't seem to recognize existing values in the model?!?
@@ -298,8 +277,6 @@ namespace Smuxi.Frontend.Gnome
                 
                 UpdatePersonCount(); 
                
-                // HACK: out of scope
-                Frontend.MainWindow.ProgressBar.Fraction = 0;
                 // TRANSLATOR: this string will be appended to the one above
                 status += String.Format(" {0}", _("done."));
                 Frontend.MainWindow.Statusbar.Push(0, status);
