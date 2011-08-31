@@ -92,10 +92,14 @@ namespace Smuxi.Frontend.Stfl
                     OnActivated(EventArgs.Empty);
                     break;
                 case "PPAGE":
-                    f_ChatViewManager.ActiveChat.ScrollUp();
+                    if (f_ChatViewManager.ActiveChat != null) {
+                        f_ChatViewManager.ActiveChat.ScrollUp();
+                    }
                     break;
                 case "NPAGE":
-                    f_ChatViewManager.ActiveChat.ScrollDown();
+                    if (f_ChatViewManager.ActiveChat != null) {
+                        f_ChatViewManager.ActiveChat.ScrollDown();
+                    }
                     break;
                 case "kPRV5": // CTRL + PAGE UP
                 case "^P":
@@ -150,9 +154,12 @@ namespace Smuxi.Frontend.Stfl
                 throw new ArgumentNullException("cmd");
             }
 
+            ChatModel chat = null;
+            if (f_MainWindow.ChatViewManager.ActiveChat != null) {
+                chat = f_MainWindow.ChatViewManager.ActiveChat.ChatModel;
+            }
             bool handled = false;
-            CommandModel cd = new CommandModel(Frontend.FrontendManager,
-                                               f_MainWindow.ChatViewManager.ActiveChat.ChatModel,
+            CommandModel cd = new CommandModel(Frontend.FrontendManager, chat,
                                                (string)Frontend.UserConfig["Interface/Entry/CommandCharacter"],
                                                cmd);
             handled = Command(cd);
