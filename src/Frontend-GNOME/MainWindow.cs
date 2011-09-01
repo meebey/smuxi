@@ -1136,7 +1136,7 @@ namespace Smuxi.Frontend.Gnome
             _ProgressBar.Text = String.Format("{0} / {1}",
                                               syncedChatCount,
                                               totalChatCount);
-            if (syncedChatCount == totalChatCount) {
+            if (syncedChatCount >= totalChatCount) {
                 _ProgressBar.Hide();
             } else {
                 _ProgressBar.Show();
