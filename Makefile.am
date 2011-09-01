@@ -155,6 +155,10 @@ run-gnome: all
 	cd $(BUILD_DIR) && \
 		mono --debug ./smuxi-frontend-gnome.exe -d
 
+run-stfl: all
+	cd $(BUILD_DIR) && \
+		mono --debug ./smuxi-frontend-stfl.exe -d
+
 run-server: all
 	cd $(BUILD_DIR) && \
 		mono --debug ./smuxi-server.exe -d
