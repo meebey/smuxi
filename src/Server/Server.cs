@@ -116,7 +116,10 @@ namespace Smuxi.Server
             _Logger.Info("Spawned remoting server with channel: "+channel+" formatter: "+formatter+" port: "+port);
 #endif            
             
-            Thread.Sleep(Timeout.Infinite);
+            Thread.CurrentThread.Join();
+#if LOG4NET
+            _Logger.Info("Shutting down remoting server...");
+#endif
         }
     }
 }
