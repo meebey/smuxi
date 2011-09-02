@@ -338,6 +338,7 @@ namespace Smuxi.Engine
             _RunThread.Start();
             
             _LagWatcherThread = new Thread(new ThreadStart(_LagWatcher));
+            _LagWatcherThread.IsBackground = true;
             _LagWatcherThread.Name = "IrcProtocolManager ("+server+":"+port+") lag watcher";
             _LagWatcherThread.Start();
         }
