@@ -150,6 +150,7 @@ namespace Smuxi.Frontend.Gnome
                         });
                     }
                 }));
+                f_FindThread.IsBackground = true;
                 f_FindThread.Start();
             } catch (Exception ex) {
                 Frontend.ShowException(ex);
