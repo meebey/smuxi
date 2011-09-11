@@ -2180,6 +2180,12 @@ namespace Smuxi.Engine
                     } else {
                         Session.AddTextToChat(_NetworkChat, msg);
                     }
+
+                    // if our own nick is temporarily not available then we
+                    // need to deal this like an already used nick
+                    if (chan == _IrcClient.Nickname) {
+                        AutoRenick();
+                    }
                     break;
                 case ReplyCode.ErrorBannedFromChannel:
                     _OnErrorBannedFromChannel(e);
@@ -2307,23 +2313,7 @@ namespace Smuxi.Engine
             builder.AppendText(_("is already in use"));
             Session.AddMessageToChat(_NetworkChat, builder.ToMessage());
 
-            if (!_IrcClient.AutoNickHandling &&
-                !_IrcClient.IsRegistered) {
-                // allright, we have to care then and try a different nick as
-                // we don't have a nick yet
-                string nick;
-                if (_CurrentNickname == _Nicknames.Length - 1) {
-                    // we tried all nicks already, so fallback to random
-                     Random rand = new Random();
-                    int number = rand.Next(999);
-                    nick = _Nicknames[_CurrentNickname].Substring(0, 5) + number;
-                } else {
-                    _CurrentNickname++;
-                    nick = _Nicknames[_CurrentNickname];
-                }
-                
-                _IrcClient.RfcNick(nick, Priority.Critical);
-            }
+            AutoRenick();
         }
         
         private void _OnErrorBannedFromChannel(IrcEventArgs e)
@@ -3295,6 +3285,29 @@ namespace Smuxi.Engine
             var builder = new IrcMessageBuilder();
             builder.ApplyConfig(Session.UserConfig);
             return builder;
+        }
+
+        void AutoRenick()
+        {
+            if (_IrcClient.AutoNickHandling ||
+                _IrcClient.IsRegistered) {
+                return;
+            }
+
+            // allright, we have to care then and try a different nick as
+            // we don't have a nick yet
+            string nick;
+            if (_CurrentNickname == _Nicknames.Length - 1) {
+                // we tried all nicks already, so fallback to random
+                 Random rand = new Random();
+                int number = rand.Next(999);
+                nick = _Nicknames[_CurrentNickname].Substring(0, 5) + number;
+            } else {
+                _CurrentNickname++;
+                nick = _Nicknames[_CurrentNickname];
+            }
+
+            _IrcClient.RfcNick(nick, Priority.Critical);
         }
 
         private static string _(string msg)
