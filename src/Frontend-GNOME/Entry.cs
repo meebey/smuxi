@@ -46,7 +46,8 @@ namespace Smuxi.Frontend.Gnome
         private bool             _HistoryChangedLine;
         private Notebook         _Notebook;
         private CommandManager   _CommandManager;
-        
+        private new EntrySettings Settings { get; set; }
+
         /*
         public StringCollection History {
             get {
@@ -88,6 +89,7 @@ namespace Smuxi.Frontend.Gnome
             _History.Add(String.Empty);
             
             _Notebook = notebook;
+            Settings = new EntrySettings();
 
             InitCommandManager();
             Frontend.SessionPropertyChanged += delegate {
@@ -135,7 +137,7 @@ namespace Smuxi.Frontend.Gnome
              _Logger.Debug("added: '"+data+"' to history");
 #endif
 
-            if (_History.Count > (int)Frontend.UserConfig["Interface/Entry/CommandHistorySize"]) {
+            if (_History.Count > Settings.CommandHistorySize) {
                 _History.RemoveAt(0);
             } else {
                 _HistoryPosition += positiondiff;
@@ -466,11 +468,10 @@ namespace Smuxi.Frontend.Gnome
                 return;
             }
 
-            // BUG? REMOTING CALLs here?!? (would block GUI!)
             CommandModel cd = new CommandModel(
                 Frontend.FrontendManager,
                 _Notebook.CurrentChatView.ChatModel,
-                (string) Frontend.UserConfig["Interface/Entry/CommandCharacter"],
+                Settings.CommandCharacter,
                 cmd
             );
 
@@ -699,7 +700,7 @@ namespace Smuxi.Frontend.Gnome
             ChatModel chat = _Notebook.CurrentChatView.ChatModel;
             if (chat.ChatType == ChatType.Group) {
                 GroupChatModel cp = (GroupChatModel) chat;
-                if ((bool)Frontend.UserConfig["Interface/Entry/BashStyleCompletion"]) {
+                if (Settings.BashStyleCompletion) {
                     IList<string> result = cp.PersonLookupAll(word);
                     if (result == null || result.Count == 0) {
                         // no match
@@ -734,8 +735,7 @@ namespace Smuxi.Frontend.Gnome
                 }
             }
 
-            string completionChar = (string)
-                Frontend.UserConfig["Interface/Entry/CompletionCharacter"];
+            string completionChar = Settings.CompletionCharacter;
             // add leading @ back and supress completion character
             if (leadingAt) {
                 word = String.Format("@{0}", word);
@@ -808,6 +808,8 @@ namespace Smuxi.Frontend.Gnome
                 ModifyText(Gtk.StateType.Normal, theme.ForegroundColor.Value);
             }
             ModifyFont(theme.FontDescription);
+
+            Settings.ApplyConfig(config);
         }
 
         private void InitCommandManager()
