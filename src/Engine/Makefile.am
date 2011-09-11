@@ -91,6 +91,7 @@ FILES = \
 	Config/FilterListController.cs \
 	Config/FilterModel.cs \
 	Config/ProxyType.cs \
+	Config/EntrySettings.cs \
 	Protocols/ProtocolManagerBase.cs \
 	Protocols/ProtocolManagerFactory.cs \
 	Protocols/ProtocolManagerInfoModel.cs \
