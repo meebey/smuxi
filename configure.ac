@@ -195,6 +195,12 @@ if test "x$WITH_DB4O" = "xincluded"; then
 	if test ! -d "$srcdir/lib/db4o-net/Db4objects.Db4o"; then
 		AC_MSG_ERROR([lib/db4o-net is empty!])
 	fi
+
+	AC_PATH_PROG(XBUILD, xbuild, no)
+	if test "x$XBUILD" = "xno"; then
+		AC_MSG_ERROR([You need to install xbuild])
+	fi
+
 	AM_CONDITIONAL([BUNDLE_DB4O], true)
 	#AC_SUBST([DB4O_FILES], "Db4objects.Db4o.dll Db4objects.Db4o.Instrumentation.dll Db4objects.Db4o.NativeQueries.dll")
 	AC_SUBST([DB4O_FILES], "Db4objects.Db4o.dll")
