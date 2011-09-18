@@ -265,20 +265,24 @@ namespace Smuxi.Engine
 
         public void ResetMessageBuffer()
         {
+            Trace.Call();
+
             if (MessageBuffer == null) {
                 // nothing to reset
                 return;
             }
 
-            try {
-                MessageBuffer.Dispose();
-            } catch (Exception ex) {
+            lock (MessageBuffer) {
+                try {
+                    MessageBuffer.Dispose();
+                } catch (Exception ex) {
 #if LOG4NET
-                _Logger.Warn(
-                    "ResetMessageBuffer(): MessageBuffer.Dispose() " +
-                    "threw exception!", ex
-                );
+                    _Logger.Warn(
+                        "ResetMessageBuffer(): MessageBuffer.Dispose() " +
+                        "threw exception!", ex
+                    );
 #endif
+                }
             }
             MessageBuffer = null;
         }
