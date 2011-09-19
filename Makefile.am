@@ -133,9 +133,6 @@ dist-win32:
 	for FILE in $(WIN32_FILES); do \
 		cp $$FILE $(WIN32_BUILD_DIR); \
 	done
-	for FILE in $(WIN32_EXE_FILES); do \
-		wine ../releases/win32/build-env/CorFlags.exe /nologo /32BIT+ $(WIN32_BUILD_DIR)/$$(basename $$FILE); \
-	done
 	for PODIR in $(PODIRS); do \
 		$(MAKE) -C $$PODIR install itlocaledir=$(abs_top_builddir)/$(WIN32_BUILD_DIR)/locale; \
 	done
