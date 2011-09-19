@@ -27,6 +27,7 @@
  */
  
 using System;
+using System.Runtime.Remoting;
 using System.Runtime.Serialization;
 using Smuxi.Common;
 
@@ -79,8 +80,13 @@ namespace Smuxi.Engine
                                       
         public override string ToTraceString()
         {
-            string nm = (_ProtocolManager != null) ? _ProtocolManager.ToString() : "(null)";  
-            return  nm + "/" + IdentityName; 
+            if (_ProtocolManager == null ||
+                RemotingServices.IsTransparentProxy(_ProtocolManager)) {
+                // avoids remoting call
+                return base.ToTraceString();
+            }
+            // REMOTING CALL
+            return _ProtocolManager.ToString() + "/" + IdentityName;
         }
     }
 }
