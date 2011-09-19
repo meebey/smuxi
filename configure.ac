@@ -107,13 +107,16 @@ if git log --oneline 295b37c8ac4939829a3c7f9150943dba8fff07f0 > /dev/null 2>&1; 
 	GIT_BRANCH=$(git branch | grep '^\*' | cut -d ' ' -f 2)
 	GIT_COMMIT_HASH=$(git log --no-color --first-parent -n1 --pretty=format:%h)
 	DIST_VERSION=$GIT_BRANCH/$GIT_COMMIT_HASH
+	DEV_VERSION_SUFFIX="-dev"
 	AC_MSG_RESULT(yes)
 else
 	DIST_VERSION=tarball
+	DEV_VERSION_SUFFIX=
 	AC_MSG_RESULT(no)
 fi
 AC_SUBST([git_branch], "$GIT_BRANCH")
 AC_SUBST([git_commit_hash], "$GIT_COMMIT_HASH")
+AC_SUBST([DEV_VERSION_SUFFIX])
 
 SHAMROCK_EXPAND_LIBDIR
 SHAMROCK_CHECK_MONO_MODULE(1.9.1)

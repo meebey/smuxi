@@ -27,7 +27,7 @@
 SetCompressor lzma
 
 !define PRODUCT_NAME "Smuxi"
-!define PRODUCT_VERSION "@VERSION@"
+!define PRODUCT_VERSION "@VERSION@@DEV_VERSION_SUFFIX@"
 !define PRODUCT_PUBLISHER "Mirco Bauer <meebey@meebey.net>"
 !define PRODUCT_WEB_SITE "http://www.smuxi.org"
 !define PRODUCT_DIR_REGKEY "Software\Microsoft\Windows\CurrentVersion\App Paths\smuxi-frontend-gnome.exe"
