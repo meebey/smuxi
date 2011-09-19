@@ -698,9 +698,10 @@ namespace Smuxi.Frontend.Gnome
             string nick = null;
 
             ChatModel chat = _Notebook.CurrentChatView.ChatModel;
-            if (chat.ChatType == ChatType.Group) {
+            if (chat is GroupChatModel) {
                 GroupChatModel cp = (GroupChatModel) chat;
                 if (Settings.BashStyleCompletion) {
+                    // REMOTING CALL
                     IList<string> result = cp.PersonLookupAll(word);
                     if (result == null || result.Count == 0) {
                         // no match
@@ -719,6 +720,7 @@ namespace Smuxi.Frontend.Gnome
                         nick = result[0];
                     }
                 } else {
+                    // REMOTING CALL
                     PersonModel person = cp.PersonLookup(word);
                     if (person != null) {
                         found = true;
@@ -726,12 +728,12 @@ namespace Smuxi.Frontend.Gnome
                      }
                 }
             } else {
-                PersonChatModel cp = (PersonChatModel) chat;
-                PersonModel person = cp.Person;
-
-                if (person.IdentityName.StartsWith(word, StringComparison.InvariantCultureIgnoreCase)) {
+                var personChat = (PersonChatView) _Notebook.CurrentChatView;
+                var personModel = personChat.PersonModel;
+                if (personModel.IdentityName.StartsWith(word,
+                        StringComparison.InvariantCultureIgnoreCase)) {
                     found = true;
-                    nick = cp.Person.IdentityName;
+                    nick = personModel.IdentityName;
                 }
             }
 
