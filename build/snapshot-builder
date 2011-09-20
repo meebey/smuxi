@@ -1,0 +1,208 @@
+# coding=utf-8
+# Copyright (c) 2011 Hannes Tismer <panni@fragstore.net>
+# Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
+# 
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+# 
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+# 
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA
+
+import subprocess, re, os, datetime, time, sys, shutil
+from optparse import OptionParser
+
+tmpLogName = "buildlog_%s.log" % time.time()
+class Logging:
+    def __init__(self, targets):
+        self.targets = targets
+        
+    def write(self, s):
+        for target in self.targets:
+            target.write(s)
+            
+    def fileno(self):
+        return self.targets[0].fileno()
+
+class Target(object):
+    def __init__(self, options, stdout, stderr, time, command=["make", "-C", "%(basePath)s", "dist-win32"]):
+        self.options = options
+        self.path = options.path
+        self.stdout = stdout
+        self.stderr = stderr
+        self.time = time
+        self.command = []
+        for cmd in command:
+            cmd = cmd % {"basePath": self.path}
+            self.command.append(cmd)
+        
+    def call(self, command):
+        proc = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+        while True:
+            out = proc.stdout.readline()
+            if not out:
+                break
+            print out.strip()
+        proc.communicate()
+
+        ret = proc.returncode
+        return ret
+        
+    def pre(self):
+        pass
+    
+    def post(self):
+        pass
+    
+    def run(self):
+        op = os.path.abspath(".")
+        os.chdir(os.path.abspath(self.path))
+        print os.path.abspath(os.curdir)
+        self.pre()
+        ret = self.call(self.command)
+        if ret != 0:
+            print "build failed"
+        else:
+            self.post()
+        self.cleanup()
+        os.chdir(op)
+        print "build successful"
+        return ret
+        
+    def cleanup(self):
+        oldFiles = time.time() - self.options.cleanupOffset * 86400
+        path = self.options.outDir
+        for f in os.listdir(path):
+            fn = os.path.join(path, f)
+            if os.path.splitext(fn)[1] in (".exe", ".zip"):
+                if os.stat(fn).st_mtime < oldFiles:
+                    if os.path.isfile(fn):
+                        os.remove(fn)
+        
+class DistWin32(Target):
+    installerName = "smuxi-win32-setup.exe"
+    finalInstallerName = "smuxi-snapshot-%Y%m%d_%H%M-win32-setup.exe"
+    installerScript = "smuxi-win32.nsis"
+    def pre(self):
+        super(DistWin32, self).pre()
+        
+        # patch Makefile.in
+        print "patching Makefile"
+        f = open("Makefile.am", "r")
+        cnt = f.read()
+        
+        # we want to do makensis on our own
+        cnt = cnt.replace("makensis $(top_srcdir)/src/smuxi-win32.nsis", "")
+        f.close()
+        
+        # keep a copy of the original
+        print "cloning original Makefile"
+        os.rename("Makefile.am", "Makefile.am.orig")
+        f = open("Makefile.am", "w+")
+        f.write(cnt)
+        print "patched Makefile"
+        f.close()
+        
+    def _makeNsis(self):
+        self.call(["makensis", "%s/src/%s" % (self.path, self.installerScript)])
+        p = os.path.abspath(self.options.outDir)
+        fn = os.path.join(p, self.time.strftime(self.finalInstallerName))
+        try:
+            os.rename(self.installerName, fn)
+        except OSError:
+            print "compiling of %s failed" % self.installerScript
+            raise
+        
+        
+    def post(self):
+        self._makeNsis()
+        
+        
+class DistWin32English(DistWin32):
+    finalInstallerName = "smuxi-snapshot-EN-%Y%m%d_%H%M-win32-setup.exe"
+    logFileName = "smuxi-snapshot-EN-%Y%m%d_%H%M.log"
+    
+    def post(self):
+        shutil.rmtree(os.path.join(self.path, "bin-win32", "locale"))
+        super(DistWin32English, self).post()
+        
+availableTargets = (
+    ("distWin32", DistWin32, ["make", "-C", "%(basePath)s", "dist-win32"]), 
+    ("distWin32EN", DistWin32English, ["make", "-C", "%(basePath)s", "dist-win32"]),
+)
+targetMap = dict([(a, (b, c)) for a, b, c in availableTargets])
+
+def main():
+    parser = OptionParser()
+    parser.add_option("-b", "--base", help="use as basedir this file has sufficient permissions in", default=os.path.abspath(sys.argv[0]))
+    parser.add_option("-p", "--path", help="use as base smuxi repository dir", default=os.path.abspath(sys.argv[0]))
+    parser.add_option("-o", "--outDir", help="use as out dir for installers", default="/root/__SMUXI_BUILDS")
+    parser.add_option("-c", "--cleanupOffset", help="delete installer files from folder after N days", default=30, type="int")
+    parser.add_option("-f", "--force", help="build the source even if it hasnt changed", default=False, action="store_true")
+    
+    (options, args) = parser.parse_args()
+    t = datetime.datetime.now()
+    
+    # change to basedir
+    os.chdir(os.path.abspath(options.base))
+    
+    # initiate logging
+    logFile = open(tmpLogName, "w+")
+    stdout = sys.stdout
+    stderr = sys.stderr
+    sys.stdout = Logging([stdout, logFile])
+    sys.stderr = Logging([stderr, logFile])
+            
+    if len(args) < 1:
+        parser.error("incorrect number of arguments")
+    targets = args
+    
+    # do we need to run?
+    origDir = os.path.abspath(".")
+    os.chdir(options.path)
+    subprocess.call(["git", "fetch"])
+    newt = subprocess.Popen(["git", "log", "--oneline", "origin/master..."], stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+    out, err = newt.communicate()
+    rCode = newt.returncode
+
+    if not len(out) and not options.force:
+        print "uptodate, no need to recompile"
+        return
+    
+    # update repository
+    # pull from git
+    subprocess.call(["git", "clean", "-fd"])
+    subprocess.call(["git", "reset", "--hard"])
+    subprocess.call(["sh", os.path.join(options.path, "autogen.sh")])
+    subprocess.call(["git", "pull"])
+    
+    for target in targets:
+        os.chdir(origDir)
+        cls, cmd = targetMap.get(target, None)
+        if cls:
+            print u"running %s with command: %s" % (target, cmd)
+            try:
+                cls(options, sys.stdout, sys.stderr, t, command=cmd).run()
+            except Exception, e:
+                print "ERROR: \n%s" % e
+    
+        else:
+            print u"target %s unknown" % target
+            
+        # change to original directory as targets may have failed doing it
+        os.chdir(origDir)
+        
+    logFile.close()
+    sys.stdout = stdout
+    sys.stderr = stderr
+    os.rename(tmpLogName, os.path.abspath(os.path.join(options.outDir, t.strftime("smuxi-snapshot-buildlog-%Y%m%d_%H%M.log"))))
+    
+if __name__ == "__main__":
+    main()
