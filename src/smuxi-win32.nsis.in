@@ -510,7 +510,7 @@ Section "Main" SEC01
   File "../bin-win32/zlib1.dll"
   File "../bin-win32/plink.exe"
   File "../bin-win32/Fixedsys500c.ttf"
-  File /r /nonfatal "../bin-win32/locale"
+  File /nonfatal /r "../bin-win32/locale"
 
   IfFileExists "$FONTS/Fixedsys500c.ttf" SkipFont InstallFont
 
