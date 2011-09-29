@@ -211,12 +211,24 @@ namespace Smuxi.Frontend.Gnome
                 return;
             }
 
+            try {
+                ShowNotification(chatView, e.Message);
+            } catch (Exception ex) {
+#if LOG4NET
+                Logger.Error("OnChatViewMessageHighlighted(): " +
+                             "ShowNotification() threw exception", ex);
+#endif
+            }
+        }
+
+        void ShowNotification(ChatView chatView, MessageModel msg)
+        {
             Notification notification;
             if (!Capabilites.Contains("append") &&
                 Notifications.TryGetValue(chatView, out notification)) {
                 // no support for append, update the existing notification
                 notification.Body = GLib.Markup.EscapeText(
-                    e.Message.ToString()
+                    msg.ToString()
                 );
                 return;
             }
@@ -228,7 +240,7 @@ namespace Smuxi.Frontend.Gnome
             if (Capabilites.Contains("body")) {
                 // notify-osd doesn't like unknown tags when appending
                 notification.Body = GLib.Markup.EscapeText(
-                    e.Message.ToString()
+                    msg.ToString()
                 );
             }
             //notification.IconName = "notification-message-im";
@@ -287,15 +299,7 @@ namespace Smuxi.Frontend.Gnome
 #endif
                 }
             };
-
-            try {
-                notification.Show();
-            } catch (Exception ex) {
-#if LOG4NET
-                Logger.Error("OnChatViewMessageHighlighted(): " +
-                             " notification.Show() threw exception", ex);
-#endif
-            }
+            notification.Show();
 
             if (!Notifications.ContainsKey(chatView)) {
                 Notifications.Add(chatView, notification);
