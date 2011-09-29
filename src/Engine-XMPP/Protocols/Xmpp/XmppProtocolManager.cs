@@ -123,7 +123,9 @@ namespace Smuxi.Engine
             Port = port;
             
             // TODO: use config for single network chat or once per network manager
-            _NetworkChat = new ProtocolChatModel(NetworkID, "Jabber " + host, this);
+            _NetworkChat = Session.CreateChat<ProtocolChatModel>(
+                NetworkID, "Jabber " + host, this
+            );
             Session.AddChat(_NetworkChat);
             Session.SyncChat(_NetworkChat);
             
@@ -384,7 +386,7 @@ namespace Smuxi.Engine
                     PersonModel person = new PersonModel(jid, nickname,
                                                          NetworkID, Protocol,
                                                          this);
-                    chat = new PersonChatModel(person, jid, nickname, this);
+                    chat = Session.CreatePersonChat(person, jid, nickname, this);
                     Session.AddChat(chat);
                     Session.SyncChat(chat);
                 }
@@ -545,7 +547,9 @@ namespace Smuxi.Engine
                 if (personChat == null) {
                     person = new PersonModel(jid, nickname, NetworkID,
                                              Protocol, this);
-                    personChat = new PersonChatModel(person, jid, nickname, this);
+                    personChat = Session.CreatePersonChat(
+                        person, jid, nickname, this
+                    );
                     Session.AddChat(personChat);
                     Session.SyncChat(personChat);
                 } else {
@@ -559,7 +563,9 @@ namespace Smuxi.Engine
                 XmppGroupChatModel groupChat = (XmppGroupChatModel) Session.GetChat(group_jid, ChatType.Group, this);
                 if (groupChat == null) {
                     // FIXME shouldn't happen?
-                    groupChat = new XmppGroupChatModel(group_jid, group_name, this);
+                    groupChat = Session.CreateChat<XmppGroupChatModel>(
+                        group_jid, group_name, this
+                    );
                     Session.AddChat(groupChat);
                     Session.SyncChat(groupChat);
                 }
@@ -628,7 +634,7 @@ namespace Smuxi.Engine
             var chat = (GroupChatModel) Session.GetChat(jid, ChatType.Group, this);
             // first notice we're joining a group chat is the participant info:
             if (chat == null) {
-                chat = new XmppGroupChatModel(jid, jid, this);
+                chat = Session.CreateChat<XmppGroupChatModel>(jid, jid, this);
                 Session.AddChat(chat);
                 Session.SyncChat(chat);
             }
