@@ -193,8 +193,12 @@ namespace Smuxi.Engine
         public override void CloseChat(FrontendManager fm, ChatModel chat)
         {
             Trace.Call(fm, chat);
-            
-            _ConferenceManager.GetRoom(chat.ID+"/"+_JabberClient.User).Leave("Closed");
+
+            if (chat.ChatType == ChatType.Group) {
+                _ConferenceManager.GetRoom(chat.ID+"/"+_JabberClient.User).Leave("Closed");
+            } else {
+                Session.RemoveChat(chat);
+            }
         }
 
         public override void SetPresenceStatus(PresenceStatus status,
