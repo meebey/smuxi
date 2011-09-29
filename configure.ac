@@ -301,18 +301,24 @@ fi
 AM_CONDITIONAL(ENABLE_ENGINE_OSCAR, test "x$ENABLE_ENGINE_OSCAR" = "xyes")
 
 AC_ARG_ENABLE([engine-xmpp],
-	AC_HELP_STRING([--enable-engine-xmpp], [Enable XMPP (Jabber) protocol support (default no)]),
+	AC_HELP_STRING([--enable-engine-xmpp], [Enable XMPP (Jabber) protocol support (default yes)]),
 	ENABLE_ENGINE_XMPP=$enableval,
-	ENABLE_ENGINE_XMPP=no
+	ENABLE_ENGINE_XMPP=yes
 )
 if test "x$ENABLE_ENGINE_XMPP" != "xno"; then
-	PKG_CHECK_MODULES([JABBER_NET], [jabber-net], XMPP_SUPPORT=yes, XMPP_SUPPORT=no)
-	AC_SUBST(JABBER_NET_LIBS)
-	if test "x$ENABLE_ENGINE_XMPP" = "xyes" -a "x$XMPP_SUPPORT" != "xyes"; then
-		AC_MSG_ERROR([jabber-net not found])
-	else
-		ENABLE_ENGINE_XMPP=$XMPP_SUPPORT
+	AC_PATH_PROG(XBUILD, xbuild, no)
+	if test "x$XBUILD" = "xno"; then
+		AC_MSG_ERROR([You need to install xbuild for XMPP support])
 	fi
+
+	if test ! -f "$srcdir/lib/jabber-net/2005-jabber-net.csproj"; then
+		AC_MSG_ERROR([lib/jabber-net is empty!])
+	fi
+	SHAMROCK_CHECK_MONO_2_0_GAC_ASSEMBLIES([
+		System
+		System.Drawing
+		System.Xml
+	])
 fi
 AM_CONDITIONAL(ENABLE_ENGINE_XMPP, test "x$ENABLE_ENGINE_XMPP" = "xyes")
 

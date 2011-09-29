@@ -10,3 +10,6 @@
 [submodule "lib/db4o-net"]
 	path = lib/db4o-net
 	url = git://git.qnetp.net/db4o-net.git
+[submodule "lib/jabber-net"]
+	path = lib/jabber-net
+	url = git://git.qnetp.net/jabber-net.git
