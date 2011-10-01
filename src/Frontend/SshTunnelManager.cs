@@ -370,9 +370,16 @@ namespace Smuxi.Frontend
             psi.RedirectStandardOutput = true;
             psi.RedirectStandardError = true;
 
-            SysDiag.Process process = SysDiag.Process.Start(psi);
-            string error = process.StandardError.ReadToEnd();
-            string output = process.StandardOutput.ReadToEnd();
+            string error;
+            string output;
+            int exitCode;
+            using (var process = SysDiag.Process.Start(psi)) {
+                error = process.StandardError.ReadToEnd();
+                output = process.StandardOutput.ReadToEnd();
+                process.WaitForExit();
+                exitCode = process.ExitCode;
+            }
+
             string haystack;
             // we expect the version output on stderr
             if (error.Length > 0) {
@@ -406,7 +413,7 @@ namespace Smuxi.Frontend
                   "{2}\n" +
                   "Program Output:\n" +
                   "{3}\n"),
-                f_Process.ExitCode,
+                exitCode,
                 f_Program,
                 error,
                 output
