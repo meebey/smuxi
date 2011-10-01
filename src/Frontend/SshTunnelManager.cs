@@ -503,7 +503,8 @@ namespace Smuxi.Frontend
                 Arguments = "-V",
                 UseShellExecute = false,
                 RedirectStandardOutput = true,
-                RedirectStandardError = true
+                RedirectStandardError = true,
+                CreateNoWindow = true
             };
             string error;
             string output;
