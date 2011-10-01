@@ -127,7 +127,7 @@ LINUX_STATIC_FILES = \
 	$(BUILD_DIR)/Newtonsoft.Json.dll
 		
 dist-win32:
-	./autogen.sh --without-indicate --without-notify
+	./autogen.sh --without-indicate --without-notify --without-dbus
 	$(MAKE)
 	mkdir -p $(WIN32_BUILD_DIR)
 	for FILE in $(WIN32_FILES); do \
