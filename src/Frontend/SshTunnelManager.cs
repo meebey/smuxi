@@ -428,11 +428,18 @@ namespace Smuxi.Frontend
         {
             string sshArguments = String.Empty;
             
-            // HACK: don't ask for SSH key fingerprints
-            // this is nasty but plink.exe can't ask for fingerprint
-            // confirmation and thus the connect would always fail
-            sshArguments += " -auto_store_key_in_cache";
-            
+            var sshVersion = GetPlinkVersionString();
+            // Smuxi by default ships Plink of Quest PuTTY which allows to
+            // accept any fingerprint but does _not_ work with pagent thus we
+            // need to also support the regular plink if the user wants
+            // ssh key authentication instead
+            if (sshVersion.EndsWith("_q1.129")) {
+                // HACK: don't ask for SSH key fingerprints
+                // this is nasty but plink.exe can't ask for fingerprint
+                // confirmation and thus the connect would always fail
+                sshArguments += " -auto_store_key_in_cache";
+            }
+
             // no interactive mode please
             sshArguments += " -batch";
             // don't execute a remote command
@@ -487,6 +494,59 @@ namespace Smuxi.Frontend
             psi.RedirectStandardOutput = true;
             psi.RedirectStandardError = true;
             return psi;
+        }
+
+        private string GetPlinkVersionString()
+        {
+            var startInfo = new SysDiag.ProcessStartInfo() {
+                FileName = f_Program,
+                Arguments = "-V",
+                UseShellExecute = false,
+                RedirectStandardOutput = true,
+                RedirectStandardError = true
+            };
+            string error;
+            string output;
+            int exitCode;
+            using (var process = SysDiag.Process.Start(startInfo)) {
+                error = process.StandardError.ReadToEnd();
+                output = process.StandardOutput.ReadToEnd();
+                process.WaitForExit();
+                exitCode = process.ExitCode;
+            }
+
+            string haystack;
+            // we expect the version output on stderr
+            if (error.Length > 0) {
+                haystack = error;
+            } else {
+                haystack = output;
+            }
+            Match match = Regex.Match(haystack, @"[0-9]+\.[0-9a-zA-Z_]+$");
+            if (match.Success) {
+                var version = match.Value;
+#if LOG4NET
+                f_Logger.Debug("GetPlinkVersionString(): found version: " + version);
+#endif
+                return version;
+            }
+
+            string msg = String.Format(
+                _("Plink version number not found (exit code: {0})\n\n" +
+                  "SSH program: {1}\n\n" +
+                  "Program Error:\n" +
+                  "{2}\n" +
+                  "Program Output:\n" +
+                  "{3}\n"),
+                exitCode,
+                f_Program,
+                error,
+                output
+            );
+#if LOG4NET
+            f_Logger.Error("GetPlinkVersionString(): " + msg);
+#endif
+            throw new ApplicationException(msg);
         }
 
         private static string _(string msg)
