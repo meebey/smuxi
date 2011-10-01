@@ -515,14 +515,7 @@ namespace Smuxi.Frontend
                 exitCode = process.ExitCode;
             }
 
-            string haystack;
-            // we expect the version output on stderr
-            if (error.Length > 0) {
-                haystack = error;
-            } else {
-                haystack = output;
-            }
-            Match match = Regex.Match(haystack, @"[0-9]+\.[0-9a-zA-Z_]+$");
+            Match match = Regex.Match(output, @"[0-9]+\.[0-9a-zA-Z_]+");
             if (match.Success) {
                 var version = match.Value;
 #if LOG4NET
