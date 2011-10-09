@@ -796,7 +796,11 @@ namespace Smuxi.Frontend.Gnome
         protected virtual void OnChatFindGroupChatButtonClicked(object sender, EventArgs e)
         {
             Trace.Call(sender, e);
-            
+            OpenFindGroupChatWindow();
+        }
+
+        public void OpenFindGroupChatWindow()
+        {
             try {
                 var chatView = Notebook.CurrentChatView;
                 if (chatView == null) {
