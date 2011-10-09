@@ -182,7 +182,8 @@ namespace Smuxi.Frontend.Gnome
                 throw new ArgumentNullException("msg");
             }
 
-            Gtk.TextIter iter = Buffer.EndIter;
+            var buffer = Buffer;
+            var iter = buffer.EndIter;
 
             Gdk.Color bgColor = DefaultAttributes.Appearance.BgColor;
             if (_ThemeSettings.BackgroundColor != null) {
@@ -198,7 +199,7 @@ namespace Smuxi.Frontend.Gnome
                         "-!- " + _("Day changed to {0}"),
                         localTimestamp.Date.ToLongDateString()
                     );
-                    Buffer.Insert(ref iter, dayLine + "\n");
+                    buffer.Insert(ref iter, dayLine + "\n");
                 }
                 
                 string timestamp = null;
@@ -225,9 +226,9 @@ namespace Smuxi.Frontend.Gnome
                         eventTag.ForegroundGdk = ColorConverter.GetGdkColor(
                             eventTextColor
                         );
-                        Buffer.InsertWithTagsByName(ref iter, timestamp, "event");
+                        buffer.InsertWithTagsByName(ref iter, timestamp, "event");
                     } else {
-                        Buffer.Insert(ref iter, timestamp);
+                        buffer.Insert(ref iter, timestamp);
                     }
                 }
             }
@@ -250,7 +251,7 @@ namespace Smuxi.Frontend.Gnome
                     urlTextColor = TextColorTools.GetBestTextColor(urlTextColor, bgTextColor);
                     //Console.WriteLine("GetBestTextColor({0}, {1}): {2}",  urlColor, bgTextColor, urlTextColor);
                     urlTag.ForegroundGdk = ColorConverter.GetGdkColor(urlTextColor);
-                    Buffer.InsertWithTagsByName(ref iter, fmsgui.Url, "url");
+                    buffer.InsertWithTagsByName(ref iter, fmsgui.Url, "url");
                 } else if (msgPart is TextMessagePartModel) {
                     TextMessagePartModel fmsgti = (TextMessagePartModel) msgPart;
                     List<string> tags = new List<string>();
@@ -297,14 +298,14 @@ namespace Smuxi.Frontend.Gnome
                     }
 
                     if (tags.Count > 0) {
-                        Buffer.InsertWithTagsByName(ref iter, fmsgti.Text, tags.ToArray());
+                        buffer.InsertWithTagsByName(ref iter, fmsgti.Text, tags.ToArray());
                     } else {
-                        Buffer.Insert(ref iter, fmsgti.Text);
+                        buffer.Insert(ref iter, fmsgti.Text);
                     }
                 }
             }
             if (addLinebreak) {
-                Buffer.Insert(ref iter, "\n");
+                buffer.Insert(ref iter, "\n");
             }
 
             CheckBufferSize();
