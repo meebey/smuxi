@@ -512,6 +512,10 @@ namespace Smuxi.Frontend.Gnome
                         _CommandClear(cd);
                         handled = true;
                         break;
+                    case "list":
+                        _CommandList(cd);
+                        handled = true;
+                        break;
                 }
             }
             
@@ -539,6 +543,7 @@ namespace Smuxi.Frontend.Gnome
             "echo data",
             "exec command",
             "detach",
+            "list",
             };
             
             foreach (string line in help) { 
@@ -548,7 +553,12 @@ namespace Smuxi.Frontend.Gnome
                 );
             }
         }
-        
+
+        private void _CommandList(CommandModel cd)
+        {
+            Frontend.MainWindow.OpenFindGroupChatWindow();
+        }
+
         private void _CommandDetach(CommandModel cd)
         {
             Frontend.Quit();
