@@ -116,37 +116,24 @@ namespace Smuxi.Common
         
         private static string _Parameterize(MethodBase method, params object[] parameters)
         {
-            StringBuilder res = new StringBuilder();
             ParameterInfo[] parameter_info = method.GetParameters();
-            if (parameter_info.Length > 0) {
-                res.Append(parameter_info[0].Name).Append(" = ");
+            if (parameter_info.Length == 0) {
+                return String.Empty;
+            }
+            StringBuilder res = new StringBuilder();
+            for (int i = 0; i < parameter_info.Length; i++) {
+                res.Append(parameter_info[i].Name).Append(" = ");
                 if (parameters == null) {
                     res.Append(_ParameterizeQuote(null));
-                } else if (parameters != null && parameters.Length > 0) {
-                    res.Append(_ParameterizeQuote(parameters[0]));
+                } else if (parameters != null && parameters.Length > i) {
+                    res.Append(_ParameterizeQuote(parameters[i]));
                 } else {
                     // empty array
                     res.Append("[]");
                 }
-                
-                for (int i = 1; i < parameter_info.Length; i++) {
-                    res.Append(", ");
-                    
-                    res.Append(parameter_info[i].Name).Append(" = ");
-                    if (parameters == null) {
-                        res.Append(_ParameterizeQuote(null));
-                    } else if (parameters != null && parameters.Length > i) {
-                        res.Append(_ParameterizeQuote(parameters[i]));
-                    } else {
-                        // empty array
-                        res.Append("[]");
-                    }
-                }
-            } else {
-                // no parameters
-                res.Append(String.Empty);
+                res.Append(", ");
             }
-
+            res.Remove(res.Length - 2, 2);
             return res.ToString();
         }
 
