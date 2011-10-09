@@ -580,19 +580,14 @@ namespace Smuxi.Frontend.Gnome
                 }
             }
 
-            Gtk.ScrolledWindow sw = _OutputScrolledWindow;
-            Gtk.TextView tv = _OutputMessageTextView;
+            var buffer = _OutputMessageTextView.Buffer;
+            buffer.MoveMark(_EndMark, buffer.EndIter);
 
-            if (sw.Vadjustment.Upper == (sw.Vadjustment.Value + sw.Vadjustment.PageSize)) {
+            var vAdjustment = _OutputScrolledWindow.Vadjustment;
+            if (vAdjustment.Upper == (vAdjustment.Value + vAdjustment.PageSize)) {
                 // the scrollbar is way at the end, lets autoscroll
-                Gtk.TextIter endit = tv.Buffer.EndIter;
-                tv.Buffer.PlaceCursor(endit);
-                tv.Buffer.MoveMark(tv.Buffer.InsertMark, endit);
-                tv.ScrollMarkOnscreen(tv.Buffer.InsertMark);
+                _OutputMessageTextView.ScrollMarkOnscreen(_EndMark);
             }
-
-            // update the end mark
-            tv.Buffer.MoveMark(_EndMark, tv.Buffer.EndIter);
         }
         
         protected virtual void OnMessageTextViewMessageHighlighted(object sender, MessageTextViewMessageHighlightedEventArgs e)
