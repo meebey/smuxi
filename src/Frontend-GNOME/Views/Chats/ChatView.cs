@@ -132,7 +132,7 @@ namespace Smuxi.Frontend.Gnome
                 return _HasActivity;
             }
             set {
-                if (_HasActivity == value) {
+                if (value && _HasActivity == value) {
                     // nothing to update
                     return;
                 }
