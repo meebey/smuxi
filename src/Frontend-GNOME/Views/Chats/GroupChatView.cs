@@ -471,11 +471,10 @@ namespace Smuxi.Frontend.Gnome
             
             PersonModel person1 = (PersonModel) liststore.GetValue(iter1, 0); 
             PersonModel person2 = (PersonModel) liststore.GetValue(iter2, 0); 
-            
-            return String.Compare(person1.IdentityName, person2.IdentityName,
-                                  true, CultureInfo.InvariantCulture);
+
+            return person1.CompareTo(person2);
         }
-        
+
         protected virtual void OnPersonsRowActivated(object sender, Gtk.RowActivatedArgs e)
         {
             Trace.Call(sender, e);

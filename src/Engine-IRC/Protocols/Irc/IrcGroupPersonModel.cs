@@ -1,13 +1,7 @@
 /*
- * $Id: IrcChannelUser.cs 142 2007-01-02 22:19:08Z meebey $
- * $URL: svn+ssh://svn.qnetp.net/svn/smuxi/smuxi/trunk/src/Engine/IrcChannelUser.cs $
- * $Rev: 142 $
- * $Author: meebey $
- * $Date: 2007-01-02 23:19:08 +0100 (Tue, 02 Jan 2007) $
- *
  * Smuxi - Smart MUltipleXed Irc
  *
- * Copyright (c) 2005-2006 Mirco Bauer <meebey@meebey.net>
+ * Copyright (c) 2005-2007, 2011 Mirco Bauer <meebey@meebey.net>
  *
  * Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
  *
@@ -101,6 +95,36 @@ namespace Smuxi.Engine
             
             _IsOp    = sr.ReadBoolean();
             _IsVoice = sr.ReadBoolean();
+        }
+
+        public override int CompareTo(ContactModel contact)
+        {
+            var ircContact = contact as IrcGroupPersonModel;
+            if (ircContact == null) {
+                return 1;
+            }
+
+            int status1 = 0;
+            if (IsOp) {
+                status1 += 2;
+            } else if (IsVoice) {
+                status1 += 1;
+            }
+
+            int status2 = 0;
+            if (ircContact.IsOp) {
+                status2 += 2;
+            } else if (ircContact.IsVoice) {
+                status2 += 1;
+            }
+
+            int res = status2.CompareTo(status1);
+            if (res != 0 ) {
+                return res;
+            }
+
+            // the status is equal, so the name decides
+            return base.CompareTo(contact);
         }
     }
 }

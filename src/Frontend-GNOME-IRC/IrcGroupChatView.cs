@@ -408,38 +408,6 @@ namespace Smuxi.Frontend.Gnome
             PersonMenu.ShowAll();
         }
 
-        protected override int SortPersonListStore(Gtk.TreeModel model,
-                                                   Gtk.TreeIter iter1,
-                                                   Gtk.TreeIter iter2)
-        {
-            Gtk.ListStore liststore = (Gtk.ListStore) model;
-            
-            IrcGroupPersonModel person1 = (IrcGroupPersonModel) liststore.GetValue(iter1, 0);
-            IrcGroupPersonModel person2 = (IrcGroupPersonModel) liststore.GetValue(iter2, 0);
-            
-            int status1 = 0;
-            if (person1.IsOp) {
-                status1 += 2;
-            } else if (person1.IsVoice) {
-                status1 += 1;
-            }
-            
-            int status2 = 0;
-            if (person2.IsOp) {
-                status2 += 2;
-            } else if (person2.IsVoice) {
-                status2 += 1;
-            }
-            
-            int res = status2.CompareTo(status1);
-            if (res == 0 ) {
-                // the mode is equal, so the name decides
-                return base.SortPersonListStore(model, iter1, iter2);
-            }
-            
-            return res;
-        }
-
         private static string _(string msg)
         {
             return LibraryCatalog.GetString(msg, _LibraryTextDomain);

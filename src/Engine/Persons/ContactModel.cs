@@ -1,13 +1,7 @@
 /*
- * $Id: User.cs 142 2007-01-02 22:19:08Z meebey $
- * $URL: svn+ssh://svn.qnetp.net/svn/smuxi/smuxi/trunk/src/Engine/User.cs $
- * $Rev: 142 $
- * $Author: meebey $
- * $Date: 2007-01-02 23:19:08 +0100 (Tue, 02 Jan 2007) $
- *
  * Smuxi - Smart MUltipleXed Irc
  *
- * Copyright (c) 2005-2006, 2010 Mirco Bauer <meebey@meebey.net>
+ * Copyright (c) 2005-2007, 2010-2011 Mirco Bauer <meebey@meebey.net>
  *
  * Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
  *
@@ -30,12 +24,13 @@ using System;
 using System.Text;
 using System.Runtime.Serialization;
 using System.Security.Cryptography;
+using System.Globalization;
 using Smuxi.Common;
 
 namespace Smuxi.Engine
 {
     [Serializable]
-    public class ContactModel : ITraceable, ISerializable
+    public class ContactModel : ITraceable, ISerializable, IComparable<ContactModel>
     {
         private string          _ID;
         private string          _IdentityName;
@@ -189,6 +184,17 @@ namespace Smuxi.Engine
         public virtual string ToTraceString()
         {
             return _NetworkID + "/" + _IdentityName; 
+        }
+
+        public virtual int CompareTo(ContactModel contact)
+        {
+            if (contact == null) {
+                return 1;
+            }
+
+            return String.Compare(IdentityName, contact.IdentityName,
+                                  true, CultureInfo.InvariantCulture);
+
         }
     }
 }
