@@ -796,36 +796,35 @@ namespace Smuxi.Frontend.Gnome
         protected virtual void OnChatFindGroupChatButtonClicked(object sender, EventArgs e)
         {
             Trace.Call(sender, e);
-            OpenFindGroupChatWindow();
+            try {
+                OpenFindGroupChatWindow();
+            } catch (Exception ex) {
+                Frontend.ShowException(this, ex);
+            }
         }
 
         public void OpenFindGroupChatWindow()
         {
-            try {
-                var chatView = Notebook.CurrentChatView;
-                if (chatView == null) {
-                    return;
-                }
-
-                var manager = chatView.ChatModel.ProtocolManager;
-                if (manager == null) {
-                    return;
-                }
-
-                FindGroupChatDialog dialog = new FindGroupChatDialog(
-                    this, manager
-                );
-                int res = dialog.Run();
-                GroupChatModel groupChat = dialog.GroupChat;
-                dialog.Destroy();
-                if (res != (int) Gtk.ResponseType.Ok) {
-                    return;
-                }
-                
-                manager.OpenChat(Frontend.FrontendManager, groupChat);
-            } catch (Exception ex) {
-                Frontend.ShowException(this, ex);
+            var chatView = Notebook.CurrentChatView;
+            if (chatView == null) {
+                return;
             }
+
+            var manager = chatView.ChatModel.ProtocolManager;
+            if (manager == null) {
+                return;
+            }
+
+            FindGroupChatDialog dialog = new FindGroupChatDialog(
+                this, manager
+            );
+            int res = dialog.Run();
+            GroupChatModel groupChat = dialog.GroupChat;
+            dialog.Destroy();
+            if (res != (int) Gtk.ResponseType.Ok) {
+                return;
+            }
+            manager.OpenChat(Frontend.FrontendManager, groupChat);
         }
         
         protected virtual void OnChatClearAllActivityButtonClicked(object sender, EventArgs e)
