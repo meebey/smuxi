@@ -26,21 +26,36 @@ namespace Smuxi.Engine
 {
     public static class MessageParser
     {
-        public static void ParseUrls(MessageModel msg)
+        static Regex UrlRegex { get; set; }
+        static Regex SimleyRegex { get; set; }
+
+        static MessageParser()
         {
-            string urlRegex;
             //urlRegex = "((([a-zA-Z][0-9a-zA-Z+\\-\\.]*:)?/{0,2}[0-9a-zA-Z;/?:@&=+$\\.\\-_!~*'()%]+)?(#[0-9a-zA-Z;/?:@&=+$\\.\\-_!~*'()%]+)?)");
             // It was constructed according to the BNF grammar given in RFC 2396 (http://www.ietf.org/rfc/rfc2396.txt).
-            
             /*
-            urlRegex = @"^(?<s1>(?<s0>[^:/\?#]+):)?(?<a1>" + 
-                                  @"//(?<a0>[^/\?#]*))?(?<p0>[^\?#]*)" + 
-                                  @"(?<q1>\?(?<q0>[^#]*))?" + 
+            urlRegex = @"^(?<s1>(?<s0>[^:/\?#]+):)?(?<a1>" +
+                                  @"//(?<a0>[^/\?#]*))?(?<p0>[^\?#]*)" +
+                                  @"(?<q1>\?(?<q0>[^#]*))?" +
                                   @"(?<f1>#(?<f0>.*))?");
-            */ 
+            */
+            UrlRegex = new Regex(
+                @"(^| )(((https?|ftp):\/\/)|www\.)" +
+                @"(" +
+                    @"([0-9]+\.[0-9]+\.[0-9]+\.[0-9]+)|" +
+                    @"localhost|" +
+                    @"([a-zA-Z0-9\-]+\.)*[a-zA-Z0-9\-]+\." +
+                        @"(com|net|org|info|biz|gov|name|edu|[a-zA-Z][a-zA-Z])" +
+                @")" +
+                @"(:[0-9]+)?((\/|\?)[^ ""]*[^ ,;\.:"">)])?",
+                RegexOptions.IgnoreCase
+            );
 
-            urlRegex = @"(^| )(((https?|ftp):\/\/)|www\.)(([0-9]+\.[0-9]+\.[0-9]+\.[0-9]+)|localhost|([a-zA-Z0-9\-]+\.)*[a-zA-Z0-9\-]+\.(com|net|org|info|biz|gov|name|edu|[a-zA-Z][a-zA-Z]))(:[0-9]+)?((\/|\?)[^ ""]*[^ ,;\.:"">)])?";
-            Regex reg = new Regex(urlRegex, RegexOptions.IgnoreCase);
+            SimleyRegex = new Regex(@":-?(\(|\))");
+        }
+
+        public static void ParseUrls(MessageModel msg)
+        {
             // clone MessageParts
             IList<MessagePartModel> parts = new List<MessagePartModel>(msg.MessageParts);
             foreach (MessagePartModel part in parts) {
@@ -53,7 +68,7 @@ namespace Smuxi.Engine
                 }
                 
                 TextMessagePartModel textPart = (TextMessagePartModel) part;
-                Match urlMatch = reg.Match(textPart.Text);
+                Match urlMatch = UrlRegex.Match(textPart.Text);
                 // OPT: fast regex scan
                 if (!urlMatch.Success) {
                     // no URLs in this MessagePart, nothing to do
@@ -68,7 +83,7 @@ namespace Smuxi.Engine
                 string[] textPartParts = textPart.Text.Split(new char[] {' '});
                 for (int i = 0; i < textPartParts.Length; i++) {
                     string textPartPart = textPartParts[i];
-                    urlMatch = reg.Match(textPartPart);
+                    urlMatch = UrlRegex.Match(textPartPart);
                     if (urlMatch.Success) {
                         UrlMessagePartModel urlPart = new UrlMessagePartModel(textPartPart);
                         //urlPart.ForegroundColor = new TextColor();
@@ -92,9 +107,6 @@ namespace Smuxi.Engine
 
         public static void ParseSmileys(MessageModel msg)
         {
-            string simleyRegex;
-            simleyRegex = @":-?(\(|\))";
-            Regex reg = new Regex(simleyRegex);
             // clone MessageParts
             IList<MessagePartModel> parts = new List<MessagePartModel>(msg.MessageParts);
             foreach (MessagePartModel part in parts) {
@@ -103,7 +115,7 @@ namespace Smuxi.Engine
                 }
                 
                 TextMessagePartModel textPart = (TextMessagePartModel) part;
-                Match simleyMatch = reg.Match(textPart.Text);
+                Match simleyMatch = SimleyRegex.Match(textPart.Text);
                 // OPT: fast regex scan
                 if (!simleyMatch.Success) {
                     // no smileys in this MessagePart, nothing to do
@@ -118,7 +130,7 @@ namespace Smuxi.Engine
                 string[] textPartParts = textPart.Text.Split(new char[] {' '});
                 for (int i = 0; i < textPartParts.Length; i++) {
                     string textPartPart = textPartParts[i];
-                    simleyMatch = reg.Match(textPartPart);
+                    simleyMatch = SimleyRegex.Match(textPartPart);
                     if (simleyMatch.Success) {
                         string filename = null;
                         if (textPartPart == ":-)") {
