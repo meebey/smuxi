@@ -137,7 +137,7 @@ namespace Smuxi.Frontend.Gnome
             ((Gtk.CheckButton)_Glade["OverrideForegroundColorCheckButton"]).Toggled += OnOverrideForegroundColorCheckButtonToggled;
             ((Gtk.CheckButton)_Glade["OverrideBackgroundColorCheckButton"]).Toggled += OnOverrideBackgroundColorCheckButtonToggled;
             ((Gtk.CheckButton)_Glade["OverrideFontCheckButton"]).Toggled += OnOverrideFontCheckButtonToggled;
-
+            ((Gtk.FontButton)_Glade["FontButton"]).FontSet += _OnChanged;
             ((Gtk.CheckButton)_Glade["ShowAdvancedSettingsCheckButton"]).Toggled += delegate {
                 CheckShowAdvancedSettingsCheckButton();
             };
