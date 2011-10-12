@@ -99,6 +99,7 @@
     <File subtype="Directory" buildaction="Compile" name="." />
     <File subtype="Code" buildaction="Compile" name="ColorConverter.cs" />
     <File subtype="Code" buildaction="Compile" name="NetworkManager.cs" />
+    <File subtype="Code" buildaction="Compile" name="LinkTag.cs" />
   </Contents>
   <References>
     <ProjectReference type="Project" localcopy="True" refto="Engine" />

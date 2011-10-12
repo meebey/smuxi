@@ -70,6 +70,7 @@ FILES = \
 	Frontend.cs \
 	GnomeUI.cs \
 	IndicateManager.cs \
+	LinkTag.cs \
 	Main.cs \
 	MainWindow.cs \
 	NetworkManager.cs \

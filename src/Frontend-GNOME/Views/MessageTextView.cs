@@ -45,8 +45,8 @@ namespace Smuxi.Frontend.Gnome
         private bool         _ShowTimestamps;
         private bool         _ShowHighlight;
         private bool         _ShowMarkerline;
-        private bool         _AtUrlTag;
-        private string       _Url;
+        private bool         _AtLinkTag;
+        private string       _ActiveLink;
         private UserConfig   _Config;
         private ThemeSettings _ThemeSettings;
         private Gdk.Color    _MarkerlineColor = new Gdk.Color(255, 0, 0);
@@ -109,7 +109,7 @@ namespace Smuxi.Frontend.Gnome
 
         public bool IsAtUrlTag {
             get {
-                return _AtUrlTag;
+                return _AtLinkTag;
             }
         }
 
@@ -242,16 +242,22 @@ namespace Smuxi.Frontend.Gnome
 
                 // TODO: implement all types
                 if (msgPart is UrlMessagePartModel) {
-                    UrlMessagePartModel fmsgui = (UrlMessagePartModel) msgPart;
+                    var urlPart = (UrlMessagePartModel) msgPart;
                     // HACK: the engine should set a color for us!
-                    Gtk.TextTag urlTag = _MessageTextTagTable.Lookup("url");
-                    Gdk.Color urlColor = urlTag.ForegroundGdk;
-                    //Console.WriteLine("urlColor: " + urlColor);
-                    TextColor urlTextColor = ColorConverter.GetTextColor(urlColor);
-                    urlTextColor = TextColorTools.GetBestTextColor(urlTextColor, bgTextColor);
-                    //Console.WriteLine("GetBestTextColor({0}, {1}): {2}",  urlColor, bgTextColor, urlTextColor);
-                    urlTag.ForegroundGdk = ColorConverter.GetGdkColor(urlTextColor);
-                    buffer.InsertWithTagsByName(ref iter, fmsgui.Url, "url");
+                    var linkStyleTag = _MessageTextTagTable.Lookup("link");
+                    var linkColor = ColorConverter.GetTextColor(
+                        linkStyleTag.ForegroundGdk
+                    );
+                    linkColor = TextColorTools.GetBestTextColor(
+                        linkColor, bgTextColor
+                    );
+
+                    var linkTag = new LinkTag(urlPart.Url);
+                    linkTag.ForegroundGdk = ColorConverter.GetGdkColor(linkColor);
+                    linkTag.TextEvent += OnLinkTagTextEvent;
+                    _MessageTextTagTable.Add(linkTag);
+                    var linkText = urlPart.Text ?? urlPart.Url;
+                    buffer.InsertWithTags(ref iter, linkText, linkStyleTag, linkTag);
                 } else if (msgPart is TextMessagePartModel) {
                     TextMessagePartModel fmsgti = (TextMessagePartModel) msgPart;
                     List<string> tags = new List<string>();
@@ -367,10 +373,9 @@ namespace Smuxi.Frontend.Gnome
             tt.Underline = Pango.Underline.Single;
             ttt.Add(tt);
             
-            tt = new Gtk.TextTag("url");
+            tt = new Gtk.TextTag("link");
             tt.Underline = Pango.Underline.Single;
             tt.Foreground = "darkblue";
-            tt.TextEvent += OnTextTagUrlTextEvent;
             fd = new Pango.FontDescription();
             tt.FontDesc = fd;
             ttt.Add(tt);
@@ -399,15 +404,15 @@ namespace Smuxi.Frontend.Gnome
             Gtk.TextIter iter = GetIterAtLocation(bufferX, bufferY);
             bool atUrlTag = false;
             foreach (Gtk.TextTag tag in iter.Tags) {
-                if (tag.Name == "url") {
+                if (tag.Name == "link") {
                     atUrlTag = true;
                     break;
                 }
             }
             
             Gdk.Window window = GetWindow(Gtk.TextWindowType.Text); 
-            if (atUrlTag != _AtUrlTag) {
-                _AtUrlTag = atUrlTag;
+            if (atUrlTag != _AtLinkTag) {
+                _AtLinkTag = atUrlTag;
                 
                 if (atUrlTag) {
 #if LOG4NET
@@ -419,54 +424,46 @@ namespace Smuxi.Frontend.Gnome
                     _Logger.Debug("OnMotionNotifyEvent(): not at url tag");
 #endif
                     window.Cursor = _NormalCursor;
+                    _ActiveLink = null;
                 }
             }
         }
         
-        protected virtual void OnTextTagUrlTextEvent(object sender, Gtk.TextEventArgs e)
+        protected virtual void OnLinkTagTextEvent(object sender, Gtk.TextEventArgs e)
         {
             // logging noise
             //Trace.Call(sender, e);
             
-            Gtk.TextIter start = Gtk.TextIter.Zero;
-            Gtk.TextIter end = Gtk.TextIter.Zero;
-
             // if something in the textview is selected, bail out
             if (HasTextViewSelection) {
 #if LOG4NET
-                _Logger.Debug("OnTextTagUrlTextEvent(): active selection present, bailing out...");
+                _Logger.Debug("OnLinkTagTextEvent(): active selection present, bailing out...");
 #endif
                 return;
             }
             
-            // get URL via TextTag from TextIter
-            Gtk.TextTag tag = (Gtk.TextTag) sender;
-            
-            start = e.Iter;
-            start.BackwardToTagToggle(tag);
-            end = e.Iter;
-            end.ForwardToTagToggle(tag);
-            _Url = Buffer.GetText(start, end, false);
+            var tag = (LinkTag) sender;
+            _ActiveLink = tag.Link;
 
             if (e.Event.Type != Gdk.EventType.ButtonRelease) {
                 return;
             }
 
-            if (String.IsNullOrEmpty(_Url)) {
+            if (String.IsNullOrEmpty(_ActiveLink)) {
 #if LOG4NET
-                _Logger.Warn("OnTextTagUrlTextEvent(): url is empty, ignoring...");
+                _Logger.Warn("OnLinkTagTextEvent(): url is empty, ignoring...");
 #endif
                 return;
             }
 
-            OpenLink(_Url);
+            OpenLink(_ActiveLink);
         }
 
         protected virtual void OnPopulatePopup(object sender, Gtk.PopulatePopupArgs e)
         {
             Trace.Call(sender, e);
 
-            if (!_AtUrlTag) {
+            if (!_AtLinkTag) {
                 return;
             }
 
@@ -478,8 +475,8 @@ namespace Smuxi.Frontend.Gnome
 
             Gtk.ImageMenuItem open_item = new Gtk.ImageMenuItem(Gtk.Stock.Open, null);
             open_item.Activated += delegate {
-                if (!String.IsNullOrEmpty(_Url)) {
-                    OpenLink(_Url);
+                if (!String.IsNullOrEmpty(_ActiveLink)) {
+                    OpenLink(_ActiveLink);
                 }
             };
             popup.Append(open_item);
@@ -488,7 +485,7 @@ namespace Smuxi.Frontend.Gnome
             copy_item.Activated += delegate {
                 Gdk.Atom clipboardAtom = Gdk.Atom.Intern("CLIPBOARD", false);
                 Gtk.Clipboard clipboard = Gtk.Clipboard.Get(clipboardAtom);
-                clipboard.Text = _Url;
+                clipboard.Text = _ActiveLink;
             };
             popup.Append(copy_item);
 
