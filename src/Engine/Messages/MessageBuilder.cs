@@ -161,14 +161,14 @@ namespace Smuxi.Engine
             return AppendText(CreateEventPrefix());
         }
 
-        public virtual TextMessagePartModel CreateAction()
+        public virtual TextMessagePartModel CreateActionPrefix()
         {
             return CreateText(" * ");
         }
 
-        public virtual MessageBuilder AppendAction()
+        public virtual MessageBuilder AppendActionPrefix()
         {
-            return AppendText(CreateAction());
+            return AppendText(CreateActionPrefix());
         }
 
         public virtual UrlMessagePartModel CreateUrl(string url, string text)

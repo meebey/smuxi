@@ -1837,7 +1837,7 @@ namespace Smuxi.Engine
             _IrcClient.SendMessage(SendType.Action, cd.Chat.ID, cd.Parameter);
 
             var builder = CreateMessageBuilder();
-            builder.AppendAction();
+            builder.AppendActionPrefix();
             builder.AppendIdendityName(MyPerson);
             builder.AppendText(" ");
             builder.AppendMessage(cd.Parameter);
@@ -2475,7 +2475,7 @@ namespace Smuxi.Engine
             ChatModel chat = GetChat(e.Data.Channel, ChatType.Group);
 
             var builder = CreateMessageBuilder();
-            builder.AppendAction();
+            builder.AppendActionPrefix();
             builder.AppendIdendityName(GetPerson(chat, e.Data.Nick));
             builder.AppendText(" ");
             builder.AppendMessage(e.ActionMessage);
@@ -2543,7 +2543,7 @@ namespace Smuxi.Engine
             }
 
             var builder = CreateMessageBuilder();
-            builder.AppendAction();
+            builder.AppendActionPrefix();
             builder.AppendIdendityName(chat.Person, true);
             builder.AppendSpace();
             builder.AppendMessage(e.ActionMessage);
