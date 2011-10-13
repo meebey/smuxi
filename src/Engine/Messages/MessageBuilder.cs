@@ -195,6 +195,33 @@ namespace Smuxi.Engine
             return AppendUrl(url, null);
         }
 
+        public virtual IList<TextMessagePartModel> CreateHeader(string text,
+                                                                params object[] args)
+        {
+            if (text == null) {
+                throw new ArgumentNullException("text");
+            }
+
+            var prefix = CreateText("[");
+            var suffix = CreateText("]");
+            var headerText = CreateText(text, args);
+            headerText.Bold = true;
+
+            var header = new List<TextMessagePartModel>(3);
+            header.Add(prefix);
+            header.Add(headerText);
+            header.Add(suffix);
+            return header;
+        }
+
+        public virtual MessageBuilder AppendHeader(string text,
+                                                   params object[] args)
+        {
+            text = text ?? String.Empty;
+
+            return AppendText(CreateHeader(text, args));
+        }
+
         public virtual MessageBuilder AppendMessage(string msg)
         {
             return AppendText(msg);
