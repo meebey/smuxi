@@ -24,9 +24,9 @@ namespace Smuxi.Frontend.Gnome
 {
     public class LinkTag : Gtk.TextTag
     {
-        public string Link { get; set; }
+        public Uri Link { get; set; }
 
-        public LinkTag(string link) : base(null)
+        public LinkTag(Uri link) : base(null)
         {
             if (link == null) {
                 throw new ArgumentNullException("link");

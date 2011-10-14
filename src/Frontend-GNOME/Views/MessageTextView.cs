@@ -46,7 +46,7 @@ namespace Smuxi.Frontend.Gnome
         private bool         _ShowHighlight;
         private bool         _ShowMarkerline;
         private bool         _AtLinkTag;
-        private string       _ActiveLink;
+        private Uri          _ActiveLink;
         private UserConfig   _Config;
         private ThemeSettings _ThemeSettings;
         private Gdk.Color    _MarkerlineColor = new Gdk.Color(255, 0, 0);
@@ -252,7 +252,15 @@ namespace Smuxi.Frontend.Gnome
                         linkColor, bgTextColor
                     );
 
-                    var linkTag = new LinkTag(urlPart.Url);
+                    var url = urlPart.Url;
+                    // HACK: assume http if no protocol/scheme was specified
+                    if (urlPart.Protocol == UrlProtocol.None ||
+                        !Regex.IsMatch(url, @"^[a-zA-Z0-9\-]+:")) {
+                        url = String.Format("http://{0}", url);
+                    }
+                    var uri = new Uri(url);
+
+                    var linkTag = new LinkTag(uri);
                     linkTag.ForegroundGdk = ColorConverter.GetGdkColor(linkColor);
                     linkTag.TextEvent += OnLinkTagTextEvent;
                     _MessageTextTagTable.Add(linkTag);
@@ -449,9 +457,9 @@ namespace Smuxi.Frontend.Gnome
                 return;
             }
 
-            if (String.IsNullOrEmpty(_ActiveLink)) {
+            if (_ActiveLink == null) {
 #if LOG4NET
-                _Logger.Warn("OnLinkTagTextEvent(): url is empty, ignoring...");
+                _Logger.Warn("OnLinkTagTextEvent(): _ActiveLink is null, ignoring...");
 #endif
                 return;
             }
@@ -475,7 +483,7 @@ namespace Smuxi.Frontend.Gnome
 
             Gtk.ImageMenuItem open_item = new Gtk.ImageMenuItem(Gtk.Stock.Open, null);
             open_item.Activated += delegate {
-                if (!String.IsNullOrEmpty(_ActiveLink)) {
+                if (_ActiveLink != null) {
                     OpenLink(_ActiveLink);
                 }
             };
@@ -485,26 +493,22 @@ namespace Smuxi.Frontend.Gnome
             copy_item.Activated += delegate {
                 Gdk.Atom clipboardAtom = Gdk.Atom.Intern("CLIPBOARD", false);
                 Gtk.Clipboard clipboard = Gtk.Clipboard.Get(clipboardAtom);
-                clipboard.Text = _ActiveLink;
+                clipboard.Text = _ActiveLink.ToString();
             };
             popup.Append(copy_item);
 
             popup.ShowAll();
         }
 
-        private void OpenLink(string link)
+        private void OpenLink(Uri link)
         {
             Trace.Call(link);
 
-            if (!Regex.IsMatch(link, @"^[a-zA-Z0-9\-]+:\/\/")) {
-                // URL doesn't start with a protocol
-                link = "http://" + link;
-            }
-            
             // hopefully MS .NET / Mono finds some way to handle the URL
             ThreadPool.QueueUserWorkItem(delegate {
+                var url = link.ToString();
                 try {
-                    using (var process = SysDiag.Process.Start(link)) {
+                    using (var process = SysDiag.Process.Start(url)) {
                         process.WaitForExit();
                     }
                 } catch (Exception ex) {
@@ -512,7 +516,7 @@ namespace Smuxi.Frontend.Gnome
                     // http://msdn.microsoft.com/en-us/library/0ka9477y.aspx
                     // http://projects.qnetp.net/issues/show/194
 #if LOG4NET
-                    _Logger.Error("OpenLink(): opening URL: '" + link + "' failed", ex);
+                    _Logger.Error("OpenLink(): opening URL: '" + url + "' failed", ex);
 #endif
                 }
             });
