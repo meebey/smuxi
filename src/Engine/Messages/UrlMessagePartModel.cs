@@ -42,6 +42,7 @@ namespace Smuxi.Engine
         Ftp,
         Ftps,
         Telnet,
+        MailTo
     }
     
     [Serializable]
@@ -125,7 +126,7 @@ namespace Smuxi.Engine
 
         protected static UrlProtocol ParseProtocol(string url)
         {
-            Match match = Regex.Match(url, @"^([a-zA-Z0-9\-]+):\/\/");
+            Match match = Regex.Match(url, @"^([a-zA-Z0-9\-]+):");
             if (!match.Success) {
                 return UrlProtocol.None;
             }
