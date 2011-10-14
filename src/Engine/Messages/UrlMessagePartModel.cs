@@ -85,7 +85,13 @@ namespace Smuxi.Engine
         {
             _Protocol = ParseProtocol(url);
             if (_Protocol == UrlProtocol.None) {
+                // assume http if no protocol was specified
                 _Protocol = UrlProtocol.Http;
+                // text should stay pristine
+                if (Text == null) {
+                    Text = _Url;
+                }
+                _Url = String.Format("http://{0}", _Url);
             }
         }
         
