@@ -131,6 +131,13 @@ namespace Smuxi.Engine
             _Chats.Add(_SessionChat);
         }
 
+        protected MessageBuilder CreateMessageBuilder()
+        {
+            var builder = new MessageBuilder();
+            builder.ApplyConfig(UserConfig);
+            return builder;
+        }
+
         public void RegisterFrontendUI(IFrontendUI ui)
         {
             Trace.Call(ui);
@@ -153,29 +160,27 @@ namespace Smuxi.Engine
             if (!_OnStartupCommandsProcessed) {
                 _OnStartupCommandsProcessed = true;
 
-                string str;
-                MessageModel msg;
-                msg = new MessageModel();
-                msg.MessageParts.Add(
-                    new TextMessagePartModel(new TextColor(0xFF0000), null, false,
-                            true, false, _("Welcome to Smuxi")));
-                AddMessageToChat(_SessionChat, msg);
+                var builder = CreateMessageBuilder();
+                var text = builder.CreateText(_("Welcome to Smuxi"));
+                text.ForegroundColor = new TextColor(255,0,0);
+                text.Bold = true;
+                builder.AppendText(text);
+                builder.AppendText(Environment.NewLine);
+                text = builder.CreateText(
+                    _("Type /help to get a list of available commands.")
+                );
+                text.Bold = true;
+                builder.AppendText(text);
+                builder.AppendText(Environment.NewLine);
+                text = builder.CreateText(_("After you have made a connection " +
+                    "the list of available commands changes. Go to the newly " +
+                    "opened connection tab and use the /help command again to" +
+                    "see the extended command list."));
+                text.Bold = true;
 
-                msg = new MessageModel();
-                msg.MessageParts.Add(
-                    new TextMessagePartModel(null, null, false,
-                            true, false, _("Type /help to get a list of available commands.")));
-                AddMessageToChat(_SessionChat, msg);
+                builder.AppendText(text);
+                AddMessageToChat(_SessionChat,builder.ToMessage());
 
-                str = _("After you have made a connection the list of " +
-                        "available commands changes. Use the /help command " +
-                        "again to see the extended command list.");
-                msg = new MessageModel();
-                msg.MessageParts.Add(
-                    new TextMessagePartModel(null, null, false,
-                            true, false, str));
-                AddMessageToChat(_SessionChat, msg);
-                
                 foreach (string command in (string[])_UserConfig["OnStartupCommands"]) {
                     if (command.Length == 0) {
                         continue;
@@ -411,18 +416,11 @@ namespace Smuxi.Engine
             if (cd == null) {
                 throw new ArgumentNullException("cd");
             }
-            
-            MessageModel msg = new MessageModel();
-            TextMessagePartModel msgPart;
-            
-            msgPart = new TextMessagePartModel();
+            var builder = CreateMessageBuilder();
             // TRANSLATOR: this line is used as a label / category for a
             // list of commands below
-            msgPart.Text = "[" + _("Engine Commands") + "]";
-            msgPart.Bold = true;
-            msg.MessageParts.Add(msgPart);
-
-            cd.FrontendManager.AddMessageToChat(cd.Chat, msg);
+            builder.AppendHeader(_("Engine Commands"));
+            cd.FrontendManager.AddMessageToChat(cd.Chat, builder.ToMessage());
 
             string[] help = {
                 "help",
@@ -434,8 +432,11 @@ namespace Smuxi.Engine
                 "config (save|load)",
             };
             
-            foreach (string line in help) { 
-                cd.FrontendManager.AddTextToChat(cd.Chat, "-!- " + line);
+            foreach (string line in help) {
+                builder = CreateMessageBuilder();
+                builder.AppendEventPrefix();
+                builder.AppendText(line);
+                cd.FrontendManager.AddMessageToChat(cd.Chat, builder.ToMessage());
             }
         }
         
