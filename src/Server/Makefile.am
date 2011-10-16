@@ -3,12 +3,13 @@ EXTRA_DIST =
 
 SERVER_EXE_CONFIG_SOURCE = smuxi-server.exe.config
 SERVER_EXE_CONFIG = $(BUILD_DIR)/smuxi-server.exe.config
+ASSEMBLY_COMPILER_FLAGS = -platform:x86
 
 # Warning: This is an automatically generated file, do not edit!
 
 if ENABLE_RELEASE
 ASSEMBLY_COMPILER_COMMAND = @MCS@
-ASSEMBLY_COMPILER_FLAGS =  -noconfig -codepage:utf8 -warn:4 -optimize+
+ASSEMBLY_COMPILER_FLAGS +=  -noconfig -codepage:utf8 -warn:4 -optimize+
 ASSEMBLY = ../../bin/release/smuxi-server.exe
 ASSEMBLY_MDB = 
 COMPILE_TARGET = exe
@@ -28,7 +29,7 @@ endif
 
 if ENABLE_DEBUG
 ASSEMBLY_COMPILER_COMMAND = @MCS@
-ASSEMBLY_COMPILER_FLAGS =  -noconfig -codepage:utf8 -warn:4 -optimize- -debug -define:DEBUG "-define:TRACE,DEBUG,LOG4NET"
+ASSEMBLY_COMPILER_FLAGS +=  -noconfig -codepage:utf8 -warn:4 -optimize- -debug -define:DEBUG "-define:TRACE,DEBUG,LOG4NET"
 
 ASSEMBLY = ../../bin/debug/smuxi-server.exe
 ASSEMBLY_MDB = $(ASSEMBLY).mdb
