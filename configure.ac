@@ -306,6 +306,12 @@ AC_ARG_WITH([twitter-api-key],
 )
 AC_SUBST([twitter_api_key], $with_twitter_api_key)
 
+# Server
+if $PKG_CONFIG 'mono >= 2.6'; then
+	SERVER_COMPILER_FLAGS+=" -platform:x86"
+fi
+AC_SUBST(SERVER_COMPILER_FLAGS)
+
 # Frontends
 AC_ARG_ENABLE([frontend-gnome],
 	AC_HELP_STRING([--enable-frontend-gnome], [Enable GNOME frontend (default yes)]),
