@@ -3,7 +3,7 @@ EXTRA_DIST =
 
 SERVER_EXE_CONFIG_SOURCE = smuxi-server.exe.config
 SERVER_EXE_CONFIG = $(BUILD_DIR)/smuxi-server.exe.config
-ASSEMBLY_COMPILER_FLAGS = -platform:x86
+ASSEMBLY_COMPILER_FLAGS = @SERVER_COMPILER_FLAGS@
 
 # Warning: This is an automatically generated file, do not edit!
 
