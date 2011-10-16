@@ -251,6 +251,7 @@ namespace Smuxi.Frontend.Gnome
                     linkColor = TextColorTools.GetBestTextColor(
                         linkColor, bgTextColor
                     );
+                    var linkText = urlPart.Text ?? urlPart.Url;
 
                     var url = urlPart.Url;
                     // HACK: assume http if no protocol/scheme was specified
@@ -258,13 +259,21 @@ namespace Smuxi.Frontend.Gnome
                         !Regex.IsMatch(url, @"^[a-zA-Z0-9\-]+:")) {
                         url = String.Format("http://{0}", url);
                     }
-                    var uri = new Uri(url);
+                    Uri uri;
+                    try {
+                        uri = new Uri(url);
+                    } catch (UriFormatException ex) {
+#if LOG4NET
+                        _Logger.Error("AddMessage(): Invalid URL: " + url, ex);
+#endif
+                        buffer.Insert(ref iter, linkText);
+                        continue;
+                    }
 
                     var linkTag = new LinkTag(uri);
                     linkTag.ForegroundGdk = ColorConverter.GetGdkColor(linkColor);
                     linkTag.TextEvent += OnLinkTagTextEvent;
                     _MessageTextTagTable.Add(linkTag);
-                    var linkText = urlPart.Text ?? urlPart.Url;
                     buffer.InsertWithTags(ref iter, linkText, linkStyleTag, linkTag);
                 } else if (msgPart is TextMessagePartModel) {
                     TextMessagePartModel fmsgti = (TextMessagePartModel) msgPart;
