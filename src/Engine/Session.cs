@@ -366,6 +366,9 @@ namespace Smuxi.Engine
                 switch (cd.Command) {
                     case "help":
                         CommandHelp(cd);
+                        if (cd.Chat.ChatType == ChatType.Session) {
+                            handled = true;
+                        }
                         break;
                     case "server":
                     case "connect":
