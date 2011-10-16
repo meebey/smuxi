@@ -432,10 +432,7 @@ if test "x$ENABLE_FRONTEND_GNOME" != "xno"; then
 		FRONTEND_GNOME_COMPILER_FLAGS+=" -define:NOTIFY_SHARP"
 	fi
 	if $PKG_CONFIG 'mono >= 2.6'; then
-		AC_MSG_RESULT(yes)
 		FRONTEND_GNOME_COMPILER_FLAGS+=" -platform:x86"
-	else
-		AC_MSG_RESULT(no)
 	fi
 	AC_SUBST(FRONTEND_GNOME_COMPILER_FLAGS)
 	
