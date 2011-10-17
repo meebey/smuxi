@@ -609,7 +609,7 @@ namespace Smuxi.Engine
             fmsgti.Bold = true;
             fmsg.MessageParts.Add(fmsgti);
 
-            Session.AddMessageToChat(cd.Chat, fmsg);
+            cd.FrontendManager.AddMessageToChat(cd.Chat, fmsg);
 
             string[] help = {
                 "help",
