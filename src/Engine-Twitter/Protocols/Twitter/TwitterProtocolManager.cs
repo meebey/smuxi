@@ -599,17 +599,12 @@ namespace Smuxi.Engine
 
         public void CommandHelp(CommandModel cd)
         {
-            MessageModel fmsg = new MessageModel();
-            TextMessagePartModel fmsgti;
-
-            fmsgti = new TextMessagePartModel();
+            var builder = CreateMessageBuilder();
+            builder.AppendEventPrefix();
             // TRANSLATOR: this line is used as a label / category for a
             // list of commands below
-            fmsgti.Text = "[" + _("Twitter Commands") + "]";
-            fmsgti.Bold = true;
-            fmsg.MessageParts.Add(fmsgti);
-
-            cd.FrontendManager.AddMessageToChat(cd.Chat, fmsg);
+            builder.AppendHeader(_("Twitter Commands"));
+            cd.FrontendManager.AddMessageToChat(cd.Chat, builder.ToMessage());
 
             string[] help = {
                 "help",
@@ -618,7 +613,10 @@ namespace Smuxi.Engine
             };
 
             foreach (string line in help) {
-                cd.FrontendManager.AddTextToChat(cd.Chat, "-!- " + line);
+                builder = CreateMessageBuilder();
+                builder.AppendEventPrefix();
+                builder.AppendText(line);
+                cd.FrontendManager.AddMessageToChat(cd.Chat, builder.ToMessage());
             }
         }
 
