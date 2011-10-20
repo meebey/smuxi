@@ -576,6 +576,7 @@ Section Uninstall
   Delete "$INSTDIR\smuxi-engine.dll"
   Delete "$INSTDIR\smuxi-engine-irc.dll"
   Delete "$INSTDIR\smuxi-engine-twitter.dll"
+  Delete "$INSTDIR\smuxi-engine-xmpp.dll"
   Delete "$INSTDIR\smuxi-common.dll"
   Delete "$INSTDIR\Twitterizer.Framework.dll"
   Delete "$INSTDIR\Nini.dll"
