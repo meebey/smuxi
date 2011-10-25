@@ -54,7 +54,7 @@ namespace Smuxi.Frontend.Gnome
         private   TaskQueue          _LastSeenHighlightQueue;
         public    DateTime           SyncedLastSeenHighlight { get; private set; }
         IList<MessageModel>          SyncedMessages { get; set; }
-        string                       SyncedName { get; set; }
+        protected string             SyncedName { get; set; }
         bool                         UseLowBandwidthMode { get; set; }
         protected Gtk.Image          TabImage { get; set; }
 
