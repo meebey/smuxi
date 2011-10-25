@@ -27,6 +27,7 @@
  */
 
 using System;
+using System.Threading;
 using System.Globalization;
 using Smuxi.Engine;
 using Smuxi.Common;
@@ -91,13 +92,19 @@ namespace Smuxi.Frontend.Gnome
         {
             Trace.Call(sender, e);
 
-            _IrcProtocolManager.CommandWhoIs(
-                new CommandModel(
-                    Frontend.FrontendManager,
-                    ChatModel,
-                    ChatModel.ID
-                )
-             );
+            ThreadPool.QueueUserWorkItem(delegate {
+                try {
+                    _IrcProtocolManager.CommandWhoIs(
+                        new CommandModel(
+                            Frontend.FrontendManager,
+                            ChatModel,
+                            ChatModel.ID
+                        )
+                     );
+                } catch (Exception ex) {
+                    Frontend.ShowException(ex);
+                }
+            });
         }
 
         private static string _(string msg)

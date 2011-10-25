@@ -752,6 +752,7 @@ namespace Smuxi.Frontend.Gnome
                     return;
                 }
 
+                // FIXME: REMOTING CALL
                 var manager = chatView.ChatModel.ProtocolManager;
                 if (manager == null) {
                     return;
@@ -787,7 +788,13 @@ namespace Smuxi.Frontend.Gnome
                     return;
                 }
                 
-                manager.OpenChat(Frontend.FrontendManager, chat);
+                ThreadPool.QueueUserWorkItem(delegate {
+                    try {
+                        manager.OpenChat(Frontend.FrontendManager, chat);
+                    } catch (Exception ex) {
+                        Frontend.ShowException(this, ex);
+                    }
+                });
             } catch (Exception ex) {
                 Frontend.ShowException(this, ex);
             }
@@ -810,6 +817,7 @@ namespace Smuxi.Frontend.Gnome
                 return;
             }
 
+            // FIXME: REMOTING CALL
             var manager = chatView.ChatModel.ProtocolManager;
             if (manager == null) {
                 return;
@@ -824,7 +832,14 @@ namespace Smuxi.Frontend.Gnome
             if (res != (int) Gtk.ResponseType.Ok) {
                 return;
             }
-            manager.OpenChat(Frontend.FrontendManager, groupChat);
+
+            ThreadPool.QueueUserWorkItem(delegate {
+                try {
+                    manager.OpenChat(Frontend.FrontendManager, groupChat);
+                } catch (Exception ex) {
+                    Frontend.ShowException(this, ex);
+                }
+            });
         }
         
         protected virtual void OnChatClearAllActivityButtonClicked(object sender, EventArgs e)

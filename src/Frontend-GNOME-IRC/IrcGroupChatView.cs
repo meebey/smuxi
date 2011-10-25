@@ -27,6 +27,7 @@
  */
 
 using System;
+using System.Threading;
 using System.Collections.Generic;
 using System.Globalization;
 using Smuxi.Engine;
@@ -110,14 +111,20 @@ namespace Smuxi.Frontend.Gnome
             foreach (PersonModel person in persons) {
                 nicks.Add(person.ID);
             }
-            _IrcProtocolManager.CommandOp(
-                new CommandModel(
-                    Frontend.FrontendManager,
-                    ChatModel,
-                    String.Join(" ", nicks.ToArray())
-                )
-            );
-        } 
+            ThreadPool.QueueUserWorkItem(delegate {
+                try {
+                    _IrcProtocolManager.CommandOp(
+                        new CommandModel(
+                            Frontend.FrontendManager,
+                            ChatModel,
+                            String.Join(" ", nicks.ToArray())
+                        )
+                    );
+                } catch (Exception ex) {
+                    Frontend.ShowException(ex);
+                }
+            });
+        }
         
         private void _OnUserListMenuDeopActivated(object sender, EventArgs e)
         {
@@ -133,13 +140,19 @@ namespace Smuxi.Frontend.Gnome
             foreach (PersonModel person in persons) {
                 nicks.Add(person.ID);
             }
-            _IrcProtocolManager.CommandDeop(
-                new CommandModel(
-                    Frontend.FrontendManager,
-                    ChatModel,
-                    String.Join(" ", nicks.ToArray())
-                )
-            );
+            ThreadPool.QueueUserWorkItem(delegate {
+                try {
+                    _IrcProtocolManager.CommandDeop(
+                        new CommandModel(
+                            Frontend.FrontendManager,
+                            ChatModel,
+                            String.Join(" ", nicks.ToArray())
+                        )
+                    );
+                } catch (Exception ex) {
+                    Frontend.ShowException(ex);
+                }
+            });
         }
         
         private void _OnUserListMenuVoiceActivated(object sender, EventArgs e)
@@ -156,13 +169,19 @@ namespace Smuxi.Frontend.Gnome
             foreach (PersonModel person in persons) {
                 nicks.Add(person.ID);
             }
-            _IrcProtocolManager.CommandVoice(
-                new CommandModel(
-                    Frontend.FrontendManager,
-                    ChatModel,
-                    String.Join(" ", nicks.ToArray())
-                )
-            );
+            ThreadPool.QueueUserWorkItem(delegate {
+                try {
+                    _IrcProtocolManager.CommandVoice(
+                        new CommandModel(
+                            Frontend.FrontendManager,
+                            ChatModel,
+                            String.Join(" ", nicks.ToArray())
+                        )
+                    );
+                } catch (Exception ex) {
+                    Frontend.ShowException(ex);
+                }
+            });
         }
         
         private void _OnUserListMenuDevoiceActivated(object sender, EventArgs e)
@@ -179,13 +198,19 @@ namespace Smuxi.Frontend.Gnome
             foreach (PersonModel person in persons) {
                 nicks.Add(person.ID);
             }
-            _IrcProtocolManager.CommandDevoice(
-                new CommandModel(
-                    Frontend.FrontendManager,
-                    ChatModel,
-                    String.Join(" ", nicks.ToArray())
-                )
-            );
+            ThreadPool.QueueUserWorkItem(delegate {
+                try {
+                    _IrcProtocolManager.CommandDevoice(
+                        new CommandModel(
+                            Frontend.FrontendManager,
+                            ChatModel,
+                            String.Join(" ", nicks.ToArray())
+                        )
+                    );
+                } catch (Exception ex) {
+                    Frontend.ShowException(ex);
+                }
+            });
         }
         
         private void _OnUserListMenuKickActivated(object sender, EventArgs e)
@@ -198,13 +223,19 @@ namespace Smuxi.Frontend.Gnome
             }
 
             foreach (PersonModel person in persons) {
-                _IrcProtocolManager.CommandKick(
-                    new CommandModel(
-                        Frontend.FrontendManager,
-                        ChatModel,
-                        person.ID
-                    )
-                );
+                ThreadPool.QueueUserWorkItem(delegate {
+                    try {
+                        _IrcProtocolManager.CommandKick(
+                            new CommandModel(
+                                Frontend.FrontendManager,
+                                ChatModel,
+                                person.ID
+                            )
+                        );
+                    } catch (Exception ex) {
+                        Frontend.ShowException(ex);
+                    }
+                });
             }
         }
         
@@ -218,13 +249,19 @@ namespace Smuxi.Frontend.Gnome
             }
 
             foreach (PersonModel person in persons) {
-                _IrcProtocolManager.CommandKickban(
-                    new CommandModel(
-                        Frontend.FrontendManager,
-                        ChatModel,
-                        person.ID
-                    )
-                );
+                ThreadPool.QueueUserWorkItem(delegate {
+                    try {
+                        _IrcProtocolManager.CommandKickban(
+                            new CommandModel(
+                                Frontend.FrontendManager,
+                                ChatModel,
+                                person.ID
+                            )
+                        );
+                    } catch (Exception ex) {
+                        Frontend.ShowException(ex);
+                    }
+                });
             }
         }
         
@@ -242,13 +279,19 @@ namespace Smuxi.Frontend.Gnome
             foreach (PersonModel person in persons) {
                 nicks.Add(person.ID);
             }
-            _IrcProtocolManager.CommandBan(
-                new CommandModel(
-                    Frontend.FrontendManager,
-                    ChatModel,
-                    String.Join(" ", nicks.ToArray())
-                )
-            );
+            ThreadPool.QueueUserWorkItem(delegate {
+                try {
+                    _IrcProtocolManager.CommandBan(
+                        new CommandModel(
+                            Frontend.FrontendManager,
+                            ChatModel,
+                            String.Join(" ", nicks.ToArray())
+                        )
+                    );
+                } catch (Exception ex) {
+                    Frontend.ShowException(ex);
+                }
+            });
         }
         
         private void _OnUserListMenuUnbanActivated(object sender, EventArgs e)
@@ -264,13 +307,19 @@ namespace Smuxi.Frontend.Gnome
             foreach (PersonModel person in persons) {
                 nicks.Add(person.ID);
             }
-            _IrcProtocolManager.CommandUnban(
-                new CommandModel(
-                    Frontend.FrontendManager,
-                    ChatModel,
-                    String.Join(" ", nicks.ToArray())
-                )
-            );
+            ThreadPool.QueueUserWorkItem(delegate {
+                try {
+                    _IrcProtocolManager.CommandUnban(
+                        new CommandModel(
+                            Frontend.FrontendManager,
+                            ChatModel,
+                            String.Join(" ", nicks.ToArray())
+                        )
+                    );
+                } catch (Exception ex) {
+                    Frontend.ShowException(ex);
+                }
+            });
         }
         
         private void _OnUserListMenuQueryActivated(object sender, EventArgs e)
@@ -283,13 +332,19 @@ namespace Smuxi.Frontend.Gnome
             }
 
             foreach (PersonModel person in persons) {
-                _IrcProtocolManager.CommandMessageQuery(
-                    new CommandModel(
-                        Frontend.FrontendManager,
-                        ChatModel,
-                        person.ID
-                    )
-                );
+                ThreadPool.QueueUserWorkItem(delegate {
+                    try {
+                        _IrcProtocolManager.CommandMessageQuery(
+                            new CommandModel(
+                                Frontend.FrontendManager,
+                                ChatModel,
+                                person.ID
+                            )
+                        );
+                    } catch (Exception ex) {
+                        Frontend.ShowException(ex);
+                    }
+                });
             }
         }
 
@@ -303,13 +358,19 @@ namespace Smuxi.Frontend.Gnome
             }
 
             foreach (PersonModel person in persons) {
-                _IrcProtocolManager.CommandWhoIs(
-                    new CommandModel(
-                        Frontend.FrontendManager,
-                        ChatModel,
-                        person.ID
-                    )
-                );
+                ThreadPool.QueueUserWorkItem(delegate {
+                    try {
+                        _IrcProtocolManager.CommandWhoIs(
+                            new CommandModel(
+                                Frontend.FrontendManager,
+                                ChatModel,
+                                person.ID
+                            )
+                        );
+                    } catch (Exception ex) {
+                        Frontend.ShowException(ex);
+                    }
+                });
             }
         }
 
@@ -325,13 +386,19 @@ namespace Smuxi.Frontend.Gnome
             }
 
             foreach (PersonModel person in persons) {
-                _IrcProtocolManager.CommandMessageQuery(
-                    new CommandModel(
-                        Frontend.FrontendManager,
-                        ChatModel,
-                        person.ID
-                    )
-                );
+                ThreadPool.QueueUserWorkItem(delegate {
+                    try {
+                        _IrcProtocolManager.CommandMessageQuery(
+                            new CommandModel(
+                                Frontend.FrontendManager,
+                                ChatModel,
+                                person.ID
+                            )
+                        );
+                    } catch (Exception ex) {
+                        Frontend.ShowException(ex);
+                    }
+                });
             }
         }
 

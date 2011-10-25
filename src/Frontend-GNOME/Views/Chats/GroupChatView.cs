@@ -27,6 +27,7 @@
  */
 
 using System;
+using System.Threading;
 using System.Collections.Generic;
 using System.Globalization;
 using Mono.Unix;
@@ -494,10 +495,17 @@ namespace Smuxi.Frontend.Gnome
                     person.IdentityName,
                     null
                 );
-                ChatModel.ProtocolManager.OpenChat(
-                    Frontend.FrontendManager,
-                    personChat
-                );
+
+                ThreadPool.QueueUserWorkItem(delegate {
+                    try {
+                        ChatModel.ProtocolManager.OpenChat(
+                            Frontend.FrontendManager,
+                            personChat
+                        );
+                    } catch (Exception ex) {
+                        Frontend.ShowException(ex);
+                    }
+                });
             }
         }
 

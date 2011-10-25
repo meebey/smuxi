@@ -27,6 +27,7 @@
  */
 
 using System;
+using System.Threading;
 using Smuxi.Engine;
 using Smuxi.Common;
 
@@ -61,6 +62,7 @@ namespace Smuxi.Frontend.Gnome
             Trace.Call();
             
             // show warning if there are open chats (besides protocol chat)
+            // FIXME: REMOTING CALL 1 + 2 + 3
             if (ChatModel.ProtocolManager.Chats.Count > 1) {
                 Gtk.MessageDialog md = new Gtk.MessageDialog(
                     Frontend.MainWindow,
@@ -76,14 +78,21 @@ namespace Smuxi.Frontend.Gnome
                 }
             }
 
-            // no need to call base.Close() as CommandNetwork() will deal with it
-            Frontend.Session.CommandNetwork(
-                new CommandModel(
-                    Frontend.FrontendManager,
-                    ChatModel,
-                    "close"
-                )
-            );
+            ThreadPool.QueueUserWorkItem(delegate {
+                try {
+                    // no need to call base.Close() as CommandNetwork() will
+                    // deal with it
+                    Frontend.Session.CommandNetwork(
+                        new CommandModel(
+                            Frontend.FrontendManager,
+                            ChatModel,
+                            "close"
+                        )
+                    );
+                } catch (Exception ex) {
+                    Frontend.ShowException(ex);
+                }
+            });
         }
         
         private static string _(string msg)

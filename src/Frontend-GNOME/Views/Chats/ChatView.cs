@@ -22,6 +22,7 @@
 
 using System;
 using System.Drawing;
+using System.Threading;
 using System.Collections.Generic;
 using Smuxi.Common;
 using Smuxi.Engine;
@@ -525,10 +526,16 @@ namespace Smuxi.Frontend.Gnome
         {
             Trace.Call();
 
-            ChatModel.ProtocolManager.CloseChat(
-                Frontend.FrontendManager,
-                ChatModel
-            );
+            ThreadPool.QueueUserWorkItem(delegate {
+                try {
+                    ChatModel.ProtocolManager.CloseChat(
+                        Frontend.FrontendManager,
+                        ChatModel
+                    );
+                } catch (Exception ex) {
+                    Frontend.ShowException(ex);
+                }
+            });
         }
 
         public override string ToString()
