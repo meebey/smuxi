@@ -236,6 +236,16 @@ namespace Smuxi.Frontend.Gnome
             GLib.Idle.Add(delegate {
                 var chatView = (ChatView) e.ChatView;
 
+                // we need to bailt out in case the chat was closed during the sync
+                // else chatView.Populate() will die hard, see #635
+                if (!Chats.Contains(chatView)) {
+#if LOG4NET
+                    f_Logger.Debug("OnChatSynced(): detected closed chat: " +
+                                   chatView.ID + " during sync, bailing out...");
+#endif
+                    return false;
+                }
+
                 // HACK: patch chat position as OnChatAdded is not honoring the
                 // AddChat order nor the complete range of chats
                 if (chatView.Position != -1) {
@@ -249,7 +259,7 @@ namespace Smuxi.Frontend.Gnome
 #if LOG4NET
                 DateTime stop = DateTime.UtcNow;
                 double duration = stop.Subtract(start).TotalMilliseconds;
-                f_Logger.Debug("OnChatSynced() " +
+                f_Logger.Debug("OnChatSynced(): " +
                                "<" + chatView.ID + ">.Populate() " +
                                "Position: " + chatView.Position +
                                " done, took: " + Math.Round(duration) + " ms");
