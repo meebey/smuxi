@@ -175,6 +175,10 @@ namespace Smuxi.Frontend.Gnome
             } else {
                 heigth = 600;
             }
+            if (width < -1 || heigth < -1) {
+                width = -1;
+                heigth = -1;
+            }
             if (width == -1 && heigth == -1) {
                 SetDefaultSize(800, 600);
                 Maximize();
@@ -194,6 +198,10 @@ namespace Smuxi.Frontend.Gnome
             if (Frontend.FrontendConfig[Frontend.UIName + "/Interface/YPosition"] != null) {
                 y = (int) Frontend.FrontendConfig[Frontend.UIName + "/Interface/YPosition"];
             } else {
+                y = 0;
+            }
+            if (x < 0 || y < 0) {
+                x = 0;
                 y = 0;
             }
             if (x == 0 && y == 0) {
