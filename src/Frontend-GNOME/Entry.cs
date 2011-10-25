@@ -602,6 +602,7 @@ namespace Smuxi.Frontend.Gnome
                 ChatModel currentChatModel = _Notebook.CurrentChatView.ChatModel;
                 string name;
                 if (cd.DataArray[1].ToLower() == "close") {
+                    // FIXME: REMOTING CALL
                     if (cd.Chat.ProtocolManager != null) {
                         cd.Chat.ProtocolManager.CloseChat(fm, cd.Chat);
                     }
@@ -628,6 +629,7 @@ namespace Smuxi.Frontend.Gnome
                             if (chatModel.Name.ToLower() == cd.DataArray[1].ToLower()) {
                                 // name matches
                                 // first let's see if there is an exact match, if so, take it
+                                // FIXME: REMOTING CALL
                                 if ((chatModel.ChatType == currentChatModel.ChatType) &&
                                     (chatModel.ProtocolManager == currentChatModel.ProtocolManager)) {
                                     _Notebook.CurrentPage = i;
