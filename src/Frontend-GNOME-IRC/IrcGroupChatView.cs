@@ -1,13 +1,7 @@
 /*
- * $Id: GroupChatView.cs 188 2007-04-21 22:03:54Z meebey $
- * $URL: svn+ssh://svn.qnetp.net/svn/smuxi/smuxi/trunk/src/Frontend-GNOME/GroupChatView.cs $
- * $Rev: 188 $
- * $Author: meebey $
- * $Date: 2007-04-22 00:03:54 +0200 (Sun, 22 Apr 2007) $
- *
  * Smuxi - Smart MUltipleXed Irc
  *
- * Copyright (c) 2005-2007 Mirco Bauer <meebey@meebey.net>
+ * Copyright (c) 2005-20011 Mirco Bauer <meebey@meebey.net>
  *
  * Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
  *
