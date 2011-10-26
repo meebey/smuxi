@@ -90,7 +90,7 @@ namespace Smuxi.Engine
             _JabberClient.Resource = Engine.VersionString;
             _JabberClient.AutoLogin = true;
             _JabberClient.AutoPresence = false;
-            _JabberClient.OnMessage += new MessageHandler(_OnMessage);
+            _JabberClient.OnMessage += OnMessage;
             _JabberClient.OnConnect += OnConnect;
             _JabberClient.OnDisconnect += OnDisconnect;
             _JabberClient.OnAuthenticate += OnAuthenticate;
@@ -540,13 +540,13 @@ namespace Smuxi.Engine
             }
         }
 
-        private void _OnMessage(object sender, Message xmppMsg)
+        private void OnMessage(object sender, Message msg)
         {
-            if (xmppMsg.Body == null) {
+            if (msg.Body == null) {
                 return;
             }
 
-            var delay = xmppMsg["delay"];
+            var delay = msg["delay"];
             string stamp = null;
             if (delay != null) {
                 stamp = delay.Attributes["stamp"].Value;
@@ -555,8 +555,8 @@ namespace Smuxi.Engine
 
             ChatModel chat = null;
             PersonModel person = null;
-            if (xmppMsg.Type != XmppMessageType.groupchat) {
-                string jid = xmppMsg.From.Bare;
+            if (msg.Type != XmppMessageType.groupchat) {
+                string jid = msg.From.Bare;
                 var contact = _RosterManager[jid];
                 string nickname = null;
                 if (contact == null || String.IsNullOrEmpty(contact.Nickname)) {
@@ -578,9 +578,9 @@ namespace Smuxi.Engine
                 }
                 chat = personChat;
             } else {
-                string group_jid = xmppMsg.From.Bare;
+                string group_jid = msg.From.Bare;
                 string group_name = group_jid;
-                string sender_jid = xmppMsg.From.ToString();
+                string sender_jid = msg.From.ToString();
                 XmppGroupChatModel groupChat = (XmppGroupChatModel) Session.GetChat(group_jid, ChatType.Group, this);
                 if (groupChat == null) {
                     // FIXME shouldn't happen?
@@ -590,10 +590,11 @@ namespace Smuxi.Engine
                     Session.AddChat(groupChat);
                     Session.SyncChat(groupChat);
                 }
-                person = groupChat.GetPerson(xmppMsg.From.Resource);
+                person = groupChat.GetPerson(msg.From.Resource);
                 if (person == null) {
                     // happens in case of a delayed message if the participant has left meanwhile
-                    person = new PersonModel(xmppMsg.From.Resource, xmppMsg.From.Resource, 
+                    person = new PersonModel(msg.From.Resource,
+                                             msg.From.Resource,
                                              NetworkID, Protocol, this);
                 }
 
@@ -617,18 +618,17 @@ namespace Smuxi.Engine
 
             if (display) {
                 var builder = CreateMessageBuilder();
-                if (xmppMsg.Type != XmppMessageType.error) {
-                    builder.AppendMessage(person, xmppMsg.Body);
+                if (msg.Type != XmppMessageType.error) {
+                    builder.AppendMessage(person, msg.Body);
                 } else {
                     // TODO: nicer formatting
-                    builder.AppendMessage(xmppMsg.Error.ToString());
+                    builder.AppendMessage(msg.Error.ToString());
                 }
-                var msg = builder.ToMessage();
                 if (stamp != null) {
                     string format = DateTimeFormatInfo.InvariantInfo.UniversalSortableDateTimePattern.Replace(" ", "T");
-                    msg.TimeStamp = DateTime.ParseExact(stamp, format, null);
+                    builder.TimeStamp = DateTime.ParseExact(stamp, format, null);
                 }
-                Session.AddMessageToChat(chat, msg);
+                Session.AddMessageToChat(chat, builder.ToMessage());
             }
         }
 
