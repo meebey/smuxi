@@ -156,13 +156,27 @@ namespace Smuxi.Engine
         public override void Reconnect(FrontendManager fm)
         {
             Trace.Call(fm);
+
+            _JabberClient.Close();
+            _JabberClient.Connect();
         }
         
         public override void Disconnect(FrontendManager fm)
         {
             Trace.Call(fm);
+
+            _JabberClient.Close(false);
         }
-        
+
+        public override void Dispose()
+        {
+            Trace.Call();
+
+            base.Dispose();
+
+            _JabberClient.Dispose();
+        }
+
         public override string ToString()
         {
             string result = "Jabber ";
