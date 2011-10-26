@@ -529,13 +529,14 @@ namespace Smuxi.Engine
                 document.WriteContentTo(xmlWriter);
 
                 DebugWrite("\n" + strWriter.ToString());
+            } catch (XmlException) {
+                // HACK: in case of an invalid doucment fallback to
+                // plain string logging
+                DebugWrite("\n" + text);
             } catch (Exception ex) {
 #if LOG4NET
                 _Logger.Error("OnWriteText(): Exception", ex);
 #endif
-                // HACK: in case of an invalid doucment fallback to
-                // plain string logging
-                DebugWrite("\n" + text);
             }
         }
 
