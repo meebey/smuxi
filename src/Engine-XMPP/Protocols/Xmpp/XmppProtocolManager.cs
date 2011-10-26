@@ -557,9 +557,11 @@ namespace Smuxi.Engine
             if (xmppMsg.Type != XmppMessageType.groupchat) {
                 string jid = xmppMsg.From.Bare;
                 var contact = _RosterManager[jid];
-                string nickname = jid;
-                if (contact != null && contact.Nickname != null) {
-                    nickname = contact.Nickname.Replace(" ", "_");
+                string nickname = null;
+                if (contact == null || String.IsNullOrEmpty(contact.Nickname)) {
+                    nickname = jid;
+                } else {
+                    nickname = contact.Nickname;
                 }
                 PersonChatModel personChat = (PersonChatModel) Session.GetChat(jid, ChatType.Person, this);
                 if (personChat == null) {
