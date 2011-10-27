@@ -1,47 +1,33 @@
-/**
- * $Id$
- * $URL$
- * $Rev$
- * $Author$
- * $Date$
- */
+Software Requirements
+---------------------
+First you will need to install a few libraries to compile the source
 
-In order to run smuxi you need the following software
+Libraries:
+* Mono SDK (>= 1.9.1)
+* Nini (>= 1.1)
+* log4net
+* GTK# (>= 2.10)
+* Notify# (optional)
+* Indicate#  (optional)
+* DBus# / NDesk.DBus (optional)
 
-Linux Installation (Gtk#/Gnome#)
-------------------
-On Linux smuxi can use the Gnome# or the Gtk# GUI library, Gnome# is 
-prefered, as configuration backend an INI file is used.
+Depending on your operating system and favorite distribution the installation of the listed applications varies. For Debian based distributions it's just a matter of the following commands:
 
-you need:
-- Mono >= 1.2.6 [0]
-- Gtk# >= 2.8.0 [1]
+    apt-get install mono-devel mono-xbuild libnini-cil-dev liblog4net-cil-dev libgtk2.0-cil-dev libglade2.0-cil-dev libnotify-cil-dev libindicate0.1-cil-dev libndesk-dbus-glib1.0-cil-dev libndesk-dbus1.0-cil-dev lsb-release
 
-[0] http://www.mono-project.com/Downloads
-[1] http://www.mono-project.com/Downloads
+Compiling Source
+----------------
 
-If you use Debian Sid/Unstable and build smuxi from source you can do:
-apt-get install mono-runtime libmono-system-remoting2.0-cil
-apt-get install libgnome2.0-cil (if you want to use Gnome#)
-or
-apt-get install libgtk2.0-cil (if you want to use Gtk#)
+    ./configure
+    make
 
-Or using the official Debian packages just do:
-apt-get install smuxi-frontend-gnome-irc
+Installing
+----------
 
-Windows Installation
---------------------
-On Windows smuxi has to use Gtk#, as configuration backend an simple 
-INI file is used.
+    make install
 
-you need:
-- Microsoft .NET 2.0 Framework Runtime [0]
-- Nini >= 0.7.1 (bundled with binary installer) [1]
-- Gtk# >= 2.8.0 for MS .NET [2]
-or
-- Mono >= 1.2.6 + Gtk# >= 2.8.0 for Mono [3]
+Running
+-------
 
-[0] http://downloads.microsoft.com
-[1] http://sourceforge.net/project/showfiles.php?group_id=110719
-[2] http://forge.novell.com/modules/xfmod/project/showfiles.php?group_id=1430&release_id=1637#selected
-[3] http://forge.novell.com/modules/xfmod/project/showfiles.php?group_id=1395&release_id=1945#selected
+Now you can start Smuxi from the GNOME or KDE menu.
+
