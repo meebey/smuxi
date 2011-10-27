@@ -192,21 +192,34 @@ namespace Smuxi.Frontend.Gnome
             TextColor bgTextColor = ColorConverter.GetTextColor(bgColor);
 
             if (_ShowTimestamps) {
-                DateTime localTimestamp = msg.TimeStamp.ToLocalTime();
-                if (_LastMessage != null &&
-                    _LastMessage.TimeStamp.ToLocalTime().Date != localTimestamp.Date) {
-                    string dayLine = String.Format(
-                        "-!- " + _("Day changed to {0}"),
-                        localTimestamp.Date.ToLongDateString()
-                    );
-                    buffer.Insert(ref iter, dayLine + "\n");
+                var msgTimeStamp = msg.TimeStamp.ToLocalTime();
+                if (_LastMessage != null) {
+                    var lastMsgTimeStamp = _LastMessage.TimeStamp.ToLocalTime();
+                    var span = msgTimeStamp - lastMsgTimeStamp;
+                    string dayLine = null;
+                    if (span.Days > 1) {
+                        dayLine = String.Format(
+                            "-!- " + _("Day changed from {0} to {1}"),
+                            lastMsgTimeStamp.ToShortDateString(),
+                            msgTimeStamp.ToShortDateString()
+                        );
+                    } else if (span.Days > 0) {
+                        dayLine = String.Format(
+                            "-!- " + _("Day changed to {0}"),
+                            msgTimeStamp.Date.ToLongDateString()
+                        );
+                    }
+
+                    if (dayLine != null) {
+                        buffer.Insert(ref iter, dayLine + "\n");
+                    }
                 }
                 
                 string timestamp = null;
                 try {
                     string format = (string)Frontend.UserConfig["Interface/Notebook/TimestampFormat"];
                     if (!String.IsNullOrEmpty(format)) {
-                        timestamp = localTimestamp.ToString(format);
+                        timestamp = msgTimeStamp.ToString(format);
                     }
                 } catch (FormatException e) {
                     timestamp = "Timestamp Format ERROR: " + e.Message;
