@@ -7,7 +7,8 @@ SOURCES = \
 	$(top_srcdir)/src/AssemblyVersion.cs \
 	AssemblyInfo.cs \
 	Protocols/Xmpp/XmppGroupChatModel.cs \
-	Protocols/Xmpp/XmppProtocolManager.cs
+	Protocols/Xmpp/XmppProtocolManager.cs \
+	Protocols/Xmpp/IQ/OwnMessage.cs
 
 REFERENCES = \
 	System \

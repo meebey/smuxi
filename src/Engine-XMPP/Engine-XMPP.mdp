@@ -18,6 +18,9 @@
     <File subtype="Code" buildaction="Compile" name="AssemblyInfo.cs" />
     <File subtype="Code" buildaction="Compile" name="../AssemblyVersion.cs" />
     <File subtype="Code" buildaction="Compile" name="Protocols/Xmpp/XmppGroupChatModel.cs" />
+    <File subtype="Directory" buildaction="Compile" name="Protocols/Xmpp/IQ" />
+    <File subtype="Code" buildaction="Compile" name="Protocols/Xmpp/IQ/OwnMessage.cs" />
+    <File subtype="Directory" buildaction="Compile" name="." />
   </Contents>
   <References>
     <ProjectReference type="Project" localcopy="True" refto="Common" />

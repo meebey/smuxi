@@ -36,6 +36,7 @@ using System.Globalization;
 using jabber;
 using jabber.client;
 using jabber.connection;
+using jabber.protocol;
 using jabber.protocol.client;
 using jabber.protocol.iq;
 using XmppMessageType = jabber.protocol.client.MessageType;
@@ -90,6 +91,7 @@ namespace Smuxi.Engine
             _JabberClient.Resource = Engine.VersionString;
             _JabberClient.AutoLogin = true;
             _JabberClient.AutoPresence = false;
+            _JabberClient.OnStreamInit += OnStreamInit;
             _JabberClient.OnMessage += OnMessage;
             _JabberClient.OnConnect += OnConnect;
             _JabberClient.OnDisconnect += OnDisconnect;
@@ -97,6 +99,7 @@ namespace Smuxi.Engine
             _JabberClient.OnError += OnError;
             _JabberClient.OnProtocol += OnProtocol;
             _JabberClient.OnWriteText += OnWriteText;
+            _JabberClient.OnIQ += OnIQ;
 
             _RosterManager = new RosterManager();
             _RosterManager.Stream = _JabberClient;
@@ -448,18 +451,31 @@ namespace Smuxi.Engine
         
         private void _Say(ChatModel chat, string text)
         {
+            _Say(chat, text, true);
+        }
+
+        private void _Say(ChatModel chat, string text, bool send)
+        {
             if (!chat.IsEnabled) {
                 return;
             }
             
-            string target = chat.ID;
-            if (chat.ChatType == ChatType.Person) {
-                _JabberClient.Message(target, text);
-            } else if (chat.ChatType == ChatType.Group) {
-                _ConferenceManager.GetRoom(target+"/"+_JabberClient.User).PublicMessage(text);
-                return; // don't show now. the message will be echoed back if it's sent successfully
+            if (send) {
+                string target = chat.ID;
+                if (chat.ChatType == ChatType.Person) {
+                    _JabberClient.Message(target, text);
+                } else if (chat.ChatType == ChatType.Group) {
+                    var room = _ConferenceManager.GetRoom(
+                        String.Format(
+                            "{0}/{1}",
+                            target, _JabberClient.User
+                        )
+                    );
+                    room.PublicMessage(text);
+                    return; // don't show now. the message will be echoed back if it's sent successfully
+                }
             }
-            
+
             MessageModel msg = new MessageModel();
             TextMessagePartModel msgPart;
             
@@ -484,6 +500,13 @@ namespace Smuxi.Engine
             this.Session.AddMessageToChat(chat, msg);
         }
         
+        void OnStreamInit(object sender, ElementStream stream)
+        {
+            Trace.Call(sender, stream);
+
+            stream.AddType("own-message", "http://www.facebook.com/xmpp/messages", typeof(OwnMessageQuery));
+        }
+
         void OnProtocol(object sender, XmlElement tag)
         {
             if (!DebugProtocol) {
@@ -630,6 +653,46 @@ namespace Smuxi.Engine
                 }
                 Session.AddMessageToChat(chat, builder.ToMessage());
             }
+        }
+
+        void OnIQ(object sender, IQ iq)
+        {
+            Trace.Call(sender, iq);
+
+            if (iq.Query is OwnMessageQuery) {
+                OnIQOwnMessage((OwnMessageQuery) iq.Query);
+                iq.Handled = true;
+            }
+        }
+
+        void OnIQOwnMessage(OwnMessageQuery query)
+        {
+            if (query.Self) {
+                // we send this message from Smuxi, nothing to do...
+                return;
+            }
+
+            var target_jid = query.To.Bare;
+            var contact = _RosterManager[target_jid];
+            string nickname = null;
+            if (contact == null || String.IsNullOrEmpty(contact.Nickname)) {
+                nickname = target_jid;
+            } else {
+                nickname = contact.Nickname;
+            }
+            var chat = (PersonChatModel) Session.GetChat(target_jid,
+                                                         ChatType.Person, this);
+            if (chat == null) {
+                var person = new PersonModel(target_jid, nickname, NetworkID,
+                                             Protocol, this);
+                chat = Session.CreatePersonChat(
+                    person, target_jid, nickname, this
+                );
+                Session.AddChat(chat);
+                Session.SyncChat(chat);
+            }
+
+            _Say(chat, query.Body, false);
         }
 
         void OnJoin(Room room)
