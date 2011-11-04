@@ -309,7 +309,12 @@ namespace Smuxi.Frontend.Gnome
                 try {
                     Encoding enc = Encoding.GetEncoding(encInfo.CodePage);
                     string encodingName = enc.EncodingName.ToUpper();
-                    
+
+                    if (!enc.IsSingleByte && enc != Encoding.UTF8) {
+                        // ignore multi byte encodings except UTF-8
+                        continue;
+                    }
+
                     // filter noise and duplicates
                     if (encodingName.IndexOf("DOS") != -1 ||
                         encodingName.IndexOf("MAC") != -1 ||
