@@ -171,37 +171,9 @@ namespace Smuxi.Frontend.Gnome
 #if LOG4NET
             _Logger.Info(_VersionString + " starting");
 #endif
-            
-#if GTK_SHARP_2_8 || GTK_SHARP_2_10
-            if (!GLib.Thread.Supported) {
-                GLib.Thread.Init();
-            }
-#else
-            // with GTK# 2.8 we can do this better, see above
-            // GTK# 2.7.1 for MS .NET doesn't support that though.
-            if (Type.GetType("Mono.Runtime") == null) {
-                // when we don't run on Mono, we need to initialize glib ourself
-                GLib.Thread.Init();
-            }
-#endif
-            _UIThreadID = System.Threading.Thread.CurrentThread.ManagedThreadId;
 
-            string appDir = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
-            string localeDir = Path.Combine(appDir, "locale");
-            if (!Directory.Exists(localeDir)) {
-                localeDir = Path.Combine(Defines.InstallPrefix, "share");
-                localeDir = Path.Combine(localeDir, "locale");
-            }
+            InitGtk(args);
 
-            LibraryCatalog.Init("smuxi-frontend-gnome", localeDir);
-#if LOG4NET
-            _Logger.Debug("Using locale data from: " + localeDir);
-#endif
-            
-            Gtk.Application.Init(Name, ref args);
-#if GTK_SHARP_2_10
-            GLib.ExceptionManager.UnhandledException += _OnUnhandledException;
-#endif
             //_SplashScreenWindow = new SplashScreenWindow();
 
             _FrontendConfig = new FrontendConfig(UIName);
@@ -597,7 +569,40 @@ namespace Smuxi.Frontend.Gnome
 
             return false;
         }
-        
+
+        private static void InitGtk(string[] args)
+        {
+#if GTK_SHARP_2_8 || GTK_SHARP_2_10
+            if (!GLib.Thread.Supported) {
+                GLib.Thread.Init();
+            }
+#else
+            // with GTK# 2.8 we can do this better, see above
+            // GTK# 2.7.1 for MS .NET doesn't support that though.
+            if (Type.GetType("Mono.Runtime") == null) {
+                // when we don't run on Mono, we need to initialize glib ourself
+                GLib.Thread.Init();
+            }
+#endif
+            _UIThreadID = System.Threading.Thread.CurrentThread.ManagedThreadId;
+
+            string appDir = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
+            string localeDir = Path.Combine(appDir, "locale");
+            if (!Directory.Exists(localeDir)) {
+                localeDir = Path.Combine(Defines.InstallPrefix, "share");
+                localeDir = Path.Combine(localeDir, "locale");
+            }
+
+            LibraryCatalog.Init("smuxi-frontend-gnome", localeDir);
+#if LOG4NET
+            _Logger.Debug("Using locale data from: " + localeDir);
+#endif
+            Gtk.Application.Init(Name, ref args);
+#if GTK_SHARP_2_10
+            GLib.ExceptionManager.UnhandledException += _OnUnhandledException;
+#endif
+        }
+
         private static string _(string msg)
         {
             return Mono.Unix.Catalog.GetString(msg);
