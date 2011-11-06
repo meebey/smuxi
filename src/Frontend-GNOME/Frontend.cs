@@ -600,6 +600,10 @@ namespace Smuxi.Frontend.Gnome
 
         private static void InitGtk(string[] args)
         {
+            if (Environment.OSVersion.Platform == PlatformID.Win32NT) {
+                InitGtkPathWin();
+            }
+
 #if GTK_SHARP_2_8 || GTK_SHARP_2_10
             if (!GLib.Thread.Supported) {
                 GLib.Thread.Init();
@@ -629,6 +633,31 @@ namespace Smuxi.Frontend.Gnome
 #if GTK_SHARP_2_10
             GLib.ExceptionManager.UnhandledException += _OnUnhandledException;
 #endif
+        }
+
+        private static void InitGtkPathWin()
+        {
+            // HACK: Force GTK# to use the right GTK+ install as the PATH
+            // environment variable might contain other GTK+ installs
+            var installPath = (string) Microsoft.Win32.Registry.GetValue(
+                "HKEY_LOCAL_MACHINE\\SOFTWARE\\Novell\\GtkSharp\\InstallFolder",
+                "", null
+            );
+            if (installPath == null) {
+#if LOG4NET
+                _Logger.Error("InitGtkPathWin(): couldn't obtain GTK# installation folder from registry. GTK# is probably incorrectly installed!");
+                return;
+#endif
+            }
+
+            var binPath = Path.Combine(installPath, "bin");
+            var currentPath = Environment.GetEnvironmentVariable("PATH");
+            var newPath = String.Format("{0}{1}{2}", binPath, Path.PathSeparator, currentPath);
+#if LOG4NET
+            _Logger.Debug("InitGtkPathWin(): current PATH: " + currentPath);
+            _Logger.Debug("InitGtkPathWin(): new PATH: " + newPath);
+#endif
+            Environment.SetEnvironmentVariable("PATH", newPath);
         }
 
         private static string _(string msg)
