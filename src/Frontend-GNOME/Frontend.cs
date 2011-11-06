@@ -176,7 +176,6 @@ namespace Smuxi.Frontend.Gnome
             if (!GLib.Thread.Supported) {
                 GLib.Thread.Init();
             }
-            _UIThreadID = System.Threading.Thread.CurrentThread.ManagedThreadId;
 #else
             // with GTK# 2.8 we can do this better, see above
             // GTK# 2.7.1 for MS .NET doesn't support that though.
@@ -185,6 +184,7 @@ namespace Smuxi.Frontend.Gnome
                 GLib.Thread.Init();
             }
 #endif
+            _UIThreadID = System.Threading.Thread.CurrentThread.ManagedThreadId;
 
             string appDir = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
             string localeDir = Path.Combine(appDir, "locale");
