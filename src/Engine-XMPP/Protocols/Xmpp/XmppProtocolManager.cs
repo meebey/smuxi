@@ -321,7 +321,7 @@ namespace Smuxi.Engine
             
             string[] help = {
             "help",
-            "connect xmpp/jabber server port username passwort [resource]",
+            "connect xmpp/jabber server port username password [resource]",
             };
             
             foreach (string line in help) { 
