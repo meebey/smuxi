@@ -166,43 +166,29 @@ namespace Smuxi.Engine
 
         protected void NotConnected(CommandModel cmd)
         {
-            cmd.FrontendManager.AddTextToChat(
-                cmd.Chat,
-                String.Format(
-                    "-!- {0}",
-                    _("Not connected to server")
-                )
-            );
+            var msg = CreateMessageBuilder();
+            msg.AppendEventPrefix();
+            msg.AppendText(_("Not connected to server"));
+            cmd.FrontendManager.AddMessageToChat(cmd.Chat, msg.ToMessage());
         }
 
         protected void NotEnoughParameters(CommandModel cmd)
         {
-            cmd.FrontendManager.AddTextToChat(
-                cmd.Chat,
-                String.Format(
-                    "-!- {0}",
-                    String.Format(
-                        _("Not enough parameters for {0} command"),
-                        cmd.Command
-                    )
-                )
-            );
+            var msg = CreateMessageBuilder();
+            msg.AppendEventPrefix();
+            msg.AppendText(_("Not enough parameters for {0} command"),
+                           cmd.Command);
+            cmd.FrontendManager.AddMessageToChat(cmd.Chat, msg.ToMessage());
         }
         
         protected virtual void OnConnected(EventArgs e)
         {
             Trace.Call(e);
 
-            Session.AddTextToChat(
-                Chat,
-                String.Format(
-                    "-!- {0}",
-                    String.Format(
-                        _("Connected to {0}"),
-                        NetworkID
-                    )
-                )
-            );
+            var msg = CreateMessageBuilder();
+            msg.AppendEventPrefix();
+            msg.AppendText(_("Connected to {0}"), NetworkID);
+            Session.AddMessageToChat(Chat, msg.ToMessage());
 
             _PresenceStatus = PresenceStatus.Online;
 
@@ -217,16 +203,10 @@ namespace Smuxi.Engine
         {
             Trace.Call(e);
 
-            Session.AddTextToChat(
-                Chat,
-                String.Format(
-                    "-!- {0}",
-                    String.Format(
-                        _("Disconnected from {0}"),
-                        NetworkID
-                    )
-                )
-            );
+            var msg = CreateMessageBuilder();
+            msg.AppendEventPrefix();
+            msg.AppendText(_("Disconnected from {0}"), NetworkID);
+            Session.AddMessageToChat(Chat, msg.ToMessage());
 
             _PresenceStatus = PresenceStatus.Offline;
 
