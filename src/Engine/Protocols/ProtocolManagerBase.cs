@@ -273,8 +273,10 @@ namespace Smuxi.Engine
             }
 
             var msgBuilder = CreateMessageBuilder();
-            msgBuilder.AppendEventPrefix();
-            msgBuilder.AppendText("READ: ");
+            msgBuilder.MessageType = MessageType.Event;
+            // HACK: extra leading space to align with "-!- "
+            // HACK: extra trailing space to align with "WRITE: "
+            msgBuilder.AppendText("    READ:  ");
             msgBuilder.AppendText(data);
             Session.AddMessageToChat(Chat, msgBuilder.ToMessage());
         }
@@ -292,8 +294,9 @@ namespace Smuxi.Engine
             }
 
             var msgBuilder = CreateMessageBuilder();
-            msgBuilder.AppendEventPrefix();
-            msgBuilder.AppendText("WRITE: ");
+            msgBuilder.MessageType = MessageType.Event;
+            // HACK: extra leading space to align with "-!- "
+            msgBuilder.AppendText("    WRITE: ");
             msgBuilder.AppendText(data);
             Session.AddMessageToChat(Chat, msgBuilder.ToMessage());
         }
