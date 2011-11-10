@@ -1441,8 +1441,7 @@ namespace Smuxi.Engine
             if (sslPolicyErrors == SslPolicyErrors.RemoteCertificateChainErrors &&
                 sender is HttpWebRequest) {
                 var request = (HttpWebRequest) sender;
-                if (request.RequestUri.Host == "api.twitter.com" &&
-                    certificate.Issuer == "OU=Equifax Secure Certificate Authority, O=Equifax, C=US") {
+                if (request.RequestUri.Host == "api.twitter.com") {
                     return true;
                 }
             }
