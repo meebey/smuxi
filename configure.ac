@@ -391,7 +391,7 @@ AM_CONDITIONAL(ENABLE_ENGINE_TWITTER, test "x$ENABLE_ENGINE_TWITTER" = "xyes")
 AC_ARG_WITH([twitter-api-key],
 	AC_HELP_STRING([--with-twitter-api-key], [Specify custom Twitter API key]),
 	[],
-	with_twitter_api_key="G0fxRfJqvcMPAuNat15YQ|j77MQDIuZJFa0CXehYzGPBZidF8DT3OXAi6sb5ucE"
+	with_twitter_api_key="60QV2qQx9cS7y1BJDbgAA|2VgD6qQKddsF5HYQ0TrRgs3tFTnCwDONBmRlTmG658"
 )
 AC_SUBST([twitter_api_key], $with_twitter_api_key)
 
