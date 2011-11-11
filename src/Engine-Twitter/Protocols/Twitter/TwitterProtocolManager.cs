@@ -26,6 +26,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.Threading;
 using System.Collections.Generic;
 using Twitterizer;
+using Twitterizer.Core;
 using Smuxi.Common;
 
 namespace Smuxi.Engine
@@ -922,11 +923,16 @@ namespace Smuxi.Engine
             };
             var timeline = TwitterTimeline.HomeTimeline(f_OAuthTokens,
                                                         options);
+            try {
+                CheckRequestStatus(timeline);
+            } catch (TwitterizerException) {
+                // ignore temporarily issues
+            }
 #if LOG4NET
             f_Logger.Debug("UpdateFriendsTimeline(): done. New tweets: " +
-                (timeline == null ? 0 : timeline.Count));
+                           timeline.Count);
 #endif
-            if (timeline == null || timeline.Count == 0) {
+            if (timeline.Count == 0) {
                 return;
             }
 
@@ -1021,11 +1027,15 @@ namespace Smuxi.Engine
                 SinceStatusId = f_LastReplyStatusID
             };
             var timeline = TwitterTimeline.Mentions(f_OAuthTokens, options);
+            try {
+                CheckRequestStatus(timeline);
+            } catch (TwitterizerException) {
+                // ignore temporarily issues
+            }
 #if LOG4NET
-            f_Logger.Debug("UpdateReplies(): done. New replies: " +
-                (timeline == null ? 0 : timeline.Count));
+            f_Logger.Debug("UpdateReplies(): done. New replies: " + timeline.Count);
 #endif
-            if (timeline == null || timeline.Count == 0) {
+            if (timeline.Count == 0) {
                 return;
             }
 
@@ -1117,6 +1127,11 @@ namespace Smuxi.Engine
             var receivedTimeline = TwitterDirectMessage.DirectMessages(
                 f_OAuthTokens, options
             );
+            try {
+                CheckRequestStatus(receivedTimeline);
+            } catch (TwitterizerException) {
+                // ignore temporarily issues
+            }
 #if LOG4NET
             f_Logger.Debug("UpdateDirectMessages(): done. New messages: " +
                 (receivedTimeline == null ? 0 : receivedTimeline.Count));
@@ -1133,6 +1148,11 @@ namespace Smuxi.Engine
             var sentTimeline = TwitterDirectMessage.DirectMessagesSent(
                 f_OAuthTokens, sentOptions
             );
+            try {
+                CheckRequestStatus(sentTimeline);
+            } catch (TwitterizerException) {
+                // ignore temporarily issues
+            }
 #if LOG4NET
             f_Logger.Debug("UpdateDirectMessages(): done. New messages: " +
                 (sentTimeline == null ? 0 : sentTimeline.Count));
@@ -1221,13 +1241,10 @@ namespace Smuxi.Engine
             TwitterUserCollection friends = TwitterFriendship.Friends(
                 f_OAuthTokens, options
             );
+            CheckRequestStatus(friends);
 #if LOG4NET
-            f_Logger.Debug("UpdateFriends(): done. Friends: " +
-                (friends == null ? 0 : friends.Count));
+            f_Logger.Debug("UpdateFriends(): done. Friends: " + friends.Count);
 #endif
-            if (friends == null || friends.Count == 0) {
-                return;
-            }
 
             var persons = new Dictionary<string, PersonModel>(friends.Count);
             foreach (TwitterUser friend in friends) {
@@ -1244,9 +1261,7 @@ namespace Smuxi.Engine
 #endif
             var user = TwitterUser.Show(f_OAuthTokens, f_Username,
                                         f_OptionalProperties);
-            if (user == null || user.RequestStatus.Status != RequestResult.Success) {
-                throw new ApplicationException(user.RequestStatus.ErrorDetails.ErrorMessage);
-            }
+            CheckRequestStatus(user);
             f_TwitterUser = user;
 #if LOG4NET
             f_Logger.Debug("UpdateUser(): done.");
@@ -1282,11 +1297,7 @@ namespace Smuxi.Engine
                 Proxy = f_WebProxy
             };
             var res = TwitterStatus.Update(f_OAuthTokens, text, options);
-            if (res.RequestStatus.Status != RequestResult.Success) {
-                throw new ApplicationException(
-                    res.RequestStatus.ErrorDetails.ErrorMessage
-                );
-            }
+            CheckRequestStatus(res);
             f_FriendsTimelineEvent.Set();
         }
 
@@ -1294,11 +1305,7 @@ namespace Smuxi.Engine
         {
             var res = TwitterDirectMessage.Send(f_OAuthTokens, target, text,
                                                 f_OptionalProperties);
-            if (res.RequestStatus.Status != RequestResult.Success) {
-                throw new ApplicationException(
-                    res.RequestStatus.ErrorDetails.ErrorMessage
-                );
-            }
+            CheckRequestStatus(res);
             f_DirectMessageEvent.Set();
         }
         
@@ -1384,6 +1391,27 @@ namespace Smuxi.Engine
                 default:
                     throw exception;
             }
+        }
+
+        private void CheckRequestStatus(ITwitterObject response)
+        {
+            if (response == null) {
+                throw new ArgumentNullException("response");
+            }
+
+            if (response.RequestStatus.Status == RequestResult.Success) {
+                return;
+            }
+
+#if LOG4NET
+            f_Logger.Error("CheckRequestStatus(): " +
+                           "RequestStatus: " + response.RequestStatus +
+                           "ResponseBody: " + response.RequestStatus.ResponseBody);
+#endif
+
+            throw new TwitterizerException(
+                response.RequestStatus.ErrorDetails.ErrorMessage
+            );
         }
 
         private PersonModel GetPerson(TwitterUser user)
