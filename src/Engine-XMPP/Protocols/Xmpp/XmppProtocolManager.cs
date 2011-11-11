@@ -772,7 +772,15 @@ namespace Smuxi.Engine
         {
             Trace.Call(sender);
 
-            Session.AddTextToChat(_NetworkChat, "Error: " + ex);
+#if LOG4NET
+            _Logger.Error("OnError(): Exception", ex);
+#endif
+
+            var builder = CreateMessageBuilder();
+            builder.AppendEventPrefix();
+            builder.AppendText(_("Error: {0}"), String.Empty);
+            builder.AppendMessage(ex.Message);
+            Session.AddMessageToChat(_NetworkChat, builder.ToMessage());
         }
 
         void OnAuthenticate(object sender)
