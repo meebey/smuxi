@@ -2908,7 +2908,8 @@ namespace Smuxi.Engine
 
             // TRANSLATOR: do NOT change the position of {0}!
             builder.AppendText(_("{0} changed the topic of {1} to: {2}"),
-                             String.Empty, e.Channel, e.NewTopic);
+                             String.Empty, e.Channel, String.Empty);
+            builder.AppendMessage(e.NewTopic);
             Session.AddMessageToChat(cchat, builder.ToMessage());
         }
         
