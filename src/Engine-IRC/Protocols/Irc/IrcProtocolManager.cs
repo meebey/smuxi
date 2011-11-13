@@ -2906,7 +2906,7 @@ namespace Smuxi.Engine
                 builder.AppendIdendityName(GetPerson(cchat, e.Who));
             }
 
-            // TRANSLATOR: do NOT change the position of {0}!
+            // TRANSLATOR: do NOT change the position of {0} and {2}!
             builder.AppendText(_("{0} changed the topic of {1} to: {2}"),
                              String.Empty, e.Channel, String.Empty);
             builder.AppendMessage(e.NewTopic);
