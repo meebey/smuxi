@@ -1360,15 +1360,16 @@ namespace Smuxi.Engine
                         break;
                     }
                 }
-            }
-            if (position == -1) {
-                return position;
-            }
 
-            // now find the first chat with a different protocol manager
-            foreach (var chat in _Chats.Skip(position)) {
-                if (chat.ProtocolManager != pm) {
-                    return _Chats.IndexOf(chat);
+                if (position == -1) {
+                    return position;
+                }
+
+                // now find the first chat with a different protocol manager
+                foreach (var chat in _Chats.Skip(position)) {
+                    if (chat.ProtocolManager != pm) {
+                        return _Chats.IndexOf(chat);
+                    }
                 }
             }
 
