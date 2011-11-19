@@ -103,10 +103,8 @@ namespace Smuxi.Engine
         protected bool HasTokens {
             get {
                 return f_OAuthTokens != null &&
-                       !String.IsNullOrEmpty(f_OAuthTokens.ConsumerKey) &&
-                       !String.IsNullOrEmpty(f_OAuthTokens.ConsumerSecret) &&
-                       !String.IsNullOrEmpty(f_OAuthTokens.AccessToken) &&
-                       !String.IsNullOrEmpty(f_OAuthTokens.AccessTokenSecret);
+                       f_OAuthTokens.HasConsumerToken &&
+                       f_OAuthTokens.HasAccessToken;
             }
         }
 
@@ -489,8 +487,10 @@ namespace Smuxi.Engine
                 return chat;
             }
 
-            TwitterUser user = TwitterUser.Show(f_OAuthTokens, userId,
-                                                f_OptionalProperties);
+            var response = TwitterUser.Show(f_OAuthTokens, userId,
+                                            f_OptionalProperties);
+            CheckResponse(response);
+            var user = response.ResponseObject;
             PersonModel person = CreatePerson(user);
             PersonChatModel personChat = new PersonChatModel(
                 person,
@@ -801,15 +801,15 @@ namespace Smuxi.Engine
                 return;
             }
 
-            TwitterUser user = TwitterUser.Show(f_OAuthTokens, nickname,
-                                                f_OptionalProperties);
-            if (user.RequestStatus.Status != RequestResult.Success) {
+            var response = TwitterUser.Show(f_OAuthTokens, nickname,
+                                            f_OptionalProperties);
+            if (response.Result != RequestResult.Success) {
                 fm.AddTextToChat(cmd.Chat, "-!- " +
                     _("Could not send message - the specified user does not exist.")
                 );
                 return;
             }
-
+            var user = response.ResponseObject;
             var chat = OpenPrivateChat(user.Id);
 
             if (cmd.DataArray.Length >= 3) {
@@ -921,13 +921,14 @@ namespace Smuxi.Engine
                 SinceStatusId = f_LastFriendsTimelineStatusID,
                 Count = 50
             };
-            var timeline = TwitterTimeline.HomeTimeline(f_OAuthTokens,
+            var response = TwitterTimeline.HomeTimeline(f_OAuthTokens,
                                                         options);
-            try {
-                CheckRequestStatus(timeline);
-            } catch (TwitterizerException) {
-                // ignore temporarily issues
+            // ignore temporarily issues
+            if (IsTemporilyErrorResponse(response)) {
+                return;
             }
+            CheckResponse(response);
+            var timeline = response.ResponseObject;
 #if LOG4NET
             f_Logger.Debug("UpdateFriendsTimeline(): done. New tweets: " +
                            timeline.Count);
@@ -1026,12 +1027,13 @@ namespace Smuxi.Engine
                 Proxy = f_WebProxy,
                 SinceStatusId = f_LastReplyStatusID
             };
-            var timeline = TwitterTimeline.Mentions(f_OAuthTokens, options);
-            try {
-                CheckRequestStatus(timeline);
-            } catch (TwitterizerException) {
-                // ignore temporarily issues
+            var response = TwitterTimeline.Mentions(f_OAuthTokens, options);
+            // ignore temporarily issues
+            if (IsTemporilyErrorResponse(response)) {
+                return;
             }
+            CheckResponse(response);
+            var timeline = response.ResponseObject;
 #if LOG4NET
             f_Logger.Debug("UpdateReplies(): done. New replies: " + timeline.Count);
 #endif
@@ -1124,14 +1126,15 @@ namespace Smuxi.Engine
                 SinceStatusId = f_LastDirectMessageReceivedStatusID,
                 Count = 50
             };
-            var receivedTimeline = TwitterDirectMessage.DirectMessages(
+            var response = TwitterDirectMessage.DirectMessages(
                 f_OAuthTokens, options
             );
-            try {
-                CheckRequestStatus(receivedTimeline);
-            } catch (TwitterizerException) {
-                // ignore temporarily issues
+            // ignore temporarily issues
+            if (IsTemporilyErrorResponse(response)) {
+                return;
             }
+            CheckResponse(response);
+            var receivedTimeline = response.ResponseObject;
 #if LOG4NET
             f_Logger.Debug("UpdateDirectMessages(): done. New messages: " +
                 (receivedTimeline == null ? 0 : receivedTimeline.Count));
@@ -1145,14 +1148,15 @@ namespace Smuxi.Engine
                 SinceStatusId = f_LastDirectMessageSentStatusID,
                 Count = 50
             };
-            var sentTimeline = TwitterDirectMessage.DirectMessagesSent(
+            response = TwitterDirectMessage.DirectMessagesSent(
                 f_OAuthTokens, sentOptions
             );
-            try {
-                CheckRequestStatus(sentTimeline);
-            } catch (TwitterizerException) {
-                // ignore temporarily issues
+            // ignore temporarily issues
+            if (IsTemporilyErrorResponse(response)) {
+                return;
             }
+            CheckResponse(response);
+            var sentTimeline = response.ResponseObject;
 #if LOG4NET
             f_Logger.Debug("UpdateDirectMessages(): done. New messages: " +
                 (sentTimeline == null ? 0 : sentTimeline.Count));
@@ -1233,23 +1237,50 @@ namespace Smuxi.Engine
             }
 
 #if LOG4NET
-            f_Logger.Debug("UpdateFriends(): getting friends from twitter...");
+            f_Logger.Debug("UpdateFriends(): fetching friend IDs from twitter...");
 #endif
-            var options = new FriendsOptions() {
-                Proxy = f_WebProxy
+            var options = new UsersIdsOptions() {
+                Proxy = f_WebProxy,
+                UserId = f_TwitterUser.Id
             };
-            TwitterUserCollection friends = TwitterFriendship.Friends(
+            var response = TwitterFriendship.FriendsIds(
                 f_OAuthTokens, options
             );
-            CheckRequestStatus(friends);
+            CheckResponse(response);
+            var friendIds = response.ResponseObject;
 #if LOG4NET
-            f_Logger.Debug("UpdateFriends(): done. Friends: " + friends.Count);
+            f_Logger.Debug("UpdateFriends(): done. Fetched IDs: " + friendIds.Count);
 #endif
 
-            var persons = new Dictionary<string, PersonModel>(friends.Count);
-            foreach (TwitterUser friend in friends) {
-                var person = CreatePerson(friend);
-                persons.Add(person.ID, person);
+            var persons = new Dictionary<string, PersonModel>(friendIds.Count);
+            // users/lookup only permits 100 users per call
+            var pageSize = 100;
+            var idList = new List<decimal>(friendIds);
+            var idPages = new List<List<decimal>>();
+            for (int offset = 0; offset < idList.Count; offset += pageSize) {
+                var count = Math.Min(pageSize, idList.Count - offset);
+                idPages.Add(idList.GetRange(offset, count));
+            }
+            foreach (var idPage in idPages) {
+#if LOG4NET
+                f_Logger.Debug("UpdateFriends(): fetching friends from twitter...");
+#endif
+                var userIds = new TwitterIdCollection(idPage);
+                var lookupOptions = new LookupUsersOptions() {
+                    Proxy = f_WebProxy,
+                    UserIds = userIds,
+                    CacheOutput = true
+                };
+                var lookupResponse = TwitterUser.Lookup(f_OAuthTokens, lookupOptions);
+                CheckResponse(lookupResponse);
+                var friends = lookupResponse.ResponseObject;
+#if LOG4NET
+                f_Logger.Debug("UpdateFriends(): done. Fetched friends: " + friends.Count);
+#endif
+                foreach (var friend in friends) {
+                    var person = CreatePerson(friend);
+                    persons.Add(person.ID, person);
+                }
             }
             f_Friends = persons;
         }
@@ -1259,9 +1290,10 @@ namespace Smuxi.Engine
 #if LOG4NET
             f_Logger.Debug("UpdateUser(): getting user details from twitter...");
 #endif
-            var user = TwitterUser.Show(f_OAuthTokens, f_Username,
-                                        f_OptionalProperties);
-            CheckRequestStatus(user);
+            var response = TwitterUser.Show(f_OAuthTokens, f_Username,
+                                            f_OptionalProperties);
+            CheckResponse(response);
+            var user = response.ResponseObject;
             f_TwitterUser = user;
 #if LOG4NET
             f_Logger.Debug("UpdateUser(): done.");
@@ -1297,7 +1329,7 @@ namespace Smuxi.Engine
                 Proxy = f_WebProxy
             };
             var res = TwitterStatus.Update(f_OAuthTokens, text, options);
-            CheckRequestStatus(res);
+            CheckResponse(res);
             f_FriendsTimelineEvent.Set();
         }
 
@@ -1305,7 +1337,7 @@ namespace Smuxi.Engine
         {
             var res = TwitterDirectMessage.Send(f_OAuthTokens, target, text,
                                                 f_OptionalProperties);
-            CheckRequestStatus(res);
+            CheckResponse(res);
             f_DirectMessageEvent.Set();
         }
         
@@ -1393,25 +1425,59 @@ namespace Smuxi.Engine
             }
         }
 
-        private void CheckRequestStatus(ITwitterObject response)
+        private void CheckResponse<T>(TwitterResponse<T> response) where T : ITwitterObject
         {
             if (response == null) {
                 throw new ArgumentNullException("response");
             }
 
-            if (response.RequestStatus.Status == RequestResult.Success) {
+            if (response.Result == RequestResult.Success) {
                 return;
             }
 
 #if LOG4NET
-            f_Logger.Error("CheckRequestStatus(): " +
-                           "RequestStatus: " + response.RequestStatus +
-                           "ResponseBody: " + response.RequestStatus.ResponseBody);
+            f_Logger.Error("CheckResponse(): " +
+                           "RequestUrl: " + response.RequestUrl + " " +
+                           "Result: " + response.Result + " " +
+                           "Content:\n" + response.Content);
 #endif
 
-            throw new TwitterizerException(
-                response.RequestStatus.ErrorDetails.ErrorMessage
-            );
+            throw new TwitterizerException(response.ErrorMessage);
+        }
+
+        private bool IsTemporilyErrorResponse<T>(TwitterResponse<T> response)
+                                        where T : ITwitterObject
+        {
+            if (response == null) {
+                throw new ArgumentNullException("response");
+            }
+
+            switch (response.Result) {
+                case RequestResult.Success:
+                    // no error at all
+                    return false;
+                case RequestResult.ConnectionFailure:
+                case RequestResult.RateLimited:
+                case RequestResult.TwitterIsDown:
+                case RequestResult.TwitterIsOverloaded:
+#if LOG4NET
+                    f_Logger.Debug("IsTemporilyErrorResponse(): " +
+                                   "Detected temporily error " +
+                                   "RequestUrl: " + response.RequestUrl + " " +
+                                   "Result: " + response.Result + " " +
+                                   "Content:\n" + response.Content);
+#endif
+                    return true;
+            }
+
+#if LOG4NET
+            f_Logger.Debug("IsTemporilyErrorResponse(): " +
+                           "Detected permanent error " +
+                           "RequestUrl: " + response.RequestUrl + " " +
+                           "Result: " + response.Result + " " +
+                           "Content:\n" + response.Content);
+#endif
+            return false;
         }
 
         private PersonModel GetPerson(TwitterUser user)
@@ -1425,6 +1491,14 @@ namespace Smuxi.Engine
                 return CreatePerson(user);
             }
             return person;
+        }
+
+        private PersonModel CreatePerson(decimal userId)
+        {
+            var res = TwitterUser.Show(f_OAuthTokens, userId, f_OptionalProperties);
+            CheckResponse(res);
+            var user = res.ResponseObject;
+            return CreatePerson(user);
         }
 
         private PersonModel CreatePerson(TwitterUser user)
