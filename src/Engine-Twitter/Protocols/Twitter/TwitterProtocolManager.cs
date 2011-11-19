@@ -171,11 +171,7 @@ namespace Smuxi.Engine
                 var proxyUri = uriBuilder.ToString();
                 f_WebProxy = new WebProxy(proxyUri);
             }
-
-            f_OptionalProperties = new OptionalProperties();
-            if (f_WebProxy != null) {
-                f_OptionalProperties.Proxy = f_WebProxy;
-            }
+            f_OptionalProperties = CreateOptions<OptionalProperties>();
 
             f_ProtocolChat = new ProtocolChatModel(NetworkID, "Twitter " + username, this);
             f_ProtocolChat.InitMessageBuffer(
@@ -908,11 +904,9 @@ namespace Smuxi.Engine
 #if LOG4NET
             f_Logger.Debug("UpdateFriendsTimeline(): getting friend timeline from twitter...");
 #endif
-            var options = new TimelineOptions() {
-                Proxy = f_WebProxy,
-                SinceStatusId = f_LastFriendsTimelineStatusID,
-                Count = 50
-            };
+            var options = CreateOptions<TimelineOptions>();
+            options.SinceStatusId = f_LastFriendsTimelineStatusID;
+            options.Count = 50;
             var response = TwitterTimeline.HomeTimeline(f_OAuthTokens,
                                                         options);
             // ignore temporarily issues
@@ -1015,10 +1009,8 @@ namespace Smuxi.Engine
 #if LOG4NET
             f_Logger.Debug("UpdateReplies(): getting replies from twitter...");
 #endif
-            var options = new TimelineOptions() {
-                Proxy = f_WebProxy,
-                SinceStatusId = f_LastReplyStatusID
-            };
+            var options = CreateOptions<TimelineOptions>();
+            options.SinceStatusId = f_LastReplyStatusID;
             var response = TwitterTimeline.Mentions(f_OAuthTokens, options);
             // ignore temporarily issues
             if (IsTemporilyErrorResponse(response)) {
@@ -1113,11 +1105,9 @@ namespace Smuxi.Engine
 #if LOG4NET
             f_Logger.Debug("UpdateDirectMessages(): getting received direct messages from twitter...");
 #endif
-            var options = new DirectMessagesOptions() {
-                Proxy = f_WebProxy,
-                SinceStatusId = f_LastDirectMessageReceivedStatusID,
-                Count = 50
-            };
+            var options = CreateOptions<DirectMessagesOptions>();
+            options.SinceStatusId = f_LastDirectMessageReceivedStatusID;
+            options.Count = 50;
             var response = TwitterDirectMessage.DirectMessages(
                 f_OAuthTokens, options
             );
@@ -1135,11 +1125,9 @@ namespace Smuxi.Engine
 #if LOG4NET
             f_Logger.Debug("UpdateDirectMessages(): getting sent direct messages from twitter...");
 #endif
-            var sentOptions = new DirectMessagesSentOptions() {
-                Proxy = f_WebProxy,
-                SinceStatusId = f_LastDirectMessageSentStatusID,
-                Count = 50
-            };
+            var sentOptions = CreateOptions<DirectMessagesSentOptions>();
+            sentOptions.SinceStatusId = f_LastDirectMessageSentStatusID;
+            sentOptions.Count = 50;
             response = TwitterDirectMessage.DirectMessagesSent(
                 f_OAuthTokens, sentOptions
             );
@@ -1231,10 +1219,8 @@ namespace Smuxi.Engine
 #if LOG4NET
             f_Logger.Debug("UpdateFriends(): fetching friend IDs from twitter...");
 #endif
-            var options = new UsersIdsOptions() {
-                Proxy = f_WebProxy,
-                UserId = f_TwitterUser.Id
-            };
+            var options = CreateOptions<UsersIdsOptions>();
+            options.UserId = f_TwitterUser.Id;
             var response = TwitterFriendship.FriendsIds(
                 f_OAuthTokens, options
             );
@@ -1258,11 +1244,9 @@ namespace Smuxi.Engine
                 f_Logger.Debug("UpdateFriends(): fetching friends from twitter...");
 #endif
                 var userIds = new TwitterIdCollection(idPage);
-                var lookupOptions = new LookupUsersOptions() {
-                    Proxy = f_WebProxy,
-                    UserIds = userIds,
-                    CacheOutput = true
-                };
+                var lookupOptions = CreateOptions<LookupUsersOptions>();
+                lookupOptions.UserIds = userIds;
+                lookupOptions.CacheOutput = true;
                 var lookupResponse = TwitterUser.Lookup(f_OAuthTokens, lookupOptions);
                 CheckResponse(lookupResponse);
                 var friends = lookupResponse.ResponseObject;
@@ -1315,11 +1299,17 @@ namespace Smuxi.Engine
             return builder.ToMessage();
         }
 
-        private void PostUpdate(string text)
+        private T CreateOptions<T>() where T : OptionalProperties, new()
         {
-            var options = new StatusUpdateOptions() {
+            var options = new T() {
                 Proxy = f_WebProxy
             };
+            return options;
+        }
+
+        private void PostUpdate(string text)
+        {
+            var options = CreateOptions<StatusUpdateOptions>();
             var res = TwitterStatus.Update(f_OAuthTokens, text, options);
             CheckResponse(res);
             f_FriendsTimelineEvent.Set();
