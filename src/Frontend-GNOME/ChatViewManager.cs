@@ -103,6 +103,7 @@ namespace Smuxi.Frontend.Gnome
 
             f_Notebook.RemovePage(f_Notebook.PageNum(chatView));
             f_Chats.Remove(chatView);
+            SyncedChats.Remove(chatView);
 
             if (ChatRemoved != null) {
                 ChatRemoved(this, new ChatViewManagerChatRemovedEventArgs(chatView));
@@ -134,6 +135,7 @@ namespace Smuxi.Frontend.Gnome
                 return;
             }
 
+            SyncedChats.Remove(chatView);
             chatView.Disable();
         }
 
