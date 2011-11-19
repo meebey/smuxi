@@ -217,14 +217,6 @@ namespace Smuxi.Engine
                     builder.AppendEventPrefix();
                     builder.AppendText(_("Twitter authorization required."));
                     Session.AddMessageToChat(f_ProtocolChat, builder.ToMessage());
-                    
-                    /*
-                        _("Twitter authorization required, please open the " +
-                          "following URL and enter the returned PIN using the " +
-                          "/pin command: {0}"),
-                        String.Empty
-                    );
-                    */
 
                     builder = CreateMessageBuilder();
                     builder.AppendEventPrefix();
