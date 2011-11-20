@@ -203,7 +203,26 @@ namespace Smuxi.Engine
 
                 password = password ?? String.Empty;
                 var access = password.Split('|');
-                if (password.Length == 0 || access.Length == 1) {
+                if (access.Length == 2) {
+                    f_OAuthTokens.AccessToken = access[0];
+                    f_OAuthTokens.AccessTokenSecret = access[1];
+
+                    // verify access token
+                    var options = CreateOptions<VerifyCredentialsOptions>();
+                    var response = TwitterAccount.VerifyCredentials(
+                        f_OAuthTokens, options
+                    );
+                    if (response.Result == RequestResult.Unauthorized) {
+#if LOG4NET
+                        f_Logger.Warn("Connect(): Invalid access token, " +
+                                      "re-authorization required");
+#endif
+                        f_OAuthTokens.AccessToken = null;
+                        f_OAuthTokens.AccessTokenSecret = null;
+                    }
+                }
+
+                if (!f_OAuthTokens.HasAccessToken) {
                     // new account or basic auth user that needs to be migrated
                     var reqToken = OAuthUtility.GetRequestToken(key[0], key[1],
                                                             "oob", f_WebProxy);
@@ -243,9 +262,6 @@ namespace Smuxi.Engine
                     builder.AppendEventPrefix();
                     builder.AppendText(_("Please type: /pin PIN_FROM_TWITTER"));
                     Session.AddMessageToChat(f_ProtocolChat, builder.ToMessage());
-                } else {
-                    f_OAuthTokens.AccessToken = access[0];
-                    f_OAuthTokens.AccessTokenSecret = access[1];
                 }
             } catch (Exception ex) {
 #if LOG4NET
