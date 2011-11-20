@@ -675,6 +675,7 @@ namespace Smuxi.Engine
                       "the Twitter \"{0}\" account."),
                     f_Username
                 );
+                Session.AddMessageToChat(f_ProtocolChat, builder.ToMessage());
 
                 // allow the user to re-enter the pin
                 // LAME: An incorrect PIN invalidates the request token!
