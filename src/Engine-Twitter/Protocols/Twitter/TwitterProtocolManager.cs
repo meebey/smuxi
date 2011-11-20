@@ -1328,12 +1328,7 @@ namespace Smuxi.Engine
         {
             Trace.Call(exception == null ? null : exception.GetType());
 
-            /*
-            if (exception.RequestData != null &&
-                exception.RequestData.ResponseException != null) {
-                CheckWebException(exception.RequestData.ResponseException);
-                return;
-            } else */ if (exception.InnerException is WebException) {
+            if (exception.InnerException is WebException) {
                 CheckWebException((WebException) exception.InnerException);
                 return;
             } else if (exception.InnerException != null) {
