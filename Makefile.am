@@ -43,6 +43,9 @@ SUBDIRS = 	lib \
 		src \
 		$(PODIRS)
 
+# forcely disable parallel builds
+export MAKEFLAGS=-j1
+
 update-po:
 	for PODIR in $(PODIRS); do \
 		echo $$PODIR; \
@@ -162,3 +165,5 @@ run-stfl: all
 run-server: all
 	cd $(BUILD_DIR) && \
 		mono --debug ./smuxi-server.exe -d
+
+.NOTPARALLEL:
