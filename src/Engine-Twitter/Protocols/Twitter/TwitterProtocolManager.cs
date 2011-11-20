@@ -1399,6 +1399,11 @@ namespace Smuxi.Engine
 #endif
                     return;
                 default:
+#if LOG4NET
+                    f_Logger.Error("CheckWebException(): " +
+                                   "Status: " + exception.Status + " " +
+                                   "ResponseUri: " + exception.Response.ResponseUri);
+#endif
                     throw exception;
             }
         }
