@@ -2,6 +2,9 @@ SUBDIRS = STFL
 
 EXTRA_DIST =  
 
+ASSEMBLY_CONFIG_SOURCE = smuxi-frontend-stfl.exe.config
+ASSEMBLY_CONFIG = $(BUILD_DIR)/smuxi-frontend-stfl.exe.config
+
 ASSEMBLY = $(BUILD_DIR)/smuxi-frontend-stfl.exe
 ASSEMBLY_MDB = $(ASSEMBLY).mdb
 COMPILE_TARGET = exe
@@ -30,7 +33,8 @@ PROGRAMFILES = \
 	$(SMUXI_ENGINE_DLL) \
 	$(SMUXI_FRONTEND_DLL_MDB) \
 	$(SMUXI_FRONTEND_DLL) \
-	$(SMUXI_COMMON_DLL)  
+	$(SMUXI_COMMON_DLL) \
+	$(ASSEMBLY_CONFIG)
 
 BINARIES = \
 	$(FRONTEND_STFL)  
@@ -98,6 +102,7 @@ $(eval $(call emit-deploy-target,SMUXI_FRONTEND_DLL_MDB))
 $(eval $(call emit-deploy-target,SMUXI_FRONTEND_DLL))
 $(eval $(call emit-deploy-target,SMUXI_COMMON_DLL))
 $(eval $(call emit-deploy-target,LOG4NET_CONFIG))
+$(eval $(call emit-deploy-target,ASSEMBLY_CONFIG))
 if ENABLE_STATIC_STFL
 $(eval $(call emit-deploy-target,STFLSHARP_SO))
 endif
