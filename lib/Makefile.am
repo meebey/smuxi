@@ -3,7 +3,7 @@ SUBDIRS =	SmartIrc4net
 OUTPUT_DIR = $(top_builddir)/bin/$(PROFILE)
 OBJECT_DIR = $(OUTPUT_DIR)/obj
 SOURCE_PATTERNS = *.cs */*.cs */*/*.cs */*/*/*.cs */*/*/*/*.cs */*/*/*/*/*.cs
-XBUILD_FLAGS = /p:Configuration=Debug /p:SignAssembly=false /p:WarningLevel=0 /p:OutputPath=$(abspath $(OUTPUT_DIR)) /p:BaseIntermediateOutputPath=$(abspath $(OBJECT_DIR))/ /p:DocumentationFile=
+XBUILD_FLAGS = /p:Configuration=Debug /p:SignAssembly=false /p:WarningLevel=0 /p:OutputPath=$(abspath $(OUTPUT_DIR)) /p:BaseIntermediateOutputPath=$(abspath $(OBJECT_DIR))/ /p:IntermediateOutputPath=$(abspath $(OBJECT_DIR))/ /p:DocumentationFile=
 
 JSON_SUBDIR = Newtonsoft.Json
 JSON_SRCDIR = $(srcdir)/$(JSON_SUBDIR)/Src/Newtonsoft.Json
@@ -15,18 +15,20 @@ JSON_XBUILD_FLAGS = $(XBUILD_FLAGS)
 
 TWITTERIZER_SUBDIR = Twitterizer
 TWITTERIZER_SRCDIR = $(srcdir)/$(TWITTERIZER_SUBDIR)/Twitterizer2
-TWITTERIZER_SOURCE_FILES = $(foreach pattern, $(SOURCE_PATTERNS), $(wildcard $(TWITTERIZER_SRCDIR)/$(pattern)))
+TWITTERIZER_SOURCE_FILES = $(foreach pattern, ../*.cs $(SOURCE_PATTERNS), $(wildcard $(TWITTERIZER_SRCDIR)/$(pattern)))
+TWITTERIZER_EXTRA_FILES = $(TWITTERIZER_SRCDIR)/Twitterizer2.snk $(TWITTERIZER_SRCDIR)/../GettingStarted.txt $(TWITTERIZER_SRCDIR)/../Json.NET.license.txt $(TWITTERIZER_SRCDIR)/../Twitterizer2.license.txt
 TWITTERIZER_ASSEMBLY_NAME = Twitterizer2.dll
 TWITTERIZER_ASSEMBLY_TARGET = $(OUTPUT_DIR)/$(TWITTERIZER_ASSEMBLY_NAME)
 TWITTERIZER_BUILD_FILE = $(TWITTERIZER_SRCDIR)/Twitterizer2.csproj
 TWITTERIZER_XBUILD_FLAGS = $(XBUILD_FLAGS) /p:PostBuildEvent=
 
 JABBER_NET_SUBDIR = jabber-net
-JABBER_NET_SRCDIR = $(srcdir)/$(JABBER_NET_SUBDIR)/jabber
-JABBET_NET_SOURCE_FILES = $(foreach pattern, $(SOURCE_PATTERNS), $(wildcard $(JABBER_NET_SRCDIR)/$(pattern)))
+JABBER_NET_SRCDIR = $(srcdir)/$(JABBER_NET_SUBDIR)
+JABBER_NET_SOURCE_FILES = $(foreach pattern, $(SOURCE_PATTERNS), $(wildcard $(JABBER_NET_SRCDIR)/$(pattern)))
+JABBER_NET_EXTRA_FILES = $(wildcard $(JABBER_NET_SRCDIR)/jabber/*/*.bmp) $(wildcard $(JABBER_NET_SRCDIR)/jabber/*/*.resx)
 JABBER_NET_ASSEMBLY_NAME = jabber-net.dll
 JABBER_NET_ASSEMBLY_TARGET = $(OUTPUT_DIR)/$(JABBER_NET_ASSEMBLY_NAME)
-JABBER_NET_BUILD_FILE = $(JABBER_NET_SUBDIR)/2005-jabber-net.csproj
+JABBER_NET_BUILD_FILE = $(JABBER_NET_SRCDIR)/2005-jabber-net.csproj
 JABBER_NET_XBUILD_FLAGS = $(XBUILD_FLAGS)
 
 DB4O_SUBDIR = db4o-net
@@ -71,13 +73,13 @@ pkglib_DATA = $(EXTRA_TWITTER_LIBS) $(EXTRA_XMPP_LIBS) $(EXTRA_DB4O_LIBS)
 
 EXTRA_DIST = \
 	 $(JSON_SOURCE_FILES) $(JSON_BUILD_FILE) $(JSON_SRCDIR)/Dynamic.snk \
-	 $(TWITTERIZER_SOURCE_FILES) $(TWITTERIZER_BUILD_FILE) $(TWITTERIZER_SRCDIR)/Twitterizer2.snk \
-	 $(JABBER_NET_SOURCE_FILES) $(JABBER_NET_BUILD_FILE) \
+	 $(TWITTERIZER_SOURCE_FILES) $(TWITTERIZER_EXTRA_FILES) $(TWITTERIZER_BUILD_FILE) \
+	 $(JABBER_NET_SOURCE_FILES) $(JABBER_NET_EXTRA_FILES) $(JABBER_NET_BUILD_FILE) \
 	 $(DB4O_SOURCE_FILES) $(DB4O_BUILD_FILE) \
 	 $(DB4O_INSTR_SOURCE_FILES) $(DB4O_INSTR_BUILD_FILE) \
 	 $(DB4O_NQ_SOURCE_FILES) $(DB4O_NQ_BUILD_FILE)
 
-CLEANFILES = $(OBJECT_DIR)/Debug/Newtonsoft.Json.Dynamic.snk
+CLEANFILES = $(OBJECT_DIR)/Newtonsoft.Json.Dynamic.snk $(wildcard $(OBJECT_DIR)/*.bmp) $(OUTPUT_DIR)/.license.txt
 # end of magic
 
 $(JSON_ASSEMBLY_TARGET) $(JSON_ASSEMBLY_TARGET).mdb: $(JSON_BUILD_FILE) $(JSON_SOURCE_FILES)
@@ -104,7 +106,7 @@ if ENABLE_ENGINE_TWITTER
 	$(XBUILD) $(TWITTERIZER_XBUILD_FLAGS) /t:Clean $(TWITTERIZER_BUILD_FILE)
 endif
 if ENABLE_ENGINE_XMPP
-	$(XBUILD) $(JABBET_NET_XBUILD_FLAGS) /t:Clean $(JABBER_NET_BUILD_FILE)
+	$(XBUILD) $(JABBER_NET_XBUILD_FLAGS) /t:Clean $(JABBER_NET_BUILD_FILE)
 endif
 if BUNDLE_DB4O
 	$(XBUILD) $(DB4O_XBUILD_FLAGS) /t:Clean $(DB4O_BUILD_FILE)
