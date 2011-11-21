@@ -152,8 +152,7 @@ namespace Smuxi.Engine
         
         public abstract bool Command(CommandModel cmd);
         public abstract void Connect(FrontendManager fm,
-                                     string hostname, int port,
-                                     string username, string password);
+                                     ServerModel server);
         public abstract void Reconnect(FrontendManager fm);
         public abstract void Disconnect(FrontendManager fm);
         

@@ -112,46 +112,29 @@ namespace Smuxi.Engine
             _ConferenceManager.OnParticipantLeave += OnParticipantLeave;
         }
 
-        public override void Connect(FrontendManager fm, string host, int port, string username, string password)
+        public override void Connect(FrontendManager fm, ServerModel server)
         {
-            Connect(fm, host, port, username, password, "smuxi");
-        }
-        
-        public void Connect(FrontendManager fm, string host, int port, string username, string password, string resource)
-        {
-            Trace.Call(fm, host, port, username, "XXX");
-            
+            Trace.Call(fm, server);
+
+            if (fm == null) {
+                throw new ArgumentNullException("fm");
+            }
+            if (server == null) {
+                throw new ArgumentNullException("server");
+            }
+
             _FrontendManager = fm;
-            Host = host;
-            Port = port;
-            
+            Host = server.Hostname;
+            Port = server.Port;
+
             // TODO: use config for single network chat or once per network manager
             _NetworkChat = Session.CreateChat<ProtocolChatModel>(
-                NetworkID, "Jabber " + host, this
+                NetworkID, "Jabber " + Host, this
             );
             Session.AddChat(_NetworkChat);
             Session.SyncChat(_NetworkChat);
-            
-            // HACK: try to lookup settings via config
-            var servers = new ServerListController(Session.UserConfig);
-            var serverModel = servers.GetServer(Protocol, host);
-            if (serverModel != null) {
-                ApplyConfig(Session.UserConfig, serverModel);
-            }
 
-            if (username.Contains("@")) {
-                var user = username.Split('@')[0];
-                var server = username.Split('@')[1];
-                _JabberClient.NetworkHost = host;
-                _JabberClient.Server = server;
-                _JabberClient.User = user;
-            } else {
-                _JabberClient.Server = host;
-                _JabberClient.User = username;
-            }
-            _JabberClient.Port = port;
-            _JabberClient.Password = password;
-            _JabberClient.Resource = resource;
+            ApplyConfig(Session.UserConfig, server);
 
             _JabberClient.Connect();
         }
@@ -333,18 +316,17 @@ namespace Smuxi.Engine
         {
             FrontendManager fm = cd.FrontendManager;
             
-            string server;
+            var server = new XmppServerModel();
             if (cd.DataArray.Length >= 3) {
-                server = cd.DataArray[2];
+                server.Hostname = cd.DataArray[2];
             } else {
                 NotEnoughParameters(cd);
                 return;
             }
             
-            int port;
             if (cd.DataArray.Length >= 4) {
                 try {
-                    port = Int32.Parse(cd.DataArray[3]);
+                    server.Port = Int32.Parse(cd.DataArray[3]);
                 } catch (FormatException) {
                     fm.AddTextToChat(
                         cd.Chat,
@@ -358,30 +340,25 @@ namespace Smuxi.Engine
                 return;
             }
             
-            string username;                
             if (cd.DataArray.Length >= 5) {
-                username = cd.DataArray[4];
+                server.Username = cd.DataArray[4];
             } else {
                 NotEnoughParameters(cd);
                 return;
             }
             
-            string password;
             if (cd.DataArray.Length >= 6) {
-                password = cd.DataArray[5];
+                server.Password = cd.DataArray[5];
             } else {
                 NotEnoughParameters(cd);
                 return;
             }
             
-            string resource;
             if (cd.DataArray.Length >= 7) {
-                resource = cd.DataArray[6];
-            } else {
-                resource = "smuxi";
+                server.Resource = cd.DataArray[6];
             }
-            
-            Connect(fm, server, port, username, password, resource);
+
+            Connect(fm, server);
         }
         
         public void CommandMessageQuery(CommandModel cd)
@@ -799,6 +776,30 @@ namespace Smuxi.Engine
 
         private void ApplyConfig(UserConfig config, ServerModel server)
         {
+            if (server.Username.Contains("@")) {
+                var jid_user = server.Username.Split('@')[0];
+                var jid_host = server.Username.Split('@')[1];
+                _JabberClient.NetworkHost = server.Hostname;
+                _JabberClient.User = jid_user;
+                _JabberClient.Server = jid_host;
+            } else {
+                _JabberClient.Server = server.Hostname;
+                _JabberClient.User = server.Username;
+            }
+            _JabberClient.Port = server.Port;
+            _JabberClient.Password = server.Password;
+
+            // XMPP specific settings
+            if (server is XmppServerModel) {
+                var xmppServer = (XmppServerModel) server;
+                _JabberClient.Resource = xmppServer.Resource;
+            }
+
+            // fallback
+            if (String.IsNullOrEmpty(_JabberClient.Resource)) {
+                _JabberClient.Resource = "smuxi";
+            }
+
             _JabberClient.OnInvalidCertificate -= ValidateCertificate;
 
             _JabberClient.AutoStartTLS = server.UseEncryption;

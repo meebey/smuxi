@@ -106,22 +106,29 @@ namespace Smuxi.Engine
 //            _Conversation.Switchboard.ContactLeft   += new .ContactChangedEventHandler(ContactLeft);            
         }
         
-        public override void Connect(FrontendManager fm, string host, int port, string username, string password)
+        public override void Connect(FrontendManager fm, ServerModel server)
         {
-            Trace.Call(fm, host, port, username, password);
-            
-            _UsersAddress = username;
+            Trace.Call(fm, server);
+
+            if (fm == null) {
+                throw new ArgumentNullException("fm");
+            }
+            if (server == null) {
+                throw new ArgumentNullException("server");
+            }
+
             _FrontendManager = fm;
-            Host = host;
-            Port = port;
+            _UsersAddress = server.Username;
+            Host = server.Hostname;
+            Port = server.Port;
             
             // TODO: use config for single network chat or once per network manager
             _NetworkChat = new ProtocolChatModel(NetworkID, "MSN Messenger", this);
             Session.AddChat(_NetworkChat);
             Session.SyncChat(_NetworkChat);
             
-            _MsnClient.Credentials.Account = username;
-            _MsnClient.Credentials.Password = password;
+            _MsnClient.Credentials.Account = server.Username;
+            _MsnClient.Credentials.Password = server.Password;
             _MsnClient.Connect();
         }
         
@@ -256,23 +263,22 @@ namespace Smuxi.Engine
         {
             FrontendManager fm = cd.FrontendManager;
             
-            string user;
+            var server = new ServerModel();
             if (cd.DataArray.Length >= 1) {
-                user = cd.DataArray[2];
+                server.Username = cd.DataArray[2];
             } else {
                 NotEnoughParameters(cd);
                 return;
             }
             
-            string pass;
             if (cd.DataArray.Length >= 2) {
-                pass = cd.DataArray[3];
+                server.Password = cd.DataArray[3];
             } else {
                 NotEnoughParameters(cd);
                 return;
             }
             
-            Connect(fm, null, 0, user, pass);
+            Connect(fm, server);
         }
         
         private void _Say(CommandModel command, string text)

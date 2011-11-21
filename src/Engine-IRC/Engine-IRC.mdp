@@ -23,6 +23,8 @@
     <File subtype="Code" buildaction="Nothing" name="../../po-Engine-IRC/de.po" />
     <File subtype="Code" buildaction="Nothing" name="../../po-Engine-IRC/es.po" />
     <File subtype="Code" buildaction="Compile" name="Protocols/Irc/IrcMessageBuilder.cs" />
+    <File subtype="Directory" buildaction="Compile" name="Config" />
+    <File subtype="Code" buildaction="Compile" name="Config/IrcServerModel.cs" />
   </Contents>
   <References>
     <ProjectReference type="Project" localcopy="True" refto="Common" />

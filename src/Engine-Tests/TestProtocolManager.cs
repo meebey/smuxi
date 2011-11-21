@@ -65,7 +65,7 @@ namespace Smuxi.Engine
             throw new System.NotImplementedException();
         }
 
-        public override void Connect (FrontendManager fm, string hostname, int port, string username, string password)
+        public override void Connect (FrontendManager fm, ServerModel server)
         {
             throw new System.NotImplementedException();
         }

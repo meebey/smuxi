@@ -21,6 +21,7 @@
     <File subtype="Directory" buildaction="Compile" name="Protocols/Xmpp/IQ" />
     <File subtype="Code" buildaction="Compile" name="Protocols/Xmpp/IQ/OwnMessage.cs" />
     <File subtype="Directory" buildaction="Compile" name="." />
+    <File subtype="Code" buildaction="Compile" name="Config/XmppServerModel.cs" />
   </Contents>
   <References>
     <ProjectReference type="Project" localcopy="True" refto="Common" />

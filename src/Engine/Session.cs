@@ -1116,8 +1116,7 @@ namespace Smuxi.Engine
             if (!String.IsNullOrEmpty(server.Password)) {
                 password = server.Password;
             }
-            protocolManager.Connect(frontendManager, server.Hostname,
-                                    server.Port, server.Username, password);
+            protocolManager.Connect(frontendManager, server);
             if (protocolManager.Chat == null) {
                 // just in case the ProtocolManager is not setting the
                 // protocol chat

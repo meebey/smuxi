@@ -96,10 +96,17 @@ namespace Smuxi.Engine
             Trace.Call(session);
         }
         
-        public override void Connect(FrontendManager fm, string host, int port, string username, string password)
+        public override void Connect(FrontendManager fm, ServerModel server)
         {
-            Trace.Call(fm, host, port, username, password);
+            Trace.Call(fm, server);
             
+            if (fm == null) {
+                throw new ArgumentNullException("fm");
+            }
+            if (server == null) {
+                throw new ArgumentNullException("server");
+            }
+
             _FrontendManager = fm;
             Host = "login.oscar.aol.com";
             Port = 5190;
@@ -109,7 +116,7 @@ namespace Smuxi.Engine
             Session.AddChat(_NetworkChat);
             Session.SyncChat(_NetworkChat);
             
-            _OscarSession = new OscarSession(username, password);
+            _OscarSession = new OscarSession(server.Username, server.Password);
             _OscarSession.ClientCapabilities = Capabilities.Chat | Capabilities.OscarLib;
             _OscarSession.LoginCompleted           += new LoginCompletedHandler(_OnLoginCompleted);
             _OscarSession.LoginFailed              += new LoginFailedHandler(_OnLoginFailed);
@@ -211,31 +218,22 @@ namespace Smuxi.Engine
         {
             FrontendManager fm = cd.FrontendManager;
             
-            string protocol;
-            if (cd.DataArray.Length >= 2) {
-                protocol = cd.DataArray[1];
-            } else {
-                NotEnoughParameters(cd);
-                return;
-            }
-            
-            string username;                
+            var server = new ServerModel();
             if (cd.DataArray.Length >= 3) {
-                username = cd.DataArray[2];
+                server.Username = cd.DataArray[2];
             } else {
                 NotEnoughParameters(cd);
                 return;
             }
             
-            string password;
             if (cd.DataArray.Length >= 4) {
-                password = cd.DataArray[3];
+                server.Password = cd.DataArray[3];
             } else {
                 NotEnoughParameters(cd);
                 return;
             }
             
-            Connect(fm, null, 0, username, password);
+            Connect(fm, server);
         }
         
         public void CommandHelp(CommandModel cd)

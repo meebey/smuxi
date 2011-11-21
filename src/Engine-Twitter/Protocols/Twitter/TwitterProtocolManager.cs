@@ -153,12 +153,18 @@ namespace Smuxi.Engine
             f_GroupChats.Add(f_DirectMessagesChat);
         }
 
-        public override void Connect(FrontendManager fm, string host, int port,
-                                     string username, string password)
+        public override void Connect(FrontendManager fm, ServerModel server)
         {
-            Trace.Call(fm, host, port, username, "XXX");
+            Trace.Call(fm, server);
 
-            f_Username = username;
+            if (fm == null) {
+                throw new ArgumentNullException("fm");
+            }
+            if (server == null) {
+                throw new ArgumentNullException("server");
+            }
+
+            f_Username = server.Username;
 
             var proxyType = (string) Session.UserConfig["Connection/ProxyType"];
             if (proxyType.ToLower() == "http") {
@@ -173,7 +179,7 @@ namespace Smuxi.Engine
             }
             f_OptionalProperties = CreateOptions<OptionalProperties>();
 
-            f_ProtocolChat = new ProtocolChatModel(NetworkID, "Twitter " + username, this);
+            f_ProtocolChat = new ProtocolChatModel(NetworkID, "Twitter " + f_Username, this);
             f_ProtocolChat.InitMessageBuffer(
                 MessageBufferPersistencyType.Volatile
             );
@@ -192,16 +198,7 @@ namespace Smuxi.Engine
                 f_OAuthTokens.ConsumerSecret = key[1];
 
                 MessageBuilder builder;
-                var servers = new ServerListController(Session.UserConfig);
-                var server = servers.GetServer(Protocol, username);
-                if (server != null) {
-                    if (password == null) {
-                        // no password passed, use server password
-                        password = server.Password;
-                    }
-                }
-
-                password = password ?? String.Empty;
+                var password = server.Password ?? String.Empty;
                 var access = password.Split('|');
                 if (access.Length == 2) {
                     f_OAuthTokens.AccessToken = access[0];
@@ -627,15 +624,15 @@ namespace Smuxi.Engine
 
         public void CommandConnect(CommandModel cd)
         {
-            string user;
+            var server = new ServerModel();
             if (cd.DataArray.Length >= 3) {
-                user = cd.DataArray[2];
+                server.Username = cd.DataArray[2];
             } else {
                 NotEnoughParameters(cd);
                 return;
             }
 
-            Connect(cd.FrontendManager, null, 0, user, null);
+            Connect(cd.FrontendManager, server);
         }
 
         public void CommandPin(CommandModel cd)

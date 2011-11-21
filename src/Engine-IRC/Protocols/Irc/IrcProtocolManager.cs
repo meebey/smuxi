@@ -282,24 +282,21 @@ namespace Smuxi.Engine
             return result;
         }
 
-        public override void Connect(FrontendManager fm, string server, int port, string user, string pass)
+        public override void Connect(FrontendManager fm, ServerModel server)
         {
-            Trace.Call(fm, server, port, user, pass);
+            Trace.Call(fm, server);
 
-            string[] nicks = (string[]) Session.UserConfig["Connection/Nicknames"];
-            Connect(fm, server, port, nicks, user, pass);
-        }
-        
-        public void Connect(FrontendManager fm, string server, int port, string[] nicks, string user, string pass)
-        {
-            Trace.Call(fm, server, port, nicks, user, pass);
-            
+            if (fm == null) {
+                throw new ArgumentNullException("fm");
+            }
+            if (server == null) {
+                throw new ArgumentNullException("server");
+            }
+
             _FrontendManager = fm;
-            _Host = server;
-            _Port = port;
-            _Nicknames = nicks;
-            _Username = user;
-            _Password = pass;
+            _ServerModel = server;
+
+            ApplyConfig(Session.UserConfig, server);
 
             // add fallbacks if only one nick was specified, else we get random
             // number nicks when nick collisions happen
@@ -308,21 +305,8 @@ namespace Smuxi.Engine
             }
 
             // TODO: use config for single network chat or once per network manager
-            var servers = new ServerListController(Session.UserConfig);
-            var serverModel = servers.GetServer(Protocol, server);
-            _ServerModel = serverModel;
-            ApplyConfig(Session.UserConfig, serverModel);
-
-            string network;
-            if (serverModel != null && !String.IsNullOrEmpty(serverModel.Network)) {
-                network = serverModel.Network;
-            } else {
-                network = server;
-            }
-
-            _Network = network;
             _NetworkChat = Session.CreateChat<ProtocolChatModel>(
-                network, "IRC " + network, this
+                _Network, "IRC " + _Network, this
             );
 
             // BUG: race condition when we use Session.AddChat() as it pushes this already
@@ -334,12 +318,18 @@ namespace Smuxi.Engine
 
             _RunThread = new Thread(new ThreadStart(_Run));
             _RunThread.IsBackground = true;
-            _RunThread.Name = "IrcProtocolManager ("+server+":"+port+") listener";
+            _RunThread.Name = String.Format(
+                "IrcProtocolManager ({0}:{1}) listener",
+                server.Hostname, server.Port
+             );
             _RunThread.Start();
             
             _LagWatcherThread = new Thread(new ThreadStart(_LagWatcher));
             _LagWatcherThread.IsBackground = true;
-            _LagWatcherThread.Name = "IrcProtocolManager ("+server+":"+port+") lag watcher";
+            _LagWatcherThread.Name = String.Format(
+                "IrcProtocolManager ({0}:{1}) lag watcher",
+                server.Hostname, server.Port
+             );
             _LagWatcherThread.Start();
         }
 
@@ -884,18 +874,17 @@ namespace Smuxi.Engine
         public void CommandConnect(CommandModel cd)
         {
             FrontendManager fm = cd.FrontendManager;
-            
-            string server;
+
+            var server = new IrcServerModel();
             if (cd.DataArray.Length >= 3) {
-                server = cd.DataArray[2];
+                server.Hostname = cd.DataArray[2];
             } else {
-                server = "localhost";
+                server.Hostname = "localhost";
             }
             
-            int port;
             if (cd.DataArray.Length >= 4) {
                 try {
-                    port = Int32.Parse(cd.DataArray[3]);
+                    server.Port = Int32.Parse(cd.DataArray[3]);
                 } catch (FormatException) {
                     fm.AddTextToChat(
                         cd.Chat,
@@ -909,26 +898,20 @@ namespace Smuxi.Engine
                     return;
                 }
             } else {
-                port = 6667;
+                server.Port = 6667;
             }
             
-            string pass;                
-            if (cd.DataArray.Length >=5) {
-                pass = cd.DataArray[4];
-            } else {
-                pass = null;
+            if (cd.DataArray.Length >= 5) {
+                server.Password = cd.DataArray[4];
             }
             
-            string[] nicks;
             if (cd.DataArray.Length >= 6) {
-                nicks = new string[] {cd.DataArray[5]};
-            } else {
-                nicks = (string[])Session.UserConfig["Connection/Nicknames"];
+                var nicks = new List<string>(1);
+                nicks.Add(cd.DataArray[5]);
+                server.Nicknames = nicks;
             }
-            
-            string username = (string)Session.UserConfig["Connection/Username"];
-            
-            Connect(fm, server, port, nicks, username, pass);
+
+            Connect(fm, server);
         }
         
         public void CommandSay(CommandModel cd)
@@ -2051,8 +2034,36 @@ namespace Smuxi.Engine
 
         private void ApplyConfig(UserConfig config, ServerModel server)
         {
-            if (String.IsNullOrEmpty(_Username)) {
+            _Host = server.Hostname;
+            _Port = server.Port;
+            if (String.IsNullOrEmpty(server.Network)) {
+                _Network = server.Hostname;
+            } else {
+                _Network = server.Network;
+            }
+            if (String.IsNullOrEmpty(server.Username)) {
                 _Username = (string) config["Connection/Username"];
+            } else {
+                _Username = server.Username;
+            }
+            _Password = server.Password;
+
+            // internal fallbacks
+            if (String.IsNullOrEmpty(_Username)) {
+                _Username = "smuxi";
+            }
+
+            // IRC specific settings
+            if (server is IrcServerModel) {
+                var ircServer = (IrcServerModel) server;
+                if (ircServer.Nicknames != null && ircServer.Nicknames.Count > 0) {
+                    _Nicknames = ircServer.Nicknames.ToArray();
+                }
+            }
+
+            // global fallbacks
+            if (_Nicknames == null) {
+                _Nicknames = (string[]) config["Connection/Nicknames"];
             }
 
             string encodingName = (string) config["Connection/Encoding"];

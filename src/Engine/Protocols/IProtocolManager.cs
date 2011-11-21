@@ -69,7 +69,7 @@ namespace Smuxi.Engine
             get;
         }
 
-        void Connect(FrontendManager frontendManager, string hostname, int port, string username, string password);
+        void Connect(FrontendManager frontendManager, ServerModel server);
         void Disconnect(FrontendManager frontendManager);
         void Reconnect(FrontendManager frontendManager);
         

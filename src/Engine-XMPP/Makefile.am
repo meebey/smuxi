@@ -6,6 +6,7 @@ ASSEMBLY_TARGET = $(TARGET_DIR)/$(ASSEMBLY_FILENAME)
 SOURCES = \
 	$(top_srcdir)/src/AssemblyVersion.cs \
 	AssemblyInfo.cs \
+	Config/XmppServerModel.cs \
 	Protocols/Xmpp/XmppGroupChatModel.cs \
 	Protocols/Xmpp/XmppProtocolManager.cs \
 	Protocols/Xmpp/IQ/OwnMessage.cs
