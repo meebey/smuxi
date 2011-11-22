@@ -100,8 +100,12 @@ $AUTOMAKE --add-missing --foreign $am_opt
 echo "Running $AUTOCONF ..."
 $AUTOCONF
 
-git submodule init
-git submodule update
+if test x$NOGIT = x; then
+    git submodule init
+    git submodule update
+else
+    echo Skipping git submodule initialization.
+fi
 
 if test -d $srcdir/lib/SmartIrc4net; then
     echo Running lib/SmartIrc4net/autogen.sh ...
