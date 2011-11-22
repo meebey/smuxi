@@ -1,2 +1,3 @@
 usr/lib/smuxi/smuxi-common.dll*
 usr/lib/smuxi/smuxi-engine.dll*
+usr/share/locale/*/LC_MESSAGES/smuxi-engine.mo

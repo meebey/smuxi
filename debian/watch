@@ -1,2 +1,2 @@
 version=3
-http://sf.net/smuxi/smuxi-(.*)\.tar\.gz
+http://www.smuxi.org/jaws/data/files/smuxi-([\d.]+)\.tar\.gz

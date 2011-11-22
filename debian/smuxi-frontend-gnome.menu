@@ -1,3 +1,3 @@
-?package(smuxi):needs="X11" section="Apps/Net"\
-  title="smuxi" command="/usr/bin/smuxi-gnome-frontend"\
-  icon="/usr/share/pixmaps/gnome-talk.png"
+?package(smuxi-frontend-gnome):needs="X11" section="Applications/Network/Communication"\
+  title="Smuxi" command="/usr/bin/smuxi-frontend-gnome"\
+  icon="/usr/share/pixmaps/smuxi-frontend-gnome.svg"

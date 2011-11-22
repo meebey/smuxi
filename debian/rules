@@ -1,68 +1,17 @@
 #!/usr/bin/make -f
-#export DH_VERBOSE=1
-export MONO_SHARED_DIR=$(CURDIR)
+export DH_VERBOSE=1
 
-DEB_HOST_GNU_TYPE   ?= $(shell dpkg-architecture -qDEB_HOST_GNU_TYPE)
-DEB_BUILD_GNU_TYPE  ?= $(shell dpkg-architecture -qDEB_BUILD_GNU_TYPE)
+include /usr/share/cli-common/cli.make
 
-CFLAGS = -Wall -g
+override_dh_auto_configure:
+	NOCONFIGURE=1 NOGIT=1 ./autogen.sh
+	dh_auto_configure -- --enable-engine-irc --enable-frontend-gnome --with-notify --with-indicate GMCS=/usr/bin/mono-csc MCS=/usr/bin/mono-csc
 
-ifneq (,$(findstring noopt,$(DEB_BUILD_OPTIONS)))
-	CFLAGS += -O0
-else
-	CFLAGS += -O2
-endif
+# disable "make check"
+override_dh_auto_test:
 
-# Include dpatch stuff.
-include /usr/share/dpatch/dpatch.make
+# disable stripping debugging symbols
+override_dh_clistrip:
 
-build: patch build-stamp
-build-stamp:
-	dh_testdir
-	./configure --prefix=/usr --enable-engine-irc --enable-frontend-gnome
-	$(MAKE)
-	touch build-stamp
-
-clean: clean-patched unpatch
-clean-patched:
-	dh_testdir
-	dh_testroot
-	rm -f build-stamp 
-	-$(MAKE) clean
-	rm -rf $(MONO_SHARED_DIR)/.wapi
-	dh_clean 
-
-install: build
-	dh_testdir
-	dh_testroot
-	dh_clean -k 
-	dh_installdirs
-	$(MAKE) install PREFIX=/usr DESTDIR=$(CURDIR)/debian/tmp
-
-binary-indep: build install
-	dh_testdir
-	dh_testroot
-	dh_install --sourcedir=debian/tmp
-	#dh_installchangelogs ChangeLog
-	dh_installdocs
-	dh_installexamples
-	dh_installmenu
-	dh_installman
-	dh_gconf
-	dh_desktop
-	dh_link
-	dh_strip
-	dh_compress
-	dh_fixperms
-	dh_clifixperms
-	dh_installdeb
-	dh_makeclilibs -V
-	dh_clideps
-	dh_gencontrol
-	dh_md5sums
-	dh_builddeb
-
-binary-arch:
-
-binary: binary-indep
-.PHONY: build clean binary-indep binary-arch binary install patch unpatch
+%:
+	dh $@
