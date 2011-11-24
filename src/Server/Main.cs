@@ -57,7 +57,7 @@ namespace Smuxi.Server
             bool modUser    = false;
             bool listUsers  = false;
             bool debug      = false;
-            bool optBuffers = false;
+            string optBuffers = null;
 
             string username = null;
             string password = null;
@@ -129,10 +129,15 @@ namespace Smuxi.Server
             );
 
             parser.Add(
-                "optimize-message-buffers",
-                _("Optimize message buffers and exit"),
+                "optimize-message-buffers=",
+                _("Optimize message buffers and exit " +
+                  "(valid values: none, defrag, index, all)"),
                 delegate (string val) {
-                    optBuffers = true;
+                    if (String.IsNullOrEmpty(val)) {
+                        val = "all";
+                    }
+                    CheckOptimizeMessageBuffersParameter(val);
+                    optBuffers = val;
                 }
             );
 
@@ -168,8 +173,8 @@ namespace Smuxi.Server
                     repo.Threshold = log4net.Core.Level.Debug;
                 }
 #endif
-                if (optBuffers) {
-                    OptimizeMessageBuffers();
+                if (optBuffers != null) {
+                    OptimizeMessageBuffers(optBuffers);
                 }
                 if (addUser || modUser) {
                     CheckUsernameParameter(username);
@@ -262,6 +267,28 @@ namespace Smuxi.Server
             }
         }
 
+        private static void CheckOptimizeMessageBuffersParameter(string opts)
+        {
+            try {
+                ParseBufferOptimizationTypes(opts);
+            } catch (Exception) {
+                var validOpts = Enum.GetNames(typeof(Db4oMessageBufferOptimizationTypes));
+                // lower-case values
+                for (int i = 0; i < validOpts.Length; i++) {
+                    validOpts[i] = validOpts[i].ToLower();
+                }
+                var validValues = String.Join(", ", validOpts);
+                throw new OptionException(
+                    String.Format(
+                        _("Invalid optimization value passed to " +
+                          "--optimize-message-buffer, valid values are: {0}"),
+                        validValues
+                    ),
+                    String.Empty
+                );
+            }
+        }
+
         private static void ManageUser(bool addUser, bool delUser, bool modUser,
                                        bool listUsers,
                                        string username, string password)
@@ -310,7 +337,26 @@ namespace Smuxi.Server
             }
         }
 
-        private static void OptimizeMessageBuffers()
+        private static Db4oMessageBufferOptimizationTypes ParseBufferOptimizationTypes(string optString)
+        {
+            if (optString == null) {
+                throw new ArgumentNullException("optString");
+            }
+
+            var optList = optString.Split(' ', ',');
+            var opts = Db4oMessageBufferOptimizationTypes.None;
+            foreach (var optItem in optList) {
+                var optEnum = (Db4oMessageBufferOptimizationTypes) Enum.Parse(
+                    typeof(Db4oMessageBufferOptimizationTypes),
+                    optItem,
+                    true
+                );
+                opts |= optEnum;
+            }
+            return opts;
+        }
+
+        private static void OptimizeMessageBuffers(string optString)
         {
             var logRepo = log4net.LogManager.GetRepository();
             var origThreshold = logRepo.Threshold;
@@ -319,7 +365,12 @@ namespace Smuxi.Server
                 logRepo.Threshold = log4net.Core.Level.Fatal;
             }
             try {
-                var bufferCount = Db4oMessageBuffer.OptimizeAllBuffers();
+                var opts = ParseBufferOptimizationTypes(optString);
+                if (opts == Db4oMessageBufferOptimizationTypes.None) {
+                    Environment.Exit(0);
+                    return;
+                }
+                var bufferCount = Db4oMessageBuffer.OptimizeAllBuffers(opts);
                 Console.WriteLine(
                     String.Format(
                         _("Successfully optimized {0} message buffers."),
