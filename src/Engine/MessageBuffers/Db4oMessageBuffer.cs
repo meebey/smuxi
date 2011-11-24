@@ -310,8 +310,8 @@ namespace Smuxi.Engine
 #if LOG4NET
             Logger.Debug(
                 String.Format(
-                    "OptimizeAllBuffers(): optimizing buffers took: {0:0.000} min",
-                    (stop - start).TotalMinutes
+                    "OptimizeAllBuffers(): optimizing buffers took: {0:0} second(s)",
+                    (stop - start).TotalSeconds
                 )
             );
 #endif
