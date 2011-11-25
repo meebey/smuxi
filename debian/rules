@@ -17,11 +17,9 @@ override_dh_auto_test:
 override_dh_clistrip:
 
 override_dh_clideps:
-# HACK: Undo GTK# API bump for Ubuntu 11.04 (natty) as it breaks binary
-# package compatibility with Debian 6.0 (squeeze)
-ifeq ($(LSB_VENDOR) $(LSB_CODENAME), Ubuntu natty)
-	cat debian/gtk-sharp-2.12.10.clilibs debian/gnome-sharp-2.24.clilibs >> debian/smuxi-frontend-gnome/DEBIAN/clilibs
-	cat debian/gtk-sharp-2.12.10.clilibs debian/gnome-sharp-2.24.clilibs >> debian/smuxi-frontend-gnome-irc/DEBIAN/clilibs
+# HACK: force missing native dependency on libindicate4 via hacked clilibs
+ifeq ($(LSB_VENDOR) $(LSB_CODENAME), Ubuntu lucid)
+	cat debian/indicate-sharp-0.4.1.clilibs >> debian/smuxi-frontend-gnome/DEBIAN/clilibs
 endif
 	dh_clideps
 
