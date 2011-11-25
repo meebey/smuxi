@@ -1,3 +1,4 @@
 usr/lib/smuxi/smuxi-common.dll*
 usr/lib/smuxi/smuxi-engine.dll*
+usr/lib/smuxi/Db4objects.Db4o.dll*
 usr/share/locale/*/LC_MESSAGES/smuxi-engine.mo
