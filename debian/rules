@@ -5,7 +5,7 @@ include /usr/share/cli-common/cli.make
 
 override_dh_auto_configure:
 	NOCONFIGURE=1 NOGIT=1 ./autogen.sh
-	dh_auto_configure -- --enable-engine-irc --enable-frontend-gnome --with-notify --with-indicate GMCS=/usr/bin/mono-csc MCS=/usr/bin/mono-csc
+	dh_auto_configure -- --enable-engine-irc --enable-frontend-gnome --with-notify GMCS=/usr/bin/mono-csc MCS=/usr/bin/mono-csc
 
 # disable "make check"
 override_dh_auto_test:
