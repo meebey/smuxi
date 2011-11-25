@@ -1456,6 +1456,8 @@ namespace Smuxi.Engine
                 case RequestResult.RateLimited:
                 case RequestResult.TwitterIsDown:
                 case RequestResult.TwitterIsOverloaded:
+                // probably "Twitter is over capacity"
+                case RequestResult.Unknown:
 #if LOG4NET
                     f_Logger.Debug("IsTemporilyErrorResponse(): " +
                                    "Detected temporily error " +
