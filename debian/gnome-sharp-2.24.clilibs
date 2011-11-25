@@ -1,0 +1,5 @@
+art-sharp 2.24.0.0__35e10195dab3c99f libart2.0-cil (>= 2.24.0)
+gconf-sharp 2.24.0.0__35e10195dab3c99f libgconf2.0-cil (>= 2.24.0)
+gnome-sharp 2.24.0.0__35e10195dab3c99f libgnome2.24-cil (>= 2.24.0)
+gconf-sharp-peditors 2.24.0.0__35e10195dab3c99f libgnome2.24-cil (>= 2.24.0)
+gnome-vfs-sharp 2.24.0.0__35e10195dab3c99f libgnome-vfs2.0-cil (>= 2.24.0)

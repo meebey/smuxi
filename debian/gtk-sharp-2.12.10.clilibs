@@ -1,0 +1,7 @@
+atk-sharp 2.12.0.0__35e10195dab3c99f libgtk2.0-cil (>= 2.12.10)
+pango-sharp 2.12.0.0__35e10195dab3c99f libgtk2.0-cil (>= 2.12.10)
+gdk-sharp 2.12.0.0__35e10195dab3c99f libgtk2.0-cil (>= 2.12.10)
+gtk-sharp 2.12.0.0__35e10195dab3c99f libgtk2.0-cil (>= 2.12.10)
+gtk-dotnet 2.12.0.0__35e10195dab3c99f libgtk2.0-cil (>= 2.12.10)
+glade-sharp 2.12.0.0__35e10195dab3c99f libglade2.0-cil (>= 2.12.10)
+glib-sharp 2.12.0.0__35e10195dab3c99f libglib2.0-cil (>= 2.12.10)
