@@ -3,6 +3,9 @@ export DH_VERBOSE=1
 
 include /usr/share/cli-common/cli.make
 
+LSB_VENDOR = $(shell lsb_release -is)
+LSB_CODENAME = $(shell lsb_release -cs)
+
 override_dh_auto_configure:
 	NOCONFIGURE=1 NOGIT=1 ./autogen.sh
 	dh_auto_configure -- --enable-engine-irc --enable-frontend-gnome --with-notify GMCS=/usr/bin/mono-csc MCS=/usr/bin/mono-csc
@@ -12,6 +15,15 @@ override_dh_auto_test:
 
 # disable stripping debugging symbols
 override_dh_clistrip:
+
+override_dh_clideps:
+# HACK: Undo GTK# API bump for Ubuntu 11.04 (natty) as it breaks binary
+# package compatibility with Debian 6.0 (squeeze)
+ifeq ($(LSB_VENDOR) $(LSB_CODENAME), Ubuntu natty)
+	cat debian/gtk-sharp-2.12.10.clilibs debian/gnome-sharp-2.24.clilibs >> debian/smuxi-frontend-gnome/DEBIAN/clilibs
+	cat debian/gtk-sharp-2.12.10.clilibs debian/gnome-sharp-2.24.clilibs >> debian/smuxi-frontend-gnome-irc/DEBIAN/clilibs
+endif
+	dh_clideps
 
 %:
 	dh $@
