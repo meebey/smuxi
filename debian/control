@@ -16,7 +16,7 @@ Build-Depends-Indep: cli-common-dev (>= 0.5.7),
  libart2.0-cil-dev (>= 2.8),
  libnotify-cil-dev,
  libindicate0.1-cil-dev | dpkg,
- libdbus1.0-cil-dev | libndesk-dbus1.0-cil-dev
+ libdbus1.0-cil-dev | libndesk-dbus1.0-cil-dev,
  lsb-release,
  pkg-config,
  gettext,
