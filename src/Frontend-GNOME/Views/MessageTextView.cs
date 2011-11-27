@@ -195,7 +195,7 @@ namespace Smuxi.Frontend.Gnome
                 var msgTimeStamp = msg.TimeStamp.ToLocalTime();
                 if (_LastMessage != null) {
                     var lastMsgTimeStamp = _LastMessage.TimeStamp.ToLocalTime();
-                    var span = msgTimeStamp - lastMsgTimeStamp;
+                    var span = msgTimeStamp.Date - lastMsgTimeStamp.Date;
                     string dayLine = null;
                     if (span.Days > 1) {
                         dayLine = String.Format(
@@ -206,7 +206,7 @@ namespace Smuxi.Frontend.Gnome
                     } else if (span.Days > 0) {
                         dayLine = String.Format(
                             "-!- " + _("Day changed to {0}"),
-                            msgTimeStamp.Date.ToLongDateString()
+                            msgTimeStamp.ToLongDateString()
                         );
                     }
 
