@@ -48,6 +48,7 @@ all: $(ASSEMBLY) $(PROGRAMFILES) $(LINUX_PKGCONFIG)
 FILES = \
 	$(top_srcdir)/src/AssemblyVersion.cs \
 	AssemblyInfo.cs \
+	AtomFeed.cs \
 	Crc32.cs \
 	IOSecurity.cs \
 	ITraceable.cs \
