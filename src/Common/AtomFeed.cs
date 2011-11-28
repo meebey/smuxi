@@ -25,7 +25,7 @@ namespace Smuxi.Common
         [XmlElement("entry")] public AtomEntry[] Entry;
         
         private static XmlSerializer ser = new XmlSerializer(typeof(AtomFeed),
-	"http://www.w3.org/2005/Atom");
+                                                             "http://www.w3.org/2005/Atom");
 
         public static AtomFeed LoadFromXml(string file)
         {
@@ -37,9 +37,9 @@ namespace Smuxi.Common
                 return null;
             }
         }
-		
-		public static AtomFeed Load(StringReader sr)
-		{
+
+        public static AtomFeed Load(StringReader sr)
+        {
             return (AtomFeed)ser.Deserialize(sr);
         }
 
@@ -62,11 +62,11 @@ namespace Smuxi.Common
 
         public AtomLink LinkByType(string type)
         {
-                foreach(AtomLink link in Link){
-                    if(link.Type == type){
-                        return link;
-                    }
+            foreach(AtomLink link in Link){
+                if(link.Type == type){
+                    return link;
                 }
+            }
 
             return null;
         }
@@ -129,11 +129,11 @@ namespace Smuxi.Common
 
         public AtomText ContentByType(string type)
         {
-                foreach(AtomText text in Content){
-                    if(text.Type == type){
-                        return text;
-                    }
+            foreach(AtomText text in Content){
+                if(text.Type == type){
+                    return text;
                 }
+            }
 
             return null;
         }
