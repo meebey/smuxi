@@ -9,7 +9,7 @@ using System.IO;
 using System.Text;
 using System.Xml.Serialization;
 
-namespace Atom
+namespace Smuxi.Common
 {
     [XmlType("feed")]
     public class AtomFeed
