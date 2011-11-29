@@ -55,6 +55,8 @@ namespace Smuxi.Engine
         Timer NewsFeedTimer { get; set; }
         List<string> SeenNewsFeedIds { get; set; }
         DateTime NewsFeedLastModified { get; set; }
+        TimeSpan NewsFeedUpdateInterval { get; set; }
+        TimeSpan NewsFeedRetryInterval { get; set; }
 
         public IList<IProtocolManager> ProtocolManagers {
             get {
@@ -134,8 +136,10 @@ namespace Smuxi.Engine
             InitSessionChat();
 
             SeenNewsFeedIds = new List<string>();
+            NewsFeedUpdateInterval = TimeSpan.FromHours(12);
+            NewsFeedRetryInterval = TimeSpan.FromMinutes(5);
             NewsFeedTimer = new Timer(delegate { UpdateNewsFeed(); }, null,
-                                      TimeSpan.Zero, TimeSpan.FromHours(12));
+                                      TimeSpan.Zero, NewsFeedUpdateInterval);
         }
 
         protected MessageBuilder CreateMessageBuilder()
@@ -1431,6 +1435,27 @@ namespace Smuxi.Engine
                     SeenNewsFeedIds.Add(entry.Id);
                 }
                 AddMessageToChat(SessionChat, msg.ToMessage());
+            } catch (WebException ex) {
+                switch (ex.Status) {
+                    case WebExceptionStatus.ConnectFailure:
+                    case WebExceptionStatus.ConnectionClosed:
+                    case WebExceptionStatus.Timeout:
+                    case WebExceptionStatus.ReceiveFailure:
+                    case WebExceptionStatus.NameResolutionFailure:
+                    case WebExceptionStatus.ProxyNameResolutionFailure:
+#if LOG4NET
+                        f_Logger.Warn(
+                            String.Format(
+                                "UpdateNewsFeed(): Temporarily issue " +
+                                "detected, retrying in {0} min...",
+                                NewsFeedRetryInterval.Minutes
+                            ),
+                            ex
+                        );
+#endif
+                        NewsFeedTimer.Change(NewsFeedRetryInterval, NewsFeedUpdateInterval);
+                        break;
+                }
             } catch (Exception ex) {
 #if LOG4NET
                 f_Logger.Error("UpdateNewsFeed(): Exception, ignored...", ex);
