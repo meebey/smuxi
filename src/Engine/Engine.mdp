@@ -77,6 +77,7 @@
     <File subtype="Code" buildaction="Compile" name="MessageBuffers/Db4oMessageBuffer.cs" />
     <File subtype="Code" buildaction="Compile" name="MessageBuffers/MessageBufferPersistencyType.cs" />
     <File subtype="Code" buildaction="Compile" name="Config/EntrySettings.cs" />
+    <File subtype="Code" buildaction="Compile" name="Messages/FeedMessageBuilder.cs" />
   </Contents>
   <References>
     <ProjectReference type="Assembly" localcopy="True" refto="../../lib/log4net.dll" />

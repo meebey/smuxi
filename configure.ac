@@ -125,6 +125,7 @@ SHAMROCK_FIND_MONO_2_0_COMPILER
 SHAMROCK_CHECK_MONO_2_0_GAC_ASSEMBLIES([
 	System
 	System.Core
+	System.Xml
 	System.Runtime.Remoting
 	Mono.Posix
 ])

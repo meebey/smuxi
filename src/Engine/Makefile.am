@@ -67,6 +67,7 @@ FILES = \
 	MessageBuffers/ListMessageBuffer.cs \
 	MessageBuffers/MessageBufferBase.cs \
 	MessageBuffers/MessageBufferPersistencyType.cs \
+	Messages/FeedMessageBuilder.cs \
 	Messages/MessageBuilder.cs \
 	Messages/MessageModel.cs \
 	Messages/MessageParser.cs \

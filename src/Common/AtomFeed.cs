@@ -43,6 +43,10 @@ namespace Smuxi.Common
             return (AtomFeed)ser.Deserialize(sr);
         }
 
+        public static AtomFeed Load(Stream stream)
+        {
+            return (AtomFeed) ser.Deserialize(stream);
+        }
 
         public DateTime Modified {
             get {

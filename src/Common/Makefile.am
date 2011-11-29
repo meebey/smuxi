@@ -73,6 +73,7 @@ EXTRAS = \
 REFERENCES =  \
 	System \
 	System.Core \
+	System.Xml \
 	Mono.Posix
 
 DLL_REFERENCES = 

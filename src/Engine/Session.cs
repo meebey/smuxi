@@ -22,6 +22,7 @@
 
 using System;
 using System.IO;
+using System.Net;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -51,7 +52,10 @@ namespace Smuxi.Engine
         private FilterListController                  _FilterListController;
         private ICollection<FilterModel>              _Filters;
         private bool                                  _OnStartupCommandsProcessed;
-        
+        Timer NewsFeedTimer { get; set; }
+        List<string> SeenNewsFeedIds { get; set; }
+        DateTime NewsFeedLastModified { get; set; }
+
         public IList<IProtocolManager> ProtocolManagers {
             get {
                 return _ProtocolManagers;
@@ -126,9 +130,12 @@ namespace Smuxi.Engine
             _FilterListController = new FilterListController(_UserConfig);
             _Filters = _FilterListController.GetFilterList().Values;
             _Chats = new List<ChatModel>();
-            
-            _SessionChat = new SessionChatModel("smuxi", "Smuxi");
-            _Chats.Add(_SessionChat);
+
+            InitSessionChat();
+
+            SeenNewsFeedIds = new List<string>();
+            NewsFeedTimer = new Timer(delegate { UpdateNewsFeed(); }, null,
+                                      TimeSpan.Zero, TimeSpan.FromMinutes(1));
         }
 
         protected MessageBuilder CreateMessageBuilder()
@@ -159,27 +166,6 @@ namespace Smuxi.Engine
             // if this is the first frontend, we process OnStartupCommands
             if (!_OnStartupCommandsProcessed) {
                 _OnStartupCommandsProcessed = true;
-
-                var builder = CreateMessageBuilder();
-                var text = builder.CreateText(_("Welcome to Smuxi"));
-                text.ForegroundColor = new TextColor(255,0,0);
-                text.Bold = true;
-                builder.AppendText(text);
-                builder.AppendText(Environment.NewLine);
-                text = builder.CreateText(
-                    _("Type /help to get a list of available commands.")
-                );
-                text.Bold = true;
-                builder.AppendText(text);
-                builder.AppendText(Environment.NewLine);
-                text = builder.CreateText(_("After you have made a connection " +
-                    "the list of available commands changes. Go to the newly " +
-                    "opened connection tab and use the /help command again to" +
-                    "see the extended command list."));
-                text.Bold = true;
-
-                builder.AppendText(text);
-                AddMessageToChat(_SessionChat,builder.ToMessage());
 
                 foreach (string command in (string[])_UserConfig["OnStartupCommands"]) {
                     if (command.Length == 0) {
@@ -1375,6 +1361,76 @@ namespace Smuxi.Engine
             // if there was no next protocol manager, simply append
             // the chat way to the end
             return -1;
+        }
+
+        void InitSessionChat()
+        {
+            _SessionChat = new SessionChatModel("smuxi", "Smuxi");
+            _Chats.Add(_SessionChat);
+
+            var builder = CreateMessageBuilder();
+            var text = builder.CreateText(_("Welcome to Smuxi"));
+            text.ForegroundColor = new TextColor(255, 0, 0);
+            text.Bold = true;
+            builder.AppendText(text);
+            builder.AppendText(Environment.NewLine);
+
+            text = builder.CreateText(
+                _("Type /help to get a list of available commands.")
+            );
+            text.Bold = true;
+            builder.AppendText(text);
+            builder.AppendText(Environment.NewLine);
+
+            text = builder.CreateText(_("After you have made a connection " +
+                "the list of available commands changes. Go to the newly " +
+                "opened connection tab and use the /help command again to " +
+                "see the extended command list."));
+            text.Bold = true;
+            builder.AppendText(text);
+            builder.AppendText(Environment.NewLine);
+
+            builder.AppendText(Environment.NewLine);
+
+            builder.AppendHeader("Smuxi News");
+            AddMessageToChat(_SessionChat,builder.ToMessage());
+        }
+
+        void UpdateNewsFeed()
+        {
+            Trace.Call();
+
+            try {
+                var url = "http://news.smuxi.org/tags/planet-feed/index.atom";
+                var req = WebRequest.Create(url);
+                if (req is HttpWebRequest) {
+                    var httpReq = (HttpWebRequest) req;
+                    httpReq.UserAgent = Engine.VersionString;
+                    httpReq.IfModifiedSince = NewsFeedLastModified;
+                }
+                var res = req.GetResponse();
+                if (res is HttpWebResponse) {
+                    var httpRes = (HttpWebResponse) res;
+                    if (httpRes.StatusCode == HttpStatusCode.NotModified) {
+                        return;
+                    }
+                    NewsFeedLastModified = httpRes.LastModified;
+                }
+                var feed = AtomFeed.Load(res.GetResponseStream());
+                var msg = new FeedMessageBuilder();
+                foreach (var entry in feed.Entry) {
+                    if (SeenNewsFeedIds.Contains(entry.Id)) {
+                        continue;
+                    }
+                    msg.Append(entry);
+                    SeenNewsFeedIds.Add(entry.Id);
+                }
+                AddMessageToChat(SessionChat, msg.ToMessage());
+            } catch (Exception ex) {
+#if LOG4NET
+                f_Logger.Error("UpdateNewsFeed(): Exception, ignored...", ex);
+#endif
+            }
         }
 
         private static string _(string msg)
