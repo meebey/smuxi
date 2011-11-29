@@ -1401,7 +1401,7 @@ namespace Smuxi.Engine
             Trace.Call();
 
             try {
-                var url = "http://news.smuxi.org/tags/planet-feed/index.atom";
+                var url = "http://news.smuxi.org/feed.php";
                 var req = WebRequest.Create(url);
                 var proxySettings = new ProxySettings();
                 proxySettings.ApplyConfig(UserConfig);
