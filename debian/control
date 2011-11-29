@@ -59,7 +59,8 @@ Package: smuxi-engine
 Architecture: all
 Replaces: smuxi (<< 0.5.25)
 Recommends: smuxi-engine-irc,
-            smuxi-engine-twitter
+            smuxi-engine-twitter,
+            smuxi-engine-xmpp
 Depends: ${shlibs:Depends},
          ${misc:Depends},
          ${cli:Depends}
