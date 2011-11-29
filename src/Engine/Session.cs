@@ -1409,7 +1409,9 @@ namespace Smuxi.Engine
                 if (req is HttpWebRequest) {
                     var httpReq = (HttpWebRequest) req;
                     httpReq.UserAgent = Engine.VersionString;
-                    httpReq.IfModifiedSince = NewsFeedLastModified;
+                    if (NewsFeedLastModified != DateTime.MinValue) {
+                        httpReq.IfModifiedSince = NewsFeedLastModified;
+                    }
                 }
                 var res = req.GetResponse();
                 if (res is HttpWebResponse) {
