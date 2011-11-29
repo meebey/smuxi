@@ -102,21 +102,33 @@ AM_GNU_GETTEXT_VERSION([0.17])
 # doesn't support multiple po directories :(
 #AM_GLIB_GNU_GETTEXT
 
-AC_MSG_CHECKING([for git version])
-if git log --oneline 295b37c8ac4939829a3c7f9150943dba8fff07f0 > /dev/null 2>&1; then
-	GIT_BRANCH=$(git branch | grep '^\*' | cut -d ' ' -f 2)
-	GIT_COMMIT_HASH=$(git log --no-color --first-parent -n1 --pretty=format:%h)
-	DIST_VERSION=$GIT_BRANCH/$GIT_COMMIT_HASH
-	DEV_VERSION_SUFFIX="-dev"
-	AC_MSG_RESULT(yes)
+AC_ARG_WITH([vendor-package-version],
+	AC_HELP_STRING([--with-vendor-package-version="DISTRO_NAME PACKAGE_VERSION"],
+		[Set the distro name and package version, e.g. "Debian 0.8-1"]),
+	[],
+	with_vendor_package_version=
+)
+WITH_VENDOR_PACKAGE_VERSION=$with_vendor_package_version
+if test "x$WITH_VENDOR_PACKAGE_VERSION" = "x"; then
+	AC_MSG_CHECKING([for git version])
+	if git log --oneline 295b37c8ac4939829a3c7f9150943dba8fff07f0 > /dev/null 2>&1; then
+		GIT_BRANCH=$(git branch | grep '^\*' | cut -d ' ' -f 2)
+		GIT_COMMIT_HASH=$(git log --no-color --first-parent -n1 --pretty=format:%h)
+		DIST_VERSION=$GIT_BRANCH/$GIT_COMMIT_HASH
+		DEV_VERSION_SUFFIX="-dev"
+		AC_MSG_RESULT(yes)
+	else
+		DIST_VERSION=tarball
+		DEV_VERSION_SUFFIX=
+		AC_MSG_RESULT(no)
+	fi
 else
-	DIST_VERSION=tarball
-	DEV_VERSION_SUFFIX=
-	AC_MSG_RESULT(no)
+	DIST_VERSION=$WITH_VENDOR_PACKAGE_VERSION
 fi
 AC_SUBST([git_branch], "$GIT_BRANCH")
 AC_SUBST([git_commit_hash], "$GIT_COMMIT_HASH")
 AC_SUBST([DEV_VERSION_SUFFIX])
+AC_SUBST([dist_version], "$DIST_VERSION")
 
 SHAMROCK_EXPAND_LIBDIR
 SHAMROCK_CHECK_MONO_MODULE(1.9.1)
@@ -546,7 +558,7 @@ AC_CONFIG_FILES([
 AC_OUTPUT
 
 AC_MSG_RESULT([
-	Configuration summary for $PACKAGE_NAME ($VERSION $DIST_VERSION)
+	Configuration summary for $PACKAGE_NAME $VERSION ($DIST_VERSION)
 	
 	* Installation prefix: $prefix
 	* Build profile:       $PROFILE

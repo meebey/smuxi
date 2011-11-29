@@ -30,6 +30,7 @@ namespace Smuxi.Common
         public const string GitCommitHash = "@git_commit_hash@";
 
         private static readonly string f_InstallPrefix = "@prefix@";
+        private static readonly string f_DistVersion = "@dist_version@";
         private static readonly string f_TwitterApiKey = "@twitter_api_key@";
 
         public static string InstallPrefix {
@@ -52,6 +53,12 @@ namespace Smuxi.Common
                 }
 
                 return String.Format("{0}/{1}", GitBranch, GitCommitHash);
+            }
+        }
+
+        public static string DistVersion {
+            get {
+                return f_DistVersion;
             }
         }
     }

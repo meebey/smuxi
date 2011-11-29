@@ -91,15 +91,16 @@ namespace Smuxi.Engine
             AssemblyProductAttribute pr = (AssemblyProductAttribute)asm.GetCustomAttributes(typeof(AssemblyProductAttribute), false)[0];
             _Version = asm_name.Version;
             _VersionNumber = asm_name.Version.ToString();
-            string git_version = Defines.GitVersion;
-            if (!String.IsNullOrEmpty(git_version)) {
-                git_version = String.Format(" ({0})", git_version);
+
+            var distVersion = Defines.DistVersion;
+            if (!String.IsNullOrEmpty(distVersion)) {
+                distVersion = String.Format(" ({0})", distVersion);
             }
             _VersionString = String.Format(
                 "{0} {1}{2} - running on {3} {4}",
                 pr.Product,
                 _Version,
-                git_version,
+                distVersion,
                 Platform.OperatingSystem,
                 Platform.Architecture
             );
