@@ -135,7 +135,7 @@ namespace Smuxi.Engine
 
             SeenNewsFeedIds = new List<string>();
             NewsFeedTimer = new Timer(delegate { UpdateNewsFeed(); }, null,
-                                      TimeSpan.Zero, TimeSpan.FromMinutes(1));
+                                      TimeSpan.Zero, TimeSpan.FromHours(12));
         }
 
         protected MessageBuilder CreateMessageBuilder()
