@@ -166,17 +166,9 @@ namespace Smuxi.Engine
 
             f_Username = server.Username;
 
-            var proxyType = (string) Session.UserConfig["Connection/ProxyType"];
-            if (proxyType.ToLower() == "http") {
-                var uriBuilder = new UriBuilder();
-                uriBuilder.Scheme = "http";
-                uriBuilder.Host = (string) Session.UserConfig["Connection/ProxyHostname"];
-                uriBuilder.Port = (int) Session.UserConfig["Connection/ProxyPort"];
-                uriBuilder.UserName = (string) Session.UserConfig["Connection/ProxyUsername"];
-                uriBuilder.Password = (string) Session.UserConfig["Connection/ProxyPassword"];
-                var proxyUri = uriBuilder.ToString();
-                f_WebProxy = new WebProxy(proxyUri);
-            }
+            var proxySettings = new ProxySettings();
+            proxySettings.ApplyConfig(Session.UserConfig);
+            f_WebProxy = proxySettings.WebProxy;
             f_OptionalProperties = CreateOptions<OptionalProperties>();
 
             f_ProtocolChat = new ProtocolChatModel(NetworkID, "Twitter " + f_Username, this);
