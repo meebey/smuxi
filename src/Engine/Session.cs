@@ -1403,6 +1403,9 @@ namespace Smuxi.Engine
             try {
                 var url = "http://news.smuxi.org/tags/planet-feed/index.atom";
                 var req = WebRequest.Create(url);
+                var proxySettings = new ProxySettings();
+                proxySettings.ApplyConfig(UserConfig);
+                req.Proxy = proxySettings.WebProxy;
                 if (req is HttpWebRequest) {
                     var httpReq = (HttpWebRequest) req;
                     httpReq.UserAgent = Engine.VersionString;
