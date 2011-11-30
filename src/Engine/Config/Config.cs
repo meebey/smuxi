@@ -284,7 +284,7 @@ namespace Smuxi.Engine
             
             prefix = "Engine/Users/DEFAULT/Connection/";
             Get(prefix+"Encoding", String.Empty);
-            Get(prefix+"ProxyType", "None");
+            Get(prefix+"ProxyType", "System");
             Get(prefix+"ProxyHostname", String.Empty);
             Get(prefix+"ProxyPort", -1);
             Get(prefix+"ProxyUsername", String.Empty);
@@ -428,7 +428,7 @@ namespace Smuxi.Engine
                 LoadUserEntry(user, "Connection/Realname", realname);
                 LoadUserEntry(user, "Connection/Encoding", String.Empty);
 
-                LoadUserEntry(user, "Connection/ProxyType", "None");
+                LoadUserEntry(user, "Connection/ProxyType", "System");
                 LoadUserEntry(user, "Connection/ProxyHostname", String.Empty);
                 LoadUserEntry(user, "Connection/ProxyPort", -1);
                 LoadUserEntry(user, "Connection/ProxyUsername", null);
