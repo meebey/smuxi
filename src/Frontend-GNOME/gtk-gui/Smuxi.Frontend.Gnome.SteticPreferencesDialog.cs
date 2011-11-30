@@ -5,391 +5,199 @@ namespace Smuxi.Frontend.Gnome
 	public partial class SteticPreferencesDialog
 	{
 		private global::Gtk.HBox hbox1;
-
 		private global::Gtk.ScrolledWindow MenuScrolledWindow;
-
 		private global::Gtk.TreeView MenuTreeView;
-
 		private global::Gtk.Notebook Notebook;
-
 		private global::Gtk.VBox vbox1;
-
 		private global::Gtk.Table table1;
-
 		private global::Gtk.Entry ConnectionNicknamesEntry;
-
 		private global::Gtk.Entry ConnectionRealnameEntry;
-
 		private global::Gtk.Entry ConnectionUsernameEntry;
-
 		private global::Gtk.ComboBox EncodingComboBox;
-
 		private global::Gtk.HBox hbox13;
-
 		private global::Gtk.Label label6;
-
 		private global::Gtk.Fixed fixed31;
-
 		private global::Gtk.HBox hbox14;
-
 		private global::Gtk.Label label7;
-
 		private global::Gtk.Fixed fixed32;
-
 		private global::Gtk.HBox hbox15;
-
 		private global::Gtk.Label label8;
-
 		private global::Gtk.Fixed fixed33;
-
 		private global::Gtk.Label label58;
-
 		private global::Gtk.VBox vbox2;
-
 		private global::Gtk.VBox vbox3;
-
 		private global::Gtk.HBox hbox2;
-
 		private global::Gtk.Label label37;
-
 		private global::Gtk.Fixed fixed18;
-
 		private global::Gtk.ScrolledWindow scrolledwindow1;
-
 		private global::Gtk.TextView OnConnectCommandsTextView;
-
 		private global::Gtk.VBox vbox4;
-
 		private global::Gtk.HBox hbox3;
-
 		private global::Gtk.Label label43;
-
 		private global::Gtk.Fixed fixed19;
-
 		private global::Gtk.ScrolledWindow scrolledwindow2;
-
 		private global::Gtk.TextView OnStartupCommandsTextView;
-
 		private global::Gtk.Label label44;
-
 		private global::Gtk.Notebook InterfaceNotebook;
-
 		private global::Gtk.VBox vbox10;
-
 		private global::Gtk.Table table5;
-
 		private global::Gtk.SpinButton BufferLinesSpinButton;
-
 		private global::Gtk.SpinButton EngineBufferLinesSpinButton;
-
 		private global::Gtk.HBox hbox7;
-
 		private global::Gtk.Label label33;
-
 		private global::Gtk.Fixed fixed25;
-
 		private global::Gtk.HBox hbox8;
-
 		private global::Gtk.Label label39;
-
 		private global::Gtk.Fixed fixed26;
-
 		private global::Gtk.HBox hbox9;
-
 		private global::Gtk.Label label40;
-
 		private global::Gtk.Fixed fixed27;
-
 		private global::Gtk.Entry TimestampFormatEntry;
-
 		private global::Gtk.CheckButton StripColorsCheckButton;
-
 		private global::Gtk.Alignment alignment16;
-
 		private global::Gtk.HBox hbox17;
-
 		private global::Gtk.Image image5;
-
 		private global::Gtk.Label label47;
-
 		private global::Gtk.CheckButton StripFormattingsCheckButton;
-
 		private global::Gtk.Alignment alignment15;
-
 		private global::Gtk.HBox hbox16;
-
 		private global::Gtk.Image image6;
-
 		private global::Gtk.Label label46;
-
 		private global::Gtk.CheckButton checkbutton1;
-
 		private global::Gtk.Alignment alignment26;
-
 		private global::Gtk.HBox hbox28;
-
 		private global::Gtk.Image image7;
-
 		private global::Gtk.Label label60;
-
 		private global::Gtk.Label label1;
-
 		private global::Gtk.VBox vbox5;
-
 		private global::Gtk.Frame frame1;
-
 		private global::Gtk.Alignment alignment4;
-
 		private global::Gtk.VBox vbox6;
-
 		private global::Gtk.RadioButton TabPositionRadioButtonTop;
-
 		private global::Gtk.HBox hbox10;
-
 		private global::Gtk.Image image12;
-
 		private global::Gtk.Label label5;
-
 		private global::Gtk.RadioButton TabPositionRadioButtonBottom;
-
 		private global::Gtk.HBox hbox24;
-
 		private global::Gtk.Image image9;
-
 		private global::Gtk.Label label54;
-
 		private global::Gtk.RadioButton TabPositionRadioButtonLeft;
-
 		private global::Gtk.Alignment alignment24;
-
 		private global::Gtk.HBox hbox25;
-
 		private global::Gtk.Image image10;
-
 		private global::Gtk.Label label55;
-
 		private global::Gtk.RadioButton TabPositionRadioButtonRight;
-
 		private global::Gtk.Alignment alignment25;
-
 		private global::Gtk.HBox hbox26;
-
 		private global::Gtk.Image image11;
-
 		private global::Gtk.Label label56;
-
 		private global::Gtk.RadioButton TabPositionRadioButtonNone;
-
 		private global::Gtk.Label label9;
-
 		private global::Gtk.Frame frame4;
-
 		private global::Gtk.Alignment alignment8;
-
 		private global::Gtk.Table table3;
-
 		private global::Gtk.ColorButton ActivityColorButton;
-
 		private global::Gtk.ColorButton HighlightColorButton;
-
 		private global::Gtk.Label label16;
-
 		private global::Gtk.Label label17;
-
 		private global::Gtk.Label label18;
-
 		private global::Gtk.Label label59;
-
 		private global::Gtk.ColorButton ModeColorButton;
-
 		private global::Gtk.ColorButton NoActivityColorButton;
-
 		private global::Gtk.Label label15;
-
 		private global::Gtk.Label label2;
-
 		private global::Gtk.Frame frame3;
-
 		private global::Gtk.Alignment alignment7;
-
 		private global::Gtk.VBox vbox7;
-
 		private global::Gtk.Table table4;
-
 		private global::Gtk.Entry CommandCharacterEntry;
-
 		private global::Gtk.SpinButton CommandHistorySizeSpinButton;
-
 		private global::Gtk.Entry CompletionCharacterEntry;
-
 		private global::Gtk.HBox hbox4;
-
 		private global::Gtk.Label label13;
-
 		private global::Gtk.Fixed fixed22;
-
 		private global::Gtk.HBox hbox5;
-
 		private global::Gtk.Label label14;
-
 		private global::Gtk.Fixed fixed23;
-
 		private global::Gtk.HBox hbox6;
-
 		private global::Gtk.Label label42;
-
 		private global::Gtk.Fixed fixed24;
-
 		private global::Gtk.CheckButton BashStyleCompletionCheckButton;
-
 		private global::Gtk.Label label12;
-
 		private global::Gtk.Label label3;
-
 		private global::Gtk.VBox vbox8;
-
 		private global::Gtk.Frame frame2;
-
 		private global::Gtk.Alignment alignment5;
-
 		private global::Gtk.VBox vbox9;
-
 		private global::Gtk.CheckButton NickColorsCheckButton;
-
 		private global::Gtk.Frame frame10;
-
 		private global::Gtk.Alignment alignment14;
-
 		private global::Gtk.VBox vbox11;
-
 		private global::Gtk.RadioButton TopicPositionRadioButtonTop;
-
 		private global::Gtk.Alignment alignment21;
-
 		private global::Gtk.HBox hbox22;
-
 		private global::Gtk.Image image1;
-
 		private global::Gtk.Label label52;
-
 		private global::Gtk.RadioButton TopicPositionRadioButtonBottom;
-
 		private global::Gtk.Alignment alignment20;
-
 		private global::Gtk.HBox hbox21;
-
 		private global::Gtk.Image image2;
-
 		private global::Gtk.Label label51;
-
 		private global::Gtk.RadioButton TopicPositionRadioButtonNone;
-
 		private global::Gtk.Label label41;
-
 		private global::Gtk.Frame frame9;
-
 		private global::Gtk.Alignment alignment13;
-
 		private global::Gtk.VBox vbox12;
-
 		private global::Gtk.RadioButton UserListPositionRadioButtonLeft;
-
 		private global::Gtk.Alignment alignment17;
-
 		private global::Gtk.HBox hbox18;
-
 		private global::Gtk.Image image3;
-
 		private global::Gtk.Label label48;
-
 		private global::Gtk.RadioButton UserListPositionRadioButtonRight;
-
 		private global::Gtk.Alignment alignment18;
-
 		private global::Gtk.HBox hbox19;
-
 		private global::Gtk.Image image4;
-
 		private global::Gtk.Label label49;
-
 		private global::Gtk.RadioButton UserListPositionRadioButtonNone;
-
 		private global::Gtk.Label label38;
-
 		private global::Gtk.Label label10;
-
 		private global::Gtk.Frame frame11;
-
 		private global::Gtk.Alignment alignment27;
-
 		private global::Gtk.VBox vbox13;
-
 		private global::Gtk.VBox vbox14;
-
 		private global::Gtk.Label label62;
-
 		private global::Gtk.ScrolledWindow scrolledwindow4;
-
 		private global::Gtk.TextView HighlightWordsTextView;
-
 		private global::Gtk.CheckButton BeepOnHighlightCheckButton;
-
 		private global::Gtk.Label label61;
-
 		private global::Gtk.Label label4;
-
 		private global::Gtk.Label label45;
-
 		private global::Gtk.HBox hbox27;
-
 		private global::Gtk.ScrolledWindow scrolledwindow3;
-
 		private global::Gtk.TreeView ServersTreeView;
-
 		private global::Gtk.VButtonBox vbuttonbox1;
-
 		private global::Gtk.Button ServersAddButton;
-
 		private global::Gtk.Button ServersEditButton;
-
 		private global::Gtk.Button ServersRemoveButton;
-
 		private global::Gtk.Label label57;
-
 		private global::Gtk.VBox vbox15;
-
 		private global::Gtk.Frame frame12;
-
 		private global::Gtk.Alignment alignment28;
-
 		private global::Gtk.VBox vbox16;
-
 		private global::Gtk.ScrolledWindow scrolledwindow5;
-
 		private global::Gtk.TreeView ChannelFiltersTreeView;
-
 		private global::Gtk.HButtonBox hbuttonbox1;
-
 		private global::Gtk.Button ChannelFiltersAddButton;
-
 		private global::Gtk.Button ChannelFiltersRemoveButton;
-
 		private global::Gtk.Label label64;
-
 		private global::Gtk.Frame frame13;
-
 		private global::Gtk.Alignment alignment29;
-
 		private global::Gtk.Label label65;
-
 		private global::Gtk.Label label63;
-
 		private global::Gtk.Button CancelButton;
-
 		private global::Gtk.Button ApplyButton;
-
 		private global::Gtk.Button OKButton;
-
+        
 		protected virtual void Build ()
 		{
 			global::Stetic.Gui.Initialize (this);
@@ -417,7 +225,7 @@ namespace Smuxi.Frontend.Gnome
 			this.MenuTreeView.HeadersVisible = false;
 			this.MenuScrolledWindow.Add (this.MenuTreeView);
 			this.hbox1.Add (this.MenuScrolledWindow);
-			global::Gtk.Box.BoxChild w3 = ((global::Gtk.Box.BoxChild)(this.hbox1[this.MenuScrolledWindow]));
+			global::Gtk.Box.BoxChild w3 = ((global::Gtk.Box.BoxChild)(this.hbox1 [this.MenuScrolledWindow]));
 			w3.Position = 0;
 			w3.Expand = false;
 			// Container child hbox1.Gtk.Box+BoxChild
@@ -441,7 +249,7 @@ namespace Smuxi.Frontend.Gnome
 			this.ConnectionNicknamesEntry.IsEditable = true;
 			this.ConnectionNicknamesEntry.InvisibleChar = '●';
 			this.table1.Add (this.ConnectionNicknamesEntry);
-			global::Gtk.Table.TableChild w4 = ((global::Gtk.Table.TableChild)(this.table1[this.ConnectionNicknamesEntry]));
+			global::Gtk.Table.TableChild w4 = ((global::Gtk.Table.TableChild)(this.table1 [this.ConnectionNicknamesEntry]));
 			w4.LeftAttach = ((uint)(1));
 			w4.RightAttach = ((uint)(2));
 			w4.YOptions = ((global::Gtk.AttachOptions)(0));
@@ -451,7 +259,7 @@ namespace Smuxi.Frontend.Gnome
 			this.ConnectionRealnameEntry.IsEditable = true;
 			this.ConnectionRealnameEntry.InvisibleChar = '●';
 			this.table1.Add (this.ConnectionRealnameEntry);
-			global::Gtk.Table.TableChild w5 = ((global::Gtk.Table.TableChild)(this.table1[this.ConnectionRealnameEntry]));
+			global::Gtk.Table.TableChild w5 = ((global::Gtk.Table.TableChild)(this.table1 [this.ConnectionRealnameEntry]));
 			w5.TopAttach = ((uint)(2));
 			w5.BottomAttach = ((uint)(3));
 			w5.LeftAttach = ((uint)(1));
@@ -463,7 +271,7 @@ namespace Smuxi.Frontend.Gnome
 			this.ConnectionUsernameEntry.IsEditable = true;
 			this.ConnectionUsernameEntry.InvisibleChar = '●';
 			this.table1.Add (this.ConnectionUsernameEntry);
-			global::Gtk.Table.TableChild w6 = ((global::Gtk.Table.TableChild)(this.table1[this.ConnectionUsernameEntry]));
+			global::Gtk.Table.TableChild w6 = ((global::Gtk.Table.TableChild)(this.table1 [this.ConnectionUsernameEntry]));
 			w6.TopAttach = ((uint)(1));
 			w6.BottomAttach = ((uint)(2));
 			w6.LeftAttach = ((uint)(1));
@@ -473,7 +281,7 @@ namespace Smuxi.Frontend.Gnome
 			this.EncodingComboBox = new global::Gtk.ComboBox ();
 			this.EncodingComboBox.Name = "EncodingComboBox";
 			this.table1.Add (this.EncodingComboBox);
-			global::Gtk.Table.TableChild w7 = ((global::Gtk.Table.TableChild)(this.table1[this.EncodingComboBox]));
+			global::Gtk.Table.TableChild w7 = ((global::Gtk.Table.TableChild)(this.table1 [this.EncodingComboBox]));
 			w7.TopAttach = ((uint)(3));
 			w7.BottomAttach = ((uint)(4));
 			w7.LeftAttach = ((uint)(1));
@@ -486,7 +294,7 @@ namespace Smuxi.Frontend.Gnome
 			this.label6.Name = "label6";
 			this.label6.LabelProp = global::Mono.Unix.Catalog.GetString ("Nicknames:");
 			this.hbox13.Add (this.label6);
-			global::Gtk.Box.BoxChild w8 = ((global::Gtk.Box.BoxChild)(this.hbox13[this.label6]));
+			global::Gtk.Box.BoxChild w8 = ((global::Gtk.Box.BoxChild)(this.hbox13 [this.label6]));
 			w8.Position = 0;
 			w8.Expand = false;
 			w8.Fill = false;
@@ -495,7 +303,7 @@ namespace Smuxi.Frontend.Gnome
 			this.fixed31.Name = "fixed31";
 			this.fixed31.HasWindow = false;
 			this.hbox13.Add (this.fixed31);
-			global::Gtk.Box.BoxChild w9 = ((global::Gtk.Box.BoxChild)(this.hbox13[this.fixed31]));
+			global::Gtk.Box.BoxChild w9 = ((global::Gtk.Box.BoxChild)(this.hbox13 [this.fixed31]));
 			w9.Position = 1;
 			this.table1.Add (this.hbox13);
 			// Container child table1.Gtk.Table+TableChild
@@ -506,7 +314,7 @@ namespace Smuxi.Frontend.Gnome
 			this.label7.Name = "label7";
 			this.label7.LabelProp = global::Mono.Unix.Catalog.GetString ("Username:");
 			this.hbox14.Add (this.label7);
-			global::Gtk.Box.BoxChild w11 = ((global::Gtk.Box.BoxChild)(this.hbox14[this.label7]));
+			global::Gtk.Box.BoxChild w11 = ((global::Gtk.Box.BoxChild)(this.hbox14 [this.label7]));
 			w11.Position = 0;
 			w11.Expand = false;
 			w11.Fill = false;
@@ -515,10 +323,10 @@ namespace Smuxi.Frontend.Gnome
 			this.fixed32.Name = "fixed32";
 			this.fixed32.HasWindow = false;
 			this.hbox14.Add (this.fixed32);
-			global::Gtk.Box.BoxChild w12 = ((global::Gtk.Box.BoxChild)(this.hbox14[this.fixed32]));
+			global::Gtk.Box.BoxChild w12 = ((global::Gtk.Box.BoxChild)(this.hbox14 [this.fixed32]));
 			w12.Position = 1;
 			this.table1.Add (this.hbox14);
-			global::Gtk.Table.TableChild w13 = ((global::Gtk.Table.TableChild)(this.table1[this.hbox14]));
+			global::Gtk.Table.TableChild w13 = ((global::Gtk.Table.TableChild)(this.table1 [this.hbox14]));
 			w13.TopAttach = ((uint)(1));
 			w13.BottomAttach = ((uint)(2));
 			// Container child table1.Gtk.Table+TableChild
@@ -529,7 +337,7 @@ namespace Smuxi.Frontend.Gnome
 			this.label8.Name = "label8";
 			this.label8.LabelProp = global::Mono.Unix.Catalog.GetString ("Realname:");
 			this.hbox15.Add (this.label8);
-			global::Gtk.Box.BoxChild w14 = ((global::Gtk.Box.BoxChild)(this.hbox15[this.label8]));
+			global::Gtk.Box.BoxChild w14 = ((global::Gtk.Box.BoxChild)(this.hbox15 [this.label8]));
 			w14.Position = 0;
 			w14.Expand = false;
 			w14.Fill = false;
@@ -538,24 +346,24 @@ namespace Smuxi.Frontend.Gnome
 			this.fixed33.Name = "fixed33";
 			this.fixed33.HasWindow = false;
 			this.hbox15.Add (this.fixed33);
-			global::Gtk.Box.BoxChild w15 = ((global::Gtk.Box.BoxChild)(this.hbox15[this.fixed33]));
+			global::Gtk.Box.BoxChild w15 = ((global::Gtk.Box.BoxChild)(this.hbox15 [this.fixed33]));
 			w15.Position = 1;
 			this.table1.Add (this.hbox15);
-			global::Gtk.Table.TableChild w16 = ((global::Gtk.Table.TableChild)(this.table1[this.hbox15]));
+			global::Gtk.Table.TableChild w16 = ((global::Gtk.Table.TableChild)(this.table1 [this.hbox15]));
 			w16.TopAttach = ((uint)(2));
 			w16.BottomAttach = ((uint)(3));
 			// Container child table1.Gtk.Table+TableChild
 			this.label58 = new global::Gtk.Label ();
 			this.label58.Name = "label58";
-			this.label58.Xalign = 0f;
+			this.label58.Xalign = 0F;
 			this.label58.LabelProp = global::Mono.Unix.Catalog.GetString ("Encoding:");
 			this.table1.Add (this.label58);
-			global::Gtk.Table.TableChild w17 = ((global::Gtk.Table.TableChild)(this.table1[this.label58]));
+			global::Gtk.Table.TableChild w17 = ((global::Gtk.Table.TableChild)(this.table1 [this.label58]));
 			w17.TopAttach = ((uint)(3));
 			w17.BottomAttach = ((uint)(4));
 			w17.YOptions = ((global::Gtk.AttachOptions)(0));
 			this.vbox1.Add (this.table1);
-			global::Gtk.Box.BoxChild w18 = ((global::Gtk.Box.BoxChild)(this.vbox1[this.table1]));
+			global::Gtk.Box.BoxChild w18 = ((global::Gtk.Box.BoxChild)(this.vbox1 [this.table1]));
 			w18.Position = 0;
 			w18.Expand = false;
 			// Container child vbox1.Gtk.Box+BoxChild
@@ -572,7 +380,7 @@ namespace Smuxi.Frontend.Gnome
 			this.label37.Name = "label37";
 			this.label37.LabelProp = global::Mono.Unix.Catalog.GetString ("On Connect Commands:");
 			this.hbox2.Add (this.label37);
-			global::Gtk.Box.BoxChild w19 = ((global::Gtk.Box.BoxChild)(this.hbox2[this.label37]));
+			global::Gtk.Box.BoxChild w19 = ((global::Gtk.Box.BoxChild)(this.hbox2 [this.label37]));
 			w19.Position = 0;
 			w19.Expand = false;
 			w19.Fill = false;
@@ -581,10 +389,10 @@ namespace Smuxi.Frontend.Gnome
 			this.fixed18.Name = "fixed18";
 			this.fixed18.HasWindow = false;
 			this.hbox2.Add (this.fixed18);
-			global::Gtk.Box.BoxChild w20 = ((global::Gtk.Box.BoxChild)(this.hbox2[this.fixed18]));
+			global::Gtk.Box.BoxChild w20 = ((global::Gtk.Box.BoxChild)(this.hbox2 [this.fixed18]));
 			w20.Position = 1;
 			this.vbox3.Add (this.hbox2);
-			global::Gtk.Box.BoxChild w21 = ((global::Gtk.Box.BoxChild)(this.vbox3[this.hbox2]));
+			global::Gtk.Box.BoxChild w21 = ((global::Gtk.Box.BoxChild)(this.vbox3 [this.hbox2]));
 			w21.Position = 0;
 			w21.Expand = false;
 			w21.Fill = false;
@@ -602,10 +410,10 @@ namespace Smuxi.Frontend.Gnome
 			this.OnConnectCommandsTextView.WrapMode = ((global::Gtk.WrapMode)(2));
 			this.scrolledwindow1.Add (this.OnConnectCommandsTextView);
 			this.vbox3.Add (this.scrolledwindow1);
-			global::Gtk.Box.BoxChild w23 = ((global::Gtk.Box.BoxChild)(this.vbox3[this.scrolledwindow1]));
+			global::Gtk.Box.BoxChild w23 = ((global::Gtk.Box.BoxChild)(this.vbox3 [this.scrolledwindow1]));
 			w23.Position = 1;
 			this.vbox2.Add (this.vbox3);
-			global::Gtk.Box.BoxChild w24 = ((global::Gtk.Box.BoxChild)(this.vbox2[this.vbox3]));
+			global::Gtk.Box.BoxChild w24 = ((global::Gtk.Box.BoxChild)(this.vbox2 [this.vbox3]));
 			w24.Position = 0;
 			// Container child vbox2.Gtk.Box+BoxChild
 			this.vbox4 = new global::Gtk.VBox ();
@@ -618,7 +426,7 @@ namespace Smuxi.Frontend.Gnome
 			this.label43.Name = "label43";
 			this.label43.LabelProp = global::Mono.Unix.Catalog.GetString ("On Startup Commands:");
 			this.hbox3.Add (this.label43);
-			global::Gtk.Box.BoxChild w25 = ((global::Gtk.Box.BoxChild)(this.hbox3[this.label43]));
+			global::Gtk.Box.BoxChild w25 = ((global::Gtk.Box.BoxChild)(this.hbox3 [this.label43]));
 			w25.Position = 0;
 			w25.Expand = false;
 			w25.Fill = false;
@@ -627,10 +435,10 @@ namespace Smuxi.Frontend.Gnome
 			this.fixed19.Name = "fixed19";
 			this.fixed19.HasWindow = false;
 			this.hbox3.Add (this.fixed19);
-			global::Gtk.Box.BoxChild w26 = ((global::Gtk.Box.BoxChild)(this.hbox3[this.fixed19]));
+			global::Gtk.Box.BoxChild w26 = ((global::Gtk.Box.BoxChild)(this.hbox3 [this.fixed19]));
 			w26.Position = 1;
 			this.vbox4.Add (this.hbox3);
-			global::Gtk.Box.BoxChild w27 = ((global::Gtk.Box.BoxChild)(this.vbox4[this.hbox3]));
+			global::Gtk.Box.BoxChild w27 = ((global::Gtk.Box.BoxChild)(this.vbox4 [this.hbox3]));
 			w27.Position = 0;
 			w27.Expand = false;
 			w27.Fill = false;
@@ -648,13 +456,13 @@ namespace Smuxi.Frontend.Gnome
 			this.OnStartupCommandsTextView.WrapMode = ((global::Gtk.WrapMode)(2));
 			this.scrolledwindow2.Add (this.OnStartupCommandsTextView);
 			this.vbox4.Add (this.scrolledwindow2);
-			global::Gtk.Box.BoxChild w29 = ((global::Gtk.Box.BoxChild)(this.vbox4[this.scrolledwindow2]));
+			global::Gtk.Box.BoxChild w29 = ((global::Gtk.Box.BoxChild)(this.vbox4 [this.scrolledwindow2]));
 			w29.Position = 1;
 			this.vbox2.Add (this.vbox4);
-			global::Gtk.Box.BoxChild w30 = ((global::Gtk.Box.BoxChild)(this.vbox2[this.vbox4]));
+			global::Gtk.Box.BoxChild w30 = ((global::Gtk.Box.BoxChild)(this.vbox2 [this.vbox4]));
 			w30.Position = 1;
 			this.vbox1.Add (this.vbox2);
-			global::Gtk.Box.BoxChild w31 = ((global::Gtk.Box.BoxChild)(this.vbox1[this.vbox2]));
+			global::Gtk.Box.BoxChild w31 = ((global::Gtk.Box.BoxChild)(this.vbox1 [this.vbox2]));
 			w31.Position = 1;
 			this.Notebook.Add (this.vbox1);
 			// Notebook tab
@@ -687,7 +495,7 @@ namespace Smuxi.Frontend.Gnome
 			this.BufferLinesSpinButton.Numeric = true;
 			this.BufferLinesSpinButton.Value = 200;
 			this.table5.Add (this.BufferLinesSpinButton);
-			global::Gtk.Table.TableChild w33 = ((global::Gtk.Table.TableChild)(this.table5[this.BufferLinesSpinButton]));
+			global::Gtk.Table.TableChild w33 = ((global::Gtk.Table.TableChild)(this.table5 [this.BufferLinesSpinButton]));
 			w33.TopAttach = ((uint)(1));
 			w33.BottomAttach = ((uint)(2));
 			w33.LeftAttach = ((uint)(1));
@@ -703,7 +511,7 @@ namespace Smuxi.Frontend.Gnome
 			this.EngineBufferLinesSpinButton.Numeric = true;
 			this.EngineBufferLinesSpinButton.Value = 200;
 			this.table5.Add (this.EngineBufferLinesSpinButton);
-			global::Gtk.Table.TableChild w34 = ((global::Gtk.Table.TableChild)(this.table5[this.EngineBufferLinesSpinButton]));
+			global::Gtk.Table.TableChild w34 = ((global::Gtk.Table.TableChild)(this.table5 [this.EngineBufferLinesSpinButton]));
 			w34.TopAttach = ((uint)(2));
 			w34.BottomAttach = ((uint)(3));
 			w34.LeftAttach = ((uint)(1));
@@ -717,7 +525,7 @@ namespace Smuxi.Frontend.Gnome
 			this.label33.Name = "label33";
 			this.label33.LabelProp = global::Mono.Unix.Catalog.GetString ("Timestamp Format:");
 			this.hbox7.Add (this.label33);
-			global::Gtk.Box.BoxChild w35 = ((global::Gtk.Box.BoxChild)(this.hbox7[this.label33]));
+			global::Gtk.Box.BoxChild w35 = ((global::Gtk.Box.BoxChild)(this.hbox7 [this.label33]));
 			w35.Position = 0;
 			w35.Expand = false;
 			w35.Fill = false;
@@ -726,7 +534,7 @@ namespace Smuxi.Frontend.Gnome
 			this.fixed25.Name = "fixed25";
 			this.fixed25.HasWindow = false;
 			this.hbox7.Add (this.fixed25);
-			global::Gtk.Box.BoxChild w36 = ((global::Gtk.Box.BoxChild)(this.hbox7[this.fixed25]));
+			global::Gtk.Box.BoxChild w36 = ((global::Gtk.Box.BoxChild)(this.hbox7 [this.fixed25]));
 			w36.Position = 1;
 			this.table5.Add (this.hbox7);
 			// Container child table5.Gtk.Table+TableChild
@@ -737,7 +545,7 @@ namespace Smuxi.Frontend.Gnome
 			this.label39.Name = "label39";
 			this.label39.LabelProp = global::Mono.Unix.Catalog.GetString ("Buffer Lines:");
 			this.hbox8.Add (this.label39);
-			global::Gtk.Box.BoxChild w38 = ((global::Gtk.Box.BoxChild)(this.hbox8[this.label39]));
+			global::Gtk.Box.BoxChild w38 = ((global::Gtk.Box.BoxChild)(this.hbox8 [this.label39]));
 			w38.Position = 0;
 			w38.Expand = false;
 			w38.Fill = false;
@@ -746,10 +554,10 @@ namespace Smuxi.Frontend.Gnome
 			this.fixed26.Name = "fixed26";
 			this.fixed26.HasWindow = false;
 			this.hbox8.Add (this.fixed26);
-			global::Gtk.Box.BoxChild w39 = ((global::Gtk.Box.BoxChild)(this.hbox8[this.fixed26]));
+			global::Gtk.Box.BoxChild w39 = ((global::Gtk.Box.BoxChild)(this.hbox8 [this.fixed26]));
 			w39.Position = 1;
 			this.table5.Add (this.hbox8);
-			global::Gtk.Table.TableChild w40 = ((global::Gtk.Table.TableChild)(this.table5[this.hbox8]));
+			global::Gtk.Table.TableChild w40 = ((global::Gtk.Table.TableChild)(this.table5 [this.hbox8]));
 			w40.TopAttach = ((uint)(1));
 			w40.BottomAttach = ((uint)(2));
 			// Container child table5.Gtk.Table+TableChild
@@ -760,7 +568,7 @@ namespace Smuxi.Frontend.Gnome
 			this.label40.Name = "label40";
 			this.label40.LabelProp = global::Mono.Unix.Catalog.GetString ("Engine Buffer Lines:");
 			this.hbox9.Add (this.label40);
-			global::Gtk.Box.BoxChild w41 = ((global::Gtk.Box.BoxChild)(this.hbox9[this.label40]));
+			global::Gtk.Box.BoxChild w41 = ((global::Gtk.Box.BoxChild)(this.hbox9 [this.label40]));
 			w41.Position = 0;
 			w41.Expand = false;
 			w41.Fill = false;
@@ -769,10 +577,10 @@ namespace Smuxi.Frontend.Gnome
 			this.fixed27.Name = "fixed27";
 			this.fixed27.HasWindow = false;
 			this.hbox9.Add (this.fixed27);
-			global::Gtk.Box.BoxChild w42 = ((global::Gtk.Box.BoxChild)(this.hbox9[this.fixed27]));
+			global::Gtk.Box.BoxChild w42 = ((global::Gtk.Box.BoxChild)(this.hbox9 [this.fixed27]));
 			w42.Position = 1;
 			this.table5.Add (this.hbox9);
-			global::Gtk.Table.TableChild w43 = ((global::Gtk.Table.TableChild)(this.table5[this.hbox9]));
+			global::Gtk.Table.TableChild w43 = ((global::Gtk.Table.TableChild)(this.table5 [this.hbox9]));
 			w43.TopAttach = ((uint)(2));
 			w43.BottomAttach = ((uint)(3));
 			// Container child table5.Gtk.Table+TableChild
@@ -783,12 +591,12 @@ namespace Smuxi.Frontend.Gnome
 			this.TimestampFormatEntry.IsEditable = true;
 			this.TimestampFormatEntry.InvisibleChar = '●';
 			this.table5.Add (this.TimestampFormatEntry);
-			global::Gtk.Table.TableChild w44 = ((global::Gtk.Table.TableChild)(this.table5[this.TimestampFormatEntry]));
+			global::Gtk.Table.TableChild w44 = ((global::Gtk.Table.TableChild)(this.table5 [this.TimestampFormatEntry]));
 			w44.LeftAttach = ((uint)(1));
 			w44.RightAttach = ((uint)(2));
 			w44.YOptions = ((global::Gtk.AttachOptions)(0));
 			this.vbox10.Add (this.table5);
-			global::Gtk.Box.BoxChild w45 = ((global::Gtk.Box.BoxChild)(this.vbox10[this.table5]));
+			global::Gtk.Box.BoxChild w45 = ((global::Gtk.Box.BoxChild)(this.vbox10 [this.table5]));
 			w45.Position = 0;
 			w45.Expand = false;
 			w45.Fill = false;
@@ -799,7 +607,7 @@ namespace Smuxi.Frontend.Gnome
 			this.StripColorsCheckButton.UseUnderline = true;
 			this.StripColorsCheckButton.Remove (this.StripColorsCheckButton.Child);
 			// Container child StripColorsCheckButton.Gtk.Container+ContainerChild
-			this.alignment16 = new global::Gtk.Alignment (0.5f, 0.5f, 0f, 0f);
+			this.alignment16 = new global::Gtk.Alignment (0.5F, 0.5F, 0F, 0F);
 			this.alignment16.Name = "alignment16";
 			// Container child alignment16.Gtk.Container+ContainerChild
 			this.hbox17 = new global::Gtk.HBox ();
@@ -810,7 +618,7 @@ namespace Smuxi.Frontend.Gnome
 			this.image5.Name = "image5";
 			this.image5.Pixbuf = global::Stetic.IconLoader.LoadIcon (this, "gtk-cut", global::Gtk.IconSize.Menu);
 			this.hbox17.Add (this.image5);
-			global::Gtk.Box.BoxChild w46 = ((global::Gtk.Box.BoxChild)(this.hbox17[this.image5]));
+			global::Gtk.Box.BoxChild w46 = ((global::Gtk.Box.BoxChild)(this.hbox17 [this.image5]));
 			w46.Position = 0;
 			w46.Expand = false;
 			w46.Fill = false;
@@ -820,14 +628,14 @@ namespace Smuxi.Frontend.Gnome
 			this.label47.LabelProp = global::Mono.Unix.Catalog.GetString ("Strip Colors");
 			this.label47.UseUnderline = true;
 			this.hbox17.Add (this.label47);
-			global::Gtk.Box.BoxChild w47 = ((global::Gtk.Box.BoxChild)(this.hbox17[this.label47]));
+			global::Gtk.Box.BoxChild w47 = ((global::Gtk.Box.BoxChild)(this.hbox17 [this.label47]));
 			w47.Position = 1;
 			w47.Expand = false;
 			w47.Fill = false;
 			this.alignment16.Add (this.hbox17);
 			this.StripColorsCheckButton.Add (this.alignment16);
 			this.vbox10.Add (this.StripColorsCheckButton);
-			global::Gtk.Box.BoxChild w50 = ((global::Gtk.Box.BoxChild)(this.vbox10[this.StripColorsCheckButton]));
+			global::Gtk.Box.BoxChild w50 = ((global::Gtk.Box.BoxChild)(this.vbox10 [this.StripColorsCheckButton]));
 			w50.Position = 1;
 			w50.Expand = false;
 			w50.Fill = false;
@@ -838,7 +646,7 @@ namespace Smuxi.Frontend.Gnome
 			this.StripFormattingsCheckButton.UseUnderline = true;
 			this.StripFormattingsCheckButton.Remove (this.StripFormattingsCheckButton.Child);
 			// Container child StripFormattingsCheckButton.Gtk.Container+ContainerChild
-			this.alignment15 = new global::Gtk.Alignment (0.5f, 0.5f, 0f, 0f);
+			this.alignment15 = new global::Gtk.Alignment (0.5F, 0.5F, 0F, 0F);
 			this.alignment15.Name = "alignment15";
 			// Container child alignment15.Gtk.Container+ContainerChild
 			this.hbox16 = new global::Gtk.HBox ();
@@ -849,7 +657,7 @@ namespace Smuxi.Frontend.Gnome
 			this.image6.Name = "image6";
 			this.image6.Pixbuf = global::Stetic.IconLoader.LoadIcon (this, "gtk-cut", global::Gtk.IconSize.Menu);
 			this.hbox16.Add (this.image6);
-			global::Gtk.Box.BoxChild w51 = ((global::Gtk.Box.BoxChild)(this.hbox16[this.image6]));
+			global::Gtk.Box.BoxChild w51 = ((global::Gtk.Box.BoxChild)(this.hbox16 [this.image6]));
 			w51.Position = 0;
 			w51.Expand = false;
 			w51.Fill = false;
@@ -859,14 +667,14 @@ namespace Smuxi.Frontend.Gnome
 			this.label46.LabelProp = global::Mono.Unix.Catalog.GetString ("Strip Formattings");
 			this.label46.UseUnderline = true;
 			this.hbox16.Add (this.label46);
-			global::Gtk.Box.BoxChild w52 = ((global::Gtk.Box.BoxChild)(this.hbox16[this.label46]));
+			global::Gtk.Box.BoxChild w52 = ((global::Gtk.Box.BoxChild)(this.hbox16 [this.label46]));
 			w52.Position = 1;
 			w52.Expand = false;
 			w52.Fill = false;
 			this.alignment15.Add (this.hbox16);
 			this.StripFormattingsCheckButton.Add (this.alignment15);
 			this.vbox10.Add (this.StripFormattingsCheckButton);
-			global::Gtk.Box.BoxChild w55 = ((global::Gtk.Box.BoxChild)(this.vbox10[this.StripFormattingsCheckButton]));
+			global::Gtk.Box.BoxChild w55 = ((global::Gtk.Box.BoxChild)(this.vbox10 [this.StripFormattingsCheckButton]));
 			w55.Position = 2;
 			w55.Expand = false;
 			w55.Fill = false;
@@ -878,7 +686,7 @@ namespace Smuxi.Frontend.Gnome
 			this.checkbutton1.UseUnderline = true;
 			this.checkbutton1.Remove (this.checkbutton1.Child);
 			// Container child checkbutton1.Gtk.Container+ContainerChild
-			this.alignment26 = new global::Gtk.Alignment (0.5f, 0.5f, 0f, 0f);
+			this.alignment26 = new global::Gtk.Alignment (0.5F, 0.5F, 0F, 0F);
 			this.alignment26.Name = "alignment26";
 			// Container child alignment26.Gtk.Container+ContainerChild
 			this.hbox28 = new global::Gtk.HBox ();
@@ -889,7 +697,7 @@ namespace Smuxi.Frontend.Gnome
 			this.image7.Name = "image7";
 			this.image7.Pixbuf = global::Stetic.IconLoader.LoadIcon (this, "gtk-cut", global::Gtk.IconSize.Menu);
 			this.hbox28.Add (this.image7);
-			global::Gtk.Box.BoxChild w56 = ((global::Gtk.Box.BoxChild)(this.hbox28[this.image7]));
+			global::Gtk.Box.BoxChild w56 = ((global::Gtk.Box.BoxChild)(this.hbox28 [this.image7]));
 			w56.Position = 0;
 			w56.Expand = false;
 			w56.Fill = false;
@@ -899,14 +707,14 @@ namespace Smuxi.Frontend.Gnome
 			this.label60.LabelProp = global::Mono.Unix.Catalog.GetString ("Strip UTF-8");
 			this.label60.UseUnderline = true;
 			this.hbox28.Add (this.label60);
-			global::Gtk.Box.BoxChild w57 = ((global::Gtk.Box.BoxChild)(this.hbox28[this.label60]));
+			global::Gtk.Box.BoxChild w57 = ((global::Gtk.Box.BoxChild)(this.hbox28 [this.label60]));
 			w57.Position = 1;
 			w57.Expand = false;
 			w57.Fill = false;
 			this.alignment26.Add (this.hbox28);
 			this.checkbutton1.Add (this.alignment26);
 			this.vbox10.Add (this.checkbutton1);
-			global::Gtk.Box.BoxChild w60 = ((global::Gtk.Box.BoxChild)(this.vbox10[this.checkbutton1]));
+			global::Gtk.Box.BoxChild w60 = ((global::Gtk.Box.BoxChild)(this.vbox10 [this.checkbutton1]));
 			w60.Position = 3;
 			w60.Expand = false;
 			w60.Fill = false;
@@ -925,7 +733,7 @@ namespace Smuxi.Frontend.Gnome
 			this.frame1 = new global::Gtk.Frame ();
 			this.frame1.Name = "frame1";
 			// Container child frame1.Gtk.Container+ContainerChild
-			this.alignment4 = new global::Gtk.Alignment (0.5f, 0.5f, 1f, 1f);
+			this.alignment4 = new global::Gtk.Alignment (0.5F, 0.5F, 1F, 1F);
 			this.alignment4.Name = "alignment4";
 			this.alignment4.LeftPadding = ((uint)(12));
 			// Container child alignment4.Gtk.Container+ContainerChild
@@ -949,7 +757,7 @@ namespace Smuxi.Frontend.Gnome
 			this.image12.Name = "image12";
 			this.image12.Pixbuf = global::Stetic.IconLoader.LoadIcon (this, "gtk-goto-top", global::Gtk.IconSize.Menu);
 			this.hbox10.Add (this.image12);
-			global::Gtk.Box.BoxChild w62 = ((global::Gtk.Box.BoxChild)(this.hbox10[this.image12]));
+			global::Gtk.Box.BoxChild w62 = ((global::Gtk.Box.BoxChild)(this.hbox10 [this.image12]));
 			w62.Position = 0;
 			w62.Expand = false;
 			w62.Fill = false;
@@ -958,13 +766,13 @@ namespace Smuxi.Frontend.Gnome
 			this.label5.Name = "label5";
 			this.label5.LabelProp = global::Mono.Unix.Catalog.GetString ("Top");
 			this.hbox10.Add (this.label5);
-			global::Gtk.Box.BoxChild w63 = ((global::Gtk.Box.BoxChild)(this.hbox10[this.label5]));
+			global::Gtk.Box.BoxChild w63 = ((global::Gtk.Box.BoxChild)(this.hbox10 [this.label5]));
 			w63.Position = 1;
 			w63.Expand = false;
 			w63.Fill = false;
 			this.TabPositionRadioButtonTop.Add (this.hbox10);
 			this.vbox6.Add (this.TabPositionRadioButtonTop);
-			global::Gtk.Box.BoxChild w65 = ((global::Gtk.Box.BoxChild)(this.vbox6[this.TabPositionRadioButtonTop]));
+			global::Gtk.Box.BoxChild w65 = ((global::Gtk.Box.BoxChild)(this.vbox6 [this.TabPositionRadioButtonTop]));
 			w65.Position = 0;
 			w65.Expand = false;
 			w65.Fill = false;
@@ -984,7 +792,7 @@ namespace Smuxi.Frontend.Gnome
 			this.image9.Name = "image9";
 			this.image9.Pixbuf = global::Stetic.IconLoader.LoadIcon (this, "gtk-goto-bottom", global::Gtk.IconSize.Menu);
 			this.hbox24.Add (this.image9);
-			global::Gtk.Box.BoxChild w66 = ((global::Gtk.Box.BoxChild)(this.hbox24[this.image9]));
+			global::Gtk.Box.BoxChild w66 = ((global::Gtk.Box.BoxChild)(this.hbox24 [this.image9]));
 			w66.Position = 0;
 			w66.Expand = false;
 			w66.Fill = false;
@@ -994,13 +802,13 @@ namespace Smuxi.Frontend.Gnome
 			this.label54.LabelProp = global::Mono.Unix.Catalog.GetString ("Bottom");
 			this.label54.UseUnderline = true;
 			this.hbox24.Add (this.label54);
-			global::Gtk.Box.BoxChild w67 = ((global::Gtk.Box.BoxChild)(this.hbox24[this.label54]));
+			global::Gtk.Box.BoxChild w67 = ((global::Gtk.Box.BoxChild)(this.hbox24 [this.label54]));
 			w67.Position = 1;
 			w67.Expand = false;
 			w67.Fill = false;
 			this.TabPositionRadioButtonBottom.Add (this.hbox24);
 			this.vbox6.Add (this.TabPositionRadioButtonBottom);
-			global::Gtk.Box.BoxChild w69 = ((global::Gtk.Box.BoxChild)(this.vbox6[this.TabPositionRadioButtonBottom]));
+			global::Gtk.Box.BoxChild w69 = ((global::Gtk.Box.BoxChild)(this.vbox6 [this.TabPositionRadioButtonBottom]));
 			w69.Position = 1;
 			w69.Expand = false;
 			w69.Fill = false;
@@ -1012,7 +820,7 @@ namespace Smuxi.Frontend.Gnome
 			this.TabPositionRadioButtonLeft.Group = this.TabPositionRadioButtonTop.Group;
 			this.TabPositionRadioButtonLeft.Remove (this.TabPositionRadioButtonLeft.Child);
 			// Container child TabPositionRadioButtonLeft.Gtk.Container+ContainerChild
-			this.alignment24 = new global::Gtk.Alignment (0.5f, 0.5f, 0f, 0f);
+			this.alignment24 = new global::Gtk.Alignment (0.5F, 0.5F, 0F, 0F);
 			this.alignment24.Name = "alignment24";
 			// Container child alignment24.Gtk.Container+ContainerChild
 			this.hbox25 = new global::Gtk.HBox ();
@@ -1023,7 +831,7 @@ namespace Smuxi.Frontend.Gnome
 			this.image10.Name = "image10";
 			this.image10.Pixbuf = global::Stetic.IconLoader.LoadIcon (this, "gtk-goto-first", global::Gtk.IconSize.Menu);
 			this.hbox25.Add (this.image10);
-			global::Gtk.Box.BoxChild w70 = ((global::Gtk.Box.BoxChild)(this.hbox25[this.image10]));
+			global::Gtk.Box.BoxChild w70 = ((global::Gtk.Box.BoxChild)(this.hbox25 [this.image10]));
 			w70.Position = 0;
 			w70.Expand = false;
 			w70.Fill = false;
@@ -1033,14 +841,14 @@ namespace Smuxi.Frontend.Gnome
 			this.label55.LabelProp = global::Mono.Unix.Catalog.GetString ("Left");
 			this.label55.UseUnderline = true;
 			this.hbox25.Add (this.label55);
-			global::Gtk.Box.BoxChild w71 = ((global::Gtk.Box.BoxChild)(this.hbox25[this.label55]));
+			global::Gtk.Box.BoxChild w71 = ((global::Gtk.Box.BoxChild)(this.hbox25 [this.label55]));
 			w71.Position = 1;
 			w71.Expand = false;
 			w71.Fill = false;
 			this.alignment24.Add (this.hbox25);
 			this.TabPositionRadioButtonLeft.Add (this.alignment24);
 			this.vbox6.Add (this.TabPositionRadioButtonLeft);
-			global::Gtk.Box.BoxChild w74 = ((global::Gtk.Box.BoxChild)(this.vbox6[this.TabPositionRadioButtonLeft]));
+			global::Gtk.Box.BoxChild w74 = ((global::Gtk.Box.BoxChild)(this.vbox6 [this.TabPositionRadioButtonLeft]));
 			w74.Position = 2;
 			w74.Expand = false;
 			w74.Fill = false;
@@ -1052,7 +860,7 @@ namespace Smuxi.Frontend.Gnome
 			this.TabPositionRadioButtonRight.Group = this.TabPositionRadioButtonTop.Group;
 			this.TabPositionRadioButtonRight.Remove (this.TabPositionRadioButtonRight.Child);
 			// Container child TabPositionRadioButtonRight.Gtk.Container+ContainerChild
-			this.alignment25 = new global::Gtk.Alignment (0.5f, 0.5f, 0f, 0f);
+			this.alignment25 = new global::Gtk.Alignment (0.5F, 0.5F, 0F, 0F);
 			this.alignment25.Name = "alignment25";
 			// Container child alignment25.Gtk.Container+ContainerChild
 			this.hbox26 = new global::Gtk.HBox ();
@@ -1063,7 +871,7 @@ namespace Smuxi.Frontend.Gnome
 			this.image11.Name = "image11";
 			this.image11.Pixbuf = global::Stetic.IconLoader.LoadIcon (this, "gtk-goto-last", global::Gtk.IconSize.Menu);
 			this.hbox26.Add (this.image11);
-			global::Gtk.Box.BoxChild w75 = ((global::Gtk.Box.BoxChild)(this.hbox26[this.image11]));
+			global::Gtk.Box.BoxChild w75 = ((global::Gtk.Box.BoxChild)(this.hbox26 [this.image11]));
 			w75.Position = 0;
 			w75.Expand = false;
 			w75.Fill = false;
@@ -1073,14 +881,14 @@ namespace Smuxi.Frontend.Gnome
 			this.label56.LabelProp = global::Mono.Unix.Catalog.GetString ("Right");
 			this.label56.UseUnderline = true;
 			this.hbox26.Add (this.label56);
-			global::Gtk.Box.BoxChild w76 = ((global::Gtk.Box.BoxChild)(this.hbox26[this.label56]));
+			global::Gtk.Box.BoxChild w76 = ((global::Gtk.Box.BoxChild)(this.hbox26 [this.label56]));
 			w76.Position = 1;
 			w76.Expand = false;
 			w76.Fill = false;
 			this.alignment25.Add (this.hbox26);
 			this.TabPositionRadioButtonRight.Add (this.alignment25);
 			this.vbox6.Add (this.TabPositionRadioButtonRight);
-			global::Gtk.Box.BoxChild w79 = ((global::Gtk.Box.BoxChild)(this.vbox6[this.TabPositionRadioButtonRight]));
+			global::Gtk.Box.BoxChild w79 = ((global::Gtk.Box.BoxChild)(this.vbox6 [this.TabPositionRadioButtonRight]));
 			w79.Position = 3;
 			w79.Expand = false;
 			w79.Fill = false;
@@ -1091,7 +899,7 @@ namespace Smuxi.Frontend.Gnome
 			this.TabPositionRadioButtonNone.UseUnderline = true;
 			this.TabPositionRadioButtonNone.Group = this.TabPositionRadioButtonTop.Group;
 			this.vbox6.Add (this.TabPositionRadioButtonNone);
-			global::Gtk.Box.BoxChild w80 = ((global::Gtk.Box.BoxChild)(this.vbox6[this.TabPositionRadioButtonNone]));
+			global::Gtk.Box.BoxChild w80 = ((global::Gtk.Box.BoxChild)(this.vbox6 [this.TabPositionRadioButtonNone]));
 			w80.Position = 4;
 			w80.Expand = false;
 			w80.Fill = false;
@@ -1103,14 +911,14 @@ namespace Smuxi.Frontend.Gnome
 			this.label9.UseMarkup = true;
 			this.frame1.LabelWidget = this.label9;
 			this.vbox5.Add (this.frame1);
-			global::Gtk.Box.BoxChild w83 = ((global::Gtk.Box.BoxChild)(this.vbox5[this.frame1]));
+			global::Gtk.Box.BoxChild w83 = ((global::Gtk.Box.BoxChild)(this.vbox5 [this.frame1]));
 			w83.Position = 0;
 			w83.Expand = false;
 			// Container child vbox5.Gtk.Box+BoxChild
 			this.frame4 = new global::Gtk.Frame ();
 			this.frame4.Name = "frame4";
 			// Container child frame4.Gtk.Container+ContainerChild
-			this.alignment8 = new global::Gtk.Alignment (0.5f, 0.5f, 1f, 1f);
+			this.alignment8 = new global::Gtk.Alignment (0.5F, 0.5F, 1F, 1F);
 			this.alignment8.Name = "alignment8";
 			this.alignment8.LeftPadding = ((uint)(12));
 			// Container child alignment8.Gtk.Container+ContainerChild
@@ -1122,7 +930,7 @@ namespace Smuxi.Frontend.Gnome
 			this.ActivityColorButton = new global::Gtk.ColorButton ();
 			this.ActivityColorButton.Name = "ActivityColorButton";
 			this.table3.Add (this.ActivityColorButton);
-			global::Gtk.Table.TableChild w84 = ((global::Gtk.Table.TableChild)(this.table3[this.ActivityColorButton]));
+			global::Gtk.Table.TableChild w84 = ((global::Gtk.Table.TableChild)(this.table3 [this.ActivityColorButton]));
 			w84.TopAttach = ((uint)(1));
 			w84.BottomAttach = ((uint)(2));
 			w84.LeftAttach = ((uint)(1));
@@ -1132,7 +940,7 @@ namespace Smuxi.Frontend.Gnome
 			this.HighlightColorButton = new global::Gtk.ColorButton ();
 			this.HighlightColorButton.Name = "HighlightColorButton";
 			this.table3.Add (this.HighlightColorButton);
-			global::Gtk.Table.TableChild w85 = ((global::Gtk.Table.TableChild)(this.table3[this.HighlightColorButton]));
+			global::Gtk.Table.TableChild w85 = ((global::Gtk.Table.TableChild)(this.table3 [this.HighlightColorButton]));
 			w85.TopAttach = ((uint)(3));
 			w85.BottomAttach = ((uint)(4));
 			w85.LeftAttach = ((uint)(1));
@@ -1141,38 +949,38 @@ namespace Smuxi.Frontend.Gnome
 			// Container child table3.Gtk.Table+TableChild
 			this.label16 = new global::Gtk.Label ();
 			this.label16.Name = "label16";
-			this.label16.Xalign = 0f;
+			this.label16.Xalign = 0F;
 			this.label16.LabelProp = global::Mono.Unix.Catalog.GetString ("No Activity");
 			this.table3.Add (this.label16);
-			global::Gtk.Table.TableChild w86 = ((global::Gtk.Table.TableChild)(this.table3[this.label16]));
+			global::Gtk.Table.TableChild w86 = ((global::Gtk.Table.TableChild)(this.table3 [this.label16]));
 			w86.YOptions = ((global::Gtk.AttachOptions)(0));
 			// Container child table3.Gtk.Table+TableChild
 			this.label17 = new global::Gtk.Label ();
 			this.label17.Name = "label17";
-			this.label17.Xalign = 0f;
+			this.label17.Xalign = 0F;
 			this.label17.LabelProp = global::Mono.Unix.Catalog.GetString ("Activity");
 			this.table3.Add (this.label17);
-			global::Gtk.Table.TableChild w87 = ((global::Gtk.Table.TableChild)(this.table3[this.label17]));
+			global::Gtk.Table.TableChild w87 = ((global::Gtk.Table.TableChild)(this.table3 [this.label17]));
 			w87.TopAttach = ((uint)(1));
 			w87.BottomAttach = ((uint)(2));
 			w87.YOptions = ((global::Gtk.AttachOptions)(0));
 			// Container child table3.Gtk.Table+TableChild
 			this.label18 = new global::Gtk.Label ();
 			this.label18.Name = "label18";
-			this.label18.Xalign = 0f;
+			this.label18.Xalign = 0F;
 			this.label18.LabelProp = global::Mono.Unix.Catalog.GetString ("Join/Part/Mode");
 			this.table3.Add (this.label18);
-			global::Gtk.Table.TableChild w88 = ((global::Gtk.Table.TableChild)(this.table3[this.label18]));
+			global::Gtk.Table.TableChild w88 = ((global::Gtk.Table.TableChild)(this.table3 [this.label18]));
 			w88.TopAttach = ((uint)(2));
 			w88.BottomAttach = ((uint)(3));
 			w88.YOptions = ((global::Gtk.AttachOptions)(0));
 			// Container child table3.Gtk.Table+TableChild
 			this.label59 = new global::Gtk.Label ();
 			this.label59.Name = "label59";
-			this.label59.Xalign = 0f;
+			this.label59.Xalign = 0F;
 			this.label59.LabelProp = global::Mono.Unix.Catalog.GetString ("Highlight");
 			this.table3.Add (this.label59);
-			global::Gtk.Table.TableChild w89 = ((global::Gtk.Table.TableChild)(this.table3[this.label59]));
+			global::Gtk.Table.TableChild w89 = ((global::Gtk.Table.TableChild)(this.table3 [this.label59]));
 			w89.TopAttach = ((uint)(3));
 			w89.BottomAttach = ((uint)(4));
 			w89.YOptions = ((global::Gtk.AttachOptions)(0));
@@ -1180,7 +988,7 @@ namespace Smuxi.Frontend.Gnome
 			this.ModeColorButton = new global::Gtk.ColorButton ();
 			this.ModeColorButton.Name = "ModeColorButton";
 			this.table3.Add (this.ModeColorButton);
-			global::Gtk.Table.TableChild w90 = ((global::Gtk.Table.TableChild)(this.table3[this.ModeColorButton]));
+			global::Gtk.Table.TableChild w90 = ((global::Gtk.Table.TableChild)(this.table3 [this.ModeColorButton]));
 			w90.TopAttach = ((uint)(2));
 			w90.BottomAttach = ((uint)(3));
 			w90.LeftAttach = ((uint)(1));
@@ -1190,7 +998,7 @@ namespace Smuxi.Frontend.Gnome
 			this.NoActivityColorButton = new global::Gtk.ColorButton ();
 			this.NoActivityColorButton.Name = "NoActivityColorButton";
 			this.table3.Add (this.NoActivityColorButton);
-			global::Gtk.Table.TableChild w91 = ((global::Gtk.Table.TableChild)(this.table3[this.NoActivityColorButton]));
+			global::Gtk.Table.TableChild w91 = ((global::Gtk.Table.TableChild)(this.table3 [this.NoActivityColorButton]));
 			w91.LeftAttach = ((uint)(1));
 			w91.RightAttach = ((uint)(2));
 			w91.YOptions = ((global::Gtk.AttachOptions)(0));
@@ -1202,11 +1010,11 @@ namespace Smuxi.Frontend.Gnome
 			this.label15.UseMarkup = true;
 			this.frame4.LabelWidget = this.label15;
 			this.vbox5.Add (this.frame4);
-			global::Gtk.Box.BoxChild w94 = ((global::Gtk.Box.BoxChild)(this.vbox5[this.frame4]));
+			global::Gtk.Box.BoxChild w94 = ((global::Gtk.Box.BoxChild)(this.vbox5 [this.frame4]));
 			w94.Position = 1;
 			w94.Expand = false;
 			this.InterfaceNotebook.Add (this.vbox5);
-			global::Gtk.Notebook.NotebookChild w95 = ((global::Gtk.Notebook.NotebookChild)(this.InterfaceNotebook[this.vbox5]));
+			global::Gtk.Notebook.NotebookChild w95 = ((global::Gtk.Notebook.NotebookChild)(this.InterfaceNotebook [this.vbox5]));
 			w95.Position = 1;
 			// Notebook tab
 			this.label2 = new global::Gtk.Label ();
@@ -1218,7 +1026,7 @@ namespace Smuxi.Frontend.Gnome
 			this.frame3 = new global::Gtk.Frame ();
 			this.frame3.Name = "frame3";
 			// Container child frame3.Gtk.Container+ContainerChild
-			this.alignment7 = new global::Gtk.Alignment (0.5f, 0.5f, 1f, 1f);
+			this.alignment7 = new global::Gtk.Alignment (0.5F, 0.5F, 1F, 1F);
 			this.alignment7.Name = "alignment7";
 			this.alignment7.LeftPadding = ((uint)(12));
 			// Container child alignment7.Gtk.Container+ContainerChild
@@ -1240,7 +1048,7 @@ namespace Smuxi.Frontend.Gnome
 			this.CommandCharacterEntry.MaxLength = 1;
 			this.CommandCharacterEntry.InvisibleChar = '●';
 			this.table4.Add (this.CommandCharacterEntry);
-			global::Gtk.Table.TableChild w96 = ((global::Gtk.Table.TableChild)(this.table4[this.CommandCharacterEntry]));
+			global::Gtk.Table.TableChild w96 = ((global::Gtk.Table.TableChild)(this.table4 [this.CommandCharacterEntry]));
 			w96.TopAttach = ((uint)(1));
 			w96.BottomAttach = ((uint)(2));
 			w96.LeftAttach = ((uint)(1));
@@ -1256,7 +1064,7 @@ namespace Smuxi.Frontend.Gnome
 			this.CommandHistorySizeSpinButton.Numeric = true;
 			this.CommandHistorySizeSpinButton.Value = 30;
 			this.table4.Add (this.CommandHistorySizeSpinButton);
-			global::Gtk.Table.TableChild w97 = ((global::Gtk.Table.TableChild)(this.table4[this.CommandHistorySizeSpinButton]));
+			global::Gtk.Table.TableChild w97 = ((global::Gtk.Table.TableChild)(this.table4 [this.CommandHistorySizeSpinButton]));
 			w97.TopAttach = ((uint)(2));
 			w97.BottomAttach = ((uint)(3));
 			w97.LeftAttach = ((uint)(1));
@@ -1271,7 +1079,7 @@ namespace Smuxi.Frontend.Gnome
 			this.CompletionCharacterEntry.MaxLength = 1;
 			this.CompletionCharacterEntry.InvisibleChar = '●';
 			this.table4.Add (this.CompletionCharacterEntry);
-			global::Gtk.Table.TableChild w98 = ((global::Gtk.Table.TableChild)(this.table4[this.CompletionCharacterEntry]));
+			global::Gtk.Table.TableChild w98 = ((global::Gtk.Table.TableChild)(this.table4 [this.CompletionCharacterEntry]));
 			w98.LeftAttach = ((uint)(1));
 			w98.RightAttach = ((uint)(2));
 			w98.YOptions = ((global::Gtk.AttachOptions)(0));
@@ -1283,7 +1091,7 @@ namespace Smuxi.Frontend.Gnome
 			this.label13.Name = "label13";
 			this.label13.LabelProp = global::Mono.Unix.Catalog.GetString ("Completion Character:");
 			this.hbox4.Add (this.label13);
-			global::Gtk.Box.BoxChild w99 = ((global::Gtk.Box.BoxChild)(this.hbox4[this.label13]));
+			global::Gtk.Box.BoxChild w99 = ((global::Gtk.Box.BoxChild)(this.hbox4 [this.label13]));
 			w99.Position = 0;
 			w99.Expand = false;
 			w99.Fill = false;
@@ -1292,7 +1100,7 @@ namespace Smuxi.Frontend.Gnome
 			this.fixed22.Name = "fixed22";
 			this.fixed22.HasWindow = false;
 			this.hbox4.Add (this.fixed22);
-			global::Gtk.Box.BoxChild w100 = ((global::Gtk.Box.BoxChild)(this.hbox4[this.fixed22]));
+			global::Gtk.Box.BoxChild w100 = ((global::Gtk.Box.BoxChild)(this.hbox4 [this.fixed22]));
 			w100.Position = 1;
 			this.table4.Add (this.hbox4);
 			// Container child table4.Gtk.Table+TableChild
@@ -1303,7 +1111,7 @@ namespace Smuxi.Frontend.Gnome
 			this.label14.Name = "label14";
 			this.label14.LabelProp = global::Mono.Unix.Catalog.GetString ("Command Character:");
 			this.hbox5.Add (this.label14);
-			global::Gtk.Box.BoxChild w102 = ((global::Gtk.Box.BoxChild)(this.hbox5[this.label14]));
+			global::Gtk.Box.BoxChild w102 = ((global::Gtk.Box.BoxChild)(this.hbox5 [this.label14]));
 			w102.Position = 0;
 			w102.Expand = false;
 			w102.Fill = false;
@@ -1312,10 +1120,10 @@ namespace Smuxi.Frontend.Gnome
 			this.fixed23.Name = "fixed23";
 			this.fixed23.HasWindow = false;
 			this.hbox5.Add (this.fixed23);
-			global::Gtk.Box.BoxChild w103 = ((global::Gtk.Box.BoxChild)(this.hbox5[this.fixed23]));
+			global::Gtk.Box.BoxChild w103 = ((global::Gtk.Box.BoxChild)(this.hbox5 [this.fixed23]));
 			w103.Position = 1;
 			this.table4.Add (this.hbox5);
-			global::Gtk.Table.TableChild w104 = ((global::Gtk.Table.TableChild)(this.table4[this.hbox5]));
+			global::Gtk.Table.TableChild w104 = ((global::Gtk.Table.TableChild)(this.table4 [this.hbox5]));
 			w104.TopAttach = ((uint)(1));
 			w104.BottomAttach = ((uint)(2));
 			// Container child table4.Gtk.Table+TableChild
@@ -1326,7 +1134,7 @@ namespace Smuxi.Frontend.Gnome
 			this.label42.Name = "label42";
 			this.label42.LabelProp = global::Mono.Unix.Catalog.GetString ("Command History Size:");
 			this.hbox6.Add (this.label42);
-			global::Gtk.Box.BoxChild w105 = ((global::Gtk.Box.BoxChild)(this.hbox6[this.label42]));
+			global::Gtk.Box.BoxChild w105 = ((global::Gtk.Box.BoxChild)(this.hbox6 [this.label42]));
 			w105.Position = 0;
 			w105.Expand = false;
 			w105.Fill = false;
@@ -1335,14 +1143,14 @@ namespace Smuxi.Frontend.Gnome
 			this.fixed24.Name = "fixed24";
 			this.fixed24.HasWindow = false;
 			this.hbox6.Add (this.fixed24);
-			global::Gtk.Box.BoxChild w106 = ((global::Gtk.Box.BoxChild)(this.hbox6[this.fixed24]));
+			global::Gtk.Box.BoxChild w106 = ((global::Gtk.Box.BoxChild)(this.hbox6 [this.fixed24]));
 			w106.Position = 1;
 			this.table4.Add (this.hbox6);
-			global::Gtk.Table.TableChild w107 = ((global::Gtk.Table.TableChild)(this.table4[this.hbox6]));
+			global::Gtk.Table.TableChild w107 = ((global::Gtk.Table.TableChild)(this.table4 [this.hbox6]));
 			w107.TopAttach = ((uint)(2));
 			w107.BottomAttach = ((uint)(3));
 			this.vbox7.Add (this.table4);
-			global::Gtk.Box.BoxChild w108 = ((global::Gtk.Box.BoxChild)(this.vbox7[this.table4]));
+			global::Gtk.Box.BoxChild w108 = ((global::Gtk.Box.BoxChild)(this.vbox7 [this.table4]));
 			w108.Position = 0;
 			w108.Expand = false;
 			w108.Fill = false;
@@ -1353,7 +1161,7 @@ namespace Smuxi.Frontend.Gnome
 			this.BashStyleCompletionCheckButton.DrawIndicator = true;
 			this.BashStyleCompletionCheckButton.UseUnderline = true;
 			this.vbox7.Add (this.BashStyleCompletionCheckButton);
-			global::Gtk.Box.BoxChild w109 = ((global::Gtk.Box.BoxChild)(this.vbox7[this.BashStyleCompletionCheckButton]));
+			global::Gtk.Box.BoxChild w109 = ((global::Gtk.Box.BoxChild)(this.vbox7 [this.BashStyleCompletionCheckButton]));
 			w109.Position = 1;
 			w109.Expand = false;
 			w109.Fill = false;
@@ -1365,7 +1173,7 @@ namespace Smuxi.Frontend.Gnome
 			this.label12.UseMarkup = true;
 			this.frame3.LabelWidget = this.label12;
 			this.InterfaceNotebook.Add (this.frame3);
-			global::Gtk.Notebook.NotebookChild w112 = ((global::Gtk.Notebook.NotebookChild)(this.InterfaceNotebook[this.frame3]));
+			global::Gtk.Notebook.NotebookChild w112 = ((global::Gtk.Notebook.NotebookChild)(this.InterfaceNotebook [this.frame3]));
 			w112.Position = 2;
 			// Notebook tab
 			this.label3 = new global::Gtk.Label ();
@@ -1380,7 +1188,7 @@ namespace Smuxi.Frontend.Gnome
 			this.frame2 = new global::Gtk.Frame ();
 			this.frame2.Name = "frame2";
 			// Container child frame2.Gtk.Container+ContainerChild
-			this.alignment5 = new global::Gtk.Alignment (0.5f, 0.5f, 1f, 1f);
+			this.alignment5 = new global::Gtk.Alignment (0.5F, 0.5F, 1F, 1F);
 			this.alignment5.Name = "alignment5";
 			this.alignment5.LeftPadding = ((uint)(12));
 			// Container child alignment5.Gtk.Container+ContainerChild
@@ -1395,14 +1203,14 @@ namespace Smuxi.Frontend.Gnome
 			this.NickColorsCheckButton.DrawIndicator = true;
 			this.NickColorsCheckButton.UseUnderline = true;
 			this.vbox9.Add (this.NickColorsCheckButton);
-			global::Gtk.Box.BoxChild w113 = ((global::Gtk.Box.BoxChild)(this.vbox9[this.NickColorsCheckButton]));
+			global::Gtk.Box.BoxChild w113 = ((global::Gtk.Box.BoxChild)(this.vbox9 [this.NickColorsCheckButton]));
 			w113.Position = 0;
 			w113.Expand = false;
 			// Container child vbox9.Gtk.Box+BoxChild
 			this.frame10 = new global::Gtk.Frame ();
 			this.frame10.Name = "frame10";
 			// Container child frame10.Gtk.Container+ContainerChild
-			this.alignment14 = new global::Gtk.Alignment (0.5f, 0.5f, 1f, 1f);
+			this.alignment14 = new global::Gtk.Alignment (0.5F, 0.5F, 1F, 1F);
 			this.alignment14.Name = "alignment14";
 			this.alignment14.LeftPadding = ((uint)(12));
 			// Container child alignment14.Gtk.Container+ContainerChild
@@ -1417,7 +1225,7 @@ namespace Smuxi.Frontend.Gnome
 			this.TopicPositionRadioButtonTop.Group = new global::GLib.SList (global::System.IntPtr.Zero);
 			this.TopicPositionRadioButtonTop.Remove (this.TopicPositionRadioButtonTop.Child);
 			// Container child TopicPositionRadioButtonTop.Gtk.Container+ContainerChild
-			this.alignment21 = new global::Gtk.Alignment (0.5f, 0.5f, 0f, 0f);
+			this.alignment21 = new global::Gtk.Alignment (0.5F, 0.5F, 0F, 0F);
 			this.alignment21.Name = "alignment21";
 			// Container child alignment21.Gtk.Container+ContainerChild
 			this.hbox22 = new global::Gtk.HBox ();
@@ -1428,7 +1236,7 @@ namespace Smuxi.Frontend.Gnome
 			this.image1.Name = "image1";
 			this.image1.Pixbuf = global::Stetic.IconLoader.LoadIcon (this, "gtk-goto-top", global::Gtk.IconSize.Menu);
 			this.hbox22.Add (this.image1);
-			global::Gtk.Box.BoxChild w114 = ((global::Gtk.Box.BoxChild)(this.hbox22[this.image1]));
+			global::Gtk.Box.BoxChild w114 = ((global::Gtk.Box.BoxChild)(this.hbox22 [this.image1]));
 			w114.Position = 0;
 			w114.Expand = false;
 			w114.Fill = false;
@@ -1438,14 +1246,14 @@ namespace Smuxi.Frontend.Gnome
 			this.label52.LabelProp = global::Mono.Unix.Catalog.GetString ("Top");
 			this.label52.UseUnderline = true;
 			this.hbox22.Add (this.label52);
-			global::Gtk.Box.BoxChild w115 = ((global::Gtk.Box.BoxChild)(this.hbox22[this.label52]));
+			global::Gtk.Box.BoxChild w115 = ((global::Gtk.Box.BoxChild)(this.hbox22 [this.label52]));
 			w115.Position = 1;
 			w115.Expand = false;
 			w115.Fill = false;
 			this.alignment21.Add (this.hbox22);
 			this.TopicPositionRadioButtonTop.Add (this.alignment21);
 			this.vbox11.Add (this.TopicPositionRadioButtonTop);
-			global::Gtk.Box.BoxChild w118 = ((global::Gtk.Box.BoxChild)(this.vbox11[this.TopicPositionRadioButtonTop]));
+			global::Gtk.Box.BoxChild w118 = ((global::Gtk.Box.BoxChild)(this.vbox11 [this.TopicPositionRadioButtonTop]));
 			w118.Position = 0;
 			w118.Expand = false;
 			w118.Fill = false;
@@ -1457,7 +1265,7 @@ namespace Smuxi.Frontend.Gnome
 			this.TopicPositionRadioButtonBottom.Group = this.TopicPositionRadioButtonTop.Group;
 			this.TopicPositionRadioButtonBottom.Remove (this.TopicPositionRadioButtonBottom.Child);
 			// Container child TopicPositionRadioButtonBottom.Gtk.Container+ContainerChild
-			this.alignment20 = new global::Gtk.Alignment (0.5f, 0.5f, 0f, 0f);
+			this.alignment20 = new global::Gtk.Alignment (0.5F, 0.5F, 0F, 0F);
 			this.alignment20.Name = "alignment20";
 			// Container child alignment20.Gtk.Container+ContainerChild
 			this.hbox21 = new global::Gtk.HBox ();
@@ -1468,7 +1276,7 @@ namespace Smuxi.Frontend.Gnome
 			this.image2.Name = "image2";
 			this.image2.Pixbuf = global::Stetic.IconLoader.LoadIcon (this, "gtk-goto-bottom", global::Gtk.IconSize.Menu);
 			this.hbox21.Add (this.image2);
-			global::Gtk.Box.BoxChild w119 = ((global::Gtk.Box.BoxChild)(this.hbox21[this.image2]));
+			global::Gtk.Box.BoxChild w119 = ((global::Gtk.Box.BoxChild)(this.hbox21 [this.image2]));
 			w119.Position = 0;
 			w119.Expand = false;
 			w119.Fill = false;
@@ -1478,14 +1286,14 @@ namespace Smuxi.Frontend.Gnome
 			this.label51.LabelProp = global::Mono.Unix.Catalog.GetString ("Bottom");
 			this.label51.UseUnderline = true;
 			this.hbox21.Add (this.label51);
-			global::Gtk.Box.BoxChild w120 = ((global::Gtk.Box.BoxChild)(this.hbox21[this.label51]));
+			global::Gtk.Box.BoxChild w120 = ((global::Gtk.Box.BoxChild)(this.hbox21 [this.label51]));
 			w120.Position = 1;
 			w120.Expand = false;
 			w120.Fill = false;
 			this.alignment20.Add (this.hbox21);
 			this.TopicPositionRadioButtonBottom.Add (this.alignment20);
 			this.vbox11.Add (this.TopicPositionRadioButtonBottom);
-			global::Gtk.Box.BoxChild w123 = ((global::Gtk.Box.BoxChild)(this.vbox11[this.TopicPositionRadioButtonBottom]));
+			global::Gtk.Box.BoxChild w123 = ((global::Gtk.Box.BoxChild)(this.vbox11 [this.TopicPositionRadioButtonBottom]));
 			w123.Position = 1;
 			w123.Expand = false;
 			w123.Fill = false;
@@ -1496,7 +1304,7 @@ namespace Smuxi.Frontend.Gnome
 			this.TopicPositionRadioButtonNone.UseUnderline = true;
 			this.TopicPositionRadioButtonNone.Group = this.TopicPositionRadioButtonTop.Group;
 			this.vbox11.Add (this.TopicPositionRadioButtonNone);
-			global::Gtk.Box.BoxChild w124 = ((global::Gtk.Box.BoxChild)(this.vbox11[this.TopicPositionRadioButtonNone]));
+			global::Gtk.Box.BoxChild w124 = ((global::Gtk.Box.BoxChild)(this.vbox11 [this.TopicPositionRadioButtonNone]));
 			w124.Position = 2;
 			w124.Expand = false;
 			w124.Fill = false;
@@ -1508,7 +1316,7 @@ namespace Smuxi.Frontend.Gnome
 			this.label41.UseMarkup = true;
 			this.frame10.LabelWidget = this.label41;
 			this.vbox9.Add (this.frame10);
-			global::Gtk.Box.BoxChild w127 = ((global::Gtk.Box.BoxChild)(this.vbox9[this.frame10]));
+			global::Gtk.Box.BoxChild w127 = ((global::Gtk.Box.BoxChild)(this.vbox9 [this.frame10]));
 			w127.Position = 1;
 			w127.Expand = false;
 			// Container child vbox9.Gtk.Box+BoxChild
@@ -1517,7 +1325,7 @@ namespace Smuxi.Frontend.Gnome
 			this.frame9.HeightRequest = 96;
 			this.frame9.Name = "frame9";
 			// Container child frame9.Gtk.Container+ContainerChild
-			this.alignment13 = new global::Gtk.Alignment (0.5f, 0.5f, 1f, 1f);
+			this.alignment13 = new global::Gtk.Alignment (0.5F, 0.5F, 1F, 1F);
 			this.alignment13.Name = "alignment13";
 			this.alignment13.LeftPadding = ((uint)(12));
 			// Container child alignment13.Gtk.Container+ContainerChild
@@ -1532,7 +1340,7 @@ namespace Smuxi.Frontend.Gnome
 			this.UserListPositionRadioButtonLeft.Group = new global::GLib.SList (global::System.IntPtr.Zero);
 			this.UserListPositionRadioButtonLeft.Remove (this.UserListPositionRadioButtonLeft.Child);
 			// Container child UserListPositionRadioButtonLeft.Gtk.Container+ContainerChild
-			this.alignment17 = new global::Gtk.Alignment (0.5f, 0.5f, 0f, 0f);
+			this.alignment17 = new global::Gtk.Alignment (0.5F, 0.5F, 0F, 0F);
 			this.alignment17.Name = "alignment17";
 			// Container child alignment17.Gtk.Container+ContainerChild
 			this.hbox18 = new global::Gtk.HBox ();
@@ -1543,7 +1351,7 @@ namespace Smuxi.Frontend.Gnome
 			this.image3.Name = "image3";
 			this.image3.Pixbuf = global::Stetic.IconLoader.LoadIcon (this, "gtk-goto-first", global::Gtk.IconSize.Menu);
 			this.hbox18.Add (this.image3);
-			global::Gtk.Box.BoxChild w128 = ((global::Gtk.Box.BoxChild)(this.hbox18[this.image3]));
+			global::Gtk.Box.BoxChild w128 = ((global::Gtk.Box.BoxChild)(this.hbox18 [this.image3]));
 			w128.Position = 0;
 			w128.Expand = false;
 			w128.Fill = false;
@@ -1553,14 +1361,14 @@ namespace Smuxi.Frontend.Gnome
 			this.label48.LabelProp = global::Mono.Unix.Catalog.GetString ("Left");
 			this.label48.UseUnderline = true;
 			this.hbox18.Add (this.label48);
-			global::Gtk.Box.BoxChild w129 = ((global::Gtk.Box.BoxChild)(this.hbox18[this.label48]));
+			global::Gtk.Box.BoxChild w129 = ((global::Gtk.Box.BoxChild)(this.hbox18 [this.label48]));
 			w129.Position = 1;
 			w129.Expand = false;
 			w129.Fill = false;
 			this.alignment17.Add (this.hbox18);
 			this.UserListPositionRadioButtonLeft.Add (this.alignment17);
 			this.vbox12.Add (this.UserListPositionRadioButtonLeft);
-			global::Gtk.Box.BoxChild w132 = ((global::Gtk.Box.BoxChild)(this.vbox12[this.UserListPositionRadioButtonLeft]));
+			global::Gtk.Box.BoxChild w132 = ((global::Gtk.Box.BoxChild)(this.vbox12 [this.UserListPositionRadioButtonLeft]));
 			w132.Position = 0;
 			w132.Expand = false;
 			w132.Fill = false;
@@ -1572,7 +1380,7 @@ namespace Smuxi.Frontend.Gnome
 			this.UserListPositionRadioButtonRight.Group = this.UserListPositionRadioButtonLeft.Group;
 			this.UserListPositionRadioButtonRight.Remove (this.UserListPositionRadioButtonRight.Child);
 			// Container child UserListPositionRadioButtonRight.Gtk.Container+ContainerChild
-			this.alignment18 = new global::Gtk.Alignment (0.5f, 0.5f, 0f, 0f);
+			this.alignment18 = new global::Gtk.Alignment (0.5F, 0.5F, 0F, 0F);
 			this.alignment18.Name = "alignment18";
 			// Container child alignment18.Gtk.Container+ContainerChild
 			this.hbox19 = new global::Gtk.HBox ();
@@ -1583,7 +1391,7 @@ namespace Smuxi.Frontend.Gnome
 			this.image4.Name = "image4";
 			this.image4.Pixbuf = global::Stetic.IconLoader.LoadIcon (this, "gtk-goto-last", global::Gtk.IconSize.Menu);
 			this.hbox19.Add (this.image4);
-			global::Gtk.Box.BoxChild w133 = ((global::Gtk.Box.BoxChild)(this.hbox19[this.image4]));
+			global::Gtk.Box.BoxChild w133 = ((global::Gtk.Box.BoxChild)(this.hbox19 [this.image4]));
 			w133.Position = 0;
 			w133.Expand = false;
 			w133.Fill = false;
@@ -1593,14 +1401,14 @@ namespace Smuxi.Frontend.Gnome
 			this.label49.LabelProp = global::Mono.Unix.Catalog.GetString ("Right");
 			this.label49.UseUnderline = true;
 			this.hbox19.Add (this.label49);
-			global::Gtk.Box.BoxChild w134 = ((global::Gtk.Box.BoxChild)(this.hbox19[this.label49]));
+			global::Gtk.Box.BoxChild w134 = ((global::Gtk.Box.BoxChild)(this.hbox19 [this.label49]));
 			w134.Position = 1;
 			w134.Expand = false;
 			w134.Fill = false;
 			this.alignment18.Add (this.hbox19);
 			this.UserListPositionRadioButtonRight.Add (this.alignment18);
 			this.vbox12.Add (this.UserListPositionRadioButtonRight);
-			global::Gtk.Box.BoxChild w137 = ((global::Gtk.Box.BoxChild)(this.vbox12[this.UserListPositionRadioButtonRight]));
+			global::Gtk.Box.BoxChild w137 = ((global::Gtk.Box.BoxChild)(this.vbox12 [this.UserListPositionRadioButtonRight]));
 			w137.Position = 1;
 			w137.Expand = false;
 			w137.Fill = false;
@@ -1611,7 +1419,7 @@ namespace Smuxi.Frontend.Gnome
 			this.UserListPositionRadioButtonNone.UseUnderline = true;
 			this.UserListPositionRadioButtonNone.Group = this.UserListPositionRadioButtonLeft.Group;
 			this.vbox12.Add (this.UserListPositionRadioButtonNone);
-			global::Gtk.Box.BoxChild w138 = ((global::Gtk.Box.BoxChild)(this.vbox12[this.UserListPositionRadioButtonNone]));
+			global::Gtk.Box.BoxChild w138 = ((global::Gtk.Box.BoxChild)(this.vbox12 [this.UserListPositionRadioButtonNone]));
 			w138.Position = 2;
 			w138.Expand = false;
 			w138.Fill = false;
@@ -1623,7 +1431,7 @@ namespace Smuxi.Frontend.Gnome
 			this.label38.UseMarkup = true;
 			this.frame9.LabelWidget = this.label38;
 			this.vbox9.Add (this.frame9);
-			global::Gtk.Box.BoxChild w141 = ((global::Gtk.Box.BoxChild)(this.vbox9[this.frame9]));
+			global::Gtk.Box.BoxChild w141 = ((global::Gtk.Box.BoxChild)(this.vbox9 [this.frame9]));
 			w141.Position = 2;
 			w141.Expand = false;
 			this.alignment5.Add (this.vbox9);
@@ -1634,14 +1442,14 @@ namespace Smuxi.Frontend.Gnome
 			this.label10.UseMarkup = true;
 			this.frame2.LabelWidget = this.label10;
 			this.vbox8.Add (this.frame2);
-			global::Gtk.Box.BoxChild w144 = ((global::Gtk.Box.BoxChild)(this.vbox8[this.frame2]));
+			global::Gtk.Box.BoxChild w144 = ((global::Gtk.Box.BoxChild)(this.vbox8 [this.frame2]));
 			w144.Position = 0;
 			w144.Expand = false;
 			// Container child vbox8.Gtk.Box+BoxChild
 			this.frame11 = new global::Gtk.Frame ();
 			this.frame11.Name = "frame11";
 			// Container child frame11.Gtk.Container+ContainerChild
-			this.alignment27 = new global::Gtk.Alignment (0.5f, 0.5f, 1f, 1f);
+			this.alignment27 = new global::Gtk.Alignment (0.5F, 0.5F, 1F, 1F);
 			this.alignment27.Name = "alignment27";
 			this.alignment27.LeftPadding = ((uint)(12));
 			// Container child alignment27.Gtk.Container+ContainerChild
@@ -1654,10 +1462,10 @@ namespace Smuxi.Frontend.Gnome
 			// Container child vbox14.Gtk.Box+BoxChild
 			this.label62 = new global::Gtk.Label ();
 			this.label62.Name = "label62";
-			this.label62.Xalign = 0f;
+			this.label62.Xalign = 0F;
 			this.label62.LabelProp = global::Mono.Unix.Catalog.GetString ("Highlight words:");
 			this.vbox14.Add (this.label62);
-			global::Gtk.Box.BoxChild w145 = ((global::Gtk.Box.BoxChild)(this.vbox14[this.label62]));
+			global::Gtk.Box.BoxChild w145 = ((global::Gtk.Box.BoxChild)(this.vbox14 [this.label62]));
 			w145.Position = 0;
 			w145.Expand = false;
 			w145.Fill = false;
@@ -1671,10 +1479,10 @@ namespace Smuxi.Frontend.Gnome
 			this.HighlightWordsTextView.Name = "HighlightWordsTextView";
 			this.scrolledwindow4.Add (this.HighlightWordsTextView);
 			this.vbox14.Add (this.scrolledwindow4);
-			global::Gtk.Box.BoxChild w147 = ((global::Gtk.Box.BoxChild)(this.vbox14[this.scrolledwindow4]));
+			global::Gtk.Box.BoxChild w147 = ((global::Gtk.Box.BoxChild)(this.vbox14 [this.scrolledwindow4]));
 			w147.Position = 1;
 			this.vbox13.Add (this.vbox14);
-			global::Gtk.Box.BoxChild w148 = ((global::Gtk.Box.BoxChild)(this.vbox13[this.vbox14]));
+			global::Gtk.Box.BoxChild w148 = ((global::Gtk.Box.BoxChild)(this.vbox13 [this.vbox14]));
 			w148.Position = 0;
 			// Container child vbox13.Gtk.Box+BoxChild
 			this.BeepOnHighlightCheckButton = new global::Gtk.CheckButton ();
@@ -1683,7 +1491,7 @@ namespace Smuxi.Frontend.Gnome
 			this.BeepOnHighlightCheckButton.DrawIndicator = true;
 			this.BeepOnHighlightCheckButton.UseUnderline = true;
 			this.vbox13.Add (this.BeepOnHighlightCheckButton);
-			global::Gtk.Box.BoxChild w149 = ((global::Gtk.Box.BoxChild)(this.vbox13[this.BeepOnHighlightCheckButton]));
+			global::Gtk.Box.BoxChild w149 = ((global::Gtk.Box.BoxChild)(this.vbox13 [this.BeepOnHighlightCheckButton]));
 			w149.Position = 1;
 			w149.Expand = false;
 			w149.Fill = false;
@@ -1695,10 +1503,10 @@ namespace Smuxi.Frontend.Gnome
 			this.label61.UseMarkup = true;
 			this.frame11.LabelWidget = this.label61;
 			this.vbox8.Add (this.frame11);
-			global::Gtk.Box.BoxChild w152 = ((global::Gtk.Box.BoxChild)(this.vbox8[this.frame11]));
+			global::Gtk.Box.BoxChild w152 = ((global::Gtk.Box.BoxChild)(this.vbox8 [this.frame11]));
 			w152.Position = 1;
 			this.InterfaceNotebook.Add (this.vbox8);
-			global::Gtk.Notebook.NotebookChild w153 = ((global::Gtk.Notebook.NotebookChild)(this.InterfaceNotebook[this.vbox8]));
+			global::Gtk.Notebook.NotebookChild w153 = ((global::Gtk.Notebook.NotebookChild)(this.InterfaceNotebook [this.vbox8]));
 			w153.Position = 3;
 			// Notebook tab
 			this.label4 = new global::Gtk.Label ();
@@ -1707,7 +1515,7 @@ namespace Smuxi.Frontend.Gnome
 			this.InterfaceNotebook.SetTabLabel (this.vbox8, this.label4);
 			this.label4.ShowAll ();
 			this.Notebook.Add (this.InterfaceNotebook);
-			global::Gtk.Notebook.NotebookChild w154 = ((global::Gtk.Notebook.NotebookChild)(this.Notebook[this.InterfaceNotebook]));
+			global::Gtk.Notebook.NotebookChild w154 = ((global::Gtk.Notebook.NotebookChild)(this.Notebook [this.InterfaceNotebook]));
 			w154.Position = 1;
 			// Notebook tab
 			this.label45 = new global::Gtk.Label ();
@@ -1729,7 +1537,7 @@ namespace Smuxi.Frontend.Gnome
 			this.ServersTreeView.Name = "ServersTreeView";
 			this.scrolledwindow3.Add (this.ServersTreeView);
 			this.hbox27.Add (this.scrolledwindow3);
-			global::Gtk.Box.BoxChild w156 = ((global::Gtk.Box.BoxChild)(this.hbox27[this.scrolledwindow3]));
+			global::Gtk.Box.BoxChild w156 = ((global::Gtk.Box.BoxChild)(this.hbox27 [this.scrolledwindow3]));
 			w156.Position = 0;
 			// Container child hbox27.Gtk.Box+BoxChild
 			this.vbuttonbox1 = new global::Gtk.VButtonBox ();
@@ -1743,7 +1551,7 @@ namespace Smuxi.Frontend.Gnome
 			this.ServersAddButton.UseUnderline = true;
 			this.ServersAddButton.Label = "gtk-add";
 			this.vbuttonbox1.Add (this.ServersAddButton);
-			global::Gtk.ButtonBox.ButtonBoxChild w157 = ((global::Gtk.ButtonBox.ButtonBoxChild)(this.vbuttonbox1[this.ServersAddButton]));
+			global::Gtk.ButtonBox.ButtonBoxChild w157 = ((global::Gtk.ButtonBox.ButtonBoxChild)(this.vbuttonbox1 [this.ServersAddButton]));
 			w157.Expand = false;
 			w157.Fill = false;
 			// Container child vbuttonbox1.Gtk.ButtonBox+ButtonBoxChild
@@ -1753,7 +1561,7 @@ namespace Smuxi.Frontend.Gnome
 			this.ServersEditButton.UseUnderline = true;
 			this.ServersEditButton.Label = "gtk-edit";
 			this.vbuttonbox1.Add (this.ServersEditButton);
-			global::Gtk.ButtonBox.ButtonBoxChild w158 = ((global::Gtk.ButtonBox.ButtonBoxChild)(this.vbuttonbox1[this.ServersEditButton]));
+			global::Gtk.ButtonBox.ButtonBoxChild w158 = ((global::Gtk.ButtonBox.ButtonBoxChild)(this.vbuttonbox1 [this.ServersEditButton]));
 			w158.Position = 1;
 			w158.Expand = false;
 			w158.Fill = false;
@@ -1764,16 +1572,16 @@ namespace Smuxi.Frontend.Gnome
 			this.ServersRemoveButton.UseUnderline = true;
 			this.ServersRemoveButton.Label = "gtk-remove";
 			this.vbuttonbox1.Add (this.ServersRemoveButton);
-			global::Gtk.ButtonBox.ButtonBoxChild w159 = ((global::Gtk.ButtonBox.ButtonBoxChild)(this.vbuttonbox1[this.ServersRemoveButton]));
+			global::Gtk.ButtonBox.ButtonBoxChild w159 = ((global::Gtk.ButtonBox.ButtonBoxChild)(this.vbuttonbox1 [this.ServersRemoveButton]));
 			w159.Position = 2;
 			w159.Expand = false;
 			w159.Fill = false;
 			this.hbox27.Add (this.vbuttonbox1);
-			global::Gtk.Box.BoxChild w160 = ((global::Gtk.Box.BoxChild)(this.hbox27[this.vbuttonbox1]));
+			global::Gtk.Box.BoxChild w160 = ((global::Gtk.Box.BoxChild)(this.hbox27 [this.vbuttonbox1]));
 			w160.Position = 1;
 			w160.Expand = false;
 			this.Notebook.Add (this.hbox27);
-			global::Gtk.Notebook.NotebookChild w161 = ((global::Gtk.Notebook.NotebookChild)(this.Notebook[this.hbox27]));
+			global::Gtk.Notebook.NotebookChild w161 = ((global::Gtk.Notebook.NotebookChild)(this.Notebook [this.hbox27]));
 			w161.Position = 2;
 			// Notebook tab
 			this.label57 = new global::Gtk.Label ();
@@ -1790,7 +1598,7 @@ namespace Smuxi.Frontend.Gnome
 			this.frame12 = new global::Gtk.Frame ();
 			this.frame12.Name = "frame12";
 			// Container child frame12.Gtk.Container+ContainerChild
-			this.alignment28 = new global::Gtk.Alignment (0.5f, 0.5f, 1f, 1f);
+			this.alignment28 = new global::Gtk.Alignment (0.5F, 0.5F, 1F, 1F);
 			this.alignment28.Name = "alignment28";
 			this.alignment28.LeftPadding = ((uint)(12));
 			// Container child alignment28.Gtk.Container+ContainerChild
@@ -1805,7 +1613,7 @@ namespace Smuxi.Frontend.Gnome
 			this.ChannelFiltersTreeView.Name = "ChannelFiltersTreeView";
 			this.scrolledwindow5.Add (this.ChannelFiltersTreeView);
 			this.vbox16.Add (this.scrolledwindow5);
-			global::Gtk.Box.BoxChild w163 = ((global::Gtk.Box.BoxChild)(this.vbox16[this.scrolledwindow5]));
+			global::Gtk.Box.BoxChild w163 = ((global::Gtk.Box.BoxChild)(this.vbox16 [this.scrolledwindow5]));
 			w163.Position = 0;
 			// Container child vbox16.Gtk.Box+BoxChild
 			this.hbuttonbox1 = new global::Gtk.HButtonBox ();
@@ -1818,7 +1626,7 @@ namespace Smuxi.Frontend.Gnome
 			this.ChannelFiltersAddButton.UseUnderline = true;
 			this.ChannelFiltersAddButton.Label = "gtk-add";
 			this.hbuttonbox1.Add (this.ChannelFiltersAddButton);
-			global::Gtk.ButtonBox.ButtonBoxChild w164 = ((global::Gtk.ButtonBox.ButtonBoxChild)(this.hbuttonbox1[this.ChannelFiltersAddButton]));
+			global::Gtk.ButtonBox.ButtonBoxChild w164 = ((global::Gtk.ButtonBox.ButtonBoxChild)(this.hbuttonbox1 [this.ChannelFiltersAddButton]));
 			w164.Expand = false;
 			w164.Fill = false;
 			// Container child hbuttonbox1.Gtk.ButtonBox+ButtonBoxChild
@@ -1829,12 +1637,12 @@ namespace Smuxi.Frontend.Gnome
 			this.ChannelFiltersRemoveButton.UseUnderline = true;
 			this.ChannelFiltersRemoveButton.Label = "gtk-remove";
 			this.hbuttonbox1.Add (this.ChannelFiltersRemoveButton);
-			global::Gtk.ButtonBox.ButtonBoxChild w165 = ((global::Gtk.ButtonBox.ButtonBoxChild)(this.hbuttonbox1[this.ChannelFiltersRemoveButton]));
+			global::Gtk.ButtonBox.ButtonBoxChild w165 = ((global::Gtk.ButtonBox.ButtonBoxChild)(this.hbuttonbox1 [this.ChannelFiltersRemoveButton]));
 			w165.Position = 1;
 			w165.Expand = false;
 			w165.Fill = false;
 			this.vbox16.Add (this.hbuttonbox1);
-			global::Gtk.Box.BoxChild w166 = ((global::Gtk.Box.BoxChild)(this.vbox16[this.hbuttonbox1]));
+			global::Gtk.Box.BoxChild w166 = ((global::Gtk.Box.BoxChild)(this.vbox16 [this.hbuttonbox1]));
 			w166.Position = 1;
 			w166.Expand = false;
 			this.alignment28.Add (this.vbox16);
@@ -1845,14 +1653,14 @@ namespace Smuxi.Frontend.Gnome
 			this.label64.UseMarkup = true;
 			this.frame12.LabelWidget = this.label64;
 			this.vbox15.Add (this.frame12);
-			global::Gtk.Box.BoxChild w169 = ((global::Gtk.Box.BoxChild)(this.vbox15[this.frame12]));
+			global::Gtk.Box.BoxChild w169 = ((global::Gtk.Box.BoxChild)(this.vbox15 [this.frame12]));
 			w169.Position = 0;
 			// Container child vbox15.Gtk.Box+BoxChild
 			this.frame13 = new global::Gtk.Frame ();
 			this.frame13.Sensitive = false;
 			this.frame13.Name = "frame13";
 			// Container child frame13.Gtk.Container+ContainerChild
-			this.alignment29 = new global::Gtk.Alignment (0.5f, 0.5f, 1f, 1f);
+			this.alignment29 = new global::Gtk.Alignment (0.5F, 0.5F, 1F, 1F);
 			this.alignment29.Name = "alignment29";
 			this.alignment29.LeftPadding = ((uint)(12));
 			this.frame13.Add (this.alignment29);
@@ -1862,10 +1670,10 @@ namespace Smuxi.Frontend.Gnome
 			this.label65.UseMarkup = true;
 			this.frame13.LabelWidget = this.label65;
 			this.vbox15.Add (this.frame13);
-			global::Gtk.Box.BoxChild w171 = ((global::Gtk.Box.BoxChild)(this.vbox15[this.frame13]));
+			global::Gtk.Box.BoxChild w171 = ((global::Gtk.Box.BoxChild)(this.vbox15 [this.frame13]));
 			w171.Position = 1;
 			this.Notebook.Add (this.vbox15);
-			global::Gtk.Notebook.NotebookChild w172 = ((global::Gtk.Notebook.NotebookChild)(this.Notebook[this.vbox15]));
+			global::Gtk.Notebook.NotebookChild w172 = ((global::Gtk.Notebook.NotebookChild)(this.Notebook [this.vbox15]));
 			w172.Position = 3;
 			// Notebook tab
 			this.label63 = new global::Gtk.Label ();
@@ -1875,10 +1683,10 @@ namespace Smuxi.Frontend.Gnome
 			this.Notebook.SetTabLabel (this.vbox15, this.label63);
 			this.label63.ShowAll ();
 			this.hbox1.Add (this.Notebook);
-			global::Gtk.Box.BoxChild w173 = ((global::Gtk.Box.BoxChild)(this.hbox1[this.Notebook]));
+			global::Gtk.Box.BoxChild w173 = ((global::Gtk.Box.BoxChild)(this.hbox1 [this.Notebook]));
 			w173.Position = 1;
 			w1.Add (this.hbox1);
-			global::Gtk.Box.BoxChild w174 = ((global::Gtk.Box.BoxChild)(w1[this.hbox1]));
+			global::Gtk.Box.BoxChild w174 = ((global::Gtk.Box.BoxChild)(w1 [this.hbox1]));
 			w174.Position = 0;
 			// Internal child Smuxi.Frontend.Gnome.SteticPreferencesDialog.ActionArea
 			global::Gtk.HButtonBox w175 = this.ActionArea;
@@ -1893,7 +1701,7 @@ namespace Smuxi.Frontend.Gnome
 			this.CancelButton.UseUnderline = true;
 			this.CancelButton.Label = "gtk-cancel";
 			this.AddActionWidget (this.CancelButton, -6);
-			global::Gtk.ButtonBox.ButtonBoxChild w176 = ((global::Gtk.ButtonBox.ButtonBoxChild)(w175[this.CancelButton]));
+			global::Gtk.ButtonBox.ButtonBoxChild w176 = ((global::Gtk.ButtonBox.ButtonBoxChild)(w175 [this.CancelButton]));
 			w176.Expand = false;
 			w176.Fill = false;
 			// Container child dialog-action_area1.Gtk.ButtonBox+ButtonBoxChild
@@ -1904,7 +1712,7 @@ namespace Smuxi.Frontend.Gnome
 			this.ApplyButton.UseUnderline = true;
 			this.ApplyButton.Label = "gtk-apply";
 			this.AddActionWidget (this.ApplyButton, -10);
-			global::Gtk.ButtonBox.ButtonBoxChild w177 = ((global::Gtk.ButtonBox.ButtonBoxChild)(w175[this.ApplyButton]));
+			global::Gtk.ButtonBox.ButtonBoxChild w177 = ((global::Gtk.ButtonBox.ButtonBoxChild)(w175 [this.ApplyButton]));
 			w177.Position = 1;
 			w177.Expand = false;
 			w177.Fill = false;
@@ -1915,7 +1723,7 @@ namespace Smuxi.Frontend.Gnome
 			this.OKButton.UseUnderline = true;
 			this.OKButton.Label = "gtk-ok";
 			this.AddActionWidget (this.OKButton, -5);
-			global::Gtk.ButtonBox.ButtonBoxChild w178 = ((global::Gtk.ButtonBox.ButtonBoxChild)(w175[this.OKButton]));
+			global::Gtk.ButtonBox.ButtonBoxChild w178 = ((global::Gtk.ButtonBox.ButtonBoxChild)(w175 [this.OKButton]));
 			w178.Position = 2;
 			w178.Expand = false;
 			w178.Fill = false;

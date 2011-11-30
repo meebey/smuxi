@@ -5,47 +5,27 @@ namespace Smuxi.Frontend.Gnome
 	public partial class EngineAssistantCredentialsWidget
 	{
 		private global::Gtk.VBox vbox12;
-
 		private global::Gtk.VBox vbox13;
-
 		private global::Gtk.Label label6;
-
 		private global::Gtk.Entry f_SshUsernameEntry;
-
 		private global::Gtk.Label label9;
-
 		private global::Gtk.VBox f_SshPasswordVBox;
-
 		private global::Gtk.Label label14;
-
 		private global::Gtk.Entry f_SshPasswordEntry;
-
 		private global::Gtk.Label label15;
-
 		private global::Gtk.VBox vbox16;
-
 		private global::Gtk.Label label12;
-
 		private global::Gtk.Entry f_UsernameEntry;
-
 		private global::Gtk.Label label13;
-
 		private global::Gtk.VBox vbox14;
-
 		private global::Gtk.Label label7;
-
 		private global::Gtk.Entry f_PasswordEntry;
-
 		private global::Gtk.Label label10;
-
 		private global::Gtk.VBox vbox15;
-
 		private global::Gtk.Label label8;
-
 		private global::Gtk.Entry f_VerifyPasswordEntry;
-
 		private global::Gtk.Label label11;
-
+        
 		protected virtual void Build ()
 		{
 			global::Stetic.Gui.Initialize (this);
@@ -64,11 +44,11 @@ namespace Smuxi.Frontend.Gnome
 			// Container child vbox13.Gtk.Box+BoxChild
 			this.label6 = new global::Gtk.Label ();
 			this.label6.Name = "label6";
-			this.label6.Xalign = 0f;
+			this.label6.Xalign = 0F;
 			this.label6.LabelProp = global::Mono.Unix.Catalog.GetString ("_SSH Username: (optional)");
 			this.label6.UseUnderline = true;
 			this.vbox13.Add (this.label6);
-			global::Gtk.Box.BoxChild w1 = ((global::Gtk.Box.BoxChild)(this.vbox13[this.label6]));
+			global::Gtk.Box.BoxChild w1 = ((global::Gtk.Box.BoxChild)(this.vbox13 [this.label6]));
 			w1.Position = 0;
 			w1.Expand = false;
 			w1.Fill = false;
@@ -79,7 +59,7 @@ namespace Smuxi.Frontend.Gnome
 			this.f_SshUsernameEntry.IsEditable = true;
 			this.f_SshUsernameEntry.InvisibleChar = '●';
 			this.vbox13.Add (this.f_SshUsernameEntry);
-			global::Gtk.Box.BoxChild w2 = ((global::Gtk.Box.BoxChild)(this.vbox13[this.f_SshUsernameEntry]));
+			global::Gtk.Box.BoxChild w2 = ((global::Gtk.Box.BoxChild)(this.vbox13 [this.f_SshUsernameEntry]));
 			w2.Position = 1;
 			w2.Expand = false;
 			w2.Fill = false;
@@ -87,16 +67,16 @@ namespace Smuxi.Frontend.Gnome
 			this.label9 = new global::Gtk.Label ();
 			this.label9.Name = "label9";
 			this.label9.Xpad = 50;
-			this.label9.Xalign = 0f;
+			this.label9.Xalign = 0F;
 			this.label9.LabelProp = global::Mono.Unix.Catalog.GetString ("<span size=\"small\">Username which will be used to log into the SSH server</span>");
 			this.label9.UseMarkup = true;
 			this.vbox13.Add (this.label9);
-			global::Gtk.Box.BoxChild w3 = ((global::Gtk.Box.BoxChild)(this.vbox13[this.label9]));
+			global::Gtk.Box.BoxChild w3 = ((global::Gtk.Box.BoxChild)(this.vbox13 [this.label9]));
 			w3.Position = 2;
 			w3.Expand = false;
 			w3.Fill = false;
 			this.vbox12.Add (this.vbox13);
-			global::Gtk.Box.BoxChild w4 = ((global::Gtk.Box.BoxChild)(this.vbox12[this.vbox13]));
+			global::Gtk.Box.BoxChild w4 = ((global::Gtk.Box.BoxChild)(this.vbox12 [this.vbox13]));
 			w4.Position = 0;
 			w4.Expand = false;
 			w4.Fill = false;
@@ -107,11 +87,11 @@ namespace Smuxi.Frontend.Gnome
 			// Container child f_SshPasswordVBox.Gtk.Box+BoxChild
 			this.label14 = new global::Gtk.Label ();
 			this.label14.Name = "label14";
-			this.label14.Xalign = 0f;
+			this.label14.Xalign = 0F;
 			this.label14.LabelProp = global::Mono.Unix.Catalog.GetString ("_SSH Password: (optional)");
 			this.label14.UseUnderline = true;
 			this.f_SshPasswordVBox.Add (this.label14);
-			global::Gtk.Box.BoxChild w5 = ((global::Gtk.Box.BoxChild)(this.f_SshPasswordVBox[this.label14]));
+			global::Gtk.Box.BoxChild w5 = ((global::Gtk.Box.BoxChild)(this.f_SshPasswordVBox [this.label14]));
 			w5.Position = 0;
 			w5.Expand = false;
 			w5.Fill = false;
@@ -123,7 +103,7 @@ namespace Smuxi.Frontend.Gnome
 			this.f_SshPasswordEntry.Visibility = false;
 			this.f_SshPasswordEntry.InvisibleChar = '●';
 			this.f_SshPasswordVBox.Add (this.f_SshPasswordEntry);
-			global::Gtk.Box.BoxChild w6 = ((global::Gtk.Box.BoxChild)(this.f_SshPasswordVBox[this.f_SshPasswordEntry]));
+			global::Gtk.Box.BoxChild w6 = ((global::Gtk.Box.BoxChild)(this.f_SshPasswordVBox [this.f_SshPasswordEntry]));
 			w6.Position = 1;
 			w6.Expand = false;
 			w6.Fill = false;
@@ -131,17 +111,17 @@ namespace Smuxi.Frontend.Gnome
 			this.label15 = new global::Gtk.Label ();
 			this.label15.Name = "label15";
 			this.label15.Xpad = 50;
-			this.label15.Xalign = 0f;
+			this.label15.Xalign = 0F;
 			this.label15.LabelProp = global::Mono.Unix.Catalog.GetString ("<span size=\"small\">Password which will be used to log into the SSH server. The password is optional if SSH key authorization is used (via Pageant from the PuTTY tools).</span>");
 			this.label15.UseMarkup = true;
 			this.label15.Wrap = true;
 			this.f_SshPasswordVBox.Add (this.label15);
-			global::Gtk.Box.BoxChild w7 = ((global::Gtk.Box.BoxChild)(this.f_SshPasswordVBox[this.label15]));
+			global::Gtk.Box.BoxChild w7 = ((global::Gtk.Box.BoxChild)(this.f_SshPasswordVBox [this.label15]));
 			w7.Position = 2;
 			w7.Expand = false;
 			w7.Fill = false;
 			this.vbox12.Add (this.f_SshPasswordVBox);
-			global::Gtk.Box.BoxChild w8 = ((global::Gtk.Box.BoxChild)(this.vbox12[this.f_SshPasswordVBox]));
+			global::Gtk.Box.BoxChild w8 = ((global::Gtk.Box.BoxChild)(this.vbox12 [this.f_SshPasswordVBox]));
 			w8.Position = 1;
 			w8.Expand = false;
 			w8.Fill = false;
@@ -152,11 +132,11 @@ namespace Smuxi.Frontend.Gnome
 			// Container child vbox16.Gtk.Box+BoxChild
 			this.label12 = new global::Gtk.Label ();
 			this.label12.Name = "label12";
-			this.label12.Xalign = 0f;
+			this.label12.Xalign = 0F;
 			this.label12.LabelProp = global::Mono.Unix.Catalog.GetString ("_Username:");
 			this.label12.UseUnderline = true;
 			this.vbox16.Add (this.label12);
-			global::Gtk.Box.BoxChild w9 = ((global::Gtk.Box.BoxChild)(this.vbox16[this.label12]));
+			global::Gtk.Box.BoxChild w9 = ((global::Gtk.Box.BoxChild)(this.vbox16 [this.label12]));
 			w9.Position = 0;
 			w9.Expand = false;
 			w9.Fill = false;
@@ -167,7 +147,7 @@ namespace Smuxi.Frontend.Gnome
 			this.f_UsernameEntry.IsEditable = true;
 			this.f_UsernameEntry.InvisibleChar = '●';
 			this.vbox16.Add (this.f_UsernameEntry);
-			global::Gtk.Box.BoxChild w10 = ((global::Gtk.Box.BoxChild)(this.vbox16[this.f_UsernameEntry]));
+			global::Gtk.Box.BoxChild w10 = ((global::Gtk.Box.BoxChild)(this.vbox16 [this.f_UsernameEntry]));
 			w10.Position = 1;
 			w10.Expand = false;
 			w10.Fill = false;
@@ -175,16 +155,16 @@ namespace Smuxi.Frontend.Gnome
 			this.label13 = new global::Gtk.Label ();
 			this.label13.Name = "label13";
 			this.label13.Xpad = 50;
-			this.label13.Xalign = 0f;
+			this.label13.Xalign = 0F;
 			this.label13.LabelProp = global::Mono.Unix.Catalog.GetString ("<span size=\"small\">Username which will be used to log into the Smuxi server</span>");
 			this.label13.UseMarkup = true;
 			this.vbox16.Add (this.label13);
-			global::Gtk.Box.BoxChild w11 = ((global::Gtk.Box.BoxChild)(this.vbox16[this.label13]));
+			global::Gtk.Box.BoxChild w11 = ((global::Gtk.Box.BoxChild)(this.vbox16 [this.label13]));
 			w11.Position = 2;
 			w11.Expand = false;
 			w11.Fill = false;
 			this.vbox12.Add (this.vbox16);
-			global::Gtk.Box.BoxChild w12 = ((global::Gtk.Box.BoxChild)(this.vbox12[this.vbox16]));
+			global::Gtk.Box.BoxChild w12 = ((global::Gtk.Box.BoxChild)(this.vbox12 [this.vbox16]));
 			w12.Position = 2;
 			w12.Expand = false;
 			w12.Fill = false;
@@ -195,11 +175,11 @@ namespace Smuxi.Frontend.Gnome
 			// Container child vbox14.Gtk.Box+BoxChild
 			this.label7 = new global::Gtk.Label ();
 			this.label7.Name = "label7";
-			this.label7.Xalign = 0f;
+			this.label7.Xalign = 0F;
 			this.label7.LabelProp = global::Mono.Unix.Catalog.GetString ("_Password:");
 			this.label7.UseUnderline = true;
 			this.vbox14.Add (this.label7);
-			global::Gtk.Box.BoxChild w13 = ((global::Gtk.Box.BoxChild)(this.vbox14[this.label7]));
+			global::Gtk.Box.BoxChild w13 = ((global::Gtk.Box.BoxChild)(this.vbox14 [this.label7]));
 			w13.Position = 0;
 			w13.Expand = false;
 			w13.Fill = false;
@@ -211,7 +191,7 @@ namespace Smuxi.Frontend.Gnome
 			this.f_PasswordEntry.Visibility = false;
 			this.f_PasswordEntry.InvisibleChar = '●';
 			this.vbox14.Add (this.f_PasswordEntry);
-			global::Gtk.Box.BoxChild w14 = ((global::Gtk.Box.BoxChild)(this.vbox14[this.f_PasswordEntry]));
+			global::Gtk.Box.BoxChild w14 = ((global::Gtk.Box.BoxChild)(this.vbox14 [this.f_PasswordEntry]));
 			w14.Position = 1;
 			w14.Expand = false;
 			w14.Fill = false;
@@ -219,16 +199,16 @@ namespace Smuxi.Frontend.Gnome
 			this.label10 = new global::Gtk.Label ();
 			this.label10.Name = "label10";
 			this.label10.Xpad = 50;
-			this.label10.Xalign = 0f;
+			this.label10.Xalign = 0F;
 			this.label10.LabelProp = global::Mono.Unix.Catalog.GetString ("<span size=\"small\">Password of the user</span>");
 			this.label10.UseMarkup = true;
 			this.vbox14.Add (this.label10);
-			global::Gtk.Box.BoxChild w15 = ((global::Gtk.Box.BoxChild)(this.vbox14[this.label10]));
+			global::Gtk.Box.BoxChild w15 = ((global::Gtk.Box.BoxChild)(this.vbox14 [this.label10]));
 			w15.Position = 2;
 			w15.Expand = false;
 			w15.Fill = false;
 			this.vbox12.Add (this.vbox14);
-			global::Gtk.Box.BoxChild w16 = ((global::Gtk.Box.BoxChild)(this.vbox12[this.vbox14]));
+			global::Gtk.Box.BoxChild w16 = ((global::Gtk.Box.BoxChild)(this.vbox12 [this.vbox14]));
 			w16.Position = 3;
 			w16.Expand = false;
 			w16.Fill = false;
@@ -239,11 +219,11 @@ namespace Smuxi.Frontend.Gnome
 			// Container child vbox15.Gtk.Box+BoxChild
 			this.label8 = new global::Gtk.Label ();
 			this.label8.Name = "label8";
-			this.label8.Xalign = 0f;
+			this.label8.Xalign = 0F;
 			this.label8.LabelProp = global::Mono.Unix.Catalog.GetString ("_Verify Password:");
 			this.label8.UseUnderline = true;
 			this.vbox15.Add (this.label8);
-			global::Gtk.Box.BoxChild w17 = ((global::Gtk.Box.BoxChild)(this.vbox15[this.label8]));
+			global::Gtk.Box.BoxChild w17 = ((global::Gtk.Box.BoxChild)(this.vbox15 [this.label8]));
 			w17.Position = 0;
 			w17.Expand = false;
 			w17.Fill = false;
@@ -255,7 +235,7 @@ namespace Smuxi.Frontend.Gnome
 			this.f_VerifyPasswordEntry.Visibility = false;
 			this.f_VerifyPasswordEntry.InvisibleChar = '●';
 			this.vbox15.Add (this.f_VerifyPasswordEntry);
-			global::Gtk.Box.BoxChild w18 = ((global::Gtk.Box.BoxChild)(this.vbox15[this.f_VerifyPasswordEntry]));
+			global::Gtk.Box.BoxChild w18 = ((global::Gtk.Box.BoxChild)(this.vbox15 [this.f_VerifyPasswordEntry]));
 			w18.Position = 1;
 			w18.Expand = false;
 			w18.Fill = false;
@@ -263,16 +243,16 @@ namespace Smuxi.Frontend.Gnome
 			this.label11 = new global::Gtk.Label ();
 			this.label11.Name = "label11";
 			this.label11.Xpad = 50;
-			this.label11.Xalign = 0f;
+			this.label11.Xalign = 0F;
 			this.label11.LabelProp = global::Mono.Unix.Catalog.GetString ("<span size=\"small\">Repeat the password for verification</span>");
 			this.label11.UseMarkup = true;
 			this.vbox15.Add (this.label11);
-			global::Gtk.Box.BoxChild w19 = ((global::Gtk.Box.BoxChild)(this.vbox15[this.label11]));
+			global::Gtk.Box.BoxChild w19 = ((global::Gtk.Box.BoxChild)(this.vbox15 [this.label11]));
 			w19.Position = 2;
 			w19.Expand = false;
 			w19.Fill = false;
 			this.vbox12.Add (this.vbox15);
-			global::Gtk.Box.BoxChild w20 = ((global::Gtk.Box.BoxChild)(this.vbox12[this.vbox15]));
+			global::Gtk.Box.BoxChild w20 = ((global::Gtk.Box.BoxChild)(this.vbox12 [this.vbox15]));
 			w20.Position = 4;
 			w20.Expand = false;
 			w20.Fill = false;

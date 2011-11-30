@@ -5,7 +5,7 @@ namespace Smuxi.Frontend.Gnome
 	public partial class EngineAssistantIntroWidget
 	{
 		private global::Gtk.Label label2;
-
+        
 		protected virtual void Build ()
 		{
 			global::Stetic.Gui.Initialize (this);
@@ -15,7 +15,7 @@ namespace Smuxi.Frontend.Gnome
 			// Container child Smuxi.Frontend.Gnome.EngineAssistantIntroWidget.Gtk.Container+ContainerChild
 			this.label2 = new global::Gtk.Label ();
 			this.label2.Name = "label2";
-			this.label2.Xalign = 0f;
+			this.label2.Xalign = 0F;
 			this.label2.LabelProp = global::Mono.Unix.Catalog.GetString ("Welcome to the Smuxi Engine Configuration Assistant.\nYou need to enter some information before you can use the engine.\n\nClick \"Forward\" to begin.");
 			this.Add (this.label2);
 			if ((this.Child != null)) {

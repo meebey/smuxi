@@ -5,7 +5,7 @@ namespace Smuxi.Frontend.Gnome
 	public partial class ChatTypeWidget
 	{
 		private global::Gtk.ComboBox f_ComboBox;
-
+        
 		protected virtual void Build ()
 		{
 			global::Stetic.Gui.Initialize (this);

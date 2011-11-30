@@ -5,25 +5,16 @@ namespace Smuxi.Frontend.Gnome
 	public partial class FindGroupChatDialog
 	{
 		private global::Gtk.VBox vbox2;
-
 		private global::Gtk.HBox hbox1;
-
 		private global::Gtk.HBox hbox2;
-
 		private global::Gtk.Label label1;
-
 		private global::Gtk.Entry f_NameEntry;
-
 		private global::Gtk.Button f_FindButton;
-
 		private global::Gtk.ScrolledWindow GtkScrolledWindow;
-
 		private global::Gtk.TreeView f_TreeView;
-
 		private global::Gtk.Button f_CancelButton;
-
 		private global::Gtk.Button f_OKButton;
-
+        
 		protected virtual void Build ()
 		{
 			global::Stetic.Gui.Initialize (this);
@@ -56,7 +47,7 @@ namespace Smuxi.Frontend.Gnome
 			this.label1.LabelProp = global::Mono.Unix.Catalog.GetString ("_Name:");
 			this.label1.UseUnderline = true;
 			this.hbox2.Add (this.label1);
-			global::Gtk.Box.BoxChild w2 = ((global::Gtk.Box.BoxChild)(this.hbox2[this.label1]));
+			global::Gtk.Box.BoxChild w2 = ((global::Gtk.Box.BoxChild)(this.hbox2 [this.label1]));
 			w2.Position = 0;
 			w2.Expand = false;
 			w2.Fill = false;
@@ -68,10 +59,10 @@ namespace Smuxi.Frontend.Gnome
 			this.f_NameEntry.IsEditable = true;
 			this.f_NameEntry.InvisibleChar = '●';
 			this.hbox2.Add (this.f_NameEntry);
-			global::Gtk.Box.BoxChild w3 = ((global::Gtk.Box.BoxChild)(this.hbox2[this.f_NameEntry]));
+			global::Gtk.Box.BoxChild w3 = ((global::Gtk.Box.BoxChild)(this.hbox2 [this.f_NameEntry]));
 			w3.Position = 1;
 			this.hbox1.Add (this.hbox2);
-			global::Gtk.Box.BoxChild w4 = ((global::Gtk.Box.BoxChild)(this.hbox1[this.hbox2]));
+			global::Gtk.Box.BoxChild w4 = ((global::Gtk.Box.BoxChild)(this.hbox1 [this.hbox2]));
 			w4.Position = 0;
 			// Container child hbox1.Gtk.Box+BoxChild
 			this.f_FindButton = new global::Gtk.Button ();
@@ -81,12 +72,12 @@ namespace Smuxi.Frontend.Gnome
 			this.f_FindButton.UseUnderline = true;
 			this.f_FindButton.Label = "gtk-find";
 			this.hbox1.Add (this.f_FindButton);
-			global::Gtk.Box.BoxChild w5 = ((global::Gtk.Box.BoxChild)(this.hbox1[this.f_FindButton]));
+			global::Gtk.Box.BoxChild w5 = ((global::Gtk.Box.BoxChild)(this.hbox1 [this.f_FindButton]));
 			w5.Position = 1;
 			w5.Expand = false;
 			w5.Fill = false;
 			this.vbox2.Add (this.hbox1);
-			global::Gtk.Box.BoxChild w6 = ((global::Gtk.Box.BoxChild)(this.vbox2[this.hbox1]));
+			global::Gtk.Box.BoxChild w6 = ((global::Gtk.Box.BoxChild)(this.vbox2 [this.hbox1]));
 			w6.Position = 0;
 			w6.Expand = false;
 			w6.Fill = false;
@@ -100,10 +91,10 @@ namespace Smuxi.Frontend.Gnome
 			this.f_TreeView.Name = "f_TreeView";
 			this.GtkScrolledWindow.Add (this.f_TreeView);
 			this.vbox2.Add (this.GtkScrolledWindow);
-			global::Gtk.Box.BoxChild w8 = ((global::Gtk.Box.BoxChild)(this.vbox2[this.GtkScrolledWindow]));
+			global::Gtk.Box.BoxChild w8 = ((global::Gtk.Box.BoxChild)(this.vbox2 [this.GtkScrolledWindow]));
 			w8.Position = 1;
 			w1.Add (this.vbox2);
-			global::Gtk.Box.BoxChild w9 = ((global::Gtk.Box.BoxChild)(w1[this.vbox2]));
+			global::Gtk.Box.BoxChild w9 = ((global::Gtk.Box.BoxChild)(w1 [this.vbox2]));
 			w9.Position = 0;
 			// Internal child Smuxi.Frontend.Gnome.FindGroupChatDialog.ActionArea
 			global::Gtk.HButtonBox w10 = this.ActionArea;
@@ -120,7 +111,7 @@ namespace Smuxi.Frontend.Gnome
 			this.f_CancelButton.UseUnderline = true;
 			this.f_CancelButton.Label = "gtk-cancel";
 			this.AddActionWidget (this.f_CancelButton, -6);
-			global::Gtk.ButtonBox.ButtonBoxChild w11 = ((global::Gtk.ButtonBox.ButtonBoxChild)(w10[this.f_CancelButton]));
+			global::Gtk.ButtonBox.ButtonBoxChild w11 = ((global::Gtk.ButtonBox.ButtonBoxChild)(w10 [this.f_CancelButton]));
 			w11.Expand = false;
 			w11.Fill = false;
 			// Container child dialog1_ActionArea.Gtk.ButtonBox+ButtonBoxChild
@@ -132,7 +123,7 @@ namespace Smuxi.Frontend.Gnome
 			this.f_OKButton.UseUnderline = true;
 			this.f_OKButton.Label = "gtk-ok";
 			this.AddActionWidget (this.f_OKButton, -5);
-			global::Gtk.ButtonBox.ButtonBoxChild w12 = ((global::Gtk.ButtonBox.ButtonBoxChild)(w10[this.f_OKButton]));
+			global::Gtk.ButtonBox.ButtonBoxChild w12 = ((global::Gtk.ButtonBox.ButtonBoxChild)(w10 [this.f_OKButton]));
 			w12.Position = 1;
 			w12.Expand = false;
 			w12.Fill = false;

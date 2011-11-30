@@ -5,27 +5,17 @@ namespace Smuxi.Frontend.Gnome
 	public partial class ChatFindDialog
 	{
 		private global::Gtk.VBox vbox2;
-
 		private global::Gtk.HBox hbox1;
-
 		private global::Gtk.Label label1;
-
 		private global::Gtk.Entry f_SearchForEntry;
-
 		private global::Gtk.VBox vbox3;
-
 		private global::Gtk.CheckButton f_MatchCaseCheckButton;
-
 		private global::Gtk.CheckButton f_SearchBackwardsCheckButton;
-
 		private global::Gtk.CheckButton f_WrapAroundCheckButton;
-
 		private global::Gtk.CheckButton f_UseRegularExpressionsCheckButton;
-
 		private global::Gtk.Button f_CloseButton;
-
 		private global::Gtk.Button f_FindButton;
-
+        
 		protected virtual void Build ()
 		{
 			global::Stetic.Gui.Initialize (this);
@@ -54,7 +44,7 @@ namespace Smuxi.Frontend.Gnome
 			this.label1.LabelProp = global::Mono.Unix.Catalog.GetString ("_Search for:");
 			this.label1.UseUnderline = true;
 			this.hbox1.Add (this.label1);
-			global::Gtk.Box.BoxChild w2 = ((global::Gtk.Box.BoxChild)(this.hbox1[this.label1]));
+			global::Gtk.Box.BoxChild w2 = ((global::Gtk.Box.BoxChild)(this.hbox1 [this.label1]));
 			w2.Position = 0;
 			w2.Expand = false;
 			w2.Fill = false;
@@ -65,10 +55,10 @@ namespace Smuxi.Frontend.Gnome
 			this.f_SearchForEntry.IsEditable = true;
 			this.f_SearchForEntry.InvisibleChar = '●';
 			this.hbox1.Add (this.f_SearchForEntry);
-			global::Gtk.Box.BoxChild w3 = ((global::Gtk.Box.BoxChild)(this.hbox1[this.f_SearchForEntry]));
+			global::Gtk.Box.BoxChild w3 = ((global::Gtk.Box.BoxChild)(this.hbox1 [this.f_SearchForEntry]));
 			w3.Position = 1;
 			this.vbox2.Add (this.hbox1);
-			global::Gtk.Box.BoxChild w4 = ((global::Gtk.Box.BoxChild)(this.vbox2[this.hbox1]));
+			global::Gtk.Box.BoxChild w4 = ((global::Gtk.Box.BoxChild)(this.vbox2 [this.hbox1]));
 			w4.Position = 0;
 			w4.Expand = false;
 			w4.Fill = false;
@@ -84,7 +74,7 @@ namespace Smuxi.Frontend.Gnome
 			this.f_MatchCaseCheckButton.DrawIndicator = true;
 			this.f_MatchCaseCheckButton.UseUnderline = true;
 			this.vbox3.Add (this.f_MatchCaseCheckButton);
-			global::Gtk.Box.BoxChild w5 = ((global::Gtk.Box.BoxChild)(this.vbox3[this.f_MatchCaseCheckButton]));
+			global::Gtk.Box.BoxChild w5 = ((global::Gtk.Box.BoxChild)(this.vbox3 [this.f_MatchCaseCheckButton]));
 			w5.Position = 0;
 			w5.Expand = false;
 			w5.Fill = false;
@@ -96,7 +86,7 @@ namespace Smuxi.Frontend.Gnome
 			this.f_SearchBackwardsCheckButton.DrawIndicator = true;
 			this.f_SearchBackwardsCheckButton.UseUnderline = true;
 			this.vbox3.Add (this.f_SearchBackwardsCheckButton);
-			global::Gtk.Box.BoxChild w6 = ((global::Gtk.Box.BoxChild)(this.vbox3[this.f_SearchBackwardsCheckButton]));
+			global::Gtk.Box.BoxChild w6 = ((global::Gtk.Box.BoxChild)(this.vbox3 [this.f_SearchBackwardsCheckButton]));
 			w6.Position = 1;
 			w6.Expand = false;
 			w6.Fill = false;
@@ -109,7 +99,7 @@ namespace Smuxi.Frontend.Gnome
 			this.f_WrapAroundCheckButton.DrawIndicator = true;
 			this.f_WrapAroundCheckButton.UseUnderline = true;
 			this.vbox3.Add (this.f_WrapAroundCheckButton);
-			global::Gtk.Box.BoxChild w7 = ((global::Gtk.Box.BoxChild)(this.vbox3[this.f_WrapAroundCheckButton]));
+			global::Gtk.Box.BoxChild w7 = ((global::Gtk.Box.BoxChild)(this.vbox3 [this.f_WrapAroundCheckButton]));
 			w7.Position = 2;
 			w7.Expand = false;
 			w7.Fill = false;
@@ -121,18 +111,18 @@ namespace Smuxi.Frontend.Gnome
 			this.f_UseRegularExpressionsCheckButton.DrawIndicator = true;
 			this.f_UseRegularExpressionsCheckButton.UseUnderline = true;
 			this.vbox3.Add (this.f_UseRegularExpressionsCheckButton);
-			global::Gtk.Box.BoxChild w8 = ((global::Gtk.Box.BoxChild)(this.vbox3[this.f_UseRegularExpressionsCheckButton]));
+			global::Gtk.Box.BoxChild w8 = ((global::Gtk.Box.BoxChild)(this.vbox3 [this.f_UseRegularExpressionsCheckButton]));
 			w8.PackType = ((global::Gtk.PackType)(1));
 			w8.Position = 3;
 			w8.Expand = false;
 			w8.Fill = false;
 			this.vbox2.Add (this.vbox3);
-			global::Gtk.Box.BoxChild w9 = ((global::Gtk.Box.BoxChild)(this.vbox2[this.vbox3]));
+			global::Gtk.Box.BoxChild w9 = ((global::Gtk.Box.BoxChild)(this.vbox2 [this.vbox3]));
 			w9.Position = 1;
 			w9.Expand = false;
 			w9.Fill = false;
 			w1.Add (this.vbox2);
-			global::Gtk.Box.BoxChild w10 = ((global::Gtk.Box.BoxChild)(w1[this.vbox2]));
+			global::Gtk.Box.BoxChild w10 = ((global::Gtk.Box.BoxChild)(w1 [this.vbox2]));
 			w10.Position = 0;
 			w10.Expand = false;
 			w10.Fill = false;
@@ -151,7 +141,7 @@ namespace Smuxi.Frontend.Gnome
 			this.f_CloseButton.UseUnderline = true;
 			this.f_CloseButton.Label = "gtk-close";
 			this.AddActionWidget (this.f_CloseButton, -7);
-			global::Gtk.ButtonBox.ButtonBoxChild w12 = ((global::Gtk.ButtonBox.ButtonBoxChild)(w11[this.f_CloseButton]));
+			global::Gtk.ButtonBox.ButtonBoxChild w12 = ((global::Gtk.ButtonBox.ButtonBoxChild)(w11 [this.f_CloseButton]));
 			w12.Expand = false;
 			w12.Fill = false;
 			// Container child dialog1_ActionArea.Gtk.ButtonBox+ButtonBoxChild
@@ -163,7 +153,7 @@ namespace Smuxi.Frontend.Gnome
 			this.f_FindButton.UseUnderline = true;
 			this.f_FindButton.Label = "gtk-find";
 			this.AddActionWidget (this.f_FindButton, 0);
-			global::Gtk.ButtonBox.ButtonBoxChild w13 = ((global::Gtk.ButtonBox.ButtonBoxChild)(w11[this.f_FindButton]));
+			global::Gtk.ButtonBox.ButtonBoxChild w13 = ((global::Gtk.ButtonBox.ButtonBoxChild)(w11 [this.f_FindButton]));
 			w13.Position = 1;
 			w13.Expand = false;
 			w13.Fill = false;

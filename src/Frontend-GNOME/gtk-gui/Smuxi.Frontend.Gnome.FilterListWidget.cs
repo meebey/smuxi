@@ -5,17 +5,12 @@ namespace Smuxi.Frontend.Gnome
 	public partial class FilterListWidget
 	{
 		private global::Gtk.HBox hbox1;
-
 		private global::Gtk.ScrolledWindow scrolledwindow1;
-
 		private global::Gtk.TreeView f_TreeView;
-
 		private global::Gtk.VButtonBox vbuttonbox1;
-
 		private global::Gtk.Button f_AddButton;
-
 		private global::Gtk.Button f_RemoveButton;
-
+        
 		protected virtual void Build ()
 		{
 			global::Stetic.Gui.Initialize (this);
@@ -36,7 +31,7 @@ namespace Smuxi.Frontend.Gnome
 			this.f_TreeView.Name = "f_TreeView";
 			this.scrolledwindow1.Add (this.f_TreeView);
 			this.hbox1.Add (this.scrolledwindow1);
-			global::Gtk.Box.BoxChild w2 = ((global::Gtk.Box.BoxChild)(this.hbox1[this.scrolledwindow1]));
+			global::Gtk.Box.BoxChild w2 = ((global::Gtk.Box.BoxChild)(this.hbox1 [this.scrolledwindow1]));
 			w2.Position = 0;
 			// Container child hbox1.Gtk.Box+BoxChild
 			this.vbuttonbox1 = new global::Gtk.VButtonBox ();
@@ -51,7 +46,7 @@ namespace Smuxi.Frontend.Gnome
 			this.f_AddButton.UseUnderline = true;
 			this.f_AddButton.Label = "gtk-add";
 			this.vbuttonbox1.Add (this.f_AddButton);
-			global::Gtk.ButtonBox.ButtonBoxChild w3 = ((global::Gtk.ButtonBox.ButtonBoxChild)(this.vbuttonbox1[this.f_AddButton]));
+			global::Gtk.ButtonBox.ButtonBoxChild w3 = ((global::Gtk.ButtonBox.ButtonBoxChild)(this.vbuttonbox1 [this.f_AddButton]));
 			w3.Expand = false;
 			w3.Fill = false;
 			// Container child vbuttonbox1.Gtk.ButtonBox+ButtonBoxChild
@@ -62,12 +57,12 @@ namespace Smuxi.Frontend.Gnome
 			this.f_RemoveButton.UseUnderline = true;
 			this.f_RemoveButton.Label = "gtk-remove";
 			this.vbuttonbox1.Add (this.f_RemoveButton);
-			global::Gtk.ButtonBox.ButtonBoxChild w4 = ((global::Gtk.ButtonBox.ButtonBoxChild)(this.vbuttonbox1[this.f_RemoveButton]));
+			global::Gtk.ButtonBox.ButtonBoxChild w4 = ((global::Gtk.ButtonBox.ButtonBoxChild)(this.vbuttonbox1 [this.f_RemoveButton]));
 			w4.Position = 1;
 			w4.Expand = false;
 			w4.Fill = false;
 			this.hbox1.Add (this.vbuttonbox1);
-			global::Gtk.Box.BoxChild w5 = ((global::Gtk.Box.BoxChild)(this.hbox1[this.vbuttonbox1]));
+			global::Gtk.Box.BoxChild w5 = ((global::Gtk.Box.BoxChild)(this.hbox1 [this.vbuttonbox1]));
 			w5.Position = 1;
 			w5.Expand = false;
 			w5.Fill = false;

@@ -5,19 +5,13 @@ namespace Smuxi.Frontend.Gnome
 	public partial class OpenChatDialog
 	{
 		private global::Gtk.Table table1;
-
 		private global::Smuxi.Frontend.Gnome.ChatTypeWidget f_ChatTypeWidget;
-
 		private global::Gtk.Entry f_NameEntry;
-
 		private global::Gtk.Label label1;
-
 		private global::Gtk.Label label2;
-
 		private global::Gtk.Button f_CancelButton;
-
 		private global::Gtk.Button f_OpenButton;
-
+        
 		protected virtual void Build ()
 		{
 			global::Stetic.Gui.Initialize (this);
@@ -42,7 +36,7 @@ namespace Smuxi.Frontend.Gnome
 			this.f_ChatTypeWidget.Events = ((global::Gdk.EventMask)(256));
 			this.f_ChatTypeWidget.Name = "f_ChatTypeWidget";
 			this.table1.Add (this.f_ChatTypeWidget);
-			global::Gtk.Table.TableChild w2 = ((global::Gtk.Table.TableChild)(this.table1[this.f_ChatTypeWidget]));
+			global::Gtk.Table.TableChild w2 = ((global::Gtk.Table.TableChild)(this.table1 [this.f_ChatTypeWidget]));
 			w2.LeftAttach = ((uint)(1));
 			w2.RightAttach = ((uint)(2));
 			w2.XOptions = ((global::Gtk.AttachOptions)(4));
@@ -55,7 +49,7 @@ namespace Smuxi.Frontend.Gnome
 			this.f_NameEntry.ActivatesDefault = true;
 			this.f_NameEntry.InvisibleChar = '●';
 			this.table1.Add (this.f_NameEntry);
-			global::Gtk.Table.TableChild w3 = ((global::Gtk.Table.TableChild)(this.table1[this.f_NameEntry]));
+			global::Gtk.Table.TableChild w3 = ((global::Gtk.Table.TableChild)(this.table1 [this.f_NameEntry]));
 			w3.TopAttach = ((uint)(1));
 			w3.BottomAttach = ((uint)(2));
 			w3.LeftAttach = ((uint)(1));
@@ -65,27 +59,27 @@ namespace Smuxi.Frontend.Gnome
 			// Container child table1.Gtk.Table+TableChild
 			this.label1 = new global::Gtk.Label ();
 			this.label1.Name = "label1";
-			this.label1.Xalign = 0f;
+			this.label1.Xalign = 0F;
 			this.label1.LabelProp = global::Mono.Unix.Catalog.GetString ("_Type:");
 			this.label1.UseUnderline = true;
 			this.table1.Add (this.label1);
-			global::Gtk.Table.TableChild w4 = ((global::Gtk.Table.TableChild)(this.table1[this.label1]));
+			global::Gtk.Table.TableChild w4 = ((global::Gtk.Table.TableChild)(this.table1 [this.label1]));
 			w4.XOptions = ((global::Gtk.AttachOptions)(4));
 			w4.YOptions = ((global::Gtk.AttachOptions)(4));
 			// Container child table1.Gtk.Table+TableChild
 			this.label2 = new global::Gtk.Label ();
 			this.label2.Name = "label2";
-			this.label2.Xalign = 0f;
+			this.label2.Xalign = 0F;
 			this.label2.LabelProp = global::Mono.Unix.Catalog.GetString ("_Name:");
 			this.label2.UseUnderline = true;
 			this.table1.Add (this.label2);
-			global::Gtk.Table.TableChild w5 = ((global::Gtk.Table.TableChild)(this.table1[this.label2]));
+			global::Gtk.Table.TableChild w5 = ((global::Gtk.Table.TableChild)(this.table1 [this.label2]));
 			w5.TopAttach = ((uint)(1));
 			w5.BottomAttach = ((uint)(2));
 			w5.XOptions = ((global::Gtk.AttachOptions)(4));
 			w5.YOptions = ((global::Gtk.AttachOptions)(4));
 			w1.Add (this.table1);
-			global::Gtk.Box.BoxChild w6 = ((global::Gtk.Box.BoxChild)(w1[this.table1]));
+			global::Gtk.Box.BoxChild w6 = ((global::Gtk.Box.BoxChild)(w1 [this.table1]));
 			w6.Position = 0;
 			w6.Expand = false;
 			w6.Fill = false;
@@ -103,7 +97,7 @@ namespace Smuxi.Frontend.Gnome
 			this.f_CancelButton.UseUnderline = true;
 			this.f_CancelButton.Label = "gtk-cancel";
 			this.AddActionWidget (this.f_CancelButton, -6);
-			global::Gtk.ButtonBox.ButtonBoxChild w8 = ((global::Gtk.ButtonBox.ButtonBoxChild)(w7[this.f_CancelButton]));
+			global::Gtk.ButtonBox.ButtonBoxChild w8 = ((global::Gtk.ButtonBox.ButtonBoxChild)(w7 [this.f_CancelButton]));
 			w8.Expand = false;
 			w8.Fill = false;
 			// Container child dialog1_ActionArea.Gtk.ButtonBox+ButtonBoxChild
@@ -116,7 +110,7 @@ namespace Smuxi.Frontend.Gnome
 			this.f_OpenButton.UseUnderline = true;
 			this.f_OpenButton.Label = "gtk-open";
 			this.AddActionWidget (this.f_OpenButton, -5);
-			global::Gtk.ButtonBox.ButtonBoxChild w9 = ((global::Gtk.ButtonBox.ButtonBoxChild)(w7[this.f_OpenButton]));
+			global::Gtk.ButtonBox.ButtonBoxChild w9 = ((global::Gtk.ButtonBox.ButtonBoxChild)(w7 [this.f_OpenButton]));
 			w9.Position = 1;
 			w9.Expand = false;
 			w9.Fill = false;

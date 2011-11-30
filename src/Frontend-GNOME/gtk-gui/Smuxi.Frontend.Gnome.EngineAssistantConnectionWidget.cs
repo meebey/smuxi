@@ -5,35 +5,21 @@ namespace Smuxi.Frontend.Gnome
 	public partial class EngineAssistantConnectionWidget
 	{
 		private global::Gtk.VBox vbox2;
-
 		private global::Gtk.VBox vbox4;
-
 		private global::Gtk.CheckButton f_UseSshTunnelCheckButton;
-
 		private global::Gtk.Label label6;
-
 		private global::Gtk.Table table1;
-
 		private global::Gtk.Entry f_HostEntry;
-
 		private global::Gtk.SpinButton f_PortSpinButton;
-
 		private global::Gtk.Entry f_SshHostEntry;
-
 		private global::Gtk.SpinButton f_SshPortSpinButton;
-
 		private global::Gtk.Label label1;
-
 		private global::Gtk.Label label10;
-
 		private global::Gtk.Label label11;
-
 		private global::Gtk.Label label5;
-
 		private global::Gtk.Label label7;
-
 		private global::Gtk.Label label9;
-
+        
 		protected virtual void Build ()
 		{
 			global::Stetic.Gui.Initialize (this);
@@ -58,7 +44,7 @@ namespace Smuxi.Frontend.Gnome
 			this.f_UseSshTunnelCheckButton.DrawIndicator = true;
 			this.f_UseSshTunnelCheckButton.UseUnderline = true;
 			this.vbox4.Add (this.f_UseSshTunnelCheckButton);
-			global::Gtk.Box.BoxChild w1 = ((global::Gtk.Box.BoxChild)(this.vbox4[this.f_UseSshTunnelCheckButton]));
+			global::Gtk.Box.BoxChild w1 = ((global::Gtk.Box.BoxChild)(this.vbox4 [this.f_UseSshTunnelCheckButton]));
 			w1.Position = 0;
 			w1.Expand = false;
 			w1.Fill = false;
@@ -66,17 +52,17 @@ namespace Smuxi.Frontend.Gnome
 			this.label6 = new global::Gtk.Label ();
 			this.label6.Name = "label6";
 			this.label6.Xpad = 50;
-			this.label6.Xalign = 0f;
+			this.label6.Xalign = 0F;
 			this.label6.LabelProp = global::Mono.Unix.Catalog.GetString ("<span size=\"small\">Enables the use of SSH for the connection.  This has a small performance impact, but is more secure and required when using NAT or port-based firewalls</span>");
 			this.label6.UseMarkup = true;
 			this.label6.Wrap = true;
 			this.vbox4.Add (this.label6);
-			global::Gtk.Box.BoxChild w2 = ((global::Gtk.Box.BoxChild)(this.vbox4[this.label6]));
+			global::Gtk.Box.BoxChild w2 = ((global::Gtk.Box.BoxChild)(this.vbox4 [this.label6]));
 			w2.Position = 1;
 			w2.Expand = false;
 			w2.Fill = false;
 			this.vbox2.Add (this.vbox4);
-			global::Gtk.Box.BoxChild w3 = ((global::Gtk.Box.BoxChild)(this.vbox2[this.vbox4]));
+			global::Gtk.Box.BoxChild w3 = ((global::Gtk.Box.BoxChild)(this.vbox2 [this.vbox4]));
 			w3.Position = 0;
 			w3.Expand = false;
 			w3.Fill = false;
@@ -94,7 +80,7 @@ namespace Smuxi.Frontend.Gnome
 			this.f_HostEntry.IsEditable = true;
 			this.f_HostEntry.InvisibleChar = '●';
 			this.table1.Add (this.f_HostEntry);
-			global::Gtk.Table.TableChild w4 = ((global::Gtk.Table.TableChild)(this.table1[this.f_HostEntry]));
+			global::Gtk.Table.TableChild w4 = ((global::Gtk.Table.TableChild)(this.table1 [this.f_HostEntry]));
 			w4.TopAttach = ((uint)(2));
 			w4.BottomAttach = ((uint)(3));
 			w4.LeftAttach = ((uint)(1));
@@ -110,7 +96,7 @@ namespace Smuxi.Frontend.Gnome
 			this.f_PortSpinButton.Numeric = true;
 			this.f_PortSpinButton.Value = 7689;
 			this.table1.Add (this.f_PortSpinButton);
-			global::Gtk.Table.TableChild w5 = ((global::Gtk.Table.TableChild)(this.table1[this.f_PortSpinButton]));
+			global::Gtk.Table.TableChild w5 = ((global::Gtk.Table.TableChild)(this.table1 [this.f_PortSpinButton]));
 			w5.TopAttach = ((uint)(2));
 			w5.BottomAttach = ((uint)(3));
 			w5.LeftAttach = ((uint)(3));
@@ -124,7 +110,7 @@ namespace Smuxi.Frontend.Gnome
 			this.f_SshHostEntry.IsEditable = true;
 			this.f_SshHostEntry.InvisibleChar = '●';
 			this.table1.Add (this.f_SshHostEntry);
-			global::Gtk.Table.TableChild w6 = ((global::Gtk.Table.TableChild)(this.table1[this.f_SshHostEntry]));
+			global::Gtk.Table.TableChild w6 = ((global::Gtk.Table.TableChild)(this.table1 [this.f_SshHostEntry]));
 			w6.LeftAttach = ((uint)(1));
 			w6.RightAttach = ((uint)(2));
 			w6.YOptions = ((global::Gtk.AttachOptions)(4));
@@ -137,7 +123,7 @@ namespace Smuxi.Frontend.Gnome
 			this.f_SshPortSpinButton.Numeric = true;
 			this.f_SshPortSpinButton.Value = 22;
 			this.table1.Add (this.f_SshPortSpinButton);
-			global::Gtk.Table.TableChild w7 = ((global::Gtk.Table.TableChild)(this.table1[this.f_SshPortSpinButton]));
+			global::Gtk.Table.TableChild w7 = ((global::Gtk.Table.TableChild)(this.table1 [this.f_SshPortSpinButton]));
 			w7.LeftAttach = ((uint)(3));
 			w7.RightAttach = ((uint)(4));
 			w7.XOptions = ((global::Gtk.AttachOptions)(4));
@@ -145,22 +131,22 @@ namespace Smuxi.Frontend.Gnome
 			// Container child table1.Gtk.Table+TableChild
 			this.label1 = new global::Gtk.Label ();
 			this.label1.Name = "label1";
-			this.label1.Xalign = 0f;
+			this.label1.Xalign = 0F;
 			this.label1.LabelProp = global::Mono.Unix.Catalog.GetString ("SSH _Host:");
 			this.label1.UseUnderline = true;
 			this.table1.Add (this.label1);
-			global::Gtk.Table.TableChild w8 = ((global::Gtk.Table.TableChild)(this.table1[this.label1]));
+			global::Gtk.Table.TableChild w8 = ((global::Gtk.Table.TableChild)(this.table1 [this.label1]));
 			w8.XOptions = ((global::Gtk.AttachOptions)(4));
 			w8.YOptions = ((global::Gtk.AttachOptions)(4));
 			// Container child table1.Gtk.Table+TableChild
 			this.label10 = new global::Gtk.Label ();
 			this.label10.Name = "label10";
 			this.label10.Xpad = 50;
-			this.label10.Xalign = 0f;
+			this.label10.Xalign = 0F;
 			this.label10.LabelProp = global::Mono.Unix.Catalog.GetString ("<span size=\"small\">DNS or IP address and port of the SSH server</span>");
 			this.label10.UseMarkup = true;
 			this.table1.Add (this.label10);
-			global::Gtk.Table.TableChild w9 = ((global::Gtk.Table.TableChild)(this.table1[this.label10]));
+			global::Gtk.Table.TableChild w9 = ((global::Gtk.Table.TableChild)(this.table1 [this.label10]));
 			w9.TopAttach = ((uint)(1));
 			w9.BottomAttach = ((uint)(2));
 			w9.RightAttach = ((uint)(4));
@@ -169,11 +155,11 @@ namespace Smuxi.Frontend.Gnome
 			// Container child table1.Gtk.Table+TableChild
 			this.label11 = new global::Gtk.Label ();
 			this.label11.Name = "label11";
-			this.label11.Xalign = 0f;
+			this.label11.Xalign = 0F;
 			this.label11.LabelProp = global::Mono.Unix.Catalog.GetString ("_Port:");
 			this.label11.UseUnderline = true;
 			this.table1.Add (this.label11);
-			global::Gtk.Table.TableChild w10 = ((global::Gtk.Table.TableChild)(this.table1[this.label11]));
+			global::Gtk.Table.TableChild w10 = ((global::Gtk.Table.TableChild)(this.table1 [this.label11]));
 			w10.TopAttach = ((uint)(2));
 			w10.BottomAttach = ((uint)(3));
 			w10.LeftAttach = ((uint)(2));
@@ -183,11 +169,11 @@ namespace Smuxi.Frontend.Gnome
 			// Container child table1.Gtk.Table+TableChild
 			this.label5 = new global::Gtk.Label ();
 			this.label5.Name = "label5";
-			this.label5.Xalign = 0f;
+			this.label5.Xalign = 0F;
 			this.label5.LabelProp = global::Mono.Unix.Catalog.GetString ("_Port:");
 			this.label5.UseUnderline = true;
 			this.table1.Add (this.label5);
-			global::Gtk.Table.TableChild w11 = ((global::Gtk.Table.TableChild)(this.table1[this.label5]));
+			global::Gtk.Table.TableChild w11 = ((global::Gtk.Table.TableChild)(this.table1 [this.label5]));
 			w11.LeftAttach = ((uint)(2));
 			w11.RightAttach = ((uint)(3));
 			w11.XOptions = ((global::Gtk.AttachOptions)(4));
@@ -196,11 +182,11 @@ namespace Smuxi.Frontend.Gnome
 			this.label7 = new global::Gtk.Label ();
 			this.label7.Name = "label7";
 			this.label7.Xpad = 50;
-			this.label7.Xalign = 0f;
+			this.label7.Xalign = 0F;
 			this.label7.LabelProp = global::Mono.Unix.Catalog.GetString ("<span size=\"small\">DNS or IP address and port of the Smuxi server</span>");
 			this.label7.UseMarkup = true;
 			this.table1.Add (this.label7);
-			global::Gtk.Table.TableChild w12 = ((global::Gtk.Table.TableChild)(this.table1[this.label7]));
+			global::Gtk.Table.TableChild w12 = ((global::Gtk.Table.TableChild)(this.table1 [this.label7]));
 			w12.TopAttach = ((uint)(3));
 			w12.BottomAttach = ((uint)(4));
 			w12.RightAttach = ((uint)(4));
@@ -209,17 +195,17 @@ namespace Smuxi.Frontend.Gnome
 			// Container child table1.Gtk.Table+TableChild
 			this.label9 = new global::Gtk.Label ();
 			this.label9.Name = "label9";
-			this.label9.Xalign = 0f;
+			this.label9.Xalign = 0F;
 			this.label9.LabelProp = global::Mono.Unix.Catalog.GetString ("_Smuxi Host:");
 			this.label9.UseUnderline = true;
 			this.table1.Add (this.label9);
-			global::Gtk.Table.TableChild w13 = ((global::Gtk.Table.TableChild)(this.table1[this.label9]));
+			global::Gtk.Table.TableChild w13 = ((global::Gtk.Table.TableChild)(this.table1 [this.label9]));
 			w13.TopAttach = ((uint)(2));
 			w13.BottomAttach = ((uint)(3));
 			w13.XOptions = ((global::Gtk.AttachOptions)(4));
 			w13.YOptions = ((global::Gtk.AttachOptions)(4));
 			this.vbox2.Add (this.table1);
-			global::Gtk.Box.BoxChild w14 = ((global::Gtk.Box.BoxChild)(this.vbox2[this.table1]));
+			global::Gtk.Box.BoxChild w14 = ((global::Gtk.Box.BoxChild)(this.vbox2 [this.table1]));
 			w14.Position = 1;
 			w14.Expand = false;
 			w14.Fill = false;

@@ -5,17 +5,12 @@ namespace Smuxi.Frontend.Gnome
 	public partial class QuickConnectDialog
 	{
 		private global::Gtk.HBox hbox1;
-
 		private global::Gtk.ScrolledWindow f_ScrolledWindow;
-
 		private global::Gtk.TreeView f_TreeView;
-
 		private global::Smuxi.Frontend.Gnome.ServerWidget f_Widget;
-
 		private global::Gtk.Button f_CancelButton;
-
 		private global::Gtk.Button f_ConnectButton;
-
+        
 		protected virtual void Build ()
 		{
 			global::Stetic.Gui.Initialize (this);
@@ -45,19 +40,19 @@ namespace Smuxi.Frontend.Gnome
 			this.f_TreeView.Name = "f_TreeView";
 			this.f_ScrolledWindow.Add (this.f_TreeView);
 			this.hbox1.Add (this.f_ScrolledWindow);
-			global::Gtk.Box.BoxChild w3 = ((global::Gtk.Box.BoxChild)(this.hbox1[this.f_ScrolledWindow]));
+			global::Gtk.Box.BoxChild w3 = ((global::Gtk.Box.BoxChild)(this.hbox1 [this.f_ScrolledWindow]));
 			w3.Position = 0;
 			// Container child hbox1.Gtk.Box+BoxChild
 			this.f_Widget = new global::Smuxi.Frontend.Gnome.ServerWidget ();
 			this.f_Widget.Events = ((global::Gdk.EventMask)(256));
 			this.f_Widget.Name = "f_Widget";
 			this.hbox1.Add (this.f_Widget);
-			global::Gtk.Box.BoxChild w4 = ((global::Gtk.Box.BoxChild)(this.hbox1[this.f_Widget]));
+			global::Gtk.Box.BoxChild w4 = ((global::Gtk.Box.BoxChild)(this.hbox1 [this.f_Widget]));
 			w4.Position = 1;
 			w4.Expand = false;
 			w4.Fill = false;
 			w1.Add (this.hbox1);
-			global::Gtk.Box.BoxChild w5 = ((global::Gtk.Box.BoxChild)(w1[this.hbox1]));
+			global::Gtk.Box.BoxChild w5 = ((global::Gtk.Box.BoxChild)(w1 [this.hbox1]));
 			w5.Position = 0;
 			// Internal child Smuxi.Frontend.Gnome.QuickConnectDialog.ActionArea
 			global::Gtk.HButtonBox w6 = this.ActionArea;
@@ -72,7 +67,7 @@ namespace Smuxi.Frontend.Gnome
 			this.f_CancelButton.UseUnderline = true;
 			this.f_CancelButton.Label = "gtk-cancel";
 			this.AddActionWidget (this.f_CancelButton, -6);
-			global::Gtk.ButtonBox.ButtonBoxChild w7 = ((global::Gtk.ButtonBox.ButtonBoxChild)(w6[this.f_CancelButton]));
+			global::Gtk.ButtonBox.ButtonBoxChild w7 = ((global::Gtk.ButtonBox.ButtonBoxChild)(w6 [this.f_CancelButton]));
 			w7.Expand = false;
 			w7.Fill = false;
 			// Container child dialog-action_area2.Gtk.ButtonBox+ButtonBoxChild
@@ -82,7 +77,7 @@ namespace Smuxi.Frontend.Gnome
 			this.f_ConnectButton.UseUnderline = true;
 			this.f_ConnectButton.Label = "gtk-connect";
 			this.AddActionWidget (this.f_ConnectButton, -5);
-			global::Gtk.ButtonBox.ButtonBoxChild w8 = ((global::Gtk.ButtonBox.ButtonBoxChild)(w6[this.f_ConnectButton]));
+			global::Gtk.ButtonBox.ButtonBoxChild w8 = ((global::Gtk.ButtonBox.ButtonBoxChild)(w6 [this.f_ConnectButton]));
 			w8.Position = 1;
 			w8.Expand = false;
 			w8.Fill = false;
