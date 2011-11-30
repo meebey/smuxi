@@ -30,6 +30,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Meebey.SmartIrc4net;
 using Smuxi.Common;
+using IrcProxyType = Meebey.SmartIrc4net.ProxyType;
 
 namespace Smuxi.Engine
 {
@@ -2081,29 +2082,33 @@ namespace Smuxi.Engine
                 }
             }
 
-            string proxyTypeStr = (string) config["Connection/ProxyType"];
-            if (!String.IsNullOrEmpty(proxyTypeStr)) {
-                var proxyType = ProxyType.None;
+            var proxySettings = new ProxySettings();
+            proxySettings.ApplyConfig(config);
+            var protocol = server.UseEncryption ? "ircs" : "irc";
+            var serverUri = String.Format("{0}://{1}:{2}", protocol,
+                                          server.Hostname, server.Port);
+            var proxy = proxySettings.GetWebProxy(serverUri);
+            if (proxy == null) {
+                _IrcClient.ProxyType = IrcProxyType.None;
+            } else {
+                var proxyScheme = proxy.Address.Scheme;
+                var ircProxyType = IrcProxyType.None;
                 try {
-                    proxyType = (ProxyType) Enum.Parse(typeof(ProxyType),
-                                                       proxyTypeStr);
+                    // HACK: map proxy scheme to SmartIrc4net's ProxyType
+                    ircProxyType = (IrcProxyType) Enum.Parse(
+                        typeof(IrcProxyType), proxyScheme, true
+                    );
                 } catch (ArgumentException ex) {
 #if LOG4NET
                     _Logger.Error("ApplyConfig(): Couldn't parse proxy type: " +
-                                  proxyType, ex);
+                                  proxyScheme, ex);
 #endif
                 }
-
-                // HACK: map our ProxyType to SmartIrc4net's ProxyType
-                var ircProxyType =
-                    (Meebey.SmartIrc4net.ProxyType) Enum.Parse(
-                        typeof(ProxyType), proxyType.ToString(), true
-                    );
                 _IrcClient.ProxyType = ircProxyType;
-                _IrcClient.ProxyHost = (string) config["Connection/ProxyHostname"];
-                _IrcClient.ProxyPort = (int) config["Connection/ProxyPort"];
-                _IrcClient.ProxyUsername = (string) config["Connection/ProxyUsername"];
-                _IrcClient.ProxyPassword = (string) config["Connection/ProxyPassword"];
+                _IrcClient.ProxyHost = proxy.Address.Host;
+                _IrcClient.ProxyPort = proxy.Address.Port;
+                _IrcClient.ProxyUsername = proxySettings.ProxyUsername;
+                _IrcClient.ProxyPassword = proxySettings.ProxyPassword;
             }
 
             if (server != null) {

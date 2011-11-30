@@ -1409,7 +1409,7 @@ namespace Smuxi.Engine
                 var req = WebRequest.Create(url);
                 var proxySettings = new ProxySettings();
                 proxySettings.ApplyConfig(UserConfig);
-                req.Proxy = proxySettings.WebProxy;
+                req.Proxy = proxySettings.GetWebProxy(url);
                 if (req is HttpWebRequest) {
                     var httpReq = (HttpWebRequest) req;
                     httpReq.UserAgent = Engine.VersionString;

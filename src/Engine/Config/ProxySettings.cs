@@ -20,21 +20,64 @@
 
 using System;
 using System.Net;
+using System.Text.RegularExpressions;
+using System.Collections.Generic;
 
 namespace Smuxi.Engine
 {
     public class ProxySettings
     {
+#if LOG4NET
+        private static readonly log4net.ILog f_Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+#endif
         public ProxyType ProxyType { get; set; }
         public string ProxyHostname { get; set; }
         public int ProxyPort { get; set; }
         public string ProxyUsername { get; set; }
         public string ProxyPassword { get; set; }
-        public WebProxy WebProxy { get; set; }
+        public IWebProxy SystemWebProxy { get; set; }
+        public WebProxy DefaultWebProxy { get; set; }
 
         public ProxySettings()
         {
             ProxyType = ProxyType.None;
+            DefaultWebProxy = new WebProxy();
+        }
+
+        public WebProxy GetWebProxy(Uri destination)
+        {
+            if (destination == null) {
+                throw new ArgumentNullException("destination");
+            }
+            if (SystemWebProxy == null) {
+#if LOG4NET
+                f_Logger.DebugFormat("GetWebProxy(<{0}>): returning default proxy: {1}",
+                                     destination, DefaultWebProxy);
+#endif
+                return DefaultWebProxy;
+            }
+            var proxyUri = SystemWebProxy.GetProxy(destination);
+            if (proxyUri == destination) {
+#if LOG4NET
+                f_Logger.DebugFormat("GetWebProxy(<{0}>): returning no proxy",
+                                     destination);
+#endif
+                // no proxy
+                return null;
+            }
+#if LOG4NET
+            f_Logger.DebugFormat("GetWebProxy(<{0}>): returning proxy: {1}",
+                                 destination, proxyUri);
+#endif
+            return new WebProxy(proxyUri);
+        }
+
+        public WebProxy GetWebProxy(string destination)
+        {
+            if (destination == null) {
+                throw new ArgumentNullException("destination");
+            }
+            return GetWebProxy(new Uri(destination));
         }
 
         public void ApplyConfig(UserConfig config)
@@ -52,18 +95,39 @@ namespace Smuxi.Engine
 
             switch (ProxyType) {
                 case ProxyType.None:
-                    WebProxy = null;
+                    DefaultWebProxy = new WebProxy();
+                    SystemWebProxy = null;
                     break;
                 case ProxyType.System:
-                    // TODO: add GNOME (gconf) and Windows (registry) support
-                    var proxy = Environment.GetEnvironmentVariable("http_proxy");
-                    if (!String.IsNullOrEmpty(proxy)) {
-                        Uri systemProxy = null;
-                        Uri.TryCreate(proxy, UriKind.Absolute, out systemProxy);
-                        if (systemProxy != null && systemProxy.Scheme == "http") {
-                            WebProxy = new WebProxy(systemProxy);
+                    var proxy = WebRequest.GetSystemWebProxy();
+                    // TODO: add GNOME (gconf) support
+                    var no_proxy = Environment.GetEnvironmentVariable("no_proxy");
+                    if (!String.IsNullOrEmpty(no_proxy) && proxy is WebProxy) {
+                        var webProxy = (WebProxy) proxy;
+                        // BypassArrayList expects regexes while no_proxy
+                        // contains domains
+                        var bypassUriRegexes = new List<string>();
+                        foreach (var domain in no_proxy.Split(',')) {
+                            string domainRegex = null;
+                            if (domain.StartsWith(".")) {
+                                domainRegex = String.Format(
+                                    @"^[a-z]+://(.+\.)?{0}",
+                                    Regex.Escape(domain.Substring(1))
+                                );
+                            } else if (!Regex.IsMatch(domain, @"^[a-z]+://")) {
+                                domainRegex = String.Format(
+                                    @"^[a-z]+://{0}",
+                                    Regex.Escape(domain)
+                                );
+                            } else {
+                                domainRegex = Regex.Escape(domain);
+                            }
+                            bypassUriRegexes.Add(domainRegex);
                         }
+                        webProxy.BypassArrayList.AddRange(bypassUriRegexes);
                     }
+                    DefaultWebProxy = null;
+                    SystemWebProxy = proxy;
                     break;
                 case ProxyType.Http:
                     var uriBuilder = new UriBuilder();
@@ -73,7 +137,8 @@ namespace Smuxi.Engine
                     uriBuilder.UserName = ProxyUsername;
                     uriBuilder.Password = ProxyPassword;
                     var proxyUri = uriBuilder.ToString();
-                    WebProxy = new WebProxy(proxyUri);
+                    DefaultWebProxy = new WebProxy(proxyUri);
+                    SystemWebProxy = null;
                     break;
             }
         }

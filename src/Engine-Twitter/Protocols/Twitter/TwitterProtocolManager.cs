@@ -168,7 +168,13 @@ namespace Smuxi.Engine
 
             var proxySettings = new ProxySettings();
             proxySettings.ApplyConfig(Session.UserConfig);
-            f_WebProxy = proxySettings.WebProxy;
+            var twitterUrl = new OptionalProperties().APIBaseAddress;
+            f_WebProxy = proxySettings.GetWebProxy(twitterUrl);
+            // HACK: Twitterizer will always use the system proxy if set to null
+            // so explicitely override this by setting an empty proxy
+            if (f_WebProxy == null) {
+                f_WebProxy = new WebProxy();
+            }
             f_OptionalProperties = CreateOptions<OptionalProperties>();
 
             f_ProtocolChat = new ProtocolChatModel(NetworkID, "Twitter " + f_Username, this);
