@@ -368,34 +368,6 @@ namespace Smuxi.Frontend.Gnome
             }
         }
 
-        protected override void OnPersonsRowActivated(object sender, Gtk.RowActivatedArgs e)
-        {
-            Trace.Call(sender, e);
-
-            base.OnPersonsRowActivated(sender, e);
-
-            IList<PersonModel> persons = GetSelectedPersons();
-            if (persons == null) {
-                return;
-            }
-
-            foreach (PersonModel person in persons) {
-                ThreadPool.QueueUserWorkItem(delegate {
-                    try {
-                        _IrcProtocolManager.CommandMessageQuery(
-                            new CommandModel(
-                                Frontend.FrontendManager,
-                                ChatModel,
-                                person.ID
-                            )
-                        );
-                    } catch (Exception ex) {
-                        Frontend.ShowException(ex);
-                    }
-                });
-            }
-        }
-
         protected override void OnPersonMenuShown(object sender, EventArgs e)
         {
             Trace.Call(sender, e);
