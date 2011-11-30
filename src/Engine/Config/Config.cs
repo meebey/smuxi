@@ -411,6 +411,9 @@ namespace Smuxi.Engine
                 string realname = null;
                 try {
                     string gecos = Mono.Unix.UnixUserInfo.GetRealUser().RealName;
+                    if (gecos == null) {
+                        gecos = String.Empty;
+                    }
                     int pos = gecos.IndexOf(",");
                     if (pos != -1) {
                         realname = gecos.Substring(0, pos);
