@@ -220,6 +220,8 @@ namespace Smuxi.Frontend.Gnome
             // fill ListStore
             store.AppendValues(ProxyType.None,    String.Format("<{0}>",
                                                                 _("No Proxy")));
+            store.AppendValues(ProxyType.System,  String.Format("<{0}>",
+                                                                _("System Default")));
             store.AppendValues(ProxyType.Http,    "HTTP");
             store.AppendValues(ProxyType.Socks4,  "SOCK 4");
             store.AppendValues(ProxyType.Socks4a, "SOCK 4a");
@@ -1029,6 +1031,7 @@ namespace Smuxi.Frontend.Gnome
             var proxyType = (ProxyType) typoComboBox.Model.GetValue(iter, 0);
             switch (proxyType) {
                 case ProxyType.None:
+                case ProxyType.System:
                     hostEntry.Sensitive = false;
                     portSpinButton.Sensitive = false;
                     userEntry.Sensitive = false;

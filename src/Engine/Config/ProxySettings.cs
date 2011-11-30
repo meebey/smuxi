@@ -54,6 +54,17 @@ namespace Smuxi.Engine
                 case ProxyType.None:
                     WebProxy = null;
                     break;
+                case ProxyType.System:
+                    // TODO: add GNOME (gconf) and Windows (registry) support
+                    var proxy = Environment.GetEnvironmentVariable("http_proxy");
+                    if (!String.IsNullOrEmpty(proxy)) {
+                        Uri systemProxy = null;
+                        Uri.TryCreate(proxy, UriKind.Absolute, out systemProxy);
+                        if (systemProxy != null && systemProxy.Scheme == "http") {
+                            WebProxy = new WebProxy(systemProxy);
+                        }
+                    }
+                    break;
                 case ProxyType.Http:
                     var uriBuilder = new UriBuilder();
                     uriBuilder.Scheme = "http";

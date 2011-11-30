@@ -24,6 +24,7 @@ namespace Smuxi.Engine
 {
     public enum ProxyType {
         None,
+        System,
         Http,
         Socks4,
         Socks4a,
