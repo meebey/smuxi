@@ -1436,6 +1436,11 @@ namespace Smuxi.Engine
                            "Content:\n" + response.Content);
 #endif
 
+            // HACK: Twitter returns HTML code saying they are overloaded o_O
+            if (response.Result == RequestResult.Unknown &&
+                response.ErrorMessage == null) {
+                response.ErrorMessage = _("Twitter didn't send a valid response, they're probably overloaded");
+            }
             throw new TwitterizerException(response.ErrorMessage);
         }
 
