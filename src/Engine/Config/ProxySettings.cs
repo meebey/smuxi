@@ -41,7 +41,6 @@ namespace Smuxi.Engine
         public ProxySettings()
         {
             ProxyType = ProxyType.None;
-            DefaultWebProxy = new WebProxy();
         }
 
         public WebProxy GetWebProxy(Uri destination)
@@ -49,10 +48,21 @@ namespace Smuxi.Engine
             if (destination == null) {
                 throw new ArgumentNullException("destination");
             }
+
+            if (SystemWebProxy == null &&
+                DefaultWebProxy == null) {
+#if LOG4NET
+                f_Logger.DebugFormat("GetWebProxy(<{0}>): returning no proxy",
+                                     destination);
+#endif
+                // no proxy
+                return null;
+            }
+
             if (SystemWebProxy == null) {
 #if LOG4NET
                 f_Logger.DebugFormat("GetWebProxy(<{0}>): returning default proxy: {1}",
-                                     destination, DefaultWebProxy);
+                                     destination, DefaultWebProxy.Address);
 #endif
                 return DefaultWebProxy;
             }
@@ -66,7 +76,7 @@ namespace Smuxi.Engine
                 return null;
             }
 #if LOG4NET
-            f_Logger.DebugFormat("GetWebProxy(<{0}>): returning proxy: {1}",
+            f_Logger.DebugFormat("GetWebProxy(<{0}>): returning system proxy: {1}",
                                  destination, proxyUri);
 #endif
             return new WebProxy(proxyUri);
@@ -95,7 +105,7 @@ namespace Smuxi.Engine
 
             switch (ProxyType) {
                 case ProxyType.None:
-                    DefaultWebProxy = new WebProxy();
+                    DefaultWebProxy = null;
                     SystemWebProxy = null;
                     break;
                 case ProxyType.System:
