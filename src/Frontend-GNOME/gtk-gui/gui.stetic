@@ -3357,7 +3357,7 @@ Click "Forward" to begin.</property>
       </widget>
     </child>
   </widget>
-  <widget class="Gtk.Bin" id="Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget" design-size="736 372">
+  <widget class="Gtk.Bin" id="Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget" design-size="736 674">
     <property name="MemberName" />
     <property name="Visible">False</property>
     <child>
@@ -3460,7 +3460,7 @@ Click "Forward" to begin.</property>
                 <property name="MemberName" />
                 <property name="Xpad">50</property>
                 <property name="Xalign">0</property>
-                <property name="LabelProp" translatable="yes">&lt;span size="small"&gt;Password which will be used to log into the SSH server. The password is optional if SSH key authorization is used (via Pageant from the PuTTY tools).&lt;/span&gt;</property>
+                <property name="LabelProp" translatable="yes">&lt;span size="small"&gt;Password which will be used to log into the SSH server. The password is optional if SSH key authorization is used (see below).&lt;/span&gt;</property>
                 <property name="UseMarkup">True</property>
                 <property name="Wrap">True</property>
               </widget>
@@ -3474,6 +3474,60 @@ Click "Forward" to begin.</property>
           </widget>
           <packing>
             <property name="Position">1</property>
+            <property name="AutoSize">True</property>
+            <property name="Expand">False</property>
+            <property name="Fill">False</property>
+          </packing>
+        </child>
+        <child>
+          <widget class="Gtk.VBox" id="vbox17">
+            <property name="MemberName" />
+            <property name="Spacing">6</property>
+            <child>
+              <widget class="Gtk.Label" id="label16">
+                <property name="MemberName" />
+                <property name="Xalign">0</property>
+                <property name="LabelProp" translatable="yes">_SSH Keyfile: (optional)</property>
+                <property name="UseUnderline">True</property>
+                <property name="MnemonicWidget">f_SshKeyfileChooserButton</property>
+              </widget>
+              <packing>
+                <property name="Position">0</property>
+                <property name="AutoSize">True</property>
+                <property name="Expand">False</property>
+                <property name="Fill">False</property>
+              </packing>
+            </child>
+            <child>
+              <widget class="Gtk.FileChooserButton" id="f_SshKeyfileChooserButton">
+                <property name="MemberName" />
+                <property name="ShowHidden">True</property>
+              </widget>
+              <packing>
+                <property name="Position">1</property>
+                <property name="AutoSize">True</property>
+                <property name="Expand">False</property>
+                <property name="Fill">False</property>
+              </packing>
+            </child>
+            <child>
+              <widget class="Gtk.Label" id="label17">
+                <property name="MemberName" />
+                <property name="Xpad">50</property>
+                <property name="Xalign">0</property>
+                <property name="LabelProp" translatable="yes">&lt;span size="small"&gt;SSH private keyfile which will be used to log into the SSH server&lt;/span&gt;</property>
+                <property name="UseMarkup">True</property>
+              </widget>
+              <packing>
+                <property name="Position">2</property>
+                <property name="AutoSize">True</property>
+                <property name="Expand">False</property>
+                <property name="Fill">False</property>
+              </packing>
+            </child>
+          </widget>
+          <packing>
+            <property name="Position">2</property>
             <property name="AutoSize">True</property>
             <property name="Expand">False</property>
             <property name="Fill">False</property>
@@ -3529,7 +3583,7 @@ Click "Forward" to begin.</property>
             </child>
           </widget>
           <packing>
-            <property name="Position">2</property>
+            <property name="Position">3</property>
             <property name="AutoSize">True</property>
             <property name="Expand">False</property>
             <property name="Fill">False</property>
@@ -3586,7 +3640,7 @@ Click "Forward" to begin.</property>
             </child>
           </widget>
           <packing>
-            <property name="Position">3</property>
+            <property name="Position">4</property>
             <property name="AutoSize">True</property>
             <property name="Expand">False</property>
             <property name="Fill">False</property>
@@ -3643,7 +3697,7 @@ Click "Forward" to begin.</property>
             </child>
           </widget>
           <packing>
-            <property name="Position">4</property>
+            <property name="Position">5</property>
             <property name="AutoSize">True</property>
             <property name="Expand">False</property>
             <property name="Fill">False</property>

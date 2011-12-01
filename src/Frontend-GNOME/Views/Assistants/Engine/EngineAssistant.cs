@@ -30,6 +30,7 @@ using System;
 using System.IO;
 using Smuxi.Common;
 using Smuxi.Engine;
+using IOPath = System.IO.Path;
 
 namespace Smuxi.Frontend.Gnome
 {
@@ -231,6 +232,24 @@ namespace Smuxi.Frontend.Gnome
                     f_Config["Engines/" + f_EngineName + "/SshUsername"];
                 f_CredentialsWidget.SshPasswordEntry.Text = (string)
                     f_Config["Engines/" + f_EngineName + "/SshPassword"];
+                var sshKeyfile = (string)
+                    f_Config["Engines/" + f_EngineName + "/SshKeyfile"];
+                if (!String.IsNullOrEmpty(sshKeyfile)) {
+                    f_CredentialsWidget.SshKeyfileChooserButton.SetFilename(
+                        sshKeyfile
+                    );
+                }
+                var sshPath = IOPath.Combine(
+                    Environment.GetFolderPath(
+                        Environment.SpecialFolder.Personal
+                    ),
+                    ".ssh"
+                );
+                if (Directory.Exists(sshPath)) {
+                    f_CredentialsWidget.SshKeyfileChooserButton.SetCurrentFolder(
+                        sshPath
+                    );
+                }
                 f_CredentialsWidget.UsernameEntry.Text = (string)
                     f_Config["Engines/" + f_EngineName + "/Username"];
                 f_CredentialsWidget.PasswordEntry.Text = (string)
@@ -332,6 +351,8 @@ namespace Smuxi.Frontend.Gnome
                 f_Config["Engines/"+engine+"/SshPassword"] =
                     f_CredentialsWidget.SshPasswordEntry.Text;
             }
+            f_Config["Engines/"+engine+"/SshKeyfile"] =
+                f_CredentialsWidget.SshKeyfileChooserButton.Filename ?? String.Empty;
             f_Config["Engines/"+engine+"/SshHostname"] =
                 f_ConnectionWidget.SshHostEntry.Text.Trim();
             f_Config["Engines/"+engine+"/SshPort"] =

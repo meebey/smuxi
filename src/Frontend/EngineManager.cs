@@ -156,6 +156,7 @@ namespace Smuxi.Frontend
             }
             string sshUsername = (string) f_FrontendConfig["Engines/"+engine+"/SshUsername"];
             string sshPassword = (string) f_FrontendConfig["Engines/"+engine+"/SshPassword"];
+            var sshKeyfile = (string) f_FrontendConfig["Engines/"+engine+"/SshKeyfile"];
 
             // OPT: always use SSH compression (both openssh and plink support it)
             // this reduces the .NET remoting traffic by about 75%
@@ -190,8 +191,8 @@ namespace Smuxi.Frontend
                 // thus the client will try to reach it using the original
                 // server port :(
                 f_SshTunnelManager = new SshTunnelManager(
-                    sshProgram, sshParameters, sshUsername, sshPassword, null,
-                    sshHostname, sshPort,
+                    sshProgram, sshParameters, sshUsername, sshPassword,
+                    sshKeyfile, sshHostname, sshPort,
                     //"127.0.0.1", localForwardPort, "127.0.0.1", port,
                     "127.0.0.1", port, "127.0.0.1", port,
                     "127.0.0.1", remotingPort, "127.0.0.1", remotingPort

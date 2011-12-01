@@ -62,6 +62,12 @@ namespace Smuxi.Frontend.Gnome
             }
         }
         
+        public Gtk.FileChooserButton SshKeyfileChooserButton {
+            get {
+                return f_SshKeyfileChooserButton;
+            }
+        }
+
         public EngineAssistantCredentialsWidget()
         {
             Build();

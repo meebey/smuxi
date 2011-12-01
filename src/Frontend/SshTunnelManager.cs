@@ -89,6 +89,7 @@ namespace Smuxi.Frontend
             f_Parameters = parameters;
             f_Username = username;
             f_Password = password;
+            f_Keyfile = keyfile;
             f_Hostname = hostname;
             f_Port = port;
             
@@ -324,6 +325,19 @@ namespace Smuxi.Frontend
             if (!String.IsNullOrEmpty(f_Password)) {
                 // TODO: pass password,  but how?
             }
+            if (!String.IsNullOrEmpty(f_Keyfile)) {
+                if (!File.Exists(f_Keyfile)) {
+                    throw new ApplicationException(_("SSH keyfile not found."));
+                }
+                try {
+                    using (File.OpenRead(f_Keyfile)) {}
+                } catch (Exception ex) {
+                    throw new ApplicationException(
+                        _("SSH keyfile could not be read."), ex
+                    );
+                }
+                sshArguments += String.Format(" -i \"{0}\"", f_Keyfile);
+            }
             if (f_Port != -1) {
                 sshArguments += String.Format(" -p {0}", f_Port);
             }
@@ -457,7 +471,19 @@ namespace Smuxi.Frontend
             if (!String.IsNullOrEmpty(f_Password)) {
                 sshArguments += String.Format(" -pw {0}", f_Password);
             }
-            
+            if (!String.IsNullOrEmpty(f_Keyfile)) {
+                if (!File.Exists(f_Keyfile)) {
+                    throw new ApplicationException(_("SSH keyfile not found."));
+                }
+                try {
+                    using (File.OpenRead(f_Keyfile)) {}
+                } catch (Exception ex) {
+                    throw new ApplicationException(
+                        _("SSH keyfile could not be read."), ex
+                    );
+                }
+                sshArguments += String.Format(" -i \"{0}\"", f_Keyfile);
+            }
             if (f_Port != -1) {
                 sshArguments += String.Format(" -P {0}", f_Port);
             }
