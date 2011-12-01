@@ -58,6 +58,7 @@ namespace Smuxi.Frontend.Gnome
         protected string             SyncedName { get; set; }
         bool                         UseLowBandwidthMode { get; set; }
         protected Gtk.Image          TabImage { get; set; }
+        bool                         IsAutoScrolling { get; set; }
 
         public ChatModel ChatModel {
             get {
@@ -253,6 +254,7 @@ namespace Smuxi.Frontend.Gnome
             
             _ChatModel = chat;
 
+            IsAutoScrolling = true;
             MessageTextView tv = new MessageTextView();
             _EndMark = tv.Buffer.CreateMark("end", tv.Buffer.EndIter, false); 
             tv.ShowTimestamps = true;
@@ -263,16 +265,22 @@ namespace Smuxi.Frontend.Gnome
             tv.MessageAdded += OnMessageTextViewMessageAdded;
             tv.MessageHighlighted += OnMessageTextViewMessageHighlighted;
             tv.PopulatePopup += OnMessageTextViewPopulatePopup;
+            tv.SizeRequested += delegate {
+                AutoScroll();
+            };
             _OutputMessageTextView = tv;
 
             Gtk.ScrolledWindow sw = new Gtk.ScrolledWindow();
+            _OutputScrolledWindow = sw;
             //sw.HscrollbarPolicy = Gtk.PolicyType.Never;
             sw.HscrollbarPolicy = Gtk.PolicyType.Automatic;
             sw.VscrollbarPolicy = Gtk.PolicyType.Always;
             sw.ShadowType = Gtk.ShadowType.In;
+            sw.Vadjustment.ValueChanged += delegate {
+                CheckAutoScroll();
+            };
             sw.Add(_OutputMessageTextView);
-            _OutputScrolledWindow = sw;
-            
+
             // popup menu
             _TabMenu = new Gtk.Menu();
             
@@ -409,6 +417,26 @@ namespace Smuxi.Frontend.Gnome
             }));
         }
         
+        void CheckAutoScroll()
+        {
+            var vAdjustment = _OutputScrolledWindow.Vadjustment;
+            if (vAdjustment.Upper == (vAdjustment.Value + vAdjustment.PageSize)) {
+                // the scrollbar is way at the end, lets autoscroll
+                IsAutoScrolling = true;
+            } else {
+                IsAutoScrolling = false;
+            }
+        }
+
+        void AutoScroll()
+        {
+            if (!IsAutoScrolling) {
+                return;
+            }
+
+            ScrollToEnd();
+        }
+
         public virtual void Enable()
         {
             Trace.Call();
@@ -590,11 +618,7 @@ namespace Smuxi.Frontend.Gnome
             var buffer = _OutputMessageTextView.Buffer;
             buffer.MoveMark(_EndMark, buffer.EndIter);
 
-            var vAdjustment = _OutputScrolledWindow.Vadjustment;
-            if (vAdjustment.Upper == (vAdjustment.Value + vAdjustment.PageSize)) {
-                // the scrollbar is way at the end, lets autoscroll
-                _OutputMessageTextView.ScrollMarkOnscreen(_EndMark);
-            }
+            AutoScroll();
         }
         
         protected virtual void OnMessageTextViewMessageHighlighted(object sender, MessageTextViewMessageHighlightedEventArgs e)
