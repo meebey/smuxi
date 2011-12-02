@@ -61,12 +61,8 @@ namespace Smuxi.Frontend.Gnome
             Title = "Smuxi - " + _("Engine Manager");
             SetPosition(Gtk.WindowPosition.CenterAlways);
 
-            Gtk.HBox connect_hbox = new Gtk.HBox();
-            Gtk.Image connect_image = new Gtk.Image(
-                new Gdk.Pixbuf(null, "connect-button.svg", 22, 22));
-            connect_hbox.Add(connect_image);
-            connect_hbox.Add(new Gtk.Label(_("_Connect")));
-            AddActionWidget(new Gtk.Button(connect_hbox), 1);
+            var connect_button = new Gtk.Button(Gtk.Stock.Connect);
+            AddActionWidget(connect_button, 1);
             
             AddActionWidget(new Gtk.Button(Gtk.Stock.New), 3);
             

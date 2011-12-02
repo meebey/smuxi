@@ -92,7 +92,6 @@
     <File subtype="Code" buildaction="EmbedAsResource" name="../../images/session-chat.svg" />
     <File subtype="Code" buildaction="EmbedAsResource" name="../../images/protocol-chat.svg" />
     <File subtype="Code" buildaction="EmbedAsResource" name="../../images/person-chat.svg" />
-    <File subtype="Code" buildaction="EmbedAsResource" name="../../images/connect-button.svg" />
     <File subtype="Code" buildaction="Compile" name="IndicateManager.cs" />
     <File subtype="Code" buildaction="Compile" name="NotifyManager.cs" />
     <File subtype="Directory" buildaction="Compile" name="." />
