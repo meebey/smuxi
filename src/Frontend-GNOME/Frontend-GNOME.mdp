@@ -125,6 +125,6 @@
     <ProjectReference type="Gac" localcopy="True" refto="NDesk.DBus.GLib, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f6716e4f9b2ed099" />
     <ProjectReference type="Gac" localcopy="True" refto="System.Core, Version=3.5.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   </References>
-  <LanguageParameters ApplicationIcon="../../images/icon_32x32.ico" CodePage="65001" ctype="CSharpProjectParameters" />
+  <LanguageParameters ApplicationIcon="../../images/icon.ico" CodePage="65001" ctype="CSharpProjectParameters" />
   <DeploymentInformation strategy="File" />
 </Project>
