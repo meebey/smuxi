@@ -8,6 +8,7 @@ XBUILD_FLAGS = /p:Configuration=Debug /p:SignAssembly=false /p:WarningLevel=0 /p
 JSON_SUBDIR = Newtonsoft.Json
 JSON_SRCDIR = $(srcdir)/$(JSON_SUBDIR)/Src/Newtonsoft.Json
 JSON_SOURCE_FILES = $(foreach pattern, $(SOURCE_PATTERNS), $(wildcard $(JSON_SRCDIR)/$(pattern)))
+JSON_CLEAN_FILES = $(OBJECT_DIR)/Newtonsoft.Json.Dynamic.snk
 JSON_ASSEMBLY_NAME = Newtonsoft.Json.dll
 JSON_ASSEMBLY_TARGET = $(OUTPUT_DIR)/$(JSON_ASSEMBLY_NAME)
 JSON_BUILD_FILE = $(JSON_SRCDIR)/Newtonsoft.Json.csproj
@@ -17,6 +18,11 @@ TWITTERIZER_SUBDIR = Twitterizer
 TWITTERIZER_SRCDIR = $(srcdir)/$(TWITTERIZER_SUBDIR)/Twitterizer2
 TWITTERIZER_SOURCE_FILES = $(foreach pattern, ../*.cs $(SOURCE_PATTERNS), $(wildcard $(TWITTERIZER_SRCDIR)/$(pattern)))
 TWITTERIZER_EXTRA_FILES = $(TWITTERIZER_SRCDIR)/Twitterizer2.snk $(TWITTERIZER_SRCDIR)/../GettingStarted.txt $(TWITTERIZER_SRCDIR)/../Json.NET.license.txt $(TWITTERIZER_SRCDIR)/../Twitterizer2.license.txt
+TWITTERIZER_CLEAN_FILES = \
+	$(OUTPUT_DIR)/.license.txt \
+	$(OUTPUT_DIR)/Twitterizer2.license.txt \
+	$(OUTPUT_DIR)/Json.NET.license.txt \
+	$(OUTPUT_DIR)/GettingStarted.txt
 TWITTERIZER_ASSEMBLY_NAME = Twitterizer2.dll
 TWITTERIZER_ASSEMBLY_TARGET = $(OUTPUT_DIR)/$(TWITTERIZER_ASSEMBLY_NAME)
 TWITTERIZER_BUILD_FILE = $(TWITTERIZER_SRCDIR)/Twitterizer2.csproj
@@ -26,6 +32,7 @@ JABBER_NET_SUBDIR = jabber-net
 JABBER_NET_SRCDIR = $(srcdir)/$(JABBER_NET_SUBDIR)
 JABBER_NET_SOURCE_FILES = $(foreach pattern, $(SOURCE_PATTERNS), $(wildcard $(JABBER_NET_SRCDIR)/$(pattern)))
 JABBER_NET_EXTRA_FILES = $(wildcard $(JABBER_NET_SRCDIR)/jabber/*/*.bmp) $(wildcard $(JABBER_NET_SRCDIR)/jabber/*/*.resx)
+JABBER_NET_CLEAN_FILES = $(wildcard $(OBJECT_DIR)/*.bmp)
 JABBER_NET_ASSEMBLY_NAME = jabber-net.dll
 JABBER_NET_ASSEMBLY_TARGET = $(OUTPUT_DIR)/$(JABBER_NET_ASSEMBLY_NAME)
 JABBER_NET_BUILD_FILE = $(JABBER_NET_SRCDIR)/2005-jabber-net.csproj
@@ -79,7 +86,10 @@ EXTRA_DIST = \
 	 $(DB4O_INSTR_SOURCE_FILES) $(DB4O_INSTR_BUILD_FILE) \
 	 $(DB4O_NQ_SOURCE_FILES) $(DB4O_NQ_BUILD_FILE)
 
-CLEANFILES = $(OBJECT_DIR)/Newtonsoft.Json.Dynamic.snk $(wildcard $(OBJECT_DIR)/*.bmp) $(OUTPUT_DIR)/.license.txt
+CLEANFILES = \
+	$(JSON_CLEAN_FILES) \
+	$(JABBER_NET_CLEAN_FILES) \
+	$(TWITTERIZER_CLEAN_FILES)
 # end of magic
 
 $(JSON_ASSEMBLY_TARGET) $(JSON_ASSEMBLY_TARGET).mdb: $(JSON_BUILD_FILE) $(JSON_SOURCE_FILES)
