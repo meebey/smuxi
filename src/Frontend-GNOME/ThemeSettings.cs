@@ -142,10 +142,10 @@ namespace Smuxi.Frontend.Gnome
             }
             Pango.FontDescription fontDescription = new Pango.FontDescription();
             if (String.IsNullOrEmpty(fontFamily)) {
-                // HACK: use fixed-sys by default if present
-                if (File.Exists("Fixedsys500c.ttf")) {
-                    fontDescription.Family = "FixedsysTTF, monospace";
-                    // fixed-sys only looks good in size 11
+                // HACK: use Consolas or Fixed-Sys on Windows by default
+                if (Environment.OSVersion.Platform == PlatformID.Win32NT) {
+                    fontDescription.Family = "Consolas, FixedsysTTF, monospace";
+                    // Consolas / fixed-sys only looks good in size 11
                     fontDescription.Size = 11 * 1024;
                     fontDescription.Weight = Pango.Weight.Bold;
                     fontDescription.Style = Pango.Style.Normal;
