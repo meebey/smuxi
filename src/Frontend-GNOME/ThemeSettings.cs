@@ -22,6 +22,7 @@
 
 using System;
 using System.IO;
+using System.Linq;
 using Smuxi.Engine;
 
 namespace Smuxi.Frontend.Gnome
@@ -144,11 +145,22 @@ namespace Smuxi.Frontend.Gnome
             if (String.IsNullOrEmpty(fontFamily)) {
                 // HACK: use Consolas or Fixed-Sys on Windows by default
                 if (Environment.OSVersion.Platform == PlatformID.Win32NT) {
-                    fontDescription.Family = "Consolas, FixedsysTTF, monospace";
-                    // Consolas / fixed-sys only looks good in size 11
-                    fontDescription.Size = 11 * 1024;
-                    fontDescription.Weight = Pango.Weight.Bold;
-                    fontDescription.Style = Pango.Style.Normal;
+                    var context = Frontend.MainWindow.CreatePangoContext();
+                    if (context.Families.Any(family => family.Name == "Consolas")) {
+                        // this system has Consolas available, let's use it!
+                        fontDescription.Family = "Consolas, monospace";
+                        // Consolas only looks good in size 11
+                        fontDescription.Size = 11 * 1024;
+                        fontDescription.Weight = Pango.Weight.Normal;
+                        fontDescription.Style = Pango.Style.Normal;
+                    } else {
+                        // too bad, fallback to FixedSys then
+                        fontDescription.Family = "FixedsysTTF, monospace";
+                        // FixedSys only looks good in size 11
+                        fontDescription.Size = 11 * 1024;
+                        fontDescription.Weight = Pango.Weight.Bold;
+                        fontDescription.Style = Pango.Style.Normal;
+                    }
                 } else {
                     // use Monospace and Bold by default
                     fontDescription.Family = "monospace";
