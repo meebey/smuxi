@@ -22,6 +22,7 @@
 
 using System;
 using System.IO;
+using System.Linq;
 using System.Threading;
 using System.Reflection;
 using SysDiag = System.Diagnostics;
@@ -57,6 +58,9 @@ namespace Smuxi.Frontend.Gnome
         private static object             _UnhandledExceptionSyncRoot = new Object();
         private static bool               _InCrashHandler;
         private static bool               _InReconnectHandler;
+
+        public static string IconName { get; private set; }
+        public static bool HasSystemIconTheme { get; private set; }
 
         public static event EventHandler  SessionPropertyChanged;
 
@@ -184,9 +188,7 @@ namespace Smuxi.Frontend.Gnome
             // loading and setting defaults
             _FrontendConfig.Load();
             _FrontendConfig.Save();
-            
-            Gtk.Window.DefaultIcon = new Gdk.Pixbuf(null, "icon.svg");
- 
+
             _MainWindow = new MainWindow();
 
             if (((string[]) FrontendConfig["Engines/Engines"]).Length == 0) {
@@ -547,6 +549,44 @@ namespace Smuxi.Frontend.Gnome
             _MainWindow.ApplyConfig(userConfig);
         }
 
+        public static Gdk.Pixbuf LoadIcon(string iconName, int size,
+                                          string resourceName)
+        {
+            Trace.Call(iconName, size, resourceName);
+
+            if (iconName == null) {
+                throw new ArgumentNullException("iconName");
+            }
+            if (resourceName == null) {
+                throw new ArgumentNullException("resourceName");
+            }
+
+            try {
+                // we use this method from type initializers so it has to deal
+                // with GDK/GTK thread locking
+                Gdk.Threads.Enter();
+                var theme = Gtk.IconTheme.Default;
+                if (!theme.HasIcon(iconName) ||
+                    !theme.GetIconSizes(iconName).Contains(size)) {
+                    Gtk.IconTheme.AddBuiltinIcon(
+                        iconName,
+                        size,
+                        new Gdk.Pixbuf(null, resourceName, size, size)
+                    );
+#if LOG4NET
+                    _Logger.DebugFormat(
+                        "LoadIcon(): Added '{0}' to built-in icon theme",
+                        resourceName
+                    );
+#endif
+                }
+                return theme.LoadIcon(iconName, size,
+                                      Gtk.IconLookupFlags.UseBuiltin);
+            } finally {
+                Gdk.Threads.Leave();
+            }
+        }
+
 #if GTK_SHARP_2_10
         private static void _OnUnhandledException(GLib.UnhandledExceptionArgs e)
         {
@@ -627,12 +667,33 @@ namespace Smuxi.Frontend.Gnome
 
             LibraryCatalog.Init("smuxi-frontend-gnome", localeDir);
 #if LOG4NET
-            _Logger.Debug("Using locale data from: " + localeDir);
+            _Logger.Debug("InitGtk(): Using locale data from: " + localeDir);
 #endif
             Gtk.Application.Init(Name, ref args);
 #if GTK_SHARP_2_10
             GLib.ExceptionManager.UnhandledException += _OnUnhandledException;
 #endif
+
+            IconName = "smuxi-frontend-gnome";
+            var iconPath = Path.Combine(Defines.InstallPrefix, "share");
+            iconPath = Path.Combine(iconPath, "icons");
+            var theme = Gtk.IconTheme.Default;
+            var iconInfo = theme.LookupIcon(IconName, -1, 0);
+            HasSystemIconTheme = iconInfo != null &&
+                                 iconInfo.Filename != null &&
+                                 iconInfo.Filename.StartsWith(iconPath);
+#if LOG4NET
+            _Logger.DebugFormat("InitGtk(): Using {0} icon theme",
+                                HasSystemIconTheme ? "system" : "built-in");
+#endif
+
+            if (HasSystemIconTheme) {
+                Gtk.Window.DefaultIconName = "smuxi-frontend-gnome";
+            } else {
+                Gtk.Window.DefaultIcon = Frontend.LoadIcon(
+                    "smuxi-frontend-gnome", 256, "icon_256x256.png"
+                );
+            }
         }
 
         private static void InitGtkPathWin()

@@ -107,9 +107,12 @@ namespace Smuxi.Frontend.Gnome
             }
         }
 
-        static GroupChatView() {
-            IconPixbuf = new Gdk.Pixbuf(null, "group-chat.svg", 16, 16);
-       }
+        static GroupChatView()
+        {
+            IconPixbuf = Frontend.LoadIcon(
+                "smuxi-group-chat", 16, "group-chat_256x256.png"
+            );
+        }
 
         public GroupChatView(GroupChatModel groupChat) : base(groupChat)
         {

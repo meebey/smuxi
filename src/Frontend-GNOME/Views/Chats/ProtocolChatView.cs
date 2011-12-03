@@ -38,8 +38,11 @@ namespace Smuxi.Frontend.Gnome
             }
         }
 
-        static ProtocolChatView() {
-            IconPixbuf = new Gdk.Pixbuf(null, "protocol-chat.svg", 16, 16);
+        static ProtocolChatView()
+        {
+            IconPixbuf = Frontend.LoadIcon(
+                "smuxi-protocol-chat", 16, "protocol-chat_256x256.png"
+            );
         }
 
         public ProtocolChatView(ChatModel chat) : base(chat)

@@ -45,8 +45,11 @@ namespace Smuxi.Frontend.Gnome
             }
         }
 
-        static PersonChatView() {
-            IconPixbuf = new Gdk.Pixbuf(null, "person-chat.svg", 16, 16);
+        static PersonChatView()
+        {
+            IconPixbuf = Frontend.LoadIcon(
+                "smuxi-person-chat", 16, "person-chat_256x256.png"
+            );
         }
 
         public PersonChatView(PersonChatModel chat) : base(chat)

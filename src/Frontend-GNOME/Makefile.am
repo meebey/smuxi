@@ -1,12 +1,39 @@
 
 EXTRA_DIST = $(WIN_ICON) $(DESKTOP_FILE).in
 
-ICON = smuxi-frontend-gnome.svg
-WIN_ICON = $(top_srcdir)/images/icon_48x48.ico
+ICON_NAME = smuxi-frontend-gnome
+ICON_NAME_PNG = $(ICON_NAME).png
+ICON_SVG = $(ICON_NAME).svg
+ICON_16 = $(top_builddir)/images/16/$(ICON_NAME_PNG)
+ICON_22 = $(top_builddir)/images/22/$(ICON_NAME_PNG)
+ICON_24 = $(top_builddir)/images/24/$(ICON_NAME_PNG)
+ICON_32 = $(top_builddir)/images/32/$(ICON_NAME_PNG)
+ICON_48 = $(top_builddir)/images/48/$(ICON_NAME_PNG)
+ICON_128 = $(top_builddir)/images/128/$(ICON_NAME_PNG)
+ICON_256 = $(top_builddir)/images/256/$(ICON_NAME_PNG)
+
+WIN_ICON = $(top_srcdir)/images/icon.ico
 DESKTOP_FILE = smuxi-frontend-gnome.desktop
 
-pixmapdir =  $(datadir)/pixmaps
-pixmap_DATA = $(ICON)
+THEME_DIR = $(datadir)/icons/hicolor
+svgicondir = $(THEME_DIR)/scalable/apps
+svgicon_DATA = $(ICON_SVG)
+icon16dir = $(THEME_DIR)/16x16/apps
+icon16_DATA = $(ICON_16)
+icon22dir = $(THEME_DIR)/22x22/apps
+icon22_DATA = $(ICON_22)
+icon24dir = $(THEME_DIR)/24x24/apps
+icon24_DATA = $(ICON_24)
+icon32dir = $(THEME_DIR)/32x32/apps
+icon32_DATA = $(ICON_32)
+icon48dir = $(THEME_DIR)/48x48/apps
+icon48_DATA = $(ICON_48)
+icon128dir = $(THEME_DIR)/128x128/apps
+icon128_DATA = $(ICON_128)
+icon256dir = $(THEME_DIR)/256x256/apps
+icon256_DATA = $(ICON_256)
+
+gtk_update_icon_cache = gtk-update-icon-cache -f -t $(THEME_DIR)
 
 desktopdir = $(datadir)/applications
 desktop_in_files = $(DESKTOP_FILE).in
@@ -55,10 +82,24 @@ LINUX_DESKTOPAPPLICATIONS = \
 BINARIES = \
 	$(FRONTEND_GNOME)  
 
-all: $(ASSEMBLY) $(PROGRAMFILES) $(LINUX_DESKTOPAPPLICATIONS) $(BINARIES) $(ICON)
+all: $(ASSEMBLY) $(PROGRAMFILES) $(LINUX_DESKTOPAPPLICATIONS) $(BINARIES)
 
-$(ICON):
-	cp $(top_srcdir)/images/icon.svg $(ICON)
+$(ICON_SVG):
+	$(INSTALL) -m644 $(top_srcdir)/images/icon.svg $@
+$(ICON_16):
+	$(INSTALL) -D -m644 $(top_srcdir)/images/icon_16x16.png $@
+$(ICON_22):
+	$(INSTALL) -D -m644 $(top_srcdir)/images/icon_22x22.png $@
+$(ICON_24):
+	$(INSTALL) -D -m644 $(top_srcdir)/images/icon_24x24.png $@
+$(ICON_32):
+	$(INSTALL) -D -m644 $(top_srcdir)/images/icon_32x32.png $@
+$(ICON_48):
+	$(INSTALL) -D -m644 $(top_srcdir)/images/icon_48x48.png $@
+$(ICON_128):
+	$(INSTALL) -D -m644 $(top_srcdir)/images/icon_128x128.png $@
+$(ICON_256):
+	$(INSTALL) -D -m644 $(top_srcdir)/images/icon_256x256.png $@
 
 FILES = \
 	$(top_srcdir)/src/AssemblyVersion.cs \
@@ -121,16 +162,24 @@ FILES = \
 	gtk-gui/Smuxi.Frontend.Gnome.FilterListWidget.cs
 	
 DATA_FILES = \
-	$(DESKTOP_FILE)
+	$(DESKTOP_FILE) \
+	$(ICON_SVG) \
+	$(ICON_16) \
+	$(ICON_22) \
+	$(ICON_24) \
+	$(ICON_32) \
+	$(ICON_48) \
+	$(ICON_128) \
+	$(ICON_256)
 
 RESOURCES = \
 	gtk-gui/gui.stetic \
 	$(top_srcdir)/glade/smuxi-frontend-gnome.glade \
-	$(top_srcdir)/images/icon.svg \
-	$(top_srcdir)/images/group-chat.svg \
-	$(top_srcdir)/images/person-chat.svg \
-	$(top_srcdir)/images/protocol-chat.svg \
-	$(top_srcdir)/images/session-chat.svg 
+	$(top_srcdir)/images/icon_256x256.png \
+	$(top_srcdir)/images/group-chat_256x256.png \
+	$(top_srcdir)/images/person-chat_256x256.png \
+	$(top_srcdir)/images/protocol-chat_256x256.png \
+	$(top_srcdir)/images/session-chat_256x256.png 
 
 EXTRAS = \
 	smuxi-frontend-gnome.in \
@@ -139,6 +188,7 @@ EXTRAS = \
 REFERENCES =  \
 	System.Runtime.Remoting \
 	System \
+    System.Core \
 	Mono.Posix \
 	System.Drawing \
 	$(GLIB_SHARP_20_LIBS) \
@@ -151,7 +201,7 @@ REFERENCES =  \
 
 DLL_REFERENCES = 
 
-CLEANFILES = $(LINUX_DESKTOPAPPLICATIONS) $(PROGRAMFILES) $(BINARIES) $(ICON)
+CLEANFILES = $(LINUX_DESKTOPAPPLICATIONS) $(PROGRAMFILES) $(BINARIES)
 
 include $(top_srcdir)/Makefile.include
 
@@ -182,3 +232,14 @@ $(ASSEMBLY) $(ASSEMBLY_MDB): $(build_sources) $(build_resources) $(build_datafil
 
 %.desktop: %.desktop.in $(INTLTOOL_MERGE) $(wildcard $(top_srcdir)/po-Frontend-GNOME/*.po)
 	LC_ALL=C $(INTLTOOL_MERGE) -d -u -c $(top_builddir)/po-Frontend-GNOME/.intltool-merge-cache $(top_srcdir)/po-Frontend-GNOME $< $@
+
+install-data-hook: update-icon-cache
+uninstall-hook: update-icon-cache
+update-icon-cache:
+	@-if test -z "$(DESTDIR)"; then \
+		echo "Updating Gtk icon cache."; \
+		$(gtk_update_icon_cache); \
+	else \
+		echo "*** Icon cache not updated.  After (un)install, run this:"; \
+		echo "***   $(gtk_update_icon_cache)"; \
+	fi

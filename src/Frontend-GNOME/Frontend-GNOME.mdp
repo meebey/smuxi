@@ -87,11 +87,6 @@
     <File subtype="Code" buildaction="Compile" name="gtk-gui/Smuxi.Frontend.Gnome.FilterListWidget.cs" />
     <File subtype="Code" buildaction="Compile" name="Views/FilterListWidget.cs" />
     <File subtype="Directory" buildaction="Compile" name="images" />
-    <File subtype="Code" buildaction="EmbedAsResource" name="../../images/group-chat.svg" />
-    <File subtype="Code" buildaction="EmbedAsResource" name="../../images/icon.svg" />
-    <File subtype="Code" buildaction="EmbedAsResource" name="../../images/session-chat.svg" />
-    <File subtype="Code" buildaction="EmbedAsResource" name="../../images/protocol-chat.svg" />
-    <File subtype="Code" buildaction="EmbedAsResource" name="../../images/person-chat.svg" />
     <File subtype="Code" buildaction="Compile" name="IndicateManager.cs" />
     <File subtype="Code" buildaction="Compile" name="NotifyManager.cs" />
     <File subtype="Directory" buildaction="Compile" name="." />
@@ -99,6 +94,15 @@
     <File subtype="Code" buildaction="Compile" name="ColorConverter.cs" />
     <File subtype="Code" buildaction="Compile" name="NetworkManager.cs" />
     <File subtype="Code" buildaction="Compile" name="LinkTag.cs" />
+    <File subtype="Directory" buildaction="Compile" name="." />
+    <File subtype="Directory" buildaction="Compile" name="." />
+    <File subtype="Directory" buildaction="Compile" name="." />
+    <File subtype="Directory" buildaction="Compile" name="." />
+    <File subtype="Code" buildaction="EmbedAsResource" name="../../images/icon_256x256.png" />
+    <File subtype="Code" buildaction="EmbedAsResource" name="../../images/group-chat_256x256.png" />
+    <File subtype="Code" buildaction="EmbedAsResource" name="../../images/person-chat_256x256.png" />
+    <File subtype="Code" buildaction="EmbedAsResource" name="../../images/protocol-chat_256x256.png" />
+    <File subtype="Code" buildaction="EmbedAsResource" name="../../images/session-chat_256x256.png" />
   </Contents>
   <References>
     <ProjectReference type="Project" localcopy="True" refto="Engine" />
@@ -119,6 +123,7 @@
     <ProjectReference type="Gac" localcopy="True" refto="notify-sharp, Version=0.4.0.0, Culture=neutral, PublicKeyToken=2df29c54e245917a" />
     <ProjectReference type="Gac" localcopy="True" refto="NDesk.DBus, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f6716e4f9b2ed099" />
     <ProjectReference type="Gac" localcopy="True" refto="NDesk.DBus.GLib, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f6716e4f9b2ed099" />
+    <ProjectReference type="Gac" localcopy="True" refto="System.Core, Version=3.5.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   </References>
   <LanguageParameters ApplicationIcon="../../images/icon_32x32.ico" CodePage="65001" ctype="CSharpProjectParameters" />
   <DeploymentInformation strategy="File" />

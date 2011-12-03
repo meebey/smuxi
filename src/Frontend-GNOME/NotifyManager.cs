@@ -35,7 +35,9 @@ namespace Smuxi.Frontend.Gnome
 #endif
         private static DateTime UnixEpoch = new DateTime(1970, 1, 1, 0, 0, 0);
         private static Gdk.Pixbuf PersonChatIconPixbuf { get; set; }
+        private static string     PersonChatIconName { get; set; }
         private static Gdk.Pixbuf GroupChatIconPixbuf { get; set; }
+        private static string     GroupChatIconName { get; set; }
         private static List<string> Capabilites { get; set; }
         private static string SoundFile { get; set; }
         private static Version SpecificationVersion { get; set; }
@@ -48,12 +50,14 @@ namespace Smuxi.Frontend.Gnome
 
         static NotifyManager()
         {
-            // 128 pixels as per notify-osd guidelines:
+            // image size >= 128 pixels as per notify-osd guidelines:
             // https://wiki.ubuntu.com/NotificationDevelopmentGuidelines
-            PersonChatIconPixbuf = new Gdk.Pixbuf(null, "person-chat.svg",
-                                                  128, 128);
-            GroupChatIconPixbuf = new Gdk.Pixbuf(null, "group-chat.svg",
-                                                 128, 128);
+            PersonChatIconPixbuf = Frontend.LoadIcon(
+                "smuxi-person-chat", 256, "person-chat_256x256.png"
+            );
+            GroupChatIconPixbuf = Frontend.LoadIcon(
+                "smuxi-group-chat", 256, "group-chat_256x256.png"
+            );
 
             var partialPath = "share";
             partialPath = Path.Combine(partialPath, "sounds");

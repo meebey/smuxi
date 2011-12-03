@@ -43,8 +43,11 @@ namespace Smuxi.Frontend.Gnome
             }
         }
 
-        static SessionChatView() {
-            IconPixbuf = new Gdk.Pixbuf(null, "session-chat.svg", 16, 16);
+        static SessionChatView()
+        {
+            IconPixbuf = Frontend.LoadIcon(
+                "smuxi-session-chat", 16, "session-chat_256x256.png"
+            );
         }
 
         public SessionChatView(ChatModel chat) : base(chat)

@@ -79,7 +79,13 @@ namespace Smuxi.Frontend.Gnome
             if (f_NotificationAreaIconMode != NotificationAreaIconMode.Never &&
                 f_StatusIcon == null) {
                 f_StatusIcon = new Gtk.StatusIcon();
-                f_StatusIcon.Pixbuf = new Gdk.Pixbuf(null, "icon.svg");
+                if (Frontend.HasSystemIconTheme) {
+                    f_StatusIcon.IconName = Frontend.IconName;
+                } else {
+                    f_StatusIcon.Pixbuf = Frontend.LoadIcon(
+                        Frontend.IconName, 256, "icon_256x256.png"
+                    );
+                }
                 f_StatusIcon.Activate += OnStatusIconActivated;
                 f_StatusIcon.PopupMenu += OnStatusIconPopupMenu;
                 f_StatusIcon.Tooltip = "Smuxi";
