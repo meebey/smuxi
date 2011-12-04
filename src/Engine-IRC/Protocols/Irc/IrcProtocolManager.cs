@@ -2581,26 +2581,32 @@ namespace Smuxi.Engine
         
         private void _OnQueryNotice(object sender, IrcEventArgs e)
         {
-            ChatModel chat = null;
-            bool newChat = false;
+            var targetChats = new List<ChatModel>();
             if (e.Data.Nick != null) {
-                chat = GetChat(e.Data.Nick, ChatType.Person);
-            }
-            if (chat == null) {
-                // use server chat as fallback
-                if (e.Data.Nick == null) {
-                    // this seems to be a notice from the server
-                    chat = _NetworkChat;
-                } else {
-                    // create new chat
-                    IrcPersonModel person = CreatePerson(e.Data.Nick,
-                                                         null,
-                                                         e.Data.Ident,
-                                                         e.Data.Host);
-                    chat = Session.CreatePersonChat(person, e.Data.Nick,
-                                                    e.Data.Nick, this);
-                    newChat = true;
+                var chat = (PersonChatModel) GetChat(e.Data.Nick, ChatType.Person);
+                if (chat != null) {
+                    targetChats.Add(chat);
                 }
+            }
+            if (targetChats.Count == 0 && e.Data.Nick != null) {
+                // always show on server chat
+                targetChats.Add(_NetworkChat);
+                // check if we share a channel with the sender
+                lock (Chats) {
+                    foreach (var chat in Chats) {
+                        if (!(chat is GroupChatModel)) {
+                            continue;
+                        }
+                        var groupChat = (GroupChatModel) chat;
+                        if (groupChat.Persons.ContainsKey(e.Data.Nick)) {
+                            targetChats.Add(groupChat);
+                        }
+                    }
+                }
+            }
+            if (targetChats.Count == 0) {
+                // use server chat as fallback
+                targetChats.Add(_NetworkChat);
             }
 
             var builder = CreateMessageBuilder();
@@ -2609,23 +2615,17 @@ namespace Smuxi.Engine
                 builder.AppendText("!{0} ", e.Data.From);
             } else {
                 builder.AppendText("-");
-                builder.AppendIdendityName(GetPerson(chat, e.Data.Nick));
+                builder.AppendIdendityName(GetPerson(targetChats[0],
+                                                     e.Data.Nick));
                 builder.AppendText(" ({0}@{1})- ", e.Data.Ident, e.Data.Host);
             }
             builder.AppendMessage(e.Data.Message);
             var msg = builder.ToMessage();
             MarkHighlights(msg);
 
-            if (newChat) {
-                // don't create chats for filtered messages
-                if (Session.IsFilteredMessage(chat, msg)) {
-                    Session.LogMessage(chat, msg, true);
-                    return;
-                }
-                Session.AddChat(chat);
-                Session.SyncChat(chat);
+            foreach (var targetChat in targetChats) {
+                Session.AddMessageToChat(targetChat, msg);
             }
-            Session.AddMessageToChat(chat, msg);
         }
 
         private void _OnJoin(object sender, JoinEventArgs e)
