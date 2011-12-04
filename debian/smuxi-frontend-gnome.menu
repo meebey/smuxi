@@ -1,3 +1,3 @@
 ?package(smuxi-frontend-gnome):needs="X11" section="Applications/Network/Communication"\
   title="Smuxi" command="/usr/bin/smuxi-frontend-gnome"\
-  icon="/usr/share/pixmaps/smuxi-frontend-gnome.svg"
+  icon="/usr/share/icons/hicolor/scalable/apps/smuxi-frontend-gnome.svg"

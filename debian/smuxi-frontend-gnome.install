@@ -1,5 +1,5 @@
 usr/bin/smuxi-frontend-gnome
 usr/lib/smuxi/smuxi-frontend-gnome.exe*
 usr/share/applications/smuxi-frontend-gnome.desktop
-usr/share/pixmaps/smuxi-frontend-gnome.svg
+usr/share/icons/
 usr/share/locale/*/LC_MESSAGES/smuxi-frontend-gnome.mo
