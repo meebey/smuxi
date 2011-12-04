@@ -34,7 +34,7 @@ SetCompressor lzma
 !define PRODUCT_UNINST_KEY "Software\Microsoft\Windows\CurrentVersion\Uninstall\${PRODUCT_NAME}"
 !define PRODUCT_UNINST_ROOT_KEY "HKLM"
 !define DOTNET_VERSION "3.5 SP1"
-!define GTKSHARP_VERSION "2.12.9"
+!define GTKSHARP_VERSION "2.12.10"
 
 ############################
 # MUI 1.67 compatible mode #
@@ -130,8 +130,8 @@ FunctionEnd
 !macroend
 
 !macro CheckGtkSharp GTKSHARP_REQ
-    !define GTKSHARP_FILE         "gtk-sharp-2.12.9-2.win32.msi"
-    !define GTKSHARP_BASE_URL     "http://ftp.novell.com/pub/mono/gtk-sharp/"
+    !define GTKSHARP_FILE         "gtk-sharp-2.12.10.win32.msi"
+    !define GTKSHARP_BASE_URL     "http://download.mono-project.com/gtk-sharp/"
     !define GTKSHARP_DOWNLOAD_URL "${GTKSHARP_BASE_URL}${GTKSHARP_FILE}"
     !define GTKSHARP_TEMP_FILE "$TEMP\${GTKSHARP_FILE}"
 
@@ -157,7 +157,7 @@ FunctionEnd
 
     InstallGtkSharpConfirmation:
         MessageBox MB_YESNOCANCEL|MB_ICONEXCLAMATION \
-            "Your GTK# version: $GTKSHARP_FOUND_VERSION $\nRequired Version: ${GTKSHARP_REQ} or greater.$\n$\nDownload GTK# from ftp.novell.com?" \
+            "Your GTK# version: $GTKSHARP_FOUND_VERSION $\nRequired Version: ${GTKSHARP_REQ} or greater.$\n$\nDownload GTK# from download.mono-project.com?" \
             /SD IDYES IDYES InstallGtkSharp IDNO End
         goto GiveUp ;IDCANCEL
 
