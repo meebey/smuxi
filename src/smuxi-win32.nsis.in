@@ -45,8 +45,8 @@ SetCompressor lzma
 
 ; MUI Settings [please make the path relative]
 !define MUI_ABORTWARNING
-!define MUI_ICON "../images/icon_48x48.ico"
-!define MUI_UNICON "../images/icon_48x48.ico"
+!define MUI_ICON "../images/icon.ico"
+!define MUI_UNICON "../images/icon.ico"
 
 ######################
 # Language Selection #
