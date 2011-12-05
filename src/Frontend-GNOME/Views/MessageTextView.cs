@@ -535,7 +535,11 @@ namespace Smuxi.Frontend.Gnome
                 var url = link.ToString();
                 try {
                     using (var process = SysDiag.Process.Start(url)) {
-                        process.WaitForExit();
+                        // Start() might return null in case it re-used a
+                        // process instead of starting one
+                        if (process != null) {
+                            process.WaitForExit();
+                        }
                     }
                 } catch (Exception ex) {
                     // exceptions in the thread pool would kill the process, see:
