@@ -526,6 +526,10 @@ namespace Smuxi.Frontend.Gnome
         {
             Trace.Call(link);
 
+            if (link == null) {
+                throw new ArgumentNullException("link");
+            }
+
             // hopefully MS .NET / Mono finds some way to handle the URL
             ThreadPool.QueueUserWorkItem(delegate {
                 var url = link.ToString();
