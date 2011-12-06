@@ -709,11 +709,10 @@ namespace Smuxi.Frontend.Gnome
             bool partial_found = false;
             string nick = null;
 
-            ChatModel chat = _Notebook.CurrentChatView.ChatModel;
-            if (chat is GroupChatModel) {
-                GroupChatModel cp = (GroupChatModel) chat;
+            ChatView view = _Notebook.CurrentChatView;
+            if (view is GroupChatView) {
+                GroupChatView cp = (GroupChatView) view;
                 if (Settings.BashStyleCompletion) {
-                    // REMOTING CALL
                     IList<string> result = cp.PersonLookupAll(word);
                     if (result == null || result.Count == 0) {
                         // no match
@@ -732,7 +731,6 @@ namespace Smuxi.Frontend.Gnome
                         nick = result[0];
                     }
                 } else {
-                    // REMOTING CALL
                     PersonModel person = cp.PersonLookup(word);
                     if (person != null) {
                         found = true;

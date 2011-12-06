@@ -360,6 +360,90 @@ namespace Smuxi.Frontend.Gnome
             } while (_PersonListStore.IterNext(ref iter));
             UpdatePersonCount();
         }
+
+        /*Logic taken from the PersonLookup method of Engine/Chats/GroupChatModel.cs */
+        public PersonModel PersonLookup(string identityName)
+        {
+            Trace.Call(identityName);
+#if LOG4NET
+            _Logger.Debug("PersonLookup(): GroupChatModel.Name: " + Name);
+#endif
+            int identityNameLength = identityName.Length;
+            if (_PersonListStore == null) {
+                return null;
+            }
+            foreach (object[] row in _PersonListStore) {
+                PersonModel person = (PersonModel)row[0];
+                if ((person.IdentityName.Length >= identityNameLength) &&
+                    (person.IdentityName.Substring(0, identityNameLength).ToLower() == identityName.ToLower())) {
+#if LOG4NET
+                    _Logger.Debug("PersonLookup(): found: " + person.IdentityName);
+#endif
+                    return person;
+                }
+            }
+
+#if LOG4NET
+            _Logger.Debug("PersonLookup() no matching identityName found");
+#endif
+            return null;
+        }
+
+        /*Logic taken from the PersonLookupAll method of Engine/Chats/GroupChatModel.cs */
+        public IList<string> PersonLookupAll(string identityName)
+        {
+            Trace.Call(identityName);
+
+            IList<string> foundIdentityNames = new List<string>();
+            int identityNameLength = identityName.Length;
+            string longestIdentityName = String.Empty;
+            if (_PersonListStore == null) {
+                return foundIdentityNames;
+            }
+            foreach (object[] row in _PersonListStore) {
+                PersonModel person = (PersonModel)row[0];
+                if ((person.IdentityName.Length >= identityNameLength) &&
+                    (person.IdentityName.Substring(0, identityNameLength).ToLower() == identityName.ToLower())) {
+                    foundIdentityNames.Add(person.IdentityName);
+                    if (person.IdentityName.Length > longestIdentityName.Length) {
+                        longestIdentityName = person.IdentityName;
+                    }
+                }
+            }
+
+            // guess the common part of the found nicknames
+            string common_nick = identityName;
+            bool match = true;
+            while (match) {
+                if (common_nick.Length >= longestIdentityName.Length) {
+                    break;
+                }
+                common_nick += longestIdentityName[common_nick.Length];
+                foreach (string name in foundIdentityNames) {
+                    if (!name.ToLower().StartsWith(common_nick.ToLower())) {
+                        common_nick = common_nick.Substring(0, common_nick.Length - 1);
+                        match = false;
+                     }
+                }
+            }
+
+            if (foundIdentityNames.Count == 0) {
+#if LOG4NET
+                _Logger.Debug("PersonLookupAll(): no matching identityName found");
+#endif
+            } else if (foundIdentityNames.Count == 1) {
+#if LOG4NET
+                _Logger.Debug("PersonLookupAll(): found exact match: " + foundIdentityNames[0]);
+#endif
+            } else {
+#if LOG4NET
+                _Logger.Debug("PersonLookupAll(): found " + foundIdentityNames.Count + " matches");
+#endif
+                foundIdentityNames.Insert(0, common_nick);
+            }
+            return foundIdentityNames;
+        }
+
         
         public override void ApplyConfig(UserConfig config)
         {
