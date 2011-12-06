@@ -58,13 +58,9 @@ namespace Smuxi.Frontend.Gnome
                 "Ahmed Abdellah <a3dman1@gmail.com>"
             };
             TranslatorCredits = _("translator-credits");
-            if (Frontend.HasSystemIconTheme) {
-                LogoIconName = Frontend.IconName;
-            } else {
-                Logo = Frontend.LoadIcon(
-                    Frontend.IconName, 256, "icon_256x256.png"
-                );
-            }
+            Logo = Frontend.LoadIcon(
+                Frontend.IconName, 256, "icon_256x256.png"
+            );
             Website = "http://www.smuxi.org/";
             WebsiteLabel = _("Smuxi Website");
         }
