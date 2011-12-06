@@ -489,6 +489,7 @@ Section "Main" SEC01
   !insertmacro CheckDotNET "${DOTNET_VERSION}"
   !insertmacro CheckGtkSharp ${GTKSHARP_VERSION}
 
+  SetShellVarContext all
   SetOutPath "$INSTDIR"
 
   CreateDirectory "$SMPROGRAMS\Smuxi"
@@ -569,6 +570,7 @@ Function un.onInit
 FunctionEnd
 
 Section Uninstall
+  SetShellVarContext all
   Delete "$INSTDIR\${PRODUCT_NAME}.url"
   Delete "$INSTDIR\uninst.exe"
   Delete "$INSTDIR\zlib1.dll"
