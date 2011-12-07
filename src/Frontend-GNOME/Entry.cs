@@ -543,7 +543,7 @@ namespace Smuxi.Frontend.Gnome
             "echo data",
             "exec command",
             "detach",
-            "list",
+            "list [search key]",
             };
             
             foreach (string line in help) { 
@@ -556,7 +556,7 @@ namespace Smuxi.Frontend.Gnome
 
         private void _CommandList(CommandModel cd)
         {
-            Frontend.MainWindow.OpenFindGroupChatWindow();
+            Frontend.MainWindow.OpenFindGroupChatWindow(cd.Parameter);
         }
 
         private void _CommandDetach(CommandModel cd)

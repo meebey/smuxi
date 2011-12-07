@@ -814,6 +814,11 @@ namespace Smuxi.Frontend.Gnome
 
         public void OpenFindGroupChatWindow()
         {
+            OpenFindGroupChatWindow(null);
+        }
+
+        public void OpenFindGroupChatWindow(string searchKey)
+        {
             var chatView = Notebook.CurrentChatView;
             if (chatView == null) {
                 return;
@@ -828,6 +833,10 @@ namespace Smuxi.Frontend.Gnome
             FindGroupChatDialog dialog = new FindGroupChatDialog(
                 this, manager
             );
+            if (!String.IsNullOrEmpty(searchKey)) {
+                dialog.NameEntry.Text = searchKey;
+                dialog.FindButton.Click();
+            }
             int res = dialog.Run();
             GroupChatModel groupChat = dialog.GroupChat;
             dialog.Destroy();

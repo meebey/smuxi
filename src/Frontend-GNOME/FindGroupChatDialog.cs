@@ -51,6 +51,18 @@ namespace Smuxi.Frontend.Gnome
             }
         }
 
+        public Gtk.Entry NameEntry {
+            get {
+                return f_NameEntry;
+            }
+        }
+
+        public Gtk.Button FindButton {
+            get {
+                return f_FindButton;
+            }
+        }
+
         public FindGroupChatDialog(Gtk.Window parent, IProtocolManager protocolManager) :
                               base(null, parent, Gtk.DialogFlags.DestroyWithParent)
         {
