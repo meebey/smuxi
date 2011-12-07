@@ -600,7 +600,6 @@ namespace Smuxi.Engine
         public void CommandHelp(CommandModel cd)
         {
             var builder = CreateMessageBuilder();
-            builder.AppendEventPrefix();
             // TRANSLATOR: this line is used as a label / category for a
             // list of commands below
             builder.AppendHeader(_("Twitter Commands"));
