@@ -532,7 +532,7 @@ namespace Smuxi.Engine
                     sprefix = prefix + user + "/Servers/" + server + "/";
                     LoadEntry(sprefix+"Hostname", null);
                     LoadEntry(sprefix+"Port", null);
-                    LoadEntry(sprefix+"Network", null);
+                    LoadEntry(sprefix+"Network", String.Empty);
                     LoadEntry(sprefix+"Encoding", null);
                     LoadEntry(sprefix+"Username", String.Empty);
                     LoadEntry(sprefix+"Password", String.Empty);
