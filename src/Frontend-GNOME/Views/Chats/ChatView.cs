@@ -377,7 +377,8 @@ namespace Smuxi.Frontend.Gnome
         
         public virtual void ScrollToEnd()
         {
-            Trace.Call();
+            // logging noise
+            //Trace.Call();
             
             Gtk.Adjustment adj = _OutputScrolledWindow.Vadjustment;
 #if LOG4NET
