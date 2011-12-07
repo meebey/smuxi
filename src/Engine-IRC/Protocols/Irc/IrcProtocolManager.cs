@@ -566,6 +566,10 @@ namespace Smuxi.Engine
 
             switch (status) {
                 case PresenceStatus.Online:
+                    if (!_IrcClient.IsAway) {
+                        // nothing to do
+                        return;
+                    }
                     _IrcClient.RfcAway();
                     break;
                 case PresenceStatus.Away:
