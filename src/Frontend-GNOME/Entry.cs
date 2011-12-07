@@ -236,6 +236,14 @@ namespace Smuxi.Frontend.Gnome
                             e.RetVal = false;
                         }
                         break;
+                    case Gdk.Key.p:
+                    case Gdk.Key.P:
+                        ChatViewManager.CurrentChatNumber--;
+                        break;
+                    case Gdk.Key.n:
+                    case Gdk.Key.N:
+                        ChatViewManager.CurrentChatNumber++;
+                        break;
                     // don't break unicode input
                     case Gdk.Key.U:
                     // don't break copy/paste
