@@ -50,10 +50,38 @@ namespace Smuxi.Frontend.Gnome
 
         public override IChatView ActiveChat {
             get {
-                return f_Notebook.CurrentChatView;
+                return CurrentChatView;
             }
         }
-        
+
+        public ChatView CurrentChatView {
+            get {
+                return f_Notebook.CurrentChatView;
+            }
+            set {
+                if (value == null) {
+                    return;
+                }
+                f_Notebook.CurrentChatView = value;
+            }
+        }
+
+        public int CurrentChatNumber {
+            get {
+                if (CurrentChatView == null) {
+                    return -1;
+                }
+                return f_Notebook.CurrentPage;
+            }
+            set {
+                if (value < 0 || value >= f_Notebook.NPages) {
+                    return;
+                }
+
+                f_Notebook.CurrentPage = value;
+            }
+        }
+
         public IList<ChatView> Chats {
             get {
                 return f_Chats;

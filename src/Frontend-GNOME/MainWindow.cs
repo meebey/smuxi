@@ -484,7 +484,7 @@ namespace Smuxi.Frontend.Gnome
             // HACK: Frontend.FrontendConfig out of scope
             _EngineManager = new EngineManager(Frontend.FrontendConfig, _UI);
 
-            _Entry = new Entry(_Notebook);
+            _Entry = new Entry(_ChatViewManager);
             
             _ProgressBar = new Gtk.ProgressBar();
             _ProgressBar.BarStyle = Gtk.ProgressBarStyle.Continuous;

@@ -44,9 +44,10 @@ namespace Smuxi.Frontend.Gnome
         private StringCollection _History = new StringCollection();
         private int              _HistoryPosition;
         private bool             _HistoryChangedLine;
-        private Notebook         _Notebook;
         private CommandManager   _CommandManager;
         private new EntrySettings Settings { get; set; }
+
+        ChatViewManager ChatViewManager;
 
         /*
         public StringCollection History {
@@ -78,17 +79,17 @@ namespace Smuxi.Frontend.Gnome
         }
         */
 
-        public Entry(Notebook notebook)
+        public Entry(ChatViewManager chatViewManager)
         {
-            Trace.Call(notebook);
+            Trace.Call(chatViewManager);
 
-            if (notebook == null) {
-                throw new ArgumentNullException("notebook");
+            if (chatViewManager == null) {
+                throw new ArgumentNullException("chatViewManager");
             }
 
             _History.Add(String.Empty);
             
-            _Notebook = notebook;
+            ChatViewManager = chatViewManager;
             Settings = new EntrySettings();
 
             InitCommandManager();
@@ -228,7 +229,7 @@ namespace Smuxi.Frontend.Gnome
                 switch (key) {
                     case Gdk.Key.x:
                     case Gdk.Key.X:
-                        if (_Notebook.CurrentChatView.ChatModel.ChatType == ChatType.Session) {
+                        if (ChatViewManager.CurrentChatView is SessionChatView) {
                             Frontend.FrontendManager.NextProtocolManager();
                         } else {
                             // don't break cut
@@ -253,10 +254,10 @@ namespace Smuxi.Frontend.Gnome
                         e.RetVal = false;
                         break;
                     case Gdk.Key.Home:
-                        _Notebook.CurrentChatView.ScrollToStart();
+                        ChatViewManager.CurrentChatView.ScrollToStart();
                         break;
                     case Gdk.Key.End:
-                        _Notebook.CurrentChatView.ScrollToEnd();
+                        ChatViewManager.CurrentChatView.ScrollToEnd();
                         break;
                 }
             }
@@ -311,9 +312,8 @@ namespace Smuxi.Frontend.Gnome
                         break;
                 }
 
-                if (pagenumber != -1 &&
-                    _Notebook.NPages >= pagenumber + 1) {
-                    _Notebook.Page = pagenumber;
+                if (pagenumber != -1) {
+                    ChatViewManager.CurrentChatNumber = pagenumber;
                 }
             }
 
@@ -331,7 +331,7 @@ namespace Smuxi.Frontend.Gnome
                     e.RetVal = true;
                     if (Frontend.MainWindow.CaretMode) {
                         // when we are in caret-mode change focus to output textview
-                        _Notebook.CurrentChatView.HasFocus = true;
+                        ChatViewManager.CurrentChatView.HasFocus = true;
                     } else {
                         if (Text.Length > 0) {
                             _NickCompletion();
@@ -351,10 +351,10 @@ namespace Smuxi.Frontend.Gnome
                     HistoryNext();
                     break;
                 case Gdk.Key.Page_Up:
-                    _Notebook.CurrentChatView.ScrollUp();
+                    ChatViewManager.CurrentChatView.ScrollUp();
                     break;
                 case Gdk.Key.Page_Down:
-                    _Notebook.CurrentChatView.ScrollDown();
+                    ChatViewManager.CurrentChatView.ScrollDown();
                     break;
             }
         }
@@ -384,7 +384,7 @@ namespace Smuxi.Frontend.Gnome
                     return true;
                 }
 
-                ChatView chat = Frontend.MainWindow.Notebook.CurrentChatView;
+                ChatView chat = ChatViewManager.CurrentChatView;
                 if (chat == null) {
                     return false;
                 }
@@ -470,7 +470,7 @@ namespace Smuxi.Frontend.Gnome
 
             CommandModel cd = new CommandModel(
                 Frontend.FrontendManager,
-                _Notebook.CurrentChatView.ChatModel,
+                ChatViewManager.CurrentChatView.ChatModel,
                 Settings.CommandCharacter,
                 cmd
             );
@@ -524,11 +524,12 @@ namespace Smuxi.Frontend.Gnome
         
         private void _CommandHelp(CommandModel cd)
         {
+            var chatView = ChatViewManager.GetChat(cd.Chat);
             var builder = new MessageBuilder();
             // TRANSLATOR: this line is used as a label / category for a
             // list of commands below
             builder.AppendHeader(_("Frontend Commands"));
-            cd.FrontendManager.AddMessageToChat(cd.Chat, builder.ToMessage());
+            chatView.AddMessage(builder.ToMessage());
 
             string[] help = {
             "help",
@@ -539,12 +540,12 @@ namespace Smuxi.Frontend.Gnome
             "detach",
             "list [search key]",
             };
-            
+
             foreach (string line in help) {
                 builder = new MessageBuilder();
                 builder.AppendEventPrefix();
                 builder.AppendText(line);
-                cd.FrontendManager.AddMessageToChat(cd.Chat, builder.ToMessage());
+                chatView.AddMessage(builder.ToMessage());
             }
         }
 
@@ -593,66 +594,63 @@ namespace Smuxi.Frontend.Gnome
         {
             FrontendManager fm = cd.FrontendManager;
             if (cd.DataArray.Length >= 2) {
-                ChatModel currentChatModel = _Notebook.CurrentChatView.ChatModel;
-                string name;
-                if (cd.DataArray[1].ToLower() == "close") {
+                var currentChat = ChatViewManager.CurrentChatView;
+                if (cd.Parameter.ToLower() == "close") {
                     // FIXME: REMOTING CALL
                     if (cd.Chat.ProtocolManager != null) {
                         cd.Chat.ProtocolManager.CloseChat(fm, cd.Chat);
                     }
                 } else {
-                    bool is_number = false;
-                    int pagecount = _Notebook.NPages;
                     try {
                         int number = Int32.Parse(cd.DataArray[1]);
-                        is_number = true;
-                        if (number <= pagecount) {
-                            _Notebook.CurrentPage = number - 1;
+                        if (number > ChatViewManager.Chats.Count) {
+                            return;
                         }
+                        ChatViewManager.CurrentChatNumber = number - 1;
+                        return;
                     } catch (FormatException) {
                     }
                     
-                    if (!is_number) {
-                        // seems to be query- or channelname
-                        // let's see if we find something
-                        ArrayList candidates = new ArrayList();
-                        for (int i = 0; i < pagecount; i++) {
-                            ChatView chatView = _Notebook.GetChat(i);
-                            ChatModel chatModel = chatView.ChatModel;
-                            
-                            if (chatModel.Name.ToLower() == cd.DataArray[1].ToLower()) {
-                                // name matches
-                                // first let's see if there is an exact match, if so, take it
-                                // FIXME: REMOTING CALL
-                                if ((chatModel.ChatType == currentChatModel.ChatType) &&
-                                    (chatModel.ProtocolManager == currentChatModel.ProtocolManager)) {
-                                    _Notebook.CurrentPage = i;
-                                    break;
-                                } else {
-                                    // there was no exact match
-                                    candidates.Add(i);
-                                }
-                            }
+                    // seems to be query- or channelname
+                    // let's see if we find something
+                    var seachKey = cd.Parameter.ToLower();
+                    var candidates = new List<ChatView>();
+                    foreach (var chatView in ChatViewManager.Chats) {
+
+                        if (chatView.Name.ToLower() != seachKey) {
+                            continue;
                         }
-                        
-                        if (candidates.Count > 0) {
-                            _Notebook.CurrentPage = (int)candidates[0];
+                        // name matches
+                        // let's see if there is an exact match, if so, take it
+                        // FIXME: REMOTING CALL
+                        if ((chatView.GetType() == currentChat.GetType()) &&
+                            (chatView.ChatModel.ProtocolManager == currentChat.ChatModel.ProtocolManager)) {
+                            candidates.Add(chatView);
+                            break;
+                        } else {
+                            // there was no exact match
+                            candidates.Add(chatView);
                         }
                     }
+
+                    if (candidates.Count == 0) {
+                        return;
+                    }
+                    ChatViewManager.CurrentChatView = candidates[0];
                 }
             }
         }
     
         private void _CommandClear(CommandModel cd)
         {
-            _Notebook.CurrentChatView.Clear();
+            ChatViewManager.CurrentChatView.Clear();
         }
 
         private void _NickCompletion()
         {
             // return if we don't support the current ChatView
-            if (!(_Notebook.CurrentChatView is GroupChatView) &&
-                !(_Notebook.CurrentChatView is PersonChatView)) {
+            if (!(ChatViewManager.CurrentChatView is GroupChatView) &&
+                !(ChatViewManager.CurrentChatView is PersonChatView)) {
                 return;
             }
 
@@ -703,7 +701,7 @@ namespace Smuxi.Frontend.Gnome
             bool partial_found = false;
             string nick = null;
 
-            ChatView view = _Notebook.CurrentChatView;
+            ChatView view = ChatViewManager.CurrentChatView;
             if (view is GroupChatView) {
                 GroupChatView cp = (GroupChatView) view;
                 if (Settings.BashStyleCompletion) {
@@ -717,7 +715,7 @@ namespace Smuxi.Frontend.Gnome
                         string[] nickArray = new string[result.Count];
                         result.CopyTo(nickArray, 0);
                         string nicks = String.Join(" ", nickArray, 1, nickArray.Length - 1);
-                        _Notebook.CurrentChatView.AddMessage(
+                        ChatViewManager.CurrentChatView.AddMessage(
                             new MessageModel(String.Format("-!- {0}", nicks))
                         );
                         found = true;
@@ -732,7 +730,7 @@ namespace Smuxi.Frontend.Gnome
                      }
                 }
             } else {
-                var personChat = (PersonChatView) _Notebook.CurrentChatView;
+                var personChat = (PersonChatView) ChatViewManager.CurrentChatView;
                 var personModel = personChat.PersonModel;
                 if (personModel.IdentityName.StartsWith(word,
                         StringComparison.InvariantCultureIgnoreCase)) {
