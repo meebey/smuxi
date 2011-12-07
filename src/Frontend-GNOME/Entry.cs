@@ -524,18 +524,12 @@ namespace Smuxi.Frontend.Gnome
         
         private void _CommandHelp(CommandModel cd)
         {
-            MessageModel msg = new MessageModel();
-            TextMessagePartModel msgPart;
-            
-            msgPart = new TextMessagePartModel();
+            var builder = new MessageBuilder();
             // TRANSLATOR: this line is used as a label / category for a
             // list of commands below
-            msgPart.Text = "[" + _("Frontend Commands") + "]";
-            msgPart.Bold = true;
-            msg.MessageParts.Add(msgPart);
-            
-            cd.FrontendManager.AddMessageToChat(cd.Chat, msg);
-            
+            builder.AppendHeader(_("Frontend Commands"));
+            cd.FrontendManager.AddMessageToChat(cd.Chat, builder.ToMessage());
+
             string[] help = {
             "help",
             "window (number|channelname|queryname|close)",
@@ -546,11 +540,11 @@ namespace Smuxi.Frontend.Gnome
             "list [search key]",
             };
             
-            foreach (string line in help) { 
-                cd.FrontendManager.AddTextToChat(
-                    cd.Chat,
-                    String.Format("-!- {0}", line)
-                );
+            foreach (string line in help) {
+                builder = new MessageBuilder();
+                builder.AppendEventPrefix();
+                builder.AppendText(line);
+                cd.FrontendManager.AddMessageToChat(cd.Chat, builder.ToMessage());
             }
         }
 
