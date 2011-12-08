@@ -2600,6 +2600,9 @@ namespace Smuxi.Engine
                             continue;
                         }
                         var groupChat = (GroupChatModel) chat;
+                        if (groupChat.Persons == null) {
+                            continue;
+                        }
                         if (groupChat.Persons.ContainsKey(e.Data.Nick)) {
                             targetChats.Add(groupChat);
                         }
