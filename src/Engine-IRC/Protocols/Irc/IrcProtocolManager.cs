@@ -2485,6 +2485,20 @@ namespace Smuxi.Engine
 
             var msg = builder.ToMessage();
             MarkHighlights(msg);
+			
+			//channel highlight: (if "/#channelname/" is among the highlight words, notify all messages in a specific channel)
+			//it doesn't color the messages, just sets all of them as highlighted (so you are notified)
+			if (ContainsHighlight(e.Data.Channel)) { 
+				//set the message as highlight:
+	            foreach (MessagePartModel msgPart in msg.MessageParts) {
+	                if (!(msgPart is TextMessagePartModel)) {
+	                    continue;
+	                }
+	                TextMessagePartModel textMsg = (TextMessagePartModel) msgPart;
+	                textMsg.IsHighlight = true;
+	            }
+			}	
+			
             Session.AddMessageToChat(chat, msg);
         }
         
