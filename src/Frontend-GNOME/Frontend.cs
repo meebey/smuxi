@@ -231,20 +231,22 @@ namespace Smuxi.Frontend.Gnome
                 // HACK: SessionManager.Register() is not used for local engines
                 _LocalSession.RegisterFrontendUI(_MainWindow.UI);
             }
+
+            SyncConfig();
+
             _FrontendManager = _Session.GetFrontendManager(_MainWindow.UI);
             _FrontendManager.Sync();
-            
+
             // MS .NET doesn't like this with Remoting?
             if (Type.GetType("Mono.Runtime") != null) {
                 // when are running on Mono, all should be good
                 if (_UserConfig.IsCaching) {
                     // when our UserConfig is cached, we need to invalidate the cache
-                    _FrontendManager.ConfigChangedDelegate = new SimpleDelegate(_UserConfig.ClearCache);
+                    // DISABLED: see FrontendManager._OnConfigChanged
+                    //_FrontendManager.ConfigChangedDelegate = SyncConfig;
                 }
             }
-            
-            ApplyConfig(_UserConfig);
-            
+
             _MainWindow.ShowAll();
             // make sure entry got attention :-P
             _MainWindow.Entry.HasFocus = true;
@@ -355,7 +357,7 @@ namespace Smuxi.Frontend.Gnome
             
             Environment.Exit(0);
         }
-        
+
         public static bool IsGuiThread()
         {
             return System.Threading.Thread.CurrentThread.ManagedThreadId == _UIThreadID;
@@ -719,6 +721,36 @@ namespace Smuxi.Frontend.Gnome
             _Logger.Debug("InitGtkPathWin(): new PATH: " + newPath);
 #endif
             Environment.SetEnvironmentVariable("PATH", newPath);
+        }
+
+        static void SyncConfig()
+        {
+            Trace.Call();
+
+            if (EngineVersion >= new Version("0.8.1.1")) {
+                ThreadPool.QueueUserWorkItem(delegate {
+                    try {
+                        UserConfig.SyncCache();
+                    } catch (Exception ex) {
+#if LOG4NET
+                        _Logger.Error("SyncConfig(): " +
+                                      "Exception during config sync", ex);
+#endif
+                    } finally {
+                        Gtk.Application.Invoke(delegate {
+                            ApplyConfig(UserConfig);
+                        });
+                    }
+                });
+            } else {
+                if (!IsGuiThread()) {
+                    Gtk.Application.Invoke(delegate {
+                        SyncConfig();
+                    });
+                    return;
+                }
+                ApplyConfig(UserConfig);
+            }
         }
 
         private static string _(string msg)

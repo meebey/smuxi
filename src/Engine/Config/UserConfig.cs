@@ -29,6 +29,8 @@
 using System;
 using System.Runtime.Remoting;
 using System.Collections;
+using System.Collections.Generic;
+using Smuxi.Common;
 
 namespace Smuxi.Engine
 {
@@ -89,6 +91,7 @@ namespace Smuxi.Engine
                 return obj;
             }
             set {
+                // TODO: make remoting calls after a timeout and batch the update
                 _Config[_UserPrefix + key] = value;
                 
                 // update entry in cache
@@ -134,10 +137,21 @@ namespace Smuxi.Engine
         public void Remove(string key)
         {
             _Config.Remove(_UserPrefix + key);
-            
-            // invalidate cache when this is a complete section
+
+            if (!IsCaching) {
+                return;
+            }
             if (key.EndsWith("/")) {
-                ClearCache();
+                // invalidate all cache keys of this section
+                var cachedKeys = new List<string>();
+                foreach (string cacheKey in _Cache.Keys) {
+                    if (cacheKey.StartsWith(key)) {
+                        cachedKeys.Add(cacheKey);
+                    }
+                }
+                foreach (string cacheKey in cachedKeys) {
+                    _Cache.Remove(cacheKey);
+                }
             } else {
                 // deleting the single entry is enough
                 _Cache.Remove(key);
@@ -147,6 +161,32 @@ namespace Smuxi.Engine
         public void Save()
         {
             _Config.Save();
+        }
+
+        public void SyncCache()
+        {
+            Trace.Call();
+
+            if (!IsCaching) {
+                return;
+            }
+
+            var start = DateTime.UtcNow;
+            var conf = _Config.GetAll();
+            var cache = new Hashtable(conf.Count);
+            foreach (var entry in conf) {
+                cache.Add(entry.Key, entry.Value);
+            }
+            var stop = DateTime.UtcNow;
+#if LOG4NET
+            _Logger.Debug(
+                String.Format(
+                    "SyncCache(): syncing config took: {0:0.00} ms",
+                    (stop - start).TotalMilliseconds
+                )
+            );
+#endif
+            _Cache = cache;
         }
 
         void OnConfigChanged(object sender, ConfigChangedEventArgs e)

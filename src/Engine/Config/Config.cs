@@ -29,6 +29,7 @@
 using System;
 using System.IO;
 using System.Collections;
+using System.Collections.Generic;
 using Mono.Unix.Native;
 #if CONFIG_NINI
 using Nini.Config;
@@ -565,6 +566,17 @@ namespace Smuxi.Engine
                     LoadUserEntry(user, cprefix + "MessageType", null);
                     LoadUserEntry(user, cprefix + "MessagePattern", null);
                 }
+            }
+        }
+
+        public IDictionary<string, object> GetAll()
+        {
+            lock (m_Preferences) {
+                var dict = new Dictionary<string, object>(m_Preferences.Count);
+                foreach (DictionaryEntry entry in m_Preferences) {
+                    dict.Add((string) entry.Key, entry.Value);
+                }
+                return dict;
             }
         }
 

@@ -45,7 +45,9 @@ namespace Smuxi.Engine
         private bool             _IsFrontendSynced;
         private IList<ChatModel> _SyncedChats = new List<ChatModel>();
         private TaskQueue        f_TaskQueue;
-        
+
+        DateTime LastConfigChange;
+
         public int Version {
             get {
                 return 0;
@@ -107,10 +109,9 @@ namespace Smuxi.Engine
             f_TaskQueue = new TaskQueue("FrontendManager");
             f_TaskQueue.ExceptionEvent += OnTaskQueueExceptionEvent;
             f_TaskQueue.AbortedEvent   += OnTaskQueueAbortedEvent;
-            
+
             // register event for config invalidation
-            // BUG: when the frontend disconnects there are dangling methods registered!
-            //_Session.Config.Changed += new EventHandler(_OnConfigChanged);
+            _Session.Config.Changed += _OnConfigChanged;
         }
         
         ~FrontendManager()
@@ -134,6 +135,7 @@ namespace Smuxi.Engine
             
             if (disposing) {
                 f_TaskQueue.Dispose();
+                _Session.Config.Changed -= _OnConfigChanged;
             }
         }
         
@@ -406,19 +408,26 @@ namespace Smuxi.Engine
         private void _OnConfigChanged(object sender, EventArgs e)
         {
             Trace.Call(sender, e);
-            
-            // BUG: we should use some timeout here and only call the delegate
-            // when the timeout is reached, else we flood the frontend for each
-            // changed value in the config!
+
+            // only push config changes once per 30 seconds
+            if ((DateTime.UtcNow - LastConfigChange).TotalSeconds < 30) {
+                return;
+            }
+
             try {
+                // DISABLED: delegate is not reliable enough, this needs to be
+                // replaced with an IChatConfig API
+                /*
                 if (_ConfigChangedDelegate != null) {
                     _ConfigChangedDelegate();
                 }
+                */
             } catch (Exception ex) {
 #if LOG4NET
                 _Logger.Error(ex);
 #endif
             }
+            LastConfigChange = DateTime.UtcNow;
         }
 
         /// <remarks>

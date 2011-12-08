@@ -882,7 +882,6 @@ namespace Smuxi.Frontend.Gnome
             try {
                 _Save();
                 Frontend.Config.Load();
-                Frontend.UserConfig.ClearCache();
                 Frontend.ApplyConfig(Frontend.UserConfig);
                 _Dialog.Destroy();
             } catch (ApplicationException ex) {
@@ -902,7 +901,6 @@ namespace Smuxi.Frontend.Gnome
             try {
                 _Save();
                 Frontend.Config.Load();
-                Frontend.UserConfig.ClearCache();
                 _Load();
                 Frontend.ApplyConfig(Frontend.UserConfig);
             } catch (ApplicationException ex) {
