@@ -241,12 +241,20 @@ namespace Smuxi.Frontend.Gnome
 
             item = new Gtk.ImageMenuItem(Gtk.Stock.Preferences, agrp);
             item.Activated += new EventHandler(_OnPreferencesButtonClicked);
+            item.AccelCanActivate += delegate(object o, Gtk.AccelCanActivateArgs args) {
+                // allow the accelerator to be used even when the menu bar is hidden
+                args.RetVal = true;
+            };
             menu.Append(item);
             
             menu.Append(new Gtk.SeparatorMenuItem());
             
             item = new Gtk.ImageMenuItem(Gtk.Stock.Quit, agrp);
             item.Activated += new EventHandler(_OnQuitButtonClicked);
+            item.AccelCanActivate += delegate(object o, Gtk.AccelCanActivateArgs args) {
+                // allow the accelerator to be used even when the menu bar is hidden
+                args.RetVal = true;
+            };
             menu.Append(item);
             
             // Menu - Server
@@ -304,6 +312,10 @@ namespace Smuxi.Frontend.Gnome
             akey.AccelMods = Gdk.ModifierType.ControlMask;
             akey.Key = Gdk.Key.Page_Down;
             image_item.AddAccelerator("activate", agrp, akey);
+            image_item.AccelCanActivate += delegate(object o, Gtk.AccelCanActivateArgs args) {
+                // allow the accelerator to be used even when the menu bar is hidden
+                args.RetVal = true;
+            };
             menu.Append(image_item);
             
             image_item = new Gtk.ImageMenuItem(_("_Previous Chat"));
@@ -314,6 +326,10 @@ namespace Smuxi.Frontend.Gnome
             akey.AccelMods = Gdk.ModifierType.ControlMask;
             akey.Key = Gdk.Key.Page_Up;
             image_item.AddAccelerator("activate", agrp, akey);
+            image_item.AccelCanActivate += delegate(object o, Gtk.AccelCanActivateArgs args) {
+                // allow the accelerator to be used even when the menu bar is hidden
+                args.RetVal = true;
+            };
             menu.Append(image_item);
             
             menu.Append(new Gtk.SeparatorMenuItem());
@@ -366,6 +382,10 @@ namespace Smuxi.Frontend.Gnome
 
             _CloseChatMenuItem = new Gtk.ImageMenuItem(Gtk.Stock.Close, agrp);
             _CloseChatMenuItem.Activated += OnCloseChatMenuItemActivated;
+            _CloseChatMenuItem.AccelCanActivate += delegate(object o, Gtk.AccelCanActivateArgs args) {
+                // allow the accelerator to be used even when the menu bar is hidden
+                args.RetVal = true;
+            };
             menu.Append(_CloseChatMenuItem);
 
             // Menu - Engine
@@ -402,6 +422,10 @@ namespace Smuxi.Frontend.Gnome
             akey.AccelFlags = Gtk.AccelFlags.Visible;
             akey.Key = Gdk.Key.F7;
             item.AddAccelerator("activate", agrp, akey);
+            item.AccelCanActivate += delegate(object o, Gtk.AccelCanActivateArgs args) {
+                // allow the accelerator to be used even when the menu bar is hidden
+                args.RetVal = true;
+            };
             menu.Append(item);
             
             item = new Gtk.CheckMenuItem(_("_Browse Mode"));
@@ -416,6 +440,10 @@ namespace Smuxi.Frontend.Gnome
             akey.AccelFlags = Gtk.AccelFlags.Visible;
             akey.Key = Gdk.Key.F8;
             item.AddAccelerator("activate", agrp, akey);
+            item.AccelCanActivate += delegate(object o, Gtk.AccelCanActivateArgs args) {
+                // allow the accelerator to be used even when the menu bar is hidden
+                args.RetVal = true;
+            };
             menu.Append(item);
 
             _ShowMenuBarItem = new Gtk.CheckMenuItem(_("Show _Menubar"));
@@ -441,6 +469,10 @@ namespace Smuxi.Frontend.Gnome
             akey.AccelFlags = Gtk.AccelFlags.Visible;
             akey.Key = Gdk.Key.F11;
             item.AddAccelerator("activate", agrp, akey);
+            item.AccelCanActivate += delegate(object o, Gtk.AccelCanActivateArgs args) {
+                // allow the accelerator to be used even when the menu bar is hidden
+                args.RetVal = true;
+            };
             menu.Append(item);
 
             // Menu - Help
