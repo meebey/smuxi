@@ -235,6 +235,16 @@ namespace Smuxi.Engine
             return AppendMessage(msg);
         }
 
+        public virtual MessageBuilder AppendErrorText(string errorText,
+                                                      params string[] args)
+        {
+            var text = CreateText(errorText, args);
+            text.ForegroundColor = new TextColor(255, 0, 0);
+            text.Bold = true;
+            text.IsHighlight = true;
+            return AppendText(text);
+        }
+
         public virtual TextMessagePartModel CreateIdendityName(ContactModel identity)
         {
             if (identity == null) {
