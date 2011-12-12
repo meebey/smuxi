@@ -945,6 +945,17 @@ namespace Smuxi.Engine
 #endif
                         chat.ResetMessageBuffer();
                         chat.InitMessageBuffer(MessageBufferPersistencyType.Volatile);
+
+                        var builder = new MessageBuilder();
+                        builder.AppendEventPrefix();
+                        builder.AppendErrorText(
+                            _("Failed to write to chat history. " +
+                              "Your chat history will not be preserved. " +
+                              "Reason: {0}"),
+                            ex.Message
+                        );
+                        chat.MessageBuffer.Add(builder.ToMessage());
+
                         chat.MessageBuffer.Add(msg);
                     }
                 }

@@ -33,6 +33,7 @@ namespace Smuxi.Engine
 #if LOG4NET
         private static readonly log4net.ILog _Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 #endif
+        const string LibraryTextDomain = "smuxi-engine";
         private string               _ID;
         private string               _Name;
         private ChatType             _ChatType;
@@ -97,6 +98,16 @@ namespace Smuxi.Engine
 #endif
                         ResetMessageBuffer();
                         InitMessageBuffer(MessageBufferPersistencyType.Volatile);
+
+                        var builder = new MessageBuilder();
+                        builder.AppendEventPrefix();
+                        builder.AppendErrorText(
+                            _("Failed to load chat history. " +
+                              "Your chat history will not be preserved. " +
+                              "Reason: {0}"),
+                            ex.Message
+                        );
+                        MessageBuffer.Add(builder.ToMessage());
                         return GetSyncMessages();
                     }
                     throw;
@@ -258,6 +269,16 @@ namespace Smuxi.Engine
                         );
 #endif
                         MessageBuffer = new ListMessageBuffer();
+
+                        var builder = new MessageBuilder();
+                        builder.AppendEventPrefix();
+                        builder.AppendErrorText(
+                            _("Failed to open chat history for writing. " +
+                              "Your chat history will not be preserved. " +
+                              "Reason: {0}"),
+                            ex.Message
+                        );
+                        MessageBuffer.Add(builder.ToMessage());
                     }
                     break;
             }
@@ -285,6 +306,11 @@ namespace Smuxi.Engine
                 }
             }
             MessageBuffer = null;
+        }
+
+        static string _(string msg)
+        {
+            return LibraryCatalog.GetString(msg, LibraryTextDomain);
         }
     }
 }
