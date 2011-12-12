@@ -294,16 +294,25 @@ namespace Smuxi.Engine
 #if LOG4NET
                 Logger.Info(String.Format(_("Optimizing: {0}..."), dbFile));
 #endif
-                using (var buffer = new Db4oMessageBuffer(dbFile)) {
-                    buffer.AggressiveGC = false;
-                    if ((opts & Db4oMessageBufferOptimizationTypes.Defrag) != 0) {
-                        buffer.CloseDatabase();
-                        buffer.DefragDatabase();
-                        buffer.InitDatabase();
+                try {
+                    using (var buffer = new Db4oMessageBuffer(dbFile)) {
+                        buffer.AggressiveGC = false;
+                        if ((opts & Db4oMessageBufferOptimizationTypes.Defrag) != 0) {
+                            buffer.CloseDatabase();
+                            buffer.DefragDatabase();
+                            buffer.InitDatabase();
+                        }
+                        if ((opts & Db4oMessageBufferOptimizationTypes.Index) != 0) {
+                            buffer.RebuildIndex();
+                        }
                     }
-                    if ((opts & Db4oMessageBufferOptimizationTypes.Index) != 0) {
-                        buffer.RebuildIndex();
-                    }
+                } catch (Exception ex) {
+#if LOG4NET
+                    Logger.Debug("OptimizeAllBuffers(): Failed to optimize: " +
+                                 dbFile + " Exception: ", ex);
+                    Logger.InfoFormat(_("Failed to optimize: {0}. Reason: {1}"),
+                                      dbFile, ex.Message);
+#endif
                 }
             }
             stop = DateTime.UtcNow;
