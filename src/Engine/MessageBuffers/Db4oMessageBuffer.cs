@@ -329,6 +329,30 @@ namespace Smuxi.Engine
 
         private void InitDatabase()
         {
+            ConfigureDatabase();
+            try {
+                OpenDatabase();
+            } catch (Exception ex) {
+#if LOG4NET
+                Logger.Error("InitDatabase(): failed to open message " +
+                             "database: " + DatabaseFile, ex);
+#endif
+                FixDatabase(ex);
+                // WORXNOWPLX
+                OpenDatabase();
+
+                var builder = new MessageBuilder();
+                builder.AppendEventPrefix();
+                builder.AppendErrorText(
+                    _("Automatic repair of chat history succeeded. " +
+                      "Your chat history is no longer available but will be preserved from now on.")
+                );
+                Add(builder.ToMessage());
+            }
+        }
+
+        void ConfigureDatabase()
+        {
 #if DB4O_8_0
             DatabaseConfiguration = Db4oEmbedded.NewConfiguration();
             DatabaseConfiguration.Common.AllowVersionUpdates = true;
@@ -347,15 +371,6 @@ namespace Smuxi.Engine
             DatabaseConfiguration.ObjectClass(typeof(MessageModel)).
                                   ObjectField("f_TimeStamp").Indexed(true);
 #endif
-            try {
-                OpenDatabase();
-            } catch (Exception ex) {
-#if LOG4NET
-                Logger.Error("InitDatabase(): failed to open message " +
-                             "database: " + DatabaseFile, ex);
-#endif
-                throw;
-            }
         }
 
         string GetDatabaseFile()
@@ -400,6 +415,40 @@ namespace Smuxi.Engine
 
             Database.Close();
             Database.Dispose();
+        }
+
+        void FixDatabase(Exception ex)
+        {
+            try {
+                CloseDatabase();
+            } catch {
+            }
+
+            // do some sanity checks before we assume the database is
+            // really broken
+            if (!File.Exists(DatabaseFile)) {
+                throw new FileNotFoundException(DatabaseFile);
+            }
+            try {
+                using (File.OpenWrite(DatabaseFile));
+            } catch {
+                throw;
+            }
+
+            var timestamp = DateTime.Now.ToString("s");
+            timestamp = timestamp.Replace("T", "_").Replace(":", "_");
+            var brokenDbFile = String.Format("{0}_{1}_broken",
+                                           DatabaseFile, timestamp);
+            var brokenLogFile = String.Format("{0}.log", brokenDbFile);
+            File.WriteAllText(brokenLogFile, ex.ToString());
+#if LOG4NET
+            Logger.DebugFormat("FixDatabase(): moving broken database " +
+                               "from: {0} to: {1}", DatabaseFile,
+                               brokenDbFile);
+#endif
+            File.Move(DatabaseFile, brokenDbFile);
+
+            ConfigureDatabase();
         }
 
         void DefragDatabase()
