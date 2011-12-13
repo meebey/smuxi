@@ -244,6 +244,14 @@ namespace Smuxi.Frontend.Gnome
                     case Gdk.Key.N:
                         ChatViewManager.CurrentChatNumber++;
                         break;
+                    case Gdk.Key.Tab:
+                    case Gdk.Key.ISO_Left_Tab:
+                        if ((e.Event.State & Gdk.ModifierType.ShiftMask) != 0) {
+                            ChatViewManager.CurrentChatNumber--;
+                        } else {
+                            ChatViewManager.CurrentChatNumber++;
+                        }
+                        break;
                     // don't break unicode input
                     case Gdk.Key.U:
                     // don't break copy/paste
