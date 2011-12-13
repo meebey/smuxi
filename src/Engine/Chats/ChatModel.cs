@@ -255,12 +255,26 @@ namespace Smuxi.Engine
                     break;
                 case MessageBufferPersistencyType.Persistent:
                     try {
+                        var start = DateTime.UtcNow;
                         MessageBuffer = new Db4oMessageBuffer(
                             ProtocolManager.Session.Username,
                             ProtocolManager.Protocol,
                             ProtocolManager.NetworkID,
                             ID
                         );
+                        var stop = DateTime.UtcNow;
+#if LOG4NET
+                        _Logger.DebugFormat(
+                            "InitMessageBuffer(): initializing " +
+                            "Db4oMessageBuffer({0}, {1}, {2}, {3}) " +
+                            "took: {4:0.00} ms",
+                            ProtocolManager.Session.Username,
+                            ProtocolManager.Protocol,
+                            ProtocolManager.NetworkID,
+                            ID,
+                            (stop - start).TotalMilliseconds
+                        );
+#endif
                     } catch (Exception ex) {
 #if LOG4NET
                         _Logger.Error(
