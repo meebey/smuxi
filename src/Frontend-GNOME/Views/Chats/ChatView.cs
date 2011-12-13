@@ -377,18 +377,18 @@ namespace Smuxi.Frontend.Gnome
         
         public virtual void ScrollToEnd()
         {
-            // logging noise
-            //Trace.Call();
-            
-            Gtk.Adjustment adj = _OutputScrolledWindow.Vadjustment;
-#if LOG4NET
+#if SCROLL_DEBUG
+            Trace.Call();
+#endif
+
+            // BUG? doesn't work always for some reason
+            // seems like GTK+ doesn't update the adjustment till we give back control
+            //Gtk.Adjustment adj = _OutputScrolledWindow.Vadjustment;
+#if LOG4NET && SCROLL_DEBUG
             _Logger.Debug("ScrollToEnd(): Vadjustment.Value: " + adj.Value +
                           " Vadjustment.Upper: " + adj.Upper +
                           " Vadjustment.PageSize: " + adj.PageSize);
 #endif
-            
-            // BUG? doesn't work always for some reason
-            // seems like GTK+ doesn't update the adjustment till we give back control
             //adj.Value = adj.Upper - adj.PageSize;
             
             //_OutputTextView.Buffer.MoveMark(_EndMark, _OutputTextView.Buffer.EndIter);
@@ -398,8 +398,10 @@ namespace Smuxi.Frontend.Gnome
             //_OutputTextView.ScrollMarkOnscreen(_OutputTextView.Buffer.InsertMark);
 
             //_OutputTextView.ScrollMarkOnscreen(_OutputTextView.Buffer.GetMark("tail"));
-            
+
+#if SCROLL_DEBUG
             System.Reflection.MethodBase mb = Trace.GetMethodBase();
+#endif
             // WORKAROUND1: scroll after one second delay
             /*
             GLib.Timeout.Add(1000, new GLib.TimeoutHandler(delegate {
@@ -411,8 +413,9 @@ namespace Smuxi.Frontend.Gnome
             */
             // WORKAROUND2: scroll when GTK+ mainloop is idle
             GLib.Idle.Add(new GLib.IdleHandler(delegate {
+#if SCROLL_DEBUG
                 Trace.Call(mb);
-                
+#endif
                 _OutputMessageTextView.ScrollMarkOnscreen(_EndMark);
                 return false;
             }));
