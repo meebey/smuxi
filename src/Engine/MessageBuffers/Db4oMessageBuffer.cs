@@ -344,8 +344,8 @@ namespace Smuxi.Engine
                 var builder = new MessageBuilder();
                 builder.AppendEventPrefix();
                 builder.AppendErrorText(
-                    _("Automatic repair of chat history succeeded. " +
-                      "Your chat history is no longer available but will be preserved from now on.")
+                    _("Your chat history is no longer available because of " +
+                      "an error but will be preserved from now on.")
                 );
                 Add(builder.ToMessage());
             }
