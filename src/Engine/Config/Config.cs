@@ -284,7 +284,7 @@ namespace Smuxi.Engine
             Get(prefix+"BeepOnHighlight", false);
             
             prefix = "Engine/Users/DEFAULT/Connection/";
-            Get(prefix+"Encoding", String.Empty);
+            Get(prefix+"Encoding", "UTF-8");
             Get(prefix+"ProxyType", "System");
             Get(prefix+"ProxyHostname", String.Empty);
             Get(prefix+"ProxyPort", -1);
