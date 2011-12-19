@@ -1445,7 +1445,9 @@ namespace Smuxi.Engine
                     msg.Append(entry);
                     SeenNewsFeedIds.Add(entry.Id);
                 }
-                AddMessageToChat(SessionChat, msg.ToMessage());
+                if (!msg.IsEmpty) {
+                    AddMessageToChat(SessionChat, msg.ToMessage());
+                }
             } catch (WebException ex) {
                 switch (ex.Status) {
                     case WebExceptionStatus.ConnectFailure:

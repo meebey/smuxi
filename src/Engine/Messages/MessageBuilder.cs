@@ -48,6 +48,12 @@ namespace Smuxi.Engine
             }
         }
 
+        public bool IsEmpty {
+            get {
+                return Message.IsEmpty;
+            }
+        }
+
         public MessageBuilder()
         {
             Message = new MessageModel();

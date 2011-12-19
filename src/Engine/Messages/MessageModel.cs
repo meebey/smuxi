@@ -52,6 +52,12 @@ namespace Smuxi.Engine
                 return f_MessageParts;
             }
         }
+
+        public bool IsEmpty {
+            get {
+                return f_MessageParts.Count == 0;
+            }
+        }
         
         public MessageType MessageType {
             get {
