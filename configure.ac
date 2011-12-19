@@ -161,6 +161,7 @@ if test "x$enable_debug" = "xyes" ; then
 fi
 AC_SUBST(PROFILE)
 
+AC_SUBST(CSC, "$MCS")
 CSC_FLAGS=
 if test "x$PROFILE" = "xdebug"; then
 	AM_CONDITIONAL(ENABLE_DEBUG, true)
@@ -168,8 +169,23 @@ if test "x$PROFILE" = "xdebug"; then
 else
 	AM_CONDITIONAL(ENABLE_RELEASE, true)
 fi
-AC_SUBST(CSC, "$MCS")
 AC_SUBST(CSC_FLAGS)
+
+MCS_BASENAME=$(basename $MCS)
+CLI_RUNTIME=
+if test "$MCS_BASENAME" = "gmcs"; then
+	CLI_RUNTIME=2.0
+fi
+if test "$MCS_BASENAME" = "dmcs"; then
+	CLI_RUNTIME=4.0
+fi
+if test "$CLI_RUNTIME" = "2.0"; then
+	XBUILD_FLAGS="/toolsversion:3.5 /p:TargetFrameworkVersion=v3.5"
+fi
+if test "$CLI_RUNTIME" = "4.0"; then
+	XBUILD_FLAGS="/toolsversion:4.0 /p:TargetFrameworkVersion=v4.0"
+fi
+AC_SUBST(XBUILD_FLAGS)
 
 # Required Libraries	
 PKG_CHECK_MODULES([LOG4NET], [log4net])
@@ -557,11 +573,17 @@ AC_CONFIG_FILES([
 
 AC_OUTPUT
 
+if test "x$CLI_RUNTIME" = "x"; then
+	CLI_RUNTIME=default
+fi
+
 AC_MSG_RESULT([
 	Configuration summary for $PACKAGE_NAME $VERSION ($DIST_VERSION)
 	
 	* Installation prefix: $prefix
 	* Build profile:       $PROFILE
+	* Compiler:            $CSC
+	* Target CLI runtime:  $CLI_RUNTIME
 
 	* Engines
 	  -------

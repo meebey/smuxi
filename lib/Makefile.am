@@ -3,7 +3,7 @@ SUBDIRS =	SmartIrc4net
 OUTPUT_DIR = $(top_builddir)/bin/$(PROFILE)
 OBJECT_DIR = $(OUTPUT_DIR)/obj
 SOURCE_PATTERNS = *.cs */*.cs */*/*.cs */*/*/*.cs */*/*/*/*.cs */*/*/*/*/*.cs
-XBUILD_FLAGS = /p:Configuration=Debug /p:SignAssembly=false /p:WarningLevel=0 /p:OutputPath=$(abspath $(OUTPUT_DIR)) /p:BaseIntermediateOutputPath=$(abspath $(OBJECT_DIR))/ /p:IntermediateOutputPath=$(abspath $(OBJECT_DIR))/ /p:DocumentationFile=
+XBUILD_FLAGS += /p:Configuration=Debug /p:SignAssembly=false /p:WarningLevel=0 /p:OutputPath=$(abspath $(OUTPUT_DIR)) /p:BaseIntermediateOutputPath=$(abspath $(OBJECT_DIR))/ /p:IntermediateOutputPath=$(abspath $(OBJECT_DIR))/ /p:DocumentationFile=
 
 JSON_SUBDIR = Newtonsoft.Json
 JSON_SRCDIR = $(srcdir)/$(JSON_SUBDIR)/Src/Newtonsoft.Json
