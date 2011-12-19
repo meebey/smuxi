@@ -43,7 +43,7 @@ namespace Smuxi.Engine
         private int                                   _Version = 0;
         private IDictionary<string, FrontendManager>  _FrontendManagers;
         private IList<IProtocolManager>               _ProtocolManagers;
-        private IList<ChatModel>                      _Chats;
+        private List<ChatModel>                       _Chats;
         private SessionChatModel                      _SessionChat;
         private Config                                _Config;
         private string                                _Username;
@@ -805,6 +805,11 @@ namespace Smuxi.Engine
             chat.Position = GetSortedChatPosition(chat);
             lock (_Chats) {
                 _Chats.Add(chat);
+                if (chat.Position == -1) {
+                    chat.Position = _Chats.IndexOf(chat);
+                } else {
+                    MoveChat(chat, chat.Position);
+                }
             }
 
             lock (_FrontendManagers) {
@@ -887,6 +892,23 @@ namespace Smuxi.Engine
             }
         }
         
+        public void MoveChat(ChatModel chat, int newPosition)
+        {
+            Trace.Call(chat, newPosition);
+
+            if (chat == null) {
+                throw new ArgumentNullException("chat");
+            }
+
+            lock (_Chats) {
+                _Chats.Remove(chat);
+                _Chats.Insert(newPosition, chat);
+                foreach (var schat in _Chats) {
+                    schat.Position = _Chats.IndexOf(schat);
+                }
+            }
+        }
+
         public void AddTextToChat(ChatModel chat, string text)
         {
             AddTextToChat(chat, text, false);
