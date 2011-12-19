@@ -705,9 +705,6 @@ namespace Smuxi.Frontend.Gnome
             if (OutputMessageTextView.IsAtUrlTag) {
                 return;
             }
-            if (Frontend.MainWindow.ShowMenuBar) {
-                return;
-            }
 
             Gtk.Menu popup = e.Menu;
             popup.Prepend(new Gtk.SeparatorMenuItem());
@@ -716,7 +713,7 @@ namespace Smuxi.Frontend.Gnome
             item.Active = Frontend.MainWindow.ShowMenuBar;
             item.Activated += delegate {
                 try {
-                    Frontend.MainWindow.ShowMenuBar = true;
+                    Frontend.MainWindow.ShowMenuBar = !Frontend.MainWindow.ShowMenuBar;
                 } catch (Exception ex) {
                     Frontend.ShowException(ex);
                 }
