@@ -27,7 +27,7 @@
  */
 
 using System;
-
+using System.Threading;
 using Smuxi.Common;
 using Smuxi.Engine;
 
@@ -89,8 +89,9 @@ namespace Smuxi.Frontend.Gnome
             Scrollable = true;
             SwitchPage += OnSwitchPage;
             SwitchPage += OnBeforeSwitchPage;
+            PageReordered += OnPageReordered;
         }
-        
+
         public void ApplyConfig(UserConfig userConfig)
         {
             switch ((string) userConfig["Interface/Notebook/TabPosition"]) {
@@ -177,6 +178,12 @@ namespace Smuxi.Frontend.Gnome
         public void SyncPagePositions()
         {
             Trace.Call();
+
+            if (Frontend.EngineVersion >= new Version("0.8.1.2")) {
+                // no need to sync chat positions with 0.8.1.2 as they get
+                // updated via Session.MoveChat()
+                return;
+            }
 
             for (int i = 0; i < NPages; i++) {
                 var chatView = (ChatView) GetNthPage(i);
@@ -291,6 +298,28 @@ namespace Smuxi.Frontend.Gnome
                     f_Logger.Error("OnSwitchPage(): Exception", ex);
 #endif
                     Frontend.ShowException(ex);
+                }
+            });
+        }
+
+        protected virtual void OnPageReordered(object sender, Gtk.PageReorderedArgs e)
+        {
+            Trace.Call(sender, e);
+
+            if (Frontend.EngineVersion < new Version("0.8.1.2")) {
+                // Session.MoveChat() was added in >= 0.8.1.2
+                return;
+            }
+
+            var chatView = (ChatView) e.P0;
+            var newPosition = (int) e.P1;
+            ThreadPool.QueueUserWorkItem(delegate {
+                try {
+                    Frontend.Session.MoveChat(chatView.ChatModel, newPosition);
+                } catch (Exception ex) {
+#if LOG4NET
+                    f_Logger.Error("OnPageReordered(): Exception", ex);
+#endif
                 }
             });
         }
