@@ -640,6 +640,11 @@ namespace Smuxi.Engine
                 }
             }
 
+            if (IsLocal) {
+                // allow the frontend to cleanly terminate
+                return;
+            }
+
 #if LOG4NET
             f_Logger.Debug("Terminating process...");
 #endif

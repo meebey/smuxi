@@ -350,6 +350,21 @@ namespace Smuxi.Frontend.Gnome
             }
 
             if (_FrontendManager != null) {
+                if (IsLocalEngine) {
+                    try {
+                        var cmd = new CommandModel(
+                            _FrontendManager,
+                            MainWindow.ChatViewManager.CurrentChatView.ChatModel,
+                            null
+                        );
+                        Session.CommandShutdown(cmd);
+                    } catch (Exception ex) {
+#if LOG4NET
+                        _Logger.Error("Quit(): Exception", ex);
+#endif
+                    }
+                }
+
                 DisconnectEngineFromGUI();
             }
             
