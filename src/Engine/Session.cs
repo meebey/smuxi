@@ -386,6 +386,10 @@ namespace Smuxi.Engine
                         CommandConfig(cd);
                         handled = true;
                         break;
+                    case "shutdown":
+                        CommandShutdown(cd);
+                        handled = true;
+                        break;
                 }
             } else {
                 // normal text
@@ -420,8 +424,9 @@ namespace Smuxi.Engine
                 "network close [network]",
                 "network switch [network]",
                 "config (save|load)",
+                "shutdown"
             };
-            
+
             foreach (string line in help) {
                 builder = CreateMessageBuilder();
                 builder.AppendEventPrefix();
@@ -617,6 +622,30 @@ namespace Smuxi.Engine
             }
         }
         
+        public void CommandShutdown(CommandModel cmd)
+        {
+            Trace.Call(cmd);
+
+            if (cmd == null) {
+                throw new ArgumentNullException("cmd");
+            }
+
+#if LOG4NET
+            f_Logger.Info("Shutting down...");
+#endif
+            lock (_ProtocolManagers) {
+                foreach (var protocolManager in _ProtocolManagers) {
+                    protocolManager.Disconnect(cmd.FrontendManager);
+                    protocolManager.Dispose();
+                }
+            }
+
+#if LOG4NET
+            f_Logger.Debug("Terminating process...");
+#endif
+            Environment.Exit(0);
+        }
+
         public void CommandNetwork(CommandModel cd)
         {
             Trace.Call(cd);
