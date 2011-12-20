@@ -659,6 +659,11 @@ namespace Smuxi.Engine
         void Flush()
         {
             var counter = FlushCounter;
+            if (counter == 0) {
+                // nothing to flush
+                return;
+            }
+
             DateTime start = DateTime.UtcNow, stop;
             FlushCounter = 0;
             Database.Commit();
