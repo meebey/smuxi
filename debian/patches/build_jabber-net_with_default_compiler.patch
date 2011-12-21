@@ -1,0 +1,18 @@
+Index: smuxi/lib/jabber-net/2005-jabber-net.csproj
+===================================================================
+--- smuxi.orig/lib/jabber-net/2005-jabber-net.csproj	2011-12-19 08:02:59.000000000 +0100
++++ smuxi/lib/jabber-net/2005-jabber-net.csproj	2011-12-21 08:16:36.000000000 +0100
+@@ -1,4 +1,4 @@
+-﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
++﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+   <PropertyGroup>
+     <ProjectType>Local</ProjectType>
+     <ProductVersion>8.0.50727</ProductVersion>
+@@ -27,7 +27,6 @@
+     <UpgradeBackupLocation>
+     </UpgradeBackupLocation>
+     <SignAssembly>true</SignAssembly>
+-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+   </PropertyGroup>
+   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+     <OutputPath>bin5\Debug\</OutputPath>

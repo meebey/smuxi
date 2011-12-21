@@ -1,0 +1,19 @@
+Index: smuxi/lib/Twitterizer/Twitterizer2/Twitterizer2.csproj
+===================================================================
+--- smuxi.orig/lib/Twitterizer/Twitterizer2/Twitterizer2.csproj	2011-12-19 07:51:13.000000000 +0100
++++ smuxi/lib/Twitterizer/Twitterizer2/Twitterizer2.csproj	2011-12-21 08:13:11.000000000 +0100
+@@ -1,5 +1,5 @@
+ ﻿<?xml version="1.0" encoding="utf-8"?>
+-<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
++<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+   <PropertyGroup>
+     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+@@ -15,7 +15,6 @@
+     <FileUpgradeFlags>
+     </FileUpgradeFlags>
+     <OldToolsVersion>3.5</OldToolsVersion>
+-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+     <UpgradeBackupLocation />
+     <IsWebBootstrapper>false</IsWebBootstrapper>
+     <TargetFrameworkProfile>
