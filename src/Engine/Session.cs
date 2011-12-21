@@ -870,6 +870,11 @@ namespace Smuxi.Engine
                     return;
                 }
                 chat.Close();
+
+                // refresh chat positions
+                foreach (var schat in _Chats) {
+                    schat.Position = _Chats.IndexOf(schat);
+                }
             }
             
             lock (_FrontendManagers) {
