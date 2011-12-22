@@ -612,8 +612,6 @@ namespace Smuxi.Frontend.Gnome
             lock (_UnhandledExceptionSyncRoot) {
                 if (e.ExceptionObject is Exception) {
                     ShowException((Exception) e.ExceptionObject);
-                    
-                    Quit();
                 }
             }
         }
