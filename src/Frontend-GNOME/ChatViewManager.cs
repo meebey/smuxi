@@ -105,6 +105,7 @@ namespace Smuxi.Frontend.Gnome
             SyncManager = new ChatViewSyncManager();
             SyncManager.ChatAdded += OnChatAdded;
             SyncManager.ChatSynced += OnChatSynced;
+            SyncManager.WorkerException += OnWorkerException;
         }
 
         /// <remarks>
@@ -303,6 +304,13 @@ namespace Smuxi.Frontend.Gnome
                 }
                 return false;
             });
+        }
+
+        void OnWorkerException(object sender, WorkerExceptionEventArgs e)
+        {
+            Trace.Call(sender, e);
+
+            Frontend.ShowException(e.Exception);
         }
 
         int GetSortedChatPosition(ChatView chatView)

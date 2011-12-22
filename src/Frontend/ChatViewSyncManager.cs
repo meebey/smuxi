@@ -38,6 +38,7 @@ namespace Smuxi.Frontend
 
         public event EventHandler<ChatViewAddedEventArgs>  ChatAdded;
         public event EventHandler<ChatViewSyncedEventArgs> ChatSynced;
+        public event EventHandler<WorkerExceptionEventArgs> WorkerException;
 
         public ChatViewSyncManager()
         {
@@ -199,6 +200,13 @@ namespace Smuxi.Frontend
 #if LOG4NET
                 Logger.Error("AddWorker(): Add() threw exception!" , ex);
 #endif
+                if (WorkerException != null) {
+                    WorkerException(
+                        this,
+                        new WorkerExceptionEventArgs(chatModel, ex)
+                    );
+                }
+                OnWorkerException(chatModel, ex);
             }
         }
 
@@ -239,6 +247,7 @@ namespace Smuxi.Frontend
 #if LOG4NET
                 Logger.Error("SyncWorker(): Exception!", ex);
 #endif
+                OnWorkerException(chatModel, ex);
             }
         }
 
@@ -258,6 +267,16 @@ namespace Smuxi.Frontend
         {
             if (ChatSynced != null) {
                 ChatSynced(this, new ChatViewSyncedEventArgs(chatView));
+            }
+        }
+
+        void OnWorkerException(ChatModel chatModel, Exception ex)
+        {
+            if (WorkerException != null) {
+                WorkerException(
+                    this,
+                    new WorkerExceptionEventArgs(chatModel, ex)
+                );
             }
         }
     }
@@ -289,6 +308,18 @@ namespace Smuxi.Frontend
         public ChatViewSyncedEventArgs(IChatView chatView)
         {
             ChatView = chatView;
+        }
+    }
+
+    public class WorkerExceptionEventArgs : EventArgs
+    {
+        public ChatModel ChatModel { get; private set; }
+        public Exception Exception { get; private set; }
+
+        public WorkerExceptionEventArgs(ChatModel chat, Exception ex)
+        {
+            ChatModel = chat;
+            Exception = ex;
         }
     }
 }
