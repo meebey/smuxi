@@ -711,7 +711,7 @@ namespace Smuxi.Frontend.Gnome
                 (int)((Gtk.SpinButton)_Glade["EngineBufferLinesSpinButton"]).Value;
             Frontend.UserConfig["Interface/Notebook/StripColors"] =
                 ((Gtk.CheckButton)_Glade["StripColorsCheckButton"]).Active;
-            Frontend.UserConfig["Interface/Notebook/StripFormatting"] =
+            Frontend.UserConfig["Interface/Notebook/StripFormattings"] =
                 ((Gtk.CheckButton)_Glade["StripFormattingsCheckButton"]).Active;
                 
             string tab_position = null;
