@@ -176,7 +176,9 @@ namespace Smuxi.Frontend.Gnome
         
         public void AddMessage(MessageModel msg, bool addLinebreak)
         {
+#if MSG_DEBUG
             Trace.Call(msg, addLinebreak);
+#endif
 
             if (msg == null) {
                 throw new ArgumentNullException("msg");
@@ -310,19 +312,19 @@ namespace Smuxi.Frontend.Gnome
                         tags.Add(tagname);
                     }
                     if (fmsgti.Underline) {
-#if LOG4NET
+#if LOG4NET && MSG_DEBUG
                         _Logger.Debug("AddMessage(): fmsgti.Underline is true");
 #endif
                         tags.Add("underline");
                     }
                     if (fmsgti.Bold) {
-#if LOG4NET
+#if LOG4NET && MSG_DEBUG
                         _Logger.Debug("AddMessage(): fmsgti.Bold is true");
 #endif
                         tags.Add("bold");
                     }
                     if (fmsgti.Italic) {
-#if LOG4NET
+#if LOG4NET && MSG_DEBUG
                         _Logger.Debug("AddMessage(): fmsgti.Italic is true");
 #endif
                         tags.Add("italic");

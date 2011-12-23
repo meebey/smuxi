@@ -84,7 +84,7 @@ namespace Smuxi.Frontend.Gnome
             start = DateTime.UtcNow;
             chatView.AddMessage(msg);
             stop = DateTime.UtcNow;
-#if LOG4NET
+#if LOG4NET && MSG_DEBUG
             _Logger.Debug(
                 String.Format(
                     "_AddMessageToChat(): chatView.AddMessage() took: {0:0.00} ms",
