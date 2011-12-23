@@ -175,7 +175,13 @@ namespace Smuxi.Engine
             var conf = _Config.GetAll();
             var cache = new Hashtable(conf.Count);
             foreach (var entry in conf) {
-                cache.Add(entry.Key, entry.Value);
+                if (!entry.Key.StartsWith(_UserPrefix)) {
+                    // no need to cache values of other users
+                    continue;
+                }
+                // remove user prefix from key
+                var userKey = entry.Key.Substring(_UserPrefix.Length);
+                cache.Add(userKey, entry.Value);
             }
             var stop = DateTime.UtcNow;
 #if LOG4NET
