@@ -561,6 +561,7 @@ AC_CONFIG_FILES([
 	src/Frontend-Test/Makefile
 	src/Frontend-Test/smuxi-frontend-test
 	lib/Makefile
+	lib/osx/Info.plist
 	po/Makefile.in
 	po-Engine/Makefile.in
 	po-Engine-IRC/Makefile.in

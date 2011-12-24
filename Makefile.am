@@ -87,9 +87,15 @@ call-po: update-po
 	done
 	
 LIB_DIR = $(top_builddir)/lib
-WIN32_LIB_DIR = $(LIB_DIR)/win32
 BUILD_DIR = $(top_builddir)/bin/$(PROFILE)
+WIN32_LIB_DIR = $(LIB_DIR)/win32
 WIN32_BUILD_DIR = $(top_builddir)/bin-win32
+OSX_LIB_DIR = $(LIB_DIR)/osx
+OSX_BUILD_DIR = $(top_builddir)/bin-osx
+OSX_APP_DIR = $(OSX_BUILD_DIR)/Smuxi.app
+OSX_CONTENTS_DIR = $(OSX_APP_DIR)/Contents
+OSX_RESOURCES_DIR = $(OSX_CONTENTS_DIR)/Resources
+OSX_BINARIES_DIR = $(OSX_CONTENTS_DIR)/MacOS
 LINUX_STATIC_BUILD_DIR = $(top_builddir)/bin-linux-static
 
 WIN32_EXE_FILES = \
@@ -120,6 +126,24 @@ WIN32_FILES = \
 	$(WIN32_LIB_DIR)/smuxi-frontend-gnome.exe.config \
 	$(WIN32_LIB_DIR)/smuxi-server.exe.config
 
+OSX_FILES = \
+	$(LIB_DIR)/Nini.dll \
+	$(LIB_DIR)/log4net.dll \
+	$(BUILD_DIR)/smuxi-frontend-gnome.exe \
+	$(BUILD_DIR)/smuxi-frontend-gnome-irc.dll \
+	$(BUILD_DIR)/smuxi-server.exe \
+	$(BUILD_DIR)/smuxi-common.dll \
+	$(BUILD_DIR)/smuxi-engine.dll \
+	$(BUILD_DIR)/smuxi-engine-irc.dll \
+	$(BUILD_DIR)/smuxi-engine-twitter.dll \
+	$(BUILD_DIR)/smuxi-engine-xmpp.dll \
+	$(BUILD_DIR)/smuxi-frontend.dll \
+	$(BUILD_DIR)/Meebey.SmartIrc4net.dll \
+	$(BUILD_DIR)/Twitterizer2.dll \
+	$(BUILD_DIR)/Newtonsoft.Json.dll \
+	$(BUILD_DIR)/jabber-net.dll \
+	$(BUILD_DIR)/Db4objects.Db4o.dll
+
 LINUX_STATIC_FILES = \
 	$(LIB_DIR)/Mono.Posix.dll \
 	$(LIB_DIR)/Nini.dll \
@@ -144,6 +168,19 @@ dist-win32:
 	done
 	makensis $(top_srcdir)/src/smuxi-win32.nsis
 
+dist-osx:
+	./autogen.sh --without-indicate --without-notify --without-dbus
+	$(MAKE)
+	mkdir -p $(OSX_BINARIES_DIR) $(OSX_RESOURCES_DIR)
+	cp $(OSX_LIB_DIR)/Info.plist $(OSX_CONTENTS_DIR)
+	cp $(OSX_LIB_DIR)/smuxi $(OSX_BINARIES_DIR)
+	cp $(OSX_LIB_DIR)/smuxi.icns $(OSX_RESOURCES_DIR)
+	for FILE in $(OSX_FILES); do \
+		cp $$FILE $(OSX_BINARIES_DIR); \
+	done
+	-rm smuxi-osx.zip
+	cd $(OSX_BUILD_DIR) && zip -r ../smuxi-osx.zip Smuxi.app
+
 dist-linux-x86-static:
 	$(MAKE)
 	mkdir -p $(LINUX_STATIC_BUILD_DIR)
@@ -152,7 +189,7 @@ dist-linux-x86-static:
 		cp $$FILE $(LINUX_STATIC_BUILD_DIR); \
 	done
 	tar -czf smuxi-server-$(VERSION)-linux-x86-static.tar.gz $(LINUX_STATIC_BUILD_DIR)
-
+ 
 run: run-gnome
 run-gnome: all
 	cd $(BUILD_DIR) && \
