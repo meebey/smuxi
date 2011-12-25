@@ -62,6 +62,12 @@ namespace Smuxi.Engine
         private List<string>    _ActiveChannelJoinList = new List<string>();
         private AutoResetEvent  _ActiveChannelJoinHandle = new AutoResetEvent(false);
 
+        bool HasListMaskSearchSupport { get; set; }
+        bool HasSafeListSupport { get; set; }
+        IList<ChannelInfo> NetworkChannels { get; set; }
+        DateTime NetworkChannelsAge { get; set; }
+        TimeSpan NetworkChannelsMaxAge { get; set; }
+
         public override bool IsConnected {
             get {
                 if ((_IrcClient != null) &&
@@ -138,7 +144,9 @@ namespace Smuxi.Engine
         public IrcProtocolManager(Session session) : base(session)
         {
             Trace.Call(session);
-            
+
+            NetworkChannelsMaxAge = TimeSpan.FromMinutes(5);
+
             _IrcClient = new IrcFeatures();
             _IrcClient.AutoRetry = true;
             // keep retrying to connect forever
@@ -472,20 +480,48 @@ namespace Smuxi.Engine
         public override IList<GroupChatModel> FindGroupChats(GroupChatModel filter)
         {
             Trace.Call(filter);
-            
-            string channel = null;
-            if (filter != null) {
-                if (!String.IsNullOrEmpty(filter.Name) &&
-                    !filter.Name.StartsWith("*") && !filter.Name.EndsWith("*")) {
-                    channel = String.Format("*{0}*", filter.Name);
+
+            // invalidate channel list cache when too old
+            if (NetworkChannels != null &&
+                (DateTime.UtcNow - NetworkChannelsAge) > NetworkChannelsMaxAge) {
+                NetworkChannels = null;
+            }
+
+            string searchPattern = null;
+            if (filter == null || String.IsNullOrEmpty(filter.Name)) {
+                // full channel list
+            } else {
+                if (!filter.Name.StartsWith("*") && !filter.Name.EndsWith("*")) {
+                    searchPattern = String.Format("*{0}*", filter.Name);
                 } else {
-                    channel = filter.Name;
+                    searchPattern = filter.Name;
                 }
             }
-            
-            IList<ChannelInfo> infos = _IrcClient.GetChannelList(channel);
-            List<GroupChatModel> chats = new List<GroupChatModel>(infos.Count);
-            foreach (ChannelInfo info in infos) {
+            var channels = NetworkChannels;
+            if (channels == null && HasSafeListSupport) {
+                // fetch and cache full channel list from server
+                channels = _IrcClient.GetChannelList(String.Empty);
+                NetworkChannels = channels;
+                NetworkChannelsAge = DateTime.UtcNow;
+            } else if (channels == null && searchPattern != null &&
+                HasListMaskSearchSupport) {
+                channels = _IrcClient.GetChannelList(searchPattern);
+            } else if (channels == null) {
+                // Houston, we have a problem
+                // no safelist and empty search pattern, the IRCd might kill us!
+                channels = _IrcClient.GetChannelList(String.Empty);
+                NetworkChannels = channels;
+                NetworkChannelsAge = DateTime.UtcNow;
+            }
+
+            List<GroupChatModel> chats = new List<GroupChatModel>(channels.Count);
+            foreach (ChannelInfo info in channels) {
+                if (channels == NetworkChannels &&
+                    searchPattern != null &&
+                    !Pattern.IsMatch(info.Channel, searchPattern)) {
+                    continue;
+                }
+
                 GroupChatModel chat = new GroupChatModel(
                     info.Channel,
                     info.Channel,
@@ -2181,11 +2217,31 @@ namespace Smuxi.Engine
                     }
                     string[] supportList = line.Split(' ');
                     foreach (string support in supportList) {
-                        if (support.StartsWith("NETWORK=")) {
-                            _Network = support.Split('=')[1];
+                        string supportKey = null;
+                        string supportValue = null;
+                        if (support.Contains("=")) {
+                            supportKey = support.Split('=')[0];
+                            supportValue = support.Split('=')[1];
+                        } else {
+                            supportKey = support;
+                            supportValue = null;
+                        }
+                        switch (supportKey) {
+                            case "NETWORK":
+                                _Network = supportValue;
 #if LOG4NET
-                            _Logger.Debug("_OnRawMessage(): detected IRC network: '" + _Network + "'");
+                                _Logger.Debug(
+                                    "_OnRawMessage(): detected IRC network: " +
+                                    "'" + _Network + "'"
+                                );
 #endif
+                                break;
+                            case "ELIST":
+                                HasListMaskSearchSupport = supportValue.Contains("M");
+                                break;
+                            case "SAFELIST":
+                                HasSafeListSupport = true;
+                                break;
                         }
                     }
                     break;
