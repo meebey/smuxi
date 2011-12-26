@@ -741,9 +741,10 @@ namespace Smuxi.Frontend.Gnome
             Trace.Call();
 
             if (EngineVersion >= new Version("0.8.1.1")) {
+                var config = UserConfig;
                 ThreadPool.QueueUserWorkItem(delegate {
                     try {
-                        UserConfig.SyncCache();
+                        config.SyncCache();
                     } catch (Exception ex) {
 #if LOG4NET
                         _Logger.Error("SyncConfig(): " +
@@ -751,7 +752,7 @@ namespace Smuxi.Frontend.Gnome
 #endif
                     } finally {
                         Gtk.Application.Invoke(delegate {
-                            ApplyConfig(UserConfig);
+                            ApplyConfig(config);
                         });
                     }
                 });
