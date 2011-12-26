@@ -61,6 +61,7 @@ namespace Smuxi.Frontend.Gnome
             Add(OutputScrolledWindow);
         }
 
+        /*
         public override void Sync()
         {
             Trace.Call();
@@ -75,5 +76,6 @@ namespace Smuxi.Frontend.Gnome
 
             base.Sync();
         }
+        */
     }
 }

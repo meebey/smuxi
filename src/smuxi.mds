@@ -47,16 +47,16 @@
       <Entry build="True" name="Engine" configuration="Debug" />
       <Entry build="True" name="Server" configuration="Debug" />
       <Entry build="True" name="Frontend-GNOME" configuration="Debug" />
-      <Entry build="True" name="Frontend-Test" configuration="Debug" />
+      <Entry build="False" name="Frontend-Test" configuration="Debug" />
       <Entry build="True" name="Frontend" configuration="Debug" />
       <Entry build="True" name="Engine-IRC" configuration="Debug" />
       <Entry build="True" name="Engine-XMPP" configuration="Debug" />
       <Entry build="True" name="Frontend-GNOME-IRC" configuration="Debug" />
       <Entry build="True" name="Frontend-GNOME-XMPP" configuration="Debug" />
-      <Entry build="True" name="Frontend-SWF" configuration="Debug" />
+      <Entry build="False" name="Frontend-SWF" configuration="Debug" />
       <Entry build="False" name="Frontend-WPF" configuration="Debug" />
       <Entry build="True" name="Frontend-Curses" configuration="Debug" />
-      <Entry build="True" name="Frontend-STFL" configuration="Debug" />
+      <Entry build="False" name="Frontend-STFL" configuration="Debug" />
       <Entry build="True" name="Engine-MSNP" configuration="Debug" />
       <Entry build="True" name="Engine-OSCAR" configuration="Debug" />
       <Entry build="True" name="Packages" configuration="Debug" />

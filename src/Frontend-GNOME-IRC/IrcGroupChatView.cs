@@ -58,14 +58,14 @@ namespace Smuxi.Frontend.Gnome
             }
         }
 
-        public override void Sync()
+        public override ChatInfoModel Sync()
         {
             Trace.Call();
 
             // REMOTING CALL 1
             _IrcProtocolManager = (IrcProtocolManager) ChatModel.ProtocolManager;
 
-            base.Sync();
+            return base.Sync();
         }
 
         private void _RenderIrcGroupPersonMode(Gtk.TreeViewColumn column,

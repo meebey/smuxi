@@ -206,7 +206,16 @@ namespace Smuxi.Frontend.Gnome
             _PersonListStore.Clear();
             UpdatePersonCount();
         }
-        
+
+        public override ChatInfoModel Sync()
+        {
+            var info = (GroupChatInfoModel) base.Sync();
+            SyncedPersons = info.Persons;
+            SyncedTopic = info.Topic;
+            return info;
+        }
+
+        /*
         public override void Sync()
         {
             Trace.Call();
@@ -233,6 +242,7 @@ namespace Smuxi.Frontend.Gnome
 
             base.Sync();
         }
+         */
 
         public override void Populate()
         {

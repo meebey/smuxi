@@ -41,14 +41,14 @@ namespace Smuxi.Frontend.Gnome
             OutputMessageTextView.PopulatePopup += _OnOutputMessageTextViewPopulatePopup;
         }
 
-        public override void Sync()
+        public override ChatInfoModel Sync()
         {
             Trace.Call();
 
             // REMOTING CALL 1
             _IrcProtocolManager = (IrcProtocolManager) ChatModel.ProtocolManager;
 
-            base.Sync();
+            return base.Sync();
         }
 
         private void _OnOutputMessageTextViewPopulatePopup (object o, Gtk.PopulatePopupArgs args)

@@ -453,6 +453,40 @@ namespace Smuxi.Frontend.Gnome
             _IsSynced = false;
         }
         
+        public virtual void PreSync()
+        {
+            Trace.Call();
+
+            GLib.Idle.Add(delegate {
+                TabImage.SetFromStock(Gtk.Stock.Refresh, Gtk.IconSize.Menu);
+                return false;
+            });
+        }
+
+        //public virtual T Sync<T>() where T : ChatInfoModel
+        public virtual ChatInfoModel Sync()
+        {
+            Trace.Call();
+
+            ChatInfoModel info;
+            // REMOTING CALL
+            if (this is GroupChatView) {
+                info = Frontend.FrontendManager.GetSyncSnapshot<GroupChatInfoModel>(_ChatModel);
+            } else {
+                info = Frontend.FrontendManager.GetSyncSnapshot<ChatInfoModel>(_ChatModel);
+            }
+            SyncedName = info.Name;
+            SyncedLastSeenHighlight = info.LastSeenHighlight;
+            SyncedMessages = info.Messages;
+            return info;
+        }
+
+        public virtual void PostSync()
+        {
+            Trace.Call();
+        }
+
+/*
         public virtual void Sync()
         {
             Trace.Call();
@@ -487,6 +521,7 @@ namespace Smuxi.Frontend.Gnome
             );
 #endif
         }
+*/
 
         public virtual void Populate()
         {

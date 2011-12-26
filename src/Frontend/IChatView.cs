@@ -39,7 +39,7 @@ namespace Smuxi.Frontend
 
         void Enable();
         void Disable();
-        void Sync();
+        ChatInfoModel Sync();
         void Populate();
 
         void ScrollUp();

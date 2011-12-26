@@ -79,6 +79,8 @@
     <File subtype="Code" buildaction="Compile" name="Config/EntrySettings.cs" />
     <File subtype="Code" buildaction="Compile" name="Messages/FeedMessageBuilder.cs" />
     <File subtype="Code" buildaction="Compile" name="Config/ProxySettings.cs" />
+    <File subtype="Code" buildaction="Compile" name="Chats/ChatInfoModel.cs" />
+    <File subtype="Code" buildaction="Compile" name="Chats/GroupChatInfoModel.cs" />
   </Contents>
   <References>
     <ProjectReference type="Assembly" localcopy="True" refto="../../lib/log4net.dll" />

@@ -47,6 +47,8 @@ namespace Smuxi.Engine
         private TaskQueue        f_TaskQueue;
 
         DateTime LastConfigChange;
+        List<ChatModel> SyncingChats { get; set; }
+        Dictionary<ChatModel, Queue<Action>> SyncingQueues { get; set; }
 
         public int Version {
             get {
@@ -109,6 +111,9 @@ namespace Smuxi.Engine
             f_TaskQueue = new TaskQueue("FrontendManager");
             f_TaskQueue.ExceptionEvent += OnTaskQueueExceptionEvent;
             f_TaskQueue.AbortedEvent   += OnTaskQueueAbortedEvent;
+
+            SyncingChats = new List<ChatModel>();
+            SyncingQueues = new Dictionary<ChatModel, Queue<Action>>();
 
             // register event for config invalidation
             _Session.Config.Changed += _OnConfigChanged;
@@ -179,6 +184,23 @@ namespace Smuxi.Engine
             _Session.CheckPresenceStatus();
         }
 
+        public T GetSyncSnapshot<T>(ChatModel chatModel) where T : ChatInfoModel
+        {
+            // this method must be thread-safe as the frontend might sync
+            // multiple chats at the same time
+            lock (SyncingChats) {
+                SyncingChats.Add(chatModel);
+            }
+            lock (SyncingQueues) {
+                Queue<Action> queue = null;
+                if (!SyncingQueues.TryGetValue(chatModel, out queue)) {
+                    queue = new Queue<Action>();
+                    SyncingQueues.Add(chatModel, queue);
+                }
+            }
+            return (T) chatModel.GetInfo();
+        }
+
         /// <remarks>
         /// This method is thread safe.
         /// </remarks>
@@ -200,6 +222,23 @@ namespace Smuxi.Engine
             // multiple chats at the same time
             lock (_SyncedChats) {
                 _SyncedChats.Add(chatModel);
+            }
+
+            // re-queue all queued events for this chat since the frontend
+            // started the sync of it
+            lock (SyncingQueues) {
+                Queue<Action> queue = null;
+                if (SyncingQueues.TryGetValue(chatModel, out queue)) {
+                    SyncingQueues.Remove(chatModel);
+#if LOG4NET
+                    _Logger.ErrorFormat("AddSyncedChat(): " +
+                                        "re-queueing {0} events", queue.Count);
+#endif
+                    while (queue.Count > 0) {
+                        var action = queue.Dequeue();
+                        action();
+                    }
+                }
             }
         }
         
@@ -278,6 +317,18 @@ namespace Smuxi.Engine
         
         public void AddMessageToChat(ChatModel chat, MessageModel msg)
         {
+            if (IsSyncing(chat)) {
+                // FIXME: queue event!
+                lock (SyncingQueues) {
+                    Queue<Action> queue = null;
+                    if (SyncingQueues.TryGetValue(chat, out queue)) {
+                        queue.Enqueue(delegate {
+                            AddMessageToChat(chat, msg);
+                        });
+                        return;
+                    }
+                }
+            }
             if (!IsSynced(chat)) {
 #if LOG4NET
                 // too much logging noise
@@ -285,8 +336,6 @@ namespace Smuxi.Engine
 #endif
                 return;
             }
-            // BUG: if the frontend is syncing this chat, he probably will lose
-            // messages heres!
             _AddMessageToChat(chat, msg);
         }
         
@@ -441,6 +490,17 @@ namespace Smuxi.Engine
 
             lock (_SyncedChats) {
                 return _SyncedChats.Contains(chatModel);
+            }
+        }
+
+        bool IsSyncing(ChatModel chatModel)
+        {
+            if (chatModel == null) {
+                throw new ArgumentNullException("chatModel");
+            }
+
+            lock (SyncingChats) {
+                return SyncingChats.Contains(chatModel);
             }
         }
 

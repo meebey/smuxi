@@ -234,5 +234,18 @@ namespace Smuxi.Engine
             }
             return foundIdentityNames;
         }
+
+        public override ChatInfoModel CreateInfo()
+        {
+            return new GroupChatInfoModel();
+        }
+
+        public override ChatInfoModel GetInfo()
+        {
+            var info = (GroupChatInfoModel) base.GetInfo();
+            info.Topic = Topic;
+            info.Persons = Persons;
+            return info;
+        }
     }
 }

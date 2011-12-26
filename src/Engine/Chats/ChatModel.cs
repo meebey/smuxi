@@ -322,6 +322,25 @@ namespace Smuxi.Engine
             MessageBuffer = null;
         }
 
+        public virtual ChatInfoModel CreateInfo()
+        {
+            return new ChatInfoModel();
+        }
+
+        public virtual ChatInfoModel GetInfo()
+        {
+            var info = CreateInfo();
+            info.ID = ID;
+            info.Name = Name;
+            info.ChatType = ChatType;
+            info.Messages = Messages;
+            info.IsEnabled = IsEnabled;
+            info.LastSeenHighlight = LastSeenHighlight;
+            info.Position = Position;
+            info.MessagesSyncCount = MessagesSyncCount;
+            return info;
+        }
+
         static string _(string msg)
         {
             return LibraryCatalog.GetString(msg, LibraryTextDomain);
