@@ -108,7 +108,7 @@ namespace Smuxi.Engine
                     string controlChars = controlChar.ToString();
                     switch (controlCode) {
                         case IrcControlCode.Clear:
-#if LOG4NET
+#if LOG4NET && MSG_DEBUG
                             Logger.Debug("AppendMessage(): found clear control character");
 #endif
                             bold = false;
@@ -120,30 +120,30 @@ namespace Smuxi.Engine
                             bg_color = IrcTextColor.Normal;
                             break;
                         case IrcControlCode.Bold:
-#if LOG4NET
+#if LOG4NET && MSG_DEBUG
                             Logger.Debug("AppendMessage(): found bold control character");
 #endif
                             bold = !bold;
                             break;
                         case IrcControlCode.Underline:
-#if LOG4NET
+#if LOG4NET && MSG_DEBUG
                             Logger.Debug("AppendMessage(): found underline control character");
 #endif
                             underline = !underline;
                             break;
                         case IrcControlCode.Italic:
-#if LOG4NET
+#if LOG4NET && MSG_DEBUG
                             Logger.Debug("AppendMessage(): found italic control character");
 #endif
                             italic = !italic;
                             break;
                         case IrcControlCode.Color:
-#if LOG4NET
+#if LOG4NET && MSG_DEBUG
                             Logger.Debug("AppendMessage(): found color control character");
 #endif
                             color = !color;
                             string colorMessage = msg.Substring(controlPos);
-#if LOG4NET
+#if LOG4NET && MSG_DEBUG
                             Logger.Debug("AppendMessage(): colorMessage: '" + colorMessage + "'");
 #endif
                             Match match = Regex.Match(colorMessage, (char)IrcControlCode.Color + "(?<fg>[0-9][0-9]?)(,(?<bg>[0-9][0-9]?))?");
@@ -151,7 +151,7 @@ namespace Smuxi.Engine
                                 controlChars = match.Value;
                                 int color_code;
                                 if (match.Groups["fg"] != null) {
-#if LOG4NET
+#if LOG4NET && MSG_DEBUG
                                     Logger.Debug("AppendMessage(): match.Groups[fg].Value: " + match.Groups["fg"].Value);
 #endif
                                     try {
@@ -162,7 +162,7 @@ namespace Smuxi.Engine
                                     }
                                 }
                                 if (match.Groups["bg"] != null) {
-#if LOG4NET
+#if LOG4NET && MSG_DEBUG
                                     Logger.Debug("AppendMessage(): match.Groups[bg].Value: " + match.Groups["bg"].Value);
 #endif
                                     try {
@@ -177,13 +177,13 @@ namespace Smuxi.Engine
                                 fg_color = IrcTextColor.Normal;
                                 bg_color = IrcTextColor.Normal;
                             }
-#if LOG4NET
+#if LOG4NET && MSG_DEBUG
                             Logger.Debug("AppendMessage(): fg_color.HexCode: " + String.Format("0x{0:X6}", fg_color.HexCode));
                             Logger.Debug("AppendMessage(): bg_color.HexCode: " + String.Format("0x{0:X6}", bg_color.HexCode));
 #endif
                             break;
                     }
-#if LOG4NET
+#if LOG4NET && MSG_DEBUG
                     Logger.Debug("AppendMessage(): controlChars.Length: " + controlChars.Length);
 #endif
 
