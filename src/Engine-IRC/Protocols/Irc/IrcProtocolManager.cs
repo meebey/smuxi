@@ -362,6 +362,17 @@ namespace Smuxi.Engine
                 if (realname.Trim().Length == 0) {
                     realname = "unset";
                 }
+                if (!Regex.IsMatch(_Username, "^[a-z0-9]+$", RegexOptions.IgnoreCase)) {
+                    var builder = CreateMessageBuilder();
+                    builder.AppendEventPrefix();
+                    builder.AppendWarningText(
+                        "Warning: Your username (ident) contains special " +
+                        "characters which the IRC server might refuse. " +
+                        "If this happens please change your username in the " +
+                        "server settings."
+                    );
+                    Session.AddMessageToChat(_NetworkChat, builder.ToMessage());
+                }
                 _IrcClient.Login(_Nicknames, realname, 0, _Username, _Password);
                 
                 foreach (string command in (string[]) Session.UserConfig["Connection/OnConnectCommands"]) {
