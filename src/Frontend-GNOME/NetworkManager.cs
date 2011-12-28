@@ -110,10 +110,11 @@ namespace Smuxi.Frontend.Gnome
             }
 
             switch (state) {
+                case (int) StateNM9.Disconnecting:
                 case (int) StateNM8.Disconnected:
                 case (int) StateNM9.Disconnected:
                     if (!Frontend.IsLocalEngine) {
-                        ChatViewManager.IsSensitive = false;
+                        Frontend.DisconnectEngineFromGUI();
                     }
                     break;
                 case (int) StateNM8.Connected:
