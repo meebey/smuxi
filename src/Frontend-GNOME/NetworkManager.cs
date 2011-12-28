@@ -67,6 +67,7 @@ namespace Smuxi.Frontend.Gnome
         INetworkManager Manager { get; set; }
         ChatViewManager ChatViewManager { get; set; }
         bool IsInitialized { get; set; }
+        bool WasLocalEngine { get; set; }
 
         public NetworkManager(ChatViewManager chatViewManager)
         {
@@ -105,10 +106,6 @@ namespace Smuxi.Frontend.Gnome
         {
             Trace.Call(state);
 
-            if (Frontend.Session == null) {
-                return;
-            }
-
             switch (state) {
                 case (int) StateNM9.Disconnecting:
                     if (!Frontend.IsLocalEngine) {
@@ -117,6 +114,7 @@ namespace Smuxi.Frontend.Gnome
                     break;
                 case (int) StateNM8.Disconnected:
                 case (int) StateNM9.Disconnected:
+                    WasLocalEngine = Frontend.IsLocalEngine;
                     if (!Frontend.IsLocalEngine) {
                         Frontend.DisconnectEngineFromGUI(false);
                     }
@@ -124,7 +122,7 @@ namespace Smuxi.Frontend.Gnome
                 case (int) StateNM8.Connected:
                 case (int) StateNM9.ConnectedSite:
                 case (int) StateNM9.ConnectedGlobal:
-                    if (Frontend.IsLocalEngine) {
+                    if (WasLocalEngine) {
                         // reconnect local protocol managers
                         foreach (var protocolManager in Frontend.Session.ProtocolManagers) {
                             protocolManager.Reconnect(Frontend.FrontendManager);
