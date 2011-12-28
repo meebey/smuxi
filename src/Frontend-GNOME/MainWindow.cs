@@ -117,7 +117,17 @@ namespace Smuxi.Frontend.Gnome
             get {
                 return _Statusbar;
             }
-        } 
+        }
+
+        public string Status {
+            set {
+                if (value == null) {
+                    value = String.Empty;
+                }
+                _Statusbar.Pop(0);
+                _Statusbar.Push(0, value);
+            }
+        }
 
         public Gtk.ProgressBar ProgressBar {
             get {
