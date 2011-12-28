@@ -298,7 +298,7 @@ namespace Smuxi.Frontend.Gnome
                 TraceRemotingCall(mb, status);
 
                 try {
-                    Frontend.MainWindow.NetworkStatusbar.Push(0, status);
+                    Frontend.MainWindow.NetworkStatus = status;
                     Frontend.MainWindow.UpdateTitle(null, status);
                 } catch (Exception ex) {
                     Frontend.ShowException(ex);
@@ -315,7 +315,7 @@ namespace Smuxi.Frontend.Gnome
                 TraceRemotingCall(mb, status);
 
                 try {
-                    Frontend.MainWindow.Statusbar.Push(0, status);
+                    Frontend.MainWindow.Status = status;
                 } catch (Exception ex) {
                     Frontend.ShowException(ex);
                 }

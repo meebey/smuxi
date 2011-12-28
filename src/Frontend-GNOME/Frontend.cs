@@ -358,12 +358,9 @@ namespace Smuxi.Frontend.Gnome
                     var attempt = 1;
                     while (!successful) {
                         Gtk.Application.Invoke(delegate {
-                            MainWindow.Statusbar.Push(
-                                0,
-                                String.Format(
-                                    _("Reconnecting to engine... (attempt {0})"),
-                                    attempt++
-                                )
+                            MainWindow.Status = String.Format(
+                                _("Reconnecting to engine... (attempt {0})"),
+                                attempt++
                             );
                         });
                         try {

@@ -113,17 +113,15 @@ namespace Smuxi.Frontend.Gnome
             }
         }
         
-        public new Gtk.Statusbar NetworkStatusbar {
-            get {
-                return _NetworkStatusbar;
+        public string NetworkStatus {
+            set {
+                if (value == null) {
+                    value = String.Empty;
+                }
+                _NetworkStatusbar.Pop(0);
+                _NetworkStatusbar.Push(0, value);
             }
         } 
-
-        public new Gtk.Statusbar Statusbar {
-            get {
-                return _Statusbar;
-            }
-        }
 
         public string Status {
             set {

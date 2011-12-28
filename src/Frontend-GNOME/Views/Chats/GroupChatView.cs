@@ -244,7 +244,7 @@ namespace Smuxi.Frontend.Gnome
                 string status = String.Format(
                                     _("Retrieving user list for {0}..."),
                                     SyncedName);
-                Frontend.MainWindow.Statusbar.Push(0, status);
+                Frontend.MainWindow.Status = status;
     
                 Gtk.ListStore ls = (Gtk.ListStore) _PersonTreeView.Model;
                 // cleanup, be sure the list is empty
@@ -277,7 +277,7 @@ namespace Smuxi.Frontend.Gnome
                
                 // TRANSLATOR: this string will be appended to the one above
                 status += String.Format(" {0}", _("done."));
-                Frontend.MainWindow.Statusbar.Push(0, status);
+                Frontend.MainWindow.Status = status;
             }
 
             Topic = SyncedTopic;
