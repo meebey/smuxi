@@ -211,7 +211,9 @@ namespace Smuxi.Frontend.Gnome
 
         private void OnChatViewMessageHighlighted(object sender, MessageTextViewMessageHighlightedEventArgs e)
         {
+#if MSG_DEBUG
             Trace.Call(sender, e);
+#endif
 
             if (f_StatusIcon == null) {
                 return;

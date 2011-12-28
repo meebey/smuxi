@@ -207,7 +207,9 @@ namespace Smuxi.Frontend.Gnome
                                           MessageTextViewMessageHighlightedEventArgs e,
                                           ChatView chatView)
         {
+#if MSG_DEBUG
             Trace.Call(sender, e, chatView);
+#endif
 
             if (!IsEnabled ||
                 e.Message.TimeStamp <= chatView.SyncedLastSeenHighlight ||
