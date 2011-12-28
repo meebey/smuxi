@@ -248,6 +248,8 @@ namespace Smuxi.Frontend.Gnome
             get;
         }
 
+        public event EventHandler<ChatViewMessageHighlightedEventArgs> MessageHighlighted;
+
         public ChatView(ChatModel chat)
         {
             Trace.Call(chat);
@@ -696,6 +698,13 @@ namespace Smuxi.Frontend.Gnome
                     HasHighlight = true;
                 }
             }
+
+            if (e.Message.TimeStamp <= SyncedLastSeenHighlight) {
+                // unseen highlight
+                if (MessageHighlighted != null) {
+                    MessageHighlighted(this, new ChatViewMessageHighlightedEventArgs(e.Message));
+                }
+            }
         }
 
         protected virtual void OnMessageTextViewPopulatePopup(object sender, Gtk.PopulatePopupArgs e)
@@ -745,6 +754,16 @@ namespace Smuxi.Frontend.Gnome
         private static string _(string msg)
         {
             return Mono.Unix.Catalog.GetString(msg);
+        }
+    }
+
+    public class ChatViewMessageHighlightedEventArgs : EventArgs
+    {
+        public MessageModel Message { get; set; }
+
+        public ChatViewMessageHighlightedEventArgs(MessageModel msg)
+        {
+            Message = msg;
         }
     }
 }
