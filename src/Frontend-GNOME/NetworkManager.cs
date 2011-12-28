@@ -29,7 +29,7 @@ using Smuxi.Common;
 
 namespace Smuxi.Frontend.Gnome
 {
-    public enum State : int {
+    public enum StateNM8 : int {
         Unknown = 0,
         Asleep,
         Connecting,
@@ -37,11 +37,23 @@ namespace Smuxi.Frontend.Gnome
         Disconnected
     }
 
-    public delegate void StateChangedEventHandler(State state);
+    public enum StateNM9 : int {
+        Unknown         = 0,
+        Asleep          = 10,
+        Disconnected    = 20,
+        Disconnecting   = 30,
+        Connecting      = 40,
+        ConnectedLocal  = 50,
+        ConnectedSite   = 60,
+        ConnectedGlobal = 70
+    }
+
+    public delegate void StateChangedEventHandler(int state);
 
     [Interface("org.freedesktop.NetworkManager")]
     public interface INetworkManager
     {
+        string Version();
         event StateChangedEventHandler StateChanged;
     }
 
@@ -89,7 +101,7 @@ namespace Smuxi.Frontend.Gnome
             IsInitialized = true;
         }
 
-        void OnStateChanged(State state)
+        void OnStateChanged(int state)
         {
             Trace.Call(state);
 
@@ -98,12 +110,15 @@ namespace Smuxi.Frontend.Gnome
             }
 
             switch (state) {
-                case State.Disconnected:
+                case (int) StateNM8.Disconnected:
+                case (int) StateNM9.Disconnected:
                     if (!Frontend.IsLocalEngine) {
                         ChatViewManager.IsSensitive = false;
                     }
                     break;
-                case State.Connected:
+                case (int) StateNM8.Connected:
+                case (int) StateNM9.ConnectedSite:
+                case (int) StateNM9.ConnectedGlobal:
                     if (Frontend.IsLocalEngine) {
                         // reconnect local protocol managers
                         foreach (var protocolManager in Frontend.Session.ProtocolManagers) {
@@ -111,7 +126,6 @@ namespace Smuxi.Frontend.Gnome
                         }
                     } else {
                         Frontend.ReconnectEngineToGUI();
-                        ChatViewManager.IsSensitive = true;
                     }
                     break;
             }
