@@ -67,7 +67,13 @@ namespace Smuxi.Frontend.Gnome
         private bool             _IsMinimized;
         private bool             _IsMaximized;
         private bool             _IsFullscreen;
-        
+
+        public Gtk.MenuBar MenuBar {
+            get {
+                return _MenuBar;
+            }
+        }
+
         public bool ShowMenuBar {
             get {
                 return _MenuBar.Visible;

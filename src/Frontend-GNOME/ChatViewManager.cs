@@ -91,6 +91,8 @@ namespace Smuxi.Frontend.Gnome
         public bool IsSensitive {
             set {
                 f_Notebook.Sensitive = value;
+                Frontend.MainWindow.MenuBar.Sensitive = value;
+                Frontend.MainWindow.Entry.Sensitive = value;
             }
             get {
                 return f_Notebook.Sensitive;

@@ -111,10 +111,14 @@ namespace Smuxi.Frontend.Gnome
 
             switch (state) {
                 case (int) StateNM9.Disconnecting:
+                    if (!Frontend.IsLocalEngine) {
+                        Frontend.DisconnectEngineFromGUI(true);
+                    }
+                    break;
                 case (int) StateNM8.Disconnected:
                 case (int) StateNM9.Disconnected:
                     if (!Frontend.IsLocalEngine) {
-                        Frontend.DisconnectEngineFromGUI();
+                        Frontend.DisconnectEngineFromGUI(false);
                     }
                     break;
                 case (int) StateNM8.Connected:
@@ -126,7 +130,7 @@ namespace Smuxi.Frontend.Gnome
                             protocolManager.Reconnect(Frontend.FrontendManager);
                         }
                     } else {
-                        Frontend.ReconnectEngineToGUI();
+                        Frontend.ReconnectEngineToGUI(false);
                     }
                     break;
             }
