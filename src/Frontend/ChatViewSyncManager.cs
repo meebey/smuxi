@@ -239,7 +239,13 @@ namespace Smuxi.Frontend
 
                 IChatView chatView = null;
                 lock (SyncReleaseQueue) {
-                    SyncReleaseQueue.TryGetValue(chatKey, out chatView);
+                    if (!SyncReleaseQueue.TryGetValue(chatKey, out chatView)) {
+#if LOG4NET
+                        Logger.Warn("SyncWorker(): chatView is null! " +
+                                    "probably a reconnect, bailing out...");
+#endif
+                        return;
+                    }
                 }
 
                 Sync(chatView);
