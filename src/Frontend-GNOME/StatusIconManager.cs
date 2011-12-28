@@ -201,15 +201,15 @@ namespace Smuxi.Frontend.Gnome
 
         protected void OnChatViewManagerChatAdded(object sender, ChatViewManagerChatAddedEventArgs e)
         {
-            e.ChatView.OutputMessageTextView.MessageHighlighted += OnChatViewMessageHighlighted;
+            e.ChatView.MessageHighlighted += OnChatViewMessageHighlighted;
         }
 
         protected void OnChatViewManagerChatRemoved(object sender, ChatViewManagerChatRemovedEventArgs e)
         {
-            e.ChatView.OutputMessageTextView.MessageHighlighted -= OnChatViewMessageHighlighted;
+            e.ChatView.MessageHighlighted -= OnChatViewMessageHighlighted;
         }
 
-        private void OnChatViewMessageHighlighted(object sender, MessageTextViewMessageHighlightedEventArgs e)
+        private void OnChatViewMessageHighlighted(object sender, ChatViewMessageHighlightedEventArgs e)
         {
 #if MSG_DEBUG
             Trace.Call(sender, e);
