@@ -349,10 +349,14 @@ namespace Smuxi.Frontend.Gnome
             var disconnectedEvent = new AutoResetEvent(false);
             ThreadPool.QueueUserWorkItem(delegate {
                 try {
-                    Gtk.Application.Invoke(delegate {
+                    // delay the disconnect to give the reconnect some extra
+                    // time as NetworkManager is not accurate about when the
+                    // network is really ready
+                    GLib.Timeout.Add(5 * 1000, delegate {
                         MainWindow.ChatViewManager.IsSensitive = false;
                         Frontend.DisconnectEngineFromGUI(cleanly);
                         disconnectedEvent.Set();
+                        return false;
                     });
 
                     var successful = false;
