@@ -677,7 +677,9 @@ namespace Smuxi.Frontend.Gnome
                 }
             }
 
-            if (e.Message.TimeStamp <= SyncedLastSeenHighlight) {
+            if (e.Message.TimeStamp > SyncedLastSeenHighlight) {
+                // unseen highlight
+
                 // HACK: out of scope?
                 // only beep if the main windows has no focus (the user is
                 // elsewhere) and the chat is was already synced, as during sync we
@@ -700,7 +702,6 @@ namespace Smuxi.Frontend.Gnome
                     }
                 }
 
-                // unseen highlight
                 if (MessageHighlighted != null) {
                     MessageHighlighted(this, new ChatViewMessageHighlightedEventArgs(e.Message));
                 }
