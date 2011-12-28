@@ -321,6 +321,7 @@ namespace Smuxi.Frontend.Gnome
             _MainWindow.ChatViewManager.Clear();
             // make sure no stray SSH tunnel leaves behind
             _MainWindow.EngineManager.Disconnect();
+            _MainWindow.NetworkStatus = null;
             _MainWindow.Status = _("Disconnected from engine.");
 
             _FrontendManager = null;
@@ -358,6 +359,7 @@ namespace Smuxi.Frontend.Gnome
                     var attempt = 1;
                     while (!successful) {
                         Gtk.Application.Invoke(delegate {
+                            MainWindow.NetworkStatus = null;
                             MainWindow.Status = String.Format(
                                 _("Reconnecting to engine... (attempt {0})"),
                                 attempt++
