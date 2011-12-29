@@ -59,6 +59,9 @@ update-pot:
 		$(MAKE) -C $$PODIR check 2>&1 | grep -v 'mismatched quotes at line' 2>&1; \
 	done
 
+update-transifex:
+	tx pull -l ca,da,de,en_GB,es,fi,fr,ru,sk,sv,tr,ur,zh_CN
+
 mail-po: update-po
 	for PODIR in $(PODIRS); do \
 		echo $$PODIR; \
