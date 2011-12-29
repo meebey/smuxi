@@ -196,5 +196,49 @@ namespace Smuxi.Engine
                                   true, CultureInfo.InvariantCulture);
 
         }
+
+        public override bool Equals(object obj)
+        {
+            var value = obj as ContactModel;
+            if (value == null) {
+                return false;
+            }
+            return Equals(value);
+        }
+
+        public virtual bool Equals(ContactModel model)
+        {
+            if (model == null) {
+                return false;
+            }
+            if (ID != model.ID) {
+                return false;
+            }
+            if (NetworkID != model.NetworkID) {
+                return false;
+            }
+            if (NetworkProtocol != model.NetworkProtocol) {
+                return false;
+            }
+            return true;
+        }
+
+        public static bool operator ==(ContactModel a, ContactModel b)
+        {
+            if (System.Object.ReferenceEquals(a, b)) {
+                return true;
+            }
+
+            if ((object) a == null || (object) b == null) {
+                return false;
+            }
+
+            return a.Equals(b);
+        }
+
+        public static bool operator !=(ContactModel a, ContactModel b)
+        {
+            return !(a == b);
+        }
     }
 }
