@@ -1,31 +1,51 @@
-# Danish translation smuxi-engine.
-# Copyright (C) 2010 smuxi-engine & nedenstående oversættere.
-# This file is distributed under the same license as the smuxi-engine package.
-# Bjarke Sørensen <bs@wasd.dk>, 2006.
-# Joe Hansen (joedalton2@yahoo.dk), 2010.
-#
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+# Joe Hansen <joedalton2@yahoo.dk>, 2011.
 msgid ""
 msgstr ""
-"Project-Id-Version: smuxi-engine\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-09-02 15:23+0200\n"
-"PO-Revision-Date: 2010-09-03 12:42+0000\n"
+"Project-Id-Version: Smuxi - IRC client\n"
+"Report-Msgid-Bugs-To: http://www.smuxi.org/issues\n"
+"POT-Creation-Date: 2011-12-29 09:19+0100\n"
+"PO-Revision-Date: 2011-12-29 19:56+0000\n"
 "Last-Translator: Joe Hansen <joedalton2@yahoo.dk>\n"
-"Language-Team: Danish <debian-l10n-danish@lists.debian.org>\n"
+"Language-Team: Danish (http://www.transifex.net/projects/p/smuxi/team/da/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: da\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
-#: ../src/Engine/FrontendManager.cs:230
+#: ../src/Engine/FrontendManager.cs:233
 msgid "No network connections"
 msgstr "Ingen netværksforbindelser"
 
-#: ../src/Engine/Protocols/ProtocolManagerBase.cs:161
+#: ../src/Engine/MessageBuffers/Db4oMessageBuffer.cs:295
+#, csharp-format
+msgid "Optimizing: {0}..."
+msgstr "Optimerer: {0}..."
+
+#: ../src/Engine/MessageBuffers/Db4oMessageBuffer.cs:313
+#, csharp-format
+msgid "Failed to optimize: {0}. Reason: {1}"
+msgstr "Kunne ikke optimere: {0}. Årsag: {1}"
+
+#: ../src/Engine/MessageBuffers/Db4oMessageBuffer.cs:347
+msgid ""
+"Your chat history is no longer available because of an error but will be "
+"preserved from now on."
+msgstr ""
+"Din snakkehistorik er ikke længere tilgængelig på grund af en fejl, men den "
+"vil blive gemt fremadrettet."
+
+#: ../src/Engine/Protocols/ProtocolManagerBase.cs:170
 msgid "Not connected to server"
 msgstr "Ikke forbundet til server"
 
-#: ../src/Engine/Protocols/ProtocolManagerBase.cs:173
-#: ../src/Engine/Session.cs:751
+#: ../src/Engine/Protocols/ProtocolManagerBase.cs:178
+#: ../src/Engine/Session.cs:778
 #, csharp-format
 msgid "Not enough parameters for {0} command"
 msgstr "Ikke nok parametre for kommandoen {0}"
@@ -35,110 +55,124 @@ msgstr "Ikke nok parametre for kommandoen {0}"
 msgid "Connected to {0}"
 msgstr "Forbundet til {0}"
 
-#: ../src/Engine/Protocols/ProtocolManagerBase.cs:213
+#: ../src/Engine/Protocols/ProtocolManagerBase.cs:207
 #, csharp-format
 msgid "Disconnected from {0}"
 msgstr "Ikke længere forbundet til {0}"
 
-#: ../src/Engine/Session.cs:154
-msgid "Welcome to Smuxi"
-msgstr "Velkommen til Smuxi"
-
-#: ../src/Engine/Session.cs:160
-msgid "Type /help to get a list of available commands."
-msgstr "Tast /help for en liste over tilgængelige kommandoer."
-
-#: ../src/Engine/Session.cs:163
-msgid ""
-"After you have made a connection the list of available commands changes. Use "
-"the /help command again to see the extended command list."
-msgstr ""
-"Efter du har foretaget en tilslutning ændres listen over tilgængelige "
-"kommandoer. Brug kommandoen /help igen for at se den udvidede kommandoliste."
-
-#: ../src/Engine/Session.cs:216
+#: ../src/Engine/Session.cs:218
 #, csharp-format
 msgid "Automatic connect to {0} failed!"
 msgstr "Automatisk tilslutning til {0} mislykkedes!"
 
 #. TRANSLATOR: this line is used as a label / category for a
 #. list of commands below
-#: ../src/Engine/Session.cs:411
+#: ../src/Engine/Session.cs:416
 msgid "Engine Commands"
 msgstr "Motorkommandoer"
 
-#: ../src/Engine/Session.cs:514
+#: ../src/Engine/Session.cs:527
 msgid "Connect failed!"
 msgstr "Tilslutning mislykkedes!"
 
-#: ../src/Engine/Session.cs:544
+#: ../src/Engine/Session.cs:550
 #, csharp-format
 msgid "Disconnect failed - could not find server: {0}"
 msgstr "Afbrydelse fejlede - kunne ikke finde server: {0}"
 
-#: ../src/Engine/Session.cs:583
+#: ../src/Engine/Session.cs:589
 msgid "Reconnect failed!"
 msgstr "Gentilslutning mislykkedes!"
 
-#: ../src/Engine/Session.cs:602
+#: ../src/Engine/Session.cs:608
 msgid "Configuration reloaded"
 msgstr "Konfiguration genindlæst"
 
-#: ../src/Engine/Session.cs:607
+#: ../src/Engine/Session.cs:613
 msgid "Configuration saved"
 msgstr "Konfiguration gemt"
 
-#: ../src/Engine/Session.cs:611
+#: ../src/Engine/Session.cs:617
 msgid "Invalid parameter for config; use load or save"
 msgstr "Ugyldigt parameter for konfig; brug load (indlæs) eller save (gem)"
 
-#: ../src/Engine/Session.cs:641
+#: ../src/Engine/Session.cs:676
 msgid "Invalid parameter for network; use list, switch, or close"
 msgstr ""
 "Ugyldigt parameter for netværk; brug list (vis), switch (skift) eller close "
 "(luk)"
 
-#: ../src/Engine/Session.cs:652
+#: ../src/Engine/Session.cs:687
 msgid "Networks"
 msgstr "Netværk"
 
-#: ../src/Engine/Session.cs:656
-msgid "Type"
-msgstr "Type"
+#: ../src/Engine/Session.cs:691
+msgid "Protocol"
+msgstr "Protokol"
 
-#: ../src/Engine/Session.cs:657
+#: ../src/Engine/Session.cs:692
+msgid "Network"
+msgstr "Netværk"
+
+#: ../src/Engine/Session.cs:693
 msgid "Host"
 msgstr "Vært"
 
-#: ../src/Engine/Session.cs:658
+#: ../src/Engine/Session.cs:694
 msgid "Port"
 msgstr "Port"
 
-#: ../src/Engine/Session.cs:680
+#: ../src/Engine/Session.cs:709
 #, csharp-format
-msgid "Network close failed - could not find network with host: {0}"
-msgstr ""
-"Lukning af netværk mislykkedes - kunne ikke finde netværk med vært: {0}"
+msgid "Network close failed - could not find network: {0}"
+msgstr "Lukning af netværk fejlede - kunne ikke finde netværk: {0}"
 
-#: ../src/Engine/Session.cs:725
+#: ../src/Engine/Session.cs:748
 #, csharp-format
-msgid "Network switch failed - could not find network with host: {0}"
-msgstr "Skift af netværk mislykkedes - kunne ikke finde netværk med vært: {0}"
+msgid "Network switch failed - could not find network: {0}"
+msgstr "Netværksomskifter fejlede - kunne ikke finde netværk: {0}"
 
-#: ../src/Engine/Session.cs:740
+#: ../src/Engine/Session.cs:767
 msgid "Not connected to any network"
 msgstr "Ikke tilsluttet til noget netværk"
 
+#: ../src/Engine/Session.cs:1013
+#, csharp-format
+msgid ""
+"Failed to write to chat history. Your chat history will not be preserved. "
+"Reason: {0}"
+msgstr ""
+"Kunne ikke skrive snakkehistorik. Din snakkehistorik vil ikke blive gemt. "
+"Årsag: {0}"
+
 #. just in case the ProtocolManager is not setting the
 #. protocol chat
-#: ../src/Engine/Session.cs:1067
+#: ../src/Engine/Session.cs:1185
 msgid "Connect failed."
 msgstr "Tilslutning mislykkedes."
 
-#: ../src/Engine/Session.cs:1098
+#: ../src/Engine/Session.cs:1216
 #, csharp-format
 msgid "No protocol manager found for the protocol: {0}"
 msgstr "Ingen protokolhåndtering fundet til denne protokol: {0}"
+
+#: ../src/Engine/Session.cs:1448
+msgid "Welcome to Smuxi"
+msgstr "Velkommen til Smuxi"
+
+#: ../src/Engine/Session.cs:1455
+msgid "Type /help to get a list of available commands."
+msgstr "Tast /help for en liste over tilgængelige kommandoer."
+
+#: ../src/Engine/Session.cs:1461
+msgid ""
+"After you have made a connection the list of available commands changes. Go "
+"to the newly opened connection tab and use the /help command again to see "
+"the extended command list."
+msgstr ""
+"Efter du har foretaget en forbindelsen så ændres listen over tilgængelige "
+"kommandoer. Gå til det netop åbnede forbindelsesfaneblad og brug kommandoen "
+"/help igen for at se den udvidede kommandoliste."
 
 #: ../src/Engine/Config/UserListController.cs:117
 msgid "Username must not be empty."
@@ -170,3 +204,5 @@ msgstr "Serverværtsnavn indeholder ugyldige tegn (nylinje)."
 #, csharp-format
 msgid "Server '{0}' already exists."
 msgstr "Server '{0}' findes allerede."
+
+
