@@ -1,0 +1,38 @@
+[main]
+host = https://www.transifex.net
+
+[smuxi.smuxi-engine]
+file_filter = po-Engine/<lang>.po
+source_file = po-Engine/smuxi-engine.pot
+source_lang = en
+
+[smuxi.smuxi-engine-irc]
+file_filter = po-Engine-IRC/<lang>.po
+source_file = po-Engine-IRC/smuxi-engine-irc.pot
+source_lang = en
+
+[smuxi.smuxi-engine-twitter]
+file_filter = po-Engine-Twitter/<lang>.po
+source_file = po-Engine-Twitter/smuxi-engine-twitter.pot
+source_lang = en
+
+[smuxi.smuxi-frontend]
+file_filter = po-Frontend/<lang>.po
+source_file = po-Frontend/smuxi-frontend.pot
+source_lang = en
+
+[smuxi.smuxi-frontend-gnome]
+file_filter = po-Frontend-GNOME/<lang>.po
+source_file = po-Frontend-GNOME/smuxi-frontend-gnome.pot
+source_lang = en
+
+[smuxi.smuxi-frontend-gnome-irc]
+file_filter = po-Frontend-GNOME-IRC/<lang>.po
+source_file = po-Frontend-GNOME-IRC/smuxi-frontend-gnome-irc.pot
+source_lang = en
+
+[smuxi.smuxi-server]
+file_filter = po-Server/<lang>.po
+source_file = po-Server/smuxi-server.pot
+source_lang = en
+
