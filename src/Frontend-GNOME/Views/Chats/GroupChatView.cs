@@ -562,8 +562,20 @@ namespace Smuxi.Frontend.Gnome
             Trace.Call(sender, e);
 
             IList<PersonModel> persons = GetSelectedPersons();
-            if (persons == null) {
+            if (persons == null || persons.Count == 0) {
                 return;
+            }
+
+            // jump to person chat if available
+            foreach (var chatView in Frontend.MainWindow.ChatViewManager.Chats) {
+                if (!(chatView is PersonChatView)) {
+                    continue;
+                }
+                var personChatView = (PersonChatView) chatView;
+                if (personChatView.PersonModel == persons[0]) {
+                    Frontend.MainWindow.ChatViewManager.CurrentChatView = personChatView;
+                    return;
+                }
             }
 
             // this is a generic implemention that should be able to open/create
