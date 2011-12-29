@@ -1,0 +1,179 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+# Tomáš Vadina <kyberdev@gmail.com>, 2011.
+msgid ""
+msgstr ""
+"Project-Id-Version: Smuxi - IRC client\n"
+"Report-Msgid-Bugs-To: http://www.smuxi.org/issues\n"
+"POT-Creation-Date: 2010-09-02 15:23+0200\n"
+"PO-Revision-Date: 2011-09-30 08:37+0000\n"
+"Last-Translator: Tomáš Vadina <kyberdev@gmail.com>\n"
+"Language-Team: Slovak (http://www.transifex.net/projects/p/smuxi/team/sk/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: sk\n"
+"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2\n"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:125
+msgid "Home Timeline"
+msgstr "Domovské časové pásmo"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:132
+msgid "Replies"
+msgstr "Odpovede"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:139
+msgid "Direct Messages"
+msgstr "Priame správy"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:174
+msgid "Connecting to Twitter..."
+msgstr "Pripájanie na Twitter..."
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:203
+msgid "Twitter authorization required."
+msgstr "Vyžadované overenie Twitter."
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:218
+#, csharp-format
+msgid ""
+"Please open the following URL and click \"Allow\" to allow Smuxi to connect "
+"to your Twitter account: {0}"
+msgstr ""
+"Prosím otvorte nasledujúcu URL adresu a kliknite na \"Povoliť\" pre "
+"povolenie pripojiť sa Smuxi na váš Twitter účet: {0}"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:234
+msgid ""
+"Once you have allowed Smuxi to access your Twitter account, Twitter will "
+"provide a PIN."
+msgstr ""
+"Akonáhle povolíte Smuxi prístup k vášmu Twitter účtu, Twitter poskytne "
+"bezpečnostný kód PIN."
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:241
+msgid "Please type: /pin PIN_FROM_TWITTER"
+msgstr "Prosím zadajte: /pin PIN_Z_TWITTER_ÚČTU"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:251
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:291
+msgid "Connection failed!"
+msgstr "Pripojenie zlyhalo!"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:253
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:293
+msgid "Connection failed! Reason: "
+msgstr "Pripojenie zlyhalo! Príčina: "
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:266
+msgid "Fetching user details from Twitter, please wait..."
+msgstr ""
+"Prebieha príjem podrobností o používateľovi služby Twitter, čakajte "
+"prosím..."
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:271
+msgid "Finished fetching user details."
+msgstr "Príjem podrobností o používateľovi dokončený."
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:276
+msgid "Successfully connected to Twitter."
+msgstr "Pripojenie k službe Twitter prebehlo úspešne."
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:285
+msgid "Failed to fetch user details from Twitter. Reason: "
+msgstr ""
+"Príjem podrobností o používateľovi zo služby Twitter zlyhal. Príčina: "
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:306
+msgid "Fetching friends from Twitter, please wait..."
+msgstr ""
+"Prebieha príjem zoznamu priateľov zo služby Twitter, čakajte prosím..."
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:311
+msgid "Finished fetching friends."
+msgstr "Príjem zoznamu priateľov dokončený."
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:314
+msgid "Failed to fetch friends from Twitter. Reason: "
+msgstr "Príjem zoznamu priateľov zo služby Twitter zlyhal. Príčina: "
+
+#. TRANSLATOR: this line is used as a label / category for a
+#. list of commands below
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:588
+msgid "Twitter Commands"
+msgstr "Príkazy služby Twitter"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:632
+msgid "No pending authorization request!"
+msgstr "Žiadne nevybavené overovacie požiadavky!"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:653
+#, csharp-format
+msgid "Failed to authorize with Twitter: {0}"
+msgstr "Overenie so službou Twitter zlyhalo: {0}"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:661
+msgid "Twitter did not accept your PIN.  Did you enter it correctly?"
+msgstr "Služba Twitter neprijala zadané PIN.  Zadali ste ho správne?"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:669
+#, csharp-format
+msgid ""
+"Please retry by closing this tab and reconnecting to the Twitter \"{0}\" "
+"account."
+msgstr ""
+"Prosím opakujte zatvorením tejto karty a znovupripojením k účtu služby "
+"Twitter \"{0}\"."
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:709
+msgid "Migrated Twitter account from basic auth to OAuth."
+msgstr "Presunutý účet služby Twitter zo základného overovania na OAuth."
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:722
+#, csharp-format
+msgid "Successfully authorized Twitter account \"{0}\" for Smuxi"
+msgstr "Overenie účtu služby Twitter \"{0}\" pre Smuxi prebehlo úspešne."
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:744
+#, csharp-format
+msgid "Could not update status - Reason: {0}"
+msgstr "Nie je možné aktualizovať stav - Príčina: {0}"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:753
+msgid "Cannot send message - no target specified. Use: /msg $nick message"
+msgstr ""
+"Nie je možné odoslať správu - nebol zadaný príjemca. Použite: /msg $prezývka"
+" správa"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:766
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:803
+#, csharp-format
+msgid "Could not send message - Reason: {0}"
+msgstr "Nie je možné odoslať správu - Príčina: {0}"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:790
+msgid "Could not send message - the specified user does not exist."
+msgstr "Nie je možné odoslať správu - zadaný používateľ neexistuje."
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:879
+msgid ""
+"An error occurred while fetching the friends timeline from Twitter. Reason: "
+msgstr ""
+"Počas príjmu časového pásma priateľov zo služby Twitter nastala chyba. "
+"Príčina: "
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:980
+msgid "An error occurred while fetching the replies from Twitter. Reason: "
+msgstr "Počas príjmu odpovedí zo služby Twitter nastala chyba. Príčina: "
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:1073
+msgid ""
+"An error occurred while fetching direct messages from Twitter. Reason: "
+msgstr ""
+"Počas príjmu priamych správ zo služby Twitter nastala chyba. Príčina: "
+
+

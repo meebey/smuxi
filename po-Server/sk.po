@@ -1,0 +1,136 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+# Tomáš Vadina <kyberdev@gmail.com>, 2011.
+msgid ""
+msgstr ""
+"Project-Id-Version: Smuxi - IRC client\n"
+"Report-Msgid-Bugs-To: http://www.smuxi.org/issues\n"
+"POT-Creation-Date: 2011-12-29 09:21+0100\n"
+"PO-Revision-Date: 2011-12-29 08:46+0000\n"
+"Last-Translator: Tomáš Vadina <kyberdev@gmail.com>\n"
+"Language-Team: Slovak (http://www.transifex.net/projects/p/smuxi/team/sk/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: sk\n"
+"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2\n"
+
+#: ../src/Server/Main.cs:71
+msgid "Add user to Server"
+msgstr "Pridať používateľa na server"
+
+#: ../src/Server/Main.cs:80
+msgid "Modify existing user of Server"
+msgstr "Upraviť existujúcich používateľov na serveri"
+
+#: ../src/Server/Main.cs:89
+msgid "Delete user from Server"
+msgstr "Zmazať používateľa zo servera"
+
+#: ../src/Server/Main.cs:98
+msgid "List all existing users of Server"
+msgstr "Vypísať všetkých existujúcich používateľov servera"
+
+#: ../src/Server/Main.cs:107
+msgid "User to create, modify or delete"
+msgstr "Používateľ, ktorý sa má pridať, upraviť, alebo zmazať"
+
+#: ../src/Server/Main.cs:116
+msgid "Password of the user when creating or modifying a user"
+msgstr "Heslo vytváraného či upravovaného používateľa"
+
+#: ../src/Server/Main.cs:125
+msgid "Enable debug output"
+msgstr "Povoliť ladiace informácie"
+
+#: ../src/Server/Main.cs:133
+msgid ""
+"Optimize message buffers and exit (valid values: none, defrag, index, all)"
+msgstr ""
+
+#: ../src/Server/Main.cs:146
+msgid "Show this help"
+msgstr "Zobraziť túto nápovedu"
+
+#: ../src/Server/Main.cs:148
+msgid "Usage: smuxi-server [options]"
+msgstr "Používanie: smuxi-server [možnosti]"
+
+#: ../src/Server/Main.cs:150
+msgid "Options:"
+msgstr "Možnosti:"
+
+#: ../src/Server/Main.cs:161
+#, csharp-format
+msgid "Unknown option: '{0}'"
+msgstr "Neznáma možnosť: '{0}'"
+
+#: ../src/Server/Main.cs:188
+#, csharp-format
+msgid "Command line error: {0}"
+msgstr "Chybný príkaz: {0}"
+
+#: ../src/Server/Main.cs:232
+msgid ""
+"At most one of --add-user, --modify-user, and --delete-user may be used at a"
+" time."
+msgstr ""
+"V súčasnej dobe môžete použiť jednu z týchto možností: --add-user, --modify-"
+"user, aa --delete-user."
+
+#: ../src/Server/Main.cs:242
+msgid "You must specify a username with the --username option."
+msgstr "U možnosti --username musíte zadať používateľské meno."
+
+#: ../src/Server/Main.cs:248
+msgid "Username must not be empty."
+msgstr "Používateľské meno nemôže byť prázdne."
+
+#: ../src/Server/Main.cs:258
+msgid "You must specify a password with the --password option."
+msgstr "U možnosti --password musíte zadať heslo."
+
+#: ../src/Server/Main.cs:264
+msgid "Password must not be empty."
+msgstr "heslo nemôže byť prázdne."
+
+#: ../src/Server/Main.cs:283
+#, csharp-format
+msgid ""
+"Invalid optimization value passed to --optimize-message-buffer, valid values"
+" are: {0}"
+msgstr ""
+
+#: ../src/Server/Main.cs:303
+#, csharp-format
+msgid "User \"{0}\" successfully added to server."
+msgstr "Používateľ \"{0}\" bol úspešne pridaný na server."
+
+#: ../src/Server/Main.cs:312
+#, csharp-format
+msgid "User \"{0}\" successfully modified."
+msgstr "Používateľ \"{0}\" bol úspešne upravený."
+
+#: ../src/Server/Main.cs:321
+#, csharp-format
+msgid "User \"{0}\" successfully deleted from server."
+msgstr "Používateľ \"{0}\" bol úspešne zmazaný zo servera."
+
+#: ../src/Server/Main.cs:328
+msgid "Users:"
+msgstr "Používatelia:"
+
+#: ../src/Server/Main.cs:376
+#, csharp-format
+msgid "Successfully optimized {0} message buffers."
+msgstr ""
+
+#: ../src/Server/Main.cs:389
+#, csharp-format
+msgid "Failed to optimize message buffers: {0}"
+msgstr ""
+
+
