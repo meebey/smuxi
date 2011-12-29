@@ -1,0 +1,115 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+msgid ""
+msgstr ""
+"Project-Id-Version: Smuxi - IRC client\n"
+"Report-Msgid-Bugs-To: http://www.smuxi.org/issues\n"
+"POT-Creation-Date: 2011-12-29 09:21+0100\n"
+"PO-Revision-Date: 2010-11-30 04:13+0000\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: Finnish (http://www.transifex.net/projects/p/smuxi/team/fi/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: fi\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+
+#: ../src/Frontend/CommandManager.cs:143
+#, csharp-format
+msgid "Unknown Command: {0}"
+msgstr ""
+
+#: ../src/Frontend/EngineManager.cs:122
+msgid "Engine must not be empty."
+msgstr ""
+
+#: ../src/Frontend/EngineManager.cs:133
+msgid "Engine does not exist."
+msgstr ""
+
+#: ../src/Frontend/EngineManager.cs:318
+#, csharp-format
+msgid ""
+"Unknown channel ({0}) - only the following channel types are supported:"
+msgstr ""
+
+#: ../src/Frontend/EngineManager.cs:327
+msgid ""
+"Registration with engine failed!  The username and/or password were wrong - "
+"please verify them."
+msgstr ""
+
+#: ../src/Frontend/SshTunnelManager.cs:145
+msgid "SSH client application was not found: "
+msgstr ""
+
+#: ../src/Frontend/SshTunnelManager.cs:148
+msgid ""
+"SSH client must be either OpenSSH (ssh) or Plink (plink.exe, not putty.exe)"
+msgstr ""
+
+#: ../src/Frontend/SshTunnelManager.cs:185
+#, csharp-format
+msgid ""
+"The local SSH forwarding port {0} is already in use. Is there an old SSH "
+"tunnel still active?"
+msgstr ""
+
+#: ../src/Frontend/SshTunnelManager.cs:209
+#, csharp-format
+msgid ""
+"SSH tunnel setup failed (exit code: {0})\n"
+"\n"
+"SSH program: {1}\n"
+"SSH parameters: {2}\n"
+"\n"
+"Program Error:\n"
+"{3}\n"
+"Program Output:\n"
+"{4}\n"
+msgstr ""
+
+#: ../src/Frontend/SshTunnelManager.cs:330
+#: ../src/Frontend/SshTunnelManager.cs:476
+msgid "SSH keyfile not found."
+msgstr ""
+
+#: ../src/Frontend/SshTunnelManager.cs:336
+#: ../src/Frontend/SshTunnelManager.cs:482
+msgid "SSH keyfile could not be read."
+msgstr ""
+
+#: ../src/Frontend/SshTunnelManager.cs:424
+#, csharp-format
+msgid ""
+"OpenSSH version number not found (exit code: {0})\n"
+"\n"
+"SSH program: {1}\n"
+"\n"
+"Program Error:\n"
+"{2}\n"
+"Program Output:\n"
+"{3}\n"
+msgstr ""
+
+#: ../src/Frontend/SshTunnelManager.cs:467
+msgid "PuTTY / Plink requires a username to be set."
+msgstr ""
+
+#: ../src/Frontend/SshTunnelManager.cs:555
+#, csharp-format
+msgid ""
+"Plink version number not found (exit code: {0})\n"
+"\n"
+"SSH program: {1}\n"
+"\n"
+"Program Error:\n"
+"{2}\n"
+"Program Output:\n"
+"{3}\n"
+msgstr ""
+
+
