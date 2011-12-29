@@ -4,3 +4,4 @@ src/Engine/Protocols/ProtocolManagerBase.cs
 src/Engine/Session.cs
 src/Engine/Config/UserListController.cs
 src/Engine/Config/ServerListController.cs
+src/Engine/Chats/ChatModel.cs
