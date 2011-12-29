@@ -1,0 +1,134 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+# Umut Albayrak <umutmuh@gmail.com>, 2011.
+msgid ""
+msgstr ""
+"Project-Id-Version: Smuxi - IRC client\n"
+"Report-Msgid-Bugs-To: http://www.smuxi.org/issues\n"
+"POT-Creation-Date: 2011-12-29 09:21+0100\n"
+"PO-Revision-Date: 2011-12-29 08:46+0000\n"
+"Last-Translator: Umut Albayrak <umutmuh@gmail.com>\n"
+"Language-Team: Turkish (http://www.transifex.net/projects/p/smuxi/team/tr/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: tr\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+
+#: ../src/Server/Main.cs:71
+msgid "Add user to Server"
+msgstr "Sunucuya bir kişi ekle"
+
+#: ../src/Server/Main.cs:80
+msgid "Modify existing user of Server"
+msgstr "Sunucudaki kişiyi değiştir"
+
+#: ../src/Server/Main.cs:89
+msgid "Delete user from Server"
+msgstr "Sunucudaki kişiyi sil"
+
+#: ../src/Server/Main.cs:98
+msgid "List all existing users of Server"
+msgstr ""
+
+#: ../src/Server/Main.cs:107
+msgid "User to create, modify or delete"
+msgstr "Oluşturulacak, değiştirilecek ya da silinecek kişiler"
+
+#: ../src/Server/Main.cs:116
+msgid "Password of the user when creating or modifying a user"
+msgstr ""
+
+#: ../src/Server/Main.cs:125
+msgid "Enable debug output"
+msgstr ""
+
+#: ../src/Server/Main.cs:133
+msgid ""
+"Optimize message buffers and exit (valid values: none, defrag, index, all)"
+msgstr ""
+
+#: ../src/Server/Main.cs:146
+msgid "Show this help"
+msgstr "Yardımı göster"
+
+#: ../src/Server/Main.cs:148
+msgid "Usage: smuxi-server [options]"
+msgstr ""
+
+#: ../src/Server/Main.cs:150
+msgid "Options:"
+msgstr "Tercihler:"
+
+#: ../src/Server/Main.cs:161
+#, csharp-format
+msgid "Unknown option: '{0}'"
+msgstr ""
+
+#: ../src/Server/Main.cs:188
+#, csharp-format
+msgid "Command line error: {0}"
+msgstr ""
+
+#: ../src/Server/Main.cs:232
+msgid ""
+"At most one of --add-user, --modify-user, and --delete-user may be used at a"
+" time."
+msgstr ""
+
+#: ../src/Server/Main.cs:242
+msgid "You must specify a username with the --username option."
+msgstr ""
+
+#: ../src/Server/Main.cs:248
+msgid "Username must not be empty."
+msgstr "Kullanıcı adı boş olmamalı"
+
+#: ../src/Server/Main.cs:258
+msgid "You must specify a password with the --password option."
+msgstr ""
+
+#: ../src/Server/Main.cs:264
+msgid "Password must not be empty."
+msgstr "Şifre boş olmamalı"
+
+#: ../src/Server/Main.cs:283
+#, csharp-format
+msgid ""
+"Invalid optimization value passed to --optimize-message-buffer, valid values"
+" are: {0}"
+msgstr ""
+
+#: ../src/Server/Main.cs:303
+#, csharp-format
+msgid "User \"{0}\" successfully added to server."
+msgstr "\"{0}\" kişisi başarıyla sunucuya eklendi"
+
+#: ../src/Server/Main.cs:312
+#, csharp-format
+msgid "User \"{0}\" successfully modified."
+msgstr "\"{0}\" kişisi başarıyla değiştirildi"
+
+#: ../src/Server/Main.cs:321
+#, csharp-format
+msgid "User \"{0}\" successfully deleted from server."
+msgstr "\"{0}\" kişisi başarıyla sunucudan silindi"
+
+#: ../src/Server/Main.cs:328
+msgid "Users:"
+msgstr "Kişiler:"
+
+#: ../src/Server/Main.cs:376
+#, csharp-format
+msgid "Successfully optimized {0} message buffers."
+msgstr ""
+
+#: ../src/Server/Main.cs:389
+#, csharp-format
+msgid "Failed to optimize message buffers: {0}"
+msgstr ""
+
+
