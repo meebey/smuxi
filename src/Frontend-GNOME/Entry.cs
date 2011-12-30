@@ -612,10 +612,7 @@ namespace Smuxi.Frontend.Gnome
             if (cd.DataArray.Length >= 2) {
                 var currentChat = ChatViewManager.CurrentChatView;
                 if (cd.Parameter.ToLower() == "close") {
-                    // FIXME: REMOTING CALL
-                    if (cd.Chat.ProtocolManager != null) {
-                        cd.Chat.ProtocolManager.CloseChat(fm, cd.Chat);
-                    }
+                    currentChat.Close();
                 } else {
                     try {
                         int number = Int32.Parse(cd.DataArray[1]);
@@ -638,9 +635,8 @@ namespace Smuxi.Frontend.Gnome
                         }
                         // name matches
                         // let's see if there is an exact match, if so, take it
-                        // FIXME: REMOTING CALL
                         if ((chatView.GetType() == currentChat.GetType()) &&
-                            (chatView.ChatModel.ProtocolManager == currentChat.ChatModel.ProtocolManager)) {
+                            (chatView.ProtocolManager == currentChat.ProtocolManager)) {
                             candidates.Add(chatView);
                             break;
                         } else {

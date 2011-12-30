@@ -56,6 +56,7 @@ namespace Smuxi.Frontend.Gnome
         public    DateTime           SyncedLastSeenHighlight { get; private set; }
         IList<MessageModel>          SyncedMessages { get; set; }
         protected string             SyncedName { get; set; }
+        public    IProtocolManager   ProtocolManager { get; set; }
         bool                         UseLowBandwidthMode { get; set; }
         protected Gtk.Image          TabImage { get; set; }
         bool                         IsAutoScrolling { get; set; }
@@ -466,6 +467,8 @@ namespace Smuxi.Frontend.Gnome
 
             // REMOTING CALL
             SyncedName = _ChatModel.Name;
+            // REMOTING CALL
+            ProtocolManager = _ChatModel.ProtocolManager;
 
             if (!Frontend.IsLocalEngine && Frontend.UseLowBandwidthMode) {
                 // FIXME: set TabImage back to normal

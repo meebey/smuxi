@@ -62,10 +62,9 @@ namespace Smuxi.Frontend.Gnome
         {
             Trace.Call();
 
-            // REMOTING CALL 1
-            _IrcProtocolManager = (IrcProtocolManager) ChatModel.ProtocolManager;
-
             base.Sync();
+
+            _IrcProtocolManager = (IrcProtocolManager) ProtocolManager;
         }
 
         private void _RenderIrcGroupPersonMode(Gtk.TreeViewColumn column,
