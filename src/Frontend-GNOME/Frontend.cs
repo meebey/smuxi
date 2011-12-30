@@ -124,7 +124,7 @@ namespace Smuxi.Frontend.Gnome
 
         public static bool IsLocalEngine {
             get {
-                return _Session == _LocalSession;
+                return _LocalSession != null && _Session == _LocalSession;
             }
         }
 
