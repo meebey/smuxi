@@ -61,6 +61,7 @@ namespace Smuxi.Frontend.Gnome
 
         public static string IconName { get; private set; }
         public static bool HasSystemIconTheme { get; private set; }
+        public static bool HadSession { get; private set; }
 
         public static event EventHandler  SessionPropertyChanged;
 
@@ -115,6 +116,10 @@ namespace Smuxi.Frontend.Gnome
             }
             set {
                 _Session = value;
+
+                if (value != null) {
+                    HadSession = true;
+                }
 
                 if (SessionPropertyChanged != null) {
                     SessionPropertyChanged(value, EventArgs.Empty);

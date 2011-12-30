@@ -106,6 +106,10 @@ namespace Smuxi.Frontend.Gnome
         {
             Trace.Call(state);
 
+            if (!Frontend.HadSession) {
+                return;
+            }
+
             switch (state) {
                 case (int) StateNM9.Disconnecting:
                     if (!Frontend.IsLocalEngine) {
