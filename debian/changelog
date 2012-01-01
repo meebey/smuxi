@@ -1,3 +1,9 @@
+smuxi (0.8.9-1~pre1) unstable; urgency=low
+
+  * New upstream release
+
+ -- Mirco Bauer <meebey@debian.org>  Sun, 01 Jan 2012 21:42:12 +0100
+
 smuxi (0.8.1-1~pre1) unstable; urgency=low
 
   * Updated debian/ from Debian source package
