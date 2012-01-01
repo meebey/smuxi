@@ -1,70 +1,70 @@
-# Smuxi - IRC client for sophisticated users
-# Copyright (C) 2005-2009 Mirco Bauer <meebey@meebey.net>
-# This file is distributed under the same license as the Smuxi package.
-# Clement BOURGEOIS <moonpyk@gmail.com>, 2008.
-#
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
 msgid ""
 msgstr ""
-"Project-Id-Version: Smuxi 0.6.2\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-07-15 01:40+0200\n"
-"PO-Revision-Date: 2010-07-15 22:27+0100\n"
-"Last-Translator: Clément Bourgeois <moonpyk@gmail.com>\n"
-"Language-Team: French Localization <debian-l10n-french@lists.debian.org>\n"
+"Project-Id-Version: Smuxi - IRC client\n"
+"Report-Msgid-Bugs-To: http://www.smuxi.org/issues\n"
+"POT-Creation-Date: 2011-12-29 09:22+0100\n"
+"PO-Revision-Date: 2010-11-30 04:12+0000\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: French (http://www.transifex.net/projects/p/smuxi/team/fr/)\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Poedit-Language: French\n"
-"X-Poedit-Country: FRANCE\n"
+"Language: fr\n"
+"Plural-Forms: nplurals=2; plural=(n > 1)\n"
 
-#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:340
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:381
 msgid "Op"
 msgstr "Opper"
 
-#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:344
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:385
 msgid "Deop"
 msgstr "Enlever l'Op"
 
-#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:348
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:389
 msgid "Voice"
 msgstr "Voicer"
 
-#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:352
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:393
 msgid "Devoice"
 msgstr "Enlever le Voice"
 
-#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:356
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:397
 msgid "Kick"
 msgstr "Kicker"
 
-#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:360
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:401
 msgid "Kick + Ban"
 msgstr "Kicker + Bannir"
 
-#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:364
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:405
 msgid "Ban"
 msgstr "Bannir"
 
-#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:368
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:409
 msgid "Unban"
 msgstr "Enlever le ban"
 
-#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:374
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:415
 msgid "Query"
 msgstr "Chat privé"
 
-#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:378
-#: ../src/Frontend-GNOME-IRC/IrcPersonChatView.cs:61
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:419
+#: ../src/Frontend-GNOME-IRC/IrcPersonChatView.cs:64
 msgid "Whois"
 msgstr "Whois"
 
-#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:382
-#: ../src/Frontend-GNOME-IRC/IrcPersonChatView.cs:65
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:423
+#: ../src/Frontend-GNOME-IRC/IrcPersonChatView.cs:68
 msgid "CTCP"
 msgstr "CTCP"
 
-#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:391
-#: ../src/Frontend-GNOME-IRC/IrcPersonChatView.cs:72
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:432
+#: ../src/Frontend-GNOME-IRC/IrcPersonChatView.cs:75
 msgid "Invite to"
 msgstr "Inviter à"
 
@@ -87,3 +87,5 @@ msgstr "Finger"
 #: ../src/Frontend-GNOME-IRC/CtcpMenu.cs:92
 msgid "Userinfo"
 msgstr "Userinfo"
+
+
