@@ -66,13 +66,14 @@ mail-po: update-po
 	for PODIR in $(PODIRS); do \
 		echo $$PODIR; \
 		podebconf-report-po \
-			--deadline=+7days \
+			--deadline=+14days \
 			--notdebconf \
 			--package="Smuxi ($$PODIR)" \
 			--utf8 \
 			--from="Mirco Bauer <meebey@meebey.net>" \
 			--smtp=booster.qnetp.net \
-			--podir=$$PODIR; \
+			--podir=$$PODIR \
+			--langs=cs,it,pt; \
 	done
 
 call-po: update-po
