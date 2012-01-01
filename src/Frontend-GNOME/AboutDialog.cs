@@ -28,6 +28,7 @@
 
 using System;
 using System.Linq;
+using Smuxi.Common;
 
 namespace Smuxi.Frontend.Gnome
 {
@@ -41,7 +42,12 @@ namespace Smuxi.Frontend.Gnome
             
             TransientFor = parent;
             Name = Frontend.Name;
-            Version = "\n Frontend: " + Frontend.UIName + " " + Frontend.Version +
+            var version = Frontend.Version.ToString();
+            var distVersion = Defines.DistVersion;
+            if (!String.IsNullOrEmpty(distVersion)) {
+                version = String.Format("{0} ({1})", version, distVersion);
+            }
+            Version = "\n Frontend: " + Frontend.UIName + " " + version  +
                       "\n Engine: " + Frontend.EngineVersion;
             Copyright = "Copyright © 2005-2010 Mirco Bauer <meebey@meebey.net>";
             Authors = new string[] {
