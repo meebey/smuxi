@@ -322,7 +322,9 @@ namespace Smuxi.Frontend.Gnome
                     // ignore as the connection is maybe already broken
                 }
             }
-            _FrontendManagerCheckerQueue.Dispose();
+            if (_FrontendManagerCheckerQueue != null) {
+                _FrontendManagerCheckerQueue.Dispose();
+            }
             _MainWindow.ChatViewManager.Clear();
             // make sure no stray SSH tunnel leaves behind
             _MainWindow.EngineManager.Disconnect();
