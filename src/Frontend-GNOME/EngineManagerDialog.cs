@@ -188,8 +188,13 @@ namespace Smuxi.Frontend.Gnome
             string engine = _SelectedEngine;
             try {
                 _EngineManager.Connect(engine);
-                if (_EngineManager.EngineVersion.Major != Frontend.Version.Major ||
-                    _EngineManager.EngineVersion.Minor != Frontend.Version.Minor) {
+                var engineVersion = _EngineManager.EngineVersion;
+                var frontendVersion = Frontend.Version;
+                if ((engineVersion >= new Version("0.8") &&
+                     engineVersion.Major != frontendVersion.Major) ||
+                    (engineVersion < new Version("0.8") &&
+                     (engineVersion.Major != frontendVersion.Major ||
+                      engineVersion.Minor != frontendVersion.Minor))) {
                     throw new ApplicationException(String.Format(
                                 _("Your frontend version ({0}) does not match the engine version ({1})!"),
                                 Frontend.Version, _EngineManager.EngineVersion));
