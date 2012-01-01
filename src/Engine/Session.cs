@@ -1498,7 +1498,8 @@ namespace Smuxi.Engine
                     NewsFeedLastModified = httpRes.LastModified;
                 }
                 var feed = AtomFeed.Load(res.GetResponseStream());
-                foreach (var entry in feed.Entry) {
+                var sortedEntries = feed.Entry.OrderBy(x => x.Published);
+                foreach (var entry in sortedEntries) {
                     if (SeenNewsFeedIds.Contains(entry.Id)) {
                         continue;
                     }
