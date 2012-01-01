@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-12-29 09:19+0100\n"
+"POT-Creation-Date: 2012-01-01 18:47+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -193,4 +193,18 @@ msgstr ""
 #: ../src/Engine/Config/ServerListController.cs:140
 #, csharp-format
 msgid "Server '{0}' already exists."
+msgstr ""
+
+#: ../src/Engine/Chats/ChatModel.cs:105
+#, csharp-format
+msgid ""
+"Failed to load chat history. Your chat history will not be preserved. "
+"Reason: {0}"
+msgstr ""
+
+#: ../src/Engine/Chats/ChatModel.cs:290
+#, csharp-format
+msgid ""
+"Failed to open chat history for writing. Your chat history will not be "
+"preserved. Reason: {0}"
 msgstr ""
