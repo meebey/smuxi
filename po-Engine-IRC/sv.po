@@ -1,235 +1,246 @@
-# Smuxi - IRC client for sophisticated users
-# Copyright (C) 2005-2009 Mirco Bauer <meebey@meebey.net>
-# This file is distributed under the same license as the Smuxi package.
-#
-# Martin Bagge <brother@bsnet.se>, 2009
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+#   <flugsio@gmail.com>, 2011.
 msgid ""
 msgstr ""
-"Project-Id-Version: Smuxi Engine IRC\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-07-15 01:40+0200\n"
-"PO-Revision-Date: 2010-07-15 13:12+0100\n"
-"Last-Translator: Martin Bagge / brother <brother@bsnet.se>\n"
-"Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
-"Language: sv\n"
+"Project-Id-Version: Smuxi - IRC client\n"
+"Report-Msgid-Bugs-To: http://www.smuxi.org/issues\n"
+"POT-Creation-Date: 2011-12-29 09:20+0100\n"
+"PO-Revision-Date: 2011-12-31 10:37+0000\n"
+"Last-Translator: flugsio <flugsio@gmail.com>\n"
+"Language-Team: Swedish (http://www.transifex.net/projects/p/smuxi/team/sv/)\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Poedit-Language: Swedish\n"
-"X-Poedit-Country: Sweden\n"
+"Language: sv\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:221
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1412
+#. TRANSLATOR: do NOT change the position of {0}!
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:245
+#, csharp-format
+msgid "{0} invites you to {1}"
+msgstr "{0} bjuder in dig till {1}"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:276
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1519
 msgid "away"
 msgstr "borta"
 
 #. TRANSLATOR: {0} is the amount of seconds
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:227
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:282
 #, csharp-format
 msgid "lag: {0} seconds"
 msgstr "lagg: {0} sekunder"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:233
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:288
 msgid "not connected"
 msgstr "inte ansluten"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:292
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:351
 #, csharp-format
 msgid "Connecting to {0} port {1}..."
 msgstr "Anluter till {0} port {1}..."
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:298
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:390
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:357
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:463
 #, csharp-format
 msgid "Connection to {0} established"
 msgstr "Anslutning till {0} upprättad"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:301
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:360
 msgid "Logging in..."
 msgstr "Logga in..."
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:321
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:394
 msgid "Connection failed!"
 msgstr "Anslutning misslyckades!"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:322
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:395
 msgid "Connection failed! Reason: "
 msgstr "Anslutning misslyckades! Anledning: "
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:331
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:404
 msgid "Disconnecting..."
 msgstr "Kopplar från..."
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:334
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:407
 #, csharp-format
 msgid "Disconnecting from {0}..."
 msgstr "Kopplar från {0}..."
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:339
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:412
 #, csharp-format
 msgid "Disconnected from {0}"
 msgstr "Anslutning bortkopplad från {0}"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:342
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:415
 msgid "Connection closed"
 msgstr "Anslutning stängd"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:347
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:404
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:420
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:477
 msgid "Not connected"
 msgstr "Inte ansluten"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:376
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:449
 msgid "Reconnecting..."
 msgstr "Återansluter..."
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:384
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:457
 #, csharp-format
 msgid "Reconnecting to {0}..."
 msgstr "Återansluter till {0}..."
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:398
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:471
 msgid "Reconnect Error"
 msgstr "Återanslutningsfel"
 
 #. TRANSLATOR: this line is used as label / category for a
 #. list of commands below
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:747
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:875
 msgid "IrcProtocolManager Commands"
 msgstr "Kommandon för IRC-protokollhanterare"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:816
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:943
 #, csharp-format
 msgid "Invalid port: {0}"
 msgstr "Felaktig port: {0}"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:944
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1047
 #, csharp-format
 msgid "Queuing joins: {0}"
 msgstr "Köar kanalanslutningar: {0}"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:958
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1061
 #, csharp-format
 msgid "Already joined to channel: {0}. Type /window {0} to switch to it."
-msgstr "Redan ansluten till kanal {0}. Ange kommandot /window {0} för att byta till den."
+msgstr ""
+"Redan ansluten till kanal {0}. Ange kommandot /window {0} för att byta till "
+"den."
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:993
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1096
 #, csharp-format
 msgid "Active joins: {0} - Queued joins: {1}"
 msgstr "Aktiva kanalanslutningar: {0} - Köade kanalanslutningar: {1}"
 
 #. TRANSLATORS: final message will look like this:
 #. Joining: #chan1 - Remaining active joins: #chan2 / queued joins: #chan3
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1016
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1047
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1119
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1150
 #, csharp-format
 msgid "Joining: {0}"
 msgstr "Ansluter till kanal: {0}"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1018
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1121
 msgid "Remaining"
 msgstr "Återstår"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1023
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1126
 #, csharp-format
 msgid "active joins: {0}"
 msgstr "aktiva kanalanslutningar: {0}"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1032
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1135
 #, csharp-format
 msgid "queued joins: {0}"
 msgstr "köade kanalanslutningar: {0}"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1399
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1506
 msgid "IRC Op"
 msgstr "IRC Operatör"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1401
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1508
 msgid "Op"
 msgstr "Operatör"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1403
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1510
 msgid "Voice"
 msgstr "Voice"
 
-#. For translators: do NOT change the position of {1}!
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1455
+#. TRANSLATOR: do NOT change the position of {1}!
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1570
 #, csharp-format
 msgid "Topic for {0}: {1}"
 msgstr "Rubrik för {0}: {1}"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1465
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1575
 #, csharp-format
 msgid "No topic set for {0}"
 msgstr "Ingen rubrik satt för {0}"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1559
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1655
 msgid "ban"
 msgstr "utestäng"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1569
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1665
 msgid "No bans in channel"
 msgstr "Ingen är utestängd ur kanalen"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1683
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1777
 #, csharp-format
 msgid "Inviting {0} to {1}"
 msgstr "Bjuder in {0} till {1}"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1687
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1781
 #, csharp-format
 msgid "{0} is already on {1}"
 msgstr "{0} är redan på {1}"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1715
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1806
 msgid "Users"
 msgstr "Användare"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1766
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1848
 #, csharp-format
 msgid "Total of {0} users [{1} ops, {2} voices, {3} normal]"
 msgstr "Totalt {0} användare [{1} operatörer, {2} voice, {3} vanliga]"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1909
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1979
 msgid "Connection error! Reason: "
 msgstr "Fel i anslutning! Anledning: "
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1919
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1989
 #, csharp-format
 msgid "Not enough parameters for {0} command"
 msgstr "Inte tillräckligt med parametrar för kommandot {0}"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1929
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1999
 msgid "Not connected to server"
 msgstr "Inte ansluten till server"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2306
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2261
 #, csharp-format
 msgid "{0}: No such nick/channel"
 msgstr "{0}: Smeknamnet/kanalen finns inte"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2432
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2390
 #, csharp-format
-msgid "Increased send delay to {0}ms to avoid being flooded off the server again."
-msgstr "Ökar väntetid med {0}ms för att undvika att bli utkastad från servern på grund av för snabbt hanterade kommandon."
+msgid ""
+"Increased send delay to {0}ms to avoid being flooded off the server again."
+msgstr ""
+"Ökar väntetid med {0}ms för att undvika att bli utkastad från servern på "
+"grund av för snabbt hanterade kommandon."
 
 #. TRANSLATOR: the final line will look like this:
 #. -!- Nick {0} is already in use
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2448
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2404
 msgid "Nick"
 msgstr "Smeknamnet"
 
 #. TRANSLATOR: the final line will look like this:
 #. -!- Nick {0} is already in use
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2459
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2414
 msgid "is already in use"
 msgstr "används redan"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2489
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2424
 msgid "Cannot join to channel:"
 msgstr "Kan inte ansluta till kanalen:"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2498
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2432
 msgid "You are banned"
 msgstr "Du är utestängd"
 
@@ -237,86 +248,100 @@ msgstr "Du är utestängd"
 #. {2}: CTCP command, {3}: own nickname, {4}: CTCP parameter
 #. example:
 #. meebey [meebey@example.com] requested CTCP VERSION from meebey:
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2608
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2508
 #, csharp-format
 msgid "{0} [{1}] requested CTCP {2} from {3}: {4}"
 msgstr "{0} [{1}] begärde CTCP {2} från {3}: {4}"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2633
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2533
 #, csharp-format
 msgid "CTCP PING reply from {0}: {1} seconds"
 msgstr "CTCP PING-svar från {0}: {1} sekunder"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2641
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2541
 #, csharp-format
 msgid "CTCP {0} reply from {1}: {2}"
 msgstr "CTCP {0}-svar från {1}: {2}"
 
-#. For translators: do NOT change the position of {0}!
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2888
+#. TRANSLATOR: do NOT change the position of {0}!
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2747
 #, csharp-format
 msgid "{0} [{1}] has joined {2}"
 msgstr "{0} [{1}] anslöt till {2}"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3024
+#. TRANSLATOR: do NOT change the position of {0}!
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2873
 #, csharp-format
-msgid "{0} [{1}] has left {2} [{3}]"
-msgstr "{0} [{1}] lämnade {2} [{3}]"
+msgid "{0} [{1}] has left {2}"
+msgstr "{0} [{1}] har lämnat {2}"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3043
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2898
 #, csharp-format
 msgid "You were kicked from {0} by {1} [{2}]"
 msgstr "Du sparkades från {0} av {1} [{2}]"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3051
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2906
 #, csharp-format
 msgid "{0} was kicked from {1} by {2} [{3}]"
 msgstr "{0} sparkades från {1} av {2} [{3}]"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3069
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3115
+#. TRANSLATOR: do NOT change the position of {0}!
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2923
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2956
 #, csharp-format
 msgid "You're now known as {0}"
 msgstr "Du kallas numera {0}"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3143
+#. TRANSLATOR: do NOT change the position of {0} or {1}!
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2961
 #, csharp-format
 msgid "{0} is now known as {1}"
 msgstr "{0} kallas numera {1}"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3200
+#. TRANSLATOR: do NOT change the position of {0} and {2}!
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2998
 #, csharp-format
 msgid "{0} changed the topic of {1} to: {2}"
 msgstr "{0} bytte rubrik för {1} till: {2}"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3285
+#. TRANSLATOR: do NOT change the position of {1}!
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3075
 #, csharp-format
 msgid "Mode change [{0}] for user {1}"
 msgstr "Ändrat användartillstånd [{0}] för användaren {1}"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3302
+#. TRANSLATOR: do NOT change the position of {2}!
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3085
 #, csharp-format
 msgid "mode/{0} [{1}] by {2}"
 msgstr "användartillstånd/{0} [{1}] av {2}"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3339
+#. TRANSLATOR: do NOT change the position of {0}!
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3122
 #, csharp-format
-msgid "{0} [{1}] has quit [{2}]"
-msgstr "{0} [{1}] har lämnat [{2}]"
+msgid "{0} [{1}] has quit"
+msgstr "{0} [{1}] har avslutat"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3459
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3199
+#, csharp-format
+msgid ""
+"Connection to {0} port {1} has failed (attempt {2}), retrying in {3} "
+"seconds..."
+msgstr ""
+"Uppkoppling till {0}  på port {1} har misslyckats (försök {2}), prövar igen "
+"om {3} sekunder..."
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3248
 #, csharp-format
 msgid "{0} is away: {1}"
 msgstr "{0} är borta: {1}"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3465
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3254
 msgid "You are no longer marked as being away"
 msgstr "Du är inte längre markerad som borta"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3471
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3260
 msgid "You have been marked as being away"
 msgstr "Du har markerats tom borta"
 
-#~ msgid "Not connected!"
-#~ msgstr "Inte ansluten!"
 

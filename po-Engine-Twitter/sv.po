@@ -1,117 +1,180 @@
-# Smuxi - IRC client for sophisticated users
-# Copyright (C) 2005-2009 Mirco Bauer <meebey@meebey.net>
-# This file is distributed under the same license as the Smuxi package.
-#
-# Martin Bagge <brother@bsnet.se>, 2009
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+#   <flugsio@gmail.com>, 2011.
 msgid ""
 msgstr ""
-"Project-Id-Version: Smuxi Engine Twitter\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-07-15 01:40+0200\n"
-"PO-Revision-Date: 2010-07-15 13:12+0100\n"
-"Last-Translator: Martin Bagge / brother <brother@bsnet.se>\n"
-"Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
-"Language: sv\n"
+"Project-Id-Version: Smuxi - IRC client\n"
+"Report-Msgid-Bugs-To: http://www.smuxi.org/issues\n"
+"POT-Creation-Date: 2011-12-29 09:20+0100\n"
+"PO-Revision-Date: 2011-12-31 11:10+0000\n"
+"Last-Translator: flugsio <flugsio@gmail.com>\n"
+"Language-Team: Swedish (http://www.transifex.net/projects/p/smuxi/team/sv/)\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Poedit-Language: Swedish\n"
-"X-Poedit-Country: Sweden\n"
+"Language: sv\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:101
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:124
 msgid "Home Timeline"
 msgstr "Hem Tidslinje"
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:108
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:135
 msgid "Replies"
 msgstr "Svar"
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:115
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:146
 msgid "Direct Messages"
 msgstr "Direktmeddelanden"
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:133
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:189
 msgid "Connecting to Twitter..."
 msgstr "Ansluter till Twitter..."
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:141
-msgid "Login failed!"
-msgstr "Inloggning misslyckades!"
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:228
+msgid "Twitter authorization required."
+msgstr "Inloggning till Twitter krävs."
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:143
-msgid "Login failed! Username and/or password are incorrect."
-msgstr "Inloggning misslyckades! Användarnamn och/eller lösenord var felaktigt."
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:235
+#, csharp-format
+msgid ""
+"Please open the following URL and click \"Allow\" to allow Smuxi to connect "
+"to your Twitter account: {0}"
+msgstr ""
+"Vänligen öppna följande URL och klicka \"Godkänn\" för att tillåta Smuxi att"
+" ansluta till ditt Twitterkonto: {0}"
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:149
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:251
+msgid ""
+"Once you have allowed Smuxi to access your Twitter account, Twitter will "
+"provide a PIN."
+msgstr ""
+"När du tillåtit Smuxi tillgång till ditt Twitterkonto, kommer Twitter att "
+"tillhandhålla en PIN-kod."
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:258
+msgid "Please type: /pin PIN_FROM_TWITTER"
+msgstr "Vänligen skriv: /pin PIN_KOD_FRÅN_TWITTER"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:265
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:305
 msgid "Connection failed!"
 msgstr "Anslutning misslyckades!"
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:151
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:267
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:307
 msgid "Connection failed! Reason: "
 msgstr "Anslutning misslyckades! Anledning: "
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:156
-msgid "Successfully connected to Twitter."
-msgstr "Ansluten till Twitter."
-
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:164
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:280
 msgid "Fetching user details from Twitter, please wait..."
 msgstr "Hämtar användarinformation från Twitter. Vänligen vänta..."
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:169
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:285
 msgid "Finished fetching user details."
 msgstr "Hämtade användarinformation."
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:176
-msgid "Failed to fetch user details from Twitter. Reason: "
-msgstr "Misslyckades med att hämta användarinformation från Twitter. Anledning: "
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:290
+msgid "Successfully connected to Twitter."
+msgstr "Ansluten till Twitter."
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:185
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:299
+msgid "Failed to fetch user details from Twitter. Reason: "
+msgstr ""
+"Misslyckades med att hämta användarinformation från Twitter. Anledning: "
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:320
 msgid "Fetching friends from Twitter, please wait..."
 msgstr "Hämtar vänner från Twitter. Vänligen vänta..."
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:190
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:325
 msgid "Finished fetching friends."
 msgstr "Hämtade vänner."
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:193
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:328
 msgid "Failed to fetch friends from Twitter. Reason: "
 msgstr "Misslyckades med att hämta vänner från Twitter. Anledning: "
 
 #. TRANSLATOR: this line is used as a label / category for a
 #. list of commands below
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:454
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:605
 msgid "Twitter Commands"
 msgstr "Twitter-kommandon"
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:504
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:647
+msgid "No pending authorization request!"
+msgstr "Ingen pågående auktoriseringsansökan!"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:668
+#, csharp-format
+msgid "Failed to authorize with Twitter: {0}"
+msgstr "Misslyckades att autorisera med Twitter: {0}"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:676
+msgid "Twitter did not accept your PIN.  Did you enter it correctly?"
+msgstr "Twitter accepterade inte din PIN-kod.  Angav du den korrekt?"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:684
+#, csharp-format
+msgid ""
+"Please retry by closing this tab and reconnecting to the Twitter \"{0}\" "
+"account."
+msgstr ""
+"Vänligen försök igen genom att stänga denna flik och återansluta till "
+"Twitterkontot \"{0}\"."
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:725
+msgid "Migrated Twitter account from basic auth to OAuth."
+msgstr "Migrerade Twitterkontot från enkel auktorisering till OAuth."
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:739
+#, csharp-format
+msgid "Successfully authorized Twitter account \"{0}\" for Smuxi"
+msgstr "Lyckades att auktorisera Twitterkontot \"{0}\" för Smuxi"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:761
 #, csharp-format
 msgid "Could not update status - Reason: {0}"
 msgstr "Kunde inte uppdatera status - Anledning: {0}"
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:513
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:770
 msgid "Cannot send message - no target specified. Use: /msg $nick message"
-msgstr "Kan inte skicka meddelande - inget mål specificerades. Använd /msg $nick meddelande"
+msgstr ""
+"Kan inte skicka meddelande - inget mål specificerades. Använd /msg $nick "
+"meddelande"
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:526
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:568
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:783
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:820
 #, csharp-format
 msgid "Could not send message - Reason: {0}"
 msgstr "Kunde inte skicka meddelande - Anledning: {0}"
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:555
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:807
 msgid "Could not send message - the specified user does not exist."
-msgstr "Kunde inte skicka meddelande - den specificerade användaren hittades inte."
+msgstr ""
+"Kunde inte skicka meddelande - den specificerade användaren hittades inte."
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:631
-msgid "An error occurred while fetching the friends timeline from Twitter. Reason: "
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:896
+msgid ""
+"An error occurred while fetching the friends timeline from Twitter. Reason: "
 msgstr "Ett fel uppstod vid hämtning av kvitter från dina vänner. Anledning: "
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:721
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:1001
 msgid "An error occurred while fetching the replies from Twitter. Reason: "
 msgstr "Ett fel uppstod vid hämtning av svar från Twitter. Anledning: "
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:816
-msgid "An error occurred while fetching direct messages from Twitter. Reason: "
-msgstr "Ett fel uppstod vid hämtning av direktmeddelanden från Twitter. Anledning: "
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:1097
+msgid ""
+"An error occurred while fetching direct messages from Twitter. Reason: "
+msgstr ""
+"Ett fel uppstod vid hämtning av direktmeddelanden från Twitter. Anledning: "
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:1441
+msgid "Twitter didn't send a valid response, they're probably overloaded"
+msgstr ""
+"Twitter skickade inte ett giltigt svar, de är antagligen överbelastade"
+
 
