@@ -88,7 +88,7 @@ namespace Smuxi.Engine
             Trace.Call(session);
 
             _JabberClient = new JabberClient();
-            _JabberClient.Resource = Engine.VersionString;
+            _JabberClient.Resource = "Smuxi";
             _JabberClient.AutoLogin = true;
             _JabberClient.AutoPresence = false;
             _JabberClient.OnStreamInit += OnStreamInit;
