@@ -1,13 +1,7 @@
 /*
- * $Id$
- * $URL$
- * $Rev$
- * $Author$
- * $Date$
- *
  * Smuxi - Smart MUltipleXed Irc
  *
- * Copyright (c) 2005-2006 Mirco Bauer <meebey@meebey.net>
+ * Copyright (c) 2006-2012 Mirco Bauer <meebey@meebey.net>
  *
  * Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
  *
@@ -49,7 +43,7 @@ namespace Smuxi.Frontend.Gnome
             }
             Version = "\n Frontend: " + Frontend.UIName + " " + version  +
                       "\n Engine: " + Frontend.EngineVersion;
-            Copyright = "Copyright © 2005-2010 Mirco Bauer <meebey@meebey.net>";
+            Copyright = "Copyright © 2005-2012 Mirco Bauer <meebey@meebey.net>";
             Authors = new string[] {
                 "Mirco Bauer <meebey@meebey.net>",
                 "David Paleino <dapal@debian.org>",

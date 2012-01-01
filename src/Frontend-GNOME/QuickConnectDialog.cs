@@ -1,10 +1,4 @@
 /*
- * $Id: PreferencesDialog.cs 73 2005-06-27 12:42:06Z meebey $
- * $URL: svn+ssh://svn.qnetp.net/svn/smuxi/smuxi/trunk/src/Frontend-GtkGnome/PreferencesDialog.cs $
- * $Rev: 73 $
- * $Author: meebey $
- * $Date: 2005-06-27 14:42:06 +0200 (Mon, 27 Jun 2005) $
- *
  * Smuxi - Smart MUltipleXed Irc
  *
  * Copyright (c) 2008, 2010 Mirco Bauer <meebey@meebey.net>

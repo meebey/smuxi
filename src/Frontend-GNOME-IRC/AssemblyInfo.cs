@@ -1,10 +1,4 @@
 /*
- * $Id: AssemblyInfo.cs 167 2007-04-17 21:17:37Z meebey $
- * $URL: svn+ssh://svn.qnetp.net/svn/smuxi/smuxi/trunk/src/Frontend-GNOME/AssemblyInfo.cs $
- * $Rev: 167 $
- * $Author: meebey $
- * $Date: 2007-04-17 23:17:37 +0200 (Tue, 17 Apr 2007) $
- *
  * Smuxi - Smart MUltipleXed Irc
  *
  * Copyright (c) 2005-2006 Mirco Bauer <meebey@meebey.net>
@@ -30,7 +24,7 @@ using System.Reflection;
 using System.Runtime.CompilerServices;
 
 [assembly: AssemblyTitle("Smuxi - IRC support for GNOME frontend")]
-[assembly: AssemblyCopyright("2005-2008 (C) Mirco Bauer <meebey@meebey.net>")]
+[assembly: AssemblyCopyright("2005-2011 (C) Mirco Bauer <meebey@meebey.net>")]
 
 [assembly: AssemblyDelaySign(false)]
 [assembly: AssemblyKeyFile("")]

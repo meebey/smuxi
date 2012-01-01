@@ -1,13 +1,7 @@
 /*
- * $Id: MainWindow.cs 192 2007-04-22 11:48:12Z meebey $
- * $URL: svn+ssh://svn.qnetp.net/svn/smuxi/smuxi/trunk/src/Frontend-GNOME/MainWindow.cs $
- * $Rev: 192 $
- * $Author: meebey $
- * $Date: 2007-04-22 13:48:12 +0200 (Sun, 22 Apr 2007) $
- *
  * Smuxi - Smart MUltipleXed Irc
  *
- * Copyright (c) 2007 Mirco Bauer <meebey@meebey.net>
+ * Copyright (c) 2007, 2010-2011 Mirco Bauer <meebey@meebey.net>
  *
  * Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
  *

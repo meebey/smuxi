@@ -1,10 +1,4 @@
 /*
- * $Id: AssemblyInfo.cs 116 2006-04-22 22:14:09Z meebey $
- * $URL: svn+ssh://svn.qnetp.net/svn/smuxi/smuxi/trunk/src/Frontend-Test/AssemblyInfo.cs $
- * $Rev: 116 $
- * $Author: meebey $
- * $Date: 2006-04-23 00:14:09 +0200 (Sun, 23 Apr 2006) $
- *
  * Smuxi - Smart MUltipleXed Irc
  *
  * Copyright (c) 2005-2006 Mirco Bauer <meebey@meebey.net>
@@ -32,7 +26,7 @@ using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 [assembly: AssemblyTitle("Smuxi - common library")]
-[assembly: AssemblyCopyright("2005-2010 (C) Mirco Bauer <meebey@meebey.net>")]
+[assembly: AssemblyCopyright("2005-2011 (C) Mirco Bauer <meebey@meebey.net>")]
 
 [assembly: AssemblyDelaySign(false)]
 [assembly: AssemblyKeyFile("")]

@@ -1,10 +1,4 @@
 /*
- * $Id: TestUI.cs 179 2007-04-21 15:01:29Z meebey $
- * $URL: svn+ssh://svn.qnetp.net/svn/smuxi/smuxi/trunk/src/Frontend-Test/TestUI.cs $
- * $Rev: 179 $
- * $Author: meebey $
- * $Date: 2007-04-21 17:01:29 +0200 (Sat, 21 Apr 2007) $
- *
  * Smuxi - Smart MUltipleXed Irc
  *
  * Copyright (c) 2010 Mirco Bauer <meebey@meebey.net>

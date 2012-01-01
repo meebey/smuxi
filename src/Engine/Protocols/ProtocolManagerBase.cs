@@ -1,13 +1,7 @@
 /*
- * $Id: IrcProtocolManager.cs 149 2007-04-11 16:47:52Z meebey $
- * $URL: svn+ssh://svn.qnetp.net/svn/smuxi/smuxi/trunk/src/Engine/IrcProtocolManager.cs $
- * $Rev: 149 $
- * $Author: meebey $
- * $Date: 2007-04-11 18:47:52 +0200 (Wed, 11 Apr 2007) $
- *
  * Smuxi - Smart MUltipleXed Irc
  *
- * Copyright (c) 2005-2006 Mirco Bauer <meebey@meebey.net>
+ * Copyright (c) 2007-2011 Mirco Bauer <meebey@meebey.net>
  *
  * Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
  *

@@ -1,13 +1,7 @@
 /*
- * $Id: ChannelPage.cs 138 2006-12-23 17:11:57Z meebey $
- * $URL: svn+ssh://svn.qnetp.net/svn/smuxi/smuxi/trunk/src/Frontend-GNOME/ChannelPage.cs $
- * $Rev: 138 $
- * $Author: meebey $
- * $Date: 2006-12-23 18:11:57 +0100 (Sat, 23 Dec 2006) $
- *
  * Smuxi - Smart MUltipleXed Irc
  *
- * Copyright (c) 2007 Mirco Bauer <meebey@meebey.net>
+ * Copyright (c) 2007, 2010-2011 Mirco Bauer <meebey@meebey.net>
  *
  * Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
  *

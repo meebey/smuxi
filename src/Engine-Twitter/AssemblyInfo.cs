@@ -1,10 +1,4 @@
 /*
- * $Id: AssemblyInfo.cs 211 2007-08-03 18:58:27Z meebey $
- * $URL: svn+ssh://svn.qnetp.net/svn/smuxi/smuxi/trunk/src/Engine/AssemblyInfo.cs $
- * $Rev: 211 $
- * $Author: meebey $
- * $Date: 2007-08-03 20:58:27 +0200 (Fri, 03 Aug 2007) $
- *
  * Smuxi - Smart MUltipleXed Irc
  *
  * Copyright (c) 2005-2006 Mirco Bauer <meebey@meebey.net>
@@ -32,7 +26,7 @@ using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 [assembly: AssemblyTitle("Smuxi - Twitter support for engine")]
-[assembly: AssemblyCopyright("2009 (C) Mirco Bauer <meebey@meebey.net>")]
+[assembly: AssemblyCopyright("2009-2011 (C) Mirco Bauer <meebey@meebey.net>")]
 
 [assembly: AssemblyDelaySign(false)]
 [assembly: AssemblyKeyFile("")]

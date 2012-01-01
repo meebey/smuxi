@@ -1,13 +1,7 @@
 /*
- * $Id: ChatView.cs 200 2007-06-25 01:12:33Z meebey $
- * $URL: svn+ssh://svn.qnetp.net/svn/smuxi/smuxi/trunk/src/Frontend-GNOME/ChatView.cs $
- * $Rev: 200 $
- * $Author: meebey $
- * $Date: 2007-06-25 03:12:33 +0200 (Mon, 25 Jun 2007) $
- *
  * Smuxi - Smart MUltipleXed Irc
  *
- * Copyright (c) 2007 Mirco Bauer <meebey@meebey.net>
+ * Copyright (c) 2007, 2010-2011 Mirco Bauer <meebey@meebey.net>
  *
  * Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
  *

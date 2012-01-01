@@ -1,10 +1,4 @@
 /*
- * $Id: AssemblyInfo.cs 197 2007-06-12 00:57:23Z meebey $
- * $URL: svn+ssh://svn.qnetp.net/svn/smuxi/smuxi/trunk/src/Frontend-GNOME/AssemblyInfo.cs $
- * $Rev: 197 $
- * $Author: meebey $
- * $Date: 2007-06-12 02:57:23 +0200 (Tue, 12 Jun 2007) $
- *
  * Smuxi - Smart MUltipleXed Irc
  *
  * Copyright (c) 2007 Mirco Bauer <meebey@meebey.net>
@@ -30,7 +24,7 @@ using System.Reflection;
 using System.Runtime.CompilerServices;
 
 [assembly: AssemblyTitle("Smuxi - STFL frontend")]
-[assembly: AssemblyCopyright("2007-2008 (C) Mirco Bauer <meebey@meebey.net>")]
+[assembly: AssemblyCopyright("2007-2011 (C) Mirco Bauer <meebey@meebey.net>, 2011 (C) Andrius Bentkus <andrius.bentkus@gmail.com>")]
 
 [assembly: AssemblyDelaySign(false)]
 [assembly: AssemblyKeyFile("")]
