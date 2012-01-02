@@ -385,7 +385,7 @@ namespace Smuxi.Frontend.Gnome
                             _Logger.Debug("ReconnectEngineToGUI(): Exception", ex);
 #endif
                             disconnectedEvent.Set();
-                            Thread.Sleep(10 * 1000);
+                            Thread.Sleep(30 * 1000);
                         }
                     }
                     Session = _MainWindow.EngineManager.Session;
