@@ -361,7 +361,6 @@ namespace Smuxi.Frontend.Gnome
                     // time as NetworkManager is not accurate about when the
                     // network is really ready
                     GLib.Timeout.Add(5 * 1000, delegate {
-                        MainWindow.ChatViewManager.IsSensitive = false;
                         Frontend.DisconnectEngineFromGUI(cleanly);
                         disconnectedEvent.Set();
                         return false;
@@ -394,7 +393,6 @@ namespace Smuxi.Frontend.Gnome
 
                     Gtk.Application.Invoke(delegate {
                         Frontend.ConnectEngineToGUI();
-                        MainWindow.ChatViewManager.IsSensitive = true;
                     });
                 } finally {
                     _InReconnectHandler = false;
