@@ -380,7 +380,7 @@ namespace Smuxi.Frontend.Gnome
                             disconnectedEvent.WaitOne();
                             _MainWindow.EngineManager.Reconnect();
                             successful = true;
-                        } catch (ApplicationException ex) {
+                        } catch (Exception ex) {
 #if LOG4NET
                             _Logger.Debug("ReconnectEngineToGUI(): Exception", ex);
 #endif
@@ -394,6 +394,8 @@ namespace Smuxi.Frontend.Gnome
                     Gtk.Application.Invoke(delegate {
                         Frontend.ConnectEngineToGUI();
                     });
+                } catch (Exception ex) {
+                    Frontend.ShowException(ex);
                 } finally {
                     _InReconnectHandler = false;
                 }
