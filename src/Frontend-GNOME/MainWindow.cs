@@ -1205,7 +1205,7 @@ namespace Smuxi.Frontend.Gnome
             }
         }
 
-        private void UpdateProgressBar()
+        public void UpdateProgressBar()
         {
             var totalChatCount = _ChatViewManager.Chats.Count;
             var syncedChatCount =  _ChatViewManager.SyncedChats.Count;

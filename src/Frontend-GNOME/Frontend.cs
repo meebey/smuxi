@@ -326,6 +326,7 @@ namespace Smuxi.Frontend.Gnome
                 _FrontendManagerCheckerQueue.Dispose();
             }
             _MainWindow.ChatViewManager.Clear();
+            _MainWindow.UpdateProgressBar();
             // make sure no stray SSH tunnel leaves behind
             _MainWindow.EngineManager.Disconnect();
             _MainWindow.NetworkStatus = null;
