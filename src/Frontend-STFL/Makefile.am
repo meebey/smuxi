@@ -65,7 +65,8 @@ RESOURCES = \
 	MainWindow.stfl 
 
 EXTRAS = \
-	smuxi-frontend-stfl.in 
+	smuxi-frontend-stfl.in \
+	$(ASSEMBLY_CONFIG_SOURCE)
 
 REFERENCES =  \
 	System \
