@@ -1,5 +1,5 @@
 AC_PREREQ([2.54])
-AC_INIT([smuxi], [0.8.9], [http://www.smuxi.org/issues/new])
+AC_INIT([smuxi], [0.8.9.1], [http://www.smuxi.org/issues/new])
 # using the --foreign option makes automake less strict about GNU policy 
 AC_CONFIG_MACRO_DIR([.])
 AM_INIT_AUTOMAKE([foreign tar-ustar])
