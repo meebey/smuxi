@@ -429,12 +429,12 @@ namespace Smuxi.Frontend.Gnome
             if (_FrontendManager != null) {
                 if (IsLocalEngine) {
                     try {
-                        var cmd = new CommandModel(
-                            _FrontendManager,
-                            MainWindow.ChatViewManager.CurrentChatView.ChatModel,
-                            null
-                        );
-                        Session.CommandShutdown(cmd);
+                        // dispose (possibly flush) all protocol managers / chats
+                        lock (Session.ProtocolManagers) {
+                            foreach (var protocolManager in Session.ProtocolManagers) {
+                                protocolManager.Dispose();
+                            }
+                        }
                     } catch (Exception ex) {
 #if LOG4NET
                         _Logger.Error("Quit(): Exception", ex);
