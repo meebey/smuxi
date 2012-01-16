@@ -438,17 +438,7 @@ namespace Smuxi.Frontend.Gnome
 #endif
                     return true;
                 }
-                
-                // HACK: for some reason the selection of the TextView gets
-                // lost when moving the focus from the TextView to the entry
-                // being non-empty. So we empty it, move focus and then set the
-                // old value back. GTK+ bug maybe?
-                string text = Text;
-                Text = String.Empty;
                 HasFocus = true;
-                Text = text;
-                Position = -1;
-                
                 return false;
             }));
         }
