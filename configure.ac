@@ -304,7 +304,7 @@ AC_ARG_WITH([gtkspell],
 )
 WITH_GTKSPELL=$with_gtkspell
 PKG_CHECK_EXISTS([gtkspell-2.0], GTKSPELL_SUPPORT=yes, GTKSPELL_SUPPORT=no)
-if test "x$WITH_GKTSPELL" = "xauto"; then
+if test "x$WITH_GTKSPELL" = "xauto"; then
 	WITH_GTKSPELL=$GTKSPELL_SUPPORT
 fi
 if test "x$WITH_GTKSPELL" = "xyes"; then
