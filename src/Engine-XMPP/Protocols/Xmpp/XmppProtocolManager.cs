@@ -40,6 +40,7 @@ using jabber.protocol;
 using jabber.protocol.client;
 using jabber.protocol.iq;
 using XmppMessageType = jabber.protocol.client.MessageType;
+using XmppProxyType = jabber.connection.ProxyType;
 
 using Smuxi.Common;
 
@@ -805,6 +806,35 @@ namespace Smuxi.Engine
             _JabberClient.AutoStartTLS = server.UseEncryption;
             if (!server.ValidateServerCertificate) {
                 _JabberClient.OnInvalidCertificate += ValidateCertificate;
+            }
+
+            var proxySettings = new ProxySettings();
+            proxySettings.ApplyConfig(Session.UserConfig);
+            var protocol = server.UseEncryption ? "xmpps" : "xmpp";
+            var serverUri = String.Format("{0}://{1}:{2}", protocol,
+                                          server.Hostname, server.Port);
+            var proxy = proxySettings.GetWebProxy(serverUri);
+            if (proxy == null) {
+                _JabberClient.Proxy = XmppProxyType.None;
+            } else {
+                var proxyScheme = proxy.Address.Scheme;
+                var xmppProxyType = XmppProxyType.None;
+                try {
+                    // HACK: map proxy scheme to SmartIrc4net's ProxyType
+                    xmppProxyType = (XmppProxyType) Enum.Parse(
+                        typeof(XmppProxyType), proxyScheme, true
+                    );
+                } catch (ArgumentException ex) {
+#if LOG4NET
+                    _Logger.Error("ApplyConfig(): Couldn't parse proxy type: " +
+                                  proxyScheme, ex);
+#endif
+                }
+                _JabberClient.Proxy = xmppProxyType;
+                _JabberClient.ProxyHost = proxy.Address.Host;
+                _JabberClient.ProxyPort = proxy.Address.Port;
+                _JabberClient.ProxyUsername = proxySettings.ProxyUsername;
+                _JabberClient.ProxyPassword = proxySettings.ProxyPassword;
             }
         }
 
