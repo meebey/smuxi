@@ -111,6 +111,7 @@ namespace Smuxi.Frontend.Gnome
             
             ChatViewManager = chatViewManager;
             Settings = new EntrySettings();
+            WrapMode = Gtk.WrapMode.WordChar;
 
             InitSpellCheck();
             InitCommandManager();

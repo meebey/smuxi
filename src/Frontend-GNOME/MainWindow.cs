@@ -534,7 +534,7 @@ namespace Smuxi.Frontend.Gnome
             _Entry = new Entry(_ChatViewManager);
             var entryScrolledWindow = new Gtk.ScrolledWindow();
             entryScrolledWindow.ShadowType = Gtk.ShadowType.EtchedIn;
-            entryScrolledWindow.Add(_Entry);
+            entryScrolledWindow.HscrollbarPolicy = Gtk.PolicyType.Never;
             entryScrolledWindow.SizeRequested += delegate(object o, Gtk.SizeRequestedArgs args) {
                 // predict and set useful heigth
                 var layout = _Entry.CreatePangoLayout("Qp");
@@ -556,6 +556,7 @@ namespace Smuxi.Frontend.Gnome
                 };
                 args.Requisition = bestSize;
             };
+            entryScrolledWindow.Add(_Entry);
 
             _ProgressBar = new Gtk.ProgressBar();
             _ProgressBar.BarStyle = Gtk.ProgressBarStyle.Continuous;
