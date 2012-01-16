@@ -1,13 +1,7 @@
 /*
- * $Id$
- * $URL$
- * $Rev$
- * $Author$
- * $Date$
- *
  * Smuxi - Smart MUltipleXed Irc
  *
- * Copyright (c) 2005-2008 Mirco Bauer <meebey@meebey.net>
+ * Copyright (c) 2005-2012 Mirco Bauer <meebey@meebey.net>
  *
  * Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
  *
@@ -36,7 +30,7 @@ using Smuxi.Common;
 
 namespace Smuxi.Frontend.Gnome
 {
-    public class Entry : Gtk.Entry
+    public class Entry : Gtk.TextView
     {
 #if LOG4NET
         private static readonly log4net.ILog _Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
@@ -48,6 +42,7 @@ namespace Smuxi.Frontend.Gnome
         private new EntrySettings Settings { get; set; }
 
         ChatViewManager ChatViewManager;
+        event EventHandler<EventArgs> Activated;
 
         /*
         public StringCollection History {
@@ -79,6 +74,30 @@ namespace Smuxi.Frontend.Gnome
         }
         */
 
+        public string Text {
+            get {
+                return Buffer.Text;
+            }
+            set {
+                Buffer.Text = value;
+            }
+        }
+
+        public int Position {
+            get {
+                return Buffer.CursorPosition;
+            }
+            set {
+                Gtk.TextIter position;
+                if (value < 0) {
+                    position = Buffer.EndIter;
+                } else {
+                    position = Buffer.GetIterAtOffset(value);
+                }
+                Buffer.PlaceCursor(position);
+            }
+        }
+
         public Entry(ChatViewManager chatViewManager)
         {
             Trace.Call(chatViewManager);
@@ -96,11 +115,11 @@ namespace Smuxi.Frontend.Gnome
             Frontend.SessionPropertyChanged += delegate {
                 InitCommandManager();
             };
-
-            Activated += new EventHandler(_OnActivated);
+            
+            Activated += _OnActivated;
             KeyPressEvent += new Gtk.KeyPressEventHandler(_OnKeyPress);
             FocusOutEvent += new Gtk.FocusOutEventHandler(_OnFocusOut);
-            ClipboardPasted += new EventHandler(_OnClipboardPasted);
+            PasteClipboard += _OnClipboardPasted;
         }
 
         public void UpdateHistoryChangedLine()
@@ -372,6 +391,13 @@ namespace Smuxi.Frontend.Gnome
                 case Gdk.Key.Page_Down:
                     ChatViewManager.CurrentChatView.ScrollDown();
                     break;
+                case Gdk.Key.Return:
+                    // supress adding a newline
+                    e.RetVal = true;
+                    if (Activated != null) {
+                        Activated(this, EventArgs.Empty);
+                    }
+                    break;
             }
         }
 
@@ -392,8 +418,8 @@ namespace Smuxi.Frontend.Gnome
                 // we should not interrupt either, as the user is going to make a selection!
 
                 // don't interrupt on-going entry selections
-                int start, end;
-                if (GetSelectionBounds(out start, out end)) {
+                Gtk.TextIter start, end;
+                if (Buffer.GetSelectionBounds(out start, out end)) {
 #if LOG4NET
                     //_Logger.Debug("_OnFocusOut(): Entry has on-going selection, waiting..."); 
 #endif
@@ -666,7 +692,7 @@ namespace Smuxi.Frontend.Gnome
                 return;
             }
 
-            int position = CursorPosition;
+            int position = Position;
             string text = Text;
             string word;
             int previous_space;
