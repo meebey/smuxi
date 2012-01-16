@@ -22,6 +22,7 @@
 
 using System;
 using System.IO;
+using System.Linq;
 using System.Threading;
 using System.Reflection;
 using SysDiag = System.Diagnostics;
@@ -531,14 +532,38 @@ namespace Smuxi.Frontend.Gnome
             _EngineManager = new EngineManager(Frontend.FrontendConfig, _UI);
 
             _Entry = new Entry(_ChatViewManager);
-            
+            var entryScrolledWindow = new Gtk.ScrolledWindow();
+            entryScrolledWindow.ShadowType = Gtk.ShadowType.EtchedIn;
+            entryScrolledWindow.Add(_Entry);
+            entryScrolledWindow.SizeRequested += delegate(object o, Gtk.SizeRequestedArgs args) {
+                // predict and set useful heigth
+                var layout = _Entry.CreatePangoLayout("Qp");
+                int lineWidth, lineHeigth;
+                layout.GetPixelSize(out lineHeigth, out lineHeigth);
+                var text = Entry.Text;
+                var newLines = text.Count(f => f == '\n');
+                // cap to 1-3 lines
+                if (text.Length > 0) {
+                    newLines++;
+                    newLines = Math.Max(newLines, 1);
+                    newLines = Math.Min(newLines, 3);
+                } else {
+                    newLines = 1;
+                }
+                // use text heigth + a bit extra
+                var bestSize = new Gtk.Requisition() {
+                    Height = (lineHeigth * newLines) + 5
+                };
+                args.Requisition = bestSize;
+            };
+
             _ProgressBar = new Gtk.ProgressBar();
             _ProgressBar.BarStyle = Gtk.ProgressBarStyle.Continuous;
 
             Gtk.VBox vbox = new Gtk.VBox();
             vbox.PackStart(_MenuBar, false, false, 0);
             vbox.PackStart(_Notebook, true, true, 0);
-            vbox.PackStart(_Entry, false, false, 0);
+            vbox.PackStart(entryScrolledWindow, false, false, 0);
 
             _NetworkStatusbar = new Gtk.Statusbar();
             _NetworkStatusbar.WidthRequest = 300;
