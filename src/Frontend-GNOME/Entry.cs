@@ -389,10 +389,14 @@ namespace Smuxi.Frontend.Gnome
                     HistoryNext();
                     break;
                 case Gdk.Key.Page_Up:
+                    // supress scrolling
                     ChatViewManager.CurrentChatView.ScrollUp();
+                    e.RetVal = true;
                     break;
                 case Gdk.Key.Page_Down:
+                    // supress scrolling
                     ChatViewManager.CurrentChatView.ScrollDown();
+                    e.RetVal = true;
                     break;
                 case Gdk.Key.Return:
                     // supress adding a newline
