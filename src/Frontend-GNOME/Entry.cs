@@ -21,6 +21,7 @@
  */
 
 using System;
+using System.Runtime.InteropServices;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
@@ -111,11 +112,12 @@ namespace Smuxi.Frontend.Gnome
             ChatViewManager = chatViewManager;
             Settings = new EntrySettings();
 
+            InitSpellCheck();
             InitCommandManager();
             Frontend.SessionPropertyChanged += delegate {
                 InitCommandManager();
             };
-            
+
             Activated += _OnActivated;
             KeyPressEvent += new Gtk.KeyPressEventHandler(_OnKeyPress);
             FocusOutEvent += new Gtk.FocusOutEventHandler(_OnFocusOut);
@@ -863,9 +865,31 @@ namespace Smuxi.Frontend.Gnome
             }
         }
 
+        private void InitSpellCheck()
+        {
+#if GTKSPELL
+            try {
+                gtkspell_new_attach(Handle, null, IntPtr.Zero);
+            } catch (Exception ex) {
+                _Logger.Error("InitSpellCheck(): gtkspell_new_attach() "+
+                              "threw exception", ex);
+            }
+#endif
+        }
+
         private static string _(string msg)
         {
             return Mono.Unix.Catalog.GetString(msg);
-        }        
+        }
+
+#if GTKSPELL
+        [DllImport("gtkspell.dll")]
+        static extern IntPtr gtkspell_new_attach(IntPtr text_view,
+                                                 string locale,
+                                                 IntPtr error);
+
+        [DllImport("gtkspell.dll")]
+        static extern void gtkspell_detach(IntPtr obj);
+#endif
     }
 }

@@ -8,7 +8,7 @@
       <EnvironmentVariables>
         <Variable name="MONO_TRACE_LISTENER" value="Console.Out" />
       </EnvironmentVariables>
-      <CodeGeneration compiler="Mcs" warninglevel="4" optimize="False" unsafecodeallowed="False" generateoverflowchecks="True" definesymbols="DEBUG,TRACE,LOG4NET,CONFIG_NINI,GTK_SHARP_2_10,INDICATE_SHARP,NOTIFY_SHARP,IPC_DBUS,NDESK_DBUS" generatexmldocumentation="False" ctype="CSharpCompilerParameters" />
+      <CodeGeneration compiler="Mcs" warninglevel="4" optimize="False" unsafecodeallowed="False" generateoverflowchecks="True" definesymbols="DEBUG,TRACE,LOG4NET,CONFIG_NINI,GTK_SHARP_2_10,INDICATE_SHARP,NOTIFY_SHARP,IPC_DBUS,NDESK_DBUS,GTKSPELL" generatexmldocumentation="False" ctype="CSharpCompilerParameters" />
     </Configuration>
     <Configuration name="Release" ctype="DotNetProjectConfiguration">
       <Output directory="../../bin/release" assembly="smuxi-frontend-gnome" />

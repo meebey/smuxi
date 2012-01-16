@@ -297,6 +297,20 @@ if test "x$WITH_DBUS" = "xyes"; then
 	fi
 fi
 
+AC_ARG_WITH([gtkspell],
+	AC_HELP_STRING([--with-gtkspell], [Support GTK+ spell checking @<:@default=auto@:>@]),
+	[],
+	with_gtkspell=auto
+)
+WITH_GTKSPELL=$with_gtkspell
+PKG_CHECK_EXISTS([gtkspell-2.0], GTKSPELL_SUPPORT=yes, GTKSPELL_SUPPORT=no)
+if test "x$WITH_GKTSPELL" = "xauto"; then
+	WITH_GTKSPELL=$GTKSPELL_SUPPORT
+fi
+if test "x$WITH_GTKSPELL" = "xyes"; then
+	PKG_CHECK_MODULES([GTKSPELL], [gtkspell-2.0 >= 2.0.9])
+fi
+
 # Engines
 AC_ARG_ENABLE([engine-irc],
 	AC_HELP_STRING([--enable-engine-irc], [Enable IRC protocol support (default yes)]),
@@ -460,6 +474,9 @@ if test "x$ENABLE_FRONTEND_GNOME" != "xno"; then
 	if test "x$WITH_NOTIFY" = "xyes"; then
 		FRONTEND_GNOME_COMPILER_FLAGS+=" -define:NOTIFY_SHARP"
 	fi
+	if test "x$WITH_GTKSPELL" = "xyes"; then
+		FRONTEND_GNOME_COMPILER_FLAGS+=" -define:GTKSPELL"
+	fi
 	if $PKG_CONFIG 'mono >= 2.6'; then
 		FRONTEND_GNOME_COMPILER_FLAGS+=" -platform:x86"
 	fi
@@ -600,6 +617,7 @@ AC_MSG_RESULT([
 	  GNOME:               $ENABLE_FRONTEND_GNOME (IRC: $ENABLE_FRONTEND_GNOME_IRC XMPP: $ENABLE_FRONTEND_GNOME_XMPP)
 	  + Messaging Menu:    $WITH_INDICATE
 	  + Notifications:     $WITH_NOTIFY
+	  + Spell Checking:    $WITH_GTKSPELL
 	  + D-Bus:             $WITH_DBUS
 	  Ncurses:             $ENABLE_FRONTEND_CURSES
 	  STFL:                $ENABLE_FRONTEND_STFL
