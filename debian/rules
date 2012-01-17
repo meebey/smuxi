@@ -9,7 +9,13 @@ DEB_VERSION = $(shell dpkg-parsechangelog -ldebian/changelog | grep ^Vers | cut 
 
 override_dh_auto_configure:
 	NOCONFIGURE=1 NOGIT=1 ./autogen.sh
-	dh_auto_configure -- --with-vendor-package-version="Debian $(DEB_VERSION)" --enable-engine-irc --enable-engine-xmpp --enable-frontend-gnome --with-notify GMCS=/usr/bin/mono-csc MCS=/usr/bin/mono-csc
+	dh_auto_configure -- \
+	  --with-vendor-package-version="Debian $(DEB_VERSION)" \
+	  --enable-engine-irc \
+	  --enable-engine-xmpp \
+	  --enable-frontend-gnome \
+	  --with-notify \
+	  GMCS=/usr/bin/mono-csc MCS=/usr/bin/mono-csc
 
 # disable "make check"
 override_dh_auto_test:
