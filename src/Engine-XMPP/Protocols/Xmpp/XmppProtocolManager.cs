@@ -310,6 +310,10 @@ namespace Smuxi.Engine
             string[] help = {
             "help",
             "connect xmpp/jabber server port username password [resource]",
+            "msg/query jid message",
+            "say message",
+            "join muc-jid",
+            "part/leave [muc-jid]",
             "away [away-message]"
             };
             
