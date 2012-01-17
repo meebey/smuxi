@@ -261,6 +261,10 @@ namespace Smuxi.Engine
                             CommandPart(command);
                             handled = true;
                             break;
+                        case "away":
+                            CommandAway(command);
+                            handled = true;
+                            break;
                     }
                 } else {
                     _Say(command.Chat, command.Data);
@@ -306,6 +310,7 @@ namespace Smuxi.Engine
             string[] help = {
             "help",
             "connect xmpp/jabber server port username password [resource]",
+            "away [away-message]"
             };
             
             foreach (string line in help) { 
@@ -419,6 +424,15 @@ namespace Smuxi.Engine
             ChatModel chat = GetChat(jid, ChatType.Group);
             if (chat != null) {
                 _ConferenceManager.GetRoom(jid+"/"+_JabberClient.User).Leave("Part");
+            }
+        }
+
+        public void CommandAway(CommandModel cd)
+        {
+            if (cd.DataArray.Length >= 2) {
+                SetPresenceStatus(PresenceStatus.Away, cd.Parameter);
+            } else {
+                SetPresenceStatus(PresenceStatus.Online, null);
             }
         }
 
