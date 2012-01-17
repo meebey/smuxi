@@ -12,9 +12,13 @@ override_dh_auto_configure:
 	dh_auto_configure -- \
 	  --with-vendor-package-version="Debian $(DEB_VERSION)" \
 	  --enable-engine-irc \
+	  --enable-engine-twitter \
 	  --enable-engine-xmpp \
 	  --enable-frontend-gnome \
+	  --enable-frontend-stfl \
 	  --with-notify \
+	  --with-indicate \
+	  --with-dbus \
 	  GMCS=/usr/bin/mono-csc MCS=/usr/bin/mono-csc
 
 # disable "make check"
