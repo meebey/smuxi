@@ -19,6 +19,7 @@ Build-Depends-Indep: cli-common-dev (>= 0.5.7),
  libdbus1.0-cil-dev | libndesk-dbus1.0-cil-dev,
  libdbus-glib1.0-cil-dev | libndesk-dbus-glib1.0-cil-dev,
  libgtkspell-dev,
+ libstfl-dev (>= 0.21),
  lsb-release,
  pkg-config,
  gettext,
@@ -252,3 +253,32 @@ Description: IRC support for GNOME frontend for Smuxi
  local engine that is used by the local frontend client.
  .
  This package contains enhanced IRC support for the GNOME frontend of Smuxi.
+
+Package: smuxi-frontend-stfl
+Architecture: all
+Depends: ${shlibs:Depends},
+         ${misc:Depends},
+         ${cli:Depends},
+         smuxi-engine (= ${source:Version}),
+         smuxi-frontend (= ${source:Version})
+Description: STFL frontend for Smuxi (experimental)
+ Smuxi is an irssi-inspired, flexible, user-friendly and cross-platform IRC
+ client for sophisticated users, targeting the GNOME desktop.
+ .
+ Smuxi is based on the client-server model: The core application (engine) can
+ be placed onto a server which is connected to the Internet around-the-clock;
+ one or more frontends then connect to the core. This way, the connection to
+ IRC can be kept up even when all frontends have been closed. The combination
+ of screen and irssi served as example for this architecture.
+ .
+ Smuxi also supports the regular single application mode. This behaves like a
+ typical IRC client; it doesn't need separate core management and utilizes a
+ local engine that is used by the local frontend client.
+ .
+ This package contains the experimental STFL frontend of Smuxi, it can run
+ either standalone using a local engine or connect to a running
+ remote engine (server).
+ .
+ STFL is a library that uses ncurses to draw text based  user interface using
+ a markup language (like Glade for GTK+). This frontend is in early alpha state
+ and lacks a lot of interface features and likes to crash.
