@@ -399,6 +399,9 @@ namespace Smuxi.Frontend.Gnome
                     e.RetVal = true;
                     break;
                 case Gdk.Key.Return:
+                case Gdk.Key.KP_Enter:
+                case Gdk.Key.ISO_Enter:
+                case Gdk.Key.Key_3270_Enter:
                     // supress adding a newline
                     e.RetVal = true;
                     if (Activated != null) {
