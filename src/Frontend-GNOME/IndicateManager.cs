@@ -25,6 +25,13 @@ using System.Text.RegularExpressions;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using Indicate;
+#if IPC_DBUS
+    #if DBUS_SHARP
+using DBus;
+    #else
+using NDesk.DBus;
+    #endif
+#endif
 using Smuxi.Common;
 using Smuxi.Engine;
 
@@ -35,6 +42,7 @@ namespace Smuxi.Frontend.Gnome
 #if LOG4NET
         private static readonly log4net.ILog Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 #endif
+        const string BusName = "com.canonical.indicate";
         private static DateTime UnixEpoch = new DateTime(1970, 1, 1, 0, 0, 0);
         private static string PersonChatIconBase64 { get; set; }
         private static string GroupChatIconBase64  { get; set; }
@@ -124,6 +132,16 @@ namespace Smuxi.Frontend.Gnome
         void Init()
         {
             Trace.Call();
+
+#if IPC_DBUS
+            if (!Bus.Session.NameHasOwner(BusName)) {
+    #if LOG4NET
+                Logger.Info("Init(): no DBus provider for messaging menu found, " +
+                            "disabling...");
+                return;
+            }
+    #endif
+#endif
 
             Server = Server.RefDefault();
             if (Server == null) {
