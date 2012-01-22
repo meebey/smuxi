@@ -3,13 +3,13 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# Joe Hansen <joedalton2@yahoo.dk>, 2011.
+# Joe Hansen <joedalton2@yahoo.dk>, 2011, 2012.
 msgid ""
 msgstr ""
 "Project-Id-Version: Smuxi - IRC client\n"
 "Report-Msgid-Bugs-To: http://www.smuxi.org/issues\n"
-"POT-Creation-Date: 2011-12-29 09:19+0100\n"
-"PO-Revision-Date: 2011-12-29 19:56+0000\n"
+"POT-Creation-Date: 2012-01-01 18:47+0100\n"
+"PO-Revision-Date: 2012-01-07 10:33+0000\n"
 "Last-Translator: Joe Hansen <joedalton2@yahoo.dk>\n"
 "Language-Team: Danish (http://www.transifex.net/projects/p/smuxi/team/da/)\n"
 "MIME-Version: 1.0\n"
@@ -204,5 +204,23 @@ msgstr "Serverværtsnavn indeholder ugyldige tegn (nylinje)."
 #, csharp-format
 msgid "Server '{0}' already exists."
 msgstr "Server '{0}' findes allerede."
+
+#: ../src/Engine/Chats/ChatModel.cs:105
+#, csharp-format
+msgid ""
+"Failed to load chat history. Your chat history will not be preserved. "
+"Reason: {0}"
+msgstr ""
+"Kunne ikke indlæse snakkehistorik. Din snakkehistorik vil ikke blive "
+"bevaret. Årsag: {0}"
+
+#: ../src/Engine/Chats/ChatModel.cs:290
+#, csharp-format
+msgid ""
+"Failed to open chat history for writing. Your chat history will not be "
+"preserved. Reason: {0}"
+msgstr ""
+"Kunne ikke åbne snakkehistorik for skrivning. Din snakkehistorik vil ikke "
+"blive bevaret. Årsag: {0}"
 
 
