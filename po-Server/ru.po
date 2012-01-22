@@ -3,13 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
+# Yuri Myasoedov <omerta13@yandex.ru>, 2012.
 msgid ""
 msgstr ""
 "Project-Id-Version: Smuxi - IRC client\n"
 "Report-Msgid-Bugs-To: http://www.smuxi.org/issues\n"
 "POT-Creation-Date: 2011-12-29 09:21+0100\n"
-"PO-Revision-Date: 2010-11-30 04:13+0000\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"PO-Revision-Date: 2012-01-07 10:47+0000\n"
+"Last-Translator: Yuri Myasoedov <omerta13@yandex.ru>\n"
 "Language-Team: Russian (http://www.transifex.net/projects/p/smuxi/team/ru/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -19,80 +20,84 @@ msgstr ""
 
 #: ../src/Server/Main.cs:71
 msgid "Add user to Server"
-msgstr ""
+msgstr "Добавить пользователя на сервер"
 
 #: ../src/Server/Main.cs:80
 msgid "Modify existing user of Server"
-msgstr ""
+msgstr "Изменить существующего пользователя на сервере"
 
 #: ../src/Server/Main.cs:89
 msgid "Delete user from Server"
-msgstr ""
+msgstr "Удалить пользователя с сервера"
 
 #: ../src/Server/Main.cs:98
 msgid "List all existing users of Server"
-msgstr ""
+msgstr "Вывести список всех пользователей, существующих на сервере"
 
 #: ../src/Server/Main.cs:107
 msgid "User to create, modify or delete"
-msgstr ""
+msgstr "Создать, изменить или удалить пользователя"
 
 #: ../src/Server/Main.cs:116
 msgid "Password of the user when creating or modifying a user"
-msgstr ""
+msgstr "Пароль пользователя при создании или изменении пользователя"
 
 #: ../src/Server/Main.cs:125
 msgid "Enable debug output"
-msgstr ""
+msgstr "Включить вывод отладочной информации"
 
 #: ../src/Server/Main.cs:133
 msgid ""
 "Optimize message buffers and exit (valid values: none, defrag, index, all)"
 msgstr ""
+"Оптимизировать буферы сообщений и выйти (возможные значения: none, defrag, "
+"index, all)"
 
 #: ../src/Server/Main.cs:146
 msgid "Show this help"
-msgstr ""
+msgstr "Показать эту справку"
 
 #: ../src/Server/Main.cs:148
 msgid "Usage: smuxi-server [options]"
-msgstr ""
+msgstr "Использование: smuxi-server [параметры]"
 
 #: ../src/Server/Main.cs:150
 msgid "Options:"
-msgstr ""
+msgstr "Параметры:"
 
 #: ../src/Server/Main.cs:161
 #, csharp-format
 msgid "Unknown option: '{0}'"
-msgstr ""
+msgstr "Неизвестный параметр: «{0}»"
 
 #: ../src/Server/Main.cs:188
 #, csharp-format
 msgid "Command line error: {0}"
-msgstr ""
+msgstr "Ошибка в командной строке: {0}"
 
 #: ../src/Server/Main.cs:232
 msgid ""
 "At most one of --add-user, --modify-user, and --delete-user may be used at a"
 " time."
 msgstr ""
+"Параметры --add-user, --modify-user и --delete-user не могут использоваться "
+"одновременно друг с другом."
 
 #: ../src/Server/Main.cs:242
 msgid "You must specify a username with the --username option."
-msgstr ""
+msgstr "Для параметра --username необходимо указать имя пользователя."
 
 #: ../src/Server/Main.cs:248
 msgid "Username must not be empty."
-msgstr ""
+msgstr "Укажите имя пользователя."
 
 #: ../src/Server/Main.cs:258
 msgid "You must specify a password with the --password option."
-msgstr ""
+msgstr "Для параметра --password необходимо указать пароль."
 
 #: ../src/Server/Main.cs:264
 msgid "Password must not be empty."
-msgstr ""
+msgstr "Укажите пароль."
 
 #: ../src/Server/Main.cs:283
 #, csharp-format
@@ -100,34 +105,36 @@ msgid ""
 "Invalid optimization value passed to --optimize-message-buffer, valid values"
 " are: {0}"
 msgstr ""
+"Параметру --optimize-message-buffer передано недопустимое значение, "
+"возможные значения: {0}"
 
 #: ../src/Server/Main.cs:303
 #, csharp-format
 msgid "User \"{0}\" successfully added to server."
-msgstr ""
+msgstr "Пользователь «{0}» успешно добавлен на сервер."
 
 #: ../src/Server/Main.cs:312
 #, csharp-format
 msgid "User \"{0}\" successfully modified."
-msgstr ""
+msgstr "Пользователь «{0}» успешно изменён."
 
 #: ../src/Server/Main.cs:321
 #, csharp-format
 msgid "User \"{0}\" successfully deleted from server."
-msgstr ""
+msgstr "Пользователь «{0}» успешно удалён с сервера."
 
 #: ../src/Server/Main.cs:328
 msgid "Users:"
-msgstr ""
+msgstr "Пользователи:"
 
 #: ../src/Server/Main.cs:376
 #, csharp-format
 msgid "Successfully optimized {0} message buffers."
-msgstr ""
+msgstr "Успешно оптимизировано {0} буферов сообщений."
 
 #: ../src/Server/Main.cs:389
 #, csharp-format
 msgid "Failed to optimize message buffers: {0}"
-msgstr ""
+msgstr "Сбой при оптимизации буферов сообщений: {0}"
 
 
