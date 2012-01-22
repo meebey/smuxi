@@ -1,0 +1,224 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+#   <tty@live.nl>, 2012.
+msgid ""
+msgstr ""
+"Project-Id-Version: Smuxi - IRC client\n"
+"Report-Msgid-Bugs-To: http://www.smuxi.org/issues\n"
+"POT-Creation-Date: 2012-01-01 18:47+0100\n"
+"PO-Revision-Date: 2012-01-08 08:35+0000\n"
+"Last-Translator: Matias M. <tty@live.nl>\n"
+"Language-Team: Croatian (http://www.transifex.net/projects/p/smuxi/team/hr/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: hr\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2\n"
+
+#: ../src/Engine/FrontendManager.cs:233
+msgid "No network connections"
+msgstr "Nema mrežnih veza"
+
+#: ../src/Engine/MessageBuffers/Db4oMessageBuffer.cs:295
+#, csharp-format
+msgid "Optimizing: {0}..."
+msgstr "Optimizacija: {0}..."
+
+#: ../src/Engine/MessageBuffers/Db4oMessageBuffer.cs:313
+#, csharp-format
+msgid "Failed to optimize: {0}. Reason: {1}"
+msgstr "Optimizacija nije uspjela: {0}. Razlog: {1}"
+
+#: ../src/Engine/MessageBuffers/Db4oMessageBuffer.cs:347
+msgid ""
+"Your chat history is no longer available because of an error but will be "
+"preserved from now on."
+msgstr ""
+"Vaša chat povijest više nije dostupna zbog pogreške no od sada nadalje će "
+"biti sačuvana."
+
+#: ../src/Engine/Protocols/ProtocolManagerBase.cs:170
+msgid "Not connected to server"
+msgstr "Nema povezanosti sa poslužiteljem"
+
+#: ../src/Engine/Protocols/ProtocolManagerBase.cs:178
+#: ../src/Engine/Session.cs:778
+#, csharp-format
+msgid "Not enough parameters for {0} command"
+msgstr "Nema dovoljno parametara za {0} naredbu"
+
+#: ../src/Engine/Protocols/ProtocolManagerBase.cs:189
+#, csharp-format
+msgid "Connected to {0}"
+msgstr "Spojen na {0}"
+
+#: ../src/Engine/Protocols/ProtocolManagerBase.cs:207
+#, csharp-format
+msgid "Disconnected from {0}"
+msgstr "Odspojeno sa {0}"
+
+#: ../src/Engine/Session.cs:218
+#, csharp-format
+msgid "Automatic connect to {0} failed!"
+msgstr "Automatsko spajanje na {0} nije uspjelo!"
+
+#. TRANSLATOR: this line is used as a label / category for a
+#. list of commands below
+#: ../src/Engine/Session.cs:416
+msgid "Engine Commands"
+msgstr "Naredbe jezgre"
+
+#: ../src/Engine/Session.cs:527
+msgid "Connect failed!"
+msgstr "Spajanje nije uspjelo!"
+
+#: ../src/Engine/Session.cs:550
+#, csharp-format
+msgid "Disconnect failed - could not find server: {0}"
+msgstr "Prekid veze nije uspio - nije moguće pronaći poslužitelj: {0}"
+
+#: ../src/Engine/Session.cs:589
+msgid "Reconnect failed!"
+msgstr "Ponovno spajanje nije uspjelo!"
+
+#: ../src/Engine/Session.cs:608
+msgid "Configuration reloaded"
+msgstr "Postavke ponovno učitane"
+
+#: ../src/Engine/Session.cs:613
+msgid "Configuration saved"
+msgstr "Postavke pohranjene"
+
+#: ../src/Engine/Session.cs:617
+msgid "Invalid parameter for config; use load or save"
+msgstr "Netočan parametar za postavke; upotrijebite load ili save naredbu"
+
+#: ../src/Engine/Session.cs:676
+msgid "Invalid parameter for network; use list, switch, or close"
+msgstr ""
+"Netočan parametar za mrežu; upotrijebite list, switch ili close naredbu"
+
+#: ../src/Engine/Session.cs:687
+msgid "Networks"
+msgstr "Mreže"
+
+#: ../src/Engine/Session.cs:691
+msgid "Protocol"
+msgstr "Protokol"
+
+#: ../src/Engine/Session.cs:692
+msgid "Network"
+msgstr "Mreža"
+
+#: ../src/Engine/Session.cs:693
+msgid "Host"
+msgstr "Poslužitelj"
+
+#: ../src/Engine/Session.cs:694
+msgid "Port"
+msgstr "Port"
+
+#: ../src/Engine/Session.cs:709
+#, csharp-format
+msgid "Network close failed - could not find network: {0}"
+msgstr "Zatvaranje mreže nije uspjelo - mreža nije pronađena: {0}"
+
+#: ../src/Engine/Session.cs:748
+#, csharp-format
+msgid "Network switch failed - could not find network: {0}"
+msgstr "Prebacivanje mreže nije uspjelo - mreža nije pronađena: {0}"
+
+#: ../src/Engine/Session.cs:767
+msgid "Not connected to any network"
+msgstr "Nema povezanosti sa nijednom mrežom"
+
+#: ../src/Engine/Session.cs:1013
+#, csharp-format
+msgid ""
+"Failed to write to chat history. Your chat history will not be preserved. "
+"Reason: {0}"
+msgstr ""
+"Zapisivanje u chat povijest nije uspjelo. Vaša chat povijest neće biti "
+"sačuvana. Razlog: {0}"
+
+#. just in case the ProtocolManager is not setting the
+#. protocol chat
+#: ../src/Engine/Session.cs:1185
+msgid "Connect failed."
+msgstr "Spajanje nije uspjelo."
+
+#: ../src/Engine/Session.cs:1216
+#, csharp-format
+msgid "No protocol manager found for the protocol: {0}"
+msgstr "Za sljedeći protokol nema imenovanog upravitelja: {0}"
+
+#: ../src/Engine/Session.cs:1448
+msgid "Welcome to Smuxi"
+msgstr "Smuxi vas pozdravlja"
+
+#: ../src/Engine/Session.cs:1455
+msgid "Type /help to get a list of available commands."
+msgstr "Upišite /help za popis dostupnih naredbi."
+
+#: ../src/Engine/Session.cs:1461
+msgid ""
+"After you have made a connection the list of available commands changes. Go "
+"to the newly opened connection tab and use the /help command again to see "
+"the extended command list."
+msgstr ""
+"Popis dostupnih naredbi se mijenja nakon spajanja. Odaberite novootvorenu "
+"karticu i upotrijebite /help naredbu za prikaz cjelokupnog popisa."
+
+#: ../src/Engine/Config/UserListController.cs:117
+msgid "Username must not be empty."
+msgstr "Korisničko ime ne smije biti prazno."
+
+#: ../src/Engine/Config/UserListController.cs:127
+msgid "Password must not be empty."
+msgstr "Lozinka ne smije biti prazna."
+
+#: ../src/Engine/Config/UserListController.cs:136
+#, csharp-format
+msgid "User \"{0}\" doesn't exist."
+msgstr "Korisnik \"{0}\" ne postoji."
+
+#: ../src/Engine/Config/UserListController.cs:145
+#, csharp-format
+msgid "User \"{0}\" already exists."
+msgstr "Korisnik \"{0}\" već postoji."
+
+#: ../src/Engine/Config/ServerListController.cs:131
+msgid "Server hostname must not be empty."
+msgstr "Ime poslužitelja ne smije biti prazno."
+
+#: ../src/Engine/Config/ServerListController.cs:134
+msgid "Server hostname contains invalid characters (newline)."
+msgstr "Ime poslužitelja sadrži nevažeće simbole (novi redak)."
+
+#: ../src/Engine/Config/ServerListController.cs:140
+#, csharp-format
+msgid "Server '{0}' already exists."
+msgstr "Poslužitelj '{0}' već postoji."
+
+#: ../src/Engine/Chats/ChatModel.cs:105
+#, csharp-format
+msgid ""
+"Failed to load chat history. Your chat history will not be preserved. "
+"Reason: {0}"
+msgstr ""
+"Učitavanje chat povijesti nije uspjelo. Vaša chat povijest neće biti "
+"sačuvana. Razlog: {0}"
+
+#: ../src/Engine/Chats/ChatModel.cs:290
+#, csharp-format
+msgid ""
+"Failed to open chat history for writing. Your chat history will not be "
+"preserved. Reason: {0}"
+msgstr ""
+"Nije uspjelo otvaranje chat povijesti za zapis. Vaša chat povijest neće biti"
+" sačuvana. Razlog: {0}"
+
+
