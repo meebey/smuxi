@@ -3,13 +3,13 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# Dean Lee <xslidian@gmail.com>, 2011.
+# Dean Lee <xslidian@gmail.com>, 2011, 2012.
 msgid ""
 msgstr ""
 "Project-Id-Version: Smuxi - IRC client\n"
 "Report-Msgid-Bugs-To: http://www.smuxi.org/issues\n"
-"POT-Creation-Date: 2011-12-29 09:19+0100\n"
-"PO-Revision-Date: 2011-12-30 16:01+0000\n"
+"POT-Creation-Date: 2012-01-01 18:47+0100\n"
+"PO-Revision-Date: 2012-01-07 09:53+0000\n"
 "Last-Translator: Dean Lee <xslidian@gmail.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.net/projects/p/smuxi/team/zh_CN/)\n"
 "MIME-Version: 1.0\n"
@@ -195,5 +195,19 @@ msgstr "服务器主机名包含无效字符 (换行)。"
 #, csharp-format
 msgid "Server '{0}' already exists."
 msgstr "服务器 '{0}' 已存在。"
+
+#: ../src/Engine/Chats/ChatModel.cs:105
+#, csharp-format
+msgid ""
+"Failed to load chat history. Your chat history will not be preserved. "
+"Reason: {0}"
+msgstr "无法加载聊天历史。您的聊天历史将不会保留。原因: {0}"
+
+#: ../src/Engine/Chats/ChatModel.cs:290
+#, csharp-format
+msgid ""
+"Failed to open chat history for writing. Your chat history will not be "
+"preserved. Reason: {0}"
+msgstr "聊天历史无法打开写入。您的聊天历史将不会保留。原因: {0}"
 
 
