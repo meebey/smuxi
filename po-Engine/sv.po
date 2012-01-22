@@ -4,13 +4,14 @@
 # 
 # Translators:
 #   <flugsio@gmail.com>, 2011.
+# Martin Bagge <brother@bsnet.se>, 2012.
 msgid ""
 msgstr ""
 "Project-Id-Version: Smuxi - IRC client\n"
 "Report-Msgid-Bugs-To: http://www.smuxi.org/issues\n"
-"POT-Creation-Date: 2011-12-29 09:19+0100\n"
-"PO-Revision-Date: 2011-12-31 11:11+0000\n"
-"Last-Translator: flugsio <flugsio@gmail.com>\n"
+"POT-Creation-Date: 2012-01-01 18:47+0100\n"
+"PO-Revision-Date: 2012-01-07 12:07+0000\n"
+"Last-Translator: Martin Bagge <brother@bsnet.se>\n"
 "Language-Team: Swedish (http://www.transifex.net/projects/p/smuxi/team/sv/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -204,5 +205,23 @@ msgstr "Serverns värdnamn innehåller ogiltiga tecken (ny rad)."
 #, csharp-format
 msgid "Server '{0}' already exists."
 msgstr "Servern '{0}' finns redan."
+
+#: ../src/Engine/Chats/ChatModel.cs:105
+#, csharp-format
+msgid ""
+"Failed to load chat history. Your chat history will not be preserved. "
+"Reason: {0}"
+msgstr ""
+"Kunde inte läsa in chatthistoriken. Din chatthistorik kommer inte att "
+"sparas. Anledning: {0}"
+
+#: ../src/Engine/Chats/ChatModel.cs:290
+#, csharp-format
+msgid ""
+"Failed to open chat history for writing. Your chat history will not be "
+"preserved. Reason: {0}"
+msgstr ""
+"Kunde inte öppna chatthistoriken för skrivning. Din chatthistorik kommer "
+"inte att sparas. Anledning: {0}"
 
 
