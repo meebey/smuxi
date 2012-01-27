@@ -23,7 +23,7 @@ SOURCES_BUILD = $(addprefix $(srcdir)/, $(SOURCES))
 EXTRA_DIST = $(SOURCES_BUILD)
 CLEANFILES = $(ASSEMBLY_TARGET)
 
-pkglib_DATA = $(ASSEMBLY_TARGET)
+pkgapp_DATA = $(ASSEMBLY_TARGET)
 
 #pkgconfigdir = $(libdir)/pkgconfig
 #pkgconfig_DATA = $(ASSEMBLY_PC)
