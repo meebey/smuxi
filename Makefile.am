@@ -60,7 +60,7 @@ update-pot:
 	done
 
 update-transifex:
-	tx pull -l ca,da,de,en_GB,es,fi,fr,ru,sk,sv,tr,ur,zh_CN
+	tx pull -l ca,da,de,en_GB,es,fi,fr,hr,pl,ru,sk,sv,tr,ur,zh_CN
 
 mail-po: update-po
 	for PODIR in $(PODIRS); do \
