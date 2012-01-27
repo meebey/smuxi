@@ -27,7 +27,7 @@ SOURCES_BUILD = $(addprefix $(srcdir)/, $(SOURCES))
 EXTRA_DIST = $(SOURCES_BUILD)
 CLEANFILES = $(ASSEMBLY_TARGET) $(ASSEMBLY_TARGET).mdb
 
-pkglib_DATA = $(ASSEMBLY_TARGET) $(ASSEMBLY_TARGET).mdb
+pkgapp_DATA = $(ASSEMBLY_TARGET) $(ASSEMBLY_TARGET).mdb
 
 include $(top_srcdir)/Makefile.include
 
