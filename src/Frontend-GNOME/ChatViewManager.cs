@@ -74,8 +74,10 @@ namespace Smuxi.Frontend.Gnome
                 return f_Notebook.CurrentPage;
             }
             set {
-                if (value < 0 || value >= f_Notebook.NPages) {
-                    return;
+                if (value < 0) {
+                    value = f_Notebook.NPages + value;
+                } else if (value >= f_Notebook.NPages) {
+                    value = value - f_Notebook.NPages;
                 }
 
                 f_Notebook.CurrentPage = value;
