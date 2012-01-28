@@ -256,6 +256,12 @@ namespace Smuxi.Frontend.Gnome
 
                 try {
                     DateTime start = DateTime.UtcNow, stop;
+                    var fm = Frontend.FrontendManager;
+                    if (fm == null) {
+                        // in case we are currently reconnecting to a remote engine
+                        return;
+                    }
+
                     // OPT-TODO: we could use here a TaskStack instead which
                     // would make sure only the newest task gets executed
                     // instead of every task in the FIFO sequence!
@@ -266,16 +272,16 @@ namespace Smuxi.Frontend.Gnome
                     // status if the protocol manager differs from the old one
 
                     // REMOTING CALL 2
-                    Frontend.FrontendManager.CurrentChat = chatModel;
+                    fm.CurrentChat = chatModel;
                     if (nmanager != null) {
                         // REMOTING CALL 3
-                        Frontend.FrontendManager.CurrentProtocolManager = nmanager;
+                        fm.CurrentProtocolManager = nmanager;
                     }
 
                     // even when we have no network manager, we still want to update
                     // the network status and title
                     // REMOTING CALL 4
-                    Frontend.FrontendManager.UpdateNetworkStatus();
+                    fm.UpdateNetworkStatus();
 
                     // update last seen highlight
                     // REMOTING CALL 5
