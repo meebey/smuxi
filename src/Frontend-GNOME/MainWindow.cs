@@ -999,9 +999,7 @@ namespace Smuxi.Frontend.Gnome
             Trace.Call(sender, e);
             
             try {
-                if (_Notebook.CurrentPage < _Notebook.NPages) {
-                    _Notebook.CurrentPage++;
-                }
+                ChatViewManager.CurrentChatNumber++;
             } catch (Exception ex) {
                 Frontend.ShowException(this, ex);
             }
@@ -1012,9 +1010,7 @@ namespace Smuxi.Frontend.Gnome
             Trace.Call(sender, e);
             
             try {
-                if (_Notebook.CurrentPage > 0) {
-                    _Notebook.CurrentPage--;
-                }
+                ChatViewManager.CurrentChatNumber--;
             } catch (Exception ex) {
                 Frontend.ShowException(this, ex);
             }
