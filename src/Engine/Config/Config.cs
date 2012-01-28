@@ -645,7 +645,12 @@ namespace Smuxi.Engine
             
             string prefix = "Engine/Users/";
             string ukey = prefix+user+"/"+key;
-            object obj = Get(ukey, defaultvalue);
+            object obj;
+            if (defaultvalue is string) {
+                obj = Get<string>(ukey, (string) defaultvalue);
+            } else {
+                obj = Get(ukey, defaultvalue);
+            }
             if (obj != null) {
                 m_Preferences[ukey] = obj;
             }
