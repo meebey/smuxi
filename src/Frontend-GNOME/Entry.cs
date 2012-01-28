@@ -461,6 +461,9 @@ namespace Smuxi.Frontend.Gnome
                 if (!(Text.Length > 0)) {
                     return;
                 }
+                if (ChatViewManager.CurrentChatView == null) {
+                    return;
+                }
                 
                 if (Text.IndexOf("\n") != -1) {
                     // seems to be a paste, so let's break it apart
