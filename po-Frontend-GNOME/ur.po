@@ -4,13 +4,14 @@
 # 
 # Translators:
 # makki <makkiabufaris@aol.com>, 2011.
+# Mirco Bauer <meebey@meebey.net>, 2012.
 msgid ""
 msgstr ""
 "Project-Id-Version: Smuxi - IRC client\n"
 "Report-Msgid-Bugs-To: http://www.smuxi.org/issues\n"
 "POT-Creation-Date: 2011-12-29 09:22+0100\n"
-"PO-Revision-Date: 2011-12-29 08:42+0000\n"
-"Last-Translator: makki <makkiabufaris@aol.com>\n"
+"PO-Revision-Date: 2012-01-22 11:06+0000\n"
+"Last-Translator: Mirco Bauer <meebey@meebey.net>\n"
 "Language-Team: Urdu (http://www.transifex.net/projects/p/smuxi/team/ur/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -466,7 +467,7 @@ msgstr "Smuxi IRC Client"
 
 #: ../src/Frontend-GNOME/AboutDialog.cs:60
 msgid "translator-credits"
-msgstr "translator-credits"
+msgstr "makki <makkiabufaris@aol.com>"
 
 #: ../src/Frontend-GNOME/AboutDialog.cs:65
 msgid "Smuxi Website"
