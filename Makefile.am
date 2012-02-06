@@ -162,6 +162,7 @@ LINUX_STATIC_FILES = \
 		
 dist-win32:
 	./autogen.sh --without-indicate --without-notify --without-dbus \
+	  --with-db4o=included \
 	  --with-vendor-package-version="dist-win32"
 	$(MAKE)
 	mkdir -p $(WIN32_BUILD_DIR)
@@ -175,6 +176,7 @@ dist-win32:
 
 dist-osx:
 	./autogen.sh --without-indicate --without-notify --without-dbus \
+	  --with-db4o=included \
 	  --with-vendor-package-version="dist-osx"
 	$(MAKE)
 	mkdir -p $(OSX_BINARIES_DIR) $(OSX_RESOURCES_DIR)
