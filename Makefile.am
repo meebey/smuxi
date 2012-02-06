@@ -161,7 +161,9 @@ LINUX_STATIC_FILES = \
 	$(BUILD_DIR)/Newtonsoft.Json.dll
 		
 dist-win32:
-	./autogen.sh --without-indicate --without-notify --without-dbus
+	./autogen.sh --without-indicate --without-notify --without-dbus \
+	  --with-db4o=included \
+	  --with-vendor-package-version="dist-win32"
 	$(MAKE)
 	mkdir -p $(WIN32_BUILD_DIR)
 	for FILE in $(WIN32_FILES); do \
@@ -173,7 +175,9 @@ dist-win32:
 	makensis $(top_srcdir)/src/smuxi-win32.nsis
 
 dist-osx:
-	./autogen.sh --without-indicate --without-notify --without-dbus
+	./autogen.sh --without-indicate --without-notify --without-dbus \
+	  --with-db4o=included \
+	  --with-vendor-package-version="dist-osx"
 	$(MAKE)
 	mkdir -p $(OSX_BINARIES_DIR) $(OSX_RESOURCES_DIR)
 	cp $(OSX_LIB_DIR)/Info.plist $(OSX_CONTENTS_DIR)
