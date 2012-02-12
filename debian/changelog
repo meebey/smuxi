@@ -1,8 +1,8 @@
-smuxi (0.8.9.1+git-1~pre1) unstable; urgency=low
+smuxi (1:0.8.10+git-1~pre1) unstable; urgency=low
 
   * New upstream release
 
- -- Mirco Bauer <meebey@debian.org>  Wed, 04 Jan 2012 18:42:06 +0100
+ -- Mirco Bauer <meebey@debian.org>  Sat, 11 Feb 2012 17:28:16 +0100
 
 smuxi (0.8.9-1~pre1) unstable; urgency=low
 
