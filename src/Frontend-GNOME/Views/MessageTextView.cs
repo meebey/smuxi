@@ -513,6 +513,9 @@ namespace Smuxi.Frontend.Gnome
 
             Gtk.ImageMenuItem copy_item = new Gtk.ImageMenuItem(Gtk.Stock.Copy, null);
             copy_item.Activated += delegate {
+                if (_ActiveLink == null) {
+                    return;
+                }
                 Gdk.Atom clipboardAtom = Gdk.Atom.Intern("CLIPBOARD", false);
                 Gtk.Clipboard clipboard = Gtk.Clipboard.Get(clipboardAtom);
                 clipboard.Text = _ActiveLink.ToString();
