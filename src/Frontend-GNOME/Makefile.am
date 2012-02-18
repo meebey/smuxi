@@ -110,6 +110,7 @@ FILES = \
 	Entry.cs \
 	Frontend.cs \
 	GnomeUI.cs \
+	Gtk.WindowExtensions.cs \
 	IndicateManager.cs \
 	LinkTag.cs \
 	Main.cs \
