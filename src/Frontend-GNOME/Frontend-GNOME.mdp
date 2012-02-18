@@ -103,6 +103,7 @@
     <File subtype="Code" buildaction="EmbedAsResource" name="../../images/person-chat_256x256.png" />
     <File subtype="Code" buildaction="EmbedAsResource" name="../../images/protocol-chat_256x256.png" />
     <File subtype="Code" buildaction="EmbedAsResource" name="../../images/session-chat_256x256.png" />
+    <File subtype="Code" buildaction="Compile" name="Gtk.WindowExtensions.cs" />
   </Contents>
   <References>
     <ProjectReference type="Project" localcopy="True" refto="Engine" />
