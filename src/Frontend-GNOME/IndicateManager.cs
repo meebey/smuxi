@@ -25,6 +25,7 @@ using System.Text.RegularExpressions;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using Indicate;
+using Gtk.Extensions;
 using Smuxi.Common;
 using Smuxi.Engine;
 
@@ -285,7 +286,7 @@ namespace Smuxi.Frontend.Gnome
             indicator.SetPropertyBool("draw-attention", true);
             indicator.UserDisplay += delegate {
                 try {
-                    MainWindow.Present();
+                    MainWindow.PresentWithServerTime();
                     MainWindow.Notebook.CurrentChatView = chatView;
                     DisposeIndicator(chatView);
                 } catch (Exception ex) {
