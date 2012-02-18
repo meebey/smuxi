@@ -23,6 +23,7 @@ using System;
 using System.IO;
 using System.Collections.Generic;
 using Notifications;
+using Gtk.Extensions;
 using Smuxi.Common;
 using Smuxi.Engine;
 
@@ -33,7 +34,6 @@ namespace Smuxi.Frontend.Gnome
 #if LOG4NET
         private static readonly log4net.ILog Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 #endif
-        private static DateTime UnixEpoch = new DateTime(1970, 1, 1, 0, 0, 0);
         private static Gdk.Pixbuf PersonChatIconPixbuf { get; set; }
         private static string     PersonChatIconName { get; set; }
         private static Gdk.Pixbuf GroupChatIconPixbuf { get; set; }
@@ -266,7 +266,7 @@ namespace Smuxi.Frontend.Gnome
             if (Capabilites.Contains("actions")) {
                 notification.AddAction("show", _("Show"), delegate {
                     try {
-                        MainWindow.Present();
+                        MainWindow.PresentWithServerTime();
                         MainWindow.Notebook.CurrentChatView = chatView;
                         notification.Close();
                     } catch (Exception ex) {
