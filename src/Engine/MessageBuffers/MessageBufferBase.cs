@@ -19,6 +19,7 @@
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA
 
 using System;
+using System.IO;
 using System.Collections;
 using System.Collections.Generic;
 using Smuxi.Common;
@@ -30,6 +31,7 @@ namespace Smuxi.Engine
         protected string Protocol { get; set; }
         protected string NetworkID { get; set; }
         protected string ChatID { get; set; }
+        protected string SessionUsername { get; set; }
         public    int    MaxCapacity { get; set; }
 
         public bool IsReadOnly {
@@ -42,9 +44,48 @@ namespace Smuxi.Engine
         {
         }
 
+        protected MessageBufferBase(string sessionUsername, string protocol,
+                                    string networkId, string chatId)
+        {
+            if (sessionUsername == null) {
+                throw new ArgumentNullException("sessionUsername");
+            }
+            if (protocol == null) {
+                throw new ArgumentNullException("protocol");
+            }
+            if (networkId == null) {
+                throw new ArgumentNullException("networkId");
+            }
+            if (chatId == null) {
+                throw new ArgumentNullException("chatId");
+            }
+
+            SessionUsername = sessionUsername;
+            Protocol = protocol;
+            NetworkID = networkId;
+            ChatID = chatId;
+        }
+
         IEnumerator IEnumerable.GetEnumerator()
         {
             return GetEnumerator();
+        }
+
+        protected string GetBufferPath()
+        {
+            var path = Platform.GetBuffersPath(SessionUsername);
+            var protocol = Protocol.ToLower();
+            var network = NetworkID.ToLower();
+            path = Path.Combine(path, protocol);
+            if (network != protocol) {
+                path = Path.Combine(path, network);
+            }
+            path = IOSecurity.GetFilteredPath(path);
+            if (!Directory.Exists(path)) {
+                Directory.CreateDirectory(path);
+            }
+            var chatId = IOSecurity.GetFilteredFileName(ChatID.ToLower());
+            return Path.Combine(path, chatId);
         }
 
         public abstract int Count { get; }

@@ -30,6 +30,7 @@ namespace Smuxi.Engine
         protected List<MessageModel> TestMessages { get; set; }
 
         protected abstract IMessageBuffer CreateBuffer();
+        protected abstract IMessageBuffer OpenBuffer();
 
         [SetUp]
         public void SetUp()
@@ -119,6 +120,49 @@ namespace Smuxi.Engine
         }
 
         [Test]
+        public void GetRangeBenchmarkCold()
+        {
+            var builder = new MessageBuilder();
+            builder.AppendIdendityName(
+                new ContactModel("meeebey", "meebey", "netid", "netprot")
+            );
+            builder.AppendText("solange eine message aber keine url hat ist der vorteil nur gering (wenn ueberhaupt)");
+            var msg = builder.ToMessage();
+
+            var itemCount = 50000;
+            // generate items
+            for (int i = 0; i < itemCount; i++) {
+                Buffer.Add(new MessageModel(msg));
+            }
+            // close buffer
+            Buffer.Dispose();
+
+            int runs = 10;
+            var messageCount = 0;
+            DateTime start, stop;
+            start = DateTime.UtcNow;
+            for (int i = 0; i < runs; i++) {
+                Buffer = OpenBuffer();
+                // retrieve the newest 200 messages
+                messageCount += Buffer.GetRange(itemCount - 200, 200).Count;
+                Buffer.Dispose();
+            }
+            stop = DateTime.UtcNow;
+            Assert.AreEqual(runs * 200, messageCount);
+
+            var total = (stop - start).TotalMilliseconds;
+            Console.WriteLine(
+                "Buffer.GetRange({0}, 200): avg: {1:0.00} ms ({2:0.00} ms per item) items: {3} runs: {4} took: {5:0.00} ms",
+                itemCount - 200,
+                total / runs,
+                total / runs / messageCount,
+                itemCount,
+                runs,
+                total
+            );
+        }
+
+        [Test]
         public void Add()
         {
             MessageBuilder msg = new MessageBuilder();
@@ -127,6 +171,35 @@ namespace Smuxi.Engine
             int count = Buffer.Count;
             Buffer.Add(msg.ToMessage());
             Assert.AreEqual(count + 1, Buffer.Count);
+        }
+
+        [Test]
+        public void AddBenchmark()
+        {
+            var itemCount = 50000;
+            //var itemCount = 15000;
+            DateTime start, stop;
+            start = DateTime.UtcNow;
+            for (int i = 0; i < itemCount; i++) {
+                var builder = new MessageBuilder();
+                builder.AppendIdendityName(
+                    new ContactModel("meeebey", "meebey", "netid", "netprot")
+                );
+                builder.AppendText("solange eine message aber keine url hat ist der vorteil nur gering (wenn ueberhaupt)");
+                var msg = builder.ToMessage();
+                Buffer.Add(msg);
+            }
+            // force flush / close
+            Buffer.Dispose();
+            stop = DateTime.UtcNow;
+
+            var total = (stop - start).TotalMilliseconds;
+            Console.WriteLine(
+                "Buffer.Add(msg): avg: {0:0.00} ms/msg items: {1} took: {2:0.00} ms",
+                total / itemCount,
+                itemCount,
+                total
+            );
         }
 
         [Test]

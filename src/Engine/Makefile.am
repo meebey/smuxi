@@ -122,9 +122,10 @@ EXTRAS = \
 	smuxi-engine.pc.in 
 
 REFERENCES =  \
-	System.Runtime.Remoting \
 	System \
 	System.Core \
+	System.Runtime.Remoting \
+	System.Runtime.Serialization \
 	System.Web \
 	System.Xml \
 	Mono.Posix \
@@ -133,7 +134,8 @@ REFERENCES =  \
 	$(DB4O_LIBS) \
 	$(DB4O_INCLUDED_LIBS)
 
-DLL_REFERENCES =
+DLL_REFERENCES = \
+	$(BUILD_DIR)/ServiceStack.Text.dll
 
 CLEANFILES = $(PROGRAMFILES) $(LINUX_PKGCONFIG) 
 

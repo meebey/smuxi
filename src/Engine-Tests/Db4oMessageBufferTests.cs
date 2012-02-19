@@ -39,6 +39,11 @@ namespace Smuxi.Engine
                 File.Delete(dbFile);
             }
 
+            return OpenBuffer();
+        }
+
+        protected override IMessageBuffer OpenBuffer()
+        {
             return new Db4oMessageBuffer("testuser", "testprot", "testnet", "testchat");
         }
 
@@ -46,7 +51,7 @@ namespace Smuxi.Engine
         public void Reopen()
         {
             Buffer.Dispose();
-            Buffer = new Db4oMessageBuffer("testuser", "testprot", "testnet", "testchat");
+            OpenBuffer();
             Enumerator();
         }
 

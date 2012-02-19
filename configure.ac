@@ -145,6 +145,7 @@ SHAMROCK_CHECK_MONO_2_0_GAC_ASSEMBLIES([
 	System.Core
 	System.Xml
 	System.Runtime.Remoting
+	System.Runtime.Serialization
 	Mono.Posix
 ])
 
