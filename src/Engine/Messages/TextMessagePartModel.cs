@@ -33,6 +33,7 @@ using Smuxi.Common;
 namespace Smuxi.Engine
 {
     [Serializable]
+    [DataContract]
     public class TextMessagePartModel : MessagePartModel
     {
         private TextColor f_ForegroundColor;
@@ -41,7 +42,15 @@ namespace Smuxi.Engine
         private bool      f_Bold;
         private bool      f_Italic;
         private string    f_Text;
-        
+
+        [DataMember]
+        public override string Type {
+            get {
+                return "Text";
+            }
+        }
+
+        [DataMember]
         public TextColor ForegroundColor {
             get {
                 return f_ForegroundColor;
@@ -54,6 +63,7 @@ namespace Smuxi.Engine
             }
         }
         
+        [DataMember]
         public TextColor BackgroundColor {
             get {
                 return f_BackgroundColor;
@@ -66,6 +76,7 @@ namespace Smuxi.Engine
             }
         }
         
+        [DataMember]
         public bool Underline {
             get {
                 return f_Underline;
@@ -75,6 +86,7 @@ namespace Smuxi.Engine
             }
         }
         
+        [DataMember]
         public bool Bold {
             get {
                 return f_Bold;
@@ -84,6 +96,7 @@ namespace Smuxi.Engine
             }
         }
         
+        [DataMember]
         public bool Italic {
             get {
                 return f_Italic;
@@ -93,6 +106,7 @@ namespace Smuxi.Engine
             }
         }
         
+        [DataMember]
         public string Text {
             get {
                 return f_Text;
@@ -102,6 +116,7 @@ namespace Smuxi.Engine
             }
         }
 
+        [IgnoreDataMember]
         public int Length {
             get {
                 if (f_Text == null) {

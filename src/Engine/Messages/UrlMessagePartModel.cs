@@ -33,6 +33,7 @@ using Smuxi.Common;
 
 namespace Smuxi.Engine
 {
+    [DataContract]
     public enum UrlProtocol {
         None,
         Unknown,
@@ -46,6 +47,7 @@ namespace Smuxi.Engine
     }
     
     [Serializable]
+    [DataContract]
     public class UrlMessagePartModel : TextMessagePartModel
     {
 #if LOG4NET
@@ -53,7 +55,15 @@ namespace Smuxi.Engine
 #endif
         private UrlProtocol _Protocol;
         private string      _Url;
-        
+
+        [DataMember]
+        public override string Type {
+            get {
+                return "URL";
+            }
+        }
+
+        [DataMember]
         public string Url {
             get {
                 if (_Url == null) {
@@ -66,6 +76,7 @@ namespace Smuxi.Engine
             }
         }
         
+        [DataMember]
         public UrlProtocol Protocol {
             get {
                 return _Protocol;
