@@ -178,7 +178,8 @@ namespace Smuxi.Engine
                 return false;
             }
 
-            if (f_TimeStamp != msg.TimeStamp) {
+            // millisecond precision
+            if (Math.Abs(f_TimeStamp.Subtract(msg.TimeStamp).TotalMilliseconds) > 1) {
                 return false;
             }
             if (f_MessageType != msg.MessageType) {
