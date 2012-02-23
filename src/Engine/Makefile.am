@@ -75,6 +75,7 @@ FILES = \
 	Messages/UrlMessagePartModel.cs \
 	Messages/ImageMessagePartModel.cs \
 	Messages/MessageType.cs \
+	Messages/Dto/MessageDtoModelV1.cs \
 	Chats/ChatType.cs \
 	Chats/ChatModel.cs \
 	Chats/GroupChatModel.cs \
