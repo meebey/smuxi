@@ -22,6 +22,7 @@ using System;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using NUnit.Framework;
+using Smuxi.Engine.Dto;
 
 namespace Smuxi.Engine
 {
@@ -99,7 +100,20 @@ namespace Smuxi.Engine
             stop = DateTime.UtcNow;
             var total = (stop - start).TotalMilliseconds;
             Console.WriteLine(
-                "Ctor(): avg: {0:0.00} ms runs: {1} took: {2:0.00} ms",
+                "Ctor(Simple): avg: {0:0.00} ms runs: {1} took: {2:0.00} ms",
+                total / runs,
+                runs,
+                total
+            );
+
+            start = DateTime.UtcNow;
+            for (int i = 0; i < runs; i++) {
+                var copiedMsg = new MessageModel(ComplexMessage);
+            }
+            stop = DateTime.UtcNow;
+            total = (stop - start).TotalMilliseconds;
+            Console.WriteLine(
+                "Ctor(Complex): avg: {0:0.00} ms runs: {1} took: {2:0.00} ms",
                 total / runs,
                 runs,
                 total
@@ -332,18 +346,35 @@ namespace Smuxi.Engine
 
             int runs = 50000;
             DateTime start, stop;
-
             MessageModel msg = null;
+
+            start = DateTime.UtcNow;
+            for (int i = 0; i < runs; i++) {
+                var json = ServiceStack.Text.JsonSerializer.SerializeToString(SimpleMessage);
+                var dtoMsg = ServiceStack.Text.JsonSerializer.DeserializeFromString<MessageDtoModelV1>(json);
+                msg = dtoMsg.ToMessage();
+            }
+            stop = DateTime.UtcNow;
+            Assert.AreEqual(SimpleMessage, msg);
+            var total = (stop - start).TotalMilliseconds;
+            Console.WriteLine(
+                "ServiceStackJsonSerialize+Deserialize(Simple): avg: {0:0.00} ms runs: {1} took: {2:0.00} ms",
+                total / runs,
+                runs,
+                total
+            );
+
             start = DateTime.UtcNow;
             for (int i = 0; i < runs; i++) {
                 var json = ServiceStack.Text.JsonSerializer.SerializeToString(ComplexMessage);
-                //msg = ServiceStack.Text.JsonSerializer.DeserializeFromString<MessageModel>(json);
+                var dtoMsg = ServiceStack.Text.JsonSerializer.DeserializeFromString<MessageDtoModelV1>(json);
+                msg = dtoMsg.ToMessage();
             }
             stop = DateTime.UtcNow;
-            //Assert.AreEqual(ComplexMessage, msg);
-            var total = (stop - start).TotalMilliseconds;
+            Assert.AreEqual(ComplexMessage, msg);
+            total = (stop - start).TotalMilliseconds;
             Console.WriteLine(
-                "Serialize(): avg: {0:0.00} ms runs: {1} took: {2:0.00} ms",
+                "ServiceStackJsonSerialize+Deserialize(Complex): avg: {0:0.00} ms runs: {1} took: {2:0.00} ms",
                 total / runs,
                 runs,
                 total
@@ -381,10 +412,10 @@ namespace Smuxi.Engine
                 var json = writer.ToString();
             }
             stop = DateTime.UtcNow;
-            //Assert.AreEqual(ComplexMessage, msg);
+            Assert.AreEqual(ComplexMessage, msg);
             var total = (stop - start).TotalMilliseconds;
             Console.WriteLine(
-                "Serialize(SimpleMessage): avg: {0:0.00} ms runs: {1} took: {2:0.00} ms",
+                "NewtonsoftJsonSerialize(SimpleMessage): avg: {0:0.00} ms runs: {1} took: {2:0.00} ms",
                 total / runs,
                 runs,
                 total
@@ -396,10 +427,59 @@ namespace Smuxi.Engine
                 serializer.Serialize(writer, ComplexMessage);
             }
             stop = DateTime.UtcNow;
-            //Assert.AreEqual(ComplexMessage, msg);
+            Assert.AreEqual(ComplexMessage, msg);
             total = (stop - start).TotalMilliseconds;
             Console.WriteLine(
-                "Serialize(ComplexMessage): avg: {0:0.00} ms runs: {1} took: {2:0.00} ms",
+                "NewtonsoftJsonSerialize(ComplexMessage): avg: {0:0.00} ms runs: {1} took: {2:0.00} ms",
+                total / runs,
+                runs,
+                total
+            );
+        }
+
+        [Test]
+        public void NewtonsoftJsonSerializeDeserializeBenchmark()
+        {
+            var serializer = new Newtonsoft.Json.JsonSerializer() {
+                DefaultValueHandling = Newtonsoft.Json.DefaultValueHandling.Ignore,
+                NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore,
+            };
+
+            int runs = 50000;
+            DateTime start, stop;
+
+            MessageModel msg = null;
+            start = DateTime.UtcNow;
+            for (int i = 0; i < runs; i++) {
+                var writer = new StringWriter();
+                serializer.Serialize(writer, SimpleMessage);
+                var reader = new StringReader(writer.ToString());
+                var jsonReader = new Newtonsoft.Json.JsonTextReader(reader);
+                var dtoMsg = serializer.Deserialize<MessageDtoModelV1>(jsonReader);
+            }
+            stop = DateTime.UtcNow;
+            Assert.AreEqual(ComplexMessage, msg);
+            var total = (stop - start).TotalMilliseconds;
+            Console.WriteLine(
+                "NewtonsoftJsonSerialize+Deserialize(Simple): avg: {0:0.00} ms runs: {1} took: {2:0.00} ms",
+                total / runs,
+                runs,
+                total
+            );
+
+            start = DateTime.UtcNow;
+            for (int i = 0; i < runs; i++) {
+                var writer = new StringWriter();
+                serializer.Serialize(writer, ComplexMessage);
+                var reader = new StringReader(writer.ToString());
+                var jsonReader = new Newtonsoft.Json.JsonTextReader(reader);
+                var dtoMsg = serializer.Deserialize<MessageDtoModelV1>(jsonReader);
+            }
+            stop = DateTime.UtcNow;
+            Assert.AreEqual(ComplexMessage, msg);
+            total = (stop - start).TotalMilliseconds;
+            Console.WriteLine(
+                "NewtonsoftJsonSerialize+Deserialize(ComplexMessage): avg: {0:0.00} ms runs: {1} took: {2:0.00} ms",
                 total / runs,
                 runs,
                 total
