@@ -70,6 +70,10 @@ namespace Smuxi.Engine
             }
         }
         
+        public ImageMessagePartModel()
+        {
+        }
+
         public ImageMessagePartModel(string imageFileName, string alternativeText)
         {
             if (imageFileName == null) {

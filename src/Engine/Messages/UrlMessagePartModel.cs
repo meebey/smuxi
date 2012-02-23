@@ -86,6 +86,10 @@ namespace Smuxi.Engine
             }
         }
         
+        public UrlMessagePartModel()
+        {
+        }
+
         public UrlMessagePartModel(string url) :
                               this(url, null)
         {
