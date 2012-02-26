@@ -105,7 +105,6 @@ namespace Smuxi.Engine
             var msgFilePath = Path.Combine(RepositoryPath, msgFileName);
             using (var writer = File.OpenWrite(msgFilePath))
             using (var textWriter = new StreamWriter(writer, Encoding.UTF8)) {
-                //JsonSerializer.SerializeToStream(msg, writer);
                 JsonSerializer.SerializeToWriter(msg, textWriter);
             }
 
@@ -126,9 +125,11 @@ namespace Smuxi.Engine
             // FIXME: delete file when index was written to disk
             File.Delete(msgFilePath);
 
-            CommitMessage.Append(
-                String.Format("{0}: {1}\n", msgFileName, msg.ToString())
-            );
+            lock (CommitMessage) {
+                CommitMessage.Append(
+                    String.Format("{0}: {1}\n", msgFileName, msg.ToString())
+                );
+            }
 
             // TODO: create tree, commit tree, repack repo reguraly (see rugged docs)
         }
@@ -232,8 +233,9 @@ namespace Smuxi.Engine
             if (repo == null) {
                 return;
             }
-            lock (repo) {
-                if (repo.Index.Count == 0 || CommitMessage.Length == 0) {
+            lock (repo)
+            lock (CommitMessage) {
+                if (CommitMessage.Length == 0) {
                     // nothing to commit
                     return;
                 }
@@ -249,7 +251,6 @@ namespace Smuxi.Engine
 #endif
 
                 start = DateTime.UtcNow;
-                // FIXME: CommitMessage is not thread-safe!
                 repo.Commit(CommitMessage.ToString(), false);
                 stop = DateTime.UtcNow;
 #if MSGBUF_DEBUG
