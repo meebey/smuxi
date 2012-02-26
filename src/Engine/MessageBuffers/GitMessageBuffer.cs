@@ -185,9 +185,11 @@ namespace Smuxi.Engine
             throw new NotImplementedException ();
         }
 
-        public override System.Collections.Generic.IEnumerator<MessageModel> GetEnumerator ()
+        public override IEnumerator<MessageModel> GetEnumerator()
         {
-            throw new NotImplementedException ();
+            foreach (var entry in Repository.Index) {
+                yield return GetMessage(entry.Id);
+            }
         }
 
         public override int IndexOf (MessageModel item)
