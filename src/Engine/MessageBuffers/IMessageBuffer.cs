@@ -26,6 +26,7 @@ namespace Smuxi.Engine
     public interface IMessageBuffer : IList<MessageModel>, IDisposable
     {
         IList<MessageModel> GetRange(int offset, int limit);
+        void                Flush();
         int                 MaxCapacity { get; set; }
     }
 }

@@ -58,6 +58,11 @@ namespace Smuxi.Engine
             return base.GetRange(offset, limit);
         }
 
+        public void Flush()
+        {
+            // NOOP
+        }
+
         public void Dispose()
         {
             // NOOP

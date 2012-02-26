@@ -100,7 +100,7 @@ namespace Smuxi.Engine
         public abstract int IndexOf(MessageModel item);
         public abstract void Insert(int index, MessageModel item);
         public abstract void RemoveAt(int index);
-        public abstract IList<MessageModel> GetRange(int offset, int limit);
+        public abstract void Flush();
         public abstract void Dispose();
     }
 }

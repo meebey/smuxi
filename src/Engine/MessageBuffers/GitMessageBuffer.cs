@@ -209,7 +209,7 @@ namespace Smuxi.Engine
         }
         #endregion
 
-        void Flush()
+        public override void Flush()
         {
             Trace.Call();
 
