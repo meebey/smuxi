@@ -20,10 +20,13 @@
 using System;
 using System.IO;
 using System.Text;
+using System.Linq;
 using System.Threading;
+using System.Collections.Generic;
 using ServiceStack.Text;
 using LibGit2Sharp;
 using Smuxi.Common;
+using Smuxi.Engine.Dto;
 
 namespace Smuxi.Engine
 {
@@ -98,7 +101,7 @@ namespace Smuxi.Engine
             }
             */
 
-            var msgFileName = String.Format("{0}.v1.json", ++MessageNumber);
+            var msgFileName = String.Format("{0}.v1.json", MessageNumber++);
             var msgFilePath = Path.Combine(RepositoryPath, msgFileName);
             using (var writer = File.OpenWrite(msgFilePath))
             using (var textWriter = new StreamWriter(writer, Encoding.UTF8)) {
@@ -134,11 +137,32 @@ namespace Smuxi.Engine
 
         public override MessageModel this[int index] {
             get {
-                throw new NotImplementedException ();
+                if (index < 0) {
+                    throw new IndexOutOfRangeException();
+                }
+                var fileName = String.Format("{0}.v1.json", index);
+                var entry = Repository.Index[fileName];
+                if (entry == null) {
+                    throw new IndexOutOfRangeException();
+                }
+                return GetMessage(entry.Id);
             }
             set {
-                throw new NotImplementedException ();
+                throw new NotImplementedException();
             }
+        }
+
+        MessageModel GetMessage(ObjectId id)
+        {
+            if (id == null) {
+                throw new ArgumentNullException("id");
+            }
+            var blob = Repository.Lookup<Blob>(id);
+            if (blob == null) {
+                throw new ArgumentOutOfRangeException("id", id, "ObjectId not found");
+            }
+            var dto = JsonSerializer.DeserializeFromStream<MessageDtoModelV1>(blob.ContentStream);
+            return dto.ToMessage();
         }
 
         public override void Clear ()
