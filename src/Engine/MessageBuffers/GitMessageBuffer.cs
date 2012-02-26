@@ -128,18 +128,7 @@ namespace Smuxi.Engine
         #region implemented abstract members of Smuxi.Engine.MessageBufferBase
         public override int Count {
             get {
-                var repo = Repository;
-                var count = repo.Index.Count;
-                var reference = repo.Refs["refs/heads/master"] as DirectReference;
-                if (reference == null) {
-                    return count;
-                }
-                var commit = reference.Target as Commit;
-                if (commit == null) {
-                    return count;
-                }
-                count += commit.Tree.Count;
-                return count;
+                return Repository.Index.Count;
             }
         }
 
