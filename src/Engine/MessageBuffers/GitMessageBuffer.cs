@@ -114,13 +114,18 @@ namespace Smuxi.Engine
                 start = DateTime.UtcNow;
                 var index = Repository.Index;
                 //index.Stage(msgFilePath);
+                // OPT: Stage() writes the index to disk on each call
                 index.AddToIndex(msgFileName);
                 stop = DateTime.UtcNow;
             }
+#if MSGBUF_DEBUG
             f_Logger.DebugFormat("Add(): Index.AddToIndex() took: {0:0.00} ms",
                                  (stop - start).TotalMilliseconds);
+#endif
 
+            // FIXME: delete file when index was written to disk
             File.Delete(msgFilePath);
+
             CommitMessage.Append(
                 String.Format("{0}: {1}\n", msgFileName, msg.ToString())
             );
@@ -238,15 +243,19 @@ namespace Smuxi.Engine
                 start = DateTime.UtcNow;
                 repo.Index.UpdatePhysicalIndex();
                 stop = DateTime.UtcNow;
+#if MSGBUF_DEBUG
                 f_Logger.DebugFormat("Commit(): Repository.Index.UpdatePhysicalIndex() took: {0:0.00} ms",
                                      (stop - start).TotalMilliseconds);
+#endif
 
                 start = DateTime.UtcNow;
                 // FIXME: CommitMessage is not thread-safe!
                 repo.Commit(CommitMessage.ToString(), false);
                 stop = DateTime.UtcNow;
+#if MSGBUF_DEBUG
                 f_Logger.DebugFormat("Commit(): Repository.Commit() took: {0:0.00} ms",
                                      (stop - start).TotalMilliseconds);
+#endif
 
                 CommitMessage.Clear();
             }
