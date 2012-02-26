@@ -192,11 +192,6 @@ namespace Smuxi.Engine
             throw new NotImplementedException ();
         }
 
-        public override System.Collections.Generic.IList<MessageModel> GetRange (int offset, int limit)
-        {
-            throw new NotImplementedException ();
-        }
-
         public override void Dispose()
         {
             Flush();

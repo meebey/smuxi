@@ -66,6 +66,23 @@ namespace Smuxi.Engine
             ChatID = chatId;
         }
 
+        public virtual IList<MessageModel> GetRange(int offset, int limit)
+        {
+            if (offset < 0) {
+                throw new ArgumentException(
+                    "offset must be greater than or equal to 0.", "offset"
+                );
+            }
+
+            var bufferCount = Count;
+            var rangeCount = Math.Min(bufferCount, limit);
+            var range = new List<MessageModel>(rangeCount);
+            for (int i = offset; i < offset + limit && i < bufferCount; i++) {
+                range.Add(this[i]);
+            }
+            return range;
+        }
+
         IEnumerator IEnumerable.GetEnumerator()
         {
             return GetEnumerator();
