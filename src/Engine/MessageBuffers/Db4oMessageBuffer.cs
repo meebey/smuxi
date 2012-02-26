@@ -621,7 +621,7 @@ namespace Smuxi.Engine
 #endif
         }
 
-        void Flush()
+        public override void Flush()
         {
             var counter = FlushCounter;
             if (counter == 0) {
