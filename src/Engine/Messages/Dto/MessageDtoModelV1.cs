@@ -28,6 +28,25 @@ namespace Smuxi.Engine.Dto
         public List<MessagePartDtoModelV1> MessageParts { get; set; }
         public MessageType MessageType { get; set; }
 
+        public MessageDtoModelV1()
+        {
+        }
+
+        public MessageDtoModelV1(MessageModel msg)
+        {
+            if (msg == null) {
+                throw new ArgumentNullException("msg");
+            }
+
+            TimeStamp = msg.TimeStamp;
+            MessageType = msg.MessageType;
+            MessageParts = new List<MessagePartDtoModelV1>(msg.MessageParts.Count);
+            foreach (var msgPart in msg.MessageParts) {
+                var dtoPart = new MessagePartDtoModelV1(msgPart);
+                MessageParts.Add(dtoPart);
+            }
+        }
+
         public MessageModel ToMessage()
         {
             var msg = new MessageModel() {
@@ -50,9 +69,11 @@ namespace Smuxi.Engine.Dto
                         break;
                     case "URL":
                         var urlPart = new UrlMessagePartModel() {
-                            Url = msgPart.Url,
-                            Protocol = msgPart.Protocol
+                            Url = msgPart.Url
                         };
+                        if (msgPart.Protocol.HasValue) {
+                            urlPart.Protocol = msgPart.Protocol.Value;
+                        }
                         part = urlPart;
                         break;
                     case "Image":
@@ -87,10 +108,44 @@ namespace Smuxi.Engine.Dto
         public string Text { get; set; }
         // UrlMessagePartModel
         public string Url { get; set; }
-        public UrlProtocol Protocol { get; set; }
+        public UrlProtocol? Protocol { get; set; }
         // ImageMessagePartModel
         public string ImageFileName { get; set; }
         public string AlternativeText { get; set; }
+
+        public MessagePartDtoModelV1()
+        {
+        }
+
+        public MessagePartDtoModelV1(MessagePartModel part)
+        {
+            if (part == null) {
+                throw new ArgumentNullException("part");
+            }
+
+            IsHighlight = part.IsHighlight;
+            if (part is TextMessagePartModel) {
+                var textPart = (TextMessagePartModel) part;
+                Type = "Text";
+                ForegroundColor = textPart.ForegroundColor;
+                BackgroundColor = textPart.BackgroundColor;
+                Underline = textPart.Underline;
+                Bold = textPart.Bold;
+                Italic = textPart.Italic;
+                Text = textPart.Text;
+            }
+            if (part is UrlMessagePartModel) {
+                var urlPart = (UrlMessagePartModel) part;
+                Type = "URL";
+                Url = urlPart.Url;
+                Protocol = urlPart.Protocol;
+            }
+            if (part is ImageMessagePartModel) {
+                var imagePart = (ImageMessagePartModel) part;
+                Type = "Image";
+                ImageFileName = imagePart.ImageFileName;
+                AlternativeText = imagePart.AlternativeText;
+            }
+        }
     }
 }
-
