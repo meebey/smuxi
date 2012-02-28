@@ -20,6 +20,7 @@
 using System;
 using System.IO;
 using System.Text;
+using System.Linq;
 using System.Collections.Generic;
 using ServiceStack.Text;
 using Smuxi.Engine.Dto;
@@ -47,7 +48,7 @@ namespace Smuxi.Engine
 
         public override MessageModel this[int index] {
             get {
-                throw new NotImplementedException();
+                return GetRange(index, 1).First();
             }
             set {
                 throw new NotImplementedException();
@@ -65,9 +66,14 @@ namespace Smuxi.Engine
             CurrentChunk = new List<MessageDtoModelV1>(MaxChunkSize);
         }
 
-        string GetChunkFileName(Int64 index)
+        internal string GetChunkFileName(Int64 index)
         {
-            return null;
+            if (index < 0 || index > Int64.MaxValue) {
+                throw new ArgumentOutOfRangeException("index");
+            }
+            var start = (index / MaxChunkSize) * MaxChunkSize;
+            var end = checked(start - 1 + MaxChunkSize);
+            return String.Format("{0}-{1}.json", start, end);
         }
 
         void ScanChunks()
@@ -75,14 +81,16 @@ namespace Smuxi.Engine
             if (!Directory.Exists(ChunkBasePath)) {
                 Directory.CreateDirectory(ChunkBasePath);
             }
-            foreach (var filename in Directory.GetFiles(ChunkBasePath, "*.json")) {
-                var strNumber = filename.Substring(0, filename.IndexOf("."));
+            foreach (var filePath in Directory.GetFiles(ChunkBasePath, "*.json")) {
+                var fileName = Path.GetFileName(filePath);
+                var strNumber = fileName.Substring(0, fileName.IndexOf("."));
                 var strStartNumber = strNumber.Split('-')[0];
                 var strEndNumber = strNumber.Split('-')[1];
                 var intStartNumber = 0L;
                 var intEndNumber = 0L;
                 // find first chunk
                 Int64.TryParse(strStartNumber, out intStartNumber);
+                Int64.TryParse(strEndNumber, out intEndNumber);
                 if (intStartNumber < FirstChunkOffset) {
                     FirstChunkOffset = intStartNumber;
                 }
@@ -99,11 +107,7 @@ namespace Smuxi.Engine
         {
             CurrentChunkPath = Path.Combine(
                 ChunkBasePath,
-                String.Format(
-                    "{0}-{1}.json",
-                    CurrentChunkOffset,
-                    CurrentChunkOffset + MaxChunkSize - 1
-                )
+                GetChunkFileName(CurrentChunkOffset)
             );
         }
 
@@ -118,12 +122,29 @@ namespace Smuxi.Engine
 
         void SerializeChunk(List<MessageDtoModelV1> chunk, TextWriter writer)
         {
+            DateTime start, stop;
+            start = DateTime.UtcNow;
             JsonSerializer.SerializeToWriter(chunk, writer);
+            stop = DateTime.UtcNow;
+#if LOG4NET && MSGBUF_DEBUG
+            f_Logger.DebugFormat("SerializeChunk(): {0} items took: {1:0.00} ms",
+                                 chunk.Count,
+                                 (stop - start).TotalMilliseconds);
+#endif
         }
 
-        List<MessageDtoModelV1> DeserializeChunk(Stream chunkStream)
+        List<MessageDtoModelV1> DeserializeChunk(TextReader reader)
         {
-            return JsonSerializer.DeserializeFromStream<List<MessageDtoModelV1>>(chunkStream);
+            DateTime start, stop;
+            start = DateTime.UtcNow;
+            var chunk = JsonSerializer.DeserializeFromReader<List<MessageDtoModelV1>>(reader);
+            stop = DateTime.UtcNow;
+#if LOG4NET && MSGBUF_DEBUG
+            f_Logger.DebugFormat("DeserializeChunk(): {0} items took: {1:0.00} ms",
+                                 chunk.Count,
+                                 (stop - start).TotalMilliseconds);
+#endif
+            return chunk;
         }
 
         public override void Add(MessageModel item)
@@ -134,6 +155,34 @@ namespace Smuxi.Engine
                 chunk = CurrentChunk;
             }
             chunk.Add(new MessageDtoModelV1(item));
+        }
+
+        public override IList<MessageModel> GetRange(int offset, int limit)
+        {
+            var chunkMessages = new List<MessageModel>();
+            var chunkFileName = GetChunkFileName(offset);
+            var chunkFilePath = Path.Combine(ChunkBasePath, chunkFileName);
+            if (File.Exists(chunkFilePath)) {
+                using (var reader = File.OpenRead(chunkFilePath))
+                using (var textReader = new StreamReader(reader)) {
+                    var dtoMsgs = DeserializeChunk(textReader);
+                    foreach (var dtoMsg in dtoMsgs) {
+                        chunkMessages.Add(dtoMsg.ToMessage());
+                    }
+                }
+            }
+            // append CurrentChunk if it follows the offset
+            if (offset >= CurrentChunkOffset && offset < CurrentChunkOffset + MaxChunkSize) {
+                foreach (var dtoMsg in CurrentChunk) {
+                    chunkMessages.Add(dtoMsg.ToMessage());
+                }
+            }
+            var chunkStart = (offset / MaxChunkSize) * MaxChunkSize;
+            var msgOffset = offset - chunkStart;
+            var msgLimit = Math.Min(chunkMessages.Count - msgOffset, limit);
+            var msgs = new List<MessageModel>(limit);
+            msgs.AddRange(chunkMessages.GetRange(msgOffset, msgLimit));
+            return msgs;
         }
 
         public override void Clear()
@@ -178,10 +227,11 @@ namespace Smuxi.Engine
 
         public override void Flush()
         {
+            // TODO: only write if chunk actually changed!
             // TODO: use compression?
             lock (CurrentChunk) {
                 using (var writer = File.OpenWrite(CurrentChunkPath))
-                using (var textWriter = new StreamWriter(writer, Encoding.UTF8)) {
+                using (var textWriter = new StreamWriter(writer)) {
                     SerializeChunk(CurrentChunk, textWriter);
                 }
             }
