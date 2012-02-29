@@ -27,6 +27,10 @@ namespace Smuxi.Engine
     [TestFixture]
     public class JsonMessageBufferTests : MessageBufferTestsBase
     {
+        static JsonMessageBufferTests() {
+            log4net.Config.BasicConfigurator.Configure();
+        }
+
         protected override IMessageBuffer CreateBuffer()
         {
             var dbPath = Path.Combine(Platform.GetBuffersPath("testuser"),
@@ -45,5 +49,25 @@ namespace Smuxi.Engine
             return new JsonMessageBuffer("testuser", "testprot", "testnet", "testchat");
         }
 
+        [Test]
+        public void GetChunkFileName()
+        {
+            var buffer = (JsonMessageBuffer) Buffer;
+            Assert.AreEqual("0-999.json", buffer.GetChunkFileName(0L));
+            Assert.AreEqual("0-999.json", buffer.GetChunkFileName(1L));
+            Assert.AreEqual("0-999.json", buffer.GetChunkFileName(999L));
+            Assert.AreEqual("1000-1999.json", buffer.GetChunkFileName(1000L));
+            Assert.AreEqual("1000-1999.json", buffer.GetChunkFileName(1999L));
+            Assert.AreEqual("2000-2999.json", buffer.GetChunkFileName(2500L));
+            Assert.AreEqual("9223372036854774000-9223372036854774999.json", buffer.GetChunkFileName(Int64.MaxValue - 900));
+        }
+
+        [Test]
+        [ExpectedException(typeof(OverflowException))]
+        public void GetChunkFileNameMaxValue()
+        {
+            var buffer = (JsonMessageBuffer) Buffer;
+            buffer.GetChunkFileName(Int64.MaxValue);
+        }
     }
 }
