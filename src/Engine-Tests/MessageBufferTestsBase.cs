@@ -33,6 +33,11 @@ namespace Smuxi.Engine
         protected abstract IMessageBuffer CreateBuffer();
         protected abstract IMessageBuffer OpenBuffer();
 
+        static MessageBufferTestsBase()
+        {
+            log4net.Config.BasicConfigurator.Configure();
+        }
+
         [SetUp]
         public void SetUp()
         {
@@ -49,7 +54,7 @@ namespace Smuxi.Engine
             TestMessages.Add(builder.ToMessage());
 
             builder = new MessageBuilder();
-            builder.AppendText("msg3");
+            builder.AppendErrorText("msg3");
             TestMessages.Add(builder.ToMessage());
 
             foreach (var msg in TestMessages) {
@@ -92,6 +97,30 @@ namespace Smuxi.Engine
             for (int i = 0; i < TestMessages.Count; i++) {
                 Assert.AreEqual(TestMessages[i], Buffer[i]);
             }
+        }
+
+        [Test]
+        public void IndexerBenchmark()
+        {
+            var bufferType = Buffer.GetType().Name;
+            int runs = 10000;
+            DateTime start, stop;
+            start = DateTime.UtcNow;
+            for (int i = 0; i < runs; i++) {
+                var msg1 = Buffer[0];
+                var msg2 = Buffer[1];
+                var msg3 = Buffer[2];
+            }
+            stop = DateTime.UtcNow;
+
+            var total = (stop - start).TotalMilliseconds;
+            Console.WriteLine(
+                "{0}[]: avg: {1:0.00} ms runs: {2} took: {3:0.00} ms",
+                bufferType,
+                total / runs,
+                runs,
+                total
+            );
         }
 
         [Test]
@@ -168,6 +197,7 @@ namespace Smuxi.Engine
 
         public void RunGetRangeBenchmark(bool cold, int itemCount, int readCount)
         {
+            Buffer.Dispose();
             Buffer = CreateBuffer();
 
             var bufferType = Buffer.GetType().Name;
@@ -215,6 +245,50 @@ namespace Smuxi.Engine
         }
 
         [Test]
+        public void OpenBufferBenchmark()
+        {
+            RunOpenBufferBenchmark(1);
+            RunOpenBufferBenchmark(10000);
+            RunOpenBufferBenchmark(50000);
+        }
+
+        public void RunOpenBufferBenchmark(int itemCount)
+        {
+            Buffer.Dispose();
+            Buffer = CreateBuffer();
+
+            var bufferType = Buffer.GetType().Name;
+            // generate items
+            for (int i = 0; i < itemCount; i++) {
+                Buffer.Add(new MessageModel(SimpleMessage));
+            }
+            // flush/close buffer
+            Buffer.Dispose();
+
+            int runs = 10;
+            var messageCount = 0;
+            DateTime start, stop;
+            start = DateTime.UtcNow;
+            for (int i = 0; i < runs; i++) {
+                Buffer = OpenBuffer();
+                messageCount += Buffer.Count;
+                Buffer.Dispose();
+            }
+            stop = DateTime.UtcNow;
+            Assert.AreEqual(runs * itemCount, messageCount);
+
+            var total = (stop - start).TotalMilliseconds;
+            Console.WriteLine(
+                "{0}(): avg: {1:0.00} ms items: {2} runs: {3} took: {4:0.00} ms",
+                bufferType,
+                total / runs,
+                itemCount,
+                runs,
+                total
+            );
+        }
+
+        [Test]
         public void Add()
         {
             MessageBuilder msg = new MessageBuilder();
@@ -235,6 +309,7 @@ namespace Smuxi.Engine
 
         public void RunAddBenchmark(int itemCount)
         {
+            Buffer.Dispose();
             Buffer = CreateBuffer();
 
             DateTime start, stop;

@@ -27,10 +27,6 @@ namespace Smuxi.Engine
     [TestFixture]
     public class JsonMessageBufferTests : MessageBufferTestsBase
     {
-        static JsonMessageBufferTests() {
-            log4net.Config.BasicConfigurator.Configure();
-        }
-
         protected override IMessageBuffer CreateBuffer()
         {
             var dbPath = Path.Combine(Platform.GetBuffersPath("testuser"),

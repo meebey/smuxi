@@ -27,10 +27,6 @@ namespace Smuxi.Engine
     [TestFixture]
     public class GitMessageBufferTests : MessageBufferTestsBase
     {
-        static GitMessageBufferTests() {
-            log4net.Config.BasicConfigurator.Configure();
-        }
-
         protected override IMessageBuffer CreateBuffer()
         {
             var repoPath = Path.Combine(Platform.GetBuffersPath("testuser"),
