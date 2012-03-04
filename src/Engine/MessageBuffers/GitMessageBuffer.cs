@@ -117,7 +117,7 @@ namespace Smuxi.Engine
                 index.AddToIndex(msgFileName);
                 stop = DateTime.UtcNow;
             }
-#if MSGBUF_DEBUG
+#if LOG4NET && MSGBUF_DEBUG
             f_Logger.DebugFormat("Add(): Index.AddToIndex() took: {0:0.00} ms",
                                  (stop - start).TotalMilliseconds);
 #endif
@@ -245,7 +245,7 @@ namespace Smuxi.Engine
                 start = DateTime.UtcNow;
                 repo.Index.UpdatePhysicalIndex();
                 stop = DateTime.UtcNow;
-#if MSGBUF_DEBUG
+#if LOG4NET && MSGBUF_DEBUG
                 f_Logger.DebugFormat("Commit(): Repository.Index.UpdatePhysicalIndex() took: {0:0.00} ms",
                                      (stop - start).TotalMilliseconds);
 #endif
@@ -253,7 +253,7 @@ namespace Smuxi.Engine
                 start = DateTime.UtcNow;
                 repo.Commit(CommitMessage.ToString(), false);
                 stop = DateTime.UtcNow;
-#if MSGBUF_DEBUG
+#if LOG4NET && MSGBUF_DEBUG
                 f_Logger.DebugFormat("Commit(): Repository.Commit() took: {0:0.00} ms",
                                      (stop - start).TotalMilliseconds);
 #endif
