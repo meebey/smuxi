@@ -101,6 +101,8 @@ namespace Smuxi.Engine
                 }
             }
             RefreshCurrentChunkPath();
+            // load latest chunk
+            CurrentChunk = LoadDtoChunk(CurrentChunkOffset);
         }
 
         void RefreshCurrentChunkPath()
@@ -147,6 +149,37 @@ namespace Smuxi.Engine
             return chunk;
         }
 
+        List<MessageModel> LoadChunk(Int64 offset)
+        {
+            var chunk = new List<MessageModel>(MaxChunkSize);
+            var chunkFileName = GetChunkFileName(offset);
+            var chunkFilePath = Path.Combine(ChunkBasePath, chunkFileName);
+            if (!File.Exists(chunkFilePath)) {
+                return chunk;
+            }
+            using (var reader = File.OpenRead(chunkFilePath))
+            using (var textReader = new StreamReader(reader)) {
+                var dtoMsgs = DeserializeChunk(textReader);
+                foreach (var dtoMsg in dtoMsgs) {
+                    chunk.Add(dtoMsg.ToMessage());
+                }
+            }
+            return chunk;
+        }
+
+        List<MessageDtoModelV1> LoadDtoChunk(Int64 offset)
+        {
+            var chunkFileName = GetChunkFileName(offset);
+            var chunkFilePath = Path.Combine(ChunkBasePath, chunkFileName);
+            if (!File.Exists(chunkFilePath)) {
+                return new List<MessageDtoModelV1>(0);
+            }
+            using (var reader = File.OpenRead(chunkFilePath))
+            using (var textReader = new StreamReader(reader)) {
+                return DeserializeChunk(textReader);
+            }
+        }
+
         public override void Add(MessageModel item)
         {
             var chunk = CurrentChunk;
@@ -159,18 +192,8 @@ namespace Smuxi.Engine
 
         public override IList<MessageModel> GetRange(int offset, int limit)
         {
-            var chunkMessages = new List<MessageModel>();
-            var chunkFileName = GetChunkFileName(offset);
-            var chunkFilePath = Path.Combine(ChunkBasePath, chunkFileName);
-            if (File.Exists(chunkFilePath)) {
-                using (var reader = File.OpenRead(chunkFilePath))
-                using (var textReader = new StreamReader(reader)) {
-                    var dtoMsgs = DeserializeChunk(textReader);
-                    foreach (var dtoMsg in dtoMsgs) {
-                        chunkMessages.Add(dtoMsg.ToMessage());
-                    }
-                }
-            }
+            var chunkMessages = new List<MessageModel>(MaxChunkSize * 2);
+            chunkMessages.AddRange(LoadChunk(offset));
             // append CurrentChunk if it follows the offset
             if (offset >= CurrentChunkOffset && offset < CurrentChunkOffset + MaxChunkSize) {
                 foreach (var dtoMsg in CurrentChunk) {
@@ -230,7 +253,12 @@ namespace Smuxi.Engine
             // TODO: only write if chunk actually changed!
             // TODO: use compression?
             lock (CurrentChunk) {
-                using (var writer = File.OpenWrite(CurrentChunkPath))
+                if (CurrentChunk.Count == 0) {
+                    // don't write empty chunks to disk
+                    return;
+                }
+
+                using (var writer = File.Open(CurrentChunkPath, FileMode.Create, FileAccess.Write))
                 using (var textWriter = new StreamWriter(writer)) {
                     SerializeChunk(CurrentChunk, textWriter);
                 }
