@@ -18,6 +18,7 @@
 // along with this program; if not, write to the Free Software
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA
 using System;
+using System.Text;
 using System.Runtime.InteropServices;
 
 namespace LevelDB
@@ -30,6 +31,11 @@ namespace LevelDB
                 return;
             }
             throw new ApplicationException(error);
+        }
+
+        static UIntPtr GetStringLength(string value)
+        {
+            return new UIntPtr((uint) Encoding.UTF8.GetByteCount(value));
         }
 
         // extern leveldb_t* leveldb_open(const leveldb_options_t* options, const char* name, char** errptr);
@@ -61,9 +67,8 @@ namespace LevelDB
                                        string value)
         {
             string error;
-            // FIXME: bytes vs chars, we need to pass bytes here
-            var keyLength = new UIntPtr((uint) key.Length);
-            var valueLength = new UIntPtr((uint) value.Length);
+            var keyLength =  GetStringLength(key);
+            var valueLength = GetStringLength(value);
             Native.leveldb_put(db, writeOptions,
                                key, keyLength,
                                value, valueLength, out error);
@@ -89,7 +94,7 @@ namespace LevelDB
         {
             UIntPtr valueLength;
             string error;
-            var keyLength =  new UIntPtr((uint) key.Length);
+            var keyLength = GetStringLength(key);
             var valuePtr = leveldb_get(db, readOptions, key, keyLength,
                                        out valueLength, out error);
             CheckError(error);
