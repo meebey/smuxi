@@ -24,6 +24,7 @@ using Smuxi.Engine.Dto;
 
 namespace Smuxi.Engine
 {
+    [TestFixture]
     public class MessageDtoModelV1Tests
     {
         MessageModel SimpleMessage { get; set; }
@@ -39,10 +40,9 @@ namespace Smuxi.Engine
             JsConfig<MessagePartModel>.ExcludeTypeInfo = true;
 
             var builder = new MessageBuilder();
-            builder.AppendIdendityName(
+            builder.AppendSenderPrefix(
                 new ContactModel("meeebey", "meebey", "netid", "netprot")
             );
-            builder.AppendSpace();
             builder.AppendText("solange eine message aber keine url hat ist der vorteil nur gering (wenn ueberhaupt)");
             SimpleMessage = builder.ToMessage();
             SimpleMessageJson = JsonSerializer.SerializeToString(SimpleMessage);
@@ -55,6 +55,15 @@ namespace Smuxi.Engine
             ComplexMessage = msg;
             ComplexMessageJson = JsonSerializer.SerializeToString(ComplexMessage);
             ComplexMessageDtoV1 = JsonSerializer.DeserializeFromString<MessageDtoModelV1>(ComplexMessageJson);
+        }
+
+        [Test]
+        public void SerializeDeserialize()
+        {
+            var dtoMsg = new MessageDtoModelV1(SimpleMessage);
+            var json = JsonSerializer.SerializeToString(dtoMsg);
+            var dtoMsg2 = JsonSerializer.DeserializeFromString<MessageDtoModelV1>(json);
+            Assert.AreEqual(dtoMsg.ToMessage(), dtoMsg2.ToMessage());
         }
 
         [Test]

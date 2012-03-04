@@ -58,6 +58,12 @@ namespace Smuxi.Engine
             msg = new MessageModel();
             Assert.IsFalse(msg.Equals(null));
             Assert.IsFalse(msg == null);
+
+            msg = new MessageModel(SimpleMessage);
+            Assert.IsTrue(msg.Equals(SimpleMessage));
+            var textPart = (TextMessagePartModel) msg.MessageParts[0];
+            textPart.ForegroundColor = TextColor.Grey;
+            Assert.IsFalse(msg.Equals(SimpleMessage));
         }
 
         [Test]
