@@ -43,7 +43,7 @@ namespace Smuxi.Frontend.Gnome
 #if LOG4NET
         private static readonly log4net.ILog Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 #endif
-        const string BusName = "com.canonical.indicate";
+        const string BusName = "com.canonical.indicator.session";
         private static DateTime UnixEpoch = new DateTime(1970, 1, 1, 0, 0, 0);
         private static string PersonChatIconBase64 { get; set; }
         private static string GroupChatIconBase64  { get; set; }
