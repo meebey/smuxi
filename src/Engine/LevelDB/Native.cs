@@ -130,6 +130,10 @@ namespace LevelDB
         [DllImport("leveldb")]
         public static extern void leveldb_options_set_max_open_files(IntPtr options, int value);
 
+        // extern void leveldb_options_set_compression(leveldb_options_t*, int);
+        [DllImport("leveldb")]
+        public static extern void leveldb_options_set_compression(IntPtr options, int value);
+
         // TODO:
         /*
         extern void leveldb_options_set_env(leveldb_options_t*, leveldb_env_t*);
@@ -142,7 +146,6 @@ namespace LevelDB
           leveldb_no_compression = 0,
           leveldb_snappy_compression = 1
         };
-        extern void leveldb_options_set_compression(leveldb_options_t*, int);
         */
 
         [DllImport("leveldb")]
@@ -171,16 +174,33 @@ namespace LevelDB
             leveldb_writeoptions_t*, unsigned char);
         */
 
-/* Iterator */
+#region Iterator
+        //extern void leveldb_iter_seek_to_first(leveldb_iterator_t*);
         [DllImport("leveldb")]
         public static extern void leveldb_iter_seek_to_first(IntPtr iter);
 
+        // extern void leveldb_iter_seek_to_last(leveldb_iterator_t*);
         [DllImport("leveldb")]
         public static extern void leveldb_iter_seek_to_last(IntPtr iter);
 
+        // extern void leveldb_iter_seek(leveldb_iterator_t*, const char* k, size_t klen);
+        [DllImport("leveldb")]
+        public static extern void leveldb_iter_seek(IntPtr iter, string key, UIntPtr keyLength);
+        public static void leveldb_iter_seek(IntPtr iter, string key)
+        {
+            var keyLength =  GetStringLength(key);
+            leveldb_iter_seek(iter, key, keyLength);
+        }
+
+        // extern unsigned char leveldb_iter_valid(const leveldb_iterator_t*);
         [DllImport("leveldb")]
         public static extern bool leveldb_iter_valid(IntPtr iter);
 
+        // extern void leveldb_iter_prev(leveldb_iterator_t*);
+        [DllImport("leveldb")]
+        public static extern void leveldb_iter_prev(IntPtr iter);
+
+        // extern void leveldb_iter_next(leveldb_iterator_t*);
         [DllImport("leveldb")]
         public static extern void leveldb_iter_next(IntPtr iter);
 
@@ -215,13 +235,8 @@ namespace LevelDB
         public static extern void leveldb_iter_destroy(IntPtr iter);
 
         /*
-extern unsigned char leveldb_iter_valid(const leveldb_iterator_t*);
-extern void leveldb_iter_seek_to_first(leveldb_iterator_t*);
-extern void leveldb_iter_seek_to_last(leveldb_iterator_t*);
-extern void leveldb_iter_seek(leveldb_iterator_t*, const char* k, size_t klen);
-extern void leveldb_iter_next(leveldb_iterator_t*);
-extern void leveldb_iter_prev(leveldb_iterator_t*);
 extern void leveldb_iter_get_error(const leveldb_iterator_t*, char** errptr);
          */
+#endregion
     }
 }
