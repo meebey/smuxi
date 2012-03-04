@@ -135,6 +135,10 @@ namespace Smuxi.Engine
             range = Buffer.GetRange(2, 1);
             Assert.AreEqual(1, range.Count);
             Assert.AreEqual(TestMessages[2], range[0]);
+
+            range = Buffer.GetRange(2, 10);
+            Assert.AreEqual(1, range.Count);
+            Assert.AreEqual(TestMessages[2], range[0]);
         }
 
         [Test]
@@ -164,6 +168,9 @@ namespace Smuxi.Engine
 
         public void RunGetRangeBenchmark(bool cold, int itemCount, int readCount)
         {
+            Buffer = CreateBuffer();
+
+            var bufferType = Buffer.GetType().Name;
             // generate items
             for (int i = 0; i < itemCount; i++) {
                 Buffer.Add(new MessageModel(SimpleMessage));
@@ -183,7 +190,7 @@ namespace Smuxi.Engine
                 if (cold) {
                     Buffer = OpenBuffer();
                 }
-                // retrieve the newest 200 messages
+                // retrieve the last X messages
                 messageCount += Buffer.GetRange(itemCount - readCount, readCount).Count;
                 if (cold) {
                     Buffer.Dispose();
@@ -196,7 +203,7 @@ namespace Smuxi.Engine
             Console.WriteLine(
                 "{0} {1}.GetRange({2}, {3}): avg: {4:0.00} ms ({5:0.00} ms per item) items: {6} runs: {7} took: {8:0.00} ms",
                 cold ? "Cold" : "Warm",
-                Buffer.GetType().Name,
+                bufferType,
                 itemCount - readCount,
                 readCount,
                 total / runs,
@@ -228,13 +235,15 @@ namespace Smuxi.Engine
 
         public void RunAddBenchmark(int itemCount)
         {
+            Buffer = CreateBuffer();
+
             DateTime start, stop;
             start = DateTime.UtcNow;
             for (int i = 0; i < itemCount; i++) {
                 Buffer.Add(new MessageModel(SimpleMessage));
             }
-            // force flush / close
-            Buffer.Dispose();
+            // force flush
+            Buffer.Flush();
             stop = DateTime.UtcNow;
 
             var total = (stop - start).TotalMilliseconds;
