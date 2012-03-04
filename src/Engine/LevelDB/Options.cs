@@ -19,13 +19,14 @@
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA
 using System;
 
-namespace Smuxi.Engine
+namespace LevelDB
 {
     public class Options
     {
+        IntPtr Handle { get; set; }
+
         public Options()
         {
         }
     }
 }
-
