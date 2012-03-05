@@ -47,6 +47,9 @@ namespace Smuxi.Engine
             get {
                 return f_Value;
             }
+            set {
+                f_Value = value;
+            }
         }
         
         public string HexCode {
