@@ -93,7 +93,7 @@ namespace Smuxi.Engine
             return Equals(part);
         }
 
-        public bool Equals(MessagePartModel part)
+        public virtual bool Equals(MessagePartModel part)
         {
             if ((object) part == null) {
                 return false;

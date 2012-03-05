@@ -226,8 +226,9 @@ namespace Smuxi.Engine
             return base.Equals(textPart);
         }
 
-        public bool Equals(TextMessagePartModel textPart)
+        public override bool Equals(MessagePartModel part)
         {
+            var textPart = part as TextMessagePartModel;
             if ((object) textPart == null) {
                 return false;
             }
