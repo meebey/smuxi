@@ -83,6 +83,10 @@ namespace Smuxi.Engine
             var cleanDB = !Directory.Exists(DatabasePath);
             var options = Native.leveldb_options_create();
             Native.leveldb_options_set_create_if_missing(options, '1');
+            // in a 4KB block fit 8 x 500 byte messages
+            // 64 blocks == 512 messages
+            // 64 blocks * 4KB block == 256KB used memory
+            Native.leveldb_options_set_cache_size(options, 64);
             DateTime start, stop;
             start = DateTime.UtcNow;
             Database = Native.leveldb_open(options, DatabasePath);
@@ -124,6 +128,7 @@ namespace Smuxi.Engine
             var range = new List<MessageModel>(limit);
             var msgKey = GetMessageKey(offset);
             var options = Native.leveldb_readoptions_create();
+            //Native.leveldb_readoptions_set_fill_cache(options, false);
             IntPtr iter = Native.leveldb_create_iterator(Database, options);
             for (Native.leveldb_iter_seek(iter, msgKey);
                  Native.leveldb_iter_valid(iter) && range.Count < limit;
