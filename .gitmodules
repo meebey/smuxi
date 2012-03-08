@@ -19,3 +19,6 @@
 [submodule "lib/libgit2sharp"]
 	path = lib/libgit2sharp
 	url = git://git.qnetp.net/libgit2sharp.git
+[submodule "lib/leveldb-sharp"]
+	path = lib/leveldb-sharp
+	url = git://git.qnetp.net/leveldb-sharp.git
