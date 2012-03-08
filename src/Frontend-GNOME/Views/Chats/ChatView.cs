@@ -509,7 +509,7 @@ namespace Smuxi.Frontend.Gnome
                 msg.AppendMessage(_("Low Bandwidth Mode is active: no messages synced."));
                 AddMessage(msg.ToMessage());
             } else {
-                if (SyncedMessages.Count > 0) {
+                if (SyncedMessages != null) {
                     // TODO: push messages in batches and give back control to
                     // GTK+ in between for blocking the GUI thread less
                     foreach (MessageModel msg in SyncedMessages) {
