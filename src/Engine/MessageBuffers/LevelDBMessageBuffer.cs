@@ -82,7 +82,7 @@ namespace Smuxi.Engine
 
             var cleanDB = !Directory.Exists(DatabasePath);
             var options = Native.leveldb_options_create();
-            Native.leveldb_options_set_create_if_missing(options, '1');
+            Native.leveldb_options_set_create_if_missing(options, true);
             // in a 4KB block fit 8 x 500 byte messages
             // 64 blocks == 512 messages
             // 64 blocks * 4KB block == 256KB used memory
