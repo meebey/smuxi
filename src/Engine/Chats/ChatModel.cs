@@ -191,6 +191,10 @@ namespace Smuxi.Engine
 
             var maxCapacityKey = String.Format("MessageBuffer/{0}/MaxCapacity",
                                                persistency.ToString());
+            if (config[maxCapacityKey] == null &&
+                persistency.ToString().StartsWith("Persistent")) {
+                maxCapacityKey = "MessageBuffer/Persistent/MaxCapacity";
+            }
             MessageBuffer.MaxCapacity = (int) config[maxCapacityKey];
         }
 
@@ -254,6 +258,7 @@ namespace Smuxi.Engine
                     MessageBuffer = new ListMessageBuffer();
                     break;
                 case MessageBufferPersistencyType.Persistent:
+                case MessageBufferPersistencyType.PersistentDb4o:
                     try {
                         var start = DateTime.UtcNow;
                         MessageBuffer = new Db4oMessageBuffer(
@@ -294,6 +299,28 @@ namespace Smuxi.Engine
                         );
                         MessageBuffer.Add(builder.ToMessage());
                     }
+                    break;
+                case MessageBufferPersistencyType.PersistentLevelDB:
+                    var start = DateTime.UtcNow;
+                    MessageBuffer = new LevelDBMessageBuffer(
+                        ProtocolManager.Session.Username,
+                        ProtocolManager.Protocol,
+                        ProtocolManager.NetworkID,
+                        ID
+                    );
+                    var stop = DateTime.UtcNow;
+#if LOG4NET
+                    _Logger.DebugFormat(
+                        "InitMessageBuffer(): initializing " +
+                        "LevelDbMessageBuffer({0}, {1}, {2}, {3}) " +
+                        "took: {4:0.00} ms",
+                        ProtocolManager.Session.Username,
+                        ProtocolManager.Protocol,
+                        ProtocolManager.NetworkID,
+                        ID,
+                        (stop - start).TotalMilliseconds
+                    );
+#endif
                     break;
             }
         }
