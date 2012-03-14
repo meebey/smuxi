@@ -167,7 +167,15 @@ namespace Smuxi.Engine
 
         public override IEnumerator<MessageModel> GetEnumerator()
         {
-            throw new NotImplementedException ();
+            foreach (var entry in Database) {
+                if (entry.Key == null || !entry.Key.EndsWith(".v1.json")) {
+                    // ignore non json keys
+                    continue;
+                }
+                var json = entry.Value;
+                var dto = JsonSerializer.DeserializeFromString<MessageDtoModelV1>(json);
+                yield return dto.ToMessage();
+            }
         }
 
         public override int IndexOf(MessageModel item)
