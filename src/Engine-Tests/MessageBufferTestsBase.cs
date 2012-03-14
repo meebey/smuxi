@@ -57,6 +57,38 @@ namespace Smuxi.Engine
             builder.AppendErrorText("msg3");
             TestMessages.Add(builder.ToMessage());
 
+            builder = new MessageBuilder();
+            builder.AppendText("msg4");
+            TestMessages.Add(builder.ToMessage());
+
+            builder = new MessageBuilder();
+            builder.AppendText("msg5");
+            TestMessages.Add(builder.ToMessage());
+
+            builder = new MessageBuilder();
+            builder.AppendText("msg6");
+            TestMessages.Add(builder.ToMessage());
+
+            builder = new MessageBuilder();
+            builder.AppendText("msg7");
+            TestMessages.Add(builder.ToMessage());
+
+            builder = new MessageBuilder();
+            builder.AppendText("msg8");
+            TestMessages.Add(builder.ToMessage());
+
+            builder = new MessageBuilder();
+            builder.AppendText("msg9");
+            TestMessages.Add(builder.ToMessage());
+
+            builder = new MessageBuilder();
+            builder.AppendText("msg10");
+            TestMessages.Add(builder.ToMessage());
+
+            builder = new MessageBuilder();
+            builder.AppendText("msg11");
+            TestMessages.Add(builder.ToMessage());
+
             foreach (var msg in TestMessages) {
                 Buffer.Add(msg);
             }
@@ -165,9 +197,9 @@ namespace Smuxi.Engine
             Assert.AreEqual(1, range.Count);
             Assert.AreEqual(TestMessages[2], range[0]);
 
-            range = Buffer.GetRange(2, 10);
+            range = Buffer.GetRange(10, 10);
             Assert.AreEqual(1, range.Count);
-            Assert.AreEqual(TestMessages[2], range[0]);
+            Assert.AreEqual(TestMessages[10], range[0]);
         }
 
         [Test]
