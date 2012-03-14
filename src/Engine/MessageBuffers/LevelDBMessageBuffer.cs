@@ -39,7 +39,7 @@ namespace Smuxi.Engine
         Int64 MessageNumber { get; set; }
         Int64 MessageCount { get; set; }
         bool Disposed { get; set; }
-        IntPtr Database { get; set; }
+        DB Database { get; set; }
         string DatabasePath { get; set; }
 
         public override int Count {
@@ -54,9 +54,8 @@ namespace Smuxi.Engine
 
                 // OPT: single get is faster than seek + get_value
                 //return GetRange(index, 1).First();
-                var options = Native.leveldb_readoptions_create();
                 var key = GetMessageKey(index);
-                var json = Native.leveldb_get(Database, options, key);
+                var json = Database.Get(key);
                 if (json == null) {
                     throw new ArgumentOutOfRangeException("index");
                 }
@@ -81,15 +80,16 @@ namespace Smuxi.Engine
             DatabasePath = bufferPath + ".leveldb";
 
             var cleanDB = !Directory.Exists(DatabasePath);
-            var options = Native.leveldb_options_create();
-            Native.leveldb_options_set_create_if_missing(options, true);
-            // in a 4KB block fit 8 x 500 byte messages
-            // 64 blocks == 512 messages
-            // 64 blocks * 4KB block == 256KB used memory
-            Native.leveldb_options_set_cache_size(options, 64);
+            var options = new Options() {
+                CreateIfMissing = true,
+                // in a 4KB block fit 8 x 500 byte messages
+                // 64 blocks == 512 messages
+                // 64 blocks * 4KB block == 256KB used memory
+                BlockCache = new Cache(64),
+            };
             DateTime start, stop;
             start = DateTime.UtcNow;
-            Database = Native.leveldb_open(options, DatabasePath);
+            Database = new DB(options, DatabasePath);
             stop = DateTime.UtcNow;
 #if LOG4NET && MSGBUF_DEBUG
             f_Logger.DebugFormat("ctor(): leveldb_open() " +
@@ -116,8 +116,7 @@ namespace Smuxi.Engine
             var msgNumber = MessageNumber;
             var msgFileName = GetMessageKey(msgNumber++);
             var msgContent = JsonSerializer.SerializeToString(msg);
-            var options = Native.leveldb_writeoptions_create();
-            Native.leveldb_put(Database, options, msgFileName, msgContent);
+            Database.Put(msgFileName, msgContent);
             MessageNumber = msgNumber;
             MessageCount++;
             Flush();
@@ -129,7 +128,7 @@ namespace Smuxi.Engine
             var msgKey = GetMessageKey(offset);
             var options = Native.leveldb_readoptions_create();
             //Native.leveldb_readoptions_set_fill_cache(options, false);
-            IntPtr iter = Native.leveldb_create_iterator(Database, options);
+            IntPtr iter = Native.leveldb_create_iterator(Database.Handle, options);
             for (Native.leveldb_iter_seek(iter, msgKey);
                  Native.leveldb_iter_valid(iter) && range.Count < limit;
                  Native.leveldb_iter_next(iter)) {
@@ -188,16 +187,12 @@ namespace Smuxi.Engine
 
         void FlushMessageCount()
         {
-            var writeOptions = Native.leveldb_writeoptions_create();
-            Native.leveldb_put(Database, writeOptions,
-                               MessageCountKey, MessageCount.ToString());
+            Database.Put(MessageCountKey, MessageCount.ToString());
         }
 
         void FlushMessageNumber()
         {
-            var writeOptions = Native.leveldb_writeoptions_create();
-            Native.leveldb_put(Database, writeOptions,
-                               MessageNumberKey, MessageNumber.ToString());
+            Database.Put(MessageNumberKey, MessageNumber.ToString());
         }
 
         public override void Flush()
@@ -225,16 +220,16 @@ namespace Smuxi.Engine
             Disposed = true;
 
             var db = Database;
-            if (db != IntPtr.Zero) {
+            if (db != null) {
                 DateTime start, stop;
                 start = DateTime.UtcNow;
-                Native.leveldb_close(db);
+                Database.Dispose();
                 stop = DateTime.UtcNow;
 #if LOG4NET && MSGBUF_DEBUG
                 f_Logger.DebugFormat("Dispose(): leveldb_close() took: {0:0.00} ms",
                                      (stop - start).TotalMilliseconds);
 #endif
-                Database = IntPtr.Zero;
+                Database = null;
             }
         }
 
@@ -254,8 +249,7 @@ namespace Smuxi.Engine
 
         void FetchMessageCount()
         {
-            var options = Native.leveldb_readoptions_create();
-            var strCount = Native.leveldb_get(Database, options, MessageCountKey);
+            var strCount = Database.Get(MessageCountKey);
             if (!String.IsNullOrEmpty(strCount)) {
                 // yay we have a cached count value
                 var intCount = 0L;
@@ -268,9 +262,10 @@ namespace Smuxi.Engine
             DateTime start, stop;
             start = DateTime.UtcNow;
 
-            options = Native.leveldb_readoptions_create();
             var count = 0;
-            IntPtr iter = Native.leveldb_create_iterator(Database, options);
+            var options = Native.leveldb_readoptions_create();
+            IntPtr iter = Native.leveldb_create_iterator(Database.Handle,
+                                                         options);
             Native.leveldb_iter_seek_to_first(iter);
             while (Native.leveldb_iter_valid(iter)) {
                 string key = Native.leveldb_iter_key(iter);
@@ -292,8 +287,7 @@ namespace Smuxi.Engine
 
         void FetchMessageNumber()
         {
-            var options = Native.leveldb_readoptions_create();
-            var strNumber = Native.leveldb_get(Database, options, MessageNumberKey);
+            var strNumber = Database.Get(MessageNumberKey);
             if (!String.IsNullOrEmpty(strNumber)) {
                 // yay we have a cached number value
                 var intNumber = 0L;
@@ -307,8 +301,9 @@ namespace Smuxi.Engine
             start = DateTime.UtcNow;
 
             var msgNumber = 0L;
-            options = Native.leveldb_readoptions_create();
-            IntPtr iter = Native.leveldb_create_iterator(Database, options);
+            var options = Native.leveldb_readoptions_create();
+            IntPtr iter = Native.leveldb_create_iterator(Database.Handle,
+                                                         options);
             Native.leveldb_iter_seek_to_first(iter);
             while (Native.leveldb_iter_valid(iter)) {
                 string key = Native.leveldb_iter_key(iter);
