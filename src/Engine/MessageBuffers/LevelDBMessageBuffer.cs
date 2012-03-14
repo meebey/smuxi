@@ -251,8 +251,8 @@ namespace Smuxi.Engine
 
         string GetMessageKey(Int64 number)
         {
-            // TODO: align key to 16 or 32 bytes? also as the keys are sorted
-            return String.Format("{0}.v1.json", number);
+            // align key to 32 bytes as the keys are sorted bytewise
+            return String.Format("{0:000000000000000000000000}.v1.json", number);
         }
 
         void FetchMessageCount()
