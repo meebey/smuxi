@@ -188,6 +188,21 @@ namespace Smuxi.Frontend.Gnome
             _TopicScrolledWindow.ShowAll();
             _TopicScrolledWindow.Visible = false;
             _TopicScrolledWindow.NoShowAll = true;
+            _TopicScrolledWindow.SizeRequested += delegate(object o, Gtk.SizeRequestedArgs args) {
+                // predict and set useful topic heigth
+                Pango.Layout layout = _TopicTextView.CreatePangoLayout("Test Topic");
+                int lineWidth, lineHeigth;
+                layout.GetPixelSize(out lineWidth, out lineHeigth);
+                var lineSpacing = _TopicTextView.PixelsAboveLines +
+                                  _TopicTextView.PixelsBelowLines;
+                var text = Topic != null ? Topic.ToString() : String.Empty;
+                // hardcoded to 2 lines for now
+                var newLines = text.Length > 0 ? 2 : 0;
+                var bestSize = new Gtk.Requisition() {
+                    Height = ((lineHeigth + lineSpacing) * newLines) + 2
+                };
+                args.Requisition = bestSize;
+            };
 
             Add(_OutputHPaned);
             
@@ -457,15 +472,6 @@ namespace Smuxi.Frontend.Gnome
 
             // topic
             _TopicTextView.ApplyConfig(config);
-            // predict and set useful topic heigth
-            Pango.Layout layout = _TopicTextView.CreatePangoLayout("Test Topic");
-            int lineWidth, lineHeigth;
-            layout.GetPixelSize(out lineWidth, out lineHeigth);
-            // use 2 lines + a bit extra as the topic heigth
-            int bestHeigth = (lineHeigth * 2) + 5;
-            _TopicTextView.HeightRequest = bestHeigth;
-            _TopicScrolledWindow.HeightRequest = bestHeigth;
-
             string topic_pos = (string) config["Interface/Notebook/Channel/TopicPosition"];
             if (_TopicScrolledWindow.IsAncestor(_OutputVBox)) {
                 _OutputVBox.Remove(_TopicScrolledWindow);
