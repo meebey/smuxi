@@ -1,160 +1,220 @@
-﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
-    <ProjectGuid>{8CE704BA-EC68-45CE-BF14-2230D5D53F79}</ProjectGuid>
-    <AssemblyName>smuxi-frontend-gnome</AssemblyName>
-    <RootNamespace>Smuxi.Frontend.Gnome</RootNamespace>
-    <StartupObject>Smuxi.Frontend.Gnome.MainClass</StartupObject>
-    <CodePage>65001</CodePage>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
-    <DebugSymbols>true</DebugSymbols>
-    <OutputPath>..\..\bin\debug\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;LOG4NET;CONFIG_NINI;GTK_SHARP_2_10</DefineConstants>
-    <DebugType>full</DebugType>
-    <OutputType>Exe</OutputType>
-    <PlatformTarget>x86</PlatformTarget>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
-    <OutputPath>..\..\bin\release\</OutputPath>
-    <DefineConstants>CONFIG_NINI;GTK_SHARP_2_10</DefineConstants>
-    <Optimize>true</Optimize>
-    <DebugType>pdbonly</DebugType>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>10.0.0</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{405874F0-A58A-4E79-8766-2150D069F691}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <PlatformTarget>x86</PlatformTarget>
+    <RootNamespace>Smuxi.Frontend.Gnome</RootNamespace>
+    <CodePage>65001</CodePage>
+    <ApplicationIcon>..\..\images\icon.ico</ApplicationIcon>
+    <AssemblyName>smuxi-frontend-gnome</AssemblyName>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\bin\debug</OutputPath>
+    <DefineConstants>DEBUG;TRACE;LOG4NET;CONFIG_NINI;GTK_SHARP_2_10;INDICATE_SHARP;NOTIFY_SHARP;IPC_DBUS;DBUS_SHARP;GTKSPELL</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
+    <Execution>
+      <Execution clr-version="Net_2_0" />
+    </Execution>
+    <Commandlineparameters>--debug</Commandlineparameters>
+    <Externalconsole>true</Externalconsole>
+    <EnvironmentVariables>
+      <EnvironmentVariables>
+        <Variable name="MONO_TRACE_LISTENER" value="Console.Out" />
+      </EnvironmentVariables>
+    </EnvironmentVariables>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>none</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\bin\release</OutputPath>
+    <DefineConstants>CONFIG_NINI;GTK_SHARP_2_10;INDICATE_SHARP;NOTIFY_SHARP;IPC_DBUS;DBUS_SHARP</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
+    <RunWithWarnings>false</RunWithWarnings>
+    <Execution>
+      <Execution clr-version="Net_2_0" />
+    </Execution>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug-Win32|AnyCPU' ">
+    <DebugType>none</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\bin\debug</OutputPath>
+    <DefineConstants>DEBUG;TRACE;LOG4NET;CONFIG_NINI;GTK_SHARP_2_10</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="atk-sharp" />
-    <Reference Include="gdk-sharp" />
-    <Reference Include="glade-sharp" />
-    <Reference Include="glib-sharp" />
-    <Reference Include="gtk-sharp" />
-    <Reference Include="log4net" />
-    <Reference Include="Mono.Posix" />
-    <Reference Include="pango-sharp" />
-    <Reference Include="System" />
-    <Reference Include="System.Drawing" />
+    <EmbeddedResource Include="..\..\glade\smuxi-frontend-gnome.glade">
+      <LogicalName>smuxi-frontend-gnome.glade</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="gtk-gui\gui.stetic">
+      <LogicalName>gui.stetic</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\images\icon_256x256.png">
+      <LogicalName>icon_256x256.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\images\group-chat_256x256.png">
+      <LogicalName>group-chat_256x256.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\images\person-chat_256x256.png">
+      <LogicalName>person-chat_256x256.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\images\protocol-chat_256x256.png">
+      <LogicalName>protocol-chat_256x256.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\images\session-chat_256x256.png">
+      <LogicalName>session-chat_256x256.png</LogicalName>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\AssemblyVersion.cs">
-      <Link>AssemblyVersion.cs</Link>
-    </Compile>
     <Compile Include="AboutDialog.cs" />
     <Compile Include="AssemblyInfo.cs" />
-    <Compile Include="ChatFindDialog.cs" />
-    <Compile Include="ChatTypeWidget.cs" />
-    <Compile Include="ChatViewManager.cs" />
-    <Compile Include="ColorContrast.cs" />
-    <Compile Include="ColorTools.cs" />
     <Compile Include="CrashDialog.cs" />
     <Compile Include="EngineManagerDialog.cs" />
     <Compile Include="Entry.cs" />
-    <Compile Include="FindGroupChatDialog.cs" />
     <Compile Include="Frontend.cs" />
     <Compile Include="GnomeUI.cs" />
-    <Compile Include="gtk-gui\generated.cs" />
-    <Compile Include="gtk-gui\Smuxi.Frontend.Gnome.ChatFindDialog.cs" />
-    <Compile Include="gtk-gui\Smuxi.Frontend.Gnome.ChatTypeWidget.cs" />
-    <Compile Include="gtk-gui\Smuxi.Frontend.Gnome.EngineAssistantConnectionWidget.cs" />
-    <Compile Include="gtk-gui\Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs" />
-    <Compile Include="gtk-gui\Smuxi.Frontend.Gnome.EngineAssistantIntroWidget.cs" />
-    <Compile Include="gtk-gui\Smuxi.Frontend.Gnome.EngineAssistantNameWidget.cs" />
-    <Compile Include="gtk-gui\Smuxi.Frontend.Gnome.FindGroupChatDialog.cs" />
-    <Compile Include="gtk-gui\Smuxi.Frontend.Gnome.OpenChatDialog.cs" />
-    <Compile Include="gtk-gui\Smuxi.Frontend.Gnome.QuickConnectDialog.cs" />
-    <Compile Include="gtk-gui\Smuxi.Frontend.Gnome.ServerDialog.cs" />
-    <Compile Include="gtk-gui\Smuxi.Frontend.Gnome.ServerWidget.cs" />
-    <Compile Include="gtk-gui\Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="MainWindow.cs" />
-    <Compile Include="Notebook.cs" />
     <Compile Include="NotImplementedMessageDialog.cs" />
-    <Compile Include="OpenChatDialog.cs" />
-    <Compile Include="PangoTools.cs" />
-    <Compile Include="Preferences\ChannelFilterListView.cs" />
-    <Compile Include="Preferences\PreferencesDialog.cs" />
-    <Compile Include="Preferences\ServerListView.cs" />
-    <Compile Include="QuickConnectDialog.cs" />
+    <Compile Include="Notebook.cs" />
     <Compile Include="SplashScreenWindow.cs" />
+    <Compile Include="ChatViewManager.cs" />
+    <Compile Include="Preferences\ServerListView.cs" />
+    <Compile Include="Preferences\PreferencesDialog.cs" />
+    <Compile Include="gtk-gui\generated.cs" />
+    <Compile Include="QuickConnectDialog.cs" />
     <Compile Include="SteticPreferencesDialog.cs" />
-    <Compile Include="ThemeSettings.cs" />
-    <Compile Include="ViewManager.cs" />
-    <Compile Include="Views\Assistants\Engine\EngineAssistant.cs" />
-    <Compile Include="Views\Assistants\Engine\EngineAssistantConnectionWidget.cs" />
-    <Compile Include="Views\Assistants\Engine\EngineAssistantCredentialsWidget.cs" />
-    <Compile Include="Views\Assistants\Engine\EngineAssistantIntroWidget.cs" />
-    <Compile Include="Views\Assistants\Engine\EngineAssistantNameWidget.cs" />
+    <Compile Include="gtk-gui\Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs" />
+    <Compile Include="gtk-gui\Smuxi.Frontend.Gnome.QuickConnectDialog.cs" />
+    <Compile Include="FindGroupChatDialog.cs" />
+    <Compile Include="gtk-gui\Smuxi.Frontend.Gnome.FindGroupChatDialog.cs" />
+    <Compile Include="..\AssemblyVersion.cs" />
+    <Compile Include="ChatFindDialog.cs" />
+    <Compile Include="gtk-gui\Smuxi.Frontend.Gnome.ChatFindDialog.cs" />
     <Compile Include="Views\Chats\ChatView.cs" />
     <Compile Include="Views\Chats\GroupChatView.cs" />
     <Compile Include="Views\Chats\PersonChatView.cs" />
     <Compile Include="Views\Chats\ProtocolChatView.cs" />
     <Compile Include="Views\Chats\SessionChatView.cs" />
     <Compile Include="Views\MessageTextView.cs" />
-    <Compile Include="Views\ServerDialog.cs" />
+    <Compile Include="OpenChatDialog.cs" />
+    <Compile Include="gtk-gui\Smuxi.Frontend.Gnome.OpenChatDialog.cs" />
+    <Compile Include="ChatTypeWidget.cs" />
+    <Compile Include="gtk-gui\Smuxi.Frontend.Gnome.ChatTypeWidget.cs" />
+    <Compile Include="gtk-gui\Smuxi.Frontend.Gnome.EngineAssistantIntroWidget.cs" />
+    <Compile Include="gtk-gui\Smuxi.Frontend.Gnome.EngineAssistantNameWidget.cs" />
+    <Compile Include="gtk-gui\Smuxi.Frontend.Gnome.EngineAssistantConnectionWidget.cs" />
+    <Compile Include="gtk-gui\Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs" />
+    <Compile Include="Views\Assistants\Engine\EngineAssistantIntroWidget.cs" />
+    <Compile Include="Views\Assistants\Engine\EngineAssistant.cs" />
+    <Compile Include="Views\Assistants\Engine\EngineAssistantNameWidget.cs" />
+    <Compile Include="Views\Assistants\Engine\EngineAssistantConnectionWidget.cs" />
+    <Compile Include="Views\Assistants\Engine\EngineAssistantCredentialsWidget.cs" />
+    <Compile Include="ThemeSettings.cs" />
+    <Compile Include="PangoTools.cs" />
     <Compile Include="Views\ServerWidget.cs" />
+    <Compile Include="Views\ServerDialog.cs" />
+    <Compile Include="gtk-gui\Smuxi.Frontend.Gnome.ServerDialog.cs" />
+    <Compile Include="gtk-gui\Smuxi.Frontend.Gnome.ServerWidget.cs" />
+    <Compile Include="StatusIconManager.cs" />
+    <Compile Include="gtk-gui\Smuxi.Frontend.Gnome.FilterListWidget.cs" />
+    <Compile Include="Views\FilterListWidget.cs" />
+    <Compile Include="IndicateManager.cs" />
+    <Compile Include="NotifyManager.cs" />
+    <Compile Include="ColorConverter.cs" />
+    <Compile Include="NetworkManager.cs" />
+    <Compile Include="LinkTag.cs" />
+    <Compile Include="Gtk.WindowExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Common\Common.csproj">
-      <Project>{E1CAA428-6841-4C42-B4FA-3A3DE6D86B3D}</Project>
-      <Name>Common</Name>
-    </ProjectReference>
+    <Content Include="smuxi-frontend-gnome.exe.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ChangeLog" />
+    <None Include="..\..\po-Engine\de.po" />
+    <None Include="..\..\po-Frontend-GNOME\es.po" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Views\" />
+    <Folder Include="Views\Assistants\" />
+    <Folder Include="Views\Assistants\Engine\" />
+    <Folder Include="images\" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\Engine\Engine.csproj">
-      <Project>{B5F12596-21D7-4878-86E0-A230BE0D5F02}</Project>
+      <Project>{BCD52FCF-B7A8-42FB-AA8D-CF9921FF593E}</Project>
       <Name>Engine</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{73DEF91D-03FF-41E3-B2E1-3259AF247CA7}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Frontend\Frontend.csproj">
-      <Project>{0F54E2A1-25A7-4433-AFE8-58B212E8F846}</Project>
+      <Project>{7B1E3AB2-FB8C-4439-A2B4-2129EDBD79F8}</Project>
       <Name>Frontend</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="..\..\images\about.png">
-      <Link>about.png</Link>
-    </EmbeddedResource>
-    <EmbeddedResource Include="..\..\images\connect.png">
-      <Link>connect.png</Link>
-    </EmbeddedResource>
-    <EmbeddedResource Include="..\..\images\edit.png">
-      <Link>edit.png</Link>
-    </EmbeddedResource>
-    <EmbeddedResource Include="..\..\images\server.png">
-      <Link>server.png</Link>
-    </EmbeddedResource>
-    <EmbeddedResource Include="..\..\images\splashscreen.png">
-      <Link>splashscreen.png</Link>
-    </EmbeddedResource>
-    <EmbeddedResource Include="..\..\glade\smuxi-frontend-gnome.glade">
-      <Link>smuxi-frontend-gnome.glade</Link>
-    </EmbeddedResource>
-    <EmbeddedResource Include="gtk-gui\gui.stetic" />
-    <EmbeddedResource Include="..\..\images\group-chat.svg">
-      <Link>group-chat.svg</Link>
-    </EmbeddedResource>
-    <EmbeddedResource Include="..\..\images\person-chat.svg">
-      <Link>person-chat.svg</Link>
-    </EmbeddedResource>
-    <EmbeddedResource Include="..\..\images\protocol-chat.svg">
-      <Link>protocol-chat.svg</Link>
-    </EmbeddedResource>
-    <EmbeddedResource Include="..\..\images\session-chat.svg">
-      <Link>session-chat.svg</Link>
-    </EmbeddedResource>
-    <EmbeddedResource Include="..\..\images\icon_32x32.png">
-      <Link>icon_32x32.png</Link>
-    </EmbeddedResource>
-    <EmbeddedResource Include="..\..\images\icon_default.png">
-      <Link>icon_default.png</Link>
-    </EmbeddedResource>
-    <EmbeddedResource Include="..\..\images\icon_halfop.png">
-      <Link>icon_halfop.png</Link>
-    </EmbeddedResource>
-    <EmbeddedResource Include="..\..\images\icon_op.png">
-      <Link>icon_op.png</Link>
-    </EmbeddedResource>
-    <EmbeddedResource Include="..\..\images\icon_voice.png">
-      <Link>icon_voice.png</Link>
-    </EmbeddedResource>
+    <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=a5715cc6d5c3540b">
+      <HintPath>..\..\lib\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Nini, Version=1.1.0.0, Culture=neutral, PublicKeyToken=c9892194e1b9ec1b">
+      <HintPath>..\..\lib\Nini.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="Mono.Posix" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="glib-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f">
+      <Package>glib-sharp-2.0</Package>
+    </Reference>
+    <Reference Include="glade-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f">
+      <Package>glade-sharp-2.0</Package>
+    </Reference>
+    <Reference Include="gdk-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f">
+      <Package>gtk-sharp-2.0</Package>
+    </Reference>
+    <Reference Include="gtk-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f">
+      <Package>gtk-sharp-2.0</Package>
+    </Reference>
+    <Reference Include="pango-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f">
+      <Package>gtk-sharp-2.0</Package>
+    </Reference>
+    <Reference Include="indicate-sharp, Version=0.4.1.0, Culture=neutral, PublicKeyToken=2e8e49ba7d172cb0">
+      <Package>indicate-sharp-0.1</Package>
+    </Reference>
+    <Reference Include="notify-sharp, Version=0.4.0.0, Culture=neutral, PublicKeyToken=2df29c54e245917a">
+      <Package>notify-sharp</Package>
+    </Reference>
+    <Reference Include="System.Core" />
+    <Reference Include="dbus-sharp, Version=1.0.0.0, Culture=neutral, PublicKeyToken=5675b0c3093115b5">
+      <Private>False</Private>
+      <Package>dbus-sharp-1.0</Package>
+    </Reference>
+    <Reference Include="dbus-sharp-glib, Version=1.0.0.0, Culture=neutral, PublicKeyToken=5675b0c3093115b5">
+      <Private>False</Private>
+      <Package>dbus-sharp-glib-1.0</Package>
+    </Reference>
   </ItemGroup>
-  <Import Project="$(MSBuildBinPath)\Microsoft.CSHARP.Targets" />
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ProjectExtensions>
+    <MonoDevelop>
+      <Properties>
+        <Deployment.LinuxDeployData scriptName="smuxi-frontend-gnome" />
+      </Properties>
+    </MonoDevelop>
+  </ProjectExtensions>
 </Project>

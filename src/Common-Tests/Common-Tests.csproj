@@ -5,56 +5,46 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>10.0.0</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{1C67CF8B-5CC9-4B43-9F67-FA6399000067}</ProjectGuid>
+    <ProjectGuid>{D39D3DC3-CE90-4313-8351-C30C24B2CCB8}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>Smuxi.Frontend.Gnome</RootNamespace>
-    <ApplicationIcon>.</ApplicationIcon>
-    <AssemblyName>smuxi-frontend-gnome-xmpp</AssemblyName>
+    <RootNamespace>Smuxi.Common</RootNamespace>
+    <AssemblyName>smuxi-common-tests</AssemblyName>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
-    <Optimize>true</Optimize>
+    <Optimize>false</Optimize>
     <OutputPath>..\..\bin\debug</OutputPath>
-    <DefineConstants>DEBUG;TRACE;LOG4NET</DefineConstants>
+    <DefineConstants>DEBUG</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
-    <Execution>
-      <Execution clr-version="Net_2_0" />
-    </Execution>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>none</DebugType>
-    <Optimize>true</Optimize>
+    <Optimize>false</Optimize>
     <OutputPath>..\..\bin\release</OutputPath>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
-    <Execution>
-      <Execution clr-version="Net_2_0" />
-    </Execution>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="AssemblyInfo.cs" />
-    <Compile Include="..\AssemblyVersion.cs" />
+    <Compile Include="TraceTests.cs" />
+    <Compile Include="PatternTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Frontend-GNOME\Frontend-GNOME.csproj">
-      <Project>{405874F0-A58A-4E79-8766-2150D069F691}</Project>
-      <Name>Frontend-GNOME</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Engine\Engine.csproj">
-      <Project>{BCD52FCF-B7A8-42FB-AA8D-CF9921FF593E}</Project>
-      <Name>Engine</Name>
-    </ProjectReference>
+    <Reference Include="System" />
+    <Reference Include="nunit.core, Version=2.4.7.0, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77">
+      <SpecificVersion>False</SpecificVersion>
+      <Package>mono-nunit</Package>
+    </Reference>
+    <Reference Include="nunit.framework, Version=2.4.7.0, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77">
+      <SpecificVersion>False</SpecificVersion>
+      <Package>mono-nunit</Package>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\Common\Common.csproj">
       <Project>{73DEF91D-03FF-41E3-B2E1-3259AF247CA7}</Project>
       <Name>Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Engine-XMPP\Engine-XMPP.csproj">
-      <Project>{E75D5685-3027-414C-BC2C-E48307181D80}</Project>
-      <Name>Engine-XMPP</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

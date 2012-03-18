@@ -1,84 +1,138 @@
-﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{B5F12596-21D7-4878-86E0-A230BE0D5F02}</ProjectGuid>
+    <ProductVersion>10.0.0</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{BCD52FCF-B7A8-42FB-AA8D-CF9921FF593E}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <AssemblyName>smuxi-engine</AssemblyName>
     <RootNamespace>Smuxi.Engine</RootNamespace>
-    <CodePage>65001</CodePage>
+    <ApplicationIcon>.</ApplicationIcon>
+    <AssemblyName>smuxi-engine</AssemblyName>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\bin\debug\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;CONFIG_NINI;LOG4NET</DefineConstants>
+    <OutputPath>..\..\bin\debug</OutputPath>
+    <DefineConstants>DEBUG;TRACE;LOG4NET;CONFIG_NINI;DB4O_8_0</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
+    <ConsolePause>false</ConsolePause>
+    <RunWithWarnings>false</RunWithWarnings>
+    <Execution>
+      <Execution clr-version="Net_2_0" />
+    </Execution>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
+    <DebugType>none</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\..\bin\release\</OutputPath>
+    <OutputPath>..\..\bin\release</OutputPath>
     <DefineConstants>CONFIG_NINI</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
+    <ConsolePause>false</ConsolePause>
+    <RunWithWarnings>false</RunWithWarnings>
+    <Execution>
+      <Execution clr-version="Net_2_0" />
+    </Execution>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Nini"/>
-    <Reference Include="System" />
-    <Reference Include="log4net" />
-    <Reference Include="Mono.Posix" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="..\AssemblyVersion.cs">
-      <Link>AssemblyVersion.cs</Link>
-    </Compile>
     <Compile Include="AssemblyInfo.cs" />
-    <Compile Include="Chats\ChatModel.cs" />
-    <Compile Include="Chats\ChatType.cs" />
-    <Compile Include="Chats\GroupChatModel.cs" />
-    <Compile Include="Chats\PersonChatModel.cs" />
-    <Compile Include="Chats\ProtocolChatModel.cs" />
-    <Compile Include="Chats\SessionChatModel.cs" />
     <Compile Include="CommandModel.cs" />
-    <Compile Include="Config\ChannelFilterListController.cs" />
-    <Compile Include="Config\ChannelFilterModel.cs" />
-    <Compile Include="Config\Config.cs" />
-    <Compile Include="Config\FrontendConfig.cs" />
-    <Compile Include="Config\NotificationAreaIconMode.cs" />
-    <Compile Include="Config\ServerListController.cs" />
-    <Compile Include="Config\ServerModel.cs" />
-    <Compile Include="Config\UserConfig.cs" />
-    <Compile Include="Config\UserListController.cs" />
     <Compile Include="Engine.cs" />
     <Compile Include="FrontendManager.cs" />
     <Compile Include="IFrontendUI.cs" />
-    <Compile Include="Messages\ImageMessagePartModel.cs" />
-    <Compile Include="Messages\MessageModel.cs" />
-    <Compile Include="Messages\MessagePartModel.cs" />
-    <Compile Include="Messages\MessageType.cs" />
-    <Compile Include="Messages\TextMessagePartModel.cs" />
-    <Compile Include="Messages\UrlMessagePartModel.cs" />
     <Compile Include="PermanentRemoteObject.cs" />
-    <Compile Include="Persons\ContactModel.cs" />
-    <Compile Include="Persons\PersonModel.cs" />
-    <Compile Include="Protocols\IProtocolManager.cs" />
-    <Compile Include="Protocols\ProtocolManagerBase.cs" />
-    <Compile Include="Protocols\ProtocolManagerFactory.cs" />
-    <Compile Include="Protocols\ProtocolManagerInfoAttribute.cs" />
-    <Compile Include="Protocols\ProtocolManagerInfoModel.cs" />
     <Compile Include="Session.cs" />
     <Compile Include="SessionManager.cs" />
     <Compile Include="TextColor.cs" />
     <Compile Include="UICommand.cs" />
     <Compile Include="UICommandContainer.cs" />
+    <Compile Include="Messages\MessageModel.cs" />
+    <Compile Include="Messages\MessagePartModel.cs" />
+    <Compile Include="Messages\TextMessagePartModel.cs" />
+    <Compile Include="Messages\UrlMessagePartModel.cs" />
+    <Compile Include="Chats\ChatType.cs" />
+    <Compile Include="Chats\ChatModel.cs" />
+    <Compile Include="Chats\GroupChatModel.cs" />
+    <Compile Include="Chats\PersonChatModel.cs" />
+    <Compile Include="Protocols\ProtocolManagerBase.cs" />
+    <Compile Include="Chats\ProtocolChatModel.cs" />
+    <Compile Include="Protocols\ProtocolManagerFactory.cs" />
+    <Compile Include="Protocols\ProtocolManagerInfoModel.cs" />
+    <Compile Include="Protocols\ProtocolManagerInfoAttribute.cs" />
+    <Compile Include="Protocols\IProtocolManager.cs" />
+    <Compile Include="Config\UserConfig.cs" />
+    <Compile Include="Config\Config.cs" />
+    <Compile Include="Config\ServerModel.cs" />
+    <Compile Include="Config\ServerListController.cs" />
+    <Compile Include="Persons\PersonModel.cs" />
+    <Compile Include="Persons\ContactModel.cs" />
+    <Compile Include="Config\FrontendConfig.cs" />
+    <Compile Include="Chats\SessionChatModel.cs" />
+    <Compile Include="..\AssemblyVersion.cs" />
+    <Compile Include="Messages\MessageType.cs" />
+    <Compile Include="Messages\ImageMessagePartModel.cs" />
+    <Compile Include="Config\NotificationAreaIconMode.cs" />
+    <Compile Include="Config\UserListController.cs" />
+    <Compile Include="Config\FilterListController.cs" />
+    <Compile Include="Config\FilterModel.cs" />
+    <Compile Include="Messages\MessageParser.cs" />
+    <Compile Include="Messages\MessageBuilder.cs" />
+    <Compile Include="PresenceStatus.cs" />
+    <Compile Include="Config\ProxyType.cs" />
+    <Compile Include="TextColorContrast.cs" />
+    <Compile Include="TextColorTools.cs" />
+    <Compile Include="MessageBuffers\ListMessageBuffer.cs" />
+    <Compile Include="MessageBuffers\SqliteMessageBuffer.cs" />
+    <Compile Include="MessageBuffers\IMessageBuffer.cs" />
+    <Compile Include="MessageBuffers\MessageBufferBase.cs" />
+    <Compile Include="MessageBuffers\Db4oMessageBuffer.cs" />
+    <Compile Include="MessageBuffers\MessageBufferPersistencyType.cs" />
+    <Compile Include="Config\EntrySettings.cs" />
+    <Compile Include="Messages\FeedMessageBuilder.cs" />
+    <Compile Include="Config\ProxySettings.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Protocols\" />
+    <Folder Include="Messages\" />
+    <Folder Include="Chats\" />
+    <Folder Include="Plugins\" />
+    <Folder Include="Config\" />
+    <Folder Include="Persons\" />
+    <Folder Include="MessageBuffers\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\po-Engine\da.po" />
+    <None Include="..\..\po-Engine\de.po" />
+    <None Include="..\..\po-Engine\es.po" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=a5715cc6d5c3540b">
+      <HintPath>..\..\lib\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Nini, Version=1.1.0.0, Culture=neutral, PublicKeyToken=c9892194e1b9ec1b">
+      <HintPath>..\..\lib\Nini.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Remoting" />
+    <Reference Include="System" />
+    <Reference Include="Mono.Posix" />
+    <Reference Include="Mono.Data.Sqlite" />
+    <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Common\Common.csproj">
-      <Project>{E1CAA428-6841-4C42-B4FA-3A3DE6D86B3D}</Project>
+      <Project>{73DEF91D-03FF-41E3-B2E1-3259AF247CA7}</Project>
       <Name>Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\lib\db4o-net\Db4objects.Db4o\Db4objects.Db4o-2010.csproj">
+      <Project>{600CD3BF-2ED2-4183-87F7-ADD78A968AE0}</Project>
+      <Name>Db4objects.Db4o-2010</Name>
+    </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Plugins\" />
-  </ItemGroup>
-  <Import Project="$(MSBuildBinPath)\Microsoft.CSHARP.Targets" />
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

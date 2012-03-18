@@ -1,138 +1,93 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{0CA3B4CA-9CE0-4F3C-8C54-D01EDBAAD9B9}</ProjectGuid>
-    <AssemblyName>smuxi-frontend-swf</AssemblyName>
-    <StartupObject>Smuxi.Frontend.Swf.MainClass</StartupObject>
+    <ProductVersion>10.0.0</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{41CA5F1D-83A0-48D6-A4D3-DDF801272056}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
     <RootNamespace>Smuxi.Frontend.Swf</RootNamespace>
-    <CodePage>65001</CodePage>
+    <ApplicationIcon>.</ApplicationIcon>
+    <AssemblyName>smuxi-frontend-swf</AssemblyName>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>..\..\bin\debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE;LOG4NET;CONFIG_NINI</DefineConstants>
-    <OutputType>Exe</OutputType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\bin\debug</OutputPath>
+    <DefineConstants>DEBUG;TRACE;LOG4NET</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
+    <Externalconsole>true</Externalconsole>
+    <Execution>
+      <Execution clr-version="Net_2_0" />
+    </Execution>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
+    <DebugType>none</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\..\bin\release\</OutputPath>
-    <DefineConstants>CONFIG_NINI</DefineConstants>
-    <OutputType>WinExe</OutputType>
+    <OutputPath>..\..\bin\release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Externalconsole>true</Externalconsole>
+    <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
+    <Execution>
+      <Execution clr-version="Net_2_0" />
+    </Execution>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="log4net" />
-    <Reference Include="Mono.Posix" />
-    <Reference Include="System" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Windows.Forms" />
+    <Compile Include="SplashScreenWindow.cs" />
+    <Compile Include="SplashScreenWindow.designer.cs" />
+    <Compile Include="NotImplementedMessageDialog.cs" />
+    <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="MainWindow.Designer.cs" />
+    <Compile Include="MainWindow.cs" />
+    <Compile Include="Notebook.cs" />
+    <Compile Include="Entry.cs" />
+    <Compile Include="Chats\ChatView.cs" />
+    <Compile Include="Frontend.cs" />
+    <Compile Include="SwfUI.cs" />
+    <Compile Include="ChatViewManager.cs" />
+    <Compile Include="Chats\GroupChatView.cs" />
+    <Compile Include="Main.cs" />
+    <Compile Include="Chats\NetworkChatView.cs" />
+    <Compile Include="Chats\PersonChatView.cs" />
+    <Compile Include="..\AssemblyVersion.cs" />
+    <Compile Include="Chats\SessionChatView.cs" />
+    <Compile Include="ColorTools.cs" />
+    <Compile Include="RichTextBoxEx.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Common\Common.csproj">
-      <Project>{E1CAA428-6841-4C42-B4FA-3A3DE6D86B3D}</Project>
+      <Project>{73DEF91D-03FF-41E3-B2E1-3259AF247CA7}</Project>
       <Name>Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\Engine\Engine.csproj">
-      <Project>{B5F12596-21D7-4878-86E0-A230BE0D5F02}</Project>
+      <Project>{BCD52FCF-B7A8-42FB-AA8D-CF9921FF593E}</Project>
       <Name>Engine</Name>
     </ProjectReference>
     <ProjectReference Include="..\Frontend\Frontend.csproj">
-      <Project>{0F54E2A1-25A7-4433-AFE8-58B212E8F846}</Project>
+      <Project>{7B1E3AB2-FB8C-4439-A2B4-2129EDBD79F8}</Project>
       <Name>Frontend</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\AssemblyVersion.cs">
-      <Link>AssemblyVersion.cs</Link>
-    </Compile>
-    <Compile Include="AssemblyInfo.cs" />
-    <Compile Include="Chats\ChatView.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Chats\SessionChatView.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Chats\GroupChatView.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Chats\NetworkChatView.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Chats\PersonChatView.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="ChatViewManager.cs" />
-    <Compile Include="ColorTools.cs" />
-    <Compile Include="Entry.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Frontend.cs" />
-    <Compile Include="Main.cs" />
-    <Compile Include="MainWindow.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="MainWindow.Designer.cs">
-      <DependentUpon>MainWindow.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Notebook.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="NotImplementedMessageDialog.cs" />
-    <Compile Include="Preferences\PreferencesDialog.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Preferences\PreferencesDialog.Designer.cs">
-      <DependentUpon>PreferencesDialog.cs</DependentUpon>
-    </Compile>
-    <Compile Include="RichTextBoxEx.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="SplashScreenWindow.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="SplashScreenWindow.designer.cs">
-      <DependentUpon>SplashScreenWindow.cs</DependentUpon>
-    </Compile>
-    <Compile Include="SwfUI.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="..\..\images\about.png">
-      <Link>about.png</Link>
-    </EmbeddedResource>
-    <EmbeddedResource Include="..\..\images\connect.png">
-      <Link>connect.png</Link>
-    </EmbeddedResource>
-    <EmbeddedResource Include="..\..\images\edit.png">
-      <Link>edit.png</Link>
-    </EmbeddedResource>
-    <EmbeddedResource Include="..\..\images\icon_default.png">
-      <Link>icon_default.png</Link>
-    </EmbeddedResource>
-    <EmbeddedResource Include="..\..\images\icon_halfop.png">
-      <Link>icon_halfop.png</Link>
-    </EmbeddedResource>
-    <EmbeddedResource Include="..\..\images\icon_op.png">
-      <Link>icon_op.png</Link>
-    </EmbeddedResource>
-    <EmbeddedResource Include="..\..\images\icon_voice.png">
-      <Link>icon_voice.png</Link>
-    </EmbeddedResource>
-    <EmbeddedResource Include="..\..\images\splashscreen.png">
-      <Link>splashscreen.png</Link>
-    </EmbeddedResource>
-    <EmbeddedResource Include="MainWindow.resx">
-      <SubType>Designer</SubType>
-      <DependentUpon>MainWindow.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Preferences\PreferencesDialog.resx">
-      <SubType>Designer</SubType>
-      <DependentUpon>PreferencesDialog.cs</DependentUpon>
-    </EmbeddedResource>
+    <Reference Include="System" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="Mono.Posix" />
+    <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=a5715cc6d5c3540b">
+      <HintPath>..\..\lib\log4net.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ProjectExtensions>
+    <MonoDevelop>
+      <Properties>
+        <Deployment.LinuxDeployData scriptName="smuxi-frontend-swf" />
+      </Properties>
+    </MonoDevelop>
+  </ProjectExtensions>
 </Project>

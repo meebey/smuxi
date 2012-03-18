@@ -1,66 +1,107 @@
-﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{58FCF1AE-4316-47AE-8EB4-DA437432B09F}</ProjectGuid>
+    <ProductVersion>10.0.0</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{E477E836-B4E6-41DD-AC4A-7AB80EA4BA00}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <AssemblyName>smuxi-frontend-stfl</AssemblyName>
-    <StartupObject>Smuxi.Frontend.Stfl.MainClass</StartupObject>
     <RootNamespace>Smuxi.Frontend.Stfl</RootNamespace>
-    <CodePage>65001</CodePage>
+    <StartupObject>Smuxi.Frontend.Stfl.MainClass</StartupObject>
+    <ApplicationIcon>.</ApplicationIcon>
+    <AssemblyName>smuxi-frontend-stfl</AssemblyName>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>..\..\bin\debug\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;LOG4NET</DefineConstants>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\bin\debug</OutputPath>
+    <DefineConstants>DEBUG;TRACE;LOG4NET</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
+    <Externalconsole>true</Externalconsole>
+    <Commandlineparameters>-d</Commandlineparameters>
+    <Execution>
+      <Execution clr-version="Net_2_0" />
+    </Execution>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
+    <DebugType>none</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\..\bin\release\</OutputPath>
+    <OutputPath>..\..\bin\release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Externalconsole>true</Externalconsole>
+    <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
+    <Execution>
+      <Execution clr-version="Net_2_0" />
+    </Execution>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="log4net"/>
-    <Reference Include="Mono.Posix"/>
-    <Reference Include="Stfl"/>
-    <Reference Include="System"/>
-    <Reference Include="System.Xml"/>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="..\AssemblyVersion.cs">
-      <Link>AssemblyVersion.cs</Link>
-    </Compile>
-    <Compile Include="AssemblyInfo.cs" />
-    <Compile Include="ChatView.cs" />
-    <Compile Include="ChatViewManager.cs" />
-    <Compile Include="Entry.cs" />
-    <Compile Include="Frontend.cs" />
     <Compile Include="Main.cs" />
+    <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="Frontend.cs" />
     <Compile Include="MainWindow.cs" />
     <Compile Include="StflUI.cs" />
+    <Compile Include="Entry.cs" />
     <Compile Include="STFL\Form.cs" />
     <Compile Include="STFL\KeyPressedEventArgs.cs" />
-    <Compile Include="STFL\KeyPressedEventHandler.cs" />
+    <Compile Include="ChatView.cs" />
+    <Compile Include="ChatViewManager.cs" />
+    <Compile Include="..\AssemblyVersion.cs" />
     <Compile Include="STFL\StflApi.cs" />
+    <Compile Include="STFL\Test.cs" />
+    <Compile Include="STFL\NcursesApi.cs" />
+    <Compile Include="STFL\TextView.cs" />
+    <Compile Include="STFL\EventReceivedEventArgs.cs" />
+    <Compile Include="STFL\Widget.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="MainWindow.stfl" />
+    <EmbeddedResource Include="MainWindow.stfl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <LogicalName>MainWindow.stfl</LogicalName>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Common\Common.csproj">
-      <Project>{E1CAA428-6841-4C42-B4FA-3A3DE6D86B3D}</Project>
-      <Name>Common</Name>
-    </ProjectReference>
+    <Folder Include="STFL\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="smuxi-frontend-stfl.exe.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\Engine\Engine.csproj">
-      <Project>{B5F12596-21D7-4878-86E0-A230BE0D5F02}</Project>
+      <Project>{BCD52FCF-B7A8-42FB-AA8D-CF9921FF593E}</Project>
       <Name>Engine</Name>
     </ProjectReference>
     <ProjectReference Include="..\Frontend\Frontend.csproj">
-      <Project>{0F54E2A1-25A7-4433-AFE8-58B212E8F846}</Project>
+      <Project>{7B1E3AB2-FB8C-4439-A2B4-2129EDBD79F8}</Project>
       <Name>Frontend</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{73DEF91D-03FF-41E3-B2E1-3259AF247CA7}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
   </ItemGroup>
-  <Import Project="$(MSBuildBinPath)\Microsoft.CSHARP.Targets" />
+  <ItemGroup>
+    <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=a5715cc6d5c3540b">
+      <HintPath>..\..\lib\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="Mono.Posix" />
+    <Reference Include="Nini, Version=1.1.0.0, Culture=neutral, PublicKeyToken=c9892194e1b9ec1b">
+      <HintPath>..\..\lib\Nini.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ProjectExtensions>
+    <MonoDevelop>
+      <Properties>
+        <Deployment.LinuxDeployData scriptName="smuxi-frontend-stfl" />
+      </Properties>
+    </MonoDevelop>
+  </ProjectExtensions>
 </Project>
