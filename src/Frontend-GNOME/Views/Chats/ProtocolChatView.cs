@@ -71,7 +71,7 @@ namespace Smuxi.Frontend.Gnome
             NetworkWebsiteUrls.Add("GIMPnet", "http://www.gimp.org/");
             NetworkWebsiteUrls.Add("GSDnet", "http://www.gsd-software.net/");
             NetworkWebsiteUrls.Add("ustream", "http://www.ustream.tv/");
-            NetworkWebsiteUrls.Add("Infinity-IRC", "http://www.ustream.tv/");
+            NetworkWebsiteUrls.Add("Infinity-IRC", "http://www.infinityirc.com/");
         }
 
         public ProtocolChatView(ChatModel chat) : base(chat)
