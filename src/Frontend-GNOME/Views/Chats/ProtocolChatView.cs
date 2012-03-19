@@ -21,7 +21,14 @@
  */
 
 using System;
+using System.IO;
+using System.Net;
+using System.Web;
+using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading;
+using System.Collections.Generic;
+using SysPath = System.IO.Path;
 using Smuxi.Engine;
 using Smuxi.Common;
 
@@ -30,11 +37,21 @@ namespace Smuxi.Frontend.Gnome
     [ChatViewInfo(ChatType = ChatType.Protocol)]
     public class ProtocolChatView : ChatView
     {
+#if LOG4NET
+        private static readonly log4net.ILog f_Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+#endif
         public static Gdk.Pixbuf IconPixbuf { get; private set; }
-        
+        static Dictionary<string, string> NetworkWebsiteUrls { get; set; }
+        ProxySettings ProxySettings { get; set; }
+        Gdk.Pixbuf ServerIconPixbuf { get; set; }
+
         protected override Gtk.Image DefaultTabImage {
             get {
-                return new Gtk.Image(IconPixbuf);
+                var icon = IconPixbuf;
+                if (ServerIconPixbuf != null) {
+                    icon = ServerIconPixbuf;
+                }
+                return new Gtk.Image(icon);
             }
         }
 
@@ -43,17 +60,45 @@ namespace Smuxi.Frontend.Gnome
             IconPixbuf = Frontend.LoadIcon(
                 "smuxi-protocol-chat", 16, "protocol-chat_256x256.png"
             );
+            NetworkWebsiteUrls = new Dictionary<string, string>(
+                StringComparer.InvariantCultureIgnoreCase
+            );
+            NetworkWebsiteUrls.Add("OFTC", "http://www.oftc.net/");
+            NetworkWebsiteUrls.Add("freenode", "http://freenode.net/");
+            NetworkWebsiteUrls.Add("QuakeNet", "http://www.quakenet.org/");
+            NetworkWebsiteUrls.Add("IRCnet", "http://www.ircnet.org/");
+            NetworkWebsiteUrls.Add("EFnet", "http://www.efnet.org/");
+            NetworkWebsiteUrls.Add("GIMPnet", "http://www.gimp.org/");
+            NetworkWebsiteUrls.Add("GSDnet", "http://www.gsd-software.net/");
+            NetworkWebsiteUrls.Add("ustream", "http://www.ustream.tv/");
+            NetworkWebsiteUrls.Add("Infinity-IRC", "http://www.ustream.tv/");
         }
 
         public ProtocolChatView(ChatModel chat) : base(chat)
         {
             Trace.Call(chat);
             
+            ProxySettings = new ProxySettings();
+
             Add(OutputScrolledWindow);
-            
             ShowAll();
         }
-        
+
+        public override void Sync()
+        {
+            Trace.Call();
+
+            base.Sync();
+
+            try {
+                CheckIcon();
+            } catch (Exception ex) {
+#if LOG4NET
+                f_Logger.Error("Sync(): CheckIcon() threw exception!", ex);
+#endif
+            }
+        }
+
         public override void Close()
         {
             Trace.Call();
@@ -91,7 +136,159 @@ namespace Smuxi.Frontend.Gnome
                 }
             });
         }
-        
+
+        public override void ApplyConfig(UserConfig config)
+        {
+            Trace.Call(config);
+
+            if (config == null) {
+                throw new ArgumentNullException("config");
+            }
+
+            base.ApplyConfig(config);
+
+            ProxySettings.ApplyConfig(config);
+        }
+
+        void CheckIcon()
+        {
+            Trace.Call();
+
+            var cachePath = Platform.CachePath;
+            var iconPath = SysPath.Combine(cachePath, "server-icons");
+            // REMOTING CALL
+            var protocol = ProtocolManager.Protocol;
+            iconPath = SysPath.Combine(iconPath, protocol);
+            if (!Directory.Exists(iconPath)) {
+                Directory.CreateDirectory(iconPath);
+            }
+            iconPath = SysPath.Combine(iconPath,
+                                       String.Format("{0}.ico", ID));
+            var iconFile = new FileInfo(iconPath);
+
+            string websiteUrl = null;
+            lock (NetworkWebsiteUrls) {
+                if (!NetworkWebsiteUrls.TryGetValue(ID, out websiteUrl)) {
+                    // unknown network, nothing to download
+                    return;
+                }
+                // download in background so Sync() doesn't get slowed down
+                ThreadPool.QueueUserWorkItem(delegate {
+                    try {
+                        DownloadServerIcon(websiteUrl, iconFile);
+                        iconFile.Refresh();
+                        if (!iconFile.Exists || iconFile.Length == 0) {
+                            return;
+                        }
+                        UpdateServerIcon(iconPath);
+                    } catch (Exception ex) {
+#if LOG4NET
+                        f_Logger.Error("CheckIcon(): Exception", ex);
+#endif
+                    }
+                });
+            }
+        }
+
+        void DownloadServerIcon(string websiteUrl, FileInfo iconFile)
+        {
+            Trace.Call(websiteUrl, iconFile);
+
+            var proxy = ProxySettings.GetWebProxy(websiteUrl);
+            var webClient = new WebClient() {
+                Proxy = proxy
+            };
+            var content = webClient.DownloadString(websiteUrl);
+            var links = new List<Dictionary<string, string>>();
+            foreach (Match linkMatch in Regex.Matches(content, @"<link[\s]+([^>]*?)/?>")) {
+                var attributes = new Dictionary<string, string>();
+                foreach (Match attrMatch in Regex.Matches(linkMatch.Value, @"([\w]+)[\s]*=[\s]*[""']([^""']*)[""'][\s]*")) {
+                    var key = attrMatch.Groups[1].Value;
+                    var value = attrMatch.Groups[2].Value;
+                    attributes.Add(key, value);
+                }
+                links.Add(attributes);
+            }
+            string faviconRel = null;
+            foreach (var link in links) {
+                var iconLink = false;
+                foreach (var attribute in link) {
+                    if (attribute.Key != "rel" ||
+                        !attribute.Value.Split(' ').Contains("icon")) {
+                        continue;
+                    }
+                    iconLink = true;
+                    break;
+                }
+                if (!iconLink) {
+                    continue;
+                }
+                foreach (var attribute in link) {
+                    if (attribute.Key != "href") {
+                        continue;
+                    }
+                    // yay, we have found the favicon in all this junk
+                    faviconRel = attribute.Value;
+                    break;
+                }
+            }
+            string faviconUrl = null;
+            if (String.IsNullOrEmpty(faviconRel)) {
+                faviconUrl = String.Format("{0}favicon.ico", websiteUrl);
+            } else {
+                faviconUrl = new Uri(new Uri(websiteUrl), faviconRel).AbsoluteUri;
+            }
+#if LOG4NET
+            f_Logger.DebugFormat("DownloadServerIcon(): favicon URL: {0}",
+                                 faviconUrl);
+#endif
+
+            var iconRequest = WebRequest.Create(faviconUrl);
+            iconRequest.Proxy = proxy;
+            if (iconRequest is HttpWebRequest) {
+                var iconHttpRequest = (HttpWebRequest) iconRequest;
+                if (iconFile.Exists && iconFile.Length > 0) {
+                    iconHttpRequest.IfModifiedSince = iconFile.LastWriteTime;
+                }
+            }
+
+            using (var iconStream = iconFile.OpenWrite()) {
+                WebResponse iconResponse;
+                try {
+                    iconResponse = iconRequest.GetResponse();
+                } catch (WebException ex) {
+                    if (ex.Response is HttpWebResponse) {
+                        var iconHttpResponse = (HttpWebResponse) ex.Response;
+                        if (iconHttpResponse.StatusCode == HttpStatusCode.NotModified) {
+                            // icon hasn't changed, nothing to do
+                            return;
+                        }
+                    }
+                    throw;
+                }
+
+                // save new or modified icon file
+                using (var httpStream = iconResponse.GetResponseStream()) {
+                    byte[] buffer = new byte[4096];
+                    int read;
+                    while ((read = httpStream.Read(buffer, 0, buffer.Length)) > 0) {
+                        iconStream.Write(buffer, 0, read);
+                    }
+                }
+            }
+        }
+
+        void UpdateServerIcon(string iconPath)
+        {
+            Trace.Call(iconPath);
+
+            ServerIconPixbuf = new Gdk.Pixbuf(iconPath, 16, 16);
+            GLib.Idle.Add(delegate {
+                TabImage.Pixbuf = ServerIconPixbuf;
+                return false;
+            });
+        }
+
         private static string _(string msg)
         {
             return Mono.Unix.Catalog.GetString(msg);
