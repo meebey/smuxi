@@ -156,6 +156,30 @@ namespace Smuxi.Common
             }
         }
 
+        public static string CachePath {
+            get {
+                string cachePath = null;
+                if (Environment.OSVersion.Platform == PlatformID.Win32NT) {
+                    cachePath = Environment.GetFolderPath(
+                        Environment.SpecialFolder.LocalApplicationData
+                    );
+                    cachePath = Path.Combine(cachePath, "smuxi");
+                    cachePath = Path.Combine(cachePath, "cache");
+                } else {
+                    var home = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
+                    var xdgCache = Environment.GetEnvironmentVariable("XDG_CACHE_HOME");
+                    if (String.IsNullOrEmpty(xdgCache)) {
+                        xdgCache = Path.Combine(home, ".cache");
+                    }
+                    cachePath = Path.Combine(xdgCache, "smuxi");
+                }
+                if (!Directory.Exists(cachePath)) {
+                    Directory.CreateDirectory(cachePath);
+                }
+                return cachePath;
+            }
+        }
+
         public static string GetBuffersPath(string username)
         {
             var dbPath = GetBuffersBasePath();
