@@ -247,33 +247,32 @@ namespace Smuxi.Frontend.Gnome
             iconRequest.Proxy = proxy;
             if (iconRequest is HttpWebRequest) {
                 var iconHttpRequest = (HttpWebRequest) iconRequest;
-                if (iconFile.Exists && iconFile.Length > 0) {
+                if (iconFile.Exists) {
                     iconHttpRequest.IfModifiedSince = iconFile.LastWriteTime;
                 }
             }
 
-            using (var iconStream = iconFile.OpenWrite()) {
-                WebResponse iconResponse;
-                try {
-                    iconResponse = iconRequest.GetResponse();
-                } catch (WebException ex) {
-                    if (ex.Response is HttpWebResponse) {
-                        var iconHttpResponse = (HttpWebResponse) ex.Response;
-                        if (iconHttpResponse.StatusCode == HttpStatusCode.NotModified) {
-                            // icon hasn't changed, nothing to do
-                            return;
-                        }
+            WebResponse iconResponse;
+            try {
+                iconResponse = iconRequest.GetResponse();
+            } catch (WebException ex) {
+                if (ex.Response is HttpWebResponse) {
+                    var iconHttpResponse = (HttpWebResponse) ex.Response;
+                    if (iconHttpResponse.StatusCode == HttpStatusCode.NotModified) {
+                        // icon hasn't changed, nothing to do
+                        return;
                     }
-                    throw;
                 }
+                throw;
+            }
 
-                // save new or modified icon file
-                using (var httpStream = iconResponse.GetResponseStream()) {
-                    byte[] buffer = new byte[4096];
-                    int read;
-                    while ((read = httpStream.Read(buffer, 0, buffer.Length)) > 0) {
-                        iconStream.Write(buffer, 0, read);
-                    }
+            // save new or modified icon file
+            using (var iconStream = iconFile.OpenWrite())
+            using (var httpStream = iconResponse.GetResponseStream()) {
+                byte[] buffer = new byte[4096];
+                int read;
+                while ((read = httpStream.Read(buffer, 0, buffer.Length)) > 0) {
+                    iconStream.Write(buffer, 0, read);
                 }
             }
         }
