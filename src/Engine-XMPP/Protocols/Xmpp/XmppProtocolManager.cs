@@ -68,7 +68,7 @@ namespace Smuxi.Engine
         
         public override string NetworkID {
             get {
-                return "XMPP";
+                return _JabberClient.NetworkHost;
             }
         }
         
@@ -128,14 +128,14 @@ namespace Smuxi.Engine
             Host = server.Hostname;
             Port = server.Port;
 
+            ApplyConfig(Session.UserConfig, server);
+
             // TODO: use config for single network chat or once per network manager
             _NetworkChat = Session.CreateChat<ProtocolChatModel>(
                 NetworkID, "Jabber " + Host, this
             );
             Session.AddChat(_NetworkChat);
             Session.SyncChat(_NetworkChat);
-
-            ApplyConfig(Session.UserConfig, server);
 
             _JabberClient.Connect();
         }
