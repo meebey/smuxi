@@ -77,6 +77,10 @@ namespace Smuxi.Frontend.Gnome
 
             // Twitter
             NetworkWebsiteUrls.Add("Twitter", "http://www.twitter.com/");
+
+            // XMPP
+            NetworkWebsiteUrls.Add("talk.google.com", "http://www.google.com/talk/");
+            NetworkWebsiteUrls.Add("chat.facebook.com", "http://www.facebook.com/");
         }
 
         public ProtocolChatView(ChatModel chat) : base(chat)
