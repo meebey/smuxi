@@ -23,9 +23,11 @@
 using System;
 using System.IO;
 using System.Net;
+using System.Net.Security;
 using System.Web;
 using System.Linq;
 using System.Text.RegularExpressions;
+using System.Security.Cryptography.X509Certificates;
 using System.Threading;
 using System.Collections.Generic;
 using SysPath = System.IO.Path;
@@ -186,6 +188,8 @@ namespace Smuxi.Frontend.Gnome
                 // download in background so Sync() doesn't get slowed down
                 ThreadPool.QueueUserWorkItem(delegate {
                     try {
+                        // HACK: work around Mono's buggy certificate validation
+                        ServicePointManager.ServerCertificateValidationCallback += ValidateCertificate;
                         DownloadServerIcon(websiteUrl, iconFile);
                         iconFile.Refresh();
                         if (!iconFile.Exists || iconFile.Length == 0) {
@@ -196,6 +200,8 @@ namespace Smuxi.Frontend.Gnome
 #if LOG4NET
                         f_Logger.Error("CheckIcon(): Exception", ex);
 #endif
+                    } finally {
+                        ServicePointManager.ServerCertificateValidationCallback -= ValidateCertificate;
                     }
                 });
             }
@@ -296,6 +302,24 @@ namespace Smuxi.Frontend.Gnome
                 TabImage.Pixbuf = ServerIconPixbuf;
                 return false;
             });
+        }
+
+        static bool ValidateCertificate(object sender,
+                                        X509Certificate certificate,
+                                        X509Chain chain,
+                                        SslPolicyErrors sslPolicyErrors)
+        {
+            if (sslPolicyErrors == SslPolicyErrors.None) {
+                return true;
+            }
+
+#if LOG4NET
+            f_Logger.Warn(
+                "ValidateCertificate(): Certificate error: " +
+                sslPolicyErrors
+            );
+#endif
+            return true;
         }
 
         private static string _(string msg)
