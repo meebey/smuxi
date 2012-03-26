@@ -877,7 +877,7 @@ namespace Smuxi.Engine
 
             string[] help = {
             "help",
-            "connect irc server port [password] [nicknames]",
+            "connect irc server [port|+port] [password] [nicknames]",
             "say",
             "join/j channel(s) [key]",
             "part/p [channel(s)] [part-message]",
@@ -933,8 +933,14 @@ namespace Smuxi.Engine
             }
             
             if (cd.DataArray.Length >= 4) {
+                var port = cd.DataArray[3];
+                var ssl = port.StartsWith("+");
+                if (ssl) {
+                    server.UseEncryption = true;
+                    port = port.Substring(1);
+                }
                 try {
-                    server.Port = Int32.Parse(cd.DataArray[3]);
+                    server.Port = Int32.Parse(port);
                 } catch (FormatException) {
                     fm.AddTextToChat(
                         cd.Chat,
