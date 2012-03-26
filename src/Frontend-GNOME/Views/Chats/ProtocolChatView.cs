@@ -69,6 +69,8 @@ namespace Smuxi.Frontend.Gnome
             NetworkWebsiteUrls.Add("freenode", "http://freenode.net/");
             NetworkWebsiteUrls.Add("QuakeNet", "http://www.quakenet.org/");
             NetworkWebsiteUrls.Add("IRCnet", "http://www.ircnet.org/");
+            NetworkWebsiteUrls.Add("DALnet", "http://www.dal.net/");
+            NetworkWebsiteUrls.Add("GameSurge", "https://gamesurge.net/");
             NetworkWebsiteUrls.Add("EFnet", "http://www.efnet.org/");
             NetworkWebsiteUrls.Add("GIMPnet", "http://www.gimp.org/");
             NetworkWebsiteUrls.Add("GSDnet", "http://www.gsd-software.net/");
