@@ -386,17 +386,22 @@ namespace Smuxi.Frontend.Gnome
                 // feature introduced in >= 0.8.1
                 Gtk.ComboBox persistencyTypeComboBox =
                     ((Gtk.ComboBox)_Glade["PersistencyTypeComboBox"]);
-                var persistencyType = (MessageBufferPersistencyType) Enum.Parse(
-                    typeof(MessageBufferPersistencyType),
-                    (string) Frontend.UserConfig["MessageBuffer/PersistencyType"]
-                );
-                i = 0;
-                foreach (object[] row in (Gtk.ListStore) persistencyTypeComboBox.Model) {
-                    if (((MessageBufferPersistencyType) row[0]) == persistencyType) {
-                        persistencyTypeComboBox.Active = i;
-                        break;
+                try {
+                    var persistencyType = (MessageBufferPersistencyType) Enum.Parse(
+                        typeof(MessageBufferPersistencyType),
+                        (string) Frontend.UserConfig["MessageBuffer/PersistencyType"]
+                    );
+                    i = 0;
+                    foreach (object[] row in (Gtk.ListStore) persistencyTypeComboBox.Model) {
+                        if (((MessageBufferPersistencyType) row[0]) == persistencyType) {
+                            persistencyTypeComboBox.Active = i;
+                            break;
+                        }
+                        i++;
                     }
-                    i++;
+                } catch (ArgumentException) {
+                    // for forward compatibility with newer engines
+                    persistencyTypeComboBox.Active = -1;
                 }
                 ((Gtk.SpinButton)_Glade["VolatileMaxCapacitySpinButton"]).Value =
                     (double)(int)Frontend.UserConfig["MessageBuffer/Volatile/MaxCapacity"];
@@ -682,17 +687,20 @@ namespace Smuxi.Frontend.Gnome
             // MessageBuffer
             if (Frontend.EngineVersion >= new Version("0.8.1")) {
                 var persistencyTypeComboBox = (Gtk.ComboBox) _Glade["PersistencyTypeComboBox"];
-                var persistencyType = MessageBufferPersistencyType.Volatile;
-                i = 0;
-                foreach (object[] row in (Gtk.ListStore) persistencyTypeComboBox.Model) {
-                    if (persistencyTypeComboBox.Active == i) {
-                        persistencyType = (MessageBufferPersistencyType) row[0];
-                        break;
+                // for forward compatibility with newer engines
+                if (persistencyTypeComboBox.Active != -1) {
+                    var persistencyType = MessageBufferPersistencyType.Volatile;
+                    i = 0;
+                    foreach (object[] row in (Gtk.ListStore) persistencyTypeComboBox.Model) {
+                        if (persistencyTypeComboBox.Active == i) {
+                            persistencyType = (MessageBufferPersistencyType) row[0];
+                            break;
+                        }
+                        i++;
                     }
-                    i++;
+                    Frontend.UserConfig["MessageBuffer/PersistencyType"] =
+                        persistencyType.ToString();
                 }
-                Frontend.UserConfig["MessageBuffer/PersistencyType"] =
-                    persistencyType.ToString();
                 Frontend.UserConfig["MessageBuffer/Volatile/MaxCapacity"] =
                     (int)((Gtk.SpinButton)_Glade["VolatileMaxCapacitySpinButton"]).Value;
                 Frontend.UserConfig["MessageBuffer/Persistent/MaxCapacity"] =
