@@ -63,6 +63,8 @@ namespace Smuxi.Frontend.Gnome
             NetworkWebsiteUrls = new Dictionary<string, string>(
                 StringComparer.InvariantCultureIgnoreCase
             );
+
+            // IRC
             NetworkWebsiteUrls.Add("OFTC", "http://www.oftc.net/");
             NetworkWebsiteUrls.Add("freenode", "http://freenode.net/");
             NetworkWebsiteUrls.Add("QuakeNet", "http://www.quakenet.org/");
@@ -72,6 +74,9 @@ namespace Smuxi.Frontend.Gnome
             NetworkWebsiteUrls.Add("GSDnet", "http://www.gsd-software.net/");
             NetworkWebsiteUrls.Add("ustream", "http://www.ustream.tv/");
             NetworkWebsiteUrls.Add("Infinity-IRC", "http://www.infinityirc.com/");
+
+            // Twitter
+            NetworkWebsiteUrls.Add("Twitter", "http://www.twitter.com/");
         }
 
         public ProtocolChatView(ChatModel chat) : base(chat)
