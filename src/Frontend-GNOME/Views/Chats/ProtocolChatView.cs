@@ -178,6 +178,10 @@ namespace Smuxi.Frontend.Gnome
             iconPath = SysPath.Combine(iconPath,
                                        String.Format("{0}.ico", ID));
             var iconFile = new FileInfo(iconPath);
+            if (iconFile.Exists && iconFile.Length > 0) {
+                // cached icon, use right away
+                UpdateServerIcon(iconPath);
+            }
 
             string websiteUrl = null;
             lock (NetworkWebsiteUrls) {
