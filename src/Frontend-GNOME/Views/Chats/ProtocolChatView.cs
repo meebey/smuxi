@@ -239,10 +239,9 @@ namespace Smuxi.Frontend.Gnome
             }
             string faviconUrl = null;
             if (String.IsNullOrEmpty(faviconRel)) {
-                faviconUrl = String.Format("{0}favicon.ico", websiteUrl);
-            } else {
-                faviconUrl = new Uri(new Uri(websiteUrl), faviconRel).AbsoluteUri;
+                faviconRel = "/favicon.ico";
             }
+            faviconUrl = new Uri(new Uri(websiteUrl), faviconRel).ToString();
 #if LOG4NET
             f_Logger.DebugFormat("DownloadServerIcon(): favicon URL: {0}",
                                  faviconUrl);
