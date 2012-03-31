@@ -1305,7 +1305,9 @@ namespace Smuxi.Engine
                 if (nextChar != " ") {
                     // we split in the middle of a word, split it better!
                     int lastWordPos = chunk.LastIndexOf(" ");
-                    if (lastWordPos != -1) {
+                    if (lastWordPos > 0) {
+                        // the chunk has to get smaller, else we run into an
+                        // endless loop
                         chunk = chunk.Substring(0, lastWordPos);
                     }
                 }
