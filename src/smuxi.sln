@@ -67,6 +67,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StarkSoftProxy", "..\lib\St
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Frontend-GNOME-Twitter", "Frontend-GNOME-Twitter\Frontend-GNOME-Twitter.csproj", "{298A5895-D8C8-45EB-AC57-1B6AAD05D6AD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibGit2Sharp", "..\lib\libgit2sharp\LibGit2Sharp\LibGit2Sharp.csproj", "{EE6ED99F-CB12-4683-B055-D28FC7357A34}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Release|Any CPU = Release|Any CPU
@@ -195,6 +197,12 @@ Global
 		{579B3FDB-CDAD-44E1-8417-885C38E49A0E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{579B3FDB-CDAD-44E1-8417-885C38E49A0E}.Release-Win32|x86.ActiveCfg = Release|Any CPU
 		{579B3FDB-CDAD-44E1-8417-885C38E49A0E}.Release-Win32|x86.Build.0 = Release|Any CPU
+		{579B3FDB-CDAD-44E1-8417-885C38E49A0E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{579B3FDB-CDAD-44E1-8417-885C38E49A0E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{579B3FDB-CDAD-44E1-8417-885C38E49A0E}.Debug-Win32|Any CPU.ActiveCfg = Debug|Any CPU
+		{579B3FDB-CDAD-44E1-8417-885C38E49A0E}.Debug-Win32|Any CPU.Build.0 = Debug|Any CPU
+		{579B3FDB-CDAD-44E1-8417-885C38E49A0E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{579B3FDB-CDAD-44E1-8417-885C38E49A0E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{5C3F617A-3811-49DE-A6ED-4F726BAAAE4D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{5C3F617A-3811-49DE-A6ED-4F726BAAAE4D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5C3F617A-3811-49DE-A6ED-4F726BAAAE4D}.Debug-Win32|x86.ActiveCfg = Debug|Any CPU
@@ -227,6 +235,12 @@ Global
 		{7B1E3AB2-FB8C-4439-A2B4-2129EDBD79F8}.Release|Any CPU.Build.0 = Release|Any CPU
 		{7B1E3AB2-FB8C-4439-A2B4-2129EDBD79F8}.Release-Win32|x86.ActiveCfg = Release|Any CPU
 		{7B1E3AB2-FB8C-4439-A2B4-2129EDBD79F8}.Release-Win32|x86.Build.0 = Release|Any CPU
+		{8DD96596-38AC-46DD-80C1-75D9EBE585EA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8DD96596-38AC-46DD-80C1-75D9EBE585EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8DD96596-38AC-46DD-80C1-75D9EBE585EA}.Debug-Win32|Any CPU.ActiveCfg = Debug|Any CPU
+		{8DD96596-38AC-46DD-80C1-75D9EBE585EA}.Debug-Win32|Any CPU.Build.0 = Debug|Any CPU
+		{8DD96596-38AC-46DD-80C1-75D9EBE585EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8DD96596-38AC-46DD-80C1-75D9EBE585EA}.Release|Any CPU.Build.0 = Release|Any CPU
 		{91D3003B-7E65-4EAF-8EE1-DA43832E7A9C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{91D3003B-7E65-4EAF-8EE1-DA43832E7A9C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{91D3003B-7E65-4EAF-8EE1-DA43832E7A9C}.Debug-Win32|x86.ActiveCfg = Debug|Any CPU
