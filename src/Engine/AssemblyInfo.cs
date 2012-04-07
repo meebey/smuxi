@@ -33,4 +33,4 @@ using System.Runtime.InteropServices;
 
 [assembly: CLSCompliant(true)]
 [assembly: ComVisible(false)]
-
+[assembly: InternalsVisibleToAttribute("smuxi-engine-tests")]

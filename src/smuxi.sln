@@ -57,6 +57,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "netlib.Dns", "..\lib\jabber
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Db4objects.Db4o-2010", "..\lib\db4o-net\Db4objects.Db4o\Db4objects.Db4o-2010.csproj", "{600CD3BF-2ED2-4183-87F7-ADD78A968AE0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibGit2Sharp", "..\lib\libgit2sharp\LibGit2Sharp\LibGit2Sharp.csproj", "{EE6ED99F-CB12-4683-B055-D28FC7357A34}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceStack.Text", "..\lib\ServiceStack.Text\src\ServiceStack.Text\ServiceStack.Text.csproj", "{579B3FDB-CDAD-44E1-8417-885C38E49A0E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "leveldb-sharp", "..\lib\leveldb-sharp\leveldb-sharp.csproj", "{8DD96596-38AC-46DD-80C1-75D9EBE585EA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Release|Any CPU = Release|Any CPU
@@ -136,6 +142,12 @@ Global
 		{52C5C937-774E-4279-82E1-890EDE4F4759}.Debug-Win32|Any CPU.Build.0 = Debug|Any CPU
 		{52C5C937-774E-4279-82E1-890EDE4F4759}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{52C5C937-774E-4279-82E1-890EDE4F4759}.Release|Any CPU.Build.0 = Release|Any CPU
+		{579B3FDB-CDAD-44E1-8417-885C38E49A0E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{579B3FDB-CDAD-44E1-8417-885C38E49A0E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{579B3FDB-CDAD-44E1-8417-885C38E49A0E}.Debug-Win32|Any CPU.ActiveCfg = Debug|Any CPU
+		{579B3FDB-CDAD-44E1-8417-885C38E49A0E}.Debug-Win32|Any CPU.Build.0 = Debug|Any CPU
+		{579B3FDB-CDAD-44E1-8417-885C38E49A0E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{579B3FDB-CDAD-44E1-8417-885C38E49A0E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{5C3F617A-3811-49DE-A6ED-4F726BAAAE4D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{5C3F617A-3811-49DE-A6ED-4F726BAAAE4D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5C3F617A-3811-49DE-A6ED-4F726BAAAE4D}.Debug-Win32|Any CPU.ActiveCfg = Debug|Any CPU
@@ -166,6 +178,12 @@ Global
 		{7B1E3AB2-FB8C-4439-A2B4-2129EDBD79F8}.Debug-Win32|Any CPU.Build.0 = Debug|Any CPU
 		{7B1E3AB2-FB8C-4439-A2B4-2129EDBD79F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7B1E3AB2-FB8C-4439-A2B4-2129EDBD79F8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8DD96596-38AC-46DD-80C1-75D9EBE585EA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8DD96596-38AC-46DD-80C1-75D9EBE585EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8DD96596-38AC-46DD-80C1-75D9EBE585EA}.Debug-Win32|Any CPU.ActiveCfg = Debug|Any CPU
+		{8DD96596-38AC-46DD-80C1-75D9EBE585EA}.Debug-Win32|Any CPU.Build.0 = Debug|Any CPU
+		{8DD96596-38AC-46DD-80C1-75D9EBE585EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8DD96596-38AC-46DD-80C1-75D9EBE585EA}.Release|Any CPU.Build.0 = Release|Any CPU
 		{91D3003B-7E65-4EAF-8EE1-DA43832E7A9C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{91D3003B-7E65-4EAF-8EE1-DA43832E7A9C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{91D3003B-7E65-4EAF-8EE1-DA43832E7A9C}.Debug-Win32|Any CPU.ActiveCfg = Debug|Any CPU
@@ -224,6 +242,12 @@ Global
 		{E75D5685-3027-414C-BC2C-E48307181D80}.Debug-Win32|Any CPU.Build.0 = Debug|Any CPU
 		{E75D5685-3027-414C-BC2C-E48307181D80}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E75D5685-3027-414C-BC2C-E48307181D80}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EE6ED99F-CB12-4683-B055-D28FC7357A34}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EE6ED99F-CB12-4683-B055-D28FC7357A34}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EE6ED99F-CB12-4683-B055-D28FC7357A34}.Debug-Win32|Any CPU.ActiveCfg = Debug|Any CPU
+		{EE6ED99F-CB12-4683-B055-D28FC7357A34}.Debug-Win32|Any CPU.Build.0 = Debug|Any CPU
+		{EE6ED99F-CB12-4683-B055-D28FC7357A34}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EE6ED99F-CB12-4683-B055-D28FC7357A34}.Release|Any CPU.Build.0 = Release|Any CPU
 		{EFCDA478-1A20-4A97-9E9D-2523A52CFF72}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{EFCDA478-1A20-4A97-9E9D-2523A52CFF72}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EFCDA478-1A20-4A97-9E9D-2523A52CFF72}.Debug-Win32|Any CPU.ActiveCfg = Debug-Win32|Any CPU

@@ -96,6 +96,10 @@
     <Compile Include="Config\EntrySettings.cs" />
     <Compile Include="Messages\FeedMessageBuilder.cs" />
     <Compile Include="Config\ProxySettings.cs" />
+    <Compile Include="MessageBuffers\GitMessageBuffer.cs" />
+    <Compile Include="MessageBuffers\JsonMessageBuffer.cs" />
+    <Compile Include="MessageBuffers\LevelDBMessageBuffer.cs" />
+    <Compile Include="Messages\Dto\MessageDtoModelV1.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Protocols\" />
@@ -123,6 +127,7 @@
     <Reference Include="Mono.Posix" />
     <Reference Include="Mono.Data.Sqlite" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Common\Common.csproj">
@@ -132,6 +137,18 @@
     <ProjectReference Include="..\..\lib\db4o-net\Db4objects.Db4o\Db4objects.Db4o-2010.csproj">
       <Project>{600CD3BF-2ED2-4183-87F7-ADD78A968AE0}</Project>
       <Name>Db4objects.Db4o-2010</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\lib\libgit2sharp\LibGit2Sharp\LibGit2Sharp.csproj">
+      <Project>{EE6ED99F-CB12-4683-B055-D28FC7357A34}</Project>
+      <Name>LibGit2Sharp</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\lib\ServiceStack.Text\src\ServiceStack.Text\ServiceStack.Text.csproj">
+      <Project>{579B3FDB-CDAD-44E1-8417-885C38E49A0E}</Project>
+      <Name>ServiceStack.Text</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\lib\leveldb-sharp\leveldb-sharp.csproj">
+      <Project>{8DD96596-38AC-46DD-80C1-75D9EBE585EA}</Project>
+      <Name>leveldb-sharp</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
