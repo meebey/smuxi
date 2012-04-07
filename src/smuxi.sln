@@ -57,11 +57,16 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "netlib.Dns", "..\lib\jabber
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Db4objects.Db4o-2010", "..\lib\db4o-net\Db4objects.Db4o\Db4objects.Db4o-2010.csproj", "{600CD3BF-2ED2-4183-87F7-ADD78A968AE0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Growl.Connector", "..\lib\Growl\Growl.Connector\Growl.Connector.csproj", "{19C22138-B905-47BA-9E6E-EF9356907E53}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Growl.CoreLibrary", "..\lib\Growl\Growl.CoreLibrary\Growl.CoreLibrary.csproj", "{BCFE7FCD-6055-4872-95EA-5C4C73DE342D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Release|Any CPU = Release|Any CPU
 		Debug|Any CPU = Debug|Any CPU
 		Debug-Win32|Any CPU = Debug-Win32|Any CPU
+		Mono|Any CPU = Mono|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{06A95A33-EB35-4572-AC92-0887DAF75D7E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -76,6 +81,14 @@ Global
 		{118F010C-A914-48B7-B4A6-44176B1DB376}.Debug-Win32|Any CPU.Build.0 = Debug|Any CPU
 		{118F010C-A914-48B7-B4A6-44176B1DB376}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{118F010C-A914-48B7-B4A6-44176B1DB376}.Release|Any CPU.Build.0 = Release|Any CPU
+		{19C22138-B905-47BA-9E6E-EF9356907E53}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{19C22138-B905-47BA-9E6E-EF9356907E53}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{19C22138-B905-47BA-9E6E-EF9356907E53}.Debug-Win32|Any CPU.ActiveCfg = Debug|Any CPU
+		{19C22138-B905-47BA-9E6E-EF9356907E53}.Debug-Win32|Any CPU.Build.0 = Debug|Any CPU
+		{19C22138-B905-47BA-9E6E-EF9356907E53}.Mono|Any CPU.ActiveCfg = Mono|Any CPU
+		{19C22138-B905-47BA-9E6E-EF9356907E53}.Mono|Any CPU.Build.0 = Mono|Any CPU
+		{19C22138-B905-47BA-9E6E-EF9356907E53}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{19C22138-B905-47BA-9E6E-EF9356907E53}.Release|Any CPU.Build.0 = Release|Any CPU
 		{1C67CF8B-5CC9-4B43-9F67-FA6399000067}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{1C67CF8B-5CC9-4B43-9F67-FA6399000067}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1C67CF8B-5CC9-4B43-9F67-FA6399000067}.Debug-Win32|Any CPU.ActiveCfg = Debug|Any CPU
@@ -202,6 +215,14 @@ Global
 		{BCD52FCF-B7A8-42FB-AA8D-CF9921FF593E}.Debug-Win32|Any CPU.Build.0 = Debug|Any CPU
 		{BCD52FCF-B7A8-42FB-AA8D-CF9921FF593E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BCD52FCF-B7A8-42FB-AA8D-CF9921FF593E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BCFE7FCD-6055-4872-95EA-5C4C73DE342D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BCFE7FCD-6055-4872-95EA-5C4C73DE342D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BCFE7FCD-6055-4872-95EA-5C4C73DE342D}.Debug-Win32|Any CPU.ActiveCfg = Debug|Any CPU
+		{BCFE7FCD-6055-4872-95EA-5C4C73DE342D}.Debug-Win32|Any CPU.Build.0 = Debug|Any CPU
+		{BCFE7FCD-6055-4872-95EA-5C4C73DE342D}.Mono|Any CPU.ActiveCfg = Mono|Any CPU
+		{BCFE7FCD-6055-4872-95EA-5C4C73DE342D}.Mono|Any CPU.Build.0 = Mono|Any CPU
+		{BCFE7FCD-6055-4872-95EA-5C4C73DE342D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BCFE7FCD-6055-4872-95EA-5C4C73DE342D}.Release|Any CPU.Build.0 = Release|Any CPU
 		{BE7B2AE6-765A-4EB6-BBB6-F402B1939EC4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{BE7B2AE6-765A-4EB6-BBB6-F402B1939EC4}.Debug-Win32|Any CPU.ActiveCfg = Debug|Any CPU
 		{BE7B2AE6-765A-4EB6-BBB6-F402B1939EC4}.Debug-Win32|Any CPU.Build.0 = Debug|Any CPU

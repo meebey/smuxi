@@ -137,6 +137,7 @@
     <Compile Include="NetworkManager.cs" />
     <Compile Include="LinkTag.cs" />
     <Compile Include="Gtk.WindowExtensions.cs" />
+    <Compile Include="GrowlManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="smuxi-frontend-gnome.exe.config">
@@ -166,6 +167,14 @@
     <ProjectReference Include="..\Frontend\Frontend.csproj">
       <Project>{7B1E3AB2-FB8C-4439-A2B4-2129EDBD79F8}</Project>
       <Name>Frontend</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\lib\Growl\Growl.Connector\Growl.Connector.csproj">
+      <Project>{19C22138-B905-47BA-9E6E-EF9356907E53}</Project>
+      <Name>Growl.Connector</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\lib\Growl\Growl.CoreLibrary\Growl.CoreLibrary.csproj">
+      <Project>{BCFE7FCD-6055-4872-95EA-5C4C73DE342D}</Project>
+      <Name>Growl.CoreLibrary</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

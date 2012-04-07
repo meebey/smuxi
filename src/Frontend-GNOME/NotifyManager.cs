@@ -47,6 +47,7 @@ namespace Smuxi.Frontend.Gnome
         Dictionary<ChatView, MessageTextViewMessageHighlightedEventHandler> HighlightEventHandlers { get; set; }
         bool IsInitialized { get; set; }
         bool IsEnabled { get; set; }
+        GrowlManager GrowlManager { get; set; }
 
         static NotifyManager()
         {
@@ -94,6 +95,7 @@ namespace Smuxi.Frontend.Gnome
                  MessageTextViewMessageHighlightedEventHandler>();
 
             try {
+                GrowlManager = new GrowlManager();
                 Init();
             } catch (Exception ex) {
 #if LOG4NET
@@ -210,6 +212,7 @@ namespace Smuxi.Frontend.Gnome
 #if MSG_DEBUG
             Trace.Call(sender, e, chatView);
 #endif
+            GrowlManager.ShowNotification(chatView, e.Message);
 
             if (!IsEnabled ||
                 e.Message.TimeStamp <= chatView.SyncedLastSeenHighlight ||
