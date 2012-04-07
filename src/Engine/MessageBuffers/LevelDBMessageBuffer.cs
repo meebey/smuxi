@@ -33,8 +33,9 @@ namespace Smuxi.Engine
 #if LOG4NET
         static readonly log4net.ILog f_Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 #endif
-        const string MessageCountKey = "__Count";
-        const string MessageNumberKey = "__Number";
+        const string InternalFieldPrefix = "!";
+        const string MessageCountKey = InternalFieldPrefix + "Count";
+        const string MessageNumberKey = InternalFieldPrefix + "Number";
 
         Int64 MessageNumber { get; set; }
         Int64 MessageCount { get; set; }
@@ -133,7 +134,7 @@ namespace Smuxi.Engine
                  Native.leveldb_iter_valid(iter) && range.Count < limit;
                  Native.leveldb_iter_next(iter)) {
                 string key = Native.leveldb_iter_key(iter);
-                if (key == null || key.StartsWith("__")) {
+                if (key == null || key.StartsWith(InternalFieldPrefix)) {
                     // ignore internal fields
                     continue;
                 }
