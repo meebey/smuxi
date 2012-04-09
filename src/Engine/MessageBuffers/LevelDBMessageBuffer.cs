@@ -28,50 +28,14 @@ using Smuxi.Engine.Dto;
 
 namespace Smuxi.Engine
 {
-    public class LevelDBMessageBuffer : MessageBufferBase
+    public class LevelDBMessageBuffer : KeyValueMessageBufferBase
     {
 #if LOG4NET
         static readonly log4net.ILog f_Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 #endif
-        const string InternalFieldPrefix = "!";
-        const string MessageCountKey = InternalFieldPrefix + "Count";
-        const string MessageNumberKey = InternalFieldPrefix + "Number";
-
-        Int64 MessageNumber { get; set; }
-        Int64 MessageCount { get; set; }
-        bool Disposed { get; set; }
         DB Database { get; set; }
         string DatabasePath { get; set; }
-
-        public override int Count {
-            get {
-                return (int) MessageCount;
-            }
-        }
-
-        public override MessageModel this[int index] {
-            get {
-                CheckDisposed();
-
-                // OPT: single get is faster than seek + get_value
-                //return GetRange(index, 1).First();
-                var key = GetMessageKey(index);
-                var json = Database.Get(key);
-                if (json == null) {
-                    throw new ArgumentOutOfRangeException("index");
-                }
-                var dto = JsonSerializer.DeserializeFromString<MessageDtoModelV1>(json);
-                return dto.ToMessage();
-            }
-            set {
-                throw new NotImplementedException();
-            }
-        }
-
-        static LevelDBMessageBuffer()
-        {
-            JsConfig<MessagePartModel>.ExcludeTypeInfo = true;
-        }
+        bool Disposed { get; set; }
 
         public LevelDBMessageBuffer(string sessionUsername, string protocol,
                                     string networkId, string chatId) :
@@ -107,22 +71,6 @@ namespace Smuxi.Engine
             }
         }
 
-        public override void Add(MessageModel msg)
-        {
-            if (msg == null) {
-                throw new ArgumentNullException("msg");
-            }
-            CheckDisposed();
-
-            var msgNumber = MessageNumber;
-            var msgFileName = GetMessageKey(msgNumber++);
-            var msgContent = JsonSerializer.SerializeToString(msg);
-            Database.Put(msgFileName, msgContent);
-            MessageNumber = msgNumber;
-            MessageCount++;
-            Flush();
-        }
-
         public override IList<MessageModel> GetRange(int offset, int limit)
         {
             var range = new List<MessageModel>(limit);
@@ -139,94 +87,20 @@ namespace Smuxi.Engine
                     continue;
                 }
                 string json = Native.leveldb_iter_value(iter);
-                var dto = JsonSerializer.DeserializeFromString<MessageDtoModelV1>(json);
-                range.Add(dto.ToMessage());
+                range.Add(GetMessage(json));
             }
             Native.leveldb_iter_destroy(iter);
             return range;
         }
 
-        public override void Clear()
-        {
-            throw new NotImplementedException ();
-        }
-
-        public override bool Contains(MessageModel item)
-        {
-            throw new NotImplementedException ();
-        }
-
-        public override void CopyTo(MessageModel[] array, int arrayIndex)
-        {
-            throw new NotImplementedException ();
-        }
-
-        public override bool Remove(MessageModel item)
-        {
-            throw new NotImplementedException ();
-        }
-
-        public override IEnumerator<MessageModel> GetEnumerator()
-        {
-            foreach (var entry in Database) {
-                if (entry.Key == null || !entry.Key.EndsWith(".v1.json")) {
-                    // ignore non json keys
-                    continue;
-                }
-                var json = entry.Value;
-                var dto = JsonSerializer.DeserializeFromString<MessageDtoModelV1>(json);
-                yield return dto.ToMessage();
-            }
-        }
-
-        public override int IndexOf(MessageModel item)
-        {
-            throw new NotImplementedException ();
-        }
-
-        public override void Insert(int index, MessageModel item)
-        {
-            throw new NotImplementedException ();
-        }
-
-        public override void RemoveAt(int index)
-        {
-            throw new NotImplementedException ();
-        }
-
-        void FlushMessageCount()
-        {
-            Database.Put(MessageCountKey, MessageCount.ToString());
-        }
-
-        void FlushMessageNumber()
-        {
-            Database.Put(MessageNumberKey, MessageNumber.ToString());
-        }
-
-        public override void Flush()
-        {
-            CheckDisposed();
-
-            DateTime start, stop;
-            start = DateTime.UtcNow;
-            FlushMessageCount();
-            FlushMessageNumber();
-            stop = DateTime.UtcNow;
-#if LOG4NET && MSGBUF_DEBUG && DISABLED
-            f_Logger.DebugFormat("Flush(): took: {0:0.00} ms",
-                                 (stop - start).TotalMilliseconds);
-#endif
-        }
-
         public override void Dispose()
         {
+            base.Dispose();
+
             var disposed = Disposed;
             if (disposed) {
                 return;
             }
-            Flush();
-            Disposed = true;
 
             var db = Database;
             if (db != null) {
@@ -242,100 +116,53 @@ namespace Smuxi.Engine
             }
         }
 
-        void CheckDisposed()
+        protected override void Put(string key, string value)
         {
-            if (!Disposed) {
-                return;
-            }
-            throw new ObjectDisposedException(this.GetType().Name);
+            CheckDisposed();
+            Database.Put(key, value);
         }
 
-        string GetMessageKey(Int64 number)
+        protected override string Get(string key)
         {
-            // align key to 32 bytes as the keys are sorted bytewise
-            return String.Format("{0:000000000000000000000000}.v1.json", number);
+            CheckDisposed();
+            return Database.Get(key);
         }
 
-        void FetchMessageCount()
+        protected override IEnumerable<string> GetKeys()
         {
-            var strCount = Database.Get(MessageCountKey);
-            if (!String.IsNullOrEmpty(strCount)) {
-                // yay we have a cached count value
-                var intCount = 0L;
-                Int64.TryParse(strCount, out intCount);
-                MessageCount = intCount;
-                return;
-            }
-
-            // darn, we have make a full filename scan :/
-            DateTime start, stop;
-            start = DateTime.UtcNow;
-
-            var count = 0;
+            CheckDisposed();
             var options = Native.leveldb_readoptions_create();
             IntPtr iter = Native.leveldb_create_iterator(Database.Handle,
                                                          options);
             Native.leveldb_iter_seek_to_first(iter);
             while (Native.leveldb_iter_valid(iter)) {
                 string key = Native.leveldb_iter_key(iter);
-                if (key != null && key.EndsWith(".json")) {
-                    // only count json files
-                    count++;
-                }
+                yield return key;
                 Native.leveldb_iter_next(iter);
             }
             Native.leveldb_iter_destroy(iter);
-            MessageCount = count;
-
-            stop = DateTime.UtcNow;
-#if LOG4NET && MSGBUF_DEBUG
-            f_Logger.DebugFormat("FetchMessageCount(): scan took: {0:0.00} ms",
-                                 (stop - start).TotalMilliseconds);
-#endif
         }
 
-        void FetchMessageNumber()
+        protected override IEnumerable<string> GetValues()
         {
-            var strNumber = Database.Get(MessageNumberKey);
-            if (!String.IsNullOrEmpty(strNumber)) {
-                // yay we have a cached number value
-                var intNumber = 0L;
-                Int64.TryParse(strNumber, out intNumber);
-                MessageNumber = intNumber;
-                return;
-            }
-
-            // darn, we have make a full filename scan :/
-            DateTime start, stop;
-            start = DateTime.UtcNow;
-
-            var msgNumber = 0L;
+            CheckDisposed();
             var options = Native.leveldb_readoptions_create();
             IntPtr iter = Native.leveldb_create_iterator(Database.Handle,
                                                          options);
             Native.leveldb_iter_seek_to_first(iter);
             while (Native.leveldb_iter_valid(iter)) {
-                string key = Native.leveldb_iter_key(iter);
-                if (key != null && key.EndsWith(".json")) {
-                    // only check json files
-                    var strMsgNumber = key.Substring(0, key.IndexOf("."));
-                    var intMsgNumber = 0L;
-                    Int64.TryParse(strMsgNumber, out intMsgNumber);
-                    if (intMsgNumber > msgNumber) {
-                        msgNumber = intMsgNumber;
-                    }
-                }
+                string value = Native.leveldb_iter_value(iter);
+                yield return value;
                 Native.leveldb_iter_next(iter);
             }
             Native.leveldb_iter_destroy(iter);
-            MessageNumber = msgNumber;
+        }
 
-            stop = DateTime.UtcNow;
-#if LOG4NET && MSGBUF_DEBUG
-            f_Logger.DebugFormat("FetchMessageNumber(): " +
-                                 "full scan took: {0:0.00} ms",
-                                 (stop - start).TotalMilliseconds);
-#endif
+        protected override IEnumerable<KeyValuePair<string, string>> GetKeyValuePairs()
+        {
+            foreach (var entry in Database) {
+                yield return entry;
+            }
         }
     }
 }
