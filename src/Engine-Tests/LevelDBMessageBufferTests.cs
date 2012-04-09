@@ -25,7 +25,7 @@ using Smuxi.Common;
 namespace Smuxi.Engine
 {
     [TestFixture]
-    public class LeveDBMessageBufferTests : MessageBufferTestsBase
+    public class LevelDBMessageBufferTests : MessageBufferTestsBase
     {
         protected override IMessageBuffer CreateBuffer()
         {
