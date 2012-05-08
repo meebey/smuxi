@@ -215,10 +215,18 @@ namespace Smuxi.Frontend.Gnome
         {
             Trace.Call(websiteUrl, iconFile);
 
-            var proxy = ProxySettings.GetWebProxy(websiteUrl);
-            var webClient = new WebClient() {
-                Proxy = proxy
-            };
+            var webClient = new WebClient();
+            // ignore proxy settings of remote engines
+            WebProxy proxy = null;
+            if (Frontend.IsLocalEngine) {
+                proxy = ProxySettings.GetWebProxy(websiteUrl);
+                if (proxy == null) {
+                    // HACK: WebClient will always use the system proxy if set to
+                    // null so explicitely override this by setting an empty proxy
+                    proxy = new WebProxy();
+                }
+            }
+            webClient.Proxy = proxy;
             var content = webClient.DownloadString(websiteUrl);
             var links = new List<Dictionary<string, string>>();
             foreach (Match linkMatch in Regex.Matches(content, @"<link[\s]+([^>]*?)/?>")) {
