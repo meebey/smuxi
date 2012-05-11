@@ -46,6 +46,8 @@ namespace Smuxi.Frontend.Gnome
         static Dictionary<string, string> NetworkWebsiteUrls { get; set; }
         ProxySettings ProxySettings { get; set; }
         Gdk.Pixbuf ServerIconPixbuf { get; set; }
+        public string Host { get; private set; }
+        public int Port { get; private set; }
 
         protected override Gtk.Image DefaultTabImage {
             get {
@@ -102,6 +104,9 @@ namespace Smuxi.Frontend.Gnome
             Trace.Call();
 
             base.Sync();
+
+            Host = ProtocolManager.Host;
+            Port = ProtocolManager.Port;
 
             try {
                 CheckIcon();

@@ -673,6 +673,102 @@ namespace Smuxi.Frontend.Gnome
             }
         }
 
+        public static void OpenChatLink(Uri link)
+        {
+            Trace.Call(link);
+
+            if (Session == null) {
+                return;
+            }
+
+            // irc://irc.oftc.net/
+            // irc://irc.oftc.net/#smuxi
+            // irc://irc.oftc.net:6667/#smuxi
+            // irc://#smuxi
+            // smuxi://freenode/#smuxi
+            // smuxi:///meebey
+
+            IProtocolManager manager = null;
+            var linkPort = link.Port;
+            if (linkPort == -1) {
+                switch (link.Scheme) {
+                    case "irc":
+                        linkPort = 6667;
+                        break;
+                    case "ircs":
+                        linkPort = 6697;
+                        break;
+                }
+            }
+            var linkChat = link.Fragment;
+            if (String.IsNullOrEmpty(linkChat)) {
+                linkChat = link.AbsolutePath.Substring(1);
+            }
+
+            var linkProtocol = link.Scheme;
+            var linkHost = link.Host;
+            ServerModel server = null;
+            if (!linkHost.Contains(".")) {
+                // this seems to be a network name, resolve it to host and port
+                var linkNetwork = linkHost;
+                var serverSettings = new ServerListController(UserConfig);
+                server = serverSettings.GetServerByNetwork(linkNetwork);
+                if (server != null) {
+                    // ignore OnConnectCommands
+                    server.OnConnectCommands = null;
+                    linkHost = server.Hostname;
+                    linkPort = server.Port;
+                }
+            }
+
+            // find existing protocol chat
+            foreach (var chatView in MainWindow.ChatViewManager.Chats) {
+                if (!(chatView is ProtocolChatView)) {
+                    continue;
+                }
+                var protocolChat = (ProtocolChatView) chatView;
+                var host = protocolChat.Host;
+                var port = protocolChat.Port;
+                if (String.Compare(host, linkHost, true) == 0 &&
+                    port == linkPort) {
+                    manager = protocolChat.ProtocolManager;
+                    break;
+                }
+            }
+
+            if (manager == null && server != null) {
+                // make new connection
+                manager = Session.Connect(server, FrontendManager);
+            }
+
+            if (String.IsNullOrEmpty(linkChat)) {
+                return;
+            }
+
+            // switch to existing chat
+            foreach (var chatView in MainWindow.ChatViewManager.Chats) {
+                if (manager != null && chatView.ProtocolManager != manager) {
+                    continue;
+                }
+                if (String.Compare(chatView.ID, linkChat, true) == 0) {
+                    MainWindow.ChatViewManager.CurrentChatView = chatView;
+                    return;
+                }
+            }
+
+            // join chat
+            if (manager != null) {
+                var chat = new GroupChatModel(linkChat, linkChat, null);
+                ThreadPool.QueueUserWorkItem(delegate {
+                    try {
+                        manager.OpenChat(FrontendManager, chat);
+                    } catch (Exception ex) {
+                        Frontend.ShowException(ex);
+                    }
+                });
+            }
+        }
+
 #if GTK_SHARP_2_10
         private static void _OnUnhandledException(GLib.UnhandledExceptionArgs e)
         {

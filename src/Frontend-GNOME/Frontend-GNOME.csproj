@@ -137,6 +137,8 @@
     <Compile Include="NetworkManager.cs" />
     <Compile Include="LinkTag.cs" />
     <Compile Include="Gtk.WindowExtensions.cs" />
+    <Compile Include="gtk-gui\Smuxi.Frontend.Gnome.JoinWidget.cs" />
+    <Compile Include="Views\JoinWidget.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="smuxi-frontend-gnome.exe.config">

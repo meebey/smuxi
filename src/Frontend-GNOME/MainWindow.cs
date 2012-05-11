@@ -69,6 +69,10 @@ namespace Smuxi.Frontend.Gnome
         private bool             _IsMaximized;
         private bool             _IsFullscreen;
 
+        Gtk.HBox MenuHBox { get; set; }
+        JoinWidget JoinWidget { get; set; }
+        Gtk.CheckMenuItem ShowQuickJoinMenuItem { get; set; }
+
         public Gtk.MenuBar MenuBar {
             get {
                 return _MenuBar;
@@ -302,8 +306,16 @@ namespace Smuxi.Frontend.Gnome
             
             _OpenChatMenuItem = new Gtk.ImageMenuItem(_("Open / Join Chat"));
             _OpenChatMenuItem.Image = new Gtk.Image(Gtk.Stock.Open, Gtk.IconSize.Menu);
-            _OpenChatMenuItem.Activated += OnChatOpenChatButtonClicked;
-            _OpenChatMenuItem.Sensitive = false;
+            _OpenChatMenuItem.Activated += OnOpenChatMenuItemActivated;
+            akey = new Gtk.AccelKey();
+            akey.AccelFlags = Gtk.AccelFlags.Visible;
+            akey.AccelMods = Gdk.ModifierType.ControlMask;
+            akey.Key = Gdk.Key.L;
+            _OpenChatMenuItem.AddAccelerator("activate", agrp, akey);
+            _OpenChatMenuItem.AccelCanActivate += delegate(object o, Gtk.AccelCanActivateArgs args) {
+                // allow the accelerator to be used even when the menu bar is hidden
+                args.RetVal = true;
+            };
             menu.Append(_OpenChatMenuItem);
                     
             _FindGroupChatMenuItem = new Gtk.ImageMenuItem(_("_Find Group Chat"));
@@ -472,6 +484,16 @@ namespace Smuxi.Frontend.Gnome
             };
             menu.Append(_ShowMenuBarItem);
 
+            JoinWidget = new JoinWidget();
+            JoinWidget.NoShowAll = true;
+            JoinWidget.Visible = (bool) Frontend.FrontendConfig["ShowQuickJoin"];
+            JoinWidget.Activated += OnJoinWidgetActivated;
+
+            ShowQuickJoinMenuItem = new Gtk.CheckMenuItem(_("Show _Quick Join"));
+            ShowQuickJoinMenuItem.Active = JoinWidget.Visible;
+            ShowQuickJoinMenuItem.Activated += OnShowQuickJoinMenuItemActivated;
+            menu.Append(ShowQuickJoinMenuItem);
+
             item = new Gtk.ImageMenuItem(Gtk.Stock.Fullscreen, agrp);
             item.Activated += delegate {
                 try {
@@ -561,8 +583,12 @@ namespace Smuxi.Frontend.Gnome
             _ProgressBar = new Gtk.ProgressBar();
             _ProgressBar.BarStyle = Gtk.ProgressBarStyle.Continuous;
 
+            MenuHBox = new Gtk.HBox();
+            MenuHBox.PackStart(_MenuBar, false, false, 0);
+            MenuHBox.PackEnd(JoinWidget, false, false, 0);
+
             Gtk.VBox vbox = new Gtk.VBox();
-            vbox.PackStart(_MenuBar, false, false, 0);
+            vbox.PackStart(MenuHBox, false, false, 0);
             vbox.PackStart(_Notebook, true, true, 0);
             vbox.PackStart(entryScrolledWindow, false, false, 0);
 
@@ -615,6 +641,7 @@ namespace Smuxi.Frontend.Gnome
             _Entry.ApplyConfig(userConfig);
             _Notebook.ApplyConfig(userConfig);
             _ChatViewManager.ApplyConfig(userConfig);
+            JoinWidget.ApplyConfig(userConfig);
         }
 
         public void UpdateTitle()
@@ -812,68 +839,7 @@ namespace Smuxi.Frontend.Gnome
                 Frontend.ShowException(this, ex);
             }
         }
-        
-        protected virtual void OnChatOpenChatButtonClicked(object sender, EventArgs e)
-        {
-            Trace.Call(sender, e);
-            
-            try {
-                OpenChatDialog dialog = new OpenChatDialog(this);
-                int res = dialog.Run();
 
-                var chatView = Notebook.CurrentChatView;
-                if (chatView == null) {
-                    return;
-                }
-
-                // FIXME: REMOTING CALL
-                var manager = chatView.ChatModel.ProtocolManager;
-                if (manager == null) {
-                    return;
-                }
-                ChatModel chat;
-                switch (dialog.ChatType) {
-                    case ChatType.Group:
-                        chat = new GroupChatModel(
-                            dialog.ChatName, 
-                            dialog.ChatName,
-                            null
-                        );
-                        break;
-                    case ChatType.Person:
-                        chat = new PersonChatModel(
-                            null,
-                            dialog.ChatName, 
-                            dialog.ChatName,
-                            null
-                        );
-                        break;
-                    default:
-                        throw new ApplicationException(
-                            String.Format(
-                                _("Unknown ChatType: {0}"),
-                                dialog.ChatType
-                            )
-                        );
-                }
-                
-                dialog.Destroy();
-                if (res != (int) Gtk.ResponseType.Ok) {
-                    return;
-                }
-                
-                ThreadPool.QueueUserWorkItem(delegate {
-                    try {
-                        manager.OpenChat(Frontend.FrontendManager, chat);
-                    } catch (Exception ex) {
-                        Frontend.ShowException(this, ex);
-                    }
-                });
-            } catch (Exception ex) {
-                Frontend.ShowException(this, ex);
-            }
-        }
-        
         protected virtual void OnChatFindGroupChatButtonClicked(object sender, EventArgs e)
         {
             Trace.Call(sender, e);
@@ -1066,7 +1032,6 @@ namespace Smuxi.Frontend.Gnome
                     return;
                 }
 
-                _OpenChatMenuItem.Sensitive = !(chatView is SessionChatView);
                 _CloseChatMenuItem.Sensitive = !(chatView is SessionChatView);
                 _FindGroupChatMenuItem.Sensitive = !(chatView is SessionChatView);
                 if (Frontend.IsLocalEngine) {
@@ -1077,7 +1042,47 @@ namespace Smuxi.Frontend.Gnome
                 Frontend.ShowException(this, ex);
             }
         }
-        
+
+        protected virtual void OnJoinWidgetActivated(object sender, EventArgs e)
+        {
+            Trace.Call(sender, e);
+
+            try {
+                var chatLink = JoinWidget.GetChatLink();
+                Frontend.OpenChatLink(chatLink);
+                JoinWidget.Clear();
+            } catch (Exception ex) {
+                Frontend.ShowException(this, ex);
+            }
+        }
+
+        protected virtual void OnShowQuickJoinMenuItemActivated(object sender, EventArgs e)
+        {
+            Trace.Call(sender, e);
+
+            try {
+                JoinWidget.Visible = !JoinWidget.Visible;
+                Frontend.FrontendConfig["ShowQuickJoin"] = JoinWidget.Visible;
+                Frontend.FrontendConfig.Save();
+            } catch (Exception ex) {
+                Frontend.ShowException(this, ex);
+            }
+        }
+
+        protected virtual void OnOpenChatMenuItemActivated(object sender, EventArgs e)
+        {
+            Trace.Call(sender, e);
+
+            try {
+                if (!ShowQuickJoinMenuItem.Active) {
+                    ShowQuickJoinMenuItem.Activate();
+                }
+                JoinWidget.HasFocus = true;
+            } catch (Exception ex) {
+                Frontend.ShowException(this, ex);
+            }
+        }
+
         private void _OnAboutButtonClicked(object obj, EventArgs args)
         {
             Trace.Call(obj, args);

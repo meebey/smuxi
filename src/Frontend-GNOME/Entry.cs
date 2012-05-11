@@ -418,38 +418,15 @@ namespace Smuxi.Frontend.Gnome
             if (Frontend.MainWindow.CaretMode) {
                 return;
             }
-            
+
             // we can't just move to focus directly back as that breaks the
             // notebook scrolling, see trac bug#11
-            
-            // grant the user 250ms to start a selection
             GLib.Timeout.Add(250, new GLib.TimeoutHandler(delegate {
-                // TODO: check mouse buttons, if left mouse button is still pressed
-                // we should not interrupt either, as the user is going to make a selection!
-
-                // don't interrupt on-going entry selections
-                Gtk.TextIter start, end;
-                if (Buffer.GetSelectionBounds(out start, out end)) {
-#if LOG4NET
-                    //_Logger.Debug("_OnFocusOut(): Entry has on-going selection, waiting..."); 
-#endif
-                    return true;
-                }
-
-                ChatView chat = ChatViewManager.CurrentChatView;
-                if (chat == null) {
+                if (!Frontend.MainWindow.Notebook.HasFocus) {
                     return false;
                 }
-
-                // don't interrupt on-going selections
-                if (chat.HasSelection && chat.HasFocus) {
-#if LOG4NET
-                    //_Logger.Debug("_OnFocusOut(): CurrentChatView has on-going selection, waiting..."); 
-#endif
-                    return true;
-                }
                 HasFocus = true;
-                return false;
+                return true;
             }));
         }
         
