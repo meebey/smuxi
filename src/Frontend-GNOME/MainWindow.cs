@@ -862,8 +862,7 @@ namespace Smuxi.Frontend.Gnome
                 return;
             }
 
-            // FIXME: REMOTING CALL
-            var manager = chatView.ChatModel.ProtocolManager;
+            var manager = chatView.ProtocolManager;
             if (manager == null) {
                 return;
             }
