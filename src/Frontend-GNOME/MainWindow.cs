@@ -498,7 +498,8 @@ namespace Smuxi.Frontend.Gnome
             // TODO: network treeview
             _Notebook = new Notebook();
             _Notebook.SwitchPage += OnNotebookSwitchPage;
-            
+            _Notebook.FocusInEvent += OnNotebookFocusInEvent;
+
             _ChatViewManager = new ChatViewManager(_Notebook, null);
             Assembly asm = Assembly.GetExecutingAssembly();
             _ChatViewManager.Load(asm);
@@ -1010,9 +1011,23 @@ namespace Smuxi.Frontend.Gnome
                     _OpenLogChatMenuItem.Sensitive =
                         File.Exists(chatView.ChatModel.LogFile);
                 }
+
+                // HACK: Gtk.Notebook moves the focus to the child after the
+                // page has been switched, so move the focus back to the entry
+                GLib.Idle.Add(delegate {
+                    Entry.GrabFocus();
+                    return false;
+                });
             } catch (Exception ex) {
                 Frontend.ShowException(this, ex);
             }
+        }
+
+        protected virtual void OnNotebookFocusInEvent(object sender, Gtk.FocusInEventArgs e)
+        {
+            // HACK: having the focus in the notebook doesn't make any sense,
+            // so move focus back to the entry
+            Entry.GrabFocus();
         }
 
         protected virtual void OnJoinWidgetActivated(object sender, EventArgs e)

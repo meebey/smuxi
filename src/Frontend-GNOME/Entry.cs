@@ -121,7 +121,6 @@ namespace Smuxi.Frontend.Gnome
 
             Activated += _OnActivated;
             KeyPressEvent += new Gtk.KeyPressEventHandler(_OnKeyPress);
-            FocusOutEvent += new Gtk.FocusOutEventHandler(_OnFocusOut);
             PasteClipboard += _OnClipboardPasted;
         }
 
@@ -411,25 +410,6 @@ namespace Smuxi.Frontend.Gnome
             }
         }
 
-        private void _OnFocusOut(object sender, Gtk.FocusOutEventArgs e)
-        {
-            Trace.Call(sender, e);
-            
-            if (Frontend.MainWindow.CaretMode) {
-                return;
-            }
-
-            // we can't just move to focus directly back as that breaks the
-            // notebook scrolling, see trac bug#11
-            GLib.Timeout.Add(250, new GLib.TimeoutHandler(delegate {
-                if (!Frontend.MainWindow.Notebook.HasFocus) {
-                    return false;
-                }
-                HasFocus = true;
-                return true;
-            }));
-        }
-        
         private void _OnActivated(object sender, EventArgs e)
         {
             Trace.Call(sender, e);
