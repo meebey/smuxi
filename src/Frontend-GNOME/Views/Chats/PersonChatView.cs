@@ -59,6 +59,7 @@ namespace Smuxi.Frontend.Gnome
             PersonChatModel = chat;
 
             Add(OutputScrolledWindow);
+            ShowAll();
         }
 
         public override void Sync()

@@ -58,6 +58,7 @@ namespace Smuxi.Frontend.Gnome
             OutputMessageTextView.ShowTimestamps = false;
 
             Add(OutputScrolledWindow);
+            ShowAll();
         }
         
         protected override void OnTabButtonPress(object sender, Gtk.ButtonPressEventArgs e)

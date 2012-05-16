@@ -249,7 +249,9 @@ namespace Smuxi.Engine
             Get(prefix+"EngineBufferLines", 100);
             Get(prefix+"StripColors", false);
             Get(prefix+"StripFormattings", false);
-            
+            Get(prefix+"AutoSwitchPersonChats", false);
+            Get(prefix+"AutoSwitchGroupChats", true);
+
             prefix = "Engine/Users/DEFAULT/Interface/Notebook/Tab/";
             Get(prefix+"NoActivityColor", "#000000");
             Get(prefix+"ActivityColor",   "#0080FF");
@@ -459,6 +461,8 @@ namespace Smuxi.Engine
                 LoadUserEntry(user, "Interface/Notebook/EngineBufferLines", null);
                 LoadUserEntry(user, "Interface/Notebook/StripColors", null);
                 LoadUserEntry(user, "Interface/Notebook/StripFormattings", null);
+                LoadUserEntry(user, "Interface/Notebook/AutoSwitchPersonChats", null);
+                LoadUserEntry(user, "Interface/Notebook/AutoSwitchGroupChats", null);
                 LoadUserEntry(user, "Interface/Notebook/Tab/NoActivityColor", null);
                 LoadUserEntry(user, "Interface/Notebook/Tab/ActivityColor", null);
                 LoadUserEntry(user, "Interface/Notebook/Tab/EventColor", null);
