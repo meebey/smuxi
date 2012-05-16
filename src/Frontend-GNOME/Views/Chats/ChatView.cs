@@ -565,7 +565,7 @@ namespace Smuxi.Frontend.Gnome
 
             ThreadPool.QueueUserWorkItem(delegate {
                 try {
-                    ChatModel.ProtocolManager.CloseChat(
+                    ProtocolManager.CloseChat(
                         Frontend.FrontendManager,
                         ChatModel
                     );

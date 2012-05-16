@@ -597,7 +597,7 @@ namespace Smuxi.Frontend.Gnome
 
                 ThreadPool.QueueUserWorkItem(delegate {
                     try {
-                        ChatModel.ProtocolManager.OpenChat(
+                        ProtocolManager.OpenChat(
                             Frontend.FrontendManager,
                             personChat
                         );
