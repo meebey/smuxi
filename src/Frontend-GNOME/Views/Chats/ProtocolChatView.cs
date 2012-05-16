@@ -122,8 +122,13 @@ namespace Smuxi.Frontend.Gnome
             Trace.Call();
             
             // show warning if there are open chats (besides protocol chat)
-            // FIXME: REMOTING CALL 1 + 2 + 3
-            if (ChatModel.ProtocolManager.Chats.Count > 1) {
+            var ownedChats = 0;
+            foreach (var chatView in Frontend.MainWindow.ChatViewManager.Chats) {
+                if (chatView.ProtocolManager == ProtocolManager) {
+                    ownedChats++;
+                }
+            }
+            if (ownedChats > 1) {
                 Gtk.MessageDialog md = new Gtk.MessageDialog(
                     Frontend.MainWindow,
                     Gtk.DialogFlags.Modal,
