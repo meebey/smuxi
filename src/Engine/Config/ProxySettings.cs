@@ -60,6 +60,16 @@ namespace Smuxi.Engine
             }
 
             if (SystemWebProxy == null) {
+                if (DefaultWebProxy.Address.Scheme.StartsWith("socks") &&
+                    destination.Scheme.StartsWith("http")) {
+#if LOG4NET
+                    f_Logger.DebugFormat("GetWebProxy(<{0}>): ignoring " +
+                                         "SOCKS proxy for HTTP destination: {1}",
+                                         destination, DefaultWebProxy.Address);
+#endif
+                    return null;
+                }
+
 #if LOG4NET
                 f_Logger.DebugFormat("GetWebProxy(<{0}>): returning default proxy: {1}",
                                      destination, DefaultWebProxy.Address);
@@ -139,9 +149,9 @@ namespace Smuxi.Engine
                     DefaultWebProxy = null;
                     SystemWebProxy = proxy;
                     break;
-                case ProxyType.Http:
+                default:
                     var uriBuilder = new UriBuilder();
-                    uriBuilder.Scheme = "http";
+                    uriBuilder.Scheme = ProxyType.ToString().ToLower();
                     uriBuilder.Host = ProxyHostname;
                     uriBuilder.Port = ProxyPort;
                     uriBuilder.UserName = ProxyUsername;
