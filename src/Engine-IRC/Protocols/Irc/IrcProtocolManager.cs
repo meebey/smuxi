@@ -2164,8 +2164,12 @@ namespace Smuxi.Engine
                 _IrcClient.ProxyType = ircProxyType;
                 _IrcClient.ProxyHost = proxy.Address.Host;
                 _IrcClient.ProxyPort = proxy.Address.Port;
-                _IrcClient.ProxyUsername = proxySettings.ProxyUsername;
-                _IrcClient.ProxyPassword = proxySettings.ProxyPassword;
+                if (!String.IsNullOrEmpty(proxySettings.ProxyUsername)) {
+                    _IrcClient.ProxyUsername = proxySettings.ProxyUsername;
+                }
+                if (!String.IsNullOrEmpty(proxySettings.ProxyPassword)) {
+                    _IrcClient.ProxyPassword = proxySettings.ProxyPassword;
+                }
             }
 
             if (server != null) {
