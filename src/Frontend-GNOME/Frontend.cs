@@ -681,11 +681,13 @@ namespace Smuxi.Frontend.Gnome
                 return;
             }
 
+            // supported:
+            // smuxi://freenode/#smuxi
+            // irc://#smuxi
             // irc://irc.oftc.net/
             // irc://irc.oftc.net/#smuxi
             // irc://irc.oftc.net:6667/#smuxi
-            // irc://#smuxi
-            // smuxi://freenode/#smuxi
+            // not supported (yet):
             // smuxi:///meebey
 
             IProtocolManager manager = null;
@@ -707,18 +709,10 @@ namespace Smuxi.Frontend.Gnome
 
             var linkProtocol = link.Scheme;
             var linkHost = link.Host;
-            ServerModel server = null;
+            string linkNetwork = null;
             if (!linkHost.Contains(".")) {
-                // this seems to be a network name, resolve it to host and port
-                var linkNetwork = linkHost;
-                var serverSettings = new ServerListController(UserConfig);
-                server = serverSettings.GetServerByNetwork(linkNetwork);
-                if (server != null) {
-                    // ignore OnConnectCommands
-                    server.OnConnectCommands = null;
-                    linkHost = server.Hostname;
-                    linkPort = server.Port;
-                }
+                // this seems to be a network name
+                linkNetwork = linkHost;
             }
 
             // find existing protocol chat
@@ -729,16 +723,35 @@ namespace Smuxi.Frontend.Gnome
                 var protocolChat = (ProtocolChatView) chatView;
                 var host = protocolChat.Host;
                 var port = protocolChat.Port;
-                if (String.Compare(host, linkHost, true) == 0 &&
-                    port == linkPort) {
+                var network = protocolChat.NetworkID;
+                // check first by network name with fallback to host+port
+                if ((!String.IsNullOrEmpty(network) &&
+                     String.Compare(network, linkNetwork, true) == 0) ||
+                    (String.Compare(host, linkHost, true) == 0 &&
+                     port == linkPort)) {
                     manager = protocolChat.ProtocolManager;
                     break;
                 }
             }
 
-            if (manager == null && server != null) {
-                // make new connection
-                manager = Session.Connect(server, FrontendManager);
+            if (manager == null) {
+                ServerModel server = null;
+                if (!String.IsNullOrEmpty(linkNetwork)) {
+                    // try to find a server with this network name and connect to it
+                    var serverSettings = new ServerListController(UserConfig);
+                    server = serverSettings.GetServerByNetwork(linkNetwork);
+                    // ignore OnConnectCommands
+                    server.OnConnectCommands = null;
+                } else if (!String.IsNullOrEmpty(linkHost)) {
+                    server = new ServerModel() {
+                        Protocol = linkProtocol,
+                        Hostname = linkHost,
+                        Port = linkPort
+                    };
+                }
+                if (server != null) {
+                    manager = Session.Connect(server, FrontendManager);
+                }
             }
 
             if (String.IsNullOrEmpty(linkChat)) {

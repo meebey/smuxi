@@ -48,6 +48,7 @@ namespace Smuxi.Frontend.Gnome
         Gdk.Pixbuf ServerIconPixbuf { get; set; }
         public string Host { get; private set; }
         public int Port { get; private set; }
+        public string NetworkID { get; private set; }
 
         protected override Gtk.Image DefaultTabImage {
             get {
@@ -107,6 +108,7 @@ namespace Smuxi.Frontend.Gnome
 
             Host = ProtocolManager.Host;
             Port = ProtocolManager.Port;
+            NetworkID = ProtocolManager.NetworkID;
 
             try {
                 CheckIcon();
