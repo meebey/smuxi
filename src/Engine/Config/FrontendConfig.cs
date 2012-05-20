@@ -82,6 +82,7 @@ namespace Smuxi.Engine
             prefix = "Frontend/";
             LoadEntry(prefix+"UseLowBandwidthMode", false);
             LoadEntry(prefix+"ShowQuickJoin", true);
+            LoadEntry(prefix+"ShowMenuBar", true);
 
             prefix = "Frontend/Engines/";
             Get<string[]>(prefix+"Engines", new string[] {});
