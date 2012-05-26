@@ -1,4 +1,4 @@
-<Project name="Frontend-GNOME-IRC" fileversion="2.0" DefaultNamespace="Smuxi.Frontend.Gnome" language="C#" clr-version="Net_2_0" targetFramework="3.5" ctype="DotNetProject">
+<Project name="Frontend-GNOME-IRC" fileversion="2.0" DefaultNamespace="Smuxi.Frontend.Gnome" language="C#" clr-version="Net_2_0" targetFramework="4.0" ctype="DotNetProject">
   <Configurations active="Debug">
     <Configuration name="Debug" ctype="DotNetProjectConfiguration">
       <Output directory="../../bin/debug" assembly="smuxi-frontend-gnome-irc" />
@@ -28,7 +28,7 @@
     <ProjectReference type="Project" localcopy="True" refto="Engine" />
     <ProjectReference type="Project" localcopy="True" refto="Frontend-GNOME" />
     <ProjectReference type="Project" localcopy="True" refto="Engine-IRC" />
-    <ProjectReference type="Gac" localcopy="True" refto="Mono.Posix, Version=2.0.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756" />
+    <ProjectReference type="Gac" localcopy="True" refto="Mono.Posix, Version=4.0.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756" />
     <ProjectReference type="Project" localcopy="True" refto="Frontend" />
     <ProjectReference type="Assembly" localcopy="False" refto="../../lib/log4net.dll" />
     <ProjectReference type="Gac" localcopy="True" refto="gtk-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />

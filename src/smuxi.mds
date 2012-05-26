@@ -155,7 +155,7 @@
     <Entry filename="Common-Tests/Common-Tests.mdp" />
     <Entry filename="Engine-Tests/Engine-Tests.mdp" />
     <Entry filename="Frontend-GNOME-Tests/Frontend-GNOME-Tests.mdp" />
-    <Entry filename="../lib/SmartIrc4net/SmartIrc4net.mdp" />
+    <Entry filename="../lib/SmartIrc4net/SmartIrc4net.csproj" />
     <Entry filename="../lib/Newtonsoft.Json/Src/Newtonsoft.Json/Newtonsoft.Json.csproj" />
     <Entry filename="../lib/Twitterizer/Twitterizer2/Twitterizer2.csproj" />
     <Entry filename="Frontend-STFL-Tests/Frontend-STFL-Tests.mdp" />
