@@ -1,4 +1,4 @@
-<Project name="Engine-Twitter" fileversion="2.0" DefaultNamespace="Smuxi.Engine" language="C#" targetFramework="3.5" ctype="DotNetProject">
+<Project name="Engine-Twitter" fileversion="2.0" DefaultNamespace="Smuxi.Engine" language="C#" targetFramework="4.0" ctype="DotNetProject">
   <Configurations active="Debug">
     <Configuration name="Debug" ctype="DotNetProjectConfiguration">
       <Output directory="../../bin/debug" assembly="smuxi-engine-twitter" />
@@ -21,11 +21,11 @@
     <File subtype="Code" buildaction="Compile" name="Protocols/Twitter/TwitterMessageBuilder.cs" />
   </Contents>
   <References>
-    <ProjectReference type="Gac" localcopy="True" refto="System, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+    <ProjectReference type="Gac" localcopy="True" refto="System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
     <ProjectReference type="Project" localcopy="True" refto="Engine" />
     <ProjectReference type="Project" localcopy="True" refto="Common" />
     <ProjectReference specificVersion="False" type="Assembly" localcopy="True" refto="../../lib/log4net.dll" />
-    <ProjectReference type="Gac" localcopy="True" refto="System.Web, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+    <ProjectReference type="Gac" localcopy="True" refto="System.Web, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
     <ProjectReference type="Project" localcopy="True" refto="Twitterizer2" />
   </References>
 </Project>
