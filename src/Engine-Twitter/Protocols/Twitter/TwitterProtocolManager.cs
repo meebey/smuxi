@@ -78,6 +78,9 @@ namespace Smuxi.Engine
         bool                    f_Listening;
         bool                    f_IsConnected;
 
+        int                     ErrorResponseCount { get; set; }
+        const int               MaxErrorResponseCount = 3;
+
         public override string NetworkID {
             get {
                 if (f_TwitterUser == null) {
@@ -1453,6 +1456,7 @@ namespace Smuxi.Engine
             switch (response.Result) {
                 case RequestResult.Success:
                     // no error at all
+                    ErrorResponseCount = 0;
                     return false;
                 case RequestResult.ConnectionFailure:
                 case RequestResult.RateLimited:
@@ -1470,12 +1474,33 @@ namespace Smuxi.Engine
                     return true;
             }
 
+            if (ErrorResponseCount++ < MaxErrorResponseCount) {
 #if LOG4NET
-            f_Logger.Debug("IsTemporilyErrorResponse(): " +
-                           "Detected permanent error " +
-                           "RequestUrl: " + response.RequestUrl + " " +
-                           "Result: " + response.Result + " " +
-                           "Content:\n" + response.Content);
+                f_Logger.WarnFormat(
+                    "IsTemporilyErrorResponse(): Ignoring permanent error " +
+                    "({0}/{1}) " +
+                    "RequestUrl: {2} " +
+                    "Result: {3} " +
+                    "Content:\n{4}",
+                    ErrorResponseCount,
+                    MaxErrorResponseCount,
+                    response.RequestUrl,
+                    response.Result,
+                    response.Content
+                );
+#endif
+                return true;
+            }
+
+#if LOG4NET
+            f_Logger.ErrorFormat(
+                "IsTemporilyErrorResponse(): Detected permanent error " +
+                "RequestUrl: {0} Result: {1} " +
+                "Content:\n{2}",
+                response.RequestUrl,
+                response.Result,
+                response.Content
+            );
 #endif
             return false;
         }

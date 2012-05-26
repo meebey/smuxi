@@ -411,6 +411,11 @@ namespace Smuxi.Engine
         
         public void CommandJoin(CommandModel cd)
         {
+            if (cd.DataArray.Length < 2) {
+                NotEnoughParameters(cd);
+                return;
+            }
+
             string jid = cd.DataArray[1];
             ChatModel chat = GetChat(jid, ChatType.Group);
             if (chat == null) {

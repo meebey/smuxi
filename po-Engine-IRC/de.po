@@ -301,7 +301,7 @@ msgstr "{0} ist nun bekannt als: {1}"
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2998
 #, csharp-format
 msgid "{0} changed the topic of {1} to: {2}"
-msgstr "{0} hat das Thema von {1} auf {2} geändert"
+msgstr "{0} hat das Thema geändert: von {1} auf {2}"
 
 #. TRANSLATOR: do NOT change the position of {1}!
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3075
