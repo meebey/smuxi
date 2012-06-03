@@ -157,7 +157,9 @@ namespace Smuxi.Frontend.Stfl
             foreach (var chat in f_ChatViewList) {
                 nav.AppendFormat("[{0}] ", chat.ChatModel.Name);
             }
-            nav.Remove(nav.Length - 1, 1);
+            if (nav.Length > 0) {
+                nav.Length--;
+            }
 
             f_MainWindow.NavigationLabel = nav.ToString();
         }
