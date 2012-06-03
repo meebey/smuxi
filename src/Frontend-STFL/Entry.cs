@@ -180,6 +180,9 @@ namespace Smuxi.Frontend.Stfl
             bool handled = false;
             if (cmd.IsCommand) {
                 switch (cmd.Command.ToLower()) {
+                    case "help":
+                        CommandHelp(cmd);
+                        break;
                     case "window":
                         CommandWindow(cmd);
                         handled = true;
@@ -200,6 +203,29 @@ namespace Smuxi.Frontend.Stfl
                 }
             }
             return handled;
+        }
+
+        void CommandHelp(CommandModel cmd)
+        {
+            var chatView = f_MainWindow.ChatViewManager.GetChat(cmd.Chat);
+            var builder = new MessageBuilder();
+            // TRANSLATOR: this line is used as a label / category for a
+            // list of commands below
+            builder.AppendHeader(_("Frontend Commands"));
+            chatView.AddMessage(builder.ToMessage());
+
+            string[] help = {
+                "help",
+                "window number",
+                "exit",
+            };
+
+            foreach (string line in help) {
+                builder = new MessageBuilder();
+                builder.AppendEventPrefix();
+                builder.AppendText(line);
+                chatView.AddMessage(builder.ToMessage());
+            }
         }
 
         private void CommandWindow(CommandModel cmd)
@@ -307,6 +333,11 @@ namespace Smuxi.Frontend.Stfl
         {
             Text = Text.Substring(0, Position) +
                    Text.Substring(Math.Min(Position + 1, Text.Length));
+        }
+
+        static string _(string msg)
+        {
+            return Mono.Unix.Catalog.GetString(msg);
         }
     }
 }
