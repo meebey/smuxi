@@ -184,6 +184,10 @@ namespace Smuxi.Frontend.Stfl
                         CommandWindow(cmd);
                         handled = true;
                         break;
+                    case "exit":
+                        Frontend.Quit();
+                        handled = true;
+                        break;
                     case "gc":
 #if LOG4NET
                         _Logger.Debug("GC.Collect()");
