@@ -205,7 +205,7 @@ run-gnome: all
 
 run-stfl: all
 	cd $(BUILD_DIR) && \
-		mono ./smuxi-frontend-stfl.exe -d 2> smuxi-frontend-stfl.err
+		mono --debug ./smuxi-frontend-stfl.exe -d 2> smuxi-frontend-stfl.err
 
 run-server: all
 	cd $(BUILD_DIR) && \
