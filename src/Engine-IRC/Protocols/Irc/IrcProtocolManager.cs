@@ -2903,20 +2903,27 @@ namespace Smuxi.Engine
 #if LOG4NET
             _Logger.Debug("_OnKick() e.Channel: "+e.Channel+" e.Whom: "+e.Whom);
 #endif
-            GroupChatModel cchat = (GroupChatModel) GetChat(e.Channel, ChatType.Group);
+            var chat = (GroupChatModel) GetChat(e.Channel, ChatType.Group);
+            var builder = CreateMessageBuilder();
+            builder.AppendEventPrefix();
             if (e.Data.Irc.IsMe(e.Whom)) {
-                Session.AddTextToChat(cchat,
-                    "-!- " + String.Format(
-                                _("You were kicked from {0} by {1} [{2}]"),
-                                e.Channel, e.Who, e.KickReason));
-                Session.DisableChat(cchat);
+                // TRANSLATOR: do NOT change the position of {1}!
+                builder.AppendText(_("You were kicked from {0} by {1}"),
+                                   e.Channel, String.Empty);
+                builder.AppendIdendityName(GetPerson(chat, e.Who));
+                builder.AppendText(" [").AppendMessage(e.KickReason).AppendText("]");
+                Session.AddMessageToChat(chat, builder.ToMessage());
+                Session.DisableChat(chat);
             } else {
-                PersonModel user = cchat.GetPerson(e.Whom);
-                Session.RemovePersonFromGroupChat(cchat, user);
-                Session.AddTextToChat(cchat,
-                    "-!- " + String.Format(
-                                _("{0} was kicked from {1} by {2} [{3}]"),
-                                e.Whom, e.Channel, e.Who, e.KickReason));
+                PersonModel user = chat.GetPerson(e.Whom);
+                Session.RemovePersonFromGroupChat(chat, user);
+                builder.AppendIdendityName(GetPerson(chat, e.Whom));
+                // TRANSLATOR: do NOT change the position of {0} and {2}!
+                builder.AppendText(_("{0} was kicked from {1} by {2}"),
+                                   String.Empty, e.Channel, String.Empty);
+                builder.AppendIdendityName(GetPerson(chat, e.Who));
+                builder.AppendText(" [").AppendMessage(e.KickReason).AppendText("]");
+                Session.AddMessageToChat(chat, builder.ToMessage());
             }
         }
         
