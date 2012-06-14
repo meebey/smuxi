@@ -68,7 +68,13 @@ namespace Smuxi.Engine
         
         public override string NetworkID {
             get {
-                return _JabberClient.NetworkHost;
+                if (!String.IsNullOrEmpty(_JabberClient.NetworkHost)) {
+                    return _JabberClient.NetworkHost;
+                }
+                if (!String.IsNullOrEmpty(_JabberClient.Server)) {
+                    return _JabberClient.Server;
+                }
+                return "XMPP";
             }
         }
         
