@@ -39,10 +39,10 @@ namespace Smuxi.Frontend.Gnome
             var version = Frontend.Version.ToString();
             var distVersion = Defines.DistVersion;
             if (!String.IsNullOrEmpty(distVersion)) {
-                version = String.Format("{0} ({1})", version, distVersion);
+                Version = String.Format("\n Vendor: {0}", distVersion);
             }
-            Version = "\n Frontend: " + Frontend.UIName + " " + version  +
-                      "\n Engine: " + Frontend.EngineVersion;
+            Version += "\n Frontend: " + Frontend.UIName + " " + version  +
+                       "\n Engine: " + Frontend.EngineVersion;
             Copyright = "Copyright © 2005-2012 Mirco Bauer <meebey@meebey.net>";
             Authors = new string[] {
                 "Mirco Bauer <meebey@meebey.net>",
