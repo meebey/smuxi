@@ -36,6 +36,7 @@
     <Compile Include="Db4oMessageBufferTests.cs" />
     <Compile Include="MessageBufferTestsBase.cs" />
     <Compile Include="ListMessageBufferTests.cs" />
+    <Compile Include="MessageParserTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
