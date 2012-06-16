@@ -481,6 +481,7 @@ namespace Smuxi.Frontend.Gnome
                 Gtk.DialogFlags.Modal,
                 Gtk.MessageType.Error,
                 Gtk.ButtonsType.Ok,
+                false,
                 msg
             );
             md.Run();
