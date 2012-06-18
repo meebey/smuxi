@@ -25,6 +25,7 @@ using System.Text;
 using System.Globalization;
 using System.Collections.Generic;
 using Mono.Unix;
+using Stfl;
 using Smuxi.Common;
 using Smuxi.Engine;
 using Smuxi.Frontend;
@@ -193,6 +194,12 @@ namespace Smuxi.Frontend.Stfl
             title += "Smuxi";
 
             f_MainWindow.TitleLabel = title;
+            // HACK: set xterm window title
+            if (StflApi.IsXterm) {
+                NcursesApi.endwin();
+                Console.WriteLine((char) 27 + "]0;{0}" + (char) 7, title);
+                NcursesApi.refresh();
+            }
         }
     }
 

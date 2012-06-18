@@ -69,6 +69,15 @@ namespace Smuxi.Frontend.Stfl
             }
         }
 
+        public bool ShowTitle {
+            get {
+                return this["title_hbox_display"] == "1";
+            }
+            set {
+                this["title_hbox_display"] = value ? "1" : "0";
+            }
+        }
+
         public string TitleLabel {
             get {
                 return this["title_label_text"];
@@ -83,6 +92,11 @@ namespace Smuxi.Frontend.Stfl
             _ChatViewManager = new ChatViewManager(this);
             _Entry = new Entry(this, _ChatViewManager);
             _UI = new StflUI(_ChatViewManager);
+
+            if (StflApi.IsXterm) {
+                ShowTitle = false;
+            }
+
     	    Assembly asm = Assembly.GetExecutingAssembly();
     	    _ChatViewManager.Load(asm);
     	}
