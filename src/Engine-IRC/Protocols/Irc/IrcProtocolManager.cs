@@ -882,6 +882,7 @@ namespace Smuxi.Engine
             "join/j channel(s) [key]",
             "part/p [channel(s)] [part-message]",
             "topic [new-topic]",
+            "names",
             "cycle/rejoin",
             "msg/query (channel|nick) message",
             "amsg message",
