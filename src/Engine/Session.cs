@@ -419,6 +419,7 @@ namespace Smuxi.Engine
             string[] help = {
                 "help",
                 "connect/server protocol [protocol-parameters]",
+                "connect/server network",
                 "disconnect [server]",
                 "network list",
                 "network close [network]",
@@ -444,9 +445,15 @@ namespace Smuxi.Engine
             }
             
             FrontendManager fm = cd.FrontendManager;
-            
-            string protocol;
-            if (cd.DataArray.Length >= 3) {
+
+            string protocol = null;
+            ServerModel server = null;
+            // first lookup by network name
+            if (cd.DataArray.Length == 2) {
+                var network = cd.Parameter;
+                var serverSettings = new ServerListController(UserConfig);
+                server = serverSettings.GetServerByNetwork(network);
+            } else if (cd.DataArray.Length >= 3) {
                 protocol = cd.DataArray[1];
             } else if (cd.DataArray.Length >= 2) {
                 // HACK: simply assume the user meant irc if not specified as
@@ -479,7 +486,7 @@ namespace Smuxi.Engine
             }
             */
 
-            if (protocolManager == null) {
+            if (protocolManager == null && server == null) {
                 try {
                     protocolManager = CreateProtocolManager(protocol);
                     _ProtocolManagers.Add(protocolManager);
@@ -510,7 +517,11 @@ namespace Smuxi.Engine
             // run in background so it can't block the command queue
             ThreadPool.QueueUserWorkItem(delegate {
                 try {
-                    protocolManager.Command(cd);
+                    if (protocolManager == null && server != null) {
+                        protocolManager = Connect(server, fm);
+                    } else {
+                        protocolManager.Command(cd);
+                    }
 
                     // set this as current protocol manager
                     // but only if there was none set (we might be on a chat for example)
