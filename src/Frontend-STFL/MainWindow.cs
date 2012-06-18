@@ -69,6 +69,15 @@ namespace Smuxi.Frontend.Stfl
             }
         }
 
+        public string TitleLabel {
+            get {
+                return this["title_label_text"];
+            }
+            set {
+                this["title_label_text"] = value;
+            }
+        }
+
         public MainWindow() : base(null, "MainWindow.stfl")
         {
             _ChatViewManager = new ChatViewManager(this);

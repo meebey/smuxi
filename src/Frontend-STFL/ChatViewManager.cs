@@ -64,6 +64,7 @@ namespace Smuxi.Frontend.Stfl
                     _Logger.Debug("set_CurrentChat(): making " + value.ChatModel.ID + " visible");
 #endif
                     f_CurrentChat.IsVisible = true;
+                    UpdateTitle();
                 }
 
                 if (CurrentChatSwitched != null) {
@@ -162,6 +163,36 @@ namespace Smuxi.Frontend.Stfl
             }
 
             f_MainWindow.NavigationLabel = nav.ToString();
+        }
+
+        void UpdateTitle()
+        {
+            var chatView = CurrentChat;
+            if (chatView == null) {
+                return;
+            }
+
+            string title;
+            var chatModel = chatView.ChatModel;
+            string protocolStatus = null;
+            if (chatModel.ProtocolManager != null) {
+                protocolStatus = chatModel.ProtocolManager.ToString();
+            }
+            if (chatModel is SessionChatModel) {
+                title = String.Empty;
+            } else if (chatModel is ProtocolChatModel) {
+                title = protocolStatus;
+            } else {
+                title = String.Format("{0} @ {1}",
+                                      chatModel.Name,
+                                      protocolStatus);
+            }
+            if (!String.IsNullOrEmpty(title)) {
+                title += " - ";
+            }
+            title += "Smuxi";
+
+            f_MainWindow.TitleLabel = title;
         }
     }
 

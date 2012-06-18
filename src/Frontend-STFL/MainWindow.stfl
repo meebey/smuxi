@@ -1,6 +1,12 @@
 vbox
   autobind:0
+  hbox[title_hbox]
+    .expand:1 .height:1
+    @style_normal:fg=white,bg=blue
+    label[title_label]
+      text[title_label_text]:"Smuxi"
   hbox[menu_hbox]
+    .display:0
     .expand:0 .height:1
     @style_normal:fg=white,bg=blue
     label
