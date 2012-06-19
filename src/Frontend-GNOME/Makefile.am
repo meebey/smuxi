@@ -193,7 +193,6 @@ REFERENCES =  \
 	System \
     System.Core \
 	Mono.Posix \
-	System.Drawing \
 	$(GLIB_SHARP_20_LIBS) \
 	$(GLADE_SHARP_20_LIBS) \
 	$(GTK_SHARP_20_LIBS) \

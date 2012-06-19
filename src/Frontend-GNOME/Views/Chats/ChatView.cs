@@ -21,7 +21,6 @@
  */
 
 using System;
-using System.Drawing;
 using System.Threading;
 using System.Collections.Generic;
 using Smuxi.Common;
