@@ -669,7 +669,13 @@ namespace Smuxi.Engine
             if (cd == null) {
                 throw new ArgumentNullException("cd");
             }
-            
+
+            if (cd.DataArray.Length == 1) {
+                // no parameter given, fallback to list
+                _CommandNetworkList(cd);
+                return;
+            }
+
             FrontendManager fm = cd.FrontendManager;
             if (cd.DataArray.Length >= 2) {
                 switch (cd.DataArray[1].ToLower()) {
