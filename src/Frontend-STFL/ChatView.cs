@@ -128,7 +128,12 @@ namespace Smuxi.Frontend.Stfl
 
         protected virtual void Dispose(bool disposing)
         {
-            f_MainWindow.Modify(f_WidgetName, "delete", null);
+            Trace.Call(disposing);
+
+            // do not make STFL calls from the finalizer thread!
+            if (disposing) {
+                f_MainWindow.Modify(f_WidgetName, "delete", null);
+            }
         }
 
         public virtual void Dispose()
