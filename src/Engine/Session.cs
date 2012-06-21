@@ -698,18 +698,63 @@ namespace Smuxi.Engine
             }
         }
         
-        private void _CommandNetworkList(CommandModel cd)
+        private void _CommandNetworkList(CommandModel cmd)
         {
-            FrontendManager fm = cd.FrontendManager;
-            fm.AddTextToChat(cd.Chat, "-!- " + _("Networks") + ":");
+            var frontend = cmd.FrontendManager;
+            var servers = new ServerListController(UserConfig);
+            var availableNetworks = servers.GetNetworks();
+            var connectedNetworks = new List<IProtocolManager>();
             lock (_ProtocolManagers) {
-                foreach (IProtocolManager nm in _ProtocolManagers) {
-                    fm.AddTextToChat(cd.Chat, "-!- " +
-                        _("Protocol") + ": " + nm.Protocol + " " +
-                        _("Network") + ": " + nm.NetworkID + " " +
-                        _("Host") + ": " + nm.Host + " " +
-                        _("Port") + ": " + nm.Port);
+                foreach (IProtocolManager pm in _ProtocolManagers) {
+                    if (pm.IsConnected) {
+                        connectedNetworks.Add(pm);
+                        if (!String.IsNullOrEmpty(pm.NetworkID)) {
+                            availableNetworks.Remove(pm.NetworkID);
+                        }
+                    }
                 }
+            }
+
+            var msg = CreateMessageBuilder();
+            // TRANSLATOR: this line is used as a label / category for a
+            // list of networks below
+            msg.AppendHeader(_("Connected Networks"));
+            frontend.AddMessageToChat(cmd.Chat, msg.ToMessage());
+            foreach (var network in connectedNetworks) {
+                msg = CreateMessageBuilder();
+                msg.AppendEventPrefix();
+                msg.AppendText("{0}: {1} ", _("Network"),  network.NetworkID);
+                msg.AppendText("{0}: {1} ", _("Protocol"), network.Protocol);
+                msg.AppendText("{0}: {1} ", _("Host"),     network.Host);
+                msg.AppendText("{0}: {1}",  _("Port"),     network.Port);
+                frontend.AddMessageToChat(cmd.Chat, msg.ToMessage());
+            }
+            if (connectedNetworks.Count == 0) {
+                msg = CreateMessageBuilder();
+                // TRANSLATOR: no connected networks
+                msg.AppendEventPrefix().AppendText("<{0}>", _("None"));
+                frontend.AddMessageToChat(cmd.Chat, msg.ToMessage());
+            }
+
+            msg = CreateMessageBuilder();
+            // TRANSLATOR: this line is used as a label / category for a
+            // list of networks below
+            msg.AppendHeader(_("Available Networks"));
+            frontend.AddMessageToChat(cmd.Chat, msg.ToMessage());
+            foreach (var network in availableNetworks) {
+                if (network == null || network.Trim().Length == 0) {
+                    continue;
+                }
+                msg = CreateMessageBuilder();
+                msg.AppendEventPrefix();
+                msg.AppendText("{0}: {1}", _("Network"), network);
+                frontend.AddMessageToChat(cmd.Chat, msg.ToMessage());
+            }
+            if (availableNetworks.Count == 0) {
+                msg = CreateMessageBuilder();
+                // TRANSLATOR: no available networks
+                msg.AppendEventPrefix().AppendText("<{0}>", _("None"));
+                frontend.AddMessageToChat(cmd.Chat, msg.ToMessage());
             }
         }
         
