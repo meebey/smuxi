@@ -255,7 +255,7 @@ namespace Smuxi.Frontend.Stfl
             }
             */
 
-            StflApi.stfl_reset();
+            MainWindow.Reset();
             Environment.Exit(0);
         }
         
