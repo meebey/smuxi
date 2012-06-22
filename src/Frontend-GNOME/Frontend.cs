@@ -201,9 +201,29 @@ namespace Smuxi.Frontend.Gnome
                 ConnectEngineToGUI();
             } else {
                 // there are remote engines defined, means we have to ask
+                string engine = null;
+                for (int i = 0; i < args.Length; i++) {
+                    var arg = args[i];
+                    switch (arg) {
+                        case "-e":
+                        case "--engine":
+                            if (args.Length >=  i + 1) {
+                                engine = args[i + 1];
+                            }
+                            break;
+                    }
+                }
                 //_SplashScreenWindow.Destroy();
                 _SplashScreenWindow = null;
-                ShowEngineManagerDialog();
+                try {
+                    ShowEngineManagerDialog(engine);
+                } catch (ArgumentException ex) {
+                    if (ex.ParamName == "value") {
+                        Console.WriteLine(ex.Message);
+                        System.Environment.Exit(1);
+                    }
+                    throw;
+                }
             }
             
             if (_SplashScreenWindow != null) {
@@ -570,13 +590,24 @@ namespace Smuxi.Frontend.Gnome
             ShowException(null, ex);
         }
         
-        public static void ShowEngineManagerDialog()
+        public static void ShowEngineManagerDialog(string engine)
         {
-            Trace.Call();
+            Trace.Call(engine);
             
             EngineManagerDialog diag = new EngineManagerDialog(_MainWindow.EngineManager);
-            diag.Run();
+            if (!String.IsNullOrEmpty(engine)) {
+                diag.SelectedEngine = engine;
+                // 1 == connect button
+                diag.Respond(1);
+            } else {
+                diag.Run();
+            }
             diag.Destroy();
+        }
+
+        public static void ShowEngineManagerDialog()
+        {
+            ShowEngineManagerDialog(null);
         }
 
         public static bool ShowReconnectDialog(Gtk.Window parent)
