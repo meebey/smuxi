@@ -81,6 +81,18 @@ namespace Smuxi.Frontend.Gnome
             }
         }
 
+        public bool ShowEvents {
+            get {
+                var tag = _MessageTextTagTable.Lookup("event");
+                return tag.Invisible;
+            }
+            set {
+                var tag = _MessageTextTagTable.Lookup("event");
+                tag.Invisible = value;
+                QueueDraw();
+            }
+        }
+
         public bool HasTextViewSelection {
             get {
 #if GTK_SHARP_2_10
@@ -255,9 +267,11 @@ namespace Smuxi.Frontend.Gnome
 
                 // TODO: implement all types
                 if (msgPart is UrlMessagePartModel) {
+                    var tags = new List<Gtk.TextTag>();
                     var urlPart = (UrlMessagePartModel) msgPart;
                     // HACK: the engine should set a color for us!
                     var linkStyleTag = _MessageTextTagTable.Lookup("link");
+                    tags.Add(linkStyleTag);
                     var linkColor = ColorConverter.GetTextColor(
                         linkStyleTag.ForegroundGdk
                     );
@@ -287,7 +301,11 @@ namespace Smuxi.Frontend.Gnome
                     linkTag.ForegroundGdk = ColorConverter.GetGdkColor(linkColor);
                     linkTag.TextEvent += OnLinkTagTextEvent;
                     _MessageTextTagTable.Add(linkTag);
-                    buffer.InsertWithTags(ref iter, linkText, linkStyleTag, linkTag);
+                    tags.Add(linkTag);
+                    if (msg.MessageType == MessageType.Event) {
+                        tags.Add(_MessageTextTagTable.Lookup("event"));
+                    }
+                    buffer.InsertWithTags(ref iter, linkText, tags.ToArray());
                 } else if (msgPart is TextMessagePartModel) {
                     TextMessagePartModel fmsgti = (TextMessagePartModel) msgPart;
                     List<string> tags = new List<string>();
@@ -327,8 +345,7 @@ namespace Smuxi.Frontend.Gnome
 #endif
                         tags.Add("italic");
                     }
-                    if (msg.MessageType == MessageType.Event &&
-                        fmsgti.ForegroundColor == TextColor.None) {
+                    if (msg.MessageType == MessageType.Event) {
                         // only mark parts that don't have a color set
                         tags.Add("event");
                     }
@@ -341,7 +358,11 @@ namespace Smuxi.Frontend.Gnome
                 }
             }
             if (addLinebreak) {
-                buffer.Insert(ref iter, "\n");
+                if (msg.MessageType == MessageType.Event) {
+                    buffer.InsertWithTagsByName(ref iter, "\n", "event");
+                } else {
+                    buffer.Insert(ref iter, "\n");
+                }
             }
 
             CheckBufferSize();

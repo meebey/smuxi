@@ -72,6 +72,7 @@ namespace Smuxi.Frontend.Gnome
         JoinWidget JoinWidget { get; set; }
         Gtk.CheckMenuItem ShowQuickJoinMenuItem { get; set; }
         Gtk.CheckMenuItem ShowMenuBarMenuItem  { get; set; }
+        Gtk.CheckMenuItem ShowEventsMenuItem  { get; set; }
 
         public bool ShowMenuBar {
             get {
@@ -457,6 +458,11 @@ namespace Smuxi.Frontend.Gnome
             ShowQuickJoinMenuItem.Active = JoinWidget.Visible;
             ShowQuickJoinMenuItem.Activated += OnShowQuickJoinMenuItemActivated;
             menu.Append(ShowQuickJoinMenuItem);
+
+            ShowEventsMenuItem = new Gtk.CheckMenuItem(_("Show _Events"));
+            //ShowEventsMenuItem.Active = JoinWidget.Visible;
+            ShowEventsMenuItem.Activated += OnShowEventsMenuItemActivated;
+            menu.Append(ShowEventsMenuItem);
 
             item = new Gtk.ImageMenuItem(Gtk.Stock.Fullscreen, agrp);
             item.Activated += delegate {
@@ -1043,6 +1049,21 @@ namespace Smuxi.Frontend.Gnome
                 JoinWidget.Visible = !JoinWidget.Visible;
                 Frontend.FrontendConfig["ShowQuickJoin"] = JoinWidget.Visible;
                 Frontend.FrontendConfig.Save();
+            } catch (Exception ex) {
+                Frontend.ShowException(this, ex);
+            }
+        }
+
+        protected virtual void OnShowEventsMenuItemActivated(object sender, EventArgs e)
+        {
+            Trace.Call(sender, e);
+
+            try {
+                foreach (var chatView in ChatViewManager.Chats) {
+                    chatView.OutputMessageTextView.ShowEvents = ShowEventsMenuItem.Active;
+                }
+                //Frontend.FrontendConfig["ShowQuickJoin"] = JoinWidget.Visible;
+                //Frontend.FrontendConfig.Save();
             } catch (Exception ex) {
                 Frontend.ShowException(this, ex);
             }
