@@ -51,6 +51,12 @@ namespace Smuxi.Frontend.Gnome
         private int          _MarkerlineBufferPosition;
         private int          _BufferLines = -1;
 
+        Gtk.TextTag BoldTag { get; set; }
+        Gtk.TextTag ItalicTag { get; set; }
+        Gtk.TextTag UnderlineTag { get; set; }
+        Gtk.TextTag LinkTag { get; set; }
+        Gtk.TextTag EventTag { get; set; }
+
         public event MessageTextViewMessageAddedEventHandler       MessageAdded;
         public event MessageTextViewMessageHighlightedEventHandler MessageHighlighted;
         
@@ -255,11 +261,12 @@ namespace Smuxi.Frontend.Gnome
 
                 // TODO: implement all types
                 if (msgPart is UrlMessagePartModel) {
+                    var tags = new List<Gtk.TextTag>();
                     var urlPart = (UrlMessagePartModel) msgPart;
                     // HACK: the engine should set a color for us!
-                    var linkStyleTag = _MessageTextTagTable.Lookup("link");
+                    tags.Add(LinkTag);
                     var linkColor = ColorConverter.GetTextColor(
-                        linkStyleTag.ForegroundGdk
+                        LinkTag.ForegroundGdk
                     );
                     linkColor = TextColorTools.GetBestTextColor(
                         linkColor, bgTextColor
@@ -287,10 +294,11 @@ namespace Smuxi.Frontend.Gnome
                     linkTag.ForegroundGdk = ColorConverter.GetGdkColor(linkColor);
                     linkTag.TextEvent += OnLinkTagTextEvent;
                     _MessageTextTagTable.Add(linkTag);
-                    buffer.InsertWithTags(ref iter, linkText, linkStyleTag, linkTag);
+                    tags.Add(linkTag);
+                    buffer.InsertWithTags(ref iter, linkText, tags.ToArray());
                 } else if (msgPart is TextMessagePartModel) {
+                    var tags = new List<Gtk.TextTag>();
                     TextMessagePartModel fmsgti = (TextMessagePartModel) msgPart;
-                    List<string> tags = new List<string>();
                     if (fmsgti.ForegroundColor != TextColor.None) {
                         var bg = bgTextColor;
                         if (fmsgti.BackgroundColor != TextColor.None) {
@@ -301,40 +309,39 @@ namespace Smuxi.Frontend.Gnome
                         );
                         //Console.WriteLine("GetBestTextColor({0}, {1}): {2}",  fmsgti.ForegroundColor, bgTextColor, color);
                         string tagname = GetTextTagName(color, null);
-                        //string tagname = _GetTextTagName(fmsgti.ForegroundColor, null);
-                        tags.Add(tagname);
+                        var tag = _MessageTextTagTable.Lookup(tagname);
+                        tags.Add(tag);
                     }
                     if (fmsgti.BackgroundColor != TextColor.None) {
                         // TODO: get this from ChatView
                         string tagname = GetTextTagName(null, fmsgti.BackgroundColor);
-                        tags.Add(tagname);
+                        var tag = _MessageTextTagTable.Lookup(tagname);
+                        tags.Add(tag);
                     }
                     if (fmsgti.Underline) {
 #if LOG4NET && MSG_DEBUG
                         _Logger.Debug("AddMessage(): fmsgti.Underline is true");
 #endif
-                        tags.Add("underline");
+                        tags.Add(UnderlineTag);
                     }
                     if (fmsgti.Bold) {
 #if LOG4NET && MSG_DEBUG
                         _Logger.Debug("AddMessage(): fmsgti.Bold is true");
 #endif
-                        tags.Add("bold");
+                        tags.Add(BoldTag);
                     }
                     if (fmsgti.Italic) {
 #if LOG4NET && MSG_DEBUG
                         _Logger.Debug("AddMessage(): fmsgti.Italic is true");
 #endif
-                        tags.Add("italic");
+                        tags.Add(ItalicTag);
                     }
-                    if (msg.MessageType == MessageType.Event &&
-                        fmsgti.ForegroundColor == TextColor.None) {
-                        // only mark parts that don't have a color set
-                        tags.Add("event");
+                    if (msg.MessageType == MessageType.Event) {
+                        tags.Add(EventTag);
                     }
 
                     if (tags.Count > 0) {
-                        buffer.InsertWithTagsByName(ref iter, fmsgti.Text, tags.ToArray());
+                        buffer.InsertWithTags(ref iter, fmsgti.Text, tags.ToArray());
                     } else {
                         buffer.Insert(ref iter, fmsgti.Text);
                     }
@@ -391,16 +398,19 @@ namespace Smuxi.Frontend.Gnome
             fd = new Pango.FontDescription();
             fd.Weight = Pango.Weight.Bold;
             tt.FontDesc = fd;
+            BoldTag = tt;
             ttt.Add(tt);
 
             tt = new Gtk.TextTag("italic");
             fd = new Pango.FontDescription();
             fd.Style = Pango.Style.Italic;
             tt.FontDesc = fd;
+            ItalicTag = tt;
             ttt.Add(tt);
             
             tt = new Gtk.TextTag("underline");
             tt.Underline = Pango.Underline.Single;
+            UnderlineTag = tt;
             ttt.Add(tt);
             
             tt = new Gtk.TextTag("link");
@@ -408,10 +418,12 @@ namespace Smuxi.Frontend.Gnome
             tt.Foreground = "darkblue";
             fd = new Pango.FontDescription();
             tt.FontDesc = fd;
+            LinkTag = tt;
             ttt.Add(tt);
 
             tt = new Gtk.TextTag("event");
             tt.Foreground = "darkgray";
+            EventTag = tt;
             ttt.Add(tt);
 
             return ttt;
