@@ -191,7 +191,7 @@ namespace Smuxi.Frontend.Gnome
 
             var bgTextColor = ColorConverter.GetTextColor(BackgroundColor);
             // get best contrast for the event font color
-            Gdk.Color eventColor;
+            Gdk.Color eventColor = Gdk.Color.Zero;
             Gdk.Color.Parse("darkgray", ref eventColor);
             var eventTextColor = TextColorTools.GetBestTextColor(
                 ColorConverter.GetTextColor(eventColor),
@@ -203,7 +203,7 @@ namespace Smuxi.Frontend.Gnome
             );
 
             // get best contrast for the link font color
-            Gdk.Color linkColor;
+            Gdk.Color linkColor = Gdk.Color.Zero;
             Gdk.Color.Parse("darkblue", ref linkColor);
             var linkTextColor = TextColorTools.GetBestTextColor(
                 ColorConverter.GetTextColor(linkColor),
