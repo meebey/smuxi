@@ -290,7 +290,7 @@ namespace Smuxi.Frontend.Gnome
 
                     // apply timestamp width to indent tag
                     if (indentTag != null) {
-                        indentTag.Indent -= GetWidth(timestamp);
+                        indentTag.Indent -= GetPangoWidth(timestamp);
                     }
                 }
             }
@@ -700,26 +700,58 @@ namespace Smuxi.Frontend.Gnome
             // HACK: try to obtain the nickname from the message
             // TODO: extend MessageModel with Origin property
             var msgText = msg.ToString();
-            string senderPrefix = null;
-            var nickMatch = Regex.Match(msgText, "^(<[^ ]+> )");
-            if (nickMatch.Success && nickMatch.Groups.Count >= 2) {
-                senderPrefix = nickMatch.Groups[1].Value;
+            var nickMatch = Regex.Match(msgText, "^(<([^ ]+)> )");
+            if (nickMatch.Success) {
+                // HACK: the nick can be bold
+                if (msg.MessageParts.Count >= 3) {
+                    // possibly colored nick, see MessageBuilder.CreateNick()
+                    var prefixPart = msg.MessageParts[0];
+                    var nickPart = msg.MessageParts[1];
+                    var suffixPart = msg.MessageParts[2];
+                    if (prefixPart.ToString() == "<" &&
+                        nickPart is TextMessagePartModel &&
+                        suffixPart.ToString().StartsWith(">")) {
+                        // colored nick
+                        var nickTextPart = (TextMessagePartModel) nickPart;
+                        if (nickTextPart.Bold) {
+                            return GetPangoWidth(
+                                String.Format(
+                                    "{0}<b>{1}</b>{2} ",
+                                    GLib.Markup.EscapeText("<"),
+                                    GLib.Markup.EscapeText(
+                                        nickMatch.Groups[2].Value
+                                    ),
+                                    GLib.Markup.EscapeText(">")
+                                ),
+                                true
+                            );
+                        }
+                    }
+                }
+                return GetPangoWidth(nickMatch.Groups[1].Value, false);
             } else {
                 var eventMatch = Regex.Match(msgText, "^(-!- )");
                 if (eventMatch.Success && eventMatch.Groups.Count >= 2) {
-                    senderPrefix = eventMatch.Groups[1].Value;
+                    return GetPangoWidth(eventMatch.Groups[1].Value, false);
                 }
             }
-            if (senderPrefix == null) {
-                return 0;
-            }
-
-            return GetWidth(senderPrefix);
+            return 0;
         }
 
-        int GetWidth(string text)
+        int GetPangoWidth(string text)
         {
-            Pango.Layout layout = CreatePangoLayout(text);
+            return GetPangoWidth(text, false);
+        }
+
+        int GetPangoWidth(string text, bool isMarkup)
+        {
+            Pango.Layout layout;
+            if (isMarkup) {
+                layout = CreatePangoLayout(null);
+                layout.SetMarkup(text);
+            } else {
+                layout = CreatePangoLayout(text);
+            }
             int width, heigth;
             layout.GetPixelSize(out width, out heigth);
             return width;
