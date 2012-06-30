@@ -23,6 +23,7 @@ src/Frontend-GNOME/Views/Chats/ProtocolChatView.cs
 src/Frontend-GNOME/Preferences/ServerListView.cs
 src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ChatFindDialog.cs
 src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.FindGroupChatDialog.cs
+src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.JoinWidget.cs
 src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.QuickConnectDialog.cs
 src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs
 src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantConnectionWidget.cs
