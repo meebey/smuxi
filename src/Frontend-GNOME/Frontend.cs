@@ -167,6 +167,9 @@ namespace Smuxi.Frontend.Gnome
                 }
                 return (bool) _FrontendConfig["UseLowBandwidthMode"];
             }
+            set {
+                _FrontendConfig["UseLowBandwidthMode"] = value;
+            }
         }
 
         public static void Init(string[] args)
