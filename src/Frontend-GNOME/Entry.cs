@@ -22,6 +22,7 @@
 
 using System;
 using System.Runtime.InteropServices;
+using System.Threading;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
@@ -518,6 +519,10 @@ namespace Smuxi.Frontend.Gnome
                         _CommandList(cd);
                         handled = true;
                         break;
+                    case "sync":
+                        _CommandSync(cd);
+                        handled = true;
+                        break;
                 }
             }
             
@@ -536,6 +541,7 @@ namespace Smuxi.Frontend.Gnome
             string[] help = {
             "help",
             "window (number|channelname|queryname|close)",
+            "sync",
             "clear",
             "echo data",
             "exec command",
@@ -639,6 +645,32 @@ namespace Smuxi.Frontend.Gnome
             }
         }
     
+        private void _CommandSync(CommandModel cmd)
+        {
+            if (Frontend.IsLocalEngine) {
+                return;
+            }
+
+            var chatView = ChatViewManager.CurrentChatView;
+            ThreadPool.QueueUserWorkItem(delegate {
+                try {
+                    // HACK: force a full sync
+                    Frontend.UseLowBandwidthMode = false;
+                    chatView.Sync();
+                    Frontend.UseLowBandwidthMode = true;
+
+                    Gtk.Application.Invoke(delegate {
+                        Frontend.UseLowBandwidthMode = false;
+                        chatView.Populate();
+                        Frontend.UseLowBandwidthMode = true;
+                        chatView.ScrollToEnd();
+                    });
+                } catch (Exception ex) {
+                    Frontend.ShowError(null, ex);
+                }
+            });
+        }
+
         private void _CommandClear(CommandModel cd)
         {
             ChatViewManager.CurrentChatView.Clear();
