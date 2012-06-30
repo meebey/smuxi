@@ -54,6 +54,7 @@ namespace Smuxi.Frontend.Gnome
         Dictionary<ChatView, MessageTextViewMessageHighlightedEventHandler> HighlightEventHandlers { get; set; }
         bool IsInitialized { get; set; }
         bool IsEnabled { get; set; }
+        string DesktopFile { get; set; }
 
         static IndicateManager()
         {
@@ -119,12 +120,41 @@ namespace Smuxi.Frontend.Gnome
                 return;
             }
 
+            var home = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
+            var blacklistPath = Path.Combine(home, ".config");
+            blacklistPath = Path.Combine(blacklistPath, "indicators");
+            blacklistPath = Path.Combine(blacklistPath, "messages");
+            blacklistPath = Path.Combine(blacklistPath, "applications-blacklist");
+            if (!Directory.Exists(blacklistPath)) {
+                Directory.CreateDirectory(blacklistPath);
+            }
+            blacklistPath = Path.Combine(blacklistPath, "smuxi-frontend-gnome");
+
             if ((bool) userConfig["Interface/Notification/MessagingMenuEnabled"]) {
+                // persist in menu
+                if (File.Exists(blacklistPath)) {
+                    File.Delete(blacklistPath);
+                }
+                var path = Path.Combine(home, ".config");
+                path = Path.Combine(path, "indicators");
+                path = Path.Combine(path, "messages");
+                path = Path.Combine(path, "applications");
+                if (!Directory.Exists(path)) {
+                    Directory.CreateDirectory(path);
+                }
+                path = Path.Combine(path, "smuxi-frontend-gnome");
+                File.WriteAllText(path, DesktopFile + "\n");
+
                 Server.Show();
                 IsEnabled = true;
                 // hide the main window instead of closing it
                 MainWindow.NotificationAreaIconMode = NotificationAreaIconMode.Closed;
             } else {
+                // non-persistent in menu using the blacklist as per
+                // specification:
+                // https://wiki.ubuntu.com/MessagingMenu/#Registration
+                File.WriteAllText(blacklistPath, DesktopFile + "\n");
+
                 Server.Hide();
                 IsEnabled = false;
             }
@@ -166,11 +196,10 @@ namespace Smuxi.Frontend.Gnome
 
             var insDesktopFile = Path.Combine(Defines.InstallPrefix, partialPath);
             var sysDesktopFile = Path.Combine("/usr", partialPath);
-            string desktopFile = null;
             if (File.Exists(insDesktopFile)) {
-                desktopFile = insDesktopFile;
+                DesktopFile = insDesktopFile;
             } else if (File.Exists(sysDesktopFile)) {
-                desktopFile = sysDesktopFile;
+                DesktopFile = sysDesktopFile;
             } else {
 #if LOG4NET
                 Logger.Error("Init(): smuxi-frontend-gnome.desktop could not " +
@@ -180,7 +209,7 @@ namespace Smuxi.Frontend.Gnome
             }
 
             Server.SetType("message.im");
-            Server.DesktopFile(desktopFile);
+            Server.DesktopFile(DesktopFile);
             Server.ServerDisplay += OnServerServerDisplay;
 
             MainWindow.FocusInEvent += OnMainWindowFocusInEvent;
