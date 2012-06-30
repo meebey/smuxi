@@ -69,9 +69,11 @@ namespace Smuxi.Frontend.Gnome
 
         public Gtk.MenuBar MenuBar { get; private set; }
         Gtk.HBox MenuHBox { get; set; }
+        Gtk.HBox StatusHBox { get; set; }
         JoinWidget JoinWidget { get; set; }
         Gtk.CheckMenuItem ShowQuickJoinMenuItem { get; set; }
         Gtk.CheckMenuItem ShowMenuBarMenuItem  { get; set; }
+        Gtk.CheckMenuItem ShowStatusBarMenuItem  { get; set; }
 
         public bool ShowMenuBar {
             get {
@@ -448,6 +450,11 @@ namespace Smuxi.Frontend.Gnome
             ShowMenuBarMenuItem.Activated += OnShowMenuBarMenuItemActivated;
             menu.Append(ShowMenuBarMenuItem);
 
+            ShowStatusBarMenuItem = new Gtk.CheckMenuItem(_("Show _Status Bar"));
+            ShowStatusBarMenuItem.Active = (bool) Frontend.FrontendConfig["ShowStatusBar"];
+            ShowStatusBarMenuItem.Activated += OnShowStatusBarMenuItemActivated;
+            menu.Append(ShowStatusBarMenuItem);
+
             JoinWidget = new JoinWidget();
             JoinWidget.NoShowAll = true;
             JoinWidget.Visible = (bool) Frontend.FrontendConfig["ShowQuickJoin"];
@@ -570,11 +577,11 @@ namespace Smuxi.Frontend.Gnome
             status_bar_hbox.PackStart(_NetworkStatusbar, false, true, 0);
             status_bar_hbox.PackStart(_Statusbar, true, true, 0);
 
-            Gtk.HBox status_hbox = new Gtk.HBox();
-            status_hbox.PackStart(status_bar_hbox);
-            status_hbox.PackStart(_ProgressBar, false, false, 0);
+            StatusHBox = new Gtk.HBox();
+            StatusHBox.PackStart(status_bar_hbox);
+            StatusHBox.PackStart(_ProgressBar, false, false, 0);
 
-            vbox.PackStart(status_hbox, false, false, 0);
+            vbox.PackStart(StatusHBox, false, false, 0);
             Add(vbox);
         }
 
@@ -1055,6 +1062,19 @@ namespace Smuxi.Frontend.Gnome
             try {
                 MenuBar.Visible = ShowMenuBarMenuItem.Active;
                 Frontend.FrontendConfig["ShowMenuBar"] = MenuBar.Visible;
+                Frontend.FrontendConfig.Save();
+            } catch (Exception ex) {
+                Frontend.ShowException(this, ex);
+            }
+        }
+
+        protected virtual void OnShowStatusBarMenuItemActivated(object sender, EventArgs e)
+        {
+            Trace.Call(sender, e);
+
+            try {
+                StatusHBox.Visible = ShowStatusBarMenuItem.Active;
+                Frontend.FrontendConfig["ShowStatusBar"] = StatusHBox.Visible;
                 Frontend.FrontendConfig.Save();
             } catch (Exception ex) {
                 Frontend.ShowException(this, ex);
