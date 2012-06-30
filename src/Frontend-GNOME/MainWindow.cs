@@ -580,6 +580,9 @@ namespace Smuxi.Frontend.Gnome
             StatusHBox = new Gtk.HBox();
             StatusHBox.PackStart(status_bar_hbox);
             StatusHBox.PackStart(_ProgressBar, false, false, 0);
+            StatusHBox.ShowAll();
+            StatusHBox.NoShowAll = true;
+            StatusHBox.Visible = ShowStatusBarMenuItem.Active;
 
             vbox.PackStart(StatusHBox, false, false, 0);
             Add(vbox);
