@@ -951,15 +951,17 @@ namespace Smuxi.Engine
             List<TwitterStatus> sortedTimeline = SortTimeline(timeline);
             foreach (TwitterStatus status in sortedTimeline) {
                 String text;
-                if ((status.IsTruncated != null && !status.IsTruncated.Value) ||
-                    status.RetweetedStatus == null) {
-                    text = status.Text;
-                } else {
+                // LAME: Twitter lies in the truncated field and says it's not
+                // truncated while it is, thus always use retweet_status if
+                // available
+                if (status.RetweetedStatus != null) {
                     text = String.Format(
                         "RT @{0}: {1}",
                         status.RetweetedStatus.User.ScreenName,
                         status.RetweetedStatus.Text
                     );
+                } else {
+                    text = status.Text;
                 }
                 MessageModel msg = CreateMessage(
                     status.CreatedDate,
