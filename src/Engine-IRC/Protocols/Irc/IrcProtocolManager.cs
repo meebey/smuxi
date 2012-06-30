@@ -347,6 +347,16 @@ namespace Smuxi.Engine
             Trace.Call(fm);
             
             try {
+                MessageBuilder builder;
+                if (!String.IsNullOrEmpty(_IrcClient.ProxyHost)) {
+                    builder = CreateMessageBuilder();
+                    builder.AppendEventPrefix();
+                    builder.AppendText(_("Using proxy: {0}:{1}"),
+                                       _IrcClient.ProxyHost,
+                                       _IrcClient.ProxyPort);
+                    Session.AddMessageToChat(Chat, builder.ToMessage());
+                }
+
                 string msg;
                 msg = String.Format(_("Connecting to {0} port {1}..."), _Host, _Port);
                 fm.SetStatus(msg);
@@ -363,7 +373,7 @@ namespace Smuxi.Engine
                     realname = "unset";
                 }
                 if (!Regex.IsMatch(_Username, "^[a-z0-9]+$", RegexOptions.IgnoreCase)) {
-                    var builder = CreateMessageBuilder();
+                    builder = CreateMessageBuilder();
                     builder.AppendEventPrefix();
                     builder.AppendWarningText(
                         "Warning: Your username (ident) contains special " +

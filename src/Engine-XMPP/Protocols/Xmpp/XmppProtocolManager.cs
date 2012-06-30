@@ -143,6 +143,14 @@ namespace Smuxi.Engine
             Session.AddChat(_NetworkChat);
             Session.SyncChat(_NetworkChat);
 
+            if (!String.IsNullOrEmpty(_JabberClient.ProxyHost)) {
+                var builder = CreateMessageBuilder();
+                builder.AppendEventPrefix();
+                builder.AppendText(_("Using proxy: {0}:{1}"),
+                                   _JabberClient.ProxyHost,
+                                   _JabberClient.ProxyPort);
+                Session.AddMessageToChat(Chat, builder.ToMessage());
+            }
             _JabberClient.Connect();
         }
         

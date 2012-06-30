@@ -172,14 +172,16 @@ namespace Smuxi.Engine
             var proxySettings = new ProxySettings();
             proxySettings.ApplyConfig(Session.UserConfig);
             var twitterUrl = new OptionalProperties().APIBaseAddress;
-            f_WebProxy = proxySettings.GetWebProxy(twitterUrl);
+            var proxy = proxySettings.GetWebProxy(twitterUrl);
             // HACK: Twitterizer will always use the system proxy if set to null
             // so explicitely override this by setting an empty proxy
-            if (f_WebProxy == null) {
+            if (proxy == null) {
                 f_WebProxy = new WebProxy();
+            } else {
+                f_WebProxy = proxy;
             }
-            f_OptionalProperties = CreateOptions<OptionalProperties>();
 
+            f_OptionalProperties = CreateOptions<OptionalProperties>();
             f_ProtocolChat = new ProtocolChatModel(NetworkID, "Twitter " + f_Username, this);
             f_ProtocolChat.InitMessageBuffer(
                 MessageBufferPersistencyType.Volatile
@@ -187,6 +189,16 @@ namespace Smuxi.Engine
             f_ProtocolChat.ApplyConfig(Session.UserConfig);
             Session.AddChat(f_ProtocolChat);
             Session.SyncChat(f_ProtocolChat);
+
+            MessageBuilder builder;
+            if (proxy != null && proxy.Address != null) {
+                builder = CreateMessageBuilder();
+                builder.AppendEventPrefix();
+                builder.AppendText(_("Using proxy: {0}:{1}"),
+                                   proxy.Address.Host,
+                                   proxy.Address.Port);
+                Session.AddMessageToChat(Chat, builder.ToMessage());
+            }
 
             string msg;
             msg = String.Format(_("Connecting to Twitter..."));
@@ -198,7 +210,6 @@ namespace Smuxi.Engine
                 f_OAuthTokens.ConsumerKey = key[0];
                 f_OAuthTokens.ConsumerSecret = key[1];
 
-                MessageBuilder builder;
                 var password = server.Password ?? String.Empty;
                 var access = password.Split('|');
                 if (access.Length == 2) {
