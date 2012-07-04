@@ -167,5 +167,87 @@ namespace Smuxi.Engine
                           114d * color2.Blue) / 1000d;
             return Math.Abs(br1 - br2);
         }
+
+        // algorithm ported from JavaScript to C# from:
+        // http://mjijackson.com/2008/02/rgb-to-hsl-and-rgb-to-hsv-color-model-conversion-algorithms-in-javascript
+        internal static HslColor ToHSL(TextColor color)
+        {
+            var R = color.Red / 255d;
+            var G = color.Green / 255d;
+            var B = color.Blue / 255d;
+            var max = Math.Max(Math.Max(R, G), B);
+            var min = Math.Min(Math.Min(R, G), B);
+
+            double H = 0d, S, L;
+            var range = max + min;
+            L = range / 2d;
+            if (max == min) {
+                S = 0d; // achromatic
+            } else {
+                var diff = max - min;
+                S = L > 0.5d ? diff / (2 - diff) : diff / range;
+                if (max == R) {
+                    H = (G - B) / diff + (G < B ? 6d : 0d);
+                } else if (max == G) {
+                    H = (B - R) / diff + 2;
+                } else if (max == B) {
+                    H = (R - G) / diff + 4;
+                }
+                H /= 6;
+            }
+            return new HslColor(H, S, L);
+        }
+
+        public static TextColor GetNearestColor(TextColor color, IEnumerable<TextColor> palette)
+        {
+            if (palette == null) {
+                throw new ArgumentNullException("palette");
+            }
+
+            var hslColor1 = ToHSL(color);
+            TextColor nearestColor = null;
+            double nearestDifference = Double.MaxValue;
+            foreach (var color2 in palette) {
+                // compute the Euclidean distance between the two HSL colors
+                // without root square as we only compare the values
+                // see http://en.wikipedia.org/wiki/Color_difference#Delta_E
+                var hslColor2 = ToHSL(color2);
+                var H1 = hslColor1.Hue;
+                var S1 = hslColor1.Saturation;
+                var L1 = hslColor1.Lightness;
+                var H2 = hslColor2.Hue;
+                var S2 = hslColor2.Saturation;
+                var L2 = hslColor2.Lightness;
+                var Hdelta = H1 - H2;
+                var Sdelta = S1 - S2;
+                var Ldelta = L1 - L2;
+                var deltaE = (Hdelta * Hdelta) +
+                             (Sdelta * Sdelta) +
+                             (Ldelta * Ldelta);
+                if (deltaE < nearestDifference) {
+                    nearestDifference = deltaE;
+                    nearestColor = color2;
+                }
+                if (deltaE == 0d) {
+                    // found perfect match, can't get better than that
+                    break;
+                }
+            }
+            return nearestColor;
+        }
+
+        internal class HslColor
+        {
+            public double Hue { get; set; }
+            public double Saturation { get; set; }
+            public double Lightness { get; set; }
+
+            public HslColor(double H, double S, double L)
+            {
+                Hue = H;
+                Saturation = S;
+                Lightness = L;
+            }
+        }
     }
 }

@@ -99,5 +99,26 @@ namespace Smuxi.Engine
                 );
             }
         }
+
+        [Test]
+        public void GetNearestColor()
+        {
+            var palette = new List<TextColor>();
+            palette.Add(TextColor.Parse("#000000"));
+            palette.Add(TextColor.Parse("#FF0000"));
+            palette.Add(TextColor.Parse("#00FF00"));
+            palette.Add(TextColor.Parse("#0000FF"));
+            palette.Add(TextColor.Parse("#FF00FF"));
+            palette.Add(TextColor.Parse("#FFFF00"));
+            palette.Add(TextColor.Parse("#FFFFFF"));
+
+            var expected = TextColor.Parse("#FF0000");
+            var actual = TextColorTools.GetNearestColor(TextColor.Parse("#FF1111"), palette);
+            Assert.AreEqual(expected, actual);
+
+            expected = TextColor.Parse("#FFFFFF");
+            actual = TextColorTools.GetNearestColor(TextColor.Parse("#FF9999"), palette);
+            Assert.AreEqual(expected, actual);
+        }
     }
 }
