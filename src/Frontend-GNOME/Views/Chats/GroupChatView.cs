@@ -572,6 +572,17 @@ namespace Smuxi.Frontend.Gnome
                 return;
             }
 
+            var protocolManager = ProtocolManager;
+            if (protocolManager == null) {
+#if LOG4NET
+                _Logger.WarnFormat(
+                    "{0}.OnPersonsRowActivated(): ProtocolManager is null, " +
+                    "bailing out!", this
+                );
+#endif
+                return;
+            }
+
             // jump to person chat if available
             foreach (var chatView in Frontend.MainWindow.ChatViewManager.Chats) {
                 if (!(chatView is PersonChatView)) {
@@ -597,7 +608,7 @@ namespace Smuxi.Frontend.Gnome
 
                 ThreadPool.QueueUserWorkItem(delegate {
                     try {
-                        ProtocolManager.OpenChat(
+                        protocolManager.OpenChat(
                             Frontend.FrontendManager,
                             personChat
                         );
