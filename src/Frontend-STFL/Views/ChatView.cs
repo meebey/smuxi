@@ -124,7 +124,22 @@ namespace Smuxi.Frontend.Stfl
                         ".display[" + f_WidgetID + "d]:0 " +
                         "offset[" + f_WidgetID + "os]:0 " +
                         "richtext:1 " +
-                        "style_red_normal:fg=red " +
+                        "style_color0_normal:fg=black " +
+                        "style_color1_normal:fg=red " +
+                        "style_color2_normal:fg=green " +
+                        "style_color3_normal:fg=yellow " +
+                        "style_color4_normal:fg=blue " +
+                        "style_color5_normal:fg=magenta " +
+                        "style_color6_normal:fg=cyan " +
+                        "style_color7_normal:fg=white " +
+                        "style_color8_normal:fg=black,attr=bold " +
+                        "style_color9_normal:fg=red,attr=bold " +
+                        "style_color10_normal:fg=green,attr=bold " +
+                        "style_color11_normal:fg=yellow,attr=bold " +
+                        "style_color12_normal:fg=blue,attr=bold " +
+                        "style_color13_normal:fg=magenta,attr=bold " +
+                        "style_color14_normal:fg=cyan,attr=bold " +
+                        "style_color15_normal:fg=white,attr=bold " +
                         "style_url_normal:attr=underline " +
                         "style_u_normal:attr=underline " +
                         "style_b_normal:attr=bold " +
@@ -255,17 +270,26 @@ namespace Smuxi.Frontend.Stfl
 
                     var tags = new List<string>();
                     if (txtPart.ForegroundColor != TextColor.None) {
-                        // TODO: implement color mapping, see:
-                        // http://www.calmar.ws/vim/256-xterm-24bit-rgb-color-chart.html
-                        //tags.Add("red");
+                        var palette = TextColorPalettes.LinuxConsole;
+                        var color = TextColorTools.GetNearestColor(
+                            txtPart.ForegroundColor,
+                            palette
+                        );
+                        var colorNumber = palette.IndexOf(color);
+                        tags.Add(String.Format("color{0}", colorNumber));
                     }
-                    if (txtPart.Underline) {
+                    // HACK: STFL doesn't support applying multiple styles at
+                    // the same time and thus simply overwrites any previous
+                    // style. As a workaround we only apply one style with the
+                    // highest priority in this order:
+                    // color >> underline >> bold >> italic
+                    if (txtPart.Underline && tags.Count == 0) {
                         tags.Add("u");
                     }
-                    if (txtPart.Bold) {
+                    if (txtPart.Bold && tags.Count == 0) {
                         tags.Add("b");
                     }
-                    if (txtPart.Italic) {
+                    if (txtPart.Italic && tags.Count == 0) {
                         tags.Add("i");
                     }
 

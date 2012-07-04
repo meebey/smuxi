@@ -59,6 +59,7 @@ FILES = \
 	SessionManager.cs \
 	TextColor.cs \
 	TextColorContrast.cs \
+	TextColorPalettes.cs \
 	TextColorTools.cs \
 	UICommand.cs \
 	UICommandContainer.cs \
