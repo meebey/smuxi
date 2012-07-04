@@ -562,9 +562,19 @@ namespace Smuxi.Frontend.Gnome
         {
             Trace.Call();
 
+            var protocolManager = ProtocolManager;
+            if (protocolManager == null) {
+#if LOG4NET
+                _Logger.WarnFormat(
+                    "{0}.Close(): ProtocolManager is null, bailing out!", this
+                );
+#endif
+                return;
+            }
+
             ThreadPool.QueueUserWorkItem(delegate {
                 try {
-                    ProtocolManager.CloseChat(
+                    protocolManager.CloseChat(
                         Frontend.FrontendManager,
                         ChatModel
                     );
