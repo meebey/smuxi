@@ -1,126 +1,70 @@
-﻿<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <DefaultClrNameSpace>Smuxi.Frontend.Wpf</DefaultClrNameSpace>
-    <AssemblyName>smuxi-frontend-wpf</AssemblyName>
-    <AlwaysCompileMarkupFilesInSeparateDomain>false</AlwaysCompileMarkupFilesInSeparateDomain>
-    <ExpressionBlendCreationVersion>2.1.1111.0</ExpressionBlendCreationVersion>
-    <ProjectGuid>{314F56AF-A99F-4392-A13C-71002F611252}</ProjectGuid>
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
-    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <StartupObject>Smuxi.Frontend.Wpf.Frontend</StartupObject>
+    <ProductVersion>10.0.0</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{BE7B2AE6-765A-4EB6-BBB6-F402B1939EC4}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
     <RootNamespace>Smuxi.Frontend.Wpf</RootNamespace>
-    <CodePage>65001</CodePage>
+    <ApplicationIcon>.</ApplicationIcon>
+    <AssemblyName>smuxi-frontend-wpf</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>..\..\bin\debug\</OutputPath>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\bin\debug</OutputPath>
     <DefineConstants>DEBUG;TRACE;LOG4NET</DefineConstants>
-    <OutputType>Exe</OutputType>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
+    <Execution>
+      <Execution clr-version="Net_2_0" />
+    </Execution>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>none</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\..\bin\release\</OutputPath>
-    <OutputType>WinExe</OutputType>
+    <OutputPath>..\..\bin\release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
+    <Execution>
+      <Execution clr-version="Net_2_0" />
+    </Execution>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="log4net"/>
-    <Reference Include="Mono.Posix"/>
-    <Reference Include="PresentationCore" />
-    <Reference Include="PresentationFramework" />
-    <Reference Include="System.Core" />
-    <Reference Include="WindowsBase" />
-  </ItemGroup>
-  <ItemGroup>
-    <ApplicationDefinition Include="Frontend.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </ApplicationDefinition>
-    <Compile Include="..\AssemblyVersion.cs">
-      <Link>AssemblyVersion.cs</Link>
-    </Compile>
     <Compile Include="AssemblyInfo.cs" />
-    <Compile Include="Chats\ChatView.cs" />
-    <Compile Include="Chats\GroupChatView.cs" />
-    <Compile Include="ChatViewManager.cs" />
-    <Compile Include="Frontend.xaml.cs">
-      <DependentUpon>Frontend.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
-    </Compile>
+    <Compile Include="App.xaml.cs" />
     <Compile Include="NotImplementedMessageDialog.cs" />
-    <Compile Include="Preferences\PreferencesDialog.xaml.cs">
-      <DependentUpon>PreferencesDialog.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Preferences\ServerView.xaml.cs">
-      <DependentUpon>ServerView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="WpfUI.cs" />
-    <Compile Include="XamlConverters.cs" />
-    <Page Include="MainWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Preferences\PreferencesDialog.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Preferences\ServerView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="SplashScreenWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
+    <Compile Include="..\AssemblyVersion.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Common\Common.csproj">
-      <Project>{E1CAA428-6841-4C42-B4FA-3A3DE6D86B3D}</Project>
-      <Name>Common</Name>
-    </ProjectReference>
+    <None Include="App.xaml" />
+    <None Include="SplashScreenWindow.xaml" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\Engine\Engine.csproj">
-      <Project>{B5F12596-21D7-4878-86E0-A230BE0D5F02}</Project>
+      <Project>{BCD52FCF-B7A8-42FB-AA8D-CF9921FF593E}</Project>
       <Name>Engine</Name>
     </ProjectReference>
     <ProjectReference Include="..\Frontend\Frontend.csproj">
-      <Project>{0F54E2A1-25A7-4433-AFE8-58B212E8F846}</Project>
+      <Project>{7B1E3AB2-FB8C-4439-A2B4-2129EDBD79F8}</Project>
       <Name>Frontend</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="..\..\images\about.png">
-      <Link>Images\about.png</Link>
-    </Resource>
-    <Resource Include="..\..\images\connect.png">
-      <Link>Images\connect.png</Link>
-    </Resource>
-    <Resource Include="..\..\images\edit.png">
-      <Link>Images\edit.png</Link>
-    </Resource>
-    <Resource Include="..\..\images\icon_default.png">
-      <Link>Images\icon_default.png</Link>
-    </Resource>
-    <Resource Include="..\..\images\icon_halfop.png">
-      <Link>Images\icon_halfop.png</Link>
-    </Resource>
-    <Resource Include="..\..\images\icon_op.png">
-      <Link>Images\icon_op.png</Link>
-    </Resource>
-    <Resource Include="..\..\images\icon_voice.png">
-      <Link>Images\icon_voice.png</Link>
-    </Resource>
-    <Resource Include="..\..\images\server.png">
-      <Link>Images\server.png</Link>
-    </Resource>
-    <Resource Include="..\..\images\splashscreen.png">
-      <Link>Images\splashscreen.png</Link>
-    </Resource>
+    <Reference Include="Mono.Posix" />
   </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ProjectExtensions>
+    <MonoDevelop>
+      <Properties>
+        <Deployment.LinuxDeployData scriptName="smuxi-frontend-wpf" />
+      </Properties>
+    </MonoDevelop>
+  </ProjectExtensions>
 </Project>

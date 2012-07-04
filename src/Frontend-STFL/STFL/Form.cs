@@ -37,15 +37,19 @@ namespace Stfl
     public class Form : IDisposable
     {
         IntPtr f_Handle;
-        
+
+        bool Disposed { get; set; }
+
         public event KeyPressedEventHandler KeyPressed;
         public event EventHandler<EventReceivedEventArgs> EventReceived;
         
         public string this[string name] {
             get {
+                CheckDisposed();
                 return StflApi.stfl_get(f_Handle, name);
             }
             set {
+                CheckDisposed();
                 StflApi.stfl_set(f_Handle, name, value);
             }
         }
@@ -86,6 +90,11 @@ namespace Stfl
 
         protected virtual void Dispose(bool disposing)
         {
+            var disposed = Disposed;
+            if (disposed) {
+                return;
+            }
+
             if (f_Handle != IntPtr.Zero) {
                 StflApi.stfl_free(f_Handle);
             }
@@ -99,6 +108,7 @@ namespace Stfl
 
         public virtual void Run(int timeout)
         {
+            CheckDisposed();
             string @event = StflApi.stfl_run(f_Handle, timeout);
             ProcessEvent(@event);
         }
@@ -110,12 +120,21 @@ namespace Stfl
 
         public void Modify(string name, string mode, string text)
         {
+            CheckDisposed();
             StflApi.stfl_modify(f_Handle, name, mode, text);
         }
 
         public string Dump(string name, string prefix, int focus)
         {
+            CheckDisposed();
             return StflApi.stfl_dump(f_Handle, name, prefix, focus);
+        }
+
+        public void Reset()
+        {
+            CheckDisposed();
+            Dispose();
+            StflApi.stfl_reset();
         }
 
         protected virtual void ProcessEvent(string @event)
@@ -135,6 +154,7 @@ namespace Stfl
 
         protected virtual void ProcessKey(string key)
         {
+            CheckDisposed();
             string focus = StflApi.stfl_get_focus(f_Handle);
             OnKeyPressed(new KeyPressedEventArgs(key, focus));
         }
@@ -144,6 +164,14 @@ namespace Stfl
             if (KeyPressed != null) {
                 KeyPressed(this, e);
             }
+        }
+
+        void CheckDisposed()
+        {
+            if (!Disposed) {
+                return;
+            }
+            throw new ObjectDisposedException(GetType().Name);
         }
     }
 }

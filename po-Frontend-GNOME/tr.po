@@ -3,13 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
+# Mirco Bauer <meebey@meebey.net>, 2012.
 msgid ""
 msgstr ""
 "Project-Id-Version: Smuxi - IRC client\n"
 "Report-Msgid-Bugs-To: http://www.smuxi.org/issues\n"
 "POT-Creation-Date: 2011-12-29 09:22+0100\n"
-"PO-Revision-Date: 2010-11-30 04:12+0000\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"PO-Revision-Date: 2012-01-22 11:09+0000\n"
+"Last-Translator: Mirco Bauer <meebey@meebey.net>\n"
 "Language-Team: Turkish (http://www.transifex.net/projects/p/smuxi/team/tr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -453,7 +454,7 @@ msgstr ""
 
 #: ../src/Frontend-GNOME/AboutDialog.cs:60
 msgid "translator-credits"
-msgstr ""
+msgstr "Umut Albayrak <umutmuh@gmail.com>"
 
 #: ../src/Frontend-GNOME/AboutDialog.cs:65
 msgid "Smuxi Website"

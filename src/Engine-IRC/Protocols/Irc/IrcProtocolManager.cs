@@ -347,6 +347,16 @@ namespace Smuxi.Engine
             Trace.Call(fm);
             
             try {
+                MessageBuilder builder;
+                if (!String.IsNullOrEmpty(_IrcClient.ProxyHost)) {
+                    builder = CreateMessageBuilder();
+                    builder.AppendEventPrefix();
+                    builder.AppendText(_("Using proxy: {0}:{1}"),
+                                       _IrcClient.ProxyHost,
+                                       _IrcClient.ProxyPort);
+                    Session.AddMessageToChat(Chat, builder.ToMessage());
+                }
+
                 string msg;
                 msg = String.Format(_("Connecting to {0} port {1}..."), _Host, _Port);
                 fm.SetStatus(msg);
@@ -363,7 +373,7 @@ namespace Smuxi.Engine
                     realname = "unset";
                 }
                 if (!Regex.IsMatch(_Username, "^[a-z0-9]+$", RegexOptions.IgnoreCase)) {
-                    var builder = CreateMessageBuilder();
+                    builder = CreateMessageBuilder();
                     builder.AppendEventPrefix();
                     builder.AppendWarningText(
                         "Warning: Your username (ident) contains special " +
@@ -877,11 +887,12 @@ namespace Smuxi.Engine
 
             string[] help = {
             "help",
-            "connect irc server port [password] [nicknames]",
+            "connect irc server [port|+port] [password] [nicknames]",
             "say",
             "join/j channel(s) [key]",
             "part/p [channel(s)] [part-message]",
             "topic [new-topic]",
+            "names",
             "cycle/rejoin",
             "msg/query (channel|nick) message",
             "amsg message",
@@ -933,8 +944,14 @@ namespace Smuxi.Engine
             }
             
             if (cd.DataArray.Length >= 4) {
+                var port = cd.DataArray[3];
+                var ssl = port.StartsWith("+");
+                if (ssl) {
+                    server.UseEncryption = true;
+                    port = port.Substring(1);
+                }
                 try {
-                    server.Port = Int32.Parse(cd.DataArray[3]);
+                    server.Port = Int32.Parse(port);
                 } catch (FormatException) {
                     fm.AddTextToChat(
                         cd.Chat,
@@ -2897,20 +2914,27 @@ namespace Smuxi.Engine
 #if LOG4NET
             _Logger.Debug("_OnKick() e.Channel: "+e.Channel+" e.Whom: "+e.Whom);
 #endif
-            GroupChatModel cchat = (GroupChatModel) GetChat(e.Channel, ChatType.Group);
+            var chat = (GroupChatModel) GetChat(e.Channel, ChatType.Group);
+            var builder = CreateMessageBuilder();
+            builder.AppendEventPrefix();
             if (e.Data.Irc.IsMe(e.Whom)) {
-                Session.AddTextToChat(cchat,
-                    "-!- " + String.Format(
-                                _("You were kicked from {0} by {1} [{2}]"),
-                                e.Channel, e.Who, e.KickReason));
-                Session.DisableChat(cchat);
+                // TRANSLATOR: do NOT change the position of {1}!
+                builder.AppendText(_("You were kicked from {0} by {1}"),
+                                   e.Channel, String.Empty);
+                builder.AppendIdendityName(GetPerson(chat, e.Who));
+                builder.AppendText(" [").AppendMessage(e.KickReason).AppendText("]");
+                Session.AddMessageToChat(chat, builder.ToMessage());
+                Session.DisableChat(chat);
             } else {
-                PersonModel user = cchat.GetPerson(e.Whom);
-                Session.RemovePersonFromGroupChat(cchat, user);
-                Session.AddTextToChat(cchat,
-                    "-!- " + String.Format(
-                                _("{0} was kicked from {1} by {2} [{3}]"),
-                                e.Whom, e.Channel, e.Who, e.KickReason));
+                PersonModel user = chat.GetPerson(e.Whom);
+                Session.RemovePersonFromGroupChat(chat, user);
+                builder.AppendIdendityName(GetPerson(chat, e.Whom));
+                // TRANSLATOR: do NOT change the position of {0} and {2}!
+                builder.AppendText(_("{0} was kicked from {1} by {2}"),
+                                   String.Empty, e.Channel, String.Empty);
+                builder.AppendIdendityName(GetPerson(chat, e.Who));
+                builder.AppendText(" [").AppendMessage(e.KickReason).AppendText("]");
+                Session.AddMessageToChat(chat, builder.ToMessage());
             }
         }
         

@@ -32,5 +32,11 @@ namespace Stfl
 
         [DllImport("ncurses")]
         public static extern void nocbreak();
+
+        [DllImport("ncurses")]
+        public static extern void endwin();
+
+        [DllImport("ncurses")]
+        public static extern void refresh();
     }
 }

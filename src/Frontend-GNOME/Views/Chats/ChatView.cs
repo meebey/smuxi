@@ -21,7 +21,6 @@
  */
 
 using System;
-using System.Drawing;
 using System.Threading;
 using System.Collections.Generic;
 using Smuxi.Common;
@@ -565,7 +564,7 @@ namespace Smuxi.Frontend.Gnome
 
             ThreadPool.QueueUserWorkItem(delegate {
                 try {
-                    ChatModel.ProtocolManager.CloseChat(
+                    ProtocolManager.CloseChat(
                         Frontend.FrontendManager,
                         ChatModel
                     );

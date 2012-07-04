@@ -1,50 +1,77 @@
-﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{00FC8713-6A0A-4A8B-8437-AEEB778F6F32}</ProjectGuid>
+    <ProductVersion>10.0.0</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{95C1E256-73E7-4AAB-AA0B-405B51F7CF5A}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <AssemblyName>smuxi-engine-irc</AssemblyName>
     <RootNamespace>Smuxi.Engine</RootNamespace>
-    <CodePage>65001</CodePage>
+    <ApplicationIcon>.</ApplicationIcon>
+    <AssemblyName>smuxi-engine-irc</AssemblyName>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>..\..\bin\debug\</OutputPath>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\bin\debug</OutputPath>
     <DefineConstants>DEBUG;TRACE;LOG4NET</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
+    <Execution>
+      <Execution clr-version="Net_2_0" />
+    </Execution>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
+    <DebugType>none</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\..\bin\release\</OutputPath>
+    <OutputPath>..\..\bin\release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
+    <Execution>
+      <Execution clr-version="Net_2_0" />
+    </Execution>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="log4net"/>
-    <Reference Include="Meebey.SmartIrc4net"/>
-    <Reference Include="Mono.Posix"/>
-    <Reference Include="System" />
+    <Compile Include="Protocols\Irc\IrcGroupPersonModel.cs" />
+    <Compile Include="Protocols\Irc\IrcProtocolManager.cs" />
+    <Compile Include="Protocols\Irc\IrcPersonModel.cs" />
+    <Compile Include="Protocols\Irc\IrcTextColor.cs" />
+    <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="..\AssemblyVersion.cs" />
+    <Compile Include="Protocols\Irc\IrcMessageBuilder.cs" />
+    <Compile Include="Config\IrcServerModel.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\AssemblyVersion.cs">
-      <Link>AssemblyVersion.cs</Link>
-    </Compile>
-    <Compile Include="AssemblyInfo.cs" />
-    <Compile Include="Protocols\Irc\IrcGroupPersonModel.cs" />
-    <Compile Include="Protocols\Irc\IrcPersonModel.cs" />
-    <Compile Include="Protocols\Irc\IrcProtocolManager.cs" />
-    <Compile Include="Protocols\Irc\IrcTextColor.cs" />
+    <None Include="..\..\po-Engine-IRC\de.po" />
+    <None Include="..\..\po-Engine-IRC\es.po" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Config\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Common\Common.csproj">
-      <Project>{E1CAA428-6841-4C42-B4FA-3A3DE6D86B3D}</Project>
+      <Project>{73DEF91D-03FF-41E3-B2E1-3259AF247CA7}</Project>
       <Name>Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\Engine\Engine.csproj">
-      <Project>{B5F12596-21D7-4878-86E0-A230BE0D5F02}</Project>
+      <Project>{BCD52FCF-B7A8-42FB-AA8D-CF9921FF593E}</Project>
       <Name>Engine</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\lib\SmartIrc4net\SmartIrc4net.csproj">
+      <Project>{91D3003B-7E65-4EAF-8EE1-DA43832E7A9C}</Project>
+      <Name>SmartIrc4net</Name>
+    </ProjectReference>
   </ItemGroup>
-  <Import Project="$(MSBuildBinPath)\Microsoft.CSHARP.Targets" />
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=a5715cc6d5c3540b">
+      <HintPath>..\..\lib\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Mono.Posix" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -167,6 +167,9 @@ namespace Smuxi.Frontend.Gnome
                 }
                 return (bool) _FrontendConfig["UseLowBandwidthMode"];
             }
+            set {
+                _FrontendConfig["UseLowBandwidthMode"] = value;
+            }
         }
 
         public static void Init(string[] args)
@@ -201,9 +204,29 @@ namespace Smuxi.Frontend.Gnome
                 ConnectEngineToGUI();
             } else {
                 // there are remote engines defined, means we have to ask
+                string engine = null;
+                for (int i = 0; i < args.Length; i++) {
+                    var arg = args[i];
+                    switch (arg) {
+                        case "-e":
+                        case "--engine":
+                            if (args.Length >=  i + 1) {
+                                engine = args[i + 1];
+                            }
+                            break;
+                    }
+                }
                 //_SplashScreenWindow.Destroy();
                 _SplashScreenWindow = null;
-                ShowEngineManagerDialog();
+                try {
+                    ShowEngineManagerDialog(engine);
+                } catch (ArgumentException ex) {
+                    if (ex.ParamName == "value") {
+                        Console.WriteLine(ex.Message);
+                        System.Environment.Exit(1);
+                    }
+                    throw;
+                }
             }
             
             if (_SplashScreenWindow != null) {
@@ -429,12 +452,12 @@ namespace Smuxi.Frontend.Gnome
             if (_FrontendManager != null) {
                 if (IsLocalEngine) {
                     try {
-                        var cmd = new CommandModel(
-                            _FrontendManager,
-                            MainWindow.ChatViewManager.CurrentChatView.ChatModel,
-                            null
-                        );
-                        Session.CommandShutdown(cmd);
+                        // dispose (possibly flush) all protocol managers / chats
+                        lock (Session.ProtocolManagers) {
+                            foreach (var protocolManager in Session.ProtocolManagers) {
+                                protocolManager.Dispose();
+                            }
+                        }
                     } catch (Exception ex) {
 #if LOG4NET
                         _Logger.Error("Quit(): Exception", ex);
@@ -570,13 +593,24 @@ namespace Smuxi.Frontend.Gnome
             ShowException(null, ex);
         }
         
-        public static void ShowEngineManagerDialog()
+        public static void ShowEngineManagerDialog(string engine)
         {
-            Trace.Call();
+            Trace.Call(engine);
             
             EngineManagerDialog diag = new EngineManagerDialog(_MainWindow.EngineManager);
-            diag.Run();
+            if (!String.IsNullOrEmpty(engine)) {
+                diag.SelectedEngine = engine;
+                // 1 == connect button
+                diag.Respond(1);
+            } else {
+                diag.Run();
+            }
             diag.Destroy();
+        }
+
+        public static void ShowEngineManagerDialog()
+        {
+            ShowEngineManagerDialog(null);
         }
 
         public static bool ShowReconnectDialog(Gtk.Window parent)
@@ -671,6 +705,115 @@ namespace Smuxi.Frontend.Gnome
                                       Gtk.IconLookupFlags.UseBuiltin);
             } finally {
                 Gdk.Threads.Leave();
+            }
+        }
+
+        public static void OpenChatLink(Uri link)
+        {
+            Trace.Call(link);
+
+            if (Session == null) {
+                return;
+            }
+
+            // supported:
+            // smuxi://freenode/#smuxi
+            // irc://#smuxi
+            // irc://irc.oftc.net/
+            // irc://irc.oftc.net/#smuxi
+            // irc://irc.oftc.net:6667/#smuxi
+            // not supported (yet):
+            // smuxi:///meebey
+
+            IProtocolManager manager = null;
+            var linkPort = link.Port;
+            if (linkPort == -1) {
+                switch (link.Scheme) {
+                    case "irc":
+                        linkPort = 6667;
+                        break;
+                    case "ircs":
+                        linkPort = 6697;
+                        break;
+                }
+            }
+            var linkChat = link.Fragment;
+            if (String.IsNullOrEmpty(linkChat)) {
+                linkChat = link.AbsolutePath.Substring(1);
+            }
+
+            var linkProtocol = link.Scheme;
+            var linkHost = link.Host;
+            string linkNetwork = null;
+            if (!linkHost.Contains(".")) {
+                // this seems to be a network name
+                linkNetwork = linkHost;
+            }
+
+            // find existing protocol chat
+            foreach (var chatView in MainWindow.ChatViewManager.Chats) {
+                if (!(chatView is ProtocolChatView)) {
+                    continue;
+                }
+                var protocolChat = (ProtocolChatView) chatView;
+                var host = protocolChat.Host;
+                var port = protocolChat.Port;
+                var network = protocolChat.NetworkID;
+                // check first by network name with fallback to host+port
+                if ((!String.IsNullOrEmpty(network) &&
+                     String.Compare(network, linkNetwork, true) == 0) ||
+                    (String.Compare(host, linkHost, true) == 0 &&
+                     port == linkPort)) {
+                    manager = protocolChat.ProtocolManager;
+                    break;
+                }
+            }
+
+            if (manager == null) {
+                ServerModel server = null;
+                if (!String.IsNullOrEmpty(linkNetwork)) {
+                    // try to find a server with this network name and connect to it
+                    var serverSettings = new ServerListController(UserConfig);
+                    server = serverSettings.GetServerByNetwork(linkNetwork);
+                    // ignore OnConnectCommands
+                    server.OnConnectCommands = null;
+                } else if (!String.IsNullOrEmpty(linkHost)) {
+                    server = new ServerModel() {
+                        Protocol = linkProtocol,
+                        Hostname = linkHost,
+                        Port = linkPort
+                    };
+                }
+                if (server != null) {
+                    manager = Session.Connect(server, FrontendManager);
+                }
+            }
+
+            if (String.IsNullOrEmpty(linkChat)) {
+                return;
+            }
+
+            // switch to existing chat
+            foreach (var chatView in MainWindow.ChatViewManager.Chats) {
+                if (manager != null && chatView.ProtocolManager != manager) {
+                    continue;
+                }
+                if (String.Compare(chatView.ID, linkChat, true) == 0) {
+                    MainWindow.ChatViewManager.CurrentChatView = chatView;
+                    return;
+                }
+            }
+
+            // join chat
+            if (manager != null) {
+                var chat = new GroupChatModel(linkChat, linkChat, null);
+                ThreadPool.QueueUserWorkItem(delegate {
+                    try {
+                        manager.OpenChat(FrontendManager, chat);
+                    } catch (Exception ex) {
+                        Frontend.ShowException(ex);
+                    }
+                });
             }
         }
 

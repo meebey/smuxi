@@ -119,7 +119,27 @@ namespace Smuxi.Engine
             }
             return networks;
         }
-        
+
+        public ServerModel GetServerByNetwork(string network)
+        {
+            Trace.Call(network);
+
+            if (network == null) {
+                throw new ArgumentNullException("network");
+            }
+            if (network.Trim().Length == 0) {
+                throw new InvalidOperationException(_("Network must not be empty."));
+            }
+
+            var servers = GetServerList();
+            foreach (var server in servers) {
+                if (String.Compare(server.Network, network, true) == 0) {
+                    return server;
+                }
+            }
+            return null;
+        }
+
         public void AddServer(ServerModel server)
         {
             Trace.Call(server);

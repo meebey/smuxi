@@ -25,6 +25,7 @@ using System.Text;
 using System.Globalization;
 using System.Collections.Generic;
 using Mono.Unix;
+using Stfl;
 using Smuxi.Common;
 using Smuxi.Engine;
 using Smuxi.Frontend;
@@ -64,6 +65,7 @@ namespace Smuxi.Frontend.Stfl
                     _Logger.Debug("set_CurrentChat(): making " + value.ChatModel.ID + " visible");
 #endif
                     f_CurrentChat.IsVisible = true;
+                    UpdateTitle();
                 }
 
                 if (CurrentChatSwitched != null) {
@@ -157,9 +159,47 @@ namespace Smuxi.Frontend.Stfl
             foreach (var chat in f_ChatViewList) {
                 nav.AppendFormat("[{0}] ", chat.ChatModel.Name);
             }
-            nav.Remove(nav.Length - 1, 1);
+            if (nav.Length > 0) {
+                nav.Length--;
+            }
 
             f_MainWindow.NavigationLabel = nav.ToString();
+        }
+
+        void UpdateTitle()
+        {
+            var chatView = CurrentChat;
+            if (chatView == null) {
+                return;
+            }
+
+            string title;
+            var chatModel = chatView.ChatModel;
+            string protocolStatus = null;
+            if (chatModel.ProtocolManager != null) {
+                protocolStatus = chatModel.ProtocolManager.ToString();
+            }
+            if (chatModel is SessionChatModel) {
+                title = String.Empty;
+            } else if (chatModel is ProtocolChatModel) {
+                title = protocolStatus;
+            } else {
+                title = String.Format("{0} @ {1}",
+                                      chatModel.Name,
+                                      protocolStatus);
+            }
+            if (!String.IsNullOrEmpty(title)) {
+                title += " - ";
+            }
+            title += "Smuxi";
+
+            f_MainWindow.TitleLabel = title;
+            // HACK: set xterm window title
+            if (StflApi.IsXterm) {
+                NcursesApi.endwin();
+                Console.WriteLine((char) 27 + "]0;{0}" + (char) 7, title);
+                NcursesApi.refresh();
+            }
         }
     }
 

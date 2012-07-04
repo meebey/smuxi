@@ -46,7 +46,27 @@ namespace Smuxi.Frontend.Gnome
         private EngineManager _EngineManager;
         private Gtk.Button    _EditButton;
         private Gtk.Button    _DeleteButton;
-        
+
+        public string SelectedEngine {
+            get {
+                Gtk.TreeIter iter;
+                if (!_ComboBox.GetActiveIter(out iter)) {
+                    return null;
+                }
+                return (string) _ComboBox.Model.GetValue(iter, 0);
+            } set {
+                int i = 0;
+                foreach (object[] row in (Gtk.ListStore) _ComboBox.Model) {
+                    if ((string) row[0] == value) {
+                        _ComboBox.Active = i;
+                        return;
+                    }
+                    i++;
+                }
+                throw new ArgumentException(_("Engine not found."), "value");
+            }
+        }
+
         public EngineManagerDialog(EngineManager engineManager)
         {
             Trace.Call(engineManager);

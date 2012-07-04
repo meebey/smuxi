@@ -72,9 +72,12 @@ namespace Smuxi.Frontend
         {
             Trace.Call(chat, parameters);
 
+            var protocolManagerType = chat.ProtocolManager == null ?
+                                        null : chat.ProtocolManager.GetType();
+
             // REMOTING CALL 1 + 2
-            return CreateChatView(chat, chat.ChatType,
-                                  chat.ProtocolManager.GetType(), parameters);
+            return CreateChatView(chat, chat.ChatType, protocolManagerType,
+                                  parameters);
         }
 
         protected IChatView CreateChatView(ChatModel chat,

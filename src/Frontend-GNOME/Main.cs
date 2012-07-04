@@ -90,8 +90,9 @@ namespace Smuxi.Frontend.Gnome
             Console.WriteLine("Usage: smuxi-frontend-gnome [options]");
             Console.WriteLine();
             Console.WriteLine("Options:");
-            Console.WriteLine("  -h --help   Show this help");
-            Console.WriteLine("  -d --debug  Enable debug output");
+            Console.WriteLine("  -h --help                Show this help");
+            Console.WriteLine("  -d --debug               Enable debug output");
+            Console.WriteLine("  -e --engine engine-name  Connect to engine");
         }
     }
 }

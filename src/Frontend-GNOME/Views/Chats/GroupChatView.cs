@@ -597,7 +597,7 @@ namespace Smuxi.Frontend.Gnome
 
                 ThreadPool.QueueUserWorkItem(delegate {
                     try {
-                        ChatModel.ProtocolManager.OpenChat(
+                        ProtocolManager.OpenChat(
                             Frontend.FrontendManager,
                             personChat
                         );
@@ -671,8 +671,9 @@ namespace Smuxi.Frontend.Gnome
             List<PersonModel> persons = new List<PersonModel>();
             Gtk.TreePath[] paths = _PersonTreeView.Selection.GetSelectedRows(out model);
             foreach (Gtk.TreePath path in paths) {
-                model.GetIter(out iter, path);
-                persons.Add((PersonModel) model.GetValue(iter, 0));
+                if (model.GetIter(out iter, path)) {
+                    persons.Add((PersonModel) model.GetValue(iter, 0));
+                }
             }
             
             return persons;

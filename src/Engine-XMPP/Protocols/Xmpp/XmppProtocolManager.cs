@@ -40,6 +40,7 @@ using jabber.protocol;
 using jabber.protocol.client;
 using jabber.protocol.iq;
 using XmppMessageType = jabber.protocol.client.MessageType;
+using XmppProxyType = jabber.connection.ProxyType;
 
 using Smuxi.Common;
 
@@ -67,6 +68,12 @@ namespace Smuxi.Engine
         
         public override string NetworkID {
             get {
+                if (!String.IsNullOrEmpty(_JabberClient.NetworkHost)) {
+                    return _JabberClient.NetworkHost;
+                }
+                if (!String.IsNullOrEmpty(_JabberClient.Server)) {
+                    return _JabberClient.Server;
+                }
                 return "XMPP";
             }
         }
@@ -127,6 +134,8 @@ namespace Smuxi.Engine
             Host = server.Hostname;
             Port = server.Port;
 
+            ApplyConfig(Session.UserConfig, server);
+
             // TODO: use config for single network chat or once per network manager
             _NetworkChat = Session.CreateChat<ProtocolChatModel>(
                 NetworkID, "Jabber " + Host, this
@@ -134,8 +143,14 @@ namespace Smuxi.Engine
             Session.AddChat(_NetworkChat);
             Session.SyncChat(_NetworkChat);
 
-            ApplyConfig(Session.UserConfig, server);
-
+            if (!String.IsNullOrEmpty(_JabberClient.ProxyHost)) {
+                var builder = CreateMessageBuilder();
+                builder.AppendEventPrefix();
+                builder.AppendText(_("Using proxy: {0}:{1}"),
+                                   _JabberClient.ProxyHost,
+                                   _JabberClient.ProxyPort);
+                Session.AddMessageToChat(Chat, builder.ToMessage());
+            }
             _JabberClient.Connect();
         }
         
@@ -260,6 +275,10 @@ namespace Smuxi.Engine
                             CommandPart(command);
                             handled = true;
                             break;
+                        case "away":
+                            CommandAway(command);
+                            handled = true;
+                            break;
                     }
                 } else {
                     _Say(command.Chat, command.Data);
@@ -305,6 +324,11 @@ namespace Smuxi.Engine
             string[] help = {
             "help",
             "connect xmpp/jabber server port username password [resource]",
+            "msg/query jid message",
+            "say message",
+            "join muc-jid",
+            "part/leave [muc-jid]",
+            "away [away-message]"
             };
             
             foreach (string line in help) { 
@@ -423,6 +447,15 @@ namespace Smuxi.Engine
             ChatModel chat = GetChat(jid, ChatType.Group);
             if (chat != null) {
                 _ConferenceManager.GetRoom(jid+"/"+_JabberClient.User).Leave("Part");
+            }
+        }
+
+        public void CommandAway(CommandModel cd)
+        {
+            if (cd.DataArray.Length >= 2) {
+                SetPresenceStatus(PresenceStatus.Away, cd.Parameter);
+            } else {
+                SetPresenceStatus(PresenceStatus.Online, null);
             }
         }
 
@@ -810,6 +843,35 @@ namespace Smuxi.Engine
             _JabberClient.AutoStartTLS = server.UseEncryption;
             if (!server.ValidateServerCertificate) {
                 _JabberClient.OnInvalidCertificate += ValidateCertificate;
+            }
+
+            var proxySettings = new ProxySettings();
+            proxySettings.ApplyConfig(Session.UserConfig);
+            var protocol = server.UseEncryption ? "xmpps" : "xmpp";
+            var serverUri = String.Format("{0}://{1}:{2}", protocol,
+                                          server.Hostname, server.Port);
+            var proxy = proxySettings.GetWebProxy(serverUri);
+            if (proxy == null) {
+                _JabberClient.Proxy = XmppProxyType.None;
+            } else {
+                var proxyScheme = proxy.Address.Scheme;
+                var xmppProxyType = XmppProxyType.None;
+                try {
+                    // HACK: map proxy scheme to SmartIrc4net's ProxyType
+                    xmppProxyType = (XmppProxyType) Enum.Parse(
+                        typeof(XmppProxyType), proxyScheme, true
+                    );
+                } catch (ArgumentException ex) {
+#if LOG4NET
+                    _Logger.Error("ApplyConfig(): Couldn't parse proxy type: " +
+                                  proxyScheme, ex);
+#endif
+                }
+                _JabberClient.Proxy = xmppProxyType;
+                _JabberClient.ProxyHost = proxy.Address.Host;
+                _JabberClient.ProxyPort = proxy.Address.Port;
+                _JabberClient.ProxyUsername = proxySettings.ProxyUsername;
+                _JabberClient.ProxyPassword = proxySettings.ProxyPassword;
             }
         }
 

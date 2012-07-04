@@ -1,15 +1,17 @@
-# Translation of smuxi-server to Portuguese
-# Copyright (C) 2010, the smuxi's copyright holder
-# This file is distributed under the same license as the smuxi package.
+# Translation of smuxi-frontend messages to Portuguese
+# Copyright (C) 2010 the smuxi's copyright holder
+# This file is distributed under the same license as the smuxi-frontend package.
 #
 # Américo Monteiro <a_monteiro@netcabo.pt>, 2010.
+# Pedro Ribeiro <p.m42.ribeiro@gmail.com>, 2012.
+#
 msgid ""
 msgstr ""
-"Project-Id-Version: smuxi-server \n"
+"Project-Id-Version: smuxi-frontend \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-09-11 11:54+0200\n"
-"PO-Revision-Date: 2010-07-19 22:21+0100\n"
-"Last-Translator: Américo Monteiro <a_monteiro@netcabo.pt>\n"
+"POT-Creation-Date: 2011-12-29 09:21+0100\n"
+"PO-Revision-Date: 2012-01-07 17:26+0100\n"
+"Last-Translator: Pedro Ribeiro <p.m42.ribeiro@gmail.com>\n"
 "Language-Team: Portuguese <traduz@debianpt.org>\n"
 "Language: pt\n"
 "MIME-Version: 1.0\n"
@@ -18,95 +20,128 @@ msgstr ""
 "X-Generator: Lokalize 1.0\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../src/Server/Main.cs:69
-msgid "Add user to Server"
-msgstr "Adicionar utilizador ao Servidor"
-
-#: ../src/Server/Main.cs:78
-msgid "Modify existing user of Server"
-msgstr "Modificar utilizador existente do Servidor"
-
-#: ../src/Server/Main.cs:87
-msgid "Delete user from Server"
-msgstr "Apagar utilizador do Servidor"
-
-#: ../src/Server/Main.cs:96
-msgid "List all existing users of Server"
-msgstr "Listar todos os utilizadores existentes do Servidor"
-
-#: ../src/Server/Main.cs:105
-msgid "User to create, modify or delete"
-msgstr "Utilizador para criar, modificar ou apagar"
-
-#: ../src/Server/Main.cs:114
-msgid "Password of the user when creating or modifying a user"
-msgstr "Palavra-passe do utilizador quando cria ou modifica um utilizador"
-
-#: ../src/Server/Main.cs:123
-msgid "Enable debug output"
-msgstr "Activar saída de depuração"
-
-#: ../src/Server/Main.cs:131
-msgid "Show this help"
-msgstr "Mostra esta ajuda"
-
-#: ../src/Server/Main.cs:133
-msgid "Usage: smuxi-server [options]"
-msgstr "Utilização: smuxi-server [opções]"
-
-#: ../src/Server/Main.cs:135
-msgid "Options:"
-msgstr "Opções:"
-
-#: ../src/Server/Main.cs:146
+#: ../src/Frontend/CommandManager.cs:143
 #, csharp-format
-msgid "Unknown option: '{0}'"
-msgstr "Opção desconhecida: '{0}'"
+msgid "Unknown Command: {0}"
+msgstr "Comando Desconhecido: {0}"
 
-#: ../src/Server/Main.cs:170
+#: ../src/Frontend/EngineManager.cs:122
+msgid "Engine must not be empty."
+msgstr "O valor de 'Engine' não deve estar vazio"
+
+#: ../src/Frontend/EngineManager.cs:133
+msgid "Engine does not exist."
+msgstr "Não existe esse 'Engine'."
+
+#: ../src/Frontend/EngineManager.cs:318
 #, csharp-format
-msgid "Command line error: {0}"
-msgstr "Erro da linha de comandos: {0}"
-
-#: ../src/Server/Main.cs:214
-msgid ""
-"At most one of --add-user, --modify-user, and --delete-user may be used at a "
-"time."
+msgid "Unknown channel ({0}) - only the following channel types are supported:"
 msgstr ""
-"No máximo pode ser usado apenas um de --add-user, --modify-user, e --delete-"
-"user de cada vez."
+"Canal desconhecido ({0}) - apenas os seguintes tipos de canais são "
+"suportados:"
 
-#: ../src/Server/Main.cs:224
-msgid "You must specify a username with the --username option."
-msgstr "Você tem de especificar um nome de utilizador com a opção --username."
+#: ../src/Frontend/EngineManager.cs:327
+msgid ""
+"Registration with engine failed!  The username and/or password were wrong - "
+"please verify them."
+msgstr ""
+"O registo com o motor falhou! O nome de utilizador e/ou a palavra-passe "
+"estavam errados - por favor verifique-os."
 
-#: ../src/Server/Main.cs:230
-msgid "Username must not be empty."
-msgstr "O nome de utilizador não pode estar vazio."
+#: ../src/Frontend/SshTunnelManager.cs:145
+msgid "SSH client application was not found: "
+msgstr "A aplicação cliente SSH não foi encontrada: "
 
-#: ../src/Server/Main.cs:240
-msgid "You must specify a password with the --password option."
-msgstr "Você tem de especificar uma palavra-passe com a opção --password."
+#: ../src/Frontend/SshTunnelManager.cs:148
+msgid ""
+"SSH client must be either OpenSSH (ssh) or Plink (plink.exe, not putty.exe)"
+msgstr ""
+"O cliente SSH tem de ser ou OpenSSH (ssh) ou Plink (plink.exe, não putty.exe)"
 
-#: ../src/Server/Main.cs:246
-msgid "Password must not be empty."
-msgstr "A palavra-passe não pode estar vazia."
-
-#: ../src/Server/Main.cs:263
+#: ../src/Frontend/SshTunnelManager.cs:185
 #, csharp-format
-msgid "User \"{0}\" successfully added to server."
-msgstr "Utilizador \"{0}\" adicionado com sucesso ao servidor."
+msgid ""
+"The local SSH forwarding port {0} is already in use. Is there an old SSH "
+"tunnel still active?"
+msgstr ""
+"O porto de encaminhamento de SSH local {0} já está em uso. Existe um túnel "
+"SSH antigo ainda activo?"
 
-#: ../src/Server/Main.cs:272
+#: ../src/Frontend/SshTunnelManager.cs:209
 #, csharp-format
-msgid "User \"{0}\" successfully modified."
-msgstr "Utilizador \"{0}\" modificado com sucesso."
+msgid ""
+"SSH tunnel setup failed (exit code: {0})\n"
+"\n"
+"SSH program: {1}\n"
+"SSH parameters: {2}\n"
+"\n"
+"Program Error:\n"
+"{3}\n"
+"Program Output:\n"
+"{4}\n"
+msgstr ""
+"Configuração do túnel SSH falhou (código ao terminar: {0})\n"
+"\n"
+"Programa SSH: {1}\n"
+"Parâmetros SSH: {2}\n"
+"\n"
+"Erro do Programa:\n"
+"{3}\n"
+"Saída do Programa:\n"
+"{4}\n"
 
-#: ../src/Server/Main.cs:281
+#: ../src/Frontend/SshTunnelManager.cs:330
+#: ../src/Frontend/SshTunnelManager.cs:476
+msgid "SSH keyfile not found."
+msgstr "Ficheiro de chaves SSH não encontrado."
+
+#: ../src/Frontend/SshTunnelManager.cs:336
+#: ../src/Frontend/SshTunnelManager.cs:482
+msgid "SSH keyfile could not be read."
+msgstr "Ficheiro de chaves SSH não pode ser lido."
+
+#: ../src/Frontend/SshTunnelManager.cs:424
 #, csharp-format
-msgid "User \"{0}\" successfully deleted from server."
-msgstr "Utilizador \"{0}\" apagado com sucesso do servidor."
+msgid ""
+"OpenSSH version number not found (exit code: {0})\n"
+"\n"
+"SSH program: {1}\n"
+"\n"
+"Program Error:\n"
+"{2}\n"
+"Program Output:\n"
+"{3}\n"
+msgstr ""
+"Número de versão de OpenSSH não encontrado (código ao terminar: {0})\n"
+"\n"
+"Programa SSH: {1}\n"
+"\n"
+"Erro do Programa:\n"
+"{2}\n"
+"Saída do Programa:\n"
+"{3}\n"
 
-#: ../src/Server/Main.cs:288
-msgid "Users:"
-msgstr "Utilizadores:"
+#: ../src/Frontend/SshTunnelManager.cs:467
+msgid "PuTTY / Plink requires a username to be set."
+msgstr "PuTTY / Plink requer que seja definido um nome de utilizador."
+
+#: ../src/Frontend/SshTunnelManager.cs:555
+#, csharp-format
+msgid ""
+"Plink version number not found (exit code: {0})\n"
+"\n"
+"SSH program: {1}\n"
+"\n"
+"Program Error:\n"
+"{2}\n"
+"Program Output:\n"
+"{3}\n"
+msgstr ""
+"Número de versão de Plink não encontrado (código ao terminar: {0})\n"
+"\n"
+"Programa SSH: {1}\n"
+"\n"
+"Erro do Programa:\n"
+"{2}\n"
+"Saída do Programa:\n"
+"{3}\n"

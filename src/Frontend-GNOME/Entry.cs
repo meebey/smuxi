@@ -1,13 +1,7 @@
 /*
- * $Id$
- * $URL$
- * $Rev$
- * $Author$
- * $Date$
- *
  * Smuxi - Smart MUltipleXed Irc
  *
- * Copyright (c) 2005-2008 Mirco Bauer <meebey@meebey.net>
+ * Copyright (c) 2005-2012 Mirco Bauer <meebey@meebey.net>
  *
  * Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
  *
@@ -27,6 +21,8 @@
  */
 
 using System;
+using System.Runtime.InteropServices;
+using System.Threading;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
@@ -36,7 +32,7 @@ using Smuxi.Common;
 
 namespace Smuxi.Frontend.Gnome
 {
-    public class Entry : Gtk.Entry
+    public class Entry : Gtk.TextView
     {
 #if LOG4NET
         private static readonly log4net.ILog _Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
@@ -48,6 +44,7 @@ namespace Smuxi.Frontend.Gnome
         private new EntrySettings Settings { get; set; }
 
         ChatViewManager ChatViewManager;
+        event EventHandler<EventArgs> Activated;
 
         /*
         public StringCollection History {
@@ -79,6 +76,30 @@ namespace Smuxi.Frontend.Gnome
         }
         */
 
+        public string Text {
+            get {
+                return Buffer.Text;
+            }
+            set {
+                Buffer.Text = value;
+            }
+        }
+
+        public int Position {
+            get {
+                return Buffer.CursorPosition;
+            }
+            set {
+                Gtk.TextIter position;
+                if (value < 0) {
+                    position = Buffer.EndIter;
+                } else {
+                    position = Buffer.GetIterAtOffset(value);
+                }
+                Buffer.PlaceCursor(position);
+            }
+        }
+
         public Entry(ChatViewManager chatViewManager)
         {
             Trace.Call(chatViewManager);
@@ -91,16 +112,17 @@ namespace Smuxi.Frontend.Gnome
             
             ChatViewManager = chatViewManager;
             Settings = new EntrySettings();
+            WrapMode = Gtk.WrapMode.WordChar;
 
+            InitSpellCheck();
             InitCommandManager();
             Frontend.SessionPropertyChanged += delegate {
                 InitCommandManager();
             };
 
-            Activated += new EventHandler(_OnActivated);
+            Activated += _OnActivated;
             KeyPressEvent += new Gtk.KeyPressEventHandler(_OnKeyPress);
-            FocusOutEvent += new Gtk.FocusOutEventHandler(_OnFocusOut);
-            ClipboardPasted += new EventHandler(_OnClipboardPasted);
+            PasteClipboard += _OnClipboardPasted;
         }
 
         public void UpdateHistoryChangedLine()
@@ -367,72 +389,37 @@ namespace Smuxi.Frontend.Gnome
                     HistoryNext();
                     break;
                 case Gdk.Key.Page_Up:
+                    // supress scrolling
                     ChatViewManager.CurrentChatView.ScrollUp();
+                    e.RetVal = true;
                     break;
                 case Gdk.Key.Page_Down:
+                    // supress scrolling
                     ChatViewManager.CurrentChatView.ScrollDown();
+                    e.RetVal = true;
+                    break;
+                case Gdk.Key.Return:
+                case Gdk.Key.KP_Enter:
+                case Gdk.Key.ISO_Enter:
+                case Gdk.Key.Key_3270_Enter:
+                    // supress adding a newline
+                    e.RetVal = true;
+                    if (Activated != null) {
+                        Activated(this, EventArgs.Empty);
+                    }
                     break;
             }
         }
 
-        private void _OnFocusOut(object sender, Gtk.FocusOutEventArgs e)
-        {
-            Trace.Call(sender, e);
-            
-            if (Frontend.MainWindow.CaretMode) {
-                return;
-            }
-            
-            // we can't just move to focus directly back as that breaks the
-            // notebook scrolling, see trac bug#11
-            
-            // grant the user 250ms to start a selection
-            GLib.Timeout.Add(250, new GLib.TimeoutHandler(delegate {
-                // TODO: check mouse buttons, if left mouse button is still pressed
-                // we should not interrupt either, as the user is going to make a selection!
-
-                // don't interrupt on-going entry selections
-                int start, end;
-                if (GetSelectionBounds(out start, out end)) {
-#if LOG4NET
-                    //_Logger.Debug("_OnFocusOut(): Entry has on-going selection, waiting..."); 
-#endif
-                    return true;
-                }
-
-                ChatView chat = ChatViewManager.CurrentChatView;
-                if (chat == null) {
-                    return false;
-                }
-
-                // don't interrupt on-going selections
-                if (chat.HasSelection && chat.HasFocus) {
-#if LOG4NET
-                    //_Logger.Debug("_OnFocusOut(): CurrentChatView has on-going selection, waiting..."); 
-#endif
-                    return true;
-                }
-                
-                // HACK: for some reason the selection of the TextView gets
-                // lost when moving the focus from the TextView to the entry
-                // being non-empty. So we empty it, move focus and then set the
-                // old value back. GTK+ bug maybe?
-                string text = Text;
-                Text = String.Empty;
-                HasFocus = true;
-                Text = text;
-                Position = -1;
-                
-                return false;
-            }));
-        }
-        
         private void _OnActivated(object sender, EventArgs e)
         {
             Trace.Call(sender, e);
             
             try {
                 if (!(Text.Length > 0)) {
+                    return;
+                }
+                if (ChatViewManager.CurrentChatView == null) {
                     return;
                 }
                 
@@ -532,6 +519,10 @@ namespace Smuxi.Frontend.Gnome
                         _CommandList(cd);
                         handled = true;
                         break;
+                    case "sync":
+                        _CommandSync(cd);
+                        handled = true;
+                        break;
                 }
             }
             
@@ -550,6 +541,7 @@ namespace Smuxi.Frontend.Gnome
             string[] help = {
             "help",
             "window (number|channelname|queryname|close)",
+            "sync",
             "clear",
             "echo data",
             "exec command",
@@ -653,6 +645,32 @@ namespace Smuxi.Frontend.Gnome
             }
         }
     
+        private void _CommandSync(CommandModel cmd)
+        {
+            if (Frontend.IsLocalEngine) {
+                return;
+            }
+
+            var chatView = ChatViewManager.CurrentChatView;
+            ThreadPool.QueueUserWorkItem(delegate {
+                try {
+                    // HACK: force a full sync
+                    Frontend.UseLowBandwidthMode = false;
+                    chatView.Sync();
+                    Frontend.UseLowBandwidthMode = true;
+
+                    Gtk.Application.Invoke(delegate {
+                        Frontend.UseLowBandwidthMode = false;
+                        chatView.Populate();
+                        Frontend.UseLowBandwidthMode = true;
+                        chatView.ScrollToEnd();
+                    });
+                } catch (Exception ex) {
+                    Frontend.ShowError(null, ex);
+                }
+            });
+        }
+
         private void _CommandClear(CommandModel cd)
         {
             ChatViewManager.CurrentChatView.Clear();
@@ -666,7 +684,7 @@ namespace Smuxi.Frontend.Gnome
                 return;
             }
 
-            int position = CursorPosition;
+            int position = Position;
             string text = Text;
             string word;
             int previous_space;
@@ -847,9 +865,31 @@ namespace Smuxi.Frontend.Gnome
             }
         }
 
+        private void InitSpellCheck()
+        {
+#if GTKSPELL
+            try {
+                gtkspell_new_attach(Handle, null, IntPtr.Zero);
+            } catch (Exception ex) {
+                _Logger.Error("InitSpellCheck(): gtkspell_new_attach() "+
+                              "threw exception", ex);
+            }
+#endif
+        }
+
         private static string _(string msg)
         {
             return Mono.Unix.Catalog.GetString(msg);
-        }        
+        }
+
+#if GTKSPELL
+        [DllImport("gtkspell.dll")]
+        static extern IntPtr gtkspell_new_attach(IntPtr text_view,
+                                                 string locale,
+                                                 IntPtr error);
+
+        [DllImport("gtkspell.dll")]
+        static extern void gtkspell_detach(IntPtr obj);
+#endif
     }
 }

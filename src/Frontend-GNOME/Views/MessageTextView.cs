@@ -51,6 +51,12 @@ namespace Smuxi.Frontend.Gnome
         private int          _MarkerlineBufferPosition;
         private int          _BufferLines = -1;
 
+        Gtk.TextTag BoldTag { get; set; }
+        Gtk.TextTag ItalicTag { get; set; }
+        Gtk.TextTag UnderlineTag { get; set; }
+        Gtk.TextTag LinkTag { get; set; }
+        Gtk.TextTag EventTag { get; set; }
+
         public event MessageTextViewMessageAddedEventHandler       MessageAdded;
         public event MessageTextViewMessageHighlightedEventHandler MessageHighlighted;
         
@@ -117,6 +123,15 @@ namespace Smuxi.Frontend.Gnome
             }
         }
 
+        Gdk.Color BackgroundColor {
+            get {
+                if (_ThemeSettings.BackgroundColor == null) {
+                    return DefaultAttributes.Appearance.BgColor;
+                }
+                return _ThemeSettings.BackgroundColor.Value;
+            }
+        }
+
         public MessageTextView()
         {
             Trace.Call();
@@ -128,6 +143,16 @@ namespace Smuxi.Frontend.Gnome
             MotionNotifyEvent += OnMotionNotifyEvent;
             PopulatePopup += OnPopulatePopup;
             ExposeEvent += OnExposeEvent;
+            Realized += delegate {
+                CheckStyle();
+            };
+            StyleSet += delegate(object o, Gtk.StyleSetArgs args) {
+                if (!IsRealized) {
+                    // HACK: avoid GTK+ crash in gtk_text_attributes_copy_values()
+                    return;
+                }
+                CheckStyle();
+            };
         }
 
         public void ApplyConfig(UserConfig config)
@@ -160,6 +185,35 @@ namespace Smuxi.Frontend.Gnome
             _BufferLines = (int) config["Interface/Notebook/BufferLines"];
         }
 
+        void CheckStyle()
+        {
+            Trace.Call();
+
+            var bgTextColor = ColorConverter.GetTextColor(BackgroundColor);
+            // get best contrast for the event font color
+            Gdk.Color eventColor = Gdk.Color.Zero;
+            Gdk.Color.Parse("darkgray", ref eventColor);
+            var eventTextColor = TextColorTools.GetBestTextColor(
+                ColorConverter.GetTextColor(eventColor),
+                bgTextColor,
+                TextColorContrast.High
+            );
+            EventTag.ForegroundGdk = ColorConverter.GetGdkColor(
+                eventTextColor
+            );
+
+            // get best contrast for the link font color
+            Gdk.Color linkColor = Gdk.Color.Zero;
+            Gdk.Color.Parse("darkblue", ref linkColor);
+            var linkTextColor = TextColorTools.GetBestTextColor(
+                ColorConverter.GetTextColor(linkColor),
+                bgTextColor
+            );
+            LinkTag.ForegroundGdk = ColorConverter.GetGdkColor(
+                linkTextColor
+            );
+        }
+
         public void Clear()
         {
             Trace.Call();
@@ -184,12 +238,17 @@ namespace Smuxi.Frontend.Gnome
 
             var buffer = Buffer;
             var iter = buffer.EndIter;
+            var startMark = new Gtk.TextMark(null, true);
+            buffer.AddMark(startMark, iter);
 
-            Gdk.Color bgColor = DefaultAttributes.Appearance.BgColor;
-            if (_ThemeSettings.BackgroundColor != null) {
-                bgColor = _ThemeSettings.BackgroundColor.Value;
+            var senderPrefixWidth = GetSenderPrefixWidth(msg);
+            Gtk.TextTag indentTag = null;
+            if (senderPrefixWidth != 0) {
+                indentTag = new Gtk.TextTag(null) {
+                    Indent = -senderPrefixWidth
+                };
+                _MessageTextTagTable.Add(indentTag);
             }
-            TextColor bgTextColor = ColorConverter.GetTextColor(bgColor);
 
             if (_ShowTimestamps) {
                 var msgTimeStamp = msg.TimeStamp.ToLocalTime();
@@ -227,21 +286,11 @@ namespace Smuxi.Frontend.Gnome
 
                 if (timestamp != null) {
                     timestamp = String.Format("{0} ", timestamp);
-                    if (msg.MessageType == MessageType.Event) {
-                        // get best contrast for the event font color
-                        Gtk.TextTag eventTag = _MessageTextTagTable.Lookup("event");
-                        Gdk.Color eventColor = eventTag.ForegroundGdk;
-                        TextColor eventTextColor = TextColorTools.GetBestTextColor(
-                            ColorConverter.GetTextColor(eventColor),
-                            bgTextColor,
-                            TextColorContrast.High
-                        );
-                        eventTag.ForegroundGdk = ColorConverter.GetGdkColor(
-                            eventTextColor
-                        );
-                        buffer.InsertWithTagsByName(ref iter, timestamp, "event");
-                    } else {
-                        buffer.Insert(ref iter, timestamp);
+                    buffer.Insert(ref iter, timestamp);
+
+                    // apply timestamp width to indent tag
+                    if (indentTag != null) {
+                        indentTag.Indent -= GetPangoWidth(timestamp);
                     }
                 }
             }
@@ -256,14 +305,6 @@ namespace Smuxi.Frontend.Gnome
                 // TODO: implement all types
                 if (msgPart is UrlMessagePartModel) {
                     var urlPart = (UrlMessagePartModel) msgPart;
-                    // HACK: the engine should set a color for us!
-                    var linkStyleTag = _MessageTextTagTable.Lookup("link");
-                    var linkColor = ColorConverter.GetTextColor(
-                        linkStyleTag.ForegroundGdk
-                    );
-                    linkColor = TextColorTools.GetBestTextColor(
-                        linkColor, bgTextColor
-                    );
                     var linkText = urlPart.Text ?? urlPart.Url;
 
                     var url = urlPart.Url;
@@ -283,62 +324,70 @@ namespace Smuxi.Frontend.Gnome
                         continue;
                     }
 
+                    var tags = new List<Gtk.TextTag>();
+                    // link URI tag
                     var linkTag = new LinkTag(uri);
-                    linkTag.ForegroundGdk = ColorConverter.GetGdkColor(linkColor);
                     linkTag.TextEvent += OnLinkTagTextEvent;
                     _MessageTextTagTable.Add(linkTag);
-                    buffer.InsertWithTags(ref iter, linkText, linkStyleTag, linkTag);
+                    tags.Add(linkTag);
+
+                    // link style tag
+                    tags.Add(LinkTag);
+
+                    buffer.InsertWithTags(ref iter, linkText, tags.ToArray());
                 } else if (msgPart is TextMessagePartModel) {
+                    var tags = new List<Gtk.TextTag>();
                     TextMessagePartModel fmsgti = (TextMessagePartModel) msgPart;
-                    List<string> tags = new List<string>();
                     if (fmsgti.ForegroundColor != TextColor.None) {
-                        var bg = bgTextColor;
+                        var bg = ColorConverter.GetTextColor(BackgroundColor);
                         if (fmsgti.BackgroundColor != TextColor.None) {
                             bg = fmsgti.BackgroundColor;
                         }
                         TextColor color = TextColorTools.GetBestTextColor(
                             fmsgti.ForegroundColor, bg
                         );
-                        //Console.WriteLine("GetBestTextColor({0}, {1}): {2}",  fmsgti.ForegroundColor, bgTextColor, color);
                         string tagname = GetTextTagName(color, null);
-                        //string tagname = _GetTextTagName(fmsgti.ForegroundColor, null);
-                        tags.Add(tagname);
+                        var tag = _MessageTextTagTable.Lookup(tagname);
+                        tags.Add(tag);
                     }
                     if (fmsgti.BackgroundColor != TextColor.None) {
                         // TODO: get this from ChatView
                         string tagname = GetTextTagName(null, fmsgti.BackgroundColor);
-                        tags.Add(tagname);
+                        var tag = _MessageTextTagTable.Lookup(tagname);
+                        tags.Add(tag);
                     }
                     if (fmsgti.Underline) {
 #if LOG4NET && MSG_DEBUG
                         _Logger.Debug("AddMessage(): fmsgti.Underline is true");
 #endif
-                        tags.Add("underline");
+                        tags.Add(UnderlineTag);
                     }
                     if (fmsgti.Bold) {
 #if LOG4NET && MSG_DEBUG
                         _Logger.Debug("AddMessage(): fmsgti.Bold is true");
 #endif
-                        tags.Add("bold");
+                        tags.Add(BoldTag);
                     }
                     if (fmsgti.Italic) {
 #if LOG4NET && MSG_DEBUG
                         _Logger.Debug("AddMessage(): fmsgti.Italic is true");
 #endif
-                        tags.Add("italic");
-                    }
-                    if (msg.MessageType == MessageType.Event &&
-                        fmsgti.ForegroundColor == TextColor.None) {
-                        // only mark parts that don't have a color set
-                        tags.Add("event");
+                        tags.Add(ItalicTag);
                     }
 
                     if (tags.Count > 0) {
-                        buffer.InsertWithTagsByName(ref iter, fmsgti.Text, tags.ToArray());
+                        buffer.InsertWithTags(ref iter, fmsgti.Text, tags.ToArray());
                     } else {
                         buffer.Insert(ref iter, fmsgti.Text);
                     }
                 }
+            }
+            var startIter = buffer.GetIterAtMark(startMark);
+            if (msg.MessageType == MessageType.Event) {
+                buffer.ApplyTag(EventTag, startIter, iter);
+            }
+            if (indentTag != null) {
+                buffer.ApplyTag(indentTag, startIter, iter);
             }
             if (addLinebreak) {
                 buffer.Insert(ref iter, "\n");
@@ -386,32 +435,39 @@ namespace Smuxi.Frontend.Gnome
             Gtk.TextTagTable ttt = new Gtk.TextTagTable();
             Gtk.TextTag tt;
             Pango.FontDescription fd;
-            
+
+            // WARNING: the insertion order of tags MATTERS!
+            // The attributes of the text tags are applied in the order of
+            // insertion to the text table, and not in which order the tags
+            // applied in the buffer. This is sick IMHO.
             tt = new Gtk.TextTag("bold");
             fd = new Pango.FontDescription();
             fd.Weight = Pango.Weight.Bold;
             tt.FontDesc = fd;
+            BoldTag = tt;
             ttt.Add(tt);
 
             tt = new Gtk.TextTag("italic");
             fd = new Pango.FontDescription();
             fd.Style = Pango.Style.Italic;
             tt.FontDesc = fd;
+            ItalicTag = tt;
             ttt.Add(tt);
             
             tt = new Gtk.TextTag("underline");
             tt.Underline = Pango.Underline.Single;
+            UnderlineTag = tt;
             ttt.Add(tt);
             
+            tt = new Gtk.TextTag("event");
+            tt.Foreground = "darkgray";
+            EventTag = tt;
+            ttt.Add(tt);
+
             tt = new Gtk.TextTag("link");
             tt.Underline = Pango.Underline.Single;
             tt.Foreground = "darkblue";
-            fd = new Pango.FontDescription();
-            tt.FontDesc = fd;
-            ttt.Add(tt);
-
-            tt = new Gtk.TextTag("event");
-            tt.Foreground = "darkgray";
+            LinkTag = tt;
             ttt.Add(tt);
 
             return ttt;
@@ -626,6 +682,7 @@ namespace Smuxi.Frontend.Gnome
                                                              _BufferLines);
                 int offset = end_iter.Offset;
                 Buffer.Delete(ref start_iter, ref end_iter);
+                // TODO: remove unnamed tags from TextTagTable
 
                 // update markerline offset if present
                 if (_MarkerlineBufferPosition != 0) {
@@ -636,6 +693,68 @@ namespace Smuxi.Frontend.Gnome
                     }
                 }
             }
+        }
+
+        int GetSenderPrefixWidth(MessageModel msg)
+        {
+            // HACK: try to obtain the nickname from the message
+            // TODO: extend MessageModel with Origin property
+            var msgText = msg.ToString();
+            var nickMatch = Regex.Match(msgText, "^(<([^ ]+)> )");
+            if (nickMatch.Success) {
+                // HACK: the nick can be bold
+                if (msg.MessageParts.Count >= 3) {
+                    // possibly colored nick, see MessageBuilder.CreateNick()
+                    var prefixPart = msg.MessageParts[0];
+                    var nickPart = msg.MessageParts[1];
+                    var suffixPart = msg.MessageParts[2];
+                    if (prefixPart.ToString() == "<" &&
+                        nickPart is TextMessagePartModel &&
+                        suffixPart.ToString().StartsWith(">")) {
+                        // colored nick
+                        var nickTextPart = (TextMessagePartModel) nickPart;
+                        if (nickTextPart.Bold) {
+                            return GetPangoWidth(
+                                String.Format(
+                                    "{0}<b>{1}</b>{2} ",
+                                    GLib.Markup.EscapeText("<"),
+                                    GLib.Markup.EscapeText(
+                                        nickMatch.Groups[2].Value
+                                    ),
+                                    GLib.Markup.EscapeText(">")
+                                ),
+                                true
+                            );
+                        }
+                    }
+                }
+                return GetPangoWidth(nickMatch.Groups[1].Value, false);
+            } else {
+                var eventMatch = Regex.Match(msgText, "^(-!- )");
+                if (eventMatch.Success && eventMatch.Groups.Count >= 2) {
+                    return GetPangoWidth(eventMatch.Groups[1].Value, false);
+                }
+            }
+            return 0;
+        }
+
+        int GetPangoWidth(string text)
+        {
+            return GetPangoWidth(text, false);
+        }
+
+        int GetPangoWidth(string text, bool isMarkup)
+        {
+            Pango.Layout layout;
+            if (isMarkup) {
+                layout = CreatePangoLayout(null);
+                layout.SetMarkup(text);
+            } else {
+                layout = CreatePangoLayout(text);
+            }
+            int width, heigth;
+            layout.GetPixelSize(out width, out heigth);
+            return width;
         }
 
         private static string _(string msg)

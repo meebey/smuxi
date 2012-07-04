@@ -1,0 +1,48 @@
+#!/usr/bin/python
+#
+#            DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
+#                    Version 2, December 2004
+#
+# Copyright (C) 2010 Julian Taylor <jtaylor.debian@googlemail.com>
+# Copyright (C) 2012 Mirco Bauer <meebey@meebey.net>
+#
+# Everyone is permitted to copy and distribute verbatim or modified
+# copies of this license document, and changing it is allowed as long
+# as the name is changed.
+#
+#            DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
+#   TERMS AND CONDITIONS FOR COPYING, DISTRIBUTION AND MODIFICATION
+#
+#  0. You just DO WHAT THE FUCK YOU WANT TO.
+
+from collections import defaultdict
+from launchpadlib.launchpad import Launchpad
+lp = Launchpad.login_with('hello-world', 'edge')
+
+def get_download_counts(ppa_name, package):
+  stat = defaultdict(int)
+  ppa = lp.me.getPPAByName(name=ppa_name)
+  pub = ppa.getPublishedBinaries(binary_name=package,exact_match=True)
+  print ppa
+  for binary in pub:
+    stat_key = binary.binary_package_name + "|" + binary.binary_package_version;
+    if not binary.architecture_specific:
+      stat[stat_key] = 0
+    stat[stat_key] += binary.getDownloadCount();
+  return stat
+
+stats = get_download_counts("ppa", "smuxi-frontend-gnome");
+total = 0
+for count in stats.values():
+  total += count
+print "Total: " + str(total)
+for key, value in stats.items():
+  print key, value
+
+stats = get_download_counts("smuxi-daily", "smuxi-frontend-gnome");
+total = 0
+for count in stats.values():
+  total += count
+print "Total: " + str(total)
+for key, value in stats.items():
+  print key, value

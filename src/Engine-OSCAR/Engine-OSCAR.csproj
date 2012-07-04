@@ -1,47 +1,67 @@
-﻿<Project DefaultTargets="Build" ToolsVersion="3.5" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <Configuration Condition="'$(Configuration)'==''">Debug</Configuration>
-    <Configuration Condition="'$(Platform)'==''">AnyCPU</Configuration>
-    <ProjectGuid>{202B53E9-5CC8-4CC9-8F6F-F8F1A051C59D}</ProjectGuid>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>10.0.0</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{285452B0-FE2B-4283-8305-3E07D79F94CA}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <AssemblyName>smuxi-engine-oscar</AssemblyName>
     <RootNamespace>Smuxi.Engine</RootNamespace>
-    <CodePage>65001</CodePage>
+    <AssemblyName>smuxi-engine-oscar</AssemblyName>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
+    <Optimize>true</Optimize>
     <OutputPath>..\..\bin\debug</OutputPath>
-    <DefineConstants>TRACE;DEBUG;LOG4NET</DefineConstants>
+    <DefineConstants>DEBUG;TRACE;LOG4NET</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
+    <Execution>
+      <Execution clr-version="Net_2_0" />
+    </Execution>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DebugType>pdbonly</DebugType>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>none</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>..\..\bin\release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
+    <Execution>
+      <Execution clr-version="Net_2_0" />
+    </Execution>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="log4net" />
-    <Reference Include="Mono.Posix" />
-    <Reference Include="System"/>
-    <Reference Include="OscarLib" />
+    <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="Protocols\Oscar\OscarProtocolManager.cs" />
+    <Compile Include="..\AssemblyVersion.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\AssemblyVersion.cs">
-      <Link>AssemblyVersion.cs</Link>
-    </Compile>
-    <Compile Include="AssemblyInfo.cs"/>
-    <Compile Include="Protocols\Oscar\OscarProtocolManager.cs" />
+    <Folder Include="Protocols\" />
+    <Folder Include="Protocols\Oscar\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Common\Common.csproj">
-      <Project>{E1CAA428-6841-4C42-B4FA-3A3DE6D86B3D}</Project>
+      <Project>{73DEF91D-03FF-41E3-B2E1-3259AF247CA7}</Project>
       <Name>Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\Engine\Engine.csproj">
-      <Project>{B5F12596-21D7-4878-86E0-A230BE0D5F02}</Project>
+      <Project>{BCD52FCF-B7A8-42FB-AA8D-CF9921FF593E}</Project>
       <Name>Engine</Name>
     </ProjectReference>
   </ItemGroup>
-  <Import Project="$(MSBuildBinPath)\Microsoft.CSHARP.Targets" />
+  <ItemGroup>
+    <Reference Include="OscarLib, Version=0.1.2984.40526, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\..\lib\OscarLib.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=a5715cc6d5c3540b">
+      <HintPath>..\..\lib\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Mono.Posix" />
+    <Reference Include="System" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

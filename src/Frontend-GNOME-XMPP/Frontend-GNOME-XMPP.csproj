@@ -1,59 +1,61 @@
-﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
-    <ProjectGuid>{0DA0A731-D934-4965-8B73-326DC99C78DF}</ProjectGuid>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>10.0.0</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{1C67CF8B-5CC9-4B43-9F67-FA6399000067}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <AssemblyName>smuxi-frontend-gnome-xmpp</AssemblyName>
     <RootNamespace>Smuxi.Frontend.Gnome</RootNamespace>
-    <CodePage>65001</CodePage>
+    <ApplicationIcon>.</ApplicationIcon>
+    <AssemblyName>smuxi-frontend-gnome-xmpp</AssemblyName>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>..\..\bin\debug\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;LOG4NET</DefineConstants>
-    <PlatformTarget>x86</PlatformTarget>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
-    <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\..\bin\release\</OutputPath>
-    <PlatformTarget>x86</PlatformTarget>
+    <OutputPath>..\..\bin\debug</OutputPath>
+    <DefineConstants>DEBUG;TRACE;LOG4NET</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
+    <Execution>
+      <Execution clr-version="Net_2_0" />
+    </Execution>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>none</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\bin\release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
+    <Execution>
+      <Execution clr-version="Net_2_0" />
+    </Execution>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="..\AssemblyVersion.cs">
-      <Link>AssemblyVersion.cs</Link>
-    </Compile>
     <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="..\AssemblyVersion.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="gtk-sharp"/>
-    <Reference Include="gdk-sharp"/>
-    <Reference Include="atk-sharp"/>
-    <Reference Include="glib-sharp"/>
-    <Reference Include="pango-sharp"/>
-    <Reference Include="Mono.Posix"/>
-    <Reference Include="log4net"/>
-  </ItemGroup>
-  <ItemGroup>
+    <ProjectReference Include="..\Frontend-GNOME\Frontend-GNOME.csproj">
+      <Project>{405874F0-A58A-4E79-8766-2150D069F691}</Project>
+      <Name>Frontend-GNOME</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Engine\Engine.csproj">
+      <Project>{BCD52FCF-B7A8-42FB-AA8D-CF9921FF593E}</Project>
+      <Name>Engine</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Common\Common.csproj">
-      <Project>{E1CAA428-6841-4C42-B4FA-3A3DE6D86B3D}</Project>
+      <Project>{73DEF91D-03FF-41E3-B2E1-3259AF247CA7}</Project>
       <Name>Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\Engine-XMPP\Engine-XMPP.csproj">
-      <Project>{CC1477C9-6292-4797-A4EB-9A95386F2822}</Project>
+      <Project>{E75D5685-3027-414C-BC2C-E48307181D80}</Project>
       <Name>Engine-XMPP</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Engine\Engine.csproj">
-      <Project>{B5F12596-21D7-4878-86E0-A230BE0D5F02}</Project>
-      <Name>Engine</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Frontend-GNOME\Frontend-GNOME.csproj">
-      <Project>{8CE704BA-EC68-45CE-BF14-2230D5D53F79}</Project>
-      <Name>Frontend-GNOME</Name>
-    </ProjectReference>
   </ItemGroup>
-  <Import Project="$(MSBuildBinPath)\Microsoft.CSHARP.Targets" />
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

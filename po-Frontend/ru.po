@@ -3,13 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
+# Yuri Myasoedov <omerta13@yandex.ru>, 2012.
 msgid ""
 msgstr ""
 "Project-Id-Version: Smuxi - IRC client\n"
 "Report-Msgid-Bugs-To: http://www.smuxi.org/issues\n"
 "POT-Creation-Date: 2011-12-29 09:21+0100\n"
-"PO-Revision-Date: 2010-11-30 04:13+0000\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"PO-Revision-Date: 2012-01-07 10:35+0000\n"
+"Last-Translator: Yuri Myasoedov <omerta13@yandex.ru>\n"
 "Language-Team: Russian (http://www.transifex.net/projects/p/smuxi/team/ru/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -20,36 +21,41 @@ msgstr ""
 #: ../src/Frontend/CommandManager.cs:143
 #, csharp-format
 msgid "Unknown Command: {0}"
-msgstr ""
+msgstr "Неизвестная команда: {0}"
 
 #: ../src/Frontend/EngineManager.cs:122
 msgid "Engine must not be empty."
-msgstr ""
+msgstr "Необходимо указать движок."
 
 #: ../src/Frontend/EngineManager.cs:133
 msgid "Engine does not exist."
-msgstr ""
+msgstr "Движок не существует."
 
 #: ../src/Frontend/EngineManager.cs:318
 #, csharp-format
 msgid ""
 "Unknown channel ({0}) - only the following channel types are supported:"
 msgstr ""
+"Неизвестный канал ({0}). Поддерживаются только следующие типы каналов:"
 
 #: ../src/Frontend/EngineManager.cs:327
 msgid ""
 "Registration with engine failed!  The username and/or password were wrong - "
 "please verify them."
 msgstr ""
+"Сбой при выполнении регистрации!  Неверное имя пользователя и/или пароль. "
+"Проверьте правильность имени и пароля."
 
 #: ../src/Frontend/SshTunnelManager.cs:145
 msgid "SSH client application was not found: "
-msgstr ""
+msgstr "Не найдено клиентское приложение для SSH: "
 
 #: ../src/Frontend/SshTunnelManager.cs:148
 msgid ""
 "SSH client must be either OpenSSH (ssh) or Plink (plink.exe, not putty.exe)"
 msgstr ""
+"В качестве клиента SSH можно использовать либо OpenSSH (ssh), либо Plink "
+"(plink.exe, но не putty.exe)"
 
 #: ../src/Frontend/SshTunnelManager.cs:185
 #, csharp-format
@@ -57,6 +63,8 @@ msgid ""
 "The local SSH forwarding port {0} is already in use. Is there an old SSH "
 "tunnel still active?"
 msgstr ""
+"Локальный порт {0} уже используется для перенаправления SSH. Возможно, "
+"старый туннель для SSH всё ещё активен."
 
 #: ../src/Frontend/SshTunnelManager.cs:209
 #, csharp-format
@@ -71,16 +79,25 @@ msgid ""
 "Program Output:\n"
 "{4}\n"
 msgstr ""
+"Сбой при установке туннеля SSH (код возврата: {0})\n"
+"\n"
+"Программа SSH: {1}\n"
+"Параметры SSH: {2}\n"
+"\n"
+"Сообщения из потока ошибок:\n"
+"{3}\n"
+"Сообщения из потока вывода:\n"
+"{4}\n"
 
 #: ../src/Frontend/SshTunnelManager.cs:330
 #: ../src/Frontend/SshTunnelManager.cs:476
 msgid "SSH keyfile not found."
-msgstr ""
+msgstr "Файл ключа SSH не найден."
 
 #: ../src/Frontend/SshTunnelManager.cs:336
 #: ../src/Frontend/SshTunnelManager.cs:482
 msgid "SSH keyfile could not be read."
-msgstr ""
+msgstr "Файл ключа SSH не может быть прочтён."
 
 #: ../src/Frontend/SshTunnelManager.cs:424
 #, csharp-format
@@ -94,10 +111,18 @@ msgid ""
 "Program Output:\n"
 "{3}\n"
 msgstr ""
+"Номер версии OpenSSH не найден (код возврата: {0})\n"
+"\n"
+"Программа SSH: {1}\n"
+"\n"
+"Сообщения из потока ошибок:\n"
+"{2}\n"
+"Сообщения из потока вывода:\n"
+"{3}\n"
 
 #: ../src/Frontend/SshTunnelManager.cs:467
 msgid "PuTTY / Plink requires a username to be set."
-msgstr ""
+msgstr "Для PuTTY / Plink необходимо указать имя пользователя."
 
 #: ../src/Frontend/SshTunnelManager.cs:555
 #, csharp-format
@@ -111,5 +136,13 @@ msgid ""
 "Program Output:\n"
 "{3}\n"
 msgstr ""
+"Номер версии Plink не найден (код возврата: {0})\n"
+"\n"
+"Программа SSH: {1}\n"
+"\n"
+"Сообщения из потока ошибок:\n"
+"{2}\n"
+"Сообщения из потока вывода:\n"
+"{3}\n"
 
 

@@ -1,3 +1,3 @@
 #!/bin/sh
 
-exec mono "@expanded_libdir@/@PACKAGE@/smuxi-server.exe" "$@"
+exec mono --debug "@expanded_libdir@/@PACKAGE@/smuxi-server.exe" "$@"

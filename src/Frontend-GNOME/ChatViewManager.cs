@@ -43,6 +43,8 @@ namespace Smuxi.Frontend.Gnome
         private Gtk.TreeView   f_TreeView;
         private UserConfig     f_Config;
         ChatViewSyncManager    SyncManager { get; set; }
+        bool AutoSwitchPersonChats { get; set; }
+        bool AutoSwitchGroupChats { get; set; }
 
         public event ChatViewManagerChatAddedEventHandler   ChatAdded;
         public event ChatViewManagerChatRemovedEventHandler ChatRemoved;
@@ -74,8 +76,10 @@ namespace Smuxi.Frontend.Gnome
                 return f_Notebook.CurrentPage;
             }
             set {
-                if (value < 0 || value >= f_Notebook.NPages) {
-                    return;
+                if (value < 0) {
+                    value = f_Notebook.NPages + value;
+                } else if (value >= f_Notebook.NPages) {
+                    value = value - f_Notebook.NPages;
                 }
 
                 f_Notebook.CurrentPage = value;
@@ -194,7 +198,13 @@ namespace Smuxi.Frontend.Gnome
             if (config == null) {
                 throw new ArgumentNullException("config");
             }
-            
+
+            var prefix = "Interface/Notebook/";
+            AutoSwitchPersonChats =
+                config[prefix + "AutoSwitchPersonChats"] as bool? ?? false;
+            AutoSwitchGroupChats =
+                config[prefix + "AutoSwitchGroupChats"] as bool? ?? true;
+
             f_Config = config;
             foreach (ChatView chat in f_Chats) {
                 chat.ApplyConfig(f_Config);
@@ -247,7 +257,11 @@ namespace Smuxi.Frontend.Gnome
 #if GTK_SHARP_2_10
                 f_Notebook.SetTabReorderable(chatView, true);
 #endif
-                chatView.ShowAll();
+
+                if ((chatView is PersonChatView && AutoSwitchPersonChats) ||
+                    (chatView is GroupChatView && AutoSwitchGroupChats)) {
+                    CurrentChatNumber = idx;
+                }
 
                 if (ChatAdded != null) {
                     ChatAdded(this, new ChatViewManagerChatAddedEventArgs(chatView));

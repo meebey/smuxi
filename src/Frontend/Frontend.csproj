@@ -1,55 +1,73 @@
-﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{0F54E2A1-25A7-4433-AFE8-58B212E8F846}</ProjectGuid>
+    <ProductVersion>10.0.0</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{7B1E3AB2-FB8C-4439-A2B4-2129EDBD79F8}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <AssemblyName>smuxi-frontend</AssemblyName>
     <RootNamespace>Smuxi.Frontend</RootNamespace>
-    <CodePage>65001</CodePage>
+    <ApplicationIcon>.</ApplicationIcon>
+    <AssemblyName>smuxi-frontend</AssemblyName>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>..\..\bin\debug\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;LOG4NET</DefineConstants>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\bin\debug</OutputPath>
+    <DefineConstants>DEBUG;TRACE;LOG4NET</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
+    <ConsolePause>false</ConsolePause>
+    <Execution>
+      <Execution clr-version="Net_2_0" />
+    </Execution>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
+    <DebugType>none</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\..\bin\release\</OutputPath>
+    <OutputPath>..\..\bin\release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+    <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
+    <Execution>
+      <Execution clr-version="Net_2_0" />
+    </Execution>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="log4net"/>
-    <Reference Include="Mono.Posix"/>
-    <Reference Include="System" />
-    <Reference Include="System.Runtime.Remoting" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="..\AssemblyVersion.cs">
-      <Link>AssemblyVersion.cs</Link>
-    </Compile>
     <Compile Include="AssemblyInfo.cs" />
-    <Compile Include="ChatViewInfoAttribute.cs" />
-    <Compile Include="ChatViewManagerBase.cs" />
-    <Compile Include="CommandManager.cs" />
-    <Compile Include="EngineManager.cs" />
     <Compile Include="EntryController.cs" />
     <Compile Include="EntryHistoryModel.cs" />
+    <Compile Include="ChatViewManagerBase.cs" />
     <Compile Include="IChatView.cs" />
+    <Compile Include="ChatViewInfoAttribute.cs" />
     <Compile Include="IEntryView.cs" />
+    <Compile Include="EngineManager.cs" />
+    <Compile Include="..\AssemblyVersion.cs" />
     <Compile Include="SshTunnelManager.cs" />
+    <Compile Include="CommandManager.cs" />
+    <Compile Include="ChatViewSyncManager.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Common\Common.csproj">
-      <Project>{E1CAA428-6841-4C42-B4FA-3A3DE6D86B3D}</Project>
-      <Name>Common</Name>
-    </ProjectReference>
+    <Reference Include="System" />
+    <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=a5715cc6d5c3540b">
+      <HintPath>..\..\lib\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Remoting" />
+    <Reference Include="Mono.Posix" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\Engine\Engine.csproj">
-      <Project>{B5F12596-21D7-4878-86E0-A230BE0D5F02}</Project>
+      <Project>{BCD52FCF-B7A8-42FB-AA8D-CF9921FF593E}</Project>
       <Name>Engine</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{73DEF91D-03FF-41E3-B2E1-3259AF247CA7}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
   </ItemGroup>
-  <Import Project="$(MSBuildBinPath)\Microsoft.CSHARP.Targets" />
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

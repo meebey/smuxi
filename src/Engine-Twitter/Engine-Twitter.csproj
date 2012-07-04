@@ -1,49 +1,63 @@
-﻿<Project DefaultTargets="Build" ToolsVersion="3.5" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <Configuration Condition="'$(Configuration)'==''">Debug</Configuration>
-    <Platform Condition="'$(Platform)'==''">AnyCPU</Platform>
-    <ProjectGuid>{41D73170-A53A-4FA1-B5EA-9A97BBBEEAEF}</ProjectGuid>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>10.0.0</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{2505C91F-5F34-4E64-8A49-405A02E070FD}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <AssemblyName>smuxi-engine-twitter</AssemblyName>
     <RootNamespace>Smuxi.Engine</RootNamespace>
-    <CodePage>65001</CodePage>
+    <AssemblyName>smuxi-engine-twitter</AssemblyName>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
+    <Optimize>true</Optimize>
     <OutputPath>..\..\bin\debug</OutputPath>
-    <DefineConstants>TRACE;DEBUG;LOG4NET</DefineConstants>
+    <DefineConstants>DEBUG;TRACE;LOG4NET</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+    <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DebugType>pdbonly</DebugType>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>none</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>..\..\bin\release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="log4net" />
-    <Reference Include="Mono.Posix" />
+    <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="Protocols\Twitter\TwitterProtocolManager.cs" />
+    <Compile Include="Protocols\Twitter\TwitterMessageBuilder.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\lib\Twitterizer.Framework\Twitterizer.Framework.vs2008.csproj">
-      <Project>{CE6E8A9A-565C-4823-BE7E-2CE8A4D5FE22}</Project>
-      <Name>Twitterizer.Framework</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Common\Common.csproj">
-      <Project>{E1CAA428-6841-4C42-B4FA-3A3DE6D86B3D}</Project>
-      <Name>Common</Name>
-    </ProjectReference>
+    <Folder Include="Protocols\" />
+    <Folder Include="Protocols\Twitter\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="log4net">
+      <HintPath>..\..\lib\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\Engine\Engine.csproj">
-      <Project>{B5F12596-21D7-4878-86E0-A230BE0D5F02}</Project>
+      <Project>{BCD52FCF-B7A8-42FB-AA8D-CF9921FF593E}</Project>
       <Name>Engine</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{73DEF91D-03FF-41E3-B2E1-3259AF247CA7}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\lib\Twitterizer\Twitterizer2\Twitterizer2.csproj">
+      <Project>{2FDC3492-6B9E-4771-9755-7892C9CB1E96}</Project>
+      <Name>Twitterizer2</Name>
+    </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Compile Include="..\AssemblyVersion.cs">
-      <Link>AssemblyVersion.cs</Link>
-    </Compile>
-    <Compile Include="AssemblyInfo.cs"/>
-    <Compile Include="Protocols\Twitter\TwitterProtocolManager.cs" />
-  </ItemGroup>
-  <Import Project="$(MSBuildBinPath)\Microsoft.CSHARP.Targets" />
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

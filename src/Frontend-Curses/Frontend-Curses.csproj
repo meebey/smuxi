@@ -1,54 +1,83 @@
-﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{B47737C4-7165-44F5-820B-1A029037B4B8}</ProjectGuid>
+    <ProductVersion>10.0.0</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{24616068-65C0-464F-82CC-473B6392C4A9}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <AssemblyName>smuxi-frontend-curses</AssemblyName>
-    <StartupObject>Smuxi.Frontend.Curses.MainClass</StartupObject>
     <RootNamespace>Smuxi.Frontend.Curses</RootNamespace>
-    <CodePage>65001</CodePage>
+    <ApplicationIcon>.</ApplicationIcon>
+    <AssemblyName>smuxi-frontend-curses</AssemblyName>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>..\..\bin\debug\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;LOG4NET</DefineConstants>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\bin\debug</OutputPath>
+    <DefineConstants>DEBUG;TRACE;LOG4NET</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
+    <Externalconsole>true</Externalconsole>
+    <Execution>
+      <Execution clr-version="Net_2_0" />
+    </Execution>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
+    <DebugType>none</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\..\bin\release\</OutputPath>
+    <OutputPath>..\..\bin\release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Externalconsole>true</Externalconsole>
+    <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
+    <Execution>
+      <Execution clr-version="Net_2_0" />
+    </Execution>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="log4net"/>
-    <Reference Include="mono-curses"/>
-    <Reference Include="Mono.Posix"/>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="AssemblyInfo.cs" />
-    <Compile Include="CursesUI.cs" />
-    <Compile Include="Entry.cs" />
-    <Compile Include="Frontend.cs" />
-    <Compile Include="LogWidget.cs" />
     <Compile Include="Main.cs" />
+    <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="Frontend.cs" />
     <Compile Include="MainWindow.cs" />
+    <Compile Include="Entry.cs" />
+    <Compile Include="CursesUI.cs" />
     <Compile Include="TextView.cs" />
+    <Compile Include="LogWidget.cs" />
+    <Compile Include="..\AssemblyVersion.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Common\Common.csproj">
-      <Project>{E1CAA428-6841-4C42-B4FA-3A3DE6D86B3D}</Project>
-      <Name>Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Engine\Engine.csproj">
-      <Project>{B5F12596-21D7-4878-86E0-A230BE0D5F02}</Project>
-      <Name>Engine</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Frontend\Frontend.csproj">
-      <Project>{0F54E2A1-25A7-4433-AFE8-58B212E8F846}</Project>
+      <Project>{7B1E3AB2-FB8C-4439-A2B4-2129EDBD79F8}</Project>
       <Name>Frontend</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Engine\Engine.csproj">
+      <Project>{BCD52FCF-B7A8-42FB-AA8D-CF9921FF593E}</Project>
+      <Name>Engine</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{73DEF91D-03FF-41E3-B2E1-3259AF247CA7}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
   </ItemGroup>
-  <Import Project="$(MSBuildBinPath)\Microsoft.CSHARP.Targets" />
+  <ItemGroup>
+    <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=a5715cc6d5c3540b">
+      <HintPath>..\..\lib\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="Mono.Posix" />
+    <Reference Include="mono-curses, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\..\lib\mono-curses.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ProjectExtensions>
+    <MonoDevelop>
+      <Properties>
+        <Deployment.LinuxDeployData scriptName="smuxi-frontend-curses" />
+      </Properties>
+    </MonoDevelop>
+  </ProjectExtensions>
 </Project>

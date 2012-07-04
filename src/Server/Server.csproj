@@ -1,48 +1,83 @@
-﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{B79D6E1C-7AFC-4BE9-AF70-FE194ACBF224}</ProjectGuid>
+    <ProductVersion>10.0.0</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{B68687B3-E45A-410E-BAE6-A7B2590E17B1}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <AssemblyName>smuxi-server</AssemblyName>
     <RootNamespace>Smuxi.Server</RootNamespace>
-    <StartupObject>Smuxi.Server.MainClass</StartupObject>
-    <CodePage>65001</CodePage>
+    <ApplicationIcon>.</ApplicationIcon>
+    <AssemblyName>smuxi-server</AssemblyName>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\bin\debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE;LOG4NET</DefineConstants>
+    <OutputPath>..\..\bin\debug</OutputPath>
+    <DefineConstants>TRACE;DEBUG;LOG4NET</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
+    <Execution>
+      <Execution clr-version="Net_2_0" />
+    </Execution>
+    <Commandlineparameters>--debug</Commandlineparameters>
+    <Externalconsole>true</Externalconsole>
+    <RunWithWarnings>false</RunWithWarnings>
+    <AssemblyOriginatorKeyFile>.</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
+    <DebugType>none</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\..\bin\release\</OutputPath>
+    <OutputPath>..\..\bin\release</OutputPath>
+    <DefineConstants>LOG4NET</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
+    <RunWithWarnings>false</RunWithWarnings>
+    <Execution>
+      <Execution clr-version="Net_2_0" />
+    </Execution>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="System.Runtime.Remoting" />
-    <Reference Include="log4net" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="..\AssemblyVersion.cs">
-      <Link>AssemblyVersion.cs</Link>
-    </Compile>
     <Compile Include="AssemblyInfo.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="Server.cs" />
+    <Compile Include="..\AssemblyVersion.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Common\Common.csproj">
-      <Project>{E1CAA428-6841-4C42-B4FA-3A3DE6D86B3D}</Project>
-      <Name>Common</Name>
-    </ProjectReference>
+    <Content Include="smuxi-server.exe.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\Engine\Engine.csproj">
-      <Project>{B5F12596-21D7-4878-86E0-A230BE0D5F02}</Project>
+      <Project>{BCD52FCF-B7A8-42FB-AA8D-CF9921FF593E}</Project>
       <Name>Engine</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{73DEF91D-03FF-41E3-B2E1-3259AF247CA7}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
   </ItemGroup>
-  <Import Project="$(MSBuildBinPath)\Microsoft.CSHARP.Targets" />
+  <ItemGroup>
+    <Reference Include="TcpExChannel, Version=1.0.2248.32746, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\..\lib\TcpExChannel.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=a5715cc6d5c3540b">
+      <HintPath>..\..\lib\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Remoting" />
+    <Reference Include="System" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ProjectExtensions>
+    <MonoDevelop>
+      <Properties>
+        <Deployment.LinuxDeployData scriptName="smuxi-server" />
+      </Properties>
+    </MonoDevelop>
+  </ProjectExtensions>
 </Project>
