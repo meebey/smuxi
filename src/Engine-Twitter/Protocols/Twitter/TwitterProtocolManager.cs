@@ -1320,7 +1320,8 @@ namespace Smuxi.Engine
             }
 
             var builder = CreateMessageBuilder();
-            builder.TimeStamp = when;
+            // MessageModel serializer expects UTC values
+            builder.TimeStamp = when.ToUniversalTime();
             builder.AppendSenderPrefix(GetPerson(from), highlight);
             builder.AppendMessage(message);
             return builder.ToMessage();
