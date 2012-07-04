@@ -759,11 +759,18 @@ namespace Smuxi.Frontend.Gnome
                 var host = protocolChat.Host;
                 var port = protocolChat.Port;
                 var network = protocolChat.NetworkID;
-                // check first by network name with fallback to host+port
-                if ((!String.IsNullOrEmpty(network) &&
-                     String.Compare(network, linkNetwork, true) == 0) ||
-                    (String.Compare(host, linkHost, true) == 0 &&
-                     port == linkPort)) {
+                // Check first by network name with fallback to host+port.
+                // The network name has to be checked against the NetworkID and
+                // also ChatModel.ID as the user might have entered a different
+                // network name in settings than the server does
+                if (!String.IsNullOrEmpty(network) &&
+                    (String.Compare(network, linkNetwork, true) == 0 ||
+                     String.Compare(chatView.ID, linkNetwork, true) == 0)) {
+                    manager = protocolChat.ProtocolManager;
+                    break;
+                }
+                if (String.Compare(host, linkHost, true) == 0 &&
+                    port == linkPort) {
                     manager = protocolChat.ProtocolManager;
                     break;
                 }
