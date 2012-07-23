@@ -2568,7 +2568,7 @@ namespace Smuxi.Engine
 
         private void _OnChannelMessage(object sender, IrcEventArgs e)
         {
-            ChatModel chat = GetChat(e.Data.Channel, ChatType.Group) ?? _NetworkChat;
+            var chat = GetChat(e.Data.Channel, ChatType.Group) ?? Chat;
 
             var builder = CreateMessageBuilder();
             builder.AppendMessage(GetPerson(chat, e.Data.Nick), e.Data.Message);
@@ -2580,7 +2580,7 @@ namespace Smuxi.Engine
         
         private void _OnChannelAction(object sender, ActionEventArgs e)
         {
-            ChatModel chat = GetChat(e.Data.Channel, ChatType.Group);
+            var chat = GetChat(e.Data.Channel, ChatType.Group) ?? Chat;
 
             var builder = CreateMessageBuilder();
             builder.AppendActionPrefix();
@@ -2595,7 +2595,7 @@ namespace Smuxi.Engine
         
         private void _OnChannelNotice(object sender, IrcEventArgs e)
         {
-            ChatModel chat = GetChat(e.Data.Channel, ChatType.Group);
+            var chat = GetChat(e.Data.Channel, ChatType.Group) ?? Chat;
 
             var builder = CreateMessageBuilder();
             builder.AppendText("-{0}:{1}- ", e.Data.Nick, e.Data.Channel);
@@ -3109,7 +3109,7 @@ namespace Smuxi.Engine
                 case ReceiveType.ChannelModeChange:
                     modechange = String.Join(" ", e.Data.RawMessageArray, 3,
                                              e.Data.RawMessageArray.Length - 3);
-                    target = GetChat(e.Data.Channel, ChatType.Group);
+                    target = GetChat(e.Data.Channel, ChatType.Group) ?? Chat;
 
                     // TRANSLATOR: do NOT change the position of {2}!
                     builder.AppendText(_("mode/{0} [{1}] by {2}"),
