@@ -307,12 +307,6 @@ namespace Smuxi.Engine
 
             ApplyConfig(Session.UserConfig, server);
 
-            // add fallbacks if only one nick was specified, else we get random
-            // number nicks when nick collisions happen
-            if (_Nicknames.Length == 1) {
-                _Nicknames = new string[] { _Nicknames[0], _Nicknames[0] + "_", _Nicknames[0] + "__" };
-            }
-
             // TODO: use config for single network chat or once per network manager
             _NetworkChat = Session.CreateChat<ProtocolChatModel>(
                 _Network, "IRC " + _Network, this
@@ -2133,6 +2127,12 @@ namespace Smuxi.Engine
             // global fallbacks
             if (_Nicknames == null) {
                 _Nicknames = (string[]) config["Connection/Nicknames"];
+            }
+
+            // add fallbacks if only one nick was specified, else we get random
+            // number nicks when nick collisions happen
+            if (_Nicknames.Length == 1) {
+                _Nicknames = new string[] { _Nicknames[0], _Nicknames[0] + "_", _Nicknames[0] + "__" };
             }
 
             string encodingName = (string) config["Connection/Encoding"];
