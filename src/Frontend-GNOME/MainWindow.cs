@@ -1231,6 +1231,12 @@ namespace Smuxi.Frontend.Gnome
             Trace.Call(sender, e);
 
             e.ChatView.MessageHighlighted += OnChatViewMessageHighlighted;
+            e.ChatView.OutputMessageTextView.FocusInEvent += delegate {
+                if (CaretMode) {
+                    return;
+                }
+                Entry.GrabFocus();
+            };
             UpdateProgressBar();
         }
         
