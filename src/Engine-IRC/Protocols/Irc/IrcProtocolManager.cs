@@ -3340,9 +3340,6 @@ namespace Smuxi.Engine
 
         private IrcPersonModel GetPerson(ChatModel chat, string nick)
         {
-            if (chat == null) {
-                throw new ArgumentNullException("chat");
-            }
             if (nick == null) {
                 throw new ArgumentNullException("nick");
             }
@@ -3360,10 +3357,15 @@ namespace Smuxi.Engine
                 }
             }
 
-            if (person == null) {
 #if LOG4NET
+            if (chat == null) {
+                _Logger.Warn("GetPerson(" + chat + ", " + nick + "): chat is null!");
+            }
+            if (person == null) {
                 _Logger.Warn("GetPerson(" + chat + ", " + nick + "): person is null!");
+            }
 #endif
+            if (chat == null || person == null) {
                 person = CreatePerson(nick);
             }
 
