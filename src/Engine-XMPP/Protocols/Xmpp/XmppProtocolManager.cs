@@ -65,6 +65,7 @@ namespace Smuxi.Engine
         private ConferenceManager _ConferenceManager;
         private FrontendManager _FrontendManager;
         private ChatModel       _NetworkChat;
+        private PresenceManager _PresenceManager;
         
         public override string NetworkID {
             get {
@@ -110,6 +111,9 @@ namespace Smuxi.Engine
 
             _RosterManager = new RosterManager();
             _RosterManager.Stream = _JabberClient;
+
+            _PresenceManager = new PresenceManager();
+            _PresenceManager.Stream = _JabberClient;
 
             _ConferenceManager = new ConferenceManager();
             _ConferenceManager.Stream = _JabberClient;
@@ -277,6 +281,10 @@ namespace Smuxi.Engine
                             break;
                         case "away":
                             CommandAway(command);
+                            handled = true;
+                            break;
+                        case "roster":
+                            CommandRoster(command);
                             handled = true;
                             break;
                     }
@@ -456,6 +464,38 @@ namespace Smuxi.Engine
                 SetPresenceStatus(PresenceStatus.Away, cd.Parameter);
             } else {
                 SetPresenceStatus(PresenceStatus.Online, null);
+            }
+        }
+
+        public void CommandRoster(CommandModel cd)
+        {
+            bool full = false;
+            if (cd.Parameter == "full") {
+                full = true;
+            }
+
+            MessageBuilder builder = CreateMessageBuilder();
+            builder.AppendHeader("Roster");
+            cd.FrontendManager.AddMessageToChat(cd.Chat, builder.ToMessage());
+
+            foreach (JID j in _RosterManager) {
+                string status = "+";
+                if (!_PresenceManager.IsAvailable(j)) {
+                    if (!full) continue;
+                    status = "-";
+                }
+                string nick = _RosterManager[j].Nickname;
+                string mesg = "";
+                Presence item = _PresenceManager[j];
+                if (item != null) {
+                    if (item.Show != null && item.Show.Length != 0) {
+                        status = item.Show;
+                    }
+                    mesg = item.Status;
+                }
+                builder = CreateMessageBuilder();
+                builder.AppendText("{0}\t{1}\t({2}): {3}", status, nick, j, mesg);
+                cd.FrontendManager.AddMessageToChat(cd.Chat, builder.ToMessage());
             }
         }
 
