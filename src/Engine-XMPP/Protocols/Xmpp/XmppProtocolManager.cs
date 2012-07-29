@@ -753,9 +753,8 @@ namespace Smuxi.Engine
                 Session.SyncChat(chat);
             }
 
-            PersonModel person;
-            lock(chat.UnsafePersons) {
-                person = chat.GetPerson(nickname);
+            lock (chat) {
+                var person = chat.GetPerson(nickname);
                 if (person != null) {
                     return;
                 }
@@ -772,9 +771,8 @@ namespace Smuxi.Engine
             var chat = (GroupChatModel) Session.GetChat(jid, ChatType.Group, this);
             string nickname = roomParticipant.Nick;
 
-            PersonModel person;
-            lock(chat.UnsafePersons) {
-                person = chat.GetPerson(nickname);
+            lock (chat) {
+                var person = chat.GetPerson(nickname);
                 if (person == null) {
                     return;
                 }
