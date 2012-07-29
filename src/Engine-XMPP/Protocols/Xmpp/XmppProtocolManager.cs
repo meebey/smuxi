@@ -396,26 +396,33 @@ namespace Smuxi.Engine
         {
             ChatModel chat = null;
             if (cd.DataArray.Length >= 2) {
-                string nickname = cd.DataArray[1];
+                string arg = cd.DataArray[1];
+                Item it = _RosterManager[arg];
                 JID jid = null;
-                foreach (JID j in _RosterManager) {
-                    Item item = _RosterManager[j];
-                    if (item.Nickname != null &&
-                        item.Nickname.Replace(" ", "_") == nickname) {
-                        jid = item.JID;
-                        break;
+                // arg is not a jid in our rostermanager
+                if (it == null) {
+                    // find a jid to which the nickname belongs
+                    foreach (JID j in _RosterManager) {
+                        Item item = _RosterManager[j];
+                        if (item.Nickname != null &&
+                            item.Nickname.Replace(" ", "_") == arg) {
+                            jid = item.JID;
+                            break;
+                        }
                     }
-                }
-                if (jid == null) {
-                    jid = nickname; // TODO check validity
+                    if (jid == null) {
+                        // not found in roster, message directly to jid
+                        // TODO: check jid for validity
+                        jid = arg;
+                    }
+                } else {
+                    jid = it.JID;
                 }
 
                 chat = GetChat(jid, ChatType.Person);
                 if (chat == null) {
-                    PersonModel person = new PersonModel(jid, nickname,
-                                                         NetworkID, Protocol,
-                                                         this);
-                    chat = Session.CreatePersonChat(person, jid, nickname, this);
+                    PersonModel person = CreatePerson(jid);
+                    chat = Session.CreatePersonChat(person, jid, person.IdentityName, this);
                     Session.AddChat(chat);
                     Session.SyncChat(chat);
                 }
