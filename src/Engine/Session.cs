@@ -881,6 +881,18 @@ namespace Smuxi.Engine
         }
 
         public PersonChatModel CreatePersonChat(PersonModel person,
+                                                IProtocolManager protocolManager)
+        {
+            Trace.Call(person, protocolManager);
+
+            if (person == null) {
+                throw new ArgumentNullException("person");
+            }
+            return CreatePersonChat(person, person.ID, person.IdentityName,
+                                    protocolManager);
+        }
+
+        public PersonChatModel CreatePersonChat(PersonModel person,
                                                 string id, string name,
                                                 IProtocolManager protocolManager)
         {
