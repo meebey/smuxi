@@ -317,20 +317,14 @@ namespace Smuxi.Engine
             return handled;
         }
 
-        public void CommandHelp(CommandModel cd)
+        public void CommandHelp(CommandModel cmd)
         {
-            MessageModel fmsg = new MessageModel();
-            TextMessagePartModel fmsgti;
-
-            fmsgti = new TextMessagePartModel();
+            var builder = CreateMessageBuilder();
             // TRANSLATOR: this line is used as a label / category for a
             // list of commands below
-            fmsgti.Text = "[" + _("XMPP Commands") + "]";
-            fmsgti.Bold = true;
-            fmsg.MessageParts.Add(fmsgti);
-            
-            Session.AddMessageToChat(cd.Chat, fmsg);
-            
+            builder.AppendHeader(_("XMPP Commands"));
+            cmd.FrontendManager.AddMessageToChat(cmd.Chat, builder.ToMessage());
+
             string[] help = {
             "help",
             "connect xmpp/jabber server port username password [resource]",
@@ -342,7 +336,10 @@ namespace Smuxi.Engine
             };
             
             foreach (string line in help) { 
-                cd.FrontendManager.AddTextToChat(cd.Chat, "-!- " + line);
+                builder = CreateMessageBuilder();
+                builder.AppendEventPrefix();
+                builder.AppendText(line);
+                cmd.FrontendManager.AddMessageToChat(cmd.Chat, builder.ToMessage());
             }
         }
         
