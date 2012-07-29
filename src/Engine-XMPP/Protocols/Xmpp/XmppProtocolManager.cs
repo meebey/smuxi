@@ -779,7 +779,6 @@ namespace Smuxi.Engine
                     return;
                 }
 
-                chat.UnsafePersons.Remove(nickname);
                 Session.RemovePersonFromGroupChat(chat, person);
             }
         }
