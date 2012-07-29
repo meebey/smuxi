@@ -803,21 +803,11 @@ namespace Smuxi.Engine
             }
 
             var target_jid = query.To.Bare;
-            var contact = _RosterManager[target_jid];
-            string nickname = null;
-            if (contact == null || String.IsNullOrEmpty(contact.Nickname)) {
-                nickname = target_jid;
-            } else {
-                nickname = contact.Nickname;
-            }
             var chat = (PersonChatModel) Session.GetChat(target_jid,
                                                          ChatType.Person, this);
             if (chat == null) {
-                var person = new PersonModel(target_jid, nickname, NetworkID,
-                                             Protocol, this);
-                chat = Session.CreatePersonChat(
-                    person, target_jid, nickname, this
-                );
+                var person = CreatePerson(query.To);
+                chat = Session.CreatePersonChat(person, this);
                 Session.AddChat(chat);
                 Session.SyncChat(chat);
             }
@@ -859,8 +849,7 @@ namespace Smuxi.Engine
                     return;
                 }
 
-                person = new PersonModel(nickname, nickname,
-                                         NetworkID, Protocol, this);
+                person = CreatePerson(nickname);
                 Session.AddPersonToGroupChat(chat, person);
             }
         }
