@@ -1103,6 +1103,7 @@ namespace Smuxi.Engine
 #if LOG4NET
             f_Logger.Debug("AddPersonToGroupChat() groupChat.Name: "+groupChat.Name+" person.IdentityName: "+person.IdentityName);
 #endif
+            groupChat.UnsafePersons.Add(person.ID.ToLower(), person);
             lock (_FrontendManagers) {
                 foreach (FrontendManager fm in _FrontendManagers.Values) {
                     fm.AddPersonToGroupChat(groupChat, person);

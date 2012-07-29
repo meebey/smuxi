@@ -2758,7 +2758,6 @@ namespace Smuxi.Engine
                     var icuser = CreateGroupPerson(e.Who);
                     icuser.Ident = siuser.Ident;
                     icuser.Host = siuser.Host;
-                    groupChat.UnsafePersons.Add(icuser.NickName.ToLower(), icuser);
                     Session.AddPersonToGroupChat(groupChat, icuser);
                 }
             }

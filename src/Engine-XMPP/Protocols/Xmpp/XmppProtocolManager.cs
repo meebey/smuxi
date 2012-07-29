@@ -762,7 +762,6 @@ namespace Smuxi.Engine
 
                 person = new PersonModel(nickname, nickname,
                                          NetworkID, Protocol, this);
-                chat.UnsafePersons.Add(nickname, person);
                 Session.AddPersonToGroupChat(chat, person);
             }
         }
