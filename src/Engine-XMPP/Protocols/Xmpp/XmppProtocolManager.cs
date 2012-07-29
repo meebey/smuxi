@@ -539,6 +539,9 @@ namespace Smuxi.Engine
             if (!chat.IsEnabled) {
                 return;
             }
+            if (chat == _ContactChat) {
+                return;
+            }
             
             if (send) {
                 string target = chat.ID;
