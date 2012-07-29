@@ -66,7 +66,9 @@ namespace Smuxi.Engine
         private FrontendManager _FrontendManager;
         private ChatModel       _NetworkChat;
         private PresenceManager _PresenceManager;
-        
+
+        PersonModel MyPerson { get; set; }
+
         public override string NetworkID {
             get {
                 if (!String.IsNullOrEmpty(_JabberClient.NetworkHost)) {
@@ -531,28 +533,10 @@ namespace Smuxi.Engine
                 }
             }
 
-            MessageModel msg = new MessageModel();
-            TextMessagePartModel msgPart;
-            
-            msgPart = new TextMessagePartModel();
-            msgPart.Text = "<";
-            msg.MessageParts.Add(msgPart);
-            
-            msgPart = new TextMessagePartModel();
-            msgPart.Text = _JabberClient.User;
-            //msgPart.ForegroundColor = IrcTextColor.Blue;
-            msgPart.ForegroundColor = new TextColor(0x0000FF);
-            msg.MessageParts.Add(msgPart);
-            
-            msgPart = new TextMessagePartModel();
-            msgPart.Text = "> ";
-            msg.MessageParts.Add(msgPart);
-                
-            msgPart = new TextMessagePartModel();
-            msgPart.Text = text;
-            msg.MessageParts.Add(msgPart);
-            
-            this.Session.AddMessageToChat(chat, msg);
+            var builder = CreateMessageBuilder();
+            builder.AppendSenderPrefix(MyPerson);
+            builder.AppendMessage(text);
+            Session.AddMessageToChat(chat, builder.ToMessage());
         }
         
         void OnStreamInit(object sender, ElementStream stream)
@@ -870,6 +854,17 @@ namespace Smuxi.Engine
             _JabberClient.Port = server.Port;
             _JabberClient.Password = server.Password;
 
+            MyPerson = CreatePerson(
+                String.Format("{0}@{1}",
+                    _JabberClient.User,
+                    _JabberClient.Server
+                ),
+                _JabberClient.User
+            );
+            MyPerson.IdentityNameColored.ForegroundColor = new TextColor(0, 0, 255);
+            MyPerson.IdentityNameColored.BackgroundColor = TextColor.None;
+            MyPerson.IdentityNameColored.Bold = true;
+
             // XMPP specific settings
             if (server is XmppServerModel) {
                 var xmppServer = (XmppServerModel) server;
@@ -924,6 +919,11 @@ namespace Smuxi.Engine
                                          SslPolicyErrors sslPolicyErrors)
         {
             return true;
+        }
+
+        PersonModel CreatePerson(string jid, string nickname)
+        {
+            return new PersonModel(jid, nickname, NetworkID, Protocol, this);
         }
 
         private static string _(string msg)
