@@ -844,7 +844,10 @@ namespace Smuxi.Engine
 
             IsConnected = true;
 
-            Session.AddTextToChat(_NetworkChat, "Authenticated");
+            var builder = CreateMessageBuilder();
+            builder.AppendEventPrefix();
+            builder.AppendText(_("Authenticated"));
+            Session.AddMessageToChat(Chat, builder.ToMessage());
 
             // send initial presence
             SetPresenceStatus(PresenceStatus.Online, null);
