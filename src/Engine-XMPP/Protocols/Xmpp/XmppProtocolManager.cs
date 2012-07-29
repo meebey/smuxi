@@ -615,20 +615,14 @@ namespace Smuxi.Engine
             ChatModel chat = null;
             PersonModel person = null;
             if (msg.Type != XmppMessageType.groupchat) {
-                string jid = msg.From.Bare;
-                var contact = _RosterManager[jid];
-                string nickname = null;
-                if (contact == null || String.IsNullOrEmpty(contact.Nickname)) {
-                    nickname = jid;
-                } else {
-                    nickname = contact.Nickname;
-                }
-                PersonChatModel personChat = (PersonChatModel) Session.GetChat(jid, ChatType.Person, this);
+                var sender_jid = msg.From.Bare;
+                var personChat = (PersonChatModel) Session.GetChat(
+                    sender_jid, ChatType.Person, this
+                );
                 if (personChat == null) {
-                    person = new PersonModel(jid, nickname, NetworkID,
-                                             Protocol, this);
+                    person = CreatePerson(msg.From);
                     personChat = Session.CreatePersonChat(
-                        person, jid, nickname, this
+                        person, sender_jid, person.IdentityName, this
                     );
                     Session.AddChat(personChat);
                     Session.SyncChat(personChat);
@@ -916,6 +910,21 @@ namespace Smuxi.Engine
                                          SslPolicyErrors sslPolicyErrors)
         {
             return true;
+        }
+
+        PersonModel CreatePerson(JID jid)
+        {
+            if (jid == null) {
+                throw new ArgumentNullException("jid");
+            }
+            var contact = _RosterManager[jid.Bare];
+            string nickname = null;
+            if (contact == null || String.IsNullOrEmpty(contact.Nickname)) {
+                nickname = jid.Bare;
+            } else {
+                nickname = contact.Nickname;
+            }
+            return CreatePerson(jid.Bare, nickname);
         }
 
         PersonModel CreatePerson(string jid, string nickname)
