@@ -12,7 +12,7 @@ using System.Xml.Serialization;
 using System.Xml;
 using System.Xml.XPath;
 
-namespace RSS
+namespace Smuxi.Common
 {
     /*
      * This class serves as a way to use both RSS10Feed and RSS20Feed
