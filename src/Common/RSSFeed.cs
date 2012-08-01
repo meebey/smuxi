@@ -111,6 +111,18 @@ namespace Smuxi.Common
                             s += "+0000";
                             feed.Channel[i].Item[j].PubDate = s;
                         }
+                        if(feed.Channel[i].Item[j].PubDate.EndsWith("CDT")){
+                            string s = feed.Channel[i].Item[j].PubDate.Substring(0,
+                               feed.Channel[i].Item[j].PubDate.Length - 3);
+                            s += "+0000";
+                            feed.Channel[i].Item[j].PubDate = s;
+                        }
+                        if(feed.Channel[i].Item[j].PubDate.EndsWith("GMT")){
+                            string s = feed.Channel[i].Item[j].PubDate.Substring(0,
+                               feed.Channel[i].Item[j].PubDate.Length - 3);
+                            s += "+0000";
+                            feed.Channel[i].Item[j].PubDate = s;
+                        }
 
                         if(feed.Channel[i].Language == null){
                             lang = "en-US"; /* Choose a sane default. */
@@ -241,7 +253,7 @@ namespace Smuxi.Common
         [XmlElement("link")] public string Link = null;
         [XmlElement("language")] public string Language = null;
         [XmlElement("description")] public string Description = null;
-        [XmlElement("lastBuildDate")] public DateTime LastBuildDate = DateTime.MinValue;
+        [XmlElement("lastBuildDate")] public string LastBuildDate = null;
         [XmlElement("generator")] public string Generator = null;
         [XmlElement("item")] public RSSGenItem[] Item = null;
     }
