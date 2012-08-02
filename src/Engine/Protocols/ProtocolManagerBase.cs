@@ -227,6 +227,13 @@ namespace Smuxi.Engine
             return builder;
         }
 
+        protected virtual T CreateMessageBuilder<T>() where T : MessageBuilder, new()
+        {
+            var builder = new T();
+            builder.ApplyConfig(Session.UserConfig);
+            return builder;
+        }
+
         protected virtual bool ContainsHighlight(string msg)
         {
             Regex regex;
