@@ -155,7 +155,7 @@ namespace Smuxi.Engine
             Session.SyncChat(_NetworkChat);
 
             _ContactChat = Session.CreateChat<GroupChatModel>(
-                NetworkID, "Jabber " + Host + " Contacts", this
+                NetworkID, "Contacts", this
                 );
             Session.AddChat(_ContactChat);
             Session.SyncChat(_ContactChat);
