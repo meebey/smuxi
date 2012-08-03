@@ -154,11 +154,7 @@ namespace Smuxi.Engine
             Session.AddChat(_NetworkChat);
             Session.SyncChat(_NetworkChat);
 
-            _ContactChat = Session.CreateChat<GroupChatModel>(
-                NetworkID, "Contacts", this
-                );
-            Session.AddChat(_ContactChat);
-            Session.SyncChat(_ContactChat);
+            OpenContactChat();
 
             if (!String.IsNullOrEmpty(_JabberClient.ProxyHost)) {
                 var builder = CreateMessageBuilder();
@@ -212,13 +208,40 @@ namespace Smuxi.Engine
         {
             Trace.Call(filter);
             
-            throw new NotImplementedException();
+            var list = new List<GroupChatModel>();
+            if (_ContactChat == null) {
+                list.Add(new GroupChatModel("Contacts", "Contacts", this));
+            }
+            return list;
+        }
+
+        public void OpenContactChat ()
+        {
+            var chat = Session.GetChat("Contacts", ChatType.Group, this);
+
+            if (chat != null) return;
+
+             _ContactChat = Session.CreateChat<GroupChatModel>(
+                "Contacts", "Contacts", this
+                );
+            Session.AddChat(_ContactChat);
+            Session.SyncChat(_ContactChat);
+            foreach(JID jid in _PresenceManager) {
+                if (_PresenceManager.IsAvailable(jid)) {
+                    lock (_ContactChat) {
+                        Session.AddPersonToGroupChat(_ContactChat, CreatePerson(jid));
+                    }
+                }
+            }
         }
 
         public override void OpenChat(FrontendManager fm, ChatModel chat)
         {
             Trace.Call(fm, chat);
-            
+            if (chat.ID == "Contacts") {
+                OpenContactChat();
+                return;
+            }
             CommandModel cmd = new CommandModel(fm, _NetworkChat, chat.ID);
             switch (chat.ChatType) {
                 case ChatType.Person:
@@ -234,7 +257,10 @@ namespace Smuxi.Engine
         {
             Trace.Call(fm, chat);
 
-            if (chat.ChatType == ChatType.Group) {
+            if (chat == _ContactChat) {
+                Session.RemoveChat(chat);
+                _ContactChat = null;
+            } else if (chat.ChatType == ChatType.Group) {
                 _ConferenceManager.GetRoom(chat.ID+"/"+_JabberClient.User).Leave("Closed");
             } else {
                 Session.RemoveChat(chat);
@@ -632,6 +658,7 @@ namespace Smuxi.Engine
         {
             string jid = ri.JID.Bare;
 
+            if (_ContactChat == null) return;
             lock (_ContactChat) {
                 PersonModel oldp = _ContactChat.GetPerson(jid);
                 if (oldp == null) {
@@ -665,14 +692,16 @@ namespace Smuxi.Engine
                 case PresenceType.available:
                     // groupchat is already managed
                     if (groupChat == null) {
-                        // anyone who is online/away/dnd will be added to the list
-                        lock (_ContactChat) {
-                            PersonModel p = _ContactChat.GetPerson(jid.Bare);
-                            if (p != null) {
-                                // p already exists, don't add a new person
-                                Session.UpdatePersonInGroupChat(_ContactChat, p, person);
-                            } else {
-                                Session.AddPersonToGroupChat(_ContactChat, person);
+                        if (_ContactChat != null) {
+                            // anyone who is online/away/dnd will be added to the list
+                            lock (_ContactChat) {
+                                PersonModel p = _ContactChat.GetPerson(jid.Bare);
+                                if (p != null) {
+                                    // p already exists, don't add a new person
+                                    Session.UpdatePersonInGroupChat(_ContactChat, p, person);
+                                } else {
+                                    Session.AddPersonToGroupChat(_ContactChat, person);
+                                }
                             }
                         }
                     }
@@ -692,13 +721,15 @@ namespace Smuxi.Engine
                 case PresenceType.unavailable:
                     builder.AppendText(_(" is now offline"));
                     if(groupChat == null) {
-                        lock (_ContactChat) {
-                            PersonModel p = _ContactChat.GetPerson(jid.Bare);
-                            if (p == null) {
-                                // doesn't exist, got an offline message w/o a preceding online message?
-                                return;
+                        if (_ContactChat != null) {
+                            lock (_ContactChat) {
+                                PersonModel p = _ContactChat.GetPerson(jid.Bare);
+                                if (p == null) {
+                                    // doesn't exist, got an offline message w/o a preceding online message?
+                                    return;
+                                }
+                                Session.RemovePersonFromGroupChat(_ContactChat, p);
                             }
-                            Session.RemovePersonFromGroupChat(_ContactChat, p);
                         }
                     }
                     break;
@@ -711,7 +742,7 @@ namespace Smuxi.Engine
             }
             if (groupChat != null) {
                 Session.AddMessageToChat(groupChat, builder.ToMessage());
-            } else {
+            } else if (_ContactChat != null) {
                 Session.AddMessageToChat(_ContactChat, builder.ToMessage());
             }
         }
