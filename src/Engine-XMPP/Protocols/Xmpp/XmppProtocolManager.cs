@@ -745,6 +745,10 @@ namespace Smuxi.Engine
             } else if (_ContactChat != null) {
                 Session.AddMessageToChat(_ContactChat, builder.ToMessage());
             }
+            var personChat = Session.GetChat(jid.Bare, ChatType.Person, this);
+            if (personChat != null) {
+                Session.AddMessageToChat(personChat, builder.ToMessage());
+            }
         }
 
         private void OnMessage(object sender, Message msg)
