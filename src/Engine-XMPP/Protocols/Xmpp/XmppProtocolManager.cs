@@ -404,11 +404,9 @@ namespace Smuxi.Engine
                 try {
                     server.Port = Int32.Parse(cd.DataArray[3]);
                 } catch (FormatException) {
-                    fm.AddTextToChat(
-                        cd.Chat,
-                        "-!- " + String.Format(
-                                    _("Invalid port: {0}"),
-                                    cd.DataArray[3]));
+                    var builder = CreateMessageBuilder();
+                    builder.AppendText(_("Invalid port: {0}"), cd.DataArray[3]);
+                    fm.AddMessageToChat(cd.Chat, builder.ToMessage());
                     return;
                 }
             } else {
