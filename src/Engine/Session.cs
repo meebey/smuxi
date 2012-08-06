@@ -1023,11 +1023,13 @@ namespace Smuxi.Engine
             }
         }
 
+        [Obsolete("This method is deprecated, use AddMessageToChat(ChatModel, MessageModel) instead!")]
         public void AddTextToChat(ChatModel chat, string text)
         {
             AddTextToChat(chat, text, false);
         }
 
+        [Obsolete("This method is deprecated, use AddMessageToChat(ChatModel, MessageModel, bool) instead!")]
         public void AddTextToChat(ChatModel chat, string text, bool ignoreFilters)
         {
             if (chat == null) {
