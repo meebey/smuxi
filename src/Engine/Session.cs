@@ -212,13 +212,12 @@ namespace Smuxi.Engine
                         isError = true;
                     }
                     if (isError) {
-                        fm.AddTextToChat(
-                            _SessionChat,
-                            String.Format(
-                                _("Automatic connect to {0} failed!"),
-                                server.Hostname + ":" + server.Port
-                            )
+                        var builder = CreateMessageBuilder();
+                        builder.AppendErrorText(
+                            _("Automatic connect to {0} failed!"),
+                            server.Hostname + ":" + server.Port
                         );
+                        fm.AddMessageToChat(_SessionChat, builder.ToMessage());
                         continue;
                     }
                 }
@@ -445,7 +444,7 @@ namespace Smuxi.Engine
             }
             
             FrontendManager fm = cd.FrontendManager;
-
+            MessageBuilder builder = null;
             string protocol = null;
             ServerModel server = null;
             // first lookup by network name
@@ -496,10 +495,10 @@ namespace Smuxi.Engine
                         throw;
                     }
                     // this is an unknown protocol error
-                    fm.AddTextToChat(
-                        fm.CurrentChat,
-                        String.Format("-!- {0}", ex.Message)
-                    );
+                    builder = CreateMessageBuilder();
+                    builder.AppendEventPrefix();
+                    builder.AppendErrorText(ex.Message);
+                    fm.AddMessageToChat(cd.Chat, builder.ToMessage());
                     return;
                 }
             }
@@ -536,7 +535,10 @@ namespace Smuxi.Engine
 #if LOG4NET
                     f_Logger.Error("CommandConnect(): ", ex);
 #endif
-                    fm.AddTextToChat(cd.Chat, "-!- " + _("Connect failed!"));
+                    builder = CreateMessageBuilder();
+                    builder.AppendEventPrefix();
+                    builder.AppendErrorText(_("Connect failed!"));
+                    fm.AddMessageToChat(cd.Chat, builder.ToMessage());
                 }
             });
         }
@@ -555,14 +557,13 @@ namespace Smuxi.Engine
                 string server = cd.DataArray[1];
                 victim = GetProtocolManagerByHost(server);
                 if (victim == null) {
-                    fm.AddTextToChat(
-                        cd.Chat,
-                        "-!- " +
-                        String.Format(
-                            _("Disconnect failed - could not find server: {0}"),
-                            server
-                        )
+                    var builder = CreateMessageBuilder();
+                    builder.AppendEventPrefix();
+                    builder.AppendErrorText(
+                        _("Disconnect failed - could not find server: {0}"),
+                        server
                     );
+                    fm.AddMessageToChat(cd.Chat, builder.ToMessage());
                     return;
                 }
             } else {
@@ -597,8 +598,11 @@ namespace Smuxi.Engine
 #if LOG4NET
                     f_Logger.Error("CommandReconnect(): ", ex);
 #endif
-                    cd.FrontendManager.AddTextToChat(cd.Chat, "-!- " +
-                        _("Reconnect failed!"));
+                    var builder = CreateMessageBuilder();
+                    builder.AppendEventPrefix();
+                    builder.AppendErrorText(_("Reconnect failed!"));
+                    cd.FrontendManager.AddMessageToChat(cd.Chat,
+                                                        builder.ToMessage());
                 }
             });
         }
@@ -613,22 +617,24 @@ namespace Smuxi.Engine
             
             FrontendManager fm = cd.FrontendManager;
             if (cd.DataArray.Length >= 2) {
+                var builder = CreateMessageBuilder();
+                builder.AppendEventPrefix();
                 switch (cd.DataArray[1].ToLower()) {
                     case "load":
                         _Config.Load();
-                        fm.AddTextToChat(cd.Chat, "-!- " +
-                            _("Configuration reloaded"));
+                        builder.AppendText(_("Configuration reloaded"));
                         break;
                     case "save":
                         _Config.Save();
-                        fm.AddTextToChat(cd.Chat, "-!- " +
-                            _("Configuration saved"));
+                        builder.AppendText(_("Configuration saved"));
                         break;
                     default:
-                        fm.AddTextToChat(cd.Chat, "-!- " + 
-                            _("Invalid parameter for config; use load or save"));
+                        builder.AppendText(
+                            _("Invalid parameter for config; use load or save")
+                        );
                         break;
                 }
+                fm.AddMessageToChat(cd.Chat, builder.ToMessage());
             } else {
                 _NotEnoughParameters(cd);
             }
@@ -690,8 +696,13 @@ namespace Smuxi.Engine
                         _CommandNetworkClose(cd);
                         break;
                     default:
-                        fm.AddTextToChat(cd.Chat, "-!- " + 
-                            _("Invalid parameter for network; use list, switch, or close"));
+                        var builder = CreateMessageBuilder();
+                        builder.AppendEventPrefix();
+                        builder.AppendText(
+                            _("Invalid parameter for network; use list, " +
+                              "switch, or close")
+                        );
+                        fm.AddMessageToChat(cd.Chat, builder.ToMessage());
                         break;
                 }
             } else {
@@ -768,9 +779,10 @@ namespace Smuxi.Engine
                 string network = cd.DataArray[2];
                 pm = GetProtocolManagerByNetwork(network);
                 if (pm == null) {
-                    fm.AddTextToChat(cd.Chat, "-!- " +
-                        String.Format(_("Network close failed - could not find network: {0}"),
-                                      network));
+                    var builder = CreateMessageBuilder();
+                    builder.AppendText(_("Network close failed - could not " +
+                                         "find network: {0}"), network);
+                    fm.AddMessageToChat(cd.Chat, builder.ToMessage());
                     return;
                 }
             } else if (cd.DataArray.Length >= 2) {
@@ -806,10 +818,10 @@ namespace Smuxi.Engine
                 string network = cd.DataArray[2];
                 var pm = GetProtocolManagerByNetwork(network);
                 if (pm == null) {
-                    fm.AddTextToChat(cd.Chat, "-!- " +
-                        String.Format(
-                            _("Network switch failed - could not find network: {0}"),
-                                  network));
+                    var builder = CreateMessageBuilder();
+                    builder.AppendText(_("Network switch failed - could not " +
+                                         "find network: {0}"), network);
+                    fm.AddMessageToChat(cd.Chat, builder.ToMessage());
                     return;
                 }
                 fm.CurrentProtocolManager = pm;
@@ -824,25 +836,17 @@ namespace Smuxi.Engine
         
         private void _NotConnected(CommandModel cd)
         {
-            cd.FrontendManager.AddTextToChat(
-                cd.Chat,
-                String.Format("-!- {0}",
-                    _("Not connected to any network")
-                )
-            );
+            var builder = CreateMessageBuilder();
+            builder.AppendText(_("Not connected to any network"));
+            cd.FrontendManager.AddMessageToChat(cd.Chat, builder.ToMessage());
         }
         
         private void _NotEnoughParameters(CommandModel cd)
         {
-            cd.FrontendManager.AddTextToChat(
-                cd.Chat,
-                String.Format("-!- {0}",
-                    String.Format(
-                        _("Not enough parameters for {0} command"),
-                        cd.Command
-                    )
-                )
-            );
+            var builder = CreateMessageBuilder();
+            builder.AppendText(_("Not enough parameters for {0} command"),
+                               cd.Command);
+            cd.FrontendManager.AddMessageToChat(cd.Chat, builder.ToMessage());
         }
         
         public void UpdateNetworkStatus()
