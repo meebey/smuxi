@@ -63,7 +63,6 @@ namespace Smuxi.Engine
         private JabberClient    _JabberClient;
         private RosterManager   _RosterManager;
         private ConferenceManager _ConferenceManager;
-        private FrontendManager _FrontendManager;
         private ChatModel       _NetworkChat;
         private GroupChatModel  _ContactChat;
         private PresenceManager _PresenceManager;
@@ -141,7 +140,6 @@ namespace Smuxi.Engine
                 throw new ArgumentNullException("server");
             }
 
-            _FrontendManager = fm;
             Host = server.Hostname;
             Port = server.Port;
 
