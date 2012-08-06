@@ -61,7 +61,7 @@ namespace Smuxi.Frontend.Gnome
                 if (msgPart is UrlMessagePartModel) {
                     UrlMessagePartModel url = (UrlMessagePartModel) msgPart;
 
-                    string str = GLib.Markup.EscapeText(url.Text);
+                    string str = GLib.Markup.EscapeText(url.Url);
                     
                     Gdk.Color gdkColor = Gdk.Color.Zero;
                     Gdk.Color.Parse("darkblue", ref gdkColor);
