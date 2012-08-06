@@ -248,12 +248,13 @@ namespace Smuxi.Engine
             });
         }
         
+        [Obsolete("This method is deprecated, use AddMessageToChat(cmd.Chat, MessageModel) instead!")]
         public void AddTextToChat(ChatModel chat, string text)
         {
             AddMessageToChat(chat, new MessageModel(text));
         }
 
-        [Obsolete("This method is unsafe, use AddTextToChat(cmd.Chat, text) instead!", true)]
+        [Obsolete("This method is unsafe, use AddMessageToChat(cmd.Chat, MessageModel) instead!", true)]
         public void AddTextToCurrentChat(string text)
         {
             AddTextToChat(CurrentChat, text);
