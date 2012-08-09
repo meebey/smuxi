@@ -33,9 +33,6 @@ namespace Smuxi.Engine
 
     public class IrcMessageBuilder : MessageBuilder
     {
-#if LOG4NET
-        private static readonly log4net.ILog Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-#endif
         private static char[] IrcControlChars { get; set; }
 
         static IrcMessageBuilder()

@@ -29,9 +29,6 @@ namespace Smuxi.Engine
     [Serializable]
     public class IrcGroupPersonModel : IrcPersonModel
     {
-#if LOG4NET
-        private static readonly log4net.ILog _Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-#endif
         private bool _IsOp;
         private bool _IsVoice;
         

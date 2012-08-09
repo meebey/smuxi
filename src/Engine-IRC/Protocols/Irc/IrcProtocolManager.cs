@@ -1234,7 +1234,6 @@ namespace Smuxi.Engine
 
         public void CommandCycle(CommandModel cd)
         {
-            FrontendManager fm = cd.FrontendManager;
             if (cd.Chat.ChatType == ChatType.Group) {
                 if (cd.Chat.IsEnabled) {
                     // disable chat so we don't loose the message buffer
@@ -2008,7 +2007,7 @@ namespace Smuxi.Engine
 #if LOG4NET
                         _Logger.Warn("_Run(): _Listen() returned.");
 #endif
-                    } catch (ThreadAbortException ex) {
+                    } catch (ThreadAbortException) {
                         throw;
                     } catch (Exception ex) {
 #if LOG4NET
@@ -2021,7 +2020,7 @@ namespace Smuxi.Engine
                     // sleep for 10 seconds, we don't want to be abusive
                     System.Threading.Thread.Sleep(10000);
                 }
-            } catch (ThreadAbortException ex) {
+            } catch (ThreadAbortException) {
 #if LOG4NET
                 _Logger.Debug("_Run(): thread aborted");
 #endif
@@ -3078,7 +3077,6 @@ namespace Smuxi.Engine
             builder = CreateMessageBuilder();
             builder.AppendEventPrefix();
 
-            string who;
             if (String.IsNullOrEmpty(e.Who)) {
                 // server changed topic
                 builder.AppendText(e.Data.From);
@@ -3389,7 +3387,7 @@ namespace Smuxi.Engine
                     }
                     _LastLag = lag;
                 }
-            } catch (ThreadAbortException ex) {
+            } catch (ThreadAbortException) {
 #if LOG4NET
                 _Logger.Debug("_LagWatcher(): thread aborted");
 #endif
