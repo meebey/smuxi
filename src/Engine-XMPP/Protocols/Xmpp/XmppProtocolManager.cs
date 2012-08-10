@@ -781,7 +781,6 @@ namespace Smuxi.Engine
             } else {
                 string group_jid = msg.From.Bare;
                 string group_name = group_jid;
-                string sender_jid = msg.From.ToString();
                 XmppGroupChatModel groupChat = (XmppGroupChatModel) Session.GetChat(group_jid, ChatType.Group, this);
                 if (groupChat == null) {
                     // FIXME shouldn't happen?
