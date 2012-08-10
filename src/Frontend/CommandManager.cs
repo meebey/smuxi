@@ -135,16 +135,11 @@ namespace Smuxi.Frontend
 
         private void Unknown(CommandModel cmd)
         {
-            cmd.FrontendManager.AddTextToChat(
-                cmd.Chat,
-                String.Format(
-                    "-!- {0}",
-                    String.Format(
-                        _("Unknown Command: {0}"),
-                        cmd.Command
-                    )
-                )
-            );
+            var msg = new MessageBuilder().
+                AppendEventPrefix().
+                AppendText(_("Unknown Command: {0}"), cmd.Command).
+                ToMessage();
+            cmd.FrontendManager.AddMessageToChat(cmd.Chat, msg);
         }
 
         protected virtual void OnTaskQueueExceptionEvent(object sender, TaskQueueExceptionEventArgs e)
