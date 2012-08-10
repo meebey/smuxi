@@ -171,7 +171,7 @@ namespace Smuxi.Frontend.Stfl
                 }
             }
             if (!handled) {
-               _CommandUnknown(cd);
+               CommandUnknown(cd);
             }
         }
 
@@ -195,8 +195,11 @@ namespace Smuxi.Frontend.Stfl
 #if LOG4NET
                         _Logger.Debug("GC.Collect()");
 #endif
-                        cmd.FrontendManager.AddTextToChat(cmd.Chat,
-                            "-!- GCing...");
+                        var msg = new MessageBuilder().
+                            AppendEventPrefix().
+                            AppendText("GCing...").
+                            ToMessage();
+                        cmd.FrontendManager.AddMessageToChat(cmd.Chat, msg);
                         GC.Collect();
                         handled = true;
                         break;
@@ -241,12 +244,13 @@ namespace Smuxi.Frontend.Stfl
             f_ChatViewManager.CurrentChat = chat;
         }
 
-        private void _CommandUnknown(CommandModel cd)
+        private void CommandUnknown(CommandModel cmd)
         {
-            cd.FrontendManager.AddTextToChat(cd.Chat, "-!- " +
-                                String.Format(Catalog.GetString(
-                                              "Unknown Command: {0}"),
-                                              cd.Command));
+            var msg = new MessageBuilder().
+                AppendEventPrefix().
+                AppendText(_("Unknown Command: {0}"), cmd.Command).
+                ToMessage();
+            cmd.FrontendManager.AddMessageToChat(cmd.Chat, msg);
         }
 
         // gets the position of the first space left
