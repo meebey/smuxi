@@ -37,43 +37,47 @@ namespace Smuxi.Frontend.Gnome
 #if LOG4NET
         private static readonly log4net.ILog f_Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 #endif
-        private Gtk.Statusbar    _NetworkStatusbar;
-        private Gtk.Statusbar    _Statusbar;
-        private Gtk.ProgressBar  _ProgressBar;
-        private Entry            _Entry;
-        private Notebook         _Notebook;
-        private bool             _CaretMode;
-        private ChatViewManager  _ChatViewManager;
-        private IFrontendUI      _UI;
-        private EngineManager    _EngineManager;
-        private Gtk.ImageMenuItem _OpenChatMenuItem;
-        private Gtk.MenuItem     _CloseChatMenuItem;
-        private Gtk.ImageMenuItem _OpenLogChatMenuItem;
-        private Gtk.ImageMenuItem _FindGroupChatMenuItem;
-        private NotificationAreaIconMode _NotificationAreaIconMode;
-#if GTK_SHARP_2_10
-        private StatusIconManager _StatusIconManager;
-#endif
-#if INDICATE_SHARP
-        private IndicateManager  _IndicateManager;
-#endif
-#if NOTIFY_SHARP
-        private NotifyManager    _NotifyManager;
-#endif
-#if IPC_DBUS
-        private NetworkManager   _NetworkManager;
-#endif
-        private bool             _IsMinimized;
-        private bool             _IsMaximized;
         private bool             _IsFullscreen;
 
+        Gtk.Statusbar NetworkStatusbar { get; set; }
+        Gtk.Statusbar Statusbar { get; set; }
+        public Gtk.ProgressBar ProgressBar { get; private set; }
         public Gtk.MenuBar MenuBar { get; private set; }
         Gtk.HBox MenuHBox { get; set; }
         Gtk.HBox StatusHBox { get; set; }
         JoinWidget JoinWidget { get; set; }
+
+        public IFrontendUI UI { get; private set; }
+        public Entry Entry { get; private set; }
+        public Notebook Notebook { get; private set; }
+        public ChatViewManager ChatViewManager { get; private set; }
+        public EngineManager EngineManager { get; private set; }
+#if GTK_SHARP_2_10
+        StatusIconManager StatusIconManager { get; set; }
+#endif
+#if INDICATE_SHARP
+        IndicateManager IndicateManager { get; set; }
+#endif
+#if NOTIFY_SHARP
+        NotifyManager NotifyManager { get; set; }
+#endif
+#if IPC_DBUS
+        NetworkManager NetworkManager { get; set; }
+#endif
+
+        Gtk.ImageMenuItem OpenChatMenuItem { get; set; }
+        Gtk.MenuItem CloseChatMenuItem { get; set; }
+        Gtk.ImageMenuItem OpenLogChatMenuItem { get; set; }
+        Gtk.ImageMenuItem FindGroupChatMenuItem { get; set; }
+
         Gtk.CheckMenuItem ShowQuickJoinMenuItem { get; set; }
         Gtk.CheckMenuItem ShowMenuBarMenuItem  { get; set; }
         Gtk.CheckMenuItem ShowStatusBarMenuItem  { get; set; }
+
+        public NotificationAreaIconMode NotificationAreaIconMode { get; set; }
+        public bool CaretMode { get; private set; }
+        public bool IsMinimized { get; private set; }
+        public bool IsMaximized { get; private set; }
 
         public bool ShowMenuBar {
             get {
@@ -84,43 +88,13 @@ namespace Smuxi.Frontend.Gnome
             }
         }
 
-        public bool CaretMode {
-            get {
-                return _CaretMode;
-            }
-        }
-        
-        public Notebook Notebook {
-            get {
-                return _Notebook;
-            }
-        }
-        
-        public IFrontendUI UI {
-            get {
-                return _UI;
-            }
-        }
-        
-        public EngineManager EngineManager {
-            get {
-                return _EngineManager;
-            }
-        }
-        
-        public ChatViewManager ChatViewManager {
-            get {
-                return _ChatViewManager;
-            }
-        }
-        
         public string NetworkStatus {
             set {
                 if (value == null) {
                     value = String.Empty;
                 }
-                _NetworkStatusbar.Pop(0);
-                _NetworkStatusbar.Push(0, value);
+                NetworkStatusbar.Pop(0);
+                NetworkStatusbar.Push(0, value);
             }
         } 
 
@@ -129,32 +103,8 @@ namespace Smuxi.Frontend.Gnome
                 if (value == null) {
                     value = String.Empty;
                 }
-                _Statusbar.Pop(0);
-                _Statusbar.Push(0, value);
-            }
-        }
-
-        public Gtk.ProgressBar ProgressBar {
-            get {
-                return _ProgressBar;
-            }
-        }
-        
-        public Entry Entry {
-            get {
-                return _Entry;
-            }
-        }
-        
-        public bool IsMaximized {
-            get {
-                return _IsMaximized;
-            }
-        }
-        
-        public bool IsMinimized {
-            get {
-                return _IsMinimized;
+                Statusbar.Pop(0);
+                Statusbar.Push(0, value);
             }
         }
 
@@ -169,15 +119,6 @@ namespace Smuxi.Frontend.Gnome
                 } else {
                     Unfullscreen();
                 }
-            }
-        }
-
-        public NotificationAreaIconMode NotificationAreaIconMode {
-            get {
-                return _NotificationAreaIconMode;
-            }
-            set {
-                _NotificationAreaIconMode = value;
             }
         }
 
@@ -294,22 +235,22 @@ namespace Smuxi.Frontend.Gnome
             item.Submenu = menu;
             MenuBar.Append(item);
             
-            _OpenChatMenuItem = new Gtk.ImageMenuItem(_("Open / Join Chat"));
-            _OpenChatMenuItem.Image = new Gtk.Image(Gtk.Stock.Open, Gtk.IconSize.Menu);
-            _OpenChatMenuItem.Activated += OnOpenChatMenuItemActivated;
+            OpenChatMenuItem = new Gtk.ImageMenuItem(_("Open / Join Chat"));
+            OpenChatMenuItem.Image = new Gtk.Image(Gtk.Stock.Open, Gtk.IconSize.Menu);
+            OpenChatMenuItem.Activated += OnOpenChatMenuItemActivated;
             akey = new Gtk.AccelKey();
             akey.AccelFlags = Gtk.AccelFlags.Visible;
             akey.AccelMods = Gdk.ModifierType.ControlMask;
             akey.Key = Gdk.Key.L;
-            _OpenChatMenuItem.AddAccelerator("activate", agrp, akey);
-            _OpenChatMenuItem.AccelCanActivate += AccelCanActivateSensitive;
-            menu.Append(_OpenChatMenuItem);
+            OpenChatMenuItem.AddAccelerator("activate", agrp, akey);
+            OpenChatMenuItem.AccelCanActivate += AccelCanActivateSensitive;
+            menu.Append(OpenChatMenuItem);
                     
-            _FindGroupChatMenuItem = new Gtk.ImageMenuItem(_("_Find Group Chat"));
-            _FindGroupChatMenuItem.Image = new Gtk.Image(Gtk.Stock.Find, Gtk.IconSize.Menu);
-            _FindGroupChatMenuItem.Activated += OnChatFindGroupChatButtonClicked;
-            _FindGroupChatMenuItem.Sensitive = false;
-            menu.Append(_FindGroupChatMenuItem);
+            FindGroupChatMenuItem = new Gtk.ImageMenuItem(_("_Find Group Chat"));
+            FindGroupChatMenuItem.Image = new Gtk.Image(Gtk.Stock.Find, Gtk.IconSize.Menu);
+            FindGroupChatMenuItem.Activated += OnChatFindGroupChatButtonClicked;
+            FindGroupChatMenuItem.Sensitive = false;
+            menu.Append(FindGroupChatMenuItem);
             
             image_item = new Gtk.ImageMenuItem(_("C_lear All Activity"));
             image_item.Image = new Gtk.Image(Gtk.Stock.Clear, Gtk.IconSize.Menu);
@@ -380,18 +321,18 @@ namespace Smuxi.Frontend.Gnome
             // gettext away from using all the commented code from above as
             // translator comment
             ;
-            _OpenLogChatMenuItem = new Gtk.ImageMenuItem(_("Open Log"));
-            _OpenLogChatMenuItem.Image = new Gtk.Image(Gtk.Stock.Open,
+            OpenLogChatMenuItem = new Gtk.ImageMenuItem(_("Open Log"));
+            OpenLogChatMenuItem.Image = new Gtk.Image(Gtk.Stock.Open,
                                                        Gtk.IconSize.Menu);
-            _OpenLogChatMenuItem.Activated += OnOpenLogChatMenuItemActivated;
-            _OpenLogChatMenuItem.Sensitive = false;
-            _OpenLogChatMenuItem.NoShowAll = true;
-            menu.Append(_OpenLogChatMenuItem);
+            OpenLogChatMenuItem.Activated += OnOpenLogChatMenuItemActivated;
+            OpenLogChatMenuItem.Sensitive = false;
+            OpenLogChatMenuItem.NoShowAll = true;
+            menu.Append(OpenLogChatMenuItem);
 
-            _CloseChatMenuItem = new Gtk.ImageMenuItem(Gtk.Stock.Close, agrp);
-            _CloseChatMenuItem.Activated += OnCloseChatMenuItemActivated;
-            _CloseChatMenuItem.AccelCanActivate += AccelCanActivateSensitive;
-            menu.Append(_CloseChatMenuItem);
+            CloseChatMenuItem = new Gtk.ImageMenuItem(Gtk.Stock.Close, agrp);
+            CloseChatMenuItem.Activated += OnCloseChatMenuItemActivated;
+            CloseChatMenuItem.AccelCanActivate += AccelCanActivateSensitive;
+            menu.Append(CloseChatMenuItem);
 
             // Menu - Engine
             menu = new Gtk.Menu();
@@ -433,7 +374,7 @@ namespace Smuxi.Frontend.Gnome
             item = new Gtk.CheckMenuItem(_("_Browse Mode"));
             item.Activated += delegate {
                 try {
-                    _Notebook.IsBrowseModeEnabled = !_Notebook.IsBrowseModeEnabled;
+                    Notebook.IsBrowseModeEnabled = !Notebook.IsBrowseModeEnabled;
                 } catch (Exception ex) {
                     Frontend.ShowException(this, ex);
                 }
@@ -495,44 +436,44 @@ namespace Smuxi.Frontend.Gnome
             MenuBar.Visible = ShowMenuBarMenuItem.Active;
 
             // TODO: network treeview
-            _Notebook = new Notebook();
-            _Notebook.SwitchPage += OnNotebookSwitchPage;
-            _Notebook.FocusInEvent += OnNotebookFocusInEvent;
+            Notebook = new Notebook();
+            Notebook.SwitchPage += OnNotebookSwitchPage;
+            Notebook.FocusInEvent += OnNotebookFocusInEvent;
 
-            _ChatViewManager = new ChatViewManager(_Notebook, null);
+            ChatViewManager = new ChatViewManager(Notebook, null);
             Assembly asm = Assembly.GetExecutingAssembly();
-            _ChatViewManager.Load(asm);
-            _ChatViewManager.LoadAll(System.IO.Path.GetDirectoryName(asm.Location),
+            ChatViewManager.Load(asm);
+            ChatViewManager.LoadAll(System.IO.Path.GetDirectoryName(asm.Location),
                                      "smuxi-frontend-gnome-*.dll");
-            _ChatViewManager.ChatAdded += OnChatViewManagerChatAdded;
-            _ChatViewManager.ChatSynced += OnChatViewManagerChatSynced;
-            _ChatViewManager.ChatRemoved += OnChatViewManagerChatRemoved;
+            ChatViewManager.ChatAdded += OnChatViewManagerChatAdded;
+            ChatViewManager.ChatSynced += OnChatViewManagerChatSynced;
+            ChatViewManager.ChatRemoved += OnChatViewManagerChatRemoved;
             
 #if GTK_SHARP_2_10
-            _StatusIconManager = new StatusIconManager(this, _ChatViewManager);
+            StatusIconManager = new StatusIconManager(this, ChatViewManager);
 #endif
 #if INDICATE_SHARP
-            _IndicateManager = new IndicateManager(this, _ChatViewManager);
+            IndicateManager = new IndicateManager(this, ChatViewManager);
 #endif
 #if NOTIFY_SHARP
-            _NotifyManager = new NotifyManager(this, _ChatViewManager);
+            NotifyManager = new NotifyManager(this, ChatViewManager);
 #endif
 #if IPC_DBUS
-            _NetworkManager = new NetworkManager(_ChatViewManager);
+            NetworkManager = new NetworkManager(ChatViewManager);
 #endif
 
-            _UI = new GnomeUI(_ChatViewManager);
+            UI = new GnomeUI(ChatViewManager);
             
             // HACK: Frontend.FrontendConfig out of scope
-            _EngineManager = new EngineManager(Frontend.FrontendConfig, _UI);
+            EngineManager = new EngineManager(Frontend.FrontendConfig, UI);
 
-            _Entry = new Entry(_ChatViewManager);
+            Entry = new Entry(ChatViewManager);
             var entryScrolledWindow = new Gtk.ScrolledWindow();
             entryScrolledWindow.ShadowType = Gtk.ShadowType.EtchedIn;
             entryScrolledWindow.HscrollbarPolicy = Gtk.PolicyType.Never;
             entryScrolledWindow.SizeRequested += delegate(object o, Gtk.SizeRequestedArgs args) {
                 // predict and set useful heigth
-                var layout = _Entry.CreatePangoLayout("Qp");
+                var layout = Entry.CreatePangoLayout("Qp");
                 int lineWidth, lineHeigth;
                 layout.GetPixelSize(out lineWidth, out lineHeigth);
                 var text = Entry.Text;
@@ -551,9 +492,9 @@ namespace Smuxi.Frontend.Gnome
                 };
                 args.Requisition = bestSize;
             };
-            entryScrolledWindow.Add(_Entry);
+            entryScrolledWindow.Add(Entry);
 
-            _ProgressBar = new Gtk.ProgressBar();
+            ProgressBar = new Gtk.ProgressBar();
 
             MenuHBox = new Gtk.HBox();
             MenuHBox.PackStart(MenuBar, false, false, 0);
@@ -561,24 +502,24 @@ namespace Smuxi.Frontend.Gnome
 
             Gtk.VBox vbox = new Gtk.VBox();
             vbox.PackStart(MenuHBox, false, false, 0);
-            vbox.PackStart(_Notebook, true, true, 0);
+            vbox.PackStart(Notebook, true, true, 0);
             vbox.PackStart(entryScrolledWindow, false, false, 0);
 
-            _NetworkStatusbar = new Gtk.Statusbar();
-            _NetworkStatusbar.WidthRequest = 300;
-            _NetworkStatusbar.HasResizeGrip = false;
+            NetworkStatusbar = new Gtk.Statusbar();
+            NetworkStatusbar.WidthRequest = 300;
+            NetworkStatusbar.HasResizeGrip = false;
             
-            _Statusbar = new Gtk.Statusbar();
-            _Statusbar.HasResizeGrip = false;
+            Statusbar = new Gtk.Statusbar();
+            Statusbar.HasResizeGrip = false;
             
             Gtk.HBox status_bar_hbox = new Gtk.HBox();
             status_bar_hbox.Homogeneous = true;
-            status_bar_hbox.PackStart(_NetworkStatusbar, false, true, 0);
-            status_bar_hbox.PackStart(_Statusbar, true, true, 0);
+            status_bar_hbox.PackStart(NetworkStatusbar, false, true, 0);
+            status_bar_hbox.PackStart(Statusbar, true, true, 0);
 
             StatusHBox = new Gtk.HBox();
             StatusHBox.PackStart(status_bar_hbox);
-            StatusHBox.PackStart(_ProgressBar, false, false, 0);
+            StatusHBox.PackStart(ProgressBar, false, false, 0);
             StatusHBox.ShowAll();
             StatusHBox.NoShowAll = true;
             StatusHBox.Visible = ShowStatusBarMenuItem.Active;
@@ -600,22 +541,22 @@ namespace Smuxi.Frontend.Gnome
                 typeof(NotificationAreaIconMode),
                 modeStr
             );
-            _NotificationAreaIconMode = mode;
+            NotificationAreaIconMode = mode;
 
-            _OpenLogChatMenuItem.Visible = Frontend.IsLocalEngine;
+            OpenLogChatMenuItem.Visible = Frontend.IsLocalEngine;
 
 #if GTK_SHARP_2_10
-            _StatusIconManager.ApplyConfig(userConfig);
+            StatusIconManager.ApplyConfig(userConfig);
 #endif
 #if INDICATE_SHARP
-            _IndicateManager.ApplyConfig(userConfig);
+            IndicateManager.ApplyConfig(userConfig);
 #endif
 #if NOTIFY_SHARP
-            _NotifyManager.ApplyConfig(userConfig);
+            NotifyManager.ApplyConfig(userConfig);
 #endif
-            _Entry.ApplyConfig(userConfig);
-            _Notebook.ApplyConfig(userConfig);
-            _ChatViewManager.ApplyConfig(userConfig);
+            Entry.ApplyConfig(userConfig);
+            Notebook.ApplyConfig(userConfig);
+            ChatViewManager.ApplyConfig(userConfig);
             JoinWidget.ApplyConfig(userConfig);
         }
 
@@ -669,7 +610,7 @@ namespace Smuxi.Frontend.Gnome
             Trace.Call(sender, e);
             
             try {
-                if (_NotificationAreaIconMode == NotificationAreaIconMode.Closed) {
+                if (NotificationAreaIconMode == NotificationAreaIconMode.Closed) {
                     // showing the tray icon is handled in OnWindowStateEvent
                     Hide();
                     
@@ -690,11 +631,11 @@ namespace Smuxi.Frontend.Gnome
             
             try {
                 UrgencyHint = false;
-                if (_Notebook.IsBrowseModeEnabled) {
+                if (Notebook.IsBrowseModeEnabled) {
                     return;
                 }
 
-                ChatView chatView = _Notebook.CurrentChatView;
+                ChatView chatView = Notebook.CurrentChatView;
                 if (chatView != null) {
                     // clear activity and highlight
                     chatView.HasHighlight = false;
@@ -725,11 +666,11 @@ namespace Smuxi.Frontend.Gnome
             Trace.Call(sender, e);
 
             try {
-                if (_Notebook.IsBrowseModeEnabled) {
+                if (Notebook.IsBrowseModeEnabled) {
                     return;
                 }
 
-                var chatView = _Notebook.CurrentChatView;
+                var chatView = Notebook.CurrentChatView;
                 if (chatView == null) {
                     return;
                 }
@@ -870,7 +811,7 @@ namespace Smuxi.Frontend.Gnome
             Trace.Call(sender, e);
             
             try {
-                _Notebook.ClearAllActivity();
+                Notebook.ClearAllActivity();
             } catch (Exception ex) {
                 Frontend.ShowException(this, ex);
             }
@@ -911,7 +852,7 @@ namespace Smuxi.Frontend.Gnome
             Trace.Call(sender, e);
             
             try {
-                _Notebook.CurrentChatView.Close();
+                Notebook.CurrentChatView.Close();
             } catch (Exception ex) {
                 Frontend.ShowException(this, ex);
             }
@@ -924,7 +865,7 @@ namespace Smuxi.Frontend.Gnome
             try {
                 ThreadPool.QueueUserWorkItem(delegate {
                     try {
-                        SysDiag.Process.Start(_Notebook.CurrentChatView.ChatModel.LogFile);
+                        SysDiag.Process.Start(Notebook.CurrentChatView.ChatModel.LogFile);
                     } catch (Exception ex) {
                         Frontend.ShowError(this, ex);
                     }
@@ -963,9 +904,9 @@ namespace Smuxi.Frontend.Gnome
             try {
                 // handle minimize / un-minimize
                 if ((e.Event.ChangedMask & Gdk.WindowState.Iconified) != 0) {
-                    _IsMinimized = (e.Event.NewWindowState & Gdk.WindowState.Iconified) != 0;
+                    IsMinimized = (e.Event.NewWindowState & Gdk.WindowState.Iconified) != 0;
 #if LOG4NET
-                    f_Logger.Debug("OnWindowStateEvent(): _IsMinimized: " + _IsMinimized);
+                    f_Logger.Debug("OnWindowStateEvent(): IsMinimized: " + IsMinimized);
 #endif
                     #if DISABLED
                     // BUG: metacity is not allowing us to use the minimize state
@@ -975,7 +916,7 @@ namespace Smuxi.Frontend.Gnome
                     // http://projects.qnetp.net/issues/show/158
                     Hide();
                     #endif
-                    if (_IsMinimized) {
+                    if (IsMinimized) {
                         if (Minimized != null) {
                             Minimized(this, EventArgs.Empty);
                         }
@@ -988,9 +929,9 @@ namespace Smuxi.Frontend.Gnome
 
                 // handle maximize / un-maximize
                 if ((e.Event.ChangedMask & Gdk.WindowState.Maximized) != 0) {
-                    _IsMaximized = (e.Event.NewWindowState & Gdk.WindowState.Maximized) != 0;
+                    IsMaximized = (e.Event.NewWindowState & Gdk.WindowState.Maximized) != 0;
 #if LOG4NET
-                    f_Logger.Debug("OnWindowStateEvent(): _IsMaximized: " + _IsMaximized);
+                    f_Logger.Debug("OnWindowStateEvent(): IsMaximized: " + IsMaximized);
 #endif
                 }
             } catch (Exception ex) {
@@ -1006,10 +947,10 @@ namespace Smuxi.Frontend.Gnome
                     return;
                 }
 
-                _CloseChatMenuItem.Sensitive = !(chatView is SessionChatView);
-                _FindGroupChatMenuItem.Sensitive = !(chatView is SessionChatView);
+                CloseChatMenuItem.Sensitive = !(chatView is SessionChatView);
+                FindGroupChatMenuItem.Sensitive = !(chatView is SessionChatView);
                 if (Frontend.IsLocalEngine) {
-                    _OpenLogChatMenuItem.Sensitive =
+                    OpenLogChatMenuItem.Sensitive =
                         File.Exists(chatView.ChatModel.LogFile);
                 }
 
@@ -1207,17 +1148,17 @@ namespace Smuxi.Frontend.Gnome
             Trace.Call(obj, args);
             
             try {
-                _CaretMode = !_CaretMode;
+                CaretMode = !CaretMode;
                 
-                for (int i = 0; i < _Notebook.NPages; i++) {
-                    ChatView chatView = _Notebook.GetChat(i);
-                    chatView.OutputMessageTextView.CursorVisible = _CaretMode;
+                for (int i = 0; i < Notebook.NPages; i++) {
+                    ChatView chatView = Notebook.GetChat(i);
+                    chatView.OutputMessageTextView.CursorVisible = CaretMode;
                 }
                 
-                if (_CaretMode) {
-                    _Notebook.CurrentChatView.OutputMessageTextView.HasFocus = true;
+                if (CaretMode) {
+                    Notebook.CurrentChatView.OutputMessageTextView.HasFocus = true;
                 } else {
-                    _Entry.HasFocus = true;
+                    Entry.HasFocus = true;
                 }
             } catch (Exception ex) {
                 Frontend.ShowException(this, ex);
@@ -1266,16 +1207,16 @@ namespace Smuxi.Frontend.Gnome
 
         public void UpdateProgressBar()
         {
-            var totalChatCount = _ChatViewManager.Chats.Count;
-            var syncedChatCount =  _ChatViewManager.SyncedChats.Count;
-            _ProgressBar.Fraction = (double)syncedChatCount / totalChatCount;
-            _ProgressBar.Text = String.Format("{0} / {1}",
+            var totalChatCount = ChatViewManager.Chats.Count;
+            var syncedChatCount =  ChatViewManager.SyncedChats.Count;
+            ProgressBar.Fraction = (double)syncedChatCount / totalChatCount;
+            ProgressBar.Text = String.Format("{0} / {1}",
                                               syncedChatCount,
                                               totalChatCount);
             if (syncedChatCount >= totalChatCount) {
-                _ProgressBar.Hide();
+                ProgressBar.Hide();
             } else {
-                _ProgressBar.Show();
+                ProgressBar.Show();
             }
         }
 
