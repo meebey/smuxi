@@ -28,9 +28,6 @@ namespace Smuxi.Frontend.Gnome
     [System.ComponentModel.ToolboxItem(true)]
     public partial class FilterListWidget : Gtk.Bin
     {
-#if LOG4NET
-        private static readonly log4net.ILog f_Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-#endif
         Gtk.Window           f_Parent { get; set; }
         Gtk.ListStore        f_ListStore { get; set; }
         FilterListController f_Controller { get; set; }
@@ -223,11 +220,9 @@ namespace Smuxi.Frontend.Gnome
                 typeof(string) // tool tip
             );
             f_TreeView.Model = f_ListStore;
-            int i = 1;
             Gtk.TreeViewColumn column;
             Gtk.CellRendererText textCellr;
             Gtk.CellRendererCombo comboCellr;
-            Gtk.CellRendererToggle toggleCellr;
 
             comboCellr = new Gtk.CellRendererCombo();
             comboCellr.Model = f_ProtocolListStore;
@@ -263,7 +258,6 @@ namespace Smuxi.Frontend.Gnome
                     return;
                 }
                 FilterModel filter = (FilterModel) f_ListStore.GetValue(iter, 0);
-                int key = (int) f_ListStore.GetValue(iter, 1);
                 filter.ChatID = e.NewText;
                 f_ListStore.EmitRowChanged(new Gtk.TreePath(e.Path), iter);
                 OnChanged(EventArgs.Empty);
@@ -313,7 +307,6 @@ namespace Smuxi.Frontend.Gnome
                     return;
                 }
                 FilterModel filter = (FilterModel) f_ListStore.GetValue(iter, 0);
-                int key = (int) f_ListStore.GetValue(iter, 1);
                 filter.MessagePattern = e.NewText;
                 f_ListStore.EmitRowChanged(new Gtk.TreePath(e.Path), iter);
                 OnChanged(EventArgs.Empty);
@@ -348,7 +341,6 @@ namespace Smuxi.Frontend.Gnome
                 return;
             }
             FilterModel filter = (FilterModel) f_ListStore.GetValue(iter, 0);
-            int key = (int) f_ListStore.GetValue(iter, 1);
             filter.Protocol = e.NewText;
 
             f_ListStore.EmitRowChanged(new Gtk.TreePath(e.Path), iter);
@@ -376,7 +368,6 @@ namespace Smuxi.Frontend.Gnome
                 return;
             }
             FilterModel filter = (FilterModel) f_ListStore.GetValue(iter, 0);
-            int key = (int) f_ListStore.GetValue(iter, 1);
             // HACK: lame GTK+ 2.12 is not exposing the combo box neither
             // the iterator of the selected row inside the combo box thus
             // we have lookup the value in the list store using the text :/
@@ -416,7 +407,6 @@ namespace Smuxi.Frontend.Gnome
                 return;
             }
             FilterModel filter = (FilterModel) f_ListStore.GetValue(iter, 0);
-            int key = (int) f_ListStore.GetValue(iter, 1);
             // HACK: lame GTK+ 2.12 is not exposing the combo box neither
             // the iterator of the selected row inside the combo box thus
             // we have lookup the value in the list store using the text :/

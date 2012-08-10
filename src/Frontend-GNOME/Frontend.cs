@@ -41,14 +41,10 @@ namespace Smuxi.Frontend.Gnome
         private static readonly string    _UIName = "GNOME";
         private static int                _UIThreadID;
         private static Version            _Version;
-        private static string             _VersionNumber;
         private static string             _VersionString;
         private static Version            _EngineVersion;
         private static SplashScreenWindow _SplashScreenWindow;
         private static MainWindow         _MainWindow;
-#if GTK_SHARP_2_10
-        private static StatusIconManager  _StatusIconManager;
-#endif
         private static FrontendConfig     _FrontendConfig;
         private static Session            _LocalSession;
         private static Session            _Session;
@@ -181,7 +177,6 @@ namespace Smuxi.Frontend.Gnome
             AssemblyProductAttribute pr = (AssemblyProductAttribute)asm.
                 GetCustomAttributes(typeof(AssemblyProductAttribute), false)[0];
             _Version = asm_name.Version;
-            _VersionNumber = asm_name.Version.ToString();
             _VersionString = pr.Product + " - " + _UIName + " frontend " + _Version;
 
 #if LOG4NET

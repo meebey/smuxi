@@ -534,7 +534,7 @@ namespace Smuxi.Frontend.Gnome
                 // predict and set useful heigth
                 var layout = _Entry.CreatePangoLayout("Qp");
                 int lineWidth, lineHeigth;
-                layout.GetPixelSize(out lineHeigth, out lineHeigth);
+                layout.GetPixelSize(out lineWidth, out lineHeigth);
                 var text = Entry.Text;
                 var newLines = text.Count(f => f == '\n');
                 // cap to 1-3 lines
@@ -554,7 +554,6 @@ namespace Smuxi.Frontend.Gnome
             entryScrolledWindow.Add(_Entry);
 
             _ProgressBar = new Gtk.ProgressBar();
-            _ProgressBar.BarStyle = Gtk.ProgressBarStyle.Continuous;
 
             MenuHBox = new Gtk.HBox();
             MenuHBox.PackStart(MenuBar, false, false, 0);

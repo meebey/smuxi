@@ -839,7 +839,7 @@ namespace Smuxi.Frontend.Gnome
             foreach (string word in highlight_words) {
                 if (word.StartsWith("/") && word.EndsWith("/")) {
                     try {
-                        Regex regex = new Regex(word.Substring(1, word.Length - 2));
+                        new Regex(word.Substring(1, word.Length - 2));
                     } catch (ArgumentException ex) {
                         throw new ApplicationException(
                             String.Format(

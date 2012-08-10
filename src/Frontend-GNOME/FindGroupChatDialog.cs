@@ -147,7 +147,7 @@ namespace Smuxi.Frontend.Gnome
                                 );
                             }
                         });
-                    } catch (ThreadAbortException ex) {
+                    } catch (ThreadAbortException) {
 #if LOG4NET
                         f_Logger.Debug("FindThread aborted");
 #endif

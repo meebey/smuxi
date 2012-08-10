@@ -602,7 +602,6 @@ namespace Smuxi.Frontend.Gnome
     
         private void _CommandWindow(CommandModel cd)
         {
-            FrontendManager fm = cd.FrontendManager;
             if (cd.DataArray.Length >= 2) {
                 var currentChat = ChatViewManager.CurrentChatView;
                 if (cd.Parameter.ToLower() == "close") {

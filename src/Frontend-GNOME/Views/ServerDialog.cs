@@ -53,7 +53,7 @@ namespace Smuxi.Frontend.Gnome
             if (server != null) {
                 try {
                     f_Widget.Load(server);
-                } catch (Exception ex) {
+                } catch (Exception) {
                     Destroy();
                     throw;
                 }

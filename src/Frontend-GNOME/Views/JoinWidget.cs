@@ -29,7 +29,7 @@ namespace Smuxi.Frontend.Gnome
     {
         public EventHandler<EventArgs> Activated;
 
-        public bool HasFocus {
+        public new bool HasFocus {
             get {
                 return f_ChatEntry.HasFocus;
             }

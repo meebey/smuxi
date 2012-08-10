@@ -45,7 +45,6 @@ namespace Smuxi.Frontend.Gnome
         private bool         _ShowMarkerline;
         private bool         _AtLinkTag;
         private Uri          _ActiveLink;
-        private UserConfig   _Config;
         private ThemeSettings _ThemeSettings;
         private Gdk.Color    _MarkerlineColor = new Gdk.Color(255, 0, 0);
         private int          _MarkerlineBufferPosition;

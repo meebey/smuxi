@@ -80,11 +80,13 @@ namespace Smuxi.Frontend.Gnome
                 return;
             }
             
+#if LOG4NET && MSG_DEBUG
             DateTime start, stop;
             start = DateTime.UtcNow;
+#endif
             chatView.AddMessage(msg);
-            stop = DateTime.UtcNow;
 #if LOG4NET && MSG_DEBUG
+            stop = DateTime.UtcNow;
             _Logger.Debug(
                 String.Format(
                     "_AddMessageToChat(): chatView.AddMessage() took: {0:0.00} ms",

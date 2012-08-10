@@ -35,7 +35,7 @@ namespace Smuxi.Frontend.Gnome
             }
             
             TransientFor = parent;
-            Name = Frontend.Name;
+            ProgramName = Frontend.Name;
             var version = Frontend.Version.ToString();
             var distVersion = Defines.DistVersion;
             if (!String.IsNullOrEmpty(distVersion)) {

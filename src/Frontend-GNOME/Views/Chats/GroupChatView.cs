@@ -39,7 +39,6 @@ namespace Smuxi.Frontend.Gnome
         public static Gdk.Pixbuf   IconPixbuf { get; private set; }
         private bool               NickColors { get; set; }
         private GroupChatModel     _GroupChatModel;
-        private Gtk.ScrolledWindow _PersonScrolledWindow;
         private Gtk.TreeView       _PersonTreeView;
         private Gtk.ListStore      _PersonListStore;
         private Gtk.Menu           _PersonMenu;
@@ -124,7 +123,6 @@ namespace Smuxi.Frontend.Gnome
             _OutputHPaned = new Gtk.HPaned();
             
             Gtk.ScrolledWindow sw = new Gtk.ScrolledWindow();
-            _PersonScrolledWindow = sw;
             //sw.WidthRequest = 150;
             sw.HscrollbarPolicy = Gtk.PolicyType.Never;
             
