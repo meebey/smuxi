@@ -569,10 +569,11 @@ namespace Smuxi.Frontend.Gnome
 
         private void _CommandEcho(CommandModel cd)
         {
-            cd.FrontendManager.AddTextToChat(
-                cd.Chat,
-                String.Format("-!- {0}", cd.Parameter)
-            );
+            var msg = new MessageBuilder().
+                AppendEventPrefix().
+                AppendText(cd.Parameter).
+                ToMessage();
+            cd.FrontendManager.AddMessageToChat(cd.Chat, msg);
         }
         
         private void _CommandExec(CommandModel cd)
@@ -592,7 +593,8 @@ namespace Smuxi.Frontend.Gnome
                 try {
                     process.Start();
                     output = process.StandardOutput.ReadToEnd();
-                    cd.FrontendManager.AddTextToChat(cd.Chat, output);
+                    var msg = new MessageBuilder().AppendText(output).ToMessage();
+                    cd.FrontendManager.AddMessageToChat(cd.Chat, msg);
                 } catch {
                 }
             }
