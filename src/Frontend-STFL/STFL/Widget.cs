@@ -67,8 +67,8 @@ namespace Stfl
 
         public int XPosition {
             get {
-                return Int32.Parse(Form[String.Format("{0}:x", WidgetName)]);
                 Render();
+                return Int32.Parse(Form[String.Format("{0}:x", WidgetName)]);
             }
         }
 
