@@ -32,9 +32,6 @@ namespace Smuxi.Frontend.Stfl
 {
     public class MainWindow : Form
     {
-#if LOG4NET
-        private static readonly log4net.ILog _Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-#endif
         private StflUI          _UI;
         private Entry           _Entry;
         private ChatViewManager _ChatViewManager;

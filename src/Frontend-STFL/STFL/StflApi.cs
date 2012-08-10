@@ -30,9 +30,6 @@ namespace Stfl
 {
     internal class StflApi
     {
-#if LOG4NET
-        private static readonly log4net.ILog f_Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-#endif
         public static bool IsXterm { get; private set; }
         static bool IsUtf8Locale { get; set; }
         static string EscapeLessThanCharacter  { get; set; }

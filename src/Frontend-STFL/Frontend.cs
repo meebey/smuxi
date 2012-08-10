@@ -38,7 +38,6 @@ namespace Smuxi.Frontend.Stfl
         private static readonly string    _Name = "smuxi";
         private static readonly string    _UIName = "STFL";
         private static Version            _Version;
-        private static string             _VersionNumber;
         private static string             _VersionString;
         private static Version            _EngineVersion;
         private static MainWindow         _MainWindow;
@@ -132,7 +131,6 @@ namespace Smuxi.Frontend.Stfl
             AssemblyProductAttribute pr = (AssemblyProductAttribute)asm.
                 GetCustomAttributes(typeof(AssemblyProductAttribute), false)[0];
             _Version = asm_name.Version;
-            _VersionNumber = asm_name.Version.ToString();
             _VersionString = pr.Product + " - " + _UIName + " frontend " + _Version;
 
             // this always calls abort() :(((
@@ -163,9 +161,6 @@ namespace Smuxi.Frontend.Stfl
                 // not hitting a key
                 _MainWindow.Run(500);
             }
-#if LOG4NET
-           _Logger.Warn("_MainWindow.Run() returned!");
-#endif
         }
         
         public static void InitLocalEngine()

@@ -184,7 +184,6 @@ namespace Stfl
                 return wrappedLine;
             }
 
-            var tags = new List<string>();
             for (int i = 0; i < line.Length; i += wrapWidth) {
                 var chunkSize = Math.Min(line.Length - i, wrapWidth);
                 // FIXME: don't break style tags
