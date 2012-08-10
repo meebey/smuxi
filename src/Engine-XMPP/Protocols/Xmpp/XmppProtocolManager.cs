@@ -60,22 +60,23 @@ namespace Smuxi.Engine
 #if LOG4NET
         private static readonly log4net.ILog _Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 #endif
-        private JabberClient    _JabberClient;
-        private RosterManager   _RosterManager;
-        private ConferenceManager _ConferenceManager;
-        private ChatModel       _NetworkChat;
-        private GroupChatModel  _ContactChat;
-        private PresenceManager _PresenceManager;
+        JabberClient JabberClient { get; set; }
+        RosterManager RosterManager { get; set; }
+        ConferenceManager ConferenceManager { get; set; }
+        PresenceManager PresenceManager { get; set; }
+
+        ChatModel NetworkChat { get; set; }
+        GroupChatModel ContactChat { get; set; }
 
         PersonModel MyPerson { get; set; }
 
         public override string NetworkID {
             get {
-                if (!String.IsNullOrEmpty(_JabberClient.NetworkHost)) {
-                    return _JabberClient.NetworkHost;
+                if (!String.IsNullOrEmpty(JabberClient.NetworkHost)) {
+                    return JabberClient.NetworkHost;
                 }
-                if (!String.IsNullOrEmpty(_JabberClient.Server)) {
-                    return _JabberClient.Server;
+                if (!String.IsNullOrEmpty(JabberClient.Server)) {
+                    return JabberClient.Server;
                 }
                 return "XMPP";
             }
@@ -89,7 +90,7 @@ namespace Smuxi.Engine
         
         public override ChatModel Chat {
             get {
-                return _NetworkChat;
+                return NetworkChat;
             }
         }
 
@@ -97,36 +98,34 @@ namespace Smuxi.Engine
         {
             Trace.Call(session);
 
-            _JabberClient = new JabberClient();
-            _JabberClient.Resource = "Smuxi";
-            _JabberClient.AutoLogin = true;
-            _JabberClient.AutoPresence = false;
-            _JabberClient.OnStreamInit += OnStreamInit;
-            _JabberClient.OnMessage += OnMessage;
-            _JabberClient.OnConnect += OnConnect;
-            _JabberClient.OnDisconnect += OnDisconnect;
-            _JabberClient.OnAuthenticate += OnAuthenticate;
-            _JabberClient.OnError += OnError;
-            _JabberClient.OnProtocol += OnProtocol;
-            _JabberClient.OnWriteText += OnWriteText;
-            _JabberClient.OnIQ += OnIQ;
+            JabberClient = new JabberClient();
+            JabberClient.Resource = "Smuxi";
+            JabberClient.AutoLogin = true;
+            JabberClient.AutoPresence = false;
+            JabberClient.OnStreamInit += OnStreamInit;
+            JabberClient.OnMessage += OnMessage;
+            JabberClient.OnConnect += OnConnect;
+            JabberClient.OnDisconnect += OnDisconnect;
+            JabberClient.OnAuthenticate += OnAuthenticate;
+            JabberClient.OnError += OnError;
+            JabberClient.OnProtocol += OnProtocol;
+            JabberClient.OnWriteText += OnWriteText;
+            JabberClient.OnIQ += OnIQ;
 
-            _RosterManager = new RosterManager();
-            _RosterManager.Stream = _JabberClient;
-            _RosterManager.OnRosterItem += OnRosterItem;
+            RosterManager = new RosterManager();
+            RosterManager.Stream = JabberClient;
+            RosterManager.OnRosterItem += OnRosterItem;
 
-            _PresenceManager = new PresenceManager();
-            _PresenceManager.Stream = _JabberClient;
+            PresenceManager = new PresenceManager();
+            PresenceManager.Stream = JabberClient;
+            JabberClient.OnPresence += OnPresence;
 
-
-            _JabberClient.OnPresence += OnPresence;
-
-            _ConferenceManager = new ConferenceManager();
-            _ConferenceManager.Stream = _JabberClient;
-            _ConferenceManager.OnJoin += OnJoin;
-            _ConferenceManager.OnLeave += OnLeave;
-            _ConferenceManager.OnParticipantJoin += OnParticipantJoin;
-            _ConferenceManager.OnParticipantLeave += OnParticipantLeave;
+            ConferenceManager = new ConferenceManager();
+            ConferenceManager.Stream = JabberClient;
+            ConferenceManager.OnJoin += OnJoin;
+            ConferenceManager.OnLeave += OnLeave;
+            ConferenceManager.OnParticipantJoin += OnParticipantJoin;
+            ConferenceManager.OnParticipantLeave += OnParticipantLeave;
         }
 
         public override void Connect(FrontendManager fm, ServerModel server)
@@ -146,38 +145,38 @@ namespace Smuxi.Engine
             ApplyConfig(Session.UserConfig, server);
 
             // TODO: use config for single network chat or once per network manager
-            _NetworkChat = Session.CreateChat<ProtocolChatModel>(
+            NetworkChat = Session.CreateChat<ProtocolChatModel>(
                 NetworkID, "Jabber " + Host, this
             );
-            Session.AddChat(_NetworkChat);
-            Session.SyncChat(_NetworkChat);
+            Session.AddChat(NetworkChat);
+            Session.SyncChat(NetworkChat);
 
             OpenContactChat();
 
-            if (!String.IsNullOrEmpty(_JabberClient.ProxyHost)) {
+            if (!String.IsNullOrEmpty(JabberClient.ProxyHost)) {
                 var builder = CreateMessageBuilder();
                 builder.AppendEventPrefix();
                 builder.AppendText(_("Using proxy: {0}:{1}"),
-                                   _JabberClient.ProxyHost,
-                                   _JabberClient.ProxyPort);
+                                   JabberClient.ProxyHost,
+                                   JabberClient.ProxyPort);
                 Session.AddMessageToChat(Chat, builder.ToMessage());
             }
-            _JabberClient.Connect();
+            JabberClient.Connect();
         }
         
         public override void Reconnect(FrontendManager fm)
         {
             Trace.Call(fm);
 
-            _JabberClient.Close();
-            _JabberClient.Connect();
+            JabberClient.Close();
+            JabberClient.Connect();
         }
         
         public override void Disconnect(FrontendManager fm)
         {
             Trace.Call(fm);
 
-            _JabberClient.Close(false);
+            JabberClient.Close(false);
         }
 
         public override void Dispose()
@@ -186,14 +185,14 @@ namespace Smuxi.Engine
 
             base.Dispose();
 
-            _JabberClient.Dispose();
+            JabberClient.Dispose();
         }
 
         public override string ToString()
         {
             string result = "Jabber ";
-            if (_JabberClient != null) {
-                result += _JabberClient.Server + ":" + _JabberClient.Port;
+            if (JabberClient != null) {
+                result += JabberClient.Server + ":" + JabberClient.Port;
             }
             
             if (!IsConnected) {
@@ -207,7 +206,7 @@ namespace Smuxi.Engine
             Trace.Call(filter);
             
             var list = new List<GroupChatModel>();
-            if (_ContactChat == null) {
+            if (ContactChat == null) {
                 list.Add(new GroupChatModel("Contacts", "Contacts", this));
             }
             return list;
@@ -219,15 +218,15 @@ namespace Smuxi.Engine
 
             if (chat != null) return;
 
-             _ContactChat = Session.CreateChat<GroupChatModel>(
+            ContactChat = Session.CreateChat<GroupChatModel>(
                 "Contacts", "Contacts", this
-                );
-            Session.AddChat(_ContactChat);
-            Session.SyncChat(_ContactChat);
-            foreach(JID jid in _PresenceManager) {
-                if (_PresenceManager.IsAvailable(jid)) {
-                    lock (_ContactChat) {
-                        Session.AddPersonToGroupChat(_ContactChat, CreatePerson(jid));
+            );
+            Session.AddChat(ContactChat);
+            Session.SyncChat(ContactChat);
+            foreach(JID jid in PresenceManager) {
+                if (PresenceManager.IsAvailable(jid)) {
+                    lock (ContactChat) {
+                        Session.AddPersonToGroupChat(ContactChat, CreatePerson(jid));
                     }
                 }
             }
@@ -240,7 +239,7 @@ namespace Smuxi.Engine
                 OpenContactChat();
                 return;
             }
-            CommandModel cmd = new CommandModel(fm, _NetworkChat, chat.ID);
+            CommandModel cmd = new CommandModel(fm, NetworkChat, chat.ID);
             switch (chat.ChatType) {
                 case ChatType.Person:
                     CommandMessageQuery(cmd);
@@ -255,11 +254,11 @@ namespace Smuxi.Engine
         {
             Trace.Call(fm, chat);
 
-            if (chat == _ContactChat) {
+            if (chat == ContactChat) {
                 Session.RemoveChat(chat);
-                _ContactChat = null;
+                ContactChat = null;
             } else if (chat.ChatType == ChatType.Group) {
-                _ConferenceManager.GetRoom(chat.ID+"/"+_JabberClient.User).Leave("Closed");
+                ConferenceManager.GetRoom(chat.ID+"/"+JabberClient.User).Leave("Closed");
             } else {
                 Session.RemoveChat(chat);
             }
@@ -270,7 +269,7 @@ namespace Smuxi.Engine
         {
             Trace.Call(status, message);
 
-            if (!IsConnected || !_JabberClient.IsAuthenticated) {
+            if (!IsConnected || !JabberClient.IsAuthenticated) {
                 return;
             }
 
@@ -292,8 +291,8 @@ namespace Smuxi.Engine
                 return;
             }
 
-            _JabberClient.Presence(xmppType.Value, message, xmppShow,
-                                   _JabberClient.Priority);
+            JabberClient.Presence(xmppType.Value, message, xmppShow,
+                                  JabberClient.Priority);
         }
 
         public override bool Command(CommandModel command)
@@ -438,13 +437,13 @@ namespace Smuxi.Engine
             ChatModel chat = null;
             if (cd.DataArray.Length >= 2) {
                 string arg = cd.DataArray[1];
-                Item it = _RosterManager[arg];
+                Item it = RosterManager[arg];
                 JID jid = null;
                 // arg is not a jid in our rostermanager
                 if (it == null) {
                     // find a jid to which the nickname belongs
-                    foreach (JID j in _RosterManager) {
-                        Item item = _RosterManager[j];
+                    foreach (JID j in RosterManager) {
+                        Item item = RosterManager[j];
                         if (item.Nickname != null &&
                             item.Nickname.Replace(" ", "_") == arg) {
                             jid = item.JID;
@@ -488,7 +487,7 @@ namespace Smuxi.Engine
             string jid = cd.DataArray[1];
             ChatModel chat = GetChat(jid, ChatType.Group);
             if (chat == null) {
-                _ConferenceManager.GetRoom(jid+"/"+_JabberClient.User).Join();
+                ConferenceManager.GetRoom(jid+"/"+JabberClient.User).Join();
             }
         }
 
@@ -501,7 +500,7 @@ namespace Smuxi.Engine
                 jid = cd.Chat.ID;
             ChatModel chat = GetChat(jid, ChatType.Group);
             if (chat != null) {
-                _ConferenceManager.GetRoom(jid+"/"+_JabberClient.User).Leave("Part");
+                ConferenceManager.GetRoom(jid+"/"+JabberClient.User).Leave("Part");
             }
         }
 
@@ -525,15 +524,15 @@ namespace Smuxi.Engine
             builder.AppendHeader("Roster");
             cd.FrontendManager.AddMessageToChat(cd.Chat, builder.ToMessage());
 
-            foreach (JID j in _RosterManager) {
+            foreach (JID j in RosterManager) {
                 string status = "+";
-                if (!_PresenceManager.IsAvailable(j)) {
+                if (!PresenceManager.IsAvailable(j)) {
                     if (!full) continue;
                     status = "-";
                 }
-                string nick = _RosterManager[j].Nickname;
+                string nick = RosterManager[j].Nickname;
                 string mesg = "";
-                Presence item = _PresenceManager[j];
+                Presence item = PresenceManager[j];
                 if (item != null) {
                     if (item.Show != null && item.Show.Length != 0) {
                         status = item.Show;
@@ -561,19 +560,19 @@ namespace Smuxi.Engine
             if (!chat.IsEnabled) {
                 return;
             }
-            if (chat == _ContactChat) {
+            if (chat == ContactChat) {
                 return;
             }
             
             if (send) {
                 string target = chat.ID;
                 if (chat.ChatType == ChatType.Person) {
-                    _JabberClient.Message(target, text);
+                    JabberClient.Message(target, text);
                 } else if (chat.ChatType == ChatType.Group) {
-                    var room = _ConferenceManager.GetRoom(
+                    var room = ConferenceManager.GetRoom(
                         String.Format(
                             "{0}/{1}",
-                            target, _JabberClient.User
+                            target, JabberClient.User
                         )
                     );
                     room.PublicMessage(text);
@@ -654,15 +653,15 @@ namespace Smuxi.Engine
         {
             string jid = ri.JID.Bare;
 
-            if (_ContactChat == null) return;
-            lock (_ContactChat) {
-                PersonModel oldp = _ContactChat.GetPerson(jid);
+            if (ContactChat == null) return;
+            lock (ContactChat) {
+                PersonModel oldp = ContactChat.GetPerson(jid);
                 if (oldp == null) {
                     // doesn't exist, don't need to do anything
                     return;
                 }
                 PersonModel newp = CreatePerson(jid);
-                Session.UpdatePersonInGroupChat(_ContactChat, oldp, newp);
+                Session.UpdatePersonInGroupChat(ContactChat, oldp, newp);
             }
         }
 
@@ -688,15 +687,15 @@ namespace Smuxi.Engine
                 case PresenceType.available:
                     // groupchat is already managed
                     if (groupChat == null) {
-                        if (_ContactChat != null) {
+                        if (ContactChat != null) {
                             // anyone who is online/away/dnd will be added to the list
-                            lock (_ContactChat) {
-                                PersonModel p = _ContactChat.GetPerson(jid.Bare);
+                            lock (ContactChat) {
+                                PersonModel p = ContactChat.GetPerson(jid.Bare);
                                 if (p != null) {
                                     // p already exists, don't add a new person
-                                    Session.UpdatePersonInGroupChat(_ContactChat, p, person);
+                                    Session.UpdatePersonInGroupChat(ContactChat, p, person);
                                 } else {
-                                    Session.AddPersonToGroupChat(_ContactChat, person);
+                                    Session.AddPersonToGroupChat(ContactChat, person);
                                 }
                             }
                         }
@@ -717,14 +716,14 @@ namespace Smuxi.Engine
                 case PresenceType.unavailable:
                     builder.AppendText(_(" is now offline"));
                     if(groupChat == null) {
-                        if (_ContactChat != null) {
-                            lock (_ContactChat) {
-                                PersonModel p = _ContactChat.GetPerson(jid.Bare);
+                        if (ContactChat != null) {
+                            lock (ContactChat) {
+                                PersonModel p = ContactChat.GetPerson(jid.Bare);
                                 if (p == null) {
                                     // doesn't exist, got an offline message w/o a preceding online message?
                                     return;
                                 }
-                                Session.RemovePersonFromGroupChat(_ContactChat, p);
+                                Session.RemovePersonFromGroupChat(ContactChat, p);
                             }
                         }
                     }
@@ -738,8 +737,8 @@ namespace Smuxi.Engine
             }
             if (groupChat != null) {
                 Session.AddMessageToChat(groupChat, builder.ToMessage());
-            } else if (_ContactChat != null) {
-                Session.AddMessageToChat(_ContactChat, builder.ToMessage());
+            } else if (ContactChat != null) {
+                Session.AddMessageToChat(ContactChat, builder.ToMessage());
             }
             var personChat = Session.GetChat(jid.Bare, ChatType.Person, this);
             if (personChat != null) {
@@ -942,7 +941,7 @@ namespace Smuxi.Engine
             builder.AppendEventPrefix();
             builder.AppendText(_("Error: {0}"), String.Empty);
             builder.AppendMessage(ex.Message);
-            Session.AddMessageToChat(_NetworkChat, builder.ToMessage());
+            Session.AddMessageToChat(NetworkChat, builder.ToMessage());
         }
 
         void OnAuthenticate(object sender)
@@ -967,22 +966,22 @@ namespace Smuxi.Engine
             if (server.Username.Contains("@")) {
                 var jid_user = server.Username.Split('@')[0];
                 var jid_host = server.Username.Split('@')[1];
-                _JabberClient.NetworkHost = server.Hostname;
-                _JabberClient.User = jid_user;
-                _JabberClient.Server = jid_host;
+                JabberClient.NetworkHost = server.Hostname;
+                JabberClient.User = jid_user;
+                JabberClient.Server = jid_host;
             } else {
-                _JabberClient.Server = server.Hostname;
-                _JabberClient.User = server.Username;
+                JabberClient.Server = server.Hostname;
+                JabberClient.User = server.Username;
             }
-            _JabberClient.Port = server.Port;
-            _JabberClient.Password = server.Password;
+            JabberClient.Port = server.Port;
+            JabberClient.Password = server.Password;
 
             MyPerson = CreatePerson(
                 String.Format("{0}@{1}",
-                    _JabberClient.User,
-                    _JabberClient.Server
+                    JabberClient.User,
+                    JabberClient.Server
                 ),
-                _JabberClient.User
+                JabberClient.User
             );
             MyPerson.IdentityNameColored.ForegroundColor = new TextColor(0, 0, 255);
             MyPerson.IdentityNameColored.BackgroundColor = TextColor.None;
@@ -991,19 +990,19 @@ namespace Smuxi.Engine
             // XMPP specific settings
             if (server is XmppServerModel) {
                 var xmppServer = (XmppServerModel) server;
-                _JabberClient.Resource = xmppServer.Resource;
+                JabberClient.Resource = xmppServer.Resource;
             }
 
             // fallback
-            if (String.IsNullOrEmpty(_JabberClient.Resource)) {
-                _JabberClient.Resource = "smuxi";
+            if (String.IsNullOrEmpty(JabberClient.Resource)) {
+                JabberClient.Resource = "smuxi";
             }
 
-            _JabberClient.OnInvalidCertificate -= ValidateCertificate;
+            JabberClient.OnInvalidCertificate -= ValidateCertificate;
 
-            _JabberClient.AutoStartTLS = server.UseEncryption;
+            JabberClient.AutoStartTLS = server.UseEncryption;
             if (!server.ValidateServerCertificate) {
-                _JabberClient.OnInvalidCertificate += ValidateCertificate;
+                JabberClient.OnInvalidCertificate += ValidateCertificate;
             }
 
             var proxySettings = new ProxySettings();
@@ -1013,7 +1012,7 @@ namespace Smuxi.Engine
                                           server.Hostname, server.Port);
             var proxy = proxySettings.GetWebProxy(serverUri);
             if (proxy == null) {
-                _JabberClient.Proxy = XmppProxyType.None;
+                JabberClient.Proxy = XmppProxyType.None;
             } else {
                 var proxyScheme = proxy.Address.Scheme;
                 var xmppProxyType = XmppProxyType.None;
@@ -1028,11 +1027,11 @@ namespace Smuxi.Engine
                                   proxyScheme, ex);
 #endif
                 }
-                _JabberClient.Proxy = xmppProxyType;
-                _JabberClient.ProxyHost = proxy.Address.Host;
-                _JabberClient.ProxyPort = proxy.Address.Port;
-                _JabberClient.ProxyUsername = proxySettings.ProxyUsername;
-                _JabberClient.ProxyPassword = proxySettings.ProxyPassword;
+                JabberClient.Proxy = xmppProxyType;
+                JabberClient.ProxyHost = proxy.Address.Host;
+                JabberClient.ProxyPort = proxy.Address.Port;
+                JabberClient.ProxyUsername = proxySettings.ProxyUsername;
+                JabberClient.ProxyPassword = proxySettings.ProxyPassword;
             }
         }
 
@@ -1049,7 +1048,7 @@ namespace Smuxi.Engine
             if (jid == null) {
                 throw new ArgumentNullException("jid");
             }
-            var contact = _RosterManager[jid.Bare];
+            var contact = RosterManager[jid.Bare];
             string nickname = null;
             if (contact == null || String.IsNullOrEmpty(contact.Nickname)) {
                 nickname = jid.Bare;
