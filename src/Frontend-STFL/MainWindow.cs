@@ -32,21 +32,9 @@ namespace Smuxi.Frontend.Stfl
 {
     public class MainWindow : Form
     {
-        private StflUI          _UI;
-        private Entry           _Entry;
-        private ChatViewManager _ChatViewManager;
-        
-        public ChatViewManager ChatViewManager {
-            get {
-                return _ChatViewManager;
-            }
-        }
-        
-        public StflUI UI {
-            get {
-                return _UI;
-            }
-        }
+        public StflUI UI { get; private set; }
+        Entry Entry { get; set; }
+        public ChatViewManager ChatViewManager { get; private set; }
 
         public string InputLabel {
             get {
@@ -86,16 +74,16 @@ namespace Smuxi.Frontend.Stfl
 
         public MainWindow() : base(null, "MainWindow.stfl")
         {
-            _ChatViewManager = new ChatViewManager(this);
-            _Entry = new Entry(this, _ChatViewManager);
-            _UI = new StflUI(_ChatViewManager);
+            ChatViewManager = new ChatViewManager(this);
+            Entry = new Entry(this, ChatViewManager);
+            UI = new StflUI(ChatViewManager);
 
             if (StflApi.IsXterm) {
                 ShowTitle = false;
             }
 
-    	    Assembly asm = Assembly.GetExecutingAssembly();
-    	    _ChatViewManager.Load(asm);
-    	}
+            Assembly asm = Assembly.GetExecutingAssembly();
+            ChatViewManager.Load(asm);
+        }
     }
 }
