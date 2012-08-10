@@ -38,7 +38,6 @@ namespace Smuxi.Frontend
         private static readonly string   f_LibraryTextDomain = "smuxi-frontend";
         private SysDiag.Process          f_Process;
         private SysDiag.ProcessStartInfo f_ProcessStartInfo;
-        private int                      f_RemotingBackChannelPort;
         private string                   f_Program;
         private string                   f_Parameters;
         private string                   f_Username;
@@ -187,7 +186,7 @@ namespace Smuxi.Frontend
                         f_ForwardBindPort
                     );
                     throw new ApplicationException(msg);
-                } catch (SocketException ex) {
+                } catch (SocketException) {
                 }
             }
 

@@ -212,7 +212,6 @@ namespace Smuxi.Frontend
             IDictionary props = new Hashtable();
             // ugly remoting expects the port as string ;)
             props["port"] = remotingPort.ToString();
-            string error_msg = null;
             string connection_url = null;
             SessionManager sessm = null;
             switch (channel) {

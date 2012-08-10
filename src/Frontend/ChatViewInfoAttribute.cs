@@ -33,10 +33,6 @@ namespace Smuxi.Engine
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = true)]
     public class ChatViewInfoAttribute : Attribute
     {
-#if LOG4NET
-        private static readonly log4net.ILog _Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-#endif
-
         private ChatType _ChatType;
         private Type     _ProtocolManagerType;
         
