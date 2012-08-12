@@ -60,7 +60,7 @@ update-pot:
 	done
 
 update-transifex:
-	tx pull -l ca,da,de,en_GB,es,fi,fr,hr,pl,ru,sk,sv,tr,ur,zh_CN
+	tx pull -l ca,da,de,en_GB,es,fi,fr,hr,nb_NO,pl,ru,sk,sv,tr,ur,zh_CN
 
 mail-po: update-po
 	for PODIR in $(PODIRS); do \
@@ -73,7 +73,7 @@ mail-po: update-po
 			--from="Mirco Bauer <meebey@meebey.net>" \
 			--smtp=booster.qnetp.net \
 			--podir=$$PODIR \
-			--langs=cs,it,pt; \
+			--langs=cs,es_AR,it,pt; \
 	done
 
 call-po: update-po
