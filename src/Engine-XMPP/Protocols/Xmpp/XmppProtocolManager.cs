@@ -937,7 +937,7 @@ namespace Smuxi.Engine
 
             var builder = CreateMessageBuilder();
             builder.AppendEventPrefix();
-            builder.AppendText(_("Error: {0}"), String.Empty);
+            builder.AppendErrorText(_("Error: {0}"), String.Empty);
             builder.AppendMessage(ex.Message);
             Session.AddMessageToChat(NetworkChat, builder.ToMessage());
         }
