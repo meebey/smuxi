@@ -1273,7 +1273,6 @@ namespace Smuxi.Engine
                 var userIds = new TwitterIdCollection(idPage);
                 var lookupOptions = CreateOptions<LookupUsersOptions>();
                 lookupOptions.UserIds = userIds;
-                lookupOptions.CacheOutput = true;
                 var lookupResponse = TwitterUser.Lookup(f_OAuthTokens, lookupOptions);
                 CheckResponse(lookupResponse);
                 var friends = lookupResponse.ResponseObject;
