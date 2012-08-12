@@ -50,7 +50,6 @@ namespace Smuxi.Engine
         private int             _CurrentNickname;
         private string          _Username;
         private string          _Password;
-        private IrcPersonModel  _MyPerson;
         private FrontendManager _FrontendManager;
         private bool            _Listening;
         private ChatModel       _NetworkChat;
@@ -123,24 +122,24 @@ namespace Smuxi.Engine
                     return String.Empty;
                 }
 
-                if (_MyPerson == null) {
+                if (IrcMe == null) {
                     return _IrcClient.Nickname;
                 }
 
                 return String.Format("{0}!{1}@{2}", _IrcClient.Nickname,
-                                     _MyPerson.Ident, _MyPerson.Host);
+                                     IrcMe.Ident, IrcMe.Host);
             }
         }
 
-        private IrcPersonModel MyPerson {
+        private IrcPersonModel IrcMe {
             get {
-                if (_MyPerson == null) {
-                    _MyPerson = CreatePerson(_IrcClient.Nickname);
-                }
-                return _MyPerson;
+                return (IrcPersonModel) Me;
+            }
+            set {
+                Me = value;
             }
         }
-        
+
         public IrcProtocolManager(Session session) : base(session)
         {
             Trace.Call(session);
@@ -229,9 +228,9 @@ namespace Smuxi.Engine
         {
             if (e.WhoInfo.Nick == _IrcClient.Nickname) {
                 // that's me!
-                MyPerson.Ident = e.WhoInfo.Ident;
-                MyPerson.Host = e.WhoInfo.Host;
-                MyPerson.RealName = e.WhoInfo.Realname;
+                IrcMe.Ident = e.WhoInfo.Ident;
+                IrcMe.Host = e.WhoInfo.Host;
+                IrcMe.RealName = e.WhoInfo.Realname;
             }
         }
 
@@ -1021,7 +1020,7 @@ namespace Smuxi.Engine
             _IrcClient.SendMessage(SendType.Message, chat.ID, message);
 
             var builder = CreateMessageBuilder();
-            builder.AppendSenderPrefix(MyPerson);
+            builder.AppendSenderPrefix(Me);
             Match m = Regex.Match(message, String.Format(@"^@(?<nick>\S+)|^(?<nick>\S+)(?:\:|,)"));
             if (m.Success) {
                 // this is probably a reply with a nickname
@@ -1931,7 +1930,7 @@ namespace Smuxi.Engine
 
             var builder = CreateMessageBuilder();
             builder.AppendActionPrefix();
-            builder.AppendIdendityName(MyPerson);
+            builder.AppendIdendityName(Me);
             builder.AppendText(" ");
             builder.AppendMessage(cd.Parameter);
             Session.AddMessageToChat(cd.Chat, builder.ToMessage(), true);
@@ -3005,8 +3004,8 @@ namespace Smuxi.Engine
             _Logger.Debug("_OnNickChange() e.OldNickname: "+e.OldNickname+" e.NewNickname: "+e.NewNickname);
 #endif
             if (e.Data.Irc.IsMe(e.NewNickname)) {
-                _MyPerson = CreatePerson(e.NewNickname, MyPerson.RealName,
-                                         MyPerson.Ident, MyPerson.Host);
+                IrcMe = CreatePerson(e.NewNickname, IrcMe.RealName,
+                                     IrcMe.Ident, IrcMe.Host);
 
                 var builder = CreateMessageBuilder();
                 builder.AppendEventPrefix();
@@ -3241,7 +3240,7 @@ namespace Smuxi.Engine
             OnConnected(EventArgs.Empty);
 
             // preliminary person
-            _MyPerson = CreatePerson(_IrcClient.Nickname);
+            Me = CreatePerson(_IrcClient.Nickname);
 
             // WHO ourself so OnWho() can retrieve our ident, host and realname
             _IrcClient.RfcWho(_IrcClient.Nickname);
@@ -3409,25 +3408,9 @@ namespace Smuxi.Engine
                    _IrcClient.Encoding.GetByteCount(message) + 2;
         }
 
-        private IrcPersonModel GetPerson(ChatModel chat, string nick)
+        protected override T GetPerson<T>(ChatModel chat, string nick)
         {
-            if (nick == null) {
-                throw new ArgumentNullException("nick");
-            }
-
-            IrcPersonModel person = null;
-            if (chat is GroupChatModel) {
-                var groupChat = (GroupChatModel) chat;
-                person = (IrcPersonModel) groupChat.GetPerson(nick);
-            } else if (chat is PersonChatModel) {
-                var personChat = (PersonChatModel) chat;
-                if (nick == personChat.Person.ID) {
-                    person = (IrcPersonModel) personChat.Person;
-                } else if (nick == MyPerson.ID) {
-                    person = MyPerson;
-                }
-            }
-
+            var person = base.GetPerson<T>(chat, nick);
 #if LOG4NET
             if (chat == null) {
                 _Logger.Warn("GetPerson(" + chat + ", " + nick + "): chat is null!");
@@ -3437,10 +3420,14 @@ namespace Smuxi.Engine
             }
 #endif
             if (chat == null || person == null) {
-                person = CreatePerson(nick);
+                person = (T)(object) CreatePerson(nick);
             }
-
             return person;
+        }
+
+        IrcPersonModel GetPerson(ChatModel chat, string nick)
+        {
+            return GetPerson<IrcPersonModel>(chat, nick);
         }
 
         private IrcPersonModel CreatePerson(string nick)

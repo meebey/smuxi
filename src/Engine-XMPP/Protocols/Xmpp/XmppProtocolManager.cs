@@ -68,8 +68,6 @@ namespace Smuxi.Engine
         ChatModel NetworkChat { get; set; }
         GroupChatModel ContactChat { get; set; }
 
-        PersonModel MyPerson { get; set; }
-
         public override string NetworkID {
             get {
                 if (!String.IsNullOrEmpty(JabberClient.NetworkHost)) {
@@ -581,7 +579,7 @@ namespace Smuxi.Engine
             }
 
             var builder = CreateMessageBuilder();
-            builder.AppendSenderPrefix(MyPerson);
+            builder.AppendSenderPrefix(Me);
             builder.AppendMessage(text);
             Session.AddMessageToChat(chat, builder.ToMessage());
         }
@@ -976,16 +974,16 @@ namespace Smuxi.Engine
             JabberClient.Port = server.Port;
             JabberClient.Password = server.Password;
 
-            MyPerson = CreatePerson(
+            Me = CreatePerson(
                 String.Format("{0}@{1}",
                     JabberClient.User,
                     JabberClient.Server
                 ),
                 JabberClient.User
             );
-            MyPerson.IdentityNameColored.ForegroundColor = new TextColor(0, 0, 255);
-            MyPerson.IdentityNameColored.BackgroundColor = TextColor.None;
-            MyPerson.IdentityNameColored.Bold = true;
+            Me.IdentityNameColored.ForegroundColor = new TextColor(0, 0, 255);
+            Me.IdentityNameColored.BackgroundColor = TextColor.None;
+            Me.IdentityNameColored.Bold = true;
 
             // XMPP specific settings
             if (server is XmppServerModel) {

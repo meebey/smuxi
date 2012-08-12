@@ -40,6 +40,8 @@ namespace Smuxi.Engine
         private bool            _IsConnected;
         private PresenceStatus  _PresenceStatus;
 
+        public PersonModel Me { get; protected set; }
+
         public event EventHandler Connected;
         public event EventHandler Disconnected;
         
@@ -218,6 +220,28 @@ namespace Smuxi.Engine
         protected ChatModel GetChat(string id, ChatType chatType)
         {
             return _Session.GetChat(id, chatType, this);
+        }
+
+        protected virtual T GetPerson<T>(ChatModel chat, string personId) where T : PersonModel
+        {
+            if (personId == null) {
+                throw new ArgumentNullException("personId");
+            }
+
+            T person = null;
+            if (chat is GroupChatModel) {
+                var groupChat = (GroupChatModel) chat;
+                person = (T) groupChat.GetPerson(personId);
+            } else if (chat is PersonChatModel) {
+                var personChat = (PersonChatModel) chat;
+                if (personId == personChat.Person.ID) {
+                    person = (T) personChat.Person;
+                } else if (personId == Me.ID) {
+                    person = (T) Me;
+                }
+            }
+
+            return person;
         }
 
         protected virtual MessageBuilder CreateMessageBuilder()
