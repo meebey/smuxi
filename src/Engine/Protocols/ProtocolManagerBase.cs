@@ -244,11 +244,9 @@ namespace Smuxi.Engine
             return person;
         }
 
-        protected virtual MessageBuilder CreateMessageBuilder()
+        protected MessageBuilder CreateMessageBuilder()
         {
-            var builder = new MessageBuilder();
-            builder.ApplyConfig(Session.UserConfig);
-            return builder;
+            return CreateMessageBuilder<MessageBuilder>();
         }
 
         protected virtual T CreateMessageBuilder<T>() where T : MessageBuilder, new()

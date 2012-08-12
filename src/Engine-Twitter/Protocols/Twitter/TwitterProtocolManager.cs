@@ -1561,11 +1561,11 @@ namespace Smuxi.Engine
             return person;
         }
 
-        protected override MessageBuilder CreateMessageBuilder()
+        protected override T CreateMessageBuilder<T>()
         {
             var builder = new TwitterMessageBuilder();
             builder.ApplyConfig(Session.UserConfig);
-            return builder;
+            return (T)(object) builder;
         }
 
         private static bool ValidateCertificate(object sender,

@@ -3481,11 +3481,11 @@ namespace Smuxi.Engine
             return null;
         }
 
-        protected override MessageBuilder CreateMessageBuilder()
+        protected override T CreateMessageBuilder<T>()
         {
             var builder = new IrcMessageBuilder();
             builder.ApplyConfig(Session.UserConfig);
-            return builder;
+            return (T)(object) builder;
         }
 
         void AutoRenick()
