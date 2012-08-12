@@ -88,6 +88,9 @@ namespace Smuxi.Frontend.Gnome
             // XMPP
             NetworkWebsiteUrls.Add("talk.google.com", "http://www.google.com/talk/");
             NetworkWebsiteUrls.Add("chat.facebook.com", "http://www.facebook.com/");
+
+            // JabbR
+            NetworkWebsiteUrls.Add("jabbr.net", "http://jabbr.net/");
         }
 
         public ProtocolChatView(ChatModel chat) : base(chat)
