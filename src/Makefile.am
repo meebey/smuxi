@@ -15,6 +15,10 @@ if ENABLE_ENGINE_CAMPFIRE
 ENGINE_CAMPFIRE = Engine-Campfire
 endif
 
+if ENABLE_ENGINE_JABBR
+ENGINE_JABBR = Engine-JabbR
+endif
+
 # Frontends
 if ENABLE_FRONTEND_GNOME
 FRONTEND_GNOME = Frontend-GNOME
@@ -53,6 +57,7 @@ SUBDIRS =	Common \
 		$(ENGINE_IRC) \
 		$(ENGINE_TWITTER) \
 		$(ENGINE_CAMPFIRE) \
+		$(ENGINE_JABBR) \
 		$(ENGINE_XMPP) \
 		Server \
 		Frontend \

@@ -1,0 +1,446 @@
+// Smuxi - Smart MUltipleXed Irc
+// 
+// Copyright (c) 2012 Mirco Bauer <meebey@meebey.net>
+// 
+// Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
+// 
+// This program is free software; you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation; either version 2 of the License, or
+// (at your option) any later version.
+// 
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+// 
+// You should have received a copy of the GNU General Public License
+// along with this program; if not, write to the Free Software
+// Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA
+
+using System;
+using System.Collections.Generic;
+using JabbR.Client;
+using JabbR.Client.Models;
+using Smuxi.Common;
+
+namespace Smuxi.Engine
+{
+    // https://github.com/davidfowl/Jabbot/blob/master/Jabbot/Bot.cs
+    // https://github.com/davidfowl/JabbR/blob/master/JabbR/Hubs/Chat.cs
+    [ProtocolManagerInfo(Name = "JabbR", Description = "JabbR Chat", Alias = "jabbr")]
+    public class JabbrProtocolManager : ProtocolManagerBase
+    {
+#if LOG4NET
+        private static readonly log4net.ILog Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+#endif
+        const string LibraryTextDomain = "smuxi-engine-jabbr";
+        ChatModel ProtocolChat { get; set; }
+        JabbRClient Client { get; set; }
+        string Username { get; set; }
+        PersonModel MyPerson { get; set; }
+        ServerModel Server { get; set; }
+
+        public override string NetworkID {
+            get {
+                if (Server == null) {
+                    return Protocol;
+                }
+                return Server.Hostname;
+            }
+        }
+
+        public override string Protocol {
+            get {
+                return "JabbR";
+            }
+        }
+
+        public override ChatModel Chat {
+            get {
+                return ProtocolChat;
+            }
+        }
+
+        public JabbrProtocolManager(Session session) : base(session)
+        {
+            Trace.Call(session);
+        }
+
+        public override bool Command(CommandModel cmd)
+        {
+            Trace.Call(cmd);
+
+            CommandMessage(cmd);
+            return true;
+        }
+
+        public void CommandMessage(CommandModel cmd)
+        {
+            Trace.Call(cmd);
+
+            try {
+                switch (cmd.Chat.ChatType) {
+                    case ChatType.Group:
+                        Client.Send(cmd.Data, cmd.Chat.ID).Wait();
+                        break;
+                    case ChatType.Person:
+                        Client.SendPrivateMessage(cmd.Chat.ID, cmd.Data).Wait();
+                        break;
+                }
+            } catch (Exception ex) {
+#if LOG4NET
+                Logger.Error(ex);
+#endif
+                var msg = CreateMessageBuilder().
+                    AppendEventPrefix().
+                    AppendErrorText(_("Sending message failed. Reason: {0}"),
+                                    ex.Message).
+                    ToMessage();
+                cmd.FrontendManager.AddMessageToChat(cmd.Chat, msg);
+            }
+        }
+
+        public override void Connect(FrontendManager fm, ServerModel server)
+        {
+            Trace.Call(fm, server);
+
+            Server = server;
+            var chatName = String.Format("{0} {1}", Protocol, NetworkID);
+            ProtocolChat = new ProtocolChatModel(NetworkID, chatName, this);
+            ProtocolChat.InitMessageBuffer(MessageBufferPersistencyType.Volatile);
+            Session.AddChat(Chat);
+            Session.SyncChat(Chat);
+
+            try {
+                string url;
+                if (server.Hostname.StartsWith("http://") ||
+                    server.Hostname.StartsWith("https://")) {
+                    url = server.Hostname;
+                } else {
+                    if (server.Port == 443) {
+                        url = String.Format("https://{0}", server.Hostname);
+                    } else if (server.Port == 80) {
+                        url = String.Format("http://{0}", server.Hostname);
+                    } else {
+                        url = String.Format("http://{0}:{1}",
+                                            server.Hostname, server.Port);
+                    }
+                }
+                Client = new JabbRClient(url);
+                Client.MessageReceived += OnMessageReceived;
+                Client.MeMessageReceived += OnMeMessageReceived;
+                Client.UserLeft += OnUserLeft;
+                Client.UserJoined += OnUserJoined;
+                Client.JoinedRoom += OnJoinedRoom;
+                Client.PrivateMessage += OnPrivateMessage;
+                Client.Disconnected += OnDisconnected;
+
+                var msg = CreateMessageBuilder().
+                    AppendEventPrefix().
+                    AppendText(_("Connecting to {0}..."), url).
+                    ToMessage();
+                Session.AddMessageToChat(ProtocolChat, msg);
+
+                Username = server.Username;
+                var res = Client.Connect(server.Username, server.Password);
+                res.Wait();
+                IsConnected = true;
+                OnConnected(EventArgs.Empty);
+                OnLoggedOn(res.Result.Rooms);
+
+                MyPerson = CreatePerson(Username);
+                MyPerson.IdentityNameColored.ForegroundColor = new TextColor(0, 0, 255);
+                MyPerson.IdentityNameColored.BackgroundColor = TextColor.None;
+                MyPerson.IdentityNameColored.Bold = true;
+            } catch (Exception ex) {
+#if LOG4NET
+                Logger.Error(ex);
+#endif
+                var msg = CreateMessageBuilder().
+                    AppendEventPrefix().
+                    AppendErrorText(_("Connection failed! Reason: {0}"),
+                                    ex.Message).
+                    ToMessage();
+                Session.AddMessageToChat(ProtocolChat, msg);
+            }
+        }
+
+        void OnPrivateMessage(string fromUserName, string toUserName, string message)
+        {
+            Trace.Call(fromUserName, toUserName, message);
+
+            string targetChat;
+            string targetUser;
+            if (fromUserName == Username) {
+                targetChat = toUserName;
+                targetUser = toUserName;
+            } else {
+                targetChat = fromUserName;
+                targetUser = fromUserName;
+            }
+            var chat = (PersonChatModel) GetChat(targetChat, ChatType.Person);
+            if (chat == null) {
+                var person = CreatePerson(targetUser);
+                chat = new PersonChatModel(person, targetUser, targetUser, this);
+                chat.InitMessageBuffer(MessageBufferPersistencyType.Volatile);
+                Session.AddChat(chat);
+                Session.SyncChat(chat);
+            }
+            var builder = CreateMessageBuilder<JabbrMessageBuilder>();
+            if (fromUserName == Username) {
+                builder.AppendSenderPrefix(Me);
+            } else {
+                builder.AppendSenderPrefix(chat.Person);
+            }
+            builder.AppendMessage(message);
+            Session.AddMessageToChat(chat, builder.ToMessage());
+        }
+
+        void OnDisconnected()
+        {
+            Trace.Call();
+
+            IsConnected = false;
+            OnDisconnected(EventArgs.Empty);
+        }
+
+        void OnJoinedRoom(Room room)
+        {
+            Trace.Call(room);
+
+            var groupChat = new GroupChatModel(room.Name, room.Name, this);
+            groupChat.InitMessageBuffer(MessageBufferPersistencyType.Volatile);
+
+            var task = Client.GetRoomInfo(room.Name);
+            task.Wait();
+            // check task.Exception
+            var roomInfo = task.Result;
+
+            groupChat.Topic = CreateMessageBuilder<JabbrMessageBuilder>().
+                AppendMessage(roomInfo.Topic).
+                ToMessage();
+            foreach (var user in roomInfo.Users) {
+                groupChat.UnsafePersons.Add(user.Name,
+                                            CreatePerson(user));
+            }
+            // add ourself if needed
+            if (!groupChat.UnsafePersons.ContainsKey(Username)) {
+                groupChat.UnsafePersons.Add(Username, MyPerson);
+            }
+            Session.AddChat(groupChat);
+            Session.SyncChat(groupChat);
+        }
+
+        public override void Reconnect(FrontendManager fm)
+        {
+            Trace.Call(fm);
+
+            throw new NotImplementedException();
+        }
+
+        public override void Disconnect(FrontendManager fm)
+        {
+            Trace.Call(fm);
+
+            if (Client == null) {
+                return;
+            }
+            Client.Disconnect();
+            Client = null;
+        }
+
+        public override IList<GroupChatModel> FindGroupChats(GroupChatModel filter)
+        {
+            Trace.Call(filter);
+
+            var res = Client.GetRooms();
+            res.Wait();
+            // res.Exception
+            var groupChats = new List<GroupChatModel>();
+            foreach (var room in res.Result) {
+                var groupChat = new GroupChatModel(room.Name, room.Name, this);
+                groupChat.InitMessageBuffer(MessageBufferPersistencyType.Volatile);
+                groupChat.PersonCount = room.Count;
+                groupChats.Add(groupChat);
+            }
+            return groupChats;
+        }
+
+        public override void OpenChat(FrontendManager fm, ChatModel chat)
+        {
+            Trace.Call(fm, chat);
+
+            if (chat.ChatType == ChatType.Group) {
+                Client.JoinRoom(chat.ID);
+            }
+        }
+
+        public override void CloseChat(FrontendManager fm, ChatModel chatInfo)
+        {
+            Trace.Call(fm, chatInfo);
+
+            // get real chat object from session
+            var chat = GetChat(chatInfo.ID, chatInfo.ChatType);
+            if (chat == null) {
+#if LOG4NET
+                Logger.Error("CloseChat(): Session.GetChat(" +
+                             chatInfo.ID + ", " + chatInfo.ChatType + ")" +
+                             " returned null!");
+#endif
+                return;
+            }
+
+            switch (chat.ChatType) {
+                case ChatType.Person:
+                    Session.RemoveChat(chat);
+                    break;
+                case ChatType.Group:
+                    Client.LeaveRoom(chat.ID);
+                    break;
+            }
+        }
+
+        public override void SetPresenceStatus(PresenceStatus status, string message)
+        {
+            //throw new NotImplementedException();
+        }
+
+        public override string ToString()
+        {
+            string result = Chat.Name;
+            if (!IsConnected) {
+                result += " (" + _("not connected") + ")";
+            }
+            return result;
+        }
+
+        void OnMessageReceived(Message message, string room)
+        {
+            Trace.Call(message, room);
+
+            var chat = GetChat(room, ChatType.Group) ?? ProtocolChat;
+
+            string content = message.Content;
+            string name = message.User.Name;
+
+            var builder = CreateMessageBuilder<JabbrMessageBuilder>();
+            ContactModel sender = null;
+            if (name == Username) {
+                sender = MyPerson;
+            } else {
+                sender = CreatePerson(name);
+            }
+            builder.AppendSenderPrefix(sender);
+            builder.AppendMessage(content);
+            var msg = builder.ToMessage();
+            // TODO: MarkHighlights(msg);
+            Session.AddMessageToChat(chat, msg);
+        }
+
+        void OnMeMessageReceived(string userName, string content, string roomName)
+        {
+            Trace.Call(userName, content, roomName);
+
+            var chat = GetChat(roomName, ChatType.Group) ?? ProtocolChat;
+            var msg = CreateMessageBuilder<JabbrMessageBuilder>().
+                AppendActionPrefix().
+                AppendIdendityName(GetPerson<PersonModel>(chat, userName)).
+                AppendSpace().
+                AppendMessage(content).
+                ToMessage();
+            // TODO: MarkHighlights(msg);
+            Session.AddMessageToChat(chat, msg);
+        }
+
+        void OnUserJoined(User user, string room)
+        {
+            Trace.Call(user, room);
+
+            var chat = (GroupChatModel) GetChat(room, ChatType.Group);
+            if (chat == null) {
+                return;
+            }
+
+            var person = CreatePerson(user.Name);
+            chat.UnsafePersons.Add(user.Name, person);
+            Session.AddPersonToGroupChat(chat, person);
+        }
+
+        void OnUserLeft(User user, string room)
+        {
+            Trace.Call(user, room);
+
+            var chat = (GroupChatModel) GetChat(room, ChatType.Group);
+            if (chat == null) {
+                return;
+            }
+
+            if (user.Name == Username) {
+                Session.RemoveChat(chat);
+                return;
+            }
+
+            PersonModel person = null;
+            if (chat.UnsafePersons.TryGetValue(user.Name, out person)) {
+                Session.RemovePersonFromGroupChat(chat, person);
+            }
+        }
+
+        void OnLoggedOn(IEnumerable<Room> rooms)
+        {
+            Trace.Call(rooms);
+
+            try {
+                foreach (var room in rooms) {
+                    var groupChat = new GroupChatModel(room.Name, room.Name, this);
+                    groupChat.InitMessageBuffer(MessageBufferPersistencyType.Volatile);
+
+                    var task = Client.GetRoomInfo(room.Name);
+                    task.Wait();
+                    // check task.Exception
+                    var roomInfo = task.Result;
+                    groupChat.Topic = CreateMessageBuilder<JabbrMessageBuilder>().
+                        AppendMessage(roomInfo.Topic).
+                        ToMessage();
+                    foreach (var user in roomInfo.Users) {
+                        groupChat.UnsafePersons.Add(user.Name,
+                                                    CreatePerson(user));
+                    }
+                    // add ourself if needed
+                    if (!groupChat.UnsafePersons.ContainsKey(Username)) {
+                        groupChat.UnsafePersons.Add(Username, MyPerson);
+                    }
+                    Session.AddChat(groupChat);
+                    Session.SyncChat(groupChat);
+                }
+            } catch (Exception ex) {
+#if LOG4NET
+                Logger.Error(ex);
+#endif
+                var msg = CreateMessageBuilder().
+                    AppendEventPrefix().
+                    AppendErrorText(_("Retrieving chat information failed " +
+                                      "Reason: {0}"),
+                                    ex.Message).
+                    ToMessage();
+                Session.AddMessageToChat(ProtocolChat, msg);
+            }
+        }
+
+        PersonModel CreatePerson(User user)
+        {
+            return CreatePerson(user.Name);
+        }
+
+        PersonModel CreatePerson(string username)
+        {
+            return new PersonModel(username, username, NetworkID, Protocol, this);
+        }
+
+        static string _(string msg)
+        {
+            return LibraryCatalog.GetString(msg, LibraryTextDomain);
+        }
+    }
+}

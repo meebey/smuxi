@@ -25,6 +25,7 @@ POSUB="
 	po-Engine-Campfire
 	po-Engine-IRC
 	po-Engine-XMPP
+	po-Engine-JabbR
 	po-Server
 	po-Frontend
 	po-Frontend-GNOME
@@ -55,6 +56,10 @@ AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE_ENGINE_TWITTER, "$GETTEXT_PACKAGE_ENGINE_TWIT
 GETTEXT_PACKAGE_ENGINE_CAMPFIRE=smuxi-engine-campfire
 AC_SUBST(GETTEXT_PACKAGE_ENGINE_CAMPFIRE)
 AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE_ENGINE_CAMPFIRE, "$GETTEXT_PACKAGE_ENGINE_CAMPFIRE", [Gettext package])
+
+GETTEXT_PACKAGE_ENGINE_TWITTER=smuxi-engine-jabbr
+AC_SUBST(GETTEXT_PACKAGE_ENGINE_JABBR)
+AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE_ENGINE_JABBR, "$GETTEXT_PACKAGE_ENGINE_JABBR", [Gettext package])
 
 GETTEXT_PACKAGE_SERVER=smuxi-server
 AC_SUBST(GETTEXT_PACKAGE_SERVER)
@@ -452,6 +457,72 @@ AC_ARG_WITH([twitter-api-key],
 )
 AC_SUBST([twitter_api_key], $with_twitter_api_key)
 
+AC_ARG_ENABLE([engine-jabbr],
+	AC_HELP_STRING([--enable-engine-jabbr], [Enable JabbR support (default yes)]),
+	ENABLE_ENGINE_JABBR=$enableval,
+	ENABLE_ENGINE_JABBR=yes
+)
+if test "x$ENABLE_ENGINE_JABBR" != "xno"; then
+	AC_PATH_PROG(XBUILD, xbuild, no)
+	if test "x$XBUILD" = "xno"; then
+		AC_MSG_ERROR([You need to install xbuild for JabbR support])
+	fi
+
+	# compiling Json.NET with the C# compiler of Mono 2.4 will result in
+	# a endless loop with eating all memory :/
+	# SignalR.Client requires System.Threading.Tasks which is part of .NET 4.0
+	# thus Mono 2.10 with dmcs is required!
+	AC_MSG_CHECKING([for Mono >= 2.10])
+	if $PKG_CONFIG 'mono >= 2.10'; then
+		AC_MSG_RESULT(yes)
+	else
+		AC_MSG_RESULT(no)
+		AC_MSG_ERROR([You need Mono 2.10 or later for JabbR support])
+	fi
+
+	AC_MSG_CHECKING([for 4.0 compiler])
+	if test "x$CLI_RUNTIME" = "x2.0"; then
+		AC_MSG_RESULT(no)
+		AC_MSG_ERROR([You need to compile with a 4.0 compiler (dmcs) for JabbR support])
+	else
+		AC_MSG_RESULT(yes)
+	fi
+
+	if test ! -f "$srcdir/lib/Newtonsoft.Json/Src/Newtonsoft.Json/Newtonsoft.Json.csproj"; then
+		AC_MSG_ERROR([lib/Newtonsoft.Json is empty!])
+	fi
+	SHAMROCK_CHECK_MONO_2_0_GAC_ASSEMBLIES([
+		System
+		System.Core
+		System.Data
+		System.Runtime.Serialization
+		System.Web
+		System.Xml
+		System.Xml.Linq
+	])
+
+	if test ! -f "$srcdir/lib/SignalR/SignalR.Client/SignalR.Client.csproj"; then
+		AC_MSG_ERROR([lib/SignalR is empty!])
+	fi
+	SHAMROCK_CHECK_MONO_2_0_GAC_ASSEMBLIES([
+		System
+		System.Core
+	])
+
+	if test ! -f "$srcdir/lib/JabbR.Client/JabbR.Client/JabbR.Client.csproj"; then
+		AC_MSG_ERROR([lib/JabbR.Client is empty!])
+	fi
+	SHAMROCK_CHECK_MONO_2_0_GAC_ASSEMBLIES([
+		System
+		System.Core
+		System.Data
+		System.Data.DataSetExtensions
+		System.Xml
+		System.Xml.Linq
+	])
+fi
+AM_CONDITIONAL(ENABLE_ENGINE_JABBR, test "x$ENABLE_ENGINE_JABBR" = "xyes")
+
 # Server
 if $PKG_CONFIG 'mono >= 2.6'; then
 	SERVER_COMPILER_FLAGS+=" -platform:x86"
@@ -573,6 +644,8 @@ AC_CONFIG_FILES([
 	src/Engine/smuxi-engine.pc
 	src/Engine-IRC/Makefile
 	src/Engine-IRC/smuxi-engine-irc.pc
+	src/Engine-JabbR/Makefile
+	src/Engine-JabbR/smuxi-engine-jabbr.pc
 	src/Engine-Twitter/Makefile
 	src/Engine-XMPP/Makefile
 	src/Engine-XMPP/smuxi-engine-xmpp.pc
@@ -628,6 +701,7 @@ AC_MSG_RESULT([
 	  XMPP:                $ENABLE_ENGINE_XMPP
 	  Twitter:             $ENABLE_ENGINE_TWITTER
 	  Campfire:            $ENABLE_ENGINE_CAMPFIRE
+	  JabbR:               $ENABLE_ENGINE_JABBR
 
 	* Frontends
 	  ---------
