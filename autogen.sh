@@ -101,8 +101,8 @@ echo "Running $AUTOCONF ..."
 $AUTOCONF
 
 if test x$NOGIT = x; then
-    git submodule init
-    git submodule update
+    git submodule init || exit 1
+    git submodule update || exit 1
 else
     echo Skipping git submodule initialization.
 fi
