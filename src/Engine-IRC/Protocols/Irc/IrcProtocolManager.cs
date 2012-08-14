@@ -1311,11 +1311,10 @@ namespace Smuxi.Engine
                                        channelname);
                     builder.AppendMessage(message);
                     Session.AddMessageToChat(Chat, builder.ToMessage(), true);
+                    _IrcClient.SendMessage(SendType.Message, channelname, message);
                 } else {
                      _Say(chat, message);
                 }
-
-                _IrcClient.SendMessage(SendType.Message, channelname, message);
             } else {
                 _NotEnoughParameters(cd);
             }
