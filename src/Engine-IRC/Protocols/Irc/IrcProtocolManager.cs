@@ -685,8 +685,11 @@ namespace Smuxi.Engine
                             handled = true;
                             break;
                         case "msg":
-                        case "query":
                             CommandMessage(command);
+                            handled = true;
+                            break;
+                        case "query":
+                            CommandQuery(command);
                             handled = true;
                             break;
                         case "amsg":
@@ -1262,15 +1265,15 @@ namespace Smuxi.Engine
                         break;
                     default:
                         // seems to be a nick
-                        CommandMessageQuery(cd);
+                        CommandMessageNick(cd);
                         break;
                 }
             } else {
-                CommandMessageQuery(cd);
+                NotEnoughParameters(cd);
             }
         }
         
-        public void CommandMessageQuery(CommandModel cd)
+        public void CommandQuery(CommandModel cd)
         {
             ChatModel chat = null;
             if (cd.DataArray.Length >= 2) {
@@ -1315,6 +1318,47 @@ namespace Smuxi.Engine
                 _IrcClient.SendMessage(SendType.Message, channelname, message);
             } else {
                 _NotEnoughParameters(cd);
+            }
+        }
+
+        [Obsolete("CommandMessageQuery() is deprecated, use CommandQuery() instead")]
+        public void CommandMessageQuery(CommandModel cmd)
+        {
+            CommandQuery(cmd);
+        }
+
+        public void CommandMessageNick(CommandModel cmd)
+        {
+            if (cmd == null) {
+                throw new ArgumentNullException("cmd");
+            }
+            if (cmd.DataArray.Length < 3) {
+                NotEnoughParameters(cmd);
+                return;
+            }
+
+            var nickname = cmd.DataArray[1];
+            string message = String.Join(" ", cmd.DataArray, 2,
+                                         cmd.DataArray.Length - 2);
+            // ignore empty messages
+            if (message.TrimEnd(' ').Length == 0) {
+                return;
+            }
+
+            var chat = GetChat(nickname, ChatType.Person);
+            if (chat == null) {
+                // fallback to protocol chat + where the command was issued
+                var msg = CreateMessageBuilder().
+                    AppendText("<{0}:{1}> ", _IrcClient.Nickname, nickname).
+                    AppendMessage(message).
+                    ToMessage();
+                Session.AddMessageToChat(_NetworkChat, msg, true);
+                if (cmd.Chat != _NetworkChat) {
+                    cmd.FrontendManager.AddMessageToChat(cmd.Chat, msg);
+                }
+                _IrcClient.SendMessage(SendType.Message, nickname, message);
+            } else {
+                _Say(chat, message);
             }
         }
 
