@@ -3160,6 +3160,9 @@ namespace Smuxi.Engine
             switch (e.Data.Type) {
                 case ReceiveType.UserModeChange:
                     modechange = e.Data.RawMessageArray[3];
+                    if (modechange.StartsWith(":")) {
+                        modechange = modechange.Substring(1);
+                    }
                     who = e.Data.Irc.Nickname;
                     target = _NetworkChat;
 
