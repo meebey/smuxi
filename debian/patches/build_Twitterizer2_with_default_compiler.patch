@@ -1,11 +1,18 @@
 Index: smuxi/lib/Twitterizer/Twitterizer2/Twitterizer2.csproj
 ===================================================================
---- smuxi.orig/lib/Twitterizer/Twitterizer2/Twitterizer2.csproj	2012-01-28 13:26:26.000000000 +0100
-+++ smuxi/lib/Twitterizer/Twitterizer2/Twitterizer2.csproj	2012-03-26 12:10:32.000000000 +0200
+--- smuxi.orig/lib/Twitterizer/Twitterizer2/Twitterizer2.csproj	2012-08-13 18:18:28.000000000 +0200
++++ smuxi/lib/Twitterizer/Twitterizer2/Twitterizer2.csproj	2012-08-14 12:16:04.000000000 +0200
 @@ -1,5 +1,5 @@
- <?xml version="1.0" encoding="utf-8"?>
--<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+ ﻿<?xml version="1.0" encoding="utf-8"?>
+-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 +<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
    <PropertyGroup>
      <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
      <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+@@ -361,4 +361,4 @@
+       <Name>Newtonsoft.Json</Name>
+     </ProjectReference>
+   </ItemGroup>
+-</Project>
+\ No newline at end of file
++</Project>

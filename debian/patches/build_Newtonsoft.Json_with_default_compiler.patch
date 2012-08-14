@@ -1,17 +1,17 @@
 Index: smuxi/lib/Newtonsoft.Json/Src/Newtonsoft.Json/Newtonsoft.Json.csproj
 ===================================================================
---- smuxi.orig/lib/Newtonsoft.Json/Src/Newtonsoft.Json/Newtonsoft.Json.csproj	2012-03-18 17:35:21.000000000 +0100
-+++ smuxi/lib/Newtonsoft.Json/Src/Newtonsoft.Json/Newtonsoft.Json.csproj	2012-03-26 12:08:38.000000000 +0200
+--- smuxi.orig/lib/Newtonsoft.Json/Src/Newtonsoft.Json/Newtonsoft.Json.csproj	2012-08-14 12:25:05.000000000 +0200
++++ smuxi/lib/Newtonsoft.Json/Src/Newtonsoft.Json/Newtonsoft.Json.csproj	2012-08-14 12:27:19.000000000 +0200
 @@ -1,5 +1,5 @@
- <?xml version="1.0" encoding="utf-8"?>
+ ﻿<?xml version="1.0" encoding="utf-8"?>
 -<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
 +<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
    <PropertyGroup>
      <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
      <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-@@ -243,4 +243,4 @@
-     <EmbeddedResource Include="Dynamic.snk" />
+@@ -274,4 +274,4 @@
    </ItemGroup>
+   <ItemGroup />
    <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 -</Project>
 \ No newline at end of file
