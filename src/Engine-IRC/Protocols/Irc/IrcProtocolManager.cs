@@ -3156,7 +3156,7 @@ namespace Smuxi.Engine
             ChatModel target = null;
             switch (e.Data.Type) {
                 case ReceiveType.UserModeChange:
-                    modechange = e.Data.Message;
+                    modechange = e.Data.RawMessageArray[3];
                     who = e.Data.Irc.Nickname;
                     target = _NetworkChat;
 
