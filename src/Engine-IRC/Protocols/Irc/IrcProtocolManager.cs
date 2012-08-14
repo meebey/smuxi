@@ -387,7 +387,10 @@ namespace Smuxi.Engine
                     Session.AddMessageToChat(_NetworkChat, builder.ToMessage());
                 }
                 _IrcClient.Login(_Nicknames, realname, 0, _Username, _Password);
-                
+                // set Me property very early as we might need to know who we
+                // are before the registration was confirmed in _OnRegistered()
+                Me = CreatePerson(_IrcClient.Nickname);
+
                 foreach (string command in (string[]) Session.UserConfig["Connection/OnConnectCommands"]) {
                     if (command.Length == 0) {
                         continue;
