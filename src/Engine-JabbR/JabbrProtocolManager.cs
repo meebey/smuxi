@@ -71,8 +71,41 @@ namespace Smuxi.Engine
         {
             Trace.Call(cmd);
 
-            CommandMessage(cmd);
+            if (cmd.IsCommand) {
+                switch (cmd.Command) {
+                    case "j":
+                    case "join":
+                        CommandJoin(cmd);
+                        break;
+                }
+            } else {
+                CommandMessage(cmd);
+            }
             return true;
+        }
+
+        public void CommandJoin(CommandModel cmd)
+        {
+            Trace.Call(cmd);
+
+            if (String.IsNullOrEmpty(cmd.Parameter)) {
+                NotEnoughParameters(cmd);
+                return;
+            }
+
+            try {
+                Client.JoinRoom(cmd.Parameter);
+            } catch (Exception ex) {
+#if LOG4NET
+                Logger.Error(ex);
+#endif
+                var msg = CreateMessageBuilder().
+                    AppendEventPrefix().
+                    AppendErrorText(_("Joining room failed. Reason: {0}"),
+                                    ex.Message).
+                    ToMessage();
+                cmd.FrontendManager.AddMessageToChat(cmd.Chat, msg);
+            }
         }
 
         public void CommandMessage(CommandModel cmd)
