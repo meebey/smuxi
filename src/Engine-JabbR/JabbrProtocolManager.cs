@@ -311,8 +311,21 @@ namespace Smuxi.Engine
         {
             Trace.Call(fm, chat);
 
-            if (chat.ChatType == ChatType.Group) {
-                Client.JoinRoom(chat.ID);
+            switch (chat.ChatType) {
+                case ChatType.Person:
+                    var personChat = (PersonChatModel) GetChat(chat.ID, ChatType.Person);
+                    if (personChat != null) {
+                        return;
+                    }
+                    var person = CreatePerson(chat.ID);
+                    personChat = new PersonChatModel(person, chat.ID, chat.ID, this);
+                    personChat.InitMessageBuffer(MessageBufferPersistencyType.Volatile);
+                    Session.AddChat(personChat);
+                    Session.SyncChat(personChat);
+                    break;
+                case ChatType.Group:
+                    Client.JoinRoom(chat.ID);
+                    break;
             }
         }
 
