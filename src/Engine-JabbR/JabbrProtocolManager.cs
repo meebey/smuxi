@@ -39,7 +39,6 @@ namespace Smuxi.Engine
         ChatModel ProtocolChat { get; set; }
         JabbRClient Client { get; set; }
         string Username { get; set; }
-        PersonModel MyPerson { get; set; }
         ServerModel Server { get; set; }
 
         public override string NetworkID {
@@ -157,10 +156,10 @@ namespace Smuxi.Engine
                 OnConnected(EventArgs.Empty);
                 OnLoggedOn(res.Result.Rooms);
 
-                MyPerson = CreatePerson(Username);
-                MyPerson.IdentityNameColored.ForegroundColor = new TextColor(0, 0, 255);
-                MyPerson.IdentityNameColored.BackgroundColor = TextColor.None;
-                MyPerson.IdentityNameColored.Bold = true;
+                Me = CreatePerson(Username);
+                Me.IdentityNameColored.ForegroundColor = new TextColor(0, 0, 255);
+                Me.IdentityNameColored.BackgroundColor = TextColor.None;
+                Me.IdentityNameColored.Bold = true;
             } catch (Exception ex) {
 #if LOG4NET
                 Logger.Error(ex);
@@ -199,7 +198,7 @@ namespace Smuxi.Engine
             if (fromUserName == Username) {
                 builder.AppendSenderPrefix(Me);
             } else {
-                builder.AppendSenderPrefix(chat.Person);
+                builder.AppendSenderPrefix(chat.Person, true);
             }
             builder.AppendMessage(message);
             Session.AddMessageToChat(chat, builder.ToMessage());
@@ -234,7 +233,7 @@ namespace Smuxi.Engine
             }
             // add ourself if needed
             if (!groupChat.UnsafePersons.ContainsKey(Username)) {
-                groupChat.UnsafePersons.Add(Username, MyPerson);
+                groupChat.UnsafePersons.Add(Username, Me);
             }
             Session.AddChat(groupChat);
             Session.SyncChat(groupChat);
@@ -335,14 +334,16 @@ namespace Smuxi.Engine
             var builder = CreateMessageBuilder<JabbrMessageBuilder>();
             ContactModel sender = null;
             if (name == Username) {
-                sender = MyPerson;
+                sender = Me;
             } else {
                 sender = CreatePerson(name);
             }
             builder.AppendSenderPrefix(sender);
             builder.AppendMessage(content);
+            if (sender != Me) {
+                builder.MarkHighlights();
+            }
             var msg = builder.ToMessage();
-            // TODO: MarkHighlights(msg);
             Session.AddMessageToChat(chat, msg);
         }
 
@@ -351,13 +352,15 @@ namespace Smuxi.Engine
             Trace.Call(userName, content, roomName);
 
             var chat = GetChat(roomName, ChatType.Group) ?? ProtocolChat;
-            var msg = CreateMessageBuilder<JabbrMessageBuilder>().
+            var builder = CreateMessageBuilder<JabbrMessageBuilder>().
                 AppendActionPrefix().
                 AppendIdendityName(GetPerson<PersonModel>(chat, userName)).
                 AppendSpace().
-                AppendMessage(content).
-                ToMessage();
-            // TODO: MarkHighlights(msg);
+                AppendMessage(content);
+            if (userName != Username) {
+                builder.MarkHighlights();
+            }
+            var msg = builder.ToMessage();
             Session.AddMessageToChat(chat, msg);
         }
 
@@ -417,7 +420,7 @@ namespace Smuxi.Engine
                     }
                     // add ourself if needed
                     if (!groupChat.UnsafePersons.ContainsKey(Username)) {
-                        groupChat.UnsafePersons.Add(Username, MyPerson);
+                        groupChat.UnsafePersons.Add(Username, Me);
                     }
                     Session.AddChat(groupChat);
                     Session.SyncChat(groupChat);
