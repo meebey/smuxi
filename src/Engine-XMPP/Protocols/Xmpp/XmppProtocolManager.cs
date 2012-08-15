@@ -816,7 +816,20 @@ namespace Smuxi.Engine
             if (display) {
                 var builder = CreateMessageBuilder();
                 if (msg.Type != XmppMessageType.error) {
-                    builder.AppendMessage(person, msg.Body);
+                    if (chat is PersonChatModel) {
+                        // private message
+                        builder.AppendSenderPrefix(person, true);
+                        builder.AppendMessage(msg.Body);
+                        builder.MarkHighlights();
+                    } else if (chat is XmppGroupChatModel) {
+                        // public message
+                        builder.AppendMessage(person, msg.Body);
+                        // mark highlights only for received messages
+                        var muc = (XmppGroupChatModel) chat;
+                        if (person.ID != muc.OwnNickname) {
+                            builder.MarkHighlights();
+                        }
+                    }
                 } else {
                     // TODO: nicer formatting
                     builder.AppendMessage(msg.Error.ToString());
@@ -879,10 +892,11 @@ namespace Smuxi.Engine
         private void AddPersonToGroup(Room room, string nickname)
         {
             string jid = room.JID.Bare;
-            var chat = (GroupChatModel) Session.GetChat(jid, ChatType.Group, this);
+            var chat = (XmppGroupChatModel) Session.GetChat(jid, ChatType.Group, this);
             // first notice we're joining a group chat is the participant info:
             if (chat == null) {
                 chat = Session.CreateChat<XmppGroupChatModel>(jid, jid, this);
+                chat.OwnNickname = room.Nickname;
                 Session.AddChat(chat);
                 Session.SyncChat(chat);
             }

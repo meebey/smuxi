@@ -26,6 +26,7 @@ namespace Smuxi.Engine
     {
         public string LatestSeenStamp { get; set; }
         public bool SeenNewMessages { get; set; }
+        public string OwnNickname { get; set; }
 
         public XmppGroupChatModel(string id, string name, IProtocolManager networkManager) :
                          base(id, name, networkManager)
