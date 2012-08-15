@@ -283,11 +283,7 @@ namespace Smuxi.Engine
         {
             Trace.Call(fm);
 
-            if (Client == null) {
-                return;
-            }
             Client.Disconnect();
-            Client = null;
         }
 
         public override IList<GroupChatModel> FindGroupChats(GroupChatModel filter)
