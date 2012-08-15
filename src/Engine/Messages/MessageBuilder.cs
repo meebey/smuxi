@@ -19,6 +19,7 @@
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA
 
 using System;
+using System.Text.RegularExpressions;
 using System.Collections.Generic;
 
 namespace Smuxi.Engine
@@ -29,6 +30,9 @@ namespace Smuxi.Engine
         public bool NickColors { get; set; }
         public bool StripFormattings { get; set; }
         public bool StripColors { get; set; }
+        public TextColor HighlightColor { get; set; }
+        public List<string> HighlightWords { get; set; }
+        public PersonModel Me { get; set; }
 
         public MessageType MessageType {
             get {
@@ -77,6 +81,12 @@ namespace Smuxi.Engine
             NickColors = (bool) userConfig["Interface/Notebook/Channel/NickColors"];
             StripColors = (bool) userConfig["Interface/Notebook/StripColors"];
             StripFormattings = (bool) userConfig["Interface/Notebook/StripFormattings"];
+            HighlightColor = TextColor.Parse(
+                (string) userConfig["Interface/Notebook/Tab/HighlightColor"]
+            );
+            HighlightWords = new List<string>(
+                (string[]) userConfig["Interface/Chat/HighlightWords"]
+            );
         }
 
         public virtual MessageBuilder Append(MessagePartModel msgPart)
@@ -368,6 +378,115 @@ namespace Smuxi.Engine
         public MessageBuilder AppendSenderPrefix(ContactModel sender)
         {
             return AppendSenderPrefix(sender, false);
+        }
+
+        public bool ContainsHighlight()
+        {
+            return ContainsHighlight(Message.ToString());
+        }
+
+        public virtual bool ContainsHighlight(string text)
+        {
+            Regex regex;
+            if (Me != null) {
+                // First check to see if our current nick is in there.
+                regex = new Regex(
+                    String.Format(
+                        "(^|\\W){0}($|\\W)",
+                        Regex.Escape(Me.IdentityName)
+                    ),
+                    RegexOptions.IgnoreCase
+                );
+                if (regex.Match(text).Success) {
+                    return true;
+                }
+            }
+
+            // go through the user's custom highlight words and check for them.
+            foreach (string highLightWord in HighlightWords) {
+                if (String.IsNullOrEmpty(highLightWord)) {
+                    continue;
+                }
+
+                if (highLightWord.StartsWith("/") && highLightWord.EndsWith("/")) {
+                    // This is a regex, so just build a regex out of the string.
+                    regex = new Regex(
+                        highLightWord.Substring(1, highLightWord.Length - 2)
+                    );
+                } else {
+                    // Plain text - make a regex that matches the word as long as it's separated properly.
+                    string regex_string = String.Format(
+                        "(^|\\W){0}($|\\W)",
+                        Regex.Escape(highLightWord)
+                    );
+                    regex = new Regex(regex_string, RegexOptions.IgnoreCase);
+                }
+
+                if (regex.Match(text).Success) {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        public virtual void MarkHighlights()
+        {
+            bool containsHighlight = false;
+            foreach (var part in Message.MessageParts) {
+                if (!(part is TextMessagePartModel)) {
+                    continue;
+                }
+
+                var textPart = (TextMessagePartModel) part;
+                if (String.IsNullOrEmpty(textPart.Text)) {
+                    // URLs without a link name don't have text
+                    continue;
+                }
+                if (ContainsHighlight(textPart.Text)) {
+                    containsHighlight = true;
+                }
+            }
+
+            if (!containsHighlight) {
+                // nothing to do
+                return;
+            }
+
+            // colorize the whole message
+            foreach (MessagePartModel msgPart in Message.MessageParts) {
+                if (!(msgPart is TextMessagePartModel)) {
+                    continue;
+                }
+
+                TextMessagePartModel textMsg = (TextMessagePartModel) msgPart;
+                if (textMsg.ForegroundColor != null &&
+                    textMsg.ForegroundColor != TextColor.None) {
+                    // HACK: don't overwrite colors as that would replace
+                    // nick-colors for example
+                    continue;
+                }
+                // HACK: we have to mark all parts as highlight else
+                // ClearHighlights() has no chance to properly undo all
+                // highlights
+                textMsg.IsHighlight = true;
+                textMsg.ForegroundColor = HighlightColor;
+            }
+            return;
+        }
+
+        public virtual void ClearHighlights()
+        {
+            foreach (var msgPart in Message.MessageParts) {
+                if (!msgPart.IsHighlight || !(msgPart is TextMessagePartModel)) {
+                    continue;
+                }
+
+                var textMsg = (TextMessagePartModel) msgPart;
+                textMsg.IsHighlight = false;
+                textMsg.ForegroundColor = null;
+            }
+            return;
         }
     }
 }

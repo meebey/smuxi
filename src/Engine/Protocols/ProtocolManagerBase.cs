@@ -252,34 +252,9 @@ namespace Smuxi.Engine
         protected virtual T CreateMessageBuilder<T>() where T : MessageBuilder, new()
         {
             var builder = new T();
+            builder.Me = Me;
             builder.ApplyConfig(Session.UserConfig);
             return builder;
-        }
-
-        protected virtual bool ContainsHighlight(string msg)
-        {
-            Regex regex;
-            //go through the user's custom highlight words and check for them.
-            foreach (string HighlightString in (string[]) Session.UserConfig["Interface/Chat/HighlightWords"]) {
-                if (String.IsNullOrEmpty(HighlightString)) {
-                    continue;
-                }
-
-                if (HighlightString.StartsWith("/") && HighlightString.EndsWith("/")) {
-                    // This is a regex, so just build a regex out of the string.
-                    regex = new Regex(HighlightString.Substring(1,HighlightString.Length-2));
-                } else {
-                    // Plain text - make a regex that matches the word as long as it's separated properly.
-                    string regex_string = String.Format("(^|\\W){0}($|\\W)", Regex.Escape(HighlightString));
-                    regex = new Regex(regex_string, RegexOptions.IgnoreCase);
-                }
-
-                if (regex.Match(msg).Success) {
-                    return true;
-                }
-            }
-            
-            return false;
         }
 
         protected virtual void DebugRead(string data)

@@ -2112,88 +2112,6 @@ namespace Smuxi.Engine
             cd.FrontendManager.AddMessageToChat(cd.Chat, msg);
         }
 
-        protected override bool ContainsHighlight (string msg)
-        {
-            Regex regex;
-            // First check to see if our current nick is in there.
-            regex = new Regex(String.Format("(^|\\W){0}($|\\W)",
-                                            Regex.Escape(_IrcClient.Nickname)),
-                              RegexOptions.IgnoreCase);
-            if (regex.Match(msg).Success) {
-                return true;
-            } else {
-                return base.ContainsHighlight(msg);
-            }
-        }
-
-        private void ClearHighlights(MessageModel msg)
-        {
-            if (msg == null) {
-                throw new ArgumentNullException("msg");
-            }
-
-            foreach (MessagePartModel msgPart in msg.MessageParts) {
-                if (!msgPart.IsHighlight || !(msgPart is TextMessagePartModel)) {
-                    continue;
-                }
-
-                TextMessagePartModel textMsg = (TextMessagePartModel) msgPart;
-                textMsg.IsHighlight = false;
-                textMsg.ForegroundColor = null;
-            }
-        }
-
-        private void MarkHighlights(MessageModel msg)
-        {
-            if (msg == null) {
-                throw new ArgumentNullException("msg");
-            }
-
-            bool containsHighlight = false;
-            foreach (MessagePartModel msgPart in msg.MessageParts) {
-                if (!(msgPart is TextMessagePartModel)) {
-                    continue;
-                }
-
-                TextMessagePartModel textMsg = (TextMessagePartModel) msgPart;
-                if (String.IsNullOrEmpty(textMsg.Text)) {
-                    // URLs without a link name don't have text
-                    continue;
-                }
-                if (ContainsHighlight(textMsg.Text)) {
-                    containsHighlight = true;
-                }
-            }
-
-            if (!containsHighlight) {
-                // nothing to do
-                return;
-            }
-
-            // colorize the whole message
-            var highlightColor = TextColor.Parse(
-                (string) Session.UserConfig["Interface/Notebook/Tab/HighlightColor"]
-            );
-            foreach (MessagePartModel msgPart in msg.MessageParts) {
-                if (!(msgPart is TextMessagePartModel)) {
-                    continue;
-                }
-
-                TextMessagePartModel textMsg = (TextMessagePartModel) msgPart;
-                if (textMsg.ForegroundColor != null &&
-                    textMsg.ForegroundColor != TextColor.None) {
-                    // HACK: don't overwrite colors as that would replace
-                    // nick-colors for example
-                    continue;
-                }
-                // HACK: we have to mark all parts as highlight else
-                // ClearHighlights() has no chance to properly undo all
-                // highlights
-                textMsg.IsHighlight = true;
-                textMsg.ForegroundColor = highlightColor;
-            }
-        }
-
         private void ApplyConfig(UserConfig config, ServerModel server)
         {
             _Host = server.Hostname;
@@ -2679,9 +2597,9 @@ namespace Smuxi.Engine
 
             var builder = CreateMessageBuilder();
             builder.AppendMessage(GetPerson(chat, e.Data.Nick), e.Data.Message);
+            builder.MarkHighlights();
 
             var msg = builder.ToMessage();
-            MarkHighlights(msg);
             Session.AddMessageToChat(chat, msg);
         }
         
@@ -2694,9 +2612,9 @@ namespace Smuxi.Engine
             builder.AppendIdendityName(GetPerson(chat, e.Data.Nick));
             builder.AppendText(" ");
             builder.AppendMessage(e.ActionMessage);
-            
+            builder.MarkHighlights();
+
             var msg = builder.ToMessage();
-            MarkHighlights(msg);
             Session.AddMessageToChat(chat, msg);
         }
         
@@ -2707,9 +2625,9 @@ namespace Smuxi.Engine
             var builder = CreateMessageBuilder();
             builder.AppendText("-{0}:{1}- ", e.Data.Nick, e.Data.Channel);
             builder.AppendMessage(e.Data.Message);
+            builder.MarkHighlights();
 
             var msg = builder.ToMessage();
-            MarkHighlights(msg);
             Session.AddMessageToChat(chat, msg);
         }
         
@@ -2762,9 +2680,9 @@ namespace Smuxi.Engine
             builder.AppendIdendityName(chat.Person, true);
             builder.AppendSpace();
             builder.AppendMessage(e.ActionMessage);
-            var msg = builder.ToMessage();
-            MarkHighlights(msg);
+            builder.MarkHighlights();
 
+            var msg = builder.ToMessage();
             if (newChat) {
                 // don't create chats for filtered messages
                 if (Session.IsFilteredMessage(chat, msg)) {
@@ -2822,9 +2740,9 @@ namespace Smuxi.Engine
                 builder.AppendText(" ({0}@{1})- ", e.Data.Ident, e.Data.Host);
             }
             builder.AppendMessage(e.Data.Message);
-            var msg = builder.ToMessage();
-            MarkHighlights(msg);
+            builder.MarkHighlights();
 
+            var msg = builder.ToMessage();
             foreach (var targetChat in targetChats) {
                 Session.AddMessageToChat(targetChat, msg);
             }
@@ -3532,9 +3450,7 @@ namespace Smuxi.Engine
 
         protected override T CreateMessageBuilder<T>()
         {
-            var builder = new IrcMessageBuilder();
-            builder.ApplyConfig(Session.UserConfig);
-            return (T)(object) builder;
+            return (T)(object) base.CreateMessageBuilder<IrcMessageBuilder>();
         }
 
         void AutoRenick()
