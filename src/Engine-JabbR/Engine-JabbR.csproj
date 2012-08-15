@@ -46,6 +46,10 @@
       <Project>{A4A1D183-FD80-4DBD-806F-883DDADD4967}</Project>
       <Name>JabbR.Client</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\lib\SignalR\SignalR.Client\SignalR.Client.csproj">
+      <Project>{EB46B9C6-EE37-48F9-835E-E49580E40E0A}</Project>
+      <Name>SignalR.Client</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />

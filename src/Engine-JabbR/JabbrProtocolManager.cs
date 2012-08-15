@@ -22,6 +22,7 @@ using System;
 using System.Collections.Generic;
 using JabbR.Client;
 using JabbR.Client.Models;
+using SignalR.Client.Transports;
 using Smuxi.Common;
 
 namespace Smuxi.Engine
@@ -127,7 +128,14 @@ namespace Smuxi.Engine
                                             server.Hostname, server.Port);
                     }
                 }
-                Client = new JabbRClient(url);
+                // HACK: SignalR's ServerSentEventsTransport times out on Mono
+                // for some reason and then fallbacks to LongPollingTransport
+                // this takes 10 seconds though, so let's go LP directly
+                IClientTransport transport = null;
+                if (Type.GetType("Mono.Runtime") != null) {
+                    transport = new LongPollingTransport();
+                }
+                Client = new JabbRClient(url, transport);
                 Client.MessageReceived += OnMessageReceived;
                 Client.MeMessageReceived += OnMeMessageReceived;
                 Client.UserLeft += OnUserLeft;
