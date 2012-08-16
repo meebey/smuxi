@@ -593,7 +593,7 @@ namespace Smuxi.Engine
             CommandModel cmd = new CommandModel(fm, _NetworkChat, chat.ID);
             switch (chat.ChatType) {
                 case ChatType.Person:
-                    CommandMessage(cmd);
+                    CommandQuery(cmd);
                     break;
                 case ChatType.Group:
                     CommandJoin(cmd);
