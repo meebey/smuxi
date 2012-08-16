@@ -297,6 +297,10 @@ namespace Smuxi.Frontend.Gnome
                     case Gdk.Key.End:
                         ChatViewManager.CurrentChatView.ScrollToEnd();
                         break;
+                    // anything else we let GTK+ handle
+                    default:
+                        e.RetVal = false;
+                        break;
                 }
             }
             
