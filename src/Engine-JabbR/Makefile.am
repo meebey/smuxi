@@ -18,6 +18,7 @@ REFERENCES = \
 DLL_REFERENCES = \
 	$(TARGET_DIR)/smuxi-common.dll \
 	$(TARGET_DIR)/smuxi-engine.dll \
+	$(TARGET_DIR)/SignalR.Client.dll \
 	$(TARGET_DIR)/JabbR.Client.dll
 
 SOURCES_BUILD = $(addprefix $(srcdir)/, $(SOURCES))

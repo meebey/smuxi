@@ -9,6 +9,7 @@ src/Frontend-WPF/
 src/Engine/Config/ServerModel.cs
 src/Engine-Campfire/
 src/Engine-IRC/
+src/Engine-JabbR/
 src/Engine-MSNP/
 src/Engine-OSCAR/
 src/Engine-XMPP/
