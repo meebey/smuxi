@@ -2647,6 +2647,7 @@ namespace Smuxi.Engine
             var builder = CreateMessageBuilder();
             builder.AppendSenderPrefix(chat.Person, true);
             builder.AppendMessage(e.Data.Message);
+            builder.MarkHighlights();
             var msg = builder.ToMessage();
 
             if (newChat) {
