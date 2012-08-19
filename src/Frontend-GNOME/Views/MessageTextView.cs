@@ -254,22 +254,20 @@ namespace Smuxi.Frontend.Gnome
                 if (_LastMessage != null) {
                     var lastMsgTimeStamp = _LastMessage.TimeStamp.ToLocalTime();
                     var span = msgTimeStamp.Date - lastMsgTimeStamp.Date;
-                    string dayLine = null;
-                    if (span.Days > 1) {
-                        dayLine = String.Format(
-                            "-!- " + _("Day changed from {0} to {1}"),
-                            lastMsgTimeStamp.ToShortDateString(),
-                            msgTimeStamp.ToShortDateString()
-                        );
-                    } else if (span.Days > 0) {
-                        dayLine = String.Format(
-                            "-!- " + _("Day changed to {0}"),
-                            msgTimeStamp.ToLongDateString()
-                        );
-                    }
-
-                    if (dayLine != null) {
-                        buffer.Insert(ref iter, dayLine + "\n");
+                    if (span.Days > 0) {
+                        var dayLine = new MessageBuilder().
+                            AppendEventPrefix();
+                        if (span.Days > 1) {
+                            dayLine.AppendText(_("Day changed from {0} to {1}"),
+                                               lastMsgTimeStamp.ToShortDateString(),
+                                               msgTimeStamp.ToShortDateString());
+                        } else {
+                            dayLine.AppendText(_("Day changed to {0}"),
+                                               msgTimeStamp.ToLongDateString());
+                        }
+                        dayLine.AppendText("\n");
+                        var dayLineMsg = dayLine.ToMessage().ToString();
+                        Buffer.InsertWithTags(ref iter, dayLineMsg, EventTag);
                     }
                 }
                 
