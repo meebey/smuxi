@@ -1,0 +1,211 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+#   <arianfaol@gmail.com>, 2012.
+msgid ""
+msgstr ""
+"Project-Id-Version: Smuxi - IRC client\n"
+"Report-Msgid-Bugs-To: http://www.smuxi.org/issues\n"
+"POT-Creation-Date: 2012-01-01 18:47+0100\n"
+"PO-Revision-Date: 2012-08-19 22:19+0000\n"
+"Last-Translator: Arianfaol <arianfaol@gmail.com>\n"
+"Language-Team: Norwegian Bokmål (Norway) (http://www.transifex.com/projects/p/smuxi/language/nb_NO/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: nb_NO\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+
+#: ../src/Engine/FrontendManager.cs:233
+msgid "No network connections"
+msgstr "Ingen nettverkstilkoblinger"
+
+#: ../src/Engine/MessageBuffers/Db4oMessageBuffer.cs:295
+#, csharp-format
+msgid "Optimizing: {0}..."
+msgstr "Optimaliserer: {0}..."
+
+#: ../src/Engine/MessageBuffers/Db4oMessageBuffer.cs:313
+#, csharp-format
+msgid "Failed to optimize: {0}. Reason: {1}"
+msgstr "Optimalisering mislyktes: {0}. Årsak: {1}"
+
+#: ../src/Engine/MessageBuffers/Db4oMessageBuffer.cs:347
+msgid ""
+"Your chat history is no longer available because of an error but will be "
+"preserved from now on."
+msgstr "Chatloggen din er ikke lenger tilgjengelig på grunn av en feil, men vil bil lagret fra nå av."
+
+#: ../src/Engine/Protocols/ProtocolManagerBase.cs:170
+msgid "Not connected to server"
+msgstr "Ikke koblet til server"
+
+#: ../src/Engine/Protocols/ProtocolManagerBase.cs:178
+#: ../src/Engine/Session.cs:778
+#, csharp-format
+msgid "Not enough parameters for {0} command"
+msgstr "Ikke nok parametere for kommando {0}"
+
+#: ../src/Engine/Protocols/ProtocolManagerBase.cs:189
+#, csharp-format
+msgid "Connected to {0}"
+msgstr "Koblet til {0}"
+
+#: ../src/Engine/Protocols/ProtocolManagerBase.cs:207
+#, csharp-format
+msgid "Disconnected from {0}"
+msgstr "Koblet i fra {0}"
+
+#: ../src/Engine/Session.cs:218
+#, csharp-format
+msgid "Automatic connect to {0} failed!"
+msgstr "Automatisk tilkobling til {0} mislyktes!"
+
+#. TRANSLATOR: this line is used as a label / category for a
+#. list of commands below
+#: ../src/Engine/Session.cs:416
+msgid "Engine Commands"
+msgstr "Motorkommandoer"
+
+#: ../src/Engine/Session.cs:527
+msgid "Connect failed!"
+msgstr "Tilkobling mislyktes!"
+
+#: ../src/Engine/Session.cs:550
+#, csharp-format
+msgid "Disconnect failed - could not find server: {0}"
+msgstr "Frakobling mislyktes - kunne ikke finne server: {0}"
+
+#: ../src/Engine/Session.cs:589
+msgid "Reconnect failed!"
+msgstr "Gjentilkobling mislyktes."
+
+#: ../src/Engine/Session.cs:608
+msgid "Configuration reloaded"
+msgstr "Konfigurasjon lastet på nytt"
+
+#: ../src/Engine/Session.cs:613
+msgid "Configuration saved"
+msgstr "Konfigurasjon lagret"
+
+#: ../src/Engine/Session.cs:617
+msgid "Invalid parameter for config; use load or save"
+msgstr "Ugyldig parameter for config; bruk load eller save"
+
+#: ../src/Engine/Session.cs:676
+msgid "Invalid parameter for network; use list, switch, or close"
+msgstr "Ugyldig parameter for network; bruk list, switch, eller close"
+
+#: ../src/Engine/Session.cs:687
+msgid "Networks"
+msgstr "Nettverk"
+
+#: ../src/Engine/Session.cs:691
+msgid "Protocol"
+msgstr "Protokol"
+
+#: ../src/Engine/Session.cs:692
+msgid "Network"
+msgstr "Nettverk"
+
+#: ../src/Engine/Session.cs:693
+msgid "Host"
+msgstr "Vert"
+
+#: ../src/Engine/Session.cs:694
+msgid "Port"
+msgstr "Port"
+
+#: ../src/Engine/Session.cs:709
+#, csharp-format
+msgid "Network close failed - could not find network: {0}"
+msgstr "Stenging av nettverk mislyktes - kunne ikke finne nettverk: {0}"
+
+#: ../src/Engine/Session.cs:748
+#, csharp-format
+msgid "Network switch failed - could not find network: {0}"
+msgstr "Bytte av nettverk mislyktes - kunne ikke finne nettverk: {0}"
+
+#: ../src/Engine/Session.cs:767
+msgid "Not connected to any network"
+msgstr "Ikke koblet til noen nettverk"
+
+#: ../src/Engine/Session.cs:1013
+#, csharp-format
+msgid ""
+"Failed to write to chat history. Your chat history will not be preserved. "
+"Reason: {0}"
+msgstr "Kunne ikke skrive til Chatlogg. Chatloggen din vil ikke bli lagret. Årsak: {0}"
+
+#. just in case the ProtocolManager is not setting the
+#. protocol chat
+#: ../src/Engine/Session.cs:1185
+msgid "Connect failed."
+msgstr "Tilkobling mislyktes."
+
+#: ../src/Engine/Session.cs:1216
+#, csharp-format
+msgid "No protocol manager found for the protocol: {0}"
+msgstr "Ingen protokollbehandler funnet for protokollen: {0}"
+
+#: ../src/Engine/Session.cs:1448
+msgid "Welcome to Smuxi"
+msgstr "Velkommen til Smuxi"
+
+#: ../src/Engine/Session.cs:1455
+msgid "Type /help to get a list of available commands."
+msgstr "Skriv /help for å få en liste over tilgjengelige kommandoer."
+
+#: ../src/Engine/Session.cs:1461
+msgid ""
+"After you have made a connection the list of available commands changes. Go "
+"to the newly opened connection tab and use the /help command again to see "
+"the extended command list."
+msgstr "Etter du har koblet til endrer listen med tilgjengelige kommandoer seg. Gå til den nyåpnede tilkoblingsarkfanen og bruk /help kommandoen om igjen for å se den utvidede kommandolisten."
+
+#: ../src/Engine/Config/UserListController.cs:117
+msgid "Username must not be empty."
+msgstr "Brukernavn kan ikke være tomt."
+
+#: ../src/Engine/Config/UserListController.cs:127
+msgid "Password must not be empty."
+msgstr "Passord kan ikke være tomt."
+
+#: ../src/Engine/Config/UserListController.cs:136
+#, csharp-format
+msgid "User \"{0}\" doesn't exist."
+msgstr "Bruker \"{0}\" eksisterer ikke."
+
+#: ../src/Engine/Config/UserListController.cs:145
+#, csharp-format
+msgid "User \"{0}\" already exists."
+msgstr "Bruker \"{0}\" eksisterer allerede."
+
+#: ../src/Engine/Config/ServerListController.cs:131
+msgid "Server hostname must not be empty."
+msgstr "Serververtsnavn kan ikke være tomt."
+
+#: ../src/Engine/Config/ServerListController.cs:134
+msgid "Server hostname contains invalid characters (newline)."
+msgstr "Serververtsnavn inneholder ugyldige tegn (linjeskift)."
+
+#: ../src/Engine/Config/ServerListController.cs:140
+#, csharp-format
+msgid "Server '{0}' already exists."
+msgstr "Server '{0}' eksisterer allerede"
+
+#: ../src/Engine/Chats/ChatModel.cs:105
+#, csharp-format
+msgid ""
+"Failed to load chat history. Your chat history will not be preserved. "
+"Reason: {0}"
+msgstr "Kunne ikke laste chatlogg. Chatloggen din vil ikke bli lagret. Årsak: {0}"
+
+#: ../src/Engine/Chats/ChatModel.cs:290
+#, csharp-format
+msgid ""
+"Failed to open chat history for writing. Your chat history will not be "
+"preserved. Reason: {0}"
+msgstr "Kunne ikke åpne chatlogg for skriving. Chatloggen din vil ikke bli lagret. Årsak: {0}"
