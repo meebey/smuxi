@@ -200,8 +200,9 @@ namespace Smuxi.Frontend.Gnome
 
             string websiteUrl = null;
             lock (NetworkWebsiteUrls) {
-                if (!NetworkWebsiteUrls.TryGetValue(ID, out websiteUrl)) {
-                    // unknown network, nothing to download
+                if (!NetworkWebsiteUrls.TryGetValue(ID, out websiteUrl) &&
+                    !NetworkWebsiteUrls.TryGetValue(protocol, out websiteUrl)) {
+                    // unknown network and protocol, nothing to download
                     return;
                 }
                 // download in background so Sync() doesn't get slowed down
