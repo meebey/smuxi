@@ -274,11 +274,20 @@ namespace Smuxi.Frontend.Gnome
                             ChatViewManager.CurrentChatNumber++;
                         }
                         break;
-                    // don't break unicode input
-                    case Gdk.Key.U:
-                    // don't break copy/paste
                     case Gdk.Key.c:
                     case Gdk.Key.C:
+                        // only use copy if something is selected in the entry
+                        if (Buffer.HasSelection) {
+                            e.RetVal = false;
+                            break;
+                        }
+                        // copy selection from main chat window
+                        var buf = ChatViewManager.CurrentChatView.OutputMessageTextView.Buffer;
+                        buf.CopyClipboard(Gtk.Clipboard.Get(Gdk.Selection.Clipboard));
+                        break;
+                    // don't break unicode input
+                    case Gdk.Key.U:
+                    // don't break paste
                     case Gdk.Key.v:
                     case Gdk.Key.V:
                     // don't break select all
