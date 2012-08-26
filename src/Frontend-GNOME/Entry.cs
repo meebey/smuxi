@@ -362,6 +362,30 @@ namespace Smuxi.Frontend.Gnome
                         pagenumber = 19;
                         break;
                 }
+                switch (key) {
+                    case Gdk.Key.h:
+                    case Gdk.Key.H:
+                        if (Frontend.IsMacOSX) {
+                            Frontend.MainWindow.Iconify();
+                            e.RetVal = true;
+                        }
+                        break;
+                    case Gdk.Key.braceleft:
+                    case Gdk.Key.Up:
+                        if (Frontend.IsMacOSX) {
+                            ChatViewManager.CurrentChatNumber--;
+                            e.RetVal = true;
+                        }
+                        break;
+                    case Gdk.Key.braceright:
+                    case Gdk.Key.Down:
+                        if (Frontend.IsMacOSX) {
+                            ChatViewManager.CurrentChatNumber++;
+                            e.RetVal = true;
+                        }
+                        break;
+                }
+
 
                 if (pagenumber != -1) {
                     ChatViewManager.CurrentChatNumber = pagenumber;

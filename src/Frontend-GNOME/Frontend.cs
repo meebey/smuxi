@@ -26,6 +26,7 @@ using System.Linq;
 using System.Threading;
 using System.Reflection;
 using SysDiag = System.Diagnostics;
+using MonoDevelop.MacInterop;
 using Smuxi.Engine;
 using Smuxi.Common;
 
@@ -58,6 +59,7 @@ namespace Smuxi.Frontend.Gnome
         public static string IconName { get; private set; }
         public static bool HasSystemIconTheme { get; private set; }
         public static bool HadSession { get; private set; }
+        public static bool IsMacOSX { get; private set; }
 
         public static event EventHandler  SessionPropertyChanged;
 
@@ -168,6 +170,11 @@ namespace Smuxi.Frontend.Gnome
             }
         }
 
+        static Frontend()
+        {
+            IsMacOSX = Platform.OperatingSystem == "Darwin";
+        }
+
         public static void Init(string[] args)
         {
             System.Threading.Thread.CurrentThread.Name = "Main";
@@ -227,7 +234,36 @@ namespace Smuxi.Frontend.Gnome
             if (_SplashScreenWindow != null) {
                 _SplashScreenWindow.Destroy();
             }
-            
+
+            if (IsMacOSX) {
+                ApplicationEvents.Quit += delegate(object sender, ApplicationQuitEventArgs e) {
+                    Quit();
+                    e.Handled = true;
+                };
+
+                ApplicationEvents.Reopen += delegate(object sender, ApplicationEventArgs e) {
+                    MainWindow.Deiconify();
+                    MainWindow.Visible = true;
+                    e.Handled = true;
+                };
+
+                ApplicationEvents.OpenUrls += delegate(object sender, ApplicationUrlEventArgs e) {
+                    e.Handled = true;
+                    if (e.Urls == null || e.Urls.Count == 0) {
+                        return;
+                    }
+                    foreach (var url in e.Urls) {
+                        try {
+                            OpenChatLink(new Uri(url));
+                        } catch (Exception ex) {
+#if LOG4NET
+                            _Logger.Error("ApplicationEvents.OpenUrls() Exception", ex);
+#endif
+                        }
+                    }
+                };
+            }
+
             Gtk.Application.Run();
 #if LOG4NET
             _Logger.Warn("Gtk.Application.Run() returned!");

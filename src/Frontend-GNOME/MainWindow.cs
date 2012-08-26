@@ -27,6 +27,7 @@ using System.Threading;
 using System.Reflection;
 using SysDiag = System.Diagnostics;
 using Mono.Unix;
+using IgeMacIntegration;
 using Smuxi.Common;
 using Smuxi.Engine;
 
@@ -65,6 +66,9 @@ namespace Smuxi.Frontend.Gnome
         NetworkManager NetworkManager { get; set; }
 #endif
 
+        Gtk.Menu AppMenu { get; set; }
+        Gtk.ImageMenuItem PreferencesMenuItem { get; set; }
+        Gtk.ImageMenuItem QuitMenuItem { get; set; }
         Gtk.ImageMenuItem OpenChatMenuItem { get; set; }
         Gtk.MenuItem CloseChatMenuItem { get; set; }
         Gtk.ImageMenuItem OpenLogChatMenuItem { get; set; }
@@ -189,23 +193,25 @@ namespace Smuxi.Frontend.Gnome
             Gtk.MenuItem item;
             Gtk.ImageMenuItem image_item;
             
-            // Menu - File
-            menu = new Gtk.Menu();
-            item = new Gtk.MenuItem(_("_File"));
-            item.Submenu = menu;
-            MenuBar.Append(item);
+            // Menu - Smuxi
+            AppMenu = new Gtk.Menu();
+            item = new Gtk.MenuItem("_Smuxi");
+            item.Submenu = AppMenu;
+            if (!Frontend.IsMacOSX) {
+                MenuBar.Append(item);
+            }
 
-            item = new Gtk.ImageMenuItem(Gtk.Stock.Preferences, agrp);
-            item.Activated += new EventHandler(_OnPreferencesButtonClicked);
-            item.AccelCanActivate += AccelCanActivateSensitive;
-            menu.Append(item);
+            PreferencesMenuItem = new Gtk.ImageMenuItem(Gtk.Stock.Preferences, agrp);
+            PreferencesMenuItem.Activated += new EventHandler(_OnPreferencesButtonClicked);
+            PreferencesMenuItem.AccelCanActivate += AccelCanActivateSensitive;
+            AppMenu.Append(PreferencesMenuItem);
             
-            menu.Append(new Gtk.SeparatorMenuItem());
+            AppMenu.Append(new Gtk.SeparatorMenuItem());
             
-            item = new Gtk.ImageMenuItem(Gtk.Stock.Quit, agrp);
-            item.Activated += new EventHandler(_OnQuitButtonClicked);
-            item.AccelCanActivate += AccelCanActivateSensitive;
-            menu.Append(item);
+            QuitMenuItem = new Gtk.ImageMenuItem(Gtk.Stock.Quit, agrp);
+            QuitMenuItem.Activated += new EventHandler(_OnQuitButtonClicked);
+            QuitMenuItem.AccelCanActivate += AccelCanActivateSensitive;
+            AppMenu.Append(QuitMenuItem);
             
             // Menu - Server
             menu = new Gtk.Menu();
@@ -526,6 +532,16 @@ namespace Smuxi.Frontend.Gnome
 
             vbox.PackStart(StatusHBox, false, false, 0);
             Add(vbox);
+
+            if (Frontend.IsMacOSX) {
+                IgeMacMenu.GlobalKeyHandlerEnabled = true;
+                IgeMacMenu.MenuBar = MenuBar;
+                ShowMenuBar = false;
+
+                var appGroup = IgeMacMenu.AddAppMenuGroup();
+                appGroup.AddMenuItem(PreferencesMenuItem, _("Preferences"));
+                IgeMacMenu.QuitMenuItem = QuitMenuItem;
+            }
         }
 
         public void ApplyConfig(UserConfig userConfig)
@@ -853,6 +869,9 @@ namespace Smuxi.Frontend.Gnome
             
             try {
                 Notebook.CurrentChatView.Close();
+                if (Frontend.IsMacOSX && ChatViewManager.Chats.Count == 1) {
+                    Iconify();
+                }
             } catch (Exception ex) {
                 Frontend.ShowException(this, ex);
             }
@@ -947,7 +966,9 @@ namespace Smuxi.Frontend.Gnome
                     return;
                 }
 
-                CloseChatMenuItem.Sensitive = !(chatView is SessionChatView);
+                if (!Frontend.IsMacOSX) {
+                    CloseChatMenuItem.Sensitive = !(chatView is SessionChatView);
+                }
                 FindGroupChatMenuItem.Sensitive = !(chatView is SessionChatView);
                 if (Frontend.IsLocalEngine) {
                     OpenLogChatMenuItem.Sensitive =

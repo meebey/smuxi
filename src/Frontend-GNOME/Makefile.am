@@ -162,8 +162,13 @@ FILES = \
 	gtk-gui/Smuxi.Frontend.Gnome.ChatTypeWidget.cs \
 	gtk-gui/Smuxi.Frontend.Gnome.ServerDialog.cs \
 	gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs \
-	gtk-gui/Smuxi.Frontend.Gnome.FilterListWidget.cs
-	
+	gtk-gui/Smuxi.Frontend.Gnome.FilterListWidget.cs \
+	osx/AppleEvent.cs \
+	osx/ApplicationEvents.cs \
+	osx/Carbon.cs \
+	osx/CoreFoundation.cs \
+	osx/IgeMacMenu.cs
+
 DATA_FILES = \
 	$(DESKTOP_FILE) \
 	$(ICON_SVG) \

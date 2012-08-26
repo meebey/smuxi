@@ -139,6 +139,11 @@
     <Compile Include="Gtk.WindowExtensions.cs" />
     <Compile Include="gtk-gui\Smuxi.Frontend.Gnome.JoinWidget.cs" />
     <Compile Include="Views\JoinWidget.cs" />
+    <Compile Include="osx\IgeMacMenu.cs" />
+    <Compile Include="osx\ApplicationEvents.cs" />
+    <Compile Include="osx\Carbon.cs" />
+    <Compile Include="osx\AppleEvent.cs" />
+    <Compile Include="osx\CoreFoundation.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="smuxi-frontend-gnome.exe.config">
@@ -155,6 +160,7 @@
     <Folder Include="Views\Assistants\" />
     <Folder Include="Views\Assistants\Engine\" />
     <Folder Include="images\" />
+    <Folder Include="osx\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Engine\Engine.csproj">
