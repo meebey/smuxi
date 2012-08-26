@@ -213,9 +213,9 @@ namespace Smuxi.Frontend.Gnome
             item.Submenu = menu;
             MenuBar.Append(item);
             
-            image_item = new Gtk.ImageMenuItem(_("_Quick Connect"));
+            image_item = new Gtk.ImageMenuItem(_("_Connect"));
             image_item.Image = new Gtk.Image(Gtk.Stock.Connect, Gtk.IconSize.Menu);
-            image_item.Activated += OnServerQuickConnectButtonClicked;
+            image_item.Activated += OnServerConnectButtonClicked;
             menu.Append(image_item);
             
             menu.Append(new Gtk.SeparatorMenuItem());
@@ -681,7 +681,7 @@ namespace Smuxi.Frontend.Gnome
             }
         }
 
-        protected virtual void OnServerQuickConnectButtonClicked(object sender, EventArgs e)
+        protected virtual void OnServerConnectButtonClicked(object sender, EventArgs e)
         {
             Trace.Call(sender, e);
             
@@ -696,7 +696,7 @@ namespace Smuxi.Frontend.Gnome
                 }
                 if (server == null) {
 #if LOG4NET
-                    f_Logger.Error("OnServerQuickConnectButtonClicked(): server is null!");
+                    f_Logger.Error("OnServerConnectButtonClicked(): server is null!");
                     return;
 #endif
                 }
