@@ -343,7 +343,7 @@ namespace Smuxi.Frontend.Gnome
                                                         Gtk.IconSize.Menu);
                 akey = new Gtk.AccelKey();
                 akey.AccelFlags = Gtk.AccelFlags.Visible;
-                akey.AccelMods = Gdk.ModifierType.Mod1Mask;
+                akey.AccelMods = Gdk.ModifierType.ControlMask;
                 akey.Key = Gdk.Key.W;
                 CloseChatMenuItem.AddAccelerator("activate", agrp, akey);
             } else {
