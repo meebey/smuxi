@@ -70,7 +70,7 @@ namespace Smuxi.Frontend.Gnome
         Gtk.ImageMenuItem PreferencesMenuItem { get; set; }
         Gtk.ImageMenuItem QuitMenuItem { get; set; }
         Gtk.ImageMenuItem OpenChatMenuItem { get; set; }
-        Gtk.MenuItem CloseChatMenuItem { get; set; }
+        Gtk.ImageMenuItem CloseChatMenuItem { get; set; }
         Gtk.ImageMenuItem OpenLogChatMenuItem { get; set; }
         Gtk.ImageMenuItem FindGroupChatMenuItem { get; set; }
 
@@ -335,7 +335,20 @@ namespace Smuxi.Frontend.Gnome
             OpenLogChatMenuItem.NoShowAll = true;
             menu.Append(OpenLogChatMenuItem);
 
-            CloseChatMenuItem = new Gtk.ImageMenuItem(Gtk.Stock.Close, agrp);
+            if (Frontend.IsMacOSX) {
+                // HACK: for some reason GTK+ on OS X uses W without any
+                // modifier as accelerator for the stock close menu item!
+                CloseChatMenuItem = new Gtk.ImageMenuItem(_("_Close"));
+                CloseChatMenuItem.Image = new Gtk.Image(Gtk.Stock.Close,
+                                                        Gtk.IconSize.Menu);
+                akey = new Gtk.AccelKey();
+                akey.AccelFlags = Gtk.AccelFlags.Visible;
+                akey.AccelMods = Gdk.ModifierType.Mod1Mask;
+                akey.Key = Gdk.Key.W;
+                CloseChatMenuItem.AddAccelerator("activate", agrp, akey);
+            } else {
+                CloseChatMenuItem = new Gtk.ImageMenuItem(Gtk.Stock.Close, agrp);
+            }
             CloseChatMenuItem.Activated += OnCloseChatMenuItemActivated;
             CloseChatMenuItem.AccelCanActivate += AccelCanActivateSensitive;
             menu.Append(CloseChatMenuItem);
