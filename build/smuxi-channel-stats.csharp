@@ -1,0 +1,32 @@
+using System.IO;
+using System.Threading;
+using Meebey.SmartIrc4net;
+
+class MainClass()
+{
+	static void Main()
+	{
+		var client = new IrcClient() {
+			ActiveChannelSyncing = true
+		};
+		client.Connect("irc.oftc.net", 6667);
+		client.Login("smuxi-bot", "smuxi bot");
+		client.OnRegistered += delegate {
+			client.RfcJoin("#smuxi");
+		};
+		
+		var timer = new Timer(delegate {
+			var chan = client.GetChannel("#smuxi");
+			if (chan == null) {
+				client.RfcJoin("#smuxi");
+				return;
+			}
+			Console.WriteLine("{0} #smuxi user count: {1}", DateTime.Now.ToString("s"), chan.Users.Count - 1);
+		}, null, TimeSpan.Zero, TimeSpan.FromMinutes(1));
+		
+		while (client.IsConnected) {
+			client.Listen();
+			Thread.Sleep(1000);
+		}
+	}
+}
