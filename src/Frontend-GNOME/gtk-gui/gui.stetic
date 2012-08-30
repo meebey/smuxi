@@ -4325,7 +4325,7 @@ Click "Forward" to begin.</property>
       </widget>
     </child>
   </widget>
-  <widget class="Gtk.Bin" id="Smuxi.Frontend.Gnome.MenuWidget" design-size="716 80">
+  <widget class="Gtk.Bin" id="Smuxi.Frontend.Gnome.MenuWidget" design-size="716 69">
     <action-group name="Default">
       <action id="f_SmuxiAction">
         <property name="Type">Action</property>
@@ -4559,7 +4559,6 @@ Click "Forward" to begin.</property>
     <child>
       <widget class="Gtk.VBox" id="vbox2">
         <property name="MemberName" />
-        <property name="Spacing">6</property>
         <child>
           <widget class="Gtk.MenuBar" id="f_MenuBar">
             <property name="MemberName" />
@@ -4614,7 +4613,6 @@ Click "Forward" to begin.</property>
         <child>
           <widget class="Gtk.HBox" id="hbox1">
             <property name="MemberName" />
-            <property name="Spacing">6</property>
             <child>
               <widget class="Gtk.Toolbar" id="f_MenuToolbar">
                 <property name="MemberName" />

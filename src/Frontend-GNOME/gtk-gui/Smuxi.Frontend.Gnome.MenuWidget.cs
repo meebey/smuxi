@@ -158,7 +158,6 @@ namespace Smuxi.Frontend.Gnome
 			// Container child Smuxi.Frontend.Gnome.MenuWidget.Gtk.Container+ContainerChild
 			this.vbox2 = new global::Gtk.VBox ();
 			this.vbox2.Name = "vbox2";
-			this.vbox2.Spacing = 6;
 			// Container child vbox2.Gtk.Box+BoxChild
 			this.UIManager.AddUiFromString ("<ui><menubar name='f_MenuBar'><menu name='f_SmuxiAction' action='f_SmuxiAction'><menuitem name='f_PreferencesAction' action='f_PreferencesAction'/><menuitem name='f_QuitAction' action='f_QuitAction'/></menu><menu name='ServerAction' action='ServerAction'><menuitem name='f_ConnectAction' action='f_ConnectAction'/><separator/><menuitem name='f_AddServerAction' action='f_AddServerAction'/><menuitem name='f_ManageServerAction' action='f_ManageServerAction'/></menu><menu name='ChatAction' action='ChatAction'><menuitem name='f_JoinChatAction' action='f_JoinChatAction'/><menuitem name='f_FindGroupChatAction' action='f_FindGroupChatAction'/><menuitem name='f_ClearAllActivityAction' action='f_ClearAllActivityAction'/><separator/><menuitem name='f_NextChatAction' action='f_NextChatAction'/><menuitem name='f_PreviousChatAction' action='f_PreviousChatAction'/><separator/><menuitem name='f_OpenLogAction' action='f_OpenLogAction'/><menuitem name='f_CloseChatAction' action='f_CloseChatAction'/></menu><menu name='EngineAction' action='EngineAction'><menuitem name='f_UseLocalEngineAction' action='f_UseLocalEngineAction'/><separator/><menuitem name='f_AddRemoteEngineAction' action='f_AddRemoteEngineAction'/><menuitem name='f_SwitchRemoteEngineAction' action='f_SwitchRemoteEngineAction'/></menu><menu name='ViewAction' action='ViewAction'><menuitem name='f_CaretModeAction' action='f_CaretModeAction'/><menuitem name='f_BrowseModeAction' action='f_BrowseModeAction'/><menuitem name='f_ShowMenubarAction' action='f_ShowMenubarAction'/><menuitem name='f_ShowStatusbarAction' action='f_ShowStatusbarAction'/><menuitem name='f_ShowJoinBarAction' action='f_ShowJoinBarAction'/><menuitem name='f_FullscreenAction' action='f_FullscreenAction'/></menu><menu name='f_HelpAction' action='f_HelpAction'><menuitem name='f_AboutAction' action='f_AboutAction'/></menu></menubar></ui>");
 			this.f_MenuBar = ((global::Gtk.MenuBar)(this.UIManager.GetWidget ("/f_MenuBar")));
@@ -171,7 +170,6 @@ namespace Smuxi.Frontend.Gnome
 			// Container child vbox2.Gtk.Box+BoxChild
 			this.hbox1 = new global::Gtk.HBox ();
 			this.hbox1.Name = "hbox1";
-			this.hbox1.Spacing = 6;
 			// Container child hbox1.Gtk.Box+BoxChild
 			this.UIManager.AddUiFromString ("<ui><toolbar name='f_MenuToolbar'><toolitem name='f_ConnectToolAction' action='f_ConnectToolAction'/><toolitem name='f_FindGroupChatToolAction' action='f_FindGroupChatToolAction'/><toolitem name='f_OpenLogToolAction' action='f_OpenLogToolAction'/><toolitem name='f_FullscreenToolAction' action='f_FullscreenToolAction'/><toolitem name='f_PreferencesToolAction' action='f_PreferencesToolAction'/></toolbar></ui>");
 			this.f_MenuToolbar = ((global::Gtk.Toolbar)(this.UIManager.GetWidget ("/f_MenuToolbar")));
