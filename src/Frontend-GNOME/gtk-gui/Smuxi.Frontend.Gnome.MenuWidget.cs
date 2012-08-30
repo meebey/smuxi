@@ -100,7 +100,7 @@ namespace Smuxi.Frontend.Gnome
 			w2.Add (this.f_ManageServerAction, null);
 			this.f_JoinChatAction = new global::Gtk.Action ("f_JoinChatAction", global::Mono.Unix.Catalog.GetString ("_Open / Join Chat"), null, null);
 			this.f_JoinChatAction.ShortLabel = global::Mono.Unix.Catalog.GetString ("_Open / Join Chat");
-			w2.Add (this.f_JoinChatAction, "<Primary>l");
+			w2.Add (this.f_JoinChatAction, "<Control>l");
 			this.f_FindGroupChatAction = new global::Gtk.Action ("f_FindGroupChatAction", global::Mono.Unix.Catalog.GetString ("_Find Group Chat"), null, null);
 			this.f_FindGroupChatAction.ShortLabel = global::Mono.Unix.Catalog.GetString ("_Find Group Chat");
 			w2.Add (this.f_FindGroupChatAction, null);
@@ -109,10 +109,10 @@ namespace Smuxi.Frontend.Gnome
 			w2.Add (this.f_ClearAllActivityAction, null);
 			this.f_NextChatAction = new global::Gtk.Action ("f_NextChatAction", global::Mono.Unix.Catalog.GetString ("_Next Chat"), null, "gtk-go-forward");
 			this.f_NextChatAction.ShortLabel = global::Mono.Unix.Catalog.GetString ("_Next Chat");
-			w2.Add (this.f_NextChatAction, "<Primary>Page_Down");
+			w2.Add (this.f_NextChatAction, "<Control>Page_Down");
 			this.f_PreviousChatAction = new global::Gtk.Action ("f_PreviousChatAction", global::Mono.Unix.Catalog.GetString ("_Previous Chat"), null, "gtk-go-back");
 			this.f_PreviousChatAction.ShortLabel = global::Mono.Unix.Catalog.GetString ("_Previous Chat");
-			w2.Add (this.f_PreviousChatAction, "<Primary>Page_Up");
+			w2.Add (this.f_PreviousChatAction, "<Control>Page_Up");
 			this.f_CloseChatAction = new global::Gtk.Action ("f_CloseChatAction", global::Mono.Unix.Catalog.GetString ("_Close"), null, "gtk-close");
 			this.f_CloseChatAction.ShortLabel = global::Mono.Unix.Catalog.GetString ("_Close");
 			w2.Add (this.f_CloseChatAction, null);

@@ -4424,7 +4424,7 @@ Click "Forward" to begin.</property>
       </action>
       <action id="f_JoinChatAction">
         <property name="Type">Action</property>
-        <property name="Accelerator">&lt;Primary&gt;l</property>
+        <property name="Accelerator">&lt;Control&gt;l</property>
         <property name="Label" translatable="yes">_Open / Join Chat</property>
         <property name="ShortLabel" translatable="yes">_Open / Join Chat</property>
         <signal name="Activated" handler="OnJoinChatActionActivated" />
@@ -4444,7 +4444,7 @@ Click "Forward" to begin.</property>
       </action>
       <action id="f_NextChatAction">
         <property name="Type">Action</property>
-        <property name="Accelerator">&lt;Primary&gt;Page_Down</property>
+        <property name="Accelerator">&lt;Control&gt;Page_Down</property>
         <property name="Label" translatable="yes">_Next Chat</property>
         <property name="ShortLabel" translatable="yes">_Next Chat</property>
         <property name="StockId">gtk-go-forward</property>
@@ -4452,7 +4452,7 @@ Click "Forward" to begin.</property>
       </action>
       <action id="f_PreviousChatAction">
         <property name="Type">Action</property>
-        <property name="Accelerator">&lt;Primary&gt;Page_Up</property>
+        <property name="Accelerator">&lt;Control&gt;Page_Up</property>
         <property name="Label" translatable="yes">_Previous Chat</property>
         <property name="ShortLabel" translatable="yes">_Previous Chat</property>
         <property name="StockId">gtk-go-back</property>
