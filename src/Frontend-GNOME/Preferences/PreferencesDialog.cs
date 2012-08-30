@@ -277,7 +277,12 @@ namespace Smuxi.Frontend.Gnome
 
             _Load();
         }
-        
+
+        public void Show()
+        {
+            _Dialog.Show();
+        }
+
         private void _Load()
         {
             Trace.Call();

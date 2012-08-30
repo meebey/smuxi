@@ -855,6 +855,46 @@ namespace Smuxi.Frontend.Gnome
             }
         }
 
+        public static void OpenFindGroupChatWindow()
+        {
+            OpenFindGroupChatWindow(null);
+        }
+
+        public static void OpenFindGroupChatWindow(string searchKey)
+        {
+            var chatView = MainWindow.ChatViewManager.CurrentChatView;
+            if (chatView == null) {
+                return;
+            }
+
+            var manager = chatView.ProtocolManager;
+            if (manager == null) {
+                return;
+            }
+
+            var dialog = new FindGroupChatDialog(
+                MainWindow, manager
+            );
+            if (!String.IsNullOrEmpty(searchKey)) {
+                dialog.NameEntry.Text = searchKey;
+                dialog.FindButton.Click();
+            }
+            var res = dialog.Run();
+            var groupChat = dialog.GroupChat;
+            dialog.Destroy();
+            if (res != (int) Gtk.ResponseType.Ok) {
+                return;
+            }
+
+            ThreadPool.QueueUserWorkItem(delegate {
+                try {
+                    manager.OpenChat(Frontend.FrontendManager, groupChat);
+                } catch (Exception ex) {
+                    Frontend.ShowException(null, ex);
+                }
+            });
+        }
+
 #if GTK_SHARP_2_10
         private static void _OnUnhandledException(GLib.UnhandledExceptionArgs e)
         {

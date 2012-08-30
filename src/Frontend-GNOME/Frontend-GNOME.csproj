@@ -144,6 +144,8 @@
     <Compile Include="osx\Carbon.cs" />
     <Compile Include="osx\AppleEvent.cs" />
     <Compile Include="osx\CoreFoundation.cs" />
+    <Compile Include="gtk-gui\Smuxi.Frontend.Gnome.MenuWidget.cs" />
+    <Compile Include="Views\MenuWidget.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="smuxi-frontend-gnome.exe.config">

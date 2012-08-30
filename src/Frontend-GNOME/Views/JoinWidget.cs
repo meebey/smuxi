@@ -21,12 +21,16 @@ using System;
 using System.Collections.Generic;
 using Smuxi.Common;
 using Smuxi.Engine;
+using System.Runtime.InteropServices;
 
 namespace Smuxi.Frontend.Gnome
 {
     [System.ComponentModel.ToolboxItem(true)]
     public partial class JoinWidget : Gtk.Bin
     {
+#if LOG4NET
+        private static readonly log4net.ILog f_Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+#endif
         public EventHandler<EventArgs> Activated;
 
         public new bool HasFocus {
@@ -38,9 +42,47 @@ namespace Smuxi.Frontend.Gnome
             }
         }
 
+        [DllImport("libgtk-win32-2.0-0.dll")]
+        static extern void gtk_entry_set_icon_from_pixbuf(IntPtr entry, int pos, IntPtr pixbuf);
+
+        // Since: 2.16
+        // void gtk_entry_set_icon_tooltip_text(GtkEntry *entry, GtkEntryIconPosition icon_pos, const gchar *tooltip)
+        [DllImport("libgtk-win32-2.0-0.dll")]
+        static extern void gtk_entry_set_icon_tooltip_text(IntPtr entry, int pos, IntPtr tooltip);
+
+        // Since: 3.2
+        // void gtk_entry_set_placeholder_text (GtkEntry *entry, const gchar *text)
+        [DllImport("libgtk-win32-2.0-0.dll")]
+        static extern void gtk_entry_set_placeholder_text(IntPtr entry, string text);
+
         public JoinWidget()
         {
             Build();
+
+            try {
+                gtk_entry_set_icon_from_pixbuf(f_ChatEntry.Handle, 0, GroupChatView.IconPixbuf.Handle);
+            } catch (Exception ex) {
+#if LOG4NET
+                f_Logger.Error("JoinWidget(): gtk_entry_set_icon_from_pixbuf() failed!", ex);
+#endif
+            }
+            try {
+                var text = _("Enter which chat to join");
+                IntPtr textPtr = GLib.Marshaller.StringToPtrGStrdup(text);
+                gtk_entry_set_icon_tooltip_text(f_ChatEntry.Handle, 0, textPtr);
+                GLib.Marshaller.Free(textPtr);
+            } catch (Exception ex) {
+#if LOG4NET
+                f_Logger.Error("JoinWidget(): gtk_entry_set_icon_tooltip_text() failed!", ex);
+#endif
+            }
+            try {
+                //gtk_entry_set_placeholder_text(f_ChatEntry.Handle, "Enter chat name...");
+            } catch (Exception ex) {
+#if LOG4NET
+                f_Logger.Error("JoinWidget(): gtk_entry_set_placeholder_text() failed!", ex);
+#endif
+            }
 
             f_ChatEntry.Activated += delegate {
                 OnActivated(EventArgs.Empty);
@@ -104,6 +146,11 @@ namespace Smuxi.Frontend.Gnome
             if (Activated != null) {
                 Activated(this, e);
             }
+        }
+
+        private static string _(string msg)
+        {
+            return Mono.Unix.Catalog.GetString(msg);
         }
     }
 }

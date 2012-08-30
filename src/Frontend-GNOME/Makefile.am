@@ -127,6 +127,7 @@ FILES = \
 	Preferences/ServerListView.cs \
 	Preferences/PreferencesDialog.cs \
 	Views/JoinWidget.cs \
+	Views/MenuWidget.cs \
 	Views/MessageTextView.cs \
 	Views/ServerWidget.cs \
 	Views/ServerDialog.cs \
@@ -154,6 +155,7 @@ FILES = \
 	gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantIntroWidget.cs \
 	gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantNameWidget.cs \
 	gtk-gui/Smuxi.Frontend.Gnome.JoinWidget.cs \
+	gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs \
 	gtk-gui/Smuxi.Frontend.Gnome.OpenChatDialog.cs \
 	gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs \
 	gtk-gui/Smuxi.Frontend.Gnome.QuickConnectDialog.cs \

@@ -596,7 +596,7 @@ namespace Smuxi.Frontend.Gnome
 
         private void _CommandList(CommandModel cd)
         {
-            Frontend.MainWindow.OpenFindGroupChatWindow(cd.Parameter);
+            Frontend.OpenFindGroupChatWindow(cd.Parameter);
         }
 
         private void _CommandDetach(CommandModel cd)

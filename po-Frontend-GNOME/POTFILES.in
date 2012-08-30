@@ -15,6 +15,7 @@ src/Frontend-GNOME/NotifyManager.cs
 src/Frontend-GNOME/QuickConnectDialog.cs
 src/Frontend-GNOME/ChatTypeWidget.cs
 src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs
+src/Frontend-GNOME/Views/MenuWidget.cs
 src/Frontend-GNOME/Views/MessageTextView.cs
 src/Frontend-GNOME/Views/FilterListWidget.cs
 src/Frontend-GNOME/Views/Chats/ChatView.cs
@@ -24,6 +25,7 @@ src/Frontend-GNOME/Preferences/ServerListView.cs
 src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ChatFindDialog.cs
 src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.FindGroupChatDialog.cs
 src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.JoinWidget.cs
+src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs
 src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.QuickConnectDialog.cs
 src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs
 src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantConnectionWidget.cs

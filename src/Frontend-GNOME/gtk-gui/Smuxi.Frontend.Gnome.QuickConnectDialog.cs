@@ -16,7 +16,7 @@ namespace Smuxi.Frontend.Gnome
 			global::Stetic.Gui.Initialize (this);
 			// Widget Smuxi.Frontend.Gnome.QuickConnectDialog
 			this.Name = "Smuxi.Frontend.Gnome.QuickConnectDialog";
-			this.Title = global::Mono.Unix.Catalog.GetString ("Smuxi - Quick Connect");
+			this.Title = global::Mono.Unix.Catalog.GetString ("Smuxi - Connect");
 			this.TypeHint = ((global::Gdk.WindowTypeHint)(1));
 			this.BorderWidth = ((uint)(5));
 			this.DefaultWidth = 640;

@@ -43,10 +43,8 @@ namespace Smuxi.Frontend.Gnome
         Gtk.Statusbar NetworkStatusbar { get; set; }
         Gtk.Statusbar Statusbar { get; set; }
         public Gtk.ProgressBar ProgressBar { get; private set; }
-        public Gtk.MenuBar MenuBar { get; private set; }
-        Gtk.HBox MenuHBox { get; set; }
         Gtk.HBox StatusHBox { get; set; }
-        JoinWidget JoinWidget { get; set; }
+        public MenuWidget MenuWidget { get; private set; }
 
         public IFrontendUI UI { get; private set; }
         public Entry Entry { get; private set; }
@@ -66,29 +64,31 @@ namespace Smuxi.Frontend.Gnome
         NetworkManager NetworkManager { get; set; }
 #endif
 
-        Gtk.Menu AppMenu { get; set; }
-        Gtk.ImageMenuItem PreferencesMenuItem { get; set; }
-        Gtk.ImageMenuItem QuitMenuItem { get; set; }
-        Gtk.ImageMenuItem OpenChatMenuItem { get; set; }
-        Gtk.ImageMenuItem CloseChatMenuItem { get; set; }
-        Gtk.ImageMenuItem OpenLogChatMenuItem { get; set; }
-        Gtk.ImageMenuItem FindGroupChatMenuItem { get; set; }
-
-        Gtk.CheckMenuItem ShowQuickJoinMenuItem { get; set; }
-        Gtk.CheckMenuItem ShowMenuBarMenuItem  { get; set; }
-        Gtk.CheckMenuItem ShowStatusBarMenuItem  { get; set; }
-
         public NotificationAreaIconMode NotificationAreaIconMode { get; set; }
-        public bool CaretMode { get; private set; }
         public bool IsMinimized { get; private set; }
         public bool IsMaximized { get; private set; }
 
+        public bool CaretMode {
+            get {
+                return MenuWidget.CaretMode;
+            }
+        }
+
         public bool ShowMenuBar {
             get {
-                return MenuBar.Visible;
+                return MenuWidget.MenuBar.Visible;
             }
             set {
-                ShowMenuBarMenuItem.Active = value;
+                MenuWidget.ShowMenubarAction.Active = value;
+            }
+        }
+
+        public bool ShowStatusbar {
+            get {
+                return StatusHBox.Visible;
+            }
+            set {
+                StatusHBox.Visible = value;
             }
         }
 
@@ -183,277 +183,6 @@ namespace Smuxi.Frontend.Gnome
             FocusOutEvent += OnFocusOutEvent;
             WindowStateEvent += OnWindowStateEvent;
 
-            Gtk.AccelGroup agrp = new Gtk.AccelGroup();
-            Gtk.AccelKey   akey;
-            AddAccelGroup(agrp);
-            
-            // Menu
-            MenuBar = new Gtk.MenuBar();
-            Gtk.Menu menu;
-            Gtk.MenuItem item;
-            Gtk.ImageMenuItem image_item;
-            
-            // Menu - Smuxi
-            AppMenu = new Gtk.Menu();
-            item = new Gtk.MenuItem("_Smuxi");
-            item.Submenu = AppMenu;
-            if (!Frontend.IsMacOSX) {
-                MenuBar.Append(item);
-            }
-
-            PreferencesMenuItem = new Gtk.ImageMenuItem(Gtk.Stock.Preferences, agrp);
-            PreferencesMenuItem.Activated += new EventHandler(_OnPreferencesButtonClicked);
-            PreferencesMenuItem.AccelCanActivate += AccelCanActivateSensitive;
-            AppMenu.Append(PreferencesMenuItem);
-            
-            AppMenu.Append(new Gtk.SeparatorMenuItem());
-            
-            QuitMenuItem = new Gtk.ImageMenuItem(Gtk.Stock.Quit, agrp);
-            QuitMenuItem.Activated += new EventHandler(_OnQuitButtonClicked);
-            QuitMenuItem.AccelCanActivate += AccelCanActivateSensitive;
-            AppMenu.Append(QuitMenuItem);
-            
-            // Menu - Server
-            menu = new Gtk.Menu();
-            item = new Gtk.MenuItem(_("_Server"));
-            item.Submenu = menu;
-            MenuBar.Append(item);
-            
-            image_item = new Gtk.ImageMenuItem(_("_Connect"));
-            image_item.Image = new Gtk.Image(Gtk.Stock.Connect, Gtk.IconSize.Menu);
-            image_item.Activated += OnServerConnectButtonClicked;
-            menu.Append(image_item);
-            
-            menu.Append(new Gtk.SeparatorMenuItem());
-                    
-            image_item = new Gtk.ImageMenuItem(Gtk.Stock.Add, agrp);
-            image_item.Activated += OnServerAddButtonClicked;
-            menu.Append(image_item);
-            
-            image_item = new Gtk.ImageMenuItem(_("_Manage"));
-            image_item.Image = new Gtk.Image(Gtk.Stock.Edit, Gtk.IconSize.Menu);
-            image_item.Activated += OnServerManageServersButtonClicked;
-            menu.Append(image_item);
-            
-            // Menu - Chat
-            menu = new Gtk.Menu();
-            item = new Gtk.MenuItem(_("_Chat"));
-            item.Submenu = menu;
-            MenuBar.Append(item);
-            
-            OpenChatMenuItem = new Gtk.ImageMenuItem(_("Open / Join Chat"));
-            OpenChatMenuItem.Image = new Gtk.Image(Gtk.Stock.Open, Gtk.IconSize.Menu);
-            OpenChatMenuItem.Activated += OnOpenChatMenuItemActivated;
-            akey = new Gtk.AccelKey();
-            akey.AccelFlags = Gtk.AccelFlags.Visible;
-            akey.AccelMods = Gdk.ModifierType.ControlMask;
-            akey.Key = Gdk.Key.L;
-            OpenChatMenuItem.AddAccelerator("activate", agrp, akey);
-            OpenChatMenuItem.AccelCanActivate += AccelCanActivateSensitive;
-            menu.Append(OpenChatMenuItem);
-                    
-            FindGroupChatMenuItem = new Gtk.ImageMenuItem(_("_Find Group Chat"));
-            FindGroupChatMenuItem.Image = new Gtk.Image(Gtk.Stock.Find, Gtk.IconSize.Menu);
-            FindGroupChatMenuItem.Activated += OnChatFindGroupChatButtonClicked;
-            FindGroupChatMenuItem.Sensitive = false;
-            menu.Append(FindGroupChatMenuItem);
-            
-            image_item = new Gtk.ImageMenuItem(_("C_lear All Activity"));
-            image_item.Image = new Gtk.Image(Gtk.Stock.Clear, Gtk.IconSize.Menu);
-            image_item.Activated += OnChatClearAllActivityButtonClicked;
-            menu.Append(image_item);
-            
-            menu.Append(new Gtk.SeparatorMenuItem());
-                    
-            image_item = new Gtk.ImageMenuItem(_("_Next Chat"));
-            image_item.Image = new Gtk.Image(Gtk.Stock.GoForward, Gtk.IconSize.Menu);
-            image_item.Activated += OnNextChatMenuItemActivated;
-            akey = new Gtk.AccelKey();
-            akey.AccelFlags = Gtk.AccelFlags.Visible;
-            akey.AccelMods = Gdk.ModifierType.ControlMask;
-            akey.Key = Gdk.Key.Page_Down;
-            image_item.AddAccelerator("activate", agrp, akey);
-            image_item.AccelCanActivate += AccelCanActivateSensitive;
-            menu.Append(image_item);
-            
-            image_item = new Gtk.ImageMenuItem(_("_Previous Chat"));
-            image_item.Image = new Gtk.Image(Gtk.Stock.GoBack, Gtk.IconSize.Menu);
-            image_item.Activated += OnPreviousChatMenuItemActivated;
-            akey = new Gtk.AccelKey();
-            akey.AccelFlags = Gtk.AccelFlags.Visible;
-            akey.AccelMods = Gdk.ModifierType.ControlMask;
-            akey.Key = Gdk.Key.Page_Up;
-            image_item.AddAccelerator("activate", agrp, akey);
-            image_item.AccelCanActivate += AccelCanActivateSensitive;
-            menu.Append(image_item);
-            
-            menu.Append(new Gtk.SeparatorMenuItem());
-                    
-            /*
-            // TODO: make a radio item for each chat hotkey
-            Gtk.RadioMenuItem radio_item;
-            radio_item = new Gtk.RadioMenuItem();
-            radio_item = new Gtk.RadioMenuItem(radio_item);
-            radio_item = new Gtk.RadioMenuItem(radio_item);
-                    
-            menu.Append(new Gtk.SeparatorMenuItem());
-            */
-            
-            /*
-            image_item = new Gtk.ImageMenuItem(Gtk.Stock.Find, agrp);
-            image_item.Activated += OnFindChatMenuItemActivated;
-            menu.Append(image_item);
-            
-            item = new Gtk.MenuItem(_("Find _Next"));
-            item.Activated += OnFindNextChatMenuItemActivated;
-            akey = new Gtk.AccelKey();
-            akey.AccelFlags = Gtk.AccelFlags.Visible;
-            akey.AccelMods = Gdk.ModifierType.ControlMask;
-            akey.Key = Gdk.Key.G;
-            item.AddAccelerator("activate", agrp, akey);
-            menu.Append(item);
-            
-            item = new Gtk.MenuItem(_("Find _Previous"));
-            item.Activated += OnFindPreviousChatMenuItemActivated;
-            akey = new Gtk.AccelKey();
-            akey.AccelFlags = Gtk.AccelFlags.Visible;
-            akey.AccelMods = Gdk.ModifierType.ControlMask | Gdk.ModifierType.ShiftMask;
-            akey.Key = Gdk.Key.G;
-            item.AddAccelerator("activate", agrp, akey);
-            menu.Append(item);
-            */
-
-            // ROFL: the empty code statement below is needed to keep stupid
-            // gettext away from using all the commented code from above as
-            // translator comment
-            ;
-            OpenLogChatMenuItem = new Gtk.ImageMenuItem(_("Open Log"));
-            OpenLogChatMenuItem.Image = new Gtk.Image(Gtk.Stock.Open,
-                                                       Gtk.IconSize.Menu);
-            OpenLogChatMenuItem.Activated += OnOpenLogChatMenuItemActivated;
-            OpenLogChatMenuItem.Sensitive = false;
-            OpenLogChatMenuItem.NoShowAll = true;
-            menu.Append(OpenLogChatMenuItem);
-
-            if (Frontend.IsMacOSX) {
-                // HACK: for some reason GTK+ on OS X uses W without any
-                // modifier as accelerator for the stock close menu item!
-                CloseChatMenuItem = new Gtk.ImageMenuItem(_("_Close"));
-                CloseChatMenuItem.Image = new Gtk.Image(Gtk.Stock.Close,
-                                                        Gtk.IconSize.Menu);
-                akey = new Gtk.AccelKey();
-                akey.AccelFlags = Gtk.AccelFlags.Visible;
-                akey.AccelMods = Gdk.ModifierType.ControlMask;
-                akey.Key = Gdk.Key.W;
-                CloseChatMenuItem.AddAccelerator("activate", agrp, akey);
-            } else {
-                CloseChatMenuItem = new Gtk.ImageMenuItem(Gtk.Stock.Close, agrp);
-            }
-            CloseChatMenuItem.Activated += OnCloseChatMenuItemActivated;
-            CloseChatMenuItem.AccelCanActivate += AccelCanActivateSensitive;
-            menu.Append(CloseChatMenuItem);
-
-            // Menu - Engine
-            menu = new Gtk.Menu();
-            item = new Gtk.MenuItem(_("_Engine"));
-            item.Submenu = menu;
-            MenuBar.Append(item);
-
-            item = new Gtk.MenuItem(_("_Use Local Engine"));
-            item.Activated += new EventHandler(_OnUseLocalEngineButtonClicked);
-            menu.Append(item);
-            
-            menu.Append(new Gtk.SeparatorMenuItem());
-                    
-            image_item = new Gtk.ImageMenuItem(_("_Add Remote Engine"));
-            image_item.Image = new Gtk.Image(Gtk.Stock.Add, Gtk.IconSize.Menu);
-            image_item.Activated += new EventHandler(_OnAddRemoteEngineButtonClicked);
-            menu.Append(image_item);
-            
-            image_item = new Gtk.ImageMenuItem(_("_Switch Remote Engine"));
-            image_item.Image = new Gtk.Image(Gtk.Stock.Refresh, Gtk.IconSize.Menu);
-            image_item.Activated += new EventHandler(_OnSwitchRemoteEngineButtonClicked);
-            menu.Append(image_item);
-            
-            // Menu - View
-            menu = new Gtk.Menu();
-            item = new Gtk.MenuItem(_("_View"));
-            item.Submenu = menu;
-            MenuBar.Append(item);
-            
-            item = new Gtk.CheckMenuItem(_("_Caret Mode"));
-            item.Activated += new EventHandler(_OnCaretModeButtonClicked);
-            akey = new Gtk.AccelKey();
-            akey.AccelFlags = Gtk.AccelFlags.Visible;
-            akey.Key = Gdk.Key.F7;
-            item.AddAccelerator("activate", agrp, akey);
-            item.AccelCanActivate += AccelCanActivateSensitive;
-            menu.Append(item);
-            
-            item = new Gtk.CheckMenuItem(_("_Browse Mode"));
-            item.Activated += delegate {
-                try {
-                    Notebook.IsBrowseModeEnabled = !Notebook.IsBrowseModeEnabled;
-                } catch (Exception ex) {
-                    Frontend.ShowException(this, ex);
-                }
-            };
-            akey = new Gtk.AccelKey();
-            akey.AccelFlags = Gtk.AccelFlags.Visible;
-            akey.Key = Gdk.Key.F8;
-            item.AddAccelerator("activate", agrp, akey);
-            item.AccelCanActivate += AccelCanActivateSensitive;
-            menu.Append(item);
-
-            ShowMenuBarMenuItem = new Gtk.CheckMenuItem(_("Show _Menubar"));
-            ShowMenuBarMenuItem.Active = (bool) Frontend.FrontendConfig["ShowMenuBar"];
-            ShowMenuBarMenuItem.Activated += OnShowMenuBarMenuItemActivated;
-            menu.Append(ShowMenuBarMenuItem);
-
-            ShowStatusBarMenuItem = new Gtk.CheckMenuItem(_("Show _Status Bar"));
-            ShowStatusBarMenuItem.Active = (bool) Frontend.FrontendConfig["ShowStatusBar"];
-            ShowStatusBarMenuItem.Activated += OnShowStatusBarMenuItemActivated;
-            menu.Append(ShowStatusBarMenuItem);
-
-            JoinWidget = new JoinWidget();
-            JoinWidget.NoShowAll = true;
-            JoinWidget.Visible = (bool) Frontend.FrontendConfig["ShowQuickJoin"];
-            JoinWidget.Activated += OnJoinWidgetActivated;
-
-            ShowQuickJoinMenuItem = new Gtk.CheckMenuItem(_("Show _Quick Join"));
-            ShowQuickJoinMenuItem.Active = JoinWidget.Visible;
-            ShowQuickJoinMenuItem.Activated += OnShowQuickJoinMenuItemActivated;
-            menu.Append(ShowQuickJoinMenuItem);
-
-            item = new Gtk.ImageMenuItem(Gtk.Stock.Fullscreen, agrp);
-            item.Activated += delegate {
-                try {
-                    IsFullscreen = !IsFullscreen;
-                } catch (Exception ex) {
-                    Frontend.ShowException(this, ex);
-                }
-            };
-            akey = new Gtk.AccelKey();
-            akey.AccelFlags = Gtk.AccelFlags.Visible;
-            akey.Key = Gdk.Key.F11;
-            item.AddAccelerator("activate", agrp, akey);
-            item.AccelCanActivate += AccelCanActivateSensitive;
-            menu.Append(item);
-
-            // Menu - Help
-            menu = new Gtk.Menu();
-            item = new Gtk.MenuItem(_("_Help"));
-            item.Submenu = menu;
-            MenuBar.Append(item);
-            
-            image_item = new Gtk.ImageMenuItem(Gtk.Stock.About, agrp);
-            image_item.Activated += new EventHandler(_OnAboutButtonClicked);
-            menu.Append(image_item);
-
-            MenuBar.ShowAll();
-            MenuBar.NoShowAll = true;
-            MenuBar.Visible = ShowMenuBarMenuItem.Active;
-
             // TODO: network treeview
             Notebook = new Notebook();
             Notebook.SwitchPage += OnNotebookSwitchPage;
@@ -514,13 +243,12 @@ namespace Smuxi.Frontend.Gnome
             entryScrolledWindow.Add(Entry);
 
             ProgressBar = new Gtk.ProgressBar();
+            StatusHBox = new Gtk.HBox();
 
-            MenuHBox = new Gtk.HBox();
-            MenuHBox.PackStart(MenuBar, false, false, 0);
-            MenuHBox.PackEnd(JoinWidget, false, false, 0);
+            MenuWidget = new MenuWidget(this, ChatViewManager);
 
             Gtk.VBox vbox = new Gtk.VBox();
-            vbox.PackStart(MenuHBox, false, false, 0);
+            vbox.PackStart(MenuWidget, false, false, 0);
             vbox.PackStart(Notebook, true, true, 0);
             vbox.PackStart(entryScrolledWindow, false, false, 0);
 
@@ -536,24 +264,27 @@ namespace Smuxi.Frontend.Gnome
             status_bar_hbox.PackStart(NetworkStatusbar, false, true, 0);
             status_bar_hbox.PackStart(Statusbar, true, true, 0);
 
-            StatusHBox = new Gtk.HBox();
             StatusHBox.PackStart(status_bar_hbox);
             StatusHBox.PackStart(ProgressBar, false, false, 0);
             StatusHBox.ShowAll();
             StatusHBox.NoShowAll = true;
-            StatusHBox.Visible = ShowStatusBarMenuItem.Active;
+            StatusHBox.Visible = (bool) Frontend.FrontendConfig["ShowStatusBar"];
 
             vbox.PackStart(StatusHBox, false, false, 0);
             Add(vbox);
 
             if (Frontend.IsMacOSX) {
                 IgeMacMenu.GlobalKeyHandlerEnabled = true;
-                IgeMacMenu.MenuBar = MenuBar;
+                IgeMacMenu.MenuBar = MenuWidget.MenuBar;
                 ShowMenuBar = false;
 
                 var appGroup = IgeMacMenu.AddAppMenuGroup();
-                appGroup.AddMenuItem(PreferencesMenuItem, _("Preferences"));
-                IgeMacMenu.QuitMenuItem = QuitMenuItem;
+                appGroup.AddMenuItem(
+                    (Gtk.MenuItem) MenuWidget.PreferencesAction.CreateMenuItem(),
+                    _("Preferences")
+                );
+                IgeMacMenu.QuitMenuItem = (Gtk.MenuItem)
+                    MenuWidget.QuitAction.CreateMenuItem();
             }
         }
 
@@ -572,7 +303,7 @@ namespace Smuxi.Frontend.Gnome
             );
             NotificationAreaIconMode = mode;
 
-            OpenLogChatMenuItem.Visible = Frontend.IsLocalEngine;
+            MenuWidget.OpenLogAction.Visible = Frontend.IsLocalEngine;
 
 #if GTK_SHARP_2_10
             StatusIconManager.ApplyConfig(userConfig);
@@ -586,7 +317,7 @@ namespace Smuxi.Frontend.Gnome
             Entry.ApplyConfig(userConfig);
             Notebook.ApplyConfig(userConfig);
             ChatViewManager.ApplyConfig(userConfig);
-            JoinWidget.ApplyConfig(userConfig);
+            MenuWidget.JoinWidget.ApplyConfig(userConfig);
         }
 
         public void UpdateTitle()
@@ -621,17 +352,6 @@ namespace Smuxi.Frontend.Gnome
             title += "Smuxi";
 
             Title = title;
-        }
-
-        private void _OnQuitButtonClicked(object obj, EventArgs args)
-        {
-            Trace.Call(obj, args);
-            
-            try {
-                Frontend.Quit();
-            } catch (Exception ex) {
-                Frontend.ShowException(this, ex);
-            }
         }
 
         protected virtual void OnDeleteEvent(object sender, Gtk.DeleteEventArgs e)
@@ -710,225 +430,6 @@ namespace Smuxi.Frontend.Gnome
             }
         }
 
-        protected virtual void OnServerConnectButtonClicked(object sender, EventArgs e)
-        {
-            Trace.Call(sender, e);
-            
-            try {
-                QuickConnectDialog dialog = new QuickConnectDialog(this);
-                dialog.Load();
-                int res = dialog.Run();
-                ServerModel server = dialog.Server;
-                dialog.Destroy();
-                if (res != (int) Gtk.ResponseType.Ok) {
-                    return;
-                }
-                if (server == null) {
-#if LOG4NET
-                    f_Logger.Error("OnServerConnectButtonClicked(): server is null!");
-                    return;
-#endif
-                }
-                
-                // do connect as background task as it might take a while
-                ThreadPool.QueueUserWorkItem(delegate {
-                    try {
-                        Frontend.Session.Connect(server, Frontend.FrontendManager);
-                    } catch (Exception ex) {
-                        Frontend.ShowException(this, ex);
-                    }
-                });
-            } catch (Exception ex) {
-                Frontend.ShowException(this, ex);
-            }
-        }
-
-#region Item Event Handlers
-        protected virtual void OnServerAddButtonClicked(object sender, EventArgs e)
-        {
-            Trace.Call(sender, e);
-            
-            ServerDialog dialog = null;
-            try {
-                ServerListController controller = new ServerListController(Frontend.UserConfig);
-                dialog = new ServerDialog(this, null,
-                                          Frontend.Session.GetSupportedProtocols(),
-                                          controller.GetNetworks());
-                int res = dialog.Run();
-                ServerModel server = dialog.GetServer();
-                if (res != (int) Gtk.ResponseType.Ok) {
-                    return;
-                }
-                
-                controller.AddServer(server);
-                controller.Save();
-            } catch (InvalidOperationException ex) {
-                Frontend.ShowError(this, _("Unable to add server: "), ex);
-            } catch (Exception ex) {
-                Frontend.ShowException(this, ex);
-            } finally {
-                if (dialog != null) {
-                    dialog.Destroy();
-                }
-            }
-        }
-
-        protected virtual void OnServerManageServersButtonClicked(object sender, EventArgs e)
-        {
-            Trace.Call(sender, e);
-            
-            try {
-                PreferencesDialog dialog = new PreferencesDialog(this);
-                dialog.CurrentPage = PreferencesDialog.Page.Servers;
-            } catch (Exception ex) {
-                Frontend.ShowException(this, ex);
-            }
-        }
-
-        protected virtual void OnChatFindGroupChatButtonClicked(object sender, EventArgs e)
-        {
-            Trace.Call(sender, e);
-            try {
-                OpenFindGroupChatWindow();
-            } catch (Exception ex) {
-                Frontend.ShowException(this, ex);
-            }
-        }
-
-        public void OpenFindGroupChatWindow()
-        {
-            OpenFindGroupChatWindow(null);
-        }
-
-        public void OpenFindGroupChatWindow(string searchKey)
-        {
-            var chatView = Notebook.CurrentChatView;
-            if (chatView == null) {
-                return;
-            }
-
-            var manager = chatView.ProtocolManager;
-            if (manager == null) {
-                return;
-            }
-
-            FindGroupChatDialog dialog = new FindGroupChatDialog(
-                this, manager
-            );
-            if (!String.IsNullOrEmpty(searchKey)) {
-                dialog.NameEntry.Text = searchKey;
-                dialog.FindButton.Click();
-            }
-            int res = dialog.Run();
-            GroupChatModel groupChat = dialog.GroupChat;
-            dialog.Destroy();
-            if (res != (int) Gtk.ResponseType.Ok) {
-                return;
-            }
-
-            ThreadPool.QueueUserWorkItem(delegate {
-                try {
-                    manager.OpenChat(Frontend.FrontendManager, groupChat);
-                } catch (Exception ex) {
-                    Frontend.ShowException(this, ex);
-                }
-            });
-        }
-        
-        protected virtual void OnChatClearAllActivityButtonClicked(object sender, EventArgs e)
-        {
-            Trace.Call(sender, e);
-            
-            try {
-                Notebook.ClearAllActivity();
-            } catch (Exception ex) {
-                Frontend.ShowException(this, ex);
-            }
-        }
-        
-        protected virtual void OnFindChatMenuItemActivated(object sender, EventArgs e)
-        {
-            Trace.Call(sender, e);
-            
-            try {
-            } catch (Exception ex) {
-                Frontend.ShowException(this, ex);
-            }
-        }
-        
-        protected virtual void OnFindNextChatMenuItemActivated(object sender, EventArgs e)
-        {
-            Trace.Call(sender, e);
-            
-            try {
-            } catch (Exception ex) {
-                Frontend.ShowException(this, ex);
-            }
-        }
-        
-        protected virtual void OnFindPreviousChatMenuItemActivated(object sender, EventArgs e)
-        {
-            Trace.Call(sender, e);
-            
-            try {
-            } catch (Exception ex) {
-                Frontend.ShowException(this, ex);
-            }
-        }
-        
-        protected virtual void OnCloseChatMenuItemActivated(object sender, EventArgs e)
-        {
-            Trace.Call(sender, e);
-            
-            try {
-                Notebook.CurrentChatView.Close();
-                if (Frontend.IsMacOSX && ChatViewManager.Chats.Count == 1) {
-                    Iconify();
-                }
-            } catch (Exception ex) {
-                Frontend.ShowException(this, ex);
-            }
-        }
-
-        protected virtual void OnOpenLogChatMenuItemActivated(object sender, EventArgs e)
-        {
-            Trace.Call(sender, e);
-
-            try {
-                ThreadPool.QueueUserWorkItem(delegate {
-                    try {
-                        SysDiag.Process.Start(Notebook.CurrentChatView.ChatModel.LogFile);
-                    } catch (Exception ex) {
-                        Frontend.ShowError(this, ex);
-                    }
-                });
-            } catch (Exception ex) {
-                Frontend.ShowException(this, ex);
-            }
-        }
-
-        protected virtual void OnNextChatMenuItemActivated(object sender, EventArgs e)
-        {
-            Trace.Call(sender, e);
-            
-            try {
-                ChatViewManager.CurrentChatNumber++;
-            } catch (Exception ex) {
-                Frontend.ShowException(this, ex);
-            }
-        }
-        
-        protected virtual void OnPreviousChatMenuItemActivated(object sender, EventArgs e)
-        {
-            Trace.Call(sender, e);
-            
-            try {
-                ChatViewManager.CurrentChatNumber--;
-            } catch (Exception ex) {
-                Frontend.ShowException(this, ex);
-            }
-        }
-                
         protected virtual void OnWindowStateEvent(object sender, Gtk.WindowStateEventArgs e)
         {
             Trace.Call(sender, e);
@@ -980,11 +481,11 @@ namespace Smuxi.Frontend.Gnome
                 }
 
                 if (!Frontend.IsMacOSX) {
-                    CloseChatMenuItem.Sensitive = !(chatView is SessionChatView);
+                    MenuWidget.CloseChatAction.Sensitive = !(chatView is SessionChatView);
                 }
-                FindGroupChatMenuItem.Sensitive = !(chatView is SessionChatView);
+                MenuWidget.FindGroupChatAction.Sensitive = !(chatView is SessionChatView);
                 if (Frontend.IsLocalEngine) {
-                    OpenLogChatMenuItem.Sensitive =
+                    MenuWidget.OpenLogAction.Sensitive =
                         File.Exists(chatView.ChatModel.LogFile);
                 }
 
@@ -1006,200 +507,6 @@ namespace Smuxi.Frontend.Gnome
             Entry.GrabFocus();
         }
 
-        protected virtual void OnJoinWidgetActivated(object sender, EventArgs e)
-        {
-            Trace.Call(sender, e);
-
-            try {
-                var chatLink = JoinWidget.GetChatLink();
-                Frontend.OpenChatLink(chatLink);
-                JoinWidget.Clear();
-            } catch (Exception ex) {
-                Frontend.ShowException(this, ex);
-            }
-        }
-
-        protected virtual void OnShowQuickJoinMenuItemActivated(object sender, EventArgs e)
-        {
-            Trace.Call(sender, e);
-
-            try {
-                JoinWidget.Visible = !JoinWidget.Visible;
-                Frontend.FrontendConfig["ShowQuickJoin"] = JoinWidget.Visible;
-                Frontend.FrontendConfig.Save();
-            } catch (Exception ex) {
-                Frontend.ShowException(this, ex);
-            }
-        }
-
-        protected virtual void OnShowMenuBarMenuItemActivated(object sender, EventArgs e)
-        {
-            Trace.Call(sender, e);
-
-            try {
-                MenuBar.Visible = ShowMenuBarMenuItem.Active;
-                Frontend.FrontendConfig["ShowMenuBar"] = MenuBar.Visible;
-                Frontend.FrontendConfig.Save();
-            } catch (Exception ex) {
-                Frontend.ShowException(this, ex);
-            }
-        }
-
-        protected virtual void OnShowStatusBarMenuItemActivated(object sender, EventArgs e)
-        {
-            Trace.Call(sender, e);
-
-            try {
-                StatusHBox.Visible = ShowStatusBarMenuItem.Active;
-                Frontend.FrontendConfig["ShowStatusBar"] = StatusHBox.Visible;
-                Frontend.FrontendConfig.Save();
-            } catch (Exception ex) {
-                Frontend.ShowException(this, ex);
-            }
-        }
-
-        protected virtual void OnOpenChatMenuItemActivated(object sender, EventArgs e)
-        {
-            Trace.Call(sender, e);
-
-            try {
-                if (!ShowQuickJoinMenuItem.Active) {
-                    ShowQuickJoinMenuItem.Activate();
-                }
-                JoinWidget.HasFocus = true;
-            } catch (Exception ex) {
-                Frontend.ShowException(this, ex);
-            }
-        }
-
-        protected static void AccelCanActivateSensitive(object sender, Gtk.AccelCanActivateArgs e)
-        {
-            var widget = sender as Gtk.Widget;
-            if (widget != null && !widget.Sensitive) {
-                e.RetVal = false;
-                return;
-            }
-
-            // allow the accelerator to be used even when the menu bar is hidden
-            e.RetVal = true;
-        }
-
-        private void _OnAboutButtonClicked(object obj, EventArgs args)
-        {
-            Trace.Call(obj, args);
-            
-            try {
-                AboutDialog ad = new AboutDialog(this);
-                ad.Run();
-                ad.Destroy();
-            } catch (Exception ex) {
-                Frontend.ShowException(this, ex);
-            }
-        }
-        
-        private void _OnPreferencesButtonClicked(object obj, EventArgs args)
-        {
-            Trace.Call(obj, args);
-            
-            try {
-                new PreferencesDialog(this);
-                /*
-                SteticPreferencesDialog dialog = new SteticPreferencesDialog();
-                dialog.Run();
-                */
-            } catch (Exception e) {
-#if LOG4NET
-                f_Logger.Error(e);
-#endif
-                Frontend.ShowException(this, e);
-            }
-        }
-        
-        private void _OnUseLocalEngineButtonClicked(object obj, EventArgs args)
-        {
-            Trace.Call(obj, args);
-            
-            try {
-                Gtk.MessageDialog md = new Gtk.MessageDialog(null, Gtk.DialogFlags.Modal,
-                    Gtk.MessageType.Warning, Gtk.ButtonsType.YesNo,
-                    _("Switching to local engine will disconnect you from the current engine!\n"+
-                      "Are you sure you want to do this?"));
-                int result = md.Run();
-                md.Destroy();
-                if ((Gtk.ResponseType)result == Gtk.ResponseType.Yes) {
-                    Frontend.DisconnectEngineFromGUI();
-                    Frontend.InitLocalEngine();
-                    Frontend.ConnectEngineToGUI();
-                }
-            } catch (Exception ex) {
-                Frontend.ShowException(this, ex);
-            }
-        }
-        
-        private void _OnAddRemoteEngineButtonClicked(object obj, EventArgs args)
-        {
-            Trace.Call(obj, args);
-            
-            try {
-                EngineAssistant assistant = new EngineAssistant(
-                    this,
-                    Frontend.FrontendConfig
-                );
-                assistant.Cancel += delegate {
-                    assistant.Destroy();
-                };
-                assistant.Close += delegate {
-                    assistant.Destroy();
-                };
-                assistant.ShowAll();
-            } catch (Exception ex) {
-                Frontend.ShowException(this, ex);
-            }
-        }
-        
-        private void _OnSwitchRemoteEngineButtonClicked(object obj, EventArgs args)
-        {
-            Trace.Call(obj, args);
-            
-            try {
-                Gtk.MessageDialog md = new Gtk.MessageDialog(null, Gtk.DialogFlags.Modal,
-                    Gtk.MessageType.Warning, Gtk.ButtonsType.YesNo,
-                    _("Switching the remote engine will disconnect you from the current engine!\n"+
-                      "Are you sure you want to do this?"));
-                int result = md.Run();
-                md.Destroy();
-                if ((Gtk.ResponseType)result == Gtk.ResponseType.Yes) {
-                    Frontend.DisconnectEngineFromGUI();
-                    Frontend.ShowEngineManagerDialog();
-                }
-            } catch (Exception ex) {
-                Frontend.ShowException(this, ex);
-            }
-        }
-
-        private void _OnCaretModeButtonClicked(object obj, EventArgs args)
-        {
-            Trace.Call(obj, args);
-            
-            try {
-                CaretMode = !CaretMode;
-                
-                for (int i = 0; i < Notebook.NPages; i++) {
-                    ChatView chatView = Notebook.GetChat(i);
-                    chatView.OutputMessageTextView.CursorVisible = CaretMode;
-                }
-                
-                if (CaretMode) {
-                    Notebook.CurrentChatView.OutputMessageTextView.HasFocus = true;
-                } else {
-                    Entry.HasFocus = true;
-                }
-            } catch (Exception ex) {
-                Frontend.ShowException(this, ex);
-            }
-        }
-#endregion
-        
         protected void OnChatViewManagerChatAdded(object sender, ChatViewManagerChatAddedEventArgs e)
         {
             Trace.Call(sender, e);

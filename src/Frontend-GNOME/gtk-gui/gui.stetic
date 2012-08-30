@@ -2311,9 +2311,9 @@
       </widget>
     </child>
   </widget>
-  <widget class="Gtk.Dialog" id="Smuxi.Frontend.Gnome.QuickConnectDialog" design-size="559 420">
+  <widget class="Gtk.Dialog" id="Smuxi.Frontend.Gnome.QuickConnectDialog" design-size="559 505">
     <property name="MemberName" />
-    <property name="Title" translatable="yes">Smuxi - Quick Connect</property>
+    <property name="Title" translatable="yes">Smuxi - Connect</property>
     <property name="TypeHint">Dialog</property>
     <property name="BorderWidth">5</property>
     <property name="DefaultWidth">640</property>
@@ -4262,9 +4262,9 @@ Click "Forward" to begin.</property>
       </widget>
     </child>
   </widget>
-  <widget class="Gtk.Bin" id="Smuxi.Frontend.Gnome.JoinWidget" design-size="393 36">
+  <widget class="Gtk.Bin" id="Smuxi.Frontend.Gnome.JoinWidget" design-size="393 55">
+    <action-group name="Default" />
     <property name="MemberName" />
-    <property name="Visible">False</property>
     <child>
       <widget class="Gtk.HBox" id="hbox1">
         <property name="MemberName" />
@@ -4310,12 +4310,346 @@ Click "Forward" to begin.</property>
           <widget class="Gtk.Button" id="f_JoinButton">
             <property name="MemberName" />
             <property name="CanFocus">True</property>
-            <property name="Type">TextOnly</property>
-            <property name="Label" translatable="yes">Join Chat</property>
+            <property name="Type">TextAndIcon</property>
+            <property name="Icon">stock:gtk-go-forward Menu</property>
+            <property name="Label" translatable="yes">Join</property>
             <property name="UseUnderline">True</property>
           </widget>
           <packing>
             <property name="Position">3</property>
+            <property name="AutoSize">True</property>
+            <property name="Expand">False</property>
+            <property name="Fill">False</property>
+          </packing>
+        </child>
+      </widget>
+    </child>
+  </widget>
+  <widget class="Gtk.Bin" id="Smuxi.Frontend.Gnome.MenuWidget" design-size="716 80">
+    <action-group name="Default">
+      <action id="f_SmuxiAction">
+        <property name="Type">Action</property>
+        <property name="Label" translatable="yes">_Smuxi</property>
+        <property name="ShortLabel" translatable="yes">_Smuxi</property>
+      </action>
+      <action id="ServerAction">
+        <property name="Type">Action</property>
+        <property name="Label" translatable="yes">_Server</property>
+        <property name="ShortLabel" translatable="yes">_Server</property>
+      </action>
+      <action id="ChatAction">
+        <property name="Type">Action</property>
+        <property name="Label" translatable="yes">_Chat</property>
+        <property name="ShortLabel" translatable="yes">_Chat</property>
+      </action>
+      <action id="EngineAction">
+        <property name="Type">Action</property>
+        <property name="Label" translatable="yes">_Engine</property>
+        <property name="ShortLabel" translatable="yes">_Engine</property>
+      </action>
+      <action id="ViewAction">
+        <property name="Type">Action</property>
+        <property name="Label" translatable="yes">_View</property>
+        <property name="ShortLabel" translatable="yes">_View</property>
+      </action>
+      <action id="f_HelpAction">
+        <property name="Type">Action</property>
+        <property name="Label" translatable="yes">_Help</property>
+        <property name="ShortLabel" translatable="yes">_Help</property>
+      </action>
+      <action id="f_ConnectToolAction">
+        <property name="Type">Action</property>
+        <property name="IsImportant">True</property>
+        <property name="Label" translatable="yes">Connect</property>
+        <property name="ShortLabel" translatable="yes">Connect</property>
+        <property name="StockId">gtk-network</property>
+        <signal name="Activated" handler="OnConnectActionActivated" />
+      </action>
+      <action id="f_OpenLogToolAction">
+        <property name="Type">Action</property>
+        <property name="IsImportant">True</property>
+        <property name="Label" translatable="yes">Open Log</property>
+        <property name="ShortLabel" translatable="yes">Open Log</property>
+        <property name="StockId">gtk-open</property>
+        <signal name="Activated" handler="OnOpenLogActionActivated" />
+      </action>
+      <action id="f_FullscreenToolAction">
+        <property name="Type">Action</property>
+        <property name="IsImportant">True</property>
+        <property name="Label" translatable="yes" />
+        <property name="StockId">gtk-fullscreen</property>
+        <signal name="Activated" handler="OnFullscreenActionActivated" />
+      </action>
+      <action id="f_PreferencesToolAction">
+        <property name="Type">Action</property>
+        <property name="IsImportant">True</property>
+        <property name="Label" translatable="yes" />
+        <property name="StockId">gtk-preferences</property>
+        <signal name="Activated" handler="OnPreferencesActionActivated" />
+      </action>
+      <action id="f_PreferencesAction">
+        <property name="Type">Action</property>
+        <property name="Label" translatable="yes">_Preferences</property>
+        <property name="ShortLabel" translatable="yes">_Preferences</property>
+        <property name="StockId">gtk-preferences</property>
+        <signal name="Activated" handler="OnPreferencesActionActivated" />
+      </action>
+      <action id="f_QuitAction">
+        <property name="Type">Action</property>
+        <property name="Label" translatable="yes">_Quit</property>
+        <property name="ShortLabel" translatable="yes">_Quit</property>
+        <property name="StockId">gtk-quit</property>
+        <signal name="Activated" handler="OnQuitActionActivated" />
+      </action>
+      <action id="f_ConnectAction">
+        <property name="Type">Action</property>
+        <property name="Label" translatable="yes">_Connect</property>
+        <property name="ShortLabel" translatable="yes">_Connect</property>
+        <property name="StockId">gtk-network</property>
+        <signal name="Activated" handler="OnConnectActionActivated" />
+      </action>
+      <action id="f_AddServerAction">
+        <property name="Type">Action</property>
+        <property name="Label" translatable="yes">_Add</property>
+        <property name="ShortLabel" translatable="yes">_Add</property>
+        <property name="StockId">gtk-add</property>
+        <signal name="Activated" handler="OnAddServerActionActivated" />
+      </action>
+      <action id="f_ManageServerAction">
+        <property name="Type">Action</property>
+        <property name="Label" translatable="yes">_Manage</property>
+        <property name="ShortLabel" translatable="yes">_Manage</property>
+        <property name="StockId">gtk-edit</property>
+        <signal name="Activated" handler="OnManageServerActionActivated" />
+      </action>
+      <action id="f_JoinChatAction">
+        <property name="Type">Action</property>
+        <property name="Accelerator">&lt;Primary&gt;l</property>
+        <property name="Label" translatable="yes">_Open / Join Chat</property>
+        <property name="ShortLabel" translatable="yes">_Open / Join Chat</property>
+        <signal name="Activated" handler="OnJoinChatActionActivated" />
+      </action>
+      <action id="f_FindGroupChatAction">
+        <property name="Type">Action</property>
+        <property name="Label" translatable="yes">_Find Group Chat</property>
+        <property name="ShortLabel" translatable="yes">_Find Group Chat</property>
+        <signal name="Activated" handler="OnFindGroupChatActionActivated" />
+      </action>
+      <action id="f_ClearAllActivityAction">
+        <property name="Type">Action</property>
+        <property name="Label" translatable="yes">C_lear All Activity</property>
+        <property name="ShortLabel" translatable="yes">C_lear All Activity</property>
+        <property name="StockId">gtk-clear</property>
+        <signal name="Activated" handler="OnClearAllActivityActionActivated" />
+      </action>
+      <action id="f_NextChatAction">
+        <property name="Type">Action</property>
+        <property name="Accelerator">&lt;Primary&gt;Page_Down</property>
+        <property name="Label" translatable="yes">_Next Chat</property>
+        <property name="ShortLabel" translatable="yes">_Next Chat</property>
+        <property name="StockId">gtk-go-forward</property>
+        <signal name="Activated" handler="OnNextChatActionActivated" />
+      </action>
+      <action id="f_PreviousChatAction">
+        <property name="Type">Action</property>
+        <property name="Accelerator">&lt;Primary&gt;Page_Up</property>
+        <property name="Label" translatable="yes">_Previous Chat</property>
+        <property name="ShortLabel" translatable="yes">_Previous Chat</property>
+        <property name="StockId">gtk-go-back</property>
+        <signal name="Activated" handler="OnPreviousChatActionActivated" />
+      </action>
+      <action id="f_CloseChatAction">
+        <property name="Type">Action</property>
+        <property name="Label" translatable="yes">_Close</property>
+        <property name="ShortLabel" translatable="yes">_Close</property>
+        <property name="StockId">gtk-close</property>
+        <signal name="Activated" handler="OnCloseChatActionActivated" />
+      </action>
+      <action id="f_UseLocalEngineAction">
+        <property name="Type">Action</property>
+        <property name="Label" translatable="yes">_Use Local Engine</property>
+        <property name="ShortLabel" translatable="yes">_Use Local Engine</property>
+        <signal name="Activated" handler="OnUseLocalEngineActionActivated" />
+      </action>
+      <action id="f_AddRemoteEngineAction">
+        <property name="Type">Action</property>
+        <property name="Label" translatable="yes">_Add Remote Engine</property>
+        <property name="ShortLabel" translatable="yes">_Add Remote Engine</property>
+        <signal name="Activated" handler="OnAddRemoteEngineActionActivated" />
+      </action>
+      <action id="f_SwitchRemoteEngineAction">
+        <property name="Type">Action</property>
+        <property name="Label" translatable="yes">Switch Remote Engine</property>
+        <property name="ShortLabel" translatable="yes">Switch Remote Engine</property>
+        <signal name="Activated" handler="OnSwitchRemoteEngineActionActivated" />
+      </action>
+      <action id="f_CaretModeAction">
+        <property name="Type">Toggle</property>
+        <property name="Accelerator">F7</property>
+        <property name="Label" translatable="yes">_Caret Mode</property>
+        <property name="ShortLabel" translatable="yes">_Caret Mode</property>
+        <property name="DrawAsRadio">False</property>
+        <property name="Active">False</property>
+        <signal name="Toggled" handler="OnCaretModeActionToggled" />
+      </action>
+      <action id="f_BrowseModeAction">
+        <property name="Type">Toggle</property>
+        <property name="Accelerator">F8</property>
+        <property name="Label" translatable="yes">_Browse Mode</property>
+        <property name="ShortLabel" translatable="yes">_Browse Mode</property>
+        <property name="DrawAsRadio">False</property>
+        <property name="Active">False</property>
+        <signal name="Toggled" handler="OnBrowseModeActionToggled" />
+      </action>
+      <action id="f_ShowMenubarAction">
+        <property name="Type">Toggle</property>
+        <property name="Label" translatable="yes">Show _Menubar</property>
+        <property name="ShortLabel" translatable="yes">Show _Menubar</property>
+        <property name="DrawAsRadio">False</property>
+        <property name="Active">False</property>
+        <signal name="Toggled" handler="OnShowMenubarActionToggled" />
+      </action>
+      <action id="f_ShowStatusbarAction">
+        <property name="Type">Toggle</property>
+        <property name="Label" translatable="yes">Show _Statusbar</property>
+        <property name="ShortLabel" translatable="yes">Show _Statusbar</property>
+        <property name="DrawAsRadio">False</property>
+        <property name="Active">False</property>
+        <signal name="Toggled" handler="OnShowStatusbarActionToggled" />
+      </action>
+      <action id="f_ShowJoinBarAction">
+        <property name="Type">Toggle</property>
+        <property name="Label" translatable="yes">Show _Join Bar</property>
+        <property name="ShortLabel" translatable="yes">Show _Join Bar</property>
+        <property name="DrawAsRadio">False</property>
+        <property name="Active">False</property>
+        <signal name="Toggled" handler="OnShowJoinBarActionToggled" />
+      </action>
+      <action id="f_FullscreenAction">
+        <property name="Type">Action</property>
+        <property name="Accelerator">F11</property>
+        <property name="Label" translatable="yes">_Fullscreen</property>
+        <property name="ShortLabel" translatable="yes">_Fullscreen</property>
+        <property name="StockId">gtk-fullscreen</property>
+        <signal name="Activated" handler="OnFullscreenActionActivated" />
+      </action>
+      <action id="f_AboutAction">
+        <property name="Type">Action</property>
+        <property name="Label" translatable="yes">_About</property>
+        <property name="ShortLabel" translatable="yes">_About</property>
+        <property name="StockId">gtk-about</property>
+        <signal name="Activated" handler="OnAboutActionActivated" />
+      </action>
+      <action id="f_OpenLogAction">
+        <property name="Type">Action</property>
+        <property name="Label" translatable="yes">Open Log</property>
+        <property name="ShortLabel" translatable="yes">Open Log</property>
+        <signal name="Activated" handler="OnOpenLogActionActivated" />
+      </action>
+      <action id="f_FindGroupChatToolAction">
+        <property name="Type">Action</property>
+        <property name="IsImportant">True</property>
+        <property name="Label" translatable="yes">Find Group Chat</property>
+        <property name="ShortLabel" translatable="yes">Find Group Chat</property>
+        <signal name="Activated" handler="OnFindGroupChatActionActivated" />
+      </action>
+    </action-group>
+    <property name="MemberName" />
+    <property name="Visible">False</property>
+    <child>
+      <widget class="Gtk.VBox" id="vbox2">
+        <property name="MemberName" />
+        <property name="Spacing">6</property>
+        <child>
+          <widget class="Gtk.MenuBar" id="f_MenuBar">
+            <property name="MemberName" />
+            <node name="f_MenuBar" type="Menubar">
+              <node type="Menu" action="f_SmuxiAction">
+                <node type="Menuitem" action="f_PreferencesAction" />
+                <node type="Menuitem" action="f_QuitAction" />
+              </node>
+              <node type="Menu" action="ServerAction">
+                <node type="Menuitem" action="f_ConnectAction" />
+                <node type="Separator" />
+                <node type="Menuitem" action="f_AddServerAction" />
+                <node type="Menuitem" action="f_ManageServerAction" />
+              </node>
+              <node type="Menu" action="ChatAction">
+                <node type="Menuitem" action="f_JoinChatAction" />
+                <node type="Menuitem" action="f_FindGroupChatAction" />
+                <node type="Menuitem" action="f_ClearAllActivityAction" />
+                <node type="Separator" />
+                <node type="Menuitem" action="f_NextChatAction" />
+                <node type="Menuitem" action="f_PreviousChatAction" />
+                <node type="Separator" />
+                <node type="Menuitem" action="f_OpenLogAction" />
+                <node type="Menuitem" action="f_CloseChatAction" />
+              </node>
+              <node type="Menu" action="EngineAction">
+                <node type="Menuitem" action="f_UseLocalEngineAction" />
+                <node type="Separator" />
+                <node type="Menuitem" action="f_AddRemoteEngineAction" />
+                <node type="Menuitem" action="f_SwitchRemoteEngineAction" />
+              </node>
+              <node type="Menu" action="ViewAction">
+                <node type="Menuitem" action="f_CaretModeAction" />
+                <node type="Menuitem" action="f_BrowseModeAction" />
+                <node type="Menuitem" action="f_ShowMenubarAction" />
+                <node type="Menuitem" action="f_ShowStatusbarAction" />
+                <node type="Menuitem" action="f_ShowJoinBarAction" />
+                <node type="Menuitem" action="f_FullscreenAction" />
+              </node>
+              <node type="Menu" action="f_HelpAction">
+                <node type="Menuitem" action="f_AboutAction" />
+              </node>
+            </node>
+          </widget>
+          <packing>
+            <property name="Position">0</property>
+            <property name="AutoSize">True</property>
+            <property name="Expand">False</property>
+            <property name="Fill">False</property>
+          </packing>
+        </child>
+        <child>
+          <widget class="Gtk.HBox" id="hbox1">
+            <property name="MemberName" />
+            <property name="Spacing">6</property>
+            <child>
+              <widget class="Gtk.Toolbar" id="f_MenuToolbar">
+                <property name="MemberName" />
+                <property name="ShowArrow">False</property>
+                <property name="ButtonStyle">BothHoriz</property>
+                <property name="IconSize">LargeToolbar</property>
+                <node name="f_MenuToolbar" type="Toolbar">
+                  <node type="Toolitem" action="f_ConnectToolAction" />
+                  <node type="Toolitem" action="f_FindGroupChatToolAction" />
+                  <node type="Toolitem" action="f_OpenLogToolAction" />
+                  <node type="Toolitem" action="f_FullscreenToolAction" />
+                  <node type="Toolitem" action="f_PreferencesToolAction" />
+                </node>
+              </widget>
+              <packing>
+                <property name="Position">0</property>
+                <property name="AutoSize">True</property>
+              </packing>
+            </child>
+            <child>
+              <widget class="Gtk.Toolbar" id="f_JoinToolbar">
+                <property name="MemberName" />
+                <property name="ShowArrow">False</property>
+                <node name="f_JoinToolbar" type="Toolbar" />
+              </widget>
+              <packing>
+                <property name="PackType">End</property>
+                <property name="Position">1</property>
+                <property name="AutoSize">False</property>
+                <property name="Expand">False</property>
+              </packing>
+            </child>
+          </widget>
+          <packing>
+            <property name="Position">1</property>
             <property name="AutoSize">True</property>
             <property name="Expand">False</property>
             <property name="Fill">False</property>

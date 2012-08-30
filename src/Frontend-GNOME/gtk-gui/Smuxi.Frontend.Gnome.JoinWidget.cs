@@ -4,6 +4,7 @@ namespace Smuxi.Frontend.Gnome
 {
 	public partial class JoinWidget
 	{
+		private global::Gtk.UIManager UIManager;
 		private global::Gtk.HBox hbox1;
 		private global::Gtk.Entry f_ChatEntry;
 		private global::Gtk.Label label1;
@@ -14,7 +15,10 @@ namespace Smuxi.Frontend.Gnome
 		{
 			global::Stetic.Gui.Initialize (this);
 			// Widget Smuxi.Frontend.Gnome.JoinWidget
-			global::Stetic.BinContainer.Attach (this);
+			Stetic.BinContainer w1 = global::Stetic.BinContainer.Attach (this);
+			this.UIManager = new global::Gtk.UIManager ();
+			global::Gtk.ActionGroup w2 = new global::Gtk.ActionGroup ("Default");
+			this.UIManager.InsertActionGroup (w2, 0);
 			this.Name = "Smuxi.Frontend.Gnome.JoinWidget";
 			// Container child Smuxi.Frontend.Gnome.JoinWidget.Gtk.Container+ContainerChild
 			this.hbox1 = new global::Gtk.HBox ();
@@ -27,41 +31,57 @@ namespace Smuxi.Frontend.Gnome
 			this.f_ChatEntry.IsEditable = true;
 			this.f_ChatEntry.InvisibleChar = '•';
 			this.hbox1.Add (this.f_ChatEntry);
-			global::Gtk.Box.BoxChild w1 = ((global::Gtk.Box.BoxChild)(this.hbox1 [this.f_ChatEntry]));
-			w1.Position = 0;
+			global::Gtk.Box.BoxChild w3 = ((global::Gtk.Box.BoxChild)(this.hbox1 [this.f_ChatEntry]));
+			w3.Position = 0;
 			// Container child hbox1.Gtk.Box+BoxChild
 			this.label1 = new global::Gtk.Label ();
 			this.label1.Name = "label1";
 			this.label1.LabelProp = "@";
 			this.hbox1.Add (this.label1);
-			global::Gtk.Box.BoxChild w2 = ((global::Gtk.Box.BoxChild)(this.hbox1 [this.label1]));
-			w2.Position = 1;
-			w2.Expand = false;
-			w2.Fill = false;
+			global::Gtk.Box.BoxChild w4 = ((global::Gtk.Box.BoxChild)(this.hbox1 [this.label1]));
+			w4.Position = 1;
+			w4.Expand = false;
+			w4.Fill = false;
 			// Container child hbox1.Gtk.Box+BoxChild
 			this.f_NetworkComboBox = global::Gtk.ComboBox.NewText ();
 			this.f_NetworkComboBox.Name = "f_NetworkComboBox";
 			this.hbox1.Add (this.f_NetworkComboBox);
-			global::Gtk.Box.BoxChild w3 = ((global::Gtk.Box.BoxChild)(this.hbox1 [this.f_NetworkComboBox]));
-			w3.Position = 2;
-			w3.Expand = false;
-			w3.Fill = false;
+			global::Gtk.Box.BoxChild w5 = ((global::Gtk.Box.BoxChild)(this.hbox1 [this.f_NetworkComboBox]));
+			w5.Position = 2;
+			w5.Expand = false;
+			w5.Fill = false;
 			// Container child hbox1.Gtk.Box+BoxChild
 			this.f_JoinButton = new global::Gtk.Button ();
 			this.f_JoinButton.CanFocus = true;
 			this.f_JoinButton.Name = "f_JoinButton";
 			this.f_JoinButton.UseUnderline = true;
-			this.f_JoinButton.Label = global::Mono.Unix.Catalog.GetString ("Join Chat");
+			// Container child f_JoinButton.Gtk.Container+ContainerChild
+			global::Gtk.Alignment w6 = new global::Gtk.Alignment (0.5F, 0.5F, 0F, 0F);
+			// Container child GtkAlignment.Gtk.Container+ContainerChild
+			global::Gtk.HBox w7 = new global::Gtk.HBox ();
+			w7.Spacing = 2;
+			// Container child GtkHBox.Gtk.Container+ContainerChild
+			global::Gtk.Image w8 = new global::Gtk.Image ();
+			w8.Pixbuf = global::Stetic.IconLoader.LoadIcon (this, "gtk-go-forward", global::Gtk.IconSize.Menu);
+			w7.Add (w8);
+			// Container child GtkHBox.Gtk.Container+ContainerChild
+			global::Gtk.Label w10 = new global::Gtk.Label ();
+			w10.LabelProp = global::Mono.Unix.Catalog.GetString ("Join");
+			w10.UseUnderline = true;
+			w7.Add (w10);
+			w6.Add (w7);
+			this.f_JoinButton.Add (w6);
 			this.hbox1.Add (this.f_JoinButton);
-			global::Gtk.Box.BoxChild w4 = ((global::Gtk.Box.BoxChild)(this.hbox1 [this.f_JoinButton]));
-			w4.Position = 3;
-			w4.Expand = false;
-			w4.Fill = false;
+			global::Gtk.Box.BoxChild w14 = ((global::Gtk.Box.BoxChild)(this.hbox1 [this.f_JoinButton]));
+			w14.Position = 3;
+			w14.Expand = false;
+			w14.Fill = false;
 			this.Add (this.hbox1);
 			if ((this.Child != null)) {
 				this.Child.ShowAll ();
 			}
-			this.Hide ();
+			w1.SetUiManager (UIManager);
+			this.Show ();
 		}
 	}
 }

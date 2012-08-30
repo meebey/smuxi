@@ -95,7 +95,7 @@ namespace Smuxi.Frontend.Gnome
         public bool IsSensitive {
             set {
                 f_Notebook.Sensitive = value;
-                Frontend.MainWindow.MenuBar.Sensitive = value;
+                Frontend.MainWindow.MenuWidget.Sensitive = value;
                 Frontend.MainWindow.Entry.Sensitive = value;
             }
             get {
@@ -220,6 +220,20 @@ namespace Smuxi.Frontend.Gnome
             f_Notebook.RemoveAllPages();
             SyncedChats.Clear();
             SyncManager.Clear();
+        }
+
+        public void ClearAllActivity()
+        {
+            Trace.Call();
+
+            f_Notebook.ClearAllActivity();
+        }
+
+        public void Minimize()
+        {
+            Trace.Call();
+
+            Frontend.MainWindow.Iconify();
         }
 
         void OnChatAdded(object sender, ChatViewAddedEventArgs e)
