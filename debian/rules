@@ -33,7 +33,13 @@ override_dh_clideps:
 ifeq ($(LSB_VENDOR) $(LSB_CODENAME), Ubuntu lucid)
 	cat debian/indicate-sharp-0.4.1.clilibs >> debian/smuxi-frontend-gnome/DEBIAN/clilibs
 endif
-	dh_clideps --exclude-moduleref=i:secur32 --exclude-moduleref=i:secur32.dll
+	dh_clideps \
+		--exclude-moduleref=i:secur32 \
+		--exclude-moduleref=i:secur32.dll \
+		--exclude-moduleref=libigemacintegration.dylib \
+		--exclude-moduleref=/System/Library/Frameworks/Carbon.framework/Versions/Current/Carbon \
+		--exclude-moduleref=/System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation \
+		--exclude-moduleref=/System/Library/Frameworks/ApplicationServices.framework/Versions/A/ApplicationServices
 
 %:
 	dh $@
