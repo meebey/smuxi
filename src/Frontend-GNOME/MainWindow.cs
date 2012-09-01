@@ -27,7 +27,6 @@ using System.Threading;
 using System.Reflection;
 using SysDiag = System.Diagnostics;
 using Mono.Unix;
-using IgeMacIntegration;
 using Smuxi.Common;
 using Smuxi.Engine;
 
@@ -272,20 +271,6 @@ namespace Smuxi.Frontend.Gnome
 
             vbox.PackStart(StatusHBox, false, false, 0);
             Add(vbox);
-
-            if (Frontend.IsMacOSX) {
-                IgeMacMenu.GlobalKeyHandlerEnabled = true;
-                IgeMacMenu.MenuBar = MenuWidget.MenuBar;
-                ShowMenuBar = false;
-
-                var appGroup = IgeMacMenu.AddAppMenuGroup();
-                appGroup.AddMenuItem(
-                    (Gtk.MenuItem) MenuWidget.PreferencesAction.CreateMenuItem(),
-                    _("Preferences")
-                );
-                IgeMacMenu.QuitMenuItem = (Gtk.MenuItem)
-                    MenuWidget.QuitAction.CreateMenuItem();
-            }
         }
 
         public void ApplyConfig(UserConfig userConfig)

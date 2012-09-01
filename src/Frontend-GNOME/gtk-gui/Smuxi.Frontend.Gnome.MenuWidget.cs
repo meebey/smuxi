@@ -86,9 +86,9 @@ namespace Smuxi.Frontend.Gnome
 			this.f_PreferencesAction = new global::Gtk.Action ("f_PreferencesAction", global::Mono.Unix.Catalog.GetString ("_Preferences"), null, "gtk-preferences");
 			this.f_PreferencesAction.ShortLabel = global::Mono.Unix.Catalog.GetString ("_Preferences");
 			w2.Add (this.f_PreferencesAction, null);
-			this.f_QuitAction = new global::Gtk.Action ("f_QuitAction", global::Mono.Unix.Catalog.GetString ("_Quit"), null, "gtk-quit");
+			this.f_QuitAction = new global::Gtk.Action ("f_QuitAction", global::Mono.Unix.Catalog.GetString ("_Quit"), null, null);
 			this.f_QuitAction.ShortLabel = global::Mono.Unix.Catalog.GetString ("_Quit");
-			w2.Add (this.f_QuitAction, null);
+			w2.Add (this.f_QuitAction, "<Control>q");
 			this.f_ConnectAction = new global::Gtk.Action ("f_ConnectAction", global::Mono.Unix.Catalog.GetString ("_Connect"), null, "gtk-network");
 			this.f_ConnectAction.ShortLabel = global::Mono.Unix.Catalog.GetString ("_Connect");
 			w2.Add (this.f_ConnectAction, null);
@@ -113,9 +113,9 @@ namespace Smuxi.Frontend.Gnome
 			this.f_PreviousChatAction = new global::Gtk.Action ("f_PreviousChatAction", global::Mono.Unix.Catalog.GetString ("_Previous Chat"), null, "gtk-go-back");
 			this.f_PreviousChatAction.ShortLabel = global::Mono.Unix.Catalog.GetString ("_Previous Chat");
 			w2.Add (this.f_PreviousChatAction, "<Control>Page_Up");
-			this.f_CloseChatAction = new global::Gtk.Action ("f_CloseChatAction", global::Mono.Unix.Catalog.GetString ("_Close"), null, "gtk-close");
+			this.f_CloseChatAction = new global::Gtk.Action ("f_CloseChatAction", global::Mono.Unix.Catalog.GetString ("_Close"), null, null);
 			this.f_CloseChatAction.ShortLabel = global::Mono.Unix.Catalog.GetString ("_Close");
-			w2.Add (this.f_CloseChatAction, null);
+			w2.Add (this.f_CloseChatAction, "<Control>w");
 			this.f_UseLocalEngineAction = new global::Gtk.Action ("f_UseLocalEngineAction", global::Mono.Unix.Catalog.GetString ("_Use Local Engine"), null, null);
 			this.f_UseLocalEngineAction.ShortLabel = global::Mono.Unix.Catalog.GetString ("_Use Local Engine");
 			w2.Add (this.f_UseLocalEngineAction, null);

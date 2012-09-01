@@ -4396,9 +4396,9 @@ Click "Forward" to begin.</property>
       </action>
       <action id="f_QuitAction">
         <property name="Type">Action</property>
+        <property name="Accelerator">&lt;Control&gt;q</property>
         <property name="Label" translatable="yes">_Quit</property>
         <property name="ShortLabel" translatable="yes">_Quit</property>
-        <property name="StockId">gtk-quit</property>
         <signal name="Activated" handler="OnQuitActionActivated" />
       </action>
       <action id="f_ConnectAction">
@@ -4460,9 +4460,9 @@ Click "Forward" to begin.</property>
       </action>
       <action id="f_CloseChatAction">
         <property name="Type">Action</property>
+        <property name="Accelerator">&lt;Control&gt;w</property>
         <property name="Label" translatable="yes">_Close</property>
         <property name="ShortLabel" translatable="yes">_Close</property>
-        <property name="StockId">gtk-close</property>
         <signal name="Activated" handler="OnCloseChatActionActivated" />
       </action>
       <action id="f_UseLocalEngineAction">

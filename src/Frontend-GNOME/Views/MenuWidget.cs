@@ -20,6 +20,7 @@
 using System;
 using System.Threading;
 using SysDiag = System.Diagnostics;
+using IgeMacIntegration;
 using Smuxi.Common;
 using Smuxi.Engine;
 
@@ -45,18 +46,6 @@ namespace Smuxi.Frontend.Gnome
         public Gtk.MenuBar MenuBar {
             get {
                 return f_MenuBar;
-            }
-        }
-
-        public Gtk.Action QuitAction {
-            get {
-                return f_QuitAction;
-            }
-        }
-
-        public Gtk.Action PreferencesAction {
-            get {
-                return f_PreferencesAction;
             }
         }
 
@@ -99,15 +88,15 @@ namespace Smuxi.Frontend.Gnome
 
             Build();
 
-            if (Frontend.IsMacOSX) {
-                // Smuxi menu is already shown as app menu
-                f_SmuxiAction.Visible = false;
-            }
+            // Smuxi Menu
+            f_QuitAction.IconName = Gtk.Stock.Quit;
 
             // Chat
             f_JoinChatAction.IconName = Gtk.Stock.Open;
             f_FindGroupChatAction.IconName = Gtk.Stock.Find;
+            f_OpenLogAction.IconName = Gtk.Stock.Open;
             f_OpenLogToolAction.IconName = Gtk.Stock.Open;
+            f_CloseChatAction.IconName = Gtk.Stock.Close;
 
             // Engine
             f_AddRemoteEngineAction.IconName = Gtk.Stock.Add;
@@ -133,6 +122,28 @@ namespace Smuxi.Frontend.Gnome
             f_ShowMenubarAction.Active = (bool) Frontend.FrontendConfig["ShowMenuBar"];
             f_ShowStatusbarAction.Active = (bool) Frontend.FrontendConfig["ShowStatusBar"];
             f_ShowJoinBarAction.Active = JoinWidget.Visible;
+
+            if (Frontend.IsMacOSX) {
+                // Smuxi menu is already shown as app menu
+                f_SmuxiAction.Visible = false;
+                // About item is already shown in app menu
+                f_AboutAction.Visible = false;
+
+                IgeMacMenu.GlobalKeyHandlerEnabled = true;
+                IgeMacMenu.MenuBar = f_MenuBar;
+                f_ShowMenubarAction.Active = false;
+
+                var appGroup = IgeMacMenu.AddAppMenuGroup();
+                appGroup.AddMenuItem(
+                    (Gtk.MenuItem) f_AboutAction.CreateMenuItem(),
+                    _("About Smuxi")
+                );
+                var prefItem = (Gtk.MenuItem) f_PreferencesAction.CreateMenuItem();
+                // TODO: add cmd+, accelerator
+                appGroup.AddMenuItem(prefItem, _("Preferences"));
+                IgeMacMenu.QuitMenuItem = (Gtk.MenuItem)
+                    f_QuitAction.CreateMenuItem();
+            }
         }
 
         protected void OnAboutActionActivated(object sender, EventArgs e)
