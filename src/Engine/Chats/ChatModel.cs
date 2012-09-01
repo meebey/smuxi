@@ -161,7 +161,15 @@ namespace Smuxi.Engine
 
         public string ToTraceString()
         {
-            string nm = (_ProtocolManager != null) ? _ProtocolManager.ToString() : "(null)";  
+            string nm;
+            if (_ProtocolManager == null) {
+                nm = "(null)";
+            } else {
+                nm = String.Format("{0}/{1}",
+                    _ProtocolManager.Protocol,
+                    _ProtocolManager.NetworkID
+                );
+            }
             return  nm + "/" + _Name; 
         }
 
