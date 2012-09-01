@@ -92,6 +92,9 @@ namespace Smuxi.Frontend.Gnome
 
             // JabbR
             NetworkWebsiteUrls.Add("jabbr.net", "http://jabbr.net/");
+
+            // Campfire
+            NetworkWebsiteUrls.Add("Campfire", "http://campfirenow.com");
         }
 
         public ProtocolChatView(ChatModel chat) : base(chat)
