@@ -166,6 +166,20 @@ namespace Smuxi.Frontend.Gnome
                         fontDescription.Weight = Pango.Weight.Bold;
                         fontDescription.Style = Pango.Style.Normal;
                     }
+                } else if (Frontend.IsMacOSX) {
+                    // HACK: family font description with font fallbacks is not
+                    // working on OS X, thus we have to probe and decide ourself
+                    var ctx = Frontend.MainWindow.CreatePangoContext();
+                    var families = ctx.Families;
+                    if (families.Any(family =>
+                                     family.Name == "Menlo")) {
+                        fontDescription.Family = "Menlo";
+                    } else if (families.Any(family =>
+                                            family.Name == "Monaco")) {
+                        fontDescription.Family = "Monaco";
+                    } else {
+                        fontDescription.Family = "monospace";
+                    }
                 } else {
                     // use Monospace and Bold by default
                     fontDescription.Family = "monospace";
