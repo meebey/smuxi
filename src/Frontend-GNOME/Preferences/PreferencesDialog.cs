@@ -118,6 +118,12 @@ namespace Smuxi.Frontend.Gnome
             _Glade.Autoconnect(this);
             _Dialog = (Gtk.Dialog)_Glade["PreferencesDialog"];
             _Dialog.TransientFor = parent;
+            if (Frontend.IsMacOSX) {
+                // HACK: center on parent is not working for this dialog
+                _Dialog.SetPosition(Gtk.WindowPosition.CenterAlways);
+            } else {
+                _Dialog.SetPosition(Gtk.WindowPosition.CenterOnParent);
+            }
             
             ((Gtk.Button)_Glade["OKButton"]).Clicked += new EventHandler(_OnOKButtonClicked);
             ((Gtk.Button)_Glade["ApplyButton"]).Clicked += new EventHandler(_OnApplyButtonClicked);

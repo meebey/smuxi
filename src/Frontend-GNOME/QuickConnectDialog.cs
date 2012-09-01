@@ -39,7 +39,9 @@ namespace Smuxi.Frontend.Gnome
             }
         }
         
-        public QuickConnectDialog(Gtk.Window parent)
+        public QuickConnectDialog(Gtk.Window parent) :
+                             base(null, parent,
+                                  Gtk.DialogFlags.DestroyWithParent)
         {
             Trace.Call(parent);
 

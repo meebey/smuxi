@@ -31,7 +31,8 @@ namespace Smuxi.Frontend.Gnome
     {
         public ServerDialog(Gtk.Window parent, ServerModel server,
                             IList<string> supportedProtocols,
-                            IList<string> networks)
+                            IList<string> networks) :
+                       base(null, parent, Gtk.DialogFlags.DestroyWithParent)
         {
             Trace.Call(parent, server, supportedProtocols, networks);
 
