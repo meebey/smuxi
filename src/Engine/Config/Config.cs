@@ -308,6 +308,7 @@ namespace Smuxi.Engine
             Get(prefix + "Servers", new string[] {
                 "IRC/irc.oftc.net",
                 "IRC/irc.gimp.org",
+                "IRC/irc.geekshed.net",
                 "IRC/irc.efnet.org",
                 "IRC/irc.ircnet.org",
                 "IRC/irc.freenode.net"
@@ -332,6 +333,15 @@ namespace Smuxi.Engine
             Get(prefix + "Hostname", "irc.gimp.org");
             Get(prefix + "Port", 6667);
             Get(prefix + "Network", "GIMPNet");
+            Get(prefix + "Username", String.Empty);
+            Get(prefix + "Password", String.Empty);
+            Get(prefix + "UseEncryption", false);
+            Get(prefix + "ValidateServerCertificate", false);
+
+            prefix = "Engine/Users/DEFAULT/Servers/IRC/irc.geekshed.net/";
+            Get(prefix + "Hostname", "irc.geekshed.net");
+            Get(prefix + "Port", 6667);
+            Get(prefix + "Network", "GeekShed");
             Get(prefix + "Username", String.Empty);
             Get(prefix + "Password", String.Empty);
             Get(prefix + "UseEncryption", false);
