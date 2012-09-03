@@ -81,6 +81,7 @@ namespace Smuxi.Frontend.Gnome
             NetworkWebsiteUrls.Add("GSDnet", "http://www.gsd-software.net/");
             NetworkWebsiteUrls.Add("ustream", "http://www.ustream.tv/");
             NetworkWebsiteUrls.Add("Infinity-IRC", "http://www.infinityirc.com/");
+            NetworkWebsiteUrls.Add("GeekShed", "http://www.geekshed.net/");
 
             // Twitter
             NetworkWebsiteUrls.Add("Twitter", "http://www.twitter.com/");
