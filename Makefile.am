@@ -175,7 +175,11 @@ dist-win32:
 	makensis $(top_srcdir)/src/smuxi-win32.nsis
 
 dist-osx:
-	./autogen.sh MCS=/usr/bin/dmcs --without-indicate --without-notify --without-dbus \
+	if [ -x /usr/bin/dmcs ]; then \
+		export MCS=/usr/bin/dmcs; \
+		echo MCS=$$MCS; \
+	fi
+	./autogen.sh --without-indicate --without-notify --without-dbus \
 	  --with-db4o=included \
 	  --with-vendor-package-version="dist-osx"
 	$(MAKE)
