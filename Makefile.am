@@ -176,10 +176,10 @@ dist-win32:
 
 dist-osx:
 	if [ -x /usr/bin/dmcs ]; then \
-		export MCS=/usr/bin/dmcs; \
-		echo MCS=$$MCS; \
-	fi
-	./autogen.sh --without-indicate --without-notify --without-dbus \
+		COMPILER_OVERRIDE="MCS=/usr/bin/dmcs"; \
+		echo COMPILER_OVERRIDE="$$COMPILER_OVERRIDE"; \
+	fi; \
+	./autogen.sh $$COMPILER_OVERRIDE --without-indicate --without-notify --without-dbus \
 	  --with-db4o=included \
 	  --with-vendor-package-version="dist-osx"
 	$(MAKE)
