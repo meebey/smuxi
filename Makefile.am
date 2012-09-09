@@ -95,6 +95,7 @@ BUILD_DIR = $(top_builddir)/bin/$(PROFILE)
 WIN32_LIB_DIR = $(LIB_DIR)/win32
 WIN32_BUILD_DIR = $(top_builddir)/bin-win32
 OSX_LIB_DIR = $(LIB_DIR)/osx
+OSX_ICON_THEME_DIR = $(top_srcdir)/images/Faenza-Smuxi
 OSX_BUILD_DIR = $(top_builddir)/bin-osx
 OSX_APP_DIR = $(OSX_BUILD_DIR)/Smuxi.app
 OSX_CONTENTS_DIR = $(OSX_APP_DIR)/Contents
@@ -190,6 +191,8 @@ dist-osx:
 	for FILE in $(OSX_FILES); do \
 		cp $$FILE $(OSX_BINARIES_DIR); \
 	done
+	mkdir -p $(OSX_BINARIES_DIR)/icons
+	cp -r $(OSX_ICON_THEME_DIR) $(OSX_BINARIES_DIR)/icons
 	-rm smuxi-osx.zip
 	cd $(OSX_BUILD_DIR) && zip -r ../smuxi-osx.zip Smuxi.app
 
