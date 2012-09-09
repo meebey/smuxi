@@ -159,7 +159,11 @@ LINUX_STATIC_FILES = \
 	$(BUILD_DIR)/Newtonsoft.Json.dll
 		
 dist-win32:
-	./autogen.sh --without-indicate --without-notify --without-dbus \
+	if [ -x /usr/bin/dmcs ]; then \
+		COMPILER_OVERRIDE="MCS=/usr/bin/dmcs"; \
+		echo COMPILER_OVERRIDE="$$COMPILER_OVERRIDE"; \
+	fi; \
+	./autogen.sh $$COMPILER_OVERRIDE --without-indicate --without-notify --without-dbus \
 	  --with-db4o=included \
 	  --with-vendor-package-version="dist-win32"
 	$(MAKE)
