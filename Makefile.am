@@ -135,6 +135,7 @@ OSX_FILES = \
 	$(LIB_DIR)/Nini.dll \
 	$(LIB_DIR)/log4net.dll \
 	$(BUILD_DIR)/smuxi-frontend-gnome.exe \
+	$(BUILD_DIR)/smuxi-frontend-gnome.exe.config \
 	$(BUILD_DIR)/smuxi-frontend-gnome-irc.dll \
 	$(BUILD_DIR)/smuxi-server.exe \
 	$(BUILD_DIR)/smuxi-common.dll \
