@@ -521,6 +521,7 @@ Section "Main" SEC01
   File "../bin-win32/plink.exe"
   File "../bin-win32/Fixedsys500c.ttf"
   File /nonfatal /r "../bin-win32/locale"
+  File /nonfatal /r "../bin-win32/icons"
 
   IfFileExists "$FONTS/Fixedsys500c.ttf" SkipFont InstallFont
 

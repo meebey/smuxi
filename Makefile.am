@@ -94,6 +94,7 @@ LIB_DIR = $(top_builddir)/lib
 BUILD_DIR = $(top_builddir)/bin/$(PROFILE)
 WIN32_LIB_DIR = $(LIB_DIR)/win32
 WIN32_BUILD_DIR = $(top_builddir)/bin-win32
+WIN32_ICON_THEME_DIR = $(top_srcdir)/images/Faenza-Smuxi
 OSX_LIB_DIR = $(LIB_DIR)/osx
 OSX_ICON_THEME_DIR = $(top_srcdir)/images/Faenza-Smuxi
 OSX_BUILD_DIR = $(top_builddir)/bin-osx
@@ -174,6 +175,8 @@ dist-win32:
 	for PODIR in $(PODIRS); do \
 		$(MAKE) -C $$PODIR install itlocaledir=$(abs_top_builddir)/$(WIN32_BUILD_DIR)/locale; \
 	done
+	mkdir -p $(WIN32_BUILD_DIR)/icons
+	cp -r $(WIN32_ICON_THEME_DIR) $(WIN32_BUILD_DIR)/icons
 	makensis $(top_srcdir)/src/smuxi-win32.nsis
 
 dist-osx:
