@@ -56,7 +56,8 @@ namespace Smuxi.Frontend.Gnome
                 "Jakub Steiner <jimmac@ximian.com>",
                 "Rodney Dawes <dobey@novell.com>",
                 "Lapo Calamandrei <calamandrei@gmail.com>",
-                "Ahmed Abdellah <a3dman1@gmail.com>"
+                "Ahmed Abdellah <a3dman1@gmail.com>",
+                "Matthieu James <matthieu.james@gmail.com>"
             };
             TranslatorCredits = _("translator-credits");
             Logo = Frontend.LoadIcon(
