@@ -15,6 +15,7 @@ src/Frontend-GNOME/NotifyManager.cs
 src/Frontend-GNOME/QuickConnectDialog.cs
 src/Frontend-GNOME/ChatTypeWidget.cs
 src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs
+src/Frontend-GNOME/Views/JoinWidget.cs
 src/Frontend-GNOME/Views/MenuWidget.cs
 src/Frontend-GNOME/Views/MessageTextView.cs
 src/Frontend-GNOME/Views/FilterListWidget.cs
