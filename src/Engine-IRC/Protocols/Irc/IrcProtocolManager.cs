@@ -837,6 +837,23 @@ namespace Smuxi.Engine
                             CommandQuit(command);
                             handled = true;
                             break;
+                    case "sleep":
+                            int amount = 0;
+                            if (Int32.TryParse(command.Parameter, out amount)) {
+                                var msg = CreateMessageBuilder().
+                                    AppendEventPrefix().
+                                    AppendText(
+                                        _("Sleeping for {0} milliseconds"),
+                                        amount
+                                    ).
+                                    ToMessage();
+                                Session.AddMessageToChat(Chat, msg);
+                                Thread.Sleep(amount);
+                            } else {
+                                _NotEnoughParameters(command);
+                            }
+                            handled = true;
+                            break;
                         default:
                             CommandFallback(command);
                             handled = true;
