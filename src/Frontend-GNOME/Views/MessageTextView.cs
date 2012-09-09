@@ -539,7 +539,7 @@ namespace Smuxi.Frontend.Gnome
                 return;
             }
 
-            OpenLink(_ActiveLink);
+            Frontend.OpenLink(_ActiveLink);
         }
 
         protected virtual void OnPopulatePopup(object sender, Gtk.PopulatePopupArgs e)
@@ -559,7 +559,7 @@ namespace Smuxi.Frontend.Gnome
             Gtk.ImageMenuItem open_item = new Gtk.ImageMenuItem(Gtk.Stock.Open, null);
             open_item.Activated += delegate {
                 if (_ActiveLink != null) {
-                    OpenLink(_ActiveLink);
+                    Frontend.OpenLink(_ActiveLink);
                 }
             };
             popup.Append(open_item);
@@ -578,36 +578,6 @@ namespace Smuxi.Frontend.Gnome
             popup.ShowAll();
         }
 
-        private void OpenLink(Uri link)
-        {
-            Trace.Call(link);
-
-            if (link == null) {
-                throw new ArgumentNullException("link");
-            }
-
-            // hopefully MS .NET / Mono finds some way to handle the URL
-            ThreadPool.QueueUserWorkItem(delegate {
-                var url = link.ToString();
-                try {
-                    using (var process = SysDiag.Process.Start(url)) {
-                        // Start() might return null in case it re-used a
-                        // process instead of starting one
-                        if (process != null) {
-                            process.WaitForExit();
-                        }
-                    }
-                } catch (Exception ex) {
-                    // exceptions in the thread pool would kill the process, see:
-                    // http://msdn.microsoft.com/en-us/library/0ka9477y.aspx
-                    // http://projects.qnetp.net/issues/show/194
-#if LOG4NET
-                    _Logger.Error("OpenLink(): opening URL: '" + url + "' failed", ex);
-#endif
-                }
-            });
-        }
-        
         private string GetTextTagName(TextColor fgColor, TextColor bgColor)
         {
              string hexcode;

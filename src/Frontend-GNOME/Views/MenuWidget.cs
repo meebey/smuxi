@@ -511,6 +511,17 @@ namespace Smuxi.Frontend.Gnome
             }
         }
 
+        protected void OnWebsiteActionActivated(object sender, EventArgs e)
+        {
+            Trace.Call(sender, e);
+
+            try {
+                Frontend.OpenLink(new Uri("http://www.smuxi.org/"));
+            } catch (Exception ex) {
+                Frontend.ShowException(Parent, ex);
+            }
+        }
+
         private static string _(string msg)
         {
             return Mono.Unix.Catalog.GetString(msg);

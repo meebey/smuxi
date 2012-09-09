@@ -855,6 +855,36 @@ namespace Smuxi.Frontend.Gnome
             }
         }
 
+        public static void OpenLink(Uri link)
+        {
+            Trace.Call(link);
+
+            if (link == null) {
+                throw new ArgumentNullException("link");
+            }
+
+            // hopefully MS .NET / Mono finds some way to handle the URL
+            ThreadPool.QueueUserWorkItem(delegate {
+                try {
+                    var url = link.ToString();
+                    using (var process = SysDiag.Process.Start(url)) {
+                        // Start() might return null in case it re-used a
+                        // process instead of starting one
+                        if (process != null) {
+                            process.WaitForExit();
+                        }
+                    }
+                } catch (Exception ex) {
+                    // exceptions in the thread pool would kill the process, see:
+                    // http://msdn.microsoft.com/en-us/library/0ka9477y.aspx
+                    // http://projects.qnetp.net/issues/show/194
+#if LOG4NET
+                    _Logger.Error("OpenLink(): opening URL: '" + link + "' failed", ex);
+#endif
+                }
+            });
+        }
+
         public static void OpenFindGroupChatWindow()
         {
             OpenFindGroupChatWindow(null);

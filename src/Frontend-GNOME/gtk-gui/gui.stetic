@@ -4553,6 +4553,12 @@ Click "Forward" to begin.</property>
         <property name="ShortLabel" translatable="yes">Find Group Chat</property>
         <signal name="Activated" handler="OnFindGroupChatActionActivated" />
       </action>
+      <action id="f_WebsiteAction">
+        <property name="Type">Action</property>
+        <property name="Label" translatable="yes">_Website</property>
+        <property name="ShortLabel" translatable="yes">_Website</property>
+        <signal name="Activated" handler="OnWebsiteActionActivated" />
+      </action>
     </action-group>
     <property name="MemberName" />
     <property name="Visible">False</property>
@@ -4599,6 +4605,7 @@ Click "Forward" to begin.</property>
                 <node type="Menuitem" action="f_FullscreenAction" />
               </node>
               <node type="Menu" action="f_HelpAction">
+                <node type="Menuitem" action="f_WebsiteAction" />
                 <node type="Menuitem" action="f_AboutAction" />
               </node>
             </node>
