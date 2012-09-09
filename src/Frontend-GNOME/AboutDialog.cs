@@ -62,8 +62,11 @@ namespace Smuxi.Frontend.Gnome
             Logo = Frontend.LoadIcon(
                 Frontend.IconName, 256, "icon_256x256.png"
             );
-            Website = "http://www.smuxi.org/";
-            WebsiteLabel = _("Smuxi Website");
+            // HACK: shows "not implemented" error on OS X
+            if (!Frontend.IsMacOSX) {
+                Website = "http://www.smuxi.org/";
+                WebsiteLabel = _("Smuxi Website");
+            }
         }
         
         private static string _(string msg)
