@@ -59,6 +59,8 @@ namespace Smuxi.Frontend.Gnome
         public static string IconName { get; private set; }
         public static bool HasSystemIconTheme { get; private set; }
         public static bool HadSession { get; private set; }
+        public static bool IsWindows { get; private set; }
+        public static bool IsUnity { get; private set; }
         public static bool IsMacOSX { get; private set; }
 
         public static event EventHandler  SessionPropertyChanged;
@@ -172,7 +174,15 @@ namespace Smuxi.Frontend.Gnome
 
         static Frontend()
         {
+            IsWindows = Environment.OSVersion.Platform == PlatformID.Win32NT;
             IsMacOSX = Platform.OperatingSystem == "Darwin";
+            var desktop = Environment.GetEnvironmentVariable("XDG_CURRENT_DESKTOP");
+            if (!String.IsNullOrEmpty(desktop) && desktop.ToLower().Contains("unity")) {
+#if LOG4NET
+                _Logger.Debug("Frontend(): Detected Unity desktop envrionment");
+#endif
+                IsUnity = true;
+            }
         }
 
         public static void Init(string[] args)
@@ -1014,6 +1024,7 @@ namespace Smuxi.Frontend.Gnome
             var iconPath = Path.Combine(Defines.InstallPrefix, "share");
             iconPath = Path.Combine(iconPath, "icons");
             var theme = Gtk.IconTheme.Default;
+            var settings = Gtk.Settings.Default;
             var iconInfo = theme.LookupIcon(IconName, -1, 0);
             HasSystemIconTheme = iconInfo != null &&
                                  iconInfo.Filename != null &&
@@ -1022,6 +1033,44 @@ namespace Smuxi.Frontend.Gnome
             _Logger.DebugFormat("InitGtk(): Using {0} icon theme",
                                 HasSystemIconTheme ? "system" : "built-in");
 #endif
+
+            var unityWithLightIcons = false;
+            if (Frontend.IsUnity) {
+                var sysGtkTheme = settings.ThemeName ?? String.Empty;
+                var sysIconTheme = GetGtkIconThemeName() ?? String.Empty;
+#if LOG4NET
+                _Logger.DebugFormat("InitGtk(): Detected GTK+ theme: {0} " +
+                                    "icon theme: {1}", sysGtkTheme,
+                                    sysIconTheme);
+#endif
+                if (sysGtkTheme.StartsWith("Ambiance") &&
+                    sysIconTheme != "ubuntu-mono-dark") {
+#if LOG4NET
+                    _Logger.Debug("InitGtk(): Detected Ambiance theme with "+
+                                  "light icons");
+#endif
+                    unityWithLightIcons = true;
+                }
+            }
+            var appIconDir = Path.Combine(appDir, "icons");
+            if (Directory.Exists(appIconDir) &&
+                (Frontend.IsMacOSX ||
+                 Frontend.IsWindows ||
+                 unityWithLightIcons)) {
+                var iconTheme = "Faenza-Smuxi";
+#if LOG4NET
+                _Logger.InfoFormat("InitGtk(): Setting icon theme to: {0}",
+                                    iconTheme);
+#endif
+                settings.SetStringProperty(
+                    "gtk-icon-theme-name", iconTheme, Assembly.GetExecutingAssembly().FullName
+                );
+#if LOG4NET
+                _Logger.InfoFormat("InitGtk(): Prepending {0} to icon search path",
+                                    appIconDir);
+#endif
+                theme.PrependSearchPath(appIconDir);
+            }
 
             if (HasSystemIconTheme) {
                 Gtk.Window.DefaultIconName = "smuxi-frontend-gnome";
@@ -1086,6 +1135,26 @@ namespace Smuxi.Frontend.Gnome
                 }
                 ApplyConfig(UserConfig);
             }
+        }
+
+        static string GetGtkIconThemeName()
+        {
+            // HACK: Gtk.IconTheme is not exposing gtk-icon-theme-name
+            var method = typeof(Gtk.Settings).GetMethod(
+                "GetProperty",
+                BindingFlags.Instance | BindingFlags.NonPublic
+            );
+            if (method == null) {
+#if LOG4NET
+                _Logger.Warn("GetGtkIconThemeName(): method is null!");
+#endif
+                return String.Empty;
+            }
+            var value = (string)(GLib.Value) method.Invoke(
+                Gtk.Settings.Default,
+                new object[] {"gtk-icon-theme-name"}
+            );
+            return value;
         }
 
         private static string _(string msg)
