@@ -304,24 +304,68 @@ namespace Smuxi.Engine
             LastSentId = res.Id;
         }
 
+        void FormatEvent(MessageBuilder bld, PersonModel person, string action, ChatModel chat)
+        {
+            bld.AppendEventPrefix();
+            bld.AppendIdendityName(person);
+            bld.AppendText(" has {0} {1}", action, chat.Name);
+        }
+
         void ShowMessage(object sender, MessageReceivedEventArgs args)
         {
             var message = args.Message;
             var chat = args.Chat;
-            // Don't show our own message
-            if (message.Id == LastSentId)
-                return;
+            bool processed = true;
 
             if (message.Type == Campfire.MessageType.TimestampMessage)
                 return;
 
-            var bld = CreateMessageBuilder();
-            bld.TimeStamp = message.Created_At.DateTime;
 
             CampfirePersonModel person;
             lock (Users) {
                 GetUserDetails(message.User_Id); /* Make sure we know who this is */
                 person = Users[message.User_Id];
+            }
+
+            var bld = CreateMessageBuilder();
+            bld.TimeStamp = message.Created_At.DateTime;
+            string action = "done some unknown action in";
+
+            switch (message.Type) {
+                case Campfire.MessageType.EnterMessage:
+                    action = "joined";
+                    lock (chat) {
+                        if (chat.GetPerson(person.ID) == null)
+                            Session.AddPersonToGroupChat(chat, person);
+                    }
+                    break;
+                case Campfire.MessageType.KickMessage:
+                    action = "left";
+                    lock (chat) {
+                        if (chat.GetPerson(person.ID) != null)
+                            Session.RemovePersonFromGroupChat(chat, person);
+                    }
+                    break;
+                case Campfire.MessageType.LockMessage:
+                    action = "locked";
+                    break;
+                case Campfire.MessageType.UnlockMessage:
+                    action = "unlocked";
+                    break;
+                case Campfire.MessageType.TopicChangeMessage:
+                    var topic = CreateMessageBuilder().AppendMessage(message.Body);
+                    Session.UpdateTopicInGroupChat(chat, topic.ToMessage());
+                    action = "changed topic in";
+                    break;
+                default:
+                    processed = false;
+                    break;
+            }
+
+            if (processed) {
+                FormatEvent(bld, person, action, chat);
+                Session.AddMessageToChat(chat, bld.ToMessage());
+                return;
             }
 
             bool mine = person == Me;
@@ -330,35 +374,17 @@ namespace Smuxi.Engine
             if (mine && message.Id <= LastSentId)
                 return;
 
-            if (message.Type == Campfire.MessageType.EnterMessage) {
-                bld.AppendEventPrefix();
-                bld.AppendIdendityName(person).AppendSpace();
-                bld.AppendText("has joined {0}", chat.Name);
-                lock (chat) {
-                    if (chat.GetPerson(person.ID) == null)
-                        Session.AddPersonToGroupChat(chat, person);
-                }
-            } else if (message.Type == Campfire.MessageType.KickMessage) {
-                bld.AppendEventPrefix();
-                bld.AppendIdendityName(person).AppendSpace();
-                bld.AppendText("has left {0}", chat.Name);
-                lock(chat) {
-                    if (chat.GetPerson(person.ID) != null)
-                        Session.RemovePersonFromGroupChat(chat, person);
-                }
-            } else {
-                if (mine)
-                    bld.AppendSenderPrefix(Me);
-                else
-                    bld.AppendNick(person).AppendSpace();
+            if (mine)
+                bld.AppendSenderPrefix(Me);
+            else
+                bld.AppendNick(person).AppendSpace();
 
-                if (message.Type == Campfire.MessageType.TextMessage) {
-                    bld.AppendMessage(message.Body);
-                } else if (message.Type == Campfire.MessageType.PasteMessage) {
-                    bld.AppendText("\n");
-                    foreach (string part in message.Body.Split('\n')) {
-                        bld.AppendText("    {0}\n", part);
-                    }
+            if (message.Type == Campfire.MessageType.TextMessage) {
+                bld.AppendMessage(message.Body);
+            } else if (message.Type == Campfire.MessageType.PasteMessage) {
+                bld.AppendText("\n");
+                foreach (string part in message.Body.Split('\n')) {
+                    bld.AppendText("    {0}\n", part);
                 }
             }
 

@@ -35,6 +35,9 @@ namespace Smuxi.Engine.Campfire
         TextMessage,
         PasteMessage,
         SoundMessage,
+        LockMessage,
+        UnlockMessage,
+        TopicChangeMessage,
     }
 
     public class Room {
