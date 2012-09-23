@@ -270,6 +270,7 @@ namespace Smuxi.Frontend.Gnome
                     iconName = "smuxi-group-chat";
                 }
                 var theme = Gtk.IconTheme.Default;
+#if DISABLED
                 // OPT: use icon path/name if we can, so the image (26K) is not
                 // send over D-Bus. Especially with the gnome-shell this is a
                 // serious performance issue, see:
@@ -307,12 +308,23 @@ namespace Smuxi.Frontend.Gnome
                         // fallback to icon_data as defined in DNS 0.9
                         notification.Icon = iconData;
                     }
+#endif
+                if (Frontend.HasSystemIconTheme &&
+                    iconName != null && theme.HasIcon(iconName)) {
+                    notification.IconName = iconName;
+                } else if (iconName != null && theme.HasIcon(iconName)) {
+                    // icon wasn't in the system icon theme
+                    var iconInfo = theme.LookupIcon(iconName, 256, Gtk.IconLookupFlags.UseBuiltin);
+                    if (!String.IsNullOrEmpty(iconInfo.Filename) &&
+                        File.Exists(iconInfo.Filename)) {
+                        notification.IconName = "file://" + iconInfo.Filename;
+                    }
                 } else if (iconData != null) {
                     // fallback to icon_data as the icon is not available in
                     // the theme
                     notification.Icon = iconData;
                 } else {
-                    // use generic icon for non-group/person messages
+                    // fallback for non-group/person messages
                     notification.IconName = "notification-message-im";
                 }
             } else {
