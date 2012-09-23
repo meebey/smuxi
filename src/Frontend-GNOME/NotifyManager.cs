@@ -282,11 +282,15 @@ namespace Smuxi.Frontend.Gnome
                     if (!String.IsNullOrEmpty(iconInfo.Filename) &&
                         File.Exists(iconInfo.Filename) &&
                         ServerVendor == "GNOME" &&
-                        ServerName == "Notification Daemon") {
+                        (ServerName == "Notification Daemon" ||
+                         ServerName == "gnome-shell")) {
                         // HACK: notification-daemon 0.7.5 seems to ignore
                         // the image_path hint for some reason, thus we have to
                         // rely on app_icon instead, see:
                         // https://bugzilla.gnome.org/show_bug.cgi?id=684653
+                        // HACK: gnome-shell 3.4.2 shows no notification at all
+                        // with image_path and stops responding to further
+                        // notifications which freezes Smuxi completely!
                         notification.IconName = "file://" + iconInfo.Filename;
                     } else if (!String.IsNullOrEmpty(iconInfo.Filename) &&
                                File.Exists(iconInfo.Filename) &&
