@@ -41,6 +41,8 @@ namespace Smuxi.Frontend.Gnome
         private static List<string> Capabilites { get; set; }
         private static string SoundFile { get; set; }
         private static Version SpecificationVersion { get; set; }
+        private static string ServerVendor { get; set; }
+        private static string ServerName { get; set; }
         Dictionary<ChatView, Notification> Notifications { get; set; }
         MainWindow MainWindow { get; set; }
         ChatViewManager ChatViewManager { get; set; }
@@ -136,6 +138,8 @@ namespace Smuxi.Frontend.Gnome
                              "'" + version + "'", ex);
 #endif
             }
+            ServerVendor = Global.ServerInformation.Vendor;
+            ServerName = Global.ServerInformation.Name;
 
 #if LOG4NET
             Logger.Debug(
@@ -248,20 +252,84 @@ namespace Smuxi.Frontend.Gnome
                 Summary = chatView.Name,
                 Category = "im.received"
             };
+            notification.AddHint("desktop-entry", "smuxi-frontend-gnome");
             if (Capabilites.Contains("body")) {
                 // notify-osd doesn't like unknown tags when appending
                 notification.Body = GLib.Markup.EscapeText(
                     msg.ToString()
                 );
             }
-            //notification.IconName = "notification-message-im";
             if (Capabilites.Contains("icon-static")) {
+                Gdk.Pixbuf iconData = null;
+                string iconName = null;
                 if (chatView is PersonChatView) {
-                    notification.Icon = PersonChatIconPixbuf;
+                    iconData = PersonChatIconPixbuf;
+                    iconName = "smuxi-person-chat";
+                } else if (chatView is GroupChatView) {
+                    iconData = GroupChatIconPixbuf;
+                    iconName = "smuxi-group-chat";
                 }
-                if (chatView is GroupChatView) {
-                    notification.Icon = GroupChatIconPixbuf;
+                var theme = Gtk.IconTheme.Default;
+#if DISABLED
+                // OPT: use icon path/name if we can, so the image (26K) is not
+                // send over D-Bus. Especially with the gnome-shell this is a
+                // serious performance issue, see:
+                // https://bugzilla.gnome.org/show_bug.cgi?id=683829
+                if (iconName != null && theme.HasIcon(iconName)) {
+                    // HACK: use icon path instead of name as gnome-shell does
+                    // not support icon names correctly, see:
+                    // https://bugzilla.gnome.org/show_bug.cgi?id=665957
+                    var iconInfo = theme.LookupIcon(iconName, 256, Gtk.IconLookupFlags.UseBuiltin);
+                    if (!String.IsNullOrEmpty(iconInfo.Filename) &&
+                        File.Exists(iconInfo.Filename) &&
+                        ServerVendor == "GNOME" &&
+                        (ServerName == "Notification Daemon" ||
+                         ServerName == "gnome-shell")) {
+                        // HACK: notification-daemon 0.7.5 seems to ignore
+                        // the image_path hint for some reason, thus we have to
+                        // rely on app_icon instead, see:
+                        // https://bugzilla.gnome.org/show_bug.cgi?id=684653
+                        // HACK: gnome-shell 3.4.2 shows no notification at all
+                        // with image_path and stops responding to further
+                        // notifications which freezes Smuxi completely!
+                        notification.IconName = "file://" + iconInfo.Filename;
+                    } else if (!String.IsNullOrEmpty(iconInfo.Filename) &&
+                               File.Exists(iconInfo.Filename) &&
+                               SpecificationVersion >= new Version("1.1")) {
+                        // starting with DNS >= 1.1 we can use the image-path
+                        // hint instead of icon_data or app_icon
+                        var hintName = "image_path";
+                        if (SpecificationVersion >= new Version("1.2")) {
+                            hintName = "image-path";
+                        }
+                        notification.AddHint(hintName,
+                                             "file://" + iconInfo.Filename);
+                    } else {
+                        // fallback to icon_data as defined in DNS 0.9
+                        notification.Icon = iconData;
+                    }
+#endif
+                if (Frontend.HasSystemIconTheme &&
+                    iconName != null && theme.HasIcon(iconName)) {
+                    notification.IconName = iconName;
+                } else if (iconName != null && theme.HasIcon(iconName)) {
+                    // icon wasn't in the system icon theme
+                    var iconInfo = theme.LookupIcon(iconName, 256, Gtk.IconLookupFlags.UseBuiltin);
+                    if (!String.IsNullOrEmpty(iconInfo.Filename) &&
+                        File.Exists(iconInfo.Filename)) {
+                        notification.IconName = "file://" + iconInfo.Filename;
+                    }
+                } else if (iconData != null) {
+                    // fallback to icon_data as the icon is not available in
+                    // the theme
+                    notification.Icon = iconData;
+                } else {
+                    // fallback for non-group/person messages
+                    notification.IconName = "notification-message-im";
                 }
+            } else {
+                // fallback to generic icon
+                notification.IconName = "notification-message-im";
             }
             if (Capabilites.Contains("actions")) {
                 notification.AddAction("show", _("Show"), delegate {

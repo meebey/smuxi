@@ -4,6 +4,8 @@ EXTRA_DIST = $(WIN_ICON) $(DESKTOP_FILE).in
 ICON_NAME = smuxi-frontend-gnome
 ICON_NAME_PNG = $(ICON_NAME).png
 ICON_SVG = $(ICON_NAME).svg
+GROUP_CHAT_ICON_NAME = smuxi-group-chat
+PERSON_CHAT_ICON_NAME = smuxi-person-chat
 ICON_16 = $(top_builddir)/images/16/$(ICON_NAME_PNG)
 ICON_22 = $(top_builddir)/images/22/$(ICON_NAME_PNG)
 ICON_24 = $(top_builddir)/images/24/$(ICON_NAME_PNG)
@@ -31,7 +33,10 @@ icon48_DATA = $(ICON_48)
 icon128dir = $(THEME_DIR)/128x128/apps
 icon128_DATA = $(ICON_128)
 icon256dir = $(THEME_DIR)/256x256/apps
-icon256_DATA = $(ICON_256)
+icon256_DATA = \
+	$(ICON_256) \
+	$(top_builddir)/images/256/$(GROUP_CHAT_ICON_NAME).png \
+	$(top_builddir)/images/256/$(PERSON_CHAT_ICON_NAME).png
 
 gtk_update_icon_cache = gtk-update-icon-cache -f -t $(THEME_DIR)
 
@@ -100,6 +105,10 @@ $(ICON_128):
 	$(INSTALL) -D -m644 $(top_srcdir)/images/icon_128x128.png $@
 $(ICON_256):
 	$(INSTALL) -D -m644 $(top_srcdir)/images/icon_256x256.png $@
+$(top_builddir)/images/256/$(GROUP_CHAT_ICON_NAME).png:
+	$(INSTALL) -D -m644 $(top_srcdir)/images/group-chat_256x256.png $@
+$(top_builddir)/images/256/$(PERSON_CHAT_ICON_NAME).png:
+	$(INSTALL) -D -m644 $(top_srcdir)/images/person-chat_256x256.png $@
 
 FILES = \
 	$(top_srcdir)/src/AssemblyVersion.cs \
@@ -210,7 +219,9 @@ REFERENCES =  \
 
 DLL_REFERENCES = 
 
-CLEANFILES = $(LINUX_DESKTOPAPPLICATIONS) $(PROGRAMFILES) $(BINARIES)
+CLEANFILES = $(LINUX_DESKTOPAPPLICATIONS) $(PROGRAMFILES) $(BINARIES) \
+	$(top_builddir)/images/256/$(GROUP_CHAT_ICON_NAME).png \
+	$(top_builddir)/images/256/$(PERSON_CHAT_ICON_NAME).png
 
 include $(top_srcdir)/Makefile.include
 
