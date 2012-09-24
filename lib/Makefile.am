@@ -8,20 +8,24 @@ XBUILD_FLAGS += /p:Configuration=Debug /p:SignAssembly=false /p:WarningLevel=0 /
 SERVICESTACK_TEXT_SUBDIR = ServiceStack.Text
 SERVICESTACK_TEXT_SRCDIR = $(srcdir)/$(SERVICESTACK_TEXT_SUBDIR)/src/ServiceStack.Text
 SERVICESTACK_TEXT_SOURCE_FILES = $(foreach pattern, $(SOURCE_PATTERNS), $(wildcard $(SERVICESTACK_TEXT_SRCDIR)/$(pattern)))
+SERVICESTACK_TEXT_EXTRA_FILES = $(SERVICESTACK_TEXT_BUILD_FILE)
 SERVICESTACK_TEXT_ASSEMBLY_NAME = ServiceStack.Text.dll
 SERVICESTACK_TEXT_ASSEMBLY_TARGET = $(OUTPUT_DIR)/$(SERVICESTACK_TEXT_ASSEMBLY_NAME)
 SERVICESTACK_TEXT_BUILD_FILE = $(SERVICESTACK_TEXT_SRCDIR)/ServiceStack.Text.csproj
 SERVICESTACK_TEXT_XBUILD_FLAGS = $(XBUILD_FLAGS)
 
 SERVICESTACK_SUBDIR = ServiceStack
+SERVICESTACK_SRCDIR = $(srcdir)/$(SERVICESTACK_SUBDIR)
 SERVICESTACK_INTERFACES_SRCDIR = $(srcdir)/$(SERVICESTACK_SUBDIR)/src/ServiceStack.Interfaces
 SERVICESTACK_INTERFACES_SOURCE_FILES = $(foreach pattern, $(SOURCE_PATTERNS), $(wildcard $(SERVICESTACK_INTERFACES_SRCDIR)/$(pattern)))
+SERVICESTACK_INTERFACES_EXTRA_FILES = $(SERVICESTACK_INTERFACES_BUILD_FILE)
 SERVICESTACK_INTERFACES_ASSEMBLY_NAME = ServiceStack.Interfaces.dll
 SERVICESTACK_INTERFACES_ASSEMBLY_TARGET = $(OUTPUT_DIR)/$(SERVICESTACK_INTERFACES_ASSEMBLY_NAME)
 SERVICESTACK_INTERFACES_BUILD_FILE = $(SERVICESTACK_INTERFACES_SRCDIR)/ServiceStack.Interfaces.csproj
 SERVICESTACK_INTERFACES_XBUILD_FLAGS = $(XBUILD_FLAGS)
 SERVICESTACK_COMMON_SRCDIR = $(srcdir)/$(SERVICESTACK_SUBDIR)/src/ServiceStack.Common
 SERVICESTACK_COMMON_SOURCE_FILES = $(foreach pattern, $(SOURCE_PATTERNS), $(wildcard $(SERVICESTACK_COMMON_SRCDIR)/$(pattern)))
+SERVICESTACK_COMMON_EXTRA_FILES = $(SERVICESTACK_COMMON_BUILD_FILE)
 SERVICESTACK_COMMON_ASSEMBLY_NAME = ServiceStack.Common.dll
 SERVICESTACK_COMMON_ASSEMBLY_TARGET = $(OUTPUT_DIR)/$(SERVICESTACK_COMMON_ASSEMBLY_NAME)
 SERVICESTACK_COMMON_BUILD_FILE = $(SERVICESTACK_COMMON_SRCDIR)/ServiceStack.Common.csproj
@@ -35,6 +39,9 @@ EXTRA_SERVICESTACK_LIBS = \
 JSON_SUBDIR = Newtonsoft.Json
 JSON_SRCDIR = $(srcdir)/$(JSON_SUBDIR)/Src/Newtonsoft.Json
 JSON_SOURCE_FILES = $(foreach pattern, $(SOURCE_PATTERNS), $(wildcard $(JSON_SRCDIR)/$(pattern)))
+JSON_EXTRA_FILES = \
+	$(JSON_BUILD_FILE) \
+	$(JSON_SRCDIR)/Dynamic.snk
 JSON_CLEAN_FILES = $(OBJECT_DIR)/Newtonsoft.Json.Dynamic.snk
 JSON_ASSEMBLY_NAME = Newtonsoft.Json.dll
 JSON_ASSEMBLY_TARGET = $(OUTPUT_DIR)/$(JSON_ASSEMBLY_NAME)
@@ -44,7 +51,13 @@ JSON_XBUILD_FLAGS = $(XBUILD_FLAGS)
 TWITTERIZER_SUBDIR = Twitterizer
 TWITTERIZER_SRCDIR = $(srcdir)/$(TWITTERIZER_SUBDIR)/Twitterizer2
 TWITTERIZER_SOURCE_FILES = $(foreach pattern, ../*.cs $(SOURCE_PATTERNS), $(wildcard $(TWITTERIZER_SRCDIR)/$(pattern)))
-TWITTERIZER_EXTRA_FILES = $(TWITTERIZER_SRCDIR)/Twitterizer2.snk $(TWITTERIZER_SRCDIR)/../GettingStarted.txt $(TWITTERIZER_SRCDIR)/../Json.NET.license.txt $(TWITTERIZER_SRCDIR)/../Twitterizer2.license.txt
+TWITTERIZER_EXTRA_FILES = \
+	$(TWITTERIZER_BUILD_FILE) \
+	$(TWITTERIZER_SRCDIR)/Twitterizer2.snk \
+	$(TWITTERIZER_SRCDIR)/../CommonAssemblyInfo.cs \
+	$(TWITTERIZER_SRCDIR)/../GettingStarted.txt \
+	$(TWITTERIZER_SRCDIR)/../Json.NET.license.txt \
+	$(TWITTERIZER_SRCDIR)/../Twitterizer2.license.txt
 TWITTERIZER_CLEAN_FILES = \
 	$(OUTPUT_DIR)/.license.txt \
 	$(OUTPUT_DIR)/Twitterizer2.license.txt \
@@ -58,7 +71,9 @@ TWITTERIZER_XBUILD_FLAGS = $(XBUILD_FLAGS) /p:PostBuildEvent=
 JABBER_NET_SUBDIR = jabber-net
 JABBER_NET_SRCDIR = $(srcdir)/$(JABBER_NET_SUBDIR)
 JABBER_NET_SOURCE_FILES = $(foreach pattern, $(SOURCE_PATTERNS), $(wildcard $(JABBER_NET_SRCDIR)/$(pattern)))
-JABBER_NET_EXTRA_FILES = $(wildcard $(JABBER_NET_SRCDIR)/jabber/*/*.bmp) $(wildcard $(JABBER_NET_SRCDIR)/jabber/*/*.resx)
+JABBER_NET_EXTRA_FILES = \
+	$(JABBER_NET_BUILD_FILE) \
+	$(wildcard $(JABBER_NET_SRCDIR)/jabber/*/*.bmp) $(wildcard $(JABBER_NET_SRCDIR)/jabber/*/*.resx)
 JABBER_NET_CLEAN_FILES = $(wildcard $(OBJECT_DIR)/*.bmp)
 JABBER_NET_ASSEMBLY_NAME = jabber-net.dll
 JABBER_NET_ASSEMBLY_TARGET = $(OUTPUT_DIR)/$(JABBER_NET_ASSEMBLY_NAME)
@@ -68,24 +83,25 @@ JABBER_NET_XBUILD_FLAGS = $(XBUILD_FLAGS)
 DB4O_SUBDIR = db4o-net
 DB4O_SRCDIR = $(srcdir)/$(DB4O_SUBDIR)/Db4objects.Db4o
 DB4O_SOURCE_FILES = $(foreach pattern, $(SOURCE_PATTERNS), $(wildcard $(DB4O_SRCDIR)/$(pattern)))
+DB4O_EXTRA_FILES = $(DB4O_BUILD_FILE)
 DB4O_ASSEMBLY_NAME = Db4objects.Db4o.dll
 DB4O_ASSEMBLY_TARGET = $(OUTPUT_DIR)/$(DB4O_ASSEMBLY_NAME)
 DB4O_BUILD_FILE = $(DB4O_SRCDIR)/Db4objects.Db4o-2008.csproj
 DB4O_XBUILD_FLAGS = $(XBUILD_FLAGS) /property:DefineConstants="NET_3_5,MONO,EMBEDDED"
 
-DB4O_INSTR_SRCDIR = $(srcdir)/$(DB4O_SUBDIR)/Db4objects.Db4o.Instrumentation
-DB4O_INSTR_SOURCE_FILES = $(foreach pattern, $(SOURCE_PATTERNS), $(wildcard $(DB4O_INSTR_SRCDIR)/$(pattern)))
-DB4O_INSTR_ASSEMBLY_NAME = Db4objects.Db4o.Instrumentation.dll
-DB4O_INSTR_ASSEMBLY_TARGET = $(OUTPUT_DIR)/$(DB4O_INSTR_ASSEMBLY_NAME)
-DB4O_INSTR_BUILD_FILE = $(DB4O_INSTR_SRCDIR)/Db4objects.Db4o.Instrumentation-2008.csproj
-DB4O_INSTR_XBUILD_FLAGS = $(DB4O_XBUILD_FLAGS)
+#DB4O_INSTR_SRCDIR = $(srcdir)/$(DB4O_SUBDIR)/Db4objects.Db4o.Instrumentation
+#DB4O_INSTR_SOURCE_FILES = $(foreach pattern, $(SOURCE_PATTERNS), $(wildcard $(DB4O_INSTR_SRCDIR)/$(pattern)))
+#DB4O_INSTR_ASSEMBLY_NAME = Db4objects.Db4o.Instrumentation.dll
+#DB4O_INSTR_ASSEMBLY_TARGET = $(OUTPUT_DIR)/$(DB4O_INSTR_ASSEMBLY_NAME)
+#DB4O_INSTR_BUILD_FILE = $(DB4O_INSTR_SRCDIR)/Db4objects.Db4o.Instrumentation-2008.csproj
+#DB4O_INSTR_XBUILD_FLAGS = $(DB4O_XBUILD_FLAGS)
 
-DB4O_NQ_SRCDIR = $(srcdir)/$(DB4O_SUBDIR)/Db4objects.Db4o.NativeQueries
-DB4O_NQ_SOURCE_FILES = $(foreach pattern, $(SOURCE_PATTERNS), $(wildcard $(DB4O_NQ_SRCDIR)/$(pattern)))
-DB4O_NQ_ASSEMBLY_NAME = Db4objects.Db4o.NativeQueries.dll
-DB4O_NQ_ASSEMBLY_TARGET = $(OUTPUT_DIR)/$(DB4O_NQ_ASSEMBLY_NAME)
-DB4O_NQ_BUILD_FILE = $(DB4O_NQ_SRCDIR)/Db4objects.Db4o.NativeQueries-2008.csproj
-DB4O_NQ_XBUILD_FLAGS = $(DB4O_XBUILD_FLAGS)
+#DB4O_NQ_SRCDIR = $(srcdir)/$(DB4O_SUBDIR)/Db4objects.Db4o.NativeQueries
+#DB4O_NQ_SOURCE_FILES = $(foreach pattern, $(SOURCE_PATTERNS), $(wildcard $(DB4O_NQ_SRCDIR)/$(pattern)))
+#DB4O_NQ_ASSEMBLY_NAME = Db4objects.Db4o.NativeQueries.dll
+#DB4O_NQ_ASSEMBLY_TARGET = $(OUTPUT_DIR)/$(DB4O_NQ_ASSEMBLY_NAME)
+#DB4O_NQ_BUILD_FILE = $(DB4O_NQ_SRCDIR)/Db4objects.Db4o.NativeQueries-2008.csproj
+#DB4O_NQ_XBUILD_FLAGS = $(DB4O_XBUILD_FLAGS)
 
 # magic automake variables
 if ENABLE_ENGINE_TWITTER
@@ -107,15 +123,23 @@ pkgappdir = $(pkglibdir)
 pkgapp_DATA = $(EXTRA_SERVICESTACK_LIBS) $(EXTRA_TWITTER_LIBS) $(EXTRA_XMPP_LIBS) $(EXTRA_DB4O_LIBS)
 
 EXTRA_DIST = \
-	 $(SERVICESTACK_TEXT_SOURCE_FILES) $(SERVICESTACK_TEXT_BUILD_FILE) \
-	 $(SERVICESTACK_INTERFACES_SOURCE_FILES) $(SERVICESTACK_INTERFACES_BUILD_FILE) \
-	 $(SERVICESTACK_COMMON_SOURCE_FILES) $(SERVICESTACK_COMMON_BUILD_FILE) \
-	 $(JSON_SOURCE_FILES) $(JSON_BUILD_FILE) $(JSON_SRCDIR)/Dynamic.snk \
-	 $(TWITTERIZER_SOURCE_FILES) $(TWITTERIZER_EXTRA_FILES) $(TWITTERIZER_BUILD_FILE) \
-	 $(JABBER_NET_SOURCE_FILES) $(JABBER_NET_EXTRA_FILES) $(JABBER_NET_BUILD_FILE) \
-	 $(DB4O_SOURCE_FILES) $(DB4O_BUILD_FILE) \
-	 $(DB4O_INSTR_SOURCE_FILES) $(DB4O_INSTR_BUILD_FILE) \
-	 $(DB4O_NQ_SOURCE_FILES) $(DB4O_NQ_BUILD_FILE)
+	$(SERVICESTACK_TEXT_SRCDIR) $(SERVICESTACK_TEXT_EXTRA_FILES) \
+	$(SERVICESTACK_INTERFACES_SRCDIR) $(SERVICESTACK_INTERFACES_EXTRA_FILES) \
+	$(SERVICESTACK_COMMON_SRCDIR) $(SERVICESTACK_COMMON_EXTRA_FILES) \
+	$(JSON_SRCDIR) $(JSON_EXTRA_FILES) \
+	$(TWITTERIZER_SRCDIR) $(TWITTERIZER_EXTRA_FILES) \
+	$(JABBER_NET_SRCDIR) $(JABBER_NET_EXTRA_FILES) \
+	$(DB4O_SRCDIR) $(DB4O_EXTRA_FILES)
+
+#	 $(SERVICESTACK_TEXT_SOURCE_FILES) $(SERVICESTACK_TEXT_BUILD_FILE) \
+#	 $(SERVICESTACK_INTERFACES_SOURCE_FILES) $(SERVICESTACK_INTERFACES_BUILD_FILE) \
+#	 $(SERVICESTACK_COMMON_SOURCE_FILES) $(SERVICESTACK_COMMON_BUILD_FILE) \
+#	 $(JSON_SOURCE_FILES) $(JSON_BUILD_FILE) $(JSON_SRCDIR)/Dynamic.snk \
+#	 $(TWITTERIZER_SOURCE_FILES) $(TWITTERIZER_EXTRA_FILES) $(TWITTERIZER_BUILD_FILE) \
+#	 $(JABBER_NET_SOURCE_FILES) $(JABBER_NET_EXTRA_FILES) $(JABBER_NET_BUILD_FILE) \
+#	 $(DB4O_SOURCE_FILES) $(DB4O_BUILD_FILE) \
+#	 $(DB4O_INSTR_SOURCE_FILES) $(DB4O_INSTR_BUILD_FILE) \
+#	 $(DB4O_NQ_SOURCE_FILES) $(DB4O_NQ_BUILD_FILE)
 
 CLEANFILES = \
 	$(JSON_CLEAN_FILES) \
@@ -144,11 +168,11 @@ $(JABBER_NET_ASSEMBLY_TARGET) $(JABBER_NET_ASSEMBLY_TARGET).mdb: $(JABBER_NET_BU
 $(DB4O_ASSEMBLY_TARGET) $(DB4O_ASSEMBLY_TARGET).mdb: $(DB4O_BUILD_FILE) $(DB4O_SOURCE_FILES)
 	$(XBUILD) $(DB4O_XBUILD_FLAGS) $(DB4O_BUILD_FILE)
 
-$(DB4O_INSTR_ASSEMBLY_TARGET) $(DB4O_INSTR_ASSEMBLY_TARGET).mdb: $(DB4O_INSTR_BUILD_FILE) $(DB4O_INSTR_SOURCE_FILES)
-	$(XBUILD) $(DB4O_INSTR_XBUILD_FLAGS) $(DB4O_INSTR_BUILD_FILE)
+#$(DB4O_INSTR_ASSEMBLY_TARGET) $(DB4O_INSTR_ASSEMBLY_TARGET).mdb: $(DB4O_INSTR_BUILD_FILE) $(DB4O_INSTR_SOURCE_FILES)
+#	$(XBUILD) $(DB4O_INSTR_XBUILD_FLAGS) $(DB4O_INSTR_BUILD_FILE)
 
-$(DB4O_NQ_ASSEMBLY_TARGET) $(DB4O_NQ_ASSEMBLY_TARGET).mdb: $(DB4O_NQ_BUILD_FILE) $(DB4O_NQ_SOURCE_FILES)
-	$(XBUILD) $(DB4O_NQ_XBUILD_FLAGS) $(DB4O_NQ_BUILD_FILE)
+#$(DB4O_NQ_ASSEMBLY_TARGET) $(DB4O_NQ_ASSEMBLY_TARGET).mdb: $(DB4O_NQ_BUILD_FILE) $(DB4O_NQ_SOURCE_FILES)
+#	$(XBUILD) $(DB4O_NQ_XBUILD_FLAGS) $(DB4O_NQ_BUILD_FILE)
 
 clean-local:
 	$(XBUILD) $(SERVICESTACK_TEXT_XBUILD_FLAGS) /t:Clean $(SERVICESTACK_TEXT_BUILD_FILE)
@@ -166,3 +190,73 @@ if BUNDLE_DB4O
 #	$(XBUILD) $(DB4O_INSTR_XBUILD_FLAGS) /t:Clean $(DB4O_INSTR_BUILD_FILE)
 #	$(XBUILD) $(DB4O_NQ_XBUILD_FLAGS) /t:Clean $(DB4O_NQ_BUILD_FILE)
 endif
+
+distdir: $(DISTFILES) $(DIST_SUBDIRS)
+	$(am__remove_distdir)
+	test -d "$(distdir)" || mkdir "$(distdir)"
+	@for DISTFILE in $(DISTFILES); do \
+		if [ -d "$$DISTFILE" ]; then \
+			mkdir -p $(distdir)/$(srcdir)/$$DISTFILE; \
+			rsync -a \
+				--prune-empty-dirs \
+				--include='*/' \
+				--include='*.cs' \
+				--exclude='*' \
+				$$DISTFILE/ $(distdir)/$(srcdir)/$$DISTFILE; \
+		else \
+			srcdirstrip=`echo "$(srcdir)" | sed 's/[].[^$$\\*]/\\\\&/g'`; \
+			topsrcdirstrip=`echo "$(top_srcdir)" | sed 's/[].[^$$\\*]/\\\\&/g'`; \
+			list="$$DISTFILE"; \
+			  dist_files=`for file in $$list; do echo $$file; done | \
+			  sed -e "s|^$$srcdirstrip/||;t" \
+				  -e "s|^$$topsrcdirstrip/|$(top_builddir)/|;t"`; \
+			case $$dist_files in \
+			  */*) $(MKDIR_P) `echo "$$dist_files" | \
+					   sed '/\//!d;s|^|$(distdir)/|;s,/[^/]*$$,,' | \
+					   sort -u` ;; \
+			esac; \
+			for file in $$dist_files; do \
+			  if test -f $$file || test -d $$file; then d=.; else d=$(srcdir); fi; \
+			  if test -d $$d/$$file; then \
+				dir=`echo "/$$file" | sed -e 's,/[^/]*$$,,'`; \
+				if test -d "$(distdir)/$$file"; then \
+				  find "$(distdir)/$$file" -type d ! -perm -700 -exec chmod u+rwx {} \;; \
+				fi; \
+				if test -d $(srcdir)/$$file && test $$d != $(srcdir); then \
+				  cp -fpR $(srcdir)/$$file "$(distdir)$$dir" || exit 1; \
+				  find "$(distdir)/$$file" -type d ! -perm -700 -exec chmod u+rwx {} \;; \
+				fi; \
+				cp -fpR $$d/$$file "$(distdir)$$dir" || exit 1; \
+			  else \
+				test -f "$(distdir)/$$file" \
+				|| cp -p $$d/$$file "$(distdir)/$$file" \
+				|| exit 1; \
+			  fi; \
+			done; \
+		fi \
+	done
+	@list='$(DIST_SUBDIRS)'; for subdir in $$list; do \
+	  if test "$$subdir" = .; then :; else \
+	    $(am__make_dryrun) \
+	      || test -d "$(distdir)/$$subdir" \
+	      || $(MKDIR_P) "$(distdir)/$$subdir" \
+	      || exit 1; \
+	    dir1=$$subdir; dir2="$(distdir)/$$subdir"; \
+	    $(am__relativize); \
+	    new_distdir=$$reldir; \
+	    dir1=$$subdir; dir2="$(top_distdir)"; \
+	    $(am__relativize); \
+	    new_top_distdir=$$reldir; \
+	    echo " (cd $$subdir && $(MAKE) $(AM_MAKEFLAGS) top_distdir="$$new_top_distdir" distdir="$$new_distdir" \\"; \
+	    echo "     am__remove_distdir=: am__skip_length_check=: am__skip_mode_fix=: distdir)"; \
+	    ($(am__cd) $$subdir && \
+	      $(MAKE) $(AM_MAKEFLAGS) \
+	        top_distdir="$$new_top_distdir" \
+	        distdir="$$new_distdir" \
+		am__remove_distdir=: \
+		am__skip_length_check=: \
+		am__skip_mode_fix=: \
+	        distdir) \
+	      || exit 1; \
+	  fi; \
+	done
