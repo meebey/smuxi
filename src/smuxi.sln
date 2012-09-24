@@ -57,6 +57,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "netlib.Dns", "..\lib\jabber
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Db4objects.Db4o-2010", "..\lib\db4o-net\Db4objects.Db4o\Db4objects.Db4o-2010.csproj", "{600CD3BF-2ED2-4183-87F7-ADD78A968AE0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceStack.Text", "..\lib\ServiceStack.Text\src\ServiceStack.Text\ServiceStack.Text.csproj", "{579B3FDB-CDAD-44E1-8417-885C38E49A0E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceStack.Interfaces", "..\lib\ServiceStack\src\ServiceStack.Interfaces\ServiceStack.Interfaces.csproj", "{42E1C8C0-A163-44CC-92B1-8F416F2C0B01}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceStack.Common", "..\lib\ServiceStack\src\ServiceStack.Common\ServiceStack.Common.csproj", "{982416DB-C143-4028-A0C3-CF41892D18D3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Release|Any CPU = Release|Any CPU
@@ -124,6 +130,12 @@ Global
 		{41CA5F1D-83A0-48D6-A4D3-DDF801272056}.Debug-Win32|Any CPU.Build.0 = Debug|Any CPU
 		{41CA5F1D-83A0-48D6-A4D3-DDF801272056}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{41CA5F1D-83A0-48D6-A4D3-DDF801272056}.Release|Any CPU.Build.0 = Release|Any CPU
+		{42E1C8C0-A163-44CC-92B1-8F416F2C0B01}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{42E1C8C0-A163-44CC-92B1-8F416F2C0B01}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{42E1C8C0-A163-44CC-92B1-8F416F2C0B01}.Debug-Win32|Any CPU.ActiveCfg = Debug|Any CPU
+		{42E1C8C0-A163-44CC-92B1-8F416F2C0B01}.Debug-Win32|Any CPU.Build.0 = Debug|Any CPU
+		{42E1C8C0-A163-44CC-92B1-8F416F2C0B01}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{42E1C8C0-A163-44CC-92B1-8F416F2C0B01}.Release|Any CPU.Build.0 = Release|Any CPU
 		{4820E490-C03D-4794-BE00-C49DD0F0C651}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{4820E490-C03D-4794-BE00-C49DD0F0C651}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4820E490-C03D-4794-BE00-C49DD0F0C651}.Debug-Win32|Any CPU.ActiveCfg = Debug|Any CPU
@@ -136,6 +148,12 @@ Global
 		{52C5C937-774E-4279-82E1-890EDE4F4759}.Debug-Win32|Any CPU.Build.0 = Debug|Any CPU
 		{52C5C937-774E-4279-82E1-890EDE4F4759}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{52C5C937-774E-4279-82E1-890EDE4F4759}.Release|Any CPU.Build.0 = Release|Any CPU
+		{579B3FDB-CDAD-44E1-8417-885C38E49A0E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{579B3FDB-CDAD-44E1-8417-885C38E49A0E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{579B3FDB-CDAD-44E1-8417-885C38E49A0E}.Debug-Win32|Any CPU.ActiveCfg = Debug|Any CPU
+		{579B3FDB-CDAD-44E1-8417-885C38E49A0E}.Debug-Win32|Any CPU.Build.0 = Debug|Any CPU
+		{579B3FDB-CDAD-44E1-8417-885C38E49A0E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{579B3FDB-CDAD-44E1-8417-885C38E49A0E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{5C3F617A-3811-49DE-A6ED-4F726BAAAE4D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{5C3F617A-3811-49DE-A6ED-4F726BAAAE4D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5C3F617A-3811-49DE-A6ED-4F726BAAAE4D}.Debug-Win32|Any CPU.ActiveCfg = Debug|Any CPU
@@ -178,6 +196,12 @@ Global
 		{95C1E256-73E7-4AAB-AA0B-405B51F7CF5A}.Debug-Win32|Any CPU.Build.0 = Debug|Any CPU
 		{95C1E256-73E7-4AAB-AA0B-405B51F7CF5A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{95C1E256-73E7-4AAB-AA0B-405B51F7CF5A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{982416DB-C143-4028-A0C3-CF41892D18D3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{982416DB-C143-4028-A0C3-CF41892D18D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{982416DB-C143-4028-A0C3-CF41892D18D3}.Debug-Win32|Any CPU.ActiveCfg = Debug|Any CPU
+		{982416DB-C143-4028-A0C3-CF41892D18D3}.Debug-Win32|Any CPU.Build.0 = Debug|Any CPU
+		{982416DB-C143-4028-A0C3-CF41892D18D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{982416DB-C143-4028-A0C3-CF41892D18D3}.Release|Any CPU.Build.0 = Release|Any CPU
 		{A9AE40FF-1A21-414A-9FE7-3BE13644CC6D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{A9AE40FF-1A21-414A-9FE7-3BE13644CC6D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A9AE40FF-1A21-414A-9FE7-3BE13644CC6D}.Debug-Win32|Any CPU.ActiveCfg = Debug|Any CPU

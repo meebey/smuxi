@@ -13,3 +13,9 @@
 [submodule "lib/jabber-net"]
 	path = lib/jabber-net
 	url = git://git.qnetp.net/jabber-net.git
+[submodule "lib/ServiceStack.Text"]
+	path = lib/ServiceStack.Text
+	url = git://git.qnetp.net/ServiceStack.Text.git
+[submodule "lib/ServiceStack"]
+	path = lib/ServiceStack
+	url = git://git.qnetp.net/ServiceStack.git
