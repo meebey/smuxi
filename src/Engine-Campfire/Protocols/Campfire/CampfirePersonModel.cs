@@ -27,7 +27,7 @@ using Smuxi.Engine.Campfire;
 namespace Smuxi.Engine.Campfire
 {
     [Serializable]
-    public class CampfirePersonModel : PersonModel
+    internal class CampfirePersonModel : PersonModel
     {
         public int Uid { get; internal set; }
         public string Ident { get; internal set; }

@@ -29,7 +29,7 @@ using Smuxi.Engine.Campfire;
 
 namespace Smuxi.Engine
 {
-    public class MessageReceivedEventArgs : EventArgs
+    internal class MessageReceivedEventArgs : EventArgs
     {
         public GroupChatModel Chat { get; private set; }
         public Message Message { get; private set; }
@@ -41,7 +41,7 @@ namespace Smuxi.Engine
         }
     }
 
-    public class CampfireEventStream : IDisposable
+    internal class CampfireEventStream : IDisposable
     {
         public EventHandler<MessageReceivedEventArgs> MessageReceived;
 

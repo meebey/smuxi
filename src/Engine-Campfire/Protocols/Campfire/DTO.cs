@@ -21,14 +21,14 @@ using System;
 
 namespace Smuxi.Engine.Campfire
 {
-    public class UserResponse { public User User { get; set; } }
-    public class RoomsResponse { public Room[] Rooms { get; set; } }
-    public class RoomResponse { public Room Room { get; set; } }
-    public class MessagesResponse { public Message[] Messages { get; set; } }
-    public class MessageResponse { public Message Message { get; set; } }
-    public class MessageWrapper { public MessageSending message { get; set; } }
+    internal class UserResponse { public User User { get; set; } }
+    internal class RoomsResponse { public Room[] Rooms { get; set; } }
+    internal class RoomResponse { public Room Room { get; set; } }
+    internal class MessagesResponse { public Message[] Messages { get; set; } }
+    internal class MessageResponse { public Message Message { get; set; } }
+    internal class MessageWrapper { public MessageSending message { get; set; } }
 
-    public enum MessageType {
+    internal enum MessageType {
         EnterMessage,
         KickMessage,
         TimestampMessage,
@@ -40,7 +40,7 @@ namespace Smuxi.Engine.Campfire
         TopicChangeMessage,
     }
 
-    public class Room {
+    internal class Room {
         public string Topic { get; set; }
         public string Name { get; set; }
         public int Id { get; set; }
@@ -51,7 +51,7 @@ namespace Smuxi.Engine.Campfire
         public User[] Users { get; set; }
     }
 
-    public class User {
+    internal class User {
         public int Id { get; set; }
         public string Name { get; set; }
         public string Email_Address { get; set; }
@@ -62,12 +62,12 @@ namespace Smuxi.Engine.Campfire
         public string Api_Auth_Token { get; set; }
     }
 
-    public class MessageSending {
+    internal class MessageSending {
         public MessageType type { get; set; }
         public string body { get; set; }
     }
 
-    public class Message {
+    internal class Message {
         public int Id { get; set; }
         public string Body { get; set; }
         public int Room_Id { get; set; }
