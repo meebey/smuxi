@@ -152,7 +152,10 @@ OSX_FILES = \
 	$(BUILD_DIR)/Twitterizer2.dll \
 	$(BUILD_DIR)/Newtonsoft.Json.dll \
 	$(BUILD_DIR)/jabber-net.dll \
-	$(BUILD_DIR)/Db4objects.Db4o.dll
+	$(BUILD_DIR)/Db4objects.Db4o.dll \
+	$(BUILD_DIR)/ServiceStack.Text.dll \
+	$(BUILD_DIR)/ServiceStack.Interfaces.dll \
+	$(BUILD_DIR)/ServiceStack.Common.dll
 
 LINUX_STATIC_FILES = \
 	$(LIB_DIR)/Mono.Posix.dll \
