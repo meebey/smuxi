@@ -157,8 +157,11 @@ namespace Smuxi.Engine
 
             var myrooms = Client.Get<RoomsResponse>("/presence.json").Rooms;
             if (myrooms.Length > 0) {
-                bld = CreateMessageBuilder().AppendEventPrefix()
-                    .AppendText("Present in {0}", String.Join(", ", myrooms.Select(r => r.Name)));
+                bld = CreateMessageBuilder().
+                    AppendEventPrefix().
+                    AppendText("Present in {0}",
+                        String.Join(", ", myrooms.Select(r => r.Name).ToArray())
+                    );
                 Session.AddMessageToChat(NetworkChat, bld.ToMessage());
             }
 
