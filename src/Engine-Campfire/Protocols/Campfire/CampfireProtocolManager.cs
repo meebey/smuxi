@@ -24,7 +24,6 @@ using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
-using System.Threading.Tasks;
 using Smuxi.Common;
 using Smuxi.Engine.Campfire;
 using ServiceStack.ServiceClient.Web;
