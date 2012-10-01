@@ -63,11 +63,17 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceStack.Interfaces", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceStack.Common", "..\lib\ServiceStack\src\ServiceStack.Common\ServiceStack.Common.csproj", "{982416DB-C143-4028-A0C3-CF41892D18D3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Engine-Campfire", "Engine-Campfire\Engine-Campfire.csproj", "{1006D905-798E-4039-B9CC-37FB8707F84A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Release|Any CPU = Release|Any CPU
 		Debug|Any CPU = Debug|Any CPU
 		Debug-Win32|Any CPU = Debug-Win32|Any CPU
+		DEBUG MONO|Any CPU = DEBUG MONO|Any CPU
+		MONOTOUCH|Any CPU = MONOTOUCH|Any CPU
+		STATIC_ONLY NO_EXPRESSIONS|Any CPU = STATIC_ONLY NO_EXPRESSIONS|Any CPU
+		MonoTouch|Any CPU = MonoTouch|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{06A95A33-EB35-4572-AC92-0887DAF75D7E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -76,6 +82,12 @@ Global
 		{06A95A33-EB35-4572-AC92-0887DAF75D7E}.Debug-Win32|Any CPU.Build.0 = Debug|Any CPU
 		{06A95A33-EB35-4572-AC92-0887DAF75D7E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{06A95A33-EB35-4572-AC92-0887DAF75D7E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1006D905-798E-4039-B9CC-37FB8707F84A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1006D905-798E-4039-B9CC-37FB8707F84A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1006D905-798E-4039-B9CC-37FB8707F84A}.Debug-Win32|Any CPU.ActiveCfg = Debug|Any CPU
+		{1006D905-798E-4039-B9CC-37FB8707F84A}.Debug-Win32|Any CPU.Build.0 = Debug|Any CPU
+		{1006D905-798E-4039-B9CC-37FB8707F84A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1006D905-798E-4039-B9CC-37FB8707F84A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{118F010C-A914-48B7-B4A6-44176B1DB376}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{118F010C-A914-48B7-B4A6-44176B1DB376}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{118F010C-A914-48B7-B4A6-44176B1DB376}.Debug-Win32|Any CPU.ActiveCfg = Debug|Any CPU
@@ -166,6 +178,16 @@ Global
 		{600CD3BF-2ED2-4183-87F7-ADD78A968AE0}.Debug-Win32|Any CPU.Build.0 = Debug|Any CPU
 		{600CD3BF-2ED2-4183-87F7-ADD78A968AE0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{600CD3BF-2ED2-4183-87F7-ADD78A968AE0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{680A1709-25EB-4D52-A87F-EE03FFD94BAA}.DEBUG MONO|Any CPU.ActiveCfg = DEBUG MONO|Any CPU
+		{680A1709-25EB-4D52-A87F-EE03FFD94BAA}.DEBUG MONO|Any CPU.Build.0 = DEBUG MONO|Any CPU
+		{680A1709-25EB-4D52-A87F-EE03FFD94BAA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{680A1709-25EB-4D52-A87F-EE03FFD94BAA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{680A1709-25EB-4D52-A87F-EE03FFD94BAA}.Debug-Win32|Any CPU.ActiveCfg = Debug|Any CPU
+		{680A1709-25EB-4D52-A87F-EE03FFD94BAA}.Debug-Win32|Any CPU.Build.0 = Debug|Any CPU
+		{680A1709-25EB-4D52-A87F-EE03FFD94BAA}.MONOTOUCH|Any CPU.ActiveCfg = MONOTOUCH|Any CPU
+		{680A1709-25EB-4D52-A87F-EE03FFD94BAA}.MONOTOUCH|Any CPU.Build.0 = MONOTOUCH|Any CPU
+		{680A1709-25EB-4D52-A87F-EE03FFD94BAA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{680A1709-25EB-4D52-A87F-EE03FFD94BAA}.Release|Any CPU.Build.0 = Release|Any CPU
 		{6CAE854A-F202-4D2B-B10E-E8D8E81E5EF5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{6CAE854A-F202-4D2B-B10E-E8D8E81E5EF5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6CAE854A-F202-4D2B-B10E-E8D8E81E5EF5}.Debug-Win32|Any CPU.ActiveCfg = Debug|Any CPU
@@ -269,7 +291,6 @@ Global
 		$1.VersionControlPolicy = $4
 		$4.inheritsSet = Mono
 		$1.TextStylePolicy = $5
-		$5.RemoveTrailingWhitespace = True
 		$5.inheritsSet = VisualStudio
 		$5.inheritsScope = text/plain
 		$1.DotNetNamingPolicy = $6
@@ -279,7 +300,6 @@ Global
 		$7.Text = @Smuxi - Smart MUltipleXed Irc\n\nCopyright (c) ${Year} ${CopyrightHolder}\n\nFull GPL License: <http://www.gnu.org/licenses/gpl.txt>\n\nThis program is free software; you can redistribute it and/or modify\nit under the terms of the GNU General Public License as published by\nthe Free Software Foundation; either version 2 of the License, or\n(at your option) any later version.\n\nThis program is distributed in the hope that it will be useful,\nbut WITHOUT ANY WARRANTY; without even the implied warranty of\nMERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\nGNU General Public License for more details.\n\nYou should have received a copy of the GNU General Public License\nalong with this program; if not, write to the Free Software\nFoundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA
 		$7.IncludeInNewFiles = True
 		$1.TextStylePolicy = $8
-		$8.RemoveTrailingWhitespace = True
 		$8.inheritsSet = VisualStudio
 		$8.inheritsScope = text/plain
 		$8.scope = text/plain

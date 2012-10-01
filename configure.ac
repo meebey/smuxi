@@ -61,6 +61,10 @@ GETTEXT_PACKAGE_ENGINE_TWITTER=smuxi-engine-twitter
 AC_SUBST(GETTEXT_PACKAGE_ENGINE_TWITTER)
 AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE_ENGINE_TWITTER, "$GETTEXT_PACKAGE_ENGINE_TWITTER", [Gettext package])
 
+GETTEXT_PACKAGE_ENGINE_CAMPFIRE=smuxi-engine-campfire
+AC_SUBST(GETTEXT_PACKAGE_ENGINE_CAMPFIRE)
+AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE_ENGINE_CAMPFIRE, "$GETTEXT_PACKAGE_ENGINE_CAMPFIRE", [Gettext package])
+
 GETTEXT_PACKAGE_SERVER=smuxi-server
 AC_SUBST(GETTEXT_PACKAGE_SERVER)
 AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE_SERVER, "$GETTEXT_PACKAGE_SERVER", [Gettext package])
@@ -328,6 +332,13 @@ if test "x$ENABLE_ENGINE_IRC" != "xno"; then
 fi
 AM_CONDITIONAL(ENABLE_ENGINE_IRC, test "x$ENABLE_ENGINE_IRC" = "xyes")
 
+AC_ARG_ENABLE([engine-campfire],
+	AC_HELP_STRING([--enable-engine-campfire], [Enable Campfire protocol support (default yes)]),
+	ENABLE_ENGINE_CAMPFIRE=$enableval,
+	ENABLE_ENGINE_CAMPFIRE=yes
+)
+AM_CONDITIONAL(ENABLE_ENGINE_CAMPFIRE, test "x$ENABLE_ENGINE_CAMPFIRE" = "xyes")
+
 AC_ARG_ENABLE([engine-oscar],
 	AC_HELP_STRING([--enable-engine-oscar], [Enable OSCAR (AIM/ICQ) protocol support (default no)]),
 	ENABLE_ENGINE_OSCAR=$enableval,
@@ -561,6 +572,7 @@ AC_CONFIG_FILES([
 	src/Engine-Twitter/Makefile
 	src/Engine-XMPP/Makefile
 	src/Engine-XMPP/smuxi-engine-xmpp.pc
+	src/Engine-Campfire/Makefile
 	src/Server/Makefile
 	src/Server/smuxi-server
 	src/Frontend/Makefile
@@ -612,6 +624,7 @@ AC_MSG_RESULT([
 	  OSCAR:               $ENABLE_ENGINE_OSCAR
 	  MSNP:                $ENABLE_ENGINE_MSNP
 	  Twitter:             $ENABLE_ENGINE_TWITTER
+	  Campfire:	       $ENABLE_ENGINE_CAMPFIRE
 
 	* Frontends
 	  ---------

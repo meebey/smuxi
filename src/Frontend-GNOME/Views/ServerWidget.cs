@@ -329,6 +329,22 @@ namespace Smuxi.Frontend.Gnome
                     f_ValidateServerCertificateCheckButton.Active = false;
                     f_ValidateServerCertificateCheckButton.Sensitive = false;
                     break;
+                case "Campfire":
+                    ShowHostname = true;
+                    ShowNetwork = false;
+                    ShowPassword = true;
+
+                    f_HostnameEntry.Text = ".campfirenow.com";
+                    f_HostnameEntry.Sensitive = true;
+                    f_PortSpinButton.Value = 0;
+                    f_NetworkComboBoxEntry.Entry.Text = String.Empty;
+                    f_PasswordEntry.Text = String.Empty;
+
+                    f_UseEncryptionCheckButton.Active = false;
+                    f_UseEncryptionCheckButton.Sensitive = false;
+                    f_ValidateServerCertificateCheckButton.Active = false;
+                    f_ValidateServerCertificateCheckButton.Sensitive = false;
+                    break;
                 // in case we don't know / handle the protocol here, make
                 // sure we grant maximum flexibility for the input
                 default:
