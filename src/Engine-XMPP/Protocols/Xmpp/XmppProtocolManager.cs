@@ -329,6 +329,10 @@ namespace Smuxi.Engine
                             CommandRoster(command);
                             handled = true;
                             break;
+                        case "contact":
+                            CommandContact(command);
+                            handled = true;
+                            break;
                     }
                 } else {
                     _Say(command.Chat, command.Data);
@@ -357,6 +361,51 @@ namespace Smuxi.Engine
             return handled;
         }
 
+        public void CommandContact (CommandModel cd)
+        {
+            FrontendManager fm = cd.FrontendManager;
+            // todo: allow length of 2 in private chat windows
+            if (cd.DataArray.Length < 3) {
+                NotEnoughParameters(cd);
+                return;
+            }
+            JID jid = cd.DataArray[2];
+            string cmd = cd.DataArray[1];
+            switch (cmd) {
+                case "add":
+                case "subscribe":
+                    // also use GetJidFromNickname(jid) here, so jid is checked for validity
+                    RosterManager.Add(GetJidFromNickname(jid));
+                    break;
+                case "remove":
+                case "rm":
+                case "del":
+                    RosterManager.Remove(GetJidFromNickname(jid));
+                    break;
+                case "accept":
+                case "allow":
+                    RosterManager.Allow(GetJidFromNickname(jid));
+                    break;
+                case "deny":
+                    RosterManager.Deny(GetJidFromNickname(jid));
+                    break;
+                case "rename":
+                    if (cd.DataArray.Length < 4) {
+                        NotEnoughParameters(cd);
+                        return;
+                    }
+                    Item it = RosterManager[GetJidFromNickname(jid)];
+                    it.Nickname = cd.DataArray[3];
+                    RosterManager.Modify(it);
+                    break;
+                default:
+                    var builder = CreateMessageBuilder();
+                    builder.AppendText(_("Invalid Contact command: {0}"), cmd);
+                    fm.AddMessageToChat(cd.Chat, builder.ToMessage());
+                    return;
+            }
+        }
+
         public void CommandHelp(CommandModel cmd)
         {
             var builder = CreateMessageBuilder();
@@ -368,11 +417,13 @@ namespace Smuxi.Engine
             string[] help = {
             "help",
             "connect xmpp/jabber server port username password [resource]",
-            "msg/query jid message",
+            "msg/query jid/nick message",
             "say message",
             "join muc-jid",
             "part/leave [muc-jid]",
-            "away [away-message]"
+            "away [away-message]",
+            "contact add/remove/accept/deny jid/nick",
+            "contact rename jid/nick newnick"
             };
             
             foreach (string line in help) { 
@@ -429,34 +480,34 @@ namespace Smuxi.Engine
 
             Connect(fm, server);
         }
+
+        private JID GetJidFromNickname(string nickname)
+        {
+            Item it = RosterManager[nickname];
+            if (it != null) {
+                return it.JID;
+            }
+
+            // arg is not a jid in our rostermanager
+            // find a jid to which the nickname belongs
+            foreach (JID j in RosterManager) {
+                Item item = RosterManager[j];
+                if (item.Nickname != null &&
+                    item.Nickname.Replace(" ", "_") == nickname) {
+                    return item.JID;
+                }
+            }
+            // not found in roster, message directly to jid
+            // TODO: check jid for validity
+            return nickname;
+        }
         
         public void CommandMessageQuery(CommandModel cd)
         {
             ChatModel chat = null;
             if (cd.DataArray.Length >= 2) {
                 string arg = cd.DataArray[1];
-                Item it = RosterManager[arg];
-                JID jid = null;
-                // arg is not a jid in our rostermanager
-                if (it == null) {
-                    // find a jid to which the nickname belongs
-                    foreach (JID j in RosterManager) {
-                        Item item = RosterManager[j];
-                        if (item.Nickname != null &&
-                            item.Nickname.Replace(" ", "_") == arg) {
-                            jid = item.JID;
-                            break;
-                        }
-                    }
-                    if (jid == null) {
-                        // not found in roster, message directly to jid
-                        // TODO: check jid for validity
-                        jid = arg;
-                    }
-                } else {
-                    jid = it.JID;
-                }
-
+                JID jid = GetJidFromNickname(arg);
                 chat = GetChat(jid, ChatType.Person);
                 if (chat == null) {
                     PersonModel person = CreatePerson(jid);
