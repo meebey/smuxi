@@ -119,6 +119,7 @@ WIN32_FILES = \
 	$(WIN32_LIB_DIR)/fixedsys500c/Fixedsys500c.ttf \
 	$(BUILD_DIR)/smuxi-common.dll \
 	$(BUILD_DIR)/smuxi-engine.dll \
+	$(BUILD_DIR)/smuxi-engine-campfire.dll \
 	$(BUILD_DIR)/smuxi-engine-irc.dll \
 	$(BUILD_DIR)/smuxi-engine-twitter.dll \
 	$(BUILD_DIR)/smuxi-engine-xmpp.dll \
@@ -144,6 +145,7 @@ OSX_FILES = \
 	$(BUILD_DIR)/smuxi-server.exe \
 	$(BUILD_DIR)/smuxi-common.dll \
 	$(BUILD_DIR)/smuxi-engine.dll \
+	$(BUILD_DIR)/smuxi-engine-campfire.dll \
 	$(BUILD_DIR)/smuxi-engine-irc.dll \
 	$(BUILD_DIR)/smuxi-engine-twitter.dll \
 	$(BUILD_DIR)/smuxi-engine-xmpp.dll \
