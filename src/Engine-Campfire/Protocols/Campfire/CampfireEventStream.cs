@@ -136,7 +136,7 @@ namespace Smuxi.Engine
 
                         if (brackets == 0) {
                             var str = bld.ToString().Trim();
-                            bld.Clear();
+                            bld.Length = 0;
                             var message = JsonSerializer.DeserializeFromString<Message>(str);
                             if (MessageReceived != null) {
                                 var args = new MessageReceivedEventArgs(Chat, message);
