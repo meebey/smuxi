@@ -1,4 +1,9 @@
-SUBDIRS =	SmartIrc4net
+SUBDIRS =	SmartIrc4net \
+			$(MESSAGINGMENU_SHARP_SUBDIR)
+
+if WITH_MESSAGINGMENU_SHARP_INCLUDED
+MESSAGINGMENU_SHARP_SUBDIR = messagingmenu-sharp
+endif
 
 OUTPUT_DIR = $(top_builddir)/bin/$(PROFILE)
 OBJECT_DIR = $(OUTPUT_DIR)/obj

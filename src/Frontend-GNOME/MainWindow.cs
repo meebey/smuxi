@@ -54,7 +54,7 @@ namespace Smuxi.Frontend.Gnome
 #if GTK_SHARP_2_10
         private StatusIconManager _StatusIconManager;
 #endif
-#if INDICATE_SHARP
+#if INDICATE_SHARP || MESSAGING_MENU_SHARP
         private IndicateManager  _IndicateManager;
 #endif
 #if NOTIFY_SHARP
@@ -511,7 +511,7 @@ namespace Smuxi.Frontend.Gnome
 #if GTK_SHARP_2_10
             _StatusIconManager = new StatusIconManager(this, _ChatViewManager);
 #endif
-#if INDICATE_SHARP
+#if INDICATE_SHARP || MESSAGING_MENU_SHARP
             _IndicateManager = new IndicateManager(this, _ChatViewManager);
 #endif
 #if NOTIFY_SHARP
@@ -608,7 +608,7 @@ namespace Smuxi.Frontend.Gnome
 #if GTK_SHARP_2_10
             _StatusIconManager.ApplyConfig(userConfig);
 #endif
-#if INDICATE_SHARP
+#if INDICATE_SHARP || MESSAGING_MENU_SHARP
             _IndicateManager.ApplyConfig(userConfig);
 #endif
 #if NOTIFY_SHARP
