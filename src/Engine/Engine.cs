@@ -86,9 +86,12 @@ namespace Smuxi.Engine
             }
             _IsInitialized = true;
             
-            Assembly asm = Assembly.GetAssembly(typeof(Engine));
-            AssemblyName asm_name = asm.GetName(false);
-            AssemblyProductAttribute pr = (AssemblyProductAttribute)asm.GetCustomAttributes(typeof(AssemblyProductAttribute), false)[0];
+            var asm = Assembly.GetEntryAssembly();
+            if (asm == null) {
+                asm = Assembly.GetAssembly(typeof(Engine));
+            }
+            var asm_name = asm.GetName(false);
+            var title = (AssemblyTitleAttribute) asm.GetCustomAttributes(typeof(AssemblyTitleAttribute), false)[0];
             _Version = asm_name.Version;
             _VersionNumber = asm_name.Version.ToString();
 
@@ -98,7 +101,7 @@ namespace Smuxi.Engine
             }
             _VersionString = String.Format(
                 "{0} {1}{2} - running on {3} {4}",
-                pr.Product,
+                title.Title,
                 _Version,
                 distVersion,
                 Platform.OperatingSystem,
