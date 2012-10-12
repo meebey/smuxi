@@ -40,5 +40,11 @@ endif
 		--exclude-moduleref=/System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation \
 		--exclude-moduleref=/System/Library/Frameworks/ApplicationServices.framework/Versions/A/ApplicationServices
 
+override_dh_install:
+	dh_install
+	# optional binary files
+	-dh_install -p smuxi-frontend-gnome "usr/lib/smuxi/messagingmenu-sharp.dll*"
+	-dh_install -p smuxi-frontend-gnome "usr/lib/smuxi/gio-sharp.dll*"
+
 %:
 	dh $@
