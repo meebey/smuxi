@@ -176,7 +176,7 @@ dist-win32:
 		COMPILER_OVERRIDE="MCS=/usr/bin/dmcs"; \
 		echo COMPILER_OVERRIDE="$$COMPILER_OVERRIDE"; \
 	fi; \
-	./autogen.sh $$COMPILER_OVERRIDE --without-indicate --without-notify --without-dbus \
+	./autogen.sh $$COMPILER_OVERRIDE --without-indicate --without-messaging-menu --without-notify --without-dbus \
 	  --with-db4o=included \
 	  --with-vendor-package-version="dist-win32"
 	$(MAKE)
@@ -196,7 +196,7 @@ dist-osx:
 		COMPILER_OVERRIDE="MCS=/usr/bin/dmcs"; \
 		echo COMPILER_OVERRIDE="$$COMPILER_OVERRIDE"; \
 	fi; \
-	./autogen.sh $$COMPILER_OVERRIDE --without-indicate --without-notify --without-dbus \
+	./autogen.sh $$COMPILER_OVERRIDE --without-indicate --without-messaging-menu --without-notify --without-dbus \
 	  --with-db4o=included \
 	  --with-vendor-package-version="dist-osx"
 	$(MAKE)
