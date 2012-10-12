@@ -240,13 +240,56 @@ if test "x$WITH_DB4O" = "xincluded"; then
 fi
 
 # Optional Libraries
+AC_ARG_WITH([messaging-menu],
+	AC_HELP_STRING([--with-messaging-menu=auto|system|included|no], [Support Messaging Menu (Ubuntu >= 12.10) @<:@default=auto@:>@]),
+	[],
+	with_messagingmenu=auto
+)
+WITH_MESSAGINGMENU=$with_messagingmenu
+if test "x$WITH_MESSAGINGMENU" = "xauto"; then
+	PKG_CHECK_EXISTS([messagingmenu-sharp-0.1], FOUND_MESSAGINGMENU_SHARP=yes, FOUND_MESSAGINGMENU_SHARP=no)
+	if test "x$FOUND_MESSAGINGMENU_SHARP" = "xyes"; then
+		WITH_MESSAGINGMENU=system
+	else
+		PKG_CHECK_EXISTS([messaging-menu], FOUND_MESSAGING_MENU=yes, FOUND_MESSAGING_MENU=no)
+		if test "x$FOUND_MESSAGING_MENU" = "xyes"; then
+			WITH_MESSAGINGMENU=included
+		else
+			WITH_MESSAGINGMENU=no
+		fi
+	fi
+fi
+if test "x$WITH_MESSAGINGMENU" = "xsystem"; then
+	PKG_CHECK_MODULES([MESSAGINGMENU_SHARP], [messagingmenu-sharp-0.1])
+fi
+if test "x$WITH_MESSAGINGMENU" = "xincluded"; then
+	if test ! -f "$srcdir/lib/messagingmenu-sharp/configure.ac"; then
+		AC_MSG_ERROR([lib/messagingmenu-sharp is empty!])
+	fi
+
+	PKG_CHECK_MODULES([MESSAGING_MENU], [messaging-menu])
+	PKG_CHECK_MODULES([GIO_SHARP], [gio-sharp-2.0])
+	GIO_SHARP_LIBS=`$PKG_CONFIG --variable=Libraries gio-sharp-2.0`
+	AC_SUBST([GIO_SHARP_LIBS])
+	GIO_SHARP_FILES="gio-sharp.dll"
+	AC_SUBST([GIO_SHARP_FILES])
+
+	ac_configure_args="$ac_configure_args CSC=$MCS"
+	AC_CONFIG_SUBDIRS([lib/messagingmenu-sharp])
+	AC_SUBST([MESSAGINGMENU_SHARP_FILES], "messagingmenu-sharp.dll")
+fi
+AM_CONDITIONAL([WITH_MESSAGINGMENU_SHARP_INCLUDED], test "x$WITH_MESSAGINGMENU" = "xincluded")
+
 AC_ARG_WITH([indicate],
-	AC_HELP_STRING([--with-indicate], [Support Messaging Menu @<:@default=auto@:>@]),
+	AC_HELP_STRING([--with-indicate], [Support Messaging Menu (Ubuntu <= 12.04) @<:@default=auto@:>@]),
 	[],
 	with_indicate=auto
 )
 WITH_INDICATE=$with_indicate
 PKG_CHECK_EXISTS([indicate-sharp-0.1], INDICATE_SHARP_SUPPORT=yes, INDICATE_SHARP_SUPPORT=no)
+if test "x$WITH_INDICATE" = "xauto" -a "x$WITH_MESSAGINGMENU" != "xno"; then
+	WITH_INDICATE=no
+fi
 if test "x$WITH_INDICATE" = "xauto"; then
 	WITH_INDICATE=$INDICATE_SHARP_SUPPORT
 fi
@@ -469,6 +512,12 @@ if test "x$ENABLE_FRONTEND_GNOME" != "xno"; then
 		System.Drawing
 	])
 	
+	if test "x$WITH_MESSAGINGMENU" = "xsystem"; then
+		FRONTEND_GNOME_COMPILER_FLAGS+=" -define:MESSAGING_MENU_SHARP"
+	fi
+	if test "x$WITH_MESSAGINGMENU" = "xincluded"; then
+		FRONTEND_GNOME_COMPILER_FLAGS+=" -define:MESSAGING_MENU_SHARP"
+	fi
 	if test "x$WITH_INDICATE" = "xyes"; then
 		FRONTEND_GNOME_COMPILER_FLAGS+=" -define:INDICATE_SHARP"
 	fi
@@ -616,7 +665,9 @@ AC_MSG_RESULT([
 	* Frontends
 	  ---------
 	  GNOME:               $ENABLE_FRONTEND_GNOME (IRC: $ENABLE_FRONTEND_GNOME_IRC XMPP: $ENABLE_FRONTEND_GNOME_XMPP)
-	  + Messaging Menu:    $WITH_INDICATE
+	  + Messaging Menu     (indicate: Ubuntu <= 12.04, messaging-menu: Ubuntu >= 12.04)
+	    - indicate:        $WITH_INDICATE
+	    - messaging-menu:  $WITH_MESSAGINGMENU
 	  + Notifications:     $WITH_NOTIFY
 	  + Spell Checking:    $WITH_GTKSPELL
 	  + D-Bus:             $WITH_DBUS

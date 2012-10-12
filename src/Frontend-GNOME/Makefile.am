@@ -1,4 +1,4 @@
-
+TARGET_DIR = $(top_builddir)/bin/$(PROFILE)
 EXTRA_DIST = $(WIN_ICON) $(DESKTOP_FILE).in
 
 ICON_NAME = smuxi-frontend-gnome
@@ -212,12 +212,15 @@ REFERENCES =  \
 	$(GLIB_SHARP_20_LIBS) \
 	$(GLADE_SHARP_20_LIBS) \
 	$(GTK_SHARP_20_LIBS) \
+	$(GIO_SHARP_LIBS) \
 	$(LOG4NET_LIBS) \
 	$(INDICATE_SHARP_LIBS) \
+	$(MESSAGINGMENU_SHARP_LIBS) \
+	$(MESSAGINGMENU_SHARP_INCLUDED_LIBS) \
 	$(NOTIFY_SHARP_LIBS) \
 	$(DBUS_LIBS)
 
-DLL_REFERENCES = 
+DLL_REFERENCES = $(MESSAGINGMENU_SHARP_INCLUDED_LIBS) 
 
 CLEANFILES = $(LINUX_DESKTOPAPPLICATIONS) $(PROGRAMFILES) $(BINARIES) \
 	$(top_builddir)/images/256/$(GROUP_CHAT_ICON_NAME).png \
@@ -230,6 +233,28 @@ FRONTEND_GNOME = $(BUILD_DIR)/smuxi-frontend-gnome
 FRONTEND_GNOME_DESKTOP = $(BUILD_DIR)/$(DESKTOP_FILE)
 SMUXI_FRONTEND_DLL = $(BUILD_DIR)/smuxi-frontend.dll
 SMUXI_COMMON_DLL = $(BUILD_DIR)/smuxi-common.dll
+
+if WITH_MESSAGINGMENU_SHARP_INCLUDED
+MESSAGINGMENU_SHARP_DLL = $(TARGET_DIR)/messagingmenu-sharp.dll
+MESSAGINGMENU_SHARP_DLL_SOURCE = $(top_builddir)/lib/messagingmenu-sharp/messagingmenu-sharp.dll
+MESSAGINGMENU_SHARP_DLL_CONFIG = $(MESSAGINGMENU_SHARP_DLL).config
+MESSAGINGMENU_SHARP_DLL_CONFIG_SOURCE = $(MESSAGINGMENU_SHARP_DLL_SOURCE).config
+$(eval $(call emit-deploy-target,MESSAGINGMENU_SHARP_DLL))
+$(eval $(call emit-deploy-target,MESSAGINGMENU_SHARP_DLL_CONFIG))
+
+MESSAGINGMENU_SHARP_INCLUDED_LIBS := $(foreach file, $(MESSAGINGMENU_SHARP_FILES), $(TARGET_DIR)/$(file))
+PROGRAMFILES += $(MESSAGINGMENU_SHARP_INCLUDED_LIBS) $(MESSAGINGMENU_SHARP_INCLUDED_LIBS).config
+
+GIO_SHARP_DLL = $(TARGET_DIR)/gio-sharp.dll
+GIO_SHARP_DLL_SOURCE =  $(GIO_SHARP_LIBS)
+GIO_SHARP_DLL_CONFIG = $(TARGET_DIR)/gio-sharp.dll.config
+GIO_SHARP_DLL_CONFIG_SOURCE = $(GIO_SHARP_LIBS).config
+$(eval $(call emit-deploy-target,GIO_SHARP_DLL))
+$(eval $(call emit-deploy-target,GIO_SHARP_DLL_CONFIG))
+
+GIO_SHARP_PROGRAM_FILES := $(foreach file, $(GIO_SHARP_FILES), $(shell file=$(TARGET_DIR)/$(file); echo $$file; config_file=$${file}.config; if [ -f "$$config_file" ]; then echo $$config_file; fi))
+PROGRAMFILES += $(GIO_SHARP_DLL) $(GIO_SHARP_DLL_CONFIG)
+endif
 
 $(eval $(call emit-deploy-wrapper,FRONTEND_GNOME,smuxi-frontend-gnome,x))
 $(eval $(call emit-deploy-target,FRONTEND_GNOME_DESKTOP))

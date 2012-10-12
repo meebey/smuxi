@@ -2941,7 +2941,7 @@ namespace Smuxi.Engine
                                e.Channel);
 
             if (!String.IsNullOrEmpty(e.PartMessage)) {
-                builder.AppendText("[");
+                builder.AppendText(" [");
                 // colors in part messages are annoying
                 builder.StripColors = true;
                 builder.AppendMessage(e.PartMessage);

@@ -17,7 +17,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>..\..\bin\debug</OutputPath>
-    <DefineConstants>DEBUG;TRACE;LOG4NET;CONFIG_NINI;GTK_SHARP_2_10;INDICATE_SHARP;NOTIFY_SHARP;IPC_DBUS;DBUS_SHARP;GTKSPELL</DefineConstants>
+    <DefineConstants>DEBUG;TRACE;LOG4NET;CONFIG_NINI;GTK_SHARP_2_10;MESSAGING_MENU_SHARP;NOTIFY_SHARP;IPC_DBUS;DBUS_SHARP;GTKSPELL</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
@@ -202,9 +202,6 @@
     <Reference Include="pango-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f">
       <Package>gtk-sharp-2.0</Package>
     </Reference>
-    <Reference Include="indicate-sharp, Version=0.4.1.0, Culture=neutral, PublicKeyToken=2e8e49ba7d172cb0">
-      <Package>indicate-sharp-0.1</Package>
-    </Reference>
     <Reference Include="notify-sharp, Version=0.4.0.0, Culture=neutral, PublicKeyToken=2df29c54e245917a">
       <Package>notify-sharp</Package>
     </Reference>
@@ -216,6 +213,12 @@
     <Reference Include="dbus-sharp-glib, Version=1.0.0.0, Culture=neutral, PublicKeyToken=5675b0c3093115b5">
       <Private>False</Private>
       <Package>dbus-sharp-glib-1.0</Package>
+    </Reference>
+    <Reference Include="messagingmenu-sharp">
+      <HintPath>..\..\..\bindinator\MessagingMenu-1.0\messagingmenu-sharp.dll</HintPath>
+    </Reference>
+    <Reference Include="gio-sharp, Version=2.14.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f">
+      <Package>gio-sharp-2.0</Package>
     </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

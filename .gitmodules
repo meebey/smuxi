@@ -19,3 +19,6 @@
 [submodule "lib/ServiceStack"]
 	path = lib/ServiceStack
 	url = git://git.qnetp.net/ServiceStack.git
+[submodule "lib/messagingmenu-sharp"]
+	path = lib/messagingmenu-sharp
+	url = git://git.qnetp.net/messagingmenu-sharp.git
