@@ -18,7 +18,6 @@ override_dh_auto_configure:
 	  --enable-frontend-stfl \
 	  --with-db4o=included \
 	  --with-notify \
-	  --with-indicate \
 	  --with-dbus \
 	  GMCS=/usr/bin/mono-csc MCS=/usr/bin/mono-csc
 
