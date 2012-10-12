@@ -68,6 +68,15 @@ namespace Smuxi.Frontend.Gnome
                 IsPopulated = true;
                 foreach (var chatView in ChatViewManager.Chats) {
                     if (!(chatView is GroupChatView)) {
+                        // only invite to group chats
+                        continue;
+                    }
+                    if (chatView == ChatViewManager.ActiveChat) {
+                        // don't need to add current chat to invite list
+                        continue;
+                    }
+                    if (chatView.ProtocolManager != ProtocolManager) {
+                        // only add chats from current server
                         continue;
                     }
 
