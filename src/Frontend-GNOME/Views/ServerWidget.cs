@@ -147,6 +147,8 @@ namespace Smuxi.Frontend.Gnome
             ServerModel server = new ServerModel();
             server.Protocol = f_ProtocolComboBox.ActiveText;
             server.Hostname = f_HostnameEntry.Text.Trim();
+            // HACK: ServerID is currently the same as Hostname
+            server.ServerID = server.Hostname;
             server.Network  = f_NetworkComboBoxEntry.Entry.Text.Trim();
             server.Port     = f_PortSpinButton.ValueAsInt;
             server.Username = f_UsernameEntry.Text.Trim();

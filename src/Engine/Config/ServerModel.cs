@@ -26,94 +26,87 @@ using Smuxi.Common;
 
 namespace Smuxi.Engine
 {
+    
     [Serializable]
     public class ServerModel
     {
-        private string        _Protocol;
-        private string        _Hostname;
-        private int           _Port;
-        private string        _Network;
-        private string        _Username;
-        private string        _Password;
-        private bool          _OnStartupConnect;
-        private IList<string> _OnConnectCommands;
         public bool UseEncryption { get; set; }
         public bool ValidateServerCertificate { get; set; }
-
-        public string Protocol {
-            get {
-                return _Protocol;
-            }
-            set {
-                _Protocol = value;
-            }
-        }
+        public string Protocol { get; set; }
+        public string Hostname { get; set; }
+        public int Port { get; set; }
+        public string Network { get; set; }
+        public string Username { get; set; }
+        public string Password { get; set; }
+        public bool OnStartupConnect { get; set; }
+        public IList<string> OnConnectCommands { get; set; }
+        public string ServerID { get; set; }
         
-        public string Hostname {
+        protected string ConfigKeyPrefix {
             get {
-                return _Hostname;
-            }
-            set {
-                _Hostname = value;
-            }
-        }
-
-        public int Port {
-            get {
-                return _Port;
-            }
-            set {
-                _Port = value;
-            }
-        }
-        
-        public string Network {
-            get {
-                return _Network;
-            }
-            set {
-                _Network = value;
-            }
-        }
-
-        public string Username {
-            get {
-                return _Username;
-            }
-            set {
-                _Username = value;
-            }
-        }
-
-        public string Password {
-            get {
-                return _Password;
-            }
-            set {
-                _Password = value;
-            }
-        }
-
-        public bool OnStartupConnect {
-            get {
-                return _OnStartupConnect;
-            }
-            set {
-                _OnStartupConnect = value;
-            }
-        }
-        
-        public IList<string> OnConnectCommands {
-            get {
-                return _OnConnectCommands;
-            }
-            set {
-                _OnConnectCommands = value;
+                if (String.IsNullOrEmpty(Protocol)) {
+                    throw new ArgumentNullException("Protocol");
+                }
+                if (String.IsNullOrEmpty(ServerID)) {
+                    throw new ArgumentNullException("ServerID");
+                }
+                return "Servers/" + Protocol + "/" + ServerID + "/";
             }
         }
         
         public ServerModel()
         {
+        }
+        
+        public virtual void Load(UserConfig config, string protocol, string id)
+        {
+            if (config == null) {
+                throw new ArgumentNullException("config");
+            }
+            if (String.IsNullOrEmpty(protocol)) {
+                throw new ArgumentNullException("protocol");
+            }
+            if (String.IsNullOrEmpty(id)) {
+                throw new ArgumentNullException("id");
+            }
+            // don't use ConfigKeyPrefix, so exception guarantees can be kept
+            string prefix = "Servers/" + protocol + "/" + id + "/";
+            if (config[prefix + "Hostname"] == null) {
+                // server does not exist
+                throw new ArgumentException("ServerID not found in config", id);
+            }
+            ServerID    = id;
+            Protocol    = protocol;
+            // now we have a valid ServerID and Protocol, ConfigKeyPrefix works
+            Hostname    = (string) config[ConfigKeyPrefix + "Hostname"];
+            Port        = (int)    config[ConfigKeyPrefix + "Port"];
+            Network     = (string) config[ConfigKeyPrefix + "Network"];
+            Username    = (string) config[ConfigKeyPrefix + "Username"];
+            Password    = (string) config[ConfigKeyPrefix + "Password"];
+            UseEncryption = (bool) config[ConfigKeyPrefix + "UseEncryption"];
+            ValidateServerCertificate =
+                (bool) config[ConfigKeyPrefix + "ValidateServerCertificate"];
+            if (config[ConfigKeyPrefix + "OnStartupConnect"] != null) {
+                OnStartupConnect = (bool) config[ConfigKeyPrefix + "OnStartupConnect"];
+            }
+            OnConnectCommands  = config[ConfigKeyPrefix + "OnConnectCommands"] as IList<string>;
+        }
+        
+        public virtual void Save(UserConfig config)
+        {
+            if (config == null) {
+                throw new ArgumentNullException("config");
+            }
+            config[ConfigKeyPrefix + "Hostname"] = Hostname;
+            config[ConfigKeyPrefix + "Port"]     = Port;
+            config[ConfigKeyPrefix + "Network"]  = Network;
+            config[ConfigKeyPrefix + "Username"] = Username;
+            config[ConfigKeyPrefix + "Password"] = Password;
+            config[ConfigKeyPrefix + "UseEncryption"] = UseEncryption;
+            config[ConfigKeyPrefix + "ValidateServerCertificate"] =
+                ValidateServerCertificate;
+            config[ConfigKeyPrefix + "OnStartupConnect"] = OnStartupConnect;
+            config[ConfigKeyPrefix + "OnConnectCommands"] = OnConnectCommands;
         }
     }
 }

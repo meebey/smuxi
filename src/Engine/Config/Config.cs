@@ -561,6 +561,10 @@ namespace Smuxi.Engine
                     } else {
                         m_Preferences[sprefix + "OnConnectCommands"] = commands;
                     }
+                    // HACK: XMPP specific values
+                    LoadEntry(sprefix+"Resource", null);
+                    LoadEntry(sprefix+"PriorityAvailable", null);
+                    LoadEntry(sprefix+"PriorityAway", null);
                 }
 
                 string[] filters = null;
