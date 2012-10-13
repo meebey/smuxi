@@ -84,25 +84,12 @@ namespace Smuxi.Engine
                 throw new ArgumentNullException("servername");
             }
             
-            string prefix = "Servers/" + protocol + "/" + servername + "/";
             ServerModel server = new ServerModel();
-            if (_UserConfig[prefix + "Hostname"] == null) {
-                // server does not exist
+            try {
+                server.Load(_UserConfig, protocol, servername);
+            } catch (ArgumentException) {
                 return null;
             }
-            server.Protocol    = protocol;
-            server.Hostname    = (string) _UserConfig[prefix + "Hostname"];
-            server.Port        = (int)    _UserConfig[prefix + "Port"];
-            server.Network     = (string) _UserConfig[prefix + "Network"];
-            server.Username    = (string) _UserConfig[prefix + "Username"];
-            server.Password    = (string) _UserConfig[prefix + "Password"];
-            server.UseEncryption = (bool) _UserConfig[prefix + "UseEncryption"];
-            server.ValidateServerCertificate =
-                (bool) _UserConfig[prefix + "ValidateServerCertificate"];
-            if (_UserConfig[prefix + "OnStartupConnect"] != null) {
-                server.OnStartupConnect = (bool) _UserConfig[prefix + "OnStartupConnect"];
-            }
-            server.OnConnectCommands  = _UserConfig[prefix + "OnConnectCommands"] as IList<string>;
             return server;
         }
         
@@ -162,18 +149,7 @@ namespace Smuxi.Engine
                     );
                 }
             }
-
-            string prefix = "Servers/" + server.Protocol + "/" + server.Hostname + "/";
-            _UserConfig[prefix + "Hostname"] = server.Hostname;
-            _UserConfig[prefix + "Port"]     = server.Port;
-            _UserConfig[prefix + "Network"]  = server.Network;
-            _UserConfig[prefix + "Username"] = server.Username;
-            _UserConfig[prefix + "Password"] = server.Password;
-            _UserConfig[prefix + "UseEncryption"] = server.UseEncryption;
-            _UserConfig[prefix + "ValidateServerCertificate"] =
-                server.ValidateServerCertificate;
-            _UserConfig[prefix + "OnStartupConnect"] = server.OnStartupConnect;
-            _UserConfig[prefix + "OnConnectCommands"] = server.OnConnectCommands;
+            server.Save(_UserConfig);
             
             string[] servers = (string[]) _UserConfig["Servers/Servers"];
             if (servers == null) {
@@ -191,18 +167,7 @@ namespace Smuxi.Engine
             if (server == null) {
                 throw new ArgumentNullException("server");
             }
-            
-            string prefix = "Servers/" + server.Protocol + "/" + server.Hostname + "/";
-            _UserConfig[prefix + "Hostname"] = server.Hostname;
-            _UserConfig[prefix + "Port"]     = server.Port;
-            _UserConfig[prefix + "Network"]  = server.Network;
-            _UserConfig[prefix + "Username"] = server.Username;
-            _UserConfig[prefix + "Password"] = server.Password;
-            _UserConfig[prefix + "UseEncryption"] = server.UseEncryption;
-            _UserConfig[prefix + "ValidateServerCertificate"] =
-                server.ValidateServerCertificate;
-            _UserConfig[prefix + "OnStartupConnect"] = server.OnStartupConnect;
-            _UserConfig[prefix + "OnConnectCommands"] = server.OnConnectCommands;
+            server.Save(_UserConfig);
         }
         
         public void RemoveServer(string protocol, string servername)

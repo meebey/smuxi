@@ -67,6 +67,8 @@ namespace Smuxi.Engine
 
         ChatModel NetworkChat { get; set; }
         GroupChatModel ContactChat { get; set; }
+        
+        XmppServerModel Server { get; set; }
 
         public override string NetworkID {
             get {
@@ -136,11 +138,31 @@ namespace Smuxi.Engine
             if (server == null) {
                 throw new ArgumentNullException("server");
             }
-
+            
+            if (server is XmppServerModel) {
+                Server = (XmppServerModel) server;
+            } else {
+                Server = new XmppServerModel();
+                Server.Load(Session.UserConfig, server.Hostname);
+                // HACK: previous line overwrites any passed values with the values from config
+                // thus we have to copy the original values:
+                Server.Hostname = server.Hostname;
+                Server.Network = server.Network;
+                Server.OnConnectCommands = server.OnConnectCommands;
+                Server.OnStartupConnect = server.OnStartupConnect;
+                Server.Password = server.Password;
+                Server.Port = server.Port;
+                Server.Protocol = server.Protocol;
+                Server.ServerID = server.ServerID;
+                Server.UseEncryption = server.UseEncryption;
+                Server.Username = server.Username;
+                Server.ValidateServerCertificate = server.ValidateServerCertificate;
+            }
+            
             Host = server.Hostname;
             Port = server.Port;
 
-            ApplyConfig(Session.UserConfig, server);
+            ApplyConfig(Session.UserConfig, Server);
 
             // TODO: use config for single network chat or once per network manager
             NetworkChat = Session.CreateChat<ProtocolChatModel>(
@@ -276,9 +298,11 @@ namespace Smuxi.Engine
             switch (status) {
                 case PresenceStatus.Online:
                     xmppType = PresenceType.available;
+                    JabberClient.Priority = Server.Priorities[status];
                     break;
                 case PresenceStatus.Away:
                     xmppType = PresenceType.available;
+                    JabberClient.Priority = Server.Priorities[status];
                     xmppShow = "away";
                     break;
                 case PresenceStatus.Offline:
@@ -331,6 +355,10 @@ namespace Smuxi.Engine
                             break;
                         case "contact":
                             CommandContact(command);
+                            handled = true;
+                            break;
+                        case "priority":
+                            CommandPriority(command);
                             handled = true;
                             break;
                     }
@@ -424,9 +452,10 @@ namespace Smuxi.Engine
             "away [away-message]",
             "contact add/remove/accept/deny jid/nick",
             "contact rename jid/nick newnick"
+            ,"priority away/online/temp priority-value"
             };
             
-            foreach (string line in help) { 
+            foreach (string line in help) {
                 builder = CreateMessageBuilder();
                 builder.AppendEventPrefix();
                 builder.AppendText(line);
@@ -479,6 +508,56 @@ namespace Smuxi.Engine
             }
 
             Connect(fm, server);
+        }
+
+        public void CommandPriority(CommandModel command)
+        {
+            if (command.DataArray.Length < 3) {
+                var builder = CreateMessageBuilder();
+                builder.AppendText(_("Priority for Available is: {0}"), Server.Priorities[PresenceStatus.Online]);
+                command.FrontendManager.AddMessageToChat(command.Chat, builder.ToMessage());
+                builder = CreateMessageBuilder();
+                builder.AppendText(_("Priority for Away is: {0}"), Server.Priorities[PresenceStatus.Away]);
+                command.FrontendManager.AddMessageToChat(command.Chat, builder.ToMessage());
+                return;
+            }
+            string subcmd = command.DataArray[1];
+            int prio;
+            if (!int.TryParse(command.DataArray[2], out prio) || prio < -128 || prio > 127) {
+                var builder = CreateMessageBuilder();
+                builder.AppendText(_("Invalid Priority: {0} (valid priorities are between -128 and 127 inclusive)"), command.DataArray[2]);
+                command.FrontendManager.AddMessageToChat(command.Chat, builder.ToMessage());
+                return;
+            }
+            var me = PresenceManager[JabberClient.JID];
+            JabberClient.Priority = prio;
+            bool change_current_prio = false;
+            switch (subcmd) {
+                case "temp":
+                case "temporary":
+                    change_current_prio = true;
+                    // only set priority
+                    break;
+                case "away":
+                    Server.Priorities[PresenceStatus.Away] = prio;
+                    if (me != null) {
+                        change_current_prio = (me.Type == PresenceType.available) && (me.Show == "away");
+                    }
+                    break;
+                case "online":
+                case "available":
+                    Server.Priorities[PresenceStatus.Online] = prio;
+                    if (me != null) {
+                        change_current_prio = (me.Type == PresenceType.available) && string.IsNullOrEmpty(me.Show);
+                    }
+                    break;
+                default:
+                    return;
+            }
+            if (change_current_prio) {
+                // set priority and keep all other presence info
+                JabberClient.Presence(me.Type, me.Status, me.Show, prio);
+            }
         }
 
         private JID GetJidFromNickname(string nickname)
@@ -1024,7 +1103,7 @@ namespace Smuxi.Engine
             OnConnected(EventArgs.Empty);
         }
 
-        private void ApplyConfig(UserConfig config, ServerModel server)
+        private void ApplyConfig(UserConfig config, XmppServerModel server)
         {
             if (server.Username.Contains("@")) {
                 var jid_user = server.Username.Split('@')[0];
@@ -1051,15 +1130,7 @@ namespace Smuxi.Engine
             Me.IdentityNameColored.Bold = true;
 
             // XMPP specific settings
-            if (server is XmppServerModel) {
-                var xmppServer = (XmppServerModel) server;
-                JabberClient.Resource = xmppServer.Resource;
-            }
-
-            // fallback
-            if (String.IsNullOrEmpty(JabberClient.Resource)) {
-                JabberClient.Resource = "smuxi";
-            }
+            JabberClient.Resource = server.Resource;
 
             JabberClient.OnInvalidCertificate -= ValidateCertificate;
 
