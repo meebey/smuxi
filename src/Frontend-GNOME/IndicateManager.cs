@@ -147,8 +147,6 @@ namespace Smuxi.Frontend.Gnome
 
                 Server.Show();
                 IsEnabled = true;
-                // hide the main window instead of closing it
-                MainWindow.NotificationAreaIconMode = NotificationAreaIconMode.Closed;
             } else {
                 // non-persistent in menu using the blacklist as per
                 // specification:
