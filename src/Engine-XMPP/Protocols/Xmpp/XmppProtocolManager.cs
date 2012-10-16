@@ -917,11 +917,13 @@ namespace Smuxi.Engine
                     Session.AddChat(groupChat);
                     Session.SyncChat(groupChat);
                 }
-                person = groupChat.GetPerson(msg.From.Resource);
+                // resource can be empty for room messages
+                var sender_id = msg.From.Resource ?? msg.From.Bare;
+                person = groupChat.GetPerson(sender_id);
                 if (person == null) {
                     // happens in case of a delayed message if the participant has left meanwhile
-                    person = new PersonModel(msg.From.Resource,
-                                             msg.From.Resource,
+                    person = new PersonModel(sender_id,
+                                             sender_id,
                                              NetworkID, Protocol, this);
                 }
 
