@@ -44,6 +44,7 @@ namespace Smuxi.Common
                 string os = null;
                 // GNU/Linux
                 // GNU/kFreeBSD
+                // Cygwin
                 var info = new ProcessStartInfo("uname", "-o");
                 info.UseShellExecute = false;
                 info.RedirectStandardOutput = true;
@@ -51,6 +52,11 @@ namespace Smuxi.Common
                 process.WaitForExit();
                 if (process.ExitCode == 0) {
                     os = process.StandardOutput.ReadLine();
+                    // HACK: if Cygwin was installed on Windows and is in PATH
+                    // we should not trust uname and ask the runtime instead
+                    if (os == "Cygwin") {
+                        return Environment.OSVersion.Platform.ToString();
+                    }
                 }
 
                 if (String.IsNullOrEmpty(os)) {
