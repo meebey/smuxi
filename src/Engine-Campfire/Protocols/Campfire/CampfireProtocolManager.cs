@@ -216,10 +216,23 @@ namespace Smuxi.Engine
 
         }
 
+        public void CommandTopic(CommandModel cmd)
+        {
+            Trace.Call(cmd);
+
+            var update = new UpdateTopicWrapper {
+                room = new TopicChange {
+                    topic = cmd.Parameter
+                }
+            };
+
+            Client.Put<object>(String.Format("/room/{0}.json", cmd.Chat.ID), update);
+        }
+
         public void CommandSay(CommandModel cmd)
         {
             Trace.Call(cmd);
-            SendMesage((GroupChatModel) cmd.Chat, cmd.Parameter);
+            SendMessage((GroupChatModel) cmd.Chat, cmd.Parameter);
         }
 
         public override bool Command(CommandModel command)
@@ -242,9 +255,14 @@ namespace Smuxi.Engine
                     CommandHelp(command);
                     handled = true;
                     break;
+                case "topic":
+                    CommandTopic(command);
+                    handled = true;
+                    break;
                 default: // nothing, normal chat
                     handled = true;
-                    SendMesage((GroupChatModel) command.Chat, command.Data);
+                    if (command.Chat is GroupChatModel)
+                        SendMessage((GroupChatModel) command.Chat, command.Data);
                     break;
             }
 
@@ -297,7 +315,7 @@ namespace Smuxi.Engine
             return chats;
         }
 
-        void SendMesage(GroupChatModel chat, string text)
+        void SendMessage(GroupChatModel chat, string text)
         {
             var message = new MessageSending { body = text, type = Campfire.MessageType.TextMessage};
             var wrapper = new MessageWrapper { message = message };

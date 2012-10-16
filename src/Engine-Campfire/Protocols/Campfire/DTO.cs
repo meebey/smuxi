@@ -27,6 +27,8 @@ namespace Smuxi.Engine.Campfire
     internal class MessagesResponse { public Message[] Messages { get; set; } }
     internal class MessageResponse { public Message Message { get; set; } }
     internal class MessageWrapper { public MessageSending message { get; set; } }
+    internal class TopicChange { public string topic { get; set; } }
+    internal class UpdateTopicWrapper { public TopicChange room { get; set; } }
 
     internal enum MessageType {
         EnterMessage,
