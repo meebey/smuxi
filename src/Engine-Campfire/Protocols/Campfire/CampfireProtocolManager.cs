@@ -216,6 +216,19 @@ namespace Smuxi.Engine
 
         }
 
+        public void CommandTopic(CommandModel cmd)
+        {
+            Trace.Call(cmd);
+
+            var update = new UpdateTopicWrapper {
+                room = new TopicChange {
+                    topic = cmd.Parameter
+                }
+            };
+
+            Client.Put<object>(String.Format("/room/{0}.json", cmd.Chat.ID), update);
+        }
+
         public void CommandSay(CommandModel cmd)
         {
             Trace.Call(cmd);
@@ -240,6 +253,10 @@ namespace Smuxi.Engine
                     break;
                 case "help":
                     CommandHelp(command);
+                    handled = true;
+                    break;
+                case "topic":
+                    CommandTopic(command);
                     handled = true;
                     break;
                 default: // nothing, normal chat
