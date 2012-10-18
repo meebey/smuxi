@@ -56,8 +56,12 @@ namespace Smuxi.Frontend.Gnome
         Gtk.TextTag LinkTag { get; set; }
         Gtk.TextTag EventTag { get; set; }
 
+        Gtk.TextTag PersonTag { get; set; }
+        bool AtPersonTag { get; set; }
+
         public event MessageTextViewMessageAddedEventHandler       MessageAdded;
         public event MessageTextViewMessageHighlightedEventHandler MessageHighlighted;
+        public event EventHandler<MessageTextViewPersonClickedEventArgs> PersonClicked;
         
         public bool ShowTimestamps {
             get {
@@ -292,6 +296,9 @@ namespace Smuxi.Frontend.Gnome
                 }
             }
 
+            var msgStartMark = new Gtk.TextMark(null, true);
+            buffer.AddMark(msgStartMark, iter);
+
             bool hasHighlight = false;
             foreach (MessagePartModel msgPart in msg.MessageParts) {
                 // supposed to be used only in a ChatView
@@ -386,6 +393,18 @@ namespace Smuxi.Frontend.Gnome
             if (indentTag != null) {
                 buffer.ApplyTag(indentTag, startIter, iter);
             }
+            var nick = msg.GetNick();
+            if (nick != null) {
+                var personTag = new PersonTag(nick, nick);
+                personTag.TextEvent += OnPersonTagTextEvent;
+                _MessageTextTagTable.Add(personTag);
+
+                var msgStartIter = buffer.GetIterAtMark(msgStartMark);
+                var nickEndIter = msgStartIter;
+                nickEndIter.ForwardChars(nick.Length + 2);
+                buffer.ApplyTag(PersonTag, msgStartIter, nickEndIter);
+                buffer.ApplyTag(personTag, msgStartIter, nickEndIter);
+            }
             if (addLinebreak) {
                 buffer.Insert(ref iter, "\n");
             }
@@ -467,6 +486,10 @@ namespace Smuxi.Frontend.Gnome
             LinkTag = tt;
             ttt.Add(tt);
 
+            tt = new Gtk.TextTag("person");
+            PersonTag = tt;
+            ttt.Add(tt);
+
             return ttt;
         }
 
@@ -486,9 +509,14 @@ namespace Smuxi.Frontend.Gnome
             // get TextIter with buffer position
             Gtk.TextIter iter = GetIterAtLocation(bufferX, bufferY);
             bool atUrlTag = false;
+            bool atPersonTag = false;
             foreach (Gtk.TextTag tag in iter.Tags) {
                 if (tag.Name == "link") {
                     atUrlTag = true;
+                    break;
+                }
+                if (tag.Name == "person") {
+                    atPersonTag = true;
                     break;
                 }
             }
@@ -508,6 +536,21 @@ namespace Smuxi.Frontend.Gnome
 #endif
                     window.Cursor = _NormalCursor;
                     _ActiveLink = null;
+                }
+            }
+            if (atPersonTag != AtPersonTag) {
+                AtPersonTag = atPersonTag;
+                
+                if (atPersonTag) {
+#if LOG4NET
+                    _Logger.Debug("OnMotionNotifyEvent(): at person tag");
+#endif
+                    window.Cursor = _LinkCursor;
+                } else {
+#if LOG4NET
+                    _Logger.Debug("OnMotionNotifyEvent(): not at person tag");
+#endif
+                    window.Cursor = _NormalCursor;
                 }
             }
         }
@@ -540,6 +583,36 @@ namespace Smuxi.Frontend.Gnome
             }
 
             Frontend.OpenLink(_ActiveLink);
+        }
+
+        protected virtual void OnPersonTagTextEvent(object sender, Gtk.TextEventArgs e)
+        {
+            // logging noise
+            //Trace.Call(sender, e);
+            
+            // if something in the textview is selected, bail out
+            if (HasTextViewSelection) {
+#if LOG4NET
+                _Logger.Debug("OnPersonTagTextEvent(): active selection present, bailing out...");
+#endif
+                return;
+            }
+            
+            var tag = (PersonTag) sender;
+            if (tag == null) {
+                return;
+            }
+
+            if (e.Event.Type != Gdk.EventType.ButtonPress) {
+                return;
+            }
+
+            if (PersonClicked != null) {
+                PersonClicked(
+                    this,
+                    new MessageTextViewPersonClickedEventArgs(tag.IdentityName)
+                );
+            }
         }
 
         protected virtual void OnPopulatePopup(object sender, Gtk.PopulatePopupArgs e)
@@ -763,6 +836,16 @@ namespace Smuxi.Frontend.Gnome
         public MessageTextViewMessageHighlightedEventArgs(MessageModel message)
         {
             f_Message = message;
+        }
+    }
+
+    public class MessageTextViewPersonClickedEventArgs : EventArgs
+    {
+        public string IdentityName { get; private set; }
+        
+        public MessageTextViewPersonClickedEventArgs(string identityName)
+        {
+            IdentityName = identityName;
         }
     }
 }

@@ -21,6 +21,7 @@
  */
 
 using System;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Collections.Generic;
 using Smuxi.Common;
@@ -270,6 +271,7 @@ namespace Smuxi.Frontend.Gnome
             tv.SizeRequested += delegate {
                 AutoScroll();
             };
+            tv.PersonClicked += OnMessageTextViewPersonClicked;
             _OutputMessageTextView = tv;
 
             Gtk.ScrolledWindow sw = new Gtk.ScrolledWindow();
@@ -742,6 +744,22 @@ namespace Smuxi.Frontend.Gnome
             };
             popup.Prepend(item);
             popup.ShowAll();
+        }
+
+        protected virtual void OnMessageTextViewPersonClicked(object sender, MessageTextViewPersonClickedEventArgs e)
+        {
+            Trace.Call(sender, e);
+
+            var entry = Frontend.MainWindow.Entry;
+            var text = entry.Text;
+            var match = Regex.Match(text, "^[^ ]+: ");
+            if (match.Success) {
+                // removing existing nick
+                text = text.Substring(match.Length);
+            }
+            text = String.Format("{0}: {1}", e.IdentityName, text);
+            entry.Text = text;
+            entry.HasFocus = true;
         }
 
         protected virtual void OnLastSeenHighlightQueueExceptionEvent(object sender, TaskQueueExceptionEventArgs e)

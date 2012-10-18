@@ -121,7 +121,6 @@ FILES = \
 	GnomeUI.cs \
 	Gtk.WindowExtensions.cs \
 	IndicateManager.cs \
-	LinkTag.cs \
 	Main.cs \
 	MainWindow.cs \
 	NetworkManager.cs \
@@ -151,6 +150,8 @@ FILES = \
 	Views/Assistants/Engine/EngineAssistantConnectionWidget.cs \
 	Views/Assistants/Engine/EngineAssistantIntroWidget.cs \
 	Views/Assistants/Engine/EngineAssistant.cs \
+	Views/Tags/LinkTag.cs \
+	Views/Tags/PersonTag.cs \
 	QuickConnectDialog.cs \
 	SteticPreferencesDialog.cs \
 	FindGroupChatDialog.cs \

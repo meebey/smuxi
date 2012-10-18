@@ -135,7 +135,6 @@
     <Compile Include="NotifyManager.cs" />
     <Compile Include="ColorConverter.cs" />
     <Compile Include="NetworkManager.cs" />
-    <Compile Include="LinkTag.cs" />
     <Compile Include="Gtk.WindowExtensions.cs" />
     <Compile Include="gtk-gui\Smuxi.Frontend.Gnome.JoinWidget.cs" />
     <Compile Include="Views\JoinWidget.cs" />
@@ -146,6 +145,8 @@
     <Compile Include="osx\CoreFoundation.cs" />
     <Compile Include="gtk-gui\Smuxi.Frontend.Gnome.MenuWidget.cs" />
     <Compile Include="Views\MenuWidget.cs" />
+    <Compile Include="Views\Tags\LinkTag.cs" />
+    <Compile Include="Views\Tags\PersonTag.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="smuxi-frontend-gnome.exe.config">
@@ -163,6 +164,7 @@
     <Folder Include="Views\Assistants\Engine\" />
     <Folder Include="images\" />
     <Folder Include="osx\" />
+    <Folder Include="Views\Tags\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Engine\Engine.csproj">

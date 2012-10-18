@@ -22,6 +22,7 @@
 
 using System;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
@@ -247,6 +248,21 @@ namespace Smuxi.Engine
             }
 
             f_MessageParts = parts;
+        }
+
+        public string GetNick()
+        {
+            // HACK: MessageModel doesn't contain a Sender/Origin property
+            // yet, thus we have to retrieve the information from the
+            // meesage itself
+            // TODO: extend MessageModel with Origin property
+            var msgText = ToString();
+            var match = Regex.Match(msgText, "^<([^ ]+)>");
+            if (match.Success && match.Groups.Count >= 2) {
+                return match.Groups[1].Value;
+            }
+
+            return null;
         }
 
         public static bool operator ==(MessageModel a, MessageModel b)
