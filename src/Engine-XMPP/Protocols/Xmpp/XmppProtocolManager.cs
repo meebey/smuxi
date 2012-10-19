@@ -447,7 +447,7 @@ namespace Smuxi.Engine
             "connect xmpp/jabber server port username password [resource]",
             "msg/query jid/nick message",
             "say message",
-            "join muc-jid",
+            "join muc-jid [custom-chat-nick]",
             "part/leave [muc-jid]",
             "away [away-message]",
             "contact add/remove/accept/deny jid/nick",
@@ -614,8 +614,12 @@ namespace Smuxi.Engine
 
             string jid = cd.DataArray[1];
             ChatModel chat = GetChat(jid, ChatType.Group);
+            string nickname = JabberClient.User;
+            if (cd.DataArray.Length > 2) {
+                nickname = cd.DataArray[2];
+            }
             if (chat == null) {
-                ConferenceManager.GetRoom(jid+"/"+JabberClient.User).Join();
+                ConferenceManager.GetRoom(jid+"/"+nickname).Join();
             }
         }
 
