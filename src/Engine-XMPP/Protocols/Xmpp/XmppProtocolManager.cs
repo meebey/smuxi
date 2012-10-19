@@ -910,12 +910,10 @@ namespace Smuxi.Engine
                 string group_name = group_jid;
                 XmppGroupChatModel groupChat = (XmppGroupChatModel) Session.GetChat(group_jid, ChatType.Group, this);
                 if (groupChat == null) {
-                    // FIXME shouldn't happen?
                     groupChat = Session.CreateChat<XmppGroupChatModel>(
                         group_jid, group_name, this
                     );
                     Session.AddChat(groupChat);
-                    Session.SyncChat(groupChat);
                 }
                 // resource can be empty for room messages
                 var sender_id = msg.From.Resource ?? msg.From.Bare;
@@ -1030,7 +1028,6 @@ namespace Smuxi.Engine
                 chat = Session.CreateChat<XmppGroupChatModel>(jid, jid, this);
                 chat.OwnNickname = room.Nickname;
                 Session.AddChat(chat);
-                Session.SyncChat(chat);
             }
 
             lock (chat) {
@@ -1039,7 +1036,17 @@ namespace Smuxi.Engine
                 }
                 // manual construction is necessary for group chats
                 var person = new PersonModel(nickname, nickname, NetworkID, Protocol, this);
-                Session.AddPersonToGroupChat(chat, person);
+                if (chat.IsSynced) {
+                    Session.AddPersonToGroupChat(chat, person);
+                } else {
+                    chat.UnsafePersons.Add(nickname, person);
+                }
+            }
+
+            // did I join? then the chat roster is fully received
+            if (!chat.IsSynced && nickname == room.Nickname) {
+                chat.IsSynced = true;
+                Session.SyncChat(chat);
             }
         }
         
