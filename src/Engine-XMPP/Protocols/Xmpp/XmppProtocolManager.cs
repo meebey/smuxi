@@ -447,7 +447,7 @@ namespace Smuxi.Engine
             "connect xmpp/jabber server port username password [resource]",
             "msg/query jid/nick message",
             "say message",
-            "join muc-jid",
+            "join muc-jid [custom-chat-nick]",
             "part/leave [muc-jid]",
             "away [away-message]",
             "contact add/remove/accept/deny jid/nick",
@@ -614,8 +614,12 @@ namespace Smuxi.Engine
 
             string jid = cd.DataArray[1];
             ChatModel chat = GetChat(jid, ChatType.Group);
+            string nickname = JabberClient.User;
+            if (cd.DataArray.Length > 2) {
+                nickname = cd.DataArray[2];
+            }
             if (chat == null) {
-                ConferenceManager.GetRoom(jid+"/"+JabberClient.User).Join();
+                ConferenceManager.GetRoom(jid+"/"+nickname).Join();
             }
         }
 
@@ -910,12 +914,10 @@ namespace Smuxi.Engine
                 string group_name = group_jid;
                 XmppGroupChatModel groupChat = (XmppGroupChatModel) Session.GetChat(group_jid, ChatType.Group, this);
                 if (groupChat == null) {
-                    // FIXME shouldn't happen?
                     groupChat = Session.CreateChat<XmppGroupChatModel>(
                         group_jid, group_name, this
                     );
                     Session.AddChat(groupChat);
-                    Session.SyncChat(groupChat);
                 }
                 // resource can be empty for room messages
                 var sender_id = msg.From.Resource ?? msg.From.Bare;
@@ -1030,17 +1032,25 @@ namespace Smuxi.Engine
                 chat = Session.CreateChat<XmppGroupChatModel>(jid, jid, this);
                 chat.OwnNickname = room.Nickname;
                 Session.AddChat(chat);
-                Session.SyncChat(chat);
             }
 
             lock (chat) {
-                var person = chat.GetPerson(nickname);
-                if (person != null) {
+                if (chat.UnsafePersons.ContainsKey(nickname)) {
                     return;
                 }
+                // manual construction is necessary for group chats
+                var person = new PersonModel(nickname, nickname, NetworkID, Protocol, this);
+                if (chat.IsSynced) {
+                    Session.AddPersonToGroupChat(chat, person);
+                } else {
+                    chat.UnsafePersons.Add(nickname, person);
+                }
+            }
 
-                person = CreatePerson(nickname);
-                Session.AddPersonToGroupChat(chat, person);
+            // did I join? then the chat roster is fully received
+            if (!chat.IsSynced && nickname == room.Nickname) {
+                chat.IsSynced = true;
+                Session.SyncChat(chat);
             }
         }
         

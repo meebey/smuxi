@@ -1121,7 +1121,7 @@ namespace Smuxi.Engine
 #if LOG4NET
             f_Logger.Debug("AddPersonToGroupChat() groupChat.Name: "+groupChat.Name+" person.IdentityName: "+person.IdentityName);
 #endif
-            groupChat.UnsafePersons.Add(person.ID.ToLower(), person);
+            groupChat.UnsafePersons.Add(person.ID, person);
             lock (_FrontendManagers) {
                 foreach (FrontendManager fm in _FrontendManagers.Values) {
                     fm.AddPersonToGroupChat(groupChat, person);
@@ -1150,8 +1150,8 @@ namespace Smuxi.Engine
             // FIXME: do we have to lock groupChat.UnsafePersons here?
             // probably not, as long as the ProtocolManager who owns this chat
             // is only running one thread
-            groupChat.UnsafePersons.Remove(oldPerson.ID.ToLower());
-            groupChat.UnsafePersons.Add(newPerson.ID.ToLower(), newPerson);
+            groupChat.UnsafePersons.Remove(oldPerson.ID);
+            groupChat.UnsafePersons.Add(newPerson.ID, newPerson);
             lock (_FrontendManagers) {
                 foreach (FrontendManager fm in _FrontendManagers.Values) {
                     fm.UpdatePersonInGroupChat(groupChat, oldPerson, newPerson);
@@ -1191,7 +1191,7 @@ namespace Smuxi.Engine
 #if LOG4NET
             f_Logger.Debug("RemovePersonFromGroupChat() groupChat.Name: " + groupChat.Name + " person.ID: "+person.ID);
 #endif
-            groupChat.UnsafePersons.Remove(person.ID.ToLower());
+            groupChat.UnsafePersons.Remove(person.ID);
             lock (_FrontendManagers) {
                 foreach (FrontendManager fm in _FrontendManagers.Values) {
                     fm.RemovePersonFromGroupChat(groupChat, person);
