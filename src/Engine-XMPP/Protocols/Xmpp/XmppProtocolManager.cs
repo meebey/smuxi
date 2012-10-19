@@ -1034,12 +1034,11 @@ namespace Smuxi.Engine
             }
 
             lock (chat) {
-                var person = chat.GetPerson(nickname);
-                if (person != null) {
+                if (chat.UnsafePersons.ContainsKey(nickname)) {
                     return;
                 }
-
-                person = CreatePerson(nickname);
+                // manual construction is necessary for group chats
+                var person = new PersonModel(nickname, nickname, NetworkID, Protocol, this);
                 Session.AddPersonToGroupChat(chat, person);
             }
         }

@@ -2790,7 +2790,7 @@ namespace Smuxi.Engine
                 // someone else joined, let's add him to the channel chat
                 // HACK: some buggy networks might send JOIN messages for users
                 // that are already on the channel
-                if (groupChat.UnsafePersons.ContainsKey(e.Who.ToLower())) {
+                if (groupChat.UnsafePersons.ContainsKey(e.Who)) {
 #if LOG4NET
                    _Logger.Error("_OnJoin(): groupChat.UnsafePerson contains " +
                                   "already: '" + e.Who + "', ignoring...");
@@ -2852,7 +2852,7 @@ namespace Smuxi.Engine
                 
                 var groupPerson = CreateGroupPerson(username);
                 
-                groupChat.UnsafePersons.Add(groupPerson.NickName.ToLower(), groupPerson);
+                groupChat.UnsafePersons.Add(groupPerson.NickName, groupPerson);
 #if LOG4NET
                 // logging noise
                 //_Logger.Debug("_OnNames() added user: " + username + " to: " + groupChat.Name);
