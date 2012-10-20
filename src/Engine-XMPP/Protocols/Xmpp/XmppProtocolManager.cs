@@ -806,7 +806,8 @@ namespace Smuxi.Engine
             builder.AppendEventPrefix();
             PersonModel person = null;
             if (groupChat != null) {
-                person = new PersonModel("", jid.Resource, "", "", this);
+                string displayName = jid.Resource ?? jid.Bare;
+                person = new PersonModel("", displayName, "", "", this);
             } else {
                 person = CreatePerson(jid.Bare);
             }
