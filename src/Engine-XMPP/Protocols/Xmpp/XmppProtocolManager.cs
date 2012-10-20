@@ -791,74 +791,39 @@ namespace Smuxi.Engine
             }
         }
 
-        void OnPresence(object sender, Presence pres)
+        MessageModel CreatePresenceUpdateMessage(PersonModel person, PresenceType type, ShowType show, string message)
         {
-            Jid jid = pres.From;
-            var groupChat = (XmppGroupChatModel) Session.GetChat(jid.Bare, ChatType.Group, this);
-
-            MessageBuilder builder = CreateMessageBuilder();
+            var builder = CreateMessageBuilder();
             builder.AppendEventPrefix();
-            PersonModel person = null;
-            if (groupChat != null) {
-                person = CreatePerson(jid, jid.Resource);
-            } else {
-                person = CreatePerson(jid);
-            }
             builder.AppendIdendityName(person);
-            if (jid != person.IdentityName) {
-                builder.AppendText(" [{0}]", jid);
+            if (person.ID != person.IdentityName) {
+                builder.AppendText(" [{0}]", person.ID);
             }
-
-            switch (pres.Type) {
+            switch (type) {
                 case PresenceType.available:
-                    // groupchat gets messages in own window
-                    if (groupChat == null) {
-                        if (ContactChat != null) {
-                            // anyone who is online/away/dnd will be added to the list
-                            lock (ContactChat) {
-                                PersonModel p = ContactChat.GetPerson(jid);
-                                if (p != null) {
-                                    // p already exists, don't add a new person
-                                    Session.UpdatePersonInGroupChat(ContactChat, p, person);
-                                } else {
-                                    Session.AddPersonToGroupChat(ContactChat, person);
-                                }
-                            }
-                        }
-                    } else {
-                        AddPersonToGroup(groupChat, jid);
+                    switch (show) {
+                        case ShowType.NONE:
+                            builder.AppendText(_(" is now available"));
+                            break;
+                        case ShowType.away:
+                            builder.AppendText(_(" is now away"));
+                            break;
+                        case ShowType.dnd:
+                            builder.AppendText(_(" wishes not to be disturbed"));
+                            break;
+                        case ShowType.xa:
+                            builder.AppendText(_(" is now on extended away"));
+                            break;
+                        default:
+                            builder.AppendText(_(" changed to an unknown state: {0}"), show);
+                            break;
                     }
-                    if (pres.Show == ShowType.NONE) {
-                        builder.AppendText(_(" is now available"));
-                    } else if (pres.Show == ShowType.away) {
-                        builder.AppendText(_(" is now away"));
-                    } else if (pres.Show == ShowType.dnd) {
-                        builder.AppendText(_(" wishes not to be disturbed"));
-                    } else if (pres.Show == ShowType.xa) {
-                        builder.AppendText(_(" is now extended away"));
-                    } else if (pres.Show == ShowType.chat) {
-                        builder.AppendText(_(" is now available for chat"));
+                    if (!String.IsNullOrEmpty(message)) {
+                        builder.AppendText(": {0}", message);
                     }
-                    if (pres.Status == null) break;
-                    if (pres.Status.Length == 0) break;
-                    builder.AppendText(": {0}", pres.Status);
                     break;
                 case PresenceType.unavailable:
                     builder.AppendText(_(" is now offline"));
-                    if (groupChat == null) {
-                        if (ContactChat != null) {
-                            lock (ContactChat) {
-                                PersonModel p = ContactChat.GetPerson(jid);
-                                if (p == null) {
-                                    // doesn't exist, got an offline message w/o a preceding online message?
-                                    return;
-                                }
-                                Session.RemovePersonFromGroupChat(ContactChat, p);
-                            }
-                        }
-                    } else {
-                        RemovePersonFromGroupChat(groupChat, jid);
-                    }
                     break;
                 case PresenceType.subscribe:
                     builder.AppendText(_(" wishes to subscribe to you"));
@@ -866,15 +831,111 @@ namespace Smuxi.Engine
                 case PresenceType.subscribed:
                     builder.AppendText(_(" allows you to subscribe"));
                     break;
+                default:
+                    builder.AppendErrorText(" Error: unknown presence type: {0}", type.ToString());
+                    break;
             }
+            return builder.ToMessage();
+        }
+
+        MessageModel CreateMucPresenceUpdateMessage(string muc, string nickname, PresenceType type, ShowType show, string message, bool isUpdate)
+        {
+            var builder = CreateMessageBuilder();
+            builder.AppendEventPrefix();
+            builder.AppendIdendityName(new PersonModel("", nickname, "", "", this));
+
+            switch (type) {
+                case PresenceType.available:
+                    switch (show) {
+                        case ShowType.NONE:
+                            if (isUpdate) {
+                                builder.AppendText(_(" is now available"));
+                            } else {
+                                builder.AppendText(_(" has joined {0}"), muc);
+                            }
+                            break;
+                        case ShowType.away:
+                            builder.AppendText(_(" is now away"));
+                            break;
+                        case ShowType.dnd:
+                            builder.AppendText(_(" wishes not to be disturbed"));
+                            break;
+                        case ShowType.xa:
+                            builder.AppendText(_(" is now on extended away"));
+                            break;
+                        default:
+                            builder.AppendText(_(" changed to an unknown state: {0}"), show);
+                            break;
+                    }
+                    if (!String.IsNullOrEmpty(message)) {
+                        builder.AppendText(": {0}", message);
+                    }
+                    break;
+                case PresenceType.unavailable:
+                    builder.AppendText(_(" has left {0}"), muc);
+                    break;
+                default:
+                    builder.AppendErrorText(" Error: unknown presence type in muc: {0}", type.ToString());
+                    break;
+            }
+            return builder.ToMessage();
+        }
+
+        void OnPresence(object sender, Presence pres)
+        {
+            // catch error presence packets
+            if (pres.Type == PresenceType.error) {
+                var builder = CreateMessageBuilder();
+                builder.AppendErrorText("An error presence packet has been received, this is most likely a bug in the client: {0}", pres.ToString());
+                Session.AddMessageToChat(NetworkChat, builder.ToMessage());
+                return;
+            }
+
+            Jid jid = pres.From;
+            var groupChat = (XmppGroupChatModel) Session.GetChat(jid.Bare, ChatType.Group, this);
+
             if (groupChat != null) {
-                Session.AddMessageToChat(groupChat, builder.ToMessage());
-            } else if (ContactChat != null) {
-                Session.AddMessageToChat(ContactChat, builder.ToMessage());
+                // is it a muc?
+                lock (groupChat) {
+                    bool isUpdate = groupChat.UnsafePersons.ContainsKey(jid.Resource);
+                    var msg_ = CreateMucPresenceUpdateMessage(jid.Bare, jid.Resource, pres.Type, pres.Show, pres.Status, isUpdate);
+                    Session.AddMessageToChat(groupChat, msg_);
+                }
+                return;
+            }
+            PersonModel person = CreatePerson(jid.Bare);
+            var msg = CreatePresenceUpdateMessage(person, pres.Type, pres.Show, pres.Status);
+            if (ContactChat != null) {
+                // is the Contact Chat open?
+                lock (ContactChat) {
+                    Session.AddMessageToChat(ContactChat, msg);
+                    PersonModel p = ContactChat.GetPerson(jid.Bare);
+                    switch (pres.Type) {
+                        case PresenceType.available:
+                            // anyone who is online/away/dnd will be added to the list
+                            if (p != null) {
+                                // p already exists, don't add a new person
+                                Session.UpdatePersonInGroupChat(ContactChat, p, person);
+                            } else {
+                                Session.AddPersonToGroupChat(ContactChat, person);
+                            }
+                        break;
+                        case PresenceType.unavailable:
+                            if (p == null) {
+                                // doesn't exist, got an offline message w/o a preceding online message?
+                                return;
+                            }
+                            Session.RemovePersonFromGroupChat(ContactChat, p);
+                        break;
+                    }
+                }
             }
             var personChat = Session.GetChat(jid, ChatType.Person, this);
             if (personChat != null) {
-                Session.AddMessageToChat(personChat, builder.ToMessage());
+                // is there a private chat open?
+                lock (personChat) {
+                    Session.AddMessageToChat(personChat, msg);
+                }
             }
         }
         
