@@ -240,6 +240,8 @@ namespace Smuxi.Frontend.Gnome
                 args.Requisition = bestSize;
             };
             entryScrolledWindow.Add(Entry);
+            var entryHBox = new Gtk.HBox();
+            entryHBox.PackStart(entryScrolledWindow, true, true, 2);
 
             ProgressBar = new Gtk.ProgressBar();
             StatusHBox = new Gtk.HBox();
@@ -249,7 +251,7 @@ namespace Smuxi.Frontend.Gnome
             Gtk.VBox vbox = new Gtk.VBox();
             vbox.PackStart(MenuWidget, false, false, 0);
             vbox.PackStart(Notebook, true, true, 0);
-            vbox.PackStart(entryScrolledWindow, false, false, 0);
+            vbox.PackStart(entryHBox, false, false, 0);
 
             NetworkStatusbar = new Gtk.Statusbar();
             NetworkStatusbar.WidthRequest = 300;
