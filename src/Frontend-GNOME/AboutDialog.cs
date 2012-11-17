@@ -50,14 +50,17 @@ namespace Smuxi.Frontend.Gnome
                 "Clément Bourgeois <moonpyk@gmail.com>",
                 "Chris Le Sueur <c.m.lesueur@gmail.com>",
                 "Tuukka Hastrup <Tuukka.Hastrup@iki.fi>",
-                "Bianca Mix <heavydemon@freenet.de>"
+                "Bianca Mix <heavydemon@freenet.de>",
+                "Oliver Schneider <mail@oli-obk.de>",
+                "Carlos Martín Nieto <cmn@dwim.me>"
             };
             Artists = new string[] {
                 "Jakub Steiner <jimmac@ximian.com>",
                 "Rodney Dawes <dobey@novell.com>",
                 "Lapo Calamandrei <calamandrei@gmail.com>",
                 "Ahmed Abdellah <a3dman1@gmail.com>",
-                "Matthieu James <matthieu.james@gmail.com>"
+                "Matthieu James <matthieu.james@gmail.com>",
+                "George Karavasilev <motorslav@gmail.com>"
             };
             TranslatorCredits = _("translator-credits");
             Logo = Frontend.LoadIcon(
