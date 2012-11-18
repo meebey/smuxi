@@ -42,6 +42,23 @@ namespace Smuxi.Frontend.Gnome
             }
         }
 
+        public string ActiveNetwork {
+            get {
+                return f_NetworkComboBox.ActiveText;
+            }
+            set {
+                var store = (Gtk.ListStore) f_NetworkComboBox.Model;
+                var idx = 0;
+                foreach (object[] row in store) {
+                    if ((string) row[0] == value) {
+                        f_NetworkComboBox.Active = idx;
+                        break;
+                    }
+                    idx++;
+                }
+            }
+        }
+
         [DllImport("libgtk-win32-2.0-0.dll")]
         static extern void gtk_entry_set_icon_from_pixbuf(IntPtr entry, int pos, IntPtr pixbuf);
 

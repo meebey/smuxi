@@ -476,6 +476,19 @@ namespace Smuxi.Frontend.Gnome
                         File.Exists(chatView.ChatModel.LogFile);
                 }
 
+                // find protocol chat parent and update join bar
+                foreach (var view in ChatViewManager.Chats) {
+                    if (!(view is ProtocolChatView) ||
+                        view.ProtocolManager == null) {
+                        continue;
+                    }
+                    if (chatView.ProtocolManager == view.ProtocolManager) {
+                        var pView = (ProtocolChatView) view;
+                        MenuWidget.JoinWidget.ActiveNetwork = pView.NetworkID;
+                        break;
+                    }
+                }
+
                 // HACK: Gtk.Notebook moves the focus to the child after the
                 // page has been switched, so move the focus back to the entry
                 GLib.Idle.Add(delegate {
