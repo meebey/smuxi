@@ -104,6 +104,8 @@ namespace Smuxi.Frontend.Gnome
             f_ChatEntry.Activated += delegate {
                 OnActivated(EventArgs.Empty);
             };
+            f_ChatEntry.KeyPressEvent += OnChatEntryKeyPressEvent;
+
             f_JoinButton.Clicked += delegate {
                 OnActivated(EventArgs.Empty);
             };
@@ -162,6 +164,27 @@ namespace Smuxi.Frontend.Gnome
         {
             if (Activated != null) {
                 Activated(this, e);
+            }
+        }
+
+        [GLib.ConnectBefore]
+        protected void OnChatEntryKeyPressEvent(object o, Gtk.KeyPressEventArgs e)
+        {
+            var key = e.Event.Key;
+            if ((e.Event.State & Gdk.ModifierType.ControlMask) != 0) {
+                switch (key) {
+                    case Gdk.Key.x:
+                    case Gdk.Key.X:
+                        // ctrl + x is pressed
+                        e.RetVal = true;
+                        if (f_NetworkComboBox.Active ==
+                            f_NetworkComboBox.Model.IterNChildren() - 1) {
+                            f_NetworkComboBox.Active = 0;
+                        } else {
+                            f_NetworkComboBox.Active++;
+                        }
+                        break;
+                }
             }
         }
 
