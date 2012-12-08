@@ -27,6 +27,11 @@
     <Externalconsole>true</Externalconsole>
     <RunWithWarnings>false</RunWithWarnings>
     <AssemblyOriginatorKeyFile>.</AssemblyOriginatorKeyFile>
+    <EnvironmentVariables>
+      <EnvironmentVariables>
+        <Variable name="MONO_TRACE_LISTENER" value="Console.Out" />
+      </EnvironmentVariables>
+    </EnvironmentVariables>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>none</DebugType>
