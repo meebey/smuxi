@@ -54,6 +54,7 @@
     <Compile Include="IOSecurity.cs" />
     <Compile Include="ThreadPoolQueue.cs" />
     <Compile Include="AtomFeed.cs" />
+    <Compile Include="SpecialFolderPatternConverter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Defines.cs.in" />

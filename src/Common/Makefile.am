@@ -58,6 +58,7 @@ FILES = \
 	LibraryCatalog.cs \
 	NDesk.Options.cs \
 	Defines.cs \
+	SpecialFolderPatternConverter.cs \
 	TaskQueue.cs \
 	ThreadPoolQueue.cs \
 	Platform.cs \
