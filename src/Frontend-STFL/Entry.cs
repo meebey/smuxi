@@ -150,8 +150,9 @@ namespace Smuxi.Frontend.Stfl
             }
 
             ChatModel chat = null;
-            if (f_MainWindow.ChatViewManager.ActiveChat != null) {
-                chat = f_MainWindow.ChatViewManager.ActiveChat.ChatModel;
+            var currentChat = f_ChatViewManager.CurrentChat;
+            if (currentChat != null) {
+                chat = currentChat.ChatModel;
             }
             bool handled = false;
             CommandModel cd = new CommandModel(Frontend.FrontendManager, chat,
