@@ -21,14 +21,14 @@
  */
 
 using System;
+using System.Runtime.Serialization;
 using System.Collections.Generic;
 using Smuxi.Common;
 
 namespace Smuxi.Engine
 {
-    
     [Serializable]
-    public class ServerModel
+    public class ServerModel : ISerializable
     {
         public bool UseEncryption { get; set; }
         public bool ValidateServerCertificate { get; set; }
@@ -56,6 +56,33 @@ namespace Smuxi.Engine
         
         public ServerModel()
         {
+        }
+
+        protected ServerModel(SerializationInfo info, StreamingContext ctx)
+        {
+            Protocol = info.GetString("_Protocol");
+            Hostname = info.GetString("_Hostname");
+            Port = info.GetInt32("_Port");
+            Network = info.GetString("_Network");
+            Username = info.GetString("_Username");
+            Password = info.GetString("_Password");
+            OnStartupConnect = info.GetBoolean("_OnStartupConnect");
+            OnConnectCommands = (IList<string>) info.GetValue(
+                "_OnConnectCommands",
+                typeof(IList<string>)
+            );
+        }
+
+        public virtual void GetObjectData(SerializationInfo info, StreamingContext ctx) 
+        {
+            info.AddValue("_Protocol", Protocol);
+            info.AddValue("_Hostname", Hostname);
+            info.AddValue("_Port", Port);
+            info.AddValue("_Network", Network);
+            info.AddValue("_Username", Username);
+            info.AddValue("_Password", Password);
+            info.AddValue("_OnStartupConnect", OnStartupConnect);
+            info.AddValue("_OnConnectCommands", OnConnectCommands);
         }
         
         public virtual void Load(UserConfig config, string protocol, string id)
