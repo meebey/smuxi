@@ -60,11 +60,11 @@ namespace Smuxi.Engine
             foreach (string server in servers) {
                 string[] serverParts = server.Split(new char[] {'/'});
                 string protocol = serverParts[0];
-                string servername = serverParts[1];
-                ServerModel ser = GetServer(protocol, servername);
+                string serverId = serverParts[1];
+                ServerModel ser = GetServer(protocol, serverId);
                 if (ser == null) {
 #if LOG4NET
-                    _Logger.Error("GetServerList(): GetServer(" + protocol + ", " + servername +") returned null! ignoring...");
+                    _Logger.Error("GetServerList(): GetServer(" + protocol + ", " + serverId +") returned null! ignoring...");
 #endif 
                     continue;
                 }
@@ -140,14 +140,22 @@ namespace Smuxi.Engine
             if (server.Hostname.Contains("\n")) {
                 throw new InvalidOperationException(_("Server hostname contains invalid characters (newline)."));
             }
+            var highestServerId = -1;
             foreach (var s in GetServerList()) {
                 if (s.Protocol == server.Protocol &&
-                    s.Hostname == server.Hostname) {
+                    s.ServerID == server.ServerID) {
                     throw new InvalidOperationException(
-                        String.Format(_("Server '{0}' already exists."),
-                                      server.Hostname)
+                        String.Format(_("Server ID '{0}' already exists."),
+                                      server.ServerID)
                     );
                 }
+                int id;
+                if (Int32.TryParse(s.ServerID, out id) && id > highestServerId) {
+                    highestServerId = id;
+                }
+            }
+            if (String.IsNullOrEmpty(server.ServerID)) {
+                server.ServerID = (++highestServerId).ToString();
             }
             server.Save(_UserConfig);
             
@@ -156,7 +164,7 @@ namespace Smuxi.Engine
                 servers = new string[] {};
             }
             List<string> serverList = new List<string>(servers);
-            serverList.Add(server.Protocol + "/" + server.Hostname);
+            serverList.Add(server.Protocol + "/" + server.ServerID);
             _UserConfig["Servers/Servers"] = serverList.ToArray();
         }
 

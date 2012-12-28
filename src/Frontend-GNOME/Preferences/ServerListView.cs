@@ -191,7 +191,7 @@ namespace Smuxi.Frontend.Gnome
                 return;
             }
             
-            _Controller.RemoveServer(server.Protocol, server.Hostname);
+            _Controller.RemoveServer(server.Protocol, server.ServerID);
             _Controller.Save();
             
             // refresh the view

@@ -32,6 +32,8 @@ namespace Smuxi.Frontend.Gnome
     {
         Gtk.ListStore f_NetworkListStore;
 
+        string ServerID { get; set; }
+
         public Gtk.Entry HostnameEntry {
             get {
                 return f_HostnameEntry;
@@ -112,11 +114,8 @@ namespace Smuxi.Frontend.Gnome
                 throw new ApplicationException("Unsupported protocol: " + server.Protocol);
             }
             f_ProtocolComboBox.Active = protocolPosition;
-
-            // hostname is part of the PKEY, not allowed to change
-            f_HostnameEntry.Sensitive = false;
+            ServerID = server.ServerID;
             f_HostnameEntry.Text = server.Hostname;
-
             f_NetworkComboBoxEntry.Entry.Text = server.Network;
             f_UsernameEntry.Text = server.Username;
             // HACK: Twitter username is part of the PKEY, not allowed to change
@@ -146,9 +145,8 @@ namespace Smuxi.Frontend.Gnome
         {
             ServerModel server = new ServerModel();
             server.Protocol = f_ProtocolComboBox.ActiveText;
+            server.ServerID = ServerID;
             server.Hostname = f_HostnameEntry.Text.Trim();
-            // HACK: ServerID is currently the same as Hostname
-            server.ServerID = server.Hostname;
             server.Network  = f_NetworkComboBoxEntry.Entry.Text.Trim();
             server.Port     = f_PortSpinButton.ValueAsInt;
             server.Username = f_UsernameEntry.Text.Trim();
