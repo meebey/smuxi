@@ -135,5 +135,15 @@ namespace Smuxi.Engine
             config[ConfigKeyPrefix + "OnStartupConnect"] = OnStartupConnect;
             config[ConfigKeyPrefix + "OnConnectCommands"] = OnConnectCommands;
         }
+
+        public override string ToString()
+        {
+            return String.Format("<{0}>", ToTraceString());
+        }
+
+        public string ToTraceString()
+        {
+            return String.Format("{0}/{1}", Protocol, ServerID);
+        }
     }
 }
