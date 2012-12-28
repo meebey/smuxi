@@ -74,6 +74,8 @@ namespace Smuxi.Frontend.Gnome
                                            typeof(string), // protocol
                                            typeof(string) // hostname
                                            );
+            _TreeStore.SetSortColumnId(0, Gtk.SortType.Ascending);
+            _TreeStore.SetSortFunc(0, SortTreeStore);
             _TreeView.RowActivated += OnTreeViewRowActivated;
             _TreeView.Selection.Changed += OnTreeViewSelectionChanged;
             _TreeView.Model = _TreeStore;
@@ -279,7 +281,32 @@ namespace Smuxi.Frontend.Gnome
                 Frontend.ShowException(ex);
             }
         }
-        
+
+        protected virtual int SortTreeStore(Gtk.TreeModel model,
+                                            Gtk.TreeIter iter1,
+                                            Gtk.TreeIter iter2)
+        {
+            var server1 = (ServerModel) model.GetValue(iter1, 0);
+            var server2 = (ServerModel) model.GetValue(iter2, 0);
+            // protocol nodes don't have a ServerModel
+            if (server1 == null && server2 == null) {
+                return 0;
+            }
+            if (server2 == null) {
+                return 1;
+            }
+            if (server1 == null) {
+                return -1;
+            }
+            var s1 = String.Format("{0}/{1}:{2} ({3})",
+                                   server1.Protocol, server1.Hostname,
+                                   server1.Port, server1.ServerID);
+            var s2 = String.Format("{0}/{1}:{2} ({3})",
+                                   server2.Protocol, server2.Hostname,
+                                   server2.Port, server2.ServerID);
+            return s1.CompareTo(s2);
+        }
+
         private static string _(string msg)
         {
             return Mono.Unix.Catalog.GetString(msg);
