@@ -801,7 +801,6 @@ namespace Smuxi.Engine
                     pm.Dispose();
                     // Dispose() takes care of removing the chat from session (frontends)
                     _ProtocolManagers.Remove(pm);
-                    fm.NextProtocolManager();
                 } catch (Exception ex) {
 #if LOG4NET
                     f_Logger.Error("_CommandNetworkClose(): Exception", ex);

@@ -309,6 +309,13 @@ namespace Smuxi.Engine
             lock (_SyncedChats) {
                 _SyncedChats.Remove(chat);
             }
+
+            // switch to next protocol manager if the current one was closed
+            if (chat is ProtocolChatModel &&
+                chat.ProtocolManager == CurrentProtocolManager) {
+                NextProtocolManager();
+            }
+
             f_TaskQueue.Queue(delegate {
                 _UI.RemoveChat(chat);
             });
