@@ -399,7 +399,8 @@ namespace Smuxi.Engine
             else
                 bld.AppendNick(person).AppendSpace();
 
-            if (message.Type == Campfire.MessageType.TextMessage) {
+            if (message.Type == Campfire.MessageType.TextMessage ||
+                message.Type == Campfire.MessageType.TweetMessage) {
                 bld.AppendMessage(message.Body);
             } else if (message.Type == Campfire.MessageType.PasteMessage) {
                 bld.AppendText("\n");

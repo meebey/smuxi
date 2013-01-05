@@ -40,6 +40,7 @@ namespace Smuxi.Engine.Campfire
         LockMessage,
         UnlockMessage,
         TopicChangeMessage,
+        TweetMessage,
     }
 
     internal class Room {
