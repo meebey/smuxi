@@ -31,8 +31,10 @@ namespace Smuxi.Engine.Campfire
     internal class UpdateTopicWrapper { public TopicChange room { get; set; } }
 
     internal enum MessageType {
+        UnknownMessage,
         EnterMessage,
         KickMessage,
+        LeaveMessage,
         TimestampMessage,
         TextMessage,
         PasteMessage,
@@ -40,6 +42,7 @@ namespace Smuxi.Engine.Campfire
         LockMessage,
         UnlockMessage,
         TopicChangeMessage,
+        TweetMessage,
     }
 
     internal class Room {
