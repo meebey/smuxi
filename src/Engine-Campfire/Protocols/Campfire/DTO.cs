@@ -33,6 +33,7 @@ namespace Smuxi.Engine.Campfire
     internal enum MessageType {
         EnterMessage,
         KickMessage,
+        LeaveMessage,
         TimestampMessage,
         TextMessage,
         PasteMessage,

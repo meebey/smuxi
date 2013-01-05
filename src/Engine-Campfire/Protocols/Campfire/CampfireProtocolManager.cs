@@ -360,6 +360,7 @@ namespace Smuxi.Engine
                     }
                     break;
                 case Campfire.MessageType.KickMessage:
+                case Campfire.MessageType.LeaveMessage:
                     action = "left";
                     lock (chat) {
                         if (chat.GetPerson(person.ID) != null)
