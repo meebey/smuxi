@@ -360,6 +360,7 @@ namespace Smuxi.Engine
                     }
                     break;
                 case Campfire.MessageType.KickMessage:
+                case Campfire.MessageType.LeaveMessage:
                     action = "left";
                     lock (chat) {
                         if (chat.GetPerson(person.ID) != null)
@@ -377,7 +378,8 @@ namespace Smuxi.Engine
                     Session.UpdateTopicInGroupChat(chat, topic.ToMessage());
                     action = "changed topic in";
                     break;
-                default:
+                case Campfire.MessageType.TextMessage:
+                case Campfire.MessageType.PasteMessage:
                     processed = false;
                     break;
             }
@@ -399,7 +401,8 @@ namespace Smuxi.Engine
             else
                 bld.AppendNick(person).AppendSpace();
 
-            if (message.Type == Campfire.MessageType.TextMessage) {
+            if (message.Type == Campfire.MessageType.TextMessage ||
+                message.Type == Campfire.MessageType.TweetMessage) {
                 bld.AppendMessage(message.Body);
             } else if (message.Type == Campfire.MessageType.PasteMessage) {
                 bld.AppendText("\n");
