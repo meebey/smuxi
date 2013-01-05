@@ -378,7 +378,8 @@ namespace Smuxi.Engine
                     Session.UpdateTopicInGroupChat(chat, topic.ToMessage());
                     action = "changed topic in";
                     break;
-                default:
+                case Campfire.MessageType.TextMessage:
+                case Campfire.MessageType.PasteMessage:
                     processed = false;
                     break;
             }
