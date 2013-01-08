@@ -184,6 +184,7 @@ namespace Smuxi.Engine
                 "help",
                 "connect campfire username password",
                 "list",
+                "uploads",
             };
 
             foreach (string line in help) {
@@ -229,6 +230,20 @@ namespace Smuxi.Engine
             Client.Put<object>(String.Format("/room/{0}.json", cmd.Chat.ID), update);
         }
 
+        public void CommandUploads(CommandModel cmd)
+        {
+            Trace.Call(cmd);
+
+            var uploads = Client.Get<UploadsResponse>(String.Format("/room/{0}/uploads.json", cmd.Chat.ID)).Uploads;
+
+            foreach (var upload in uploads) {
+                var bld = CreateMessageBuilder();
+                bld.AppendEventPrefix().AppendHeader("Upload").AppendSpace();
+                bld.AppendText("'{0}' ({1} B) {2}", upload.Name, upload.Byte_Size, upload.Full_Url);
+                Session.AddMessageToChat(cmd.Chat, bld.ToMessage());
+            }
+        }
+
         public void CommandSay(CommandModel cmd)
         {
             Trace.Call(cmd);
@@ -257,6 +272,10 @@ namespace Smuxi.Engine
                     break;
                 case "topic":
                     CommandTopic(command);
+                    handled = true;
+                    break;
+                case "uploads":
+                    CommandUploads(command);
                     handled = true;
                     break;
                 default: // nothing, normal chat

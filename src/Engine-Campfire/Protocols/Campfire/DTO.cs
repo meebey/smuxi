@@ -30,6 +30,7 @@ namespace Smuxi.Engine.Campfire
     internal class TopicChange { public string topic { get; set; } }
     internal class UpdateTopicWrapper { public TopicChange room { get; set; } }
     internal class UploadWrapper { public Upload Upload { get; set; } }
+    internal class UploadsResponse { public Upload[] Uploads { get; set; } }
 
     internal enum MessageType {
         UnknownMessage,
