@@ -324,6 +324,16 @@ namespace Smuxi.Engine
             LastSentId = res.Id;
         }
 
+        void FormatUpload(MessageBuilder bld, PersonModel person, ChatModel chat, Message message)
+        {
+            // Figure out what the user uploaded, we need to issue another call for this
+            var upload = Client.Get<UploadWrapper>(String.Format("/room/{0}/messages/{1}/upload.json", chat.ID, message.Id)).Upload;
+
+            bld.AppendEventPrefix();
+            bld.AppendIdendityName(person);
+            bld.AppendText(" has uploaded '{0}' ({1} B) {2}", upload.Name, upload.Byte_Size, upload.Full_Url);
+        }
+
         void FormatEvent(MessageBuilder bld, PersonModel person, string action, ChatModel chat)
         {
             bld.AppendEventPrefix();
@@ -349,6 +359,13 @@ namespace Smuxi.Engine
 
             var bld = CreateMessageBuilder();
             bld.TimeStamp = message.Created_At.DateTime;
+
+            if (message.Type == Campfire.MessageType.UploadMessage) {
+                FormatUpload(bld, person, chat, message);
+                Session.AddMessageToChat(chat, bld.ToMessage());
+                return;
+            }
+
             string action = "done some unknown action in";
 
             switch (message.Type) {
