@@ -106,6 +106,18 @@ namespace Smuxi.Engine
             return this;
         }
 
+        public virtual MessageBuilder Append(MessageModel msg)
+        {
+            if (msg == null) {
+                throw new ArgumentNullException("msg");
+            }
+
+            foreach (var part in msg.MessageParts) {
+                Append(part);
+            }
+            return this;
+        }
+
         public virtual TextMessagePartModel CreateText(TextMessagePartModel text)
         {
             if (text == null) {
