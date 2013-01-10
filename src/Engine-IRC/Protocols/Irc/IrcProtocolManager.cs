@@ -1,7 +1,7 @@
 /*
  * Smuxi - Smart MUltipleXed Irc
  *
- * Copyright (c) 2005-2011 Mirco Bauer <meebey@meebey.net>
+ * Copyright (c) 2005-2013 Mirco Bauer <meebey@meebey.net>
  *
  * Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
  *
@@ -159,14 +159,12 @@ namespace Smuxi.Engine
             // are many reconnects like when the network connection goes flaky,
             // see: http://projects.qnetp.net/issues/show/163
             _IrcClient.AutoNickHandling = false;
-            _IrcClient.ActiveChannelSyncing = true;
             _IrcClient.CtcpVersion      = Engine.VersionString;
             _IrcClient.SendDelay        = 250;
             _IrcClient.OnRawMessage     += new IrcEventHandler(_OnRawMessage);
             _IrcClient.OnChannelMessage += new IrcEventHandler(_OnChannelMessage);
             _IrcClient.OnChannelAction  += new ActionEventHandler(_OnChannelAction);
             _IrcClient.OnChannelNotice  += new IrcEventHandler(_OnChannelNotice);
-            _IrcClient.OnChannelActiveSynced += new IrcEventHandler(_OnChannelActiveSynced);
             _IrcClient.OnQueryMessage   += new IrcEventHandler(_OnQueryMessage);
             _IrcClient.OnQueryAction    += new ActionEventHandler(_OnQueryAction);
             _IrcClient.OnQueryNotice    += new IrcEventHandler(_OnQueryNotice);
@@ -1045,16 +1043,18 @@ namespace Smuxi.Engine
             var builder = CreateMessageBuilder();
             builder.AppendSenderPrefix(Me);
             Match m = Regex.Match(message, String.Format(@"^@(?<nick>\S+)|^(?<nick>\S+)(?:\:|,)"));
-            if (m.Success) {
+            if (m.Success && chat is GroupChatModel) {
                 // this is probably a reply with a nickname
                 string nick = m.Groups["nick"].Value;
 #if LOG4NET
                 _Logger.Debug("_Say(): detected reply with possible nick: '" + nick + "' in: '" + m.Value + "'");
 #endif
-                if (_IrcClient.GetChannelUser(chat.ID, nick) != null) {
+                var groupChat = (GroupChatModel) chat;
+                PersonModel person;
+                if (groupChat.Persons.TryGetValue(nick, out person)) {
                     // bingo, it's a nick on this channel
                     message = message.Substring(m.Value.Length);
-                    var coloredNick = builder.CreateIdendityName(GetPerson(chat, nick));
+                    var coloredNick = builder.CreateIdendityName(person);
                     coloredNick.Text = m.Value;
                     builder.AppendText(coloredNick);
                 }
@@ -1110,7 +1110,7 @@ namespace Smuxi.Engine
             int i = 0;
             foreach (string channel in channels) {
                 string key = keys != null && keys.Length > i ? keys[i] : null;
-                if (_IrcClient.IsJoined(channel)) {
+                if (GetChat(channel, ChatType.Group) != null) {
                     builder = CreateMessageBuilder();
                     builder.AppendEventPrefix();
                     builder.AppendText(
@@ -1675,14 +1675,17 @@ namespace Smuxi.Engine
             if (cd.DataArray.Length >= 2) {
                 _IrcClient.RfcTopic(channel, cd.Parameter);
             } else {
-                if (_IrcClient.IsJoined(channel)) {
-                    string topic = _IrcClient.GetChannel(channel).Topic;
+                var groupChat = (GroupChatModel) Session.GetChat(
+                    channel, ChatType.Group, this
+                );
+                if (groupChat != null) {
+                    var topic = groupChat.Topic;
                     builder = CreateMessageBuilder();
                     builder.AppendEventPrefix();
-                    if (topic.Length > 0) {
+                    if (topic != null && !topic.IsEmpty) {
                         // TRANSLATOR: do NOT change the position of {1}!
                         builder.AppendText(_("Topic for {0}: {1}"), channel, String.Empty);
-                        builder.AppendMessage(topic);
+                        builder.Append(topic);
                     } else {
                         builder.AppendText(_("No topic set for {0}"), channel);
                     }
@@ -1820,31 +1823,32 @@ namespace Smuxi.Engine
 
         public void CommandKickban(CommandModel cd)
         {
-            ChatModel chat = cd.Chat;
-            string channel = chat.ID;
-            IrcUser ircuser;
-            if (cd.DataArray.Length >= 2) {
-                string[] candidates = cd.DataArray[1].Split(new char[] {','});
-                if (cd.DataArray.Length >= 3) {
-                    string reason = String.Join(" ", cd.DataArray, 2, cd.DataArray.Length-2);  
-                    foreach (string nick in candidates) {
-                        ircuser = _IrcClient.GetIrcUser(nick);
-                        if (ircuser != null) {
-                            _IrcClient.Ban(channel, "*!*" + ircuser.Ident + "@" + ircuser.Host);
-                            _IrcClient.RfcKick(channel, nick, reason);
-                        }
-                    }
-                } else {
-                    foreach (string nick in candidates) {
-                        ircuser = _IrcClient.GetIrcUser(nick);
-                        if (ircuser != null) {
-                            _IrcClient.Ban(channel, "*!*" + ircuser.Ident + "@" + ircuser.Host);
-                            _IrcClient.RfcKick(channel, nick);
-                        }
-                    }
-                }
-            } else {
+            if (cd.DataArray.Length < 2) {
                 _NotEnoughParameters(cd);
+                return;
+            }
+            var chat = cd.Chat as GroupChatModel;
+            if (chat == null) {
+                return;
+            }
+
+            string channel = chat.ID;
+            string[] candidates = cd.DataArray[1].Split(new char[] {','});
+            string reason = null;
+            if (cd.DataArray.Length >= 3) {
+                reason = String.Join(" ", cd.DataArray, 2, cd.DataArray.Length-2);
+            }
+            foreach (string nick in candidates) {
+                var victim = (IrcGroupPersonModel) chat.GetPerson(nick);
+                if (victim == null) {
+                    continue;
+                }
+                _IrcClient.Ban(channel, "*!*" + victim.Ident + "@" + victim.Host);
+                if (reason == null) {
+                    _IrcClient.RfcKick(channel, victim.NickName);
+                } else {
+                    _IrcClient.RfcKick(channel, victim.NickName, reason);
+                }
             }
         }
 
@@ -1862,11 +1866,7 @@ namespace Smuxi.Engine
                 }
             } else {
                 if (chat.ChatType == ChatType.Group) {
-                    Channel chan = _IrcClient.GetChannel(cd.Chat.ID);
-                    builder = CreateMessageBuilder();
-                    builder.AppendEventPrefix();
-                    builder.AppendText("mode/{0} [{1}]", chat.Name, chan.Mode);
-                    cd.FrontendManager.AddMessageToChat(cd.Chat, builder.ToMessage());
+                    _IrcClient.RfcMode(chat.ID);
                 } else {
                     builder = CreateMessageBuilder();
                     builder.AppendEventPrefix();
@@ -1886,25 +1886,27 @@ namespace Smuxi.Engine
             } else {
                 channel = chat.ID;
             }
-            if (cd.DataArray.Length >= 2) {
-                if (!_IrcClient.IsJoined(channel, cd.DataArray[1])) {
-                    _IrcClient.RfcInvite(cd.DataArray[1], channel);
-                    var msg = CreateMessageBuilder().
-                        AppendEventPrefix().
-                        AppendText(_("Inviting {0} to {1}"),
-                                   cd.DataArray[1], channel).
-                        ToMessage();
-                    cd.FrontendManager.AddMessageToChat(chat, msg);
-                } else {
-                    var msg = CreateMessageBuilder().
-                        AppendEventPrefix().
-                        AppendText(_("{0} is already on {1}"),
-                                   cd.DataArray[1], channel).
-                        ToMessage();
-                    cd.FrontendManager.AddMessageToChat(chat, msg);
-                }
-            } else {
+            if (cd.DataArray.Length < 2) {
                 _NotEnoughParameters(cd);
+                return;
+            }
+            var invitee = cd.DataArray[1];
+            var groupChat = chat as GroupChatModel;
+            if (groupChat != null && groupChat.GetPerson(invitee) != null) {
+                var msg = CreateMessageBuilder().
+                    AppendEventPrefix().
+                    AppendText(_("{0} is already on {1}"),
+                               invitee, channel).
+                    ToMessage();
+                cd.FrontendManager.AddMessageToChat(chat, msg);
+            } else {
+                _IrcClient.RfcInvite(invitee, channel);
+                var msg = CreateMessageBuilder().
+                    AppendEventPrefix().
+                    AppendText(_("Inviting {0} to {1}"),
+                               invitee, channel).
+                    ToMessage();
+                cd.FrontendManager.AddMessageToChat(chat, msg);
             }
         }
         
@@ -2006,10 +2008,8 @@ namespace Smuxi.Engine
                 string message = String.Join(" ", cd.DataArray, 2, cd.DataArray.Length-2);  
                 _IrcClient.SendMessage(SendType.Notice, target, message);
                 
-                ChatModel chat;
-                if (_IrcClient.IsJoined(target)) {
-                    chat = GetChat(target, ChatType.Group);
-                } else {
+                var chat = GetChat(target, ChatType.Group);
+                if (chat == null) {
                     // wasn't a channel but maybe a query
                     chat = GetChat(target, ChatType.Person);
                 }
@@ -2348,16 +2348,10 @@ namespace Smuxi.Engine
                     _OnErrorNicknameInUse(e);
                     break;
                 case ReplyCode.EndOfNames:
-                    chan = e.Data.RawMessageArray[3];
-                    GroupChatModel groupChat = (GroupChatModel)GetChat(
-                       chan, ChatType.Group);
-                    if (groupChat == null) {
-                        break;
-                    }
-                    groupChat.IsSynced = true;
-#if LOG4NET
-                    _Logger.Debug("_OnRawMessage(): " + chan + " synced");
-#endif
+                    OnEndOfNames(e);
+                    break;
+                case ReplyCode.ChannelModeIs:
+                    OnChannelModeIs(e);
                     break;
                 default:
                     if (!handled) {
@@ -2611,6 +2605,7 @@ namespace Smuxi.Engine
         private void _OnChannelMessage(object sender, IrcEventArgs e)
         {
             var chat = GetChat(e.Data.Channel, ChatType.Group) ?? Chat;
+            UpdateGroupPerson(chat, e.Data);
 
             var builder = CreateMessageBuilder();
             builder.AppendMessage(GetPerson(chat, e.Data.Nick), e.Data.Message);
@@ -2623,6 +2618,7 @@ namespace Smuxi.Engine
         private void _OnChannelAction(object sender, ActionEventArgs e)
         {
             var chat = GetChat(e.Data.Channel, ChatType.Group) ?? Chat;
+            UpdateGroupPerson(chat, e.Data);
 
             var builder = CreateMessageBuilder();
             builder.AppendActionPrefix();
@@ -2638,6 +2634,7 @@ namespace Smuxi.Engine
         private void _OnChannelNotice(object sender, IrcEventArgs e)
         {
             var chat = GetChat(e.Data.Channel, ChatType.Group) ?? Chat;
+            UpdateGroupPerson(chat, e.Data);
 
             var builder = CreateMessageBuilder();
             builder.AppendText("-{0}:{1}- ", e.Data.Nick, e.Data.Channel);
@@ -2797,11 +2794,10 @@ namespace Smuxi.Engine
 #endif
                     // ignore
                 } else {
-                    IrcUser siuser = _IrcClient.GetIrcUser(e.Who);
-                    var icuser = CreateGroupPerson(e.Who);
-                    icuser.Ident = siuser.Ident;
-                    icuser.Host = siuser.Host;
-                    Session.AddPersonToGroupChat(groupChat, icuser);
+                    var person = CreateGroupPerson(e.Who);
+                    person.Ident = e.Data.Ident;
+                    person.Host = e.Data.Host;
+                    Session.AddPersonToGroupChat(groupChat, person);
                 }
             }
 
@@ -2830,8 +2826,7 @@ namespace Smuxi.Engine
                 return;
             }
 
-            // would be nice if SmartIrc4net would take care of removing prefixes
-            foreach (string user in e.UserList) {
+            foreach (string user in e.RawUserList) {
                 // skip empty users (some IRC servers send an extra space)
                 if (user.TrimEnd(' ').Length == 0) {
                     continue;
@@ -2846,11 +2841,21 @@ namespace Smuxi.Engine
                     case '&':
                     case '%':
                     case '~':
+                    case '!':
+                    case '.':
                         username = user.Substring(1);
                         break;
                 }
                 
                 var groupPerson = CreateGroupPerson(username);
+                switch (user[0]) {
+                    case '@':
+                        groupPerson.IsOp = true;
+                        break;
+                    case '+':
+                        groupPerson.IsVoice = true;
+                        break;
+                }
                 
                 groupChat.UnsafePersons.Add(groupPerson.NickName, groupPerson);
 #if LOG4NET
@@ -2860,49 +2865,48 @@ namespace Smuxi.Engine
             }
         }
         
-        private void _OnChannelActiveSynced(object sender, IrcEventArgs e)
+        void OnEndOfNames(IrcEventArgs e)
         {
-#if LOG4NET
-            _Logger.Debug("_OnChannelActiveSynced() e.Data.Channel: " + e.Data.Channel);
-#endif
+            Trace.Call(e);
+
+            var chan = e.Data.RawMessageArray[3];
 
             lock (_ActiveChannelJoinList) {
-                _ActiveChannelJoinList.Remove(e.Data.Channel.ToLower());
+                _ActiveChannelJoinList.Remove(chan.ToLower());
             }
             // tell the currently waiting join task item from the task queue
             // that one channel is finished
             _ActiveChannelJoinHandle.Set();
 
-            GroupChatModel groupChat = (GroupChatModel) GetChat(e.Data.Channel, ChatType.Group);
+            var groupChat = (GroupChatModel) GetChat(chan, ChatType.Group);
             if (groupChat == null) {
 #if LOG4NET
-                _Logger.Error("_OnChannelActiveSynced(): GetChat(" + e.Data.Channel + ", ChatType.Group) returned null!");
+                _Logger.Error("OnEndOfNames(): GetChat(" + e.Data.Channel + ", ChatType.Group) returned null!");
 #endif
                 return;
             }
-
-            Channel channel = _IrcClient.GetChannel(e.Data.Channel);
-            foreach (ChannelUser channelUser in channel.Users.Values) {
-                IrcGroupPersonModel groupPerson = (IrcGroupPersonModel) groupChat.GetPerson(channelUser.Nick);
-                if (groupPerson == null) {
-                    // we should not get here anymore, _OnNames creates the users already
 #if LOG4NET
-                    _Logger.Error("_OnChannelActiveSynced(): groupChat.GetPerson(" + channelUser.Nick + ") returned null!");
+            _Logger.Debug("OnEndOfNames(): " + chan + " synced");
 #endif
-                    continue;
-                }
-                
-                groupPerson.RealName = channelUser.Realname;
-                groupPerson.Ident    = channelUser.Ident;
-                groupPerson.Host     = channelUser.Host;
-                groupPerson.IsOp     = channelUser.IsOp;
-                groupPerson.IsVoice  = channelUser.IsVoice;
-            }
+            groupChat.IsSynced = true;
 
             // prime-time
             Session.SyncChat(groupChat);
         }
-        
+
+        void OnChannelModeIs(IrcEventArgs e)
+        {
+            Trace.Call(e);
+
+            var chat = GetChat(e.Data.Channel, ChatType.Group) ?? Chat;
+            var mode = e.Data.RawMessageArray[4];
+
+            var builder = CreateMessageBuilder();
+            builder.AppendEventPrefix();
+            builder.AppendText("mode/{0} [{1}]", chat.Name, mode);
+            Session.AddMessageToChat(chat, builder.ToMessage());
+        }
+
         private void _OnPart(object sender, PartEventArgs e)
         {
 #if LOG4NET
@@ -2998,45 +3002,42 @@ namespace Smuxi.Engine
 
                 Session.AddMessageToChat(_NetworkChat, builder.ToMessage());
             }
-            
-            IrcUser ircuser = e.Data.Irc.GetIrcUser(e.NewNickname);
-            if (ircuser != null) {
-                foreach (string channel in ircuser.JoinedChannels) {
-                    GroupChatModel cchat = (GroupChatModel)GetChat(channel, ChatType.Group);
-                    
-                    // clone the old user to a new user
-                    IrcGroupPersonModel olduser = (IrcGroupPersonModel) cchat.GetPerson(e.OldNickname);
-                    if (olduser == null) {
-#if LOG4NET
-                        _Logger.Error("cchat.GetPerson(e.OldNickname) returned null! cchat.Name: "+cchat.Name+" e.OldNickname: "+e.OldNickname);
-#endif
-                        continue;
-                    }
-                    var newuser = CreateGroupPerson(e.NewNickname);
-                    newuser.RealName = olduser.RealName;
-                    newuser.Ident = olduser.Ident;
-                    newuser.Host = olduser.Host;
-                    newuser.IsOp = olduser.IsOp;
-                    newuser.IsVoice = olduser.IsVoice;
-                    
-                    Session.UpdatePersonInGroupChat(cchat, olduser, newuser);
-                    
-                    var builder = CreateMessageBuilder();
-                    builder.AppendEventPrefix();
-                    if (e.Data.Irc.IsMe(e.NewNickname)) {
-                        // TRANSLATOR: do NOT change the position of {0}!
-                        builder.AppendText(_("You're now known as {0}"),
-                                           String.Empty);
-                    } else {
-                        builder.AppendIdendityName(olduser);
-                        // TRANSLATOR: do NOT change the position of {0} or {1}!
-                        builder.AppendText(_("{0} is now known as {1}"),
-                                           String.Empty,
-                                           String.Empty);
-                    }
-                    builder.AppendIdendityName(newuser);
-                    Session.AddMessageToChat(cchat, builder.ToMessage());
+
+            foreach (var chat in Chats) {
+                if (!(chat is GroupChatModel)) {
+                    continue;
                 }
+                var groupChat = (GroupChatModel) chat;
+                var oldPerson = (IrcGroupPersonModel) groupChat.GetPerson(e.OldNickname);
+                if (oldPerson == null) {
+                    // nobodoy to rename
+                    continue;
+                }
+                // clone the old user to a new user
+                var newPerson = CreateGroupPerson(e.NewNickname);
+                newPerson.RealName = oldPerson.RealName;
+                newPerson.Ident = oldPerson.Ident;
+                newPerson.Host = oldPerson.Host;
+                newPerson.IsOp = oldPerson.IsOp;
+                newPerson.IsVoice = oldPerson.IsVoice;
+
+                Session.UpdatePersonInGroupChat(groupChat, oldPerson, newPerson);
+
+                var builder = CreateMessageBuilder();
+                builder.AppendEventPrefix();
+                if (e.Data.Irc.IsMe(e.NewNickname)) {
+                    // TRANSLATOR: do NOT change the position of {0}!
+                    builder.AppendText(_("You're now known as {0}"),
+                                       String.Empty);
+                } else {
+                    builder.AppendIdendityName(oldPerson);
+                    // TRANSLATOR: do NOT change the position of {0} or {1}!
+                    builder.AppendText(_("{0} is now known as {1}"),
+                                       String.Empty,
+                                       String.Empty);
+                }
+                builder.AppendIdendityName(newPerson);
+                Session.AddMessageToChat(groupChat, builder.ToMessage());
             }
         }
         
@@ -3154,6 +3155,7 @@ namespace Smuxi.Engine
                     modechange = String.Join(" ", e.Data.RawMessageArray, 3,
                                              e.Data.RawMessageArray.Length - 3);
                     target = GetChat(e.Data.Channel, ChatType.Group) ?? Chat;
+                    UpdateGroupPerson(target, e.Data);
 
                     // TRANSLATOR: do NOT change the position of {2}!
                     builder.AppendText(_("mode/{0} [{1}] by {2}"),
@@ -3442,6 +3444,26 @@ namespace Smuxi.Engine
                 person.IdentityNameColored.Bold = true;
             }
             return person;
+        }
+
+        void UpdateGroupPerson(ChatModel chat, IrcMessageData msg)
+        {
+            if (!(chat is GroupChatModel)) {
+                return;
+            }
+            // server messages have no nick
+            if (msg.Nick == null) {
+                return;
+            }
+
+            // write-back ident/host to person
+            var groupChat = (GroupChatModel) chat;
+            var person = groupChat.GetPerson(msg.Nick) as IrcGroupPersonModel;
+            if (person == null) {
+                return;
+            }
+            person.Ident = person.Ident ?? msg.Ident;
+            person.Host = person.Host ?? msg.Host;
         }
 
         private ChatModel GetChat(IrcMessageData msg)
