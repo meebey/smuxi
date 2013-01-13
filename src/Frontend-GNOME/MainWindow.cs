@@ -367,6 +367,19 @@ namespace Smuxi.Frontend.Gnome
             
             try {
                 UrgencyHint = false;
+
+                // HACK: users sometimes click into the person list by accident
+                // when they try to bring the focus back to the Smuxi window.
+                // We try to be nice and do what they probably meant and move
+                // the focus to the input entry instead.
+                // HACK: we have to use a timeout here as the ButtonPressEvent
+                // is directly raised _after_ the FocusInEvent. The idle loop
+                // turned out to be too racy and works only sometimes.
+                GLib.Timeout.Add(10, delegate {
+                    Entry.GrabFocus();
+                    return false;
+                });
+
                 if (Notebook.IsBrowseModeEnabled) {
                     return;
                 }
