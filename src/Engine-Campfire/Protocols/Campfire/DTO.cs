@@ -29,6 +29,8 @@ namespace Smuxi.Engine.Campfire
     internal class MessageWrapper { public MessageSending message { get; set; } }
     internal class TopicChange { public string topic { get; set; } }
     internal class UpdateTopicWrapper { public TopicChange room { get; set; } }
+    internal class UploadWrapper { public Upload Upload { get; set; } }
+    internal class UploadsResponse { public Upload[] Uploads { get; set; } }
 
     internal enum MessageType {
         UnknownMessage,
@@ -43,6 +45,7 @@ namespace Smuxi.Engine.Campfire
         UnlockMessage,
         TopicChangeMessage,
         TweetMessage,
+        UploadMessage,
     }
 
     internal class Room {
@@ -80,5 +83,16 @@ namespace Smuxi.Engine.Campfire
         public DateTimeOffset Created_At { get; set; }
         public MessageType Type { get; set; }
         public bool Starred { get; set; }
+    }
+
+    internal class Upload {
+        public int Id { get; set; }
+        public int Room_Id { get; set; }
+        public string Name { get; set; }
+        public string Full_Url { get; set; }
+        public DateTimeOffset Created_At { get; set; }
+        public string Content_Type { get; set; }
+        public int User_Id { get; set; }
+        public int Byte_Size { get; set; }
     }
 }

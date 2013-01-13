@@ -184,6 +184,7 @@ namespace Smuxi.Engine
                 "help",
                 "connect campfire username password",
                 "list",
+                "uploads",
             };
 
             foreach (string line in help) {
@@ -229,6 +230,20 @@ namespace Smuxi.Engine
             Client.Put<object>(String.Format("/room/{0}.json", cmd.Chat.ID), update);
         }
 
+        public void CommandUploads(CommandModel cmd)
+        {
+            Trace.Call(cmd);
+
+            var uploads = Client.Get<UploadsResponse>(String.Format("/room/{0}/uploads.json", cmd.Chat.ID)).Uploads;
+
+            foreach (var upload in uploads) {
+                var bld = CreateMessageBuilder();
+                bld.AppendEventPrefix().AppendHeader(_("Upload")).AppendSpace();
+                bld.AppendText(_("'{0}' ({1} B) {2}"), upload.Name, upload.Byte_Size, upload.Full_Url);
+                Session.AddMessageToChat(cmd.Chat, bld.ToMessage());
+            }
+        }
+
         public void CommandSay(CommandModel cmd)
         {
             Trace.Call(cmd);
@@ -257,6 +272,10 @@ namespace Smuxi.Engine
                     break;
                 case "topic":
                     CommandTopic(command);
+                    handled = true;
+                    break;
+                case "uploads":
+                    CommandUploads(command);
                     handled = true;
                     break;
                 default: // nothing, normal chat
@@ -324,11 +343,21 @@ namespace Smuxi.Engine
             LastSentId = res.Id;
         }
 
-        void FormatEvent(MessageBuilder bld, PersonModel person, string action, ChatModel chat)
+        void FormatUpload(MessageBuilder bld, PersonModel person, ChatModel chat, Message message)
+        {
+            // Figure out what the user uploaded, we need to issue another call for this
+            var upload = Client.Get<UploadWrapper>(String.Format("/room/{0}/messages/{1}/upload.json", chat.ID, message.Id)).Upload;
+
+            bld.AppendEventPrefix();
+            bld.AppendIdendityName(person).AppendSpace();
+            bld.AppendText(_("has uploaded '{0}' ({1} B) {2}"), upload.Name, upload.Byte_Size, upload.Full_Url);
+        }
+
+        void FormatEvent(MessageBuilder bld, PersonModel person, string action)
         {
             bld.AppendEventPrefix();
             bld.AppendIdendityName(person);
-            bld.AppendText(" has {0} {1}", action, chat.Name);
+            bld.AppendText(action);
         }
 
         void ShowMessage(object sender, MessageReceivedEventArgs args)
@@ -349,11 +378,11 @@ namespace Smuxi.Engine
 
             var bld = CreateMessageBuilder();
             bld.TimeStamp = message.Created_At.DateTime;
-            string action = "done some unknown action in";
 
             switch (message.Type) {
                 case Campfire.MessageType.EnterMessage:
-                    action = "joined";
+                    // TRANSLATOR: {0} is the name of the room
+                    FormatEvent(bld, person, String.Format(_("has joined {0}"), chat.Name));
                     lock (chat) {
                         if (chat.GetPerson(person.ID) == null)
                             Session.AddPersonToGroupChat(chat, person);
@@ -361,31 +390,39 @@ namespace Smuxi.Engine
                     break;
                 case Campfire.MessageType.KickMessage:
                 case Campfire.MessageType.LeaveMessage:
-                    action = "left";
+                    // TRANSLATOR: {0} is the name of the room
+                    FormatEvent(bld, person, String.Format(_("has left {0}"), chat.Name));
                     lock (chat) {
                         if (chat.GetPerson(person.ID) != null)
                             Session.RemovePersonFromGroupChat(chat, person);
                     }
                     break;
                 case Campfire.MessageType.LockMessage:
-                    action = "locked";
+                    // TRANSLATOR: {0} is the name of the room
+                    FormatEvent(bld, person, String.Format(_("has locked {0}"), chat.Name));
                     break;
                 case Campfire.MessageType.UnlockMessage:
-                    action = "unlocked";
+                    // TRANSLATOR: {0} is the name of the room
+                    FormatEvent(bld, person, String.Format(_("has unlocked {0}"), chat.Name));
                     break;
                 case Campfire.MessageType.TopicChangeMessage:
                     var topic = CreateMessageBuilder().AppendMessage(message.Body);
                     Session.UpdateTopicInGroupChat(chat, topic.ToMessage());
-                    action = "changed topic in";
+                    FormatEvent(bld, person, _("has changed the topic"));
+                    break;
+                case Campfire.MessageType.UploadMessage:
+                    FormatUpload(bld, person, chat, message);
                     break;
                 case Campfire.MessageType.TextMessage:
                 case Campfire.MessageType.PasteMessage:
                     processed = false;
                     break;
+                default:
+                    FormatEvent(bld, person, String.Format(_("has performed an unknown action"), chat.Name));
+                    break;
             }
 
             if (processed) {
-                FormatEvent(bld, person, action, chat);
                 Session.AddMessageToChat(chat, bld.ToMessage());
                 return;
             }
