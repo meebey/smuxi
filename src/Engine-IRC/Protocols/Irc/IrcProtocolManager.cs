@@ -2727,18 +2727,16 @@ namespace Smuxi.Engine
                 // always show on server chat
                 targetChats.Add(_NetworkChat);
                 // check if we share a channel with the sender
-                lock (Chats) {
-                    foreach (var chat in Chats) {
-                        if (!(chat is GroupChatModel)) {
-                            continue;
-                        }
-                        var groupChat = (GroupChatModel) chat;
-                        if (groupChat.Persons == null) {
-                            continue;
-                        }
-                        if (groupChat.Persons.ContainsKey(e.Data.Nick)) {
-                            targetChats.Add(groupChat);
-                        }
+                foreach (var chat in Chats) {
+                    if (!(chat is GroupChatModel)) {
+                        continue;
+                    }
+                    var groupChat = (GroupChatModel) chat;
+                    if (groupChat.UnsafePersons == null) {
+                        continue;
+                    }
+                    if (groupChat.UnsafePersons.ContainsKey(e.Data.Nick)) {
+                        targetChats.Add(groupChat);
                     }
                 }
             }
