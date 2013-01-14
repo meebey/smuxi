@@ -952,7 +952,7 @@ namespace Smuxi.Engine
             "version nick",
             "time nick",
             "finger nick",
-            "mode new-mode",
+            "mode [target] [new-mode]",
             "away [away-message]",
             "kick nick(s) [reason]",
             "kickban/kb nick(s) [reason]",
@@ -1854,25 +1854,47 @@ namespace Smuxi.Engine
 
         public void CommandMode(CommandModel cd)
         {
-            MessageBuilder builder;
-            ChatModel chat = cd.Chat;
+            string target = null;
+            string mode = null;
             if (cd.DataArray.Length >= 2) {
-                // does cd.Chat cause a remoting call?
-                if (chat.ChatType == ChatType.Group) {
-                    string channel = chat.ID;
-                    _IrcClient.RfcMode(channel, cd.Parameter);
+                // /mode #smuxi
+                // /mode meebey
+                var param1 = cd.DataArray[1];
+                if (param1.StartsWith("+") || param1.StartsWith("-")) {
+                    // no target given, this is the mode already
+                    // /mode +b
+                    // /mode +b *!*@foo
+                    target = cd.Chat.ID;
+                    mode = cd.Parameter;
                 } else {
-                    _IrcClient.RfcMode(_IrcClient.Nickname, cd.Parameter);
+                    target = param1;
+                    if (cd.DataArray.Length >= 3) {
+                        // /mode #smuxi +b *!*@foo
+                        // /mode #smuxi +b
+                        // /mode meebey +i
+                        mode = String.Join(" ", cd.DataArray, 2, cd.DataArray.Length-2);
+                    }
                 }
             } else {
-                if (chat.ChatType == ChatType.Group) {
-                    _IrcClient.RfcMode(chat.ID);
+                // /mode
+                if (cd.Chat.ChatType == ChatType.Group) {
+                    target = cd.Chat.ID;
                 } else {
-                    builder = CreateMessageBuilder();
+                    target = _IrcClient.Nickname;
+                }
+            }
+
+            if (target != null && mode != null) {
+                _IrcClient.RfcMode(target, mode);
+            } else if (target != null) {
+                if (_IrcClient.IsMe(target)) {
+                    var builder = CreateMessageBuilder();
                     builder.AppendEventPrefix();
                     builder.AppendText(_("Your user mode is {0}"),
                                        String.Format("[{0}]", _IrcClient.Usermode));
                     cd.FrontendManager.AddMessageToChat(cd.Chat, builder.ToMessage());
+                } else {
+                    _IrcClient.RfcMode(target);
                 }
             }
         }
