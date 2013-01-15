@@ -33,16 +33,16 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 
-using jabber;
-using jabber.client;
-using jabber.connection;
-using jabber.protocol;
-using jabber.protocol.client;
-using jabber.protocol.iq;
-using XmppMessageType = jabber.protocol.client.MessageType;
-using XmppProxyType = jabber.connection.ProxyType;
+using agsXMPP;
+using agsXMPP.protocol;
+using agsXMPP.protocol.iq.roster;
+using agsXMPP.protocol.client;
+using agsXMPP.protocol.iq;
+using agsXMPP.protocol.x.muc;
+using XmppMessageType = agsXMPP.protocol.client.MessageType;
 
 using Smuxi.Common;
+using agsXMPP.Factory;
 
 namespace Smuxi.Engine
 {
@@ -54,16 +54,24 @@ namespace Smuxi.Engine
         }
     }
     
+    public class ContactInfo
+    {
+        public string name { get; set; }
+        public Jid jid { get; set; }
+        public PresenceType presence { get; set; }
+        public string message { get; set; }
+    }
+    
     [ProtocolManagerInfo(Name = "XMPP", Description = "Extensible Messaging and Presence Protocol", Alias = "xmpp")]
     public class XmppProtocolManager : ProtocolManagerBase
     {
 #if LOG4NET
         private static readonly log4net.ILog _Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 #endif
-        JabberClient JabberClient { get; set; }
-        RosterManager RosterManager { get; set; }
-        ConferenceManager ConferenceManager { get; set; }
-        PresenceManager PresenceManager { get; set; }
+        XmppClientConnection JabberClient { get; set; }
+        MucManager MucManager { get; set; }
+        
+        System.Collections.Generic.Dictionary<Jid, ContactInfo> Contacts = new System.Collections.Generic.Dictionary<Jid, ContactInfo>();
 
         ChatModel NetworkChat { get; set; }
         GroupChatModel ContactChat { get; set; }
@@ -72,11 +80,10 @@ namespace Smuxi.Engine
 
         public override string NetworkID {
             get {
-                if (!String.IsNullOrEmpty(JabberClient.NetworkHost)) {
-                    return JabberClient.NetworkHost;
-                }
-                if (!String.IsNullOrEmpty(JabberClient.Server)) {
-                    return JabberClient.Server;
+                if (JabberClient != null) {
+                    if (!String.IsNullOrEmpty(JabberClient.Server)) {
+                        return JabberClient.Server;
+                    }
                 }
                 return "XMPP";
             }
@@ -98,34 +105,38 @@ namespace Smuxi.Engine
         {
             Trace.Call(session);
 
-            JabberClient = new JabberClient();
+            JabberClient = new XmppClientConnection();
             JabberClient.Resource = "Smuxi";
-            JabberClient.AutoLogin = true;
-            JabberClient.AutoPresence = false;
-            JabberClient.OnStreamInit += OnStreamInit;
+            JabberClient.AutoRoster = true;
+            JabberClient.AutoPresence = true;
             JabberClient.OnMessage += OnMessage;
-            JabberClient.OnConnect += OnConnect;
-            JabberClient.OnDisconnect += OnDisconnect;
-            JabberClient.OnAuthenticate += OnAuthenticate;
+            JabberClient.OnClose += OnDisconnect;
+            JabberClient.OnLogin += OnAuthenticate;
             JabberClient.OnError += OnError;
-            JabberClient.OnProtocol += OnProtocol;
-            JabberClient.OnWriteText += OnWriteText;
-            JabberClient.OnIQ += OnIQ;
-
-            RosterManager = new RosterManager();
-            RosterManager.Stream = JabberClient;
-            RosterManager.OnRosterItem += OnRosterItem;
-
-            PresenceManager = new PresenceManager();
-            PresenceManager.Stream = JabberClient;
             JabberClient.OnPresence += OnPresence;
+            JabberClient.OnRosterItem += OnRosterItem;
+            JabberClient.OnReadXml += OnProtocol;
+            JabberClient.OnWriteXml += OnWriteText;
+            JabberClient.OnAuthError += OnAuthError;
+            JabberClient.OnIq += OnIQ;
+            JabberClient.AutoAgents = false;
+            
+            // facebook own message echo
+            ElementFactory.AddElementType("own-message", "http://www.facebook.com/xmpp/messages", typeof(OwnMessageQuery));
+            
+            MucManager = new MucManager(JabberClient);
+        }
 
-            ConferenceManager = new ConferenceManager();
-            ConferenceManager.Stream = JabberClient;
-            ConferenceManager.OnJoin += OnJoin;
-            ConferenceManager.OnLeave += OnLeave;
-            ConferenceManager.OnParticipantJoin += OnParticipantJoin;
-            ConferenceManager.OnParticipantLeave += OnParticipantLeave;
+        void OnAuthError (object sender, agsXMPP.Xml.Dom.Element e)
+        {
+            var builder = CreateMessageBuilder();
+            builder.AppendEventPrefix();
+            builder.AppendErrorText("Authentication failed, either username does not exist or invalid password");
+            Session.AddMessageToChat(NetworkChat, builder.ToMessage());
+            builder = CreateMessageBuilder();
+            builder.AppendEventPrefix();
+            builder.AppendMessage("if you want to create an account with the specified user and password, type /register now");
+            Session.AddMessageToChat(NetworkChat, builder.ToMessage());
         }
 
         public override void Connect(FrontendManager fm, ServerModel server)
@@ -173,7 +184,8 @@ namespace Smuxi.Engine
 
             OpenContactChat();
 
-            if (!String.IsNullOrEmpty(JabberClient.ProxyHost)) {
+            /*
+            if (!String.IsNullOrEmpty(JabberClient.proxy??)) {
                 var builder = CreateMessageBuilder();
                 builder.AppendEventPrefix();
                 builder.AppendText(_("Using proxy: {0}:{1}"),
@@ -181,7 +193,13 @@ namespace Smuxi.Engine
                                    JabberClient.ProxyPort);
                 Session.AddMessageToChat(Chat, builder.ToMessage());
             }
-            JabberClient.Connect();
+            */
+            JabberClient.Server = Server.Hostname;
+            JabberClient.Port = Server.Port;
+            JabberClient.Username = Server.Username;
+            JabberClient.Password = Server.Password;
+            DebugWrite("calling JabberClient.Open()");
+            JabberClient.Open();
         }
         
         public override void Reconnect(FrontendManager fm)
@@ -189,14 +207,15 @@ namespace Smuxi.Engine
             Trace.Call(fm);
 
             JabberClient.Close();
-            JabberClient.Connect();
+            JabberClient.Open();
         }
         
         public override void Disconnect(FrontendManager fm)
         {
             Trace.Call(fm);
 
-            JabberClient.Close(false);
+            JabberClient.Close();
+            IsConnected = false;
         }
 
         public override void Dispose()
@@ -204,8 +223,10 @@ namespace Smuxi.Engine
             Trace.Call();
 
             base.Dispose();
-
-            JabberClient.Dispose();
+            
+            IsConnected = false;
+            JabberClient.Close();
+            JabberClient = null;
         }
 
         public override string ToString()
@@ -243,10 +264,10 @@ namespace Smuxi.Engine
             );
             Session.AddChat(ContactChat);
             Session.SyncChat(ContactChat);
-            foreach(JID jid in PresenceManager) {
-                if (PresenceManager.IsAvailable(jid)) {
+            foreach (var pair in Contacts) {
+                if (pair.Value.presence == PresenceType.available) {
                     lock (ContactChat) {
-                        Session.AddPersonToGroupChat(ContactChat, CreatePerson(jid));
+                        Session.AddPersonToGroupChat(ContactChat, CreatePerson(pair.Key));
                     }
                 }
             }
@@ -278,9 +299,13 @@ namespace Smuxi.Engine
                 Session.RemoveChat(chat);
                 ContactChat = null;
             } else if (chat.ChatType == ChatType.Group) {
-                ConferenceManager.GetRoom(chat.ID+"/"+JabberClient.User).Leave("Closed");
-            } else {
+                MucManager.LeaveRoom(chat.ID, ((XmppGroupChatModel)chat).OwnNickname);
+            } else if (chat.ChatType == ChatType.Person) {
                 Session.RemoveChat(chat);
+            } else {
+#if LOG4NET
+                _Logger.Error("CloseChat(): Invalid chat type");
+#endif
             }
         }
 
@@ -289,32 +314,23 @@ namespace Smuxi.Engine
         {
             Trace.Call(status, message);
 
-            if (!IsConnected || !JabberClient.IsAuthenticated) {
+            if (!IsConnected || !JabberClient.Authenticated) {
                 return;
             }
 
-            PresenceType? xmppType = null;
-            string xmppShow = null;
             switch (status) {
                 case PresenceStatus.Online:
-                    xmppType = PresenceType.available;
+                    JabberClient.Show = ShowType.NONE;
                     JabberClient.Priority = Server.Priorities[status];
                     break;
                 case PresenceStatus.Away:
-                    xmppType = PresenceType.available;
                     JabberClient.Priority = Server.Priorities[status];
-                    xmppShow = "away";
+                    JabberClient.Show = ShowType.away;
+                    JabberClient.Status = "afk";
                     break;
-                case PresenceStatus.Offline:
-                    xmppType = PresenceType.unavailable;
-                    break;
-            }
-            if (xmppType == null) {
-                return;
             }
 
-            JabberClient.Presence(xmppType.Value, message, xmppShow,
-                                  JabberClient.Priority);
+            JabberClient.SendMyPresence();
         }
 
         public override bool Command(CommandModel command)
@@ -397,34 +413,34 @@ namespace Smuxi.Engine
                 NotEnoughParameters(cd);
                 return;
             }
-            JID jid = cd.DataArray[2];
+            Jid jid = GetJidFromNickname(cd.DataArray[2]);
             string cmd = cd.DataArray[1];
             switch (cmd) {
                 case "add":
                 case "subscribe":
                     // also use GetJidFromNickname(jid) here, so jid is checked for validity
-                    RosterManager.Add(GetJidFromNickname(jid));
+                    JabberClient.RosterManager.AddRosterItem(jid);
+                    JabberClient.PresenceManager.Subscribe(jid);
                     break;
                 case "remove":
                 case "rm":
                 case "del":
-                    RosterManager.Remove(GetJidFromNickname(jid));
+                    JabberClient.RosterManager.RemoveRosterItem(jid);
+                    JabberClient.PresenceManager.Unsubscribe(jid);
                     break;
                 case "accept":
                 case "allow":
-                    RosterManager.Allow(GetJidFromNickname(jid));
+                    JabberClient.PresenceManager.ApproveSubscriptionRequest(jid);
                     break;
                 case "deny":
-                    RosterManager.Deny(GetJidFromNickname(jid));
+                    JabberClient.PresenceManager.RefuseSubscriptionRequest(jid);
                     break;
                 case "rename":
                     if (cd.DataArray.Length < 4) {
                         NotEnoughParameters(cd);
                         return;
                     }
-                    Item it = RosterManager[GetJidFromNickname(jid)];
-                    it.Nickname = cd.DataArray[3];
-                    RosterManager.Modify(it);
+                    JabberClient.RosterManager.UpdateRosterItem(jid, cd.DataArray[3]);
                     break;
                 default:
                     var builder = CreateMessageBuilder();
@@ -529,7 +545,6 @@ namespace Smuxi.Engine
                 command.FrontendManager.AddMessageToChat(command.Chat, builder.ToMessage());
                 return;
             }
-            var me = PresenceManager[JabberClient.JID];
             JabberClient.Priority = prio;
             bool change_current_prio = false;
             switch (subcmd) {
@@ -540,40 +555,37 @@ namespace Smuxi.Engine
                     break;
                 case "away":
                     Server.Priorities[PresenceStatus.Away] = prio;
-                    if (me != null) {
-                        change_current_prio = (me.Type == PresenceType.available) && (me.Show == "away");
-                    }
+                    change_current_prio = (JabberClient.Show == ShowType.away);
+                    JabberClient.Priority = prio;
                     break;
                 case "online":
                 case "available":
                     Server.Priorities[PresenceStatus.Online] = prio;
-                    if (me != null) {
-                        change_current_prio = (me.Type == PresenceType.available) && string.IsNullOrEmpty(me.Show);
-                    }
+                    change_current_prio = (JabberClient.Show == ShowType.NONE);
+                    JabberClient.Priority = prio;
                     break;
                 default:
                     return;
             }
             if (change_current_prio) {
                 // set priority and keep all other presence info
-                JabberClient.Presence(me.Type, me.Status, me.Show, prio);
+                JabberClient.SendMyPresence();
             }
         }
 
-        private JID GetJidFromNickname(string nickname)
+        private Jid GetJidFromNickname(string nickname)
         {
-            Item it = RosterManager[nickname];
-            if (it != null) {
-                return it.JID;
+            ContactInfo it;
+            if (Contacts.TryGetValue(nickname, out it)) {
+                return it.jid;
             }
 
             // arg is not a jid in our rostermanager
             // find a jid to which the nickname belongs
-            foreach (JID j in RosterManager) {
-                Item item = RosterManager[j];
-                if (item.Nickname != null &&
-                    item.Nickname.Replace(" ", "_") == nickname) {
-                    return item.JID;
+            foreach (var pair in Contacts) {
+                if (pair.Value.name != null &&
+                    pair.Value.name.Replace(" ", "_") == nickname) {
+                    return pair.Key;
                 }
             }
             // not found in roster, message directly to jid
@@ -586,7 +598,7 @@ namespace Smuxi.Engine
             ChatModel chat = null;
             if (cd.DataArray.Length >= 2) {
                 string arg = cd.DataArray[1];
-                JID jid = GetJidFromNickname(arg);
+                Jid jid = GetJidFromNickname(arg);
                 chat = GetChat(jid, ChatType.Person);
                 if (chat == null) {
                     PersonModel person = CreatePerson(jid);
@@ -613,13 +625,16 @@ namespace Smuxi.Engine
             }
 
             string jid = cd.DataArray[1];
-            ChatModel chat = GetChat(jid, ChatType.Group);
-            string nickname = JabberClient.User;
+            XmppGroupChatModel chat = (XmppGroupChatModel)GetChat(jid, ChatType.Group);
+            string nickname = JabberClient.Username;
             if (cd.DataArray.Length > 2) {
                 nickname = cd.DataArray[2];
             }
             if (chat == null) {
-                ConferenceManager.GetRoom(jid+"/"+nickname).Join();
+                MucManager.JoinRoom(jid, nickname);
+                chat = Session.CreateChat<XmppGroupChatModel>(jid, jid, this);
+                chat.OwnNickname = nickname;
+                Session.AddChat(chat);
             }
         }
 
@@ -630,9 +645,9 @@ namespace Smuxi.Engine
                 jid = cd.DataArray[1];
             else
                 jid = cd.Chat.ID;
-            ChatModel chat = GetChat(jid, ChatType.Group);
+            XmppGroupChatModel chat = (XmppGroupChatModel)GetChat(jid, ChatType.Group);
             if (chat != null) {
-                ConferenceManager.GetRoom(jid+"/"+JabberClient.User).Leave("Part");
+                MucManager.LeaveRoom(jid, chat.OwnNickname);
             }
         }
 
@@ -656,23 +671,15 @@ namespace Smuxi.Engine
             builder.AppendHeader("Roster");
             cd.FrontendManager.AddMessageToChat(cd.Chat, builder.ToMessage());
 
-            foreach (JID j in RosterManager) {
+            foreach (var pair in Contacts) {
                 string status = "+";
-                if (!PresenceManager.IsAvailable(j)) {
+                var contact = pair.Value;
+                if (contact.presence == PresenceType.available) {
                     if (!full) continue;
                     status = "-";
                 }
-                string nick = RosterManager[j].Nickname;
-                string mesg = "";
-                Presence item = PresenceManager[j];
-                if (item != null) {
-                    if (item.Show != null && item.Show.Length != 0) {
-                        status = item.Show;
-                    }
-                    mesg = item.Status;
-                }
                 builder = CreateMessageBuilder();
-                builder.AppendText("{0}\t{1}\t({2}): {3}", status, nick, j, mesg);
+                builder.AppendText("{0}\t{1}\t({2}): {3}", status, contact.name, pair.Key, contact.message);
                 cd.FrontendManager.AddMessageToChat(cd.Chat, builder.ToMessage());
             }
         }
@@ -699,15 +706,9 @@ namespace Smuxi.Engine
             if (send) {
                 string target = chat.ID;
                 if (chat.ChatType == ChatType.Person) {
-                    JabberClient.Message(target, text);
+                    JabberClient.Send(new Message(target, XmppMessageType.chat, text));
                 } else if (chat.ChatType == ChatType.Group) {
-                    var room = ConferenceManager.GetRoom(
-                        String.Format(
-                            "{0}/{1}",
-                            target, JabberClient.User
-                        )
-                    );
-                    room.PublicMessage(text);
+                    JabberClient.Send(new Message(target, XmppMessageType.groupchat, text));
                     return; // don't show now. the message will be echoed back if it's sent successfully
                 }
             }
@@ -717,35 +718,24 @@ namespace Smuxi.Engine
             builder.AppendMessage(text);
             Session.AddMessageToChat(chat, builder.ToMessage());
         }
-        
-        void OnStreamInit(object sender, ElementStream stream)
-        {
-            Trace.Call(sender, stream);
 
-            stream.AddType("own-message", "http://www.facebook.com/xmpp/messages", typeof(OwnMessageQuery));
-        }
 
-        void OnProtocol(object sender, XmlElement tag)
+        void OnProtocol(object sender, string tag)
         {
             if (!DebugProtocol) {
                 return;
             }
 
             try {
-                var strWriter = new StringWriter();
-                var xmlWriter = new XmlTextWriter(strWriter);
-                xmlWriter.Formatting = Formatting.Indented;
-                xmlWriter.Indentation = 2;
-                xmlWriter.IndentChar =  ' ';
-                tag.WriteTo(xmlWriter);
 
-                DebugRead("\n" + strWriter.ToString());
+                DebugRead("\n" + tag);
             } catch (Exception ex) {
 #if LOG4NET
                 _Logger.Error("OnProtocol(): Exception", ex);
 #endif
             }
         }
+
 
         void OnWriteText(object sender, string text)
         {
@@ -781,35 +771,38 @@ namespace Smuxi.Engine
             }
         }
 
-        public void OnRosterItem(object sender, Item ri)
+
+        public void OnRosterItem(object sender, RosterItem ri)
         {
-            string jid = ri.JID.Bare;
+            ContactInfo contact = new ContactInfo();
+            contact.jid = ri.Jid;
+            contact.name = ri.Name;
+            Contacts[ri.Jid] = contact;
 
             if (ContactChat == null) return;
             lock (ContactChat) {
-                PersonModel oldp = ContactChat.GetPerson(jid);
+                PersonModel oldp = ContactChat.GetPerson(ri.Jid);
                 if (oldp == null) {
                     // doesn't exist, don't need to do anything
                     return;
                 }
-                PersonModel newp = CreatePerson(jid);
+                PersonModel newp = CreatePerson(ri.Jid);
                 Session.UpdatePersonInGroupChat(ContactChat, oldp, newp);
             }
         }
 
         void OnPresence(object sender, Presence pres)
         {
-            JID jid = pres.From;
+            Jid jid = pres.From;
             var groupChat = (XmppGroupChatModel) Session.GetChat(jid.Bare, ChatType.Group, this);
 
             MessageBuilder builder = CreateMessageBuilder();
             builder.AppendEventPrefix();
             PersonModel person = null;
             if (groupChat != null) {
-                string displayName = jid.Resource ?? jid.Bare;
-                person = new PersonModel("", displayName, "", "", this);
+                person = CreatePerson(jid, jid.Resource);
             } else {
-                person = CreatePerson(jid.Bare);
+                person = CreatePerson(jid);
             }
             builder.AppendIdendityName(person);
             if (jid != person.IdentityName) {
@@ -818,12 +811,12 @@ namespace Smuxi.Engine
 
             switch (pres.Type) {
                 case PresenceType.available:
-                    // groupchat is already managed
+                    // groupchat gets messages in own window
                     if (groupChat == null) {
                         if (ContactChat != null) {
                             // anyone who is online/away/dnd will be added to the list
                             lock (ContactChat) {
-                                PersonModel p = ContactChat.GetPerson(jid.Bare);
+                                PersonModel p = ContactChat.GetPerson(jid);
                                 if (p != null) {
                                     // p already exists, don't add a new person
                                     Session.UpdatePersonInGroupChat(ContactChat, p, person);
@@ -832,15 +825,19 @@ namespace Smuxi.Engine
                                 }
                             }
                         }
-                    }
-                    if (pres.Show == null) {
-                        builder.AppendText(_(" is now available"));
-                    } else if (pres.Show == "away") {
-                        builder.AppendText(_(" is now away"));
-                    } else if (pres.Show == "dnd") {
-                        builder.AppendText(_(" wishes not to be disturbed"));
                     } else {
-                        builder.AppendText(_(" set status to {0}"), pres.Show);
+                        AddPersonToGroup(groupChat, jid);
+                    }
+                    if (pres.Show == ShowType.NONE) {
+                        builder.AppendText(_(" is now available"));
+                    } else if (pres.Show == ShowType.away) {
+                        builder.AppendText(_(" is now away"));
+                    } else if (pres.Show == ShowType.dnd) {
+                        builder.AppendText(_(" wishes not to be disturbed"));
+                    } else if (pres.Show == ShowType.xa) {
+                        builder.AppendText(_(" is now extended away"));
+                    } else if (pres.Show == ShowType.chat) {
+                        builder.AppendText(_(" is now available for chat"));
                     }
                     if (pres.Status == null) break;
                     if (pres.Status.Length == 0) break;
@@ -848,10 +845,10 @@ namespace Smuxi.Engine
                     break;
                 case PresenceType.unavailable:
                     builder.AppendText(_(" is now offline"));
-                    if(groupChat == null) {
+                    if (groupChat == null) {
                         if (ContactChat != null) {
                             lock (ContactChat) {
-                                PersonModel p = ContactChat.GetPerson(jid.Bare);
+                                PersonModel p = ContactChat.GetPerson(jid);
                                 if (p == null) {
                                     // doesn't exist, got an offline message w/o a preceding online message?
                                     return;
@@ -859,6 +856,8 @@ namespace Smuxi.Engine
                                 Session.RemovePersonFromGroupChat(ContactChat, p);
                             }
                         }
+                    } else {
+                        RemovePersonFromGroupChat(groupChat, jid);
                     }
                     break;
                 case PresenceType.subscribe:
@@ -873,120 +872,137 @@ namespace Smuxi.Engine
             } else if (ContactChat != null) {
                 Session.AddMessageToChat(ContactChat, builder.ToMessage());
             }
-            var personChat = Session.GetChat(jid.Bare, ChatType.Person, this);
+            var personChat = Session.GetChat(jid, ChatType.Person, this);
             if (personChat != null) {
                 Session.AddMessageToChat(personChat, builder.ToMessage());
             }
         }
+        
+        private void OnGroupChatMessage(Message msg)
+        {
+            string group_jid = msg.From.Bare;
+            XmppGroupChatModel groupChat = (XmppGroupChatModel) Session.GetChat(group_jid, ChatType.Group, this);
+            // resource can be empty for room messages
+            var sender_id = msg.From.Resource ?? msg.From.Bare;
+            var person = groupChat.GetPerson(sender_id);
+            if (person == null) {
+                // happens in case of a delayed message if the participant has left meanwhile
+                person = new PersonModel(sender_id,
+                                         sender_id,
+                                         NetworkID, Protocol, this);
+            }
+            
+            var builder = CreateMessageBuilder();
+            // XXX maybe only a Google Talk bug requires this:
+            if (msg.XDelay != null) {
+                var stamp = msg.XDelay.Stamp;
+                builder.TimeStamp = stamp;
+                // XXX can't use > because of seconds precision :-(
+                if (stamp > groupChat.LatestSeenStamp) {
+                    groupChat.LatestSeenStamp = stamp;
+                } else {
+                    return; // already seen newer delayed message
+                }
+                if (groupChat.SeenNewMessages) {
+                    return; // already seen newer messages
+                }
+            } else {
+                groupChat.SeenNewMessages = true;
+            }
+            
+            // public message
+            builder.AppendMessage(person, msg.Body);
+            // mark highlights only for received messages
+            if (person.ID != groupChat.OwnNickname) {
+                builder.MarkHighlights();
+            }
+            Session.AddMessageToChat(groupChat, builder.ToMessage());
+        }
+        
+        private void OnPrivateChatMessage(Message msg)
+        {
+            var sender_jid = msg.From;
+            var personChat = (PersonChatModel) Session.GetChat(
+                sender_jid, ChatType.Person, this
+            );
+            PersonModel person = null;
+            if (personChat == null) {
+                person = CreatePerson(msg.From);
+                personChat = Session.CreatePersonChat(
+                    person, sender_jid, person.IdentityName, this
+                );
+                Session.AddChat(personChat);
+                Session.SyncChat(personChat);
+            } else {
+                person = personChat.Person;
+            }
+            var builder = CreateMessageBuilder();
+            builder.AppendSenderPrefix(person, true);
+            builder.AppendMessage(msg.Body);
+            builder.MarkHighlights();
+            // todo: can private messages have an xdelay?
+            if (msg.XDelay != null) {
+                builder.TimeStamp = msg.XDelay.Stamp;
+            }
+            Session.AddMessageToChat(personChat, builder.ToMessage());
+        }
 
         private void OnMessage(object sender, Message msg)
         {
-            if (msg.Body == null) {
+            if (String.IsNullOrEmpty(msg.Body)) {
+                // TODO: capture events and stuff
                 return;
             }
-
-            var delay = msg["delay"];
-            string stamp = null;
-            if (delay != null) {
-                stamp = delay.Attributes["stamp"].Value;
-            }
-            bool display = true;
-
-            ChatModel chat = null;
-            PersonModel person = null;
-            if (msg.Type != XmppMessageType.groupchat) {
-                var sender_jid = msg.From.Bare;
-                var personChat = (PersonChatModel) Session.GetChat(
-                    sender_jid, ChatType.Person, this
-                );
-                if (personChat == null) {
-                    person = CreatePerson(msg.From);
-                    personChat = Session.CreatePersonChat(
-                        person, sender_jid, person.IdentityName, this
-                    );
-                    Session.AddChat(personChat);
-                    Session.SyncChat(personChat);
-                } else {
-                    person = personChat.Person;
-                }
-                chat = personChat;
-            } else {
-                string group_jid = msg.From.Bare;
-                string group_name = group_jid;
-                XmppGroupChatModel groupChat = (XmppGroupChatModel) Session.GetChat(group_jid, ChatType.Group, this);
-                if (groupChat == null) {
-                    groupChat = Session.CreateChat<XmppGroupChatModel>(
-                        group_jid, group_name, this
-                    );
-                    Session.AddChat(groupChat);
-                }
-                // resource can be empty for room messages
-                var sender_id = msg.From.Resource ?? msg.From.Bare;
-                person = groupChat.GetPerson(sender_id);
-                if (person == null) {
-                    // happens in case of a delayed message if the participant has left meanwhile
-                    person = new PersonModel(sender_id,
-                                             sender_id,
-                                             NetworkID, Protocol, this);
-                }
-
-                // XXX maybe only a Google Talk bug requires this:
-                if (stamp != null) {
-                    // XXX can't use > because of seconds precision :-(
-                    if (stamp.CompareTo(groupChat.LatestSeenStamp) >= 0) {
-                        groupChat.LatestSeenStamp = stamp;
-                    } else {
-                        display = false; // already seen newer delayed message
-                    }
-                    if (groupChat.SeenNewMessages) {
-                        display = false; // already seen newer messages
-                    }
-                } else {
-                    groupChat.SeenNewMessages = true;
-                }
-
-                chat = groupChat;
-            }
-
-            if (display) {
-                var builder = CreateMessageBuilder();
-                if (msg.Type != XmppMessageType.error) {
-                    if (chat is PersonChatModel) {
-                        // private message
-                        builder.AppendSenderPrefix(person, true);
-                        builder.AppendMessage(msg.Body);
-                        builder.MarkHighlights();
-                    } else if (chat is XmppGroupChatModel) {
-                        // public message
-                        builder.AppendMessage(person, msg.Body);
-                        // mark highlights only for received messages
-                        var muc = (XmppGroupChatModel) chat;
-                        if (person.ID != muc.OwnNickname) {
-                            builder.MarkHighlights();
-                        }
-                    }
-                } else {
+            switch (msg.Type) {
+                case XmppMessageType.groupchat:
+                    OnGroupChatMessage(msg);
+                    break;
+                case XmppMessageType.chat:
+                    OnPrivateChatMessage(msg);
+                    break;
+                case XmppMessageType.error:
+                {
+                    var builder = CreateMessageBuilder();
                     // TODO: nicer formatting
                     builder.AppendMessage(msg.Error.ToString());
+                    Session.AddMessageToChat(NetworkChat, builder.ToMessage());
                 }
-                if (stamp != null) {
-                    string format = DateTimeFormatInfo.InvariantInfo.UniversalSortableDateTimePattern.Replace(" ", "T");
-                    builder.TimeStamp = DateTime.ParseExact(stamp, format, null);
+                    break;
+                case XmppMessageType.headline:
+                {
+                    var builder = CreateMessageBuilder();
+                    // TODO: this is just a dump, do something proper!
+                    builder.AppendMessage(msg.Nickname.ToString());
+                    builder.AppendMessage(msg.Subject);
+                    builder.AppendMessage(msg.Thread);
+                    builder.AppendMessage(msg.Body);
+                    Session.AddMessageToChat(NetworkChat, builder.ToMessage());
                 }
-                Session.AddMessageToChat(chat, builder.ToMessage());
+                    break;
+                case XmppMessageType.normal:
+                {
+                    // TODO: this is just a dump, do something proper!
+                    var builder = CreateMessageBuilder();
+                    builder.AppendMessage(msg.ToString());
+                    Session.AddMessageToChat(NetworkChat, builder.ToMessage());
+                }
+                    break;
             }
         }
-
+  
+        
         void OnIQ(object sender, IQ iq)
         {
             Trace.Call(sender, iq);
 
-            if (iq.Query is OwnMessageQuery) {
-                OnIQOwnMessage((OwnMessageQuery) iq.Query);
-                iq.Handled = true;
+            // not as pretty as the previous implementation, but it works
+            var elem = iq.SelectSingleElement("own-message");
+            if (elem is OwnMessageQuery) {
+                OnIQOwnMessage((OwnMessageQuery) elem);
             }
         }
 
+        
         void OnIQOwnMessage(OwnMessageQuery query)
         {
             if (query.Self) {
@@ -1007,73 +1023,42 @@ namespace Smuxi.Engine
             _Say(chat, query.Body, false);
         }
 
-        void OnJoin(Room room)
+        private void AddPersonToGroup(XmppGroupChatModel chat, Jid jid)
         {
-            AddPersonToGroup(room, room.Nickname);
-        }
-
-        void OnLeave(Room room, Presence presence)
-        {
-            var chat = Session.GetChat(room.JID.Bare, ChatType.Group, this);
-            if (chat.IsEnabled)
-                Session.RemoveChat(chat);
-        }
-
-        void OnParticipantJoin(Room room, RoomParticipant roomParticipant)
-        {
-            AddPersonToGroup(room, roomParticipant.Nick);
-        }
-
-        private void AddPersonToGroup(Room room, string nickname)
-        {
-            string jid = room.JID.Bare;
-            var chat = (XmppGroupChatModel) Session.GetChat(jid, ChatType.Group, this);
-            // first notice we're joining a group chat is the participant info:
-            if (chat == null) {
-                chat = Session.CreateChat<XmppGroupChatModel>(jid, jid, this);
-                chat.OwnNickname = room.Nickname;
-                Session.AddChat(chat);
-            }
-
             lock (chat) {
-                if (chat.UnsafePersons.ContainsKey(nickname)) {
+                if (chat.UnsafePersons.ContainsKey(jid)) {
                     return;
                 }
                 // manual construction is necessary for group chats
-                var person = new PersonModel(nickname, nickname, NetworkID, Protocol, this);
+                var person = CreatePerson(jid, jid.Resource);
                 if (chat.IsSynced) {
                     Session.AddPersonToGroupChat(chat, person);
                 } else {
-                    chat.UnsafePersons.Add(nickname, person);
+                    chat.UnsafePersons.Add(jid, person);
                 }
             }
 
             // did I join? then the chat roster is fully received
-            if (!chat.IsSynced && nickname == room.Nickname) {
+            if (!chat.IsSynced && jid.Resource == chat.OwnNickname) {
                 chat.IsSynced = true;
                 Session.SyncChat(chat);
             }
         }
-        
-        public void OnParticipantLeave(Room room, RoomParticipant roomParticipant)
-        {
-            string jid = room.JID.Bare;
-            var chat = (GroupChatModel) Session.GetChat(jid, ChatType.Group, this);
-            string nickname = roomParticipant.Nick;
 
+        public void RemovePersonFromGroupChat(XmppGroupChatModel chat, Jid jid)
+        {
             lock (chat) {
-                var person = chat.GetPerson(nickname);
+                var person = chat.GetPerson(jid);
                 if (person == null) {
                     return;
                 }
 
                 Session.RemovePersonFromGroupChat(chat, person);
             }
-        }
-
-        void OnConnect(object sender, StanzaStream stream)
-        {
-            Trace.Call(sender, stream);
+            // did I leave? then I "probably" left the room
+            if (jid.Resource == chat.OwnNickname) {
+                Session.RemoveChat(chat);
+            }
         }
 
         void OnDisconnect(object sender)
@@ -1081,6 +1066,16 @@ namespace Smuxi.Engine
             Trace.Call(sender);
 
             IsConnected = false;
+            
+            var chats = new List<ChatModel>();
+            foreach (var chat in Session.Chats) {
+                if (chat.ProtocolManager != this) continue;
+                if (chat.ChatType != ChatType.Group) continue;
+                chats.Add(chat);
+            }
+            foreach (var chat in chats) {
+                Session.RemoveChat(chat);
+            }
             OnDisconnected(EventArgs.Empty);
         }
 
@@ -1111,7 +1106,7 @@ namespace Smuxi.Engine
             Session.AddMessageToChat(Chat, builder.ToMessage());
 
             // send initial presence
-            SetPresenceStatus(PresenceStatus.Online, null);
+            //SetPresenceStatus(PresenceStatus.Online, null);
 
             OnConnected(EventArgs.Empty);
         }
@@ -1121,22 +1116,22 @@ namespace Smuxi.Engine
             if (server.Username.Contains("@")) {
                 var jid_user = server.Username.Split('@')[0];
                 var jid_host = server.Username.Split('@')[1];
-                JabberClient.NetworkHost = server.Hostname;
-                JabberClient.User = jid_user;
+                //JabberClient.NetworkHost = server.Hostname;
+                JabberClient.Username = jid_user;
                 JabberClient.Server = jid_host;
             } else {
                 JabberClient.Server = server.Hostname;
-                JabberClient.User = server.Username;
+                JabberClient.Username = server.Username;
             }
             JabberClient.Port = server.Port;
             JabberClient.Password = server.Password;
 
             Me = CreatePerson(
                 String.Format("{0}@{1}",
-                    JabberClient.User,
+                    JabberClient.Username,
                     JabberClient.Server
                 ),
-                JabberClient.User
+                JabberClient.Username
             );
             Me.IdentityNameColored.ForegroundColor = new TextColor(0, 0, 255);
             Me.IdentityNameColored.BackgroundColor = TextColor.None;
@@ -1145,13 +1140,11 @@ namespace Smuxi.Engine
             // XMPP specific settings
             JabberClient.Resource = server.Resource;
 
-            JabberClient.OnInvalidCertificate -= ValidateCertificate;
-
-            JabberClient.AutoStartTLS = server.UseEncryption;
+            JabberClient.UseStartTLS = server.UseEncryption;
             if (!server.ValidateServerCertificate) {
-                JabberClient.OnInvalidCertificate += ValidateCertificate;
+                JabberClient.ClientSocket.OnValidateCertificate += ValidateCertificate;
             }
-
+#if false
             var proxySettings = new ProxySettings();
             proxySettings.ApplyConfig(Session.UserConfig);
             var protocol = server.UseEncryption ? "xmpps" : "xmpp";
@@ -1159,7 +1152,7 @@ namespace Smuxi.Engine
                                           server.Hostname, server.Port);
             var proxy = proxySettings.GetWebProxy(serverUri);
             if (proxy == null) {
-                JabberClient.Proxy = XmppProxyType.None;
+                JabberClient.ClientSocket..Proxy = XmppProxyType.None;
             } else {
                 var proxyScheme = proxy.Address.Scheme;
                 var xmppProxyType = XmppProxyType.None;
@@ -1180,6 +1173,7 @@ namespace Smuxi.Engine
                 JabberClient.ProxyUsername = proxySettings.ProxyUsername;
                 JabberClient.ProxyPassword = proxySettings.ProxyPassword;
             }
+#endif
         }
 
         private static bool ValidateCertificate(object sender,
@@ -1190,19 +1184,19 @@ namespace Smuxi.Engine
             return true;
         }
 
-        PersonModel CreatePerson(JID jid)
+        PersonModel CreatePerson(Jid jid)
         {
             if (jid == null) {
                 throw new ArgumentNullException("jid");
             }
-            var contact = RosterManager[jid.Bare];
             string nickname = null;
-            if (contact == null || String.IsNullOrEmpty(contact.Nickname)) {
-                nickname = jid.Bare;
+            ContactInfo contact;
+            if (!Contacts.TryGetValue(jid.Bare, out contact) || String.IsNullOrEmpty(contact.name)) {
+                nickname = jid;
             } else {
-                nickname = contact.Nickname;
+                nickname = contact.name;
             }
-            return CreatePerson(jid.Bare, nickname);
+            return CreatePerson(jid, nickname);
         }
 
         PersonModel CreatePerson(string jid, string nickname)
