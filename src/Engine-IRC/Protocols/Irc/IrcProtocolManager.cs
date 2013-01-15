@@ -2012,9 +2012,14 @@ namespace Smuxi.Engine
                 var param1 = cd.DataArray[1];
                 if (param1.StartsWith("+") || param1.StartsWith("-")) {
                     // no target given, this is the mode already
-                    // /mode +b
-                    // /mode +b *!*@foo
-                    target = cd.Chat.ID;
+                    // /mode +i (on server)
+                    // /mode +b (on channel)
+                    // /mode +b *!*@foo (on channel)
+                    if (cd.Chat.ChatType == ChatType.Group) {
+                        target = cd.Chat.ID;
+                    } else {
+                        target = _IrcClient.Nickname;
+                    }
                     mode = cd.Parameter;
                 } else {
                     target = param1;
@@ -2026,7 +2031,8 @@ namespace Smuxi.Engine
                     }
                 }
             } else {
-                // /mode
+                // /mode (on server)
+                // /mode (on channel)
                 if (cd.Chat.ChatType == ChatType.Group) {
                     target = cd.Chat.ID;
                 } else {
