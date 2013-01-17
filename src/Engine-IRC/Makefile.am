@@ -87,6 +87,7 @@ SMARTIRC4NET_DLL_MDB = $(foreach file, $(SMARTIRC4NET_DLL), $(file).mdb)
 
 REFERENCES =  \
 	System \
+	System.Core \
 	Mono.Posix \
 	$(SMARTIRC4NET_LIBS) \
 	$(LOG4NET_LIBS)
