@@ -28,6 +28,7 @@ using System.Globalization;
 using System.Threading;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Meebey.SmartIrc4net;
 using Smuxi.Common;
 using IrcProxyType = Meebey.SmartIrc4net.ProxyType;
@@ -2927,11 +2928,12 @@ namespace Smuxi.Engine
             Trace.Call(e);
 
             var chat = GetChat(e.Data.Channel, ChatType.Group) ?? Chat;
-            var mode = e.Data.RawMessageArray[4];
+            var mode = String.Join(" ", e.Data.RawMessageArray.Skip(4)).Trim();
+            var channelName = e.Data.RawMessageArray[3];
 
             var builder = CreateMessageBuilder();
             builder.AppendEventPrefix();
-            builder.AppendText("mode/{0} [{1}]", chat.Name, mode);
+            builder.AppendText("mode/{0} [{1}]", channelName, mode);
             Session.AddMessageToChat(chat, builder.ToMessage());
         }
 
