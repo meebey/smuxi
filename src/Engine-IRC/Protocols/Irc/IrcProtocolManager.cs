@@ -2823,7 +2823,7 @@ namespace Smuxi.Engine
             //_Logger.Debug("_OnNames() e.Channel: " + e.Channel);
 #endif
             GroupChatModel groupChat = (GroupChatModel) GetChat(e.Data.Channel, ChatType.Group);
-            if (groupChat != null && groupChat.IsSynced) {
+            if (groupChat == null || groupChat.IsSynced) {
                 // nothing todo for us
                 return;
             }
