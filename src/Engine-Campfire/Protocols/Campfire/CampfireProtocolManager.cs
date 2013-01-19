@@ -356,7 +356,7 @@ namespace Smuxi.Engine
         void FormatEvent(MessageBuilder bld, PersonModel person, string action)
         {
             bld.AppendEventPrefix();
-            bld.AppendIdendityName(person);
+            bld.AppendIdendityName(person).AppendSpace();
             bld.AppendText(action);
         }
 
