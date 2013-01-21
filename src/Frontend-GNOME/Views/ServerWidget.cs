@@ -82,6 +82,18 @@ namespace Smuxi.Frontend.Gnome
             }
         }
 
+        public bool SupportUseEncryption {
+            set {
+                f_UseEncryptionCheckButton.Sensitive = value;
+                f_ValidateServerCertificateCheckButton.Sensitive = value;
+                if (!value) {
+                    f_UseEncryptionCheckButton.Active = false;
+                    f_ValidateServerCertificateCheckButton.Active = false;
+                }
+                CheckUseEncryptionCheckButton();
+            }
+        }
+
         public ServerWidget()
         {
             Trace.Call();
@@ -247,6 +259,9 @@ namespace Smuxi.Frontend.Gnome
 
             var useEncryption = f_UseEncryptionCheckButton.Active;
             f_ValidateServerCertificateCheckButton.Sensitive = useEncryption;
+            if (!useEncryption) {
+                f_ValidateServerCertificateCheckButton.Active = false;
+            }
             switch (f_ProtocolComboBox.ActiveText) {
                 case "IRC":
                     f_PortSpinButton.Value = useEncryption ? 6697 : 6667;
@@ -267,21 +282,19 @@ namespace Smuxi.Frontend.Gnome
                     ShowHostname = true;
                     ShowNetwork = true;
                     ShowPassword = true;
+                    SupportUseEncryption = true;
 
                     f_HostnameEntry.Sensitive = true;
                     f_NetworkComboBoxEntry.Sensitive = true;
 
                     f_PortSpinButton.Value = 6667;
                     f_PortSpinButton.Sensitive = true;
-                    f_UseEncryptionCheckButton.Active = false;
-                    f_UseEncryptionCheckButton.Sensitive = true;
-                    f_ValidateServerCertificateCheckButton.Active = false;
-                    f_ValidateServerCertificateCheckButton.Sensitive = true;
                     break;
                 case "XMPP":
                     ShowHostname = true;
                     ShowNetwork = false;
                     ShowPassword = true;
+                    SupportUseEncryption = true;
                 
                     f_HostnameEntry.Sensitive = true;
                     f_NetworkComboBoxEntry.Entry.Text = String.Empty;
@@ -289,10 +302,6 @@ namespace Smuxi.Frontend.Gnome
 
                     f_PortSpinButton.Value = 5222;
                     f_PortSpinButton.Sensitive = true;
-                    f_UseEncryptionCheckButton.Active = false;
-                    f_UseEncryptionCheckButton.Sensitive = true;
-                    f_ValidateServerCertificateCheckButton.Active = false;
-                    f_ValidateServerCertificateCheckButton.Sensitive = true;
                     break;
                 // this protocols have static servers
                 case "AIM":
@@ -301,6 +310,7 @@ namespace Smuxi.Frontend.Gnome
                     ShowHostname = false;
                     ShowNetwork = false;
                     ShowPassword = true;
+                    SupportUseEncryption = false;
 
                     f_HostnameEntry.Text = String.Empty;
                     f_HostnameEntry.Sensitive = false;
@@ -309,41 +319,29 @@ namespace Smuxi.Frontend.Gnome
 
                     f_PortSpinButton.Value = 0;
                     f_PortSpinButton.Sensitive = false;
-                    f_UseEncryptionCheckButton.Active = false;
-                    f_UseEncryptionCheckButton.Sensitive = false;
-                    f_ValidateServerCertificateCheckButton.Active = false;
-                    f_ValidateServerCertificateCheckButton.Sensitive = false;
                     break;
                 case "Twitter":
                     ShowHostname = false;
                     ShowNetwork = false;
                     ShowPassword = false;
+                    SupportUseEncryption = false;
 
                     f_HostnameEntry.Text = String.Empty;
                     f_PortSpinButton.Value = 0;
                     f_NetworkComboBoxEntry.Entry.Text = String.Empty;
                     f_PasswordEntry.Text = String.Empty;
-
-                    f_UseEncryptionCheckButton.Active = false;
-                    f_UseEncryptionCheckButton.Sensitive = false;
-                    f_ValidateServerCertificateCheckButton.Active = false;
-                    f_ValidateServerCertificateCheckButton.Sensitive = false;
                     break;
                 case "Campfire":
                     ShowHostname = true;
                     ShowNetwork = false;
                     ShowPassword = true;
+                    SupportUseEncryption = false;
 
                     f_HostnameEntry.Text = ".campfirenow.com";
                     f_HostnameEntry.Sensitive = true;
                     f_PortSpinButton.Value = 0;
                     f_NetworkComboBoxEntry.Entry.Text = String.Empty;
                     f_PasswordEntry.Text = String.Empty;
-
-                    f_UseEncryptionCheckButton.Active = false;
-                    f_UseEncryptionCheckButton.Sensitive = false;
-                    f_ValidateServerCertificateCheckButton.Active = false;
-                    f_ValidateServerCertificateCheckButton.Sensitive = false;
                     break;
                 // in case we don't know / handle the protocol here, make
                 // sure we grant maximum flexibility for the input
@@ -351,6 +349,7 @@ namespace Smuxi.Frontend.Gnome
                     ShowHostname = true;
                     ShowNetwork = true;
                     ShowPassword = true;
+                    SupportUseEncryption = true;
 
                     f_HostnameEntry.Sensitive = true;
                     f_PortSpinButton.Sensitive = true;
