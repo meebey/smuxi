@@ -7,7 +7,7 @@
  *
  * Smuxi - Smart MUltipleXed Irc
  *
- * Copyright (c) 2005-2006 Mirco Bauer <meebey@meebey.net>
+ * Copyright (c) 2005-2013 Mirco Bauer <meebey@meebey.net>
  *
  * Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
  *
@@ -91,7 +91,6 @@ namespace Smuxi.Engine
                 asm = Assembly.GetAssembly(typeof(Engine));
             }
             var asm_name = asm.GetName(false);
-            var title = (AssemblyTitleAttribute) asm.GetCustomAttributes(typeof(AssemblyTitleAttribute), false)[0];
             _Version = asm_name.Version;
             _VersionNumber = asm_name.Version.ToString();
 
@@ -101,7 +100,7 @@ namespace Smuxi.Engine
             }
             _VersionString = String.Format(
                 "{0} {1}{2} - running on {3} {4}",
-                title.Title,
+                Path.GetFileNameWithoutExtension(asm_name.Name),
                 _Version,
                 distVersion,
                 Platform.OperatingSystem,
