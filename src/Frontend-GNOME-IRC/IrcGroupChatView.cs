@@ -1,7 +1,7 @@
 /*
  * Smuxi - Smart MUltipleXed Irc
  *
- * Copyright (c) 2005-2011 Mirco Bauer <meebey@meebey.net>
+ * Copyright (c) 2005-2011, 2013 Mirco Bauer <meebey@meebey.net>
  *
  * Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
  *
@@ -216,13 +216,14 @@ namespace Smuxi.Frontend.Gnome
             }
 
             foreach (PersonModel person in persons) {
+                var per = person;
                 ThreadPool.QueueUserWorkItem(delegate {
                     try {
                         _IrcProtocolManager.CommandKick(
                             new CommandModel(
                                 Frontend.FrontendManager,
                                 ChatModel,
-                                person.ID
+                                per.ID
                             )
                         );
                     } catch (Exception ex) {
@@ -242,13 +243,14 @@ namespace Smuxi.Frontend.Gnome
             }
 
             foreach (PersonModel person in persons) {
+                var per = person;
                 ThreadPool.QueueUserWorkItem(delegate {
                     try {
                         _IrcProtocolManager.CommandKickban(
                             new CommandModel(
                                 Frontend.FrontendManager,
                                 ChatModel,
-                                person.ID
+                                per.ID
                             )
                         );
                     } catch (Exception ex) {
@@ -325,13 +327,14 @@ namespace Smuxi.Frontend.Gnome
             }
 
             foreach (PersonModel person in persons) {
+                var per = person;
                 ThreadPool.QueueUserWorkItem(delegate {
                     try {
                         _IrcProtocolManager.CommandMessageQuery(
                             new CommandModel(
                                 Frontend.FrontendManager,
                                 ChatModel,
-                                person.ID
+                                per.ID
                             )
                         );
                     } catch (Exception ex) {
@@ -351,13 +354,14 @@ namespace Smuxi.Frontend.Gnome
             }
 
             foreach (PersonModel person in persons) {
+                var per = person;
                 ThreadPool.QueueUserWorkItem(delegate {
                     try {
                         _IrcProtocolManager.CommandWhoIs(
                             new CommandModel(
                                 Frontend.FrontendManager,
                                 ChatModel,
-                                person.ID
+                                per.ID
                             )
                         );
                     } catch (Exception ex) {
