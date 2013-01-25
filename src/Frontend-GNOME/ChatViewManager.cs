@@ -1,7 +1,7 @@
 /*
  * Smuxi - Smart MUltipleXed Irc
  *
- * Copyright (c) 2005-2011 Mirco Bauer <meebey@meebey.net>
+ * Copyright (c) 2005-2013 Mirco Bauer <meebey@meebey.net>
  *
  * Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
  *
@@ -215,9 +215,14 @@ namespace Smuxi.Frontend.Gnome
         {
             Trace.Call();
 
+            var chats = new List<ChatView>(f_Chats);
+            foreach (var chat in chats) {
+                // clean up ChatView and all notify related resources like
+                // StatusIconManager, NotifyManager and IndicateManager
+                RemoveChat(chat.ChatModel);
+            }
+
             f_Config = null;
-            f_Chats.Clear();
-            f_Notebook.RemoveAllPages();
             SyncedChats.Clear();
             SyncManager.Clear();
         }

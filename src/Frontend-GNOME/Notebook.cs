@@ -1,7 +1,7 @@
 /*
  * Smuxi - Smart MUltipleXed Irc
  *
- * Copyright (c) 2007-2011 Mirco Bauer <meebey@meebey.net>
+ * Copyright (c) 2007-2013 Mirco Bauer <meebey@meebey.net>
  *
  * Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
  *
@@ -140,33 +140,6 @@ namespace Smuxi.Frontend.Gnome
             }
 
             return -1;
-        }
-
-        public void RemoveAllPages()
-        {
-            Trace.Call();
-
-            // OPT: don't trigger lots of SwitchPage events while we remove all pages
-            // this also breaks the Frontend.ReconnectEngineToGUI() as that one
-            // has to cleanup all chats regardless of a working network
-            // connection
-            SwitchPage -= OnBeforeSwitchPage;
-            SwitchPage -= OnSwitchPage;
-
-            int npages = NPages;
-            CurrentPage = 0;
-            for (int i = 0; i < npages; i++) {
-                // *doh* this would be too easy, ugly Gtk.Notebook doesn't
-                // like it though, index based vs array based?
-                //RemovePage(i);
-
-                NextPage();
-                RemovePage(CurrentPage);
-            }
-
-            // reconnect the event handler
-            SwitchPage += OnBeforeSwitchPage;
-            SwitchPage += OnSwitchPage;
         }
 
         public void SyncPagePositions()
