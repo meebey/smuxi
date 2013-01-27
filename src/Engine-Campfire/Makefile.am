@@ -21,6 +21,7 @@ DLL_REFERENCES = \
 	$(TARGET_DIR)/smuxi-common.dll \
 	$(TARGET_DIR)/smuxi-engine.dll \
 	$(TARGET_DIR)/ServiceStack.Common.dll \
+	$(TARGET_DIR)/ServiceStack.Interfaces.dll \
 	$(TARGET_DIR)/ServiceStack.Text.dll
 
 SOURCES_BUILD = $(addprefix $(srcdir)/, $(SOURCES))
