@@ -132,7 +132,7 @@ FunctionEnd
 
 !macro CheckGtkSharp GTKSHARP_REQ
     !define GTKSHARP_FILE         "gtk-sharp-2.12.10.win32.msi"
-    !define GTKSHARP_BASE_URL     "http://download.mono-project.com/gtk-sharp/"
+    !define GTKSHARP_BASE_URL     "http://www.smuxi.org/jaws/data/files/"
     !define GTKSHARP_DOWNLOAD_URL "${GTKSHARP_BASE_URL}${GTKSHARP_FILE}"
     !define GTKSHARP_TEMP_FILE "$TEMP\${GTKSHARP_FILE}"
 
