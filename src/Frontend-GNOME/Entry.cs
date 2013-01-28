@@ -1,7 +1,7 @@
 /*
  * Smuxi - Smart MUltipleXed Irc
  *
- * Copyright (c) 2005-2012 Mirco Bauer <meebey@meebey.net>
+ * Copyright (c) 2005-2013 Mirco Bauer <meebey@meebey.net>
  *
  * Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
  *
@@ -558,6 +558,10 @@ namespace Smuxi.Frontend.Gnome
                         break;
                     case "sync":
                         _CommandSync(cd);
+                        handled = true;
+                        break;
+                    case "gc":
+                        GC.Collect();
                         handled = true;
                         break;
                 }
