@@ -150,7 +150,6 @@ namespace Smuxi.Frontend.Gnome
             
             Gtk.ListStore liststore = new Gtk.ListStore(typeof(PersonModel));
             liststore.SetSortColumnId(0, Gtk.SortType.Ascending);
-            // FIXME: this callback leaks memory
             liststore.SetSortFunc(0, new Gtk.TreeIterCompareFunc(SortPersonListStore));
             _PersonListStore = liststore;
             
@@ -221,10 +220,10 @@ namespace Smuxi.Frontend.Gnome
             // these callbacks for some reason and thus leaks :(
             // release ListStore.SetSortFunc() callback
             // gtk_list_store_finalize() -> _gtk_tree_data_list_header_free() -> destroy(user_data);
-            // FIXME: this does not work for some reason!
             _PersonListStore.Dispose();
             // release TreeViewColumn.SetCellDataFunc() callback
-            _IdentityNameColumn.Clear();
+            // gtk_tree_view_column_finalize -> GtkTreeViewColumnCellInfo -> info->destroy(info->func_data)
+            _IdentityNameColumn.Dispose();
 
             base.Dispose();
         }
