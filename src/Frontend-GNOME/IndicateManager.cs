@@ -1,6 +1,6 @@
 // Smuxi - Smart MUltipleXed Irc
 // 
-// Copyright (c) 2010-2011 Mirco Bauer <meebey@meebey.net>
+// Copyright (c) 2010-2013 Mirco Bauer <meebey@meebey.net>
 // 
 // Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
 // 
@@ -279,6 +279,7 @@ namespace Smuxi.Frontend.Gnome
             }
 
             e.ChatView.OutputMessageTextView.MessageHighlighted -= handler;
+            HighlightEventHandlers.Remove(e.ChatView);
 
             // close possibly active indicator
             DisposeIndicator(e.ChatView);

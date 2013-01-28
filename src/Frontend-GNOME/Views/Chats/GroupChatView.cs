@@ -1,7 +1,7 @@
 /*
  * Smuxi - Smart MUltipleXed Irc
  *
- * Copyright (c) 2005-2006, 2009-2011 Mirco Bauer <meebey@meebey.net>
+ * Copyright (c) 2005-2006, 2009-2013 Mirco Bauer <meebey@meebey.net>
  *
  * Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
  *
@@ -143,12 +143,14 @@ namespace Smuxi.Frontend.Gnome
             column.Spacing = 0;
             column.SortIndicator = false;
             column.Sizing = Gtk.TreeViewColumnSizing.Autosize;
+            // FIXME: this callback leaks memory
             column.SetCellDataFunc(cellr, new Gtk.TreeCellDataFunc(RenderPersonIdentityName));
             tv.AppendColumn(column);
             _IdentityNameColumn = column;
             
             Gtk.ListStore liststore = new Gtk.ListStore(typeof(PersonModel));
             liststore.SetSortColumnId(0, Gtk.SortType.Ascending);
+            // FIXME: this callback leaks memory
             liststore.SetSortFunc(0, new Gtk.TreeIterCompareFunc(SortPersonListStore));
             _PersonListStore = liststore;
             
@@ -210,7 +212,23 @@ namespace Smuxi.Frontend.Gnome
             
             ShowAll();
         }
-        
+
+        public override void Dispose()
+        {
+            Trace.Call();
+
+            // HACK: this shouldn't be needed but GTK# keeps GC handles
+            // these callbacks for some reason and thus leaks :(
+            // release ListStore.SetSortFunc() callback
+            // gtk_list_store_finalize() -> _gtk_tree_data_list_header_free() -> destroy(user_data);
+            // FIXME: this does not work for some reason!
+            _PersonListStore.Dispose();
+            // release TreeViewColumn.SetCellDataFunc() callback
+            _IdentityNameColumn.Clear();
+
+            base.Dispose();
+        }
+
         public override void Disable()
         {
             Trace.Call();
