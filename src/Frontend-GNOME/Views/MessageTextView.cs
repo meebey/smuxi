@@ -396,6 +396,7 @@ namespace Smuxi.Frontend.Gnome
             }
             var nick = msg.GetNick();
             if (nick != null) {
+                // TODO: re-use the same person tag for the same nick
                 var personTag = new PersonTag(nick, nick);
                 personTag.TextEvent += OnPersonTagTextEvent;
                 _MessageTextTagTable.Add(personTag);
