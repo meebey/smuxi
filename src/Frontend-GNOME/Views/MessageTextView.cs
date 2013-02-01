@@ -247,6 +247,7 @@ namespace Smuxi.Frontend.Gnome
             var senderPrefixWidth = GetSenderPrefixWidth(msg);
             Gtk.TextTag indentTag = null;
             if (senderPrefixWidth != 0) {
+                // TODO: re-use text tags that have the same indent width
                 indentTag = new Gtk.TextTag(null) {
                     Indent = -senderPrefixWidth
                 };
@@ -453,6 +454,7 @@ namespace Smuxi.Frontend.Gnome
                     tag.TextEvent -= OnPersonTagTextEvent;
                 }
             });
+            _MessageTextTagTable.Dispose();
             base.Dispose();
         }
 
