@@ -673,7 +673,7 @@ AC_MSG_RESULT([
 	  OSCAR:               $ENABLE_ENGINE_OSCAR
 	  MSNP:                $ENABLE_ENGINE_MSNP
 	  Twitter:             $ENABLE_ENGINE_TWITTER
-	  Campfire:	       $ENABLE_ENGINE_CAMPFIRE
+	  Campfire:            $ENABLE_ENGINE_CAMPFIRE
 
 	* Frontends
 	  ---------
