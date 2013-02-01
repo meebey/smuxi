@@ -1,7 +1,7 @@
 /*
  * Smuxi - Smart MUltipleXed Irc
  *
- * Copyright (c) 2005-2011 Mirco Bauer <meebey@meebey.net>
+ * Copyright (c) 2005-2013 Mirco Bauer <meebey@meebey.net>
  *
  * Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
  *
@@ -60,6 +60,7 @@ namespace Smuxi.Frontend.Gnome
         bool                         UseLowBandwidthMode { get; set; }
         protected Gtk.Image          TabImage { get; set; }
         bool                         IsAutoScrolling { get; set; }
+        Gtk.ImageMenuItem  CloseItem { get; set; }
 
         public ChatModel ChatModel {
             get {
@@ -280,19 +281,17 @@ namespace Smuxi.Frontend.Gnome
             sw.HscrollbarPolicy = Gtk.PolicyType.Automatic;
             sw.VscrollbarPolicy = Gtk.PolicyType.Always;
             sw.ShadowType = Gtk.ShadowType.In;
-            sw.Vadjustment.ValueChanged += delegate {
-                CheckAutoScroll();
-            };
+            sw.Vadjustment.ValueChanged += OnVadjustmentValueChanged;
             sw.Add(_OutputMessageTextView);
 
             // popup menu
             _TabMenu = new Gtk.Menu();
-            
-            Gtk.ImageMenuItem close_item = new Gtk.ImageMenuItem(Gtk.Stock.Close, null);
-            close_item.Activated += new EventHandler(OnTabMenuCloseActivated);  
-            _TabMenu.Append(close_item);
+
+            CloseItem = new Gtk.ImageMenuItem(Gtk.Stock.Close, null);
+            CloseItem.Activated += new EventHandler(OnTabMenuCloseActivated);
+            _TabMenu.Append(CloseItem);
             _TabMenu.ShowAll();
-            
+
             //FocusChild = _OutputTextView;
             //CanFocus = false;
             
@@ -330,10 +329,8 @@ namespace Smuxi.Frontend.Gnome
         {
             Trace.Call();
 
-            base.Dispose();
-
             Dispose(true);
-            GC.SuppressFinalize(this);
+            base.Dispose();
         }
 
         protected void Dispose(bool disposing)
@@ -345,6 +342,12 @@ namespace Smuxi.Frontend.Gnome
                     _LastSeenHighlightQueue.Dispose();
                 }
                 _LastSeenHighlightQueue = null;
+
+                // HACK: this shouldn't be needed but GTK# keeps GC handles
+                // these callbacks for some reason and thus leaks :(
+                _OutputMessageTextView.Dispose();
+                CloseItem.Activated -= OnTabMenuCloseActivated;
+                _OutputScrolledWindow.Vadjustment.ValueChanged -= OnVadjustmentValueChanged;
             }
         }
 
@@ -780,6 +783,11 @@ namespace Smuxi.Frontend.Gnome
 #if LOG4NET
             _Logger.Debug("OnLastSeenHighlightQueueAbortedEvent(): task queue aborted!");
 #endif
+        }
+
+        void OnVadjustmentValueChanged(object sender, EventArgs e)
+        {
+            CheckAutoScroll();
         }
 
         private static string _(string msg)

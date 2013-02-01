@@ -1,7 +1,7 @@
 /*
  * Smuxi - Smart MUltipleXed Irc
  *
- * Copyright (c) 2009-2011 Mirco Bauer <meebey@meebey.net>
+ * Copyright (c) 2009-2013 Mirco Bauer <meebey@meebey.net>
  *
  * Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
  *
@@ -440,6 +440,20 @@ namespace Smuxi.Frontend.Gnome
 
             _MarkerlineBufferPosition = Buffer.EndIter.Offset - 1;
             QueueDraw();
+        }
+
+        public override void Dispose()
+        {
+            // HACK: this shouldn't be needed but GTK# keeps GC handles
+            // these callbacks for some reason and thus leaks :(
+            _MessageTextTagTable.Foreach(tag => {
+                if (tag is LinkTag) {
+                    tag.TextEvent -= OnLinkTagTextEvent;
+                } else if (tag is PersonTag) {
+                    tag.TextEvent -= OnPersonTagTextEvent;
+                }
+            });
+            base.Dispose();
         }
 
         /*
