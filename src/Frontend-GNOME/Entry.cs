@@ -540,10 +540,6 @@ namespace Smuxi.Frontend.Gnome
                         _CommandEcho(cd);
                         handled = true;
                         break;
-                    case "exec":
-                        _CommandExec(cd);
-                        handled = true;
-                        break;
                     case "window":
                         _CommandWindow(cd);
                         handled = true;
@@ -615,30 +611,6 @@ namespace Smuxi.Frontend.Gnome
                 AppendText(cd.Parameter).
                 ToMessage();
             cd.FrontendManager.AddMessageToChat(cd.Chat, msg);
-        }
-        
-        private void _CommandExec(CommandModel cd)
-        {
-            if (cd.DataArray.Length >= 2) {
-                string output;
-                System.Diagnostics.Process process = new System.Diagnostics.Process();
-                process.StartInfo.FileName = cd.DataArray[1];
-                if (cd.DataArray.Length >= 3) { 
-                    process.StartInfo.Arguments = String.Join(" ", cd.DataArray,
-                                                    2, cd.DataArray.Length-2);
-                }
-                process.StartInfo.RedirectStandardOutput = true;
-                process.StartInfo.RedirectStandardError = true;
-                process.StartInfo.UseShellExecute = false;
-                
-                try {
-                    process.Start();
-                    output = process.StandardOutput.ReadToEnd();
-                    var msg = new MessageBuilder().AppendText(output).ToMessage();
-                    cd.FrontendManager.AddMessageToChat(cd.Chat, msg);
-                } catch {
-                }
-            }
         }
     
         private void _CommandWindow(CommandModel cd)

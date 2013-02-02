@@ -1,8 +1,6 @@
-// $Id$
-// 
 // Smuxi - Smart MUltipleXed Irc
 // 
-// Copyright (c) 2010 Mirco Bauer <meebey@meebey.net>
+// Copyright (c) 2010, 2012-2013 Mirco Bauer <meebey@meebey.net>
 // 
 // Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
 // 
@@ -21,6 +19,8 @@
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA
 
 using System;
+using System.Linq;
+using SysDiag = System.Diagnostics;
 using Smuxi.Common;
 using Smuxi.Engine;
 
@@ -111,10 +111,23 @@ namespace Smuxi.Frontend
         {
             Trace.Call(cmd);
 
+            var handled = false;
+            if (cmd.IsCommand) {
+                switch (cmd.Command) {
+                    case "exec":
+                        CommandExec(cmd);
+                        handled = true;
+                        break;
+                }
+            }
+            if (handled) {
+                // no need to send the command to the engine
+                return;
+            }
+
             DateTime start, stop;
             start = DateTime.UtcNow;
 
-            bool handled;
             handled = f_Session.Command(cmd);
             if (!handled) {
                 IProtocolManager pm;
@@ -139,13 +152,88 @@ namespace Smuxi.Frontend
             f_LastCommandTimeSpan = (stop - start);
         }
 
+        private void CommandExec(CommandModel cmd)
+        {
+            Trace.Call(cmd);
+
+            if (cmd.DataArray.Length < 2) {
+                NotEnoughParameters(cmd);
+                return;
+            }
+            SysDiag.DataReceivedEventHandler handler = (sender, e) => {
+                // eat trailing newlines
+                var output = e.Data.TrimEnd('\r', '\n');
+                var msg = new MessageBuilder().AppendText(output).ToMessage();
+                cmd.FrontendManager.AddMessageToChat(cmd.Chat, msg);
+            };
+
+            string file;
+            string args = null;
+            if (Environment.OSVersion.Platform == PlatformID.Unix) {
+                file = "sh";
+                args = String.Format("-c '{0}'",
+                                     cmd.Parameter.Replace("'", @"\'"));
+            } else {
+                file = cmd.DataArray[1];
+                if (cmd.DataArray.Length >= 3) {
+                    args = String.Join(" ", cmd.DataArray.Skip(2));
+                }
+            }
+            var info = new SysDiag.ProcessStartInfo() {
+                FileName = file,
+                Arguments = args,
+                RedirectStandardOutput = true,
+                RedirectStandardError = true,
+                UseShellExecute = false
+            };
+            using (var process = new SysDiag.Process()) {
+                process.StartInfo = info;
+                process.OutputDataReceived += handler;
+                process.ErrorDataReceived += handler;
+
+                try {
+                    process.Start();
+                    process.BeginOutputReadLine();
+                    process.BeginErrorReadLine();
+                    process.WaitForExit();
+                } catch (Exception ex) {
+#if LOG4NET
+                    f_Logger.Error(ex);
+#endif
+                    var command = info.FileName;
+                    if (!String.IsNullOrEmpty(info.Arguments)) {
+                        command += " " + info.Arguments;
+                    }
+                    var msg = new MessageBuilder().
+                        AppendErrorText("Executing '{0}' failed with: {1}",
+                                        command, ex.Message).
+                        ToMessage();
+                    cmd.FrontendManager.AddMessageToChat(cmd.Chat, msg);
+                }
+            }
+        }
+
         private void Unknown(CommandModel cmd)
         {
-            var msg = new MessageBuilder().
+            var msg = CreateMessageBuilder().
                 AppendEventPrefix().
                 AppendText(_("Unknown Command: {0}"), cmd.Command).
                 ToMessage();
             cmd.FrontendManager.AddMessageToChat(cmd.Chat, msg);
+        }
+
+        void NotEnoughParameters(CommandModel cmd)
+        {
+            var msg = CreateMessageBuilder().
+                AppendEventPrefix().
+                AppendText(_("Not enough parameters for {0} command"), cmd.Command).
+                ToMessage();
+            cmd.FrontendManager.AddMessageToChat(cmd.Chat, msg);
+        }
+
+        MessageBuilder CreateMessageBuilder()
+        {
+            return new MessageBuilder();
         }
 
         protected virtual void OnTaskQueueExceptionEvent(object sender, TaskQueueExceptionEventArgs e)

@@ -58,6 +58,7 @@
     </Reference>
     <Reference Include="System.Runtime.Remoting" />
     <Reference Include="Mono.Posix" />
+    <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Engine\Engine.csproj">
