@@ -176,7 +176,7 @@ namespace Smuxi.Frontend
             } else {
                 file = cmd.DataArray[1];
                 if (cmd.DataArray.Length >= 3) {
-                    args = String.Join(" ", cmd.DataArray.Skip(2));
+                    args = String.Join(" ", cmd.DataArray.Skip(2).ToArray());
                 }
             }
             var info = new SysDiag.ProcessStartInfo() {
