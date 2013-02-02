@@ -160,11 +160,28 @@ namespace Smuxi.Frontend
                 NotEnoughParameters(cmd);
                 return;
             }
+            var parameter = cmd.Parameter;
+            var parameters = cmd.Parameter.Split(' ');
+            var executeOutput = false;
+            if (parameters.Length > 0 && parameters[0] == "-c") {
+                executeOutput = true;
+                parameters = parameters.Skip(1).ToArray();
+                parameter = String.Join(" ", parameters);
+            }
             SysDiag.DataReceivedEventHandler handler = (sender, e) => {
+                if (String.IsNullOrEmpty(e.Data)) {
+                  return;
+                }
                 // eat trailing newlines
                 var output = e.Data.TrimEnd('\r', '\n');
-                var msg = new MessageBuilder().AppendText(output).ToMessage();
-                cmd.FrontendManager.AddMessageToChat(cmd.Chat, msg);
+                if (executeOutput) {
+                    Execute(new CommandModel(cmd.FrontendManager,
+                                             cmd.Chat,
+                                             cmd.CommandCharacter, output));
+                } else {
+                    var msg = new MessageBuilder().AppendText(output).ToMessage();
+                    cmd.FrontendManager.AddMessageToChat(cmd.Chat, msg);
+                }
             };
 
             string file;
@@ -172,11 +189,11 @@ namespace Smuxi.Frontend
             if (Environment.OSVersion.Platform == PlatformID.Unix) {
                 file = "sh";
                 args = String.Format("-c '{0}'",
-                                     cmd.Parameter.Replace("'", @"\'"));
+                                     parameter.Replace("'", @"\'"));
             } else {
-                file = cmd.DataArray[1];
-                if (cmd.DataArray.Length >= 3) {
-                    args = String.Join(" ", cmd.DataArray.Skip(2).ToArray());
+                file = parameters[1];
+                if (parameters.Length > 1) {
+                    args = String.Join(" ", parameters.Skip(1).ToArray());
                 }
             }
             var info = new SysDiag.ProcessStartInfo() {
