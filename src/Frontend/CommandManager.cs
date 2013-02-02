@@ -162,11 +162,24 @@ namespace Smuxi.Frontend
             }
             var parameter = cmd.Parameter;
             var parameters = cmd.Parameter.Split(' ');
+            var messageOutput = false;
             var executeOutput = false;
-            if (parameters.Length > 0 && parameters[0] == "-c") {
-                executeOutput = true;
-                parameters = parameters.Skip(1).ToArray();
-                parameter = String.Join(" ", parameters);
+            if (parameters.Length > 0) {
+                var shift = false;
+                switch (parameters[0]) {
+                    case "-c":
+                        executeOutput = true;
+                        shift = true;
+                        break;
+                    case "-o":
+                        messageOutput = true;
+                        shift = true;
+                        break;
+                }
+                if (shift) {
+                    parameters = parameters.Skip(1).ToArray();
+                    parameter = String.Join(" ", parameters);
+                }
             }
             SysDiag.DataReceivedEventHandler handler = (sender, e) => {
                 if (String.IsNullOrEmpty(e.Data)) {
@@ -174,7 +187,12 @@ namespace Smuxi.Frontend
                 }
                 // eat trailing newlines
                 var output = e.Data.TrimEnd('\r', '\n');
-                if (executeOutput) {
+                if (executeOutput || messageOutput) {
+                    if (messageOutput && output.StartsWith(cmd.CommandCharacter)) {
+                        // escape command character
+                        output = String.Format("{0}{1}",
+                                               cmd.CommandCharacter, output);
+                    }
                     Execute(new CommandModel(cmd.FrontendManager,
                                              cmd.Chat,
                                              cmd.CommandCharacter, output));
