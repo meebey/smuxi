@@ -211,8 +211,8 @@ namespace Smuxi.Engine
                 Server.ValidateServerCertificate = server.ValidateServerCertificate;
             }
             
-            Host = server.Hostname;
-            Port = server.Port;
+            Host = Server.Hostname;
+            Port = Server.Port;
 
             ApplyConfig(Session.UserConfig, Server);
 
@@ -244,6 +244,7 @@ namespace Smuxi.Engine
             Trace.Call(fm);
 
             JabberClient.Close();
+            OpenContactChat();
             JabberClient.Open();
         }
         
@@ -360,7 +361,7 @@ namespace Smuxi.Engine
                 case PresenceStatus.Away:
                     JabberClient.Priority = Server.Priorities[status];
                     JabberClient.Show = ShowType.away;
-                    JabberClient.Status = "afk";
+                    JabberClient.Status = message;
                     break;
             }
 
@@ -702,6 +703,7 @@ namespace Smuxi.Engine
                 chat = Session.CreateChat<XmppGroupChatModel>(jid, jid, this);
                 chat.OwnNickname = nickname;
                 Session.AddChat(chat);
+                Session.DisableChat(chat);
             }
         }
 
@@ -858,11 +860,6 @@ namespace Smuxi.Engine
             }
 
             try {
-                if (text != null && text.Trim().Length == 0) {
-                    DebugWrite(text);
-                    return;
-                }
-
                 var strWriter = new StringWriter();
                 var xmlWriter = new XmlTextWriter(strWriter);
                 xmlWriter.Formatting = Formatting.Indented;
@@ -1173,6 +1170,7 @@ namespace Smuxi.Engine
                     if (pres.From.Resource == chat.OwnNickname) {
                         chat.IsSynced = true;
                         Session.SyncChat(chat);
+                        Session.EnableChat(chat);
                     }
                     break;
                 case PresenceType.unavailable:
@@ -1377,6 +1375,7 @@ namespace Smuxi.Engine
             var person = groupChat.GetPerson(sender_id);
             if (person == null) {
                 // happens in case of a delayed message if the participant has left meanwhile
+                // TODO: or in case of a room message?
                 person = new PersonModel(sender_id,
                                          sender_id,
                                          NetworkID, Protocol, this);
@@ -1387,7 +1386,6 @@ namespace Smuxi.Engine
             if (msg.XDelay != null) {
                 var stamp = msg.XDelay.Stamp;
                 builder.TimeStamp = stamp;
-                // XXX can't use > because of seconds precision :-(
                 if (stamp > groupChat.LatestSeenStamp) {
                     groupChat.LatestSeenStamp = stamp;
                 } else {
@@ -1554,9 +1552,6 @@ namespace Smuxi.Engine
             if (JabberClient.ServerCapabilities != null) {
                 RequestCapabilities(JabberClient.MyJID.Server, JabberClient.ServerCapabilities.Version);
             }
-
-            // send initial presence
-            //SetPresenceStatus(PresenceStatus.Online, null);
 
             OnConnected(EventArgs.Empty);
         }
