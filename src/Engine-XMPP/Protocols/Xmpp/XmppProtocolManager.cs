@@ -297,7 +297,7 @@ namespace Smuxi.Engine
             Session.AddChat(ContactChat);
             foreach (var pair in Contacts) {
                 if (pair.Value.Resources.Count != 0) {
-                    ContactChat.UnsafePersons.Add(pair.Key, pair.Value);
+                    ContactChat.UnsafePersons.Add(pair.Key, pair.Value.ToPersonModel());
                 }
             }
             Session.SyncChat(ContactChat);
@@ -916,7 +916,7 @@ namespace Smuxi.Engine
                         return;
                     }
                     Session.RemovePersonFromGroupChat(ContactChat, oldp);
-                    Session.AddPersonToGroupChat(ContactChat, contact);
+                    Session.AddPersonToGroupChat(ContactChat, contact.ToPersonModel());
                 }
             }
             
@@ -1210,7 +1210,7 @@ namespace Smuxi.Engine
                             if (!isNew) break; // only add to list when coming online
                             if (ContactChat == null) break;
                             lock (ContactChat) {
-                                Session.AddPersonToGroupChat(ContactChat, person);
+                                Session.AddPersonToGroupChat(ContactChat, person.ToPersonModel());
                             }
                             break; // print message
                         }
@@ -1298,7 +1298,7 @@ namespace Smuxi.Engine
                         lock (ContactChat) {
                             // doesn't exist, got an offline message w/o a preceding online message?
                             if (!ContactChat.UnsafePersons.ContainsKey(jid.Bare)) break;
-                            Session.RemovePersonFromGroupChat(ContactChat, person);
+                            Session.RemovePersonFromGroupChat(ContactChat, person.ToPersonModel());
                         }
                         break;
                     case PresenceType.subscribe:

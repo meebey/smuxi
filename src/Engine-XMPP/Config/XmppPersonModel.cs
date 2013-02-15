@@ -99,6 +99,17 @@ namespace Smuxi.Engine
         {
             Resources.Remove(jid.Resource ?? "");
         }
+        
+        public PersonModel ToPersonModel()
+        {
+            return new PersonModel(
+                base.ID
+                , base.IdentityName
+                , base.NetworkID
+                , base.NetworkID
+                , base.ProtocolManager
+                );
+        }
     }
 }
 
