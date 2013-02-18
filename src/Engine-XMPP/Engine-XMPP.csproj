@@ -60,6 +60,10 @@
       <Project>{91EA0D0B-D3BA-497F-AFEB-2CAD59DEBA0E}</Project>
       <Name>agsXMPP2010</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\lib\SmartIrc4net\SmartIrc4net.csproj">
+      <Project>{91D3003B-7E65-4EAF-8EE1-DA43832E7A9C}</Project>
+      <Name>SmartIrc4net</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />

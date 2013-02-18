@@ -45,6 +45,8 @@ using Smuxi.Common;
 using agsXMPP.Factory;
 using agsXMPP.protocol.iq.disco;
 using agsXMPP.protocol.extensions.caps;
+using agsXMPP.Net;
+using Starksoft.Net.Proxy;
 
 namespace Smuxi.Engine
 {
@@ -219,17 +221,56 @@ namespace Smuxi.Engine
             Session.SyncChat(NetworkChat);
 
             OpenContactChat();
-
-            /*
-            if (!String.IsNullOrEmpty(JabberClient.proxy??)) {
+            
+            var proxySettings = new ProxySettings();
+            proxySettings.ApplyConfig(Session.UserConfig);
+            
+            var protocol = Server.UseEncryption ? "xmpps" : "xmpp";
+            var serverUri = String.Format("{0}://{1}:{2}", protocol,
+                                          Server.Hostname, Server.Port);
+            var proxy = proxySettings.GetWebProxy(serverUri);
+            if (proxySettings.ProxyType != ProxyType.None) {
+                
                 var builder = CreateMessageBuilder();
                 builder.AppendEventPrefix();
                 builder.AppendText(_("Using proxy: {0}:{1}"),
-                                   JabberClient.ProxyHost,
-                                   JabberClient.ProxyPort);
+                                   proxy.Address.Host,
+                                   proxy.Address.Port);
                 Session.AddMessageToChat(Chat, builder.ToMessage());
+                
+                var proxyScheme = proxy.Address.Scheme;
+                var proxyType = Starksoft.Net.Proxy.ProxyType.None;
+                try {
+                    proxyType =
+                        (Starksoft.Net.Proxy.ProxyType) Enum.Parse(
+                            typeof(Starksoft.Net.Proxy.ProxyType), proxy.Address.Scheme, true
+                        );
+                } catch (ArgumentException ex) {
+#if LOG4NET
+                    _Logger.Error("ApplyConfig(): Couldn't parse proxy type: " +
+                                  proxyScheme, ex);
+#endif
+                }
+                var sock = JabberClient.ClientSocket as ClientSocket;
+                
+                ProxyClientFactory proxyFactory = new ProxyClientFactory();
+                if (String.IsNullOrEmpty(proxySettings.ProxyUsername) &&
+                    String.IsNullOrEmpty(proxySettings.ProxyPassword)) {
+                    sock.Proxy = proxyFactory.CreateProxyClient(
+                        proxyType,
+                        proxy.Address.Host,
+                        proxy.Address.Port
+                    );
+                } else {
+                    sock.Proxy = proxyFactory.CreateProxyClient(
+                        proxyType,
+                        proxy.Address.Host,
+                        proxy.Address.Port,
+                        proxySettings.ProxyUsername,
+                        proxySettings.ProxyPassword
+                    );
+                }
             }
-            */
             DebugWrite("calling JabberClient.Open()");
             JabberClient.Open();
         }
@@ -1557,36 +1598,6 @@ namespace Smuxi.Engine
             if (!server.ValidateServerCertificate) {
                 JabberClient.ClientSocket.OnValidateCertificate += ValidateCertificate;
             }
-#if false
-            var proxySettings = new ProxySettings();
-            proxySettings.ApplyConfig(Session.UserConfig);
-            var protocol = server.UseEncryption ? "xmpps" : "xmpp";
-            var serverUri = String.Format("{0}://{1}:{2}", protocol,
-                                          server.Hostname, server.Port);
-            var proxy = proxySettings.GetWebProxy(serverUri);
-            if (proxy == null) {
-                JabberClient.ClientSocket..Proxy = XmppProxyType.None;
-            } else {
-                var proxyScheme = proxy.Address.Scheme;
-                var xmppProxyType = XmppProxyType.None;
-                try {
-                    // HACK: map proxy scheme to SmartIrc4net's ProxyType
-                    xmppProxyType = (XmppProxyType) Enum.Parse(
-                        typeof(XmppProxyType), proxyScheme, true
-                    );
-                } catch (ArgumentException ex) {
-#if LOG4NET
-                    _Logger.Error("ApplyConfig(): Couldn't parse proxy type: " +
-                                  proxyScheme, ex);
-#endif
-                }
-                JabberClient.Proxy = xmppProxyType;
-                JabberClient.ProxyHost = proxy.Address.Host;
-                JabberClient.ProxyPort = proxy.Address.Port;
-                JabberClient.ProxyUsername = proxySettings.ProxyUsername;
-                JabberClient.ProxyPassword = proxySettings.ProxyPassword;
-            }
-#endif
         }
 
         private static bool ValidateCertificate(object sender,
