@@ -243,6 +243,14 @@ namespace Smuxi.Frontend.Gnome
         
         protected virtual void ProcessKey(Gtk.KeyPressEventArgs e)
         {
+            if (Environment.OSVersion.Platform == PlatformID.Win32NT &&
+                Text.Length == 0) {
+                // HACK: workaround rendering issue on Windows where the text
+                // cursor and first typed character are not showing up until
+                // a 2nd character is typed, see #810
+                QueueDraw();
+            }
+
             int keynumber = (int)e.Event.KeyValue;
             Gdk.Key key = e.Event.Key;
             if ((e.Event.State & Gdk.ModifierType.ControlMask) != 0) {
