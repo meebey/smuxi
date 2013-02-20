@@ -451,6 +451,8 @@ namespace Smuxi.Frontend.Gnome
             _MessageTextTagTable.Foreach(tag => {
                 if (tag is LinkTag) {
                     tag.TextEvent -= OnLinkTagTextEvent;
+                } else if (tag is PersonTag) {
+                    tag.TextEvent -= OnPersonTagTextEvent;
                 }
             });
             _MessageTextTagTable.Dispose();
