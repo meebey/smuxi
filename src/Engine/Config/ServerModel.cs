@@ -67,6 +67,20 @@ namespace Smuxi.Engine
             Username = info.GetString("_Username");
             Password = info.GetString("_Password");
             OnStartupConnect = info.GetBoolean("_OnStartupConnect");
+            //ServerID = info.GetString("_ServerID");
+            var e = info.GetEnumerator();
+            bool foundServerID = false;
+            while (e.MoveNext()) {
+                if (e.Name == "_ServerID") {
+                    ServerID = (string)e.Value;
+                    foundServerID = true;
+                    break;
+                }
+            }
+            if (foundServerID == false) {
+                // this is from an old frontend/engine that doesn't know about ServerID yet
+                ServerID = Hostname;
+            }
             OnConnectCommands = (IList<string>) info.GetValue(
                 "_OnConnectCommands",
                 typeof(IList<string>)
@@ -75,6 +89,7 @@ namespace Smuxi.Engine
 
         public virtual void GetObjectData(SerializationInfo info, StreamingContext ctx) 
         {
+            info.AddValue("_ServerID", ServerID);
             info.AddValue("_Protocol", Protocol);
             info.AddValue("_Hostname", Hostname);
             info.AddValue("_Port", Port);

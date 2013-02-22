@@ -143,7 +143,9 @@ namespace Smuxi.Engine
                 Server = (XmppServerModel) server;
             } else {
                 Server = new XmppServerModel();
-                Server.Load(Session.UserConfig, server.ServerID);
+                if (server.ServerID != null) {
+                    Server.Load(Session.UserConfig, server.ServerID);
+                }
                 // HACK: previous line overwrites any passed values with the values from config
                 // thus we have to copy the original values:
                 Server.Hostname = server.Hostname;
