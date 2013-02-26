@@ -409,8 +409,8 @@ if test "x$ENABLE_ENGINE_XMPP" != "xno"; then
 		AC_MSG_ERROR([You need to install xbuild for XMPP support])
 	fi
 
-	if test ! -f "$srcdir/lib/jabber-net/2005-jabber-net.csproj"; then
-		AC_MSG_ERROR([lib/jabber-net is empty!])
+	if test ! -f "$srcdir/lib/agsxmpp/agsxmpp/agsXMPP2010.csproj"; then
+		AC_MSG_ERROR([lib/agsxmpp is empty!])
 	fi
 	SHAMROCK_CHECK_MONO_2_0_GAC_ASSEMBLIES([
 		System

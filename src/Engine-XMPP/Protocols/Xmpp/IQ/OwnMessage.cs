@@ -20,9 +20,12 @@
 
 using System;
 using System.Xml;
-using jabber;
-using jabber.protocol;
-using jabber.protocol.client;
+
+
+using agsXMPP;
+using agsXMPP.protocol;
+using agsXMPP.protocol.client;
+using agsXMPP.Xml.Dom;
 
 namespace Smuxi.Engine
 {
@@ -33,12 +36,7 @@ namespace Smuxi.Engine
      *   </own-message>
      * </iq>
      */
-    internal class OwnMessageIQ : TypedIQ<OwnMessageQuery>
-    {
-        public OwnMessageIQ(XmlDocument doc) : base(doc)
-        {
-        }
-    }
+
 
     internal class OwnMessageQuery : Element
     {
@@ -46,41 +44,29 @@ namespace Smuxi.Engine
         ///
         /// </summary>
         /// <param name="doc"></param>
-        public OwnMessageQuery(XmlDocument doc)
-                        : base("own-message",
-                               "http://www.facebook.com/xmpp/messages",
-                               doc)
+        public OwnMessageQuery()
         {
+            base.Namespace = "http://www.facebook.com/xmpp/messages";
+            base.TagName = "own-message";
         }
 
-        /// <summary>
-        ///
-        /// </summary>
-        /// <param name="prefix"></param>
-        /// <param name="qname"></param>
-        /// <param name="doc"></param>
-        public OwnMessageQuery(string prefix, XmlQualifiedName qname, XmlDocument doc) :
-                          base(prefix, qname, doc)
-        {
-        }
-
-        public JID To {
+        public Jid To {
             get {
-                return (JID) GetAttr("to");
+                return GetAttributeJid("to");
             }
             set {
-                SetAttr("to", value);
+                SetAttribute("to", value);
             }
         }
 
         public bool Self {
             get {
                 var value = true;
-                Boolean.TryParse(GetAttr("self"), out value);
+                Boolean.TryParse(GetAttribute("self"), out value);
                 return value;
             }
             set {
-                SetAttr("self", value.ToString());
+                SetAttribute("self", value.ToString());
             }
         }
 
@@ -89,10 +75,10 @@ namespace Smuxi.Engine
         /// </summary>
         public string Body {
             get {
-                return GetElem("body");
+                return GetTag("body");
             }
             set {
-                SetElem("body", value);
+                SetTag("body", value);
             }
         }
     }
