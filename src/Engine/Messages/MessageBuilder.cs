@@ -492,7 +492,7 @@ namespace Smuxi.Engine
             return;
         }
         
-        private void recursiveParse(XmlNode node, TextMessagePartModel model)
+        void ParseHtml(XmlNode node, TextMessagePartModel model)
         {
             TextMessagePartModel submodel;
             string nodetype = node.Name.ToLower();
@@ -572,7 +572,7 @@ namespace Smuxi.Engine
             }
             if (node.HasChildNodes) {
                 foreach (XmlNode child in node.ChildNodes) {
-                    recursiveParse(child, submodel);
+                    ParseHtml(child, submodel);
                 }
             } else {
                 // final node
@@ -599,7 +599,7 @@ namespace Smuxi.Engine
                 AppendText(html);
                 return this;
             }
-            recursiveParse(doc, new TextMessagePartModel());
+            ParseHtml(doc, new TextMessagePartModel());
             return this;
         }
     }
