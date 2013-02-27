@@ -66,6 +66,7 @@ namespace Smuxi.Engine
             builder.TimeStamp = DateTime.MinValue;
             var textPart = builder.CreateText("Test");
             textPart.ForegroundColor = new TextColor(255, 0, 0);
+            textPart.BackgroundColor = new TextColor(255, 255, 255);
             builder.Append(textPart);
             var expectedMsg = builder.ToMessage();
 
@@ -75,6 +76,29 @@ namespace Smuxi.Engine
                 "<div style=\"" +
                     "color: #FF0000; " +
                     "background-color: #FFFFFF" +
+                "\">Test</div>");
+            var actualMsg = builder.ToMessage();
+            Assert.AreEqual(expectedMsg, actualMsg);
+        }
+
+
+        [Test]
+        public void AppendHtmlMessageCssFgRedBgBlue()
+        {
+            var builder = new MessageBuilder();
+            builder.TimeStamp = DateTime.MinValue;
+            var textPart = builder.CreateText("Test");
+            textPart.ForegroundColor = new TextColor(255, 0, 0);
+            textPart.BackgroundColor = new TextColor(0, 0, 255);
+            builder.Append(textPart);
+            var expectedMsg = builder.ToMessage();
+
+            builder = new MessageBuilder();
+            builder.TimeStamp = DateTime.MinValue;
+            builder.AppendHtmlMessage(
+                "<div style=\"" +
+                    "color: #FF0000; " +
+                    "background: #0000FF url('smiley.gif') no-repeat fixed center" +
                 "\">Test</div>");
             var actualMsg = builder.ToMessage();
             Assert.AreEqual(expectedMsg, actualMsg);
