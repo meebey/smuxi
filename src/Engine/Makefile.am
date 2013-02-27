@@ -113,6 +113,7 @@ REFERENCES =  \
 	System.Runtime.Remoting \
 	System \
 	System.Core \
+	System.Xml \
 	Mono.Posix \
 	$(NINI_LIBS) \
 	$(LOG4NET_LIBS) \
