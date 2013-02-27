@@ -30,6 +30,9 @@ namespace Smuxi.Engine
 {
     public class MessageBuilder
     {
+#if LOG4NET
+        private static readonly log4net.ILog f_Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+#endif
         MessageModel Message { get; set; }
         public bool NickColors { get; set; }
         public bool StripFormattings { get; set; }
@@ -598,8 +601,10 @@ namespace Smuxi.Engine
             try {
                 // wrap in div to prevent messages beginning with text from failing "to be xml"
                 doc.Load(new StringReader("<html>"+html+"</html>"));
-            } catch (XmlException e) {
-                AppendText("Error parsing html: " + e.Message);
+            } catch (XmlException ex) {
+#if LOG4NET
+                f_Logger.Error("AppendHtmlMessage(): error parsing html: " + html, ex);
+#endif
                 AppendText(html);
                 return this;
             }
