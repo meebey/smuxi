@@ -79,6 +79,15 @@ namespace Smuxi.Engine
                               this(url, null)
         {
         }
+        
+        public UrlMessagePartModel(TextMessagePartModel model)
+            : base(model)
+        {
+            if (model is UrlMessagePartModel) {
+                _Protocol = (model as UrlMessagePartModel)._Protocol;
+                _Url = (model as UrlMessagePartModel)._Url;
+            }
+        }
 
         public UrlMessagePartModel(string url, string text):
                               this(url, text, UrlProtocol.None)
