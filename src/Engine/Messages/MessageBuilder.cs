@@ -521,11 +521,14 @@ namespace Smuxi.Engine
             }
             XmlNode style;
             if (node.Attributes != null && (style = node.Attributes.GetNamedItem("style")) != null) {
+                // BUG: needs to cycle through styled delimited by ";"
                 var parts = style.InnerText.Split(':');
                 if (parts.Length == 2) {
                     string type = parts[0];
                     string value = parts[1].Trim();
-                    value = value.Substring(0, value.Length-1); // remove the semicolon
+                    if (value.EndsWith(";")) {
+                        value = value.Substring(0, value.Length-1); // remove trailing semicolon
+                    }
                     switch (type) {
                         case "background-color":
                         case "background":
