@@ -496,6 +496,63 @@ namespace Smuxi.Engine
             return;
         }
         
+        void ParseStyle(XmlNode style, TextMessagePartModel submodel)
+        {
+            if (style == null) return;
+            var properties = style.InnerText.Split(';');
+            foreach (string property in properties) {
+                var colonpos = property.IndexOf(':');
+                if (colonpos == -1) continue;
+                string name = property.Substring(0, colonpos).Trim();
+                string value = property.Substring(colonpos+1).Trim();
+                switch (name) {
+                    case "background":
+                        value = value.Split(' ')[0];
+                        submodel.BackgroundColor = TextColor.Parse(value);
+                        break;
+                    case "background-color":
+                        submodel.BackgroundColor = TextColor.Parse(value);
+                        break;
+                    case "color":
+                        submodel.ForegroundColor = TextColor.Parse(value);
+                        break;
+                    case "font-style":
+                        if (value == "normal") {
+                            submodel.Italic = false;
+                        } else if (value == "inherit") {
+                        } else {
+                            submodel.Italic = true;
+                        }
+                        break;
+                    case "font-weight":
+                        if (value == "normal") {
+                            submodel.Bold = false;
+                        } else if (value == "inherit") {
+                        } else {
+                            submodel.Bold = true;
+                        }
+                        break;
+                    case "text-decoration":
+                    {
+                        foreach (string val in value.Split(' ')) {
+                            if (val == "underline") {
+                                submodel.Underline = true;
+                            }
+                        }
+                    }
+                        break;
+                    case "font-family":
+                    case "font-size":
+                    case "text-align":
+                    case "margin-left":
+                    case "margin-right":
+                    default:
+                        // ignore formatting
+                        break;
+                }
+            }
+        }
+        
         void ParseHtml(XmlNode node, TextMessagePartModel model)
         {
             TextMessagePartModel submodel;
@@ -523,59 +580,8 @@ namespace Smuxi.Engine
                 default:
                     break;
             }
-            XmlNode style;
-            if (node.Attributes != null && (style = node.Attributes.GetNamedItem("style")) != null) {
-                // BUG: needs to cycle through styled delimited by ";"
-                var parts = style.InnerText.Split(':');
-                if (parts.Length == 2) {
-                    string type = parts[0];
-                    string value = parts[1].Trim();
-                    if (value.EndsWith(";")) {
-                        value = value.Substring(0, value.Length-1); // remove trailing semicolon
-                    }
-                    switch (type) {
-                        case "background-color":
-                        case "background":
-                            submodel.BackgroundColor = TextColor.Parse(value);
-                            break;
-                        case "color":
-                            submodel.ForegroundColor = TextColor.Parse(value);
-                            break;
-                        case "font-style":
-                            if (value == "normal") {
-                                submodel.Italic = false;
-                            } else if (value == "inherit") {
-                            } else {
-                                submodel.Italic = true;
-                            }
-                            break;
-                        case "font-weight":
-                            if (value == "normal") {
-                                submodel.Bold = false;
-                            } else if (value == "inherit") {
-                            } else {
-                                submodel.Bold = true;
-                            }
-                            break;
-                        case "text-decoration":
-                        {
-                            foreach (string val in value.Split(' ')) {
-                                if (val == "underline") {
-                                    submodel.Underline = true;
-                                }
-                            }
-                        }
-                            break;
-                        case "font-family":
-                        case "font-size":
-                        case "text-align":
-                        case "margin-left":
-                        case "margin-right":
-                        default:
-                            // ignore formatting
-                            break;
-                    }
-                }
+            if (node.Attributes != null) {
+                ParseStyle(node.Attributes.GetNamedItem("style"), submodel);
             }
             if (node.HasChildNodes) {
                 foreach (XmlNode child in node.ChildNodes) {
