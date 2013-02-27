@@ -37,6 +37,7 @@
     <Compile Include="MessageBufferTestsBase.cs" />
     <Compile Include="ListMessageBufferTests.cs" />
     <Compile Include="MessageParserTests.cs" />
+    <Compile Include="MessageBuilderTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
