@@ -24,6 +24,7 @@ using System.Text.RegularExpressions;
 using System.Collections.Generic;
 using System.IO;
 using System.Xml;
+using System.Web;
 
 namespace Smuxi.Engine
 {
@@ -585,7 +586,7 @@ namespace Smuxi.Engine
                     AppendUrl(node.Attributes.GetNamedItem("src").Value, "[image placeholder - UNIMPLEMENTED]");
                 } else {
                     model.Text = node.Value.Replace("\r", "").Replace("\n", "");
-                    model.Text = System.Net.WebUtility.HtmlDecode(model.Text);
+                    model.Text = HttpUtility.HtmlDecode(model.Text);
                     AppendText(model);
                 }
             }
