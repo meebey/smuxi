@@ -216,6 +216,7 @@ namespace Smuxi.Engine
             JabberClient.DiscoInfo.AddFeature().Var = "http://jabber.org/protocol/muc";
             JabberClient.DiscoInfo.AddFeature().Var = "http://jabber.org/protocol/disco#info";
             JabberClient.DiscoInfo.AddFeature().Var = "http://www.facebook.com/xmpp/messages";
+            JabberClient.DiscoInfo.AddFeature().Var = "http://jabber.org/protocol/xhtml-im";
             
             Disco = new DiscoManager(JabberClient);
             Disco.AutoAnswerDiscoInfoRequests = true;
@@ -1442,7 +1443,11 @@ namespace Smuxi.Engine
             }
             var builder = CreateMessageBuilder();
             builder.AppendSenderPrefix(chat.Person, true);
-            builder.AppendMessage(msg.Body.Trim());
+            if (msg.Html != null) {
+                builder.AppendHtmlMessage(msg.Html.ToString());
+            } else {
+                builder.AppendMessage(msg.Body.Trim());
+            }
             builder.MarkHighlights();
             // todo: can private messages have an xdelay?
             if (msg.XDelay != null) {
