@@ -486,7 +486,14 @@ namespace Smuxi.Frontend.Gnome
                             return;
                         }
                     }
-                    ExecuteCommand(Text);
+                    if (Frontend.EngineVersion < new Version(0,8,11)) {
+                        foreach (string msg in msgParts) {
+                            ExecuteCommand(msg);
+                        }
+                    } else {
+                        // new engines know how to handle messages containing \n
+                        ExecuteCommand(Text);
+                    }
                 } else {
                     ExecuteCommand(Text);
                     AddToHistory(Text, _History.Count - _HistoryPosition);
