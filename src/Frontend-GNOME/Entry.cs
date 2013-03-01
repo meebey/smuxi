@@ -486,9 +486,7 @@ namespace Smuxi.Frontend.Gnome
                             return;
                         }
                     }
-                    foreach (string msg in msgParts) {
-                        ExecuteCommand(msg);
-                    }
+                    ExecuteCommand(Text);
                 } else {
                     ExecuteCommand(Text);
                     AddToHistory(Text, _History.Count - _HistoryPosition);
