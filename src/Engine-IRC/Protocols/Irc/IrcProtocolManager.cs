@@ -866,11 +866,15 @@ namespace Smuxi.Engine
                         // we are on the session chat or protocol chat 
                         _IrcClient.WriteLine(command.Data);
                     } else {
-                        // split too long messages
-                        var messages = SplitMessage("PRIVMSG", command.Chat.ID,
-                                                    command.Data);
-                        foreach (string message in messages) {
-                            _Say(command.Chat, message);
+                        // split multiline messages
+                        string[] lines = command.Data.Split(new char[] {'\n'});
+                        foreach (string line in lines) {
+                            // split too long messages
+                            var messages = SplitMessage("PRIVMSG", command.Chat.ID,
+                                                        line);
+                            foreach (string message in messages) {
+                                _Say(command.Chat, message);
+                            }
                         }
                     }
                     handled = true;
