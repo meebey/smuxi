@@ -1385,11 +1385,10 @@ namespace Smuxi.Engine
         private IList<string> SplitMessage(string command, string target, string message)
         {
             List<string> messages = new List<string>();
-            int length;
             int line = 0;
             do {
-                length = GetProtocolMessageLength(command, target, message);
-                if (length <= 512) {
+                var lineByteLength = GetProtocolMessageLength(command, target, message);
+                if (lineByteLength <= 512) {
                     if (line > 0) {
                         // remove leading spaces as we are a new line
                         messages.Add(message.TrimStart(new char[] {' '}));
@@ -1400,9 +1399,18 @@ namespace Smuxi.Engine
                 }
                 line++;
 
-                int maxMsgLen = message.Length - (length - 512);
-                string chunk = message.Substring(0, maxMsgLen);
-                string nextChar = message.Substring(maxMsgLen, 1);
+                // UTF8 can have multi-byte chars, thus we need to remove char
+                // by char and see when it fits into an IRC message
+                var chunkBuilder = new StringBuilder(message);
+                var chunkByteLength = lineByteLength;
+                while (chunkByteLength > 512) {
+                    chunkBuilder.Length--;
+                    chunkByteLength = GetProtocolMessageLength(
+                        command, target, chunkBuilder.ToString()
+                    );
+                }
+                var chunk = chunkBuilder.ToString();
+                string nextChar = message.Substring(chunk.Length, 1);
                 if (nextChar != " ") {
                     // we split in the middle of a word, split it better!
                     int lastWordPos = chunk.LastIndexOf(" ");
