@@ -27,7 +27,7 @@ namespace Smuxi.Engine
         Bold      = 2,
         Color     = 3,
         Clear     = 15,
-        Italic    = 26,
+        Italic    = 29,
         Underline = 31,
     }
 
