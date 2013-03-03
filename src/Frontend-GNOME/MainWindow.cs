@@ -557,7 +557,7 @@ namespace Smuxi.Frontend.Gnome
             _ProgressBar.BarStyle = Gtk.ProgressBarStyle.Continuous;
 
             MenuHBox = new Gtk.HBox();
-            MenuHBox.PackStart(MenuBar, false, false, 0);
+            MenuHBox.PackStart(MenuBar, true, true, 0);
             MenuHBox.PackEnd(JoinWidget, false, false, 0);
 
             Gtk.VBox vbox = new Gtk.VBox();
