@@ -312,18 +312,12 @@ namespace Smuxi.Frontend.Gnome
                     var urlPart = (UrlMessagePartModel) msgPart;
                     var linkText = urlPart.Text ?? urlPart.Url;
 
-                    var url = urlPart.Url;
-                    // HACK: assume http if no protocol/scheme was specified
-                    if (urlPart.Protocol == UrlProtocol.None ||
-                        !Regex.IsMatch(url, @"^[a-zA-Z0-9\-]+:")) {
-                        url = String.Format("http://{0}", url);
-                    }
                     Uri uri;
                     try {
-                        uri = new Uri(url);
+                        uri = new Uri(urlPart.Url);
                     } catch (UriFormatException ex) {
 #if LOG4NET
-                        _Logger.Error("AddMessage(): Invalid URL: " + url, ex);
+                        _Logger.Error("AddMessage(): Invalid URL: " + urlPart.Url, ex);
 #endif
                         buffer.Insert(ref iter, linkText);
                         continue;
