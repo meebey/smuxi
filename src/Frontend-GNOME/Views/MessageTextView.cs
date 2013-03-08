@@ -334,13 +334,12 @@ namespace Smuxi.Frontend.Gnome
                     var urlPart = (UrlMessagePartModel) msgPart;
                     var linkText = urlPart.Text ?? urlPart.Url;
 
-                    var url = urlPart.Url;
                     Uri uri;
                     try {
-                        uri = new Uri(url);
+                        uri = new Uri(urlPart.Url);
                     } catch (UriFormatException ex) {
 #if LOG4NET
-                        _Logger.Error("AddMessage(): Invalid URL: " + url, ex);
+                        _Logger.Error("AddMessage(): Invalid URL: " + urlPart.Url, ex);
 #endif
                         buffer.Insert(ref iter, linkText);
                         continue;
