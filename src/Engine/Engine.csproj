@@ -81,7 +81,6 @@
     <Compile Include="Config\UserListController.cs" />
     <Compile Include="Config\FilterListController.cs" />
     <Compile Include="Config\FilterModel.cs" />
-    <Compile Include="Messages\MessageParser.cs" />
     <Compile Include="Messages\MessageBuilder.cs" />
     <Compile Include="PresenceStatus.cs" />
     <Compile Include="Config\ProxyType.cs" />
@@ -96,6 +95,7 @@
     <Compile Include="Config\EntrySettings.cs" />
     <Compile Include="Messages\FeedMessageBuilder.cs" />
     <Compile Include="Config\ProxySettings.cs" />
+    <Compile Include="Config\MessageBuilderSettings.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Protocols\" />

@@ -25,6 +25,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Xml;
 using System.Web;
+using System.Linq;
 
 namespace Smuxi.Engine
 {
@@ -40,6 +41,7 @@ namespace Smuxi.Engine
         public TextColor HighlightColor { get; set; }
         public List<string> HighlightWords { get; set; }
         public PersonModel Me { get; set; }
+        public MessageBuilderSettings Settings { get; private set; }
 
         public MessageType MessageType {
             get {
@@ -68,13 +70,12 @@ namespace Smuxi.Engine
         public MessageBuilder()
         {
             Message = new MessageModel();
+            Settings = new MessageBuilderSettings();
             NickColors = true;
         }
 
         public MessageModel ToMessage()
         {
-            //MessageParser.ParseSmileys
-            MessageParser.ParseUrls(Message);
             Message.Compact();
             return Message;
         }
@@ -103,6 +104,18 @@ namespace Smuxi.Engine
             }
 
             Message.MessageParts.Add(msgPart);
+            return this;
+        }
+
+        public virtual MessageBuilder Append(IEnumerable<MessagePartModel> msgParts)
+        {
+            if (msgParts == null) {
+                throw new ArgumentNullException("msgParts");
+            }
+
+            foreach (var msgPart in msgParts) {
+                Append(msgPart);
+            }
             return this;
         }
 
@@ -135,7 +148,7 @@ namespace Smuxi.Engine
 
         public virtual MessageBuilder AppendText(TextMessagePartModel textPart)
         {
-            return Append(textPart);
+            return Append(ParseSmartLinks(textPart));
         }
 
         public MessageBuilder AppendText(IEnumerable<TextMessagePartModel> text)
@@ -247,6 +260,10 @@ namespace Smuxi.Engine
 
         public virtual MessageBuilder AppendMessage(string msg)
         {
+            if (String.IsNullOrEmpty(msg)) {
+                return this;
+            }
+
             return AppendText(msg);
         }
 
@@ -301,7 +318,7 @@ namespace Smuxi.Engine
 
             var identityName = CreateIdendityName(identity);
             identityName.IsHighlight = isHighlight;
-            return AppendText(identityName);
+            return Append(identityName);
         }
 
         public MessageBuilder AppendIdendityName(ContactModel identity)
@@ -342,7 +359,7 @@ namespace Smuxi.Engine
                 throw new ArgumentNullException("contact");
             }
 
-            return AppendText(CreateNick(contact));
+            return Append(CreateNick(contact));
         }
 
         public virtual IList<TextMessagePartModel> CreateSenderPrefix(ContactModel contact)
@@ -377,7 +394,7 @@ namespace Smuxi.Engine
             // 2nd element is the nick
             senderMsg[1].IsHighlight = isHighlight;
             foreach (var senderPart in senderMsg) {
-                AppendText(senderPart);
+                Append(senderPart);
             }
             return this;
         }
@@ -616,6 +633,97 @@ namespace Smuxi.Engine
             }
             ParseHtml(doc, new TextMessagePartModel());
             return this;
+        }
+        
+        public static IList<MessagePartModel> ParseSmartLinks(TextMessagePartModel textPart, List<SmartLink> links)
+        {
+            IList<MessagePartModel> msg = new List<MessagePartModel>();
+            if (links.Count == 0) {
+                // all smartlinks have been tried -> this text is PURE text
+                msg.Add(textPart);
+                return msg;
+            }
+            var subLinks = new List<SmartLink>(links);
+            SmartLink link = subLinks.First();
+            subLinks.Remove(link);
+            
+            Match linkMatch = link.Regex.Match(textPart.Text);
+            if (!linkMatch.Success) {
+                // no smartlinks in this MessagePart, try other smartlinks
+                return ParseSmartLinks(textPart, subLinks);
+            }
+            
+            int lastindex = 0;
+            do {
+                var groupValues = new string[linkMatch.Groups.Count];
+                int i = 0;
+                foreach (Group @group in linkMatch.Groups) {
+                    groupValues[i++] = @group.Value;
+                }
+                
+                string url;
+                if (link.LinkPattern != null) {
+                    url = String.Format(link.LinkPattern, groupValues);
+                } else {
+                    url = linkMatch.Value;
+                }
+                string text;
+                if (link.TextPattern != null) {
+                    text = String.Format(link.TextPattern, groupValues);
+                } else {
+                    text = (linkMatch.Value == url)?null:linkMatch.Value;
+                }
+                
+                
+                if (lastindex != linkMatch.Index) {
+                    // there were some non-url-chars before this url
+                    // copy TextMessagePartModel
+                    TextMessagePartModel notLinkPart = new TextMessagePartModel(textPart);
+                    // only take the proper chunk of text
+                    notLinkPart.Text = textPart.Text.Substring(lastindex, linkMatch.Index-lastindex);
+                    // and try other smartlinks on this part
+                    var parts = ParseSmartLinks(notLinkPart, subLinks);
+                    foreach (var part in parts) {
+                        msg.Add(part);
+                    }
+                }
+                
+                MessagePartModel model;
+                switch (link.Type) {
+                    case EMessagePartModel.Url:
+                        model = new UrlMessagePartModel(url, text);
+                        break;
+                    case EMessagePartModel.Image:
+                        model = new ImageMessagePartModel(url, text);
+                        break;
+                    case EMessagePartModel.Text:
+                    default:
+                        model = new TextMessagePartModel(text);
+                        break;
+                }
+                msg.Add(model);
+                lastindex = linkMatch.Index + linkMatch.Length;
+                linkMatch = linkMatch.NextMatch();
+            } while (linkMatch.Success);
+            
+            if (lastindex != textPart.Text.Length) {
+                // there were some non-url-chars before this url
+                // copy TextMessagePartModel
+                TextMessagePartModel notLinkPart = new TextMessagePartModel(textPart);
+                // only take the proper chunk of text
+                notLinkPart.Text = textPart.Text.Substring(lastindex);
+                // and try other smartlinks on this part
+                var parts = ParseSmartLinks(notLinkPart, subLinks);
+                foreach (var part in parts) {
+                    msg.Add(part);
+                }
+            }
+            return msg;
+        }
+        
+        public IEnumerable<MessagePartModel> ParseSmartLinks(TextMessagePartModel part)
+        {
+            return ParseSmartLinks(part, Settings.SmartLinks);
         }
     }
 }
