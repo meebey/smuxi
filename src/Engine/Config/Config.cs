@@ -114,8 +114,10 @@ namespace Smuxi.Engine
         
         protected T Get<T>(string key, T defaultvalue)
         {
+#if CONFIG_DEBUG
             Trace.Call(key, defaultvalue);
-            
+#endif
+
             string inisection = _IniGetSection(key);
             string inikey = _IniGetKey(key);
             IniSection section = m_IniDocument.Sections[inisection];
@@ -146,7 +148,9 @@ namespace Smuxi.Engine
 
         protected object Get(string key, object defaultvalue)
         {
+#if CONFIG_DEBUG
             Trace.Call(key, defaultvalue);
+#endif
 
 #if CONFIG_GCONF
             try {
@@ -201,8 +205,10 @@ namespace Smuxi.Engine
         
         private void _Set(string key, object valueobj)
         {
+#if CONFIG_DEBUG
             Trace.Call(key, valueobj);
-            
+#endif
+
 #if CONFIG_GCONF
             _GConf.Set(_GConfPrefix+key, valueobj);
 #elif CONFIG_NINI
@@ -623,8 +629,10 @@ namespace Smuxi.Engine
         
         public void Remove(string key)
         {
+#if CONFIG_DEBUG
             Trace.Call(key);
-            
+#endif
+
             bool isSection = false;
             if (key.EndsWith("/")) {
                 isSection = true;
@@ -659,8 +667,10 @@ namespace Smuxi.Engine
 
         protected void LoadUserEntry(string user, string key, object defaultvalue)
         {
+#if CONFIG_DEBUG
             Trace.Call(user, key, defaultvalue);
-            
+#endif
+
             string prefix = "Engine/Users/";
             string ukey = prefix+user+"/"+key;
             object obj;
@@ -676,8 +686,10 @@ namespace Smuxi.Engine
         
         protected void LoadEntry(string key, object defaultvalue)
         {
+#if CONFIG_DEBUG
             Trace.Call(key, defaultvalue);
-            
+#endif
+
             object obj;
             if (defaultvalue is string) {
                 obj = Get<string>(key, (string) defaultvalue);
