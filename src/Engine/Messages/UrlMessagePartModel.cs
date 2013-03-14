@@ -51,7 +51,6 @@ namespace Smuxi.Engine
 #if LOG4NET
         private static readonly log4net.ILog _Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 #endif
-        private UrlProtocol _Protocol;
         private string      _Url;
         
         public string Url {
@@ -65,16 +64,7 @@ namespace Smuxi.Engine
                 _Url = value;
             }
         }
-        
-        public UrlProtocol Protocol {
-            get {
-                return _Protocol;
-            }
-            set {
-                _Protocol = value;
-            }
-        }
-        
+
         public UrlMessagePartModel(string url) :
                               this(url, null)
         {
@@ -84,34 +74,17 @@ namespace Smuxi.Engine
             : base(model)
         {
             if (model is UrlMessagePartModel) {
-                _Protocol = (model as UrlMessagePartModel)._Protocol;
                 _Url = (model as UrlMessagePartModel)._Url;
             }
         }
 
         public UrlMessagePartModel(string url, string text):
-                              this(url, text, UrlProtocol.None)
+                              base(text)
 
         {
-            _Protocol = ParseProtocol(url);
-            if (_Protocol == UrlProtocol.None) {
-                // assume http if no protocol was specified
-                _Protocol = UrlProtocol.Http;
-                // text should stay pristine
-                if (Text == null) {
-                    Text = _Url;
-                }
-                _Url = String.Format("http://{0}", _Url);
-            }
-        }
-        
-        public UrlMessagePartModel(string url, string text, UrlProtocol protocol) :
-                              base(text)
-        {
             _Url = url;
-            _Protocol = protocol;
         }
-        
+
         protected UrlMessagePartModel(SerializationInfo info, StreamingContext ctx) :
                                  base(info, ctx)
         {
@@ -121,7 +94,7 @@ namespace Smuxi.Engine
         {
             base.SetObjectData(sr);
             
-            _Protocol = (UrlProtocol) sr.ReadInt32();
+            sr.ReadInt32();
             _Url = sr.ReadString();
         }
         
@@ -129,26 +102,8 @@ namespace Smuxi.Engine
         {
             base.GetObjectData(sw);
 
-            sw.Write((Int32) _Protocol);
+            sw.Write((Int32) UrlProtocol.Unknown);
             sw.Write(_Url);
-        }
-
-        protected static UrlProtocol ParseProtocol(string url)
-        {
-            Match match = Regex.Match(url, @"^([a-zA-Z0-9\-]+):");
-            if (!match.Success) {
-                return UrlProtocol.None;
-            }
-            
-            string protocol = match.Groups[1].Value;
-            try {
-                return (UrlProtocol) Enum.Parse(typeof(UrlProtocol), protocol, true);
-            } catch (ArgumentException ex) {
-#if LOG4NET
-                _Logger.Error("ParseProtocol(url): error parsing protocol: " + protocol, ex);
-#endif
-            }
-            return UrlProtocol.Unknown;
         }
 
         public override string ToString()
@@ -164,6 +119,30 @@ namespace Smuxi.Engine
             } else {
                 return "[" + _Url + " " + Text + "]";
             }
+        }
+        
+        public override bool Equals(object obj)
+        {
+            if (!(obj is UrlMessagePartModel)) {
+                return false;
+            }
+
+            var urlPart = (UrlMessagePartModel) obj;
+            return Equals(urlPart);
+        }
+        
+        public override bool Equals(MessagePartModel part)
+        {
+            var urlPart = part as UrlMessagePartModel;
+            if ((object) urlPart == null) {
+                return false;
+            }
+            
+            if (_Url != urlPart._Url) {
+                return false;
+            }
+                
+            return base.Equals(urlPart);
         }
     }
 }
