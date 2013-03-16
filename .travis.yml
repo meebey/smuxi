@@ -1,0 +1,8 @@
+language: c
+
+install:
+    - sudo apt-get update
+    - sudo apt-get install mono-devel > /dev/null
+
+script:
+    - xbuild src/smuxi.sln
