@@ -167,9 +167,9 @@ namespace Smuxi.Frontend.Gnome
     #if LOG4NET
                 Logger.Info("Init(): no DBus provider for messaging menu found, " +
                             "disabling...");
+    #endif
                 return;
             }
-    #endif
 #endif
 
             Server = Server.RefDefault();
