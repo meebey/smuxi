@@ -47,6 +47,7 @@ using agsXMPP.protocol.iq.disco;
 using agsXMPP.protocol.extensions.caps;
 using agsXMPP.Net;
 using Starksoft.Net.Proxy;
+using agsXMPP.protocol.extensions.chatstates;
 
 namespace Smuxi.Engine
 {
@@ -1458,6 +1459,10 @@ namespace Smuxi.Engine
 
         private void OnMessage(object sender, Message msg)
         {
+            // process chatstates
+            if (msg.Chatstate != agsXMPP.protocol.extensions.chatstates.Chatstate.None) {
+                OnChatState(msg.From, msg.Type, msg.Chatstate);
+            }
             if (String.IsNullOrEmpty(msg.Body)) {
                 // TODO: capture events and stuff
                 return;
@@ -1482,6 +1487,33 @@ namespace Smuxi.Engine
                     builder.AppendErrorText(msg.Error.ToString());
                     Session.AddMessageToChat(NetworkChat, builder.ToMessage());
                 }
+                    break;
+            }
+        }
+
+        void OnChatState (Jid @from, XmppMessageType type, Chatstate chatstate)
+        {
+            switch (type) {
+                case XmppMessageType.chat:
+                case XmppMessageType.headline:
+                case XmppMessageType.normal:
+                {
+                    var chat = GetChat(@from, ChatType.Person);
+                    // jid already has a chat window
+                    if (chat != null) break;
+                    chat = GetChat(@from.Bare, ChatType.Person);
+                    // bare jid already has a chat window
+                    if (chat != null) break;
+                    // create chat
+                    var personchat = GetOrCreatePersonChat(@from.Bare);
+                    var builder = CreateMessageBuilder();
+                    builder.AppendEventPrefix();
+                    builder.AppendText(_("This chat window was automatically opened because {0} changed the chatstate to {1}"),
+                                       personchat.Person.IdentityName, chatstate.ToString());
+                    Session.AddMessageToChat(personchat, builder.ToMessage());
+                }
+                    break;
+                default:
                     break;
             }
         }
