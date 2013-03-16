@@ -6,5 +6,5 @@ install:
     - sudo apt-get install mono-devel > /dev/null
 
 script:
-    - ./autogen.sh
+    - ./autogen.sh MCS=/usr/bin/dmcs
     - xbuild src/smuxi.sln
