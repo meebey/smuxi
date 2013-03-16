@@ -1,0 +1,10 @@
+language: c
+
+install:
+    - sudo apt-get update > /dev/null
+    - sudo apt-get build-dep smuxi > /dev/null
+    - sudo apt-get install mono-devel > /dev/null
+
+script:
+    - ./autogen.sh MCS=/usr/bin/dmcs
+    - xbuild src/smuxi.sln

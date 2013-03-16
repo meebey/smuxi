@@ -33,8 +33,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Engine-MSNP", "Engine-MSNP\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Engine-OSCAR", "Engine-OSCAR\Engine-OSCAR.csproj", "{285452B0-FE2B-4283-8305-3E07D79F94CA}"
 EndProject
-Project("{9344bdbb-3e7f-41fc-a0dd-8665d75ee146}") = "Packages", "Packages.mdproj", "{EFCDA478-1A20-4A97-9E9D-2523A52CFF72}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Engine-Twitter", "Engine-Twitter\Engine-Twitter.csproj", "{2505C91F-5F34-4E64-8A49-405A02E070FD}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common-Tests", "Common-Tests\Common-Tests.csproj", "{D39D3DC3-CE90-4313-8351-C30C24B2CCB8}"
@@ -270,11 +268,6 @@ Global
 		{E75D5685-3027-414C-BC2C-E48307181D80}.Debug-Win32|Any CPU.Build.0 = Debug|Any CPU
 		{E75D5685-3027-414C-BC2C-E48307181D80}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E75D5685-3027-414C-BC2C-E48307181D80}.Release|Any CPU.Build.0 = Release|Any CPU
-		{EFCDA478-1A20-4A97-9E9D-2523A52CFF72}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EFCDA478-1A20-4A97-9E9D-2523A52CFF72}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{EFCDA478-1A20-4A97-9E9D-2523A52CFF72}.Debug-Win32|Any CPU.ActiveCfg = Debug-Win32|Any CPU
-		{EFCDA478-1A20-4A97-9E9D-2523A52CFF72}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{EFCDA478-1A20-4A97-9E9D-2523A52CFF72}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		BaseDirectory = ..
