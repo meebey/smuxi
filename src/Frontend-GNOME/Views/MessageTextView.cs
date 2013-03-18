@@ -38,6 +38,7 @@ namespace Smuxi.Frontend.Gnome
 #endif        
         private static readonly Gdk.Cursor _NormalCursor = new Gdk.Cursor(Gdk.CursorType.Xterm);
         private static readonly Gdk.Cursor _LinkCursor = new Gdk.Cursor(Gdk.CursorType.Hand2);
+        static bool IsGtk2_17 { get; set; }
         private Gtk.TextTagTable _MessageTextTagTable;
         private MessageModel _LastMessage;
         private bool         _ShowTimestamps;
@@ -133,6 +134,12 @@ namespace Smuxi.Frontend.Gnome
                 }
                 return _ThemeSettings.BackgroundColor.Value;
             }
+        }
+
+        static MessageTextView()
+        {
+            IsGtk2_17 = String.IsNullOrEmpty(Gtk.Global.CheckVersion(2, 17, 0)) &&
+                        !String.IsNullOrEmpty(Gtk.Global.CheckVersion(2, 18, 0));
         }
 
         public MessageTextView()
@@ -413,11 +420,13 @@ namespace Smuxi.Frontend.Gnome
 
             CheckBufferSize();
 
-            // HACK: force a redraw of the widget, as for some reason
-            // GTK+ 2.17.6 is not redrawing some lines we add here, especially
-            // for local messages. See:
-            // http://projects.qnetp.net/issues/show/185
-            QueueDraw();
+            if (IsGtk2_17) {
+                // HACK: force a redraw of the widget, as for some reason
+                // GTK+ 2.17.6 is not redrawing some lines we add here, especially
+                // for local messages. See:
+                // http://projects.qnetp.net/issues/show/185
+                QueueDraw();
+            }
 
             if (MessageAdded != null) {
                 MessageAdded(this, new MessageTextViewMessageAddedEventArgs(msg));
