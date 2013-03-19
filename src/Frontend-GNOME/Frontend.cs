@@ -62,6 +62,7 @@ namespace Smuxi.Frontend.Gnome
         public static string IconName { get; private set; }
         public static bool HasSystemIconTheme { get; private set; }
         public static bool HadSession { get; private set; }
+        public static bool InGtkApplicationRun { get; private set; }
 
         public static event EventHandler  SessionPropertyChanged;
 
@@ -232,8 +233,10 @@ namespace Smuxi.Frontend.Gnome
             if (_SplashScreenWindow != null) {
                 _SplashScreenWindow.Destroy();
             }
-            
+
+            InGtkApplicationRun = true;
             Gtk.Application.Run();
+            InGtkApplicationRun = false;
 #if LOG4NET
             _Logger.Warn("Gtk.Application.Run() returned!");
 #endif
