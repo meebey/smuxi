@@ -42,6 +42,7 @@
     <Compile Include="Protocols\Xmpp\XmppGroupChatModel.cs" />
     <Compile Include="Protocols\Xmpp\IQ\OwnMessage.cs" />
     <Compile Include="Config\XmppServerModel.cs" />
+    <Compile Include="Config\XmppPersonModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Protocols\Xmpp\IQ\" />
