@@ -78,7 +78,10 @@ namespace Smuxi.Frontend.Gnome
                 _Logger.Fatal(e);
 #endif
                 // when Gtk# receives an exception it is not usable/relyable anymore! 
-                //new CrashDialog(e);
+                // except the exception was thrown in Frontend.Init() itself
+                if (!Frontend.InGtkApplicationRun) {
+                    Frontend.ShowException(e);
+                }
                 
                 // rethrow the exception for console output
                 throw;

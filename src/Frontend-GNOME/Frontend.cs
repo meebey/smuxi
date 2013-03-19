@@ -59,6 +59,7 @@ namespace Smuxi.Frontend.Gnome
         public static string IconName { get; private set; }
         public static bool HasSystemIconTheme { get; private set; }
         public static bool HadSession { get; private set; }
+        public static bool InGtkApplicationRun { get; private set; }
         public static bool IsWindows { get; private set; }
         public static bool IsUnity { get; private set; }
         public static bool IsMacOSX { get; private set; }
@@ -274,7 +275,9 @@ namespace Smuxi.Frontend.Gnome
                 };
             }
 
+            InGtkApplicationRun = true;
             Gtk.Application.Run();
+            InGtkApplicationRun = false;
 #if LOG4NET
             _Logger.Warn("Gtk.Application.Run() returned!");
 #endif
