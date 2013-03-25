@@ -1483,6 +1483,30 @@ namespace Smuxi.Engine
             Session.AddMessageToChat(chat, builder.ToMessage());
         }
 
+        void OnGroupChatMessageError (Message msg, XmppGroupChatModel chat)
+        {
+            var builder = CreateMessageBuilder();
+            // TODO: nicer formatting
+            if (msg.Error.ErrorText != null) {
+                builder.AppendErrorText(msg.Error.ErrorText);
+            } else {
+                builder.AppendErrorText(msg.Error.ToString());
+            }
+            Session.AddMessageToChat(chat, builder.ToMessage());
+        }
+
+        void OnPrivateChatMessageError (Message msg, PersonChatModel chat)
+        {
+            var builder = CreateMessageBuilder();
+            // TODO: nicer formatting
+            if (msg.Error.ErrorText != null) {
+                builder.AppendErrorText(msg.Error.ErrorText);
+            } else {
+                builder.AppendErrorText(msg.Error.ToString());
+            }
+            Session.AddMessageToChat(chat, builder.ToMessage());
+        }
+
         private void OnMessage(object sender, Message msg)
         {
             if (String.IsNullOrEmpty(msg.Body)) {
@@ -1504,9 +1528,24 @@ namespace Smuxi.Engine
                     break;
                 case XmppMessageType.error:
                 {
+                    var chat = Session.GetChat(msg.From, ChatType.Group, this);
+                    if (chat != null) {
+                        OnGroupChatMessageError(msg, chat as XmppGroupChatModel);
+                        break;
+                    }
+                    chat = Session.GetChat(msg.From, ChatType.Person, this);
+                    if (chat != null) {
+                        OnPrivateChatMessageError(msg, chat as PersonChatModel);
+                        break;
+                    }
+                    // no person and no groupchat open? -> dump in networkchat
                     var builder = CreateMessageBuilder();
                     // TODO: nicer formatting
-                    builder.AppendErrorText(msg.Error.ToString());
+                    if (msg.Error.ErrorText != null) {
+                        builder.AppendErrorText(msg.Error.ErrorText);
+                    } else {
+                        builder.AppendErrorText(msg.Error.ToString());
+                    }
                     Session.AddMessageToChat(NetworkChat, builder.ToMessage());
                 }
                     break;
