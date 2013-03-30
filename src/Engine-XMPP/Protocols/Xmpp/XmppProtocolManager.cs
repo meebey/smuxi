@@ -47,6 +47,7 @@ using agsXMPP.protocol.iq.disco;
 using agsXMPP.protocol.extensions.caps;
 using agsXMPP.Net;
 using Starksoft.Net.Proxy;
+using agsXMPP.protocol.extensions.chatstates;
 
 namespace Smuxi.Engine
 {
@@ -1509,6 +1510,10 @@ namespace Smuxi.Engine
 
         private void OnMessage(object sender, Message msg)
         {
+            // process chatstates
+            if (msg.Chatstate != agsXMPP.protocol.extensions.chatstates.Chatstate.None) {
+                OnChatState(msg);
+            }
             if (String.IsNullOrEmpty(msg.Body)) {
                 // TODO: capture events and stuff
                 return;
@@ -1548,6 +1553,34 @@ namespace Smuxi.Engine
                     }
                     Session.AddMessageToChat(NetworkChat, builder.ToMessage());
                 }
+                    break;
+            }
+        }
+        
+        void OnChatState(Message msg)
+        {
+            if (msg.Body != null) return;
+            switch (msg.Type) {
+                case XmppMessageType.chat:
+                case XmppMessageType.headline:
+                case XmppMessageType.normal:
+                {
+                    var chat = GetChat(msg.From, ChatType.Person) as PersonChatModel;
+                    // no full jid chat
+                    if (chat == null) {
+                        // create chat
+                        chat = GetOrCreatePersonChat(msg.From.Bare);
+                    }
+                    var builder = CreateMessageBuilder();
+                    builder.AppendEventPrefix();
+                    builder.AppendIdendityName(chat.Person);
+                    // TRANSLATOR: do NOT change the position of {0}!
+                    builder.AppendText(_("{0} changed the chatstate to {1}"),
+                                       String.Empty, msg.Chatstate.ToString());
+                    Session.AddMessageToChat(chat, builder.ToMessage());
+                }
+                    break;
+                default:
                     break;
             }
         }
