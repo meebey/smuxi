@@ -1,6 +1,7 @@
 glade/
 src/Common/
 src/Engine/
+src/Engine-Campfire/
 src/Engine-MSNP/
 src/Engine-OSCAR/
 src/Engine-XMPP/
