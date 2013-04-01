@@ -12,4 +12,4 @@ script:
     - nunit-console bin/debug/smuxi-engine-tests.dll
     - nunit-console bin/debug/smuxi-frontend-gnome-tests.dll
     - nunit-console bin/debug/smuxi-frontend-stfl-tests.dll
-    - make clean; make distcheck
+    - make clean; make distcheck MCS=/usr/bin/dmcs
