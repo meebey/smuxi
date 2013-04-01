@@ -3,9 +3,13 @@ language: c
 install:
     - sudo apt-get update > /dev/null
     - sudo apt-get build-dep smuxi > /dev/null
-    - sudo apt-get install mono-devel > /dev/null
+    - sudo apt-get install mono-devel nunit-console > /dev/null
 
 script:
     - ./autogen.sh MCS=/usr/bin/dmcs
     - xbuild src/smuxi.sln
+    - nunit-console bin/debug/smuxi-common-tests.dll
+    - nunit-console bin/debug/smuxi-engine-tests.dll
+    - nunit-console bin/debug/smuxi-frontend-gnome-tests.dll
+    - nunit-console bin/debug/smuxi-frontend-stfl-tests.dll
     - make clean; make distcheck
