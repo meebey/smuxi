@@ -8,8 +8,8 @@ install:
 script:
     - ./autogen.sh MCS=/usr/bin/dmcs
     - xbuild src/smuxi.sln
-    - nunit-console bin/debug/smuxi-common-tests.dll
-    - nunit-console bin/debug/smuxi-engine-tests.dll
-    - nunit-console bin/debug/smuxi-frontend-gnome-tests.dll
-    - nunit-console bin/debug/smuxi-frontend-stfl-tests.dll
+    - nunit-console bin/release/smuxi-common-tests.dll
+    - nunit-console bin/release/smuxi-engine-tests.dll
+    - nunit-console bin/release/smuxi-frontend-gnome-tests.dll
+    - nunit-console bin/release/smuxi-frontend-stfl-tests.dll
     - make clean; make distcheck MCS=/usr/bin/dmcs
