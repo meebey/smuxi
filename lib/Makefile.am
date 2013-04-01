@@ -3,6 +3,10 @@ SUBDIRS =	SmartIrc4net \
 
 if WITH_MESSAGINGMENU_SHARP_INCLUDED
 MESSAGINGMENU_SHARP_SUBDIR = messagingmenu-sharp
+else
+# HACK: override DIST_SUBDIRS so distcheck/distclean works on systems without
+# libmessaging-menu-dev installed
+DIST_SUBDIRS = $(SUBDIRS)
 endif
 
 OUTPUT_DIR = $(top_builddir)/bin/$(PROFILE)
