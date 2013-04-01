@@ -8,3 +8,4 @@ install:
 script:
     - ./autogen.sh MCS=/usr/bin/dmcs
     - xbuild src/smuxi.sln
+    - make clean; make distcheck
