@@ -6,6 +6,7 @@ src/Frontend-GNOME-IRC/
 src/Frontend-STFL/
 src/Frontend-SWF/
 src/Frontend-WPF/
+src/Engine/Config/ServerModel.cs
 src/Engine-Campfire/
 src/Engine-IRC/
 src/Engine-MSNP/
