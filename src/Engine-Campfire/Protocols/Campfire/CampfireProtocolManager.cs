@@ -35,7 +35,7 @@ namespace Smuxi.Engine
     {
         static readonly string f_LibraryTextDomain = "smuxi-engine-campfire";
 
-        CampfireEventStream EventStream { get; set; }
+        Dictionary<ChatModel, CampfireEventStream> EventStreams { get; set; }
         int LastSentId { get; set; }
         IEnumerable<Room> Rooms { get; set; }
         DateTime RoomsUpdated { get; set; }
@@ -97,6 +97,7 @@ namespace Smuxi.Engine
             RefreshInterval = TimeSpan.FromMinutes(5);
             RoomsUpdated = DateTime.MinValue;
             Users = new Dictionary<int, CampfirePersonModel>();
+            EventStreams = new Dictionary<ChatModel, CampfireEventStream>();
         }
 
         private void FailedToConnect(string str, Exception e)
@@ -488,9 +489,12 @@ namespace Smuxi.Engine
             Session.SyncChat(chat);
             chat.IsSynced = true; // Let the part and join messages take affect
 
-            EventStream = new CampfireEventStream(chat, BaseUri, new NetworkCredential(Key, "X"));
-            EventStream.MessageReceived += ShowMessage;
-            EventStream.Start();
+            var stream = new CampfireEventStream(chat, BaseUri, new NetworkCredential(Key, "X"));
+            lock (EventStreams)
+                EventStreams.Add(chat, stream);
+
+            stream.MessageReceived += ShowMessage;
+            stream.Start();
         }
 
         public override void CloseChat(FrontendManager fm, ChatModel ChatInfo)
@@ -498,6 +502,11 @@ namespace Smuxi.Engine
             var chat = GetChat(ChatInfo.ID, ChatType.Group);
             Client.Post<object>(String.Format("/room/{0}/leave.json", chat.ID), null);
             Session.RemoveChat(chat);
+            lock (EventStreams) {
+                var stream = EventStreams[chat];
+                stream.Dispose();
+                EventStreams.Remove(chat);
+            }
         }
 
         public override void Reconnect(FrontendManager fm)
@@ -518,7 +527,11 @@ namespace Smuxi.Engine
         {
             Trace.Call();
 
-            EventStream.Dispose();
+            lock (EventStreams) {
+                foreach (var stream in EventStreams.Values)
+                    stream.Dispose();
+            }
+
             base.Dispose();
         }
 
