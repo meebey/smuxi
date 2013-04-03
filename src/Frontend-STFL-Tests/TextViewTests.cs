@@ -29,6 +29,7 @@ namespace Smuxi.Frontend.Stfl
     public class TextViewTests
     {
         [Test]
+        [Ignore]
         public void WrapLine()
         {
             List<string> wrappedLine;
