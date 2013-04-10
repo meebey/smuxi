@@ -68,18 +68,38 @@ namespace Smuxi.Engine
             Password = info.GetString("_Password");
             OnStartupConnect = info.GetBoolean("_OnStartupConnect");
             //ServerID = info.GetString("_ServerID");
-            var e = info.GetEnumerator();
             bool foundServerID = false;
-            while (e.MoveNext()) {
-                if (e.Name == "_ServerID") {
-                    ServerID = (string)e.Value;
-                    foundServerID = true;
-                    break;
+            bool foundEncryption = false;
+            bool foundValidation = false;
+            foreach(SerializationEntry e in info) {
+                switch (e.Name) {
+                    case "_ServerID":
+                        ServerID = (string)e.Value;
+                        foundServerID = true;
+                        break;
+                    // UseEncryption and ValidateServerCertificate were forgotten
+                    // when moving from autoserialization to manual serialization.
+                    // To prevent crashes when git users' updated engines receive a ServerModel
+                    // from an older git frontend, we manually check for the fields' existance
+                    case "<UseEncryption>k__BackingField":
+                        UseEncryption = (bool)e.Value;
+                        foundEncryption = true;
+                        break;
+                    case "<ValidateServerCertificate>k__BackingField":
+                        ValidateServerCertificate = (bool)e.Value;
+                        foundValidation = true;
+                        break;
                 }
             }
             if (foundServerID == false) {
                 // this is from an old frontend/engine that doesn't know about ServerID yet
                 ServerID = Hostname;
+            }
+            if (!foundEncryption) {
+                UseEncryption = false;
+            }
+            if (!foundValidation) {
+                ValidateServerCertificate = false;
             }
             OnConnectCommands = (IList<string>) info.GetValue(
                 "_OnConnectCommands",
@@ -98,6 +118,9 @@ namespace Smuxi.Engine
             info.AddValue("_Password", Password);
             info.AddValue("_OnStartupConnect", OnStartupConnect);
             info.AddValue("_OnConnectCommands", OnConnectCommands);
+            // oddball names are necessary because the fields always were auto properties
+            info.AddValue("<UseEncryption>k__BackingField", UseEncryption);
+            info.AddValue("<ValidateServerCertificate>k__BackingField", ValidateServerCertificate);
         }
         
         public virtual void Load(UserConfig config, string protocol, string id)
