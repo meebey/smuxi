@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-12-29 09:21+0100\n"
+"POT-Creation-Date: 2013-04-10 21:41+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,9 +17,14 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../src/Frontend/CommandManager.cs:143
+#: ../src/Frontend/CommandManager.cs:255
 #, csharp-format
 msgid "Unknown Command: {0}"
+msgstr ""
+
+#: ../src/Frontend/CommandManager.cs:264
+#, csharp-format
+msgid "Not enough parameters for {0} command"
 msgstr ""
 
 #: ../src/Frontend/EngineManager.cs:122
@@ -30,34 +35,34 @@ msgstr ""
 msgid "Engine does not exist."
 msgstr ""
 
-#: ../src/Frontend/EngineManager.cs:318
+#: ../src/Frontend/EngineManager.cs:317
 #, csharp-format
 msgid "Unknown channel ({0}) - only the following channel types are supported:"
 msgstr ""
 
-#: ../src/Frontend/EngineManager.cs:327
+#: ../src/Frontend/EngineManager.cs:326
 msgid ""
 "Registration with engine failed!  The username and/or password were wrong - "
 "please verify them."
 msgstr ""
 
-#: ../src/Frontend/SshTunnelManager.cs:145
+#: ../src/Frontend/SshTunnelManager.cs:144
 msgid "SSH client application was not found: "
 msgstr ""
 
-#: ../src/Frontend/SshTunnelManager.cs:148
+#: ../src/Frontend/SshTunnelManager.cs:147
 msgid ""
 "SSH client must be either OpenSSH (ssh) or Plink (plink.exe, not putty.exe)"
 msgstr ""
 
-#: ../src/Frontend/SshTunnelManager.cs:185
+#: ../src/Frontend/SshTunnelManager.cs:184
 #, csharp-format
 msgid ""
 "The local SSH forwarding port {0} is already in use. Is there an old SSH "
 "tunnel still active?"
 msgstr ""
 
-#: ../src/Frontend/SshTunnelManager.cs:209
+#: ../src/Frontend/SshTunnelManager.cs:208
 #, csharp-format
 msgid ""
 "SSH tunnel setup failed (exit code: {0})\n"
@@ -71,17 +76,17 @@ msgid ""
 "{4}\n"
 msgstr ""
 
-#: ../src/Frontend/SshTunnelManager.cs:330
-#: ../src/Frontend/SshTunnelManager.cs:476
+#: ../src/Frontend/SshTunnelManager.cs:329
+#: ../src/Frontend/SshTunnelManager.cs:475
 msgid "SSH keyfile not found."
 msgstr ""
 
-#: ../src/Frontend/SshTunnelManager.cs:336
-#: ../src/Frontend/SshTunnelManager.cs:482
+#: ../src/Frontend/SshTunnelManager.cs:335
+#: ../src/Frontend/SshTunnelManager.cs:481
 msgid "SSH keyfile could not be read."
 msgstr ""
 
-#: ../src/Frontend/SshTunnelManager.cs:424
+#: ../src/Frontend/SshTunnelManager.cs:423
 #, csharp-format
 msgid ""
 "OpenSSH version number not found (exit code: {0})\n"
@@ -94,11 +99,11 @@ msgid ""
 "{3}\n"
 msgstr ""
 
-#: ../src/Frontend/SshTunnelManager.cs:467
+#: ../src/Frontend/SshTunnelManager.cs:466
 msgid "PuTTY / Plink requires a username to be set."
 msgstr ""
 
-#: ../src/Frontend/SshTunnelManager.cs:555
+#: ../src/Frontend/SshTunnelManager.cs:554
 #, csharp-format
 msgid ""
 "Plink version number not found (exit code: {0})\n"

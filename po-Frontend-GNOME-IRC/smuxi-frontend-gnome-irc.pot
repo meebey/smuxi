@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-12-29 09:22+0100\n"
+"POT-Creation-Date: 2013-04-10 21:43+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,54 +17,54 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:381
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:384
 msgid "Op"
 msgstr ""
 
-#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:385
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:388
 msgid "Deop"
 msgstr ""
 
-#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:389
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:392
 msgid "Voice"
 msgstr ""
 
-#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:393
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:396
 msgid "Devoice"
 msgstr ""
 
-#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:397
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:400
 msgid "Kick"
 msgstr ""
 
-#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:401
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:404
 msgid "Kick + Ban"
 msgstr ""
 
-#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:405
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:408
 msgid "Ban"
 msgstr ""
 
-#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:409
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:412
 msgid "Unban"
 msgstr ""
 
-#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:415
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:418
 msgid "Query"
 msgstr ""
 
-#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:419
-#: ../src/Frontend-GNOME-IRC/IrcPersonChatView.cs:64
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:422
+#: ../src/Frontend-GNOME-IRC/IrcPersonChatView.cs:63
 msgid "Whois"
 msgstr ""
 
-#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:423
-#: ../src/Frontend-GNOME-IRC/IrcPersonChatView.cs:68
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:426
+#: ../src/Frontend-GNOME-IRC/IrcPersonChatView.cs:67
 msgid "CTCP"
 msgstr ""
 
-#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:432
-#: ../src/Frontend-GNOME-IRC/IrcPersonChatView.cs:75
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:435
+#: ../src/Frontend-GNOME-IRC/IrcPersonChatView.cs:74
 msgid "Invite to"
 msgstr ""
 
