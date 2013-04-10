@@ -58,13 +58,13 @@
       <Project>{BCD52FCF-B7A8-42FB-AA8D-CF9921FF593E}</Project>
       <Name>Engine</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\lib\agsxmpp\agsxmpp\agsXMPP2010.csproj">
-      <Project>{91EA0D0B-D3BA-497F-AFEB-2CAD59DEBA0E}</Project>
-      <Name>agsXMPP2010</Name>
+    <ProjectReference Include="..\..\lib\agsxmpp\agsxmpp\agsxmpp.csproj">
+      <Project>{C6379274-C5DE-41A2-AE3E-753F85A557BA}</Project>
+      <Name>agsxmpp</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\lib\SmartIrc4net\SmartIrc4net.csproj">
-      <Project>{91D3003B-7E65-4EAF-8EE1-DA43832E7A9C}</Project>
-      <Name>SmartIrc4net</Name>
+    <ProjectReference Include="..\..\lib\StarkSoftProxy\StarkSoftProxy.csproj">
+      <Project>{3F8CF2C1-EA37-444F-8693-A3A00B1131D2}</Project>
+      <Name>StarkSoftProxy</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

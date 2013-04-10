@@ -18,7 +18,6 @@ SMUXI_ENGINE_DLL_MDB=
 LOG4NET_DLL_SOURCE=../../lib/log4net.dll
 NINI_DLL_SOURCE=../../lib/Nini.dll
 SMUXI_ENGINE_DLL_SOURCE=../../bin/release/smuxi-engine.dll
-MEEBEY_SMARTIRC4NET_DLL_SOURCE=../../lib/Meebey.SmartIrc4net.dll
 SMUXI_COMMON_DLL_SOURCE=../../bin/release/smuxi-common.dll
 
 endif
@@ -39,7 +38,6 @@ SMUXI_ENGINE_DLL_MDB=$(BUILD_DIR)/smuxi-engine.dll.mdb
 LOG4NET_DLL_SOURCE=../../lib/log4net.dll
 NINI_DLL_SOURCE=../../lib/Nini.dll
 SMUXI_ENGINE_DLL_SOURCE=../../bin/debug/smuxi-engine.dll
-MEEBEY_SMARTIRC4NET_DLL_SOURCE=../../lib/Meebey.SmartIrc4net.dll
 SMUXI_COMMON_DLL_SOURCE=../../bin/debug/smuxi-common.dll
 
 endif
@@ -50,8 +48,6 @@ SATELLITE_ASSEMBLY_NAME=.resources.dll
 PROGRAMFILES = \
 	$(LOG4NET_DLL) \
 	$(NINI_DLL) \
-	$(SMARTIRC4NET_DLL) \
-	$(SMARTIRC4NET_DLL_MDB) \
 	$(SMUXI_COMMON_DLL) \
 	$(SMUXI_COMMON_DLL_MDB) \
 	$(SMUXI_ENGINE_DLL) \
@@ -79,20 +75,14 @@ RESOURCES =
 EXTRAS = \
 	smuxi-engine-irc.pc.in 
 
-SMARTIRC4NET_LIBS = $(foreach file, $(SMARTIRC4NET_FILES), $(top_builddir)/$(file))
-SMARTIRC4NET_DLL_SOURCE = $(SMARTIRC4NET_LIBS)
-SMARTIRC4NET_DLL = $(foreach file, $(SMARTIRC4NET_FILES), $(BUILD_DIR)/$(shell basename $(file)))
-SMARTIRC4NET_DLL_MDB_SOURCE = $(foreach file, $(SMARTIRC4NET_DLL_SOURCE), $(file).mdb)
-SMARTIRC4NET_DLL_MDB = $(foreach file, $(SMARTIRC4NET_DLL), $(file).mdb)
-
 REFERENCES =  \
 	System \
 	System.Core \
 	Mono.Posix \
-	$(SMARTIRC4NET_LIBS) \
 	$(LOG4NET_LIBS)
 
-DLL_REFERENCES =
+DLL_REFERENCES = \
+    $(BUILD_DIR)/Meebey.SmartIrc4net.dll
 
 CLEANFILES = $(PROGRAMFILES) $(LINUX_PKGCONFIG) 
 
@@ -103,8 +93,6 @@ SMUXI_ENGINE_DLL = $(BUILD_DIR)/smuxi-engine.dll
 SMUXI_COMMON_DLL = $(BUILD_DIR)/smuxi-common.dll
 
 $(eval $(call emit-deploy-wrapper,ENGINE_IRC_PC,smuxi-engine-irc.pc))
-$(eval $(call emit-deploy-target,SMARTIRC4NET_DLL_MDB))
-$(eval $(call emit-deploy-target,SMARTIRC4NET_DLL))
 $(eval $(call emit-deploy-target,SMUXI_ENGINE_DLL_MDB))
 $(eval $(call emit-deploy-target,SMUXI_ENGINE_DLL))
 $(eval $(call emit-deploy-target,SMUXI_COMMON_DLL))

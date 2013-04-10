@@ -28,3 +28,6 @@
 [submodule "lib/JabbR"]
 	path = lib/JabbR
 	url = git://git.qnetp.net/JabbR.git
+[submodule "lib/StarkSoftProxy"]
+	path = lib/StarkSoftProxy
+	url = git://github.com/meebey/starksoftproxy.git

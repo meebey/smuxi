@@ -12,22 +12,16 @@ SOURCES = \
 	Config/XmppPersonModel.cs \
 	Protocols/Xmpp/IQ/OwnMessage.cs
 
-SMARTIRC4NET_LIBS = $(foreach file, $(SMARTIRC4NET_FILES), $(top_builddir)/$(file))
-SMARTIRC4NET_DLL_SOURCE = $(SMARTIRC4NET_LIBS)
-SMARTIRC4NET_DLL = $(foreach file, $(SMARTIRC4NET_FILES), $(BUILD_DIR)/$(shell basename $(file)))
-SMARTIRC4NET_DLL_MDB_SOURCE = $(foreach file, $(SMARTIRC4NET_DLL_SOURCE), $(file).mdb)
-SMARTIRC4NET_DLL_MDB = $(foreach file, $(SMARTIRC4NET_DLL), $(file).mdb)
-
 REFERENCES = \
 	System \
 	Mono.Posix \
-	$(SMARTIRC4NET_LIBS) \
 	$(LOG4NET_LIBS)
 
 DLL_REFERENCES = \
 	$(TARGET_DIR)/smuxi-common.dll \
 	$(TARGET_DIR)/smuxi-engine.dll \
-	$(TARGET_DIR)/agsXMPP.dll
+	$(TARGET_DIR)/StarkSoftProxy.dll \
+	$(TARGET_DIR)/agsxmpp.dll
 
 SOURCES_BUILD = $(addprefix $(srcdir)/, $(SOURCES))
 

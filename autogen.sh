@@ -101,16 +101,9 @@ echo "Running $AUTOCONF ..."
 $AUTOCONF
 
 if test x$NOGIT = x; then
-    git submodule init || exit 1
-    git submodule update || exit 1
+    git submodule update --init --recursive || exit 1
 else
     echo Skipping git submodule initialization.
-fi
-
-if test -d $srcdir/lib/SmartIrc4net; then
-    echo Running lib/SmartIrc4net/autogen.sh ...
-    (cd $srcdir/lib/SmartIrc4net; NOCONFIGURE=1 ./autogen.sh "$@")
-    echo Done running lib/SmartIrc4net/autogen.sh ...
 fi
 
 if test -d $srcdir/lib/messagingmenu-sharp; then
