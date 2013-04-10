@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: Smuxi - IRC client\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-04-10 21:36+0200\n"
-"PO-Revision-Date: 2011-12-30 22:53+0000\n"
+"PO-Revision-Date: 2013-04-10 22:40+0100\n"
 "Last-Translator: Clément Bourgeois <moonpyk@gmail.com>\n"
 "Language-Team: French (http://www.transifex.net/projects/p/smuxi/team/fr/)\n"
 "Language: fr\n"
@@ -103,9 +103,8 @@ msgstr "Paramètre invalide pour le réseau ; utilisez list, switch ou close"
 #. TRANSLATOR: this line is used as a label / category for a
 #. list of networks below
 #: ../src/Engine/Session.cs:733
-#, fuzzy
 msgid "Connected Networks"
-msgstr "Connecté à {0}"
+msgstr "Réseaux connectés"
 
 #: ../src/Engine/Session.cs:738 ../src/Engine/Session.cs:762
 msgid "Network"
@@ -127,14 +126,13 @@ msgstr "Port"
 #. TRANSLATOR: no available networks
 #: ../src/Engine/Session.cs:747 ../src/Engine/Session.cs:768
 msgid "None"
-msgstr ""
+msgstr "Aucun"
 
 #. TRANSLATOR: this line is used as a label / category for a
 #. list of networks below
 #: ../src/Engine/Session.cs:754
-#, fuzzy
 msgid "Available Networks"
-msgstr "Réseaux"
+msgstr "Réseaux disponibles"
 
 #: ../src/Engine/Session.cs:783
 #, csharp-format
@@ -208,9 +206,8 @@ msgid "User \"{0}\" already exists."
 msgstr "L'utilisateur \"{0}\" existe déjà."
 
 #: ../src/Engine/Config/ServerListController.cs:118
-#, fuzzy
 msgid "Network must not be empty."
-msgstr "Le mot de passe ne peut pas être vide."
+msgstr "Le réseau ne peut pas être vide."
 
 #: ../src/Engine/Config/ServerListController.cs:138
 msgid "Server hostname must not be empty."
@@ -221,24 +218,24 @@ msgid "Server hostname contains invalid characters (newline)."
 msgstr "Le nom d'hôte contient des caractères invalides."
 
 #: ../src/Engine/Config/ServerListController.cs:148
-#, fuzzy, csharp-format
+#, csharp-format
 msgid "Server ID '{0}' already exists."
-msgstr "Le serveur \"{0}\" existe déjà."
+msgstr "L'identifiant de serveur \"{0}\" existe déjà."
 
 #: ../src/Engine/Chats/ChatModel.cs:105
-#, fuzzy, csharp-format
+#, csharp-format
 msgid ""
 "Failed to load chat history. Your chat history will not be preserved. "
 "Reason: {0}"
 msgstr ""
-"Impossible d'écrire votre historique de discussion, celui-ci ne sera pas "
+"Impossible de charger votre historique de discussion, celui-ci ne sera pas "
 "préservé. Raison : {0}"
 
 #: ../src/Engine/Chats/ChatModel.cs:298
-#, fuzzy, csharp-format
+#, csharp-format
 msgid ""
 "Failed to open chat history for writing. Your chat history will not be "
 "preserved. Reason: {0}"
 msgstr ""
-"Impossible d'écrire votre historique de discussion, celui-ci ne sera pas "
-"préservé. Raison : {0}"
+"Impossible d'ouvrir en écriture votre historique de discussion, celui-ci ne "
+"sera pas préservé. Raison : {0}"

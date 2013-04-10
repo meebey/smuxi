@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: Smuxi - IRC client\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-04-10 21:37+0200\n"
-"PO-Revision-Date: 2010-11-30 04:12+0000\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"PO-Revision-Date: 2013-04-10 22:29+0100\n"
+"Last-Translator: Clément Bourgeois <moonpyk@gmail.com>\n"
 "Language-Team: French (http://www.transifex.net/projects/p/smuxi/team/fr/)\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
@@ -41,7 +41,7 @@ msgstr "non connecté"
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:347
 #, csharp-format
 msgid "Using proxy: {0}:{1}"
-msgstr ""
+msgstr "Utilisation du proxy {0}:{1}"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:354
 #, csharp-format
@@ -103,9 +103,9 @@ msgid "Reconnect Error"
 msgstr "Erreur à la reconnexion"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:846
-#, fuzzy, csharp-format
+#, csharp-format
 msgid "Sleeping for {0} milliseconds"
-msgstr "lag : {0} secondes"
+msgstr "Mis en pause pendant {0} millisecondes"
 
 #. TRANSLATOR: this line is used as label / category for a
 #. list of commands below
@@ -191,7 +191,7 @@ msgstr "Aucun utilisateur banni sur le canal"
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1885
 #, csharp-format
 msgid "Your user mode is {0}"
-msgstr ""
+msgstr "Votre mode utilisateur est {0}"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1906
 #, csharp-format
@@ -292,15 +292,15 @@ msgstr "{0} [{1}] a quitté {2}"
 
 #. TRANSLATOR: do NOT change the position of {1}!
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2974
-#, fuzzy, csharp-format
+#, csharp-format
 msgid "You were kicked from {0} by {1}"
-msgstr "Vous avez été kické du canal {0} par {1} [{2}]"
+msgstr "Vous avez été kické de {0} par {1}"
 
 #. TRANSLATOR: do NOT change the position of {0} and {2}!
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2985
-#, fuzzy, csharp-format
+#, csharp-format
 msgid "{0} was kicked from {1} by {2}"
-msgstr "{0} a été kické de {1} par {2} [{3}]"
+msgstr "{0} a été kické de {1} par {2}"
 
 #. TRANSLATOR: do NOT change the position of {0}!
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3005

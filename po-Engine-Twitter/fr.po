@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: Smuxi - IRC client\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-04-10 21:38+0200\n"
-"PO-Revision-Date: 2011-12-30 22:56+0000\n"
+"PO-Revision-Date: 2013-04-10 22:27+0100\n"
 "Last-Translator: Clément Bourgeois <moonpyk@gmail.com>\n"
 "Language-Team: French (http://www.transifex.net/projects/p/smuxi/team/fr/)\n"
 "Language: fr\n"
@@ -33,7 +33,7 @@ msgstr "Messages directs"
 #: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:197
 #, csharp-format
 msgid "Using proxy: {0}:{1}"
-msgstr ""
+msgstr "Utilisation du proxy: {0}:{1}"
 
 #: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:204
 msgid "Connecting to Twitter..."

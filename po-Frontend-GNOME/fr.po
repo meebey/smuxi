@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: Smuxi - IRC client\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-04-10 21:42+0200\n"
-"PO-Revision-Date: 2011-12-30 23:13+0000\n"
+"PO-Revision-Date: 2013-04-10 22:38+0100\n"
 "Last-Translator: Clément Bourgeois <moonpyk@gmail.com>\n"
 "Language-Team: French (http://www.transifex.net/projects/p/smuxi/team/fr/)\n"
 "Language: fr\n"
@@ -263,12 +263,11 @@ msgstr "<b> Couleur des onglets </b>"
 
 #: ../glade/smuxi-frontend-gnome.glade.h:51
 msgid "Automatically switch to newly opened person chats"
-msgstr ""
+msgstr "Ouvrir automatiquement les nouveaux chats de personne"
 
 #: ../glade/smuxi-frontend-gnome.glade.h:52
-#, fuzzy
 msgid "Automatically switch to newly opened group chats"
-msgstr "Se connecter automatiquement au serveur à chaque démarrage"
+msgstr "Ouvrir automatiquement les nouveaux chats de groupe"
 
 #: ../glade/smuxi-frontend-gnome.glade.h:53
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1022
@@ -499,7 +498,7 @@ msgstr "_Rapporter un bogue"
 
 #: ../src/Frontend-GNOME/EngineManagerDialog.cs:66
 msgid "Engine not found."
-msgstr ""
+msgstr "Moteur non trouvé."
 
 #: ../src/Frontend-GNOME/EngineManagerDialog.cs:81
 msgid "Engine Manager"
@@ -747,18 +746,16 @@ msgstr "Un moteur avec ce nom éxiste deja ! Veuillez en spécifier un autre."
 
 #: ../src/Frontend-GNOME/Views/JoinWidget.cs:87
 msgid "Enter which chat to join"
-msgstr ""
+msgstr "Entrez le nom du chat à rejoindre"
 
 #: ../src/Frontend-GNOME/Views/MenuWidget.cs:140
-#, fuzzy
 msgid "About Smuxi"
-msgstr "Smuxi"
+msgstr "À propos de Smuxi"
 
 #. TODO: add cmd+, accelerator
 #: ../src/Frontend-GNOME/Views/MenuWidget.cs:144
-#, fuzzy
 msgid "Preferences"
-msgstr "Préférences de Smuxi"
+msgstr "Préférences"
 
 #: ../src/Frontend-GNOME/Views/MenuWidget.cs:238
 #: ../src/Frontend-GNOME/Preferences/ServerListView.cs:227
@@ -904,13 +901,12 @@ msgstr "_Nom :"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.JoinWidget.cs:69
 msgid "Join"
-msgstr ""
+msgstr "Rejoindre"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:55
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:56
-#, fuzzy
 msgid "_Smuxi"
-msgstr "Smuxi"
+msgstr "_Smuxi"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:58
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:59
@@ -939,7 +935,6 @@ msgstr "_Aide"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:73
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:75
-#, fuzzy
 msgid "Connect"
 msgstr "Connexion"
 
@@ -952,25 +947,23 @@ msgstr "Ouvrir le journal"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:87
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:88
-#, fuzzy
 msgid "_Preferences"
-msgstr "Préférences de Smuxi"
+msgstr "_Préférences"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:90
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:91
 msgid "_Quit"
-msgstr ""
+msgstr "_Quitter"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:93
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:94
-#, fuzzy
 msgid "_Connect"
 msgstr "Connexion"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:96
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:97
 msgid "_Add"
-msgstr ""
+msgstr "_Ajouter"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:99
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:100
@@ -979,9 +972,8 @@ msgstr "_Gestion"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:102
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:103
-#, fuzzy
 msgid "_Open / Join Chat"
-msgstr "Ouvrir / Rejoindre chat"
+msgstr "_Ouvrir / Rejoindre chat"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:105
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:106
@@ -1006,7 +998,7 @@ msgstr "Discussion _précédente"
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:117
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:118
 msgid "_Close"
-msgstr ""
+msgstr "_Fermer"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:120
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:121
@@ -1020,9 +1012,8 @@ msgstr "_Ajouter un moteur distant"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:126
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:127
-#, fuzzy
 msgid "Switch Remote Engine"
-msgstr "_Changer de moteur distant"
+msgstr "Changer de moteur distant"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:129
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:130
@@ -1036,42 +1027,37 @@ msgstr "Mode _navigateur"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:138
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:139
-#, fuzzy
 msgid "Show _Statusbar"
-msgstr "Afficher la barre de _menus"
+msgstr "Afficher la barre de status"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:141
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:142
-#, fuzzy
 msgid "Show _Join Bar"
-msgstr "Afficher la barre de _menus"
+msgstr "Afficher la barre \"Rejoindre\""
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:144
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:145
 msgid "_Fullscreen"
-msgstr ""
+msgstr "_Plein écran"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:147
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:148
 msgid "_About"
-msgstr ""
+msgstr "_À propos"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:153
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:155
-#, fuzzy
 msgid "Find Group Chat"
-msgstr "_Rechercher le groupe de discussion"
+msgstr "Rechercher le groupe de discussion"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:157
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:158
-#, fuzzy
 msgid "_Website"
 msgstr "Site web de Smuxi"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.QuickConnectDialog.cs:19
-#, fuzzy
 msgid "Smuxi - Connect"
-msgstr "Smuxi - Connexion rapide"
+msgstr "Smuxi - Connexion"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:206
 msgid "Smuxi - Preferences"
