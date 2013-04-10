@@ -37,6 +37,7 @@ namespace Smuxi.Engine
     
     public class XmppPersonModel : PersonModel
     {
+        public bool Temporary { get; set; }
         public Jid Jid { get; set; }
         public Dictionary<string, XmppResourceModel> Resources { get; private set; }
         public SubscriptionType Subscription { get; set; }
