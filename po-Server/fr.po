@@ -1,21 +1,21 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # Clément Bourgeois <moonpyk@gmail.com>, 2011.
 msgid ""
 msgstr ""
 "Project-Id-Version: Smuxi - IRC client\n"
-"Report-Msgid-Bugs-To: http://www.smuxi.org/issues\n"
-"POT-Creation-Date: 2011-12-29 09:21+0100\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-04-10 21:39+0200\n"
 "PO-Revision-Date: 2011-12-30 23:04+0000\n"
 "Last-Translator: Clément Bourgeois <moonpyk@gmail.com>\n"
 "Language-Team: French (http://www.transifex.net/projects/p/smuxi/team/fr/)\n"
+"Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: fr\n"
 "Plural-Forms: nplurals=2; plural=(n > 1)\n"
 
 #: ../src/Server/Main.cs:71
@@ -41,8 +41,7 @@ msgstr "Utilisateur à créer, modifier ou supprimer"
 #: ../src/Server/Main.cs:116
 msgid "Password of the user when creating or modifying a user"
 msgstr ""
-"Mot de passe utilisé pendant la création ou la modification d'un "
-"utilisateur."
+"Mot de passe utilisé pendant la création ou la modification d'un utilisateur."
 
 #: ../src/Server/Main.cs:125
 msgid "Enable debug output"
@@ -79,8 +78,8 @@ msgstr "Erreur de ligne de commande : {0}"
 
 #: ../src/Server/Main.cs:232
 msgid ""
-"At most one of --add-user, --modify-user, and --delete-user may be used at a"
-" time."
+"At most one of --add-user, --modify-user, and --delete-user may be used at a "
+"time."
 msgstr ""
 "Les options -a|--add-user ou -m|--modify-user et -d|-delete-user ne peuvent "
 "pas être utilisées en même temps."
@@ -104,8 +103,8 @@ msgstr "Le mot de passe ne peut pas être vide."
 #: ../src/Server/Main.cs:283
 #, csharp-format
 msgid ""
-"Invalid optimization value passed to --optimize-message-buffer, valid values"
-" are: {0}"
+"Invalid optimization value passed to --optimize-message-buffer, valid values "
+"are: {0}"
 msgstr ""
 "Valeur d'optimisation passée à --optimize-message-buffer invalide, les "
 "valeurs valides sont : {0}"
@@ -123,7 +122,8 @@ msgstr "L'utilisateur \"{0}\" a été modifié avec succès."
 #: ../src/Server/Main.cs:321
 #, csharp-format
 msgid "User \"{0}\" successfully deleted from server."
-msgstr "L'utilisateur : \"{0}\" a été supprimé de la configuration avec succès."
+msgstr ""
+"L'utilisateur : \"{0}\" a été supprimé de la configuration avec succès."
 
 #: ../src/Server/Main.cs:328
 msgid "Users:"
@@ -138,5 +138,3 @@ msgstr "Optimisation des tampons de messages {0} réalisée avec succès."
 #, csharp-format
 msgid "Failed to optimize message buffers: {0}"
 msgstr "Impossible d'optimiser les tampon de messages : {0}"
-
-
