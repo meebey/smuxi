@@ -942,7 +942,9 @@ namespace Smuxi.Engine
             XmppPersonModel p;
             if (!Contacts.TryGetValue(jid, out p)) {
                 p = new XmppPersonModel(jid, name, this);
-                if (!temporary) Contacts[jid] = p;
+                // always add to local roster, but mark so it's known it's not in the server's roster
+                p.Temporary = temporary;
+                Contacts[jid] = p;
             }
             return p;
         }
