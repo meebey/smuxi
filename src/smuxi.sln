@@ -65,7 +65,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.AspNet.SignalR.Cl
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JabbR.Client", "..\lib\JabbR\JabbR.Client\JabbR.Client.csproj", "{A4A1D183-FD80-4DBD-806F-883DDADD4967}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "agsXMPP2010", "..\lib\agsxmpp\agsxmpp\agsXMPP2010.csproj", "{91EA0D0B-D3BA-497F-AFEB-2CAD59DEBA0E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "agsxmpp", "..\lib\agsxmpp\agsxmpp\agsxmpp.csproj", "{C6379274-C5DE-41A2-AE3E-753F85A557BA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StarkSoftProxy", "..\lib\StarkSoftProxy\StarkSoftProxy.csproj", "{3F8CF2C1-EA37-444F-8693-A3A00B1131D2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -319,6 +321,11 @@ Global
 		{C8E5D37F-6C42-4CD6-81E4-CE4DA2125F11}.Release|Any CPU.Build.0 = Release|Any CPU
 		{C8E5D37F-6C42-4CD6-81E4-CE4DA2125F11}.Release-Win32|x86.ActiveCfg = Release|Any CPU
 		{C8E5D37F-6C42-4CD6-81E4-CE4DA2125F11}.Release-Win32|x86.Build.0 = Release|Any CPU
+		{C6379274-C5DE-41A2-AE3E-753F85A557BA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C6379274-C5DE-41A2-AE3E-753F85A557BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C6379274-C5DE-41A2-AE3E-753F85A557BA}.Debug-Win32|Any CPU.ActiveCfg = Debug-Win32|Any CPU
+		{C6379274-C5DE-41A2-AE3E-753F85A557BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C6379274-C5DE-41A2-AE3E-753F85A557BA}.Release|Any CPU.Build.0 = Release|Any CPU
 		{D39D3DC3-CE90-4313-8351-C30C24B2CCB8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{D39D3DC3-CE90-4313-8351-C30C24B2CCB8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D39D3DC3-CE90-4313-8351-C30C24B2CCB8}.Debug-Win32|x86.ActiveCfg = Debug|Any CPU

@@ -1,5 +1,8 @@
 language: c
 
+before_install:
+  - git submodule update --init --recursive
+
 install:
     - sudo apt-get update > /dev/null
     - sudo apt-get build-dep smuxi > /dev/null
