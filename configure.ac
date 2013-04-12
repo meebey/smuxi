@@ -24,8 +24,6 @@ POSUB="
 	po-Engine
 	po-Engine-IRC
 	po-Engine-XMPP
-	po-Engine-OSCAR
-	po-Engine-MSNP
 	po-Server
 	po-Frontend
 	po-Frontend-GNOME
@@ -48,14 +46,6 @@ AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE_ENGINE_IRC, "$GETTEXT_PACKAGE_ENGINE_IRC", [G
 GETTEXT_PACKAGE_ENGINE_XMPP=smuxi-engine-xmpp
 AC_SUBST(GETTEXT_PACKAGE_ENGINE_XMPP)
 AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE_ENGINE_XMPP, "$GETTEXT_PACKAGE_ENGINE_XMPP", [Gettext package])
-
-GETTEXT_PACKAGE_ENGINE_OSCAR=smuxi-engine-oscar
-AC_SUBST(GETTEXT_PACKAGE_ENGINE_OSCAR)
-AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE_ENGINE_OSCAR, "$GETTEXT_PACKAGE_ENGINE_OSCAR", [Gettext package])
-
-GETTEXT_PACKAGE_ENGINE_MSNP=smuxi-engine-msnp
-AC_SUBST(GETTEXT_PACKAGE_ENGINE_MNSP)
-AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE_ENGINE_MSNP, "$GETTEXT_PACKAGE_ENGINE_MSNP", [Gettext package])
 
 GETTEXT_PACKAGE_ENGINE_TWITTER=smuxi-engine-twitter
 AC_SUBST(GETTEXT_PACKAGE_ENGINE_TWITTER)
@@ -382,22 +372,6 @@ AC_ARG_ENABLE([engine-campfire],
 )
 AM_CONDITIONAL(ENABLE_ENGINE_CAMPFIRE, test "x$ENABLE_ENGINE_CAMPFIRE" = "xyes")
 
-AC_ARG_ENABLE([engine-oscar],
-	AC_HELP_STRING([--enable-engine-oscar], [Enable OSCAR (AIM/ICQ) protocol support (default no)]),
-	ENABLE_ENGINE_OSCAR=$enableval,
-	ENABLE_ENGINE_OSCAR=no
-)
-if test "x$ENABLE_ENGINE_OSCAR" != "xno"; then
-	PKG_CHECK_MODULES([OSCARLIB], [oscarlib], OSCAR_SUPPORT=yes, OSCAR_SUPPORT=no)
-	AC_SUBST(OSCARLIB_LIBS)
-	if test "x$ENABLE_ENGINE_OSCAR" = "xyes" -a "x$OSCAR_ENGINE_SUPPORT" != "xyes"; then
-		AC_MSG_ERROR([OscarLib not found])
-	else
-		ENABLE_ENGINE_OSCARC=$OSCAR_SUPPORT
-	fi
-fi
-AM_CONDITIONAL(ENABLE_ENGINE_OSCAR, test "x$ENABLE_ENGINE_OSCAR" = "xyes")
-
 AC_ARG_ENABLE([engine-xmpp],
 	AC_HELP_STRING([--enable-engine-xmpp], [Enable XMPP (Jabber) protocol support (default yes)]),
 	ENABLE_ENGINE_XMPP=$enableval,
@@ -419,22 +393,6 @@ if test "x$ENABLE_ENGINE_XMPP" != "xno"; then
 	])
 fi
 AM_CONDITIONAL(ENABLE_ENGINE_XMPP, test "x$ENABLE_ENGINE_XMPP" = "xyes")
-
-AC_ARG_ENABLE([engine-msnp],
-	AC_HELP_STRING([--enable-engine-msnp], [Enable MSNP protocol support (default no)]),
-	ENABLE_ENGINE_MSNP=$enableval,
-	ENABLE_ENGINE_MSNP=no
-)
-if test "x$ENABLE_ENGINE_MSNP" != "xno"; then
-	PKG_CHECK_MODULES([MSNPSHARP], [msnp-sharp], MSNP_SUPPORT=yes, MSNP_SUPPORT=no)
-	AC_SUBST(MSNPSHARP_LIBS)
-	if test "x$ENABLE_ENGINE_MSNP" = "xyes" -a "x$MSNP_SUPPORT" != "xyes"; then
-		AC_MSG_ERROR([MSNPSharp not found])
-	else
-		ENABLE_ENGINE_MSNP=$MSNP_SUPPORT
-	fi
-fi
-AM_CONDITIONAL(ENABLE_ENGINE_MSNP, test "x$ENABLE_ENGINE_MSNP" = "xyes")
 
 AC_ARG_ENABLE([engine-twitter],
 	AC_HELP_STRING([--enable-engine-twitter], [Enable Twitter support (default yes)]),
@@ -614,10 +572,6 @@ AC_CONFIG_FILES([
 	src/Engine/smuxi-engine.pc
 	src/Engine-IRC/Makefile
 	src/Engine-IRC/smuxi-engine-irc.pc
-	src/Engine-MSNP/Makefile
-	src/Engine-MSNP/smuxi-engine-msnp.pc
-	src/Engine-OSCAR/Makefile
-	src/Engine-OSCAR/smuxi-engine-oscar.pc
 	src/Engine-Twitter/Makefile
 	src/Engine-XMPP/Makefile
 	src/Engine-XMPP/smuxi-engine-xmpp.pc
@@ -670,8 +624,6 @@ AC_MSG_RESULT([
 	  Core:                (db4o: $WITH_DB4O)
 	  IRC:                 $ENABLE_ENGINE_IRC
 	  XMPP:                $ENABLE_ENGINE_XMPP
-	  OSCAR:               $ENABLE_ENGINE_OSCAR
-	  MSNP:                $ENABLE_ENGINE_MSNP
 	  Twitter:             $ENABLE_ENGINE_TWITTER
 	  Campfire:            $ENABLE_ENGINE_CAMPFIRE
 
