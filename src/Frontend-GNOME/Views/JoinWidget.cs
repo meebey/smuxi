@@ -59,17 +59,17 @@ namespace Smuxi.Frontend.Gnome
             }
         }
 
-        [DllImport("libgtk-win32-2.0-0.dll")]
+        [DllImport("libgtk-win32-2.0-0.dll", CallingConvention = CallingConvention.Cdecl)]
         static extern void gtk_entry_set_icon_from_pixbuf(IntPtr entry, int pos, IntPtr pixbuf);
 
         // Since: 2.16
         // void gtk_entry_set_icon_tooltip_text(GtkEntry *entry, GtkEntryIconPosition icon_pos, const gchar *tooltip)
-        [DllImport("libgtk-win32-2.0-0.dll")]
+        [DllImport("libgtk-win32-2.0-0.dll", CallingConvention = CallingConvention.Cdecl)]
         static extern void gtk_entry_set_icon_tooltip_text(IntPtr entry, int pos, IntPtr tooltip);
 
         // Since: 3.2
         // void gtk_entry_set_placeholder_text (GtkEntry *entry, const gchar *text)
-        [DllImport("libgtk-win32-2.0-0.dll")]
+        [DllImport("libgtk-win32-2.0-0.dll", CallingConvention = CallingConvention.Cdecl)]
         static extern void gtk_entry_set_placeholder_text(IntPtr entry, string text);
 
         public JoinWidget()
