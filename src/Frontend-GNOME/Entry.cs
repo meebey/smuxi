@@ -909,12 +909,12 @@ namespace Smuxi.Frontend.Gnome
         }
 
 #if GTKSPELL
-        [DllImport("gtkspell.dll")]
+        [DllImport("gtkspell.dll", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr gtkspell_new_attach(IntPtr text_view,
                                                  string locale,
                                                  IntPtr error);
 
-        [DllImport("gtkspell.dll")]
+        [DllImport("gtkspell.dll", CallingConvention = CallingConvention.Cdecl)]
         static extern void gtkspell_detach(IntPtr obj);
 #endif
     }
