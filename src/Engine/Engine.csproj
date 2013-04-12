@@ -27,18 +27,18 @@
     </Execution>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>none</DebugType>
+    <DebugType>full</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>..\..\bin\release</OutputPath>
-    <DefineConstants>CONFIG_NINI</DefineConstants>
+    <DefineConstants>TRACE;LOG4NET;CONFIG_NINI;DB4O_8_0</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
     <ConsolePause>false</ConsolePause>
     <RunWithWarnings>false</RunWithWarnings>
     <Execution>
       <Execution clr-version="Net_2_0" />
     </Execution>
+    <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="AssemblyInfo.cs" />
