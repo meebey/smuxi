@@ -7,14 +7,6 @@ if ENABLE_ENGINE_XMPP
 ENGINE_XMPP = Engine-XMPP
 endif
 
-if ENABLE_ENGINE_OSCAR
-ENGINE_OSCAR = Engine-OSCAR
-endif
-
-if ENABLE_ENGINE_MSNP
-ENGINE_MSNP = Engine-MSNP
-endif
-
 if ENABLE_ENGINE_TWITTER
 ENGINE_TWITTER = Engine-Twitter
 endif
@@ -59,8 +51,6 @@ endif
 SUBDIRS =	Common \
 		Engine \
 		$(ENGINE_IRC) \
-		$(ENGINE_MSNP) \
-		$(ENGINE_OSCAR) \
 		$(ENGINE_TWITTER) \
 		$(ENGINE_CAMPFIRE) \
 		$(ENGINE_XMPP) \
