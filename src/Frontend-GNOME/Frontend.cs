@@ -938,15 +938,23 @@ namespace Smuxi.Frontend.Gnome
         {
             // HACK: Force GTK# to use the right GTK+ install as the PATH
             // environment variable might contain other GTK+ installs
+            // GTK# 2.12.20
             var installPath = (string) Microsoft.Win32.Registry.GetValue(
-                "HKEY_LOCAL_MACHINE\\SOFTWARE\\Novell\\GtkSharp\\InstallFolder",
+                "HKEY_LOCAL_MACHINE\\SOFTWARE\\Xamarin\\GtkSharp\\InstallFolder",
                 "", null
             );
             if (installPath == null) {
+                // GTK# 2.12.10
+                installPath = (string) Microsoft.Win32.Registry.GetValue(
+                    "HKEY_LOCAL_MACHINE\\SOFTWARE\\Novell\\GtkSharp\\InstallFolder",
+                    "", null
+                );
+            }
+            if (installPath == null) {
 #if LOG4NET
                 _Logger.Error("InitGtkPathWin(): couldn't obtain GTK# installation folder from registry. GTK# is probably incorrectly installed!");
-                return;
 #endif
+                return;
             }
 
             var binPath = Path.Combine(installPath, "bin");
