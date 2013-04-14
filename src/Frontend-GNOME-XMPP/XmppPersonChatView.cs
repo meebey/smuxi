@@ -55,6 +55,13 @@ namespace Smuxi.Frontend.Gnome
             Gtk.ImageMenuItem add2contacts_item = new Gtk.ImageMenuItem(_("Add To Contacts"));
             add2contacts_item.Activated += _OnMenuAdd2ContactsItemActivated;
             popup.Append(add2contacts_item);
+            
+            Gtk.ImageMenuItem invite_to_item = new Gtk.ImageMenuItem(_("Invite to"));
+            Gtk.Menu invite_to_menu_item = new InviteToMenu(XmppProtocolManager,
+                                                            Frontend.MainWindow.ChatViewManager,
+                                                            PersonModel);
+            invite_to_item.Submenu = invite_to_menu_item;
+            popup.Append(invite_to_item);
 
             popup.ShowAll();
         }
