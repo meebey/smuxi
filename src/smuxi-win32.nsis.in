@@ -560,7 +560,7 @@ SectionEnd
 
 Function un.onUninstSuccess
   HideWindow
-  MessageBox MB_ICONINFORMATION|MB_OK "$(^Name) was successfully unistalled."
+  MessageBox MB_ICONINFORMATION|MB_OK "$(^Name) was successfully uninstalled."
 FunctionEnd
 
 Function un.onInit
