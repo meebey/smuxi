@@ -239,10 +239,13 @@ FunctionEnd
 # http://download.microsoft.com/download/2/0/e/20e90413-712f-438c-988e-fdaa79a8ac3d/dotnetfx35.exe
 # .NET 3.5 SP1 Web Installer - 3 MB / .NET 2.0 -> 3.5: 52 MB
 # http://download.microsoft.com/download/0/6/1/061F001C-8752-4600-A198-53214C69B51F/dotnetfx35setup.exe
-# .NET 4.0 Full Web Installer - 1 MB / .NET 3.5 SP1 -> 4.0: 54 MB
-# http://download.microsoft.com/download/1/B/E/1BE39E79-7E39-46A3-96FF-047F95396215/dotNetFx40_Full_setup.exe
-# .NET 4.0 Client Profile Web Installer - 1 MB / .NET 3.5 SP1 -> 4.0: 43 MB
+# .NET 4.0 Client Profile Web Installer - 1 MB
+# - .NET 3.5 SP1 -> 4.0: 43 MB
 # http://download.microsoft.com/download/7/B/6/7B629E05-399A-4A92-B5BC-484C74B5124B/dotNetFx40_Client_setup.exe
+# .NET 4.0 Full Web Installer - 1 MB
+# - .NET 3.5 SP1 -> 4.0: 54 MB
+# - .NET 4.0 Client Profile -> 4.0 Full: 15 MB
+# http://download.microsoft.com/download/1/B/E/1BE39E79-7E39-46A3-96FF-047F95396215/dotNetFx40_Full_setup.exe
   !define DOTNET_URL "http://download.microsoft.com/download/7/B/6/7B629E05-399A-4A92-B5BC-484C74B5124B/dotNetFx40_Client_setup.exe"
   !define MSI31_URL "http://download.microsoft.com/download/1/4/7/147ded26-931c-4daf-9095-ec7baf996f46/WindowsInstaller-KB893803-v2-x86.exe"
  
