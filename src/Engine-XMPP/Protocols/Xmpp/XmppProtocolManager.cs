@@ -68,6 +68,7 @@ namespace Smuxi.Engine
         XmppClientConnection JabberClient { get; set; }
         MucManager MucManager { get; set; }
         DiscoManager Disco { get; set; }
+        string[] Nicknames { get; set; }
         
         Dictionary<Jid, XmppPersonModel> Contacts { get; set; }
         Dictionary<string, DiscoInfo> DiscoCache { get; set; }
@@ -442,6 +443,10 @@ namespace Smuxi.Engine
                             CommandSay(command);
                             handled = true;
                             break;
+                        case "joinas":
+                            CommandJoinAs(command);
+                            handled = true;
+                            break;
                         case "join":
                             CommandJoin(command);
                             handled = true;
@@ -653,7 +658,8 @@ namespace Smuxi.Engine
             "connect xmpp/jabber server port username password [resource]",
             "msg/query jid/nick message",
             "say message",
-            "join muc-jid [custom-chat-nick]",
+            "join muc-jid [password]",
+            "joinas muc-jid nickname [password]",
             "part/leave [muc-jid]",
             "away [away-message]",
             "contact add/remove jid/nick",
@@ -816,20 +822,43 @@ namespace Smuxi.Engine
                 NotEnoughParameters(cd);
                 return;
             }
-
-            string jid = cd.DataArray[1];
-            XmppGroupChatModel chat = (XmppGroupChatModel)GetChat(jid, ChatType.Group);
-            string nickname = JabberClient.Username;
+            string password = null;
             if (cd.DataArray.Length > 2) {
-                nickname = cd.DataArray[2];
+                password = cd.DataArray[2];
             }
+            JoinRoom(cd.DataArray[1], null, password);
+        }
+
+        void JoinRoom(Jid jid, string nickname, string password)
+        {
+            XmppGroupChatModel chat = (XmppGroupChatModel)GetChat(jid, ChatType.Group);
+            if (nickname == null) {
+                nickname = Nicknames[0];
+            }
+            MucManager.JoinRoom(jid, nickname, password);
             if (chat == null) {
-                MucManager.JoinRoom(jid, nickname);
                 chat = Session.CreateChat<XmppGroupChatModel>(jid, jid, this);
-                chat.OwnNickname = nickname;
                 Session.AddChat(chat);
-                Session.DisableChat(chat);
             }
+            Session.DisableChat(chat);
+            if (password != null) {
+                chat.Password = password;
+            }
+            chat.IsSynced = false;
+            chat.OwnNickname = nickname;
+        }
+
+        public void CommandJoinAs(CommandModel cd)
+        {
+            if (cd.DataArray.Length < 3) {
+                NotEnoughParameters(cd);
+                return;
+            }
+            string password = null;
+            if (cd.DataArray.Length > 3) {
+                password = cd.DataArray[3];
+            }
+            JoinRoom(cd.DataArray[1], cd.DataArray[2], password);
         }
 
         public void CommandPart(CommandModel cd)
@@ -1794,6 +1823,8 @@ namespace Smuxi.Engine
 
             // XMPP specific settings
             JabberClient.Resource = server.Resource;
+            
+            Nicknames = (string[]) config["Connection/Nicknames"];
 
             JabberClient.UseStartTLS = server.UseEncryption;
             if (!server.ValidateServerCertificate) {
