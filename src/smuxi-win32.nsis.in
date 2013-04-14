@@ -141,6 +141,12 @@ FunctionEnd
     ReadRegStr $GTKSHARP_FOUND_VERSION HKLM \
           "SOFTWARE\Novell\GtkSharp\Version" ""
 
+    # GTK# 2.12.20 uses a Xamarin key
+    ${If} $GTKSHARP_FOUND_VERSION == ""
+        ReadRegStr $GTKSHARP_FOUND_VERSION HKLM \
+              "SOFTWARE\Xamarin\GtkSharp\Version" ""
+    ${EndIf}
+
     ${VersionCompare} $GTKSHARP_FOUND_VERSION ${GTKSHARP_REQ} $R0
 
     ${If} $GTKSHARP_FOUND_VERSION == ""
