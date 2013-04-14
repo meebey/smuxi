@@ -809,21 +809,27 @@ namespace Smuxi.Engine
             return jid;
         }
         
+        void MessageQuery(Jid jid, string message)
+        {
+            var chat = GetOrCreatePersonChat(jid);
+            if (!String.IsNullOrWhiteSpace(message)) {
+                _Say(chat, message);
+            }
+        }
+        
         public void CommandMessageQuery(CommandModel cd)
         {
-            PersonChatModel chat = null;
-            if (cd.DataArray.Length >= 2) {
-                string arg = cd.DataArray[1];
-                Jid jid = GetJidFromNickname(arg);
-                chat = GetOrCreatePersonChat(jid);
+            if (cd.DataArray.Length < 2) {
+                NotEnoughParameters(cd);
+                return;
             }
-            
+            Jid jid = GetJidFromNickname(cd.DataArray[1]);
             if (cd.DataArray.Length >= 3) {
+                // we have a message
                 string message = String.Join(" ", cd.DataArray, 2, cd.DataArray.Length-2);
-                // ignore empty messages
-                if (message.TrimEnd(' ').Length > 0) {
-                    _Say(chat, message);
-                }
+                MessageQuery(jid, message);
+            } else {
+                MessageQuery(jid, null);
             }
         }
         
