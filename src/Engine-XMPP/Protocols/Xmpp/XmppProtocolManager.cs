@@ -1678,6 +1678,8 @@ namespace Smuxi.Engine
                 case XmppMessageType.normal:
                     if (String.IsNullOrEmpty(msg.From.User)) {
                         OnServerMessage(msg);
+                    } else if (msg.MucUser != null) {
+                        OnMucMessage(msg);
                     } else {
                         OnPrivateChatMessage(msg);
                     }
@@ -1706,6 +1708,43 @@ namespace Smuxi.Engine
                 }
                     break;
             }
+        }
+
+        void OnMucMessage (Message msg)
+        {
+            User user = msg.MucUser;
+            string text;
+            if (user.Invite != null) {
+                if (!String.IsNullOrWhiteSpace(user.Invite.Reason)) {
+                    text = String.Format(_("You have been invited to {2} by {0} because {1}"),
+                                         user.Invite.From,
+                                         user.Invite.Reason,
+                                         msg.From
+                                         );
+                } else {
+                    text = String.Format(_("You have been invited to {1} by {0}"),
+                                         user.Invite.From,
+                                         msg.From
+                                         );
+                }
+            } else {
+                text = msg.ToString();
+            }
+            var builder = CreateMessageBuilder();
+            builder.AppendEventPrefix();
+            var txt = builder.CreateText(text);
+            txt.IsHighlight = true;
+            builder.AppendText(txt);
+            Session.AddMessageToChat(NetworkChat, builder.ToMessage());
+            builder = CreateMessageBuilder();
+            string url;
+            if (!String.IsNullOrEmpty(user.Password)) {
+                url = String.Format("xmpp:{0}?join;password={1}", msg.From, user.Password);
+            } else {
+                url = String.Format("xmpp:{0}?join", msg.From);
+            }
+            builder.AppendUrl(url, _("Accept invite (join room)"));
+            Session.AddMessageToChat(NetworkChat, builder.ToMessage());
         }
         
         void OnChatState(Message msg)
