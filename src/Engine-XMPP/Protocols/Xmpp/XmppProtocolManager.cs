@@ -608,7 +608,7 @@ namespace Smuxi.Engine
                             JabberClient.PresenceManager.ApproveSubscriptionRequest(jid);
                         }
                     } else {
-                        // this will take care of subscribing and roster adding
+                        JabberClient.RosterManager.AddRosterItem(jid);
                         JabberClient.PresenceManager.Subscribe(jid);
                         JabberClient.PresenceManager.ApproveSubscriptionRequest(jid);
                     }
