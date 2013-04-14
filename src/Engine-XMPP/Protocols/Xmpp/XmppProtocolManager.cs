@@ -451,6 +451,10 @@ namespace Smuxi.Engine
                             CommandJoin(command);
                             handled = true;
                             break;
+                        case "invite":
+                            CommandInvite(command);
+                            handled = true;
+                            break;
                         case "part":
                         case "leave":
                             CommandPart(command);
@@ -872,6 +876,45 @@ namespace Smuxi.Engine
             if (chat != null) {
                 MucManager.LeaveRoom(jid, chat.OwnNickname);
             }
+        }
+
+        public void CommandInvite(CommandModel cd)
+        {
+            if (cd.DataArray.Length < 3) {
+                NotEnoughParameters(cd);
+                return;
+            }
+            string password = null;
+            if (cd.DataArray.Length > 3) {
+                password = cd.DataArray[3];
+            }
+            Invite(cd.DataArray[2], cd.DataArray[1], null, password);
+        }
+
+        void Invite(Jid jid, Jid room, string reason, string password)
+        {
+            Invite(new Jid[]{jid}, room, reason, password);
+        }
+  
+        public void Invite(string[] jids_string, string room, string reason, string password)
+        {
+            var jids = new Jid[jids_string.Length];
+            for (int i = 0; i < jids.Length; i++) {
+                jids[i] = jids_string[i];
+            }
+            Invite(jids, room, reason, password);
+        }
+        
+        void Invite(Jid[] jid, Jid room, string reason, string password)
+        {
+            JoinRoom(room, null, password);
+            XmppGroupChatModel chat = (XmppGroupChatModel)GetChat(room, ChatType.Group);
+            // if no password is passed, but we are already in the chatroom and know
+            // about a password, use that password
+            if (password == null && chat != null) {
+                password = chat.Password;
+            }
+            MucManager.Invite(jid, room, reason, password);
         }
 
         public void CommandAway(CommandModel cd)
