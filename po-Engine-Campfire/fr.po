@@ -1,0 +1,76 @@
+# This file is distributed under the same license as the smuxi package.
+# Clément Bourgeois <moonpyk@gmail.com>, 2013.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Smuxi - IRC client\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-04-10 21:37+0200\n"
+"PO-Revision-Date: 2013-04-14 21:48+0100\n"
+"Last-Translator: Clément Bourgeois <moonpyk@gmail.com>\n"
+"Language-Team: French (http://www.transifex.net/projects/p/smuxi/team/fr/)\n"
+"Language: fr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:123
+msgid "Connecting to campfire... "
+msgstr "Connexion à campfire..."
+
+#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:149
+msgid "Connected to campfire"
+msgstr "Connecté à campfire"
+
+#. TRANSLATOR: this line is used as a label / category for a
+#. list of commands below
+#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:181
+msgid "Campfire Commands"
+msgstr "Commandes Campfire"
+
+#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:242
+msgid "Upload"
+msgstr "Envoyer"
+
+#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:243
+#, csharp-format
+msgid "'{0}' ({1} B) {2}"
+msgstr "'{0}' ({1} O) {2}"
+
+#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:354
+#, csharp-format
+msgid "has uploaded '{0}' ({1} B) {2}"
+msgstr "a envoyé '{0}' ({1} O) {2}"
+
+#. TRANSLATOR: {0} is the name of the room
+#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:386
+#, csharp-format
+msgid "has joined {0}"
+msgstr "a rejoint {0}"
+
+#. TRANSLATOR: {0} is the name of the room
+#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:395
+#, csharp-format
+msgid "has left {0}"
+msgstr "a quitté {0}"
+
+#. TRANSLATOR: {0} is the name of the room
+#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:403
+#, csharp-format
+msgid "has locked {0}"
+msgstr "a bloqué {0}"
+
+#. TRANSLATOR: {0} is the name of the room
+#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:407
+#, csharp-format
+msgid "has unlocked {0}"
+msgstr "a débloqué {0}"
+
+#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:412
+msgid "has changed the topic"
+msgstr "a changé le sujet"
+
+#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:422
+msgid "has performed an unknown action"
+msgstr "a effectué une action inconnue"
