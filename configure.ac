@@ -22,6 +22,7 @@ IT_PROG_INTLTOOL([0.25])
 POSUB="
 	po
 	po-Engine
+	po-Engine-Campfire
 	po-Engine-IRC
 	po-Engine-XMPP
 	po-Server
@@ -597,6 +598,7 @@ AC_CONFIG_FILES([
 	lib/osx/Info.plist
 	po/Makefile.in
 	po-Engine/Makefile.in
+	po-Engine-Campfire/Makefile.in
 	po-Engine-IRC/Makefile.in
 	po-Engine-Twitter/Makefile.in
 	po-Server/Makefile.in

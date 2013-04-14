@@ -6,6 +6,11 @@ file_filter = po-Engine/<lang>.po
 source_file = po-Engine/smuxi-engine.pot
 source_lang = en
 
+[smuxi.smuxi-engine-campfire]
+file_filter = po-Engine-Campfire/<lang>.po
+source_file = po-Engine-Campfire/smuxi-engine-campfire.pot
+source_lang = en
+
 [smuxi.smuxi-engine-irc]
 file_filter = po-Engine-IRC/<lang>.po
 source_file = po-Engine-IRC/smuxi-engine-irc.pot
