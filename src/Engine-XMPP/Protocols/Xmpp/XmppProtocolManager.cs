@@ -467,6 +467,10 @@ namespace Smuxi.Engine
                             CommandPriority(command);
                             handled = true;
                             break;
+                        case "whois":
+                            CommandWhoIs(command);
+                            handled = true;
+                            break;
                     }
                 } else {
                     _Say(command.Chat, command.Data);
@@ -493,6 +497,71 @@ namespace Smuxi.Engine
             }
             
             return handled;
+        }
+
+        public void CommandWhoIs(CommandModel cmd)
+        {
+            Jid jid;
+            if (cmd.DataArray.Length < 2) {
+                if ((cmd.DataArray.Length == 1)
+                    && (cmd.Chat is PersonChatModel)) {
+                    jid = (cmd.Chat as PersonChatModel).Person.ID;
+                } else {
+                    NotEnoughParameters(cmd);
+                    return;
+                }
+            } else {
+                jid = GetJidFromNickname(cmd.DataArray[1]);
+            }
+            XmppPersonModel person;
+            var builder = CreateMessageBuilder();
+            if (!Contacts.TryGetValue(jid, out person)) {
+                builder.AppendErrorText(_("Could not find contact {0}"), jid);
+                cmd.FrontendManager.AddMessageToChat(cmd.Chat, builder.ToMessage());
+                return;
+            }
+            builder.AppendText(_("Contact's Jid: {0}"), person.Jid);
+            builder.AppendText("\n");
+            switch (person.Subscription) {
+                case SubscriptionType.both:
+                    builder.AppendText(_("You have a mutual subscription with this contact"));
+                    break;
+                case SubscriptionType.none:
+                    builder.AppendText(_("You have no subscription with this contact and this contact is not subscribed to you"));
+                    break;
+                case SubscriptionType.to:
+                    builder.AppendText(_("You are subscribed to this contact, but the contact is not subcribed to you"));
+                    break;
+                case SubscriptionType.from:
+                    builder.AppendText(_("You are not subscribed to this contact, but the contact is subcribed to you"));
+                    break;
+                default:
+                    builder.AppendErrorText("Invalid Subscription, this is a bug");
+                    break;
+            }
+            int i = 0;
+            foreach(var res in person.Resources) {
+                builder.AppendText("\nResource({0}):", i);
+                builder.AppendText("\n\tName: {0}", res.Key);
+                var pres = res.Value.Presence;
+                if (pres != null) {
+                    builder.AppendText("\n\tPresence:");
+                    builder.AppendText("\n\t\tShow:{0}", pres.Show);
+                    builder.AppendText("\n\t\tStatus:{0}", pres.Status);
+                    builder.AppendText("\n\t\tLast:{0}", pres.Last);
+                    builder.AppendText("\n\t\tPriority:{0}", pres.Priority);
+                    builder.AppendText("\n\t\tType:{0}", pres.Type);
+                    builder.AppendText("\n\t\tXDelay:{0}", (pres.XDelay!=null)?pres.XDelay.Stamp.ToString():"");
+                }
+                if (res.Value.Disco != null) {
+                    builder.AppendText("\n\tFeatures:");
+                    foreach(var feat in res.Value.Disco.GetFeatures()) {
+                        builder.AppendText("\n\t\t{0}", feat.Var);
+                    }
+                }
+                i++;
+            }
+            cmd.FrontendManager.AddMessageToChat(cmd.Chat, builder.ToMessage());
         }
 
         public void CommandContact(CommandModel cd)
@@ -592,6 +661,7 @@ namespace Smuxi.Engine
             ,"priority away/online/temp priority-value"
             ,"advanced commands:"
             ,"contact addonly/subscribe/unsubscribe/approve/deny"
+            ,"whois jid"
             };
             
             foreach (string line in help) {
