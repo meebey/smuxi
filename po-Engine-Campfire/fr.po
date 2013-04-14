@@ -6,7 +6,7 @@ msgstr ""
 "Project-Id-Version: Smuxi - IRC client\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-04-10 21:37+0200\n"
-"PO-Revision-Date: 2013-04-14 21:35+0100\n"
+"PO-Revision-Date: 2013-04-14 21:48+0100\n"
 "Last-Translator: Clément Bourgeois <moonpyk@gmail.com>\n"
 "Language-Team: French (http://www.transifex.net/projects/p/smuxi/team/fr/)\n"
 "Language: fr\n"
@@ -36,12 +36,12 @@ msgstr "Envoyer"
 #: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:243
 #, csharp-format
 msgid "'{0}' ({1} B) {2}"
-msgstr "'{0}' ({1} B) {2}"
+msgstr "'{0}' ({1} O) {2}"
 
 #: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:354
 #, csharp-format
 msgid "has uploaded '{0}' ({1} B) {2}"
-msgstr "a envoyé '{0}' ({1} B) {2}"
+msgstr "a envoyé '{0}' ({1} O) {2}"
 
 #. TRANSLATOR: {0} is the name of the room
 #: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:386
