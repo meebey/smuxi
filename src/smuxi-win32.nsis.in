@@ -158,7 +158,7 @@ FunctionEnd
 
     InstallGtkSharpConfirmation:
         MessageBox MB_YESNOCANCEL|MB_ICONEXCLAMATION \
-            "Your GTK# version: $GTKSHARP_FOUND_VERSION $\nRequired Version: ${GTKSHARP_REQ} or greater.$\n$\nDownload GTK# from download.mono-project.com?" \
+            "Your GTK# version: $GTKSHARP_FOUND_VERSION $\nRequired Version: ${GTKSHARP_REQ} or greater.$\n$\nDownload GTK# from www.smuxi.org?" \
             /SD IDYES IDYES InstallGtkSharp IDNO End
         goto GiveUp ;IDCANCEL
 
