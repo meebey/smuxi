@@ -62,6 +62,7 @@ namespace Smuxi.Frontend.Gnome
         public static string IconName { get; private set; }
         public static bool HasSystemIconTheme { get; private set; }
         public static bool HadSession { get; private set; }
+        public static bool IsGtkInitialized { get; private set; }
         public static bool InGtkApplicationRun { get; private set; }
 
         public static event EventHandler  SessionPropertyChanged;
@@ -908,6 +909,7 @@ namespace Smuxi.Frontend.Gnome
             _Logger.Debug("InitGtk(): Using locale data from: " + localeDir);
 #endif
             Gtk.Application.Init(Name, ref args);
+            IsGtkInitialized = true;
 #if GTK_SHARP_2_10
             GLib.ExceptionManager.UnhandledException += _OnUnhandledException;
 #endif
