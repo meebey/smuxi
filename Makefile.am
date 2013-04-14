@@ -1,4 +1,8 @@
 # Engines
+if ENABLE_ENGINE_CAMPFIRE
+PO_ENGINE_CAMPFIRE = po-Engine-Campfire
+endif
+
 if ENABLE_ENGINE_IRC
 PO_ENGINE_IRC = po-Engine-IRC
 endif
