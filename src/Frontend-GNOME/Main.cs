@@ -79,7 +79,7 @@ namespace Smuxi.Frontend.Gnome
 #endif
                 // when Gtk# receives an exception it is not usable/relyable anymore! 
                 // except the exception was thrown in Frontend.Init() itself
-                if (!Frontend.InGtkApplicationRun) {
+                if (Frontend.IsGtkInitialized && !Frontend.InGtkApplicationRun) {
                     Frontend.ShowException(e);
                 }
                 

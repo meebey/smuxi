@@ -33,7 +33,7 @@ SetCompressor lzma
 !define PRODUCT_DIR_REGKEY "Software\Microsoft\Windows\CurrentVersion\App Paths\smuxi-frontend-gnome.exe"
 !define PRODUCT_UNINST_KEY "Software\Microsoft\Windows\CurrentVersion\Uninstall\${PRODUCT_NAME}"
 !define PRODUCT_UNINST_ROOT_KEY "HKLM"
-!define DOTNET_VERSION "3.5 SP1"
+!define DOTNET_VERSION "4.0"
 !define GTKSHARP_PRODUCT_GUID "{3CB70B01-4BC8-4C0F-B28F-7C6E33F913CC}"
 !define GTKSHARP_VERSION "2.12.10"
 
@@ -141,6 +141,12 @@ FunctionEnd
     ReadRegStr $GTKSHARP_FOUND_VERSION HKLM \
           "SOFTWARE\Novell\GtkSharp\Version" ""
 
+    # GTK# 2.12.20 uses a Xamarin key
+    ${If} $GTKSHARP_FOUND_VERSION == ""
+        ReadRegStr $GTKSHARP_FOUND_VERSION HKLM \
+              "SOFTWARE\Xamarin\GtkSharp\Version" ""
+    ${EndIf}
+
     ${VersionCompare} $GTKSHARP_FOUND_VERSION ${GTKSHARP_REQ} $R0
 
     ${If} $GTKSHARP_FOUND_VERSION == ""
@@ -158,7 +164,7 @@ FunctionEnd
 
     InstallGtkSharpConfirmation:
         MessageBox MB_YESNOCANCEL|MB_ICONEXCLAMATION \
-            "Your GTK# version: $GTKSHARP_FOUND_VERSION $\nRequired Version: ${GTKSHARP_REQ} or greater.$\n$\nDownload GTK# from download.mono-project.com?" \
+            "Your GTK# version: $GTKSHARP_FOUND_VERSION $\nRequired Version: ${GTKSHARP_REQ} or greater.$\n$\nDownload GTK# from www.smuxi.org?" \
             /SD IDYES IDYES InstallGtkSharp IDNO End
         goto GiveUp ;IDCANCEL
 
@@ -237,10 +243,16 @@ FunctionEnd
 # http://download.microsoft.com/download/7/0/3/703455ee-a747-4cc8-bd3e-98a615c3aedb/dotNetFx35setup.exe
 # .NET 3.5 SP1 - 231 MB
 # http://download.microsoft.com/download/2/0/e/20e90413-712f-438c-988e-fdaa79a8ac3d/dotnetfx35.exe
-# .NET 3.5 SP1 Web Installer - 3 MB  .NET 2.0 -> 3.5: 52 MB
+# .NET 3.5 SP1 Web Installer - 3 MB / .NET 2.0 -> 3.5: 52 MB
 # http://download.microsoft.com/download/0/6/1/061F001C-8752-4600-A198-53214C69B51F/dotnetfx35setup.exe
-
-  !define DOTNET_URL "http://download.microsoft.com/download/0/6/1/061F001C-8752-4600-A198-53214C69B51F/dotnetfx35setup.exe"
+# .NET 4.0 Client Profile Web Installer - 1 MB
+# - .NET 3.5 SP1 -> 4.0: 43 MB
+# http://download.microsoft.com/download/7/B/6/7B629E05-399A-4A92-B5BC-484C74B5124B/dotNetFx40_Client_setup.exe
+# .NET 4.0 Full Web Installer - 1 MB
+# - .NET 3.5 SP1 -> 4.0: 54 MB
+# - .NET 4.0 Client Profile -> 4.0 Full: 15 MB
+# http://download.microsoft.com/download/1/B/E/1BE39E79-7E39-46A3-96FF-047F95396215/dotNetFx40_Full_setup.exe
+  !define DOTNET_URL "http://download.microsoft.com/download/7/B/6/7B629E05-399A-4A92-B5BC-484C74B5124B/dotNetFx40_Client_setup.exe"
   !define MSI31_URL "http://download.microsoft.com/download/1/4/7/147ded26-931c-4daf-9095-ec7baf996f46/WindowsInstaller-KB893803-v2-x86.exe"
  
   DetailPrint "Checking your .NET Framework version..."
@@ -251,7 +263,7 @@ FunctionEnd
   Push $3
   Push $4
   Push $5
-  Push $6 ;backup of intsalled ver
+  Push $6 ;backup of installed ver
   Push $7 ;backup of DoNetReqVer
  
  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -319,22 +331,20 @@ NewMSI:
  
   Var /GLOBAL NET35_INSTALL
   Var /GLOBAL NET35_SP
+  Var /GLOBAL NET4_INSTALL
   ReadRegStr $NET35_INSTALL HKLM \
           "SOFTWARE\Microsoft\NET Framework Setup\NDP\v3.5" "Install"
   ReadRegStr $NET35_SP HKLM \
           "SOFTWARE\Microsoft\NET Framework Setup\NDP\v3.5" "SP"
+  ReadRegStr $NET4_INSTALL HKLM \
+          "SOFTWARE\Microsoft\NET Framework Setup\NDP\v4\Client" "Install"
 
-  ${If} $NET35_INSTALL == ""
-      StrCpy $6 "$0"
-      DetailPrint ".NET Framework Version found: $6, but is older than the required version: $7"
-      goto OldDotNET
-  ${ElseIf} $NET35_INSTALL == "1"
-  ${AndIf} $NET35_SP == "1"
-      DetailPrint ".NET Framework Version 3.5 SP1 found"
+  ${If} $NET4_INSTALL == "1"
+      DetailPrint ".NET Framework Version 4.0 found"
       goto NewDotNET
   ${ElseIf} $NET35_INSTALL == "1"
-      DetailPrint ".NET Framework Version 3.5 found but without SP1"
-      StrCpy $6 "3.5"
+      StrCpy $6 "$0"
+      DetailPrint ".NET Framework Version found: 3.5, but is older than the required version: $7"
       goto OldDotNET
   ${Else}
       goto NoDotNET
@@ -342,13 +352,13 @@ NewMSI:
 
 NoDotNET:
     MessageBox MB_YESNOCANCEL|MB_ICONEXCLAMATION \
-    ".NET Framework not installed.$\nRequired Version: $7 or greater.$\n$\nDownload .NET Framework version from www.microsoft.com?" \
+    ".NET Framework not installed.$\nRequired Version: $7 or greater.$\n$\nDownload .NET Framework $7 from www.microsoft.com?" \
     /SD IDYES IDYES DownloadDotNET IDNO NewDotNET
     goto GiveUpDotNET ;IDCANCEL
 
 OldDotNET:
     MessageBox MB_YESNOCANCEL|MB_ICONEXCLAMATION \
-    "Your .NET Framework version: $6 $\nRequired Version: $7 or greater.$\n$\nDownload .NET Framework version from www.microsoft.com?" \
+    "Your .NET Framework version: $6 $\nRequired Version: $7 or greater.$\n$\nDownload .NET Framework $7 from www.microsoft.com?" \
     /SD IDYES IDYES DownloadDotNET IDNO NewDotNET
     goto GiveUpDotNET ;IDCANCEL
  
@@ -496,11 +506,14 @@ Section "Main" SEC01
   CreateShortCut "$SMPROGRAMS\Smuxi\Smuxi.lnk" "$INSTDIR\smuxi-frontend-gnome.exe"
   CreateShortCut "$DESKTOP\Smuxi.lnk" "$INSTDIR\smuxi-frontend-gnome.exe"
 
+  # remove obsolete libraries for upgrades from Smuxi < 0.8.10.2
+  Delete "$INSTDIR\zlib1.dll"
+  Delete "$INSTDIR\MonoPosixHelper.dll"
+
   SetOverwrite try
   File "../bin-win32/log4net.dll"
   File "../bin-win32/Meebey.SmartIrc4net.dll"
   File "../bin-win32/Mono.Posix.dll"
-  File "../bin-win32/MonoPosixHelper.dll"
   File "../bin-win32/Nini.dll"
   File "../bin-win32/Twitterizer2.dll"
   File "../bin-win32/Newtonsoft.Json.dll"
@@ -521,7 +534,6 @@ Section "Main" SEC01
   File "../bin-win32/smuxi-frontend.dll"
   File "../bin-win32/smuxi-server.exe"
   File "../bin-win32/smuxi-server.exe.config"
-  File "../bin-win32/zlib1.dll"
   File "../bin-win32/plink.exe"
   File "../bin-win32/Fixedsys500c.ttf"
   File /nonfatal /r "../bin-win32/locale"
@@ -565,7 +577,7 @@ SectionEnd
 
 Function un.onUninstSuccess
   HideWindow
-  MessageBox MB_ICONINFORMATION|MB_OK "$(^Name) was successfully unistalled."
+  MessageBox MB_ICONINFORMATION|MB_OK "$(^Name) was successfully uninstalled."
 FunctionEnd
 
 Function un.onInit
@@ -578,7 +590,6 @@ Section Uninstall
   SetShellVarContext all
   Delete "$INSTDIR\${PRODUCT_NAME}.url"
   Delete "$INSTDIR\uninst.exe"
-  Delete "$INSTDIR\zlib1.dll"
   Delete "$INSTDIR\smuxi-server.exe.config"
   Delete "$INSTDIR\smuxi-server.exe"
   Delete "$INSTDIR\smuxi-server.log"
@@ -598,7 +609,6 @@ Section Uninstall
   Delete "$INSTDIR\jabber-net.dll"
   Delete "$INSTDIR\Db4objects.Db4o.dll"
   Delete "$INSTDIR\Nini.dll"
-  Delete "$INSTDIR\MonoPosixHelper.dll"
   Delete "$INSTDIR\Mono.Posix.dll"
   Delete "$INSTDIR\Meebey.SmartIrc4net.dll"
   Delete "$INSTDIR\ServiceStack.Text.dll"

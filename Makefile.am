@@ -113,8 +113,6 @@ WIN32_FILES = \
 	$(LIB_DIR)/Mono.Posix.dll \
 	$(LIB_DIR)/Nini.dll \
 	$(LIB_DIR)/log4net.dll \
-	$(WIN32_LIB_DIR)/MonoPosixHelper.dll \
-	$(WIN32_LIB_DIR)/zlib1.dll \
 	$(WIN32_LIB_DIR)/plink.exe \
 	$(WIN32_LIB_DIR)/fixedsys500c/Fixedsys500c.ttf \
 	$(BUILD_DIR)/smuxi-common.dll \
