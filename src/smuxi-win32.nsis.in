@@ -500,11 +500,14 @@ Section "Main" SEC01
   CreateShortCut "$SMPROGRAMS\Smuxi\Smuxi.lnk" "$INSTDIR\smuxi-frontend-gnome.exe"
   CreateShortCut "$DESKTOP\Smuxi.lnk" "$INSTDIR\smuxi-frontend-gnome.exe"
 
+  # remove obsolete libraries for upgrades from Smuxi < 0.8.10.2
+  Delete "$INSTDIR\zlib1.dll"
+  Delete "$INSTDIR\MonoPosixHelper.dll"
+
   SetOverwrite try
   File "../bin-win32/log4net.dll"
   File "../bin-win32/Meebey.SmartIrc4net.dll"
   File "../bin-win32/Mono.Posix.dll"
-  File "../bin-win32/MonoPosixHelper.dll"
   File "../bin-win32/Nini.dll"
   File "../bin-win32/Twitterizer2.dll"
   File "../bin-win32/Newtonsoft.Json.dll"
@@ -521,7 +524,6 @@ Section "Main" SEC01
   File "../bin-win32/smuxi-frontend.dll"
   File "../bin-win32/smuxi-server.exe"
   File "../bin-win32/smuxi-server.exe.config"
-  File "../bin-win32/zlib1.dll"
   File "../bin-win32/plink.exe"
   File "../bin-win32/Fixedsys500c.ttf"
   File /nonfatal /r "../bin-win32/locale"
@@ -577,7 +579,6 @@ Section Uninstall
   SetShellVarContext all
   Delete "$INSTDIR\${PRODUCT_NAME}.url"
   Delete "$INSTDIR\uninst.exe"
-  Delete "$INSTDIR\zlib1.dll"
   Delete "$INSTDIR\smuxi-server.exe.config"
   Delete "$INSTDIR\smuxi-server.exe"
   Delete "$INSTDIR\smuxi-server.log"
@@ -596,7 +597,6 @@ Section Uninstall
   Delete "$INSTDIR\jabber-net.dll"
   Delete "$INSTDIR\Db4objects.Db4o.dll"
   Delete "$INSTDIR\Nini.dll"
-  Delete "$INSTDIR\MonoPosixHelper.dll"
   Delete "$INSTDIR\Mono.Posix.dll"
   Delete "$INSTDIR\Meebey.SmartIrc4net.dll"
   Delete "$INSTDIR\log4net.dll"
