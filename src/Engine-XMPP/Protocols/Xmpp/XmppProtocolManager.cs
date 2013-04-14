@@ -586,6 +586,13 @@ namespace Smuxi.Engine
             // the logic here is taken from
             // http://xmpp.org/rfcs/rfc3921.html#int
             switch (cmd) {
+                case "addgroup":
+                    if (cd.DataArray.Length < 4) {
+                        NotEnoughParameters(cd);
+                        return;
+                    }
+                    JabberClient.RosterManager.AddRosterItem(jid, null, cd.DataArray[3]);
+                    break;
                 case "addonly":
                     JabberClient.RosterManager.AddRosterItem(jid);
                     break;
