@@ -32,6 +32,7 @@ EXTRA_DIST =	install-sh \
 
 PODIRS =	po \
 		po-Engine \
+		$(PO_ENGINE_CAMPFIRE) \
 		$(PO_ENGINE_IRC) \
 		$(PO_ENGINE_TWITTER) \
 		po-Server \
