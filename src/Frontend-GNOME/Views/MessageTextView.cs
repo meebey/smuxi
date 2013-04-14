@@ -321,11 +321,6 @@ namespace Smuxi.Frontend.Gnome
                     var linkText = urlPart.Text ?? urlPart.Url;
 
                     var url = urlPart.Url;
-                    // HACK: assume http if no protocol/scheme was specified
-                    if (urlPart.Protocol == UrlProtocol.None ||
-                        !Regex.IsMatch(url, @"^[a-zA-Z0-9\-]+:")) {
-                        url = String.Format("http://{0}", url);
-                    }
                     Uri uri;
                     try {
                         uri = new Uri(url);
