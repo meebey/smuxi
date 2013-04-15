@@ -24,6 +24,7 @@
     <Execution>
       <Execution clr-version="Net_2_0" />
     </Execution>
+    <additionalargs>/checked+</additionalargs>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>full</DebugType>
