@@ -33,6 +33,7 @@
   <ItemGroup>
     <Compile Include="TraceTests.cs" />
     <Compile Include="PatternTests.cs" />
+    <Compile Include="Crc32Tests.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
