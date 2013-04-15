@@ -8,7 +8,8 @@
     <ProjectGuid>{7B1E3AB2-FB8C-4439-A2B4-2129EDBD79F8}</ProjectGuid>
     <OutputType>Library</OutputType>
     <RootNamespace>Smuxi.Frontend</RootNamespace>
-    <ApplicationIcon>.</ApplicationIcon>
+    <ApplicationIcon>
+    </ApplicationIcon>
     <AssemblyName>smuxi-frontend</AssemblyName>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
