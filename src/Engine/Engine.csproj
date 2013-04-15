@@ -89,7 +89,6 @@
     <Compile Include="TextColorContrast.cs" />
     <Compile Include="TextColorTools.cs" />
     <Compile Include="MessageBuffers\ListMessageBuffer.cs" />
-    <Compile Include="MessageBuffers\SqliteMessageBuffer.cs" />
     <Compile Include="MessageBuffers\IMessageBuffer.cs" />
     <Compile Include="MessageBuffers\MessageBufferBase.cs" />
     <Compile Include="MessageBuffers\Db4oMessageBuffer.cs" />
