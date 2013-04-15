@@ -8,7 +8,8 @@
     <ProjectGuid>{24616068-65C0-464F-82CC-473B6392C4A9}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <RootNamespace>Smuxi.Frontend.Curses</RootNamespace>
-    <ApplicationIcon>.</ApplicationIcon>
+    <ApplicationIcon>
+    </ApplicationIcon>
     <AssemblyName>smuxi-frontend-curses</AssemblyName>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">

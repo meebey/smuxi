@@ -8,7 +8,8 @@
     <ProjectGuid>{1C67CF8B-5CC9-4B43-9F67-FA6399000067}</ProjectGuid>
     <OutputType>Library</OutputType>
     <RootNamespace>Smuxi.Frontend.Gnome</RootNamespace>
-    <ApplicationIcon>.</ApplicationIcon>
+    <ApplicationIcon>
+    </ApplicationIcon>
     <AssemblyName>smuxi-frontend-gnome-xmpp</AssemblyName>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">

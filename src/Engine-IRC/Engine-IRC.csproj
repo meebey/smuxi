@@ -8,7 +8,8 @@
     <ProjectGuid>{95C1E256-73E7-4AAB-AA0B-405B51F7CF5A}</ProjectGuid>
     <OutputType>Library</OutputType>
     <RootNamespace>Smuxi.Engine</RootNamespace>
-    <ApplicationIcon>.</ApplicationIcon>
+    <ApplicationIcon>
+    </ApplicationIcon>
     <AssemblyName>smuxi-engine-irc</AssemblyName>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">

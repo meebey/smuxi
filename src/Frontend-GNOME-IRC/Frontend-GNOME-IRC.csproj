@@ -8,7 +8,8 @@
     <ProjectGuid>{118F010C-A914-48B7-B4A6-44176B1DB376}</ProjectGuid>
     <OutputType>Library</OutputType>
     <RootNamespace>Smuxi.Frontend.Gnome</RootNamespace>
-    <ApplicationIcon>.</ApplicationIcon>
+    <ApplicationIcon>
+    </ApplicationIcon>
     <AssemblyName>smuxi-frontend-gnome-irc</AssemblyName>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
