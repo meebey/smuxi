@@ -69,6 +69,10 @@ namespace Smuxi.Engine
         GroupChatModel ContactChat { get; set; }
         
         XmppServerModel Server { get; set; }
+        
+        // facebook messed up, this is part of a hack to fix that messup
+        string LastSentMessage { get; set; }
+        bool SupressLocalMessageEcho { get; set; }
 
         public override string NetworkID {
             get {
@@ -712,6 +716,11 @@ namespace Smuxi.Engine
                     room.PublicMessage(text);
                     return; // don't show now. the message will be echoed back if it's sent successfully
                 }
+                if (SupressLocalMessageEcho) {
+                    // don't show, facebook is bugging again
+                    return;
+                }
+                LastSentMessage = text;
             }
 
             var builder = CreateMessageBuilder();
@@ -725,6 +734,7 @@ namespace Smuxi.Engine
             Trace.Call(sender, stream);
 
             stream.AddType("own-message", "http://www.facebook.com/xmpp/messages", typeof(OwnMessageQuery));
+            SupressLocalMessageEcho = false;
         }
 
         void OnProtocol(object sender, XmlElement tag)
@@ -993,6 +1003,11 @@ namespace Smuxi.Engine
         {
             if (query.Self) {
                 // we send this message from Smuxi, nothing to do...
+                return;
+            }
+            
+            if (!SupressLocalMessageEcho && (query.Body == LastSentMessage)) {
+                SupressLocalMessageEcho = true;
                 return;
             }
 
