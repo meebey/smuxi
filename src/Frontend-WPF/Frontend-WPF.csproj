@@ -8,7 +8,8 @@
     <ProjectGuid>{BE7B2AE6-765A-4EB6-BBB6-F402B1939EC4}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>Smuxi.Frontend.Wpf</RootNamespace>
-    <ApplicationIcon>.</ApplicationIcon>
+    <ApplicationIcon>
+    </ApplicationIcon>
     <AssemblyName>smuxi-frontend-wpf</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
   </PropertyGroup>
