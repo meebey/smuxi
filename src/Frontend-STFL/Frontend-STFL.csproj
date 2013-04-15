@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -9,7 +9,8 @@
     <OutputType>Exe</OutputType>
     <RootNamespace>Smuxi.Frontend.Stfl</RootNamespace>
     <StartupObject>Smuxi.Frontend.Stfl.MainClass</StartupObject>
-    <ApplicationIcon>.</ApplicationIcon>
+    <ApplicationIcon>
+    </ApplicationIcon>
     <AssemblyName>smuxi-frontend-stfl</AssemblyName>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -65,9 +66,7 @@
       <LogicalName>MainWindow.stfl</LogicalName>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="STFL\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="smuxi-frontend-stfl.exe.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

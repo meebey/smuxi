@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -8,7 +8,8 @@
     <ProjectGuid>{95C1E256-73E7-4AAB-AA0B-405B51F7CF5A}</ProjectGuid>
     <OutputType>Library</OutputType>
     <RootNamespace>Smuxi.Engine</RootNamespace>
-    <ApplicationIcon>.</ApplicationIcon>
+    <ApplicationIcon>
+    </ApplicationIcon>
     <AssemblyName>smuxi-engine-irc</AssemblyName>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -50,9 +51,7 @@
     <None Include="..\..\po-Engine-IRC\de.po" />
     <None Include="..\..\po-Engine-IRC\es.po" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Config\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\Common\Common.csproj">
       <Project>{73DEF91D-03FF-41E3-B2E1-3259AF247CA7}</Project>

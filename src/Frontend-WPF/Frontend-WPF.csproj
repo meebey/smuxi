@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -8,7 +8,8 @@
     <ProjectGuid>{BE7B2AE6-765A-4EB6-BBB6-F402B1939EC4}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>Smuxi.Frontend.Wpf</RootNamespace>
-    <ApplicationIcon>.</ApplicationIcon>
+    <ApplicationIcon>
+    </ApplicationIcon>
     <AssemblyName>smuxi-frontend-wpf</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
   </PropertyGroup>
