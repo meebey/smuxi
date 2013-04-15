@@ -3,427 +3,115 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# Dean Lee <xslidian@gmail.com>, 2012.
+# Dean Lee <xslidian@gmail.com>, 2012-2013.
 msgid ""
 msgstr ""
 "Project-Id-Version: Smuxi - IRC client\n"
 "Report-Msgid-Bugs-To: http://www.smuxi.org/issues\n"
-"POT-Creation-Date: 2011-12-29 09:22+0100\n"
-"PO-Revision-Date: 2012-01-07 09:58+0000\n"
+"POT-Creation-Date: 2013-04-14 10:19+0200\n"
+"PO-Revision-Date: 2013-04-14 14:10+0000\n"
 "Last-Translator: Dean Lee <xslidian@gmail.com>\n"
-"Language-Team: Chinese (China) (http://www.transifex.net/projects/p/smuxi/team/zh_CN/)\n"
+"Language-Team: Chinese (China) (http://www.transifex.com/projects/p/smuxi/language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: zh_CN\n"
-"Plural-Forms: nplurals=1; plural=0\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 
 #: ../glade/smuxi-frontend-gnome.glade.h:1
-msgid "<b> Chat </b>"
-msgstr "<b> 聊天 </b>"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:2
-msgid "<b> Color </b>"
-msgstr "<b> 颜色 </b>"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:3
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1172
-msgid "<b> Entry Field </b>"
-msgstr "<b> 预留字段 </b>"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:4
-msgid "<b> Font </b>"
-msgstr "<b> 字体 </b>"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:5
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1502
-msgid "<b> Highlighting </b>"
-msgstr "<b> 高亮 </b>"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:6
-msgid "<b> Notification Area Icon </b>"
-msgstr "<b> 通知区域图标 </b>"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:7
-msgid "<b> Person List Position </b>"
-msgstr "<b> 成员列表位置 </b>"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:8
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1009
-msgid "<b> Tab Colors </b>"
-msgstr "<b> 标签颜色 </b>"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:9
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:910
-msgid "<b> Tabs Position </b>"
-msgstr "<b> 标签位置 </b>"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:10
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1315
-msgid "<b> Topic Position </b>"
-msgstr "<b> 主题位置 </b>"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:11
-msgid "<b>Advanced</b>"
-msgstr "<b>高级</b>"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:12
-msgid "<b>General</b>"
-msgstr "<b>全局</b>"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:13
-msgid "<b>Global Commands</b>"
-msgstr "<b>全局命令</b>"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:14
-msgid "<b>Message Buffer</b>"
-msgstr "<b>信息缓冲</b>"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:15
-msgid "<b>Messaging Menu</b>"
-msgstr "<b>消息菜单</b>"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:16
-msgid "<b>Network Proxy</b>"
-msgstr "<b>网络代理</b>"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:17
-msgid "<b>Notification Popups</b>"
-msgstr "<b>通知弹出</b>"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:18
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:961
-msgid "Activity"
-msgstr "活动"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:19
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:209
-msgid "Automatically connect to server at startup"
-msgstr "启动时自动连接到服务器"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:20
-msgid "Background"
-msgstr "背景"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:21
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1160
-msgid "Bash-Style Completion"
-msgstr "Bash 式完成"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:22
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1490
-msgid "Beep on highlight"
-msgstr "高亮时鸣叫"
-
-#. Container child vbox6.Gtk.Box+BoxChild
-#. Container child vbox11.Gtk.Box+BoxChild
-#: ../glade/smuxi-frontend-gnome.glade.h:23
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:780
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:802
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1261
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1286
-msgid "Bottom"
-msgstr "底部"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:24
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:546
-msgid "Buffer Lines:"
-msgstr "缓冲行数:"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:25
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:471
-msgid "C_onnection"
-msgstr "连接(_O)"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:26
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1112
-msgid "Command Character:"
-msgstr "命令字符:"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:27
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1135
-msgid "Command History Size:"
-msgstr "命令历史数:"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:28
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1092
-msgid "Completion Character:"
-msgstr "完成字符:"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:29
-msgid "Enable"
-msgstr "启用"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:30
-msgid "Enabled"
-msgstr "启用"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:31
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:359
-msgid "Encoding:"
-msgstr "编码:"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:32
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:569
-msgid "Engine Buffer Lines:"
-msgstr "引擎缓冲行数:"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:33
-msgid "Foreground"
-msgstr "前景"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:34
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:725
-msgid "General"
-msgstr "全局"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:35
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:981
-msgid "Highlight"
-msgstr "高亮"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:36
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1466
-msgid "Highlight words:"
-msgstr "高亮单词:"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:37
-msgid "Host:"
-msgstr "主机:"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:38
-msgid "Hostname:"
-msgstr "主机名:"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:39
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1181
-msgid "Input"
-msgstr "输入"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:40
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:971
-msgid "Join/Part/Mode"
-msgstr "加入/离开/模式"
-
-#. Container child vbox6.Gtk.Box+BoxChild
-#. Container child vbox12.Gtk.Box+BoxChild
-#: ../glade/smuxi-frontend-gnome.glade.h:41
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:816
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:841
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1335
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1361
-msgid "Left"
-msgstr "左边"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:42
-msgid "Log Filtered Messages"
-msgstr "记录经过滤的消息"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:43
-msgid "Network:"
-msgstr "网络:"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:44
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1202
-msgid "Nick Colors"
-msgstr "昵称颜色"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:45
-msgid "Nickname(s):"
-msgstr "昵称:"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:46
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:953
-msgid "No Activity"
-msgstr "无活动"
-
-#. Container child vbox6.Gtk.Box+BoxChild
-#. Container child vbox11.Gtk.Box+BoxChild
-#. Container child vbox12.Gtk.Box+BoxChild
-#: ../glade/smuxi-frontend-gnome.glade.h:47
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:896
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1301
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1416
-msgid "None"
-msgstr "无"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:48
-msgid "Notification"
-msgstr "通知"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:49
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:381
-msgid "On Connect Commands:"
-msgstr "连接时命令:"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:50
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:427
-msgid "On Startup Commands:"
-msgstr "启动时命令:"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:51
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1514
-msgid "Output"
-msgstr "输出"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:52
-msgid "Override"
-msgstr "覆盖"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:53
-msgid "Password:"
-msgstr "密码:"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:54
-msgid "Persistency Type:"
-msgstr "持久类型:"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:55
-msgid "Persistent Buffer Lines:"
-msgstr "持久缓冲行数:"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:56
-msgid "Port:"
-msgstr "端口:"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:57
-msgid "Protocol:"
-msgstr "协议:"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:58
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:338
-msgid "Realname:"
-msgstr "真名:"
-
-#. Container child vbox6.Gtk.Box+BoxChild
-#. Container child vbox12.Gtk.Box+BoxChild
-#: ../glade/smuxi-frontend-gnome.glade.h:59
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:856
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:881
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1376
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1401
-msgid "Right"
-msgstr "右边"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:60
-msgid "Show Advanced Settings"
-msgstr "显示高级设置"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:61
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:170
-msgid "Show Password"
-msgstr "显示密码"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:62
-msgid "Show Smuxi in the messaging menu"
-msgstr "在消息菜单中显示 Smuxi"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:63
-msgid "Show always"
-msgstr "总是显示"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:64
-msgid "Show notification popups"
-msgstr "显示通知弹出"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:65
-msgid "Show when window is closed"
-msgstr "当窗口关闭时显示"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:66
-msgid "Show when window is minimized"
-msgstr "当窗口最小化时显示"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:67
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerDialog.cs:16
-msgid "Smuxi - Server"
-msgstr "Smuxi - 服务器"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:68
 msgid "Smuxi Preferences"
 msgstr "Smuxi 偏好设置"
 
-#: ../glade/smuxi-frontend-gnome.glade.h:69
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:628
-msgid "Strip Colors"
-msgstr "去除颜色"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:70
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:667
-msgid "Strip Formattings"
-msgstr "去除格式"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:71
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:707
-msgid "Strip UTF-8"
-msgstr "去除 UTF-8"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:72
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1022
-msgid "Tabs"
-msgstr "标签"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:73
+#: ../glade/smuxi-frontend-gnome.glade.h:2
 msgid ""
 "The nickname to use. You can specify extra nicknames (separated by spaces) "
 "which will be used as fallbacks when the first choice is not available. By "
 "default $nick_ and $nick__ will be used as fallbacks."
 msgstr "要使用的昵称。您可以指定多个昵称（用空格分隔）作为首个选项不可用时的候选项。默认使用 $昵称_ 和 $昵称__ 作为候选项。"
 
-#: ../glade/smuxi-frontend-gnome.glade.h:74
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:526
-msgid "Timestamp Format:"
-msgstr "时间戳格式:"
+#: ../glade/smuxi-frontend-gnome.glade.h:3
+msgid "Nickname(s):"
+msgstr "昵称:"
 
-#. Container child vbox6.Gtk.Box+BoxChild
-#. Container child vbox11.Gtk.Box+BoxChild
-#: ../glade/smuxi-frontend-gnome.glade.h:75
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:743
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:767
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1220
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1246
-msgid "Top"
-msgstr "顶部"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:76
-msgid "Type:"
-msgstr "类型:"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:77
+#: ../glade/smuxi-frontend-gnome.glade.h:4
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:315
 msgid "Username:"
 msgstr "用户名:"
 
-#: ../glade/smuxi-frontend-gnome.glade.h:78
-msgid "Volatile Buffer Lines:"
-msgstr "临时缓冲行数:"
+#: ../glade/smuxi-frontend-gnome.glade.h:5
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:338
+msgid "Realname:"
+msgstr "真名:"
 
-#: ../glade/smuxi-frontend-gnome.glade.h:79
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1681
-msgid "_Filters"
-msgstr "过滤器(_F)"
+#: ../glade/smuxi-frontend-gnome.glade.h:6
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:359
+msgid "Encoding:"
+msgstr "编码:"
 
-#: ../glade/smuxi-frontend-gnome.glade.h:80
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1523
-msgid "_Interface"
-msgstr "界面(_I)"
+#: ../glade/smuxi-frontend-gnome.glade.h:7
+msgid "<b>General</b>"
+msgstr "<b>全局</b>"
 
-#: ../glade/smuxi-frontend-gnome.glade.h:81
-msgid "_Logging"
-msgstr "历史(_L)"
+#: ../glade/smuxi-frontend-gnome.glade.h:8
+msgid "Type:"
+msgstr "类型:"
 
-#: ../glade/smuxi-frontend-gnome.glade.h:82
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1589
-msgid "_Servers"
-msgstr "服务器(_S)"
+#: ../glade/smuxi-frontend-gnome.glade.h:9
+msgid "Host:"
+msgstr "主机:"
 
-#. This is a setting for character based line wrapping vs word based when
-#. showing messages
-#: ../glade/smuxi-frontend-gnome.glade.h:84
-msgid "_Wrap Mode:"
-msgstr "_自动换行模式:"
+#: ../glade/smuxi-frontend-gnome.glade.h:10
+msgid "Password:"
+msgstr "密码:"
 
-#: ../glade/smuxi-frontend-gnome.glade.h:85
+#: ../glade/smuxi-frontend-gnome.glade.h:11
+msgid "Port:"
+msgstr "端口:"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:12
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:170
+msgid "Show Password"
+msgstr "显示密码"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:13
+msgid "<b>Network Proxy</b>"
+msgstr "<b>网络代理</b>"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:14
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:381
+msgid "On Connect Commands:"
+msgstr "连接时命令:"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:15
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:427
+msgid "On Startup Commands:"
+msgstr "启动时命令:"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:16
+msgid "<b>Global Commands</b>"
+msgstr "<b>全局命令</b>"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:17
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:471
+msgid "C_onnection"
+msgstr "连接(_O)"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:18
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:526
+msgid "Timestamp Format:"
+msgstr "时间戳格式:"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:19
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:546
+msgid "Buffer Lines:"
+msgstr "缓冲行数:"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:20
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:569
+msgid "Engine Buffer Lines:"
+msgstr "引擎缓冲行数:"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:21
 msgid ""
 "ss = seconds\n"
 "mm = minutes\n"
@@ -434,38 +122,349 @@ msgid ""
 "dd = day\n"
 "MM = month\n"
 "yy/yyyy = year"
-msgstr ""
-"ss = 秒数\n"
-"mm = 分数\n"
-"hh = 小时数 (01 - 12)\n"
-"HH = 小时数 (00 - 23)\n"
-"tt = AM/PM\n"
-"\n"
-"dd = day\n"
-"MM = month\n"
-"yy/yyyy = year"
+msgstr "ss = 秒数\nmm = 分数\nhh = 小时数 (01 - 12)\nHH = 小时数 (00 - 23)\ntt = AM/PM\n\ndd = day\nMM = month\nyy/yyyy = year"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:30
+msgid "Persistency Type:"
+msgstr "持久类型:"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:31
+msgid "Volatile Buffer Lines:"
+msgstr "临时缓冲行数:"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:32
+msgid "Persistent Buffer Lines:"
+msgstr "持久缓冲行数:"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:33
+msgid "<b>Message Buffer</b>"
+msgstr "<b>信息缓冲</b>"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:34
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:628
+msgid "Strip Colors"
+msgstr "去除颜色"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:35
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:667
+msgid "Strip Formattings"
+msgstr "去除格式"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:36
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:707
+msgid "Strip UTF-8"
+msgstr "去除 UTF-8"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:37
+msgid "Show Advanced Settings"
+msgstr "显示高级设置"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:38
+msgid "<b>Advanced</b>"
+msgstr "<b>高级</b>"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:39
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:725
+msgid "General"
+msgstr "全局"
+
+#. Container child vbox6.Gtk.Box+BoxChild
+#. Container child vbox11.Gtk.Box+BoxChild
+#: ../glade/smuxi-frontend-gnome.glade.h:40
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:743
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:767
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1220
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1246
+msgid "Top"
+msgstr "顶部"
+
+#. Container child vbox6.Gtk.Box+BoxChild
+#. Container child vbox11.Gtk.Box+BoxChild
+#: ../glade/smuxi-frontend-gnome.glade.h:41
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:780
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:802
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1261
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1286
+msgid "Bottom"
+msgstr "底部"
+
+#. Container child vbox6.Gtk.Box+BoxChild
+#. Container child vbox12.Gtk.Box+BoxChild
+#: ../glade/smuxi-frontend-gnome.glade.h:42
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:816
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:841
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1335
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1361
+msgid "Left"
+msgstr "左边"
+
+#. Container child vbox6.Gtk.Box+BoxChild
+#. Container child vbox12.Gtk.Box+BoxChild
+#: ../glade/smuxi-frontend-gnome.glade.h:43
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:856
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:881
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1376
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1401
+msgid "Right"
+msgstr "右边"
+
+#. Container child vbox6.Gtk.Box+BoxChild
+#. Container child vbox11.Gtk.Box+BoxChild
+#. Container child vbox12.Gtk.Box+BoxChild
+#: ../glade/smuxi-frontend-gnome.glade.h:44
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:896
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1301
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1416
+msgid "None"
+msgstr "无"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:45
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:910
+msgid "<b> Tabs Position </b>"
+msgstr "<b> 标签位置 </b>"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:46
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:981
+msgid "Highlight"
+msgstr "高亮"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:47
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:961
+msgid "Activity"
+msgstr "活动"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:48
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:953
+msgid "No Activity"
+msgstr "无活动"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:49
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:971
+msgid "Join/Part/Mode"
+msgstr "加入/离开/模式"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:50
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1009
+msgid "<b> Tab Colors </b>"
+msgstr "<b> 标签颜色 </b>"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:51
+msgid "Automatically switch to newly opened person chats"
+msgstr "自动切换到新打开的单人聊天"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:52
+msgid "Automatically switch to newly opened group chats"
+msgstr "自动切换到新打开的群组聊天"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:53
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1022
+msgid "Tabs"
+msgstr "标签"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:54
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1092
+msgid "Completion Character:"
+msgstr "完成字符:"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:55
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1112
+msgid "Command Character:"
+msgstr "命令字符:"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:56
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1135
+msgid "Command History Size:"
+msgstr "命令历史数:"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:57
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1160
+msgid "Bash-Style Completion"
+msgstr "Bash 式完成"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:58
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1172
+msgid "<b> Entry Field </b>"
+msgstr "<b> 预留字段 </b>"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:59
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1181
+msgid "Input"
+msgstr "输入"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:60
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1202
+msgid "Nick Colors"
+msgstr "昵称颜色"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:61
+msgid "<b> Person List Position </b>"
+msgstr "<b> 成员列表位置 </b>"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:62
+msgid "Override"
+msgstr "覆盖"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:63
+msgid "<b> Font </b>"
+msgstr "<b> 字体 </b>"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:64
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1315
+msgid "<b> Topic Position </b>"
+msgstr "<b> 主题位置 </b>"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:65
+msgid "Foreground"
+msgstr "前景"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:66
+msgid "Background"
+msgstr "背景"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:67
+msgid "<b> Color </b>"
+msgstr "<b> 颜色 </b>"
+
+#. This is a setting for character based line wrapping vs word based when
+#. showing messages
+#: ../glade/smuxi-frontend-gnome.glade.h:69
+msgid "_Wrap Mode:"
+msgstr "_自动换行模式:"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:70
+msgid "<b> Chat </b>"
+msgstr "<b> 聊天 </b>"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:71
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1466
+msgid "Highlight words:"
+msgstr "高亮单词:"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:72
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1490
+msgid "Beep on highlight"
+msgstr "高亮时鸣叫"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:73
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1502
+msgid "<b> Highlighting </b>"
+msgstr "<b> 高亮 </b>"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:74
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1514
+msgid "Output"
+msgstr "输出"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:75
+msgid "Enable"
+msgstr "启用"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:76
+msgid "Show always"
+msgstr "总是显示"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:77
+msgid "Show when window is minimized"
+msgstr "当窗口最小化时显示"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:78
+msgid "Show when window is closed"
+msgstr "当窗口关闭时显示"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:79
+msgid "<b> Notification Area Icon </b>"
+msgstr "<b> 通知区域图标 </b>"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:80
+msgid "Show Smuxi in the messaging menu"
+msgstr "在消息菜单中显示 Smuxi"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:81
+msgid "<b>Messaging Menu</b>"
+msgstr "<b>消息菜单</b>"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:82
+msgid "Show notification popups"
+msgstr "显示通知弹出"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:83
+msgid "<b>Notification Popups</b>"
+msgstr "<b>通知弹出</b>"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:84
+msgid "Notification"
+msgstr "通知"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:85
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1523
+msgid "_Interface"
+msgstr "界面(_I)"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:86
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1589
+msgid "_Servers"
+msgstr "服务器(_S)"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:87
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1681
+msgid "_Filters"
+msgstr "过滤器(_F)"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:88
+msgid "Enabled"
+msgstr "启用"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:89
+msgid "Log Filtered Messages"
+msgstr "记录经过滤的消息"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:90
+msgid "_Logging"
+msgstr "历史(_L)"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:91
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerDialog.cs:16
+msgid "Smuxi - Server"
+msgstr "Smuxi - 服务器"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:92
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:209
+msgid "Automatically connect to server at startup"
+msgstr "启动时自动连接到服务器"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:93
+msgid "Protocol:"
+msgstr "协议:"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:94
+msgid "Network:"
+msgstr "网络:"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:95
+msgid "Hostname:"
+msgstr "主机名:"
 
 #: ../src/Frontend-GNOME/smuxi-frontend-gnome.desktop.in.h:1
-msgid "Chat with other people on IRC"
-msgstr "和 IRC 上的其他人聊天"
+msgid "Smuxi"
+msgstr "Smuxi"
 
 #: ../src/Frontend-GNOME/smuxi-frontend-gnome.desktop.in.h:2
 msgid "IRC Chat"
 msgstr "IRC 聊天"
 
 #: ../src/Frontend-GNOME/smuxi-frontend-gnome.desktop.in.h:3
-msgid "Smuxi"
-msgstr "Smuxi"
-
-#: ../src/Frontend-GNOME/smuxi-frontend-gnome.desktop.in.h:4
 msgid "Smuxi IRC Client"
 msgstr "Smuxi IRC 客户端"
 
-#: ../src/Frontend-GNOME/AboutDialog.cs:60
+#: ../src/Frontend-GNOME/smuxi-frontend-gnome.desktop.in.h:4
+msgid "Chat with other people on IRC"
+msgstr "和 IRC 上的其他人聊天"
+
+#: ../src/Frontend-GNOME/AboutDialog.cs:65
 msgid "translator-credits"
 msgstr "Dean Lee <xslidian+smuxi@gmail.com>"
 
-#: ../src/Frontend-GNOME/AboutDialog.cs:65
+#: ../src/Frontend-GNOME/AboutDialog.cs:72
 msgid "Smuxi Website"
 msgstr "Smuxi 网站"
 
@@ -485,237 +484,134 @@ msgstr "这是 stacktrace，请报告错误!"
 msgid "_Report Bug"
 msgstr "报告错误(_R)"
 
-#: ../src/Frontend-GNOME/EngineManagerDialog.cs:61
+#: ../src/Frontend-GNOME/EngineManagerDialog.cs:66
+msgid "Engine not found."
+msgstr "引擎未找到。"
+
+#: ../src/Frontend-GNOME/EngineManagerDialog.cs:81
 msgid "Engine Manager"
 msgstr "引擎管理器"
 
-#: ../src/Frontend-GNOME/EngineManagerDialog.cs:80
+#: ../src/Frontend-GNOME/EngineManagerDialog.cs:100
 msgid "Select which Smuxi engine you want to connect to"
 msgstr "选择希望连接到的 Smuxi 引擎"
 
-#: ../src/Frontend-GNOME/EngineManagerDialog.cs:86
+#: ../src/Frontend-GNOME/EngineManagerDialog.cs:106
 msgid "Engine:"
 msgstr "引擎:"
 
-#: ../src/Frontend-GNOME/EngineManagerDialog.cs:97
+#: ../src/Frontend-GNOME/EngineManagerDialog.cs:117
 msgid "Use Low Bandwidth Mode"
 msgstr "使用低带宽模式"
 
-#: ../src/Frontend-GNOME/EngineManagerDialog.cs:121
-#: ../src/Frontend-GNOME/EngineManagerDialog.cs:181
-#: ../src/Frontend-GNOME/EngineManagerDialog.cs:358
+#: ../src/Frontend-GNOME/EngineManagerDialog.cs:141
+#: ../src/Frontend-GNOME/EngineManagerDialog.cs:201
+#: ../src/Frontend-GNOME/EngineManagerDialog.cs:383
 msgid "Local Engine"
 msgstr "本地引擎"
 
-#: ../src/Frontend-GNOME/EngineManagerDialog.cs:173
+#: ../src/Frontend-GNOME/EngineManagerDialog.cs:193
 msgid "Please select an engine!"
 msgstr "请选择一个引擎!"
 
-#: ../src/Frontend-GNOME/EngineManagerDialog.cs:194
+#: ../src/Frontend-GNOME/EngineManagerDialog.cs:219
 #, csharp-format
 msgid "Your frontend version ({0}) does not match the engine version ({1})!"
 msgstr "您的前端版本 ({0}) 与引擎版本 ({1}) 不匹配!"
 
-#: ../src/Frontend-GNOME/EngineManagerDialog.cs:221
+#: ../src/Frontend-GNOME/EngineManagerDialog.cs:246
 msgid "An error occurred while connecting to the engine!"
 msgstr "连接到引擎时出现了一个错误!"
 
-#: ../src/Frontend-GNOME/EngineManagerDialog.cs:222
+#: ../src/Frontend-GNOME/EngineManagerDialog.cs:247
 #, csharp-format
 msgid "Engine URL: {0}"
 msgstr "引擎 URL: {0}"
 
-#: ../src/Frontend-GNOME/EngineManagerDialog.cs:225
+#: ../src/Frontend-GNOME/EngineManagerDialog.cs:250
 #, csharp-format
 msgid "Error: {0}"
 msgstr "错误: {0}"
 
-#: ../src/Frontend-GNOME/EngineManagerDialog.cs:295
+#: ../src/Frontend-GNOME/EngineManagerDialog.cs:320
 #, csharp-format
 msgid "Are you sure you want to delete the engine \"{0}\"?"
 msgstr "您确实要删除引擎 \"{0}\" 吗?"
 
-#: ../src/Frontend-GNOME/Entry.cs:443
+#: ../src/Frontend-GNOME/Entry.cs:474
 #, csharp-format
 msgid "You are going to paste {0} lines. Do you want to continue?"
 msgstr "您正在粘贴 {0} 行。是否继续?"
 
 #. TRANSLATOR: this line is used as a label / category for a
 #. list of commands below
-#: ../src/Frontend-GNOME/Entry.cs:547
+#: ../src/Frontend-GNOME/Entry.cs:587
 msgid "Frontend Commands"
 msgstr "前端命令"
-
-#: ../src/Frontend-GNOME/MainWindow.cs:252
-msgid "_File"
-msgstr "文件(_F)"
-
-#: ../src/Frontend-GNOME/MainWindow.cs:276
-msgid "_Server"
-msgstr "服务器(_S)"
-
-#: ../src/Frontend-GNOME/MainWindow.cs:280
-msgid "_Quick Connect"
-msgstr "快速连接(_Q)"
-
-#: ../src/Frontend-GNOME/MainWindow.cs:291
-msgid "_Manage"
-msgstr "管理(_M)"
-
-#: ../src/Frontend-GNOME/MainWindow.cs:298
-msgid "_Chat"
-msgstr "聊天(_C)"
-
-#: ../src/Frontend-GNOME/MainWindow.cs:302
-msgid "Open / Join Chat"
-msgstr "打开 / 加入聊天"
-
-#: ../src/Frontend-GNOME/MainWindow.cs:308
-msgid "_Find Group Chat"
-msgstr "查找群组聊天(_F)"
-
-#: ../src/Frontend-GNOME/MainWindow.cs:314
-msgid "C_lear All Activity"
-msgstr "清除所有活动(_L)"
-
-#: ../src/Frontend-GNOME/MainWindow.cs:321
-msgid "_Next Chat"
-msgstr "下一个聊天(_N)"
-
-#: ../src/Frontend-GNOME/MainWindow.cs:335
-msgid "_Previous Chat"
-msgstr "上一个聊天(_P)"
-
-#: ../src/Frontend-GNOME/MainWindow.cs:389
-msgid "Open Log"
-msgstr "打开聊天历史"
-
-#: ../src/Frontend-GNOME/MainWindow.cs:407
-msgid "_Engine"
-msgstr "引擎(_E)"
-
-#: ../src/Frontend-GNOME/MainWindow.cs:411
-msgid "_Use Local Engine"
-msgstr "使用本地引擎(_U)"
-
-#: ../src/Frontend-GNOME/MainWindow.cs:417
-msgid "_Add Remote Engine"
-msgstr "添加远程引擎(_A)"
-
-#: ../src/Frontend-GNOME/MainWindow.cs:422
-msgid "_Switch Remote Engine"
-msgstr "切换远程引擎(_S)"
-
-#: ../src/Frontend-GNOME/MainWindow.cs:429
-msgid "_View"
-msgstr "视图(_V)"
-
-#: ../src/Frontend-GNOME/MainWindow.cs:433
-msgid "_Caret Mode"
-msgstr "插入模式(_C)"
-
-#: ../src/Frontend-GNOME/MainWindow.cs:445
-msgid "_Browse Mode"
-msgstr "浏览模式(_B)"
-
-#: ../src/Frontend-GNOME/MainWindow.cs:463
-#: ../src/Frontend-GNOME/Views/Chats/ChatView.cs:722
-msgid "Show _Menubar"
-msgstr "显示菜单栏(_M)"
-
-#: ../src/Frontend-GNOME/MainWindow.cs:494
-msgid "_Help"
-msgstr "帮助(_H)"
-
-#: ../src/Frontend-GNOME/MainWindow.cs:768
-#: ../src/Frontend-GNOME/Preferences/ServerListView.cs:225
-msgid "Unable to add server: "
-msgstr "无法添加服务器: "
-
-#: ../src/Frontend-GNOME/MainWindow.cs:828
-#, csharp-format
-msgid "Unknown ChatType: {0}"
-msgstr "未知聊天类型: {0}"
-
-#: ../src/Frontend-GNOME/MainWindow.cs:1097
-msgid ""
-"Switching to local engine will disconnect you from the current engine!\n"
-"Are you sure you want to do this?"
-msgstr ""
-"切换到本地引擎会将您与当前引擎断开!\n"
-"您确实大赛这样做吗?"
-
-#: ../src/Frontend-GNOME/MainWindow.cs:1139
-msgid ""
-"Switching the remote engine will disconnect you from the current engine!\n"
-"Are you sure you want to do this?"
-msgstr ""
-"切换到远程引擎会将您与当前引擎断开!\n"
-"您确实大赛这样做吗?"
 
 #: ../src/Frontend-GNOME/NotImplementedMessageDialog.cs:40
 msgid "Sorry, not implemented yet!"
 msgstr "抱歉，尚未实现!"
 
 #. fill ListStore
-#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:179
+#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:185
 msgid "Character"
 msgstr "字符"
 
-#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:180
+#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:186
 msgid "Word"
 msgstr "单词"
 
-#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:197
+#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:203
 msgid "Volatile"
 msgstr "临时"
 
-#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:199
+#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:205
 msgid "Persistent"
 msgstr "持久"
 
-#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:222
+#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:228
 msgid "No Proxy"
 msgstr "无代理"
 
-#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:224
-#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:307
+#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:230
+#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:318
 msgid "System Default"
 msgstr "系统默认"
 
-#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:238
+#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:244
 #: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:140
 msgid "Connection"
 msgstr "连接"
 
-#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:242
+#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:248
 msgid "Interface"
 msgstr "界面"
 
-#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:246
+#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:252
 msgid "Servers"
 msgstr "服务器"
 
-#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:253
+#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:259
 msgid "Filters"
 msgstr "过滤器"
 
-#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:257
+#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:263
 msgid "Logging"
 msgstr "历史"
 
-#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:642
+#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:666
 msgid "Nicknames(s) field must not be empty."
 msgstr "昵称字段不能为空。"
 
-#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:823
+#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:857
 #, csharp-format
 msgid "Invalid highlight regex: '{0}'. Reason: {1}"
 msgstr "高亮正则表达式无效: '{0}'。原因: {1}"
 
 #: ../src/Frontend-GNOME/FindGroupChatDialog.cs:81
 #: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:106
-#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:271
+#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:265
 msgid "Name"
 msgstr "名称"
 
@@ -727,78 +623,70 @@ msgstr "主题"
 msgid ""
 "Searching for group chats without a filter is not recommended.  This may take a while, or may not work at all.\n"
 "Do you wish to continue?"
-msgstr ""
-"不建议不用过滤器搜索群组聊天。可能要耗费一些时间，也可能无法完成搜索。\n"
-"您是否打算继续?"
+msgstr "不建议不用过滤器搜索群组聊天。可能要耗费一些时间，也可能无法完成搜索。\n您是否打算继续?"
 
 #: ../src/Frontend-GNOME/FindGroupChatDialog.cs:156
 msgid "Error while fetching the list of group chats from the server."
 msgstr "从服务器装载群组聊天列表出错。"
 
-#: ../src/Frontend-GNOME/Frontend.cs:325
+#: ../src/Frontend-GNOME/Frontend.cs:400
 msgid "Disconnected from engine."
 msgstr "从引擎断开连接。"
 
-#: ../src/Frontend-GNOME/Frontend.cs:368
+#: ../src/Frontend-GNOME/Frontend.cs:442
 #, csharp-format
 msgid "Reconnecting to engine... (attempt {0})"
 msgstr "正在重新连接到引擎... (第 {0} 次尝试)"
 
-#: ../src/Frontend-GNOME/Frontend.cs:465
+#: ../src/Frontend-GNOME/Frontend.cs:540
 #, csharp-format
 msgid "Cause: {0}"
 msgstr "原因: {0}"
 
-#: ../src/Frontend-GNOME/Frontend.cs:583
+#: ../src/Frontend-GNOME/Frontend.cs:666
 msgid ""
 "The frontend has lost the connection to the server.\n"
 "Do you want to reconnect now?"
-msgstr ""
-"前端与服务器之间的连接已丢失。\n"
-"是否希望现在重新连接?"
+msgstr "前端与服务器之间的连接已丢失。\n是否希望现在重新连接?"
 
-#: ../src/Frontend-GNOME/Frontend.cs:602
+#: ../src/Frontend-GNOME/Frontend.cs:685
 msgid ""
 "Reconnecting to the server has failed.\n"
 "Do you want to try again?"
-msgstr ""
-"重新连接到服务器失败。\n"
-"是否重试?"
+msgstr "重新连接到服务器失败。\n是否重试?"
 
-#: ../src/Frontend-GNOME/Frontend.cs:705
+#: ../src/Frontend-GNOME/Frontend.cs:974
 msgid ""
 "The server has lost the connection to the frontend.\n"
 "Do you want to reconnect now?"
-msgstr ""
-"服务器与前端之间的连接已丢失。\n"
-"是否希望现在重新连接?"
+msgstr "服务器与前端之间的连接已丢失。\n是否希望现在重新连接?"
 
-#: ../src/Frontend-GNOME/NotifyManager.cs:267
+#: ../src/Frontend-GNOME/NotifyManager.cs:336
 msgid "Show"
 msgstr "显示"
 
-#: ../src/Frontend-GNOME/QuickConnectDialog.cs:62
-#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:238
+#: ../src/Frontend-GNOME/QuickConnectDialog.cs:58
+#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:233
 #: ../src/Frontend-GNOME/Preferences/ServerListView.cs:70
 msgid "Protocol"
 msgstr "协议"
 
-#: ../src/Frontend-GNOME/QuickConnectDialog.cs:63
+#: ../src/Frontend-GNOME/QuickConnectDialog.cs:59
 #: ../src/Frontend-GNOME/Preferences/ServerListView.cs:71
 msgid "Hostname"
 msgstr "主机名"
 
-#: ../src/Frontend-GNOME/QuickConnectDialog.cs:166
+#: ../src/Frontend-GNOME/QuickConnectDialog.cs:162
 msgid "Unable to load server: "
 msgstr "无法加载服务器: "
 
 #: ../src/Frontend-GNOME/ChatTypeWidget.cs:54
-#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:244
+#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:239
 msgid "Person / Private"
 msgstr "成员 / 私聊"
 
 #: ../src/Frontend-GNOME/ChatTypeWidget.cs:55
-#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:245
+#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:240
 msgid "Group / Public"
 msgstr "群组 / 公开"
 
@@ -831,82 +719,116 @@ msgid ""
 "An engine with this name already exists! Please specify a different one."
 msgstr "已存在同名引擎! 请另外指定一个。"
 
-#: ../src/Frontend-GNOME/Views/MessageTextView.cs:204
+#: ../src/Frontend-GNOME/Views/JoinWidget.cs:87
+msgid "Enter which chat to join"
+msgstr "输入要加入的聊天"
+
+#: ../src/Frontend-GNOME/Views/MenuWidget.cs:140
+msgid "About Smuxi"
+msgstr "关于 Smuxi"
+
+#. TODO: add cmd+, accelerator
+#: ../src/Frontend-GNOME/Views/MenuWidget.cs:144
+msgid "Preferences"
+msgstr "偏好设置"
+
+#: ../src/Frontend-GNOME/Views/MenuWidget.cs:238
+#: ../src/Frontend-GNOME/Preferences/ServerListView.cs:227
+msgid "Unable to add server: "
+msgstr "无法添加服务器: "
+
+#: ../src/Frontend-GNOME/Views/MenuWidget.cs:359
+msgid ""
+"Switching to local engine will disconnect you from the current engine!\n"
+"Are you sure you want to do this?"
+msgstr "切换到本地引擎会将您与当前引擎断开!\n您确实大赛这样做吗?"
+
+#: ../src/Frontend-GNOME/Views/MenuWidget.cs:403
+msgid ""
+"Switching the remote engine will disconnect you from the current engine!\n"
+"Are you sure you want to do this?"
+msgstr "切换到远程引擎会将您与当前引擎断开!\n您确实大赛这样做吗?"
+
+#: ../src/Frontend-GNOME/Views/MessageTextView.cs:273
 #, csharp-format
 msgid "Day changed from {0} to {1}"
 msgstr "天数由 {0} 变为 {1}"
 
-#: ../src/Frontend-GNOME/Views/MessageTextView.cs:210
+#: ../src/Frontend-GNOME/Views/MessageTextView.cs:277
 #, csharp-format
 msgid "Day changed to {0}"
 msgstr "日期已改为 {0}"
 
-#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:123
-#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:133
+#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:120
+#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:130
 #, csharp-format
 msgid "Invalid filter regex: '{0}'. Reason: {1}"
 msgstr "无效的过滤器正则表达式: '{0}'。原因: {1}"
 
-#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:200
+#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:197
 msgid "Are you sure you want to delete the selected filter?"
 msgstr "您确实要删除选中的过滤器?"
 
-#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:246
+#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:241
 msgid "Protocol / Server"
 msgstr "协议 / 服务器"
 
-#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:253
+#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:248
 msgid "Chat Type"
 msgstr "聊天类型"
 
-#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:287
+#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:281
 msgid "Normal"
 msgstr "普通"
 
-#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:288
+#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:282
 msgid "Event"
 msgstr "事件"
 
-#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:295
+#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:289
 msgid "Type"
 msgstr "类型"
 
-#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:321
+#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:314
 msgid "Pattern"
 msgstr "匹配"
 
-#: ../src/Frontend-GNOME/Views/Chats/ChatView.cs:506
+#: ../src/Frontend-GNOME/Views/Chats/ChatView.cs:538
 msgid "Low Bandwidth Mode is active: no messages synced."
 msgstr "低带宽模式未启用: 未同步任何信息。"
 
-#: ../src/Frontend-GNOME/Views/Chats/GroupChatView.cs:245
+#: ../src/Frontend-GNOME/Views/Chats/ChatView.cs:764
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:135
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:136
+msgid "Show _Menubar"
+msgstr "显示菜单栏(_M)"
+
+#: ../src/Frontend-GNOME/Views/Chats/GroupChatView.cs:275
 #, csharp-format
 msgid "Retrieving user list for {0}..."
 msgstr "正在检索 {0} 的用户列表..."
 
 #. TRANSLATOR: this string will be appended to the one above
-#: ../src/Frontend-GNOME/Views/Chats/GroupChatView.cs:279
+#: ../src/Frontend-GNOME/Views/Chats/GroupChatView.cs:309
 msgid "done."
 msgstr "完成。"
 
-#: ../src/Frontend-GNOME/Views/Chats/GroupChatView.cs:290
+#: ../src/Frontend-GNOME/Views/Chats/GroupChatView.cs:320
 msgid "Person"
 msgstr "成员"
 
-#: ../src/Frontend-GNOME/Views/Chats/ProtocolChatView.cs:69
+#: ../src/Frontend-GNOME/Views/Chats/ProtocolChatView.cs:146
 msgid ""
 "Closing the protocol chat will also close all open chats connected to it!\n"
 "Are you sure you want to do this?"
-msgstr ""
-"关闭该协议将同时关闭所有连接到它的开放聊天!\n"
-"您确实希望这么做吗?"
+msgstr "关闭该协议将同时关闭所有连接到它的开放聊天!\n您确实希望这么做吗?"
 
-#: ../src/Frontend-GNOME/Preferences/ServerListView.cs:187
+#: ../src/Frontend-GNOME/Preferences/ServerListView.cs:189
 msgid "Are you sure you want to delete the selected server?"
 msgstr "您确实打算删除选中的服务器吗?"
 
-#: ../src/Frontend-GNOME/Preferences/ServerListView.cs:243
-#: ../src/Frontend-GNOME/Preferences/ServerListView.cs:277
+#: ../src/Frontend-GNOME/Preferences/ServerListView.cs:245
+#: ../src/Frontend-GNOME/Preferences/ServerListView.cs:279
 msgid "Unable to edit server: "
 msgstr "无法编辑服务器: "
 
@@ -939,13 +861,169 @@ msgid "Smuxi - Find Group Chat"
 msgstr "Smuxi - 查找群组聊天"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.FindGroupChatDialog.cs:47
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.OpenChatDialog.cs:73
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.OpenChatDialog.cs:71
 msgid "_Name:"
 msgstr "名称(_N):"
 
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.JoinWidget.cs:69
+msgid "Join"
+msgstr "加入"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:55
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:56
+msgid "_Smuxi"
+msgstr "_Smuxi"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:58
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:59
+msgid "_Server"
+msgstr "服务器(_S)"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:61
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:62
+msgid "_Chat"
+msgstr "聊天(_C)"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:64
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:65
+msgid "_Engine"
+msgstr "引擎(_E)"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:67
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:68
+msgid "_View"
+msgstr "视图(_V)"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:70
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:71
+msgid "_Help"
+msgstr "帮助(_H)"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:73
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:75
+msgid "Connect"
+msgstr "连接"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:77
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:79
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:150
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:151
+msgid "Open Log"
+msgstr "打开聊天历史"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:87
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:88
+msgid "_Preferences"
+msgstr "偏好设置(_P)"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:90
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:91
+msgid "_Quit"
+msgstr "退出(_Q)"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:93
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:94
+msgid "_Connect"
+msgstr "连接(_C)"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:96
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:97
+msgid "_Add"
+msgstr "添加(_A)"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:99
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:100
+msgid "_Manage"
+msgstr "管理(_M)"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:102
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:103
+msgid "_Open / Join Chat"
+msgstr "打开(_O) / 加入聊天"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:105
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:106
+msgid "_Find Group Chat"
+msgstr "查找群组聊天(_F)"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:108
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:109
+msgid "C_lear All Activity"
+msgstr "清除所有活动(_L)"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:111
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:112
+msgid "_Next Chat"
+msgstr "下一个聊天(_N)"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:114
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:115
+msgid "_Previous Chat"
+msgstr "上一个聊天(_P)"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:117
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:118
+msgid "_Close"
+msgstr "关闭(_C)"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:120
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:121
+msgid "_Use Local Engine"
+msgstr "使用本地引擎(_U)"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:123
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:124
+msgid "_Add Remote Engine"
+msgstr "添加远程引擎(_A)"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:126
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:127
+msgid "Switch Remote Engine"
+msgstr "切换远程引擎"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:129
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:130
+msgid "_Caret Mode"
+msgstr "插入模式(_C)"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:132
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:133
+msgid "_Browse Mode"
+msgstr "浏览模式(_B)"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:138
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:139
+msgid "Show _Statusbar"
+msgstr "显示状态栏(_S)"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:141
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:142
+msgid "Show _Join Bar"
+msgstr "显示加入栏(_J)"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:144
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:145
+msgid "_Fullscreen"
+msgstr "全屏(_F)"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:147
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:148
+msgid "_About"
+msgstr "关于(_A)"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:153
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:155
+msgid "Find Group Chat"
+msgstr "查找群组聊天"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:157
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:158
+msgid "_Website"
+msgstr "网站(_W)"
+
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.QuickConnectDialog.cs:19
-msgid "Smuxi - Quick Connect"
-msgstr "Smuxi - 快速连接"
+msgid "Smuxi - Connect"
+msgstr "Smuxi - 连接"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:206
 msgid "Smuxi - Preferences"
@@ -980,8 +1058,7 @@ msgid ""
 "<span size=\"small\">Enables the use of SSH for the connection.  This has a "
 "small performance impact, but is more secure and required when using NAT or "
 "port-based firewalls</span>"
-msgstr ""
-"<span size=\"small\">为连接启用 SSH。这对性能有一定影响，但更安全，且使用 NAT 或者基于端口的防火墙时必需</span>"
+msgstr "<span size=\"small\">为连接启用 SSH。这对性能有一定影响，但更安全，且使用 NAT 或者基于端口的防火墙时必需</span>"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantConnectionWidget.cs:135
 msgid "SSH _Host:"
@@ -1075,11 +1152,7 @@ msgid ""
 "You need to enter some information before you can use the engine.\n"
 "\n"
 "Click \"Forward\" to begin."
-msgstr ""
-"欢迎使用 Smuxi 引擎配置助手。\n"
-"在您能够使用引擎之前，需要输入一些信息。\n"
-"\n"
-"点击“前进”开始。"
+msgstr "欢迎使用 Smuxi 引擎配置助手。\n在您能够使用引擎之前，需要输入一些信息。\n\n点击“前进”开始。"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantNameWidget.cs:36
 msgid "_Engine Name:"
@@ -1107,7 +1180,7 @@ msgstr "<span size=\"small\">如果启用，Smuxi 下次启动时当前引擎将
 msgid "Smuxi - Open Chat"
 msgstr "Smuxi - 开放聊天"
 
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.OpenChatDialog.cs:63
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.OpenChatDialog.cs:61
 msgid "_Type:"
 msgstr "_类型:"
 
@@ -1138,5 +1211,3 @@ msgstr "连接时命令(_O):"
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:265
 msgid "_Ignore Commands"
 msgstr "忽略命令(_I)"
-
-
