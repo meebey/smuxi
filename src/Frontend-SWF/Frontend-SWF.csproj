@@ -8,7 +8,8 @@
     <ProjectGuid>{41CA5F1D-83A0-48D6-A4D3-DDF801272056}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>Smuxi.Frontend.Swf</RootNamespace>
-    <ApplicationIcon>.</ApplicationIcon>
+    <ApplicationIcon>
+    </ApplicationIcon>
     <AssemblyName>smuxi-frontend-swf</AssemblyName>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">

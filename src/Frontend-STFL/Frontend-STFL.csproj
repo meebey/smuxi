@@ -9,7 +9,8 @@
     <OutputType>Exe</OutputType>
     <RootNamespace>Smuxi.Frontend.Stfl</RootNamespace>
     <StartupObject>Smuxi.Frontend.Stfl.MainClass</StartupObject>
-    <ApplicationIcon>.</ApplicationIcon>
+    <ApplicationIcon>
+    </ApplicationIcon>
     <AssemblyName>smuxi-frontend-stfl</AssemblyName>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
