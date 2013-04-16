@@ -223,16 +223,16 @@ namespace Smuxi.Frontend.Gnome
                 var layout = Entry.CreatePangoLayout("Qp");
                 int lineWidth, lineHeigth;
                 layout.GetPixelSize(out lineWidth, out lineHeigth);
-                var text = Entry.Text;
-                var newLines = text.Count(f => f == '\n');
-                // cap to 1-3 lines
-                if (text.Length > 0) {
+                var it = Entry.Buffer.StartIter;
+                int newLines = 1;
+                // move to end of next visual line
+                while (Entry.ForwardDisplayLineEnd(ref it)) {
                     newLines++;
-                    newLines = Math.Max(newLines, 1);
-                    newLines = Math.Min(newLines, 3);
-                } else {
-                    newLines = 1;
+                    // calling ForwardDisplayLineEnd repeatedly stays on the same position
+                    // therefor we move one cursor position further
+                    it.ForwardCursorPosition();
                 }
+                newLines = Math.Min(newLines, 3);
                 // use text heigth + a bit extra
                 var bestSize = new Gtk.Requisition() {
                     Height = (lineHeigth * newLines) + 5
