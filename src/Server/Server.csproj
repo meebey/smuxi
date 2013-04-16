@@ -8,7 +8,8 @@
     <ProjectGuid>{B68687B3-E45A-410E-BAE6-A7B2590E17B1}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <RootNamespace>Smuxi.Server</RootNamespace>
-    <ApplicationIcon>.</ApplicationIcon>
+    <ApplicationIcon>
+    </ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
