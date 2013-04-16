@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -45,9 +45,7 @@
     <Compile Include="Protocols\Xmpp\IQ\OwnMessage.cs" />
     <Compile Include="Config\XmppServerModel.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Protocols\Xmpp\IQ\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\Common\Common.csproj">
       <Project>{73DEF91D-03FF-41E3-B2E1-3259AF247CA7}</Project>
