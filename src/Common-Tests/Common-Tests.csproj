@@ -19,6 +19,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
+    <additionalargs>/checked+</additionalargs>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>full</DebugType>
@@ -28,10 +29,13 @@
     <WarningLevel>4</WarningLevel>
     <DebugSymbols>true</DebugSymbols>
     <DefineConstants>TRACE</DefineConstants>
+    <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
+    <additionalargs>/checked+</additionalargs>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="TraceTests.cs" />
     <Compile Include="PatternTests.cs" />
+    <Compile Include="Crc32Tests.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />

@@ -107,7 +107,7 @@ namespace Smuxi.Common
         }
         public uint CrcValue {
             get {
-                return (uint)((HashValue[0] << 24) | (HashValue[1] << 16) | (HashValue[2] << 8) | HashValue[3]);
+                return (uint)(((uint)HashValue[0] << 24) | (HashValue[1] << 16) | (HashValue[2] << 8) | HashValue[3]);
             }
         }
         public override int HashSize {
