@@ -42,6 +42,7 @@
     <Compile Include="..\AssemblyVersion.cs" />
     <Compile Include="XmppPersonChatView.cs" />
     <Compile Include="InviteToMenu.cs" />
+    <Compile Include="XmppGroupChatView.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Frontend-GNOME\Frontend-GNOME.csproj">
