@@ -1001,7 +1001,7 @@ namespace Smuxi.Engine
             if (send) {
                 if (chat.ChatType == ChatType.Person) {
                     var _person = (chat as PersonChatModel).Person as PersonModel;
-                    XmppPersonModel person = GetOrCreateContact(_person.ID, _person.IdentityName, true);
+                    XmppPersonModel person = GetOrCreateContact(_person.ID, _person.IdentityName);
                     Jid jid = person.Jid;
                     if (!String.IsNullOrEmpty(jid.Resource)) {
                         JabberClient.Send(new Message(jid, XmppMessageType.chat, text));
@@ -1092,14 +1092,12 @@ namespace Smuxi.Engine
             }
         }
 
-        public XmppPersonModel GetOrCreateContact(Jid jid, string name, bool temporary = true)
+        public XmppPersonModel GetOrCreateContact(Jid jid, string name)
         {
             XmppPersonModel p;
-            if (!Contacts.TryGetValue(jid, out p)) {
+            if (!Contacts.TryGetValue(jid.Bare, out p)) {
                 p = new XmppPersonModel(jid, name, this);
-                // always add to local roster, but mark so it's known it's not in the server's roster
-                p.Temporary = temporary;
-                Contacts[jid] = p;
+                Contacts[jid.Bare] = p;
             }
             return p;
         }
@@ -1124,7 +1122,8 @@ namespace Smuxi.Engine
                 return;
             }
             // create or update a roster item
-            var contact = GetOrCreateContact(rosterItem.Jid.Bare, rosterItem.Name ?? rosterItem.Jid, false);
+            var contact = GetOrCreateContact(rosterItem.Jid.Bare, rosterItem.Name ?? rosterItem.Jid);
+            contact.Temporary = false;
             contact.Subscription = rosterItem.Subscription;
             contact.Ask = rosterItem.Ask;
             contact.IdentityName = rosterItem.Name ?? rosterItem.Jid;
