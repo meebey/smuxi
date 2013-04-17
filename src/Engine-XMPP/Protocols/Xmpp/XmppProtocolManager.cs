@@ -1431,6 +1431,12 @@ namespace Smuxi.Engine
                         if (!isNew) break; // only add to list when coming online
                         if (ContactChat == null) break;
                         lock (ContactChat) {
+                            if (ContactChat.UnsafePersons.ContainsKey(person.ID)) {
+                                var builder = CreateMessageBuilder();
+                                builder.AppendErrorText("tried to add resource twice: {0} ({1})", jid, jid.Resource ?? "<null>");
+                                Session.AddMessageToChat(NetworkChat, builder.ToMessage());
+                                break;
+                            }
                             Session.AddPersonToGroupChat(ContactChat, person.ToPersonModel());
                         }
                         break; // print message
@@ -1478,8 +1484,9 @@ namespace Smuxi.Engine
                     XmppResourceModel res2;
                     if (!person.Resources.TryGetValue(jid.Resource ?? "", out res2)) {
 #if LOG4NET
-                        _Logger.Warn("tried to logoff a nonexistant resource");
+                        _Logger.Warn("received unavailable presence from a nonexistant resource");
 #endif
+                        // HACK: exit here, this resource doesn't exist to our knowledge, so it should not go offline
                         return;
                     }
                     person.RemoveResource(jid);
@@ -1518,7 +1525,12 @@ namespace Smuxi.Engine
                     }
                     lock (ContactChat) {
                         // doesn't exist, got an offline message w/o a preceding online message?
-                        if (!ContactChat.UnsafePersons.ContainsKey(jid.Bare)) break;
+                        if (!ContactChat.UnsafePersons.ContainsKey(jid.Bare)) {
+                            var builder = CreateMessageBuilder();
+                            builder.AppendErrorText("tried to remove person from contactlist that isn't in contactlist: {0} ({1})", jid, jid.Resource ?? "<null>");
+                            Session.AddMessageToChat(NetworkChat, builder.ToMessage());
+                            break;
+                        }
                         Session.RemovePersonFromGroupChat(ContactChat, person.ToPersonModel());
                     }
                     break;
