@@ -46,10 +46,14 @@ namespace Smuxi.Engine
             :base(jid, nick, protocolManager.NetworkID, protocolManager.Protocol, protocolManager)
         {
             Trace.Call(jid, nick, protocolManager);
-            Jid = jid;
+            Jid = jid.Bare;
+            if (!String.IsNullOrEmpty(jid.Resource)) {
+                GetOrCreateResource(jid);
+            }
             Resources = new Dictionary<string, XmppResourceModel>();
             Ask = AskType.NONE;
             Subscription = SubscriptionType.none;
+            Temporary = true;
         }
         
         public XmppResourceModel GetOrCreateResource(Jid jid, out bool isNew)
