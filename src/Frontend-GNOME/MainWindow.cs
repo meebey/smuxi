@@ -240,18 +240,19 @@ namespace Smuxi.Frontend.Gnome
                 args.Requisition = bestSize;
             };
             entryScrolledWindow.Add(Entry);
-            var entryHBox = new Gtk.HBox();
-            entryHBox.PackStart(entryScrolledWindow, true, true, 2);
 
             ProgressBar = new Gtk.ProgressBar();
             StatusHBox = new Gtk.HBox();
 
             MenuWidget = new MenuWidget(this, ChatViewManager);
 
+            Gtk.VPaned vpane = new Gtk.VPaned();
+            vpane.Pack1(Notebook, true, false);
+            vpane.Pack2(entryScrolledWindow, false, false);
+
             Gtk.VBox vbox = new Gtk.VBox();
             vbox.PackStart(MenuWidget, false, false, 0);
-            vbox.PackStart(Notebook, true, true, 0);
-            vbox.PackStart(entryHBox, false, false, 0);
+            vbox.PackStart(vpane, true, true, 0);
 
             NetworkStatusbar = new Gtk.Statusbar();
             NetworkStatusbar.WidthRequest = 300;
