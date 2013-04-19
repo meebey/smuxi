@@ -533,6 +533,14 @@ namespace Smuxi.Frontend.Gnome
 
             _CommandManager.Execute(cd);
         }
+
+        void ResetEntrySize()
+        {
+            // move handle all the way down (to 1 line shown in entry)
+            Frontend.MainWindow.NotebookEntryVPaned.Position = int.MaxValue;
+            // make sure the handle moves automatically again (entry resizes AND shrinks)
+            Frontend.MainWindow.NotebookEntryVPaned.PositionSet = false;
+        }
         
         private bool _Command(CommandModel cd)
         {
@@ -570,6 +578,10 @@ namespace Smuxi.Frontend.Gnome
                         break;
                     case "gc":
                         GC.Collect();
+                        handled = true;
+                        break;
+                    case "reset":
+                        ResetEntrySize();
                         handled = true;
                         break;
                 }

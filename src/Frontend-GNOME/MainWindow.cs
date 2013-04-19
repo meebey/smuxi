@@ -48,6 +48,7 @@ namespace Smuxi.Frontend.Gnome
         public IFrontendUI UI { get; private set; }
         public Entry Entry { get; private set; }
         public Notebook Notebook { get; private set; }
+        public Gtk.VPaned NotebookEntryVPaned { get; private set; }
         public ChatViewManager ChatViewManager { get; private set; }
         public EngineManager EngineManager { get; private set; }
 #if GTK_SHARP_2_10
@@ -223,16 +224,16 @@ namespace Smuxi.Frontend.Gnome
                 var layout = Entry.CreatePangoLayout("Qp");
                 int lineWidth, lineHeigth;
                 layout.GetPixelSize(out lineWidth, out lineHeigth);
-                var text = Entry.Text;
-                var newLines = text.Count(f => f == '\n');
-                // cap to 1-3 lines
-                if (text.Length > 0) {
+                var it = Entry.Buffer.StartIter;
+                int newLines = 1;
+                // move to end of next visual line
+                while (Entry.ForwardDisplayLineEnd(ref it)) {
                     newLines++;
-                    newLines = Math.Max(newLines, 1);
-                    newLines = Math.Min(newLines, 3);
-                } else {
-                    newLines = 1;
+                    // calling ForwardDisplayLineEnd repeatedly stays on the same position
+                    // therefor we move one cursor position further
+                    it.ForwardCursorPosition();
                 }
+                newLines = Math.Min(newLines, 3);
                 // use text heigth + a bit extra
                 var bestSize = new Gtk.Requisition() {
                     Height = (lineHeigth * newLines) + 5
@@ -240,18 +241,19 @@ namespace Smuxi.Frontend.Gnome
                 args.Requisition = bestSize;
             };
             entryScrolledWindow.Add(Entry);
-            var entryHBox = new Gtk.HBox();
-            entryHBox.PackStart(entryScrolledWindow, true, true, 2);
 
             ProgressBar = new Gtk.ProgressBar();
             StatusHBox = new Gtk.HBox();
 
             MenuWidget = new MenuWidget(this, ChatViewManager);
 
+            NotebookEntryVPaned = new Gtk.VPaned();
+            NotebookEntryVPaned.Pack1(Notebook, true, false);
+            NotebookEntryVPaned.Pack2(entryScrolledWindow, false, false);
+
             Gtk.VBox vbox = new Gtk.VBox();
             vbox.PackStart(MenuWidget, false, false, 0);
-            vbox.PackStart(Notebook, true, true, 0);
-            vbox.PackStart(entryHBox, false, false, 0);
+            vbox.PackStart(NotebookEntryVPaned, true, true, 0);
 
             NetworkStatusbar = new Gtk.Statusbar();
             NetworkStatusbar.WidthRequest = 300;
