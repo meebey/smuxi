@@ -43,6 +43,11 @@ namespace Smuxi.Frontend.Gnome
         private CommandManager   _CommandManager;
         private new EntrySettings Settings { get; set; }
 
+        private IList<string>     _PreviousTabMatches = null;
+        private int               _PreviousTabIndex = 0;
+        private int               _TabBeginning = -1;
+        private int               _TabLength = -1;
+
         ChatViewManager ChatViewManager;
         event EventHandler<EventArgs> Activated;
 
@@ -702,6 +707,23 @@ namespace Smuxi.Frontend.Gnome
             ChatViewManager.CurrentChatView.Clear();
         }
 
+        private string _NextTabCycleMatch()
+        {
+            if (_PreviousTabMatches != null && _PreviousTabMatches.Count > 0) {
+                if (_PreviousTabMatches.Count == 1) {
+                    // return only result
+                    _PreviousTabIndex = 0;
+                    return _PreviousTabMatches[0];
+                } else {
+                    // return next result
+                    string nick = _PreviousTabMatches[_PreviousTabIndex+1];
+                    _PreviousTabIndex = (_PreviousTabIndex + 1) % (_PreviousTabMatches.Count-1);
+                    return nick;
+                }
+            }
+            return null;
+        }
+
         private void _NickCompletion()
         {
             // return if we don't support the current ChatView
@@ -715,6 +737,7 @@ namespace Smuxi.Frontend.Gnome
             string word;
             int previous_space;
             int next_space;
+            int sub_starts;
 
             // find the current word
             string temp;
@@ -730,19 +753,19 @@ namespace Smuxi.Frontend.Gnome
             if (previous_space != -1 && next_space != -1) {
                 // previous and next space exist
                 word = text.Substring(previous_space + 1, next_space - previous_space - 1);
+                sub_starts = previous_space + 1;
             } else if (previous_space != -1) {
                 // previous space exist
                 word = text.Substring(previous_space + 1);
+                sub_starts = previous_space + 1;
             } else if (next_space != -1) {
                 // next space exist
                 word = text.Substring(0, next_space);
+                sub_starts = 0;
             } else {
                 // no spaces
                 word = text;
-            }
-
-            if (word == String.Empty) {
-                return;
+                sub_starts = 0;
             }
 
             bool leadingAt = false;
@@ -750,40 +773,70 @@ namespace Smuxi.Frontend.Gnome
             if (word.StartsWith("@")) {
                 word = word.Substring(1);
                 leadingAt = true;
+                ++sub_starts;
+            }
+
+            string nick = null;
+
+            if (word == String.Empty) {
+                if (Settings.TabCompletionMode == TabCompletionMode.TabCycle) {
+                    nick = _NextTabCycleMatch();
+                    if (nick != null) {
+                        // replace the right bit
+                        Text = Text.Substring(0, _TabBeginning) + nick + Text.Substring(_TabBeginning + _TabLength);
+                        // update the length
+                        _TabLength = nick.Length;
+                    }
+                }
+                return;
             }
 
             // find the possible nickname
             bool found = false;
             bool partial_found = false;
-            string nick = null;
 
             ChatView view = ChatViewManager.CurrentChatView;
             if (view is GroupChatView) {
                 GroupChatView cp = (GroupChatView) view;
-                if (Settings.BashStyleCompletion) {
-                    IList<string> result = cp.PersonLookupAll(word);
-                    if (result == null || result.Count == 0) {
-                        // no match
-                    } else if (result.Count == 1) {
-                        found = true;
-                        nick = result[0];
-                    } else if (result.Count >= 2) {
-                        string[] nickArray = new string[result.Count];
-                        result.CopyTo(nickArray, 0);
-                        string nicks = String.Join(" ", nickArray, 1, nickArray.Length - 1);
-                        ChatViewManager.CurrentChatView.AddMessage(
-                            new MessageModel(String.Format("-!- {0}", nicks))
-                        );
-                        found = true;
-                        partial_found = true;
-                        nick = result[0];
-                    }
-                } else {
-                    PersonModel person = cp.PersonLookup(word);
-                    if (person != null) {
-                        found = true;
-                        nick = person.IdentityName;
-                     }
+                switch (Settings.TabCompletionMode) {
+                    case TabCompletionMode.FirstMatch:
+                        PersonModel person = cp.PersonLookup(word);
+                        if (person != null) {
+                            found = true;
+                            nick = person.IdentityName;
+                        }
+                        break;
+                    case TabCompletionMode.LongestPrefix:
+                        IList<string> result = cp.PersonLookupAll(word);
+                        if (result == null || result.Count == 0) {
+                            // no match
+                        } else if (result.Count == 1) {
+                            found = true;
+                            nick = result[0];
+                        } else if (result.Count >= 2) {
+                            string[] nickArray = new string[result.Count];
+                            result.CopyTo(nickArray, 0);
+                            string nicks = String.Join(" ", nickArray, 1, nickArray.Length - 1);
+                            ChatViewManager.CurrentChatView.AddMessage(
+                                new MessageModel(String.Format("-!- {0}", nicks))
+                                );
+                            found = true;
+                            partial_found = true;
+                            nick = result[0];
+                        }
+                        break;
+                    case TabCompletionMode.TabCycle:
+                        // if we're this far, start search anew
+                        _PreviousTabMatches = cp.PersonLookupAll(word);
+                        _PreviousTabIndex = 0;
+
+                        nick = _NextTabCycleMatch();
+                        found = (nick != null);
+                        if (found) {
+                            _TabBeginning = sub_starts;
+                            _TabLength = nick.Length;
+                        }
+                        break;
                 }
             } else {
                 var personChat = (PersonChatView) ChatViewManager.CurrentChatView;
