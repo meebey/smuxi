@@ -48,6 +48,7 @@ namespace Smuxi.Frontend.Gnome
         public IFrontendUI UI { get; private set; }
         public Entry Entry { get; private set; }
         public Notebook Notebook { get; private set; }
+        public Gtk.VPaned NotebookEntryVPaned { get; private set; }
         public ChatViewManager ChatViewManager { get; private set; }
         public EngineManager EngineManager { get; private set; }
 #if GTK_SHARP_2_10
@@ -246,13 +247,13 @@ namespace Smuxi.Frontend.Gnome
 
             MenuWidget = new MenuWidget(this, ChatViewManager);
 
-            Gtk.VPaned vpane = new Gtk.VPaned();
-            vpane.Pack1(Notebook, true, false);
-            vpane.Pack2(entryScrolledWindow, false, false);
+            NotebookEntryVPaned = new Gtk.VPaned();
+            NotebookEntryVPaned.Pack1(Notebook, true, false);
+            NotebookEntryVPaned.Pack2(entryScrolledWindow, false, false);
 
             Gtk.VBox vbox = new Gtk.VBox();
             vbox.PackStart(MenuWidget, false, false, 0);
-            vbox.PackStart(vpane, true, true, 0);
+            vbox.PackStart(NotebookEntryVPaned, true, true, 0);
 
             NetworkStatusbar = new Gtk.Statusbar();
             NetworkStatusbar.WidthRequest = 300;
