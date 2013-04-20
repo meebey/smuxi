@@ -1751,18 +1751,81 @@ yy/yyyy = year</property>
                                   </packing>
                                 </child>
                                 <child>
-                                  <widget class="GtkCheckButton" id="BashStyleCompletionCheckButton">
-                                    <property name="label" translatable="yes">Bash-Style Completion</property>
+                                  <widget class="GtkFrame" id="frame16">
                                     <property name="visible">True</property>
-                                    <property name="can_focus">True</property>
-                                    <property name="receives_default">False</property>
-                                    <property name="use_underline">True</property>
-                                    <property name="draw_indicator">True</property>
-                                    <signal name="toggled" handler="_OnChanged"/>
+                                    <property name="label_xalign">0</property>
+                                    <child>
+                                      <widget class="GtkAlignment" id="alignment29">
+                                        <property name="visible">True</property>
+                                        <property name="left_padding">12</property>
+                                        <child>
+                                          <widget class="GtkVBox" id="vbox16">
+                                            <property name="visible">True</property>
+                                            <child>
+                                              <widget class="GtkRadioButton" id="TabCompletionRadioButtonFirstMatch">
+                                                <property name="label" translatable="yes">First Match (irssi)</property>
+                                                <property name="visible">True</property>
+                                                <property name="can_focus">True</property>
+                                                <property name="receives_default">False</property>
+                                                <property name="active">True</property>
+                                                <property name="draw_indicator">True</property>
+                                              </widget>
+                                              <packing>
+                                                <property name="expand">True</property>
+                                                <property name="fill">True</property>
+                                                <property name="position">0</property>
+                                              </packing>
+                                            </child>
+                                            <child>
+                                              <widget class="GtkRadioButton" id="TabCompletionRadioButtonLongestPrefix">
+                                                <property name="label" translatable="yes">Longest Prefix (bash)</property>
+                                                <property name="visible">True</property>
+                                                <property name="can_focus">True</property>
+                                                <property name="receives_default">False</property>
+                                                <property name="active">True</property>
+                                                <property name="draw_indicator">True</property>
+                                                <property name="group">TabCompletionRadioButtonFirstMatch</property>
+                                              </widget>
+                                              <packing>
+                                                <property name="expand">True</property>
+                                                <property name="fill">True</property>
+                                                <property name="position">1</property>
+                                              </packing>
+                                            </child>
+                                            <child>
+                                              <widget class="GtkRadioButton" id="TabCompletionRadioButtonTabCycle">
+                                                <property name="label" translatable="yes">Cycle with Tab</property>
+                                                <property name="visible">True</property>
+                                                <property name="can_focus">True</property>
+                                                <property name="receives_default">False</property>
+                                                <property name="active">True</property>
+                                                <property name="draw_indicator">True</property>
+                                                <property name="group">TabCompletionRadioButtonFirstMatch</property>
+                                              </widget>
+                                              <packing>
+                                                <property name="expand">True</property>
+                                                <property name="fill">True</property>
+                                                <property name="position">2</property>
+                                              </packing>
+                                            </child>
+                                          </widget>
+                                        </child>
+                                      </widget>
+                                    </child>
+                                    <child>
+                                      <widget class="GtkLabel" id="label66">
+                                        <property name="visible">True</property>
+                                        <property name="label" translatable="yes">&lt;b&gt; Tab Completion &lt;/b&gt;</property>
+                                        <property name="use_markup">True</property>
+                                      </widget>
+                                      <packing>
+                                        <property name="type">label_item</property>
+                                      </packing>
+                                    </child>
                                   </widget>
                                   <packing>
                                     <property name="expand">False</property>
-                                    <property name="fill">False</property>
+                                    <property name="fill">True</property>
                                     <property name="position">1</property>
                                   </packing>
                                 </child>

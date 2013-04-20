@@ -26,7 +26,7 @@ namespace Smuxi.Engine
     {
         public string CommandCharacter { get; set; }
         public string CompletionCharacter { get; set; }
-        public bool BashStyleCompletion { get; set; }
+        public TabCompletionMode TabCompletionMode { get; set; }
         public int CommandHistorySize { get; set; }
 
         public EntrySettings()
@@ -34,7 +34,7 @@ namespace Smuxi.Engine
             // internal defaults
             CommandCharacter = "/";
             CompletionCharacter = ":";
-            BashStyleCompletion = false;
+            TabCompletionMode = TabCompletionMode.FirstMatch;
             CommandHistorySize = 30;
         }
 
@@ -48,8 +48,12 @@ namespace Smuxi.Engine
                 config["Interface/Entry/CommandCharacter"];
             CompletionCharacter = (string)
                 config["Interface/Entry/CompletionCharacter"];
-            BashStyleCompletion = (bool)
-                config["Interface/Entry/BashStyleCompletion"];
+            string tabModeStr = (string)
+                config["Interface/Entry/TabCompletionMode"];
+            TabCompletionMode = (TabCompletionMode) Enum.Parse(
+                typeof(TabCompletionMode),
+                tabModeStr
+            );
             CommandHistorySize = (int)
                 config["Interface/Entry/CommandHistorySize"];
         }

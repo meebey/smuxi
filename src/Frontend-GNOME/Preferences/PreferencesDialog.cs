@@ -578,10 +578,19 @@ namespace Smuxi.Frontend.Gnome
                 (string)Frontend.UserConfig["Interface/Entry/CompletionCharacter"];
             ((Gtk.Entry)_Glade["CommandCharacterEntry"]).Text =
                 (string)Frontend.UserConfig["Interface/Entry/CommandCharacter"];
-            ((Gtk.CheckButton)_Glade["BashStyleCompletionCheckButton"]).Active =
-                (bool)Frontend.UserConfig["Interface/Entry/BashStyleCompletion"];
             ((Gtk.SpinButton)_Glade["CommandHistorySizeSpinButton"]).Value =
                 (double)(int)Frontend.UserConfig["Interface/Entry/CommandHistorySize"];
+            string tabStr = (string) Frontend.UserConfig ["Interface/Entry/TabCompletionMode"];
+            TabCompletionMode tabMode = (TabCompletionMode) Enum.Parse(
+                typeof(TabCompletionMode),
+                tabStr
+            );
+            ((Gtk.RadioButton)_Glade["TabCompletionRadioButtonFirstMatch"]).Active =
+                (tabMode == TabCompletionMode.FirstMatch);
+            ((Gtk.RadioButton)_Glade["TabCompletionRadioButtonLongestPrefix"]).Active =
+                (tabMode == TabCompletionMode.LongestPrefix);
+            ((Gtk.RadioButton)_Glade["TabCompletionRadioButtonTabCycle"]).Active =
+                (tabMode == TabCompletionMode.TabCycle);
 
             var highlight_words =
                 (string[]) Frontend.UserConfig["Interface/Chat/HighlightWords"];
@@ -839,10 +848,19 @@ namespace Smuxi.Frontend.Gnome
                 ((Gtk.Entry)_Glade["CompletionCharacterEntry"]).Text;
             Frontend.UserConfig["Interface/Entry/CommandCharacter"]   =
                 ((Gtk.Entry)_Glade["CommandCharacterEntry"]).Text;
-            Frontend.UserConfig["Interface/Entry/BashStyleCompletion"] =
-                ((Gtk.CheckButton)_Glade["BashStyleCompletionCheckButton"]).Active;
             Frontend.UserConfig["Interface/Entry/CommandHistorySize"] =
                 (int)((Gtk.SpinButton)_Glade["CommandHistorySizeSpinButton"]).Value;
+
+            if (((Gtk.RadioButton)_Glade["TabCompletionRadioButtonFirstMatch"]).Active) {
+                Frontend.UserConfig["Interface/Entry/TabCompletionMode"] =
+                    TabCompletionMode.FirstMatch.ToString();
+            } else if (((Gtk.RadioButton)_Glade["TabCompletionRadioButtonLongestPrefix"]).Active) {
+                Frontend.UserConfig["Interface/Entry/TabCompletionMode"] =
+                    TabCompletionMode.LongestPrefix.ToString();
+            } else if (((Gtk.RadioButton)_Glade["TabCompletionRadioButtonTabCycle"]).Active) {
+                Frontend.UserConfig["Interface/Entry/TabCompletionMode"] =
+                    TabCompletionMode.TabCycle.ToString();
+            }
             
             Frontend.UserConfig["Interface/Chat/HighlightWords"] = null;
 

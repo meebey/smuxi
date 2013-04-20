@@ -49,7 +49,12 @@ namespace Smuxi.Frontend.Swf
         private Notebook         _Notebook;
         
         public  EventHandler     Activated;
-        
+
+        private IList<string>     _PreviousTabMatches = null;
+        private int               _PreviousTabIndex = 0;
+        private int               _TabBeginning = -1;
+        private int               _TabLength = -1;
+
         /*
         public StringCollection History {
             get {
@@ -668,6 +673,23 @@ namespace Smuxi.Frontend.Swf
                                               cd.Command));
         }
         
+        private string _NextTabCycleMatch()
+        {
+            if (_PreviousTabMatches != null && _PreviousTabMatches.Count > 0) {
+                if (_PreviousTabMatches.Count == 1) {
+                    // return only result
+                    _PreviousTabIndex = 0;
+                    return _PreviousTabMatches[0];
+                } else {
+                    // return next result
+                    string nick = _PreviousTabMatches[_PreviousTabIndex+1];
+                    _PreviousTabIndex = (_PreviousTabIndex + 1) % (_PreviousTabMatches.Count-1);
+                    return nick;
+                }
+            }
+            return null;
+        }
+
         private void _NickCompletion()
         {
             int position = SelectionStart;
@@ -675,6 +697,7 @@ namespace Smuxi.Frontend.Swf
             string word;
             int previous_space;
             int next_space;
+            int sub_starts;
 
             // find the current word
             string temp;
@@ -690,49 +713,83 @@ namespace Smuxi.Frontend.Swf
             if (previous_space != -1 && next_space != -1) {
                 // previous and next space exist
                 word = text.Substring(previous_space + 1, next_space - previous_space - 1);
+                sub_starts = previous_space + 1;
             } else if (previous_space != -1) {
                 // previous space exist
                 word = text.Substring(previous_space + 1);
+                sub_starts = previous_space + 1;
             } else if (next_space != -1) {
                 // next space exist
                 word = text.Substring(0, next_space);
+                sub_starts = 0;
             } else {
                 // no spaces
                 word = text;
+                sub_starts = 0;
             }
 
+            string tcmString = (string) Frontend.UserConfig ["Interface/Entry/TabCompletionMode"];
+            TabCompletionMode tcm = (TabCompletionMode) Enum.Parse(
+                typeof(TabCompletionMode),
+                tcmString
+            );
+            string nick = null;
+
             if (word == String.Empty) {
+                if (tcm == TabCompletionMode.TabCycle) {
+                    nick = _NextTabCycleMatch();
+                    if (nick != null) {
+                        // replace the right bit
+                        Text = Text.Substring(0, _TabBeginning) + nick + Text.Substring(_TabBeginning + _TabLength);
+                        // update the length
+                        _TabLength = nick.Length;
+                    }
+                }
                 return;
             }
 
             // find the possible nickname
             bool found = false;
             bool partial_found = false;
-            string nick = null;
             //GroupChatModel cp = (GroupChatModel) Frontend.FrontendManager.CurrentChat;
             GroupChatModel cp = (GroupChatModel) _Notebook.CurrentChatView.ChatModel;
-            if ((bool)Frontend.UserConfig["Interface/Entry/BashStyleCompletion"]) {
-                IList<string> result = cp.PersonLookupAll(word);
-                if (result == null || result.Count == 0) {
-                    // no match
-                } else if (result.Count == 1) {
-                    found = true;
-                    nick = result[0];
-                } else if (result.Count >= 2) {
-                    string[] nickArray = new string[result.Count];
-                    result.CopyTo(nickArray, 0);
-                    string nicks = String.Join(" ", nickArray, 1, nickArray.Length - 1);
-                    Frontend.FrontendManager.AddTextToChat(cp, "-!- " + nicks);
-                    found = true;
-                    partial_found = true;
-                    nick = result[0];
-                }
-            } else {
-                PersonModel person = cp.PersonLookup(word);
-                if (person != null) {
-                    found = true;
-                    nick = person.IdentityName;
-                 }
+            switch (tcm) {
+                case TabCompletionMode.FirstMatch:
+                    PersonModel person = cp.PersonLookup(word);
+                    if (person != null) {
+                        found = true;
+                        nick = person.IdentityName;
+                    }
+                    break;
+                case TabCompletionMode.LongestPrefix:
+                    IList<string> result = cp.PersonLookupAll(word);
+                    if (result == null || result.Count == 0) {
+                        // no match
+                    } else if (result.Count == 1) {
+                        found = true;
+                        nick = result[0];
+                    } else if (result.Count >= 2) {
+                        string[] nickArray = new string[result.Count];
+                        result.CopyTo(nickArray, 0);
+                        string nicks = String.Join(" ", nickArray, 1, nickArray.Length - 1);
+                        Frontend.FrontendManager.AddTextToChat(cp, "-!- " + nicks);
+                        found = true;
+                        partial_found = true;
+                        nick = result[0];
+                    }
+                    break;
+                case TabCompletionMode.TabCycle:
+                    // if we're this far, start search anew
+                    _PreviousTabMatches = cp.PersonLookupAll(word);
+                    _PreviousTabIndex = 0;
+
+                    nick = _NextTabCycleMatch();
+                    found = (nick != null);
+                    if (found) {
+                        _TabBeginning = sub_starts;
+                        _TabLength = nick.Length;
+                    }
+                    break;
             }
 
             if (found) {

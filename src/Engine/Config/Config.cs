@@ -280,7 +280,7 @@ namespace Smuxi.Engine
             prefix = "Engine/Users/DEFAULT/Interface/Entry/";
             Get(prefix+"CompletionCharacter", ":");
             Get(prefix+"CommandCharacter", "/");
-            Get(prefix+"BashStyleCompletion", false);
+            Get(prefix+"TabCompletionMode", "FirstMatch");
             Get(prefix+"CommandHistorySize", 30);
 
             prefix = "Engine/Users/DEFAULT/Interface/Notification/";
@@ -494,7 +494,7 @@ namespace Smuxi.Engine
                 LoadUserEntry(user, "Interface/Chat/WrapMode", null);
                 LoadUserEntry(user, "Interface/Entry/CompletionCharacter", null);
                 LoadUserEntry(user, "Interface/Entry/CommandCharacter", null);
-                LoadUserEntry(user, "Interface/Entry/BashStyleCompletion", null);
+                LoadUserEntry(user, "Interface/Entry/TabCompletionMode", null);
                 LoadUserEntry(user, "Interface/Entry/CommandHistorySize", null);
                 LoadUserEntry(user, "Interface/Notification/NotificationAreaIconMode", null);
                 LoadUserEntry(user, "Interface/Notification/MessagingMenuEnabled", null);
