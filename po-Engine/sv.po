@@ -3,21 +3,22 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-#   <flugsio@gmail.com>, 2011.
-# Martin Bagge <brother@bsnet.se>, 2012.
+# flugsio <flugsio@gmail.com>, 2013
+# flugsio <flugsio@gmail.com>, 2011, 2012
+# Martin Bagge <brother@bsnet.se>, 2012
 msgid ""
 msgstr ""
 "Project-Id-Version: Smuxi - IRC client\n"
 "Report-Msgid-Bugs-To: http://www.smuxi.org/issues\n"
-"POT-Creation-Date: 2012-01-01 18:47+0100\n"
-"PO-Revision-Date: 2012-01-07 12:07+0000\n"
-"Last-Translator: Martin Bagge <brother@bsnet.se>\n"
-"Language-Team: Swedish (http://www.transifex.net/projects/p/smuxi/team/sv/)\n"
+"POT-Creation-Date: 2013-04-14 10:13+0200\n"
+"PO-Revision-Date: 2013-04-17 04:01+0000\n"
+"Last-Translator: flugsio <flugsio@gmail.com>\n"
+"Language-Team: Swedish (http://www.transifex.com/projects/p/smuxi/language/sv/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: sv\n"
-"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: ../src/Engine/FrontendManager.cs:233
 msgid "No network connections"
@@ -37,151 +38,156 @@ msgstr "Misslyckades att optimera: {0}. Anledning: {1}"
 msgid ""
 "Your chat history is no longer available because of an error but will be "
 "preserved from now on."
-msgstr ""
-"Din chatthistorik är inte längre tillgänglig på grund av ett fel, men kommer"
-" att bibehållas från och med nu."
+msgstr "Din chatthistorik är inte längre tillgänglig på grund av ett fel, men kommer att bibehållas från och med nu."
 
-#: ../src/Engine/Protocols/ProtocolManagerBase.cs:170
+#: ../src/Engine/Protocols/ProtocolManagerBase.cs:166
 msgid "Not connected to server"
 msgstr "Inte ansluten till server"
 
-#: ../src/Engine/Protocols/ProtocolManagerBase.cs:178
-#: ../src/Engine/Session.cs:778
+#: ../src/Engine/Protocols/ProtocolManagerBase.cs:174
+#: ../src/Engine/Session.cs:846
 #, csharp-format
 msgid "Not enough parameters for {0} command"
 msgstr "Inte tillräckligt med parametrar för kommandot {0}"
 
-#: ../src/Engine/Protocols/ProtocolManagerBase.cs:189
+#: ../src/Engine/Protocols/ProtocolManagerBase.cs:185
 #, csharp-format
 msgid "Connected to {0}"
 msgstr "Ansluten till {0}"
 
-#: ../src/Engine/Protocols/ProtocolManagerBase.cs:207
+#: ../src/Engine/Protocols/ProtocolManagerBase.cs:203
 #, csharp-format
 msgid "Disconnected from {0}"
 msgstr "Frånkopplad från {0}"
 
-#: ../src/Engine/Session.cs:218
+#: ../src/Engine/Session.cs:217
 #, csharp-format
 msgid "Automatic connect to {0} failed!"
 msgstr "Automatisk anslutning till {0} misslyckades!"
 
 #. TRANSLATOR: this line is used as a label / category for a
 #. list of commands below
-#: ../src/Engine/Session.cs:416
+#: ../src/Engine/Session.cs:415
 msgid "Engine Commands"
 msgstr "Kommandon för motorn"
 
-#: ../src/Engine/Session.cs:527
+#: ../src/Engine/Session.cs:540
 msgid "Connect failed!"
 msgstr "Anslutning misslyckades!"
 
-#: ../src/Engine/Session.cs:550
+#: ../src/Engine/Session.cs:563
 #, csharp-format
 msgid "Disconnect failed - could not find server: {0}"
 msgstr "Nedkoppling misslyckades - kunde inte hitta servern: {0}"
 
-#: ../src/Engine/Session.cs:589
+#: ../src/Engine/Session.cs:603
 msgid "Reconnect failed!"
 msgstr "Återanslutning misslyckades!"
 
-#: ../src/Engine/Session.cs:608
+#: ../src/Engine/Session.cs:625
 msgid "Configuration reloaded"
-msgstr "Laddade om inställningar"
+msgstr "Inställningarna laddades"
 
-#: ../src/Engine/Session.cs:613
+#: ../src/Engine/Session.cs:629
 msgid "Configuration saved"
-msgstr "Sparade inställningar"
+msgstr "Inställningarna sparades"
 
-#: ../src/Engine/Session.cs:617
+#: ../src/Engine/Session.cs:633
 msgid "Invalid parameter for config; use load or save"
-msgstr "Ogiltig parameter för inställningar; använd load eller save"
+msgstr "Ogiltig parameter för inställning; använd load eller save"
 
-#: ../src/Engine/Session.cs:676
+#: ../src/Engine/Session.cs:702
 msgid "Invalid parameter for network; use list, switch, or close"
 msgstr "Ogiltig parameter för nätverk; använd list, switch eller close"
 
-#: ../src/Engine/Session.cs:687
-msgid "Networks"
-msgstr "Nätverk"
+#. TRANSLATOR: this line is used as a label / category for a
+#. list of networks below
+#: ../src/Engine/Session.cs:733
+msgid "Connected Networks"
+msgstr "Anslutna nätverk"
 
-#: ../src/Engine/Session.cs:691
-msgid "Protocol"
-msgstr "Protokoll"
-
-#: ../src/Engine/Session.cs:692
+#: ../src/Engine/Session.cs:738 ../src/Engine/Session.cs:762
 msgid "Network"
 msgstr "Nätverk"
 
-#: ../src/Engine/Session.cs:693
+#: ../src/Engine/Session.cs:739
+msgid "Protocol"
+msgstr "Protokoll"
+
+#: ../src/Engine/Session.cs:740
 msgid "Host"
 msgstr "Värd"
 
-#: ../src/Engine/Session.cs:694
+#: ../src/Engine/Session.cs:741
 msgid "Port"
 msgstr "Port"
 
-#: ../src/Engine/Session.cs:709
+#. TRANSLATOR: no connected networks
+#. TRANSLATOR: no available networks
+#: ../src/Engine/Session.cs:747 ../src/Engine/Session.cs:768
+msgid "None"
+msgstr "Ingen"
+
+#. TRANSLATOR: this line is used as a label / category for a
+#. list of networks below
+#: ../src/Engine/Session.cs:754
+msgid "Available Networks"
+msgstr "Tillgängliga nätverk"
+
+#: ../src/Engine/Session.cs:783
 #, csharp-format
 msgid "Network close failed - could not find network: {0}"
-msgstr ""
-"Stängning av nätverk misslyckades - kunde inte hitta nätverk med värd: {0}"
+msgstr "Stängning av nätverk misslyckades - kunde inte hitta nätverket med värdnamn: {0}"
 
-#: ../src/Engine/Session.cs:748
+#: ../src/Engine/Session.cs:821
 #, csharp-format
 msgid "Network switch failed - could not find network: {0}"
-msgstr ""
-"Byte av nätverk misslyckades - kunde inte hitta nätverk med värden: {0}"
+msgstr "Byte av nätverk misslyckades - kunde inte hitta nätverket med värdnamn: {0}"
 
-#: ../src/Engine/Session.cs:767
+#: ../src/Engine/Session.cs:839
 msgid "Not connected to any network"
 msgstr "Inte ansluten till något nätverk"
 
-#: ../src/Engine/Session.cs:1013
+#: ../src/Engine/Session.cs:1093
 #, csharp-format
 msgid ""
 "Failed to write to chat history. Your chat history will not be preserved. "
 "Reason: {0}"
-msgstr ""
-"Kunde inte spara chatthistorik. Din chatthistorik kommer inte att "
-"bibehållas. Anledning: {0}"
+msgstr "Kunde inte spara chatthistorik. Din chatthistorik kommer inte att bibehållas. Anledning: {0}"
 
 #. just in case the ProtocolManager is not setting the
 #. protocol chat
-#: ../src/Engine/Session.cs:1185
+#: ../src/Engine/Session.cs:1266
 msgid "Connect failed."
 msgstr "Anslutning misslyckades."
 
-#: ../src/Engine/Session.cs:1216
+#: ../src/Engine/Session.cs:1297
 #, csharp-format
 msgid "No protocol manager found for the protocol: {0}"
 msgstr "Ingen protokollshanterare funnen för protokollet: {0}"
 
-#: ../src/Engine/Session.cs:1448
+#: ../src/Engine/Session.cs:1529
 msgid "Welcome to Smuxi"
 msgstr "Välkommen till Smuxi"
 
-#: ../src/Engine/Session.cs:1455
+#: ../src/Engine/Session.cs:1536
 msgid "Type /help to get a list of available commands."
-msgstr "Skriv /help för en lista med tillgängliga kommandon."
+msgstr "Skriv /help för att få en lista med tillgängliga kommandon."
 
-#: ../src/Engine/Session.cs:1461
+#: ../src/Engine/Session.cs:1542
 msgid ""
 "After you have made a connection the list of available commands changes. Go "
 "to the newly opened connection tab and use the /help command again to see "
 "the extended command list."
-msgstr ""
-"Efter att du har kopplat upp dig så ändras listan med tillgängliga "
-"kommandon. Gå till den nyligen öppnade anslutningsfliken och använd /help "
-"kommandot igen för att se den utökade kommandolistan."
+msgstr "Efter att du har kopplat upp dig så uppdateras listan med tillgängliga kommandon. Gå till den nyligen öppnade anslutningsfliken och använd kommandot /help igen för att se den utökade kommandolistan."
 
 #: ../src/Engine/Config/UserListController.cs:117
 msgid "Username must not be empty."
-msgstr "Användarnamnet får inte vara tomt."
+msgstr "Användarnamnet får inte lämnas tomt."
 
 #: ../src/Engine/Config/UserListController.cs:127
 msgid "Password must not be empty."
-msgstr "Lösenordet får inte vara tomt."
+msgstr "Lösenordet får inte lämnas tomt."
 
 #: ../src/Engine/Config/UserListController.cs:136
 #, csharp-format
@@ -193,35 +199,33 @@ msgstr "Användaren \"{0}\" finns inte."
 msgid "User \"{0}\" already exists."
 msgstr "Användaren \"{0}\" finns redan."
 
-#: ../src/Engine/Config/ServerListController.cs:131
+#: ../src/Engine/Config/ServerListController.cs:118
+msgid "Network must not be empty."
+msgstr "Nätverk får inte lämnas tomt."
+
+#: ../src/Engine/Config/ServerListController.cs:138
 msgid "Server hostname must not be empty."
 msgstr "Servers värdnamn får inte lämnas tomt."
 
-#: ../src/Engine/Config/ServerListController.cs:134
+#: ../src/Engine/Config/ServerListController.cs:141
 msgid "Server hostname contains invalid characters (newline)."
 msgstr "Serverns värdnamn innehåller ogiltiga tecken (ny rad)."
 
-#: ../src/Engine/Config/ServerListController.cs:140
+#: ../src/Engine/Config/ServerListController.cs:148
 #, csharp-format
-msgid "Server '{0}' already exists."
-msgstr "Servern '{0}' finns redan."
+msgid "Server ID '{0}' already exists."
+msgstr "Server ID '{0}' finns redan."
 
 #: ../src/Engine/Chats/ChatModel.cs:105
 #, csharp-format
 msgid ""
 "Failed to load chat history. Your chat history will not be preserved. "
 "Reason: {0}"
-msgstr ""
-"Kunde inte läsa in chatthistoriken. Din chatthistorik kommer inte att "
-"sparas. Anledning: {0}"
+msgstr "Kunde inte läsa in chatthistoriken. Din chatthistorik kommer inte att sparas. Anledning: {0}"
 
-#: ../src/Engine/Chats/ChatModel.cs:290
+#: ../src/Engine/Chats/ChatModel.cs:298
 #, csharp-format
 msgid ""
 "Failed to open chat history for writing. Your chat history will not be "
 "preserved. Reason: {0}"
-msgstr ""
-"Kunde inte öppna chatthistoriken för skrivning. Din chatthistorik kommer "
-"inte att sparas. Anledning: {0}"
-
-
+msgstr "Kunde inte öppna chatthistoriken med skrivrättighet. Din chatthistorik kommer inte att sparas. Anledning: {0}"
