@@ -247,6 +247,16 @@ namespace Smuxi.Frontend.Gnome
             MenuWidget = new MenuWidget(this, ChatViewManager);
 
             Gtk.VPaned vpane = new Gtk.VPaned();
+            vpane.ButtonPressEvent += (sender, e) => {;
+                // reset entry size on double click
+                if (e.Event.Type == Gdk.EventType.TwoButtonPress &&
+                    e.Event.Button == 1) {
+                    GLib.Timeout.Add(100, delegate {
+                        vpane.Position = -1;
+                        return false;
+                    });
+                }
+            };
             vpane.Pack1(Notebook, true, false);
             vpane.Pack2(entryScrolledWindow, false, false);
 
