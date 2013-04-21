@@ -251,6 +251,7 @@ namespace Smuxi.Frontend.Gnome
             var startMark = new Gtk.TextMark(null, true);
             buffer.AddMark(startMark, iter);
 
+
             var senderPrefixWidth = GetSenderPrefixWidth(msg);
             Gtk.TextTag indentTag = null;
             if (senderPrefixWidth != 0) {
@@ -414,6 +415,8 @@ namespace Smuxi.Frontend.Gnome
                 buffer.ApplyTag(PersonTag, msgStartIter, nickEndIter);
                 buffer.ApplyTag(personTag, msgStartIter, nickEndIter);
             }
+            buffer.DeleteMark(startMark);
+            buffer.DeleteMark(msgStartMark);
             if (addLinebreak) {
                 buffer.Insert(ref iter, "\n");
             }
@@ -747,8 +750,38 @@ namespace Smuxi.Frontend.Gnome
                 Gtk.TextIter end_iter = Buffer.GetIterAtLine(Buffer.LineCount -
                                                              _BufferLines);
                 int offset = end_iter.Offset;
+
+                // release tags
+                var toggled_tags = new List<Gtk.TextTag>(16);
+                var start_tags = start_iter.GetToggledTags(true);
+                toggled_tags.AddRange(start_tags);
+
+                var tag_iter = start_iter;
+                while (tag_iter.ForwardToTagToggle(null)) {
+                    if (tag_iter.Compare(end_iter) >= 0) {
+                        // tag is after line end
+                        break;
+                    }
+                    var iter_tags = tag_iter.GetToggledTags(true);
+                    toggled_tags.AddRange(iter_tags);
+                }
+
+                foreach (var tag in toggled_tags) {
+                    // don't remove color tags as they are shared wither other lines
+                    var tagName = tag.Name;
+                    if (tagName != null &&
+                        (tagName.StartsWith("fg_color:") ||
+                         tagName.StartsWith("bg_color:"))) {
+                        continue;
+                    }
+                    if (tag.IndentSet || tag is LinkTag) {
+                        Buffer.RemoveTag(tag, start_iter, end_iter);
+                        _MessageTextTagTable.Remove(tag);
+                        tag.Dispose();
+                    }
+                }
+
                 Buffer.Delete(ref start_iter, ref end_iter);
-                // TODO: remove unnamed tags from TextTagTable
 
                 // update markerline offset if present
                 if (_MarkerlineBufferPosition != 0) {
