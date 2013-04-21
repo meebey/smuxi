@@ -27,6 +27,7 @@
  */
 
 using System;
+using System.Collections.Generic;
 using Smuxi.Engine;
 
 namespace Smuxi.Frontend
@@ -36,6 +37,7 @@ namespace Smuxi.Frontend
         ChatModel ChatModel { get; }
         string    ID { get; }
         int       Position { get; }
+        IList<PersonModel> Participants { get; }
 
         void Enable();
         void Disable();
@@ -46,5 +48,7 @@ namespace Smuxi.Frontend
         void ScrollDown();
         void ScrollToStart();
         void ScrollToEnd();
+
+        void AddMessage(MessageModel msg);
     }
 }

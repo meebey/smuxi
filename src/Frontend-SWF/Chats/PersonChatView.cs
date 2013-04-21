@@ -27,7 +27,7 @@
  */
 
 using System;
-using Mono.Unix;
+using System.Collections.Generic;
 using Smuxi.Engine;
 
 namespace Smuxi.Frontend.Swf
@@ -39,6 +39,15 @@ namespace Smuxi.Frontend.Swf
                          base(chat)
         {
             this.Controls.Add(base.OutputTextView);
+        }
+
+        public override IList<PersonModel> Participants
+        {
+            get {
+                var ret = new List<PersonModel>();
+                ret.Add(((PersonChatModel)ChatModel).Person);
+                return ret;
+            }
         }
     }
 }

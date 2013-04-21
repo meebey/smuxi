@@ -375,5 +375,12 @@ namespace Smuxi.Frontend.Swf
                 }
             }
         }
+
+        // empty by default
+        public virtual IList<PersonModel> Participants {
+            get {
+                return new List<PersonModel>();
+            }
+        }
     }
 }
