@@ -248,6 +248,7 @@ namespace Smuxi.Frontend.Gnome
             var startMark = new Gtk.TextMark(null, true);
             buffer.AddMark(startMark, iter);
 
+
             var senderPrefixWidth = GetSenderPrefixWidth(msg);
             Gtk.TextTag indentTag = null;
             if (senderPrefixWidth != 0) {
@@ -397,6 +398,7 @@ namespace Smuxi.Frontend.Gnome
             if (indentTag != null) {
                 buffer.ApplyTag(indentTag, startIter, iter);
             }
+            buffer.DeleteMark(startMark);
             if (addLinebreak) {
                 buffer.Insert(ref iter, "\n");
             }
