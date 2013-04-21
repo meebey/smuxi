@@ -59,6 +59,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceStack.Common", "..\l
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Engine-Campfire", "Engine-Campfire\Engine-Campfire.csproj", "{1006D905-798E-4039-B9CC-37FB8707F84A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Frontend-Tests", "Frontend-Tests\Frontend-Tests.csproj", "{C8E5D37F-6C42-4CD6-81E4-CE4DA2125F11}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Release|Any CPU = Release|Any CPU
@@ -273,6 +275,14 @@ Global
 		{BE7B2AE6-765A-4EB6-BBB6-F402B1939EC4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BE7B2AE6-765A-4EB6-BBB6-F402B1939EC4}.Release-Win32|x86.ActiveCfg = Release|Any CPU
 		{BE7B2AE6-765A-4EB6-BBB6-F402B1939EC4}.Release-Win32|x86.Build.0 = Release|Any CPU
+		{C8E5D37F-6C42-4CD6-81E4-CE4DA2125F11}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C8E5D37F-6C42-4CD6-81E4-CE4DA2125F11}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C8E5D37F-6C42-4CD6-81E4-CE4DA2125F11}.Debug-Win32|x86.ActiveCfg = Debug|Any CPU
+		{C8E5D37F-6C42-4CD6-81E4-CE4DA2125F11}.Debug-Win32|x86.Build.0 = Debug|Any CPU
+		{C8E5D37F-6C42-4CD6-81E4-CE4DA2125F11}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C8E5D37F-6C42-4CD6-81E4-CE4DA2125F11}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C8E5D37F-6C42-4CD6-81E4-CE4DA2125F11}.Release-Win32|x86.ActiveCfg = Release|Any CPU
+		{C8E5D37F-6C42-4CD6-81E4-CE4DA2125F11}.Release-Win32|x86.Build.0 = Release|Any CPU
 		{D39D3DC3-CE90-4313-8351-C30C24B2CCB8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{D39D3DC3-CE90-4313-8351-C30C24B2CCB8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D39D3DC3-CE90-4313-8351-C30C24B2CCB8}.Debug-Win32|x86.ActiveCfg = Debug|Any CPU
