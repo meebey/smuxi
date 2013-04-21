@@ -246,6 +246,8 @@ namespace Smuxi.Frontend
 #endif
                         return;
                     }
+                    // no longer need the release slot
+                    SyncReleaseQueue.Remove(chatKey);
                 }
 
                 Sync(chatView);

@@ -572,6 +572,10 @@ namespace Smuxi.Frontend.Gnome
                         GC.Collect();
                         handled = true;
                         break;
+                    case "generate_messages":
+                        CommandGenerateMessages(cd);
+                        handled = true;
+                        break;
                 }
             }
             
@@ -700,6 +704,43 @@ namespace Smuxi.Frontend.Gnome
         private void _CommandClear(CommandModel cd)
         {
             ChatViewManager.CurrentChatView.Clear();
+        }
+
+        void CommandGenerateMessages(CommandModel cd)
+        {
+            var count = 0;
+            Int32.TryParse(cd.Parameter, out count);
+
+            var chat = ChatViewManager.CurrentChatView;
+            var builder = new MessageBuilder();
+            var sender = new ContactModel("msg-tester", "msg-tester", "test", "test");
+            builder.AppendMessage(sender, "time for a messsage generator command so I can test speed and memory usage");
+            var text = builder.CreateText(" *formatted text* ");
+            text.Bold = true;
+            builder.Append(text);
+            builder.AppendUrl("https://www.smuxi.org/");
+
+            var msgs = new List<MessageModel>(count);
+            for (var i = 0; i < count; i++) {
+                var msg = builder.ToMessage();
+                msgs.Add(msg);
+            }
+
+            DateTime start, stop;
+            start = DateTime.UtcNow;
+            foreach (var msg in msgs) {
+                chat.AddMessage(msg);
+            }
+            stop = DateTime.UtcNow;
+
+            builder = new MessageBuilder();
+            builder.AppendText(
+                "ChatView.AddMessage(): count: {0} took: {1:0} ms avg: {2:0.00} ms",
+                count,
+                (stop - start).TotalMilliseconds,
+                (stop - start).TotalMilliseconds / count
+            );
+            chat.AddMessage(builder.ToMessage());
         }
 
         private void _NickCompletion()
