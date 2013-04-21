@@ -27,6 +27,7 @@
  */
 
 using System;
+using System.Collections.Generic;
 using Smuxi.Engine;
 using Smuxi.Common;
 
@@ -60,6 +61,15 @@ namespace Smuxi.Frontend.Gnome
 
             Add(OutputScrolledWindow);
             ShowAll();
+        }
+
+        public override IList<PersonModel> Participants
+        {
+            get {
+                var ret = new List<PersonModel>();
+                ret.Add(PersonChatModel.Person);
+                return ret;
+            }
         }
 
         public override void Sync()

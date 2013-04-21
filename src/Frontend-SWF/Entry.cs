@@ -47,6 +47,7 @@ namespace Smuxi.Frontend.Swf
         private int              _HistoryPosition;
         private bool             _HistoryChangedLine;
         private Notebook         _Notebook;
+        private NickCompleter NickCompleter { get; set; }
         
         public  EventHandler     Activated;
         
@@ -204,6 +205,18 @@ namespace Smuxi.Frontend.Swf
                 font = new Font(fontFamily, fontSize, style);
             }
             Font = font;
+
+            // replace nick completer if needed
+            bool wantBashCompletion = (bool)config["Interface/Entry/BashStyleCompletion"];
+            if (wantBashCompletion && !(NickCompleter is LongestPrefixNickCompleter)) {
+                NickCompleter = new LongestPrefixNickCompleter();
+            } else if (!wantBashCompletion && !(NickCompleter is TabCycleNickCompleter)) {
+                NickCompleter = new TabCycleNickCompleter();
+            }
+
+            // set the completion character
+            NickCompleter.CompletionChar = (string)config["Interface/Entry/CompletionChar"];
+
         }
         
         public string HistoryCurrent()
@@ -670,113 +683,12 @@ namespace Smuxi.Frontend.Swf
         
         private void _NickCompletion()
         {
-            int position = SelectionStart;
+            // perform completion
             string text = Text;
-            string word;
-            int previous_space;
-            int next_space;
-
-            // find the current word
-            string temp;
-            temp = text.Substring(0, position);
-            previous_space = temp.LastIndexOf(' ');
-            next_space = text.IndexOf(' ', position);
-
-#if LOG4NET
-            _Logger.Debug("previous_space: "+previous_space);
-            _Logger.Debug("next_space: "+next_space);
-#endif
-
-            if (previous_space != -1 && next_space != -1) {
-                // previous and next space exist
-                word = text.Substring(previous_space + 1, next_space - previous_space - 1);
-            } else if (previous_space != -1) {
-                // previous space exist
-                word = text.Substring(previous_space + 1);
-            } else if (next_space != -1) {
-                // next space exist
-                word = text.Substring(0, next_space);
-            } else {
-                // no spaces
-                word = text;
-            }
-
-            if (word == String.Empty) {
-                return;
-            }
-
-            // find the possible nickname
-            bool found = false;
-            bool partial_found = false;
-            string nick = null;
-            //GroupChatModel cp = (GroupChatModel) Frontend.FrontendManager.CurrentChat;
-            GroupChatModel cp = (GroupChatModel) _Notebook.CurrentChatView.ChatModel;
-            if ((bool)Frontend.UserConfig["Interface/Entry/BashStyleCompletion"]) {
-                IList<string> result = cp.PersonLookupAll(word);
-                if (result == null || result.Count == 0) {
-                    // no match
-                } else if (result.Count == 1) {
-                    found = true;
-                    nick = result[0];
-                } else if (result.Count >= 2) {
-                    string[] nickArray = new string[result.Count];
-                    result.CopyTo(nickArray, 0);
-                    string nicks = String.Join(" ", nickArray, 1, nickArray.Length - 1);
-                    Frontend.FrontendManager.AddTextToChat(cp, "-!- " + nicks);
-                    found = true;
-                    partial_found = true;
-                    nick = result[0];
-                }
-            } else {
-                PersonModel person = cp.PersonLookup(word);
-                if (person != null) {
-                    found = true;
-                    nick = person.IdentityName;
-                 }
-            }
-
-            if (found) {
-                // put the found nickname in place
-                if (previous_space != -1 && next_space != -1) {
-                    // previous and next space exist
-                    temp = text.Remove(previous_space + 1, word.Length);
-                    temp = temp.Insert(previous_space + 1, nick);
-                    Text = temp;
-                    if (partial_found) {
-                        SelectionStart = previous_space + 1 + nick.Length;
-                    } else {
-                        SelectionStart = previous_space + 2 + nick.Length;
-                    }
-                } else if (previous_space != -1) {
-                    // only previous space exist
-                    temp = text.Remove(previous_space + 1, word.Length);
-                    temp = temp.Insert(previous_space + 1, nick);
-                    if (partial_found) {
-                        Text = temp;
-                    } else {
-                        Text = temp+" ";
-                    }
-                    SelectionStart = previous_space + 2 + nick.Length;
-                } else if (next_space != -1) {
-                    // only next space exist
-                    temp = text.Remove(0, next_space + 1);
-                    if (partial_found) {
-                        Text = nick + " " + temp;
-                        SelectionStart = nick.Length;
-                    } else {
-                        Text = nick+(string)Frontend.UserConfig["Interface/Entry/CompletionCharacter"] + " " + temp;
-                        SelectionStart = nick.Length + 2;
-                    }
-                } else {
-                    // no spaces
-                    if (partial_found) {
-                        Text = nick;
-                    } else {
-                        Text = nick+(string)Frontend.UserConfig["Interface/Entry/CompletionCharacter"]+" ";
-                    }
-                    SelectionStart = -1;
-                }
-            }
+            int position = SelectionStart;
+            NickCompleter.Complete(ref text, ref position, _Notebook.CurrentChatView);
+            Text = text;
+            SelectionStart = position;
         }
         
         private static string _(string msg)

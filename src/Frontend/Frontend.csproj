@@ -52,6 +52,9 @@
     <Compile Include="SshTunnelManager.cs" />
     <Compile Include="CommandManager.cs" />
     <Compile Include="ChatViewSyncManager.cs" />
+    <Compile Include="LongestPrefixNickCompleter.cs" />
+    <Compile Include="TabCycleNickCompleter.cs" />
+    <Compile Include="NickCompleter.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />

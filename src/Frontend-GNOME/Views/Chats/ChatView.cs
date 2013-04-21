@@ -216,6 +216,13 @@ namespace Smuxi.Frontend.Gnome
             }
         }
 
+        // by default: no participants
+        public virtual IList<PersonModel> Participants {
+            get {
+                return new List<PersonModel>();
+            }
+        }
+
         public Gtk.Widget LabelWidget {
             get {
                 return _TabEventBox;

@@ -40,6 +40,10 @@
       <Project>{73DEF91D-03FF-41E3-B2E1-3259AF247CA7}</Project>
       <Name>Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Engine\Engine.csproj">
+      <Project>{BCD52FCF-B7A8-42FB-AA8D-CF9921FF593E}</Project>
+      <Name>Engine</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="nunit.core, Version=2.6.0.0, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77">
@@ -52,5 +56,13 @@
       <Package>nunit</Package>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="NickCompleterTests.cs" />
+    <Compile Include="Mocks\MockChatView.cs" />
+    <Compile Include="Mocks\MockProtocolManager.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Mocks\" />
   </ItemGroup>
 </Project>
