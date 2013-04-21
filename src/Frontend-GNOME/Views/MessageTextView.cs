@@ -768,15 +768,15 @@ namespace Smuxi.Frontend.Gnome
 
         int GetPangoWidth(string text, bool isMarkup)
         {
-            Pango.Layout layout;
-            if (isMarkup) {
-                layout = CreatePangoLayout(null);
-                layout.SetMarkup(text);
-            } else {
-                layout = CreatePangoLayout(text);
-            }
             int width, heigth;
-            layout.GetPixelSize(out width, out heigth);
+            using (var layout = CreatePangoLayout(null)) {
+                if (isMarkup) {
+                    layout.SetMarkup(text);
+                } else {
+                    layout.SetText(text);
+                }
+                layout.GetPixelSize(out width, out heigth);
+            }
             return width;
         }
 
