@@ -320,28 +320,7 @@ namespace Smuxi.Frontend.Gnome
         private void _OnUserListMenuQueryActivated(object sender, EventArgs e)
         {
             Trace.Call(sender, e);
-
-            IList<PersonModel> persons = GetSelectedPersons();
-            if (persons == null) {
-                return;
-            }
-
-            foreach (PersonModel person in persons) {
-                var per = person;
-                ThreadPool.QueueUserWorkItem(delegate {
-                    try {
-                        _IrcProtocolManager.CommandMessageQuery(
-                            new CommandModel(
-                                Frontend.FrontendManager,
-                                ChatModel,
-                                per.ID
-                            )
-                        );
-                    } catch (Exception ex) {
-                        Frontend.ShowException(ex);
-                    }
-                });
-            }
+            OpenSelectedPersonsChats();
         }
 
         private void _OnUserListMenuWhoisActivated(object sender, EventArgs e)

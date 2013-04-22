@@ -516,7 +516,12 @@ namespace Smuxi.Frontend.Gnome
         protected virtual void OnPersonsRowActivated(object sender, Gtk.RowActivatedArgs e)
         {
             Trace.Call(sender, e);
+            OpenSelectedPersonsChats();
+        }
 
+        protected void OpenSelectedPersonsChats()
+        {
+            Trace.Call();
             IList<PersonModel> persons = GetSelectedPersons();
             if (persons == null || persons.Count == 0) {
                 return;
