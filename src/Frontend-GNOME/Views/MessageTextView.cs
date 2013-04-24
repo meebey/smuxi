@@ -744,10 +744,11 @@ namespace Smuxi.Frontend.Gnome
                 return;
             }
 
-            if (Buffer.LineCount > _BufferLines) {
-                Gtk.TextIter start_iter = Buffer.StartIter;
+            var buffer = Buffer;
+            if (buffer.LineCount > _BufferLines) {
+                Gtk.TextIter start_iter = buffer.StartIter;
                 // TODO: maybe we should delete chunks instead of each line
-                Gtk.TextIter end_iter = Buffer.GetIterAtLine(Buffer.LineCount -
+                Gtk.TextIter end_iter = buffer.GetIterAtLine(buffer.LineCount -
                                                              _BufferLines);
                 int offset = end_iter.Offset;
 
@@ -775,13 +776,13 @@ namespace Smuxi.Frontend.Gnome
                         continue;
                     }
                     if (tag.IndentSet || tag is LinkTag) {
-                        Buffer.RemoveTag(tag, start_iter, end_iter);
+                        buffer.RemoveTag(tag, start_iter, end_iter);
                         _MessageTextTagTable.Remove(tag);
                         tag.Dispose();
                     }
                 }
 
-                Buffer.Delete(ref start_iter, ref end_iter);
+                buffer.Delete(ref start_iter, ref end_iter);
 
                 // update markerline offset if present
                 if (_MarkerlineBufferPosition != 0) {
