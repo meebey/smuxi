@@ -178,9 +178,7 @@ namespace Smuxi.Frontend.Gnome
             _TopicTextView.WrapMode = Gtk.WrapMode.WordChar;
             _TopicScrolledWindow = new Gtk.ScrolledWindow();
             _TopicScrolledWindow.ShadowType = Gtk.ShadowType.In;
-            // when using PolicyType.Never, it will try to grow but never shrinks!
-            _TopicScrolledWindow.HscrollbarPolicy = Gtk.PolicyType.Automatic;
-            _TopicScrolledWindow.VscrollbarPolicy = Gtk.PolicyType.Automatic;
+            _TopicScrolledWindow.HscrollbarPolicy = Gtk.PolicyType.Never;
             _TopicScrolledWindow.Add(_TopicTextView);
             // make sure the topic is invisible and remains by default and
             // visible when a topic gets set
