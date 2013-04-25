@@ -119,7 +119,10 @@ namespace Smuxi.Engine
             //builder.AppendErrorText(error.Condition.ToString());
             switch(error.Condition) {
                 case StreamErrorCondition.SystemShutdown:
-                    builder.AppendErrorText("The Server has shut down");
+                    builder.AppendErrorText(_("The Server has shut down"));
+                    break;
+                case StreamErrorCondition.Conflict:
+                    builder.AppendErrorText(_("Another client logged in with the same resource, you have been disconnected"));
                     break;
                 default:
                     builder.AppendErrorText(error.Text ?? error.Condition.ToString());
