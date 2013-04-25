@@ -108,6 +108,38 @@ namespace Smuxi.Frontend.Gnome
             }
         }
 
+        void _OnMenuAdd2ContactsItemActivated(object sender, EventArgs e)
+        {
+            Trace.Call(sender, e);
+
+            IList<PersonModel> persons = GetSelectedPersons();
+            if (persons == null) {
+                return;
+            }
+
+            foreach (PersonModel person in persons) {
+                var per = person;
+
+                // is this a groupchat contact whose real id is unknown
+                if (person.ID.StartsWith(ChatModel.ID)) continue;
+
+                ThreadPool.QueueUserWorkItem(delegate {
+                    try {
+                        XmppProtocolManager.CommandContact(
+                            new CommandModel(
+                                Frontend.FrontendManager,
+                                ChatModel,
+                                ChatModel.ID,
+                                "/contact add " + per.ID
+                            )
+                         );
+                    } catch (Exception ex) {
+                        Frontend.ShowException(ex);
+                    }
+                });
+            }
+        }
+
         protected override void OnPersonMenuShown(object sender, EventArgs e)
         {
             Trace.Call(sender, e);
@@ -129,6 +161,10 @@ namespace Smuxi.Frontend.Gnome
             Gtk.ImageMenuItem query_item = new Gtk.ImageMenuItem(_("Query"));
             query_item.Activated += _OnUserListMenuQueryActivated;
             PersonMenu.Append(query_item);
+
+            Gtk.ImageMenuItem add2contacts_item = new Gtk.ImageMenuItem(_("Add To Contacts"));
+            add2contacts_item.Activated += _OnMenuAdd2ContactsItemActivated;
+            PersonMenu.Append(add2contacts_item);
 
             Gtk.MenuItem invite_to_item = new Gtk.MenuItem(_("Invite to"));
             Gtk.Menu invite_to_menu_item = new InviteToMenu(
