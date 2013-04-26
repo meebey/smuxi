@@ -511,6 +511,25 @@ namespace Smuxi.Engine
             return handled;
         }
 
+        void printResource(MessageBuilder builder, XmppResourceModel res)
+        {
+            builder.AppendText("\n\tName: {0}", res.Name);
+            var pres = res.Presence;
+            builder.AppendText("\n\tPresence:");
+            builder.AppendText("\n\t\tShow:\t{0}", pres.Show);
+            builder.AppendText("\n\t\tStatus:\t{0}", pres.Status);
+            builder.AppendText("\n\t\tLast:\t{0}", (pres.Last!=null)?pres.Last.Seconds.ToString():"");
+            builder.AppendText("\n\t\tPriority:\t{0}", pres.Priority);
+            builder.AppendText("\n\t\tType:\t{0}", pres.Type);
+            builder.AppendText("\n\t\tXDelay:\t{0}", (pres.XDelay!=null)?pres.XDelay.Stamp.ToString():"");
+            if (res.Disco != null) {
+                builder.AppendText("\n\tFeatures:");
+                foreach(var feat in res.Disco.GetFeatures()) {
+                    builder.AppendText("\n\t\t{0}", feat.Var);
+                }
+            }
+        }
+
         public void CommandWhoIs(CommandModel cmd)
         {
             Jid jid;
@@ -527,8 +546,22 @@ namespace Smuxi.Engine
             }
             XmppPersonModel person;
             var builder = CreateMessageBuilder();
-            if (!Contacts.TryGetValue(jid, out person)) {
+            if (!Contacts.TryGetValue(jid.Bare, out person)) {
                 builder.AppendErrorText(_("Could not find contact {0}"), jid);
+                cmd.FrontendManager.AddMessageToChat(cmd.Chat, builder.ToMessage());
+                return;
+            }
+            if (!String.IsNullOrEmpty(jid.Resource)) {
+                if (person.Resources.Count > 1) {
+                    builder.AppendText(_("Contact {0} has {1} known resources"), jid.Bare, person.Resources.Count);
+                }
+                XmppResourceModel res;
+                if (!person.Resources.TryGetValue(jid.Resource, out res)) {
+                    builder.AppendErrorText(_("{0} is not a known resource"), jid.Resource);
+                    cmd.FrontendManager.AddMessageToChat(cmd.Chat, builder.ToMessage());
+                    return;
+                }
+                printResource(builder, res);
                 cmd.FrontendManager.AddMessageToChat(cmd.Chat, builder.ToMessage());
                 return;
             }
@@ -554,23 +587,13 @@ namespace Smuxi.Engine
             int i = 0;
             foreach(var res in person.Resources) {
                 builder.AppendText("\nResource({0}):", i);
-                builder.AppendText("\n\tName: {0}", res.Key);
-                var pres = res.Value.Presence;
-                if (pres != null) {
-                    builder.AppendText("\n\tPresence:");
-                    builder.AppendText("\n\t\tShow:{0}", pres.Show);
-                    builder.AppendText("\n\t\tStatus:{0}", pres.Status);
-                    builder.AppendText("\n\t\tLast:{0}", pres.Last);
-                    builder.AppendText("\n\t\tPriority:{0}", pres.Priority);
-                    builder.AppendText("\n\t\tType:{0}", pres.Type);
-                    builder.AppendText("\n\t\tXDelay:{0}", (pres.XDelay!=null)?pres.XDelay.Stamp.ToString():"");
-                }
-                if (res.Value.Disco != null) {
-                    builder.AppendText("\n\tFeatures:");
-                    foreach(var feat in res.Value.Disco.GetFeatures()) {
-                        builder.AppendText("\n\t\t{0}", feat.Var);
-                    }
-                }
+                printResource(builder, res.Value);
+                i++;
+            }
+            i = 0;
+            foreach(var res in person.MucResources) {
+                builder.AppendText("\nMucResource({0}):", i);
+                printResource(builder, res.Value);
                 i++;
             }
             cmd.FrontendManager.AddMessageToChat(cmd.Chat, builder.ToMessage());
