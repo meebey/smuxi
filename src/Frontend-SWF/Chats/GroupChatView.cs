@@ -126,5 +126,15 @@ namespace Smuxi.Frontend.Swf
             _PersonListBox.Items.Clear();
             _TopicTextView.Clear();
         }
+
+        public override IList<PersonModel> Participants {
+            get {
+                var ret = new List<PersonModel>();
+                foreach (PersonModel person in GroupChatModel.Persons.Values) {
+                    ret.Add(person);
+                }
+                return ret;
+            }
+        }
     }
 }

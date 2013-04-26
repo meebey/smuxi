@@ -262,5 +262,13 @@ namespace Smuxi.Frontend.Stfl
 
             MessageTextView.ScrollToEnd();
         }
+
+        public IList<PersonModel> Participants
+        {
+            get {
+                // FIXME: implement this (for tab completion)
+                return new List<PersonModel>();
+            }
+        }
     }
 }
