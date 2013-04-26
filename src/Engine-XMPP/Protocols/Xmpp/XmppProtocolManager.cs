@@ -1354,14 +1354,26 @@ namespace Smuxi.Engine
         void OnGroupChatPresence(XmppGroupChatModel chat, Presence pres)
         {
             Jid jid = pres.From;
-            PersonModel person = chat.GetPerson(jid);
-            if (person == null) {
-                person = new PersonModel(jid, jid.Resource, NetworkID, Protocol, this);
+            XmppPersonModel person;
+            // check whether we know the real jid of this muc user
+            if (pres.MucUser != null &&
+                pres.MucUser.Item != null &&
+                pres.MucUser.Item.Jid != null
+                ) {
+                string nick = pres.From.Resource;
+                if (!string.IsNullOrEmpty(pres.MucUser.Item.Nickname)) {
+                    nick = pres.MucUser.Item.Nickname;
+                }
+                person = GetOrCreateContact(pres.MucUser.Item.Jid.Bare, nick);
+            } else {
+                // we do not know the real jid of this user, don't add it to our local roster
+                person = new XmppPersonModel(jid, pres.From.Resource, this);
             }
-            var msg = CreatePresenceUpdateMessage(jid, person, pres);
+            person.GetOrCreateMucResource(jid).Presence = pres;
+            var msg = CreatePresenceUpdateMessage(person.Jid, person, pres);
             Session.AddMessageToChat(chat, msg);
-            // clone directly to person chat
-            // TODO: what to do in case true jid of contact is known
+            // clone directly to muc person chat
+            // don't care about real jid, that has its own presence packets
             var personChat = Session.GetChat(jid, ChatType.Person, this);
             if (personChat != null) {
                 Session.AddMessageToChat(personChat, msg);
@@ -1374,11 +1386,11 @@ namespace Smuxi.Engine
                     }
                     // is the chat synced? add the new contact the regular way
                     if (chat.IsSynced) {
-                        Session.AddPersonToGroupChat(chat, person);
+                        Session.AddPersonToGroupChat(chat, person.ToPersonModel());
                         return;
                     }
                     
-                    chat.UnsafePersons.Add(person.ID, person);
+                    chat.UnsafePersons.Add(person.ID, person.ToPersonModel());
         
                     // did I join? then the chat roster is fully received
                     if (pres.From.Resource == chat.OwnNickname) {
@@ -1388,7 +1400,7 @@ namespace Smuxi.Engine
                     }
                     break;
                 case PresenceType.unavailable:
-                    Session.RemovePersonFromGroupChat(chat, person);
+                    Session.RemovePersonFromGroupChat(chat, person.ToPersonModel());
                     // did I leave? then I "probably" left the room
                     if (pres.From.Resource == chat.OwnNickname) {
                         Session.RemoveChat(chat);
