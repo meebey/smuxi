@@ -40,6 +40,7 @@ namespace Smuxi.Engine
         public bool Temporary { get; set; }
         public Jid Jid { get; set; }
         public Dictionary<string, XmppResourceModel> Resources { get; private set; }
+        public Dictionary<Jid, XmppResourceModel> MucResources { get; private set; }
         public SubscriptionType Subscription { get; set; }
         public AskType Ask { get; set; }
         public XmppPersonModel(Jid jid, string nick, XmppProtocolManager protocolManager)
@@ -51,6 +52,7 @@ namespace Smuxi.Engine
                 GetOrCreateResource(jid);
             }
             Resources = new Dictionary<string, XmppResourceModel>();
+            MucResources = new Dictionary<Jid, XmppResourceModel>();
             Ask = AskType.NONE;
             Subscription = SubscriptionType.none;
             Temporary = true;
@@ -81,6 +83,19 @@ namespace Smuxi.Engine
             ret = new XmppResourceModel();
             ret.Name = res;
             Resources.Add(res, ret);
+            return ret;
+        }
+
+        public XmppResourceModel GetOrCreateMucResource(Jid jid)
+        {
+            Trace.Call(jid);
+            XmppResourceModel ret;
+            if (MucResources.TryGetValue(jid, out ret)) {
+                return ret;
+            }
+            ret = new XmppResourceModel();
+            ret.Name = jid;
+            MucResources.Add(jid, ret);
             return ret;
         }
         
