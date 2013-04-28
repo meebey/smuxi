@@ -27,7 +27,7 @@ NINI_DLL_SOURCE=../../lib/Nini.dll
 SMUXI_FRONTEND_GNOME_EXE_SOURCE=../../bin/release/smuxi-frontend-gnome.exe
 LOG4NET_DLL_SOURCE=../../lib/log4net.dll
 SMUXI_ENGINE_DLL_SOURCE=../../bin/release/smuxi-engine.dll
-JABBER_NET_DLL_SOURCE=../../lib/jabber-net.dll
+JABBER_NET_DLL_SOURCE=../../lib/agsXMPP.dll
 
 endif
 
@@ -60,7 +60,7 @@ NINI_DLL_SOURCE=../../lib/Nini.dll
 SMUXI_FRONTEND_GNOME_EXE_SOURCE=../../bin/debug/smuxi-frontend-gnome.exe
 LOG4NET_DLL_SOURCE=../../lib/log4net.dll
 SMUXI_ENGINE_DLL_SOURCE=../../bin/debug/smuxi-engine.dll
-JABBER_NET_DLL_SOURCE=../../lib/jabber-net.dll
+JABBER_NET_DLL_SOURCE=../../lib/agsXMPP.dll
 
 endif
 
@@ -108,7 +108,7 @@ NINI_DLL = $(BUILD_DIR)/Nini.dll
 SMUXI_FRONTEND_GNOME_EXE = $(BUILD_DIR)/smuxi-frontend-gnome.exe
 LOG4NET_DLL = $(BUILD_DIR)/log4net.dll
 SMUXI_ENGINE_DLL = $(BUILD_DIR)/smuxi-engine.dll
-JABBER_NET_DLL = $(BUILD_DIR)/jabber-net.dll
+JABBER_NET_DLL = $(BUILD_DIR)/agsXMPP.dll
 
 $(eval $(call emit-deploy-target,SMUXI_COMMON_DLL))
 $(eval $(call emit-deploy-target,SMUXI_ENGINE_XMPP_DLL_MDB))
