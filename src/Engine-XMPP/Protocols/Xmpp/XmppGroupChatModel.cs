@@ -24,7 +24,7 @@ namespace Smuxi.Engine
 {
     public class XmppGroupChatModel : GroupChatModel
     {
-        public string LatestSeenStamp { get; set; }
+        public DateTime LatestSeenStamp { get; set; }
         public bool SeenNewMessages { get; set; }
         public string OwnNickname { get; set; }
 

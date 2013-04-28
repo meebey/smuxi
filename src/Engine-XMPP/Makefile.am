@@ -19,7 +19,7 @@ REFERENCES = \
 DLL_REFERENCES = \
 	$(TARGET_DIR)/smuxi-common.dll \
 	$(TARGET_DIR)/smuxi-engine.dll \
-	$(TARGET_DIR)/jabber-net.dll
+	$(TARGET_DIR)/agsXMPP.dll
 
 SOURCES_BUILD = $(addprefix $(srcdir)/, $(SOURCES))
 
