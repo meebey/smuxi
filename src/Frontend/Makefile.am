@@ -70,7 +70,10 @@ FILES = \
 	IEntryView.cs \
 	EngineManager.cs \
 	SshTunnelManager.cs \
-	CommandManager.cs
+	CommandManager.cs \
+	NickCompleter.cs \
+	LongestPrefixNickCompleter.cs \
+	TabCycleNickCompleter.cs
 
 DATA_FILES = 
 
