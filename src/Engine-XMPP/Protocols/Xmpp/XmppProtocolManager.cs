@@ -1446,130 +1446,97 @@ namespace Smuxi.Engine
             }
         }
 
+        void PrintPrivateChatPresence(XmppPersonModel person, Presence pres)
+        {
+            Jid jid = pres.From;
+            MessageModel msg = CreatePresenceUpdateMessage(jid, person, pres);
+            if (!String.IsNullOrEmpty(jid.Resource)) {
+                var directchat = Session.GetChat(jid, ChatType.Person, this);
+                if (directchat != null) {
+                    // in case of direct chat we still send this message
+                    Session.AddMessageToChat(directchat, msg);
+                }
+            }
+            // a nonexisting resource going offline?
+            if (pres.Type == PresenceType.unavailable) {
+                if (!person.Resources.ContainsKey(jid.Resource??"")) {
+                    return;
+                }
+            }
+            var res = person.GetOrCreateResource(jid);
+            var oldpres = res.Presence;
+            res.Presence = pres;
+            // highest pres
+            Jid hjid = jid;
+            Jid nextjid = jid;
+            // 2nd highest pres
+            Presence hpres = pres;
+            Presence nextpres = null;
+            bool amHighest = true;
+            bool wasHighest = true;
+            foreach (var pair in person.Resources) {
+                if (pair.Value == res) continue;
+                if (nextpres == null || pair.Value.Presence.Priority > nextpres.Priority) {
+                    nextjid.Resource = pair.Key;
+                    nextpres = pair.Value.Presence;
+                }
+                if (pair.Value.Presence.Priority > hpres.Priority) {
+                    // someone has a higher priority than I do
+                    // print the status of that resource
+                    hjid.Resource = pair.Key;
+                    hpres = pair.Value.Presence;
+                    amHighest = false;
+                }
+                if (oldpres != null && pair.Value.Presence.Priority > oldpres.Priority) {
+                    wasHighest = false;
+                }
+            }
+            if (pres.Type == PresenceType.available) {
+                // wasn't and isn't highiest prio -> ignore
+                if (!wasHighest && !amHighest) return;
+                // just another below zero prio -> ignore
+                if (amHighest && pres.Priority < 0) return;
+                // was highest, isn't anymore -> show presence of new highest
+                if (wasHighest && !amHighest) {
+                    msg = CreatePresenceUpdateMessage(hjid, person, hpres);
+                }
+            } else if (pres.Type == PresenceType.unavailable) {
+                // still a resource left with positive priority
+                if (nextpres != null && nextpres.Priority >= 0) {
+                    msg = CreatePresenceUpdateMessage(nextjid, person, nextpres);
+                }
+            }
+            var chat = Session.GetChat(jid.Bare, ChatType.Person, this);
+            if (chat != null) {
+                Session.AddMessageToChat(chat, msg);
+            }
+            if (ContactChat != null) {
+                Session.AddMessageToChat(ContactChat, msg);
+            }
+        }
+
         void OnPrivateChatPresence(Presence pres)
         {
             Jid jid = pres.From;
             var person = GetOrCreateContact(jid.Bare, jid);
-            MessageModel msg = CreatePresenceUpdateMessage(jid, person, pres);
+            PrintPrivateChatPresence(person, pres);
             switch (pres.Type) {
                 case PresenceType.available:
-                    bool isNew;
-                    XmppResourceModel res = person.GetOrCreateResource(jid, out isNew);
-                    var oldpres = res.Presence;
-                    res.Presence = pres;
-                    if (!String.IsNullOrEmpty(jid.Resource)) {
-                        var directchat = Session.GetChat(jid, ChatType.Person, this);
-                        if (directchat != null) {
-                            // in case of direct chat we still send this message
-                            Session.AddMessageToChat(directchat, msg);
-                        }
-                    }
-                    
-                    if (person.Resources.Count == 1) {
-                        if (!isNew) break; // only add to list when coming online
-                        if (ContactChat == null) break;
-                        lock (ContactChat) {
-                            if (ContactChat.UnsafePersons.ContainsKey(person.ID)) {
-                                var builder = CreateMessageBuilder();
-                                builder.AppendErrorText("tried to add resource twice: {0} ({1})", jid, jid.Resource ?? "<null>");
-                                Session.AddMessageToChat(NetworkChat, builder.ToMessage());
-                                break;
-                            }
-                            Session.AddPersonToGroupChat(ContactChat, person.ToPersonModel());
-                        }
-                        break; // print message
-                    }
-                    if (isNew || oldpres.Priority < res.Presence.Priority) {
-                        // did I increase my priority?
-                        foreach (var pair in person.Resources) {
-                            if (pair.Value == res) continue;
-                            if (pair.Value.Presence.Priority > res.Presence.Priority) {
-                                // someone has a higher priority than I do
-                                return;
-                            }
-                        }
-                        break; // noone has a higher priority than me, print message
-                    } else {
-                        Jid hjid = jid;
-                        Presence hpres = pres;
-                        bool amHighest = true;
-                        bool wasHighest = true;
-                        foreach (var pair in person.Resources) {
-                            if (pair.Value == res) continue;
-                            if (pair.Value.Presence.Priority > hpres.Priority) {
-                                // someone has a higher priority than I do
-                                // print the status of that resource
-                                hjid.Resource = pair.Key;
-                                hpres = pair.Value.Presence;
-                                amHighest = false;
-                            }
-                            if (pair.Value.Presence.Priority > oldpres.Priority) {
-                                wasHighest = false;
-                            }
-                        }
-                        if (!amHighest) {
-                            if (wasHighest) {
-                                // i decreased my priority, now another one is higher, display available message of that presence
-                                jid = hjid;
-                                pres = hpres;
-                                break;
-                            }
-                            return;
-                        }
+                    if (pres.Priority < 0) break;
+                    if (ContactChat == null) break;
+                    lock (ContactChat) {
+                        if (ContactChat.UnsafePersons.ContainsKey(jid.Bare)) break;
+                        Session.AddPersonToGroupChat(ContactChat, person.ToPersonModel());
                     }
                     break;
                 case PresenceType.unavailable:
-                    XmppResourceModel res2;
-                    if (!person.Resources.TryGetValue(jid.Resource ?? "", out res2)) {
-#if LOG4NET
-                        _Logger.Warn("received unavailable presence from a nonexistant resource");
-#endif
-                        // HACK: exit here, this resource doesn't exist to our knowledge, so it should not go offline
-                        return;
-                    }
                     person.RemoveResource(jid);
-                    if (!String.IsNullOrEmpty(jid.Resource)) {
-                        var directchat = Session.GetChat(jid, ChatType.Person, this);
-                        if (directchat != null) {
-                            // in case of direct chat we still send this message
-                            Session.AddMessageToChat(directchat, msg);
-                        }
-                    }
+                    if (pres.Priority < 0) break;
                     if (ContactChat == null) break;
-                    // still got resources?
-                    if (person.Resources.Count > 0) {
-                        var oldprio = res2.Presence.Priority;
-                        Jid hjid = jid;
-                        Presence hpres = pres;
-                        bool wasHighest = true;
-                        foreach (var pair in person.Resources) {
-                            if (pair.Value.Presence.Priority > hpres.Priority) {
-                                // find the highest resource
-                                // if i was the highest before i went offline -> print new highest
-                                hjid.Resource = pair.Key;
-                                hpres = pair.Value.Presence;
-                            }
-                            if (pair.Value.Presence.Priority > oldprio) {
-                                wasHighest = false;
-                            }
-                        }
-                        if (wasHighest) {
-                            // i was higher and went offline, now another one is higher
-                            // display available message of that presence
-                            jid = hjid;
-                            pres = hpres;
-                        }
-                        return; // was a low priority resource
-                    }
                     lock (ContactChat) {
-                        // doesn't exist, got an offline message w/o a preceding online message?
-                        if (!ContactChat.UnsafePersons.ContainsKey(jid.Bare)) {
-                            var builder = CreateMessageBuilder();
-                            builder.AppendErrorText("tried to remove person from contactlist that isn't in contactlist: {0} ({1})", jid, jid.Resource ?? "<null>");
-                            Session.AddMessageToChat(NetworkChat, builder.ToMessage());
-                            break;
-                        }
-                        Session.RemovePersonFromGroupChat(ContactChat, person.ToPersonModel());
+                        if (!ContactChat.UnsafePersons.ContainsKey(jid.Bare)) break;
+                        var pers = ContactChat.GetPerson(jid.Bare);
+                        Session.RemovePersonFromGroupChat(ContactChat, pers);
                     }
                     break;
                 case PresenceType.subscribe:
@@ -1599,13 +1566,6 @@ namespace Smuxi.Engine
                     // the contact does not wish to see our presence anymore?
                     // we could care less
                     break;
-            }
-            var chat = Session.GetChat(jid.Bare, ChatType.Person, this);
-            if (chat != null) {
-                Session.AddMessageToChat(chat, msg);
-            }
-            if (ContactChat != null) {
-                Session.AddMessageToChat(ContactChat, msg);
             }
         }
         
