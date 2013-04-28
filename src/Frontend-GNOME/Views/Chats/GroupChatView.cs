@@ -178,9 +178,7 @@ namespace Smuxi.Frontend.Gnome
             _TopicTextView.WrapMode = Gtk.WrapMode.WordChar;
             _TopicScrolledWindow = new Gtk.ScrolledWindow();
             _TopicScrolledWindow.ShadowType = Gtk.ShadowType.In;
-            // when using PolicyType.Never, it will try to grow but never shrinks!
-            _TopicScrolledWindow.HscrollbarPolicy = Gtk.PolicyType.Automatic;
-            _TopicScrolledWindow.VscrollbarPolicy = Gtk.PolicyType.Automatic;
+            _TopicScrolledWindow.HscrollbarPolicy = Gtk.PolicyType.Never;
             _TopicScrolledWindow.Add(_TopicTextView);
             // make sure the topic is invisible and remains by default and
             // visible when a topic gets set
@@ -194,9 +192,16 @@ namespace Smuxi.Frontend.Gnome
                 layout.GetPixelSize(out lineWidth, out lineHeigth);
                 var lineSpacing = _TopicTextView.PixelsAboveLines +
                                   _TopicTextView.PixelsBelowLines;
-                var text = Topic != null ? Topic.ToString() : String.Empty;
-                // hardcoded to 2 lines for now
-                var newLines = text.Length > 0 ? 2 : 0;
+                var it = _TopicTextView.Buffer.StartIter;
+                int newLines = 1;
+                // move to end of next visual line
+                while (_TopicTextView.ForwardDisplayLineEnd(ref it)) {
+                    newLines++;
+                    // calling ForwardDisplayLineEnd repeatedly stays on the same position
+                    // therefor we move one cursor position further
+                    it.ForwardCursorPosition();
+                }
+                newLines = Math.Min(newLines, 3);
                 var bestSize = new Gtk.Requisition() {
                     Height = ((lineHeigth + lineSpacing) * newLines) + 2
                 };
