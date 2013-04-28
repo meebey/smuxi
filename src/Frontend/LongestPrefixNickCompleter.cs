@@ -22,6 +22,7 @@
  */
 
 using System;
+using System.Linq;
 using System.Collections.Generic;
 using Smuxi.Engine;
 
@@ -109,7 +110,7 @@ namespace Smuxi.Frontend
                 string lcp = LongestCommonPrefix(nicks);
 
                 // assemble nickname string
-                string nickString = string.Join(" ", nicks);
+                string nickString = string.Join(" ", nicks.ToArray());
 
                 // output the matched prefixes
                 currentChatView.AddMessage(
