@@ -573,15 +573,17 @@ namespace Smuxi.Frontend.Gnome
         public void UpdateProgressBar()
         {
             var totalChatCount = ChatViewManager.Chats.Count;
-            var syncedChatCount =  ChatViewManager.SyncedChats.Count;
-            ProgressBar.Fraction = (double)syncedChatCount / totalChatCount;
-            ProgressBar.Text = String.Format("{0} / {1}",
+            var syncedChatCount = ChatViewManager.SyncedChats.Count;
+            var fraction = (double) syncedChatCount / totalChatCount;
+
+            if (fraction < 1) {
+                ProgressBar.Fraction = fraction;
+                ProgressBar.Text = String.Format("{0} / {1}",
                                               syncedChatCount,
                                               totalChatCount);
-            if (syncedChatCount >= totalChatCount) {
-                ProgressBar.Hide();
-            } else {
                 ProgressBar.Show();
+            } else {
+                ProgressBar.Hide();
             }
         }
 
