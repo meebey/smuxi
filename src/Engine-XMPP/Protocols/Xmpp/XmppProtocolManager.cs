@@ -124,6 +124,10 @@ namespace Smuxi.Engine
                 case StreamErrorCondition.Conflict:
                     builder.AppendErrorText(_("Another client logged in with the same resource, you have been disconnected"));
                     break;
+                case StreamErrorCondition.SeeOtherHost:
+                    Server.Hostname = e.GetTag("see-other-host");
+                    Reconnect(null);
+                    break;
                 default:
                     builder.AppendErrorText(error.Text ?? error.Condition.ToString());
                     break;
