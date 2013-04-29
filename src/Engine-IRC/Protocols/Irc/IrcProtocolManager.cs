@@ -583,7 +583,7 @@ namespace Smuxi.Engine
                 GroupChatModel chat = new GroupChatModel(
                     info.Channel,
                     info.Channel,
-                    null
+                    this
                 );
                 chat.PersonCount = info.UserCount;
 
