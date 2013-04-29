@@ -246,6 +246,17 @@ namespace Smuxi.Engine
             text.IsHighlight = true;
             builder.AppendText(text);
             Session.AddMessageToChat(_NetworkChat, builder.ToMessage());
+
+            builder = CreateMessageBuilder();
+            string host;
+            if (String.IsNullOrEmpty(NetworkID)) {
+                host = _IrcClient.Address;
+            } else {
+                host = NetworkID;
+            }
+            string url = String.Format("irc://{0}/{1}", host, e.Channel);
+            builder.AppendUrl(url, _("Accept invite (join room)"));
+            Session.AddMessageToChat(_NetworkChat, builder.ToMessage());
         }
 
         void OnReadLine(object sender, ReadLineEventArgs e)
