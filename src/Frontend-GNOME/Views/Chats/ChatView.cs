@@ -37,6 +37,7 @@ namespace Smuxi.Frontend.Gnome
         private static readonly log4net.ILog _Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 #endif
         public    string             ID { get; internal set; }
+        public    ChatType           ChatType { get; private set; }
         public    int                Position { get; internal set; }
         private   ChatModel          _ChatModel;
         private   bool               _HasHighlight;
@@ -480,6 +481,8 @@ namespace Smuxi.Frontend.Gnome
             SyncedName = _ChatModel.Name;
             // REMOTING CALL
             ProtocolManager = _ChatModel.ProtocolManager;
+            // REMOTING CALL
+            ChatType = _ChatModel.ChatType;
 
             if (!Frontend.IsLocalEngine && Frontend.UseLowBandwidthMode) {
                 // FIXME: set TabImage back to normal
