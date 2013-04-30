@@ -755,10 +755,15 @@ namespace Smuxi.Frontend.Gnome
 
         public static void OpenChatLink(Uri link)
         {
+            TryOpenChatLink(link);
+        }
+
+        public static bool TryOpenChatLink(Uri link)
+        {
             Trace.Call(link);
 
             if (Session == null) {
-                return;
+                return false;
             }
 
             // supported:
@@ -822,6 +827,15 @@ namespace Smuxi.Frontend.Gnome
             }
 
             if (manager == null) {
+                // only irc may autoconnect to a server
+                switch (linkProtocol) {
+                    case "irc":
+                    case "ircs":
+                    case "smuxi":
+                        break;
+                    default:
+                        return false;
+                }
                 ServerModel server = null;
                 if (!String.IsNullOrEmpty(linkNetwork)) {
                     // try to find a server with this network name and connect to it
@@ -842,7 +856,7 @@ namespace Smuxi.Frontend.Gnome
             }
 
             if (String.IsNullOrEmpty(linkChat)) {
-                return;
+                return true;
             }
 
             // switch to existing chat
@@ -852,7 +866,7 @@ namespace Smuxi.Frontend.Gnome
                 }
                 if (String.Compare(chatView.ID, linkChat, true) == 0) {
                     MainWindow.ChatViewManager.CurrentChatView = chatView;
-                    return;
+                    return true;
                 }
             }
 
@@ -867,6 +881,7 @@ namespace Smuxi.Frontend.Gnome
                     }
                 });
             }
+            return true;
         }
 
         public static void OpenLink(Uri link)
@@ -875,6 +890,10 @@ namespace Smuxi.Frontend.Gnome
 
             if (link == null) {
                 throw new ArgumentNullException("link");
+            }
+
+            if (TryOpenChatLink(link)) {
+                return;
             }
 
             // hopefully MS .NET / Mono finds some way to handle the URL
