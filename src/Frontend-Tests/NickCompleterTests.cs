@@ -418,6 +418,35 @@ namespace Smuxi.Frontend
             Assert.AreEqual("", inputLine);
             Assert.AreEqual(0, curPos);
         }
+
+        [Test]
+        public void TestNoIrssiCompletionAcrossChats() {
+            cv.ID = "#athens";
+            cv.AddParticipant("Hippolyta");
+            cv.AddParticipant("Hermia");
+            cv.AddParticipant("Helena");
+
+            string inputLine = "H";
+            int curPos = 1;
+
+            tcnc.Complete(ref inputLine, ref curPos, cv);
+
+            AssertNoMessagesOutput();
+            Assert.AreEqual("Helena: ", inputLine);
+            Assert.AreEqual(8, curPos);
+
+            // simulate switching chats
+            cv.ClearParticipants();
+            cv.ID = "#elsinore";
+            cv.AddParticipant("Hamlet");
+            cv.AddParticipant("HamletSr|Ghost");
+
+            tcnc.Complete(ref inputLine, ref curPos, cv);
+
+            AssertNoMessagesOutput();
+            Assert.AreEqual("Helena: ", inputLine);
+            Assert.AreEqual(8, curPos);
+        }
     }
 }
 

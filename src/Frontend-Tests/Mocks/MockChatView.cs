@@ -38,11 +38,7 @@ namespace Smuxi.Frontend
         public void Disable() {}
         public void Sync() {}
         public void Populate() {}
-        public string ID {
-            get {
-                return "MagicalFakeChatView";
-            }
-        }
+        public string ID { get; set; }
         public int Position {
             get {
                 return 0;
@@ -56,6 +52,7 @@ namespace Smuxi.Frontend
 
         public MockChatView()
         {
+            ID = "MagicalFakeChatView";
             Participants = new List<PersonModel>();
             Messages = new List<MessageModel>();
             ProtocolManager = new MockProtocolManager();
@@ -65,6 +62,11 @@ namespace Smuxi.Frontend
         {
             PersonModel pm = new PersonModel(nick, nick, "fakeNetwork", "fakeProto", ProtocolManager);
             Participants.Add(pm);
+        }
+
+        public void ClearParticipants()
+        {
+            Participants.Clear();
         }
 
         public IList<string> ParticipantNicks()
