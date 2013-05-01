@@ -516,7 +516,12 @@ namespace Smuxi.Frontend.Gnome
         protected virtual void OnPersonsRowActivated(object sender, Gtk.RowActivatedArgs e)
         {
             Trace.Call(sender, e);
+            OpenSelectedPersonsChats();
+        }
 
+        protected void OpenSelectedPersonsChats()
+        {
+            Trace.Call();
             IList<PersonModel> persons = GetSelectedPersons();
             if (persons == null || persons.Count == 0) {
                 return;
@@ -533,39 +538,21 @@ namespace Smuxi.Frontend.Gnome
                 return;
             }
 
-            // jump to person chat if available
-            foreach (var chatView in Frontend.MainWindow.ChatViewManager.Chats) {
-                if (!(chatView is PersonChatView)) {
-                    continue;
-                }
-                var personChatView = (PersonChatView) chatView;
-                if (personChatView.PersonModel == persons[0]) {
-                    Frontend.MainWindow.ChatViewManager.CurrentChatView = personChatView;
-                    return;
-                }
-            }
-
             // this is a generic implemention that should be able to open/create
             // a private chat in most cases, as it depends what OpenChat()
             // of the specific protocol actually expects/needs
             foreach (PersonModel person in persons) {
+
                 PersonChatModel personChat = new PersonChatModel(
                     person,
                     person.ID,
                     person.IdentityName,
-                    null
+                    ProtocolManager
                 );
 
-                ThreadPool.QueueUserWorkItem(delegate {
-                    try {
-                        protocolManager.OpenChat(
-                            Frontend.FrontendManager,
-                            personChat
-                        );
-                    } catch (Exception ex) {
-                        Frontend.ShowException(ex);
-                    }
-                });
+                if (Frontend.MainWindow.ChatViewManager.TrySwitchToChat(personChat)) continue;
+
+                Frontend.MainWindow.ChatViewManager.OpenChat(personChat);
             }
         }
 

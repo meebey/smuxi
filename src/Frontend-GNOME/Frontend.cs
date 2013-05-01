@@ -859,28 +859,13 @@ namespace Smuxi.Frontend.Gnome
                 return true;
             }
 
-            // switch to existing chat
-            foreach (var chatView in MainWindow.ChatViewManager.Chats) {
-                if (manager != null && chatView.ProtocolManager != manager) {
-                    continue;
-                }
-                if (String.Compare(chatView.ID, linkChat, true) == 0) {
-                    MainWindow.ChatViewManager.CurrentChatView = chatView;
-                    return true;
-                }
-            }
+            if (manager == null) return false;
 
-            // join chat
-            if (manager != null) {
-                var chat = new GroupChatModel(linkChat, linkChat, null);
-                ThreadPool.QueueUserWorkItem(delegate {
-                    try {
-                        manager.OpenChat(FrontendManager, chat);
-                    } catch (Exception ex) {
-                        Frontend.ShowException(ex);
-                    }
-                });
-            }
+            var chat = new GroupChatModel(linkChat, linkChat, manager);
+
+            // switch to existing chat
+            if (MainWindow.ChatViewManager.TrySwitchToChat(chat)) return true;
+            MainWindow.ChatViewManager.OpenChat(chat);
             return true;
         }
 
@@ -949,13 +934,9 @@ namespace Smuxi.Frontend.Gnome
                 return;
             }
 
-            ThreadPool.QueueUserWorkItem(delegate {
-                try {
-                    manager.OpenChat(Frontend.FrontendManager, groupChat);
-                } catch (Exception ex) {
-                    Frontend.ShowException(null, ex);
-                }
-            });
+            if (MainWindow.ChatViewManager.TrySwitchToChat(groupChat)) return;
+
+            MainWindow.ChatViewManager.OpenChat(groupChat);
         }
 
 #if GTK_SHARP_2_10

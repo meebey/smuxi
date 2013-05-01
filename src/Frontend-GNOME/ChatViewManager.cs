@@ -29,6 +29,7 @@ using Mono.Unix;
 using Smuxi.Common;
 using Smuxi.Engine;
 using Smuxi.Frontend;
+using System.Threading;
 
 namespace Smuxi.Frontend.Gnome
 {
@@ -45,6 +46,7 @@ namespace Smuxi.Frontend.Gnome
         ChatViewSyncManager    SyncManager { get; set; }
         bool AutoSwitchPersonChats { get; set; }
         bool AutoSwitchGroupChats { get; set; }
+        List<AutoOpenChatModel> ChatsToAutoOpen { get; set; }
 
         public event ChatViewManagerChatAddedEventHandler   ChatAdded;
         public event ChatViewManagerChatRemovedEventHandler ChatRemoved;
@@ -112,6 +114,7 @@ namespace Smuxi.Frontend.Gnome
             SyncManager.ChatAdded += OnChatAdded;
             SyncManager.ChatSynced += OnChatSynced;
             SyncManager.WorkerException += OnWorkerException;
+            ChatsToAutoOpen = new List<AutoOpenChatModel>();
         }
 
         /// <remarks>
@@ -337,7 +340,57 @@ namespace Smuxi.Frontend.Gnome
                 if (ChatSynced != null) {
                     ChatSynced(this, new ChatViewManagerChatSyncedEventArgs(chatView));
                 }
+
+                foreach (var autochat in ChatsToAutoOpen) {
+                    if (autochat.ID != chatView.ID) continue;
+                    if (autochat.ProtocolManager != chatView.ProtocolManager) continue;
+                    if (autochat.Type != chatView.ChatType) continue;
+                    ChatsToAutoOpen.Remove(autochat);
+                    CurrentChatView = chatView;
+                    break;
+                }
+
                 return false;
+            });
+        }
+
+        public bool TrySwitchToChat(ChatModel chat)
+        {
+            foreach (var chatView in Chats) {
+                if (chatView.ProtocolManager != chat.ProtocolManager) continue;
+                if (chatView.ID != chat.ID) continue;
+                if (chatView.ChatType != chat.ChatType) continue;
+                CurrentChatView = chatView;
+                return true;
+            }
+            return false;
+        }
+
+        public void OpenChat(ChatModel chat)
+        {
+            // TODO: create timout so chat open requests that the manager throws away
+            // are not autoopened when at some point the manager opens the same chat for another reason
+            bool addToList = true;
+            // prevent duplicates
+            foreach (var aocm in ChatsToAutoOpen) {
+                if (aocm.ID != chat.ID) continue;
+                if (aocm.ProtocolManager != chat.ProtocolManager) continue;
+                if (aocm.Type != chat.ChatType) continue;
+                addToList = false;
+                break;
+            }
+            if (addToList) {
+                ChatsToAutoOpen.Add(new AutoOpenChatModel(chat.ID, chat.ProtocolManager, chat.ChatType));
+            }
+            ThreadPool.QueueUserWorkItem(delegate {
+                try {
+                    chat.ProtocolManager.OpenChat(
+                        Frontend.FrontendManager,
+                        chat
+                    );
+                } catch (Exception ex) {
+                    Frontend.ShowException(ex);
+                }
             });
         }
 
@@ -419,6 +472,19 @@ namespace Smuxi.Frontend.Gnome
         public ChatViewManagerChatAddedEventArgs(ChatView chatView)
         {
             f_ChatView = chatView;
+        }
+    }
+
+    internal class AutoOpenChatModel
+    {
+        public string ID { get; private set; }
+        public IProtocolManager ProtocolManager { get; private set; }
+        public ChatType Type { get; private set; }
+        public AutoOpenChatModel(string id, IProtocolManager man, ChatType type)
+        {
+            ID = id;
+            ProtocolManager = man;
+            Type = type;
         }
     }
     
