@@ -41,6 +41,7 @@ namespace Smuxi.Frontend
         int PreviousMatchPos { get; set; }
         int PreviousMatchLength { get; set; }
         int PreviousMatchCursorOffset { get; set; } // offset from match pos + match len
+        IChatView PreviousChatView { get; set; }
 
         public TabCycleNickCompleter()
         {
@@ -49,6 +50,7 @@ namespace Smuxi.Frontend
             PreviousMatchPos = -1;
             PreviousMatchLength = -1;
             PreviousMatchCursorOffset = 0;
+            PreviousChatView = null;
         }
 
         public override void Complete(ref string entryLine, ref int cursorPosition, IChatView currentChatView)
@@ -59,7 +61,7 @@ namespace Smuxi.Frontend
             string matchMe = IsolateNickToComplete(entryLine, cursorPosition, out matchPosition, out appendSpace, out leadingAt);
 
             int rematchCursorPosition = PreviousMatchPos + PreviousMatchLength + PreviousMatchCursorOffset;
-            if (PreviousNickIndex != -1 && cursorPosition == rematchCursorPosition) {
+            if (PreviousNickIndex != -1 && currentChatView == PreviousChatView && cursorPosition == rematchCursorPosition) {
                 // re-match
                 PreviousNickIndex = (PreviousNickIndex + 1) % PreviousNicks.Count;
 
@@ -100,6 +102,7 @@ namespace Smuxi.Frontend
                 PreviousNickIndex = 0;
                 PreviousMatchPos = matchPosition;
                 PreviousMatchLength = nick.Length;
+                PreviousChatView = currentChatView;
 
                 // suppress the completion character if we had an @
                 if (leadingAt) {
