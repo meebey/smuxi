@@ -82,6 +82,20 @@ namespace Smuxi.Frontend.Gnome
             }
         }
 
+        public override IList<PersonModel> Participants {
+            get {
+                var participants = new List<PersonModel>();
+                if (_PersonListStore == null) {
+                    return participants;
+                }
+                foreach (object[] row in _PersonListStore) {
+                    var person = (PersonModel) row[0];
+                    participants.Add(person);
+                }
+                return participants;
+            }
+        }
+
         protected Gtk.TreeView PersonTreeView {
             get {
                 return _PersonTreeView;
@@ -396,20 +410,6 @@ namespace Smuxi.Frontend.Gnome
             UpdatePersonCount();
         }
 
-        public override IList<PersonModel> Participants {
-            get {
-                var ret = new List<PersonModel>();
-                if (_PersonListStore == null) {
-                    return ret;
-                }
-                foreach (object[] row in _PersonListStore) {
-                    var person = (PersonModel)row[0];
-                    ret.Add(person);
-                }
-                return ret;
-            }
-        }
-        
         public override void ApplyConfig(UserConfig config)
         {
             Trace.Call(config);
