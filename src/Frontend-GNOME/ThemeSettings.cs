@@ -147,10 +147,13 @@ namespace Smuxi.Frontend.Gnome
                 if (Environment.OSVersion.Platform == PlatformID.Win32NT) {
                     var osVersion = Environment.OSVersion.Version;
                     var isWinXp = osVersion.Major == 5 && osVersion.Minor > 0;
-                    var context = Frontend.MainWindow.CreatePangoContext();
-                    if (context.Families.Any(family =>
-                                             family.Name == "Consolas") &&
-                        !isWinXp) {
+                    var hasConsolas = false;
+                    using (var context = Frontend.MainWindow.CreatePangoContext()) {
+                        hasConsolas = context.Families.Any(
+                            family => family.Name == "Consolas"
+                        );
+                    }
+                    if (hasConsolas && !isWinXp) {
                         // this system has Consolas available and is not WinXP,
                         // let's use it!
                         fontDescription.Family = "Consolas, monospace";
