@@ -313,6 +313,7 @@ namespace Smuxi.Frontend.Gnome
                 status += String.Format(" {0}", _("done."));
                 Frontend.MainWindow.Status = status;
             }
+            SyncedPersons = null;
 
             Topic = SyncedTopic;
 
