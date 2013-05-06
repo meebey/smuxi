@@ -191,9 +191,10 @@ namespace Smuxi.Frontend.Gnome
             _TopicScrolledWindow.NoShowAll = true;
             _TopicScrolledWindow.SizeRequested += delegate(object o, Gtk.SizeRequestedArgs args) {
                 // predict and set useful topic heigth
-                Pango.Layout layout = _TopicTextView.CreatePangoLayout("Test Topic");
                 int lineWidth, lineHeigth;
-                layout.GetPixelSize(out lineWidth, out lineHeigth);
+                using (var layout = _TopicTextView.CreatePangoLayout("Test Topic")) {
+                    layout.GetPixelSize(out lineWidth, out lineHeigth);
+                }
                 var lineSpacing = _TopicTextView.PixelsAboveLines +
                                   _TopicTextView.PixelsBelowLines;
                 var text = Topic != null ? Topic.ToString() : String.Empty;

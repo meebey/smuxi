@@ -532,9 +532,10 @@ namespace Smuxi.Frontend.Gnome
             entryScrolledWindow.HscrollbarPolicy = Gtk.PolicyType.Never;
             entryScrolledWindow.SizeRequested += delegate(object o, Gtk.SizeRequestedArgs args) {
                 // predict and set useful heigth
-                var layout = _Entry.CreatePangoLayout("Qp");
                 int lineWidth, lineHeigth;
-                layout.GetPixelSize(out lineHeigth, out lineHeigth);
+                using (var layout = _Entry.CreatePangoLayout("Qp")) {
+                    layout.GetPixelSize(out lineHeigth, out lineHeigth);
+                }
                 var text = Entry.Text;
                 var newLines = text.Count(f => f == '\n');
                 // cap to 1-3 lines
