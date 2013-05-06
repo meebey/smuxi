@@ -1631,13 +1631,27 @@ namespace Smuxi.Engine
             }
             Session.AddMessageToChat(groupChat, builder.ToMessage());
         }
+
+        void AddMessageToChatIfNotFiltered(MessageModel msg, ChatModel chat, bool isNew)
+        {
+            if (Session.IsFilteredMessage(chat, msg)) {
+                Session.LogMessage(chat, msg, true);
+                return;
+            }
+            if (isNew) {
+                Session.AddChat(chat);
+                Session.SyncChat(chat);
+            }
+            Session.AddMessageToChat(chat, msg);
+        }
         
         private void OnPrivateChatMessage(Message msg)
         {
             var chat = Session.GetChat(msg.From, ChatType.Person, this) as PersonChatModel;
+            bool isNew = false;
             if (chat == null) {
                 // in case full jid doesn't have a chat window, use bare jid
-                chat = GetOrCreatePersonChat(msg.From.Bare);
+                chat = GetOrCreatePersonChat(msg.From.Bare, out isNew);
             }
             var builder = CreateMessageBuilder();
             builder.AppendSenderPrefix(chat.Person, true);
@@ -1651,7 +1665,7 @@ namespace Smuxi.Engine
             if (msg.XDelay != null) {
                 builder.TimeStamp = msg.XDelay.Stamp;
             }
-            Session.AddMessageToChat(chat, builder.ToMessage());
+            AddMessageToChatIfNotFiltered(builder.ToMessage(), chat, isNew);
         }
 
         void OnGroupChatMessageError (Message msg, XmppGroupChatModel chat)
@@ -1775,10 +1789,11 @@ namespace Smuxi.Engine
                 case XmppMessageType.normal:
                 {
                     var chat = GetChat(msg.From, ChatType.Person) as PersonChatModel;
+                    bool isNew = false;
                     // no full jid chat
                     if (chat == null) {
                         // create chat
-                        chat = GetOrCreatePersonChat(msg.From.Bare);
+                        chat = GetOrCreatePersonChat(msg.From.Bare, out isNew);
                     }
                     var builder = CreateMessageBuilder();
                     builder.AppendEventPrefix();
@@ -1786,7 +1801,7 @@ namespace Smuxi.Engine
                     // TRANSLATOR: do NOT change the position of {0}!
                     builder.AppendText(_("{0} changed the chatstate to {1}"),
                                        String.Empty, msg.Chatstate.ToString());
-                    Session.AddMessageToChat(chat, builder.ToMessage());
+                    AddMessageToChatIfNotFiltered(builder.ToMessage(), chat, isNew);
                 }
                     break;
                 default:
@@ -1836,7 +1851,19 @@ namespace Smuxi.Engine
 
         private PersonChatModel GetOrCreatePersonChat(Jid jid)
         {
+            bool isNew;
+            var chat = GetOrCreatePersonChat(jid, out isNew);
+            if (isNew) {
+                Session.AddChat(chat);
+                Session.SyncChat(chat);
+            }
+            return chat;
+        }
+
+        PersonChatModel GetOrCreatePersonChat(Jid jid, out bool isNew)
+        {
             var chat = (PersonChatModel) Session.GetChat(jid, ChatType.Person, this);
+            isNew = false;
             if (chat != null) return chat;
             var person = GetOrCreateContact(jid.Bare, jid);
             PersonModel pers;
@@ -1845,9 +1872,8 @@ namespace Smuxi.Engine
             } else {
                 pers = person.ToPersonModel();
             }
+            isNew = true;
             chat = Session.CreatePersonChat(pers, this);
-            Session.AddChat(chat);
-            Session.SyncChat(chat);
             return chat;
         }
 
