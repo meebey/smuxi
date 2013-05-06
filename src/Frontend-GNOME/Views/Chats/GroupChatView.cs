@@ -221,6 +221,7 @@ namespace Smuxi.Frontend.Gnome
             // these callbacks for some reason and thus leaks :(
             // release ListStore.SetSortFunc() callback
             // gtk_list_store_finalize() -> _gtk_tree_data_list_header_free() -> destroy(user_data);
+            _TopicTextView.Dispose();
             _PersonListStore.Dispose();
             // release TreeViewColumn.SetCellDataFunc() callback
             // gtk_tree_view_column_finalize -> GtkTreeViewColumnCellInfo -> info->destroy(info->func_data)
