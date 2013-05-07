@@ -1934,6 +1934,12 @@ namespace Smuxi.Engine
             }
             isNew = true;
             chat = Session.CreatePersonChat(pers, this);
+            if (jid == JabberClient.MyJID || jid == JabberClient.MyJID.Bare) {
+                var builder = CreateMessageBuilder();
+                builder.AppendEventPrefix();
+                builder.AppendText("Note: you are now talking to yourself");
+                Session.AddMessageToChat(chat, builder.ToMessage());
+            }
             return chat;
         }
 
