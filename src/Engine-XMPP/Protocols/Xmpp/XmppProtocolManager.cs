@@ -453,6 +453,10 @@ namespace Smuxi.Engine
                             CommandMessageQuery(command);
                             handled = true;
                             break;
+                        case "me":
+                            CommandMe(command);
+                            handled = true;
+                            break;
                         case "say":
                             CommandSay(command);
                             handled = true;
@@ -524,6 +528,27 @@ namespace Smuxi.Engine
             }
             
             return handled;
+        }
+
+        public void CommandMe(CommandModel command)
+        {
+            if (command.Data.Length <= 4) {
+                return;
+            }
+
+            string actionstring = command.Data.Substring(3);
+            // http://xmpp.org/extensions/xep-0245.html
+            // says we should append "/me " no matter what our command char is
+            _Say(command.Chat, "/me" + actionstring, true, false);
+
+            // groupchat echos messages anyway
+            if (command.Chat.ChatType == ChatType.Person) {
+                var builder = CreateMessageBuilder();
+                builder.AppendActionPrefix();
+                builder.AppendIdendityName(Me);
+                builder.AppendText(actionstring);
+                Session.AddMessageToChat(command.Chat, builder.ToMessage());
+            }
         }
 
         void printResource(MessageBuilder builder, XmppResourceModel res)
@@ -1032,6 +1057,11 @@ namespace Smuxi.Engine
 
         private void _Say(ChatModel chat, string text, bool send)
         {
+            _Say(chat, text, send, true);
+        }
+
+        private void _Say(ChatModel chat, string text, bool send, bool display)
+        {
             if (!chat.IsEnabled) {
                 return;
             }
@@ -1070,10 +1100,12 @@ namespace Smuxi.Engine
                 LastSentMessage = text;
             }
 
-            var builder = CreateMessageBuilder();
-            builder.AppendSenderPrefix(Me);
-            builder.AppendMessage(text);
-            Session.AddMessageToChat(chat, builder.ToMessage());
+            if (display) {
+                var builder = CreateMessageBuilder();
+                builder.AppendSenderPrefix(Me);
+                builder.AppendMessage(text);
+                Session.AddMessageToChat(chat, builder.ToMessage());
+            }
         }
 
         void OnProtocol(object sender, string text)
@@ -1617,11 +1649,9 @@ namespace Smuxi.Engine
                                          NetworkID, Protocol, this);
             }
             
-            var builder = CreateMessageBuilder();
             // XXX maybe only a Google Talk bug requires this:
             if (msg.XDelay != null) {
                 var stamp = msg.XDelay.Stamp;
-                builder.TimeStamp = stamp;
                 if (stamp > groupChat.LatestSeenStamp) {
                     groupChat.LatestSeenStamp = stamp;
                 } else {
@@ -1634,13 +1664,10 @@ namespace Smuxi.Engine
                 groupChat.SeenNewMessages = true;
             }
             
-            // public message
-            builder.AppendMessage(person, msg.Body.Trim());
             // mark highlights only for received messages
-            if (person.ID != groupChat.OwnNickname) {
-                builder.MarkHighlights();
-            }
-            Session.AddMessageToChat(groupChat, builder.ToMessage());
+            bool hilight = person.ID != groupChat.OwnNickname;
+            var message = CreateMessage(person, msg, hilight);
+            Session.AddMessageToChat(groupChat, message);
         }
 
         void AddMessageToChatIfNotFiltered(MessageModel msg, ChatModel chat, bool isNew)
@@ -1664,19 +1691,41 @@ namespace Smuxi.Engine
                 // in case full jid doesn't have a chat window, use bare jid
                 chat = GetOrCreatePersonChat(msg.From.Bare, out isNew);
             }
+            AddMessageToChatIfNotFiltered(CreateMessage(chat.Person, msg, true), chat, isNew);
+        }
+
+        MessageModel CreateMessage(PersonModel person, Message msg, bool hilight)
+        {
             var builder = CreateMessageBuilder();
-            builder.AppendSenderPrefix(chat.Person, true);
+            string msgstring;
             if (msg.Html != null) {
-                builder.AppendHtmlMessage(msg.Html.ToString());
+                msgstring = msg.Html.ToString();
             } else {
-                builder.AppendMessage(msg.Body.Trim());
+                msgstring = msg.Body.Trim();
             }
-            builder.MarkHighlights();
-            // todo: can private messages have an xdelay?
+
+            if (msgstring.StartsWith("/me ")) {
+                // leave the " " intact
+                msgstring = msgstring.Substring(3);
+                builder.AppendActionPrefix();
+                builder.AppendIdendityName(person, hilight);
+            } else {
+                builder.AppendSenderPrefix(person, hilight);
+            }
+
+            if (msg.Html != null) {
+                builder.AppendHtmlMessage(msgstring);
+            } else {
+                builder.AppendMessage(msgstring);
+            }
+            if (hilight) {
+                builder.MarkHighlights();
+            }
+
             if (msg.XDelay != null) {
                 builder.TimeStamp = msg.XDelay.Stamp;
             }
-            AddMessageToChatIfNotFiltered(builder.ToMessage(), chat, isNew);
+            return builder.ToMessage();
         }
 
         void OnGroupChatMessageError (Message msg, XmppGroupChatModel chat)
