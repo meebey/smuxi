@@ -431,6 +431,13 @@ namespace Smuxi.Engine
             JabberClient.SendMyPresence();
         }
 
+        public void CommandRegister (CommandModel command)
+        {
+            Connect();
+            JabberClient.RegisterAccount = true;
+            // TODO: add callbacks to process in case of error or success
+        }
+
         public override bool Command(CommandModel command)
         {
             bool handled = false;
@@ -485,6 +492,10 @@ namespace Smuxi.Engine
                             break;
                         case "whois":
                             CommandWhoIs(command);
+                            handled = true;
+                            break;
+                        case "register":
+                            CommandRegister(command);
                             handled = true;
                             break;
                     }
