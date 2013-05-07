@@ -53,7 +53,7 @@ namespace Smuxi.Frontend
                 if (ret == null) {
                     ret = nick;
                 } else {
-                    while (!nick.StartsWith(ret)) {
+                    while (!nick.StartsWith(ret, StringComparison.OrdinalIgnoreCase)) {
                         // cut off one character at the end
                         ret = ret.Substring(0, ret.Length - 1);
                     }
