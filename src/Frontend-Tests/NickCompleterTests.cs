@@ -165,6 +165,22 @@ namespace Smuxi.Frontend
         }
 
         [Test]
+        public void TestInitialPrefixBashCompletionCaseInsensitive()
+        {
+            cv.AddParticipant("Papagena");
+            cv.AddParticipant("papAgeno");
+
+            string inputLine = "Pa";
+            int curPos = 2;
+            lpnc.Complete(ref inputLine, ref curPos, cv);
+
+            Assert.AreEqual(1, cv.MessageCount());
+            Assert.AreEqual("-!- Papagena papAgeno", cv.GetLastMessage().ToString());
+            Assert.AreEqual("Papagen", inputLine);
+            Assert.AreEqual(7, curPos);
+        }
+
+        [Test]
         public void TestInitialPrefixAtBashCompletion()
         {
             cv.AddParticipant("Papagena");
