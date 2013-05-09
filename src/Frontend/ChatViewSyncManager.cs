@@ -1,6 +1,6 @@
 // Smuxi - Smart MUltipleXed Irc
 //
-// Copyright (c) 2011 Mirco Bauer <meebey@meebey.net>
+// Copyright (c) 2011, 2013 Mirco Bauer <meebey@meebey.net>
 //
 // Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
 //
@@ -81,6 +81,27 @@ namespace Smuxi.Frontend
 
             OnChatAdded(chatModel, chatId, chatType, chatPosition,
                         protocolManagerType);
+        }
+
+        /// <remarks>
+        /// This method is thread safe.
+        /// </remarks>
+        public void Remove(ChatModel chatModel)
+        {
+            Trace.Call(chatModel);
+
+            if (chatModel == null) {
+                throw new ArgumentNullException("chatModel");
+            }
+
+            var chatKey = GetChatKey(chatModel);
+#if LOG4NET
+            Logger.DebugFormat("Remove() <{0}> removing from release queue",
+                               chatKey);
+#endif
+            lock (SyncReleaseQueue) {
+                SyncReleaseQueue.Remove(chatKey);
+            }
         }
 
         public void Sync(IChatView chatView)
@@ -247,7 +268,10 @@ namespace Smuxi.Frontend
                         return;
                     }
                     // no longer need the release slot
-                    SyncReleaseQueue.Remove(chatKey);
+                    // BUG: this breaks re-syncing an existing chat! For that
+                    // reason the frontend _must_ notify us via Remove() if the
+                    // chat sync state is no longer needed
+                    //SyncReleaseQueue.Remove(chatKey);
                 }
 
                 Sync(chatView);
