@@ -1,6 +1,6 @@
 // Smuxi - Smart MUltipleXed Irc
 //
-// Copyright (c) 2012 Mirco Bauer <meebey@meebey.net>
+// Copyright (c) 2012-2013 Mirco Bauer <meebey@meebey.net>
 //
 // Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
 //
@@ -31,6 +31,8 @@ namespace Smuxi.Frontend.Gnome
 #if LOG4NET
         private static readonly log4net.ILog f_Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 #endif
+        private const string ActiveNetworkConfigKey = "GNOME/JoinBar/ActiveNetwork";
+
         public EventHandler<EventArgs> Activated;
 
         public new bool HasFocus {
@@ -133,7 +135,16 @@ namespace Smuxi.Frontend.Gnome
             }
             store.SetSortColumnId(0, Gtk.SortType.Ascending);
             f_NetworkComboBox.Model = store;
-            f_NetworkComboBox.Active = 0;
+            var activeNetwork = (string) Frontend.FrontendConfig[ActiveNetworkConfigKey];
+            if (String.IsNullOrEmpty(activeNetwork)) {
+                f_NetworkComboBox.Active = 0;
+            } else {
+                ActiveNetwork = activeNetwork;
+            }
+            f_NetworkComboBox.Changed += (sender, e) => {
+                Frontend.FrontendConfig[ActiveNetworkConfigKey] = ActiveNetwork;
+                Frontend.FrontendConfig.Save();
+            };
         }
 
         public void ApplyConfig(UserConfig config)
