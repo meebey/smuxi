@@ -743,6 +743,13 @@ namespace Smuxi.Frontend.Gnome
                 (stop - start).TotalMilliseconds / count
             );
             chat.AddMessage(builder.ToMessage());
+
+            builder = new MessageBuilder();
+            builder.AppendText(
+                "ChatView.AddMessage(): MessageTextTagTable.Size: {0}",
+                chat.OutputMessageTextView.MessageTextTagTable.Size
+            );
+            chat.AddMessage(builder.ToMessage());
         }
 
         private void _NickCompletion()

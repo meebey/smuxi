@@ -201,9 +201,10 @@ namespace Smuxi.Frontend.Gnome
             _TopicScrolledWindow.NoShowAll = true;
             _TopicScrolledWindow.SizeRequested += delegate(object o, Gtk.SizeRequestedArgs args) {
                 // predict and set useful topic heigth
-                Pango.Layout layout = _TopicTextView.CreatePangoLayout("Test Topic");
                 int lineWidth, lineHeigth;
-                layout.GetPixelSize(out lineWidth, out lineHeigth);
+                using (var layout = _TopicTextView.CreatePangoLayout("Test Topic")) {
+                    layout.GetPixelSize(out lineWidth, out lineHeigth);
+                }
                 var lineSpacing = _TopicTextView.PixelsAboveLines +
                                   _TopicTextView.PixelsBelowLines;
                 var it = _TopicTextView.Buffer.StartIter;
@@ -237,6 +238,7 @@ namespace Smuxi.Frontend.Gnome
             // these callbacks for some reason and thus leaks :(
             // release ListStore.SetSortFunc() callback
             // gtk_list_store_finalize() -> _gtk_tree_data_list_header_free() -> destroy(user_data);
+            _TopicTextView.Dispose();
             _PersonListStore.Dispose();
             // release TreeViewColumn.SetCellDataFunc() callback
             // gtk_tree_view_column_finalize -> GtkTreeViewColumnCellInfo -> info->destroy(info->func_data)
@@ -328,6 +330,7 @@ namespace Smuxi.Frontend.Gnome
                 status += String.Format(" {0}", _("done."));
                 Frontend.MainWindow.Status = status;
             }
+            SyncedPersons = null;
 
             Topic = SyncedTopic;
 
