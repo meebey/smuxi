@@ -1,7 +1,7 @@
 /*
  * Smuxi - Smart MUltipleXed Irc
  *
- * Copyright (c) 2007, 2010-2011 Mirco Bauer <meebey@meebey.net>
+ * Copyright (c) 2007, 2010-2013 Mirco Bauer <meebey@meebey.net>
  * Copyright (c) 2011 Andrius Bentkus <andrius.bentkus@gmail.com>
  *
  * Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
@@ -220,7 +220,7 @@ namespace Smuxi.Frontend.Stfl
 
             string[] help = {
                 "help",
-                "window number",
+                "window (number|close)",
                 "exit",
             };
 
@@ -234,6 +234,11 @@ namespace Smuxi.Frontend.Stfl
 
         private void CommandWindow(CommandModel cmd)
         {
+            if (cmd.Parameter == "close") {
+                f_ChatViewManager.CurrentChat.Close();
+                return;
+            }
+
             int window;
             if (!Int32.TryParse(cmd.Parameter, out window)) {
                 return;

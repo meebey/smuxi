@@ -1,7 +1,7 @@
 /*
  * Smuxi - Smart MUltipleXed Irc
  *
- * Copyright (c) 2007, 2010-2011 Mirco Bauer <meebey@meebey.net>
+ * Copyright (c) 2007, 2010-2013 Mirco Bauer <meebey@meebey.net>
  *
  * Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
  *
@@ -22,6 +22,7 @@
 
 using System;
 using System.Text;
+using System.Threading;
 using System.Collections.Generic;
 using System.Globalization;
 using Smuxi.Common;
@@ -47,6 +48,7 @@ namespace Smuxi.Frontend.Stfl
         ChatModel  f_ChatModel;
         MainWindow f_MainWindow;
         TextView   MessageTextView { get; set; }
+        IProtocolManager ProtocolManager { get; set; }
 
         public ChatModel ChatModel {
             get {
@@ -142,6 +144,32 @@ namespace Smuxi.Frontend.Stfl
             GC.SuppressFinalize(this);
         }
 
+        public virtual void Close()
+        {
+            Trace.Call();
+
+            var protocolManager = ProtocolManager;
+            if (protocolManager == null) {
+#if LOG4NET
+                _Logger.WarnFormat(
+                    "{0}.Close(): ProtocolManager is null, bailing out!", this
+                );
+#endif
+                return;
+            }
+
+            ThreadPool.QueueUserWorkItem(delegate {
+                try {
+                    protocolManager.CloseChat(
+                        Frontend.FrontendManager,
+                        ChatModel
+                    );
+                } catch (Exception ex) {
+                    Frontend.ShowException(ex);
+                }
+            });
+        }
+
         public virtual void Enable()
         {
             Trace.Call();
@@ -154,6 +182,7 @@ namespace Smuxi.Frontend.Stfl
         
         public virtual void Sync()
         {
+            ProtocolManager = f_ChatModel.ProtocolManager;
 #if LOG4NET
             _Logger.Debug("Sync() syncing messages");
 #endif
