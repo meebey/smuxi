@@ -77,6 +77,7 @@ namespace Smuxi.Frontend.Stfl
                 }
 #endif
                 chatView.AddMessage(msg);
+                _ChatViewManager.UpdateNavigation();
             } catch (Exception ex) {
 #if LOG4NET
                 _Logger.Fatal(ex);

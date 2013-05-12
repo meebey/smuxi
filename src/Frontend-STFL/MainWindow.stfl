@@ -25,6 +25,11 @@ vbox
     .expand:0 .height:1
     @style_normal:fg=white,bg=blue
     label
+      richtext:1
+      style_clear_normal:fg=white,bg=blue
+      style_event_normal:fg=green,bg=blue
+      style_msg_normal:fg=cyan,bg=blue,attr=bold
+      style_highlight_normal:fg=magenta,bg=blue,attr=bold
       text[navigation_label_text]:"Navigation"
   hbox[input_hbox]
     .expand:0 .height:1

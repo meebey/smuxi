@@ -1,7 +1,7 @@
 /*
  * Smuxi - Smart MUltipleXed Irc
  *
- * Copyright (c) 2007, 2010-2011 Mirco Bauer <meebey@meebey.net>
+ * Copyright (c) 2007, 2010-2013 Mirco Bauer <meebey@meebey.net>
  *
  * Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
  *
@@ -65,6 +65,7 @@ namespace Smuxi.Frontend.Stfl
                     _Logger.Debug("set_CurrentChat(): making " + value.ChatModel.ID + " visible");
 #endif
                     f_CurrentChat.IsVisible = true;
+                    UpdateNavigation();
                     UpdateTitle();
                 }
 
@@ -153,11 +154,12 @@ namespace Smuxi.Frontend.Stfl
             return f_ChatViewList[chat];
         }
 
-        private void UpdateNavigation()
+        public void UpdateNavigation()
         {
             var nav = new StringBuilder();
             foreach (var chat in f_ChatViewList) {
-                nav.AppendFormat("[{0}] ", chat.ChatModel.Name);
+                nav.AppendFormat("[{0}] ",
+                                 chat == CurrentChat ? chat.Name : chat.Label);
             }
             if (nav.Length > 0) {
                 nav.Length--;

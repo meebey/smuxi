@@ -49,6 +49,10 @@ namespace Smuxi.Frontend.Stfl
         MainWindow f_MainWindow;
         TextView   MessageTextView { get; set; }
         IProtocolManager ProtocolManager { get; set; }
+        bool HasEvent { get; set; }
+        bool HasMessage { get; set; }
+        bool HasHighlight { get; set; }
+        public string Name { get; private set; }
 
         public ChatModel ChatModel {
             get {
@@ -73,6 +77,11 @@ namespace Smuxi.Frontend.Stfl
                 return f_MainWindow[f_WidgetID + "d"] == "1";
             }
             set {
+                if (value) {
+                    HasEvent = false;
+                    HasMessage = false;
+                    HasHighlight = false;
+                }
                 f_MainWindow[f_WidgetID + "d"] = value ?  "1" : "0";
            }
         }
@@ -80,6 +89,22 @@ namespace Smuxi.Frontend.Stfl
         public string WidgetName {
             get {
                 return f_WidgetName;
+            }
+        }
+
+        public string Label {
+            get {
+                string style;
+                if (HasHighlight) {
+                    style = "highlight";
+                } else if (HasMessage) {
+                    style = "msg";
+                } else if (HasEvent) {
+                    style = "event";
+                } else {
+                    style = "clear";
+                }
+                return String.Format("<{0}>{1}</>", style, Name);
             }
         }
 
@@ -183,13 +208,14 @@ namespace Smuxi.Frontend.Stfl
         public virtual void Sync()
         {
             ProtocolManager = f_ChatModel.ProtocolManager;
+            Name = f_ChatModel.Name;
 #if LOG4NET
             _Logger.Debug("Sync() syncing messages");
 #endif
             // sync messages
             // cleanup, be sure the output is empty
             f_MainWindow.Modify("output_textview", "replace_inner", "");
-            
+
             IList<MessageModel> messages = f_ChatModel.Messages;
             if (messages.Count > 0) {
                 foreach (MessageModel msg in messages) {
@@ -207,7 +233,19 @@ namespace Smuxi.Frontend.Stfl
             // OPT: typical message length
             var line = new StringBuilder(512);
             int msgLength = 0;
+            switch (msg.MessageType) {
+                case MessageType.Normal:
+                    HasMessage = true;
+                    break;
+                case MessageType.Event:
+                    HasEvent = true;
+                    break;
+            }
+            bool hasHighlight = false;
             foreach (MessagePartModel msgPart in msg.MessageParts) {
+                if (msgPart.IsHighlight) {
+                    HasHighlight = true;
+                }
                 // TODO: implement other types
                 if (msgPart is UrlMessagePartModel) {
                     var urlPart = (UrlMessagePartModel) msgPart;
