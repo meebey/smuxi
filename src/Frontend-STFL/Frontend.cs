@@ -1,7 +1,7 @@
 /*
  * Smuxi - Smart MUltipleXed Irc
  *
- * Copyright (c) 2007, 2010-2011 Mirco Bauer <meebey@meebey.net>
+ * Copyright (c) 2007, 2010-2013 Mirco Bauer <meebey@meebey.net>
  *
  * Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
  *
@@ -242,6 +242,17 @@ namespace Smuxi.Frontend.Stfl
             _Session = null;
         }
         
+        public static void ApplyConfig(UserConfig userConfig)
+        {
+            Trace.Call(userConfig);
+
+            if (userConfig == null) {
+                throw new ArgumentNullException("userConfig");
+            }
+
+            _MainWindow.ApplyConfig(userConfig);
+        }
+
         public static void Quit()
         {
             if (_FrontendManager != null) {

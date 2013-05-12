@@ -39,6 +39,8 @@ namespace Smuxi.Frontend.Stfl
         MainWindow      f_MainWindow;
         ChatViewManager f_ChatViewManager;
         CommandManager CommandManager { get; set; }
+        NickCompleter NickCompleter { get; set; }
+        EntrySettings Settings { get; set; }
 
         event EventHandler Activated;
 
@@ -78,8 +80,32 @@ namespace Smuxi.Frontend.Stfl
             Frontend.SessionPropertyChanged += delegate {
                 InitCommandManager();
             };
+
+            Settings = new EntrySettings();
+            NickCompleter = new TabCycleNickCompleter();
         }
         
+        public virtual void ApplyConfig(UserConfig config)
+        {
+            Trace.Call(config);
+
+            if (config == null) {
+                throw new ArgumentNullException("config");
+            }
+
+            Settings.ApplyConfig(config);
+
+            // replace nick completer if needed
+            if (Settings.BashStyleCompletion && !(NickCompleter is LongestPrefixNickCompleter)) {
+                NickCompleter = new LongestPrefixNickCompleter();
+            } else if (!Settings.BashStyleCompletion && !(NickCompleter is TabCycleNickCompleter)) {
+                NickCompleter = new TabCycleNickCompleter();
+            }
+
+            // set the completion character
+            NickCompleter.CompletionChar = Settings.CompletionCharacter;
+        }
+
         void InitCommandManager()
         {
             Trace.Call();
@@ -115,6 +141,9 @@ namespace Smuxi.Frontend.Stfl
                     if (f_ChatViewManager.ActiveChat != null) {
                         f_ChatViewManager.ActiveChat.ScrollDown();
                     }
+                    break;
+                case "TAB":
+                    CompleteNick();
                     break;
                 case "kPRV5": // CTRL + PAGE UP
                 case "^P":
@@ -356,6 +385,16 @@ namespace Smuxi.Frontend.Stfl
         {
             Text = Text.Substring(0, Position) +
                    Text.Substring(Math.Min(Position + 1, Text.Length));
+        }
+
+        void CompleteNick()
+        {
+            // perform completion
+            string text = Text;
+            int position = Position;
+            NickCompleter.Complete(ref text, ref position, f_ChatViewManager.CurrentChat);
+            Text = text;
+            Position = position;
         }
 
         static string _(string msg)

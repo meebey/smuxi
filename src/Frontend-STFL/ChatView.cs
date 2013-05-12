@@ -53,6 +53,7 @@ namespace Smuxi.Frontend.Stfl
         bool HasMessage { get; set; }
         bool HasHighlight { get; set; }
         public string Name { get; private set; }
+        public IList<PersonModel> Participants { get; private set; }
 
         public ChatModel ChatModel {
             get {
@@ -146,6 +147,8 @@ namespace Smuxi.Frontend.Stfl
             MessageTextView.HeigthVariableName = "output_vbox:h";
             MessageTextView.WidthVariableName = "output_vbox:w";
             MessageTextView.AutoLineWrap = true;
+
+            Participants = new List<PersonModel>();
         }
         
         ~ChatView()
@@ -209,6 +212,18 @@ namespace Smuxi.Frontend.Stfl
         {
             ProtocolManager = f_ChatModel.ProtocolManager;
             Name = f_ChatModel.Name;
+            if (f_ChatModel is GroupChatModel) {
+                var groupChat = (GroupChatModel) f_ChatModel;
+                var persons = groupChat.Persons;
+                if (persons != null) {
+                    foreach (var person in persons.Values) {
+                        Participants.Add(person);
+                    }
+                }
+            } else if (f_ChatModel is PersonChatModel) {
+                var personChat = (PersonChatModel) f_ChatModel;
+                Participants.Add(personChat.Person);
+            }
 #if LOG4NET
             _Logger.Debug("Sync() syncing messages");
 #endif
@@ -328,14 +343,6 @@ namespace Smuxi.Frontend.Stfl
             Trace.Call();
 
             MessageTextView.ScrollToEnd();
-        }
-
-        public IList<PersonModel> Participants
-        {
-            get {
-                // FIXME: implement this (for tab completion)
-                return new List<PersonModel>();
-            }
         }
     }
 }

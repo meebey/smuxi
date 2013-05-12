@@ -1,7 +1,7 @@
 /*
  * Smuxi - Smart MUltipleXed Irc
  *
- * Copyright (c) 2007, 2010-2011 Mirco Bauer <meebey@meebey.net>
+ * Copyright (c) 2007, 2010-2013 Mirco Bauer <meebey@meebey.net>
  *
  * Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
  *
@@ -84,6 +84,11 @@ namespace Smuxi.Frontend.Stfl
 
             Assembly asm = Assembly.GetExecutingAssembly();
             ChatViewManager.Load(asm);
+        }
+
+        public void ApplyConfig(UserConfig config)
+        {
+            Entry.ApplyConfig(config);
         }
     }
 }
