@@ -70,12 +70,13 @@ namespace Smuxi.Frontend.Stfl
 
             try {
                 ChatView chatView = _ChatViewManager.GetChat(chat);
-#if LOG4NET
                 if (chatView == null) {
+#if LOG4NET
                     _Logger.Fatal(String.Format("AddMessageToChat(): _ChatViewManager.GetChat(chat) chat.Name: {0} returned null!", chat.Name));
+#endif
                     return;
                 }
-#endif
+
                 chatView.AddMessage(msg);
                 _ChatViewManager.UpdateNavigation();
             } catch (Exception ex) {
@@ -130,12 +131,12 @@ namespace Smuxi.Frontend.Stfl
             
             try {
                 var chatView = _ChatViewManager.GetChat(chat);
-#if LOG4NET
                 if (chatView == null) {
+#if LOG4NET
                     _Logger.Fatal(String.Format("SyncChat(): _ChatViewManager.GetChat(chat) chat.Name: {0} returned null!", chat.Name));
+#endif
                     return;
                 }
-#endif
                 chatView.Sync();
 
                 Frontend.FrontendManager.AddSyncedChat(chat);
