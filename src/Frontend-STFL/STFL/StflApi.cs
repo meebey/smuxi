@@ -37,7 +37,11 @@ namespace Stfl
 
         static StflApi()
         {
-            IsXterm = Environment.GetEnvironmentVariable("TERM") == "xterm";
+            // check if he has a graphical terminal. screen/tmux in not
+            // detected in case someone is using it in pure text mode
+            string termName = Environment.GetEnvironmentVariable("TERM");
+            IsXterm = (termName != null && (termName.StartsWith("xterm") ||
+                termName.StartsWith("rxvt")));
             // detect UTF-8 locale according to:
             // http://www.cl.cam.ac.uk/~mgk25/unicode.html#activate
             var locale = Environment.GetEnvironmentVariable("LC_ALL") ??
