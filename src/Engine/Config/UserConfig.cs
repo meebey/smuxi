@@ -1,13 +1,7 @@
 /*
- * $Id$
- * $URL$
- * $Rev$
- * $Author$
- * $Date$
- *
  * Smuxi - Smart MUltipleXed Irc
  *
- * Copyright (c) 2005-2006 Mirco Bauer <meebey@meebey.net>
+ * Copyright (c) 2005-2006, 2010-2011, 2013 Mirco Bauer <meebey@meebey.net>
  *
  * Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
  *
@@ -34,7 +28,7 @@ using Smuxi.Common;
 
 namespace Smuxi.Engine
 {
-    public class UserConfig : PermanentRemoteObject
+    public class UserConfig : PermanentRemoteObject, IEnumerable<KeyValuePair<string, object>>
     {
 #if LOG4NET
         private static readonly log4net.ILog _Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
@@ -193,6 +187,23 @@ namespace Smuxi.Engine
             );
 #endif
             _Cache = cache;
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
+
+        public IEnumerator<KeyValuePair<string, object>> GetEnumerator()
+        {
+            foreach (var entry in _Config.GetAll()) {
+                if (!entry.Key.StartsWith(_UserPrefix)) {
+                    continue;
+                }
+                // remove user prefix from key
+                var userKey = entry.Key.Substring(_UserPrefix.Length);
+                yield return new KeyValuePair<string, object>(userKey, entry.Value);
+            }
         }
 
         void OnConfigChanged(object sender, ConfigChangedEventArgs e)

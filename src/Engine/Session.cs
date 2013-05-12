@@ -1,7 +1,7 @@
 /*
  * Smuxi - Smart MUltipleXed Irc
  *
- * Copyright (c) 2005-2012 Mirco Bauer <meebey@meebey.net>
+ * Copyright (c) 2005-2013 Mirco Bauer <meebey@meebey.net>
  *
  * Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
  *
@@ -423,7 +423,9 @@ namespace Smuxi.Engine
                 "network list",
                 "network close [network]",
                 "network switch [network]",
-                "config (save|load)",
+                "config (save|load|list)",
+                "config get key",
+                "config set key=value",
                 "shutdown"
             };
 
@@ -616,28 +618,91 @@ namespace Smuxi.Engine
             }
             
             FrontendManager fm = cd.FrontendManager;
-            if (cd.DataArray.Length >= 2) {
-                var builder = CreateMessageBuilder();
-                builder.AppendEventPrefix();
-                switch (cd.DataArray[1].ToLower()) {
-                    case "load":
-                        _Config.Load();
-                        builder.AppendText(_("Configuration reloaded"));
-                        break;
-                    case "save":
-                        _Config.Save();
-                        builder.AppendText(_("Configuration saved"));
-                        break;
-                    default:
-                        builder.AppendText(
-                            _("Invalid parameter for config; use load or save")
-                        );
-                        break;
-                }
-                fm.AddMessageToChat(cd.Chat, builder.ToMessage());
-            } else {
+            if (cd.DataArray.Length < 2) {
                 _NotEnoughParameters(cd);
+                return;
             }
+            var builder = CreateMessageBuilder();
+            builder.AppendEventPrefix();
+            var action = cd.DataArray[1].ToLower();
+            switch (action) {
+                case "load":
+                    _Config.Load();
+                    builder.AppendText(_("Configuration reloaded"));
+                    break;
+                case "save":
+                    _Config.Save();
+                    builder.AppendText(_("Configuration saved"));
+                    break;
+                case "get":
+                case "list":
+                    string key = null;
+                    if (action == "get") {
+                        if (cd.DataArray.Length < 3) {
+                            _NotEnoughParameters(cd);
+                            return;
+                        }
+                        key = cd.DataArray[2];
+                    }
+                    foreach (var entry in _UserConfig.OrderBy(kvp => kvp.Key)) {
+                        if (key != null &&
+                            entry.Key.IndexOf(key, StringComparison.InvariantCultureIgnoreCase) == -1) {
+                            continue;
+                        }
+                        builder = CreateMessageBuilder();
+                        builder.AppendEventPrefix();
+                        builder.AppendText("{0} = {1}", entry.Key, entry.Value);
+                        fm.AddMessageToChat(cd.Chat, builder.ToMessage());
+                    }
+                    return;
+                case "set":
+                    if (cd.DataArray.Length < 3) {
+                        _NotEnoughParameters(cd);
+                        return;
+                    }
+                    string setParam = cd.DataArray[2];
+                    if (!setParam.Contains("=")) {
+                        builder.AppendErrorText(
+                            _("Invalid key/value format.")
+                        );
+                        fm.AddMessageToChat(cd.Chat, builder.ToMessage());
+                        return;
+                    }
+                    string setKey = setParam.Split('=')[0];
+                    string setValue = setParam.Split('=')[1];
+                    object oldValue = _UserConfig[setKey];
+                    if (oldValue == null) {
+                        builder.AppendErrorText(
+                            _("Invalid config key: '{0}'"),
+                            setKey
+                        );
+                    } else {
+                        try {
+                            object newValue = Convert.ChangeType(setValue, oldValue.GetType());
+                            _UserConfig[setKey] = newValue;
+                            builder.AppendText("{0} = {1}", setKey, newValue.ToString());
+                        } catch (InvalidCastException) {
+                            builder.AppendErrorText(
+                                _("Could not convert config value: '{0}' to type: {1}"),
+                                setValue,
+                                oldValue.GetType().Name
+                            );
+                        } catch (FormatException) {
+                            builder.AppendErrorText(
+                                _("Could not convert config value: '{0}' to type: {1}"),
+                                setValue,
+                                oldValue.GetType().Name
+                            );
+                        }
+                    }
+                    break;
+                default:
+                    builder.AppendErrorText(
+                        _("Invalid parameter for config; use load, save, get or set.")
+                    );
+                    break;
+            }
+            fm.AddMessageToChat(cd.Chat, builder.ToMessage());
         }
         
         public void CommandShutdown(CommandModel cmd)
