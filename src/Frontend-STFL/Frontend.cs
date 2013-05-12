@@ -46,6 +46,8 @@ namespace Smuxi.Frontend.Stfl
         private static UserConfig         _UserConfig;
         private static FrontendManager    _FrontendManager;
         
+        public static event EventHandler SessionPropertyChanged;
+
         public static string Name {
             get {
                 return _Name;
@@ -91,6 +93,10 @@ namespace Smuxi.Frontend.Stfl
             }
             set {
                 _Session = value;
+
+                if (SessionPropertyChanged != null) {
+                    SessionPropertyChanged(value, EventArgs.Empty);
+                }
             }
         }
         
@@ -167,11 +173,11 @@ namespace Smuxi.Frontend.Stfl
         {
             Engine.Engine.Init();
             _EngineVersion = Engine.Engine.Version;
-            _Session = new Engine.Session(Engine.Engine.Config,
-                                          Engine.Engine.ProtocolManagerFactory,
-                                          "local");
-            _Session.RegisterFrontendUI(_MainWindow.UI);
-            _UserConfig = _Session.UserConfig;
+            Session = new Engine.Session(Engine.Engine.Config,
+                                         Engine.Engine.ProtocolManagerFactory,
+                                         "local");
+            Session.RegisterFrontendUI(_MainWindow.UI);
+            _UserConfig = Session.UserConfig;
             ConnectEngineToGUI();
         }
         
@@ -198,7 +204,7 @@ namespace Smuxi.Frontend.Stfl
                     Environment.Exit(1);
                 }
 
-                _Session = manager.Session;
+                Session = manager.Session;
                 _UserConfig = manager.UserConfig;
                 _EngineVersion = manager.EngineVersion;
                 ConnectEngineToGUI();

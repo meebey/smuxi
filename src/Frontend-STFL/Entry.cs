@@ -38,6 +38,7 @@ namespace Smuxi.Frontend.Stfl
 #endif
         MainWindow      f_MainWindow;
         ChatViewManager f_ChatViewManager;
+        CommandManager CommandManager { get; set; }
 
         event EventHandler Activated;
 
@@ -61,20 +62,39 @@ namespace Smuxi.Frontend.Stfl
         
         public Entry(MainWindow mainWindow, ChatViewManager chatViewManager)
         {
-           if (mainWindow == null) {
+            if (mainWindow == null) {
                 throw new ArgumentNullException("mainWindow");
-           }
-           if (chatViewManager == null) {
+            }
+            if (chatViewManager == null) {
                 throw new ArgumentNullException("chatViewManager");
-           }
+            }
 
             f_MainWindow = mainWindow;
             f_MainWindow.KeyPressed += OnKeyPressed;
             
             f_ChatViewManager = chatViewManager;
             f_ChatViewManager.CurrentChatSwitched += OnChatSwitched;
+
+            Frontend.SessionPropertyChanged += delegate {
+                InitCommandManager();
+            };
         }
         
+        void InitCommandManager()
+        {
+            Trace.Call();
+
+            if (CommandManager != null) {
+                CommandManager.Dispose();
+            }
+
+            if (Frontend.Session == null) {
+                CommandManager = null;
+            } else {
+                CommandManager = new CommandManager(Frontend.Session);
+            }
+        }
+
         private void OnKeyPressed(object sender, KeyPressedEventArgs e)
         {
             Trace.Call(sender, e);
@@ -154,26 +174,19 @@ namespace Smuxi.Frontend.Stfl
             if (currentChat != null) {
                 chat = currentChat.ChatModel;
             }
-            bool handled = false;
-            CommandModel cd = new CommandModel(Frontend.FrontendManager, chat,
-                                               (string)Frontend.UserConfig["Interface/Entry/CommandCharacter"],
-                                               cmd);
-            handled = Command(cd);
-            if (!handled) {
-                handled = Frontend.Session.Command(cd);
+            CommandModel cd = new CommandModel(
+                Frontend.FrontendManager,
+                chat,
+                (string) Frontend.UserConfig["Interface/Entry/CommandCharacter"],
+                cmd
+            );
+
+            var handled = Command(cd);
+            if (handled) {
+                return;
             }
-            if (!handled) {
-                // we may have no network manager yet
-                Engine.IProtocolManager nm = Frontend.FrontendManager.CurrentProtocolManager;
-                if (nm != null) {
-                    handled = nm.Command(cd);
-                } else {
-                    handled = false;
-                }
-            }
-            if (!handled) {
-               CommandUnknown(cd);
-            }
+
+            CommandManager.Execute(cd);
         }
 
         private bool Command(CommandModel cmd)
