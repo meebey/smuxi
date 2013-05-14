@@ -1,7 +1,7 @@
 /*
  * Smuxi - Smart MUltipleXed Irc
  *
- * Copyright (c) 2005-2006, 2009-2011 Mirco Bauer <meebey@meebey.net>
+ * Copyright (c) 2005-2006, 2009-2013 Mirco Bauer <meebey@meebey.net>
  *
  * Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
  *
@@ -49,6 +49,7 @@ namespace Smuxi.Frontend.Gnome
         public string Host { get; private set; }
         public int Port { get; private set; }
         public string NetworkID { get; private set; }
+        Gtk.ImageMenuItem  ReconnectItem { get; set; }
 
         protected override Gtk.Image DefaultTabImage {
             get {
@@ -104,6 +105,13 @@ namespace Smuxi.Frontend.Gnome
             ProxySettings = new ProxySettings();
 
             Add(OutputScrolledWindow);
+
+            ReconnectItem = new Gtk.ImageMenuItem(_("Reconnect"));
+            ReconnectItem.Image = new Gtk.Image(Gtk.Stock.Refresh, Gtk.IconSize.Menu);
+            ReconnectItem.Activated += new EventHandler(OnTabMenuReconnectActivated);
+            TabMenu.Prepend(ReconnectItem);
+            TabMenu.ShowAll();
+
             ShowAll();
         }
 
@@ -334,6 +342,20 @@ namespace Smuxi.Frontend.Gnome
                 TabImage.Pixbuf = ServerIconPixbuf;
                 return false;
             });
+        }
+
+        protected virtual void OnTabMenuReconnectActivated(object sender, EventArgs e)
+        {
+            Trace.Call(sender, e);
+
+            try {
+                if (ProtocolManager == null) {
+                    return;
+                }
+                ProtocolManager.Reconnect(Frontend.FrontendManager);
+            } catch (Exception ex) {
+                Frontend.ShowException(ex);
+            }
         }
 
         static bool ValidateCertificate(object sender,

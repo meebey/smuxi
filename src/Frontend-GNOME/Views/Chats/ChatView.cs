@@ -247,6 +247,12 @@ namespace Smuxi.Frontend.Gnome
             }
         }
 
+        protected Gtk.Menu TabMenu {
+            get {
+                return _TabMenu;
+            }
+        }
+
         protected ThemeSettings ThemeSettings {
             get {
                 return _ThemeSettings;
