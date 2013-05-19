@@ -470,8 +470,9 @@ namespace Smuxi.Frontend.Gnome
                 }
                 
                 if (Text.IndexOf("\n") != -1) {
+                    var text = Text.TrimEnd('\n');
                     // seems to be a paste, so let's break it apart
-                    string[] msgParts = Text.Split(new char[] {'\n'});
+                    string[] msgParts = text.Split(new char[] {'\n'});
                     if (msgParts.Length > 3) {
                         string msg = String.Format(_("You are going to paste {0} lines. Do you want to continue?"),
                                                    msgParts.Length);
@@ -494,7 +495,7 @@ namespace Smuxi.Frontend.Gnome
                         }
                     } else {
                         // new engines know how to handle messages containing \n
-                        ExecuteCommand(Text);
+                        ExecuteCommand(text);
                     }
                 } else {
                     ExecuteCommand(Text);
