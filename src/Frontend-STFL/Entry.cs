@@ -75,7 +75,6 @@ namespace Smuxi.Frontend.Stfl
             f_MainWindow.KeyPressed += OnKeyPressed;
             
             f_ChatViewManager = chatViewManager;
-            f_ChatViewManager.CurrentChatSwitched += OnChatSwitched;
 
             Frontend.SessionPropertyChanged += delegate {
                 InitCommandManager();
@@ -166,14 +165,6 @@ namespace Smuxi.Frontend.Stfl
                     DeleteChar();
                     break;
             }
-        }
-
-        private void OnChatSwitched(object sender, ChatSwitchedEventArgs e)
-        {
-            Trace.Call(sender, e);
-
-            f_MainWindow.InputLabel = String.Format("[{0}]",
-                                                    e.ChatView.ChatModel.Name);
         }
 
         public virtual void OnActivated(EventArgs e)

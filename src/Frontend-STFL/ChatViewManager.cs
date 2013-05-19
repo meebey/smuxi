@@ -66,6 +66,7 @@ namespace Smuxi.Frontend.Stfl
 #endif
                     f_CurrentChat.IsVisible = true;
                     UpdateNavigation();
+                    UpdateInput();
                     UpdateTitle();
                 }
 
@@ -166,6 +167,16 @@ namespace Smuxi.Frontend.Stfl
             }
 
             f_MainWindow.NavigationLabel = nav.ToString();
+        }
+
+        public void UpdateInput()
+        {
+            var chatView = CurrentChat;
+            if (chatView == null) {
+                return;
+            }
+
+            f_MainWindow.InputLabel = String.Format("[{0}]", chatView.Name);
         }
 
         void UpdateTitle()

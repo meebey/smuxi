@@ -18,14 +18,34 @@
 // along with this program; if not, write to the Free Software
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA
 using System;
+using Smuxi.Common;
+using Smuxi.Engine;
 
 namespace Smuxi.Frontend.Stfl
 {
-    public class GroupChatView
+    [ChatViewInfo(ChatType = ChatType.Group)]
+    public class GroupChatView : ChatView
     {
-        public GroupChatView()
+        public MessageModel Topic { get; set; }
+
+        public GroupChatView(ChatModel chat, MainWindow window) :
+                        base(chat, window)
         {
+            Trace.Call(chat, window);
+        }
+
+        public override void Sync()
+        {
+            base.Sync();
+
+            var groupChat = (GroupChatModel) ChatModel;
+            Topic = groupChat.Topic;
+            var persons = groupChat.Persons;
+            if (persons != null) {
+                foreach (var person in persons.Values) {
+                    Participants.Add(person);
+                }
+            }
         }
     }
 }
-

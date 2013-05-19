@@ -34,8 +34,6 @@ namespace Smuxi.Frontend.Stfl
 {
     [ChatViewInfo(ChatType = ChatType.Session)]
     [ChatViewInfo(ChatType = ChatType.Protocol)]
-    [ChatViewInfo(ChatType = ChatType.Person)]
-    [ChatViewInfo(ChatType = ChatType.Group)]
     public class ChatView : IChatView, IDisposable
     {
 #if LOG4NET
@@ -45,7 +43,7 @@ namespace Smuxi.Frontend.Stfl
         static int f_NextID = 1;
         int        f_WidgetID;
         string     f_WidgetName;
-        ChatModel  f_ChatModel;
+        public ChatModel ChatModel { get; private set; }
         MainWindow f_MainWindow;
         TextView   MessageTextView { get; set; }
         IProtocolManager ProtocolManager { get; set; }
@@ -54,12 +52,6 @@ namespace Smuxi.Frontend.Stfl
         bool HasHighlight { get; set; }
         public string Name { get; private set; }
         public IList<PersonModel> Participants { get; private set; }
-
-        public ChatModel ChatModel {
-            get {
-                return f_ChatModel;
-            }
-        }
 
         public string ID {
             get {
@@ -120,7 +112,7 @@ namespace Smuxi.Frontend.Stfl
                 throw new ArgumentNullException("window");
             }
 
-            f_ChatModel = chat;
+            ChatModel = chat;
             f_MainWindow = window;
             f_WidgetID = f_NextID++;
             f_WidgetName = "output_textview_" + f_WidgetID;
@@ -210,20 +202,8 @@ namespace Smuxi.Frontend.Stfl
         
         public virtual void Sync()
         {
-            ProtocolManager = f_ChatModel.ProtocolManager;
-            Name = f_ChatModel.Name;
-            if (f_ChatModel is GroupChatModel) {
-                var groupChat = (GroupChatModel) f_ChatModel;
-                var persons = groupChat.Persons;
-                if (persons != null) {
-                    foreach (var person in persons.Values) {
-                        Participants.Add(person);
-                    }
-                }
-            } else if (f_ChatModel is PersonChatModel) {
-                var personChat = (PersonChatModel) f_ChatModel;
-                Participants.Add(personChat.Person);
-            }
+            ProtocolManager = ChatModel.ProtocolManager;
+            Name = ChatModel.Name;
 #if LOG4NET
             _Logger.Debug("Sync() syncing messages");
 #endif
@@ -231,7 +211,7 @@ namespace Smuxi.Frontend.Stfl
             // cleanup, be sure the output is empty
             f_MainWindow.Modify("output_textview", "replace_inner", "");
 
-            IList<MessageModel> messages = f_ChatModel.Messages;
+            var messages = ChatModel.Messages;
             if (messages.Count > 0) {
                 foreach (MessageModel msg in messages) {
                     AddMessage(msg);

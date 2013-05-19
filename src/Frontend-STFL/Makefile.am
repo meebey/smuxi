@@ -56,7 +56,9 @@ FILES = \
 	STFL/StflApi.cs \
 	STFL/TextView.cs \
 	STFL/Widget.cs \
-	ChatView.cs \
+	Views/ChatView.cs \
+	Views/GroupChatView.cs \
+	Views/PersonChatView.cs \
 	ChatViewManager.cs 
 
 DATA_FILES = 

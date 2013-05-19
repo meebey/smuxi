@@ -71,6 +71,7 @@ namespace Smuxi.Frontend.Stfl
                     return;
                 }
 
+                // FIXME: this must be marshalled into the UI thread!
                 chatView.AddMessage(msg);
                 _ChatViewManager.UpdateNavigation();
             } catch (Exception ex) {
@@ -132,6 +133,9 @@ namespace Smuxi.Frontend.Stfl
                     return;
                 }
                 chatView.Sync();
+                if (_ChatViewManager.CurrentChat == chatView) {
+                    _ChatViewManager.UpdateInput();
+                }
 
                 Frontend.FrontendManager.AddSyncedChat(chat);
             } catch (Exception ex) {

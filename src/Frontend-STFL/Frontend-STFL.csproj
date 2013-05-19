@@ -50,7 +50,6 @@
     <Compile Include="Entry.cs" />
     <Compile Include="STFL\Form.cs" />
     <Compile Include="STFL\KeyPressedEventArgs.cs" />
-    <Compile Include="ChatView.cs" />
     <Compile Include="ChatViewManager.cs" />
     <Compile Include="..\AssemblyVersion.cs" />
     <Compile Include="STFL\StflApi.cs" />
@@ -59,6 +58,9 @@
     <Compile Include="STFL\TextView.cs" />
     <Compile Include="STFL\EventReceivedEventArgs.cs" />
     <Compile Include="STFL\Widget.cs" />
+    <Compile Include="Views\ChatView.cs" />
+    <Compile Include="Views\GroupChatView.cs" />
+    <Compile Include="Views\PersonChatView.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="MainWindow.stfl">
