@@ -166,6 +166,17 @@ namespace Smuxi.Frontend.Gnome
             _PersonListStore = liststore;
             
             tv.Model = liststore;
+            tv.SearchColumn = 0;
+            tv.SearchEqualFunc = (model, col, key, iter) => {
+                var person = (PersonModel) model.GetValue(iter, col);
+                // Ladies and gentlemen welcome to C
+                // 0 means it matched but 0 as bool is false. So if it matches
+                // we have to return false. Still not clear? true is false and
+                // false is true, weirdo! If you think this is retarded,
+                // yes it is.
+                return !person.IdentityName.StartsWith(key, StringComparison.InvariantCultureIgnoreCase);
+            };
+            tv.EnableSearch = true;
             tv.RowActivated += new Gtk.RowActivatedHandler(OnPersonsRowActivated);
             tv.FocusOutEvent += OnPersonTreeViewFocusOutEvent;
             
@@ -314,6 +325,7 @@ namespace Smuxi.Frontend.Gnome
                 // BUG? TreeView doesn't seem to recognize existing values in the model?!?
                 // see: http://www.smuxi.org/issues/show/132
                 _PersonTreeView.Model = ls;
+                _PersonTreeView.SearchColumn = 0;
                 
                 /*
                 // predict and set useful width
