@@ -1,137 +1,229 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
+# 
+# Translators:
+# Kalle Kaitala <cobrian@cobrian.net>, 2013
 msgid ""
 msgstr ""
-"Project-Id-Version: Smuxi-engine\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-09 21:43+0100\n"
-"PO-Revision-Date: 2010-06-28 11:57+0200\n"
+"Project-Id-Version: Smuxi - IRC client\n"
+"Report-Msgid-Bugs-To: http://www.smuxi.org/issues\n"
+"POT-Creation-Date: 2013-04-14 10:13+0200\n"
+"PO-Revision-Date: 2013-05-01 13:33+0000\n"
 "Last-Translator: Kalle Kaitala <cobrian@cobrian.net>\n"
-"Language-Team: Finnish\n"
-"Language: fi\n"
+"Language-Team: Finnish (http://www.transifex.com/projects/p/smuxi/language/fi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Poedit-Language: Finnish\n"
-"X-Poedit-Country: FINLAND\n"
-"X-Poedit-SourceCharset: utf-8\n"
+"Language: fi\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../src/Engine/FrontendManager.cs:219
+#: ../src/Engine/FrontendManager.cs:233
 msgid "No network connections"
 msgstr "Ei verkkoyhteyttä"
 
-#: ../src/Engine/Protocols/ProtocolManagerBase.cs:146
+#: ../src/Engine/MessageBuffers/Db4oMessageBuffer.cs:295
+#, csharp-format
+msgid "Optimizing: {0}..."
+msgstr "Optimoidaan: {0}..."
+
+#: ../src/Engine/MessageBuffers/Db4oMessageBuffer.cs:313
+#, csharp-format
+msgid "Failed to optimize: {0}. Reason: {1}"
+msgstr "Optimointi epäonnistui: {0}. Syy: {1}"
+
+#: ../src/Engine/MessageBuffers/Db4oMessageBuffer.cs:347
+msgid ""
+"Your chat history is no longer available because of an error but will be "
+"preserved from now on."
+msgstr "Viestihistoriasi ei ole saatavilla virheen vuoksi mutta se tallennetaan tästä eteenpäin."
+
+#: ../src/Engine/Protocols/ProtocolManagerBase.cs:166
 msgid "Not connected to server"
 msgstr "Yhteys palvelimeen katkaistu"
 
-#: ../src/Engine/Protocols/ProtocolManagerBase.cs:158
-#: ../src/Engine/Session.cs:684
+#: ../src/Engine/Protocols/ProtocolManagerBase.cs:174
+#: ../src/Engine/Session.cs:846
 #, csharp-format
 msgid "Not enough parameters for {0} command"
 msgstr "Ei tarpeeksi parametrejä komennolle {0}"
 
-#: ../src/Engine/Session.cs:151
-msgid "Welcome to Smuxi"
-msgstr "Tervetuloa Smuxi:in"
+#: ../src/Engine/Protocols/ProtocolManagerBase.cs:185
+#, csharp-format
+msgid "Connected to {0}"
+msgstr "Yhdistetty kohteeseen {0}"
 
-#: ../src/Engine/Session.cs:157
-msgid "Type /help to get a list of available commands."
-msgstr "Kirjoita /help saadaksesi listan käytössäolevista komennoista."
+#: ../src/Engine/Protocols/ProtocolManagerBase.cs:203
+#, csharp-format
+msgid "Disconnected from {0}"
+msgstr "Yhteys katkaistu kohteesta {0}"
 
-#: ../src/Engine/Session.cs:160
-msgid "After you have made a connection the list of available commands changes. Use the /help command again to see the extended command list."
-msgstr "Yhteydenmuodostuksen jälkeen lista käytettävistä komennoista muuttuu. Käytä /help -komentoa uudelleen nähdäksesi laajennetun komentolistauksen."
-
-#: ../src/Engine/Session.cs:210
+#: ../src/Engine/Session.cs:217
 #, csharp-format
 msgid "Automatic connect to {0} failed!"
 msgstr "Automaattinen yhdistys palvelimeen {0} epäonnistui!"
 
 #. TRANSLATOR: this line is used as a label / category for a
 #. list of commands below
-#: ../src/Engine/Session.cs:398
+#: ../src/Engine/Session.cs:415
 msgid "Engine Commands"
 msgstr "Moottorin komennot"
 
-#: ../src/Engine/Session.cs:510
+#: ../src/Engine/Session.cs:540
+msgid "Connect failed!"
+msgstr "Yhdistäminen epäonnistui!"
+
+#: ../src/Engine/Session.cs:563
 #, csharp-format
 msgid "Disconnect failed - could not find server: {0}"
 msgstr "Yhteyden katkaisu epäonnistui - palvelinta {0} ei löydetty"
 
-#: ../src/Engine/Session.cs:546
+#: ../src/Engine/Session.cs:603
+msgid "Reconnect failed!"
+msgstr "Uudelleenyhdistäminen epäonnistui!"
+
+#: ../src/Engine/Session.cs:625
 msgid "Configuration reloaded"
 msgstr "Asetukset ladattu uudelleen"
 
-#: ../src/Engine/Session.cs:551
+#: ../src/Engine/Session.cs:629
 msgid "Configuration saved"
 msgstr "Asetukset tallennettu"
 
-#: ../src/Engine/Session.cs:555
+#: ../src/Engine/Session.cs:633
 msgid "Invalid parameter for config; use load or save"
 msgstr "Epäkelpo parametri config:lle; käytä komentoja load tai save"
 
-#: ../src/Engine/Session.cs:585
+#: ../src/Engine/Session.cs:702
 msgid "Invalid parameter for network; use list, switch, or close"
 msgstr "Epäkelpo parametri network:lle, käytä komentoja list, switch tai close"
 
-#: ../src/Engine/Session.cs:596
-msgid "Networks"
-msgstr "Verkot"
+#. TRANSLATOR: this line is used as a label / category for a
+#. list of networks below
+#: ../src/Engine/Session.cs:733
+msgid "Connected Networks"
+msgstr "Yhdistetyt Verkot"
 
-#: ../src/Engine/Session.cs:600
-msgid "Type"
-msgstr "Tyyppi"
+#: ../src/Engine/Session.cs:738 ../src/Engine/Session.cs:762
+msgid "Network"
+msgstr "Verkko"
 
-#: ../src/Engine/Session.cs:601
+#: ../src/Engine/Session.cs:739
+msgid "Protocol"
+msgstr "Protokolla"
+
+#: ../src/Engine/Session.cs:740
 msgid "Host"
 msgstr "Isäntä"
 
-#: ../src/Engine/Session.cs:602
+#: ../src/Engine/Session.cs:741
 msgid "Port"
 msgstr "Portti"
 
-#: ../src/Engine/Session.cs:624
-#, csharp-format
-msgid "Network close failed - could not find network with host: {0}"
-msgstr "Verkon sulkeminen epäonnistui - verkkoa isännällä {0} ei löytynyt"
+#. TRANSLATOR: no connected networks
+#. TRANSLATOR: no available networks
+#: ../src/Engine/Session.cs:747 ../src/Engine/Session.cs:768
+msgid "None"
+msgstr "Ei mitään"
 
-#: ../src/Engine/Session.cs:658
-#, csharp-format
-msgid "Network switch failed - could not find network with host: {0}"
-msgstr "Verkon vaihtaminen epäonnistui - verkkoa isännällä {0} ei löytynyt"
+#. TRANSLATOR: this line is used as a label / category for a
+#. list of networks below
+#: ../src/Engine/Session.cs:754
+msgid "Available Networks"
+msgstr "Saatavilla olevat verkot"
 
-#: ../src/Engine/Session.cs:673
+#: ../src/Engine/Session.cs:783
+#, csharp-format
+msgid "Network close failed - could not find network: {0}"
+msgstr "Verkon sulkeminen epäonnistui - verkkoa ei löytynyt: {0}"
+
+#: ../src/Engine/Session.cs:821
+#, csharp-format
+msgid "Network switch failed - could not find network: {0}"
+msgstr "Verkon vaihtaminen epäonnistui - verkkoa ei löytynyt: {0}"
+
+#: ../src/Engine/Session.cs:839
 msgid "Not connected to any network"
 msgstr "Ei yhdistettynä yhteenkään verkkoon"
 
-#: ../src/Engine/Session.cs:962
+#: ../src/Engine/Session.cs:1093
+#, csharp-format
+msgid ""
+"Failed to write to chat history. Your chat history will not be preserved. "
+"Reason: {0}"
+msgstr "Chat-historian tallennus epäonnistui. Chat-historiaasi ei säilötä. Syy: {0}"
+
+#. just in case the ProtocolManager is not setting the
+#. protocol chat
+#: ../src/Engine/Session.cs:1266
+msgid "Connect failed."
+msgstr "Yhdistäminen epäonnistui."
+
+#: ../src/Engine/Session.cs:1297
 #, csharp-format
 msgid "No protocol manager found for the protocol: {0}"
 msgstr "Protokollan hallintaa ei löydetty protokollalle {0}"
 
-#: ../src/Engine/Session.cs:985
-#, csharp-format
-msgid "Unknown protocol: {0}"
-msgstr "Tuntematon protokolla: {0}"
+#: ../src/Engine/Session.cs:1529
+msgid "Welcome to Smuxi"
+msgstr "Tervetuloa Smuxiin"
 
-#: ../src/Engine/Config/UserListController.cs:112
+#: ../src/Engine/Session.cs:1536
+msgid "Type /help to get a list of available commands."
+msgstr "Kirjoita /help saadaksesi listan käytössäolevista komennoista."
+
+#: ../src/Engine/Session.cs:1542
+msgid ""
+"After you have made a connection the list of available commands changes. Go "
+"to the newly opened connection tab and use the /help command again to see "
+"the extended command list."
+msgstr "Yhteydenmuodostuksen jälkeen lista käytettävistä komennoista muuttuu. Mene uuteen avautuneeseen yhteysvälilehteen ja käytä /help -komentoa nähdäksesi laajennetun komentolistauksen."
+
+#: ../src/Engine/Config/UserListController.cs:117
 msgid "Username must not be empty."
 msgstr "Käyttäjänimi ei saa olla tyhjä."
 
-#: ../src/Engine/Config/UserListController.cs:122
+#: ../src/Engine/Config/UserListController.cs:127
 msgid "Password must not be empty."
 msgstr "Salasana ei saa olla tyhjä."
 
-#: ../src/Engine/Config/UserListController.cs:131
+#: ../src/Engine/Config/UserListController.cs:136
 #, csharp-format
 msgid "User \"{0}\" doesn't exist."
 msgstr "Käyttäjää \"{0}\" ei ole olemassa."
 
-#: ../src/Engine/Config/UserListController.cs:140
+#: ../src/Engine/Config/UserListController.cs:145
 #, csharp-format
 msgid "User \"{0}\" already exists."
 msgstr "Käyttäjä \"{0}\" on jo olemassa."
 
+#: ../src/Engine/Config/ServerListController.cs:118
+msgid "Network must not be empty."
+msgstr "Verkko ei saa olla tyhjä."
+
+#: ../src/Engine/Config/ServerListController.cs:138
+msgid "Server hostname must not be empty."
+msgstr "Palvelimen isäntänimi ei saa olla tyhjä."
+
+#: ../src/Engine/Config/ServerListController.cs:141
+msgid "Server hostname contains invalid characters (newline)."
+msgstr "Palvelimen isäntänimi sisältää epäkelpoja merkkejä (rivinvaihto)."
+
+#: ../src/Engine/Config/ServerListController.cs:148
+#, csharp-format
+msgid "Server ID '{0}' already exists."
+msgstr "Palvelin ID:llä '{0}' on jo olemassa."
+
+#: ../src/Engine/Chats/ChatModel.cs:105
+#, csharp-format
+msgid ""
+"Failed to load chat history. Your chat history will not be preserved. "
+"Reason: {0}"
+msgstr "Chat-historian lataaminen epäonnistui. Chat-historiaasi ei tallenneta. Syy: {0}"
+
+#: ../src/Engine/Chats/ChatModel.cs:298
+#, csharp-format
+msgid ""
+"Failed to open chat history for writing. Your chat history will not be "
+"preserved. Reason: {0}"
+msgstr "Chat-historian avaaminen tallentamista varten epäonnistui. Chat-historiaasi ei tallenneta. Syy: {0}"
