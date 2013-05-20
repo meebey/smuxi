@@ -349,10 +349,18 @@ namespace Smuxi.Frontend.Gnome
             Trace.Call(sender, e);
 
             try {
-                if (ProtocolManager == null) {
+                var pm = ProtocolManager;
+                if (pm == null) {
                     return;
                 }
-                ProtocolManager.Reconnect(Frontend.FrontendManager);
+
+                ThreadPool.QueueUserWorkItem(delegate {
+                    try {
+                        pm.Reconnect(Frontend.FrontendManager);
+                    } catch (Exception ex) {
+                        Frontend.ShowException(ex);
+                    }
+                });
             } catch (Exception ex) {
                 Frontend.ShowException(ex);
             }
