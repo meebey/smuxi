@@ -3414,7 +3414,12 @@ namespace Smuxi.Engine
                    _IrcClient.Encoding.GetByteCount(message) + 2;
         }
 
+        // HACK: workaround a compiler bug in Mono
+#if __MonoCS__
+        protected new T GetPerson<T>(ChatModel chat, string nick) where T : PersonModel
+#else
         protected override T GetPerson<T>(ChatModel chat, string nick)
+#endif
         {
             var person = base.GetPerson<T>(chat, nick);
 #if LOG4NET
