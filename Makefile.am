@@ -206,6 +206,7 @@ dist-osx:
 	mkdir -p $(OSX_BINARIES_DIR) $(OSX_RESOURCES_DIR)
 	cp $(OSX_LIB_DIR)/Info.plist $(OSX_CONTENTS_DIR)
 	cp $(OSX_LIB_DIR)/smuxi $(OSX_BINARIES_DIR)
+	cp $(OSX_LIB_DIR)/smuxi-server $(OSX_BINARIES_DIR)
 	cp $(OSX_LIB_DIR)/smuxi.icns $(OSX_RESOURCES_DIR)
 	for FILE in $(OSX_FILES); do \
 		cp $$FILE $(OSX_BINARIES_DIR); \
