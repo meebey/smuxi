@@ -70,7 +70,7 @@ namespace Smuxi.Frontend
             IProtocolManager protocolManager = chatModel.ProtocolManager;
             Type protocolManagerType = null;
             if (protocolManager != null) {
-                protocolManagerType = chatModel.ProtocolManager.GetType();
+                protocolManagerType = protocolManager.GetType();
             }
 #if LOG4NET
             DateTime stop = DateTime.UtcNow;
@@ -80,7 +80,7 @@ namespace Smuxi.Frontend
 #endif
 
             OnChatAdded(chatModel, chatId, chatType, chatPosition,
-                        protocolManagerType);
+                        protocolManager, protocolManagerType);
         }
 
         /// <remarks>
@@ -285,12 +285,14 @@ namespace Smuxi.Frontend
 
         void OnChatAdded(ChatModel chatModel, string chatId,
                          ChatType chatType, int chatPosition,
+                         IProtocolManager protocolManager,
                          Type protocolManagerType)
         {
             if (ChatAdded != null) {
                 ChatAdded(this,
                           new ChatViewAddedEventArgs(chatModel, chatId,
                                                      chatType, chatPosition,
+                                                     protocolManager,
                                                      protocolManagerType));
             }
         }
@@ -319,16 +321,19 @@ namespace Smuxi.Frontend
         public string ChatID { get; private set; }
         public ChatType ChatType { get; private set; }
         public int ChatPosition { get; private set; }
+        public IProtocolManager ProtocolManager { get; private set; }
         public Type ProtocolManagerType { get; private set; }
 
         public ChatViewAddedEventArgs(ChatModel chatModel, string chatId,
                                       ChatType chatType, int chatPosition,
+                                      IProtocolManager protocolManager,
                                       Type protocolManagerType)
         {
             ChatModel = chatModel;
             ChatID = chatId;
             ChatType = chatType;
             ChatPosition = chatPosition;
+            ProtocolManager = protocolManager;
             ProtocolManagerType = protocolManagerType;
         }
     }

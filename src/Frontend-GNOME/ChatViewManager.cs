@@ -253,6 +253,7 @@ namespace Smuxi.Frontend.Gnome
                 chatView.ID = e.ChatID;
                 chatView.Name = e.ChatID;
                 chatView.Position = e.ChatPosition;
+                chatView.ProtocolManager = e.ProtocolManager;
                 f_Chats.Add(chatView);
 
                 if (f_Config != null) {

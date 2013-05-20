@@ -484,8 +484,6 @@ namespace Smuxi.Frontend.Gnome
 
             // REMOTING CALL
             SyncedName = _ChatModel.Name;
-            // REMOTING CALL
-            ProtocolManager = _ChatModel.ProtocolManager;
 
             if (!Frontend.IsLocalEngine && Frontend.UseLowBandwidthMode) {
                 // FIXME: set TabImage back to normal
