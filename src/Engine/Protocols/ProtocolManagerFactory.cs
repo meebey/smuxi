@@ -56,7 +56,28 @@ namespace Smuxi.Engine
             Trace.Call(filename);
             
             Assembly asm = Assembly.LoadFile(filename);
-            Type[] types = asm.GetTypes();
+            Type[] types;
+            try {
+                types = asm.GetTypes();
+            } catch (ReflectionTypeLoadException ex) {
+#if LOG4NET
+                _Logger.ErrorFormat(
+                    "LoadProtocolManager(): GetTypes() on {0} threw exceptions",
+                    filename
+                );
+                foreach (var loaderEx in ex.LoaderExceptions) {
+                    _Logger.Error(
+                        "LoadProtocolManager(): LoaderException: ",
+                        loaderEx
+                    );
+                    _Logger.Error(
+                        "LoadProtocolManager(): LoaderException.InnerException: ",
+                        loaderEx.InnerException
+                    );
+                }
+#endif
+                throw;
+            }
             
             foreach (Type type in types) {
                 if (type.IsAbstract) {
