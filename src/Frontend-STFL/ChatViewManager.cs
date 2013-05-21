@@ -187,6 +187,8 @@ namespace Smuxi.Frontend.Stfl
             }
 
             string title;
+            // for in xterm mode, used in TitleLabel where title would be
+            string secondaryTitle = String.Empty;
             var chatModel = chatView.ChatModel;
             string protocolStatus = null;
             if (chatModel.ProtocolManager != null) {
@@ -197,18 +199,29 @@ namespace Smuxi.Frontend.Stfl
             } else if (chatModel is ProtocolChatModel) {
                 title = protocolStatus;
             } else {
+                f_MainWindow.ShowTitle = true;
                 title = String.Format("{0} @ {1}",
                                       chatModel.Name,
                                       protocolStatus);
+                secondaryTitle = chatModel.Topic;
             }
             if (!String.IsNullOrEmpty(title)) {
                 title += " - ";
             }
             title += "Smuxi";
 
-            f_MainWindow.TitleLabel = title;
+            if (!StflApi.IsXterm) {
+                // if we aren't in an xterm, there's no titlebar to set
+                // so set it in that nice label
+                f_MainWindow.TitleLabel = title;
+            }
             // HACK: set xterm window title
             if (StflApi.IsXterm) {
+                if (String.IsNullOrEmpty(secondaryTitle)) {
+                    f_MainWindow.ShowTitle = false;
+                }
+                // but if we are, we can use the TitleLabel for the topic
+                f_MainWindow.TitleLabel = secondaryTitle;
                 NcursesApi.endwin();
                 Console.WriteLine((char) 27 + "]0;{0}" + (char) 7, title);
                 NcursesApi.refresh();
