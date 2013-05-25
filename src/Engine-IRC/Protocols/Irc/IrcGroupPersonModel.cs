@@ -29,27 +29,12 @@ namespace Smuxi.Engine
     [Serializable]
     public class IrcGroupPersonModel : IrcPersonModel
     {
-        private bool _IsOp;
-        private bool _IsVoice;
-        
-        public bool IsOp {
-            get {
-                return _IsOp;
-            }
-            internal set {
-                _IsOp = value;
-            }
-        }
+        public bool IsOwner { get; internal set; }
+        public bool IsChannelAdmin { get; internal set; }
+        public bool IsOp { get; internal set; }
+        public bool IsHalfop { get; internal set; }
+        public bool IsVoice { get; internal set; }
 
-        public bool IsVoice {
-            get {
-                return _IsVoice;
-            }
-            internal set {
-                _IsVoice = value;
-            }
-        }
-        
         internal IrcGroupPersonModel(string nickname, string realname,
                                      string ident, string host, string networkID,
                                      IProtocolManager networkManager) :
@@ -78,8 +63,11 @@ namespace Smuxi.Engine
             
             base.GetObjectData(sw);
 
-            sw.Write(_IsOp);
-            sw.Write(_IsVoice);
+            sw.Write(IsOp);
+            sw.Write(IsVoice);
+            sw.Write(IsOwner);
+            sw.Write(IsChannelAdmin);
+            sw.Write(IsHalfop);
         }
 
         protected override void SetObjectData(SerializationReader sr)
@@ -90,8 +78,15 @@ namespace Smuxi.Engine
             
             base.SetObjectData(sr);
             
-            _IsOp    = sr.ReadBoolean();
-            _IsVoice = sr.ReadBoolean();
+            IsOp = sr.ReadBoolean();
+            IsVoice = sr.ReadBoolean();
+
+            // backward compatibility
+            if (sr.PeekChar() != -1) {
+                IsOwner = sr.ReadBoolean();
+                IsChannelAdmin = sr.ReadBoolean();
+                IsHalfop = sr.ReadBoolean();
+            }
         }
 
         public override int CompareTo(ContactModel contact)
@@ -102,14 +97,26 @@ namespace Smuxi.Engine
             }
 
             int status1 = 0;
-            if (IsOp) {
+            if (IsOwner) {
+                status1 += 5;
+            } else if (IsChannelAdmin) {
+                status1 += 4;
+            } else if (IsOp) {
+                status1 += 3;
+            } else if (IsHalfop) {
                 status1 += 2;
             } else if (IsVoice) {
                 status1 += 1;
             }
 
             int status2 = 0;
-            if (ircContact.IsOp) {
+            if (ircContact.IsOwner) {
+                status2 += 5;
+            } else if (ircContact.IsChannelAdmin) {
+                status2 += 4;
+            } else if (ircContact.IsOp) {
+                status2 += 3;
+            } else if (ircContact.IsHalfop) {
                 status2 += 2;
             } else if (ircContact.IsVoice) {
                 status2 += 1;

@@ -61,6 +61,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Engine-Campfire", "Engine-C
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Frontend-Tests", "Frontend-Tests\Frontend-Tests.csproj", "{C8E5D37F-6C42-4CD6-81E4-CE4DA2125F11}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StarkSoftProxy", "..\lib\SmartIrc4net\src\starksoftproxy\StarkSoftProxy.csproj", "{3F8CF2C1-EA37-444F-8693-A3A00B1131D2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Release|Any CPU = Release|Any CPU
@@ -125,6 +127,14 @@ Global
 		{2FDC3492-6B9E-4771-9755-7892C9CB1E96}.Release|Any CPU.Build.0 = Release|Any CPU
 		{2FDC3492-6B9E-4771-9755-7892C9CB1E96}.Release-Win32|x86.ActiveCfg = Release|Any CPU
 		{2FDC3492-6B9E-4771-9755-7892C9CB1E96}.Release-Win32|x86.Build.0 = Release|Any CPU
+		{3F8CF2C1-EA37-444F-8693-A3A00B1131D2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3F8CF2C1-EA37-444F-8693-A3A00B1131D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3F8CF2C1-EA37-444F-8693-A3A00B1131D2}.Debug-Win32|x86.ActiveCfg = Debug|Any CPU
+		{3F8CF2C1-EA37-444F-8693-A3A00B1131D2}.Debug-Win32|x86.Build.0 = Debug|Any CPU
+		{3F8CF2C1-EA37-444F-8693-A3A00B1131D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3F8CF2C1-EA37-444F-8693-A3A00B1131D2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3F8CF2C1-EA37-444F-8693-A3A00B1131D2}.Release-Win32|x86.ActiveCfg = Release|Any CPU
+		{3F8CF2C1-EA37-444F-8693-A3A00B1131D2}.Release-Win32|x86.Build.0 = Release|Any CPU
 		{405874F0-A58A-4E79-8766-2150D069F691}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{405874F0-A58A-4E79-8766-2150D069F691}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{405874F0-A58A-4E79-8766-2150D069F691}.Debug-Win32|x86.ActiveCfg = Debug-Win32|x86
