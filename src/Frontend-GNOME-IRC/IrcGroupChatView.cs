@@ -80,8 +80,14 @@ namespace Smuxi.Frontend.Gnome
             }
             
             string mode;
-            if (person.IsOp) {
+            if (person.IsOwner) {
+                mode = "~";
+            } else if (person.IsChannelAdmin) {
+                mode = "&";
+            } else if (person.IsOp) {
                 mode = "@";
+            } else if (person.IsHalfop) {
+                mode = "%";
             } else if (person.IsVoice) {
                 mode = "+";
             } else {
