@@ -73,18 +73,23 @@
     </EmbeddedResource>
     <EmbeddedResource Include="..\..\images\icon_256x256.png">
       <LogicalName>icon_256x256.png</LogicalName>
+      <Link>images\icon_256x256.png</Link>
     </EmbeddedResource>
     <EmbeddedResource Include="..\..\images\group-chat_256x256.png">
       <LogicalName>group-chat_256x256.png</LogicalName>
+      <Link>images\group-chat_256x256.png</Link>
     </EmbeddedResource>
     <EmbeddedResource Include="..\..\images\person-chat_256x256.png">
       <LogicalName>person-chat_256x256.png</LogicalName>
+      <Link>images\person-chat_256x256.png</Link>
     </EmbeddedResource>
     <EmbeddedResource Include="..\..\images\protocol-chat_256x256.png">
       <LogicalName>protocol-chat_256x256.png</LogicalName>
+      <Link>images\protocol-chat_256x256.png</Link>
     </EmbeddedResource>
     <EmbeddedResource Include="..\..\images\session-chat_256x256.png">
       <LogicalName>session-chat_256x256.png</LogicalName>
+      <Link>images\session-chat_256x256.png</Link>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -162,11 +167,6 @@
     <Content Include="smuxi-frontend-gnome.exe.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="ChangeLog" />
-    <None Include="..\..\po-Engine\de.po" />
-    <None Include="..\..\po-Frontend-GNOME\es.po" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\" />
