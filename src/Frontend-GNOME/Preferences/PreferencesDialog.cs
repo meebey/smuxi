@@ -685,7 +685,7 @@ namespace Smuxi.Frontend.Gnome
             Frontend.UserConfig["Connection/OnConnectCommands"] = 
                 ((Gtk.TextView)_Glade["OnConnectCommandsTextView"]).Buffer.Text.Split(new char[] {'\n'});
 
-            Frontend.UserConfig["Connection/AutoConvertUTF8CheckButton"] =
+            Frontend.UserConfig["Connection/AutoConvertUTF8"] =
                 ((Gtk.CheckButton)_Glade["AutoConvertUTF8CheckButton"]).Active;
 
             Gtk.ComboBox cb = (Gtk.ComboBox)_Glade["EncodingComboBox"];
@@ -1042,6 +1042,7 @@ namespace Smuxi.Frontend.Gnome
             ((Gtk.Entry) _Glade["ConnectionUsernameEntry"]).Visible = showAdvanced;
             ((Gtk.Label) _Glade["EncodingLabel"]).Visible = showAdvanced;
             ((Gtk.ComboBox) _Glade["EncodingComboBox"]).Visible = showAdvanced;
+            ((Gtk.CheckButton) _Glade["AutoConvertUTF8CheckButton"]).Visible = showAdvanced;
             ((Gtk.Frame) _Glade["NetworkProxyFrame"]).Visible = showAdvanced;
             ((Gtk.Frame) _Glade["GlobalCommandsFrame"]).Visible = showAdvanced;
         }
