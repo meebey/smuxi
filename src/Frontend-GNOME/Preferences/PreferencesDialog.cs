@@ -305,6 +305,9 @@ namespace Smuxi.Frontend.Gnome
             string connect_commands = String.Join("\n", (string[])Frontend.UserConfig["Connection/OnConnectCommands"]);
             ((Gtk.TextView)_Glade["OnConnectCommandsTextView"]).Buffer.Text = connect_commands;
 
+            ((Gtk.CheckButton) _Glade["AutoConvertUTF8CheckButton"]).Active =
+                (bool) Frontend.UserConfig["Connection/AutoConvertUTF8"];
+
             string encoding = (string)Frontend.UserConfig["Connection/Encoding"];
             encoding = encoding.ToUpper();
 
@@ -681,7 +684,10 @@ namespace Smuxi.Frontend.Gnome
                 ((Gtk.Entry)_Glade["ConnectionRealnameEntry"]).Text;
             Frontend.UserConfig["Connection/OnConnectCommands"] = 
                 ((Gtk.TextView)_Glade["OnConnectCommandsTextView"]).Buffer.Text.Split(new char[] {'\n'});
-            
+
+            Frontend.UserConfig["Connection/AutoConvertUTF8CheckButton"] =
+                ((Gtk.CheckButton)_Glade["AutoConvertUTF8CheckButton"]).Active;
+
             Gtk.ComboBox cb = (Gtk.ComboBox)_Glade["EncodingComboBox"];
             Gtk.TreeIter iter;
             cb.GetActiveIter(out iter);

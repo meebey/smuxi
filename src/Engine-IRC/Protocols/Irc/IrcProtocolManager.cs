@@ -2492,6 +2492,13 @@ namespace Smuxi.Engine
                 }
             }
 
+            if (config["Connection/AutoConvertUTF8"] == null) {
+                _IrcClient.EnableUTF8Recode = true;
+            } else {
+                _IrcClient.EnableUTF8Recode =
+                    (bool) config["Connection/AutoConvertUTF8"];
+            }
+
             var proxySettings = new ProxySettings();
             proxySettings.ApplyConfig(config);
             var protocol = server.UseEncryption ? "ircs" : "irc";
