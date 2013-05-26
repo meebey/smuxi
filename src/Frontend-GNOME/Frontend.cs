@@ -458,6 +458,7 @@ namespace Smuxi.Frontend.Gnome
                     }
                     Session = _MainWindow.EngineManager.Session;
                     _UserConfig = _MainWindow.EngineManager.UserConfig;
+                    EngineVersion = _MainWindow.EngineManager.EngineVersion;
 
                     Gtk.Application.Invoke(delegate {
                         Frontend.ConnectEngineToGUI();
