@@ -292,7 +292,7 @@ namespace Smuxi.Engine
             Get(prefix+"BeepOnHighlight", false);
             
             prefix = "Engine/Users/DEFAULT/Connection/";
-            Get(prefix+"Encoding", "UTF-8");
+            Get(prefix+"Encoding", "ISO-8859-1");
             Get(prefix+"AutoConvertUTF8", true);
             Get(prefix+"ProxyType", "System");
             Get(prefix+"ProxyHostname", String.Empty);
@@ -450,6 +450,17 @@ namespace Smuxi.Engine
                 }
                 LoadUserEntry(user, "Connection/Realname", realname);
                 LoadUserEntry(user, "Connection/Encoding", String.Empty);
+
+                if (Get(prefix+user+"/Connection/AutoConvertUTF8", null) == null) {
+                    // upgrade path
+                    var enc = Get<string>(prefix+user+"/Connection/Encoding", String.Empty);
+                    if (((enc == String.Empty) &&
+                         (System.Text.Encoding.Default.WebName.ToUpper() == "UTF-8")) ||
+                        (enc.ToUpper() == "UTF-8")) {
+                        this[prefix+user+"/Connection/Encoding"] = "ISO-8859-1";
+                        this[prefix+user+"/Connection/AutoConvertUTF8"] = true;
+                    }
+                }
                 LoadUserEntry(user, "Connection/AutoConvertUTF8", true);
 
                 LoadUserEntry(user, "Connection/ProxyType", "System");
@@ -559,7 +570,7 @@ namespace Smuxi.Engine
                     LoadEntry(sprefix+"Port", null);
                     LoadEntry(sprefix+"Network", String.Empty);
                     LoadEntry(sprefix+"Encoding", null);
-                    LoadEntry(sprefix+"AutoConvertUTF8", true);
+                    LoadEntry(sprefix+"AutoConvertUTF8", null);
                     LoadEntry(sprefix+"Username", String.Empty);
                     LoadEntry(sprefix+"Password", String.Empty);
                     LoadEntry(sprefix+"UseEncryption", false);
