@@ -853,6 +853,22 @@ namespace Smuxi.Engine
                             CommandUnban(command);
                             handled = true;
                             break;
+                        case "banexcept":
+                            CommandBanException(command);
+                            handled = true;
+                            break;
+                        case "unbanexcept":
+                            CommandUnBanException(command);
+                            handled = true;
+                            break;
+                        case "inviteexcept":
+                            CommandInviteException(command);
+                            handled = true;
+                            break;
+                        case "uninviteexcept":
+                            CommandUnInviteException(command);
+                            handled = true;
+                            break;
                         case "kick":
                             CommandKick(command);
                             handled = true;
@@ -1005,6 +1021,10 @@ namespace Smuxi.Engine
             "kickban/kb nick(s) [reason]",
             "ban [mask]",
             "unban mask",
+            "banexcept [mask]",
+            "unbanexcept mask",
+            "inviteexcept [mask]",
+            "uninviteexcept mask",
             "voice nick",
             "devoice nick",
             "op nick",
@@ -1946,6 +1966,106 @@ namespace Smuxi.Engine
             } else if (cd.DataArray.Length > 2) {
                 string[] candidates = cd.Parameter.TrimEnd().Split(new char[] {' '});
                 _IrcClient.Unban(channel, candidates);
+            } else {
+                _NotEnoughParameters(cd);
+            }
+        }
+
+        public void CommandBanException(CommandModel cd)
+        {
+            MessageBuilder builder;
+            ChatModel chat = cd.Chat;
+            string channel = chat.ID;
+            if (cd.DataArray.Length == 2) {
+                // TODO: use a smart mask by default
+                _IrcClient.BanException(channel, cd.Parameter);
+            } else if (cd.DataArray.Length > 2) {
+                string[] candidates = cd.Parameter.TrimEnd().Split(new char[] {' '});
+                _IrcClient.BanException(channel, candidates);
+            } else {
+                IList<BanInfo> infos = _IrcClient.GetBanExceptionList(channel);
+                int i = 1;
+                foreach (BanInfo info in infos) {
+                    string msg = String.Format(
+                        "{0} - {1}: {2} {3}",
+                        i++,
+                        info.Channel,
+                        _("ban exception"),
+                        info.Mask
+                    );
+                    builder = CreateMessageBuilder();
+                    builder.AppendEventPrefix();
+                    builder.AppendText(msg);
+                    cd.FrontendManager.AddMessageToChat(cd.Chat, builder.ToMessage());
+                }
+                if (infos.Count == 0) {
+                    builder = CreateMessageBuilder();
+                    builder.AppendEventPrefix();
+                    builder.AppendText(_("No ban exceptions in channel"), channel);
+                    cd.FrontendManager.AddMessageToChat(cd.Chat, builder.ToMessage());
+                }
+            }
+        }
+
+        public void CommandUnBanException(CommandModel cd)
+        {
+            ChatModel chat = cd.Chat;
+            string channel = chat.ID;
+            if (cd.DataArray.Length == 2) {
+                _IrcClient.UnBanException(channel, cd.Parameter);
+            } else if (cd.DataArray.Length > 2) {
+                string[] candidates = cd.Parameter.TrimEnd().Split(new char[] {' '});
+                _IrcClient.UnBanException(channel, candidates);
+            } else {
+                _NotEnoughParameters(cd);
+            }
+        }
+
+        public void CommandInviteException(CommandModel cd)
+        {
+            MessageBuilder builder;
+            ChatModel chat = cd.Chat;
+            string channel = chat.ID;
+            if (cd.DataArray.Length == 2) {
+                // TODO: use a smart mask by default
+                _IrcClient.InviteException(channel, cd.Parameter);
+            } else if (cd.DataArray.Length > 2) {
+                string[] candidates = cd.Parameter.TrimEnd().Split(new char[] {' '});
+                _IrcClient.InviteException(channel, candidates);
+            } else {
+                IList<BanInfo> infos = _IrcClient.GetInviteExceptionList(channel);
+                int i = 1;
+                foreach (BanInfo info in infos) {
+                    string msg = String.Format(
+                        "{0} - {1}: {2} {3}",
+                        i++,
+                        info.Channel,
+                        _("invite exception"),
+                        info.Mask
+                    );
+                    builder = CreateMessageBuilder();
+                    builder.AppendEventPrefix();
+                    builder.AppendText(msg);
+                    cd.FrontendManager.AddMessageToChat(cd.Chat, builder.ToMessage());
+                }
+                if (infos.Count == 0) {
+                    builder = CreateMessageBuilder();
+                    builder.AppendEventPrefix();
+                    builder.AppendText(_("No invite exceptions in channel"), channel);
+                    cd.FrontendManager.AddMessageToChat(cd.Chat, builder.ToMessage());
+                }
+            }
+        }
+
+        public void CommandUnInviteException(CommandModel cd)
+        {
+            ChatModel chat = cd.Chat;
+            string channel = chat.ID;
+            if (cd.DataArray.Length == 2) {
+                _IrcClient.UnInviteException(channel, cd.Parameter);
+            } else if (cd.DataArray.Length > 2) {
+                string[] candidates = cd.Parameter.TrimEnd().Split(new char[] {' '});
+                _IrcClient.UnInviteException(channel, candidates);
             } else {
                 _NotEnoughParameters(cd);
             }
