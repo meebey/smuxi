@@ -3214,7 +3214,7 @@ namespace Smuxi.Engine
             Trace.Call(e);
 
             var chat = GetChat(e.Data.Channel, ChatType.Group) ?? Chat;
-            var mode = String.Join(" ", e.Data.RawMessageArray.Skip(4)).Trim();
+            var mode = String.Join(" ", e.Data.RawMessageArray.Skip(4).ToArray()).Trim();
             var channelName = e.Data.RawMessageArray[3];
 
             var builder = CreateMessageBuilder();
