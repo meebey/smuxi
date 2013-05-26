@@ -293,6 +293,7 @@ namespace Smuxi.Engine
             
             prefix = "Engine/Users/DEFAULT/Connection/";
             Get(prefix+"Encoding", "UTF-8");
+            Get(prefix+"AutoConvertUTF8", true);
             Get(prefix+"ProxyType", "System");
             Get(prefix+"ProxyHostname", String.Empty);
             Get(prefix+"ProxyPort", -1);
@@ -449,6 +450,7 @@ namespace Smuxi.Engine
                 }
                 LoadUserEntry(user, "Connection/Realname", realname);
                 LoadUserEntry(user, "Connection/Encoding", String.Empty);
+                LoadUserEntry(user, "Connection/AutoConvertUTF8", true);
 
                 LoadUserEntry(user, "Connection/ProxyType", "System");
                 LoadUserEntry(user, "Connection/ProxyHostname", String.Empty);
@@ -530,6 +532,8 @@ namespace Smuxi.Engine
                                       Get(dprefix + server + "/Network", null));
                             LoadEntry(sprefix + server + "/Encoding",
                                       Get(dprefix + server + "/Encoding", null));
+                            LoadEntry(sprefix + server + "/AutoConvertUTF8",
+                                      Get(dprefix + server + "/AutoConvertUTF8", null));
                             LoadEntry(sprefix + server + "/Username",
                                       Get(dprefix + server + "/Username", null));
                             LoadEntry(sprefix + server + "/Password",
@@ -555,6 +559,7 @@ namespace Smuxi.Engine
                     LoadEntry(sprefix+"Port", null);
                     LoadEntry(sprefix+"Network", String.Empty);
                     LoadEntry(sprefix+"Encoding", null);
+                    LoadEntry(sprefix+"AutoConvertUTF8", true);
                     LoadEntry(sprefix+"Username", String.Empty);
                     LoadEntry(sprefix+"Password", String.Empty);
                     LoadEntry(sprefix+"UseEncryption", false);
