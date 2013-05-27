@@ -67,6 +67,7 @@ namespace Smuxi.Engine
         IList<ChannelInfo> NetworkChannels { get; set; }
         DateTime NetworkChannelsAge { get; set; }
         TimeSpan NetworkChannelsMaxAge { get; set; }
+        List<string> ChannelTypes { get; set; }
 
         public override bool IsConnected {
             get {
@@ -146,6 +147,7 @@ namespace Smuxi.Engine
             Trace.Call(session);
 
             NetworkChannelsMaxAge = TimeSpan.FromMinutes(5);
+            ChannelTypes = new List<string>(new string[] {"#", "&", "!", "+"});
 
             _IrcClient = new IrcFeatures();
             _IrcClient.AutoRetry = true;
@@ -1141,27 +1143,12 @@ namespace Smuxi.Engine
             Trace.Call(cd);
 
             MessageBuilder builder;
-            string channelStr = null;
-            if ((cd.DataArray.Length >= 2) &&
-                (cd.DataArray[1].Length >= 1)) {
-                switch (cd.DataArray[1][0]) {
-                    case '#':
-                    case '!':
-                    case '+':
-                    case '&':
-                        channelStr = cd.DataArray[1];
-                        break;
-                    default:
-                        channelStr = "#" + cd.DataArray[1];
-                        break;
-                }
-            } else {
+            if (cd.DataArray.Length < 2) {
                 _NotEnoughParameters(cd);
                 return;
             }
             
-
-            string[] channels = channelStr.Split(',');
+            string[] channels = cd.DataArray[1].Split(',');
             string[] keys = null;
             if (cd.DataArray.Length > 2) {
                 keys = cd.DataArray[2].Split(',');
@@ -1182,8 +1169,15 @@ namespace Smuxi.Engine
 
             int i = 0;
             foreach (string channel in channels) {
+                // HACK: copy channel from foreach() into our scope
+                var chan = channel;
+                var chanType = chan[0];
+                if (!ChannelTypes.Contains(chanType.ToString())) {
+                    chan = "#" + chan;
+                }
+
                 string key = keys != null && keys.Length > i ? keys[i] : null;
-                if (GetChat(channel, ChatType.Group) != null) {
+                if (GetChat(chan, ChatType.Group) != null) {
                     builder = CreateMessageBuilder();
                     builder.AppendEventPrefix();
                     builder.AppendText(
@@ -1199,8 +1193,6 @@ namespace Smuxi.Engine
                     _QueuedChannelJoinList.Add(channel);
                 }
 
-                // HACK: copy channel from foreach() into our scope
-                string chan = channel;
                 _ChannelJoinQueue.Queue(delegate {
                     try {
                         int count = 0;
@@ -1345,18 +1337,13 @@ namespace Smuxi.Engine
             
             if ((cd.DataArray.Length >= 2) &&
                 (cd.DataArray[1].Length >= 1)) {
-                switch (cd.DataArray[1][0]) {
-                    case '#':
-                    case '!':
-                    case '+':
-                    case '&':
-                        // seems to be a channel
-                        CommandMessageChannel(cd);
-                        break;
-                    default:
-                        // seems to be a nick
-                        CommandMessageNick(cd);
-                        break;
+                var chanType = cd.DataArray[1][0].ToString();
+                if (ChannelTypes.Contains(chanType)) {
+                    // seems to be a channel
+                    CommandMessageChannel(cd);
+                } else {
+                    // seems to be a nick
+                    CommandMessageNick(cd);
                 }
             } else {
                 NotEnoughParameters(cd);
@@ -1572,29 +1559,24 @@ namespace Smuxi.Engine
             if ((cd.DataArray.Length >= 2) &&
                 (cd.DataArray[1].Length >= 1)) {
                 // have to guess here if we got a channel passed or not
-                switch (cd.DataArray[1][0]) {
-                    case '#':
-                    case '&':
-                    case '!':
-                    case '+':
-                        // seems to be a channel
-                        string[] channels = cd.DataArray[1].Split(new char[] {','});
-                        string message = null;
-                        if  (cd.DataArray.Length >= 3) {
-                            message = String.Join(" ", cd.DataArray, 2, cd.DataArray.Length-2);
+                var chanType = cd.DataArray[1][0].ToString();
+                if (ChannelTypes.Contains(chanType)) {
+                    // seems to be a channel
+                    string[] channels = cd.DataArray[1].Split(new char[] {','});
+                    string message = null;
+                    if  (cd.DataArray.Length >= 3) {
+                        message = String.Join(" ", cd.DataArray, 2, cd.DataArray.Length-2);
+                    }
+                    foreach (string channel in channels) {
+                        if (message != null) {
+                            _IrcClient.RfcPart(channel, message);
+                        } else {
+                            _IrcClient.RfcPart(channel);
                         }
-                        foreach (string channel in channels) {
-                            if (message != null) {
-                                _IrcClient.RfcPart(channel, message);
-                            } else { 
-                                _IrcClient.RfcPart(channel);
-                            }
-                        }
-                        break;
-                    default:
-                        // sems to be only a part message
-                        _IrcClient.RfcPart(chat.ID, cd.Parameter);
-                        break;
+                    }
+                } else {
+                    // sems to be only a part message
+                    _IrcClient.RfcPart(chat.ID, cd.Parameter);
                 }
             } else {
                 _IrcClient.RfcPart(chat.ID);
@@ -2621,6 +2603,12 @@ namespace Smuxi.Engine
                                 break;
                             case "SAFELIST":
                                 HasSafeListSupport = true;
+                                break;
+                            case "CHANTYPES":
+                                ChannelTypes.Clear();
+                                foreach (var type in supportValue) {
+                                    ChannelTypes.Add(type.ToString());
+                                }
                                 break;
                         }
                     }
