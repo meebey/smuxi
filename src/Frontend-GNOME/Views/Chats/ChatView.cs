@@ -221,6 +221,8 @@ namespace Smuxi.Frontend.Gnome
             get {
                 return new List<PersonModel>();
             }
+            protected set {
+            }
         }
 
         public Gtk.Widget LabelWidget {

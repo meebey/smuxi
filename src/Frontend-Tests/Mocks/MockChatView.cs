@@ -20,6 +20,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Smuxi.Engine;
 
 namespace Smuxi.Frontend
@@ -62,6 +63,7 @@ namespace Smuxi.Frontend
         {
             PersonModel pm = new PersonModel(nick, nick, "fakeNetwork", "fakeProto", ProtocolManager);
             Participants.Add(pm);
+            Participants = (from p in Participants orderby p.IdentityName select p).ToList();
         }
 
         public void ClearParticipants()

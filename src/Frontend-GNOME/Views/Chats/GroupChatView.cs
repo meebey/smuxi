@@ -24,6 +24,7 @@ using System;
 using System.Threading;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using Mono.Unix;
 using Smuxi.Engine;
 using Smuxi.Common;
@@ -51,6 +52,7 @@ namespace Smuxi.Frontend.Gnome
         private Gtk.TreeViewColumn _IdentityNameColumn;
         IDictionary<string, PersonModel> SyncedPersons { get; set; }
         MessageModel                     SyncedTopic  { get; set; }
+        public override IList<PersonModel> Participants { get; protected set; }
 
         public override bool HasSelection {
             get {
@@ -79,20 +81,6 @@ namespace Smuxi.Frontend.Gnome
                     _TopicTextView.AddMessage(value, false);
                 }
                 _TopicScrolledWindow.Visible = !_TopicTextView.IsEmpty;
-            }
-        }
-
-        public override IList<PersonModel> Participants {
-            get {
-                var participants = new List<PersonModel>();
-                if (_PersonListStore == null) {
-                    return participants;
-                }
-                foreach (object[] row in _PersonListStore) {
-                    var person = (PersonModel) row[0];
-                    participants.Add(person);
-                }
-                return participants;
             }
         }
 
@@ -313,13 +301,15 @@ namespace Smuxi.Frontend.Gnome
                 ls.Clear();
                 // detach the model (less CPU load)
                 _PersonTreeView.Model = new Gtk.ListStore(typeof(PersonModel));
+                Participants = new List<PersonModel>();
                 string longestName = String.Empty;
-                foreach (PersonModel person in SyncedPersons.Values) {
+                foreach (PersonModel person in from p in SyncedPersons.Values orderby p.IdentityName select p) {
                     ls.AppendValues(person);
                     
                     if (person.IdentityName.Length > longestName.Length) {
                         longestName = person.IdentityName;
                     }
+                    Participants.Add(person);
                 }
                 // attach the model again
                 // BUG? TreeView doesn't seem to recognize existing values in the model?!?
@@ -365,6 +355,7 @@ namespace Smuxi.Frontend.Gnome
             }
             
             _PersonListStore.AppendValues(person);
+            Participants.Add(person);
             UpdatePersonCount();
         }
         
@@ -395,6 +386,13 @@ namespace Smuxi.Frontend.Gnome
             } while (_PersonListStore.IterNext(ref iter));
             _PersonTreeView.CheckResize();
             //_PersonListStore.Reorder();
+
+            for (int i = 0; i < Participants.Count; ++i) {
+                if (Participants[i].ID == oldPerson.ID) {
+                    Participants[i] = newPerson;
+                    break;
+                }
+            }
         }
         
         public void RemovePerson(PersonModel person)
@@ -422,6 +420,14 @@ namespace Smuxi.Frontend.Gnome
                     break;
                 }
             } while (_PersonListStore.IterNext(ref iter));
+
+            for (int i = 0; i < Participants.Count; ++i) {
+                if (Participants[i].ID == person.ID) {
+                    Participants.RemoveAt(i);
+                    break;
+                }
+            }
+
             UpdatePersonCount();
         }
 
