@@ -223,7 +223,7 @@ namespace Smuxi.Frontend.Stfl
         {
         }
 
-        public void AddMessage(MessageModel msg)
+        public virtual void AddMessage(MessageModel msg)
         {
             // OPT: typical message length
             var line = new StringBuilder(512);

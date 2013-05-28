@@ -338,6 +338,26 @@ namespace Smuxi.Frontend.Gnome
 
             base.Populate();
         }
+
+        public override void AddMessage(MessageModel msg)
+        {
+            base.AddMessage(msg);
+
+            var nick = msg.GetNick();
+            if (nick == null) {
+                return;
+            }
+
+            // update who spoke last
+            for (int i = 0; i < Participants.Count; ++i) {
+                var speaker = Participants[i];
+                if (speaker.IdentityName == nick) {
+                    Participants.RemoveAt(i);
+                    Participants.Insert(0, speaker);
+                    break;
+                }
+            }
+        }
         
         protected void UpdatePersonCount()
         {
