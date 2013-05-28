@@ -28,6 +28,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Forms;
 using Mono.Unix;
 using Smuxi.Engine;
@@ -130,7 +131,7 @@ namespace Smuxi.Frontend.Swf
         public override IList<PersonModel> Participants {
             get {
                 var ret = new List<PersonModel>();
-                foreach (PersonModel person in GroupChatModel.Persons.Values) {
+                foreach (PersonModel person in from p in GroupChatModel.Persons.Values orderby p.IdentityName select p) {
                     ret.Add(person);
                 }
                 return ret;

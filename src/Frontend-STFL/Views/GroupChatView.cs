@@ -18,6 +18,8 @@
 // along with this program; if not, write to the Free Software
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using Smuxi.Common;
 using Smuxi.Engine;
 
@@ -34,15 +36,37 @@ namespace Smuxi.Frontend.Stfl
             Trace.Call(chat, window);
         }
 
+        public override void AddMessage(MessageModel msg)
+        {
+            base.AddMessage(msg);
+
+            var nick = msg.GetNick();
+            if (nick == null) {
+                return;
+            }
+
+            // update who spoke last
+            for (int i = 0; i < Participants.Count; ++i) {
+                var speaker = Participants[i];
+                if (speaker.IdentityName == nick) {
+                    Participants.RemoveAt(i);
+                    Participants.Insert(0, speaker);
+                    break;
+                }
+            }
+        }
+
         public override void Sync()
         {
             base.Sync();
 
             var groupChat = (GroupChatModel) ChatModel;
             Topic = groupChat.Topic;
+
             var persons = groupChat.Persons;
             if (persons != null) {
-                foreach (var person in persons.Values) {
+                Participants.Clear();
+                foreach (var person in from p in persons.Values orderby p.IdentityName select p) {
                     Participants.Add(person);
                 }
             }

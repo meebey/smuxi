@@ -81,9 +81,11 @@ namespace Smuxi.Frontend
         /// Returns a list containing only the nicknames matching the given prefix.
         /// </summary>
         /// <returns>
-        /// The (sorted) list of nicknames matching the given prefix.
+        /// The list of nicknames matching the given prefix.
         /// </returns>
-        /// <param name="persons">List of people to enumerate.</param>
+        /// <param name="persons">
+        /// List of people to enumerate. The ordering will be taken over verbatim.
+        /// </param>
         /// <param name="prefix">Prefix of nicknames to return.</param>
         protected static IList<string> NicksMatchingPrefix(IList<PersonModel> persons, string prefix)
         {
@@ -95,7 +97,6 @@ namespace Smuxi.Frontend
                     ret.Add(nick);
                 }
             }
-            ret.Sort();
             return ret;
         }
 
