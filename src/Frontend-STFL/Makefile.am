@@ -72,6 +72,7 @@ EXTRAS = \
 
 REFERENCES =  \
 	System \
+	System.Core \
 	Mono.Posix \
 	$(LOG4NET_LIBS)
 

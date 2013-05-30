@@ -303,7 +303,7 @@ namespace Smuxi.Frontend.Gnome
                 _PersonTreeView.Model = new Gtk.ListStore(typeof(PersonModel));
                 Participants = new List<PersonModel>();
                 string longestName = String.Empty;
-                foreach (PersonModel person in from p in SyncedPersons.Values orderby p.IdentityName select p) {
+                foreach (var person in SyncedPersons.Values.OrderBy(x => x)) {
                     ls.AppendValues(person);
                     
                     if (person.IdentityName.Length > longestName.Length) {

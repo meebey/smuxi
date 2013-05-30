@@ -27,9 +27,9 @@
  */
 
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+using System.Collections.Generic;
 using Mono.Unix;
 using Smuxi.Engine;
 
@@ -130,11 +130,11 @@ namespace Smuxi.Frontend.Swf
 
         public override IList<PersonModel> Participants {
             get {
-                var ret = new List<PersonModel>();
-                foreach (PersonModel person in from p in GroupChatModel.Persons.Values orderby p.IdentityName select p) {
-                    ret.Add(person);
+                var participants = new List<PersonModel>();
+                foreach (PersonModel person in _PersonListBox.Items) {
+                    participants.Add(person);
                 }
-                return ret;
+                return new List<PersonModel>(participants.OrderBy(x => x));
             }
         }
     }
