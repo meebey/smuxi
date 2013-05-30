@@ -242,7 +242,7 @@ AC_ARG_WITH([messaging-menu],
 )
 WITH_MESSAGINGMENU=$with_messagingmenu
 if test "x$WITH_MESSAGINGMENU" = "xauto"; then
-	PKG_CHECK_EXISTS([messagingmenu-sharp-0.1], FOUND_MESSAGINGMENU_SHARP=yes, FOUND_MESSAGINGMENU_SHARP=no)
+	PKG_CHECK_EXISTS([messagingmenu-sharp], FOUND_MESSAGINGMENU_SHARP=yes, FOUND_MESSAGINGMENU_SHARP=no)
 	if test "x$FOUND_MESSAGINGMENU_SHARP" = "xyes"; then
 		WITH_MESSAGINGMENU=system
 	else
@@ -255,7 +255,7 @@ if test "x$WITH_MESSAGINGMENU" = "xauto"; then
 	fi
 fi
 if test "x$WITH_MESSAGINGMENU" = "xsystem"; then
-	PKG_CHECK_MODULES([MESSAGINGMENU_SHARP], [messagingmenu-sharp-0.1])
+	PKG_CHECK_MODULES([MESSAGINGMENU_SHARP], [messagingmenu-sharp])
 fi
 if test "x$WITH_MESSAGINGMENU" = "xincluded"; then
 	if test ! -f "$srcdir/lib/messagingmenu-sharp/configure.ac"; then
