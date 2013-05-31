@@ -18,6 +18,7 @@ if [ ! -d $HEAD_REPO_DIR ]; then
 	(mkdir $HEAD_REPO_DIR && cd $HEAD_REPO_DIR && git init && git remote add origin $HEAD_REPO_URL)
 fi
 (cd $ORIG_REPO_DIR && git pull && git submodule init && git submodule update)
+(cd $ORIG_REPO_DIR && git submodule foreach --recursive git submodule init && git submodule foreach --recursive git submodule update)
 HEAD_MSG=$(cd $ORIG_REPO_DIR && git log --no-color --first-parent -n1 --pretty="format:%h %s")
 (cd $HEAD_REPO_DIR && git fetch origin && git reset --hard origin/master)
 (cd $HEAD_REPO_DIR && git rm -rfq .)
