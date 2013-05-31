@@ -72,6 +72,24 @@ namespace Smuxi.Frontend.Stfl
             }
         }
 
+        public bool ShowTopic {
+            get {
+                return this["topic_hbox_display"] == "1";
+            }
+            set {
+                this["topic_hbox_display"] = value ? "1" : "0";
+            }
+        }
+
+        public string TopicLabel {
+            get {
+                return this["topic_label_text"];
+            }
+            set {
+                this["topic_label_text"] = value;
+            }
+        }
+
         public MainWindow() : base(null, "MainWindow.stfl")
         {
             ChatViewManager = new ChatViewManager(this);
