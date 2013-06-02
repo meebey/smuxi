@@ -1,6 +1,6 @@
 // Smuxi - Smart MUltipleXed Irc
 // 
-// Copyright (c) 2010-2011 Mirco Bauer <meebey@meebey.net>
+// Copyright (c) 2010-2012 Mirco Bauer <meebey@meebey.net>
 // 
 // Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
 // 
@@ -48,6 +48,7 @@ namespace Smuxi.Common
                 var info = new ProcessStartInfo("uname", "-o");
                 info.UseShellExecute = false;
                 info.RedirectStandardOutput = true;
+                info.RedirectStandardError = true;
                 var process = Process.Start(info);
                 process.WaitForExit();
                 if (process.ExitCode == 0) {
@@ -67,6 +68,7 @@ namespace Smuxi.Common
                     info = new ProcessStartInfo("uname", "-s");
                     info.UseShellExecute = false;
                     info.RedirectStandardOutput = true;
+                    info.RedirectStandardError = true;
                     process = Process.Start(info);
                     process.WaitForExit();
                     if (process.ExitCode == 0) {
