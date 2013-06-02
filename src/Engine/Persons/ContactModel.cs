@@ -30,7 +30,7 @@ using Smuxi.Common;
 namespace Smuxi.Engine
 {
     [Serializable]
-    public class ContactModel : ITraceable, ISerializable, IComparable<ContactModel>
+    public class ContactModel : ITraceable, ISerializable, IComparable<ContactModel>, IComparable
     {
         private string          _ID;
         private string          _IdentityName;
@@ -195,6 +195,11 @@ namespace Smuxi.Engine
             return String.Compare(IdentityName, contact.IdentityName,
                                   true, CultureInfo.InvariantCulture);
 
+        }
+
+        int IComparable.CompareTo(object contact)
+        {
+            return CompareTo(contact as ContactModel);
         }
 
         public override bool Equals(object obj)
