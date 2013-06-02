@@ -6,6 +6,12 @@ vbox
     @style_normal:fg=white,bg=blue
     label[title_label]
       text[title_label_text]:"Smuxi"
+  hbox[topic_hbox]
+    .display[topic_hbox_display]:0
+    .expand:0 .height:1
+    @style_normal:fg=white,bg=blue
+    label[topic_label]
+      text[topic_label_text]:"insert topic here"
   hbox[menu_hbox]
     .display:0
     .expand:0 .height:1
