@@ -68,6 +68,7 @@ namespace Smuxi.Frontend.Stfl
                     UpdateNavigation();
                     UpdateInput();
                     UpdateTitle();
+                    UpdateTopic();
                 }
 
                 if (CurrentChatSwitched != null) {
@@ -213,6 +214,23 @@ namespace Smuxi.Frontend.Stfl
                 Console.WriteLine((char) 27 + "]0;{0}" + (char) 7, title);
                 NcursesApi.refresh();
             }
+        }
+
+        public void UpdateTopic()
+        {
+            string topic = String.Empty;
+            var chatView = CurrentChat;
+
+            if (chatView is GroupChatView) {
+                var topicModel = ((GroupChatView) chatView).Topic;
+
+                if (topicModel != null) {
+                    topic = topicModel.ToString();
+                }
+            }
+
+            f_MainWindow.TopicLabel = topic;
+            f_MainWindow.ShowTopic = !String.IsNullOrEmpty(topic);
         }
     }
 

@@ -195,8 +195,33 @@ namespace Smuxi.Frontend.Stfl
         public void UpdateTopicInGroupChat(GroupChatModel groupChat, MessageModel topic)
         {
             Trace.Call(groupChat, topic);
-            
-            //Console.WriteLine("Topic changed to: "+topic+ " on "+cpage.Name);
+
+            try {
+                var chatView = _ChatViewManager.GetChat(groupChat);
+                if (chatView == null) {
+#if LOG4NET
+                    _Logger.Fatal(String.Format("UpdateTopicInGroupChat(): _ChatViewManager.GetChat(groupChat) groupChat.Name: {0} returned null!", groupChat.Name));
+#endif
+                    return;
+                }
+
+                if (!(chatView is GroupChatView)) {
+#if LOG4NET
+                    _Logger.Fatal(String.Format("UpdateTopicInGroupChat(): _ChatViewManager.GetChat(groupChat) groupChat.Name: {0} returned something that isn't a group chat view!", groupChat.Name));
+#endif
+                    return;
+                }
+
+                var groupChatView = (GroupChatView) chatView;
+
+                groupChatView.Topic = topic;
+
+                _ChatViewManager.UpdateTopic();
+            } catch (Exception ex) {
+#if LOG4NET
+                _Logger.Fatal(ex);
+#endif
+            }
         }
         
         public void RemovePersonFromGroupChat(GroupChatModel groupChat, PersonModel person)
