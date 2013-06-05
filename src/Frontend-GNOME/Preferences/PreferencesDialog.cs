@@ -305,8 +305,13 @@ namespace Smuxi.Frontend.Gnome
             string connect_commands = String.Join("\n", (string[])Frontend.UserConfig["Connection/OnConnectCommands"]);
             ((Gtk.TextView)_Glade["OnConnectCommandsTextView"]).Buffer.Text = connect_commands;
 
-            ((Gtk.CheckButton) _Glade["AutoConvertUTF8CheckButton"]).Active =
-                (bool) Frontend.UserConfig["Connection/AutoConvertUTF8"];
+            var autoConvertUTF8CheckButton = (Gtk.CheckButton) _Glade["AutoConvertUTF8CheckButton"];
+            if (Frontend.EngineVersion >= new Version("0.8.12")) {
+                autoConvertUTF8CheckButton.Active =
+                    (bool) Frontend.UserConfig["Connection/AutoConvertUTF8"];
+            } else {
+                autoConvertUTF8CheckButton.Sensitive = false;
+            }
 
             string encoding = (string)Frontend.UserConfig["Connection/Encoding"];
             encoding = encoding.ToUpper();
@@ -685,8 +690,10 @@ namespace Smuxi.Frontend.Gnome
             Frontend.UserConfig["Connection/OnConnectCommands"] = 
                 ((Gtk.TextView)_Glade["OnConnectCommandsTextView"]).Buffer.Text.Split(new char[] {'\n'});
 
-            Frontend.UserConfig["Connection/AutoConvertUTF8"] =
-                ((Gtk.CheckButton)_Glade["AutoConvertUTF8CheckButton"]).Active;
+            if (Frontend.EngineVersion >= new Version("0.8.12")) {
+                Frontend.UserConfig["Connection/AutoConvertUTF8"] =
+                    ((Gtk.CheckButton)_Glade["AutoConvertUTF8CheckButton"]).Active;
+            }
 
             Gtk.ComboBox cb = (Gtk.ComboBox)_Glade["EncodingComboBox"];
             Gtk.TreeIter iter;
