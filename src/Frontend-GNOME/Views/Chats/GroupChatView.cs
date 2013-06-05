@@ -122,8 +122,9 @@ namespace Smuxi.Frontend.Gnome
             _GroupChatModel = groupChat;
             
             // person list
+            Participants = new List<PersonModel>();
             _OutputHPaned = new Gtk.HPaned();
-            
+
             Gtk.ScrolledWindow sw = new Gtk.ScrolledWindow();
             //sw.WidthRequest = 150;
             sw.HscrollbarPolicy = Gtk.PolicyType.Never;
