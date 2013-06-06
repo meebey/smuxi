@@ -217,6 +217,7 @@ namespace Smuxi.Frontend
             var info = new SysDiag.ProcessStartInfo() {
                 FileName = file,
                 Arguments = args,
+                RedirectStandardInput = true,
                 RedirectStandardOutput = true,
                 RedirectStandardError = true,
                 UseShellExecute = false
@@ -228,6 +229,7 @@ namespace Smuxi.Frontend
 
                 try {
                     process.Start();
+                    process.StandardInput.Close();
                     process.BeginOutputReadLine();
                     process.BeginErrorReadLine();
                     process.WaitForExit();
