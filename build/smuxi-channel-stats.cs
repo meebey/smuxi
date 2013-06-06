@@ -9,6 +9,8 @@ class MainClass
 	static void Main()
 	{
 		var client = new IrcClient() {
+			AutoReconnect = true,
+			AutoRetry = true,
 			ActiveChannelSyncing = true
 		};
 		client.Connect("irc.oftc.net", 6667);
@@ -18,6 +20,8 @@ class MainClass
 		};
 		
 		var client2 = new IrcClient() {
+			AutoReconnect = true,
+			AutoRetry = true,
 			ActiveChannelSyncing = true
 		};
 		client2.Connect("irc.freenode.net", 6667);
