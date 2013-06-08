@@ -252,6 +252,11 @@ namespace Smuxi.Frontend.Gnome
                 QueueDraw();
             }
 
+            if (ChatViewManager.CurrentChatView == null) {
+                // we are during a sync, so don't process keys yet
+                return;
+            }
+
             int keynumber = (int)e.Event.KeyValue;
             Gdk.Key key = e.Event.Key;
             if ((e.Event.State & Gdk.ModifierType.ControlMask) != 0) {
@@ -687,15 +692,16 @@ namespace Smuxi.Frontend.Gnome
             var chatView = ChatViewManager.CurrentChatView;
             ThreadPool.QueueUserWorkItem(delegate {
                 try {
+                    var oldValue = Frontend.UseLowBandwidthMode;
                     // HACK: force a full sync
                     Frontend.UseLowBandwidthMode = false;
                     chatView.Sync();
-                    Frontend.UseLowBandwidthMode = true;
+                    Frontend.UseLowBandwidthMode = oldValue;
 
                     Gtk.Application.Invoke(delegate {
                         Frontend.UseLowBandwidthMode = false;
                         chatView.Populate();
-                        Frontend.UseLowBandwidthMode = true;
+                        Frontend.UseLowBandwidthMode = oldValue;
                         chatView.ScrollToEnd();
                     });
                 } catch (Exception ex) {
