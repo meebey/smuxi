@@ -252,6 +252,11 @@ namespace Smuxi.Frontend.Gnome
                 QueueDraw();
             }
 
+            if (ChatViewManager.CurrentChatView == null) {
+                // we are during a sync, so don't process keys yet
+                return;
+            }
+
             int keynumber = (int)e.Event.KeyValue;
             Gdk.Key key = e.Event.Key;
             if ((e.Event.State & Gdk.ModifierType.ControlMask) != 0) {
