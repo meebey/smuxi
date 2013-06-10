@@ -29,11 +29,11 @@ namespace Smuxi.Frontend.Stfl
     public class TextViewTests
     {
         [Test]
-        [Ignore]
         public void WrapLine()
         {
             List<string> wrappedLine;
 
+            // unchanged if window is wide enough
             wrappedLine = TextView.WrapLine("foobar", 10);
             Assert.AreEqual(1, wrappedLine.Count);
             Assert.AreEqual("foobar", wrappedLine[0]);
@@ -42,30 +42,47 @@ namespace Smuxi.Frontend.Stfl
             Assert.AreEqual(1, wrappedLine.Count);
             Assert.AreEqual("foobar", wrappedLine[0]);
 
+            // break in the middle of words if necessary
             wrappedLine = TextView.WrapLine("foobar", 4);
             Assert.AreEqual(2, wrappedLine.Count);
             Assert.AreEqual("foob", wrappedLine[0]);
             Assert.AreEqual("ar",   wrappedLine[1]);
 
+            // break between words if possible ("foob ar me", not "foob arm e")
             wrappedLine = TextView.WrapLine("foobar me", 4);
             Assert.AreEqual(3, wrappedLine.Count);
             Assert.AreEqual("foob", wrappedLine[0]);
-            Assert.AreEqual("ar m", wrappedLine[1]);
-            Assert.AreEqual("e",    wrappedLine[2]);
+            Assert.AreEqual("ar", wrappedLine[1]);
+            Assert.AreEqual("me", wrappedLine[2]);
 
+            wrappedLine = TextView.WrapLine("foobar me", 5);
+            Assert.AreEqual(2, wrappedLine.Count);
+            Assert.AreEqual("fooba", wrappedLine[0]);
+            Assert.AreEqual("r me", wrappedLine[1]);
+
+            // handle formatting rationally
             wrappedLine = TextView.WrapLine("<b>foobar</b>", 20);
             Assert.AreEqual(1, wrappedLine.Count);
             Assert.AreEqual("<b>foobar</b>", wrappedLine[0]);
 
             wrappedLine = TextView.WrapLine("<b>foobar</b>", 6);
-            Assert.AreEqual(2, wrappedLine.Count);
-            Assert.AreEqual("<b>foo</b>", wrappedLine[0]);
-            Assert.AreEqual("<b>bar</b>", wrappedLine[1]);
+            Assert.AreEqual(1, wrappedLine.Count);
+            Assert.AreEqual("<b>foobar</b>", wrappedLine[0]);
 
             wrappedLine = TextView.WrapLine("foo <b>bar</b> me", 6);
             Assert.AreEqual(2, wrappedLine.Count);
-            Assert.AreEqual("foo <b>ba</b>", wrappedLine[0]);
-            Assert.AreEqual("<b>r</b> me",   wrappedLine[1]);
+            Assert.AreEqual("foo", wrappedLine[0]);
+            Assert.AreEqual("<b>bar</b> me", wrappedLine[1]);
+
+            wrappedLine = TextView.WrapLine("foo <b>bar</b> me", 7);
+            Assert.AreEqual(2, wrappedLine.Count);
+            Assert.AreEqual("foo <b>bar</b>", wrappedLine[0]);
+            Assert.AreEqual("me", wrappedLine[1]);
+
+            wrappedLine = TextView.WrapLine("foo <b>bar </b>me", 7);
+            Assert.AreEqual(2, wrappedLine.Count);
+            Assert.AreEqual("foo <b>bar</>", wrappedLine[0]);
+            Assert.AreEqual("</b>me", wrappedLine[1]);
         }
     }
 }

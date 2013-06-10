@@ -19,6 +19,7 @@
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA
 
 using System;
+using System.Linq;
 using System.Text;
 using System.Collections.Generic;
 
@@ -168,6 +169,63 @@ namespace Stfl
             ScrollToStart();
         }
 
+        /// <summary>
+        /// Splits a line into characters, keeping style tags intact and
+        /// attached to the character following them.
+        /// </summary>
+        private static IList<string> SplitStyledLineIntoCharacters(string line)
+        {
+            var chars = new List<string>();
+            string assembleStyle = null;
+            bool tagging = false;
+
+            foreach (char c in line) {
+                if (c == '<') {
+                    // style begins
+                    assembleStyle = String.Empty;
+                    tagging = true;
+                } else if (c == '>') {
+                    // style ended
+                    tagging = false;
+                } else if (tagging) {
+                    // add to style
+                    assembleStyle += c;
+                } else {
+                    // normal character
+                    if (assembleStyle != null) {
+                        chars.Add('<' + assembleStyle + '>' + c);
+                    } else {
+                        chars.Add(c.ToString());
+                    }
+                    // no style anymore
+                    assembleStyle = null;
+                }
+            }
+
+            return chars;
+        }
+
+        /// <summary>
+        /// Returns the length of the given line, skipping style-related
+        /// characters.
+        /// </summary>
+        private static int LengthWithoutStyle(string line)
+        {
+            int length = 0;
+            bool tagging = false;
+            foreach (char c in line) {
+                if (c == '<') {
+                    tagging = true;
+                } else if (c == '>') {
+                    tagging = false;
+                } else if (!tagging) {
+                    ++length;
+                }
+            }
+
+            return length;
+        }
+
         public static List<string> WrapLine(string line, int wrapWidth)
         {
             if (line == null) {
@@ -178,18 +236,70 @@ namespace Stfl
                                             "wrapWidth");
             }
 
+            // split the line on spaces
+            IList<string> splitOnSpaces = line.Split(' ').ToList();
             var wrappedLine = new List<string>();
-            if (line.Length <= wrapWidth) {
-                wrappedLine.Add(line);
-                return wrappedLine;
-            }
+            var freshestStyle = "";
 
-            for (int i = 0; i < line.Length; i += wrapWidth) {
-                var chunkSize = Math.Min(line.Length - i, wrapWidth);
-                // FIXME: don't break style tags
-                // TODO: word wrapping
-                var chunk = line.Substring(i, chunkSize);
-                wrappedLine.Add(chunk);
+            // as long as there is anything left to wrap
+            while (splitOnSpaces.Count > 0) {
+                // take as many words as will fit
+                string joinedUp = String.Empty;
+                int count;
+                for (count = 0; count < splitOnSpaces.Count; ++count) {
+                    var newJoinedUp = String.Join(" ", splitOnSpaces.Take(count+1));
+                    if (LengthWithoutStyle(newJoinedUp) <= wrapWidth) {
+                        // it will still fit
+                        joinedUp = newJoinedUp;
+                    } else {
+                        // that's too many
+                        break;
+                    }
+                }
+
+                if (joinedUp.Length == 0) {
+                    // uh-oh, couldn't grab the first word whole; must split it
+                    var chars = SplitStyledLineIntoCharacters(splitOnSpaces [0]);
+                    joinedUp = String.Join("", chars.Take(wrapWidth));
+
+                    // process the remaining characters next time
+                    var rest = splitOnSpaces [0].Substring(wrapWidth);
+                    splitOnSpaces.RemoveAt(0);
+                    splitOnSpaces.Insert(0, rest);
+                } else {
+                    // we took count words; remove them from the list
+                    splitOnSpaces = splitOnSpaces.Skip(count).ToList();
+                }
+
+                // prepend the currently freshest style unless the line starts with a style
+                if (!joinedUp.StartsWith("<")) {
+                    joinedUp = freshestStyle + joinedUp;
+                }
+
+                // find out the now-freshest style
+                var lastTagStart = joinedUp.LastIndexOf('<');
+                if (lastTagStart >= 0) {
+                    var lastTagEnd = joinedUp.IndexOf('>', lastTagStart);
+                    if (lastTagEnd == -1) {
+                        // tag started but not ended -- assume no style but terminate
+                        freshestStyle = "";
+                        joinedUp += "</>";
+                    } else {
+                        var lastTag = joinedUp.Substring(lastTagStart, lastTagEnd - lastTagStart + 1);
+                        if (lastTag.IndexOf('/') != -1) {
+                            // closing tag -- no more style
+                            freshestStyle = "";
+                        } else {
+                            // we have a new style
+                            freshestStyle = lastTag;
+                            // make sure to terminate our string
+                            joinedUp += "</>";
+                        }
+                    }
+                }
+
+                // add the joined-up, style-terminated line to the list
+                wrappedLine.Add(joinedUp);
             }
 
             return wrappedLine;
