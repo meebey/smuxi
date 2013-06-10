@@ -247,7 +247,7 @@ namespace Stfl
                 string joinedUp = String.Empty;
                 int count;
                 for (count = 0; count < splitOnSpaces.Count; ++count) {
-                    var newJoinedUp = String.Join(" ", splitOnSpaces.Take(count+1));
+                    var newJoinedUp = String.Join(" ", splitOnSpaces.Take(count+1).ToArray());
                     if (LengthWithoutStyle(newJoinedUp) <= wrapWidth) {
                         // it will still fit
                         joinedUp = newJoinedUp;
@@ -260,7 +260,7 @@ namespace Stfl
                 if (joinedUp.Length == 0) {
                     // uh-oh, couldn't grab the first word whole; must split it
                     var chars = SplitStyledLineIntoCharacters(splitOnSpaces [0]);
-                    joinedUp = String.Join("", chars.Take(wrapWidth));
+                    joinedUp = String.Join("", chars.Take(wrapWidth).ToArray());
 
                     // process the remaining characters next time
                     var rest = splitOnSpaces [0].Substring(wrapWidth);
