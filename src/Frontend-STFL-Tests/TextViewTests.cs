@@ -83,6 +83,19 @@ namespace Smuxi.Frontend.Stfl
             Assert.AreEqual(2, wrappedLine.Count);
             Assert.AreEqual("foo <b>bar</>", wrappedLine[0]);
             Assert.AreEqual("</b>me", wrappedLine[1]);
+
+            // handle escaped opening angled brackets correctly
+            wrappedLine = TextView.WrapLine("I <b><>3</b> you", 4);
+            Assert.AreEqual(2, wrappedLine.Count);
+            Assert.AreEqual("I <b><>3</b>", wrappedLine[0]);
+            Assert.AreEqual("you", wrappedLine[1]);
+
+            wrappedLine = TextView.WrapLine("1<b><></b>23", 1);
+            Assert.AreEqual(4, wrappedLine.Count);
+            Assert.AreEqual("1", wrappedLine[0]);
+            Assert.AreEqual("<b><></>", wrappedLine[1]);
+            Assert.AreEqual("</b>2", wrappedLine[2]);
+            Assert.AreEqual("3", wrappedLine[3]);
         }
     }
 }

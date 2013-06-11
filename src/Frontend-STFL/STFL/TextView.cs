@@ -21,6 +21,7 @@
 using System;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Collections.Generic;
 
 namespace Stfl
@@ -31,6 +32,7 @@ namespace Stfl
         public bool AutoLineWrap { get; set; }
         List<string> Lines { get; set; }
         int WrappedLineCount { get; set; }
+        static Regex StyleTagRegex = new Regex("<([^>]+)>");
 
         public int Offset {
             get {
@@ -171,7 +173,8 @@ namespace Stfl
 
         /// <summary>
         /// Splits a line into characters, keeping style tags intact and
-        /// attached to the character following them.
+        /// attached to the character following them, and not breaking apart
+        /// escapes of <c>&lt;</c>.
         /// </summary>
         private static IList<string> SplitStyledLineIntoCharacters(string line)
         {
@@ -179,11 +182,25 @@ namespace Stfl
             string assembleStyle = null;
             bool tagging = false;
 
-            foreach (char c in line) {
+            for (int i = 0; i < line.Length; ++i) {
+                char c = line [i];
                 if (c == '<') {
-                    // style begins
-                    assembleStyle = String.Empty;
-                    tagging = true;
+                    if (i < line.Length - 1 && line [i+1] == '>') {
+                        // this is <> which is an escape of <
+                        if (assembleStyle != null) {
+                            chars.Add('<' + assembleStyle + "><>");
+                        } else {
+                            chars.Add("<>");
+                        }
+                        // no style anymore
+                        assembleStyle = null;
+                        // skip the > too
+                        ++i;
+                    } else {
+                        // style begins
+                        assembleStyle = String.Empty;
+                        tagging = true;
+                    }
                 } else if (c == '>') {
                     // style ended
                     tagging = false;
@@ -193,6 +210,7 @@ namespace Stfl
                 } else {
                     // normal character
                     if (assembleStyle != null) {
+                        // we have a style too
                         chars.Add('<' + assembleStyle + '>' + c);
                     } else {
                         chars.Add(c.ToString());
@@ -206,24 +224,14 @@ namespace Stfl
         }
 
         /// <summary>
-        /// Returns the length of the given line, skipping style-related
-        /// characters.
+        /// Returns the length of the given line in characters that will
+        /// actually be displayed.
         /// </summary>
         private static int LengthWithoutStyle(string line)
         {
-            int length = 0;
-            bool tagging = false;
-            foreach (char c in line) {
-                if (c == '<') {
-                    tagging = true;
-                } else if (c == '>') {
-                    tagging = false;
-                } else if (!tagging) {
-                    ++length;
-                }
-            }
-
-            return length;
+            var untaggedString = StyleTagRegex.Replace(line, "");
+            var unescapedString = untaggedString.Replace("<>", "<");
+            return unescapedString.Length;
         }
 
         public static List<string> WrapLine(string line, int wrapWidth)
@@ -260,10 +268,10 @@ namespace Stfl
                 if (joinedUp.Length == 0) {
                     // uh-oh, couldn't grab the first word whole; must split it
                     var chars = SplitStyledLineIntoCharacters(splitOnSpaces [0]);
-                    joinedUp = String.Join("", chars.Take(wrapWidth).ToArray());
+                    joinedUp = String.Join("", chars.Take(wrapWidth));
 
                     // process the remaining characters next time
-                    var rest = splitOnSpaces [0].Substring(wrapWidth);
+                    var rest = String.Join("", chars.Skip(wrapWidth));
                     splitOnSpaces.RemoveAt(0);
                     splitOnSpaces.Insert(0, rest);
                 } else {
@@ -277,24 +285,17 @@ namespace Stfl
                 }
 
                 // find out the now-freshest style
-                var lastTagStart = joinedUp.LastIndexOf('<');
-                if (lastTagStart >= 0) {
-                    var lastTagEnd = joinedUp.IndexOf('>', lastTagStart);
-                    if (lastTagEnd == -1) {
-                        // tag started but not ended -- assume no style but terminate
+                var styleTags = StyleTagRegex.Matches(joinedUp);
+                if (styleTags.Count > 0) {
+                    var lastTagName = styleTags[styleTags.Count-1].Groups[1].Value;
+                    if (lastTagName.IndexOf('/') != -1) {
+                        // closing tag -- no more style
                         freshestStyle = "";
-                        joinedUp += "</>";
                     } else {
-                        var lastTag = joinedUp.Substring(lastTagStart, lastTagEnd - lastTagStart + 1);
-                        if (lastTag.IndexOf('/') != -1) {
-                            // closing tag -- no more style
-                            freshestStyle = "";
-                        } else {
-                            // we have a new style
-                            freshestStyle = lastTag;
-                            // make sure to terminate our string
-                            joinedUp += "</>";
-                        }
+                        // we have a new style
+                        freshestStyle = '<' + lastTagName + '>';
+                        // make sure to terminate our string
+                        joinedUp += "</>";
                     }
                 }
 
