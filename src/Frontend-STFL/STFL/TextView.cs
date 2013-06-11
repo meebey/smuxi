@@ -251,32 +251,40 @@ namespace Stfl
 
             // as long as there is anything left to wrap
             while (splitOnSpaces.Count > 0) {
-                // take as many words as will fit
-                string joinedUp = String.Empty;
-                int count;
-                for (count = 0; count < splitOnSpaces.Count; ++count) {
-                    var newJoinedUp = String.Join(" ", splitOnSpaces.Take(count+1).ToArray());
-                    if (LengthWithoutStyle(newJoinedUp) <= wrapWidth) {
-                        // it will still fit
-                        joinedUp = newJoinedUp;
-                    } else {
-                        // that's too many
-                        break;
-                    }
-                }
+                var joinedUp = splitOnSpaces [0];
+                int currentLengthWithoutStyle = LengthWithoutStyle(joinedUp);
 
-                if (joinedUp.Length == 0) {
-                    // uh-oh, couldn't grab the first word whole; must split it
-                    var chars = SplitStyledLineIntoCharacters(splitOnSpaces [0]);
-                    joinedUp = String.Join("", chars.Take(wrapWidth));
+                // take one word
+                if (currentLengthWithoutStyle > wrapWidth) {
+                    // uh-oh, cannot grab first word whole; must split it
+                    var chars = SplitStyledLineIntoCharacters(joinedUp);
+                    joinedUp = String.Join("", chars.Take(wrapWidth).ToArray());
+                    currentLengthWithoutStyle = wrapWidth;
 
                     // process the remaining characters next time
-                    var rest = String.Join("", chars.Skip(wrapWidth));
+                    var rest = splitOnSpaces [0].Substring(joinedUp.Length);
                     splitOnSpaces.RemoveAt(0);
                     splitOnSpaces.Insert(0, rest);
                 } else {
-                    // we took count words; remove them from the list
-                    splitOnSpaces = splitOnSpaces.Skip(count).ToList();
+                    // that worked
+                    splitOnSpaces.RemoveAt(0);
+
+                    // try taking more words
+                    var joinedUpBuilder = new StringBuilder(joinedUp, wrapWidth*2);
+                    while (splitOnSpaces.Count > 0) {
+                        // + 1 accounts for the joining space
+                        var newLengthWithoutStyle = currentLengthWithoutStyle + 1 + LengthWithoutStyle(splitOnSpaces [0]);
+                        if (newLengthWithoutStyle > wrapWidth) {
+                            // that won't work anymore
+                            break;
+                        }
+
+                        joinedUpBuilder.Append(' ');
+                        joinedUpBuilder.Append(splitOnSpaces [0]);
+                        currentLengthWithoutStyle = newLengthWithoutStyle;
+                        splitOnSpaces.RemoveAt(0);
+                    }
+                    joinedUp = joinedUpBuilder.ToString();
                 }
 
                 // prepend the currently freshest style unless the line starts with a style
