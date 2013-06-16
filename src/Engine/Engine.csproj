@@ -96,6 +96,7 @@
     <Compile Include="Config\EntrySettings.cs" />
     <Compile Include="Messages\FeedMessageBuilder.cs" />
     <Compile Include="Config\ProxySettings.cs" />
+    <Compile Include="TextColorPalettes.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Protocols\" />
