@@ -1,7 +1,7 @@
 /*
  * Smuxi - Smart MUltipleXed Irc
  *
- * Copyright (c) 2008-2011 Mirco Bauer <meebey@meebey.net>
+ * Copyright (c) 2008-2013 Mirco Bauer <meebey@meebey.net>
  *
  * Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
  *
@@ -33,10 +33,12 @@ namespace Smuxi.Engine
         private static readonly log4net.ILog f_Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 #endif
         private static Dictionary<int, TextColor> f_BestContrastColors;
+        static Dictionary<object, Dictionary<TextColor, TextColor>> NearestColors { get; set; }
 
         static TextColorTools()
         {
             f_BestContrastColors = new Dictionary<int, TextColor>(1024);
+            NearestColors = new Dictionary<object, Dictionary<TextColor, TextColor>>(16);
         }
 
         public static TextColor GetBestTextColor(TextColor fgColor, TextColor bgColor)
@@ -204,8 +206,18 @@ namespace Smuxi.Engine
                 throw new ArgumentNullException("palette");
             }
 
-            var hslColor1 = ToHSL(color);
             TextColor nearestColor = null;
+            Dictionary<TextColor, TextColor> cache;
+            if (NearestColors.TryGetValue(palette, out cache)) {
+                if (cache.TryGetValue(color, out nearestColor)) {
+                    return nearestColor;
+                }
+            } else {
+                cache = new Dictionary<TextColor, TextColor>(1024);
+                NearestColors.Add(palette, cache);
+            }
+
+            var hslColor1 = ToHSL(color);
             double nearestDifference = Double.MaxValue;
             foreach (var color2 in palette) {
                 // compute the Euclidean distance between the two HSL colors
@@ -233,6 +245,7 @@ namespace Smuxi.Engine
                     break;
                 }
             }
+            cache.Add(color, nearestColor);
             return nearestColor;
         }
 
