@@ -1,6 +1,6 @@
 // Smuxi - Smart MUltipleXed Irc
 // 
-// Copyright (c) 2011 Mirco Bauer
+// Copyright (c) 2011, 2013 Mirco Bauer
 // 
 // Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
 // 
@@ -203,10 +203,18 @@ namespace Stfl
                 return;
             }
 
+            var estimatedLines = Math.Max(WrappedLineCount, Lines.Count);
+            // see items.AppendFormat() below
+            var lineStyleOverhead = 18;
+            var listStyleOverhead = 6;
+            var estimatedLength = listStyleOverhead +
+                (estimatedLines * (width + lineStyleOverhead));
+            estimatedLength = (int) (estimatedLength * 1.2);
+
             // re-wrap all lines and re-apply offset
             WrappedLineCount = 0;
             var offset = Offset;
-            var items = new StringBuilder("{list", Lines.Count + 2);
+            var items = new StringBuilder("{list", estimatedLength);
             foreach (var line in Lines) {
                 foreach (var wrappedLine in WrapLine(line, width)) {
                     WrappedLineCount++;
