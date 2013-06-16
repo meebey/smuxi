@@ -237,6 +237,10 @@ namespace Smuxi.Frontend.Stfl
                         GC.Collect();
                         handled = true;
                         break;
+                    case "generate_messages":
+                        CommandGenerateMessages(cmd);
+                        handled = true;
+                        break;
                 }
             }
             return handled;
@@ -290,6 +294,12 @@ namespace Smuxi.Frontend.Stfl
                 AppendText(_("Unknown Command: {0}"), cmd.Command).
                 ToMessage();
             cmd.FrontendManager.AddMessageToChat(cmd.Chat, msg);
+        }
+
+        void CommandGenerateMessages(CommandModel cmd)
+        {
+            var chat = f_ChatViewManager.CurrentChat;
+            CommandManager.CommandGenerateMessages(cmd, chat);
         }
 
         // gets the position of the first space left
