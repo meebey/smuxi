@@ -26,6 +26,9 @@ namespace Stfl
 {
     public class TextView : Widget
     {
+#if LOG4NET
+        static readonly log4net.ILog Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+#endif
         public string OffsetVariableName { get; set; }
         public bool AutoLineWrap { get; set; }
         List<string> Lines { get; set; }
@@ -230,7 +233,20 @@ namespace Stfl
         void OnEventReceived(object sender, EventReceivedEventArgs e)
         {
             if (e.Event == "RESIZE") {
+                DateTime start, stop;
+                start = DateTime.UtcNow;
                 Resize();
+                stop = DateTime.UtcNow;
+#if LOG4NET
+                Logger.DebugFormat(
+                    "OnEventReceived(): Resize() took: {0:0.00} ms " +
+                    "lines: {1} wrapped lines: {2} width: {3}",
+                    (stop - start).TotalMilliseconds,
+                    Lines.Count,
+                    WrappedLineCount,
+                    Width
+                );
+#endif
             }
         }
     }
