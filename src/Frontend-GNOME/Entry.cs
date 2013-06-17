@@ -556,10 +556,6 @@ namespace Smuxi.Frontend.Gnome
                         _CommandDetach(cd);
                         handled = true;
                         break;
-                    case "echo":
-                        _CommandEcho(cd);
-                        handled = true;
-                        break;
                     case "window":
                         _CommandWindow(cd);
                         handled = true;
@@ -628,15 +624,6 @@ namespace Smuxi.Frontend.Gnome
             Frontend.Quit();
         }
 
-        private void _CommandEcho(CommandModel cd)
-        {
-            var msg = new MessageBuilder().
-                AppendEventPrefix().
-                AppendText(cd.Parameter).
-                ToMessage();
-            cd.FrontendManager.AddMessageToChat(cd.Chat, msg);
-        }
-    
         private void _CommandWindow(CommandModel cd)
         {
             if (cd.DataArray.Length >= 2) {

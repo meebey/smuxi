@@ -119,6 +119,10 @@ namespace Smuxi.Frontend
                         CommandExec(cmd);
                         handled = true;
                         break;
+                    case "echo":
+                        CommandEcho(cmd);
+                        handled = true;
+                        break;
                 }
             }
             if (handled) {
@@ -249,6 +253,17 @@ namespace Smuxi.Frontend
                     cmd.FrontendManager.AddMessageToChat(cmd.Chat, msg);
                 }
             }
+        }
+
+        private void CommandEcho(CommandModel cmd)
+        {
+            Trace.Call(cmd);
+
+            var msg = new MessageBuilder().
+                AppendEventPrefix().
+                    AppendText(cmd.Parameter).
+                    ToMessage();
+            cmd.FrontendManager.AddMessageToChat(cmd.Chat, msg);
         }
 
         public void CommandGenerateMessages(CommandModel cmd, IChatView chat)
