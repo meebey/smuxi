@@ -247,12 +247,12 @@ namespace Smuxi.Engine
             var builder = CreateMessageBuilder();
             builder.AppendEventPrefix();
             builder.MessageType = MessageType.Normal;
-            builder.AppendIdendityName(CreatePerson(e.Who));
-            // TRANSLATOR: do NOT change the position of {0}!
-            var text = builder.CreateText(_("{0} invites you to {1}"),
-                                          String.Empty, e.Channel);
-            text.IsHighlight = true;
-            builder.AppendText(text);
+            var msg = builder.CreateFormat(_("{0} invites you to {1}"),
+                                           CreatePerson(e.Who), e.Channel);
+            foreach (var part in msg) {
+                part.IsHighlight = true;
+            }
+            builder.Append(msg);
             Session.AddMessageToChat(_NetworkChat, builder.ToMessage());
 
             builder = CreateMessageBuilder();
@@ -1752,9 +1752,7 @@ namespace Smuxi.Engine
                     builder = CreateMessageBuilder();
                     builder.AppendEventPrefix();
                     if (topic != null && !topic.IsEmpty) {
-                        // TRANSLATOR: do NOT change the position of {1}!
-                        builder.AppendText(_("Topic for {0}: {1}"), channel, String.Empty);
-                        builder.Append(topic);
+                        builder.AppendFormat(_("Topic for {0}: {1}"), channel, topic);
                     } else {
                         builder.AppendText(_("No topic set for {0}"), channel);
                     }
@@ -2749,19 +2747,11 @@ namespace Smuxi.Engine
         {
             var builder = CreateMessageBuilder();
             builder.AppendEventPrefix();
-            // TRANSLATOR: the final line will look like this:
-            // -!- Nick {0} is already in use
-            builder.AppendText(_("Nick"));
-            builder.AppendSpace();
 
             var text = builder.CreateText(e.Data.RawMessageArray[3]);
             text.Bold = true;
-            builder.AppendText(text);
-            builder.AppendSpace();
+            builder.AppendFormat(_("Nick {0} is already in use"), text);
 
-            // TRANSLATOR: the final line will look like this:
-            // -!- Nick {0} is already in use
-            builder.AppendText(_("is already in use"));
             Session.AddMessageToChat(_NetworkChat, builder.ToMessage());
 
             AutoRenick();
@@ -2771,15 +2761,14 @@ namespace Smuxi.Engine
         {
             var builder = CreateMessageBuilder();
             builder.AppendEventPrefix();
-            builder.AppendText(_("Cannot join to channel:"));
-            builder.AppendSpace();
 
             var text = builder.CreateText(e.Data.RawMessageArray[3]);
             text.Bold = true;
-            builder.AppendText(text);
-            builder.AppendSpace();
 
-            builder.AppendText("({0})", _("You are banned"));
+            builder.AppendFormat("{0}: {1} ({2})",
+                                 _("Cannot join to channel:"),
+                                 text,
+                                 _("You are banned"));
             Session.AddMessageToChat(_NetworkChat, builder.ToMessage());
         }
         
@@ -3104,12 +3093,10 @@ namespace Smuxi.Engine
 
             var builder = CreateMessageBuilder();
             builder.AppendEventPrefix();
-            builder.AppendIdendityName(GetPerson(groupChat, e.Who));
-            // TRANSLATOR: do NOT change the position of {0}!
-            builder.AppendText(_("{0} [{1}] has joined {2}"),
-                               String.Empty,
-                               String.Format("{0}@{1}", e.Data.Ident, e.Data.Host),
-                               e.Channel);
+            builder.AppendFormat(_("{0} [{1}] has joined {2}"),
+                                 GetPerson(groupChat, e.Who),
+                                 String.Format("{0}@{1}", e.Data.Ident, e.Data.Host),
+                                 e.Channel);
 
             var msg = builder.ToMessage();
             Session.AddMessageToChat(groupChat, msg);
@@ -3248,12 +3235,10 @@ namespace Smuxi.Engine
             var builder = CreateMessageBuilder();
             builder.MessageType = MessageType.Event;
             builder.AppendEventPrefix();
-            builder.AppendIdendityName(GetPerson(groupChat, e.Who));
-            // TRANSLATOR: do NOT change the position of {0}!
-            builder.AppendText(_("{0} [{1}] has left {2}"),
-                               String.Empty,
-                               String.Format("{0}@{1}", e.Data.Ident, e.Data.Host),
-                               e.Channel);
+            builder.AppendFormat(_("{0} [{1}] has left {2}"),
+                                 GetPerson(groupChat, e.Who),
+                                 String.Format("{0}@{1}", e.Data.Ident, e.Data.Host),
+                                 e.Channel);
 
             if (!String.IsNullOrEmpty(e.PartMessage)) {
                 builder.AppendText(" [");
@@ -3275,21 +3260,16 @@ namespace Smuxi.Engine
             var builder = CreateMessageBuilder();
             builder.AppendEventPrefix();
             if (e.Data.Irc.IsMe(e.Whom)) {
-                // TRANSLATOR: do NOT change the position of {1}!
-                builder.AppendText(_("You were kicked from {0} by {1}"),
-                                   e.Channel, String.Empty);
-                builder.AppendIdendityName(GetPerson(chat, e.Who));
+                builder.AppendFormat(_("You were kicked from {0} by {1}"),
+                                     e.Channel, GetPerson(chat, e.Who));
                 builder.AppendText(" [").AppendMessage(e.KickReason).AppendText("]");
                 Session.AddMessageToChat(chat, builder.ToMessage());
                 Session.DisableChat(chat);
             } else {
                 PersonModel user = chat.GetPerson(e.Whom);
                 Session.RemovePersonFromGroupChat(chat, user);
-                builder.AppendIdendityName(GetPerson(chat, e.Whom));
-                // TRANSLATOR: do NOT change the position of {0} and {2}!
-                builder.AppendText(_("{0} was kicked from {1} by {2}"),
-                                   String.Empty, e.Channel, String.Empty);
-                builder.AppendIdendityName(GetPerson(chat, e.Who));
+                builder.AppendFormat(_("{0} was kicked from {1} by {2}"),
+                                     GetPerson(chat, e.Whom), e.Channel, GetPerson(chat, e.Who));
                 builder.AppendText(" [").AppendMessage(e.KickReason).AppendText("]");
                 Session.AddMessageToChat(chat, builder.ToMessage());
             }
@@ -3306,10 +3286,8 @@ namespace Smuxi.Engine
 
                 var builder = CreateMessageBuilder();
                 builder.AppendEventPrefix();
-                // TRANSLATOR: do NOT change the position of {0}!
-                builder.AppendText(_("You're now known as {0}"),
-                                  String.Empty);
-                builder.AppendIdendityName(CreatePerson(e.NewNickname));
+                builder.AppendFormat(_("You're now known as {0}"),
+                                     CreatePerson(e.NewNickname));
 
                 Session.AddMessageToChat(_NetworkChat, builder.ToMessage());
             }
@@ -3340,17 +3318,13 @@ namespace Smuxi.Engine
                 var builder = CreateMessageBuilder();
                 builder.AppendEventPrefix();
                 if (e.Data.Irc.IsMe(e.NewNickname)) {
-                    // TRANSLATOR: do NOT change the position of {0}!
-                    builder.AppendText(_("You're now known as {0}"),
-                                       String.Empty);
+                    builder.AppendFormat(_("You're now known as {0}"),
+                                         newPerson);
                 } else {
-                    builder.AppendIdendityName(oldPerson);
-                    // TRANSLATOR: do NOT change the position of {0} or {1}!
-                    builder.AppendText(_("{0} is now known as {1}"),
-                                       String.Empty,
-                                       String.Empty);
+                    builder.AppendFormat(_("{0} is now known as {1}"),
+                                         oldPerson,
+                                         newPerson);
                 }
-                builder.AppendIdendityName(newPerson);
                 Session.AddMessageToChat(groupChat, builder.ToMessage());
             }
         }
@@ -3373,17 +3347,16 @@ namespace Smuxi.Engine
             builder = CreateMessageBuilder();
             builder.AppendEventPrefix();
 
+            MessagePartModel who;
             if (String.IsNullOrEmpty(e.Who)) {
                 // server changed topic
-                builder.AppendText(e.Data.From);
+                who = builder.CreateText(e.Data.From);
             } else {
-                builder.AppendIdendityName(GetPerson(cchat, e.Who));
+                who = builder.CreateIdendityName(GetPerson(cchat, e.Who));
             }
 
-            // TRANSLATOR: do NOT change the position of {0} and {2}!
-            builder.AppendText(_("{0} changed the topic of {1} to: {2}"),
-                             String.Empty, e.Channel, String.Empty);
-            builder.AppendMessage(e.NewTopic);
+            builder.AppendFormat(_("{0} changed the topic of {1} to: {2}"),
+                                 who, e.Channel, e.NewTopic);
             Session.AddMessageToChat(cchat, builder.ToMessage());
         }
 
@@ -3544,10 +3517,8 @@ namespace Smuxi.Engine
                     who = e.Data.Irc.Nickname;
                     target = _NetworkChat;
 
-                    // TRANSLATOR: do NOT change the position of {1}!
-                    builder.AppendText(_("Mode change [{0}] for user {1}"),
-                                       modechange, String.Empty);
-                    builder.AppendIdendityName(CreatePerson(who));
+                    builder.AppendFormat(_("Mode change [{0}] for user {1}"),
+                                         modechange, CreatePerson(who));
                     break;
                 case ReceiveType.ChannelModeChange:
                     modechange = String.Join(" ", e.Data.RawMessageArray, 3,
@@ -3555,18 +3526,16 @@ namespace Smuxi.Engine
                     target = GetChat(e.Data.Channel, ChatType.Group) ?? Chat;
                     UpdateGroupPerson(target, e.Data);
 
-                    // TRANSLATOR: do NOT change the position of {2}!
-                    builder.AppendText(_("mode/{0} [{1}] by {2}"),
-                                       e.Data.Channel, modechange, String.Empty);
-
+                    MessagePartModel whoMsgPart;
                     if (e.Data.Nick != null && e.Data.Nick.Length > 0) {
-                        who = e.Data.Nick;
-                        builder.AppendIdendityName(GetPerson(target, who));
+                        whoMsgPart = builder.CreateIdendityName(GetPerson(target, e.Data.Nick));
                     } else {
                         // server changed mode
-                        who = e.Data.From;
-                        builder.AppendText(who);
+                        whoMsgPart = builder.CreateText(e.Data.From);
                     }
+
+                    builder.AppendFormat(_("mode/{0} [{1}] by {2}"),
+                                         e.Data.Channel, modechange, whoMsgPart);
                     break;
             }
 
@@ -3591,12 +3560,10 @@ namespace Smuxi.Engine
             } else {
                 var builder = CreateMessageBuilder();
                 builder.AppendEventPrefix();
-                builder.AppendIdendityName(CreatePerson(e.Who));
-                // TRANSLATOR: do NOT change the position of {0}!
-                builder.AppendText(_("{0} [{1}] has quit"),
-                                   String.Empty,
-                                   String.Format("{0}@{1}",
-                                                 e.Data.Ident, e.Data.Host));
+                builder.AppendFormat(_("{0} [{1}] has quit"),
+                                     CreatePerson(e.Who),
+                                     String.Format("{0}@{1}",
+                                                   e.Data.Ident, e.Data.Host));
                 builder.AppendText(" [");
                 // colors are annoying in quit messages
                 builder.StripColors = true;
