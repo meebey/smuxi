@@ -103,5 +103,154 @@ namespace Smuxi.Engine
             var actualMsg = builder.ToMessage();
             Assert.AreEqual(expectedMsg, actualMsg);
         }
+
+
+        [Test]
+        public void AppendFormatWithoutPlaceholders()
+        {
+            var builder = new MessageBuilder();
+            builder.TimeStamp = DateTime.MinValue;
+            builder.AppendText("I hope this works");
+            var expectedMsg = builder.ToMessage();
+
+            builder = new MessageBuilder();
+            builder.TimeStamp = DateTime.MinValue;
+            builder.AppendFormat("I hope this works");
+            var actualMsg = builder.ToMessage();
+
+            Assert.AreEqual(expectedMsg, actualMsg);
+        }
+
+
+        [Test]
+        public void AppendFormatWithStrings()
+        {
+            var builder = new MessageBuilder();
+            builder.TimeStamp = DateTime.MinValue;
+            builder.AppendText("The quick brown fox jumps over the lazy dog.");
+            var expectedMsg = builder.ToMessage();
+
+            builder = new MessageBuilder();
+            builder.TimeStamp = DateTime.MinValue;
+            builder.AppendFormat("The quick brown {0} jumps over the lazy {1}.", "fox", "dog");
+            var actualMsg = builder.ToMessage();
+
+            Assert.AreEqual(expectedMsg, actualMsg);
+        }
+
+
+        [Test]
+        public void AppendFormatWithRepeatedStrings()
+        {
+            var builder = new MessageBuilder();
+            builder.TimeStamp = DateTime.MinValue;
+            builder.AppendText("The quick brown fox jumps over the lazy fox.");
+            var expectedMsg = builder.ToMessage();
+
+            builder = new MessageBuilder();
+            builder.TimeStamp = DateTime.MinValue;
+            builder.AppendFormat("The quick brown {0} jumps over the lazy {0}.", "fox", "dog");
+            var actualMsg = builder.ToMessage();
+
+            Assert.AreEqual(expectedMsg, actualMsg);
+        }
+
+
+        [Test]
+        public void AppendFormatWithBracedStrings()
+        {
+            var builder = new MessageBuilder();
+            builder.TimeStamp = DateTime.MinValue;
+            builder.AppendText("{{virtual hugs}}");
+            var expectedMsg = builder.ToMessage();
+
+            builder = new MessageBuilder();
+            builder.TimeStamp = DateTime.MinValue;
+            builder.AppendFormat("{{{{{0} hugs}}}}", "virtual");
+            var actualMsg = builder.ToMessage();
+
+            Assert.AreEqual(expectedMsg, actualMsg);
+        }
+
+
+        [Test]
+        public void AppendFormatWithSubmessage()
+        {
+            var builder = new MessageBuilder();
+            builder.TimeStamp = DateTime.MinValue;
+            builder.AppendText("I wonder if I can trick this bot to op me.");
+            var expectedMsg = builder.ToMessage();
+
+            builder = new MessageBuilder();
+            builder.TimeStamp = DateTime.MinValue;
+            builder.AppendText("op");
+            var insideMsg = builder.ToMessage();
+
+            builder = new MessageBuilder();
+            builder.TimeStamp = DateTime.MinValue;
+            builder.AppendFormat("I wonder if I can trick this bot to {0} me.", insideMsg);
+            var actualMsg = builder.ToMessage();
+
+            Assert.AreEqual(expectedMsg, actualMsg);
+        }
+
+
+        [Test]
+        [ExpectedException(typeof(System.FormatException))]
+        public void AppendFormatMissingClosingBrace()
+        {
+            var builder = new MessageBuilder();
+            builder.AppendFormat("Hello, {0!", "world");
+        }
+
+        [Test]
+        [ExpectedException(typeof(System.FormatException))]
+        public void AppendFormatMissingOpeningBrace()
+        {
+            var builder = new MessageBuilder();
+            builder.AppendFormat("Hello, 0}!", "world");
+        }
+
+        [Test]
+        [ExpectedException(typeof(System.FormatException))]
+        public void AppendFormatPlaceholderOverflow()
+        {
+            var builder = new MessageBuilder();
+            builder.AppendFormat("Hello, {1}!", "world");
+        }
+
+        [Test]
+        [ExpectedException(typeof(System.FormatException))]
+        public void AppendFormatNegativePlaceholder()
+        {
+            var builder = new MessageBuilder();
+            builder.AppendFormat("Hello, {-1}!", "world");
+        }
+
+        [Test]
+        [ExpectedException(typeof(System.FormatException))]
+        public void AppendFormatNonIntegerPlaceholder()
+        {
+            var builder = new MessageBuilder();
+            builder.AppendFormat("Hello, {zeroth}!", "world");
+        }
+
+        [Test]
+        [ExpectedException(typeof(System.FormatException))]
+        public void AppendFormatNonIntegerBraceChaos()
+        {
+            // "{{" -> escaped brace, verbatim text
+            // "{{" -> escaped brace, verbatim text
+            // "virtual " -> verbatim text
+            // "{" -> placeholder starts
+            // "0" -> placeholder text
+            // "}}" -> escaped brace, placeholder text
+            // "}}" -> escaped brace, placeholder text
+            // "}" -> placeholder ends
+            // => invalid placeholder name "0}}"
+            // (same behavior as String.Format)
+            var builder = new MessageBuilder();
+            builder.AppendFormat("{{{{virtual {0}}}}}", "hugs");
+        }
     }
 }
