@@ -266,6 +266,9 @@ namespace Smuxi.Frontend.Gnome
                 case "IRC":
                     f_PortSpinButton.Value = useEncryption ? 6697 : 6667;
                     break;
+                case "JabbR":
+                    f_PortSpinButton.Value = useEncryption ? 443 : 80;
+                    break;
             }
         }
 
@@ -340,6 +343,19 @@ namespace Smuxi.Frontend.Gnome
                     f_HostnameEntry.Text = ".campfirenow.com";
                     f_HostnameEntry.Sensitive = true;
                     f_PortSpinButton.Value = 0;
+                    f_NetworkComboBoxEntry.Entry.Text = String.Empty;
+                    f_PasswordEntry.Text = String.Empty;
+                    break;
+                case "JabbR":
+                    ShowHostname = true;
+                    ShowNetwork = false;
+                    ShowPassword = true;
+                    SupportUseEncryption = true;
+
+                    f_HostnameEntry.Text = "jabbr.net";
+                    f_HostnameEntry.Sensitive = true;
+                    f_PortSpinButton.Sensitive = true;
+                    f_UseEncryptionCheckButton.Active = true;
                     f_NetworkComboBoxEntry.Entry.Text = String.Empty;
                     f_PasswordEntry.Text = String.Empty;
                     break;

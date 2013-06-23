@@ -1,6 +1,6 @@
 // Smuxi - Smart MUltipleXed Irc
 // 
-// Copyright (c) 2012 Mirco Bauer <meebey@meebey.net>
+// Copyright (c) 2012-2013 Mirco Bauer <meebey@meebey.net>
 // 
 // Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
 // 
@@ -152,9 +152,12 @@ namespace Smuxi.Engine
                     server.Hostname.StartsWith("https://")) {
                     url = server.Hostname;
                 } else {
-                    if (server.Port == 443) {
+                    if (server.UseEncryption && server.Port == 443) {
                         url = String.Format("https://{0}", server.Hostname);
-                    } else if (server.Port == 80) {
+                    } else if (server.UseEncryption) {
+                        url = String.Format("https://{0}:{1}",
+                                            server.Hostname, server.Port);
+                    } else if (!server.UseEncryption && server.Port == 80) {
                         url = String.Format("http://{0}", server.Hostname);
                     } else {
                         url = String.Format("http://{0}:{1}",
