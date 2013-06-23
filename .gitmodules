@@ -25,6 +25,6 @@
 [submodule "lib/SignalR"]
 	path = lib/SignalR
 	url = git://git.qnetp.net/SignalR.git
-[submodule "lib/JabbR.Client"]
-	path = lib/JabbR.Client
-	url = git://git.qnetp.net/JabbR.Client.git
+[submodule "lib/JabbR"]
+	path = lib/JabbR
+	url = git://git.qnetp.net/JabbR.git

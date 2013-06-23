@@ -44,13 +44,13 @@
       <Project>{73DEF91D-03FF-41E3-B2E1-3259AF247CA7}</Project>
       <Name>Common</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\lib\JabbR.Client\JabbR.Client\JabbR.Client.csproj">
+    <ProjectReference Include="..\..\lib\SignalR\src\Microsoft.AspNet.SignalR.Client\Microsoft.AspNet.SignalR.Client.csproj">
+      <Project>{EB46B9C6-EE37-48F9-835E-E49580E40E0A}</Project>
+      <Name>Microsoft.AspNet.SignalR.Client</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\lib\JabbR\JabbR.Client\JabbR.Client.csproj">
       <Project>{A4A1D183-FD80-4DBD-806F-883DDADD4967}</Project>
       <Name>JabbR.Client</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\lib\SignalR\SignalR.Client\SignalR.Client.csproj">
-      <Project>{EB46B9C6-EE37-48F9-835E-E49580E40E0A}</Project>
-      <Name>SignalR.Client</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

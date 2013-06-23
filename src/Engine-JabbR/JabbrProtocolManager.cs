@@ -22,7 +22,8 @@ using System;
 using System.Collections.Generic;
 using JabbR.Client;
 using JabbR.Client.Models;
-using SignalR.Client.Transports;
+using Microsoft.AspNet.SignalR.Client.Transports;
+using Microsoft.AspNet.SignalR.Client.Http;
 using Smuxi.Common;
 
 namespace Smuxi.Engine
@@ -163,18 +164,18 @@ namespace Smuxi.Engine
                 // HACK: SignalR's ServerSentEventsTransport times out on Mono
                 // for some reason and then fallbacks to LongPollingTransport
                 // this takes 10 seconds though, so let's go LP directly
-                IClientTransport transport = null;
+                Func<IClientTransport> transport = null;
                 if (Type.GetType("Mono.Runtime") != null) {
-                    transport = new LongPollingTransport();
+                    transport = () => new LongPollingTransport();
                 }
-                Client = new JabbRClient(url, transport);
+                var authProvider = new DefaultAuthenticationProvider(url);
+                Client = new JabbRClient(url, authProvider, transport);
                 Client.MessageReceived += OnMessageReceived;
                 Client.MeMessageReceived += OnMeMessageReceived;
                 Client.UserLeft += OnUserLeft;
                 Client.UserJoined += OnUserJoined;
                 Client.JoinedRoom += OnJoinedRoom;
                 Client.PrivateMessage += OnPrivateMessage;
-                Client.Disconnected += OnDisconnected;
 
                 var msg = CreateMessageBuilder().
                     AppendEventPrefix().
@@ -185,6 +186,9 @@ namespace Smuxi.Engine
                 Username = server.Username;
                 var res = Client.Connect(server.Username, server.Password);
                 res.Wait();
+                // HACK: this event can only be subscribed if we have made an
+                // actual connection o_O
+                Client.Disconnected += OnDisconnected;
                 IsConnected = true;
                 OnConnected(EventArgs.Empty);
                 OnLoggedOn(res.Result.Rooms);
@@ -406,9 +410,9 @@ namespace Smuxi.Engine
             Session.AddMessageToChat(chat, msg);
         }
 
-        void OnUserJoined(User user, string room)
+        void OnUserJoined(User user, string room, bool isOwner)
         {
-            Trace.Call(user, room);
+            Trace.Call(user, room, isOwner);
 
             var chat = (GroupChatModel) GetChat(room, ChatType.Group);
             if (chat == null) {
@@ -416,8 +420,15 @@ namespace Smuxi.Engine
             }
 
             var person = CreatePerson(user.Name);
-            chat.UnsafePersons.Add(user.Name, person);
-            Session.AddPersonToGroupChat(chat, person);
+            lock (chat) {
+                if (chat.Persons.ContainsKey(person.ID)) {
+#if LOG4NET
+                    Logger.Warn("OnUserJoined(): person already on chat, ignoring...");
+#endif
+                    return;
+                }
+                Session.AddPersonToGroupChat(chat, person);
+            }
         }
 
         void OnUserLeft(User user, string room)
@@ -435,7 +446,7 @@ namespace Smuxi.Engine
             }
 
             PersonModel person = null;
-            if (chat.UnsafePersons.TryGetValue(user.Name, out person)) {
+            if (chat.Persons.TryGetValue(user.Name, out person)) {
                 Session.RemovePersonFromGroupChat(chat, person);
             }
         }
