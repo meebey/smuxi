@@ -389,6 +389,10 @@ namespace Smuxi.Engine
                         CommandShutdown(cd);
                         handled = true;
                         break;
+                    case "echo":
+                        CommandEcho(cd);
+                        handled = true;
+                        break;
                 }
             } else {
                 // normal text
@@ -732,6 +736,25 @@ namespace Smuxi.Engine
             f_Logger.Debug("Terminating process...");
 #endif
             Environment.Exit(0);
+        }
+
+        public void CommandEcho(CommandModel cmd)
+        {
+            Trace.Call(cmd);
+
+            if (cmd == null) {
+                throw new ArgumentNullException("cmd");
+            }
+
+            var msg = new MessageBuilder().
+                AppendEventPrefix().
+                    AppendText(cmd.Parameter).
+                    ToMessage();
+            if (cmd.FrontendManager == null) {
+                AddMessageToChat(cmd.Chat, msg, true);
+            } else {
+                cmd.FrontendManager.AddMessageToChat(cmd.Chat, msg);
+            }
         }
 
         public void CommandNetwork(CommandModel cd)
