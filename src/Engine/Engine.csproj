@@ -97,6 +97,7 @@
     <Compile Include="Messages\FeedMessageBuilder.cs" />
     <Compile Include="Config\ProxySettings.cs" />
     <Compile Include="TextColorPalettes.cs" />
+    <Compile Include="Servers\JabbR\JabbRHub.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Protocols\" />
@@ -106,6 +107,8 @@
     <Folder Include="Config\" />
     <Folder Include="Persons\" />
     <Folder Include="MessageBuffers\" />
+    <Folder Include="Servers\" />
+    <Folder Include="Servers\JabbR\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\po-Engine\da.po" />
