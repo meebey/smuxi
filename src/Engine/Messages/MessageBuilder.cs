@@ -20,6 +20,7 @@
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA
 
 using System;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Collections.Generic;
 using System.IO;
@@ -103,6 +104,18 @@ namespace Smuxi.Engine
             }
 
             Message.MessageParts.Add(msgPart);
+            return this;
+        }
+
+        public virtual MessageBuilder Append(IEnumerable<MessagePartModel> msgParts)
+        {
+            if (msgParts == null) {
+                throw new ArgumentNullException("msgParts");
+            }
+
+            foreach (var part in msgParts) {
+                Append(part);
+            }
             return this;
         }
 
@@ -627,6 +640,123 @@ namespace Smuxi.Engine
                 return this;
             }
             ParseHtml(doc, new TextMessagePartModel());
+            return this;
+        }
+
+        public virtual IList<MessagePartModel> CreateFormat(string format, params object[] objs)
+        {
+            if (format == null) {
+                throw new ArgumentNullException("format");
+            }
+            if (objs == null) {
+                throw new ArgumentNullException("objs");
+            }
+
+            var parts = new List<MessagePartModel>();
+            var assembling = new StringBuilder(format.Length);
+            var inPlaceholder = false;
+
+            for (int i = 0; i < format.Length; ++i) {
+                char c = format[i];
+                char peek = (i < format.Length-1) ? format[i+1] : '\0';
+
+                if (c == '{') {
+                    if (peek == '{') {
+                        // escaped brace
+                        assembling.Append('{');
+
+                        // skip the second brace too
+                        ++i;
+                    } else if (!inPlaceholder) {
+                        // we're parsing a placeholder here
+
+                        // first, append the currently assembled string
+                        parts.Add(CreateText(assembling.ToString()));
+
+                        // we will now assemble the placeholder text
+                        assembling.Clear();
+                        inPlaceholder = true;
+                    } else {
+                        // nested formatting?!
+                        throw new System.FormatException("nested formatting is forbidden");
+                    }
+                } else if (c == '}') {
+                    if (peek == '}') {
+                        // escaped brace
+                        assembling.Append('}');
+
+                        // skip the second brace too
+                        ++i;
+                    } else if (inPlaceholder) {
+                        // substitute the placeholder
+
+                        var placeholderText = assembling.ToString();
+                        uint placeholderInt;
+
+                        if (!uint.TryParse(placeholderText, out placeholderInt)) {
+                            // that's not even an integer...
+                            throw new System.FormatException("format placeholder must be an integer >= 0 in braces");
+                        }
+                        if (placeholderInt >= objs.Length) {
+                            // placeholder out of bounds
+                            throw new System.FormatException("format placeholder number is greater than the array");
+                        }
+
+                        var placeMe = objs[placeholderInt];
+                        if (placeMe == null) {
+                            throw new System.FormatException("null object in objs array");
+                        } else if (placeMe is String) {
+                            // append strings as-is
+                            parts.Add(CreateText((String) placeMe));
+                        } else if (placeMe is ContactModel) {
+                            // append contacts as their identity names
+                            parts.Add(CreateIdendityName((ContactModel) placeMe));
+                        } else if (placeMe is MessagePartModel) {
+                            // append the part verbatim
+                            parts.Add((MessagePartModel) placeMe);
+                        } else if (placeMe is MessageModel) {
+                            // append all parts of the message
+                            foreach (var part in ((MessageModel) placeMe).MessageParts) {
+                                parts.Add(part);
+                            }
+                        } else {
+                            // no idea how to format this
+                            throw new System.FormatException("unknown object type to format: " + placeMe.GetType().ToString());
+                        }
+
+                        // we are done with this placeholder
+                        assembling.Clear();
+                        inPlaceholder = false;
+                    } else {
+                        // closing brace without opening brace
+                        throw new System.FormatException("format placeholder closing brace without corresponding opening brace");
+                    }
+                } else {
+                    // simply append
+                    assembling.Append(c);
+                }
+            }
+
+            // done parsing
+
+            if (inPlaceholder) {
+                // unterminated brace
+                throw new System.FormatException("format placeholder opening brace without corresponding closing brace");
+            }
+
+            if (assembling.Length > 0) {
+                // bit of text at the end
+                parts.Add(CreateText(assembling.ToString()));
+            }
+
+            return parts;
+        }
+
+        public virtual MessageBuilder AppendFormat(string format, params object[] objs)
+        {
+            foreach (var part in CreateFormat(format, objs)) {
+                Append(part);
+            }
             return this;
         }
     }
