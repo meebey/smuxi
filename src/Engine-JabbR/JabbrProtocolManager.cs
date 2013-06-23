@@ -136,7 +136,7 @@ namespace Smuxi.Engine
                     AppendErrorText(_("Joining room failed. Reason: {0}"),
                                     ex.Message).
                     ToMessage();
-                cmd.FrontendManager.AddMessageToChat(cmd.Chat, msg);
+                Session.AddMessageToFrontend(cmd, msg);
             }
         }
 
@@ -162,7 +162,7 @@ namespace Smuxi.Engine
                     AppendErrorText(_("Sending message failed. Reason: {0}"),
                                     ex.Message).
                     ToMessage();
-                cmd.FrontendManager.AddMessageToChat(cmd.Chat, msg);
+                Session.AddMessageToFrontend(cmd, msg);
             }
         }
 

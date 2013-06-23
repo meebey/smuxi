@@ -99,6 +99,14 @@
     <Compile Include="TextColorPalettes.cs" />
     <Compile Include="Servers\JabbR\JabbRHub.cs" />
     <Compile Include="CertificateValidator.cs" />
+    <Compile Include="Hooks\HookRunner.cs" />
+    <Compile Include="Hooks\Environments\HookEnvironment.cs" />
+    <Compile Include="Hooks\Environments\ChatHookEnvironment.cs" />
+    <Compile Include="Hooks\Environments\MessageHookEnvironment.cs" />
+    <Compile Include="Hooks\Environments\ProtocolManagerHookEnvironment.cs" />
+    <Compile Include="Hooks\Commands\HookCommand.cs" />
+    <Compile Include="Hooks\Commands\ProtocolManagerHookCommand.cs" />
+    <Compile Include="Hooks\Commands\SessionHookCommand.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Protocols\" />
@@ -110,6 +118,9 @@
     <Folder Include="MessageBuffers\" />
     <Folder Include="Servers\" />
     <Folder Include="Servers\JabbR\" />
+    <Folder Include="Hooks\" />
+    <Folder Include="Hooks\Commands\" />
+    <Folder Include="Hooks\Environments\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\po-Engine\da.po" />

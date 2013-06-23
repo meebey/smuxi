@@ -1,6 +1,6 @@
 // Smuxi - Smart MUltipleXed Irc
 // 
-// Copyright (c) 2009-2011 Mirco Bauer <meebey@meebey.net>
+// Copyright (c) 2009-2013 Mirco Bauer <meebey@meebey.net>
 // 
 // Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
 // 
@@ -153,9 +153,6 @@ namespace Smuxi.Engine
         {
             Trace.Call(fm, server);
 
-            if (fm == null) {
-                throw new ArgumentNullException("fm");
-            }
             if (server == null) {
                 throw new ArgumentNullException("server");
             }
@@ -206,10 +203,13 @@ namespace Smuxi.Engine
                 }
             }
 
-            string msg;
-            msg = String.Format(_("Connecting to Twitter..."));
-            fm.SetStatus(msg);
-            Session.AddTextToChat(f_ProtocolChat, "-!- " + msg);
+            string msgStr = _("Connecting to Twitter...");
+            if (fm != null) {
+                fm.SetStatus(msgStr);
+            }
+            var msg = CreateMessageBuilder().
+                AppendEventPrefix().AppendText(msgStr).ToMessage();
+            Session.AddMessageToChat(Chat, msg);
             try {
                 var key = GetApiKey();
                 f_OAuthTokens = new OAuthTokens();
@@ -282,10 +282,16 @@ namespace Smuxi.Engine
 #if LOG4NET
                 f_Logger.Error("Connect(): Exception", ex);
 #endif
-                fm.SetStatus(_("Connection failed!"));
-                Session.AddTextToChat(f_ProtocolChat,
-                    "-!- " + _("Connection failed! Reason: ") + ex.Message
-                );
+                if (fm != null) {
+                    fm.SetStatus(_("Connection failed!"));
+                }
+                msg = CreateMessageBuilder().
+                    AppendEventPrefix().
+                    AppendErrorText(
+                        _("Connection failed! Reason: {0}"),
+                        ex.Message).
+                    ToMessage();
+                Session.AddMessageToChat(Chat, msg);
                 return;
             }
 
@@ -298,18 +304,26 @@ namespace Smuxi.Engine
                     }
                     
                     var message = _("Fetching user details from Twitter, please wait...");
-                    Session.AddTextToChat(f_ProtocolChat, "-!- " + message);
+                    msg = CreateMessageBuilder().
+                        AppendEventPrefix().AppendText(message).ToMessage();
+                    Session.AddMessageToChat(Chat, msg);
 
                     UpdateUser();
 
                     message = _("Finished fetching user details.");
-                    Session.AddTextToChat(f_ProtocolChat, "-!- " + message);
+                    msg = CreateMessageBuilder().
+                        AppendEventPrefix().AppendText(message).ToMessage();
+                    Session.AddMessageToChat(Chat, msg);
 
                     f_IsConnected = true;
-                    fm.UpdateNetworkStatus();
-                    msg =_("Successfully connected to Twitter.");
-                    fm.SetStatus(msg);
-                    Session.AddTextToChat(f_ProtocolChat, "-!- " + msg);
+                    message =_("Successfully connected to Twitter.");
+                    if (fm != null) {
+                        fm.UpdateNetworkStatus();
+                        fm.SetStatus(message);
+                    }
+                    msg = CreateMessageBuilder().
+                        AppendEventPrefix().AppendText(message).ToMessage();
+                    Session.AddMessageToChat(Chat, msg);
                     f_Listening = true;
 
                     f_FriendsTimelineChat.PersonCount = 
@@ -320,12 +334,21 @@ namespace Smuxi.Engine
 #if LOG4NET
                     f_Logger.Error("Connect(): " + message, ex);
 #endif
-                    Session.AddTextToChat(f_ProtocolChat, "-!- " + message + ex.Message);
+                    msg = CreateMessageBuilder().
+                        AppendEventPrefix().
+                        AppendErrorText(message + ex.Message).
+                        ToMessage();
+                    Session.AddMessageToChat(Chat, msg);
 
-                    fm.SetStatus(_("Connection failed!"));
-                    Session.AddTextToChat(f_ProtocolChat,
-                        "-!- " + _("Connection failed! Reason: ") + ex.Message
-                    );
+                    if (fm != null) {
+                        fm.SetStatus(_("Connection failed!"));
+                    }
+                    msg = CreateMessageBuilder().
+                        AppendEventPrefix().
+                        AppendErrorText(_("Connection failed! Reason: {0}"),
+                                        ex.Message).
+                        ToMessage();
+                    Session.AddMessageToChat(Chat, msg);
                 }
             });
             ThreadPool.QueueUserWorkItem(delegate {
@@ -337,19 +360,31 @@ namespace Smuxi.Engine
                         Thread.Sleep(1000);
                     }
 
-                    var message = _("Fetching friends from Twitter, please wait...");
-                    Session.AddTextToChat(f_ProtocolChat, "-!- " + message);
+                    msg = CreateMessageBuilder().
+                        AppendEventPrefix().
+                        AppendText(
+                            _("Fetching friends from Twitter, please wait...")
+                        ).
+                        ToMessage();
+                    Session.AddMessageToChat(Chat, msg);
 
                     UpdateFriends();
 
-                    message = _("Finished fetching friends.");
-                    Session.AddTextToChat(f_ProtocolChat, "-!- " + message);
+                    msg = CreateMessageBuilder().
+                        AppendEventPrefix().
+                        AppendText(_("Finished fetching friends.")).
+                        ToMessage();
+                    Session.AddMessageToChat(Chat, msg);
                 } catch (Exception ex) {
                     var message = _("Failed to fetch friends from Twitter. Reason: ");
 #if LOG4NET
                     f_Logger.Error("Connect(): " + message, ex);
 #endif
-                    Session.AddTextToChat(f_ProtocolChat, "-!- " + message + ex.Message);
+                    msg = CreateMessageBuilder().
+                        AppendEventPrefix().
+                        AppendErrorText(message + ex.Message).
+                        ToMessage();
+                    Session.AddMessageToChat(Chat, msg);
                 }
             });
 
@@ -623,7 +658,7 @@ namespace Smuxi.Engine
             // TRANSLATOR: this line is used as a label / category for a
             // list of commands below
             builder.AppendHeader(_("Twitter Commands"));
-            cd.FrontendManager.AddMessageToChat(cd.Chat, builder.ToMessage());
+            Session.AddMessageToFrontend(cd, builder.ToMessage());
 
             string[] help = {
                 "connect twitter username",
@@ -634,7 +669,7 @@ namespace Smuxi.Engine
                 builder = CreateMessageBuilder();
                 builder.AppendEventPrefix();
                 builder.AppendText(line);
-                cd.FrontendManager.AddMessageToChat(cd.Chat, builder.ToMessage());
+                Session.AddMessageToFrontend(cd, builder.ToMessage());
             }
         }
 
@@ -766,30 +801,35 @@ namespace Smuxi.Engine
 
         public void CommandSay(CommandModel cmd)
         {
-            FrontendManager fm = cmd.FrontendManager;
             if (cmd.Chat.ChatType == ChatType.Group) {
                 TwitterChatType twitterChatType = (TwitterChatType)
                     Enum.Parse(typeof(TwitterChatType), cmd.Chat.ID);
                 switch (twitterChatType) {
                     case TwitterChatType.FriendsTimeline:
-                    case TwitterChatType.Replies:
+                    case TwitterChatType.Replies: {
                         try {
                             PostUpdate(cmd.Data);
                         } catch (Exception ex) {
-                            fm.AddTextToChat(cmd.Chat, "-!- " +
-                                String.Format(_("Could not update status - Reason: {0}"),
-                                              ex.Message)
-                            );
+                            var msg = CreateMessageBuilder().
+                                AppendEventPrefix().
+                                AppendErrorText(
+                                    _("Could not update status - Reason: {0}"),
+                                    ex.Message).
+                                ToMessage();
+                            Session.AddMessageToFrontend(cmd, msg);
                         }
                         break;
-                    case TwitterChatType.DirectMessages:
-                        fm.AddTextToChat(
-                            cmd.Chat,
-                            "-!- " +
-                            _("Cannot send message - no target specified. "+
-                              "Use: /msg $nick message")
-                        );
+                    }
+                    case TwitterChatType.DirectMessages: {
+                        var msg = CreateMessageBuilder().
+                            AppendEventPrefix().
+                            AppendErrorText(
+                                _("Cannot send message - no target specified. " +
+                                  "Use: /msg $nick message")).
+                            ToMessage();
+                        Session.AddMessageToFrontend(cmd, msg);
                         break;
+                    }
                 }
             } else if (cmd.Chat.ChatType == ChatType.Person) {
                 try {
@@ -798,10 +838,13 @@ namespace Smuxi.Engine
 #if LOG4NET
                     f_Logger.Error(ex);
 #endif
-                    fm.AddTextToChat(cmd.Chat, "-!- " +
-                        String.Format(_("Could not send message - Reason: {0}"),
-                                      ex.Message)
-                    );
+                    var msg = CreateMessageBuilder().
+                        AppendEventPrefix().
+                        AppendErrorText(
+                            _("Could not send message - Reason: {0}"),
+                            ex.Message).
+                        ToMessage();
+                    Session.AddMessageToFrontend(cmd, msg);
                 }
             } else {
                 // ignore protocol chat
@@ -810,7 +853,6 @@ namespace Smuxi.Engine
 
         public void CommandMessage(CommandModel cmd)
         {
-            FrontendManager fm = cmd.FrontendManager;
             string nickname;
             if (cmd.DataArray.Length >= 2) {
                 nickname = cmd.DataArray[1];
@@ -822,9 +864,12 @@ namespace Smuxi.Engine
             var response = TwitterUser.Show(f_OAuthTokens, nickname,
                                             f_OptionalProperties);
             if (response.Result != RequestResult.Success) {
-                fm.AddTextToChat(cmd.Chat, "-!- " +
-                    _("Could not send message - the specified user does not exist.")
-                );
+                var msg = CreateMessageBuilder().
+                    AppendEventPrefix().
+                    AppendErrorText(_("Could not send message - the " +
+                                      "specified user does not exist.")).
+                    ToMessage();
+                Session.AddMessageToFrontend(cmd, msg);
                 return;
             }
             var user = response.ResponseObject;
@@ -835,10 +880,13 @@ namespace Smuxi.Engine
                 try {
                     SendMessage(user.ScreenName, message);
                 } catch (Exception ex) {
-                    fm.AddTextToChat(chat, "-!- " +
-                        String.Format(_("Could not send message - Reason: {0}"),
-                                      ex.Message)
-                    );
+                    var msg = CreateMessageBuilder().
+                        AppendEventPrefix().
+                        AppendErrorText(
+                            _("Could not send message - Reason: {0}"),
+                            ex.Message).
+                        ToMessage();
+                    Session.AddMessageToFrontend(cmd.FrontendManager, chat, msg);
                 }
             }
          }
@@ -912,8 +960,14 @@ namespace Smuxi.Engine
 #if LOG4NET
                 f_Logger.Error("UpdateFriendsTimelineThread(): Exception", ex);
 #endif
-                string msg =_("An error occurred while fetching the friends timeline from Twitter. Reason: ");
-                Session.AddTextToChat(f_ProtocolChat, "-!- " + msg + ex.Message);
+                var msg = CreateMessageBuilder().
+                    AppendEventPrefix().
+                    AppendErrorText(
+                        _("An error occurred while fetching the friends " +
+                          "timeline from Twitter. Reason: {0}"),
+                        ex.Message).
+                    ToMessage();
+                Session.AddMessageToChat(Chat, msg);
             } finally {
 #if LOG4NET
                 f_Logger.Debug("UpdateFriendsTimelineThread(): finishing thread.");
@@ -1019,8 +1073,14 @@ namespace Smuxi.Engine
 #if LOG4NET
                 f_Logger.Error("UpdateRepliesThread(): Exception", ex);
 #endif
-                string msg =_("An error occurred while fetching the replies from Twitter. Reason: ");
-                Session.AddTextToChat(f_ProtocolChat, "-!- " + msg + ex.Message);
+                var msg = CreateMessageBuilder().
+                    AppendEventPrefix().
+                    AppendErrorText(
+                        _("An error occurred while fetching the replies " +
+                          "from Twitter. Reason: {0}"),
+                        ex.Message).
+                    ToMessage();
+                Session.AddMessageToChat(Chat, msg);
             } finally {
 #if LOG4NET
                 f_Logger.Debug("UpdateRepliesThread(): finishing thread.");
@@ -1115,8 +1175,14 @@ namespace Smuxi.Engine
 #if LOG4NET
                 f_Logger.Error("UpdateDirectMessagesThread(): Exception", ex);
 #endif
-                string msg =_("An error occurred while fetching direct messages from Twitter. Reason: ");
-                Session.AddTextToChat(f_ProtocolChat, "-!- " + msg + ex.Message);
+                var msg = CreateMessageBuilder().
+                    AppendEventPrefix().
+                    AppendErrorText(
+                        _("An error occurred while fetching direct messages " +
+                          "from Twitter. Reason: {0}"),
+                        ex.Message).
+                    ToMessage();
+                Session.AddMessageToChat(Chat, msg);
             } finally {
 #if LOG4NET
                 f_Logger.Debug("UpdateDirectMessagesThread(): finishing thread.");

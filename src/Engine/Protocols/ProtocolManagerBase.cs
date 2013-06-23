@@ -1,7 +1,7 @@
 /*
  * Smuxi - Smart MUltipleXed Irc
  *
- * Copyright (c) 2007-2011 Mirco Bauer <meebey@meebey.net>
+ * Copyright (c) 2007-2013 Mirco Bauer <meebey@meebey.net>
  *
  * Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
  *
@@ -21,6 +21,8 @@
  */
 
 using System;
+using System.IO;
+using SysDiag = System.Diagnostics;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Collections.Generic;
@@ -44,7 +46,9 @@ namespace Smuxi.Engine
 
         public event EventHandler Connected;
         public event EventHandler Disconnected;
-        
+        public event EventHandler<MessageEventArgs> MessageSent;
+        public event EventHandler<MessageEventArgs> MessageReceived;
+
         public virtual string Host {
             get {
                 return _Host;
@@ -164,7 +168,7 @@ namespace Smuxi.Engine
             var msg = CreateMessageBuilder();
             msg.AppendEventPrefix();
             msg.AppendText(_("Not connected to server"));
-            cmd.FrontendManager.AddMessageToChat(cmd.Chat, msg.ToMessage());
+            Session.AddMessageToFrontend(cmd, msg.ToMessage());
         }
 
         protected void NotEnoughParameters(CommandModel cmd)
@@ -173,9 +177,9 @@ namespace Smuxi.Engine
             msg.AppendEventPrefix();
             msg.AppendText(_("Not enough parameters for {0} command"),
                            cmd.Command);
-            cmd.FrontendManager.AddMessageToChat(cmd.Chat, msg.ToMessage());
+            Session.AddMessageToFrontend(cmd, msg.ToMessage());
         }
-        
+
         protected virtual void OnConnected(EventArgs e)
         {
             Trace.Call(e);
@@ -192,6 +196,18 @@ namespace Smuxi.Engine
             if (Connected != null) {
                 Connected(this, e);
             }
+
+            var hooks = new HookRunner("protocol-manager", "on-connected");
+            hooks.Environments.Add(new ChatHookEnvironment(Chat));
+            hooks.Environments.Add(new ProtocolManagerHookEnvironment(this));
+
+            var cmdChar = (string) Session.UserConfig["Interface/Entry/CommandCharacter"];
+            hooks.Commands.Add(new SessionHookCommand(Session, Chat, cmdChar));
+            hooks.Commands.Add(new ProtocolManagerHookCommand(this, Chat, cmdChar));
+
+            // show time
+            hooks.Init();
+            hooks.Run();
         }
         
         protected virtual void OnDisconnected(EventArgs e)
@@ -210,8 +226,76 @@ namespace Smuxi.Engine
             if (Disconnected != null) {
                 Disconnected(this, e);
             }
+
+            var hooks = new HookRunner("protocol-manager", "on-disconnected");
+            hooks.Environments.Add(new ChatHookEnvironment(Chat));
+            hooks.Environments.Add(new ProtocolManagerHookEnvironment(this));
+
+            var cmdChar = (string) Session.UserConfig["Interface/Entry/CommandCharacter"];
+            hooks.Commands.Add(new SessionHookCommand(Session, Chat, cmdChar));
+            hooks.Commands.Add(new ProtocolManagerHookCommand(this, Chat, cmdChar));
+
+            // show time
+            hooks.Init();
+            hooks.Run();
         }
         
+        protected virtual void OnMessageSent(MessageEventArgs e)
+        {
+            Trace.Call(e);
+
+            if (MessageSent != null) {
+                MessageSent(this, e);
+            }
+
+            var hooks = new HookRunner("protocol-manager", "on-message-sent");
+            hooks.Environments.Add(new ChatHookEnvironment(e.Chat));
+            hooks.Environments.Add(new MessageHookEnvironment(e.Message));
+            hooks.Environments.Add(new ProtocolManagerHookEnvironment(this));
+            if (String.IsNullOrEmpty(e.Sender)) {
+                hooks.EnvironmentVariables.Add("SENDER", Me.ID);
+            } else {
+                hooks.EnvironmentVariables.Add("SENDER", e.Sender);
+            }
+            hooks.EnvironmentVariables.Add("RECEIVER", e.Receiver);
+
+            var cmdChar = (string) Session.UserConfig["Interface/Entry/CommandCharacter"];
+            hooks.Commands.Add(new SessionHookCommand(Session, e.Chat, cmdChar));
+            hooks.Commands.Add(new ProtocolManagerHookCommand(this, e.Chat, cmdChar));
+
+            // show time
+            hooks.Init();
+            hooks.Run();
+        }
+
+        protected virtual void OnMessageReceived(MessageEventArgs e)
+        {
+            Trace.Call(e);
+
+            if (MessageReceived != null) {
+                MessageReceived(this, e);
+            }
+
+            var hooks = new HookRunner("protocol-manager", "on-message-received");
+            hooks.Environments.Add(new ChatHookEnvironment(e.Chat));
+            hooks.Environments.Add(new MessageHookEnvironment(e.Message));
+            hooks.Environments.Add(new ProtocolManagerHookEnvironment(this));
+            hooks.EnvironmentVariables.Add("SENDER", e.Sender);
+            if (String.IsNullOrEmpty(e.Receiver)) {
+                hooks.EnvironmentVariables.Add("RECEIVER", Me.ID);
+            } else {
+                hooks.EnvironmentVariables.Add("RECEIVER", e.Receiver);
+            }
+
+            var cmdChar = (string) Session.UserConfig["Interface/Entry/CommandCharacter"];
+            hooks.Commands.Add(new SessionHookCommand(Session, e.Chat, cmdChar));
+            hooks.Commands.Add(new ProtocolManagerHookCommand(this, e.Chat, cmdChar));
+
+            // show time
+            hooks.Init();
+            hooks.Run();
+        }
+
         private static string _(string msg)
         {
             return LibraryCatalog.GetString(msg, _LibraryTextDomain);
@@ -296,6 +380,23 @@ namespace Smuxi.Engine
             msgBuilder.AppendText("    WRITE: ");
             msgBuilder.AppendText(data);
             Session.AddMessageToChat(Chat, msgBuilder.ToMessage());
+        }
+    }
+
+    public class MessageEventArgs : EventArgs
+    {
+        public ChatModel Chat { get; protected set; }
+        public MessageModel Message { get; protected set; }
+        public string Sender { get; protected set; }
+        public string Receiver { get; protected set; }
+
+        public MessageEventArgs(ChatModel chat, MessageModel msg,
+                                string sender, string receiver)
+        {
+            Chat = chat;
+            Message = msg;
+            Sender = sender;
+            Receiver = receiver;
         }
     }
 }

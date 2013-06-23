@@ -203,7 +203,7 @@ namespace Smuxi.Frontend
                                              cmd.CommandCharacter, output));
                 } else {
                     var msg = new MessageBuilder().AppendText(output).ToMessage();
-                    cmd.FrontendManager.AddMessageToChat(cmd.Chat, msg);
+                    f_Session.AddMessageToFrontend(cmd, msg);
                 }
             };
 
@@ -250,7 +250,7 @@ namespace Smuxi.Frontend
                         AppendErrorText("Executing '{0}' failed with: {1}",
                                         command, ex.Message).
                         ToMessage();
-                    cmd.FrontendManager.AddMessageToChat(cmd.Chat, msg);
+                    f_Session.AddMessageToFrontend(cmd, msg);
                 }
             }
         }
@@ -263,7 +263,7 @@ namespace Smuxi.Frontend
                 AppendEventPrefix().
                     AppendText(cmd.Parameter).
                     ToMessage();
-            cmd.FrontendManager.AddMessageToChat(cmd.Chat, msg);
+            f_Session.AddMessageToFrontend(cmd, msg);
         }
 
         public void CommandGenerateMessages(CommandModel cmd, IChatView chat)
@@ -310,7 +310,7 @@ namespace Smuxi.Frontend
                 AppendEventPrefix().
                 AppendText(_("Unknown Command: {0}"), cmd.Command).
                 ToMessage();
-            cmd.FrontendManager.AddMessageToChat(cmd.Chat, msg);
+            f_Session.AddMessageToFrontend(cmd, msg);
         }
 
         void NotEnoughParameters(CommandModel cmd)
@@ -319,7 +319,7 @@ namespace Smuxi.Frontend
                 AppendEventPrefix().
                 AppendText(_("Not enough parameters for {0} command"), cmd.Command).
                 ToMessage();
-            cmd.FrontendManager.AddMessageToChat(cmd.Chat, msg);
+            f_Session.AddMessageToFrontend(cmd, msg);
         }
 
         MessageBuilder CreateMessageBuilder()

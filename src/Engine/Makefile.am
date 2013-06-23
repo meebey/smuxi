@@ -102,7 +102,15 @@ FILES = \
 	Protocols/ProtocolManagerInfoAttribute.cs \
 	Protocols/IProtocolManager.cs \
 	Persons/PersonModel.cs \
-	Persons/ContactModel.cs
+	Persons/ContactModel.cs \
+	Hooks/HookRunner.cs \
+	Hooks/Commands/HookCommand.cs \
+	Hooks/Commands/ProtocolManagerHookCommand.cs \
+	Hooks/Commands/SessionHookCommand.cs \
+	Hooks/Environments/ChatHookEnvironment.cs \
+	Hooks/Environments/HookEnvironment.cs \
+	Hooks/Environments/MessageHookEnvironment.cs \
+	Hooks/Environments/ProtocolManagerHookEnvironment.cs
 
 DATA_FILES = 
 

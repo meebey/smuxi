@@ -371,17 +371,23 @@ namespace Smuxi.Engine
 
                 string msg;
                 msg = String.Format(_("Connecting to {0} port {1}..."), _Host, _Port);
-                fm.SetStatus(msg);
+                if (fm != null) {
+                    fm.SetStatus(msg);
+                }
                 builder = CreateMessageBuilder();
                 builder.AppendEventPrefix().AppendText(msg);
                 Session.AddMessageToChat(Chat, builder.ToMessage());
 
                 // TODO: add SSL support
                 _IrcClient.Connect(_Host, _Port);
-                fm.UpdateNetworkStatus();
+                if (fm != null) {
+                    fm.UpdateNetworkStatus();
+                }
 
                 msg = String.Format(_("Connection to {0} established"), _Host);
-                fm.SetStatus(msg);
+                if (fm != null) {
+                    fm.SetStatus(msg);
+                }
                 builder = CreateMessageBuilder();
                 builder.AppendEventPrefix().AppendText(msg);
                 Session.AddMessageToChat(Chat, builder.ToMessage());
@@ -426,7 +432,9 @@ namespace Smuxi.Engine
                 }
                 _Listening = true;
             } catch (CouldNotConnectException ex) {
-                fm.SetStatus(_("Connection failed!"));
+                if (fm != null) {
+                    fm.SetStatus(_("Connection failed!"));
+                }
                 builder = CreateMessageBuilder();
                 builder.AppendEventPrefix();
                 builder.AppendText(_("Connection failed! Reason: "));
@@ -441,7 +449,9 @@ namespace Smuxi.Engine
             Trace.Call(fm);
 
             MessageBuilder builder;
-            fm.SetStatus(_("Disconnecting..."));
+            if (fm != null) {
+                fm.SetStatus(_("Disconnecting..."));
+            }
             if (IsConnected) {
                 builder = CreateMessageBuilder();
                 builder.AppendEventPrefix();
@@ -451,8 +461,10 @@ namespace Smuxi.Engine
                 // else the Listen() thread would try to connect again
                 _Listening = false;
                 _IrcClient.Disconnect();
-                fm.SetStatus(String.Format(_("Disconnected from {0}"),
-                                           _IrcClient.Address));
+                if (fm != null) {
+                    fm.SetStatus(String.Format(_("Disconnected from {0}"),
+                                               _IrcClient.Address));
+                }
 
                 builder = CreateMessageBuilder();
                 builder.AppendEventPrefix();
@@ -460,11 +472,13 @@ namespace Smuxi.Engine
                 Session.AddMessageToChat(Chat, builder.ToMessage());
                 // TODO: set someone else as current network manager?
             } else {
-                fm.SetStatus(String.Empty);
+                if (fm != null) {
+                    fm.SetStatus(String.Empty);
+                }
                 builder = CreateMessageBuilder();
                 builder.AppendEventPrefix();
                 builder.AppendText(_("Not connected"));
-                fm.AddMessageToChat(Chat, builder.ToMessage());
+                Session.AddMessageToFrontend(fm, Chat, builder.ToMessage());
             }
             
             if (_RunThread != null && _RunThread.IsAlive) {
@@ -485,8 +499,10 @@ namespace Smuxi.Engine
 #endif
                 }
             }
-            
-            fm.UpdateNetworkStatus();
+
+            if (fm != null) {
+                fm.UpdateNetworkStatus();
+            }
         }
         
         public override void Reconnect(FrontendManager fm)
@@ -494,7 +510,9 @@ namespace Smuxi.Engine
             Trace.Call(fm);
 
             MessageBuilder builder;
-            fm.SetStatus(_("Reconnecting..."));
+            if (fm != null) {
+                fm.SetStatus(_("Reconnecting..."));
+            }
             try {
                 string msg;
                 if (_IrcClient != null) {
@@ -509,7 +527,9 @@ namespace Smuxi.Engine
                         _IrcClient.Reconnect(true);
                         msg = String.Format(_("Connection to {0} established"),
                                             _IrcClient.Address);
-                        fm.SetStatus(msg);
+                        if (fm != null) {
+                            fm.SetStatus(msg);
+                        }
 
                         builder = CreateMessageBuilder();
                         builder.AppendEventPrefix().AppendText(msg);
@@ -519,19 +539,25 @@ namespace Smuxi.Engine
                     }
                 } else {
                     msg =  _("Reconnect Error");
-                    fm.SetStatus(msg);
+                    if (fm != null) {
+                        fm.SetStatus(msg);
+                    }
 
                     builder = CreateMessageBuilder();
                     builder.AppendEventPrefix().AppendText(msg);
                     Session.AddMessageToChat(Chat, builder.ToMessage());
                 }
             } catch (ConnectionException) {
-                fm.SetStatus(String.Empty);
+                if (fm != null) {
+                    fm.SetStatus(String.Empty);
+                }
                 builder = CreateMessageBuilder();
                 builder.AppendEventPrefix().AppendText(_("Not connected"));
-                fm.AddMessageToChat(Chat, builder.ToMessage());
+                Session.AddMessageToFrontend(fm, Chat, builder.ToMessage());
             }
-            fm.UpdateNetworkStatus();
+            if (fm != null) {
+                fm.UpdateNetworkStatus();
+            }
         }
 
         public override void Dispose()
@@ -994,7 +1020,7 @@ namespace Smuxi.Engine
             // TRANSLATOR: this line is used as label / category for a
             // list of commands below
             builder.AppendHeader(_("IrcProtocolManager Commands"));
-            cd.FrontendManager.AddMessageToChat(cd.Chat, builder.ToMessage());
+            Session.AddMessageToFrontend(cd, builder.ToMessage());
 
             string[] help = {
             "connect irc server [port|+port] [password] [nicknames]",
@@ -1048,7 +1074,7 @@ namespace Smuxi.Engine
                 builder = CreateMessageBuilder();
                 builder.AppendEventPrefix();
                 builder.AppendText(line);
-                cd.FrontendManager.AddMessageToChat(cd.Chat, builder.ToMessage());
+                Session.AddMessageToFrontend(cd, builder.ToMessage());
             }
         }
         
@@ -1077,7 +1103,7 @@ namespace Smuxi.Engine
                     builder.AppendEventPrefix();
                     builder.AppendText(_("Invalid port: {0}"),
                                        cd.DataArray[3]);
-                    fm.AddMessageToChat(Chat, builder.ToMessage());
+                    Session.AddMessageToFrontend(fm, Chat, builder.ToMessage());
                     return;
                 }
             } else {
@@ -1136,7 +1162,12 @@ namespace Smuxi.Engine
                 }
             }
             builder.AppendMessage(message);
-            Session.AddMessageToChat(chat, builder.ToMessage(), true);
+            var msg = builder.ToMessage();
+            Session.AddMessageToChat(chat, msg, true);
+
+            OnMessageSent(
+                new MessageEventArgs(chat, msg, null, chat.ID)
+            );
         }
         
         public void CommandJoin(CommandModel cd)
@@ -1165,7 +1196,8 @@ namespace Smuxi.Engine
                 builder.AppendEventPrefix();
                 builder.AppendText(_("Queuing joins: {0}"),
                                    String.Join(" ", channels));
-                cd.FrontendManager.AddMessageToChat(Chat, builder.ToMessage());
+                Session.AddMessageToFrontend(cd.FrontendManager, Chat,
+                                             builder.ToMessage());
             }
 
             int i = 0;
@@ -1186,7 +1218,7 @@ namespace Smuxi.Engine
                           " Type /window {0} to switch to it."),
                         channel
                     );
-                    cd.FrontendManager.AddMessageToChat(cd.Chat, builder.ToMessage());
+                    Session.AddMessageToFrontend(cd, builder.ToMessage());
                     continue;
                 }
 
@@ -1219,7 +1251,8 @@ namespace Smuxi.Engine
                                 _("Active joins: {0} - Queued joins: {1}"),
                                 activeChans, queuedChans
                             );
-                            cd.FrontendManager.AddMessageToChat(Chat, builder.ToMessage());
+                            Session.AddMessageToFrontend(cd.FrontendManager, Chat,
+                                                         builder.ToMessage());
 
 #if LOG4NET
                             _Logger.Debug("CommandJoin(): waiting to join: " + chan);
@@ -1261,7 +1294,8 @@ namespace Smuxi.Engine
                             }
                             builder = CreateMessageBuilder();
                             builder.AppendEventPrefix().AppendText(msg);
-                            cd.FrontendManager.AddMessageToChat(Chat, builder.ToMessage());
+                            Session.AddMessageToFrontend(cd.FrontendManager, Chat,
+                                                         builder.ToMessage());
                         } else {
                             lock (_QueuedChannelJoinList) {
                                 _QueuedChannelJoinList.Remove(chan);
@@ -1269,7 +1303,8 @@ namespace Smuxi.Engine
                             builder = CreateMessageBuilder();
                             builder.AppendEventPrefix();
                             builder.AppendText(_("Joining: {0}"), chan);
-                            cd.FrontendManager.AddMessageToChat(Chat, builder.ToMessage());
+                            Session.AddMessageToFrontend(cd.FrontendManager, Chat,
+                                                         builder.ToMessage());
                         }
 #if LOG4NET
                         _Logger.Debug("CommandJoin(): joining: " + chan);
@@ -1439,7 +1474,7 @@ namespace Smuxi.Engine
                     AppendMessage(message).
                     ToMessage();
                 Session.AddMessageToChat(_NetworkChat, msg, true);
-                if (cmd.Chat != _NetworkChat) {
+                if (cmd.Chat != _NetworkChat && cmd.FrontendManager != null) {
                     cmd.FrontendManager.AddMessageToChat(cmd.Chat, msg);
                 }
                 _IrcClient.SendMessage(SendType.Message, nickname, message);
@@ -1748,9 +1783,7 @@ namespace Smuxi.Engine
         public void CommandTopic(CommandModel cd)
         {
             MessageBuilder builder;
-            FrontendManager fm = cd.FrontendManager;
-            ChatModel chat = cd.Chat;
-            string channel = chat.ID;
+            string channel = cd.Chat.ID;
             if (cd.DataArray.Length >= 2) {
                 _IrcClient.RfcTopic(channel, cd.Parameter);
             } else {
@@ -1766,7 +1799,7 @@ namespace Smuxi.Engine
                     } else {
                         builder.AppendText(_("No topic set for {0}"), channel);
                     }
-                    fm.AddMessageToChat(chat, builder.ToMessage());
+                    Session.AddMessageToFrontend(cd, builder.ToMessage());
                 }
             }
         }
@@ -1914,8 +1947,7 @@ namespace Smuxi.Engine
         public void CommandBan(CommandModel cd)
         {
             MessageBuilder builder;
-            ChatModel chat = cd.Chat;
-            string channel = chat.ID;
+            string channel = cd.Chat.ID;
             if (cd.DataArray.Length == 2) {
                 // TODO: use a smart mask by default
                 _IrcClient.Ban(channel, cd.Parameter);
@@ -1936,21 +1968,20 @@ namespace Smuxi.Engine
                     builder = CreateMessageBuilder();
                     builder.AppendEventPrefix();
                     builder.AppendText(msg);
-                    cd.FrontendManager.AddMessageToChat(cd.Chat, builder.ToMessage());
+                    Session.AddMessageToFrontend(cd, builder.ToMessage());
                 }
                 if (infos.Count == 0) {
                     builder = CreateMessageBuilder();
                     builder.AppendEventPrefix();
                     builder.AppendText(_("No bans in channel"), channel);
-                    cd.FrontendManager.AddMessageToChat(cd.Chat, builder.ToMessage());
+                    Session.AddMessageToFrontend(cd, builder.ToMessage());
                 }
             }
         }
 
         public void CommandUnban(CommandModel cd)
         {
-            ChatModel chat = cd.Chat;
-            string channel = chat.ID;
+            string channel = cd.Chat.ID;
             if (cd.DataArray.Length == 2) {
                 _IrcClient.Unban(channel, cd.Parameter);
             } else if (cd.DataArray.Length > 2) {
@@ -1964,8 +1995,7 @@ namespace Smuxi.Engine
         public void CommandBanException(CommandModel cd)
         {
             MessageBuilder builder;
-            ChatModel chat = cd.Chat;
-            string channel = chat.ID;
+            string channel = cd.Chat.ID;
             if (cd.DataArray.Length == 2) {
                 // TODO: use a smart mask by default
                 _IrcClient.BanException(channel, cd.Parameter);
@@ -1986,21 +2016,20 @@ namespace Smuxi.Engine
                     builder = CreateMessageBuilder();
                     builder.AppendEventPrefix();
                     builder.AppendText(msg);
-                    cd.FrontendManager.AddMessageToChat(cd.Chat, builder.ToMessage());
+                    Session.AddMessageToFrontend(cd, builder.ToMessage());
                 }
                 if (infos.Count == 0) {
                     builder = CreateMessageBuilder();
                     builder.AppendEventPrefix();
                     builder.AppendText(_("No ban exceptions in channel"), channel);
-                    cd.FrontendManager.AddMessageToChat(cd.Chat, builder.ToMessage());
+                    Session.AddMessageToFrontend(cd, builder.ToMessage());
                 }
             }
         }
 
         public void CommandUnBanException(CommandModel cd)
         {
-            ChatModel chat = cd.Chat;
-            string channel = chat.ID;
+            string channel = cd.Chat.ID;
             if (cd.DataArray.Length == 2) {
                 _IrcClient.UnBanException(channel, cd.Parameter);
             } else if (cd.DataArray.Length > 2) {
@@ -2014,8 +2043,7 @@ namespace Smuxi.Engine
         public void CommandInviteException(CommandModel cd)
         {
             MessageBuilder builder;
-            ChatModel chat = cd.Chat;
-            string channel = chat.ID;
+            string channel = cd.Chat.ID;
             if (cd.DataArray.Length == 2) {
                 // TODO: use a smart mask by default
                 _IrcClient.InviteException(channel, cd.Parameter);
@@ -2036,21 +2064,20 @@ namespace Smuxi.Engine
                     builder = CreateMessageBuilder();
                     builder.AppendEventPrefix();
                     builder.AppendText(msg);
-                    cd.FrontendManager.AddMessageToChat(cd.Chat, builder.ToMessage());
+                    Session.AddMessageToFrontend(cd, builder.ToMessage());
                 }
                 if (infos.Count == 0) {
                     builder = CreateMessageBuilder();
                     builder.AppendEventPrefix();
                     builder.AppendText(_("No invite exceptions in channel"), channel);
-                    cd.FrontendManager.AddMessageToChat(cd.Chat, builder.ToMessage());
+                    Session.AddMessageToFrontend(cd, builder.ToMessage());
                 }
             }
         }
 
         public void CommandUnInviteException(CommandModel cd)
         {
-            ChatModel chat = cd.Chat;
-            string channel = chat.ID;
+            string channel = cd.Chat.ID;
             if (cd.DataArray.Length == 2) {
                 _IrcClient.UnInviteException(channel, cd.Parameter);
             } else if (cd.DataArray.Length > 2) {
@@ -2063,8 +2090,7 @@ namespace Smuxi.Engine
 
         public void CommandKick(CommandModel cd)
         {
-            ChatModel chat = cd.Chat;
-            string channel = chat.ID;
+            string channel = cd.Chat.ID;
             if (cd.DataArray.Length >= 2) {
                 string[] candidates = cd.DataArray[1].Split(new char[] {','});
                 if (cd.DataArray.Length >= 3) {
@@ -2159,7 +2185,7 @@ namespace Smuxi.Engine
                     builder.AppendEventPrefix();
                     builder.AppendText(_("Your user mode is {0}"),
                                        String.Format("[{0}]", _IrcClient.Usermode));
-                    cd.FrontendManager.AddMessageToChat(cd.Chat, builder.ToMessage());
+                    Session.AddMessageToFrontend(cd, builder.ToMessage());
                 } else {
                     _IrcClient.RfcMode(target);
                 }
@@ -2168,26 +2194,25 @@ namespace Smuxi.Engine
 
         public void CommandInvite(CommandModel cd)
         {
-            ChatModel chat = cd.Chat;
             string channel;
             if (cd.DataArray.Length >= 3) {
                 channel = cd.DataArray[2];
             } else {
-                channel = chat.ID;
+                channel = cd.Chat.ID;
             }
             if (cd.DataArray.Length < 2) {
                 _NotEnoughParameters(cd);
                 return;
             }
             var invitee = cd.DataArray[1];
-            var groupChat = chat as GroupChatModel;
+            var groupChat = cd.Chat as GroupChatModel;
             if (groupChat != null && groupChat.GetPerson(invitee) != null) {
                 var msg = CreateMessageBuilder().
                     AppendEventPrefix().
                     AppendText(_("{0} is already on {1}"),
                                invitee, channel).
                     ToMessage();
-                cd.FrontendManager.AddMessageToChat(chat, msg);
+                Session.AddMessageToFrontend(cd, msg);
             } else {
                 _IrcClient.RfcInvite(invitee, channel);
                 var msg = CreateMessageBuilder().
@@ -2195,7 +2220,7 @@ namespace Smuxi.Engine
                     AppendText(_("Inviting {0} to {1}"),
                                invitee, channel).
                     ToMessage();
-                cd.FrontendManager.AddMessageToChat(chat, msg);
+                Session.AddMessageToFrontend(cd, msg);
             }
         }
         
@@ -2207,7 +2232,6 @@ namespace Smuxi.Engine
             13:10 -!- Irssi: #smuxi: Total of 6 nicks [0 ops, 0 halfops, 0 voices, 6 normal]
             */
             
-            FrontendManager fm = cd.FrontendManager;
             ChatModel chat = cd.Chat;
             if (!(chat is GroupChatModel)) {
                 return;
@@ -2217,7 +2241,7 @@ namespace Smuxi.Engine
             var builder = CreateMessageBuilder();
             builder.AppendEventPrefix();
             builder.AppendText("[{0} {1}]", _("Users"), groupChat.Name);
-            fm.AddMessageToChat(chat, builder.ToMessage());
+            Session.AddMessageToFrontend(cd, builder.ToMessage());
             
             builder = CreateMessageBuilder();
             int opCount = 0;
@@ -2261,7 +2285,7 @@ namespace Smuxi.Engine
                 builder.AppendSpace();
             }
             builder.AppendText("]");
-            fm.AddMessageToChat(chat, builder.ToMessage());
+            Session.AddMessageToFrontend(cd, builder.ToMessage());
 
             builder = CreateMessageBuilder();
             builder.AppendEventPrefix();
@@ -2274,7 +2298,7 @@ namespace Smuxi.Engine
                     normalCount
                 )
             );
-            fm.AddMessageToChat(chat, builder.ToMessage());
+            Session.AddMessageToFrontend(cd, builder.ToMessage());
         }
 
         public void CommandRaw(CommandModel cd)
@@ -2415,7 +2439,7 @@ namespace Smuxi.Engine
                 AppendEventPrefix().
                 AppendText(_("Not enough parameters for {0} command"), cd.Command).
                 ToMessage();
-            cd.FrontendManager.AddMessageToChat(cd.Chat, msg);
+            Session.AddMessageToFrontend(cd, msg);
         }
         
         private void _NotConnected(CommandModel cd)
@@ -2424,7 +2448,7 @@ namespace Smuxi.Engine
                 AppendEventPrefix().
                 AppendText(_("Not connected to server")).
                 ToMessage();
-            cd.FrontendManager.AddMessageToChat(cd.Chat, msg);
+            Session.AddMessageToFrontend(cd, msg);
         }
 
         private void ApplyConfig(UserConfig config, ServerModel server)
@@ -2916,6 +2940,10 @@ namespace Smuxi.Engine
 
             var msg = builder.ToMessage();
             Session.AddMessageToChat(chat, msg);
+
+            OnMessageReceived(
+                new MessageEventArgs(chat, msg, e.Data.Nick, e.Data.Channel)
+            );
         }
         
         private void _OnChannelAction(object sender, ActionEventArgs e)
@@ -2932,6 +2960,10 @@ namespace Smuxi.Engine
 
             var msg = builder.ToMessage();
             Session.AddMessageToChat(chat, msg);
+
+            OnMessageReceived(
+                new MessageEventArgs(chat, msg, e.Data.Nick, e.Data.Channel)
+            );
         }
         
         private void _OnChannelNotice(object sender, IrcEventArgs e)
@@ -2946,6 +2978,10 @@ namespace Smuxi.Engine
 
             var msg = builder.ToMessage();
             Session.AddMessageToChat(chat, msg);
+
+            OnMessageReceived(
+                new MessageEventArgs(chat, msg, e.Data.Nick, e.Data.Channel)
+            );
         }
         
         private void _OnQueryMessage(object sender, IrcEventArgs e)
@@ -2985,6 +3021,10 @@ namespace Smuxi.Engine
             }
 
             Session.AddMessageToChat(chat, msg);
+
+            OnMessageReceived(
+                new MessageEventArgs(chat, msg, e.Data.Nick, null)
+            );
         }
         
         private void _OnQueryAction(object sender, ActionEventArgs e)
@@ -3026,6 +3066,10 @@ namespace Smuxi.Engine
             }
 
             Session.AddMessageToChat(chat, msg);
+
+            OnMessageReceived(
+                new MessageEventArgs(chat, msg, e.Data.Nick, null)
+            );
         }
         
         private void _OnQueryNotice(object sender, IrcEventArgs e)
@@ -3076,6 +3120,10 @@ namespace Smuxi.Engine
             foreach (var targetChat in targetChats) {
                 Session.AddMessageToChat(targetChat, msg);
             }
+
+            OnMessageReceived(
+                new MessageEventArgs(Chat, msg, e.Data.Nick, null)
+            );
         }
 
         private void _OnJoin(object sender, JoinEventArgs e)

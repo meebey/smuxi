@@ -121,7 +121,9 @@ namespace Smuxi.Engine
             Session.AddChat(NetworkChat);
             Session.SyncChat(NetworkChat);
             var msg = _("Connecting to campfire... ");
-            fm.SetStatus(msg);
+            if (fm != null) {
+                fm.SetStatus(msg);
+            }
             var bld = CreateMessageBuilder().AppendEventPrefix().AppendText(msg);
             Session.AddMessageToChat(NetworkChat, bld.ToMessage());
 
@@ -162,7 +164,9 @@ namespace Smuxi.Engine
 
             Client.Credentials = new NetworkCredential(Key, "X");
             msg = _("Connected to campfire");
-            fm.SetStatus(msg);
+            if (fm != null) {
+                fm.SetStatus(msg);
+            }
             bld = CreateMessageBuilder().AppendEventPrefix().AppendText(msg);
             Session.AddMessageToChat(NetworkChat, bld.ToMessage());
 
@@ -194,7 +198,7 @@ namespace Smuxi.Engine
             // TRANSLATOR: this line is used as a label / category for a
             // list of commands below
             builder.AppendHeader(_("Campfire Commands"));
-            cd.FrontendManager.AddMessageToChat(cd.Chat, builder.ToMessage());
+            Session.AddMessageToFrontend(cd, builder.ToMessage());
 
             string[] help = {
                 "connect campfire username password",
@@ -208,7 +212,7 @@ namespace Smuxi.Engine
                 builder = CreateMessageBuilder();
                 builder.AppendEventPrefix();
                 builder.AppendText(line);
-                cd.FrontendManager.AddMessageToChat(cd.Chat, builder.ToMessage());
+                Session.AddMessageToFrontend(cd, builder.ToMessage());
             }
         }
 
