@@ -40,14 +40,14 @@ namespace Smuxi.Engine
                                   @"(?<f1>#(?<f0>.*))?");
             */
             UrlRegex = new Regex(
-                @"(^| )(((https?|ftp):\/\/)|www\.)" +
+                @"(^|[[({""'< ])((((https?|ftp):\/\/)|www\.)" +
                 @"(" +
                     @"([0-9]+\.[0-9]+\.[0-9]+\.[0-9]+)|" +
                     @"localhost|" +
-                    @"([a-zA-Z0-9\-]+\.)*[a-zA-Z0-9\-]+\." +
+                    @"([a-zA-Z0-9\-]+\.)+" +
                         @"(com|net|org|info|biz|gov|name|edu|[a-zA-Z][a-zA-Z])" +
                 @")" +
-                @"(:[0-9]+)?((\/|\?)[^ ""]*[^ ,;\.:"">)])?",
+                @"(:[0-9]+)?((\/|\?)[^ ""]*[^] ,;\.:"">)}])?)",
                 RegexOptions.IgnoreCase
             );
 
@@ -80,25 +80,39 @@ namespace Smuxi.Engine
                 int idx = msg.MessageParts.IndexOf(part);
                 msg.MessageParts.RemoveAt(idx);
                 
-                string[] textPartParts = textPart.Text.Split(new char[] {' '});
+                string[] textPartParts = textPart.Text.Split(' ');
                 for (int i = 0; i < textPartParts.Length; i++) {
                     string textPartPart = textPartParts[i];
                     urlMatch = UrlRegex.Match(textPartPart);
                     if (urlMatch.Success) {
-                        UrlMessagePartModel urlPart = new UrlMessagePartModel(textPartPart);
+                        var urlItself = urlMatch.Groups[2];
+                        if (urlItself.Index > 0) {
+                            // there is a prefix that isn't part of the URL
+                            TextMessagePartModel prePart = new TextMessagePartModel(textPartPart.Substring(0, urlItself.Index));
+                            prePart.CopyAttributesFrom(textPart);
+                            msg.MessageParts.Insert(idx++, prePart);
+                        }
+                        UrlMessagePartModel urlPart = new UrlMessagePartModel(urlItself.Value);
                         //urlPart.ForegroundColor = new TextColor();
                         msg.MessageParts.Insert(idx++, urlPart);
-                        msg.MessageParts.Insert(idx++, new TextMessagePartModel(" "));
+                        if (urlItself.Index + urlItself.Length < textPartPart.Length) {
+                            // there is a suffic that isn't part of the URL
+                            TextMessagePartModel postPart = new TextMessagePartModel(textPartPart.Substring(urlItself.Index + urlItself.Length));
+                            postPart.CopyAttributesFrom(textPart);
+                            msg.MessageParts.Insert(idx++, postPart);
+                        }
+                        if (i < textPartParts.Length - 1) {
+                            msg.MessageParts.Insert(idx++, new TextMessagePartModel(" "));
+                        }
                     } else {
                         // FIXME: we put each text part into it's own object, instead of combining them (the smart way)
-                        TextMessagePartModel notUrlPart = new TextMessagePartModel(textPartPart + " ");
+                        var insertPart = textPartPart;
+                        if (i < textPartParts.Length - 1) {
+                            insertPart += " ";
+                        }
+                        TextMessagePartModel notUrlPart = new TextMessagePartModel(insertPart);
                         // restore formatting / colors from the original text part
-                        notUrlPart.IsHighlight     = textPart.IsHighlight;
-                        notUrlPart.ForegroundColor = textPart.ForegroundColor;
-                        notUrlPart.BackgroundColor = textPart.BackgroundColor;
-                        notUrlPart.Bold            = textPart.Bold;
-                        notUrlPart.Italic          = textPart.Italic;
-                        notUrlPart.Underline       = textPart.Underline;
+                        notUrlPart.CopyAttributesFrom(textPart);
                         msg.MessageParts.Insert(idx++, notUrlPart);
                     }
                 }

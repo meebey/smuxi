@@ -172,6 +172,15 @@ namespace Smuxi.Engine
             f_Text = msgPart.Text;
         }
 
+        public void CopyAttributesFrom(TextMessagePartModel other)
+        {
+            f_ForegroundColor = other.ForegroundColor;
+            f_BackgroundColor = other.BackgroundColor;
+            f_Underline = other.Underline;
+            f_Bold = other.Bold;
+            f_Italic = other.Italic;
+        }
+
         public override string ToString()
         {
             return Text;

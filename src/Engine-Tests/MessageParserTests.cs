@@ -48,9 +48,9 @@ namespace Smuxi.Engine
         {
             var builder = new MessageBuilder();
             builder.TimeStamp = DateTime.MinValue;
-            builder.AppendText("foo ");
-            builder.AppendUrl("http://example.com", "<http://example.com>");
-            builder.AppendText(" bar");
+            builder.AppendText("foo <");
+            builder.AppendUrl("http://example.com");
+            builder.AppendText("> bar");
             var expectedMsg = builder.ToMessage();
 
             builder = new MessageBuilder();
