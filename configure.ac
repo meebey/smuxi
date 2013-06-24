@@ -477,13 +477,13 @@ if test "x$ENABLE_ENGINE_JABBR" != "xno"; then
 		AC_MSG_RESULT(yes)
 	else
 		AC_MSG_RESULT(no)
-		AC_MSG_ERROR([You need Mono 2.10 or later for JabbR support])
+		AC_MSG_ERROR([You need Mono 2.10 or later for JabbR support (or use --disable-engine-jabbr)])
 	fi
 
 	AC_MSG_CHECKING([for 4.0 compiler])
 	if test "x$CLI_RUNTIME" = "x2.0"; then
 		AC_MSG_RESULT(no)
-		AC_MSG_ERROR([You need to compile with a 4.0 compiler (dmcs) for JabbR support])
+		AC_MSG_ERROR([You need to compile with a 4.0 compiler (dmcs) for JabbR support (or use --disable-engine-jabbr)])
 	else
 		AC_MSG_RESULT(yes)
 	fi

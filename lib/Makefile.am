@@ -113,18 +113,26 @@ DB4O_XBUILD_FLAGS = $(XBUILD_FLAGS) /property:DefineConstants="NET_3_5,MONO,EMBE
 #DB4O_NQ_XBUILD_FLAGS = $(DB4O_XBUILD_FLAGS)
 
 SIGNALR_CLIENT_SUBDIR = SignalR
-SIGNALR_CLIENT_SRCDIR = $(srcdir)/$(SIGNALR_CLIENT_SUBDIR)/SignalR.Client
+SIGNALR_CLIENT_SRCDIR = $(srcdir)/$(SIGNALR_CLIENT_SUBDIR)/src/Microsoft.AspNet.SignalR.Client
 SIGNALR_CLIENT_SOURCE_FILES = $(foreach pattern, $(SOURCE_PATTERNS), $(wildcard $(SIGNALR_CLIENT_SRCDIR)/$(pattern))) \
-	$(foreach file, ../Common/CommonAssemblyInfo.cs ../SignalR.Hosting.Common/Infrastructure/UriQueryUtility.cs	../SignalR/Infrastructure/ExceptionsExtensions.cs ../SignalR/TaskAsyncHelper.cs, $(SIGNALR_CLIENT_SRCDIR)/$(file))
+	$(foreach file, ../Common/CommonAssemblyInfo.cs ../Common/CommonVersionInfo.cs ../Microsoft.AspNet.SignalR.Core/Infrastructure/CancellationTokenExtensions.cs ../Microsoft.AspNet.SignalR.Core/Infrastructure/DisposableAction.cs ../Microsoft.AspNet.SignalR.Core/Infrastructure/Disposer.cs ../Microsoft.AspNet.SignalR.Core/Infrastructure/ExceptionsExtensions.cs ../Microsoft.AspNet.SignalR.Core/TaskAsyncHelper.cs, $(SIGNALR_CLIENT_SRCDIR)/$(file))
+SIGNALR_CLIENT_EXTRA_FILES = \
+	$(SIGNALR_CLIENT_BUILD_FILE) \
+	$(SIGNALR_CLIENT_SRCDIR)/Resources.resx \
+	$(SIGNALR_CLIENT_SRCDIR)/../Common/Microsoft.AspNet.SignalR.targets
 #SIGNALR_CLIENT_CLEAN_FILES = $(OBJECT_DIR)/Newtonsoft.Json.Dynamic.snk
-SIGNALR_CLIENT_ASSEMBLY_NAME = SignalR.Client.dll
+SIGNALR_CLIENT_ASSEMBLY_NAME = Microsoft.AspNet.SignalR.Client.dll
 SIGNALR_CLIENT_ASSEMBLY_TARGET = $(OUTPUT_DIR)/$(SIGNALR_CLIENT_ASSEMBLY_NAME)
-SIGNALR_CLIENT_BUILD_FILE = $(SIGNALR_CLIENT_SRCDIR)/SignalR.Client.csproj
-SIGNALR_CLIENT_XBUILD_FLAGS = $(XBUILD_FLAGS) /property:DefineConstants="NET35"
+SIGNALR_CLIENT_BUILD_FILE = $(SIGNALR_CLIENT_SRCDIR)/Microsoft.AspNet.SignalR.Client.csproj
+SIGNALR_CLIENT_XBUILD_FLAGS = $(XBUILD_FLAGS) /property:DefineConstants="MONO"
 
-JABBR_CLIENT_SUBDIR = JabbR.Client
+JABBR_CLIENT_SUBDIR = JabbR
 JABBR_CLIENT_SRCDIR = $(srcdir)/$(JABBR_CLIENT_SUBDIR)/JabbR.Client
 JABBR_CLIENT_SOURCE_FILES = $(foreach pattern, $(SOURCE_PATTERNS), $(wildcard $(JABBR_CLIENT_SRCDIR)/$(pattern)))
+JABBR_CLIENT_EXTRA_FILES = \
+	$(JABBR_CLIENT_BUILD_FILE) \
+	$(JABBR_CLIENT_SRCDIR)/../JabbR/Models/ClientMessage.cs \
+	$(JABBR_CLIENT_SRCDIR)/../JabbR/Models/ClientNotification.cs
 #JABBR_CLIENT_CLEAN_FILES = $(OBJECT_DIR)/Newtonsoft.Json.Dynamic.snk
 JABBR_CLIENT_ASSEMBLY_NAME = JabbR.Client.dll
 JABBR_CLIENT_ASSEMBLY_TARGET = $(OUTPUT_DIR)/$(JABBR_CLIENT_ASSEMBLY_NAME)
@@ -173,8 +181,8 @@ EXTRA_DIST = \
 	$(TWITTERIZER_SRCDIR) $(TWITTERIZER_EXTRA_FILES) \
 	$(JABBER_NET_SRCDIR) $(JABBER_NET_EXTRA_FILES) \
 	$(DB4O_SRCDIR) $(DB4O_EXTRA_FILES) \
-	$(SIGNALR_CLIENT_SOURCE_FILES) $(SIGNALR_CLIENT_BUILD_FILE) \
-	$(JABBR_CLIENT_SOURCE_FILES) $(JABBR_CLIENT_BUILD_FILE)
+	$(SIGNALR_CLIENT_SOURCE_FILES) $(SIGNALR_CLIENT_EXTRA_FILES) \
+	$(JABBR_CLIENT_SOURCE_FILES) $(JABBR_CLIENT_EXTRA_FILES)
 
 #	 $(SERVICESTACK_TEXT_SOURCE_FILES) $(SERVICESTACK_TEXT_BUILD_FILE) \
 #	 $(SERVICESTACK_INTERFACES_SOURCE_FILES) $(SERVICESTACK_INTERFACES_BUILD_FILE) \
