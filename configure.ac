@@ -501,7 +501,7 @@ if test "x$ENABLE_ENGINE_JABBR" != "xno"; then
 		System.Xml.Linq
 	])
 
-	if test ! -f "$srcdir/lib/SignalR/SignalR.Client/SignalR.Client.csproj"; then
+	if test ! -f "$srcdir/lib/SignalR/src/Microsoft.AspNet.SignalR.Client/Microsoft.AspNet.SignalR.Client.csproj"; then
 		AC_MSG_ERROR([lib/SignalR is empty!])
 	fi
 	SHAMROCK_CHECK_MONO_2_0_GAC_ASSEMBLIES([
@@ -509,8 +509,8 @@ if test "x$ENABLE_ENGINE_JABBR" != "xno"; then
 		System.Core
 	])
 
-	if test ! -f "$srcdir/lib/JabbR.Client/JabbR.Client/JabbR.Client.csproj"; then
-		AC_MSG_ERROR([lib/JabbR.Client is empty!])
+	if test ! -f "$srcdir/lib/JabbR/JabbR.Client/JabbR.Client.csproj"; then
+		AC_MSG_ERROR([lib/JabbR is empty!])
 	fi
 	SHAMROCK_CHECK_MONO_2_0_GAC_ASSEMBLIES([
 		System
