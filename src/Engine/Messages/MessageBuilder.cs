@@ -674,7 +674,7 @@ namespace Smuxi.Engine
                         parts.Add(CreateText(assembling.ToString()));
 
                         // we will now assemble the placeholder text
-                        assembling.Clear();
+                        assembling.Length = 0;
                         inPlaceholder = true;
                     } else {
                         // nested formatting?!
@@ -725,7 +725,7 @@ namespace Smuxi.Engine
                         }
 
                         // we are done with this placeholder
-                        assembling.Clear();
+                        assembling.Length = 0;
                         inPlaceholder = false;
                     } else {
                         // closing brace without opening brace
