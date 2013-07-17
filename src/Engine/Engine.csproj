@@ -80,7 +80,6 @@
     <Compile Include="Config\UserListController.cs" />
     <Compile Include="Config\FilterListController.cs" />
     <Compile Include="Config\FilterModel.cs" />
-    <Compile Include="Messages\MessageParser.cs" />
     <Compile Include="Messages\MessageBuilder.cs" />
     <Compile Include="PresenceStatus.cs" />
     <Compile Include="Config\ProxyType.cs" />
@@ -106,6 +105,7 @@
     <Compile Include="Hooks\Commands\ProtocolManagerHookCommand.cs" />
     <Compile Include="Hooks\Commands\SessionHookCommand.cs" />
     <Compile Include="Hooks\Environments\CommandHookEnvironment.cs" />
+    <Compile Include="Config\MessageBuilderSettings.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Protocols\" />

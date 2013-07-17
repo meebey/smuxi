@@ -120,5 +120,29 @@ namespace Smuxi.Engine
                 return "[" + _Url + " " + Text + "]";
             }
         }
+        
+        public override bool Equals(object obj)
+        {
+            if (!(obj is UrlMessagePartModel)) {
+                return false;
+            }
+
+            var urlPart = (UrlMessagePartModel) obj;
+            return Equals(urlPart);
+        }
+        
+        public override bool Equals(MessagePartModel part)
+        {
+            var urlPart = part as UrlMessagePartModel;
+            if ((object) urlPart == null) {
+                return false;
+            }
+            
+            if (_Url != urlPart._Url) {
+                return false;
+            }
+                
+            return base.Equals(urlPart);
+        }
     }
 }

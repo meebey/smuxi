@@ -36,9 +36,8 @@ namespace Smuxi.Engine
 
             builder = new MessageBuilder();
             builder.TimeStamp = DateTime.MinValue;
-            builder.AppendText("http://example.com");
+            builder.AppendRichText("http://example.com");
             var actualMsg = builder.ToMessage();
-            MessageParser.ParseUrls(actualMsg);
 
             Assert.AreEqual(expectedMsg, actualMsg);
         }
@@ -48,16 +47,15 @@ namespace Smuxi.Engine
         {
             var builder = new MessageBuilder();
             builder.TimeStamp = DateTime.MinValue;
-            builder.AppendText("foo ");
-            builder.AppendUrl("http://example.com", "<http://example.com>");
-            builder.AppendText(" bar");
+            builder.AppendText("foo <");
+            builder.AppendUrl("http://example.com");
+            builder.AppendText("> bar");
             var expectedMsg = builder.ToMessage();
 
             builder = new MessageBuilder();
             builder.TimeStamp = DateTime.MinValue;
-            builder.AppendText("foo <http://example.com> bar");
+            builder.AppendRichText("foo <http://example.com> bar");
             var actualMsg = builder.ToMessage();
-            MessageParser.ParseUrls(actualMsg);
 
             Assert.AreEqual(expectedMsg, actualMsg);
         }
@@ -74,9 +72,8 @@ namespace Smuxi.Engine
 
             builder = new MessageBuilder();
             builder.TimeStamp = DateTime.MinValue;
-            builder.AppendText("foo (http://example.com) bar");
+            builder.AppendRichText("foo (http://example.com) bar");
             var actualMsg = builder.ToMessage();
-            MessageParser.ParseUrls(actualMsg);
 
             Assert.AreEqual(expectedMsg, actualMsg);
         }
