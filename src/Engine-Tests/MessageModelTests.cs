@@ -137,7 +137,6 @@ namespace Smuxi.Engine
             var msg = new MessageModel(topic) {
                 IsCompactable = false
             };
-            MessageParser.ParseUrls(msg);
 
             var stream = new MemoryStream(1024);
             formatter.Serialize(stream, msg);
@@ -199,7 +198,6 @@ namespace Smuxi.Engine
                 )
             );
             msg.MessageParts.Add(new TextMessagePartModel(" kannst ja watchen"));
-            MessageParser.ParseUrls(msg);
 
             stream = new MemoryStream(1024);
             formatter.Serialize(stream, msg);
