@@ -34,6 +34,13 @@ EXTRA_DIST =	install-sh \
 		BUGS \
 		TODO
 
+# HACK: distclean in po/ does not work for some reason
+DISTCLEANFILES = \
+		po/POTFILES \
+		po/Makefile \
+		po/stamp-it \
+		po/Makefile.in
+
 PODIRS =	po \
 		po-Engine \
 		$(PO_ENGINE_CAMPFIRE) \
