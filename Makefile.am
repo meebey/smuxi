@@ -131,6 +131,7 @@ WIN32_FILES = \
 	$(BUILD_DIR)/smuxi-engine.dll \
 	$(BUILD_DIR)/smuxi-engine-campfire.dll \
 	$(BUILD_DIR)/smuxi-engine-irc.dll \
+	$(BUILD_DIR)/smuxi-engine-jabbr.dll \
 	$(BUILD_DIR)/smuxi-engine-twitter.dll \
 	$(BUILD_DIR)/smuxi-engine-xmpp.dll \
 	$(BUILD_DIR)/smuxi-frontend-gnome-irc.dll \
@@ -143,6 +144,8 @@ WIN32_FILES = \
 	$(BUILD_DIR)/ServiceStack.Text.dll \
 	$(BUILD_DIR)/ServiceStack.Interfaces.dll \
 	$(BUILD_DIR)/ServiceStack.Common.dll \
+	$(BUILD_DIR)/Microsoft.AspNet.SignalR.Client.dll \
+	$(BUILD_DIR)/JabbR.Client.dll \
 	$(WIN32_LIB_DIR)/smuxi-frontend-gnome.exe.config \
 	$(WIN32_LIB_DIR)/smuxi-server.exe.config
 
@@ -157,6 +160,7 @@ OSX_FILES = \
 	$(BUILD_DIR)/smuxi-engine.dll \
 	$(BUILD_DIR)/smuxi-engine-campfire.dll \
 	$(BUILD_DIR)/smuxi-engine-irc.dll \
+	$(BUILD_DIR)/smuxi-engine-jabbr.dll \
 	$(BUILD_DIR)/smuxi-engine-twitter.dll \
 	$(BUILD_DIR)/smuxi-engine-xmpp.dll \
 	$(BUILD_DIR)/smuxi-frontend.dll \
@@ -167,7 +171,9 @@ OSX_FILES = \
 	$(BUILD_DIR)/Db4objects.Db4o.dll \
 	$(BUILD_DIR)/ServiceStack.Text.dll \
 	$(BUILD_DIR)/ServiceStack.Interfaces.dll \
-	$(BUILD_DIR)/ServiceStack.Common.dll
+	$(BUILD_DIR)/ServiceStack.Common.dll \
+	$(BUILD_DIR)/Microsoft.AspNet.SignalR.Client.dll \
+	$(BUILD_DIR)/JabbR.Client.dll
 
 LINUX_STATIC_FILES = \
 	$(LIB_DIR)/Mono.Posix.dll \
@@ -188,8 +194,7 @@ dist-win32:
 	fi; \
 	./autogen.sh $$COMPILER_OVERRIDE --without-indicate --without-messaging-menu --without-notify --without-dbus \
 	  --with-db4o=included \
-	  --with-vendor-package-version="dist-win32" \
-	  --disable-engine-jabbr
+	  --with-vendor-package-version="dist-win32"
 	$(MAKE)
 	mkdir -p $(WIN32_BUILD_DIR)
 	for FILE in $(WIN32_FILES); do \
@@ -209,8 +214,7 @@ dist-osx:
 	fi; \
 	./autogen.sh $$COMPILER_OVERRIDE --without-indicate --without-messaging-menu --without-notify --without-dbus \
 	  --with-db4o=included \
-	  --with-vendor-package-version="dist-osx" \
-	  --disable-engine-jabbr
+	  --with-vendor-package-version="dist-osx"
 	$(MAKE)
 	mkdir -p $(OSX_BINARIES_DIR) $(OSX_RESOURCES_DIR)
 	cp $(OSX_LIB_DIR)/Info.plist $(OSX_CONTENTS_DIR)
