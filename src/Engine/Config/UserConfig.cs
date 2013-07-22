@@ -36,8 +36,10 @@ namespace Smuxi.Engine
         private Config    _Config;
         private string    _UserPrefix;
         private string    _DefaultPrefix = "Engine/Users/DEFAULT/";
-        private Hashtable _Cache; 
-        
+        private Hashtable _Cache;
+
+        public FrontendConfig FrontendConfig { get; set; }
+
         public event EventHandler<ConfigChangedEventArgs> Changed;
 
         public bool IsCaching
@@ -57,13 +59,21 @@ namespace Smuxi.Engine
         public object this[string key]
         {
             get {
+                object obj = null;
+                // allow engine config to be overriden by frontend config
+                if (FrontendConfig != null) {
+                    obj = FrontendConfig[key];
+                    if (obj != null) {
+                        return obj;
+                    }
+                }
+
                 if (IsCaching) {
                     if (_Cache.Contains(key)) {
                         return _Cache[key];
                     }
                 }
                 
-                object obj;
                 obj = _Config[_UserPrefix + key];
                 if (obj != null) {
                     if (IsCaching) {
@@ -85,6 +95,11 @@ namespace Smuxi.Engine
                 return obj;
             }
             set {
+                // ignore writing back overridden config keys
+                if (FrontendConfig != null && FrontendConfig[key] != null) {
+                    return;
+                }
+
                 // TODO: make remoting calls after a timeout and batch the update
                 _Config[_UserPrefix + key] = value;
                 

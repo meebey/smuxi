@@ -45,6 +45,10 @@ namespace Smuxi.Engine
         public new object this[string key]
         {
             get {
+                var value = base["Engine/" + key];
+                if (value != null) {
+                    return value;
+                }
                 return base[_Prefix+key];
             }
             set {
@@ -114,6 +118,7 @@ namespace Smuxi.Engine
             }
             
             LoadAllEntries("Frontend/"+_UIName);
+            LoadAllEntries("Engine");
         }
         
         public new void Remove(string key)

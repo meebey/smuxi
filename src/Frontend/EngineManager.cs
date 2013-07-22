@@ -331,6 +331,7 @@ namespace Smuxi.Frontend
             f_UserConfig = new UserConfig(f_Session.Config,
                                          username);
             f_UserConfig.IsCaching = true;
+            f_UserConfig.FrontendConfig = f_FrontendConfig;
         }
 
         public void Reconnect()
