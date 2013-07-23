@@ -1666,7 +1666,7 @@ namespace Smuxi.Engine
             
             // mark highlights only for received messages
             bool hilight = person.ID != groupChat.OwnNickname;
-            var message = CreateMessage(person, msg, hilight);
+            var message = CreateMessage(person, msg, hilight, false);
             Session.AddMessageToChat(groupChat, message);
         }
 
@@ -1691,10 +1691,10 @@ namespace Smuxi.Engine
                 // in case full jid doesn't have a chat window, use bare jid
                 chat = GetOrCreatePersonChat(msg.From.Bare, out isNew);
             }
-            AddMessageToChatIfNotFiltered(CreateMessage(chat.Person, msg, true), chat, isNew);
+            AddMessageToChatIfNotFiltered(CreateMessage(chat.Person, msg, true, true), chat, isNew);
         }
 
-        MessageModel CreateMessage(PersonModel person, Message msg, bool hilight)
+        MessageModel CreateMessage(PersonModel person, Message msg, bool mark_hilights, bool force_hilight)
         {
             var builder = CreateMessageBuilder();
             string msgstring;
@@ -1708,9 +1708,9 @@ namespace Smuxi.Engine
                 // leave the " " intact
                 msgstring = msgstring.Substring(3);
                 builder.AppendActionPrefix();
-                builder.AppendIdendityName(person, hilight);
+                builder.AppendIdendityName(person, force_hilight);
             } else {
-                builder.AppendSenderPrefix(person, hilight);
+                builder.AppendSenderPrefix(person, force_hilight);
             }
 
             if (msg.Html != null) {
@@ -1718,7 +1718,7 @@ namespace Smuxi.Engine
             } else {
                 builder.AppendMessage(msgstring);
             }
-            if (hilight) {
+            if (mark_hilights) {
                 builder.MarkHighlights();
             }
 
