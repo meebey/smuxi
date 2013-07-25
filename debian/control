@@ -15,7 +15,7 @@ Build-Depends-Indep: cli-common-dev (>= 0.5.7),
  libgnome-vfs2.0-cil-dev (>= 2.8),
  libart2.0-cil-dev (>= 2.8),
  libnotify-cil-dev,
- libmessaging-menu-dev | libindicate0.1-cil-dev | libindicate-dev,
+ libmessagingmenu-cil-dev | libindicate0.1-cil-dev | libindicate-dev,
  libgio2.0-cil-dev | libglib2.0-dev,
  gtk-sharp2-gapi,
  libdbus1.0-cil-dev | libndesk-dbus1.0-cil-dev,
@@ -33,16 +33,11 @@ Build-Depends-Indep: cli-common-dev (>= 0.5.7),
  autotools-dev
 Standards-Version: 3.8.3
 Homepage: http://www.smuxi.org/
-Vcs-Git: git://git.debian.org/git/pkg-cli-apps/packages/smuxi.git
-Vcs-Browser: http://git.debian.org/?p=pkg-cli-apps/packages/smuxi.git
 
 Package: smuxi
 Architecture: all
-Suggests: smuxi-server
 Depends: ${misc:Depends},
-         smuxi-frontend-gnome-irc (= ${source:Version}),
-         smuxi-engine-twitter (= ${source:Version}),
-         smuxi-engine-xmpp (= ${source:Version})
+         smuxi-frontend-gnome (= ${source:Version}),
 Description: graphical IRC client
  Smuxi is an irssi-inspired, flexible, user-friendly and cross-platform IRC
  client for sophisticated users, targeting the GNOME desktop.
@@ -62,14 +57,23 @@ Description: graphical IRC client
 
 Package: smuxi-engine
 Architecture: all
-Replaces: smuxi (<< 0.5.25)
-Recommends: smuxi-engine-irc,
-            smuxi-engine-twitter,
-            smuxi-engine-xmpp
+Replaces: smuxi (<< 0.5.25),
+          smuxi-engine-irc (<< 1:0.8.12+git-0~265~),
+          smuxi-engine-twitter (<< 1:0.8.12+git-0~265~),
+          smuxi-engine-xmpp (<< 1:0.8.12+git-0~265~),
+          smuxi-frontend (<< 1:0.8.12+git-0~265~),
+          smuxi-server (<< 1:0.8.12+git-0~265~)
+Conflicts: smuxi-engine-irc (<< 1:0.8.12+git-0~265~),
+           smuxi-engine-twitter (<< 1:0.8.12+git-0~265~),
+           smuxi-engine-xmpp (<< 1:0.8.12+git-0~265~),
+           smuxi-frontend (<< 1:0.8.12+git-0~265~),
+           smuxi-server (<< 1:0.8.12+git-0~265~)
+Provides: smuxi-server
+Suggests: oidentd | ident-server
 Depends: ${shlibs:Depends},
          ${misc:Depends},
          ${cli:Depends}
-Description: Engine library for Smuxi
+Description: Engine libraries for Smuxi
  Smuxi is an irssi-inspired, flexible, user-friendly and cross-platform IRC
  client for sophisticated users, targeting the GNOME desktop.
  .
@@ -83,137 +87,33 @@ Description: Engine library for Smuxi
  typical IRC client; it doesn't need separate core management and utilizes a
  local engine that is used by the local frontend client.
  .
- This package contains the Smuxi engine, needed by Smuxi frontends or the
+ This package contains the Smuxi engines, needed by Smuxi frontends or the
  standalone server.
-
-Package: smuxi-engine-irc
-Architecture: all
-Depends: ${shlibs:Depends},
-         ${misc:Depends},
-         ${cli:Depends},
-         smuxi-engine (= ${source:Version})
-Suggests: oidentd | ident-server
-Description: IRC engine for Smuxi
- Smuxi is an irssi-inspired, flexible, user-friendly and cross-platform IRC
- client for sophisticated users, targeting the GNOME desktop.
  .
- Smuxi is based on the client-server model: The core application (engine) can
- be placed onto a server which is connected to the Internet around-the-clock;
- one or more frontends then connect to the core. This way, the connection to
- IRC can be kept up even when all frontends have been closed. The combination
- of screen and irssi served as example for this architecture.
+ The standalone server of Smuxi named smuxi-server doesn't need any GUI. The
+ Smuxi frontends can connect to a running server via the network.
  .
- Smuxi also supports the regular single application mode. This behaves like a
- typical IRC client; it doesn't need separate core management and utilizes a
- local engine that is used by the local frontend client.
- .
- This package contains the IRC engine for Smuxi.
-
-Package: smuxi-engine-twitter
-Architecture: all
-Depends: ${shlibs:Depends},
-         ${misc:Depends},
-         ${cli:Depends},
-         smuxi-engine (= ${source:Version})
-Description: Twitter engine for Smuxi
- Smuxi is an irssi-inspired, flexible, user-friendly and cross-platform IRC
- client for sophisticated users, targeting the GNOME desktop.
- .
- Smuxi is based on the client-server model: The core application (engine) can
- be placed onto a server which is connected to the Internet around-the-clock;
- one or more frontends then connect to the core. This way, the connection to
- IRC can be kept up even when all frontends have been closed. The combination
- of screen and irssi served as example for this architecture.
- .
- Smuxi also supports the regular single application mode. This behaves like a
- typical IRC client; it doesn't need separate core management and utilizes a
- local engine that is used by the local frontend client.
- .
- This package contains the Twitter engine for Smuxi. This plugin allows you
- to receive and post tweets to the Twitter microblogging service. It
- supports the friends timeline, replies view, and direct messages.
-
-Package: smuxi-engine-xmpp
-Architecture: all
-Depends: ${shlibs:Depends},
-         ${misc:Depends},
-         ${cli:Depends},
-         smuxi-engine (= ${source:Version})
-Description: XMPP / Jabber / GTalk / Facebook Chat engine for Smuxi
- Smuxi is an irssi-inspired, flexible, user-friendly and cross-platform IRC
- client for sophisticated users, targeting the GNOME desktop.
- .
- Smuxi is based on the client-server model: The core application (engine) can
- be placed onto a server which is connected to the Internet around-the-clock;
- one or more frontends then connect to the core. This way, the connection to
- IRC can be kept up even when all frontends have been closed. The combination
- of screen and irssi served as example for this architecture.
- .
- Smuxi also supports the regular single application mode. This behaves like a
- typical IRC client; it doesn't need separate core management and utilizes a
- local engine that is used by the local frontend client.
- .
- This package contains the XMPP engine for Smuxi. This plugin allows you
- to receive and send messages on XMPP, Jabber, GTalk and the Facebook chat.
-
-Package: smuxi-server
-Architecture: all
-Replaces: smuxi (<< 0.5.25)
-Depends: ${shlibs:Depends},
-         ${misc:Depends},
-         ${cli:Depends},
-         smuxi-engine (= ${source:Version})
-Description: Server application for Smuxi
- Smuxi is an irssi-inspired, flexible, user-friendly and cross-platform IRC
- client for sophisticated users, targeting the GNOME desktop.
- .
- Smuxi is based on the client-server model: The core application (engine) can
- be placed onto a server which is connected to the Internet around-the-clock;
- one or more frontends then connect to the core. This way, the connection to
- IRC can be kept up even when all frontends have been closed. The combination
- of screen and irssi served as example for this architecture.
- .
- Smuxi also supports the regular single application mode. This behaves like a
- typical IRC client; it doesn't need separate core management and utilizes a
- local engine that is used by the local frontend client.
- .
- This package contains the standalone server of Smuxi, it doesn't need any GUI.
- The Smuxi frontends can connect to a running server via the network.
-
-Package: smuxi-frontend
-Architecture: all
-Replaces: smuxi (<< 0.5.25)
-Depends: ${shlibs:Depends},
-         ${misc:Depends},
-         ${cli:Depends},
-         smuxi-engine (= ${source:Version})
-Description: Frontend library for Smuxi
- Smuxi is an irssi-inspired, flexible, user-friendly and cross-platform IRC
- client for sophisticated users, targeting the GNOME desktop.
- .
- Smuxi is based on the client-server model: The core application (engine) can
- be placed onto a server which is connected to the Internet around-the-clock;
- one or more frontends then connect to the core. This way, the connection to
- IRC can be kept up even when all frontends have been closed. The combination
- of screen and irssi served as example for this architecture.
- .
- Smuxi also supports the regular single application mode. This behaves like a
- typical IRC client; it doesn't need separate core management and utilizes a
- local engine that is used by the local frontend client.
- .
- This package contains the base library for all Smuxi frontends.
+ The following Smuxi engines are included in this package:
+ * IRC engine
+ * Twitter engine
+   - receive and post tweets to the Twitter microblogging service.
+   - friends timeline, replies view, and direct messages.
+ * XMPP engine
+   - receive and send messages on XMPP, Jabber, GTalk and the Facebook chat.
+ * Campfire engine
+ * JabbR engine
 
 Package: smuxi-frontend-gnome
 Architecture: all
-Replaces: smuxi (<< 0.5.25)
-Recommends: smuxi-frontend-gnome-irc (= ${source:Version}),
-            ssh-askpass-gnome | ssh-askpass,
+Replaces: smuxi (<< 0.5.25),
+          smuxi-frontend-gnome-irc (<< 1:0.8.12+git-0~265~)
+Conflicts: smuxi-frontend-gnome-irc (<< 1:0.8.12+git-0~265~)
+Recommends: ssh-askpass-gnome | ssh-askpass,
             notification-daemon
 Depends: ${shlibs:Depends},
          ${misc:Depends},
          ${cli:Depends},
          smuxi-engine (= ${source:Version}),
-         smuxi-frontend (= ${source:Version}),
          librsvg2-common
 Description: GNOME frontend for Smuxi
  Smuxi is an irssi-inspired, flexible, user-friendly and cross-platform IRC
@@ -232,38 +132,12 @@ Description: GNOME frontend for Smuxi
  This package contains the GNOME frontend of Smuxi, it can run either standalone
  using a local engine or connect to a running remote engine (server).
 
-Package: smuxi-frontend-gnome-irc
-Architecture: all
-Depends: ${shlibs:Depends},
-         ${misc:Depends},
-         ${cli:Depends},
-         smuxi-engine (= ${source:Version}),
-         smuxi-engine-irc (= ${source:Version}),
-         smuxi-frontend (= ${source:Version}),
-         smuxi-frontend-gnome (= ${source:Version})
-Description: IRC support for GNOME frontend for Smuxi
- Smuxi is an irssi-inspired, flexible, user-friendly and cross-platform IRC
- client for sophisticated users, targeting the GNOME desktop.
- .
- Smuxi is based on the client-server model: The core application (engine) can
- be placed onto a server which is connected to the Internet around-the-clock;
- one or more frontends then connect to the core. This way, the connection to
- IRC can be kept up even when all frontends have been closed. The combination
- of screen and irssi served as example for this architecture.
- .
- Smuxi also supports the regular single application mode. This behaves like a
- typical IRC client; it doesn't need separate core management and utilizes a
- local engine that is used by the local frontend client.
- .
- This package contains enhanced IRC support for the GNOME frontend of Smuxi.
-
 Package: smuxi-frontend-stfl
 Architecture: all
 Depends: ${shlibs:Depends},
          ${misc:Depends},
          ${cli:Depends},
          smuxi-engine (= ${source:Version}),
-         smuxi-frontend (= ${source:Version})
 Description: STFL frontend for Smuxi (experimental)
  Smuxi is an irssi-inspired, flexible, user-friendly and cross-platform IRC
  client for sophisticated users, targeting the GNOME desktop.
@@ -285,3 +159,4 @@ Description: STFL frontend for Smuxi (experimental)
  STFL is a library that uses ncurses to draw text based  user interface using
  a markup language (like Glade for GTK+). This frontend is in early alpha state
  and lacks a lot of interface features and likes to crash.
+

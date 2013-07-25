@@ -1,8 +1,6 @@
 #!/usr/bin/make -f
 export DH_VERBOSE=1
 
-include /usr/share/cli-common/cli.make
-
 LSB_VENDOR = $(shell lsb_release -is)
 LSB_CODENAME = $(shell lsb_release -cs)
 DEB_VERSION = $(shell dpkg-parsechangelog -ldebian/changelog | grep ^Vers | cut -d\  -f2)
@@ -45,6 +43,8 @@ override_dh_install:
 	# optional binary files
 	-dh_install -p smuxi-frontend-gnome "usr/lib/smuxi/messagingmenu-sharp.dll*"
 	-dh_install -p smuxi-frontend-gnome "usr/lib/smuxi/gio-sharp.dll*"
+	# optional system libs
+	-install /usr/lib/gio-sharp/gio-sharp.dll* debian/smuxi-frontend-gnome/usr/lib/smuxi/
 
 %:
-	dh $@
+	dh $@ --with cli
