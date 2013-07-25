@@ -290,7 +290,8 @@ namespace Smuxi.Frontend.Gnome
             Trace.Call();
 
             // sync persons
-            if (_PersonTreeView != null) {
+            var persons = SyncedPersons;
+            if (_PersonTreeView != null && persons != null) {
                 // HACK: out of scope
                 string status = String.Format(
                                     _("Retrieving user list for {0}..."),
@@ -304,7 +305,7 @@ namespace Smuxi.Frontend.Gnome
                 _PersonTreeView.Model = new Gtk.ListStore(typeof(PersonModel));
                 Participants = new List<PersonModel>();
                 string longestName = String.Empty;
-                foreach (var person in SyncedPersons.Values.OrderBy(x => x)) {
+                foreach (var person in persons.Values.OrderBy(x => x)) {
                     ls.AppendValues(person);
                     
                     if (person.IdentityName.Length > longestName.Length) {
