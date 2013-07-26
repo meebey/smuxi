@@ -1,0 +1,33 @@
+[Icon Theme]
+Name=Smuxi-Symbolic
+Comment=Symbolic icon theme for Smuxi
+Inherits=gnome,hicolor
+# WARNING: For newer GTK+ versions we have to use non-legacy icon names! See:
+# http://cgit.freedesktop.org/gstreamer-sdk/icon-naming-utils/tree/legacy-icon-mapping.xml
+Directories=actions/16,actions/22,places/22,actions/24,places/24
+Hidden=true
+
+[actions/16]
+Size=16
+Context=Actions
+Type=Fixed
+
+[actions/22]
+Size=22
+Context=Actions
+Type=Fixed
+
+[places/22]
+Size=22
+Context=Places
+Type=Fixed
+
+[actions/24]
+Size=24
+Context=Actions
+Type=Fixed
+
+[places/24]
+Size=24
+Context=Places
+Type=Fixed

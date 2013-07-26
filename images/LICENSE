@@ -41,10 +41,18 @@ License:    GPL2+
 Author:     George Karavasilev <motorslav@gmail.com>
 Origin:     Portions based on icon.svg
 
-Faenza-Smuxi/*
---------
+Smuxi-Symbolic/*
+----------------
 Filename:   *
 License:    GPL3+
-Author:     Matthieu James <matthieu.james@gmail.com>
-Origin:     Faenza icon theme
-            http://code.google.com/p/faenza-icon-theme/
+Author:     Joern Konopka <cldx3000@googlemail.com>
+Origin:     Numix icon theme
+            http://satya164.deviantart.com/art/Numix-GTK3-theme-360223962
+
+Smuxi-Symbolic/
+---------------
+Filename:   actions/scalable/smuxi-person-chat.svg
+License:    LGPL3+
+Author:     Nuno F. Pinheiro <nuno@oxygen-icons.org>
+Origin:     Oxygen icon theme
+            http://www.oxygen-icons.org/
