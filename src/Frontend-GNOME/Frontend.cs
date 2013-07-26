@@ -1,7 +1,7 @@
 /*
  * Smuxi - Smart MUltipleXed Irc
  *
- * Copyright (c) 2005-2011 Mirco Bauer <meebey@meebey.net>
+ * Copyright (c) 2005-2013 Mirco Bauer <meebey@meebey.net>
  *
  * Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
  *
@@ -1078,11 +1078,8 @@ namespace Smuxi.Frontend.Gnome
                 }
             }
             var appIconDir = Path.Combine(appDir, "icons");
-            if (Directory.Exists(appIconDir) &&
-                (Frontend.IsMacOSX ||
-                 Frontend.IsWindows ||
-                 unityWithLightIcons)) {
-                var iconTheme = "Faenza-Smuxi";
+            if (Directory.Exists(appIconDir)) {
+                var iconTheme = "Smuxi-Symbolic";
 #if LOG4NET
                 _Logger.InfoFormat("InitGtk(): Setting icon theme to: {0}",
                                     iconTheme);
