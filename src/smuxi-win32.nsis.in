@@ -511,7 +511,7 @@ Section "Main" SEC01
   Delete "$INSTDIR\zlib1.dll"
   Delete "$INSTDIR\MonoPosixHelper.dll"
 
-  SetOverwrite try
+  SetOverwrite on
   File "../bin-win32/log4net.dll"
   File "../bin-win32/Meebey.SmartIrc4net.dll"
   File "../bin-win32/Mono.Posix.dll"
