@@ -9,8 +9,6 @@ usr/lib/smuxi/Twitterizer2.dll*
 usr/lib/smuxi/ServiceStack*.dll*
 usr/lib/smuxi/Newtonsoft.Json.dll*
 usr/lib/smuxi/jabber-net.dll*
-usr/lib/smuxi/Microsoft.AspNet.SignalR.Client.dll*
-usr/lib/smuxi/JabbR.Client.dll*
 usr/share/locale/*/LC_MESSAGES/smuxi-engine*.mo
 usr/share/locale/*/LC_MESSAGES/smuxi-frontend.mo
 usr/share/locale/*/LC_MESSAGES/smuxi-server.mo

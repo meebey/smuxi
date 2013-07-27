@@ -5,6 +5,11 @@ LSB_VENDOR = $(shell lsb_release -is)
 LSB_CODENAME = $(shell lsb_release -cs)
 DEB_VERSION = $(shell dpkg-parsechangelog -ldebian/changelog | grep ^Vers | cut -d\  -f2)
 
+DISABLE_JABBR =
+ifeq ($(LSB_VENDOR) $(LSB_CODENAME), Ubuntu lucid)
+	DISABLE_JABBR = --disable-engine-jabbr
+endif
+
 override_dh_auto_configure:
 	NOCONFIGURE=1 NOGIT=1 ./autogen.sh
 	dh_auto_configure -- \
@@ -17,6 +22,7 @@ override_dh_auto_configure:
 	  --with-db4o=included \
 	  --with-notify \
 	  --with-dbus \
+	  $(DISABLE_JABBR) \
 	  GMCS=/usr/bin/mono-csc MCS=/usr/bin/mono-csc
 
 # disable "make check"
@@ -45,6 +51,9 @@ override_dh_install:
 	-dh_install -p smuxi-frontend-gnome "usr/lib/smuxi/gio-sharp.dll*"
 	# optional system libs
 	-install /usr/lib/gio-sharp/gio-sharp.dll* debian/smuxi-frontend-gnome/usr/lib/smuxi/
+	# JabbR doesn't build on Mono < 2.10
+	-dh_install -p smuxi-engine "usr/lib/smuxi/Microsoft.AspNet.SignalR.Client.dll*"
+	-dh_install -p smuxi-engine "usr/lib/smuxi/JabbR.Client.dll*"
 
 %:
 	dh $@ --with cli
