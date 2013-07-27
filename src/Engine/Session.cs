@@ -722,8 +722,19 @@ namespace Smuxi.Engine
 #endif
             lock (_ProtocolManagers) {
                 foreach (var protocolManager in _ProtocolManagers) {
-                    protocolManager.Disconnect(cmd.FrontendManager);
-                    protocolManager.Dispose();
+                    try {
+                        protocolManager.Disconnect(cmd.FrontendManager);
+                        protocolManager.Dispose();
+                    } catch (Exception ex) {
+#if LOG4NET
+                        f_Logger.ErrorFormat(
+                            "CommandShutdown(): {0}.Disconnect/Dispose() " +
+                            "failed, continuing with shutdown...",
+                            protocolManager.ToString()
+                        );
+                        f_Logger.Error("CommandShutdown(): Exception", ex);
+#endif
+                    }
                 }
             }
 
