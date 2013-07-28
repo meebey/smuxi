@@ -22,6 +22,7 @@ ltmain.sh
 missing
 *.user*
 *.pidb
+*.swp
 po/Makefile
 po/Makefile.in
 po/POTFILES
