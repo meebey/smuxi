@@ -32,6 +32,9 @@ namespace Smuxi.Frontend.Stfl
 {
     public class MainWindow : Form
     {
+#if LOG4NET
+        static readonly log4net.ILog Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+#endif
         public StflUI UI { get; private set; }
         Entry Entry { get; set; }
         public ChatViewManager ChatViewManager { get; private set; }
@@ -96,12 +99,24 @@ namespace Smuxi.Frontend.Stfl
             Entry = new Entry(this, ChatViewManager);
             UI = new StflUI(ChatViewManager);
 
+            Resized += OnResized;
             if (StflApi.IsXterm) {
                 ShowTitle = false;
             }
 
             Assembly asm = Assembly.GetExecutingAssembly();
             ChatViewManager.Load(asm);
+        }
+
+        void OnResized(object sender, EventArgs e)
+        {
+#if LOG4NET
+            Logger.DebugFormat(
+                "OnResized(): terminal resized, columns: {0} lines: {1}",
+                this["root_vbox:w"],
+                this["root_vbox:h"]
+            );
+#endif
         }
 
         public void ApplyConfig(UserConfig config)

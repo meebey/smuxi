@@ -1,4 +1,4 @@
-vbox
+vbox[root_vbox]
   autobind:0
   hbox[title_hbox]
     .display[title_hbox_display]:1
