@@ -34,7 +34,7 @@ namespace Stfl
                 Render();
                 var variableName = HeigthVariableName;
                 if (variableName == null) {
-                    variableName = String.Format("{0}:w", WidgetName);
+                    variableName = String.Format("{0}:h", WidgetName);
                 }
                 return Int32.Parse(Form[variableName]);
             }
