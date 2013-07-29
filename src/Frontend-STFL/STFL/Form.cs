@@ -42,6 +42,7 @@ namespace Stfl
 
         public event KeyPressedEventHandler KeyPressed;
         public event EventHandler<EventReceivedEventArgs> EventReceived;
+        public event EventHandler Resized;
         
         public string this[string name] {
             get {
@@ -140,15 +141,28 @@ namespace Stfl
         protected virtual void ProcessEvent(string @event)
         {
             OnEventReceived(new EventReceivedEventArgs(@event));
-            if (@event != null && @event != "TIMEOUT") {
-                ProcessKey(@event);
+            switch (@event) {
+                case null:
+                case "TIMEOUT":
+                    return;
+                case "RESIZE":
+                    OnResized(EventArgs.Empty);
+                    return;
             }
+            ProcessKey(@event);
         }
 
         protected virtual void OnEventReceived(EventReceivedEventArgs e)
         {
             if (EventReceived != null) {
                 EventReceived(this, e);
+            }
+        }
+
+        protected virtual void OnResized(EventArgs e)
+        {
+            if (Resized != null) {
+                Resized(this, e);
             }
         }
 
