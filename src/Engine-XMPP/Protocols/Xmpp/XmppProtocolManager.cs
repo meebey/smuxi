@@ -353,16 +353,18 @@ namespace Smuxi.Engine
 
         public void OpenContactChat()
         {
-            var chat = Session.GetChat("Contacts", ChatType.Group, this);
-
-            if (chat == null) {
+            if (ContactChat == null) {
                 ContactChat = Session.CreateChat<GroupChatModel>(
                     "Contacts", "Contacts", this
                 );
                 Session.AddChat(ContactChat);
+            } else if (!ContactChat.IsEnabled) {
+                Session.EnableChat(ContactChat);
             } else {
-                Session.EnableChat(chat);
+                // already open
+                return;
             }
+
             foreach (var pair in Contacts) {
                 if (pair.Value.Resources.Count != 0) {
                     ContactChat.UnsafePersons.Add(pair.Key, pair.Value.ToPersonModel());
@@ -1954,7 +1956,6 @@ namespace Smuxi.Engine
             OnDisconnected(EventArgs.Empty);
             JabberClient = null;
             MucManager = null;
-            Contacts = null;
             Disco = null;
             if (AutoReconnect) {
                 Connect();
