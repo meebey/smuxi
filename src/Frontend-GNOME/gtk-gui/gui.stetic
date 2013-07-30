@@ -4517,14 +4517,6 @@ Click "Forward" to begin.</property>
         <property name="Active">False</property>
         <signal name="Toggled" handler="OnShowStatusbarActionToggled" />
       </action>
-      <action id="f_ShowJoinBarAction">
-        <property name="Type">Toggle</property>
-        <property name="Label" translatable="yes">Show _Join Bar</property>
-        <property name="ShortLabel" translatable="yes">Show _Join Bar</property>
-        <property name="DrawAsRadio">False</property>
-        <property name="Active">False</property>
-        <signal name="Toggled" handler="OnShowJoinBarActionToggled" />
-      </action>
       <action id="f_FullscreenAction">
         <property name="Type">Action</property>
         <property name="Accelerator">F11</property>
@@ -4558,6 +4550,14 @@ Click "Forward" to begin.</property>
         <property name="Label" translatable="yes">_Website</property>
         <property name="ShortLabel" translatable="yes">_Website</property>
         <signal name="Activated" handler="OnWebsiteActionActivated" />
+      </action>
+      <action id="f_ShowToolbarAction">
+        <property name="Type">Toggle</property>
+        <property name="Label" translatable="yes">Show _Toolbar</property>
+        <property name="ShortLabel" translatable="yes">Show _Toolbar</property>
+        <property name="DrawAsRadio">False</property>
+        <property name="Active">False</property>
+        <signal name="Toggled" handler="OnShowToolbarActionToggled" />
       </action>
     </action-group>
     <property name="MemberName" />
@@ -4600,8 +4600,8 @@ Click "Forward" to begin.</property>
                 <node type="Menuitem" action="f_CaretModeAction" />
                 <node type="Menuitem" action="f_BrowseModeAction" />
                 <node type="Menuitem" action="f_ShowMenubarAction" />
+                <node type="Menuitem" action="f_ShowToolbarAction" />
                 <node type="Menuitem" action="f_ShowStatusbarAction" />
-                <node type="Menuitem" action="f_ShowJoinBarAction" />
                 <node type="Menuitem" action="f_FullscreenAction" />
               </node>
               <node type="Menu" action="f_HelpAction">

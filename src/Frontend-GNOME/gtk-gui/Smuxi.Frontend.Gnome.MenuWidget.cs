@@ -33,18 +33,18 @@ namespace Smuxi.Frontend.Gnome
 		private global::Gtk.ToggleAction f_BrowseModeAction;
 		private global::Gtk.ToggleAction f_ShowMenubarAction;
 		private global::Gtk.ToggleAction f_ShowStatusbarAction;
-		private global::Gtk.ToggleAction f_ShowJoinBarAction;
 		private global::Gtk.Action f_FullscreenAction;
 		private global::Gtk.Action f_AboutAction;
 		private global::Gtk.Action f_OpenLogAction;
 		private global::Gtk.Action f_FindGroupChatToolAction;
 		private global::Gtk.Action f_WebsiteAction;
+		private global::Gtk.ToggleAction f_ShowToolbarAction;
 		private global::Gtk.VBox vbox2;
 		private global::Gtk.MenuBar f_MenuBar;
 		private global::Gtk.HBox hbox1;
 		private global::Gtk.Toolbar f_MenuToolbar;
 		private global::Gtk.Toolbar f_JoinToolbar;
-        
+
 		protected virtual void Build ()
 		{
 			global::Stetic.Gui.Initialize (this);
@@ -138,9 +138,6 @@ namespace Smuxi.Frontend.Gnome
 			this.f_ShowStatusbarAction = new global::Gtk.ToggleAction ("f_ShowStatusbarAction", global::Mono.Unix.Catalog.GetString ("Show _Statusbar"), null, null);
 			this.f_ShowStatusbarAction.ShortLabel = global::Mono.Unix.Catalog.GetString ("Show _Statusbar");
 			w2.Add (this.f_ShowStatusbarAction, null);
-			this.f_ShowJoinBarAction = new global::Gtk.ToggleAction ("f_ShowJoinBarAction", global::Mono.Unix.Catalog.GetString ("Show _Join Bar"), null, null);
-			this.f_ShowJoinBarAction.ShortLabel = global::Mono.Unix.Catalog.GetString ("Show _Join Bar");
-			w2.Add (this.f_ShowJoinBarAction, null);
 			this.f_FullscreenAction = new global::Gtk.Action ("f_FullscreenAction", global::Mono.Unix.Catalog.GetString ("_Fullscreen"), null, "gtk-fullscreen");
 			this.f_FullscreenAction.ShortLabel = global::Mono.Unix.Catalog.GetString ("_Fullscreen");
 			w2.Add (this.f_FullscreenAction, "F11");
@@ -157,13 +154,16 @@ namespace Smuxi.Frontend.Gnome
 			this.f_WebsiteAction = new global::Gtk.Action ("f_WebsiteAction", global::Mono.Unix.Catalog.GetString ("_Website"), null, null);
 			this.f_WebsiteAction.ShortLabel = global::Mono.Unix.Catalog.GetString ("_Website");
 			w2.Add (this.f_WebsiteAction, null);
+			this.f_ShowToolbarAction = new global::Gtk.ToggleAction ("f_ShowToolbarAction", global::Mono.Unix.Catalog.GetString ("Show _Toolbar"), null, null);
+			this.f_ShowToolbarAction.ShortLabel = global::Mono.Unix.Catalog.GetString ("Show _Toolbar");
+			w2.Add (this.f_ShowToolbarAction, null);
 			this.UIManager.InsertActionGroup (w2, 0);
 			this.Name = "Smuxi.Frontend.Gnome.MenuWidget";
 			// Container child Smuxi.Frontend.Gnome.MenuWidget.Gtk.Container+ContainerChild
 			this.vbox2 = new global::Gtk.VBox ();
 			this.vbox2.Name = "vbox2";
 			// Container child vbox2.Gtk.Box+BoxChild
-			this.UIManager.AddUiFromString ("<ui><menubar name='f_MenuBar'><menu name='f_SmuxiAction' action='f_SmuxiAction'><menuitem name='f_PreferencesAction' action='f_PreferencesAction'/><menuitem name='f_QuitAction' action='f_QuitAction'/></menu><menu name='ServerAction' action='ServerAction'><menuitem name='f_ConnectAction' action='f_ConnectAction'/><separator/><menuitem name='f_AddServerAction' action='f_AddServerAction'/><menuitem name='f_ManageServerAction' action='f_ManageServerAction'/></menu><menu name='ChatAction' action='ChatAction'><menuitem name='f_JoinChatAction' action='f_JoinChatAction'/><menuitem name='f_FindGroupChatAction' action='f_FindGroupChatAction'/><menuitem name='f_ClearAllActivityAction' action='f_ClearAllActivityAction'/><separator/><menuitem name='f_NextChatAction' action='f_NextChatAction'/><menuitem name='f_PreviousChatAction' action='f_PreviousChatAction'/><separator/><menuitem name='f_OpenLogAction' action='f_OpenLogAction'/><menuitem name='f_CloseChatAction' action='f_CloseChatAction'/></menu><menu name='EngineAction' action='EngineAction'><menuitem name='f_UseLocalEngineAction' action='f_UseLocalEngineAction'/><separator/><menuitem name='f_AddRemoteEngineAction' action='f_AddRemoteEngineAction'/><menuitem name='f_SwitchRemoteEngineAction' action='f_SwitchRemoteEngineAction'/></menu><menu name='ViewAction' action='ViewAction'><menuitem name='f_CaretModeAction' action='f_CaretModeAction'/><menuitem name='f_BrowseModeAction' action='f_BrowseModeAction'/><menuitem name='f_ShowMenubarAction' action='f_ShowMenubarAction'/><menuitem name='f_ShowStatusbarAction' action='f_ShowStatusbarAction'/><menuitem name='f_ShowJoinBarAction' action='f_ShowJoinBarAction'/><menuitem name='f_FullscreenAction' action='f_FullscreenAction'/></menu><menu name='f_HelpAction' action='f_HelpAction'><menuitem name='f_WebsiteAction' action='f_WebsiteAction'/><menuitem name='f_AboutAction' action='f_AboutAction'/></menu></menubar></ui>");
+			this.UIManager.AddUiFromString ("<ui><menubar name='f_MenuBar'><menu name='f_SmuxiAction' action='f_SmuxiAction'><menuitem name='f_PreferencesAction' action='f_PreferencesAction'/><menuitem name='f_QuitAction' action='f_QuitAction'/></menu><menu name='ServerAction' action='ServerAction'><menuitem name='f_ConnectAction' action='f_ConnectAction'/><separator/><menuitem name='f_AddServerAction' action='f_AddServerAction'/><menuitem name='f_ManageServerAction' action='f_ManageServerAction'/></menu><menu name='ChatAction' action='ChatAction'><menuitem name='f_JoinChatAction' action='f_JoinChatAction'/><menuitem name='f_FindGroupChatAction' action='f_FindGroupChatAction'/><menuitem name='f_ClearAllActivityAction' action='f_ClearAllActivityAction'/><separator/><menuitem name='f_NextChatAction' action='f_NextChatAction'/><menuitem name='f_PreviousChatAction' action='f_PreviousChatAction'/><separator/><menuitem name='f_OpenLogAction' action='f_OpenLogAction'/><menuitem name='f_CloseChatAction' action='f_CloseChatAction'/></menu><menu name='EngineAction' action='EngineAction'><menuitem name='f_UseLocalEngineAction' action='f_UseLocalEngineAction'/><separator/><menuitem name='f_AddRemoteEngineAction' action='f_AddRemoteEngineAction'/><menuitem name='f_SwitchRemoteEngineAction' action='f_SwitchRemoteEngineAction'/></menu><menu name='ViewAction' action='ViewAction'><menuitem name='f_CaretModeAction' action='f_CaretModeAction'/><menuitem name='f_BrowseModeAction' action='f_BrowseModeAction'/><menuitem name='f_ShowMenubarAction' action='f_ShowMenubarAction'/><menuitem name='f_ShowToolbarAction' action='f_ShowToolbarAction'/><menuitem name='f_ShowStatusbarAction' action='f_ShowStatusbarAction'/><menuitem name='f_FullscreenAction' action='f_FullscreenAction'/></menu><menu name='f_HelpAction' action='f_HelpAction'><menuitem name='f_WebsiteAction' action='f_WebsiteAction'/><menuitem name='f_AboutAction' action='f_AboutAction'/></menu></menubar></ui>");
 			this.f_MenuBar = ((global::Gtk.MenuBar)(this.UIManager.GetWidget ("/f_MenuBar")));
 			this.f_MenuBar.Name = "f_MenuBar";
 			this.vbox2.Add (this.f_MenuBar);
@@ -227,12 +227,12 @@ namespace Smuxi.Frontend.Gnome
 			this.f_BrowseModeAction.Toggled += new global::System.EventHandler (this.OnBrowseModeActionToggled);
 			this.f_ShowMenubarAction.Toggled += new global::System.EventHandler (this.OnShowMenubarActionToggled);
 			this.f_ShowStatusbarAction.Toggled += new global::System.EventHandler (this.OnShowStatusbarActionToggled);
-			this.f_ShowJoinBarAction.Toggled += new global::System.EventHandler (this.OnShowJoinBarActionToggled);
 			this.f_FullscreenAction.Activated += new global::System.EventHandler (this.OnFullscreenActionActivated);
 			this.f_AboutAction.Activated += new global::System.EventHandler (this.OnAboutActionActivated);
 			this.f_OpenLogAction.Activated += new global::System.EventHandler (this.OnOpenLogActionActivated);
 			this.f_FindGroupChatToolAction.Activated += new global::System.EventHandler (this.OnFindGroupChatActionActivated);
 			this.f_WebsiteAction.Activated += new global::System.EventHandler (this.OnWebsiteActionActivated);
+			this.f_ShowToolbarAction.Toggled += new global::System.EventHandler (this.OnShowToolbarActionToggled);
 		}
 	}
 }

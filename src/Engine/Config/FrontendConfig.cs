@@ -85,8 +85,8 @@ namespace Smuxi.Engine
             // setting required default values
             prefix = "Frontend/";
             LoadEntry(prefix+"UseLowBandwidthMode", false);
-            LoadEntry(prefix+"ShowQuickJoin", true);
             LoadEntry(prefix+"ShowMenuBar", true);
+            LoadEntry(prefix+"ShowToolBar", true);
             LoadEntry(prefix+"ShowStatusBar", true);
 
             prefix = "Frontend/Engines/";

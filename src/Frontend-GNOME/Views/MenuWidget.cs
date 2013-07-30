@@ -106,13 +106,17 @@ namespace Smuxi.Frontend.Gnome
             f_OpenLogToolAction.IconName = Gtk.Stock.Open;
             f_FindGroupChatToolAction.IconName = Gtk.Stock.Find;
 
+            f_MenuToolbar.ShowAll();
+            f_MenuToolbar.NoShowAll = true;
+            f_MenuToolbar.Visible = (bool) Frontend.FrontendConfig["ShowToolBar"];
+
             f_MenuBar.ShowAll();
             f_MenuBar.NoShowAll = true;
             f_MenuBar.Visible = (bool) Frontend.FrontendConfig["ShowMenuBar"];
 
             JoinWidget = new JoinWidget();
             JoinWidget.NoShowAll = true;
-            JoinWidget.Visible = (bool) Frontend.FrontendConfig["ShowQuickJoin"];
+            JoinWidget.Visible = f_MenuToolbar.Visible;
             JoinWidget.Activated += OnJoinWidgetActivated;
 
             var joinToolItem = new Gtk.ToolItem();
@@ -121,8 +125,8 @@ namespace Smuxi.Frontend.Gnome
             f_JoinToolbar.ShowAll();
 
             f_ShowMenubarAction.Active = (bool) Frontend.FrontendConfig["ShowMenuBar"];
+            f_ShowToolbarAction.Active = (bool) Frontend.FrontendConfig["ShowToolBar"];
             f_ShowStatusbarAction.Active = (bool) Frontend.FrontendConfig["ShowStatusBar"];
-            f_ShowJoinBarAction.Active = JoinWidget.Visible;
 
             if (Frontend.IsMacOSX) {
                 // Smuxi menu is already shown as app menu
@@ -262,8 +266,8 @@ namespace Smuxi.Frontend.Gnome
             Trace.Call(sender, e);
 
             try {
-                if (!f_ShowJoinBarAction.Active) {
-                    f_ShowJoinBarAction.Activate();
+                if (!f_ShowToolbarAction.Active) {
+                    f_ShowToolbarAction.Activate();
                 }
                 JoinWidget.HasFocus = true;
             } catch (Exception ex) {
@@ -460,6 +464,22 @@ namespace Smuxi.Frontend.Gnome
             }
         }
 
+        protected void OnShowToolbarActionToggled(object sender, EventArgs e)
+        {
+            Trace.Call(sender, e);
+
+            try {
+                var active = f_ShowToolbarAction.Active;
+                f_MenuToolbar.Visible = active;
+                // also hide/show join bar
+                JoinWidget.Visible = active;
+                Frontend.FrontendConfig["ShowToolBar"] = active;
+                Frontend.FrontendConfig.Save();
+            } catch (Exception ex) {
+                Frontend.ShowException(Parent, ex);
+            }
+        }
+
         protected void OnShowStatusbarActionToggled(object sender, EventArgs e)
         {
             Trace.Call(sender, e);
@@ -482,20 +502,6 @@ namespace Smuxi.Frontend.Gnome
                 var chatLink = JoinWidget.GetChatLink();
                 Frontend.OpenChatLink(chatLink);
                 JoinWidget.Clear();
-            } catch (Exception ex) {
-                Frontend.ShowException(Parent, ex);
-            }
-        }
-
-        protected void OnShowJoinBarActionToggled(object sender, EventArgs e)
-        {
-            Trace.Call(sender, e);
-
-            try {
-                var active = f_ShowJoinBarAction.Active;
-                JoinWidget.Visible = active;
-                Frontend.FrontendConfig["ShowQuickJoin"] = active;
-                Frontend.FrontendConfig.Save();
             } catch (Exception ex) {
                 Frontend.ShowException(Parent, ex);
             }
