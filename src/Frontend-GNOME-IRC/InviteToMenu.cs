@@ -1,6 +1,6 @@
 // Smuxi - Smart MUltipleXed Irc
 //
-// Copyright (c) 2010 Mirco Bauer <meebey@meebey.net>
+// Copyright (c) 2010, 2013 Mirco Bauer <meebey@meebey.net>
 //
 // Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
 //
@@ -19,6 +19,7 @@
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA
 
 using System;
+using System.Threading;
 using System.Collections.Generic;
 using Smuxi.Common;
 using Smuxi.Engine;
@@ -85,17 +86,7 @@ namespace Smuxi.Frontend.Gnome
                     // HACK: anonymous methods inside foreach loops needs this
                     var chat = chatView;
                     item.Activated += delegate {
-                        foreach (var invitee in Invitees) {
-                            ProtocolManager.CommandInvite(
-                                new CommandModel(
-                                    Frontend.FrontendManager,
-                                    ChatViewManager.ActiveChat.ChatModel,
-                                    String.Format("{0} {1}",
-                                                  invitee.ID,
-                                                  chat.ID)
-                                )
-                            );
-                        }
+                        OnItemActivated(chat);
                     };
                     item.Show();
                     Append(item);
@@ -103,6 +94,27 @@ namespace Smuxi.Frontend.Gnome
             }
 
             base.OnShown();
+        }
+
+        void OnItemActivated(ChatView chat)
+        {
+            Trace.Call(chat);
+
+            foreach (var invitee in Invitees) {
+                ThreadPool.QueueUserWorkItem(delegate {
+                    try {
+                        ProtocolManager.CommandInvite(
+                            new CommandModel(
+                                Frontend.FrontendManager,
+                                ChatViewManager.ActiveChat.ChatModel,
+                                String.Format("{0} {1}", invitee.ID, chat.ID)
+                            )
+                        );
+                    } catch (Exception ex) {
+                        Frontend.ShowException(ex);
+                    }
+                });
+            }
         }
     }
 }
