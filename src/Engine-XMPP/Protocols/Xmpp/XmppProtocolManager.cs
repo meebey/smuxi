@@ -435,8 +435,9 @@ namespace Smuxi.Engine
             JabberClient.SendMyPresence();
         }
 
-        public void CommandRegister (CommandModel command)
+        public void CommandRegister(CommandModel command)
         {
+            Trace.Call(command);
             Connect();
             JabberClient.RegisterAccount = true;
             // TODO: add callbacks to process in case of error or success
