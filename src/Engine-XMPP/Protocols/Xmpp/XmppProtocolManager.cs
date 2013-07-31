@@ -1039,23 +1039,25 @@ namespace Smuxi.Engine
                 string status = "+";
                 var contact = pair.Value;
                 if (contact.Resources.Count == 0) {
-                    if (!full) continue;
+                    if (!full) {
+                        continue;
+                    }
                     status = "-";
                 }
                 builder = CreateMessageBuilder();
-                builder.AppendText("{0} {1}\t({2}): {3},{4}"
-                                   , status
-                                   , contact.IdentityName
-                                   , pair.Key
-                                   , contact.Subscription
-                                   , contact.Ask
-                                   );
+                builder.AppendText("{0} {1}\t({2}): {3},{4}",
+                                   status,
+                                   contact.IdentityName,
+                                   pair.Key,
+                                   contact.Subscription,
+                                   contact.Ask
+                );
                 foreach (var p in contact.Resources) {
-                    builder.AppendText("\t|\t{0}:{1}:{2}"
-                                       , p.Key
-                                       , p.Value.Presence.Type.ToString()
-                                       , p.Value.Presence.Priority
-                                       );
+                    builder.AppendText("\t|\t{0}:{1}:{2}",
+                                       p.Key,
+                                       p.Value.Presence.Type.ToString(),
+                                       p.Value.Presence.Priority
+                    );
                     if (!String.IsNullOrEmpty(p.Value.Presence.Status)) {
                         builder.AppendText(":\"{0}\"", p.Value.Presence.Status);
                     }
@@ -1202,7 +1204,9 @@ namespace Smuxi.Engine
                 if (rosterItem.Subscription == SubscriptionType.remove) {
                     Contacts.Remove(rosterItem.Jid);
                 }
-                if (ContactChat == null) return;
+                if (ContactChat == null) {
+                    return;
+                }
                 lock (ContactChat) {
                     PersonModel oldp = ContactChat.GetPerson(rosterItem.Jid);
                     if (oldp == null) {
@@ -1267,9 +1271,13 @@ namespace Smuxi.Engine
         void AddCapabilityToResource(Jid jid, DiscoInfo info)
         {
             XmppPersonModel contact;
-            if (!Contacts.TryGetValue(jid.Bare, out contact)) return;
+            if (!Contacts.TryGetValue(jid.Bare, out contact)) {
+                return;
+            }
             XmppResourceModel res;
-            if (!contact.Resources.TryGetValue(jid.Resource, out res)) return;
+            if (!contact.Resources.TryGetValue(jid.Resource, out res)) {
+                return;
+            }
             res.Disco = info;
         }
         
@@ -1286,8 +1294,7 @@ namespace Smuxi.Engine
                 DiscoCache.Remove(pars as string);
                 return;
             }
-            if (iq.Type != IqType.result)
-            {
+            if (iq.Type != IqType.result) {
                 throw new ArgumentException("discoinfoiq is not a result");
             }
             if (!(iq.Query is DiscoInfo)) {
@@ -1747,7 +1754,7 @@ namespace Smuxi.Engine
             return builder.ToMessage();
         }
 
-        void OnGroupChatMessageError (Message msg, XmppGroupChatModel chat)
+        void OnGroupChatMessageError(Message msg, XmppGroupChatModel chat)
         {
             var builder = CreateMessageBuilder();
             // TODO: nicer formatting
@@ -1759,7 +1766,7 @@ namespace Smuxi.Engine
             Session.AddMessageToChat(chat, builder.ToMessage());
         }
 
-        void OnPrivateChatMessageError (Message msg, PersonChatModel chat)
+        void OnPrivateChatMessageError(Message msg, PersonChatModel chat)
         {
             var builder = CreateMessageBuilder();
             // TODO: nicer formatting
