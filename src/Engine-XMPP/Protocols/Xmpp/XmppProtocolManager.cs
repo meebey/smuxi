@@ -745,18 +745,28 @@ namespace Smuxi.Engine
             "msg/query jid/nick message",
             "say message",
             "join muc-jid [password]",
-            "joinas muc-jid nickname [password]",
             "part/leave [muc-jid]",
             "away [away-message]",
             "contact add/remove jid/nick",
             "contact rename jid/nick newnick"
-            ,"priority away/online/temp priority-value"
-            ,"advanced commands:"
-            ,"contact addonly/subscribe/unsubscribe/approve/deny"
-            ,"whois jid"
             };
             
             foreach (string line in help) {
+                builder = CreateMessageBuilder();
+                builder.AppendEventPrefix();
+                builder.AppendText(line);
+                cmd.FrontendManager.AddMessageToChat(cmd.Chat, builder.ToMessage());
+            }
+            
+            builder.AppendHeader(_("Advanced XMPP Commands"));
+            string[] help2 = {
+            "contact addonly/subscribe/unsubscribe/approve/deny",
+            "whois jid",
+            "joinas muc-jid nickname [password]",
+            "priority away/online/temp priority-value"
+            };
+            
+            foreach (string line in help2) {
                 builder = CreateMessageBuilder();
                 builder.AppendEventPrefix();
                 builder.AppendText(line);
