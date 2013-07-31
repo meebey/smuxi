@@ -36,7 +36,7 @@ namespace Smuxi.Frontend.Gnome
         private static readonly log4net.ILog _Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 #endif
         private static readonly string       _LibraryTextDomain = "smuxi-frontend-gnome-irc";
-        private IrcProtocolManager _IrcProtocolManager;
+        IrcProtocolManager IrcProtocolManager { get; set; }
 
         public IrcGroupChatView(GroupChatModel groupChat) : base(groupChat)
         {
@@ -51,7 +51,7 @@ namespace Smuxi.Frontend.Gnome
                 column.Spacing = 0;
                 column.SortIndicator = false;
                 column.Sizing = Gtk.TreeViewColumnSizing.GrowOnly;
-                column.SetCellDataFunc(cellr, new Gtk.TreeCellDataFunc(_RenderIrcGroupPersonMode));
+                column.SetCellDataFunc(cellr, new Gtk.TreeCellDataFunc(RenderIrcGroupPersonMode));
                 
                 PersonTreeView.AppendColumn(column);
                 PersonTreeView.MoveColumnAfter(IdentityNameColumn, column);
@@ -64,14 +64,14 @@ namespace Smuxi.Frontend.Gnome
 
             base.Sync();
 
-            _IrcProtocolManager = (IrcProtocolManager) ProtocolManager;
+            IrcProtocolManager = (IrcProtocolManager) ProtocolManager;
         }
 
-        private void _RenderIrcGroupPersonMode(Gtk.TreeViewColumn column,
-                                               Gtk.CellRenderer cellr,
-                                               Gtk.TreeModel model, Gtk.TreeIter iter)
+        void RenderIrcGroupPersonMode(Gtk.TreeViewColumn column,
+                                      Gtk.CellRenderer cellr,
+                                      Gtk.TreeModel model, Gtk.TreeIter iter)
         {
-            IrcGroupPersonModel person = model.GetValue(iter, 0) as IrcGroupPersonModel;
+            var person = model.GetValue(iter, 0) as IrcGroupPersonModel;
             if (person == null) {
 #if LOG4NET
                 _Logger.Error("_RenderIrcGroupPersonMode(): person == null");
@@ -96,23 +96,23 @@ namespace Smuxi.Frontend.Gnome
             (cellr as Gtk.CellRendererText).Text = mode;
         }
         
-        private void _OnUserListMenuOpActivated(object sender, EventArgs e)
+        void OnUserListMenuOpActivated(object sender, EventArgs e)
         {
             Trace.Call(sender, e);
             
-            IList<PersonModel> persons = GetSelectedPersons();
+            var persons = GetSelectedPersons();
             if (persons == null) {
                 return;
             }
 
             // do smart mode changes
-            List<string> nicks = new List<string>(); 
-            foreach (PersonModel person in persons) {
+            var nicks = new List<string>();
+            foreach (var person in persons) {
                 nicks.Add(person.ID);
             }
             ThreadPool.QueueUserWorkItem(delegate {
                 try {
-                    _IrcProtocolManager.CommandOp(
+                    IrcProtocolManager.CommandOp(
                         new CommandModel(
                             Frontend.FrontendManager,
                             ChatModel,
@@ -125,23 +125,23 @@ namespace Smuxi.Frontend.Gnome
             });
         }
         
-        private void _OnUserListMenuDeopActivated(object sender, EventArgs e)
+        void OnUserListMenuDeopActivated(object sender, EventArgs e)
         {
             Trace.Call(sender, e);
             
-            IList<PersonModel> persons = GetSelectedPersons();
+            var persons = GetSelectedPersons();
             if (persons == null) {
                 return;
             }
 
             // do smart mode changes
-            List<string> nicks = new List<string>(); 
-            foreach (PersonModel person in persons) {
+            var nicks = new List<string>();
+            foreach (var person in persons) {
                 nicks.Add(person.ID);
             }
             ThreadPool.QueueUserWorkItem(delegate {
                 try {
-                    _IrcProtocolManager.CommandDeop(
+                    IrcProtocolManager.CommandDeop(
                         new CommandModel(
                             Frontend.FrontendManager,
                             ChatModel,
@@ -154,23 +154,23 @@ namespace Smuxi.Frontend.Gnome
             });
         }
         
-        private void _OnUserListMenuVoiceActivated(object sender, EventArgs e)
+        void OnUserListMenuVoiceActivated(object sender, EventArgs e)
         {
             Trace.Call(sender, e);
             
-            IList<PersonModel> persons = GetSelectedPersons();
+            var persons = GetSelectedPersons();
             if (persons == null) {
                 return;
             }
 
             // do smart mode changes
-            List<string> nicks = new List<string>(); 
-            foreach (PersonModel person in persons) {
+            var nicks = new List<string>();
+            foreach (var person in persons) {
                 nicks.Add(person.ID);
             }
             ThreadPool.QueueUserWorkItem(delegate {
                 try {
-                    _IrcProtocolManager.CommandVoice(
+                    IrcProtocolManager.CommandVoice(
                         new CommandModel(
                             Frontend.FrontendManager,
                             ChatModel,
@@ -183,23 +183,23 @@ namespace Smuxi.Frontend.Gnome
             });
         }
         
-        private void _OnUserListMenuDevoiceActivated(object sender, EventArgs e)
+        void OnUserListMenuDevoiceActivated(object sender, EventArgs e)
         {
             Trace.Call(sender, e);
 
-            IList<PersonModel> persons = GetSelectedPersons();
+            var persons = GetSelectedPersons();
             if (persons == null) {
                 return;
             }
 
             // do smart mode changes
-            List<string> nicks = new List<string>(); 
-            foreach (PersonModel person in persons) {
+            var nicks = new List<string>();
+            foreach (var person in persons) {
                 nicks.Add(person.ID);
             }
             ThreadPool.QueueUserWorkItem(delegate {
                 try {
-                    _IrcProtocolManager.CommandDevoice(
+                    IrcProtocolManager.CommandDevoice(
                         new CommandModel(
                             Frontend.FrontendManager,
                             ChatModel,
@@ -212,20 +212,20 @@ namespace Smuxi.Frontend.Gnome
             });
         }
         
-        private void _OnUserListMenuKickActivated(object sender, EventArgs e)
+        void OnUserListMenuKickActivated(object sender, EventArgs e)
         {
             Trace.Call(sender, e);
 
-            IList<PersonModel> persons = GetSelectedPersons();
+            var persons = GetSelectedPersons();
             if (persons == null) {
                 return;
             }
 
-            foreach (PersonModel person in persons) {
+            foreach (var person in persons) {
                 var per = person;
                 ThreadPool.QueueUserWorkItem(delegate {
                     try {
-                        _IrcProtocolManager.CommandKick(
+                        IrcProtocolManager.CommandKick(
                             new CommandModel(
                                 Frontend.FrontendManager,
                                 ChatModel,
@@ -239,20 +239,20 @@ namespace Smuxi.Frontend.Gnome
             }
         }
         
-        private void _OnUserListMenuKickBanActivated(object sender, EventArgs e)
+        void OnUserListMenuKickBanActivated(object sender, EventArgs e)
         {
             Trace.Call(sender, e);
 
-            IList<PersonModel> persons = GetSelectedPersons();
+            var persons = GetSelectedPersons();
             if (persons == null) {
                 return;
             }
 
-            foreach (PersonModel person in persons) {
+            foreach (var person in persons) {
                 var per = person;
                 ThreadPool.QueueUserWorkItem(delegate {
                     try {
-                        _IrcProtocolManager.CommandKickban(
+                        IrcProtocolManager.CommandKickban(
                             new CommandModel(
                                 Frontend.FrontendManager,
                                 ChatModel,
@@ -266,23 +266,23 @@ namespace Smuxi.Frontend.Gnome
             }
         }
         
-        private void _OnUserListMenuBanActivated(object sender, EventArgs e)
+        void OnUserListMenuBanActivated(object sender, EventArgs e)
         {
             Trace.Call(sender, e);
 
-            IList<PersonModel> persons = GetSelectedPersons();
+            var persons = GetSelectedPersons();
             if (persons == null) {
                 return;
             }
 
             // do smart mode changes
-            List<string> nicks = new List<string>(); 
-            foreach (PersonModel person in persons) {
+            var nicks = new List<string>();
+            foreach (var person in persons) {
                 nicks.Add(person.ID);
             }
             ThreadPool.QueueUserWorkItem(delegate {
                 try {
-                    _IrcProtocolManager.CommandBan(
+                    IrcProtocolManager.CommandBan(
                         new CommandModel(
                             Frontend.FrontendManager,
                             ChatModel,
@@ -295,22 +295,22 @@ namespace Smuxi.Frontend.Gnome
             });
         }
         
-        private void _OnUserListMenuUnbanActivated(object sender, EventArgs e)
+        void OnUserListMenuUnbanActivated(object sender, EventArgs e)
         {
             Trace.Call(sender, e);
 
-            IList<PersonModel> persons = GetSelectedPersons();
+            var persons = GetSelectedPersons();
             if (persons == null) {
                 return;
             }
 
-            List<string> nicks = new List<string>(); 
-            foreach (PersonModel person in persons) {
+            var nicks = new List<string>();
+            foreach (var person in persons) {
                 nicks.Add(person.ID);
             }
             ThreadPool.QueueUserWorkItem(delegate {
                 try {
-                    _IrcProtocolManager.CommandUnban(
+                    IrcProtocolManager.CommandUnban(
                         new CommandModel(
                             Frontend.FrontendManager,
                             ChatModel,
@@ -323,20 +323,20 @@ namespace Smuxi.Frontend.Gnome
             });
         }
         
-        private void _OnUserListMenuQueryActivated(object sender, EventArgs e)
+        void OnUserListMenuQueryActivated(object sender, EventArgs e)
         {
             Trace.Call(sender, e);
 
-            IList<PersonModel> persons = GetSelectedPersons();
+            var persons = GetSelectedPersons();
             if (persons == null) {
                 return;
             }
 
-            foreach (PersonModel person in persons) {
+            foreach (var person in persons) {
                 var per = person;
                 ThreadPool.QueueUserWorkItem(delegate {
                     try {
-                        _IrcProtocolManager.CommandMessageQuery(
+                        IrcProtocolManager.CommandMessageQuery(
                             new CommandModel(
                                 Frontend.FrontendManager,
                                 ChatModel,
@@ -350,20 +350,20 @@ namespace Smuxi.Frontend.Gnome
             }
         }
 
-        private void _OnUserListMenuWhoisActivated(object sender, EventArgs e)
+        void OnUserListMenuWhoisActivated(object sender, EventArgs e)
         {
             Trace.Call(sender, e);
 
-            IList<PersonModel> persons = GetSelectedPersons();
+            var persons = GetSelectedPersons();
             if (persons == null) {
                 return;
             }
 
-            foreach (PersonModel person in persons) {
+            foreach (var person in persons) {
                 var per = person;
                 ThreadPool.QueueUserWorkItem(delegate {
                     try {
-                        _IrcProtocolManager.CommandWhoIs(
+                        IrcProtocolManager.CommandWhoIs(
                             new CommandModel(
                                 Frontend.FrontendManager,
                                 ChatModel,
@@ -388,50 +388,50 @@ namespace Smuxi.Frontend.Gnome
             base.OnPersonMenuShown(sender, e);
 
             Gtk.ImageMenuItem op_item = new Gtk.ImageMenuItem(_("Op"));
-            op_item.Activated += _OnUserListMenuOpActivated;
+            op_item.Activated += OnUserListMenuOpActivated;
             PersonMenu.Append(op_item);
 
             Gtk.ImageMenuItem deop_item = new Gtk.ImageMenuItem(_("Deop"));
-            deop_item.Activated += _OnUserListMenuDeopActivated;
+            deop_item.Activated += OnUserListMenuDeopActivated;
             PersonMenu.Append(deop_item);
 
             Gtk.ImageMenuItem voice_item = new Gtk.ImageMenuItem(_("Voice"));
-            voice_item.Activated += _OnUserListMenuVoiceActivated;
+            voice_item.Activated += OnUserListMenuVoiceActivated;
             PersonMenu.Append(voice_item);
 
             Gtk.ImageMenuItem devoice_item = new Gtk.ImageMenuItem(_("Devoice"));
-            devoice_item.Activated += _OnUserListMenuDevoiceActivated;
+            devoice_item.Activated += OnUserListMenuDevoiceActivated;
             PersonMenu.Append(devoice_item);
 
             Gtk.ImageMenuItem kick_item = new Gtk.ImageMenuItem(_("Kick"));
-            kick_item.Activated += _OnUserListMenuKickActivated;
+            kick_item.Activated += OnUserListMenuKickActivated;
             PersonMenu.Append(kick_item);
 
             Gtk.ImageMenuItem kickban_item = new Gtk.ImageMenuItem(_("Kick + Ban"));
-            kickban_item.Activated += _OnUserListMenuKickBanActivated;
+            kickban_item.Activated += OnUserListMenuKickBanActivated;
             PersonMenu.Append(kickban_item);
 
             Gtk.ImageMenuItem ban_item = new Gtk.ImageMenuItem(_("Ban"));
-            ban_item.Activated += _OnUserListMenuBanActivated;
+            ban_item.Activated += OnUserListMenuBanActivated;
             PersonMenu.Append(ban_item);
 
             Gtk.ImageMenuItem unban_item = new Gtk.ImageMenuItem(_("Unban"));
-            unban_item.Activated += _OnUserListMenuUnbanActivated;
+            unban_item.Activated += OnUserListMenuUnbanActivated;
             PersonMenu.Append(unban_item);
 
             PersonMenu.Append(new Gtk.SeparatorMenuItem());
 
             Gtk.ImageMenuItem query_item = new Gtk.ImageMenuItem(_("Query"));
-            query_item.Activated += _OnUserListMenuQueryActivated;
+            query_item.Activated += OnUserListMenuQueryActivated;
             PersonMenu.Append(query_item);
 
             Gtk.ImageMenuItem whois_item = new Gtk.ImageMenuItem(_("Whois"));
-            whois_item.Activated += _OnUserListMenuWhoisActivated;
+            whois_item.Activated += OnUserListMenuWhoisActivated;
             PersonMenu.Append(whois_item);
 
             Gtk.MenuItem ctcp_item = new Gtk.MenuItem(_("CTCP"));
             Gtk.Menu ctcp_menu = new CtcpMenu(
-                _IrcProtocolManager,
+                IrcProtocolManager,
                 Frontend.MainWindow.ChatViewManager,
                 GetSelectedPersons()
             );
@@ -440,7 +440,7 @@ namespace Smuxi.Frontend.Gnome
 
             Gtk.MenuItem invite_to_item = new Gtk.MenuItem(_("Invite to"));
             Gtk.Menu invite_to_menu_item = new InviteToMenu(
-                _IrcProtocolManager,
+                IrcProtocolManager,
                 Frontend.MainWindow.ChatViewManager,
                 GetSelectedPersons()
             );

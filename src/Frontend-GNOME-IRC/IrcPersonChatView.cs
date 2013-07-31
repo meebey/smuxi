@@ -32,13 +32,13 @@ namespace Smuxi.Frontend.Gnome
     public class IrcPersonChatView : PersonChatView
     {
         private static readonly string _LibraryTextDomain = "smuxi-frontend-gnome-irc";
-        private IrcProtocolManager _IrcProtocolManager;
+        IrcProtocolManager IrcProtocolManager;
 
         public IrcPersonChatView(PersonChatModel personChat) : base(personChat)
         {
             Trace.Call(personChat);
 
-            OutputMessageTextView.PopulatePopup += _OnOutputMessageTextViewPopulatePopup;
+            OutputMessageTextView.PopulatePopup += OnOutputMessageTextViewPopulatePopup;
         }
 
         public override void Sync()
@@ -47,10 +47,10 @@ namespace Smuxi.Frontend.Gnome
 
             base.Sync();
 
-            _IrcProtocolManager = (IrcProtocolManager) ProtocolManager;
+            IrcProtocolManager = (IrcProtocolManager) ProtocolManager;
         }
 
-        private void _OnOutputMessageTextViewPopulatePopup (object o, Gtk.PopulatePopupArgs args)
+        void OnOutputMessageTextViewPopulatePopup(object o, Gtk.PopulatePopupArgs args)
         {
             if (OutputMessageTextView.IsAtUrlTag) {
                 return;
@@ -61,18 +61,18 @@ namespace Smuxi.Frontend.Gnome
             popup.Append(new Gtk.SeparatorMenuItem());
 
             Gtk.ImageMenuItem whois_item = new Gtk.ImageMenuItem(_("Whois"));
-            whois_item.Activated += _OnMenuWhoisItemActivated;
+            whois_item.Activated += OnMenuWhoisItemActivated;
             popup.Append(whois_item);
 
             Gtk.ImageMenuItem ctcp_item = new Gtk.ImageMenuItem(_("CTCP"));
-            Gtk.Menu ctcp_menu_item = new CtcpMenu(_IrcProtocolManager,
+            Gtk.Menu ctcp_menu_item = new CtcpMenu(IrcProtocolManager,
                                                    Frontend.MainWindow.ChatViewManager,
                                                    PersonModel);
             ctcp_item.Submenu = ctcp_menu_item;
             popup.Append(ctcp_item);
 
             Gtk.ImageMenuItem invite_to_item = new Gtk.ImageMenuItem(_("Invite to"));
-            Gtk.Menu invite_to_menu_item = new InviteToMenu(_IrcProtocolManager,
+            Gtk.Menu invite_to_menu_item = new InviteToMenu(IrcProtocolManager,
                                                             Frontend.MainWindow.ChatViewManager,
                                                             PersonModel);
             invite_to_item.Submenu = invite_to_menu_item;
@@ -81,13 +81,13 @@ namespace Smuxi.Frontend.Gnome
             popup.ShowAll();
         }
 
-        void _OnMenuWhoisItemActivated (object sender, EventArgs e)
+        void OnMenuWhoisItemActivated(object sender, EventArgs e)
         {
             Trace.Call(sender, e);
 
             ThreadPool.QueueUserWorkItem(delegate {
                 try {
-                    _IrcProtocolManager.CommandWhoIs(
+                    IrcProtocolManager.CommandWhoIs(
                         new CommandModel(
                             Frontend.FrontendManager,
                             ChatModel,
