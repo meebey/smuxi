@@ -35,19 +35,20 @@ using System.Globalization;
 
 using agsXMPP;
 using agsXMPP.protocol;
-using agsXMPP.protocol.iq.roster;
 using agsXMPP.protocol.client;
-using agsXMPP.protocol.iq;
 using agsXMPP.protocol.x.muc;
-using XmppMessageType = agsXMPP.protocol.client.MessageType;
-
-using Smuxi.Common;
-using agsXMPP.Factory;
+using agsXMPP.protocol.iq;
+using agsXMPP.protocol.iq.roster;
 using agsXMPP.protocol.iq.disco;
 using agsXMPP.protocol.extensions.caps;
-using agsXMPP.Net;
-using Starksoft.Net.Proxy;
 using agsXMPP.protocol.extensions.chatstates;
+using XmppMessageType = agsXMPP.protocol.client.MessageType;
+using agsXMPP.Factory;
+using agsXMPP.Net;
+
+using Starksoft.Net.Proxy;
+
+using Smuxi.Common;
 
 namespace Smuxi.Engine
 {
