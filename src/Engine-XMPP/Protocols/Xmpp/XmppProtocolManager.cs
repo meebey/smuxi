@@ -994,7 +994,7 @@ namespace Smuxi.Engine
             Invite(new Jid[]{jid}, room, reason, password);
         }
   
-        public void Invite(string[] jids_string, string room, string reason, string password)
+        void Invite(string[] jids_string, string room, string reason, string password)
         {
             var jids = new Jid[jids_string.Length];
             for (int i = 0; i < jids.Length; i++) {

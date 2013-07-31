@@ -86,15 +86,11 @@ namespace Smuxi.Frontend.Gnome
 
                     var item = new Gtk.ImageMenuItem(chatView.Name);
                     item.Image = new Gtk.Image(GroupChatView.IconPixbuf);
-                    string[] jids = new string[Invitees.Count];
-                    for (int i = 0; i < Invitees.Count; i++) {
-                        jids[i] = Invitees[i].ID;
-                    }
                     var chatid = chatView.ID;
                     item.Activated += delegate {
-                        ProtocolManager.Invite(
-                            jids, chatid, null, null
-                        );
+                        for (int i = 0; i < Invitees.Count; i++) {
+                            Command("/invite " + chatid + " " + Invitees[i].ID);
+                        }
                     };
                     item.Show();
                     Append(item);
@@ -102,6 +98,23 @@ namespace Smuxi.Frontend.Gnome
             }
 
             base.OnShown();
+        }
+        
+        void Command(string cmd)
+        {
+            Trace.Call(cmd);
+            try {
+                ProtocolManager.CommandInvite(
+                    new CommandModel(
+                        Frontend.FrontendManager,
+                        ChatViewManager.ActiveChat.ChatModel,
+                        ChatViewManager.ActiveChat.ID,
+                        cmd
+                    )
+                 );
+            } catch (Exception ex) {
+                Frontend.ShowException(ex);
+            }
         }
     }
 }
