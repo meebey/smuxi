@@ -118,7 +118,7 @@ namespace Smuxi.Engine
             builder.AppendEventPrefix();
             // TODO: create user readable error messages from the error.Condition
             //builder.AppendErrorText(error.Condition.ToString());
-            switch(error.Condition) {
+            switch (error.Condition) {
                 case StreamErrorCondition.SystemShutdown:
                     builder.AppendErrorText(_("The Server has shut down"));
                     break;
