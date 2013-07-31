@@ -1,6 +1,6 @@
 // Smuxi - Smart MUltipleXed Irc
 //
-// Copyright (c) 2010 Mirco Bauer <meebey@meebey.net>
+// Copyright (c) 2010, 2013 Mirco Bauer <meebey@meebey.net>
 //
 // Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
 //
@@ -19,6 +19,7 @@
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA
 
 using System;
+using System.Threading;
 using System.Collections.Generic;
 using Smuxi.Common;
 using Smuxi.Engine;
@@ -103,13 +104,20 @@ namespace Smuxi.Frontend.Gnome
             Trace.Call(sender, e);
 
             foreach (PersonModel target in Targets) {
-                ProtocolManager.CommandPing(
-                    new CommandModel(
-                        Frontend.FrontendManager,
-                        ChatViewManager.ActiveChat.ChatModel,
-                        target.ID
-                    )
-                );
+                var targetId = target.ID;
+                ThreadPool.QueueUserWorkItem(delegate {
+                    try {
+                        ProtocolManager.CommandPing(
+                            new CommandModel(
+                                Frontend.FrontendManager,
+                                ChatViewManager.ActiveChat.ChatModel,
+                                targetId
+                            )
+                        );
+                    } catch (Exception ex) {
+                        Frontend.ShowException(ex);
+                    }
+                });
             }
         }
 
@@ -118,13 +126,20 @@ namespace Smuxi.Frontend.Gnome
             Trace.Call(sender, e);
 
             foreach (PersonModel target in Targets) {
-                ProtocolManager.CommandVersion(
-                    new CommandModel(
-                        Frontend.FrontendManager,
-                        ChatViewManager.ActiveChat.ChatModel,
-                        target.ID
-                    )
-                );
+                var targetId = target.ID;
+                ThreadPool.QueueUserWorkItem(delegate {
+                    try {
+                        ProtocolManager.CommandVersion(
+                            new CommandModel(
+                                Frontend.FrontendManager,
+                                ChatViewManager.ActiveChat.ChatModel,
+                                targetId
+                            )
+                        );
+                    } catch (Exception ex) {
+                        Frontend.ShowException(ex);
+                    }
+                });
             }
         }
 
@@ -133,13 +148,20 @@ namespace Smuxi.Frontend.Gnome
             Trace.Call(sender, e);
 
             foreach (PersonModel target in Targets) {
-                ProtocolManager.CommandTime(
-                    new CommandModel(
-                        Frontend.FrontendManager,
-                        ChatViewManager.ActiveChat.ChatModel,
-                        target.ID
-                    )
-                );
+                var targetId = target.ID;
+                ThreadPool.QueueUserWorkItem(delegate {
+                    try {
+                        ProtocolManager.CommandTime(
+                            new CommandModel(
+                                Frontend.FrontendManager,
+                                ChatViewManager.ActiveChat.ChatModel,
+                                targetId
+                            )
+                        );
+                    } catch (Exception ex) {
+                        Frontend.ShowException(ex);
+                    }
+                });
             }
         }
 
@@ -148,13 +170,20 @@ namespace Smuxi.Frontend.Gnome
             Trace.Call(sender, e);
 
             foreach (PersonModel target in Targets) {
-                ProtocolManager.CommandFinger(
-                    new CommandModel(
-                        Frontend.FrontendManager,
-                        ChatViewManager.ActiveChat.ChatModel,
-                        target.ID
-                    )
-                );
+                var targetId = target.ID;
+                ThreadPool.QueueUserWorkItem(delegate {
+                    try {
+                        ProtocolManager.CommandFinger(
+                            new CommandModel(
+                                Frontend.FrontendManager,
+                                ChatViewManager.ActiveChat.ChatModel,
+                                targetId
+                            )
+                        );
+                    } catch (Exception ex) {
+                        Frontend.ShowException(ex);
+                    }
+                });
             }
         }
 
@@ -163,13 +192,20 @@ namespace Smuxi.Frontend.Gnome
             Trace.Call(sender, e);
 
             foreach (PersonModel target in Targets) {
-                ProtocolManager.CommandCtcp(
-                    new CommandModel(
-                        Frontend.FrontendManager,
-                        ChatViewManager.ActiveChat.ChatModel,
-                        String.Format("{0} {1}", target.ID, "USERINFO")
-                    )
-                );
+                var targetId = target.ID;
+                ThreadPool.QueueUserWorkItem(delegate {
+                    try {
+                        ProtocolManager.CommandCtcp(
+                            new CommandModel(
+                                Frontend.FrontendManager,
+                                ChatViewManager.ActiveChat.ChatModel,
+                                String.Format("{0} {1}", targetId, "USERINFO")
+                            )
+                        );
+                    } catch (Exception ex) {
+                        Frontend.ShowException(ex);
+                    }
+                });
             }
         }
 
