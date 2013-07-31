@@ -113,6 +113,7 @@ namespace Smuxi.Engine
 
         void OnStreamError(object sender, agsXMPP.Xml.Dom.Element e)
         {
+            Trace.Call(sender, e);
             var error = e as agsXMPP.protocol.Error;
             var builder = CreateMessageBuilder();
             builder.AppendEventPrefix();
