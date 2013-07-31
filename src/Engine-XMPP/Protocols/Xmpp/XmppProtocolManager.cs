@@ -1168,7 +1168,7 @@ namespace Smuxi.Engine
             }
         }
 
-        public XmppPersonModel GetOrCreateContact(Jid jid, string name)
+        XmppPersonModel GetOrCreateContact(Jid jid, string name)
         {
             XmppPersonModel p;
             if (!Contacts.TryGetValue(jid.Bare, out p)) {
