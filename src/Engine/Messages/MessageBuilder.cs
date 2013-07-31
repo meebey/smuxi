@@ -284,7 +284,7 @@ namespace Smuxi.Engine
         }
 
         public virtual MessageBuilder AppendWarningText(string errorText,
-                                                        params string[] args)
+                                                        params object[] args)
         {
             var text = CreateText(errorText, args);
             text.Bold = true;
@@ -292,7 +292,7 @@ namespace Smuxi.Engine
         }
 
         public virtual MessageBuilder AppendErrorText(string errorText,
-                                                      params string[] args)
+                                                      params object[] args)
         {
             var text = CreateText(errorText, args);
             text.ForegroundColor = new TextColor(255, 0, 0);
