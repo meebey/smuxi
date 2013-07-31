@@ -187,7 +187,7 @@ namespace Smuxi.Engine
 
             // TODO: use config for single network chat or once per network manager
             NetworkChat = Session.CreateChat<ProtocolChatModel>(
-                Host, "Jabber " + Host, this
+                NetworkID, "Jabber " + Host, this
             );
             Session.AddChat(NetworkChat);
             Session.SyncChat(NetworkChat);
