@@ -1104,7 +1104,7 @@ namespace Smuxi.Engine
                             JabberClient.Send(new Message(jid.Bare, XmppMessageType.chat, text));
                         } else {
                             foreach (var res in resources) {
-                                Jid j = jid;
+                                Jid j = new Jid(jid);
                                 j.Resource = res.Name;
                                 JabberClient.Send(new Message(j, XmppMessageType.chat, text));
                             }
