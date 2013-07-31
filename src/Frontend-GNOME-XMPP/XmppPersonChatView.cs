@@ -69,27 +69,33 @@ namespace Smuxi.Frontend.Gnome
         void _OnMenuWhoisItemActivated(object sender, EventArgs e)
         {
             Trace.Call(sender, e);
-            Command(String.Format("/whois", PersonModel.ID));
+
+            ThreadPool.QueueUserWorkItem(delegate {
+                try {
+                    XmppProtocolManager.CommandWhoIs(
+                        new CommandModel(
+                            Frontend.FrontendManager,
+                            ChatModel,
+                            PersonModel.ID
+                        )
+                     );
+                } catch (Exception ex) {
+                    Frontend.ShowException(ex);
+                }
+            });
         }
 
         void _OnMenuAdd2ContactsItemActivated(object sender, EventArgs e)
         {
             Trace.Call(sender, e);
-   
-            Command("/contact add " + PersonModel.ID);
-        }
-        
-        void Command(string cmd)
-        {
-            Trace.Call(cmd);
+
             ThreadPool.QueueUserWorkItem(delegate {
                 try {
                     XmppProtocolManager.CommandContact(
                         new CommandModel(
                             Frontend.FrontendManager,
                             ChatModel,
-                            ChatModel.ID,
-                            cmd
+                            "add " + PersonModel.ID
                         )
                      );
                 } catch (Exception ex) {

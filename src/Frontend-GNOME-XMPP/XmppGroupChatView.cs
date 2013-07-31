@@ -68,8 +68,7 @@ namespace Smuxi.Frontend.Gnome
                             new CommandModel(
                                 Frontend.FrontendManager,
                                 ChatModel,
-                                ChatModel.ID,
-                                String.Format("/whois {0}", per.ID)
+                                String.Format("{0}", per.ID)
                             )
                          );
                     } catch (Exception ex) {
@@ -97,8 +96,7 @@ namespace Smuxi.Frontend.Gnome
                             new CommandModel(
                                 Frontend.FrontendManager,
                                 ChatModel,
-                                ChatModel.ID,
-                                String.Format("/query {0}", per.ID)
+                                String.Format("{0}", per.ID)
                             )
                          );
                     } catch (Exception ex) {
@@ -121,7 +119,9 @@ namespace Smuxi.Frontend.Gnome
                 var per = person;
 
                 // is this a groupchat contact whose real id is unknown
-                if (person.ID.StartsWith(ChatModel.ID)) continue;
+                if (person.ID.StartsWith(ID)) {
+                    continue;
+                }
 
                 ThreadPool.QueueUserWorkItem(delegate {
                     try {
@@ -129,8 +129,7 @@ namespace Smuxi.Frontend.Gnome
                             new CommandModel(
                                 Frontend.FrontendManager,
                                 ChatModel,
-                                ChatModel.ID,
-                                "/contact add " + per.ID
+                                "add " + per.ID
                             )
                          );
                     } catch (Exception ex) {
@@ -150,7 +149,7 @@ namespace Smuxi.Frontend.Gnome
 
             base.OnPersonMenuShown(sender, e);
 
-            if (Frontend.EngineVersion < new Version(0,8,11)) {
+            if (Frontend.EngineVersion < new Version(0, 8, 12)) {
                 return;
             }
 

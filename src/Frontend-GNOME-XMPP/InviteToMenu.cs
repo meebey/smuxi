@@ -89,7 +89,17 @@ namespace Smuxi.Frontend.Gnome
                     var chatid = chatView.ID;
                     item.Activated += delegate {
                         for (int i = 0; i < Invitees.Count; i++) {
-                            Command("/invite " + chatid + " " + Invitees[i].ID);
+                            try {
+                                ProtocolManager.CommandInvite(
+                                    new CommandModel(
+                                        Frontend.FrontendManager,
+                                        ChatViewManager.ActiveChat.ChatModel,
+                                        chatid + " " + Invitees[i].ID
+                                    )
+                                 );
+                            } catch (Exception ex) {
+                                Frontend.ShowException(ex);
+                            }
                         }
                     };
                     item.Show();
@@ -98,23 +108,6 @@ namespace Smuxi.Frontend.Gnome
             }
 
             base.OnShown();
-        }
-        
-        void Command(string cmd)
-        {
-            Trace.Call(cmd);
-            try {
-                ProtocolManager.CommandInvite(
-                    new CommandModel(
-                        Frontend.FrontendManager,
-                        ChatViewManager.ActiveChat.ChatModel,
-                        ChatViewManager.ActiveChat.ID,
-                        cmd
-                    )
-                 );
-            } catch (Exception ex) {
-                Frontend.ShowException(ex);
-            }
         }
     }
 }
