@@ -297,7 +297,9 @@ namespace Smuxi.Engine
                     );
                 }
             }
-            DebugWrite("calling JabberClient.Open()");
+#if LOG4NET
+            _Logger.Debug("calling JabberClient.Open()");
+#endif
             JabberClient.Open();
         }
         
@@ -625,8 +627,10 @@ namespace Smuxi.Engine
                 case SubscriptionType.from:
                     builder.AppendText(_("You are not subscribed to this contact, but the contact is subcribed to you"));
                     break;
-                default:
-                    builder.AppendErrorText("Invalid Subscription, this is a bug");
+                case SubscriptionType.remove:
+#if LOG4NET
+                    _Logger.Error("a contact with SubscriptionType remove has been found");
+#endif
                     break;
             }
             int i = 0;
