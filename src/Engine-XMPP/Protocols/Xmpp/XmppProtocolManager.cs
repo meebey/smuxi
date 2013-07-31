@@ -1325,67 +1325,67 @@ namespace Smuxi.Engine
         {
             var builder = CreateMessageBuilder();
             builder.AppendEventPrefix();
-            builder.AppendIdendityName(person);
+            string idstring = "";
             // print jid
             if (jid.Bare != person.IdentityName) {
-                builder.AppendText(" [{0}]", jid.Bare);
+                idstring = String.Format(" [{0}]", jid.Bare);
             }
             // print the type (and in case of available detailed type)
             switch (pres.Type) {
                 case PresenceType.available:
                     switch(pres.Show) {
                         case ShowType.NONE:
-                            builder.AppendText(_(" is available"));
+                            builder.AppendText(_("{0}{1} is available"), person, idstring);
                             break;
                         case ShowType.away:
-                            builder.AppendText(_(" is away"));
+                            builder.AppendText(_("{0}{1} is away"), person, idstring);
                             break;
                         case ShowType.xa:
-                            builder.AppendText(_(" is extended away"));
+                            builder.AppendText(_("{0}{1} is extended away"), person, idstring);
                             break;
                         case ShowType.dnd:
-                            builder.AppendText(_(" wishes not to be disturbed"));
+                            builder.AppendText(_("{0}{1} wishes not to be disturbed"), person, idstring);
                             break;
                         case ShowType.chat:
-                            builder.AppendText(_(" wants to chat"));
+                            builder.AppendText(_("{0}{1} wants to chat"), person, idstring);
                             break;
                             
                     }
                     break;
                 case PresenceType.unavailable:
-                    builder.AppendText(_(" is offline"));
+                    builder.AppendText(_("{0}{1} is offline"), person, idstring);
                     break;
                 case PresenceType.subscribe:
                     if ((person as XmppPersonModel).Ask == AskType.subscribe) {
                         builder = CreateMessageBuilder();
                         builder.AppendActionPrefix();
-                        builder.AppendText(_("Automatically allowed "));
-                        builder.AppendIdendityName(person);
-                        builder.AppendText(_(" to subscribe to you, since you are already asking to subscribe"));
+                        builder.AppendText(_("Automatically allowed {0} to subscribe to you, since you are already asking to subscribe"),
+                                           person
+                        );
                     } else {
                         // you have to respond
-                        builder.AppendText(_(" wishes to subscribe to you"));
+                        builder.AppendText(_("{0}{1} wishes to subscribe to you"), person, idstring);
                     }
                     break;
                 case PresenceType.subscribed:
                     // you can now see their presences
-                    builder.AppendText(_(" allowed you to subscribe"));
+                    builder.AppendText(_("{0}{1} allowed you to subscribe"));
                     break;
                 case PresenceType.unsubscribed:
                     if ((person as XmppPersonModel).Subscription == SubscriptionType.from) {
                         builder = CreateMessageBuilder();
                         builder.AppendActionPrefix();
-                        builder.AppendText(_("Automatically removed "));
-                        builder.AppendIdendityName(person);
-                        builder.AppendText(_("'s subscription to your presences after loosing the subscription to theirs"));
+                        builder.AppendText(_("Automatically removed {0}'s subscription to your presences after loosing the subscription to theirs"),
+                                           person
+                        );
                     } else {
                         // you cannot (anymore?) see their presences
-                        builder.AppendText(_(" denied/removed your subscription"));
+                        builder.AppendText(_("{0}{1} denied/removed your subscription"), person, idstring);
                     }
                     break;
                 case PresenceType.unsubscribe:
                     // you might still be able to see their presences
-                    builder.AppendText(_(" unsubscribed from you"));
+                    builder.AppendText(_("{0}{1} unsubscribed from you"), person, idstring);
                     break;
                 case PresenceType.error:
                     if (pres.Error == null) break;
@@ -1393,10 +1393,10 @@ namespace Smuxi.Engine
                         case ErrorType.cancel:
                             switch (pres.Error.Condition) {
                                 case ErrorCondition.RemoteServerNotFound:
-                                    builder.AppendErrorText(_("'s server could not be found"));
+                                    builder.AppendErrorText(_("{0}{1}'s server could not be found"), person, idstring);
                                     break;
                                 case ErrorCondition.Conflict:
-                                    builder.AppendErrorText(_(" is already using your requested resource"));
+                                    builder.AppendErrorText(_("{0}{1} is already using your requested resource"), person, idstring);
                                     break;
                                 default:
                                     if (!String.IsNullOrEmpty(pres.Error.ErrorText)) {
