@@ -28,14 +28,14 @@ using agsXMPP.protocol.iq.disco;
 
 namespace Smuxi.Engine
 {
-    public class XmppResourceModel
+    internal class XmppResourceModel
     {
         public Presence Presence { get; set; }
         public DiscoInfo Disco { get; set; }
         public string Name { get; set; }
     }
     
-    public class XmppPersonModel : PersonModel
+    internal class XmppPersonModel : PersonModel
     {
         public bool Temporary { get; set; }
         public Jid Jid { get; set; }
