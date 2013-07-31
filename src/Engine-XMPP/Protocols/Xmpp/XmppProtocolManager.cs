@@ -1664,7 +1664,7 @@ namespace Smuxi.Engine
             }
         }
         
-        private void OnGroupChatMessage(Message msg)
+        void OnGroupChatMessage(Message msg)
         {
             string group_jid = msg.From.Bare;
             XmppGroupChatModel groupChat = (XmppGroupChatModel) Session.GetChat(group_jid, ChatType.Group, this);
@@ -1713,7 +1713,7 @@ namespace Smuxi.Engine
             Session.AddMessageToChat(chat, msg);
         }
         
-        private void OnPrivateChatMessage(Message msg)
+        void OnPrivateChatMessage(Message msg)
         {
             var chat = Session.GetChat(msg.From, ChatType.Person, this) as PersonChatModel;
             bool isNew = false;
@@ -1782,7 +1782,7 @@ namespace Smuxi.Engine
             Session.AddMessageToChat(chat, builder.ToMessage());
         }
 
-        private void OnMessage(object sender, Message msg)
+        void OnMessage(object sender, Message msg)
         {
             // process chatstates
             if (msg.Chatstate != agsXMPP.protocol.extensions.chatstates.Chatstate.None) {
@@ -1939,7 +1939,7 @@ namespace Smuxi.Engine
             _Say(chat, query.Body, false);
         }
 
-        private PersonChatModel GetOrCreatePersonChat(Jid jid)
+        PersonChatModel GetOrCreatePersonChat(Jid jid)
         {
             bool isNew;
             var chat = GetOrCreatePersonChat(jid, out isNew);
