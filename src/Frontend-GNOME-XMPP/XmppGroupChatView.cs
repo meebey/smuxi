@@ -68,8 +68,7 @@ namespace Smuxi.Frontend.Gnome
                             new CommandModel(
                                 Frontend.FrontendManager,
                                 ChatModel,
-                                ChatModel.ID,
-                                String.Format("/whois {0}", per.ID)
+                                per.ID
                             )
                          );
                     } catch (Exception ex) {
@@ -97,8 +96,7 @@ namespace Smuxi.Frontend.Gnome
                             new CommandModel(
                                 Frontend.FrontendManager,
                                 ChatModel,
-                                ChatModel.ID,
-                                String.Format("/query {0}", per.ID)
+                                per.ID
                             )
                          );
                     } catch (Exception ex) {
@@ -108,7 +106,7 @@ namespace Smuxi.Frontend.Gnome
             }
         }
 
-        void _OnMenuAdd2ContactsItemActivated(object sender, EventArgs e)
+        void _OnMenuAddToContactsItemActivated(object sender, EventArgs e)
         {
             Trace.Call(sender, e);
 
@@ -121,7 +119,9 @@ namespace Smuxi.Frontend.Gnome
                 var per = person;
 
                 // is this a groupchat contact whose real id is unknown
-                if (person.ID.StartsWith(ChatModel.ID)) continue;
+                if (person.ID.StartsWith(ID)) {
+                    continue;
+                }
 
                 ThreadPool.QueueUserWorkItem(delegate {
                     try {
@@ -129,8 +129,7 @@ namespace Smuxi.Frontend.Gnome
                             new CommandModel(
                                 Frontend.FrontendManager,
                                 ChatModel,
-                                ChatModel.ID,
-                                "/contact add " + per.ID
+                                "add " + per.ID
                             )
                          );
                     } catch (Exception ex) {
@@ -150,7 +149,7 @@ namespace Smuxi.Frontend.Gnome
 
             base.OnPersonMenuShown(sender, e);
 
-            if (Frontend.EngineVersion < new Version(0,8,11)) {
+            if (Frontend.EngineVersion < new Version(0, 8, 12)) {
                 return;
             }
 
@@ -162,9 +161,9 @@ namespace Smuxi.Frontend.Gnome
             query_item.Activated += _OnUserListMenuQueryActivated;
             PersonMenu.Append(query_item);
 
-            Gtk.ImageMenuItem add2contacts_item = new Gtk.ImageMenuItem(_("Add To Contacts"));
-            add2contacts_item.Activated += _OnMenuAdd2ContactsItemActivated;
-            PersonMenu.Append(add2contacts_item);
+            Gtk.ImageMenuItem AddToContacts_item = new Gtk.ImageMenuItem(_("Add To Contacts"));
+            AddToContacts_item.Activated += _OnMenuAddToContactsItemActivated;
+            PersonMenu.Append(AddToContacts_item);
 
             Gtk.MenuItem invite_to_item = new Gtk.MenuItem(_("Invite to"));
             Gtk.Menu invite_to_menu_item = new InviteToMenu(
