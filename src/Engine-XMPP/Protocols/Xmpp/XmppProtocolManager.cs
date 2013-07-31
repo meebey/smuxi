@@ -1237,8 +1237,7 @@ namespace Smuxi.Engine
                         // doesn't exist, don't need to do anything
                         return;
                     }
-                    Session.RemovePersonFromGroupChat(ContactChat, oldp);
-                    Session.AddPersonToGroupChat(ContactChat, contact.ToPersonModel());
+                    Session.UpdatePersonInGroupChat(ContactChat, oldp, contact.ToPersonModel());
                 }
             }
             
