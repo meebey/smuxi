@@ -1334,57 +1334,57 @@ namespace Smuxi.Engine
                 case PresenceType.available:
                     switch(pres.Show) {
                         case ShowType.NONE:
-                            builder.AppendText(_("{0}{1} is available"), person, idstring);
+                            builder.AppendFormat(_("{0}{1} is available"), person, idstring);
                             break;
                         case ShowType.away:
-                            builder.AppendText(_("{0}{1} is away"), person, idstring);
+                            builder.AppendFormat(_("{0}{1} is away"), person, idstring);
                             break;
                         case ShowType.xa:
-                            builder.AppendText(_("{0}{1} is extended away"), person, idstring);
+                            builder.AppendFormat(_("{0}{1} is extended away"), person, idstring);
                             break;
                         case ShowType.dnd:
-                            builder.AppendText(_("{0}{1} wishes not to be disturbed"), person, idstring);
+                            builder.AppendFormat(_("{0}{1} wishes not to be disturbed"), person, idstring);
                             break;
                         case ShowType.chat:
-                            builder.AppendText(_("{0}{1} wants to chat"), person, idstring);
+                            builder.AppendFormat(_("{0}{1} wants to chat"), person, idstring);
                             break;
                             
                     }
                     break;
                 case PresenceType.unavailable:
-                    builder.AppendText(_("{0}{1} is offline"), person, idstring);
+                    builder.AppendFormat(_("{0}{1} is offline"), person, idstring);
                     break;
                 case PresenceType.subscribe:
                     if ((person as XmppPersonModel).Ask == AskType.subscribe) {
                         builder = CreateMessageBuilder();
                         builder.AppendActionPrefix();
-                        builder.AppendText(_("Automatically allowed {0} to subscribe to you, since you are already asking to subscribe"),
+                        builder.AppendFormat(_("Automatically allowed {0} to subscribe to you, since you are already asking to subscribe"),
                                            person
                         );
                     } else {
                         // you have to respond
-                        builder.AppendText(_("{0}{1} wishes to subscribe to you"), person, idstring);
+                        builder.AppendFormat(_("{0}{1} wishes to subscribe to you"), person, idstring);
                     }
                     break;
                 case PresenceType.subscribed:
                     // you can now see their presences
-                    builder.AppendText(_("{0}{1} allowed you to subscribe"));
+                    builder.AppendFormat(_("{0}{1} allowed you to subscribe"));
                     break;
                 case PresenceType.unsubscribed:
                     if ((person as XmppPersonModel).Subscription == SubscriptionType.from) {
                         builder = CreateMessageBuilder();
                         builder.AppendActionPrefix();
-                        builder.AppendText(_("Automatically removed {0}'s subscription to your presences after loosing the subscription to theirs"),
+                        builder.AppendFormat(_("Automatically removed {0}'s subscription to your presences after loosing the subscription to theirs"),
                                            person
                         );
                     } else {
                         // you cannot (anymore?) see their presences
-                        builder.AppendText(_("{0}{1} denied/removed your subscription"), person, idstring);
+                        builder.AppendFormat(_("{0}{1} denied/removed your subscription"), person, idstring);
                     }
                     break;
                 case PresenceType.unsubscribe:
                     // you might still be able to see their presences
-                    builder.AppendText(_("{0}{1} unsubscribed from you"), person, idstring);
+                    builder.AppendFormat(_("{0}{1} unsubscribed from you"), person, idstring);
                     break;
                 case PresenceType.error:
                     if (pres.Error == null) break;
