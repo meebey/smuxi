@@ -1256,14 +1256,12 @@ namespace Smuxi.Engine
                 if (ContactChat == null) {
                     return;
                 }
-                lock (ContactChat) {
-                    PersonModel oldp = ContactChat.GetPerson(rosterItem.Jid);
-                    if (oldp == null) {
-                        // doesn't exist, don't need to do anything
-                        return;
-                    }
-                    Session.RemovePersonFromGroupChat(ContactChat, oldp);
+                PersonModel oldp = ContactChat.GetPerson(rosterItem.Jid);
+                if (oldp == null) {
+                    // doesn't exist, don't need to do anything
+                    return;
                 }
+                Session.RemovePersonFromGroupChat(ContactChat, oldp);
                 return;
             }
             // create or update a roster item
@@ -1275,14 +1273,12 @@ namespace Smuxi.Engine
             contact.IdentityNameColored = null; // uncache
 
             if (ContactChat != null) {
-                lock (ContactChat) {
-                    PersonModel oldp = ContactChat.GetPerson(rosterItem.Jid.Bare);
-                    if (oldp == null) {
-                        // doesn't exist, don't need to do anything
-                        return;
-                    }
-                    Session.UpdatePersonInGroupChat(ContactChat, oldp, contact.ToPersonModel());
+                PersonModel oldp = ContactChat.GetPerson(rosterItem.Jid.Bare);
+                if (oldp == null) {
+                    // doesn't exist, don't need to do anything
+                    return;
                 }
+                Session.UpdatePersonInGroupChat(ContactChat, oldp, contact.ToPersonModel());
             }
             
             var chat = Session.GetChat(rosterItem.Jid.Bare, ChatType.Person, this) as PersonChatModel;
@@ -1653,20 +1649,16 @@ namespace Smuxi.Engine
                 case PresenceType.available:
                     if (pres.Priority < 0) break;
                     if (ContactChat == null) break;
-                    lock (ContactChat) {
-                        if (ContactChat.UnsafePersons.ContainsKey(jid.Bare)) break;
-                        Session.AddPersonToGroupChat(ContactChat, person.ToPersonModel());
-                    }
+                    if (ContactChat.UnsafePersons.ContainsKey(jid.Bare)) break;
+                    Session.AddPersonToGroupChat(ContactChat, person.ToPersonModel());
                     break;
                 case PresenceType.unavailable:
                     person.RemoveResource(jid);
                     if (pres.Priority < 0) break;
                     if (ContactChat == null) break;
-                    lock (ContactChat) {
-                        if (!ContactChat.UnsafePersons.ContainsKey(jid.Bare)) break;
-                        var pers = ContactChat.GetPerson(jid.Bare);
-                        Session.RemovePersonFromGroupChat(ContactChat, pers);
-                    }
+                    if (!ContactChat.UnsafePersons.ContainsKey(jid.Bare)) break;
+                    var pers = ContactChat.GetPerson(jid.Bare);
+                    Session.RemovePersonFromGroupChat(ContactChat, pers);
                     break;
                 case PresenceType.subscribe:
                     if (person.Ask == AskType.subscribe) {
