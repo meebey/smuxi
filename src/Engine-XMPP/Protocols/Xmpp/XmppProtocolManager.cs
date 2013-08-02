@@ -354,7 +354,7 @@ namespace Smuxi.Engine
             return result;
         }
 
-        [MethodImpl(MethodImplOptions.Synchronized)]
+        // no need to synchronize this method as it only checks for null
         public override IList<GroupChatModel> FindGroupChats(GroupChatModel filter)
         {
             Trace.Call(filter);
@@ -389,7 +389,7 @@ namespace Smuxi.Engine
             Session.SyncChat(ContactChat);
         }
 
-        [MethodImpl(MethodImplOptions.Synchronized)]
+        // no need to synchronize as no members are accessed
         public override void OpenChat(FrontendManager fm, ChatModel chat)
         {
             Trace.Call(fm, chat);
@@ -461,7 +461,6 @@ namespace Smuxi.Engine
             // TODO: add callbacks to process in case of error or success
         }
 
-        [MethodImpl(MethodImplOptions.Synchronized)]
         public override bool Command(CommandModel command)
         {
             bool handled = false;
@@ -554,7 +553,6 @@ namespace Smuxi.Engine
             return handled;
         }
 
-        [MethodImpl(MethodImplOptions.Synchronized)]
         public void CommandMe(CommandModel command)
         {
             if (command.Data.Length <= 4) {
@@ -752,7 +750,6 @@ namespace Smuxi.Engine
             }
         }
 
-        [MethodImpl(MethodImplOptions.Synchronized)]
         public void CommandHelp(CommandModel cmd)
         {
             var builder = CreateMessageBuilder();
@@ -796,7 +793,6 @@ namespace Smuxi.Engine
             }
         }
 
-        [MethodImpl(MethodImplOptions.Synchronized)]
         public void CommandConnect(CommandModel cd)
         {
             FrontendManager fm = cd.FrontendManager;
@@ -928,7 +924,6 @@ namespace Smuxi.Engine
             }
         }
 
-        [MethodImpl(MethodImplOptions.Synchronized)]
         public void CommandMessageQuery(CommandModel cd)
         {
             if (cd.DataArray.Length < 2) {
@@ -945,7 +940,6 @@ namespace Smuxi.Engine
             }
         }
 
-        [MethodImpl(MethodImplOptions.Synchronized)]
         public void CommandJoin(CommandModel cd)
         {
             if (cd.DataArray.Length < 2) {
@@ -979,7 +973,6 @@ namespace Smuxi.Engine
             chat.OwnNickname = nickname;
         }
 
-        [MethodImpl(MethodImplOptions.Synchronized)]
         public void CommandJoinAs(CommandModel cd)
         {
             if (cd.DataArray.Length < 3) {
@@ -1007,7 +1000,6 @@ namespace Smuxi.Engine
             }
         }
 
-        [MethodImpl(MethodImplOptions.Synchronized)]
         public void CommandInvite(CommandModel cd)
         {
             if (cd.DataArray.Length < 3) {
@@ -1021,13 +1013,11 @@ namespace Smuxi.Engine
             Invite(cd.DataArray[2], cd.DataArray[1], null, password);
         }
 
-        [MethodImpl(MethodImplOptions.Synchronized)]
         void Invite(Jid jid, Jid room, string reason, string password)
         {
             Invite(new Jid[]{jid}, room, reason, password);
         }
 
-        [MethodImpl(MethodImplOptions.Synchronized)]
         void Invite(string[] jids_string, string room, string reason, string password)
         {
             var jids = new Jid[jids_string.Length];
@@ -1050,7 +1040,6 @@ namespace Smuxi.Engine
             MucManager.Invite(jid, room, reason, password);
         }
 
-        [MethodImpl(MethodImplOptions.Synchronized)]
         public void CommandAway(CommandModel cd)
         {
             if (cd.DataArray.Length >= 2) {
@@ -1103,19 +1092,16 @@ namespace Smuxi.Engine
             }
         }
 
-        [MethodImpl(MethodImplOptions.Synchronized)]
         public void CommandSay(CommandModel cd)
         {
             _Say(cd.Chat, cd.Parameter);
         }  
 
-        [MethodImpl(MethodImplOptions.Synchronized)]
         private void _Say(ChatModel chat, string text)
         {
             _Say(chat, text, true);
         }
 
-        [MethodImpl(MethodImplOptions.Synchronized)]
         private void _Say(ChatModel chat, string text, bool send)
         {
             _Say(chat, text, send, true);
@@ -1170,7 +1156,6 @@ namespace Smuxi.Engine
             }
         }
 
-        [MethodImpl(MethodImplOptions.Synchronized)]
         void OnProtocol(object sender, string text)
         {
             if (!DebugProtocol) {
@@ -1198,7 +1183,6 @@ namespace Smuxi.Engine
             }
         }
 
-        [MethodImpl(MethodImplOptions.Synchronized)]
         void OnWriteText(object sender, string text)
         {
             if (!DebugProtocol) {
@@ -1292,7 +1276,6 @@ namespace Smuxi.Engine
             }
         }
 
-        [MethodImpl(MethodImplOptions.Synchronized)]
         void RequestCapabilities(Jid jid, Capabilities caps)
         {
             string hash = caps.Node + "#" + caps.Version;
@@ -1746,7 +1729,6 @@ namespace Smuxi.Engine
             Session.AddMessageToChat(groupChat, message);
         }
 
-        [MethodImpl(MethodImplOptions.Synchronized)]
         void AddMessageToChatIfNotFiltered(MessageModel msg, ChatModel chat, bool isNew)
         {
             if (Session.IsFilteredMessage(chat, msg)) {
@@ -1807,7 +1789,6 @@ namespace Smuxi.Engine
             return builder.ToMessage();
         }
 
-        [MethodImpl(MethodImplOptions.Synchronized)]
         void OnGroupChatMessageError(Message msg, XmppGroupChatModel chat)
         {
             var builder = CreateMessageBuilder();
@@ -1820,7 +1801,6 @@ namespace Smuxi.Engine
             Session.AddMessageToChat(chat, builder.ToMessage());
         }
 
-        [MethodImpl(MethodImplOptions.Synchronized)]
         void OnPrivateChatMessageError(Message msg, PersonChatModel chat)
         {
             var builder = CreateMessageBuilder();
@@ -1953,7 +1933,6 @@ namespace Smuxi.Engine
             }
         }
 
-        [MethodImpl(MethodImplOptions.Synchronized)]
         void OnServerMessage(Message msg)
         {
             var builder = CreateMessageBuilder();
@@ -1966,7 +1945,6 @@ namespace Smuxi.Engine
             Session.AddMessageToChat(NetworkChat, builder.ToMessage());
         }
 
-        [MethodImpl(MethodImplOptions.Synchronized)]
         void OnIQ(object sender, IQ iq)
         {
             Trace.Call(sender, iq);
@@ -2049,7 +2027,6 @@ namespace Smuxi.Engine
             }
         }
 
-        [MethodImpl(MethodImplOptions.Synchronized)]
         void OnError(object sender, Exception ex)
         {
             Trace.Call(sender);
