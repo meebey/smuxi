@@ -1486,8 +1486,7 @@ namespace Smuxi.Engine
             // check whether we know the real jid of this muc user
             if (pres.MucUser != null &&
                 pres.MucUser.Item != null &&
-                pres.MucUser.Item.Jid != null
-                ) {
+                pres.MucUser.Item.Jid != null ) {
                 string nick = pres.From.Resource;
                 if (!string.IsNullOrEmpty(pres.MucUser.Item.Nickname)) {
                     nick = pres.MucUser.Item.Nickname;
@@ -1533,7 +1532,7 @@ namespace Smuxi.Engine
                     if (pres.From.Resource == chat.OwnNickname) {
                         Session.RemoveChat(chat);
                     }
-                break;
+                    break;
                 case PresenceType.error:
                     if (pres.Error == null) break;
                     switch (pres.Error.Type) {
