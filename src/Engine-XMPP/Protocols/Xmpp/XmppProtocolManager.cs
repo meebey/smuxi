@@ -1228,7 +1228,7 @@ namespace Smuxi.Engine
         }
 
         [MethodImpl(MethodImplOptions.Synchronized)]
-        public void OnRosterItem(object sender, RosterItem rosterItem)
+        void OnRosterItem(object sender, RosterItem rosterItem)
         {
             // setting to none also removes the person from chat, as we'd never get an offline message anymore
             if (rosterItem.Subscription == SubscriptionType.none
