@@ -1919,7 +1919,7 @@ namespace Smuxi.Engine
                     }
                     var builder = CreateMessageBuilder();
                     builder.AppendEventPrefix();
-                    builder.AppendText(_("{0} changed the chatstate to {1}"),
+                    builder.AppendFormat(_("{0} changed the chatstate to {1}"),
                                        chat.Person, msg.Chatstate.ToString());
                     AddMessageToChatIfNotFiltered(builder.ToMessage(), chat, isNew);
                 }
