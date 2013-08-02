@@ -65,7 +65,7 @@ namespace Smuxi.Engine
     public class XmppProtocolManager : ProtocolManagerBase
     {
 #if LOG4NET
-        private static readonly log4net.ILog _Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        static readonly log4net.ILog _Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 #endif
         XmppClientConnection JabberClient { get; set; }
         MucManager MucManager { get; set; }
@@ -888,7 +888,7 @@ namespace Smuxi.Engine
         }
 
         [MethodImpl(MethodImplOptions.Synchronized)]
-        private Jid GetJidFromNickname(string nickname)
+        Jid GetJidFromNickname(string nickname)
         {
             XmppPersonModel it;
             Jid jid = nickname;
@@ -1096,18 +1096,18 @@ namespace Smuxi.Engine
             _Say(cd.Chat, cd.Parameter);
         }  
 
-        private void _Say(ChatModel chat, string text)
+        void _Say(ChatModel chat, string text)
         {
             _Say(chat, text, true);
         }
 
-        private void _Say(ChatModel chat, string text, bool send)
+        void _Say(ChatModel chat, string text, bool send)
         {
             _Say(chat, text, send, true);
         }
 
         [MethodImpl(MethodImplOptions.Synchronized)]
-        private void _Say(ChatModel chat, string text, bool send, bool display)
+        void _Say(ChatModel chat, string text, bool send, bool display)
         {
             if (!chat.IsEnabled) {
                 return;
@@ -2060,7 +2060,7 @@ namespace Smuxi.Engine
         }
 
         [MethodImpl(MethodImplOptions.Synchronized)]
-        private void ApplyConfig(UserConfig config, XmppServerModel server)
+        void ApplyConfig(UserConfig config, XmppServerModel server)
         {
             if (server.Username.Contains("@")) {
                 var jid_user = server.Username.Split('@')[0];
@@ -2099,7 +2099,7 @@ namespace Smuxi.Engine
             }
         }
 
-        private static bool ValidateCertificate(object sender,
+        static bool ValidateCertificate(object sender,
                                          X509Certificate certificate,
                                          X509Chain chain,
                                          SslPolicyErrors sslPolicyErrors)
@@ -2107,7 +2107,7 @@ namespace Smuxi.Engine
             return true;
         }
 
-        private static string _(string msg)
+        static string _(string msg)
         {
             return Mono.Unix.Catalog.GetString(msg);
         }
