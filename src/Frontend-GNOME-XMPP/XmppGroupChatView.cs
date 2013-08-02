@@ -68,7 +68,7 @@ namespace Smuxi.Frontend.Gnome
                             new CommandModel(
                                 Frontend.FrontendManager,
                                 ChatModel,
-                                String.Format("{0}", per.ID)
+                                per.ID
                             )
                          );
                     } catch (Exception ex) {
@@ -96,7 +96,7 @@ namespace Smuxi.Frontend.Gnome
                             new CommandModel(
                                 Frontend.FrontendManager,
                                 ChatModel,
-                                String.Format("{0}", per.ID)
+                                per.ID
                             )
                          );
                     } catch (Exception ex) {
