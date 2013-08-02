@@ -918,7 +918,7 @@ namespace Smuxi.Engine
         void MessageQuery(Jid jid, string message)
         {
             var chat = GetOrCreatePersonChat(jid);
-            if (!String.IsNullOrWhiteSpace(message)) {
+            if (message != null && message.Trim().Length() > 0) {
                 _Say(chat, message);
             }
         }
@@ -1472,7 +1472,7 @@ namespace Smuxi.Engine
                 builder.AppendText(_(" since {0} ({1})"), timestamp, spanstr);
             }
             // print user defined message
-            if (!String.IsNullOrWhiteSpace(pres.Status)) {
+            if (pres.Status != null && pres.Status.Trim().Length() > 0) {
                 builder.AppendText(": {0}", pres.Status);
             }
             return builder.ToMessage();
@@ -1870,7 +1870,7 @@ namespace Smuxi.Engine
             User user = msg.MucUser;
             string text;
             if (user.Invite != null) {
-                if (!String.IsNullOrWhiteSpace(user.Invite.Reason)) {
+                if (user.Invite.Reason != null && user.Invite.Reason.Trim().Length() > 0) {
                     text = String.Format(_("You have been invited to {2} by {0} because {1}"),
                                          user.Invite.From,
                                          user.Invite.Reason,
