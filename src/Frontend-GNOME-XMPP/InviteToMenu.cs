@@ -22,6 +22,7 @@ using System;
 using System.Collections.Generic;
 using Smuxi.Common;
 using Smuxi.Engine;
+using System.Threading;
 
 namespace Smuxi.Frontend.Gnome
 {
@@ -88,19 +89,21 @@ namespace Smuxi.Frontend.Gnome
                     item.Image = new Gtk.Image(GroupChatView.IconPixbuf);
                     var chatid = chatView.ID;
                     item.Activated += delegate {
-                        for (int i = 0; i < Invitees.Count; i++) {
-                            try {
-                                ProtocolManager.CommandInvite(
-                                    new CommandModel(
-                                        Frontend.FrontendManager,
-                                        ChatViewManager.ActiveChat.ChatModel,
-                                        chatid + " " + Invitees[i].ID
-                                    )
-                                 );
-                            } catch (Exception ex) {
-                                Frontend.ShowException(ex);
+                        ThreadPool.QueueUserWorkItem(delegate {
+                            for (int i = 0; i < Invitees.Count; i++) {
+                                try {
+                                    ProtocolManager.CommandInvite(
+                                        new CommandModel(
+                                            Frontend.FrontendManager,
+                                            ChatViewManager.ActiveChat.ChatModel,
+                                            chatid + " " + Invitees[i].ID
+                                        )
+                                     );
+                                } catch (Exception ex) {
+                                    Frontend.ShowException(ex);
+                                }
                             }
-                        }
+                        });
                     };
                     item.Show();
                     Append(item);
