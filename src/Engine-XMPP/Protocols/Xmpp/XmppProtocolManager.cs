@@ -103,7 +103,6 @@ namespace Smuxi.Engine
             }
         }
 
-        [MethodImpl(MethodImplOptions.Synchronized)]
         public XmppProtocolManager(Session session) : base(session)
         {
             Trace.Call(session);
