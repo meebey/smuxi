@@ -52,9 +52,9 @@ namespace Smuxi.Frontend.Gnome
             whois_item.Activated += _OnMenuWhoisItemActivated;
             popup.Append(whois_item);
 
-            Gtk.ImageMenuItem add2contacts_item = new Gtk.ImageMenuItem(_("Add To Contacts"));
-            add2contacts_item.Activated += _OnMenuAdd2ContactsItemActivated;
-            popup.Append(add2contacts_item);
+            Gtk.ImageMenuItem AddToContacts_item = new Gtk.ImageMenuItem(_("Add To Contacts"));
+            AddToContacts_item.Activated += _OnMenuAddToContactsItemActivated;
+            popup.Append(AddToContacts_item);
             
             Gtk.ImageMenuItem invite_to_item = new Gtk.ImageMenuItem(_("Invite to"));
             Gtk.Menu invite_to_menu_item = new InviteToMenu(XmppProtocolManager,
@@ -85,7 +85,7 @@ namespace Smuxi.Frontend.Gnome
             });
         }
 
-        void _OnMenuAdd2ContactsItemActivated(object sender, EventArgs e)
+        void _OnMenuAddToContactsItemActivated(object sender, EventArgs e)
         {
             Trace.Call(sender, e);
 
