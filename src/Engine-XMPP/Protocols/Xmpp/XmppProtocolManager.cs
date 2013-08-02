@@ -1395,7 +1395,7 @@ namespace Smuxi.Engine
                     break;
                 case PresenceType.subscribed:
                     // you can now see their presences
-                    builder.AppendFormat(_("{0}{1} allowed you to subscribe"));
+                    builder.AppendFormat(_("{0}{1} allowed you to subscribe"), person, idstring);
                     break;
                 case PresenceType.unsubscribed:
                     if ((person as XmppPersonModel).Subscription == SubscriptionType.from) {
@@ -1920,10 +1920,8 @@ namespace Smuxi.Engine
                     }
                     var builder = CreateMessageBuilder();
                     builder.AppendEventPrefix();
-                    builder.AppendIdendityName(chat.Person);
-                    // TRANSLATOR: do NOT change the position of {0}!
                     builder.AppendText(_("{0} changed the chatstate to {1}"),
-                                       String.Empty, msg.Chatstate.ToString());
+                                       chat.Person, msg.Chatstate.ToString());
                     AddMessageToChatIfNotFiltered(builder.ToMessage(), chat, isNew);
                 }
                     break;
