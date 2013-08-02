@@ -65,7 +65,7 @@ namespace Smuxi.Engine
     public class XmppProtocolManager : ProtocolManagerBase
     {
 #if LOG4NET
-        private static readonly log4net.ILog _Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        static readonly log4net.ILog _Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 #endif
         XmppClientConnection JabberClient { get; set; }
         MucManager MucManager { get; set; }
@@ -103,7 +103,6 @@ namespace Smuxi.Engine
             }
         }
 
-        [MethodImpl(MethodImplOptions.Synchronized)]
         public XmppProtocolManager(Session session) : base(session)
         {
             Trace.Call(session);
@@ -889,7 +888,7 @@ namespace Smuxi.Engine
         }
 
         [MethodImpl(MethodImplOptions.Synchronized)]
-        private Jid GetJidFromNickname(string nickname)
+        Jid GetJidFromNickname(string nickname)
         {
             XmppPersonModel it;
             Jid jid = nickname;
@@ -919,7 +918,7 @@ namespace Smuxi.Engine
         void MessageQuery(Jid jid, string message)
         {
             var chat = GetOrCreatePersonChat(jid);
-            if (!String.IsNullOrWhiteSpace(message)) {
+            if (message != null && message.Trim().Length > 0) {
                 _Say(chat, message);
             }
         }
@@ -1097,18 +1096,18 @@ namespace Smuxi.Engine
             _Say(cd.Chat, cd.Parameter);
         }  
 
-        private void _Say(ChatModel chat, string text)
+        void _Say(ChatModel chat, string text)
         {
             _Say(chat, text, true);
         }
 
-        private void _Say(ChatModel chat, string text, bool send)
+        void _Say(ChatModel chat, string text, bool send)
         {
             _Say(chat, text, send, true);
         }
 
         [MethodImpl(MethodImplOptions.Synchronized)]
-        private void _Say(ChatModel chat, string text, bool send, bool display)
+        void _Say(ChatModel chat, string text, bool send, bool display)
         {
             if (!chat.IsEnabled) {
                 return;
@@ -1229,7 +1228,7 @@ namespace Smuxi.Engine
         }
 
         [MethodImpl(MethodImplOptions.Synchronized)]
-        public void OnRosterItem(object sender, RosterItem rosterItem)
+        void OnRosterItem(object sender, RosterItem rosterItem)
         {
             // setting to none also removes the person from chat, as we'd never get an offline message anymore
             if (rosterItem.Subscription == SubscriptionType.none
@@ -1396,7 +1395,7 @@ namespace Smuxi.Engine
                     break;
                 case PresenceType.subscribed:
                     // you can now see their presences
-                    builder.AppendFormat(_("{0}{1} allowed you to subscribe"));
+                    builder.AppendFormat(_("{0}{1} allowed you to subscribe"), person, idstring);
                     break;
                 case PresenceType.unsubscribed:
                     if ((person as XmppPersonModel).Subscription == SubscriptionType.from) {
@@ -1473,7 +1472,7 @@ namespace Smuxi.Engine
                 builder.AppendText(_(" since {0} ({1})"), timestamp, spanstr);
             }
             // print user defined message
-            if (!String.IsNullOrWhiteSpace(pres.Status)) {
+            if (pres.Status != null && pres.Status.Trim().Length > 0) {
                 builder.AppendText(": {0}", pres.Status);
             }
             return builder.ToMessage();
@@ -1487,8 +1486,7 @@ namespace Smuxi.Engine
             // check whether we know the real jid of this muc user
             if (pres.MucUser != null &&
                 pres.MucUser.Item != null &&
-                pres.MucUser.Item.Jid != null
-                ) {
+                pres.MucUser.Item.Jid != null ) {
                 string nick = pres.From.Resource;
                 if (!string.IsNullOrEmpty(pres.MucUser.Item.Nickname)) {
                     nick = pres.MucUser.Item.Nickname;
@@ -1534,7 +1532,7 @@ namespace Smuxi.Engine
                     if (pres.From.Resource == chat.OwnNickname) {
                         Session.RemoveChat(chat);
                     }
-                break;
+                    break;
                 case PresenceType.error:
                     if (pres.Error == null) break;
                     switch (pres.Error.Type) {
@@ -1871,7 +1869,7 @@ namespace Smuxi.Engine
             User user = msg.MucUser;
             string text;
             if (user.Invite != null) {
-                if (!String.IsNullOrWhiteSpace(user.Invite.Reason)) {
+                if (user.Invite.Reason != null && user.Invite.Reason.Trim().Length > 0) {
                     text = String.Format(_("You have been invited to {2} by {0} because {1}"),
                                          user.Invite.From,
                                          user.Invite.Reason,
@@ -1921,10 +1919,8 @@ namespace Smuxi.Engine
                     }
                     var builder = CreateMessageBuilder();
                     builder.AppendEventPrefix();
-                    builder.AppendIdendityName(chat.Person);
-                    // TRANSLATOR: do NOT change the position of {0}!
-                    builder.AppendText(_("{0} changed the chatstate to {1}"),
-                                       String.Empty, msg.Chatstate.ToString());
+                    builder.AppendFormat(_("{0} changed the chatstate to {1}"),
+                                       chat.Person, msg.Chatstate.ToString());
                     AddMessageToChatIfNotFiltered(builder.ToMessage(), chat, isNew);
                 }
                     break;
@@ -2061,7 +2057,7 @@ namespace Smuxi.Engine
         }
 
         [MethodImpl(MethodImplOptions.Synchronized)]
-        private void ApplyConfig(UserConfig config, XmppServerModel server)
+        void ApplyConfig(UserConfig config, XmppServerModel server)
         {
             if (server.Username.Contains("@")) {
                 var jid_user = server.Username.Split('@')[0];
@@ -2100,7 +2096,7 @@ namespace Smuxi.Engine
             }
         }
 
-        private static bool ValidateCertificate(object sender,
+        static bool ValidateCertificate(object sender,
                                          X509Certificate certificate,
                                          X509Chain chain,
                                          SslPolicyErrors sslPolicyErrors)
@@ -2108,7 +2104,7 @@ namespace Smuxi.Engine
             return true;
         }
 
-        private static string _(string msg)
+        static string _(string msg)
         {
             return Mono.Unix.Catalog.GetString(msg);
         }

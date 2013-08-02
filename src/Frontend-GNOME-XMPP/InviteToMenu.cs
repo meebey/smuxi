@@ -90,8 +90,8 @@ namespace Smuxi.Frontend.Gnome
                     var chatid = chatView.ID;
                     item.Activated += delegate {
                         ThreadPool.QueueUserWorkItem(delegate {
-                            for (int i = 0; i < Invitees.Count; i++) {
-                                try {
+                            try {
+                                for (int i = 0; i < Invitees.Count; i++) {
                                     ProtocolManager.CommandInvite(
                                         new CommandModel(
                                             Frontend.FrontendManager,
@@ -99,9 +99,9 @@ namespace Smuxi.Frontend.Gnome
                                             chatid + " " + Invitees[i].ID
                                         )
                                      );
-                                } catch (Exception ex) {
-                                    Frontend.ShowException(ex);
                                 }
+                            } catch (Exception ex) {
+                                Frontend.ShowException(ex);
                             }
                         });
                     };
