@@ -67,8 +67,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JabbR.Client", "..\lib\Jabb
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "agsxmpp", "..\lib\agsxmpp\agsxmpp\agsxmpp.csproj", "{C6379274-C5DE-41A2-AE3E-753F85A557BA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StarkSoftProxy", "..\lib\StarkSoftProxy\StarkSoftProxy.csproj", "{3F8CF2C1-EA37-444F-8693-A3A00B1131D2}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Release|Any CPU = Release|Any CPU
