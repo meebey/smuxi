@@ -45,10 +45,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Twitterizer2", "..\lib\Twit
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Frontend-STFL-Tests", "Frontend-STFL-Tests\Frontend-STFL-Tests.csproj", "{4820E490-C03D-4794-BE00-C49DD0F0C651}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2005-jabber-net", "..\lib\jabber-net\2005-jabber-net.csproj", "{6CAE854A-F202-4D2B-B10E-E8D8E81E5EF5}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "netlib.Dns", "..\lib\jabber-net\netlib.Dns\netlib.Dns.csproj", "{40AC7A7C-D3E5-46DF-B740-06BD9D2A00E1}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Db4objects.Db4o-2010", "..\lib\db4o-net\Db4objects.Db4o\Db4objects.Db4o-2010.csproj", "{600CD3BF-2ED2-4183-87F7-ADD78A968AE0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceStack.Text", "..\lib\ServiceStack.Text\src\ServiceStack.Text\ServiceStack.Text.csproj", "{579B3FDB-CDAD-44E1-8417-885C38E49A0E}"
@@ -68,6 +64,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.AspNet.SignalR.Client", "..\lib\SignalR\src\Microsoft.AspNet.SignalR.Client\Microsoft.AspNet.SignalR.Client.csproj", "{EB46B9C6-EE37-48F9-835E-E49580E40E0A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JabbR.Client", "..\lib\JabbR\JabbR.Client\JabbR.Client.csproj", "{A4A1D183-FD80-4DBD-806F-883DDADD4967}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "agsxmpp", "..\lib\agsxmpp\agsxmpp\agsxmpp.csproj", "{C6379274-C5DE-41A2-AE3E-753F85A557BA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -246,6 +244,11 @@ Global
 		{91D3003B-7E65-4EAF-8EE1-DA43832E7A9C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{91D3003B-7E65-4EAF-8EE1-DA43832E7A9C}.Release-Win32|x86.ActiveCfg = Release|Any CPU
 		{91D3003B-7E65-4EAF-8EE1-DA43832E7A9C}.Release-Win32|x86.Build.0 = Release|Any CPU
+		{91EA0D0B-D3BA-497F-AFEB-2CAD59DEBA0E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{91EA0D0B-D3BA-497F-AFEB-2CAD59DEBA0E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{91EA0D0B-D3BA-497F-AFEB-2CAD59DEBA0E}.Debug-Win32|Any CPU.ActiveCfg = Debug-Win32|Any CPU
+		{91EA0D0B-D3BA-497F-AFEB-2CAD59DEBA0E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{91EA0D0B-D3BA-497F-AFEB-2CAD59DEBA0E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{95C1E256-73E7-4AAB-AA0B-405B51F7CF5A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{95C1E256-73E7-4AAB-AA0B-405B51F7CF5A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{95C1E256-73E7-4AAB-AA0B-405B51F7CF5A}.Debug-Win32|x86.ActiveCfg = Debug|Any CPU
@@ -316,6 +319,11 @@ Global
 		{C8E5D37F-6C42-4CD6-81E4-CE4DA2125F11}.Release|Any CPU.Build.0 = Release|Any CPU
 		{C8E5D37F-6C42-4CD6-81E4-CE4DA2125F11}.Release-Win32|x86.ActiveCfg = Release|Any CPU
 		{C8E5D37F-6C42-4CD6-81E4-CE4DA2125F11}.Release-Win32|x86.Build.0 = Release|Any CPU
+		{C6379274-C5DE-41A2-AE3E-753F85A557BA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C6379274-C5DE-41A2-AE3E-753F85A557BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C6379274-C5DE-41A2-AE3E-753F85A557BA}.Debug-Win32|Any CPU.ActiveCfg = Debug-Win32|Any CPU
+		{C6379274-C5DE-41A2-AE3E-753F85A557BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C6379274-C5DE-41A2-AE3E-753F85A557BA}.Release|Any CPU.Build.0 = Release|Any CPU
 		{D39D3DC3-CE90-4313-8351-C30C24B2CCB8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{D39D3DC3-CE90-4313-8351-C30C24B2CCB8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D39D3DC3-CE90-4313-8351-C30C24B2CCB8}.Debug-Win32|x86.ActiveCfg = Debug|Any CPU

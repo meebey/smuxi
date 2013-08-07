@@ -44,6 +44,7 @@
     <Compile Include="Protocols\Xmpp\XmppGroupChatModel.cs" />
     <Compile Include="Protocols\Xmpp\IQ\OwnMessage.cs" />
     <Compile Include="Config\XmppServerModel.cs" />
+    <Compile Include="Config\XmppPersonModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Protocols\Xmpp\IQ\" />
@@ -57,9 +58,13 @@
       <Project>{BCD52FCF-B7A8-42FB-AA8D-CF9921FF593E}</Project>
       <Name>Engine</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\lib\jabber-net\2005-jabber-net.csproj">
-      <Project>{6CAE854A-F202-4D2B-B10E-E8D8E81E5EF5}</Project>
-      <Name>2005-jabber-net</Name>
+    <ProjectReference Include="..\..\lib\agsxmpp\agsxmpp\agsxmpp.csproj">
+      <Project>{C6379274-C5DE-41A2-AE3E-753F85A557BA}</Project>
+      <Name>agsxmpp</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\lib\StarkSoftProxy\StarkSoftProxy.csproj">
+      <Project>{3F8CF2C1-EA37-444F-8693-A3A00B1131D2}</Project>
+      <Name>StarkSoftProxy</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

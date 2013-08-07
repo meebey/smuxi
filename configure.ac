@@ -362,12 +362,18 @@ AC_ARG_ENABLE([engine-irc],
 	ENABLE_ENGINE_IRC=yes
 )
 if test "x$ENABLE_ENGINE_IRC" != "xno"; then
-	if test ! -f "$srcdir/lib/SmartIrc4net/configure.ac"; then
+	AC_PATH_PROG(XBUILD, xbuild, no)
+	if test "x$XBUILD" = "xno"; then
+		AC_MSG_ERROR([You need to install xbuild for irc support])
+	fi
+
+	if test ! -f "$srcdir/lib/SmartIrc4net/SmartIrc4net.csproj"; then
 		AC_MSG_ERROR([lib/SmartIrc4net is empty!])
 	fi
-	ac_configure_args="$ac_configure_args --disable-pkg-config --disable-pkg-lib --disable-pkg-gac"
-	AC_CONFIG_SUBDIRS([lib/SmartIrc4net])
-	AC_SUBST([SMARTIRC4NET_FILES], "lib/SmartIrc4net/bin/Meebey.SmartIrc4net.dll")
+	SHAMROCK_CHECK_MONO_2_0_GAC_ASSEMBLIES([
+		System
+		Mono.Posix
+	])
 fi
 AM_CONDITIONAL(ENABLE_ENGINE_IRC, test "x$ENABLE_ENGINE_IRC" = "xyes")
 
@@ -389,16 +395,20 @@ if test "x$ENABLE_ENGINE_XMPP" != "xno"; then
 		AC_MSG_ERROR([You need to install xbuild for XMPP support])
 	fi
 
-	if test ! -f "$srcdir/lib/jabber-net/2005-jabber-net.csproj"; then
-		AC_MSG_ERROR([lib/jabber-net is empty!])
+	if test ! -f "$srcdir/lib/agsxmpp/agsxmpp/agsxmpp.csproj"; then
+		AC_MSG_ERROR([lib/agsxmpp is empty!])
 	fi
 	SHAMROCK_CHECK_MONO_2_0_GAC_ASSEMBLIES([
 		System
-		System.Drawing
+		Mono.Posix
 		System.Xml
 	])
 fi
 AM_CONDITIONAL(ENABLE_ENGINE_XMPP, test "x$ENABLE_ENGINE_XMPP" = "xyes")
+
+if test ! -f "$srcdir/lib/StarkSoftProxy/StarkSoftProxy.csproj"; then
+	AC_MSG_ERROR([lib/StarkSoftProxy is empty!])
+fi
 
 AC_ARG_ENABLE([engine-twitter],
 	AC_HELP_STRING([--enable-engine-twitter], [Enable Twitter support (default yes)]),

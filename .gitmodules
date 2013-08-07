@@ -10,9 +10,9 @@
 [submodule "lib/db4o-net"]
 	path = lib/db4o-net
 	url = git://git.qnetp.net/db4o-net.git
-[submodule "lib/jabber-net"]
-	path = lib/jabber-net
-	url = git://git.qnetp.net/jabber-net.git
+[submodule "lib/agsxmpp"]
+	path = lib/agsxmpp
+	url = git://github.com/meebey/agsxmpp.git
 [submodule "lib/ServiceStack.Text"]
 	path = lib/ServiceStack.Text
 	url = git://git.qnetp.net/ServiceStack.Text.git
@@ -28,3 +28,6 @@
 [submodule "lib/JabbR"]
 	path = lib/JabbR
 	url = git://git.qnetp.net/JabbR.git
+[submodule "lib/StarkSoftProxy"]
+	path = lib/StarkSoftProxy
+	url = git://github.com/meebey/starksoftproxy.git

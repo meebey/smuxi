@@ -9,6 +9,7 @@ SOURCES = \
 	Config/XmppServerModel.cs \
 	Protocols/Xmpp/XmppGroupChatModel.cs \
 	Protocols/Xmpp/XmppProtocolManager.cs \
+	Config/XmppPersonModel.cs \
 	Protocols/Xmpp/IQ/OwnMessage.cs
 
 REFERENCES = \
@@ -19,7 +20,8 @@ REFERENCES = \
 DLL_REFERENCES = \
 	$(TARGET_DIR)/smuxi-common.dll \
 	$(TARGET_DIR)/smuxi-engine.dll \
-	$(TARGET_DIR)/jabber-net.dll
+	$(TARGET_DIR)/StarkSoftProxy.dll \
+	$(TARGET_DIR)/agsxmpp.dll
 
 SOURCES_BUILD = $(addprefix $(srcdir)/, $(SOURCES))
 
