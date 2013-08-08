@@ -110,6 +110,48 @@ namespace Smuxi.Engine
             DiscoCache = new Dictionary<string, DiscoInfo>();
 
             SupressLocalMessageEcho = false;
+
+            JabberClient = new XmppClientConnection();
+            JabberClient.Resource = "Smuxi";
+            JabberClient.AutoRoster = true;
+            JabberClient.AutoPresence = true;
+            JabberClient.OnMessage += OnMessage;
+            JabberClient.OnClose += OnDisconnect;
+            JabberClient.OnLogin += OnAuthenticate;
+            JabberClient.OnError += OnError;
+            JabberClient.OnStreamError += OnStreamError;
+            JabberClient.OnPresence += OnPresence;
+            JabberClient.OnRosterItem += OnRosterItem;
+            JabberClient.OnReadXml += OnProtocol;
+            JabberClient.OnWriteXml += OnWriteText;
+            JabberClient.OnAuthError += OnAuthError;
+            JabberClient.OnIq += OnIQ;
+            JabberClient.AutoAgents = false; // outdated feature
+            JabberClient.EnableCapabilities = true;
+            JabberClient.Capabilities.Node = "https://smuxi.im";
+            JabberClient.ClientVersion = Engine.VersionString;
+
+            // identify smuxi
+            var ident = JabberClient.DiscoInfo.AddIdentity();
+            ident.Category = "client";
+            ident.Type = "pc";
+            ident.Name = Engine.VersionString;
+
+            // add features here (this is just for notification of other clients)
+            JabberClient.DiscoInfo.AddFeature().Var = "http://jabber.org/protocol/caps";
+            JabberClient.DiscoInfo.AddFeature().Var = "jabber:iq:last";
+            JabberClient.DiscoInfo.AddFeature().Var = "http://jabber.org/protocol/muc";
+            JabberClient.DiscoInfo.AddFeature().Var = "http://jabber.org/protocol/disco#info";
+            JabberClient.DiscoInfo.AddFeature().Var = "http://www.facebook.com/xmpp/messages";
+            JabberClient.DiscoInfo.AddFeature().Var = "http://jabber.org/protocol/xhtml-im";
+
+            Disco = new DiscoManager(JabberClient);
+            Disco.AutoAnswerDiscoInfoRequests = true;
+
+            // facebook own message echo
+            ElementFactory.AddElementType("own-message", "http://www.facebook.com/xmpp/messages", typeof(OwnMessageQuery));
+
+            MucManager = new MucManager(JabberClient);
         }
 
         [MethodImpl(MethodImplOptions.Synchronized)]
@@ -205,49 +247,7 @@ namespace Smuxi.Engine
             Trace.Call();
             Contacts.Clear();
 
-            JabberClient = new XmppClientConnection();
-            JabberClient.Resource = "Smuxi";
-            JabberClient.AutoRoster = true;
-            JabberClient.AutoPresence = true;
-            JabberClient.OnMessage += OnMessage;
-            JabberClient.OnClose += OnDisconnect;
-            JabberClient.OnLogin += OnAuthenticate;
-            JabberClient.OnError += OnError;
-            JabberClient.OnStreamError += OnStreamError;
-            JabberClient.OnPresence += OnPresence;
-            JabberClient.OnRosterItem += OnRosterItem;
-            JabberClient.OnReadXml += OnProtocol;
-            JabberClient.OnWriteXml += OnWriteText;
-            JabberClient.OnAuthError += OnAuthError;
-            JabberClient.OnIq += OnIQ;
-            JabberClient.AutoAgents = false; // outdated feature
-            JabberClient.EnableCapabilities = true;
-            JabberClient.Capabilities.Node = "https://smuxi.im";
-            JabberClient.ClientVersion = Engine.VersionString;
-
             AutoReconnect = true;
-
-            // identify smuxi
-            var ident = JabberClient.DiscoInfo.AddIdentity();
-            ident.Category = "client";
-            ident.Type = "pc";
-            ident.Name = Engine.VersionString;
-
-            // add features here (this is just for notification of other clients)
-            JabberClient.DiscoInfo.AddFeature().Var = "http://jabber.org/protocol/caps";
-            JabberClient.DiscoInfo.AddFeature().Var = "jabber:iq:last";
-            JabberClient.DiscoInfo.AddFeature().Var = "http://jabber.org/protocol/muc";
-            JabberClient.DiscoInfo.AddFeature().Var = "http://jabber.org/protocol/disco#info";
-            JabberClient.DiscoInfo.AddFeature().Var = "http://www.facebook.com/xmpp/messages";
-            JabberClient.DiscoInfo.AddFeature().Var = "http://jabber.org/protocol/xhtml-im";
-
-            Disco = new DiscoManager(JabberClient);
-            Disco.AutoAnswerDiscoInfoRequests = true;
-
-            // facebook own message echo
-            ElementFactory.AddElementType("own-message", "http://www.facebook.com/xmpp/messages", typeof(OwnMessageQuery));
-
-            MucManager = new MucManager(JabberClient);
 
             ApplyConfig(Session.UserConfig, Server);
 
@@ -342,10 +342,7 @@ namespace Smuxi.Engine
         [MethodImpl(MethodImplOptions.Synchronized)]
         public override string ToString()
         {
-            string result = "Jabber ";
-            if (JabberClient != null) {
-                result += JabberClient.Server + ":" + JabberClient.Port;
-            }
+            string result = "Jabber " + JabberClient.Server + ":" + JabberClient.Port;
             
             if (!IsConnected) {
                 result += " (" + _("not connected") + ")";
@@ -2015,9 +2012,7 @@ namespace Smuxi.Engine
 
             IsConnected = false;
             OnDisconnected(EventArgs.Empty);
-            JabberClient = null;
-            MucManager = null;
-            Disco = null;
+
             if (AutoReconnect) {
                 Connect();
             }
