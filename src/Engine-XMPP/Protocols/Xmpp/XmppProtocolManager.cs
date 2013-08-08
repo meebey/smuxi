@@ -253,55 +253,6 @@ namespace Smuxi.Engine
 
             OpenContactChat();
             
-            var proxySettings = new ProxySettings();
-            proxySettings.ApplyConfig(Session.UserConfig);
-            
-            var protocol = Server.UseEncryption ? "xmpps" : "xmpp";
-            var serverUri = String.Format("{0}://{1}:{2}", protocol,
-                                          Server.Hostname, Server.Port);
-            var proxy = proxySettings.GetWebProxy(serverUri);
-            if (proxySettings.ProxyType != ProxyType.None) {
-                
-                var builder = CreateMessageBuilder();
-                builder.AppendEventPrefix();
-                builder.AppendText(_("Using proxy: {0}:{1}"),
-                                   proxy.Address.Host,
-                                   proxy.Address.Port);
-                Session.AddMessageToChat(Chat, builder.ToMessage());
-                
-                var proxyScheme = proxy.Address.Scheme;
-                var proxyType = Starksoft.Net.Proxy.ProxyType.None;
-                try {
-                    proxyType =
-                        (Starksoft.Net.Proxy.ProxyType) Enum.Parse(
-                            typeof(Starksoft.Net.Proxy.ProxyType), proxy.Address.Scheme, true
-                        );
-                } catch (ArgumentException ex) {
-#if LOG4NET
-                    _Logger.Error("ApplyConfig(): Couldn't parse proxy type: " +
-                                  proxyScheme, ex);
-#endif
-                }
-                var sock = JabberClient.ClientSocket as ClientSocket;
-                
-                ProxyClientFactory proxyFactory = new ProxyClientFactory();
-                if (String.IsNullOrEmpty(proxySettings.ProxyUsername) &&
-                    String.IsNullOrEmpty(proxySettings.ProxyPassword)) {
-                    sock.Proxy = proxyFactory.CreateProxyClient(
-                        proxyType,
-                        proxy.Address.Host,
-                        proxy.Address.Port
-                    );
-                } else {
-                    sock.Proxy = proxyFactory.CreateProxyClient(
-                        proxyType,
-                        proxy.Address.Host,
-                        proxy.Address.Port,
-                        proxySettings.ProxyUsername,
-                        proxySettings.ProxyPassword
-                    );
-                }
-            }
 #if LOG4NET
             _Logger.Debug("calling JabberClient.Open()");
 #endif
@@ -2054,6 +2005,8 @@ namespace Smuxi.Engine
         [MethodImpl(MethodImplOptions.Synchronized)]
         void ApplyConfig(UserConfig config, XmppServerModel server)
         {
+            Nicknames = (string[]) config["Connection/Nicknames"];
+
             if (server.Username.Contains("@")) {
                 var jid_user = server.Username.Split('@')[0];
                 var jid_host = server.Username.Split('@')[1];
@@ -2068,13 +2021,64 @@ namespace Smuxi.Engine
             JabberClient.Port = server.Port;
             JabberClient.Password = server.Password;
 
+            var proxySettings = new ProxySettings();
+            proxySettings.ApplyConfig(config);
+            var protocol = Server.UseEncryption ? "xmpps" : "xmpp";
+            var serverUri = String.Format("{0}://{1}:{2}", protocol,
+                                          Server.Hostname, Server.Port);
+            var proxy = proxySettings.GetWebProxy(serverUri);
+            var socket = JabberClient.ClientSocket as ClientSocket;
+            if (proxy == null) {
+                socket.Proxy = null;
+            } else {
+                var builder = CreateMessageBuilder();
+                builder.AppendEventPrefix();
+                builder.AppendText(_("Using proxy: {0}:{1}"),
+                                   proxy.Address.Host,
+                                   proxy.Address.Port);
+                Session.AddMessageToChat(Chat, builder.ToMessage());
+
+                var proxyScheme = proxy.Address.Scheme;
+                var proxyType = Starksoft.Net.Proxy.ProxyType.None;
+                try {
+                    proxyType = (Starksoft.Net.Proxy.ProxyType) Enum.Parse(
+                        typeof(Starksoft.Net.Proxy.ProxyType),
+                        proxy.Address.Scheme,
+                        true
+                    );
+                } catch (ArgumentException ex) {
+#if LOG4NET
+                    _Logger.Error("ApplyConfig(): Couldn't parse proxy type: " +
+                                  proxyScheme, ex);
+#endif
+                }
+
+                var proxyFactory = new ProxyClientFactory();
+                if (String.IsNullOrEmpty(proxySettings.ProxyUsername) &&
+                    String.IsNullOrEmpty(proxySettings.ProxyPassword)) {
+                    socket.Proxy = proxyFactory.CreateProxyClient(
+                        proxyType,
+                        proxy.Address.Host,
+                        proxy.Address.Port
+                    );
+                } else {
+                    socket.Proxy = proxyFactory.CreateProxyClient(
+                        proxyType,
+                        proxy.Address.Host,
+                        proxy.Address.Port,
+                        proxySettings.ProxyUsername,
+                        proxySettings.ProxyPassword
+                    );
+                }
+            }
+
             Me = new PersonModel(
                 String.Format("{0}@{1}",
                     JabberClient.Username,
                     JabberClient.Server
                 ),
-                JabberClient.Username
-                , NetworkID, Protocol, this
+                JabberClient.Username,
+                NetworkID, Protocol, this
             );
             Me.IdentityNameColored.ForegroundColor = new TextColor(0, 0, 255);
             Me.IdentityNameColored.BackgroundColor = TextColor.None;
@@ -2083,8 +2087,6 @@ namespace Smuxi.Engine
             // XMPP specific settings
             JabberClient.Resource = server.Resource;
             
-            Nicknames = (string[]) config["Connection/Nicknames"];
-
             JabberClient.UseStartTLS = server.UseEncryption;
             if (!server.ValidateServerCertificate) {
                 JabberClient.ClientSocket.OnValidateCertificate += ValidateCertificate;
