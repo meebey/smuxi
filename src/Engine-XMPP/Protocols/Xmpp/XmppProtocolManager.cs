@@ -1383,10 +1383,10 @@ namespace Smuxi.Engine
                         case ErrorType.cancel:
                             switch (pres.Error.Condition) {
                                 case ErrorCondition.RemoteServerNotFound:
-                                    builder.AppendErrorText(_("{0}{1}'s server could not be found"), person, idstring);
+                                    builder.AppendErrorText(_("{0}{1}'s server could not be found"), person.IdentityName, idstring);
                                     break;
                                 case ErrorCondition.Conflict:
-                                    builder.AppendErrorText(_("{0}{1} is already using your requested resource"), person, idstring);
+                                    builder.AppendErrorText(_("{0}{1} is already using your requested resource"), person.IdentityName, idstring);
                                     break;
                                 default:
                                     if (!String.IsNullOrEmpty(pres.Error.ErrorText)) {
