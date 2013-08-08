@@ -1394,8 +1394,8 @@ namespace Smuxi.Engine
             }
             // print timestamp of presence
             if (pres.XDelay != null || pres.Last != null) {
-                DateTime stamp;
-                TimeSpan span;
+                DateTime stamp = DateTime.MinValue;
+                TimeSpan span = TimeSpan.MinValue;
                 if (pres.XDelay != null) {
                     stamp = pres.XDelay.Stamp;
                     span = DateTime.Now.Subtract(stamp);
