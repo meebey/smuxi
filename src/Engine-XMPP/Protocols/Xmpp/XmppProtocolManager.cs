@@ -1404,11 +1404,27 @@ namespace Smuxi.Engine
                     stamp = DateTime.Now.Subtract(span);
                 }
                 string spanstr;
-                if (span > TimeSpan.FromDays(1)) spanstr = span.ToString("dd':'hh':'mm':'ss' days'");
-                else if (span > TimeSpan.FromHours(1)) spanstr = span.ToString("hh':'mm':'ss' hours'");
-                else if (span > TimeSpan.FromMinutes(1)) spanstr = span.ToString("mm':'ss' minutes'");
-                else spanstr = span.ToString("s' seconds'");
-                
+                if (span > TimeSpan.FromDays(1)) {
+                    spanstr = String.Format(
+                        "{0:00}:{1:00}:{2:00}:{3:00}",
+                        span.TotalDays, span.Hours, span.Minutes, span.Seconds
+                    );
+                    spanstr = String.Format(_("{0} days"), spanstr);
+                } else if (span > TimeSpan.FromHours(1)) {
+                    spanstr = String.Format(
+                        "{0:00}:{1:00}:{2:00}",
+                        span.Hours, span.Minutes, span.Seconds
+                    );
+                    spanstr = String.Format(_("{0} hours"), spanstr);
+                } else if (span > TimeSpan.FromMinutes(1)) {
+                    spanstr = String.Format("{0:00}:{1:00}",
+                                            span.Minutes, span.Seconds);
+                    spanstr = String.Format(_("{0} minutes"), spanstr);
+                } else {
+                    spanstr = String.Format("{0:00}", span.Seconds);
+                    spanstr = String.Format(_("{0} seconds"), spanstr);
+                }
+
                 string timestamp = null;
                 try {
                     string format = Session.UserConfig["Interface/Notebook/TimestampFormat"] as string;
