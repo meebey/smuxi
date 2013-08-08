@@ -26,7 +26,9 @@ using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 [assembly: AssemblyTitle("Smuxi - XMPP protocol support for engine")]
-[assembly: AssemblyCopyright("2007-2011 (C) Mirco Bauer <meebey@meebey.net>, 2011 (C) Tuukka Hastrup <Tuukka.Hastrup@iki.fi>")]
+[assembly: AssemblyCopyright("2005-2013 (C) Mirco Bauer <meebey@meebey.net>, " +
+                             "2011 (C) Tuukka Hastrup <Tuukka.Hastrup@iki.fi>, " +
+                             "2013 (C) Oliver Schneider <smuxi@oli-obk.de>")]
 
 [assembly: AssemblyDelaySign(false)]
 [assembly: AssemblyKeyFile("")]

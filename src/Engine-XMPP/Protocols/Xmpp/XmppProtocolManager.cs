@@ -1,8 +1,9 @@
 /*
  * Smuxi - Smart MUltipleXed Irc
  *
- * Copyright (c) 2005-2011 Mirco Bauer <meebey@meebey.net>
+ * Copyright (c) 2005-2013 Mirco Bauer <meebey@meebey.net>
  * Copyright (c) 2011 Tuukka Hastrup <Tuukka.Hastrup@iki.fi>
+ * Copyright (c) 2013 Oliver Schneider <smuxi@oli-obk.de>
  *
  * Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
  *
