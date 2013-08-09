@@ -92,6 +92,8 @@ namespace Smuxi.Engine
         bool SupressLocalMessageEcho { get; set; }
         bool AutoReconnect { get; set; }
 
+        bool IsFacebook { get; set; }
+
         public override string NetworkID {
             get {
                 return Host;
@@ -263,6 +265,7 @@ namespace Smuxi.Engine
 #if LOG4NET
             _Logger.Debug("calling JabberClient.Open()");
 #endif
+            IsFacebook = (JabberClient.Server == "chat.facebook.com");
             JabberClient.Open();
         }
 
@@ -1099,7 +1102,7 @@ namespace Smuxi.Engine
                     JabberClient.Send(new Message(chat.ID, XmppMessageType.groupchat, text));
                     return; // don't show now. the message will be echoed back if it's sent successfully
                 }
-                if (SupressLocalMessageEcho) {
+                if (IsFacebook && SupressLocalMessageEcho) {
                     // don't show, facebook is bugging again
                     return;
                 }
@@ -1211,7 +1214,16 @@ namespace Smuxi.Engine
             contact.Temporary = false;
             contact.Subscription = rosterItem.Subscription;
             contact.Ask = rosterItem.Ask;
-            contact.IdentityName = rosterItem.Name ?? rosterItem.Jid;
+            string oldIdentityName = contact.IdentityName;
+            if (IsFacebook) {
+                // facebook bug. prevent clearing of name
+                if (rosterItem.Name != null) {
+                    contact.IdentityName = rosterItem.Name;
+                }
+            } else {
+                contact.IdentityName = rosterItem.Name ?? rosterItem.Jid;
+            }
+
             contact.IdentityNameColored = null; // uncache
 
             if (ContactChat != null) {
