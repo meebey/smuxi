@@ -1490,6 +1490,35 @@ namespace Smuxi.Engine
         }
 
         [MethodImpl(MethodImplOptions.Synchronized)]
+        void PrintGroupChatPresence(XmppGroupChatModel chat, XmppPersonModel person, Presence pres)
+        {
+            Jid jid = pres.From;
+            XmppResourceModel resource;
+            if (person.MucResources.TryGetValue(jid.Resource??"", out resource)) {
+                if (resource.Presence.Show == pres.Show
+                    && resource.Presence.Status == pres.Status
+                    && resource.Presence.Last == pres.Last
+                    && resource.Presence.XDelay == pres.XDelay
+                    && resource.Presence.Priority == pres.Priority
+                    && resource.Presence.Nickname == pres.Nickname
+                    && resource.Presence.Type == pres.Type
+                    ) {
+                    // presence didn't change enough to warrent a display message -> abort
+                    return;
+                }
+            }
+
+            var msg = CreatePresenceUpdateMessage(person.Jid, person, pres);
+            Session.AddMessageToChat(chat, msg);
+            // clone directly to muc person chat
+            // don't care about real jid, that has its own presence packets
+            var personChat = Session.GetChat(jid, ChatType.Person, this);
+            if (personChat != null) {
+                Session.AddMessageToChat(personChat, msg);
+            }
+        }
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
         void OnGroupChatPresence(XmppGroupChatModel chat, Presence pres)
         {
             Jid jid = pres.From;
@@ -1508,14 +1537,7 @@ namespace Smuxi.Engine
                 person = new XmppPersonModel(jid, pres.From.Resource, this);
             }
             person.GetOrCreateMucResource(jid).Presence = pres;
-            var msg = CreatePresenceUpdateMessage(person.Jid, person, pres);
-            Session.AddMessageToChat(chat, msg);
-            // clone directly to muc person chat
-            // don't care about real jid, that has its own presence packets
-            var personChat = Session.GetChat(jid, ChatType.Person, this);
-            if (personChat != null) {
-                Session.AddMessageToChat(personChat, msg);
-            }
+            PrintGroupChatPresence(chat, person, pres);
             switch (pres.Type) {
                 case PresenceType.available:
                     // don't do anything if the contact already exists
@@ -1565,6 +1587,19 @@ namespace Smuxi.Engine
         void PrintPrivateChatPresence(XmppPersonModel person, Presence pres)
         {
             Jid jid = pres.From;
+            XmppResourceModel resource;
+            if (person.Resources.TryGetValue(jid.Resource??"", out resource)) {
+                if (resource.Presence.Show == pres.Show
+                    && resource.Presence.Status == pres.Status
+                    && resource.Presence.Last == pres.Last
+                    && resource.Presence.XDelay == pres.XDelay
+                    && resource.Presence.Priority == pres.Priority
+                    && resource.Presence.Type == pres.Type
+                    ) {
+                    // presence didn't change enough to warrent a display message -> abort
+                    return;
+                }
+            }
             MessageModel msg = CreatePresenceUpdateMessage(jid, person, pres);
             if (!String.IsNullOrEmpty(jid.Resource)) {
                 var directchat = Session.GetChat(jid, ChatType.Person, this);
