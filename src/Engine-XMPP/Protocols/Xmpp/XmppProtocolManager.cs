@@ -1224,6 +1224,12 @@ namespace Smuxi.Engine
                 contact.IdentityName = rosterItem.Name ?? rosterItem.Jid;
             }
 
+            if (oldIdentityName == contact.IdentityName) {
+                // identity name didn't change
+                // the rest of this function only handles changed identity names
+                return;
+            }
+
             contact.IdentityNameColored = null; // uncache
 
             if (ContactChat != null) {
