@@ -1236,7 +1236,7 @@ namespace Smuxi.Engine
             var builder = CreateMessageBuilder();
             builder.AppendEventPrefix();
             string idstring = "";
-            if (oldIdentityName != contact.Jid) {
+            if (!IsFacebook && oldIdentityName != contact.Jid) {
                 idstring = " [" + contact.Jid + "]";
             }
             oldIdentityNameColored.BackgroundColor = TextColor.None;
@@ -1342,8 +1342,8 @@ namespace Smuxi.Engine
             var builder = CreateMessageBuilder();
             builder.AppendEventPrefix();
             string idstring = "";
-            // print jid
-            if (jid.Bare != person.IdentityName) {
+            // print jid (except in case of facebook where it is meaningless)
+            if (!IsFacebook && jid.Bare != person.IdentityName) {
                 idstring = String.Format(" [{0}]", jid.Bare);
             }
             // print the type (and in case of available detailed type)
