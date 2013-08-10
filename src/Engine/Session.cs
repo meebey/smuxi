@@ -1521,6 +1521,13 @@ namespace Smuxi.Engine
                 // TODO: use a timeout here to only refresh once in 1 second
                 _Filters = _FilterListController.GetFilterList().Values;
             }
+            if (e.Key == "Interface/Notebook/EngineBufferLines") {
+                lock (_Chats) {
+                    foreach (var chat in _Chats) {
+                        chat.ApplyConfig(UserConfig);
+                    }
+                }
+            }
        }
 
         public void CheckPresenceStatus()

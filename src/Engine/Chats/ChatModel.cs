@@ -175,6 +175,8 @@ namespace Smuxi.Engine
 
         public void ApplyConfig(UserConfig config)
         {
+            Trace.Call(config);
+
             if (config == null) {
                 throw new ArgumentNullException("config");
             }
