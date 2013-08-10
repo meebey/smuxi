@@ -6,8 +6,8 @@ namespace Smuxi.Frontend.Gnome
 	{
 		private global::Smuxi.Frontend.Gnome.ServerWidget f_Widget;
 		private global::Gtk.Button buttonCancel;
-		private global::Gtk.Button buttonOk;
-        
+		private global::Gtk.Button f_OkButton;
+
 		protected virtual void Build ()
 		{
 			global::Stetic.Gui.Initialize (this);
@@ -46,15 +46,15 @@ namespace Smuxi.Frontend.Gnome
 			w4.Expand = false;
 			w4.Fill = false;
 			// Container child dialog1_ActionArea.Gtk.ButtonBox+ButtonBoxChild
-			this.buttonOk = new global::Gtk.Button ();
-			this.buttonOk.CanDefault = true;
-			this.buttonOk.CanFocus = true;
-			this.buttonOk.Name = "buttonOk";
-			this.buttonOk.UseStock = true;
-			this.buttonOk.UseUnderline = true;
-			this.buttonOk.Label = "gtk-ok";
-			this.AddActionWidget (this.buttonOk, -5);
-			global::Gtk.ButtonBox.ButtonBoxChild w5 = ((global::Gtk.ButtonBox.ButtonBoxChild)(w3 [this.buttonOk]));
+			this.f_OkButton = new global::Gtk.Button ();
+			this.f_OkButton.CanDefault = true;
+			this.f_OkButton.CanFocus = true;
+			this.f_OkButton.Name = "f_OkButton";
+			this.f_OkButton.UseStock = true;
+			this.f_OkButton.UseUnderline = true;
+			this.f_OkButton.Label = "gtk-ok";
+			this.AddActionWidget (this.f_OkButton, -5);
+			global::Gtk.ButtonBox.ButtonBoxChild w5 = ((global::Gtk.ButtonBox.ButtonBoxChild)(w3 [this.f_OkButton]));
 			w5.Position = 1;
 			w5.Expand = false;
 			w5.Fill = false;

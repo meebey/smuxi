@@ -3753,7 +3753,7 @@ Click "Forward" to begin.</property>
           </packing>
         </child>
         <child>
-          <widget class="Gtk.Button" id="buttonOk">
+          <widget class="Gtk.Button" id="f_OkButton">
             <property name="MemberName" />
             <property name="CanDefault">True</property>
             <property name="CanFocus">True</property>
