@@ -206,16 +206,10 @@ namespace Smuxi.Frontend.Gnome
             f_ConnectButton.Sensitive =
                 !f_Widget.HostnameEntry.Visible ||
                 f_Widget.HostnameEntry.Text.Trim().Length > 0;
-        }
-        
-        protected virtual void OnHostnameEntryChanged(object sender, EventArgs e)
-        {
-            Trace.Call(sender, e);
-            
-            try {
-                CheckConnectButton();
-            } catch (Exception ex) {
-                Frontend.ShowException(ex);
+            if (f_ConnectButton.Sensitive &&
+                f_Widget.ProtocolComboBox.ActiveText == "Campfire" &&
+                f_Widget.HostnameEntry.Text == ".campfirenow.com") {
+                f_ConnectButton.Sensitive = false;
             }
         }
     }

@@ -51,6 +51,15 @@ namespace Smuxi.Frontend.Gnome
 
             f_Widget.InitProtocols(supportedProtocols);
             f_Widget.InitNetworks(networks);
+
+            f_Widget.ProtocolComboBox.Changed += delegate {
+                CheckOkButton();
+            };
+            f_Widget.HostnameEntry.Changed += delegate {
+                CheckOkButton();
+            };
+            CheckOkButton();
+
             if (server != null) {
                 try {
                     f_Widget.Load(server);
@@ -58,6 +67,20 @@ namespace Smuxi.Frontend.Gnome
                     Destroy();
                     throw;
                 }
+            }
+        }
+
+        protected virtual void CheckOkButton()
+        {
+            Trace.Call();
+
+            f_OkButton.Sensitive = true;
+            switch (f_Widget.ProtocolComboBox.ActiveText) {
+                case "Campfire":
+                    if (f_Widget.HostnameEntry.Text == ".campfirenow.com") {
+                        f_OkButton.Sensitive = false;
+                    }
+                    break;
             }
         }
 
