@@ -117,16 +117,16 @@ namespace Smuxi.Engine
             JabberClient.AutoRoster = true;
             JabberClient.AutoPresence = true;
             JabberClient.OnMessage += OnMessage;
-            JabberClient.OnClose += OnDisconnect;
-            JabberClient.OnLogin += OnAuthenticate;
+            JabberClient.OnClose += OnClose;
+            JabberClient.OnLogin += OnLogin;
             JabberClient.OnError += OnError;
             JabberClient.OnStreamError += OnStreamError;
             JabberClient.OnPresence += OnPresence;
             JabberClient.OnRosterItem += OnRosterItem;
-            JabberClient.OnReadXml += OnProtocol;
-            JabberClient.OnWriteXml += OnWriteText;
+            JabberClient.OnReadXml += OnReadXml;
+            JabberClient.OnWriteXml += OnWriteXml;
             JabberClient.OnAuthError += OnAuthError;
-            JabberClient.OnIq += OnIQ;
+            JabberClient.OnIq += OnIq;
             JabberClient.AutoAgents = false; // outdated feature
             JabberClient.EnableCapabilities = true;
             JabberClient.Capabilities.Node = "https://smuxi.im";
@@ -1104,7 +1104,7 @@ namespace Smuxi.Engine
             }
         }
 
-        void OnProtocol(object sender, string text)
+        void OnReadXml(object sender, string text)
         {
             if (!DebugProtocol) {
                 return;
@@ -1131,7 +1131,7 @@ namespace Smuxi.Engine
             }
         }
 
-        void OnWriteText(object sender, string text)
+        void OnWriteXml(object sender, string text)
         {
             if (!DebugProtocol) {
                 return;
@@ -1909,7 +1909,7 @@ namespace Smuxi.Engine
             Session.AddMessageToChat(NetworkChat, builder.ToMessage());
         }
 
-        void OnIQ(object sender, IQ iq)
+        void OnIq(object sender, IQ iq)
         {
             Trace.Call(sender, iq);
 
@@ -1974,7 +1974,7 @@ namespace Smuxi.Engine
         }
 
         [MethodImpl(MethodImplOptions.Synchronized)]
-        void OnDisconnect(object sender)
+        void OnClose(object sender)
         {
             Trace.Call(sender);
             if (ContactChat != null) {
@@ -2005,7 +2005,7 @@ namespace Smuxi.Engine
         }
 
         [MethodImpl(MethodImplOptions.Synchronized)]
-        void OnAuthenticate(object sender)
+        void OnLogin(object sender)
         {
             Trace.Call(sender);
 
