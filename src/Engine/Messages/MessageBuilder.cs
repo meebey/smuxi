@@ -485,6 +485,11 @@ namespace Smuxi.Engine
                 return;
             }
 
+            MarkAsHighlight();
+        }
+
+        public virtual void MarkAsHighlight()
+        {
             // colorize the whole message
             foreach (MessagePartModel msgPart in Message.MessageParts) {
                 if (!(msgPart is TextMessagePartModel)) {
@@ -504,7 +509,6 @@ namespace Smuxi.Engine
                 textMsg.IsHighlight = true;
                 textMsg.ForegroundColor = HighlightColor;
             }
-            return;
         }
 
         public virtual void ClearHighlights()
