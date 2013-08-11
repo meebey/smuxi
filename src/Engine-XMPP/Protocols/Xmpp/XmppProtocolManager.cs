@@ -1996,6 +1996,8 @@ namespace Smuxi.Engine
             IsConnected = false;
             OnDisconnected(EventArgs.Empty);
 
+            JabberClient.SocketConnectionType = SocketConnectionType.Direct;
+
             if (AutoReconnect) {
                 Connect();
             }
