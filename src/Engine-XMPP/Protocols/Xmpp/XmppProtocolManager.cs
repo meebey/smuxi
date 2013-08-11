@@ -725,7 +725,12 @@ namespace Smuxi.Engine
                 cmd.FrontendManager.AddMessageToChat(cmd.Chat, builder.ToMessage());
             }
             
-            builder.AppendHeader(_("Advanced XMPP Commands"));
+            // TRANSLATOR: this line is used as a label / category for a
+            // list of commands below
+            builder = CreateMessageBuilder();
+            builder.AppendHeader(_("Advanced {0} Commands"), Protocol);
+            cmd.FrontendManager.AddMessageToChat(cmd.Chat, builder.ToMessage());
+
             string[] help2 = {
             "contact addonly/subscribe/unsubscribe/approve/deny",
             "whois jid",
