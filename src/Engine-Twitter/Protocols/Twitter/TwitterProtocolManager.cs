@@ -620,7 +620,6 @@ namespace Smuxi.Engine
             cd.FrontendManager.AddMessageToChat(cd.Chat, builder.ToMessage());
 
             string[] help = {
-                "help",
                 "connect twitter username",
                 "pin pin-number",
             };

@@ -420,7 +420,6 @@ namespace Smuxi.Engine
             cd.FrontendManager.AddMessageToChat(cd.Chat, builder.ToMessage());
 
             string[] help = {
-                "help",
                 "connect/server protocol [protocol-parameters]",
                 "connect/server network",
                 "disconnect [server]",

@@ -557,7 +557,6 @@ namespace Smuxi.Frontend.Swf
             cd.FrontendManager.AddMessageToChat(cd.Chat, msg);
             
             string[] help = {
-            "help",
             "window (number|channelname|queryname|close",
             "clear",
             "echo data",

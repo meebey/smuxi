@@ -713,7 +713,6 @@ namespace Smuxi.Engine
             cmd.FrontendManager.AddMessageToChat(cmd.Chat, builder.ToMessage());
 
             string[] help = {
-            "help",
             "connect xmpp/jabber server port username password [resource]",
             "msg/query jid/nick message",
             "say message",

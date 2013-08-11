@@ -182,7 +182,6 @@ namespace Smuxi.Engine
             cd.FrontendManager.AddMessageToChat(cd.Chat, builder.ToMessage());
 
             string[] help = {
-                "help",
                 "connect campfire username password",
                 "list",
                 "uploads",

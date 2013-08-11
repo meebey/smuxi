@@ -596,7 +596,6 @@ namespace Smuxi.Frontend.Gnome
             chatView.AddMessage(builder.ToMessage());
 
             string[] help = {
-            "help",
             "window (number|channelname|queryname|close)",
             "sync",
             "clear",

@@ -995,7 +995,6 @@ namespace Smuxi.Engine
             cd.FrontendManager.AddMessageToChat(cd.Chat, builder.ToMessage());
 
             string[] help = {
-            "help",
             "connect irc server [port|+port] [password] [nicknames]",
             "say",
             "join/j channel(s) [key]",

@@ -256,7 +256,6 @@ namespace Smuxi.Frontend.Stfl
             chatView.AddMessage(builder.ToMessage());
 
             string[] help = {
-                "help",
                 "window (number|close)",
                 "exit",
             };
