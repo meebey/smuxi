@@ -46,12 +46,18 @@ namespace Smuxi.Engine
             }
         }
         
+        /// <remarks>
+        /// This property is thread safe.
+        /// </remarks>
         public string IdentityName {
             get {
                 return _IdentityName;
             }
             set {
-                _IdentityName = value;
+                lock (IdentityNameSyncRoot) {
+                    _IdentityName = value;
+                    _IdentityNameColored = null;
+                }
             }
         }
 
