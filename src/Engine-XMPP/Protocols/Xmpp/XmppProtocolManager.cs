@@ -1349,8 +1349,10 @@ namespace Smuxi.Engine
                                            person
                         );
                     } else {
+                        builder.AppendFormat(_("{0}{1} wishes to subscribe to you"),
+                                             person, idstring);
                         // you have to respond
-                        builder.AppendFormat(_("{0}{1} wishes to subscribe to you"), person, idstring);
+                        builder.MarkAsHighlight();
                     }
                     break;
                 case PresenceType.subscribed:
