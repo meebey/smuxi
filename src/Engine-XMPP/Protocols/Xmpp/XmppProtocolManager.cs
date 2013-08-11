@@ -57,6 +57,12 @@ namespace Smuxi.Engine
     [ProtocolManagerInfo(Name = "XMPP", Description = "Extensible Messaging and Presence Protocol", Alias = "jabber")]
     public class JabberProtocolManager : XmppProtocolManager
     {
+        public override string Protocol {
+            get {
+                return "Jabber";
+            }
+        }
+
         public JabberProtocolManager(Session session) : base(session)
         {
         }
@@ -234,7 +240,7 @@ namespace Smuxi.Engine
 
             // TODO: use config for single network chat or once per network manager
             NetworkChat = Session.CreateChat<ProtocolChatModel>(
-                NetworkID, "Jabber " + Host, this
+                NetworkID, String.Format("{0} {1}", Protocol, Host), this
             );
             Session.AddChat(NetworkChat);
             Session.SyncChat(NetworkChat);
@@ -703,7 +709,7 @@ namespace Smuxi.Engine
             var builder = CreateMessageBuilder();
             // TRANSLATOR: this line is used as a label / category for a
             // list of commands below
-            builder.AppendHeader(_("XMPP Commands"));
+            builder.AppendHeader(_("{0} Commands"), Protocol);
             cmd.FrontendManager.AddMessageToChat(cmd.Chat, builder.ToMessage());
 
             string[] help = {
