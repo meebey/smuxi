@@ -92,6 +92,8 @@ namespace Smuxi.Engine
         bool SupressLocalMessageEcho { get; set; }
         bool AutoReconnect { get; set; }
 
+        bool IsFacebook { get; set; }
+
         public override string NetworkID {
             get {
                 return Host;
@@ -263,6 +265,7 @@ namespace Smuxi.Engine
 #if LOG4NET
             _Logger.Debug("calling JabberClient.Open()");
 #endif
+            IsFacebook = (JabberClient.Server == "chat.facebook.com");
             JabberClient.Open();
         }
 
@@ -1099,7 +1102,7 @@ namespace Smuxi.Engine
                     JabberClient.Send(new Message(chat.ID, XmppMessageType.groupchat, text));
                     return; // don't show now. the message will be echoed back if it's sent successfully
                 }
-                if (SupressLocalMessageEcho) {
+                if (IsFacebook && SupressLocalMessageEcho) {
                     // don't show, facebook is bugging again
                     return;
                 }
@@ -1211,8 +1214,33 @@ namespace Smuxi.Engine
             contact.Temporary = false;
             contact.Subscription = rosterItem.Subscription;
             contact.Ask = rosterItem.Ask;
-            contact.IdentityName = rosterItem.Name ?? rosterItem.Jid;
+            string oldIdentityName = contact.IdentityName;
+            var oldIdentityNameColored = contact.IdentityNameColored;
+            if (IsFacebook) {
+                // facebook bug. prevent clearing of name
+                if (rosterItem.Name != null) {
+                    contact.IdentityName = rosterItem.Name;
+                }
+            } else {
+                contact.IdentityName = rosterItem.Name ?? rosterItem.Jid;
+            }
+
+            if (oldIdentityName == contact.IdentityName) {
+                // identity name didn't change
+                // the rest of this function only handles changed identity names
+                return;
+            }
+
             contact.IdentityNameColored = null; // uncache
+
+            var builder = CreateMessageBuilder();
+            builder.AppendEventPrefix();
+            string idstring = "";
+            if (!IsFacebook && oldIdentityName != contact.Jid) {
+                idstring = " [" + contact.Jid + "]";
+            }
+            oldIdentityNameColored.BackgroundColor = TextColor.None;
+            builder.AppendFormat("{2}{1} is now known as {0}", contact, idstring, oldIdentityNameColored);
 
             if (ContactChat != null) {
                 PersonModel oldp = ContactChat.GetPerson(rosterItem.Jid.Bare);
@@ -1221,6 +1249,8 @@ namespace Smuxi.Engine
                     return;
                 }
                 Session.UpdatePersonInGroupChat(ContactChat, oldp, contact.ToPersonModel());
+
+                Session.AddMessageToChat(ContactChat, builder.ToMessage());
             }
             
             var chat = Session.GetChat(rosterItem.Jid.Bare, ChatType.Person, this) as PersonChatModel;
@@ -1230,6 +1260,7 @@ namespace Smuxi.Engine
                 Session.RemoveChat(chat);
                 chat = Session.CreatePersonChat(oldp, this);
                 Session.AddChat(chat);
+                Session.AddMessageToChat(chat, builder.ToMessage());
                 Session.SyncChat(chat);
             }
         }
@@ -1311,8 +1342,8 @@ namespace Smuxi.Engine
             var builder = CreateMessageBuilder();
             builder.AppendEventPrefix();
             string idstring = "";
-            // print jid
-            if (jid.Bare != person.IdentityName) {
+            // print jid (except in case of facebook where it is meaningless)
+            if (!IsFacebook && jid.Bare != person.IdentityName) {
                 idstring = String.Format(" [{0}]", jid.Bare);
             }
             // print the type (and in case of available detailed type)
@@ -1383,10 +1414,10 @@ namespace Smuxi.Engine
                         case ErrorType.cancel:
                             switch (pres.Error.Condition) {
                                 case ErrorCondition.RemoteServerNotFound:
-                                    builder.AppendErrorText(_("{0}{1}'s server could not be found"), person, idstring);
+                                    builder.AppendErrorText(_("{0}{1}'s server could not be found"), person.IdentityName, idstring);
                                     break;
                                 case ErrorCondition.Conflict:
-                                    builder.AppendErrorText(_("{0}{1} is already using your requested resource"), person, idstring);
+                                    builder.AppendErrorText(_("{0}{1} is already using your requested resource"), person.IdentityName, idstring);
                                     break;
                                 default:
                                     if (!String.IsNullOrEmpty(pres.Error.ErrorText)) {
@@ -1459,6 +1490,35 @@ namespace Smuxi.Engine
         }
 
         [MethodImpl(MethodImplOptions.Synchronized)]
+        void PrintGroupChatPresence(XmppGroupChatModel chat, XmppPersonModel person, Presence pres)
+        {
+            Jid jid = pres.From;
+            XmppResourceModel resource;
+            if (person.MucResources.TryGetValue(jid.Resource??"", out resource)) {
+                if (resource.Presence.Show == pres.Show
+                    && resource.Presence.Status == pres.Status
+                    && resource.Presence.Last == pres.Last
+                    && resource.Presence.XDelay == pres.XDelay
+                    && resource.Presence.Priority == pres.Priority
+                    && resource.Presence.Nickname == pres.Nickname
+                    && resource.Presence.Type == pres.Type
+                    ) {
+                    // presence didn't change enough to warrent a display message -> abort
+                    return;
+                }
+            }
+
+            var msg = CreatePresenceUpdateMessage(person.Jid, person, pres);
+            Session.AddMessageToChat(chat, msg);
+            // clone directly to muc person chat
+            // don't care about real jid, that has its own presence packets
+            var personChat = Session.GetChat(jid, ChatType.Person, this);
+            if (personChat != null) {
+                Session.AddMessageToChat(personChat, msg);
+            }
+        }
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
         void OnGroupChatPresence(XmppGroupChatModel chat, Presence pres)
         {
             Jid jid = pres.From;
@@ -1477,14 +1537,7 @@ namespace Smuxi.Engine
                 person = new XmppPersonModel(jid, pres.From.Resource, this);
             }
             person.GetOrCreateMucResource(jid).Presence = pres;
-            var msg = CreatePresenceUpdateMessage(person.Jid, person, pres);
-            Session.AddMessageToChat(chat, msg);
-            // clone directly to muc person chat
-            // don't care about real jid, that has its own presence packets
-            var personChat = Session.GetChat(jid, ChatType.Person, this);
-            if (personChat != null) {
-                Session.AddMessageToChat(personChat, msg);
-            }
+            PrintGroupChatPresence(chat, person, pres);
             switch (pres.Type) {
                 case PresenceType.available:
                     // don't do anything if the contact already exists
@@ -1538,6 +1591,19 @@ namespace Smuxi.Engine
         void PrintPrivateChatPresence(XmppPersonModel person, Presence pres)
         {
             Jid jid = pres.From;
+            XmppResourceModel resource;
+            if (person.Resources.TryGetValue(jid.Resource??"", out resource)) {
+                if (resource.Presence.Show == pres.Show
+                    && resource.Presence.Status == pres.Status
+                    && resource.Presence.Last == pres.Last
+                    && resource.Presence.XDelay == pres.XDelay
+                    && resource.Presence.Priority == pres.Priority
+                    && resource.Presence.Type == pres.Type
+                    ) {
+                    // presence didn't change enough to warrent a display message -> abort
+                    return;
+                }
+            }
             MessageModel msg = CreatePresenceUpdateMessage(jid, person, pres);
             if (!String.IsNullOrEmpty(jid.Resource)) {
                 var directchat = Session.GetChat(jid, ChatType.Person, this);
@@ -1998,6 +2064,8 @@ namespace Smuxi.Engine
 
             IsConnected = false;
             OnDisconnected(EventArgs.Empty);
+
+            JabberClient.SocketConnectionType = SocketConnectionType.Direct;
 
             if (AutoReconnect) {
                 Connect();
