@@ -620,6 +620,71 @@ namespace Smuxi.Engine
             cmd.FrontendManager.AddMessageToChat(cmd.Chat, builder.ToMessage());
         }
 
+        public void CommandGrant(CommandModel cd)
+        {
+            // agsXMPP.protocol.x.muc.Affiliation
+            // agsXMPP.protocol.x.muc.Role
+            throw new NotImplementedException();
+        }
+
+        public void CommandRequest(CommandModel cd)
+        {
+            // agsXMPP.protocol.x.muc.Affiliation
+            // agsXMPP.protocol.x.muc.Role
+            throw new NotImplementedException();
+        }
+
+        public void CommandRevoke(CommandModel cd)
+        {
+            // agsXMPP.protocol.x.muc.Affiliation
+            // agsXMPP.protocol.x.muc.Role
+            throw new NotImplementedException();
+        }
+
+        public void CommandRequestList(CommandModel cd)
+        {
+            // agsXMPP.protocol.x.muc.Affiliation
+            // agsXMPP.protocol.x.muc.Role
+            throw new NotImplementedException();
+        }
+
+        public void CommandModifyList(CommandModel cd)
+        {
+            // agsXMPP.protocol.x.muc.Affiliation
+            // agsXMPP.protocol.x.muc.Role
+            throw new NotImplementedException();
+        }
+
+        public void CommandDeclineInvite(CommandModel cd)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void CommandTopic(CommandModel cd)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void CommandNick(CommandModel cd)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void CommandCreateReservedRoom(CommandModel cd)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void CommandDestroyRoom(CommandModel cd)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void CommandRequestConfigurationForm(CommandModel cd)
+        {
+            throw new NotImplementedException();
+        }
+
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void CommandContact(CommandModel cd)
         {
