@@ -1501,9 +1501,13 @@ namespace Smuxi.Engine
         
                     // did I join? then the chat roster is fully received
                     if (pres.From.Resource == chat.OwnNickname) {
-                        chat.IsSynced = true;
-                        Session.SyncChat(chat);
-                        Session.EnableChat(chat);
+                        // HACK: lower probability of sync race condition swallowing messages
+                        ThreadPool.QueueUserWorkItem(delegate {
+                            Thread.Sleep(1000);
+                            chat.IsSynced = true;
+                            Session.SyncChat(chat);
+                            Session.EnableChat(chat);
+                        });
                     }
                     break;
                 case PresenceType.unavailable:
