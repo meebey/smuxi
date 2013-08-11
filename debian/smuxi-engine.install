@@ -8,7 +8,7 @@ usr/lib/smuxi/Meebey.SmartIrc4net.dll*
 usr/lib/smuxi/Twitterizer2.dll*
 usr/lib/smuxi/ServiceStack*.dll*
 usr/lib/smuxi/Newtonsoft.Json.dll*
-usr/lib/smuxi/jabber-net.dll*
+usr/lib/smuxi/agsxmpp.dll*
 usr/share/locale/*/LC_MESSAGES/smuxi-engine*.mo
 usr/share/locale/*/LC_MESSAGES/smuxi-frontend.mo
 usr/share/locale/*/LC_MESSAGES/smuxi-server.mo
