@@ -1350,8 +1350,11 @@ namespace Smuxi.Engine
                     if ((person as XmppPersonModel).Subscription == SubscriptionType.from) {
                         builder = CreateMessageBuilder();
                         builder.AppendActionPrefix();
-                        builder.AppendFormat(_("Automatically removed {0}'s subscription to your presences after loosing the subscription to theirs"),
-                                           person
+                        builder.AppendFormat(
+                            _("Automatically removed {0}'s subscription to " +
+                              "your presences after losing the subscription " +
+                              "to theirs"),
+                            person
                         );
                     } else {
                         // you cannot (anymore?) see their presences
