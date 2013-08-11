@@ -1736,7 +1736,6 @@ namespace Smuxi.Engine
             AddMessageToChatIfNotFiltered(CreateMessage(chat.Person, msg, true, true), chat, isNew);
         }
 
-        [MethodImpl(MethodImplOptions.Synchronized)]
         MessageModel CreateMessage(PersonModel person, Message msg, bool mark_hilights, bool force_hilight)
         {
             var builder = CreateMessageBuilder();
