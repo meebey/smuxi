@@ -1215,6 +1215,7 @@ namespace Smuxi.Engine
             contact.Subscription = rosterItem.Subscription;
             contact.Ask = rosterItem.Ask;
             string oldIdentityName = contact.IdentityName;
+            var oldIdentityNameColored = contact.IdentityNameColored;
             if (IsFacebook) {
                 // facebook bug. prevent clearing of name
                 if (rosterItem.Name != null) {
@@ -1232,6 +1233,15 @@ namespace Smuxi.Engine
 
             contact.IdentityNameColored = null; // uncache
 
+            var builder = CreateMessageBuilder();
+            builder.AppendEventPrefix();
+            string idstring = "";
+            if (oldIdentityName != contact.Jid) {
+                idstring = " [" + contact.Jid + "]";
+            }
+            oldIdentityNameColored.BackgroundColor = TextColor.None;
+            builder.AppendFormat("{2}{1} is now known as {0}", contact, idstring, oldIdentityNameColored);
+
             if (ContactChat != null) {
                 PersonModel oldp = ContactChat.GetPerson(rosterItem.Jid.Bare);
                 if (oldp == null) {
@@ -1239,6 +1249,8 @@ namespace Smuxi.Engine
                     return;
                 }
                 Session.UpdatePersonInGroupChat(ContactChat, oldp, contact.ToPersonModel());
+
+                Session.AddMessageToChat(ContactChat, builder.ToMessage());
             }
             
             var chat = Session.GetChat(rosterItem.Jid.Bare, ChatType.Person, this) as PersonChatModel;
@@ -1248,6 +1260,7 @@ namespace Smuxi.Engine
                 Session.RemoveChat(chat);
                 chat = Session.CreatePersonChat(oldp, this);
                 Session.AddChat(chat);
+                Session.AddMessageToChat(chat, builder.ToMessage());
                 Session.SyncChat(chat);
             }
         }
