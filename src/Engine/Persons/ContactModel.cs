@@ -1,7 +1,7 @@
 /*
  * Smuxi - Smart MUltipleXed Irc
  *
- * Copyright (c) 2005-2007, 2010-2011 Mirco Bauer <meebey@meebey.net>
+ * Copyright (c) 2005-2007, 2010-2011, 2013 Mirco Bauer <meebey@meebey.net>
  *
  * Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
  *
@@ -24,6 +24,7 @@ using System;
 using System.Text;
 using System.Runtime.Serialization;
 using System.Security.Cryptography;
+using System.Threading;
 using System.Globalization;
 using Smuxi.Common;
 
@@ -37,6 +38,7 @@ namespace Smuxi.Engine
         private string          _NetworkID;
         private string          _NetworkProtocol;
         private TextMessagePartModel _IdentityNameColored;
+        object IdentityNameSyncRoot { get; set; }
 
         public string ID {
             get {
@@ -53,11 +55,17 @@ namespace Smuxi.Engine
             }
         }
 
+        /// <remarks>
+        /// This property is thread safe.
+        /// </remarks>
         public TextMessagePartModel IdentityNameColored {
             get {
                 if (_IdentityNameColored == null) {
-                    _IdentityNameColored = GetColoredIdentityName(_IdentityName,
-                                                                  null);
+                    lock (IdentityNameSyncRoot) {
+                        _IdentityNameColored = GetColoredIdentityName(
+                            _IdentityName, null
+                        );
+                    }
                 }
                 return _IdentityNameColored;
             }
@@ -100,6 +108,7 @@ namespace Smuxi.Engine
             _IdentityName = identityName;
             _NetworkID = networkID;
             _NetworkProtocol = networkProtocol;
+            IdentityNameSyncRoot = new Object();
         }
         
         protected ContactModel(SerializationInfo info, StreamingContext ctx)
