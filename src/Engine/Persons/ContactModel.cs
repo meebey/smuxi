@@ -123,6 +123,8 @@ namespace Smuxi.Engine
                 throw new ArgumentNullException("info");
             }
 
+            IdentityNameSyncRoot = new Object();
+
             SerializationReader sr = SerializationReader.GetReader(info);
             SetObjectData(sr);
         }
