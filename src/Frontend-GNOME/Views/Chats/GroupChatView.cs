@@ -53,6 +53,7 @@ namespace Smuxi.Frontend.Gnome
         IDictionary<string, PersonModel> SyncedPersons { get; set; }
         MessageModel                     SyncedTopic  { get; set; }
         public override IList<PersonModel> Participants { get; protected set; }
+        protected Gtk.CellRendererText IdentityNameCellRenderer { get; set; }
 
         public override bool HasSelection {
             get {
@@ -139,6 +140,7 @@ namespace Smuxi.Frontend.Gnome
             Gtk.TreeViewColumn column;
             Gtk.CellRendererText cellr = new Gtk.CellRendererText();
             cellr.WidthChars = 12;
+            IdentityNameCellRenderer = cellr;
             column = new Gtk.TreeViewColumn(String.Empty, cellr);
             column.SortColumnId = 0;
             column.Spacing = 0;

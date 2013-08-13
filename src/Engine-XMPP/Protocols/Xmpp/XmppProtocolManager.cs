@@ -694,10 +694,10 @@ namespace Smuxi.Engine
                     break;
                 case "rename":
                     if (cd.DataArray.Length < 4) {
-                        NotEnoughParameters(cd);
-                        return;
+                        JabberClient.RosterManager.UpdateRosterItem(jid, "");
+                    } else {
+                        JabberClient.RosterManager.UpdateRosterItem(jid, cd.DataArray[3]);
                     }
-                    JabberClient.RosterManager.UpdateRosterItem(jid, cd.DataArray[3]);
                     break;
                 default:
                     var builder = CreateMessageBuilder();
@@ -723,7 +723,7 @@ namespace Smuxi.Engine
             "part/leave [muc-jid]",
             "away [away-message]",
             "contact add/remove jid/nick",
-            "contact rename jid/nick newnick"
+            "contact rename jid/nick [newnick]"
             };
             
             foreach (string line in help) {
