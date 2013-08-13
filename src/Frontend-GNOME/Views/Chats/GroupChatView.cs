@@ -536,7 +536,7 @@ namespace Smuxi.Frontend.Gnome
                 Gdk.Color bgColor = _PersonTreeView.Style.Base(Gtk.StateType.Normal);
                 var builder = new MessageBuilder();
                 builder.NickColors = true;
-                builder.AppendNick(person);
+                builder.Append(builder.CreateIdendityName(person));
                 renderer.Markup = PangoTools.ToMarkup(builder.ToMessage(),
                                                       bgColor);
             } else {
