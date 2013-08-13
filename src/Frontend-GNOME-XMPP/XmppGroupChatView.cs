@@ -31,6 +31,12 @@ namespace Smuxi.Frontend.Gnome
         private static readonly string _LibraryTextDomain = "smuxi-frontend-gnome-xmpp";
         private XmppProtocolManager XmppProtocolManager { get; set; }
 
+        public bool IsContactList {
+            get {
+                return ID == "Contacts";
+            }
+        }
+
         public XmppGroupChatView(GroupChatModel chat) : base(chat)
         {
             Trace.Call(chat);
