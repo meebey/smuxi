@@ -241,7 +241,15 @@ dist-linux-x86-static:
 		cp $$FILE $(LINUX_STATIC_BUILD_DIR); \
 	done
 	tar -czf smuxi-server-$(VERSION)-linux-x86-static.tar.gz $(LINUX_STATIC_BUILD_DIR)
- 
+
+dist-linux-debs:
+	git checkout -- debian/changelog
+	dch -b \
+		-v "1:$(VERSION)+git-1~$$(date +%Y%m%d%H%M%S).$$(git rev-parse --short=8 HEAD)" \
+		-D "$$(lsb_release -r -s)" \
+		"Building git snapshot."
+	dpkg-buildpackage -b -us -uc
+
 run: run-gnome
 run-gnome: all
 	cd $(BUILD_DIR) && \
