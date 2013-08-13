@@ -42,6 +42,19 @@ namespace Smuxi.Frontend.Gnome
             Trace.Call(chat);
         }
 
+        void OnPersonRenameEditingStarted(object o, Gtk.EditingStartedArgs e)
+        {
+            Trace.Call(o, e);
+
+            Gtk.TreeIter iter;
+            if (!PersonTreeView.Model.GetIterFromString(out iter, e.Path)) {
+                return;
+            }
+            PersonModel person = (PersonModel) PersonTreeView.Model.GetValue(iter, 0);
+            var renderer = (Gtk.Entry) e.Editable;
+            renderer.Text = person.IdentityName;
+        }
+
         private static string _(string msg)
         {
             return LibraryCatalog.GetString(msg, _LibraryTextDomain);
@@ -54,6 +67,26 @@ namespace Smuxi.Frontend.Gnome
             base.Sync();
 
             XmppProtocolManager = (XmppProtocolManager) ProtocolManager;
+        }
+
+        public override void Populate()
+        {
+            Trace.Call();
+
+            base.Populate();
+
+            // this check is always false *happy*
+            if (Frontend.EngineVersion < new Version(0, 8, 11)) {
+                return;
+            }
+
+            if (IsContactList) {
+                if (!IdentityNameCellRenderer.Editable) {
+                    IdentityNameCellRenderer.Editable = true;
+                    IdentityNameCellRenderer.Edited += OnPersonRenameEdited;
+                    IdentityNameCellRenderer.EditingStarted += OnPersonRenameEditingStarted;
+                }
+            }
         }
         
         void _OnUserListMenuWhoisActivated(object sender, EventArgs e)
@@ -143,6 +176,31 @@ namespace Smuxi.Frontend.Gnome
                     }
                 });
             }
+        }
+
+        void OnPersonRenameEdited(object o, Gtk.EditedArgs e)
+        {
+            Trace.Call(o, e);
+
+            Gtk.TreeIter iter;
+            if (!PersonTreeView.Model.GetIterFromString(out iter, e.Path)) {
+                return;
+            }
+            PersonModel person = (PersonModel) PersonTreeView.Model.GetValue(iter, 0);
+
+            ThreadPool.QueueUserWorkItem(delegate {
+                try {
+                    XmppProtocolManager.CommandContact(
+                        new CommandModel(
+                            Frontend.FrontendManager,
+                            ChatModel,
+                            "rename " + person.ID + " " + e.NewText
+                        )
+                    );
+                } catch (Exception ex) {
+                    Frontend.ShowException(ex);
+                }
+            });
         }
 
         protected override void OnPersonMenuShown(object sender, EventArgs e)
