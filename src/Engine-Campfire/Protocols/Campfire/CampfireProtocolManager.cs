@@ -125,7 +125,18 @@ namespace Smuxi.Engine
             var bld = CreateMessageBuilder().AppendEventPrefix().AppendText(msg);
             Session.AddMessageToChat(NetworkChat, bld.ToMessage());
 
-
+            if (!server.ValidateServerCertificate) {
+                var whitelist = Session.CertificateValidator.HostnameWhitelist;
+                lock (whitelist) {
+                    // needed for favicon
+                    if (!whitelist.Contains("campfirenow.com")) {
+                        whitelist.Add("campfirenow.com");
+                    }
+                    if (!whitelist.Contains(Host)) {
+                        whitelist.Add(Host);
+                    }
+                }
+            }
 
             Client = new JsonServiceClient(BaseUri.AbsoluteUri);
             var creds = new NetworkCredential(server.Username, server.Password);

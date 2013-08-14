@@ -220,8 +220,6 @@ namespace Smuxi.Frontend.Gnome
                 // download in background so Sync() doesn't get slowed down
                 ThreadPool.QueueUserWorkItem(delegate {
                     try {
-                        // HACK: work around Mono's buggy certificate validation
-                        ServicePointManager.ServerCertificateValidationCallback += ValidateCertificate;
                         DownloadServerIcon(websiteUrl, iconFile);
                         iconFile.Refresh();
                         if (!iconFile.Exists || iconFile.Length == 0) {
@@ -232,8 +230,6 @@ namespace Smuxi.Frontend.Gnome
 #if LOG4NET
                         f_Logger.Error("CheckIcon(): Exception", ex);
 #endif
-                    } finally {
-                        ServicePointManager.ServerCertificateValidationCallback -= ValidateCertificate;
                     }
                 });
             }

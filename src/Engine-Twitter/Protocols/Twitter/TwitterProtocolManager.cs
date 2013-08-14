@@ -111,13 +111,6 @@ namespace Smuxi.Engine
             }
         }
 
-        static TwitterProtocolManager()
-        {
-            //ServicePointManager.CertificatePolicy = new CertificateValidator();
-            ServicePointManager.ServerCertificateValidationCallback =
-                ValidateCertificate;
-        }
-
         public TwitterProtocolManager(Session session) : base(session)
         {
             Trace.Call(session);
@@ -198,6 +191,15 @@ namespace Smuxi.Engine
                                    proxy.Address.Host,
                                    proxy.Address.Port);
                 Session.AddMessageToChat(Chat, builder.ToMessage());
+            }
+
+            if (!server.ValidateServerCertificate) {
+                var whitelist = Session.CertificateValidator.HostnameWhitelist;
+                lock (whitelist) {
+                    if (!whitelist.Contains("api.twitter.com")) {
+                        whitelist.Add("api.twitter.com");
+                    }
+                }
             }
 
             string msg;
@@ -1565,33 +1567,6 @@ namespace Smuxi.Engine
             var builder = new TwitterMessageBuilder();
             builder.ApplyConfig(Session.UserConfig);
             return (T)(object) builder;
-        }
-
-        private static bool ValidateCertificate(object sender,
-                                         X509Certificate certificate,
-                                         X509Chain chain,
-                                         SslPolicyErrors sslPolicyErrors)
-        {
-            if (sslPolicyErrors == SslPolicyErrors.None) {
-                return true;
-            }
-
-            // HACK: Mono's 2.6.7 certificate chain validator is buggy
-            if (sslPolicyErrors == SslPolicyErrors.RemoteCertificateChainErrors &&
-                sender is HttpWebRequest) {
-                var request = (HttpWebRequest) sender;
-                if (request.RequestUri.Host == "api.twitter.com") {
-                    return true;
-                }
-            }
-
-#if LOG4NET
-            f_Logger.Error(
-                "ValidateCertificate(): Certificate error: " +
-                sslPolicyErrors
-            );
-#endif
-            return false;
         }
 
         private string[] GetApiKey()

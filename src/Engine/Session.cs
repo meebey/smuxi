@@ -40,6 +40,7 @@ namespace Smuxi.Engine
         private static readonly log4net.ILog f_Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 #endif
         private static readonly string                _LibraryTextDomain = "smuxi-engine";
+        public static CertificateValidator CertificateValidator { get; private set; }
         private int                                   _Version = 0;
         private IDictionary<string, FrontendManager>  _FrontendManagers;
         private IList<IProtocolManager>               _ProtocolManagers;
@@ -105,7 +106,13 @@ namespace Smuxi.Engine
                 return _Username == "local";
             }
         }
-        
+
+
+        static Session()
+        {
+            CertificateValidator = new CertificateValidator();
+        }
+
         public Session(Config config, ProtocolManagerFactory protocolManagerFactory,
                        string username)
         {

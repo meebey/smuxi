@@ -98,6 +98,7 @@
     <Compile Include="Config\ProxySettings.cs" />
     <Compile Include="TextColorPalettes.cs" />
     <Compile Include="Servers\JabbR\JabbRHub.cs" />
+    <Compile Include="CertificateValidator.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Protocols\" />

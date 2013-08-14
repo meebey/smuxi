@@ -327,10 +327,14 @@ namespace Smuxi.Frontend.Gnome
                     ShowHostname = false;
                     ShowNetwork = false;
                     ShowPassword = false;
-                    SupportUseEncryption = false;
+                    SupportUseEncryption = true;
+                    // engine always uses https
+                    f_UseEncryptionCheckButton.Active = true;
+                    f_UseEncryptionCheckButton.Sensitive = false;
 
                     f_HostnameEntry.Text = String.Empty;
-                    f_PortSpinButton.Value = 0;
+                    f_PortSpinButton.Value = 443;
+                    f_PortSpinButton.Sensitive = false;
                     f_NetworkComboBoxEntry.Entry.Text = String.Empty;
                     f_PasswordEntry.Text = String.Empty;
                     break;
@@ -338,11 +342,15 @@ namespace Smuxi.Frontend.Gnome
                     ShowHostname = true;
                     ShowNetwork = false;
                     ShowPassword = true;
-                    SupportUseEncryption = false;
+                    SupportUseEncryption = true;
+                    // engine always uses https
+                    f_UseEncryptionCheckButton.Active = true;
+                    f_UseEncryptionCheckButton.Sensitive = false;
 
                     f_HostnameEntry.Text = ".campfirenow.com";
                     f_HostnameEntry.Sensitive = true;
-                    f_PortSpinButton.Value = 0;
+                    f_PortSpinButton.Value = 443;
+                    f_PortSpinButton.Sensitive = false;
                     f_NetworkComboBoxEntry.Entry.Text = String.Empty;
                     f_PasswordEntry.Text = String.Empty;
                     break;
