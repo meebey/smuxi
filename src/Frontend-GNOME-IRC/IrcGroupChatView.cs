@@ -387,6 +387,12 @@ namespace Smuxi.Frontend.Gnome
 
             base.OnPersonMenuShown(sender, e);
 
+            Gtk.ImageMenuItem query_item = new Gtk.ImageMenuItem(_("Query"));
+            query_item.Activated += OnUserListMenuQueryActivated;
+            PersonMenu.Append(query_item);
+
+            PersonMenu.Append(new Gtk.SeparatorMenuItem());
+
             Gtk.ImageMenuItem op_item = new Gtk.ImageMenuItem(_("Op"));
             op_item.Activated += OnUserListMenuOpActivated;
             PersonMenu.Append(op_item);
@@ -420,10 +426,6 @@ namespace Smuxi.Frontend.Gnome
             PersonMenu.Append(unban_item);
 
             PersonMenu.Append(new Gtk.SeparatorMenuItem());
-
-            Gtk.ImageMenuItem query_item = new Gtk.ImageMenuItem(_("Query"));
-            query_item.Activated += OnUserListMenuQueryActivated;
-            PersonMenu.Append(query_item);
 
             Gtk.ImageMenuItem whois_item = new Gtk.ImageMenuItem(_("Whois"));
             whois_item.Activated += OnUserListMenuWhoisActivated;
