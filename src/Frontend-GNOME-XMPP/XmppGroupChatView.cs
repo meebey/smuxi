@@ -225,9 +225,11 @@ namespace Smuxi.Frontend.Gnome
             query_item.Activated += _OnUserListMenuQueryActivated;
             PersonMenu.Append(query_item);
 
-            Gtk.ImageMenuItem AddToContacts_item = new Gtk.ImageMenuItem(_("Add To Contacts"));
-            AddToContacts_item.Activated += _OnMenuAddToContactsItemActivated;
-            PersonMenu.Append(AddToContacts_item);
+            if (!IsContactList) {
+                var add_to_contacts_item = new Gtk.ImageMenuItem(_("Add To Contacts"));
+                add_to_contacts_item.Activated += _OnMenuAddToContactsItemActivated;
+                PersonMenu.Append(add_to_contacts_item);
+            }
 
             Gtk.MenuItem invite_to_item = new Gtk.MenuItem(_("Invite to"));
             Gtk.Menu invite_to_menu_item = new InviteToMenu(
