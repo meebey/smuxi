@@ -1536,7 +1536,8 @@ namespace Smuxi.Engine
                                 JoinRoom(chat.ID, chat.OwnNickname + "_", chat.Password);
                                 builder.AppendErrorText(_("Nickname already in use, rejoining {0} with {1}"), jid.Bare, chat.OwnNickname);
                                 Session.AddMessageToChat(chat, builder.ToMessage());
-                                break;
+                                Session.AddMessageToChat(NetworkChat, builder.ToMessage());
+                                return;
                             case ErrorCondition.RemoteServerNotFound:
                                 builder.AppendErrorText(_("Could not find remote server for {0}"), jid);
                                 break;
@@ -1550,6 +1551,7 @@ namespace Smuxi.Engine
                         break;
                 }
                 Session.AddMessageToChat(NetworkChat, builder.ToMessage());
+                Session.RemoveChat(chat);
                 return;
             }
 
