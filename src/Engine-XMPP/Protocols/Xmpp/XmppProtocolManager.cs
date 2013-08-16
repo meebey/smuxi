@@ -1522,6 +1522,39 @@ namespace Smuxi.Engine
         void OnGroupChatPresence(XmppGroupChatModel chat, Presence pres)
         {
             Jid jid = pres.From;
+            if (pres.Type == PresenceType.error) {
+                if (pres.Error == null) {
+                    return;
+                }
+                var builder = CreateMessageBuilder();
+                switch (pres.Error.Type) {
+                    case ErrorType.cancel:
+                        switch (pres.Error.Condition) {
+                            case ErrorCondition.Conflict:
+                                // nickname already in use
+                                // autorejoin with _ appended to nickname
+                                JoinRoom(chat.ID, chat.OwnNickname + "_", chat.Password);
+                                builder.AppendErrorText(_("Nickname already in use, rejoining {0} with {1}"), jid.Bare, chat.OwnNickname);
+                                Session.AddMessageToChat(chat, builder.ToMessage());
+                                Session.AddMessageToChat(NetworkChat, builder.ToMessage());
+                                return;
+                            case ErrorCondition.RemoteServerNotFound:
+                                builder.AppendErrorText(_("Could not find remote server for {0}"), jid);
+                                break;
+                            default:
+                                builder.AppendErrorText(_("Canceled operation {0} for muc {1}"), pres.Error.ErrorText ?? pres.Error.Condition.ToString(), jid);
+                                break;
+                        }
+                        break;
+                    default:
+                        builder.AppendErrorText(_("Error {0} ({1}): {2}"), jid, pres.Error.Type, pres.Error.ErrorText ?? pres.Error.Condition.ToString());
+                        break;
+                }
+                Session.AddMessageToChat(NetworkChat, builder.ToMessage());
+                Session.RemoveChat(chat);
+                return;
+            }
+
             XmppPersonModel person;
             // check whether we know the real jid of this muc user
             if (pres.MucUser != null &&
@@ -1568,20 +1601,6 @@ namespace Smuxi.Engine
                     // did I leave? then I "probably" left the room
                     if (pres.From.Resource == chat.OwnNickname) {
                         Session.RemoveChat(chat);
-                    }
-                    break;
-                case PresenceType.error:
-                    if (pres.Error == null) break;
-                    switch (pres.Error.Type) {
-                        case ErrorType.cancel:
-                            switch (pres.Error.Condition) {
-                                case ErrorCondition.Conflict:
-                                    // nickname already in use
-                                    // autorejoin with _ appended to nickname
-                                    JoinRoom(chat.ID, chat.OwnNickname + "_", chat.Password);
-                                    break;
-                            }
-                            break;
                     }
                     break;
             }
