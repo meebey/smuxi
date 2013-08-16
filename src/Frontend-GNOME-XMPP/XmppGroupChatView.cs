@@ -85,7 +85,37 @@ namespace Smuxi.Frontend.Gnome
                     IdentityNameCellRenderer.Editable = true;
                     IdentityNameCellRenderer.Edited += OnPersonRenameEdited;
                     IdentityNameCellRenderer.EditingStarted += OnPersonRenameEditingStarted;
+                    PersonTreeView.ButtonPressEvent += OnPersonTreeViewButtonPressEvent;
                 }
+            }
+        }
+
+        [GLib.ConnectBefore]
+        void OnPersonTreeViewButtonPressEvent(object o, Gtk.ButtonPressEventArgs args)
+        {
+            Trace.Call(o, args);
+            if (args.Event.Button == 1 && args.Event.Type == Gdk.EventType.TwoButtonPress) {
+                Gtk.TreePath path;
+                PersonTreeView.GetPathAtPos((int)args.Event.X, (int)args.Event.Y, out path);
+                Gtk.TreeIter iter;
+                if (!PersonTreeView.Model.GetIter(out iter, path)) {
+                    return;
+                }
+                PersonModel person = (PersonModel) PersonTreeView.Model.GetValue(iter, 0);
+                ThreadPool.QueueUserWorkItem(delegate {
+                    try {
+                        XmppProtocolManager.CommandMessageQuery(
+                            new CommandModel(
+                                Frontend.FrontendManager,
+                                ChatModel,
+                                person.ID
+                            )
+                         );
+                    } catch (Exception ex) {
+                        Frontend.ShowException(ex);
+                    }
+                });
+                args.RetVal = false;
             }
         }
         
