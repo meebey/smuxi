@@ -24,10 +24,10 @@ namespace Smuxi.Engine
 {
     public class XmppGroupChatModel : GroupChatModel
     {
-        public DateTime LatestSeenStamp { get; set; }
-        public bool SeenNewMessages { get; set; }
-        public string OwnNickname { get; set; }
-        public string Password { get; set; }
+        internal DateTime LatestSeenStamp { get; set; }
+        internal bool SeenNewMessages { get; set; }
+        internal string OwnNickname { get; set; }
+        internal string Password { get; set; }
 
         public XmppGroupChatModel(string id, string name, IProtocolManager networkManager) :
                          base(id, name, networkManager)
