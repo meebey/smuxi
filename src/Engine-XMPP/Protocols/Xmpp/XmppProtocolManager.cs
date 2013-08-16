@@ -1409,7 +1409,10 @@ namespace Smuxi.Engine
                     builder.AppendFormat(_("{0}{1} unsubscribed from you"), person, idstring);
                     break;
                 case PresenceType.error:
-                    if (pres.Error == null) break;
+                    if (pres.Error == null) {
+                        builder.AppendErrorText(_("received a malformed error message: {0}"), pres);
+                        break;
+                    }
                     switch (pres.Error.Type) {
                         case ErrorType.cancel:
                             switch (pres.Error.Condition) {
@@ -1423,7 +1426,34 @@ namespace Smuxi.Engine
                                     if (!String.IsNullOrEmpty(pres.Error.ErrorText)) {
                                         builder.AppendErrorText(pres.Error.ErrorText);
                                     } else {
-                                        builder.AppendErrorText(pres.Error.Condition.ToString());
+                                        builder.AppendErrorText(
+                                            _("There is currently no useful error message for {0}, {1}, {2}{3}"),
+                                            pres.Error.Type,
+                                            pres.Error.Condition,
+                                            person.IdentityName,
+                                            idstring);
+                                    }
+                                    break;
+                            }
+                            break;
+                        case ErrorType.auth:
+                            switch (pres.Error.Condition) {
+                                case ErrorCondition.Forbidden:
+                                    builder.AppendErrorText(
+                                        _("You do not have permission to access {0}{1}")
+                                        , person.IdentityName,
+                                        idstring);
+                                    break;
+                                default:
+                                    if (!String.IsNullOrEmpty(pres.Error.ErrorText)) {
+                                        builder.AppendErrorText(pres.Error.ErrorText);
+                                    } else {
+                                        builder.AppendErrorText(
+                                            _("There is currently no useful error message for {0}, {1}, {2}{3}"),
+                                            pres.Error.Type,
+                                            pres.Error.Condition,
+                                            person.IdentityName,
+                                            idstring);
                                     }
                                     break;
                             }
@@ -1432,7 +1462,12 @@ namespace Smuxi.Engine
                             if (!String.IsNullOrEmpty(pres.Error.ErrorText)) {
                                 builder.AppendErrorText(pres.Error.ErrorText);
                             } else {
-                                builder.AppendErrorText(pres.Error.Type.ToString());
+                                builder.AppendErrorText(
+                                    _("There is currently no useful error message for {0}, {1}, {2}{3}"),
+                                    pres.Error.Type,
+                                    pres.Error.Condition,
+                                    person.IdentityName,
+                                    idstring);
                             }
                             break;
                     }
