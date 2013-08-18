@@ -101,6 +101,22 @@ namespace Smuxi.Engine
                 }
             }
 
+            IntPtr cert;
+            var err = GnuTls.gnutls_x509_crt_init(out cert);
+            if (err != 0) {
+                // shit
+                return false;
+            }
+            var derBytes = certificate.GetRawCertData();
+            var data = new Datum();
+            data.Data = derBytes;
+            data.Size = (uint) derBytes.LongLength;
+            err = GnuTls.gnutls_x509_crt_import(cert, ref data, (int) CertificateFormat.DER);
+            if (err != 0) {
+                // shit
+                return false;
+            }
+
 #if LOG4NET
             Logger.ErrorFormat(
                 "ValidateCertificate(): Validation failed: {0}" +
