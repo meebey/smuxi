@@ -132,6 +132,10 @@ namespace Smuxi.Engine
                     if (!whitelist.Contains("campfirenow.com")) {
                         whitelist.Add("campfirenow.com");
                     }
+                    // needed for receiving messages
+                    if (!whitelist.Contains("streaming.campfirenow.com")) {
+                        whitelist.Add("streaming.campfirenow.com");
+                    }
                     if (!whitelist.Contains(Host)) {
                         whitelist.Add(Host);
                     }
