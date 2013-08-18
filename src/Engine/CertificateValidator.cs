@@ -18,6 +18,7 @@
 // along with this program; if not, write to the Free Software
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA
 using System;
+using System.IO;
 using System.Net;
 using System.Net.Security;
 using System.Security.Cryptography.X509Certificates;
@@ -61,12 +62,13 @@ namespace Smuxi.Engine
                 return true;
             }
 
-            var hash = certificate.GetCertHashString();
             string hostname = null;
             if (sender is HttpWebRequest) {
                 var request = (HttpWebRequest) sender;
                 hostname = request.RequestUri.Host;
             }
+
+            var hash = certificate.GetCertHashString();
             var certInfo =  String.Format(
                 "\n Subject: '{0}'" +
                 "\n Issuer: '{1}'" +
@@ -74,6 +76,51 @@ namespace Smuxi.Engine
                 "\n Hostname: '{3}'",
                 certificate.Subject, certificate.Issuer, hash, hostname
             );
+
+            DateTime start, stop;
+            start = DateTime.UtcNow;
+            int err = 0;
+            PolarSSL.X509Certificate polarCertChain = new PolarSSL.X509Certificate();
+            foreach (var entry in chain.ChainElements) {
+                var certBytes = entry.Certificate.GetRawCertData();
+                err = PolarSSL.PolarSsl.x509parse_crt_der(
+                    ref polarCertChain,
+                    certBytes,
+                    new UIntPtr((uint)certBytes.LongLength)
+                );
+                if (err != 0) {
+                    // shit
+                    return false;
+                }
+            }
+
+            PolarSSL.X509Certificate polarTrustChain = new PolarSSL.X509Certificate();
+            // load CA from disk!
+            //err = PolarSSL.PolarSsl.x509parse_crtfile(ref polarTrustChain, "/etc/ssl/certs/Equifax_Secure_CA.pem");
+            err = PolarSSL.PolarSsl.x509parse_crtfile(ref polarTrustChain, "/etc/ssl/certs/ca-certificates.crt");
+
+            PolarSSL.X509CertificateRevocationList polarCrl = new PolarSSL.X509CertificateRevocationList();
+            int verifyFlags = 0;
+            err = PolarSSL.PolarSsl.x509parse_verify(
+                ref polarCertChain, ref polarTrustChain, ref polarCrl, hostname,
+                ref verifyFlags, null, IntPtr.Zero
+            );
+            stop = DateTime.UtcNow;
+#if LOG4NET
+            Logger.DebugFormat(
+                "ValidateCertificate(): PolarSSL verify took: {0:0.00} ms ",
+                (stop - start).TotalMilliseconds
+            );
+#endif
+            if (err == 0) {
+#if LOG4NET
+                Logger.DebugFormat(
+                    "ValidateCertificate(): Validated certificate " +
+                    "via PolarSSL: {0}", certInfo
+                );
+#endif
+                return true;
+            }
 
             lock (HashWhitelist) {
                 if (HashWhitelist.Contains(hash)) {
