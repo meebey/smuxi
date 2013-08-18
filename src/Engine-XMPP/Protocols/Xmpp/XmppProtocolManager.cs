@@ -343,7 +343,12 @@ namespace Smuxi.Engine
                     ContactChat.UnsafePersons.Add(pair.Key, pair.Value.ToPersonModel());
                 }
             }
-            Session.SyncChat(ContactChat);
+
+            // HACK: lower probability of sync race condition during connect
+            ThreadPool.QueueUserWorkItem(delegate {
+                Thread.Sleep(5000);
+                Session.SyncChat(ContactChat);
+            });
         }
 
         // no need to synchronize as no members are accessed
