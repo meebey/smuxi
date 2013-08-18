@@ -196,6 +196,10 @@ namespace Smuxi.Engine
             if (!server.ValidateServerCertificate) {
                 var whitelist = Session.CertificateValidator.HostnameWhitelist;
                 lock (whitelist) {
+                    // needed for favicon
+                    if (!whitelist.Contains("www.twitter.com")) {
+                        whitelist.Add("www.twitter.com");
+                    }
                     if (!whitelist.Contains("api.twitter.com")) {
                         whitelist.Add("api.twitter.com");
                     }
