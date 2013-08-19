@@ -1,0 +1,80 @@
+# Translation of smuxi-frontend-gnome-irc messages to Portuguese
+# Copyright (C) 2010 the smuxi's copyright holder
+# This file is distributed under the same license as the smuxi-frontend-gnome-irc package.
+#
+# Américo Monteiro <a_monteiro@netcabo.pt>, 2010.
+msgid ""
+msgstr ""
+"Project-Id-Version: smuxi-frontend-gnome-irc \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-08-19 12:23+0200\n"
+"PO-Revision-Date: 2010-07-15 01:56+0100\n"
+"Last-Translator: Américo Monteiro <a_monteiro@netcabo.pt>\n"
+"Language-Team: Portuguese <traduz@debianpt.org>\n"
+"Language: pt\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Lokalize 1.0\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: ../src/Frontend-GNOME-XMPP/XmppGroupChatView.cs:220
+#: ../src/Frontend-GNOME-XMPP/XmppPersonChatView.cs:51
+msgid "Whois"
+msgstr "Quem é"
+
+#: ../src/Frontend-GNOME-XMPP/XmppGroupChatView.cs:224
+msgid "Query"
+msgstr "Questionar"
+
+#: ../src/Frontend-GNOME-XMPP/XmppGroupChatView.cs:229
+#: ../src/Frontend-GNOME-XMPP/XmppPersonChatView.cs:55
+msgid "Add To Contacts"
+msgstr ""
+
+#: ../src/Frontend-GNOME-XMPP/XmppGroupChatView.cs:234
+#: ../src/Frontend-GNOME-XMPP/XmppPersonChatView.cs:59
+msgid "Invite to"
+msgstr "Convidar para"
+
+#~ msgid "Op"
+#~ msgstr "Dar Op"
+
+#~ msgid "Deop"
+#~ msgstr "Retirar Op"
+
+#~ msgid "Voice"
+#~ msgstr "Dar Voz"
+
+#~ msgid "Devoice"
+#~ msgstr "Retirar Voz"
+
+#~ msgid "Kick"
+#~ msgstr "Expulsar"
+
+#~ msgid "Kick + Ban"
+#~ msgstr "Expulsar + Banir"
+
+#~ msgid "Ban"
+#~ msgstr "Banir"
+
+#~ msgid "Unban"
+#~ msgstr "Retirar dos Banidos"
+
+#~ msgid "CTCP"
+#~ msgstr "CTCP"
+
+#~ msgid "Ping"
+#~ msgstr "Ping"
+
+#~ msgid "Version"
+#~ msgstr "Versão"
+
+#~ msgid "Time"
+#~ msgstr "Hora"
+
+#~ msgid "Finger"
+#~ msgstr "Finger"
+
+#~ msgid "Userinfo"
+#~ msgstr "Informação do utilizador"

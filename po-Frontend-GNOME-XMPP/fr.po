@@ -1,0 +1,79 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+msgid ""
+msgstr ""
+"Project-Id-Version: Smuxi - IRC client\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-08-19 12:23+0200\n"
+"PO-Revision-Date: 2010-11-30 04:12+0000\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: French (http://www.transifex.net/projects/p/smuxi/team/fr/)\n"
+"Language: fr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1)\n"
+
+#: ../src/Frontend-GNOME-XMPP/XmppGroupChatView.cs:220
+#: ../src/Frontend-GNOME-XMPP/XmppPersonChatView.cs:51
+msgid "Whois"
+msgstr "Whois"
+
+#: ../src/Frontend-GNOME-XMPP/XmppGroupChatView.cs:224
+msgid "Query"
+msgstr "Chat privé"
+
+#: ../src/Frontend-GNOME-XMPP/XmppGroupChatView.cs:229
+#: ../src/Frontend-GNOME-XMPP/XmppPersonChatView.cs:55
+msgid "Add To Contacts"
+msgstr ""
+
+#: ../src/Frontend-GNOME-XMPP/XmppGroupChatView.cs:234
+#: ../src/Frontend-GNOME-XMPP/XmppPersonChatView.cs:59
+msgid "Invite to"
+msgstr "Inviter à"
+
+#~ msgid "Op"
+#~ msgstr "Opper"
+
+#~ msgid "Deop"
+#~ msgstr "Enlever l'Op"
+
+#~ msgid "Voice"
+#~ msgstr "Voicer"
+
+#~ msgid "Devoice"
+#~ msgstr "Enlever le Voice"
+
+#~ msgid "Kick"
+#~ msgstr "Kicker"
+
+#~ msgid "Kick + Ban"
+#~ msgstr "Kicker + Bannir"
+
+#~ msgid "Ban"
+#~ msgstr "Bannir"
+
+#~ msgid "Unban"
+#~ msgstr "Enlever le ban"
+
+#~ msgid "CTCP"
+#~ msgstr "CTCP"
+
+#~ msgid "Ping"
+#~ msgstr "Ping"
+
+#~ msgid "Version"
+#~ msgstr "Version"
+
+#~ msgid "Time"
+#~ msgstr "Temps"
+
+#~ msgid "Finger"
+#~ msgstr "Finger"
+
+#~ msgid "Userinfo"
+#~ msgstr "Userinfo"

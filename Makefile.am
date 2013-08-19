@@ -20,6 +20,10 @@ if ENABLE_FRONTEND_GNOME_IRC
 PO_FRONTEND_GNOME_IRC = po-Frontend-GNOME-IRC
 endif
 
+if ENABLE_FRONTEND_GNOME_XMPP
+PO_FRONTEND_GNOME_XMPP = po-Frontend-GNOME-XMPP
+endif
+
 ACLOCAL_AMFLAGS = -I .
 
 EXTRA_DIST =	install-sh \
@@ -49,7 +53,8 @@ PODIRS =	po \
 		po-Server \
 		po-Frontend \
 		$(PO_FRONTEND_GNOME) \
-		$(PO_FRONTEND_GNOME_IRC)
+		$(PO_FRONTEND_GNOME_IRC) \
+		$(PO_FRONTEND_GNOME_XMPP)
 
 SUBDIRS = 	lib \
 		src \

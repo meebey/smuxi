@@ -688,6 +688,7 @@ AC_CONFIG_FILES([
 	po-Frontend/Makefile.in
 	po-Frontend-GNOME/Makefile.in
 	po-Frontend-GNOME-IRC/Makefile.in
+	po-Frontend-GNOME-XMPP/Makefile.in
 ])
 
 AC_OUTPUT

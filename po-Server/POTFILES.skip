@@ -10,6 +10,7 @@ src/Engine-XMPP/
 src/Engine-Twitter/
 src/Frontend/
 src/Frontend-GNOME-IRC/
+src/Frontend-GNOME-XMPP/
 src/Frontend-GNOME/
 src/Frontend-STFL/
 src/Frontend-SWF/

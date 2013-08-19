@@ -7,10 +7,10 @@ src/Engine-JabbR/
 src/Engine-MSNP/
 src/Engine-OSCAR/
 src/Engine-XMPP/
+src/Engine-Twitter/
 src/Frontend/
 src/Frontend-GNOME/
 src/Frontend-GNOME-IRC/
-src/Frontend-GNOME-XMPP/
 src/Frontend-STFL/
 src/Frontend-SWF/
 src/Frontend-WPF/

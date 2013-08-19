@@ -1,0 +1,80 @@
+# Smuxi - IRC client for sophisticated users
+# Copyright (C) 2005-2010 Mirco Bauer <meebey@meebey.net>
+# This file is distributed under the same license as the Smuxi package.
+# David Paleino <d.paleino@gmail.com>, 2008.
+#
+# Vincenzo Campanella <vinz65@gmail.com>, 2009-2010, 2010.
+msgid ""
+msgstr ""
+"Project-Id-Version: smuxi-frontend-gnome-irc\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-08-19 12:23+0200\n"
+"PO-Revision-Date: 2010-07-15 13:28+0200\n"
+"Last-Translator: Vincenzo Campanella <vinz65@gmail.com>\n"
+"Language-Team: Italian <tp@lists.linux.it>\n"
+"Language: it\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: ../src/Frontend-GNOME-XMPP/XmppGroupChatView.cs:220
+#: ../src/Frontend-GNOME-XMPP/XmppPersonChatView.cs:51
+msgid "Whois"
+msgstr "Whois"
+
+#: ../src/Frontend-GNOME-XMPP/XmppGroupChatView.cs:224
+msgid "Query"
+msgstr "Messaggio privato"
+
+#: ../src/Frontend-GNOME-XMPP/XmppGroupChatView.cs:229
+#: ../src/Frontend-GNOME-XMPP/XmppPersonChatView.cs:55
+msgid "Add To Contacts"
+msgstr ""
+
+#: ../src/Frontend-GNOME-XMPP/XmppGroupChatView.cs:234
+#: ../src/Frontend-GNOME-XMPP/XmppPersonChatView.cs:59
+msgid "Invite to"
+msgstr "Invita a"
+
+#~ msgid "Op"
+#~ msgstr "Operatore"
+
+#~ msgid "Deop"
+#~ msgstr "Rimuovi l'operatore"
+
+#~ msgid "Voice"
+#~ msgstr "Dai la parola"
+
+#~ msgid "Devoice"
+#~ msgstr "Togli la parola"
+
+#~ msgid "Kick"
+#~ msgstr "Espelli (kick)"
+
+#~ msgid "Kick + Ban"
+#~ msgstr "Espelli (kick) e allontana (ban)"
+
+#~ msgid "Ban"
+#~ msgstr "Allontana (ban)"
+
+#~ msgid "Unban"
+#~ msgstr "Rimuovi l'allontanamento (unban)"
+
+#~ msgid "CTCP"
+#~ msgstr "CTCP"
+
+#~ msgid "Ping"
+#~ msgstr "Ping"
+
+#~ msgid "Version"
+#~ msgstr "Versione"
+
+#~ msgid "Time"
+#~ msgstr "Ora"
+
+#~ msgid "Finger"
+#~ msgstr "Finger"
+
+#~ msgid "Userinfo"
+#~ msgstr "Informazioni sull'utente"
