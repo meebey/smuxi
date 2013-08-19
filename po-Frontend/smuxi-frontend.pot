@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-14 10:18+0200\n"
+"POT-Creation-Date: 2013-08-19 14:09+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,12 +17,12 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../src/Frontend/CommandManager.cs:255
+#: ../src/Frontend/CommandManager.cs:311
 #, csharp-format
 msgid "Unknown Command: {0}"
 msgstr ""
 
-#: ../src/Frontend/CommandManager.cs:264
+#: ../src/Frontend/CommandManager.cs:320
 #, csharp-format
 msgid "Not enough parameters for {0} command"
 msgstr ""
