@@ -1,0 +1,229 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+# Leonardopf <leonardo@piresfelix.com>, 2013
+msgid ""
+msgstr ""
+"Project-Id-Version: Smuxi - IRC client\n"
+"Report-Msgid-Bugs-To: http://www.smuxi.org/issues\n"
+"POT-Creation-Date: 2013-04-14 10:13+0200\n"
+"PO-Revision-Date: 2013-07-08 17:04+0000\n"
+"Last-Translator: Leonardopf <leonardo@piresfelix.com>\n"
+"Language-Team: Portuguese (Brazil) (http://www.transifex.com/projects/p/smuxi/language/pt_BR/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: pt_BR\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: ../src/Engine/FrontendManager.cs:233
+msgid "No network connections"
+msgstr "Sem conexão de rede"
+
+#: ../src/Engine/MessageBuffers/Db4oMessageBuffer.cs:295
+#, csharp-format
+msgid "Optimizing: {0}..."
+msgstr "Optimizando: {0}..."
+
+#: ../src/Engine/MessageBuffers/Db4oMessageBuffer.cs:313
+#, csharp-format
+msgid "Failed to optimize: {0}. Reason: {1}"
+msgstr "Falhou a optimização: {0}. Razão: {1}"
+
+#: ../src/Engine/MessageBuffers/Db4oMessageBuffer.cs:347
+msgid ""
+"Your chat history is no longer available because of an error but will be "
+"preserved from now on."
+msgstr "Seu histórico de mensagens não está disponível por causa de um erro, mas será preservado à partir de agora."
+
+#: ../src/Engine/Protocols/ProtocolManagerBase.cs:166
+msgid "Not connected to server"
+msgstr "Não conectado ao servidor"
+
+#: ../src/Engine/Protocols/ProtocolManagerBase.cs:174
+#: ../src/Engine/Session.cs:846
+#, csharp-format
+msgid "Not enough parameters for {0} command"
+msgstr "Parâmetros insfucientes para o comando {0}"
+
+#: ../src/Engine/Protocols/ProtocolManagerBase.cs:185
+#, csharp-format
+msgid "Connected to {0}"
+msgstr "Conectado a {0}"
+
+#: ../src/Engine/Protocols/ProtocolManagerBase.cs:203
+#, csharp-format
+msgid "Disconnected from {0}"
+msgstr "Desconectado de {0}"
+
+#: ../src/Engine/Session.cs:217
+#, csharp-format
+msgid "Automatic connect to {0} failed!"
+msgstr "Conexão automática a {0} falhou!"
+
+#. TRANSLATOR: this line is used as a label / category for a
+#. list of commands below
+#: ../src/Engine/Session.cs:415
+msgid "Engine Commands"
+msgstr "Comandos principais"
+
+#: ../src/Engine/Session.cs:540
+msgid "Connect failed!"
+msgstr "Conexão falhou!"
+
+#: ../src/Engine/Session.cs:563
+#, csharp-format
+msgid "Disconnect failed - could not find server: {0}"
+msgstr "Desconexão falhou - Não foi possível encontrar servidor: {0}"
+
+#: ../src/Engine/Session.cs:603
+msgid "Reconnect failed!"
+msgstr "Re-conectar falhou!"
+
+#: ../src/Engine/Session.cs:625
+msgid "Configuration reloaded"
+msgstr "Configuração reiniciada"
+
+#: ../src/Engine/Session.cs:629
+msgid "Configuration saved"
+msgstr "Configuração salva"
+
+#: ../src/Engine/Session.cs:633
+msgid "Invalid parameter for config; use load or save"
+msgstr "Parâmetro invalido para config: Use load ou save"
+
+#: ../src/Engine/Session.cs:702
+msgid "Invalid parameter for network; use list, switch, or close"
+msgstr "Parâmetro invalido para rede: use list, switch ou close"
+
+#. TRANSLATOR: this line is used as a label / category for a
+#. list of networks below
+#: ../src/Engine/Session.cs:733
+msgid "Connected Networks"
+msgstr "Redes Conectadas"
+
+#: ../src/Engine/Session.cs:738 ../src/Engine/Session.cs:762
+msgid "Network"
+msgstr "Rede"
+
+#: ../src/Engine/Session.cs:739
+msgid "Protocol"
+msgstr "Protocolo"
+
+#: ../src/Engine/Session.cs:740
+msgid "Host"
+msgstr "Servidor"
+
+#: ../src/Engine/Session.cs:741
+msgid "Port"
+msgstr "Porta"
+
+#. TRANSLATOR: no connected networks
+#. TRANSLATOR: no available networks
+#: ../src/Engine/Session.cs:747 ../src/Engine/Session.cs:768
+msgid "None"
+msgstr "Nenhuma"
+
+#. TRANSLATOR: this line is used as a label / category for a
+#. list of networks below
+#: ../src/Engine/Session.cs:754
+msgid "Available Networks"
+msgstr "Redes disponíveis"
+
+#: ../src/Engine/Session.cs:783
+#, csharp-format
+msgid "Network close failed - could not find network: {0}"
+msgstr "Desconexão falhou - Não foi possível encontrar servidor: {0}"
+
+#: ../src/Engine/Session.cs:821
+#, csharp-format
+msgid "Network switch failed - could not find network: {0}"
+msgstr "Troca de rede falhou - não foi possível encontrar rede: {0}"
+
+#: ../src/Engine/Session.cs:839
+msgid "Not connected to any network"
+msgstr "Não conectado em nenhum servidor"
+
+#: ../src/Engine/Session.cs:1093
+#, csharp-format
+msgid ""
+"Failed to write to chat history. Your chat history will not be preserved. "
+"Reason: {0}"
+msgstr "Falha ao escrever o histórico de mensagens. Seu histórico de mensagens não serão preservadas. Razão: {0}"
+
+#. just in case the ProtocolManager is not setting the
+#. protocol chat
+#: ../src/Engine/Session.cs:1266
+msgid "Connect failed."
+msgstr "Conexão falhou!"
+
+#: ../src/Engine/Session.cs:1297
+#, csharp-format
+msgid "No protocol manager found for the protocol: {0}"
+msgstr "Gerenciador de protocolo não encontrado para o protocolo: {0}"
+
+#: ../src/Engine/Session.cs:1529
+msgid "Welcome to Smuxi"
+msgstr "Bem vindo ao Smuxi"
+
+#: ../src/Engine/Session.cs:1536
+msgid "Type /help to get a list of available commands."
+msgstr "Digite /help para pegar lista de comandos disponíveis."
+
+#: ../src/Engine/Session.cs:1542
+msgid ""
+"After you have made a connection the list of available commands changes. Go "
+"to the newly opened connection tab and use the /help command again to see "
+"the extended command list."
+msgstr "Após você conectar a lista de comandos mudam. Vá para a nova aba de conexão e use o comando /help de novo para ver a lista de comandos. "
+
+#: ../src/Engine/Config/UserListController.cs:117
+msgid "Username must not be empty."
+msgstr "Nome de usuário não pode estar vazio."
+
+#: ../src/Engine/Config/UserListController.cs:127
+msgid "Password must not be empty."
+msgstr "Senha não pode estar vazia."
+
+#: ../src/Engine/Config/UserListController.cs:136
+#, csharp-format
+msgid "User \"{0}\" doesn't exist."
+msgstr "Usuário \"{0}\" não existe."
+
+#: ../src/Engine/Config/UserListController.cs:145
+#, csharp-format
+msgid "User \"{0}\" already exists."
+msgstr "Usuário \"{0}\" já existe."
+
+#: ../src/Engine/Config/ServerListController.cs:118
+msgid "Network must not be empty."
+msgstr "Rede não pode estar vazia."
+
+#: ../src/Engine/Config/ServerListController.cs:138
+msgid "Server hostname must not be empty."
+msgstr "Nome do servidor não pode estar vazio."
+
+#: ../src/Engine/Config/ServerListController.cs:141
+msgid "Server hostname contains invalid characters (newline)."
+msgstr "Nome do servidor contem caracteres inválidos (nova linha)."
+
+#: ../src/Engine/Config/ServerListController.cs:148
+#, csharp-format
+msgid "Server ID '{0}' already exists."
+msgstr "Servidor de ID '{0}' já existe."
+
+#: ../src/Engine/Chats/ChatModel.cs:105
+#, csharp-format
+msgid ""
+"Failed to load chat history. Your chat history will not be preserved. "
+"Reason: {0}"
+msgstr "Falha ao carregar histórico de mensagens. Seu histórico de mensagens não será preservados. Razão: {0}"
+
+#: ../src/Engine/Chats/ChatModel.cs:298
+#, csharp-format
+msgid ""
+"Failed to open chat history for writing. Your chat history will not be "
+"preserved. Reason: {0}"
+msgstr "Falha ao abrir histórico de mensagens para escrevê-lá. Seu histórico de mensagens não serão preservados. Razão: {0}"

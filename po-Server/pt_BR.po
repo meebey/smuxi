@@ -1,0 +1,132 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+# Leonardopf <leonardo@piresfelix.com>, 2013
+msgid ""
+msgstr ""
+"Project-Id-Version: Smuxi - IRC client\n"
+"Report-Msgid-Bugs-To: http://www.smuxi.org/issues\n"
+"POT-Creation-Date: 2013-04-14 10:16+0200\n"
+"PO-Revision-Date: 2013-07-10 20:52+0000\n"
+"Last-Translator: Leonardopf <leonardo@piresfelix.com>\n"
+"Language-Team: Portuguese (Brazil) (http://www.transifex.com/projects/p/smuxi/language/pt_BR/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: pt_BR\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: ../src/Server/Main.cs:71
+msgid "Add user to Server"
+msgstr "Adicionar usuário ao Servidor"
+
+#: ../src/Server/Main.cs:80
+msgid "Modify existing user of Server"
+msgstr "Modificar usuário existente no Servidor"
+
+#: ../src/Server/Main.cs:89
+msgid "Delete user from Server"
+msgstr "Apagar usuário do Servidor"
+
+#: ../src/Server/Main.cs:98
+msgid "List all existing users of Server"
+msgstr "Exibir todos usuários existentes do Servidor"
+
+#: ../src/Server/Main.cs:107
+msgid "User to create, modify or delete"
+msgstr "Usuário para criar, modificar ou apagar"
+
+#: ../src/Server/Main.cs:116
+msgid "Password of the user when creating or modifying a user"
+msgstr "Senha do usuário ao criar ou modificar um usuário"
+
+#: ../src/Server/Main.cs:125
+msgid "Enable debug output"
+msgstr "Ativar saída em modo debug"
+
+#: ../src/Server/Main.cs:133
+msgid ""
+"Optimize message buffers and exit (valid values: none, defrag, index, all)"
+msgstr "Otimizar os buffers de mensagens e sair (Valores válidos: none, defrag, index, all)"
+
+#: ../src/Server/Main.cs:146
+msgid "Show this help"
+msgstr "Mostrar esta ajuda"
+
+#: ../src/Server/Main.cs:148
+msgid "Usage: smuxi-server [options]"
+msgstr "Modo de usar: smuxi-server [opções]"
+
+#: ../src/Server/Main.cs:150
+msgid "Options:"
+msgstr "Opções:"
+
+#: ../src/Server/Main.cs:161
+#, csharp-format
+msgid "Unknown option: '{0}'"
+msgstr "Opção desconhecida: '{0}'"
+
+#: ../src/Server/Main.cs:188
+#, csharp-format
+msgid "Command line error: {0}"
+msgstr "Erro linha de comando: {0}"
+
+#: ../src/Server/Main.cs:232
+msgid ""
+"At most one of --add-user, --modify-user, and --delete-user may be used at a"
+" time."
+msgstr "No máximo um de --add-user, --modify-user, e --delete-user pode ser usado por vez."
+
+#: ../src/Server/Main.cs:242
+msgid "You must specify a username with the --username option."
+msgstr "Você deve especificar um nome de usuário com a opção --username."
+
+#: ../src/Server/Main.cs:248
+msgid "Username must not be empty."
+msgstr "Nome de usuário não pode estar vazio."
+
+#: ../src/Server/Main.cs:258
+msgid "You must specify a password with the --password option."
+msgstr "Você deve especificar uma senha com a opção --password."
+
+#: ../src/Server/Main.cs:264
+msgid "Password must not be empty."
+msgstr "Senha não pode estar vazia."
+
+#: ../src/Server/Main.cs:283
+#, csharp-format
+msgid ""
+"Invalid optimization value passed to --optimize-message-buffer, valid values"
+" are: {0}"
+msgstr "Valores de otimização invalido passados por --optimize-message-buffer. Os valores válidos são: {0}"
+
+#: ../src/Server/Main.cs:303
+#, csharp-format
+msgid "User \"{0}\" successfully added to server."
+msgstr "Usuário \"{0}\" adicionado com sucesso ao servidor."
+
+#: ../src/Server/Main.cs:312
+#, csharp-format
+msgid "User \"{0}\" successfully modified."
+msgstr "Usuário \"{0}\" editado com sucesso."
+
+#: ../src/Server/Main.cs:321
+#, csharp-format
+msgid "User \"{0}\" successfully deleted from server."
+msgstr "Usuário \"{0}\" apagado com sucesso do servidor."
+
+#: ../src/Server/Main.cs:328
+msgid "Users:"
+msgstr "Usuários:"
+
+#: ../src/Server/Main.cs:376
+#, csharp-format
+msgid "Successfully optimized {0} message buffers."
+msgstr "Otimização do buffers de mensagem de {0} feito com sucesso."
+
+#: ../src/Server/Main.cs:389
+#, csharp-format
+msgid "Failed to optimize message buffers: {0}"
+msgstr "Erro ao otimizar buffers de mensagem: {0}"
