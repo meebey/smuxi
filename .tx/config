@@ -1,5 +1,5 @@
 [main]
-host = https://www.transifex.net
+host = https://www.transifex.com
 
 [smuxi.smuxi-engine]
 file_filter = po-Engine/<lang>.po
