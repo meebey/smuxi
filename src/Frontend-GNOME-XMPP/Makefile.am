@@ -83,7 +83,10 @@ all: $(ASSEMBLY) $(PROGRAMFILES) $(LINUX_PKGCONFIG)
 
 FILES = \
 	$(top_srcdir)/src/AssemblyVersion.cs \
-	AssemblyInfo.cs 
+	AssemblyInfo.cs \
+	InviteToMenu.cs \
+	XmppGroupChatView.cs \
+	XmppPersonChatView.cs
 
 DATA_FILES = 
 
