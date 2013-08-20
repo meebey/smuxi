@@ -3,12 +3,12 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# Dean Lee <xslidian@gmail.com>, 2013.
+# Dean Lee <xslidian@gmail.com>, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: Smuxi - IRC client\n"
 "Report-Msgid-Bugs-To: http://www.smuxi.org/issues\n"
-"POT-Creation-Date: 2013-04-14 20:01+0200\n"
+"POT-Creation-Date: 2013-08-19 14:06+0200\n"
 "PO-Revision-Date: 2013-04-15 14:11+0000\n"
 "Last-Translator: Dean Lee <xslidian@gmail.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/projects/p/smuxi/language/zh_CN/)\n"
@@ -22,58 +22,58 @@ msgstr ""
 msgid "Connecting to campfire... "
 msgstr "正在连接到 campfire..."
 
-#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:149
+#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:164
 msgid "Connected to campfire"
 msgstr "已连接到 campfire"
 
 #. TRANSLATOR: this line is used as a label / category for a
 #. list of commands below
-#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:181
+#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:196
 msgid "Campfire Commands"
 msgstr "Campfire 命令"
 
-#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:242
+#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:256
 msgid "Upload"
 msgstr "上传"
 
-#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:243
+#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:257
 #, csharp-format
 msgid "'{0}' ({1} B) {2}"
 msgstr "'{0}' ({1} 字节) {2}"
 
-#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:354
+#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:368
 #, csharp-format
 msgid "has uploaded '{0}' ({1} B) {2}"
 msgstr "已上传 '{0}' ({1} 字节) {2}"
 
 #. TRANSLATOR: {0} is the name of the room
-#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:386
+#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:400
 #, csharp-format
 msgid "has joined {0}"
 msgstr "已加入 {0}"
 
 #. TRANSLATOR: {0} is the name of the room
-#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:395
+#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:409
 #, csharp-format
 msgid "has left {0}"
 msgstr "已离开 {0}"
 
 #. TRANSLATOR: {0} is the name of the room
-#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:403
+#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:417
 #, csharp-format
 msgid "has locked {0}"
 msgstr "已锁定 {0}"
 
 #. TRANSLATOR: {0} is the name of the room
-#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:407
+#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:421
 #, csharp-format
 msgid "has unlocked {0}"
 msgstr "已解锁 {0}"
 
-#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:412
+#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:426
 msgid "has changed the topic"
 msgstr "已更改主题"
 
-#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:422
+#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:436
 msgid "has performed an unknown action"
 msgstr "已执行未知操作"

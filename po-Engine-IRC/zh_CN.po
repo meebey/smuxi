@@ -3,13 +3,13 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# Dean Lee <xslidian@gmail.com>, 2012-2013.
+# Dean Lee <xslidian@gmail.com>, 2012-2013
 msgid ""
 msgstr ""
 "Project-Id-Version: Smuxi - IRC client\n"
 "Report-Msgid-Bugs-To: http://www.smuxi.org/issues\n"
-"POT-Creation-Date: 2013-04-14 10:14+0200\n"
-"PO-Revision-Date: 2013-04-14 14:03+0000\n"
+"POT-Creation-Date: 2013-08-19 14:07+0200\n"
+"PO-Revision-Date: 2013-08-19 17:57+0000\n"
 "Last-Translator: Dean Lee <xslidian@gmail.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/projects/p/smuxi/language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
@@ -18,240 +18,263 @@ msgstr ""
 "Language: zh_CN\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#. TRANSLATOR: do NOT change the position of {0}!
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:244
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:250
 #, csharp-format
 msgid "{0} invites you to {1}"
 msgstr "{0} 邀请您加入 {1}"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:275
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1642
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:266
+msgid "Accept invite (join room)"
+msgstr "接受邀请 (加入房间)"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:294
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1698
 msgid "away"
 msgstr "离开"
 
 #. TRANSLATOR: {0} is the amount of seconds
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:281
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:300
 #, csharp-format
 msgid "lag: {0} seconds"
 msgstr "延后: {0} 秒"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:287
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:306
 msgid "not connected"
 msgstr "未连接"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:347
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:366
 #, csharp-format
 msgid "Using proxy: {0}:{1}"
 msgstr "使用代理: {0}:{1}"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:354
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:373
 #, csharp-format
 msgid "Connecting to {0} port {1}..."
 msgstr "正在连接到 {0} 端口 {1}..."
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:364
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:491
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:383
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:510
 #, csharp-format
 msgid "Connection to {0} established"
 msgstr "到 {0} 的连接已建立"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:371
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:390
 msgid "Logging in..."
 msgstr "正在登录..."
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:410
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:429
 msgid "Connection failed!"
 msgstr "连接失败!"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:413
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:432
 msgid "Connection failed! Reason: "
 msgstr "连接失败! 原因: "
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:425
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:444
 msgid "Disconnecting..."
 msgstr "正在断开连接..."
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:429
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:448
 #, csharp-format
 msgid "Disconnecting from {0}..."
 msgstr "正在从 {0} 断开连接..."
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:435
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:454
 #, csharp-format
 msgid "Disconnected from {0}"
 msgstr "已从 {0} 断开连接"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:440
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:459
 msgid "Connection closed"
 msgstr "连接已关闭"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:447
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:512
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:466
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:531
 msgid "Not connected"
 msgstr "未连接"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:478
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:497
 msgid "Reconnecting..."
 msgstr "正在重新连接..."
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:485
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:504
 #, csharp-format
 msgid "Reconnecting to {0}..."
 msgstr "正在重新连接到 {0}..."
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:502
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:521
 msgid "Reconnect Error"
 msgstr "重新连接出错"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:846
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:905
 #, csharp-format
 msgid "Sleeping for {0} milliseconds"
 msgstr "睡眠 {0} 毫秒"
 
 #. TRANSLATOR: this line is used as label / category for a
 #. list of commands below
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:935
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:994
 msgid "IrcProtocolManager Commands"
 msgstr "IrcProtocolManager 命令"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1008
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1076
 #, csharp-format
 msgid "Invalid port: {0}"
 msgstr "端口无效: {0}"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1109
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1164
 #, csharp-format
 msgid "Queuing joins: {0}"
 msgstr "正等待加入: {0}"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1121
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1183
 #, csharp-format
 msgid "Already joined to channel: {0}. Type /window {0} to switch to it."
 msgstr "已经加入了频道: {0}. 输入 /window {0} 切换过去。"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1157
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1217
 #, csharp-format
 msgid "Active joins: {0} - Queued joins: {1}"
 msgstr "已经加入: {0} - 等待加入: {1}"
 
 #. TRANSLATORS: final message will look like this:
 #. Joining: #chan1 - Remaining active joins: #chan2 / queued joins: #chan3
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1180
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1209
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1240
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1269
 #, csharp-format
 msgid "Joining: {0}"
 msgstr "正在加入: {0}"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1182
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1242
 msgid "Remaining"
 msgstr "剩余"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1187
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1247
 #, csharp-format
 msgid "active joins: {0}"
 msgstr "已经加入: {0}"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1196
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1256
 #, csharp-format
 msgid "queued joins: {0}"
 msgstr "等待加入: {0}"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1629
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1679
 msgid "IRC Op"
 msgstr "IRC 版主"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1631
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1681
+msgid "Owner"
+msgstr "主人"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1683
+msgid "ChanAdmin"
+msgstr "超级版主"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1685
 msgid "Op"
 msgstr "版主"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1633
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1687
+msgid "Halfop"
+msgstr "版主"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1689
 msgid "Voice"
 msgstr "认证用户"
 
-#. TRANSLATOR: do NOT change the position of {1}!
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1696
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1754
 #, csharp-format
 msgid "Topic for {0}: {1}"
 msgstr "{0} 的主题: {1}"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1699
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1756
 #, csharp-format
 msgid "No topic set for {0}"
 msgstr "{0} 尚未设定主题"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1781
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1922
 msgid "ban"
 msgstr "封禁"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1792
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1933
 msgid "No bans in channel"
 msgstr "频道内无被封禁用户"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1885
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1972
+msgid "ban exception"
+msgstr "封禁例外"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1983
+msgid "No ban exceptions in channel"
+msgstr "频道内无封禁例外用户"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2022
+msgid "invite exception"
+msgstr "邀请例外"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2033
+msgid "No invite exceptions in channel"
+msgstr "频道内无邀请例外用户"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2149
 #, csharp-format
 msgid "Your user mode is {0}"
 msgstr "您的用户模式为 {0}"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1906
-#, csharp-format
-msgid "Inviting {0} to {1}"
-msgstr "正在邀请 {0} 加入 {1}"
-
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1913
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2176
 #, csharp-format
 msgid "{0} is already on {1}"
 msgstr "{0} 已在 {1}"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1940
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2184
+#, csharp-format
+msgid "Inviting {0} to {1}"
+msgstr "正在邀请 {0} 加入 {1}"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2208
 msgid "Users"
 msgstr "用户"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1982
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2259
 #, csharp-format
 msgid "Total of {0} users [{1} ops, {2} voices, {3} normal]"
 msgstr "总计 {0} 位用户 [{1} 位版主, {2} 位认证用户, {3} 位普通用户]"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2118
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2393
 msgid "Connection error! Reason: "
 msgstr "连接出错! 原因: "
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2130
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2405
 #, csharp-format
 msgid "Not enough parameters for {0} command"
 msgstr "{0} 命令参数不足"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2139
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2414
 msgid "Not connected to server"
 msgstr "未连接到服务器"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2330
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2618
 #, csharp-format
 msgid "{0}: No such nick/channel"
 msgstr "{0}: 无此昵称/频道"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2455
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2737
 #, csharp-format
 msgid ""
 "Increased send delay to {0}ms to avoid being flooded off the server again."
 msgstr "发送延时已增加到 {0}ms 以避免再次被服务器挤出。"
 
-#. TRANSLATOR: the final line will look like this:
-#. -!- Nick {0} is already in use
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2469
-msgid "Nick"
-msgstr "昵称"
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2752
+#, csharp-format
+msgid "Nick {0} is already in use"
+msgstr "昵称 {0} 已被占用"
 
-#. TRANSLATOR: the final line will look like this:
-#. -!- Nick {0} is already in use
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2479
-msgid "is already in use"
-msgstr "已被占用"
-
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2489
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2768
 msgid "Cannot join to channel:"
 msgstr "无法加入频道:"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2497
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2770
 msgid "You are banned"
 msgstr "您已被封禁"
 
@@ -259,98 +282,88 @@ msgstr "您已被封禁"
 #. {2}: CTCP command, {3}: own nickname, {4}: CTCP parameter
 #. example:
 #. meebey [meebey@example.com] requested CTCP VERSION from meebey:
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2580
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2853
 #, csharp-format
 msgid "{0} [{1}] requested CTCP {2} from {3}: {4}"
 msgstr "{0} [{1}] 请求 CTCP {2} 来自 {3}: {4}"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2607
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2880
 #, csharp-format
 msgid "CTCP PING reply from {0}: {1} seconds"
 msgstr "CTCP PING 回复来自 {0}: {1} 秒"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2616
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2889
 #, csharp-format
 msgid "CTCP {0} reply from {1}: {2}"
 msgstr "CTCP {0} 回复来自 {1}: {2}"
 
-#. TRANSLATOR: do NOT change the position of {0}!
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2822
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3095
 #, csharp-format
 msgid "{0} [{1}] has joined {2}"
 msgstr "{0} [{1}] 已加入 {2}"
 
-#. TRANSLATOR: do NOT change the position of {0}!
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2948
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3237
 #, csharp-format
 msgid "{0} [{1}] has left {2}"
 msgstr "{0} [{1}] 已离开 {2}"
 
-#. TRANSLATOR: do NOT change the position of {1}!
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2974
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3262
 #, csharp-format
 msgid "You were kicked from {0} by {1}"
 msgstr "您被 {1} 从 {0} 踢出"
 
-#. TRANSLATOR: do NOT change the position of {0} and {2}!
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2985
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3270
 #, csharp-format
 msgid "{0} was kicked from {1} by {2}"
 msgstr "{0} 被 {2} 从 {1} 踢出"
 
-#. TRANSLATOR: do NOT change the position of {0}!
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3005
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3038
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3288
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3320
 #, csharp-format
 msgid "You're now known as {0}"
 msgstr "您现在的昵称为 {0}"
 
-#. TRANSLATOR: do NOT change the position of {0} or {1}!
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3043
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3323
 #, csharp-format
 msgid "{0} is now known as {1}"
 msgstr "{0} 现在的昵称为 {1}"
 
-#. TRANSLATOR: do NOT change the position of {0} and {2}!
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3079
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3357
 #, csharp-format
 msgid "{0} changed the topic of {1} to: {2}"
 msgstr "{0} 将主题 {1} 改为: {2}"
 
-#. TRANSLATOR: do NOT change the position of {1}!
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3159
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3519
 #, csharp-format
 msgid "Mode change [{0}] for user {1}"
 msgstr "用户 {1} 模式更改 [{0}]"
 
-#. TRANSLATOR: do NOT change the position of {2}!
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3169
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3536
 #, csharp-format
 msgid "mode/{0} [{1}] by {2}"
 msgstr "模式/{0} [{1}] by {2}"
 
-#. TRANSLATOR: do NOT change the position of {0}!
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3206
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3562
 #, csharp-format
 msgid "{0} [{1}] has quit"
 msgstr "{0} [{1}] 已退出"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3283
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3639
 #, csharp-format
 msgid ""
 "Connection to {0} port {1} has failed (attempt {2}), retrying in {3} "
 "seconds..."
 msgstr "到 {0} 端口 {1} 的连接失败 (第 {2}次尝试), 将在 {3} 秒后重试..."
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3333
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3689
 #, csharp-format
 msgid "{0} is away: {1}"
 msgstr "{0} 离开: {1}"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3343
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3699
 msgid "You are no longer marked as being away"
 msgstr "您不再被标为离开状态"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3353
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3709
 msgid "You have been marked as being away"
 msgstr "您已被标为离开状态"

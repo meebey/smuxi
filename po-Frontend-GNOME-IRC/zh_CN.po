@@ -3,90 +3,88 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# Dean Lee <xslidian@gmail.com>, 2012.
+# Dean Lee <xslidian@gmail.com>, 2012
 msgid ""
 msgstr ""
 "Project-Id-Version: Smuxi - IRC client\n"
 "Report-Msgid-Bugs-To: http://www.smuxi.org/issues\n"
-"POT-Creation-Date: 2011-12-29 09:22+0100\n"
-"PO-Revision-Date: 2012-01-07 10:09+0000\n"
-"Last-Translator: Dean Lee <xslidian@gmail.com>\n"
-"Language-Team: Chinese (China) (http://www.transifex.net/projects/p/smuxi/team/zh_CN/)\n"
+"POT-Creation-Date: 2013-08-19 14:10+0200\n"
+"PO-Revision-Date: 2013-04-29 08:41+0000\n"
+"Last-Translator: Mirco Bauer <meebey@gmail.com>\n"
+"Language-Team: Chinese (China) (http://www.transifex.com/projects/p/smuxi/language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: zh_CN\n"
-"Plural-Forms: nplurals=1; plural=0\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 
-#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:381
-msgid "Op"
-msgstr "设为版主"
-
-#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:385
-msgid "Deop"
-msgstr "撤销版主"
-
-#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:389
-msgid "Voice"
-msgstr "设为认证用户"
-
-#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:393
-msgid "Devoice"
-msgstr "撤销认证用户"
-
-#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:397
-msgid "Kick"
-msgstr "踢除"
-
-#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:401
-msgid "Kick + Ban"
-msgstr "踢除 + 封禁"
-
-#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:405
-msgid "Ban"
-msgstr "封禁"
-
-#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:409
-msgid "Unban"
-msgstr "解封"
-
-#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:415
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:390
 msgid "Query"
 msgstr "私聊"
 
-#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:419
-#: ../src/Frontend-GNOME-IRC/IrcPersonChatView.cs:64
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:396
+msgid "Op"
+msgstr "设为版主"
+
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:400
+msgid "Deop"
+msgstr "撤销版主"
+
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:404
+msgid "Voice"
+msgstr "设为认证用户"
+
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:408
+msgid "Devoice"
+msgstr "撤销认证用户"
+
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:412
+msgid "Kick"
+msgstr "踢除"
+
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:416
+msgid "Kick + Ban"
+msgstr "踢除 + 封禁"
+
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:420
+msgid "Ban"
+msgstr "封禁"
+
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:424
+msgid "Unban"
+msgstr "解封"
+
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:430
+#: ../src/Frontend-GNOME-IRC/IrcPersonChatView.cs:63
 msgid "Whois"
 msgstr "详情"
 
-#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:423
-#: ../src/Frontend-GNOME-IRC/IrcPersonChatView.cs:68
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:434
+#: ../src/Frontend-GNOME-IRC/IrcPersonChatView.cs:67
 msgid "CTCP"
 msgstr "CTCP"
 
-#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:432
-#: ../src/Frontend-GNOME-IRC/IrcPersonChatView.cs:75
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:443
+#: ../src/Frontend-GNOME-IRC/IrcPersonChatView.cs:74
 msgid "Invite to"
 msgstr "邀请加入"
 
-#: ../src/Frontend-GNOME-IRC/CtcpMenu.cs:72
+#: ../src/Frontend-GNOME-IRC/CtcpMenu.cs:73
 msgid "Ping"
 msgstr "Ping"
 
-#: ../src/Frontend-GNOME-IRC/CtcpMenu.cs:77
+#: ../src/Frontend-GNOME-IRC/CtcpMenu.cs:78
 msgid "Version"
 msgstr "版本"
 
-#: ../src/Frontend-GNOME-IRC/CtcpMenu.cs:82
+#: ../src/Frontend-GNOME-IRC/CtcpMenu.cs:83
 msgid "Time"
 msgstr "用户时间"
 
-#: ../src/Frontend-GNOME-IRC/CtcpMenu.cs:87
+#: ../src/Frontend-GNOME-IRC/CtcpMenu.cs:88
 msgid "Finger"
 msgstr "真实姓名与空闲时间"
 
-#: ../src/Frontend-GNOME-IRC/CtcpMenu.cs:92
+#: ../src/Frontend-GNOME-IRC/CtcpMenu.cs:93
 msgid "Userinfo"
 msgstr "用户信息"
-
-

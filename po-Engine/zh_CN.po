@@ -3,13 +3,13 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# Dean Lee <xslidian@gmail.com>, 2011-2013.
+# Dean Lee <xslidian@gmail.com>, 2011-2013
 msgid ""
 msgstr ""
 "Project-Id-Version: Smuxi - IRC client\n"
 "Report-Msgid-Bugs-To: http://www.smuxi.org/issues\n"
-"POT-Creation-Date: 2013-04-14 10:13+0200\n"
-"PO-Revision-Date: 2013-04-14 14:06+0000\n"
+"POT-Creation-Date: 2013-08-19 14:06+0200\n"
+"PO-Revision-Date: 2013-08-19 17:55+0000\n"
 "Last-Translator: Dean Lee <xslidian@gmail.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/projects/p/smuxi/language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
@@ -43,7 +43,7 @@ msgid "Not connected to server"
 msgstr "未连接到服务器"
 
 #: ../src/Engine/Protocols/ProtocolManagerBase.cs:174
-#: ../src/Engine/Session.cs:846
+#: ../src/Engine/Session.cs:951
 #, csharp-format
 msgid "Not enough parameters for {0} command"
 msgstr "{0} 命令参数不足"
@@ -58,95 +58,109 @@ msgstr "已连接到 {0}"
 msgid "Disconnected from {0}"
 msgstr "已从 {0} 断开连接"
 
-#: ../src/Engine/Session.cs:217
+#: ../src/Engine/Session.cs:224
 #, csharp-format
 msgid "Automatic connect to {0} failed!"
 msgstr "自动连接 {0} 失败!"
 
 #. TRANSLATOR: this line is used as a label / category for a
 #. list of commands below
-#: ../src/Engine/Session.cs:415
+#: ../src/Engine/Session.cs:426
 msgid "Engine Commands"
 msgstr "引擎命令"
 
-#: ../src/Engine/Session.cs:540
+#: ../src/Engine/Session.cs:552
 msgid "Connect failed!"
 msgstr "连接失败!"
 
-#: ../src/Engine/Session.cs:563
+#: ../src/Engine/Session.cs:575
 #, csharp-format
 msgid "Disconnect failed - could not find server: {0}"
 msgstr "连接断开失败 - 找不到服务器: {0}"
 
-#: ../src/Engine/Session.cs:603
+#: ../src/Engine/Session.cs:615
 msgid "Reconnect failed!"
 msgstr "重新连接失败!"
 
-#: ../src/Engine/Session.cs:625
+#: ../src/Engine/Session.cs:641
 msgid "Configuration reloaded"
 msgstr "配置已重新载入"
 
-#: ../src/Engine/Session.cs:629
+#: ../src/Engine/Session.cs:645
 msgid "Configuration saved"
 msgstr "配置已保存"
 
-#: ../src/Engine/Session.cs:633
-msgid "Invalid parameter for config; use load or save"
-msgstr "config 的参数无效; 使用 load 或 save"
+#: ../src/Engine/Session.cs:676
+msgid "Invalid key/value format."
+msgstr "键/值格式无效。"
 
-#: ../src/Engine/Session.cs:702
+#: ../src/Engine/Session.cs:686
+#, csharp-format
+msgid "Invalid config key: '{0}'"
+msgstr "配置键无效: '{0}'"
+
+#: ../src/Engine/Session.cs:696 ../src/Engine/Session.cs:702
+#, csharp-format
+msgid "Could not convert config value: '{0}' to type: {1}"
+msgstr "无法转换配置键: '{0}' 目标类型: {1}"
+
+#: ../src/Engine/Session.cs:711
+msgid "Invalid parameter for config; use load, save, get or set."
+msgstr "config 参数无效; 请使用 load、save、get 或 set。"
+
+#: ../src/Engine/Session.cs:807
 msgid "Invalid parameter for network; use list, switch, or close"
 msgstr "network 的参数无效; 使用 list、switch 或 close"
 
 #. TRANSLATOR: this line is used as a label / category for a
 #. list of networks below
-#: ../src/Engine/Session.cs:733
+#: ../src/Engine/Session.cs:838
 msgid "Connected Networks"
 msgstr "已连接网络"
 
-#: ../src/Engine/Session.cs:738 ../src/Engine/Session.cs:762
+#: ../src/Engine/Session.cs:843 ../src/Engine/Session.cs:867
 msgid "Network"
 msgstr "网络"
 
-#: ../src/Engine/Session.cs:739
+#: ../src/Engine/Session.cs:844
 msgid "Protocol"
 msgstr "协议"
 
-#: ../src/Engine/Session.cs:740
+#: ../src/Engine/Session.cs:845
 msgid "Host"
 msgstr "主机"
 
-#: ../src/Engine/Session.cs:741
+#: ../src/Engine/Session.cs:846
 msgid "Port"
 msgstr "端口"
 
 #. TRANSLATOR: no connected networks
 #. TRANSLATOR: no available networks
-#: ../src/Engine/Session.cs:747 ../src/Engine/Session.cs:768
+#: ../src/Engine/Session.cs:852 ../src/Engine/Session.cs:873
 msgid "None"
 msgstr "无"
 
 #. TRANSLATOR: this line is used as a label / category for a
 #. list of networks below
-#: ../src/Engine/Session.cs:754
+#: ../src/Engine/Session.cs:859
 msgid "Available Networks"
 msgstr "可用网络"
 
-#: ../src/Engine/Session.cs:783
+#: ../src/Engine/Session.cs:888
 #, csharp-format
 msgid "Network close failed - could not find network: {0}"
 msgstr "网络关闭失败——无法找到网络: {0}"
 
-#: ../src/Engine/Session.cs:821
+#: ../src/Engine/Session.cs:926
 #, csharp-format
 msgid "Network switch failed - could not find network: {0}"
 msgstr "网络切换失败——无法找到网络: {0}"
 
-#: ../src/Engine/Session.cs:839
+#: ../src/Engine/Session.cs:944
 msgid "Not connected to any network"
 msgstr "未连接到任何网络"
 
-#: ../src/Engine/Session.cs:1093
+#: ../src/Engine/Session.cs:1198
 #, csharp-format
 msgid ""
 "Failed to write to chat history. Your chat history will not be preserved. "
@@ -155,24 +169,24 @@ msgstr "无法写入聊天历史。您的聊天历史将不会保存。原因: {
 
 #. just in case the ProtocolManager is not setting the
 #. protocol chat
-#: ../src/Engine/Session.cs:1266
+#: ../src/Engine/Session.cs:1371
 msgid "Connect failed."
 msgstr "连接失败。"
 
-#: ../src/Engine/Session.cs:1297
+#: ../src/Engine/Session.cs:1402
 #, csharp-format
 msgid "No protocol manager found for the protocol: {0}"
 msgstr "未找到该协议的协议管理器: {0}"
 
-#: ../src/Engine/Session.cs:1529
+#: ../src/Engine/Session.cs:1641
 msgid "Welcome to Smuxi"
 msgstr "欢迎来到 Smuxi"
 
-#: ../src/Engine/Session.cs:1536
+#: ../src/Engine/Session.cs:1648
 msgid "Type /help to get a list of available commands."
 msgstr "输入 /help 获取可用命令列表。"
 
-#: ../src/Engine/Session.cs:1542
+#: ../src/Engine/Session.cs:1654
 msgid ""
 "After you have made a connection the list of available commands changes. Go "
 "to the newly opened connection tab and use the /help command again to see "
@@ -221,7 +235,7 @@ msgid ""
 "Reason: {0}"
 msgstr "无法加载聊天历史。您的聊天历史将不会保留。原因: {0}"
 
-#: ../src/Engine/Chats/ChatModel.cs:298
+#: ../src/Engine/Chats/ChatModel.cs:300
 #, csharp-format
 msgid ""
 "Failed to open chat history for writing. Your chat history will not be "
