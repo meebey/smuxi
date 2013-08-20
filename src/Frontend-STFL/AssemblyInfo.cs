@@ -24,7 +24,7 @@ using System.Reflection;
 using System.Runtime.CompilerServices;
 
 [assembly: AssemblyTitle("Smuxi - STFL frontend")]
-[assembly: AssemblyCopyright("2007-2011 (C) Mirco Bauer <meebey@meebey.net>, 2011 (C) Andrius Bentkus <andrius.bentkus@gmail.com>")]
+[assembly: AssemblyCopyright("2007-2013 (C) Mirco Bauer <meebey@meebey.net>, 2011 (C) Andrius Bentkus <andrius.bentkus@gmail.com>")]
 
 [assembly: AssemblyDelaySign(false)]
 [assembly: AssemblyKeyFile("")]

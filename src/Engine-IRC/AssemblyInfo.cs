@@ -25,8 +25,8 @@ using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
-[assembly: AssemblyTitle("Smuxi - IRC protocol support for engine")]
-[assembly: AssemblyCopyright("2005-2011 (C) Mirco Bauer <meebey@meebey.net>")]
+[assembly: AssemblyTitle("Smuxi - IRC protocol support")]
+[assembly: AssemblyCopyright("2005-2013 (C) Mirco Bauer <meebey@meebey.net>")]
 
 [assembly: AssemblyDelaySign(false)]
 [assembly: AssemblyKeyFile("")]

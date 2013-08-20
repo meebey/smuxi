@@ -26,7 +26,7 @@ using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 [assembly: AssemblyTitle("Smuxi - JabbR protocol support")]
-[assembly: AssemblyCopyright("2012 (C) Mirco Bauer <meebey@meebey.net>")]
+[assembly: AssemblyCopyright("2012-2013 (C) Mirco Bauer <meebey@meebey.net>")]
 
 [assembly: AssemblyDelaySign(false)]
 [assembly: AssemblyKeyFile("")]
