@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Smuxi - IRC client\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-10 21:41+0200\n"
+"POT-Creation-Date: 2013-08-19 12:17+0200\n"
 "PO-Revision-Date: 2013-04-10 22:38+0100\n"
 "Last-Translator: Clément Bourgeois <moonpyk@gmail.com>\n"
 "Language-Team: French (http://www.transifex.net/projects/p/smuxi/team/fr/)\n"
@@ -18,12 +18,12 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1)\n"
 
-#: ../src/Frontend/CommandManager.cs:255
+#: ../src/Frontend/CommandManager.cs:311
 #, csharp-format
 msgid "Unknown Command: {0}"
 msgstr "Commande inconnue : {0}"
 
-#: ../src/Frontend/CommandManager.cs:264
+#: ../src/Frontend/CommandManager.cs:320
 #, csharp-format
 msgid "Not enough parameters for {0} command"
 msgstr "Pas assez de paramètres pour la commande {0}"
