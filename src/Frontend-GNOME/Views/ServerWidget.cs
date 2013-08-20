@@ -1,8 +1,6 @@
-// $Id$
-// 
 // Smuxi - Smart MUltipleXed Irc
 // 
-// Copyright (c) 2010 Mirco Bauer <meebey@meebey.net>
+// Copyright (c) 2010-2013 Mirco Bauer <meebey@meebey.net>
 // 
 // Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
 // 
@@ -43,6 +41,28 @@ namespace Smuxi.Frontend.Gnome
         public Gtk.ComboBox ProtocolComboBox {
             get {
                 return f_ProtocolComboBox;
+            }
+        }
+
+        public string Protocol {
+            set {
+                Gtk.ListStore store = (Gtk.ListStore) ProtocolComboBox.Model;
+                int protocolPosition = -1;
+                int j = 0;
+                foreach (object[] row in store) {
+                    string protocolName = (string) row[0];
+                    if (protocolName == value) {
+                        protocolPosition = j;
+                        break;
+                    }
+                    j++;
+                }
+                if (protocolPosition == -1) {
+                    throw new ArgumentOutOfRangeException(
+                        "Unsupported protocol: " + value
+                    );
+                }
+                f_ProtocolComboBox.Active = protocolPosition;
             }
         }
 
@@ -110,22 +130,8 @@ namespace Smuxi.Frontend.Gnome
 
             // protocol is part of the PKEY, not allowed to change
             f_ProtocolComboBox.Sensitive = false;
-            Gtk.ListStore store = (Gtk.ListStore) ProtocolComboBox.Model;
 
-            int protocolPosition = -1;
-            int j = 0;
-            foreach (object[] row in store) {
-                string protocolName = (string) row[0];
-                if (protocolName == server.Protocol) {
-                    protocolPosition = j;
-                    break;
-                }
-                j++;
-            }
-            if (protocolPosition == -1) {
-                throw new ApplicationException("Unsupported protocol: " + server.Protocol);
-            }
-            f_ProtocolComboBox.Active = protocolPosition;
+            Protocol = server.Protocol;
             ServerID = server.ServerID;
             f_HostnameEntry.Text = server.Hostname;
             f_NetworkComboBoxEntry.Entry.Text = server.Network;
@@ -199,7 +205,12 @@ namespace Smuxi.Frontend.Gnome
             }
             store.SetSortColumnId(0, Gtk.SortType.Ascending);
             f_ProtocolComboBox.Model = store;
-            f_ProtocolComboBox.Active = 0;
+
+            try {
+                // select IRC by default (if available)
+                Protocol = "IRC";
+            } catch (ArgumentOutOfRangeException) {
+            }
         }
 
         public void InitNetworks(IList<string> networks)
