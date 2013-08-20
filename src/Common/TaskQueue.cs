@@ -255,7 +255,9 @@ namespace Smuxi.Common
                 thread.Abort();
                 InitThread();
             }
-            tasks.Clear();
+            lock (tasks) {
+                tasks.Clear();
+            }
         }
         
         public void Reset()
