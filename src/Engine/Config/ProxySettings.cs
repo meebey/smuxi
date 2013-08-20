@@ -119,9 +119,21 @@ namespace Smuxi.Engine
                     SystemWebProxy = null;
                     break;
                 case ProxyType.System:
-                    var proxy = WebRequest.GetSystemWebProxy();
                     // TODO: add GNOME (gconf) support
                     var no_proxy = Environment.GetEnvironmentVariable("no_proxy");
+                    IWebProxy proxy;
+                    try {
+                        proxy = WebRequest.GetSystemWebProxy();
+                    } catch (ArgumentOutOfRangeException) {
+                        // HACK: workaround bug in Mono 2.10.8 throwing
+                        // ArgumentOutOfRangeException because it tries to
+                        // always remove *.local, see:
+                        // https://www.smuxi.org/issues/show/873
+                        if (no_proxy != null && !no_proxy.Contains("*.local")) {
+                            no_proxy = no_proxy + ",*.local";
+                        }
+                        proxy = WebRequest.GetSystemWebProxy();
+                    }
                     if (!String.IsNullOrEmpty(no_proxy) && proxy is WebProxy) {
                         var webProxy = (WebProxy) proxy;
                         // BypassArrayList expects regexes while no_proxy
