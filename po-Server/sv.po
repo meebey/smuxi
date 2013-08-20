@@ -3,20 +3,20 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-#   <flugsio@gmail.com>, 2011.
+# flugsio <flugsio@gmail.com>, 2011
 msgid ""
 msgstr ""
 "Project-Id-Version: Smuxi - IRC client\n"
 "Report-Msgid-Bugs-To: http://www.smuxi.org/issues\n"
-"POT-Creation-Date: 2011-12-29 09:21+0100\n"
-"PO-Revision-Date: 2011-12-31 11:01+0000\n"
-"Last-Translator: flugsio <flugsio@gmail.com>\n"
-"Language-Team: Swedish (http://www.transifex.net/projects/p/smuxi/team/sv/)\n"
+"POT-Creation-Date: 2013-08-19 14:08+0200\n"
+"PO-Revision-Date: 2013-04-29 08:41+0000\n"
+"Last-Translator: Mirco Bauer <meebey@gmail.com>\n"
+"Language-Team: Swedish (http://www.transifex.com/projects/p/smuxi/language/sv/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: sv\n"
-"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: ../src/Server/Main.cs:71
 msgid "Add user to Server"
@@ -49,9 +49,7 @@ msgstr "Aktivera utskrift av fellogg"
 #: ../src/Server/Main.cs:133
 msgid ""
 "Optimize message buffers and exit (valid values: none, defrag, index, all)"
-msgstr ""
-"Optimera meddelandebuffertarna och avsluta (giltiga värden: none, defrag, "
-"index, all)"
+msgstr "Optimera meddelandebuffertarna och avsluta (giltiga värden: none, defrag, index, all)"
 
 #: ../src/Server/Main.cs:146
 msgid "Show this help"
@@ -79,9 +77,7 @@ msgstr "Komandoradsfel: {0}"
 msgid ""
 "At most one of --add-user, --modify-user, and --delete-user may be used at a"
 " time."
-msgstr ""
-"Endast en av --add-user, --modify-user eller --delete-user kan användas i "
-"taget."
+msgstr "Endast en av --add-user, --modify-user eller --delete-user kan användas i taget."
 
 #: ../src/Server/Main.cs:242
 msgid "You must specify a username with the --username option."
@@ -104,9 +100,7 @@ msgstr "Lösenordet kan inte vara tomt."
 msgid ""
 "Invalid optimization value passed to --optimize-message-buffer, valid values"
 " are: {0}"
-msgstr ""
-"Ogiltigt optimeringsvärde för --optimize-message-buffer, giltiga värden är: "
-"{0}"
+msgstr "Ogiltigt optimeringsvärde för --optimize-message-buffer, giltiga värden är: {0}"
 
 #: ../src/Server/Main.cs:303
 #, csharp-format
@@ -136,5 +130,3 @@ msgstr "Lyckades optimera {0} meddelandebufftertar."
 #, csharp-format
 msgid "Failed to optimize message buffers: {0}"
 msgstr "Misslyckades att optimera buffertar: {0}"
-
-
