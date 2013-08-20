@@ -1,0 +1,79 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+# Ondřej Hošek <ondra.hosek@gmail.com>, 2013
+msgid ""
+msgstr ""
+"Project-Id-Version: Smuxi - IRC client\n"
+"Report-Msgid-Bugs-To: http://www.smuxi.org/issues\n"
+"POT-Creation-Date: 2013-08-19 14:06+0200\n"
+"PO-Revision-Date: 2013-05-22 18:05+0000\n"
+"Last-Translator: Ondřej Hošek <ondra.hosek@gmail.com>\n"
+"Language-Team: Czech (http://www.transifex.com/projects/p/smuxi/language/cs/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: cs\n"
+"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+
+#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:123
+msgid "Connecting to campfire... "
+msgstr "Připojuji se s campfire..."
+
+#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:164
+msgid "Connected to campfire"
+msgstr "Připojen ke campfire"
+
+#. TRANSLATOR: this line is used as a label / category for a
+#. list of commands below
+#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:196
+msgid "Campfire Commands"
+msgstr "Příkazy campfire"
+
+#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:256
+msgid "Upload"
+msgstr "Upload"
+
+#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:257
+#, csharp-format
+msgid "'{0}' ({1} B) {2}"
+msgstr "'{0}' ({1} B) {2}"
+
+#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:368
+#, csharp-format
+msgid "has uploaded '{0}' ({1} B) {2}"
+msgstr "uploadoval '{0}' ({1} B) {2}"
+
+#. TRANSLATOR: {0} is the name of the room
+#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:400
+#, csharp-format
+msgid "has joined {0}"
+msgstr "vstoupil do {0}"
+
+#. TRANSLATOR: {0} is the name of the room
+#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:409
+#, csharp-format
+msgid "has left {0}"
+msgstr "odešel z {0}"
+
+#. TRANSLATOR: {0} is the name of the room
+#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:417
+#, csharp-format
+msgid "has locked {0}"
+msgstr "uzamkl {0}"
+
+#. TRANSLATOR: {0} is the name of the room
+#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:421
+#, csharp-format
+msgid "has unlocked {0}"
+msgstr "odemkl {0}"
+
+#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:426
+msgid "has changed the topic"
+msgstr "změnil téma"
+
+#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:436
+msgid "has performed an unknown action"
+msgstr "provedl neznámou činnost"

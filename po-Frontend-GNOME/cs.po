@@ -1,371 +1,121 @@
-# Smuxi - IRC client for sophisticated users
-# Copyright (C) 2005-2009 Mirco Bauer <meebey@meebey.net>
-# This file is distributed under the same license as the Smuxi package.
-# Michal Simunek <michal.simunek@gmail.com>, 2009 - 2010.
-#
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+# Ondřej Hošek <ondra.hosek@gmail.com>, 2013
 msgid ""
 msgstr ""
-"Project-Id-Version: smuxi-frontend-gnome 0.6.4.1-1\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-07-15 01:35+0200\n"
-"PO-Revision-Date: 2010-07-19 12:47+0200\n"
-"Last-Translator: Michal Simunek <michal.simunek@gmail.com>\n"
-"Language-Team: Czech <debian-l10n-czech@lists.debian.org>\n"
+"Project-Id-Version: Smuxi - IRC client\n"
+"Report-Msgid-Bugs-To: http://www.smuxi.org/issues\n"
+"POT-Creation-Date: 2013-08-19 14:09+0200\n"
+"PO-Revision-Date: 2013-08-19 21:21+0000\n"
+"Last-Translator: Ondřej Hošek <ondra.hosek@gmail.com>\n"
+"Language-Team: Czech (http://www.transifex.com/projects/p/smuxi/language/cs/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: cs\n"
+"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 
 #: ../glade/smuxi-frontend-gnome.glade.h:1
-msgid "<b> Chat </b>"
-msgstr "<b> Chat </b>"
+msgid "Smuxi Preferences"
+msgstr "Nastavení Smuxi"
 
 #: ../glade/smuxi-frontend-gnome.glade.h:2
-msgid "<b> Color </b>"
-msgstr "<b> Barva </b>"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:3
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1372
-msgid "<b> Entry Field </b>"
-msgstr "<b> Vstupní políčko </b>"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:4
-msgid "<b> Font </b>"
-msgstr "<b> Písmo </b>"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:5
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1702
-msgid "<b> Highlighting </b>"
-msgstr "<b> Zvýraznění </b>"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:6
-msgid "<b> Notification Area Icon </b>"
-msgstr "<b> Ikona oznamovací oblasti </b>"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:7
-msgid "<b> Person List Position </b>"
-msgstr "<b> Umístění seznamu osob </b>"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:8
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1209
-msgid "<b> Tab Colors </b>"
-msgstr "<b> Barvy záložek </b>"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:9
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1110
-msgid "<b> Tabs Position </b>"
-msgstr "<b> Umístění záložek </b>"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:10
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1515
-msgid "<b> Topic Position </b>"
-msgstr "<b> Umístění témata </b>"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:11
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1161
-msgid "Activity"
-msgstr "Aktivita"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:12
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:107
-msgid "Automatically connect to server at startup"
-msgstr "Po spuštění se automaticky připojit k serveru"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:13
-msgid "Background"
-msgstr "Pozadí"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:14
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1360
-msgid "Bash-Style Completion"
-msgstr "Dokončování ve stylu Bash"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:15
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1690
-msgid "Beep on highlight"
-msgstr "Pípnout při zvýraznění"
-
-#. Container child vbox6.Gtk.Box+BoxChild
-#. Container child vbox11.Gtk.Box+BoxChild
-#: ../glade/smuxi-frontend-gnome.glade.h:16
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:980
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1002
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1461
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1486
-msgid "Bottom"
-msgstr "Dole"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:17
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:746
-msgid "Buffer Lines:"
-msgstr "Pamatovat si řádky:"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:18
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:671
-msgid "C_onnection"
-msgstr "_Připojení"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:19
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1312
-msgid "Command Character:"
-msgstr "Znak příkazu:"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:20
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1335
-msgid "Command History Size:"
-msgstr "Velikost historie příkazů:"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:21
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1292
-msgid "Completion Character:"
-msgstr "Znak dokončování:"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:22
-msgid "Enable"
-msgstr "Povolit"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:23
-msgid "Enabled"
-msgstr "Povoleno"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:24
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:559
-msgid "Encoding:"
-msgstr "Kódování:"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:25
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:769
-msgid "Engine Buffer Lines:"
-msgstr "Pamatovat si řádky enginu:"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:26
-msgid "Foreground"
-msgstr "Popředí"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:27
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:925
-msgid "General"
-msgstr "Obecné"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:28
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1181
-msgid "Highlight"
-msgstr "Zvýraznit"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:29
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1666
-msgid "Highlight words:"
-msgstr "Zvýraznit slova:"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:30
-msgid "Hostname:"
-msgstr "Hostitel:"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:31
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1381
-msgid "Input"
-msgstr "Vstup"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:32
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1171
-msgid "Join/Part/Mode"
-msgstr "Join/Part/Mode"
-
-#. Container child vbox6.Gtk.Box+BoxChild
-#. Container child vbox12.Gtk.Box+BoxChild
-#: ../glade/smuxi-frontend-gnome.glade.h:33
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1016
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1041
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1535
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1561
-msgid "Left"
-msgstr "Vlevo"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:34
-msgid "Log Filtered Messages"
-msgstr "Uchovávat filtrované zprávy"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:35
-msgid "Network:"
-msgstr "Síť:"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:36
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1402
-msgid "Nick Colors"
-msgstr "Barvy přezdívek"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:37
-msgid "Nickname(s):"
-msgstr "Přezdívka(y)"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:38
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1153
-msgid "No Activity"
-msgstr "Žádná aktivita"
-
-#. Container child vbox6.Gtk.Box+BoxChild
-#. Container child vbox11.Gtk.Box+BoxChild
-#. Container child vbox12.Gtk.Box+BoxChild
-#: ../glade/smuxi-frontend-gnome.glade.h:39
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1096
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1501
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1616
-msgid "None"
-msgstr "Žádné"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:40
-msgid "Notification"
-msgstr "Upozornění"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:41
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:581
-msgid "On Connect Commands:"
-msgstr "Příkazy při připojení:"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:42
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:627
-msgid "On Startup Commands:"
-msgstr "Příkazy při spuštění:"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:43
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1714
-msgid "Output"
-msgstr "Výstup"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:44
-msgid "Override"
-msgstr "Potlačit"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:45
-msgid "Password:"
-msgstr "Heslo:"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:46
-msgid "Port:"
-msgstr "Port:"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:47
-msgid "Protocol:"
-msgstr "Protokol:"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:48
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:538
-msgid "Realname:"
-msgstr "Skutečné jméno:"
-
-#. Container child vbox6.Gtk.Box+BoxChild
-#. Container child vbox12.Gtk.Box+BoxChild
-#: ../glade/smuxi-frontend-gnome.glade.h:49
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1056
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1081
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1576
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1601
-msgid "Right"
-msgstr "Vpravo"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:50
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:195
-msgid "Show Password"
-msgstr "Ukázat heslo"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:51
-msgid "Show always"
-msgstr "Ukazovat vždy"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:52
-msgid "Show when window is closed"
-msgstr "Ukázat když je okno zavřeno"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:53
-msgid "Show when window is minimized"
-msgstr "Ukázat když je okno minimalizováno"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:54
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:406
-msgid "Smuxi - Preferences"
-msgstr "Smuxi - Předvolby"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:55
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerDialog.cs:26
-msgid "Smuxi - Server"
-msgstr "Smuxi - Server"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:56
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:828
-msgid "Strip Colors"
-msgstr "Barevný proužek"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:57
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:867
-msgid "Strip Formattings"
-msgstr "Formátování proužku"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:58
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:907
-msgid "Strip UTF-8"
-msgstr "Proužek v UTF-8"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:59
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1222
-msgid "Tabs"
-msgstr "Záložky"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:60
 msgid ""
 "The nickname to use. You can specify extra nicknames (separated by spaces) "
 "which will be used as fallbacks when the first choice is not available. By "
 "default $nick_ and $nick__ will be used as fallbacks."
-msgstr ""
-"Použít tuto přezdívku. Můžete zvolit více přezdívek (oddělených mezerami), "
-"které se použijí jako náhradní v případě, že první přezdívka nebude "
-"dostupná. Ve výchozím nastavení budou použity náhradní přezdívky $nick_ a "
-"$nick__."
+msgstr "Použít tuto přezdívku. Můžete zvolit více přezdívek (oddělených mezerami), které se použijí jako náhradní v případě, že první přezdívka nebude dostupná. Ve výchozím nastavení budou použity náhradní přezdívky $nick_ a $nick__."
 
-#: ../glade/smuxi-frontend-gnome.glade.h:61
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:726
-msgid "Timestamp Format:"
-msgstr "Formát času:"
+#: ../glade/smuxi-frontend-gnome.glade.h:3
+msgid "Nickname(s):"
+msgstr "Přezdívka(y)"
 
-#. Container child vbox6.Gtk.Box+BoxChild
-#. Container child vbox11.Gtk.Box+BoxChild
-#: ../glade/smuxi-frontend-gnome.glade.h:62
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:943
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:967
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1420
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1446
-msgid "Top"
-msgstr "Nahoře"
-
-#: ../glade/smuxi-frontend-gnome.glade.h:63
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:515
+#: ../glade/smuxi-frontend-gnome.glade.h:4
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:315
 msgid "Username:"
 msgstr "Uživatelské jméno:"
 
-#: ../glade/smuxi-frontend-gnome.glade.h:64
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1881
-msgid "_Filters"
-msgstr "_Filtry"
+#: ../glade/smuxi-frontend-gnome.glade.h:5
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:338
+msgid "Realname:"
+msgstr "Skutečné jméno:"
 
-#: ../glade/smuxi-frontend-gnome.glade.h:65
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1723
-msgid "_Interface"
-msgstr "Vzhled"
+#: ../glade/smuxi-frontend-gnome.glade.h:6
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:359
+msgid "Encoding:"
+msgstr "Kódování:"
 
-#: ../glade/smuxi-frontend-gnome.glade.h:66
-msgid "_Logging"
-msgstr "Přihlašování"
+#: ../glade/smuxi-frontend-gnome.glade.h:7
+msgid "Automatically convert UTF-8 characters"
+msgstr "Automaticky převádět znaky UTF-8"
 
-#: ../glade/smuxi-frontend-gnome.glade.h:67
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1789
-msgid "_Servers"
-msgstr "_Servery"
+#: ../glade/smuxi-frontend-gnome.glade.h:8
+msgid "<b>General</b>"
+msgstr "<b>Obecné</b>"
 
-#. This is a setting for character based line wrapping vs word based when showing messages
-#: ../glade/smuxi-frontend-gnome.glade.h:69
-msgid "_Wrap Mode:"
-msgstr "Režim zalamování:"
+#: ../glade/smuxi-frontend-gnome.glade.h:9
+msgid "Type:"
+msgstr "Druh:"
 
-#: ../glade/smuxi-frontend-gnome.glade.h:70
+#: ../glade/smuxi-frontend-gnome.glade.h:10
+msgid "Host:"
+msgstr "Hostitel:"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:11
+msgid "Password:"
+msgstr "Heslo:"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:12
+msgid "Port:"
+msgstr "Port:"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:13
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:170
+msgid "Show Password"
+msgstr "Ukázat heslo"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:14
+msgid "<b>Network Proxy</b>"
+msgstr "<b>Síťový proxy</b>"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:15
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:381
+msgid "On Connect Commands:"
+msgstr "Příkazy při připojení:"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:16
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:427
+msgid "On Startup Commands:"
+msgstr "Příkazy při spuštění:"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:17
+msgid "<b>Global Commands</b>"
+msgstr "<b>Globální příkazy</b>"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:18
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:471
+msgid "C_onnection"
+msgstr "_Připojení"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:19
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:526
+msgid "Timestamp Format:"
+msgstr "Formát času:"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:20
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:546
+msgid "Buffer Lines:"
+msgstr "Pamatovat si řádky:"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:21
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:569
+msgid "Engine Buffer Lines:"
+msgstr "Pamatovat si řádky enginu:"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:22
 msgid ""
 "ss = seconds\n"
 "mm = minutes\n"
@@ -376,666 +126,1096 @@ msgid ""
 "dd = day\n"
 "MM = month\n"
 "yy/yyyy = year"
-msgstr ""
-"ss = sekundy\n"
-"mm = minuty\n"
-"hh = hodiny (01 - 12)\n"
-"HH = hodiny (00 - 23)\n"
-"tt = Dopoledne/Odpoledne\n"
-"\n"
-"dd = den\n"
-"MM = měsíc\n"
-"yy/yyyy = rok"
+msgstr "ss = sekundy\nmm = minuty\nhh = hodiny (01 - 12)\nHH = hodiny (00 - 23)\ntt = Dopoledne/Odpoledne\n\ndd = den\nMM = měsíc\nyy/yyyy = rok"
 
-#: ../src/Frontend-GNOME/AboutDialog.cs:52
+#: ../glade/smuxi-frontend-gnome.glade.h:31
+msgid "Persistency Type:"
+msgstr "Druh ukládání:"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:32
+msgid "Volatile Buffer Lines:"
+msgstr "Počet dočasných řádků v bufferu:"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:33
+msgid "Persistent Buffer Lines:"
+msgstr "Počet trvalých řádků v bufferu:"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:34
+msgid "<b>Message Buffer</b>"
+msgstr "<b>Buffer zpráv</b>"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:35
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:628
+msgid "Strip Colors"
+msgstr "Barevný proužek"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:36
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:667
+msgid "Strip Formattings"
+msgstr "Formátování proužku"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:37
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:707
+msgid "Strip UTF-8"
+msgstr "Proužek v UTF-8"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:38
+msgid "Show Advanced Settings"
+msgstr "Zobrazit pokročilá nastavení"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:39
+msgid "<b>Advanced</b>"
+msgstr "<b>Pokročilé</b>"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:40
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:725
+msgid "General"
+msgstr "Obecné"
+
+#. Container child vbox6.Gtk.Box+BoxChild
+#. Container child vbox11.Gtk.Box+BoxChild
+#: ../glade/smuxi-frontend-gnome.glade.h:41
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:743
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:767
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1220
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1246
+msgid "Top"
+msgstr "Nahoře"
+
+#. Container child vbox6.Gtk.Box+BoxChild
+#. Container child vbox11.Gtk.Box+BoxChild
+#: ../glade/smuxi-frontend-gnome.glade.h:42
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:780
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:802
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1261
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1286
+msgid "Bottom"
+msgstr "Dole"
+
+#. Container child vbox6.Gtk.Box+BoxChild
+#. Container child vbox12.Gtk.Box+BoxChild
+#: ../glade/smuxi-frontend-gnome.glade.h:43
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:816
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:841
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1335
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1361
+msgid "Left"
+msgstr "Vlevo"
+
+#. Container child vbox6.Gtk.Box+BoxChild
+#. Container child vbox12.Gtk.Box+BoxChild
+#: ../glade/smuxi-frontend-gnome.glade.h:44
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:856
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:881
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1376
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1401
+msgid "Right"
+msgstr "Vpravo"
+
+#. Container child vbox6.Gtk.Box+BoxChild
+#. Container child vbox11.Gtk.Box+BoxChild
+#. Container child vbox12.Gtk.Box+BoxChild
+#: ../glade/smuxi-frontend-gnome.glade.h:45
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:896
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1301
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1416
+msgid "None"
+msgstr "Žádné"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:46
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:910
+msgid "<b> Tabs Position </b>"
+msgstr "<b> Umístění záložek </b>"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:47
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:981
+msgid "Highlight"
+msgstr "Zvýraznit"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:48
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:961
+msgid "Activity"
+msgstr "Aktivita"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:49
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:953
+msgid "No Activity"
+msgstr "Žádná aktivita"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:50
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:971
+msgid "Join/Part/Mode"
+msgstr "Join/Part/Mode"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:51
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1009
+msgid "<b> Tab Colors </b>"
+msgstr "<b> Barvy záložek </b>"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:52
+msgid "Automatically switch to newly opened person chats"
+msgstr "Automaticky přepnout k nově otevřeným chatům s jednotlivci"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:53
+msgid "Automatically switch to newly opened group chats"
+msgstr "Automaticky přepnout k nově otevřeným skupinovým chatům"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:54
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1022
+msgid "Tabs"
+msgstr "Záložky"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:55
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1092
+msgid "Completion Character:"
+msgstr "Znak dokončování:"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:56
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1112
+msgid "Command Character:"
+msgstr "Znak příkazu:"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:57
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1135
+msgid "Command History Size:"
+msgstr "Velikost historie příkazů:"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:58
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1160
+msgid "Bash-Style Completion"
+msgstr "Dokončování ve stylu Bash"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:59
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1172
+msgid "<b> Entry Field </b>"
+msgstr "<b> Vstupní políčko </b>"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:60
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1181
+msgid "Input"
+msgstr "Vstup"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:61
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1202
+msgid "Nick Colors"
+msgstr "Barvy přezdívek"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:62
+msgid "<b> Person List Position </b>"
+msgstr "<b> Umístění seznamu osob </b>"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:63
+msgid "Override"
+msgstr "Potlačit"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:64
+msgid "<b> Font </b>"
+msgstr "<b> Písmo </b>"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:65
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1315
+msgid "<b> Topic Position </b>"
+msgstr "<b> Umístění témata </b>"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:66
+msgid "Foreground"
+msgstr "Popředí"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:67
+msgid "Background"
+msgstr "Pozadí"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:68
+msgid "<b> Color </b>"
+msgstr "<b> Barva </b>"
+
+#. This is a setting for character based line wrapping vs word based when
+#. showing messages
+#: ../glade/smuxi-frontend-gnome.glade.h:70
+msgid "_Wrap Mode:"
+msgstr "Režim zalamování:"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:71
+msgid "<b> Chat </b>"
+msgstr "<b> Chat </b>"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:72
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1466
+msgid "Highlight words:"
+msgstr "Zvýraznit slova:"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:73
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1490
+msgid "Beep on highlight"
+msgstr "Pípnout při zvýraznění"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:74
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1502
+msgid "<b> Highlighting </b>"
+msgstr "<b> Zvýraznění </b>"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:75
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1514
+msgid "Output"
+msgstr "Výstup"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:76
+msgid "Enable"
+msgstr "Povolit"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:77
+msgid "Show always"
+msgstr "Ukazovat vždy"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:78
+msgid "Show when window is minimized"
+msgstr "Ukázat když je okno minimalizováno"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:79
+msgid "Show when window is closed"
+msgstr "Ukázat když je okno zavřeno"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:80
+msgid "<b> Notification Area Icon </b>"
+msgstr "<b> Ikona oznamovací oblasti </b>"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:81
+msgid "Show Smuxi in the messaging menu"
+msgstr "Zobrazit Smuxi v nabídce zpráv"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:82
+msgid "<b>Messaging Menu</b>"
+msgstr "<b>Nabídka zpráv</b>"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:83
+msgid "Show notification popups"
+msgstr "Zobrazit vyskakovací upozornění"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:84
+msgid "<b>Notification Popups</b>"
+msgstr "<b>Vyskakovací upozornění</b>"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:85
+msgid "Notification"
+msgstr "Upozornění"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:86
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1523
+msgid "_Interface"
+msgstr "Vzhled"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:87
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1589
+msgid "_Servers"
+msgstr "_Servery"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:88
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1681
+msgid "_Filters"
+msgstr "_Filtry"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:89
+msgid "Enabled"
+msgstr "Povoleno"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:90
+msgid "Log Filtered Messages"
+msgstr "Uchovávat filtrované zprávy"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:91
+msgid "_Logging"
+msgstr "Přihlašování"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:92
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerDialog.cs:16
+msgid "Smuxi - Server"
+msgstr "Smuxi - Server"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:93
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:209
+msgid "Automatically connect to server at startup"
+msgstr "Po spuštění se automaticky připojit k serveru"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:94
+msgid "Protocol:"
+msgstr "Protokol:"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:95
+msgid "Network:"
+msgstr "Síť:"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:96
+msgid "Hostname:"
+msgstr "Hostitel:"
+
+#: ../src/Frontend-GNOME/smuxi-frontend-gnome.desktop.in.h:1
+msgid "Smuxi"
+msgstr "Smuxi"
+
+#: ../src/Frontend-GNOME/smuxi-frontend-gnome.desktop.in.h:2
+msgid "IRC Chat"
+msgstr "IRC Chat"
+
+#: ../src/Frontend-GNOME/smuxi-frontend-gnome.desktop.in.h:3
+msgid "Smuxi IRC Client"
+msgstr "Smuxi klient IRC"
+
+#: ../src/Frontend-GNOME/smuxi-frontend-gnome.desktop.in.h:4
+msgid "Chat with other people on IRC"
+msgstr "Chatujte s jinými lidmi na IRC"
+
+#: ../src/Frontend-GNOME/AboutDialog.cs:66
 msgid "translator-credits"
 msgstr "Michal Simunek <michal.simunek@gmail.com>"
 
-#: ../src/Frontend-GNOME/AboutDialog.cs:47
-msgid "German"
-msgstr "Němčina"
-
-#: ../src/Frontend-GNOME/AboutDialog.cs:48
-msgid "Spanish"
-msgstr "Španělština"
-
-#: ../src/Frontend-GNOME/AboutDialog.cs:49
-msgid "British English"
-msgstr "Britská angličtina"
-
-#: ../src/Frontend-GNOME/AboutDialog.cs:50
-msgid "French"
-msgstr "Francouzština"
-
-#: ../src/Frontend-GNOME/AboutDialog.cs:51
-msgid "Italian"
-msgstr "Italština"
-
-#: ../src/Frontend-GNOME/AboutDialog.cs:54
+#: ../src/Frontend-GNOME/AboutDialog.cs:73
 msgid "Smuxi Website"
 msgstr "Web Smuxi"
 
-#: ../src/Frontend-GNOME/CrashDialog.cs:44
+#: ../src/Frontend-GNOME/CrashDialog.cs:46
 msgid "Oops, I did it again..."
 msgstr "Hups, zkouším to znovu..."
 
-#: ../src/Frontend-GNOME/CrashDialog.cs:57
+#: ../src/Frontend-GNOME/CrashDialog.cs:59
 msgid "Smuxi crashed because an unhandled exception was thrown!"
 msgstr "Smuxi spadl, protože obdržel nezpracovatelný požadavek!"
 
-#: ../src/Frontend-GNOME/CrashDialog.cs:61
+#: ../src/Frontend-GNOME/CrashDialog.cs:63
 msgid "Here is the stacktrace, please report this bug!"
 msgstr "Zde je výpis, nahlaste prosím tuto chybu!"
 
-#: ../src/Frontend-GNOME/CrashDialog.cs:81
+#: ../src/Frontend-GNOME/CrashDialog.cs:83
 msgid "_Report Bug"
 msgstr "_Nahlásit chybu"
 
-#: ../src/Frontend-GNOME/EngineManagerDialog.cs:61
+#: ../src/Frontend-GNOME/EngineManagerDialog.cs:66
+msgid "Engine not found."
+msgstr "Engine nenalezen."
+
+#: ../src/Frontend-GNOME/EngineManagerDialog.cs:81
 msgid "Engine Manager"
 msgstr "Správce enginu"
 
-#: ../src/Frontend-GNOME/EngineManagerDialog.cs:68
-msgid "_Connect"
-msgstr "Při_pojit"
-
-#: ../src/Frontend-GNOME/EngineManagerDialog.cs:78
-msgid "_Edit"
-msgstr "_Upravit"
-
-#: ../src/Frontend-GNOME/EngineManagerDialog.cs:90
+#: ../src/Frontend-GNOME/EngineManagerDialog.cs:100
 msgid "Select which Smuxi engine you want to connect to"
 msgstr "Vyberte engine Smuxi ke kterému se chcete připojit"
 
-#: ../src/Frontend-GNOME/EngineManagerDialog.cs:96
+#: ../src/Frontend-GNOME/EngineManagerDialog.cs:106
 msgid "Engine:"
 msgstr "Engine:"
 
-#: ../src/Frontend-GNOME/EngineManagerDialog.cs:122
-#: ../src/Frontend-GNOME/EngineManagerDialog.cs:182
-#: ../src/Frontend-GNOME/EngineManagerDialog.cs:359
+#: ../src/Frontend-GNOME/EngineManagerDialog.cs:117
+msgid "Use Low Bandwidth Mode"
+msgstr "Použít režim pomalého spojení"
+
+#: ../src/Frontend-GNOME/EngineManagerDialog.cs:141
+#: ../src/Frontend-GNOME/EngineManagerDialog.cs:201
+#: ../src/Frontend-GNOME/EngineManagerDialog.cs:383
 msgid "Local Engine"
 msgstr "Místní engine"
 
-#: ../src/Frontend-GNOME/EngineManagerDialog.cs:174
+#: ../src/Frontend-GNOME/EngineManagerDialog.cs:193
 msgid "Please select an engine!"
 msgstr "Vyberte si prosím engine!"
 
-#: ../src/Frontend-GNOME/EngineManagerDialog.cs:195
+#: ../src/Frontend-GNOME/EngineManagerDialog.cs:219
 #, csharp-format
 msgid "Your frontend version ({0}) does not match the engine version ({1})!"
 msgstr "Verze rozhraní ({0}) neodpovídá verzi enginu ({1})!"
 
-#: ../src/Frontend-GNOME/EngineManagerDialog.cs:222
+#: ../src/Frontend-GNOME/EngineManagerDialog.cs:246
 msgid "An error occurred while connecting to the engine!"
 msgstr "Během připojování k enginu se vyskytla chyba!"
 
-#: ../src/Frontend-GNOME/EngineManagerDialog.cs:223
+#: ../src/Frontend-GNOME/EngineManagerDialog.cs:247
 #, csharp-format
 msgid "Engine URL: {0}"
 msgstr "Adresa enginu: {0}"
 
-#: ../src/Frontend-GNOME/EngineManagerDialog.cs:226
+#: ../src/Frontend-GNOME/EngineManagerDialog.cs:250
 #, csharp-format
 msgid "Error: {0}"
 msgstr "Chyba: {0}"
 
-#: ../src/Frontend-GNOME/EngineManagerDialog.cs:296
+#: ../src/Frontend-GNOME/EngineManagerDialog.cs:320
 #, csharp-format
 msgid "Are you sure you want to delete the engine \"{0}\"?"
 msgstr "Opravdu si přejete odstranit engine \"{0}\"?"
 
-#: ../src/Frontend-GNOME/Entry.cs:403
+#: ../src/Frontend-GNOME/Entry.cs:482
 #, csharp-format
 msgid "You are going to paste {0} lines. Do you want to continue?"
 msgstr "Chystáte se vložit {0} řádků. Chcete pokračovat?"
 
 #. TRANSLATOR: this line is used as a label / category for a
 #. list of commands below
-#: ../src/Frontend-GNOME/Entry.cs:506
+#: ../src/Frontend-GNOME/Entry.cs:595
 msgid "Frontend Commands"
 msgstr "Příkazy rozhraní"
-
-#: ../src/Frontend-GNOME/MainWindow.cs:186
-msgid "_File"
-msgstr "_Soubor"
-
-#: ../src/Frontend-GNOME/MainWindow.cs:202
-msgid "_Server"
-msgstr "S_erver"
-
-#: ../src/Frontend-GNOME/MainWindow.cs:206
-msgid "_Quick Connect"
-msgstr "_Rychlé připojení"
-
-#: ../src/Frontend-GNOME/MainWindow.cs:217
-msgid "_Manage"
-msgstr "Spr_avovat"
-
-#: ../src/Frontend-GNOME/MainWindow.cs:224
-msgid "_Chat"
-msgstr "_Chat"
-
-#: ../src/Frontend-GNOME/MainWindow.cs:228
-msgid "Open / Join Chat"
-msgstr "Otevřít / Připojit se k Chatu"
-
-#: ../src/Frontend-GNOME/MainWindow.cs:233
-msgid "_Find Group Chat"
-msgstr "_Najít skupinový chat"
-
-#: ../src/Frontend-GNOME/MainWindow.cs:238
-msgid "C_lear All Activity"
-msgstr "_Vyprázdnit všechnu aktivitu"
-
-#: ../src/Frontend-GNOME/MainWindow.cs:245
-msgid "_Next Chat"
-msgstr "_Další Chat"
-
-#: ../src/Frontend-GNOME/MainWindow.cs:255
-msgid "_Previous Chat"
-msgstr "Předcho_zí Chat"
-
-#: ../src/Frontend-GNOME/MainWindow.cs:307
-msgid "_Engine"
-msgstr "_Engine"
-
-#: ../src/Frontend-GNOME/MainWindow.cs:311
-msgid "_Use Local Engine"
-msgstr "Po_užit místní engine"
-
-#: ../src/Frontend-GNOME/MainWindow.cs:317
-msgid "_Add Remote Engine"
-msgstr "Př_idat vzdálený engine"
-
-#: ../src/Frontend-GNOME/MainWindow.cs:322
-msgid "_Switch Remote Engine"
-msgstr "Přepnou_t vzdálený engine"
-
-#: ../src/Frontend-GNOME/MainWindow.cs:329
-msgid "_View"
-msgstr "Zo_brazit"
-
-#: ../src/Frontend-GNOME/MainWindow.cs:333
-msgid "_Caret Mode"
-msgstr "Z_nakový režim"
-
-#: ../src/Frontend-GNOME/MainWindow.cs:343
-msgid "_Help"
-msgstr "Nápo_věda"
-
-#: ../src/Frontend-GNOME/MainWindow.cs:567
-#: ../src/Frontend-GNOME/Preferences/ServerListView.cs:222
-msgid "Unable to add server: "
-msgstr "Nelze přidat server: "
-
-#: ../src/Frontend-GNOME/MainWindow.cs:614
-#, csharp-format
-msgid "Unknown ChatType: {0}"
-msgstr "Neznámý typ chatu: {0}"
-
-#: ../src/Frontend-GNOME/MainWindow.cs:822
-msgid ""
-"Switching to local engine will disconnect you from the current engine!\n"
-"Are you sure you want to do this?"
-msgstr ""
-"Přepnutím na místní engine se odpojíte od aktuálního enginu!\n"
-"Opravdu si přejete pokračovat?"
-
-#: ../src/Frontend-GNOME/MainWindow.cs:864
-msgid ""
-"Switching the remote engine will disconnect you from the current engine!\n"
-"Are you sure you want to do this?"
-msgstr ""
-"Přepnutím na vzdálený engine se odpojíte od aktuálního enginu!\n"
-"Opravdu si přejete pokračovat?"
 
 #: ../src/Frontend-GNOME/NotImplementedMessageDialog.cs:40
 msgid "Sorry, not implemented yet!"
 msgstr "Promiňte, ještě není podporováno!"
 
 #. fill ListStore
-#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:162
+#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:185
 msgid "Character"
 msgstr "Znak"
 
-#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:163
+#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:186
 msgid "Word"
 msgstr "Slovo"
 
-#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:173
-#: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:139
-msgid "Connection"
-msgstr "Připojení"
+#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:203
+msgid "Volatile"
+msgstr "dočasný"
 
-#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:177
-msgid "Interface"
-msgstr "Vzhled"
+#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:205
+msgid "Persistent"
+msgstr "stálý"
 
-#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:181
-msgid "Servers"
-msgstr "Servery"
+#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:228
+msgid "No Proxy"
+msgstr "Nepoužívat proxy"
 
-#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:185
-msgid "Filters"
-msgstr "Filtry"
-
-#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:189
-msgid "Logging"
-msgstr "Přihlašování"
-
-#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:238
+#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:230
+#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:326
 msgid "System Default"
 msgstr "Podle systému"
 
-#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:505
+#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:244
+#: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:140
+msgid "Connection"
+msgstr "Připojení"
+
+#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:248
+msgid "Interface"
+msgstr "Vzhled"
+
+#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:252
+msgid "Servers"
+msgstr "Servery"
+
+#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:259
+msgid "Filters"
+msgstr "Filtry"
+
+#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:263
+msgid "Logging"
+msgstr "Přihlašování"
+
+#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:674
 msgid "Nicknames(s) field must not be empty."
 msgstr "Políčko Přezdívka(y) nemůže být prázdné."
 
-#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:649
+#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:870
 #, csharp-format
 msgid "Invalid highlight regex: '{0}'. Reason: {1}"
 msgstr "Neplatný výraz pro zvýraznění: '{0}'. Příčina: {1}"
 
-#: ../src/Frontend-GNOME/FindGroupChatDialog.cs:69
-#: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:105
-#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:271
+#: ../src/Frontend-GNOME/FindGroupChatDialog.cs:81
+#: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:106
+#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:265
 msgid "Name"
 msgstr "Název"
 
-#: ../src/Frontend-GNOME/FindGroupChatDialog.cs:74
+#: ../src/Frontend-GNOME/FindGroupChatDialog.cs:86
 msgid "Topic"
 msgstr "Téma"
 
-#: ../src/Frontend-GNOME/FindGroupChatDialog.cs:102
+#: ../src/Frontend-GNOME/FindGroupChatDialog.cs:115
 msgid ""
-"Searching for group chats without a filter is not recommended.  This may "
-"take a while, or may not work at all.\n"
+"Searching for group chats without a filter is not recommended.  This may take a while, or may not work at all.\n"
 "Do you wish to continue?"
-msgstr ""
-"Vyhledávání skupinových chatů bez filtru není doporučeno.  Nemusí vždy "
-"fungovat, nebo zabere hodně času.\n"
-"Přejete si pokračovat?"
+msgstr "Vyhledávání skupinových chatů bez filtru není doporučeno.  Nemusí vždy fungovat, nebo zabere hodně času.\nPřejete si pokračovat?"
 
-#: ../src/Frontend-GNOME/FindGroupChatDialog.cs:143
+#: ../src/Frontend-GNOME/FindGroupChatDialog.cs:156
 msgid "Error while fetching the list of group chats from the server."
 msgstr "Chyba při přijmu seznamu skupinových chatů ze serveru."
 
-#: ../src/Frontend-GNOME/Frontend.cs:394
+#: ../src/Frontend-GNOME/Frontend.cs:401
+msgid "Disconnected from engine."
+msgstr "Odpojen od enginu."
+
+#: ../src/Frontend-GNOME/Frontend.cs:443
+#, csharp-format
+msgid "Reconnecting to engine... (attempt {0})"
+msgstr "Obnovuji připojení k enginu... (pokus {0})"
+
+#: ../src/Frontend-GNOME/Frontend.cs:542
 #, csharp-format
 msgid "Cause: {0}"
 msgstr "Způsobeno: {0}"
 
-#: ../src/Frontend-GNOME/Frontend.cs:464
+#: ../src/Frontend-GNOME/Frontend.cs:668
 msgid ""
 "The frontend has lost the connection to the server.\n"
 "Do you want to reconnect now?"
-msgstr ""
-"Rozhraní ztratilo spojení se serverem.\n"
-"Chcete se nyní znovu připojit?"
+msgstr "Rozhraní ztratilo spojení se serverem.\nChcete se nyní znovu připojit?"
 
-#: ../src/Frontend-GNOME/Frontend.cs:479
+#: ../src/Frontend-GNOME/Frontend.cs:687
 msgid ""
 "Reconnecting to the server has failed.\n"
 "Do you want to try again?"
-msgstr ""
-"Opětovné připojení k serveru selhalo.\n"
-"Chcete to zkusit znovu?"
+msgstr "Opětovné připojení k serveru selhalo.\nChcete to zkusit znovu?"
 
-#: ../src/Frontend-GNOME/Frontend.cs:580
+#: ../src/Frontend-GNOME/Frontend.cs:995
 msgid ""
 "The server has lost the connection to the frontend.\n"
 "Do you want to reconnect now?"
-msgstr ""
-"Server ztratil spojení s rozhraním.\n"
-"Chcete se nyní znovu připojit?"
+msgstr "Server ztratil spojení s rozhraním.\nChcete se nyní znovu připojit?"
 
-#: ../src/Frontend-GNOME/QuickConnectDialog.cs:62
-#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:238
+#: ../src/Frontend-GNOME/NotifyManager.cs:336
+msgid "Show"
+msgstr "Zobrazit"
+
+#: ../src/Frontend-GNOME/QuickConnectDialog.cs:58
+#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:233
 #: ../src/Frontend-GNOME/Preferences/ServerListView.cs:70
 msgid "Protocol"
 msgstr "Protokol"
 
-#: ../src/Frontend-GNOME/QuickConnectDialog.cs:63
+#: ../src/Frontend-GNOME/QuickConnectDialog.cs:59
 #: ../src/Frontend-GNOME/Preferences/ServerListView.cs:71
 msgid "Hostname"
 msgstr "Hostitel"
 
-#: ../src/Frontend-GNOME/QuickConnectDialog.cs:166
+#: ../src/Frontend-GNOME/QuickConnectDialog.cs:162
 msgid "Unable to load server: "
 msgstr "Nelze nahrát server: "
 
 #: ../src/Frontend-GNOME/ChatTypeWidget.cs:54
-#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:244
+#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:239
 msgid "Person / Private"
 msgstr "Osobní / Soukromý"
 
 #: ../src/Frontend-GNOME/ChatTypeWidget.cs:55
-#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:245
+#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:240
 msgid "Group / Public"
 msgstr "Skupinový / Veřejný"
 
-#: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:70
+#: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:71
 msgid "Engine Assistant - Smuxi"
 msgstr "Asistent enginu - Smuxi"
 
-#: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:92
+#: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:93
 msgid "Add Smuxi Engine"
 msgstr "Přidat engine Smuxi"
 
-#: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:94
+#: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:95
 msgid "Edit Smuxi Engine"
 msgstr "Upravit engine Smuxi"
 
-#: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:203
+#: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:204
 msgid "Credentials"
 msgstr "Kredity"
 
-#: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:265
+#: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:284
 msgid "Now you can use the Smuxi Engine"
 msgstr "Nyní můžete používat tento engine Smuxi"
 
-#: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:268
+#: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:287
 msgid "Thank you"
 msgstr "Děkujeme"
 
-#: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:285
+#: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:304
 msgid ""
 "An engine with this name already exists! Please specify a different one."
 msgstr "Engine s tímto názvem již existuje. Zadejte prosím jiný název."
 
-#: ../src/Frontend-GNOME/Views/MessageTextView.cs:182
+#: ../src/Frontend-GNOME/Views/JoinWidget.cs:89
+msgid "Enter which chat to join"
+msgstr "Zadejte se kterým chatem se připojit"
+
+#: ../src/Frontend-GNOME/Views/MenuWidget.cs:144
+msgid "About Smuxi"
+msgstr "O Smuxi"
+
+#. TODO: add cmd+, accelerator
+#: ../src/Frontend-GNOME/Views/MenuWidget.cs:148
+msgid "Preferences"
+msgstr "Nastavení"
+
+#: ../src/Frontend-GNOME/Views/MenuWidget.cs:242
+#: ../src/Frontend-GNOME/Preferences/ServerListView.cs:227
+msgid "Unable to add server: "
+msgstr "Nelze přidat server: "
+
+#: ../src/Frontend-GNOME/Views/MenuWidget.cs:363
+msgid ""
+"Switching to local engine will disconnect you from the current engine!\n"
+"Are you sure you want to do this?"
+msgstr "Přepnutím na místní engine se odpojíte od aktuálního enginu!\nOpravdu si přejete pokračovat?"
+
+#: ../src/Frontend-GNOME/Views/MenuWidget.cs:407
+msgid ""
+"Switching the remote engine will disconnect you from the current engine!\n"
+"Are you sure you want to do this?"
+msgstr "Přepnutím na vzdálený engine se odpojíte od aktuálního enginu!\nOpravdu si přejete pokračovat?"
+
+#: ../src/Frontend-GNOME/Views/MessageTextView.cs:274
+#, csharp-format
+msgid "Day changed from {0} to {1}"
+msgstr "Den se změnil z {0} v {1}"
+
+#: ../src/Frontend-GNOME/Views/MessageTextView.cs:278
 #, csharp-format
 msgid "Day changed to {0}"
 msgstr "Den změněn na {0}"
 
-#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:123
-#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:133
+#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:120
+#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:130
 #, csharp-format
 msgid "Invalid filter regex: '{0}'. Reason: {1}"
 msgstr "Neplatný výraz pro filtr: '{0}'. Příčina: {1}"
 
-#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:200
+#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:197
 msgid "Are you sure you want to delete the selected filter?"
 msgstr "Opravdu si přejete smazat vybraný filtr?"
 
-#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:246
+#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:241
 msgid "Protocol / Server"
 msgstr "Protokol / Server"
 
-#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:253
+#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:248
 msgid "Chat Type"
 msgstr "Typ chatu"
 
-#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:287
+#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:281
 msgid "Normal"
 msgstr "Normální"
 
-#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:288
+#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:282
 msgid "Event"
 msgstr "Událost"
 
-#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:295
+#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:289
 msgid "Type"
 msgstr "Typ"
 
-#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:321
+#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:314
 msgid "Pattern"
 msgstr "Vzor"
 
-#: ../src/Frontend-GNOME/Views/Chats/GroupChatView.cs:241
+#: ../src/Frontend-GNOME/Views/Chats/ChatView.cs:526
+msgid "Low Bandwidth Mode is active: no messages synced."
+msgstr "Režim pomalého spojení je aktivní: nesynchronizuji zprávy."
+
+#: ../src/Frontend-GNOME/Views/Chats/ChatView.cs:752
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:135
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:136
+msgid "Show _Menubar"
+msgstr "Zobrazit _nabídky"
+
+#: ../src/Frontend-GNOME/Views/Chats/GroupChatView.cs:299
 #, csharp-format
 msgid "Retrieving user list for {0}..."
 msgstr "Přijímání seznamu uživatelů pro {0}..."
 
 #. TRANSLATOR: this string will be appended to the one above
-#: ../src/Frontend-GNOME/Views/Chats/GroupChatView.cs:286
+#: ../src/Frontend-GNOME/Views/Chats/GroupChatView.cs:336
 msgid "done."
 msgstr "hotovo."
 
-#: ../src/Frontend-GNOME/Views/Chats/GroupChatView.cs:301
+#: ../src/Frontend-GNOME/Views/Chats/GroupChatView.cs:368
 msgid "Person"
 msgstr "Osoba"
 
-#: ../src/Frontend-GNOME/Views/Chats/ProtocolChatView.cs:68
+#: ../src/Frontend-GNOME/Views/Chats/ProtocolChatView.cs:109
+msgid "Reconnect"
+msgstr "Opět se připojit"
+
+#: ../src/Frontend-GNOME/Views/Chats/ProtocolChatView.cs:154
 msgid ""
 "Closing the protocol chat will also close all open chats connected to it!\n"
 "Are you sure you want to do this?"
-msgstr ""
-"Zavření tohoto chatového protokolu také zavře všechny otevřené chaty na něm "
-"připojené!\n"
-"Opravdu si přejete pokračovat?"
+msgstr "Zavření tohoto chatového protokolu také zavře všechny otevřené chaty na něm připojené!\nOpravdu si přejete pokračovat?"
 
-#: ../src/Frontend-GNOME/Preferences/ServerListView.cs:184
+#: ../src/Frontend-GNOME/Preferences/ServerListView.cs:189
 msgid "Are you sure you want to delete the selected server?"
 msgstr "Opravdu si přejete smazat vybraný server?"
 
-#: ../src/Frontend-GNOME/Preferences/ServerListView.cs:240
-#: ../src/Frontend-GNOME/Preferences/ServerListView.cs:274
+#: ../src/Frontend-GNOME/Preferences/ServerListView.cs:245
+#: ../src/Frontend-GNOME/Preferences/ServerListView.cs:279
 msgid "Unable to edit server: "
 msgstr "Nelze upravit server: "
 
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ChatFindDialog.cs:42
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ChatFindDialog.cs:24
 msgid "Find"
 msgstr "Najít"
 
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ChatFindDialog.cs:62
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ChatFindDialog.cs:44
 msgid "_Search for:"
 msgstr "_Hledat:"
 
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ChatFindDialog.cs:91
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ChatFindDialog.cs:73
 msgid "_Match Case"
 msgstr "_Výsledky"
 
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ChatFindDialog.cs:103
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ChatFindDialog.cs:85
 msgid "Search _Backwards"
 msgstr "Hledat pozpát_ku"
 
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ChatFindDialog.cs:115
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ChatFindDialog.cs:97
 msgid "_Wrap Around"
 msgstr "Přenášet te_xt"
 
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ChatFindDialog.cs:128
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ChatFindDialog.cs:110
 msgid "Use _Regular Expressions"
 msgstr "Použít re_gulární výrazy"
 
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.FindGroupChatDialog.cs:40
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.FindGroupChatDialog.cs:23
 msgid "Smuxi - Find Group Chat"
 msgstr "Smuxi - Najít skupinový chat"
 
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.FindGroupChatDialog.cs:64
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.OpenChatDialog.cs:87
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.FindGroupChatDialog.cs:47
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.OpenChatDialog.cs:73
 msgid "_Name:"
 msgstr "_Název:"
 
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.QuickConnectDialog.cs:32
-msgid "Smuxi - Quick Connect"
-msgstr "Smuxi - Rychlé připojení"
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.JoinWidget.cs:69
+msgid "Join"
+msgstr "Vstoupit"
 
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:495
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:55
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:56
+msgid "_Smuxi"
+msgstr "_Smuxi"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:58
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:59
+msgid "_Server"
+msgstr "S_erver"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:61
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:62
+msgid "_Chat"
+msgstr "_Chat"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:64
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:65
+msgid "_Engine"
+msgstr "_Engine"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:67
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:68
+msgid "_View"
+msgstr "Zo_brazit"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:70
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:71
+msgid "_Help"
+msgstr "Nápo_věda"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:73
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:75
+msgid "Connect"
+msgstr "Spojit se"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:77
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:79
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:147
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:148
+msgid "Open Log"
+msgstr "Otevřít protokol"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:87
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:88
+msgid "_Preferences"
+msgstr "_Nastavení"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:90
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:91
+msgid "_Quit"
+msgstr "_Ukončit"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:93
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:94
+msgid "_Connect"
+msgstr "_Spojit se"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:96
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:97
+msgid "_Add"
+msgstr "_Přidat"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:99
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:100
+msgid "_Manage"
+msgstr "Spr_avovat"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:102
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:103
+msgid "_Open / Join Chat"
+msgstr "_Otevřít / vstoupit do chatu"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:105
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:106
+msgid "_Find Group Chat"
+msgstr "_Najít skupinový chat"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:108
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:109
+msgid "C_lear All Activity"
+msgstr "_Vyprázdnit všechnu aktivitu"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:111
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:112
+msgid "_Next Chat"
+msgstr "_Další Chat"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:114
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:115
+msgid "_Previous Chat"
+msgstr "Předcho_zí Chat"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:117
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:118
+msgid "_Close"
+msgstr "_Zavřít"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:120
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:121
+msgid "_Use Local Engine"
+msgstr "Po_užit místní engine"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:123
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:124
+msgid "_Add Remote Engine"
+msgstr "Př_idat vzdálený engine"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:126
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:127
+msgid "Switch Remote Engine"
+msgstr "Připojit se k jinému vzdálenému enginu"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:129
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:130
+msgid "_Caret Mode"
+msgstr "Z_nakový režim"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:132
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:133
+msgid "_Browse Mode"
+msgstr "Mód _prohledávání"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:138
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:139
+msgid "Show _Statusbar"
+msgstr "Zobrazit _stavový řádek"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:141
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:142
+msgid "_Fullscreen"
+msgstr "_Plná obrazovka"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:144
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:145
+msgid "_About"
+msgstr "_O Smuxi"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:150
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:152
+msgid "Find Group Chat"
+msgstr "Najít skupinový chat"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:154
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:155
+msgid "_Website"
+msgstr "_Webová stránka"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:157
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:158
+msgid "Show _Toolbar"
+msgstr "Zobrazit _panel nástrojů"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.QuickConnectDialog.cs:19
+msgid "Smuxi - Connect"
+msgstr "Smuxi - Spojení"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:206
+msgid "Smuxi - Preferences"
+msgstr "Smuxi - Předvolby"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:295
 msgid "Nicknames:"
 msgstr "Přezdívky:"
 
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1630
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1430
 msgid "<b> User List Position </b>"
 msgstr "<b> Umístění seznamu uživatelů </b>"
 
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1641
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1441
 msgid "<b> Channel </b>"
 msgstr "<b> Kanál </b>"
 
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1852
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1652
 msgid "<b>Channel Filters</b>"
 msgstr "<b>Filtry kanálů</b>"
 
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1869
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1669
 msgid "<b>User Filters</b>"
 msgstr "<b>Filtry uživatelů</b>"
 
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantConnectionWidget.cs:64
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantConnectionWidget.cs:42
 msgid "Use _SSH Tunnel"
 msgstr "Použít tunel _SSH"
 
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantConnectionWidget.cs:78
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantConnectionWidget.cs:56
 msgid ""
 "<span size=\"small\">Enables the use of SSH for the connection.  This has a "
 "small performance impact, but is more secure and required when using NAT or "
 "port-based firewalls</span>"
-msgstr ""
-"<span size=\"small\">Povolí používat SSH pro toto připojení.  To má malý "
-"dopad na výkon, ale je to mnohem bezpečnější a je potřeba pokud používáte "
-"NAT nebo firewally založené na portech</span>"
+msgstr "<span size=\"small\">Povolí používat SSH pro toto připojení.  To má malý dopad na výkon, ale je to mnohem bezpečnější a je potřeba pokud používáte NAT nebo firewally založené na portech</span>"
 
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantConnectionWidget.cs:157
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantConnectionWidget.cs:135
 msgid "SSH _Host:"
 msgstr "_Hostitel SSH:"
 
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantConnectionWidget.cs:168
-msgid ""
-"<span size=\"small\">DNS or IP address and port of the SSH server</span>"
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantConnectionWidget.cs:146
+msgid "<span size=\"small\">DNS or IP address and port of the SSH server</span>"
 msgstr "<span size=\"small\">DNS nebo IP adresa a port SSH serveru</span>"
 
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantConnectionWidget.cs:181
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantConnectionWidget.cs:195
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:154
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantConnectionWidget.cs:159
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantConnectionWidget.cs:173
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:129
 msgid "_Port:"
 msgstr "_Port:"
 
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantConnectionWidget.cs:208
-msgid ""
-"<span size=\"small\">DNS or IP address and port of the Smuxi server</span>"
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantConnectionWidget.cs:186
+msgid "<span size=\"small\">DNS or IP address and port of the Smuxi server</span>"
 msgstr "<span size=\"small\">DNS nebo IP adresa a port serveru Smuxi</span>"
 
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantConnectionWidget.cs:221
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantConnectionWidget.cs:199
 msgid "_Smuxi Host:"
 msgstr "Hostitel _Smuxi:"
 
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:76
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:52
 msgid "_SSH Username: (optional)"
 msgstr "_SSH uživatelské jméno: (volitelné)"
 
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:99
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:75
 msgid ""
-"<span size=\"small\">Username which will be used to log into the SSH server</"
-"span>"
-msgstr ""
-"<span size=\"small\">Uživatleské jméno pro přihlášení k SSH serveru</span>"
+"<span size=\"small\">Username which will be used to log into the SSH "
+"server</span>"
+msgstr "<span size=\"small\">Uživatelské jméno pro přihlášení k SSH serveru</span>"
 
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:119
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:95
 msgid "_SSH Password: (optional)"
 msgstr "_SSH heslo: (volitelné)"
 
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:143
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:119
 msgid ""
-"<span size=\"small\">Password which will be used to log into the SSH server. "
-"The password is optional if SSH key authorization is used (via Pageant from "
-"the PuTTY tools).</span>"
-msgstr ""
-"<span size=\"small\">Heslo pro přihlášení k serveru SSH. Heslo je volitelné "
-"pokud se používá SSH autorizace klíčem (prostřednictvím Pageant z nástrojů "
-"PuTTY).</span>"
+"<span size=\"small\">Password which will be used to log into the SSH server."
+" The password is optional if SSH key authorization is used (see "
+"below).</span>"
+msgstr "<span size=\"small\">Heslo ke spojení se serverem SSH. Není nutné jej zadat při autorizaci pomocí klíče SSH (viz dole).</span>"
 
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:164
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:223
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:140
+msgid "_SSH Keyfile: (optional)"
+msgstr "Soubor s klíčem _SSH: (nepovinný)"
+
+#. Container child vbox17.Gtk.Box+BoxChild
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:148
+msgid "Select a File"
+msgstr "Vyberte soubor"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:161
+msgid ""
+"<span size=\"small\">SSH private keyfile which will be used to log into the "
+"SSH server</span>"
+msgstr "<span size=\"small\">Soubor se soukromým klíčem SSH který bude použit při spojování se serverem SSH</span>"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:181
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:188
 msgid "_Username:"
 msgstr "_Uživatel:"
 
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:187
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:204
 msgid ""
 "<span size=\"small\">Username which will be used to log into the Smuxi "
 "server</span>"
-msgstr ""
-"<span size=\"small\">Uživatelské jméno pro přihlášení k serveru Smuxi</span>"
+msgstr "<span size=\"small\">Uživatelské jméno pro přihlášení k serveru Smuxi</span>"
 
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:207
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:233
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:224
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:87
 msgid "_Password:"
 msgstr "H_eslo:"
 
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:231
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:248
 msgid "<span size=\"small\">Password of the user</span>"
 msgstr "<span size=\"small\">Heslo uživatele</span>"
 
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:251
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:268
 msgid "_Verify Password:"
 msgstr "_Ověřit heslo:"
 
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:275
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:292
 msgid "<span size=\"small\">Repeat the password for verification</span>"
 msgstr "<span size=\"small\">Zopakujte heslo pro ověření</span>"
 
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantIntroWidget.cs:27
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantIntroWidget.cs:19
 msgid ""
 "Welcome to the Smuxi Engine Configuration Assistant.\n"
 "You need to enter some information before you can use the engine.\n"
 "\n"
 "Click \"Forward\" to begin."
-msgstr ""
-"Vítejte v asistentu nastavení enginu Smuxi.\n"
-"Před použitím enginu bude třeba, aby jste zadali některé informace.\n"
-"\n"
-"Začněte kliknutím na \"Pokračovat\"."
+msgstr "Vítejte v asistentu nastavení enginu Smuxi.\nPřed použitím enginu bude třeba, aby jste zadali některé informace.\n\nZačněte kliknutím na \"Pokračovat\"."
 
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantNameWidget.cs:52
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantNameWidget.cs:36
 msgid "_Engine Name:"
 msgstr "_Název enginu:"
 
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantNameWidget.cs:75
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantNameWidget.cs:59
 msgid "<span size=\"small\">Profile name of the new engine</span>"
 msgstr "<span size=\"small\">Název profilu nového enginu</span>"
 
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantNameWidget.cs:96
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantNameWidget.cs:80
 msgid "_Default Engine:"
 msgstr "_Výchozí engine:"
 
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantNameWidget.cs:107
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantNameWidget.cs:91
 msgid "Use as new default engine"
 msgstr "Použít jako nový výchozí engine"
 
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantNameWidget.cs:120
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantNameWidget.cs:104
 msgid ""
-"<span size=\"small\">If enabled, the current engine will be the default next "
-"time Smuxi is started</span>"
-msgstr ""
-"<span size=\"small\">Pokud je zaškrtnuto, aktuální engine bude použit jako "
-"výchozí při příštím spuštění Smuxi</span>"
+"<span size=\"small\">If enabled, the current engine will be the default next"
+" time Smuxi is started</span>"
+msgstr "<span size=\"small\">Pokud je zaškrtnuto, aktuální engine bude použit jako výchozí při příštím spuštění Smuxi</span>"
 
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.OpenChatDialog.cs:34
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.OpenChatDialog.cs:20
 msgid "Smuxi - Open Chat"
 msgstr "Smuxi - Otevřít chat"
 
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.OpenChatDialog.cs:77
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.OpenChatDialog.cs:63
 msgid "_Type:"
 msgstr "_Typ"
 
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:95
-msgid "_Network:"
-msgstr "_Síť:"
-
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:213
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:54
 msgid "_Hostname:"
 msgstr "_Hostitel:"
 
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:243
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:75
+msgid "_Network:"
+msgstr "_Síť:"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:198
 msgid "_Protocol:"
 msgstr "P_rotokol:"
 
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:262
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:222
+msgid "Use Encryption"
+msgstr "Použít šifrování"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:234
+msgid "Validate Server Certificate"
+msgstr "Ověřit certifikát serveru"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:254
 msgid "_On Connect Commands:"
 msgstr "_Příkazy při připojení:"
 
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:273
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:265
 msgid "_Ignore Commands"
 msgstr "_Ignorovat příkazy"
-
-#~ msgid "Joins"
-#~ msgstr "Připojování"
-
-#~ msgid "Parts"
-#~ msgstr "Části"
-
-#~ msgid "Quits"
-#~ msgstr "Odpojování"
-
-#~ msgid "Unknown Command: {0}"
-#~ msgstr "Neznámý příkaz: {0}"

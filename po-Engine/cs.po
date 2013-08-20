@@ -1,131 +1,197 @@
-# Smuxi - IRC client for sophisticated users
-# Copyright (C) 2005-2009 Mirco Bauer <meebey@meebey.net>
-# This file is distributed under the same license as the Smuxi package.
-# Michal Simunek <michal.simunek@gmail.com>, 2009 - 2010.
-#
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+# Ondřej Hošek <ondra.hosek@gmail.com>, 2013
 msgid ""
 msgstr ""
-"Project-Id-Version: smuxi-engine 0.6.4.1-1\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-07-15 01:40+0200\n"
-"PO-Revision-Date: 2010-07-15 10:29+0200\n"
-"Last-Translator: Michal Simunek <michal.simunek@gmail.com>\n"
-"Language-Team: Czech <debian-l10n-czech@lists.debian.org>\n"
-"Language: cs\n"
+"Project-Id-Version: Smuxi - IRC client\n"
+"Report-Msgid-Bugs-To: http://www.smuxi.org/issues\n"
+"POT-Creation-Date: 2013-08-19 14:06+0200\n"
+"PO-Revision-Date: 2013-08-19 21:23+0000\n"
+"Last-Translator: Ondřej Hošek <ondra.hosek@gmail.com>\n"
+"Language-Team: Czech (http://www.transifex.com/projects/p/smuxi/language/cs/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: cs\n"
+"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 
-#: ../src/Engine/FrontendManager.cs:219
+#: ../src/Engine/FrontendManager.cs:233
 msgid "No network connections"
 msgstr "Žádná připojení k sítí"
 
-#: ../src/Engine/Protocols/ProtocolManagerBase.cs:146
+#: ../src/Engine/MessageBuffers/Db4oMessageBuffer.cs:295
+#, csharp-format
+msgid "Optimizing: {0}..."
+msgstr "Optimalizuji: {0}..."
+
+#: ../src/Engine/MessageBuffers/Db4oMessageBuffer.cs:313
+#, csharp-format
+msgid "Failed to optimize: {0}. Reason: {1}"
+msgstr "Optimalizace {0} se nezdařila. Příčina: {1}"
+
+#: ../src/Engine/MessageBuffers/Db4oMessageBuffer.cs:347
+msgid ""
+"Your chat history is no longer available because of an error but will be "
+"preserved from now on."
+msgstr "Vaše historie chatů se stala kvůli chybě nedostupnou, ale odteď bude zase uložena."
+
+#: ../src/Engine/Protocols/ProtocolManagerBase.cs:166
 msgid "Not connected to server"
 msgstr "Není připojeno k serveru"
 
-#: ../src/Engine/Protocols/ProtocolManagerBase.cs:158
-#: ../src/Engine/Session.cs:731
+#: ../src/Engine/Protocols/ProtocolManagerBase.cs:174
+#: ../src/Engine/Session.cs:951
 #, csharp-format
 msgid "Not enough parameters for {0} command"
-msgstr "Pro příkaz {0} není vloženo dostatek parametrů"
+msgstr "Pro příkaz {0} nebyl zadán dostatek parametrů"
 
-#: ../src/Engine/Session.cs:154
-msgid "Welcome to Smuxi"
-msgstr "Vítejte ve Smuxi"
+#: ../src/Engine/Protocols/ProtocolManagerBase.cs:185
+#, csharp-format
+msgid "Connected to {0}"
+msgstr "Spojen s {0}"
 
-#: ../src/Engine/Session.cs:160
-msgid "Type /help to get a list of available commands."
-msgstr "Pro zobrazení seznamu dostupných příkazů napište /help."
+#: ../src/Engine/Protocols/ProtocolManagerBase.cs:203
+#, csharp-format
+msgid "Disconnected from {0}"
+msgstr "Odpojen od {0}"
 
-#: ../src/Engine/Session.cs:163
-msgid ""
-"After you have made a connection the list of available commands changes. Use "
-"the /help command again to see the extended command list."
-msgstr ""
-"Seznam dostupných příkazů se změní po té, co se přihlásíte. Pro zobrazení "
-"rozšířeného seznamu dostupných příkazů zadejte znovu příkaz /help."
-
-#: ../src/Engine/Session.cs:216
+#: ../src/Engine/Session.cs:224
 #, csharp-format
 msgid "Automatic connect to {0} failed!"
 msgstr "Automatické připojení k {0} selhalo!"
 
 #. TRANSLATOR: this line is used as a label / category for a
 #. list of commands below
-#: ../src/Engine/Session.cs:407
+#: ../src/Engine/Session.cs:426
 msgid "Engine Commands"
 msgstr "Příkazy enginu"
 
-#: ../src/Engine/Session.cs:510
+#: ../src/Engine/Session.cs:552
 msgid "Connect failed!"
 msgstr "Připojení selhalo!"
 
-#: ../src/Engine/Session.cs:539
+#: ../src/Engine/Session.cs:575
 #, csharp-format
 msgid "Disconnect failed - could not find server: {0}"
 msgstr "Odpojení selhalo - nepodařilo se najít server: {0}"
 
-#: ../src/Engine/Session.cs:574
+#: ../src/Engine/Session.cs:615
 msgid "Reconnect failed!"
 msgstr "Opětovné připojení selhalo!"
 
-#: ../src/Engine/Session.cs:593
+#: ../src/Engine/Session.cs:641
 msgid "Configuration reloaded"
-msgstr "Nastavení bylo načteno"
+msgstr "Nastavení byla načtena"
 
-#: ../src/Engine/Session.cs:598
+#: ../src/Engine/Session.cs:645
 msgid "Configuration saved"
-msgstr "Nastavení bylo uloženo"
+msgstr "Nastavení byla uložena"
 
-#: ../src/Engine/Session.cs:602
-msgid "Invalid parameter for config; use load or save"
-msgstr "Neplatný parametr pro config; zadejte load nebo save"
+#: ../src/Engine/Session.cs:676
+msgid "Invalid key/value format."
+msgstr "Neplatný formát klíč/hodnota."
 
-#: ../src/Engine/Session.cs:632
+#: ../src/Engine/Session.cs:686
+#, csharp-format
+msgid "Invalid config key: '{0}'"
+msgstr "Neplatný klíč konfigurace: '{0}'"
+
+#: ../src/Engine/Session.cs:696 ../src/Engine/Session.cs:702
+#, csharp-format
+msgid "Could not convert config value: '{0}' to type: {1}"
+msgstr "Nemohu zkonvertovat konfigurační hodnotu: '{0}' na typ: {1}"
+
+#: ../src/Engine/Session.cs:711
+msgid "Invalid parameter for config; use load, save, get or set."
+msgstr "Neplatný parametr příkazu config: použij load, save, get nebo set."
+
+#: ../src/Engine/Session.cs:807
 msgid "Invalid parameter for network; use list, switch, or close"
 msgstr "Neplatný parametr pro network; zadejte list, switch nebo close"
 
-#: ../src/Engine/Session.cs:643
-msgid "Networks"
-msgstr "Sítě"
+#. TRANSLATOR: this line is used as a label / category for a
+#. list of networks below
+#: ../src/Engine/Session.cs:838
+msgid "Connected Networks"
+msgstr "Spojen k sítím:"
 
-#: ../src/Engine/Session.cs:647
-msgid "Type"
-msgstr "Typ"
+#: ../src/Engine/Session.cs:843 ../src/Engine/Session.cs:867
+msgid "Network"
+msgstr "Síť"
 
-#: ../src/Engine/Session.cs:648
+#: ../src/Engine/Session.cs:844
+msgid "Protocol"
+msgstr "Protokol"
+
+#: ../src/Engine/Session.cs:845
 msgid "Host"
 msgstr "Hostitel"
 
-#: ../src/Engine/Session.cs:649
+#: ../src/Engine/Session.cs:846
 msgid "Port"
 msgstr "Port"
 
-#: ../src/Engine/Session.cs:671
-#, csharp-format
-msgid "Network close failed - could not find network with host: {0}"
-msgstr "Připojení uzavřeno - hostitelská síť nebyla nalezena: {0}"
+#. TRANSLATOR: no connected networks
+#. TRANSLATOR: no available networks
+#: ../src/Engine/Session.cs:852 ../src/Engine/Session.cs:873
+msgid "None"
+msgstr "žádné"
 
-#: ../src/Engine/Session.cs:705
-#, csharp-format
-msgid "Network switch failed - could not find network with host: {0}"
-msgstr "Síťový uzel selhal - hostitelská síť nebyla nalezena: {0}"
+#. TRANSLATOR: this line is used as a label / category for a
+#. list of networks below
+#: ../src/Engine/Session.cs:859
+msgid "Available Networks"
+msgstr "Dostupné sítě:"
 
-#: ../src/Engine/Session.cs:720
+#: ../src/Engine/Session.cs:888
+#, csharp-format
+msgid "Network close failed - could not find network: {0}"
+msgstr "Uzavření sítě selhalo - síť nenalezena: {0}"
+
+#: ../src/Engine/Session.cs:926
+#, csharp-format
+msgid "Network switch failed - could not find network: {0}"
+msgstr "Přepnutí sítě selhalo - síť nenalezena: {0}"
+
+#: ../src/Engine/Session.cs:944
 msgid "Not connected to any network"
 msgstr "Není připojeno k žádné síti"
 
+#: ../src/Engine/Session.cs:1198
+#, csharp-format
+msgid ""
+"Failed to write to chat history. Your chat history will not be preserved. "
+"Reason: {0}"
+msgstr "Nezdařilo se uložení historie chatů. Vaše historie chatů nebude uchována. Příčina: {0}"
+
 #. just in case the ProtocolManager is not setting the
 #. protocol chat
-#: ../src/Engine/Session.cs:1047
+#: ../src/Engine/Session.cs:1371
 msgid "Connect failed."
 msgstr "Připojení selhalo."
 
-#: ../src/Engine/Session.cs:1078
+#: ../src/Engine/Session.cs:1402
 #, csharp-format
 msgid "No protocol manager found for the protocol: {0}"
 msgstr "Pro protokol nebyl nalezen žádný správce protokolu: {0}"
+
+#: ../src/Engine/Session.cs:1641
+msgid "Welcome to Smuxi"
+msgstr "Vítejte ve Smuxi"
+
+#: ../src/Engine/Session.cs:1648
+msgid "Type /help to get a list of available commands."
+msgstr "Pro zobrazení seznamu dostupných příkazů napište /help."
+
+#: ../src/Engine/Session.cs:1654
+msgid ""
+"After you have made a connection the list of available commands changes. Go "
+"to the newly opened connection tab and use the /help command again to see "
+"the extended command list."
+msgstr "Po zdařeném spojení se změní seznam dostupných příkazů. Pro zobrazení rozšířeného seznamu příkazů přepněte na záložku nového spojení a použijte znovu příkaz /help."
 
 #: ../src/Engine/Config/UserListController.cs:117
 msgid "Username must not be empty."
@@ -145,5 +211,33 @@ msgstr "Uživatel \"{0}\" neexistuje."
 msgid "User \"{0}\" already exists."
 msgstr "Uživatel \"{0}\" již existuje."
 
-#~ msgid "Unknown protocol: {0}"
-#~ msgstr "Neznámý protokol: {0}"
+#: ../src/Engine/Config/ServerListController.cs:118
+msgid "Network must not be empty."
+msgstr "Síť nesmí být prázdná."
+
+#: ../src/Engine/Config/ServerListController.cs:138
+msgid "Server hostname must not be empty."
+msgstr "Název hostitele serveru nesmí být prázdný."
+
+#: ../src/Engine/Config/ServerListController.cs:141
+msgid "Server hostname contains invalid characters (newline)."
+msgstr "Název hostitele serveru obsahuje neplatné znaky (nové řádky)."
+
+#: ../src/Engine/Config/ServerListController.cs:148
+#, csharp-format
+msgid "Server ID '{0}' already exists."
+msgstr "Identifikace serveru '{0}' již existuje."
+
+#: ../src/Engine/Chats/ChatModel.cs:105
+#, csharp-format
+msgid ""
+"Failed to load chat history. Your chat history will not be preserved. "
+"Reason: {0}"
+msgstr "Nezdařilo se načtení historie chatů. Vaše historie chatů nebude uchována. Příčina: {0}"
+
+#: ../src/Engine/Chats/ChatModel.cs:300
+#, csharp-format
+msgid ""
+"Failed to open chat history for writing. Your chat history will not be "
+"preserved. Reason: {0}"
+msgstr "Nezdařilo se otevření historie chatů pro zápis. Vaše historie chatů nebude uchována. Příčina: {0}"

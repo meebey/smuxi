@@ -1,116 +1,171 @@
-# Smuxi - IRC client for sophisticated users
-# Copyright (C) 2005-2009 Mirco Bauer <meebey@meebey.net>
-# This file is distributed under the same license as the Smuxi package.
-# Michal Simunek <michal.simunek@gmail.com>, 2009 - 2010.
-#
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+# Ondřej Hošek <ondra.hosek@gmail.com>, 2013
 msgid ""
 msgstr ""
-"Project-Id-Version: smuxi-engine-twitter 0.6.4.1-1\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-07-15 01:40+0200\n"
-"PO-Revision-Date: 2010-07-15 13:22+0200\n"
-"Last-Translator: Michal Simunek <michal.simunek@gmail.com>\n"
-"Language-Team: Czech <debian-l10n-czech@lists.debian.org>\n"
-"Language: cs\n"
+"Project-Id-Version: Smuxi - IRC client\n"
+"Report-Msgid-Bugs-To: http://www.smuxi.org/issues\n"
+"POT-Creation-Date: 2013-04-14 10:15+0200\n"
+"PO-Revision-Date: 2013-05-22 17:32+0000\n"
+"Last-Translator: Ondřej Hošek <ondra.hosek@gmail.com>\n"
+"Language-Team: Czech (http://www.transifex.com/projects/p/smuxi/language/cs/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: cs\n"
+"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:101
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:127
 msgid "Home Timeline"
-msgstr "Domovské časové pásmo"
+msgstr "Domovský časový přehled"
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:108
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:138
 msgid "Replies"
 msgstr "Odpovědi"
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:115
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:149
 msgid "Direct Messages"
 msgstr "Přímé zprávy"
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:133
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:197
+#, csharp-format
+msgid "Using proxy: {0}:{1}"
+msgstr "Užívám proxy: {0}:{1}"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:204
 msgid "Connecting to Twitter..."
 msgstr "Připojování ke Twitteru..."
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:141
-msgid "Login failed!"
-msgstr "Přihlášení selhalo!"
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:242
+msgid "Twitter authorization required."
+msgstr "Je nutná autorizace Twitteru."
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:143
-msgid "Login failed! Username and/or password are incorrect."
-msgstr "Přihlášení selhalo! Chybné uživatelské jméno nebo heslo."
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:249
+#, csharp-format
+msgid ""
+"Please open the following URL and click \"Allow\" to allow Smuxi to connect "
+"to your Twitter account: {0}"
+msgstr "Otevřete prosím tuto adresu a klikněte na \"Povolit\", aby bylo Smuxi povoleno připojení k Vašemu kontu Twitter: {0}"
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:149
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:265
+msgid ""
+"Once you have allowed Smuxi to access your Twitter account, Twitter will "
+"provide a PIN."
+msgstr "Po povolení připojení Smuxi k vašemu kontu Twitter Vám Twitter zobrazí PIN."
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:272
+msgid "Please type: /pin PIN_FROM_TWITTER"
+msgstr "Zadejte prosím: /pin PIN_OD_TWITTERU"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:279
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:319
 msgid "Connection failed!"
 msgstr "Připojování selhalo!"
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:151
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:281
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:321
 msgid "Connection failed! Reason: "
 msgstr "Připojování selhalo z důvodu: "
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:156
-msgid "Successfully connected to Twitter."
-msgstr "Připojení ke Twitteru proběhlo úspěšně."
-
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:164
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:294
 msgid "Fetching user details from Twitter, please wait..."
 msgstr "Probíhá příjem podrobností o uživateli z Twitteru, čekejte prosím..."
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:169
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:299
 msgid "Finished fetching user details."
 msgstr "Příjem podrobností o uživateli dokončen."
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:176
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:304
+msgid "Successfully connected to Twitter."
+msgstr "Připojení ke Twitteru proběhlo úspěšně."
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:313
 msgid "Failed to fetch user details from Twitter. Reason: "
 msgstr "Příjem podrobností o uživateli z Twitteru selhal z důvodu: "
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:185
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:334
 msgid "Fetching friends from Twitter, please wait..."
 msgstr "Probíhá příjem seznamu přátel z Twitteru, čekejte prosím..."
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:190
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:339
 msgid "Finished fetching friends."
 msgstr "Příjem seznamu přátel dokončen."
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:193
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:342
 msgid "Failed to fetch friends from Twitter. Reason: "
 msgstr "Příjem seznamu přátel z Twitteru selhal z důvodu: "
 
 #. TRANSLATOR: this line is used as a label / category for a
 #. list of commands below
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:454
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:619
 msgid "Twitter Commands"
 msgstr "Příkazy Twitteru"
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:504
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:661
+msgid "No pending authorization request!"
+msgstr "Žádná nevyřízená žádost o autorizaci nenalezena!"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:682
+#, csharp-format
+msgid "Failed to authorize with Twitter: {0}"
+msgstr "Autorizace s Twitterem selhala: {0}"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:690
+msgid "Twitter did not accept your PIN.  Did you enter it correctly?"
+msgstr "Twitter neuznal Váš PIN. Zadal jste jej správně?"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:698
+#, csharp-format
+msgid ""
+"Please retry by closing this tab and reconnecting to the Twitter \"{0}\" "
+"account."
+msgstr "Zkuste to, prosím, znovu: uzavřete tuto záložku a znovu se spojte s kontem Twitter \"{0}\"."
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:739
+msgid "Migrated Twitter account from basic auth to OAuth."
+msgstr "Konto Twitter přepnuto z jednoduché autentizace na OAuth."
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:753
+#, csharp-format
+msgid "Successfully authorized Twitter account \"{0}\" for Smuxi"
+msgstr "Autorizace konta Twitter \"{0}\" se Smuxi úspěšná."
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:775
 #, csharp-format
 msgid "Could not update status - Reason: {0}"
 msgstr "Nelze aktualizovat stav - Příčina: {0}"
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:513
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:784
 msgid "Cannot send message - no target specified. Use: /msg $nick message"
 msgstr "Zprávu nelze odeslat - nezadali jste příjemce. Zadejte: /msg $nick zpráva"
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:526
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:568
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:797
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:834
 #, csharp-format
 msgid "Could not send message - Reason: {0}"
 msgstr "Zprávu nelze odeslat - Příčina: {0}"
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:555
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:821
 msgid "Could not send message - the specified user does not exist."
 msgstr "Zprávu nelze odeslat - zadaný uživatel neexistuje."
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:631
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:910
 msgid ""
 "An error occurred while fetching the friends timeline from Twitter. Reason: "
-msgstr ""
-"Během přijmu časového pásma přátel z Twitteru nastala chyba. Příčina: "
+msgstr "Během přijmu časového pásma přátel z Twitteru nastala chyba. Příčina: "
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:721
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:1017
 msgid "An error occurred while fetching the replies from Twitter. Reason: "
 msgstr "Během přijmu odpovědí z Twitteru nastala chyba z důvodu: "
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:816
-msgid "An error occurred while fetching direct messages from Twitter. Reason: "
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:1113
+msgid ""
+"An error occurred while fetching direct messages from Twitter. Reason: "
 msgstr "Během přijmu přímých zpráv z Twitteru nastala chyba z důvodu: "
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:1457
+msgid "Twitter didn't send a valid response, they're probably overloaded"
+msgstr "Twitter neodeslal platnou odpověď; asi mají problémy s kapacitou"
