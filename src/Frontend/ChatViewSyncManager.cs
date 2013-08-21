@@ -188,6 +188,13 @@ namespace Smuxi.Frontend
             lock (SyncWaitQueue) {
                 SyncWaitQueue.TryGetValue(chatKey, out syncWait);
             }
+            if (syncWait == null) {
+#if LOG4NET
+                Logger.Error("ReleaseSync(<" + chatView.ID + ">): failed to release " +
+                             "<" + chatKey + "> as syncWait is null!");
+#endif
+                return;
+            }
             // release the sync worker
             syncWait.Set();
         }
