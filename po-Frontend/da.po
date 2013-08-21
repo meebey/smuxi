@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# Joe Hansen <joedalton2@yahoo.dk>, 2011,2013.
+# Joe Hansen <joedalton2@yahoo.dk>, 2011,2013
 msgid ""
 msgstr ""
 "Project-Id-Version: Smuxi - IRC client\n"
 "Report-Msgid-Bugs-To: http://www.smuxi.org/issues\n"
-"POT-Creation-Date: 2013-04-14 10:18+0200\n"
-"PO-Revision-Date: 2013-04-16 06:17+0000\n"
-"Last-Translator: Joe Hansen <joedalton2@yahoo.dk>\n"
+"POT-Creation-Date: 2013-08-19 14:09+0200\n"
+"PO-Revision-Date: 2013-04-29 08:41+0000\n"
+"Last-Translator: Mirco Bauer <meebey@gmail.com>\n"
 "Language-Team: Danish (http://www.transifex.com/projects/p/smuxi/language/da/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -18,12 +18,12 @@ msgstr ""
 "Language: da\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../src/Frontend/CommandManager.cs:255
+#: ../src/Frontend/CommandManager.cs:311
 #, csharp-format
 msgid "Unknown Command: {0}"
 msgstr "Ukendt kommando: {0}"
 
-#: ../src/Frontend/CommandManager.cs:264
+#: ../src/Frontend/CommandManager.cs:320
 #, csharp-format
 msgid "Not enough parameters for {0} command"
 msgstr "Ikke nok parametre for kommandoen {0}"
