@@ -87,7 +87,16 @@ namespace Smuxi.Frontend.Gnome
             // Twitter
             NetworkWebsiteUrls.Add("Twitter", "http://www.twitter.com/");
 
-            // XMPP
+            // XMPP - with federation
+            NetworkWebsiteUrls.Add("XMPP", "http://xmpp.org/");
+            NetworkWebsiteUrls.Add("jabber.org", "http://planet.jabber.org/");
+            NetworkWebsiteUrls.Add("jabber.de", "http://www.jabber.de/");
+            NetworkWebsiteUrls.Add("jabber.at", "http://planet.jabber.org/");
+            NetworkWebsiteUrls.Add("jabber.ccc.de", "http://web.jabber.ccc.de/");
+            NetworkWebsiteUrls.Add("xmpp-gmx.gmx.net", "http://planet.jabber.org/");
+            NetworkWebsiteUrls.Add("xmpp-webde.gmx.net", "http://planet.jabber.org/");
+            NetworkWebsiteUrls.Add("jabber.gmx.net", "http://planet.jabber.org/");
+            // XMPP - without federation
             NetworkWebsiteUrls.Add("talk.google.com", "http://www.google.com/talk/");
             NetworkWebsiteUrls.Add("chat.facebook.com", "http://www.facebook.com/");
 
