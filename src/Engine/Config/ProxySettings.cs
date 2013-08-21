@@ -38,6 +38,14 @@ namespace Smuxi.Engine
         public IWebProxy SystemWebProxy { get; set; }
         public WebProxy DefaultWebProxy { get; set; }
 
+        static ProxySettings()
+        {
+            try {
+                WorkaroundNoProxyMonoBug();
+            } catch {
+            }
+        }
+
         public ProxySettings()
         {
             ProxyType = ProxyType.None;
@@ -121,21 +129,7 @@ namespace Smuxi.Engine
                 case ProxyType.System:
                     // TODO: add GNOME (gconf) support
                     var no_proxy = Environment.GetEnvironmentVariable("no_proxy");
-                    IWebProxy proxy = null;
-                    try {
-                        proxy = WebRequest.GetSystemWebProxy();
-                    } catch (ArgumentOutOfRangeException) {
-                        // HACK: workaround bug in Mono 2.10.8 throwing
-                        // ArgumentOutOfRangeException because it tries to
-                        // always remove *.local, see:
-                        // https://www.smuxi.org/issues/show/873
-                        if (no_proxy != null && !no_proxy.Contains("*.local")) {
-                            var no_proxy_with_local = no_proxy + ",*.local";
-                            Environment.SetEnvironmentVariable("no_proxy",
-                                                               no_proxy_with_local);
-                            proxy = WebRequest.GetSystemWebProxy();
-                        }
-                    }
+                    var proxy = WebRequest.GetSystemWebProxy();
                     if (!String.IsNullOrEmpty(no_proxy) && proxy is WebProxy) {
                         var webProxy = (WebProxy) proxy;
                         // BypassArrayList expects regexes while no_proxy
@@ -174,6 +168,32 @@ namespace Smuxi.Engine
                     DefaultWebProxy = new WebProxy(proxyUri);
                     SystemWebProxy = null;
                     break;
+            }
+        }
+
+        static void WorkaroundNoProxyMonoBug()
+        {
+            // HACK: workaround bug in Mono 2.10.8 throwing
+            // ArgumentOutOfRangeException because it always tries to remove
+            // *.local from the no_proxy envrionment variable, see:
+            // https://www.smuxi.org/issues/show/873
+            var no_proxy = Environment.GetEnvironmentVariable("no_proxy");
+            if (no_proxy == null) {
+                // nothing to workaround
+                return;
+            }
+
+            try {
+                WebRequest.GetSystemWebProxy();
+            } catch (ArgumentOutOfRangeException) {
+#if LOG4NET
+                f_Logger.Debug("WorkaroundNoProxyMonoBug(): enabling no_proxy workaround...");
+#endif
+                if (!no_proxy.Contains("*.local")) {
+                    var no_proxy_with_local = no_proxy + ",*.local";
+                    Environment.SetEnvironmentVariable("no_proxy",
+                                                       no_proxy_with_local);
+                }
             }
         }
     }

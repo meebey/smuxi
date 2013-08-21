@@ -1670,10 +1670,11 @@ namespace Smuxi.Engine
             Trace.Call();
 
             try {
-                var url = "http://news.smuxi.org/feed.php";
-                var req = WebRequest.Create(url);
                 var proxySettings = new ProxySettings();
                 proxySettings.ApplyConfig(UserConfig);
+
+                var url = "http://news.smuxi.org/feed.php";
+                var req = WebRequest.Create(url);
                 req.Proxy = proxySettings.GetWebProxy(url);
                 if (req is HttpWebRequest) {
                     var httpReq = (HttpWebRequest) req;
