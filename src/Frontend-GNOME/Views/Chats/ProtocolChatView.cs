@@ -249,8 +249,8 @@ namespace Smuxi.Frontend.Gnome
                     // null so explicitely override this by setting an empty proxy
                     proxy = new WebProxy();
                 }
+                webClient.Proxy = proxy;
             }
-            webClient.Proxy = proxy;
             var content = webClient.DownloadString(websiteUrl);
             var links = new List<Dictionary<string, string>>();
             foreach (Match linkMatch in Regex.Matches(content, @"<link[\s]+([^>]*?)/?>")) {
@@ -296,7 +296,10 @@ namespace Smuxi.Frontend.Gnome
 #endif
 
             var iconRequest = WebRequest.Create(faviconUrl);
-            iconRequest.Proxy = proxy;
+            // ignore proxy settings of remote engines
+            if (Frontend.IsLocalEngine) {
+                iconRequest.Proxy = proxy;
+            }
             if (iconRequest is HttpWebRequest) {
                 var iconHttpRequest = (HttpWebRequest) iconRequest;
                 if (iconFile.Exists) {

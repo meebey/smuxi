@@ -121,7 +121,7 @@ namespace Smuxi.Engine
                 case ProxyType.System:
                     // TODO: add GNOME (gconf) support
                     var no_proxy = Environment.GetEnvironmentVariable("no_proxy");
-                    IWebProxy proxy;
+                    IWebProxy proxy = null;
                     try {
                         proxy = WebRequest.GetSystemWebProxy();
                     } catch (ArgumentOutOfRangeException) {
@@ -130,9 +130,11 @@ namespace Smuxi.Engine
                         // always remove *.local, see:
                         // https://www.smuxi.org/issues/show/873
                         if (no_proxy != null && !no_proxy.Contains("*.local")) {
-                            no_proxy = no_proxy + ",*.local";
+                            var no_proxy_with_local = no_proxy + ",*.local";
+                            Environment.SetEnvironmentVariable("no_proxy",
+                                                               no_proxy_with_local);
+                            proxy = WebRequest.GetSystemWebProxy();
                         }
-                        proxy = WebRequest.GetSystemWebProxy();
                     }
                     if (!String.IsNullOrEmpty(no_proxy) && proxy is WebProxy) {
                         var webProxy = (WebProxy) proxy;
