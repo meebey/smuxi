@@ -279,9 +279,14 @@ namespace Smuxi.Frontend.Gnome
                 f_Notebook.SetTabReorderable(chatView, true);
 #endif
 
-                if ((chatView is PersonChatView && AutoSwitchPersonChats) ||
-                    (chatView is GroupChatView && AutoSwitchGroupChats)) {
-                    CurrentChatNumber = idx;
+                // we can't do auto switch for remote engines for now as that
+                // kills all unseen highlights, see:
+                // https://www.smuxi.org/issues/show/866
+                if (Frontend.IsLocalEngine) {
+                    if ((chatView is PersonChatView && AutoSwitchPersonChats) ||
+                        (chatView is GroupChatView && AutoSwitchGroupChats)) {
+                        CurrentChatNumber = idx;
+                    }
                 }
 
                 if (ChatAdded != null) {
