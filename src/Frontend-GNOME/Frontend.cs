@@ -1091,6 +1091,9 @@ namespace Smuxi.Frontend.Gnome
                 settings.SetLongProperty(
                     "gtk-menu-images", 0, origin
                  );
+                settings.SetLongProperty(
+                    "gtk-button-images", 0, origin
+                );
 #if LOG4NET
                 _Logger.InfoFormat("InitGtk(): Prepending {0} to icon search path",
                                     appIconDir);
