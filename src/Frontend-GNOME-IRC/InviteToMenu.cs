@@ -101,13 +101,14 @@ namespace Smuxi.Frontend.Gnome
             Trace.Call(chat);
 
             foreach (var invitee in Invitees) {
+                var inviteeId = invitee.ID;
                 ThreadPool.QueueUserWorkItem(delegate {
                     try {
                         ProtocolManager.CommandInvite(
                             new CommandModel(
                                 Frontend.FrontendManager,
                                 ChatViewManager.ActiveChat.ChatModel,
-                                String.Format("{0} {1}", invitee.ID, chat.ID)
+                                String.Format("{0} {1}", inviteeId, chat.ID)
                             )
                         );
                     } catch (Exception ex) {
