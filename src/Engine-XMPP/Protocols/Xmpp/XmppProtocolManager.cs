@@ -300,15 +300,14 @@ namespace Smuxi.Engine
             JabberClient.Close();
         }
 
-        [MethodImpl(MethodImplOptions.Synchronized)]
+        // this method is used as status / title
         public override string ToString()
         {
-            string result = "Jabber " + JabberClient.Server + ":" + JabberClient.Port;
-            
+            var status = String.Format("{0} ({1})", JabberClient.Server, Protocol);
             if (!IsConnected) {
-                result += " (" + _("not connected") + ")";
+                status += " (" + _("not connected") + ")";
             }
-            return result;
+            return status;
         }
 
         // no need to synchronize this method as it only checks for null
