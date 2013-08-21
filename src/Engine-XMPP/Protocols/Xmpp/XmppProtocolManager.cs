@@ -91,6 +91,7 @@ namespace Smuxi.Engine
         string LastSentMessage { get; set; }
         bool SupressLocalMessageEcho { get; set; }
         bool AutoReconnect { get; set; }
+        int AutoReconnectDelay { get; set; }
 
         bool IsFacebook { get; set; }
 
@@ -119,6 +120,7 @@ namespace Smuxi.Engine
             DiscoCache = new Dictionary<string, DiscoInfo>();
 
             SupressLocalMessageEcho = false;
+            AutoReconnectDelay = 60;
 
             JabberClient = new XmppClientConnection();
             JabberClient.Resource = "Smuxi";
@@ -2107,7 +2109,17 @@ namespace Smuxi.Engine
             JabberClient.SocketConnectionType = SocketConnectionType.Direct;
 
             if (AutoReconnect) {
-                Connect();
+                var builder = CreateMessageBuilder();
+                builder.AppendEventPrefix();
+                builder.AppendText(_("Reconnecting to {0} in {1} seconds..."),
+                                   JabberClient.Server, AutoReconnectDelay);
+                Session.AddMessageToChat(Chat, builder.ToMessage());
+
+                ThreadPool.QueueUserWorkItem(delegate {
+                    // sleep for N seconds, we don't want to be abusive
+                    Thread.Sleep(AutoReconnectDelay * 1000);
+                    Connect();
+                });
             }
         }
 
