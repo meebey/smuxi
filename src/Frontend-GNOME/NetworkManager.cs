@@ -20,6 +20,7 @@
 
 #if IPC_DBUS
 using System;
+using System.Threading;
     #if DBUS_SHARP
 using DBus;
     #else
@@ -129,7 +130,15 @@ namespace Smuxi.Frontend.Gnome
                     if (WasLocalEngine) {
                         // reconnect local protocol managers
                         foreach (var protocolManager in Frontend.Session.ProtocolManagers) {
-                            protocolManager.Reconnect(Frontend.FrontendManager);
+                            var pm = protocolManager;
+                            // run in background so it can't block the GUI
+                            ThreadPool.QueueUserWorkItem(delegate {
+                                try {
+                                    pm.Reconnect(Frontend.FrontendManager);
+                                } catch (Exception ex) {
+                                    Frontend.ShowException(ex);
+                                }
+                            });
                         }
                     } else {
                         Frontend.ReconnectEngineToGUI(false);
