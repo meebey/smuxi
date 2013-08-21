@@ -1084,9 +1084,13 @@ namespace Smuxi.Frontend.Gnome
                 _Logger.InfoFormat("InitGtk(): Setting icon theme to: {0}",
                                     iconTheme);
 #endif
+                var origin = Assembly.GetExecutingAssembly().FullName;
                 settings.SetStringProperty(
-                    "gtk-icon-theme-name", iconTheme, Assembly.GetExecutingAssembly().FullName
+                    "gtk-icon-theme-name", iconTheme, origin
                 );
+                settings.SetLongProperty(
+                    "gtk-menu-images", 0, origin
+                 );
 #if LOG4NET
                 _Logger.InfoFormat("InitGtk(): Prepending {0} to icon search path",
                                     appIconDir);
