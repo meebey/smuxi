@@ -259,8 +259,9 @@ namespace Smuxi.Frontend.Gnome
 
             int keynumber = (int)e.Event.KeyValue;
             Gdk.Key key = e.Event.Key;
-            if ((e.Event.State & Gdk.ModifierType.ControlMask) != 0) {
-                // ctrl is pressed
+            if ((e.Event.State & Gdk.ModifierType.ControlMask) != 0 ||
+                (Frontend.IsMacOSX && (e.Event.State & Gdk.ModifierType.MetaMask) != 0)) {
+                // ctrl / cmd is pressed
                 e.RetVal = true;
                 switch (key) {
                     case Gdk.Key.x:
