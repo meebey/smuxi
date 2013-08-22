@@ -3,20 +3,20 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# Bianca Mix <heavydemon@freenet.de>, 2011.
+# Bianca Mix <heavydemon@freenet.de>, 2011
 msgid ""
 msgstr ""
 "Project-Id-Version: Smuxi - IRC client\n"
 "Report-Msgid-Bugs-To: http://www.smuxi.org/issues\n"
-"POT-Creation-Date: 2011-12-29 09:21+0100\n"
-"PO-Revision-Date: 2011-12-30 23:07+0000\n"
-"Last-Translator: Bianca Mix <heavydemon@freenet.de>\n"
-"Language-Team: German (http://www.transifex.net/projects/p/smuxi/team/de/)\n"
+"POT-Creation-Date: 2013-08-19 14:08+0200\n"
+"PO-Revision-Date: 2013-04-29 08:41+0000\n"
+"Last-Translator: Mirco Bauer <meebey@gmail.com>\n"
+"Language-Team: German (http://www.transifex.com/projects/p/smuxi/language/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: de\n"
-"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: ../src/Server/Main.cs:71
 msgid "Add user to Server"
@@ -40,8 +40,7 @@ msgstr "Benutzer, der erstellt, verändert oder entfernt werden soll"
 
 #: ../src/Server/Main.cs:116
 msgid "Password of the user when creating or modifying a user"
-msgstr ""
-"Passwort für den Benutzer, wenn Benutzer erstellt oder verändert werden soll"
+msgstr "Passwort für den Benutzer, wenn Benutzer erstellt oder verändert werden soll"
 
 #: ../src/Server/Main.cs:125
 msgid "Enable debug output"
@@ -50,9 +49,7 @@ msgstr "Aktivieren der Ausgabe zur Fehlerbeseitigung"
 #: ../src/Server/Main.cs:133
 msgid ""
 "Optimize message buffers and exit (valid values: none, defrag, index, all)"
-msgstr ""
-"Optimiere Nachrichtenpuffer und Verlassen (Gültige Werte: none, defrag, "
-"index, all)"
+msgstr "Optimiere Nachrichtenpuffer und Verlassen (Gültige Werte: none, defrag, index, all)"
 
 #: ../src/Server/Main.cs:146
 msgid "Show this help"
@@ -80,9 +77,7 @@ msgstr "Kommandozeilenfehler: {0}"
 msgid ""
 "At most one of --add-user, --modify-user, and --delete-user may be used at a"
 " time."
-msgstr ""
-"Höchstens einer der Optionen --add-user, --modify-user, und --delete-user "
-"darf gleichzeitig verwendet werden."
+msgstr "Höchstens einer der Optionen --add-user, --modify-user, und --delete-user darf gleichzeitig verwendet werden."
 
 #: ../src/Server/Main.cs:242
 msgid "You must specify a username with the --username option."
@@ -105,9 +100,7 @@ msgstr "Passwort darf nicht leer sein."
 msgid ""
 "Invalid optimization value passed to --optimize-message-buffer, valid values"
 " are: {0}"
-msgstr ""
-"Ungültige Optimierungswerte übergeben an --optimize-message-buffer, gültige "
-"Werte sind: {0}"
+msgstr "Ungültige Optimierungswerte übergeben an --optimize-message-buffer, gültige Werte sind: {0}"
 
 #: ../src/Server/Main.cs:303
 #, csharp-format
@@ -137,5 +130,3 @@ msgstr "Erfolgreich {0} Nachrichtenpuffer optimiert"
 #, csharp-format
 msgid "Failed to optimize message buffers: {0}"
 msgstr "Optimierung der Nachrichtenpuffer fehlgeschlagen: {0}"
-
-
