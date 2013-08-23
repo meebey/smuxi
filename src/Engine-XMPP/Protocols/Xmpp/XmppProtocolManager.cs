@@ -1157,8 +1157,8 @@ namespace Smuxi.Engine
             }
 
             try {
-                if (text != null && text.Trim().Length == 0) {
-                    DebugWrite(text);
+                if (text == null || text.Trim().Length == 0) {
+                    // suppress logging keep-alive messages
                     return;
                 }
 
