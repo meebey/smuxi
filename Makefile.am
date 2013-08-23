@@ -107,6 +107,11 @@ call-po: update-po
 			--call; \
 	done
 	
+install-po:
+	for PODIR in $(PODIRS); do \
+		$(MAKE) -C $$PODIR install itlocaledir=$(abs_top_builddir)/bin/$(PROFILE)/locale; \
+	done
+
 LIB_DIR = $(top_builddir)/lib
 BUILD_DIR = $(top_builddir)/bin/$(PROFILE)
 WIN32_LIB_DIR = $(LIB_DIR)/win32
