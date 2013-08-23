@@ -3,161 +3,169 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
+# Kalle Kaitala <cobrian@cobrian.net>, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: Smuxi - IRC client\n"
 "Report-Msgid-Bugs-To: http://www.smuxi.org/issues\n"
-"POT-Creation-Date: 2010-09-02 15:23+0200\n"
-"PO-Revision-Date: 2010-11-30 04:12+0000\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: Finnish (http://www.transifex.net/projects/p/smuxi/team/fi/)\n"
+"POT-Creation-Date: 2013-04-14 10:15+0200\n"
+"PO-Revision-Date: 2013-08-21 11:16+0000\n"
+"Last-Translator: Kalle Kaitala <cobrian@cobrian.net>\n"
+"Language-Team: Finnish (http://www.transifex.com/projects/p/smuxi/language/fi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: fi\n"
-"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:125
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:127
 msgid "Home Timeline"
-msgstr ""
+msgstr "Koti-aikajana"
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:132
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:138
 msgid "Replies"
-msgstr ""
+msgstr "Vastaukset"
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:139
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:149
 msgid "Direct Messages"
-msgstr ""
+msgstr "Suoraviestit"
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:174
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:197
+#, csharp-format
+msgid "Using proxy: {0}:{1}"
+msgstr "Käytetään välityspalvelinta: {0}:{1}"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:204
 msgid "Connecting to Twitter..."
-msgstr ""
+msgstr "Yhdistetään Twitteriin..."
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:203
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:242
 msgid "Twitter authorization required."
-msgstr ""
+msgstr "Twitter-tunnistetiedot vaaditaan."
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:218
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:249
 #, csharp-format
 msgid ""
 "Please open the following URL and click \"Allow\" to allow Smuxi to connect "
 "to your Twitter account: {0}"
-msgstr ""
+msgstr "Avaa seuraava URL ja valitse \"Allow\" salliaksesi Smuxin yhdistäminen Twitter-tiliisi: {0}"
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:234
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:265
 msgid ""
 "Once you have allowed Smuxi to access your Twitter account, Twitter will "
 "provide a PIN."
-msgstr ""
+msgstr "Kun olet sallinut Smuxin pääsyn Twitter-tiliisi, Twitter antaa sinulle PIN-koodin."
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:241
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:272
 msgid "Please type: /pin PIN_FROM_TWITTER"
-msgstr ""
+msgstr "Kirjoita: /pin PIN_JONKA_SAIT_TWITTERILTÄ"
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:251
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:291
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:279
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:319
 msgid "Connection failed!"
-msgstr ""
+msgstr "Yhteydenmuodostus epäonnistui!"
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:253
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:293
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:281
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:321
 msgid "Connection failed! Reason: "
-msgstr ""
+msgstr "Yhteydenmuodostus epäonnistui! Syy:"
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:266
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:294
 msgid "Fetching user details from Twitter, please wait..."
-msgstr ""
+msgstr "Noudetaan käyttäjätietoja Twitteristä, odota ole hyvä..."
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:271
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:299
 msgid "Finished fetching user details."
-msgstr ""
+msgstr "Käyttäjätietojen haku valmis."
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:276
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:304
 msgid "Successfully connected to Twitter."
-msgstr ""
+msgstr "Yhdistäminen Twitteriin onnistui."
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:285
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:313
 msgid "Failed to fetch user details from Twitter. Reason: "
-msgstr ""
+msgstr "Käyttäjätietojen haku Twitteristä epäonnistui. Syy:"
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:306
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:334
 msgid "Fetching friends from Twitter, please wait..."
-msgstr ""
+msgstr "Noudetaan ystäviä Twitteristä, odota ole hyvä..."
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:311
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:339
 msgid "Finished fetching friends."
-msgstr ""
+msgstr "Ystävien haku valmis."
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:314
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:342
 msgid "Failed to fetch friends from Twitter. Reason: "
-msgstr ""
+msgstr "Ystävien haku Twitteristä epäonnistui. Syy:"
 
 #. TRANSLATOR: this line is used as a label / category for a
 #. list of commands below
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:588
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:619
 msgid "Twitter Commands"
-msgstr ""
-
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:632
-msgid "No pending authorization request!"
-msgstr ""
-
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:653
-#, csharp-format
-msgid "Failed to authorize with Twitter: {0}"
-msgstr ""
+msgstr "Twitter-komennot"
 
 #: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:661
-msgid "Twitter did not accept your PIN.  Did you enter it correctly?"
-msgstr ""
+msgid "No pending authorization request!"
+msgstr "Ei voimassaolevaa auktorisointipyyntöä!"
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:669
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:682
+#, csharp-format
+msgid "Failed to authorize with Twitter: {0}"
+msgstr "Auktorisointi Twitterin kanssa epäonnistui: {0}"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:690
+msgid "Twitter did not accept your PIN.  Did you enter it correctly?"
+msgstr "Twitter ei hyväksynyt PIN-koodiasi. Syötitkö sen oikein?"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:698
 #, csharp-format
 msgid ""
 "Please retry by closing this tab and reconnecting to the Twitter \"{0}\" "
 "account."
-msgstr ""
+msgstr "Yritä uudelleen sulkemalla tämä välilehti ja uudelleenyhdistämällä Twitter \"{0}\"-tiliin."
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:709
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:739
 msgid "Migrated Twitter account from basic auth to OAuth."
-msgstr ""
-
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:722
-#, csharp-format
-msgid "Successfully authorized Twitter account \"{0}\" for Smuxi"
-msgstr ""
-
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:744
-#, csharp-format
-msgid "Could not update status - Reason: {0}"
-msgstr ""
+msgstr "Muutettiin Twitter-autentikointi perustilasta OAuth-tilaan."
 
 #: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:753
-msgid "Cannot send message - no target specified. Use: /msg $nick message"
-msgstr ""
+#, csharp-format
+msgid "Successfully authorized Twitter account \"{0}\" for Smuxi"
+msgstr "Twitter-tili \"{0}\" autorisoitu onnistuneesti Smuxiin"
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:766
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:803
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:775
+#, csharp-format
+msgid "Could not update status - Reason: {0}"
+msgstr "Tilaa ei voitu päivittää - Syy: {0}"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:784
+msgid "Cannot send message - no target specified. Use: /msg $nick message"
+msgstr "Viestiä ei voida lähettää - kohdetta ei ole määritelty. Käytä: /msg $nick viesti"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:797
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:834
 #, csharp-format
 msgid "Could not send message - Reason: {0}"
-msgstr ""
+msgstr "Viestiä ei voitu lähettää - Syy: {0}"
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:790
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:821
 msgid "Could not send message - the specified user does not exist."
-msgstr ""
+msgstr "Viestiä ei voitu lähettää - määriteltyä käyttäjää ei ole."
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:879
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:910
 msgid ""
 "An error occurred while fetching the friends timeline from Twitter. Reason: "
-msgstr ""
+msgstr "Virhe haettaessa ystävien aikajanaa Twitteristä. Syy:"
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:980
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:1017
 msgid "An error occurred while fetching the replies from Twitter. Reason: "
-msgstr ""
+msgstr "Virhe haettaessa vastauksia Twitteristä. Syy:"
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:1073
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:1113
 msgid ""
 "An error occurred while fetching direct messages from Twitter. Reason: "
-msgstr ""
+msgstr "Virhe haettaessa suoraviestejä Twitteristä. Syy:"
 
-
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:1457
+msgid "Twitter didn't send a valid response, they're probably overloaded"
+msgstr "Twitter ei palauttanut oikeanlaista vastausta, palvelussa voi olla ruuhkaa"
