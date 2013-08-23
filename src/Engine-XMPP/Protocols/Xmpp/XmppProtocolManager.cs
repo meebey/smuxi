@@ -1575,6 +1575,7 @@ namespace Smuxi.Engine
                 person = GetOrCreateContact(pres.MucUser.Item.Jid.Bare, nick);
             } else {
                 // we do not know the real jid of this user, don't add it to our local roster
+                // BUG? pres.From.Resource can be null?
                 person = new XmppPersonModel(jid, pres.From.Resource, this);
             }
             person.GetOrCreateMucResource(jid).Presence = pres;
@@ -1765,6 +1766,8 @@ namespace Smuxi.Engine
         [MethodImpl(MethodImplOptions.Synchronized)]
         void OnPresence(object sender, Presence pres)
         {
+            Trace.Call(sender, pres);
+
             Jid jid = pres.From;
             if (jid == JabberClient.MyJID) return; // we don't care about ourself
             if (pres.Capabilities != null && pres.Type == PresenceType.available) {
