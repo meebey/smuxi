@@ -218,16 +218,18 @@ namespace Smuxi.Frontend.Gnome
                 return;
             }
 
-            if (Frontend.EngineVersion >= new Version(0, 8, 12)) {
-                Gtk.ImageMenuItem whois_item = new Gtk.ImageMenuItem(_("Whois"));
-                whois_item.Activated += _OnUserListMenuWhoisActivated;
-                PersonMenu.Append(whois_item);
-            }
-
             if (Frontend.EngineVersion >= new Version(0, 8, 9)) {
                 Gtk.ImageMenuItem query_item = new Gtk.ImageMenuItem(_("Query"));
                 query_item.Activated += _OnUserListMenuQueryActivated;
                 PersonMenu.Append(query_item);
+            }
+
+            PersonMenu.Append(new Gtk.SeparatorMenuItem());
+
+            if (Frontend.EngineVersion >= new Version(0, 8, 12)) {
+                Gtk.ImageMenuItem whois_item = new Gtk.ImageMenuItem(_("Whois"));
+                whois_item.Activated += _OnUserListMenuWhoisActivated;
+                PersonMenu.Append(whois_item);
             }
 
             if (!IsContactList && Frontend.EngineVersion >= new Version(0, 8, 11)) {
