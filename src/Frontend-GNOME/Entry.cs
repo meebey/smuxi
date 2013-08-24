@@ -21,6 +21,7 @@
  */
 
 using System;
+using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Collections;
@@ -573,6 +574,10 @@ namespace Smuxi.Frontend.Gnome
                         _CommandSync(cd);
                         handled = true;
                         break;
+                    case "sort":
+                        CommandSort(cd);
+                        handled = true;
+                        break;
                     case "gc":
                         GC.Collect();
                         handled = true;
@@ -599,6 +604,7 @@ namespace Smuxi.Frontend.Gnome
             string[] help = {
             "window (number|channelname|queryname|close)",
             "sync",
+            "sort",
             "clear",
             "echo data",
             "exec command",
@@ -695,6 +701,74 @@ namespace Smuxi.Frontend.Gnome
                     Frontend.ShowError(null, ex);
                 }
             });
+        }
+
+        void CommandSort(CommandModel cmd)
+        {
+            var chats = new List<ChatView>(ChatViewManager.Chats);
+            // as the sorting does 2 remoting calls, we use a background thread
+            ThreadPool.QueueUserWorkItem(delegate {
+                try {
+                    chats.Sort((x, y) => {
+                        if (x.ProtocolManager != null &&
+                            y.ProtocolManager != null &&
+                            x.ProtocolManager != y.ProtocolManager) {
+                            // REMOTING CALL 1
+                            var xprot = x.ProtocolManager.Protocol;
+                            // REMOTING CALL 2
+                            var yprot = y.ProtocolManager.Protocol;
+                            var prot = xprot.CompareTo(yprot);
+                            if (prot != 0) {
+                                return prot;
+                            }
+
+                            // theirs protocols are equal, so their network decide
+                            // REMOTING CALL 3
+                            var xnet = x.ProtocolManager.NetworkID;
+                            // REMOTING CALL 4
+                            var ynet = y.ProtocolManager.NetworkID;
+                            var net = xnet.CompareTo(ynet);
+                            if (net != 0) {
+                               return net;
+                            }
+                        }
+
+                        // their networks are equal, so their type decide
+                        var type = GetChatSortValue(y).CompareTo(GetChatSortValue(x));
+                        if (type != 0) {
+                            return type;
+                        }
+
+                        // their types are equal, so their name decides
+                        return y.ID.CompareTo(x.ID);
+                    });
+
+                    Gtk.Application.Invoke(delegate {
+                        for (int i = 0; i < chats.Count; i++) {
+                            Frontend.MainWindow.Notebook.ReorderChild(chats[i], i);
+                        }
+                    });
+                } catch (Exception ex) {
+#if LOG4NET
+                    _Logger.Error("CommandSort(): Exception", ex);
+#endif
+                }
+            });
+        }
+
+        int GetChatSortValue(ChatView chat)
+        {
+            int status = 0;
+            if (chat is SessionChatView) {
+                status += 100;
+            }
+            if (chat is ProtocolChatView) {
+                status += 50;
+            }
+            if (chat is GroupChatView) {
+                status += 10;
+            }
+            return status;
         }
 
         private void _CommandClear(CommandModel cd)
