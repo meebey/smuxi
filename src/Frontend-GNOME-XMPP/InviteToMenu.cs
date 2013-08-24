@@ -68,7 +68,7 @@ namespace Smuxi.Frontend.Gnome
             if (!IsPopulated) {
                 IsPopulated = true;
                 foreach (var chatView in ChatViewManager.Chats) {
-                    if (!(chatView is GroupChatView)) {
+                    if (!(chatView is XmppGroupChatView)) {
                         // only invite to group chats
                         continue;
                     }
@@ -80,7 +80,8 @@ namespace Smuxi.Frontend.Gnome
                         // only add chats from current server
                         continue;
                     }
-                    if (chatView.Name == "Contacts") {
+                    var groupChatView = (XmppGroupChatView) chatView;
+                    if (groupChatView.IsContactList) {
                         // ignore our abused groupchatview
                         continue;
                     }
