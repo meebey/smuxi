@@ -54,6 +54,7 @@ namespace Smuxi.Frontend.Gnome
         MessageModel                     SyncedTopic  { get; set; }
         public override IList<PersonModel> Participants { get; protected set; }
         protected Gtk.CellRendererText IdentityNameCellRenderer { get; set; }
+        Gtk.ScrolledWindow PersonScrolledWindow { get; set; }
 
         public override bool HasSelection {
             get {
@@ -125,11 +126,44 @@ namespace Smuxi.Frontend.Gnome
             // person list
             Participants = new List<PersonModel>();
             _OutputHPaned = new Gtk.HPaned();
+            _OutputHPaned.ButtonPressEvent += (sender, e) => {;
+                // reset person list size on double click
+                if (e.Event.Type == Gdk.EventType.TwoButtonPress &&
+                    e.Event.Button == 1) {
+                    GLib.Timeout.Add(200, delegate {
+                        _OutputHPaned.Position = -1;
+                        return false;
+                    });
+                }
+            };
 
             Gtk.ScrolledWindow sw = new Gtk.ScrolledWindow();
-            //sw.WidthRequest = 150;
+            PersonScrolledWindow = sw;
             sw.HscrollbarPolicy = Gtk.PolicyType.Never;
-            
+            sw.SizeRequested += (o, args) => {
+                // predict and set useful treeview width
+                var persons = SyncedPersons;
+                if (persons == null || persons.Count == 0) {
+                    return;
+                }
+
+                int longestNameWidth = 0;
+                foreach (var person in persons.Values) {
+                    int lineWidth, lineHeigth;
+                    using (var layout = _PersonTreeView.CreatePangoLayout(person.IdentityName)) {
+                        layout.GetPixelSize(out lineWidth, out lineHeigth);
+                    }
+                    if (lineWidth > longestNameWidth) {
+                        longestNameWidth = lineWidth;
+                    }
+                }
+
+                var bestSize = new Gtk.Requisition() {
+                    Width = longestNameWidth
+                };
+                args.Requisition = bestSize;
+            };
+
             Gtk.TreeView tv = new Gtk.TreeView();
             _PersonTreeView = tv;
             //tv.CanFocus = false;
@@ -139,7 +173,6 @@ namespace Smuxi.Frontend.Gnome
             
             Gtk.TreeViewColumn column;
             Gtk.CellRendererText cellr = new Gtk.CellRendererText();
-            cellr.WidthChars = 12;
             IdentityNameCellRenderer = cellr;
             column = new Gtk.TreeViewColumn(String.Empty, cellr);
             column.SortColumnId = 0;
@@ -320,18 +353,10 @@ namespace Smuxi.Frontend.Gnome
                 // see: http://www.smuxi.org/issues/show/132
                 _PersonTreeView.Model = ls;
                 _PersonTreeView.SearchColumn = 0;
-                
-                /*
-                // predict and set useful width
-                Console.WriteLine("longestNickname: " + longestName);
-                Pango.Layout layout = _PersonScrolledWindow.CreatePangoLayout(longestName);
-                //_PersonScrolledWindow.WidthRequest = layout.Width;
-                Console.WriteLine("layout.Width: " + layout.Width);
-                _PersonScrolledWindow.SetSizeRequest(layout.Width, 0);
-                */
-                
-                UpdatePersonCount(); 
-               
+
+                PersonScrolledWindow.CheckResize();
+                UpdatePersonCount();
+
                 // TRANSLATOR: this string will be appended to the one above
                 status += String.Format(" {0}", _("done."));
                 Frontend.MainWindow.Status = status;
@@ -510,11 +535,11 @@ namespace Smuxi.Frontend.Gnome
                 _OutputHPaned.Remove(_OutputVBox);
             }
             if (userlist_pos == "left") {
-                _OutputHPaned.Pack1(_PersonTreeViewFrame, false, false);
+                _OutputHPaned.Pack1(_PersonTreeViewFrame, false, true);
                 _OutputHPaned.Pack2(_OutputVBox, true, true);
             } else if (userlist_pos == "right") {
                 _OutputHPaned.Pack1(_OutputVBox, true, true);
-                _OutputHPaned.Pack2(_PersonTreeViewFrame, false, false);
+                _OutputHPaned.Pack2(_PersonTreeViewFrame, false, true);
             } else if (userlist_pos == "none") {
                 _OutputHPaned.Pack1(_OutputVBox, true, true);
             } else {
