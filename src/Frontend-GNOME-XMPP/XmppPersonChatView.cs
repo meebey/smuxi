@@ -46,22 +46,33 @@ namespace Smuxi.Frontend.Gnome
 
             Gtk.Menu popup = args.Menu;
 
+            // minimum version of any command below
+            if (Frontend.EngineVersion < new Version(0, 8, 11)) {
+                return;
+            }
+
             popup.Append(new Gtk.SeparatorMenuItem());
 
-            Gtk.ImageMenuItem whois_item = new Gtk.ImageMenuItem(_("Whois"));
-            whois_item.Activated += _OnMenuWhoisItemActivated;
-            popup.Append(whois_item);
+            if (Frontend.EngineVersion >= new Version(0, 8, 12)) {
+                Gtk.ImageMenuItem whois_item = new Gtk.ImageMenuItem(_("Whois"));
+                whois_item.Activated += _OnMenuWhoisItemActivated;
+                popup.Append(whois_item);
+            }
 
-            Gtk.ImageMenuItem AddToContacts_item = new Gtk.ImageMenuItem(_("Add To Contacts"));
-            AddToContacts_item.Activated += _OnMenuAddToContactsItemActivated;
-            popup.Append(AddToContacts_item);
-            
-            Gtk.ImageMenuItem invite_to_item = new Gtk.ImageMenuItem(_("Invite to"));
-            Gtk.Menu invite_to_menu_item = new InviteToMenu(XmppProtocolManager,
-                                                            Frontend.MainWindow.ChatViewManager,
-                                                            PersonModel);
-            invite_to_item.Submenu = invite_to_menu_item;
-            popup.Append(invite_to_item);
+            if (Frontend.EngineVersion >= new Version(0, 8, 11)) {
+                Gtk.ImageMenuItem AddToContacts_item = new Gtk.ImageMenuItem(_("Add To Contacts"));
+                AddToContacts_item.Activated += _OnMenuAddToContactsItemActivated;
+                popup.Append(AddToContacts_item);
+            }
+
+            if (Frontend.EngineVersion >= new Version(0, 8, 12)) {
+                Gtk.ImageMenuItem invite_to_item = new Gtk.ImageMenuItem(_("Invite to"));
+                Gtk.Menu invite_to_menu_item = new InviteToMenu(XmppProtocolManager,
+                                                                Frontend.MainWindow.ChatViewManager,
+                                                                PersonModel);
+                invite_to_item.Submenu = invite_to_menu_item;
+                popup.Append(invite_to_item);
+            }
 
             popup.ShowAll();
         }
