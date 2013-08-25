@@ -1360,7 +1360,16 @@ namespace Smuxi.Engine
                     chat = Session.CreatePersonChat(person, nickname,
                                                     nickname, this);
                     Session.AddChat(chat);
-                    Session.SyncChat(chat);
+                    if (Session.IsLocal) {
+                        Session.SyncChat(chat);
+                    } else {
+                        // HACK: lower probability of sync race condition swallowing
+                        // messages, see: https://www.smuxi.org/issues/show/634
+                        ThreadPool.QueueUserWorkItem(delegate {
+                            Thread.Sleep(1000);
+                            Session.SyncChat(chat);
+                        });
+                    }
                 }
             }
             
@@ -2962,7 +2971,14 @@ namespace Smuxi.Engine
                     return;
                 }
                 Session.AddChat(chat);
-                Session.SyncChat(chat);
+                Session.AddMessageToChat(chat, msg);
+                // HACK: lower probability of sync race condition swallowing
+                // messages, see: https://www.smuxi.org/issues/show/634
+                ThreadPool.QueueUserWorkItem(delegate {
+                    Thread.Sleep(1000);
+                    Session.SyncChat(chat);
+                });
+                return;
             }
 
             Session.AddMessageToChat(chat, msg);
@@ -2996,7 +3012,14 @@ namespace Smuxi.Engine
                     return;
                 }
                 Session.AddChat(chat);
-                Session.SyncChat(chat);
+                Session.AddMessageToChat(chat, msg);
+                // HACK: lower probability of sync race condition swallowing
+                // messages, see: https://www.smuxi.org/issues/show/634
+                ThreadPool.QueueUserWorkItem(delegate {
+                    Thread.Sleep(1000);
+                    Session.SyncChat(chat);
+                });
+                return;
             }
 
             Session.AddMessageToChat(chat, msg);
