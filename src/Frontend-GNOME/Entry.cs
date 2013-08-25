@@ -740,7 +740,7 @@ namespace Smuxi.Frontend.Gnome
                         }
 
                         // their types are equal, so their name decides
-                        return y.ID.CompareTo(x.ID);
+                        return x.ID.CompareTo(y.ID);
                     });
 
                     Gtk.Application.Invoke(delegate {
