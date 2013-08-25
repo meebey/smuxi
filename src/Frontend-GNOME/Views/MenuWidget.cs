@@ -137,6 +137,8 @@ namespace Smuxi.Frontend.Gnome
                 IgeMacMenu.GlobalKeyHandlerEnabled = true;
                 IgeMacMenu.MenuBar = f_MenuBar;
                 f_ShowMenubarAction.Active = false;
+                // no need for the menu bar as have the app menu
+                f_ShowMenubarAction.Visible = false;
 
                 var appGroup = IgeMacMenu.AddAppMenuGroup();
                 appGroup.AddMenuItem(

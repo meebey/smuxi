@@ -747,18 +747,23 @@ namespace Smuxi.Frontend.Gnome
             }
 
             Gtk.Menu popup = e.Menu;
-            popup.Prepend(new Gtk.SeparatorMenuItem());
 
-            var item = new Gtk.CheckMenuItem(_("Show _Menubar"));
-            item.Active = Frontend.MainWindow.ShowMenuBar;
-            item.Activated += delegate {
-                try {
-                    Frontend.MainWindow.ShowMenuBar = !Frontend.MainWindow.ShowMenuBar;
-                } catch (Exception ex) {
-                    Frontend.ShowException(ex);
-                }
-            };
-            popup.Prepend(item);
+            // hide menu bar item as it uses the app menu on OS X
+            if (!Frontend.IsMacOSX) {
+                popup.Prepend(new Gtk.SeparatorMenuItem());
+
+                var item = new Gtk.CheckMenuItem(_("Show _Menubar"));
+                item.Active = Frontend.MainWindow.ShowMenuBar;
+                item.Activated += delegate {
+                    try {
+                        Frontend.MainWindow.ShowMenuBar = !Frontend.MainWindow.ShowMenuBar;
+                    } catch (Exception ex) {
+                        Frontend.ShowException(ex);
+                    }
+                };
+                popup.Prepend(item);
+            }
+
             popup.ShowAll();
         }
 
