@@ -513,7 +513,13 @@ namespace Smuxi.Frontend.Gnome
 
                 DisconnectEngineFromGUI();
             }
-            
+
+#if LOG4NET
+            // HACK: workaround log4net deadlock issue. Not sure if it has any
+            // effect though, see: https://www.smuxi.org/issues/show/876
+            log4net.Core.LoggerManager.Shutdown();
+#endif
+
             Gtk.Application.Quit();
             
             Environment.Exit(0);
