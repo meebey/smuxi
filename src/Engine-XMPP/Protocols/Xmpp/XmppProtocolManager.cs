@@ -26,6 +26,7 @@ using System;
 using System.IO;
 using System.Net.Security;
 using System.Xml;
+using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Security.Cryptography.X509Certificates;
@@ -702,7 +703,8 @@ namespace Smuxi.Engine
                     if (cd.DataArray.Length < 4) {
                         JabberClient.RosterManager.UpdateRosterItem(jid, "");
                     } else {
-                        JabberClient.RosterManager.UpdateRosterItem(jid, cd.DataArray[3]);
+                        var newNick = String.Join(" ", cd.DataArray.Skip(3).ToArray());
+                        JabberClient.RosterManager.UpdateRosterItem(jid, newNick);
                     }
                     break;
                 default:

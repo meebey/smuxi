@@ -400,6 +400,7 @@ if test "x$ENABLE_ENGINE_XMPP" != "xno"; then
 	fi
 	SHAMROCK_CHECK_MONO_2_0_GAC_ASSEMBLIES([
 		System
+		System.Core
 		Mono.Posix
 		System.Xml
 	])
