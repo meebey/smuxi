@@ -105,6 +105,19 @@ namespace Smuxi.Frontend.Gnome
 
             // Campfire
             NetworkWebsiteUrls.Add("Campfire", "http://campfirenow.com");
+
+            // support downloading favicons via https
+            var whitelist = Session.CertificateValidator.HostnameWhitelist;
+            lock (whitelist) {
+                foreach (var url in NetworkWebsiteUrls.Values) {
+                    var uri = new Uri(url);
+                    var hostname = uri.Host;
+                    if (whitelist.Contains(hostname)) {
+                        continue;
+                    }
+                    whitelist.Add(hostname);
+                }
+            }
         }
 
         public ProtocolChatView(ChatModel chat) : base(chat)
