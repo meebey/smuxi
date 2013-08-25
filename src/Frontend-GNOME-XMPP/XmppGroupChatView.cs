@@ -46,13 +46,16 @@ namespace Smuxi.Frontend.Gnome
         {
             Trace.Call(o, e);
 
+            // only allow editing once from the context menu
+            IdentityNameCellRenderer.Editable = false;
+
             Gtk.TreeIter iter;
             if (!PersonTreeView.Model.GetIterFromString(out iter, e.Path)) {
                 return;
             }
-            PersonModel person = (PersonModel) PersonTreeView.Model.GetValue(iter, 0);
-            var renderer = (Gtk.Entry) e.Editable;
-            renderer.Text = person.IdentityName;
+            var person = (PersonModel) PersonTreeView.Model.GetValue(iter, 0);
+            var entry = (Gtk.Entry) e.Editable;
+            entry.Text = person.IdentityName;
         }
 
         private static string _(string msg)
@@ -69,26 +72,6 @@ namespace Smuxi.Frontend.Gnome
             XmppProtocolManager = (XmppProtocolManager) ProtocolManager;
         }
 
-        public override void Populate()
-        {
-            Trace.Call();
-
-            base.Populate();
-
-            // this check is always false *happy*
-            if (Frontend.EngineVersion < new Version(0, 8, 11)) {
-                return;
-            }
-
-            if (IsContactList) {
-                if (!IdentityNameCellRenderer.Editable) {
-                    IdentityNameCellRenderer.Editable = true;
-                    IdentityNameCellRenderer.Edited += OnPersonRenameEdited;
-                    IdentityNameCellRenderer.EditingStarted += OnPersonRenameEditingStarted;
-                }
-            }
-        }
-        
         void _OnUserListMenuWhoisActivated(object sender, EventArgs e)
         {
             Trace.Call(sender, e);
@@ -247,6 +230,27 @@ namespace Smuxi.Frontend.Gnome
                 );
                 invite_to_item.Submenu = invite_to_menu_item;
                 PersonMenu.Append(invite_to_item);
+            }
+
+            if (IsContactList && Frontend.EngineVersion >= new Version(0, 8, 11)) {
+                // cleanup old handlers
+                IdentityNameCellRenderer.EditingStarted -= OnPersonRenameEditingStarted;
+                IdentityNameCellRenderer.Edited -= OnPersonRenameEdited;
+
+                IdentityNameCellRenderer.EditingStarted += OnPersonRenameEditingStarted;
+                IdentityNameCellRenderer.Edited += OnPersonRenameEdited;
+
+                var rename_item = new Gtk.ImageMenuItem(_("Rename"));
+                rename_item.Activated += (o, args) => {
+                    var paths = PersonTreeView.Selection.GetSelectedRows();
+                    if (paths == null || paths.Length == 0) {
+                        return;
+                    }
+                    var path = paths[0];
+                    IdentityNameCellRenderer.Editable = true;
+                    PersonTreeView.SetCursor(path, IdentityNameColumn, true);
+                };
+                PersonMenu.Append(rename_item);
             }
 
             PersonMenu.ShowAll();
