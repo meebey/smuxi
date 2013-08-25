@@ -202,31 +202,44 @@ namespace Smuxi.Engine
                         continue;
                     }
 
-                    bool isError = false;
-                    try {
-                        IProtocolManager protocolManager = Connect(server, fm);
+                    var msg = String.Format(
+                        _("Automatically connecting to {0}..."),
+                        String.Format("{0}/{1} ({2}:{3})", server.Protocol,
+                                      server.Network, server.Hostname, server.Port)
+                    );
+#if LOG4NET
+                    f_Logger.Info(msg);
+#endif
+                    fm.SetStatus(msg);
 
-                        // if the connect command was correct, we should be
-                        // able to get the chat model
-                        if (protocolManager.Chat == null) {
+                    var srv = server;
+                    // run connects in background threads as they block
+                    ThreadPool.QueueUserWorkItem(delegate {
+                        bool isError = false;
+                        try {
+                            IProtocolManager protocolManager = Connect(srv, fm);
+
+                            // if the connect command was correct, we should be
+                            // able to get the chat model
+                            if (protocolManager.Chat == null) {
+                                isError = true;
+                            }
+                        } catch (Exception ex) {
+#if LOG4NET
+                            f_Logger.Error("RegisterFrontendUI(): Exception during "+
+                                           "automatic connect: ", ex);
+#endif
                             isError = true;
                         }
-                    } catch (Exception ex) {
-#if LOG4NET
-                        f_Logger.Error("RegisterFrontendUI(): Exception during "+
-                                       "automatic connect: ", ex);
-#endif
-                        isError = true;
-                    }
-                    if (isError) {
-                        var builder = CreateMessageBuilder();
-                        builder.AppendErrorText(
-                            _("Automatic connect to {0} failed!"),
-                            server.Hostname + ":" + server.Port
-                        );
-                        fm.AddMessageToChat(_SessionChat, builder.ToMessage());
-                        continue;
-                    }
+                        if (isError) {
+                            var builder = CreateMessageBuilder();
+                            builder.AppendErrorText(
+                                _("Automatic connect to {0} failed!"),
+                                srv.Hostname + ":" + srv.Port
+                            );
+                            fm.AddMessageToChat(_SessionChat, builder.ToMessage());
+                        }
+                    });
                 }
             }
         }
