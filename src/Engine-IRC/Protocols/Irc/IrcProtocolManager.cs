@@ -2908,7 +2908,8 @@ namespace Smuxi.Engine
             UpdateGroupPerson(chat, e.Data);
 
             var builder = CreateMessageBuilder();
-            builder.AppendMessage(GetPerson(chat, e.Data.Nick), e.Data.Message);
+            builder.AppendMessage(GetPerson(chat, e.Data.Nick ?? e.Data.From),
+                                  e.Data.Message);
             builder.MarkHighlights();
 
             var msg = builder.ToMessage();
@@ -2922,7 +2923,7 @@ namespace Smuxi.Engine
 
             var builder = CreateMessageBuilder();
             builder.AppendActionPrefix();
-            builder.AppendIdendityName(GetPerson(chat, e.Data.Nick));
+            builder.AppendIdendityName(GetPerson(chat, e.Data.Nick ?? e.Data.From));
             builder.AppendText(" ");
             builder.AppendMessage(e.ActionMessage);
             builder.MarkHighlights();
