@@ -164,8 +164,8 @@ namespace Smuxi.Engine
             }
 
             // sync current network manager (if any exists)
-            if (_Session.ProtocolManagers.Count > 0) {
-                IProtocolManager nm = _Session.ProtocolManagers[0];
+            IProtocolManager nm = _Session.FirstProtocolManager;
+            if (nm != null) {
                 CurrentProtocolManager = nm;
             }
 
@@ -206,22 +206,7 @@ namespace Smuxi.Engine
         public void NextProtocolManager()
         {
             Trace.Call();
-            
-            if (_Session.ProtocolManagers.Count == 0) {
-                CurrentProtocolManager = null;
-            } else {
-                int pos = 0;
-                if (CurrentProtocolManager != null) {
-                    pos = _Session.ProtocolManagers.IndexOf(CurrentProtocolManager);
-                }
-                if (pos < _Session.ProtocolManagers.Count - 1) {
-                    pos++;
-                } else {
-                    pos = 0;
-                }
-                CurrentProtocolManager = _Session.ProtocolManagers[pos];
-            }
-            
+            CurrentProtocolManager = _Session.NextProtocolManager(CurrentProtocolManager);
             UpdateNetworkStatus();
         }
         
