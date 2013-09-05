@@ -767,14 +767,16 @@ namespace Smuxi.Engine
                         case "away":
                             CommandAway(command);
                             // send away on all other IRC networks too
-                            foreach (IProtocolManager nm in Session.ProtocolManagers) {
-                                if (nm == this) {
-                                    // skip us, else we send it 2 times
-                                    continue;
-                                }
-                                if (nm is IrcProtocolManager) {
-                                    IrcProtocolManager ircnm = (IrcProtocolManager)nm;
-                                    ircnm.CommandAway(command);
+                            lock (Session.ProtocolManagers) {
+                                foreach (IProtocolManager nm in Session.ProtocolManagers) {
+                                    if (nm == this) {
+                                        // skip us, else we send it 2 times
+                                        continue;
+                                    }
+                                    if (nm is IrcProtocolManager) {
+                                        IrcProtocolManager ircnm = (IrcProtocolManager)nm;
+                                        ircnm.CommandAway(command);
+                                    }
                                 }
                             }
                             handled = true;

@@ -64,6 +64,18 @@ namespace Smuxi.Engine
                 return _ProtocolManagers;
             }
         }
+
+        public IProtocolManager FirstProtocolManager {
+            get {
+                lock (_ProtocolManagers) {
+                    if (_ProtocolManagers.Count == 0) {
+                        return null;
+                    } else {
+                        return _ProtocolManagers[0];
+                    }
+                }
+            }
+        }
         
         public IList<ChatModel> Chats {
             get {
@@ -147,6 +159,25 @@ namespace Smuxi.Engine
             NewsFeedRetryInterval = TimeSpan.FromMinutes(5);
             NewsFeedTimer = new Timer(delegate { UpdateNewsFeed(); }, null,
                                       TimeSpan.Zero, NewsFeedUpdateInterval);
+        }
+
+        public IProtocolManager NextProtocolManager(IProtocolManager currentProtocolManager)
+        {
+            lock (_ProtocolManagers) {
+                if (_ProtocolManagers.Count == 0) {
+                    return null;
+                }
+                int pos = 0;
+                if (currentProtocolManager != null) {
+                    pos = _ProtocolManagers.IndexOf(currentProtocolManager);
+                }
+                if (pos < _ProtocolManagers.Count - 1) {
+                    pos++;
+                } else {
+                    pos = 0;
+                }
+                return _ProtocolManagers[pos];
+            }
         }
 
         protected MessageBuilder CreateMessageBuilder()
@@ -514,7 +545,9 @@ namespace Smuxi.Engine
             if (protocolManager == null && server == null) {
                 try {
                     protocolManager = CreateProtocolManager(protocol);
-                    _ProtocolManagers.Add(protocolManager);
+                    lock (_ProtocolManagers) {
+                        _ProtocolManagers.Add(protocolManager);
+                    }
                 } catch (ArgumentException ex) {
                     if (ex.ParamName != "protocol") {
                         throw;
@@ -600,7 +633,9 @@ namespace Smuxi.Engine
             }
             victim.Disconnect(fm);
             victim.Dispose();
-            _ProtocolManagers.Remove(victim);
+            lock (_ProtocolManagers) {
+                _ProtocolManagers.Remove(victim);
+            }
         }
         
         public void CommandReconnect(CommandModel cd)
@@ -918,7 +953,9 @@ namespace Smuxi.Engine
                     pm.Disconnect(fm);
                     pm.Dispose();
                     // Dispose() takes care of removing the chat from session (frontends)
-                    _ProtocolManagers.Remove(pm);
+                    lock (_ProtocolManagers) {
+                        _ProtocolManagers.Remove(pm);
+                    }
                 } catch (Exception ex) {
 #if LOG4NET
                     f_Logger.Error("_CommandNetworkClose(): Exception", ex);
@@ -1370,7 +1407,9 @@ namespace Smuxi.Engine
             IProtocolManager protocolManager = CreateProtocolManager(
                 server.Protocol
             );
-            _ProtocolManagers.Add(protocolManager);
+            lock (_ProtocolManagers) {
+                _ProtocolManagers.Add(protocolManager);
+            }
 
             string password = null;
             // only pass non-empty passwords to Connect()
