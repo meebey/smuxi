@@ -303,6 +303,7 @@ namespace Smuxi.Frontend.Gnome
             NotificationAreaIconMode = mode;
 
             MenuWidget.OpenLogAction.Visible = Frontend.IsLocalEngine;
+            MenuWidget.OpenLogToolAction.Visible = Frontend.IsLocalEngine;
 
 #if GTK_SHARP_2_10
             StatusIconManager.ApplyConfig(userConfig);

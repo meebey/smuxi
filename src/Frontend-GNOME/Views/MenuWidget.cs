@@ -61,6 +61,12 @@ namespace Smuxi.Frontend.Gnome
             }
         }
 
+        public Gtk.Action OpenLogToolAction {
+            get {
+                return f_OpenLogToolAction;
+            }
+        }
+
         public Gtk.Action CloseChatAction {
             get {
                 return f_CloseChatAction;
