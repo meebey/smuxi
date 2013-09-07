@@ -137,6 +137,8 @@ namespace Smuxi.Frontend.Gnome
                 }
             };
 
+            Gtk.TreeView tv = new Gtk.TreeView();
+            _PersonTreeView = tv;
             Gtk.ScrolledWindow sw = new Gtk.ScrolledWindow();
             PersonScrolledWindow = sw;
             sw.HscrollbarPolicy = Gtk.PolicyType.Never;
@@ -164,8 +166,6 @@ namespace Smuxi.Frontend.Gnome
                 args.Requisition = bestSize;
             };
 
-            Gtk.TreeView tv = new Gtk.TreeView();
-            _PersonTreeView = tv;
             //tv.CanFocus = false;
             tv.BorderWidth = 0;
             tv.Selection.Mode = Gtk.SelectionMode.Multiple;
