@@ -61,22 +61,22 @@ namespace Smuxi.Engine
                 types = asm.GetTypes();
             } catch (ReflectionTypeLoadException ex) {
 #if LOG4NET
-                _Logger.ErrorFormat(
+                _Logger.WarnFormat(
                     "LoadProtocolManager(): GetTypes() on {0} threw exceptions",
                     filename
                 );
                 foreach (var loaderEx in ex.LoaderExceptions) {
-                    _Logger.Error(
+                    _Logger.Warn(
                         "LoadProtocolManager(): LoaderException: ",
                         loaderEx
                     );
-                    _Logger.Error(
+                    _Logger.Warn(
                         "LoadProtocolManager(): LoaderException.InnerException: ",
                         loaderEx.InnerException
                     );
                 }
 #endif
-                throw;
+                types = ex.Types;
             }
             
             foreach (Type type in types) {

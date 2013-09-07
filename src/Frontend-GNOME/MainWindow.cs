@@ -303,6 +303,7 @@ namespace Smuxi.Frontend.Gnome
             NotificationAreaIconMode = mode;
 
             MenuWidget.OpenLogAction.Visible = Frontend.IsLocalEngine;
+            MenuWidget.OpenLogToolAction.Visible = Frontend.IsLocalEngine;
 
 #if GTK_SHARP_2_10
             StatusIconManager.ApplyConfig(userConfig);
@@ -497,8 +498,9 @@ namespace Smuxi.Frontend.Gnome
                 }
                 MenuWidget.FindGroupChatAction.Sensitive = !(chatView is SessionChatView);
                 if (Frontend.IsLocalEngine) {
-                    MenuWidget.OpenLogAction.Sensitive =
-                        File.Exists(chatView.ChatModel.LogFile);
+                    var logExists = File.Exists(chatView.ChatModel.LogFile);
+                    MenuWidget.OpenLogAction.Sensitive = logExists;
+                    MenuWidget.OpenLogToolAction.Sensitive = logExists;
                 }
 
                 // find protocol chat parent and update join bar
