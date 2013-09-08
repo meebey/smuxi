@@ -73,16 +73,47 @@ namespace Smuxi.Engine
             Trace.Call(cmd);
 
             if (cmd.IsCommand) {
+                var handled = false;
                 switch (cmd.Command) {
+                    case "help":
+                        CommandHelp(cmd);
+                        handled = true;
+                        break;
                     case "j":
                     case "join":
                         CommandJoin(cmd);
+                        handled = true;
                         break;
                 }
+                return handled;
             } else {
                 CommandMessage(cmd);
             }
             return true;
+        }
+
+        public void CommandHelp(CommandModel cmd)
+        {
+            Trace.Call(cmd);
+
+            // TRANSLATOR: this line is used as a label / category for a
+            // list of commands below
+            var builder = CreateMessageBuilder().
+                AppendEventPrefix().
+                AppendHeader(_("JabbR Commands"));
+            cmd.FrontendManager.AddMessageToChat(cmd.Chat, builder.ToMessage());
+
+            string[] help = {
+                "connect jabbr username password",
+                "join"
+            };
+
+            foreach (string line in help) {
+                builder = CreateMessageBuilder();
+                builder.AppendEventPrefix();
+                builder.AppendText(line);
+                cmd.FrontendManager.AddMessageToChat(cmd.Chat, builder.ToMessage());
+            }
         }
 
         public void CommandJoin(CommandModel cmd)
@@ -173,6 +204,7 @@ namespace Smuxi.Engine
                 }
                 var authProvider = new DefaultAuthenticationProvider(url);
                 Client = new JabbRClient(url, authProvider, transport);
+                Client.AutoReconnect = true;
                 Client.MessageReceived += OnMessageReceived;
                 Client.MeMessageReceived += OnMeMessageReceived;
                 Client.UserLeft += OnUserLeft;
