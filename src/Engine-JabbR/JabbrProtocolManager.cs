@@ -180,21 +180,7 @@ namespace Smuxi.Engine
                 Client.JoinedRoom += OnJoinedRoom;
                 Client.PrivateMessage += OnPrivateMessage;
 
-                var msg = CreateMessageBuilder().
-                    AppendEventPrefix().
-                    AppendText(_("Connecting to {0}..."), url).
-                    ToMessage();
-                Session.AddMessageToChat(ProtocolChat, msg);
-
-                Username = server.Username;
-                var res = Client.Connect(server.Username, server.Password);
-                res.Wait();
-                // HACK: this event can only be subscribed if we have made an
-                // actual connection o_O
-                Client.Disconnected += OnDisconnected;
-                IsConnected = true;
-                OnConnected(EventArgs.Empty);
-                OnLoggedOn(res.Result.Rooms);
+                Connect();
 
                 Me = CreatePerson(Username);
                 Me.IdentityNameColored.ForegroundColor = new TextColor(0, 0, 255);
@@ -211,6 +197,27 @@ namespace Smuxi.Engine
                     ToMessage();
                 Session.AddMessageToChat(ProtocolChat, msg);
             }
+        }
+
+        void Connect()
+        {
+            Trace.Call();
+
+            var msg = CreateMessageBuilder().
+                AppendEventPrefix().
+                    AppendText(_("Connecting to {0}..."), Client.SourceUrl).
+                    ToMessage();
+            Session.AddMessageToChat(ProtocolChat, msg);
+
+            Username = Server.Username;
+            var res = Client.Connect(Server.Username, Server.Password);
+            res.Wait();
+            // HACK: this event can only be subscribed if we have made an
+            // actual connection o_O
+            Client.Disconnected += OnDisconnected;
+            IsConnected = true;
+            OnConnected(EventArgs.Empty);
+            OnLoggedOn(res.Result.Rooms);
         }
 
         void OnPrivateMessage(string fromUserName, string toUserName, string message)
@@ -283,7 +290,19 @@ namespace Smuxi.Engine
         {
             Trace.Call(fm);
 
-            throw new NotImplementedException();
+            var msg = CreateMessageBuilder().
+                AppendEventPrefix().
+                    AppendText(_("Reconnecting to {0}..."), Server.Hostname).
+                    ToMessage();
+            Session.AddMessageToChat(Chat, msg);
+            try {
+                Client.Disconnect();
+                Connect();
+            } catch (Exception ex) {
+#if LOG4NET
+                Logger.Error("Reconnect(): Exception during reconnect", ex);
+#endif
+            }
         }
 
         public override void Disconnect(FrontendManager fm)
@@ -460,8 +479,16 @@ namespace Smuxi.Engine
 
             try {
                 foreach (var room in rooms) {
-                    var groupChat = new GroupChatModel(room.Name, room.Name, this);
-                    groupChat.InitMessageBuffer(MessageBufferPersistencyType.Volatile);
+                    var groupChat = (GroupChatModel) GetChat(room.Name, ChatType.Group);
+                    bool newChat;
+                    if (groupChat == null) {
+                        groupChat = new GroupChatModel(room.Name, room.Name, this);
+                        groupChat.InitMessageBuffer(MessageBufferPersistencyType.Volatile);
+                        newChat = true;
+                    } else {
+                        groupChat.UnsafePersons.Clear();
+                        newChat = false;
+                    }
 
                     var task = Client.GetRoomInfo(room.Name);
                     task.Wait();
@@ -478,7 +505,11 @@ namespace Smuxi.Engine
                     if (!groupChat.UnsafePersons.ContainsKey(Username)) {
                         groupChat.UnsafePersons.Add(Username, Me);
                     }
-                    Session.AddChat(groupChat);
+                    if (newChat) {
+                        Session.AddChat(groupChat);
+                    } else {
+                        Session.EnableChat(groupChat);
+                    }
                     Session.SyncChat(groupChat);
                 }
             } catch (Exception ex) {
