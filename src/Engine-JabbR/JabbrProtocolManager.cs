@@ -287,6 +287,17 @@ namespace Smuxi.Engine
         {
             Trace.Call();
 
+            foreach (var chat in Chats) {
+                // don't disable the protocol chat, else the user loses all
+                // control for the protocol manager! e.g. after a manual
+                // reconnect or server-side disconnect
+                if (chat.ChatType == ChatType.Protocol) {
+                    continue;
+                }
+
+                Session.DisableChat(chat);
+            }
+
             IsConnected = false;
             OnDisconnected(EventArgs.Empty);
         }
