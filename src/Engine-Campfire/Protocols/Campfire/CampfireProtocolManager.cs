@@ -198,8 +198,10 @@ namespace Smuxi.Engine
 
             string[] help = {
                 "connect campfire username password",
-                "list",
+                "join",
+                "topic",
                 "uploads",
+                "say"
             };
 
             foreach (string line in help) {

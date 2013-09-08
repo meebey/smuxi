@@ -75,6 +75,7 @@ namespace Smuxi.Engine
 #if LOG4NET
         static readonly log4net.ILog _Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 #endif
+        static readonly string LibraryTextDomain = "smuxi-engine-xmpp";
         XmppClientConnection JabberClient { get; set; }
         MucManager MucManager { get; set; }
         DiscoManager Disco { get; set; }
@@ -2273,7 +2274,7 @@ namespace Smuxi.Engine
 
         static string _(string msg)
         {
-            return Mono.Unix.Catalog.GetString(msg);
+            return LibraryCatalog.GetString(msg, LibraryTextDomain);
         }
     }
 }

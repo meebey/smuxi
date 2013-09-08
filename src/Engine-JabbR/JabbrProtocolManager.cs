@@ -200,7 +200,9 @@ namespace Smuxi.Engine
                 // for some reason and then fallbacks to LongPollingTransport
                 // this takes 10 seconds though, so let's go LP directly
                 Func<IClientTransport> transport = null;
-                if (Type.GetType("Mono.Runtime") != null) {
+                if (Type.GetType("Mono.Runtime") == null) {
+                    transport = () => new AutoTransport(new DefaultHttpClient());
+                } else {
                     transport = () => new LongPollingTransport();
                 }
                 var authProvider = new DefaultAuthenticationProvider(url);
