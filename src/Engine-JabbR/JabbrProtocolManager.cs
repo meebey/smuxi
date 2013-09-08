@@ -171,6 +171,7 @@ namespace Smuxi.Engine
             Trace.Call(fm, server);
 
             Server = server;
+            Username = server.Username;
             var chatName = String.Format("{0} {1}", Protocol, NetworkID);
             ProtocolChat = new ProtocolChatModel(NetworkID, chatName, this);
             ProtocolChat.InitMessageBuffer(MessageBufferPersistencyType.Volatile);
@@ -212,12 +213,12 @@ namespace Smuxi.Engine
                 Client.JoinedRoom += OnJoinedRoom;
                 Client.PrivateMessage += OnPrivateMessage;
 
-                Connect();
-
                 Me = CreatePerson(Username);
                 Me.IdentityNameColored.ForegroundColor = new TextColor(0, 0, 255);
                 Me.IdentityNameColored.BackgroundColor = TextColor.None;
                 Me.IdentityNameColored.Bold = true;
+
+                Connect();
             } catch (Exception ex) {
 #if LOG4NET
                 Logger.Error(ex);
@@ -241,7 +242,6 @@ namespace Smuxi.Engine
                     ToMessage();
             Session.AddMessageToChat(ProtocolChat, msg);
 
-            Username = Server.Username;
             var res = Client.Connect(Server.Username, Server.Password);
             res.Wait();
             // HACK: this event can only be subscribed if we have made an
@@ -438,24 +438,32 @@ namespace Smuxi.Engine
             Trace.Call(message, room);
 
             var chat = GetChat(room, ChatType.Group) ?? ProtocolChat;
+            AddMessage(chat, message);
+        }
 
-            string content = message.Content;
-            string name = message.User.Name;
+        void AddMessage(ChatModel chat, Message msg)
+        {
+            if (chat == null) {
+                throw new ArgumentNullException("chat");
+            }
+            if (msg == null) {
+                throw new ArgumentNullException("msg");
+            }
+
+            string content = msg.Content;
+            string name = msg.User.Name;
 
             var builder = CreateMessageBuilder<JabbrMessageBuilder>();
-            ContactModel sender = null;
-            if (name == Username) {
-                sender = Me;
-            } else {
-                sender = CreatePerson(name);
+            if (msg.When != default(DateTimeOffset)) {
+                builder.TimeStamp = msg.When.UtcDateTime;
             }
+            var sender = name == Username ? Me : CreatePerson(name);
             builder.AppendSenderPrefix(sender);
             builder.AppendMessage(content);
             if (sender != Me) {
                 builder.MarkHighlights();
             }
-            var msg = builder.ToMessage();
-            Session.AddMessageToChat(chat, msg);
+            Session.AddMessageToChat(chat, builder.ToMessage());
         }
 
         void OnMeMessageReceived(string userName, string content, string roomName)
@@ -547,6 +555,9 @@ namespace Smuxi.Engine
                     // add ourself if needed
                     if (!groupChat.UnsafePersons.ContainsKey(Username)) {
                         groupChat.UnsafePersons.Add(Username, Me);
+                    }
+                    foreach (var msg in roomInfo.RecentMessages) {
+                        AddMessage(groupChat, msg);
                     }
                     if (newChat) {
                         Session.AddChat(groupChat);
