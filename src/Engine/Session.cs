@@ -1455,6 +1455,15 @@ namespace Smuxi.Engine
                 if (protocol == "twitter") {
                     return;
                 }
+
+                // don't log chatstates
+                switch (msg.MessageType) {
+                    case MessageType.ChatStateComposing:
+                    case MessageType.ChatStatePaused:
+                    case MessageType.ChatStateReset:
+                        return;
+                }
+
                 using (var stream = File.AppendText(chat.LogFile)) {
                     stream.WriteLine(
                         String.Format(

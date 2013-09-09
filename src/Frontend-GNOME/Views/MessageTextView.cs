@@ -63,7 +63,16 @@ namespace Smuxi.Frontend.Gnome
         public event MessageTextViewMessageAddedEventHandler       MessageAdded;
         public event MessageTextViewMessageHighlightedEventHandler MessageHighlighted;
         public event EventHandler<MessageTextViewPersonClickedEventArgs> PersonClicked;
-        
+
+        public int MarkerlineBufferPosition {
+            get {
+                return _MarkerlineBufferPosition;
+            }
+            set {
+                _MarkerlineBufferPosition = value;
+            }
+        }
+
         public bool ShowTimestamps {
             get {
                 return _ShowTimestamps;
@@ -238,6 +247,11 @@ namespace Smuxi.Frontend.Gnome
         
         public void AddMessage(MessageModel msg, bool addLinebreak)
         {
+            AddMessage(msg, addLinebreak, _ShowTimestamps);
+        }
+
+        public void AddMessage(MessageModel msg, bool addLinebreak, bool showTimestamps)
+        {
 #if MSG_DEBUG
             Trace.Call(msg, addLinebreak);
 #endif
@@ -262,7 +276,7 @@ namespace Smuxi.Frontend.Gnome
                 _MessageTextTagTable.Add(indentTag);
             }
 
-            if (_ShowTimestamps) {
+            if (showTimestamps) {
                 var msgTimeStamp = msg.TimeStamp.ToLocalTime();
                 if (_LastMessage != null) {
                     var lastMsgTimeStamp = _LastMessage.TimeStamp.ToLocalTime();

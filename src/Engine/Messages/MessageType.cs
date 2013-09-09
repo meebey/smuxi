@@ -33,6 +33,9 @@ namespace Smuxi.Engine
     public enum MessageType
     {
         Normal,
-        Event
+        Event,
+        ChatStateComposing,
+        ChatStatePaused,
+        ChatStateReset
     }
 }
