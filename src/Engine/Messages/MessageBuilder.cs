@@ -26,6 +26,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Xml;
 using System.Web;
+using Smuxi.Common;
 
 namespace Smuxi.Engine
 {
@@ -34,6 +35,7 @@ namespace Smuxi.Engine
 #if LOG4NET
         private static readonly log4net.ILog f_Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 #endif
+        static readonly string LibraryTextDomain = "smuxi-engine";
         MessageModel Message { get; set; }
         public bool NickColors { get; set; }
         public bool StripFormattings { get; set; }
@@ -762,6 +764,31 @@ namespace Smuxi.Engine
                 Append(part);
             }
             return this;
+        }
+
+        public virtual MessageBuilder AppendChatState(ContactModel contact, MessageType state)
+        {
+            AppendActionPrefix();
+            switch (state) {
+                case MessageType.ChatStateComposing:
+                    AppendFormat(_("{0} is typing..."), contact);
+                    break;
+                case MessageType.ChatStatePaused:
+                    AppendFormat(_("{0} has stopped typing..."), contact);
+                    break;
+                case MessageType.ChatStateReset:
+                    AppendFormat(_("{0} has stopped typing..."), contact);
+                    break;
+                default:
+                    throw new ArgumentException("state is not a ChatState", "state");
+            }
+            MessageType = state;
+            return this;
+        }
+
+        static string _(string msg)
+        {
+            return LibraryCatalog.GetString(msg, LibraryTextDomain);
         }
     }
 }

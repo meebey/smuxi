@@ -97,6 +97,10 @@ namespace Smuxi.Engine
 
         bool IsFacebook { get; set; }
 
+        bool ShowChatStates { get; set; }
+        // pidgin's psychic mode
+        bool OpenNewChatOnChatState { get; set; }
+
         public override string NetworkID {
             get {
                 return Host;
@@ -122,6 +126,8 @@ namespace Smuxi.Engine
             DiscoCache = new Dictionary<string, DiscoInfo>();
 
             SupressLocalMessageEcho = false;
+            ShowChatStates = true;
+            OpenNewChatOnChatState = true;
             AutoReconnectDelay = 60;
 
             JabberClient = new XmppClientConnection();
@@ -2000,7 +2006,12 @@ namespace Smuxi.Engine
         [MethodImpl(MethodImplOptions.Synchronized)]
         void OnChatState(Message msg)
         {
-            if (msg.Body != null) return;
+            if (!ShowChatStates) {
+                return;
+            }
+            if (msg.Body != null) {
+                return;
+            }
             switch (msg.Type) {
                 case XmppMessageType.chat:
                 case XmppMessageType.headline:
@@ -2012,12 +2023,34 @@ namespace Smuxi.Engine
                     if (chat == null) {
                         // create chat
                         chat = GetOrCreatePersonChat(msg.From.Bare, out isNew);
+                        if (isNew) {
+                            if (!OpenNewChatOnChatState) {
+                                return;
+                            }
+                            if (msg.Chatstate != Chatstate.composing) {
+                                // there is NO reason to open a new chat window for
+                                // a chatstate other than composing
+                                return;
+                            }
+                            Session.AddChat(chat);
+                        }
                     }
                     var builder = CreateMessageBuilder();
-                    builder.AppendEventPrefix();
-                    builder.AppendFormat(_("{0} changed the chatstate to {1}"),
-                                       chat.Person, msg.Chatstate.ToString());
-                    AddMessageToChatIfNotFiltered(builder.ToMessage(), chat, isNew);
+                    switch (msg.Chatstate) {
+                        case Chatstate.composing:
+                            builder.AppendChatState(chat.Person, MessageType.ChatStateComposing);
+                            break;
+                        case Chatstate.paused:
+                            builder.AppendChatState(chat.Person, MessageType.ChatStatePaused);
+                            break;
+                        default:
+                            builder.AppendChatState(chat.Person, MessageType.ChatStateReset);
+                            break;
+                    }
+                    Session.AddMessageToChat(chat, builder.ToMessage());
+                    if (isNew) {
+                        Session.SyncChat(chat);
+                    }
                 }
                     break;
                 default:
