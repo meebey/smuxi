@@ -41,9 +41,22 @@ namespace Smuxi.Engine
         }
     }
 
+    internal class ErrorReceivedEventArgs : EventArgs
+    {
+        public HttpStatusCode StatusCode { get; private set; }
+        public string StatusDescription { get; private set; }
+
+        public ErrorReceivedEventArgs(HttpStatusCode code, string description)
+        {
+            StatusCode = code;
+            StatusDescription = description;
+        }
+    }
+
     internal class CampfireEventStream : IDisposable
     {
         public EventHandler<MessageReceivedEventArgs> MessageReceived;
+        public EventHandler<ErrorReceivedEventArgs> ErrorReceived;
 
         HttpWebRequest Request { get; set; }
         GroupChatModel Chat { get; set; }
@@ -99,7 +112,20 @@ namespace Smuxi.Engine
                     ParseStream();
                 } catch (TimeoutException) {
                     // Not to worry, let's just connect again
-                } catch (WebException) {
+                } catch (WebException e) {
+                    if (e.Status == WebExceptionStatus.ProtocolError) {
+                        var resp = (HttpWebResponse) e.Response;
+                        if (resp.StatusCode == HttpStatusCode.Unauthorized ||
+                            resp.StatusCode == HttpStatusCode.Forbidden) {
+                            if (ErrorReceived != null) {
+                                ErrorReceived(this, new ErrorReceivedEventArgs(resp.StatusCode, resp.StatusDescription));
+                            }
+
+                            return;
+                        }
+                        // it's not such a bad error, sleep for a bit before trying again
+                        Thread.Sleep(TimeSpan.FromSeconds(5));
+                    }
                 }
             }
         }

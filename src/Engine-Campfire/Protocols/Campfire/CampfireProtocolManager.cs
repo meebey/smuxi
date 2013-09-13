@@ -471,6 +471,15 @@ namespace Smuxi.Engine
             Session.AddMessageToChat(chat, bld.ToMessage());
     }
 
+        void ShowError(object sender, ErrorReceivedEventArgs args)
+        {
+            var message = args.StatusDescription;
+            var bld = CreateMessageBuilder();
+
+            bld.AppendErrorText(_("Error reading from stream: {0}"), message);
+            Session.AddMessageToChat(NetworkChat, bld.ToMessage());
+        }
+
         public override void OpenChat(FrontendManager fm, ChatModel chat_)
         {
             Trace.Call(fm, chat_);
@@ -510,6 +519,7 @@ namespace Smuxi.Engine
                 EventStreams.Add(chat, stream);
 
             stream.MessageReceived += ShowMessage;
+            stream.ErrorReceived += ShowError;
             stream.Start();
         }
 
