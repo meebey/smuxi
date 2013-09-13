@@ -355,7 +355,16 @@ namespace Smuxi.Engine
         {
             var message = new MessageSending { body = text, type = Campfire.MessageType.TextMessage};
             var wrapper = new MessageWrapper { message = message };
-            var res = Client.Post<MessageResponse>(String.Format("/room/{0}/speak.json", chat.ID), wrapper).Message;
+            Message res;
+            try {
+                res = Client.Post<MessageResponse>(String.Format("/room/{0}/speak.json", chat.ID), wrapper).Message;
+            } catch (WebServiceException e) {
+                var bld = CreateMessageBuilder();
+                bld.AppendErrorText(_("Failed to post message: {0}"), e.Message);
+                Session.AddMessageToChat(NetworkChat, bld.ToMessage());
+                return;
+            }
+
             ShowMessage(this, new MessageReceivedEventArgs(chat, res));
             LastSentId = res.Id;
         }
