@@ -355,7 +355,16 @@ namespace Smuxi.Engine
         {
             var message = new MessageSending { body = text, type = Campfire.MessageType.TextMessage};
             var wrapper = new MessageWrapper { message = message };
-            var res = Client.Post<MessageResponse>(String.Format("/room/{0}/speak.json", chat.ID), wrapper).Message;
+            Message res;
+            try {
+                res = Client.Post<MessageResponse>(String.Format("/room/{0}/speak.json", chat.ID), wrapper).Message;
+            } catch (WebServiceException e) {
+                var bld = CreateMessageBuilder();
+                bld.AppendErrorText(_("Failed to post message: {0}"), e.Message);
+                Session.AddMessageToChat(NetworkChat, bld.ToMessage());
+                return;
+            }
+
             ShowMessage(this, new MessageReceivedEventArgs(chat, res));
             LastSentId = res.Id;
         }
@@ -471,6 +480,15 @@ namespace Smuxi.Engine
             Session.AddMessageToChat(chat, bld.ToMessage());
     }
 
+        void ShowError(object sender, ErrorReceivedEventArgs args)
+        {
+            var message = args.StatusDescription;
+            var bld = CreateMessageBuilder();
+
+            bld.AppendErrorText(_("Error reading from stream: {0}"), message);
+            Session.AddMessageToChat(NetworkChat, bld.ToMessage());
+        }
+
         public override void OpenChat(FrontendManager fm, ChatModel chat_)
         {
             Trace.Call(fm, chat_);
@@ -510,6 +528,7 @@ namespace Smuxi.Engine
                 EventStreams.Add(chat, stream);
 
             stream.MessageReceived += ShowMessage;
+            stream.ErrorReceived += ShowError;
             stream.Start();
         }
 
