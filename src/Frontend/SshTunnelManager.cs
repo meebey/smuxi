@@ -400,6 +400,8 @@ namespace Smuxi.Frontend
             } else {
                 haystack = output;
             }
+            // OpenSSH_6.2p2 Debian-6, OpenSSL 1.0.1e 11 Feb 2013
+            // OpenSSH_6.2, OpenSSL 1.0.1c 10 May 2012
             Match match = Regex.Match(haystack, @"OpenSSH[_\w](\d+).(\d+)(?:.(\d+))?");
             if (match.Success) {
                 string major, minor, micro;
@@ -413,6 +415,7 @@ namespace Smuxi.Frontend
                     micro = match.Groups[3].Value;
                     version = String.Format("{0}.{1}", version, micro);
                 }
+                version = version.TrimEnd('.');
 #if LOG4NET
                 f_Logger.Debug("GetOpenSshVersion(): found version: " + version);
 #endif
