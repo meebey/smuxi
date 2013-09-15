@@ -111,6 +111,11 @@ namespace Stfl
         {
             CheckDisposed();
             string @event = StflApi.stfl_run(f_Handle, timeout);
+            if (timeout == -3) {
+                // HACK: timeout of -3 should never return an event but
+                // sometimes does which causes event duplication
+                return;
+            }
             ProcessEvent(@event);
         }
 
