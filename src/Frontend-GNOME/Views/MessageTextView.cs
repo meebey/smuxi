@@ -439,6 +439,11 @@ namespace Smuxi.Frontend.Gnome
                 // http://projects.qnetp.net/issues/show/185
                 QueueDraw();
             }
+            if (Frontend.IsWindows && _LastMessage == null) {
+                // HACK: workaround rendering issue on Windows where the
+                // first inserted text is not showing up until the next insert
+                QueueDraw();
+            }
 
             if (MessageAdded != null) {
                 MessageAdded(this, new MessageTextViewMessageAddedEventArgs(msg));
