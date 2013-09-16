@@ -1832,9 +1832,11 @@ namespace Smuxi.Engine
             }
             if (isNew) {
                 Session.AddChat(chat);
+            }
+            Session.AddMessageToChat(chat, msg, true);
+            if (isNew) {
                 Session.SyncChat(chat);
             }
-            Session.AddMessageToChat(chat, msg);
         }
 
         [MethodImpl(MethodImplOptions.Synchronized)]
