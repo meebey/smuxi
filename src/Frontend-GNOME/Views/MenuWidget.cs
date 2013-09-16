@@ -122,13 +122,14 @@ namespace Smuxi.Frontend.Gnome
 
             JoinWidget = new JoinWidget();
             JoinWidget.NoShowAll = true;
-            JoinWidget.Visible = f_MenuToolbar.Visible;
             JoinWidget.Activated += OnJoinWidgetActivated;
 
             var joinToolItem = new Gtk.ToolItem();
             joinToolItem.Add(JoinWidget);
             f_JoinToolbar.Add(joinToolItem);
             f_JoinToolbar.ShowAll();
+            f_JoinToolbar.NoShowAll = true;
+            f_JoinToolbar.Visible = f_MenuToolbar.Visible;
 
             f_ShowMenubarAction.Active = (bool) Frontend.FrontendConfig["ShowMenuBar"];
             f_ShowToolbarAction.Active = (bool) Frontend.FrontendConfig["ShowToolBar"];
@@ -480,7 +481,7 @@ namespace Smuxi.Frontend.Gnome
                 var active = f_ShowToolbarAction.Active;
                 f_MenuToolbar.Visible = active;
                 // also hide/show join bar
-                JoinWidget.Visible = active;
+                f_JoinToolbar.Visible = active;
                 Frontend.FrontendConfig["ShowToolBar"] = active;
                 Frontend.FrontendConfig.Save();
             } catch (Exception ex) {
