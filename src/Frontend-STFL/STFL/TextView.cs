@@ -147,13 +147,21 @@ namespace Stfl
         protected void Scroll(double scrollFactor)
         {
             int currentOffset = Offset;
-            int newOffset = (int) (currentOffset + (Heigth * scrollFactor));
-            if (newOffset < 0) {
-                newOffset = 0;
-            } else if (newOffset > OffsetEnd) {
-                newOffset = OffsetEnd;
+            try {
+                int newOffset = (int) (currentOffset + (Heigth * scrollFactor));
+                if (newOffset < 0) {
+                    newOffset = 0;
+                } else if (newOffset > OffsetEnd) {
+                    newOffset = OffsetEnd;
+                }
+                Offset = newOffset;
+            } catch (FormatException ex) {
+#if LOG4NET
+                Logger.ErrorFormat(
+                    "Scroll({0}): FormatException, ignoring...", ex
+                );
+#endif
             }
-            Offset = newOffset;
         }
 
         public void ScrollToStart()
