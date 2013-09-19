@@ -36,7 +36,19 @@ namespace Stfl
                 if (variableName == null) {
                     variableName = String.Format("{0}:h", WidgetName);
                 }
-                return Int32.Parse(Form[variableName]);
+                var value = Form[variableName];
+                try {
+                    return Int32.Parse(value);
+                } catch (FormatException ex) {
+                    throw new FormatException(
+                        String.Format(
+                            "Failed to parse Widget.Heigth: '{0}' as number " +
+                            "(HeigthVariableName: '{1}').",
+                            value, variableName
+                        ),
+                        ex
+                    );
+                }
             }
         }
 
@@ -47,7 +59,19 @@ namespace Stfl
                 if (variableName == null) {
                     variableName = String.Format("{0}:w", WidgetName);
                 }
-                return Int32.Parse(Form[variableName]);
+                var value = Form[variableName];
+                try {
+                    return Int32.Parse(value);
+                } catch (FormatException ex) {
+                    throw new FormatException(
+                        String.Format(
+                            "Failed to parse Widget.Width: '{0}' as number " +
+                            "(WidthVariableName: '{1}').",
+                            value, variableName
+                        ),
+                        ex
+                    );
+                }
             }
         }
 
