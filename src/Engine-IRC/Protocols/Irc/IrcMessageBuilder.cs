@@ -143,7 +143,7 @@ namespace Smuxi.Engine
 #if LOG4NET && MSG_DEBUG
                             Logger.Debug("AppendMessage(): colorMessage: '" + colorMessage + "'");
 #endif
-                            Match match = Regex.Match(colorMessage, (char)IrcControlCode.Color + "(?<fg>[0-9][0-9]?)(,(?<bg>[0-9][0-9]?))?");
+                            Match match = Regex.Match(colorMessage, "^" + (char)IrcControlCode.Color + "(?<fg>[0-9][0-9]?)(,(?<bg>[0-9][0-9]?))?");
                             if (match.Success) {
                                 controlChars = match.Value;
                                 int color_code;
