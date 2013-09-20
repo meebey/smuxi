@@ -656,6 +656,12 @@ namespace Smuxi.Frontend.Gnome
                         if (chatView.Name.ToLower() != seachKey) {
                             continue;
                         }
+
+                        if (chatView == currentChat) {
+                            // we don't want to switch to ourselves
+                            continue;
+                        }
+
                         // name matches
                         // let's see if there is an exact match, if so, take it
                         if ((chatView.GetType() == currentChat.GetType()) &&
