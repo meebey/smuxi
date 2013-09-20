@@ -206,9 +206,10 @@ dist-win32:
 		COMPILER_OVERRIDE="MCS=/usr/bin/dmcs"; \
 		echo COMPILER_OVERRIDE="$$COMPILER_OVERRIDE"; \
 	fi; \
+	DIST_VERSION=$$(git describe); \
 	./autogen.sh $$COMPILER_OVERRIDE --without-indicate --without-messaging-menu --without-notify --without-dbus \
 	  --with-db4o=included \
-	  --with-vendor-package-version="dist-win32"
+	  --with-vendor-package-version="dist-win32 $$DIST_VERSION"
 	$(MAKE)
 	mkdir -p $(WIN32_BUILD_DIR)
 	for FILE in $(WIN32_FILES); do \
@@ -226,9 +227,10 @@ dist-osx:
 		COMPILER_OVERRIDE="MCS=/usr/bin/dmcs"; \
 		echo COMPILER_OVERRIDE="$$COMPILER_OVERRIDE"; \
 	fi; \
+	DIST_VERSION=$$(git describe); \
 	./autogen.sh $$COMPILER_OVERRIDE --without-indicate --without-messaging-menu --without-notify --without-dbus \
 	  --with-db4o=included \
-	  --with-vendor-package-version="dist-osx"
+	  --with-vendor-package-version="dist-osx $$DIST_VERSION"
 	$(MAKE)
 	mkdir -p $(OSX_BINARIES_DIR) $(OSX_RESOURCES_DIR)
 	cp $(OSX_LIB_DIR)/Info.plist $(OSX_CONTENTS_DIR)
