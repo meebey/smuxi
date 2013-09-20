@@ -67,6 +67,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "agsxmpp", "..\lib\agsxmpp\a
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StarkSoftProxy", "..\lib\StarkSoftProxy\StarkSoftProxy.csproj", "{3F8CF2C1-EA37-444F-8693-A3A00B1131D2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.AspNet.SignalR.Core", "..\lib\SignalR\src\Microsoft.AspNet.SignalR.Core\Microsoft.AspNet.SignalR.Core.csproj", "{1B9A82C4-BCA1-4834-A33E-226F17BE070B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Release|Any CPU = Release|Any CPU
@@ -100,6 +102,16 @@ Global
 		{118F010C-A914-48B7-B4A6-44176B1DB376}.Release|Any CPU.Build.0 = Release|Any CPU
 		{118F010C-A914-48B7-B4A6-44176B1DB376}.Release-Win32|x86.ActiveCfg = Release|Any CPU
 		{118F010C-A914-48B7-B4A6-44176B1DB376}.Release-Win32|x86.Build.0 = Release|Any CPU
+		{1B9A82C4-BCA1-4834-A33E-226F17BE070B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1B9A82C4-BCA1-4834-A33E-226F17BE070B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1B9A82C4-BCA1-4834-A33E-226F17BE070B}.Debug-Win32|Any CPU.ActiveCfg = Release|Any CPU
+		{1B9A82C4-BCA1-4834-A33E-226F17BE070B}.Debug-Win32|Any CPU.Build.0 = Release|Any CPU
+		{1B9A82C4-BCA1-4834-A33E-226F17BE070B}.Debug-Win32|x86.ActiveCfg = Debug|Any CPU
+		{1B9A82C4-BCA1-4834-A33E-226F17BE070B}.Debug-Win32|x86.Build.0 = Debug|Any CPU
+		{1B9A82C4-BCA1-4834-A33E-226F17BE070B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1B9A82C4-BCA1-4834-A33E-226F17BE070B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1B9A82C4-BCA1-4834-A33E-226F17BE070B}.Release-Win32|x86.ActiveCfg = Release|Any CPU
+		{1B9A82C4-BCA1-4834-A33E-226F17BE070B}.Release-Win32|x86.Build.0 = Release|Any CPU
 		{1C67CF8B-5CC9-4B43-9F67-FA6399000067}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{1C67CF8B-5CC9-4B43-9F67-FA6399000067}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1C67CF8B-5CC9-4B43-9F67-FA6399000067}.Debug-Win32|x86.ActiveCfg = Debug|Any CPU

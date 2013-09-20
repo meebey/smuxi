@@ -20,8 +20,10 @@
 
 #if JABBR_SERVER
 using System;
+using System.Collections.Generic;
+using Microsoft.AspNet.SignalR;
 
-namespace Smuxi.Engine
+namespace Smuxi.Engine.JabbR
 {
     public class JabbRHub : Hub
     {
@@ -47,26 +49,36 @@ namespace Smuxi.Engine
 
         public bool Send(string content, string roomName)
         {
+            return false;
         }
 
         public bool Send(ClientMessage clientMessage)
         {
+            return false;
         }
 
-        public UserViewModel GetUserInfo()
+        //public UserViewModel GetUserInfo()
+        public User GetUserInfo()
         {
+            return null;
         }
 
-        public IEnumerable<LobbyRoomViewModel> GetRooms()
+        //public IEnumerable<LobbyRoomViewModel> GetRooms()
+        public IEnumerable<Room> GetRooms()
         {
+            return null;
         }
 
-        public RoomViewModel GetRoomInfo(string roomName)
+        //public RoomViewModel GetRoomInfo(string roomName)
+        public Room GetRoomInfo(string roomName)
         {
+            return null;
         }
 
-        public IEnumerable<MessageViewModel> GetPreviousMessages(string messageId)
+        //public IEnumerable<MessageViewModel> GetPreviousMessages(string messageId)
+        public IEnumerable<Message> GetPreviousMessages(string messageId)
         {
+            return null;
         }
 
         public void PostNotification(ClientNotification notification)

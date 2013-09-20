@@ -17,7 +17,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>..\..\bin\debug</OutputPath>
-    <DefineConstants>DEBUG;TRACE;LOG4NET;CONFIG_NINI;DB4O_8_0</DefineConstants>
+    <DefineConstants>DEBUG;TRACE;LOG4NET;CONFIG_NINI;DB4O_8_0;JABBR_SERVER</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
@@ -99,6 +99,13 @@
     <Compile Include="TextColorPalettes.cs" />
     <Compile Include="Servers\JabbR\JabbRHub.cs" />
     <Compile Include="CertificateValidator.cs" />
+    <Compile Include="Servers\JabbR\Models\LogOnInfo.cs" />
+    <Compile Include="Servers\JabbR\Models\Message.cs" />
+    <Compile Include="Servers\JabbR\Models\Room.cs" />
+    <Compile Include="Servers\JabbR\Models\User.cs" />
+    <Compile Include="Servers\JabbR\Models\UserStatus.cs" />
+    <Compile Include="Servers\JabbR\Models\ClientMessage.cs" />
+    <Compile Include="Servers\JabbR\Models\ClientNotification.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Protocols\" />
@@ -140,6 +147,10 @@
     <ProjectReference Include="..\..\lib\db4o-net\Db4objects.Db4o\Db4objects.Db4o-2010.csproj">
       <Project>{600CD3BF-2ED2-4183-87F7-ADD78A968AE0}</Project>
       <Name>Db4objects.Db4o-2010</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\lib\SignalR\src\Microsoft.AspNet.SignalR.Core\Microsoft.AspNet.SignalR.Core.csproj">
+      <Project>{1B9A82C4-BCA1-4834-A33E-226F17BE070B}</Project>
+      <Name>Microsoft.AspNet.SignalR.Core</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
