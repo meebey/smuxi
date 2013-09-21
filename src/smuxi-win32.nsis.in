@@ -2,7 +2,7 @@
 # NSIS install script for Smuxi                                            #
 #                                                                          #
 # Copyright (C) 2009 Sebastian Schnur <ikkerus@ikkerus.net>                #
-# Copyright (C) 2009-2010 Mirco Bauer <meebey@meebey.net>                  #
+# Copyright (C) 2009-2013 Mirco Bauer <meebey@meebey.net>                  #
 #                                                                          #
 # This program is free software; you can redistribute it and/or modify     #
 # it under the terms of the GNU General Public License as published by     #
@@ -35,7 +35,7 @@ SetCompressor lzma
 !define PRODUCT_UNINST_ROOT_KEY "HKLM"
 !define DOTNET_VERSION "4.0"
 !define GTKSHARP_PRODUCT_GUID "{3CB70B01-4BC8-4C0F-B28F-7C6E33F913CC}"
-!define GTKSHARP_VERSION "2.12.20"
+!define GTKSHARP_VERSION "2.12.21"
 
 ############################
 # MUI 1.67 compatible mode #
@@ -131,7 +131,7 @@ FunctionEnd
 !macroend
 
 !macro CheckGtkSharp GTKSHARP_REQ
-    !define GTKSHARP_FILE         "gtk-sharp-2.12.20.win32.msi"
+    !define GTKSHARP_FILE         "gtk-sharp-2.12.21.msi"
     !define GTKSHARP_BASE_URL     "http://www.smuxi.org/jaws/data/files/"
     !define GTKSHARP_DOWNLOAD_URL "${GTKSHARP_BASE_URL}${GTKSHARP_FILE}"
     !define GTKSHARP_TEMP_FILE "$TEMP\${GTKSHARP_FILE}"
