@@ -25,12 +25,12 @@
       <Execution clr-version="Net_2_0" />
     </Execution>
     <Commandlineparameters>--debug</Commandlineparameters>
-    <Externalconsole>true</Externalconsole>
     <EnvironmentVariables>
       <EnvironmentVariables>
         <Variable name="MONO_TRACE_LISTENER" value="Console.Out" />
       </EnvironmentVariables>
     </EnvironmentVariables>
+    <ConsolePause>false</ConsolePause>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>full</DebugType>
