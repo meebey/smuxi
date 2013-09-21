@@ -1298,7 +1298,10 @@ namespace Smuxi.Engine
             // prevent duplicate requests
             DiscoCache[hash] = null;
             // request it
-            Disco.DiscoverInformation(jid, OnDiscoInfo, hash);
+            Disco.DiscoverInformation(jid,
+                (object sender, IQEventArgs e) =>
+                    OnDiscoInfo(e, hash)
+            );
         }
 
         [MethodImpl(MethodImplOptions.Synchronized)]
@@ -1316,38 +1319,46 @@ namespace Smuxi.Engine
         }
 
         [MethodImpl(MethodImplOptions.Synchronized)]
-        void OnDiscoInfo(object sender, IQ iq, object pars)
+        void OnDiscoInfo(IQEventArgs e, string hash)
         {
-            if (iq.Error != null) {
+            if (e.IQ.Error != null) {
                 var msg = CreateMessageBuilder();
                 msg.AppendEventPrefix();
                 msg.AppendErrorText(_("An error happened during service discovery for {0}: {1}"),
-                                    iq.From,
-                                    iq.Error.ErrorText ?? iq.Error.Condition.ToString());
+                                    e.IQ.From,
+                                    e.IQ.Error.ErrorText ?? e.IQ.Error.Condition.ToString());
                 Session.AddMessageToChat(NetworkChat, msg.ToMessage());
                 // clear item from cache so the request is done again some time
-                DiscoCache.Remove(pars as string);
+                DiscoCache.Remove(hash);
+                e.Handled = true;
                 return;
             }
-            if (iq.Type != IqType.result) {
-                throw new ArgumentException("discoinfoiq is not a result");
+            if (e.IQ.Type != IqType.result) {
+#if LOG4NET
+                _Logger.Error("OnDiscoInfo(): iq is not a result");
+#endif
+                return;
             }
-            if (!(iq.Query is DiscoInfo)) {
-                throw new ArgumentException("discoinfoiq query is not a discoinfo");
+            if (!(e.IQ.Query is DiscoInfo)) {
+#if LOG4NET
+                _Logger.Error("OnDiscoInfo(): query is not a DiscoInfo");
+#endif
+                return;
             }
-            DiscoCache[pars as string] = iq.Query as DiscoInfo;
-            if (String.IsNullOrEmpty(iq.From.User)) {
+            DiscoCache[hash] = e.IQ.Query as DiscoInfo;
+            e.Handled = true;
+            if (String.IsNullOrEmpty(e.IQ.From.User)) {
                 // server capabilities
                 var builder = CreateMessageBuilder();
                 builder.AppendText("The Server supports the following features: ");
                 Session.AddMessageToChat(NetworkChat, builder.ToMessage());
-                foreach ( var feature in (iq.Query as DiscoInfo).GetFeatures()) {
+                foreach ( var feature in (e.IQ.Query as DiscoInfo).GetFeatures()) {
                     builder = CreateMessageBuilder();
                     builder.AppendText(feature.Var);
                     Session.AddMessageToChat(NetworkChat, builder.ToMessage());
                 }
             } else {
-                AddCapabilityToResource(iq.From, iq.Query as DiscoInfo);
+                AddCapabilityToResource(e.IQ.From, e.IQ.Query as DiscoInfo);
             }
         }
 
@@ -2072,14 +2083,15 @@ namespace Smuxi.Engine
             Session.AddMessageToChat(NetworkChat, builder.ToMessage());
         }
 
-        void OnIq(object sender, IQ iq)
+        void OnIq(object sender, IQEventArgs e)
         {
-            Trace.Call(sender, iq);
+            Trace.Call(sender, e);
 
             // not as pretty as the previous implementation, but it works
-            var elem = iq.SelectSingleElement("own-message");
+            var elem = e.IQ.SelectSingleElement("own-message");
             if (elem is OwnMessageQuery) {
                 OnIQOwnMessage((OwnMessageQuery) elem);
+                e.Handled = true;
             }
         }
 
