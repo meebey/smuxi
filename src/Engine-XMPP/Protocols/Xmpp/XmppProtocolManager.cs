@@ -119,6 +119,12 @@ namespace Smuxi.Engine
             }
         }
 
+        public override bool IsConnected {
+            get {
+                return JabberClient.Authenticated;
+            }
+        }
+
         public XmppProtocolManager(Session session) : base(session)
         {
             Trace.Call(session);
@@ -317,8 +323,6 @@ namespace Smuxi.Engine
         public override void Disconnect(FrontendManager fm)
         {
             Trace.Call(fm);
-            
-            IsConnected = false;
             AutoReconnect = false;
             JabberClient.Close();
         }
@@ -329,8 +333,6 @@ namespace Smuxi.Engine
             Trace.Call();
 
             base.Dispose();
-            
-            IsConnected = false;
             AutoReconnect = false;
             JabberClient.Close();
         }
@@ -413,7 +415,11 @@ namespace Smuxi.Engine
                 Session.RemoveChat(chat);
                 ContactChat = null;
             } else if (chat.ChatType == ChatType.Group) {
-                MucManager.LeaveRoom(chat.ID, ((XmppGroupChatModel)chat).OwnNickname);
+                if (IsConnected) {
+                    MucManager.LeaveRoom(chat.ID, ((XmppGroupChatModel)chat).OwnNickname);
+                } else {
+                    Session.RemoveChat(chat);
+                }
             } else if (chat.ChatType == ChatType.Person) {
                 Session.RemoveChat(chat);
             } else {
@@ -429,7 +435,7 @@ namespace Smuxi.Engine
         {
             Trace.Call(status, message);
 
-            if (!IsConnected || !JabberClient.Authenticated) {
+            if (!IsConnected) {
                 return;
             }
 
@@ -2192,7 +2198,6 @@ namespace Smuxi.Engine
                 Session.DisableChat(ContactChat);
             }
 
-            IsConnected = false;
             OnDisconnected(EventArgs.Empty);
 
             JabberClient.SocketConnectionType = SocketConnectionType.Direct;
@@ -2231,8 +2236,6 @@ namespace Smuxi.Engine
         void OnLogin(object sender)
         {
             Trace.Call(sender);
-
-            IsConnected = true;
 
             var builder = CreateMessageBuilder();
             builder.AppendEventPrefix();
