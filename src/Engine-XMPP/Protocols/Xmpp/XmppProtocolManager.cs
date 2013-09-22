@@ -390,7 +390,11 @@ namespace Smuxi.Engine
                 Session.RemoveChat(chat);
                 ContactChat = null;
             } else if (chat.ChatType == ChatType.Group) {
-                MucManager.LeaveRoom(chat.ID, ((XmppGroupChatModel)chat).OwnNickname);
+                if (IsConnected) {
+                    MucManager.LeaveRoom(chat.ID, ((XmppGroupChatModel)chat).OwnNickname);
+                } else {
+                    Session.RemoveChat(chat);
+                }
             } else if (chat.ChatType == ChatType.Person) {
                 Session.RemoveChat(chat);
             } else {
