@@ -145,6 +145,7 @@ namespace Smuxi.Engine
             JabberClient.OnWriteXml += OnWriteXml;
             JabberClient.OnAuthError += OnAuthError;
             JabberClient.OnIq += OnIq;
+            JabberClient.SendingServiceUnavailable += OnSendingServiceUnavailable;
             JabberClient.AutoAgents = false; // outdated feature
             JabberClient.EnableCapabilities = true;
             JabberClient.Capabilities.Node = "https://smuxi.im";
@@ -171,6 +172,30 @@ namespace Smuxi.Engine
             ElementFactory.AddElementType("own-message", "http://www.facebook.com/xmpp/messages", typeof(OwnMessageQuery));
 
             MucManager = new MucManager(JabberClient);
+        }
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
+        void OnSendingServiceUnavailable(object sender, SendingServiceUnavailableEventArgs e)
+        {
+            if (e.Stanza.To == null) {
+                // can only be received by the server
+                return;
+            }
+            if (e.Stanza.To == JabberClient.MyJID.Server) {
+                // explicitly targeting the server
+                return;
+            }
+            XmppPersonModel person;
+            if (!Contacts.TryGetValue(e.Stanza.To.Bare, out person)) {
+                e.Cancel = true;
+                return;
+            }
+            if (person.Subscription != SubscriptionType.both &&
+                person.Subscription != SubscriptionType.from) {
+                e.Cancel = true;
+                return;
+            }
+            // the person already knows we are online, this does not give away our privacy
         }
 
         [MethodImpl(MethodImplOptions.Synchronized)]
