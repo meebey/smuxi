@@ -451,6 +451,7 @@ namespace Smuxi.Engine
                 case PresenceStatus.Online:
                     JabberClient.Show = ShowType.NONE;
                     JabberClient.Priority = Server.Priorities[status];
+                    JabberClient.Status = message;
                     break;
                 case PresenceStatus.Away:
                     JabberClient.Priority = Server.Priorities[status];
