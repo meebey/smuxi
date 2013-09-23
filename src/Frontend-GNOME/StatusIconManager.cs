@@ -199,12 +199,12 @@ namespace Smuxi.Frontend.Gnome
             f_StatusIcon.Blinking = false;
         }
 
-        protected void OnChatViewManagerChatAdded(object sender, ChatViewManagerChatAddedEventArgs e)
+        protected void OnChatViewManagerChatAdded(object sender, ChatViewManagerChatAddedEventArgs<ChatView> e)
         {
             e.ChatView.MessageHighlighted += OnChatViewMessageHighlighted;
         }
 
-        protected void OnChatViewManagerChatRemoved(object sender, ChatViewManagerChatRemovedEventArgs e)
+        protected void OnChatViewManagerChatRemoved(object sender, ChatViewManagerChatRemovedEventArgs<ChatView> e)
         {
             e.ChatView.MessageHighlighted -= OnChatViewMessageHighlighted;
         }
