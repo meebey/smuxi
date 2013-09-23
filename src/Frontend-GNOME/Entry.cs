@@ -126,6 +126,15 @@ namespace Smuxi.Frontend.Gnome
             Activated += _OnActivated;
             KeyPressEvent += new Gtk.KeyPressEventHandler(_OnKeyPress);
             PasteClipboard += _OnClipboardPasted;
+
+            Buffer.Changed += delegate {
+                if (Buffer.Text.Length == 0) {
+                    return;
+                }
+                SetChatState(ChatState.Composing);
+            };
+
+            LastChatState = ChatState.Gone;
         }
 
         public void UpdateHistoryChangedLine()
@@ -462,6 +471,61 @@ namespace Smuxi.Frontend.Gnome
                     }
                     break;
             }
+        }
+
+        ChatState LastChatState { get; set; }
+        DateTime LastChatStateCall { get; set; }
+        bool ComposingTimeoutActive { get; set; }
+
+        bool ChatStateComposingTimeout()
+        {
+            if (LastChatState != ChatState.Composing) {
+                ComposingTimeoutActive = false;
+                return false;
+            }
+            var msleft = (LastChatStateCall + TimeSpan.FromSeconds(2)) - DateTime.Now;
+            if (msleft > TimeSpan.Zero) {
+                GLib.Timeout.Add((uint)msleft.Milliseconds, ChatStateComposingTimeout);
+                return false;
+            }
+            SetChatState(ChatState.Paused);
+            ComposingTimeoutActive = false;
+            return false;
+        }
+
+        public void SetChatState(ChatState type)
+        {
+            if (Frontend.EngineVersion < new Version(0, 9, 1)) {
+                return;
+            }
+            var chatView = ChatViewManager.CurrentChatView as PersonChatView;
+            if (chatView == null) {
+                return;
+            }
+
+            if (type == ChatState.Composing) {
+                LastChatStateCall = DateTime.Now;
+            }
+            if (LastChatState == type) {
+                // no duplication
+                return;
+            }
+            LastChatState = type;
+            var protocol = Frontend.FrontendManager.CurrentProtocolManager;
+            if (protocol == null) {
+                return;
+            }
+
+            if (type == ChatState.Composing) {
+                if (!ComposingTimeoutActive) {
+                    ComposingTimeoutActive = true;
+                    GLib.Timeout.Add(2000, ChatStateComposingTimeout);
+                }
+            }
+
+            protocol.SetChatState(Frontend.FrontendManager,
+                                  chatView.PersonChatModel,
+                                  type);
         }
 
         private void _OnActivated(object sender, EventArgs e)

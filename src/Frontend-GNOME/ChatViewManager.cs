@@ -105,12 +105,41 @@ namespace Smuxi.Frontend.Gnome
         public ChatViewManager(Notebook notebook, Gtk.TreeView treeView)
         {
             f_Notebook = notebook;
+            f_Notebook.SwitchPage += HandleBeforeSwitchPage;
+            f_Notebook.SwitchPage += HandleSwitchPage;
             f_TreeView = treeView;
             SyncedChats = new List<ChatView>();
             SyncManager = new ChatViewSyncManager();
             SyncManager.ChatAdded += OnChatAdded;
             SyncManager.ChatSynced += OnChatSynced;
             SyncManager.WorkerException += OnWorkerException;
+        }
+
+        void HandleSwitchPage(object sender, Gtk.SwitchPageArgs e)
+        {
+            Trace.Call(sender, e);
+
+            if (f_Notebook.IsBrowseModeEnabled) {
+                return;
+            }
+
+            // synchronize FrontManager.CurrenPage
+            ChatView chatView = f_Notebook.GetChat((int)e.PageNum);
+            if (chatView == null) {
+                return;
+            }
+            chatView.OnSwitchedTo();
+        }
+
+        [GLib.ConnectBefore]
+        void HandleBeforeSwitchPage(object sender, Gtk.SwitchPageArgs e)
+        {
+            if (f_Notebook.IsBrowseModeEnabled) {
+                return;
+            }
+
+            var chatView = CurrentChatView;
+            chatView.OnSwitchedFrom();
         }
 
         /// <remarks>

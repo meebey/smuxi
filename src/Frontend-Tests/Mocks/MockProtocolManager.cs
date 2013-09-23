@@ -109,6 +109,11 @@ namespace Smuxi.Frontend
         public void SetPresenceStatus(PresenceStatus status, string message) {
         }
 
+        public void SetChatState(FrontendManager fm, ChatModel chat,
+                                 ChatState state)
+        {
+        }
+
         public void Dispose() {
         }
     }

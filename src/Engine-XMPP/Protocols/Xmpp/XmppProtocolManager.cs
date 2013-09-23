@@ -444,6 +444,36 @@ namespace Smuxi.Engine
         }
 
         [MethodImpl(MethodImplOptions.Synchronized)]
+        public override void SetChatState(FrontendManager fm, ChatModel chat, ChatState state)
+        {
+            base.SetChatState(fm, chat, state);
+            if (!(chat is PersonChatModel)) {
+                return;
+            }
+            var msg = new Message(chat.ID);
+            switch (state) {
+                case ChatState.Active:
+                    msg.Chatstate = Chatstate.active;
+                    break;
+                case ChatState.Inactive:
+                    msg.Chatstate = Chatstate.inactive;
+                    break;
+                case ChatState.Composing:
+                    msg.Chatstate = Chatstate.composing;
+                    break;
+                case ChatState.Paused:
+                    msg.Chatstate = Chatstate.paused;
+                    break;
+                case ChatState.Gone:
+                    msg.Chatstate = Chatstate.gone;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+            JabberClient.Send(msg);
+        }
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public override void SetPresenceStatus(PresenceStatus status,
                                                string message)
         {
@@ -1144,17 +1174,23 @@ namespace Smuxi.Engine
                     XmppPersonModel person = GetOrCreateContact(_person.ID, _person.IdentityName);
                     Jid jid = person.Jid;
                     if (!String.IsNullOrEmpty(jid.Resource)) {
-                        JabberClient.Send(new Message(jid, XmppMessageType.chat, text));
+                        var msg = new Message(jid, XmppMessageType.chat, text);
+                        msg.Chatstate = Chatstate.active;
+                        JabberClient.Send(msg);
                     } else {
                         var resources = person.GetResourcesWithHighestPriority();
                         if (resources.Count == 0) {
                             // no connected resource, send to bare jid
-                            JabberClient.Send(new Message(jid.Bare, XmppMessageType.chat, text));
+                            var msg = new Message(jid.Bare, XmppMessageType.chat, text);
+                            msg.Chatstate = Chatstate.active;
+                            JabberClient.Send(msg);
                         } else {
                             foreach (var res in resources) {
                                 Jid j = new Jid(jid);
                                 j.Resource = res.Name;
-                                JabberClient.Send(new Message(j, XmppMessageType.chat, text));
+                                var msg = new Message(j, XmppMessageType.chat, text);
+                                msg.Chatstate = Chatstate.active;
+                                JabberClient.Send(msg);
                             }
                         }
                     }
