@@ -84,5 +84,6 @@ namespace Smuxi.Engine
         void CloseChat(FrontendManager fm, ChatModel chat);
 
         void SetPresenceStatus(PresenceStatus status, string message);
+        void SetChatState(FrontendManager fm, ChatModel chat, ChatState state);
     }
 }

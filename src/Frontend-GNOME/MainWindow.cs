@@ -534,7 +534,7 @@ namespace Smuxi.Frontend.Gnome
             Entry.GrabFocus();
         }
 
-        protected void OnChatViewManagerChatAdded(object sender, ChatViewManagerChatAddedEventArgs e)
+        protected void OnChatViewManagerChatAdded(object sender, ChatViewManagerChatAddedEventArgs<ChatView> e)
         {
             Trace.Call(sender, e);
 
@@ -548,14 +548,14 @@ namespace Smuxi.Frontend.Gnome
             UpdateProgressBar();
         }
         
-        protected void OnChatViewManagerChatSynced(object sender, ChatViewManagerChatSyncedEventArgs e)
+        protected void OnChatViewManagerChatSynced(object sender, ChatViewManagerChatSyncedEventArgs<ChatView> e)
         {
             Trace.Call(sender, e);
 
             UpdateProgressBar();
         }
 
-        protected void OnChatViewManagerChatRemoved(object sender, ChatViewManagerChatRemovedEventArgs e)
+        protected void OnChatViewManagerChatRemoved(object sender, ChatViewManagerChatRemovedEventArgs<ChatView> e)
         {
             Trace.Call(sender, e);
             

@@ -159,6 +159,11 @@ namespace Smuxi.Engine
         public abstract void SetPresenceStatus(PresenceStatus status,
                                                string message);
 
+        public virtual void SetChatState(FrontendManager fm, ChatModel chat,
+                                 ChatState state)
+        {
+        }
+
         protected void NotConnected(CommandModel cmd)
         {
             var msg = CreateMessageBuilder();

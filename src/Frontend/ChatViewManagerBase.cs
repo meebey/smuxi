@@ -35,16 +35,21 @@ using Smuxi.Common;
 
 namespace Smuxi.Frontend
 {
-    public abstract class ChatViewManagerBase
+
+    public abstract class ChatViewManagerBase <ChatViewType> where ChatViewType : IChatView
     {
 #if LOG4NET
         private static readonly log4net.ILog _Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 #endif
         private IDictionary<ChatViewInfoAttribute, Type> _ChatViewTypes = new Dictionary<ChatViewInfoAttribute, Type>();
         
-        public abstract IChatView ActiveChat {
-            get;
-        }
+        public abstract ChatViewType ActiveChat { get; set; }
+
+        public event EventHandler<ChatViewManagerChatAddedEventArgs <ChatViewType>> ChatAdded;
+        public event EventHandler<ChatViewManagerChatRemovedEventArgs<ChatViewType>> ChatRemoved;
+        public event EventHandler<ChatViewManagerChatSyncedEventArgs<ChatViewType>> ChatSynced;
+        public event EventHandler<ChatViewManagerChatSwitchedToEventArgs<ChatViewType>> ChatSwitchedTo;
+        public event EventHandler<ChatViewManagerChatSwitchedFromEventArgs<ChatViewType>> ChatSwitchedFrom;
         
         protected ChatViewManagerBase()
         {
@@ -54,7 +59,42 @@ namespace Smuxi.Frontend
         public abstract void RemoveChat(ChatModel chat);
         public abstract void EnableChat(ChatModel chat);
         public abstract void DisableChat(ChatModel chat);
-        
+
+        protected virtual void OnChatAdded(ChatViewManagerChatAddedEventArgs<ChatViewType> e)
+        {
+            if (ChatAdded != null) {
+                ChatAdded(this, e);
+            }
+        }
+
+        protected virtual void OnChatRemoved(ChatViewManagerChatRemovedEventArgs<ChatViewType> e)
+        {
+            if (ChatRemoved != null) {
+                ChatRemoved(this, e);
+            }
+        }
+
+        protected virtual void OnChatSynced(ChatViewManagerChatSyncedEventArgs<ChatViewType> e)
+        {
+            if (ChatSynced != null) {
+                ChatSynced(this, e);
+            }
+        }
+
+        protected virtual void OnChatSwitchedTo(ChatViewManagerChatSwitchedToEventArgs<ChatViewType> e)
+        {
+            if (ChatSwitchedTo != null) {
+                ChatSwitchedTo(this, e);
+            }
+        }
+
+        protected virtual void OnChatSwitchedFrom(ChatViewManagerChatSwitchedFromEventArgs<ChatViewType> e)
+        {
+            if (ChatSwitchedFrom != null) {
+                ChatSwitchedFrom(this, e);
+            }
+        }
+
         private Type _GetChatViewType(ChatType chatType, Type protocolManagerType)
         {
             foreach (ChatViewInfoAttribute info in _ChatViewTypes.Keys) {
@@ -169,6 +209,56 @@ namespace Smuxi.Frontend
                     }
                 }
             }
+        }
+    }
+
+    public class ChatViewManagerChatAddedEventArgs<T> : EventArgs where T : IChatView
+    {
+        public T ChatView { get; private set; }
+
+        public ChatViewManagerChatAddedEventArgs(T chatView)
+        {
+            ChatView = chatView;
+        }
+    }
+
+    public class ChatViewManagerChatRemovedEventArgs<T> : EventArgs where T : IChatView
+    {
+        public T ChatView { get; private set; }
+
+        public ChatViewManagerChatRemovedEventArgs(T chatView)
+        {
+            ChatView = chatView;
+        }
+    }
+
+    public class ChatViewManagerChatSyncedEventArgs<T> : EventArgs where T : IChatView
+    {
+        public T ChatView { get; private set; }
+
+        public ChatViewManagerChatSyncedEventArgs(T chatView)
+        {
+            ChatView = chatView;
+        }
+    }
+
+    public class ChatViewManagerChatSwitchedToEventArgs<T> : EventArgs where T : IChatView
+    {
+        public T ChatView { get; private set; }
+
+        public ChatViewManagerChatSwitchedToEventArgs(T chatView)
+        {
+            ChatView = chatView;
+        }
+    }
+
+    public class ChatViewManagerChatSwitchedFromEventArgs<T> : EventArgs where T : IChatView
+    {
+        public T ChatView { get; private set; }
+
+        public ChatViewManagerChatSwitchedFromEventArgs(T chatView)
+        {
+            ChatView = chatView;
         }
     }
 }

@@ -198,6 +198,7 @@ namespace Smuxi.Frontend.Gnome
 
             var chatView = CurrentChatView;
             chatView.OutputMessageTextView.UpdateMarkerline();
+            chatView.OnSwitchedFrom();
         }
 
         protected virtual void OnSwitchPage(object sender, Gtk.SwitchPageArgs e)
@@ -213,6 +214,8 @@ namespace Smuxi.Frontend.Gnome
             if (chatView == null) {
                 return;
             }
+
+            chatView.OnSwitchedTo();
 
             ChatModel chatModel = chatView.ChatModel;
 

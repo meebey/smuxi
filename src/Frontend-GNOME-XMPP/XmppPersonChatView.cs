@@ -213,6 +213,20 @@ namespace Smuxi.Frontend.Gnome
             });
         }
 
+        public override void OnSwitchedFrom()
+        {
+            base.OnSwitchedFrom();
+            var entry = Frontend.MainWindow.Entry;
+            entry.SetChatState(ChatState.Inactive);
+        }
+
+        public override void OnSwitchedTo()
+        {
+            base.OnSwitchedTo();
+            var entry = Frontend.MainWindow.Entry;
+            entry.SetChatState(ChatState.Active);
+        }
+
         void _OnMenuAddToContactsItemActivated(object sender, EventArgs e)
         {
             Trace.Call(sender, e);

@@ -767,6 +767,14 @@ namespace Smuxi.Frontend.Gnome
             popup.ShowAll();
         }
 
+        public virtual void OnSwitchedTo()
+        {
+        }
+
+        public virtual void OnSwitchedFrom()
+        {
+        }
+
         protected virtual void OnMessageTextViewPersonClicked(object sender, MessageTextViewPersonClickedEventArgs e)
         {
             Trace.Call(sender, e);
