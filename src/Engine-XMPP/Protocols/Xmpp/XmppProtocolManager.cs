@@ -96,6 +96,7 @@ namespace Smuxi.Engine
         int AutoReconnectDelay { get; set; }
 
         bool IsFacebook { get; set; }
+        bool IsDisposed { get; set; }
 
         public override string NetworkID {
             get {
@@ -296,12 +297,25 @@ namespace Smuxi.Engine
         public override void Dispose()
         {
             Trace.Call();
+            IsDisposed = true;
 
             base.Dispose();
             
             IsConnected = false;
             AutoReconnect = false;
-            JabberClient.Close();
+            JabberClient.OnMessage -= OnMessage;
+            JabberClient.OnClose -= OnClose;
+            JabberClient.OnLogin -= OnLogin;
+            JabberClient.OnError -= OnError;
+            JabberClient.OnStreamError -= OnStreamError;
+            JabberClient.OnPresence -= OnPresence;
+            JabberClient.OnRosterItem -= OnRosterItem;
+            JabberClient.OnReadXml -= OnReadXml;
+            JabberClient.OnWriteXml -= OnWriteXml;
+            JabberClient.OnAuthError -= OnAuthError;
+            JabberClient.OnIq -= OnIq;
+            JabberClient.ClientSocket.OnValidateCertificate -= ValidateCertificate;
+            JabberClient.SocketDisconnect();
         }
 
         // this method is used as status / title
@@ -2125,6 +2139,8 @@ namespace Smuxi.Engine
             IsConnected = false;
             OnDisconnected(EventArgs.Empty);
 
+            // reset socket
+            JabberClient.ClientSocket.OnValidateCertificate -= ValidateCertificate;
             JabberClient.SocketConnectionType = SocketConnectionType.Direct;
 
             if (AutoReconnect) {
@@ -2137,7 +2153,13 @@ namespace Smuxi.Engine
                 ThreadPool.QueueUserWorkItem(delegate {
                     // sleep for N seconds, we don't want to be abusive
                     Thread.Sleep(AutoReconnectDelay * 1000);
-                    Connect();
+                    lock (this) {
+                        // prevent this timer from calling connect after it has been closed
+                        if (IsDisposed) {
+                            return;
+                        }
+                        Connect();
+                    }
                 });
             }
         }
