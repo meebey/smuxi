@@ -80,24 +80,18 @@ namespace Smuxi.Engine
         MucManager MucManager { get; set; }
         DiscoManager Disco { get; set; }
         string[] Nicknames { get; set; }
-        
         Dictionary<Jid, XmppPersonModel> Contacts { get; set; }
         Dictionary<string, DiscoInfo> DiscoCache { get; set; }
-
         ChatModel NetworkChat { get; set; }
         GroupChatModel ContactChat { get; set; }
-        
         XmppServerModel Server { get; set; }
-        
         // facebook messed up, this is part of a hack to fix that messup
         string LastSentMessage { get; set; }
         bool SupressLocalMessageEcho { get; set; }
         bool AutoReconnect { get; set; }
         int AutoReconnectDelay { get; set; }
-
         bool IsFacebook { get; set; }
         bool IsDisposed { get; set; }
-
         bool ShowChatStates { get; set; }
         // pidgin's psychic mode
         bool OpenNewChatOnChatState { get; set; }
@@ -107,13 +101,13 @@ namespace Smuxi.Engine
                 return Host;
             }
         }
-        
+
         public override string Protocol {
             get {
                 return "XMPP";
             }
         }
-        
+
         public override ChatModel Chat {
             get {
                 return NetworkChat;
@@ -565,7 +559,7 @@ namespace Smuxi.Engine
                     handled = true;
                 }
             }
-            
+
             return handled;
         }
 
@@ -785,14 +779,14 @@ namespace Smuxi.Engine
             "contact add/remove jid/nick",
             "contact rename jid/nick [newnick]"
             };
-            
+
             foreach (string line in help) {
                 builder = CreateMessageBuilder();
                 builder.AppendEventPrefix();
                 builder.AppendText(line);
                 cmd.FrontendManager.AddMessageToChat(cmd.Chat, builder.ToMessage());
             }
-            
+
             // TRANSLATOR: this line is used as a label / category for a
             // list of commands below
             builder = CreateMessageBuilder();
@@ -805,7 +799,7 @@ namespace Smuxi.Engine
             "joinas muc-jid nickname [password]",
             "priority away/online/temp priority-value"
             };
-            
+
             foreach (string line in help2) {
                 builder = CreateMessageBuilder();
                 builder.AppendEventPrefix();
@@ -817,7 +811,7 @@ namespace Smuxi.Engine
         public void CommandConnect(CommandModel cd)
         {
             FrontendManager fm = cd.FrontendManager;
-            
+
             var server = new XmppServerModel();
             if (cd.DataArray.Length >= 3) {
                 server.Hostname = cd.DataArray[2];
@@ -825,7 +819,7 @@ namespace Smuxi.Engine
                 NotEnoughParameters(cd);
                 return;
             }
-            
+
             if (cd.DataArray.Length >= 4) {
                 try {
                     server.Port = Int32.Parse(cd.DataArray[3]);
@@ -839,21 +833,21 @@ namespace Smuxi.Engine
                 NotEnoughParameters(cd);
                 return;
             }
-            
+
             if (cd.DataArray.Length >= 5) {
                 server.Username = cd.DataArray[4];
             } else {
                 NotEnoughParameters(cd);
                 return;
             }
-            
+
             if (cd.DataArray.Length >= 6) {
                 server.Password = cd.DataArray[5];
             } else {
                 NotEnoughParameters(cd);
                 return;
             }
-            
+
             if (cd.DataArray.Length >= 7) {
                 server.Resource = cd.DataArray[6];
             }
@@ -1137,7 +1131,7 @@ namespace Smuxi.Engine
             if (chat == ContactChat) {
                 return;
             }
-            
+
             if (send) {
                 if (chat.ChatType == ChatType.Person) {
                     var _person = (chat as PersonChatModel).Person as PersonModel;
@@ -1436,7 +1430,6 @@ namespace Smuxi.Engine
                         case ShowType.chat:
                             builder.AppendFormat(_("{0}{1} wants to chat"), person, idstring);
                             break;
-                            
                     }
                     break;
                 case PresenceType.unavailable:
@@ -1656,9 +1649,9 @@ namespace Smuxi.Engine
                         Session.AddPersonToGroupChat(chat, person.ToPersonModel());
                         return;
                     }
-                    
+
                     chat.UnsafePersons.Add(person.ID, person.ToPersonModel());
-        
+
                     // did I join? then the chat roster is fully received
                     if (pres.From.Resource == chat.OwnNickname) {
                         // HACK: lower probability of sync race condition swallowing messages
@@ -1839,9 +1832,9 @@ namespace Smuxi.Engine
                 // only test capabilities of users going online or changing something in their online state
                 RequestCapabilities(jid, pres.Capabilities);
             }
-            
+
             var groupChat = (XmppGroupChatModel) Session.GetChat(jid.Bare, ChatType.Group, this);
-            
+
             if (groupChat != null) {
                 OnGroupChatPresence(groupChat, pres);
             } else {
@@ -1879,7 +1872,7 @@ namespace Smuxi.Engine
             } else {
                 groupChat.SeenNewMessages = true;
             }
-            
+
             // mark highlights only for received messages
             bool hilight = person.ID != groupChat.OwnNickname;
             var message = CreateMessage(person, msg, hilight, false);
@@ -2147,7 +2140,7 @@ namespace Smuxi.Engine
                 // we send this message from Smuxi, nothing to do...
                 return;
             }
-            
+
             if (!SupressLocalMessageEcho && (query.Body == LastSentMessage)) {
                 SupressLocalMessageEcho = true;
                 return;
