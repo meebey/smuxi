@@ -348,6 +348,7 @@ namespace Smuxi.Engine
             JabberClient.OnAuthError -= OnAuthError;
             JabberClient.OnIq -= OnIq;
             JabberClient.ClientSocket.OnValidateCertificate -= ValidateCertificate;
+            JabberClient.SendingServiceUnavailable -= OnSendingServiceUnavailable;
             JabberClient.SocketDisconnect();
         }
 
