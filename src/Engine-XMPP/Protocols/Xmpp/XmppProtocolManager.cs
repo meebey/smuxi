@@ -1139,7 +1139,12 @@ namespace Smuxi.Engine
                     var _person = (chat as PersonChatModel).Person as PersonModel;
                     XmppPersonModel person = GetOrCreateContact(_person.ID, _person.IdentityName);
                     Jid jid = person.Jid;
-                    if (!String.IsNullOrEmpty(jid.Resource)) {
+                    if ((jid.Server == "gmail.com") ||
+                        (jid.Server == "googlemail.com")) {
+                        // don't send to all high prio resources or to specific resources
+                        // because gtalk clones any message to all resources anyway
+                        JabberClient.Send(new Message(jid.Bare, XmppMessageType.chat, text));
+                    } else if (!String.IsNullOrEmpty(jid.Resource)) {
                         JabberClient.Send(new Message(jid, XmppMessageType.chat, text));
                     } else {
                         var resources = person.GetResourcesWithHighestPriority();
