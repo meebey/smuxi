@@ -1,4 +1,4 @@
-.Dd $Mdocdate: September 23 2013 $
+.Dd $Mdocdate: September 24 2013 $
 .Dt smuxi-frontend-stfl 1
 .Os
 .Sh NAME
@@ -24,6 +24,51 @@ Show the arguments Smuxi takes.
 List the available engines Smuxi can connect to.
 .It Fl e Ar engine , Fl \-engine Ns = Ns Ar engine
 Connect to a remote engine.
+.Sh KEY BINDINGS
+The keyboards are similar to that of irssi and similar clients. Note that some terminal control characters (like C-c, C-z, etc) are not intercepted. Common line editing keys that work in graphical applications will also work. In the following examples, C-x means Control-x.
+.Pp
+.Bl -tag -width xxxxxxxxxxxxxxx -offset indent -compact 
+.It Tab
+complete nickname
+.It PageUp
+move up the scrollback
+.It PageDown
+move down the scrollback
+.It C-p , C-PageUp
+previous window
+.It C-n , C-PageDown
+next window
+.It C-Left
+jump to the previous word
+.It C-Right
+jump to the next word
+.It C-w
+delete word
+.It C-c
+non-graceful exit
+.Sh SMUXI COMMANDS
+Like most IRC clients, Smuxi uses commands prefixed with "/", and most use the same commands, also including its own set of commands for the client and engine. In the following examples, the "/" prefix is not included.
+.Bl -tag -width xx -offset -ident
+.It exit
+Exit the Smuxi frontend gracefully.
+.It window close
+Closes the current window.
+.It window Ar number
+Goes to the window with that number.
+.It connect Ar protocol Ar protocol-parameters
+Connects to the server with the given protocol.
+.It connect Ar network
+Connects to the preset network.
+.It disconnect Ar server
+Disconnects from server. If no parameter is passed, then the server associated with the current window will be disconnected.
+.It config list
+Lists the configuration options.
+.It config get Ar key
+Get the configuration key's value.
+.It config set Ar key Ns = Ns Ar value
+Set the configuration key's value.
+.It shutdown
+Shuts down the current engine.
 .Sh FILES
 .Bl -tag -width -compact
 .It Pa $XDG_DATA_HOME/smuxi/share/smuxi-frontend-stfl.log
