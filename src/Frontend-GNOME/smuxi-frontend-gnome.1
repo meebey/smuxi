@@ -1,0 +1,42 @@
+.Dd $Mdocdate: September 23 2013 $
+.Dt smuxi-frontend-gnome 1
+.Os
+.Sh NAME
+.Nm smuxi-frontend-gnome
+.Nd GNOME frontend for Smuxi chat client
+.Sh SYNOPSIS
+.Nm smuxi-frontend-gnome
+.Op Fl dh
+.Op Fl e Ar engine
+.Sh DESCRIPTION
+.Nm
+is a GNOME frontend for the Smuxi chat client, powered by the GTK# library. It can operate standalone or attached to a remote Smuxi engine.
+.Pp
+The options are as follows:
+.Bl -tag -width Ds
+.It Fl d , Fl \-debug
+Turn on debugging. Debug logs are sent to
+.Pa $XDG_DATA_HOME/smuxi/smuxi-frontend-gnome.log
+, and older logs are moved to the date of usage.
+.It Fl h , Fl \-help
+Show the arguments Smuxi takes.
+.It Fl e Ar engine , Fl \-engine Ns = Ns Ar engine
+Connect to a remote engine.
+.Sh FILES
+.Bl -tag -width -compact
+.It Pa $XDG_DATA_HOME/smuxi/share/smuxi-frontend-gnome.log
+smuxi debug log
+.It Pa $XDG_CONFIG_HOME/smuxi/smuxi-engine.ini
+smuxi local engine config
+.It Pa $XDG_CONFIG_HOME/smuxi/smuxi-frontend.ini
+smuxi frontend configuration and remote engine list
+.Sh SEE ALSO
+.Xr smuxi-frontend-stfl 1 ,
+.Xr smuxi-server 1 ,
+.Xr smuxi-message-buffer 1
+.Pp
+Website: http://smuxi.im
+.Sh AUTHOR/CREDITS
+Smuxi, including this frontend, was written by Mirco Bauer. Contributions to this frontend were also made by George Karavasilev and Oliver Schneider.
+.Pp
+This manpage was written by Calvin Buckley.
