@@ -45,7 +45,7 @@ namespace Smuxi.Frontend.Gnome
         Gtk.HBox StatusHBox { get; set; }
         public MenuWidget MenuWidget { get; private set; }
 
-        public IFrontendUI UI { get; private set; }
+        public GnomeUI UI { get; private set; }
         public Entry Entry { get; private set; }
         public Notebook Notebook { get; private set; }
         public ChatViewManager ChatViewManager { get; private set; }

@@ -9,8 +9,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Server", "Server\Server.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Frontend-GNOME", "Frontend-GNOME\Frontend-GNOME.csproj", "{405874F0-A58A-4E79-8766-2150D069F691}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Frontend-Test", "Frontend-Test\Frontend-Test.csproj", "{06A95A33-EB35-4572-AC92-0887DAF75D7E}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Frontend", "Frontend\Frontend.csproj", "{7B1E3AB2-FB8C-4439-A2B4-2129EDBD79F8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Engine-IRC", "Engine-IRC\Engine-IRC.csproj", "{95C1E256-73E7-4AAB-AA0B-405B51F7CF5A}"
@@ -74,14 +72,6 @@ Global
 		Debug-Win32|Any CPU = Debug-Win32|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{06A95A33-EB35-4572-AC92-0887DAF75D7E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{06A95A33-EB35-4572-AC92-0887DAF75D7E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{06A95A33-EB35-4572-AC92-0887DAF75D7E}.Debug-Win32|x86.ActiveCfg = Debug|Any CPU
-		{06A95A33-EB35-4572-AC92-0887DAF75D7E}.Debug-Win32|x86.Build.0 = Debug|Any CPU
-		{06A95A33-EB35-4572-AC92-0887DAF75D7E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{06A95A33-EB35-4572-AC92-0887DAF75D7E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{06A95A33-EB35-4572-AC92-0887DAF75D7E}.Release-Win32|x86.ActiveCfg = Release|Any CPU
-		{06A95A33-EB35-4572-AC92-0887DAF75D7E}.Release-Win32|x86.Build.0 = Release|Any CPU
 		{1006D905-798E-4039-B9CC-37FB8707F84A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{1006D905-798E-4039-B9CC-37FB8707F84A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1006D905-798E-4039-B9CC-37FB8707F84A}.Debug-Win32|x86.ActiveCfg = Debug|Any CPU

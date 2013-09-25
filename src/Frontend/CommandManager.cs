@@ -135,18 +135,9 @@ namespace Smuxi.Frontend
 
             handled = f_Session.Command(cmd);
             if (!handled) {
-                IProtocolManager pm;
-                if (cmd.Chat is SessionChatModel) {
-                    pm = cmd.FrontendManager.CurrentProtocolManager;
-                } else {
-                    pm = cmd.Chat.ProtocolManager;
-                }
-
-                // we maybe have no network manager yet
-                if (pm != null) {
+                if (!(cmd.Chat is SessionChatModel)) {
+                    var pm = cmd.Chat.ProtocolManager;
                     handled = pm.Command(cmd);
-                } else {
-                    handled = false;
                 }
             }
             if (!handled) {

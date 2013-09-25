@@ -224,16 +224,34 @@ namespace Smuxi.Frontend.Swf
                 groupChatView.RemovePerson(person);
             }));
         }
-        
-        public void SetNetworkStatus(string status)
+
+        [Obsolete("Use UpdateNetworkStatus instead")]
+        public void SetNetworkStatus(string dont_use)
         {
-            TraceRemotingCall(status);
+            UpdateNetworkStatus();
+        }
+
+        public void UpdateNetworkStatus()
+        {
+            var chatView = (ChatView)_ChatViewManager.ActiveChat;
+            var nmanager = chatView.ChatModel.ProtocolManager;
+            string status;
+            if (nmanager != null) {
+                status = nmanager.ToString();
+            } else {
+                status = String.Format("({0})", _("Smuxi News Feed"));
+            }
 
             MethodBase mb = Trace.GetMethodBase();
             _Control.Invoke(new MethodInvoker(delegate {
-                TraceRemotingCall(mb, status);
-                
                 Frontend.MainWindow.NetworkStatusbar.Text = status;
+                    
+                    // sync title
+                    if (Frontend.MainWindow != null) {
+                        string network = nmanager != null ? nmanager.ToString() + " / " : "";
+                        Frontend.MainWindow.Text = network + chatView.Text +
+                                                    " - Smuxi";
+                    }
             }));
         }
         
