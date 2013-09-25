@@ -1144,7 +1144,7 @@ namespace Smuxi.Engine
             Trace.Call(cd);
 
             MessageBuilder builder;
-            if (cd.DataArray.Length < 2) {
+            if (cd.DataArray.Length < 2 || cd.DataArray[1].Length == 0) {
                 _NotEnoughParameters(cd);
                 return;
             }
