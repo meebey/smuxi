@@ -286,14 +286,6 @@ namespace Smuxi.Frontend.Swf
                 // ctrl is pressed
                 e.Handled = true;
                 switch (key) {
-                    case Keys.X:
-                        if (_Notebook.CurrentChatView is SessionChatView) {
-                            Frontend.FrontendManager.NextProtocolManager();
-                        } else {
-                            // don't break cut
-                            e.Handled = false;
-                        }
-                        break;
                     // don't break copy/paste
                     case Keys.C:
                     case Keys.V:
@@ -489,16 +481,15 @@ namespace Smuxi.Frontend.Swf
                                     (string)Frontend.UserConfig["Interface/Entry/CommandCharacter"],
                                     cmd);
             handled = _Command(cd);
+            // Why no CommandManager from here on?
             if (!handled) {
                 handled = Frontend.Session.Command(cd);
             }
             if (!handled) {
                 // we may have no network manager yet
-                Engine.IProtocolManager nm = Frontend.FrontendManager.CurrentProtocolManager;
+                var nm = cd.Chat.ProtocolManager;
                 if (nm != null) {
                     handled = nm.Command(cd);
-                } else {
-                    handled = false;
                 }
             }
             if (!handled) {

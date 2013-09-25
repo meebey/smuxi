@@ -38,7 +38,9 @@ namespace Smuxi.Engine
         private static readonly string       _LibraryTextDomain = "smuxi-engine";
         private Session          _Session;
         private IFrontendUI      _UI;
+        [Obsolete("",true)]
         private ChatModel        _CurrentChat;
+        [Obsolete("",true)]
         private IProtocolManager _CurrentProtocolManager;
         private bool             _IsFrontendDisconnecting;
         private SimpleDelegate   _ConfigChangedDelegate;
@@ -60,21 +62,21 @@ namespace Smuxi.Engine
             }
         }
         
+        [Obsolete("As Frontend, use ChatViewManager.ActiveChat, As Engine you shouldn't be using this anyway", true)]
         public ChatModel CurrentChat {
             get {
-                return _CurrentChat;
+                throw new NotImplementedException();
             }
             set {
-                _CurrentChat = value;
             }
         }
         
+        [Obsolete("As Frontend, use ChatViewManager.ActiveChat.Chat.ProtocolManager, As Engine you shouldn't be using this anyway", true)]
         public IProtocolManager CurrentProtocolManager {
             get {
-                return _CurrentProtocolManager;
+                throw new NotImplementedException();
             }
             set {
-                _CurrentProtocolManager = value;
             }
         }
         
@@ -146,12 +148,11 @@ namespace Smuxi.Engine
             // sync current page
             List<ChatModel> chats;
             lock (_Session.Chats) {
-                _CurrentChat = _Session.Chats[0];
                 chats = new List<ChatModel>(_Session.Chats);
             }
 
             // restore page positions
-            if (_CurrentChat.Position != -1) {
+            if (chats[0].Position != -1) {
                 // looks like the positions were synced, sort it good
                 chats.Sort(
                     (a, b) => (a.Position.CompareTo(b.Position))
@@ -161,12 +162,6 @@ namespace Smuxi.Engine
             // sync pages
             foreach (ChatModel chat in chats) {
                 _AddChat(chat);
-            }
-
-            // sync current network manager (if any exists)
-            IProtocolManager nm = _Session.FirstProtocolManager;
-            if (nm != null) {
-                CurrentProtocolManager = nm;
             }
 
             // sync content of pages
@@ -203,20 +198,18 @@ namespace Smuxi.Engine
             }
         }
         
+        [System.Obsolete("this method is unsafe, use UI.SetNetworkStatus instead", true)]
         public void NextProtocolManager()
         {
             Trace.Call();
-            CurrentProtocolManager = _Session.NextProtocolManager(CurrentProtocolManager);
             UpdateNetworkStatus();
         }
         
         public void UpdateNetworkStatus()
         {
-            if (CurrentProtocolManager != null) {
-                SetNetworkStatus(CurrentProtocolManager.ToString());
-            } else {
-                SetNetworkStatus(String.Format("({0})", _("No network connections")));
-            }
+            f_TaskQueue.Queue(delegate {
+                _UI.SetNetworkStatus(null);
+            });
         }
         
         public void AddChat(ChatModel chat)
@@ -242,7 +235,6 @@ namespace Smuxi.Engine
         [Obsolete("This method is unsafe, use AddMessageToChat(cmd.Chat, MessageModel) instead!", true)]
         public void AddTextToCurrentChat(string text)
         {
-            AddTextToChat(CurrentChat, text);
         }
         
         public void EnableChat(ChatModel chat)
@@ -286,19 +278,12 @@ namespace Smuxi.Engine
         [Obsolete("This method is unsafe, use AddMessageToChat(cmd.Chat, msg) instead!", true)]
         public void AddMessageToCurrentChat(MessageModel msg)
         {
-            AddMessageToChat(CurrentChat, msg);
         }
         
         public void RemoveChat(ChatModel chat)
         {
             lock (_SyncedChats) {
                 _SyncedChats.Remove(chat);
-            }
-
-            // switch to next protocol manager if the current one was closed
-            if (chat is ProtocolChatModel &&
-                chat.ProtocolManager == CurrentProtocolManager) {
-                NextProtocolManager();
             }
 
             f_TaskQueue.Queue(delegate {
@@ -384,11 +369,9 @@ namespace Smuxi.Engine
             });
         }
         
+        [System.Obsolete("this method is unsafe, use UI.SetNetworkStatus instead", true)]
         public void SetNetworkStatus(string status)
         {
-            f_TaskQueue.Queue(delegate {
-                _UI.SetNetworkStatus(status);
-            });
         }
         
         public void SetStatus(string status)

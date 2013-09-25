@@ -265,15 +265,6 @@ namespace Smuxi.Frontend.Gnome
                 // ctrl / cmd is pressed
                 e.RetVal = true;
                 switch (key) {
-                    case Gdk.Key.x:
-                    case Gdk.Key.X:
-                        if (ChatViewManager.CurrentChatView is SessionChatView) {
-                            Frontend.FrontendManager.NextProtocolManager();
-                        } else {
-                            // don't break cut
-                            e.RetVal = false;
-                        }
-                        break;
                     case Gdk.Key.p:
                     case Gdk.Key.P:
                         ChatViewManager.CurrentChatNumber--;

@@ -14,7 +14,7 @@ namespace Smuxi.Frontend.Swf
 #endif
         private bool             _CaretMode;
         private ChatViewManager  _ChatViewManager;
-        private IFrontendUI      _UI;
+        private SwfUI      _UI;
         private Notebook         _Notebook;
         private Entry            _Entry;
         
@@ -30,7 +30,7 @@ namespace Smuxi.Frontend.Swf
             }
         }
         
-        public IFrontendUI UI {
+        public SwfUI UI {
             get {
                 return _UI;
             }

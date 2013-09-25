@@ -35,6 +35,7 @@ namespace Smuxi.Frontend.Gnome
 {
     public class GnomeUI : PermanentRemoteObject, IFrontendUI
     {
+        private static readonly string _LibraryTextDomain = "smuxi-frontend-gnome";
 #if LOG4NET
         private static readonly log4net.ILog _Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 #endif
@@ -290,15 +291,17 @@ namespace Smuxi.Frontend.Gnome
                 }
             });
         }
-        
-        public void SetNetworkStatus(string status)
+
+        public void UpdateNetworkStatus()
         {
-            TraceRemotingCall(status);
-
-            MethodBase mb = Trace.GetMethodBase();
+            var pm = _ChatViewManager.ActiveChat.ChatModel.ProtocolManager;
+            string status;
+            if (pm != null) {
+                status = pm.ToString();
+            } else {
+                status = String.Format("({0})", _("Smuxi News Feed"));
+            }
             Gtk.Application.Invoke(delegate {
-                TraceRemotingCall(mb, status);
-
                 try {
                     Frontend.MainWindow.NetworkStatus = status;
                     Frontend.MainWindow.UpdateTitle(null, status);
@@ -306,6 +309,12 @@ namespace Smuxi.Frontend.Gnome
                     Frontend.ShowException(ex);
                 }
             });
+        }
+
+        [Obsolete("Use UpdateNetworkStatus instead")]
+        public void SetNetworkStatus(string dont_use)
+        {
+            UpdateNetworkStatus();
         }
         
         public void SetStatus(string status)
@@ -334,6 +343,11 @@ namespace Smuxi.Frontend.Gnome
         protected static void TraceRemotingCall(params object[] parameters)
         {
             TraceRemotingCall(Trace.GetMethodBase(), parameters);
+        }
+
+        private static string _(string msg)
+        {
+            return LibraryCatalog.GetString(msg, _LibraryTextDomain);
         }
     }
 }

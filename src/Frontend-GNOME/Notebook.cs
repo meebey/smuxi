@@ -215,6 +215,7 @@ namespace Smuxi.Frontend.Gnome
             }
 
             ChatModel chatModel = chatView.ChatModel;
+            Frontend.MainWindow.UI.UpdateNetworkStatus();
 
             // clear activity and highlight
             chatView.HasHighlight = false;
@@ -234,27 +235,6 @@ namespace Smuxi.Frontend.Gnome
                         // in case we are currently reconnecting to a remote engine
                         return;
                     }
-
-                    // OPT-TODO: we could use here a TaskStack instead which
-                    // would make sure only the newest task gets executed
-                    // instead of every task in the FIFO sequence!
-                    // REMOTING CALL 1
-                    IProtocolManager nmanager = chatModel.ProtocolManager;
-
-                    // TODO: only set the protocol manager and update network
-                    // status if the protocol manager differs from the old one
-
-                    // REMOTING CALL 2
-                    fm.CurrentChat = chatModel;
-                    if (nmanager != null) {
-                        // REMOTING CALL 3
-                        fm.CurrentProtocolManager = nmanager;
-                    }
-
-                    // even when we have no network manager, we still want to update
-                    // the network status and title
-                    // REMOTING CALL 4
-                    fm.UpdateNetworkStatus();
 
                     // update last seen highlight
                     // REMOTING CALL 5

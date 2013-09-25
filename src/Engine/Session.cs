@@ -219,9 +219,7 @@ namespace Smuxi.Engine
                     bool handled;
                     handled = Command(cd);
                     if (!handled) {
-                        if (fm.CurrentProtocolManager != null) {
-                            fm.CurrentProtocolManager.Command(cd);
-                        }
+                        _NotConnected(cd);
                     }
                 }
                 
@@ -448,7 +446,7 @@ namespace Smuxi.Engine
             } else {
                 // normal text
                 if (cd.Chat.ChatType == ChatType.Session &&
-                    cd.FrontendManager.CurrentProtocolManager == null) {
+                    cd.Chat.ProtocolManager == null) {
                     _NotConnected(cd);
                     handled = true;
                 }
@@ -579,15 +577,6 @@ namespace Smuxi.Engine
                         protocolManager = Connect(server, fm);
                     } else {
                         protocolManager.Command(cd);
-                    }
-
-                    // set this as current protocol manager
-                    // but only if there was none set (we might be on a chat for example)
-                    // or if this is the neutral "smuxi" tab
-                    if (fm.CurrentProtocolManager == null ||
-                        (fm.CurrentChat != null && fm.CurrentChat.ChatType == ChatType.Session)) {
-                        fm.CurrentProtocolManager = protocolManager;
-                        fm.UpdateNetworkStatus();
                     }
                 } catch (Exception ex) {
 #if LOG4NET
@@ -842,9 +831,6 @@ namespace Smuxi.Engine
                     case "list":
                         _CommandNetworkList(cd);
                         break;
-                    case "switch":
-                        _CommandNetworkSwitch(cd);
-                        break;
                     case "close":
                         _CommandNetworkClose(cd);
                         break;
@@ -962,30 +948,6 @@ namespace Smuxi.Engine
 #endif
                 }
             });
-        }
-        
-        private void _CommandNetworkSwitch(CommandModel cd)
-        {
-            FrontendManager fm = cd.FrontendManager;
-            if (cd.DataArray.Length >= 3) {
-                // named network manager
-                string network = cd.DataArray[2];
-                var pm = GetProtocolManagerByNetwork(network);
-                if (pm == null) {
-                    var builder = CreateMessageBuilder();
-                    builder.AppendText(_("Network switch failed - could not " +
-                                         "find network: {0}"), network);
-                    fm.AddMessageToChat(cd.Chat, builder.ToMessage());
-                    return;
-                }
-                fm.CurrentProtocolManager = pm;
-                fm.UpdateNetworkStatus();
-            } else if (cd.DataArray.Length >= 2) {
-                // next network manager
-                fm.NextProtocolManager();
-            } else {
-                _NotEnoughParameters(cd);
-            }
         }
         
         private void _NotConnected(CommandModel cd)
@@ -1353,20 +1315,9 @@ namespace Smuxi.Engine
             }
         }
         
+        [System.Obsolete("this method is unused from engine, use UI.SetNetworkStatus instead", true)]
         public void SetNetworkStatus(string status)
         {
-            if (status == null) {
-                throw new ArgumentNullException("status");
-            }
-            
-#if LOG4NET
-            f_Logger.Debug("SetNetworkStatus() status: "+status);
-#endif
-            lock (_FrontendManagers) {
-                foreach (FrontendManager fm in _FrontendManagers.Values) {
-                    fm.SetNetworkStatus(status);
-                }
-            }
         }
         
         public void SetStatus(string status)

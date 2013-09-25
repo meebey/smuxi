@@ -87,11 +87,9 @@ namespace Smuxi.Frontend.Curses
             }
             if (!handled) {
                 // we may have no network manager yet
-                Engine.IProtocolManager nm = Frontend.FrontendManager.CurrentProtocolManager;
+                var nm = cd.Chat.ProtocolManager;
                 if (nm != null) {
                     handled = nm.Command(cd);
-                } else {
-                    handled = false;
                 }
             }
             if (!handled) {

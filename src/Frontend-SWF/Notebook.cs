@@ -97,26 +97,13 @@ namespace Smuxi.Frontend.Swf
                 // synchronize FrontManager.CurrenPage
                 ChatView chatView = e.TabPage as ChatView;
                 if (chatView != null) {
-                    ChatModel chatModel = chatView.ChatModel;
-                    IProtocolManager nmanager = chatModel.ProtocolManager;
-                    Frontend.FrontendManager.CurrentChat = chatModel;
-                    if (nmanager != null) {
-                        Frontend.FrontendManager.CurrentProtocolManager = nmanager;
-                    }
                     // even when we have no network manager, we still want to update the state
-                    Frontend.FrontendManager.UpdateNetworkStatus();
+                    Frontend.MainWindow.UI.UpdateNetworkStatus();
 
                     // lets remove any markup / highlight
                     string color = (string) Frontend.UserConfig["Interface/Notebook/Tab/NoActivityColor"];
                     // TODO: apply color to tab
                     chatView.HasHighlight = false;
-                    
-                    // sync title
-                    if (Frontend.MainWindow != null) {
-                        string network = nmanager != null ? nmanager.ToString() + " / " : "";
-                        Frontend.MainWindow.Text = network + chatView.Text +
-                                                    " - Smuxi";
-                    }
                 }
             } catch (Exception ex) {
                 Frontend.ShowException(null, ex);
