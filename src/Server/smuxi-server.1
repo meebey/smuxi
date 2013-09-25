@@ -1,0 +1,58 @@
+.Dd $Mdocdate: September 24 2013 $
+.Dt smuxi-server 1
+.Os
+.Sh NAME
+.Nm smuxi-server
+.Nd remote engine for Smuxi chat client
+.Sh SYNOPSIS
+.Nm smuxi-server
+.Op Fl dh
+.Op Fl \-add-user
+.Op Fl \-modify-user
+.Op Fl \-delete-user
+.Op Fl \-list-users
+.Op Fl \-username Ns = Ns Ar username
+.Op Fl \-password Ns = Ns Ar password
+.Op Fl \-optimize-message-buffers Ns = Ns Ar action
+.Sh DESCRIPTION
+.Nm
+is a remote engine for the Smuxi chat client. Multiple Smuxi frontends can connect and be kept in sync, and when none are connected, keeps track and stays connected to servers.
+.Pp
+Some options are mutually exclusive. When no special options are taken, the server will start normally. The options are as follows:
+.Bl -tag -width Ds
+.It Fl d , Fl \-debug
+Turn on debugging. Debug logs are sent to
+.Pa $XDG_DATA_HOME/smuxi/smuxi-server.log
+, and older logs are moved to the date of usage.
+.It Fl h , Fl \-help
+Show the arguments Smuxi takes.
+.It Fl \-add-user
+Adds a user to the server.
+.It Fl \-delete-user
+Deletes a user from the server.
+.It Fl \-modify-user
+Changes a user's properties.
+.It Fl \-list-users
+Lists the users of the server.
+.It Fl \-username Ns = Ns Ar username
+When adding, deleting, or modifying a user, use that username.
+.It Fl \-password Ns = Ns Ar password
+When adding or modifying a user, use that password.
+.It Fl \-optimize-message-buffers Ns = Ns Ar action
+Optimizes the message buffers. Valid values are none, defrag, index, and all.
+.Sh FILES
+.Bl -tag -width -compact
+.It Pa $XDG_DATA_HOME/smuxi/share/smuxi-server.log
+smuxi debug log
+.It Pa $XDG_CONFIG_HOME/smuxi/smuxi-engine.ini
+smuxi engine config
+.Sh SEE ALSO
+.Xr smuxi-frontend-gnome 1 ,
+.Xr smuxi-frontend-stfl 1 ,
+.Xr smuxi-message-buffer 1
+.Pp
+Website: http://smuxi.im
+.Sh AUTHOR/CREDITS
+Smuxi, including this server, was written by Mirco Bauer.
+.Pp
+This manpage was written by Calvin Buckley.
