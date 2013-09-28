@@ -46,7 +46,6 @@ namespace Smuxi.Frontend.Swf
         private static string             _VersionNumber;
         private static string             _VersionString;
         private static Version            _EngineVersion;
-        private static SplashScreenWindow _SplashScreenWindow;
         private static MainWindow         _MainWindow;
         private static FrontendConfig     _FrontendConfig;
         private static Session            _Session;
@@ -151,8 +150,6 @@ namespace Smuxi.Frontend.Swf
             // called before any form is displayed.
             Application.EnableVisualStyles();
 
-            _SplashScreenWindow = new SplashScreenWindow();
-            
             _MainWindow = new MainWindow();
             // HACK: force creation of window handle, else the engine will have problems adding stuff
             IntPtr handle = _MainWindow.Handle;
@@ -175,9 +172,6 @@ namespace Smuxi.Frontend.Swf
                     InitLocalEngine();
                 }
             }
-            // TODO: Kill the SplashScreen Window
-            _SplashScreenWindow.Close();
-            
              /*TODO: Set the main message loop*/
             Application.Run(_MainWindow);
 #if LOG4NET

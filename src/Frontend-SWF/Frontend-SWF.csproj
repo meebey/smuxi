@@ -40,8 +40,6 @@
     <DefineConstants>TRACE;LOG4NET</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="SplashScreenWindow.cs" />
-    <Compile Include="SplashScreenWindow.designer.cs" />
     <Compile Include="NotImplementedMessageDialog.cs" />
     <Compile Include="AssemblyInfo.cs" />
     <Compile Include="MainWindow.Designer.cs" />
