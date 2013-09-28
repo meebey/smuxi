@@ -70,8 +70,6 @@ BINARIES = \
 all: $(ASSEMBLY) $(PROGRAMFILES) $(BINARIES) 
 
 FILES = \
-	SplashScreenWindow.cs \
-	SplashScreenWindow.designer.cs \
 	NotImplementedMessageDialog.cs \
 	$(top_srcdir)/src/AssemblyVersion.cs \
 	AssemblyInfo.cs \
