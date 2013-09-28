@@ -38,6 +38,7 @@ namespace Smuxi.Engine
             } else {
                 this["MSG"] = message.Substring(nick.Length + 3);
             }
+            this["MSG_TYPE"] = msg.MessageType.ToString();
 
             var timestamp = (Int64) (msg .TimeStamp - UnixEpoch).TotalSeconds;
             this["MSG_TIMESTAMP_UNIX"] = timestamp.ToString();
