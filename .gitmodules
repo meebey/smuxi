@@ -1,33 +1,33 @@
 [submodule "lib/SmartIrc4net"]
 	path = lib/SmartIrc4net
-	url = git://git.qnetp.net/smartirc4net.git
+	url = https://github.com/meebey/SmartIrc4net.git
 [submodule "lib/Twitterizer"]
 	path = lib/Twitterizer
-	url = git://git.qnetp.net/twitterizer.git
+	url = https://github.com/meebey/Twitterizer.git
 [submodule "lib/Newtonsoft.Json"]
 	path = lib/Newtonsoft.Json
-	url = git://git.qnetp.net/json-net.git
+	url = https://github.com/meebey/Newtonsoft.Json.git
 [submodule "lib/db4o-net"]
 	path = lib/db4o-net
-	url = git://git.qnetp.net/db4o-net.git
+	url = https://github.com/meebey/db4o-net.git
 [submodule "lib/agsxmpp"]
 	path = lib/agsxmpp
-	url = git://github.com/meebey/agsxmpp.git
+	url = https://github.com/meebey/agsxmpp.git
 [submodule "lib/ServiceStack.Text"]
 	path = lib/ServiceStack.Text
-	url = git://git.qnetp.net/ServiceStack.Text.git
+	url = https://github.com/meebey/ServiceStack.Text.git
 [submodule "lib/ServiceStack"]
 	path = lib/ServiceStack
-	url = git://git.qnetp.net/ServiceStack.git
+	url = https://github.com/meebey/ServiceStack.git
 [submodule "lib/messagingmenu-sharp"]
 	path = lib/messagingmenu-sharp
-	url = git://git.qnetp.net/messagingmenu-sharp.git
+	url = https://github.com/meebey/messagingmenu-sharp.git
 [submodule "lib/SignalR"]
 	path = lib/SignalR
-	url = git://git.qnetp.net/SignalR.git
+	url = https://github.com/meebey/SignalR.git
 [submodule "lib/JabbR"]
 	path = lib/JabbR
-	url = git://git.qnetp.net/JabbR.git
+	url = https://github.com/meebey/JabbR.git
 [submodule "lib/StarkSoftProxy"]
 	path = lib/StarkSoftProxy
-	url = git://github.com/meebey/starksoftproxy.git
+	url = https://github.com/meebey/starksoftproxy.git
