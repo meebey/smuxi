@@ -38,6 +38,7 @@ namespace Smuxi.Frontend
 
         public event EventHandler<ChatViewAddedEventArgs>  ChatAdded;
         public event EventHandler<ChatViewSyncedEventArgs> ChatSynced;
+        public event EventHandler<ChatViewRemovedEventArgs> ChatRemoved;
         public event EventHandler<WorkerExceptionEventArgs> WorkerException;
 
         public ChatViewSyncManager()
@@ -83,10 +84,41 @@ namespace Smuxi.Frontend
                         protocolManager, protocolManagerType);
         }
 
+        public void QueueRemove(ChatModel chatModel)
+        {
+            Trace.Call(chatModel);
+
+            if (chatModel == null) {
+                throw new ArgumentNullException("chatModel");
+            }
+
+            WorkerQueue.Enqueue(delegate {
+                RemoveWorker(chatModel);
+            });
+        }
+
+        void RemoveWorker(ChatModel chatModel)
+        {
+            try {
+                Remove(chatModel);
+            } catch (Exception ex) {
+#if LOG4NET
+                Logger.Error("RemoveWorker(): Remove() threw exception!" , ex);
+#endif
+                if (WorkerException != null) {
+                    WorkerException(
+                        this,
+                        new WorkerExceptionEventArgs(chatModel, ex)
+                    );
+                }
+                OnWorkerException(chatModel, ex);
+            }
+        }
+
         /// <remarks>
         /// This method is thread safe.
         /// </remarks>
-        public void Remove(ChatModel chatModel)
+        void Remove(ChatModel chatModel)
         {
             Trace.Call(chatModel);
 
@@ -95,13 +127,41 @@ namespace Smuxi.Frontend
             }
 
             var chatKey = GetChatKey(chatModel);
+            AutoResetEvent syncWait = null;
+            lock (SyncWaitQueue) {
+                SyncWaitQueue.TryGetValue(chatKey, out syncWait);
+            }
+            if (syncWait != null) {
+#if LOG4NET
+                Logger.Debug("RemoveWorker() <" + chatKey + "> waiting for " +
+                    "sync lock release..."
+                );
+#endif
+                // This chat was queued by QueueAdd() thus we need to wait
+                // till the ChatView is created and ready to be synced
+                syncWait.WaitOne();
+#if LOG4NET
+                Logger.Debug("RemoveWorker() <" + chatKey + "> " +
+                    "sync lock released"
+                );
+#endif
+            }
 #if LOG4NET
             Logger.DebugFormat("Remove() <{0}> removing from release queue",
                                chatKey);
 #endif
-            lock (SyncReleaseQueue) {
-                SyncReleaseQueue.Remove(chatKey);
+            bool done = false;
+            IChatView chatView = null;
+            while (!done) {
+                lock (SyncReleaseQueue) {
+                    if(!SyncReleaseQueue.TryGetValue(chatKey, out chatView)) {
+                        continue;
+                    }
+                    SyncReleaseQueue.Remove(chatKey);
+                    done = true;
+                }
             }
+            OnChatRemoved(chatView);
         }
 
         public void Sync(IChatView chatView)
@@ -290,6 +350,13 @@ namespace Smuxi.Frontend
             }
         }
 
+        void OnChatRemoved(IChatView chatView)
+        {
+            if (ChatRemoved != null) {
+                ChatRemoved(this, new ChatViewRemovedEventArgs(chatView));
+            }
+        }
+
         void OnChatAdded(ChatModel chatModel, string chatId,
                          ChatType chatType, int chatPosition,
                          IProtocolManager protocolManager,
@@ -350,6 +417,16 @@ namespace Smuxi.Frontend
         public IChatView ChatView { get; private set; }
 
         public ChatViewSyncedEventArgs(IChatView chatView)
+        {
+            ChatView = chatView;
+        }
+    }
+
+    public class ChatViewRemovedEventArgs : EventArgs
+    {
+        public IChatView ChatView { get; private set; }
+
+        public ChatViewRemovedEventArgs(IChatView chatView)
         {
             ChatView = chatView;
         }
