@@ -2149,9 +2149,6 @@ namespace Smuxi.Engine
 
                 Session.DisableChat(chat);
             }
-            if (ContactChat != null && ContactChat.IsEnabled) {
-                Session.DisableChat(ContactChat);
-            }
 
             IsConnected = false;
             OnDisconnected(EventArgs.Empty);
