@@ -206,7 +206,9 @@ namespace Smuxi.Engine
 
         public void Close()
         {
-            MessageBuffer.Dispose();
+            if (MessageBuffer != null) {
+                MessageBuffer.Dispose();
+            }
         }
 
         private string GetLogFile()
