@@ -400,7 +400,14 @@ namespace Smuxi.Engine
             // HACK: lower probability of sync race condition during connect
             ThreadPool.QueueUserWorkItem(delegate {
                 Thread.Sleep(5000);
-                Session.SyncChat(ContactChat);
+                lock (this) {
+                    if (IsDisposed) {
+                        return;
+                    }
+                    if (ContactChat != null) {
+                        Session.SyncChat(ContactChat);
+                    }
+                }
             });
         }
 
@@ -990,7 +997,6 @@ namespace Smuxi.Engine
                 chat = Session.CreateChat<XmppGroupChatModel>(jid, jid, this);
                 Session.AddChat(chat);
             }
-            Session.DisableChat(chat);
             if (password != null) {
                 chat.Password = password;
             }
@@ -1672,9 +1678,14 @@ namespace Smuxi.Engine
                         // HACK: lower probability of sync race condition swallowing messages
                         ThreadPool.QueueUserWorkItem(delegate {
                             Thread.Sleep(1000);
-                            chat.IsSynced = true;
-                            Session.SyncChat(chat);
-                            Session.EnableChat(chat);
+                            lock (this) {
+                                if (IsDisposed) {
+                                    return;
+                                }
+                                chat.IsSynced = true;
+                                Session.SyncChat(chat);
+                                Session.EnableChat(chat);
+                            }
                         });
                     }
                     break;
@@ -2215,9 +2226,6 @@ namespace Smuxi.Engine
                 }
 
                 Session.DisableChat(chat);
-            }
-            if (ContactChat != null && ContactChat.IsEnabled) {
-                Session.DisableChat(ContactChat);
             }
 
             OnDisconnected(EventArgs.Empty);
