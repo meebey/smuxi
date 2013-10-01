@@ -364,7 +364,14 @@ namespace Smuxi.Engine
             // HACK: lower probability of sync race condition during connect
             ThreadPool.QueueUserWorkItem(delegate {
                 Thread.Sleep(5000);
-                Session.SyncChat(ContactChat);
+                lock (this) {
+                    if (IsDisposed) {
+                        return;
+                    }
+                    if (ContactChat != null) {
+                        Session.SyncChat(ContactChat);
+                    }
+                }
             });
         }
 
@@ -1622,9 +1629,14 @@ namespace Smuxi.Engine
                         // HACK: lower probability of sync race condition swallowing messages
                         ThreadPool.QueueUserWorkItem(delegate {
                             Thread.Sleep(1000);
-                            chat.IsSynced = true;
-                            Session.SyncChat(chat);
-                            Session.EnableChat(chat);
+                            lock (this) {
+                                if (IsDisposed) {
+                                    return;
+                                }
+                                chat.IsSynced = true;
+                                Session.SyncChat(chat);
+                                Session.EnableChat(chat);
+                            }
                         });
                     }
                     break;
