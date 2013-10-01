@@ -957,7 +957,6 @@ namespace Smuxi.Engine
                 chat = Session.CreateChat<XmppGroupChatModel>(jid, jid, this);
                 Session.AddChat(chat);
             }
-            Session.DisableChat(chat);
             if (password != null) {
                 chat.Password = password;
             }
