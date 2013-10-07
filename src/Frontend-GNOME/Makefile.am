@@ -120,6 +120,7 @@ FILES = \
 	Frontend.cs \
 	GnomeUI.cs \
 	Gtk.WindowExtensions.cs \
+	Gtk.Extensions.cs \
 	IndicateManager.cs \
 	Main.cs \
 	MainWindow.cs \
