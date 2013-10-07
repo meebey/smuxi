@@ -142,6 +142,20 @@ namespace Smuxi.Frontend.Gnome
             f_FindGroupChatToolAction.IconName = Gtk.Stock.Find;
 #endif
 
+#if GTK_SHARP_3
+            // GTK+3's Symbolic Icons (makes me4oslav smile again)
+            f_ConnectToolAction.StockId = null;
+            f_ConnectToolAction.IconName = "network-workgroup-symbolic";
+            f_FindGroupChatToolAction.StockId = null;
+            f_FindGroupChatToolAction.IconName = "edit-find-symbolic";
+            f_OpenLogToolAction.StockId = null;
+            f_OpenLogToolAction.IconName = "folder-documents-symbolic";
+            f_FullscreenToolAction.StockId = null;
+            f_FullscreenToolAction.IconName = "view-fullscreen-symbolic";
+            f_PreferencesToolAction.StockId = null;
+            f_PreferencesToolAction.IconName = "preferences-system-symbolic";
+#endif
+
             f_MenuToolbar.ShowAll();
             f_MenuToolbar.NoShowAll = true;
             f_MenuToolbar.Visible = (bool) Frontend.FrontendConfig["ShowToolBar"];

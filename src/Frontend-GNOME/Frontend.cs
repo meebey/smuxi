@@ -1083,8 +1083,14 @@ namespace Smuxi.Frontend.Gnome
                     unityWithLightIcons = true;
                 }
             }
+
+#if GTK_SHARP_3
+            var IsGtk3 = true;
+#else
+            var IsGtk3 = false;
+#endif
             var appIconDir = Path.Combine(appDir, "icons");
-            if (Directory.Exists(appIconDir)) {
+            if (Directory.Exists(appIconDir) && !IsGtk3) {
                 var iconTheme = "Smuxi-Symbolic";
 #if LOG4NET
                 _Logger.InfoFormat("InitGtk(): Setting icon theme to: {0}",
