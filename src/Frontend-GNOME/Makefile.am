@@ -159,22 +159,6 @@ FILES = \
 	OpenChatDialog.cs \
 	ThemeSettings.cs \
 	StatusIconManager.cs \
-	gtk-gui/generated.cs \
-	gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantConnectionWidget.cs \
-	gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs \
-	gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantIntroWidget.cs \
-	gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantNameWidget.cs \
-	gtk-gui/Smuxi.Frontend.Gnome.JoinWidget.cs \
-	gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs \
-	gtk-gui/Smuxi.Frontend.Gnome.OpenChatDialog.cs \
-	gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs \
-	gtk-gui/Smuxi.Frontend.Gnome.QuickConnectDialog.cs \
-	gtk-gui/Smuxi.Frontend.Gnome.FindGroupChatDialog.cs \
-	gtk-gui/Smuxi.Frontend.Gnome.ChatFindDialog.cs \
-	gtk-gui/Smuxi.Frontend.Gnome.ChatTypeWidget.cs \
-	gtk-gui/Smuxi.Frontend.Gnome.ServerDialog.cs \
-	gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs \
-	gtk-gui/Smuxi.Frontend.Gnome.FilterListWidget.cs \
 	osx/AppleEvent.cs \
 	osx/ApplicationEvents.cs \
 	osx/Carbon.cs \
