@@ -22,6 +22,7 @@
 
 using System;
 using System.Collections.Generic;
+using Gtk.Extensions;
 using Smuxi.Common;
 using Smuxi.Engine;
 
@@ -38,7 +39,13 @@ namespace Smuxi.Frontend.Gnome
                 return f_ServerModel;
             }
         }
-        
+
+#if GTK_SHARP_3
+        Gtk.TreeView f_TreeView { get; set; }
+        ServerWidget f_Widget { get; set; }
+        Gtk.Button f_ConnectButton { get; set; }
+#endif
+
         public QuickConnectDialog(Gtk.Window parent) :
                              base(null, parent,
                                   Gtk.DialogFlags.DestroyWithParent)
@@ -48,9 +55,13 @@ namespace Smuxi.Frontend.Gnome
             if (parent == null) {
                 throw new ArgumentNullException("parent");
             }
-                
+
+#if GTK_SHARP_3
+            throw new NotImplementedException();
+#else
             Build();
-            
+#endif
+
             TransientFor = parent;
             
             f_Controller = new ServerListController(Frontend.UserConfig);
@@ -207,7 +218,7 @@ namespace Smuxi.Frontend.Gnome
                 !f_Widget.HostnameEntry.Visible ||
                 f_Widget.HostnameEntry.Text.Trim().Length > 0;
             if (f_ConnectButton.Sensitive &&
-                f_Widget.ProtocolComboBox.ActiveText == "Campfire" &&
+                f_Widget.ProtocolComboBox.GetActiveText() == "Campfire" &&
                 f_Widget.HostnameEntry.Text == ".campfirenow.com") {
                 f_ConnectButton.Sensitive = false;
             }

@@ -20,6 +20,7 @@
 
 using System;
 using System.Collections.Generic;
+using Gtk.Extensions;
 using Smuxi.Common;
 using Smuxi.Engine;
 
@@ -29,6 +30,24 @@ namespace Smuxi.Frontend.Gnome
     public partial class ServerWidget : Gtk.Bin
     {
         Gtk.ListStore f_NetworkListStore;
+#if GTK_SHARP_3
+        Gtk.Entry f_HostnameEntry;
+        Gtk.ComboBox f_ProtocolComboBox;
+        Gtk.ComboBox f_NetworkComboBoxEntry;
+        Gtk.CheckButton f_OnStartupConnectCheckButton;
+        Gtk.Label f_HostnameLabel;
+        Gtk.Label f_PortLabel;
+        Gtk.SpinButton f_PortSpinButton;
+        Gtk.Label f_NetworkLabel;
+        Gtk.Label f_PasswordLabel;
+        Gtk.Entry f_PasswordEntry;
+        Gtk.CheckButton f_ShowPasswordCheckButton;
+        Gtk.CheckButton f_UseEncryptionCheckButton;
+        Gtk.CheckButton f_ValidateServerCertificateCheckButton;
+        Gtk.Entry f_UsernameEntry;
+        Gtk.TextView f_OnConnectCommandsTextView;
+        Gtk.CheckButton f_IgnoreOnConnectCommandsCheckButton;
+#endif
 
         string ServerID { get; set; }
 
@@ -66,7 +85,11 @@ namespace Smuxi.Frontend.Gnome
             }
         }
 
+#if GTK_SHARP_3
+        public Gtk.ComboBox NetworkComboBoxEntry {
+#else
         public Gtk.ComboBoxEntry NetworkComboBoxEntry {
+#endif
             get {
                 return f_NetworkComboBoxEntry;
             }
@@ -120,7 +143,11 @@ namespace Smuxi.Frontend.Gnome
 
             f_NetworkListStore = new Gtk.ListStore(typeof(string));
 
+#if GTK_SHARP_3
+            throw new NotImplementedException();
+#else
             Build();
+#endif
             Init();
         }
 
@@ -162,14 +189,14 @@ namespace Smuxi.Frontend.Gnome
         public ServerModel GetServer()
         {
             ServerModel server = new ServerModel();
-            server.Protocol = f_ProtocolComboBox.ActiveText;
+            server.Protocol = f_ProtocolComboBox.GetActiveText();
             server.ServerID = ServerID;
             server.Hostname = f_HostnameEntry.Text.Trim();
             server.Network  = f_NetworkComboBoxEntry.Entry.Text.Trim();
             server.Port     = f_PortSpinButton.ValueAsInt;
             server.Username = f_UsernameEntry.Text.Trim();
             // HACK: use Twitter username as hostname for multi-account support
-            if (f_ProtocolComboBox.ActiveText == "Twitter") {
+            if (f_ProtocolComboBox.GetActiveText() == "Twitter") {
                 server.Hostname = server.Username;
             }
             server.Password = f_PasswordEntry.Text;
@@ -230,7 +257,9 @@ namespace Smuxi.Frontend.Gnome
             }
             f_NetworkListStore.SetSortColumnId(0, Gtk.SortType.Ascending);
             f_NetworkComboBoxEntry.Model = f_NetworkListStore;
+#if !GTK_SHARP_3
             f_NetworkComboBoxEntry.TextColumn = 0;
+#endif
         }
 
         private void Init()
@@ -273,7 +302,7 @@ namespace Smuxi.Frontend.Gnome
             if (!useEncryption) {
                 f_ValidateServerCertificateCheckButton.Active = false;
             }
-            switch (f_ProtocolComboBox.ActiveText) {
+            switch (f_ProtocolComboBox.GetActiveText()) {
                 case "IRC":
                     f_PortSpinButton.Value = useEncryption ? 6697 : 6667;
                     break;
@@ -291,7 +320,7 @@ namespace Smuxi.Frontend.Gnome
             // suggest sane port defaults
             // TODO: this should be replaced with some ProtocolInfo class
             // that contains exactly this kind of information
-            switch (f_ProtocolComboBox.ActiveText) {
+            switch (f_ProtocolComboBox.GetActiveText()) {
                 case "IRC":
                     ShowHostname = true;
                     ShowNetwork = true;

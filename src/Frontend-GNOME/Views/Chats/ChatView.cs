@@ -284,9 +284,12 @@ namespace Smuxi.Frontend.Gnome
             tv.MessageAdded += OnMessageTextViewMessageAdded;
             tv.MessageHighlighted += OnMessageTextViewMessageHighlighted;
             tv.PopulatePopup += OnMessageTextViewPopulatePopup;
+            // TODO: PORT ME!
+#if !GTK_SHARP_3
             tv.SizeRequested += delegate {
                 AutoScroll();
             };
+#endif
             tv.PersonClicked += OnMessageTextViewPersonClicked;
             _OutputMessageTextView = tv;
 
@@ -340,7 +343,11 @@ namespace Smuxi.Frontend.Gnome
             Dispose(false);
         }
 
+#if GTK_SHARP_3
+        public new void Dispose()
+#else
         public override void Dispose()
+#endif
         {
             Trace.Call();
 

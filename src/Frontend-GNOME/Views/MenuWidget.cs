@@ -1,6 +1,6 @@
 // Smuxi - Smart MUltipleXed Irc
 //
-// Copyright (c) 2012 Mirco Bauer <meebey@meebey.net>
+// Copyright (c) 2012-2013 Mirco Bauer <meebey@meebey.net>
 //
 // Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
 //
@@ -23,6 +23,10 @@ using SysDiag = System.Diagnostics;
 using IgeMacIntegration;
 using Smuxi.Common;
 using Smuxi.Engine;
+using GLib;
+#if GTK_BUILDER
+using UI = Gtk.Builder.ObjectAttribute;
+#endif
 
 namespace Smuxi.Frontend.Gnome
 {
@@ -36,6 +40,30 @@ namespace Smuxi.Frontend.Gnome
         MainWindow MainWindow { get; set; }
         public JoinWidget JoinWidget { get; private set; }
         ChatViewManager ChatViewManager { get; set; }
+#if GTK_BUILDER
+        #pragma warning disable 0649
+        [UI("CaretModeAction")] Gtk.ToggleAction f_CaretModeAction;
+        [UI("MenuBar")] Gtk.MenuBar f_MenuBar;
+        [UI("ShowMenubarAction")] Gtk.ToggleAction f_ShowMenubarAction;
+        [UI("OpenLogAction")] Gtk.Action f_OpenLogAction;
+        [UI("CloseChatAction")] Gtk.Action f_CloseChatAction;
+        [UI("FindGroupChatAction")] Gtk.Action f_FindGroupChatAction;
+        [UI("QuitAction")] Gtk.Action f_QuitAction;
+        [UI("MenuToolbar")] Gtk.Toolbar f_MenuToolbar;
+        [UI("JoinToolbar")] Gtk.Toolbar f_JoinToolbar;
+        [UI("ShowToolbarAction")] Gtk.ToggleAction f_ShowToolbarAction;
+        [UI("ShowStatusbarAction")] Gtk.ToggleAction f_ShowStatusbarAction;
+        [UI("SmuxiAction")] Gtk.Action f_SmuxiAction;
+        [UI("AboutAction")] Gtk.Action f_AboutAction;
+        [UI("PreferencesAction")] Gtk.Action f_PreferencesAction;
+        // toolbar
+        [UI("ConnectToolAction")] Gtk.Action f_ConnectToolAction;
+        [UI("FindGroupChatToolAction")] Gtk.Action f_FindGroupChatToolAction;
+        [UI("OpenLogToolAction")] Gtk.Action f_OpenLogToolAction;
+        [UI("FullscreenToolAction")] Gtk.Action f_FullscreenToolAction;
+        [UI("PreferencesToolAction")] Gtk.Action f_PreferencesToolAction;
+        #pragma warning restore
+#endif
 
         public bool CaretMode {
             get {
@@ -94,6 +122,7 @@ namespace Smuxi.Frontend.Gnome
 
             Build();
 
+#if !GTK_BUILDER
             // Smuxi Menu
             f_QuitAction.IconName = Gtk.Stock.Quit;
 
@@ -111,6 +140,7 @@ namespace Smuxi.Frontend.Gnome
             f_ConnectToolAction.IconName = Gtk.Stock.Network;
             f_OpenLogToolAction.IconName = Gtk.Stock.Open;
             f_FindGroupChatToolAction.IconName = Gtk.Stock.Find;
+#endif
 
             f_MenuToolbar.ShowAll();
             f_MenuToolbar.NoShowAll = true;
@@ -160,6 +190,16 @@ namespace Smuxi.Frontend.Gnome
             }
         }
 
+#if GTK_BUILDER
+        protected virtual void Build()
+        {
+            var builder = new Gtk.Builder(null, "MenuWidget.ui", null);
+            builder.Autoconnect(this);
+            Add((Gtk.Widget) builder.GetObject("MenuWidgetBox"));
+            ShowAll();
+        }
+#endif
+
         protected void OnAboutActionActivated(object sender, EventArgs e)
         {
             Trace.Call(sender, e);
@@ -178,8 +218,12 @@ namespace Smuxi.Frontend.Gnome
             Trace.Call(sender, e);
             
             try {
+#if GTK_SHARP_3
+                throw new NotImplementedException();
+#else
                 var dialog = new PreferencesDialog(Parent);
                 dialog.Show();
+#endif
             } catch (Exception ex) {
                 Frontend.ShowException(Parent, ex);
             }
@@ -263,8 +307,12 @@ namespace Smuxi.Frontend.Gnome
             Trace.Call(sender, e);
             
             try {
+#if GTK_SHARP_3
+                throw new NotImplementedException();
+#else
                 var dialog = new PreferencesDialog(Parent);
                 dialog.CurrentPage = PreferencesDialog.Page.Servers;
+#endif
             } catch (Exception ex) {
                 Frontend.ShowException(Parent, ex);
             }

@@ -26,6 +26,7 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA
  */
 
+#if GLADE_SHARP
 using System;
 using System.Collections.Generic;
 using Smuxi.Common;
@@ -313,3 +314,4 @@ namespace Smuxi.Frontend.Gnome
         }
     }
 }
+#endif

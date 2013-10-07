@@ -28,7 +28,11 @@ namespace Smuxi.Frontend.Gnome
     {
         public EngineAssistantIntroWidget()
         {
+#if GTK_SHARP_3
+            throw new NotImplementedException();
+#else
             Build();
+#endif
         }
     }
 }

@@ -30,6 +30,9 @@ namespace Smuxi.Frontend.Gnome
     public partial class ChatTypeWidget : Gtk.Bin
     {
         private Gtk.ListStore f_ListStore;
+#if GTK_SHARP_3
+        Gtk.ComboBox f_ComboBox;
+#endif
 
         public ChatType ChatType {
             get {
@@ -41,7 +44,11 @@ namespace Smuxi.Frontend.Gnome
 
         public ChatTypeWidget()
         {
+#if GTK_SHARP_3
+            throw new NotImplementedException();
+#else
             Build();
+#endif
             Init();
         }
 

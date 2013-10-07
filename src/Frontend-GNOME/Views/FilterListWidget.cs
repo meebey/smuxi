@@ -22,6 +22,11 @@ using System;
 using System.Collections.Generic;
 using Smuxi.Common;
 using Smuxi.Engine;
+#if GTK_SHARP_3
+using TreeModel = Gtk.ITreeModel;
+#else
+using TreeModel = Gtk.TreeModel;
+#endif
 
 namespace Smuxi.Frontend.Gnome
 {
@@ -34,6 +39,9 @@ namespace Smuxi.Frontend.Gnome
         Gtk.ListStore        f_ChatTypeListStore { get; set; }
         Gtk.ListStore        f_MessageTypeListStore { get; set; }
         Gtk.ListStore        f_ProtocolListStore { get; set; }
+#if GTK_SHARP_3
+        Gtk.TreeView f_TreeView;
+#endif
 
         public event EventHandler Changed;
 
@@ -46,7 +54,11 @@ namespace Smuxi.Frontend.Gnome
                 throw new ArgumentNullException("userConfig");
             }
 
+#if GTK_SHARP_3
+            throw new NotImplementedException();
+#else
             Build();
+#endif
             Init();
 
             f_Parent = parent;
@@ -269,7 +281,7 @@ namespace Smuxi.Frontend.Gnome
             column.SetCellDataFunc(textCellr,
                 delegate(Gtk.TreeViewColumn col,
                          Gtk.CellRenderer cellr,
-                         Gtk.TreeModel model, Gtk.TreeIter iter ) {
+                         TreeModel model, Gtk.TreeIter iter ) {
                     FilterModel filter = (FilterModel) model.GetValue(iter, 0);
                     (cellr as Gtk.CellRendererText).Text = filter.ChatID;
                 }
@@ -318,7 +330,7 @@ namespace Smuxi.Frontend.Gnome
             column.SetCellDataFunc(textCellr,
                 delegate(Gtk.TreeViewColumn col,
                          Gtk.CellRenderer cellr,
-                         Gtk.TreeModel model, Gtk.TreeIter iter) {
+                         TreeModel model, Gtk.TreeIter iter) {
                     FilterModel filter = (FilterModel) model.GetValue(iter, 0);
                     (cellr as Gtk.CellRendererText).Text = filter.MessagePattern;
                 }
@@ -326,7 +338,7 @@ namespace Smuxi.Frontend.Gnome
         }
 
         void RenderProtocol(Gtk.TreeViewColumn column, Gtk.CellRenderer cellr,
-                            Gtk.TreeModel model, Gtk.TreeIter iter)
+                            TreeModel model, Gtk.TreeIter iter)
         {
             FilterModel filter = (FilterModel) model.GetValue(iter, 0);
             (cellr as Gtk.CellRendererCombo).Text = filter.Protocol;
@@ -348,7 +360,7 @@ namespace Smuxi.Frontend.Gnome
         }
 
         void RenderChatType(Gtk.TreeViewColumn column, Gtk.CellRenderer cellr,
-                            Gtk.TreeModel model, Gtk.TreeIter iter)
+                            TreeModel model, Gtk.TreeIter iter)
         {
             FilterModel filter = (FilterModel) model.GetValue(iter, 0);
             foreach (object[] row in f_ChatTypeListStore) {
@@ -387,7 +399,7 @@ namespace Smuxi.Frontend.Gnome
         }
 
         void RenderMessageType(Gtk.TreeViewColumn column, Gtk.CellRenderer cellr,
-                               Gtk.TreeModel model, Gtk.TreeIter iter)
+                               TreeModel model, Gtk.TreeIter iter)
         {
             FilterModel filter = (FilterModel) model.GetValue(iter, 0);
             foreach (object[] row in f_MessageTypeListStore) {

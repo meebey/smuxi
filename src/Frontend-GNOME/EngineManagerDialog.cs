@@ -30,6 +30,7 @@ using System;
 using System.Collections;
 using System.Collections.Specialized;
 using Mono.Unix;
+using Gtk.Extensions;
 using Smuxi.Engine;
 using Smuxi.Common;
 
@@ -66,6 +67,14 @@ namespace Smuxi.Frontend.Gnome
                 throw new ArgumentException(_("Engine not found."), "value");
             }
         }
+
+#if GTK_SHARP_3
+        Gtk.Box VBox {
+            get {
+                return ContentArea;
+            }
+        }
+#endif
 
         public EngineManagerDialog(EngineManager engineManager)
         {

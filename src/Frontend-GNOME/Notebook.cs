@@ -284,8 +284,13 @@ namespace Smuxi.Frontend.Gnome
                 return;
             }
 
+#if GTK_SHARP_3
+            var chatView = (ChatView) e.Child;
+            var newPosition = (int) e.PageNum;
+#else
             var chatView = (ChatView) e.P0;
             var newPosition = (int) e.P1;
+#endif
             ThreadPool.QueueUserWorkItem(delegate {
                 try {
                     Frontend.Session.MoveChat(chatView.ChatModel, newPosition);

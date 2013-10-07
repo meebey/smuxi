@@ -19,9 +19,13 @@
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA
 using System;
 using System.Collections.Generic;
+using Gtk.Extensions;
 using Smuxi.Common;
 using Smuxi.Engine;
 using System.Runtime.InteropServices;
+#if GTK_BUILDER
+using UI = Gtk.Builder.ObjectAttribute;
+#endif
 
 namespace Smuxi.Frontend.Gnome
 {
@@ -31,7 +35,19 @@ namespace Smuxi.Frontend.Gnome
 #if LOG4NET
         private static readonly log4net.ILog f_Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 #endif
+#if GTK_SHARP_3
+        const string GtkNativeLibraryName = "libgtk-win32-3.0-0.dll";
+#else
+        const string GtkNativeLibraryName = "libgtk-win32-2.0-0.dll";
+#endif
         private const string ActiveNetworkConfigKey = "GNOME/JoinBar/ActiveNetwork";
+#if GTK_BUILDER
+        #pragma warning disable 0649
+        [UI("ChatEntry")] Gtk.Entry f_ChatEntry;
+        [UI("NetworkComboBox")] Gtk.ComboBox f_NetworkComboBox;
+        [UI("JoinButton")] Gtk.Button f_JoinButton;
+        #pragma warning restore
+#endif
 
         public EventHandler<EventArgs> Activated;
 
@@ -46,7 +62,7 @@ namespace Smuxi.Frontend.Gnome
 
         public string ActiveNetwork {
             get {
-                return f_NetworkComboBox.ActiveText;
+                return f_NetworkComboBox.GetActiveText();
             }
             set {
                 var store = (Gtk.ListStore) f_NetworkComboBox.Model;
@@ -61,17 +77,17 @@ namespace Smuxi.Frontend.Gnome
             }
         }
 
-        [DllImport("libgtk-win32-2.0-0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(GtkNativeLibraryName, CallingConvention = CallingConvention.Cdecl)]
         static extern void gtk_entry_set_icon_from_pixbuf(IntPtr entry, int pos, IntPtr pixbuf);
 
         // Since: 2.16
         // void gtk_entry_set_icon_tooltip_text(GtkEntry *entry, GtkEntryIconPosition icon_pos, const gchar *tooltip)
-        [DllImport("libgtk-win32-2.0-0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(GtkNativeLibraryName, CallingConvention = CallingConvention.Cdecl)]
         static extern void gtk_entry_set_icon_tooltip_text(IntPtr entry, int pos, IntPtr tooltip);
 
         // Since: 3.2
         // void gtk_entry_set_placeholder_text (GtkEntry *entry, const gchar *text)
-        [DllImport("libgtk-win32-2.0-0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(GtkNativeLibraryName, CallingConvention = CallingConvention.Cdecl)]
         static extern void gtk_entry_set_placeholder_text(IntPtr entry, string text);
 
         public JoinWidget()
@@ -112,6 +128,16 @@ namespace Smuxi.Frontend.Gnome
                 OnActivated(EventArgs.Empty);
             };
         }
+
+#if GTK_BUILDER
+        protected virtual void Build()
+        {
+            var builder = new Gtk.Builder(null, "JoinWidget.ui", null);
+            builder.Autoconnect(this);
+            Add((Gtk.Widget) builder.GetObject("JoinWidgetBox"));
+            ShowAll();
+        }
+#endif
 
         public void InitNetworks(IList<string> networks)
         {
@@ -161,7 +187,7 @@ namespace Smuxi.Frontend.Gnome
         {
             return new Uri(
                 String.Format("smuxi://{0}/{1}",
-                              f_NetworkComboBox.ActiveText,
+                              f_NetworkComboBox.GetActiveText(),
                               f_ChatEntry.Text)
             );
         }

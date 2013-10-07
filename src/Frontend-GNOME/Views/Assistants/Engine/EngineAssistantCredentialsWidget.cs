@@ -26,6 +26,16 @@ namespace Smuxi.Frontend.Gnome
 {
     public partial class EngineAssistantCredentialsWidget : Gtk.Bin
     {
+#if GTK_SHARP_3
+        Gtk.Entry f_UsernameEntry;
+        Gtk.Entry f_PasswordEntry;
+        Gtk.Entry f_VerifyPasswordEntry;
+        Gtk.Entry f_SshUsernameEntry;
+        Gtk.Entry f_SshPasswordEntry;
+        Gtk.VBox f_SshPasswordVBox;
+        Gtk.FileChooserButton f_SshKeyfileChooserButton;
+#endif
+
         public Gtk.Entry UsernameEntry {
             get {
                 return f_UsernameEntry;
@@ -70,7 +80,11 @@ namespace Smuxi.Frontend.Gnome
 
         public EngineAssistantCredentialsWidget()
         {
+#if GTK_SHARP_3
+            throw new NotImplementedException();
+#else
             Build();
+#endif
         }
     }
 }

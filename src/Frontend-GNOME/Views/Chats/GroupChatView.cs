@@ -28,6 +28,11 @@ using System.Linq;
 using Mono.Unix;
 using Smuxi.Engine;
 using Smuxi.Common;
+#if GTK_SHARP_3
+using TreeModel = Gtk.ITreeModel;
+#else
+using TreeModel = Gtk.TreeModel;
+#endif
 
 namespace Smuxi.Frontend.Gnome
 {
@@ -142,6 +147,8 @@ namespace Smuxi.Frontend.Gnome
             Gtk.ScrolledWindow sw = new Gtk.ScrolledWindow();
             PersonScrolledWindow = sw;
             sw.HscrollbarPolicy = Gtk.PolicyType.Never;
+            // TODO: PORT ME!
+#if !GTK_SHARP_3
             sw.SizeRequested += (o, args) => {
                 // predict and set useful treeview width
                 var persons = SyncedPersons;
@@ -165,6 +172,7 @@ namespace Smuxi.Frontend.Gnome
                 };
                 args.Requisition = bestSize;
             };
+#endif
 
             //tv.CanFocus = false;
             tv.BorderWidth = 0;
@@ -234,6 +242,8 @@ namespace Smuxi.Frontend.Gnome
             _TopicScrolledWindow.ShowAll();
             _TopicScrolledWindow.Visible = false;
             _TopicScrolledWindow.NoShowAll = true;
+            // TODO: PORT ME!
+#if !GTK_SHARP_3
             _TopicScrolledWindow.SizeRequested += delegate(object o, Gtk.SizeRequestedArgs args) {
                 // predict and set useful topic heigth
                 int lineWidth, lineHeigth;
@@ -257,6 +267,7 @@ namespace Smuxi.Frontend.Gnome
                 };
                 args.Requisition = bestSize;
             };
+#endif
 
             Add(_OutputHPaned);
             
@@ -265,7 +276,11 @@ namespace Smuxi.Frontend.Gnome
             ShowAll();
         }
 
+#if GTK_SHARP_3
+        public new void Dispose()
+#else
         public override void Dispose()
+#endif
         {
             Trace.Call();
 
@@ -554,7 +569,7 @@ namespace Smuxi.Frontend.Gnome
 
         public virtual void RenderPersonIdentityName(Gtk.TreeViewColumn column,
                                                      Gtk.CellRenderer cellr,
-                                                     Gtk.TreeModel model, Gtk.TreeIter iter)
+                                                     TreeModel model, Gtk.TreeIter iter)
         {
             PersonModel person = (PersonModel) model.GetValue(iter, 0);
             var renderer = (Gtk.CellRendererText) cellr;
@@ -571,7 +586,7 @@ namespace Smuxi.Frontend.Gnome
             }
         }
        
-        protected virtual int SortPersonListStore(Gtk.TreeModel model,
+        protected virtual int SortPersonListStore(TreeModel model,
                                                   Gtk.TreeIter iter1,
                                                   Gtk.TreeIter iter2)
         {
@@ -698,7 +713,7 @@ namespace Smuxi.Frontend.Gnome
         protected IList<PersonModel> GetSelectedPersons()
         {
             Gtk.TreeIter iter;
-            Gtk.TreeModel model;
+            TreeModel model;
             List<PersonModel> persons = new List<PersonModel>();
             Gtk.TreePath[] paths = _PersonTreeView.Selection.GetSelectedRows(out model);
             foreach (Gtk.TreePath path in paths) {

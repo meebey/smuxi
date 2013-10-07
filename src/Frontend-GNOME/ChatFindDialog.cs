@@ -34,7 +34,11 @@ namespace Smuxi.Frontend.Gnome
     {
         public ChatFindDialog()
         {
+#if GTK_SHARP_3
+            throw new NotImplementedException();
+#else
             Build();
+#endif
         }
     }
 }

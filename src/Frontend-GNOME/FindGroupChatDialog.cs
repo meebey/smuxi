@@ -44,7 +44,13 @@ namespace Smuxi.Frontend.Gnome
         private Gtk.ListStore    f_ListStore;
         private GroupChatModel   f_GroupChatModel;
         private Thread           f_FindThread;
-        
+#if GTK_SHARP_3
+        Gtk.Entry f_NameEntry;
+        Gtk.Button f_FindButton;
+        Gtk.Button f_OKButton;
+        Gtk.TreeView f_TreeView;
+#endif
+
         public GroupChatModel GroupChat {
             get {
                 return f_GroupChatModel;
@@ -66,8 +72,12 @@ namespace Smuxi.Frontend.Gnome
         public FindGroupChatDialog(Gtk.Window parent, IProtocolManager protocolManager) :
                               base(null, parent, Gtk.DialogFlags.DestroyWithParent)
         {
+#if GTK_SHARP_3
+            throw new NotImplementedException();
+#else
             Build();
-            
+#endif
+
             f_ProtocolManager = protocolManager;
             
             int columnID = 0;

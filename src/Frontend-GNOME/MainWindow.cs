@@ -26,6 +26,7 @@ using System.Linq;
 using System.Threading;
 using System.Reflection;
 using SysDiag = System.Diagnostics;
+using Gtk.Extensions;
 using Mono.Unix;
 using Smuxi.Common;
 using Smuxi.Engine;
@@ -218,6 +219,8 @@ namespace Smuxi.Frontend.Gnome
             var entryScrolledWindow = new Gtk.ScrolledWindow();
             entryScrolledWindow.ShadowType = Gtk.ShadowType.EtchedIn;
             entryScrolledWindow.HscrollbarPolicy = Gtk.PolicyType.Never;
+            // TODO: PORT ME!
+#if !GTK_SHARP_3
             entryScrolledWindow.SizeRequested += delegate(object o, Gtk.SizeRequestedArgs args) {
                 // predict and set useful heigth
                 int lineWidth, lineHeigth;
@@ -240,6 +243,7 @@ namespace Smuxi.Frontend.Gnome
                 };
                 args.Requisition = bestSize;
             };
+#endif
             entryScrolledWindow.Add(Entry);
 
             ProgressBar = new Gtk.ProgressBar();
@@ -267,11 +271,15 @@ namespace Smuxi.Frontend.Gnome
 
             NetworkStatusbar = new Gtk.Statusbar();
             NetworkStatusbar.WidthRequest = 300;
+#if !GTK_SHARP_3
             NetworkStatusbar.HasResizeGrip = false;
-            
+#endif
+
             Statusbar = new Gtk.Statusbar();
+#if !GTK_SHARP_3
             Statusbar.HasResizeGrip = false;
-            
+#endif
+
             Gtk.HBox status_bar_hbox = new Gtk.HBox();
             status_bar_hbox.Homogeneous = true;
             status_bar_hbox.PackStart(NetworkStatusbar, false, true, 0);

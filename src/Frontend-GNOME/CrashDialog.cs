@@ -40,6 +40,14 @@ namespace Smuxi.Frontend.Gnome
         string ReportSubject { get; set; }
         string ReportDescription { get; set; }
 
+#if GTK_SHARP_3
+        Gtk.Box VBox {
+            get {
+                return ContentArea;
+            }
+        }
+#endif
+
         public CrashDialog(Gtk.Window parent, Exception e) : base(null, parent, Gtk.DialogFlags.Modal)
         {
             SetDefaultSize(640, 480);

@@ -26,13 +26,19 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA
  */
 
+using System;
+
 namespace Smuxi.Frontend.Gnome
 {
     public partial class SteticPreferencesDialog : Gtk.Dialog
     {
         public SteticPreferencesDialog()
         {
+#if GTK_SHARP_3
+            throw new NotImplementedException();
+#else
             Build();
+#endif
         }
         
         protected virtual void _OnChanged(object sender, System.EventArgs e)

@@ -22,6 +22,7 @@
 
 using System;
 using System.Collections.Generic;
+using Gtk.Extensions;
 using Smuxi.Common;
 using Smuxi.Engine;
 
@@ -29,6 +30,11 @@ namespace Smuxi.Frontend.Gnome
 {
     public partial class ServerDialog : Gtk.Dialog
     {
+#if GTK_SHARP_3
+        ServerWidget f_Widget;
+        Gtk.Button f_OkButton;
+#endif
+
         public ServerDialog(Gtk.Window parent, ServerModel server,
                             IList<string> supportedProtocols,
                             IList<string> networks) :
@@ -46,7 +52,11 @@ namespace Smuxi.Frontend.Gnome
                 throw new ArgumentNullException("networks");
             }
 
+#if GTK_SHARP_3
+            throw new NotImplementedException();
+#else
             Build();
+#endif
             TransientFor = parent;
 
             f_Widget.InitProtocols(supportedProtocols);
@@ -75,7 +85,7 @@ namespace Smuxi.Frontend.Gnome
             Trace.Call();
 
             f_OkButton.Sensitive = true;
-            switch (f_Widget.ProtocolComboBox.ActiveText) {
+            switch (f_Widget.ProtocolComboBox.GetActiveText()) {
                 case "Campfire":
                     if (f_Widget.HostnameEntry.Text == ".campfirenow.com") {
                         f_OkButton.Sensitive = false;

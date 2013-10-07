@@ -26,6 +26,14 @@ namespace Smuxi.Frontend.Gnome
 {
     public partial class EngineAssistantConnectionWidget : Gtk.Bin
     {
+#if GTK_SHARP_3
+        Gtk.CheckButton f_UseSshTunnelCheckButton;
+        Gtk.Entry f_SshHostEntry;
+        Gtk.SpinButton f_SshPortSpinButton;
+        Gtk.Entry f_HostEntry;
+        Gtk.SpinButton f_PortSpinButton;
+#endif
+
         public Gtk.CheckButton UseSshTunnelCheckButton {
             get {
                 return f_UseSshTunnelCheckButton;
@@ -58,8 +66,12 @@ namespace Smuxi.Frontend.Gnome
 
         public EngineAssistantConnectionWidget()
         {
+#if GTK_SHARP_3
+            throw new NotImplementedException();
+#else
             Build();
-            
+#endif
+
             f_SshHostEntry.HasFocus = true;
         }
     }

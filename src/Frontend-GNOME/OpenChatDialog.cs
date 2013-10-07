@@ -28,6 +28,12 @@ namespace Smuxi.Frontend.Gnome
 {
     public partial class OpenChatDialog : Gtk.Dialog
     {
+#if GTK_SHARP_3
+        ChatTypeWidget f_ChatTypeWidget;
+        Gtk.Entry f_NameEntry;
+        Gtk.Button f_OpenButton;
+#endif
+
         public ChatType ChatType {
             get {
                 return f_ChatTypeWidget.ChatType;
@@ -48,8 +54,12 @@ namespace Smuxi.Frontend.Gnome
                 throw new ArgumentNullException("parent");
             }
             
+#if GTK_SHARP_3
+            throw new NotImplementedException();
+#else
             Build();
-            
+#endif
+
             TransientFor = parent;
             
             f_NameEntry.Changed += OnNameEntryChanged;

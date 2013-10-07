@@ -161,7 +161,10 @@ namespace Smuxi.Frontend.Gnome
             Buffer = new Gtk.TextBuffer(_MessageTextTagTable);
             MotionNotifyEvent += OnMotionNotifyEvent;
             PopulatePopup += OnPopulatePopup;
+            // TODO: PORT ME!
+#if !GTK_SHARP_3
             ExposeEvent += OnExposeEvent;
+#endif
             Realized += delegate {
                 CheckStyle();
             };
@@ -470,7 +473,11 @@ namespace Smuxi.Frontend.Gnome
             QueueDraw();
         }
 
+#if GTK_SHARP_3
+        public new void Dispose()
+#else
         public override void Dispose()
+#endif
         {
             // HACK: this shouldn't be needed but GTK# keeps GC handles
             // these callbacks for some reason and thus leaks :(
@@ -723,7 +730,8 @@ namespace Smuxi.Frontend.Gnome
              }
              return tagname;
         }
-        
+
+#if !GTK_SHARP_3
         void OnExposeEvent(object sender, Gtk.ExposeEventArgs e)
         {
             if (!_ShowMarkerline || _MarkerlineBufferPosition == 0) {
@@ -750,6 +758,7 @@ namespace Smuxi.Frontend.Gnome
 
             window.DrawLine(gc, 0, y, VisibleRect.Width, y);
         }
+#endif
 
         void CheckBufferSize()
         {

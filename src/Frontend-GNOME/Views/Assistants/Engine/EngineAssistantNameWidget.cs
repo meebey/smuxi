@@ -26,6 +26,11 @@ namespace Smuxi.Frontend.Gnome
 {
     public partial class EngineAssistantNameWidget : Gtk.Bin
     {
+#if GTK_SHARP_3
+        Gtk.Entry f_EngineNameEntry;
+        Gtk.CheckButton f_MakeDefaultEngineCheckButton;
+#endif
+
         public Gtk.Entry EngineNameEntry {
             get {
                 return f_EngineNameEntry;
@@ -40,7 +45,11 @@ namespace Smuxi.Frontend.Gnome
 
         public EngineAssistantNameWidget()
         {
+#if GTK_SHARP_3
+            throw new NotImplementedException();
+#else
             Build();
+#endif
         }
     }
 }

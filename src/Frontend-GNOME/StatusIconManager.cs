@@ -88,7 +88,12 @@ namespace Smuxi.Frontend.Gnome
                 }
                 f_StatusIcon.Activate += OnStatusIconActivated;
                 f_StatusIcon.PopupMenu += OnStatusIconPopupMenu;
+#if GTK_SHARP_3
+                f_StatusIcon.TooltipText = "Smuxi";
+#else
                 f_StatusIcon.Tooltip = "Smuxi";
+#endif
+
             }
             if (f_NotificationAreaIconMode == NotificationAreaIconMode.Never &&
                 !f_MainWindow.Visible) {
@@ -133,10 +138,12 @@ namespace Smuxi.Frontend.Gnome
             }
 
             try {
+#if !GTK_SHARP_3
                 if (f_StatusIcon.Blinking) {
                     f_MainWindow.Present();
                     return;
                 }
+#endif
                 // not everyone uses a window list applet thus we have to
                 // restore from minimized state here, see:
                 // http://projects.qnetp.net/issues/show/159
@@ -161,9 +168,12 @@ namespace Smuxi.Frontend.Gnome
             );
             preferencesItem.Activated += delegate {
                 try {
+                    // TODO: PORT ME!
+#if GLADE_SHARP
                     PreferencesDialog dialog = new PreferencesDialog(f_MainWindow);
                     dialog.CurrentPage = PreferencesDialog.Page.Interface;
                     dialog.CurrentInterfacePage = PreferencesDialog.InterfacePage.Notification;
+#endif
                 } catch (Exception ex) {
                     Frontend.ShowException(ex);
                 }
@@ -196,7 +206,9 @@ namespace Smuxi.Frontend.Gnome
                 return;
             }
 
+#if !GTK_SHARP_3
             f_StatusIcon.Blinking = false;
+#endif
         }
 
         protected void OnChatViewManagerChatAdded(object sender, ChatViewManagerChatAddedEventArgs e)
@@ -220,7 +232,9 @@ namespace Smuxi.Frontend.Gnome
             }
 
             if (!f_MainWindow.HasToplevelFocus) {
+#if !GTK_SHARP_3
                 f_StatusIcon.Blinking = true;
+#endif
             }
         }
     }
