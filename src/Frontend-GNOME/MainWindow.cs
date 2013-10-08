@@ -54,13 +54,13 @@ namespace Smuxi.Frontend.Gnome
 #if GTK_SHARP_2_10
         StatusIconManager StatusIconManager { get; set; }
 #endif
-#if INDICATE_SHARP || MESSAGING_MENU_SHARP
+#if (INDICATE_SHARP || MESSAGING_MENU_SHARP)  && !GTK_SHARP_3
         IndicateManager IndicateManager { get; set; }
 #endif
-#if NOTIFY_SHARP
+#if NOTIFY_SHARP && !GTK_SHARP_3
         NotifyManager NotifyManager { get; set; }
 #endif
-#if IPC_DBUS
+#if IPC_DBUS && !GTK_SHARP_3
         NetworkManager NetworkManager { get; set; }
 #endif
 
@@ -200,13 +200,13 @@ namespace Smuxi.Frontend.Gnome
 #if GTK_SHARP_2_10
             StatusIconManager = new StatusIconManager(this, ChatViewManager);
 #endif
-#if INDICATE_SHARP || MESSAGING_MENU_SHARP
+#if (INDICATE_SHARP || MESSAGING_MENU_SHARP) && !GTK_SHARP_3
             IndicateManager = new IndicateManager(this, ChatViewManager);
 #endif
-#if NOTIFY_SHARP
+#if NOTIFY_SHARP && !GTK_SHARP_3
             NotifyManager = new NotifyManager(this, ChatViewManager);
 #endif
-#if IPC_DBUS
+#if IPC_DBUS && !GTK_SHARP_3
             NetworkManager = new NetworkManager(ChatViewManager);
 #endif
 

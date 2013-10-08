@@ -547,33 +547,55 @@ AC_ARG_ENABLE([frontend-gnome],
 	ENABLE_FRONTEND_GNOME=yes
 )
 if test "x$ENABLE_FRONTEND_GNOME" != "xno"; then
-	PKG_CHECK_MODULES([GLIB_SHARP_20], [glib-sharp-2.0 >= 2.8])
-	PKG_CHECK_MODULES([GTK_SHARP_20], [gtk-sharp-2.0 >= 2.8])
-	PKG_CHECK_MODULES([GLADE_SHARP_20], [glade-sharp-2.0 >= 2.8])
-	
-	AC_MSG_CHECKING([for gtk-sharp version >= 2.10])
-	if $PKG_CONFIG 'gtk-sharp-2.0 >= 2.10'; then
+	AC_MSG_CHECKING([for gtk-sharp-2.0])
+	if test "x$ENABLE_FRONTEND_GNOME" = "xgtk2"; then
 		AC_MSG_RESULT(yes)
-		AC_DEFINE(GTK_SHARP_2_10,1,[System has gtk-sharp 2.10 or better])
-		FRONTEND_GNOME_COMPILER_FLAGS+=" -define:GTK_SHARP_2_10"
+		PKG_CHECK_MODULES([GLIB_SHARP], [glib-sharp-2.0 >= 2.8])
+		PKG_CHECK_MODULES([GTK_SHARP], [gtk-sharp-2.0 >= 2.8])
+		PKG_CHECK_MODULES([GLADE_SHARP], [glade-sharp-2.0 >= 2.8])
+
+		AC_MSG_CHECKING([for gtk-sharp version >= 2.10])
+		if $PKG_CONFIG 'gtk-sharp-2.0 >= 2.10'; then
+			AC_MSG_RESULT(yes)
+			AC_DEFINE(GTK_SHARP_2_10,1,[System has gtk-sharp 2.10 or better])
+			FRONTEND_GNOME_COMPILER_FLAGS+=" -define:GTK_SHARP_2_10"
+		else
+			AC_MSG_RESULT(no)
+		fi
+		AC_MSG_RESULT(yes)
 	else
 		AC_MSG_RESULT(no)
 	fi
-	
+
+	AC_MSG_CHECKING([for gtk-sharp-3.0])
+	if test "x$ENABLE_FRONTEND_GNOME" = "xgtk3"; then
+		AC_MSG_RESULT(yes)
+		PKG_CHECK_MODULES([GLIB_SHARP], [glib-sharp-3.0 >= 2.99])
+		PKG_CHECK_MODULES([GTK_SHARP], [gtk-sharp-3.0 >= 2.99])
+		FRONTEND_GNOME_COMPILER_FLAGS+=" -define:GTK_SHARP_3,GTK_BUILDER"
+		FRONTEND_GNOME_COMPILER_FLAGS+=" -define:GTK_SHARP_2_10"
+		DBUS_LIBS=
+		NOTIFY_SHARP_LIBS=
+		MESSAGINGMENU_SHARP_LIBS=
+		INDICATE_SHARP_LIBS=
+	else
+		AC_MSG_RESULT(no)
+	fi
+
 	SHAMROCK_CHECK_MONO_2_0_GAC_ASSEMBLIES([
 		System.Drawing
 	])
 	
-	if test "x$WITH_MESSAGINGMENU" = "xsystem"; then
+	if test "x$WITH_MESSAGINGMENU" = "xsystem" && test "x$ENABLE_FRONTEND_GNOME" != "xgtk3"; then
 		FRONTEND_GNOME_COMPILER_FLAGS+=" -define:MESSAGING_MENU_SHARP"
 	fi
-	if test "x$WITH_MESSAGINGMENU" = "xincluded"; then
+	if test "x$WITH_MESSAGINGMENU" = "xincluded" && test "x$ENABLE_FRONTEND_GNOME" != "xgtk3"; then
 		FRONTEND_GNOME_COMPILER_FLAGS+=" -define:MESSAGING_MENU_SHARP"
 	fi
-	if test "x$WITH_INDICATE" = "xyes"; then
+	if test "x$WITH_INDICATE" = "xyes" && test "x$ENABLE_FRONTEND_GNOME" != "xgtk3"; then
 		FRONTEND_GNOME_COMPILER_FLAGS+=" -define:INDICATE_SHARP"
 	fi
-	if test "x$WITH_NOTIFY" = "xyes"; then
+	if test "x$WITH_NOTIFY" = "xyes" && test "x$ENABLE_FRONTEND_GNOME" != "xgtk3"; then
 		FRONTEND_GNOME_COMPILER_FLAGS+=" -define:NOTIFY_SHARP"
 	fi
 	if test "x$WITH_GTKSPELL" = "xyes"; then
@@ -587,7 +609,7 @@ if test "x$ENABLE_FRONTEND_GNOME" != "xno"; then
 	ENABLE_FRONTEND_GNOME_IRC=$ENABLE_ENGINE_IRC;
 	ENABLE_FRONTEND_GNOME_XMPP=$ENABLE_ENGINE_XMPP;
 fi
-AM_CONDITIONAL(ENABLE_FRONTEND_GNOME, test "x$ENABLE_FRONTEND_GNOME" = "xyes")
+AM_CONDITIONAL(ENABLE_FRONTEND_GNOME, test "x$ENABLE_FRONTEND_GNOME" != "xno")
 AM_CONDITIONAL(ENABLE_FRONTEND_GNOME_IRC, test "x$ENABLE_FRONTEND_GNOME_IRC" = "xyes")
 AM_CONDITIONAL(ENABLE_FRONTEND_GNOME_XMPP, test "x$ENABLE_FRONTEND_GNOME_XMPP" = "xyes")
 

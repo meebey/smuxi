@@ -5,7 +5,7 @@ EXTRA_DIST =
 
 if ENABLE_RELEASE
 ASSEMBLY_COMPILER_COMMAND = @MCS@
-ASSEMBLY_COMPILER_FLAGS =  -noconfig -codepage:utf8 -warn:4 -optimize+
+ASSEMBLY_COMPILER_FLAGS =  -noconfig -codepage:utf8 -warn:4 -optimize+ @FRONTEND_GNOME_COMPILER_FLAGS@
 ASSEMBLY = ../../bin/release/smuxi-frontend-gnome-irc.dll
 ASSEMBLY_MDB = 
 COMPILE_TARGET = library
@@ -34,7 +34,7 @@ endif
 
 if ENABLE_DEBUG
 ASSEMBLY_COMPILER_COMMAND = @MCS@
-ASSEMBLY_COMPILER_FLAGS =  -noconfig -codepage:utf8 -warn:4 -optimize+ -debug -define:DEBUG "-define:DEBUG,TRACE,LOG4NET"
+ASSEMBLY_COMPILER_FLAGS =  -noconfig -codepage:utf8 -warn:4 -optimize+ -debug -define:DEBUG "-define:DEBUG,TRACE,LOG4NET" @FRONTEND_GNOME_COMPILER_FLAGS@
 ASSEMBLY = ../../bin/debug/smuxi-frontend-gnome-irc.dll
 ASSEMBLY_MDB = $(ASSEMBLY).mdb
 COMPILE_TARGET = library
@@ -100,7 +100,7 @@ EXTRAS =
 
 REFERENCES =  \
 	Mono.Posix \
-	$(GTK_SHARP_20_LIBS)
+	$(GTK_SHARP_LIBS)
 
 DLL_REFERENCES = \
 	$(BUILD_DIR)/Meebey.SmartIrc4net.dll

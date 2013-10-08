@@ -178,8 +178,8 @@ DATA_FILES = \
 	$(ICON_256)
 
 RESOURCES = \
-	gtk-gui/gui.stetic \
-	$(top_srcdir)/glade/smuxi-frontend-gnome.glade \
+	Interfaces/JoinWidget.ui \
+	Interfaces/MenuWidget.ui \
 	$(top_srcdir)/images/icon_256x256.png \
 	$(top_srcdir)/images/group-chat_256x256.png \
 	$(top_srcdir)/images/person-chat_256x256.png \
@@ -195,9 +195,9 @@ REFERENCES =  \
 	System \
     System.Core \
 	Mono.Posix \
-	$(GLIB_SHARP_20_LIBS) \
-	$(GLADE_SHARP_20_LIBS) \
-	$(GTK_SHARP_20_LIBS) \
+	$(GLIB_SHARP_LIBS) \
+	$(GLADE_SHARP_LIBS) \
+	$(GTK_SHARP_LIBS) \
 	$(GIO_SHARP_LIBS) \
 	$(LOG4NET_LIBS) \
 	$(INDICATE_SHARP_LIBS) \

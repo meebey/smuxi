@@ -18,7 +18,7 @@
 // along with this program; if not, write to the Free Software
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA
 
-#if INDICATE_SHARP || MESSAGING_MENU_SHARP
+#if (INDICATE_SHARP || MESSAGING_MENU_SHARP) && !GTK_SHARP_3
 using System;
 using System.IO;
 using System.Text.RegularExpressions;
