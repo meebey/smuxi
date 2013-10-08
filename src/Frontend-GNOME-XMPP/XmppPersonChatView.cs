@@ -237,7 +237,11 @@ namespace Smuxi.Frontend.Gnome
             return LibraryCatalog.GetString(msg, _LibraryTextDomain);
         }
 
+#if GTK_SHARP_3
+        public new void Dispose()
+#else
         public override void Dispose()
+#endif
         {
             Trace.Call();
             IsDisposed = true;

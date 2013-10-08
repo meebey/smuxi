@@ -26,6 +26,11 @@ using System.Collections.Generic;
 using System.Globalization;
 using Smuxi.Engine;
 using Smuxi.Common;
+#if GTK_SHARP_3
+using TreeModel = Gtk.ITreeModel;
+#else
+using TreeModel = Gtk.TreeModel;
+#endif
 
 namespace Smuxi.Frontend.Gnome
 {
@@ -69,7 +74,7 @@ namespace Smuxi.Frontend.Gnome
 
         void RenderIrcGroupPersonMode(Gtk.TreeViewColumn column,
                                       Gtk.CellRenderer cellr,
-                                      Gtk.TreeModel model, Gtk.TreeIter iter)
+                                      TreeModel model, Gtk.TreeIter iter)
         {
             var person = model.GetValue(iter, 0) as IrcGroupPersonModel;
             if (person == null) {
