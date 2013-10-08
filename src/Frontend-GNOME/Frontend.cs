@@ -598,7 +598,13 @@ namespace Smuxi.Frontend.Gnome
                 });
                 return;
             }
-            
+
+            if (ex is NotImplementedException) {
+                // don't quit on NotImplementedException
+                ShowError(parent, ex);
+                return;
+            }
+
 #if LOG4NET
             _Logger.Error("ShowException(): Exception:", ex);
 #endif
