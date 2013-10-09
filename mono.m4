@@ -8,6 +8,20 @@ AC_DEFUN([SHAMROCK_FIND_MONO_2_0_COMPILER],
 	SHAMROCK_FIND_PROGRAM_OR_BAIL(MCS, gmcs)
 ])
 
+AC_DEFUN([SHAMROCK_FIND_MONO_2_0_COMPILER_OR_HIGHER],
+[
+    if pkg-config --atleast-version=2.8 mono; then
+        SHAMROCK_FIND_PROGRAM(MCS, dmcs)
+    fi
+    if test "x$MCS" = "x" ; then
+        SHAMROCK_FIND_PROGRAM(MCS, gmcs)
+    fi
+
+    if test "x$MCS" = "x" ; then
+        AC_MSG_ERROR([You need to install 'dmcs' or 'gmcs'])
+    fi
+])
+
 AC_DEFUN([SHAMROCK_FIND_MONO_RUNTIME],
 [
 	SHAMROCK_FIND_PROGRAM_OR_BAIL(MONO, mono)
