@@ -23,6 +23,9 @@ using System.Collections.Generic;
 using Gtk.Extensions;
 using Smuxi.Common;
 using Smuxi.Engine;
+#if GTK_BUILDER
+using UI = Gtk.Builder.ObjectAttribute;
+#endif
 
 namespace Smuxi.Frontend.Gnome
 {
@@ -31,22 +34,22 @@ namespace Smuxi.Frontend.Gnome
     {
         Gtk.ListStore f_NetworkListStore;
 #if GTK_SHARP_3
-        Gtk.Entry f_HostnameEntry;
-        Gtk.ComboBox f_ProtocolComboBox;
-        Gtk.ComboBox f_NetworkComboBoxEntry;
-        Gtk.CheckButton f_OnStartupConnectCheckButton;
-        Gtk.Label f_HostnameLabel;
-        Gtk.Label f_PortLabel;
-        Gtk.SpinButton f_PortSpinButton;
-        Gtk.Label f_NetworkLabel;
-        Gtk.Label f_PasswordLabel;
-        Gtk.Entry f_PasswordEntry;
-        Gtk.CheckButton f_ShowPasswordCheckButton;
-        Gtk.CheckButton f_UseEncryptionCheckButton;
-        Gtk.CheckButton f_ValidateServerCertificateCheckButton;
-        Gtk.Entry f_UsernameEntry;
-        Gtk.TextView f_OnConnectCommandsTextView;
-        Gtk.CheckButton f_IgnoreOnConnectCommandsCheckButton;
+        [UI] Gtk.Entry f_HostnameEntry;
+        [UI] Gtk.ComboBox f_ProtocolComboBox;
+        [UI] Gtk.ComboBox f_NetworkComboBoxEntry;
+        [UI] Gtk.CheckButton f_OnStartupConnectCheckButton;
+        [UI] Gtk.Label f_HostnameLabel;
+        [UI] Gtk.Label f_PortLabel;
+        [UI] Gtk.SpinButton f_PortSpinButton;
+        [UI] Gtk.Label f_NetworkLabel;
+        [UI] Gtk.Label f_PasswordLabel;
+        [UI] Gtk.Entry f_PasswordEntry;
+        [UI] Gtk.CheckButton f_ShowPasswordCheckButton;
+        [UI] Gtk.CheckButton f_UseEncryptionCheckButton;
+        [UI] Gtk.CheckButton f_ValidateServerCertificateCheckButton;
+        [UI] Gtk.Entry f_UsernameEntry;
+        [UI] Gtk.TextView f_OnConnectCommandsTextView;
+        [UI] Gtk.CheckButton f_IgnoreOnConnectCommandsCheckButton;
 #endif
 
         string ServerID { get; set; }
@@ -54,6 +57,12 @@ namespace Smuxi.Frontend.Gnome
         public Gtk.Entry HostnameEntry {
             get {
                 return f_HostnameEntry;
+            }
+        }
+
+        public Gtk.SpinButton PortSpinButton {
+            get {
+                return f_PortSpinButton;
             }
         }
 
@@ -143,13 +152,19 @@ namespace Smuxi.Frontend.Gnome
 
             f_NetworkListStore = new Gtk.ListStore(typeof(string));
 
-#if GTK_SHARP_3
-            throw new NotImplementedException();
-#else
             Build();
-#endif
             Init();
         }
+
+#if GTK_BUILDER
+        protected virtual void Build()
+        {
+            var builder = new Gtk.Builder(null, "ServerWidget.ui", null);
+            builder.Autoconnect(this);
+            Add((Gtk.Widget) builder.GetObject("ServerWidget"));
+            ShowAll();
+        }
+#endif
 
         public void Load(ServerModel server)
         {

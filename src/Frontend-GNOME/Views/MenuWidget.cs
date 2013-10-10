@@ -259,7 +259,13 @@ namespace Smuxi.Frontend.Gnome
             Trace.Call(sender, e);
             
             try {
+#if GTK_BUILDER
+                var builder = new Gtk.Builder(null, "QuickConnectDialog.ui", null);
+                var widget = (Gtk.Widget) builder.GetObject("QuickConnectDialog");
+                var dialog = new QuickConnectDialog(Parent, builder, widget.Handle);
+#else
                 var dialog = new QuickConnectDialog(Parent);
+#endif
                 dialog.Load();
                 int res = dialog.Run();
                 var server = dialog.Server;

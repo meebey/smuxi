@@ -1,7 +1,7 @@
 /*
  * Smuxi - Smart MUltipleXed Irc
  *
- * Copyright (c) 2008, 2010 Mirco Bauer <meebey@meebey.net>
+ * Copyright (c) 2008, 2010, 2013 Mirco Bauer <meebey@meebey.net>
  *
  * Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
  *
@@ -25,6 +25,9 @@ using System.Collections.Generic;
 using Gtk.Extensions;
 using Smuxi.Common;
 using Smuxi.Engine;
+#if GTK_BUILDER
+using UI = Gtk.Builder.ObjectAttribute;
+#endif
 
 namespace Smuxi.Frontend.Gnome
 {
@@ -40,10 +43,11 @@ namespace Smuxi.Frontend.Gnome
             }
         }
 
-#if GTK_SHARP_3
-        Gtk.TreeView f_TreeView { get; set; }
-        ServerWidget f_Widget { get; set; }
-        Gtk.Button f_ConnectButton { get; set; }
+#if GTK_BUILDER
+        [UI] Gtk.TreeView f_TreeView;
+        [UI] Gtk.Button f_ConnectButton;
+        [UI] Gtk.Box f_ServerHBox;
+        ServerWidget f_Widget;
 #endif
 
         public QuickConnectDialog(Gtk.Window parent) :
@@ -56,19 +60,44 @@ namespace Smuxi.Frontend.Gnome
                 throw new ArgumentNullException("parent");
             }
 
-#if GTK_SHARP_3
-            throw new NotImplementedException();
-#else
             Build();
-#endif
+            Init(parent);
+        }
+
+        public QuickConnectDialog(Gtk.Window parent, Gtk.Builder builder, IntPtr handle) :
+                             base(handle)
+        {
+            Trace.Call(parent, builder, handle);
+
+            if (parent == null) {
+                throw new ArgumentNullException("parent");
+            }
+
+            builder.Autoconnect(this);
+            Init(parent);
+
+            f_TreeView.Selection.Changed += OnTreeViewSelectionChanged;
+            f_Widget.PortSpinButton.SetRange(0, Int16.MaxValue);
+
+            ShowAll();
+        }
+
+        void Init(Gtk.Window parent)
+        {
+            Trace.Call(parent);
 
             TransientFor = parent;
-            
+
             f_Controller = new ServerListController(Frontend.UserConfig);
-            
+
+#if GTK_BUILDER
+            f_Widget = new ServerWidget();
+            f_ServerHBox.Add(f_Widget);
+#endif
+
             f_TreeView.AppendColumn(_("Protocol"), new Gtk.CellRendererText(), "text", 1); 
             f_TreeView.AppendColumn(_("Hostname"), new Gtk.CellRendererText(), "text", 2);
-            
+
             f_TreeStore = new Gtk.TreeStore(
                 typeof(ServerModel),
                 typeof(string), // protocol
