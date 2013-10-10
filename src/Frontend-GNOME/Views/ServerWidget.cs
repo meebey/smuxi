@@ -274,13 +274,21 @@ namespace Smuxi.Frontend.Gnome
             }
             f_NetworkListStore.SetSortColumnId(0, Gtk.SortType.Ascending);
             f_NetworkComboBoxEntry.Model = f_NetworkListStore;
-#if !GTK_SHARP_3
+#if GTK_SHARP_3
+            f_NetworkComboBoxEntry.EntryTextColumn = 0;
+#else
             f_NetworkComboBoxEntry.TextColumn = 0;
 #endif
         }
 
         private void Init()
         {
+#if GTK_SHARP_3
+            f_ProtocolComboBox.EntryTextColumn = 0;
+#else
+            f_ProtocolComboBox.TextColumn = 0;
+#endif
+
             f_ProtocolComboBox.Changed += delegate {
                 CheckProtocolComboBox();
             };

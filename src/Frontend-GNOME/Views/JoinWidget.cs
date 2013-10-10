@@ -119,6 +119,12 @@ namespace Smuxi.Frontend.Gnome
 #endif
             }
 
+#if GTK_SHARP_3
+            f_NetworkComboBox.EntryTextColumn = 0;
+#else
+            f_NetworkComboBox.TextColumn = 0;
+#endif
+
             f_ChatEntry.Activated += delegate {
                 OnActivated(EventArgs.Empty);
             };
