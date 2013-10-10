@@ -34,6 +34,7 @@ namespace Smuxi.Frontend.Gnome
     {
         Gtk.ListStore f_NetworkListStore;
 #if GTK_SHARP_3
+        #pragma warning disable 0649
         [UI] Gtk.Entry f_HostnameEntry;
         [UI] Gtk.ComboBox f_ProtocolComboBox;
         [UI] Gtk.ComboBox f_NetworkComboBoxEntry;
@@ -50,6 +51,7 @@ namespace Smuxi.Frontend.Gnome
         [UI] Gtk.Entry f_UsernameEntry;
         [UI] Gtk.TextView f_OnConnectCommandsTextView;
         [UI] Gtk.CheckButton f_IgnoreOnConnectCommandsCheckButton;
+        #pragma warning restore
 #endif
 
         string ServerID { get; set; }

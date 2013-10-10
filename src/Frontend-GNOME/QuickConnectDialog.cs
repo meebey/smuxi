@@ -44,10 +44,12 @@ namespace Smuxi.Frontend.Gnome
         }
 
 #if GTK_BUILDER
+        #pragma warning disable 0649
         [UI] Gtk.TreeView f_TreeView;
         [UI] Gtk.Button f_ConnectButton;
         [UI] Gtk.Box f_ServerHBox;
         ServerWidget f_Widget;
+        #pragma warning restore
 #endif
 
 #if !GTK_BUILDER
