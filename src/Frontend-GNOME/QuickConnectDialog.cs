@@ -50,6 +50,7 @@ namespace Smuxi.Frontend.Gnome
         ServerWidget f_Widget;
 #endif
 
+#if !GTK_BUILDER
         public QuickConnectDialog(Gtk.Window parent) :
                              base(null, parent,
                                   Gtk.DialogFlags.DestroyWithParent)
@@ -63,7 +64,7 @@ namespace Smuxi.Frontend.Gnome
             Build();
             Init(parent);
         }
-
+#else
         public QuickConnectDialog(Gtk.Window parent, Gtk.Builder builder, IntPtr handle) :
                              base(handle)
         {
@@ -81,6 +82,7 @@ namespace Smuxi.Frontend.Gnome
 
             ShowAll();
         }
+#endif
 
         void Init(Gtk.Window parent)
         {
