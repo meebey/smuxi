@@ -33,9 +33,13 @@ namespace Gtk.Extensions
                 return null;
             }
 #if GTK_SHARP_3
-            var textColumn = 0;
+            var textColumn = comboBox.EntryTextColumn;
 #else
-            var textColumn = comboBox.TextColumn;
+            var textColumn = 0;
+            if (comboBox is Gtk.ComboBoxEntry) {
+                var entry = (Gtk.ComboBoxEntry) comboBox;
+                textColumn = entry.TextColumn;
+            }
 #endif
             return (string) comboBox.Model.GetValue(activeIter, textColumn);
         }
