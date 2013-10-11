@@ -7,7 +7,7 @@
  *
  * Smuxi - Smart MUltipleXed Irc
  *
- * Copyright (c) 2008 Mirco Bauer <meebey@meebey.net>
+ * Copyright (c) 2008-2013 Mirco Bauer <meebey@meebey.net>
  *
  * Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
  *
@@ -32,6 +32,9 @@ using System.Collections.Generic;
 using Mono.Unix;
 using Smuxi.Common;
 using Smuxi.Engine;
+#if GTK_BUILDER
+using UI = Gtk.Builder.ObjectAttribute;
+#endif
 
 namespace Smuxi.Frontend.Gnome
 {
@@ -44,11 +47,11 @@ namespace Smuxi.Frontend.Gnome
         private Gtk.ListStore    f_ListStore;
         private GroupChatModel   f_GroupChatModel;
         private Thread           f_FindThread;
-#if GTK_SHARP_3
-        Gtk.Entry f_NameEntry;
-        Gtk.Button f_FindButton;
-        Gtk.Button f_OKButton;
-        Gtk.TreeView f_TreeView;
+#if GTK_BUILDER
+        [UI] Gtk.Entry f_NameEntry;
+        [UI] Gtk.Button f_FindButton;
+        [UI] Gtk.Button f_OKButton;
+        [UI] Gtk.TreeView f_TreeView;
 #endif
 
         public GroupChatModel GroupChat {
@@ -69,17 +72,38 @@ namespace Smuxi.Frontend.Gnome
             }
         }
 
+#if !GTK_BUILDER
         public FindGroupChatDialog(Gtk.Window parent, IProtocolManager protocolManager) :
                               base(null, parent, Gtk.DialogFlags.DestroyWithParent)
         {
-#if GTK_SHARP_3
-            throw new NotImplementedException();
-#else
+            f_ProtocolManager = protocolManager;
+
             Build();
-#endif
+            Init();
+        }
+#else
+        public FindGroupChatDialog(Gtk.Window parent, Gtk.Builder builder,
+                                   IntPtr handle, IProtocolManager protocolManager) :
+                              base(handle)
+        {
+            if (builder == null) {
+                throw new ArgumentNullException("builder");
+            }
+            if (handle == IntPtr.Zero) {
+                throw new ArgumentException("handle");
+            }
 
             f_ProtocolManager = protocolManager;
-            
+            TransientFor = parent;
+
+            builder.Autoconnect(this);
+            Init();
+            ShowAll();
+        }
+#endif
+
+        void Init()
+        {
             int columnID = 0;
             Gtk.TreeViewColumn column;
             
@@ -236,6 +260,21 @@ namespace Smuxi.Frontend.Gnome
             }
         }
 
+#if GTK_BUILDER
+        protected virtual void OnResponse(object sender, Gtk.ResponseArgs e)
+        {
+            Trace.Call(sender, e);
+
+            switch (e.ResponseId) {
+                case Gtk.ResponseType.Ok:
+                    f_GroupChatModel = GetCurrentGroupChat();
+                    break;
+                case Gtk.ResponseType.Cancel:
+                    CancelFindThread();
+                    break;
+            }
+        }
+#else
         protected override void OnResponse(Gtk.ResponseType responseType)
         {
             Trace.Call(responseType);
@@ -251,6 +290,7 @@ namespace Smuxi.Frontend.Gnome
             
             base.OnResponse(responseType);
         }
+#endif
 
         protected virtual void OnNameEntryActivated(object sender, System.EventArgs e)
         {

@@ -100,6 +100,9 @@
     <EmbeddedResource Include="Interfaces\ServerDialog.ui">
       <LogicalName>ServerDialog.ui</LogicalName>
     </EmbeddedResource>
+    <EmbeddedResource Include="Interfaces\FindGroupChatDialog.ui">
+      <LogicalName>FindGroupChatDialog.ui</LogicalName>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AboutDialog.cs" />

@@ -948,9 +948,16 @@ namespace Smuxi.Frontend.Gnome
                 return;
             }
 
+#if GTK_BUILDER
+            var builder = new Gtk.Builder(null, "FindGroupChatDialog.ui", null);
+            var widget = (Gtk.Widget) builder.GetObject("FindGroupChatDialog");
+            var dialog = new FindGroupChatDialog(MainWindow, builder, widget.Handle,
+                                                 manager);
+#else
             var dialog = new FindGroupChatDialog(
                 MainWindow, manager
             );
+#endif
             if (!String.IsNullOrEmpty(searchKey)) {
                 dialog.NameEntry.Text = searchKey;
                 dialog.FindButton.Click();

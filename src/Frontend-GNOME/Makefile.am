@@ -178,6 +178,7 @@ DATA_FILES = \
 	$(ICON_256)
 
 RESOURCES = \
+	Interfaces/FindGroupChatDialog.ui \
 	Interfaces/JoinWidget.ui \
 	Interfaces/MenuWidget.ui \
 	Interfaces/ServerDialog.ui \
