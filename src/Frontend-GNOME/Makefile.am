@@ -182,6 +182,10 @@ RESOURCES = \
 	Interfaces/JoinWidget.ui \
 	Interfaces/MenuWidget.ui \
 	Interfaces/ServerDialog.ui \
+	Interfaces/Assistants/Engine/ConnectionWidget.ui,Assistants.Engine.ConnectionWidget.ui \
+	Interfaces/Assistants/Engine/CredentialsWidget.ui,Assistants.Engine.CredentialsWidget.ui \
+	Interfaces/Assistants/Engine/IntroWidget.ui,Assistants.Engine.IntroWidget.ui \
+	Interfaces/Assistants/Engine/NameWidget.ui,Assistants.Engine.NameWidget.ui \
 	$(top_srcdir)/images/icon_256x256.png \
 	$(top_srcdir)/images/group-chat_256x256.png \
 	$(top_srcdir)/images/person-chat_256x256.png \

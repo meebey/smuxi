@@ -2,7 +2,7 @@
 // 
 // Smuxi - Smart MUltipleXed Irc
 // 
-// Copyright (c) 2009 Mirco Bauer <meebey@meebey.net>
+// Copyright (c) 2009, 2013 Mirco Bauer <meebey@meebey.net>
 // 
 // Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
 // 
@@ -28,11 +28,17 @@ namespace Smuxi.Frontend.Gnome
     {
         public EngineAssistantIntroWidget()
         {
-#if GTK_SHARP_3
-            throw new NotImplementedException();
-#else
             Build();
-#endif
         }
+
+#if GTK_BUILDER
+        protected virtual void Build()
+        {
+            var builder = new Gtk.Builder(null, "Assistants.Engine.IntroWidget.ui", null);
+            builder.Autoconnect(this);
+            Add((Gtk.Widget) builder.GetObject("EngineAssistantIntroWidget"));
+            ShowAll();
+        }
+#endif
     }
 }

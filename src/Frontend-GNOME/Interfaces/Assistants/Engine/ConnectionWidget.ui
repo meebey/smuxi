@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <!-- interface-requires gtk+ 3.0 -->
+  <object class="GtkAdjustment" id="SmuxiPortAdjustment">
+    <property name="upper">65535</property>
+    <property name="value">7689</property>
+    <property name="step_increment">1</property>
+    <property name="page_increment">10</property>
+  </object>
+  <object class="GtkAdjustment" id="SshPortAdjustment">
+    <property name="upper">65535</property>
+    <property name="value">22</property>
+    <property name="step_increment">1</property>
+    <property name="page_increment">10</property>
+  </object>
+  <object class="GtkBox" id="EngineAssistantConnectionWidget">
+    <property name="can_focus">False</property>
+    <child>
+      <object class="GtkVBox" id="vbox2">
+        <property name="can_focus">False</property>
+        <property name="border_width">5</property>
+        <property name="spacing">10</property>
+        <child>
+          <object class="GtkVBox" id="vbox4">
+            <property name="can_focus">False</property>
+            <property name="spacing">6</property>
+            <child>
+              <object class="GtkCheckButton" id="f_UseSshTunnelCheckButton">
+                <property name="label" translatable="yes">Use _SSH Tunnel</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">False</property>
+                <property name="use_underline">True</property>
+                <property name="xalign">0</property>
+                <property name="active">True</property>
+                <property name="draw_indicator">True</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">False</property>
+                <property name="position">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="label6">
+                <property name="can_focus">False</property>
+                <property name="xalign">0</property>
+                <property name="xpad">50</property>
+                <property name="label" translatable="yes">&lt;span size="small"&gt;Enables the use of SSH for the connection.  This has a small performance impact, but is more secure and required when using NAT or port-based firewalls&lt;/span&gt;</property>
+                <property name="use_markup">True</property>
+                <property name="wrap">True</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">False</property>
+                <property name="position">1</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">False</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkTable" id="table1">
+            <property name="can_focus">False</property>
+            <property name="n_rows">4</property>
+            <property name="n_columns">4</property>
+            <property name="column_spacing">6</property>
+            <property name="row_spacing">5</property>
+            <child>
+              <object class="GtkEntry" id="f_HostEntry">
+                <property name="sensitive">False</property>
+                <property name="can_focus">True</property>
+                <property name="invisible_char">●</property>
+                <property name="text">localhost</property>
+              </object>
+              <packing>
+                <property name="left_attach">1</property>
+                <property name="right_attach">2</property>
+                <property name="top_attach">2</property>
+                <property name="bottom_attach">3</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkSpinButton" id="f_PortSpinButton">
+                <property name="can_focus">True</property>
+                <property name="adjustment">SmuxiPortAdjustment</property>
+                <property name="climb_rate">1</property>
+                <property name="numeric">True</property>
+              </object>
+              <packing>
+                <property name="left_attach">3</property>
+                <property name="right_attach">4</property>
+                <property name="top_attach">2</property>
+                <property name="bottom_attach">3</property>
+                <property name="x_options"/>
+                <property name="y_options"/>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkEntry" id="f_SshHostEntry">
+                <property name="can_focus">True</property>
+                <property name="invisible_char">●</property>
+              </object>
+              <packing>
+                <property name="left_attach">1</property>
+                <property name="right_attach">2</property>
+                <property name="y_options"/>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkSpinButton" id="f_SshPortSpinButton">
+                <property name="can_focus">True</property>
+                <property name="adjustment">SshPortAdjustment</property>
+                <property name="climb_rate">1</property>
+                <property name="numeric">True</property>
+              </object>
+              <packing>
+                <property name="left_attach">3</property>
+                <property name="right_attach">4</property>
+                <property name="x_options"/>
+                <property name="y_options"/>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="label1">
+                <property name="can_focus">False</property>
+                <property name="xalign">0</property>
+                <property name="label" translatable="yes">SSH _Host:</property>
+                <property name="use_underline">True</property>
+                <property name="mnemonic_widget">f_SshHostEntry</property>
+              </object>
+              <packing>
+                <property name="x_options"/>
+                <property name="y_options"/>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="label10">
+                <property name="can_focus">False</property>
+                <property name="xalign">0</property>
+                <property name="xpad">50</property>
+                <property name="label" translatable="yes">&lt;span size="small"&gt;DNS or IP address and port of the SSH server&lt;/span&gt;</property>
+                <property name="use_markup">True</property>
+              </object>
+              <packing>
+                <property name="right_attach">4</property>
+                <property name="top_attach">1</property>
+                <property name="bottom_attach">2</property>
+                <property name="x_options"/>
+                <property name="y_options"/>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="label11">
+                <property name="can_focus">False</property>
+                <property name="xalign">0</property>
+                <property name="label" translatable="yes">_Port:</property>
+                <property name="use_underline">True</property>
+                <property name="mnemonic_widget">f_PortSpinButton</property>
+              </object>
+              <packing>
+                <property name="left_attach">2</property>
+                <property name="right_attach">3</property>
+                <property name="top_attach">2</property>
+                <property name="bottom_attach">3</property>
+                <property name="x_options"/>
+                <property name="y_options"/>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="label5">
+                <property name="can_focus">False</property>
+                <property name="xalign">0</property>
+                <property name="label" translatable="yes">_Port:</property>
+                <property name="use_underline">True</property>
+                <property name="mnemonic_widget">f_SshPortSpinButton</property>
+              </object>
+              <packing>
+                <property name="left_attach">2</property>
+                <property name="right_attach">3</property>
+                <property name="x_options"/>
+                <property name="y_options"/>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="label7">
+                <property name="can_focus">False</property>
+                <property name="xalign">0</property>
+                <property name="xpad">50</property>
+                <property name="label" translatable="yes">&lt;span size="small"&gt;DNS or IP address and port of the Smuxi server&lt;/span&gt;</property>
+                <property name="use_markup">True</property>
+              </object>
+              <packing>
+                <property name="right_attach">4</property>
+                <property name="top_attach">3</property>
+                <property name="bottom_attach">4</property>
+                <property name="x_options"/>
+                <property name="y_options"/>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="label9">
+                <property name="can_focus">False</property>
+                <property name="xalign">0</property>
+                <property name="label" translatable="yes">_Smuxi Host:</property>
+                <property name="use_underline">True</property>
+                <property name="mnemonic_widget">f_HostEntry</property>
+              </object>
+              <packing>
+                <property name="top_attach">2</property>
+                <property name="bottom_attach">3</property>
+                <property name="x_options"/>
+                <property name="y_options"/>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">False</property>
+            <property name="position">1</property>
+          </packing>
+        </child>
+      </object>
+      <packing>
+        <property name="expand">False</property>
+        <property name="fill">True</property>
+        <property name="position">0</property>
+      </packing>
+    </child>
+  </object>
+</interface>

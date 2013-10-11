@@ -2,7 +2,7 @@
 // 
 // Smuxi - Smart MUltipleXed Irc
 // 
-// Copyright (c) 2009 Mirco Bauer <meebey@meebey.net>
+// Copyright (c) 2009, 2013 Mirco Bauer <meebey@meebey.net>
 // 
 // Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
 // 
@@ -21,14 +21,19 @@
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA
 
 using System;
+#if GTK_BUILDER
+using UI = Gtk.Builder.ObjectAttribute;
+#endif
 
 namespace Smuxi.Frontend.Gnome
 {
     public partial class EngineAssistantNameWidget : Gtk.Bin
     {
-#if GTK_SHARP_3
-        Gtk.Entry f_EngineNameEntry;
-        Gtk.CheckButton f_MakeDefaultEngineCheckButton;
+#if GTK_BUILDER
+        #pragma warning disable 0649
+        [UI] Gtk.Entry f_EngineNameEntry;
+        [UI] Gtk.CheckButton f_MakeDefaultEngineCheckButton;
+        #pragma warning restore
 #endif
 
         public Gtk.Entry EngineNameEntry {
@@ -45,11 +50,17 @@ namespace Smuxi.Frontend.Gnome
 
         public EngineAssistantNameWidget()
         {
-#if GTK_SHARP_3
-            throw new NotImplementedException();
-#else
             Build();
-#endif
         }
+
+#if GTK_BUILDER
+        protected virtual void Build()
+        {
+            var builder = new Gtk.Builder(null, "Assistants.Engine.NameWidget.ui", null);
+            builder.Autoconnect(this);
+            Add((Gtk.Widget) builder.GetObject("EngineAssistantNameWidget"));
+            ShowAll();
+        }
+#endif
     }
 }

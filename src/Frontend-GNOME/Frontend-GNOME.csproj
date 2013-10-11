@@ -103,6 +103,18 @@
     <EmbeddedResource Include="Interfaces\FindGroupChatDialog.ui">
       <LogicalName>FindGroupChatDialog.ui</LogicalName>
     </EmbeddedResource>
+    <EmbeddedResource Include="Interfaces\Assistants\Engine\ConnectionWidget.ui">
+      <LogicalName>Assistants.Engine.ConnectionWidget.ui</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Interfaces\Assistants\Engine\CredentialsWidget.ui">
+      <LogicalName>Assistants.Engine.CredentialsWidget.ui</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Interfaces\Assistants\Engine\IntroWidget.ui">
+      <LogicalName>IntroWidget.ui</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Interfaces\Assistants\Engine\NameWidget.ui">
+      <LogicalName>NameWidget.ui</LogicalName>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AboutDialog.cs" />
@@ -172,6 +184,8 @@
     <Folder Include="images\" />
     <Folder Include="osx\" />
     <Folder Include="Views\Tags\" />
+    <Folder Include="Interfaces\Assistants\" />
+    <Folder Include="Interfaces\Assistants\Engine\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Engine\Engine.csproj">
