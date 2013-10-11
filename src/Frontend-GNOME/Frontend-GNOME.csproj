@@ -97,6 +97,9 @@
     <EmbeddedResource Include="Interfaces\QuickConnectDialog.ui">
       <LogicalName>QuickConnectDialog.ui</LogicalName>
     </EmbeddedResource>
+    <EmbeddedResource Include="Interfaces\ServerDialog.ui">
+      <LogicalName>ServerDialog.ui</LogicalName>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AboutDialog.cs" />

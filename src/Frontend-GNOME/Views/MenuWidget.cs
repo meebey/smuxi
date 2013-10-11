@@ -300,9 +300,17 @@ namespace Smuxi.Frontend.Gnome
             ServerDialog dialog = null;
             try {
                 var controller = new ServerListController(Frontend.UserConfig);
+#if GTK_BUILDER
+                var builder = new Gtk.Builder(null, "ServerDialog.ui", null);
+                var widget = (Gtk.Widget) builder.GetObject("ServerDialog");
+                dialog = new ServerDialog(Parent, builder, widget.Handle, null,
+                                          Frontend.Session.GetSupportedProtocols(),
+                                          controller.GetNetworks());
+#else
                 dialog = new ServerDialog(Parent, null,
                                           Frontend.Session.GetSupportedProtocols(),
                                           controller.GetNetworks());
+#endif
                 int res = dialog.Run();
                 ServerModel server = dialog.GetServer();
                 if (res != (int) Gtk.ResponseType.Ok) {

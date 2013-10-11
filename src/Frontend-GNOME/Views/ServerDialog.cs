@@ -2,7 +2,7 @@
 // 
 // Smuxi - Smart MUltipleXed Irc
 // 
-// Copyright (c) 2010 Mirco Bauer <meebey@meebey.net>
+// Copyright (c) 2010, 2012-2013 Mirco Bauer <meebey@meebey.net>
 // 
 // Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
 // 
@@ -25,16 +25,22 @@ using System.Collections.Generic;
 using Gtk.Extensions;
 using Smuxi.Common;
 using Smuxi.Engine;
+#if GTK_BUILDER
+using UI = Gtk.Builder.ObjectAttribute;
+#endif
 
 namespace Smuxi.Frontend.Gnome
 {
     public partial class ServerDialog : Gtk.Dialog
     {
-#if GTK_SHARP_3
+#if GTK_BUILDER
         ServerWidget f_Widget;
-        Gtk.Button f_OkButton;
+        #pragma warning disable 0649
+        [UI("OkButton")] Gtk.Button f_OkButton;
+        #pragma warning restore
 #endif
 
+#if !GTK_BUILDER
         public ServerDialog(Gtk.Window parent, ServerModel server,
                             IList<string> supportedProtocols,
                             IList<string> networks) :
@@ -52,11 +58,47 @@ namespace Smuxi.Frontend.Gnome
                 throw new ArgumentNullException("networks");
             }
 
-#if GTK_SHARP_3
-            throw new NotImplementedException();
-#else
             Build();
+            Init(parent, server, supportedProtocols, networks);
+        }
+#else
+        public ServerDialog(Gtk.Window parent, Gtk.Builder builder, IntPtr handle,
+                            ServerModel server,
+                            IList<string> supportedProtocols,
+                            IList<string> networks) :
+                       base(handle)
+        {
+            Trace.Call(parent, builder, handle, server, supportedProtocols, networks);
+
+            if (parent == null) {
+                throw new ArgumentNullException("parent");
+            }
+            if (builder == null) {
+                throw new ArgumentNullException("builder");
+            }
+            if (handle == IntPtr.Zero) {
+                throw new ArgumentException("handle", "handle must not be zero.");
+            }
+            if (supportedProtocols == null) {
+                throw new ArgumentNullException("supportedProtocols");
+            }
+            if (networks == null) {
+                throw new ArgumentNullException("networks");
+            }
+
+            builder.Autoconnect(this);
+            f_Widget = new ServerWidget();
+            ContentArea.Add(f_Widget);
+            Init(parent, server, supportedProtocols, networks);
+
+            ShowAll();
+        }
 #endif
+
+        void Init(Gtk.Window parent, ServerModel server,
+                  IList<string> supportedProtocols,
+                  IList<string> networks)
+        {
             TransientFor = parent;
 
             f_Widget.InitProtocols(supportedProtocols);

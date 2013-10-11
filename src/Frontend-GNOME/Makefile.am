@@ -180,6 +180,7 @@ DATA_FILES = \
 RESOURCES = \
 	Interfaces/JoinWidget.ui \
 	Interfaces/MenuWidget.ui \
+	Interfaces/ServerDialog.ui \
 	$(top_srcdir)/images/icon_256x256.png \
 	$(top_srcdir)/images/group-chat_256x256.png \
 	$(top_srcdir)/images/person-chat_256x256.png \
