@@ -48,10 +48,12 @@ namespace Smuxi.Frontend.Gnome
         private GroupChatModel   f_GroupChatModel;
         private Thread           f_FindThread;
 #if GTK_BUILDER
+        #pragma warning disable 0649
         [UI] Gtk.Entry f_NameEntry;
         [UI] Gtk.Button f_FindButton;
         [UI] Gtk.Button f_OKButton;
         [UI] Gtk.TreeView f_TreeView;
+        #pragma warning restore
 #endif
 
         public GroupChatModel GroupChat {
