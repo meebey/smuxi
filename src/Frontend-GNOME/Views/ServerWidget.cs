@@ -163,6 +163,8 @@ namespace Smuxi.Frontend.Gnome
         {
             var builder = new Gtk.Builder(null, "ServerWidget.ui", null);
             builder.Autoconnect(this);
+            // HACK: there is no way to set the allowed range from Glade :/
+            f_PortSpinButton.SetRange(0, Int16.MaxValue);
             Add((Gtk.Widget) builder.GetObject("ServerWidget"));
             ShowAll();
         }
