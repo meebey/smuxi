@@ -92,6 +92,9 @@
       <LogicalName>session-chat_256x256.png</LogicalName>
       <Link>images\session-chat_256x256.png</Link>
     </EmbeddedResource>
+    <EmbeddedResource Include="Interfaces\PreferencesDialog3.ui">
+      <LogicalName>PreferencesDialog3.ui</LogicalName>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AboutDialog.cs" />
@@ -165,6 +168,7 @@
     <Compile Include="Views\Tags\PersonTag.cs" />
     <Compile Include="Views\ChatTreeView.cs" />
     <Compile Include="Views\Tags\EmojiTag.cs" />
+    <Compile Include="Views\PreferencesDialog.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="smuxi-frontend-gnome.exe.config">

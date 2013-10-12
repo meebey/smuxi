@@ -147,6 +147,7 @@ FILES = \
 	Views/JoinWidget.cs \
 	Views/MenuWidget.cs \
 	Views/MessageTextView.cs \
+	Views/PreferencesDialog.cs \
 	Views/ServerWidget.cs \
 	Views/ServerDialog.cs \
 	Views/FilterListWidget.cs \
@@ -211,7 +212,8 @@ RESOURCES = \
 	$(top_builddir)/images/group-chat_256x256.png \
 	$(top_builddir)/images/person-chat_256x256.png \
 	$(top_builddir)/images/protocol-chat_256x256.png \
-	$(top_builddir)/images/session-chat_256x256.png
+	$(top_builddir)/images/session-chat_256x256.png \
+	Interfaces/PreferencesDialog3.ui
 
 EXTRAS = \
 	smuxi-frontend-gnome.in \
