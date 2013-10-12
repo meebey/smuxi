@@ -110,10 +110,10 @@
       <LogicalName>Assistants.Engine.CredentialsWidget.ui</LogicalName>
     </EmbeddedResource>
     <EmbeddedResource Include="Interfaces\Assistants\Engine\IntroWidget.ui">
-      <LogicalName>IntroWidget.ui</LogicalName>
+      <LogicalName>Assistants.Engine.IntroWidget.ui</LogicalName>
     </EmbeddedResource>
     <EmbeddedResource Include="Interfaces\Assistants\Engine\NameWidget.ui">
-      <LogicalName>NameWidget.ui</LogicalName>
+      <LogicalName>Assistants.Engine.NameWidget.ui</LogicalName>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
