@@ -140,6 +140,7 @@ FILES = \
 	Views/MessageTextView.cs \
 	Views/ServerWidget.cs \
 	Views/ServerDialog.cs \
+	Views/SizableScrolledWindow.cs \
 	Views/FilterListWidget.cs \
 	Views/Chats/ChatView.cs \
 	Views/Chats/GroupChatView.cs \

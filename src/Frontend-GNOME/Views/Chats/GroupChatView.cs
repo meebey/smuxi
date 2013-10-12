@@ -51,7 +51,7 @@ namespace Smuxi.Frontend.Gnome
         private Gtk.VBox           _OutputVBox;
         private Gtk.Frame          _PersonTreeViewFrame;
         private Gtk.HPaned         _OutputHPaned;
-        private Gtk.ScrolledWindow _TopicScrolledWindow;
+        SizableScrolledWindow _TopicScrolledWindow;
         private MessageTextView    _TopicTextView;
         private MessageModel       _Topic;
         private Gtk.TreeViewColumn _IdentityNameColumn;
@@ -147,7 +147,7 @@ namespace Smuxi.Frontend.Gnome
             Gtk.ScrolledWindow sw = new Gtk.ScrolledWindow();
             PersonScrolledWindow = sw;
             sw.HscrollbarPolicy = Gtk.PolicyType.Never;
-            // TODO: PORT ME!
+            // some som reason this code is not needed with GTK+3
 #if !GTK_SHARP_3
             sw.SizeRequested += (o, args) => {
                 // predict and set useful treeview width
@@ -233,7 +233,7 @@ namespace Smuxi.Frontend.Gnome
             _TopicTextView = new MessageTextView();
             _TopicTextView.Editable = false;
             _TopicTextView.WrapMode = Gtk.WrapMode.WordChar;
-            _TopicScrolledWindow = new Gtk.ScrolledWindow();
+            _TopicScrolledWindow = new SizableScrolledWindow();
             _TopicScrolledWindow.ShadowType = Gtk.ShadowType.In;
             _TopicScrolledWindow.HscrollbarPolicy = Gtk.PolicyType.Never;
             _TopicScrolledWindow.Add(_TopicTextView);
@@ -242,28 +242,14 @@ namespace Smuxi.Frontend.Gnome
             _TopicScrolledWindow.ShowAll();
             _TopicScrolledWindow.Visible = false;
             _TopicScrolledWindow.NoShowAll = true;
-            // TODO: PORT ME!
-#if !GTK_SHARP_3
+#if GTK_SHARP_3
+            _TopicScrolledWindow.SizeRequestedHeigth += (sender, e) => {
+                e.MinimumSize = e.NaturalSize = CalculateBestTopicHeigth();
+            };
+#else
             _TopicScrolledWindow.SizeRequested += delegate(object o, Gtk.SizeRequestedArgs args) {
-                // predict and set useful topic heigth
-                int lineWidth, lineHeigth;
-                using (var layout = _TopicTextView.CreatePangoLayout("Test Topic")) {
-                    layout.GetPixelSize(out lineWidth, out lineHeigth);
-                }
-                var lineSpacing = _TopicTextView.PixelsAboveLines +
-                                  _TopicTextView.PixelsBelowLines;
-                var it = _TopicTextView.Buffer.StartIter;
-                int newLines = 1;
-                // move to end of next visual line
-                while (_TopicTextView.ForwardDisplayLineEnd(ref it)) {
-                    newLines++;
-                    // calling ForwardDisplayLineEnd repeatedly stays on the same position
-                    // therefor we move one cursor position further
-                    it.ForwardCursorPosition();
-                }
-                newLines = Math.Min(newLines, 3);
                 var bestSize = new Gtk.Requisition() {
-                    Height = ((lineHeigth + lineSpacing) * newLines) + 2
+                    Height = CalculateBestTopicHeigth();
                 };
                 args.Requisition = bestSize;
             };
@@ -724,7 +710,35 @@ namespace Smuxi.Frontend.Gnome
             
             return persons;
         }
-        
+
+        int CalculateBestTopicHeigth()
+        {
+            // predict and set useful topic heigth
+            int lineWidth, lineHeigth;
+            using (var layout = _TopicTextView.CreatePangoLayout("Test Topic")) {
+                layout.GetPixelSize(out lineWidth, out lineHeigth);
+            }
+            /*
+             * better approach?
+            Pango.FontMetrics metrics = PangoContext.GetMetrics (
+                entry.StyleContext.GetFont (StateFlags.Normal), PangoContext.Language);
+            int line_height = ((int)(metrics.Ascent + metrics.Descent) + 512) >> 10; // PANGO_PIXELS(d)
+            */
+            var lineSpacing = _TopicTextView.PixelsAboveLines +
+                _TopicTextView.PixelsBelowLines;
+            var it = _TopicTextView.Buffer.StartIter;
+            int newLines = 1;
+            // move to end of next visual line
+            while (_TopicTextView.ForwardDisplayLineEnd(ref it)) {
+                newLines++;
+                // calling ForwardDisplayLineEnd repeatedly stays on the same position
+                // therefor we move one cursor position further
+                it.ForwardCursorPosition();
+            }
+            newLines = Math.Min(newLines, 3);
+            return ((lineHeigth + lineSpacing) * newLines) + 2;
+        }
+
         private static string _(string msg)
         {
             return Mono.Unix.Catalog.GetString(msg);
