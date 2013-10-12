@@ -216,30 +216,17 @@ namespace Smuxi.Frontend.Gnome
             EngineManager = new EngineManager(Frontend.FrontendConfig, UI);
 
             Entry = new Entry(ChatViewManager);
-            var entryScrolledWindow = new Gtk.ScrolledWindow();
+            var entryScrolledWindow = new SizableScrolledWindow();
             entryScrolledWindow.ShadowType = Gtk.ShadowType.EtchedIn;
             entryScrolledWindow.HscrollbarPolicy = Gtk.PolicyType.Never;
-            // TODO: PORT ME!
-#if !GTK_SHARP_3
+#if GTK_SHARP_3
+            entryScrolledWindow.SizeRequestedHeigth += (sender, e) => {
+                e.MinimumSize = e.NaturalSize = CalculateBestEntryHeight();
+            };
+#else
             entryScrolledWindow.SizeRequested += delegate(object o, Gtk.SizeRequestedArgs args) {
-                // predict and set useful heigth
-                int lineWidth, lineHeigth;
-                using (var layout = Entry.CreatePangoLayout("Qp")) {
-                    layout.GetPixelSize(out lineHeigth, out lineHeigth);
-                }
-                var it = Entry.Buffer.StartIter;
-                int newLines = 1;
-                // move to end of next visual line
-                while (Entry.ForwardDisplayLineEnd(ref it)) {
-                    newLines++;
-                    // calling ForwardDisplayLineEnd repeatedly stays on the same position
-                    // therefor we move one cursor position further
-                    it.ForwardCursorPosition();
-                }
-                newLines = Math.Min(newLines, 3);
-                // use text heigth + a bit extra
                 var bestSize = new Gtk.Requisition() {
-                    Height = (lineHeigth * newLines) + 5
+                    Height = CalculateBestEntryHeight();
                 };
                 args.Requisition = bestSize;
             };
@@ -594,6 +581,27 @@ namespace Smuxi.Frontend.Gnome
             } else {
                 ProgressBar.Show();
             }
+        }
+
+        int CalculateBestEntryHeight()
+        {
+            // predict and set useful heigth
+            int lineWidth, lineHeigth;
+            using (var layout = Entry.CreatePangoLayout("Qp")) {
+                layout.GetPixelSize(out lineHeigth, out lineHeigth);
+            }
+            var it = Entry.Buffer.StartIter;
+            int newLines = 1;
+            // move to end of next visual line
+            while (Entry.ForwardDisplayLineEnd(ref it)) {
+                newLines++;
+                // calling ForwardDisplayLineEnd repeatedly stays on the same position
+                // therefor we move one cursor position further
+                it.ForwardCursorPosition();
+            }
+            newLines = Math.Min(newLines, 3);
+            // use text heigth + a bit extra
+            return (lineHeigth * newLines) + 5;
         }
 
         private static string _(string msg)
