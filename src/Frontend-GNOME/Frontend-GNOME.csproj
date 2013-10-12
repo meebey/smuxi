@@ -115,6 +115,9 @@
     <EmbeddedResource Include="Interfaces\Assistants\Engine\NameWidget.ui">
       <LogicalName>Assistants.Engine.NameWidget.ui</LogicalName>
     </EmbeddedResource>
+    <EmbeddedResource Include="Interfaces\PreferencesDialog3.ui">
+      <LogicalName>PreferencesDialog3.ui</LogicalName>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AboutDialog.cs" />
@@ -172,6 +175,7 @@
     <Compile Include="Views\Tags\PersonTag.cs" />
     <Compile Include="Gtk.Extensions.cs" />
     <Compile Include="Views\SizableScrolledWindow.cs" />
+    <Compile Include="Views\PreferencesDialog.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="smuxi-frontend-gnome.exe.config">

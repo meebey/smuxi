@@ -138,6 +138,7 @@ FILES = \
 	Views/JoinWidget.cs \
 	Views/MenuWidget.cs \
 	Views/MessageTextView.cs \
+	Views/PreferencesDialog.cs \
 	Views/ServerWidget.cs \
 	Views/ServerDialog.cs \
 	Views/SizableScrolledWindow.cs \
@@ -182,6 +183,7 @@ RESOURCES = \
 	Interfaces/FindGroupChatDialog.ui \
 	Interfaces/JoinWidget.ui \
 	Interfaces/MenuWidget.ui \
+	Interfaces/PreferencesDialog3.ui \
 	Interfaces/ServerDialog.ui \
 	Interfaces/Assistants/Engine/ConnectionWidget.ui,Assistants.Engine.ConnectionWidget.ui \
 	Interfaces/Assistants/Engine/CredentialsWidget.ui,Assistants.Engine.CredentialsWidget.ui \
