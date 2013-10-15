@@ -19,6 +19,11 @@
     <property name="can_focus">False</property>
     <property name="stock">gtk-help</property>
   </object>
+  <object class="GtkAdjustment" id="ProxyPortAdjustment">
+    <property name="upper">65535</property>
+    <property name="step_increment">1</property>
+    <property name="page_increment">10</property>
+  </object>
   <object class="GtkDialog" id="PreferencesDialog">
     <property name="can_focus">False</property>
     <property name="border_width">5</property>
@@ -1718,11 +1723,6 @@ yy/yyyy = year</property>
     <action-widgets>
       <action-widget response="-7">CloseButton</action-widget>
     </action-widgets>
-  </object>
-  <object class="GtkAdjustment" id="ProxyPortAdjustment">
-    <property name="upper">100</property>
-    <property name="step_increment">1</property>
-    <property name="page_increment">10</property>
   </object>
   <object class="GtkAdjustment" id="adjustment1">
     <property name="upper">100</property>
