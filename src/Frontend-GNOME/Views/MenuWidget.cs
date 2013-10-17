@@ -338,8 +338,12 @@ namespace Smuxi.Frontend.Gnome
             Trace.Call(sender, e);
             
             try {
-#if GTK_SHARP_3
-                throw new NotImplementedException();
+#if GTK_BUILDER && GTK_SHARP_3
+                var builder = new Gtk.Builder(null, "PreferencesDialog3.ui", null);
+                var widget = (Gtk.Widget) builder.GetObject("PreferencesDialog");
+                var dialog = new PreferencesDialog(Parent, builder, widget.Handle);
+                dialog.CurrentCategory = PreferencesDialog.Category.Servers;
+                dialog.Show();
 #else
                 var dialog = new PreferencesDialog(Parent);
                 dialog.CurrentPage = PreferencesDialog.Page.Servers;
