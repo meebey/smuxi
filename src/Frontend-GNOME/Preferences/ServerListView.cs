@@ -7,7 +7,7 @@
  *
  * Smuxi - Smart MUltipleXed Irc
  *
- * Copyright (c) 2005-2008 Mirco Bauer <meebey@meebey.net>
+ * Copyright (c) 2005-2008, 2010, 2012-2013 Mirco Bauer <meebey@meebey.net>
  *
  * Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
  *
@@ -26,31 +26,71 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA
  */
 
-#if GLADE_SHARP
+#if GTK_BUILDER || GLADE_SHARP
 using System;
 using System.Collections.Generic;
 using Smuxi.Common;
 using Smuxi.Engine;
+#if GTK_SHARP_3
+using TreeModel = Gtk.ITreeModel;
+#else
+using TreeModel = Gtk.TreeModel;
+#endif
+#if GTK_BUILDER
+using UI = Gtk.Builder.ObjectAttribute;
+#else
+using UI = Glade.WidgetAttribute;
+#endif
 
 namespace Smuxi.Frontend.Gnome
 {
+#if GTK_BUILDER
+    public class ServerListView : Gtk.Bin
+#else
     public class ServerListView
+#endif
     {
         private ServerListController     _Controller;
         private Gtk.Window               _Parent;
         
 #region Widgets
-        [Glade.Widget("ServersTreeView")]
+        [UI("ServersTreeView")]
         private Gtk.TreeView             _TreeView;
         private Gtk.TreeStore            _TreeStore;
-        [Glade.Widget("ServersAddButton")]
+#if GTK_BUILDER
+        [UI("EditServerToolButton")]
+        Gtk.ToolButton _EditButton;
+        [UI("RemoveServerToolButton")]
+        Gtk.ToolButton _RemoveButton;
+#else
+        [UI("ServersAddButton")]
         private Gtk.Button               _AddButton;
-        [Glade.Widget("ServersEditButton")]
+        [UI("ServersEditButton")]
         private Gtk.Button               _EditButton;
-        [Glade.Widget("ServersRemoveButton")]
+        [UI("ServersRemoveButton")]
         private Gtk.Button               _RemoveButton;
+#endif
 #endregion
         
+#if GTK_BUILDER
+        public ServerListView(Gtk.Window parent)
+        {
+            Trace.Call(parent);
+
+            if (parent == null) {
+                throw new ArgumentNullException("parent");
+            }
+
+            _Parent = parent;
+
+            var builder = new Gtk.Builder(null, "ServerListWidget.ui", null);
+            builder.Autoconnect(this);
+            Add((Gtk.Widget) builder.GetObject("ServerListBox"));
+
+            Init();
+            ShowAll();
+        }
+#else
         public ServerListView(Gtk.Window parent, Glade.XML gladeXml)
         {
             Trace.Call(parent, gladeXml);
@@ -60,14 +100,21 @@ namespace Smuxi.Frontend.Gnome
             }
             
             _Parent = parent;
-            _Controller = new ServerListController(Frontend.UserConfig);
-            
             gladeXml.BindFields(this);
-            
+            Init();
+        }
+#endif
+
+        void Init()
+        {
+            _Controller = new ServerListController(Frontend.UserConfig);
+
+#if GLADE_SHARP
             _AddButton.Clicked += new EventHandler(OnAddButtonClicked);
             _EditButton.Clicked += new EventHandler(OnEditButtonClicked);
             _RemoveButton.Clicked += new EventHandler(OnRemoveButtonClicked);
-            
+#endif
+
             _TreeView.AppendColumn(_("Protocol"), new Gtk.CellRendererText(), "text", 1); 
             _TreeView.AppendColumn(_("Hostname"), new Gtk.CellRendererText(), "text", 2); 
             
@@ -134,7 +181,17 @@ namespace Smuxi.Frontend.Gnome
         {
             Trace.Call();
             
-            ServerDialog dialog = new ServerDialog(_Parent, null, Frontend.Session.GetSupportedProtocols(), _Controller.GetNetworks());
+#if GTK_BUILDER
+            var builder = new Gtk.Builder(null, "ServerDialog.ui", null);
+            var widget = (Gtk.Widget) builder.GetObject("ServerDialog");
+            var dialog = new ServerDialog(_Parent, builder, widget.Handle, null,
+                                          Frontend.Session.GetSupportedProtocols(),
+                                          _Controller.GetNetworks());
+#else
+            var dialog = new ServerDialog(_Parent, null,
+                                          Frontend.Session.GetSupportedProtocols(),
+                                          _Controller.GetNetworks());
+#endif
             try {
                 int res = dialog.Run();
                 ServerModel server = dialog.GetServer();
@@ -160,7 +217,17 @@ namespace Smuxi.Frontend.Gnome
                 throw new ArgumentNullException("server");
             }
             
-            ServerDialog dialog = new ServerDialog(_Parent, server, Frontend.Session.GetSupportedProtocols(), _Controller.GetNetworks());
+#if GTK_BUILDER
+            var builder = new Gtk.Builder(null, "ServerDialog.ui", null);
+            var widget = (Gtk.Widget) builder.GetObject("ServerDialog");
+            var dialog = new ServerDialog(_Parent, builder, widget.Handle, server,
+                                          Frontend.Session.GetSupportedProtocols(),
+                                          _Controller.GetNetworks());
+#else
+            var dialog = new ServerDialog(_Parent, server,
+                                          Frontend.Session.GetSupportedProtocols(),
+                                          _Controller.GetNetworks());
+#endif
             int res = dialog.Run();
             server = dialog.GetServer();
             dialog.Destroy();
@@ -283,7 +350,7 @@ namespace Smuxi.Frontend.Gnome
             }
         }
 
-        protected virtual int SortTreeStore(Gtk.TreeModel model,
+        protected virtual int SortTreeStore(TreeModel model,
                                             Gtk.TreeIter iter1,
                                             Gtk.TreeIter iter2)
         {

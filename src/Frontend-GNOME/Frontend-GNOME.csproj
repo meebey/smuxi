@@ -121,6 +121,9 @@
     <EmbeddedResource Include="Interfaces\FilterListWidget.ui">
       <LogicalName>FilterListWidget.ui</LogicalName>
     </EmbeddedResource>
+    <EmbeddedResource Include="Interfaces\ServerListWidget.ui">
+      <LogicalName>ServerListWidget.ui</LogicalName>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AboutDialog.cs" />
