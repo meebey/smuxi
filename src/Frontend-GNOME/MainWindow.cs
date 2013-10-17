@@ -226,7 +226,7 @@ namespace Smuxi.Frontend.Gnome
 #else
             entryScrolledWindow.SizeRequested += delegate(object o, Gtk.SizeRequestedArgs args) {
                 var bestSize = new Gtk.Requisition() {
-                    Height = CalculateBestEntryHeight();
+                    Height = CalculateBestEntryHeight()
                 };
                 args.Requisition = bestSize;
             };

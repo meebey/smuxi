@@ -249,7 +249,7 @@ namespace Smuxi.Frontend.Gnome
 #else
             _TopicScrolledWindow.SizeRequested += delegate(object o, Gtk.SizeRequestedArgs args) {
                 var bestSize = new Gtk.Requisition() {
-                    Height = CalculateBestTopicHeigth();
+                    Height = CalculateBestTopicHeigth()
                 };
                 args.Requisition = bestSize;
             };
