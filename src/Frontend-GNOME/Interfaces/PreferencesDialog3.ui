@@ -419,6 +419,7 @@
                         <property name="receives_default">False</property>
                         <property name="xalign">0</property>
                         <property name="draw_indicator">True</property>
+                        <signal name="toggled" handler="OnProxyShowPasswordCheckButtonToggled" swapped="no"/>
                       </object>
                       <packing>
                         <property name="left_attach">1</property>
@@ -1640,6 +1641,7 @@ yy/yyyy = year</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">True</property>
                         <property name="halign">start</property>
+                        <signal name="clicked" handler="OnLoggingOpenButtonClicked" swapped="no"/>
                       </object>
                       <packing>
                         <property name="expand">False</property>
