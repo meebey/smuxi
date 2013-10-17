@@ -213,7 +213,8 @@ RESOURCES = \
 	$(top_builddir)/images/person-chat_256x256.png \
 	$(top_builddir)/images/protocol-chat_256x256.png \
 	$(top_builddir)/images/session-chat_256x256.png \
-	Interfaces/PreferencesDialog3.ui
+	Interfaces/PreferencesDialog3.ui \
+	Interfaces/ServerListWidget.ui
 
 EXTRAS = \
 	smuxi-frontend-gnome.in \

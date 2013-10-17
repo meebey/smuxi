@@ -95,6 +95,9 @@
     <EmbeddedResource Include="Interfaces\PreferencesDialog2.ui">
       <LogicalName>PreferencesDialog2.ui</LogicalName>
     </EmbeddedResource>
+    <EmbeddedResource Include="Interfaces\ServerListWidget.ui">
+      <LogicalName>ServerListWidget.ui</LogicalName>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AboutDialog.cs" />
