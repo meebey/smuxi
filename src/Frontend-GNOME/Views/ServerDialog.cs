@@ -61,12 +61,15 @@ namespace Smuxi.Frontend.Gnome
             CheckOkButton();
 
             if (server != null) {
+                f_OkButton.Label = _("Save");
                 try {
                     f_Widget.Load(server);
                 } catch (Exception) {
                     Destroy();
                     throw;
                 }
+            } else {
+                f_OkButton.Label = _("Add");
             }
         }
 
@@ -87,6 +90,11 @@ namespace Smuxi.Frontend.Gnome
         public ServerModel GetServer()
         {
             return f_Widget.GetServer();
+        }
+
+        static string _(string msg)
+        {
+            return Mono.Unix.Catalog.GetString(msg);
         }
     }
 }
