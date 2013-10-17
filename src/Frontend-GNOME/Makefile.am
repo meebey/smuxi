@@ -180,6 +180,7 @@ DATA_FILES = \
 	$(ICON_256)
 
 RESOURCES = \
+	Interfaces/FilterListWidget.ui \
 	Interfaces/FindGroupChatDialog.ui \
 	Interfaces/JoinWidget.ui \
 	Interfaces/MenuWidget.ui \

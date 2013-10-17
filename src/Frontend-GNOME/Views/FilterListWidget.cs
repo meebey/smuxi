@@ -1,6 +1,6 @@
 // Smuxi - Smart MUltipleXed Irc
 // 
-// Copyright (c) 2010 Mirco Bauer <meebey@meebey.net>
+// Copyright (c) 2010, 2013 Mirco Bauer <meebey@meebey.net>
 // 
 // Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
 // 
@@ -27,6 +27,9 @@ using TreeModel = Gtk.ITreeModel;
 #else
 using TreeModel = Gtk.TreeModel;
 #endif
+#if GTK_BUILDER
+using UI = Gtk.Builder.ObjectAttribute;
+#endif
 
 namespace Smuxi.Frontend.Gnome
 {
@@ -39,8 +42,8 @@ namespace Smuxi.Frontend.Gnome
         Gtk.ListStore        f_ChatTypeListStore { get; set; }
         Gtk.ListStore        f_MessageTypeListStore { get; set; }
         Gtk.ListStore        f_ProtocolListStore { get; set; }
-#if GTK_SHARP_3
-        Gtk.TreeView f_TreeView;
+#if GTK_BUILDER
+        [UI] Gtk.TreeView f_TreeView;
 #endif
 
         public event EventHandler Changed;
@@ -54,16 +57,22 @@ namespace Smuxi.Frontend.Gnome
                 throw new ArgumentNullException("userConfig");
             }
 
-#if GTK_SHARP_3
-            throw new NotImplementedException();
-#else
             Build();
-#endif
             Init();
 
             f_Parent = parent;
             f_Controller = new FilterListController(userConfig);
         }
+
+#if GTK_BUILDER
+        protected virtual void Build()
+        {
+            var builder = new Gtk.Builder(null, "FilterListWidget.ui", null);
+            builder.Autoconnect(this);
+            Add((Gtk.Widget) builder.GetObject("FilterListBox"));
+            ShowAll();
+        }
+#endif
 
         public void InitProtocols(IList<string> protocols)
         {

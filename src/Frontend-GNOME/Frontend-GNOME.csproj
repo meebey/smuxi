@@ -118,6 +118,9 @@
     <EmbeddedResource Include="Interfaces\PreferencesDialog3.ui">
       <LogicalName>PreferencesDialog3.ui</LogicalName>
     </EmbeddedResource>
+    <EmbeddedResource Include="Interfaces\FilterListWidget.ui">
+      <LogicalName>FilterListWidget.ui</LogicalName>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AboutDialog.cs" />
