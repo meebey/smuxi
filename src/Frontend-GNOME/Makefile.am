@@ -187,6 +187,7 @@ RESOURCES = \
 	Interfaces/PreferencesDialog3.ui \
 	Interfaces/ServerDialog.ui \
 	Interfaces/ServerListWidget.ui \
+	Interfaces/ServerWidget.ui \
 	Interfaces/QuickConnectDialog.ui \
 	Interfaces/Assistants/Engine/ConnectionWidget.ui,Assistants.Engine.ConnectionWidget.ui \
 	Interfaces/Assistants/Engine/CredentialsWidget.ui,Assistants.Engine.CredentialsWidget.ui \
