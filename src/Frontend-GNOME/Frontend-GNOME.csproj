@@ -162,6 +162,7 @@
     <Compile Include="Views\MenuWidget.cs" />
     <Compile Include="Views\Tags\LinkTag.cs" />
     <Compile Include="Views\Tags\PersonTag.cs" />
+    <Compile Include="Views\ChatTreeView.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="smuxi-frontend-gnome.exe.config">

@@ -1,7 +1,7 @@
 /*
  * Smuxi - Smart MUltipleXed Irc
  *
- * Copyright (c) 2005-2011 Mirco Bauer <meebey@meebey.net>
+ * Copyright (c) 2005-2013 Mirco Bauer <meebey@meebey.net>
  *
  * Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
  *
@@ -48,6 +48,7 @@ namespace Smuxi.Frontend.Gnome
         public IFrontendUI UI { get; private set; }
         public Entry Entry { get; private set; }
         public Notebook Notebook { get; private set; }
+        public ChatTreeView ChatTreeView { get; private set; }
         public ChatViewManager ChatViewManager { get; private set; }
         public EngineManager EngineManager { get; private set; }
 #if GTK_SHARP_2_10
@@ -182,12 +183,13 @@ namespace Smuxi.Frontend.Gnome
             FocusOutEvent += OnFocusOutEvent;
             WindowStateEvent += OnWindowStateEvent;
 
-            // TODO: network treeview
+            ChatTreeView = new ChatTreeView();
+
             Notebook = new Notebook();
             Notebook.SwitchPage += OnNotebookSwitchPage;
             Notebook.FocusInEvent += OnNotebookFocusInEvent;
 
-            ChatViewManager = new ChatViewManager(Notebook, null);
+            ChatViewManager = new ChatViewManager(Notebook, ChatTreeView);
             Assembly asm = Assembly.GetExecutingAssembly();
             ChatViewManager.Load(asm);
             ChatViewManager.LoadAll(System.IO.Path.GetDirectoryName(asm.Location),
@@ -261,9 +263,23 @@ namespace Smuxi.Frontend.Gnome
             vpane.Pack1(Notebook, true, false);
             vpane.Pack2(entryScrolledWindow, false, false);
 
+            var treeviewScrolledWindow = new Gtk.ScrolledWindow() {
+                ShadowType = Gtk.ShadowType.EtchedIn,
+                HscrollbarPolicy = Gtk.PolicyType.Never,
+                VscrollbarPolicy = Gtk.PolicyType.Automatic
+            };
+            treeviewScrolledWindow.Add(ChatTreeView);
+            ChatViewManager.ChatAdded += (sender, e) => {
+                treeviewScrolledWindow.CheckResize();
+            };
+
+            var chatHpane = new Gtk.HPaned();
+            chatHpane.Pack1(treeviewScrolledWindow, false, false);
+            chatHpane.Pack2(vpane, true, false);
+
             Gtk.VBox vbox = new Gtk.VBox();
             vbox.PackStart(MenuWidget, false, false, 0);
-            vbox.PackStart(vpane, true, true, 0);
+            vbox.PackStart(chatHpane, true, true, 0);
 
             NetworkStatusbar = new Gtk.Statusbar();
             NetworkStatusbar.WidthRequest = 300;
@@ -316,6 +332,7 @@ namespace Smuxi.Frontend.Gnome
 #endif
             Entry.ApplyConfig(userConfig);
             Notebook.ApplyConfig(userConfig);
+            ChatTreeView.ApplyConfig(userConfig);
             ChatViewManager.ApplyConfig(userConfig);
             MenuWidget.JoinWidget.ApplyConfig(userConfig);
         }
@@ -402,6 +419,7 @@ namespace Smuxi.Frontend.Gnome
                     // clear activity and highlight
                     chatView.HasHighlight = false;
                     chatView.HasActivity = false;
+                    chatView.HasEvent = false;
                     var lastMsg = chatView.OutputMessageTextView.LastMessage;
                     if (lastMsg == null || Frontend.UseLowBandwidthMode) {
                         return;
@@ -539,6 +557,9 @@ namespace Smuxi.Frontend.Gnome
             Trace.Call(sender, e);
 
             e.ChatView.MessageHighlighted += OnChatViewMessageHighlighted;
+            e.ChatView.StatusChanged += (o, args) => {
+                ChatTreeView.Render(e.ChatView);
+            };
             e.ChatView.OutputMessageTextView.FocusInEvent += delegate {
                 if (CaretMode) {
                     return;

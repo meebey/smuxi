@@ -40,7 +40,7 @@ namespace Smuxi.Frontend.Gnome
         public    int                Position { get; internal set; }
         private   ChatModel          _ChatModel;
         private   bool               _HasHighlight;
-        private   int                HighlightCount { get; set; }
+        public    int                HighlightCount { get; private set; }
         private   bool               _HasActivity;
         private   bool               _HasEvent;
         private   bool               _IsSynced;
@@ -62,6 +62,8 @@ namespace Smuxi.Frontend.Gnome
         bool                         IsAutoScrolling { get; set; }
         Gtk.ImageMenuItem  CloseItem { get; set; }
 
+        public event EventHandler<EventArgs> StatusChanged;
+
         public ChatModel ChatModel {
             get {
                 return _ChatModel;
@@ -75,6 +77,8 @@ namespace Smuxi.Frontend.Gnome
             set {
                 base.Name = value;
                 _TabLabel.Text = value;
+
+                OnStatusChanged(EventArgs.Empty);
             }
         }
 
@@ -97,12 +101,14 @@ namespace Smuxi.Frontend.Gnome
             }
             set {
                 _HasHighlight = value;
-                HighlightCount++;
-
-                if (!value) {
+                if (value) {
+                    HighlightCount++;
+                    OnStatusChanged(EventArgs.Empty);
+                } else {
                     // clear highlight with "no activity"
                     HasActivity = false;
                     HighlightCount = 0;
+                    OnStatusChanged(EventArgs.Empty);
                     return;
                 }
 
@@ -141,6 +147,7 @@ namespace Smuxi.Frontend.Gnome
                     return;
                 }
                 _HasActivity = value;
+                OnStatusChanged(EventArgs.Empty);
 
                 if (HasHighlight) {
                     // don't show activity if there is a highlight active
@@ -173,6 +180,7 @@ namespace Smuxi.Frontend.Gnome
             }
             set {
                 _HasEvent = value;
+                OnStatusChanged(EventArgs.Empty);
 
                 if (HasHighlight) {
                     return;
@@ -539,6 +547,7 @@ namespace Smuxi.Frontend.Gnome
             // show all chats with message activity after the frontend connect
             if (!HasHighlight) {
                 HasActivity = false;
+                HasEvent = false;
             }
 
             // let the user know at which position new messages start
@@ -801,6 +810,13 @@ namespace Smuxi.Frontend.Gnome
 #if LOG4NET
             _Logger.Debug("OnLastSeenHighlightQueueAbortedEvent(): task queue aborted!");
 #endif
+        }
+
+        protected virtual void OnStatusChanged(EventArgs e)
+        {
+            if (StatusChanged != null) {
+                StatusChanged(this, e);
+            }
         }
 
         void OnVadjustmentValueChanged(object sender, EventArgs e)

@@ -134,6 +134,7 @@ FILES = \
 	PangoTools.cs \
 	Preferences/ServerListView.cs \
 	Preferences/PreferencesDialog.cs \
+	Views/ChatTreeView.cs \
 	Views/JoinWidget.cs \
 	Views/MenuWidget.cs \
 	Views/MessageTextView.cs \
