@@ -105,6 +105,22 @@ namespace Smuxi.Frontend.Gnome
             TreeStore.EmitRowChanged(path, iter);
         }
 
+        public virtual bool IsVisible(ChatView chatView)
+        {
+            if (chatView == null) {
+                throw new ArgumentNullException("chatView");
+            }
+
+            Gtk.TreePath visibleStart, visibleEnd;
+            GetVisibleRange(out visibleStart, out visibleEnd);
+            var chatIter = FindChatIter(chatView);
+            var chatPath = TreeStore.GetPath(chatIter);
+            // we ignore 0 on purpose, say if a few pixels of a row are returned
+            // as visible by GetVisibleRange() that is not good enough for us
+            return visibleStart.Compare(chatPath) <= 0 &&
+                   visibleEnd.Compare(chatPath) >= 0;
+        }
+
         public virtual void ApplyConfig(UserConfig config)
         {
             Trace.Call(config);
