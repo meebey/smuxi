@@ -638,9 +638,7 @@ namespace Smuxi.Frontend.Gnome
         
         protected virtual void OnMessageTextViewMessageAdded(object sender, MessageTextViewMessageAddedEventArgs e)
         {
-            // HACK: out of scope?
-            // probably we should use the ChatViewManager instead?
-            if (Frontend.MainWindow.Notebook.CurrentChatView != this) {
+            if (!IsActive) {
                 switch (e.Message.MessageType) {
                     case MessageType.Normal:
                         HasActivity = true;
