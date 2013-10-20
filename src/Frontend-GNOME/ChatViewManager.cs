@@ -109,6 +109,7 @@ namespace Smuxi.Frontend.Gnome
             f_TreeView = treeView;
             SyncedChats = new List<ChatView>();
             SyncManager = new ChatViewSyncManager();
+            SyncManager.ChatRemoved += OnChatRemoved;
             SyncManager.ChatAdded += OnChatAdded;
             SyncManager.ChatSynced += OnChatSynced;
             SyncManager.WorkerException += OnWorkerException;
@@ -128,24 +129,31 @@ namespace Smuxi.Frontend.Gnome
 
         public override void RemoveChat(ChatModel chat)
         {
-            ChatView chatView = GetChat(chat);
+            SyncManager.QueueRemove(chat);
+        }
+
+        void OnChatRemoved (object sender, ChatViewRemovedEventArgs e)
+        {
+            Trace.Call(sender, e);
+            ChatView chatView = (ChatView)e.ChatView;
             if (chatView == null) {
  #if LOG4NET
                 f_Logger.Warn("RemoveChat(): chatView is null!");
 #endif
                 return;
             }
+            GLib.Idle.Add(delegate {
+                f_Notebook.RemovePage(f_Notebook.PageNum(chatView));
+                f_Chats.Remove(chatView);
+                SyncedChats.Remove(chatView);
 
-            f_Notebook.RemovePage(f_Notebook.PageNum(chatView));
-            f_Chats.Remove(chatView);
-            SyncManager.Remove(chat);
-            SyncedChats.Remove(chatView);
+                if (ChatRemoved != null) {
+                    ChatRemoved(this, new ChatViewManagerChatRemovedEventArgs(chatView));
+                }
 
-            if (ChatRemoved != null) {
-                ChatRemoved(this, new ChatViewManagerChatRemovedEventArgs(chatView));
-            }
-
-            chatView.Dispose();
+                chatView.Dispose();
+                return false;
+            });
         }
 
         public override void EnableChat(ChatModel chat)
