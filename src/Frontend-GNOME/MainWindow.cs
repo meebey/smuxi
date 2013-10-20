@@ -330,7 +330,7 @@ namespace Smuxi.Frontend.Gnome
             Trace.Call(chatView, protocolStatus);
 
             if (chatView == null) {
-                chatView = Notebook.CurrentChatView;
+                chatView = ChatViewManager.CurrentChatView;
             }
             if (chatView == null) {
                 return;
@@ -397,7 +397,7 @@ namespace Smuxi.Frontend.Gnome
                     return;
                 }
 
-                ChatView chatView = Notebook.CurrentChatView;
+                var chatView = ChatViewManager.CurrentChatView;
                 if (chatView != null) {
                     // clear activity and highlight
                     chatView.HasHighlight = false;
@@ -432,7 +432,7 @@ namespace Smuxi.Frontend.Gnome
                     return;
                 }
 
-                var chatView = Notebook.CurrentChatView;
+                var chatView = ChatViewManager.CurrentChatView;
                 if (chatView == null) {
                     return;
                 }
@@ -488,7 +488,7 @@ namespace Smuxi.Frontend.Gnome
         protected virtual void OnNotebookSwitchPage(object sender, EventArgs e)
         {
             try {
-                var chatView = Notebook.CurrentChatView;
+                var chatView = ChatViewManager.CurrentChatView;
                 if (chatView == null) {
                     return;
                 }

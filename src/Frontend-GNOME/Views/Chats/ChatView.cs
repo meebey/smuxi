@@ -85,7 +85,7 @@ namespace Smuxi.Frontend.Gnome
                 // object?!?
                 return Frontend.MainWindow.HasToplevelFocus &&
                         Object.ReferenceEquals(
-                            Frontend.MainWindow.Notebook.CurrentChatView,
+                            Frontend.MainWindow.ChatViewManager.CurrentChatView,
                             this
                         );
             }
