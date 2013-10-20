@@ -42,6 +42,8 @@ namespace Smuxi.Frontend.Gnome
         {
             ThemeSettings = new ThemeSettings();
             TreeStore = new Gtk.TreeStore(typeof(ChatView));
+            TreeStore.SetSortColumnId(0, Gtk.SortType.Ascending);
+            TreeStore.SetSortFunc(0, SortTreeStore);
 
             Model = TreeStore;
             HeadersVisible = false;
@@ -154,6 +156,24 @@ namespace Smuxi.Frontend.Gnome
                 GLib.Markup.EscapeText(textColor.ToString()),
                 GLib.Markup.EscapeText(text)
             );
+        }
+
+        protected virtual int SortTreeStore(Gtk.TreeModel model,
+                                            Gtk.TreeIter iter1,
+                                            Gtk.TreeIter iter2)
+        {
+            var chat1 = (ChatView) model.GetValue(iter1, 0);
+            var chat2 = (ChatView) model.GetValue(iter2, 0);
+            // Smuxi is always the first item
+            if (chat1 is SessionChatView &&
+                chat2 is SessionChatView) {
+                return 0;
+            } else if (chat1 is SessionChatView) {
+                return -1;
+            } else if (chat2 is SessionChatView) {
+                return 1;
+            }
+            return chat1.Name.CompareTo(chat2.Name);
         }
 
         void ReparentOrphans()
