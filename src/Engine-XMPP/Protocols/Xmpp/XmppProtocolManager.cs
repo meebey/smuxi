@@ -2392,8 +2392,13 @@ namespace Smuxi.Engine
 
             // XMPP specific settings
             JabberClient.Resource = server.Resource;
-            
-            JabberClient.UseStartTLS = server.UseEncryption;
+
+            if (server.UseEncryption) {
+                JabberClient.ForceStartTls = true;
+            } else {
+                JabberClient.ForceStartTls = false;
+                JabberClient.UseStartTLS = true;
+            }
             if (!server.ValidateServerCertificate) {
                 JabberClient.ClientSocket.OnValidateCertificate += ValidateCertificate;
             }
