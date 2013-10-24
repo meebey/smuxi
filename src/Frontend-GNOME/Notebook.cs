@@ -238,8 +238,7 @@ namespace Smuxi.Frontend.Gnome
                     // OPT-TODO: we could use here a TaskStack instead which
                     // would make sure only the newest task gets executed
                     // instead of every task in the FIFO sequence!
-                    // REMOTING CALL 1
-                    IProtocolManager nmanager = chatModel.ProtocolManager;
+                    var nmanager = chatView.ProtocolManager;
 
                     // TODO: only set the protocol manager and update network
                     // status if the protocol manager differs from the old one
