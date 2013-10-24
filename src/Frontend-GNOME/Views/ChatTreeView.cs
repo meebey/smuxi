@@ -50,11 +50,18 @@ namespace Smuxi.Frontend.Gnome
             BorderWidth = 0;
             Selection.Mode = Gtk.SelectionMode.Browse;
 
-            var cellRenderer = new Gtk.CellRendererText();
-            var column = new Gtk.TreeViewColumn(null, cellRenderer);
+            var iconRenderer = new Gtk.CellRendererPixbuf();
+            var column = new Gtk.TreeViewColumn(null, iconRenderer);
             column.Spacing = 0;
             column.Sizing = Gtk.TreeViewColumnSizing.Autosize;
-            column.SetCellDataFunc(cellRenderer, new Gtk.TreeCellDataFunc(RenderChatView));
+            column.SetCellDataFunc(iconRenderer, new Gtk.TreeCellDataFunc(RenderChatViewIcon));
+            AppendColumn(column);
+
+            var cellRenderer = new Gtk.CellRendererText();
+            column = new Gtk.TreeViewColumn(null, cellRenderer);
+            column.Spacing = 0;
+            column.Sizing = Gtk.TreeViewColumnSizing.Autosize;
+            column.SetCellDataFunc(cellRenderer, new Gtk.TreeCellDataFunc(RenderChatViewName));
             AppendColumn(column);
         }
 
@@ -96,6 +103,8 @@ namespace Smuxi.Frontend.Gnome
 
         public virtual void Render(ChatView chatView)
         {
+            Trace.Call(chatView);
+
             if (chatView == null) {
                 throw new ArgumentNullException("chatView");
             }
@@ -132,9 +141,29 @@ namespace Smuxi.Frontend.Gnome
             ThemeSettings = new ThemeSettings(config);
         }
 
-        protected virtual void RenderChatView(Gtk.TreeViewColumn column,
-                                              Gtk.CellRenderer cellr,
-                                              Gtk.TreeModel model, Gtk.TreeIter iter)
+        protected virtual void RenderChatViewIcon(Gtk.TreeViewColumn column,
+                                                  Gtk.CellRenderer cellr,
+                                                  Gtk.TreeModel model, Gtk.TreeIter iter)
+        {
+            var chat = (ChatView) model.GetValue(iter, 0);
+            var renderer = (Gtk.CellRendererPixbuf) cellr;
+
+            switch (chat.TabImage.StorageType) {
+                case Gtk.ImageType.Pixbuf:
+                    renderer.Pixbuf = chat.TabImage.Pixbuf;
+                    break;
+                case Gtk.ImageType.Stock:
+                    renderer.StockId = chat.TabImage.Stock;
+                    break;
+                default:
+                    renderer.Pixbuf = null;
+                    break;
+            }
+        }
+
+        protected virtual void RenderChatViewName(Gtk.TreeViewColumn column,
+                                                  Gtk.CellRenderer cellr,
+                                                  Gtk.TreeModel model, Gtk.TreeIter iter)
         {
             var chat = (ChatView) model.GetValue(iter, 0);
             var renderer = (Gtk.CellRendererText) cellr;

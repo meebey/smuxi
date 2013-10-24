@@ -58,7 +58,7 @@ namespace Smuxi.Frontend.Gnome
         protected string             SyncedName { get; set; }
         public    IProtocolManager   ProtocolManager { get; set; }
         bool                         UseLowBandwidthMode { get; set; }
-        protected Gtk.Image          TabImage { get; set; }
+        public Gtk.Image TabImage { get; protected set; }
         bool                         IsAutoScrolling { get; set; }
         Gtk.ImageMenuItem  CloseItem { get; set; }
 
@@ -489,6 +489,7 @@ namespace Smuxi.Frontend.Gnome
 
             GLib.Idle.Add(delegate {
                 TabImage.SetFromStock(Gtk.Stock.Refresh, Gtk.IconSize.Menu);
+                OnStatusChanged(EventArgs.Empty);
                 return false;
             });
 
@@ -555,6 +556,7 @@ namespace Smuxi.Frontend.Gnome
 
             // reset tab icon to normal
             TabImage.Pixbuf = DefaultTabImage.Pixbuf;
+            OnStatusChanged(EventArgs.Empty);
 
             SyncedMessages = null;
             _IsSynced = true;
