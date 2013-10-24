@@ -179,6 +179,10 @@ namespace Smuxi.Frontend.Gnome
                 return _HasEvent;
             }
             set {
+                if (value && _HasEvent == value) {
+                    // nothing to update
+                    return;
+                }
                 _HasEvent = value;
                 OnStatusChanged(EventArgs.Empty);
 
