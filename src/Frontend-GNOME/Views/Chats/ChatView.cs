@@ -100,11 +100,16 @@ namespace Smuxi.Frontend.Gnome
                 return _HasHighlight;
             }
             set {
-                _HasHighlight = value;
                 if (value) {
+                    _HasHighlight = value;
                     HighlightCount++;
                     OnStatusChanged(EventArgs.Empty);
                 } else {
+                    if (_HasHighlight == value) {
+                        // nothing to update
+                        return;
+                    }
+                    _HasHighlight = value;
                     // clear highlight with "no activity"
                     HasActivity = false;
                     HighlightCount = 0;
@@ -142,7 +147,7 @@ namespace Smuxi.Frontend.Gnome
                 return _HasActivity;
             }
             set {
-                if (value && _HasActivity == value) {
+                if (_HasActivity == value) {
                     // nothing to update
                     return;
                 }
@@ -179,7 +184,7 @@ namespace Smuxi.Frontend.Gnome
                 return _HasEvent;
             }
             set {
-                if (value && _HasEvent == value) {
+                if (_HasEvent == value) {
                     // nothing to update
                     return;
                 }
