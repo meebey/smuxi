@@ -241,6 +241,13 @@ namespace Smuxi.Frontend.Gnome
                 return -1;
             } else if (chat2 is SessionChatView) {
                 return 1;
+            } else if (chat1 is GroupChatView &&
+                       chat2 is GroupChatView) {
+                // let Name decide
+            }  else if (chat1 is GroupChatView) {
+                return -1;
+            }  else if (chat2 is GroupChatView) {
+                return 1;
             }
             return chat1.Name.CompareTo(chat2.Name);
         }
