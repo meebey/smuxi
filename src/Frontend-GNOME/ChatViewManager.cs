@@ -73,16 +73,10 @@ namespace Smuxi.Frontend.Gnome
                 if (CurrentChatView == null) {
                     return -1;
                 }
-                return f_Notebook.CurrentPage;
+                return TreeView.CurrentChatNumber;
             }
             set {
-                if (value < 0) {
-                    value = f_Notebook.NPages + value;
-                } else if (value >= f_Notebook.NPages) {
-                    value = value - f_Notebook.NPages;
-                }
-
-                f_Notebook.CurrentPage = value;
+                TreeView.CurrentChatNumber = value;
             }
         }
 

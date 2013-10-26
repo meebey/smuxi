@@ -27,6 +27,7 @@ namespace Smuxi.Frontend.Gnome
     {
         public Gtk.TreeStore TreeStore { get; private set; }
         ThemeSettings ThemeSettings { get; set; }
+        int f_CurrentChatNumber;
 
         public ChatView CurrentChatView {
             get {
@@ -35,6 +36,21 @@ namespace Smuxi.Frontend.Gnome
                     return null;
                 }
                 return (ChatView) TreeStore.GetValue(iter, 0);
+            }
+        }
+
+        public int CurrentChatNumber {
+            get {
+                return f_CurrentChatNumber;
+            }
+            set {
+                var path = GetPath(value);
+                if (path == null) {
+                    return;
+                }
+                // we have to ensure we can make the new selection
+                ExpandToPath(path);
+                Selection.SelectPath(path);
             }
         }
 
@@ -49,6 +65,14 @@ namespace Smuxi.Frontend.Gnome
             HeadersVisible = false;
             BorderWidth = 0;
             Selection.Mode = Gtk.SelectionMode.Browse;
+            Selection.Changed += (sender, e) => {
+                Gtk.TreeIter iter;
+                if (!Selection.GetSelected(out iter)) {
+                    return;
+                }
+                var path = TreeStore.GetPath(iter);
+                f_CurrentChatNumber = GetRowNumber(path);
+            };
 
             var iconRenderer = new Gtk.CellRendererPixbuf();
             var column = new Gtk.TreeViewColumn(null, iconRenderer);
@@ -279,6 +303,62 @@ namespace Smuxi.Frontend.Gnome
                 return false;
             });
             return chatIter;
+        }
+
+        int GetRowNumber(Gtk.TreePath path)
+        {
+            Gtk.TreeIter iter;
+            if (!TreeStore.GetIter(out iter, path)) {
+                // invalid path
+                return -1;
+            }
+
+            Gtk.TreeIter walkerIter;
+            TreeStore.GetIterFirst(out walkerIter);
+            var walker = TreeStore.GetPath(walkerIter);
+            for (var i = 0; TreeStore.GetIter(out walkerIter, walker); i++) {
+                if (walker.Compare(path) == 0) {
+                    return i;
+                }
+
+                if (TreeStore.IterHasChild(walkerIter)) {
+                    walker.Down();
+                } else {
+                    walker.Next();
+
+                    if (!TreeStore.GetIter(out walkerIter, walker)) {
+                        // invalid path: reached last row
+                        walker.Up();
+                        walker.Next();
+                    }
+                }
+            }
+            return -1;
+        }
+
+        Gtk.TreePath GetPath(int rowNumber)
+        {
+            Gtk.TreeIter iter;
+            TreeStore.GetIterFirst(out iter);
+            var path = TreeStore.GetPath(iter);
+            // TODO: clamp upper limit
+            int i;
+            for (i = 0; rowNumber >= 0 && i < rowNumber; i++) {
+                TreeStore.GetIter(out iter, path);
+                if (TreeStore.IterHasChild(iter)) {
+                    path.Down();
+                } else {
+                    path.Next();
+
+                    TreeStore.GetIter(out iter, path);
+                    if (!TreeStore.IterIsValid(iter)) {
+                        // reached last row
+                        path.Up();
+                        path.Next();
+                    }
+                }
+            }
+            return path;
         }
     }
 }
