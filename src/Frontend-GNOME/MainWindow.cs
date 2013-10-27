@@ -249,20 +249,6 @@ namespace Smuxi.Frontend.Gnome
 
             MenuWidget = new MenuWidget(this, ChatViewManager);
 
-            Gtk.VPaned vpane = new Gtk.VPaned();
-            vpane.ButtonPressEvent += (sender, e) => {;
-                // reset entry size on double click
-                if (e.Event.Type == Gdk.EventType.TwoButtonPress &&
-                    e.Event.Button == 1) {
-                    GLib.Timeout.Add(100, delegate {
-                        vpane.Position = -1;
-                        return false;
-                    });
-                }
-            };
-            vpane.Pack1(Notebook, true, false);
-            vpane.Pack2(entryScrolledWindow, false, false);
-
             var treeviewScrolledWindow = new Gtk.ScrolledWindow() {
                 ShadowType = Gtk.ShadowType.EtchedIn,
                 HscrollbarPolicy = Gtk.PolicyType.Never,
@@ -273,13 +259,27 @@ namespace Smuxi.Frontend.Gnome
                 treeviewScrolledWindow.CheckResize();
             };
 
-            var chatHpane = new Gtk.HPaned();
-            chatHpane.Pack1(treeviewScrolledWindow, false, false);
-            chatHpane.Pack2(vpane, true, false);
+            var treeviewPaned = new Gtk.HPaned();
+            treeviewPaned.Pack1(treeviewScrolledWindow, false, false);
+            treeviewPaned.Pack2(Notebook, true, false);
+
+            var entryPaned = new Gtk.VPaned();
+            entryPaned.ButtonPressEvent += (sender, e) => {
+                // reset entry size on double click
+                if (e.Event.Type == Gdk.EventType.TwoButtonPress &&
+                    e.Event.Button == 1) {
+                    GLib.Timeout.Add(100, delegate {
+                        entryPaned.Position = -1;
+                        return false;
+                    });
+                }
+            };
+            entryPaned.Pack1(treeviewPaned, true, false);
+            entryPaned.Pack2(entryScrolledWindow, false, false);
 
             Gtk.VBox vbox = new Gtk.VBox();
             vbox.PackStart(MenuWidget, false, false, 0);
-            vbox.PackStart(chatHpane, true, true, 0);
+            vbox.PackStart(entryPaned, true, true, 0);
 
             NetworkStatusbar = new Gtk.Statusbar();
             NetworkStatusbar.WidthRequest = 300;
