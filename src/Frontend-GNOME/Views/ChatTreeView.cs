@@ -138,6 +138,9 @@ namespace Smuxi.Frontend.Gnome
             }
 
             var iter = FindChatIter(chatView);
+            if (!TreeStore.IterIsValid(iter)) {
+                return;
+            }
             TreeStore.Remove(ref iter);
         }
 
