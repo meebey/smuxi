@@ -336,7 +336,7 @@ namespace Smuxi.Frontend.Gnome
                 notification.AddAction("show", _("Show"), delegate {
                     try {
                         MainWindow.PresentWithServerTime();
-                        MainWindow.Notebook.CurrentChatView = chatView;
+                        ChatViewManager.CurrentChatView = chatView;
                         notification.Close();
                     } catch (Exception ex) {
 #if LOG4NET
@@ -394,7 +394,7 @@ namespace Smuxi.Frontend.Gnome
                 return;
             }
 
-            var currentChatView = MainWindow.Notebook.CurrentChatView;
+            var currentChatView = ChatViewManager.CurrentChatView;
             if (currentChatView == null) {
                 return;
             }
@@ -409,7 +409,7 @@ namespace Smuxi.Frontend.Gnome
                 return;
             }
 
-            var currentChatView = MainWindow.Notebook.CurrentChatView;
+            var currentChatView = ChatViewManager.CurrentChatView;
             if (currentChatView == null) {
                 return;
             }
