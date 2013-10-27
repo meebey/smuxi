@@ -266,7 +266,7 @@ namespace Smuxi.Frontend.Gnome
             }
         }
 
-        protected Gtk.Menu TabMenu {
+        public Gtk.Menu TabMenu {
             get {
                 return _TabMenu;
             }

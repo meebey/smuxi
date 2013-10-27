@@ -271,6 +271,46 @@ namespace Smuxi.Frontend.Gnome
             return chat1.Name.CompareTo(chat2.Name);
         }
 
+        protected override bool OnKeyPressEvent(Gdk.EventKey @event)
+        {
+            if ((@event.State & Gdk.ModifierType.Mod1Mask) != 0 ||
+                (@event.State & Gdk.ModifierType.ControlMask) != 0 ||
+                (@event.State & Gdk.ModifierType.ShiftMask) != 0) {
+                // alt, ctrl or shift pushed, returning
+                return base.OnKeyPressEvent(@event);
+            }
+
+            if (CurrentChatView is SessionChatView) {
+                // no menu for Smuxi chat
+                return base.OnKeyPressEvent(@event);
+            }
+
+            if (@event.Key == Gdk.Key.Menu &&
+                Selection.CountSelectedRows() > 0) {
+                CurrentChatView.TabMenu.Popup(null, null, null, 0, @event.Time);
+                return true;
+            }
+
+            return base.OnKeyPressEvent(@event);
+        }
+
+        protected override bool OnButtonReleaseEvent(Gdk.EventButton @event)
+        {
+            Trace.Call(@event);
+
+            if (CurrentChatView is SessionChatView) {
+                // no menu for Smuxi chat
+                return base.OnButtonReleaseEvent(@event);
+            }
+
+            if (@event.Button == 3 && Selection.CountSelectedRows() > 0) {
+                CurrentChatView.TabMenu.Popup(null, null, null, 0, @event.Time);
+                return true;
+            }
+
+            return base.OnButtonReleaseEvent(@event);
+        }
+
         void ReparentOrphans()
         {
             Gtk.TreeIter iter;
