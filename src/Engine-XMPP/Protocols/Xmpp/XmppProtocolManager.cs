@@ -648,7 +648,7 @@ namespace Smuxi.Engine
                     builder.AppendText(_("Contact {0} has {1} known resources"), jid.Bare, person.Resources.Count);
                 }
                 XmppResourceModel res;
-                if (!person.Resources.TryGetValue(jid.Resource, out res)) {
+                if (!person.Resources.TryGetValue(jid.Resource??"", out res)) {
                     builder.AppendErrorText(_("{0} is not a known resource"), jid.Resource);
                     cmd.FrontendManager.AddMessageToChat(cmd.Chat, builder.ToMessage());
                     return;
@@ -1372,7 +1372,7 @@ namespace Smuxi.Engine
                 return;
             }
             XmppResourceModel res;
-            if (!contact.Resources.TryGetValue(jid.Resource, out res)) {
+            if (!contact.Resources.TryGetValue(jid.Resource??"", out res)) {
                 return;
             }
             res.Disco = info;
