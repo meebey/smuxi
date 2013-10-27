@@ -109,6 +109,7 @@ namespace Smuxi.Frontend.Gnome
                     ShowTabs = false;
                     break;
             }
+            ShowTabs = false;
             
             // TODO: Homogeneous = true;
         }
@@ -219,6 +220,7 @@ namespace Smuxi.Frontend.Gnome
             // clear activity and highlight
             chatView.HasHighlight = false;
             chatView.HasActivity = false;
+            chatView.HasEvent = false;
             var lastMsg = chatView.OutputMessageTextView.LastMessage;
 
             var method = Trace.GetMethodBase();

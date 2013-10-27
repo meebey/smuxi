@@ -453,7 +453,13 @@ namespace Smuxi.Frontend.Gnome
             Trace.Call(sender, e);
 
             try {
-                MainWindow.Notebook.IsBrowseModeEnabled = !MainWindow.Notebook.IsBrowseModeEnabled;
+                var browseMode = f_BrowseModeAction.Active;
+                MainWindow.Notebook.IsBrowseModeEnabled = browseMode;
+                if (browseMode) {
+                    MainWindow.ChatTreeView.HasFocus = true;
+                } else {
+                    MainWindow.Entry.HasFocus = true;
+                }
             } catch (Exception ex) {
                 Frontend.ShowException(Parent, ex);
             }

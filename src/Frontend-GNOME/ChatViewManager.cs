@@ -40,7 +40,7 @@ namespace Smuxi.Frontend.Gnome
         private List<ChatView> f_Chats = new List<ChatView>();
         public  IList<ChatView> SyncedChats { get; private set; }
         private Notebook       f_Notebook;
-        private Gtk.TreeView   f_TreeView;
+        ChatTreeView TreeView { get; set; }
         private UserConfig     f_Config;
         ChatViewSyncManager    SyncManager { get; set; }
         bool AutoSwitchPersonChats { get; set; }
@@ -58,13 +58,14 @@ namespace Smuxi.Frontend.Gnome
 
         public ChatView CurrentChatView {
             get {
-                return f_Notebook.CurrentChatView;
+                return TreeView.CurrentChatView;
             }
             set {
                 if (value == null) {
                     return;
                 }
                 f_Notebook.CurrentChatView = value;
+                TreeView.CurrentChatView = value;
             }
         }
 
@@ -73,16 +74,10 @@ namespace Smuxi.Frontend.Gnome
                 if (CurrentChatView == null) {
                     return -1;
                 }
-                return f_Notebook.CurrentPage;
+                return TreeView.CurrentChatNumber;
             }
             set {
-                if (value < 0) {
-                    value = f_Notebook.NPages + value;
-                } else if (value >= f_Notebook.NPages) {
-                    value = value - f_Notebook.NPages;
-                }
-
-                f_Notebook.CurrentPage = value;
+                TreeView.CurrentChatNumber = value;
             }
         }
 
@@ -95,6 +90,7 @@ namespace Smuxi.Frontend.Gnome
         public bool IsSensitive {
             set {
                 f_Notebook.Sensitive = value;
+                TreeView.Sensitive = value;
                 Frontend.MainWindow.MenuWidget.Sensitive = value;
                 Frontend.MainWindow.Entry.Sensitive = value;
             }
@@ -103,10 +99,11 @@ namespace Smuxi.Frontend.Gnome
             }
         }
 
-        public ChatViewManager(Notebook notebook, Gtk.TreeView treeView)
+        public ChatViewManager(Notebook notebook, ChatTreeView treeView)
         {
             f_Notebook = notebook;
-            f_TreeView = treeView;
+            TreeView = treeView;
+            TreeView.Selection.Changed += OnTreeViewSelectionChanged;
             SyncedChats = new List<ChatView>();
             SyncManager = new ChatViewSyncManager();
             SyncManager.ChatAdded += OnChatAdded;
@@ -137,6 +134,7 @@ namespace Smuxi.Frontend.Gnome
             }
 
             f_Notebook.RemovePage(f_Notebook.PageNum(chatView));
+            TreeView.Remove(chatView);
             f_Chats.Remove(chatView);
             SyncManager.Remove(chat);
             SyncedChats.Remove(chatView);
@@ -242,6 +240,21 @@ namespace Smuxi.Frontend.Gnome
             Frontend.MainWindow.Iconify();
         }
 
+        public ProtocolChatView FindProtocolChatViewParent(ChatView child)
+        {
+            foreach (var candidate in Chats) {
+                if (!(candidate is ProtocolChatView) ||
+                    candidate.ProtocolManager == null) {
+                    continue;
+                }
+                if (child.ProtocolManager != candidate.ProtocolManager) {
+                    continue;
+                }
+                return (ProtocolChatView) candidate;
+            }
+            return null;
+        }
+
         void OnChatAdded(object sender, ChatViewAddedEventArgs e)
         {
             Trace.Call(sender, e);
@@ -271,6 +284,7 @@ namespace Smuxi.Frontend.Gnome
                 } else {
                     f_Notebook.InsertPage(chatView, chatView.LabelWidget, idx);
                 }
+                TreeView.Append(chatView);
 
                 // notify the sync manager that the ChatView is ready to be synced
                 SyncManager.ReleaseSync(chatView);
@@ -353,6 +367,13 @@ namespace Smuxi.Frontend.Gnome
             Trace.Call(sender, e);
 
             Frontend.ShowException(e.Exception);
+        }
+
+        void OnTreeViewSelectionChanged(object sender, EventArgs e)
+        {
+            Trace.Call(sender, e);
+
+            CurrentChatView = TreeView.CurrentChatView;
         }
 
         int GetSortedChatPosition(ChatView chatView)

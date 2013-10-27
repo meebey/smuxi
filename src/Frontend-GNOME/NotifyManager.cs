@@ -219,11 +219,11 @@ namespace Smuxi.Frontend.Gnome
             if (!IsEnabled ||
                 e.Message.TimeStamp <= chatView.SyncedLastSeenHighlight ||
                 (MainWindow.HasToplevelFocus &&
-                 chatView.LabelWidget.IsDrawable)) {
+                 MainWindow.ChatTreeView.IsVisible(chatView))) {
                 // no need to show a notification for:
                 // - disabled chats
                 // - seen highlights
-                // - main window has focus and the chat tab is visible
+                // - main window has focus and the chat row is visible
                 return;
             }
 
@@ -336,7 +336,7 @@ namespace Smuxi.Frontend.Gnome
                 notification.AddAction("show", _("Show"), delegate {
                     try {
                         MainWindow.PresentWithServerTime();
-                        MainWindow.Notebook.CurrentChatView = chatView;
+                        ChatViewManager.CurrentChatView = chatView;
                         notification.Close();
                     } catch (Exception ex) {
 #if LOG4NET
@@ -394,7 +394,7 @@ namespace Smuxi.Frontend.Gnome
                 return;
             }
 
-            var currentChatView = MainWindow.Notebook.CurrentChatView;
+            var currentChatView = ChatViewManager.CurrentChatView;
             if (currentChatView == null) {
                 return;
             }
@@ -409,7 +409,7 @@ namespace Smuxi.Frontend.Gnome
                 return;
             }
 
-            var currentChatView = MainWindow.Notebook.CurrentChatView;
+            var currentChatView = ChatViewManager.CurrentChatView;
             if (currentChatView == null) {
                 return;
             }

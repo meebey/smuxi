@@ -189,7 +189,7 @@ namespace Smuxi.Frontend.Gnome
                 return;
             }
 
-            var currentChatView = MainWindow.Notebook.CurrentChatView;
+            var currentChatView = ChatViewManager.CurrentChatView;
             if (currentChatView == null) {
                 return;
             }
@@ -206,7 +206,7 @@ namespace Smuxi.Frontend.Gnome
                 return;
             }
 
-            var currentChatView = MainWindow.Notebook.CurrentChatView;
+            var currentChatView = ChatViewManager.CurrentChatView;
             if (currentChatView == null) {
                 return;
             }
@@ -373,7 +373,7 @@ namespace Smuxi.Frontend.Gnome
             indicator.UserDisplay += delegate {
                 try {
                     MainWindow.PresentWithServerTime();
-                    MainWindow.Notebook.CurrentChatView = chatView;
+                    ChatViewManager.CurrentChatView = chatView;
                     DisposeIndicator(chatView);
                 } catch (Exception ex) {
 #if LOG4NET
@@ -535,7 +535,7 @@ namespace Smuxi.Frontend.Gnome
                     return;
                 }
 
-                MainWindow.Notebook.CurrentChatView = chatView;
+                ChatViewManager.CurrentChatView = chatView;
                 DisposeSource(chatView);
             } catch (Exception ex) {
 #if LOG4NET

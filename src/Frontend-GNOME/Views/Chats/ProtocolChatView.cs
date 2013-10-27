@@ -361,6 +361,7 @@ namespace Smuxi.Frontend.Gnome
             ServerIconPixbuf = new Gdk.Pixbuf(iconPath, 16, 16);
             GLib.Idle.Add(delegate {
                 TabImage.Pixbuf = ServerIconPixbuf;
+                OnStatusChanged(EventArgs.Empty);
                 return false;
             });
         }
