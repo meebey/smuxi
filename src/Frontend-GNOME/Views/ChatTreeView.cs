@@ -112,6 +112,10 @@ namespace Smuxi.Frontend.Gnome
                 // top level chats
                 TreeStore.AppendValues(chatView);
                 ReparentOrphans();
+                if (TreeStore.IterNChildren() == 1) {
+                    // first node, usualy Smuxi chat
+                    CurrentChatView = chatView;
+                }
             } else {
                 // childs with parents, hopefully
                 var parentIter = FindProtocolChatIter(chatView);
