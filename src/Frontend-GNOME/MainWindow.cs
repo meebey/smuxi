@@ -536,10 +536,12 @@ namespace Smuxi.Frontend.Gnome
 
                 // HACK: Gtk.Notebook moves the focus to the child after the
                 // page has been switched, so move the focus back to the entry
-                GLib.Idle.Add(delegate {
-                    Entry.GrabFocus();
-                    return false;
-                });
+                if (!Notebook.IsBrowseModeEnabled) {
+                    GLib.Idle.Add(delegate {
+                        Entry.GrabFocus();
+                        return false;
+                    });
+                }
             } catch (Exception ex) {
                 Frontend.ShowException(this, ex);
             }
