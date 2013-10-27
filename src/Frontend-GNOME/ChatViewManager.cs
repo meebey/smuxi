@@ -58,13 +58,14 @@ namespace Smuxi.Frontend.Gnome
 
         public ChatView CurrentChatView {
             get {
-                return f_Notebook.CurrentChatView;
+                return TreeView.CurrentChatView;
             }
             set {
                 if (value == null) {
                     return;
                 }
                 f_Notebook.CurrentChatView = value;
+                TreeView.CurrentChatView = value;
             }
         }
 

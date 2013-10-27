@@ -37,6 +37,18 @@ namespace Smuxi.Frontend.Gnome
                 }
                 return (ChatView) TreeStore.GetValue(iter, 0);
             }
+            set {
+                Gtk.TreeIter iter;
+                if (value == null) {
+                    TreeStore.GetIterFirst(out iter);
+                } else {
+                    iter = FindChatIter(value);
+                }
+                var path = TreeStore.GetPath(iter);
+                // we have to ensure we can make the new selection
+                ExpandToPath(path);
+                Selection.SelectPath(path);
+            }
         }
 
         public int CurrentChatNumber {
