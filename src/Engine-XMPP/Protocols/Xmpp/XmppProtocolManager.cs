@@ -243,9 +243,6 @@ namespace Smuxi.Engine
         {
             Trace.Call(fm, server);
 
-            if (fm == null) {
-                throw new ArgumentNullException("fm");
-            }
             if (server == null) {
                 throw new ArgumentNullException("server");
             }
@@ -640,7 +637,7 @@ namespace Smuxi.Engine
             var builder = CreateMessageBuilder();
             if (!Contacts.TryGetValue(jid.Bare, out person)) {
                 builder.AppendErrorText(_("Could not find contact {0}"), jid);
-                cmd.FrontendManager.AddMessageToChat(cmd.Chat, builder.ToMessage());
+                Session.AddMessageToFrontend(cmd, builder.ToMessage());
                 return;
             }
             if (!String.IsNullOrEmpty(jid.Resource)) {
@@ -650,11 +647,11 @@ namespace Smuxi.Engine
                 XmppResourceModel res;
                 if (!person.Resources.TryGetValue(jid.Resource??"", out res)) {
                     builder.AppendErrorText(_("{0} is not a known resource"), jid.Resource);
-                    cmd.FrontendManager.AddMessageToChat(cmd.Chat, builder.ToMessage());
+                    Session.AddMessageToFrontend(cmd, builder.ToMessage());
                     return;
                 }
                 printResource(builder, res);
-                cmd.FrontendManager.AddMessageToChat(cmd.Chat, builder.ToMessage());
+                Session.AddMessageToFrontend(cmd, builder.ToMessage());
                 return;
             }
             builder.AppendText(_("Contact's Jid: {0}"), person.Jid);
@@ -690,7 +687,7 @@ namespace Smuxi.Engine
                 printResource(builder, res.Value);
                 i++;
             }
-            cmd.FrontendManager.AddMessageToChat(cmd.Chat, builder.ToMessage());
+            Session.AddMessageToFrontend(cmd, builder.ToMessage());
         }
 
         [MethodImpl(MethodImplOptions.Synchronized)]
@@ -773,7 +770,7 @@ namespace Smuxi.Engine
                 default:
                     var builder = CreateMessageBuilder();
                     builder.AppendText(_("Invalid Contact command: {0}"), cmd);
-                    fm.AddMessageToChat(cd.Chat, builder.ToMessage());
+                    Session.AddMessageToFrontend(cd, builder.ToMessage());
                     return;
             }
         }
@@ -784,7 +781,7 @@ namespace Smuxi.Engine
             // TRANSLATOR: this line is used as a label / category for a
             // list of commands below
             builder.AppendHeader(_("{0} Commands"), Protocol);
-            cmd.FrontendManager.AddMessageToChat(cmd.Chat, builder.ToMessage());
+            Session.AddMessageToFrontend(cmd, builder.ToMessage());
 
             string[] help = {
             "connect xmpp/jabber server port username password [resource]",
@@ -801,14 +798,14 @@ namespace Smuxi.Engine
                 builder = CreateMessageBuilder();
                 builder.AppendEventPrefix();
                 builder.AppendText(line);
-                cmd.FrontendManager.AddMessageToChat(cmd.Chat, builder.ToMessage());
+                Session.AddMessageToFrontend(cmd, builder.ToMessage());
             }
 
             // TRANSLATOR: this line is used as a label / category for a
             // list of commands below
             builder = CreateMessageBuilder();
             builder.AppendHeader(_("Advanced {0} Commands"), Protocol);
-            cmd.FrontendManager.AddMessageToChat(cmd.Chat, builder.ToMessage());
+            Session.AddMessageToFrontend(cmd, builder.ToMessage());
 
             string[] help2 = {
             "contact addonly/subscribe/unsubscribe/approve/deny",
@@ -821,7 +818,7 @@ namespace Smuxi.Engine
                 builder = CreateMessageBuilder();
                 builder.AppendEventPrefix();
                 builder.AppendText(line);
-                cmd.FrontendManager.AddMessageToChat(cmd.Chat, builder.ToMessage());
+                Session.AddMessageToFrontend(cmd, builder.ToMessage());
             }
         }
 
@@ -843,7 +840,7 @@ namespace Smuxi.Engine
                 } catch (FormatException) {
                     var builder = CreateMessageBuilder();
                     builder.AppendText(_("Invalid port: {0}"), cd.DataArray[3]);
-                    fm.AddMessageToChat(cd.Chat, builder.ToMessage());
+                    Session.AddMessageToFrontend(cd, builder.ToMessage());
                     return;
                 }
             } else {
@@ -878,10 +875,10 @@ namespace Smuxi.Engine
             if (command.DataArray.Length < 3) {
                 var builder = CreateMessageBuilder();
                 builder.AppendText(_("Priority for Available is: {0}"), Server.Priorities[PresenceStatus.Online]);
-                command.FrontendManager.AddMessageToChat(command.Chat, builder.ToMessage());
+                Session.AddMessageToFrontend(command, builder.ToMessage());
                 builder = CreateMessageBuilder();
                 builder.AppendText(_("Priority for Away is: {0}"), Server.Priorities[PresenceStatus.Away]);
-                command.FrontendManager.AddMessageToChat(command.Chat, builder.ToMessage());
+                Session.AddMessageToFrontend(command, builder.ToMessage());
                 return;
             }
             string subcmd = command.DataArray[1];
@@ -889,7 +886,7 @@ namespace Smuxi.Engine
             if (!int.TryParse(command.DataArray[2], out prio) || prio < -128 || prio > 127) {
                 var builder = CreateMessageBuilder();
                 builder.AppendText(_("Invalid Priority: {0} (valid priorities are between -128 and 127 inclusive)"), command.DataArray[2]);
-                command.FrontendManager.AddMessageToChat(command.Chat, builder.ToMessage());
+                Session.AddMessageToFrontend(command, builder.ToMessage());
                 return;
             }
             JabberClient.Priority = prio;
@@ -1090,7 +1087,7 @@ namespace Smuxi.Engine
 
             MessageBuilder builder = CreateMessageBuilder();
             builder.AppendHeader("Roster");
-            cd.FrontendManager.AddMessageToChat(cd.Chat, builder.ToMessage());
+            Session.AddMessageToFrontend(cd, builder.ToMessage());
 
             foreach (var pair in Contacts) {
                 string status = "+";
@@ -1119,7 +1116,7 @@ namespace Smuxi.Engine
                         builder.AppendText(":\"{0}\"", p.Value.Presence.Status);
                     }
                 }
-                cd.FrontendManager.AddMessageToChat(cd.Chat, builder.ToMessage());
+                Session.AddMessageToFrontend(cd, builder.ToMessage());
             }
         }
 
@@ -1184,12 +1181,16 @@ namespace Smuxi.Engine
                 LastSentMessage = text;
             }
 
+            var builder = CreateMessageBuilder();
+            builder.AppendSenderPrefix(Me);
+            builder.AppendMessage(text);
+            var msg = builder.ToMessage();
             if (display) {
-                var builder = CreateMessageBuilder();
-                builder.AppendSenderPrefix(Me);
-                builder.AppendMessage(text);
-                Session.AddMessageToChat(chat, builder.ToMessage());
+                Session.AddMessageToChat(chat, msg);
             }
+            OnMessageSent(
+                new MessageEventArgs(chat, msg, null, chat.ID)
+            );
         }
 
         void OnReadXml(object sender, string text)
@@ -1903,6 +1904,9 @@ namespace Smuxi.Engine
             bool hilight = person.ID != groupChat.OwnNickname;
             var message = CreateMessage(person, msg, hilight, false);
             Session.AddMessageToChat(groupChat, message);
+            OnMessageReceived(
+                new MessageEventArgs(groupChat, message, msg.From, groupChat.ID)
+            );
         }
 
         void AddMessageToChatIfNotFiltered(MessageModel msg, ChatModel chat, bool isNew)
@@ -1929,7 +1933,11 @@ namespace Smuxi.Engine
                 // in case full jid doesn't have a chat window, use bare jid
                 chat = GetOrCreatePersonChat(msg.From.Bare, out isNew);
             }
-            AddMessageToChatIfNotFiltered(CreateMessage(chat.Person, msg, true, true), chat, isNew);
+            var message = CreateMessage(chat.Person, msg, true, true);
+            AddMessageToChatIfNotFiltered(message, chat, isNew);
+            OnMessageReceived(
+                new MessageEventArgs(chat, message, msg.From, null)
+            );
         }
 
         MessageModel CreateMessage(PersonModel person, Message msg, bool mark_hilights, bool force_hilight)
