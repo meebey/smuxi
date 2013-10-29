@@ -23,7 +23,7 @@ namespace Smuxi.Engine
 {
     public class ProtocolManagerHookEnvironment : HookEnvironment
     {
-        public ProtocolManagerHookEnvironment(ProtocolManagerBase protocolManager)
+        public ProtocolManagerHookEnvironment(IProtocolManager protocolManager)
         {
             if (protocolManager == null) {
                 throw new ArgumentNullException("protocolManager");

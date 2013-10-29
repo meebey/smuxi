@@ -23,11 +23,11 @@ namespace Smuxi.Engine
 {
     public class ProtocolManagerHookCommand : HookCommand
     {
-        ProtocolManagerBase ProtocolManager { get; set; }
+        IProtocolManager ProtocolManager { get; set; }
         ChatModel Chat { get; set; }
         string CommandCharacter { get; set; }
 
-        public ProtocolManagerHookCommand(ProtocolManagerBase protocolManager,
+        public ProtocolManagerHookCommand(IProtocolManager protocolManager,
                                           ChatModel chat,
                                           string commandCharacter)
         {
