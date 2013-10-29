@@ -1,13 +1,7 @@
 /*
- * $Id$
- * $URL$
- * $Rev$
- * $Author$
- * $Date$
- *
  * Smuxi - Smart MUltipleXed Irc
  *
- * Copyright (c) 2005-2006 Mirco Bauer <meebey@meebey.net>
+ * Copyright (c) 2005-2008, 2010, 2011, 2013 Mirco Bauer <meebey@meebey.net>
  *
  * Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
  *
@@ -56,7 +50,11 @@ namespace Smuxi.Engine
         bool IsConnected {
             get;
         }
-        
+
+        PersonModel Me {
+            get;
+        }
+
         ChatModel Chat {
             get;
         }
