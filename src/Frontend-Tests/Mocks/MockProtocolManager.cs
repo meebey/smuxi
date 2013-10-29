@@ -65,6 +65,12 @@ namespace Smuxi.Frontend
             }
         }
 
+        public PersonModel Me {
+            get {
+                return null;
+            }
+        }
+
         public ChatModel Chat {
             get {
                 return null;
