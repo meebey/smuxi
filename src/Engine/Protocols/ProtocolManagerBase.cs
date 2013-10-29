@@ -250,14 +250,13 @@ namespace Smuxi.Engine
 
             var hooks = new HookRunner("protocol-manager", "on-message-sent");
             hooks.Environments.Add(new ChatHookEnvironment(e.Chat));
-            hooks.Environments.Add(new MessageHookEnvironment(e.Message));
-            hooks.Environments.Add(new ProtocolManagerHookEnvironment(this));
-            if (String.IsNullOrEmpty(e.Sender)) {
-                hooks.EnvironmentVariables.Add("SENDER", Me.ID);
-            } else {
-                hooks.EnvironmentVariables.Add("SENDER", e.Sender);
+
+            var sender = e.Sender;
+            if (String.IsNullOrEmpty(sender)) {
+                sender = Me.ID;
             }
-            hooks.EnvironmentVariables.Add("RECEIVER", e.Receiver);
+            hooks.Environments.Add(new MessageHookEnvironment(e.Message, sender, e.Receiver));
+            hooks.Environments.Add(new ProtocolManagerHookEnvironment(this));
 
             var cmdChar = (string) Session.UserConfig["Interface/Entry/CommandCharacter"];
             hooks.Commands.Add(new SessionHookCommand(Session, e.Chat, cmdChar));
@@ -278,14 +277,13 @@ namespace Smuxi.Engine
 
             var hooks = new HookRunner("protocol-manager", "on-message-received");
             hooks.Environments.Add(new ChatHookEnvironment(e.Chat));
-            hooks.Environments.Add(new MessageHookEnvironment(e.Message));
-            hooks.Environments.Add(new ProtocolManagerHookEnvironment(this));
-            hooks.EnvironmentVariables.Add("SENDER", e.Sender);
-            if (String.IsNullOrEmpty(e.Receiver)) {
-                hooks.EnvironmentVariables.Add("RECEIVER", Me.ID);
-            } else {
-                hooks.EnvironmentVariables.Add("RECEIVER", e.Receiver);
+
+            var receiver = e.Receiver;
+            if (String.IsNullOrEmpty(receiver)) {
+                receiver = Me.ID;
             }
+            hooks.Environments.Add(new MessageHookEnvironment(e.Message, e.Sender, receiver));
+            hooks.Environments.Add(new ProtocolManagerHookEnvironment(this));
 
             var cmdChar = (string) Session.UserConfig["Interface/Entry/CommandCharacter"];
             hooks.Commands.Add(new SessionHookCommand(Session, e.Chat, cmdChar));
