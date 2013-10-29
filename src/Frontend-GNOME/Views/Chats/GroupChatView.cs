@@ -529,6 +529,9 @@ namespace Smuxi.Frontend.Gnome
             _PersonTreeView.ModifyFont(ThemeSettings.FontDescription);
             
             string userlist_pos = (string) config["Interface/Notebook/Channel/UserListPosition"];
+            if (userlist_pos == "left") {
+                userlist_pos = "right";
+            }
             if (_PersonTreeViewFrame.IsAncestor(_OutputHPaned)) {
                 _OutputHPaned.Remove(_PersonTreeViewFrame);
             }
