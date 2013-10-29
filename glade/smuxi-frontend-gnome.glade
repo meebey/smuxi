@@ -1159,7 +1159,6 @@ yy/yyyy = year</property>
                         <property name="spacing">5</property>
                         <child>
                           <widget class="GtkFrame" id="frame1">
-                            <property name="visible">True</property>
                             <property name="label_xalign">0</property>
                             <child>
                               <widget class="GtkAlignment" id="alignment4">
@@ -1593,7 +1592,7 @@ yy/yyyy = year</property>
                       <widget class="GtkLabel" id="label2">
                         <property name="visible">True</property>
                         <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
-                        <property name="label" translatable="yes">Tabs</property>
+                        <property name="label" translatable="yes">Tree</property>
                       </widget>
                       <packing>
                         <property name="position">1</property>
@@ -1854,7 +1853,6 @@ yy/yyyy = year</property>
                                       <widget class="GtkFrame" id="frame9">
                                         <property name="width_request">152</property>
                                         <property name="height_request">96</property>
-                                        <property name="visible">True</property>
                                         <property name="label_xalign">0</property>
                                         <child>
                                           <widget class="GtkAlignment" id="alignment13">
@@ -2063,7 +2061,6 @@ yy/yyyy = year</property>
                                     </child>
                                     <child>
                                       <widget class="GtkFrame" id="frame10">
-                                        <property name="visible">True</property>
                                         <property name="label_xalign">0</property>
                                         <child>
                                           <widget class="GtkAlignment" id="alignment14">
