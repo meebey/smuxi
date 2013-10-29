@@ -99,6 +99,7 @@
     </Reference>
     <Reference Include="System.Runtime.Remoting" />
     <Reference Include="System" />
+    <Reference Include="Mono.Posix" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
