@@ -20,6 +20,7 @@
 using System;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Collections.Generic;
 using SysDiag = System.Diagnostics;
 
@@ -33,11 +34,12 @@ namespace Smuxi.Engine
         public Dictionary<string, string> EnvironmentVariables { get; private set; }
         public List<HookEnvironment> Environments { get; private set; }
         public List<HookCommand> Commands { get; set; }
+        public List<string> Arguments { get; set; }
         List<string> Hooks { get; set; }
         string[] PathElements { get; set; }
         string StateBasePath { get; set; }
 
-        bool HasHooks {
+        public bool HasHooks {
             get {
                 return Hooks.Count > 0;
             }
@@ -121,8 +123,20 @@ namespace Smuxi.Engine
                 Directory.CreateDirectory(statePath);
             }
 
+            string hookArgs = null;
+            if (Arguments != null && Arguments.Count > 0) {
+                var args = new StringBuilder(256);
+                foreach (var arg in Arguments) {
+                    // quote because of potential spaces and retarded Process API
+                    args.AppendFormat(@"""{0}"" ", arg);
+                }
+                // remove trailing space
+                args.Length--;
+                hookArgs = args.ToString();
+            }
             var startInfo = new SysDiag.ProcessStartInfo() {
                 FileName = hookPath,
+                Arguments = hookArgs,
                 WorkingDirectory = statePath,
                 UseShellExecute = false,
                 RedirectStandardOutput = true
