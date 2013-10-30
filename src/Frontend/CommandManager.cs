@@ -134,8 +134,8 @@ namespace Smuxi.Frontend
             start = DateTime.UtcNow;
 
             handled = f_Session.Command(cmd);
+            IProtocolManager pm = null;
             if (!handled) {
-                IProtocolManager pm;
                 if (cmd.Chat is SessionChatModel) {
                     pm = cmd.FrontendManager.CurrentProtocolManager;
                 } else {
@@ -147,6 +147,28 @@ namespace Smuxi.Frontend
                     handled = pm.Command(cmd);
                 } else {
                     handled = false;
+                }
+            }
+            if (!handled) {
+                var filteredCmd = IOSecurity.GetFilteredPath(cmd.Command);
+                var hooks = new HookRunner("frontend", "command-manager",
+                                           "command-" + filteredCmd);
+                hooks.Environments.Add(new ChatHookEnvironment(cmd.Chat));
+                if (pm != null) {
+                    hooks.Environments.Add(new ProtocolManagerHookEnvironment(pm));
+                }
+
+                var cmdChar = (string) f_Session.UserConfig["Interface/Entry/CommandCharacter"];
+                hooks.Commands.Add(new SessionHookCommand(f_Session, cmd.Chat, cmdChar));
+                if (pm != null) {
+                    hooks.Commands.Add(new ProtocolManagerHookCommand(pm, cmd.Chat, cmdChar));
+                }
+
+                // show time
+                hooks.Init();
+                if (hooks.HasHooks) {
+                    hooks.Run();
+                    handled = true;
                 }
             }
             if (!handled) {

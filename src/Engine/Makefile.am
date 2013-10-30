@@ -108,6 +108,7 @@ FILES = \
 	Hooks/Commands/ProtocolManagerHookCommand.cs \
 	Hooks/Commands/SessionHookCommand.cs \
 	Hooks/Environments/ChatHookEnvironment.cs \
+	Hooks/Environments/CommandHookEnvironment.cs \
 	Hooks/Environments/HookEnvironment.cs \
 	Hooks/Environments/MessageHookEnvironment.cs \
 	Hooks/Environments/ProtocolManagerHookEnvironment.cs

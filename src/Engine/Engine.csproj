@@ -107,6 +107,7 @@
     <Compile Include="Hooks\Commands\HookCommand.cs" />
     <Compile Include="Hooks\Commands\ProtocolManagerHookCommand.cs" />
     <Compile Include="Hooks\Commands\SessionHookCommand.cs" />
+    <Compile Include="Hooks\Environments\CommandHookEnvironment.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Protocols\" />
