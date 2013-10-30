@@ -941,10 +941,6 @@ namespace Smuxi.Engine
                             }
                             handled = true;
                             break;
-                        default:
-                            CommandFallback(command);
-                            handled = true;
-                            break;
                     }
                 } else {
                     // normal text
