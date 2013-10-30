@@ -29,7 +29,7 @@ namespace Smuxi.Engine
                 throw new ArgumentNullException("cmd");
             }
 
-            this["CMD_COMMAND"] = cmd.Command;
+            this["CMD"] = cmd.Command;
             this["CMD_PARAMETER"] = cmd.Parameter;
         }
     }
