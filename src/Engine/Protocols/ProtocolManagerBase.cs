@@ -197,7 +197,7 @@ namespace Smuxi.Engine
                 Connected(this, e);
             }
 
-            var hooks = new HookRunner("protocol-manager", "on-connected");
+            var hooks = new HookRunner("engine", "protocol-manager", "on-connected");
             hooks.Environments.Add(new ChatHookEnvironment(Chat));
             hooks.Environments.Add(new ProtocolManagerHookEnvironment(this));
 
@@ -227,7 +227,7 @@ namespace Smuxi.Engine
                 Disconnected(this, e);
             }
 
-            var hooks = new HookRunner("protocol-manager", "on-disconnected");
+            var hooks = new HookRunner("engine", "protocol-manager", "on-disconnected");
             hooks.Environments.Add(new ChatHookEnvironment(Chat));
             hooks.Environments.Add(new ProtocolManagerHookEnvironment(this));
 
@@ -248,7 +248,7 @@ namespace Smuxi.Engine
                 MessageSent(this, e);
             }
 
-            var hooks = new HookRunner("protocol-manager", "on-message-sent");
+            var hooks = new HookRunner("engine", "protocol-manager", "on-message-sent");
             hooks.Environments.Add(new ChatHookEnvironment(e.Chat));
 
             var sender = e.Sender;
@@ -275,7 +275,7 @@ namespace Smuxi.Engine
                 MessageReceived(this, e);
             }
 
-            var hooks = new HookRunner("protocol-manager", "on-message-received");
+            var hooks = new HookRunner("engine", "protocol-manager", "on-message-received");
             hooks.Environments.Add(new ChatHookEnvironment(e.Chat));
 
             var receiver = e.Receiver;
