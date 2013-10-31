@@ -608,7 +608,7 @@ namespace Smuxi.Engine
                     builder.AppendText(_("Contact {0} has {1} known resources"), jid.Bare, person.Resources.Count);
                 }
                 XmppResourceModel res;
-                if (!person.Resources.TryGetValue(jid.Resource, out res)) {
+                if (!person.Resources.TryGetValue(jid.Resource??"", out res)) {
                     builder.AppendErrorText(_("{0} is not a known resource"), jid.Resource);
                     cmd.FrontendManager.AddMessageToChat(cmd.Chat, builder.ToMessage());
                     return;
@@ -1329,7 +1329,7 @@ namespace Smuxi.Engine
                 return;
             }
             XmppResourceModel res;
-            if (!contact.Resources.TryGetValue(jid.Resource, out res)) {
+            if (!contact.Resources.TryGetValue(jid.Resource??"", out res)) {
                 return;
             }
             res.Disco = info;
@@ -2295,8 +2295,13 @@ namespace Smuxi.Engine
 
             // XMPP specific settings
             JabberClient.Resource = server.Resource;
-            
-            JabberClient.UseStartTLS = server.UseEncryption;
+
+            if (server.UseEncryption) {
+                JabberClient.ForceStartTls = true;
+            } else {
+                JabberClient.ForceStartTls = false;
+                JabberClient.UseStartTLS = true;
+            }
             if (!server.ValidateServerCertificate) {
                 JabberClient.ClientSocket.OnValidateCertificate += ValidateCertificate;
             }
