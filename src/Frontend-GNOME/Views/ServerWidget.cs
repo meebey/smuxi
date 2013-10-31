@@ -275,10 +275,16 @@ namespace Smuxi.Frontend.Gnome
             }
             switch (f_ProtocolComboBox.ActiveText) {
                 case "IRC":
-                    f_PortSpinButton.Value = useEncryption ? 6697 : 6667;
+                    if (f_PortSpinButton.Value == 6667 ||
+                        f_PortSpinButton.Value == 6697) {
+                        f_PortSpinButton.Value = useEncryption ? 6697 : 6667;
+                    }
                     break;
                 case "JabbR":
-                    f_PortSpinButton.Value = useEncryption ? 443 : 80;
+                    if (f_PortSpinButton.Value == 80 ||
+                        f_PortSpinButton.Value == 443) {
+                        f_PortSpinButton.Value = useEncryption ? 443 : 80;
+                    }
                     break;
             }
         }
@@ -373,6 +379,7 @@ namespace Smuxi.Frontend.Gnome
 
                     f_HostnameEntry.Text = "jabbr.net";
                     f_HostnameEntry.Sensitive = true;
+                    f_PortSpinButton.Value = 443;
                     f_PortSpinButton.Sensitive = true;
                     f_UseEncryptionCheckButton.Active = true;
                     f_NetworkComboBoxEntry.Entry.Text = String.Empty;
