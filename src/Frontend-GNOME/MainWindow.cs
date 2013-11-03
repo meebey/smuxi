@@ -57,7 +57,7 @@ namespace Smuxi.Frontend.Gnome
 #if (INDICATE_SHARP || MESSAGING_MENU_SHARP)  && !GTK_SHARP_3
         IndicateManager IndicateManager { get; set; }
 #endif
-#if NOTIFY_SHARP && !GTK_SHARP_3
+#if NOTIFY_SHARP
         NotifyManager NotifyManager { get; set; }
 #endif
 #if IPC_DBUS && !GTK_SHARP_3
@@ -203,7 +203,7 @@ namespace Smuxi.Frontend.Gnome
 #if (INDICATE_SHARP || MESSAGING_MENU_SHARP) && !GTK_SHARP_3
             IndicateManager = new IndicateManager(this, ChatViewManager);
 #endif
-#if NOTIFY_SHARP && !GTK_SHARP_3
+#if NOTIFY_SHARP
             NotifyManager = new NotifyManager(this, ChatViewManager);
 #endif
 #if IPC_DBUS && !GTK_SHARP_3

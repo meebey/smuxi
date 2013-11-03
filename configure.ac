@@ -303,12 +303,12 @@ AC_ARG_WITH([notify],
 	with_notify=auto
 )
 WITH_NOTIFY=$with_notify
-PKG_CHECK_EXISTS([notify-sharp], NOTIFY_SHARP_SUPPORT=yes, NOTIFY_SHARP_SUPPORT=no)
+PKG_CHECK_EXISTS([notify-sharp-3.0], NOTIFY_SHARP_SUPPORT=yes, NOTIFY_SHARP_SUPPORT=no)
 if test "x$WITH_NOTIFY" = "xauto"; then
 	WITH_NOTIFY=$NOTIFY_SHARP_SUPPORT
 fi
 if test "x$WITH_NOTIFY" = "xyes"; then
-	PKG_CHECK_MODULES([NOTIFY_SHARP], [notify-sharp])
+	PKG_CHECK_MODULES([NOTIFY_SHARP], [notify-sharp-3.0])
 fi
 
 AC_ARG_WITH([dbus],
@@ -575,7 +575,6 @@ if test "x$ENABLE_FRONTEND_GNOME" != "xno"; then
 		FRONTEND_GNOME_COMPILER_FLAGS+=" -define:GTK_SHARP_3,GTK_BUILDER"
 		FRONTEND_GNOME_COMPILER_FLAGS+=" -define:GTK_SHARP_2_10"
 		DBUS_LIBS=
-		NOTIFY_SHARP_LIBS=
 		MESSAGINGMENU_SHARP_LIBS=
 		INDICATE_SHARP_LIBS=
 	else
@@ -595,7 +594,7 @@ if test "x$ENABLE_FRONTEND_GNOME" != "xno"; then
 	if test "x$WITH_INDICATE" = "xyes" && test "x$ENABLE_FRONTEND_GNOME" != "xgtk3"; then
 		FRONTEND_GNOME_COMPILER_FLAGS+=" -define:INDICATE_SHARP"
 	fi
-	if test "x$WITH_NOTIFY" = "xyes" && test "x$ENABLE_FRONTEND_GNOME" != "xgtk3"; then
+	if test "x$WITH_NOTIFY" = "xyes"; then
 		FRONTEND_GNOME_COMPILER_FLAGS+=" -define:NOTIFY_SHARP"
 	fi
 	if test "x$WITH_GTKSPELL" = "xyes"; then
