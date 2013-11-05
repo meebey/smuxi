@@ -1029,6 +1029,19 @@ namespace Smuxi.Engine
                 );
                 Session.AddMessageToChat(f_FriendsTimelineChat, msg);
 
+                if (status.User.Id.ToString() == Me.ID) {
+                    OnMessageSent(
+                        new MessageEventArgs(f_FriendsTimelineChat, msg,
+                                             null, status.InReplyToScreenName)
+                    );
+                } else {
+                    OnMessageReceived(
+                        new MessageEventArgs(f_FriendsTimelineChat, msg,
+                                             status.User.ScreenName,
+                                             status.InReplyToScreenName)
+                    );
+                }
+
                 f_LastFriendsTimelineStatusID = status.Id;
             }
         }
@@ -1128,6 +1141,12 @@ namespace Smuxi.Engine
                     highlight
                 );
                 Session.AddMessageToChat(f_RepliesChat, msg);
+
+                OnMessageReceived(
+                    new MessageEventArgs(f_RepliesChat, msg,
+                                         status.User.ScreenName,
+                                         status.InReplyToScreenName)
+                );
 
                 f_LastReplyStatusID = status.Id;
             }
@@ -1276,9 +1295,19 @@ namespace Smuxi.Engine
                 if (receivedTimeline.Contains(directMsg)) {
                     // this is a received message
                     userId =  directMsg.SenderId.ToString();
+
+                    OnMessageReceived(
+                        new MessageEventArgs(f_DirectMessagesChat, msg,
+                                             directMsg.SenderScreenName, null)
+                    );
                 } else {
                     // this is a sent message
                     userId = directMsg.RecipientId.ToString();
+
+                    OnMessageSent(
+                        new MessageEventArgs(f_DirectMessagesChat, msg,
+                                             null, directMsg.RecipientScreenName)
+                    );
                 }
                 ChatModel chat =  Session.GetChat(
                     userId,
@@ -1368,6 +1397,7 @@ namespace Smuxi.Engine
             CheckResponse(response);
             var user = response.ResponseObject;
             f_TwitterUser = user;
+            Me = CreatePerson(f_TwitterUser);
 #if LOG4NET
             f_Logger.Debug("UpdateUser(): done.");
 #endif
