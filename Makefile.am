@@ -11,6 +11,10 @@ if ENABLE_ENGINE_TWITTER
 PO_ENGINE_TWITTER = po-Engine-Twitter
 endif
 
+if ENABLE_ENGINE_XMPP
+PO_ENGINE_XMPP = po-Engine-XMPP
+endif
+
 # Frontends
 if ENABLE_FRONTEND_GNOME
 PO_FRONTEND_GNOME = po-Frontend-GNOME
@@ -50,6 +54,7 @@ PODIRS =	po \
 		$(PO_ENGINE_CAMPFIRE) \
 		$(PO_ENGINE_IRC) \
 		$(PO_ENGINE_TWITTER) \
+		$(PO_ENGINE_XMPP) \
 		po-Server \
 		po-Frontend \
 		$(PO_FRONTEND_GNOME) \

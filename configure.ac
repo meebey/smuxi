@@ -686,6 +686,7 @@ AC_CONFIG_FILES([
 	po-Engine-Campfire/Makefile.in
 	po-Engine-IRC/Makefile.in
 	po-Engine-Twitter/Makefile.in
+	po-Engine-XMPP/Makefile.in
 	po-Server/Makefile.in
 	po-Frontend/Makefile.in
 	po-Frontend-GNOME/Makefile.in
