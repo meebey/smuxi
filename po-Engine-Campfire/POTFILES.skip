@@ -10,8 +10,6 @@ src/Frontend-WPF/
 src/Engine/
 src/Engine-IRC/
 src/Engine-JabbR/
-src/Engine-MSNP/
-src/Engine-OSCAR/
 src/Engine-XMPP/
 src/Engine-Twitter/
 src/Server/

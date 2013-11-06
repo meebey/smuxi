@@ -3,8 +3,6 @@ src/Common/
 src/Engine/
 src/Engine-Campfire/
 src/Engine-JabbR/
-src/Engine-MSNP/
-src/Engine-OSCAR/
 src/Engine-XMPP/
 src/Engine-Twitter/
 src/Frontend/
