@@ -24,8 +24,9 @@ POSUB="
 	po-Engine
 	po-Engine-Campfire
 	po-Engine-IRC
-	po-Engine-XMPP
 	po-Engine-JabbR
+	po-Engine-Twitter
+	po-Engine-XMPP
 	po-Server
 	po-Frontend
 	po-Frontend-GNOME
