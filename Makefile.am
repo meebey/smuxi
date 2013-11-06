@@ -7,6 +7,10 @@ if ENABLE_ENGINE_IRC
 PO_ENGINE_IRC = po-Engine-IRC
 endif
 
+if ENABLE_ENGINE_JABBR
+PO_ENGINE_IRC = po-Engine-JabbR
+endif
+
 if ENABLE_ENGINE_TWITTER
 PO_ENGINE_TWITTER = po-Engine-Twitter
 endif
@@ -53,6 +57,7 @@ PODIRS =	po \
 		po-Engine \
 		$(PO_ENGINE_CAMPFIRE) \
 		$(PO_ENGINE_IRC) \
+		$(PO_ENGINE_JABBR) \
 		$(PO_ENGINE_TWITTER) \
 		$(PO_ENGINE_XMPP) \
 		po-Server \
