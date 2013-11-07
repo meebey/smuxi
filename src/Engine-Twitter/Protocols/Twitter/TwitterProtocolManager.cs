@@ -1009,24 +1009,9 @@ namespace Smuxi.Engine
 
             List<TwitterStatus> sortedTimeline = SortTimeline(timeline);
             foreach (TwitterStatus status in sortedTimeline) {
-                String text;
-                // LAME: Twitter lies in the truncated field and says it's not
-                // truncated while it is, thus always use retweet_status if
-                // available
-                if (status.RetweetedStatus != null) {
-                    text = String.Format(
-                        "RT @{0}: {1}",
-                        status.RetweetedStatus.User.ScreenName,
-                        status.RetweetedStatus.Text
-                    );
-                } else {
-                    text = status.Text;
-                }
-                MessageModel msg = CreateMessage(
-                    status.CreatedDate,
-                    status.User,
-                    text
-                );
+                var msg = CreateMessageBuilder().
+                    Append(status, GetPerson(status.User)).
+                    ToMessage();
                 Session.AddMessageToChat(f_FriendsTimelineChat, msg);
 
                 if (status.User.Id.ToString() == Me.ID) {
@@ -1134,12 +1119,9 @@ namespace Smuxi.Engine
             bool highlight = f_LastReplyStatusID != 0;
             List<TwitterStatus> sortedTimeline = SortTimeline(timeline);
             foreach (TwitterStatus status in sortedTimeline) {
-                MessageModel msg = CreateMessage(
-                    status.CreatedDate,
-                    status.User,
-                    status.Text,
-                    highlight
-                );
+                var msg = CreateMessageBuilder().
+                    Append(status, GetPerson(status.User), highlight).
+                    ToMessage();
                 Session.AddMessageToChat(f_RepliesChat, msg);
 
                 OnMessageReceived(
@@ -1282,12 +1264,9 @@ namespace Smuxi.Engine
                 // this is a new one!
                 bool highlight = receivedTimeline.Contains(directMsg) &&
                                  f_LastDirectMessageReceivedStatusID != 0;
-                MessageModel msg = CreateMessage(
-                    directMsg.CreatedDate,
-                    directMsg.Sender,
-                    directMsg.Text,
-                    highlight
-                );
+                var msg = CreateMessageBuilder().
+                    Append(directMsg, GetPerson(directMsg.Sender), highlight).
+                    ToMessage();
                 Session.AddMessageToChat(f_DirectMessagesChat, msg);
 
                 // if there is a tab open for this user put the message there too
@@ -1403,28 +1382,9 @@ namespace Smuxi.Engine
 #endif
         }
 
-        private MessageModel CreateMessage(DateTime when, TwitterUser from,
-                                           string message)
+        protected new TwitterMessageBuilder CreateMessageBuilder()
         {
-            return CreateMessage(when, from, message, false);
-        }
-
-        private MessageModel CreateMessage(DateTime when, TwitterUser from,
-                                           string message, bool highlight)
-        {
-            if (from == null) {
-                throw new ArgumentNullException("from");
-            }
-            if (message == null) {
-                throw new ArgumentNullException("message");
-            }
-
-            var builder = CreateMessageBuilder();
-            // MessageModel serializer expects UTC values
-            builder.TimeStamp = when.ToUniversalTime();
-            builder.AppendSenderPrefix(GetPerson(from), highlight);
-            builder.AppendMessage(message);
-            return builder.ToMessage();
+            return CreateMessageBuilder<TwitterMessageBuilder>();
         }
 
         private T CreateOptions<T>() where T : OptionalProperties, new()
