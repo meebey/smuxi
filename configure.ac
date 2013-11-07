@@ -31,6 +31,7 @@ POSUB="
 	po-Frontend
 	po-Frontend-GNOME
 	po-Frontend-GNOME-IRC
+	po-Frontend-GNOME-Twitter
 	po-Frontend-GNOME-XMPP
 	po-Frontend-SWF
 "
@@ -699,6 +700,7 @@ AC_CONFIG_FILES([
 	po-Frontend/Makefile.in
 	po-Frontend-GNOME/Makefile.in
 	po-Frontend-GNOME-IRC/Makefile.in
+	po-Frontend-GNOME-Twitter/Makefile.in
 	po-Frontend-GNOME-XMPP/Makefile.in
 ])
 

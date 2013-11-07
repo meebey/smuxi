@@ -9,6 +9,7 @@ src/Engine-Twitter/
 src/Frontend/
 src/Frontend-GNOME/
 src/Frontend-GNOME-IRC/
+src/Frontend-GNOME-Twitter/
 src/Frontend-STFL/
 src/Frontend-SWF/
 src/Frontend-WPF/
