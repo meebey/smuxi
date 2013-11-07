@@ -918,15 +918,12 @@ namespace Smuxi.Engine
             return chatModel.Equals(f_FriendsTimelineChat);
         }
 
-        private List<TwitterStatus> SortTimeline(TwitterStatusCollection timeline)
+        private List<TwitterStatus> SortTimeline(IList<TwitterStatus> timeline)
         {
             List<TwitterStatus> sortedTimeline =
                 new List<TwitterStatus>(
-                    timeline.Count
+                    timeline
                 );
-            foreach (TwitterStatus status in timeline) {
-                sortedTimeline.Add(status);
-            }
             sortedTimeline.Sort(
                 (a, b) => (a.CreatedDate.CompareTo(b.CreatedDate))
             );
