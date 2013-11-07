@@ -41,8 +41,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="AssemblyInfo.cs" />
-    <Compile Include="EntryController.cs" />
-    <Compile Include="EntryHistoryModel.cs" />
     <Compile Include="ChatViewManagerBase.cs" />
     <Compile Include="IChatView.cs" />
     <Compile Include="ChatViewInfoAttribute.cs" />
