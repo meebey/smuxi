@@ -614,6 +614,10 @@ namespace Smuxi.Engine
                             CommandMessage(command);
                             handled = true;
                             break;
+                        case "timeline":
+                            CommandTimeline(command);
+                            handled = true;
+                            break;
                     }
                 }
                 switch (command.Command) {
@@ -849,6 +853,57 @@ namespace Smuxi.Engine
             } else {
                 // ignore protocol chat
             }
+        }
+
+        public void CommandTimeline(CommandModel cmd)
+        {
+            if (cmd.DataArray.Length < 2) {
+                NotEnoughParameters(cmd);
+                return;
+            }
+
+            string keyword = cmd.Parameter;
+            string[] users = cmd.Parameter.Split(',');
+
+            string chatName = users.Length > 1 ? _("Other timelines") : users[0];
+            ChatModel chat;
+
+            if (users.Length > 1) {
+                chat = Session.CreateChat<GroupChatModel>(keyword, chatName, this);
+            } else {
+                var userResponse = TwitterUser.Show(f_OAuthTokens, users [0], f_OptionalProperties);
+                CheckResponse(userResponse);
+                var person = GetPerson(userResponse.ResponseObject);
+                chat = Session.CreatePersonChat(person, this);
+            }
+            Session.AddChat(chat);
+
+            var statuses = new List<TwitterStatus>();
+            foreach (var user in users) {
+                var opts = CreateOptions<UserTimelineOptions>();
+                opts.ScreenName = user;
+                var statusCollectionResponse = TwitterTimeline.UserTimeline(f_OAuthTokens, opts);
+                CheckResponse(statusCollectionResponse);
+
+                foreach (var status in statusCollectionResponse.ResponseObject) {
+                    statuses.Add(status);
+                }
+            }
+
+            var sortedStatuses = SortTimeline(statuses);
+            foreach (var status in sortedStatuses) {
+                var msg = CreateMessageBuilder().
+                    Append(status, GetPerson(status.User)).ToMessage();
+                chat.MessageBuffer.Add(msg);
+                var userId = status.User.Id.ToString();
+                var groupChat = chat as GroupChatModel;
+                if (groupChat != null) {
+                    if (!groupChat.UnsafePersons.ContainsKey(userId)) {
+                        groupChat.UnsafePersons.Add(userId, GetPerson(status.User));
+                    }
+                }
+            }
+            Session.SyncChat(chat);
         }
 
         public void CommandMessage(CommandModel cmd)
