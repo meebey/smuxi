@@ -1,6 +1,6 @@
 // Smuxi - Smart MUltipleXed Irc
 // 
-// Copyright (c) 2010 Mirco Bauer <meebey@meebey.net>
+// Copyright (c) 2010, 2013 Mirco Bauer <meebey@meebey.net>
 // 
 // Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
 // 
@@ -21,11 +21,90 @@
 using System;
 using System.Web;
 using System.Text;
+using Twitterizer;
 
 namespace Smuxi.Engine
 {
     public class TwitterMessageBuilder : MessageBuilder
     {
+        public TwitterMessageBuilder Append(TwitterStatus status,
+                                            ContactModel sender,
+                                            bool isHighlight)
+        {
+            if (status == null) {
+                throw new ArgumentNullException("status");
+            }
+            if (sender == null) {
+                throw new ArgumentNullException("sender");
+            }
+
+            // MessageModel serializer expects UTC values
+            TimeStamp = status.CreatedDate.ToUniversalTime();
+            AppendSenderPrefix(sender, isHighlight);
+
+            // LAME: Twitter lies in the truncated field and says it's not
+            // truncated while it is, thus always use retweet_status if
+            // available
+            if (status.RetweetedStatus != null) {
+                var text = String.Format(
+                    "RT @{0}: {1}",
+                    status.RetweetedStatus.User.ScreenName,
+                    status.RetweetedStatus.Text
+                );
+                AppendMessage(text);
+            } else {
+                AppendMessage(status.Text);
+            }
+            return this;
+        }
+
+        public TwitterMessageBuilder Append(TwitterStatus status, ContactModel sender)
+        {
+            return Append(status, sender, false);
+        }
+
+        public TwitterMessageBuilder Append(TwitterDirectMessage status,
+                                            ContactModel sender,
+                                            bool isHighlight)
+        {
+            if (status == null) {
+                throw new ArgumentNullException("status");
+            }
+            if (sender == null) {
+                throw new ArgumentNullException("sender");
+            }
+
+            // MessageModel serializer expects UTC values
+            TimeStamp = status.CreatedDate.ToUniversalTime();
+            AppendSenderPrefix(sender, isHighlight);
+            AppendMessage(status.Text);
+            return this;
+        }
+
+        public TwitterMessageBuilder Append(TwitterSearchResult search,
+                                            ContactModel sender,
+                                            bool isHighlight)
+        {
+            if (search == null) {
+                throw new ArgumentNullException("search");
+            }
+            if (sender == null) {
+                throw new ArgumentNullException("sender");
+            }
+
+            // MessageModel serializer expects UTC values
+            TimeStamp = search.CreatedDate.ToUniversalTime();
+            AppendSenderPrefix(sender, isHighlight);
+            AppendMessage(search.Text);
+            return this;
+        }
+
+        public TwitterMessageBuilder Append(TwitterSearchResult search,
+                                            ContactModel sender)
+        {
+            return Append(search, sender, false);
+        }
+
         public override MessageBuilder AppendMessage(string msg)
         {
             if (msg.Contains("\n")) {
