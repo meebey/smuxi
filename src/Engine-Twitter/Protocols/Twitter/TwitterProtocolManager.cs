@@ -1043,14 +1043,14 @@ namespace Smuxi.Engine
 
                 if (status.User.Id.ToString() == Me.ID) {
                     OnMessageSent(
-                        new MessageEventArgs(f_FriendsTimelineChat, msg,
-                                             null, status.InReplyToScreenName)
+                        new MessageEventArgs(f_FriendsTimelineChat, msg, null,
+                                             status.InReplyToScreenName ?? String.Empty)
                     );
                 } else {
                     OnMessageReceived(
                         new MessageEventArgs(f_FriendsTimelineChat, msg,
                                              status.User.ScreenName,
-                                             status.InReplyToScreenName)
+                                             status.InReplyToScreenName ?? String.Empty)
                     );
                 }
 
@@ -1154,7 +1154,7 @@ namespace Smuxi.Engine
                 OnMessageReceived(
                     new MessageEventArgs(f_RepliesChat, msg,
                                          status.User.ScreenName,
-                                         status.InReplyToScreenName)
+                                         status.InReplyToScreenName ?? String.Empty)
                 );
 
                 f_LastReplyStatusID = status.Id;
