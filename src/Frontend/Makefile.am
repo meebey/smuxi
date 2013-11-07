@@ -61,8 +61,6 @@ all: $(ASSEMBLY) $(PROGRAMFILES) $(LINUX_PKGCONFIG)
 FILES = \
 	$(top_srcdir)/src/AssemblyVersion.cs \
 	AssemblyInfo.cs \
-	EntryController.cs \
-	EntryHistoryModel.cs \
 	ChatViewManagerBase.cs \
 	ChatViewSyncManager.cs \
 	IChatView.cs \

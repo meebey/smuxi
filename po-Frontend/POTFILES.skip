@@ -2,6 +2,7 @@ glade/
 src/Common/
 src/Frontend-GNOME/
 src/Frontend-GNOME-IRC/
+src/Frontend-GNOME-Twitter/
 src/Frontend-GNOME-XMPP/
 src/Frontend-STFL/
 src/Frontend-SWF/

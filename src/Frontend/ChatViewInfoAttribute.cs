@@ -27,8 +27,9 @@
  */
 
 using System;
+using Smuxi.Engine;
 
-namespace Smuxi.Engine
+namespace Smuxi.Frontend
 {
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = true)]
     public class ChatViewInfoAttribute : Attribute
