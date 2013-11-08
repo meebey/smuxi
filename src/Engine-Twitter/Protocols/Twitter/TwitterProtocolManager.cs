@@ -321,6 +321,8 @@ namespace Smuxi.Engine
                         fm.UpdateNetworkStatus();
                         fm.SetStatus(message);
                     }
+                    OnConnected(EventArgs.Empty);
+
                     msg = CreateMessageBuilder().
                         AppendEventPrefix().AppendText(message).ToMessage();
                     Session.AddMessageToChat(Chat, msg);

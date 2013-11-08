@@ -1416,12 +1416,6 @@ namespace Smuxi.Engine
             if (!String.IsNullOrEmpty(server.Password)) {
                 password = server.Password;
             }
-            protocolManager.Connect(frontendManager, server);
-            if (protocolManager.Chat == null) {
-                // just in case the ProtocolManager is not setting the
-                // protocol chat
-                throw new ApplicationException(_("Connect failed."));
-            }
 
             if (server.OnConnectCommands != null && server.OnConnectCommands.Count > 0) {
                 protocolManager.Connected += delegate {
@@ -1438,6 +1432,13 @@ namespace Smuxi.Engine
                         protocolManager.Command(cd);
                     }
                 };
+            }
+
+            protocolManager.Connect(frontendManager, server);
+            if (protocolManager.Chat == null) {
+                // just in case the ProtocolManager is not setting the
+                // protocol chat
+                throw new ApplicationException(_("Connect failed."));
             }
 
             return protocolManager;
