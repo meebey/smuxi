@@ -251,11 +251,9 @@ namespace Smuxi.Engine
             var hooks = new HookRunner("engine", "protocol-manager", "on-message-sent");
             hooks.Environments.Add(new ChatHookEnvironment(e.Chat));
 
-            var sender = e.Sender;
-            if (String.IsNullOrEmpty(sender)) {
-                sender = Me.ID;
-            }
-            hooks.Environments.Add(new MessageHookEnvironment(e.Message, sender, e.Receiver));
+            hooks.Environments.Add(new MessageHookEnvironment(e.Message,
+                                                              e.Sender ?? Me,
+                                                              e.Receiver));
             hooks.Environments.Add(new ProtocolManagerHookEnvironment(this));
 
             var cmdChar = (string) Session.UserConfig["Interface/Entry/CommandCharacter"];
@@ -277,12 +275,9 @@ namespace Smuxi.Engine
 
             var hooks = new HookRunner("engine", "protocol-manager", "on-message-received");
             hooks.Environments.Add(new ChatHookEnvironment(e.Chat));
-
-            var receiver = e.Receiver;
-            if (String.IsNullOrEmpty(receiver)) {
-                receiver = Me.ID;
-            }
-            hooks.Environments.Add(new MessageHookEnvironment(e.Message, e.Sender, receiver));
+            hooks.Environments.Add(new MessageHookEnvironment(e.Message,
+                                                              e.Sender,
+                                                              e.Receiver ?? Me));
             hooks.Environments.Add(new ProtocolManagerHookEnvironment(this));
 
             var cmdChar = (string) Session.UserConfig["Interface/Entry/CommandCharacter"];
@@ -302,6 +297,11 @@ namespace Smuxi.Engine
         protected ChatModel GetChat(string id, ChatType chatType)
         {
             return _Session.GetChat(id, chatType, this);
+        }
+
+        protected PersonModel GetPerson(ChatModel chat, string personId)
+        {
+            return GetPerson<PersonModel>(chat, personId);
         }
 
         protected virtual T GetPerson<T>(ChatModel chat, string personId) where T : PersonModel
@@ -385,11 +385,11 @@ namespace Smuxi.Engine
     {
         public ChatModel Chat { get; protected set; }
         public MessageModel Message { get; protected set; }
-        public string Sender { get; protected set; }
-        public string Receiver { get; protected set; }
+        public ContactModel Sender { get; protected set; }
+        public ContactModel Receiver { get; protected set; }
 
         public MessageEventArgs(ChatModel chat, MessageModel msg,
-                                string sender, string receiver)
+                                ContactModel sender, ContactModel receiver)
         {
             Chat = chat;
             Message = msg;

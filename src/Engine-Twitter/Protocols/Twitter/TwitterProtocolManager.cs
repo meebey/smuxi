@@ -1041,16 +1041,29 @@ namespace Smuxi.Engine
                     ToMessage();
                 Session.AddMessageToChat(f_FriendsTimelineChat, msg);
 
+                ContactModel receiver = null;
+                if (status.InReplyToUserId.HasValue) {
+                    var receiverId = status.InReplyToUserId.Value.ToString();
+                    receiver = GetPerson(f_FriendsTimelineChat, receiverId);
+                    if (receiver == null) {
+                        receiver = CreatePerson(receiverId,
+                                                status.InReplyToScreenName);
+                    }
+                }
                 if (status.User.Id.ToString() == Me.ID) {
                     OnMessageSent(
                         new MessageEventArgs(f_FriendsTimelineChat, msg, null,
-                                             status.InReplyToScreenName ?? String.Empty)
+                                             receiver)
                     );
                 } else {
+                    var sender = GetPerson(f_FriendsTimelineChat,
+                                           status.User.Id.ToString());
+                    if (sender == null) {
+                        receiver = CreatePerson(status.User);
+                    }
                     OnMessageReceived(
                         new MessageEventArgs(f_FriendsTimelineChat, msg,
-                                             status.User.ScreenName,
-                                             status.InReplyToScreenName ?? String.Empty)
+                                             sender, receiver)
                     );
                 }
 
@@ -1151,10 +1164,16 @@ namespace Smuxi.Engine
                     ToMessage();
                 Session.AddMessageToChat(f_RepliesChat, msg);
 
+                ContactModel receiver = null;
+                if (status.InReplyToUserId.HasValue) {
+                    // TODO: try GetPerson() first
+                    receiver = CreatePerson(status.InReplyToUserId.Value,
+                                            status.InReplyToScreenName);
+                }
+                // TODO: try GetPerson() first
+                var sender = CreatePerson(status.User);
                 OnMessageReceived(
-                    new MessageEventArgs(f_RepliesChat, msg,
-                                         status.User.ScreenName,
-                                         status.InReplyToScreenName ?? String.Empty)
+                    new MessageEventArgs(f_RepliesChat, msg, sender, receiver)
                 );
 
                 f_LastReplyStatusID = status.Id;
@@ -1302,17 +1321,23 @@ namespace Smuxi.Engine
                     // this is a received message
                     userId =  directMsg.SenderId.ToString();
 
+                    // TODO: try GetPerson() first
+                    var sender = CreatePerson(directMsg.SenderId,
+                                              directMsg.SenderScreenName);
                     OnMessageReceived(
                         new MessageEventArgs(f_DirectMessagesChat, msg,
-                                             directMsg.SenderScreenName, null)
+                                             sender, null)
                     );
                 } else {
                     // this is a sent message
                     userId = directMsg.RecipientId.ToString();
 
+                    // TODO: try GetPerson() first
+                    var receiver = CreatePerson(directMsg.RecipientId,
+                                                directMsg.RecipientScreenName);
                     OnMessageSent(
                         new MessageEventArgs(f_DirectMessagesChat, msg,
-                                             null, directMsg.RecipientScreenName)
+                                             null, receiver)
                     );
                 }
                 ChatModel chat =  Session.GetChat(
@@ -1633,15 +1658,32 @@ namespace Smuxi.Engine
                 throw new ArgumentNullException("user");
             }
 
+            return CreatePerson(user.Id, user.ScreenName);
+        }
+
+        PersonModel CreatePerson(decimal id, string screenName)
+        {
+            return CreatePerson(id.ToString(), screenName);
+        }
+
+        PersonModel CreatePerson(string id, string screenName)
+        {
+            if (id == null) {
+                throw new ArgumentNullException("id");
+            }
+            if (screenName == null) {
+                throw new ArgumentNullException("screenName");
+            }
+
             var person = new PersonModel(
-                user.Id.ToString(),
-                user.ScreenName,
+                id,
+                screenName,
                 NetworkID,
                 Protocol,
                 this
             );
             if (f_TwitterUser != null &&
-                f_TwitterUser.ScreenName == user.ScreenName) {
+                f_TwitterUser.Id.ToString() == id) {
                 person.IdentityNameColored.ForegroundColor = f_BlueTextColor;
                 person.IdentityNameColored.BackgroundColor = TextColor.None;
                 person.IdentityNameColored.Bold = true;

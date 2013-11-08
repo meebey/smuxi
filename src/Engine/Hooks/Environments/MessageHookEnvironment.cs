@@ -25,16 +25,10 @@ namespace Smuxi.Engine
     {
         static readonly DateTime UnixEpoch = new DateTime(1970, 1, 1, 0, 0, 0);
 
-        public MessageHookEnvironment(MessageModel msg, string sender, string receiver)
+        public MessageHookEnvironment(MessageModel msg, ContactModel sender, ContactModel receiver)
         {
             if (msg == null) {
                 throw new ArgumentNullException("msg");
-            }
-            if (sender == null) {
-                throw new ArgumentNullException("sender");
-            }
-            if (receiver == null) {
-                throw new ArgumentNullException("receiver");
             }
 
             var nick = msg.GetNick();
@@ -51,8 +45,14 @@ namespace Smuxi.Engine
             this["MSG_TIMESTAMP_ISO_UTC"] = msg.TimeStamp.ToString("u").Replace('Z', ' ').TrimEnd();
             this["MSG_TIMESTAMP_ISO_LOCAL"] = msg.TimeStamp.ToLocalTime().ToString("u").Replace('Z', ' ').TrimEnd();
 
-            this["SENDER"] = sender;
-            this["RECEIVER"] = receiver;
+            if (sender != null) {
+                this["SENDER_ID"] = sender.ID;
+                this["SENDER_IDENTITY_NAME"] = sender.IdentityName;
+            }
+            if (receiver != null) {
+                this["RECEIVER_ID"] = receiver.ID;
+                this["RECEIVER_IDENTITY_NAME"] = receiver.IdentityName;
+            }
         }
     }
 }

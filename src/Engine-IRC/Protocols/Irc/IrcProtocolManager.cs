@@ -1130,10 +1130,12 @@ namespace Smuxi.Engine
                 return;
             }
 
+            ContactModel receiver = null;
             if (chat is PersonChatModel) {
                 PersonModel person = ((PersonChatModel) chat).Person;
                 IrcPersonModel ircperson = (IrcPersonModel) person;
                 ircperson.IsAway = false;
+                receiver = person;
             }
 
             _IrcClient.SendMessage(SendType.Message, chat.ID, message);
@@ -1162,7 +1164,7 @@ namespace Smuxi.Engine
             Session.AddMessageToChat(chat, msg, true);
 
             OnMessageSent(
-                new MessageEventArgs(chat, msg, null, chat.ID)
+                new MessageEventArgs(chat, msg, null, receiver)
             );
         }
         
@@ -2924,33 +2926,31 @@ namespace Smuxi.Engine
             }
         }
 
-        private void _OnChannelMessage(object sender, IrcEventArgs e)
+        private void _OnChannelMessage(object o, IrcEventArgs e)
         {
             var chat = GetChat(e.Data.Channel, ChatType.Group) ?? Chat;
             UpdateGroupPerson(chat, e.Data);
 
+            var sender = GetPerson(chat, e.Data.Nick ?? e.Data.From);
             var builder = CreateMessageBuilder();
-            builder.AppendMessage(GetPerson(chat, e.Data.Nick ?? e.Data.From),
-                                  e.Data.Message);
+            builder.AppendMessage(sender, e.Data.Message);
             builder.MarkHighlights();
 
             var msg = builder.ToMessage();
             Session.AddMessageToChat(chat, msg);
 
-            OnMessageReceived(
-                new MessageEventArgs(chat, msg, e.Data.Nick ?? e.Data.From,
-                                     e.Data.Channel)
-            );
+            OnMessageReceived(new MessageEventArgs(chat, msg, sender, null));
         }
         
-        private void _OnChannelAction(object sender, ActionEventArgs e)
+        private void _OnChannelAction(object o, ActionEventArgs e)
         {
             var chat = GetChat(e.Data.Channel, ChatType.Group) ?? Chat;
             UpdateGroupPerson(chat, e.Data);
 
+            var sender = GetPerson(chat, e.Data.Nick ?? e.Data.From);
             var builder = CreateMessageBuilder();
             builder.AppendActionPrefix();
-            builder.AppendIdendityName(GetPerson(chat, e.Data.Nick ?? e.Data.From));
+            builder.AppendIdendityName(sender);
             builder.AppendText(" ");
             builder.AppendMessage(e.ActionMessage);
             builder.MarkHighlights();
@@ -2958,17 +2958,15 @@ namespace Smuxi.Engine
             var msg = builder.ToMessage();
             Session.AddMessageToChat(chat, msg);
 
-            OnMessageReceived(
-                new MessageEventArgs(chat, msg, e.Data.Nick ?? e.Data.From,
-                                     e.Data.Channel)
-            );
+            OnMessageReceived(new MessageEventArgs(chat, msg, sender, null));
         }
         
-        private void _OnChannelNotice(object sender, IrcEventArgs e)
+        private void _OnChannelNotice(object o, IrcEventArgs e)
         {
             var chat = GetChat(e.Data.Channel, ChatType.Group) ?? Chat;
             UpdateGroupPerson(chat, e.Data);
 
+            var sender = GetPerson(chat, e.Data.Nick ?? e.Data.From);
             var builder = CreateMessageBuilder();
             builder.AppendText("-{0}:{1}- ", e.Data.Nick, e.Data.Channel);
             builder.AppendMessage(e.Data.Message);
@@ -2977,10 +2975,7 @@ namespace Smuxi.Engine
             var msg = builder.ToMessage();
             Session.AddMessageToChat(chat, msg);
 
-            OnMessageReceived(
-                new MessageEventArgs(chat, msg, e.Data.Nick ?? e.Data.From,
-                                     e.Data.Channel)
-            );
+            OnMessageReceived(new MessageEventArgs(chat, msg, sender, null));
         }
         
         private void _OnQueryMessage(object sender, IrcEventArgs e)
@@ -3021,9 +3016,7 @@ namespace Smuxi.Engine
 
             Session.AddMessageToChat(chat, msg);
 
-            OnMessageReceived(
-                new MessageEventArgs(chat, msg, e.Data.Nick ?? e.Data.From, null)
-            );
+            OnMessageReceived(new MessageEventArgs(chat, msg, chat.Person, null));
         }
         
         private void _OnQueryAction(object sender, ActionEventArgs e)
@@ -3066,12 +3059,10 @@ namespace Smuxi.Engine
 
             Session.AddMessageToChat(chat, msg);
 
-            OnMessageReceived(
-                new MessageEventArgs(chat, msg, e.Data.Nick ?? e.Data.From, null)
-            );
+            OnMessageReceived(new MessageEventArgs(chat, msg, chat.Person, null));
         }
         
-        private void _OnQueryNotice(object sender, IrcEventArgs e)
+        private void _OnQueryNotice(object o, IrcEventArgs e)
         {
             var targetChats = new List<ChatModel>();
             if (e.Data.Nick != null) {
@@ -3120,9 +3111,8 @@ namespace Smuxi.Engine
                 Session.AddMessageToChat(targetChat, msg);
             }
 
-            OnMessageReceived(
-                new MessageEventArgs(Chat, msg, e.Data.Nick ?? e.Data.From, null)
-            );
+            var sender = CreatePerson(e.Data.Nick ?? e.Data.From);
+            OnMessageReceived(new MessageEventArgs(Chat, msg, sender, null));
         }
 
         private void _OnJoin(object sender, JoinEventArgs e)

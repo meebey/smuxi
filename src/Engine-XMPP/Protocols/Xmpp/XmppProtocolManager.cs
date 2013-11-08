@@ -1145,10 +1145,12 @@ namespace Smuxi.Engine
                 return;
             }
 
+            ContactModel receiver = null;
             if (send) {
                 if (chat.ChatType == ChatType.Person) {
                     var _person = (chat as PersonChatModel).Person as PersonModel;
                     XmppPersonModel person = GetOrCreateContact(_person.ID, _person.IdentityName);
+                    receiver = person;
                     Jid jid = person.Jid;
                     if ((jid.Server == "gmail.com") ||
                         (jid.Server == "googlemail.com")) {
@@ -1188,9 +1190,8 @@ namespace Smuxi.Engine
             if (display) {
                 Session.AddMessageToChat(chat, msg);
             }
-            OnMessageSent(
-                new MessageEventArgs(chat, msg, null, chat.ID)
-            );
+
+            OnMessageSent(new MessageEventArgs(chat, msg, null, receiver));
         }
 
         void OnReadXml(object sender, string text)
@@ -1904,8 +1905,9 @@ namespace Smuxi.Engine
             bool hilight = person.ID != groupChat.OwnNickname;
             var message = CreateMessage(person, msg, hilight, false);
             Session.AddMessageToChat(groupChat, message);
+
             OnMessageReceived(
-                new MessageEventArgs(groupChat, message, msg.From, groupChat.ID)
+                new MessageEventArgs(groupChat, message, person, null)
             );
         }
 
@@ -1935,8 +1937,9 @@ namespace Smuxi.Engine
             }
             var message = CreateMessage(chat.Person, msg, true, true);
             AddMessageToChatIfNotFiltered(message, chat, isNew);
+
             OnMessageReceived(
-                new MessageEventArgs(chat, message, msg.From, null)
+                new MessageEventArgs(chat, message, chat.Person, null)
             );
         }
 
