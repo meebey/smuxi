@@ -20,6 +20,7 @@
 
 using System;
 using System.Linq;
+using System.Reflection;
 using System.Collections.Generic;
 using SysDiag = System.Diagnostics;
 using Smuxi.Common;
@@ -46,6 +47,7 @@ namespace Smuxi.Frontend
         static readonly log4net.ILog f_Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 #endif
         static readonly string f_LibraryTextDomain = "smuxi-frontend";
+        static string FrontendVersion { get; set; }
         Session         f_Session;
         TaskQueue       f_TaskQueue;
         TimeSpan        f_LastCommandTimeSpan;
@@ -57,6 +59,13 @@ namespace Smuxi.Frontend
         }
 
         public event CommandExceptionEventHandler ExceptionEvent;
+
+        static CommandManager()
+        {
+            var asm = Assembly.GetAssembly(typeof(CommandManager));
+            var asm_name = asm.GetName(false);
+            FrontendVersion = asm_name.Version.ToString();
+        }
 
         public CommandManager(Session session)
         {
@@ -153,6 +162,7 @@ namespace Smuxi.Frontend
                 var filteredCmd = IOSecurity.GetFilteredPath(cmd.Command);
                 var hooks = new HookRunner("frontend", "command-manager",
                                            "command-" + filteredCmd);
+                hooks.EnvironmentVariables.Add("FRONTEND_VERSION", FrontendVersion);
                 hooks.Environments.Add(new ChatHookEnvironment(cmd.Chat));
                 if (pm != null) {
                     hooks.Environments.Add(new ProtocolManagerHookEnvironment(pm));
