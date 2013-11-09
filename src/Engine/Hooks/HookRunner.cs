@@ -95,7 +95,9 @@ namespace Smuxi.Engine
             }
 
             var env = EnvironmentVariables;
-            env.Add("ENGINE_VERSION", Engine.Version.ToString());
+            if (Engine.Version != null) {
+                env.Add("ENGINE_VERSION", Engine.Version.ToString());
+            }
 
             foreach (var environment in Environments) {
                 foreach (var entry in environment) {
