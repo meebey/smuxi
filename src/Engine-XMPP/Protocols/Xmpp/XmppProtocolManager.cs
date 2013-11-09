@@ -2402,7 +2402,14 @@ namespace Smuxi.Engine
             JabberClient.Resource = server.Resource;
 
             if (server.UseEncryption) {
-                JabberClient.ForceStartTls = true;
+                // HACK: Google Talk doesn't support StartTLS :(
+                if (server.Hostname == "talk.google.com" &&
+                    server.Port == 5223) {
+                    JabberClient.ForceStartTls = false;
+                    JabberClient.UseSSL = true;
+                } else {
+                    JabberClient.ForceStartTls = true;
+                }
             } else {
                 JabberClient.ForceStartTls = false;
                 JabberClient.UseStartTLS = true;
