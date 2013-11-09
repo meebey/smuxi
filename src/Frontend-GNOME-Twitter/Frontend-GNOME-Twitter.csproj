@@ -7,26 +7,28 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{298A5895-D8C8-45EB-AC57-1B6AAD05D6AD}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>FrontendGNOMETwitter</RootNamespace>
-    <AssemblyName>Frontend-GNOME-Twitter</AssemblyName>
+    <RootNamespace>Smuxi.Frontend.Gnome</RootNamespace>
+    <AssemblyName>smuxi-frontend-gnome-twitter</AssemblyName>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug</OutputPath>
-    <DefineConstants>DEBUG;</DefineConstants>
+    <OutputPath>..\..\bin\debug</OutputPath>
+    <DefineConstants>DEBUG;TRACE;LOG4NET</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
+    <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>full</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\Release</OutputPath>
+    <OutputPath>..\..\bin\release</OutputPath>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
+    <DebugSymbols>true</DebugSymbols>
+    <DefineConstants>TRACE;LOG4NET</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
