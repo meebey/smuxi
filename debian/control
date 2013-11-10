@@ -33,6 +33,8 @@ Build-Depends-Indep: cli-common-dev (>= 0.5.7),
  autotools-dev
 Standards-Version: 3.8.3
 Homepage: http://www.smuxi.org/
+Vcs-Git: https://github.com/meebey/smuxi.git
+Vcs-Browser: https://github.com/meebey/smuxi
 
 Package: smuxi
 Architecture: all
