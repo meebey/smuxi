@@ -629,6 +629,11 @@ namespace Smuxi.Engine
                             CommandUnfollow(command);
                             handled = true;
                             break;
+                        case "search":
+                        case "join":
+                            CommandSearch(command);
+                            handled = true;
+                            break;
                     }
                 }
                 switch (command.Command) {
@@ -679,7 +684,8 @@ namespace Smuxi.Engine
                 "connect twitter username",
                 "pin pin-number",
                 "follow screen-name|user-id",
-                "unfollow screen-name|user-id"
+                "unfollow screen-name|user-id",
+                "search keyword",
             };
 
             foreach (string line in help) {
@@ -1035,11 +1041,53 @@ namespace Smuxi.Engine
             return sortedTimeline;
         }
 
+        public void CommandSearch(CommandModel cmd)
+        {
+            if (cmd.DataArray.Length < 2) {
+                NotEnoughParameters(cmd);
+                return;
+            }
+
+            var keyword = cmd.Parameter;
+            var chatName = String.Format(_("Search {0}"), keyword);
+            var chat = Session.CreateChat<GroupChatModel>(keyword, chatName, this);
+            Session.AddChat(chat);
+            var options = CreateOptions<SearchOptions>();
+            options.Count = 50;
+            var response = TwitterSearch.Search(f_OAuthTokens, keyword, options);
+            CheckResponse(response);
+            var search = response.ResponseObject;
+            var sortedSearch = SortTimeline(search);
+            foreach (var status in sortedSearch) {
+                var msg = CreateMessageBuilder().
+                    Append(status, GetPerson(status.User)).
+                    ToMessage();
+                chat.MessageBuffer.Add(msg);
+                var userId = status.User.Id.ToString();
+                if (!chat.UnsafePersons.ContainsKey(userId)) {
+                    chat.UnsafePersons.Add(userId, GetPerson(status.User));
+                }
+            }
+            Session.SyncChat(chat);
+        }
+
         private List<TwitterDirectMessage> SortTimeline(TwitterDirectMessageCollection timeline)
         {
             var sortedTimeline = new List<TwitterDirectMessage>(timeline.Count);
             foreach (TwitterDirectMessage msg in timeline) {
                 sortedTimeline.Add(msg);
+            }
+            sortedTimeline.Sort(
+                (a, b) => (a.CreatedDate.CompareTo(b.CreatedDate))
+            );
+            return sortedTimeline;
+        }
+
+        List<TwitterSearchResult> SortTimeline(TwitterSearchResultCollection timeline)
+        {
+            var sortedTimeline = new List<TwitterSearchResult>(timeline.Count);
+            foreach (var search in timeline) {
+                sortedTimeline.Add(search);
             }
             sortedTimeline.Sort(
                 (a, b) => (a.CreatedDate.CompareTo(b.CreatedDate))
