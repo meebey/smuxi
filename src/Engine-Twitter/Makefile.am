@@ -11,7 +11,8 @@ SOURCES =	$(top_srcdir)/src/AssemblyVersion.cs \
 
 REFERENCES = 		$(LOG4NET_LIBS) \
 			$(SMARTIRC4NET_LIBS) \
-			System.Web
+			System.Web \
+			System.Core
 
 DLL_REFERENCES =	$(TARGET_DIR)/Twitterizer2.dll \
 			$(TARGET_DIR)/smuxi-common.dll \
