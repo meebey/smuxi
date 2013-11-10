@@ -620,6 +620,10 @@ namespace Smuxi.Engine
                             CommandTimeline(command);
                             handled = true;
                             break;
+                        case "unfollow":
+                            CommandUnfollow(command);
+                            handled = true;
+                            break;
                     }
                 }
                 switch (command.Command) {
@@ -669,6 +673,7 @@ namespace Smuxi.Engine
             string[] help = {
                 "connect twitter username",
                 "pin pin-number",
+                "unfollow user-id"
             };
 
             foreach (string line in help) {
