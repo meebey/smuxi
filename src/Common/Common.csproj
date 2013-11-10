@@ -57,6 +57,7 @@
     <Compile Include="ThreadPoolQueue.cs" />
     <Compile Include="AtomFeed.cs" />
     <Compile Include="SpecialFolderPatternConverter.cs" />
+    <Compile Include="RateLimiter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Defines.cs.in" />

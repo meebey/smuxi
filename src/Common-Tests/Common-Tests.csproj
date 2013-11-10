@@ -36,6 +36,7 @@
     <Compile Include="TraceTests.cs" />
     <Compile Include="PatternTests.cs" />
     <Compile Include="Crc32Tests.cs" />
+    <Compile Include="RateLimiterTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />

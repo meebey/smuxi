@@ -62,6 +62,7 @@ FILES = \
 	TaskQueue.cs \
 	ThreadPoolQueue.cs \
 	Platform.cs \
+	RateLimiter.cs \
 	Pattern.cs 
 	
 DATA_FILES = 

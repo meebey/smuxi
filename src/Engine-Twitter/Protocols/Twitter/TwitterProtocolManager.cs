@@ -84,6 +84,7 @@ namespace Smuxi.Engine
 
         TwitterStatus[]         StatusIndex { get; set; }
         int                     StatusIndexOffset { get; set; }
+        Dictionary<string, TwitterSearchStream> SearchStreams { get; set; }
 
         public override string NetworkID {
             get {
@@ -153,6 +154,7 @@ namespace Smuxi.Engine
             f_GroupChats.Add(f_DirectMessagesChat);
 
             StatusIndex = new TwitterStatus[99];
+            SearchStreams = new Dictionary<string, TwitterSearchStream>();
         }
 
         public override void Connect(FrontendManager fm, ServerModel server)
@@ -205,6 +207,9 @@ namespace Smuxi.Engine
                     }
                     if (!whitelist.Contains("api.twitter.com")) {
                         whitelist.Add("api.twitter.com");
+                    }
+                    if (!whitelist.Contains("stream.twitter.com")) {
+                        whitelist.Add("stream.twitter.com");
                     }
                 }
             }
@@ -604,6 +609,15 @@ namespace Smuxi.Engine
                             f_UpdateDirectMessagesThread.Abort();
                         }
                         break;
+                }
+            } else {
+                // no static/singleton chat, but maybe a search?
+                TwitterSearchStream stream;
+                lock (SearchStreams) {
+                    if (SearchStreams.TryGetValue(chat.ID, out stream)) {
+                        SearchStreams.Remove(chat.ID);
+                        stream.Dispose();
+                    }
                 }
             }
 
@@ -1102,6 +1116,12 @@ namespace Smuxi.Engine
                 }
             }
             Session.SyncChat(chat);
+
+            var stream = new TwitterSearchStream(this, chat, keyword,
+                                                 f_OAuthTokens, f_WebProxy);
+            lock (SearchStreams) {
+                SearchStreams.Add(chat.ID, stream);
+            }
         }
 
         public void CommandRetweet(CommandModel cmd)
@@ -1881,7 +1901,7 @@ namespace Smuxi.Engine
             return false;
         }
 
-        private PersonModel GetPerson(TwitterUser user)
+        internal PersonModel GetPerson(TwitterUser user)
         {
             if (user == null) {
                 throw new ArgumentNullException("user");
