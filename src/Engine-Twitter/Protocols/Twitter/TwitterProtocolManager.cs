@@ -621,6 +621,10 @@ namespace Smuxi.Engine
                             CommandTimeline(command);
                             handled = true;
                             break;
+                        case "follow":
+                            CommandFollow(command);
+                            handled = true;
+                            break;
                         case "unfollow":
                             CommandUnfollow(command);
                             handled = true;
@@ -674,6 +678,7 @@ namespace Smuxi.Engine
             string[] help = {
                 "connect twitter username",
                 "pin pin-number",
+                "follow screen-name|user-id",
                 "unfollow screen-name|user-id"
             };
 
@@ -952,6 +957,35 @@ namespace Smuxi.Engine
                     Session.AddMessageToFrontend(cmd.FrontendManager, chat, msg);
                 }
             }
+        }
+
+        public void CommandFollow(CommandModel cmd)
+        {
+            if (cmd.DataArray.Length < 2) {
+                NotEnoughParameters(cmd);
+                return;
+            }
+
+            var chat = cmd.Chat as GroupChatModel;
+            if (chat == null) {
+                return;
+            }
+
+            var options = CreateOptions<CreateFriendshipOptions>();
+            options.Follow = true;
+            decimal userId;
+            TwitterResponse<TwitterUser> res;
+            if (Decimal.TryParse(cmd.Parameter, out userId)) {
+                // parameter is an ID
+                res = TwitterFriendship.Create(f_OAuthTokens, userId, options);
+            } else {
+                // parameter is a screen name
+                var screenName = cmd.Parameter;
+                res = TwitterFriendship.Create(f_OAuthTokens, screenName, options);
+            }
+            CheckResponse(res);
+            var person = CreatePerson(res.ResponseObject);
+            Session.AddPersonToGroupChat(chat, person);
         }
 
         public void CommandUnfollow(CommandModel cmd)
