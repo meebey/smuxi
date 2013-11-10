@@ -22,6 +22,7 @@ using System;
 using System.Net;
 using System.Net.Security;
 using System.Web;
+using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading;
 using System.Collections.Generic;
@@ -673,7 +674,7 @@ namespace Smuxi.Engine
             string[] help = {
                 "connect twitter username",
                 "pin pin-number",
-                "unfollow user-id"
+                "unfollow screen-name|user-id"
             };
 
             foreach (string line in help) {
@@ -955,24 +956,32 @@ namespace Smuxi.Engine
 
         public void CommandUnfollow(CommandModel cmd)
         {
-            decimal userId;
-            if (cmd.DataArray.Length >= 2) {
-                userId = decimal.Parse(cmd.DataArray[1]);
-            } else {
+            if (cmd.DataArray.Length < 2) {
                 NotEnoughParameters(cmd);
                 return;
             }
+
             var chat = cmd.Chat as GroupChatModel;
             if (chat == null) {
                 return;
             }
 
-            var userUnfollowResponse = TwitterFriendship.Delete(f_OAuthTokens, userId, f_OptionalProperties);
-            CheckResponse(userUnfollowResponse);
-
-            if (userUnfollowResponse.ResponseObject != null && !String.IsNullOrEmpty(userUnfollowResponse.ResponseObject.Name)) {
-                Session.RemovePersonFromGroupChat(chat, chat.GetPerson(userId.ToString ()));
+            PersonModel person;
+            var persons = chat.Persons;
+            if (persons.TryGetValue(cmd.Parameter, out person)) {
+                // parameter is an ID
+                decimal userId;
+                Decimal.TryParse(cmd.Parameter, out userId);
+                var res = TwitterFriendship.Delete(f_OAuthTokens, userId, f_OptionalProperties);
+                CheckResponse(res);
+            } else {
+                // parameter is a screen name
+                var screenName = cmd.Parameter;
+                person = persons.Single((arg) => arg.Value.IdentityName == screenName).Value;
+                var res = TwitterFriendship.Delete(f_OAuthTokens, screenName, f_OptionalProperties);
+                CheckResponse(res);
             }
+            Session.RemovePersonFromGroupChat(chat, person);
         }
 
         public bool IsHomeTimeLine(ChatModel chatModel)
