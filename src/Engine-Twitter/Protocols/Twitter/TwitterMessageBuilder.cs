@@ -81,30 +81,6 @@ namespace Smuxi.Engine
             return this;
         }
 
-        public TwitterMessageBuilder Append(TwitterSearchResult search,
-                                            ContactModel sender,
-                                            bool isHighlight)
-        {
-            if (search == null) {
-                throw new ArgumentNullException("search");
-            }
-            if (sender == null) {
-                throw new ArgumentNullException("sender");
-            }
-
-            // MessageModel serializer expects UTC values
-            TimeStamp = search.CreatedDate.ToUniversalTime();
-            AppendSenderPrefix(sender, isHighlight);
-            AppendMessage(search.Text);
-            return this;
-        }
-
-        public TwitterMessageBuilder Append(TwitterSearchResult search,
-                                            ContactModel sender)
-        {
-            return Append(search, sender, false);
-        }
-
         public override MessageBuilder AppendMessage(string msg)
         {
             if (msg.Contains("\n")) {

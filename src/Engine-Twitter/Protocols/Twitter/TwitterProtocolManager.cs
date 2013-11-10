@@ -1083,18 +1083,6 @@ namespace Smuxi.Engine
             return sortedTimeline;
         }
 
-        List<TwitterSearchResult> SortTimeline(TwitterSearchResultCollection timeline)
-        {
-            var sortedTimeline = new List<TwitterSearchResult>(timeline.Count);
-            foreach (var search in timeline) {
-                sortedTimeline.Add(search);
-            }
-            sortedTimeline.Sort(
-                (a, b) => (a.CreatedDate.CompareTo(b.CreatedDate))
-            );
-            return sortedTimeline;
-        }
-
         private void UpdateFriendsTimelineThread()
         {
             Trace.Call();
