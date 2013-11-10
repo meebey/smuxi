@@ -753,6 +753,7 @@ namespace Smuxi.Engine
             "join muc-jid [password]",
             "part/leave [muc-jid]",
             "away [away-message]",
+            "roster [full]",
             "contact add/remove jid/nick",
             "contact rename jid/nick [newnick]"
             };
