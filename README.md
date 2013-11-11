@@ -36,19 +36,23 @@ Now you can start Smuxi from the GNOME or KDE menu.
 Source Structure
 ================
 
-== src/ ==
+src/
+----
 
 This directory contains the source code of all Smuxi components.
 
-== lib/ ==
+lib/
+----
 
 This directory contains libraries that Smuxi needs and ships as part of Smuxi.
 
-== po\*/ ==
+po\*/
+-----
 
 These directories contain translation files based on gettext.
 
-== debian/ ==
+debian/
+-------
 
 The debian/ directory contains upstream packaging used for the daily development
 builds for Ubuntu and Debian found on [launchpad][].
