@@ -1,3 +1,4 @@
+debian/unattended-upgrades /etc/apt/apt.conf.d/50smuxi-daily
 usr/bin/smuxi-server
 usr/lib/smuxi/smuxi-common.dll*
 usr/lib/smuxi/smuxi-engine*.dll*
