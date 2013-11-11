@@ -33,22 +33,37 @@ class MainClass
 
 		var timer = new Timer(delegate {
 			var chan = client.GetChannel("#smuxi");
-			var chan2 = client2.GetChannel("#smuxi");
 			if (chan == null) {
 				client.RfcJoin("#smuxi");
 				return;
 			}
+			var chan2 = client2.GetChannel("#smuxi");
 			if (chan2 == null) {
 				client2.RfcJoin("#smuxi");
+				return;
+			}
+			var chan3 = client.GetChannel("#smuxi-devel");
+			if (chan3 == null) {
+				client.RfcJoin("#smuxi-devel");
 				return;
 			}
 			// filter duplicates and clones
 			var users = new List<string>();
 			foreach (string user in chan.Users.Keys) {
 				var nick = user.TrimEnd('_');
+				if (users.Contains(nick)) {
+					continue;
+				}
 				users.Add(nick);
 			};
 			foreach (string user in chan2.Users.Keys) {
+				var nick = user.TrimEnd('_');
+				if (users.Contains(nick)) {
+					continue;
+				}
+				users.Add(nick);
+			}
+			foreach (string user in chan3.Users.Keys) {
 				var nick = user.TrimEnd('_');
 				if (users.Contains(nick)) {
 					continue;
