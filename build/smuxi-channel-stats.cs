@@ -17,6 +17,7 @@ class MainClass
 		client.Login("smuxi-bot", "smuxi bot");
 		client.OnRegistered += delegate {
 			client.RfcJoin("#smuxi");
+			client.RfcJoin("#smuxi-devel");
 		};
 		
 		var client2 = new IrcClient() {
