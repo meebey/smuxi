@@ -8,8 +8,10 @@ Libraries:
 * log4net
 * GTK# (>= 2.10)
 * Notify# (optional)
-* Indicate#  (optional)
+* Indicate# / MessagingMenu# (optional)
 * DBus# / NDesk.DBus (optional)
+* GtkSpell (optional)
+* STFL (optional)
 
 Depending on your operating system and favorite distribution the installation of the listed applications varies. For Debian based distributions it's just a matter of the following commands:
 
