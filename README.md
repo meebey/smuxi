@@ -1,5 +1,5 @@
 Software Requirements
----------------------
+=====================
 First you will need to install a few libraries to compile the source
 
 Libraries:
@@ -18,18 +18,18 @@ Depending on your operating system and favorite distribution the installation of
     apt-get install mono-devel mono-xbuild libnini-cil-dev liblog4net-cil-dev libgtk2.0-cil-dev libglade2.0-cil-dev libnotify-cil-dev libindicate0.1-cil-dev libndesk-dbus-glib1.0-cil-dev libndesk-dbus1.0-cil-dev lsb-release
 
 Compiling Source
-----------------
+================
 
     ./configure
     make
 
 Installing
-----------
+==========
 
     make install
 
 Running
--------
+=======
 
 Now you can start Smuxi from the GNOME or KDE menu.
 
