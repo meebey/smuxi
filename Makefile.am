@@ -43,7 +43,7 @@ EXTRA_DIST =	install-sh \
 		mono.m4 \
 		programs.m4 \
 		LICENSE \
-		README \
+		README.md \
 		CREDITS \
 		PROFILING \
 		FEATURES \
