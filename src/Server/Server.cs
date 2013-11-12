@@ -36,6 +36,8 @@ using System.Runtime.Remoting.Channels.Tcp;
 using System.Runtime.Remoting.Channels.Http;
 using System.Runtime.Serialization.Formatters;
 using Smuxi;
+using Mono.Unix;
+using Mono.Unix.Native;
 //using Smuxi.Channels.Tcp;
 #if CHANNEL_TCPEX
 using TcpEx;
@@ -115,7 +117,26 @@ namespace Smuxi.Server
 #if LOG4NET
             _Logger.Info("Spawned remoting server with channel: "+channel+" formatter: "+formatter+" port: "+port);
 #endif            
-            
+            if ((Environment.OSVersion.Platform == PlatformID.Unix) ||
+                (Environment.OSVersion.Platform == PlatformID.MacOSX)) {
+                // Register shutdown handlers   
+#if LOG4NET
+                _Logger.Info("Registering signal handlers");
+#endif
+                UnixSignal[] shutdown_signals = {   
+                    new UnixSignal(Signum.SIGINT),  
+                    new UnixSignal(Signum.SIGTERM), 
+                };  
+                Thread signal_thread = new Thread(() => {
+                    var index = UnixSignal.WaitAny(shutdown_signals);
+#if LOG4NET
+                    _Logger.Info("Caught signal " + shutdown_signals[index].Signum.ToString() + ", shutting down");
+#endif
+                    Engine.Engine.Shutdown();
+                }); 
+                signal_thread.Start();
+            }
+
             Thread.CurrentThread.Join();
 #if LOG4NET
             _Logger.Info("Shutting down remoting server...");

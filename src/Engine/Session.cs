@@ -766,17 +766,14 @@ namespace Smuxi.Engine
         {
             Trace.Call(cmd);
 
-            if (cmd == null) {
-                throw new ArgumentNullException("cmd");
-            }
-
+            FrontendManager frontendMgr = cmd != null ? cmd.FrontendManager : null;
 #if LOG4NET
             f_Logger.Info("Shutting down...");
 #endif
             lock (_ProtocolManagers) {
                 foreach (var protocolManager in _ProtocolManagers) {
                     try {
-                        protocolManager.Disconnect(cmd.FrontendManager);
+                        protocolManager.Disconnect(frontendMgr);
                         protocolManager.Dispose();
                     } catch (Exception ex) {
 #if LOG4NET

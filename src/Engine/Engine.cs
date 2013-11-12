@@ -117,5 +117,11 @@ namespace Smuxi.Engine
             
             _SessionManager = new SessionManager(_Config, _ProtocolManagerFactory);
         }
+
+        public static void Shutdown()
+        {
+            SessionManager.Shutdown();
+            Environment.Exit(0);
+        }
     }
 }
