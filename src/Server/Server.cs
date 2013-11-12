@@ -120,14 +120,18 @@ namespace Smuxi.Server
             if ((Environment.OSVersion.Platform == PlatformID.Unix) ||
                 (Environment.OSVersion.Platform == PlatformID.MacOSX)) {
                 // Register shutdown handlers   
+#if LOG4NET
                 _Logger.Info("Registering signal handlers");
+#endif
                 UnixSignal[] shutdown_signals = {   
                     new UnixSignal(Signum.SIGINT),  
                     new UnixSignal(Signum.SIGTERM), 
                 };  
                 Thread signal_thread = new Thread(() => {
                     var index = UnixSignal.WaitAny(shutdown_signals);
+#if LOG4NET
                     _Logger.Info("Caught signal " + shutdown_signals[index].Signum.ToString() + ", shutting down");
+#endif
                     Engine.Engine.Shutdown();
                 }); 
                 signal_thread.Start();
