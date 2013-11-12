@@ -67,7 +67,7 @@ namespace Smuxi.Frontend.Gnome
             ChatStatePositionValid = false;
         }
 
-        void AddChatState(MessageModel msg)
+        void SetChatStateText(MessageModel msg)
         {
             DeleteOldChatState();
             var buffer = OutputMessageTextView.Buffer;
@@ -99,7 +99,7 @@ namespace Smuxi.Frontend.Gnome
             }
             var builder = new MessageBuilder();
             builder.AppendText(new string('.', NumberOfTypingDots));
-            AddChatState(builder.ToMessage());
+            SetChatStateText(builder.ToMessage());
             GLib.Timeout.Add(300, UpdateChatState);
             return false;
         }
