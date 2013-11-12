@@ -117,8 +117,9 @@ namespace Smuxi.Engine
         public void Shutdown()
         {
             lock (_Sessions) {
-                foreach (Session session in _Sessions.Values)
+                foreach (Session session in _Sessions.Values) {
                     session.CommandShutdown(null);
+                }
             }
         }
     }
