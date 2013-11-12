@@ -114,7 +114,7 @@ namespace Smuxi.Engine
             return null;
         }
 
-        public void Shutdown()
+        internal void Shutdown()
         {
             lock (_Sessions) {
                 foreach (Session session in _Sessions.Values) {
