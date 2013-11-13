@@ -131,7 +131,6 @@ namespace Smuxi.Engine
             OpenNewChatOnChatState = true;
 
             JabberClient = new XmppClientConnection();
-            JabberClient.Resource = "Smuxi";
             JabberClient.AutoRoster = true;
             JabberClient.AutoPresence = true;
             JabberClient.OnMessage += OnMessage;

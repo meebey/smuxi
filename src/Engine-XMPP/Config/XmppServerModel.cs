@@ -34,7 +34,6 @@ namespace Smuxi.Engine
             // choose somewhat reasonable defaults
             Priorities[PresenceStatus.Online] = 5;
             Priorities[PresenceStatus.Away] = 0;
-            Resource = "smuxi";
             Protocol = "XMPP";
         }
         
