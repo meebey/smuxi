@@ -34,6 +34,11 @@ namespace Smuxi.Engine
             Assert.AreEqual("test", cmd.Command);
             Assert.AreEqual("foobar", cmd.Parameter);
 
+            cmd = new CommandModel(null, null, "/", "/test");
+            Assert.IsTrue(cmd.IsCommand);
+            Assert.AreEqual("test", cmd.Command);
+            Assert.AreEqual("", cmd.Parameter);
+
             cmd = new CommandModel(null, null, "/", "/test foo bar");
             Assert.IsTrue(cmd.IsCommand);
             Assert.AreEqual("test", cmd.Command);
@@ -53,6 +58,49 @@ namespace Smuxi.Engine
             Assert.IsTrue(cmd.IsCommand);
             Assert.AreEqual("test", cmd.Command);
             Assert.AreEqual(" foo bar ", cmd.Parameter);
+
+            cmd = new CommandModel(null, null, "/", @"/test ""foo bar""");
+            Assert.IsTrue(cmd.IsCommand);
+            Assert.AreEqual("test", cmd.Command);
+            Assert.AreEqual("\"foo bar\"", cmd.Parameter);
+            Assert.AreEqual("foo bar", cmd.DataArray[1]);
+
+            cmd = new CommandModel(null, null, "/", @"/test ""foo"" bar");
+            Assert.IsTrue(cmd.IsCommand);
+            Assert.AreEqual("test", cmd.Command);
+            Assert.AreEqual("\"foo\" bar", cmd.Parameter);
+            Assert.AreEqual("foo", cmd.DataArray[1]);
+            Assert.AreEqual("bar", cmd.DataArray[2]);
+
+            cmd = new CommandModel(null, null, "/", @"/test """"");
+            Assert.IsTrue(cmd.IsCommand);
+            Assert.AreEqual("test", cmd.Command);
+            Assert.AreEqual("\"\"", cmd.Parameter);
+            Assert.AreEqual("", cmd.DataArray[1]);
+
+            cmd = new CommandModel(null, null, "/", @"//test");
+            Assert.IsFalse(cmd.IsCommand);
+            Assert.AreEqual("", cmd.Parameter);
+            Assert.AreEqual("/test", cmd.DataArray[0]);
+
+            cmd = new CommandModel(null, null, "/", @"/join blub@conf.nowhere.info ""password with spaces"" ""nickname with spaces""");
+            Assert.IsTrue(cmd.IsCommand);
+            Assert.AreEqual("join", cmd.Command);
+            Assert.AreEqual("blub@conf.nowhere.info", cmd.DataArray[1]);
+            Assert.AreEqual("password with spaces", cmd.DataArray[2]);
+            Assert.AreEqual("nickname with spaces", cmd.DataArray[3]);
+
+            cmd = new CommandModel(null, null, "/", @"/test bla""blub");
+            Assert.IsTrue(cmd.IsCommand);
+            Assert.AreEqual("bla\"blub", cmd.Parameter);
+            Assert.AreEqual("/test", cmd.DataArray[0]);
+            Assert.AreEqual("bla\"blub", cmd.DataArray[1]);
+
+            cmd = new CommandModel(null, null, "/", @"/test ""blub""");
+            Assert.IsTrue(cmd.IsCommand);
+            Assert.AreEqual("\"blub\"", cmd.Parameter);
+            Assert.AreEqual("/test", cmd.DataArray[0]);
+            Assert.AreEqual("blub", cmd.DataArray[1]);
         }
     }
 }
