@@ -126,7 +126,6 @@ namespace Smuxi.Engine
             AutoReconnectDelay = 60;
 
             JabberClient = new XmppClientConnection();
-            JabberClient.Resource = "Smuxi";
             JabberClient.AutoRoster = true;
             JabberClient.AutoPresence = true;
             JabberClient.OnMessage += OnMessage;
