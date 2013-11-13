@@ -131,7 +131,6 @@ namespace Smuxi.Engine
             OpenNewChatOnChatState = true;
 
             JabberClient = new XmppClientConnection();
-            JabberClient.Resource = "Smuxi";
             JabberClient.AutoRoster = true;
             JabberClient.AutoPresence = true;
             JabberClient.OnMessage += OnMessage;
@@ -790,6 +789,7 @@ namespace Smuxi.Engine
             "join muc-jid [password]",
             "part/leave [muc-jid]",
             "away [away-message]",
+            "roster [full]",
             "contact add/remove jid/nick",
             "contact rename jid/nick [newnick]"
             };
