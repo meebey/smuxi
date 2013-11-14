@@ -897,7 +897,6 @@ namespace Smuxi.Engine
                 var person = GetPerson(userResponse.ResponseObject);
                 chat = Session.CreatePersonChat(person, this);
             }
-            Session.AddChat(chat);
 
             var statuses = new List<TwitterStatus>();
             foreach (var user in users) {
@@ -924,6 +923,7 @@ namespace Smuxi.Engine
                     }
                 }
             }
+            Session.AddChat(chat);
             Session.SyncChat(chat);
         }
 
