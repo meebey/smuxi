@@ -15,20 +15,16 @@ Feature Requests not converted to redmine tickets (yet):
 - add marker for disabled pages
 - different identities per server (Salz)
 - overview page, showing all channels and queries on one page (Salz)
-- mark last seen line when switching to other pages and a button to jump it (basher)
+- button to jump to last seen line marker (basher)
 - add sed support to correct the last said line, below the sed line
 - support ^G (beep), option to either flash screen, ignore or play audio/system beep (basher)
 - auto-cleanup query windows after X hours/days of inactivity
 - nickname completion should ignore special characters (darix)
-- normal nick completion should allow multiple tab press to iterate through possible nicks
 - use RedirectChannel / TcpExChannel
-- "/config set" command for preferences
 - DCC receiving and sending (helgi)
 - aliases for commands (/alias slap me slaps $1 with a large trout)
 - use for each server connection a servertab and group
   the channels within them (Tobias Schlitt)
 - smuxi cocoa frontend (Alexander Wirt)
-- smuxi text frontend (ncurses based? probably better: SWC)
-- scripting/plugins C#/Perl/Python/PHP
 - traffic status, showing how much messages per second are written in that
 channel (showing it in the tab as pixmap) (Salz)
