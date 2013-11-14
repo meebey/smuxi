@@ -1,16 +1,9 @@
-/**
- * $Id$
- * $URL$
- * $Rev$
- * $Author$
- * $Date$
- */
 
 For checking known bugs, please visit:
-http://smuxi.meebey.net/cgi-bin/trac/trac.cgi/query?status=new&status=assigned&status=reopened&type=defect&order=id&desc=1
+https://www.smuxi.org/projects/smuxi/issues?set_filter=1&tracker_id=1
 
 For checking known feature requests, please visit:
-http://smuxi.meebey.net/cgi-bin/trac/trac.cgi/query?status=new&status=assigned&status=reopened&type=enhancement&order=id&desc=1
+https://www.smuxi.org/projects/smuxi/issues?set_filter=1&tracker_id=2
 
 For reporting a new bugs or feature request, please visit:
-http://smuxi.meebey.net/cgi-bin/trac/trac.cgi/newticket
+https://www.smuxi.org/projects/smuxi/issues/new
