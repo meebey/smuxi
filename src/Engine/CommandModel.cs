@@ -30,6 +30,7 @@ using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 using Smuxi.Common;
+using System.Text.RegularExpressions;
 
 namespace Smuxi.Engine
 {
@@ -101,21 +102,15 @@ namespace Smuxi.Engine
             Trace.Call(fm, chat == null ? "(null)" : chat.GetType().ToString(), cmdChar, data);
             
             _Data = data;
-            _DataArray = data.Split(new char[] {' '});
-            _Parameter = String.Join(" ", _DataArray, 1, _DataArray.Length - 1);
             _CommandCharacter = cmdChar;
-            if (data.StartsWith(cmdChar) &&
-                !data.StartsWith(cmdChar + cmdChar)) {
-                _IsCommand = true;
-                _Command = (_DataArray[0].Length > cmdChar.Length) ?
-                                _DataArray[0].Substring(cmdChar.Length).ToLower() :
-                                String.Empty;
-            } else if (data.StartsWith(cmdChar + cmdChar)) {
-                _Data = data.Substring(cmdChar.Length);
-                _DataArray[0] = _DataArray[0].Substring(cmdChar.Length);
-            }
             _FrontendManager = fm;
             _Chat = chat;
+
+            try {
+                EnhancedParse(data);
+            } catch (FormatException) {
+                SimpleParse(data);
+            }
         }
         
         public CommandModel(FrontendManager fm, ChatModel chat, string parameter) :
@@ -170,6 +165,56 @@ namespace Smuxi.Engine
         public string ToTraceString()
         {
             return _Data;
+        }
+
+        void EnhancedParse(string data)
+        {
+            string regex = Regex.Escape(_CommandCharacter);
+            regex += "(?<command>[a-z]+)"; // commands can only contain english keyboard letters
+            string quoted_parameter = @"            ""(?<parameters>[^""]*)""";
+            string normal_parameter = @"            (?<parameters>[^ ]+)";
+            string parameters = @"            ( +(" + quoted_parameter + "|" + normal_parameter + "))*";
+            regex += parameters + " *"; // may end with spaces
+            regex = "^" + regex + "$"; // parse full string
+            var match = Regex.Match(data, regex, RegexOptions.IgnoreCase);
+
+            if (data.Contains(" ")) {
+                _Parameter = data.Substring(data.IndexOf(' ') + 1);
+            } else {
+                _Parameter = "";
+            }
+            if (match.Success) {
+                _IsCommand = true;
+                _Command = match.Groups["command"].Value;
+                var list = new List<string>();
+                list.Add(_CommandCharacter + _Command);
+                foreach (Capture cap in match.Groups["parameters"].Captures) {
+                    list.Add(cap.Value);
+                }
+                _DataArray = list.ToArray();
+            } else {
+                if (data.StartsWith(_CommandCharacter + _CommandCharacter)) {
+                    _Data = data.Substring(_CommandCharacter.Length);
+                } else if (data.StartsWith(_CommandCharacter)) {
+                    throw new FormatException("command could not be parsed by command regex, regex must be broken");
+                }
+                _DataArray = new string[1];
+                _DataArray[0] = _Data;
+            }
+        }
+
+        void SimpleParse(string data)
+        {
+            _DataArray = data.Split(new char[] {' '});
+            _Parameter = String.Join(" ", _DataArray, 1, _DataArray.Length - 1);
+            if (data.StartsWith(_CommandCharacter) &&
+                !data.StartsWith(_CommandCharacter + _CommandCharacter)) {
+                _Command = (_DataArray [0].Length > _CommandCharacter.Length) ?
+                    _DataArray [0].Substring(_CommandCharacter.Length).ToLower() : String.Empty;
+            } else if (data.StartsWith(_CommandCharacter + _CommandCharacter)) {
+                _Data = data.Substring(_CommandCharacter.Length);
+                _DataArray [0] = _DataArray [0].Substring(_CommandCharacter.Length);
+            }
         }
     }
 }
