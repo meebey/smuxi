@@ -106,7 +106,11 @@ namespace Smuxi.Engine
             _FrontendManager = fm;
             _Chat = chat;
 
-            EnhancedParse(data);
+            try {
+                EnhancedParse(data);
+            } catch (FormatException) {
+                SimpleParse(data);
+            }
         }
         
         public CommandModel(FrontendManager fm, ChatModel chat, string parameter) :
