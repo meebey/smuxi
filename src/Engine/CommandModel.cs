@@ -30,6 +30,7 @@ using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 using Smuxi.Common;
+using System.Text.RegularExpressions;
 
 namespace Smuxi.Engine
 {
@@ -105,7 +106,7 @@ namespace Smuxi.Engine
             _FrontendManager = fm;
             _Chat = chat;
 
-            SimpleParse(data);
+            EnhancedParse(data);
         }
         
         public CommandModel(FrontendManager fm, ChatModel chat, string parameter) :
@@ -160,6 +161,42 @@ namespace Smuxi.Engine
         public string ToTraceString()
         {
             return _Data;
+        }
+
+        void EnhancedParse(string data)
+        {
+            string regex = Regex.Escape(_CommandCharacter);
+            regex += "(?<command>[a-z]+)"; // commands can only contain english keyboard letters
+            string quoted_parameter = @"            ""(?<parameters>[^""]*)""";
+            string normal_parameter = @"            (?<parameters>[^ ]+)";
+            string parameters = @"            ( +(" + quoted_parameter + "|" + normal_parameter + "))*";
+            regex += parameters + " *"; // may end with spaces
+            regex = "^" + regex + "$"; // parse full string
+            var match = Regex.Match(data, regex, RegexOptions.IgnoreCase);
+
+            if (data.Contains(" ")) {
+                _Parameter = data.Substring(data.IndexOf(' ') + 1);
+            } else {
+                _Parameter = "";
+            }
+            if (match.Success) {
+                _IsCommand = true;
+                _Command = match.Groups["command"].Value;
+                var list = new List<string>();
+                list.Add(_CommandCharacter + _Command);
+                foreach (Capture cap in match.Groups["parameters"].Captures) {
+                    list.Add(cap.Value);
+                }
+                _DataArray = list.ToArray();
+            } else {
+                if (data.StartsWith(_CommandCharacter + _CommandCharacter)) {
+                    _Data = data.Substring(_CommandCharacter.Length);
+                } else if (data.StartsWith(_CommandCharacter)) {
+                    throw new FormatException("command could not be parsed by command regex, regex must be broken");
+                }
+                _DataArray = new string[1];
+                _DataArray[0] = _Data;
+            }
         }
 
         void SimpleParse(string data)
