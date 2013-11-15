@@ -101,21 +101,11 @@ namespace Smuxi.Engine
             Trace.Call(fm, chat == null ? "(null)" : chat.GetType().ToString(), cmdChar, data);
             
             _Data = data;
-            _DataArray = data.Split(new char[] {' '});
-            _Parameter = String.Join(" ", _DataArray, 1, _DataArray.Length - 1);
             _CommandCharacter = cmdChar;
-            if (data.StartsWith(cmdChar) &&
-                !data.StartsWith(cmdChar + cmdChar)) {
-                _IsCommand = true;
-                _Command = (_DataArray[0].Length > cmdChar.Length) ?
-                                _DataArray[0].Substring(cmdChar.Length).ToLower() :
-                                String.Empty;
-            } else if (data.StartsWith(cmdChar + cmdChar)) {
-                _Data = data.Substring(cmdChar.Length);
-                _DataArray[0] = _DataArray[0].Substring(cmdChar.Length);
-            }
             _FrontendManager = fm;
             _Chat = chat;
+
+            SimpleParse(data);
         }
         
         public CommandModel(FrontendManager fm, ChatModel chat, string parameter) :
@@ -170,6 +160,20 @@ namespace Smuxi.Engine
         public string ToTraceString()
         {
             return _Data;
+        }
+
+        void SimpleParse(string data)
+        {
+            _DataArray = data.Split(new char[] {' '});
+            _Parameter = String.Join(" ", _DataArray, 1, _DataArray.Length - 1);
+            if (data.StartsWith(_CommandCharacter) &&
+                !data.StartsWith(_CommandCharacter + _CommandCharacter)) {
+                _Command = (_DataArray [0].Length > _CommandCharacter.Length) ?
+                    _DataArray [0].Substring(_CommandCharacter.Length).ToLower() : String.Empty;
+            } else if (data.StartsWith(_CommandCharacter + _CommandCharacter)) {
+                _Data = data.Substring(_CommandCharacter.Length);
+                _DataArray [0] = _DataArray [0].Substring(_CommandCharacter.Length);
+            }
         }
     }
 }
