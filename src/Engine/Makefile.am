@@ -62,8 +62,6 @@ FILES = \
 	TextColorContrast.cs \
 	TextColorPalettes.cs \
 	TextColorTools.cs \
-	UICommand.cs \
-	UICommandContainer.cs \
 	MessageBuffers/Db4oMessageBuffer.cs \
 	MessageBuffers/IMessageBuffer.cs \
 	MessageBuffers/ListMessageBuffer.cs \

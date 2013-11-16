@@ -51,8 +51,6 @@
     <Compile Include="Session.cs" />
     <Compile Include="SessionManager.cs" />
     <Compile Include="TextColor.cs" />
-    <Compile Include="UICommand.cs" />
-    <Compile Include="UICommandContainer.cs" />
     <Compile Include="Messages\MessageModel.cs" />
     <Compile Include="Messages\MessagePartModel.cs" />
     <Compile Include="Messages\TextMessagePartModel.cs" />
