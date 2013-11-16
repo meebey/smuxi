@@ -171,9 +171,9 @@ namespace Smuxi.Engine
         {
             string regex = Regex.Escape(_CommandCharacter);
             regex += "(?<command>[a-z]+)"; // commands can only contain english keyboard letters
-            string quoted_parameter = @"            ""(?<parameters>[^""]*)""";
-            string normal_parameter = @"            (?<parameters>[^ ]+)";
-            string parameters = @"            ( +(" + quoted_parameter + "|" + normal_parameter + "))*";
+            string quoted_parameter = @"""(?<parameters>[^""]*)""";
+            string normal_parameter = @"(?<parameters>[^ ]+)";
+            string parameters = @"( +(" + quoted_parameter + "|" + normal_parameter + "))*";
             regex += parameters + " *"; // may end with spaces
             regex = "^" + regex + "$"; // parse full string
             var match = Regex.Match(data, regex, RegexOptions.IgnoreCase);
