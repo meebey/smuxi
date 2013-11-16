@@ -17,6 +17,7 @@ script:
     - nunit-console bin/release/smuxi-frontend-gnome-tests.dll
     - nunit-console bin/release/smuxi-frontend-stfl-tests.dll
     - chronic make clean && chronic make distcheck MCS=/usr/bin/dmcs
+    - fakeroot debian/rules binary
 
 notifications:
     irc:
