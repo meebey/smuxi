@@ -42,6 +42,7 @@ EXTRA_DIST =	install-sh \
 		expansions.m4 \
 		mono.m4 \
 		programs.m4 \
+		HACKING \
 		LICENSE \
 		README.md \
 		CREDITS \
