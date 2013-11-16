@@ -6,7 +6,7 @@ before_install:
 install:
     - sudo apt-get update > /dev/null
     - sudo apt-get build-dep smuxi > /dev/null
-    - sudo apt-get install mono-devel nunit-console moreutils > /dev/null
+    - sudo apt-get install quilt mono-devel nunit-console moreutils > /dev/null
 
 script:
     - ./autogen.sh MCS=/usr/bin/dmcs
