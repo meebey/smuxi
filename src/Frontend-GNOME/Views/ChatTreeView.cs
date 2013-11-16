@@ -338,6 +338,8 @@ namespace Smuxi.Frontend.Gnome
                 // found a parent \o/
                 TreeStore.Remove(ref iter);
                 TreeStore.AppendValues(parentIter, orphan);
+                var parentPath = TreeStore.GetPath(parentIter);
+                ExpandRow(parentPath, true);
             } while (TreeStore.IterNext(ref iter));
         }
 
