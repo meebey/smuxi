@@ -2572,11 +2572,8 @@ namespace Smuxi.Engine
             }
 
             Me = new PersonModel(
-                String.Format("{0}@{1}",
-                    JabberClient.Username,
-                    JabberClient.Server
-                ),
-                JabberClient.Username,
+                JabberClient.MyJID.Bare,
+                Nicknames[0],
                 NetworkID, Protocol, this
             );
             Me.IdentityNameColored.ForegroundColor = new TextColor(0, 0, 255);
