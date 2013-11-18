@@ -1168,11 +1168,16 @@ namespace Smuxi.Engine
             if (nickname == null) {
                 nickname = Nicknames[0];
             }
-            MucManager.JoinRoom(jid, nickname, password);
             if (chat == null) {
                 chat = Session.CreateChat<XmppGroupChatModel>(jid, jid, this);
                 Session.AddChat(chat);
             }
+            if (chat.IsJoining) {
+                // double call to JoinRoom
+                return;
+            }
+            chat.IsJoining = true;
+            MucManager.JoinRoom(jid, nickname, password);
             if (password != null) {
                 chat.Password = password;
             }
@@ -1863,6 +1868,7 @@ namespace Smuxi.Engine
 
                     // did I join? then the chat roster is fully received
                     if (pres.From.Resource == chat.OwnNickname) {
+                        chat.IsJoining = false;
                         // HACK: lower probability of sync race condition swallowing messages
                         ThreadPool.QueueUserWorkItem(delegate {
                             Thread.Sleep(1000);
@@ -2499,6 +2505,15 @@ namespace Smuxi.Engine
             RequestCapabilities(JabberClient.Server, JabberClient.Server);
 
             OnConnected(EventArgs.Empty);
+            foreach (var chat in Chats) {
+                if (chat is PersonChatModel) {
+                    Session.EnableChat(chat);
+                    Session.SyncChat(chat);
+                } else if (chat is XmppGroupChatModel) {
+                    var muc = (XmppGroupChatModel)chat;
+                    JoinRoom(muc.ID, muc.OwnNickname, muc.Password);
+                }
+            }
         }
 
         [MethodImpl(MethodImplOptions.Synchronized)]
