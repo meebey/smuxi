@@ -1416,18 +1416,26 @@ namespace Smuxi.Engine
 
             if (server.OnConnectCommands != null && server.OnConnectCommands.Count > 0) {
                 protocolManager.Connected += delegate {
-                    foreach (string command in server.OnConnectCommands) {
-                        if (command.Length == 0) {
-                            continue;
+                    ThreadPool.QueueUserWorkItem(delegate {
+                        try {
+                            foreach (string command in server.OnConnectCommands) {
+                                if (command.Length == 0) {
+                                    continue;
+                                }
+                                CommandModel cd = new CommandModel(
+                                    frontendManager,
+                                    protocolManager.Chat,
+                                    (string) _UserConfig["Interface/Entry/CommandCharacter"],
+                                    command
+                                );
+                                protocolManager.Command(cd);
+                            }
+                        } catch (Exception ex) {
+#if LOG4NET
+                            f_Logger.Error("Connected event: Exception", ex);
+#endif
                         }
-                        CommandModel cd = new CommandModel(
-                            frontendManager,
-                            protocolManager.Chat,
-                            (string) _UserConfig["Interface/Entry/CommandCharacter"],
-                            command
-                        );
-                        protocolManager.Command(cd);
-                    }
+                    });
                 };
             }
 
