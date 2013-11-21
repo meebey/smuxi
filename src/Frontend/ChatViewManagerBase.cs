@@ -1,13 +1,7 @@
 /*
- * $Id: AboutDialog.cs 122 2006-04-26 19:31:42Z meebey $
- * $URL: svn+ssh://svn.qnetp.net/svn/smuxi/smuxi/trunk/src/Frontend-GNOME/AboutDialog.cs $
- * $Rev: 122 $
- * $Author: meebey $
- * $Date: 2006-04-26 21:31:42 +0200 (Wed, 26 Apr 2006) $
- *
  * Smuxi - Smart MUltipleXed Irc
  *
- * Copyright (c) 2005-2007 Mirco Bauer <meebey@meebey.net>
+ * Copyright (c) 2005-2007, 2010-2013 Mirco Bauer <meebey@meebey.net>
  *
  * Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
  *
@@ -57,10 +51,23 @@ namespace Smuxi.Frontend
         
         private Type _GetChatViewType(ChatType chatType, Type protocolManagerType)
         {
-            foreach (ChatViewInfoAttribute info in _ChatViewTypes.Keys) {
+            // exact or any (null) match
+            foreach (var info in _ChatViewTypes.Keys) {
                 if (info.ChatType == chatType &&
                     info.ProtocolManagerType == protocolManagerType) {
                     return _ChatViewTypes[info];
+                }
+            }
+            if (protocolManagerType != null) {
+                // subclass only match
+                foreach (var info in _ChatViewTypes.Keys) {
+                    if (info.ProtocolManagerType == null) {
+                        continue;
+                    }
+                    if (info.ChatType == chatType &&
+                        protocolManagerType.IsSubclassOf(info.ProtocolManagerType)) {
+                        return _ChatViewTypes[info];
+                    }
                 }
             }
             return null;
