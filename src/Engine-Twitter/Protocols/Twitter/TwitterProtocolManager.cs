@@ -322,7 +322,6 @@ namespace Smuxi.Engine
                         fm.UpdateNetworkStatus();
                         fm.SetStatus(message);
                     }
-                    OnConnected(EventArgs.Empty);
 
                     msg = CreateMessageBuilder().
                         AppendEventPrefix().AppendText(message).ToMessage();
@@ -332,6 +331,9 @@ namespace Smuxi.Engine
                     f_FriendsTimelineChat.PersonCount = 
                     f_RepliesChat.PersonCount = 
                     f_DirectMessagesChat.PersonCount = (int) f_TwitterUser.NumberOfFriends;
+
+                    OnConnected(EventArgs.Empty);
+
                 } catch (Exception ex) {
                     var message = _("Failed to fetch user details from Twitter. Reason: ");
 #if LOG4NET
@@ -895,7 +897,6 @@ namespace Smuxi.Engine
                 var person = GetPerson(userResponse.ResponseObject);
                 chat = Session.CreatePersonChat(person, this);
             }
-            Session.AddChat(chat);
 
             var statuses = new List<TwitterStatus>();
             foreach (var user in users) {
@@ -922,6 +923,7 @@ namespace Smuxi.Engine
                     }
                 }
             }
+            Session.AddChat(chat);
             Session.SyncChat(chat);
         }
 
