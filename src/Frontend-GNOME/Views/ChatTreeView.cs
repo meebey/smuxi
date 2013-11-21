@@ -76,6 +76,8 @@ namespace Smuxi.Frontend.Gnome
             Model = TreeStore;
             HeadersVisible = false;
             BorderWidth = 0;
+            ShowExpanders = false;
+            LevelIndentation = 12;
             Selection.Mode = Gtk.SelectionMode.Browse;
             Selection.Changed += (sender, e) => {
                 Gtk.TreeIter iter;
