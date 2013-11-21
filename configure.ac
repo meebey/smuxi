@@ -323,17 +323,25 @@ AC_ARG_WITH([dbus],
 	with_dbus=auto
 )
 WITH_DBUS=$with_dbus
-PKG_CHECK_EXISTS([dbus-sharp-1.0], DBUS_SHARP_SUPPORT=yes, DBUS_SHARP_SUPPORT=no)
+PKG_CHECK_EXISTS([dbus-sharp-1.0], DBUS_SHARP1_SUPPORT=yes, DBUS_SHARP1_SUPPORT=no)
+PKG_CHECK_EXISTS([dbus-sharp-2.0], DBUS_SHARP2_SUPPORT=yes, DBUS_SHARP2_SUPPORT=no)
 PKG_CHECK_EXISTS([ndesk-dbus-1.0], NDESK_DBUS_SUPPORT=yes, NDESK_DBUS_SUPPORT=no)
 if test "x$WITH_DBUS" = "xauto"; then
-	if test "x$DBUS_SHARP_SUPPORT" = "xyes"; then
-		WITH_DBUS=$DBUS_SHARP_SUPPORT
+	if test "x$DBUS_SHARP1_SUPPORT" = "xyes"; then
+		WITH_DBUS=$DBUS_SHARP1_SUPPORT
+	elif test "x$DBUS_SHARP2_SUPPORT" = "xyes"; then
+		WITH_DBUS=$DBUS_SHARP2_SUPPORT
 	else
 		WITH_DBUS=$NDESK_DBUS_SUPPORT
 	fi
 fi
 if test "x$WITH_DBUS" = "xyes"; then
-	if test "x$DBUS_SHARP_SUPPORT" = "xyes"; then
+	if test "x$DBUS_SHARP2_SUPPORT" = "xyes"; then
+		PKG_CHECK_MODULES([DBUS_SHARP], [dbus-sharp-2.0])
+		PKG_CHECK_MODULES([DBUS_SHARP_GLIB], [dbus-sharp-glib-2.0])
+		AC_SUBST([DBUS_LIBS], "$DBUS_SHARP_LIBS $DBUS_SHARP_GLIB_LIBS")
+		CSC_FLAGS+=" -define:IPC_DBUS -define:DBUS_SHARP"
+	elif test "x$DBUS_SHARP1_SUPPORT" = "xyes"; then
 		PKG_CHECK_MODULES([DBUS_SHARP], [dbus-sharp-1.0])
 		PKG_CHECK_MODULES([DBUS_SHARP_GLIB], [dbus-sharp-glib-1.0])
 		AC_SUBST([DBUS_LIBS], "$DBUS_SHARP_LIBS $DBUS_SHARP_GLIB_LIBS")
