@@ -81,7 +81,9 @@ namespace Smuxi.Frontend.Gnome
             Selection.Mode = Gtk.SelectionMode.Browse;
             Selection.Changed += (sender, e) => {
                 Gtk.TreeIter iter;
-                if (!Selection.GetSelected(out iter)) {
+                if (!Selection.GetSelected(out iter) &&
+                    TreeStore.GetIterFirst(out iter)) {
+                    Selection.SelectIter(iter);
                     return;
                 }
                 var path = TreeStore.GetPath(iter);
