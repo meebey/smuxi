@@ -23,7 +23,8 @@
 using System.Reflection;
 
 [assembly: AssemblyTitle("Smuxi - Twitter support for GNOME frontend")]
-[assembly: AssemblyCopyright("2013 (C) Andrés G. Aragoneses <knocte@gmail.com>")]
+[assembly: AssemblyCopyright("2013 (C) Andrés G. Aragoneses <knocte@gmail.com>, " +
+                             "2013 (C) Mirco Bauer <meebey@meebey.net>")]
 
 [assembly: AssemblyDelaySign(false)]
 [assembly: AssemblyKeyFile("")]
