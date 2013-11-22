@@ -157,7 +157,7 @@ namespace Smuxi.Frontend.Gnome
             }
 
             var iter = FindChatIter(chatView);
-            var path = TreeStore.GetPath(iter);
+            //var path = TreeStore.GetPath(iter);
             //TreeStore.EmitRowChanged(path, iter);
             // HACK: this emits row_changed _and_ sort_iter_changed and there is
             // no other public API in GTK+ to trigger a resort of a modified
