@@ -33,6 +33,7 @@ namespace Smuxi.Frontend.Gnome
 
         public TwitterGroupChatView(GroupChatModel groupChat) : base(groupChat)
         {
+            Trace.Call(groupChat);
         }
 
         protected override void OnPersonMenuShown(object sender, EventArgs e)
