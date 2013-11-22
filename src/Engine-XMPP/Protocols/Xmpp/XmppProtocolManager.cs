@@ -360,6 +360,11 @@ namespace Smuxi.Engine
             return status;
         }
 
+        DiscoItems ServerDiscoItems { get; set; }
+        List<Jid> CachedMucJids { get; set; }
+        Dictionary<Jid, DiscoInfo> CachedMucInfo { get; set; }
+        DateTime CachedMucJidsTimeStamp { get; set; }
+
         // no need to synchronize this method as it only checks for null
         public override IList<GroupChatModel> FindGroupChats(GroupChatModel filter)
         {
@@ -369,7 +374,181 @@ namespace Smuxi.Engine
             if (ContactChat == null) {
                 list.Add(new GroupChatModel("Contacts", "Contacts", this));
             }
+
+            // find all transport/conference groups/whatnot
+            DiscoItem[] discoItems;
+            if (ServerDiscoItems == null) {
+                var reset = new AutoResetEvent(false);
+                lock (this) {
+                    Disco.DiscoverItems(JabberClient.Server, (sender, e) => FindGroupChatsDiscoItems(e, reset));
+                }
+                reset.WaitOne();
+            }
+            lock (this) {
+                if (ServerDiscoItems == null) {
+                    return list;
+                } else {
+                    discoItems = ServerDiscoItems.GetDiscoItems();
+                }
+            }
+
+            var resetList = new List<AutoResetEvent>();
+
+            if ((CachedMucJids == null) ||
+                ((DateTime.Now - CachedMucJidsTimeStamp) > TimeSpan.FromMinutes(5))) {
+                // find all conference groups
+                var mucList = new List<Jid>();
+                foreach (var discoItem in discoItems) {
+                    var reset = new AutoResetEvent(false);
+                    var jid = discoItem.Jid;
+                    lock (this) {
+                        Disco.DiscoverInformation(discoItem.Jid, (sender, e) => FindGroupChatsItemDiscoInfo(e, reset, mucList, jid));
+                    }
+                    resetList.Add(reset);
+                }
+                foreach (var reset in resetList) {
+                    reset.WaitOne();
+                }
+                resetList.Clear();
+
+                // find all chats in all conference groups
+                var jidList = new List<Jid>();
+                foreach (var mucGroup in mucList) {
+                    var reset = new AutoResetEvent(false);
+                    lock (this) {
+                        Disco.DiscoverItems(mucGroup, (sender, e) => FindGroupChatsDiscoMucs(e, reset, jidList));
+                    }
+                    resetList.Add(reset);
+                }
+                foreach (var reset in resetList) {
+                    reset.WaitOne();
+                }
+                CachedMucJids = jidList;
+                CachedMucJidsTimeStamp = DateTime.Now;
+                CachedMucInfo = new Dictionary<Jid, DiscoInfo>();
+            }
+
+            // filter found items
+            var filteredList = new List<Jid>();
+            if (filter == null || String.IsNullOrEmpty(filter.Name)) {
+                filteredList = CachedMucJids;
+            } else {
+                string searchPattern = null;
+                if (!filter.Name.StartsWith("*") && !filter.Name.EndsWith("*")) {
+                    searchPattern = String.Format("*{0}*", filter.Name);
+                } else {
+                    searchPattern = filter.Name;
+                }
+                foreach (var jid in CachedMucJids) {
+                    if (!Pattern.IsMatch(jid, searchPattern)) {
+                        continue;
+                    }
+                    filteredList.Add(jid);
+                }
+            }
+
+            // get info on all chats matching the pattern
+            resetList.Clear();
+            foreach (var jid in CachedMucJids) {
+                bool isCached = false;
+                DiscoInfo info;
+                lock (this) {
+                    isCached = CachedMucInfo.TryGetValue(jid, out info);
+                }
+                if (isCached) {
+                    FindGroupChatsChatInfoParse(jid, info, list);
+                    continue;
+                }
+                var reset = new AutoResetEvent(false);
+                lock (this) {
+                    Disco.DiscoverInformation(jid, (sender, e) => FindGroupChatsChatInfo(e, reset, list));
+                }
+                resetList.Add(reset);
+            }
+            foreach (var reset in resetList) {
+                reset.WaitOne();
+            }
             return list;
+        }
+
+        void FindGroupChatsChatInfoParse(Jid jid, DiscoInfo items, List<GroupChatModel> list)
+        {
+            var ident = items.SelectSingleElement<DiscoIdentity>();
+            string name;
+            if (ident != null && !String.IsNullOrEmpty(ident.Name)) {
+                name = ident.Name + " [" + jid + "]";
+            } else {
+                name = jid;
+            }
+            var chat = new GroupChatModel(jid, name, null);
+            chat.PersonCount = -1;
+            var x = items.SelectSingleElement<agsXMPP.protocol.x.data.Data>();
+            if (x != null) {
+                var users_field = x.GetField("muc#roominfo_occupants");
+                var topic_field = x.GetField("muc#roominfo_subject");
+                var desc_field = x.GetField("muc#roominfo_description");
+                if (users_field != null) {
+                    chat.PersonCount = int.Parse(users_field.GetValue());
+                }
+                if (topic_field != null) {
+                    chat.Topic = new MessageModel(topic_field.GetValue());
+                } else if (desc_field != null) {
+                    chat.Topic = new MessageModel(desc_field.GetValue());
+                }
+            }
+            lock (list) {
+                list.Add(chat);
+            }
+        }
+
+        void FindGroupChatsChatInfo(IQEventArgs e, AutoResetEvent reset, List<GroupChatModel> list)
+        {
+            if (e.IQ.Error == null) {
+                var items = (DiscoInfo)e.IQ.Query;
+                lock (this) {
+                    CachedMucInfo[e.IQ.From] = items;
+                }
+                FindGroupChatsChatInfoParse(e.IQ.From, items, list);
+            }
+            e.Handled = true;
+            reset.Set();
+        }
+
+        void FindGroupChatsDiscoMucs(IQEventArgs e, AutoResetEvent reset, List<Jid> list)
+        {
+            if (e.IQ.Error == null) {
+                var items = (DiscoItems)e.IQ.Query;
+                foreach (var item in items.GetDiscoItems()) {
+                    // no locking required, these callbacks are sequential
+                    list.Add(item.Jid);
+                }
+            }
+            e.Handled = true;
+            reset.Set();
+        }
+
+        void FindGroupChatsItemDiscoInfo(IQEventArgs e, AutoResetEvent reset, List<Jid> mucList, Jid jid)
+        {
+            if (e.IQ.Error == null) {
+                var discoInfo = (DiscoInfo)e.IQ.Query;
+                if (discoInfo.HasFeature(agsXMPP.Uri.MUC)) {
+                    // no locking required, these callbacks are sequential
+                    mucList.Add(jid);
+                }
+            }
+            e.Handled = true;
+            reset.Set();
+        }
+
+        void FindGroupChatsDiscoItems(IQEventArgs e, AutoResetEvent reset)
+        {
+            if (e.IQ.Error == null) {
+                lock (this) {
+                    ServerDiscoItems = (DiscoItems)e.IQ.Query;
+                }
+            }
+            e.Handled = true;
+            reset.Set();
         }
 
         [MethodImpl(MethodImplOptions.Synchronized)]
@@ -1406,20 +1585,21 @@ namespace Smuxi.Engine
 #endif
                 return;
             }
-            DiscoCache[hash] = e.IQ.Query as DiscoInfo;
+            var info = (DiscoInfo)e.IQ.Query;
+            DiscoCache[hash] = info;
             e.Handled = true;
             if (String.IsNullOrEmpty(e.IQ.From.User)) {
                 // server capabilities
                 var builder = CreateMessageBuilder();
                 builder.AppendText("The Server supports the following features: ");
                 Session.AddMessageToChat(NetworkChat, builder.ToMessage());
-                foreach ( var feature in (e.IQ.Query as DiscoInfo).GetFeatures()) {
+                foreach (var feature in info.GetFeatures()) {
                     builder = CreateMessageBuilder();
                     builder.AppendText(feature.Var);
                     Session.AddMessageToChat(NetworkChat, builder.ToMessage());
                 }
             } else {
-                AddCapabilityToResource(e.IQ.From, e.IQ.Query as DiscoInfo);
+                AddCapabilityToResource(e.IQ.From, info);
             }
         }
 
@@ -2309,9 +2489,7 @@ namespace Smuxi.Engine
             builder.AppendEventPrefix();
             builder.AppendText(_("Authenticated"));
             Session.AddMessageToChat(Chat, builder.ToMessage());
-            if (JabberClient.ServerCapabilities != null) {
-                RequestCapabilities(JabberClient.MyJID.Server, JabberClient.ServerCapabilities.Version);
-            }
+            RequestCapabilities(JabberClient.Server, JabberClient.Server);
 
             OnConnected(EventArgs.Empty);
         }
