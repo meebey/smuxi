@@ -993,7 +993,9 @@ namespace Smuxi.Engine
             }
             CheckResponse(res);
             var person = CreatePerson(res.ResponseObject);
-            Session.AddPersonToGroupChat(chat, person);
+            if (chat.GetPerson(person.ID) == null) {
+                Session.AddPersonToGroupChat(chat, person);
+            }
         }
 
         public void CommandUnfollow(CommandModel cmd)
