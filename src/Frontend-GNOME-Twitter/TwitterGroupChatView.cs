@@ -57,6 +57,10 @@ namespace Smuxi.Frontend.Gnome
             }
 
             if (Frontend.EngineVersion >= new Version(0, 10)) {
+                item = new Gtk.ImageMenuItem(_("Timeline"));
+                item.Activated += OnUserListMenuTimelineActivated;
+                PersonMenu.Append(item);
+
                 if (ID == TwitterChatType.FriendsTimeline.ToString()) {
                     item = new Gtk.ImageMenuItem(_("Unfollow"));
                     item.Activated += OnUserListMenuUnfollowActivated;
@@ -139,6 +143,33 @@ namespace Smuxi.Frontend.Gnome
                 ThreadPool.QueueUserWorkItem(delegate {
                     try {
                         TwitterProtocolManager.CommandMessage(
+                            new CommandModel(
+                                Frontend.FrontendManager,
+                                ChatModel,
+                                per.IdentityName
+                            )
+                        );
+                    } catch (Exception ex) {
+                        Frontend.ShowException(ex);
+                    }
+                });
+            }
+        }
+
+        void OnUserListMenuTimelineActivated(object sender, EventArgs e)
+        {
+            Trace.Call(sender, e);
+
+            var persons = GetSelectedPersons();
+            if (persons == null) {
+                return;
+            }
+
+            foreach (var person in persons) {
+                var per = person;
+                ThreadPool.QueueUserWorkItem(delegate {
+                    try {
+                        TwitterProtocolManager.CommandTimeline(
                             new CommandModel(
                                 Frontend.FrontendManager,
                                 ChatModel,
