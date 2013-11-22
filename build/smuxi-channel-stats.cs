@@ -17,7 +17,6 @@ class MainClass
 		client.Login("smuxi-bot", "smuxi bot");
 		client.OnRegistered += delegate {
 			client.RfcJoin("#smuxi");
-			client.RfcJoin("#smuxi-devel");
 		};
 		
 		var client2 = new IrcClient() {
@@ -29,6 +28,7 @@ class MainClass
 		client2.Login("smuxi-bot", "smuxi bot");
 		client2.OnRegistered += delegate {
 			client2.RfcJoin("#smuxi");
+			client2.RfcJoin("#smuxi-devel");
 		};
 
 		var timer = new Timer(delegate {
@@ -42,9 +42,9 @@ class MainClass
 				client2.RfcJoin("#smuxi");
 				return;
 			}
-			var chan3 = client.GetChannel("#smuxi-devel");
+			var chan3 = client2.GetChannel("#smuxi-devel");
 			if (chan3 == null) {
-				client.RfcJoin("#smuxi-devel");
+				client2.RfcJoin("#smuxi-devel");
 				return;
 			}
 			// filter duplicates and clones
