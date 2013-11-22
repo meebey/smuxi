@@ -61,6 +61,10 @@ namespace Smuxi.Frontend.Gnome
                     item = new Gtk.ImageMenuItem(_("Unfollow"));
                     item.Activated += OnUserListMenuUnfollowActivated;
                     PersonMenu.Append(item);
+                } else {
+                    item = new Gtk.ImageMenuItem(_("Follow"));
+                    item.Activated += OnUserListMenuFollowActivated;
+                    PersonMenu.Append(item);
                 }
             }
 
@@ -81,6 +85,33 @@ namespace Smuxi.Frontend.Gnome
                 ThreadPool.QueueUserWorkItem(delegate {
                     try {
                         TwitterProtocolManager.CommandUnfollow(
+                            new CommandModel(
+                                Frontend.FrontendManager,
+                                ChatModel,
+                                per.ID
+                            )
+                        );
+                    } catch (Exception ex) {
+                        Frontend.ShowException(ex);
+                    }
+                });
+            }
+        }
+
+        void OnUserListMenuFollowActivated(object sender, EventArgs e)
+        {
+            Trace.Call(sender, e);
+
+            var persons = GetSelectedPersons();
+            if (persons == null) {
+                return;
+            }
+
+            foreach (var person in persons) {
+                var per = person;
+                ThreadPool.QueueUserWorkItem(delegate {
+                    try {
+                        TwitterProtocolManager.CommandFollow(
                             new CommandModel(
                                 Frontend.FrontendManager,
                                 ChatModel,
