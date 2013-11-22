@@ -886,7 +886,7 @@ namespace Smuxi.Engine
             string keyword = cmd.Parameter;
             string[] users = cmd.Parameter.Split(',');
 
-            string chatName = users.Length > 1 ? _("Other timelines") : users[0];
+            string chatName = users.Length > 1 ? _("Other timelines") : "@" + users[0];
             ChatModel chat;
 
             if (users.Length > 1) {
@@ -895,7 +895,8 @@ namespace Smuxi.Engine
                 var userResponse = TwitterUser.Show(f_OAuthTokens, users [0], f_OptionalProperties);
                 CheckResponse(userResponse);
                 var person = GetPerson(userResponse.ResponseObject);
-                chat = Session.CreatePersonChat(person, this);
+                chat = Session.CreatePersonChat(person, person.ID + "/timeline",
+                                                chatName, this);
             }
 
             var statuses = new List<TwitterStatus>();
