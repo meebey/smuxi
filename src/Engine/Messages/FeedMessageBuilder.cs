@@ -47,21 +47,7 @@ namespace Smuxi.Engine
 
         string HtmlToText(string html)
         {
-            if (html.Contains("\n")) {
-                var normalized = new StringBuilder(html.Length);
-                html = html.Replace("\r\n", "\n");
-                foreach (var htmlPart in html.Split('\n')) {
-                    var trimmed = htmlPart.TrimEnd(' ');
-                    if (trimmed.Length == 0) {
-                        // skip empty lines
-                        continue;
-                    }
-                    normalized.AppendFormat("{0} ", trimmed);
-                }
-                // remove trailing space
-                normalized.Length--;
-                html = normalized.ToString();
-            }
+            html = NormalizeNewlines(html);
             // strip all HTML tags
             var text = Regex.Replace(html, "<[^>]+>", String.Empty);
             // strip leading and trailing whitespace
