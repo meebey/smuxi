@@ -632,8 +632,7 @@ namespace Smuxi.Engine
                 } else if (nodetype == "img") {
                     AppendUrl(node.Attributes.GetNamedItem("src").Value, "[image placeholder - UNIMPLEMENTED]");
                 } else {
-                    model.Text = node.Value.Replace("\r", "").Replace("\n", "");
-                    model.Text = HttpUtility.HtmlDecode(model.Text);
+                    model.Text = HttpUtility.HtmlDecode(node.Value);
                     AppendText(model);
                 }
             }
@@ -641,6 +640,7 @@ namespace Smuxi.Engine
 
         public virtual MessageBuilder AppendHtmlMessage(string html)
         {
+            html = NormalizeNewlines(html);
             XmlDocument doc = new XmlDocument();
             try {
                 // wrap in div to prevent messages beginning with text from failing "to be xml"

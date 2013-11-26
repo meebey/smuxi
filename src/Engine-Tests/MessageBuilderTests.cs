@@ -79,6 +79,27 @@ namespace Smuxi.Engine
         }
 
         [Test]
+        public void AppendHtmlMessageWithNewlines()
+        {
+            var builder = new MessageBuilder();
+            builder.TimeStamp = DateTime.MinValue;
+            string html = "<p>TextA\nTextB<p>\nTextC</p>\n</p>";
+            builder.AppendHtmlMessage(html);
+            var actualMsg = builder.ToMessage();
+
+            builder = new MessageBuilder();
+            builder.TimeStamp = DateTime.MinValue;
+            builder.AppendText("TextA");
+            builder.AppendSpace();
+            builder.AppendText("TextB");
+            builder.AppendSpace();
+            builder.AppendText("TextC");
+
+            var expectedMsg = builder.ToMessage();
+            Assert.AreEqual(expectedMsg, actualMsg);
+        }
+
+        [Test]
         public void AppendHtmlMessageCssFgRed()
         {
             var builder = new MessageBuilder();
