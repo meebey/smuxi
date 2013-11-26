@@ -1,6 +1,6 @@
 // Smuxi - Smart MUltipleXed Irc
 // 
-// Copyright (c) 2010-2012 Mirco Bauer <meebey@meebey.net>
+// Copyright (c) 2010-2013 Mirco Bauer <meebey@meebey.net>
 // Copyright (c) 2013 Oliver Schneider <mail@oli-obk.de>
 // 
 // Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
@@ -784,6 +784,31 @@ namespace Smuxi.Engine
             }
             MessageType = state;
             return this;
+        }
+
+        protected static string NormalizeNewlines(string text)
+        {
+            if (text == null) {
+                throw new ArgumentNullException("text");
+            }
+            if (!text.Contains("\n")) {
+                // nothing to normalize
+                return text;
+            }
+
+            var normalized = new StringBuilder(text.Length);
+            text = text.Replace("\r\n", "\n");
+            foreach (var textPart in text.Split('\n')) {
+                var trimmed = textPart.TrimEnd(' ');
+                if (trimmed.Length == 0) {
+                    // skip empty lines
+                    continue;
+                }
+                normalized.AppendFormat("{0} ", trimmed);
+            }
+            // remove trailing space
+            normalized.Length--;
+            return normalized.ToString();
         }
 
         static string _(string msg)

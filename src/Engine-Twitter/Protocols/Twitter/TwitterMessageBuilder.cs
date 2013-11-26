@@ -83,21 +83,7 @@ namespace Smuxi.Engine
 
         public override MessageBuilder AppendMessage(string msg)
         {
-            if (msg.Contains("\n")) {
-                var normalized = new StringBuilder(msg.Length);
-                msg = msg.Replace("\r\n", "\n");
-                foreach (var msgPart in msg.Split('\n')) {
-                    var trimmed = msgPart.TrimEnd(' ');
-                    if (trimmed.Length == 0) {
-                        // skip empty lines
-                        continue;
-                    }
-                    normalized.AppendFormat("{0} ", trimmed);
-                }
-                // remove trailing space
-                normalized.Length--;
-                msg = normalized.ToString();
-            }
+            msg = NormalizeNewlines(msg);
             return base.AppendMessage(HttpUtility.HtmlDecode(msg));
         }
     }
