@@ -636,6 +636,11 @@ namespace Smuxi.Engine
                             CommandSearch(command);
                             handled = true;
                             break;
+                        case "rt":
+                        case "retweet":
+                            CommandRetweet(command);
+                            handled = true;
+                            break;
                     }
                 }
                 switch (command.Command) {
@@ -688,6 +693,7 @@ namespace Smuxi.Engine
                 "follow screen-name|user-id",
                 "unfollow screen-name|user-id",
                 "search keyword",
+                "retweet/rt tweet-id",
             };
 
             foreach (string line in help) {
@@ -1074,6 +1080,26 @@ namespace Smuxi.Engine
                 }
             }
             Session.SyncChat(chat);
+        }
+
+        public void CommandRetweet(CommandModel cmd)
+        {
+            if (cmd.DataArray.Length < 2) {
+                NotEnoughParameters(cmd);
+                return;
+            }
+
+            decimal statusId;
+            if (!Decimal.TryParse(cmd.Parameter, out statusId)) {
+                return;
+            }
+            var response = TwitterStatus.Retweet(f_OAuthTokens, statusId, f_OptionalProperties);
+            CheckResponse(response);
+            var status = response.ResponseObject;
+            var msg = CreateMessageBuilder().
+                Append(status, GetPerson(status.User)).
+                ToMessage();
+            Session.AddMessageToChat(f_FriendsTimelineChat, msg);
         }
 
         private List<TwitterDirectMessage> SortTimeline(TwitterDirectMessageCollection timeline)
