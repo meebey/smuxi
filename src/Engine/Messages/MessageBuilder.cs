@@ -616,7 +616,14 @@ namespace Smuxi.Engine
             }
             if (node.HasChildNodes) {
                 foreach (XmlNode child in node.ChildNodes) {
-                    ParseHtml(child, submodel);
+                    // clone this model
+                    TextMessagePartModel nextmodel;
+                    if (submodel is UrlMessagePartModel) {
+                        nextmodel = new UrlMessagePartModel(submodel);
+                    } else {
+                        nextmodel = new TextMessagePartModel(submodel);
+                    }
+                    ParseHtml(child, nextmodel);
                 }
             } else {
                 // final node
