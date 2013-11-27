@@ -11,7 +11,9 @@ ifeq ($(LSB_VENDOR) $(LSB_CODENAME), Ubuntu lucid)
 endif
 
 override_dh_auto_configure:
-	NOCONFIGURE=1 NOGIT=1 ./autogen.sh
+	if [ -x ./autogen.sh ]; then \
+		NOCONFIGURE=1 NOGIT=1 ./autogen.sh; \
+	fi
 	dh_auto_configure -- \
 	  --with-vendor-package-version="Debian $(DEB_VERSION)" \
 	  --enable-engine-irc \
