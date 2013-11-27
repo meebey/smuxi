@@ -43,6 +43,63 @@ namespace Smuxi.Engine
         }
 
         [Test]
+        public void AppendHtmlUrlMessage()
+        {
+            var builder = new MessageBuilder();
+            builder.TimeStamp = DateTime.MinValue;
+            string html = @"<a href=""url"">urltext</a>";
+            builder.AppendHtmlMessage(html);
+            var actualMsg = builder.ToMessage();
+
+            builder = new MessageBuilder();
+            builder.TimeStamp = DateTime.MinValue;
+            builder.AppendUrl("url", "urltext");
+
+            var expectedMsg = builder.ToMessage();
+            Assert.AreEqual(expectedMsg, actualMsg);
+        }
+
+        [Test]
+        public void AppendHtmlMessageWithUrls()
+        {
+            var builder = new MessageBuilder();
+            builder.TimeStamp = DateTime.MinValue;
+            string html = @"<p>TextA<a href=""url"">urltext</a>TextB</p>";
+            builder.AppendHtmlMessage(html);
+            var actualMsg = builder.ToMessage();
+
+            builder = new MessageBuilder();
+            builder.TimeStamp = DateTime.MinValue;
+            builder.AppendText("TextA");
+            builder.AppendUrl("url", "urltext");
+            builder.AppendText("TextB");
+
+            var expectedMsg = builder.ToMessage();
+            Assert.AreEqual(expectedMsg, actualMsg);
+        }
+
+        [Test]
+        public void AppendHtmlMessageWithNewlines()
+        {
+            var builder = new MessageBuilder();
+            builder.TimeStamp = DateTime.MinValue;
+            string html = "<p>TextA\nTextB<p>\nTextC</p>\n</p>";
+            builder.AppendHtmlMessage(html);
+            var actualMsg = builder.ToMessage();
+
+            builder = new MessageBuilder();
+            builder.TimeStamp = DateTime.MinValue;
+            builder.AppendText("TextA");
+            builder.AppendSpace();
+            builder.AppendText("TextB");
+            builder.AppendSpace();
+            builder.AppendText("TextC");
+
+            var expectedMsg = builder.ToMessage();
+            Assert.AreEqual(expectedMsg, actualMsg);
+        }
+
+        [Test]
         public void AppendHtmlMessageCssFgRed()
         {
             var builder = new MessageBuilder();
