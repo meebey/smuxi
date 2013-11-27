@@ -641,6 +641,10 @@ namespace Smuxi.Engine
                             CommandRetweet(command);
                             handled = true;
                             break;
+                        case "reply":
+                            CommandReply(command);
+                            handled = true;
+                            break;
                     }
                 }
                 switch (command.Command) {
@@ -694,6 +698,7 @@ namespace Smuxi.Engine
                 "unfollow screen-name|user-id",
                 "search keyword",
                 "retweet/rt tweet-id",
+                "reply tweet-id message",
             };
 
             foreach (string line in help) {
@@ -1100,6 +1105,31 @@ namespace Smuxi.Engine
                 Append(status, GetPerson(status.User)).
                 ToMessage();
             Session.AddMessageToChat(f_FriendsTimelineChat, msg);
+        }
+
+        public void CommandReply(CommandModel cmd)
+        {
+            if (cmd.DataArray.Length < 3) {
+                NotEnoughParameters(cmd);
+                return;
+            }
+
+            decimal statusId;
+            if (!Decimal.TryParse(cmd.DataArray[1], out statusId)) {
+                return;
+            }
+            var response = TwitterStatus.Show(f_OAuthTokens, statusId,
+                                              f_OptionalProperties);
+            CheckResponse(response);
+            var status = response.ResponseObject;
+            var text = String.Join(" ", cmd.DataArray.Skip(2).ToArray());
+            // the screen name must be somewhere in the message for replies
+            if (!text.Contains("@" + status.User.ScreenName)) {
+                text = String.Format("@{0} {1}", status.User.ScreenName, text);
+            }
+            var options = CreateOptions<StatusUpdateOptions>();
+            options.InReplyToStatusId = statusId;
+            PostUpdate(text, options);
         }
 
         private List<TwitterDirectMessage> SortTimeline(TwitterDirectMessageCollection timeline)
@@ -1591,9 +1621,16 @@ namespace Smuxi.Engine
             return options;
         }
 
-        private void PostUpdate(string text)
+        void PostUpdate(string text)
         {
-            var options = CreateOptions<StatusUpdateOptions>();
+            PostUpdate(text, null);
+        }
+
+        void PostUpdate(string text, StatusUpdateOptions options)
+        {
+            if (options == null) {
+                options = CreateOptions<StatusUpdateOptions>();
+            }
             var res = TwitterStatus.Update(f_OAuthTokens, text, options);
             CheckResponse(res);
             f_FriendsTimelineEvent.Set();
