@@ -82,6 +82,9 @@ namespace Smuxi.Engine
         int                     ErrorResponseCount { get; set; }
         const int               MaxErrorResponseCount = 3;
 
+        TwitterStatus[]         StatusIndex { get; set; }
+        int                     StatusIndexOffset { get; set; }
+
         public override string NetworkID {
             get {
                 if (f_TwitterUser == null) {
@@ -148,6 +151,8 @@ namespace Smuxi.Engine
             );
             f_DirectMessagesChat.ApplyConfig(Session.UserConfig);
             f_GroupChats.Add(f_DirectMessagesChat);
+
+            StatusIndex = new TwitterStatus[99];
         }
 
         public override void Connect(FrontendManager fm, ServerModel server)
@@ -697,8 +702,8 @@ namespace Smuxi.Engine
                 "follow screen-name|user-id",
                 "unfollow screen-name|user-id",
                 "search keyword",
-                "retweet/rt tweet-id",
-                "reply tweet-id message",
+                "retweet/rt index-number|tweet-id",
+                "reply index-number|tweet-id message",
             };
 
             foreach (string line in help) {
@@ -924,6 +929,7 @@ namespace Smuxi.Engine
 
             var sortedStatuses = SortTimeline(statuses);
             foreach (var status in sortedStatuses) {
+                AddIndexToStatus(status);
                 var msg = CreateMessageBuilder().
                     Append(status, GetPerson(status.User)).ToMessage();
                 chat.MessageBuffer.Add(msg);
@@ -1075,6 +1081,7 @@ namespace Smuxi.Engine
             var search = response.ResponseObject;
             var sortedSearch = SortTimeline(search);
             foreach (var status in sortedSearch) {
+                AddIndexToStatus(status);
                 var msg = CreateMessageBuilder().
                     Append(status, GetPerson(status.User)).
                     ToMessage();
@@ -1094,13 +1101,25 @@ namespace Smuxi.Engine
                 return;
             }
 
+
+            TwitterStatus status = null;
+            int indexId;
+            if (Int32.TryParse(cmd.Parameter, out indexId)) {
+                status = GetStatusFromIndex(indexId);
+            }
+
             decimal statusId;
-            if (!Decimal.TryParse(cmd.Parameter, out statusId)) {
-                return;
+            if (status == null) {
+                if (!Decimal.TryParse(cmd.Parameter, out statusId)) {
+                    return;
+                }
+            } else {
+                statusId = status.Id;
             }
             var response = TwitterStatus.Retweet(f_OAuthTokens, statusId, f_OptionalProperties);
             CheckResponse(response);
-            var status = response.ResponseObject;
+            status = response.ResponseObject;
+
             var msg = CreateMessageBuilder().
                 Append(status, GetPerson(status.User)).
                 ToMessage();
@@ -1114,21 +1133,31 @@ namespace Smuxi.Engine
                 return;
             }
 
-            decimal statusId;
-            if (!Decimal.TryParse(cmd.DataArray[1], out statusId)) {
-                return;
+            var id = cmd.DataArray[1];
+            TwitterStatus status = null;
+            int indexId;
+            if (Int32.TryParse(id, out indexId)) {
+                status = GetStatusFromIndex(indexId);
             }
-            var response = TwitterStatus.Show(f_OAuthTokens, statusId,
-                                              f_OptionalProperties);
-            CheckResponse(response);
-            var status = response.ResponseObject;
+
+            decimal statusId;
+            if (status == null) {
+                if (!Decimal.TryParse(id, out statusId)) {
+                    return;
+                }
+                var response = TwitterStatus.Show(f_OAuthTokens, statusId,
+                                                  f_OptionalProperties);
+                CheckResponse(response);
+                status = response.ResponseObject;
+            }
+
             var text = String.Join(" ", cmd.DataArray.Skip(2).ToArray());
             // the screen name must be somewhere in the message for replies
             if (!text.Contains("@" + status.User.ScreenName)) {
                 text = String.Format("@{0} {1}", status.User.ScreenName, text);
             }
             var options = CreateOptions<StatusUpdateOptions>();
-            options.InReplyToStatusId = statusId;
+            options.InReplyToStatusId = status.Id;
             PostUpdate(text, options);
         }
 
@@ -1235,6 +1264,7 @@ namespace Smuxi.Engine
 
             List<TwitterStatus> sortedTimeline = SortTimeline(timeline);
             foreach (TwitterStatus status in sortedTimeline) {
+                AddIndexToStatus(status);
                 var msg = CreateMessageBuilder().
                     Append(status, GetPerson(status.User)).
                     ToMessage();
@@ -1345,6 +1375,7 @@ namespace Smuxi.Engine
             bool highlight = f_LastReplyStatusID != 0;
             List<TwitterStatus> sortedTimeline = SortTimeline(timeline);
             foreach (TwitterStatus status in sortedTimeline) {
+                AddIndexToStatus(status);
                 var msg = CreateMessageBuilder().
                     Append(status, GetPerson(status.User), highlight).
                     ToMessage();
@@ -1643,7 +1674,35 @@ namespace Smuxi.Engine
             CheckResponse(res);
             f_DirectMessageEvent.Set();
         }
-        
+
+        void AddIndexToStatus(TwitterStatus status)
+        {
+            lock (StatusIndex) {
+                var slot = ++StatusIndexOffset;
+                if (slot > StatusIndex.Length) {
+                    StatusIndexOffset = 0;
+                    slot = 1;
+                }
+                StatusIndex[slot - 1] = status;
+                status.Text = String.Format("[{0:00}] {1}", slot, status.Text);
+                var rtStatus = status.RetweetedStatus;
+                if (rtStatus != null) {
+                    rtStatus.Text = String.Format("[{0:00}] {1}", slot,
+                                                  rtStatus.Text);
+                }
+            }
+        }
+
+        TwitterStatus GetStatusFromIndex(int slot)
+        {
+            lock (StatusIndex) {
+                if (slot > StatusIndex.Length || slot < 1) {
+                    return null;
+                }
+                return StatusIndex[slot - 1];
+            }
+        }
+
         private void CheckTwitterizerException(TwitterizerException exception)
         {
             Trace.Call(exception == null ? null : exception.GetType());
