@@ -1,3 +1,9 @@
+smuxi (2:0.10+dev-1~pre1) unstable; urgency=low
+
+  * Bumped epoch and changed version suffix to +dev for the daily PPA
+
+ -- Mirco Bauer <meebey@debian.org>  Wed, 27 Nov 2013 21:08:03 +0100
+
 smuxi (1:0.10+git-1~pre1) unstable; urgency=low
 
   * New upstream release
