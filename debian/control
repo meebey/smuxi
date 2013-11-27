@@ -30,8 +30,7 @@ Build-Depends-Indep: cli-common-dev (>= 0.5.7),
  libtool,
  autoconf,
  automake,
- autotools-dev,
- quilt
+ autotools-dev
 Standards-Version: 3.8.3
 Homepage: http://www.smuxi.org/
 Vcs-Git: https://github.com/meebey/smuxi.git
