@@ -17,7 +17,11 @@ script:
     - nunit-console bin/release/smuxi-frontend-gnome-tests.dll
     - nunit-console bin/release/smuxi-frontend-stfl-tests.dll
     - chronic make clean && chronic make distcheck MCS=/usr/bin/dmcs
-    - chronic dpkg-buildpackage
+    - export DEB_UPSTREAM_VERSION=$(dpkg-parsechangelog -ldebian/changelog | grep ^Vers | cut -d\  -f2 | cut -d':' -f2 | sed 's,-.*,,' | sed 's,+dfsg.*,,')
+    - mv smuxi-*.tar.gz ../smuxi_${DEB_UPSTREAM_VERSION}.orig.tar.gz
+    - cd .. && tar -xzf smuxi_${DEB_UPSTREAM_VERSION}.orig.tar.gz
+    - cd - && cp -a debian/ ../smuxi-*/
+    - cd ../smuxi-* && chronic dpkg-buildpackage
 
 notifications:
     irc:
