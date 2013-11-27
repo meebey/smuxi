@@ -58,4 +58,4 @@ override_dh_install:
 	-dh_install -p smuxi-engine "usr/lib/smuxi/JabbR.Client.dll*"
 
 %:
-	dh $@ --with quilt,cli
+	dh $@ --with cli
