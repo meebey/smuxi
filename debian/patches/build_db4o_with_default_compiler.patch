@@ -1,7 +1,7 @@
-Index: smuxi/lib/db4o-net/Db4objects.Db4o/Db4objects.Db4o-2008.csproj
+Index: smuxi-stable/lib/db4o-net/Db4objects.Db4o/Db4objects.Db4o-2008.csproj
 ===================================================================
---- smuxi.orig/lib/db4o-net/Db4objects.Db4o/Db4objects.Db4o-2008.csproj	2013-11-16 15:27:44.549926492 +0100
-+++ smuxi/lib/db4o-net/Db4objects.Db4o/Db4objects.Db4o-2008.csproj	2013-11-16 15:27:44.549926492 +0100
+--- smuxi-stable.orig/lib/db4o-net/Db4objects.Db4o/Db4objects.Db4o-2008.csproj	2013-11-27 14:52:57.792155841 +0100
++++ smuxi-stable/lib/db4o-net/Db4objects.Db4o/Db4objects.Db4o-2008.csproj	2013-11-27 14:52:57.792155841 +0100
 @@ -1,5 +1,5 @@
  <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 -<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build" ToolsVersion="3.5">

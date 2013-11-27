@@ -6,7 +6,7 @@ before_install:
 install:
     - sudo apt-get update > /dev/null
     - sudo apt-get build-dep smuxi > /dev/null
-    - sudo apt-get install quilt mono-devel nunit-console moreutils > /dev/null
+    - sudo apt-get install mono-devel nunit-console moreutils gtk-sharp2-gapi libgtkspell-dev > /dev/null
 
 script:
     - ./autogen.sh MCS=/usr/bin/dmcs
@@ -17,7 +17,11 @@ script:
     - nunit-console bin/release/smuxi-frontend-gnome-tests.dll
     - nunit-console bin/release/smuxi-frontend-stfl-tests.dll
     - chronic make clean && chronic make distcheck MCS=/usr/bin/dmcs
-    - fakeroot debian/rules binary
+    - export DEB_UPSTREAM_VERSION=$(dpkg-parsechangelog -ldebian/changelog | grep ^Vers | cut -d\  -f2 | cut -d':' -f2 | sed 's,-.*,,' | sed 's,+dfsg.*,,')
+    - mv smuxi-*.tar.gz ../smuxi_${DEB_UPSTREAM_VERSION}.orig.tar.gz
+    - cd .. && tar -xzf smuxi_${DEB_UPSTREAM_VERSION}.orig.tar.gz
+    - cd - && cp -a debian/ ../smuxi-*/
+    - cd ../smuxi-* && chronic dpkg-buildpackage
 
 notifications:
     irc:
