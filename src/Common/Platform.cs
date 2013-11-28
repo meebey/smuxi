@@ -29,6 +29,10 @@ namespace Smuxi.Common
     {
         public static string OperatingSystem {
             get {
+                if (Environment.OSVersion.Platform == PlatformID.Win32NT) {
+                    return Environment.OSVersion.Platform.ToString();
+                }
+
                 // uname present?
                 try {
                     var pinfo = new ProcessStartInfo("uname");
@@ -111,6 +115,19 @@ namespace Smuxi.Common
         
         public static string Architecture {
             get {
+                if (Environment.OSVersion.Platform == PlatformID.Win32NT) {
+                    // x86
+                    // AMD64
+                    var arch = Environment.GetEnvironmentVariable("PROCESSOR_ARCHITEW6432");
+                    if (!String.IsNullOrEmpty(arch)) {
+                        return arch;
+                    }
+                    arch = Environment.GetEnvironmentVariable("PROCESSOR_ARCHITECTURE");
+                    if (!String.IsNullOrEmpty(arch)) {
+                        return arch;
+                    }
+                }
+
                 // uname present?
                 try {
                     var pinfo = new ProcessStartInfo("uname");
@@ -118,21 +135,7 @@ namespace Smuxi.Common
                     pinfo.RedirectStandardOutput = true;
                     Process.Start(pinfo).WaitForExit();
                 } catch (Exception) {
-                    // no uname
-                    if (Environment.OSVersion.Platform == PlatformID.Win32NT) {
-                        // x86
-                        // AMD64
-                        var arch = Environment.GetEnvironmentVariable("PROCESSOR_ARCHITEW6432");
-                        if (!String.IsNullOrEmpty(arch)) {
-                            return arch;
-                        }
-                        arch = Environment.GetEnvironmentVariable("PROCESSOR_ARCHITECTURE");
-                        if (!String.IsNullOrEmpty(arch)) {
-                            return arch;
-                        }
-                    }
-
-                    // fall back to pointer size
+                    // no uname, fall back to pointer size
                     return String.Format("{0}-bit", IntPtr.Size * 8);
                 }
 
