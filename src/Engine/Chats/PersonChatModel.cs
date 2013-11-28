@@ -42,6 +42,9 @@ namespace Smuxi.Engine
             get {
                 return _Person;
             }
+            set {
+                _Person = value;
+            }
         }
         
         public PersonChatModel(PersonModel person, string id, string name, IProtocolManager networkManager) :

@@ -58,6 +58,9 @@ namespace Smuxi.Engine
             get {
                 return _Name;
             }
+            set {
+                _Name = value;
+            }
         }
         
         public ChatType ChatType {
