@@ -1619,22 +1619,28 @@ namespace Smuxi.Engine
                     switch(pres.Show) {
                         case ShowType.NONE:
                             builder.AppendFormat(_("{0}{1} is available"), person, idstring);
+                            builder.AppendPresenceState(person, MessageType.PresenceStateOnline);
                             break;
                         case ShowType.away:
                             builder.AppendFormat(_("{0}{1} is away"), person, idstring);
+                            builder.AppendPresenceState(person, MessageType.PresenceStateAway);
                             break;
                         case ShowType.xa:
                             builder.AppendFormat(_("{0}{1} is extended away"), person, idstring);
+                            builder.AppendPresenceState(person, MessageType.PresenceStateAway);
                             break;
                         case ShowType.dnd:
                             builder.AppendFormat(_("{0}{1} wishes not to be disturbed"), person, idstring);
+                            builder.AppendPresenceState(person, MessageType.PresenceStateAway);
                             break;
                         case ShowType.chat:
                             builder.AppendFormat(_("{0}{1} wants to chat"), person, idstring);
+                            builder.AppendPresenceState(person, MessageType.PresenceStateOnline);
                             break;
                     }
                     break;
                 case PresenceType.unavailable:
+                    builder.AppendPresenceState(person, MessageType.PresenceStateOffline);
                     builder.AppendFormat(_("{0}{1} is offline"), person, idstring);
                     break;
                 case PresenceType.subscribe:

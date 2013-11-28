@@ -40,6 +40,10 @@ namespace Smuxi.Frontend.Gnome
         bool IsDisposed { get; set; }
         bool IsComposing { get; set; }
         bool ChatStateTimeoutRunning { get; set; }
+        MessageModel TypingDots { get; set; }
+
+        // for remembering the presence state
+        MessageModel LastPresenceMessage { get; set; }
 
         public XmppPersonChatView(PersonChatModel personChat) : base(personChat)
         {
@@ -67,18 +71,43 @@ namespace Smuxi.Frontend.Gnome
             ChatStatePositionValid = false;
         }
 
-        void AddChatState(MessageModel msg)
+        void UpdateChatState()
         {
             DeleteOldChatState();
+            if (LastPresenceMessage == null && TypingDots == null) {
+                // nothing to display
+                return;
+            }
             var buffer = OutputMessageTextView.Buffer;
             buffer.AddMark(ChatStateStartPosition, buffer.EndIter);
 
-            OutputMessageTextView.AddMessage(msg, false, false);
+            if (TypingDots != null) {
+                OutputMessageTextView.AddMessage(TypingDots, true, false);
+            }
+            if (LastPresenceMessage != null) {
+                OutputMessageTextView.AddMessage(LastPresenceMessage, false);
+            }
 
             ChatStatePositionValid = true;
         }
 
-        bool UpdateChatState()
+        void SetPresenceStateText(MessageModel msg)
+        {
+            LastPresenceMessage = msg;
+            UpdateChatState();
+        }
+
+        void ClearPresenceStateText()
+        {
+            if (LastPresenceMessage == null) {
+                // nothing to do, probably received duplicate available messages
+                return;
+            }
+            LastPresenceMessage = null;
+            UpdateChatState();
+        }
+
+        bool TypingDotsCallback()
         {
             if (IsDisposed) {
                 return false;
@@ -92,15 +121,17 @@ namespace Smuxi.Frontend.Gnome
                 NumberOfTypingDots--;
                 if (NumberOfTypingDots <= 0) {
                     // done
-                    DeleteOldChatState();
+                    TypingDots = null;
+                    UpdateChatState();
                     ChatStateTimeoutRunning = false;
                     return false;
                 }
             }
             var builder = new MessageBuilder();
             builder.AppendText(new string('.', NumberOfTypingDots));
-            AddChatState(builder.ToMessage());
-            GLib.Timeout.Add(300, UpdateChatState);
+            TypingDots = builder.ToMessage();
+            UpdateChatState();
+            GLib.Timeout.Add(300, TypingDotsCallback);
             return false;
         }
 
@@ -110,7 +141,7 @@ namespace Smuxi.Frontend.Gnome
             if (!ChatStateTimeoutRunning) {
                 ChatStateTimeoutRunning = true;
                 NumberOfTypingDots = 0;
-                UpdateChatState();
+                TypingDotsCallback();
             }
         }
 
@@ -125,7 +156,8 @@ namespace Smuxi.Frontend.Gnome
 
         void AbortMovingDots()
         {
-            DeleteOldChatState();
+            TypingDots = null;
+            UpdateChatState();
             if (!ChatStateTimeoutRunning) {
                 // already done
                 return;
@@ -148,9 +180,18 @@ namespace Smuxi.Frontend.Gnome
                 case MessageType.ChatStateReset:
                     AbortMovingDots();
                     break;
+                case MessageType.PresenceStateOnline:
+                    ClearPresenceStateText();
+                    break;
+                case MessageType.PresenceStateOffline:
+                case MessageType.PresenceStateAway:
+                    SetPresenceStateText(msg);
+                    break;
                 default:
                     AbortMovingDots();
+                    DeleteOldChatState();
                     base.AddMessage(msg);
+                    UpdateChatState();
                     break;
             }
         }

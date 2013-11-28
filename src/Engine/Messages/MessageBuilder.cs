@@ -775,16 +775,20 @@ namespace Smuxi.Engine
 
         public virtual MessageBuilder AppendChatState(ContactModel contact, MessageType state)
         {
-            AppendActionPrefix();
             switch (state) {
                 case MessageType.ChatStateComposing:
-                    AppendFormat(_("{0} is typing..."), contact);
+                    if (Message.IsEmpty) {
+                        AppendActionPrefix();
+                        AppendFormat(_("{0} is typing..."), contact);
+                    }
                     break;
                 case MessageType.ChatStatePaused:
-                    AppendFormat(_("{0} has stopped typing..."), contact);
+                    if (Message.IsEmpty) {
+                        AppendActionPrefix();
+                        AppendFormat(_("{0} has stopped typing..."), contact);
+                    }
                     break;
                 case MessageType.ChatStateReset:
-                    AppendFormat(_("{0} has stopped typing..."), contact);
                     break;
                 default:
                     throw new ArgumentException("state is not a ChatState", "state");
@@ -816,6 +820,34 @@ namespace Smuxi.Engine
             // remove trailing space
             normalized.Length--;
             return normalized.ToString();
+        }
+
+        public virtual MessageBuilder AppendPresenceState(ContactModel contact, MessageType state)
+        {
+            switch (state) {
+                case MessageType.PresenceStateAway:
+                    if (Message.IsEmpty) {
+                        AppendActionPrefix();
+                        AppendFormat(_("{0} is away"), contact);
+                    }
+                    break;
+                case MessageType.PresenceStateOffline:
+                    if (Message.IsEmpty) {
+                        AppendActionPrefix();
+                        AppendFormat(_("{0} is offline"), contact);
+                    }
+                    break;
+                case MessageType.PresenceStateOnline:
+                    if (Message.IsEmpty) {
+                        AppendActionPrefix();
+                        AppendFormat(_("{0} is online"), contact);
+                    }
+                    break;
+                default:
+                    throw new ArgumentException("state is not a PresenceState", "state");
+            }
+            MessageType = state;
+            return this;
         }
 
         static string _(string msg)
