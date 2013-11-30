@@ -1516,13 +1516,10 @@ namespace Smuxi.Engine
 
             if (ContactChat != null) {
                 PersonModel oldp = ContactChat.GetPerson(rosterItem.Jid.Bare);
-                if (oldp == null) {
-                    // doesn't exist, don't need to do anything
-                    return;
+                if (oldp != null) {
+                    Session.UpdatePersonInGroupChat(ContactChat, oldp, contact.ToPersonModel());
+                    Session.AddMessageToChat(ContactChat, new MessageModel(builder.ToMessage()));
                 }
-                Session.UpdatePersonInGroupChat(ContactChat, oldp, contact.ToPersonModel());
-
-                Session.AddMessageToChat(ContactChat, builder.ToMessage());
             }
             
             var chat = Session.GetChat(rosterItem.Jid.Bare, ChatType.Person, this) as PersonChatModel;
