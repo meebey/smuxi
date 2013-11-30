@@ -52,6 +52,7 @@ using Starksoft.Net.Proxy;
 
 using Smuxi.Common;
 using System.Runtime.CompilerServices;
+using agsXMPP.protocol.extensions.nickname;
 
 namespace Smuxi.Engine
 {
@@ -1333,27 +1334,7 @@ namespace Smuxi.Engine
                 if (chat.ChatType == ChatType.Person) {
                     var _person = (chat as PersonChatModel).Person as PersonModel;
                     XmppPersonModel person = GetOrCreateContact(_person.ID, _person.IdentityName);
-                    Jid jid = person.Jid;
-                    if ((jid.Server == "gmail.com") ||
-                        (jid.Server == "googlemail.com")) {
-                        // don't send to all high prio resources or to specific resources
-                        // because gtalk clones any message to all resources anyway
-                        JabberClient.Send(new Message(jid.Bare, XmppMessageType.chat, text));
-                    } else if (!String.IsNullOrEmpty(jid.Resource)) {
-                        JabberClient.Send(new Message(jid, XmppMessageType.chat, text));
-                    } else {
-                        var resources = person.GetResourcesWithHighestPriority();
-                        if (resources.Count == 0) {
-                            // no connected resource, send to bare jid
-                            JabberClient.Send(new Message(jid.Bare, XmppMessageType.chat, text));
-                        } else {
-                            foreach (var res in resources) {
-                                Jid j = new Jid(jid);
-                                j.Resource = res.Name;
-                                JabberClient.Send(new Message(j, XmppMessageType.chat, text));
-                            }
-                        }
-                    }
+                    SendPrivateMessage(person, text);
                 } else if (chat.ChatType == ChatType.Group) {
                     JabberClient.Send(new Message(chat.ID, XmppMessageType.groupchat, text));
                     return; // don't show now. the message will be echoed back if it's sent successfully
@@ -1375,6 +1356,42 @@ namespace Smuxi.Engine
             OnMessageSent(
                 new MessageEventArgs(chat, msg, null, chat.ID)
             );
+        }
+
+        void SendPrivateMessage(XmppPersonModel person, Jid jid, string text)
+        {
+            var mesg = new Message(jid, XmppMessageType.chat, text);
+            var res = person.GetOrCreateResource(jid);
+            if (res.NicknameContactKnowsFromMe != Nicknames[0]) {
+                res.NicknameContactKnowsFromMe = Nicknames[0];
+                mesg.Nickname = new Nickname(Nicknames[0]);
+            }
+            JabberClient.Send(mesg);
+        }
+
+        void SendPrivateMessage(XmppPersonModel person, string text)
+        {
+            Jid jid = person.Jid;
+            if ((jid.Server == "gmail.com") ||
+                (jid.Server == "googlemail.com")) {
+                // don't send to all high prio resources or to specific resources
+                // because gtalk clones any message to all resources anyway
+                SendPrivateMessage(person, jid.Bare, text);
+            } else if (!String.IsNullOrEmpty(jid.Resource)) {
+                SendPrivateMessage(person, jid, text);
+            } else {
+                var resources = person.GetResourcesWithHighestPriority();
+                if (resources.Count == 0) {
+                    // no connected resource, send to bare jid
+                    SendPrivateMessage(person, jid.Bare, text);
+                } else {
+                    foreach (var res in resources) {
+                        Jid j = new Jid(jid);
+                        j.Resource = res.Name;
+                        SendPrivateMessage(person, j, text);
+                    }
+                }
+            }
         }
 
         void OnReadXml(object sender, string text)
@@ -1504,13 +1521,10 @@ namespace Smuxi.Engine
 
             if (ContactChat != null) {
                 PersonModel oldp = ContactChat.GetPerson(rosterItem.Jid.Bare);
-                if (oldp == null) {
-                    // doesn't exist, don't need to do anything
-                    return;
+                if (oldp != null) {
+                    Session.UpdatePersonInGroupChat(ContactChat, oldp, contact.ToPersonModel());
+                    Session.AddMessageToChat(ContactChat, new MessageModel(builder.ToMessage()));
                 }
-                Session.UpdatePersonInGroupChat(ContactChat, oldp, contact.ToPersonModel());
-
-                Session.AddMessageToChat(ContactChat, builder.ToMessage());
             }
             
             var chat = Session.GetChat(rosterItem.Jid.Bare, ChatType.Person, this) as PersonChatModel;
@@ -2135,6 +2149,15 @@ namespace Smuxi.Engine
         }
 
         [MethodImpl(MethodImplOptions.Synchronized)]
+        void ProcessNickname(XmppPersonModel person, Nickname nick)
+        {
+            if (String.IsNullOrEmpty(nick.Value)) {
+                return;
+            }
+            JabberClient.RosterManager.UpdateRosterItem(person.ID, nick.Value);
+        }
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
         void OnPrivateChatMessage(Message msg)
         {
             var chat = Session.GetChat(msg.From, ChatType.Person, this) as PersonChatModel;
@@ -2142,6 +2165,9 @@ namespace Smuxi.Engine
             if (chat == null) {
                 // in case full jid doesn't have a chat window, use bare jid
                 chat = GetOrCreatePersonChat(msg.From.Bare, out isNew);
+            }
+            if (msg.Nickname != null) {
+                ProcessNickname(GetOrCreateContact(msg.From, msg.Nickname.Value), msg.Nickname);
             }
             var message = CreateMessage(chat.Person, msg, true, true);
             AddMessageToChatIfNotFiltered(message, chat, isNew);
@@ -2604,11 +2630,8 @@ namespace Smuxi.Engine
             }
 
             Me = new PersonModel(
-                String.Format("{0}@{1}",
-                    JabberClient.Username,
-                    JabberClient.Server
-                ),
-                JabberClient.Username,
+                JabberClient.MyJID.Bare,
+                Nicknames[0],
                 NetworkID, Protocol, this
             );
             Me.IdentityNameColored.ForegroundColor = new TextColor(0, 0, 255);
