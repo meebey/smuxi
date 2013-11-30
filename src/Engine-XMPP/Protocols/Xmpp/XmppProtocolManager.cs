@@ -1510,13 +1510,14 @@ namespace Smuxi.Engine
             
             var chat = Session.GetChat(rosterItem.Jid.Bare, ChatType.Person, this) as PersonChatModel;
             if (chat != null) {
-                // TODO: implement update chat
-                var oldp = chat.Person;
-                Session.RemoveChat(chat);
-                chat = Session.CreatePersonChat(oldp, this);
-                Session.AddChat(chat);
-                Session.AddMessageToChat(chat, builder.ToMessage());
-                Session.SyncChat(chat);
+                chat.Name = contact.IdentityName;
+                builder.MessageType = MessageType.ChatNameChanged;
+                var msg = builder.ToMessage();
+                Session.AddMessageToChat(chat, msg);
+
+                var msg2 = new MessageModel(msg);
+                msg2.MessageType = MessageType.PersonChatPersonChanged;
+                Session.AddMessageToChat(chat, msg2);
             }
         }
 

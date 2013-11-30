@@ -39,6 +39,8 @@ namespace Smuxi.Engine
         ChatStateReset,
         PresenceStateOffline,
         PresenceStateAway,
-        PresenceStateOnline
+        PresenceStateOnline,
+        ChatNameChanged,
+        PersonChatPersonChanged
     }
 }

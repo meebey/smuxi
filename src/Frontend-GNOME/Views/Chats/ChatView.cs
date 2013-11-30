@@ -573,6 +573,21 @@ namespace Smuxi.Frontend.Gnome
         
         public virtual void AddMessage(MessageModel msg)
         {
+            switch (msg.MessageType) {
+                case MessageType.ChatNameChanged:
+                    ThreadPool.QueueUserWorkItem(delegate {
+                        try {
+                            // REMOTING CALL
+                            var newname = ChatModel.Name;
+                            Gtk.Application.Invoke(delegate {
+                                Name = newname;
+                            });
+                        } catch (Exception ex) {
+                            Frontend.ShowException(ex);
+                        }
+                    });
+                    return;
+            }
             _OutputMessageTextView.AddMessage(msg);
         }
         
