@@ -28,6 +28,7 @@ namespace Smuxi.Engine
         internal bool SeenNewMessages { get; set; }
         internal string OwnNickname { get; set; }
         internal string Password { get; set; }
+        internal bool IsJoining { get; set; }
 
         public XmppGroupChatModel(string id, string name, IProtocolManager networkManager) :
                          base(id, name, networkManager)
