@@ -1891,20 +1891,37 @@ namespace Smuxi.Engine
                     }
                     break;
                 case PresenceType.error:
-                    if (pres.Error == null) break;
-                    switch (pres.Error.Type) {
-                        case ErrorType.cancel:
-                            switch (pres.Error.Condition) {
-                                case ErrorCondition.Conflict:
-                                    // nickname already in use
-                                    // autorejoin with _ appended to nickname
-                                    JoinRoom(chat.ID, chat.OwnNickname + "_", chat.Password);
-                                    break;
-                            }
-                            break;
+                    OnGroupChatPresenceError(chat, pres);
+                    break;
+            }
+        }
+
+        void OnGroupChatPresenceError(XmppGroupChatModel chat, Presence pres)
+        {
+            var builder = CreateMessageBuilder();
+            if (pres.Error == null) {
+                builder.AppendErrorText(_("An unknown groupchat error occurred: {0}"), pres);
+                Session.AddMessageToChat(NetworkChat, builder.ToMessage());
+                return;
+            }
+            switch (pres.Error.Type) {
+                case ErrorType.cancel:
+                    switch (pres.Error.Condition) {
+                        case ErrorCondition.Conflict:
+                            // nickname already in use
+                            // autorejoin with _ appended to nickname
+                            JoinRoom(chat.ID, chat.OwnNickname + "_", chat.Password);
+                            return;
                     }
                     break;
             }
+            if (String.IsNullOrEmpty(pres.Error.ErrorText)) {
+                builder.AppendErrorText(_("An unhandled groupchat error occurred: {0}"), pres);
+            } else {
+                builder.AppendErrorText(_("Error in Groupchat {0}: {1}"), chat.ID, pres.Error.ErrorText);
+            }
+            Session.AddMessageToChat(NetworkChat, builder.ToMessage());
+            Session.RemoveChat(chat);
         }
 
         [MethodImpl(MethodImplOptions.Synchronized)]
