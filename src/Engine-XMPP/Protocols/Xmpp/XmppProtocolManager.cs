@@ -52,6 +52,7 @@ using Starksoft.Net.Proxy;
 
 using Smuxi.Common;
 using System.Runtime.CompilerServices;
+using agsXMPP.protocol.extensions.nickname;
 
 namespace Smuxi.Engine
 {
@@ -1328,27 +1329,7 @@ namespace Smuxi.Engine
                 if (chat.ChatType == ChatType.Person) {
                     var _person = (chat as PersonChatModel).Person as PersonModel;
                     XmppPersonModel person = GetOrCreateContact(_person.ID, _person.IdentityName);
-                    Jid jid = person.Jid;
-                    if ((jid.Server == "gmail.com") ||
-                        (jid.Server == "googlemail.com")) {
-                        // don't send to all high prio resources or to specific resources
-                        // because gtalk clones any message to all resources anyway
-                        JabberClient.Send(new Message(jid.Bare, XmppMessageType.chat, text));
-                    } else if (!String.IsNullOrEmpty(jid.Resource)) {
-                        JabberClient.Send(new Message(jid, XmppMessageType.chat, text));
-                    } else {
-                        var resources = person.GetResourcesWithHighestPriority();
-                        if (resources.Count == 0) {
-                            // no connected resource, send to bare jid
-                            JabberClient.Send(new Message(jid.Bare, XmppMessageType.chat, text));
-                        } else {
-                            foreach (var res in resources) {
-                                Jid j = new Jid(jid);
-                                j.Resource = res.Name;
-                                JabberClient.Send(new Message(j, XmppMessageType.chat, text));
-                            }
-                        }
-                    }
+                    SendPrivateMessage(person, text);
                 } else if (chat.ChatType == ChatType.Group) {
                     JabberClient.Send(new Message(chat.ID, XmppMessageType.groupchat, text));
                     return; // don't show now. the message will be echoed back if it's sent successfully
@@ -1370,6 +1351,42 @@ namespace Smuxi.Engine
             OnMessageSent(
                 new MessageEventArgs(chat, msg, null, chat.ID)
             );
+        }
+
+        void SendPrivateMessage(XmppPersonModel person, Jid jid, string text)
+        {
+            var mesg = new Message(jid, XmppMessageType.chat, text);
+            var res = person.GetOrCreateResource(jid);
+            if (res.NicknameContactKnowsFromMe != Nicknames[0]) {
+                res.NicknameContactKnowsFromMe = Nicknames[0];
+                mesg.Nickname = new Nickname(Nicknames[0]);
+            }
+            JabberClient.Send(mesg);
+        }
+
+        void SendPrivateMessage(XmppPersonModel person, string text)
+        {
+            Jid jid = person.Jid;
+            if ((jid.Server == "gmail.com") ||
+                (jid.Server == "googlemail.com")) {
+                // don't send to all high prio resources or to specific resources
+                // because gtalk clones any message to all resources anyway
+                SendPrivateMessage(person, jid.Bare, text);
+            } else if (!String.IsNullOrEmpty(jid.Resource)) {
+                SendPrivateMessage(person, jid, text);
+            } else {
+                var resources = person.GetResourcesWithHighestPriority();
+                if (resources.Count == 0) {
+                    // no connected resource, send to bare jid
+                    SendPrivateMessage(person, jid.Bare, text);
+                } else {
+                    foreach (var res in resources) {
+                        Jid j = new Jid(jid);
+                        j.Resource = res.Name;
+                        SendPrivateMessage(person, j, text);
+                    }
+                }
+            }
         }
 
         void OnReadXml(object sender, string text)

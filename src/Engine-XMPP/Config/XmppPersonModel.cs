@@ -33,6 +33,7 @@ namespace Smuxi.Engine
         public Presence Presence { get; set; }
         public DiscoInfo Disco { get; set; }
         public string Name { get; set; }
+        public string NicknameContactKnowsFromMe { get; set; }
     }
     
     internal class XmppPersonModel : PersonModel
