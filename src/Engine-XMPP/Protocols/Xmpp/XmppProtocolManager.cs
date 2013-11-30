@@ -2129,6 +2129,15 @@ namespace Smuxi.Engine
         }
 
         [MethodImpl(MethodImplOptions.Synchronized)]
+        void ProcessNickname(XmppPersonModel person, Nickname nick)
+        {
+            if (String.IsNullOrEmpty(nick.Value)) {
+                return;
+            }
+            JabberClient.RosterManager.UpdateRosterItem(person.ID, nick.Value);
+        }
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
         void OnPrivateChatMessage(Message msg)
         {
             var chat = Session.GetChat(msg.From, ChatType.Person, this) as PersonChatModel;
@@ -2136,6 +2145,9 @@ namespace Smuxi.Engine
             if (chat == null) {
                 // in case full jid doesn't have a chat window, use bare jid
                 chat = GetOrCreatePersonChat(msg.From.Bare, out isNew);
+            }
+            if (msg.Nickname != null) {
+                ProcessNickname(GetOrCreateContact(msg.From, msg.Nickname.Value), msg.Nickname);
             }
             var message = CreateMessage(chat.Person, msg, true, true);
             AddMessageToChatIfNotFiltered(message, chat, isNew);
