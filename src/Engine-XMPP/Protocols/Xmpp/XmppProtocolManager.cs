@@ -568,7 +568,7 @@ namespace Smuxi.Engine
             }
 
             foreach (var pair in Contacts) {
-                if (pair.Value.Resources.Count != 0) {
+                if (pair.Value.NumResources != 0) {
                     ContactChat.UnsafePersons.Add(pair.Key, pair.Value.ToPersonModel());
                 }
             }
@@ -820,11 +820,11 @@ namespace Smuxi.Engine
                 return;
             }
             if (!String.IsNullOrEmpty(jid.Resource)) {
-                if (person.Resources.Count > 1) {
-                    builder.AppendText(_("Contact {0} has {1} known resources"), jid.Bare, person.Resources.Count);
+                if (person.NumResources > 1) {
+                    builder.AppendText(_("Contact {0} has {1} known resources"), jid.Bare, person.NumResources);
                 }
                 XmppResourceModel res;
-                if (!person.Resources.TryGetValue(jid.Resource??"", out res)) {
+                if (!person.TryGetResource(jid.Resource, out res)) {
                     builder.AppendErrorText(_("{0} is not a known resource"), jid.Resource);
                     Session.AddMessageToFrontend(cmd, builder.ToMessage());
                     return;
@@ -855,9 +855,9 @@ namespace Smuxi.Engine
                     break;
             }
             int i = 0;
-            foreach(var res in person.Resources) {
+            foreach(var res in person.ResourceList) {
                 builder.AppendText("\nResource({0}):", i);
-                printResource(builder, res.Value);
+                printResource(builder, res);
                 i++;
             }
             i = 0;
@@ -1277,7 +1277,7 @@ namespace Smuxi.Engine
             foreach (var pair in Contacts) {
                 string status = "+";
                 var contact = pair.Value;
-                if (contact.Resources.Count == 0) {
+                if (contact.NumResources == 0) {
                     if (!full) {
                         continue;
                     }
@@ -1291,14 +1291,14 @@ namespace Smuxi.Engine
                                    contact.Subscription,
                                    contact.Ask
                 );
-                foreach (var p in contact.Resources) {
+                foreach (var res in contact.ResourceList) {
                     builder.AppendText("\t|\t{0}:{1}:{2}",
-                                       p.Key,
-                                       p.Value.Presence.Type.ToString(),
-                                       p.Value.Presence.Priority
+                                       res.Name,
+                                       res.Presence.Type.ToString(),
+                                       res.Presence.Priority
                     );
-                    if (!String.IsNullOrEmpty(p.Value.Presence.Status)) {
-                        builder.AppendText(":\"{0}\"", p.Value.Presence.Status);
+                    if (!String.IsNullOrEmpty(res.Presence.Status)) {
+                        builder.AppendText(":\"{0}\"", res.Presence.Status);
                     }
                 }
                 Session.AddMessageToFrontend(cd, builder.ToMessage());
@@ -1358,17 +1358,21 @@ namespace Smuxi.Engine
             );
         }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         void SendPrivateMessage(XmppPersonModel person, Jid jid, string text)
         {
             var mesg = new Message(jid, XmppMessageType.chat, text);
-            var res = person.GetOrCreateResource(jid);
-            if (res.NicknameContactKnowsFromMe != Nicknames[0]) {
-                res.NicknameContactKnowsFromMe = Nicknames[0];
-                mesg.Nickname = new Nickname(Nicknames[0]);
+            XmppResourceModel res;
+            if (person.TryGetResource(jid, out res)) {
+                if (res.NicknameContactKnowsFromMe != Nicknames[0]) {
+                    res.NicknameContactKnowsFromMe = Nicknames[0];
+                    mesg.Nickname = new Nickname(Nicknames[0]);
+                }
             }
             JabberClient.Send(mesg);
         }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         void SendPrivateMessage(XmppPersonModel person, string text)
         {
             Jid jid = person.Jid;
@@ -1572,7 +1576,7 @@ namespace Smuxi.Engine
                 return;
             }
             XmppResourceModel res;
-            if (!contact.Resources.TryGetValue(jid.Resource??"", out res)) {
+            if (!contact.TryGetResource(jid.Resource, out res)) {
                 return;
             }
             res.Disco = info;
@@ -1821,7 +1825,7 @@ namespace Smuxi.Engine
         {
             Jid jid = pres.From;
             XmppResourceModel resource;
-            if (person.MucResources.TryGetValue(jid.Resource??"", out resource)) {
+            if (person.TryGetMucResource(jid, out resource)) {
                 if (resource.Presence.Show == pres.Show
                     && resource.Presence.Status == pres.Status
                     && resource.Presence.Last == pres.Last
@@ -1943,7 +1947,7 @@ namespace Smuxi.Engine
         {
             Jid jid = pres.From;
             XmppResourceModel resource;
-            if (person.Resources.TryGetValue(jid.Resource??"", out resource)) {
+            if (person.TryGetResource(jid.Resource, out resource)) {
                 if (resource.Presence.Show == pres.Show
                     && resource.Presence.Status == pres.Status
                     && resource.Presence.Last == pres.Last
@@ -1955,17 +1959,22 @@ namespace Smuxi.Engine
                     return;
                 }
             }
+            if (String.IsNullOrEmpty(jid.Resource)) {
+                // presences from bare jids are weird
+#if LOG4NET
+                _Logger.WarnFormat("Received a presence packet without a resource identifier: {0}", pres);
+#endif
+                return;
+            }
             MessageModel msg = CreatePresenceUpdateMessage(jid, person, pres);
-            if (!String.IsNullOrEmpty(jid.Resource)) {
-                var directchat = Session.GetChat(jid, ChatType.Person, this);
-                if (directchat != null) {
-                    // in case of direct chat we still send this message
-                    Session.AddMessageToChat(directchat, msg);
-                }
+            var directchat = Session.GetChat(jid, ChatType.Person, this);
+            if (directchat != null) {
+                // in case of direct chat we still send this message
+                Session.AddMessageToChat(directchat, msg);
             }
             // a nonexisting resource going offline?
             if (pres.Type == PresenceType.unavailable) {
-                if (!person.Resources.ContainsKey(jid.Resource??"")) {
+                if (!person.HasResource(jid)) {
                     return;
                 }
             }
@@ -1980,20 +1989,20 @@ namespace Smuxi.Engine
             Presence nextpres = null;
             bool amHighest = true;
             bool wasHighest = true;
-            foreach (var pair in person.Resources) {
-                if (pair.Value == res) continue;
-                if (nextpres == null || pair.Value.Presence.Priority > nextpres.Priority) {
-                    nextjid.Resource = pair.Key;
-                    nextpres = pair.Value.Presence;
+            foreach (var r in person.ResourceList) {
+                if (r == res) continue;
+                if (nextpres == null || r.Presence.Priority > nextpres.Priority) {
+                    nextjid.Resource = r.Name;
+                    nextpres = r.Presence;
                 }
-                if (pair.Value.Presence.Priority > hpres.Priority) {
+                if (r.Presence.Priority > hpres.Priority) {
                     // someone has a higher priority than I do
                     // print the status of that resource
-                    hjid.Resource = pair.Key;
-                    hpres = pair.Value.Presence;
+                    hjid.Resource = r.Name;
+                    hpres = r.Presence;
                     amHighest = false;
                 }
-                if (oldpres != null && pair.Value.Presence.Priority > oldpres.Priority) {
+                if (oldpres != null && r.Presence.Priority > oldpres.Priority) {
                     wasHighest = false;
                 }
             }
