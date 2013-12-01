@@ -32,18 +32,45 @@ namespace Smuxi.Engine
     {
         public Presence Presence { get; set; }
         public DiscoInfo Disco { get; set; }
-        public string Name { get; set; }
+        public string Name { get; private set; }
         public string NicknameContactKnowsFromMe { get; set; }
+
+        public XmppResourceModel(string name)
+        {
+            if (String.IsNullOrEmpty(name)) {
+                throw new ArgumentNullException("name");
+            }
+            Name = name;
+        }
     }
     
     internal class XmppPersonModel : PersonModel
     {
         public bool Temporary { get; set; }
         public Jid Jid { get; set; }
-        public Dictionary<string, XmppResourceModel> Resources { get; private set; }
+        private Dictionary<string, XmppResourceModel> Resources { get; set; }
         public Dictionary<Jid, XmppResourceModel> MucResources { get; private set; }
         public SubscriptionType Subscription { get; set; }
         public AskType Ask { get; set; }
+
+        public int NumResources
+        {
+            get {
+                return Resources.Count;
+            }
+        }
+
+        public List<XmppResourceModel> ResourceList
+        {
+            get {
+                var list = new List<XmppResourceModel>();
+                foreach (var res in Resources) {
+                    list.Add(res.Value);
+                }
+                return list;
+            }
+        }
+
         public XmppPersonModel(Jid jid, string nick, XmppProtocolManager protocolManager)
             :base(jid, nick, protocolManager.NetworkID, protocolManager.Protocol, protocolManager)
         {
@@ -54,37 +81,38 @@ namespace Smuxi.Engine
             Ask = AskType.NONE;
             Subscription = SubscriptionType.none;
             Temporary = true;
-            if (!String.IsNullOrEmpty(jid.Resource)) {
-                GetOrCreateResource(jid);
-            }
         }
-        
-        public XmppResourceModel GetOrCreateResource(Jid jid, out bool isNew)
+
+        public bool HasResource(Jid jid)
         {
-            XmppResourceModel ret;
-            string res = jid.Resource ?? "";
-            if (Resources.TryGetValue(res, out ret)) {
-                isNew = false;
-                return ret;
+            if (String.IsNullOrEmpty(jid.Resource)) {
+                throw new ArgumentException("jid.Resource is null or empty");
             }
-            ret = new XmppResourceModel();
-            ret.Name = res;
-            Resources.Add(res, ret);
-            isNew = true;
-            return ret;
+            return Resources.ContainsKey(jid.Resource);
         }
-        
+
         public XmppResourceModel GetOrCreateResource(Jid jid)
         {
+            if (String.IsNullOrEmpty(jid.Resource)) {
+                throw new ArgumentException("jid.Resource is null or empty");
+            }
             XmppResourceModel ret;
-            string res = jid.Resource ?? "";
-            if (Resources.TryGetValue(res, out ret)) {
+            string res = jid.Resource;
+            if (TryGetResource(res, out ret)) {
                 return ret;
             }
-            ret = new XmppResourceModel();
-            ret.Name = res;
+            ret = new XmppResourceModel(res);
             Resources.Add(res, ret);
             return ret;
+        }
+
+        public bool TryGetResource(Jid jid, out XmppResourceModel res)
+        {
+            if (String.IsNullOrEmpty(jid.Resource)) {
+                res = null;
+                return false;
+            }
+            return Resources.TryGetValue(jid.Resource, out res);
         }
 
         public XmppResourceModel GetOrCreateMucResource(Jid jid)
@@ -94,10 +122,14 @@ namespace Smuxi.Engine
             if (MucResources.TryGetValue(jid, out ret)) {
                 return ret;
             }
-            ret = new XmppResourceModel();
-            ret.Name = jid;
+            ret = new XmppResourceModel(jid);
             MucResources.Add(jid, ret);
             return ret;
+        }
+
+        public bool TryGetMucResource(Jid jid, out XmppResourceModel res)
+        {
+            return MucResources.TryGetValue(jid, out res);
         }
         
         public List<XmppResourceModel> GetResourcesWithHighestPriority()
@@ -118,7 +150,10 @@ namespace Smuxi.Engine
         
         public void RemoveResource(Jid jid)
         {
-            Resources.Remove(jid.Resource ?? "");
+            if (String.IsNullOrEmpty(jid.Resource)) {
+                throw new ArgumentException("jid.Resource is null or empty");
+            }
+            Resources.Remove(jid.Resource);
         }
         
         public PersonModel ToPersonModel()
