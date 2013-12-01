@@ -1358,17 +1358,21 @@ namespace Smuxi.Engine
             );
         }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         void SendPrivateMessage(XmppPersonModel person, Jid jid, string text)
         {
             var mesg = new Message(jid, XmppMessageType.chat, text);
-            var res = person.GetOrCreateResource(jid);
-            if (res.NicknameContactKnowsFromMe != Nicknames[0]) {
-                res.NicknameContactKnowsFromMe = Nicknames[0];
-                mesg.Nickname = new Nickname(Nicknames[0]);
+            XmppResourceModel res;
+            if (person.Resources.TryGetValue(jid.Resource ?? "", out res)) {
+                if (res.NicknameContactKnowsFromMe != Nicknames[0]) {
+                    res.NicknameContactKnowsFromMe = Nicknames[0];
+                    mesg.Nickname = new Nickname(Nicknames[0]);
+                }
             }
             JabberClient.Send(mesg);
         }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         void SendPrivateMessage(XmppPersonModel person, string text)
         {
             Jid jid = person.Jid;
