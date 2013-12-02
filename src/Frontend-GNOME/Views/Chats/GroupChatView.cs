@@ -253,7 +253,7 @@ namespace Smuxi.Frontend.Gnome
                 }
                 newLines = Math.Min(newLines, 3);
                 var bestSize = new Gtk.Requisition() {
-                    Height = ((lineHeigth + lineSpacing) * newLines) + 2
+                    Height = ((lineHeight + lineSpacing) * newLines) + 4
                 };
                 args.Requisition = bestSize;
             };
