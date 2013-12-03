@@ -141,7 +141,8 @@ namespace Smuxi.Frontend.Gnome
             _PersonTreeView = tv;
             Gtk.ScrolledWindow sw = new Gtk.ScrolledWindow();
             PersonScrolledWindow = sw;
-            sw.HscrollbarPolicy = Gtk.PolicyType.Never;
+            sw.HscrollbarPolicy = Gtk.PolicyType.Automatic;
+            /*
             sw.SizeRequested += (o, args) => {
                 // predict and set useful treeview width
                 var persons = SyncedPersons;
@@ -165,6 +166,7 @@ namespace Smuxi.Frontend.Gnome
                 };
                 args.Requisition = bestSize;
             };
+            */
 
             //tv.CanFocus = false;
             tv.BorderWidth = 0;
@@ -178,7 +180,7 @@ namespace Smuxi.Frontend.Gnome
             column.SortColumnId = 0;
             column.Spacing = 0;
             column.SortIndicator = false;
-            column.Sizing = Gtk.TreeViewColumnSizing.Autosize;
+            column.Sizing = Gtk.TreeViewColumnSizing.GrowOnly;
             // FIXME: this callback leaks memory
             column.SetCellDataFunc(cellr, new Gtk.TreeCellDataFunc(RenderPersonIdentityName));
             tv.AppendColumn(column);
@@ -354,7 +356,23 @@ namespace Smuxi.Frontend.Gnome
                 _PersonTreeView.Model = ls;
                 _PersonTreeView.SearchColumn = 0;
 
-                PersonScrolledWindow.CheckResize();
+                //PersonTreeView.CheckResize();
+                //PersonScrolledWindow.CheckResize();
+
+                // predict and set useful treeview width
+                int longestNameWidth = 0;
+                foreach (var person in persons.Values) {
+                    int lineWidth, lineHeigth;
+                    using (var layout = _PersonTreeView.CreatePangoLayout(person.IdentityName)) {
+                        layout.GetPixelSize(out lineWidth, out lineHeigth);
+                    }
+                    if (lineWidth > longestNameWidth) {
+                        longestNameWidth = lineWidth;
+                    }
+                }
+                _OutputHPaned.Position = longestNameWidth;
+                _OutputHPaned.PositionSet = true;
+
                 UpdatePersonCount();
 
                 // TRANSLATOR: this string will be appended to the one above
@@ -433,8 +451,6 @@ namespace Smuxi.Frontend.Gnome
                     break;
                 }
             } while (_PersonListStore.IterNext(ref iter));
-            _PersonTreeView.CheckResize();
-            //_PersonListStore.Reorder();
 
             for (int i = 0; i < Participants.Count; ++i) {
                 if (Participants[i].ID == oldPerson.ID) {
