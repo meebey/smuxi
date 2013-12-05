@@ -16,9 +16,19 @@ file_filter = po-Engine-IRC/<lang>.po
 source_file = po-Engine-IRC/smuxi-engine-irc.pot
 source_lang = en
 
+[smuxi.smuxi-engine-jabbr]
+file_filter = po-Engine-JabbR/<lang>.po
+source_file = po-Engine-JabbR/smuxi-engine-jabbr.pot
+source_lang = en
+
 [smuxi.smuxi-engine-twitter]
 file_filter = po-Engine-Twitter/<lang>.po
 source_file = po-Engine-Twitter/smuxi-engine-twitter.pot
+source_lang = en
+
+[smuxi.smuxi-engine-xmpp]
+file_filter = po-Engine-XMPP/<lang>.po
+source_file = po-Engine-XMPP/smuxi-engine-xmpp.pot
 source_lang = en
 
 [smuxi.smuxi-frontend]
@@ -34,6 +44,16 @@ source_lang = en
 [smuxi.smuxi-frontend-gnome-irc]
 file_filter = po-Frontend-GNOME-IRC/<lang>.po
 source_file = po-Frontend-GNOME-IRC/smuxi-frontend-gnome-irc.pot
+source_lang = en
+
+[smuxi.smuxi-frontend-gnome-twitter]
+file_filter = po-Frontend-GNOME-Twitter/<lang>.po
+source_file = po-Frontend-GNOME-Twitter/smuxi-frontend-gnome-twitter.pot
+source_lang = en
+
+[smuxi.smuxi-frontend-gnome-xmpp]
+file_filter = po-Frontend-GNOME-XMPP/<lang>.po
+source_file = po-Frontend-GNOME-XMPP/smuxi-frontend-gnome-xmpp.pot
 source_lang = en
 
 [smuxi.smuxi-server]
