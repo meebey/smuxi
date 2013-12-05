@@ -56,6 +56,8 @@ namespace Smuxi.Frontend.Gnome
         protected Gtk.CellRendererText IdentityNameCellRenderer { get; set; }
         Gtk.ScrolledWindow PersonScrolledWindow { get; set; }
 
+        public event EventHandler ParticipantsChanged;
+
         public override bool HasSelection {
             get {
                 return base.HasSelection ||
@@ -202,6 +204,7 @@ namespace Smuxi.Frontend.Gnome
                 return !person.IdentityName.StartsWith(key, StringComparison.InvariantCultureIgnoreCase);
             };
             tv.EnableSearch = true;
+            tv.HeadersVisible = false;
             tv.RowActivated += new Gtk.RowActivatedHandler(OnPersonsRowActivated);
             tv.FocusOutEvent += OnPersonTreeViewFocusOutEvent;
             
@@ -299,7 +302,7 @@ namespace Smuxi.Frontend.Gnome
             
             _TopicTextView.Buffer.Text = String.Empty;
             _PersonListStore.Clear();
-            UpdatePersonCount();
+            OnParticipantsChanged(EventArgs.Empty);
         }
         
         public override void Sync()
@@ -365,7 +368,7 @@ namespace Smuxi.Frontend.Gnome
                 _PersonTreeView.SearchColumn = 0;
 
                 PersonScrolledWindow.CheckResize();
-                UpdatePersonCount();
+                OnParticipantsChanged(EventArgs.Empty);
 
                 // TRANSLATOR: this string will be appended to the one above
                 status += String.Format(" {0}", _("done."));
@@ -398,12 +401,6 @@ namespace Smuxi.Frontend.Gnome
             }
         }
         
-        protected void UpdatePersonCount()
-        {
-            _IdentityNameColumn.Title = String.Format(_("Person") + " ({0})",
-                                                      _PersonListStore.IterNChildren());
-        }
-        
         public void AddPerson(PersonModel person)
         {
             Trace.Call(person);
@@ -415,7 +412,7 @@ namespace Smuxi.Frontend.Gnome
             
             _PersonListStore.AppendValues(person);
             Participants.Add(person);
-            UpdatePersonCount();
+            OnParticipantsChanged(EventArgs.Empty);
         }
         
         public void UpdatePerson(PersonModel oldPerson, PersonModel newPerson)
@@ -487,7 +484,7 @@ namespace Smuxi.Frontend.Gnome
                 }
             }
 
-            UpdatePersonCount();
+            OnParticipantsChanged(EventArgs.Empty);
         }
 
         public override void ApplyConfig(UserConfig config)
@@ -594,6 +591,13 @@ namespace Smuxi.Frontend.Gnome
             PersonModel person2 = (PersonModel) liststore.GetValue(iter2, 0); 
 
             return person1.CompareTo(person2);
+        }
+
+        protected virtual void OnParticipantsChanged(EventArgs e)
+        {
+            if (ParticipantsChanged != null) {
+                ParticipantsChanged(this, EventArgs.Empty);
+            }
         }
 
         protected virtual void OnPersonsRowActivated(object sender, Gtk.RowActivatedArgs e)

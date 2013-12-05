@@ -38,6 +38,7 @@ namespace Smuxi.Frontend.Gnome
         private static readonly log4net.ILog f_Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 #endif
         private bool             _IsFullscreen;
+        string f_NetworkStatus;
 
         Gtk.Statusbar NetworkStatusbar { get; set; }
         Gtk.Statusbar Statusbar { get; set; }
@@ -100,6 +101,7 @@ namespace Smuxi.Frontend.Gnome
                 }
                 NetworkStatusbar.Pop(0);
                 NetworkStatusbar.Push(0, value);
+                f_NetworkStatus = value;
             }
         } 
 
@@ -351,6 +353,9 @@ namespace Smuxi.Frontend.Gnome
             if (chatView == null) {
                 chatView = ChatViewManager.CurrentChatView;
             }
+            if (protocolStatus == null) {
+                protocolStatus = f_NetworkStatus;
+            }
             if (chatView == null) {
                 return;
             }
@@ -360,6 +365,14 @@ namespace Smuxi.Frontend.Gnome
                 title = String.Empty;
             } else if (chatView is ProtocolChatView) {
                 title = protocolStatus;
+            } else if (chatView is GroupChatView) {
+                var groupChatView = (GroupChatView) chatView;
+                var users = String.Format(_("{0} Users"),
+                                          groupChatView.Participants.Count);
+                title = String.Format("{0} ({1}) @ {2}",
+                                      chatView.Name,
+                                      users,
+                                      protocolStatus);
             } else {
                 title = String.Format("{0} @ {1}",
                                       chatView.Name,
@@ -578,6 +591,15 @@ namespace Smuxi.Frontend.Gnome
                 }
                 Entry.GrabFocus();
             };
+            if (e.ChatView is GroupChatView) {
+                var groupChatView = (GroupChatView) e.ChatView;
+                groupChatView.ParticipantsChanged += (o, args) => {
+                    if (ChatViewManager.CurrentChatView != groupChatView) {
+                        return;
+                    }
+                    UpdateTitle(groupChatView, null);
+                };
+            }
             UpdateProgressBar();
         }
         
