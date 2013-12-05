@@ -8,7 +8,7 @@ PO_ENGINE_IRC = po-Engine-IRC
 endif
 
 if ENABLE_ENGINE_JABBR
-PO_ENGINE_IRC = po-Engine-JabbR
+PO_ENGINE_JABBR = po-Engine-JabbR
 endif
 
 if ENABLE_ENGINE_TWITTER
