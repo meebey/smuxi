@@ -11,6 +11,10 @@ install:
 script:
     - ./autogen.sh MCS=/usr/bin/dmcs
     - find lib/ -name "*.csproj" -exec sed 's!<WarningLevel>[0-9]</WarningLevel>!<WarningLevel>0</WarningLevel>!' -i {} \;
+    - sed 's!<Package>dbus-sharp-2.0</Package>!<Package>dbus-sharp-1.0</Package>!' -i src/Frontend-GNOME/Frontend-GNOME.csproj
+    - sed 's!<Package>dbus-sharp-glib-2.0</Package>!<Package>dbus-sharp-glib-1.0</Package>!' -i src/Frontend-GNOME/Frontend-GNOME.csproj
+    - sed 's!dbus-sharp, Version=2.0.0.0,!dbus-sharp, Version=1.0.0.0,!' -i src/Frontend-GNOME/Frontend-GNOME.csproj
+    - sed 's!dbus-sharp-glib, Version=2.0.0.0,!dbus-sharp-glib, Version=1.0.0.0,!' -i src/Frontend-GNOME/Frontend-GNOME.csproj
     - xbuild /p:Warn=0 src/smuxi.sln
     - nunit-console bin/release/smuxi-common-tests.dll
     - nunit-console bin/release/smuxi-engine-tests.dll || true
