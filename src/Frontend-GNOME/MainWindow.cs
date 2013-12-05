@@ -583,6 +583,8 @@ namespace Smuxi.Frontend.Gnome
             Trace.Call(sender, e);
             
             e.ChatView.MessageHighlighted -= OnChatViewMessageHighlighted;
+
+            UpdateProgressBar();
         }
         
         protected void OnChatViewMessageHighlighted(object sender, ChatViewMessageHighlightedEventArgs e)
