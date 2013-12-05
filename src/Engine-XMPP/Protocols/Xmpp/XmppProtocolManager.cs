@@ -860,12 +860,6 @@ namespace Smuxi.Engine
                 printResource(builder, res.Value);
                 i++;
             }
-            i = 0;
-            foreach(var res in person.MucResources) {
-                builder.AppendText("\nMucResource({0}):", i);
-                printResource(builder, res.Value);
-                i++;
-            }
             Session.AddMessageToFrontend(cmd, builder.ToMessage());
         }
 
@@ -1821,25 +1815,11 @@ namespace Smuxi.Engine
         }
 
         [MethodImpl(MethodImplOptions.Synchronized)]
-        void PrintGroupChatPresence(XmppGroupChatModel chat, XmppPersonModel person, Presence pres)
+        void PrintGroupChatPresence(XmppGroupChatModel chat, PersonModel person, Presence pres)
         {
             Jid jid = pres.From;
-            XmppResourceModel resource;
-            if (person.MucResources.TryGetValue(jid.Resource??"", out resource)) {
-                if (resource.Presence.Show == pres.Show
-                    && resource.Presence.Status == pres.Status
-                    && resource.Presence.Last == pres.Last
-                    && resource.Presence.XDelay == pres.XDelay
-                    && resource.Presence.Priority == pres.Priority
-                    && resource.Presence.Nickname == pres.Nickname
-                    && resource.Presence.Type == pres.Type
-                    ) {
-                    // presence didn't change enough to warrent a display message -> abort
-                    return;
-                }
-            }
 
-            var msg = CreatePresenceUpdateMessage(person.Jid, person, pres);
+            var msg = CreatePresenceUpdateMessage(person.ID, person, pres);
             Session.AddMessageToChat(chat, msg);
             // clone directly to muc person chat
             // don't care about real jid, that has its own presence packets
@@ -1853,22 +1833,7 @@ namespace Smuxi.Engine
         void OnGroupChatPresence(XmppGroupChatModel chat, Presence pres)
         {
             Jid jid = pres.From;
-            XmppPersonModel person;
-            // check whether we know the real jid of this muc user
-            if (pres.MucUser != null &&
-                pres.MucUser.Item != null &&
-                pres.MucUser.Item.Jid != null ) {
-                string nick = pres.From.Resource;
-                if (!string.IsNullOrEmpty(pres.MucUser.Item.Nickname)) {
-                    nick = pres.MucUser.Item.Nickname;
-                }
-                person = GetOrCreateContact(pres.MucUser.Item.Jid.Bare, nick);
-            } else {
-                // we do not know the real jid of this user, don't add it to our local roster
-                // BUG? pres.From.Resource can be null?
-                person = new XmppPersonModel(jid, pres.From.Resource, this);
-            }
-            person.GetOrCreateMucResource(jid).Presence = pres;
+            var person = new PersonModel(jid, pres.From.Resource, NetworkID, Protocol, this);
             PrintGroupChatPresence(chat, person, pres);
             switch (pres.Type) {
                 case PresenceType.available:
@@ -1878,11 +1843,11 @@ namespace Smuxi.Engine
                     }
                     // is the chat synced? add the new contact the regular way
                     if (chat.IsSynced) {
-                        Session.AddPersonToGroupChat(chat, person.ToPersonModel());
+                        Session.AddPersonToGroupChat(chat, person);
                         return;
                     }
 
-                    chat.UnsafePersons.Add(person.ID, person.ToPersonModel());
+                    chat.UnsafePersons.Add(person.ID, person);
 
                     // did I join? then the chat roster is fully received
                     if (pres.From.Resource == chat.OwnNickname) {
@@ -1902,7 +1867,7 @@ namespace Smuxi.Engine
                     }
                     break;
                 case PresenceType.unavailable:
-                    Session.RemovePersonFromGroupChat(chat, person.ToPersonModel());
+                    Session.RemovePersonFromGroupChat(chat, person);
                     // did I leave? then I "probably" left the room
                     if (pres.From.Resource == chat.OwnNickname) {
                         Session.RemoveChat(chat);
