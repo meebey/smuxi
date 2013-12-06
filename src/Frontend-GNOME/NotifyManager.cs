@@ -219,11 +219,13 @@ namespace Smuxi.Frontend.Gnome
             if (!IsEnabled ||
                 e.Message.TimeStamp <= chatView.SyncedLastSeenHighlight ||
                 (MainWindow.HasToplevelFocus &&
-                 MainWindow.ChatTreeView.IsVisible(chatView))) {
+                 (ChatViewManager.CurrentChatView == chatView ||
+                  MainWindow.ChatTreeView.IsVisible(chatView)))) {
                 // no need to show a notification for:
                 // - disabled chats
                 // - seen highlights
-                // - main window has focus and the chat row is visible
+                // - main window has focus and the chat is active or the chat
+                //   row is visible
                 return;
             }
 
