@@ -616,7 +616,12 @@ namespace Smuxi.Engine
                 ContactChat = null;
             } else if (chat.ChatType == ChatType.Group) {
                 if (IsConnected) {
-                    MucManager.LeaveRoom(chat.ID, ((XmppGroupChatModel)chat).OwnNickname);
+                    var groupchat = (XmppGroupChatModel)chat;
+                    if (!groupchat.IsSynced) {
+                        Session.RemoveChat(chat);
+                    } else {
+                        MucManager.LeaveRoom(chat.ID, ((XmppGroupChatModel)chat).OwnNickname);
+                    }
                 } else {
                     Session.RemoveChat(chat);
                 }
@@ -2053,10 +2058,16 @@ namespace Smuxi.Engine
                 RequestCapabilities(jid, pres.Capabilities);
             }
 
-            var groupChat = (XmppGroupChatModel) Session.GetChat(jid.Bare, ChatType.Group, this);
-
-            if (groupChat != null) {
-                OnGroupChatPresence(groupChat, pres);
+            if (pres.MucUser != null || pres.Muc != null) {
+                var groupChat = (XmppGroupChatModel) Session.GetChat(jid.Bare, ChatType.Group, this);
+                if (groupChat == null) {
+                    var builder = CreateMessageBuilder();
+                    builder.AppendEventPrefix();
+                    builder.AppendErrorText(_("Received a presence update from {0}, but there's no corresponding chat window"), pres.From.Bare);
+                    Session.AddMessageToChat(NetworkChat, builder.ToMessage());
+                } else {
+                    OnGroupChatPresence(groupChat, pres);
+                }
             } else {
                 OnPrivateChatPresence(pres);
             }
@@ -2067,6 +2078,13 @@ namespace Smuxi.Engine
         {
             string group_jid = msg.From.Bare;
             XmppGroupChatModel groupChat = (XmppGroupChatModel) Session.GetChat(group_jid, ChatType.Group, this);
+            if (groupChat == null) {
+                var builder = CreateMessageBuilder();
+                builder.AppendEventPrefix();
+                builder.AppendErrorText(_("Received a groupchat message from {0} but there's no corresponding chat window: {1}"), msg.From, msg.Body);
+                Session.AddMessageToChat(NetworkChat, builder.ToMessage());
+                return;
+            }
             // resource can be empty for room messages
             var sender_id = msg.From.Resource ?? msg.From.Bare;
             var person = groupChat.GetPerson(sender_id);
