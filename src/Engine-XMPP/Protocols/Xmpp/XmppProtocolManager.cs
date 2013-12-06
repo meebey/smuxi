@@ -1536,6 +1536,7 @@ namespace Smuxi.Engine
                 var msg = builder.ToMessage();
                 Session.AddMessageToChat(chat, msg);
 
+                chat.Person = contact.ToPersonModel();
                 var msg2 = new MessageModel(msg);
                 msg2.MessageType = MessageType.PersonChatPersonChanged;
                 Session.AddMessageToChat(chat, msg2);
