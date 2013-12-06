@@ -575,10 +575,17 @@ namespace Smuxi.Engine
         {
             Trace.Call(fm, chat);
 
-            TwitterChatType chatType;
+            TwitterChatType? chatType;
+            try {
+                chatType = (TwitterChatType) Enum.Parse(
+                    typeof(TwitterChatType),
+                    chat.ID
+                );
+            } catch (ArgumentException) {
+            }
             if (chat.ChatType == ChatType.Group &&
-                Enum.TryParse<TwitterChatType>(chat.ID, out chatType)) {
-               switch (chatType) {
+                chatType.HasValue) {
+               switch (chatType.Value) {
                     case TwitterChatType.FriendsTimeline:
                         if (f_UpdateFriendsTimelineThread != null &&
                             f_UpdateFriendsTimelineThread.IsAlive) {
