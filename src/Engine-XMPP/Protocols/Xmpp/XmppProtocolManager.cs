@@ -1580,12 +1580,9 @@ namespace Smuxi.Engine
         void OnDiscoInfo(IQEventArgs e, string hash)
         {
             if (e.IQ.Error != null) {
-                var msg = CreateMessageBuilder();
-                msg.AppendEventPrefix();
-                msg.AppendErrorText(_("An error happened during service discovery for {0}: {1}"),
-                                    e.IQ.From,
-                                    e.IQ.Error.ErrorText ?? e.IQ.Error.Condition.ToString());
-                Session.AddMessageToChat(NetworkChat, msg.ToMessage());
+#if LOG4NET
+                _Logger.DebugFormat("An error happened during service discovery: {0}", e.IQ);
+#endif
                 // clear item from cache so the request is done again some time
                 DiscoCache.Remove(hash);
                 e.Handled = true;
