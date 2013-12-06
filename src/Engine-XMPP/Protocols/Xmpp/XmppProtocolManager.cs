@@ -1994,6 +1994,10 @@ namespace Smuxi.Engine
         void OnPrivateChatPresence(Presence pres)
         {
             Jid jid = pres.From;
+            if (jid.Bare == JabberClient.MyJID.Bare) {
+                // don't process any of my own resources
+                return;
+            }
             var person = GetOrCreateContact(jid.Bare, jid);
             PrintPrivateChatPresence(person, pres);
             switch (pres.Type) {
