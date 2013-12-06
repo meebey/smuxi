@@ -219,6 +219,13 @@ namespace Smuxi.Frontend.Gnome
                 // do connect as background task as it might take a while
                 ThreadPool.QueueUserWorkItem(delegate {
                     try {
+                        if (Frontend.EngineVersion < new Version(0, 8, 11)) {
+                            // HACK: Smuxi < 0.8.11 used auto serialization for
+                            // ServerModel and thus breaks on unknown fields,
+                            // which we skip by setting this to null, see:
+                            // ServerModel.GetObjectData()
+                            server.ServerID = null;
+                        }
                         Frontend.Session.Connect(server, Frontend.FrontendManager);
                     } catch (Exception ex) {
                         Frontend.ShowException(Parent, ex);
