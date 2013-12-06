@@ -42,6 +42,20 @@ namespace Smuxi.Frontend.Gnome
             Trace.Call(chat);
         }
 
+        protected override void OnMessageTextViewMessageAdded(object sender, MessageTextViewMessageAddedEventArgs e)
+        {
+            if (!IsActive) {
+                switch (e.Message.MessageType) {
+                    case MessageType.PresenceStateOffline:
+                    case MessageType.PresenceStateAway:
+                    case MessageType.PresenceStateOnline:
+                        HasEvent = true;
+                        break;
+                }
+            }
+            base.OnMessageTextViewMessageAdded(sender, e);
+        }
+
         void OnPersonRenameEditingStarted(object o, Gtk.EditingStartedArgs e)
         {
             Trace.Call(o, e);
