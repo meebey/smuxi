@@ -265,6 +265,10 @@ namespace Smuxi.Frontend.Gnome
             ShowAll();
         }
 
+        protected GroupChatView(IntPtr handle) : base(handle)
+        {
+        }
+
         public override void Dispose()
         {
             Trace.Call();
