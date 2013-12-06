@@ -575,7 +575,7 @@ namespace Smuxi.Engine
         {
             Trace.Call(fm, chat);
 
-            TwitterChatType? chatType;
+            TwitterChatType? chatType = null;
             try {
                 chatType = (TwitterChatType) Enum.Parse(
                     typeof(TwitterChatType),
