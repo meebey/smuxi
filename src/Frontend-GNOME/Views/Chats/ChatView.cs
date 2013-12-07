@@ -349,6 +349,10 @@ namespace Smuxi.Frontend.Gnome
             _LastSeenHighlightQueue.AbortedEvent += OnLastSeenHighlightQueueAbortedEvent;
             _LastSeenHighlightQueue.ExceptionEvent += OnLastSeenHighlightQueueExceptionEvent;
         }
+
+        protected ChatView(IntPtr handle) : base(handle)
+        {
+        }
         
         ~ChatView()
         {

@@ -60,6 +60,10 @@ namespace Smuxi.Frontend.Gnome
             Add(OutputScrolledWindow);
             ShowAll();
         }
+
+        protected SessionChatView(IntPtr handle) : base(handle)
+        {
+        }
         
         protected override void OnTabButtonPress(object sender, Gtk.ButtonPressEventArgs e)
         {

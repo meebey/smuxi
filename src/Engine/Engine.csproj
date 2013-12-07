@@ -111,7 +111,6 @@
     <Folder Include="Protocols\" />
     <Folder Include="Messages\" />
     <Folder Include="Chats\" />
-    <Folder Include="Plugins\" />
     <Folder Include="Config\" />
     <Folder Include="Persons\" />
     <Folder Include="MessageBuffers\" />

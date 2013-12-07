@@ -81,6 +81,10 @@ namespace Smuxi.Frontend.Gnome
             ShowAll();
         }
 
+        protected PersonChatView(IntPtr handle) : base(handle)
+        {
+        }
+
         public override IList<PersonModel> Participants
         {
             get {

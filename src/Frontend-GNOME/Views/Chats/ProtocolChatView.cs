@@ -137,6 +137,10 @@ namespace Smuxi.Frontend.Gnome
             ShowAll();
         }
 
+        protected ProtocolChatView(IntPtr handle) : base(handle)
+        {
+        }
+
         public override void Sync()
         {
             Trace.Call();
