@@ -299,7 +299,7 @@ namespace Smuxi.Frontend.Gnome
                 if (Frontend.IsLocalEngine) {
                     if ((chatView is PersonChatView && AutoSwitchPersonChats) ||
                         (chatView is GroupChatView && AutoSwitchGroupChats)) {
-                        CurrentChatNumber = idx;
+                        CurrentChatView = chatView;
                     }
                 }
 
