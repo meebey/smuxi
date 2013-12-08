@@ -356,7 +356,13 @@ namespace Smuxi.Frontend.Gnome
                     if (enc.EncodingName.Contains(" (")) {
                         encodingName = encodingName.Substring(0, enc.EncodingName.IndexOf(" ("));
                     }
-                    store.AppendValues(enc.BodyName.ToUpper() + " - " + encodingName, enc.BodyName.ToUpper());
+                    var normalizedBodyName = enc.BodyName.ToUpper();
+                    if (normalizedBodyName.StartsWith("KOI8")) {
+                        // this is the only non-ISO encoding that doesn't use
+                        // WINDOWS as prefix and confuses users
+                        normalizedBodyName = String.Format("WINDOWS-{0}", enc.CodePage);
+                    }
+                    store.AppendValues(normalizedBodyName + " - " + encodingName, enc.BodyName.ToUpper());
                 } catch (NotSupportedException) {
                 }
             }
