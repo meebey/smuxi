@@ -1507,7 +1507,11 @@ namespace Smuxi.Engine
             }
 
             contact.IdentityNameColored = null; // uncache
+            ProcessIdentityNameChanged(contact, oldIdentityNameColored, oldIdentityName);
+        }
 
+        void ProcessIdentityNameChanged(XmppPersonModel contact, TextMessagePartModel oldIdentityNameColored, string oldIdentityName)
+        {
             var builder = CreateMessageBuilder();
             builder.AppendEventPrefix();
             string idstring = "";
@@ -1518,20 +1522,21 @@ namespace Smuxi.Engine
             builder.AppendFormat("{2}{1} is now known as {0}", contact, idstring, oldIdentityNameColored);
 
             if (ContactChat != null) {
-                PersonModel oldp = ContactChat.GetPerson(rosterItem.Jid.Bare);
+                PersonModel oldp = ContactChat.GetPerson(contact.ID);
                 if (oldp != null) {
                     Session.UpdatePersonInGroupChat(ContactChat, oldp, contact.ToPersonModel());
                     Session.AddMessageToChat(ContactChat, new MessageModel(builder.ToMessage()));
                 }
             }
             
-            var chat = Session.GetChat(rosterItem.Jid.Bare, ChatType.Person, this) as PersonChatModel;
+            var chat = Session.GetChat(contact.ID, ChatType.Person, this) as PersonChatModel;
             if (chat != null) {
                 chat.Name = contact.IdentityName;
                 builder.MessageType = MessageType.ChatNameChanged;
                 var msg = builder.ToMessage();
                 Session.AddMessageToChat(chat, msg);
 
+                chat.Person = contact.ToPersonModel();
                 var msg2 = new MessageModel(msg);
                 msg2.MessageType = MessageType.PersonChatPersonChanged;
                 Session.AddMessageToChat(chat, msg2);
@@ -2124,7 +2129,13 @@ namespace Smuxi.Engine
             if (String.IsNullOrEmpty(nick.Value)) {
                 return;
             }
-            JabberClient.RosterManager.UpdateRosterItem(person.ID, nick.Value);
+            // only rename person if it doesn't have a preset name
+            if (person.IdentityName == person.ID) {
+                var oldIdentityNameColored = person.IdentityNameColored;
+                var oldIdentityName = person.IdentityName;
+                person.IdentityName = nick.Value;
+                ProcessIdentityNameChanged(person, oldIdentityNameColored, oldIdentityName);
+            }
         }
 
         [MethodImpl(MethodImplOptions.Synchronized)]
