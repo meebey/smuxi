@@ -53,6 +53,7 @@ using Starksoft.Net.Proxy;
 using Smuxi.Common;
 using System.Runtime.CompilerServices;
 using agsXMPP.protocol.extensions.nickname;
+using System.Threading.Tasks;
 
 namespace Smuxi.Engine
 {
@@ -574,7 +575,8 @@ namespace Smuxi.Engine
             }
 
             // HACK: lower probability of sync race condition during connect
-            ThreadPool.QueueUserWorkItem(delegate {
+            Task.Factory.StartNew(()=>
+            {
                 Thread.Sleep(5000);
                 lock (this) {
                     if (IsDisposed) {
@@ -1855,7 +1857,8 @@ namespace Smuxi.Engine
                     if (pres.From.Resource == chat.OwnNickname) {
                         chat.IsJoining = false;
                         // HACK: lower probability of sync race condition swallowing messages
-                        ThreadPool.QueueUserWorkItem(delegate {
+                        Task.Factory.StartNew(()=>
+                        {
                             Thread.Sleep(1000);
                             lock (this) {
                                 if (IsDisposed) {
@@ -2485,7 +2488,8 @@ namespace Smuxi.Engine
             builder.AppendText(_("Reconnecting to {0} in {1} seconds"),
                                JabberClient.Server, span.TotalSeconds);
             Session.AddMessageToChat(Chat, builder.ToMessage());
-            ThreadPool.QueueUserWorkItem(delegate {
+            Task.Factory.StartNew(()=>
+            {
                 Thread.Sleep(delay);
                 lock (this) {
                     // prevent this timer from calling connect after it has been closed

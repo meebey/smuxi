@@ -31,6 +31,7 @@ using System.Collections.Generic;
 using System.Runtime.Remoting;
 using System.Threading;
 using Smuxi.Common;
+using System.Threading.Tasks;
 
 namespace Smuxi.Engine
 {
@@ -245,7 +246,7 @@ namespace Smuxi.Engine
 
                     var srv = server;
                     // run connects in background threads as they block
-                    ThreadPool.QueueUserWorkItem(delegate {
+                    Task.Factory.StartNew(()=> {
                         bool isError = false;
                         try {
                             IProtocolManager protocolManager = Connect(srv, fm);
@@ -574,7 +575,7 @@ namespace Smuxi.Engine
             }
 
             // run in background so it can't block the command queue
-            ThreadPool.QueueUserWorkItem(delegate {
+            Task.Factory.StartNew(()=> {
                 try {
                     if (protocolManager == null && server != null) {
                         protocolManager = Connect(server, fm);
@@ -652,7 +653,7 @@ namespace Smuxi.Engine
                 return;
             }
 
-            ThreadPool.QueueUserWorkItem(delegate {
+            Task.Factory.StartNew(()=> {
                 try {
                     pm.Reconnect(cd.FrontendManager);
                 } catch (Exception ex) {
@@ -941,7 +942,7 @@ namespace Smuxi.Engine
             }
 
             // disconnect in background as could be blocking
-            ThreadPool.QueueUserWorkItem(delegate {
+            Task.Factory.StartNew(()=> {
                 try {
                     pm.Disconnect(cd.FrontendManager);
                     pm.Dispose();
@@ -1416,7 +1417,7 @@ namespace Smuxi.Engine
 
             if (server.OnConnectCommands != null && server.OnConnectCommands.Count > 0) {
                 protocolManager.Connected += delegate {
-                    ThreadPool.QueueUserWorkItem(delegate {
+                    Task.Factory.StartNew(()=> {
                         try {
                             foreach (string command in server.OnConnectCommands) {
                                 if (command.Length == 0) {
