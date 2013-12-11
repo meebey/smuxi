@@ -574,7 +574,7 @@ namespace Smuxi.Engine
 #endif
                 var msg = CreateMessageBuilder().
                     AppendEventPrefix().
-                    AppendErrorText(_("Retrieving chat information failed " +
+                    AppendErrorText(_("Retrieving chat information failed. " +
                                       "Reason: {0}"),
                                     ex.Message).
                     ToMessage();
