@@ -655,7 +655,8 @@ namespace Smuxi.Frontend.Gnome
         {
             Trace.Call(engine);
             
-            EngineManagerDialog diag = new EngineManagerDialog(_MainWindow.EngineManager);
+            var diag = new EngineManagerDialog(_MainWindow,
+                                               _MainWindow.EngineManager);
             if (!String.IsNullOrEmpty(engine)) {
                 diag.SelectedEngine = engine;
                 // 1 == connect button

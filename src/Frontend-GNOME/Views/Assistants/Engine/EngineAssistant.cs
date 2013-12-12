@@ -1,13 +1,7 @@
 /*
- * $Id$
- * $URL$
- * $Rev$
- * $Author$
- * $Date$
- *
  * Smuxi - Smart MUltipleXed Irc
  *
- * Copyright (c) 2009 Mirco Bauer <meebey@meebey.net>
+ * Copyright (c) 2009, 2011, 2013 Mirco Bauer <meebey@meebey.net>
  *
  * Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
  *
@@ -67,7 +61,7 @@ namespace Smuxi.Frontend.Gnome
 
             TransientFor = parent;
             SetDefaultSize(640, 480);
-            SetPosition(Gtk.WindowPosition.CenterOnParent);
+            SetPosition(Gtk.WindowPosition.CenterAlways);
             Title = _("Engine Assistant - Smuxi");
 
             Apply += OnApply;
