@@ -1,13 +1,7 @@
 /*
- * $Id$
- * $URL$
- * $Rev$
- * $Author$
- * $Date$
- *
  * Smuxi - Smart MUltipleXed Irc
  *
- * Copyright (c) 2005-2006 Mirco Bauer <meebey@meebey.net>
+ * Copyright (c) 2005-2013 Mirco Bauer <meebey@meebey.net>
  *
  * Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
  *
@@ -46,6 +40,7 @@ namespace Smuxi.Frontend.Gnome
         private EngineManager _EngineManager;
         private Gtk.Button    _EditButton;
         private Gtk.Button    _DeleteButton;
+        new Gtk.Window Parent { get; set; }
 
         public string SelectedEngine {
             get {
@@ -67,17 +62,18 @@ namespace Smuxi.Frontend.Gnome
             }
         }
 
-        public EngineManagerDialog(EngineManager engineManager)
+        public EngineManagerDialog(Gtk.Window parent, EngineManager engineManager) :
+                              base(null, parent, Gtk.DialogFlags.Modal)
         {
-            Trace.Call(engineManager);
+            Trace.Call(parent, engineManager);
             
             if (engineManager == null) {
                 throw new ArgumentNullException("engineManager");
             }
-            
+
+            Parent = parent;
             _EngineManager = engineManager;
             
-            Modal = true;
             Title = "Smuxi - " + _("Engine Manager");
             SetPosition(Gtk.WindowPosition.CenterAlways);
 
@@ -262,7 +258,7 @@ namespace Smuxi.Frontend.Gnome
         private void _OnNewButtonPressed()
         {
             EngineAssistant assistant = new EngineAssistant(
-                this,
+                Parent,
                 Frontend.FrontendConfig
             );
             assistant.Cancel += delegate {
@@ -270,7 +266,7 @@ namespace Smuxi.Frontend.Gnome
                 
                 // Restart the Dialog
                 // HACK: holy shit, please refactor this mess!
-                EngineManagerDialog dialog = new EngineManagerDialog(_EngineManager);
+                var dialog = new EngineManagerDialog(Parent, _EngineManager);
                 dialog.Run();
                 dialog.Destroy();
             };
@@ -279,7 +275,7 @@ namespace Smuxi.Frontend.Gnome
                 
                 // Restart the Dialog
                 // HACK: holy shit, please refactor this mess!
-                EngineManagerDialog dialog = new EngineManagerDialog(_EngineManager);
+                var dialog = new EngineManagerDialog(Parent, _EngineManager);
                 dialog.Run();
                 dialog.Destroy();
             };
@@ -289,7 +285,7 @@ namespace Smuxi.Frontend.Gnome
         private void _OnEditButtonPressed()
         {
             EngineAssistant assistant = new EngineAssistant(
-                this,
+                Parent,
                 Frontend.FrontendConfig,
                 _SelectedEngine
             );
@@ -298,7 +294,7 @@ namespace Smuxi.Frontend.Gnome
 
                 // Restart the Dialog
                 // HACK: holy shit, please refactor this mess!
-                EngineManagerDialog dialog = new EngineManagerDialog(_EngineManager);
+                var dialog = new EngineManagerDialog(Parent, _EngineManager);
                 dialog.Run();
                 dialog.Destroy();
             };
@@ -307,7 +303,7 @@ namespace Smuxi.Frontend.Gnome
                 
                 // Restart the Dialog
                 // HACK: holy shit, please refactor this mess!
-                EngineManagerDialog dialog = new EngineManagerDialog(_EngineManager);
+                var dialog = new EngineManagerDialog(Parent, _EngineManager);
                 dialog.Run();
                 dialog.Destroy();
             };
