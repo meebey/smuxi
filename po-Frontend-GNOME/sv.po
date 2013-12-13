@@ -5,13 +5,14 @@
 # Translators:
 # flugsio <flugsio@gmail.com>, 2013
 # flugsio <flugsio@gmail.com>, 2011, 2012
+# Martin Bagge <brother@bsnet.se>, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: Smuxi - IRC client\n"
-"Report-Msgid-Bugs-To: http://www.smuxi.org/issues\n"
-"POT-Creation-Date: 2013-08-19 14:09+0200\n"
-"PO-Revision-Date: 2013-08-19 13:35+0000\n"
-"Last-Translator: flugsio <flugsio@gmail.com>\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-12-11 17:04+0100\n"
+"PO-Revision-Date: 2013-12-10 16:50+0000\n"
+"Last-Translator: Martin Bagge <brother@bsnet.se>\n"
 "Language-Team: Swedish (http://www.transifex.com/projects/p/smuxi/language/sv/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -94,7 +95,7 @@ msgstr "Kommando vid uppstart:"
 
 #: ../glade/smuxi-frontend-gnome.glade.h:17
 msgid "<b>Global Commands</b>"
-msgstr "<b>Allmänna kommandon</b>"
+msgstr "<b>Globala kommandon</b>"
 
 #: ../glade/smuxi-frontend-gnome.glade.h:18
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:471
@@ -231,7 +232,7 @@ msgstr "<b> Position för flikar </b>"
 #: ../glade/smuxi-frontend-gnome.glade.h:47
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:981
 msgid "Highlight"
-msgstr "Förstärk"
+msgstr "Notifiera"
 
 #: ../glade/smuxi-frontend-gnome.glade.h:48
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:961
@@ -262,9 +263,8 @@ msgid "Automatically switch to newly opened group chats"
 msgstr "Byt automatiskt till nyligen öppnade grupp-chattar"
 
 #: ../glade/smuxi-frontend-gnome.glade.h:54
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1022
-msgid "Tabs"
-msgstr "Flikar"
+msgid "Tree"
+msgstr "Träd"
 
 #: ../glade/smuxi-frontend-gnome.glade.h:55
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1092
@@ -343,17 +343,17 @@ msgstr "<b> Chatt </b>"
 #: ../glade/smuxi-frontend-gnome.glade.h:72
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1466
 msgid "Highlight words:"
-msgstr "Förstärk ord"
+msgstr "Ord som orsakar notifiering:"
 
 #: ../glade/smuxi-frontend-gnome.glade.h:73
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1490
 msgid "Beep on highlight"
-msgstr "Pip vid förstärkning"
+msgstr "Pip vid notifiering"
 
 #: ../glade/smuxi-frontend-gnome.glade.h:74
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1502
 msgid "<b> Highlighting </b>"
-msgstr "<b> Förstärkning </b>"
+msgstr "<b> Notifiering </b>"
 
 #: ../glade/smuxi-frontend-gnome.glade.h:75
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1514
@@ -417,7 +417,7 @@ msgstr "_Filter"
 
 #: ../glade/smuxi-frontend-gnome.glade.h:89
 msgid "Enabled"
-msgstr "Aktivera"
+msgstr "Aktiverad"
 
 #: ../glade/smuxi-frontend-gnome.glade.h:90
 msgid "Log Filtered Messages"
@@ -443,7 +443,7 @@ msgstr "Protokoll:"
 
 #: ../glade/smuxi-frontend-gnome.glade.h:95
 msgid "Network:"
-msgstr "Nätverk"
+msgstr "Nätverk:"
 
 #: ../glade/smuxi-frontend-gnome.glade.h:96
 msgid "Hostname:"
@@ -483,7 +483,7 @@ msgstr "Smuxi krashade på grund av ett ohanterat fel."
 
 #: ../src/Frontend-GNOME/CrashDialog.cs:63
 msgid "Here is the stacktrace, please report this bug!"
-msgstr "Kan du vara bussig och rapportera denna bugg. Ta med utskriften från kraschen i felrapporten!"
+msgstr "Ta med den här utskriften från kraschen i felrapporten!"
 
 #: ../src/Frontend-GNOME/CrashDialog.cs:83
 msgid "_Report Bug"
@@ -543,14 +543,14 @@ msgstr "Fel: {0}"
 msgid "Are you sure you want to delete the engine \"{0}\"?"
 msgstr "Är du säker på att du vill radera motorn \"{0}\"?"
 
-#: ../src/Frontend-GNOME/Entry.cs:482
+#: ../src/Frontend-GNOME/Entry.cs:484
 #, csharp-format
 msgid "You are going to paste {0} lines. Do you want to continue?"
 msgstr "Du kommer att klistra in {0} rader. Vill du fortsätta?"
 
 #. TRANSLATOR: this line is used as a label / category for a
 #. list of commands below
-#: ../src/Frontend-GNOME/Entry.cs:595
+#: ../src/Frontend-GNOME/Entry.cs:601
 msgid "Frontend Commands"
 msgstr "Kommandon för framdelen"
 
@@ -605,14 +605,14 @@ msgstr "Filter"
 msgid "Logging"
 msgstr "Loggning"
 
-#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:674
+#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:682
 msgid "Nicknames(s) field must not be empty."
 msgstr "Fältet för smeknamn kan inte lämnas tomt."
 
-#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:870
+#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:878
 #, csharp-format
 msgid "Invalid highlight regex: '{0}'. Reason: {1}"
-msgstr "Ogiltigt mönster för framhävande: \"{0}\". Anledning: {1}"
+msgstr "Ogiltigt mönster för notifiering: \"{0}\". Anledning: {1}"
 
 #: ../src/Frontend-GNOME/FindGroupChatDialog.cs:81
 #: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:106
@@ -643,30 +643,30 @@ msgstr "Frånkopplad från motorn."
 msgid "Reconnecting to engine... (attempt {0})"
 msgstr "Återkopplar till motorn... (försök {0})"
 
-#: ../src/Frontend-GNOME/Frontend.cs:542
+#: ../src/Frontend-GNOME/Frontend.cs:548
 #, csharp-format
 msgid "Cause: {0}"
 msgstr "Anledning: {0}"
 
-#: ../src/Frontend-GNOME/Frontend.cs:668
+#: ../src/Frontend-GNOME/Frontend.cs:680
 msgid ""
 "The frontend has lost the connection to the server.\n"
 "Do you want to reconnect now?"
 msgstr "Framdelen tappade anslutningen till server.\nVill du återansluta?"
 
-#: ../src/Frontend-GNOME/Frontend.cs:687
+#: ../src/Frontend-GNOME/Frontend.cs:699
 msgid ""
 "Reconnecting to the server has failed.\n"
 "Do you want to try again?"
 msgstr "Återanslutningsförsöket fungerade inte.\nVill du försöka igen?"
 
-#: ../src/Frontend-GNOME/Frontend.cs:995
+#: ../src/Frontend-GNOME/Frontend.cs:1007
 msgid ""
 "The server has lost the connection to the frontend.\n"
 "Do you want to reconnect now?"
 msgstr "Servern har tappat anslutningen till framdelen.\nVill du återansluta?"
 
-#: ../src/Frontend-GNOME/NotifyManager.cs:336
+#: ../src/Frontend-GNOME/NotifyManager.cs:338
 msgid "Show"
 msgstr "Visa"
 
@@ -722,44 +722,44 @@ msgstr "Tack"
 #: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:304
 msgid ""
 "An engine with this name already exists! Please specify a different one."
-msgstr "En motor med detta namn finns reda. Ange ett annat."
+msgstr "En motor med detta namn finns redan. Ange ett annat."
 
 #: ../src/Frontend-GNOME/Views/JoinWidget.cs:89
 msgid "Enter which chat to join"
 msgstr "Ange vilken chat att ansluta till"
 
-#: ../src/Frontend-GNOME/Views/MenuWidget.cs:144
+#: ../src/Frontend-GNOME/Views/MenuWidget.cs:153
 msgid "About Smuxi"
 msgstr "Om Smuxi"
 
 #. TODO: add cmd+, accelerator
-#: ../src/Frontend-GNOME/Views/MenuWidget.cs:148
+#: ../src/Frontend-GNOME/Views/MenuWidget.cs:157
 msgid "Preferences"
 msgstr "Alternativ"
 
-#: ../src/Frontend-GNOME/Views/MenuWidget.cs:242
+#: ../src/Frontend-GNOME/Views/MenuWidget.cs:251
 #: ../src/Frontend-GNOME/Preferences/ServerListView.cs:227
 msgid "Unable to add server: "
 msgstr "Kan inte lägga till server:"
 
-#: ../src/Frontend-GNOME/Views/MenuWidget.cs:363
+#: ../src/Frontend-GNOME/Views/MenuWidget.cs:372
 msgid ""
 "Switching to local engine will disconnect you from the current engine!\n"
 "Are you sure you want to do this?"
 msgstr "Byte till lokal motor kommer att koppla bort dig från den aktuella motorn!\nÄr du säker på att du vill göra detta?"
 
-#: ../src/Frontend-GNOME/Views/MenuWidget.cs:407
+#: ../src/Frontend-GNOME/Views/MenuWidget.cs:416
 msgid ""
 "Switching the remote engine will disconnect you from the current engine!\n"
 "Are you sure you want to do this?"
 msgstr "Byte av fjärrmotor kommer att koppla bort dig från den aktuella motorn!\nÄr du säker på att du vill göra detta?"
 
-#: ../src/Frontend-GNOME/Views/MessageTextView.cs:274
+#: ../src/Frontend-GNOME/Views/MessageTextView.cs:288
 #, csharp-format
 msgid "Day changed from {0} to {1}"
 msgstr "Dag ändrades från {0} till {1}"
 
-#: ../src/Frontend-GNOME/Views/MessageTextView.cs:278
+#: ../src/Frontend-GNOME/Views/MessageTextView.cs:292
 #, csharp-format
 msgid "Day changed to {0}"
 msgstr "Dygnsskifte, {0}"
@@ -798,35 +798,35 @@ msgstr "Typ"
 msgid "Pattern"
 msgstr "Mönster"
 
-#: ../src/Frontend-GNOME/Views/Chats/ChatView.cs:526
+#: ../src/Frontend-GNOME/Views/Chats/ChatView.cs:548
 msgid "Low Bandwidth Mode is active: no messages synced."
 msgstr "Låg bandbreddsläge är aktiverat: inga meddelanden synkroniserade."
 
-#: ../src/Frontend-GNOME/Views/Chats/ChatView.cs:752
+#: ../src/Frontend-GNOME/Views/Chats/ChatView.cs:792
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:135
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:136
 msgid "Show _Menubar"
 msgstr "Visa Menu"
 
-#: ../src/Frontend-GNOME/Views/Chats/GroupChatView.cs:299
+#: ../src/Frontend-GNOME/Views/Chats/GroupChatView.cs:337
 #, csharp-format
 msgid "Retrieving user list for {0}..."
 msgstr "Hämtar användarlistan för {0}..."
 
 #. TRANSLATOR: this string will be appended to the one above
-#: ../src/Frontend-GNOME/Views/Chats/GroupChatView.cs:336
+#: ../src/Frontend-GNOME/Views/Chats/GroupChatView.cs:366
 msgid "done."
 msgstr "klar"
 
-#: ../src/Frontend-GNOME/Views/Chats/GroupChatView.cs:368
+#: ../src/Frontend-GNOME/Views/Chats/GroupChatView.cs:398
 msgid "Person"
 msgstr "Person"
 
-#: ../src/Frontend-GNOME/Views/Chats/ProtocolChatView.cs:109
+#: ../src/Frontend-GNOME/Views/Chats/ProtocolChatView.cs:131
 msgid "Reconnect"
 msgstr "Återanslut"
 
-#: ../src/Frontend-GNOME/Views/Chats/ProtocolChatView.cs:154
+#: ../src/Frontend-GNOME/Views/Chats/ProtocolChatView.cs:180
 msgid ""
 "Closing the protocol chat will also close all open chats connected to it!\n"
 "Are you sure you want to do this?"
@@ -1042,6 +1042,10 @@ msgstr "Smuxi - Egenskaper"
 msgid "Nicknames:"
 msgstr "Smeknamn:"
 
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1022
+msgid "Tabs"
+msgstr "Flikar"
+
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1430
 msgid "<b> User List Position </b>"
 msgstr "<b> Position för användarlista</b>"
@@ -1067,7 +1071,7 @@ msgid ""
 "<span size=\"small\">Enables the use of SSH for the connection.  This has a "
 "small performance impact, but is more secure and required when using NAT or "
 "port-based firewalls</span>"
-msgstr "<span size=\"small\">Aktiverar användning av SSH för anslutningen. Detta kan innebära en liten negativ inverka på hastigheten men är säkrare och krävs när NAT eller port-baserade brändväggar används</span>"
+msgstr "<span size=\"small\">Aktiverar användning av SSH för anslutningen. Detta kan innebära en liten negativ inverkan på hastigheten men är säkrare och krävs när NAT eller port-baserade brändväggar används</span>"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantConnectionWidget.cs:135
 msgid "SSH _Host:"
@@ -1110,11 +1114,11 @@ msgid ""
 "<span size=\"small\">Password which will be used to log into the SSH server."
 " The password is optional if SSH key authorization is used (see "
 "below).</span>"
-msgstr "<span size=\"small\">Lösenord som kommer användas att logga in till SSH-servern. Lösenordet är valfritt om SSH nyckel-auktorisation används (se nedan).</span>"
+msgstr "<span size=\"small\">Lösenord som kommer användas att logga in till SSH-servern. Lösenordet är valfritt om SSH-nyckel-auktorisation används (se nedan).</span>"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:140
 msgid "_SSH Keyfile: (optional)"
-msgstr "_SSH nyckelfil: (valfri)"
+msgstr "_SSH-nyckelfil: (valfri)"
 
 #. Container child vbox17.Gtk.Box+BoxChild
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:148
@@ -1125,7 +1129,7 @@ msgstr "Välj en fil"
 msgid ""
 "<span size=\"small\">SSH private keyfile which will be used to log into the "
 "SSH server</span>"
-msgstr "<span size=\"small\">SSH privat nyckelfil att användas för att logga in på SSH-servern</span>"
+msgstr "<span size=\"small\">Privat SSH-nyckelfil att användas för att logga in på SSH-servern</span>"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:181
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:188

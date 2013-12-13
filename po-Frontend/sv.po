@@ -8,10 +8,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Smuxi - IRC client\n"
-"Report-Msgid-Bugs-To: http://www.smuxi.org/issues\n"
-"POT-Creation-Date: 2013-08-19 14:09+0200\n"
-"PO-Revision-Date: 2013-04-29 08:41+0000\n"
-"Last-Translator: Mirco Bauer <meebey@gmail.com>\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-12-11 17:03+0100\n"
+"PO-Revision-Date: 2013-12-10 13:32+0000\n"
+"Last-Translator: Martin Bagge <brother@bsnet.se>\n"
 "Language-Team: Swedish (http://www.transifex.com/projects/p/smuxi/language/sv/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -19,12 +19,12 @@ msgstr ""
 "Language: sv\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../src/Frontend/CommandManager.cs:311
+#: ../src/Frontend/CommandManager.cs:343
 #, csharp-format
 msgid "Unknown Command: {0}"
 msgstr "Okänt kommando: {0}"
 
-#: ../src/Frontend/CommandManager.cs:320
+#: ../src/Frontend/CommandManager.cs:352
 #, csharp-format
 msgid "Not enough parameters for {0} command"
 msgstr "Inte tillräckligt med parametrar för kommandot {0}"
@@ -80,16 +80,16 @@ msgid ""
 msgstr "Fel vid upprättande av SSH-tunnel (felkod: {0})\n\nSSH-applikation: {1}\nSSH-parameterar: {2}\n\nApplikationsfel:\n{3}\nUtdata från applikation:\n{4}\n"
 
 #: ../src/Frontend/SshTunnelManager.cs:329
-#: ../src/Frontend/SshTunnelManager.cs:475
+#: ../src/Frontend/SshTunnelManager.cs:478
 msgid "SSH keyfile not found."
 msgstr "SSH-nyckelfil hittades inte."
 
 #: ../src/Frontend/SshTunnelManager.cs:335
-#: ../src/Frontend/SshTunnelManager.cs:481
+#: ../src/Frontend/SshTunnelManager.cs:484
 msgid "SSH keyfile could not be read."
 msgstr "SSH-nyckelfilen kunde inte läsas."
 
-#: ../src/Frontend/SshTunnelManager.cs:423
+#: ../src/Frontend/SshTunnelManager.cs:426
 #, csharp-format
 msgid ""
 "OpenSSH version number not found (exit code: {0})\n"
@@ -102,11 +102,11 @@ msgid ""
 "{3}\n"
 msgstr "Versionsnummer för OpenSSH kunde inte hittas (felkod: {0})\n\nSSH-applikation: {1}\n\nApplikationsfel:\n{2}\nUtdata från applikation:\n{3}\n"
 
-#: ../src/Frontend/SshTunnelManager.cs:466
+#: ../src/Frontend/SshTunnelManager.cs:469
 msgid "PuTTY / Plink requires a username to be set."
 msgstr "PuTTY/Plink kräver att ett användarnamn används."
 
-#: ../src/Frontend/SshTunnelManager.cs:554
+#: ../src/Frontend/SshTunnelManager.cs:557
 #, csharp-format
 msgid ""
 "Plink version number not found (exit code: {0})\n"

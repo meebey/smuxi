@@ -4,13 +4,14 @@
 # 
 # Translators:
 # flugsio <flugsio@gmail.com>, 2011
+# Martin Bagge <brother@bsnet.se>, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: Smuxi - IRC client\n"
-"Report-Msgid-Bugs-To: http://www.smuxi.org/issues\n"
-"POT-Creation-Date: 2013-08-19 14:08+0200\n"
-"PO-Revision-Date: 2013-04-29 08:41+0000\n"
-"Last-Translator: Mirco Bauer <meebey@gmail.com>\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-12-11 17:02+0100\n"
+"PO-Revision-Date: 2013-12-10 14:46+0000\n"
+"Last-Translator: Martin Bagge <brother@bsnet.se>\n"
 "Language-Team: Swedish (http://www.transifex.com/projects/p/smuxi/language/sv/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -32,7 +33,7 @@ msgstr "Radera användare från server"
 
 #: ../src/Server/Main.cs:98
 msgid "List all existing users of Server"
-msgstr "Visa alla existerande användare på Server"
+msgstr "Visa alla existerande användare på server"
 
 #: ../src/Server/Main.cs:107
 msgid "User to create, modify or delete"
@@ -66,7 +67,7 @@ msgstr "Flaggor:"
 #: ../src/Server/Main.cs:161
 #, csharp-format
 msgid "Unknown option: '{0}'"
-msgstr "Okänt alternativ: \"{0}\""
+msgstr "Okänd flagga: \"{0}\""
 
 #: ../src/Server/Main.cs:188
 #, csharp-format
@@ -110,12 +111,12 @@ msgstr "Användaren \"{0}\" lades till korrekt i servern."
 #: ../src/Server/Main.cs:312
 #, csharp-format
 msgid "User \"{0}\" successfully modified."
-msgstr "Användaren \"{0}\" redigerades utan besvär."
+msgstr "Användaren \"{0}\" redigerad.."
 
 #: ../src/Server/Main.cs:321
 #, csharp-format
 msgid "User \"{0}\" successfully deleted from server."
-msgstr "Användaren \"{0}\" raderades från servern utan besvär."
+msgstr "Användaren \"{0}\" raderades från servern."
 
 #: ../src/Server/Main.cs:328
 msgid "Users:"

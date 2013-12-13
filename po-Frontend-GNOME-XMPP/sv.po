@@ -1,79 +1,42 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
+# Martin Bagge <brother@bsnet.se>, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: Smuxi - IRC client\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-08-19 12:23+0200\n"
-"PO-Revision-Date: 2010-11-30 04:12+0000\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: Swedish (http://www.transifex.net/projects/p/smuxi/team/sv/)\n"
-"Language: sv\n"
+"POT-Creation-Date: 2013-12-11 17:06+0100\n"
+"PO-Revision-Date: 2013-12-10 13:30+0000\n"
+"Last-Translator: Martin Bagge <brother@bsnet.se>\n"
+"Language-Team: Swedish (http://www.transifex.com/projects/p/smuxi/language/sv/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"Language: sv\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../src/Frontend-GNOME-XMPP/XmppGroupChatView.cs:220
-#: ../src/Frontend-GNOME-XMPP/XmppPersonChatView.cs:51
-msgid "Whois"
-msgstr "Användarinformation"
-
-#: ../src/Frontend-GNOME-XMPP/XmppGroupChatView.cs:224
+#: ../src/Frontend-GNOME-XMPP/XmppGroupChatView.cs:219
 msgid "Query"
-msgstr "Privat"
+msgstr "Fråga"
 
-#: ../src/Frontend-GNOME-XMPP/XmppGroupChatView.cs:229
-#: ../src/Frontend-GNOME-XMPP/XmppPersonChatView.cs:55
+#: ../src/Frontend-GNOME-XMPP/XmppGroupChatView.cs:227
+#: ../src/Frontend-GNOME-XMPP/XmppPersonChatView.cs:215
+msgid "Whois"
+msgstr "Vem är"
+
+#: ../src/Frontend-GNOME-XMPP/XmppGroupChatView.cs:233
+#: ../src/Frontend-GNOME-XMPP/XmppPersonChatView.cs:221
 msgid "Add To Contacts"
-msgstr ""
+msgstr "Lägg till i kontakter"
 
-#: ../src/Frontend-GNOME-XMPP/XmppGroupChatView.cs:234
-#: ../src/Frontend-GNOME-XMPP/XmppPersonChatView.cs:59
+#: ../src/Frontend-GNOME-XMPP/XmppGroupChatView.cs:239
+#: ../src/Frontend-GNOME-XMPP/XmppPersonChatView.cs:227
 msgid "Invite to"
-msgstr "Inbjud till"
+msgstr "Bjud in till"
 
-#~ msgid "Op"
-#~ msgstr "Gör till operatör"
-
-#~ msgid "Deop"
-#~ msgstr "Ta bort operatörsskap"
-
-#~ msgid "Voice"
-#~ msgstr "Voice"
-
-#~ msgid "Devoice"
-#~ msgstr "Ta bort voice"
-
-#~ msgid "Kick"
-#~ msgstr "Sparka"
-
-#~ msgid "Kick + Ban"
-#~ msgstr "Sparka och stäng ute"
-
-#~ msgid "Ban"
-#~ msgstr "Stäng ute"
-
-#~ msgid "Unban"
-#~ msgstr "Upphäv utestängning"
-
-#~ msgid "CTCP"
-#~ msgstr "CTCP"
-
-#~ msgid "Ping"
-#~ msgstr "Ping"
-
-#~ msgid "Version"
-#~ msgstr "Version"
-
-#~ msgid "Time"
-#~ msgstr "Tid"
-
-#~ msgid "Finger"
-#~ msgstr "Finger"
-
-#~ msgid "Userinfo"
-#~ msgstr "Användarinformation"
+#: ../src/Frontend-GNOME-XMPP/XmppGroupChatView.cs:257
+msgid "Rename"
+msgstr "Byt namn"
