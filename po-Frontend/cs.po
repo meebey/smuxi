@@ -7,8 +7,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Smuxi - IRC client\n"
-"Report-Msgid-Bugs-To: http://www.smuxi.org/issues\n"
-"POT-Creation-Date: 2013-08-19 14:09+0200\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-12-11 17:03+0100\n"
 "PO-Revision-Date: 2013-05-22 18:03+0000\n"
 "Last-Translator: Ondřej Hošek <ondra.hosek@gmail.com>\n"
 "Language-Team: Czech (http://www.transifex.com/projects/p/smuxi/language/cs/)\n"
@@ -18,12 +18,12 @@ msgstr ""
 "Language: cs\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 
-#: ../src/Frontend/CommandManager.cs:311
+#: ../src/Frontend/CommandManager.cs:343
 #, csharp-format
 msgid "Unknown Command: {0}"
 msgstr "Neznámý příkaz: {0}"
 
-#: ../src/Frontend/CommandManager.cs:320
+#: ../src/Frontend/CommandManager.cs:352
 #, csharp-format
 msgid "Not enough parameters for {0} command"
 msgstr "Nedostatek parametrů pro příkaz {0}"
@@ -79,16 +79,16 @@ msgid ""
 msgstr "Nastavení tunelu SSH selhalo (exit code: {0})\n\nProgram SSH: {1}\nParametry SSH: {2}\n\nChyba programu:\n{3}\nVýstup programu:\n{4}\n"
 
 #: ../src/Frontend/SshTunnelManager.cs:329
-#: ../src/Frontend/SshTunnelManager.cs:475
+#: ../src/Frontend/SshTunnelManager.cs:478
 msgid "SSH keyfile not found."
 msgstr "Soubor s klíčem SSH nenalezen."
 
 #: ../src/Frontend/SshTunnelManager.cs:335
-#: ../src/Frontend/SshTunnelManager.cs:481
+#: ../src/Frontend/SshTunnelManager.cs:484
 msgid "SSH keyfile could not be read."
 msgstr "Načtení souboru s klíčem SSH se nezdařilo."
 
-#: ../src/Frontend/SshTunnelManager.cs:423
+#: ../src/Frontend/SshTunnelManager.cs:426
 #, csharp-format
 msgid ""
 "OpenSSH version number not found (exit code: {0})\n"
@@ -101,11 +101,11 @@ msgid ""
 "{3}\n"
 msgstr "Nenalezeno číslo verze OpenSSH (exit code: {0})\n\nProgram SSH: {1}\n\nChyba programu:\n{2}\nVýstup programu:\n{3}\n"
 
-#: ../src/Frontend/SshTunnelManager.cs:466
+#: ../src/Frontend/SshTunnelManager.cs:469
 msgid "PuTTY / Plink requires a username to be set."
 msgstr "PuTTY / Plink potřebuje mít nastavené uživatelské jméno."
 
-#: ../src/Frontend/SshTunnelManager.cs:554
+#: ../src/Frontend/SshTunnelManager.cs:557
 #, csharp-format
 msgid ""
 "Plink version number not found (exit code: {0})\n"

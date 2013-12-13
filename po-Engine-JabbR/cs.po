@@ -1,0 +1,58 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+# Mirco Bauer <meebey@gmail.com>, 2013
+# Ondřej Hošek <ondra.hosek@gmail.com>, 2013
+msgid ""
+msgstr ""
+"Project-Id-Version: Smuxi - IRC client\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-12-11 17:00+0100\n"
+"PO-Revision-Date: 2013-12-11 16:09+0000\n"
+"Last-Translator: Mirco Bauer <meebey@gmail.com>\n"
+"Language-Team: Czech (http://www.transifex.com/projects/p/smuxi/language/cs/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: cs\n"
+"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+
+#: ../src/Engine-JabbR/JabbrProtocolManager.cs:103
+msgid "JabbR Commands"
+msgstr "Příkazy JabbR"
+
+#: ../src/Engine-JabbR/JabbrProtocolManager.cs:136
+#, csharp-format
+msgid "Joining room failed. Reason: {0}"
+msgstr "Vstoupení do místnosti se nezdařilo. Důvod: {0}"
+
+#: ../src/Engine-JabbR/JabbrProtocolManager.cs:162
+#, csharp-format
+msgid "Sending message failed. Reason: {0}"
+msgstr "Odeslání zprávy se nezdařilo. Důvod: {0}"
+
+#: ../src/Engine-JabbR/JabbrProtocolManager.cs:230
+#, csharp-format
+msgid "Connection failed! Reason: {0}"
+msgstr "Spojení se nezdařilo! Důvod: {0}"
+
+#: ../src/Engine-JabbR/JabbrProtocolManager.cs:243
+#, csharp-format
+msgid "Connecting to {0}..."
+msgstr "Spojuji se s {0}..."
+
+#: ../src/Engine-JabbR/JabbrProtocolManager.cs:340
+#, csharp-format
+msgid "Reconnecting to {0}..."
+msgstr "Obnovuji spojení s {0}..."
+
+#: ../src/Engine-JabbR/JabbrProtocolManager.cs:433
+msgid "not connected"
+msgstr "nepřipojen"
+
+#: ../src/Engine-JabbR/JabbrProtocolManager.cs:577
+#, csharp-format
+msgid "Retrieving chat information failed. Reason: {0}"
+msgstr "Nezdařilo se získat informace o chatu. Důvod: {0}"

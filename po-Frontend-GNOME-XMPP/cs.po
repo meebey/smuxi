@@ -1,78 +1,42 @@
-# Smuxi - IRC client for sophisticated users
-# Copyright (C) 2005-2009 Mirco Bauer <meebey@meebey.net>
-# This file is distributed under the same license as the Smuxi package.
-# Michal Simunek <michal.simunek@gmail.com>, 2009 - 2010.
-#
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+# Ondřej Hošek <ondra.hosek@gmail.com>, 2013
 msgid ""
 msgstr ""
-"Project-Id-Version: smuxi-frontend-gnome-irc 0.6.4.1-1\n"
+"Project-Id-Version: Smuxi - IRC client\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-08-19 12:23+0200\n"
-"PO-Revision-Date: 2010-07-15 18:58+0200\n"
-"Last-Translator: Michal Simunek <michal.simunek@gmail.com>\n"
-"Language-Team: Czech <debian-l10n-czech@lists.debian.org>\n"
-"Language: cs\n"
+"POT-Creation-Date: 2013-12-11 17:06+0100\n"
+"PO-Revision-Date: 2013-12-06 15:10+0000\n"
+"Last-Translator: Ondřej Hošek <ondra.hosek@gmail.com>\n"
+"Language-Team: Czech (http://www.transifex.com/projects/p/smuxi/language/cs/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: cs\n"
+"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 
-#: ../src/Frontend-GNOME-XMPP/XmppGroupChatView.cs:220
-#: ../src/Frontend-GNOME-XMPP/XmppPersonChatView.cs:51
+#: ../src/Frontend-GNOME-XMPP/XmppGroupChatView.cs:219
+msgid "Query"
+msgstr "Soukromý rozhovor"
+
+#: ../src/Frontend-GNOME-XMPP/XmppGroupChatView.cs:227
+#: ../src/Frontend-GNOME-XMPP/XmppPersonChatView.cs:215
 msgid "Whois"
 msgstr "Kdo je"
 
-#: ../src/Frontend-GNOME-XMPP/XmppGroupChatView.cs:224
-msgid "Query"
-msgstr "Zeptat se"
-
-#: ../src/Frontend-GNOME-XMPP/XmppGroupChatView.cs:229
-#: ../src/Frontend-GNOME-XMPP/XmppPersonChatView.cs:55
+#: ../src/Frontend-GNOME-XMPP/XmppGroupChatView.cs:233
+#: ../src/Frontend-GNOME-XMPP/XmppPersonChatView.cs:221
 msgid "Add To Contacts"
-msgstr ""
+msgstr "Přidat ke kontaktům"
 
-#: ../src/Frontend-GNOME-XMPP/XmppGroupChatView.cs:234
-#: ../src/Frontend-GNOME-XMPP/XmppPersonChatView.cs:59
+#: ../src/Frontend-GNOME-XMPP/XmppGroupChatView.cs:239
+#: ../src/Frontend-GNOME-XMPP/XmppPersonChatView.cs:227
 msgid "Invite to"
-msgstr "Pozvat na"
+msgstr "Pozvat do"
 
-#~ msgid "Op"
-#~ msgstr "Op"
-
-#~ msgid "Deop"
-#~ msgstr "Deop"
-
-#~ msgid "Voice"
-#~ msgstr "Hlas"
-
-#~ msgid "Devoice"
-#~ msgstr "Ukončit hlas"
-
-#~ msgid "Kick"
-#~ msgstr "Vykopnout"
-
-#~ msgid "Kick + Ban"
-#~ msgstr "Vykopnout + Ban"
-
-#~ msgid "Ban"
-#~ msgstr "Ban"
-
-#~ msgid "Unban"
-#~ msgstr "Zrušit ban"
-
-#~ msgid "CTCP"
-#~ msgstr "CTCP"
-
-#~ msgid "Ping"
-#~ msgstr "Ping"
-
-#~ msgid "Version"
-#~ msgstr "Verze"
-
-#~ msgid "Time"
-#~ msgstr "Čas"
-
-#~ msgid "Finger"
-#~ msgstr "Finger"
-
-#~ msgid "Userinfo"
-#~ msgstr "Info o uživateli"
+#: ../src/Frontend-GNOME-XMPP/XmppGroupChatView.cs:257
+msgid "Rename"
+msgstr "Přejmenovat"

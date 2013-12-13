@@ -7,9 +7,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Smuxi - IRC client\n"
-"Report-Msgid-Bugs-To: http://www.smuxi.org/issues\n"
-"POT-Creation-Date: 2013-08-19 14:09+0200\n"
-"PO-Revision-Date: 2013-08-19 21:21+0000\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-12-11 17:04+0100\n"
+"PO-Revision-Date: 2013-12-06 13:56+0000\n"
 "Last-Translator: Ondřej Hošek <ondra.hosek@gmail.com>\n"
 "Language-Team: Czech (http://www.transifex.com/projects/p/smuxi/language/cs/)\n"
 "MIME-Version: 1.0\n"
@@ -261,9 +261,8 @@ msgid "Automatically switch to newly opened group chats"
 msgstr "Automaticky přepnout k nově otevřeným skupinovým chatům"
 
 #: ../glade/smuxi-frontend-gnome.glade.h:54
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1022
-msgid "Tabs"
-msgstr "Záložky"
+msgid "Tree"
+msgstr "Strom"
 
 #: ../glade/smuxi-frontend-gnome.glade.h:55
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1092
@@ -542,14 +541,14 @@ msgstr "Chyba: {0}"
 msgid "Are you sure you want to delete the engine \"{0}\"?"
 msgstr "Opravdu si přejete odstranit engine \"{0}\"?"
 
-#: ../src/Frontend-GNOME/Entry.cs:482
+#: ../src/Frontend-GNOME/Entry.cs:484
 #, csharp-format
 msgid "You are going to paste {0} lines. Do you want to continue?"
 msgstr "Chystáte se vložit {0} řádků. Chcete pokračovat?"
 
 #. TRANSLATOR: this line is used as a label / category for a
 #. list of commands below
-#: ../src/Frontend-GNOME/Entry.cs:595
+#: ../src/Frontend-GNOME/Entry.cs:601
 msgid "Frontend Commands"
 msgstr "Příkazy rozhraní"
 
@@ -604,11 +603,11 @@ msgstr "Filtry"
 msgid "Logging"
 msgstr "Přihlašování"
 
-#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:674
+#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:682
 msgid "Nicknames(s) field must not be empty."
 msgstr "Políčko Přezdívka(y) nemůže být prázdné."
 
-#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:870
+#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:878
 #, csharp-format
 msgid "Invalid highlight regex: '{0}'. Reason: {1}"
 msgstr "Neplatný výraz pro zvýraznění: '{0}'. Příčina: {1}"
@@ -642,30 +641,30 @@ msgstr "Odpojen od enginu."
 msgid "Reconnecting to engine... (attempt {0})"
 msgstr "Obnovuji připojení k enginu... (pokus {0})"
 
-#: ../src/Frontend-GNOME/Frontend.cs:542
+#: ../src/Frontend-GNOME/Frontend.cs:548
 #, csharp-format
 msgid "Cause: {0}"
 msgstr "Způsobeno: {0}"
 
-#: ../src/Frontend-GNOME/Frontend.cs:668
+#: ../src/Frontend-GNOME/Frontend.cs:680
 msgid ""
 "The frontend has lost the connection to the server.\n"
 "Do you want to reconnect now?"
 msgstr "Rozhraní ztratilo spojení se serverem.\nChcete se nyní znovu připojit?"
 
-#: ../src/Frontend-GNOME/Frontend.cs:687
+#: ../src/Frontend-GNOME/Frontend.cs:699
 msgid ""
 "Reconnecting to the server has failed.\n"
 "Do you want to try again?"
 msgstr "Opětovné připojení k serveru selhalo.\nChcete to zkusit znovu?"
 
-#: ../src/Frontend-GNOME/Frontend.cs:995
+#: ../src/Frontend-GNOME/Frontend.cs:1007
 msgid ""
 "The server has lost the connection to the frontend.\n"
 "Do you want to reconnect now?"
 msgstr "Server ztratil spojení s rozhraním.\nChcete se nyní znovu připojit?"
 
-#: ../src/Frontend-GNOME/NotifyManager.cs:336
+#: ../src/Frontend-GNOME/NotifyManager.cs:338
 msgid "Show"
 msgstr "Zobrazit"
 
@@ -727,38 +726,38 @@ msgstr "Engine s tímto názvem již existuje. Zadejte prosím jiný název."
 msgid "Enter which chat to join"
 msgstr "Zadejte se kterým chatem se připojit"
 
-#: ../src/Frontend-GNOME/Views/MenuWidget.cs:144
+#: ../src/Frontend-GNOME/Views/MenuWidget.cs:153
 msgid "About Smuxi"
 msgstr "O Smuxi"
 
 #. TODO: add cmd+, accelerator
-#: ../src/Frontend-GNOME/Views/MenuWidget.cs:148
+#: ../src/Frontend-GNOME/Views/MenuWidget.cs:157
 msgid "Preferences"
 msgstr "Nastavení"
 
-#: ../src/Frontend-GNOME/Views/MenuWidget.cs:242
+#: ../src/Frontend-GNOME/Views/MenuWidget.cs:251
 #: ../src/Frontend-GNOME/Preferences/ServerListView.cs:227
 msgid "Unable to add server: "
 msgstr "Nelze přidat server: "
 
-#: ../src/Frontend-GNOME/Views/MenuWidget.cs:363
+#: ../src/Frontend-GNOME/Views/MenuWidget.cs:372
 msgid ""
 "Switching to local engine will disconnect you from the current engine!\n"
 "Are you sure you want to do this?"
 msgstr "Přepnutím na místní engine se odpojíte od aktuálního enginu!\nOpravdu si přejete pokračovat?"
 
-#: ../src/Frontend-GNOME/Views/MenuWidget.cs:407
+#: ../src/Frontend-GNOME/Views/MenuWidget.cs:416
 msgid ""
 "Switching the remote engine will disconnect you from the current engine!\n"
 "Are you sure you want to do this?"
 msgstr "Přepnutím na vzdálený engine se odpojíte od aktuálního enginu!\nOpravdu si přejete pokračovat?"
 
-#: ../src/Frontend-GNOME/Views/MessageTextView.cs:274
+#: ../src/Frontend-GNOME/Views/MessageTextView.cs:288
 #, csharp-format
 msgid "Day changed from {0} to {1}"
 msgstr "Den se změnil z {0} v {1}"
 
-#: ../src/Frontend-GNOME/Views/MessageTextView.cs:278
+#: ../src/Frontend-GNOME/Views/MessageTextView.cs:292
 #, csharp-format
 msgid "Day changed to {0}"
 msgstr "Den změněn na {0}"
@@ -797,35 +796,35 @@ msgstr "Typ"
 msgid "Pattern"
 msgstr "Vzor"
 
-#: ../src/Frontend-GNOME/Views/Chats/ChatView.cs:526
+#: ../src/Frontend-GNOME/Views/Chats/ChatView.cs:548
 msgid "Low Bandwidth Mode is active: no messages synced."
 msgstr "Režim pomalého spojení je aktivní: nesynchronizuji zprávy."
 
-#: ../src/Frontend-GNOME/Views/Chats/ChatView.cs:752
+#: ../src/Frontend-GNOME/Views/Chats/ChatView.cs:792
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:135
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:136
 msgid "Show _Menubar"
 msgstr "Zobrazit _nabídky"
 
-#: ../src/Frontend-GNOME/Views/Chats/GroupChatView.cs:299
+#: ../src/Frontend-GNOME/Views/Chats/GroupChatView.cs:337
 #, csharp-format
 msgid "Retrieving user list for {0}..."
 msgstr "Přijímání seznamu uživatelů pro {0}..."
 
 #. TRANSLATOR: this string will be appended to the one above
-#: ../src/Frontend-GNOME/Views/Chats/GroupChatView.cs:336
+#: ../src/Frontend-GNOME/Views/Chats/GroupChatView.cs:366
 msgid "done."
 msgstr "hotovo."
 
-#: ../src/Frontend-GNOME/Views/Chats/GroupChatView.cs:368
+#: ../src/Frontend-GNOME/Views/Chats/GroupChatView.cs:398
 msgid "Person"
 msgstr "Osoba"
 
-#: ../src/Frontend-GNOME/Views/Chats/ProtocolChatView.cs:109
+#: ../src/Frontend-GNOME/Views/Chats/ProtocolChatView.cs:131
 msgid "Reconnect"
 msgstr "Opět se připojit"
 
-#: ../src/Frontend-GNOME/Views/Chats/ProtocolChatView.cs:154
+#: ../src/Frontend-GNOME/Views/Chats/ProtocolChatView.cs:180
 msgid ""
 "Closing the protocol chat will also close all open chats connected to it!\n"
 "Are you sure you want to do this?"
@@ -1040,6 +1039,10 @@ msgstr "Smuxi - Předvolby"
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:295
 msgid "Nicknames:"
 msgstr "Přezdívky:"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1022
+msgid "Tabs"
+msgstr "Záložky"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1430
 msgid "<b> User List Position </b>"
