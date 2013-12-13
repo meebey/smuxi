@@ -1,48 +1,71 @@
-# Smuxi - IRC client for sophisticated users
-# Copyright (C) 2005-2009 Mirco Bauer <meebey@meebey.net>
-# This file is distributed under the same license as the Smuxi package.
-# Juan Miguel Carrero <streinleght@gmail.com>, 2008-2009.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
 # 
+# Translators:
+# toote, 2013
+# Ricardo Hermosilla <ra.hermosillac@gmail.com>, 2012
 msgid ""
 msgstr ""
-"Project-Id-Version: smuxi 0.6.4\n"
+"Project-Id-Version: Smuxi - IRC client\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-09-02 15:23+0200\n"
-"PO-Revision-Date: 2009-08-12 17:11+0100\n"
-"Last-Translator: Juan Miguel Carrero <streinleght@gmail.com>\n"
-"Language-Team: Spanish Spanish Localization <debian-l10n-spanish@lists.debian.org>\n"
+"POT-Creation-Date: 2013-12-11 17:03+0100\n"
+"PO-Revision-Date: 2013-12-10 18:57+0000\n"
+"Last-Translator: toote\n"
+"Language-Team: Spanish (http://www.transifex.com/projects/p/smuxi/language/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: es\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../src/Frontend/CommandManager.cs:143
+#: ../src/Frontend/CommandManager.cs:343
 #, csharp-format
 msgid "Unknown Command: {0}"
-msgstr "Comando desconocido: {0}"
+msgstr "Orden desconocida: {0}"
 
-#: ../src/Frontend/EngineManager.cs:292
+#: ../src/Frontend/CommandManager.cs:352
 #, csharp-format
-msgid "Unknown channel ({0}) - only the following channel types are supported:"
-msgstr "Canal desconocido ({0}), solo los siguientes tipos de canales están soportados:"
+msgid "Not enough parameters for {0} command"
+msgstr "Faltan parámetros para la orden {0}"
 
-#: ../src/Frontend/EngineManager.cs:301
-msgid "Registration with engine failed!  The username and/or password were wrong - please verify them."
-msgstr "Registro en el motor fallido! El usuario y/o la contraseña son erróneos. Por favor, verifíquelos. "
+#: ../src/Frontend/EngineManager.cs:122
+msgid "Engine must not be empty."
+msgstr "El motor no puede estar vacío."
 
-#: ../src/Frontend/SshTunnelManager.cs:146
+#: ../src/Frontend/EngineManager.cs:133
+msgid "Engine does not exist."
+msgstr "El motor no existe."
+
+#: ../src/Frontend/EngineManager.cs:317
+#, csharp-format
+msgid ""
+"Unknown channel ({0}) - only the following channel types are supported:"
+msgstr "Canal desconocido ({0}) - sólo se es compatible con los siguientes tipos de canales:"
+
+#: ../src/Frontend/EngineManager.cs:326
+msgid ""
+"Registration with engine failed!  The username and/or password were wrong - "
+"please verify them."
+msgstr "¡Falló la registración con el motor! El usuario y/o la contraseña son inválidos - verifíquelos. "
+
+#: ../src/Frontend/SshTunnelManager.cs:144
 msgid "SSH client application was not found: "
-msgstr "El programa del cliente SSH no se ha encontrado:"
+msgstr "No se encontró el programa del cliente SSH:"
 
-#: ../src/Frontend/SshTunnelManager.cs:149
-msgid "SSH client must be either OpenSSH (ssh) or Plink (plink.exe, not putty.exe)"
+#: ../src/Frontend/SshTunnelManager.cs:147
+msgid ""
+"SSH client must be either OpenSSH (ssh) or Plink (plink.exe, not putty.exe)"
 msgstr "El cliente SSH debe ser OpenSSH (ssh) o Plink (plink.exe, no putty.exe)"
 
-#: ../src/Frontend/SshTunnelManager.cs:186
+#: ../src/Frontend/SshTunnelManager.cs:184
 #, csharp-format
-msgid "The local SSH forwarding port {0} is already in use. Is there an old SSH tunnel still active?"
-msgstr "El puerto local SSH {0} está actualmente en uso. ¿Existe un tunel SSH antiguo activo aún?"
+msgid ""
+"The local SSH forwarding port {0} is already in use. Is there an old SSH "
+"tunnel still active?"
+msgstr "El puerto local SSH {0} está actualmente en uso. ¿Existe todavía un túnel SSH antiguo activo?"
 
-#: ../src/Frontend/SshTunnelManager.cs:210
+#: ../src/Frontend/SshTunnelManager.cs:208
 #, csharp-format
 msgid ""
 "SSH tunnel setup failed (exit code: {0})\n"
@@ -54,18 +77,19 @@ msgid ""
 "{3}\n"
 "Program Output:\n"
 "{4}\n"
-msgstr ""
-"Configuración del tunel SHH fallida (código de salida: {0})\n"
-"\n"
-"Programa SSH: {1}\n"
-"Parámetros SSH: {2}\n"
-"\n"
-"Error:\n"
-"{3}\n"
-"Salida:\n"
-"{4}\n"
+msgstr "Falló la configuración del túnel SSH (código de salida: {0})\n\nPrograma SSH: {1}\nParámetros SSH: {2}\n\nError del programa:\n{3}\nSalida del programa:\n{4}\n"
 
-#: ../src/Frontend/SshTunnelManager.cs:405
+#: ../src/Frontend/SshTunnelManager.cs:329
+#: ../src/Frontend/SshTunnelManager.cs:478
+msgid "SSH keyfile not found."
+msgstr "No se econtró el archivo de claves SSH."
+
+#: ../src/Frontend/SshTunnelManager.cs:335
+#: ../src/Frontend/SshTunnelManager.cs:484
+msgid "SSH keyfile could not be read."
+msgstr "No se pudo leer el archivo de claves SSH."
+
+#: ../src/Frontend/SshTunnelManager.cs:426
 #, csharp-format
 msgid ""
 "OpenSSH version number not found (exit code: {0})\n"
@@ -76,16 +100,21 @@ msgid ""
 "{2}\n"
 "Program Output:\n"
 "{3}\n"
-msgstr ""
-"No ha sido posible obtener la versión de OpenSSH (código de salida: {0})\n"
-"\n"
-"Programa SSH: {1}\n"
-"\n"
-"Error del programa:\n"
-"{2}\n"
-"Salida del programa:\n"
-"{3}\n"
+msgstr "No ha sido posible obtener la versión de OpenSSH (código de salida: {0})\n\nPrograma SSH: {1}\n\nError del programa:\n{2}\nSalida del programa:\n{3}\n"
 
-#: ../src/Frontend/SshTunnelManager.cs:441
+#: ../src/Frontend/SshTunnelManager.cs:469
 msgid "PuTTY / Plink requires a username to be set."
-msgstr "PuTTY / Plink necesita que se establezca un usuario."
+msgstr "PuTTY / Plink necesita que configure un usuario."
+
+#: ../src/Frontend/SshTunnelManager.cs:557
+#, csharp-format
+msgid ""
+"Plink version number not found (exit code: {0})\n"
+"\n"
+"SSH program: {1}\n"
+"\n"
+"Program Error:\n"
+"{2}\n"
+"Program Output:\n"
+"{3}\n"
+msgstr "No se encontró la versión de Plink (código de salida: {0})\n\nPrograma SSH: {1}\n\nError del programa:\n{2}\n\nSalida del programa:\n{3}\n"

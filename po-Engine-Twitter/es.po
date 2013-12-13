@@ -1,151 +1,186 @@
-# po-Server/smuxi-server.pot Spanish translation file
-# Copyright (C) 2010
-# This file is distributed under the same license as the Smuxi - IRC Client package.
-# Ricardo A. Hermosilla Carrillo <ra.hermosillac@gmail.com>, 2010.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
 # 
+# Translators:
+# toote, 2013
+# Ricardo Hermosilla <ra.hermosillac@gmail.com>, 2012
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: Smuxi - IRC client\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-09-02 15:23+0200\n"
-"PO-Revision-Date: 2010-09-12 23:30-0400\n"
-"Last-Translator: Ricardo A. Hermosilla Carrillo <ra.hermosillac@gmail.com>\n"
-"Language-Team: Spanish <ES@li.org>\n"
+"POT-Creation-Date: 2013-12-11 17:01+0100\n"
+"PO-Revision-Date: 2013-12-10 18:35+0000\n"
+"Last-Translator: toote\n"
+"Language-Team: Spanish (http://www.transifex.com/projects/p/smuxi/language/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: es\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:125
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:124
 msgid "Home Timeline"
-msgstr "Línea de Tiempo"
+msgstr "Línea de tiempo principal"
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:132
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:135
 msgid "Replies"
 msgstr "Respuestas"
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:139
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:146
 msgid "Direct Messages"
-msgstr "Mensajes Directos"
+msgstr "Mensajes directos"
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:174
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:193
+#, csharp-format
+msgid "Using proxy: {0}:{1}"
+msgstr "Utilizando proxy: {0}:{1}"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:212
 msgid "Connecting to Twitter..."
 msgstr "Conectando a Twitter..."
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:203
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:254
 msgid "Twitter authorization required."
-msgstr "Autorización de Twitter requerida."
+msgstr "Se requiere autorización de Twitter."
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:218
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:261
 #, csharp-format
-msgid "Please open the following URL and click \"Allow\" to allow Smuxi to connect to your Twitter account: {0}"
-msgstr "Por favor, abra la siguiente dirección y haga click en \"Autorizar\" para permitir a Smuxi conectarse a su cuenta de Twitter: {0}"
+msgid ""
+"Please open the following URL and click \"Allow\" to allow Smuxi to connect "
+"to your Twitter account: {0}"
+msgstr "Por favor, abra la siguiente dirección y haga click en «Autorizar» para permitir que Smuxi se conecte a su cuenta de Twitter: {0}"
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:234
-msgid "Once you have allowed Smuxi to access your Twitter account, Twitter will provide a PIN."
-msgstr "Una vez que haya autorizado a Smuxi acceder a su cuenta, Twitter le proveerá un número secreto."
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:277
+msgid ""
+"Once you have allowed Smuxi to access your Twitter account, Twitter will "
+"provide a PIN."
+msgstr "Una vez que haya autorizado a Smuxi acceder a su cuenta, Twitter le proveerá un número secreto («PIN»)."
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:241
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:284
 msgid "Please type: /pin PIN_FROM_TWITTER"
-msgstr "Por favor, escriba: /pin NUMERO_SECRETO_DE_TWITTER"
+msgstr "Escriba: /pin NUMERO_SECRETO_DE_TWITTER"
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:251
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:291
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:292
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:354
 msgid "Connection failed!"
-msgstr "Conexión fallida!"
+msgstr "¡Falló la conexión!"
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:253
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:293
-msgid "Connection failed! Reason: "
-msgstr "Conexión fallida! Razón: "
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:297
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:358
+#, csharp-format
+msgid "Connection failed! Reason: {0}"
+msgstr "¡Falló la conexión! Razón: {0}"
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:266
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:312
 msgid "Fetching user details from Twitter, please wait..."
-msgstr "Buscando los detalles de usuario de Twitter, por favor espere..."
+msgstr "Obteniendo los detalles del usuario de Twitter, por favor espere..."
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:271
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:319
 msgid "Finished fetching user details."
-msgstr "Búsqueda realizada."
+msgstr "Finalizó la obtención de los detalles de usuario."
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:276
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:325
 msgid "Successfully connected to Twitter."
 msgstr "Conexión satisfactoria con Twitter."
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:285
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:343
 msgid "Failed to fetch user details from Twitter. Reason: "
-msgstr "Error al buscar información del usuario en Twitter. Razón: "
+msgstr "No se pudo obtener la información del usuario en Twitter. Razón:"
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:306
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:376
 msgid "Fetching friends from Twitter, please wait..."
-msgstr "Buscando amigos en Twitter, por favor espere..."
+msgstr "Obteniendo lista de amigos en Twitter, por favor espere..."
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:311
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:385
 msgid "Finished fetching friends."
-msgstr "Búsqueda realizada."
+msgstr "Finalizó la obtención de la lista de amigos."
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:314
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:389
 msgid "Failed to fetch friends from Twitter. Reason: "
-msgstr "Error al importar amigos de Twitter. Razón: "
+msgstr "No se pudo obtener la lista de amigos de Twitter. Razón:"
 
 #. TRANSLATOR: this line is used as a label / category for a
 #. list of commands below
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:588
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:703
 msgid "Twitter Commands"
-msgstr "Comandos de Twitter"
+msgstr "Órdenes de Twitter"
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:632
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:749
 msgid "No pending authorization request!"
-msgstr "No hay autorización pendiente!"
+msgstr "¡No hay autorización pendiente!"
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:653
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:770
 #, csharp-format
 msgid "Failed to authorize with Twitter: {0}"
-msgstr "Error al autorizar con Twitter: {0}"
+msgstr "No se pudo autorizar con Twitter: {0}"
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:661
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:778
 msgid "Twitter did not accept your PIN.  Did you enter it correctly?"
-msgstr "Twitter no ha aceptado tu número secreto. Lo has ingresado correctamente?"
+msgstr "Twitter no ha aceptado tu número secreto. ¿Lo ha ingresado correctamente?"
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:669
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:786
 #, csharp-format
-msgid "Please retry by closing this tab and reconnecting to the Twitter \"{0}\" account."
-msgstr "Por favor, inténtelo nuevamente cerrando esta pestaña y reconectando a la cuenta \"{0}\" de Twitter."
+msgid ""
+"Please retry by closing this tab and reconnecting to the Twitter \"{0}\" "
+"account."
+msgstr "Inténtelo nuevamente cerrando esta pestaña y conectando a la cuenta de Twitter «{0}» nuevamente."
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:709
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:827
 msgid "Migrated Twitter account from basic auth to OAuth."
-msgstr "Cuenta de Twitter migrada de autenticación básica para OAuth"
+msgstr "Se migró la cuenta de Twitter desde autenticación básica a OAuth."
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:722
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:841
 #, csharp-format
 msgid "Successfully authorized Twitter account \"{0}\" for Smuxi"
-msgstr "Autorización satisfactoria de la cuenta Twitter \"{0}\" para Smuxi"
+msgstr "Se autorizó la cuenta Twitter «{0}» para Smuxi"
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:744
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:864
 #, csharp-format
 msgid "Could not update status - Reason: {0}"
-msgstr "No se puede actualizar su estado. Razón: {0}"
+msgstr "No se pudo actualizar su estado - Razón: {0}"
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:753
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:875
 msgid "Cannot send message - no target specified. Use: /msg $nick message"
-msgstr "No se puede enviar el mensaje. No se ha seleccionado un destinatario. Use: /msg $nick mensaje"
+msgstr "No se puede enviar el mensaje - no ha seleccionado un destinatario. Utilice: /msg $nick mensaje"
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:766
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:803
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:892
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:987
 #, csharp-format
 msgid "Could not send message - Reason: {0}"
-msgstr "No se puede enviar el mensaje. Razón: {0}"
+msgstr "No se pudo enviar el mensaje - Razón: {0}"
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:790
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:912
+msgid "Other timelines"
+msgstr "Otras líneas temporales"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:970
 msgid "Could not send message - the specified user does not exist."
-msgstr "No se puede enviar el mensaje. El usuario especificado no existe."
+msgstr "No se pudo enviar el mensaje - el usuario especificado no existe."
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:879
-msgid "An error occurred while fetching the friends timeline from Twitter. Reason: "
-msgstr "Un error ha ocurrido mientras se intentaba importar la línea de tiempo de sus amigos de Twitter. Razón: "
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:1081
+#, csharp-format
+msgid "Search {0}"
+msgstr "Buscar {0}"
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:980
-msgid "An error occurred while fetching the replies from Twitter. Reason: "
-msgstr "Un error ha ocurrido mientras se importaban las respuestas desde Twitter. Razón: "
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:1228
+#, csharp-format
+msgid ""
+"An error occurred while fetching the friends timeline from Twitter. Reason: "
+"{0}"
+msgstr "Ocurrió un error al obtener la línea temporal de amigos desde Twitter. Razón: {0}"
 
-#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:1073
-msgid "An error occurred while fetching direct messages from Twitter. Reason: "
-msgstr "Un error ha ocurrido mientras se importaban los mensajes directos desde Twitter. Razón: "
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:1340
+#, csharp-format
+msgid "An error occurred while fetching the replies from Twitter. Reason: {0}"
+msgstr "Ocurrió un error al obtener respuestas desde Twitter. Razón: {0}"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:1446
+#, csharp-format
+msgid ""
+"An error occurred while fetching direct messages from Twitter. Reason: {0}"
+msgstr "Ocurrió un error al obtener mensajes directos desde Twitter. Razón: {0}"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:1817
+msgid "Twitter didn't send a valid response, they're probably overloaded"
+msgstr "Twitter no envió una respuesta válida, seguramente está sobrecargado."
