@@ -7,9 +7,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Smuxi - IRC client\n"
-"Report-Msgid-Bugs-To: http://www.smuxi.org/issues\n"
-"POT-Creation-Date: 2013-08-19 14:06+0200\n"
-"PO-Revision-Date: 2013-08-20 18:49+0000\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-12-11 16:58+0100\n"
+"PO-Revision-Date: 2013-12-05 19:23+0000\n"
 "Last-Translator: Joe Hansen <joedalton2@yahoo.dk>\n"
 "Language-Team: Danish (http://www.transifex.com/projects/p/smuxi/language/da/)\n"
 "MIME-Version: 1.0\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Language: da\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../src/Engine/FrontendManager.cs:233
+#: ../src/Engine/FrontendManager.cs:218
 msgid "No network connections"
 msgstr "Ingen netværksforbindelser"
 
@@ -38,129 +38,159 @@ msgid ""
 "preserved from now on."
 msgstr "Din snakkehistorik er ikke længere tilgængelig på grund af en fejl, men den vil blive gemt fremadrettet."
 
-#: ../src/Engine/Protocols/ProtocolManagerBase.cs:166
+#: ../src/Engine/Messages/MessageBuilder.cs:782
+#, csharp-format
+msgid "{0} is typing..."
+msgstr "{0} taster ..."
+
+#: ../src/Engine/Messages/MessageBuilder.cs:788
+#, csharp-format
+msgid "{0} has stopped typing..."
+msgstr "{0} har stoppet indtastning ..."
+
+#: ../src/Engine/Messages/MessageBuilder.cs:831
+#, csharp-format
+msgid "{0} is away"
+msgstr "{0} er fraværende"
+
+#: ../src/Engine/Messages/MessageBuilder.cs:837
+#, csharp-format
+msgid "{0} is offline"
+msgstr "{0} er frakoblet"
+
+#: ../src/Engine/Messages/MessageBuilder.cs:843
+#, csharp-format
+msgid "{0} is online"
+msgstr "{0} er tilkoblet"
+
+#: ../src/Engine/Protocols/ProtocolManagerBase.cs:170
 msgid "Not connected to server"
 msgstr "Ikke forbundet til server"
 
-#: ../src/Engine/Protocols/ProtocolManagerBase.cs:174
-#: ../src/Engine/Session.cs:951
+#: ../src/Engine/Protocols/ProtocolManagerBase.cs:178
+#: ../src/Engine/Session.cs:998
 #, csharp-format
 msgid "Not enough parameters for {0} command"
 msgstr "Ikke nok parametre for kommandoen {0}"
 
-#: ../src/Engine/Protocols/ProtocolManagerBase.cs:185
+#: ../src/Engine/Protocols/ProtocolManagerBase.cs:189
 #, csharp-format
 msgid "Connected to {0}"
 msgstr "Forbundet til {0}"
 
-#: ../src/Engine/Protocols/ProtocolManagerBase.cs:203
+#: ../src/Engine/Protocols/ProtocolManagerBase.cs:219
 #, csharp-format
 msgid "Disconnected from {0}"
 msgstr "Ikke længere forbundet til {0}"
 
-#: ../src/Engine/Session.cs:224
+#: ../src/Engine/Session.cs:237
+#, csharp-format
+msgid "Automatically connecting to {0}..."
+msgstr "Automatisk tilslutning til {0} ..."
+
+#: ../src/Engine/Session.cs:268
 #, csharp-format
 msgid "Automatic connect to {0} failed!"
 msgstr "Automatisk tilslutning til {0} mislykkedes!"
 
 #. TRANSLATOR: this line is used as a label / category for a
 #. list of commands below
-#: ../src/Engine/Session.cs:426
+#: ../src/Engine/Session.cs:471
 msgid "Engine Commands"
 msgstr "Motorkommandoer"
 
-#: ../src/Engine/Session.cs:552
+#: ../src/Engine/Session.cs:599
 msgid "Connect failed!"
 msgstr "Tilslutning mislykkedes!"
 
-#: ../src/Engine/Session.cs:575
+#: ../src/Engine/Session.cs:622
 #, csharp-format
 msgid "Disconnect failed - could not find server: {0}"
 msgstr "Afbrydelse fejlede - kunne ikke finde server: {0}"
 
-#: ../src/Engine/Session.cs:615
+#: ../src/Engine/Session.cs:664
 msgid "Reconnect failed!"
 msgstr "Gentilslutning mislykkedes!"
 
-#: ../src/Engine/Session.cs:641
+#: ../src/Engine/Session.cs:688
 msgid "Configuration reloaded"
 msgstr "Konfiguration genindlæst"
 
-#: ../src/Engine/Session.cs:645
+#: ../src/Engine/Session.cs:692
 msgid "Configuration saved"
 msgstr "Konfiguration gemt"
 
-#: ../src/Engine/Session.cs:676
+#: ../src/Engine/Session.cs:723
 msgid "Invalid key/value format."
 msgstr "Ugyldigt nøgle/værdi-format."
 
-#: ../src/Engine/Session.cs:686
+#: ../src/Engine/Session.cs:733
 #, csharp-format
 msgid "Invalid config key: '{0}'"
 msgstr "Ugyldig konfigurationsnøgle: »{0}«"
 
-#: ../src/Engine/Session.cs:696 ../src/Engine/Session.cs:702
+#: ../src/Engine/Session.cs:743 ../src/Engine/Session.cs:749
 #, csharp-format
 msgid "Could not convert config value: '{0}' to type: {1}"
 msgstr "Kunne ikke konvertere konfigurationsværdi: »{0}« til type: {1}"
 
-#: ../src/Engine/Session.cs:711
+#: ../src/Engine/Session.cs:758
 msgid "Invalid parameter for config; use load, save, get or set."
 msgstr "Ugyldig parameter for konfiguration: brug load (indlæs), save (gem), get (hent) eller set (sæt)."
 
-#: ../src/Engine/Session.cs:807
+#: ../src/Engine/Session.cs:850
 msgid "Invalid parameter for network; use list, switch, or close"
 msgstr "Ugyldigt parameter for netværk; brug list (vis), switch (skift) eller close (luk)"
 
 #. TRANSLATOR: this line is used as a label / category for a
 #. list of networks below
-#: ../src/Engine/Session.cs:838
+#: ../src/Engine/Session.cs:880
 msgid "Connected Networks"
 msgstr "Forbundne netværk"
 
-#: ../src/Engine/Session.cs:843 ../src/Engine/Session.cs:867
+#: ../src/Engine/Session.cs:885 ../src/Engine/Session.cs:909
 msgid "Network"
 msgstr "Netværk"
 
-#: ../src/Engine/Session.cs:844
+#: ../src/Engine/Session.cs:886
 msgid "Protocol"
 msgstr "Protokol"
 
-#: ../src/Engine/Session.cs:845
+#: ../src/Engine/Session.cs:887
 msgid "Host"
 msgstr "Vært"
 
-#: ../src/Engine/Session.cs:846
+#: ../src/Engine/Session.cs:888
 msgid "Port"
 msgstr "Port"
 
 #. TRANSLATOR: no connected networks
 #. TRANSLATOR: no available networks
-#: ../src/Engine/Session.cs:852 ../src/Engine/Session.cs:873
+#: ../src/Engine/Session.cs:894 ../src/Engine/Session.cs:915
 msgid "None"
 msgstr "Ingen"
 
 #. TRANSLATOR: this line is used as a label / category for a
 #. list of networks below
-#: ../src/Engine/Session.cs:859
+#: ../src/Engine/Session.cs:901
 msgid "Available Networks"
 msgstr "Tilgængelige netværk"
 
-#: ../src/Engine/Session.cs:888
+#: ../src/Engine/Session.cs:929
 #, csharp-format
 msgid "Network close failed - could not find network: {0}"
 msgstr "Lukning af netværk fejlede - kunne ikke finde netværk: {0}"
 
-#: ../src/Engine/Session.cs:926
+#: ../src/Engine/Session.cs:973
 #, csharp-format
 msgid "Network switch failed - could not find network: {0}"
 msgstr "Netværksomskifter fejlede - kunne ikke finde netværk: {0}"
 
-#: ../src/Engine/Session.cs:944
+#: ../src/Engine/Session.cs:991
 msgid "Not connected to any network"
 msgstr "Ikke tilsluttet til noget netværk"
 
-#: ../src/Engine/Session.cs:1198
+#: ../src/Engine/Session.cs:1245
 #, csharp-format
 msgid ""
 "Failed to write to chat history. Your chat history will not be preserved. "
@@ -169,24 +199,24 @@ msgstr "Kunne ikke skrive snakkehistorik. Din snakkehistorik vil ikke blive gemt
 
 #. just in case the ProtocolManager is not setting the
 #. protocol chat
-#: ../src/Engine/Session.cs:1371
+#: ../src/Engine/Session.cs:1446
 msgid "Connect failed."
 msgstr "Tilslutning mislykkedes."
 
-#: ../src/Engine/Session.cs:1402
+#: ../src/Engine/Session.cs:1460
 #, csharp-format
 msgid "No protocol manager found for the protocol: {0}"
 msgstr "Ingen protokolhåndtering fundet til denne protokol: {0}"
 
-#: ../src/Engine/Session.cs:1641
+#: ../src/Engine/Session.cs:1734
 msgid "Welcome to Smuxi"
 msgstr "Velkommen til Smuxi"
 
-#: ../src/Engine/Session.cs:1648
+#: ../src/Engine/Session.cs:1741
 msgid "Type /help to get a list of available commands."
 msgstr "Tast /help for en liste over tilgængelige kommandoer."
 
-#: ../src/Engine/Session.cs:1654
+#: ../src/Engine/Session.cs:1747
 msgid ""
 "After you have made a connection the list of available commands changes. Go "
 "to the newly opened connection tab and use the /help command again to see "
@@ -228,14 +258,14 @@ msgstr "Serverværtsnavn indeholder ugyldige tegn (nylinje)."
 msgid "Server ID '{0}' already exists."
 msgstr "Server-id »{0}« findes allerede."
 
-#: ../src/Engine/Chats/ChatModel.cs:105
+#: ../src/Engine/Chats/ChatModel.cs:108
 #, csharp-format
 msgid ""
 "Failed to load chat history. Your chat history will not be preserved. "
 "Reason: {0}"
 msgstr "Kunne ikke indlæse snakkehistorik. Din snakkehistorik vil ikke blive bevaret. Årsag: {0}"
 
-#: ../src/Engine/Chats/ChatModel.cs:300
+#: ../src/Engine/Chats/ChatModel.cs:305
 #, csharp-format
 msgid ""
 "Failed to open chat history for writing. Your chat history will not be "

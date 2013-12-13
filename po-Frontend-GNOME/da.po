@@ -7,9 +7,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Smuxi - IRC client\n"
-"Report-Msgid-Bugs-To: http://www.smuxi.org/issues\n"
-"POT-Creation-Date: 2013-08-19 14:09+0200\n"
-"PO-Revision-Date: 2013-08-20 18:46+0000\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-12-11 17:04+0100\n"
+"PO-Revision-Date: 2013-12-05 19:24+0000\n"
 "Last-Translator: Joe Hansen <joedalton2@yahoo.dk>\n"
 "Language-Team: Danish (http://www.transifex.com/projects/p/smuxi/language/da/)\n"
 "MIME-Version: 1.0\n"
@@ -261,9 +261,8 @@ msgid "Automatically switch to newly opened group chats"
 msgstr "Skift automatisk til seneste åbnede gruppesamtaler (chat)"
 
 #: ../glade/smuxi-frontend-gnome.glade.h:54
-#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1022
-msgid "Tabs"
-msgstr "Faneblade"
+msgid "Tree"
+msgstr "Træ"
 
 #: ../glade/smuxi-frontend-gnome.glade.h:55
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1092
@@ -542,14 +541,14 @@ msgstr "Fejl: {0}"
 msgid "Are you sure you want to delete the engine \"{0}\"?"
 msgstr "Er du sikker på, at du ønsker at slette motoren »{0}«?"
 
-#: ../src/Frontend-GNOME/Entry.cs:482
+#: ../src/Frontend-GNOME/Entry.cs:484
 #, csharp-format
 msgid "You are going to paste {0} lines. Do you want to continue?"
 msgstr "Du er ved at indsætte {0} linjer. Ønsker du at fortsætte?"
 
 #. TRANSLATOR: this line is used as a label / category for a
 #. list of commands below
-#: ../src/Frontend-GNOME/Entry.cs:595
+#: ../src/Frontend-GNOME/Entry.cs:601
 msgid "Frontend Commands"
 msgstr "Grænsefladekommandoer"
 
@@ -604,11 +603,11 @@ msgstr "Filtre"
 msgid "Logging"
 msgstr "Logning"
 
-#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:674
+#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:682
 msgid "Nicknames(s) field must not be empty."
 msgstr "Brugernavnsfelter må ikke være tomme."
 
-#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:870
+#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:878
 #, csharp-format
 msgid "Invalid highlight regex: '{0}'. Reason: {1}"
 msgstr "Ugyldigt fremhævet regulært udtryk: '{0}'. Årsag: {1}"
@@ -642,30 +641,30 @@ msgstr "Afbrudt fra motor."
 msgid "Reconnecting to engine... (attempt {0})"
 msgstr "Forbinder til motor igen... (forsøg {0})"
 
-#: ../src/Frontend-GNOME/Frontend.cs:542
+#: ../src/Frontend-GNOME/Frontend.cs:548
 #, csharp-format
 msgid "Cause: {0}"
 msgstr "Årsag: {0}"
 
-#: ../src/Frontend-GNOME/Frontend.cs:668
+#: ../src/Frontend-GNOME/Frontend.cs:680
 msgid ""
 "The frontend has lost the connection to the server.\n"
 "Do you want to reconnect now?"
 msgstr "Grænsefladen har mistet forbindelsen til serveren.\nØnsker du at tilslutte nu?"
 
-#: ../src/Frontend-GNOME/Frontend.cs:687
+#: ../src/Frontend-GNOME/Frontend.cs:699
 msgid ""
 "Reconnecting to the server has failed.\n"
 "Do you want to try again?"
 msgstr "Gentilslutning til serveren mislykkedes.\nØnsker du at forsøge igen?"
 
-#: ../src/Frontend-GNOME/Frontend.cs:995
+#: ../src/Frontend-GNOME/Frontend.cs:1007
 msgid ""
 "The server has lost the connection to the frontend.\n"
 "Do you want to reconnect now?"
 msgstr "Serveren har mistet forbindelsen til grænsefladen.\nØnsker du at tilslutte igen?"
 
-#: ../src/Frontend-GNOME/NotifyManager.cs:336
+#: ../src/Frontend-GNOME/NotifyManager.cs:338
 msgid "Show"
 msgstr "Vis"
 
@@ -727,38 +726,38 @@ msgstr "En motor med dette navn findes allerede! Angiv venligst et andet."
 msgid "Enter which chat to join"
 msgstr "Indtast hvilken samtale (chat) du ønsker at deltage i"
 
-#: ../src/Frontend-GNOME/Views/MenuWidget.cs:144
+#: ../src/Frontend-GNOME/Views/MenuWidget.cs:153
 msgid "About Smuxi"
 msgstr "Om Smuxi"
 
 #. TODO: add cmd+, accelerator
-#: ../src/Frontend-GNOME/Views/MenuWidget.cs:148
+#: ../src/Frontend-GNOME/Views/MenuWidget.cs:157
 msgid "Preferences"
 msgstr "Præferencer"
 
-#: ../src/Frontend-GNOME/Views/MenuWidget.cs:242
+#: ../src/Frontend-GNOME/Views/MenuWidget.cs:251
 #: ../src/Frontend-GNOME/Preferences/ServerListView.cs:227
 msgid "Unable to add server: "
 msgstr "Kunne ikke tilføje server: "
 
-#: ../src/Frontend-GNOME/Views/MenuWidget.cs:363
+#: ../src/Frontend-GNOME/Views/MenuWidget.cs:372
 msgid ""
 "Switching to local engine will disconnect you from the current engine!\n"
 "Are you sure you want to do this?"
 msgstr "Skift til lokal motor vil afbryde dig fra den aktuelle motor!\nEr du sikker på, at du ønsker at gøre dette?"
 
-#: ../src/Frontend-GNOME/Views/MenuWidget.cs:407
+#: ../src/Frontend-GNOME/Views/MenuWidget.cs:416
 msgid ""
 "Switching the remote engine will disconnect you from the current engine!\n"
 "Are you sure you want to do this?"
 msgstr "Skift af den eksterne motor vil afbryde dig fra den aktuelle motor!\nEr du sikker på, at du ønsker at gøre dette?"
 
-#: ../src/Frontend-GNOME/Views/MessageTextView.cs:274
+#: ../src/Frontend-GNOME/Views/MessageTextView.cs:288
 #, csharp-format
 msgid "Day changed from {0} to {1}"
 msgstr "Dag ændret fra {0} til {1}"
 
-#: ../src/Frontend-GNOME/Views/MessageTextView.cs:278
+#: ../src/Frontend-GNOME/Views/MessageTextView.cs:292
 #, csharp-format
 msgid "Day changed to {0}"
 msgstr "Dag ændret til {0}"
@@ -797,35 +796,35 @@ msgstr "Type"
 msgid "Pattern"
 msgstr "Mønster"
 
-#: ../src/Frontend-GNOME/Views/Chats/ChatView.cs:526
+#: ../src/Frontend-GNOME/Views/Chats/ChatView.cs:548
 msgid "Low Bandwidth Mode is active: no messages synced."
 msgstr "Tilstand for lav båndbredde er aktiv: Ingen beskeder synkroniseret."
 
-#: ../src/Frontend-GNOME/Views/Chats/ChatView.cs:752
+#: ../src/Frontend-GNOME/Views/Chats/ChatView.cs:792
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:135
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:136
 msgid "Show _Menubar"
 msgstr "Vis _menubjælke"
 
-#: ../src/Frontend-GNOME/Views/Chats/GroupChatView.cs:299
+#: ../src/Frontend-GNOME/Views/Chats/GroupChatView.cs:337
 #, csharp-format
 msgid "Retrieving user list for {0}..."
 msgstr "Henter brugerlsite for {0}..."
 
 #. TRANSLATOR: this string will be appended to the one above
-#: ../src/Frontend-GNOME/Views/Chats/GroupChatView.cs:336
+#: ../src/Frontend-GNOME/Views/Chats/GroupChatView.cs:366
 msgid "done."
 msgstr "færdig."
 
-#: ../src/Frontend-GNOME/Views/Chats/GroupChatView.cs:368
+#: ../src/Frontend-GNOME/Views/Chats/GroupChatView.cs:398
 msgid "Person"
 msgstr "Person"
 
-#: ../src/Frontend-GNOME/Views/Chats/ProtocolChatView.cs:109
+#: ../src/Frontend-GNOME/Views/Chats/ProtocolChatView.cs:131
 msgid "Reconnect"
 msgstr "Genforbind"
 
-#: ../src/Frontend-GNOME/Views/Chats/ProtocolChatView.cs:154
+#: ../src/Frontend-GNOME/Views/Chats/ProtocolChatView.cs:180
 msgid ""
 "Closing the protocol chat will also close all open chats connected to it!\n"
 "Are you sure you want to do this?"
@@ -1040,6 +1039,10 @@ msgstr "Smuxi - indstillinger"
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:295
 msgid "Nicknames:"
 msgstr "Brugernavne:"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1022
+msgid "Tabs"
+msgstr "Faneblade"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1430
 msgid "<b> User List Position </b>"
