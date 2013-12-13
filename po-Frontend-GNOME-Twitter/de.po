@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Smuxi - IRC client\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-12-11 17:06+0100\n"
+"POT-Creation-Date: 2013-12-11 17:05+0100\n"
 "PO-Revision-Date: 2013-12-11 19:38+0000\n"
 "Last-Translator: Bianca Mix <heavydemon@freenet.de>\n"
 "Language-Team: German (http://www.transifex.com/projects/p/smuxi/language/de/)\n"
@@ -19,25 +19,18 @@ msgstr ""
 "Language: de\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../src/Frontend-GNOME-XMPP/XmppGroupChatView.cs:219
-msgid "Query"
-msgstr "Query"
+#: ../src/Frontend-GNOME-Twitter/TwitterGroupChatView.cs:52
+msgid "Direct Message"
+msgstr "Direktnachricht"
 
-#: ../src/Frontend-GNOME-XMPP/XmppGroupChatView.cs:227
-#: ../src/Frontend-GNOME-XMPP/XmppPersonChatView.cs:215
-msgid "Whois"
-msgstr "Whois"
+#: ../src/Frontend-GNOME-Twitter/TwitterGroupChatView.cs:60
+msgid "Timeline"
+msgstr "Zeitachse"
 
-#: ../src/Frontend-GNOME-XMPP/XmppGroupChatView.cs:233
-#: ../src/Frontend-GNOME-XMPP/XmppPersonChatView.cs:221
-msgid "Add To Contacts"
-msgstr "Zu Kontakten hinzufügen"
+#: ../src/Frontend-GNOME-Twitter/TwitterGroupChatView.cs:65
+msgid "Unfollow"
+msgstr "Nicht mehr folgen"
 
-#: ../src/Frontend-GNOME-XMPP/XmppGroupChatView.cs:239
-#: ../src/Frontend-GNOME-XMPP/XmppPersonChatView.cs:227
-msgid "Invite to"
-msgstr "Einladen zu"
-
-#: ../src/Frontend-GNOME-XMPP/XmppGroupChatView.cs:257
-msgid "Rename"
-msgstr "Umbenennen"
+#: ../src/Frontend-GNOME-Twitter/TwitterGroupChatView.cs:69
+msgid "Follow"
+msgstr "Folgen"
