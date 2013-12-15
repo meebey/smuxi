@@ -1,0 +1,184 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+msgid ""
+msgstr ""
+"Project-Id-Version: Smuxi - IRC client\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-12-11 17:01+0100\n"
+"PO-Revision-Date: 2013-12-05 19:06+0000\n"
+"Last-Translator: Mirco Bauer <meebey@gmail.com>\n"
+"Language-Team: Persian (http://www.transifex.com/projects/p/smuxi/language/fa/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: fa\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:124
+msgid "Home Timeline"
+msgstr ""
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:135
+msgid "Replies"
+msgstr ""
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:146
+msgid "Direct Messages"
+msgstr ""
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:193
+#, csharp-format
+msgid "Using proxy: {0}:{1}"
+msgstr ""
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:212
+msgid "Connecting to Twitter..."
+msgstr ""
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:254
+msgid "Twitter authorization required."
+msgstr ""
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:261
+#, csharp-format
+msgid ""
+"Please open the following URL and click \"Allow\" to allow Smuxi to connect "
+"to your Twitter account: {0}"
+msgstr ""
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:277
+msgid ""
+"Once you have allowed Smuxi to access your Twitter account, Twitter will "
+"provide a PIN."
+msgstr ""
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:284
+msgid "Please type: /pin PIN_FROM_TWITTER"
+msgstr ""
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:292
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:354
+msgid "Connection failed!"
+msgstr ""
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:297
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:358
+#, csharp-format
+msgid "Connection failed! Reason: {0}"
+msgstr ""
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:312
+msgid "Fetching user details from Twitter, please wait..."
+msgstr ""
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:319
+msgid "Finished fetching user details."
+msgstr ""
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:325
+msgid "Successfully connected to Twitter."
+msgstr ""
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:343
+msgid "Failed to fetch user details from Twitter. Reason: "
+msgstr ""
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:376
+msgid "Fetching friends from Twitter, please wait..."
+msgstr ""
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:385
+msgid "Finished fetching friends."
+msgstr ""
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:389
+msgid "Failed to fetch friends from Twitter. Reason: "
+msgstr ""
+
+#. TRANSLATOR: this line is used as a label / category for a
+#. list of commands below
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:703
+msgid "Twitter Commands"
+msgstr ""
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:749
+msgid "No pending authorization request!"
+msgstr ""
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:770
+#, csharp-format
+msgid "Failed to authorize with Twitter: {0}"
+msgstr ""
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:778
+msgid "Twitter did not accept your PIN.  Did you enter it correctly?"
+msgstr ""
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:786
+#, csharp-format
+msgid ""
+"Please retry by closing this tab and reconnecting to the Twitter \"{0}\" "
+"account."
+msgstr ""
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:827
+msgid "Migrated Twitter account from basic auth to OAuth."
+msgstr ""
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:841
+#, csharp-format
+msgid "Successfully authorized Twitter account \"{0}\" for Smuxi"
+msgstr ""
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:864
+#, csharp-format
+msgid "Could not update status - Reason: {0}"
+msgstr ""
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:875
+msgid "Cannot send message - no target specified. Use: /msg $nick message"
+msgstr ""
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:892
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:987
+#, csharp-format
+msgid "Could not send message - Reason: {0}"
+msgstr ""
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:912
+msgid "Other timelines"
+msgstr ""
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:970
+msgid "Could not send message - the specified user does not exist."
+msgstr ""
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:1081
+#, csharp-format
+msgid "Search {0}"
+msgstr ""
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:1228
+#, csharp-format
+msgid ""
+"An error occurred while fetching the friends timeline from Twitter. Reason: "
+"{0}"
+msgstr ""
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:1340
+#, csharp-format
+msgid "An error occurred while fetching the replies from Twitter. Reason: {0}"
+msgstr ""
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:1446
+#, csharp-format
+msgid ""
+"An error occurred while fetching direct messages from Twitter. Reason: {0}"
+msgstr ""
+
+#: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:1817
+msgid "Twitter didn't send a valid response, they're probably overloaded"
+msgstr ""
