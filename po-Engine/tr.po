@@ -3,31 +3,72 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# Umut Albayrak <umutmuh@gmail.com>, 2011.
+# Umut Albayrak <umutmuh@gmail.com>, 2011
 msgid ""
 msgstr ""
 "Project-Id-Version: Smuxi - IRC client\n"
-"Report-Msgid-Bugs-To: http://www.smuxi.org/issues\n"
-"POT-Creation-Date: 2010-09-02 15:23+0200\n"
-"PO-Revision-Date: 2011-03-22 15:43+0000\n"
-"Last-Translator: Umut Albayrak <umutmuh@gmail.com>\n"
-"Language-Team: Turkish (http://www.transifex.net/projects/p/smuxi/team/tr/)\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-12-11 16:58+0100\n"
+"PO-Revision-Date: 2013-12-05 18:50+0000\n"
+"Last-Translator: Mirco Bauer <meebey@gmail.com>\n"
+"Language-Team: Turkish (http://www.transifex.com/projects/p/smuxi/language/tr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: tr\n"
-"Plural-Forms: nplurals=1; plural=0\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: ../src/Engine/FrontendManager.cs:230
+#: ../src/Engine/FrontendManager.cs:218
 msgid "No network connections"
 msgstr ""
 
-#: ../src/Engine/Protocols/ProtocolManagerBase.cs:161
+#: ../src/Engine/MessageBuffers/Db4oMessageBuffer.cs:295
+#, csharp-format
+msgid "Optimizing: {0}..."
+msgstr ""
+
+#: ../src/Engine/MessageBuffers/Db4oMessageBuffer.cs:313
+#, csharp-format
+msgid "Failed to optimize: {0}. Reason: {1}"
+msgstr ""
+
+#: ../src/Engine/MessageBuffers/Db4oMessageBuffer.cs:347
+msgid ""
+"Your chat history is no longer available because of an error but will be "
+"preserved from now on."
+msgstr ""
+
+#: ../src/Engine/Messages/MessageBuilder.cs:782
+#, csharp-format
+msgid "{0} is typing..."
+msgstr ""
+
+#: ../src/Engine/Messages/MessageBuilder.cs:788
+#, csharp-format
+msgid "{0} has stopped typing..."
+msgstr ""
+
+#: ../src/Engine/Messages/MessageBuilder.cs:831
+#, csharp-format
+msgid "{0} is away"
+msgstr ""
+
+#: ../src/Engine/Messages/MessageBuilder.cs:837
+#, csharp-format
+msgid "{0} is offline"
+msgstr ""
+
+#: ../src/Engine/Messages/MessageBuilder.cs:843
+#, csharp-format
+msgid "{0} is online"
+msgstr ""
+
+#: ../src/Engine/Protocols/ProtocolManagerBase.cs:170
 msgid "Not connected to server"
 msgstr "Sunucuya bağlanılamadı"
 
-#: ../src/Engine/Protocols/ProtocolManagerBase.cs:173
-#: ../src/Engine/Session.cs:751
+#: ../src/Engine/Protocols/ProtocolManagerBase.cs:178
+#: ../src/Engine/Session.cs:998
 #, csharp-format
 msgid "Not enough parameters for {0} command"
 msgstr ""
@@ -37,104 +78,149 @@ msgstr ""
 msgid "Connected to {0}"
 msgstr ""
 
-#: ../src/Engine/Protocols/ProtocolManagerBase.cs:213
+#: ../src/Engine/Protocols/ProtocolManagerBase.cs:219
 #, csharp-format
 msgid "Disconnected from {0}"
 msgstr ""
 
-#: ../src/Engine/Session.cs:154
-msgid "Welcome to Smuxi"
-msgstr "Smuxi'ye hoşgeldiniz"
-
-#: ../src/Engine/Session.cs:160
-msgid "Type /help to get a list of available commands."
-msgstr "Yazılabilecek komutlar için /help yazın"
-
-#: ../src/Engine/Session.cs:163
-msgid ""
-"After you have made a connection the list of available commands changes. Use"
-" the /help command again to see the extended command list."
+#: ../src/Engine/Session.cs:237
+#, csharp-format
+msgid "Automatically connecting to {0}..."
 msgstr ""
 
-#: ../src/Engine/Session.cs:216
+#: ../src/Engine/Session.cs:268
 #, csharp-format
 msgid "Automatic connect to {0} failed!"
 msgstr ""
 
 #. TRANSLATOR: this line is used as a label / category for a
 #. list of commands below
-#: ../src/Engine/Session.cs:411
+#: ../src/Engine/Session.cs:471
 msgid "Engine Commands"
 msgstr ""
 
-#: ../src/Engine/Session.cs:514
+#: ../src/Engine/Session.cs:599
 msgid "Connect failed!"
 msgstr ""
 
-#: ../src/Engine/Session.cs:544
+#: ../src/Engine/Session.cs:622
 #, csharp-format
 msgid "Disconnect failed - could not find server: {0}"
 msgstr ""
 
-#: ../src/Engine/Session.cs:583
+#: ../src/Engine/Session.cs:664
 msgid "Reconnect failed!"
 msgstr ""
 
-#: ../src/Engine/Session.cs:602
+#: ../src/Engine/Session.cs:688
 msgid "Configuration reloaded"
 msgstr ""
 
-#: ../src/Engine/Session.cs:607
+#: ../src/Engine/Session.cs:692
 msgid "Configuration saved"
 msgstr ""
 
-#: ../src/Engine/Session.cs:611
-msgid "Invalid parameter for config; use load or save"
+#: ../src/Engine/Session.cs:723
+msgid "Invalid key/value format."
 msgstr ""
 
-#: ../src/Engine/Session.cs:641
+#: ../src/Engine/Session.cs:733
+#, csharp-format
+msgid "Invalid config key: '{0}'"
+msgstr ""
+
+#: ../src/Engine/Session.cs:743 ../src/Engine/Session.cs:749
+#, csharp-format
+msgid "Could not convert config value: '{0}' to type: {1}"
+msgstr ""
+
+#: ../src/Engine/Session.cs:758
+msgid "Invalid parameter for config; use load, save, get or set."
+msgstr ""
+
+#: ../src/Engine/Session.cs:850
 msgid "Invalid parameter for network; use list, switch, or close"
 msgstr ""
 
-#: ../src/Engine/Session.cs:652
-msgid "Networks"
+#. TRANSLATOR: this line is used as a label / category for a
+#. list of networks below
+#: ../src/Engine/Session.cs:880
+msgid "Connected Networks"
 msgstr ""
 
-#: ../src/Engine/Session.cs:656
-msgid "Type"
+#: ../src/Engine/Session.cs:885 ../src/Engine/Session.cs:909
+msgid "Network"
 msgstr ""
 
-#: ../src/Engine/Session.cs:657
+#: ../src/Engine/Session.cs:886
+msgid "Protocol"
+msgstr ""
+
+#: ../src/Engine/Session.cs:887
 msgid "Host"
 msgstr ""
 
-#: ../src/Engine/Session.cs:658
+#: ../src/Engine/Session.cs:888
 msgid "Port"
 msgstr ""
 
-#: ../src/Engine/Session.cs:680
-#, csharp-format
-msgid "Network close failed - could not find network with host: {0}"
+#. TRANSLATOR: no connected networks
+#. TRANSLATOR: no available networks
+#: ../src/Engine/Session.cs:894 ../src/Engine/Session.cs:915
+msgid "None"
 msgstr ""
 
-#: ../src/Engine/Session.cs:725
-#, csharp-format
-msgid "Network switch failed - could not find network with host: {0}"
+#. TRANSLATOR: this line is used as a label / category for a
+#. list of networks below
+#: ../src/Engine/Session.cs:901
+msgid "Available Networks"
 msgstr ""
 
-#: ../src/Engine/Session.cs:740
+#: ../src/Engine/Session.cs:929
+#, csharp-format
+msgid "Network close failed - could not find network: {0}"
+msgstr ""
+
+#: ../src/Engine/Session.cs:973
+#, csharp-format
+msgid "Network switch failed - could not find network: {0}"
+msgstr ""
+
+#: ../src/Engine/Session.cs:991
 msgid "Not connected to any network"
+msgstr ""
+
+#: ../src/Engine/Session.cs:1245
+#, csharp-format
+msgid ""
+"Failed to write to chat history. Your chat history will not be preserved. "
+"Reason: {0}"
 msgstr ""
 
 #. just in case the ProtocolManager is not setting the
 #. protocol chat
-#: ../src/Engine/Session.cs:1067
+#: ../src/Engine/Session.cs:1446
 msgid "Connect failed."
 msgstr ""
 
-#: ../src/Engine/Session.cs:1098
+#: ../src/Engine/Session.cs:1460
 #, csharp-format
 msgid "No protocol manager found for the protocol: {0}"
+msgstr ""
+
+#: ../src/Engine/Session.cs:1734
+msgid "Welcome to Smuxi"
+msgstr "Smuxi'ye hoşgeldiniz"
+
+#: ../src/Engine/Session.cs:1741
+msgid "Type /help to get a list of available commands."
+msgstr "Yazılabilecek komutlar için /help yazın"
+
+#: ../src/Engine/Session.cs:1747
+msgid ""
+"After you have made a connection the list of available commands changes. Go "
+"to the newly opened connection tab and use the /help command again to see "
+"the extended command list."
 msgstr ""
 
 #: ../src/Engine/Config/UserListController.cs:117
@@ -155,17 +241,33 @@ msgstr ""
 msgid "User \"{0}\" already exists."
 msgstr ""
 
-#: ../src/Engine/Config/ServerListController.cs:131
+#: ../src/Engine/Config/ServerListController.cs:118
+msgid "Network must not be empty."
+msgstr ""
+
+#: ../src/Engine/Config/ServerListController.cs:138
 msgid "Server hostname must not be empty."
 msgstr ""
 
-#: ../src/Engine/Config/ServerListController.cs:134
+#: ../src/Engine/Config/ServerListController.cs:141
 msgid "Server hostname contains invalid characters (newline)."
 msgstr ""
 
-#: ../src/Engine/Config/ServerListController.cs:140
+#: ../src/Engine/Config/ServerListController.cs:148
 #, csharp-format
-msgid "Server '{0}' already exists."
+msgid "Server ID '{0}' already exists."
 msgstr ""
 
+#: ../src/Engine/Chats/ChatModel.cs:108
+#, csharp-format
+msgid ""
+"Failed to load chat history. Your chat history will not be preserved. "
+"Reason: {0}"
+msgstr ""
 
+#: ../src/Engine/Chats/ChatModel.cs:305
+#, csharp-format
+msgid ""
+"Failed to open chat history for writing. Your chat history will not be "
+"preserved. Reason: {0}"
+msgstr ""
