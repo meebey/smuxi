@@ -70,6 +70,7 @@ namespace Smuxi.Frontend.Gnome
             }
         }
 
+        // do not specify default access modifiers (private for methods)
         void DoSomething()
         {
             try {
