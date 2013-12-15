@@ -1,5 +1,6 @@
 
-EXTRA_DIST =  
+EXTRA_DIST = $(man_MANS) 
+man_MANS = smuxi-server.1
 
 SERVER_EXE_CONFIG_SOURCE = smuxi-server.exe.config
 SERVER_EXE_CONFIG = $(BUILD_DIR)/smuxi-server.exe.config
