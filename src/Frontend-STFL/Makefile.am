@@ -3,7 +3,7 @@ SUBDIRS = STFL
 EXTRA_DIST = $(man_MANS)
 man_MANS = smuxi-frontend-stfl.1 
 
-ASSEMBLY_CONFIG_SOURE = smuxi-frontend-stfl.exe.config
+ASSEMBLY_CONFIG_SOURCE = smuxi-frontend-stfl.exe.config
 ASSEMBLY_CONFIG = $(BUILD_DIR)/smuxi-frontend-stfl.exe.config
 
 ASSEMBLY = $(BUILD_DIR)/smuxi-frontend-stfl.exe
