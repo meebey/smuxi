@@ -7,10 +7,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Smuxi - IRC client\n"
-"Report-Msgid-Bugs-To: http://www.smuxi.org/issues\n"
-"POT-Creation-Date: 2013-04-14 20:01+0200\n"
-"PO-Revision-Date: 2013-07-15 00:07+0000\n"
-"Last-Translator: Leonardopf <leonardo@piresfelix.com>\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-12-11 16:59+0100\n"
+"PO-Revision-Date: 2013-12-05 18:50+0000\n"
+"Last-Translator: Mirco Bauer <meebey@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/projects/p/smuxi/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -22,58 +22,68 @@ msgstr ""
 msgid "Connecting to campfire... "
 msgstr "Conectando a campfire"
 
-#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:149
+#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:166
 msgid "Connected to campfire"
 msgstr "Conectado a campfire"
 
 #. TRANSLATOR: this line is used as a label / category for a
 #. list of commands below
-#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:181
+#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:200
 msgid "Campfire Commands"
 msgstr "Comandos do Campfire "
 
-#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:242
+#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:262
 msgid "Upload"
 msgstr "Upload"
 
-#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:243
+#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:263
 #, csharp-format
 msgid "'{0}' ({1} B) {2}"
 msgstr "'{0}' ({1} B) {2}"
 
-#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:354
+#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:367
+#, csharp-format
+msgid "Failed to post message: {0}"
+msgstr ""
+
+#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:383
 #, csharp-format
 msgid "has uploaded '{0}' ({1} B) {2}"
 msgstr "fez upload '{0}' ({1} B) {2}"
 
 #. TRANSLATOR: {0} is the name of the room
-#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:386
+#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:415
 #, csharp-format
 msgid "has joined {0}"
 msgstr "Entrou em {0}"
 
 #. TRANSLATOR: {0} is the name of the room
-#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:395
+#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:424
 #, csharp-format
 msgid "has left {0}"
 msgstr "Saiu de {0}"
 
 #. TRANSLATOR: {0} is the name of the room
-#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:403
+#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:432
 #, csharp-format
 msgid "has locked {0}"
 msgstr "Trancou {0}"
 
 #. TRANSLATOR: {0} is the name of the room
-#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:407
+#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:436
 #, csharp-format
 msgid "has unlocked {0}"
 msgstr "Destravou {0}"
 
-#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:412
+#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:441
 msgid "has changed the topic"
 msgstr "Mudou o tópico"
 
-#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:422
+#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:451
 msgid "has performed an unknown action"
 msgstr "Fez uma ação desconhecida"
+
+#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:492
+#, csharp-format
+msgid "Error reading from stream: {0}"
+msgstr ""

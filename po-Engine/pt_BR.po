@@ -7,10 +7,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Smuxi - IRC client\n"
-"Report-Msgid-Bugs-To: http://www.smuxi.org/issues\n"
-"POT-Creation-Date: 2013-04-14 10:13+0200\n"
-"PO-Revision-Date: 2013-07-08 17:04+0000\n"
-"Last-Translator: Leonardopf <leonardo@piresfelix.com>\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-12-11 16:58+0100\n"
+"PO-Revision-Date: 2013-12-05 18:50+0000\n"
+"Last-Translator: Mirco Bauer <meebey@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/projects/p/smuxi/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Language: pt_BR\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: ../src/Engine/FrontendManager.cs:233
+#: ../src/Engine/FrontendManager.cs:218
 msgid "No network connections"
 msgstr "Sem conexão de rede"
 
@@ -38,115 +38,159 @@ msgid ""
 "preserved from now on."
 msgstr "Seu histórico de mensagens não está disponível por causa de um erro, mas será preservado à partir de agora."
 
-#: ../src/Engine/Protocols/ProtocolManagerBase.cs:166
+#: ../src/Engine/Messages/MessageBuilder.cs:782
+#, csharp-format
+msgid "{0} is typing..."
+msgstr ""
+
+#: ../src/Engine/Messages/MessageBuilder.cs:788
+#, csharp-format
+msgid "{0} has stopped typing..."
+msgstr ""
+
+#: ../src/Engine/Messages/MessageBuilder.cs:831
+#, csharp-format
+msgid "{0} is away"
+msgstr ""
+
+#: ../src/Engine/Messages/MessageBuilder.cs:837
+#, csharp-format
+msgid "{0} is offline"
+msgstr ""
+
+#: ../src/Engine/Messages/MessageBuilder.cs:843
+#, csharp-format
+msgid "{0} is online"
+msgstr ""
+
+#: ../src/Engine/Protocols/ProtocolManagerBase.cs:170
 msgid "Not connected to server"
 msgstr "Não conectado ao servidor"
 
-#: ../src/Engine/Protocols/ProtocolManagerBase.cs:174
-#: ../src/Engine/Session.cs:846
+#: ../src/Engine/Protocols/ProtocolManagerBase.cs:178
+#: ../src/Engine/Session.cs:998
 #, csharp-format
 msgid "Not enough parameters for {0} command"
 msgstr "Parâmetros insfucientes para o comando {0}"
 
-#: ../src/Engine/Protocols/ProtocolManagerBase.cs:185
+#: ../src/Engine/Protocols/ProtocolManagerBase.cs:189
 #, csharp-format
 msgid "Connected to {0}"
 msgstr "Conectado a {0}"
 
-#: ../src/Engine/Protocols/ProtocolManagerBase.cs:203
+#: ../src/Engine/Protocols/ProtocolManagerBase.cs:219
 #, csharp-format
 msgid "Disconnected from {0}"
 msgstr "Desconectado de {0}"
 
-#: ../src/Engine/Session.cs:217
+#: ../src/Engine/Session.cs:237
+#, csharp-format
+msgid "Automatically connecting to {0}..."
+msgstr ""
+
+#: ../src/Engine/Session.cs:268
 #, csharp-format
 msgid "Automatic connect to {0} failed!"
 msgstr "Conexão automática a {0} falhou!"
 
 #. TRANSLATOR: this line is used as a label / category for a
 #. list of commands below
-#: ../src/Engine/Session.cs:415
+#: ../src/Engine/Session.cs:471
 msgid "Engine Commands"
 msgstr "Comandos principais"
 
-#: ../src/Engine/Session.cs:540
+#: ../src/Engine/Session.cs:599
 msgid "Connect failed!"
 msgstr "Conexão falhou!"
 
-#: ../src/Engine/Session.cs:563
+#: ../src/Engine/Session.cs:622
 #, csharp-format
 msgid "Disconnect failed - could not find server: {0}"
 msgstr "Desconexão falhou - Não foi possível encontrar servidor: {0}"
 
-#: ../src/Engine/Session.cs:603
+#: ../src/Engine/Session.cs:664
 msgid "Reconnect failed!"
 msgstr "Re-conectar falhou!"
 
-#: ../src/Engine/Session.cs:625
+#: ../src/Engine/Session.cs:688
 msgid "Configuration reloaded"
 msgstr "Configuração reiniciada"
 
-#: ../src/Engine/Session.cs:629
+#: ../src/Engine/Session.cs:692
 msgid "Configuration saved"
 msgstr "Configuração salva"
 
-#: ../src/Engine/Session.cs:633
-msgid "Invalid parameter for config; use load or save"
-msgstr "Parâmetro invalido para config: Use load ou save"
+#: ../src/Engine/Session.cs:723
+msgid "Invalid key/value format."
+msgstr ""
 
-#: ../src/Engine/Session.cs:702
+#: ../src/Engine/Session.cs:733
+#, csharp-format
+msgid "Invalid config key: '{0}'"
+msgstr ""
+
+#: ../src/Engine/Session.cs:743 ../src/Engine/Session.cs:749
+#, csharp-format
+msgid "Could not convert config value: '{0}' to type: {1}"
+msgstr ""
+
+#: ../src/Engine/Session.cs:758
+msgid "Invalid parameter for config; use load, save, get or set."
+msgstr ""
+
+#: ../src/Engine/Session.cs:850
 msgid "Invalid parameter for network; use list, switch, or close"
 msgstr "Parâmetro invalido para rede: use list, switch ou close"
 
 #. TRANSLATOR: this line is used as a label / category for a
 #. list of networks below
-#: ../src/Engine/Session.cs:733
+#: ../src/Engine/Session.cs:880
 msgid "Connected Networks"
 msgstr "Redes Conectadas"
 
-#: ../src/Engine/Session.cs:738 ../src/Engine/Session.cs:762
+#: ../src/Engine/Session.cs:885 ../src/Engine/Session.cs:909
 msgid "Network"
 msgstr "Rede"
 
-#: ../src/Engine/Session.cs:739
+#: ../src/Engine/Session.cs:886
 msgid "Protocol"
 msgstr "Protocolo"
 
-#: ../src/Engine/Session.cs:740
+#: ../src/Engine/Session.cs:887
 msgid "Host"
 msgstr "Servidor"
 
-#: ../src/Engine/Session.cs:741
+#: ../src/Engine/Session.cs:888
 msgid "Port"
 msgstr "Porta"
 
 #. TRANSLATOR: no connected networks
 #. TRANSLATOR: no available networks
-#: ../src/Engine/Session.cs:747 ../src/Engine/Session.cs:768
+#: ../src/Engine/Session.cs:894 ../src/Engine/Session.cs:915
 msgid "None"
 msgstr "Nenhuma"
 
 #. TRANSLATOR: this line is used as a label / category for a
 #. list of networks below
-#: ../src/Engine/Session.cs:754
+#: ../src/Engine/Session.cs:901
 msgid "Available Networks"
 msgstr "Redes disponíveis"
 
-#: ../src/Engine/Session.cs:783
+#: ../src/Engine/Session.cs:929
 #, csharp-format
 msgid "Network close failed - could not find network: {0}"
 msgstr "Desconexão falhou - Não foi possível encontrar servidor: {0}"
 
-#: ../src/Engine/Session.cs:821
+#: ../src/Engine/Session.cs:973
 #, csharp-format
 msgid "Network switch failed - could not find network: {0}"
 msgstr "Troca de rede falhou - não foi possível encontrar rede: {0}"
 
-#: ../src/Engine/Session.cs:839
+#: ../src/Engine/Session.cs:991
 msgid "Not connected to any network"
 msgstr "Não conectado em nenhum servidor"
 
-#: ../src/Engine/Session.cs:1093
+#: ../src/Engine/Session.cs:1245
 #, csharp-format
 msgid ""
 "Failed to write to chat history. Your chat history will not be preserved. "
@@ -155,24 +199,24 @@ msgstr "Falha ao escrever o histórico de mensagens. Seu histórico de mensagens
 
 #. just in case the ProtocolManager is not setting the
 #. protocol chat
-#: ../src/Engine/Session.cs:1266
+#: ../src/Engine/Session.cs:1446
 msgid "Connect failed."
 msgstr "Conexão falhou!"
 
-#: ../src/Engine/Session.cs:1297
+#: ../src/Engine/Session.cs:1460
 #, csharp-format
 msgid "No protocol manager found for the protocol: {0}"
 msgstr "Gerenciador de protocolo não encontrado para o protocolo: {0}"
 
-#: ../src/Engine/Session.cs:1529
+#: ../src/Engine/Session.cs:1734
 msgid "Welcome to Smuxi"
 msgstr "Bem vindo ao Smuxi"
 
-#: ../src/Engine/Session.cs:1536
+#: ../src/Engine/Session.cs:1741
 msgid "Type /help to get a list of available commands."
 msgstr "Digite /help para pegar lista de comandos disponíveis."
 
-#: ../src/Engine/Session.cs:1542
+#: ../src/Engine/Session.cs:1747
 msgid ""
 "After you have made a connection the list of available commands changes. Go "
 "to the newly opened connection tab and use the /help command again to see "
@@ -214,14 +258,14 @@ msgstr "Nome do servidor contem caracteres inválidos (nova linha)."
 msgid "Server ID '{0}' already exists."
 msgstr "Servidor de ID '{0}' já existe."
 
-#: ../src/Engine/Chats/ChatModel.cs:105
+#: ../src/Engine/Chats/ChatModel.cs:108
 #, csharp-format
 msgid ""
 "Failed to load chat history. Your chat history will not be preserved. "
 "Reason: {0}"
 msgstr "Falha ao carregar histórico de mensagens. Seu histórico de mensagens não será preservados. Razão: {0}"
 
-#: ../src/Engine/Chats/ChatModel.cs:298
+#: ../src/Engine/Chats/ChatModel.cs:305
 #, csharp-format
 msgid ""
 "Failed to open chat history for writing. Your chat history will not be "

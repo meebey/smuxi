@@ -7,9 +7,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Smuxi - IRC client\n"
-"Report-Msgid-Bugs-To: http://www.smuxi.org/issues\n"
-"POT-Creation-Date: 2013-04-14 10:20+0200\n"
-"PO-Revision-Date: 2013-07-08 22:26+0000\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-12-11 17:04+0100\n"
+"PO-Revision-Date: 2013-11-19 16:27+0000\n"
 "Last-Translator: Leonardopf <leonardo@piresfelix.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/projects/p/smuxi/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
@@ -18,73 +18,73 @@ msgstr ""
 "Language: pt_BR\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:384
-msgid "Op"
-msgstr "Op"
-
-#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:388
-msgid "Deop"
-msgstr "Deop"
-
-#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:392
-msgid "Voice"
-msgstr "Voz"
-
-#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:396
-msgid "Devoice"
-msgstr "Retirado Voz"
-
-#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:400
-msgid "Kick"
-msgstr "Expulso"
-
-#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:404
-msgid "Kick + Ban"
-msgstr "Expulso + Banido"
-
-#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:408
-msgid "Ban"
-msgstr "Banido"
-
-#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:412
-msgid "Unban"
-msgstr "Desbanido"
-
-#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:418
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:390
 msgid "Query"
 msgstr "Query"
 
-#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:422
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:396
+msgid "Op"
+msgstr "Op"
+
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:400
+msgid "Deop"
+msgstr "Deop"
+
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:404
+msgid "Voice"
+msgstr "Voz"
+
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:408
+msgid "Devoice"
+msgstr "Retirado Voz"
+
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:412
+msgid "Kick"
+msgstr "Expulso"
+
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:416
+msgid "Kick + Ban"
+msgstr "Expulso + Banido"
+
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:420
+msgid "Ban"
+msgstr "Banido"
+
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:424
+msgid "Unban"
+msgstr "Desbanido"
+
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:430
 #: ../src/Frontend-GNOME-IRC/IrcPersonChatView.cs:63
 msgid "Whois"
 msgstr "Whois"
 
-#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:426
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:434
 #: ../src/Frontend-GNOME-IRC/IrcPersonChatView.cs:67
 msgid "CTCP"
 msgstr "CTCP"
 
-#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:435
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:443
 #: ../src/Frontend-GNOME-IRC/IrcPersonChatView.cs:74
 msgid "Invite to"
 msgstr "Convidar para"
 
-#: ../src/Frontend-GNOME-IRC/CtcpMenu.cs:72
+#: ../src/Frontend-GNOME-IRC/CtcpMenu.cs:73
 msgid "Ping"
 msgstr "Ping"
 
-#: ../src/Frontend-GNOME-IRC/CtcpMenu.cs:77
+#: ../src/Frontend-GNOME-IRC/CtcpMenu.cs:78
 msgid "Version"
 msgstr "Version"
 
-#: ../src/Frontend-GNOME-IRC/CtcpMenu.cs:82
+#: ../src/Frontend-GNOME-IRC/CtcpMenu.cs:83
 msgid "Time"
 msgstr "Tempo"
 
-#: ../src/Frontend-GNOME-IRC/CtcpMenu.cs:87
+#: ../src/Frontend-GNOME-IRC/CtcpMenu.cs:88
 msgid "Finger"
 msgstr "Finger"
 
-#: ../src/Frontend-GNOME-IRC/CtcpMenu.cs:92
+#: ../src/Frontend-GNOME-IRC/CtcpMenu.cs:93
 msgid "Userinfo"
 msgstr "InfoUsuário"
