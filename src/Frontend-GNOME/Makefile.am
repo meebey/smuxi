@@ -1,5 +1,6 @@
 TARGET_DIR = $(top_builddir)/bin/$(PROFILE)
-EXTRA_DIST = $(WIN_ICON) $(DESKTOP_FILE).in
+EXTRA_DIST = $(WIN_ICON) $(DESKTOP_FILE).in $(man_MANS)
+man_MANS = smuxi-frontend-gnome.1
 
 ICON_NAME = smuxi-frontend-gnome
 ICON_NAME_PNG = $(ICON_NAME).png
