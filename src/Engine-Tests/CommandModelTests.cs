@@ -39,6 +39,11 @@ namespace Smuxi.Engine
             Assert.AreEqual("test", cmd.Command);
             Assert.AreEqual("", cmd.Parameter);
 
+            cmd = new CommandModel(null, null, "/", "/generate_messages 100");
+            Assert.IsTrue(cmd.IsCommand);
+            Assert.AreEqual("generate_messages", cmd.Command);
+            Assert.AreEqual("100", cmd.Parameter);
+
             cmd = new CommandModel(null, null, "/", "/test foo bar");
             Assert.IsTrue(cmd.IsCommand);
             Assert.AreEqual("test", cmd.Command);

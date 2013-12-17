@@ -170,7 +170,7 @@ namespace Smuxi.Engine
         void EnhancedParse(string data)
         {
             string regex = Regex.Escape(_CommandCharacter);
-            regex += "(?<command>[a-z]+)"; // commands can only contain english keyboard letters
+            regex += "(?<command>[a-z_-]+)"; // commands can only contain english keyboard letters
             string quoted_parameter = @"""(?<parameters>[^""]*)""";
             string normal_parameter = @"(?<parameters>[^ ]+)";
             string parameters = @"( +(" + quoted_parameter + "|" + normal_parameter + "))*";
