@@ -109,7 +109,12 @@ namespace Smuxi.Engine
 
         public virtual void GetObjectData(SerializationInfo info, StreamingContext ctx) 
         {
-            info.AddValue("_ServerID", ServerID);
+            // HACK: skip ServerID if it has no value as it breaks older
+            // ServerModel implementations that relied on automatic
+            // serialization which was the case in < 0.8.11
+            if (ServerID != null) {
+                info.AddValue("_ServerID", ServerID);
+            }
             info.AddValue("_Protocol", Protocol);
             info.AddValue("_Hostname", Hostname);
             info.AddValue("_Port", Port);
