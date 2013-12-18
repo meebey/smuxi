@@ -2,6 +2,7 @@
  * Smuxi - Smart MUltipleXed Irc
  *
  * Copyright (c) 2008, 2010-2011 Mirco Bauer <meebey@meebey.net>
+ * Copyright (c) 2013 Andrés G. Aragoneses <knocte@gmail.com>
  *
  * Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
  *
@@ -21,8 +22,8 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.Threading;
-using System.Globalization;
 using Smuxi.Engine;
 using Smuxi.Common;
 
@@ -50,6 +51,21 @@ namespace Smuxi.Frontend.Gnome
             IrcProtocolManager = (IrcProtocolManager) ProtocolManager;
         }
 
+        protected override void OnTabMenuShown(object sender, EventArgs e)
+        {
+            base.OnTabMenuShown(sender, e);
+
+            var stack = new Stack<Gtk.MenuItem>();
+            foreach (var menu_item in CreateContextMenuItems()) {
+                stack.Push(menu_item);
+            }
+            TabMenu.Prepend(new Gtk.SeparatorMenuItem());
+            while (stack.Count != 0) {
+                TabMenu.Prepend(stack.Pop());
+            }
+            TabMenu.ShowAll();
+        }
+
         void OnOutputMessageTextViewPopulatePopup(object o, Gtk.PopulatePopupArgs args)
         {
             if (OutputMessageTextView.IsAtUrlTag) {
@@ -59,26 +75,32 @@ namespace Smuxi.Frontend.Gnome
             Gtk.Menu popup = args.Menu;
 
             popup.Append(new Gtk.SeparatorMenuItem());
+            foreach (var menu_item in CreateContextMenuItems()) {
+                popup.Append(menu_item);
+            }
 
+            popup.ShowAll();
+        }
+
+        IEnumerable<Gtk.MenuItem> CreateContextMenuItems()
+        {
             Gtk.ImageMenuItem whois_item = new Gtk.ImageMenuItem(_("Whois"));
             whois_item.Activated += OnMenuWhoisItemActivated;
-            popup.Append(whois_item);
+            yield return whois_item;
 
             Gtk.ImageMenuItem ctcp_item = new Gtk.ImageMenuItem(_("CTCP"));
             Gtk.Menu ctcp_menu_item = new CtcpMenu(IrcProtocolManager,
                                                    Frontend.MainWindow.ChatViewManager,
                                                    PersonModel);
             ctcp_item.Submenu = ctcp_menu_item;
-            popup.Append(ctcp_item);
+            yield return ctcp_item;
 
             Gtk.ImageMenuItem invite_to_item = new Gtk.ImageMenuItem(_("Invite to"));
             Gtk.Menu invite_to_menu_item = new InviteToMenu(IrcProtocolManager,
                                                             Frontend.MainWindow.ChatViewManager,
                                                             PersonModel);
             invite_to_item.Submenu = invite_to_menu_item;
-            popup.Append(invite_to_item);
-
-            popup.ShowAll();
+            yield return invite_to_item;
         }
 
         void OnMenuWhoisItemActivated(object sender, EventArgs e)

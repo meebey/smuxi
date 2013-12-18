@@ -99,6 +99,7 @@ RESOURCES =
 EXTRAS =
 
 REFERENCES =  \
+	System \
 	Mono.Posix \
 	$(GTK_SHARP_20_LIBS)
 
