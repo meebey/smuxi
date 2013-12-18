@@ -161,6 +161,8 @@ WIN32_FILES = \
 	$(BUILD_DIR)/smuxi-engine-twitter.dll \
 	$(BUILD_DIR)/smuxi-engine-xmpp.dll \
 	$(BUILD_DIR)/smuxi-frontend-gnome-irc.dll \
+	$(BUILD_DIR)/smuxi-frontend-gnome-twitter.dll \
+	$(BUILD_DIR)/smuxi-frontend-gnome-xmpp.dll \
 	$(BUILD_DIR)/smuxi-frontend.dll \
 	$(BUILD_DIR)/Meebey.SmartIrc4net.dll \
 	$(BUILD_DIR)/Twitterizer2.dll \
@@ -182,6 +184,8 @@ OSX_FILES = \
 	$(BUILD_DIR)/smuxi-frontend-gnome.exe \
 	$(BUILD_DIR)/smuxi-frontend-gnome.exe.config \
 	$(BUILD_DIR)/smuxi-frontend-gnome-irc.dll \
+	$(BUILD_DIR)/smuxi-frontend-gnome-twitter.dll \
+	$(BUILD_DIR)/smuxi-frontend-gnome-xmpp.dll \
 	$(BUILD_DIR)/smuxi-server.exe \
 	$(BUILD_DIR)/smuxi-common.dll \
 	$(BUILD_DIR)/smuxi-engine.dll \
