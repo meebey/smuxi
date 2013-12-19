@@ -67,8 +67,14 @@ namespace Smuxi.Frontend.Gnome
             Logo = Frontend.LoadIcon(
                 Frontend.IconName, 256, "icon_256x256.png"
             );
-            // HACK: shows "not implemented" error on OS X
-            if (!Frontend.IsMacOSX) {
+            // HACK: shows "not implemented" error on OS X and
+            // "No application is registered as handling this file" on Windows.
+            // This probably relies on gvfs or similar which isn't available in
+            // the GTK{+,#} ports/installers for OS X and Windows. Thus we only
+            // show the website URL as label instead.
+            if (Frontend.IsMacOSX || Frontend.IsWindows) {
+                WebsiteLabel = "http://www.smuxi.org/";
+            } else {
                 Website = "http://www.smuxi.org/";
                 WebsiteLabel = _("Smuxi Website");
             }
