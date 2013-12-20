@@ -17,7 +17,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>..\..\bin\debug</OutputPath>
-    <DefineConstants>DEBUG;TRACE;LOG4NET;CONFIG_NINI;DB4O_8_0</DefineConstants>
+    <DefineConstants>DEBUG;TRACE;LOG4NET;CONFIG_NINI;DB4O_8_0;TOR</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
@@ -106,6 +106,7 @@
     <Compile Include="Hooks\Commands\ProtocolManagerHookCommand.cs" />
     <Compile Include="Hooks\Commands\SessionHookCommand.cs" />
     <Compile Include="Hooks\Environments\CommandHookEnvironment.cs" />
+    <Compile Include="Protocols\TorChat\TorChatProtocolManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Protocols\" />
@@ -119,6 +120,7 @@
     <Folder Include="Hooks\" />
     <Folder Include="Hooks\Commands\" />
     <Folder Include="Hooks\Environments\" />
+    <Folder Include="Protocols\TorChat\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\po-Engine\da.po" />
