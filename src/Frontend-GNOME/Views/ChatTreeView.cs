@@ -172,7 +172,9 @@ namespace Smuxi.Frontend.Gnome
             }
 
             Gtk.TreePath visibleStart, visibleEnd;
-            GetVisibleRange(out visibleStart, out visibleEnd);
+            if (!GetVisibleRange(out visibleStart, out visibleEnd)) {
+                return false;
+            }
             var chatIter = FindChatIter(chatView);
             var chatPath = TreeStore.GetPath(chatIter);
             // we ignore 0 on purpose, say if a few pixels of a row are returned
