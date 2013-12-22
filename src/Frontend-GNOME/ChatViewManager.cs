@@ -77,6 +77,12 @@ namespace Smuxi.Frontend.Gnome
                 return TreeView.CurrentChatNumber;
             }
             set {
+                if (value >= f_Chats.Count) {
+                    value = 0;
+                }
+                if (value < 0) {
+                    value = f_Chats.Count - 1;
+                }
                 TreeView.CurrentChatNumber = value;
             }
         }
