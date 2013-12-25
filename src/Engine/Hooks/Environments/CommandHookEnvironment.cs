@@ -31,6 +31,7 @@ namespace Smuxi.Engine
 
             this["CMD"] = cmd.Command;
             this["CMD_PARAMETER"] = cmd.Parameter;
+            this["CMD_CHARACTER"] = cmd.CommandCharacter;
         }
     }
 }
