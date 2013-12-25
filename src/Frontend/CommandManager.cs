@@ -163,6 +163,7 @@ namespace Smuxi.Frontend
                 var hooks = new HookRunner("frontend", "command-manager",
                                            "command-" + filteredCmd);
                 hooks.EnvironmentVariables.Add("FRONTEND_VERSION", FrontendVersion);
+                hooks.Environments.Add(new CommandHookEnvironment(cmd));
                 hooks.Environments.Add(new ChatHookEnvironment(cmd.Chat));
                 if (pm != null) {
                     hooks.Environments.Add(new ProtocolManagerHookEnvironment(pm));
