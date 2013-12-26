@@ -145,7 +145,7 @@ namespace Smuxi.Frontend
             handled = f_Session.Command(cmd);
             IProtocolManager pm = null;
             if (!handled) {
-                if (cmd.Chat is SessionChatModel) {
+                if (cmd.Chat is SessionChatModel && cmd.FrontendManager != null) {
                     pm = cmd.FrontendManager.CurrentProtocolManager;
                 } else {
                     pm = cmd.Chat.ProtocolManager;
