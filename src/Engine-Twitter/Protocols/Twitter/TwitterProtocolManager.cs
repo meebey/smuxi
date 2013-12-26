@@ -1687,7 +1687,7 @@ namespace Smuxi.Engine
             lock (StatusIndex) {
                 var slot = ++StatusIndexOffset;
                 if (slot > StatusIndex.Length) {
-                    StatusIndexOffset = 0;
+                    StatusIndexOffset = 1;
                     slot = 1;
                 }
                 StatusIndex[slot - 1] = status;
