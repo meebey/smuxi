@@ -101,7 +101,7 @@ namespace Smuxi.Engine
             var builder = CreateMessageBuilder().
                 AppendEventPrefix().
                 AppendHeader(_("JabbR Commands"));
-            cmd.FrontendManager.AddMessageToChat(cmd.Chat, builder.ToMessage());
+            Session.AddMessageToFrontend(cmd, builder.ToMessage());
 
             string[] help = {
                 "connect jabbr username password",
@@ -112,7 +112,7 @@ namespace Smuxi.Engine
                 builder = CreateMessageBuilder();
                 builder.AppendEventPrefix();
                 builder.AppendText(line);
-                cmd.FrontendManager.AddMessageToChat(cmd.Chat, builder.ToMessage());
+                Session.AddMessageToFrontend(cmd, builder.ToMessage());
             }
         }
 
