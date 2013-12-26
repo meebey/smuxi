@@ -1206,7 +1206,8 @@ namespace Smuxi.Engine
                 }
 
                 string key = keys != null && keys.Length > i ? keys[i] : null;
-                if (GetChat(chan, ChatType.Group) != null) {
+                var chat = GetChat(chan, ChatType.Group);
+                if (chat != null && chat.IsEnabled) {
                     builder = CreateMessageBuilder();
                     builder.AppendEventPrefix();
                     builder.AppendText(
