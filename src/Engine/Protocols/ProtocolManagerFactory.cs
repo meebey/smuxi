@@ -118,7 +118,7 @@ namespace Smuxi.Engine
         {
             Trace.Call(path);
             
-            string[] filenames = Directory.GetFiles(path, "smuxi-engine-*.dll");
+            string[] filenames = Directory.GetFiles(path, "smuxi-engine*.dll");
             foreach (string filename in filenames) {
                 LoadProtocolManager(filename);
             }
