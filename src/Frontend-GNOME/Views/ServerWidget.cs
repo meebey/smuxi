@@ -94,6 +94,13 @@ namespace Smuxi.Frontend.Gnome
             }
         }
 
+        public bool ShowUsername {
+            set {
+                f_UsernameLabel.Visible = value;
+                f_UsernameEntry.Visible = value;
+            }
+        }
+
         public bool ShowPassword {
             set {
                 f_PasswordLabel.Visible = value;
@@ -106,6 +113,7 @@ namespace Smuxi.Frontend.Gnome
             set {
                 f_UseEncryptionCheckButton.Sensitive = value;
                 f_ValidateServerCertificateCheckButton.Sensitive = value;
+                f_ValidateServerCertificateCheckButton.Visible = value;
                 if (!value) {
                     f_UseEncryptionCheckButton.Active = false;
                     f_ValidateServerCertificateCheckButton.Active = false;
@@ -301,6 +309,7 @@ namespace Smuxi.Frontend.Gnome
                 case "IRC":
                     ShowHostname = true;
                     ShowNetwork = true;
+                    ShowUsername = true;
                     ShowPassword = true;
                     SupportUseEncryption = true;
 
@@ -313,6 +322,7 @@ namespace Smuxi.Frontend.Gnome
                 case "XMPP":
                     ShowHostname = true;
                     ShowNetwork = false;
+                    ShowUsername = true;
                     ShowPassword = true;
                     SupportUseEncryption = true;
                 
@@ -329,6 +339,7 @@ namespace Smuxi.Frontend.Gnome
                 case "MSNP":
                     ShowHostname = false;
                     ShowNetwork = false;
+                    ShowUsername = true;
                     ShowPassword = true;
                     SupportUseEncryption = false;
 
@@ -343,6 +354,7 @@ namespace Smuxi.Frontend.Gnome
                 case "Twitter":
                     ShowHostname = false;
                     ShowNetwork = false;
+                    ShowUsername = true;
                     ShowPassword = false;
                     SupportUseEncryption = true;
                     // engine always uses https
@@ -358,6 +370,7 @@ namespace Smuxi.Frontend.Gnome
                 case "Campfire":
                     ShowHostname = true;
                     ShowNetwork = false;
+                    ShowUsername = true;
                     ShowPassword = true;
                     SupportUseEncryption = true;
                     // engine always uses https
@@ -374,6 +387,7 @@ namespace Smuxi.Frontend.Gnome
                 case "JabbR":
                     ShowHostname = true;
                     ShowNetwork = false;
+                    ShowUsername = true;
                     ShowPassword = true;
                     SupportUseEncryption = true;
 
@@ -385,11 +399,32 @@ namespace Smuxi.Frontend.Gnome
                     f_NetworkComboBoxEntry.Entry.Text = String.Empty;
                     f_PasswordEntry.Text = String.Empty;
                     break;
+                case "TorChat":
+                    ShowHostname = true;
+                    ShowNetwork = false;
+                    ShowUsername = false;
+                    ShowPassword = false;
+                    SupportUseEncryption = true;
+                    // Tor is always encrypted
+                    f_UseEncryptionCheckButton.Active = true;
+                    f_UseEncryptionCheckButton.Sensitive = false;
+                    // Tor does not use X.509
+                    f_ValidateServerCertificateCheckButton.Visible = false;
+
+                    f_HostnameEntry.Text = String.Empty;
+                    f_HostnameEntry.Sensitive = true;
+                    // TorChat is always 11009
+                    f_PortSpinButton.Value = 11009;
+                    f_PortSpinButton.Sensitive = false;
+                    f_NetworkComboBoxEntry.Entry.Text = String.Empty;
+                    f_PasswordEntry.Text = String.Empty;
+                    break;
                 // in case we don't know / handle the protocol here, make
                 // sure we grant maximum flexibility for the input
                 default:
                     ShowHostname = true;
                     ShowNetwork = true;
+                    ShowUsername = true;
                     ShowPassword = true;
                     SupportUseEncryption = true;
 
