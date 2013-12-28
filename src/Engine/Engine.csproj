@@ -107,6 +107,10 @@
     <Compile Include="Hooks\Commands\SessionHookCommand.cs" />
     <Compile Include="Hooks\Environments\CommandHookEnvironment.cs" />
     <Compile Include="Protocols\TorChat\TorChatProtocolManager.cs" />
+    <Compile Include="Protocols\TorChat\TorChatOutConnection.cs" />
+    <Compile Include="Protocols\TorChat\TorChatConnection.cs" />
+    <Compile Include="Protocols\TorChat\TorChatInConnection.cs" />
+    <Compile Include="Protocols\TorChat\TorChatListener.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Protocols\" />
@@ -151,6 +155,10 @@
     <ProjectReference Include="..\..\lib\db4o-net\Db4objects.Db4o\Db4objects.Db4o-2010.csproj">
       <Project>{600CD3BF-2ED2-4183-87F7-ADD78A968AE0}</Project>
       <Name>Db4objects.Db4o-2010</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\lib\StarkSoftProxy\StarkSoftProxy.csproj">
+      <Project>{3F8CF2C1-EA37-444F-8693-A3A00B1131D2}</Project>
+      <Name>StarkSoftProxy</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

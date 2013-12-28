@@ -34,9 +34,7 @@ namespace Smuxi.Engine
 #endif
         const string LibraryTextDomain = "smuxi-engine";
         ChatModel ProtocolChat { get; set; }
-
-        const char MSG_SEPARATOR = '\n';
-        byte[] ReceiveBuffer { get; set; }
+        TorChatOutConnection MyConnection { get; set; }
 
         public override string NetworkID {
             get {
@@ -58,6 +56,7 @@ namespace Smuxi.Engine
 
         public TorChatProtocolManager(Session session) : base(session)
         {
+            MyConnection = new TorChatOutConnection();
         }
 
         public override bool Command(CommandModel cmd)
@@ -91,7 +90,7 @@ namespace Smuxi.Engine
             Session.AddMessageToFrontend(cmd, builder.ToMessage());
 
             string[] help = {
-                "connect tor",
+                "connect tor torchat-id/onion-address",
             };
 
             foreach (string line in help) {
@@ -105,6 +104,29 @@ namespace Smuxi.Engine
         public override void Connect(FrontendManager fm, ServerModel server)
         {
             Trace.Call(fm, server);
+
+            string myOnionAddress;
+            if (String.IsNullOrEmpty(server.Hostname)) {
+                myOnionAddress = server.Username;
+            } else {
+                myOnionAddress = server.Hostname;
+            }
+
+            Me = CreatePerson(myOnionAddress);
+            Me.IdentityNameColored.ForegroundColor = new TextColor(0, 0, 255);
+            Me.IdentityNameColored.BackgroundColor = TextColor.None;
+            Me.IdentityNameColored.Bold = true;
+
+            var chatName = String.Format("{0} {1}", Protocol, myOnionAddress);
+            ProtocolChat = new ProtocolChatModel(NetworkID, chatName, this);
+            ProtocolChat.InitMessageBuffer(MessageBufferPersistencyType.Volatile);
+            Session.AddChat(ProtocolChat);
+            Session.SyncChat(ProtocolChat);
+
+            var listener = new TorChatListener();
+            listener.Start(11010);
+
+            MyConnection.Connect(server.Hostname);
         }
 
         public override void Reconnect(FrontendManager fm)
@@ -139,33 +161,12 @@ namespace Smuxi.Engine
             Trace.Call(status, message);
         }
 
-        void OnReceived(byte[] buffer)
+        PersonModel CreatePerson(string onionAddress)
         {
-            var msgs = new List<List<byte>>();
-            var msg = new List<byte>(buffer.Length);
-            for (int i = 0; i < buffer.Length; i++) {
-                var value = buffer[i];
-                if (value == MSG_SEPARATOR) {
-                    msgs.Add(msg);
-                    msg = new List<byte>(buffer.Length);
-                    continue;
-                }
-                msg.Add(value);
+            if (onionAddress.EndsWith(".onion")) {
+                onionAddress = onionAddress.Substring(0, onionAddress.Length - 6);
             }
-            // remaining unfinished message
-            ReceiveBuffer = msg.ToArray();
-            /*
-            byte[] msg;
-            do {
-                msg = buffer.TakeWhile((@byte) => @byte != MSG_SEPARATOR);
-                buffer = buffer.Skip(msg.Length);
-            } while (buffer.Length > 0);
-            */
-        }
-
-        string DecodeMessage(string msg)
-        {
-            return msg.Replace(@"\r\n", @"\n").Replace(@"\n", "\n");
+            return new PersonModel(onionAddress, onionAddress, NetworkID, Protocol, this);
         }
 
         static string _(string msg)
