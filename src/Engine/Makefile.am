@@ -70,7 +70,6 @@ FILES = \
 	Messages/FeedMessageBuilder.cs \
 	Messages/MessageBuilder.cs \
 	Messages/MessageModel.cs \
-	Messages/MessageParser.cs \
 	Messages/MessagePartModel.cs \
 	Messages/TextMessagePartModel.cs \
 	Messages/UrlMessagePartModel.cs \
@@ -94,6 +93,7 @@ FILES = \
 	Config/ProxySettings.cs \
 	Config/ProxyType.cs \
 	Config/EntrySettings.cs \
+	Config/MessageBuilderSettings.cs \
 	Protocols/ProtocolManagerBase.cs \
 	Protocols/ProtocolManagerFactory.cs \
 	Protocols/ProtocolManagerInfoModel.cs \
