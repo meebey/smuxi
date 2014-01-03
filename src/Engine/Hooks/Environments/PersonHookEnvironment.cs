@@ -1,6 +1,6 @@
 // Smuxi - Smart MUltipleXed Irc
 //
-// Copyright (c) 2013 Mirco Bauer <meebey@meebey.net>
+// Copyright (c) 2014 Mirco Bauer <meebey@meebey.net>
 //
 // Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
 //
@@ -21,23 +21,23 @@ using System;
 
 namespace Smuxi.Engine
 {
-    public class ProtocolManagerHookEnvironment : HookEnvironment
+    public class PersonHookEnvironment : HookEnvironment
     {
-        public ProtocolManagerHookEnvironment(IProtocolManager protocolManager)
+        public PersonHookEnvironment(PersonModel person) :
+                                this(null, person)
         {
-            if (protocolManager == null) {
-                throw new ArgumentNullException("protocolManager");
+        }
+
+        public PersonHookEnvironment(string prefix, PersonModel person)
+        {
+            if (person == null) {
+                throw new ArgumentNullException("person");
             }
 
-            this["PROTOCOL_MANAGER_PROTOCOL"] = protocolManager.Protocol;
-            this["PROTOCOL_MANAGER_NETWORK"] = protocolManager.NetworkID;
-            this["PROTOCOL_MANAGER_HOST"] = protocolManager.Host;
-            this["PROTOCOL_MANAGER_PORT"] = protocolManager.Port.ToString();
-            if (protocolManager.Me != null) {
-                this["PROTOCOL_MANAGER_ME_ID"] = protocolManager.Me.ID;
-            }
-            this["PROTOCOL_PRESENCE_STATUS"] = protocolManager.PresenceStatus.ToString();
+            this[prefix + "PERSON_ID"] = person.ID;
+            this[prefix + "PERSON_IDENTITY_NAME"] = person.IdentityName;
+            this[prefix + "PERSON_NETWORK_ID"] = person.NetworkID;
+            this[prefix + "PERSON_NETWORK_PROTOCOL"] = person.NetworkProtocol;
         }
     }
 }
-

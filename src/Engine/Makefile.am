@@ -109,6 +109,7 @@ FILES = \
 	Hooks/Environments/CommandHookEnvironment.cs \
 	Hooks/Environments/HookEnvironment.cs \
 	Hooks/Environments/MessageHookEnvironment.cs \
+	Hooks/Environments/PersonHookEnvironment.cs \
 	Hooks/Environments/ProtocolManagerHookEnvironment.cs
 
 DATA_FILES = 

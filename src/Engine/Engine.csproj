@@ -106,6 +106,7 @@
     <Compile Include="Hooks\Commands\SessionHookCommand.cs" />
     <Compile Include="Hooks\Environments\CommandHookEnvironment.cs" />
     <Compile Include="Config\MessageBuilderSettings.cs" />
+    <Compile Include="Hooks\Environments\PersonHookEnvironment.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Protocols\" />

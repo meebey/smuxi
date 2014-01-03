@@ -1,7 +1,7 @@
 /*
  * Smuxi - Smart MUltipleXed Irc
  *
- * Copyright (c) 2005-2013 Mirco Bauer <meebey@meebey.net>
+ * Copyright (c) 2005-2014 Mirco Bauer <meebey@meebey.net>
  *
  * Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
  *
@@ -58,6 +58,10 @@ namespace Smuxi.Engine
         DateTime NewsFeedLastModified { get; set; }
         TimeSpan NewsFeedUpdateInterval { get; set; }
         TimeSpan NewsFeedRetryInterval { get; set; }
+
+        public event EventHandler<GroupChatPersonAddedEventArgs> GroupChatPersonAdded;
+        public event EventHandler<GroupChatPersonRemovedEventArgs> GroupChatPersonRemoved;
+        public event EventHandler<GroupChatPersonUpdatedEventArgs> GroupChatPersonUpdated;
 
         public IList<IProtocolManager> ProtocolManagers {
             get {
@@ -1278,6 +1282,10 @@ namespace Smuxi.Engine
                     fm.AddPersonToGroupChat(groupChat, person);
                 }
             }
+
+            OnGroupChatPersonAdded(
+                new GroupChatPersonAddedEventArgs(groupChat, person)
+            );
         }
         
         public void UpdatePersonInGroupChat(GroupChatModel groupChat, PersonModel oldPerson, PersonModel newPerson)
@@ -1308,6 +1316,10 @@ namespace Smuxi.Engine
                     fm.UpdatePersonInGroupChat(groupChat, oldPerson, newPerson);
                 }
             }
+
+            OnGroupChatPersonUpdated(
+                new GroupChatPersonUpdatedEventArgs(groupChat, oldPerson, newPerson)
+            );
         }
     
         public void UpdateTopicInGroupChat(GroupChatModel groupChat, MessageModel topic)
@@ -1348,6 +1360,10 @@ namespace Smuxi.Engine
                     fm.RemovePersonFromGroupChat(groupChat, person);
                 }
             }
+
+            OnGroupChatPersonRemoved(
+                new GroupChatPersonRemovedEventArgs(groupChat, person)
+            );
         }
         
         public void SetNetworkStatus(string status)
@@ -1827,9 +1843,127 @@ namespace Smuxi.Engine
             }
         }
 
+        protected virtual void OnGroupChatPersonAdded(GroupChatPersonAddedEventArgs e)
+        {
+            if (GroupChatPersonAdded != null) {
+                GroupChatPersonAdded(this, e);
+            }
+
+            var pm = e.GroupChat.ProtocolManager;
+            var hooks = new HookRunner("engine", "session", "on-group-chat-person-added");
+            hooks.Environments.Add(new ChatHookEnvironment(e.GroupChat));
+            if (pm != null) {
+                hooks.Environments.Add(new ProtocolManagerHookEnvironment(pm));
+            }
+            hooks.Environments.Add(new PersonHookEnvironment(e.AddedPerson));
+
+            var cmdChar = (string) UserConfig["Interface/Entry/CommandCharacter"];
+            hooks.Commands.Add(new SessionHookCommand(this, e.GroupChat, cmdChar));
+            if (pm != null) {
+                hooks.Commands.Add(new ProtocolManagerHookCommand(pm, e.GroupChat, cmdChar));
+            }
+
+            // show time
+            hooks.Init();
+            hooks.Run();
+        }
+
+        protected virtual void OnGroupChatPersonRemoved(GroupChatPersonRemovedEventArgs e)
+        {
+            if (GroupChatPersonRemoved != null) {
+                GroupChatPersonRemoved(this, e);
+            }
+
+            var pm = e.GroupChat.ProtocolManager;
+            var hooks = new HookRunner("engine", "session", "on-group-chat-person-removed");
+            hooks.Environments.Add(new ChatHookEnvironment(e.GroupChat));
+            if (pm != null) {
+                hooks.Environments.Add(new ProtocolManagerHookEnvironment(pm));
+            }
+            hooks.Environments.Add(new PersonHookEnvironment(e.RemovedPerson));
+
+            var cmdChar = (string) UserConfig["Interface/Entry/CommandCharacter"];
+            hooks.Commands.Add(new SessionHookCommand(this, e.GroupChat, cmdChar));
+            if (pm != null) {
+                hooks.Commands.Add(new ProtocolManagerHookCommand(pm, e.GroupChat, cmdChar));
+            }
+
+            // show time
+            hooks.Init();
+            hooks.Run();
+        }
+
+        protected virtual void OnGroupChatPersonUpdated(GroupChatPersonUpdatedEventArgs e)
+        {
+            if (GroupChatPersonUpdated != null) {
+                GroupChatPersonUpdated(this, e);
+            }
+
+            var pm = e.GroupChat.ProtocolManager;
+            var hooks = new HookRunner("engine", "session", "on-group-chat-person-updated");
+            hooks.Environments.Add(new ChatHookEnvironment(e.GroupChat));
+            if (pm != null) {
+                hooks.Environments.Add(new ProtocolManagerHookEnvironment(pm));
+            }
+            hooks.Environments.Add(new PersonHookEnvironment("OLD_", e.OldPerson));
+            hooks.Environments.Add(new PersonHookEnvironment("NEW_", e.NewPerson));
+
+            var cmdChar = (string) UserConfig["Interface/Entry/CommandCharacter"];
+            hooks.Commands.Add(new SessionHookCommand(this, e.GroupChat, cmdChar));
+            if (pm != null) {
+                hooks.Commands.Add(new ProtocolManagerHookCommand(pm, e.GroupChat, cmdChar));
+            }
+
+            // show time
+            hooks.Init();
+            hooks.Run();
+        }
+
         private static string _(string msg)
         {
             return LibraryCatalog.GetString(msg, _LibraryTextDomain);
+        }
+    }
+
+    public abstract class GroupChatEventArgs : EventArgs
+    {
+        public GroupChatModel GroupChat { get; protected set; }
+    }
+
+    public class GroupChatPersonAddedEventArgs : GroupChatEventArgs
+    {
+        public PersonModel AddedPerson { get; private set; }
+
+        public GroupChatPersonAddedEventArgs(GroupChatModel groupChat, PersonModel addedPerson)
+        {
+            GroupChat = groupChat;
+            AddedPerson = addedPerson;
+        }
+    }
+
+    public class GroupChatPersonRemovedEventArgs : GroupChatEventArgs
+    {
+        public PersonModel RemovedPerson { get; private set; }
+
+        public GroupChatPersonRemovedEventArgs(GroupChatModel groupChat, PersonModel removedPerson)
+        {
+            GroupChat = groupChat;
+            RemovedPerson = removedPerson;
+        }
+    }
+
+    public class GroupChatPersonUpdatedEventArgs : GroupChatEventArgs
+    {
+        public PersonModel OldPerson { get; private set; }
+        public PersonModel NewPerson { get; private set; }
+
+        public GroupChatPersonUpdatedEventArgs(GroupChatModel groupChat,
+                                               PersonModel oldPerson,
+                                               PersonModel newPerson)
+        {
+            GroupChat = groupChat;
+            OldPerson = oldPerson;
+            NewPerson = newPerson;
         }
     }
 }
