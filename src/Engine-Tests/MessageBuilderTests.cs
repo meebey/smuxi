@@ -309,7 +309,7 @@ namespace Smuxi.Engine
             var builder = new MessageBuilder();
             builder.AppendFormat("{{{{virtual {0}}}}}", "hugs");
         }
-         
+
         void TestMessage(string message, MessageModel expectedMsg)
         {
             var builder = new MessageBuilder();
@@ -318,7 +318,7 @@ namespace Smuxi.Engine
             var actualMsg = builder.ToMessage();
             Assert.AreEqual(expectedMsg, actualMsg);
         }
-        
+
         [Test]
         public void AppendTextUrlParsingSanity()
         {
@@ -340,7 +340,7 @@ namespace Smuxi.Engine
             var msg = @"This is a http://sentence.that/ends.with?a. This is another sentence.";
             */
         }
-        
+
         [Test]
         public void AppendTextUrlParsingLtGtBrackets()
         {
@@ -353,6 +353,7 @@ namespace Smuxi.Engine
             builder.Append(new TextMessagePartModel(">"));
             TestMessage(msg, builder.ToMessage());
         }
+
         [Test]
         public void AppendTextUrlParsingUrlEndsInComma()
         {
@@ -365,7 +366,7 @@ namespace Smuxi.Engine
             builder.Append(new TextMessagePartModel(", it is really cool"));
             TestMessage(msg, builder.ToMessage());
         }
-        
+
         [Test]
         public void AppendTextUrlParsingUrlNoProtocol()
         {
@@ -378,7 +379,7 @@ namespace Smuxi.Engine
             builder.Append(new UrlMessagePartModel(url, urltext));
             TestMessage(msg, builder.ToMessage());
         }
-        
+
         [Test]
         public void AppendTextUrlParsingEndsInQuestionmark()
         {
@@ -401,7 +402,7 @@ namespace Smuxi.Engine
             var msg = @"This is a http://sentence.that/ends.with?a. This is another sentence.";
             */
         }
-        
+
         [Test]
         public void AppendTextUrlParsingUrlInBrackets()
         {
@@ -414,7 +415,7 @@ namespace Smuxi.Engine
             builder.Append(new TextMessagePartModel(") has nothing on it"));
             TestMessage(msg, builder.ToMessage());
         }
-        
+
         [Test]
         public void AppendTextUrlGithubMessage()
         {
@@ -426,7 +427,7 @@ namespace Smuxi.Engine
             builder.Append(new UrlMessagePartModel(url));
             TestMessage(msg, builder.ToMessage());
         }
-        
+
         [Test]
         public void AppendTextUrlSquareBrackets()
         {
@@ -439,7 +440,7 @@ namespace Smuxi.Engine
             builder.Append(new TextMessagePartModel("] and fossevents "));
             TestMessage(msg, builder.ToMessage());
         }
-        
+
         [Test]
         public void AppendTextUrlNormalBrackets()
         {
@@ -452,7 +453,7 @@ namespace Smuxi.Engine
             builder.Append(new TextMessagePartModel("). Thank you for usin"));
             TestMessage(msg, builder.ToMessage());
         }
-        
+
         [Test]
         public void AppendTextUrlMultipleInQuotes()
         {
@@ -466,7 +467,7 @@ namespace Smuxi.Engine
             builder.Append(new TextMessagePartModel(@""" ext=""voice-v1 camera-v1 video-v1"" ver=""AcN1/PEN8nq7AHD+9jpxMV4U6YM="" />"));
             TestMessage(msg, builder.ToMessage());
         }
-        
+
         [Test]
         public void AppendTextUrlEndsInClosedBracket()
         {
@@ -478,7 +479,7 @@ namespace Smuxi.Engine
             builder.Append(new TextMessagePartModel(@")"));
             TestMessage(msg, builder.ToMessage());
         }
-        
+
         [Test]
         public void AppendTextUrlEndsInDot()
         {

@@ -859,17 +859,17 @@ namespace Smuxi.Engine
         public static IList<MessagePartModel> ParseSmartLinks(TextMessagePartModel textPart,
                                                               List<MessageBuilderSettings.SmartLink> links)
         {
-            IList<MessagePartModel> msg = new List<MessagePartModel>();
+            var msgParts = new List<MessagePartModel>();
             if (links.Count == 0) {
                 // all smartlinks have been tried -> this text is PURE text
-                msg.Add(textPart);
-                return msg;
+                msgParts.Add(textPart);
+                return msgParts;
             }
             var subLinks = new List<MessageBuilderSettings.SmartLink>(links);
-            MessageBuilderSettings.SmartLink link = subLinks.First();
+            var link = subLinks.First();
             subLinks.Remove(link);
             
-            Match linkMatch = link.MessagePartPattern.Match(textPart.Text);
+            var linkMatch = link.MessagePartPattern.Match(textPart.Text);
             if (!linkMatch.Success) {
                 // no smartlinks in this MessagePart, try other smartlinks
                 return ParseSmartLinks(textPart, subLinks);
@@ -893,20 +893,19 @@ namespace Smuxi.Engine
                 if (link.TextFormat != null) {
                     text = String.Format(link.TextFormat, groupValues);
                 } else {
-                    text = (linkMatch.Value == url)?null:linkMatch.Value;
+                    text = (linkMatch.Value == url) ? null : linkMatch.Value;
                 }
-                
-                
+
                 if (lastindex != linkMatch.Index) {
                     // there were some non-url-chars before this url
                     // copy TextMessagePartModel
-                    TextMessagePartModel notLinkPart = new TextMessagePartModel(textPart);
+                    var notLinkPart = new TextMessagePartModel(textPart);
                     // only take the proper chunk of text
-                    notLinkPart.Text = textPart.Text.Substring(lastindex, linkMatch.Index-lastindex);
+                    notLinkPart.Text = textPart.Text.Substring(lastindex, linkMatch.Index - lastindex);
                     // and try other smartlinks on this part
                     var parts = ParseSmartLinks(notLinkPart, subLinks);
                     foreach (var part in parts) {
-                        msg.Add(part);
+                        msgParts.Add(part);
                     }
                 }
                 
@@ -923,7 +922,7 @@ namespace Smuxi.Engine
                         model = new TextMessagePartModel(text);
                         break;
                 }
-                msg.Add(model);
+                msgParts.Add(model);
                 lastindex = linkMatch.Index + linkMatch.Length;
                 linkMatch = linkMatch.NextMatch();
             } while (linkMatch.Success);
@@ -937,10 +936,10 @@ namespace Smuxi.Engine
                 // and try other smartlinks on this part
                 var parts = ParseSmartLinks(notLinkPart, subLinks);
                 foreach (var part in parts) {
-                    msg.Add(part);
+                    msgParts.Add(part);
                 }
             }
-            return msg;
+            return msgParts;
         }
         
         public IEnumerable<MessagePartModel> ParseSmartLinks(TextMessagePartModel part)
