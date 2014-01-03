@@ -493,12 +493,13 @@ namespace Smuxi.Engine
         }
 
         [Test]
-        public void BrokenMail()
+        public void AppendBrokenMail()
         {
             var msg = "mailto:/larry@google.com";
             var builder = new MessageBuilder();
             builder.TimeStamp = DateTime.MinValue;
-            builder.Append(new TextMessagePartModel("mailto:/larry@google.com"));
+            builder.Append(new TextMessagePartModel("mailto:/"));
+            builder.Append(new UrlMessagePartModel("mailto:larry@google.com", "larry@google.com"));
             TestMessage(msg, builder.ToMessage());
         }
     }
