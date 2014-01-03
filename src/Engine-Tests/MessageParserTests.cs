@@ -36,7 +36,7 @@ namespace Smuxi.Engine
 
             builder = new MessageBuilder();
             builder.TimeStamp = DateTime.MinValue;
-            builder.AppendRichText("http://example.com");
+            builder.AppendMessage("http://example.com");
             var actualMsg = builder.ToMessage();
 
             Assert.AreEqual(expectedMsg, actualMsg);
@@ -54,7 +54,7 @@ namespace Smuxi.Engine
 
             builder = new MessageBuilder();
             builder.TimeStamp = DateTime.MinValue;
-            builder.AppendRichText("foo <http://example.com> bar");
+            builder.AppendMessage("foo <http://example.com> bar");
             var actualMsg = builder.ToMessage();
 
             Assert.AreEqual(expectedMsg, actualMsg);
@@ -72,7 +72,7 @@ namespace Smuxi.Engine
 
             builder = new MessageBuilder();
             builder.TimeStamp = DateTime.MinValue;
-            builder.AppendRichText("foo (http://example.com) bar");
+            builder.AppendMessage("foo (http://example.com) bar");
             var actualMsg = builder.ToMessage();
 
             Assert.AreEqual(expectedMsg, actualMsg);

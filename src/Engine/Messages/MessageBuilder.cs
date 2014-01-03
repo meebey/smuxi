@@ -273,13 +273,7 @@ namespace Smuxi.Engine
             return AppendText(CreateHeader(text, args));
         }
 
-        [Obsolete("AppendMessage() is deprecated, use AppendRichText() instead")]
         public virtual MessageBuilder AppendMessage(string msg)
-        {
-            return AppendRichText(msg);
-        }
-
-        public virtual MessageBuilder AppendRichText(string msg)
         {
             return Append(ParseSmartLinks(CreateText(msg)));
         }
