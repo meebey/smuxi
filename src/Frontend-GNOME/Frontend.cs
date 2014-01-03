@@ -802,7 +802,7 @@ namespace Smuxi.Frontend.Gnome
                 }
             }
             var linkChat = link.Fragment;
-            if (String.IsNullOrEmpty(linkChat)) {
+            if (String.IsNullOrEmpty(linkChat) && link.AbsolutePath.Length > 0) {
                 linkChat = link.AbsolutePath.Substring(1);
             }
 
