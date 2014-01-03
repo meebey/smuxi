@@ -244,8 +244,8 @@ namespace Smuxi.Frontend
             string args = null;
             if (Environment.OSVersion.Platform == PlatformID.Unix) {
                 file = "sh";
-                args = String.Format("-c '{0}'",
-                                     parameter.Replace("'", @"\'"));
+                args = String.Format("-c \"{0}\"",
+                                     parameter.Replace("\"", @"\"""));
             } else {
                 file = parameters[1];
                 if (parameters.Length > 1) {

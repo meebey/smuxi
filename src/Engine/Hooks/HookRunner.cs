@@ -153,7 +153,7 @@ namespace Smuxi.Engine
             Logger.Debug("Run(): executing " + hookPath);
 #endif
             var process = SysDiag.Process.Start(startInfo);
-            while (!process.HasExited) {
+            while (!process.StandardOutput.EndOfStream) {
                 var line = process.StandardOutput.ReadLine();
                 if (String.IsNullOrEmpty(line)) {
                     continue;
