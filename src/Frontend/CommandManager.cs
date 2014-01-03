@@ -231,9 +231,9 @@ namespace Smuxi.Frontend
                         output = String.Format("{0}{1}",
                                                cmd.CommandCharacter, output);
                     }
-                    Execute(new CommandModel(cmd.FrontendManager,
-                                             cmd.Chat,
-                                             cmd.CommandCharacter, output));
+                    DoExecute(new CommandModel(cmd.FrontendManager,
+                                               cmd.Chat,
+                                               cmd.CommandCharacter, output));
                 } else {
                     var msg = new MessageBuilder().AppendText(output).ToMessage();
                     f_Session.AddMessageToFrontend(cmd, msg);
