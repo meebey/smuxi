@@ -491,5 +491,15 @@ namespace Smuxi.Engine
             builder.Append(new TextMessagePartModel(@". This is another sentence."));
             TestMessage(msg, builder.ToMessage());
         }
+
+        [Test]
+        public void BrokenMail()
+        {
+            var msg = "mailto:/larry@google.com";
+            var builder = new MessageBuilder();
+            builder.TimeStamp = DateTime.MinValue;
+            builder.Append(new TextMessagePartModel("mailto:/larry@google.com"));
+            TestMessage(msg, builder.ToMessage());
+        }
     }
 }
