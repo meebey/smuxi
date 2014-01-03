@@ -209,7 +209,7 @@ namespace Smuxi.Engine
                 msgPart.Italic = italic;
                 msgPart.ForegroundColor = fg_color;
                 msgPart.BackgroundColor = bg_color;
-                AppendText(msgPart);
+                Append(ParseSmartLinks(msgPart));
             } while (controlCharFound);
             return this;
         }
