@@ -910,17 +910,12 @@ namespace Smuxi.Engine
                 }
                 
                 MessagePartModel model;
-                switch (link.Type) {
-                    case MessageBuilderSettings.SmartLink.ETargetType.Url:
-                        model = new UrlMessagePartModel(url, text);
-                        break;
-                    case MessageBuilderSettings.SmartLink.ETargetType.Image:
-                        model = new ImageMessagePartModel(url, text);
-                        break;
-                    case MessageBuilderSettings.SmartLink.ETargetType.Text:
-                    default:
-                        model = new TextMessagePartModel(text);
-                        break;
+                if (link.MessagePartType == typeof(UrlMessagePartModel)) {
+                    model = new UrlMessagePartModel(url, text);
+                } else if (link.MessagePartType == typeof(ImageMessagePartModel)) {
+                    model = new ImageMessagePartModel(url, text);
+                } else {
+                    model = new TextMessagePartModel(text);
                 }
                 msgParts.Add(model);
                 lastindex = linkMatch.Index + linkMatch.Length;

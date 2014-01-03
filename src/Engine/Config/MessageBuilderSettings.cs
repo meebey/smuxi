@@ -1,6 +1,6 @@
 // Smuxi - Smart MUltipleXed Irc
 //
-// Copyright (c) 2011 Mirco Bauer <meebey@meebey.net>
+// Copyright (c) 2011, 2014 Mirco Bauer <meebey@meebey.net>
 //
 // Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
 //
@@ -25,56 +25,35 @@ namespace Smuxi.Engine
 {
     public class MessageBuilderSettings
     {
-
         public class SmartLink
         {
-            public enum ETargetType
-            {
-                Text, Url, Image
-            }
-
             public Regex MessagePartPattern { get; set; }
+            public Type MessagePartType { get; set; }
             // what is linked to
             public string LinkFormat { get; set; }
             // what is displayed
             public string TextFormat { get; set; }
-            public ETargetType Type { get; set; }
-        };
+
+            public SmartLink(Regex pattern)
+            {
+                if (pattern == null) {
+                    throw new ArgumentNullException("pattern");
+                }
+                MessagePartPattern = pattern;
+                MessagePartType = typeof(UrlMessagePartModel);
+            }
+        }
 
         public List<SmartLink> SmartLinks { get; private set; }
-
-        void CreateSmartLink(Regex regex)
-        {
-            CreateSmartLink(regex, null, null);
-        }
-
-        void CreateSmartLink(Regex regex, string linkPattern)
-        {
-            CreateSmartLink(regex, linkPattern, null);
-        }
-
-        void CreateSmartLink(Regex regex, string linkPattern, string textPattern)
-        {
-            var link = new SmartLink();
-            link.MessagePartPattern = regex;
-            link.LinkFormat = linkPattern;
-            link.TextFormat = textPattern;
-            link.Type = SmartLink.ETargetType.Url;
-            SmartLinks.Add(link);
-        }
-
-        void CreateSmartText(Regex regex, string textPattern)
-        {
-            var link = new SmartLink();
-            link.MessagePartPattern = regex;
-            link.TextFormat = textPattern;
-            link.Type = SmartLink.ETargetType.Text;
-            SmartLinks.Add(link);
-        }
 
         public MessageBuilderSettings()
         {
             SmartLinks = new List<SmartLink>();
+            InitDefaultLinks();
+        }
+
+        void InitDefaultLinks()
+        {
             string path_last_chars = @"a-z0-9#/%&=\-_+";
             string path_chars = path_last_chars + @")(?.,";
             string domainchars = @"[a-z0-9\-]+";
@@ -82,26 +61,45 @@ namespace Smuxi.Engine
             string tld = @"com|net|org|info|biz|gov|name|edu|museum|[a-z][a-z]";
             string domain = @"(?:(?:" + subdomain + ")+(?:" + tld + ")|localhost)";
             string port = ":[1-9][0-9]{1,4}";
+            string user = "[a-z0-9._%+-]+@";
             string domain_port = domain + "(?:" + port + ")?";
+            string user_domain = user + domain;
+            string user_domain_port = "(?:" + user + ")?" + domain_port;
             string path = @"/(?:["+ path_chars +"]*["+ path_last_chars +"]+)?";
-            string address = domain_port + "(?:" + path + ")?";
+            string address = user_domain_port + "(?:" + path + ")?";
 
             // facebook attachment
-            CreateSmartLink(new Regex(@"(<[1-9][0-9]* attachments?>) (http://www\.facebook\.com/messages/\?action=read&tid=[0-9a-f]+)"), "{2}", "{1}");
+            var regex = new Regex(
+                @"(<[1-9][0-9]* attachments?>) (http://www\.facebook\.com/messages/\?action=read&tid=[0-9a-f]+)"
+            );
+            SmartLinks.Add(new SmartLink(regex) {
+                LinkFormat = "{2}",
+                TextFormat = "{1}",
+            });
 
             // protocol://domain
-            CreateSmartLink(new Regex(@"[a-z][a-z0-9\-]*://" + address, RegexOptions.IgnoreCase));
+            regex = new Regex(@"[a-z][a-z0-9\-]*://" + address, RegexOptions.IgnoreCase);
+            SmartLinks.Add(new SmartLink(regex));
 
-            // E-Mail
-            CreateSmartLink(new Regex(@"([a-z0-9._%+-]+@(?:[a-z0-9-]+\.)+[a-z]{2,})", RegexOptions.IgnoreCase), "mailto:{0}");
+            // email
+            regex = new Regex(@"(?:mailto:)?(" + user_domain + ")", RegexOptions.IgnoreCase);
+            SmartLinks.Add(new SmartLink(regex) {
+                LinkFormat = "mailto:{1}"
+            });
+
             // addresses without protocol
-            CreateSmartLink(new Regex(address, RegexOptions.IgnoreCase), "http://{0}");
-            // smuxi bugtracker
-            CreateSmartLink(new Regex(@"#([0-9]+)"), "http://www.smuxi.org/issues/{0}");
+            regex = new Regex(address, RegexOptions.IgnoreCase);
+            SmartLinks.Add(new SmartLink(regex) {
+                LinkFormat = "http://{0}"
+            });
+
+            // Smuxi bugtracker
+            regex = new Regex(@"smuxi#([0-9]+)", RegexOptions.IgnoreCase);
+            SmartLinks.Add(new SmartLink(regex) {
+                LinkFormat = "http://www.smuxi.org/issues/show/{1}"
+            });
 
             // TODO: msgid -> http://mid.gmane.org/{1}
-            // TODO: RFC -> http://www.ietf.org/rfc/rfc{1}.txt
-            // TODO: CVE-YYYY-XXXX -> http://cve.mitre.org/cgi-bin/cvename.cgi?name={1}
             // TODO: ISSN/ISBN
             // TODO: Path: / or X:\
             // TODO: GPS -> Google Maps
