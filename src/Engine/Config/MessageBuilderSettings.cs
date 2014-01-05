@@ -54,11 +54,12 @@ namespace Smuxi.Engine
 
         void InitDefaultLinks()
         {
-            string path_last_chars = @"a-z0-9#/%&=\-_+";
+            string path_last_chars = @"a-zA-Z0-9#/%&=\-_+";
             string path_chars = path_last_chars + @")(?.,";
             string domainchars = @"[a-z0-9\-]+";
             string subdomain = domainchars + @"\.";
-            string tld = @"com|net|org|info|biz|gov|name|edu|museum|[a-z][a-z]";
+            string common_tld = @"de|es|im|us|com|net|org|info|biz|gov|name|edu|onion|museum";
+            string tld = common_tld + @"|[a-z][a-z]";
             string domain = @"(?:(?:" + subdomain + ")+(?:" + tld + ")|localhost)";
             string port = ":[1-9][0-9]{1,4}";
             string user = "[a-z0-9._%+-]+@";
@@ -87,8 +88,12 @@ namespace Smuxi.Engine
                 LinkFormat = "mailto:{1}"
             });
 
-            // addresses without protocol
-            regex = new Regex(address, RegexOptions.IgnoreCase);
+            // addresses without protocol (heuristical)
+            // include well known TLDs to prevent autogen.sh, configure.ac or
+            // Gst.Buffer.Unref() from matching
+            string heuristic_domain = @"(?:(?:" + subdomain + ")+(?:" + common_tld + ")|localhost)";
+            string heuristic_address = heuristic_domain + "(?:" + path + ")?";
+            regex = new Regex(heuristic_address, RegexOptions.IgnoreCase);
             SmartLinks.Add(new SmartLink(regex) {
                 LinkFormat = "http://{0}"
             });
