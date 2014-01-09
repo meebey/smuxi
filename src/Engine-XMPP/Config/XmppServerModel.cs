@@ -37,17 +37,6 @@ namespace Smuxi.Engine
             Protocol = "XMPP";
         }
         
-        public virtual void Load(UserConfig config, string id)
-        {
-            if (config == null) {
-                throw new ArgumentNullException("config");
-            }
-            if (String.IsNullOrEmpty(id)) {
-                throw new ArgumentNullException("id");
-            }
-            Load(config, Protocol, id);
-        }
-        
         public XmppServerModel()
         {
             InitDefaults();

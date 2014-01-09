@@ -10,7 +10,7 @@ SOURCES = \
 	Protocols/Xmpp/XmppGroupChatModel.cs \
 	Protocols/Xmpp/XmppProtocolManager.cs \
 	Config/XmppPersonModel.cs \
-	Protocols/Xmpp/IQ/OwnMessage.cs
+	Protocols/Xmpp/FacebookProtocolManager.cs
 
 REFERENCES = \
 	System \

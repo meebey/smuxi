@@ -310,6 +310,14 @@ namespace Smuxi.Frontend.Gnome
                     f_PortSpinButton.Value = 6667;
                     f_PortSpinButton.Sensitive = true;
                     break;
+                case "Facebook":
+                    ShowHostname = false;
+                    ShowNetwork = false;
+                    ShowPassword = true;
+                    SupportUseEncryption = true;
+                    f_HostnameEntry.Text = "chat.facebook.com";
+                    f_PortSpinButton.Value = 5222;
+                    break;
                 case "XMPP":
                     ShowHostname = true;
                     ShowNetwork = false;

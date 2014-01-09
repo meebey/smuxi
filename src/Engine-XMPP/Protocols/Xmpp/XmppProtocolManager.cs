@@ -3,7 +3,7 @@
  *
  * Copyright (c) 2005-2013 Mirco Bauer <meebey@meebey.net>
  * Copyright (c) 2011 Tuukka Hastrup <Tuukka.Hastrup@iki.fi>
- * Copyright (c) 2013 Oliver Schneider <smuxi@oli-obk.de>
+ * Copyright (c) 2013-2014 Oliver Schneider <smuxi@oli-obk.de>
  *
  * Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
  *
@@ -86,12 +86,8 @@ namespace Smuxi.Engine
         ChatModel NetworkChat { get; set; }
         GroupChatModel ContactChat { get; set; }
         XmppServerModel Server { get; set; }
-        // facebook messed up, this is part of a hack to fix that messup
-        string LastSentMessage { get; set; }
-        bool SupressLocalMessageEcho { get; set; }
         bool AutoReconnect { get; set; }
         TimeSpan AutoReconnectDelay { get; set; }
-        bool IsFacebook { get; set; }
         bool IsDisposed { get; set; }
         bool ShowChatStates { get; set; }
         // pidgin's psychic mode
@@ -127,7 +123,6 @@ namespace Smuxi.Engine
             Contacts = new Dictionary<Jid, XmppPersonModel>();
             DiscoCache = new Dictionary<string, DiscoInfo>();
 
-            SupressLocalMessageEcho = false;
             ShowChatStates = true;
             OpenNewChatOnChatState = true;
 
@@ -144,7 +139,6 @@ namespace Smuxi.Engine
             JabberClient.OnReadXml += OnReadXml;
             JabberClient.OnWriteXml += OnWriteXml;
             JabberClient.OnAuthError += OnAuthError;
-            JabberClient.OnIq += OnIq;
             JabberClient.SendingServiceUnavailable += OnSendingServiceUnavailable;
             JabberClient.AutoAgents = false; // outdated feature
             JabberClient.EnableCapabilities = true;
@@ -162,14 +156,10 @@ namespace Smuxi.Engine
             JabberClient.DiscoInfo.AddFeature().Var = "jabber:iq:last";
             JabberClient.DiscoInfo.AddFeature().Var = "http://jabber.org/protocol/muc";
             JabberClient.DiscoInfo.AddFeature().Var = "http://jabber.org/protocol/disco#info";
-            JabberClient.DiscoInfo.AddFeature().Var = "http://www.facebook.com/xmpp/messages";
             JabberClient.DiscoInfo.AddFeature().Var = "http://jabber.org/protocol/xhtml-im";
 
             Disco = new DiscoManager(JabberClient);
             Disco.AutoAnswerDiscoInfoRequests = true;
-
-            // facebook own message echo
-            ElementFactory.AddElementType("own-message", "http://www.facebook.com/xmpp/messages", typeof(OwnMessageQuery));
 
             MucManager = new MucManager(JabberClient);
         }
@@ -252,7 +242,7 @@ namespace Smuxi.Engine
             } else {
                 Server = new XmppServerModel();
                 if (server.ServerID != null) {
-                    Server.Load(Session.UserConfig, server.ServerID);
+                    Server.Load(Session.UserConfig, Protocol, server.ServerID);
                 }
                 // HACK: previous line overwrites any passed values with the values from config
                 // thus we have to copy the original values:
@@ -277,6 +267,14 @@ namespace Smuxi.Engine
                 NetworkID, String.Format("{0} {1}", Protocol, Host), this
             );
             Session.AddChat(NetworkChat);
+            if (Host.EndsWith("facebook.com") && !(this is FacebookProtocolManager)) {
+                var builder = CreateMessageBuilder();
+                builder.AppendEventPrefix();
+                builder.AppendMessage(_("This engine has native Facebook support, you should be using it instead of connecting to facebook with xmpp"));
+                // cannot use AddMessageToFrontend because NetworkChat is not yet synced, causing AddMessageToFrontend to drop it.
+                // cannot sync NetworkChat before this, because then the sync would swallow the message
+                Session.AddMessageToChat(NetworkChat, builder.ToMessage());
+            }
             Session.SyncChat(NetworkChat);
 
             Connect();
@@ -298,7 +296,6 @@ namespace Smuxi.Engine
 #if LOG4NET
             _Logger.Debug("calling JabberClient.Open()");
 #endif
-            IsFacebook = (JabberClient.Server == "chat.facebook.com");
             JabberClient.Open();
         }
 
@@ -345,7 +342,6 @@ namespace Smuxi.Engine
             JabberClient.OnReadXml -= OnReadXml;
             JabberClient.OnWriteXml -= OnWriteXml;
             JabberClient.OnAuthError -= OnAuthError;
-            JabberClient.OnIq -= OnIq;
             JabberClient.ClientSocket.OnValidateCertificate -= ValidateCertificate;
             JabberClient.SendingServiceUnavailable -= OnSendingServiceUnavailable;
             JabberClient.SocketDisconnect();
@@ -1333,11 +1329,6 @@ namespace Smuxi.Engine
                     JabberClient.Send(new Message(chat.ID, XmppMessageType.groupchat, text));
                     return; // don't show now. the message will be echoed back if it's sent successfully
                 }
-                if (IsFacebook && SupressLocalMessageEcho) {
-                    // don't show, facebook is bugging again
-                    return;
-                }
-                LastSentMessage = text;
             }
 
             var builder = CreateMessageBuilder();
@@ -1491,14 +1482,8 @@ namespace Smuxi.Engine
             contact.Ask = rosterItem.Ask;
             string oldIdentityName = contact.IdentityName;
             var oldIdentityNameColored = contact.IdentityNameColored;
-            if (IsFacebook) {
-                // facebook bug. prevent clearing of name
-                if (rosterItem.Name != null) {
-                    contact.IdentityName = rosterItem.Name;
-                }
-            } else {
-                contact.IdentityName = rosterItem.Name ?? rosterItem.Jid;
-            }
+
+            contact.IdentityName = rosterItem.Name ?? rosterItem.Jid;
 
             if (oldIdentityName == contact.IdentityName) {
                 // identity name didn't change
@@ -1514,10 +1499,7 @@ namespace Smuxi.Engine
         {
             var builder = CreateMessageBuilder();
             builder.AppendEventPrefix();
-            string idstring = "";
-            if (!IsFacebook && oldIdentityName != contact.Jid) {
-                idstring = " [" + contact.Jid + "]";
-            }
+            string idstring = (oldIdentityName == contact.Jid.Bare)?"":GenerateIdString(contact);
             oldIdentityNameColored.BackgroundColor = TextColor.None;
             builder.AppendFormat("{2}{1} is now known as {0}", contact, idstring, oldIdentityNameColored);
 
@@ -1541,6 +1523,15 @@ namespace Smuxi.Engine
                 msg2.MessageType = MessageType.PersonChatPersonChanged;
                 Session.AddMessageToChat(chat, msg2);
             }
+        }
+
+        protected virtual string GenerateIdString(PersonModel contact)
+        {
+            if (contact.ID == contact.IdentityName) {
+                return "";
+            }
+            var jid = new Jid(contact.ID);
+            return String.Format(" [{0}]", jid.Bare);
         }
 
         void RequestCapabilities(Jid jid, Capabilities caps)
@@ -1628,11 +1619,7 @@ namespace Smuxi.Engine
         {
             var builder = CreateMessageBuilder();
             builder.AppendEventPrefix();
-            string idstring = "";
-            // print jid (except in case of facebook where it is meaningless)
-            if (!IsFacebook && jid.Bare != person.IdentityName) {
-                idstring = String.Format(" [{0}]", jid.Bare);
-            }
+            string idstring = GenerateIdString(person);
             // print the type (and in case of available detailed type)
             switch (pres.Type) {
                 case PresenceType.available:
@@ -1835,7 +1822,7 @@ namespace Smuxi.Engine
         void OnGroupChatPresence(XmppGroupChatModel chat, Presence pres)
         {
             Jid jid = pres.From;
-            var person = new PersonModel(jid, pres.From.Resource, NetworkID, Protocol, this);
+            var person = new XmppPersonModel(jid, pres.From.Resource, this);
             PrintGroupChatPresence(chat, person, pres);
             switch (pres.Type) {
                 case PresenceType.available:
@@ -2370,35 +2357,6 @@ namespace Smuxi.Engine
                 builder.TimeStamp = msg.XDelay.Stamp;
             }
             Session.AddMessageToChat(NetworkChat, builder.ToMessage());
-        }
-
-        void OnIq(object sender, IQEventArgs e)
-        {
-            Trace.Call(sender, e);
-
-            // not as pretty as the previous implementation, but it works
-            var elem = e.IQ.SelectSingleElement("own-message");
-            if (elem is OwnMessageQuery) {
-                OnIQOwnMessage((OwnMessageQuery) elem);
-                e.Handled = true;
-            }
-        }
-
-        [MethodImpl(MethodImplOptions.Synchronized)]
-        void OnIQOwnMessage(OwnMessageQuery query)
-        {
-            if (query.Self) {
-                // we send this message from Smuxi, nothing to do...
-                return;
-            }
-
-            if (!SupressLocalMessageEcho && (query.Body == LastSentMessage)) {
-                SupressLocalMessageEcho = true;
-                return;
-            }
-            var chat = GetOrCreatePersonChat(query.To);
-
-            _Say(chat, query.Body, false);
         }
 
         [MethodImpl(MethodImplOptions.Synchronized)]
