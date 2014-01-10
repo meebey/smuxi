@@ -1,6 +1,6 @@
 // Smuxi - Smart MUltipleXed Irc
 //
-// Copyright (c) 2013 Mirco Bauer <meebey@meebey.net>
+// Copyright (c) 2013-2014 Mirco Bauer <meebey@meebey.net>
 //
 // Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
 // 
@@ -489,6 +489,40 @@ namespace Smuxi.Engine
             builder.Append(new TextMessagePartModel(@"This is a "));
             builder.Append(new UrlMessagePartModel("http://sentence.th/at/ends.with?a"));
             builder.Append(new TextMessagePartModel(@". This is another sentence."));
+            TestMessage(msg, builder.ToMessage());
+        }
+
+        [Test]
+        public void AppendMessageWithOddUrls()
+        {
+            var msg = @"zack: http://anonscm.debian.org/gitweb/?p=lintian/lintian.git;a=blob;f=checks/source-copyright.desc;h=3276a57e81b1c8c38073e667221e262df1a606c0;hb=167170d7911473a726f7e77008d8b2246a6822e8";
+            var builder = new MessageBuilder();
+            builder.TimeStamp = DateTime.MinValue;
+            builder.Append(new TextMessagePartModel("zack: "));
+            builder.Append(new UrlMessagePartModel("http://anonscm.debian.org/gitweb/?p=lintian/lintian.git;a=blob;f=checks/source-copyright.desc;h=3276a57e81b1c8c38073e667221e262df1a606c0;hb=167170d7911473a726f7e77008d8b2246a6822e8"));
+            TestMessage(msg, builder.ToMessage());
+
+            msg = "http://sources.debian.net/src/kfreebsd-10/10.0~svn259778-1/sys/cddl/dev/dtrace/dtrace_anon.c";
+            builder = new MessageBuilder();
+            builder.TimeStamp = DateTime.MinValue;
+            builder.Append(new UrlMessagePartModel("http://sources.debian.net/src/kfreebsd-10/10.0~svn259778-1/sys/cddl/dev/dtrace/dtrace_anon.c"));
+            TestMessage(msg, builder.ToMessage());
+
+            msg = "http://www.stack.nl/~jilles/cgi-bin/hgwebdir.cgi/charybdis/raw-rev/9d769851c1c7";
+            builder = new MessageBuilder();
+            builder.TimeStamp = DateTime.MinValue;
+            builder.Append(new UrlMessagePartModel("http://www.stack.nl/~jilles/cgi-bin/hgwebdir.cgi/charybdis/raw-rev/9d769851c1c7"));
+            TestMessage(msg, builder.ToMessage());
+        }
+
+        [Test]
+        [Ignore]
+        public void BrokenAppendMessageWithOddUrls()
+        {
+            var msg = "https://web.archive.org/web/20050208144213/http://www.jaganelli.de/";
+            var builder = new MessageBuilder();
+            builder.TimeStamp = DateTime.MinValue;
+            builder.Append(new UrlMessagePartModel("https://web.archive.org/web/20050208144213/http://www.jaganelli.de/"));
             TestMessage(msg, builder.ToMessage());
         }
 

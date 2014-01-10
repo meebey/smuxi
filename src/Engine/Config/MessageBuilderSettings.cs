@@ -54,7 +54,7 @@ namespace Smuxi.Engine
 
         void InitDefaultLinks()
         {
-            string path_last_chars = @"a-zA-Z0-9#/%&=\-_+";
+            string path_last_chars = @"a-zA-Z0-9#/%&=\-_+;~";
             string path_chars = path_last_chars + @")(?.,";
             string domainchars = @"[a-z0-9\-]+";
             string subdomain = domainchars + @"\.";
