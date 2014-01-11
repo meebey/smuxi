@@ -350,12 +350,16 @@ namespace Smuxi.Frontend
             var showHelp = false;
             var appendMessage = false;
             var appendText = false;
+            var appendEvent = false;
+            var appendFormat = false;
             var toMessage = false;
             try {
                 var opts = new NDesk.Options.OptionSet() {
                     { "c|count=", v => count = Int32.Parse(v) },
                     { "m|append-message", v => appendMessage = true },
                     { "t|append-text", v => appendText = true },
+                    { "e|append-event", v => appendEvent = true },
+                    { "f|append-format", v => appendFormat = true },
                     { "T|to-message", v => toMessage = true },
                 };
                 opts.Add("h|?|help", x => {
@@ -398,6 +402,15 @@ namespace Smuxi.Frontend
                 if (appendText) {
                     builder.AppendText("This is message with just text.");
                 }
+                if (appendEvent) {
+                    builder.AppendEventPrefix();
+                }
+                if (appendFormat) {
+                    builder.AppendFormat("{0} [{1}] has joined {2}",
+                                         "meebey3",
+                                         "~smuxi@31-18-115-252-dynip.superkabel.de",
+                                         "#smuxi-devel");
+                }
                 if (toMessage) {
                     var msg = builder.ToMessage();
                 }
@@ -410,6 +423,12 @@ namespace Smuxi.Frontend
             }
             if (appendText) {
                 builder.AppendText("builder.AppendText() ");
+            }
+            if (appendEvent) {
+                builder.AppendText("builder.AppendEventPrefix() ");
+            }
+            if (appendFormat) {
+                builder.AppendText("builder.AppendFormat() ");
             }
             if (toMessage) {
                 builder.AppendText("builder.ToMessage() ");
