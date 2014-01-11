@@ -346,7 +346,7 @@ namespace Smuxi.Frontend
         {
             Trace.Call(cmd);
 
-            var count = 100;
+            var count = 1000;
             var showHelp = false;
             var appendMessage = false;
             var appendText = false;
