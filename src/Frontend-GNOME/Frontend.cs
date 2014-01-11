@@ -456,9 +456,9 @@ namespace Smuxi.Frontend.Gnome
                             Thread.Sleep(30 * 1000);
                         }
                     }
-                    Session = _MainWindow.EngineManager.Session;
                     _UserConfig = _MainWindow.EngineManager.UserConfig;
                     EngineVersion = _MainWindow.EngineManager.EngineVersion;
+                    Session = _MainWindow.EngineManager.Session;
 
                     Gtk.Application.Invoke(delegate {
                         Frontend.ConnectEngineToGUI();
