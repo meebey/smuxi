@@ -368,7 +368,7 @@ namespace Smuxi.Frontend
                     showHelp = true;
                     var writer = new StringWriter();
                     opts.WriteOptionDescriptions(writer);
-                    f_Session.AddMessageToFrontend(
+                    AddMessageToFrontend(
                         cmd,
                         CreateMessageBuilder().
                             AppendHeader("{0} usage", cmd.Command).
@@ -384,7 +384,7 @@ namespace Smuxi.Frontend
                     return;
                 }
             } catch (Exception ex) {
-                f_Session.AddMessageToFrontend(
+                AddMessageToFrontend(
                     cmd,
                     CreateMessageBuilder().
                         AppendErrorText("Invalid parameter: {0}", ex.Message).
@@ -443,7 +443,7 @@ namespace Smuxi.Frontend
                 (stop - start).TotalMilliseconds,
                 (stop - start).TotalMilliseconds / count
             );
-            f_Session.AddMessageToFrontend(cmd, builder.ToMessage());
+            AddMessageToFrontend(cmd, builder.ToMessage());
         }
 
         private void Unknown(CommandModel cmd)
