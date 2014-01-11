@@ -52,6 +52,8 @@ namespace Smuxi.Frontend
         TaskQueue       f_TaskQueue;
         TimeSpan        f_LastCommandTimeSpan;
 
+        public Version EngineVersion { get; set; }
+
         public TimeSpan LastCommandTimeSpan {
             get {
                 return f_LastCommandTimeSpan;
@@ -236,7 +238,7 @@ namespace Smuxi.Frontend
                                                cmd.CommandCharacter, output));
                 } else {
                     var msg = new MessageBuilder().AppendText(output).ToMessage();
-                    f_Session.AddMessageToFrontend(cmd, msg);
+                    AddMessageToFrontend(cmd, msg);
                 }
             };
 
@@ -283,7 +285,7 @@ namespace Smuxi.Frontend
                         AppendErrorText("Executing '{0}' failed with: {1}",
                                         command, ex.Message).
                         ToMessage();
-                    f_Session.AddMessageToFrontend(cmd, msg);
+                    AddMessageToFrontend(cmd, msg);
                 }
             }
         }
@@ -296,7 +298,7 @@ namespace Smuxi.Frontend
                 AppendEventPrefix().
                     AppendText(cmd.Parameter).
                     ToMessage();
-            f_Session.AddMessageToFrontend(cmd, msg);
+            AddMessageToFrontend(cmd, msg);
         }
 
         public void CommandGenerateMessages(CommandModel cmd, IChatView chat)
@@ -343,7 +345,7 @@ namespace Smuxi.Frontend
                 AppendEventPrefix().
                 AppendText(_("Unknown Command: {0}"), cmd.Command).
                 ToMessage();
-            f_Session.AddMessageToFrontend(cmd, msg);
+            AddMessageToFrontend(cmd, msg);
         }
 
         void NotEnoughParameters(CommandModel cmd)
@@ -352,12 +354,28 @@ namespace Smuxi.Frontend
                 AppendEventPrefix().
                 AppendText(_("Not enough parameters for {0} command"), cmd.Command).
                 ToMessage();
-            f_Session.AddMessageToFrontend(cmd, msg);
+            AddMessageToFrontend(cmd, msg);
         }
 
         MessageBuilder CreateMessageBuilder()
         {
             return new MessageBuilder();
+        }
+
+        void AddMessageToFrontend(CommandModel cmd, MessageModel msg)
+        {
+            if (cmd == null) {
+                throw new ArgumentNullException("cmd");
+            }
+            if (msg == null) {
+                throw new ArgumentNullException("msg");
+            }
+
+            if (EngineVersion != null && EngineVersion >= new Version(0, 10)) {
+                f_Session.AddMessageToFrontend(cmd, msg);
+            } else {
+                f_Session.AddMessageToChat(cmd.Chat, msg);
+            }
         }
 
         protected virtual void OnTaskQueueExceptionEvent(object sender, TaskQueueExceptionEventArgs e)

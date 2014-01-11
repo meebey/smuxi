@@ -849,6 +849,7 @@ namespace Smuxi.Frontend.Gnome
                 _CommandManager = null;
             } else {
                 _CommandManager = new CommandManager(Frontend.Session);
+                _CommandManager.EngineVersion = Frontend.EngineVersion;
                 _CommandManager.ExceptionEvent +=
                 delegate(object sender, CommandExceptionEventArgs e) {
                     Gtk.Application.Invoke(delegate {
