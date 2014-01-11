@@ -418,26 +418,24 @@ namespace Smuxi.Frontend
             stop = DateTime.UtcNow;
 
             builder = new MessageBuilder();
+            builder.AppendText("MessageBuilder().");
             if (appendMessage) {
-                builder.AppendText("builder.AppendMessage() ");
+                builder.AppendText("AppendMessage().");
             }
             if (appendText) {
-                builder.AppendText("builder.AppendText() ");
+                builder.AppendText("AppendText().");
             }
             if (appendEvent) {
-                builder.AppendText("builder.AppendEventPrefix() ");
+                builder.AppendText("AppendEventPrefix().");
             }
             if (appendFormat) {
-                builder.AppendText("builder.AppendFormat() ");
+                builder.AppendText("AppendFormat().");
             }
             if (toMessage) {
-                builder.AppendText("builder.ToMessage() ");
-            }
-            if (!appendMessage && !appendText && !toMessage) {
-                builder.AppendText("MessageBuilder() ");
+                builder.AppendText("ToMessage()");
             }
             builder.AppendText(
-                "count: {1} took: {2:0} ms avg: {3:0.00} ms",
+                " count: {1} took: {2:0} ms avg: {3:0.00} ms",
                 cmd.Data,
                 count,
                 (stop - start).TotalMilliseconds,
