@@ -120,6 +120,7 @@ namespace Smuxi.Engine
         void RunHook(string hookPath)
         {
             var hookFilename = Path.GetFileName(hookPath);
+            var hookExtension = Path.GetExtension(hookFilename);
             var statePath = Path.Combine(StateBasePath, hookFilename);
             if (!Directory.Exists(statePath)) {
                 Directory.CreateDirectory(statePath);
@@ -136,6 +137,36 @@ namespace Smuxi.Engine
                 args.Length--;
                 hookArgs = args.ToString();
             }
+
+            // for supporting script languages (like lua) out-of-the-box we need
+            // to emulate the ShellExecute behavior as reading the output is
+            // only possible by invoking the application directly
+            var classes = Microsoft.Win32.Registry.ClassesRoot;
+            using (var extensionKey = classes.OpenSubKey(hookExtension)) {
+                if (extensionKey != null) {
+                    var defaultApp = extensionKey.GetValue(null);
+                    var defaultAppPath = String.Format(
+                        @"{0}\Shell\Open\Command",
+                        defaultApp
+                    );
+                    using (var cmdKey = classes.OpenSubKey(defaultAppPath)) {
+                        if (cmdKey != null) {
+                            var cmdValue = cmdKey.GetValue(null);
+                            var args = ShellCommandArgumentParser.Instance.ParseArguments(cmdValue, 2);
+                            var cmdPath = args[0];
+                            var cmdArgs = args.Skip(1).ToArray();
+                            var replacedArgs = new StringBuilder(256);
+                            foreach (var arg in cmdArgs) {
+                                arg = arg.Replace("%1", hookPath);
+                                arg = arg.Replace("%*", hookArgs);
+                                replacedArgs.AppendFormat("\"{0}\"", arg);
+                            }
+                            hookArgs = replacedArgs.ToString();
+                        }
+                    }
+                }
+            }
+
             var startInfo = new SysDiag.ProcessStartInfo() {
                 FileName = hookPath,
                 Arguments = hookArgs,

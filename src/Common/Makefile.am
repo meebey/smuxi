@@ -59,6 +59,7 @@ FILES = \
 	NDesk.Options.cs \
 	Defines.cs \
 	SpecialFolderPatternConverter.cs \
+	ShellCommandArgumentParser.cs \
 	TaskQueue.cs \
 	ThreadPoolQueue.cs \
 	Platform.cs \
