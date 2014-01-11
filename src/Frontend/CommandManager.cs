@@ -1,6 +1,6 @@
 // Smuxi - Smart MUltipleXed Irc
 // 
-// Copyright (c) 2010, 2012-2013 Mirco Bauer <meebey@meebey.net>
+// Copyright (c) 2010, 2012-2014 Mirco Bauer <meebey@meebey.net>
 // 
 // Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
 // 
@@ -19,6 +19,7 @@
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA
 
 using System;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Collections.Generic;
@@ -130,6 +131,10 @@ namespace Smuxi.Frontend
                         break;
                     case "echo":
                         CommandEcho(cmd);
+                        handled = true;
+                        break;
+                    case "benchmark_message_builder":
+                        CommandBenchmarkMessageBuilder(cmd);
                         handled = true;
                         break;
                 }
@@ -335,6 +340,89 @@ namespace Smuxi.Frontend
                 (stop - start).TotalMilliseconds / count
             );
             chat.AddMessage(builder.ToMessage());
+        }
+
+        public void CommandBenchmarkMessageBuilder(CommandModel cmd)
+        {
+            Trace.Call(cmd);
+
+            var count = 100;
+            var showHelp = false;
+            var appendMessage = false;
+            var appendText = false;
+            var toMessage = false;
+            try {
+                var opts = new NDesk.Options.OptionSet() {
+                    { "c|count=", v => count = Int32.Parse(v) },
+                    { "m|append-message", v => appendMessage = true },
+                    { "t|append-text", v => appendText = true },
+                    { "T|to-message", v => appendText = true },
+                };
+                opts.Add("h|?|help", x => {
+                    showHelp = true;
+                    var writer = new StringWriter();
+                    opts.WriteOptionDescriptions(writer);
+                    f_Session.AddMessageToFrontend(
+                        cmd,
+                        CreateMessageBuilder().
+                            AppendHeader("{0} usage", cmd.Command).
+                            AppendText("\n").
+                            AppendText("Parameters:\n").
+                            AppendText(writer.ToString()).
+                            ToMessage()
+                    );
+                    return;
+                });
+                opts.Parse(cmd.Parameter.Split(' '));
+                if (showHelp) {
+                    return;
+                }
+            } catch (Exception ex) {
+                f_Session.AddMessageToFrontend(
+                    cmd,
+                    CreateMessageBuilder().
+                        AppendErrorText("Invalid parameter: {0}", ex.Message).
+                        ToMessage()
+                );
+                return;
+            }
+
+            DateTime start, stop;
+            start = DateTime.UtcNow;
+            MessageBuilder builder;
+            for (var i = 0; i < count; i++) {
+                builder = new MessageBuilder();
+                if (appendMessage) {
+                    builder.AppendMessage("This is message with a link to https://www.smuxi.org/.");
+                }
+                if (appendText) {
+                    builder.AppendText("This is message with just text.");
+                }
+                var msg = builder.ToMessage();
+            }
+            stop = DateTime.UtcNow;
+
+            builder = new MessageBuilder();
+            if (appendMessage) {
+                builder.AppendText("builder.AppendMessage() ");
+            }
+            if (appendText) {
+                builder.AppendText("builder.AppendText() ");
+            }
+            if (toMessage) {
+                builder.AppendText("builder.ToMessage() ");
+            }
+            if (!appendMessage && !appendText && !toMessage) {
+                builder.AppendText("MessageBuilder() ");
+            }
+            builder.AppendText(
+                "count: {1} took: {2:0} ms avg: {3:0.00} ms",
+                cmd.Data,
+                count,
+                (stop - start).TotalMilliseconds,
+                (stop - start).TotalMilliseconds / count
+            );
+            f_Session.AddMessageToFrontend(cmd, builder.ToMessage());
         }
 
         private void Unknown(CommandModel cmd)
