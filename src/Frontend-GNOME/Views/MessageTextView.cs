@@ -789,7 +789,7 @@ namespace Smuxi.Frontend.Gnome
                          tagName.StartsWith("bg_color:"))) {
                         continue;
                     }
-                    if (tag.IndentSet || tag is LinkTag) {
+                    if (tag.IndentSet || tag is LinkTag || tag is PersonTag) {
                         buffer.RemoveTag(tag, start_iter, end_iter);
                         _MessageTextTagTable.Remove(tag);
                         tag.Dispose();
