@@ -844,9 +844,8 @@ namespace Smuxi.Frontend.Gnome
                 }
                 return GetPangoWidth(nickMatch.Groups[1].Value, false);
             } else {
-                var eventMatch = Regex.Match(msgText, "^(-!- )");
-                if (eventMatch.Success && eventMatch.Groups.Count >= 2) {
-                    return GetPangoWidth(eventMatch.Groups[1].Value, false);
+                if (msgText.StartsWith("-!- ")) {
+                    return GetPangoWidth("-!- ", false);
                 }
             }
             return 0;
