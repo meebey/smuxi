@@ -81,7 +81,8 @@ namespace Smuxi.Engine
 
             // facebook attachment
             var regex = new Regex(
-                @"(<[1-9][0-9]* attachments?>) (http://www\.facebook\.com/messages/\?action=read&tid=[0-9a-f]+)"
+                @"(<[1-9][0-9]* attachments?>) (http://www\.facebook\.com/messages/\?action=read&tid=[0-9a-f]+)",
+                RegexOptions.Compiled
             );
             BuiltinSmartLinks.Add(new SmartLink(regex) {
                 LinkFormat = "{2}",
@@ -89,11 +90,17 @@ namespace Smuxi.Engine
             });
 
             // protocol://domain
-            regex = new Regex(@"[a-z][a-z0-9\-]*://" + address, RegexOptions.IgnoreCase);
+            regex = new Regex(
+                @"[a-z][a-z0-9\-]*://" + address,
+                RegexOptions.IgnoreCase | RegexOptions.Compiled
+            );
             BuiltinSmartLinks.Add(new SmartLink(regex));
 
             // email
-            regex = new Regex(@"(?:mailto:)?(" + user_domain + ")", RegexOptions.IgnoreCase);
+            regex = new Regex(
+                @"(?:mailto:)?(" + user_domain + ")",
+                RegexOptions.IgnoreCase | RegexOptions.Compiled
+            );
             BuiltinSmartLinks.Add(new SmartLink(regex) {
                 LinkFormat = "mailto:{1}"
             });
@@ -103,19 +110,21 @@ namespace Smuxi.Engine
             // Gst.Buffer.Unref() from matching
             string heuristic_domain = @"(?:(?:" + subdomain + ")+(?:" + common_tld + ")|localhost)";
             string heuristic_address = heuristic_domain + "(?:" + path + ")?";
-            regex = new Regex(heuristic_address, RegexOptions.IgnoreCase);
+            regex = new Regex(heuristic_address,
+                              RegexOptions.IgnoreCase | RegexOptions.Compiled);
             BuiltinSmartLinks.Add(new SmartLink(regex) {
                 LinkFormat = "http://{0}"
             });
 
             // Smuxi bugtracker
-            regex = new Regex(@"smuxi#([0-9]+)", RegexOptions.IgnoreCase);
+            regex = new Regex(@"smuxi#([0-9]+)",
+                              RegexOptions.IgnoreCase | RegexOptions.Compiled);
             BuiltinSmartLinks.Add(new SmartLink(regex) {
                 LinkFormat = "http://www.smuxi.org/issues/show/{1}"
             });
 
             // RFCs
-            regex = new Regex(@"RFC[ -]?([0-9]+)");
+            regex = new Regex(@"RFC[ -]?([0-9]+)", RegexOptions.Compiled);
             BuiltinSmartLinks.Add(new SmartLink(regex) {
                 LinkFormat = "http://www.ietf.org/rfc/rfc{1}.txt"
             });
@@ -124,127 +133,148 @@ namespace Smuxi.Engine
             // http://en.opensuse.org/openSUSE:Packaging_Patches_guidelines#Current_set_of_abbreviations
 
             // boost bugtracker
-            regex = new Regex(@"boost#([0-9]+)", RegexOptions.IgnoreCase);
+            regex = new Regex(@"boost#([0-9]+)",
+                              RegexOptions.IgnoreCase | RegexOptions.Compiled);
             BuiltinSmartLinks.Add(new SmartLink(regex) {
                 LinkFormat = "https://svn.boost.org/trac/boost/ticket/{1}"
             });
 
             // Claws bugtracker
-            regex = new Regex(@"claws#([0-9]+)", RegexOptions.IgnoreCase);
+            regex = new Regex(@"claws#([0-9]+)",
+                              RegexOptions.IgnoreCase | RegexOptions.Compiled);
             BuiltinSmartLinks.Add(new SmartLink(regex) {
                 LinkFormat = "http://www.thewildbeast.co.uk/claws-mail/bugzilla/show_bug.cgi?id={1}"
             });
 
             // CVE list
-            regex = new Regex(@"CVE-[0-9]{4}-[0-9]{4,}", RegexOptions.IgnoreCase);
+            regex = new Regex(@"CVE-[0-9]{4}-[0-9]{4,}",
+                              RegexOptions.IgnoreCase | RegexOptions.Compiled);
             BuiltinSmartLinks.Add(new SmartLink(regex) {
                 LinkFormat = "http://cve.mitre.org/cgi-bin/cvename.cgi?name={0}"
             });
 
             // CPAN bugtracker
-            regex = new Regex(@"RT#([0-9]+)", RegexOptions.IgnoreCase);
+            regex = new Regex(@"RT#([0-9]+)",
+                              RegexOptions.IgnoreCase | RegexOptions.Compiled);
             BuiltinSmartLinks.Add(new SmartLink(regex) {
                 LinkFormat = "http://rt.cpan.org/Public/Bug/Display.html?id={1}"
             });
 
             // Debian bugtracker
-            regex = new Regex(@"deb#([0-9]+)", RegexOptions.IgnoreCase);
+            regex = new Regex(@"deb#([0-9]+)",
+                              RegexOptions.IgnoreCase | RegexOptions.Compiled);
             BuiltinSmartLinks.Add(new SmartLink(regex) {
                 LinkFormat = "http://bugs.debian.org/{1}"
             });
 
             // Debian Security Advisories (DSA)
-            regex = new Regex(@"DSA-([0-9]{4})(-[0-9]{1,2})?", RegexOptions.IgnoreCase);
+            regex = new Regex(@"DSA-([0-9]{4})(-[0-9]{1,2})?",
+                              RegexOptions.IgnoreCase | RegexOptions.Compiled);
             BuiltinSmartLinks.Add(new SmartLink(regex) {
                 LinkFormat = "http://www.debian.org/security/dsa-{1}"
             });
 
             // openSUSE feature tracker
-            regex = new Regex(@"fate#([0-9]+)", RegexOptions.IgnoreCase);
+            regex = new Regex(@"fate#([0-9]+)",
+                              RegexOptions.IgnoreCase | RegexOptions.Compiled);
             BuiltinSmartLinks.Add(new SmartLink(regex) {
                 LinkFormat = "http://features.opensuse.org/{1}"
             });
 
             // freedesktop bugtracker
-            regex = new Regex(@"fdo#([0-9]+)", RegexOptions.IgnoreCase);
+            regex = new Regex(@"fdo#([0-9]+)",
+                              RegexOptions.IgnoreCase | RegexOptions.Compiled);
             BuiltinSmartLinks.Add(new SmartLink(regex) {
                 LinkFormat = "http://bugs.freedesktop.org/{1}"
             });
 
             // GNU bugtracker
-            regex = new Regex(@"gnu#([0-9]+)", RegexOptions.IgnoreCase);
+            regex = new Regex(@"gnu#([0-9]+)",
+                              RegexOptions.IgnoreCase | RegexOptions.Compiled);
             BuiltinSmartLinks.Add(new SmartLink(regex) {
                 LinkFormat = "http://debbugs.gnu.org/{1}"
             });
 
             // GCC bugtracker
-            regex = new Regex(@"gcc#([0-9]+)", RegexOptions.IgnoreCase);
+            regex = new Regex(@"gcc#([0-9]+)",
+                              RegexOptions.IgnoreCase | RegexOptions.Compiled);
             BuiltinSmartLinks.Add(new SmartLink(regex) {
                 LinkFormat = "http://gcc.gnu.org/bugzilla/show_bug.cgi?id={1}"
             });
 
             // GNOME bugtracker
-            regex = new Regex(@"bgo#([0-9]+)", RegexOptions.IgnoreCase);
+            regex = new Regex(@"bgo#([0-9]+)",
+                              RegexOptions.IgnoreCase | RegexOptions.Compiled);
             BuiltinSmartLinks.Add(new SmartLink(regex) {
                 LinkFormat = "http://bugzilla.gnome.org/{1}"
             });
 
             // KDE bugtracker
-            regex = new Regex(@"kde#([0-9]+)", RegexOptions.IgnoreCase);
+            regex = new Regex(@"kde#([0-9]+)",
+                              RegexOptions.IgnoreCase | RegexOptions.Compiled);
             BuiltinSmartLinks.Add(new SmartLink(regex) {
                 LinkFormat = "http://bugs.kde.org/{1}"
             });
 
             // kernel bugtracker
-            regex = new Regex(@"bko#([0-9]+)", RegexOptions.IgnoreCase);
+            regex = new Regex(@"bko#([0-9]+)",
+                              RegexOptions.IgnoreCase | RegexOptions.Compiled);
             BuiltinSmartLinks.Add(new SmartLink(regex) {
                 LinkFormat = "http://bugzilla.kernel.org/show_bug.cgi?id={1}"
             });
 
             // launchpad bugtracker
-            regex = new Regex(@"LP#([0-9]+)", RegexOptions.IgnoreCase);
+            regex = new Regex(@"LP#([0-9]+)",
+                              RegexOptions.IgnoreCase | RegexOptions.Compiled);
             BuiltinSmartLinks.Add(new SmartLink(regex) {
                 LinkFormat = "http://launchpad.net/bugs/{1}"
             });
 
             // Mozilla bugtracker
-            regex = new Regex(@"bmo#([0-9]+)", RegexOptions.IgnoreCase);
+            regex = new Regex(@"bmo#([0-9]+)",
+                              RegexOptions.IgnoreCase | RegexOptions.Compiled);
             BuiltinSmartLinks.Add(new SmartLink(regex) {
                 LinkFormat = "http://bugzilla.mozilla.org/{1}"
             });
 
             // Novell bugtracker
-            regex = new Regex(@"bnc#([0-9]+)", RegexOptions.IgnoreCase);
+            regex = new Regex(@"bnc#([0-9]+)",
+                              RegexOptions.IgnoreCase | RegexOptions.Compiled);
             BuiltinSmartLinks.Add(new SmartLink(regex) {
                 LinkFormat = "http://bugzilla.novell.com/{1}"
             });
 
             // Redhat bugtracker
-            regex = new Regex(@"rh#([0-9]+)", RegexOptions.IgnoreCase);
+            regex = new Regex(@"rh#([0-9]+)",
+                              RegexOptions.IgnoreCase | RegexOptions.Compiled);
             BuiltinSmartLinks.Add(new SmartLink(regex) {
                 LinkFormat = "http://bugzilla.redhat.com/{1}"
             });
 
             // Samba bugtracker
-            regex = new Regex(@"bso#([0-9]+)", RegexOptions.IgnoreCase);
+            regex = new Regex(@"bso#([0-9]+)",
+                              RegexOptions.IgnoreCase | RegexOptions.Compiled);
             BuiltinSmartLinks.Add(new SmartLink(regex) {
                 LinkFormat = "http://bugzilla.samba.org/show_bug.cgi?id={1}"
             });
 
             // sourceforge bugtracker
-            regex = new Regex(@"sf#([0-9]+)", RegexOptions.IgnoreCase);
+            regex = new Regex(@"sf#([0-9]+)",
+                              RegexOptions.IgnoreCase | RegexOptions.Compiled);
             BuiltinSmartLinks.Add(new SmartLink(regex) {
                 LinkFormat = "http://sf.net/support/tracker.php?aid={1}"
             });
 
             // Xfce bugtracker
-            regex = new Regex(@"bxo#([0-9]+)", RegexOptions.IgnoreCase);
+            regex = new Regex(@"bxo#([0-9]+)",
+                              RegexOptions.IgnoreCase | RegexOptions.Compiled);
             BuiltinSmartLinks.Add(new SmartLink(regex) {
                 LinkFormat = "http://bugzilla.xfce.org/show_bug.cgi?id={1}"
             });
 
             // Xamarin bugtracker
-            regex = new Regex(@"bxc#([0-9]+)", RegexOptions.IgnoreCase);
+            regex = new Regex(@"bxc#([0-9]+)",
+                              RegexOptions.IgnoreCase | RegexOptions.Compiled);
             BuiltinSmartLinks.Add(new SmartLink(regex) {
                 LinkFormat = "http://bugzilla.xamarin.com/show_bug.cgi?id={1}"
             });
