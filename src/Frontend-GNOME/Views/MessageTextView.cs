@@ -38,6 +38,7 @@ namespace Smuxi.Frontend.Gnome
 #endif        
         private static readonly Gdk.Cursor _NormalCursor = new Gdk.Cursor(Gdk.CursorType.Xterm);
         private static readonly Gdk.Cursor _LinkCursor = new Gdk.Cursor(Gdk.CursorType.Hand2);
+        static readonly Regex NickRegex = new Regex("^(<([^ ]+)> )");
         static bool IsGtk2_17 { get; set; }
         private Gtk.TextTagTable _MessageTextTagTable;
         private MessageModel _LastMessage;
@@ -813,7 +814,7 @@ namespace Smuxi.Frontend.Gnome
             // HACK: try to obtain the nickname from the message
             // TODO: extend MessageModel with Origin property
             var msgText = msg.ToString();
-            var nickMatch = Regex.Match(msgText, "^(<([^ ]+)> )");
+            var nickMatch = NickRegex.Match(msgText);
             if (nickMatch.Success) {
                 // HACK: the nick can be bold
                 if (msg.MessageParts.Count >= 3) {
