@@ -227,6 +227,7 @@ namespace Smuxi.Frontend.Gnome
                             server.ServerID = null;
                             server.Nickname = null;
                             server.Realname = null;
+                            server.ClientCertificateFilename = null;
                         }
                         Frontend.Session.Connect(server, Frontend.FrontendManager);
                     } catch (Exception ex) {

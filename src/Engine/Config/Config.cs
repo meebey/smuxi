@@ -617,6 +617,7 @@ namespace Smuxi.Engine
                     LoadEntry(sprefix+"Password", String.Empty);
                     LoadEntry(sprefix+"UseEncryption", false);
                     LoadEntry(sprefix+"ValidateServerCertificate", false);
+                    LoadEntry(sprefix+"ClientCertificateFilename", String.Empty);
                     LoadEntry(sprefix+"OnStartupConnect", false);
                     string[] commands = GetList(sprefix + "OnConnectCommands");
                     if (commands == null) {
