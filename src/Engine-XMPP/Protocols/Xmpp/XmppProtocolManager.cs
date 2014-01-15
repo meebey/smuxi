@@ -56,20 +56,6 @@ using agsXMPP.protocol.extensions.nickname;
 
 namespace Smuxi.Engine
 {
-    [ProtocolManagerInfo(Name = "XMPP", Description = "Extensible Messaging and Presence Protocol", Alias = "jabber")]
-    public class JabberProtocolManager : XmppProtocolManager
-    {
-        public override string Protocol {
-            get {
-                return "Jabber";
-            }
-        }
-
-        public JabberProtocolManager(Session session) : base(session)
-        {
-        }
-    }
-    
     [ProtocolManagerInfo(Name = "XMPP", Description = "Extensible Messaging and Presence Protocol", Alias = "xmpp")]
     public class XmppProtocolManager : ProtocolManagerBase
     {
