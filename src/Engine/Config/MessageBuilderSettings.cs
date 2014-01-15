@@ -77,7 +77,8 @@ namespace Smuxi.Engine
             string user_domain = user + domain;
             string user_domain_port = "(?:" + user + ")?" + domain_port;
             string path = @"/(?:["+ path_chars +"]*["+ path_last_chars +"]+)?";
-            string address = user_domain_port + "(?:" + path + ")?";
+            string protocol = @"[a-z][a-z0-9\-+]*://";
+            string protocol_user_domain_port_path = protocol + user_domain_port + "(?:" + path + ")?";
 
             // facebook attachment
             var regex = new Regex(
@@ -89,9 +90,9 @@ namespace Smuxi.Engine
                 TextFormat = "{1}",
             });
 
-            // protocol://domain
+            // protocol://user@domain:port/path
             regex = new Regex(
-                @"[a-z][a-z0-9\-]*://" + address,
+                protocol_user_domain_port_path,
                 RegexOptions.IgnoreCase | RegexOptions.Compiled
             );
             BuiltinSmartLinks.Add(new SmartLink(regex));

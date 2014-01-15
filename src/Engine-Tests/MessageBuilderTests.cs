@@ -513,6 +513,13 @@ namespace Smuxi.Engine
             builder.TimeStamp = DateTime.MinValue;
             builder.Append(new UrlMessagePartModel("http://www.stack.nl/~jilles/cgi-bin/hgwebdir.cgi/charybdis/raw-rev/9d769851c1c7"));
             TestMessage(msg, builder.ToMessage());
+
+            msg = "<RAOF> meebey: Associated mono branch is master-experimental in git+ssh://git.debian.org/~/public_git/mono.git";
+            builder = new MessageBuilder();
+            builder.TimeStamp = DateTime.MinValue;
+            builder.Append(new TextMessagePartModel("<RAOF> meebey: Associated mono branch is master-experimental in "));
+            builder.Append(new UrlMessagePartModel("git+ssh://git.debian.org/~/public_git/mono.git"));
+            TestMessage(msg, builder.ToMessage());
         }
 
         [Test]
