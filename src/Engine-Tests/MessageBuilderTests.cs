@@ -520,6 +520,13 @@ namespace Smuxi.Engine
             builder.Append(new TextMessagePartModel("<RAOF> meebey: Associated mono branch is master-experimental in "));
             builder.Append(new UrlMessagePartModel("git+ssh://git.debian.org/~/public_git/mono.git"));
             TestMessage(msg, builder.ToMessage());
+
+            msg = "<knocte> meebey: does this URL highlight ok with latest master?  https://groups.google.com/forum/#!topic/fsharp-opensource/KLejo_vw5R4";
+            builder = new MessageBuilder();
+            builder.TimeStamp = DateTime.MinValue;
+            builder.Append(new TextMessagePartModel("<knocte> meebey: does this URL highlight ok with latest master?  "));
+            builder.Append(new UrlMessagePartModel("https://groups.google.com/forum/#!topic/fsharp-opensource/KLejo_vw5R4"));
+            TestMessage(msg, builder.ToMessage());
         }
 
         [Test]
