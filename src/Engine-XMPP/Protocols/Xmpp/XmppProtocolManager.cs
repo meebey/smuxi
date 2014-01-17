@@ -1808,7 +1808,7 @@ namespace Smuxi.Engine
         void OnGroupChatPresence(XmppGroupChatModel chat, Presence pres)
         {
             Jid jid = pres.From;
-            var person = new XmppPersonModel(jid, pres.From.Resource, this);
+            var person = new PersonModel(jid, pres.From.Resource, NetworkID, Protocol, this);
             PrintGroupChatPresence(chat, person, pres);
             switch (pres.Type) {
                 case PresenceType.available:
