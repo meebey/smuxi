@@ -534,6 +534,12 @@ namespace Smuxi.Engine
             builder.Append(new TextMessagePartModel("<astronouth7303> found another bad URL: "));
             builder.Append(new UrlMessagePartModel("http://www.flickr.com/photos/34962649@N00/12000715226/in/photostream/"));
             TestMessage(msg, builder.ToMessage());
+
+            msg = "http://en.wikipedia.org/Talk:Main_Page";
+            builder = new MessageBuilder();
+            builder.TimeStamp = DateTime.MinValue;
+            builder.Append(new UrlMessagePartModel("http://en.wikipedia.org/Talk:Main_Page"));
+            TestMessage(msg, builder.ToMessage());
         }
 
         [Test]
