@@ -527,6 +527,13 @@ namespace Smuxi.Engine
             builder.Append(new TextMessagePartModel("<knocte> meebey: does this URL highlight ok with latest master?  "));
             builder.Append(new UrlMessagePartModel("https://groups.google.com/forum/#!topic/fsharp-opensource/KLejo_vw5R4"));
             TestMessage(msg, builder.ToMessage());
+
+            msg = "<astronouth7303> found another bad URL: http://www.flickr.com/photos/34962649@N00/12000715226/in/photostream/";
+            builder = new MessageBuilder();
+            builder.TimeStamp = DateTime.MinValue;
+            builder.Append(new TextMessagePartModel("<astronouth7303> found another bad URL: "));
+            builder.Append(new UrlMessagePartModel("http://www.flickr.com/photos/34962649@N00/12000715226/in/photostream/"));
+            TestMessage(msg, builder.ToMessage());
         }
 
         [Test]
