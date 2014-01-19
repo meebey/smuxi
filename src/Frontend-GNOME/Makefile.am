@@ -124,6 +124,9 @@ FILES = \
 	IndicateManager.cs \
 	Main.cs \
 	MainWindow.cs \
+	EmoticonButton.cs \
+	EmoticonToggleButton.cs \
+	EmoticonsWindow.cs \
 	NetworkManager.cs \
 	NotImplementedMessageDialog.cs \
 	Notebook.cs \
@@ -201,7 +204,32 @@ RESOURCES = \
 	$(top_srcdir)/images/group-chat_256x256.png \
 	$(top_srcdir)/images/person-chat_256x256.png \
 	$(top_srcdir)/images/protocol-chat_256x256.png \
-	$(top_srcdir)/images/session-chat_256x256.png 
+	$(top_srcdir)/images/session-chat_256x256.png \
+	$(top_srcdir)/images/icon_bar.png \
+	$(top_srcdir)/images/Smuxi-Emoticons/face-angel-symbolic.png \
+	$(top_srcdir)/images/Smuxi-Emoticons/face-angry-symbolic.png \
+	$(top_srcdir)/images/Smuxi-Emoticons/face-confused-symbolic.png \
+	$(top_srcdir)/images/Smuxi-Emoticons/face-cool-symbolic.png \
+	$(top_srcdir)/images/Smuxi-Emoticons/face-crying-symbolic.png \
+	$(top_srcdir)/images/Smuxi-Emoticons/face-devilish-symbolic.png \
+	$(top_srcdir)/images/Smuxi-Emoticons/face-embarrassed-symbolic.png \
+	$(top_srcdir)/images/Smuxi-Emoticons/face-kiss-symbolic.png \
+	$(top_srcdir)/images/Smuxi-Emoticons/face-laugh-symbolic.png \
+	$(top_srcdir)/images/Smuxi-Emoticons/face-monkey-symbolic.png \
+	$(top_srcdir)/images/Smuxi-Emoticons/face-plain-symbolic.png \
+	$(top_srcdir)/images/Smuxi-Emoticons/face-raspberry-symbolic.png \
+	$(top_srcdir)/images/Smuxi-Emoticons/face-sad-symbolic.png \
+	$(top_srcdir)/images/Smuxi-Emoticons/face-shutmouth-symbolic.png \
+	$(top_srcdir)/images/Smuxi-Emoticons/face-sick-symbolic.png \
+	$(top_srcdir)/images/Smuxi-Emoticons/face-smile-big-symbolic.png \
+	$(top_srcdir)/images/Smuxi-Emoticons/face-smile-symbolic.png \
+	$(top_srcdir)/images/Smuxi-Emoticons/face-smirk-symbolic.png \
+	$(top_srcdir)/images/Smuxi-Emoticons/face-surprised-symbolic.png \
+	$(top_srcdir)/images/Smuxi-Emoticons/face-tired-symbolic.png \
+	$(top_srcdir)/images/Smuxi-Emoticons/face-uncertain-symbolic.png \
+	$(top_srcdir)/images/Smuxi-Emoticons/face-wink-symbolic.png \
+	$(top_srcdir)/images/Smuxi-Emoticons/face-worried-symbolic.png \
+	$(top_srcdir)/images/Smuxi-Emoticons/face-yawn-symbolic.png
 
 EXTRAS = \
 	smuxi-frontend-gnome.in \

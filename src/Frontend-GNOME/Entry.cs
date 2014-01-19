@@ -112,7 +112,7 @@ namespace Smuxi.Frontend.Gnome
             }
 
             _History.Add(String.Empty);
-            
+            this.BorderWidth = 0;
             ChatViewManager = chatViewManager;
             Settings = new EntrySettings();
             WrapMode = Gtk.WrapMode.WordChar;

@@ -242,7 +242,21 @@ namespace Smuxi.Frontend.Gnome
                 };
                 args.Requisition = bestSize;
             };
+
+            var eb = new Gtk.EventBox();
+            var iconBar = new Gtk.Image();
+            iconBar.Pixbuf = Frontend.LoadIcon("icon_bar", 24, "icon_bar.png");
+            var bottom = new Gtk.HBox(false, 0);
+            eb.Add(bottom);
+            var col = new Gdk.Color();
+            Gdk.Color.Parse("white", ref col);
+            eb.ModifyBg(Gtk.StateType.Normal, col);
+            var emoticonsToggleButton = new EmoticonToggleButton(Entry, this);
+
             entryScrolledWindow.Add(Entry);
+            bottom.PackStart(emoticonsToggleButton,false, true, 1);
+            bottom.PackStart(entryScrolledWindow,true, true,1);
+            bottom.PackStart(iconBar,false, true, 1);
 
             ProgressBar = new Gtk.ProgressBar();
             StatusHBox = new Gtk.HBox();
@@ -275,7 +289,7 @@ namespace Smuxi.Frontend.Gnome
                 }
             };
             entryPaned.Pack1(treeviewPaned, true, false);
-            entryPaned.Pack2(entryScrolledWindow, false, false);
+            entryPaned.Pack2(eb, false, false);
 
             Gtk.VBox vbox = new Gtk.VBox();
             vbox.PackStart(MenuWidget, false, false, 0);

@@ -126,7 +126,18 @@ namespace Smuxi.Engine
             });
 
             // RFCs
-            regex = new Regex(@"RFC[ -]?([0-9]+)", RegexOptions.Compiled);
+            regex = new Regex(@"RFC[ -]?([0-9]+) (?:s\.|ss\.|sec\.|sect\.|section) ?([1-9][0-9.]*)",
+                              RegexOptions.IgnoreCase | RegexOptions.Compiled);
+            BuiltinSmartLinks.Add(new SmartLink(regex) {
+                LinkFormat = "http://tools.ietf.org/html/rfc{1}#section-{2}"
+            });
+            regex = new Regex(@"RFC[ -]?([0-9]+) (?:p\.|pp\.|page) ?(" + short_number + ")",
+                              RegexOptions.IgnoreCase | RegexOptions.Compiled);
+            BuiltinSmartLinks.Add(new SmartLink(regex) {
+                LinkFormat = "http://tools.ietf.org/html/rfc{1}#page-{2}"
+            });
+            regex = new Regex(@"RFC[ -]?([0-9]+)",
+                              RegexOptions.IgnoreCase | RegexOptions.Compiled);
             BuiltinSmartLinks.Add(new SmartLink(regex) {
                 LinkFormat = "http://www.ietf.org/rfc/rfc{1}.txt"
             });
@@ -279,6 +290,13 @@ namespace Smuxi.Engine
                               RegexOptions.IgnoreCase | RegexOptions.Compiled);
             BuiltinSmartLinks.Add(new SmartLink(regex) {
                 LinkFormat = "http://bugzilla.xamarin.com/show_bug.cgi?id={1}"
+            });
+
+            // Emocitons
+            regex = new Regex(@"(o|>|3)?:[)o(]|:([()/D|*$Px?oO]|<{1,2}|8\)|'\()|\^_\^|-_-|B\||;\)",
+                              RegexOptions.IgnoreCase);
+            BuiltinSmartLinks.Add(new SmartLink(regex) {
+                MessagePartType = typeof(ImageMessagePartModel),
             });
 
             // TODO: msgid -> http://mid.gmane.org/{1}

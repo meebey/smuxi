@@ -913,6 +913,7 @@ namespace Smuxi.Engine
                 if (link.MessagePartType == typeof(UrlMessagePartModel)) {
                     model = new UrlMessagePartModel(url, text);
                 } else if (link.MessagePartType == typeof(ImageMessagePartModel)) {
+                    url =  EmoticonStore.GetEmoticonFile(url);
                     model = new ImageMessagePartModel(url, text);
                 } else {
                     model = new TextMessagePartModel(text);

@@ -52,6 +52,7 @@ FILES = \
 	CertificateValidator.cs \
 	CommandModel.cs \
 	Engine.cs \
+	EmoticonStore.cs \
 	FrontendManager.cs \
 	IFrontendUI.cs \
 	PermanentRemoteObject.cs \

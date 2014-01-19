@@ -56,3 +56,17 @@ License:    LGPL3+
 Author:     Nuno F. Pinheiro <nuno@oxygen-icons.org>
 Origin:     Oxygen icon theme
             http://www.oxygen-icons.org/
+
+Smuxi-Emoticons/
+----------------
+Filename:   *
+License:    GPL2+
+Author:     George Karavasilev <motorslav@gmail.com>
+Origin:     gnome-icon-theme
+
+icon_bar.png
+------------
+Filename:   icon_bar.png
+License:    GPL2+
+Author:     James Axl <axlrose112@gmail.com>
+Origin:     gnome-icon-theme
