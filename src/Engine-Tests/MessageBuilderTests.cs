@@ -564,6 +564,16 @@ namespace Smuxi.Engine
         }
 
         [Test]
+        public void AppendMessageWithSmartLinks()
+        {
+            var msg = "RFC2812";
+            var builder = new MessageBuilder();
+            builder.TimeStamp = DateTime.MinValue;
+            builder.Append(new UrlMessagePartModel("http://www.ietf.org/rfc/rfc2812.txt", "RFC2812"));
+            TestMessage(msg, builder.ToMessage());
+        }
+
+        [Test]
         public void AppendBrokenMail()
         {
             var msg = "mailto:/larry@google.com";
