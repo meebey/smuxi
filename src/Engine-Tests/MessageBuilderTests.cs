@@ -554,6 +554,16 @@ namespace Smuxi.Engine
         }
 
         [Test]
+        public void AppendMessageWithNonUrls()
+        {
+            var msg = "ServiceStack.Common";
+            var builder = new MessageBuilder();
+            builder.TimeStamp = DateTime.MinValue;
+            builder.Append(new TextMessagePartModel("ServiceStack.Common"));
+            TestMessage(msg, builder.ToMessage());
+        }
+
+        [Test]
         public void AppendBrokenMail()
         {
             var msg = "mailto:/larry@google.com";
