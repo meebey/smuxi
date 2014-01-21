@@ -32,6 +32,12 @@ namespace Smuxi.Engine
             }
         }
 
+        protected override string ProtocolChatTitle {
+            get {
+                return String.Format("{0} {1}", Protocol, Username);
+            }
+        }
+
         public FacebookProtocolManager(Session session) :
                 base(session)
         {
@@ -41,6 +47,16 @@ namespace Smuxi.Engine
         override protected string GenerateIdString(PersonModel contact)
         {
             return "";
+        }
+
+        // this method is used as status / title
+        public override string ToString()
+        {
+            var status = String.Format("{0} ({1})", Username, Protocol);
+            if (!IsConnected) {
+                status += " (" + _("not connected") + ")";
+            }
+            return status;
         }
     }
 }
