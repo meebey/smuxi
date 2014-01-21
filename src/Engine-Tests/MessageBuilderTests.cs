@@ -547,17 +547,18 @@ namespace Smuxi.Engine
             builder.Append(new TextMessagePartModel("<astronouth7303> ok, this is just trippy URL matching: "));
             builder.Append(new UrlMessagePartModel("http://couchdb.local/mydb/_magic"));
             TestMessage(msg, builder.ToMessage());
+
+            msg = "https://web.archive.org/web/20050208144213/http://www.jaganelli.de/";
+            builder = new MessageBuilder();
+            builder.TimeStamp = DateTime.MinValue;
+            builder.Append(new UrlMessagePartModel("https://web.archive.org/web/20050208144213/http://www.jaganelli.de/"));
+            TestMessage(msg, builder.ToMessage());
         }
 
         [Test]
         [Ignore]
         public void BrokenAppendMessageWithOddUrls()
         {
-            var msg = "https://web.archive.org/web/20050208144213/http://www.jaganelli.de/";
-            var builder = new MessageBuilder();
-            builder.TimeStamp = DateTime.MinValue;
-            builder.Append(new UrlMessagePartModel("https://web.archive.org/web/20050208144213/http://www.jaganelli.de/"));
-            TestMessage(msg, builder.ToMessage());
         }
 
         [Test]
