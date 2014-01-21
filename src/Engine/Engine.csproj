@@ -91,7 +91,6 @@
     <Compile Include="MessageBuffers\Db4oMessageBuffer.cs" />
     <Compile Include="MessageBuffers\MessageBufferPersistencyType.cs" />
     <Compile Include="Config\EntrySettings.cs" />
-    <Compile Include="Messages\FeedMessageBuilder.cs" />
     <Compile Include="Config\ProxySettings.cs" />
     <Compile Include="TextColorPalettes.cs" />
     <Compile Include="Servers\JabbR\JabbRHub.cs" />
@@ -107,6 +106,8 @@
     <Compile Include="Hooks\Environments\CommandHookEnvironment.cs" />
     <Compile Include="Config\MessageBuilderSettings.cs" />
     <Compile Include="Hooks\Environments\PersonHookEnvironment.cs" />
+    <Compile Include="Feed.cs" />
+    <Compile Include="Messages\NewsFeedMessageBuilder.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Protocols\" />
