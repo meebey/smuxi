@@ -540,6 +540,13 @@ namespace Smuxi.Engine
             builder.TimeStamp = DateTime.MinValue;
             builder.Append(new UrlMessagePartModel("http://en.wikipedia.org/Talk:Main_Page"));
             TestMessage(msg, builder.ToMessage());
+
+            msg = "<astronouth7303> ok, this is just trippy URL matching: http://couchdb.local/mydb/_magic";
+            builder = new MessageBuilder();
+            builder.TimeStamp = DateTime.MinValue;
+            builder.Append(new TextMessagePartModel("<astronouth7303> ok, this is just trippy URL matching: "));
+            builder.Append(new UrlMessagePartModel("http://couchdb.local/mydb/_magic"));
+            TestMessage(msg, builder.ToMessage());
         }
 
         [Test]

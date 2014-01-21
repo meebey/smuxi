@@ -69,8 +69,8 @@ namespace Smuxi.Engine
             string domainchars = @"[a-z0-9\-]+";
             string subdomain = domainchars + @"\.";
             string common_tld = @"de|es|im|us|com|net|org|info|biz|gov|name|edu|onion|museum";
-            string tld = common_tld + @"|[a-z][a-z]";
-            string domain = @"(?:(?:" + subdomain + ")+(?:" + tld + ")|localhost)";
+            string any_tld = @"[a-z]+";
+            string domain = @"(?:(?:" + subdomain + ")+(?:" + any_tld + ")|localhost)";
             string short_number = "[1-9][0-9]{,4}";
             string port = ":" + short_number;
             string user = "[a-z0-9._%+-]+@";
