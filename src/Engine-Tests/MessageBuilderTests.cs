@@ -572,6 +572,17 @@ namespace Smuxi.Engine
         }
 
         [Test]
+        [Ignore]
+        public void BrokenAppendMessageWithNonUrls()
+        {
+            var msg = "org.gnome.Foo.desktop";
+            var builder = new MessageBuilder();
+            builder.TimeStamp = DateTime.MinValue;
+            builder.Append(new TextMessagePartModel("org.gnome.Foo.desktop"));
+            TestMessage(msg, builder.ToMessage());
+        }
+
+        [Test]
         public void AppendMessageWithSmartLinks()
         {
             var msg = "RFC2812";
