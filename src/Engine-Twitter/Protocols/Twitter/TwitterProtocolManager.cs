@@ -1046,7 +1046,10 @@ namespace Smuxi.Engine
             } else {
                 // parameter is a screen name
                 var screenName = cmd.Parameter;
-                person = persons.Single((arg) => arg.Value.IdentityName == screenName).Value;
+                person = persons.SingleOrDefault((arg) => arg.Value.IdentityName == screenName).Value;
+                if (person == null) {
+                    return;
+                }
                 var res = TwitterFriendship.Delete(f_OAuthTokens, screenName, f_OptionalProperties);
                 CheckResponse(res);
             }
