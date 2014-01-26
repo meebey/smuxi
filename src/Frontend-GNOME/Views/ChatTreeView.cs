@@ -97,9 +97,12 @@ namespace Smuxi.Frontend.Gnome
             column.SetCellDataFunc(iconRenderer, new Gtk.TreeCellDataFunc(RenderChatViewIcon));
             AppendColumn(column);
 
-            var cellRenderer = new Gtk.CellRendererText();
+            var cellRenderer = new Gtk.CellRendererText() {
+                Ellipsize = Pango.EllipsizeMode.End
+            };
             column = new Gtk.TreeViewColumn(null, cellRenderer);
             column.Spacing = 0;
+            column.Expand = true;
             column.Sizing = Gtk.TreeViewColumnSizing.Autosize;
             column.SetCellDataFunc(cellRenderer, new Gtk.TreeCellDataFunc(RenderChatViewName));
             AppendColumn(column);
