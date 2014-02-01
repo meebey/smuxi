@@ -167,6 +167,7 @@ namespace Smuxi.Frontend.Gnome
             for (int i = 0; i < npages; i++) {
                 ChatView chat = GetChat(i);
                 chat.HasActivity = false;
+                chat.HasEvent = false;
             }
         }
         
