@@ -54,10 +54,7 @@ namespace Smuxi.Engine
         private ICollection<FilterModel>              _Filters;
         private bool                                  _OnStartupCommandsProcessed;
         Timer NewsFeedTimer { get; set; }
-        List<string> SeenNewsFeedIds { get; set; }
-        DateTime NewsFeedLastModified { get; set; }
-        TimeSpan NewsFeedUpdateInterval { get; set; }
-        TimeSpan NewsFeedRetryInterval { get; set; }
+        Feed NewsFeed { get; set; }
 
         public event EventHandler<GroupChatPersonAddedEventArgs> GroupChatPersonAdded;
         public event EventHandler<GroupChatPersonRemovedEventArgs> GroupChatPersonRemoved;
@@ -158,11 +155,14 @@ namespace Smuxi.Engine
 
             InitSessionChat();
 
-            SeenNewsFeedIds = new List<string>();
-            NewsFeedUpdateInterval = TimeSpan.FromHours(12);
-            NewsFeedRetryInterval = TimeSpan.FromMinutes(5);
+            NewsFeed = new Feed(new Uri("http://news.smuxi.org/feed.php"));
+            var proxySettings = new ProxySettings();
+            proxySettings.ApplyConfig(UserConfig);
+            NewsFeed.ProxySettings = proxySettings;
+            NewsFeed.UpdateDelay = TimeSpan.FromHours(12);
+            NewsFeed.RetryDelay = TimeSpan.FromMinutes(5);
             NewsFeedTimer = new Timer(delegate { UpdateNewsFeed(); }, null,
-                                      TimeSpan.Zero, NewsFeedUpdateInterval);
+                                      TimeSpan.Zero, TimeSpan.FromMinutes(5));
         }
 
         public IProtocolManager NextProtocolManager(IProtocolManager currentProtocolManager)
@@ -187,6 +187,13 @@ namespace Smuxi.Engine
         protected MessageBuilder CreateMessageBuilder()
         {
             var builder = new MessageBuilder();
+            builder.ApplyConfig(UserConfig);
+            return builder;
+        }
+
+        protected virtual T CreateMessageBuilder<T>() where T : MessageBuilder, new()
+        {
+            var builder = new T();
             builder.ApplyConfig(UserConfig);
             return builder;
         }
@@ -1777,69 +1784,31 @@ namespace Smuxi.Engine
         void UpdateNewsFeed()
         {
             Trace.Call();
-
+            List<FeedEntry> list = null;
             try {
-                var proxySettings = new ProxySettings();
-                proxySettings.ApplyConfig(UserConfig);
-
-                var url = "http://news.smuxi.org/feed.php";
-                var req = WebRequest.Create(url);
-                req.Proxy = proxySettings.GetWebProxy(url);
-                if (req is HttpWebRequest) {
-                    var httpReq = (HttpWebRequest) req;
-                    httpReq.UserAgent = Engine.VersionString;
-                    if (NewsFeedLastModified != DateTime.MinValue) {
-                        httpReq.IfModifiedSince = NewsFeedLastModified;
-                    }
-                }
-                var res = req.GetResponse();
-                if (res is HttpWebResponse) {
-                    var httpRes = (HttpWebResponse) res;
-                    if (httpRes.StatusCode == HttpStatusCode.NotModified) {
-                        return;
-                    }
-                    NewsFeedLastModified = httpRes.LastModified;
-                }
-                var feed = AtomFeed.Load(res.GetResponseStream());
-                var sortedEntries = feed.Entry.OrderBy(x => x.Published);
-                foreach (var entry in sortedEntries) {
-                    if (SeenNewsFeedIds.Contains(entry.Id)) {
-                        continue;
-                    }
-                    SeenNewsFeedIds.Add(entry.Id);
-
-                    var msg = new FeedMessageBuilder();
-                    msg.Append(entry);
-                    if (!msg.IsEmpty) {
-                        msg.AppendText("\n");
-                        AddMessageToChat(SessionChat, msg.ToMessage());
-                    }
-                }
-            } catch (WebException ex) {
-                switch (ex.Status) {
-                    case WebExceptionStatus.ConnectFailure:
-                    case WebExceptionStatus.ConnectionClosed:
-                    case WebExceptionStatus.Timeout:
-                    case WebExceptionStatus.ReceiveFailure:
-                    case WebExceptionStatus.NameResolutionFailure:
-                    case WebExceptionStatus.ProxyNameResolutionFailure:
+                list = NewsFeed.GetNewItems();
+            } catch (Exception e) {
+                MessageBuilder builder = CreateMessageBuilder();
+                builder.AppendErrorText(_("Could not fetch {0} because {1} \n{2}"), NewsFeed.Url.AbsoluteUri, e.Message, e.StackTrace);
+                AddMessageToChat(SessionChat, builder.ToMessage());
+                return;
+            }
 #if LOG4NET
-                        f_Logger.Warn(
-                            String.Format(
-                                "UpdateNewsFeed(): Temporarily issue " +
-                                "detected, retrying in {0} min...",
-                                NewsFeedRetryInterval.Minutes
-                            ),
-                            ex
-                        );
+            f_Logger.Info("UpdateNewsFeed(): found " + list.Count + " new items");
 #endif
-                        NewsFeedTimer.Change(NewsFeedRetryInterval, NewsFeedUpdateInterval);
-                        break;
-                }
-            } catch (Exception ex) {
+            if (list == null) {
+                return;
+            }
+            list.Sort( (a, b) => (a.Timestamp.CompareTo(b.Timestamp)) );
+            foreach (var e in list)
+            {
 #if LOG4NET
-                f_Logger.Error("UpdateNewsFeed(): Exception, ignored...", ex);
+                f_Logger.Info("UpdateNewsFeed(): sending feed to main window: " + e.Title);
 #endif
+                var builder = CreateMessageBuilder<NewsFeedMessageBuilder>();
+                builder.Append(e);
+                builder.AppendText("\n");
+                AddMessageToChat(SessionChat, builder.ToMessage());
             }
         }
 

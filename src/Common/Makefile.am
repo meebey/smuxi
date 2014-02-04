@@ -49,6 +49,7 @@ FILES = \
 	$(top_srcdir)/src/AssemblyVersion.cs \
 	AssemblyInfo.cs \
 	AtomFeed.cs \
+	RSSFeed.cs \
 	Crc32.cs \
 	IOSecurity.cs \
 	ITraceable.cs \

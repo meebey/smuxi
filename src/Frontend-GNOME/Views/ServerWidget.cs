@@ -348,6 +348,25 @@ namespace Smuxi.Frontend.Gnome
                     f_PortSpinButton.Value = 0;
                     f_PortSpinButton.Sensitive = false;
                     break;
+                case "Feed":
+                    ShowNetwork = false;
+                    ShowPassword = false;
+                    ShowHostname = true;
+
+                    f_HostnameEntry.Text = String.Empty;
+                    f_HostnameEntry.Sensitive = true;
+
+                    f_NetworkComboBoxEntry.Entry.Text = String.Empty;
+                    f_NetworkComboBoxEntry.Sensitive = false;
+
+                    f_PortSpinButton.Value = 0;
+                    f_PortSpinButton.Sensitive = false;
+                    f_UseEncryptionCheckButton.Active = false;
+                    f_UseEncryptionCheckButton.Sensitive = true;
+                    f_ValidateServerCertificateCheckButton.Active = false;
+                    f_ValidateServerCertificateCheckButton.Sensitive = true;
+                    f_UsernameEntry.Sensitive = false;
+                    break;
                 case "Twitter":
                     ShowHostname = false;
                     ShowNetwork = false;
