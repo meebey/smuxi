@@ -25,6 +25,7 @@ using System.IO;
 using System.Net;
 using System.Net.Sockets;
 using System.Text.RegularExpressions;
+using System.Reflection;
 using SysDiag = System.Diagnostics;
 using Smuxi.Common;
 
@@ -133,8 +134,10 @@ namespace Smuxi.Frontend
 
             if (String.IsNullOrEmpty(f_Program)) {
                 // use plink by default if it's there
-                if (File.Exists("plink.exe")) {
-                    f_Program = "plink.exe";
+                var location = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
+                var plinkPath = Path.Combine(location, "plink.exe");
+                if (File.Exists(plinkPath)) {
+                    f_Program = plinkPath;
                 } else {
                     // TODO: find ssh
                     f_Program = "/usr/bin/ssh";
