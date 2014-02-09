@@ -1,7 +1,7 @@
 /*
  * Smuxi - Smart MUltipleXed Irc
  *
- * Copyright (c) 2005-2006, 2009-2013 Mirco Bauer <meebey@meebey.net>
+ * Copyright (c) 2005-2006, 2009-2014 Mirco Bauer <meebey@meebey.net>
  *
  * Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
  *
@@ -131,8 +131,6 @@ namespace Smuxi.Frontend.Gnome
             ReconnectItem = new Gtk.ImageMenuItem(_("Reconnect"));
             ReconnectItem.Image = new Gtk.Image(Gtk.Stock.Refresh, Gtk.IconSize.Menu);
             ReconnectItem.Activated += new EventHandler(OnTabMenuReconnectActivated);
-            TabMenu.Prepend(ReconnectItem);
-            TabMenu.ShowAll();
 
             ShowAll();
         }
@@ -368,6 +366,16 @@ namespace Smuxi.Frontend.Gnome
                 OnStatusChanged(EventArgs.Empty);
                 return false;
             });
+        }
+
+        protected override void OnTabMenuShown(object sender, EventArgs e)
+        {
+            Trace.Call(sender, e);
+
+            base.OnTabMenuShown(sender, e);
+
+            TabMenu.Prepend(ReconnectItem);
+            TabMenu.ShowAll();
         }
 
         protected virtual void OnTabMenuReconnectActivated(object sender, EventArgs e)
