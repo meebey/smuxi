@@ -1,6 +1,6 @@
 // Smuxi - Smart MUltipleXed Irc
 //
-// Copyright (c) 2012 Mirco Bauer <meebey@meebey.net>
+// Copyright (c) 2012-2014 Mirco Bauer <meebey@meebey.net>
 //
 // Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
 //
@@ -225,6 +225,8 @@ namespace Smuxi.Frontend.Gnome
                             // which we skip by setting this to null, see:
                             // ServerModel.GetObjectData()
                             server.ServerID = null;
+                            server.Nickname = null;
+                            server.Realname = null;
                         }
                         Frontend.Session.Connect(server, Frontend.FrontendManager);
                     } catch (Exception ex) {

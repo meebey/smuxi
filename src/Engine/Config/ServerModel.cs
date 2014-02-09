@@ -1,7 +1,7 @@
 /*
  * Smuxi - Smart MUltipleXed Irc
  *
- * Copyright (c) 2007, 2010 Mirco Bauer <meebey@meebey.net>
+ * Copyright (c) 2007, 2010, 2012-2014 Mirco Bauer <meebey@meebey.net>
  *
  * Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
  *
@@ -36,6 +36,8 @@ namespace Smuxi.Engine
         public string Hostname { get; set; }
         public int Port { get; set; }
         public string Network { get; set; }
+        public string Nickname { get; set; }
+        public string Realname { get; set; }
         public string Username { get; set; }
         public string Password { get; set; }
         public bool OnStartupConnect { get; set; }
@@ -77,6 +79,12 @@ namespace Smuxi.Engine
                         ServerID = (string)e.Value;
                         foundServerID = true;
                         break;
+                    case "_Username":
+                        Username = (string) e.Value;
+                        break;
+                    case "_Realname":
+                        Realname = (string) e.Value;
+                        break;
                     // UseEncryption and ValidateServerCertificate were forgotten
                     // when moving from autoserialization to manual serialization.
                     // To prevent crashes when git users' updated engines receive a ServerModel
@@ -115,6 +123,12 @@ namespace Smuxi.Engine
             if (ServerID != null) {
                 info.AddValue("_ServerID", ServerID);
             }
+            if (Nickname != null) {
+                info.AddValue("_Nickname", Nickname);
+            }
+            if (Realname != null) {
+                info.AddValue("_Realname", Realname);
+            }
             info.AddValue("_Protocol", Protocol);
             info.AddValue("_Hostname", Hostname);
             info.AddValue("_Port", Port);
@@ -151,6 +165,8 @@ namespace Smuxi.Engine
             Hostname    = (string) config[ConfigKeyPrefix + "Hostname"];
             Port        = (int)    config[ConfigKeyPrefix + "Port"];
             Network     = (string) config[ConfigKeyPrefix + "Network"];
+            Nickname = (string) config[ConfigKeyPrefix + "Nickname"];
+            Realname = (string) config[ConfigKeyPrefix + "Realname"];
             Username    = (string) config[ConfigKeyPrefix + "Username"];
             Password    = (string) config[ConfigKeyPrefix + "Password"];
             UseEncryption = (bool) config[ConfigKeyPrefix + "UseEncryption"];
@@ -170,6 +186,8 @@ namespace Smuxi.Engine
             config[ConfigKeyPrefix + "Hostname"] = Hostname;
             config[ConfigKeyPrefix + "Port"]     = Port;
             config[ConfigKeyPrefix + "Network"]  = Network;
+            config[ConfigKeyPrefix + "Nickname"]  = Nickname;
+            config[ConfigKeyPrefix + "Realname"]  = Realname;
             config[ConfigKeyPrefix + "Username"] = Username;
             config[ConfigKeyPrefix + "Password"] = Password;
             config[ConfigKeyPrefix + "UseEncryption"] = UseEncryption;

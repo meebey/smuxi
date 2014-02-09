@@ -1,7 +1,7 @@
 /*
  * Smuxi - Smart MUltipleXed Irc
  *
- * Copyright (c) 2005-2013 Mirco Bauer <meebey@meebey.net>
+ * Copyright (c) 2005-2014 Mirco Bauer <meebey@meebey.net>
  *
  * Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
  *
@@ -48,6 +48,7 @@ namespace Smuxi.Engine
         private int             _Port;
         private string          _Network;
         private string[]        _Nicknames;
+        string _Realname;
         private int             _CurrentNickname;
         private string          _Username;
         private string          _Password;
@@ -396,8 +397,8 @@ namespace Smuxi.Engine
                 builder.AppendEventPrefix().AppendText(_("Logging in..."));
                 Session.AddMessageToChat(Chat, builder.ToMessage());
 
-                string realname = (string) Session.UserConfig["Connection/Realname"];
-                if (realname.Trim().Length == 0) {
+                string realname = _Realname;
+                if (realname == null || realname.Trim().Length == 0) {
                     realname = "unset";
                 }
                 if (!Regex.IsMatch(_Username, "^[a-z0-9]+$", RegexOptions.IgnoreCase)) {
@@ -2459,6 +2460,16 @@ namespace Smuxi.Engine
             } else {
                 _Network = server.Network;
             }
+            if (String.IsNullOrEmpty(server.Nickname)) {
+                _Nicknames = (string[]) config["Connection/Nicknames"];
+            } else {
+                _Nicknames = server.Nickname.Split(' ');
+            }
+            if (String.IsNullOrEmpty(server.Realname)) {
+                _Realname = (string) config["Connection/Realname"];
+            } else {
+                _Realname = server.Realname;
+            }
             if (String.IsNullOrEmpty(server.Username)) {
                 _Username = (string) config["Connection/Username"];
             } else {
@@ -2477,11 +2488,6 @@ namespace Smuxi.Engine
                 if (ircServer.Nicknames != null && ircServer.Nicknames.Count > 0) {
                     _Nicknames = ircServer.Nicknames.ToArray();
                 }
-            }
-
-            // global fallbacks
-            if (_Nicknames == null) {
-                _Nicknames = (string[]) config["Connection/Nicknames"];
             }
 
             // add fallbacks if only one nick was specified, else we get random
