@@ -291,6 +291,13 @@ namespace Smuxi.Engine
                 LinkFormat = "http://bugzilla.xamarin.com/show_bug.cgi?id={1}"
             });
 
+            // Emocitons
+            regex = new Regex(@"(o|>|3)?:[)o(]|:([()/D|*$Px?oO]|<{1,2}|8\)|'\()|\^_\^|-_-|B\||;\)",
+                              RegexOptions.IgnoreCase);
+            BuiltinSmartLinks.Add(new SmartLink(regex) {
+                MessagePartType = typeof(ImageMessagePartModel),
+            });
+
             // TODO: msgid -> http://mid.gmane.org/{1}
             // TODO: ISSN/ISBN
             // TODO: Path: / or X:\

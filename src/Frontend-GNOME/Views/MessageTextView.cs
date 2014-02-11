@@ -357,6 +357,10 @@ namespace Smuxi.Frontend.Gnome
                     tags.Add(LinkTag);
 
                     buffer.InsertWithTags(ref iter, linkText, tags.ToArray());
+                } else if (msgPart is ImageMessagePartModel) {
+                    var imgMsgPart = (ImageMessagePartModel) msgPart;
+                    var imgPixbuf = Frontend.LoadIcon(imgMsgPart.ImageFileName, 16, imgMsgPart.ImageFileName + ".png");
+                    buffer.InsertPixbuf(ref iter, imgPixbuf);
                 } else if (msgPart is TextMessagePartModel) {
                     var tags = new List<Gtk.TextTag>();
                     TextMessagePartModel fmsgti = (TextMessagePartModel) msgPart;

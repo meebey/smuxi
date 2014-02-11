@@ -243,7 +243,12 @@ namespace Smuxi.Frontend.Gnome
                 };
                 args.Requisition = bestSize;
             };
+            var bottom = new Gtk.HBox(false,2);
+            var emoticonsToggleButton = new EmoticonToggleButton(Entry, this);
+
             entryScrolledWindow.Add(Entry);
+            bottom.PackStart(emoticonsToggleButton,false, true, 1);
+            bottom.PackStart(entryScrolledWindow,true, true,1);
 
             ProgressBar = new Gtk.ProgressBar();
             StatusHBox = new Gtk.HBox();
@@ -277,7 +282,7 @@ namespace Smuxi.Frontend.Gnome
                 }
             };
             entryPaned.Pack1(treeviewPaned, true, false);
-            entryPaned.Pack2(entryScrolledWindow, false, false);
+            entryPaned.Pack2(bottom, false, false);
 
             Gtk.VBox vbox = new Gtk.VBox();
             vbox.PackStart(MenuWidget, false, false, 0);
