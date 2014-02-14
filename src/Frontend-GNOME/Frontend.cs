@@ -1,7 +1,7 @@
 /*
  * Smuxi - Smart MUltipleXed Irc
  *
- * Copyright (c) 2005-2013 Mirco Bauer <meebey@meebey.net>
+ * Copyright (c) 2005-2014 Mirco Bauer <meebey@meebey.net>
  *
  * Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
  *
@@ -855,6 +855,10 @@ namespace Smuxi.Frontend.Gnome
                     // try to find a server with this network name and connect to it
                     var serverSettings = new ServerListController(UserConfig);
                     server = serverSettings.GetServerByNetwork(linkNetwork);
+                    if (server == null) {
+                        // in case someone tried an unknown network
+                        return false;
+                    }
                     // ignore OnConnectCommands
                     server.OnConnectCommands = null;
                 } else if (!String.IsNullOrEmpty(linkHost)) {
