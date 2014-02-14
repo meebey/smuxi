@@ -262,6 +262,14 @@ namespace Smuxi.Engine
                 host = _IrcClient.Address;
             } else {
                 host = NetworkID;
+                var serverSettings = new ServerListController(Session.UserConfig);
+                var server = serverSettings.GetServerByNetwork(host);
+                if (server == null) {
+                    // if the network is not stored in config, we need to
+                    // fallback to the bare server address. Otherwise the
+                    // frontend will have no idea how to connect to it.
+                    host = _IrcClient.Address;
+                }
             }
             string url = String.Format("irc://{0}/{1}", host, e.Channel);
             builder.AppendUrl(url, _("Accept invite (join room)"));
