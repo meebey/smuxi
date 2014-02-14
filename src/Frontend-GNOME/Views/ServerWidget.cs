@@ -185,6 +185,8 @@ namespace Smuxi.Frontend.Gnome
             // HACK: Twitter username is part of the PKEY, not allowed to change
             if (server.Protocol == "Twitter") {
                 f_UsernameEntry.Sensitive = false;
+            } else {
+                f_UsernameEntry.Sensitive = true;
             }
             f_PasswordEntry.Text = server.Password;
             f_UseEncryptionCheckButton.Active = server.UseEncryption;
