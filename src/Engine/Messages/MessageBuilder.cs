@@ -1,6 +1,6 @@
 // Smuxi - Smart MUltipleXed Irc
 // 
-// Copyright (c) 2010-2013 Mirco Bauer <meebey@meebey.net>
+// Copyright (c) 2010-2014 Mirco Bauer <meebey@meebey.net>
 // Copyright (c) 2013 Oliver Schneider <mail@oli-obk.de>
 // 
 // Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
@@ -884,16 +884,16 @@ namespace Smuxi.Engine
                 }
                 
                 string url;
-                if (link.LinkFormat != null) {
-                    url = String.Format(link.LinkFormat, groupValues);
-                } else {
+                if (String.IsNullOrEmpty(link.LinkFormat)) {
                     url = linkMatch.Value;
+                } else {
+                    url = String.Format(link.LinkFormat, groupValues);
                 }
                 string text;
-                if (link.TextFormat != null) {
-                    text = String.Format(link.TextFormat, groupValues);
+                if (String.IsNullOrEmpty(link.TextFormat)) {
+                    text = linkMatch.Value;
                 } else {
-                    text = (linkMatch.Value == url) ? null : linkMatch.Value;
+                    text = String.Format(link.TextFormat, groupValues);
                 }
 
                 if (lastindex != linkMatch.Index) {
@@ -911,6 +911,8 @@ namespace Smuxi.Engine
                 
                 MessagePartModel model;
                 if (link.MessagePartType == typeof(UrlMessagePartModel)) {
+                    // no need to set URL and text if they are the same
+                    text = text == url ? null : text;
                     model = new UrlMessagePartModel(url, text);
                 } else if (link.MessagePartType == typeof(ImageMessagePartModel)) {
                     model = new ImageMessagePartModel(url, text);
