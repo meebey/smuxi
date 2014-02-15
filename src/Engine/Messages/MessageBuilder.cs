@@ -275,7 +275,7 @@ namespace Smuxi.Engine
 
         public virtual MessageBuilder AppendMessage(string msg)
         {
-            return Append(ParseSmartLinks(CreateText(msg)));
+            return Append(ParsePatterns(CreateText(msg)));
         }
 
         public  MessageBuilder AppendMessage(ContactModel sender, string msg)
@@ -856,82 +856,90 @@ namespace Smuxi.Engine
             return LibraryCatalog.GetString(msg, LibraryTextDomain);
         }
 
-        public static IList<MessagePartModel> ParseSmartLinks(TextMessagePartModel textPart,
-                                                              List<MessageBuilderSettings.SmartLink> links)
+        public static IList<MessagePartModel> ParsePatterns(TextMessagePartModel textPart,
+                                                            List<MessagePatternModel> patterns)
         {
+            if (textPart == null) {
+                throw new ArgumentNullException("textPart");
+            }
+            if (patterns == null) {
+                throw new ArgumentNullException("patterns");
+            }
+
             var msgParts = new List<MessagePartModel>();
-            if (links.Count == 0) {
-                // all smartlinks have been tried -> this text is PURE text
+            if (patterns.Count == 0) {
+                // all patterns have been tried -> this text is PURE text
                 msgParts.Add(textPart);
                 return msgParts;
             }
-            var subLinks = new List<MessageBuilderSettings.SmartLink>(links);
-            var link = subLinks.First();
-            subLinks.Remove(link);
+
+            var remainingPatterns = new List<MessagePatternModel>(patterns);
+            var pattern = remainingPatterns.First();
+            remainingPatterns.Remove(pattern);
             
-            var linkMatch = link.MessagePartPattern.Match(textPart.Text);
-            if (!linkMatch.Success) {
-                // no smartlinks in this MessagePart, try other smartlinks
-                return ParseSmartLinks(textPart, subLinks);
+            var match = pattern.MessagePartPattern.Match(textPart.Text);
+            if (!match.Success) {
+                // no matches in this MessagePart, try other smartlinks
+                return ParsePatterns(textPart, remainingPatterns);
             }
             
             int lastindex = 0;
             do {
-                var groupValues = new string[linkMatch.Groups.Count];
+                var groupValues = new string[match.Groups.Count];
                 int i = 0;
-                foreach (Group @group in linkMatch.Groups) {
+                foreach (Group @group in match.Groups) {
                     groupValues[i++] = @group.Value;
                 }
                 
                 string url;
-                if (String.IsNullOrEmpty(link.LinkFormat)) {
-                    url = linkMatch.Value;
+                if (String.IsNullOrEmpty(pattern.LinkFormat)) {
+                    url = match.Value;
                 } else {
-                    url = String.Format(link.LinkFormat, groupValues);
+                    url = String.Format(pattern.LinkFormat, groupValues);
                 }
                 string text;
-                if (String.IsNullOrEmpty(link.TextFormat)) {
-                    text = linkMatch.Value;
+                if (String.IsNullOrEmpty(pattern.TextFormat)) {
+                    text = match.Value;
                 } else {
-                    text = String.Format(link.TextFormat, groupValues);
+                    text = String.Format(pattern.TextFormat, groupValues);
                 }
 
-                if (lastindex != linkMatch.Index) {
-                    // there were some non-url-chars before this url
-                    // copy TextMessagePartModel
-                    var notLinkPart = new TextMessagePartModel(textPart);
+                if (lastindex != match.Index) {
+                    // there were some non-matching-chars before the match
+                    // copy that to a TextMessagePartModel
+                    var notMatchPart = new TextMessagePartModel(textPart);
                     // only take the proper chunk of text
-                    notLinkPart.Text = textPart.Text.Substring(lastindex, linkMatch.Index - lastindex);
-                    // and try other smartlinks on this part
-                    var parts = ParseSmartLinks(notLinkPart, subLinks);
+                    notMatchPart.Text = textPart.Text.Substring(lastindex, match.Index - lastindex);
+                    // and try other patterns on this part
+                    var parts = ParsePatterns(notMatchPart, remainingPatterns);
                     foreach (var part in parts) {
                         msgParts.Add(part);
                     }
                 }
                 
-                MessagePartModel model;
-                if (link.MessagePartType == typeof(UrlMessagePartModel)) {
+                MessagePartModel msgPart;
+                if (pattern.MessagePartType == typeof(UrlMessagePartModel)) {
                     // no need to set URL and text if they are the same
                     text = text == url ? null : text;
-                    model = new UrlMessagePartModel(url, text);
-                } else if (link.MessagePartType == typeof(ImageMessagePartModel)) {
-                    model = new ImageMessagePartModel(url, text);
+                    msgPart = new UrlMessagePartModel(url, text);
+                } else if (pattern.MessagePartType == typeof(ImageMessagePartModel)) {
+                    msgPart = new ImageMessagePartModel(url, text);
                 } else {
-                    model = new TextMessagePartModel(text);
+                    msgPart = new TextMessagePartModel(text);
                 }
-                msgParts.Add(model);
-                lastindex = linkMatch.Index + linkMatch.Length;
-                linkMatch = linkMatch.NextMatch();
-            } while (linkMatch.Success);
+                msgParts.Add(msgPart);
+                lastindex = match.Index + match.Length;
+                match = match.NextMatch();
+            } while (match.Success);
             
             if (lastindex != textPart.Text.Length) {
                 // there were some non-url-chars before this url
                 // copy TextMessagePartModel
-                TextMessagePartModel notLinkPart = new TextMessagePartModel(textPart);
+                var notMatchPart = new TextMessagePartModel(textPart);
                 // only take the proper chunk of text
-                notLinkPart.Text = textPart.Text.Substring(lastindex);
+                notMatchPart.Text = textPart.Text.Substring(lastindex);
                 // and try other smartlinks on this part
-                var parts = ParseSmartLinks(notLinkPart, subLinks);
+                var parts = ParsePatterns(notMatchPart, remainingPatterns);
                 foreach (var part in parts) {
                     msgParts.Add(part);
                 }
@@ -939,9 +947,9 @@ namespace Smuxi.Engine
             return msgParts;
         }
         
-        public IEnumerable<MessagePartModel> ParseSmartLinks(TextMessagePartModel part)
+        public IEnumerable<MessagePartModel> ParsePatterns(TextMessagePartModel part)
         {
-            return ParseSmartLinks(part, Settings.SmartLinks);
+            return ParsePatterns(part, Settings.Patterns);
         }
     }
 }

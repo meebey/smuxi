@@ -618,6 +618,22 @@ namespace Smuxi.Engine
                     LoadUserEntry(user, cprefix + "MessageType", null);
                     LoadUserEntry(user, cprefix + "MessagePattern", null);
                 }
+
+                string lprefix = "MessagePatterns/";
+                var linkKeys = GetList(prefix + user + "/" + lprefix + "MessagePatterns");
+                if (linkKeys == null) {
+                    linkKeys = new string[] {};
+                    m_Preferences[prefix + user + "/" + lprefix + "MessagePatterns"] = new string[] {};
+                } else {
+                    m_Preferences[prefix + user + "/" + lprefix + "MessagePatterns"] = linkKeys;
+                }
+                foreach (var linkKey in linkKeys) {
+                    lprefix = "MessagePatterns/" + linkKey + "/";
+                    LoadUserEntry(user, lprefix + "MessagePartPattern", String.Empty);
+                    LoadUserEntry(user, lprefix + "MessagePartType", String.Empty);
+                    LoadUserEntry(user, lprefix + "LinkFormat", String.Empty);
+                    LoadUserEntry(user, lprefix + "TextFormat", String.Empty);
+                }
             }
         }
 

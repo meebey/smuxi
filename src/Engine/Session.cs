@@ -154,6 +154,7 @@ namespace Smuxi.Engine
             _UserConfig.Changed += OnUserConfigChanged;
             _FilterListController = new FilterListController(_UserConfig);
             _Filters = _FilterListController.GetFilterList().Values;
+            MessageBuilderSettings.ApplyStaticConfig(_UserConfig);
             _Chats = new List<ChatModel>();
 
             InitSessionChat();
@@ -730,31 +731,50 @@ namespace Smuxi.Engine
                         return;
                     }
                     string setKey = setParam.Split('=')[0];
-                    string setValue = setParam.Split('=')[1];
+                    string setValue = String.Join(
+                        "=", setParam.Split('=').Skip(1).ToArray()
+                    );
                     object oldValue = _UserConfig[setKey];
+                    if (oldValue == null && setKey.StartsWith("MessagePatterns/")) {
+                        var id = setKey.Split('/')[1];
+                        var parsedId = Int32.Parse(id);
+                        var msgPatternSettings = new MessagePatternSettings(_UserConfig);
+                        var pattern = msgPatternSettings.Get(parsedId);
+                        if (pattern == null) {
+                            // pattern does not exist, create it with default values
+                            pattern = new MessagePatternModel(parsedId);
+                            msgPatternSettings.Add(pattern, parsedId);
+                            oldValue = _UserConfig[setKey];
+                        }
+                    }
                     if (oldValue == null) {
                         builder.AppendErrorText(
                             _("Invalid config key: '{0}'"),
                             setKey
                         );
-                    } else {
-                        try {
-                            object newValue = Convert.ChangeType(setValue, oldValue.GetType());
-                            _UserConfig[setKey] = newValue;
-                            builder.AppendText("{0} = {1}", setKey, newValue.ToString());
-                        } catch (InvalidCastException) {
-                            builder.AppendErrorText(
-                                _("Could not convert config value: '{0}' to type: {1}"),
-                                setValue,
-                                oldValue.GetType().Name
-                            );
-                        } catch (FormatException) {
-                            builder.AppendErrorText(
-                                _("Could not convert config value: '{0}' to type: {1}"),
-                                setValue,
-                                oldValue.GetType().Name
-                            );
+                        AddMessageToFrontend(cd, builder.ToMessage());
+                        return;
+                    }
+
+                    try {
+                        object newValue = Convert.ChangeType(setValue, oldValue.GetType());
+                        _UserConfig[setKey] = newValue;
+                        builder.AppendText("{0} = {1}", setKey, newValue.ToString());
+                        if (setKey.StartsWith("MessagePatterns/")) {
+                            MessageBuilderSettings.ApplyStaticConfig(UserConfig);
                         }
+                    } catch (InvalidCastException) {
+                        builder.AppendErrorText(
+                            _("Could not convert config value: '{0}' to type: {1}"),
+                            setValue,
+                            oldValue.GetType().Name
+                        );
+                    } catch (FormatException) {
+                        builder.AppendErrorText(
+                            _("Could not convert config value: '{0}' to type: {1}"),
+                            setValue,
+                            oldValue.GetType().Name
+                        );
                     }
                     break;
                 default:
