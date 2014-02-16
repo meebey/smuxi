@@ -58,6 +58,7 @@ namespace Smuxi.Engine
         DateTime NewsFeedLastModified { get; set; }
         TimeSpan NewsFeedUpdateInterval { get; set; }
         TimeSpan NewsFeedRetryInterval { get; set; }
+        internal MessageBuilderSettings MessageBuilderSettings { get; private set; }
 
         public event EventHandler<GroupChatPersonAddedEventArgs> GroupChatPersonAdded;
         public event EventHandler<GroupChatPersonRemovedEventArgs> GroupChatPersonRemoved;
@@ -154,6 +155,8 @@ namespace Smuxi.Engine
             _UserConfig.Changed += OnUserConfigChanged;
             _FilterListController = new FilterListController(_UserConfig);
             _Filters = _FilterListController.GetFilterList().Values;
+            MessageBuilderSettings = new MessageBuilderSettings();
+            MessageBuilderSettings.ApplyConfig(_UserConfig);
             _Chats = new List<ChatModel>();
 
             InitSessionChat();
@@ -187,7 +190,9 @@ namespace Smuxi.Engine
         protected MessageBuilder CreateMessageBuilder()
         {
             var builder = new MessageBuilder();
-            builder.ApplyConfig(UserConfig);
+            // copy settings so the caller can override settings without
+            // changing the settings of the complete session
+            builder.Settings = new MessageBuilderSettings(MessageBuilderSettings);
             return builder;
         }
 
@@ -485,6 +490,7 @@ namespace Smuxi.Engine
                 "config (save|load|list)",
                 "config get key",
                 "config set key=value",
+                "config remove key",
                 "shutdown"
             };
 
@@ -730,33 +736,86 @@ namespace Smuxi.Engine
                         return;
                     }
                     string setKey = setParam.Split('=')[0];
-                    string setValue = setParam.Split('=')[1];
+                    string setValue = String.Join(
+                        "=", setParam.Split('=').Skip(1).ToArray()
+                    );
                     object oldValue = _UserConfig[setKey];
+                    if (oldValue == null && setKey.StartsWith("MessagePatterns/")) {
+                        var id = setKey.Split('/')[1];
+                        var parsedId = Int32.Parse(id);
+                        var msgPatternSettings = new MessagePatternListController(_UserConfig);
+                        var pattern = msgPatternSettings.Get(parsedId);
+                        if (pattern == null) {
+                            // pattern does not exist, create it with default values
+                            pattern = new MessagePatternModel(parsedId);
+                            msgPatternSettings.Add(pattern, parsedId);
+                            oldValue = _UserConfig[setKey];
+                        }
+                    }
                     if (oldValue == null) {
                         builder.AppendErrorText(
                             _("Invalid config key: '{0}'"),
                             setKey
                         );
-                    } else {
-                        try {
-                            object newValue = Convert.ChangeType(setValue, oldValue.GetType());
-                            _UserConfig[setKey] = newValue;
-                            builder.AppendText("{0} = {1}", setKey, newValue.ToString());
-                        } catch (InvalidCastException) {
-                            builder.AppendErrorText(
-                                _("Could not convert config value: '{0}' to type: {1}"),
-                                setValue,
-                                oldValue.GetType().Name
-                            );
-                        } catch (FormatException) {
-                            builder.AppendErrorText(
-                                _("Could not convert config value: '{0}' to type: {1}"),
-                                setValue,
-                                oldValue.GetType().Name
-                            );
+                        AddMessageToFrontend(cd, builder.ToMessage());
+                        return;
+                    }
+
+                    try {
+                        object newValue = Convert.ChangeType(setValue, oldValue.GetType());
+                        _UserConfig[setKey] = newValue;
+                        builder.AppendText("{0} = {1}", setKey, newValue.ToString());
+                        if (setKey.StartsWith("MessagePatterns/")) {
+                            MessageBuilderSettings.ApplyConfig(UserConfig);
                         }
+                    } catch (InvalidCastException) {
+                        builder.AppendErrorText(
+                            _("Could not convert config value: '{0}' to type: {1}"),
+                            setValue,
+                            oldValue.GetType().Name
+                        );
+                    } catch (FormatException) {
+                        builder.AppendErrorText(
+                            _("Could not convert config value: '{0}' to type: {1}"),
+                            setValue,
+                            oldValue.GetType().Name
+                        );
                     }
                     break;
+                case "remove": {
+                    if (cd.DataArray.Length < 3) {
+                        _NotEnoughParameters(cd);
+                        return;
+                    }
+                    var removeParam = cd.DataArray[2];
+                    if (!removeParam.StartsWith("MessagePatterns/")) {
+                        builder.AppendErrorText(
+                            _("Invalid config remove key: '{0}'. Valid remove " +
+                              "keys: MessagePatterns/{{ID}}."),
+                            removeParam
+                        );
+                        AddMessageToFrontend(cd, builder.ToMessage());
+                        return;
+                    }
+                    var id = removeParam.Split('/')[1];
+                    var parsedId = Int32.Parse(id);
+                    var patternController = new MessagePatternListController(_UserConfig);
+                    var pattern = patternController.Get(parsedId);
+                    if (pattern == null) {
+                        builder.AppendErrorText(
+                            _("Message pattern with ID: '{0}' does not exist."),
+                            id
+                        );
+                    } else {
+                        patternController.Remove(parsedId);
+                        MessageBuilderSettings.ApplyConfig(UserConfig);
+                        builder.AppendText(
+                            _("Message pattern with ID: '{0}' removed."),
+                            id
+                        );
+                    }
+                    break;
+                }
                 default:
                     builder.AppendErrorText(
                         _("Invalid parameter for config; use load, save, get or set.")

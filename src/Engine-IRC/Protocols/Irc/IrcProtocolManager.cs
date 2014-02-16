@@ -3332,7 +3332,7 @@ namespace Smuxi.Engine
             if (!String.IsNullOrEmpty(e.PartMessage)) {
                 builder.AppendText(" [");
                 // colors in part messages are annoying
-                builder.StripColors = true;
+                builder.Settings.StripColors = true;
                 builder.AppendMessage(e.PartMessage);
                 builder.AppendText("]");
             }
@@ -3655,7 +3655,7 @@ namespace Smuxi.Engine
                                                    e.Data.Ident, e.Data.Host));
                 builder.AppendText(" [");
                 // colors are annoying in quit messages
-                builder.StripColors = true;
+                builder.Settings.StripColors = true;
                 builder.AppendMessage(e.QuitMessage);
                 builder.AppendText("]");
                 var quitMsg = builder.ToMessage();

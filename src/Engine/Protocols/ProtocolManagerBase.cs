@@ -349,7 +349,9 @@ namespace Smuxi.Engine
         {
             var builder = new T();
             builder.Me = Me;
-            builder.ApplyConfig(Session.UserConfig);
+            // copy settings so the caller can override settings without
+            // changing the settings of the complete session
+            builder.Settings = new MessageBuilderSettings(Session.MessageBuilderSettings);
             return builder;
         }
 

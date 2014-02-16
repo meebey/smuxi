@@ -94,6 +94,8 @@ FILES = \
 	Config/ProxyType.cs \
 	Config/EntrySettings.cs \
 	Config/MessageBuilderSettings.cs \
+	Config/MessagePatternListController.cs \
+	Config/MessagePatternModel.cs \
 	Protocols/ProtocolManagerBase.cs \
 	Protocols/ProtocolManagerFactory.cs \
 	Protocols/ProtocolManagerInfoModel.cs \
