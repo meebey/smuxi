@@ -38,13 +38,8 @@ namespace Smuxi.Engine
 #endif
         static readonly string LibraryTextDomain = "smuxi-engine";
         MessageModel Message { get; set; }
-        public bool NickColors { get; set; }
-        public bool StripFormattings { get; set; }
-        public bool StripColors { get; set; }
-        public TextColor HighlightColor { get; set; }
-        public List<string> HighlightWords { get; set; }
         public PersonModel Me { get; set; }
-        public MessageBuilderSettings Settings { get; private set; }
+        public MessageBuilderSettings Settings { get; set; }
 
         public MessageType MessageType {
             get {
@@ -74,7 +69,6 @@ namespace Smuxi.Engine
         {
             Message = new MessageModel();
             Settings = new MessageBuilderSettings();
-            NickColors = true;
         }
 
         public MessageModel ToMessage()
@@ -89,15 +83,7 @@ namespace Smuxi.Engine
                 throw new ArgumentNullException("userConfig");
             }
 
-            NickColors = (bool) userConfig["Interface/Notebook/Channel/NickColors"];
-            StripColors = (bool) userConfig["Interface/Notebook/StripColors"];
-            StripFormattings = (bool) userConfig["Interface/Notebook/StripFormattings"];
-            HighlightColor = TextColor.Parse(
-                (string) userConfig["Interface/Notebook/Tab/HighlightColor"]
-            );
-            HighlightWords = new List<string>(
-                (string[]) userConfig["Interface/Chat/HighlightWords"]
-            );
+            Settings.ApplyConfig(userConfig);
         }
 
         public virtual MessageBuilder Append(MessagePartModel msgPart)
@@ -310,7 +296,7 @@ namespace Smuxi.Engine
                 throw new ArgumentNullException("identity");
             }
 
-            if (!NickColors) {
+            if (!Settings.NickColors) {
                 return CreateText(identity.IdentityName);
             }
 
@@ -346,7 +332,7 @@ namespace Smuxi.Engine
             var prefix = CreateText("<");
             var suffix = CreateText(">");
             var nick = CreateIdendityName(contact);
-            if (NickColors) {
+            if (Settings.NickColors) {
                 // using bg colors for the nick texts are too intrusive, thus
                 // map the bg color to the fg color of the surrounding tags
                 var senderBgColor = contact.IdentityNameColored.BackgroundColor;
@@ -438,7 +424,7 @@ namespace Smuxi.Engine
             }
 
             // go through the user's custom highlight words and check for them.
-            foreach (string highLightWord in HighlightWords) {
+            foreach (string highLightWord in Settings.HighlightWords) {
                 if (String.IsNullOrEmpty(highLightWord)) {
                     continue;
                 }
@@ -510,7 +496,7 @@ namespace Smuxi.Engine
                 // ClearHighlights() has no chance to properly undo all
                 // highlights
                 textMsg.IsHighlight = true;
-                textMsg.ForegroundColor = HighlightColor;
+                textMsg.ForegroundColor = Settings.HighlightColor;
             }
         }
 

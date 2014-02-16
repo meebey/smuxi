@@ -58,6 +58,7 @@ namespace Smuxi.Engine
         DateTime NewsFeedLastModified { get; set; }
         TimeSpan NewsFeedUpdateInterval { get; set; }
         TimeSpan NewsFeedRetryInterval { get; set; }
+        internal MessageBuilderSettings MessageBuilderSettings { get; private set; }
 
         public event EventHandler<GroupChatPersonAddedEventArgs> GroupChatPersonAdded;
         public event EventHandler<GroupChatPersonRemovedEventArgs> GroupChatPersonRemoved;
@@ -154,7 +155,8 @@ namespace Smuxi.Engine
             _UserConfig.Changed += OnUserConfigChanged;
             _FilterListController = new FilterListController(_UserConfig);
             _Filters = _FilterListController.GetFilterList().Values;
-            MessageBuilderSettings.ApplyStaticConfig(_UserConfig);
+            MessageBuilderSettings = new MessageBuilderSettings();
+            MessageBuilderSettings.ApplyConfig(_UserConfig);
             _Chats = new List<ChatModel>();
 
             InitSessionChat();
@@ -188,7 +190,9 @@ namespace Smuxi.Engine
         protected MessageBuilder CreateMessageBuilder()
         {
             var builder = new MessageBuilder();
-            builder.ApplyConfig(UserConfig);
+            // copy settings so the caller can override settings without
+            // changing the settings of the complete session
+            builder.Settings = new MessageBuilderSettings(MessageBuilderSettings);
             return builder;
         }
 
@@ -486,6 +490,7 @@ namespace Smuxi.Engine
                 "config (save|load|list)",
                 "config get key",
                 "config set key=value",
+                "config remove key",
                 "shutdown"
             };
 
@@ -738,7 +743,7 @@ namespace Smuxi.Engine
                     if (oldValue == null && setKey.StartsWith("MessagePatterns/")) {
                         var id = setKey.Split('/')[1];
                         var parsedId = Int32.Parse(id);
-                        var msgPatternSettings = new MessagePatternSettings(_UserConfig);
+                        var msgPatternSettings = new MessagePatternListController(_UserConfig);
                         var pattern = msgPatternSettings.Get(parsedId);
                         if (pattern == null) {
                             // pattern does not exist, create it with default values
@@ -761,7 +766,7 @@ namespace Smuxi.Engine
                         _UserConfig[setKey] = newValue;
                         builder.AppendText("{0} = {1}", setKey, newValue.ToString());
                         if (setKey.StartsWith("MessagePatterns/")) {
-                            MessageBuilderSettings.ApplyStaticConfig(UserConfig);
+                            MessageBuilderSettings.ApplyConfig(UserConfig);
                         }
                     } catch (InvalidCastException) {
                         builder.AppendErrorText(

@@ -27,32 +27,44 @@ namespace Smuxi.Engine
     public class MessageBuilderSettings
     {
         static List<MessagePatternModel> BuiltinPatterns { get; set; }
-        static List<MessagePatternModel> GlobalPatterns { get; set; }
-        public List<MessagePatternModel> Patterns { get; private set; }
+        public List<MessagePatternModel> UserPatterns { get; set; }
+        public List<MessagePatternModel> Patterns { get; set; }
+        public bool NickColors { get; set; }
+        public bool StripFormattings { get; set; }
+        public bool StripColors { get; set; }
+        public TextColor HighlightColor { get; set; }
+        public List<string> HighlightWords { get; set; }
 
         static MessageBuilderSettings()
         {
             BuiltinPatterns = new List<MessagePatternModel>();
             InitBuiltinSmartLinks();
-            GlobalPatterns = new List<MessagePatternModel>();
         }
 
         public MessageBuilderSettings()
         {
-            var builtinPatterns = BuiltinPatterns;
-            var globalPatterns = GlobalPatterns;
+            NickColors = true;
 
             // No need to lock BuiltinPatterns as List<T> is thread-safe for
             // multiple readers as long as there is no writer at the same time.
-            // BuiltinSmartLinks is only written once before the first instance
+            // BuiltinPatterns is only written once before the first instance
             // of MessageBuilderSettings is created via the static initializer.
-            Patterns = new List<MessagePatternModel>(builtinPatterns.Count +
-                                                     globalPatterns.Count);
-            Patterns.AddRange(builtinPatterns);
+            Patterns = new List<MessagePatternModel>(BuiltinPatterns);
+        }
 
-            // GlobalPatterns is only set atomically in ApplyStaticConfig()
-            // and the collection is never modified after that
-            Patterns.AddRange(globalPatterns);
+        public MessageBuilderSettings(MessageBuilderSettings settings)
+        {
+            if (settings == null) {
+                throw new ArgumentNullException("settings");
+            }
+
+            UserPatterns = new List<MessagePatternModel>(settings.UserPatterns);
+            Patterns = new List<MessagePatternModel>(settings.Patterns);
+            NickColors = settings.NickColors;
+            StripFormattings = settings.StripFormattings;
+            StripColors = settings.StripColors;
+            HighlightColor = settings.HighlightColor;
+            HighlightWords = settings.HighlightWords;
         }
 
         static void InitBuiltinSmartLinks()
@@ -297,16 +309,35 @@ namespace Smuxi.Engine
             // TODO: JID
         }
 
-        public static void ApplyStaticConfig(UserConfig userConfig)
+        public void ApplyConfig(UserConfig userConfig)
         {
-            Trace.Call(userConfig);
-
             if (userConfig == null) {
                 throw new ArgumentNullException("userConfig");
             }
 
-            var settings = new MessagePatternSettings(userConfig);
-            GlobalPatterns = settings.GetList();
+            NickColors = (bool) userConfig["Interface/Notebook/Channel/NickColors"];
+            StripColors = (bool) userConfig["Interface/Notebook/StripColors"];
+            StripFormattings = (bool) userConfig["Interface/Notebook/StripFormattings"];
+            HighlightColor = TextColor.Parse(
+                (string) userConfig["Interface/Notebook/Tab/HighlightColor"]
+            );
+            HighlightWords = new List<string>(
+                (string[]) userConfig["Interface/Chat/HighlightWords"]
+            );
+
+            var patternController = new MessagePatternListController(userConfig);
+            var userPatterns = patternController.GetList();
+            var builtinPatterns = BuiltinPatterns;
+            var patterns = new List<MessagePatternModel>(builtinPatterns.Count +
+                                                         userPatterns.Count);
+            // No need to lock BuiltinPatterns as List<T> is thread-safe for
+            // multiple readers as long as there is no writer at the same time.
+            // BuiltinPatterns is only written once before the first instance
+            // of MessageBuilderSettings is created via the static initializer.
+            patterns.AddRange(builtinPatterns);
+            patterns.AddRange(userPatterns);
+            Patterns = patterns;
+            UserPatterns = userPatterns;
         }
     }
 }

@@ -570,7 +570,7 @@ namespace Smuxi.Frontend.Gnome
                 // TODO: do we need to optimize this? it's called very often...
                 Gdk.Color bgColor = _PersonTreeView.Style.Base(Gtk.StateType.Normal);
                 var builder = new MessageBuilder();
-                builder.NickColors = true;
+                builder.Settings.NickColors = true;
                 builder.AppendNick(person);
                 renderer.Markup = PangoTools.ToMarkup(builder.ToMessage(),
                                                       bgColor);

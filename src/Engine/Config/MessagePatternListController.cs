@@ -27,7 +27,7 @@ using Smuxi.Engine;
 
 namespace Smuxi.Engine
 {
-    public class MessagePatternSettings
+    public class MessagePatternListController
     {
         UserConfig UserConfig { get; set; }
 
@@ -40,7 +40,7 @@ namespace Smuxi.Engine
             }
         }
 
-        public MessagePatternSettings(UserConfig userConfig)
+        public MessagePatternListController(UserConfig userConfig)
         {
             if (userConfig == null) {
                 throw new ArgumentNullException("userConfig");

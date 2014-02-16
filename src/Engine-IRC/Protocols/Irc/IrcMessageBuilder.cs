@@ -55,11 +55,11 @@ namespace Smuxi.Engine
             }
 
             // strip color and formatting if configured
-            if (StripColors) {
+            if (Settings.StripColors) {
                 msg = Regex.Replace(msg, (char)IrcControlCode.Color +
                             "[0-9]{1,2}(,[0-9]{1,2})?", String.Empty);
             }
-            if (StripFormattings) {
+            if (Settings.StripFormattings) {
                 msg = Regex.Replace(msg, String.Format("({0}|{1}|{2}|{3})",
                                                     (char)IrcControlCode.Bold,
                                                     (char)IrcControlCode.Clear,
