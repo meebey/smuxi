@@ -791,7 +791,7 @@ namespace Smuxi.Engine
                     if (!removeParam.StartsWith("MessagePatterns/")) {
                         builder.AppendErrorText(
                             _("Invalid config remove key: '{0}'. Valid remove " +
-                              "keys: MessagePatterns/{ID}."),
+                              "keys: MessagePatterns/{{ID}}."),
                             removeParam
                         );
                         AddMessageToFrontend(cd, builder.ToMessage());
