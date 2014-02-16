@@ -782,6 +782,40 @@ namespace Smuxi.Engine
                         );
                     }
                     break;
+                case "remove": {
+                    if (cd.DataArray.Length < 3) {
+                        _NotEnoughParameters(cd);
+                        return;
+                    }
+                    var removeParam = cd.DataArray[2];
+                    if (!removeParam.StartsWith("MessagePatterns/")) {
+                        builder.AppendErrorText(
+                            _("Invalid config remove key: '{0}'. Valid remove " +
+                              "keys: MessagePatterns/{ID}."),
+                            removeParam
+                        );
+                        AddMessageToFrontend(cd, builder.ToMessage());
+                        return;
+                    }
+                    var id = removeParam.Split('/')[1];
+                    var parsedId = Int32.Parse(id);
+                    var patternController = new MessagePatternListController(_UserConfig);
+                    var pattern = patternController.Get(parsedId);
+                    if (pattern == null) {
+                        builder.AppendErrorText(
+                            _("Message pattern with ID: '{0}' does not exist."),
+                            id
+                        );
+                    } else {
+                        patternController.Remove(parsedId);
+                        MessageBuilderSettings.ApplyConfig(UserConfig);
+                        builder.AppendText(
+                            _("Message pattern with ID: '{0}' removed."),
+                            id
+                        );
+                    }
+                    break;
+                }
                 default:
                     builder.AppendErrorText(
                         _("Invalid parameter for config; use load, save, get or set.")
