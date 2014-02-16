@@ -116,7 +116,18 @@ namespace Smuxi.Frontend
             }
 
             f_TaskQueue.Queue(delegate {
-                DoExecute(cmd);
+                try {
+                    DoExecute(cmd);
+                } catch (Exception ex) {
+#if LOG4NET
+                    f_Logger.Error("Execute(): DoExecute() threw exception!", ex);
+#endif
+                    var msg = new MessageBuilder().
+                        AppendErrorText("Command '{0}' failed. Reason: {1}",
+                                        cmd.Command, ex.Message).
+                        ToMessage();
+                    AddMessageToFrontend(cmd, msg);
+                }
             });
         }
 
@@ -139,6 +150,8 @@ namespace Smuxi.Frontend
                         CommandBenchmarkMessageBuilder(cmd);
                         handled = true;
                         break;
+                    case "exception":
+                        throw new Exception("You asked for it.");
                 }
             }
             if (handled) {
