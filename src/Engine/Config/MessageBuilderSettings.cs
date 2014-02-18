@@ -146,6 +146,34 @@ namespace Smuxi.Engine
                 LinkFormat = "http://www.ietf.org/rfc/rfc{1}.txt"
             });
 
+            // XEPs
+            regex = new Regex(@"XEP[ -]?([0-9]{4})",
+                              RegexOptions.IgnoreCase | RegexOptions.Compiled);
+            BuiltinPatterns.Add(new MessagePatternModel(regex) {
+                LinkFormat = "http://xmpp.org/extensions/xep-{1}.html"
+            });
+
+            // ISO
+            regex = new Regex(@"ISO[ -]?([0-9]{4,5}(?:-[0-9]+)?(?::[0-9]{4})?)",
+                              RegexOptions.IgnoreCase | RegexOptions.Compiled);
+            BuiltinPatterns.Add(new MessagePatternModel(regex) {
+                LinkFormat = "http://www.iso.org/iso/home/search.htm?qt={1}&published=on"
+            });
+
+            // ECMA
+            regex = new Regex(@"ECMA[ -]?([0-9]{1,4})",
+                                  RegexOptions.IgnoreCase | RegexOptions.Compiled);
+            BuiltinPatterns.Add(new MessagePatternModel(regex) {
+                LinkFormat = "http://www.ecma-international.org/publications/standards/ECMA-{1}.htm"
+            });
+
+            // IEEE: IEEE-1394b, IEEE 802.11, IEEE 802.1ap-2008, IEEE 802.1AEbn-2011
+            regex = new Regex(@"IEEE[ -]?([0-9]{1,4}(?:\.[0-9]{1,4})?(?:[a-z]{1,4})?(?:-[0-9]{4})?)",
+                              RegexOptions.IgnoreCase | RegexOptions.Compiled);
+            BuiltinPatterns.Add(new MessagePatternModel(regex) {
+                LinkFormat = "http://odysseus.ieee.org/query.html?qt={1}&style=standard"
+            });
+
             // bugtracker prefixes are taken from:
             // http://en.opensuse.org/openSUSE:Packaging_Patches_guidelines#Current_set_of_abbreviations
 
@@ -302,9 +330,7 @@ namespace Smuxi.Engine
             // TODO: GPS -> Google Maps
             // TODO: IP -> Browser / Whois
             // TODO: Domain -> Browser / Whois
-            // TODO: ISO -> http://www.iso.org/iso/search.htm?qt={1}&published=on
             // TODO: ANSI
-            // TODO: ECMA
             // TODO: maybe more on http://ikiwiki.info/shortcuts/
             // TODO: JID
         }
