@@ -727,7 +727,7 @@ namespace Smuxi.Engine
                         _NotEnoughParameters(cd);
                         return;
                     }
-                    string setParam = cd.DataArray[2];
+                    var setParam = String.Join(" ", cd.DataArray.Skip(2).ToArray());
                     if (!setParam.Contains("=")) {
                         builder.AppendErrorText(
                             _("Invalid key/value format.")
