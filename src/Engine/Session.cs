@@ -735,10 +735,10 @@ namespace Smuxi.Engine
                         AddMessageToFrontend(cd, builder.ToMessage());
                         return;
                     }
-                    string setKey = setParam.Split('=')[0];
-                    string setValue = String.Join(
+                    var setKey = setParam.Split('=')[0].Trim();
+                    var setValue = String.Join(
                         "=", setParam.Split('=').Skip(1).ToArray()
-                    );
+                    ).Trim();
                     object oldValue = _UserConfig[setKey];
                     if (oldValue == null && setKey.StartsWith("MessagePatterns/")) {
                         var id = setKey.Split('/')[1];
