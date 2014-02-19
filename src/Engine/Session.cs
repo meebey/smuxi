@@ -704,11 +704,7 @@ namespace Smuxi.Engine
                 case "get":
                 case "list":
                     string key = null;
-                    if (action == "get") {
-                        if (cd.DataArray.Length < 3) {
-                            _NotEnoughParameters(cd);
-                            return;
-                        }
+                    if (action == "get" && cd.DataArray.Length >= 3) {
                         key = cd.DataArray[2];
                     }
                     foreach (var entry in _UserConfig.OrderBy(kvp => kvp.Key)) {
