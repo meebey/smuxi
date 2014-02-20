@@ -264,6 +264,18 @@ namespace Smuxi.Frontend.Gnome
             treeviewPaned.Pack1(treeviewScrolledWindow, false, false);
             treeviewPaned.Pack2(Notebook, true, false);
             TreeViewHPaned = treeviewPaned;
+            var position = Frontend.FrontendConfig[Frontend.UIName + "/ChatTreeView/PanedPosition"] as int?;
+            if (position.HasValue && position.Value > 0) {
+                TreeViewHPaned.Position = position.Value;
+            }
+            TreeViewHPaned.AddNotification("position-set", (o, args) => {
+                if (!TreeViewHPaned.PositionSet) {
+                    return;
+                }
+                var config = Frontend.FrontendConfig;
+                config[Frontend.UIName + "/ChatTreeView/PanedPosition"] = 
+                    TreeViewHPaned.Position;
+            });
 
             var entryPaned = new Gtk.VPaned();
             entryPaned.ButtonPressEvent += (sender, e) => {
@@ -375,9 +387,10 @@ namespace Smuxi.Frontend.Gnome
 
         protected override bool OnConfigureEvent(Gdk.EventConfigure e)
         {
-            Trace.Call(e);
-
-            TreeViewHPaned.Position = e.Width / 6;
+            var position = Frontend.FrontendConfig[Frontend.UIName + "/ChatTreeView/PanedPosition"] as int?;
+            if (!position.HasValue || position.Value <= 0) {
+                TreeViewHPaned.Position = e.Width / 6;
+            }
             return base.OnConfigureEvent(e);
         }
 
