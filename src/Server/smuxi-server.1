@@ -1,4 +1,4 @@
-.Dd $Mdocdate: September 24 2013 $
+.Dd $Mdocdate: February 23 2014 $
 .Dt smuxi-server 1
 .Os
 .Sh NAME
@@ -46,6 +46,13 @@ Optimizes the message buffers. Valid values are none, defrag, index, and all.
 smuxi debug log
 .It Pa $XDG_CONFIG_HOME/smuxi/smuxi-engine.ini
 smuxi engine config
+.Sh SIGNALS
+Smuxi will handle and catch these signals:
+.Bl -tag -width xxxxxxxx -compact
+.It SIGINT
+Gracefully exits the server.
+.It SIGTERM
+Gracefully exits the server.
 .Sh SEE ALSO
 .Xr smuxi-frontend-gnome 1 ,
 .Xr smuxi-frontend-stfl 1 ,
