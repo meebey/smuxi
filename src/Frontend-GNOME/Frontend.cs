@@ -498,12 +498,8 @@ namespace Smuxi.Frontend.Gnome
             if (_FrontendManager != null) {
                 if (IsLocalEngine) {
                     try {
-                        // dispose (possibly flush) all protocol managers / chats
-                        lock (Session.ProtocolManagers) {
-                            foreach (var protocolManager in Session.ProtocolManagers) {
-                                protocolManager.Dispose();
-                            }
-                        }
+                        // shutdown session (flush message buffers)
+                        Session.Shutdown();
                     } catch (Exception ex) {
 #if LOG4NET
                         _Logger.Error("Quit(): Exception", ex);
