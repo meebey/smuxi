@@ -646,7 +646,7 @@ namespace Smuxi.Engine
             Database.Store(f_Index);
             Database.Commit();
             stop = DateTime.UtcNow;
-#if LOG4NET
+#if LOG4NET && MSGBUF_DEBUG
             Logger.Debug(
                 String.Format(
                     "FlushIndex(): flushing index with {0} items took: {1} ms",
@@ -668,7 +668,7 @@ namespace Smuxi.Engine
             FlushCounter = 0;
             Database.Commit();
             stop = DateTime.UtcNow;
-#if LOG4NET
+#if LOG4NET && MSGBUF_DEBUG
             Logger.Debug(
                 String.Format(
                     "Flush(): flushing {0} items took: {1} ms",
