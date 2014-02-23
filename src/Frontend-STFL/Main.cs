@@ -23,10 +23,13 @@
 using System;
 using System.IO;
 using System.Reflection;
+using System.Threading;
 using SysDiag = System.Diagnostics;
 using NDesk.Options;
 using Smuxi.Common;
 using Smuxi.Engine;
+using Mono.Unix;
+using Mono.Unix.Native;
 
 namespace Smuxi.Frontend.Stfl
 { 
@@ -121,6 +124,26 @@ namespace Smuxi.Frontend.Stfl
                     Console.WriteLine("\t{0}", entry);
                 }
                 return;
+            }
+
+            if ((Environment.OSVersion.Platform == PlatformID.Unix) ||
+                (Environment.OSVersion.Platform == PlatformID.MacOSX)) {
+                // Register shutdown handlers
+#if LOG4NET
+                _Logger.Info("Registering signal handlers");
+#endif
+                UnixSignal[] shutdown_signals = {
+                    new UnixSignal(Signum.SIGINT),
+                    new UnixSignal(Signum.SIGTERM),
+                };
+                Thread signal_thread = new Thread(() => {
+                    var index = UnixSignal.WaitAny(shutdown_signals);
+#if LOG4NET
+                    _Logger.Info("Caught signal " + shutdown_signals[index].Signum.ToString() + ", shutting down");
+#endif
+                    Frontend.Quit();
+                });
+                signal_thread.Start();
             }
 
             try {

@@ -42,6 +42,7 @@ namespace Smuxi.Frontend.Stfl
         private static Version            _EngineVersion;
         private static MainWindow         _MainWindow;
         private static FrontendConfig     _FrontendConfig;
+        private static Session            _LocalSession;
         private static Session            _Session;
         private static UserConfig         _UserConfig;
         private static FrontendManager    _FrontendManager;
@@ -97,6 +98,12 @@ namespace Smuxi.Frontend.Stfl
                 if (SessionPropertyChanged != null) {
                     SessionPropertyChanged(value, EventArgs.Empty);
                 }
+            }
+        }
+        
+        public static bool IsLocalEngine {
+            get {
+                return _LocalSession != null && _Session == _LocalSession;
             }
         }
         
@@ -173,9 +180,10 @@ namespace Smuxi.Frontend.Stfl
         {
             Engine.Engine.Init();
             _EngineVersion = Engine.Engine.Version;
-            Session = new Engine.Session(Engine.Engine.Config,
+            _LocalSession = new Engine.Session(Engine.Engine.Config,
                                          Engine.Engine.ProtocolManagerFactory,
                                          "local");
+            Session = _LocalSession;
             Session.RegisterFrontendUI(_MainWindow.UI);
             _UserConfig = Session.UserConfig;
             ConnectEngineToGUI();
@@ -257,6 +265,16 @@ namespace Smuxi.Frontend.Stfl
         {
             if (_FrontendManager != null) {
                 _FrontendManager.IsFrontendDisconnecting = true;
+                if (IsLocalEngine) {
+                    try {
+                        // we don't shutdown the remote session
+                        Session.Shutdown();
+                    } catch (Exception ex) {
+#if LOG4NET
+                        _Logger.Error("Quit(): Exception", ex);
+#endif
+                    }
+                }
             }
             
             /*
