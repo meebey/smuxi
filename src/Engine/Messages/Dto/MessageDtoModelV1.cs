@@ -71,9 +71,6 @@ namespace Smuxi.Engine.Dto
                         var urlPart = new UrlMessagePartModel() {
                             Url = msgPart.Url
                         };
-                        if (msgPart.Protocol.HasValue) {
-                            urlPart.Protocol = msgPart.Protocol.Value;
-                        }
                         part = urlPart;
                         break;
                     case "Image":
@@ -138,7 +135,6 @@ namespace Smuxi.Engine.Dto
                 var urlPart = (UrlMessagePartModel) part;
                 Type = "URL";
                 Url = urlPart.Url;
-                Protocol = urlPart.Protocol;
             }
             if (part is ImageMessagePartModel) {
                 var imagePart = (ImageMessagePartModel) part;
