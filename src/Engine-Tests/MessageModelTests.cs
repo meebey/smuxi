@@ -44,10 +44,9 @@ namespace Smuxi.Engine
             SimpleMessage = builder.ToMessage();
 
             var topic = "Smuxi the IRC client for sophisticated users: http://smuxi.org/ | Smuxi 0.7.2.2 'Lovegood' released (2010-07-27) http://bit.ly/9nvsZF | FAQ: http://smuxi.org/faq/ | Deutsch? -> #smuxi.de | Español? -> #smuxi.es | Smuxi @ FOSDEM 2010 talk: http://bit.ly/anHJfm";
-            var msg = new MessageModel(topic);
-            MessageParser.ParseUrls(msg);
-            msg.Compact();
-            ComplexMessage = msg;
+            builder = new MessageBuilder();
+            builder.AppendMessage(topic);
+            ComplexMessage = builder.ToMessage();
         }
 
         [Test]
