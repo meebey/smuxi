@@ -1716,12 +1716,37 @@ namespace Smuxi.Engine
         {
             Trace.Call(clean, frontendManager);
 
+#if LOG4NET
+            f_Logger.Debug("Shutdown(): flushing all message buffers");
+#endif
+            lock (_Chats) {
+                foreach (var chat in _Chats) {
+                    try {
+                        chat.MessageBuffer.Flush();
+                    } catch (Exception ex) {
+#if LOG4NET
+                        f_Logger.ErrorFormat(
+                            "Shutdown(): {0}.MessageBuffer.Flush() " +
+                            "failed, continuing with shutdown...",
+                            chat.ToString()
+                        );
+                        f_Logger.Error("Shutdown(): Exception", ex);
+#endif
+                    }
+                }
+            }
+
+            if (!clean) {
+                return;
+            }
+
+#if LOG4NET
+            f_Logger.Debug("Shutdown(): disconnecting and disposing all protocol manangers");
+#endif
             lock (_ProtocolManagers) {
                 foreach (var protocolManager in _ProtocolManagers) {
                     try {
-                        if (clean) {
-                            protocolManager.Disconnect(frontendManager);
-                        }
+                        protocolManager.Disconnect(frontendManager);
                         protocolManager.Dispose();
                     } catch (Exception ex) {
 #if LOG4NET
