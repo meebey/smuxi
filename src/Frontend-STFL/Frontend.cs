@@ -42,6 +42,7 @@ namespace Smuxi.Frontend.Stfl
         private static Version            _EngineVersion;
         private static MainWindow         _MainWindow;
         private static FrontendConfig     _FrontendConfig;
+        private static Session            _LocalSession;
         private static Session            _Session;
         private static UserConfig         _UserConfig;
         private static FrontendManager    _FrontendManager;
@@ -173,9 +174,10 @@ namespace Smuxi.Frontend.Stfl
         {
             Engine.Engine.Init();
             _EngineVersion = Engine.Engine.Version;
-            Session = new Engine.Session(Engine.Engine.Config,
+            _LocalSession = new Engine.Session(Engine.Engine.Config,
                                          Engine.Engine.ProtocolManagerFactory,
                                          "local");
+            Session = _LocalSession;
             Session.RegisterFrontendUI(_MainWindow.UI);
             _UserConfig = Session.UserConfig;
             ConnectEngineToGUI();
