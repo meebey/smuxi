@@ -101,6 +101,12 @@ namespace Smuxi.Frontend.Stfl
             }
         }
         
+        public static bool IsLocalEngine {
+            get {
+                return _LocalSession != null && _Session == _LocalSession;
+            }
+        }
+        
         public static FrontendManager FrontendManager {
             get {
                 return _FrontendManager;
