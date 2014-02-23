@@ -265,6 +265,16 @@ namespace Smuxi.Frontend.Stfl
         {
             if (_FrontendManager != null) {
                 _FrontendManager.IsFrontendDisconnecting = true;
+                if (IsLocalEngine) {
+                    try {
+                        // we don't shutdown the remote session
+                        Session.Shutdown();
+                    } catch (Exception ex) {
+#if LOG4NET
+                        _Logger.Error("Quit(): Exception", ex);
+#endif
+                    }
+                }
             }
             
             /*
