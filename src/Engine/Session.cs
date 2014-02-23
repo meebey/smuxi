@@ -825,27 +825,12 @@ namespace Smuxi.Engine
         {
             Trace.Call(cmd);
 
-            FrontendManager frontendMgr = cmd != null ? cmd.FrontendManager : null;
 #if LOG4NET
             f_Logger.Info("Shutting down...");
 #endif
-            lock (_ProtocolManagers) {
-                foreach (var protocolManager in _ProtocolManagers) {
-                    try {
-                        protocolManager.Disconnect(frontendMgr);
-                        protocolManager.Dispose();
-                    } catch (Exception ex) {
-#if LOG4NET
-                        f_Logger.ErrorFormat(
-                            "CommandShutdown(): {0}.Disconnect/Dispose() " +
-                            "failed, continuing with shutdown...",
-                            protocolManager.ToString()
-                        );
-                        f_Logger.Error("CommandShutdown(): Exception", ex);
-#endif
-                    }
-                }
-            }
+
+            var frontendMgr = cmd != null ? cmd.FrontendManager : null;
+            Shutdown(true, frontendMgr);
 
             if (IsLocal) {
                 // allow the frontend to cleanly terminate
@@ -1720,6 +1705,36 @@ namespace Smuxi.Engine
             }
 
             UpdatePresenceStatus(newStatus, newMessage);
+        }
+
+        public void Shutdown()
+        {
+            Shutdown(false, null);
+        }
+
+        public void Shutdown(bool clean, FrontendManager frontendManager)
+        {
+            Trace.Call(clean, frontendManager);
+
+            lock (_ProtocolManagers) {
+                foreach (var protocolManager in _ProtocolManagers) {
+                    try {
+                        if (clean) {
+                            protocolManager.Disconnect(frontendManager);
+                        }
+                        protocolManager.Dispose();
+                    } catch (Exception ex) {
+#if LOG4NET
+                        f_Logger.ErrorFormat(
+                            "Shutdown(): {0}.Disconnect/Dispose() " +
+                            "failed, continuing with shutdown...",
+                            protocolManager.ToString()
+                        );
+                        f_Logger.Error("Shutdown(): Exception", ex);
+#endif
+                    }
+                }
+            }
         }
 
         void UpdatePresenceStatus(PresenceStatus status, string message)
