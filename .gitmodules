@@ -31,6 +31,3 @@
 [submodule "lib/StarkSoftProxy"]
 	path = lib/StarkSoftProxy
 	url = https://github.com/meebey/starksoftproxy.git
-[submodule "lib/libgit2sharp"]
-	path = lib/libgit2sharp
-	url = git://git.qnetp.net/libgit2sharp.git

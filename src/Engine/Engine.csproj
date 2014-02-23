@@ -157,10 +157,6 @@
       <Project>{600CD3BF-2ED2-4183-87F7-ADD78A968AE0}</Project>
       <Name>Db4objects.Db4o-2010</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\lib\libgit2sharp\LibGit2Sharp\LibGit2Sharp.csproj">
-      <Project>{EE6ED99F-CB12-4683-B055-D28FC7357A34}</Project>
-      <Name>LibGit2Sharp</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\lib\ServiceStack.Text\src\ServiceStack.Text\ServiceStack.Text.csproj">
       <Project>{579B3FDB-CDAD-44E1-8417-885C38E49A0E}</Project>
       <Name>ServiceStack.Text</Name>
