@@ -143,10 +143,12 @@ SHAMROCK_FIND_MONO_2_0_COMPILER_OR_HIGHER
 SHAMROCK_CHECK_MONO_2_0_GAC_ASSEMBLIES([
 	System
 	System.Core
-	System.Xml
+	System.Data
 	System.Runtime.Remoting
 	System.Runtime.Serialization
+	System.Xml
 	Mono.Posix
+	Mono.Data.Sqlite
 ])
 
 PROFILE=debug

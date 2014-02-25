@@ -112,6 +112,7 @@
     <Compile Include="MessageBuffers\GitMessageBuffer.cs" />
     <Compile Include="MessageBuffers\JsonMessageBuffer.cs" />
     <Compile Include="Messages\Dto\MessageDtoModelV1.cs" />
+    <Compile Include="MessageBuffers\SqliteMessageBuffer.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Protocols\" />

@@ -67,6 +67,7 @@ FILES = \
 	MessageBuffers/ListMessageBuffer.cs \
 	MessageBuffers/MessageBufferBase.cs \
 	MessageBuffers/MessageBufferPersistencyType.cs \
+	MessageBuffers/SqliteMessageBuffer.cs \
 	Messages/FeedMessageBuilder.cs \
 	Messages/MessageBuilder.cs \
 	Messages/MessageModel.cs \
@@ -125,11 +126,13 @@ EXTRAS = \
 REFERENCES =  \
 	System \
 	System.Core \
+	System.Data \
 	System.Runtime.Remoting \
 	System.Runtime.Serialization \
 	System.Web \
 	System.Xml \
 	Mono.Posix \
+	Mono.Data.Sqlite \
 	$(NINI_LIBS) \
 	$(LOG4NET_LIBS) \
 	$(DB4O_LIBS) \
