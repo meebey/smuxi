@@ -93,6 +93,7 @@ namespace Smuxi.Engine
         }
 
         [Test]
+        [Explicit]
         public void LameCopyConstructorBenchmark()
         {
             int runs = 50000;
@@ -201,6 +202,7 @@ namespace Smuxi.Engine
         }
 
         [Test]
+        [Explicit]
         public void CompactBenchmark()
         {
             var formatter = new BinaryFormatter();
@@ -283,6 +285,7 @@ namespace Smuxi.Engine
         }
 
         [Test]
+        [Explicit]
         public void BinarySerializeDeserializeBenchmark()
         {
         }
@@ -305,6 +308,7 @@ namespace Smuxi.Engine
         }
 
         [Test]
+        [Explicit]
         public void ServiceStackJsonSerializeBenchmark()
         {
             ServiceStack.Text.JsConfig<MessagePartModel>.ExcludeTypeInfo = true;
@@ -343,6 +347,7 @@ namespace Smuxi.Engine
         }
 
         [Test]
+        [Explicit]
         public void ServiceStackJsonSerializeDeserializeBenchmark()
         {
             ServiceStack.Text.JsConfig<MessagePartModel>.ExcludeTypeInfo = true;
@@ -397,6 +402,7 @@ namespace Smuxi.Engine
         }
 
         [Test]
+        [Explicit]
         public void NewtonsoftJsonSerializeBenchmark()
         {
             var serializer = new Newtonsoft.Json.JsonSerializer() {
@@ -441,6 +447,7 @@ namespace Smuxi.Engine
         }
 
         [Test]
+        [Explicit]
         public void NewtonsoftJsonSerializeDeserializeBenchmark()
         {
             var serializer = new Newtonsoft.Json.JsonSerializer() {

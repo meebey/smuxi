@@ -214,6 +214,7 @@ namespace Smuxi.Engine
         }
 
         [Test]
+        [Explicit]
         public void GetRangeBenchmarkWarm()
         {
             RunGetRangeBenchmark(false, 50000, 200);
@@ -221,6 +222,7 @@ namespace Smuxi.Engine
         }
 
         [Test]
+        [Explicit]
         public void GetRangeBenchmarkCold()
         {
             RunGetRangeBenchmark(true, 50000, 200);
@@ -277,6 +279,7 @@ namespace Smuxi.Engine
         }
 
         [Test]
+        [Explicit]
         public void OpenBufferBenchmark()
         {
             RunOpenBufferBenchmark(1);
@@ -332,6 +335,7 @@ namespace Smuxi.Engine
         }
 
         [Test]
+        [Explicit]
         public void AddBenchmark()
         {
             RunAddBenchmark(15000);
