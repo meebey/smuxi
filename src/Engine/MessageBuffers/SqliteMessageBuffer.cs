@@ -35,6 +35,7 @@ namespace Smuxi.Engine
 #endif
         string DBPath { get; set; }
         SqliteConnection Connection { get; set; }
+        Int64 MessageCount { get; set; }
 
         public override int Count {
             get {
@@ -73,12 +74,18 @@ namespace Smuxi.Engine
                 cmd.CommandText = sql;
                 cmd.ExecuteNonQuery();
             }
+
+            MessageCount = Count;
         }
 
         public override void Add(MessageModel msg)
         {
             if (msg == null) {
                 throw new ArgumentNullException("msg");
+            }
+
+            if (MaxCapacity > 0 && MessageCount >= MaxCapacity) {
+                RemoveAt(0);
             }
 
             var dto = new MessageDtoModelV1(msg);
@@ -94,6 +101,7 @@ namespace Smuxi.Engine
 
                 cmd.ExecuteNonQuery();
             }
+            MessageCount++;
         }
 
         public override IList<MessageModel> GetRange(int offset, int limit)
