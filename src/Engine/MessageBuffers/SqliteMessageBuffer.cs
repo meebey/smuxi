@@ -197,7 +197,16 @@ namespace Smuxi.Engine
 
         public override void Dispose()
         {
+            var connection = Connection;
+            if (connection == null) {
+                return;
+            }
+
             Flush();
+            Connection = null;
+
+            connection.Close();
+            connection.Dispose();
         }
     }
 }
