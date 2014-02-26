@@ -163,9 +163,32 @@ namespace Smuxi.Engine
             throw new NotImplementedException ();
         }
 
-        public override void RemoveAt(int index)
+        public override void RemoveAt(int offset)
         {
-            throw new NotImplementedException ();
+            int id = -1;
+            using (var cmd = Connection.CreateCommand()) {
+                cmd.CommandText = "SELECT ID FROM Messages " +
+                                  " ORDER BY ID " +
+                                  " LIMIT 1 OFFSET @offset";
+
+                var param = cmd.CreateParameter();
+                param.ParameterName = "offset";
+                param.Value = offset;
+                cmd.Parameters.Add(param);
+
+                id = (int) Convert.ChangeType(cmd.ExecuteScalar(), typeof(int));
+            }
+
+            using (var cmd = Connection.CreateCommand()) {
+                cmd.CommandText = "DELETE FROM Messages WHERE ID = @id";
+
+                var param = cmd.CreateParameter();
+                param.ParameterName = "id";
+                param.Value = id;
+                cmd.Parameters.Add(param);
+
+                cmd.ExecuteNonQuery();
+            }
         }
 
         public override void Flush()
