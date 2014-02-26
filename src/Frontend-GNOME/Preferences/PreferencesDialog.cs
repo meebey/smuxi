@@ -203,6 +203,12 @@ namespace Smuxi.Frontend.Gnome
                                _("Volatile"));
             store.AppendValues(MessageBufferPersistencyType.Persistent,
                                _("Persistent"));
+            if (Frontend.EngineVersion >= new Version("0.12")) {
+                store.AppendValues(MessageBufferPersistencyType.PersistentDb4o,
+                                   _("Persistent (Db4o)"));
+                store.AppendValues(MessageBufferPersistencyType.PersistentSqlite,
+                                   _("Persistent (SQLite)"));
+            }
             persistencyTypeComboBox.Model = store;
             persistencyTypeComboBox.Active = 0;
             if (Frontend.EngineVersion < new Version("0.8.1")) {
