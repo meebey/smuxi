@@ -44,9 +44,9 @@ namespace Smuxi.Engine
             }
         }
 
-        public override MessageModel this[int index] {
+        public override MessageModel this[int offset] {
             get {
-                return GetRange(index, 1).First();
+                return GetRange(offset, 1).First();
             }
             set {
                 throw new NotImplementedException();
