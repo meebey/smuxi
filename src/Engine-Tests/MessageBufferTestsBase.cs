@@ -155,6 +155,7 @@ namespace Smuxi.Engine
             );
         }
 
+        /*
         [Test]
         public void IndexOf()
         {
@@ -175,6 +176,7 @@ namespace Smuxi.Engine
             msg.AppendText("testfoo");
             Assert.IsFalse(Buffer.Contains(msg.ToMessage()));
         }
+        */
 
         [Test]
         public void GetRange()
@@ -373,6 +375,7 @@ namespace Smuxi.Engine
             Assert.AreEqual(0, Buffer.Count);
         }
 
+        /*
         [Test]
         public void RemoveAt()
         {
@@ -383,6 +386,7 @@ namespace Smuxi.Engine
             Buffer.RemoveAt(1);
             Assert.AreEqual(TestMessages[1], Buffer[0]);
         }
+        */
 
         [Test]
         public void Enumerator()

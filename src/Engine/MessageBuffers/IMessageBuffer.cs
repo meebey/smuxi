@@ -23,10 +23,14 @@ using System.Collections.Generic;
 
 namespace Smuxi.Engine
 {
-    public interface IMessageBuffer : IList<MessageModel>, IDisposable
+    public interface IMessageBuffer : IEnumerable<MessageModel>, IDisposable
     {
+        int                 Count { get; }
+        int                 MaxCapacity { get; set; }
+        MessageModel        this[int offset] { get; set; }
+        void                Add(MessageModel msg);
         IList<MessageModel> GetRange(int offset, int limit);
         void                Flush();
-        int                 MaxCapacity { get; set; }
+        void                Clear();
     }
 }

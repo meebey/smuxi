@@ -125,21 +125,6 @@ namespace Smuxi.Engine
             cmd.ExecuteNonQuery();
         }
 
-        public override bool Contains(MessageModel item)
-        {
-            throw new NotImplementedException ();
-        }
-
-        public override void CopyTo(MessageModel[] array, int arrayIndex)
-        {
-            throw new NotImplementedException ();
-        }
-
-        public override bool Remove(MessageModel item)
-        {
-            throw new NotImplementedException ();
-        }
-
         public override IEnumerator<MessageModel> GetEnumerator()
         {
             throw new NotImplementedException ();

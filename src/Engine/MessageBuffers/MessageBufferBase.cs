@@ -110,13 +110,7 @@ namespace Smuxi.Engine
 
         public abstract void Add(MessageModel item);
         public abstract void Clear();
-        public abstract bool Contains(MessageModel item);
-        public abstract void CopyTo(MessageModel[] array, int arrayIndex);
-        public abstract bool Remove(MessageModel item);
         public abstract IEnumerator<MessageModel> GetEnumerator();
-        public abstract int IndexOf(MessageModel item);
-        public abstract void Insert(int index, MessageModel item);
-        public abstract void RemoveAt(int index);
         public abstract void Flush();
         public abstract void Dispose();
     }
