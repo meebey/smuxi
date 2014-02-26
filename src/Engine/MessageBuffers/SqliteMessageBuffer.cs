@@ -65,13 +65,14 @@ namespace Smuxi.Engine
             );
             Connection.Open();
 
-            var sql = "CREATE TABLE IF NOT EXISTS Messages (" +
-                          "ID INTEGER PRIMARY KEY," +
-                          "JSON TEXT" +
-                      ")";
-            var cmd = Connection.CreateCommand();
-            cmd.CommandText = sql;
-            cmd.ExecuteNonQuery();
+            using (var cmd = Connection.CreateCommand()) {
+                var sql = "CREATE TABLE IF NOT EXISTS Messages (" +
+                              "ID INTEGER PRIMARY KEY," +
+                              "JSON TEXT" +
+                          ")";
+                cmd.CommandText = sql;
+                cmd.ExecuteNonQuery();
+            }
         }
 
         public override void Add(MessageModel msg)
@@ -83,15 +84,16 @@ namespace Smuxi.Engine
             var dto = new MessageDtoModelV1(msg);
             var json = JsonSerializer.SerializeToString(dto);
 
-            var cmd = Connection.CreateCommand();
-            cmd.CommandText = "INSERT INTO Messages (JSON)" +
-                              " VALUES(@json)";
-            var param = cmd.CreateParameter();
-            param.ParameterName = "json";
-            param.Value = json;
-            cmd.Parameters.Add(param);
+            using (var cmd = Connection.CreateCommand()) {
+                cmd.CommandText = "INSERT INTO Messages (JSON)" +
+                                  " VALUES(@json)";
+                var param = cmd.CreateParameter();
+                param.ParameterName = "json";
+                param.Value = json;
+                cmd.Parameters.Add(param);
 
-            cmd.ExecuteNonQuery();
+                cmd.ExecuteNonQuery();
+            }
         }
 
         public override IList<MessageModel> GetRange(int offset, int limit)
@@ -124,9 +126,10 @@ namespace Smuxi.Engine
 
         public override void Clear()
         {
-            var cmd = Connection.CreateCommand();
-            cmd.CommandText = "DELETE FROM Messages";
-            cmd.ExecuteNonQuery();
+            using (var cmd = Connection.CreateCommand()) {
+                cmd.CommandText = "DELETE FROM Messages";
+                cmd.ExecuteNonQuery();
+            }
         }
 
         public override bool Contains(MessageModel item)
