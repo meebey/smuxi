@@ -161,18 +161,6 @@ namespace Smuxi.Engine
             return IndexOf(item) != -1;
         }
 
-        public override void CopyTo(MessageModel[] array, int arrayIndex)
-        {
-            if (array == null) {
-                throw new ArgumentNullException("array");
-            }
-
-            int i = arrayIndex;
-            foreach (var msg in this) {
-                array[i++] = msg;
-            }
-        }
-
         public override IEnumerator<MessageModel> GetEnumerator()
         {
             foreach (var dbId in Index) {

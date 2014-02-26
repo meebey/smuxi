@@ -138,11 +138,6 @@ namespace Smuxi.Engine
             throw new NotImplementedException ();
         }
 
-        public override void CopyTo(MessageModel[] array, int arrayIndex)
-        {
-            throw new NotImplementedException ();
-        }
-
         public override bool Remove(MessageModel item)
         {
             throw new NotImplementedException ();

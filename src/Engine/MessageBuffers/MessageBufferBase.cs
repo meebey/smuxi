@@ -83,6 +83,18 @@ namespace Smuxi.Engine
             return range;
         }
 
+        public virtual void CopyTo(MessageModel[] array, int arrayIndex)
+        {
+            if (array == null) {
+                throw new ArgumentNullException("array");
+            }
+
+            int i = arrayIndex;
+            foreach (var msg in this) {
+                array[i++] = msg;
+            }
+        }
+
         IEnumerator IEnumerable.GetEnumerator()
         {
             return GetEnumerator();
@@ -111,7 +123,6 @@ namespace Smuxi.Engine
         public abstract void Add(MessageModel item);
         public abstract void Clear();
         public abstract bool Contains(MessageModel item);
-        public abstract void CopyTo(MessageModel[] array, int arrayIndex);
         public abstract bool Remove(MessageModel item);
         public abstract IEnumerator<MessageModel> GetEnumerator();
         public abstract int IndexOf(MessageModel item);
