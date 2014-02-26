@@ -58,7 +58,11 @@ namespace Smuxi.Engine
                               base(sessionUsername, protocol, networkId, chatId)
         {
             DBPath = GetBufferPath() + ".sqlite3";
-            Connection = new SqliteConnection("URI=file:" + DBPath);
+            Connection = new SqliteConnection(
+                "Data Source=" + DBPath + ";" +
+                // enable Write-Ahead-Log (WAL)
+                "Journal Mode=WAL"
+            );
             Connection.Open();
 
             var sql = "CREATE TABLE IF NOT EXISTS Messages (" +
