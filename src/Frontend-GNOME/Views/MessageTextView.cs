@@ -51,6 +51,7 @@ namespace Smuxi.Frontend.Gnome
         private Gdk.Color    _MarkerlineColor = new Gdk.Color(255, 0, 0);
         private int          _MarkerlineBufferPosition;
         private int          _BufferLines = -1;
+        public EmoticonStore EmoticonStore{ get; set; }
 
         Gtk.TextTag BoldTag { get; set; }
         Gtk.TextTag ItalicTag { get; set; }
@@ -60,7 +61,7 @@ namespace Smuxi.Frontend.Gnome
 
         Gtk.TextTag PersonTag { get; set; }
         bool AtPersonTag { get; set; }
-
+        Gdk.Pixbuf ImgPixbuf { get; set; }
         public event MessageTextViewMessageAddedEventHandler       MessageAdded;
         public event MessageTextViewMessageHighlightedEventHandler MessageHighlighted;
         public event EventHandler<MessageTextViewPersonClickedEventArgs> PersonClicked;
@@ -357,6 +358,14 @@ namespace Smuxi.Frontend.Gnome
                     tags.Add(LinkTag);
 
                     buffer.InsertWithTags(ref iter, linkText, tags.ToArray());
+                } else if (msgPart is ImageMessagePartModel) {
+                    var imgMsgPart = (ImageMessagePartModel) msgPart;
+                    if (EmoticonStore.TryGetImage(imgMsgPart.ImageFileName)) {
+                        ImgPixbuf = EmoticonStore.GetEmoticonImage(EmoticonStore [imgMsgPart.ImageFileName]);
+                    } else {
+                        ImgPixbuf = Frontend.LoadIcon(imgMsgPart.ImageFileName, 16, imgMsgPart.ImageFileName + ".png");
+                    }
+                    buffer.InsertPixbuf(ref iter, ImgPixbuf);
                 } else if (msgPart is TextMessagePartModel) {
                     var tags = new List<Gtk.TextTag>();
                     TextMessagePartModel fmsgti = (TextMessagePartModel) msgPart;

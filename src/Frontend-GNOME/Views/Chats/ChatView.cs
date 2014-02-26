@@ -291,6 +291,7 @@ namespace Smuxi.Frontend.Gnome
 
             IsAutoScrolling = true;
             MessageTextView tv = new MessageTextView();
+            tv.EmoticonStore = Frontend.MainWindow.EmoticonStore;
             _EndMark = tv.Buffer.CreateMark("end", tv.Buffer.EndIter, false); 
             tv.ShowTimestamps = true;
             tv.ShowMarkerline = true;

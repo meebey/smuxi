@@ -17,7 +17,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>..\..\bin\debug</OutputPath>
-    <DefineConstants>DEBUG;TRACE;LOG4NET;CONFIG_NINI;GTK_SHARP_2_10;INDICATE_SHARP;NOTIFY_SHARP;IPC_DBUS;DBUS_SHARP;GTKSPELL</DefineConstants>
+    <DefineConstants>DEBUG;TRACE;LOG4NET;CONFIG_NINI;GTK_SHARP_2_10;NOTIFY_SHARP;IPC_DBUS;DBUS_SHARP;GTKSPELL</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
@@ -91,6 +91,202 @@
       <LogicalName>session-chat_256x256.png</LogicalName>
       <Link>images\session-chat_256x256.png</Link>
     </EmbeddedResource>
+    <EmbeddedResource Include="..\..\images\Smuxi-Emoticons\face-angel.png">
+      <Link>images\face-angel.png</Link>
+      <LogicalName>face-angel.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\images\Smuxi-Emoticons\face-angel-symbolic.png">
+      <Link>images\face-angel-symbolic.png</Link>
+      <LogicalName>face-angel-symbolic.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\images\Smuxi-Emoticons\face-angry.png">
+      <Link>images\face-angry.png</Link>
+      <LogicalName>face-angry.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\images\Smuxi-Emoticons\face-angry-symbolic.png">
+      <Link>images\face-angry-symbolic.png</Link>
+      <LogicalName>face-angry-symbolic.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\images\Smuxi-Emoticons\face-confused.png">
+      <Link>images\face-confused.png</Link>
+      <LogicalName>face-confused.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\images\Smuxi-Emoticons\face-confused-symbolic.png">
+      <Link>images\face-confused-symbolic.png</Link>
+      <LogicalName>face-confused-symbolic.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\images\Smuxi-Emoticons\face-cool.png">
+      <Link>images\face-cool.png</Link>
+      <LogicalName>face-cool.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\images\Smuxi-Emoticons\face-cool-symbolic.png">
+      <Link>images\face-cool-symbolic.png</Link>
+      <LogicalName>face-cool-symbolic.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\images\Smuxi-Emoticons\face-crying.png">
+      <Link>images\face-crying.png</Link>
+      <LogicalName>face-crying.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\images\Smuxi-Emoticons\face-crying-symbolic.png">
+      <Link>images\face-crying-symbolic.png</Link>
+      <LogicalName>face-crying-symbolic.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\images\Smuxi-Emoticons\face-devilish.png">
+      <Link>images\face-devilish.png</Link>
+      <LogicalName>face-devilish.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\images\Smuxi-Emoticons\face-devilish-symbolic.png">
+      <Link>images\face-devilish-symbolic.png</Link>
+      <LogicalName>face-devilish-symbolic.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\images\Smuxi-Emoticons\face-embarrassed.png">
+      <Link>images\face-embarrassed.png</Link>
+      <LogicalName>face-embarrassed.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\images\Smuxi-Emoticons\face-embarrassed-symbolic.png">
+      <Link>images\face-embarrassed-symbolic.png</Link>
+      <LogicalName>face-embarrassed-symbolic.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\images\Smuxi-Emoticons\face-kiss.png">
+      <Link>images\face-kiss.png</Link>
+      <LogicalName>face-kiss.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\images\Smuxi-Emoticons\face-kiss-symbolic.png">
+      <Link>images\face-kiss-symbolic.png</Link>
+      <LogicalName>face-kiss-symbolic.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\images\Smuxi-Emoticons\face-laugh.png">
+      <Link>images\face-laugh.png</Link>
+      <LogicalName>face-laugh.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\images\Smuxi-Emoticons\face-laugh-symbolic.png">
+      <Link>images\face-laugh-symbolic.png</Link>
+      <LogicalName>face-laugh-symbolic.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\images\Smuxi-Emoticons\face-monkey.png">
+      <Link>images\face-monkey.png</Link>
+      <LogicalName>face-monkey.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\images\Smuxi-Emoticons\face-monkey-symbolic.png">
+      <Link>images\face-monkey-symbolic.png</Link>
+      <LogicalName>face-monkey-symbolic.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\images\Smuxi-Emoticons\face-plain-symbolic.png">
+      <Link>images\face-plain-symbolic.png</Link>
+      <LogicalName>face-plain-symbolic.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\images\Smuxi-Emoticons\face-plain.png">
+      <Link>images\face-plain.png</Link>
+      <LogicalName>face-plain.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\images\Smuxi-Emoticons\face-raspberry-symbolic.png">
+      <Link>images\face-raspberry-symbolic.png</Link>
+      <LogicalName>face-raspberry-symbolic.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\images\Smuxi-Emoticons\face-raspberry.png">
+      <Link>images\face-raspberry.png</Link>
+      <LogicalName>face-raspberry.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\images\Smuxi-Emoticons\face-sad-symbolic.png">
+      <Link>images\face-sad-symbolic.png</Link>
+      <LogicalName>face-sad-symbolic.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\images\Smuxi-Emoticons\face-sad.png">
+      <Link>images\face-sad.png</Link>
+      <LogicalName>face-sad.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\images\Smuxi-Emoticons\face-shutmouth-symbolic.png">
+      <Link>images\face-shutmouth-symbolic.png</Link>
+      <LogicalName>face-shutmouth-symbolic.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\images\Smuxi-Emoticons\face-shutmouth.png">
+      <Link>images\face-shutmouth.png</Link>
+      <LogicalName>face-shutmouth.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\images\Smuxi-Emoticons\face-sick-symbolic.png">
+      <Link>images\face-sick-symbolic.png</Link>
+      <LogicalName>face-sick-symbolic.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\images\Smuxi-Emoticons\face-sick.png">
+      <Link>images\face-sick.png</Link>
+      <LogicalName>face-sick.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\images\Smuxi-Emoticons\face-smile-big-symbolic.png">
+      <Link>images\face-smile-big-symbolic.png</Link>
+      <LogicalName>face-smile-big-symbolic.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\images\Smuxi-Emoticons\face-smile-big.png">
+      <Link>images\face-smile-big.png</Link>
+      <LogicalName>face-smile-big.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\images\Smuxi-Emoticons\face-smile-symbolic.png">
+      <Link>images\face-smile-symbolic.png</Link>
+      <LogicalName>face-smile-symbolic.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\images\Smuxi-Emoticons\face-smile.png">
+      <Link>images\face-smile.png</Link>
+      <LogicalName>face-smile.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\images\Smuxi-Emoticons\face-smirk-symbolic.png">
+      <Link>images\face-smirk-symbolic.png</Link>
+      <LogicalName>face-smirk-symbolic.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\images\Smuxi-Emoticons\face-smirk.png">
+      <Link>images\face-smirk.png</Link>
+      <LogicalName>face-smirk.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\images\Smuxi-Emoticons\face-surprised-symbolic.png">
+      <Link>images\face-surprised-symbolic.png</Link>
+      <LogicalName>face-surprised-symbolic.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\images\Smuxi-Emoticons\face-surprised.png">
+      <Link>images\face-surprised.png</Link>
+      <LogicalName>face-surprised.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\images\Smuxi-Emoticons\face-tired-symbolic.png">
+      <Link>images\face-tired-symbolic.png</Link>
+      <LogicalName>face-tired-symbolic.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\images\Smuxi-Emoticons\face-tired.png">
+      <Link>images\face-tired.png</Link>
+      <LogicalName>face-tired.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\images\Smuxi-Emoticons\face-uncertain-symbolic.png">
+      <Link>images\face-uncertain-symbolic.png</Link>
+      <LogicalName>face-uncertain-symbolic.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\images\Smuxi-Emoticons\face-uncertain.png">
+      <Link>images\face-uncertain.png</Link>
+      <LogicalName>face-uncertain.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\images\Smuxi-Emoticons\face-wink-symbolic.png">
+      <Link>images\face-wink-symbolic.png</Link>
+      <LogicalName>face-wink-symbolic.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\images\Smuxi-Emoticons\face-wink.png">
+      <Link>images\face-wink.png</Link>
+      <LogicalName>face-wink.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\images\Smuxi-Emoticons\face-worried-symbolic.png">
+      <Link>images\face-worried-symbolic.png</Link>
+      <LogicalName>face-worried-symbolic.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\images\Smuxi-Emoticons\face-worried.png">
+      <Link>images\face-worried.png</Link>
+      <LogicalName>face-worried.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\images\Smuxi-Emoticons\face-yawn-symbolic.png">
+      <Link>images\face-yawn-symbolic.png</Link>
+      <LogicalName>face-yawn-symbolic.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\images\Smuxi-Emoticons\face-yawn.png">
+      <Link>images\face-yawn.png</Link>
+      <LogicalName>face-yawn.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\images\go-next-symbolic.png">
+      <Link>images\go-next-symbolic.png</Link>
+      <LogicalName>go-next-symbolic.png</LogicalName>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AboutDialog.cs" />
@@ -163,6 +359,10 @@
     <Compile Include="Views\Tags\LinkTag.cs" />
     <Compile Include="Views\Tags\PersonTag.cs" />
     <Compile Include="Views\ChatTreeView.cs" />
+    <Compile Include="EmoticonButton.cs" />
+    <Compile Include="EmoticonSticker.cs" />
+    <Compile Include="EmoticonStore.cs" />
+    <Compile Include="EmoticonsWindow.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="smuxi-frontend-gnome.exe.config">
@@ -200,23 +400,12 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="Mono.Posix" />
-    <Reference Include="glib-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f">
-      <Package>glib-sharp-2.0</Package>
-    </Reference>
-    <Reference Include="glade-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f">
-      <Package>glade-sharp-2.0</Package>
-    </Reference>
-    <Reference Include="gdk-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f">
-      <Package>gtk-sharp-2.0</Package>
-    </Reference>
-    <Reference Include="gtk-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f">
-      <Package>gtk-sharp-2.0</Package>
-    </Reference>
-    <Reference Include="pango-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f">
-      <Package>gtk-sharp-2.0</Package>
-    </Reference>
+    <Reference Include="glib-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
+    <Reference Include="glade-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
+    <Reference Include="gdk-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
+    <Reference Include="gtk-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
+    <Reference Include="pango-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
     <Reference Include="notify-sharp, Version=0.4.0.0, Culture=neutral, PublicKeyToken=2df29c54e245917a">
-      <Package>notify-sharp</Package>
       <Private>False</Private>
     </Reference>
     <Reference Include="System.Core" />
@@ -225,19 +414,27 @@
     </Reference>
     <Reference Include="indicate-sharp, Version=0.4.1.0, Culture=neutral, PublicKeyToken=2e8e49ba7d172cb0">
       <Private>False</Private>
-      <Package>indicate-sharp-0.1</Package>
     </Reference>
     <Reference Include="atk-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f">
       <Private>False</Private>
-      <Package>gtk-sharp-2.0</Package>
     </Reference>
     <Reference Include="dbus-sharp, Version=2.0.0.0, Culture=neutral, PublicKeyToken=5675b0c3093115b5">
       <Private>False</Private>
-      <Package>dbus-sharp-2.0</Package>
     </Reference>
     <Reference Include="dbus-sharp-glib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=5675b0c3093115b5">
       <Private>False</Private>
-      <Package>dbus-sharp-glib-2.0</Package>
+    </Reference>
+    <Reference Include="dbus-sharp, Version=1.0.0.0, Culture=neutral, PublicKeyToken=5675b0c3093115b5">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="dbus-sharp-glib, Version=1.0.0.0, Culture=neutral, PublicKeyToken=5675b0c3093115b5">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="NDesk.DBus, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f6716e4f9b2ed099">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="NDesk.DBus.GLib, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f6716e4f9b2ed099">
+      <Private>False</Private>
     </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
