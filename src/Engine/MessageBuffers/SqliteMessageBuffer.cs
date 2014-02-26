@@ -150,7 +150,16 @@ namespace Smuxi.Engine
 
         public override IEnumerator<MessageModel> GetEnumerator()
         {
-            throw new NotImplementedException ();
+            using (var cmd = Connection.CreateCommand()) {
+                cmd.CommandText = "SELECT JSON FROM Messages";
+
+                var reader = cmd.ExecuteReader();
+                while (reader.Read()) {
+                    var json = (string) reader["JSON"];
+                    var dto = JsonSerializer.DeserializeFromString<MessageDtoModelV1>(json);
+                    yield return dto.ToMessage();
+                }
+            }
         }
 
         public override int IndexOf(MessageModel item)
