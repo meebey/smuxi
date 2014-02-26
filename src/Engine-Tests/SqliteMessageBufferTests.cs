@@ -51,7 +51,8 @@ namespace Smuxi.Engine
         public void Reopen()
         {
             Buffer.Dispose();
-            OpenBuffer();
+
+            Buffer = OpenBuffer();
             Enumerator();
         }
 
