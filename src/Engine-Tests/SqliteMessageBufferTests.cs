@@ -57,28 +57,6 @@ namespace Smuxi.Engine
         }
 
         [Test]
-        public void ImplicitFlush()
-        {
-            // generate 32 extra messsages to exceed the buffer size which
-            // forces a flush of the buffer to db4o
-            var bufferCount = Buffer.Count;
-            var msgs = new List<MessageModel>(Buffer);
-            for (int i = 1; i <= 32; i++) {
-                var builder = new MessageBuilder();
-                builder.AppendText("msg{0}", bufferCount + i);
-                var msg = builder.ToMessage();
-                msgs.Add(msg);
-                Buffer.Add(msg);
-            }
-
-            int j = 0;
-            foreach (var msg in Buffer) {
-                Assert.AreEqual(msgs[j++].ToString(), msg.ToString());
-            }
-            Assert.AreEqual(msgs.Count, j);
-        }
-
-        [Test]
         public void ImplicitRemoveAt()
         {
             Buffer.MaxCapacity = 16;
