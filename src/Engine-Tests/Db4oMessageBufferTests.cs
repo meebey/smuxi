@@ -95,7 +95,7 @@ namespace Smuxi.Engine
             }
 
             Assert.AreEqual(Buffer.MaxCapacity, Buffer.Count);
-            Assert.AreEqual(msgs[19].ToString(), Buffer[0].ToString());
+            Assert.AreEqual(msgs[32 - (Buffer.MaxCapacity - bufferCount)].ToString(), Buffer[0].ToString());
         }
     }
 }
