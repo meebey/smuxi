@@ -99,9 +99,10 @@ namespace Smuxi.Engine
         public override IList<MessageModel> GetRange(int offset, int limit)
         {
             using (var cmd = Connection.CreateCommand()) {
-                cmd.CommandText = "SELECT ID, JSON FROM Messages " +
-                                  " ORDER BY ID" +
-                                  " LIMIT @limit OFFSET @offset ";
+                cmd.CommandText = "SELECT JSON FROM Messages " +
+                                  " ORDER BY ID " +
+                                  " LIMIT @limit OFFSET @offset";
+
                 var param = cmd.CreateParameter();
                 param.ParameterName = "offset";
                 param.Value = offset.ToString();
