@@ -1111,6 +1111,23 @@ namespace Smuxi.Engine
             }
 
             chat.Position = GetSortedChatPosition(chat);
+            if (!IsLocal) {
+                // push seen highlights
+                chat.PropertyChanged += (sender, e) => {
+                    if (e.PropertyName != "LastSeenHighlight") {
+                        return;
+                    }
+                    var builder = CreateMessageBuilder().
+                        AppendEventPrefix().
+                        // TRANSLATOR: a date with time is appended to the message
+                        AppendText(_("Last seen highlight changed to")).
+                        // guarantee a parsable format
+                        AppendText(": {0:u}", chat.LastSeenHighlight);
+                    builder.MessageType = MessageType.ChatLastSeenHighlightChanged;
+                    AddMessageToChat(chat, builder.ToMessage());
+                };
+            }
+
             lock (_Chats) {
                 _Chats.Add(chat);
                 if (chat.Position == -1) {

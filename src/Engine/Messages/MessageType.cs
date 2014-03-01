@@ -43,6 +43,7 @@ namespace Smuxi.Engine
         PresenceStateAway,
         PresenceStateOnline,
         ChatNameChanged,
-        PersonChatPersonChanged
+        PersonChatPersonChanged,
+        ChatLastSeenHighlightChanged
     }
 }

@@ -22,6 +22,7 @@
 
 using System;
 using System.Text.RegularExpressions;
+using System.Linq;
 using System.Threading;
 using System.Collections.Generic;
 using Smuxi.Common;
@@ -60,6 +61,7 @@ namespace Smuxi.Frontend.Gnome
         bool                         UseLowBandwidthMode { get; set; }
         public Gtk.Image TabImage { get; protected set; }
         bool                         IsAutoScrolling { get; set; }
+        MessageModel LastMessage { get; set; }
 
         public event EventHandler<EventArgs> StatusChanged;
 
@@ -586,8 +588,26 @@ namespace Smuxi.Frontend.Gnome
                         }
                     });
                     return;
+                case MessageType.ChatLastSeenHighlightChanged:
+                    var timestampStr = String.Join(
+                        ":", msg.ToString().Split(':').Skip(1).ToArray()
+                    );
+                    var timestamp = DateTime.Parse(timestampStr);
+                    if (LastMessage != null && timestamp > LastMessage.TimeStamp) {
+                        HasHighlight = false;
+                    }
+                    return;
             }
-            _OutputMessageTextView.AddMessage(msg);
+
+            // only show messages and events
+            switch (msg.MessageType) {
+                case MessageType.Normal:
+                case MessageType.Event:
+                    _OutputMessageTextView.AddMessage(msg);
+                    break;
+            }
+
+            LastMessage = msg;
         }
         
         public virtual void Clear()

@@ -24,11 +24,12 @@ using System;
 using System.IO;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using Smuxi.Common;
 
 namespace Smuxi.Engine
 {
-    public abstract class ChatModel : PermanentRemoteObject, ITraceable
+    public abstract class ChatModel : PermanentRemoteObject, INotifyPropertyChanged, ITraceable
     {
 #if LOG4NET
         private static readonly log4net.ILog _Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
@@ -47,6 +48,8 @@ namespace Smuxi.Engine
         public  int                  Position { get; set; }
         public  IMessageBuffer       MessageBuffer { get; private set; }
         public  int                  MessagesSyncCount { get; set; }
+
+        public event PropertyChangedEventHandler PropertyChanged;
 
         public string ID {
             get {
@@ -133,6 +136,7 @@ namespace Smuxi.Engine
             }
             set {
                 _LastSeenHighlight = value;
+                OnPropertyChanged(new PropertyChangedEventArgs("LastSeenHighlight"));
             }
         }
 
@@ -363,6 +367,15 @@ namespace Smuxi.Engine
                 }
             }
             MessageBuffer = null;
+        }
+
+        protected virtual void OnPropertyChanged(PropertyChangedEventArgs args)
+        {
+            var @event = PropertyChanged;
+            if (@event == null) {
+                return;
+            }
+            @event(this, args);
         }
 
         static string _(string msg)

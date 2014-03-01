@@ -56,6 +56,7 @@
       <Package>nunit</Package>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
+    <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="NickCompleterTests.cs" />
