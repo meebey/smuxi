@@ -1,6 +1,6 @@
 // Smuxi - Smart MUltipleXed Irc
 // 
-// Copyright (c) 2012 Mirco Bauer <meebey@meebey.net>
+// Copyright (c) 2012, 2014 Mirco Bauer <meebey@meebey.net>
 // 
 // Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
 // 
@@ -51,18 +51,33 @@ namespace Smuxi.Engine
             var topic = "Smuxi the IRC client for sophisticated users: http://smuxi.org/ | Smuxi 0.7.2.2 'Lovegood' released (2010-07-27) http://bit.ly/9nvsZF | FAQ: http://smuxi.org/faq/ | Deutsch? -> #smuxi.de | Español? -> #smuxi.es | Smuxi @ FOSDEM 2010 talk: http://bit.ly/anHJfm";
             builder = new MessageBuilder();
             builder.AppendMessage(topic);
+            builder.AppendText(" ");
+            builder.AppendUrl("https://www.smuxi.org/issues/show/428", "smuxi#428");
             ComplexMessage = builder.ToMessage();
             ComplexMessageJson = JsonSerializer.SerializeToString(ComplexMessage);
             ComplexMessageDtoV1 = JsonSerializer.DeserializeFromString<MessageDtoModelV1>(ComplexMessageJson);
         }
 
         [Test]
-        public void SerializeDeserialize()
+        public void SerializeDeserializeSimpleMessage()
         {
             var dtoMsg = new MessageDtoModelV1(SimpleMessage);
             var json = JsonSerializer.SerializeToString(dtoMsg);
             var dtoMsg2 = JsonSerializer.DeserializeFromString<MessageDtoModelV1>(json);
             Assert.AreEqual(dtoMsg.ToMessage(), dtoMsg2.ToMessage());
+            Assert.AreEqual(SimpleMessage, dtoMsg.ToMessage());
+            Assert.AreEqual(SimpleMessage, dtoMsg2.ToMessage());
+        }
+
+        [Test]
+        public void SerializeDeserializeComplexMessage()
+        {
+            var dtoMsg = new MessageDtoModelV1(ComplexMessage);
+            var json = JsonSerializer.SerializeToString(dtoMsg);
+            var dtoMsg2 = JsonSerializer.DeserializeFromString<MessageDtoModelV1>(json);
+            Assert.AreEqual(dtoMsg.ToMessage(), dtoMsg2.ToMessage());
+            Assert.AreEqual(ComplexMessage, dtoMsg.ToMessage());
+            Assert.AreEqual(ComplexMessage, dtoMsg2.ToMessage());
         }
 
         [Test]

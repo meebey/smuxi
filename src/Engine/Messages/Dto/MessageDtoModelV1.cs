@@ -1,6 +1,6 @@
 // Smuxi - Smart MUltipleXed Irc
 // 
-// Copyright (c) 2012 Mirco Bauer <meebey@meebey.net>
+// Copyright (c) 2012, 2014 Mirco Bauer <meebey@meebey.net>
 // 
 // Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
 // 
@@ -69,7 +69,8 @@ namespace Smuxi.Engine.Dto
                         break;
                     case "URL":
                         var urlPart = new UrlMessagePartModel() {
-                            Url = msgPart.Url
+                            Url = msgPart.Url,
+                            Text = msgPart.Text
                         };
                         part = urlPart;
                         break;
@@ -135,6 +136,7 @@ namespace Smuxi.Engine.Dto
                 var urlPart = (UrlMessagePartModel) part;
                 Type = "URL";
                 Url = urlPart.Url;
+                Text = urlPart.Text;
             }
             if (part is ImageMessagePartModel) {
                 var imagePart = (ImageMessagePartModel) part;
