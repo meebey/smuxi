@@ -22,6 +22,7 @@ IT_PROG_INTLTOOL([0.25])
 POSUB="
 	po
 	po-Engine
+	po-Engine-MessageBuffer
 	po-Engine-Campfire
 	po-Engine-IRC
 	po-Engine-JabbR
@@ -62,6 +63,10 @@ AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE_ENGINE_CAMPFIRE, "$GETTEXT_PACKAGE_ENGINE_CAM
 GETTEXT_PACKAGE_ENGINE_JABBR=smuxi-engine-jabbr
 AC_SUBST(GETTEXT_PACKAGE_ENGINE_JABBR)
 AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE_ENGINE_JABBR, "$GETTEXT_PACKAGE_ENGINE_JABBR", [Gettext package])
+
+GETTEXT_PACKAGE_MSG_BUFFER=smuxi-message-buffer
+AC_SUBST(GETTEXT_PACKAGE_MSG_BUFFER)
+AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE_MSG_BUFFER, "$GETTEXT_PACKAGE_MSG_BUFFER", [Gettext package])
 
 GETTEXT_PACKAGE_SERVER=smuxi-server
 AC_SUBST(GETTEXT_PACKAGE_SERVER)
@@ -174,7 +179,7 @@ AC_SUBST(CSC, "$MCS")
 CSC_FLAGS=
 if test "x$PROFILE" = "xdebug"; then
 	AM_CONDITIONAL(ENABLE_DEBUG, true)
-	CSC_FLAGS+=-define:DEBUG,TRACE,LOG4NET
+	CSC_FLAGS+="-define:DEBUG,TRACE,LOG4NET -debug"
 else
 	AM_CONDITIONAL(ENABLE_RELEASE, true)
 fi
@@ -551,6 +556,12 @@ if test "x$ENABLE_ENGINE_JABBR" != "xno"; then
 fi
 AM_CONDITIONAL(ENABLE_ENGINE_JABBR, test "x$ENABLE_ENGINE_JABBR" = "xyes")
 
+# MessageBuffer tool
+if $PKG_CONFIG 'mono >= 2.6'; then
+	MSG_BUFFER_COMPILER_FLAGS+=" -platform:x86"
+fi
+AC_SUBST(MSG_BUFFER_COMPILER_FLAGS)
+
 # Server
 if $PKG_CONFIG 'mono >= 2.6'; then
 	SERVER_COMPILER_FLAGS+=" -platform:x86"
@@ -680,6 +691,8 @@ AC_CONFIG_FILES([
 	src/Engine-XMPP/Makefile
 	src/Engine-XMPP/smuxi-engine-xmpp.pc
 	src/Engine-Campfire/Makefile
+	src/Engine-MessageBuffer/Makefile
+	src/Engine-MessageBuffer/smuxi-message-buffer
 	src/Server/Makefile
 	src/Server/smuxi-server
 	src/Frontend/Makefile
@@ -707,6 +720,7 @@ AC_CONFIG_FILES([
 	po-Engine-JabbR/Makefile.in
 	po-Engine-Twitter/Makefile.in
 	po-Engine-XMPP/Makefile.in
+	po-Engine-MessageBuffer/Makefile.in
 	po-Server/Makefile.in
 	po-Frontend/Makefile.in
 	po-Frontend-GNOME/Makefile.in
@@ -731,7 +745,7 @@ AC_MSG_RESULT([
 
 	* Engines
 	  -------
-	  Core:                (db4o: $WITH_DB4O)
+	  Core:                (sqlite: built-in, db4o: $WITH_DB4O)
 	  IRC:                 $ENABLE_ENGINE_IRC
 	  XMPP:                $ENABLE_ENGINE_XMPP
 	  Twitter:             $ENABLE_ENGINE_TWITTER

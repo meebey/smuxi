@@ -67,6 +67,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StarkSoftProxy", "..\lib\St
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Frontend-GNOME-Twitter", "Frontend-GNOME-Twitter\Frontend-GNOME-Twitter.csproj", "{298A5895-D8C8-45EB-AC57-1B6AAD05D6AD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Engine-MessageBuffer", "Engine-MessageBuffer\Engine-MessageBuffer.csproj", "{7964E3E4-1E98-4AE0-AF1B-1B940CDF0A99}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Release|Any CPU = Release|Any CPU
@@ -219,6 +221,14 @@ Global
 		{73DEF91D-03FF-41E3-B2E1-3259AF247CA7}.Release|Any CPU.Build.0 = Release|Any CPU
 		{73DEF91D-03FF-41E3-B2E1-3259AF247CA7}.Release-Win32|x86.ActiveCfg = Release|Any CPU
 		{73DEF91D-03FF-41E3-B2E1-3259AF247CA7}.Release-Win32|x86.Build.0 = Release|Any CPU
+		{7964E3E4-1E98-4AE0-AF1B-1B940CDF0A99}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7964E3E4-1E98-4AE0-AF1B-1B940CDF0A99}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7964E3E4-1E98-4AE0-AF1B-1B940CDF0A99}.Debug-Win32|x86.ActiveCfg = Debug|Any CPU
+		{7964E3E4-1E98-4AE0-AF1B-1B940CDF0A99}.Debug-Win32|x86.Build.0 = Debug|Any CPU
+		{7964E3E4-1E98-4AE0-AF1B-1B940CDF0A99}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7964E3E4-1E98-4AE0-AF1B-1B940CDF0A99}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7964E3E4-1E98-4AE0-AF1B-1B940CDF0A99}.Release-Win32|x86.ActiveCfg = Release|Any CPU
+		{7964E3E4-1E98-4AE0-AF1B-1B940CDF0A99}.Release-Win32|x86.Build.0 = Release|Any CPU
 		{7B1E3AB2-FB8C-4439-A2B4-2129EDBD79F8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{7B1E3AB2-FB8C-4439-A2B4-2129EDBD79F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7B1E3AB2-FB8C-4439-A2B4-2129EDBD79F8}.Debug-Win32|x86.ActiveCfg = Debug|Any CPU

@@ -59,6 +59,21 @@ namespace Smuxi.Engine
                               base(sessionUsername, protocol, networkId, chatId)
         {
             DBPath = GetBufferPath() + ".sqlite3";
+            Init();
+        }
+
+        public SqliteMessageBuffer(string dbPath)
+        {
+            if (dbPath == null) {
+                throw new ArgumentNullException("dbPath");
+            }
+
+            DBPath = dbPath;
+            Init();
+        }
+
+        void Init()
+        {
             Connection = new SqliteConnection(
                 "Data Source=" + DBPath + ";" +
                 // enable Write-Ahead-Log (WAL)

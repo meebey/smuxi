@@ -22,7 +22,7 @@ SOURCES_BUILD = $(addprefix $(srcdir)/, $(SOURCES))
 
 # automake magic variables
 EXTRA_DIST = $(SOURCES_BUILD)
-CLEANFILES = $(ASSEMBLY_TARGET)
+CLEANFILES = $(ASSEMBLY_TARGET) $(ASSEMBLY_TARGET).mdb
 
 pkgapp_DATA = $(ASSEMBLY_TARGET)
 

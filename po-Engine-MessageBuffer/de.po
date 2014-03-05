@@ -1,0 +1,120 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-03-06 21:30+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../src/Engine-MessageBuffer/Main.cs:49
+msgid "Enable debug output"
+msgstr ""
+
+#: ../src/Engine-MessageBuffer/Main.cs:55
+#: ../src/Engine-MessageBuffer/Main.cs:131
+#: ../src/Engine-MessageBuffer/Main.cs:195
+msgid "Show this help"
+msgstr ""
+
+#: ../src/Engine-MessageBuffer/Main.cs:57
+msgid "Usage: smuxi-message-buffer [options] action action-options"
+msgstr ""
+
+#: ../src/Engine-MessageBuffer/Main.cs:59
+msgid "Actions:"
+msgstr ""
+
+#: ../src/Engine-MessageBuffer/Main.cs:63
+#: ../src/Engine-MessageBuffer/Main.cs:142
+#: ../src/Engine-MessageBuffer/Main.cs:207
+msgid "Options:"
+msgstr ""
+
+#: ../src/Engine-MessageBuffer/Main.cs:90
+#, csharp-format
+msgid "Unknown action: '{0}'"
+msgstr ""
+
+#: ../src/Engine-MessageBuffer/Main.cs:97
+#, csharp-format
+msgid "Command line error: {0}"
+msgstr ""
+
+#: ../src/Engine-MessageBuffer/Main.cs:109
+msgid "Database format (valid values: auto, db4o, sqlite)"
+msgstr ""
+
+#: ../src/Engine-MessageBuffer/Main.cs:124
+#: ../src/Engine-MessageBuffer/Main.cs:188
+#, csharp-format
+msgid "Unknown {0} option: '{1}'"
+msgstr ""
+
+#: ../src/Engine-MessageBuffer/Main.cs:135
+#, csharp-format
+msgid "Usage: smuxi-message-buffer {0} [action-options] db_path"
+msgstr ""
+
+#: ../src/Engine-MessageBuffer/Main.cs:140
+msgid "Database path"
+msgstr ""
+
+#: ../src/Engine-MessageBuffer/Main.cs:151
+msgid "db_path is required"
+msgstr ""
+
+#: ../src/Engine-MessageBuffer/Main.cs:165
+msgid "Source format (valid values: auto, db4o, sqlite)"
+msgstr ""
+
+#: ../src/Engine-MessageBuffer/Main.cs:173
+msgid "Destination format (valid values: auto, db4o, sqlite)"
+msgstr ""
+
+#: ../src/Engine-MessageBuffer/Main.cs:199
+#, csharp-format
+msgid ""
+"Usage: smuxi-message-buffer {0} [action-options] source_db destination_db"
+msgstr ""
+
+#: ../src/Engine-MessageBuffer/Main.cs:204
+msgid "Source file path"
+msgstr ""
+
+#: ../src/Engine-MessageBuffer/Main.cs:205
+msgid "Destination file path or -/empty for stdout"
+msgstr ""
+
+#: ../src/Engine-MessageBuffer/Main.cs:216
+msgid "source_db and destination_db are required"
+msgstr ""
+
+#: ../src/Engine-MessageBuffer/Main.cs:232
+msgid "sourceFile must not be empty."
+msgstr ""
+
+#: ../src/Engine-MessageBuffer/Main.cs:248
+#, csharp-format
+msgid "Destination database {0} must be empty!"
+msgstr ""
+
+#: ../src/Engine-MessageBuffer/Main.cs:298
+#, csharp-format
+msgid "Unknown file format: '{0}'"
+msgstr ""
+
+#: ../src/Engine-MessageBuffer/Main.cs:320
+#, csharp-format
+msgid "Unsupported buffer type: '{0}'"
+msgstr ""

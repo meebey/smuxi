@@ -60,6 +60,7 @@ DISTCLEANFILES = \
 
 PODIRS =	po \
 		po-Engine \
+		po-Engine-MessageBuffer \
 		$(PO_ENGINE_CAMPFIRE) \
 		$(PO_ENGINE_IRC) \
 		$(PO_ENGINE_JABBR) \
@@ -144,7 +145,8 @@ LINUX_STATIC_BUILD_DIR = $(top_builddir)/bin-linux-static
 
 WIN32_EXE_FILES = \
 	$(BUILD_DIR)/smuxi-frontend-gnome.exe \
-	$(BUILD_DIR)/smuxi-server.exe
+	$(BUILD_DIR)/smuxi-server.exe \
+	$(BUILD_DIR)/smuxi-message-buffer.exe
 
 WIN32_FILES = \
 	$(WIN32_EXE_FILES) \
@@ -187,6 +189,7 @@ OSX_FILES = \
 	$(BUILD_DIR)/smuxi-frontend-gnome-twitter.dll \
 	$(BUILD_DIR)/smuxi-frontend-gnome-xmpp.dll \
 	$(BUILD_DIR)/smuxi-server.exe \
+	$(BUILD_DIR)/smuxi-message-buffer.exe \
 	$(BUILD_DIR)/smuxi-common.dll \
 	$(BUILD_DIR)/smuxi-engine.dll \
 	$(BUILD_DIR)/smuxi-engine-campfire.dll \
