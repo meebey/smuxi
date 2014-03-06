@@ -1,0 +1,50 @@
+.Dd $Mdocdate: March 6 2014 $
+.Dt smuxi-message-buffer 1
+.Os
+.Sh NAME
+.Nm smuxi-message-buffer
+.Nd converts and dumps Smuxi chat history
+.Sh SYNOPSIS
+.Nm smuxi-message-buffer
+.Op Fl dh
+convert
+.Op Fl \-source-format Ns = Ns Ar format
+.Op Fl \-destination-format Ns = Ns Ar format
+.Ar source-file
+.Ar destination-file
+.Nm smuxi-message-buffer
+.Op Fl dh
+cat
+.Op Fl \-format Ns = Ns Ar format
+.Ar source-file
+.Sh DESCRIPTION
+.Nm
+is a tool that manages the databases that Smuxi holds chat histories in. Currently, it can convert and dump databases.
+.Pp
+Similar to commands like
+.Xr git 1
+, 
+.Nm
+takes a command as the first parameter. These commands can be cat (dumps a JSON representation of the database to standard output) or convert. (changes the database from one format to another) Note that the destination file can be set to "-" or empty in the case of convert, in which case it will export to stdout.
+.Pp
+The following options can be used. Some options will depend on what command you're using.
+.Bl -tag -width Ds
+.It Fl d , Fl \-debug
+Turn on debugging. Debug logs are outputted on the console.
+.It Fl h , Fl \-help
+Show the arguments Smuxi takes.
+.It Fl \-source-format Ns = Ns Ar format
+.It Fl \-format Ns = Ns Ar format
+Manually specify a source format. Options include auto (figured out via filename), db4o, and sqlite.
+.It Fl \-destination-format Ns = Ns Ar format
+Manually specify a source destination, if converting. Options include auto (figured out via filename), db4o, and sqlite. 
+.Sh SEE ALSO
+.Xr smuxi-frontend-gnome 1 ,
+.Xr smuxi-frontend-stfl 1 ,
+.Xr smuxi-server 1
+.Pp
+Website: http://smuxi.im
+.Sh AUTHOR/CREDITS
+Smuxi, including this tool, was written by Mirco Bauer.
+.Pp
+This manpage was written by Calvin Buckley.

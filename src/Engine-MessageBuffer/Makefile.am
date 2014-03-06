@@ -1,3 +1,6 @@
+EXTRA_DIST = $(man_MANS)
+man_MANS = smuxi-message-buffer.1
+
 TARGET_DIR = $(top_builddir)/bin/$(PROFILE)
 ASSEMBLY_NAME = smuxi-message-buffer
 ASSEMBLY_FILENAME = $(ASSEMBLY_NAME).exe
