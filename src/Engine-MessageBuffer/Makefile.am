@@ -1,6 +1,3 @@
-EXTRA_DIST = $(man_MANS)
-man_MANS = smuxi-message-buffer.1
-
 TARGET_DIR = $(top_builddir)/bin/$(PROFILE)
 ASSEMBLY_NAME = smuxi-message-buffer
 ASSEMBLY_FILENAME = $(ASSEMBLY_NAME).exe
@@ -25,10 +22,11 @@ DLL_REFERENCES = \
 SOURCES_BUILD = $(addprefix $(srcdir)/, $(SOURCES))
 
 # automake magic variables
-EXTRA_DIST = $(SOURCES_BUILD)
+EXTRA_DIST = $(SOURCES_BUILD) $(man_MANS)
 CLEANFILES = $(ASSEMBLY_TARGET) $(ASSEMBLY_TARGET).mdb
 
 pkgapp_DATA = $(ASSEMBLY_TARGET) $(ASSEMBLY_TARGET).mdb
+man_MANS = smuxi-message-buffer.1
 
 include $(top_srcdir)/Makefile.include
 
