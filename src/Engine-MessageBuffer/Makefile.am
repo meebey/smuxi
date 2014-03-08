@@ -1,4 +1,5 @@
 TARGET_DIR = $(top_builddir)/bin/$(PROFILE)
+BIN_WRAPPER = smuxi-message-buffer
 ASSEMBLY_NAME = smuxi-message-buffer
 ASSEMBLY_FILENAME = $(ASSEMBLY_NAME).exe
 ASSEMBLY_TARGET = $(TARGET_DIR)/$(ASSEMBLY_FILENAME)
@@ -20,6 +21,8 @@ DLL_REFERENCES = \
 	$(TARGET_DIR)/ServiceStack.Text.dll
 
 SOURCES_BUILD = $(addprefix $(srcdir)/, $(SOURCES))
+
+BINARIES = $(BIN_WRAPPER)
 
 # automake magic variables
 EXTRA_DIST = $(SOURCES_BUILD) $(man_MANS)
