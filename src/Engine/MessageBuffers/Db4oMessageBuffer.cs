@@ -126,7 +126,7 @@ namespace Smuxi.Engine
             InitIndex();
 
             if (MaxCapacity > 0 && Index.Count >= MaxCapacity) {
-                RemoveAt(0);
+                //RemoveAt(0);
             }
 
             // TODO: auto-flush every 60 seconds
@@ -150,6 +150,7 @@ namespace Smuxi.Engine
             ResetIndex();
         }
 
+        /*
         public override bool Contains(MessageModel item)
         {
             if (item == null) {
@@ -172,6 +173,7 @@ namespace Smuxi.Engine
                 array[i++] = msg;
             }
         }
+        */
 
         public override IEnumerator<MessageModel> GetEnumerator()
         {
@@ -180,6 +182,7 @@ namespace Smuxi.Engine
             }
         }
 
+        /*
         public override int IndexOf(MessageModel item)
         {
             if (item == null) {
@@ -238,6 +241,7 @@ namespace Smuxi.Engine
             Database.Delete(item);
             return true;
         }
+        */
 
         public override IList<MessageModel> GetRange(int offset, int limit)
         {

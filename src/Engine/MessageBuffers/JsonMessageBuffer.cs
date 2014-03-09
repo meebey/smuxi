@@ -213,6 +213,7 @@ namespace Smuxi.Engine
             throw new NotImplementedException ();
         }
 
+        /*
         public override bool Contains(MessageModel item)
         {
             throw new NotImplementedException ();
@@ -227,12 +228,14 @@ namespace Smuxi.Engine
         {
             throw new NotImplementedException ();
         }
+        */
 
         public override IEnumerator<MessageModel> GetEnumerator()
         {
             throw new NotImplementedException ();
         }
 
+        /*
         public override int IndexOf(MessageModel item)
         {
             throw new NotImplementedException ();
@@ -247,6 +250,7 @@ namespace Smuxi.Engine
         {
             throw new NotImplementedException ();
         }
+        */
 
         public override void Flush()
         {

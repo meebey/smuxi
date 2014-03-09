@@ -27,9 +27,11 @@ namespace Smuxi.Engine
     {
         int                 Count { get; }
         int                 MaxCapacity { get; set; }
-        MessageModel        this[int offset] { get; set; }
+        MessageModel        this[long timestamp, int counter] { get; set; }
         void                Add(MessageModel msg);
         IList<MessageModel> GetRange(int offset, int limit);
+        IEnumerable<MessageModel> GetNextMessages(long timestamp, int counter, int limit);
+        IEnumerable<MessageModel> GetPreviousMessages(long timestamp, int counter, int limit);
         void                Flush();
         void                Clear();
     }
