@@ -244,6 +244,20 @@ namespace Smuxi.Engine
                     ToMessage();
             Session.AddMessageToChat(ProtocolChat, msg);
 
+            if (!Server.ValidateServerCertificate) {
+                var whitelist = Session.CertificateValidator.HostnameWhitelist;
+                lock (whitelist) {
+                    var hostname = Server.Hostname;
+                    if (hostname.StartsWith("http://") ||
+                        hostname.StartsWith("https://")) {
+                        hostname = new Uri(hostname).Host;
+                    }
+                    if (!whitelist.Contains(hostname)) {
+                        whitelist.Add(hostname);
+                    }
+                }
+            }
+
             var res = Client.Connect(Server.Username, Server.Password);
             res.Wait();
             // HACK: this event can only be subscribed if we have made an
