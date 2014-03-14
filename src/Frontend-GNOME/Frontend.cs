@@ -800,6 +800,7 @@ namespace Smuxi.Frontend.Gnome
                 }
             }
             // decode #%23csharp to ##csharp
+            var linkChat = HttpUtility.UrlDecode(link.Fragment);
             if (String.IsNullOrEmpty(linkChat) && link.AbsolutePath.Length > 0) {
                 linkChat = link.AbsolutePath.Substring(1);
             }
