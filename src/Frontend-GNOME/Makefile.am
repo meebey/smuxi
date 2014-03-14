@@ -211,6 +211,7 @@ REFERENCES =  \
 	System.Runtime.Remoting \
 	System \
     System.Core \
+	System.Web \
 	Mono.Posix \
 	$(GLIB_SHARP_20_LIBS) \
 	$(GLADE_SHARP_20_LIBS) \
