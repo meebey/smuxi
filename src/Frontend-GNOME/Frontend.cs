@@ -22,7 +22,7 @@
 
 using System;
 using System.IO;
-using System.Net;
+using System.Web;
 using System.Linq;
 using System.Threading;
 using System.Reflection;
@@ -804,7 +804,7 @@ namespace Smuxi.Frontend.Gnome
                 }
             }
             // decode #%23csharp to ##csharp
-            var linkChat = WebUtility.UrlDecode(link.Fragment);
+            var linkChat = HttpUtility.UrlDecode(link.Fragment);
             if (String.IsNullOrEmpty(linkChat)) {
                 linkChat = link.AbsolutePath.Substring(1);
             }

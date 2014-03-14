@@ -239,6 +239,7 @@
       <Private>False</Private>
       <Package>dbus-sharp-glib-2.0</Package>
     </Reference>
+    <Reference Include="System.Web" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
