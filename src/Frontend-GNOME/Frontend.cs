@@ -22,6 +22,7 @@
 
 using System;
 using System.IO;
+using System.Web;
 using System.Linq;
 using System.Threading;
 using System.Reflection;
@@ -778,6 +779,7 @@ namespace Smuxi.Frontend.Gnome
 
             // supported:
             // smuxi://freenode/#smuxi
+            // smuxi://freenode/#%23csharp (##csharp)
             // irc://#smuxi
             // irc://irc.oftc.net/
             // irc://irc.oftc.net/#smuxi
@@ -797,7 +799,8 @@ namespace Smuxi.Frontend.Gnome
                         break;
                 }
             }
-            var linkChat = link.Fragment;
+            // decode #%23csharp to ##csharp
+            var linkChat = HttpUtility.UrlDecode(link.Fragment);
             if (String.IsNullOrEmpty(linkChat) && link.AbsolutePath.Length > 0) {
                 linkChat = link.AbsolutePath.Substring(1);
             }
