@@ -4,13 +4,14 @@
 # 
 # Translators:
 # Jeroen Baten <jeroen@libreplan.nl>, 2013
+# Mirco Bauer <meebey@gmail.com>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Smuxi - IRC client\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-12-11 16:59+0100\n"
-"PO-Revision-Date: 2013-12-26 12:36+0000\n"
-"Last-Translator: Jeroen Baten <jeroen@libreplan.nl>\n"
+"PO-Revision-Date: 2014-03-16 12:43+0000\n"
+"Last-Translator: Mirco Bauer <meebey@gmail.com>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/smuxi/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -68,7 +69,7 @@ msgstr "Verbinding niet gelukt!"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:440
 msgid "Connection failed! Reason: "
-msgstr "Verbinding niet gelukt! Reden:"
+msgstr "Verbinding niet gelukt! Reden: "
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:453
 msgid "Disconnecting..."
@@ -157,7 +158,7 @@ msgstr "actieve joins: {0}"
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1287
 #, csharp-format
 msgid "queued joins: {0}"
-msgstr "wachtende joins"
+msgstr "wachtende joins: {0}"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1721
 msgid "IRC Op"
@@ -191,7 +192,7 @@ msgstr "Onderwerp voor {0}: {1}"
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1796
 #, csharp-format
 msgid "No topic set for {0}"
-msgstr "Geen onderwerp ingesteld voor "
+msgstr "Geen onderwerp ingesteld voor {0}"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1961
 msgid "ban"
@@ -220,7 +221,7 @@ msgstr "Geen uitnodigingsuitzonderingen in kanaal"
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2182
 #, csharp-format
 msgid "Your user mode is {0}"
-msgstr "Uw gebruikersmode is "
+msgstr "Uw gebruikersmode is {0}"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2208
 #, csharp-format
@@ -310,7 +311,7 @@ msgstr "{0} [{1}] heeft {2} verlaten"
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3335
 #, csharp-format
 msgid "You were kicked from {0} by {1}"
-msgstr "U bent verwijderd van {0} door "
+msgstr "U bent verwijderd van {0} door {1}"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3343
 #, csharp-format

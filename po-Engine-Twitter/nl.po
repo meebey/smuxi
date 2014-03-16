@@ -4,13 +4,14 @@
 # 
 # Translators:
 # Jeroen Baten <jeroen@libreplan.nl>, 2013
+# Mirco Bauer <meebey@gmail.com>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Smuxi - IRC client\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-12-11 17:01+0100\n"
-"PO-Revision-Date: 2013-12-26 12:51+0000\n"
-"Last-Translator: Jeroen Baten <jeroen@libreplan.nl>\n"
+"PO-Revision-Date: 2014-03-16 12:45+0000\n"
+"Last-Translator: Mirco Bauer <meebey@gmail.com>\n"
 "Language-Team: Dutch (http://www.transifex.com/projects/p/smuxi/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -69,7 +70,7 @@ msgstr "Verbinding mislukt!"
 #: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:358
 #, csharp-format
 msgid "Connection failed! Reason: {0}"
-msgstr "Verbinden niet gelukt! Reden:{0}"
+msgstr "Verbinden niet gelukt! Reden: {0}"
 
 #: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:312
 msgid "Fetching user details from Twitter, please wait..."
@@ -85,7 +86,7 @@ msgstr "Succesvol verbonden met Twitter."
 
 #: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:343
 msgid "Failed to fetch user details from Twitter. Reason: "
-msgstr "Downloaden van gebruikergegevens vanaf twitter is niet gelukt. Reden:"
+msgstr "Downloaden van gebruikergegevens vanaf twitter is niet gelukt. Reden: "
 
 #: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:376
 msgid "Fetching friends from Twitter, please wait..."
@@ -97,7 +98,7 @@ msgstr "Klaar met downloaden van vriendenlijst."
 
 #: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:389
 msgid "Failed to fetch friends from Twitter. Reason: "
-msgstr "Downloaden van vriendenlijst vanaf twitter is niet gelukt. Reden:"
+msgstr "Downloaden van vriendenlijst vanaf twitter is niet gelukt. Reden: "
 
 #. TRANSLATOR: this line is used as a label / category for a
 #. list of commands below
@@ -137,7 +138,7 @@ msgstr "Met succes Twitteraccount \"{0}\" geautoriseerd voor Smuxi"
 #: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:864
 #, csharp-format
 msgid "Could not update status - Reason: {0}"
-msgstr "Kon status niet actualiseren - Reden: "
+msgstr "Kon status niet actualiseren - Reden: {0}"
 
 #: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:875
 msgid "Cannot send message - no target specified. Use: /msg $nick message"
