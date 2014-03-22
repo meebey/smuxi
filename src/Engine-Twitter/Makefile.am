@@ -34,4 +34,4 @@ include $(top_srcdir)/Makefile.include
 all: $(ASSEMBLY_TARGET)
 
 $(ASSEMBLY_TARGET): $(SOURCES) $(DLL_REFERENCES)
-	$(MCS) $(CSC_FLAGS) $(build_references_ref) -target:library -out:$@ $(SOURCES_BUILD)
+	$(MCS) $(CSC_FLAGS) $(build_references_ref) -target:library -out:$(ASSEMBLY_TARGET) $(SOURCES_BUILD)

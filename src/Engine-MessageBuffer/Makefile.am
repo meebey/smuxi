@@ -36,4 +36,4 @@ include $(top_srcdir)/Makefile.include
 all: $(ASSEMBLY_TARGET)
 
 $(ASSEMBLY_TARGET): $(SOURCES) $(DLL_REFERENCES)
-	$(CSC) $(CSC_FLAGS) $(MSG_BUFFER_COMPILER_FLAGS) $(build_references_ref) -target:exe -out:$@ $(SOURCES_BUILD)
+	$(CSC) $(CSC_FLAGS) $(MSG_BUFFER_COMPILER_FLAGS) $(build_references_ref) -target:exe -out:$(ASSEMBLY_TARGET) $(SOURCES_BUILD)
