@@ -622,9 +622,9 @@ AM_CONDITIONAL(ENABLE_FRONTEND_GNOME_TWITTER, test "x$ENABLE_FRONTEND_GNOME_TWIT
 AM_CONDITIONAL(ENABLE_FRONTEND_GNOME_XMPP, test "x$ENABLE_FRONTEND_GNOME_XMPP" = "xyes")
 
 AC_ARG_ENABLE([frontend-stfl],
-	AC_HELP_STRING([--enable-frontend-stfl], [Enable STFL frontend (default no)]),
+	AC_HELP_STRING([--enable-frontend-stfl], [Enable STFL frontend (default yes)]),
 	ENABLE_FRONTEND_STFL=$enableval,
-	ENABLE_FRONTEND_STFL=no
+	ENABLE_FRONTEND_STFL=yes
 )
 if test "x$ENABLE_FRONTEND_STFL" != "xno"; then
 	PKG_CHECK_MODULES([STFL], [stfl >= 0.21])
