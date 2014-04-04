@@ -114,6 +114,34 @@ namespace Smuxi.Frontend.Gnome
             }
         }
 
+        void OnUserListMenuRemoveActivated(object sender, EventArgs e)
+        {
+            Trace.Call(sender, e);
+
+            IList<PersonModel> persons = GetSelectedPersons();
+            if (persons == null) {
+                return;
+            }
+
+            foreach (PersonModel person in persons) {
+                var per = person;
+
+                ThreadPool.QueueUserWorkItem(delegate {
+                    try {
+                        XmppProtocolManager.CommandContact(
+                            new CommandModel(
+                                Frontend.FrontendManager,
+                                ChatModel,
+                                "remove " + per.ID
+                            )
+                        );
+                    } catch (Exception ex) {
+                        Frontend.ShowException(ex);
+                    }
+                });
+            }
+        }
+
         void _OnUserListMenuQueryActivated (object sender, EventArgs e)
         {
             Trace.Call(sender, e);
@@ -265,6 +293,10 @@ namespace Smuxi.Frontend.Gnome
                     PersonTreeView.SetCursor(path, IdentityNameColumn, true);
                 };
                 PersonMenu.Append(rename_item);
+
+                Gtk.ImageMenuItem remove_item = new Gtk.ImageMenuItem(_("Remove"));
+                remove_item.Activated += OnUserListMenuRemoveActivated;
+                PersonMenu.Append(remove_item);
             }
 
             PersonMenu.ShowAll();
