@@ -598,7 +598,12 @@ namespace Smuxi.Engine
                 ContactChat = null;
             } else if (chat.ChatType == ChatType.Group) {
                 if (IsConnected) {
-                    MucManager.LeaveRoom(chat.ID, ((XmppGroupChatModel)chat).OwnNickname);
+                    var groupchat = (XmppGroupChatModel)chat;
+                    if (!groupchat.IsSynced) {
+                        Session.RemoveChat(chat);
+                    } else {
+                        MucManager.LeaveRoom(chat.ID, ((XmppGroupChatModel)chat).OwnNickname);
+                    }
                 } else {
                     Session.RemoveChat(chat);
                 }
@@ -1854,14 +1859,49 @@ namespace Smuxi.Engine
             }
         }
 
-        void OnGroupChatPresenceError(XmppGroupChatModel chat, Presence pres)
+        MessageModel CreateGroupChatPresenceErrorMessage(Presence pres)
         {
             var builder = CreateMessageBuilder();
+            builder.AppendEventPrefix();
             if (pres.Error == null) {
                 builder.AppendErrorText(_("An unknown groupchat error occurred: {0}"), pres);
-                Session.AddMessageToChat(NetworkChat, builder.ToMessage());
-                return;
+                return builder.ToMessage();
             }
+            switch (pres.Error.Type) {
+                case ErrorType.cancel:
+                    switch (pres.Error.Condition) {
+                        case ErrorCondition.RemoteServerNotFound:
+                            builder.AppendErrorText(_("Server of groupchat \"{0}\" not found."), pres.From.Bare);
+                            break;
+                        case ErrorCondition.ServiceUnavailable:
+                            builder.AppendErrorText(_("Muc service is not available for \"{0}\""), pres.From.Bare);
+                            break;
+                    }
+                    break;
+                case ErrorType.auth:
+                    switch (pres.Error.Condition) {
+                        case ErrorCondition.NotAuthorized:
+                            builder.AppendErrorText(_("You do not have permission to join \"{0}\""), pres.From.Bare);
+                            break;
+                    }
+                    break;
+            }
+            if (String.IsNullOrEmpty(pres.Error.ErrorText) && builder.IsEmpty) {
+                builder.AppendErrorText(_("An unhandled groupchat error occurred: {0}"), pres.From.Bare);
+            } else {
+                builder.AppendErrorText(": {0}", pres.Error.ErrorText);
+            }
+            return builder.ToMessage();
+        }
+
+        void OnGroupChatPresenceError(XmppGroupChatModel chat, Presence pres)
+        {
+            var msg = CreateGroupChatPresenceErrorMessage(pres);
+            if (pres.Error == null) {
+                Session.AddMessageToChat(NetworkChat, msg);
+                Session.RemoveChat(chat);
+            }
+            // is there an action we can do silently?
             switch (pres.Error.Type) {
                 case ErrorType.cancel:
                     switch (pres.Error.Condition) {
@@ -1873,12 +1913,8 @@ namespace Smuxi.Engine
                     }
                     break;
             }
-            if (String.IsNullOrEmpty(pres.Error.ErrorText)) {
-                builder.AppendErrorText(_("An unhandled groupchat error occurred: {0}"), pres);
-            } else {
-                builder.AppendErrorText(_("Error in Groupchat {0}: {1}"), chat.ID, pres.Error.ErrorText);
-            }
-            Session.AddMessageToChat(NetworkChat, builder.ToMessage());
+
+            Session.AddMessageToChat(NetworkChat, msg);
             Session.RemoveChat(chat);
         }
 
@@ -2032,10 +2068,22 @@ namespace Smuxi.Engine
                 RequestCapabilities(jid, pres.Capabilities);
             }
 
-            var groupChat = (XmppGroupChatModel) Session.GetChat(jid.Bare, ChatType.Group, this);
-
-            if (groupChat != null) {
-                OnGroupChatPresence(groupChat, pres);
+            if (pres.MucUser != null || pres.Muc != null) {
+                var groupChat = (XmppGroupChatModel) Session.GetChat(jid.Bare, ChatType.Group, this);
+                if (groupChat == null) {
+                    var builder = CreateMessageBuilder();
+                    builder.AppendEventPrefix();
+                    builder.AppendErrorText(_("Received a presence update from {0}, but there's no corresponding chat window"), pres.From.Bare);
+                    Session.AddMessageToChat(NetworkChat, builder.ToMessage());
+                    if (pres.Type == PresenceType.error) {
+                        var msg = CreateGroupChatPresenceErrorMessage(pres);
+                        Session.AddMessageToChat(NetworkChat, msg);
+                    } else {
+                        MucManager.LeaveRoom(jid.Bare, jid.Resource);
+                    }
+                } else {
+                    OnGroupChatPresence(groupChat, pres);
+                }
             } else {
                 OnPrivateChatPresence(pres);
             }
@@ -2046,6 +2094,13 @@ namespace Smuxi.Engine
         {
             string group_jid = msg.From.Bare;
             XmppGroupChatModel groupChat = (XmppGroupChatModel) Session.GetChat(group_jid, ChatType.Group, this);
+            if (groupChat == null) {
+                var builder = CreateMessageBuilder();
+                builder.AppendEventPrefix();
+                builder.AppendErrorText(_("Received a groupchat message from {0} but there's no corresponding chat window: {1}"), msg.From, msg.Body);
+                Session.AddMessageToChat(NetworkChat, builder.ToMessage());
+                return;
+            }
             // resource can be empty for room messages
             var sender_id = msg.From.Resource ?? msg.From.Bare;
             var person = groupChat.GetPerson(sender_id);
