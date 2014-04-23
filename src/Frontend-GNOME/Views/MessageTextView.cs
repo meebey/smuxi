@@ -360,6 +360,10 @@ namespace Smuxi.Frontend.Gnome
                 } else if (msgPart is TextMessagePartModel) {
                     var tags = new List<Gtk.TextTag>();
                     TextMessagePartModel fmsgti = (TextMessagePartModel) msgPart;
+                    if (fmsgti.Text == null) {
+                        // Gtk.TextBuffer.Insert*() asserts on text == NULL
+                        continue;
+                    }
                     if (fmsgti.ForegroundColor != TextColor.None) {
                         var bg = ColorConverter.GetTextColor(BackgroundColor);
                         if (fmsgti.BackgroundColor != TextColor.None) {
