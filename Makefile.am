@@ -286,7 +286,15 @@ dist-linux-static:
 	  --disable-frontend-gnome --disable-frontend-stfl
 	$(MAKE)
 	mkdir -p $(LINUX_STATIC_BUILD_DIR)
-	mkbundle --static -o $(LINUX_STATIC_BUILD_DIR)/smuxi-server $(BUILD_DIR)/smuxi-server.exe
+	mkbundle --deps --static -z -L $(BUILD_DIR) \
+	  -o $(LINUX_STATIC_BUILD_DIR)/smuxi-server \
+	  $(BUILD_DIR)/log4net.dll \
+	  $(BUILD_DIR)/Nini.dll \
+	  $(BUILD_DIR)/smuxi-server.exe \
+	  $(BUILD_DIR)/smuxi-common.dll \
+	  $(BUILD_DIR)/smuxi-engine.dll \
+	  $(BUILD_DIR)/Db4objects.Db4o.dll \
+	  $(BUILD_DIR)/ServiceStack.Text.dll
 	for FILE in $(LINUX_STATIC_FILES); do \
 		cp $$FILE $(LINUX_STATIC_BUILD_DIR); \
 	done
