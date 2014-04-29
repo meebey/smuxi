@@ -279,6 +279,11 @@ dist-osx:
 	cd $(OSX_BUILD_DIR) && zip -r ../smuxi-osx.zip Smuxi.app
 
 dist-linux-static:
+	DIST_VERSION=$$(git describe); \
+	./autogen.sh --without-indicate --without-messaging-menu --without-notify --without-dbus \
+	  --with-db4o=included \
+	  --with-vendor-package-version="dist-osx $$DIST_VERSION" \
+	  --disable-frontend-gnome --disable-frontend-stfl
 	$(MAKE)
 	mkdir -p $(LINUX_STATIC_BUILD_DIR)
 	mkbundle --static -o $(LINUX_STATIC_BUILD_DIR)/smuxi-server $(BUILD_DIR)/smuxi-server.exe
