@@ -282,7 +282,7 @@ dist-linux-static:
 	DIST_VERSION=$$(git describe); \
 	./autogen.sh --without-indicate --without-messaging-menu --without-notify --without-dbus \
 	  --with-db4o=included \
-	  --with-vendor-package-version="dist-osx $$DIST_VERSION" \
+	  --with-vendor-package-version="dist-linux-static $$DIST_VERSION" \
 	  --disable-frontend-gnome --disable-frontend-stfl
 	$(MAKE)
 	mkdir -p $(LINUX_STATIC_BUILD_DIR)
