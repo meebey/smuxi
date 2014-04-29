@@ -28,6 +28,7 @@
 
 using System;
 using System.IO;
+using System.Text;
 using System.Reflection;
 using Smuxi.Common;
 
@@ -110,10 +111,18 @@ namespace Smuxi.Engine
             _Config = new Config();
             _Config.Load();
             _Config.Save();
-            
-            string location = Assembly.GetExecutingAssembly().Location;
+
+            string location = Path.GetDirectoryName(asm.Location);
+            if (String.IsNullOrEmpty(location) &&
+                Environment.OSVersion.Platform == PlatformID.Unix) {
+                // we are mkbundled
+                var locationBuilder = new StringBuilder(8192);
+                if (Mono.Unix.Native.Syscall.readlink("/proc/self/exe", locationBuilder) >= 0) {
+                    location = Path.GetDirectoryName(locationBuilder.ToString());
+                }
+            }
             _ProtocolManagerFactory = new ProtocolManagerFactory();
-            _ProtocolManagerFactory.LoadAllProtocolManagers(Path.GetDirectoryName(location));
+            _ProtocolManagerFactory.LoadAllProtocolManagers(location);
             
             _SessionManager = new SessionManager(_Config, _ProtocolManagerFactory);
         }
