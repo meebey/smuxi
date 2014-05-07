@@ -150,6 +150,7 @@ WIN32_EXE_FILES = \
 
 WIN32_FILES = \
 	$(WIN32_EXE_FILES) \
+	$(LIB_DIR)/Mono.Data.Sqlite.dll \
 	$(LIB_DIR)/Mono.Posix.dll \
 	$(LIB_DIR)/Nini.dll \
 	$(LIB_DIR)/log4net.dll \
