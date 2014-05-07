@@ -155,6 +155,7 @@ WIN32_FILES = \
 	$(LIB_DIR)/Nini.dll \
 	$(LIB_DIR)/log4net.dll \
 	$(WIN32_LIB_DIR)/plink.exe \
+	$(WIN32_LIB_DIR)/sqlite3.dll \
 	$(WIN32_LIB_DIR)/fixedsys500c/Fixedsys500c.ttf \
 	$(BUILD_DIR)/smuxi-common.dll \
 	$(BUILD_DIR)/smuxi-engine.dll \
@@ -212,6 +213,7 @@ OSX_FILES = \
 	$(BUILD_DIR)/JabbR.Client.dll
 
 LINUX_STATIC_FILES = \
+	$(LIB_DIR)/Mono.Data.Sqlite.dll \
 	$(LIB_DIR)/Mono.Posix.dll \
 	$(LIB_DIR)/Nini.dll \
 	$(LIB_DIR)/log4net.dll \
