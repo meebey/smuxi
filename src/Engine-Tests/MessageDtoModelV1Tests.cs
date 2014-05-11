@@ -81,6 +81,18 @@ namespace Smuxi.Engine
         }
 
         [Test]
+        public void SerializeDeserializeOnlyQuoteBug()
+        {
+            var msgWithOnlyQuote = new MessageBuilder().
+                AppendText("\"").
+                ToMessage();
+            var dtoMsg = new MessageDtoModelV1(msgWithOnlyQuote);
+            var json = JsonSerializer.SerializeToString(dtoMsg);
+            var dtoMsg2 = JsonSerializer.DeserializeFromString<MessageDtoModelV1>(json);
+            Assert.AreEqual(dtoMsg.ToMessage(), dtoMsg2.ToMessage());
+        }
+
+        [Test]
         public void ToMessageBenchmark()
         {
             int runs = 50000;
