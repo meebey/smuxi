@@ -1,7 +1,7 @@
 /*
  * Smuxi - Smart MUltipleXed Irc
  *
- * Copyright (c) 2005-2006, 2009-2013 Mirco Bauer <meebey@meebey.net>
+ * Copyright (c) 2005-2006, 2009-2014 Mirco Bauer <meebey@meebey.net>
  *
  * Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
  *
@@ -141,6 +141,7 @@ namespace Smuxi.Frontend.Gnome
             _PersonTreeView = tv;
             Gtk.ScrolledWindow sw = new Gtk.ScrolledWindow();
             PersonScrolledWindow = sw;
+            sw.ShadowType = Gtk.ShadowType.None;
             sw.HscrollbarPolicy = Gtk.PolicyType.Never;
             sw.SizeRequested += (o, args) => {
                 // predict and set useful treeview width
@@ -214,13 +215,17 @@ namespace Smuxi.Frontend.Gnome
             _PersonTreeView.ButtonPressEvent += _OnPersonTreeViewButtonPressEvent;
             _PersonTreeView.KeyPressEvent += OnPersonTreeViewKeyPressEvent;
             // frame needed for events when selecting something in the treeview
-            _PersonTreeViewFrame = new Gtk.Frame();
+            _PersonTreeViewFrame = new Gtk.Frame() {
+                ShadowType = Gtk.ShadowType.In
+            };
             _PersonTreeViewFrame.ButtonReleaseEvent += new Gtk.ButtonReleaseEventHandler(_OnUserListButtonReleaseEvent);
             _PersonTreeViewFrame.Add(sw);
             
             // topic
             // don't worry, ApplyConfig() will add us to the OutputVBox!
-            _OutputVBox = new Gtk.VBox();
+            _OutputVBox = new Gtk.VBox() {
+                Spacing = 1
+            };
 
             _TopicTextView = new MessageTextView();
             _TopicTextView.Editable = false;
@@ -505,11 +510,11 @@ namespace Smuxi.Frontend.Gnome
                 _OutputVBox.Remove(OutputScrolledWindow);
             }
             if (topic_pos == "top") {
-                _OutputVBox.PackStart(_TopicScrolledWindow, false, false, 2);
+                _OutputVBox.PackStart(_TopicScrolledWindow, false, false, 0);
                 _OutputVBox.PackStart(OutputScrolledWindow, true, true, 0);
             } else if  (topic_pos == "bottom") {
                 _OutputVBox.PackStart(OutputScrolledWindow, true, true, 0);
-                _OutputVBox.PackStart(_TopicScrolledWindow, false, false, 2);
+                _OutputVBox.PackStart(_TopicScrolledWindow, false, false, 0);
             } else if (topic_pos == "none") {
                 _OutputVBox.PackStart(OutputScrolledWindow, true, true, 0);
             } else {
