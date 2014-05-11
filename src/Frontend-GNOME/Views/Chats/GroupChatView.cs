@@ -112,6 +112,12 @@ namespace Smuxi.Frontend.Gnome
             }
         }
 
+        public Gtk.HPaned OutputHPaned {
+            get {
+                return _OutputHPaned;
+            }
+        }
+
         static GroupChatView()
         {
             IconPixbuf = Frontend.LoadIcon(
@@ -128,16 +134,6 @@ namespace Smuxi.Frontend.Gnome
             // person list
             Participants = new List<PersonModel>();
             _OutputHPaned = new Gtk.HPaned();
-            _OutputHPaned.ButtonPressEvent += (sender, e) => {;
-                // reset person list size on double click
-                if (e.Event.Type == Gdk.EventType.TwoButtonPress &&
-                    e.Event.Button == 1) {
-                    GLib.Timeout.Add(200, delegate {
-                        _OutputHPaned.Position = -1;
-                        return false;
-                    });
-                }
-            };
 
             Gtk.TreeView tv = new Gtk.TreeView();
             _PersonTreeView = tv;
@@ -145,29 +141,6 @@ namespace Smuxi.Frontend.Gnome
             PersonScrolledWindow = sw;
             sw.ShadowType = Gtk.ShadowType.None;
             sw.HscrollbarPolicy = Gtk.PolicyType.Never;
-            sw.SizeRequested += (o, args) => {
-                // predict and set useful treeview width
-                var persons = SyncedPersons;
-                if (persons == null || persons.Count == 0) {
-                    return;
-                }
-
-                int longestNameWidth = 0;
-                foreach (var person in persons.Values) {
-                    int lineWidth, lineHeigth;
-                    using (var layout = _PersonTreeView.CreatePangoLayout(person.IdentityName)) {
-                        layout.GetPixelSize(out lineWidth, out lineHeigth);
-                    }
-                    if (lineWidth > longestNameWidth) {
-                        longestNameWidth = lineWidth;
-                    }
-                }
-
-                var bestSize = new Gtk.Requisition() {
-                    Width = longestNameWidth
-                };
-                args.Requisition = bestSize;
-            };
 
             //tv.CanFocus = false;
             tv.BorderWidth = 0;
@@ -175,12 +148,15 @@ namespace Smuxi.Frontend.Gnome
             sw.Add(tv);
             
             Gtk.TreeViewColumn column;
-            Gtk.CellRendererText cellr = new Gtk.CellRendererText();
+            var cellr = new Gtk.CellRendererText() {
+                Ellipsize = Pango.EllipsizeMode.End
+            };
             IdentityNameCellRenderer = cellr;
             column = new Gtk.TreeViewColumn(String.Empty, cellr);
             column.SortColumnId = 0;
             column.Spacing = 0;
             column.SortIndicator = false;
+            column.Expand = true;
             column.Sizing = Gtk.TreeViewColumnSizing.Autosize;
             // FIXME: this callback leaks memory
             column.SetCellDataFunc(cellr, new Gtk.TreeCellDataFunc(RenderPersonIdentityName));
@@ -367,7 +343,6 @@ namespace Smuxi.Frontend.Gnome
                 _PersonTreeView.Model = ls;
                 _PersonTreeView.SearchColumn = 0;
 
-                PersonScrolledWindow.CheckResize();
                 OnParticipantsChanged(EventArgs.Empty);
 
                 // TRANSLATOR: this string will be appended to the one above
@@ -548,8 +523,8 @@ namespace Smuxi.Frontend.Gnome
                 _OutputHPaned.Pack1(_PersonTreeViewFrame, false, true);
                 _OutputHPaned.Pack2(_OutputVBox, true, true);
             } else if (userlist_pos == "right") {
-                _OutputHPaned.Pack1(_OutputVBox, true, true);
-                _OutputHPaned.Pack2(_PersonTreeViewFrame, false, true);
+                _OutputHPaned.Pack1(_OutputVBox, true, false);
+                _OutputHPaned.Pack2(_PersonTreeViewFrame, false, false);
             } else if (userlist_pos == "none") {
                 _OutputHPaned.Pack1(_OutputVBox, true, true);
             } else {

@@ -69,6 +69,7 @@ namespace Smuxi.Frontend.Gnome
         public NotificationAreaIconMode NotificationAreaIconMode { get; set; }
         public bool IsMinimized { get; private set; }
         public bool IsMaximized { get; private set; }
+        public int WindowWidth { get; private set; }
 
         public bool CaretMode {
             get {
@@ -390,7 +391,8 @@ namespace Smuxi.Frontend.Gnome
         {
             Trace.Call(e);
 
-            TreeViewHPaned.Position = e.Width / 6;
+            WindowWidth = e.Width;
+            CheckLayout();
             return base.OnConfigureEvent(e);
         }
 
@@ -520,6 +522,10 @@ namespace Smuxi.Frontend.Gnome
 #if LOG4NET
                     f_Logger.Debug("OnWindowStateEvent(): IsMaximized: " + IsMaximized);
 #endif
+                    GLib.Idle.Add(() => {
+                        CheckLayout();
+                        return false;
+                    });
                 }
             } catch (Exception ex) {
                 Frontend.ShowException(this, ex);
@@ -599,6 +605,7 @@ namespace Smuxi.Frontend.Gnome
                     }
                     UpdateTitle(groupChatView, null);
                 };
+                groupChatView.OutputHPaned.Position = (WindowWidth / 6) * 4;
             }
             UpdateProgressBar();
         }
@@ -642,6 +649,18 @@ namespace Smuxi.Frontend.Gnome
                 ProgressBar.Hide();
             } else {
                 ProgressBar.Show();
+            }
+        }
+
+        void CheckLayout()
+        {
+            TreeViewHPaned.Position = WindowWidth / 6;
+            foreach (var chat in ChatViewManager.Chats) {
+                if (!(chat is GroupChatView)) {
+                    continue;
+                }
+                var groupChat = (GroupChatView) chat;
+                groupChat.OutputHPaned.Position = (WindowWidth / 6) * 4;
             }
         }
 
