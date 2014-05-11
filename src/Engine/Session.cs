@@ -453,6 +453,30 @@ namespace Smuxi.Engine
                         CommandEcho(cd);
                         handled = true;
                         break;
+                    default:
+                        var filteredCmd = IOSecurity.GetFilteredPath(cd.Command);
+                        var hooks = new HookRunner("engine", "session",
+                                                   "command-" + filteredCmd);
+                        var pm = cd.Chat.ProtocolManager;
+                        hooks.Environments.Add(new CommandHookEnvironment(cd));
+                        hooks.Environments.Add(new ChatHookEnvironment(cd.Chat));
+                        if (pm != null) {
+                            hooks.Environments.Add(new ProtocolManagerHookEnvironment(pm));
+                        }
+
+                        var cmdChar = (string) UserConfig["Interface/Entry/CommandCharacter"];
+                        hooks.Commands.Add(new SessionHookCommand(this, cd.Chat, cmdChar));
+                        if (pm != null) {
+                            hooks.Commands.Add(new ProtocolManagerHookCommand(pm, cd.Chat, cmdChar));
+                        }
+
+                        // show time
+                        hooks.Init();
+                        if (hooks.HasHooks) {
+                            hooks.Run();
+                            handled = true;
+                        }
+                        break;
                 }
             } else {
                 // normal text
