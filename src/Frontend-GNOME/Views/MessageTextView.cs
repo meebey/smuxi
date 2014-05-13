@@ -406,6 +406,16 @@ namespace Smuxi.Frontend.Gnome
                     } else {
                         buffer.Insert(ref iter, fmsgti.Text);
                     }
+                } else if (msgPart is ImageMessagePartModel) {
+                    var imgpart = (ImageMessagePartModel) msgPart;
+                    try {
+                        var pix = new Gdk.Pixbuf(imgpart.ImageFileName);
+                        buffer.InsertPixbuf(ref iter, pix);
+                    } catch (GLib.GException) {
+                        // use the alt text if we can't find the file
+                        if (!String.IsNullOrEmpty(imgpart.AlternativeText))
+                            buffer.Insert(ref iter, imgpart.AlternativeText);
+                    }
                 }
             }
             var startIter = buffer.GetIterAtMark(startMark);
