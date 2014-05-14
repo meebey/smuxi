@@ -33,6 +33,7 @@ namespace Smuxi.Engine
     [Serializable]
     public class MessageModel : ISerializable
     {
+        static readonly Regex NickRegex = new Regex("^<([^ ]+)> ");
         private DateTime                f_TimeStamp;
         private IList<MessagePartModel> f_MessageParts;
         private MessageType             f_MessageType;
@@ -257,7 +258,7 @@ namespace Smuxi.Engine
             // meesage itself
             // TODO: extend MessageModel with Origin property
             var msgText = ToString();
-            var match = Regex.Match(msgText, "^<([^ ]+)>");
+            var match = NickRegex.Match(msgText);
             if (match.Success && match.Groups.Count >= 2) {
                 return match.Groups[1].Value;
             }

@@ -9,8 +9,12 @@ namespace Smuxi.Frontend.Gnome
 		private global::Gtk.Label f_HostnameLabel;
 		private global::Gtk.ComboBoxEntry f_NetworkComboBoxEntry;
 		private global::Gtk.Label f_NetworkLabel;
+		private global::Gtk.Entry f_NicknameEntry;
+		private global::Gtk.Label f_NicknameLabel;
 		private global::Gtk.Label f_PasswordLabel;
 		private global::Gtk.ComboBox f_ProtocolComboBox;
+		private global::Gtk.Entry f_RealnameEntry;
+		private global::Gtk.Label f_RealnameLabel;
 		private global::Gtk.Entry f_UsernameEntry;
 		private global::Gtk.HBox hbox10;
 		private global::Gtk.Entry f_HostnameEntry;
@@ -31,7 +35,7 @@ namespace Smuxi.Frontend.Gnome
 		private global::Gtk.CheckButton f_IgnoreOnConnectCommandsCheckButton;
 		private global::Gtk.ScrolledWindow scrolledwindow1;
 		private global::Gtk.TextView f_OnConnectCommandsTextView;
-        
+
 		protected virtual void Build ()
 		{
 			global::Stetic.Gui.Initialize (this);
@@ -43,7 +47,7 @@ namespace Smuxi.Frontend.Gnome
 			this.vbox16.Name = "vbox16";
 			this.vbox16.Spacing = 5;
 			// Container child vbox16.Gtk.Box+BoxChild
-			this.table2 = new global::Gtk.Table (((uint)(5)), ((uint)(2)), false);
+			this.table2 = new global::Gtk.Table (((uint)(7)), ((uint)(2)), false);
 			this.table2.Name = "table2";
 			this.table2.RowSpacing = ((uint)(5));
 			this.table2.ColumnSpacing = ((uint)(5));
@@ -81,33 +85,83 @@ namespace Smuxi.Frontend.Gnome
 			w3.XOptions = ((global::Gtk.AttachOptions)(4));
 			w3.YOptions = ((global::Gtk.AttachOptions)(4));
 			// Container child table2.Gtk.Table+TableChild
+			this.f_NicknameEntry = new global::Gtk.Entry ();
+			this.f_NicknameEntry.CanFocus = true;
+			this.f_NicknameEntry.Name = "f_NicknameEntry";
+			this.f_NicknameEntry.IsEditable = true;
+			this.f_NicknameEntry.InvisibleChar = '●';
+			this.table2.Add (this.f_NicknameEntry);
+			global::Gtk.Table.TableChild w4 = ((global::Gtk.Table.TableChild)(this.table2 [this.f_NicknameEntry]));
+			w4.TopAttach = ((uint)(3));
+			w4.BottomAttach = ((uint)(4));
+			w4.LeftAttach = ((uint)(1));
+			w4.RightAttach = ((uint)(2));
+			w4.XOptions = ((global::Gtk.AttachOptions)(4));
+			w4.YOptions = ((global::Gtk.AttachOptions)(4));
+			// Container child table2.Gtk.Table+TableChild
+			this.f_NicknameLabel = new global::Gtk.Label ();
+			this.f_NicknameLabel.Name = "f_NicknameLabel";
+			this.f_NicknameLabel.Xalign = 0F;
+			this.f_NicknameLabel.LabelProp = global::Mono.Unix.Catalog.GetString ("Nickname:");
+			this.table2.Add (this.f_NicknameLabel);
+			global::Gtk.Table.TableChild w5 = ((global::Gtk.Table.TableChild)(this.table2 [this.f_NicknameLabel]));
+			w5.TopAttach = ((uint)(3));
+			w5.BottomAttach = ((uint)(4));
+			w5.XOptions = ((global::Gtk.AttachOptions)(4));
+			w5.YOptions = ((global::Gtk.AttachOptions)(4));
+			// Container child table2.Gtk.Table+TableChild
 			this.f_PasswordLabel = new global::Gtk.Label ();
 			this.f_PasswordLabel.Name = "f_PasswordLabel";
 			this.f_PasswordLabel.Xalign = 0F;
 			this.f_PasswordLabel.LabelProp = global::Mono.Unix.Catalog.GetString ("_Password:");
 			this.f_PasswordLabel.UseUnderline = true;
 			this.table2.Add (this.f_PasswordLabel);
-			global::Gtk.Table.TableChild w4 = ((global::Gtk.Table.TableChild)(this.table2 [this.f_PasswordLabel]));
-			w4.TopAttach = ((uint)(4));
-			w4.BottomAttach = ((uint)(5));
+			global::Gtk.Table.TableChild w6 = ((global::Gtk.Table.TableChild)(this.table2 [this.f_PasswordLabel]));
+			w6.TopAttach = ((uint)(6));
+			w6.BottomAttach = ((uint)(7));
 			// Container child table2.Gtk.Table+TableChild
 			this.f_ProtocolComboBox = new global::Gtk.ComboBox ();
 			this.f_ProtocolComboBox.Name = "f_ProtocolComboBox";
 			this.table2.Add (this.f_ProtocolComboBox);
-			global::Gtk.Table.TableChild w5 = ((global::Gtk.Table.TableChild)(this.table2 [this.f_ProtocolComboBox]));
-			w5.LeftAttach = ((uint)(1));
-			w5.RightAttach = ((uint)(2));
+			global::Gtk.Table.TableChild w7 = ((global::Gtk.Table.TableChild)(this.table2 [this.f_ProtocolComboBox]));
+			w7.LeftAttach = ((uint)(1));
+			w7.RightAttach = ((uint)(2));
+			// Container child table2.Gtk.Table+TableChild
+			this.f_RealnameEntry = new global::Gtk.Entry ();
+			this.f_RealnameEntry.CanFocus = true;
+			this.f_RealnameEntry.Name = "f_RealnameEntry";
+			this.f_RealnameEntry.IsEditable = true;
+			this.f_RealnameEntry.InvisibleChar = '●';
+			this.table2.Add (this.f_RealnameEntry);
+			global::Gtk.Table.TableChild w8 = ((global::Gtk.Table.TableChild)(this.table2 [this.f_RealnameEntry]));
+			w8.TopAttach = ((uint)(4));
+			w8.BottomAttach = ((uint)(5));
+			w8.LeftAttach = ((uint)(1));
+			w8.RightAttach = ((uint)(2));
+			w8.XOptions = ((global::Gtk.AttachOptions)(4));
+			w8.YOptions = ((global::Gtk.AttachOptions)(4));
+			// Container child table2.Gtk.Table+TableChild
+			this.f_RealnameLabel = new global::Gtk.Label ();
+			this.f_RealnameLabel.Name = "f_RealnameLabel";
+			this.f_RealnameLabel.Xalign = 0F;
+			this.f_RealnameLabel.LabelProp = global::Mono.Unix.Catalog.GetString ("Realname:");
+			this.table2.Add (this.f_RealnameLabel);
+			global::Gtk.Table.TableChild w9 = ((global::Gtk.Table.TableChild)(this.table2 [this.f_RealnameLabel]));
+			w9.TopAttach = ((uint)(4));
+			w9.BottomAttach = ((uint)(5));
+			w9.XOptions = ((global::Gtk.AttachOptions)(4));
+			w9.YOptions = ((global::Gtk.AttachOptions)(4));
 			// Container child table2.Gtk.Table+TableChild
 			this.f_UsernameEntry = new global::Gtk.Entry ();
 			this.f_UsernameEntry.Name = "f_UsernameEntry";
 			this.f_UsernameEntry.IsEditable = true;
 			this.f_UsernameEntry.InvisibleChar = '●';
 			this.table2.Add (this.f_UsernameEntry);
-			global::Gtk.Table.TableChild w6 = ((global::Gtk.Table.TableChild)(this.table2 [this.f_UsernameEntry]));
-			w6.TopAttach = ((uint)(3));
-			w6.BottomAttach = ((uint)(4));
-			w6.LeftAttach = ((uint)(1));
-			w6.RightAttach = ((uint)(2));
+			global::Gtk.Table.TableChild w10 = ((global::Gtk.Table.TableChild)(this.table2 [this.f_UsernameEntry]));
+			w10.TopAttach = ((uint)(5));
+			w10.BottomAttach = ((uint)(6));
+			w10.LeftAttach = ((uint)(1));
+			w10.RightAttach = ((uint)(2));
 			// Container child table2.Gtk.Table+TableChild
 			this.hbox10 = new global::Gtk.HBox ();
 			this.hbox10.Name = "hbox10";
@@ -117,8 +171,8 @@ namespace Smuxi.Frontend.Gnome
 			this.f_HostnameEntry.IsEditable = true;
 			this.f_HostnameEntry.InvisibleChar = '●';
 			this.hbox10.Add (this.f_HostnameEntry);
-			global::Gtk.Box.BoxChild w7 = ((global::Gtk.Box.BoxChild)(this.hbox10 [this.f_HostnameEntry]));
-			w7.Position = 0;
+			global::Gtk.Box.BoxChild w11 = ((global::Gtk.Box.BoxChild)(this.hbox10 [this.f_HostnameEntry]));
+			w11.Position = 0;
 			// Container child hbox10.Gtk.Box+BoxChild
 			this.hbox11 = new global::Gtk.HBox ();
 			this.hbox11.Name = "hbox11";
@@ -129,8 +183,8 @@ namespace Smuxi.Frontend.Gnome
 			this.f_PortLabel.LabelProp = global::Mono.Unix.Catalog.GetString ("_Port:");
 			this.f_PortLabel.UseUnderline = true;
 			this.hbox11.Add (this.f_PortLabel);
-			global::Gtk.Box.BoxChild w8 = ((global::Gtk.Box.BoxChild)(this.hbox11 [this.f_PortLabel]));
-			w8.Position = 0;
+			global::Gtk.Box.BoxChild w12 = ((global::Gtk.Box.BoxChild)(this.hbox11 [this.f_PortLabel]));
+			w12.Position = 0;
 			// Container child hbox11.Gtk.Box+BoxChild
 			this.f_PortSpinButton = new global::Gtk.SpinButton (0, 65535, 1);
 			this.f_PortSpinButton.Name = "f_PortSpinButton";
@@ -139,17 +193,17 @@ namespace Smuxi.Frontend.Gnome
 			this.f_PortSpinButton.ClimbRate = 1;
 			this.f_PortSpinButton.Numeric = true;
 			this.hbox11.Add (this.f_PortSpinButton);
-			global::Gtk.Box.BoxChild w9 = ((global::Gtk.Box.BoxChild)(this.hbox11 [this.f_PortSpinButton]));
-			w9.Position = 1;
+			global::Gtk.Box.BoxChild w13 = ((global::Gtk.Box.BoxChild)(this.hbox11 [this.f_PortSpinButton]));
+			w13.Position = 1;
 			this.hbox10.Add (this.hbox11);
-			global::Gtk.Box.BoxChild w10 = ((global::Gtk.Box.BoxChild)(this.hbox10 [this.hbox11]));
-			w10.Position = 1;
+			global::Gtk.Box.BoxChild w14 = ((global::Gtk.Box.BoxChild)(this.hbox10 [this.hbox11]));
+			w14.Position = 1;
 			this.table2.Add (this.hbox10);
-			global::Gtk.Table.TableChild w11 = ((global::Gtk.Table.TableChild)(this.table2 [this.hbox10]));
-			w11.TopAttach = ((uint)(1));
-			w11.BottomAttach = ((uint)(2));
-			w11.LeftAttach = ((uint)(1));
-			w11.RightAttach = ((uint)(2));
+			global::Gtk.Table.TableChild w15 = ((global::Gtk.Table.TableChild)(this.table2 [this.hbox10]));
+			w15.TopAttach = ((uint)(1));
+			w15.BottomAttach = ((uint)(2));
+			w15.LeftAttach = ((uint)(1));
+			w15.RightAttach = ((uint)(2));
 			// Container child table2.Gtk.Table+TableChild
 			this.hbox2 = new global::Gtk.HBox ();
 			this.hbox2.Name = "hbox2";
@@ -161,8 +215,8 @@ namespace Smuxi.Frontend.Gnome
 			this.f_PasswordEntry.Visibility = false;
 			this.f_PasswordEntry.InvisibleChar = '●';
 			this.hbox2.Add (this.f_PasswordEntry);
-			global::Gtk.Box.BoxChild w12 = ((global::Gtk.Box.BoxChild)(this.hbox2 [this.f_PasswordEntry]));
-			w12.Position = 0;
+			global::Gtk.Box.BoxChild w16 = ((global::Gtk.Box.BoxChild)(this.hbox2 [this.f_PasswordEntry]));
+			w16.Position = 0;
 			// Container child hbox2.Gtk.Box+BoxChild
 			this.f_ShowPasswordCheckButton = new global::Gtk.CheckButton ();
 			this.f_ShowPasswordCheckButton.CanFocus = true;
@@ -171,16 +225,16 @@ namespace Smuxi.Frontend.Gnome
 			this.f_ShowPasswordCheckButton.DrawIndicator = true;
 			this.f_ShowPasswordCheckButton.UseUnderline = true;
 			this.hbox2.Add (this.f_ShowPasswordCheckButton);
-			global::Gtk.Box.BoxChild w13 = ((global::Gtk.Box.BoxChild)(this.hbox2 [this.f_ShowPasswordCheckButton]));
-			w13.Position = 1;
+			global::Gtk.Box.BoxChild w17 = ((global::Gtk.Box.BoxChild)(this.hbox2 [this.f_ShowPasswordCheckButton]));
+			w17.Position = 1;
 			this.table2.Add (this.hbox2);
-			global::Gtk.Table.TableChild w14 = ((global::Gtk.Table.TableChild)(this.table2 [this.hbox2]));
-			w14.TopAttach = ((uint)(4));
-			w14.BottomAttach = ((uint)(5));
-			w14.LeftAttach = ((uint)(1));
-			w14.RightAttach = ((uint)(2));
-			w14.XOptions = ((global::Gtk.AttachOptions)(4));
-			w14.YOptions = ((global::Gtk.AttachOptions)(4));
+			global::Gtk.Table.TableChild w18 = ((global::Gtk.Table.TableChild)(this.table2 [this.hbox2]));
+			w18.TopAttach = ((uint)(6));
+			w18.BottomAttach = ((uint)(7));
+			w18.LeftAttach = ((uint)(1));
+			w18.RightAttach = ((uint)(2));
+			w18.XOptions = ((global::Gtk.AttachOptions)(4));
+			w18.YOptions = ((global::Gtk.AttachOptions)(4));
 			// Container child table2.Gtk.Table+TableChild
 			this.label21 = new global::Gtk.Label ();
 			this.label21.Name = "label21";
@@ -188,9 +242,9 @@ namespace Smuxi.Frontend.Gnome
 			this.label21.LabelProp = global::Mono.Unix.Catalog.GetString ("_Username:");
 			this.label21.UseUnderline = true;
 			this.table2.Add (this.label21);
-			global::Gtk.Table.TableChild w15 = ((global::Gtk.Table.TableChild)(this.table2 [this.label21]));
-			w15.TopAttach = ((uint)(3));
-			w15.BottomAttach = ((uint)(4));
+			global::Gtk.Table.TableChild w19 = ((global::Gtk.Table.TableChild)(this.table2 [this.label21]));
+			w19.TopAttach = ((uint)(5));
+			w19.BottomAttach = ((uint)(6));
 			// Container child table2.Gtk.Table+TableChild
 			this.label5 = new global::Gtk.Label ();
 			this.label5.Name = "label5";
@@ -199,9 +253,9 @@ namespace Smuxi.Frontend.Gnome
 			this.label5.UseUnderline = true;
 			this.table2.Add (this.label5);
 			this.vbox16.Add (this.table2);
-			global::Gtk.Box.BoxChild w17 = ((global::Gtk.Box.BoxChild)(this.vbox16 [this.table2]));
-			w17.Position = 0;
-			w17.Expand = false;
+			global::Gtk.Box.BoxChild w21 = ((global::Gtk.Box.BoxChild)(this.vbox16 [this.table2]));
+			w21.Position = 0;
+			w21.Expand = false;
 			// Container child vbox16.Gtk.Box+BoxChild
 			this.f_OnStartupConnectCheckButton = new global::Gtk.CheckButton ();
 			this.f_OnStartupConnectCheckButton.CanFocus = true;
@@ -211,10 +265,10 @@ namespace Smuxi.Frontend.Gnome
 			this.f_OnStartupConnectCheckButton.UseUnderline = true;
 			this.f_OnStartupConnectCheckButton.Xalign = 0F;
 			this.vbox16.Add (this.f_OnStartupConnectCheckButton);
-			global::Gtk.Box.BoxChild w18 = ((global::Gtk.Box.BoxChild)(this.vbox16 [this.f_OnStartupConnectCheckButton]));
-			w18.Position = 1;
-			w18.Expand = false;
-			w18.Fill = false;
+			global::Gtk.Box.BoxChild w22 = ((global::Gtk.Box.BoxChild)(this.vbox16 [this.f_OnStartupConnectCheckButton]));
+			w22.Position = 1;
+			w22.Expand = false;
+			w22.Fill = false;
 			// Container child vbox16.Gtk.Box+BoxChild
 			this.f_UseEncryptionCheckButton = new global::Gtk.CheckButton ();
 			this.f_UseEncryptionCheckButton.CanFocus = true;
@@ -223,10 +277,10 @@ namespace Smuxi.Frontend.Gnome
 			this.f_UseEncryptionCheckButton.DrawIndicator = true;
 			this.f_UseEncryptionCheckButton.UseUnderline = true;
 			this.vbox16.Add (this.f_UseEncryptionCheckButton);
-			global::Gtk.Box.BoxChild w19 = ((global::Gtk.Box.BoxChild)(this.vbox16 [this.f_UseEncryptionCheckButton]));
-			w19.Position = 2;
-			w19.Expand = false;
-			w19.Fill = false;
+			global::Gtk.Box.BoxChild w23 = ((global::Gtk.Box.BoxChild)(this.vbox16 [this.f_UseEncryptionCheckButton]));
+			w23.Position = 2;
+			w23.Expand = false;
+			w23.Fill = false;
 			// Container child vbox16.Gtk.Box+BoxChild
 			this.f_ValidateServerCertificateCheckButton = new global::Gtk.CheckButton ();
 			this.f_ValidateServerCertificateCheckButton.CanFocus = true;
@@ -235,10 +289,10 @@ namespace Smuxi.Frontend.Gnome
 			this.f_ValidateServerCertificateCheckButton.DrawIndicator = true;
 			this.f_ValidateServerCertificateCheckButton.UseUnderline = true;
 			this.vbox16.Add (this.f_ValidateServerCertificateCheckButton);
-			global::Gtk.Box.BoxChild w20 = ((global::Gtk.Box.BoxChild)(this.vbox16 [this.f_ValidateServerCertificateCheckButton]));
-			w20.Position = 3;
-			w20.Expand = false;
-			w20.Fill = false;
+			global::Gtk.Box.BoxChild w24 = ((global::Gtk.Box.BoxChild)(this.vbox16 [this.f_ValidateServerCertificateCheckButton]));
+			w24.Position = 3;
+			w24.Expand = false;
+			w24.Fill = false;
 			// Container child vbox16.Gtk.Box+BoxChild
 			this.vbox2 = new global::Gtk.VBox ();
 			this.vbox2.Name = "vbox2";
@@ -254,10 +308,10 @@ namespace Smuxi.Frontend.Gnome
 			this.label37.LabelProp = global::Mono.Unix.Catalog.GetString ("_On Connect Commands:");
 			this.label37.UseUnderline = true;
 			this.hbox3.Add (this.label37);
-			global::Gtk.Box.BoxChild w21 = ((global::Gtk.Box.BoxChild)(this.hbox3 [this.label37]));
-			w21.Position = 0;
-			w21.Expand = false;
-			w21.Fill = false;
+			global::Gtk.Box.BoxChild w25 = ((global::Gtk.Box.BoxChild)(this.hbox3 [this.label37]));
+			w25.Position = 0;
+			w25.Expand = false;
+			w25.Fill = false;
 			// Container child hbox3.Gtk.Box+BoxChild
 			this.f_IgnoreOnConnectCommandsCheckButton = new global::Gtk.CheckButton ();
 			this.f_IgnoreOnConnectCommandsCheckButton.CanFocus = true;
@@ -266,13 +320,13 @@ namespace Smuxi.Frontend.Gnome
 			this.f_IgnoreOnConnectCommandsCheckButton.DrawIndicator = true;
 			this.f_IgnoreOnConnectCommandsCheckButton.UseUnderline = true;
 			this.hbox3.Add (this.f_IgnoreOnConnectCommandsCheckButton);
-			global::Gtk.Box.BoxChild w22 = ((global::Gtk.Box.BoxChild)(this.hbox3 [this.f_IgnoreOnConnectCommandsCheckButton]));
-			w22.Position = 1;
+			global::Gtk.Box.BoxChild w26 = ((global::Gtk.Box.BoxChild)(this.hbox3 [this.f_IgnoreOnConnectCommandsCheckButton]));
+			w26.Position = 1;
 			this.vbox2.Add (this.hbox3);
-			global::Gtk.Box.BoxChild w23 = ((global::Gtk.Box.BoxChild)(this.vbox2 [this.hbox3]));
-			w23.Position = 0;
-			w23.Expand = false;
-			w23.Fill = false;
+			global::Gtk.Box.BoxChild w27 = ((global::Gtk.Box.BoxChild)(this.vbox2 [this.hbox3]));
+			w27.Position = 0;
+			w27.Expand = false;
+			w27.Fill = false;
 			// Container child vbox2.Gtk.Box+BoxChild
 			this.scrolledwindow1 = new global::Gtk.ScrolledWindow ();
 			this.scrolledwindow1.WidthRequest = 350;
@@ -287,18 +341,20 @@ namespace Smuxi.Frontend.Gnome
 			this.f_OnConnectCommandsTextView.WrapMode = ((global::Gtk.WrapMode)(2));
 			this.scrolledwindow1.Add (this.f_OnConnectCommandsTextView);
 			this.vbox2.Add (this.scrolledwindow1);
-			global::Gtk.Box.BoxChild w25 = ((global::Gtk.Box.BoxChild)(this.vbox2 [this.scrolledwindow1]));
-			w25.Position = 1;
+			global::Gtk.Box.BoxChild w29 = ((global::Gtk.Box.BoxChild)(this.vbox2 [this.scrolledwindow1]));
+			w29.Position = 1;
 			this.vbox16.Add (this.vbox2);
-			global::Gtk.Box.BoxChild w26 = ((global::Gtk.Box.BoxChild)(this.vbox16 [this.vbox2]));
-			w26.Position = 4;
+			global::Gtk.Box.BoxChild w30 = ((global::Gtk.Box.BoxChild)(this.vbox16 [this.vbox2]));
+			w30.Position = 4;
 			this.Add (this.vbox16);
 			if ((this.Child != null)) {
 				this.Child.ShowAll ();
 			}
 			this.f_HostnameLabel.MnemonicWidget = this.f_HostnameEntry;
 			this.f_NetworkLabel.MnemonicWidget = this.f_NetworkComboBoxEntry;
+			this.f_NicknameLabel.MnemonicWidget = this.f_NicknameEntry;
 			this.f_PasswordLabel.MnemonicWidget = this.f_PasswordEntry;
+			this.f_RealnameLabel.MnemonicWidget = this.f_RealnameEntry;
 			this.f_PortLabel.MnemonicWidget = this.f_PortSpinButton;
 			this.label21.MnemonicWidget = this.f_UsernameEntry;
 			this.label5.MnemonicWidget = this.f_ProtocolComboBox;

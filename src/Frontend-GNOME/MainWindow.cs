@@ -1,7 +1,7 @@
 /*
  * Smuxi - Smart MUltipleXed Irc
  *
- * Copyright (c) 2005-2013 Mirco Bauer <meebey@meebey.net>
+ * Copyright (c) 2005-2014 Mirco Bauer <meebey@meebey.net>
  *
  * Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
  *
@@ -44,6 +44,7 @@ namespace Smuxi.Frontend.Gnome
         public Gtk.ProgressBar ProgressBar { get; private set; }
         Gtk.HBox StatusHBox { get; set; }
         public MenuWidget MenuWidget { get; private set; }
+        Gtk.HPaned TreeViewHPaned { get; set; }
 
         public IFrontendUI UI { get; private set; }
         public Entry Entry { get; private set; }
@@ -262,6 +263,7 @@ namespace Smuxi.Frontend.Gnome
             var treeviewPaned = new Gtk.HPaned();
             treeviewPaned.Pack1(treeviewScrolledWindow, false, false);
             treeviewPaned.Pack2(Notebook, true, false);
+            TreeViewHPaned = treeviewPaned;
 
             var entryPaned = new Gtk.VPaned();
             entryPaned.ButtonPressEvent += (sender, e) => {
@@ -369,6 +371,14 @@ namespace Smuxi.Frontend.Gnome
             title += "Smuxi";
 
             Title = title;
+        }
+
+        protected override bool OnConfigureEvent(Gdk.EventConfigure e)
+        {
+            Trace.Call(e);
+
+            TreeViewHPaned.Position = e.Width / 6;
+            return base.OnConfigureEvent(e);
         }
 
         protected virtual void OnDeleteEvent(object sender, Gtk.DeleteEventArgs e)

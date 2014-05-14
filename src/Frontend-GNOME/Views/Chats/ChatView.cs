@@ -60,7 +60,6 @@ namespace Smuxi.Frontend.Gnome
         bool                         UseLowBandwidthMode { get; set; }
         public Gtk.Image TabImage { get; protected set; }
         bool                         IsAutoScrolling { get; set; }
-        Gtk.ImageMenuItem  CloseItem { get; set; }
 
         public event EventHandler<EventArgs> StatusChanged;
 
@@ -318,11 +317,7 @@ namespace Smuxi.Frontend.Gnome
 
             // popup menu
             _TabMenu = new Gtk.Menu();
-
-            CloseItem = new Gtk.ImageMenuItem(Gtk.Stock.Close, null);
-            CloseItem.Activated += new EventHandler(OnTabMenuCloseActivated);
-            _TabMenu.Append(CloseItem);
-            _TabMenu.ShowAll();
+            _TabMenu.Shown += OnTabMenuShown;
 
             //FocusChild = _OutputTextView;
             //CanFocus = false;
@@ -382,7 +377,7 @@ namespace Smuxi.Frontend.Gnome
                 // HACK: this shouldn't be needed but GTK# keeps GC handles
                 // these callbacks for some reason and thus leaks :(
                 _OutputMessageTextView.Dispose();
-                CloseItem.Activated -= OnTabMenuCloseActivated;
+                _TabMenu.Shown -= OnTabMenuShown;
                 _OutputScrolledWindow.Vadjustment.ValueChanged -= OnVadjustmentValueChanged;
             }
         }
@@ -663,7 +658,20 @@ namespace Smuxi.Frontend.Gnome
                 Frontend.ShowException(ex);
             }
         }
-        
+
+        protected virtual void OnTabMenuShown(object sender, EventArgs e)
+        {
+            Trace.Call(sender, e);
+
+            foreach (var child in _TabMenu.Children) {
+                _TabMenu.Remove(child);
+            }
+            var closeItem = new Gtk.ImageMenuItem(Gtk.Stock.Close, null);
+            closeItem.Activated += OnTabMenuCloseActivated;
+            _TabMenu.Append(closeItem);
+            _TabMenu.ShowAll();
+        }
+
         protected virtual void OnTabMenuCloseActivated(object sender, EventArgs e)
         {
             Trace.Call(sender, e);

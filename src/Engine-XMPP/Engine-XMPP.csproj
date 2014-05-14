@@ -42,12 +42,11 @@
     <Compile Include="AssemblyInfo.cs" />
     <Compile Include="..\AssemblyVersion.cs" />
     <Compile Include="Protocols\Xmpp\XmppGroupChatModel.cs" />
-    <Compile Include="Protocols\Xmpp\IQ\OwnMessage.cs" />
     <Compile Include="Config\XmppServerModel.cs" />
     <Compile Include="Config\XmppPersonModel.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Protocols\Xmpp\IQ\" />
+    <Compile Include="Protocols\Xmpp\FacebookProtocolManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Common\Common.csproj">

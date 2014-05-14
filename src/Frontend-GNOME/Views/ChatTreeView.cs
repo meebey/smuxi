@@ -1,6 +1,6 @@
 // Smuxi - Smart MUltipleXed Irc
 //
-// Copyright (c) 2013 Mirco Bauer <meebey@meebey.net>
+// Copyright (c) 2013-2014 Mirco Bauer <meebey@meebey.net>
 //
 // Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
 //
@@ -97,11 +97,22 @@ namespace Smuxi.Frontend.Gnome
             column.SetCellDataFunc(iconRenderer, new Gtk.TreeCellDataFunc(RenderChatViewIcon));
             AppendColumn(column);
 
-            var cellRenderer = new Gtk.CellRendererText();
+            var cellRenderer = new Gtk.CellRendererText() {
+                Ellipsize = Pango.EllipsizeMode.End
+            };
             column = new Gtk.TreeViewColumn(null, cellRenderer);
             column.Spacing = 0;
+            column.Expand = true;
             column.Sizing = Gtk.TreeViewColumnSizing.Autosize;
             column.SetCellDataFunc(cellRenderer, new Gtk.TreeCellDataFunc(RenderChatViewName));
+            AppendColumn(column);
+
+            cellRenderer = new Gtk.CellRendererText();
+            column = new Gtk.TreeViewColumn(null, cellRenderer);
+            column.Spacing = 0;
+            column.Alignment = 1;
+            column.Sizing = Gtk.TreeViewColumnSizing.Autosize;
+            column.SetCellDataFunc(cellRenderer, new Gtk.TreeCellDataFunc(RenderChatViewActivity));
             AppendColumn(column);
         }
 
@@ -233,25 +244,17 @@ namespace Smuxi.Frontend.Gnome
             var renderer = (Gtk.CellRendererText) cellr;
 
             Gdk.Color color;
-            string text;
             if (chat.HighlightCount > 1) {
                 color = ThemeSettings.HighlightColor;
-                text = String.Format("{0} ({1})",
-                                     chat.Name,
-                                     chat.HighlightCount.ToString());
             } else if (chat.HighlightCount == 1) {
                 color = ThemeSettings.HighlightColor;
-                text = chat.Name;
             } else if (chat.HasActivity) {
                 color = ThemeSettings.ActivityColor;
-                text = chat.Name;
             } else if (chat.HasEvent) {
                 color = ThemeSettings.EventColor;
-                text = chat.Name;
             } else {
                 // no activity
                 color = ThemeSettings.NoActivityColor;
-                text = chat.Name;
             }
 
             var textColor = TextColorTools.GetBestTextColor(
@@ -262,6 +265,40 @@ namespace Smuxi.Frontend.Gnome
             );
             renderer.Markup = String.Format(
                 "<span foreground=\"{0}\">{1}</span>",
+                GLib.Markup.EscapeText(textColor.ToString()),
+                GLib.Markup.EscapeText(chat.Name)
+            );
+        }
+
+        protected virtual void RenderChatViewActivity(Gtk.TreeViewColumn column,
+                                                      Gtk.CellRenderer cellr,
+                                                      Gtk.TreeModel model, Gtk.TreeIter iter)
+        {
+            var chat = (ChatView) model.GetValue(iter, 0);
+            var renderer = (Gtk.CellRendererText) cellr;
+
+            Gdk.Color color;
+            string text = null;
+            if (chat.HighlightCount > 1) {
+                color = ThemeSettings.HighlightColor;
+                text = chat.HighlightCount.ToString();
+            } else {
+                // no highlight counter
+                renderer.Markup = String.Empty;
+                return;
+            }
+            if (text == null) {
+                return;
+            }
+
+            var textColor = TextColorTools.GetBestTextColor(
+                ColorConverter.GetTextColor(color),
+                ColorConverter.GetTextColor(
+                Gtk.Rc.GetStyle(this).Base(Gtk.StateType.Normal)
+                ), TextColorContrast.High
+            );
+            renderer.Markup = String.Format(
+                "<span foreground=\"{0}\">({1})</span>",
                 GLib.Markup.EscapeText(textColor.ToString()),
                 GLib.Markup.EscapeText(text)
             );

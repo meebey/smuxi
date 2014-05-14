@@ -36,9 +36,8 @@ namespace Smuxi.Engine
 
             builder = new MessageBuilder();
             builder.TimeStamp = DateTime.MinValue;
-            builder.AppendText("http://example.com");
+            builder.AppendMessage("http://example.com");
             var actualMsg = builder.ToMessage();
-            MessageParser.ParseUrls(actualMsg);
 
             Assert.AreEqual(expectedMsg, actualMsg);
         }
@@ -48,16 +47,15 @@ namespace Smuxi.Engine
         {
             var builder = new MessageBuilder();
             builder.TimeStamp = DateTime.MinValue;
-            builder.AppendText("foo ");
-            builder.AppendUrl("http://example.com", "<http://example.com>");
-            builder.AppendText(" bar");
+            builder.AppendText("foo <");
+            builder.AppendUrl("http://example.com");
+            builder.AppendText("> bar");
             var expectedMsg = builder.ToMessage();
 
             builder = new MessageBuilder();
             builder.TimeStamp = DateTime.MinValue;
-            builder.AppendText("foo <http://example.com> bar");
+            builder.AppendMessage("foo <http://example.com> bar");
             var actualMsg = builder.ToMessage();
-            MessageParser.ParseUrls(actualMsg);
 
             Assert.AreEqual(expectedMsg, actualMsg);
         }
@@ -74,11 +72,53 @@ namespace Smuxi.Engine
 
             builder = new MessageBuilder();
             builder.TimeStamp = DateTime.MinValue;
-            builder.AppendText("foo (http://example.com) bar");
+            builder.AppendMessage("foo (http://example.com) bar");
             var actualMsg = builder.ToMessage();
-            MessageParser.ParseUrls(actualMsg);
 
             Assert.AreEqual(expectedMsg, actualMsg);
+        }
+
+        [Test]
+        public void BenchmarkLowerBound()
+        {
+            int howOften = 5000;
+            var nonurl = @"is this up to date? --> ";
+            var url = @"http://www.stack.nl/~jilles/irc/atheme-help/";
+            var withUrl = nonurl + url;
+            var withoutUrl = @"Generated Sat Dec 11 21:29:16 CET 2010 -- old";
+            var builder = new MessageBuilder();
+            for (int i = 0; i < howOften; ++i) {
+                builder.AppendText(nonurl);
+                builder.AppendUrl(url);
+            }
+        }
+
+        [Test]
+        public void BenchmarkWithUrl()
+        {
+            int howOften = 5000;
+            var nonurl = @"is this up to date? --> ";
+            var url = @"http://www.stack.nl/~jilles/irc/atheme-help/";
+            var withUrl = nonurl + url;
+            var withoutUrl = @"Generated Sat Dec 11 21:29:16 CET 2010 -- old";
+            var builder = new MessageBuilder();
+            for (int i = 0; i < howOften; ++i) {
+                builder.AppendMessage(withUrl);
+            }
+        }
+
+        [Test]
+        public void BenchmarkWithoutUrl()
+        {
+            int howOften = 5000;
+            var nonurl = @"is this up to date? --> ";
+            var url = @"http://www.stack.nl/~jilles/irc/atheme-help/";
+            var withUrl = nonurl + url;
+            var withoutUrl = @"Generated Sat Dec 11 21:29:16 CET 2010 -- old";
+            var builder = new MessageBuilder();
+            for (int i = 0; i < howOften; ++i) {
+                builder.AppendMessage(withoutUrl);
+            }
         }
     }
 }

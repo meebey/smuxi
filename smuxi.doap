@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+         xmlns:foaf="http://xmlns.com/foaf/0.1/"
+         xmlns:gnome="http://api.gnome.org/doap-extensions#"
+         xmlns="http://usefulinc.com/ns/doap#">
+
+  <name xml:lang="en">Smuxi IRC Client</name>
+
+  <shortdesc xml:lang="en">
+  free, distributed and user-friendly IRC / Twitter / XMPP client
+  </shortdesc>
+
+  <description>
+  Smuxi is an irssi-inspired, flexible, user-friendly and
+  cross-platform IRC client for sophisticated users, targeting the GNOME desktop.
+
+  Smuxi is based on the client-server model: The core application (engine) can be
+  placed onto a server which is connected to the Internet around-the-clock; one
+  or more frontends then connect to the core. This way, the connection to IRC can
+  be kept up even when all frontends have been closed. The combination of screen
+  and irssi served as example for this architecture.
+
+  Smuxi also supports the regular single application mode. This behaves like a
+  typical IRC client; it doesn't need separate core management and utilizes a
+  local engine that is used by the local frontend client.
+
+  Smuxi's GNOME homepage: https://wiki.gnome.org/Apps/Smuxi
+  </description>
+
+  <homepage rdf:resource="https://www.smuxi.org/" />
+  <download-page rdf:resource="https://www.smuxi.org/page/Download" />
+  <bug-database rdf:resource="https://www.smuxi.org/issues/" />
+  <screenshots rdf:resource="https://www.smuxi.org/screenshots/" />
+  <license rdf:resource="https://www.gnu.org/licenses/gpl-2.0.html" />
+  <programming-language>C#</programming-language>
+
+  <maintainer>
+    <foaf:Person>
+      <foaf:name>Mirco Bauer</foaf:name>
+      <foaf:mbox rdf:resource="mailto:meebey@meebey.net" />
+      <gnome:userid>mmmbauer</gnome:userid>
+    </foaf:Person>
+  </maintainer>
+
+  <!-- Version Control -->
+  <repository>
+    <GitRepository>
+      <browse rdf:resource="http://git.gnome.org/cgit/smuxi" />
+      <location rdf:resource="git://git.gnome.org/smuxi" />
+    </GitRepository>
+  </repository>
+</Project>

@@ -1,6 +1,6 @@
 // Smuxi - Smart MUltipleXed Irc
 // 
-// Copyright (c) 2010-2013 Mirco Bauer <meebey@meebey.net>
+// Copyright (c) 2010-2014 Mirco Bauer <meebey@meebey.net>
 // 
 // Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
 // 
@@ -72,6 +72,18 @@ namespace Smuxi.Frontend.Gnome
             }
         }
 
+        public Gtk.Entry NicknameEntry {
+            get {
+                return f_NicknameEntry;
+            }
+        }
+
+        public Gtk.Entry RealnameEntry {
+            get {
+                return f_RealnameEntry;
+            }
+        }
+
         public Gtk.CheckButton OnStartupConnectCheckButton {
             get {
                 return f_OnStartupConnectCheckButton;
@@ -94,7 +106,29 @@ namespace Smuxi.Frontend.Gnome
             }
         }
 
-        public bool ShowPassword {
+        public bool ShowNickname {
+            set {
+                // Smuxi < 0.11 does not support server specific nickname
+                if (Frontend.EngineVersion < new Version(0, 11)) {
+                    value = false;
+                }
+                f_NicknameLabel.Visible = value;
+                f_NicknameEntry.Visible = value;
+            }
+        }
+
+        public bool ShowRealname {
+            set {
+                // Smuxi < 0.11 does not support server specific realname
+                if (Frontend.EngineVersion < new Version(0, 11)) {
+                    value = false;
+                }
+                f_RealnameLabel.Visible = value;
+                f_RealnameEntry.Visible = value;
+            }
+        }
+
+       public bool ShowPassword {
             set {
                 f_PasswordLabel.Visible = value;
                 f_PasswordEntry.Visible = value;
@@ -135,6 +169,18 @@ namespace Smuxi.Frontend.Gnome
             ServerID = server.ServerID;
             f_HostnameEntry.Text = server.Hostname;
             f_NetworkComboBoxEntry.Entry.Text = server.Network;
+            if (String.IsNullOrEmpty(server.Nickname)) {
+                var defaultNicknames = (string[]) Frontend.UserConfig["Connection/Nicknames"];
+                f_NicknameEntry.Text = String.Join(" ", defaultNicknames);
+            } else {
+                f_NicknameEntry.Text = server.Nickname;
+            }
+            if (String.IsNullOrEmpty(server.Realname)) {
+                var defaultRealname = (string) Frontend.UserConfig["Connection/Realname"];
+                f_RealnameEntry.Text = defaultRealname;
+            } else {
+                f_RealnameEntry.Text = server.Realname;
+            }
             f_UsernameEntry.Text = server.Username;
             // HACK: Twitter username is part of the PKEY, not allowed to change
             if (server.Protocol == "Twitter") {
@@ -175,6 +221,8 @@ namespace Smuxi.Frontend.Gnome
                 server.Hostname = server.Username;
             }
             server.Password = f_PasswordEntry.Text;
+            server.Nickname = f_NicknameEntry.Text.Trim();
+            server.Realname = f_RealnameEntry.Text.Trim();
             server.UseEncryption = f_UseEncryptionCheckButton.Active;
             server.ValidateServerCertificate =
                 f_ValidateServerCertificateCheckButton.Active;
@@ -249,6 +297,11 @@ namespace Smuxi.Frontend.Gnome
             f_UseEncryptionCheckButton.Clicked += delegate {
                 CheckUseEncryptionCheckButton();
             };
+
+            var defaultNicknames = (string[]) Frontend.UserConfig["Connection/Nicknames"];
+            f_NicknameEntry.Text = String.Join(" ", defaultNicknames);
+            var defaultRealname = (string) Frontend.UserConfig["Connection/Realname"];
+            f_RealnameEntry.Text = defaultRealname;
         }
 
         protected virtual void CheckIgnoreOnConnectCommandsCheckButton()
@@ -303,6 +356,8 @@ namespace Smuxi.Frontend.Gnome
                 case "IRC":
                     ShowHostname = true;
                     ShowNetwork = true;
+                    ShowNickname = true;
+                    ShowRealname = true;
                     ShowPassword = true;
                     SupportUseEncryption = true;
 
@@ -312,9 +367,21 @@ namespace Smuxi.Frontend.Gnome
                     f_PortSpinButton.Value = 6667;
                     f_PortSpinButton.Sensitive = true;
                     break;
+                case "Facebook":
+                    ShowHostname = false;
+                    ShowNetwork = false;
+                    ShowNickname = false;
+                    ShowRealname = false;
+                    ShowPassword = true;
+                    SupportUseEncryption = true;
+                    f_HostnameEntry.Text = "chat.facebook.com";
+                    f_PortSpinButton.Value = 5222;
+                    break;
                 case "XMPP":
                     ShowHostname = true;
                     ShowNetwork = false;
+                    ShowNickname = false;
+                    ShowRealname = false;
                     ShowPassword = true;
                     SupportUseEncryption = true;
                 
@@ -331,6 +398,8 @@ namespace Smuxi.Frontend.Gnome
                 case "MSNP":
                     ShowHostname = false;
                     ShowNetwork = false;
+                    ShowNickname = false;
+                    ShowRealname = false;
                     ShowPassword = true;
                     SupportUseEncryption = false;
 
@@ -345,6 +414,8 @@ namespace Smuxi.Frontend.Gnome
                 case "Twitter":
                     ShowHostname = false;
                     ShowNetwork = false;
+                    ShowNickname = false;
+                    ShowRealname = false;
                     ShowPassword = false;
                     SupportUseEncryption = true;
                     // engine always uses https
@@ -360,6 +431,8 @@ namespace Smuxi.Frontend.Gnome
                 case "Campfire":
                     ShowHostname = true;
                     ShowNetwork = false;
+                    ShowNickname = false;
+                    ShowRealname = false;
                     ShowPassword = true;
                     SupportUseEncryption = true;
                     // engine always uses https
@@ -376,6 +449,8 @@ namespace Smuxi.Frontend.Gnome
                 case "JabbR":
                     ShowHostname = true;
                     ShowNetwork = false;
+                    ShowNickname = false;
+                    ShowRealname = false;
                     ShowPassword = true;
                     SupportUseEncryption = true;
 
@@ -392,6 +467,8 @@ namespace Smuxi.Frontend.Gnome
                 default:
                     ShowHostname = true;
                     ShowNetwork = true;
+                    ShowNickname = true;
+                    ShowRealname = true;
                     ShowPassword = true;
                     SupportUseEncryption = true;
 

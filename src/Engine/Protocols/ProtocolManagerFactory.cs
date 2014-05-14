@@ -118,7 +118,7 @@ namespace Smuxi.Engine
         {
             Trace.Call(path);
             
-            string[] filenames = Directory.GetFiles(path, "smuxi-engine-*.dll");
+            string[] filenames = Directory.GetFiles(path, "smuxi-engine*.dll");
             foreach (string filename in filenames) {
                 LoadProtocolManager(filename);
             }
@@ -127,7 +127,8 @@ namespace Smuxi.Engine
         public ProtocolManagerInfoModel GetProtocolManagerInfoByAlias(string alias)
         {
             foreach (ProtocolManagerInfoModel info in _ProtocolManagerTypes.Keys) {
-                if (info.Alias.Equals(alias, StringComparison.InvariantCultureIgnoreCase)) {
+                if (info.Alias.Equals(alias, StringComparison.InvariantCultureIgnoreCase) ||
+                    info.Name.Equals(alias, StringComparison.InvariantCultureIgnoreCase)) {
                     return info;
                 }
             }

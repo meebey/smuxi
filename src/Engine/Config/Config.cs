@@ -1,13 +1,7 @@
 /*
- * $Id$
- * $URL$
- * $Rev$
- * $Author$
- * $Date$
- *
  * Smuxi - Smart MUltipleXed Irc
  *
- * Copyright (c) 2005-2006 Mirco Bauer <meebey@meebey.net>
+ * Copyright (c) 2005-2014 Mirco Bauer <meebey@meebey.net>
  *
  * Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
  *
@@ -325,6 +319,8 @@ namespace Smuxi.Engine
             Get(prefix + "Hostname", "irc.oftc.net");
             Get(prefix + "Port", 6667);
             Get(prefix + "Network", "OFTC");
+            Get(prefix + "Nickname", String.Empty);
+            Get(prefix + "Realname", String.Empty);
             Get(prefix + "Username", String.Empty);
             Get(prefix + "Password", String.Empty);
             Get(prefix + "UseEncryption", false);
@@ -340,6 +336,8 @@ namespace Smuxi.Engine
             Get(prefix + "Hostname", "irc.gimp.org");
             Get(prefix + "Port", 6667);
             Get(prefix + "Network", "GIMPNet");
+            Get(prefix + "Nickname", String.Empty);
+            Get(prefix + "Realname", String.Empty);
             Get(prefix + "Username", String.Empty);
             Get(prefix + "Password", String.Empty);
             Get(prefix + "UseEncryption", false);
@@ -349,6 +347,8 @@ namespace Smuxi.Engine
             Get(prefix + "Hostname", "irc.geekshed.net");
             Get(prefix + "Port", 6667);
             Get(prefix + "Network", "GeekShed");
+            Get(prefix + "Nickname", String.Empty);
+            Get(prefix + "Realname", String.Empty);
             Get(prefix + "Username", String.Empty);
             Get(prefix + "Password", String.Empty);
             Get(prefix + "UseEncryption", false);
@@ -358,6 +358,8 @@ namespace Smuxi.Engine
             Get(prefix + "Hostname", "irc.efnet.org");
             Get(prefix + "Port", 6667);
             Get(prefix + "Network", "EFnet");
+            Get(prefix + "Nickname", String.Empty);
+            Get(prefix + "Realname", String.Empty);
             Get(prefix + "Username", String.Empty);
             Get(prefix + "Password", String.Empty);
             Get(prefix + "UseEncryption", false);
@@ -367,6 +369,8 @@ namespace Smuxi.Engine
             Get(prefix + "Hostname", "irc.ircnet.org");
             Get(prefix + "Port", 6667);
             Get(prefix + "Network", "IRCnet");
+            Get(prefix + "Nickname", String.Empty);
+            Get(prefix + "Realname", String.Empty);
             Get(prefix + "Username", String.Empty);
             Get(prefix + "Password", String.Empty);
             Get(prefix + "UseEncryption", false);
@@ -376,6 +380,8 @@ namespace Smuxi.Engine
             Get(prefix + "Hostname", "irc.freenode.net");
             Get(prefix + "Port", 6667);
             Get(prefix + "Network", "freenode");
+            Get(prefix + "Nickname", String.Empty);
+            Get(prefix + "Realname", String.Empty);
             Get(prefix + "Username", String.Empty);
             Get(prefix + "Password", String.Empty);
             Get(prefix + "UseEncryption", false);
@@ -446,7 +452,7 @@ namespace Smuxi.Engine
 #endif
                 }
                 if (String.IsNullOrEmpty(realname)) {
-                    realname = "http://www.smuxi.org/";
+                    realname = "Your Name";
                 }
                 LoadUserEntry(user, "Connection/Realname", realname);
                 LoadUserEntry(user, "Connection/Encoding", String.Empty);
@@ -545,6 +551,10 @@ namespace Smuxi.Engine
                                       Get(dprefix + server + "/Encoding", null));
                             LoadEntry(sprefix + server + "/AutoConvertUTF8",
                                       Get(dprefix + server + "/AutoConvertUTF8", null));
+                            LoadEntry(sprefix + server + "/Nickname",
+                                      Get(dprefix + server + "/Nickname", null));
+                            LoadEntry(sprefix + server + "/Realname",
+                                      Get(dprefix + server + "/Realname", null));
                             LoadEntry(sprefix + server + "/Username",
                                       Get(dprefix + server + "/Username", null));
                             LoadEntry(sprefix + server + "/Password",
@@ -571,6 +581,8 @@ namespace Smuxi.Engine
                     LoadEntry(sprefix+"Network", String.Empty);
                     LoadEntry(sprefix+"Encoding", null);
                     LoadEntry(sprefix+"AutoConvertUTF8", null);
+                    LoadEntry(sprefix+"Nickname", String.Empty);
+                    LoadEntry(sprefix+"Realname", String.Empty);
                     LoadEntry(sprefix+"Username", String.Empty);
                     LoadEntry(sprefix+"Password", String.Empty);
                     LoadEntry(sprefix+"UseEncryption", false);
@@ -605,6 +617,22 @@ namespace Smuxi.Engine
                     LoadUserEntry(user, cprefix + "ChatID", null);
                     LoadUserEntry(user, cprefix + "MessageType", null);
                     LoadUserEntry(user, cprefix + "MessagePattern", null);
+                }
+
+                string lprefix = "MessagePatterns/";
+                var linkKeys = GetList(prefix + user + "/" + lprefix + "MessagePatterns");
+                if (linkKeys == null) {
+                    linkKeys = new string[] {};
+                    m_Preferences[prefix + user + "/" + lprefix + "MessagePatterns"] = new string[] {};
+                } else {
+                    m_Preferences[prefix + user + "/" + lprefix + "MessagePatterns"] = linkKeys;
+                }
+                foreach (var linkKey in linkKeys) {
+                    lprefix = "MessagePatterns/" + linkKey + "/";
+                    LoadUserEntry(user, lprefix + "MessagePartPattern", String.Empty);
+                    LoadUserEntry(user, lprefix + "MessagePartType", String.Empty);
+                    LoadUserEntry(user, lprefix + "LinkFormat", String.Empty);
+                    LoadUserEntry(user, lprefix + "TextFormat", String.Empty);
                 }
             }
         }

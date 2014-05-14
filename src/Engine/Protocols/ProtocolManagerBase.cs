@@ -150,6 +150,20 @@ namespace Smuxi.Engine
             }
         }
         
+        public override string ToString()
+        {
+            string result;
+            if (Chat == null) {
+                result = NetworkID;
+            } else {
+                result = Chat.Name;
+            }
+            if (!IsConnected) {
+                result += " (" + _("not connected") + ")";
+            }
+            return result;
+        }
+
         public abstract bool Command(CommandModel cmd);
         public abstract void Connect(FrontendManager fm,
                                      ServerModel server);
@@ -335,7 +349,9 @@ namespace Smuxi.Engine
         {
             var builder = new T();
             builder.Me = Me;
-            builder.ApplyConfig(Session.UserConfig);
+            // copy settings so the caller can override settings without
+            // changing the settings of the complete session
+            builder.Settings = new MessageBuilderSettings(Session.MessageBuilderSettings);
             return builder;
         }
 

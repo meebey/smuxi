@@ -1,6 +1,6 @@
 // Smuxi - Smart MUltipleXed Irc
 // 
-// Copyright (c) 2010-2013 Mirco Bauer <meebey@meebey.net>
+// Copyright (c) 2010-2014 Mirco Bauer <meebey@meebey.net>
 // Copyright (c) 2013 Oliver Schneider <mail@oli-obk.de>
 // 
 // Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
@@ -20,6 +20,7 @@
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA
 
 using System;
+using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Collections.Generic;
@@ -37,12 +38,8 @@ namespace Smuxi.Engine
 #endif
         static readonly string LibraryTextDomain = "smuxi-engine";
         MessageModel Message { get; set; }
-        public bool NickColors { get; set; }
-        public bool StripFormattings { get; set; }
-        public bool StripColors { get; set; }
-        public TextColor HighlightColor { get; set; }
-        public List<string> HighlightWords { get; set; }
         public PersonModel Me { get; set; }
+        public MessageBuilderSettings Settings { get; set; }
 
         public MessageType MessageType {
             get {
@@ -71,13 +68,11 @@ namespace Smuxi.Engine
         public MessageBuilder()
         {
             Message = new MessageModel();
-            NickColors = true;
+            Settings = new MessageBuilderSettings();
         }
 
         public MessageModel ToMessage()
         {
-            //MessageParser.ParseSmileys
-            MessageParser.ParseUrls(Message);
             Message.Compact();
             return Message;
         }
@@ -88,15 +83,7 @@ namespace Smuxi.Engine
                 throw new ArgumentNullException("userConfig");
             }
 
-            NickColors = (bool) userConfig["Interface/Notebook/Channel/NickColors"];
-            StripColors = (bool) userConfig["Interface/Notebook/StripColors"];
-            StripFormattings = (bool) userConfig["Interface/Notebook/StripFormattings"];
-            HighlightColor = TextColor.Parse(
-                (string) userConfig["Interface/Notebook/Tab/HighlightColor"]
-            );
-            HighlightWords = new List<string>(
-                (string[]) userConfig["Interface/Chat/HighlightWords"]
-            );
+            Settings.ApplyConfig(userConfig);
         }
 
         public virtual MessageBuilder Append(MessagePartModel msgPart)
@@ -274,7 +261,7 @@ namespace Smuxi.Engine
 
         public virtual MessageBuilder AppendMessage(string msg)
         {
-            return AppendText(msg);
+            return Append(ParsePatterns(CreateText(msg)));
         }
 
         public  MessageBuilder AppendMessage(ContactModel sender, string msg)
@@ -309,7 +296,7 @@ namespace Smuxi.Engine
                 throw new ArgumentNullException("identity");
             }
 
-            if (!NickColors) {
+            if (!Settings.NickColors) {
                 return CreateText(identity.IdentityName);
             }
 
@@ -345,7 +332,7 @@ namespace Smuxi.Engine
             var prefix = CreateText("<");
             var suffix = CreateText(">");
             var nick = CreateIdendityName(contact);
-            if (NickColors) {
+            if (Settings.NickColors) {
                 // using bg colors for the nick texts are too intrusive, thus
                 // map the bg color to the fg color of the surrounding tags
                 var senderBgColor = contact.IdentityNameColored.BackgroundColor;
@@ -437,7 +424,7 @@ namespace Smuxi.Engine
             }
 
             // go through the user's custom highlight words and check for them.
-            foreach (string highLightWord in HighlightWords) {
+            foreach (string highLightWord in Settings.HighlightWords) {
                 if (String.IsNullOrEmpty(highLightWord)) {
                     continue;
                 }
@@ -509,7 +496,7 @@ namespace Smuxi.Engine
                 // ClearHighlights() has no chance to properly undo all
                 // highlights
                 textMsg.IsHighlight = true;
-                textMsg.ForegroundColor = HighlightColor;
+                textMsg.ForegroundColor = Settings.HighlightColor;
             }
         }
 
@@ -853,6 +840,102 @@ namespace Smuxi.Engine
         static string _(string msg)
         {
             return LibraryCatalog.GetString(msg, LibraryTextDomain);
+        }
+
+        public static IList<MessagePartModel> ParsePatterns(TextMessagePartModel textPart,
+                                                            List<MessagePatternModel> patterns)
+        {
+            if (textPart == null) {
+                throw new ArgumentNullException("textPart");
+            }
+            if (patterns == null) {
+                throw new ArgumentNullException("patterns");
+            }
+
+            var msgParts = new List<MessagePartModel>();
+            if (patterns.Count == 0) {
+                // all patterns have been tried -> this text is PURE text
+                msgParts.Add(textPart);
+                return msgParts;
+            }
+
+            var remainingPatterns = new List<MessagePatternModel>(patterns);
+            var pattern = remainingPatterns.First();
+            remainingPatterns.Remove(pattern);
+            
+            var match = pattern.MessagePartPattern.Match(textPart.Text);
+            if (!match.Success) {
+                // no matches in this MessagePart, try other smartlinks
+                return ParsePatterns(textPart, remainingPatterns);
+            }
+            
+            int lastindex = 0;
+            do {
+                var groupValues = new string[match.Groups.Count];
+                int i = 0;
+                foreach (Group @group in match.Groups) {
+                    groupValues[i++] = @group.Value;
+                }
+                
+                string url;
+                if (String.IsNullOrEmpty(pattern.LinkFormat)) {
+                    url = match.Value;
+                } else {
+                    url = String.Format(pattern.LinkFormat, groupValues);
+                }
+                string text;
+                if (String.IsNullOrEmpty(pattern.TextFormat)) {
+                    text = match.Value;
+                } else {
+                    text = String.Format(pattern.TextFormat, groupValues);
+                }
+
+                if (lastindex != match.Index) {
+                    // there were some non-matching-chars before the match
+                    // copy that to a TextMessagePartModel
+                    var notMatchPart = new TextMessagePartModel(textPart);
+                    // only take the proper chunk of text
+                    notMatchPart.Text = textPart.Text.Substring(lastindex, match.Index - lastindex);
+                    // and try other patterns on this part
+                    var parts = ParsePatterns(notMatchPart, remainingPatterns);
+                    foreach (var part in parts) {
+                        msgParts.Add(part);
+                    }
+                }
+                
+                MessagePartModel msgPart;
+                if (pattern.MessagePartType == typeof(UrlMessagePartModel)) {
+                    // no need to set URL and text if they are the same
+                    text = text == url ? null : text;
+                    msgPart = new UrlMessagePartModel(url, text);
+                } else if (pattern.MessagePartType == typeof(ImageMessagePartModel)) {
+                    msgPart = new ImageMessagePartModel(url, text);
+                } else {
+                    msgPart = new TextMessagePartModel(text);
+                }
+                msgParts.Add(msgPart);
+                lastindex = match.Index + match.Length;
+                match = match.NextMatch();
+            } while (match.Success);
+            
+            if (lastindex != textPart.Text.Length) {
+                // there were some non-url-chars before this url
+                // copy TextMessagePartModel
+                var notMatchPart = new TextMessagePartModel(textPart);
+                // only take the proper chunk of text
+                notMatchPart.Text = textPart.Text.Substring(lastindex);
+                // and try other smartlinks on this part
+                var parts = ParsePatterns(notMatchPart, remainingPatterns);
+                foreach (var part in parts) {
+                    msgParts.Add(part);
+                }
+            }
+            return msgParts;
+        }
+        
+        public IEnumerable<MessagePartModel> ParsePatterns(TextMessagePartModel part)
+        {
+            return ParsePatterns(part, Settings.Patterns);
         }
     }
 }

@@ -1,6 +1,6 @@
 // Smuxi - Smart MUltipleXed Irc
 // 
-// Copyright (c) 2012-2013 Mirco Bauer <meebey@meebey.net>
+// Copyright (c) 2012-2014 Mirco Bauer <meebey@meebey.net>
 // 
 // Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
 // 
@@ -479,7 +479,19 @@ namespace Smuxi.Engine
             if (sender != Me) {
                 builder.MarkHighlights();
             }
-            Session.AddMessageToChat(chat, builder.ToMessage());
+            var message = builder.ToMessage();
+            Session.AddMessageToChat(chat, message);
+
+            if (sender == Me) {
+                // server echos our sent messages for us
+                OnMessageSent(
+                    new MessageEventArgs(chat, message, null, chat.ID)
+                );
+            } else {
+                OnMessageReceived(
+                    new MessageEventArgs(chat, message, name, chat.ID)
+                );
+            }
         }
 
         void OnMeMessageReceived(string userName, string content, string roomName)
@@ -497,6 +509,10 @@ namespace Smuxi.Engine
             }
             var msg = builder.ToMessage();
             Session.AddMessageToChat(chat, msg);
+
+            OnMessageReceived(
+                new MessageEventArgs(chat, msg, userName, roomName)
+            );
         }
 
         void OnUserJoined(User user, string room, bool isOwner)

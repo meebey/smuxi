@@ -70,7 +70,6 @@ FILES = \
 	Messages/FeedMessageBuilder.cs \
 	Messages/MessageBuilder.cs \
 	Messages/MessageModel.cs \
-	Messages/MessageParser.cs \
 	Messages/MessagePartModel.cs \
 	Messages/TextMessagePartModel.cs \
 	Messages/UrlMessagePartModel.cs \
@@ -94,6 +93,9 @@ FILES = \
 	Config/ProxySettings.cs \
 	Config/ProxyType.cs \
 	Config/EntrySettings.cs \
+	Config/MessageBuilderSettings.cs \
+	Config/MessagePatternListController.cs \
+	Config/MessagePatternModel.cs \
 	Protocols/ProtocolManagerBase.cs \
 	Protocols/ProtocolManagerFactory.cs \
 	Protocols/ProtocolManagerInfoModel.cs \
@@ -109,6 +111,7 @@ FILES = \
 	Hooks/Environments/CommandHookEnvironment.cs \
 	Hooks/Environments/HookEnvironment.cs \
 	Hooks/Environments/MessageHookEnvironment.cs \
+	Hooks/Environments/PersonHookEnvironment.cs \
 	Hooks/Environments/ProtocolManagerHookEnvironment.cs
 
 DATA_FILES = 

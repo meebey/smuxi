@@ -1,6 +1,6 @@
 // Smuxi - Smart MUltipleXed Irc
 //
-// Copyright (c) 2013 Mirco Bauer <meebey@meebey.net>
+// Copyright (c) 2014 Oliver Schneider <smuxi@oli-obk.de>
 //
 // Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
 //
@@ -18,25 +18,29 @@
 // along with this program; if not, write to the Free Software
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA
 using System;
+using Smuxi.Engine;
+using Smuxi.Common;
 
 namespace Smuxi.Engine
 {
-    public class ProtocolManagerHookEnvironment : HookEnvironment
+    [ProtocolManagerInfo(Name = "Facebook", Description = "Facebook XMPP", Alias = "facebook")]
+    public class FacebookProtocolManager : XmppProtocolManager
     {
-        public ProtocolManagerHookEnvironment(IProtocolManager protocolManager)
-        {
-            if (protocolManager == null) {
-                throw new ArgumentNullException("protocolManager");
+        public override string Protocol {
+            get {
+                return "Facebook";
             }
+        }
 
-            this["PROTOCOL_MANAGER_PROTOCOL"] = protocolManager.Protocol;
-            this["PROTOCOL_MANAGER_NETWORK"] = protocolManager.NetworkID;
-            this["PROTOCOL_MANAGER_HOST"] = protocolManager.Host;
-            this["PROTOCOL_MANAGER_PORT"] = protocolManager.Port.ToString();
-            if (protocolManager.Me != null) {
-                this["PROTOCOL_MANAGER_ME_ID"] = protocolManager.Me.ID;
-            }
-            this["PROTOCOL_PRESENCE_STATUS"] = protocolManager.PresenceStatus.ToString();
+        public FacebookProtocolManager(Session session) :
+                base(session)
+        {
+            Trace.Call(session);
+        }
+
+        override protected string GenerateIdString(PersonModel contact)
+        {
+            return "";
         }
     }
 }

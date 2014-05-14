@@ -1,7 +1,7 @@
 /*
  * Smuxi - Smart MUltipleXed Irc
  *
- * Copyright (c) 2005-2013 Mirco Bauer <meebey@meebey.net>
+ * Copyright (c) 2005-2014 Mirco Bauer <meebey@meebey.net>
  *
  * Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
  *
@@ -48,6 +48,7 @@ namespace Smuxi.Engine
         private int             _Port;
         private string          _Network;
         private string[]        _Nicknames;
+        string _Realname;
         private int             _CurrentNickname;
         private string          _Username;
         private string          _Password;
@@ -261,6 +262,14 @@ namespace Smuxi.Engine
                 host = _IrcClient.Address;
             } else {
                 host = NetworkID;
+                var serverSettings = new ServerListController(Session.UserConfig);
+                var server = serverSettings.GetServerByNetwork(host);
+                if (server == null) {
+                    // if the network is not stored in config, we need to
+                    // fallback to the bare server address. Otherwise the
+                    // frontend will have no idea how to connect to it.
+                    host = _IrcClient.Address;
+                }
             }
             string url = String.Format("irc://{0}/{1}", host, e.Channel);
             builder.AppendUrl(url, _("Accept invite (join room)"));
@@ -396,8 +405,8 @@ namespace Smuxi.Engine
                 builder.AppendEventPrefix().AppendText(_("Logging in..."));
                 Session.AddMessageToChat(Chat, builder.ToMessage());
 
-                string realname = (string) Session.UserConfig["Connection/Realname"];
-                if (realname.Trim().Length == 0) {
+                string realname = _Realname;
+                if (realname == null || realname.Trim().Length == 0) {
                     realname = "unset";
                 }
                 if (!Regex.IsMatch(_Username, "^[a-z0-9]+$", RegexOptions.IgnoreCase)) {
@@ -1190,6 +1199,8 @@ namespace Smuxi.Engine
                 // ok, these channels will be queued
                 builder = CreateMessageBuilder();
                 builder.AppendEventPrefix();
+                // TRANSLATOR: some IRC networks dislike too many joins in a
+                // short period and thus Smuxi throttles/queues them
                 builder.AppendText(_("Queuing joins: {0}"),
                                    String.Join(" ", channels));
                 Session.AddMessageToFrontend(cd.FrontendManager, Chat,
@@ -2457,6 +2468,16 @@ namespace Smuxi.Engine
             } else {
                 _Network = server.Network;
             }
+            if (String.IsNullOrEmpty(server.Nickname)) {
+                _Nicknames = (string[]) config["Connection/Nicknames"];
+            } else {
+                _Nicknames = server.Nickname.Split(' ');
+            }
+            if (String.IsNullOrEmpty(server.Realname)) {
+                _Realname = (string) config["Connection/Realname"];
+            } else {
+                _Realname = server.Realname;
+            }
             if (String.IsNullOrEmpty(server.Username)) {
                 _Username = (string) config["Connection/Username"];
             } else {
@@ -2475,11 +2496,6 @@ namespace Smuxi.Engine
                 if (ircServer.Nicknames != null && ircServer.Nicknames.Count > 0) {
                     _Nicknames = ircServer.Nicknames.ToArray();
                 }
-            }
-
-            // global fallbacks
-            if (_Nicknames == null) {
-                _Nicknames = (string[]) config["Connection/Nicknames"];
             }
 
             // add fallbacks if only one nick was specified, else we get random
@@ -3316,7 +3332,7 @@ namespace Smuxi.Engine
             if (!String.IsNullOrEmpty(e.PartMessage)) {
                 builder.AppendText(" [");
                 // colors in part messages are annoying
-                builder.StripColors = true;
+                builder.Settings.StripColors = true;
                 builder.AppendMessage(e.PartMessage);
                 builder.AppendText("]");
             }
@@ -3639,7 +3655,7 @@ namespace Smuxi.Engine
                                                    e.Data.Ident, e.Data.Host));
                 builder.AppendText(" [");
                 // colors are annoying in quit messages
-                builder.StripColors = true;
+                builder.Settings.StripColors = true;
                 builder.AppendMessage(e.QuitMessage);
                 builder.AppendText("]");
                 var quitMsg = builder.ToMessage();

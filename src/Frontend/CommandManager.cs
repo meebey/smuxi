@@ -1,6 +1,6 @@
 // Smuxi - Smart MUltipleXed Irc
 // 
-// Copyright (c) 2010, 2012-2013 Mirco Bauer <meebey@meebey.net>
+// Copyright (c) 2010, 2012-2014 Mirco Bauer <meebey@meebey.net>
 // 
 // Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
 // 
@@ -19,6 +19,7 @@
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA
 
 using System;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Collections.Generic;
@@ -143,6 +144,10 @@ namespace Smuxi.Frontend
                         break;
                     case "echo":
                         CommandEcho(cmd);
+                        handled = true;
+                        break;
+                    case "benchmark_message_builder":
+                        CommandBenchmarkMessageBuilder(cmd);
                         handled = true;
                         break;
                     case "exception":
@@ -350,6 +355,108 @@ namespace Smuxi.Frontend
                 (stop - start).TotalMilliseconds / count
             );
             chat.AddMessage(builder.ToMessage());
+        }
+
+        public void CommandBenchmarkMessageBuilder(CommandModel cmd)
+        {
+            Trace.Call(cmd);
+
+            var count = 1000;
+            var showHelp = false;
+            var appendMessage = false;
+            var appendText = false;
+            var appendEvent = false;
+            var appendFormat = false;
+            var toMessage = false;
+            try {
+                var opts = new NDesk.Options.OptionSet() {
+                    { "c|count=", v => count = Int32.Parse(v) },
+                    { "m|append-message", v => appendMessage = true },
+                    { "t|append-text", v => appendText = true },
+                    { "e|append-event", v => appendEvent = true },
+                    { "f|append-format", v => appendFormat = true },
+                    { "T|to-message", v => toMessage = true },
+                };
+                opts.Add("h|?|help", x => {
+                    showHelp = true;
+                    var writer = new StringWriter();
+                    opts.WriteOptionDescriptions(writer);
+                    AddMessageToFrontend(
+                        cmd,
+                        CreateMessageBuilder().
+                            AppendHeader("{0} usage", cmd.Command).
+                            AppendText("\n").
+                            AppendText("Parameters:\n").
+                            AppendText(writer.ToString()).
+                            ToMessage()
+                    );
+                    return;
+                });
+                opts.Parse(cmd.Parameter.Split(' '));
+                if (showHelp) {
+                    return;
+                }
+            } catch (Exception ex) {
+                AddMessageToFrontend(
+                    cmd,
+                    CreateMessageBuilder().
+                        AppendErrorText("Invalid parameter: {0}", ex.Message).
+                        ToMessage()
+                );
+                return;
+            }
+
+            DateTime start, stop;
+            start = DateTime.UtcNow;
+            MessageBuilder builder;
+            for (var i = 0; i < count; i++) {
+                builder = new MessageBuilder();
+                if (appendMessage) {
+                    builder.AppendMessage("This is message with a link to https://www.smuxi.org/.");
+                }
+                if (appendText) {
+                    builder.AppendText("This is message with just text.");
+                }
+                if (appendEvent) {
+                    builder.AppendEventPrefix();
+                }
+                if (appendFormat) {
+                    builder.AppendFormat("{0} [{1}] has joined {2}",
+                                         "meebey3",
+                                         "~smuxi@31-18-115-252-dynip.superkabel.de",
+                                         "#smuxi-devel");
+                }
+                if (toMessage) {
+                    var msg = builder.ToMessage();
+                }
+            }
+            stop = DateTime.UtcNow;
+
+            builder = new MessageBuilder();
+            builder.AppendText("MessageBuilder().");
+            if (appendMessage) {
+                builder.AppendText("AppendMessage().");
+            }
+            if (appendText) {
+                builder.AppendText("AppendText().");
+            }
+            if (appendEvent) {
+                builder.AppendText("AppendEventPrefix().");
+            }
+            if (appendFormat) {
+                builder.AppendText("AppendFormat().");
+            }
+            if (toMessage) {
+                builder.AppendText("ToMessage()");
+            }
+            builder.AppendText(
+                " count: {1} took: {2:0} ms avg: {3:0.00} ms",
+                cmd.Data,
+                count,
+                (stop - start).TotalMilliseconds,
+                (stop - start).TotalMilliseconds / count
+            );
+            AddMessageToFrontend(cmd, builder.ToMessage());
         }
 
         private void Unknown(CommandModel cmd)
