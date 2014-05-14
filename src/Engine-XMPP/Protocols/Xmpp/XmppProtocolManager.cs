@@ -1830,7 +1830,13 @@ namespace Smuxi.Engine
                     chat.UnsafePersons.Add(person.ID, person);
 
                     // did I join? then the chat roster is fully received
-                    if (pres.From.Resource == chat.OwnNickname) {
+                    if (pres.From.Resource == chat.OwnNickname ||
+                        pres.MucUser.StatusCodes.Exists(x => x.Code == StatusCode.SelfPresence)) {
+                        if (pres.MucUser.StatusCodes.Exists(x => x.Code == StatusCode.ModifiedNick)) {
+                            // as per XEP-0045 7.2.3 Example 24 the server is
+                            // allowed to give us a different nick than we requested
+                            chat.OwnNickname = pres.From.Resource;
+                        }
                         chat.IsJoining = false;
                         // HACK: lower probability of sync race condition swallowing messages
                         ThreadPool.QueueUserWorkItem(delegate {
