@@ -640,6 +640,8 @@ namespace Smuxi.Engine
             }
 
             JabberClient.SendMyPresence();
+
+            base.SetPresenceStatus(status, message);
         }
 
         [MethodImpl(MethodImplOptions.Synchronized)]

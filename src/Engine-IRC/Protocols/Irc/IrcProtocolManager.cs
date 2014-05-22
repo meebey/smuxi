@@ -717,6 +717,8 @@ namespace Smuxi.Engine
                     _IrcClient.RfcAway(message);
                     break;
             }
+
+            base.SetPresenceStatus(status, message);
         }
 
         public override bool Command(CommandModel command)
@@ -1639,9 +1641,9 @@ namespace Smuxi.Engine
         public void CommandAway(CommandModel cd)
         {
             if (cd.DataArray.Length >= 2) {
-                _IrcClient.RfcAway(cd.Parameter);
+                SetPresenceStatus(PresenceStatus.Away, cd.Parameter);
             } else {
-                _IrcClient.RfcAway();
+                SetPresenceStatus(PresenceStatus.Online, null);
             }
         }
         
