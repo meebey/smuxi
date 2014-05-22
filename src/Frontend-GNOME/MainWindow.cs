@@ -605,7 +605,7 @@ namespace Smuxi.Frontend.Gnome
                     }
                     UpdateTitle(groupChatView, null);
                 };
-                groupChatView.OutputHPaned.Position = (WindowWidth / 6) * 4;
+                groupChatView.OutputHPaned.Position = (WindowWidth / 7) * 5;
             }
             UpdateProgressBar();
         }
@@ -654,13 +654,13 @@ namespace Smuxi.Frontend.Gnome
 
         void CheckLayout()
         {
-            TreeViewHPaned.Position = WindowWidth / 6;
+            TreeViewHPaned.Position = WindowWidth / 7;
             foreach (var chat in ChatViewManager.Chats) {
                 if (!(chat is GroupChatView)) {
                     continue;
                 }
                 var groupChat = (GroupChatView) chat;
-                groupChat.OutputHPaned.Position = (WindowWidth / 6) * 4;
+                groupChat.OutputHPaned.Position = (WindowWidth / 7) * 5;
             }
         }
 
