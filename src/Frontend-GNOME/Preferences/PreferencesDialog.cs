@@ -152,6 +152,8 @@ namespace Smuxi.Frontend.Gnome
                 CheckProxyShowPasswordCheckButton();
             };
 
+            ((Gtk.CheckButton)_Glade["AutoSwitchPersonChatsCheckButton"]).Toggled += _OnChanged;
+
             ((Gtk.TextView)_Glade["HighlightWordsTextView"]).Buffer.Changed += _OnChanged;
             if (Frontend.EngineVersion < new Version("0.7.2")) {
                 // feature introduced in >= 0.7.2
