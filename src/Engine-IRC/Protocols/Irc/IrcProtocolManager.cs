@@ -69,6 +69,7 @@ namespace Smuxi.Engine
         DateTime NetworkChannelsAge { get; set; }
         TimeSpan NetworkChannelsMaxAge { get; set; }
         List<string> ChannelTypes { get; set; }
+        Dictionary<string, string> ChannelKeys { get; set; }
 
         public override bool IsConnected {
             get {
@@ -149,6 +150,7 @@ namespace Smuxi.Engine
 
             NetworkChannelsMaxAge = TimeSpan.FromMinutes(5);
             ChannelTypes = new List<string>(new string[] {"#", "&", "!", "+"});
+            ChannelKeys = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
 
             _IrcClient = new IrcFeatures();
             _IrcClient.AutoRetry = true;
@@ -157,7 +159,8 @@ namespace Smuxi.Engine
             _IrcClient.AutoRetryDelay = 120;
             _IrcClient.AutoReconnect = true;
             _IrcClient.AutoRelogin = true;
-            _IrcClient.AutoRejoin = true;
+            // we need to keep track of channel keys for proper auto rejoin
+            _IrcClient.AutoRejoin = false;
             // HACK: SmartIrc4net <= 0.4.5.1 is not resetting the nickname list
             // after disconnect. This causes random nicks to be used when there
             // are many reconnects like when the network connection goes flaky,
@@ -188,7 +191,8 @@ namespace Smuxi.Engine
             _IrcClient.OnDehalfop       += new DehalfopEventHandler(OnDehalfop);
             _IrcClient.OnVoice          += new VoiceEventHandler(_OnVoice);
             _IrcClient.OnDevoice        += new DevoiceEventHandler(_OnDevoice);
-            _IrcClient.OnModeChange     += new IrcEventHandler(_OnModeChange);
+            _IrcClient.OnUserModeChange += OnUserModeChange;
+            _IrcClient.OnChannelModeChange += OnChannelModeChange;
             _IrcClient.OnTopic          += new TopicEventHandler(_OnTopic);
             _IrcClient.OnTopicChange    += new TopicChangeEventHandler(_OnTopicChange);
             _IrcClient.OnQuit           += new QuitEventHandler(_OnQuit);
@@ -1324,6 +1328,9 @@ namespace Smuxi.Engine
                             _IrcClient.RfcJoin(chan);
                         } else {
                             _IrcClient.RfcJoin(chan, key);
+                            lock (ChannelKeys) {
+                                ChannelKeys[chan] = key;
+                            }
                         }
 
                         // Some IRC networks are very kick happy and thus need
@@ -1373,7 +1380,16 @@ namespace Smuxi.Engine
                     Session.DisableChat(cd.Chat);
                     _IrcClient.RfcPart(cd.Chat.ID);
                 }
-                _IrcClient.RfcJoin(cd.Chat.ID);
+
+                string key;
+                lock (ChannelKeys) {
+                    ChannelKeys.TryGetValue(cd.Chat.ID, out key);
+                }
+                if (String.IsNullOrEmpty(key)) {
+                    _IrcClient.RfcJoin(cd.Chat.ID);
+                } else {
+                    _IrcClient.RfcJoin(cd.Chat.ID, key);
+                }
             }
         }
         
@@ -3591,7 +3607,7 @@ namespace Smuxi.Engine
             }
         }
         
-        private void _OnModeChange(object sender, IrcEventArgs e)
+        void OnUserModeChange(object sender, IrcEventArgs e)
         {
             var builder = CreateMessageBuilder();
             builder.AppendEventPrefix();
@@ -3599,36 +3615,15 @@ namespace Smuxi.Engine
             string modechange;
             string who = null;
             ChatModel target = null;
-            switch (e.Data.Type) {
-                case ReceiveType.UserModeChange:
-                    modechange = e.Data.RawMessageArray[3];
-                    if (modechange.StartsWith(":")) {
-                        modechange = modechange.Substring(1);
-                    }
-                    who = e.Data.Irc.Nickname;
-                    target = _NetworkChat;
-
-                    builder.AppendFormat(_("Mode change [{0}] for user {1}"),
-                                         modechange, CreatePerson(who));
-                    break;
-                case ReceiveType.ChannelModeChange:
-                    modechange = String.Join(" ", e.Data.RawMessageArray, 3,
-                                             e.Data.RawMessageArray.Length - 3);
-                    target = GetChat(e.Data.Channel, ChatType.Group) ?? Chat;
-                    UpdateGroupPerson(target, e.Data);
-
-                    MessagePartModel whoMsgPart;
-                    if (e.Data.Nick != null && e.Data.Nick.Length > 0) {
-                        whoMsgPart = builder.CreateIdendityName(GetPerson(target, e.Data.Nick));
-                    } else {
-                        // server changed mode
-                        whoMsgPart = builder.CreateText(e.Data.From);
-                    }
-
-                    builder.AppendFormat(_("mode/{0} [{1}] by {2}"),
-                                         e.Data.Channel, modechange, whoMsgPart);
-                    break;
+            modechange = e.Data.RawMessageArray[3];
+            if (modechange.StartsWith(":")) {
+                modechange = modechange.Substring(1);
             }
+            who = e.Data.Irc.Nickname;
+            target = _NetworkChat;
+
+            builder.AppendFormat(_("Mode change [{0}] for user {1}"),
+                                 modechange, CreatePerson(who));
 
             if (target == null) {
 #if LOG4NET
@@ -3639,7 +3634,49 @@ namespace Smuxi.Engine
 
             Session.AddMessageToChat(target, builder.ToMessage());
         }
-        
+
+        void OnChannelModeChange(object sender, ChannelModeChangeEventArgs e)
+        {
+            var builder = CreateMessageBuilder();
+            builder.AppendEventPrefix();
+
+            var modechange = String.Join(" ", e.Data.RawMessageArray, 3,
+                                         e.Data.RawMessageArray.Length - 3);
+            var target = GetChat(e.Data.Channel, ChatType.Group) ?? Chat;
+            UpdateGroupPerson(target, e.Data);
+
+            MessagePartModel whoMsgPart;
+            if (String.IsNullOrEmpty(e.Data.Nick)) {
+                // server changed mode
+                whoMsgPart = builder.CreateText(e.Data.From);
+            } else {
+                whoMsgPart = builder.CreateIdendityName(GetPerson(target, e.Data.Nick));
+            }
+
+            builder.AppendFormat(_("mode/{0} [{1}] by {2}"),
+                                 e.Data.Channel, modechange, whoMsgPart);
+
+            // remeber channel key for rejoin etc
+            foreach (var modeChange in e.ModeChanges) {
+                if (modeChange.Mode != ChannelMode.Key) {
+                    continue;
+                }
+
+                switch (modeChange.Action) {
+                    case ChannelModeChangeAction.Set:
+                        lock (ChannelKeys) {
+                            ChannelKeys[e.Channel] = modeChange.Parameter;
+                        }
+                        break;
+                    case ChannelModeChangeAction.Unset:
+                        lock (ChannelKeys) {
+                            ChannelKeys.Remove(e.Channel);
+                        }
+                        break;
+                }
+            }
+        }
+
         private void _OnQuit(object sender, QuitEventArgs e)
         {
 #if LOG4NET
@@ -3700,6 +3737,19 @@ namespace Smuxi.Engine
                     Session.SyncChat(chat);
                 }
                 // group chats are handled in _OnJoin()
+
+                // automatically rejoin group chats
+                if (chat.ChatType == ChatType.Group) {
+                    string key;
+                    lock (ChannelKeys) {
+                        ChannelKeys.TryGetValue(chat.ID, out key);
+                    }
+                    if (String.IsNullOrEmpty(key)) {
+                        _IrcClient.RfcJoin(chat.ID);
+                    } else {
+                        _IrcClient.RfcJoin(chat.ID, key);
+                    }
+                }
             }
 
             base.OnConnected(e);
