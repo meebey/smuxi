@@ -93,6 +93,14 @@ namespace Smuxi.Engine
         }
 
         [Test]
+        public void ToMessageNreBug()
+        {
+            var dtoMsg = new MessageDtoModelV1();
+            var msg = dtoMsg.ToMessage();
+            Assert.True(msg.IsEmpty);
+        }
+
+        [Test]
         public void ToMessageBenchmark()
         {
             int runs = 50000;

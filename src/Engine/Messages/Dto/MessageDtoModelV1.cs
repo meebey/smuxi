@@ -30,6 +30,7 @@ namespace Smuxi.Engine.Dto
 
         public MessageDtoModelV1()
         {
+            MessageParts = new List<MessagePartDtoModelV1>();
         }
 
         public MessageDtoModelV1(MessageModel msg)
