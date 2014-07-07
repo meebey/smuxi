@@ -2255,6 +2255,11 @@ namespace Smuxi.Engine
             } else {
                 builder.AppendMessage(msgstring);
             }
+            // mark hilights only for OwnNickname, too
+            builder.Me = new PersonModel(
+                groupChat.OwnNickname,
+                groupChat.OwnNickname,
+                NetworkID, Protocol, this);
             builder.MarkHighlights();
 
             if (msg.XDelay != null) {
