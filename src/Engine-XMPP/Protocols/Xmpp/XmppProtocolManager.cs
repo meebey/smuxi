@@ -1815,7 +1815,7 @@ namespace Smuxi.Engine
         void OnGroupChatPresence(XmppGroupChatModel chat, Presence pres)
         {
             Jid jid = pres.From;
-            var person = new PersonModel(jid, pres.From.Resource, NetworkID, Protocol, this);
+            var person = new PersonModel(jid, pres.From.Resource ?? pres.From, NetworkID, Protocol, this);
             PrintGroupChatPresence(chat, person, pres);
             switch (pres.Type) {
                 case PresenceType.available:
@@ -2136,8 +2136,12 @@ namespace Smuxi.Engine
             }
 
             // mark highlights only for received messages
-            bool hilight = person.ID != groupChat.OwnNickname;
-            var message = CreateMessage(person, msg, hilight, false);
+            MessageModel message;
+            if (person.ID == groupChat.OwnNickname) {
+                message = CreateEchoGroupChatMessage(groupChat, msg);
+            } else {
+                message = CreateGroupChatMessage(groupChat, person, msg);
+            }
             Session.AddMessageToChat(groupChat, message);
             OnMessageReceived(
                 new MessageEventArgs(groupChat, message, msg.From, groupChat.ID)
@@ -2186,14 +2190,48 @@ namespace Smuxi.Engine
             if (msg.Nickname != null) {
                 ProcessNickname(GetOrCreateContact(msg.From, msg.Nickname.Value), msg.Nickname);
             }
-            var message = CreateMessage(chat.Person, msg, true, true);
+            var message = CreatePrivateChatMessage(chat.Person, msg);
             AddMessageToChatIfNotFiltered(message, chat, isNew);
             OnMessageReceived(
                 new MessageEventArgs(chat, message, msg.From, null)
             );
         }
 
-        MessageModel CreateMessage(PersonModel person, Message msg, bool mark_hilights, bool force_hilight)
+        MessageModel CreateEchoGroupChatMessage(XmppGroupChatModel groupChat, Message msg)
+        {
+            var builder = CreateMessageBuilder();
+            string msgstring;
+            if (msg.Html != null) {
+                msgstring = msg.Html.ToString();
+            } else {
+                msgstring = msg.Body.Trim();
+            }
+            var self = new PersonModel(
+                groupChat.OwnNickname,
+                groupChat.OwnNickname,
+                NetworkID, Protocol, this);
+            if (msgstring.StartsWith("/me ")) {
+                // leave the " " intact
+                msgstring = msgstring.Substring(3);
+                builder.AppendActionPrefix();
+                builder.AppendIdendityName(self);
+            } else {
+                builder.AppendSenderPrefix(self);
+            }
+
+            if (msg.Html != null) {
+                builder.AppendHtmlMessage(msgstring);
+            } else {
+                builder.AppendMessage(msgstring);
+            }
+
+            if (msg.XDelay != null) {
+                builder.TimeStamp = msg.XDelay.Stamp;
+            }
+            return builder.ToMessage();
+        }
+
+        MessageModel CreateGroupChatMessage(XmppGroupChatModel groupChat, PersonModel person, Message msg)
         {
             var builder = CreateMessageBuilder();
             string msgstring;
@@ -2207,9 +2245,9 @@ namespace Smuxi.Engine
                 // leave the " " intact
                 msgstring = msgstring.Substring(3);
                 builder.AppendActionPrefix();
-                builder.AppendIdendityName(person, force_hilight);
+                builder.AppendIdendityName(person);
             } else {
-                builder.AppendSenderPrefix(person, force_hilight);
+                builder.AppendSenderPrefix(person);
             }
 
             if (msg.Html != null) {
@@ -2217,8 +2255,42 @@ namespace Smuxi.Engine
             } else {
                 builder.AppendMessage(msgstring);
             }
-            if (mark_hilights) {
-                builder.MarkHighlights();
+            // mark hilights only for OwnNickname, too
+            builder.Me = new PersonModel(
+                groupChat.OwnNickname,
+                groupChat.OwnNickname,
+                NetworkID, Protocol, this);
+            builder.MarkHighlights();
+
+            if (msg.XDelay != null) {
+                builder.TimeStamp = msg.XDelay.Stamp;
+            }
+            return builder.ToMessage();
+        }
+
+        MessageModel CreatePrivateChatMessage(PersonModel person, Message msg)
+        {
+            var builder = CreateMessageBuilder();
+            string msgstring;
+            if (msg.Html != null) {
+                msgstring = msg.Html.ToString();
+            } else {
+                msgstring = msg.Body.Trim();
+            }
+
+            if (msgstring.StartsWith("/me ")) {
+                // leave the " " intact
+                msgstring = msgstring.Substring(3);
+                builder.AppendActionPrefix();
+                builder.AppendIdendityName(person, true);
+            } else {
+                builder.AppendSenderPrefix(person, true);
+            }
+
+            if (msg.Html != null) {
+                builder.AppendHtmlMessage(msgstring);
+            } else {
+                builder.AppendMessage(msgstring);
             }
 
             if (msg.XDelay != null) {
