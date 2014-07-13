@@ -63,6 +63,7 @@ namespace Smuxi.Engine
         public event EventHandler<GroupChatPersonAddedEventArgs> GroupChatPersonAdded;
         public event EventHandler<GroupChatPersonRemovedEventArgs> GroupChatPersonRemoved;
         public event EventHandler<GroupChatPersonUpdatedEventArgs> GroupChatPersonUpdated;
+        public event EventHandler<EventMessageEventArgs> EventMessage;
 
         public IList<IProtocolManager> ProtocolManagers {
             get {
@@ -1326,6 +1327,14 @@ namespace Smuxi.Engine
                     fm.AddMessageToChat(chat, msg);
                 }
             }
+
+            if (msg.MessageType == MessageType.Event) {
+                // on-event-message
+                OnEventMessage(
+                    // at this point we no longer know who sent this nor to whom
+                    new EventMessageEventArgs(chat, msg, String.Empty, String.Empty)
+                );
+            }
         }
         
         public void AddPersonToGroupChat(GroupChatModel groupChat, PersonModel person)
@@ -2041,6 +2050,33 @@ namespace Smuxi.Engine
             hooks.Run();
         }
 
+        protected virtual void OnEventMessage(EventMessageEventArgs e)
+        {
+            if (EventMessage != null) {
+                EventMessage(this, e);
+            }
+
+            var pm = e.Chat.ProtocolManager;
+            var hooks = new HookRunner("engine", "session", "on-event-message");
+            hooks.Environments.Add(new ChatHookEnvironment(e.Chat));
+            if (pm != null) {
+                hooks.Environments.Add(new ProtocolManagerHookEnvironment(pm));
+            }
+            hooks.Environments.Add(new MessageHookEnvironment(e.Message,
+                                                              e.Sender,
+                                                              e.Receiver));
+
+            var cmdChar = (string) UserConfig["Interface/Entry/CommandCharacter"];
+            hooks.Commands.Add(new SessionHookCommand(this, e.Chat, cmdChar));
+            if (pm != null) {
+                hooks.Commands.Add(new ProtocolManagerHookCommand(pm, e.Chat, cmdChar));
+            }
+
+            // show time
+            hooks.Init();
+            hooks.Run();
+        }
+
         private static string _(string msg)
         {
             return LibraryCatalog.GetString(msg, _LibraryTextDomain);
@@ -2086,6 +2122,23 @@ namespace Smuxi.Engine
             GroupChat = groupChat;
             OldPerson = oldPerson;
             NewPerson = newPerson;
+        }
+    }
+
+    public class EventMessageEventArgs : EventArgs
+    {
+        public ChatModel Chat { get; protected set; }
+        public MessageModel Message { get; protected set; }
+        public string Sender { get; protected set; }
+        public string Receiver { get; protected set; }
+
+        public EventMessageEventArgs(ChatModel chat, MessageModel msg,
+                                     string sender, string receiver)
+        {
+            Chat = chat;
+            Message = msg;
+            Sender = sender;
+            Receiver = receiver;
         }
     }
 }
