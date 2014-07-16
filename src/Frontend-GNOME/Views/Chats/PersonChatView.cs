@@ -98,6 +98,7 @@ namespace Smuxi.Frontend.Gnome
         {
             Trace.Call();
 
+            IsSyncing = true;
             GLib.Idle.Add(delegate {
                 TabImage.SetFromStock(Gtk.Stock.Refresh, Gtk.IconSize.Menu);
                 OnStatusChanged(EventArgs.Empty);

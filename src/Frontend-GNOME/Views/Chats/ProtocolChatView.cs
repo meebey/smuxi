@@ -143,6 +143,8 @@ namespace Smuxi.Frontend.Gnome
         {
             Trace.Call();
 
+            IsSyncing = true;
+
             base.Sync();
 
             Host = ProtocolManager.Host;

@@ -21,6 +21,7 @@
  */
 
 using System;
+using System.Threading;
 using System.Collections.Generic;
 using System.Globalization;
 
@@ -389,7 +390,21 @@ namespace Smuxi.Frontend.Gnome
         {
             Trace.Call(sender, e);
 
-            CurrentChatView = TreeView.CurrentChatView;
+            var newChatView = TreeView.CurrentChatView;
+            f_Notebook.CurrentChatView = newChatView;
+            if (newChatView == null) {
+                return;
+            }
+
+            if (!newChatView.IsSyncing && !newChatView.IsSynced) {
+                ThreadPool.QueueUserWorkItem(delegate {
+                    try {
+                        SyncManager.Sync(newChatView.ChatModel);
+                    } catch (Exception ex) {
+                        f_Logger.Error("OnTreeViewSelectionChanged(): exception", ex);
+                    }
+                });
+            }
         }
 
         int GetSortedChatPosition(ChatView chatView)

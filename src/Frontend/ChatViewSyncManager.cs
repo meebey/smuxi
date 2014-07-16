@@ -482,6 +482,16 @@ namespace Smuxi.Frontend
             }
         }
 
+        public void Sync(ChatModel model)
+        {
+            SyncInfo syncInfo;
+            if (!TryGetChat(model, out syncInfo)) {
+                return;
+            }
+
+            syncInfo.ExecuteSync();
+        }
+
         /// <remarks>
         /// This method is thread safe.
         /// </remarks>

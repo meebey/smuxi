@@ -43,7 +43,8 @@ namespace Smuxi.Frontend.Gnome
         public    int                HighlightCount { get; private set; }
         private   bool               _HasActivity;
         private   bool               _HasEvent;
-        private   bool               _IsSynced;
+        public bool IsSyncing { get; protected set; }
+        public bool IsSynced { get; private set; }
         private   Gtk.TextMark       _EndMark;
         private   Gtk.Menu           _TabMenu;
         private   Gtk.Label          _TabLabel;
@@ -488,7 +489,7 @@ namespace Smuxi.Frontend.Gnome
         {
             Trace.Call();
 
-            _IsSynced = false;
+            IsSynced = false;
         }
         
         public virtual void Sync()
@@ -567,7 +568,8 @@ namespace Smuxi.Frontend.Gnome
             OnStatusChanged(EventArgs.Empty);
 
             SyncedMessages = null;
-            _IsSynced = true;
+            IsSyncing = false;
+            IsSynced = true;
         }
         
         public virtual void AddMessage(MessageModel msg)
@@ -704,7 +706,7 @@ namespace Smuxi.Frontend.Gnome
         
         protected virtual void OnMessageTextViewMessageHighlighted(object sender, MessageTextViewMessageHighlightedEventArgs e)
         {
-            if (_IsSynced) {
+            if (IsSynced) {
                 bool isActiveChat = IsActive;
 
                 if (Frontend.UseLowBandwidthMode && !isActiveChat) {
@@ -760,7 +762,7 @@ namespace Smuxi.Frontend.Gnome
                 // elsewhere) and the chat is was already synced, as during sync we
                 // would get insane from all beeping caused by the old highlights
                 if (!Frontend.MainWindow.HasToplevelFocus &&
-                    _IsSynced &&
+                    IsSynced &&
                     Frontend.UserConfig["Sound/BeepOnHighlight"] != null &&
                     (bool) Frontend.UserConfig["Sound/BeepOnHighlight"]) {
 #if LOG4NET
