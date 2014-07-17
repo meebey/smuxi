@@ -2329,7 +2329,11 @@ namespace Smuxi.Engine
 
         public void CommandRaw(CommandModel cd)
         {
-            _IrcClient.WriteLine(cd.Parameter);
+            if (_IrcClient.IsRegistered) {
+                _IrcClient.WriteLine(cd.Parameter);
+            } else {
+                _IrcClient.WriteLine(cd.Parameter, Priority.Critical);
+            }
         }
     
         public void CommandMe(CommandModel cd)
