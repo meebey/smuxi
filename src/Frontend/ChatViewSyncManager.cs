@@ -34,12 +34,16 @@ namespace Smuxi.Frontend
 #endif
 
         /*
+         * TODO DisableChat is not in this system
+         * TODO DisableChat should SyncState ---Disable---> WaitingForSyncState
+         *
          * InitialState ---Add---> AddedState
          * AddedState ---Sync---> SyncQueuedState
          *                  ---ReadyToSync---> WaitingForSyncState
          * SyncQueuedState ---ReadyToSync---> SyncingState
          * WaitingForSyncState ---Sync---> SyncingState
          * SyncingState ---SyncFinished---> SyncState
+         * SyncState ---Sync---> SyncingState
          *
          * AddedState ---Remove---> RemovingState
          * SyncQueuedState ---Remove---> RemovingState
@@ -66,27 +70,27 @@ namespace Smuxi.Frontend
 
             public virtual void ExecuteAdd()
             {
-                throw new InvalidStateException("could not add");
+                throw new InvalidStateException("could not add in " + this.GetType().Name);
             }
             public virtual void ExecuteRemove()
             {
-                throw new InvalidStateException("could not remove");
+                throw new InvalidStateException("could not remove in " + this.GetType().Name);
             }
             public virtual void ExecuteRemoveFinished()
             {
-                throw new InvalidStateException("could not remove");
+                throw new InvalidStateException("could not remove in " + this.GetType().Name);
             }
             public virtual void ExecuteSync()
             {
-                throw new InvalidStateException("could not sync");
+                throw new InvalidStateException("could not sync in " + this.GetType().Name);
             }
             public virtual void ExecuteReadyToSync()
             {
-                throw new InvalidStateException("could not be ready to sync");
+                throw new InvalidStateException("could not be ready to sync in " + this.GetType().Name);
             }
             public virtual void ExecuteSyncFinished()
             {
-                throw new InvalidStateException("could not finish sync");
+                throw new InvalidStateException("could not finish sync in " + this.GetType().Name);
             }
         }
 
@@ -226,6 +230,13 @@ namespace Smuxi.Frontend
             {
                 Trace.Call(Chat.ChatModel);
                 Chat.SetState<RemovingState>();
+            }
+
+            public override void ExecuteSync()
+            {
+                // this happens for example in /rejoin
+                Trace.Call(Chat.ChatModel);
+                Chat.SetState<SyncingState>();
             }
         }
 
@@ -688,7 +699,7 @@ namespace Smuxi.Frontend
 
     public class InvalidStateException : Exception
     {
-        public InvalidStateException(string msg)
+        internal InvalidStateException(string msg)
             :base(msg)
         {
         }
