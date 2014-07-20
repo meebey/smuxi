@@ -375,7 +375,14 @@ namespace Smuxi.Frontend
 
             var chat = GetOrCreateChat(chatModel);
             WorkerQueue.Enqueue(delegate {
-                AddWorker(chat);
+                try {
+                    chat.ExecuteAdd();
+                } catch (InvalidStateException ex) {
+#if LOG4NET
+                    Logger.Error("QueueAdd(): ExecuteAdd() threw exception!" , ex);
+#endif
+                    OnWorkerException(chat.ChatModel, ex);
+                }
             });
         }
 
@@ -396,7 +403,14 @@ namespace Smuxi.Frontend
                 return;
             }
             WorkerQueue.Enqueue(delegate {
-                RemoveWorker(chat);
+                try {
+                    chat.ExecuteRemove();
+                } catch (InvalidStateException ex) {
+#if LOG4NET
+                    Logger.Error("QueueRemove(): ExecuteRemove() threw exception!" , ex);
+#endif
+                    OnWorkerException(chat.ChatModel, ex);
+                }
             });
         }
 
@@ -418,7 +432,14 @@ namespace Smuxi.Frontend
             }
 
             WorkerQueue.Enqueue(delegate {
-                RemoveFinishedWorker(chat);
+                try {
+                    chat.ExecuteRemoveFinished();
+                } catch (InvalidStateException ex) {
+#if LOG4NET
+                    Logger.Error("QueueRemoveFinished(): ExecuteRemoveFinished() threw exception!" , ex);
+#endif
+                    OnWorkerException(chat.ChatModel, ex);
+                }
             });
         }
 
@@ -464,7 +485,14 @@ namespace Smuxi.Frontend
             }
 
             WorkerQueue.Enqueue(delegate {
-                SyncWorker(chat);
+                try {
+                    chat.ExecuteSync();
+                } catch (InvalidStateException ex) {
+#if LOG4NET
+                    Logger.Error("QueueSync(): ExecuteSync() threw exception!" , ex);
+#endif
+                    OnWorkerException(chat.ChatModel, ex);
+                }
             });
         }
 
@@ -490,7 +518,14 @@ namespace Smuxi.Frontend
             chat.ChatView = chatView;
 
             WorkerQueue.Enqueue(delegate {
-                ReadyToSyncWorker(chat);
+                try {
+                    chat.ExecuteReadyToSync();
+                } catch (InvalidStateException ex) {
+#if LOG4NET
+                    Logger.Error("ReadyToSyncWorker(): ExecuteReadyToSync() threw exception!" , ex);
+#endif
+                    OnWorkerException(chat.ChatModel, ex);
+                }
             });
         }
 
@@ -512,7 +547,14 @@ namespace Smuxi.Frontend
             }
 
             WorkerQueue.Enqueue(delegate {
-                SyncFinishedWorker(chat);
+                try {
+                    chat.ExecuteSyncFinished();
+                } catch (Exception ex) {
+#if LOG4NET
+                    Logger.Error("SyncFinishedWorker(): ExecuteSyncFinished() threw exception!" , ex);
+#endif
+                    OnWorkerException(chat.ChatModel, ex);
+                }
             });
         }
 
@@ -529,78 +571,6 @@ namespace Smuxi.Frontend
                 return RemotingServices.GetObjectUri(chatModel);
             }
             return chatModel;
-        }
-
-        void AddWorker(SyncInfo chat)
-        {
-            try {
-                chat.ExecuteAdd();
-            } catch(InvalidStateException ex) {
-#if LOG4NET
-                Logger.Error("AddWorker(): ExecuteAdd() threw exception!" , ex);
-#endif
-                OnWorkerException(chat.ChatModel, ex);
-            }
-        }
-
-        void SyncWorker(SyncInfo chat)
-        {
-            try {
-                chat.ExecuteSync();
-            } catch(InvalidStateException ex) {
-#if LOG4NET
-                Logger.Error("SyncWorker(): ExecuteSync() threw exception!" , ex);
-#endif
-                OnWorkerException(chat.ChatModel, ex);
-            }
-        }
-
-        void ReadyToSyncWorker(SyncInfo chat)
-        {
-            try {
-                chat.ExecuteReadyToSync();
-            } catch(InvalidStateException ex) {
-#if LOG4NET
-                Logger.Error("ReadyToSyncWorker(): ExecuteReadyToSync() threw exception!" , ex);
-#endif
-                OnWorkerException(chat.ChatModel, ex);
-            }
-        }
-
-        void SyncFinishedWorker(SyncInfo chat)
-        {
-            try {
-                chat.ExecuteSyncFinished();
-            } catch(InvalidStateException ex) {
-#if LOG4NET
-                Logger.Error("SyncFinishedWorker(): ExecuteSyncFinished() threw exception!" , ex);
-#endif
-                OnWorkerException(chat.ChatModel, ex);
-            }
-        }
-
-        void RemoveWorker(SyncInfo chat)
-        {
-            try {
-                chat.ExecuteRemove();
-            } catch(InvalidStateException ex) {
-#if LOG4NET
-                Logger.Error("RemoveWorker(): ExecuteRemove() threw exception!" , ex);
-#endif
-                OnWorkerException(chat.ChatModel, ex);
-            }
-        }
-
-        void RemoveFinishedWorker(SyncInfo chat)
-        {
-            try {
-                chat.ExecuteRemoveFinished();
-            } catch(InvalidStateException ex) {
-#if LOG4NET
-                Logger.Error("RemoveWorker(): ExecuteRemove() threw exception!" , ex);
-#endif
-                OnWorkerException(chat.ChatModel, ex);
-            }
         }
 
         void OnChatAdded(ChatModel chatModel, string chatId,
