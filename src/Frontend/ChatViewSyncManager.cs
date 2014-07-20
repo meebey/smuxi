@@ -377,7 +377,7 @@ namespace Smuxi.Frontend
             WorkerQueue.Enqueue(delegate {
                 try {
                     chat.ExecuteAdd();
-                } catch (InvalidStateException ex) {
+                } catch (Exception ex) {
 #if LOG4NET
                     Logger.Error("QueueAdd(): ExecuteAdd() threw exception!" , ex);
 #endif
@@ -405,7 +405,7 @@ namespace Smuxi.Frontend
             WorkerQueue.Enqueue(delegate {
                 try {
                     chat.ExecuteRemove();
-                } catch (InvalidStateException ex) {
+                } catch (Exception ex) {
 #if LOG4NET
                     Logger.Error("QueueRemove(): ExecuteRemove() threw exception!" , ex);
 #endif
@@ -434,7 +434,7 @@ namespace Smuxi.Frontend
             WorkerQueue.Enqueue(delegate {
                 try {
                     chat.ExecuteRemoveFinished();
-                } catch (InvalidStateException ex) {
+                } catch (Exception ex) {
 #if LOG4NET
                     Logger.Error("QueueRemoveFinished(): ExecuteRemoveFinished() threw exception!" , ex);
 #endif
@@ -487,7 +487,7 @@ namespace Smuxi.Frontend
             WorkerQueue.Enqueue(delegate {
                 try {
                     chat.ExecuteSync();
-                } catch (InvalidStateException ex) {
+                } catch (Exception ex) {
 #if LOG4NET
                     Logger.Error("QueueSync(): ExecuteSync() threw exception!" , ex);
 #endif
@@ -520,7 +520,7 @@ namespace Smuxi.Frontend
             WorkerQueue.Enqueue(delegate {
                 try {
                     chat.ExecuteReadyToSync();
-                } catch (InvalidStateException ex) {
+                } catch (Exception ex) {
 #if LOG4NET
                     Logger.Error("ReadyToSyncWorker(): ExecuteReadyToSync() threw exception!" , ex);
 #endif
