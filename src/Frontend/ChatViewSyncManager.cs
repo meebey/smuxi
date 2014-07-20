@@ -561,6 +561,10 @@ namespace Smuxi.Frontend
         public void Clear()
         {
             Trace.Call();
+
+            lock (Chats) {
+                Chats.Clear();
+            }
         }
 
         object GetChatKey(ChatModel chatModel)
