@@ -68,6 +68,10 @@ namespace Smuxi.Frontend
                 Chat = chat;
             }
 
+            public virtual void Init()
+            {
+            }
+
             public virtual void ExecuteAdd()
             {
                 throw new InvalidStateException("could not add in " + this.GetType().Name);
@@ -112,6 +116,10 @@ namespace Smuxi.Frontend
         {
             public AddedState(SyncInfo chat)
                 :base(chat)
+            {
+            }
+
+            public override void Init()
             {
 #if LOG4NET
                 DateTime start = DateTime.UtcNow;
@@ -199,6 +207,10 @@ namespace Smuxi.Frontend
             public SyncingState(SyncInfo chat)
                 :base(chat)
             {
+            }
+
+            public override void Init()
+            {
 #if LOG4NET
                 DateTime start = DateTime.UtcNow;
 #endif
@@ -245,6 +257,10 @@ namespace Smuxi.Frontend
             public RemovingState(SyncInfo chat)
                 :base(chat)
             {
+            }
+
+            public override void Init()
+            {
                 Chat.Manager.OnChatRemoved(Chat.ChatView);
             }
 
@@ -280,6 +296,7 @@ namespace Smuxi.Frontend
             public void SetState<T>() where T : State
             {
                 State = (T)Activator.CreateInstance(typeof(T), this);
+                State.Init();
             }
 
             public void ExecuteAdd()
