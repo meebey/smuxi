@@ -293,7 +293,7 @@ namespace Smuxi.Frontend
                 SetState<InitialState>();
             }
 
-            public void SetState<T>() where T : State
+            internal void SetState<T>() where T : State
             {
                 State = (T)Activator.CreateInstance(typeof(T), this);
                 State.Init();
