@@ -1,6 +1,6 @@
 // Smuxi - Smart MUltipleXed Irc
 //
-// Copyright (c) 2011, 2013 Mirco Bauer <meebey@meebey.net>
+// Copyright (c) 2011, 2013-2014 Mirco Bauer <meebey@meebey.net>
 //
 // Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
 //
@@ -55,17 +55,17 @@ namespace Smuxi.Frontend
 
         abstract class State
         {
-            protected SyncInfo Chat { get; private set; }
+            protected SyncInfo SyncInfo { get; private set; }
 
             protected State(SyncInfo chat)
             {
                 if (chat == null) {
                     throw new ArgumentNullException("chat");
                 }
-                if (Chat != null) {
+                if (SyncInfo != null) {
                     throw new Exception("State already initialized");
                 }
-                Chat = chat;
+                SyncInfo = chat;
             }
 
             public virtual void Init()
@@ -76,22 +76,27 @@ namespace Smuxi.Frontend
             {
                 throw new InvalidStateException("could not add in " + this.GetType().Name);
             }
+
             public virtual void ExecuteRemove()
             {
                 throw new InvalidStateException("could not remove in " + this.GetType().Name);
             }
+
             public virtual void ExecuteRemoveFinished()
             {
                 throw new InvalidStateException("could not remove in " + this.GetType().Name);
             }
+
             public virtual void ExecuteSync()
             {
                 throw new InvalidStateException("could not sync in " + this.GetType().Name);
             }
+
             public virtual void ExecuteReadyToSync()
             {
                 throw new InvalidStateException("could not be ready to sync in " + this.GetType().Name);
             }
+
             public virtual void ExecuteSyncFinished()
             {
                 throw new InvalidStateException("could not finish sync in " + this.GetType().Name);
@@ -100,22 +105,20 @@ namespace Smuxi.Frontend
 
         class InitialState : State
         {
-            public InitialState(SyncInfo chat)
-                :base(chat)
+            public InitialState(SyncInfo chat) : base(chat)
             {
             }
 
             public override void ExecuteAdd()
             {
-                Trace.Call(Chat.ChatModel);
-                Chat.State = new AddedState(Chat);
+                Trace.Call(SyncInfo.ChatModel);
+                SyncInfo.State = new AddedState(SyncInfo);
             }
         }
 
         class AddedState : State
         {
-            public AddedState(SyncInfo chat)
-                :base(chat)
+            public AddedState(SyncInfo chat) : base(chat)
             {
             }
 
@@ -125,13 +128,13 @@ namespace Smuxi.Frontend
                 DateTime start = DateTime.UtcNow;
 #endif
                 // REMOTING CALL 1
-                var chatId = Chat.ChatModel.ID;
+                var chatId = SyncInfo.ChatModel.ID;
                 // REMOTING CALL 2
-                var chatType = Chat.ChatModel.ChatType;
+                var chatType = SyncInfo.ChatModel.ChatType;
                 // REMOTING CALL 3
-                var chatPosition = Chat.ChatModel.Position;
+                var chatPosition = SyncInfo.ChatModel.Position;
                 // REMOTING CALL 4
-                IProtocolManager protocolManager = Chat.ChatModel.ProtocolManager;
+                var protocolManager = SyncInfo.ChatModel.ProtocolManager;
                 Type protocolManagerType = null;
                 if (protocolManager != null) {
                     protocolManagerType = protocolManager.GetType();
@@ -142,70 +145,68 @@ namespace Smuxi.Frontend
                 Logger.Debug("Add() done, syncing took: " +
                              Math.Round(duration) + " ms");
 #endif
-                Chat.Manager.OnChatAdded(Chat.ChatModel,
-                                                  chatId,
-                                                  chatType,
-                                                  chatPosition,
-                                                  protocolManager,protocolManagerType);
+                SyncInfo.Manager.OnChatAdded(SyncInfo.ChatModel,
+                                             chatId,
+                                             chatType,
+                                             chatPosition,
+                                             protocolManager,
+                                             protocolManagerType);
             }
 
             public override void ExecuteReadyToSync()
             {
-                Trace.Call(Chat.ChatModel);
-                Chat.State = new WaitingForSyncState(Chat);
+                Trace.Call(SyncInfo.ChatModel);
+                SyncInfo.State = new WaitingForSyncState(SyncInfo);
             }
 
             public override void ExecuteSync()
             {
-                Trace.Call(Chat.ChatModel);
-                Chat.State = new SyncQueuedState(Chat);
+                Trace.Call(SyncInfo.ChatModel);
+                SyncInfo.State = new SyncQueuedState(SyncInfo);
             }
 
             public override void ExecuteRemove()
             {
-                Trace.Call(Chat.ChatModel);
-                Chat.State = new RemovingState(Chat);
+                Trace.Call(SyncInfo.ChatModel);
+                SyncInfo.State = new RemovingState(SyncInfo);
             }
         }
 
         class SyncQueuedState : State
         {
-            public SyncQueuedState(SyncInfo chat)
-                :base(chat)
+            public SyncQueuedState(SyncInfo chat) : base(chat)
             {
             }
 
             public override void ExecuteReadyToSync()
             {
-                Trace.Call(Chat.ChatModel);
-                Chat.State = new SyncingState(Chat);
+                Trace.Call(SyncInfo.ChatModel);
+                SyncInfo.State = new SyncingState(SyncInfo);
             }
         }
 
         class WaitingForSyncState : State
         {
-            public WaitingForSyncState(SyncInfo chat)
-                :base(chat)
+            public WaitingForSyncState(SyncInfo chat) : base(chat)
             {
             }
 
             public override void ExecuteSync()
             {
-                Trace.Call(Chat.ChatModel);
-                Chat.State = new SyncingState(Chat);
+                Trace.Call(SyncInfo.ChatModel);
+                SyncInfo.State = new SyncingState(SyncInfo);
             }
 
             public override void ExecuteRemove()
             {
-                Trace.Call(Chat.ChatModel);
-                Chat.State = new RemovingState(Chat);
+                Trace.Call(SyncInfo.ChatModel);
+                SyncInfo.State = new RemovingState(SyncInfo);
             }
         }
 
         class SyncingState : State
         {
-            public SyncingState(SyncInfo chat)
-                :base(chat)
+            public SyncingState(SyncInfo chat) : base(chat)
             {
             }
 
@@ -214,60 +215,58 @@ namespace Smuxi.Frontend
 #if LOG4NET
                 DateTime start = DateTime.UtcNow;
 #endif
-                Chat.ChatView.Sync();
+                SyncInfo.ChatView.Sync();
 #if LOG4NET
                 DateTime stop = DateTime.UtcNow;
                 double duration = stop.Subtract(start).TotalMilliseconds;
-                Logger.Debug("Sync() <" + Chat.ChatView.ID + ">.Sync() done, " +
+                Logger.Debug("Sync() <" + SyncInfo.ChatView.ID + ">.Sync() done, " +
                              " syncing took: " + Math.Round(duration) + " ms");
 #endif
-                Chat.Manager.OnChatSynced(Chat.ChatView);
+                SyncInfo.Manager.OnChatSynced(SyncInfo.ChatView);
             }
 
             public override void ExecuteSyncFinished()
             {
-                Trace.Call(Chat.ChatModel);
-                Chat.State = new SyncState(Chat);
+                Trace.Call(SyncInfo.ChatModel);
+                SyncInfo.State = new SyncState(SyncInfo);
             }
         }
 
         class SyncState : State
         {
-            public SyncState(SyncInfo chat)
-                :base(chat)
+            public SyncState(SyncInfo chat) : base(chat)
             {
             }
 
             public override void ExecuteRemove()
             {
-                Trace.Call(Chat.ChatModel);
-                Chat.State = new RemovingState(Chat);
+                Trace.Call(SyncInfo.ChatModel);
+                SyncInfo.State = new RemovingState(SyncInfo);
             }
 
             public override void ExecuteSync()
             {
                 // this happens for example in /rejoin
-                Trace.Call(Chat.ChatModel);
-                Chat.State = new SyncingState(Chat);
+                Trace.Call(SyncInfo.ChatModel);
+                SyncInfo.State = new SyncingState(SyncInfo);
             }
         }
 
         class RemovingState : State
         {
-            public RemovingState(SyncInfo chat)
-                :base(chat)
+            public RemovingState(SyncInfo chat) : base(chat)
             {
             }
 
             public override void Init()
             {
-                Chat.Manager.OnChatRemoved(Chat.ChatView);
+                SyncInfo.Manager.OnChatRemoved(SyncInfo.ChatView);
             }
 
             public override void ExecuteRemoveFinished()
             {
-                Trace.Call(Chat.ChatModel);
-                Chat.Manager.Remove(Chat.ChatModel);
+                Trace.Call(SyncInfo.ChatModel);
+                SyncInfo.Manager.Remove(SyncInfo.ChatModel);
             }
 
             public override void ExecuteReadyToSync()
@@ -280,18 +279,21 @@ namespace Smuxi.Frontend
 
         class SyncInfo
         {
-            internal readonly ChatViewSyncManager Manager;
+            State f_State;
+            object SyncRoot { get; set; }
+            internal ChatViewSyncManager Manager { get; set; }
+            internal ChatModel ChatModel { get; set; }
+            internal IChatView ChatView { get; set; }
+
             internal State State {
-                get { return f_State; }
+                get {
+                    return f_State;
+                }
                 set {
                     f_State = value;
                     f_State.Init();
                 }
             }
-            internal readonly ChatModel ChatModel;
-            internal IChatView ChatView { get; set; }
-            readonly object syncRoot = new object();
-            State f_State;
 
             public SyncInfo(ChatViewSyncManager manager, ChatModel chatModel)
             {
@@ -302,49 +304,49 @@ namespace Smuxi.Frontend
 
             public void ExecuteAdd()
             {
-                lock (syncRoot) {
+                lock (SyncRoot) {
                     State.ExecuteAdd();
                 }
             }
 
             public void ExecuteRemove()
             {
-                lock (syncRoot) {
+                lock (SyncRoot) {
                     State.ExecuteRemove();
                 }
             }
 
             public void ExecuteRemoveFinished()
             {
-                lock (syncRoot) {
+                lock (SyncRoot) {
                     State.ExecuteRemoveFinished();
                 }
             }
 
             public void ExecuteSync()
             {
-                lock (syncRoot) {
+                lock (SyncRoot) {
                     State.ExecuteSync();
                 }
             }
 
             public void ExecuteReadyToSync()
             {
-                lock (syncRoot) {
+                lock (SyncRoot) {
                     State.ExecuteReadyToSync();
                 }
             }
 
             public void ExecuteSyncFinished()
             {
-                lock (syncRoot) {
+                lock (SyncRoot) {
                     State.ExecuteSyncFinished();
                 }
             }
         }
 
         ThreadPoolQueue WorkerQueue { set; get; }
-        Dictionary<object, SyncInfo> Chats { set; get; }
+        Dictionary<object, SyncInfo> SyncInfos { set; get; }
 
         public event EventHandler<ChatViewAddedEventArgs>  ChatAdded;
         public event EventHandler<ChatViewSyncedEventArgs> ChatSynced;
@@ -356,7 +358,7 @@ namespace Smuxi.Frontend
             WorkerQueue = new ThreadPoolQueue() {
                 MaxWorkers = 4
             };
-            Chats = new Dictionary<object, SyncInfo>();
+            SyncInfos = new Dictionary<object, SyncInfo>();
         }
 
         /// <remarks>
@@ -367,6 +369,7 @@ namespace Smuxi.Frontend
             Trace.Call(chatModel);
 
             if (chatModel == null) {
+
                 throw new ArgumentNullException("chatModel");
             }
 
@@ -375,8 +378,8 @@ namespace Smuxi.Frontend
             Logger.DebugFormat("Remove() <{0}> removing from release queue",
                                chatKey);
 #endif
-            lock (Chats) {
-                Chats.Remove(chatKey);
+            lock (SyncInfos) {
+                SyncInfos.Remove(chatKey);
             }
         }
 
@@ -464,19 +467,19 @@ namespace Smuxi.Frontend
         bool TryGetChat(ChatModel chatModel, out SyncInfo chat)
         {
             var key = GetChatKey(chatModel);
-            lock (Chats) {
-                return Chats.TryGetValue(key, out chat);
+            lock (SyncInfos) {
+                return SyncInfos.TryGetValue(key, out chat);
             }
         }
 
         SyncInfo GetOrCreateChat(ChatModel chatModel)
         {
             var key = GetChatKey(chatModel);
-            lock (Chats) {
+            lock (SyncInfos) {
                 SyncInfo chat;
-                if (!Chats.TryGetValue(key, out chat)) {
+                if (!SyncInfos.TryGetValue(key, out chat)) {
                     chat = new SyncInfo(this, chatModel);
-                    Chats.Add(key, chat);
+                    SyncInfos.Add(key, chat);
                 }
                 return chat;
             }
@@ -580,8 +583,8 @@ namespace Smuxi.Frontend
         {
             Trace.Call();
 
-            lock (Chats) {
-                Chats.Clear();
+            lock (SyncInfos) {
+                SyncInfos.Clear();
             }
         }
 
@@ -691,8 +694,8 @@ namespace Smuxi.Frontend
 
     public class InvalidStateException : Exception
     {
-        internal InvalidStateException(string msg)
-            :base(msg)
+        internal InvalidStateException(string msg) :
+                                  base(msg)
         {
         }
     }
