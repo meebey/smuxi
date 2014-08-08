@@ -70,6 +70,7 @@ namespace Smuxi.Frontend.Gnome
         public bool IsMinimized { get; private set; }
         public bool IsMaximized { get; private set; }
         public int WindowWidth { get; private set; }
+        public EmoticonStore EmoticonStore { get; set; }
 
         public bool CaretMode {
             get {
@@ -137,6 +138,7 @@ namespace Smuxi.Frontend.Gnome
         {
             // restore window size / position
             int width, heigth;
+            EmoticonStore = new EmoticonStore();
             if (Frontend.FrontendConfig[Frontend.UIName + "/Interface/Width"] != null) {
                 width  = (int) Frontend.FrontendConfig[Frontend.UIName + "/Interface/Width"];
             } else {
@@ -246,7 +248,16 @@ namespace Smuxi.Frontend.Gnome
                 };
                 args.Requisition = bestSize;
             };
+            var eb = new Gtk.EventBox();
+            var iconBar = new Gtk.Image();
+            iconBar.Pixbuf = Frontend.LoadIcon("go-next-symbolic", 16, "go-next-symbolic.png");
+            var bottom = new Gtk.HBox(false, 0);
+            eb.Add(bottom);
+            var EmoticonSticker = new EmoticonSticker(Entry, this, EmoticonStore);
             entryScrolledWindow.Add(Entry);
+            bottom.PackStart(EmoticonSticker,false, true, 1);
+            bottom.PackStart(entryScrolledWindow,true, true,1);
+            bottom.PackStart(iconBar,false, true, 1);
 
             ProgressBar = new Gtk.ProgressBar();
             StatusHBox = new Gtk.HBox();
@@ -280,7 +291,7 @@ namespace Smuxi.Frontend.Gnome
                 }
             };
             entryPaned.Pack1(treeviewPaned, true, false);
-            entryPaned.Pack2(entryScrolledWindow, false, false);
+            entryPaned.Pack2(eb, false, false);
 
             Gtk.VBox vbox = new Gtk.VBox();
             vbox.PackStart(MenuWidget, false, false, 0);
