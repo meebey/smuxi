@@ -39,9 +39,10 @@ namespace Smuxi.Engine
 
         public override int Count {
             get {
-                var cmd = Connection.CreateCommand();
-                cmd.CommandText = "SELECT COUNT(*) FROM Messages";
-                return (int) Convert.ChangeType(cmd.ExecuteScalar(), typeof(int));
+                using (var cmd = Connection.CreateCommand()) {
+                    cmd.CommandText = "SELECT COUNT(*) FROM Messages";
+                    return (int) Convert.ChangeType(cmd.ExecuteScalar(), typeof(int));
+                }
             }
         }
 
@@ -136,15 +137,16 @@ namespace Smuxi.Engine
                 param.Value = limit.ToString();
                 cmd.Parameters.Add(param);
 
-                var reader = cmd.ExecuteReader();
-                var msgs = new List<MessageModel>(limit);
-                while (reader.Read()) {
-                    var json = (string) reader["JSON"];
-                    var dto = JsonSerializer.DeserializeFromString<MessageDtoModelV1>(json);
-                    var msg = dto.ToMessage();
-                    msgs.Add(msg);
+                using (var reader = cmd.ExecuteReader()) {
+                    var msgs = new List<MessageModel>(limit);
+                    while (reader.Read()) {
+                        var json = (string) reader["JSON"];
+                        var dto = JsonSerializer.DeserializeFromString<MessageDtoModelV1>(json);
+                        var msg = dto.ToMessage();
+                        msgs.Add(msg);
+                    }
+                    return msgs;
                 }
-                return msgs;
             }
         }
 
@@ -171,11 +173,12 @@ namespace Smuxi.Engine
             using (var cmd = Connection.CreateCommand()) {
                 cmd.CommandText = "SELECT JSON FROM Messages";
 
-                var reader = cmd.ExecuteReader();
-                while (reader.Read()) {
-                    var json = (string) reader["JSON"];
-                    var dto = JsonSerializer.DeserializeFromString<MessageDtoModelV1>(json);
-                    yield return dto.ToMessage();
+                using (var reader = cmd.ExecuteReader()) {
+                    while (reader.Read()) {
+                        var json = (string) reader["JSON"];
+                        var dto = JsonSerializer.DeserializeFromString<MessageDtoModelV1>(json);
+                        yield return dto.ToMessage();
+                    }
                 }
             }
         }
