@@ -39,3 +39,4 @@ po-*/*~
 bin/
 bin-osx/
 bin-win32/
+Thumbs.db
