@@ -92,6 +92,7 @@ namespace Smuxi.Engine
             f_Value = value;
         }
         
+        [CLSCompliant(false)]
         public TextColor(uint value)
         {
             f_Value = checked((int) value);
