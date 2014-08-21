@@ -300,6 +300,7 @@ namespace Smuxi.Frontend
             {
                 Manager = manager;
                 ChatModel = chatModel;
+                SyncRoot = new object();
                 State = new InitialState(this);
             }
 
