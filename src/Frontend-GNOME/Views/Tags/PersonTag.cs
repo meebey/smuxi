@@ -39,5 +39,9 @@ namespace Smuxi.Frontend.Gnome
             ID = id;
             IdentityName = identityName;
         }
+
+        protected PersonTag(IntPtr handle) : base(handle)
+        {
+        }
     }
 }
