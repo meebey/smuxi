@@ -419,8 +419,8 @@ namespace Smuxi.Frontend
             SyncInfo chat;
             if (!TryGetChat(chatModel, out chat)) {
 #if LOG4NET
-                Logger.WarnFormat("QueueRemove() <{0}> already removed or never existed",
-                           chatModel);
+                Logger.WarnFormat("QueueRemove() <{0}> already removed or " +
+                                  "never existed", chatModel);
 #endif
                 return;
             }
@@ -429,7 +429,8 @@ namespace Smuxi.Frontend
                     chat.ExecuteRemove();
                 } catch (Exception ex) {
 #if LOG4NET
-                    Logger.Error("QueueRemove(): ExecuteRemove() threw exception!" , ex);
+                    Logger.Error("QueueRemove(): ExecuteRemove() threw " +
+                                 "exception!", ex);
 #endif
                     OnWorkerException(chat.ChatModel, ex);
                 }
@@ -447,8 +448,8 @@ namespace Smuxi.Frontend
             SyncInfo chat;
             if (!TryGetChat(chatModel, out chat)) {
 #if LOG4NET
-                Logger.WarnFormat("QueueRemoveFinished() <{0}> already removed or never existed",
-                           chatModel);
+                Logger.WarnFormat("QueueRemoveFinished() <{0}> already " +
+                                  "removed or never existed", chatModel);
 #endif
                 return;
             }
@@ -458,7 +459,8 @@ namespace Smuxi.Frontend
                     chat.ExecuteRemoveFinished();
                 } catch (Exception ex) {
 #if LOG4NET
-                    Logger.Error("QueueRemoveFinished(): ExecuteRemoveFinished() threw exception!" , ex);
+                    Logger.Error("QueueRemoveFinished(): " +
+                                 "ExecuteRemoveFinished() threw exception!", ex);
 #endif
                     OnWorkerException(chat.ChatModel, ex);
                 }
@@ -501,7 +503,7 @@ namespace Smuxi.Frontend
             if (!TryGetChat(chatModel, out chat)) {
 #if LOG4NET
                 Logger.WarnFormat("QueueSync() <{0}> unknow chat, cannot sync",
-                           chatModel);
+                                  chatModel);
 #endif
                 return;
             }
@@ -511,7 +513,7 @@ namespace Smuxi.Frontend
                     chat.ExecuteSync();
                 } catch (Exception ex) {
 #if LOG4NET
-                    Logger.Error("QueueSync(): ExecuteSync() threw exception!" , ex);
+                    Logger.Error("QueueSync(): ExecuteSync() threw exception!", ex);
 #endif
                     OnWorkerException(chat.ChatModel, ex);
                 }
@@ -532,8 +534,8 @@ namespace Smuxi.Frontend
             SyncInfo chat;
             if (!TryGetChat(chatView.ChatModel, out chat)) {
 #if LOG4NET
-                Logger.WarnFormat("QueueReadyToSync() <{0}> unknow chat, something is wrong",
-                           chatView.ChatModel);
+                Logger.WarnFormat("QueueReadyToSync() <{0}> unknow chat, " +
+                                  "something is wrong", chatView.ChatModel);
 #endif
                 return;
             }
@@ -544,7 +546,8 @@ namespace Smuxi.Frontend
                     chat.ExecuteReadyToSync();
                 } catch (Exception ex) {
 #if LOG4NET
-                    Logger.Error("ReadyToSyncWorker(): ExecuteReadyToSync() threw exception!" , ex);
+                    Logger.Error("QueueReadyToSync(): ExecuteReadyToSync() " +
+                                 "threw exception!", ex);
 #endif
                     OnWorkerException(chat.ChatModel, ex);
                 }
@@ -562,8 +565,10 @@ namespace Smuxi.Frontend
             SyncInfo chat;
             if (!TryGetChat(chatView.ChatModel, out chat)) {
 #if LOG4NET
-                Logger.WarnFormat("QueueSyncFinished() <{0}> unknow chat, something is wrong",
-                           chatView.ChatModel);
+                Logger.WarnFormat(
+                    "QueueSyncFinished() <{0}> unknow chat, something is wrong",
+                    chatView.ChatModel
+                );
 #endif
                 return;
             }
@@ -573,7 +578,8 @@ namespace Smuxi.Frontend
                     chat.ExecuteSyncFinished();
                 } catch (Exception ex) {
 #if LOG4NET
-                    Logger.Error("SyncFinishedWorker(): ExecuteSyncFinished() threw exception!" , ex);
+                    Logger.Error("QueueSyncFinished(): ExecuteSyncFinished() " +
+                                 "threw exception!", ex);
 #endif
                     OnWorkerException(chat.ChatModel, ex);
                 }
