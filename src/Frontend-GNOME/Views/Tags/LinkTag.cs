@@ -34,5 +34,9 @@ namespace Smuxi.Frontend.Gnome
 
             Link = link;
         }
+
+        protected LinkTag(IntPtr handle) : base(handle)
+        {
+        }
     }
 }
