@@ -63,9 +63,6 @@ namespace Smuxi.Frontend
                 if (chat == null) {
                     throw new ArgumentNullException("chat");
                 }
-                if (SyncInfo != null) {
-                    throw new Exception("State already initialized");
-                }
                 SyncInfo = chat;
             }
 
