@@ -72,32 +72,50 @@ namespace Smuxi.Frontend
 
             public virtual void ExecuteAdd()
             {
-                throw new InvalidStateException("could not add in " + this.GetType().Name);
+                throw new InvalidStateException(
+                    String.Format("<{0}> could not add in {1}",
+                                  SyncInfo.ChatModel, GetType().Name)
+                );
             }
 
             public virtual void ExecuteRemove()
             {
-                throw new InvalidStateException("could not remove in " + this.GetType().Name);
+                throw new InvalidStateException(
+                    String.Format("<{0}> could not remove in {1}",
+                                  SyncInfo.ChatModel, GetType().Name)
+                );
             }
 
             public virtual void ExecuteRemoveFinished()
             {
-                throw new InvalidStateException("could not remove in " + this.GetType().Name);
+                throw new InvalidStateException(
+                    String.Format("<{0}> could not finished remove in {1}",
+                                  SyncInfo.ChatModel, GetType().Name)
+                );
             }
 
             public virtual void ExecuteSync()
             {
-                throw new InvalidStateException("could not sync in " + this.GetType().Name);
+                throw new InvalidStateException(
+                    String.Format("<{0}> could not sync in {1}",
+                                  SyncInfo.ChatModel, GetType().Name)
+                );
             }
 
             public virtual void ExecuteReadyToSync()
             {
-                throw new InvalidStateException("could not be ready to sync in " + this.GetType().Name);
+                throw new InvalidStateException(
+                    String.Format("<{0}> could not be ready to sync in {1}",
+                                  SyncInfo.ChatModel, GetType().Name)
+                );
             }
 
             public virtual void ExecuteSyncFinished()
             {
-                throw new InvalidStateException("could not finish sync in " + this.GetType().Name);
+                throw new InvalidStateException(
+                    String.Format("<{0}> could not finish sync in {1}",
+                                  SyncInfo.ChatModel, GetType().Name)
+                );
             }
         }
 
