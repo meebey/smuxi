@@ -127,7 +127,7 @@ namespace Smuxi.Frontend
 
             public override void ExecuteAdd()
             {
-                Trace.Call(SyncInfo.ChatModel);
+                Trace.Call();
                 SyncInfo.State = new AddedState(SyncInfo);
             }
         }
@@ -171,19 +171,19 @@ namespace Smuxi.Frontend
 
             public override void ExecuteReadyToSync()
             {
-                Trace.Call(SyncInfo.ChatModel);
+                Trace.Call();
                 SyncInfo.State = new WaitingForSyncState(SyncInfo);
             }
 
             public override void ExecuteSync()
             {
-                Trace.Call(SyncInfo.ChatModel);
+                Trace.Call();
                 SyncInfo.State = new SyncQueuedState(SyncInfo);
             }
 
             public override void ExecuteRemove()
             {
-                Trace.Call(SyncInfo.ChatModel);
+                Trace.Call();
                 SyncInfo.State = new RemovingState(SyncInfo);
             }
         }
@@ -196,7 +196,7 @@ namespace Smuxi.Frontend
 
             public override void ExecuteReadyToSync()
             {
-                Trace.Call(SyncInfo.ChatModel);
+                Trace.Call();
                 SyncInfo.State = new SyncingState(SyncInfo);
             }
         }
@@ -209,13 +209,13 @@ namespace Smuxi.Frontend
 
             public override void ExecuteSync()
             {
-                Trace.Call(SyncInfo.ChatModel);
+                Trace.Call();
                 SyncInfo.State = new SyncingState(SyncInfo);
             }
 
             public override void ExecuteRemove()
             {
-                Trace.Call(SyncInfo.ChatModel);
+                Trace.Call();
                 SyncInfo.State = new RemovingState(SyncInfo);
             }
         }
@@ -243,7 +243,7 @@ namespace Smuxi.Frontend
 
             public override void ExecuteSyncFinished()
             {
-                Trace.Call(SyncInfo.ChatModel);
+                Trace.Call();
                 SyncInfo.State = new SyncState(SyncInfo);
             }
         }
@@ -256,14 +256,14 @@ namespace Smuxi.Frontend
 
             public override void ExecuteRemove()
             {
-                Trace.Call(SyncInfo.ChatModel);
+                Trace.Call();
                 SyncInfo.State = new RemovingState(SyncInfo);
             }
 
             public override void ExecuteSync()
             {
                 // this happens for example in /rejoin
-                Trace.Call(SyncInfo.ChatModel);
+                Trace.Call();
                 SyncInfo.State = new SyncingState(SyncInfo);
             }
         }
@@ -281,12 +281,13 @@ namespace Smuxi.Frontend
 
             public override void ExecuteRemoveFinished()
             {
-                Trace.Call(SyncInfo.ChatModel);
+                Trace.Call();
                 SyncInfo.Manager.Remove(SyncInfo.ChatModel);
             }
 
             public override void ExecuteReadyToSync()
             {
+                Trace.Call();
                 // no-op
                 // this can happen when you add and remove very fast after each other.
                 // the add callback might be in a different thread and therefore be delayed
