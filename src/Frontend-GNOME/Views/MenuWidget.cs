@@ -256,6 +256,9 @@ namespace Smuxi.Frontend.Gnome
                 
                 controller.AddServer(server);
                 controller.Save();
+
+                // reload server list in join bar
+                JoinWidget.InitNetworks(controller.GetNetworks());
             } catch (InvalidOperationException ex) {
                 Frontend.ShowError(Parent, _("Unable to add server: "), ex);
             } catch (Exception ex) {
