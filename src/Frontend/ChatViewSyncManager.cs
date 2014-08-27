@@ -130,6 +130,17 @@ namespace Smuxi.Frontend
                 Trace.Call();
                 SyncInfo.State = new AddedState(SyncInfo);
             }
+
+            public override void ExecuteSync()
+            {
+                Trace.Call();
+
+                // HACK: we can't jump from initial state to sync state, we
+                // have to wait till we have reached added state
+                var waitLock = new AutoResetEvent(false);
+                SyncInfo.SyncWaitLock = waitLock;
+                waitLock.WaitOne();
+            }
         }
 
         class AddedState : State
@@ -298,6 +309,7 @@ namespace Smuxi.Frontend
         {
             State f_State;
             object SyncRoot { get; set; }
+            internal AutoResetEvent SyncWaitLock { get; set; }
             internal ChatViewSyncManager Manager { get; set; }
             internal ChatModel ChatModel { get; set; }
             internal IChatView ChatView { get; set; }
@@ -416,6 +428,12 @@ namespace Smuxi.Frontend
             WorkerQueue.Enqueue(delegate {
                 try {
                     chat.ExecuteAdd();
+                    var waitLock = chat.SyncWaitLock;
+                    if (waitLock != null) {
+                        // the sync is waiting for added state
+                        waitLock.Set();
+                        chat.SyncWaitLock = null;
+                    }
                 } catch (Exception ex) {
 #if LOG4NET
                     Logger.Error("QueueAdd(): ExecuteAdd() threw exception!" , ex);
