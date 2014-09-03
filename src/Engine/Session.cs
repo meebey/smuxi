@@ -1298,7 +1298,8 @@ namespace Smuxi.Engine
                         "chat.MessageBuffer.Add() threw exception!", ex
                     );
 #endif
-                    if (chat.MessageBuffer is Db4oMessageBuffer) {
+                    if (chat.MessageBuffer is Db4oMessageBuffer ||
+                        chat.MessageBuffer is SqliteMessageBuffer) {
 #if LOG4NET
                         f_Logger.Error(
                             "AddMessageToChat(): " +
