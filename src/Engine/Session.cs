@@ -1293,10 +1293,12 @@ namespace Smuxi.Engine
                 } catch (Exception ex) {
 #if LOG4NET
                     Trace.Call(chat, msg, ignoreFilters);
-                    f_Logger.Error(
-                        "AddMessageToChat(): " +
-                        "chat.MessageBuffer.Add() threw exception!", ex
+                    f_Logger.ErrorFormat(
+                        "AddMessageToChat({0}, {1}, {2}): " +
+                        "chat.MessageBuffer.Add() threw exception:",
+                        chat, msg, ignoreFilters
                     );
+                    f_Logger.Error("AddMessageToChat(): ", ex);
 #endif
                     if (chat.MessageBuffer is Db4oMessageBuffer ||
                         chat.MessageBuffer is SqliteMessageBuffer) {
