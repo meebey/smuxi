@@ -114,6 +114,7 @@ namespace Smuxi.Frontend.Gnome
             SyncManager = new ChatViewSyncManager();
             SyncManager.ChatAdded += OnChatAdded;
             SyncManager.ChatSynced += OnChatSynced;
+            SyncManager.ChatRemoved += OnChatRemoved;
             SyncManager.WorkerException += OnWorkerException;
         }
 
@@ -131,25 +132,33 @@ namespace Smuxi.Frontend.Gnome
 
         public override void RemoveChat(ChatModel chat)
         {
-            ChatView chatView = GetChat(chat);
-            if (chatView == null) {
- #if LOG4NET
+            if (chat == null) {
+#if LOG4NET
                 f_Logger.Warn("RemoveChat(): chatView is null!");
 #endif
                 return;
             }
+            SyncManager.QueueRemove(chat);
+        }
 
-            f_Notebook.RemovePage(f_Notebook.PageNum(chatView));
-            TreeView.Remove(chatView);
-            f_Chats.Remove(chatView);
-            SyncManager.Remove(chat);
-            SyncedChats.Remove(chatView);
+        void OnChatRemoved(object sender, ChatViewRemovedEventArgs e)
+        {
+            var chatView = (ChatView)e.ChatView;
+            GLib.Idle.Add(delegate {
+                f_Notebook.RemovePage(f_Notebook.PageNum(chatView));
+                TreeView.Remove(chatView);
+                f_Chats.Remove(chatView);
+                SyncedChats.Remove(chatView);
 
-            if (ChatRemoved != null) {
-                ChatRemoved(this, new ChatViewManagerChatRemovedEventArgs(chatView));
-            }
+                if (ChatRemoved != null) {
+                    ChatRemoved(this, new ChatViewManagerChatRemovedEventArgs(chatView));
+                }
 
-            chatView.Dispose();
+                chatView.Dispose();
+                
+                SyncManager.QueueRemoveFinished(chatView.ChatModel);
+                return false;
+            });
         }
 
         public override void EnableChat(ChatModel chat)
@@ -293,7 +302,7 @@ namespace Smuxi.Frontend.Gnome
                 TreeView.Append(chatView);
 
                 // notify the sync manager that the ChatView is ready to be synced
-                SyncManager.ReleaseSync(chatView);
+                SyncManager.QueueReadyToSync(chatView);
 
 #if GTK_SHARP_2_10
                 f_Notebook.SetTabReorderable(chatView, true);
@@ -364,6 +373,7 @@ namespace Smuxi.Frontend.Gnome
                 if (ChatSynced != null) {
                     ChatSynced(this, new ChatViewManagerChatSyncedEventArgs(chatView));
                 }
+                SyncManager.QueueSyncFinished(chatView);
                 return false;
             });
         }
