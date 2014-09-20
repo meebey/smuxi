@@ -72,50 +72,32 @@ namespace Smuxi.Frontend
 
             public virtual void ExecuteAdd()
             {
-                throw new InvalidStateException(
-                    String.Format("<{0}> could not add in {1}",
-                                  SyncInfo.ChatModel, GetType().Name)
-                );
+                SyncInfo.ExecutionBuffer.Enqueue(c => c.QueueAdd(SyncInfo.ChatModel));
             }
 
             public virtual void ExecuteRemove()
             {
-                throw new InvalidStateException(
-                    String.Format("<{0}> could not remove in {1}",
-                                  SyncInfo.ChatModel, GetType().Name)
-                );
+                SyncInfo.ExecutionBuffer.Enqueue(c => c.QueueRemove(SyncInfo.ChatModel));
             }
 
             public virtual void ExecuteRemoveFinished()
             {
-                throw new InvalidStateException(
-                    String.Format("<{0}> could not finished remove in {1}",
-                                  SyncInfo.ChatModel, GetType().Name)
-                );
+                SyncInfo.ExecutionBuffer.Enqueue(c => c.QueueRemoveFinished(SyncInfo.ChatModel));
             }
 
             public virtual void ExecuteSync()
             {
-                throw new InvalidStateException(
-                    String.Format("<{0}> could not sync in {1}",
-                                  SyncInfo.ChatModel, GetType().Name)
-                );
+                SyncInfo.ExecutionBuffer.Enqueue(c => c.QueueSync(SyncInfo.ChatModel));
             }
 
             public virtual void ExecuteReadyToSync()
             {
-                throw new InvalidStateException(
-                    String.Format("<{0}> could not be ready to sync in {1}",
-                                  SyncInfo.ChatModel, GetType().Name)
-                );
+                SyncInfo.ExecutionBuffer.Enqueue(c => c.QueueReadyToSync(SyncInfo.ChatView));
             }
 
             public virtual void ExecuteSyncFinished()
             {
-                throw new InvalidStateException(
-                    String.Format("<{0}> could not finish sync in {1}",
-                                  SyncInfo.ChatModel, GetType().Name)
-                );
+                SyncInfo.ExecutionBuffer.Enqueue(c => c.QueueSyncFinished(SyncInfo.ChatView));
             }
         }
 
@@ -283,6 +265,12 @@ namespace Smuxi.Frontend
             {
                 Trace.Call();
                 SyncInfo.Manager.Remove(SyncInfo.ChatModel);
+                if (SyncInfo.ExecutionBuffer.Count > 0) {
+                    #if LOG4NET
+                    Logger.ErrorFormat("ExecuteRemoveFinished() <{0}> there are still Execution Commands in the Buffer",
+                                       SyncInfo.ChatModel.ID);
+                    #endif
+                }
             }
 
             public override void ExecuteReadyToSync()
@@ -301,6 +289,8 @@ namespace Smuxi.Frontend
             internal ChatViewSyncManager Manager { get; set; }
             internal ChatModel ChatModel { get; set; }
             internal IChatView ChatView { get; set; }
+            internal delegate void ExecutionDelegate(ChatViewSyncManager s);
+            internal Queue<ExecutionDelegate> ExecutionBuffer = new Queue<ExecutionDelegate>();
 
             internal State State {
                 get {
@@ -309,6 +299,12 @@ namespace Smuxi.Frontend
                 set {
                     f_State = value;
                     f_State.Init();
+                    // create copy of buffer b/c calling the functions might add new stuff to buffer
+                    var buf = ExecutionBuffer;
+                    ExecutionBuffer = new Queue<ExecutionDelegate>();
+                    foreach(var func in buf) {
+                        func(Manager);
+                    }
                 }
             }
 
