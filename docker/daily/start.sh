@@ -13,7 +13,7 @@ if smuxi-server --list-users | grep -Fq "$user"
   then
   echo "User already exists."
 else
-  smuxi-server --add-user --username=$user --password=$pass
+  smuxi-server --add-user --username="$user" --password="$pass"
 fi
 
 smuxi-server
