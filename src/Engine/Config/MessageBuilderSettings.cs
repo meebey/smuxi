@@ -71,19 +71,19 @@ namespace Smuxi.Engine
         {
             string path_last_chars = @"a-zA-Z0-9#/%&@=\-_+;:~'";
             string path_chars = path_last_chars + @")(?!.,";
-            string domainchars = @"[a-z0-9\-]+";
+            string domainchars = @"[a-zA-Z0-9\-]+";
             string subdomain = domainchars + @"\.";
             string common_tld = @"de|es|im|us|com|net|org|info|biz|gov|name|edu|onion|museum";
-            string any_tld = @"[a-z]+";
+            string any_tld = @"[a-zA-Z]+";
             string domain = @"(?:(?:" + subdomain + ")+(?:" + any_tld + ")|localhost)";
             string short_number = "[1-9][0-9]{,4}";
             string port = ":" + short_number;
-            string user = "[a-z0-9._%+-]+@";
+            string user = "[a-zA-Z0-9._%+-]+@";
             string domain_port = domain + "(?:" + port + ")?";
             string user_domain = user + domain;
             string user_domain_port = "(?:" + user + ")?" + domain_port;
             string path = @"/(?:["+ path_chars +"]*["+ path_last_chars +"]+)?";
-            string protocol = @"[a-z][a-z0-9\-+]*://";
+            string protocol = @"[a-zA-Z][a-zA-Z0-9\-+]*://";
             string protocol_user_domain_port_path = protocol + user_domain_port + "(?:" + path + ")?";
 
             // facebook attachment
