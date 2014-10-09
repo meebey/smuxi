@@ -220,6 +220,13 @@ namespace Smuxi.Frontend.Gnome
                                                   Gtk.CellRenderer cellr,
                                                   Gtk.TreeModel model, Gtk.TreeIter iter)
         {
+            if (cellr == null) {
+                throw new ArgumentNullException("cellr");
+            }
+            if (model == null) {
+                throw new ArgumentNullException("model");
+            }
+
             var chat = (ChatView) model.GetValue(iter, 0);
             var renderer = (Gtk.CellRendererPixbuf) cellr;
 
@@ -240,6 +247,13 @@ namespace Smuxi.Frontend.Gnome
                                                   Gtk.CellRenderer cellr,
                                                   Gtk.TreeModel model, Gtk.TreeIter iter)
         {
+            if (cellr == null) {
+                throw new ArgumentNullException("cellr");
+            }
+            if (model == null) {
+                throw new ArgumentNullException("model");
+            }
+
             var chat = (ChatView) model.GetValue(iter, 0);
             var renderer = (Gtk.CellRendererText) cellr;
 
@@ -274,6 +288,13 @@ namespace Smuxi.Frontend.Gnome
                                                       Gtk.CellRenderer cellr,
                                                       Gtk.TreeModel model, Gtk.TreeIter iter)
         {
+            if (cellr == null) {
+                throw new ArgumentNullException("cellr");
+            }
+            if (model == null) {
+                throw new ArgumentNullException("model");
+            }
+
             var chat = (ChatView) model.GetValue(iter, 0);
             var renderer = (Gtk.CellRendererText) cellr;
 

@@ -541,6 +541,12 @@ namespace Smuxi.Engine
             builder.Append(new UrlMessagePartModel("http://en.wikipedia.org/Talk:Main_Page"));
             TestMessage(msg, builder.ToMessage());
 
+            msg = "http://en.wikipedia.org/wiki/Godunov's_scheme";
+            builder = new MessageBuilder();
+            builder.TimeStamp = DateTime.MinValue;
+            builder.Append(new UrlMessagePartModel("http://en.wikipedia.org/wiki/Godunov's_scheme"));
+            TestMessage(msg, builder.ToMessage());
+
             msg = "<astronouth7303> ok, this is just trippy URL matching: http://couchdb.local/mydb/_magic";
             builder = new MessageBuilder();
             builder.TimeStamp = DateTime.MinValue;
@@ -564,11 +570,6 @@ namespace Smuxi.Engine
         [Test]
         public void AppendMessageWithNonUrls()
         {
-            var msg = "ServiceStack.Common";
-            var builder = new MessageBuilder();
-            builder.TimeStamp = DateTime.MinValue;
-            builder.Append(new TextMessagePartModel("ServiceStack.Common"));
-            TestMessage(msg, builder.ToMessage());
         }
 
         [Test]
@@ -579,6 +580,12 @@ namespace Smuxi.Engine
             var builder = new MessageBuilder();
             builder.TimeStamp = DateTime.MinValue;
             builder.Append(new TextMessagePartModel("org.gnome.Foo.desktop"));
+            TestMessage(msg, builder.ToMessage());
+
+            msg = "ServiceStack.Common";
+            builder = new MessageBuilder();
+            builder.TimeStamp = DateTime.MinValue;
+            builder.Append(new TextMessagePartModel("ServiceStack.Common"));
             TestMessage(msg, builder.ToMessage());
         }
 

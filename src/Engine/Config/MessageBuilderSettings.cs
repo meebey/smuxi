@@ -69,7 +69,7 @@ namespace Smuxi.Engine
 
         static void InitBuiltinSmartLinks()
         {
-            string path_last_chars = @"a-zA-Z0-9#/%&@=\-_+;:~";
+            string path_last_chars = @"a-zA-Z0-9#/%&@=\-_+;:~'";
             string path_chars = path_last_chars + @")(?!.,";
             string domainchars = @"[a-z0-9\-]+";
             string subdomain = domainchars + @"\.";
@@ -117,7 +117,10 @@ namespace Smuxi.Engine
             // Gst.Buffer.Unref() from matching
             string heuristic_domain = @"(?:(?:" + subdomain + ")+(?:" + common_tld + ")|localhost)";
             string heuristic_address = heuristic_domain + "(?:" + path + ")?";
-            regex = new Regex(heuristic_address, RegexOptions.Compiled);
+            regex = new Regex(
+                heuristic_address,
+                RegexOptions.IgnoreCase | RegexOptions.Compiled
+            );
             BuiltinPatterns.Add(new MessagePatternModel(regex) {
                 LinkFormat = "http://{0}"
             });
@@ -213,7 +216,7 @@ namespace Smuxi.Engine
             });
 
             // Debian Security Advisories (DSA)
-            regex = new Regex(@"DSA-([0-9]{4})(-[0-9]{1,2})?",
+            regex = new Regex(@"DSA[ -]?([0-9]{4})(-[0-9]{1,2})?",
                               RegexOptions.IgnoreCase | RegexOptions.Compiled);
             BuiltinPatterns.Add(new MessagePatternModel(regex) {
                 LinkFormat = "http://www.debian.org/security/dsa-{1}"
