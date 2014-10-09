@@ -117,7 +117,10 @@ namespace Smuxi.Engine
             // Gst.Buffer.Unref() from matching
             string heuristic_domain = @"(?:(?:" + subdomain + ")+(?:" + common_tld + ")|localhost)";
             string heuristic_address = heuristic_domain + "(?:" + path + ")?";
-            regex = new Regex(heuristic_address, RegexOptions.Compiled);
+            regex = new Regex(
+                heuristic_address,
+                RegexOptions.IgnoreCase | RegexOptions.Compiled
+            );
             BuiltinPatterns.Add(new MessagePatternModel(regex) {
                 LinkFormat = "http://{0}"
             });

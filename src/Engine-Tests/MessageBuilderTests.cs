@@ -570,11 +570,6 @@ namespace Smuxi.Engine
         [Test]
         public void AppendMessageWithNonUrls()
         {
-            var msg = "ServiceStack.Common";
-            var builder = new MessageBuilder();
-            builder.TimeStamp = DateTime.MinValue;
-            builder.Append(new TextMessagePartModel("ServiceStack.Common"));
-            TestMessage(msg, builder.ToMessage());
         }
 
         [Test]
@@ -585,6 +580,12 @@ namespace Smuxi.Engine
             var builder = new MessageBuilder();
             builder.TimeStamp = DateTime.MinValue;
             builder.Append(new TextMessagePartModel("org.gnome.Foo.desktop"));
+            TestMessage(msg, builder.ToMessage());
+
+            msg = "ServiceStack.Common";
+            builder = new MessageBuilder();
+            builder.TimeStamp = DateTime.MinValue;
+            builder.Append(new TextMessagePartModel("ServiceStack.Common"));
             TestMessage(msg, builder.ToMessage());
         }
 
