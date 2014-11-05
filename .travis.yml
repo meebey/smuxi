@@ -25,7 +25,7 @@ script:
     - mv smuxi-*.tar.gz ../smuxi_${DEB_UPSTREAM_VERSION}.orig.tar.gz
     - cd .. && tar -xzf smuxi_${DEB_UPSTREAM_VERSION}.orig.tar.gz
     - cd - && cp -a debian/ ../smuxi-*/
-    - cd ../smuxi-* && chronic dpkg-buildpackage
+    - cd ../smuxi-* && chronic dpkg-buildpackage -us -uc
 
 notifications:
     irc:
