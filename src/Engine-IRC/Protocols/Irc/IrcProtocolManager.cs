@@ -3659,6 +3659,7 @@ namespace Smuxi.Engine
 
             builder.AppendFormat(_("mode/{0} [{1}] by {2}"),
                                  e.Data.Channel, modechange, whoMsgPart);
+            Session.AddMessageToChat(target, builder.ToMessage());
 
             // remeber channel key for rejoin etc
             foreach (var modeChange in e.ModeChanges) {
