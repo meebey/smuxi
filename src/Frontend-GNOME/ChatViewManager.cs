@@ -32,7 +32,7 @@ using Smuxi.Frontend;
 
 namespace Smuxi.Frontend.Gnome
 {
-    public class ChatViewManager : ChatViewManagerBase
+    public class ChatViewManager : ChatViewManagerBase<ChatView>
     {
 #if LOG4NET
         private static readonly log4net.ILog f_Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
@@ -46,13 +46,12 @@ namespace Smuxi.Frontend.Gnome
         bool AutoSwitchPersonChats { get; set; }
         bool AutoSwitchGroupChats { get; set; }
 
-        public event ChatViewManagerChatAddedEventHandler   ChatAdded;
-        public event ChatViewManagerChatRemovedEventHandler ChatRemoved;
-        public event EventHandler<ChatViewManagerChatSyncedEventArgs> ChatSynced;
-
-        public override IChatView ActiveChat {
+        public override ChatView ActiveChat {
             get {
                 return CurrentChatView;
+            }
+            set {
+                CurrentChatView = value as ChatView;
             }
         }
 
@@ -145,9 +144,7 @@ namespace Smuxi.Frontend.Gnome
             SyncManager.Remove(chat);
             SyncedChats.Remove(chatView);
 
-            if (ChatRemoved != null) {
-                ChatRemoved(this, new ChatViewManagerChatRemovedEventArgs(chatView));
-            }
+            OnChatRemoved(new ChatViewManagerChatRemovedEventArgs<ChatView>(chatView));
 
             chatView.Dispose();
         }
@@ -309,9 +306,7 @@ namespace Smuxi.Frontend.Gnome
                     }
                 }
 
-                if (ChatAdded != null) {
-                    ChatAdded(this, new ChatViewManagerChatAddedEventArgs(chatView));
-                }
+                OnChatAdded(new ChatViewManagerChatAddedEventArgs<ChatView>(chatView));
                 return false;
             });
         }
@@ -361,9 +356,7 @@ namespace Smuxi.Frontend.Gnome
                 chatView.ScrollToEnd();
 
                 SyncedChats.Add(chatView);
-                if (ChatSynced != null) {
-                    ChatSynced(this, new ChatViewManagerChatSyncedEventArgs(chatView));
-                }
+                OnChatSynced(new ChatViewManagerChatSyncedEventArgs<ChatView>(chatView));
                 return false;
             });
         }
@@ -435,52 +428,6 @@ namespace Smuxi.Frontend.Gnome
             }
 
             return idx;
-        }
-    }
-
-    public delegate void ChatViewManagerChatAddedEventHandler(object sender, ChatViewManagerChatAddedEventArgs e);
-    
-    public class ChatViewManagerChatAddedEventArgs : EventArgs
-    {
-        private ChatView f_ChatView;
-        
-        public ChatView ChatView {
-            get {
-                return f_ChatView;
-            }
-        }
-         
-        public ChatViewManagerChatAddedEventArgs(ChatView chatView)
-        {
-            f_ChatView = chatView;
-        }
-    }
-    
-    public delegate void ChatViewManagerChatRemovedEventHandler(object sender, ChatViewManagerChatRemovedEventArgs e);
-    
-    public class ChatViewManagerChatRemovedEventArgs : EventArgs
-    {
-        private ChatView f_ChatView;
-        
-        public ChatView ChatView {
-            get {
-                return f_ChatView;
-            }
-        }
-         
-        public ChatViewManagerChatRemovedEventArgs(ChatView chatView)
-        {
-            f_ChatView = chatView;
-        }
-    }
-
-    public class ChatViewManagerChatSyncedEventArgs : EventArgs
-    {
-        public ChatView ChatView { get; private set; }
-
-        public ChatViewManagerChatSyncedEventArgs(ChatView chatView)
-        {
-            ChatView = chatView;
         }
     }
 }

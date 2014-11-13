@@ -32,7 +32,7 @@ using Smuxi.Frontend;
 
 namespace Smuxi.Frontend.Stfl
 {
-    public class ChatViewManager : ChatViewManagerBase
+    public class ChatViewManager : ChatViewManagerBase<ChatView>
     {
 #if LOG4NET
         private static readonly log4net.ILog _Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
@@ -42,11 +42,12 @@ namespace Smuxi.Frontend.Stfl
         private Dictionary<ChatModel, ChatView> f_ChatViews = new Dictionary<ChatModel, ChatView>();
         private List<ChatView>                  f_ChatViewList = new List<ChatView>();
 
-        public event ChatSwitchedEventHandler CurrentChatSwitched;
-
-        public override IChatView ActiveChat {
+        public override ChatView ActiveChat {
             get {
                 return CurrentChat;
+            }
+            set {
+                CurrentChat = ActiveChat;
             }
         }
         
@@ -57,6 +58,7 @@ namespace Smuxi.Frontend.Stfl
             set {
                 if (f_CurrentChat != null) {
                     f_CurrentChat.IsVisible = false;
+                    OnChatSwitchedFrom(new ChatViewManagerChatSwitchedFromEventArgs<ChatView>(f_CurrentChat));
                 }
 
                 f_CurrentChat = value;
@@ -71,9 +73,7 @@ namespace Smuxi.Frontend.Stfl
                     UpdateTopic();
                 }
 
-                if (CurrentChatSwitched != null) {
-                    CurrentChatSwitched(this, new ChatSwitchedEventArgs(f_CurrentChat));
-                }
+                OnChatSwitchedTo(new ChatViewManagerChatSwitchedToEventArgs<ChatView>(f_CurrentChat));
             }
         }
 
@@ -107,6 +107,7 @@ namespace Smuxi.Frontend.Stfl
             ChatView chatView = (ChatView) CreateChatView(chat, f_MainWindow);
             f_ChatViews.Add(chat, chatView);
             f_ChatViewList.Add(chatView);
+            OnChatAdded(new ChatViewManagerChatAddedEventArgs<ChatView>(chatView));
 
             if (CurrentChat == null) {
                 CurrentChat = chatView;
@@ -124,9 +125,11 @@ namespace Smuxi.Frontend.Stfl
                 CurrentChatNumber--;
             }
 
-            chatView.Dispose();
             f_ChatViews.Remove(chat);
             f_ChatViewList.Remove(chatView);
+
+            OnChatRemoved(new ChatViewManagerChatRemovedEventArgs<ChatView>(chatView));
+            chatView.Dispose();
 
             UpdateNavigation();
         }
@@ -231,18 +234,6 @@ namespace Smuxi.Frontend.Stfl
 
             f_MainWindow.TopicLabel = topic;
             f_MainWindow.ShowTopic = !String.IsNullOrEmpty(topic);
-        }
-    }
-
-    public delegate void ChatSwitchedEventHandler(object sender, ChatSwitchedEventArgs e);
-    
-    public class ChatSwitchedEventArgs : EventArgs
-    {
-        public ChatView ChatView { get; set; }
-        
-        public ChatSwitchedEventArgs(ChatView chatView)
-        {
-            ChatView = chatView;
         }
     }
 }

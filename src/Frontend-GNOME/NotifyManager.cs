@@ -178,7 +178,7 @@ namespace Smuxi.Frontend.Gnome
             IsInitialized = true;
         }
 
-        void OnChatViewManagerChatAdded(object sender, ChatViewManagerChatAddedEventArgs e)
+        void OnChatViewManagerChatAdded(object sender, ChatViewManagerChatAddedEventArgs<ChatView> e)
         {
             // we are only interested in highlights on person and group chats
             if (!(e.ChatView is PersonChatView) &&
@@ -197,7 +197,7 @@ namespace Smuxi.Frontend.Gnome
             HighlightEventHandlers.Add(e.ChatView, handler);
         }
 
-        void OnChatViewManagerChatRemoved(object sender, ChatViewManagerChatRemovedEventArgs e)
+        void OnChatViewManagerChatRemoved(object sender, ChatViewManagerChatRemovedEventArgs<ChatView> e)
         {
             MessageTextViewMessageHighlightedEventHandler handler;
             if (!HighlightEventHandlers.TryGetValue(e.ChatView, out handler)) {

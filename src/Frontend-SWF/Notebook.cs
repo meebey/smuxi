@@ -41,6 +41,9 @@ namespace Smuxi.Frontend.Swf
             get {
                 return (ChatView)SelectedTab;
             }
+            set {
+                SelectedTab =  value;
+            }
         }
         
         public Notebook() : base ()
