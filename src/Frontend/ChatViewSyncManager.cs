@@ -1,6 +1,7 @@
 // Smuxi - Smart MUltipleXed Irc
 //
-// Copyright (c) 2011, 2013 Mirco Bauer <meebey@meebey.net>
+// Copyright (c) 2011, 2013-2014 Mirco Bauer <meebey@meebey.net>
+// Copyright (c) 2014 Oliver Schneider <mail@oli-obk.de>
 //
 // Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
 //
@@ -32,12 +33,309 @@ namespace Smuxi.Frontend
 #if LOG4NET
         private static readonly log4net.ILog Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 #endif
+
+        /*
+         * TODO DisableChat is not in this system
+         * TODO DisableChat should SyncState ---Disable---> WaitingForSyncState
+         *
+         * InitialState ---Add---> AddedState
+         * AddedState ---ReadyToSync---> WaitingForSyncState
+         * WaitingForSyncState ---Sync---> SyncingState
+         * SyncingState ---SyncFinished---> SyncState
+         * SyncState ---Sync---> SyncingState
+         *
+         * AddedState ---Remove---> RemovingState
+         * SyncQueuedState ---Remove---> RemovingState
+         * WaitingForSyncState ---Remove---> RemovingState
+         * SyncingState ---Remove---> RemovingState
+         * SyncState ---Remove---> RemovingState
+         * RemovingState ---RemoveFinished---> KILL IT WITH FIRE
+         */
+
+        abstract class State
+        {
+            protected SyncInfo SyncInfo { get; private set; }
+
+            protected State(SyncInfo chat)
+            {
+                if (chat == null) {
+                    throw new ArgumentNullException("chat");
+                }
+                SyncInfo = chat;
+            }
+
+            public virtual void Init()
+            {
+            }
+
+            public virtual void ExecuteAdd()
+            {
+                SyncInfo.ExecutionBuffer.Enqueue(c => c.QueueAdd(SyncInfo.ChatModel));
+            }
+
+            public virtual void ExecuteRemove()
+            {
+                SyncInfo.ExecutionBuffer.Enqueue(c => c.QueueRemove(SyncInfo.ChatModel));
+            }
+
+            public virtual void ExecuteRemoveFinished()
+            {
+                SyncInfo.ExecutionBuffer.Enqueue(c => c.QueueRemoveFinished(SyncInfo.ChatModel));
+            }
+
+            public virtual void ExecuteSync()
+            {
+                SyncInfo.ExecutionBuffer.Enqueue(c => c.QueueSync(SyncInfo.ChatModel));
+            }
+
+            public virtual void ExecuteReadyToSync()
+            {
+                SyncInfo.ExecutionBuffer.Enqueue(c => c.QueueReadyToSync(SyncInfo.ChatView));
+            }
+
+            public virtual void ExecuteSyncFinished()
+            {
+                SyncInfo.ExecutionBuffer.Enqueue(c => c.QueueSyncFinished(SyncInfo.ChatView));
+            }
+        }
+
+        class InitialState : State
+        {
+            public InitialState(SyncInfo chat) : base(chat)
+            {
+            }
+
+            public override void ExecuteAdd()
+            {
+                Trace.Call();
+                SyncInfo.State = new AddedState(SyncInfo);
+            }
+        }
+
+        class AddedState : State
+        {
+            public AddedState(SyncInfo chat) : base(chat)
+            {
+            }
+
+            public override void Init()
+            {
+#if LOG4NET
+                DateTime start = DateTime.UtcNow;
+#endif
+                // REMOTING CALL 1
+                var chatId = SyncInfo.ChatModel.ID;
+                // REMOTING CALL 2
+                var chatType = SyncInfo.ChatModel.ChatType;
+                // REMOTING CALL 3
+                var chatPosition = SyncInfo.ChatModel.Position;
+                // REMOTING CALL 4
+                var protocolManager = SyncInfo.ChatModel.ProtocolManager;
+                Type protocolManagerType = null;
+                if (protocolManager != null) {
+                    protocolManagerType = protocolManager.GetType();
+                }
+#if LOG4NET
+                DateTime stop = DateTime.UtcNow;
+                double duration = stop.Subtract(start).TotalMilliseconds;
+                Logger.Debug("Add() done, syncing took: " +
+                             Math.Round(duration) + " ms");
+#endif
+                SyncInfo.Manager.OnChatAdded(SyncInfo.ChatModel,
+                                             chatId,
+                                             chatType,
+                                             chatPosition,
+                                             protocolManager,
+                                             protocolManagerType);
+            }
+
+            public override void ExecuteReadyToSync()
+            {
+                Trace.Call();
+                SyncInfo.State = new WaitingForSyncState(SyncInfo);
+            }
+
+            public override void ExecuteRemove()
+            {
+                Trace.Call();
+                SyncInfo.State = new RemovingState(SyncInfo);
+            }
+        }
+
+        class WaitingForSyncState : State
+        {
+            public WaitingForSyncState(SyncInfo chat) : base(chat)
+            {
+            }
+
+            public override void ExecuteSync()
+            {
+                Trace.Call();
+                SyncInfo.State = new SyncingState(SyncInfo);
+            }
+
+            public override void ExecuteRemove()
+            {
+                Trace.Call();
+                SyncInfo.State = new RemovingState(SyncInfo);
+            }
+        }
+
+        class SyncingState : State
+        {
+            public SyncingState(SyncInfo chat) : base(chat)
+            {
+            }
+
+            public override void Init()
+            {
+#if LOG4NET
+                DateTime start = DateTime.UtcNow;
+#endif
+                SyncInfo.ChatView.Sync();
+#if LOG4NET
+                DateTime stop = DateTime.UtcNow;
+                double duration = stop.Subtract(start).TotalMilliseconds;
+                Logger.Debug("Sync() <" + SyncInfo.ChatView.ID + ">.Sync() done, " +
+                             " syncing took: " + Math.Round(duration) + " ms");
+#endif
+                SyncInfo.Manager.OnChatSynced(SyncInfo.ChatView);
+            }
+
+            public override void ExecuteSyncFinished()
+            {
+                Trace.Call();
+                SyncInfo.State = new SyncState(SyncInfo);
+            }
+        }
+
+        class SyncState : State
+        {
+            public SyncState(SyncInfo chat) : base(chat)
+            {
+            }
+
+            public override void ExecuteRemove()
+            {
+                Trace.Call();
+                SyncInfo.State = new RemovingState(SyncInfo);
+            }
+
+            public override void ExecuteSync()
+            {
+                // this happens for example in /rejoin
+                Trace.Call();
+                SyncInfo.State = new SyncingState(SyncInfo);
+            }
+        }
+
+        class RemovingState : State
+        {
+            public RemovingState(SyncInfo chat) : base(chat)
+            {
+            }
+
+            public override void Init()
+            {
+                SyncInfo.Manager.OnChatRemoved(SyncInfo.ChatView);
+            }
+
+            public override void ExecuteRemoveFinished()
+            {
+                Trace.Call();
+                SyncInfo.Manager.Remove(SyncInfo.ChatModel);
+                if (SyncInfo.ExecutionBuffer.Count > 0) {
+                    #if LOG4NET
+                    Logger.ErrorFormat("ExecuteRemoveFinished() <{0}> there are still Execution Commands in the Buffer",
+                                       SyncInfo.ChatModel.ID);
+                    #endif
+                }
+            }
+        }
+
+        class SyncInfo
+        {
+            State f_State;
+            object SyncRoot { get; set; }
+            internal ChatViewSyncManager Manager { get; set; }
+            internal ChatModel ChatModel { get; set; }
+            internal IChatView ChatView { get; set; }
+            internal delegate void ExecutionDelegate(ChatViewSyncManager s);
+            internal Queue<ExecutionDelegate> ExecutionBuffer = new Queue<ExecutionDelegate>();
+
+            internal State State {
+                get {
+                    return f_State;
+                }
+                set {
+                    f_State = value;
+                    f_State.Init();
+                    // create copy of buffer b/c calling the functions might add new stuff to buffer
+                    var buf = ExecutionBuffer;
+                    ExecutionBuffer = new Queue<ExecutionDelegate>();
+                    foreach(var func in buf) {
+                        func(Manager);
+                    }
+                }
+            }
+
+            public SyncInfo(ChatViewSyncManager manager, ChatModel chatModel)
+            {
+                Manager = manager;
+                ChatModel = chatModel;
+                SyncRoot = new object();
+                State = new InitialState(this);
+            }
+
+            public void ExecuteAdd()
+            {
+                lock (SyncRoot) {
+                    State.ExecuteAdd();
+                }
+            }
+
+            public void ExecuteRemove()
+            {
+                lock (SyncRoot) {
+                    State.ExecuteRemove();
+                }
+            }
+
+            public void ExecuteRemoveFinished()
+            {
+                lock (SyncRoot) {
+                    State.ExecuteRemoveFinished();
+                }
+            }
+
+            public void ExecuteSync()
+            {
+                lock (SyncRoot) {
+                    State.ExecuteSync();
+                }
+            }
+
+            public void ExecuteReadyToSync()
+            {
+                lock (SyncRoot) {
+                    State.ExecuteReadyToSync();
+                }
+            }
+
+            public void ExecuteSyncFinished()
+            {
+                lock (SyncRoot) {
+                    State.ExecuteSyncFinished();
+                }
+            }
+        }
+
         ThreadPoolQueue WorkerQueue { set; get; }
-        Dictionary<object, AutoResetEvent> SyncWaitQueue { set; get; }
-        Dictionary<object, IChatView> SyncReleaseQueue { set; get; }
+        Dictionary<object, SyncInfo> SyncInfos { set; get; }
 
         public event EventHandler<ChatViewAddedEventArgs>  ChatAdded;
         public event EventHandler<ChatViewSyncedEventArgs> ChatSynced;
+        public event EventHandler<ChatViewRemovedEventArgs> ChatRemoved;
         public event EventHandler<WorkerExceptionEventArgs> WorkerException;
 
         public ChatViewSyncManager()
@@ -45,52 +343,18 @@ namespace Smuxi.Frontend
             WorkerQueue = new ThreadPoolQueue() {
                 MaxWorkers = 4
             };
-            SyncWaitQueue = new Dictionary<object, AutoResetEvent>();
-            SyncReleaseQueue = new Dictionary<object, IChatView>();
-        }
-
-        public void Add(ChatModel chatModel)
-        {
-            Trace.Call(chatModel);
-
-            if (chatModel == null) {
-                throw new ArgumentNullException("chatModel");
-            }
-
-#if LOG4NET
-            DateTime start = DateTime.UtcNow;
-#endif
-            // REMOTING CALL 1
-            var chatId = chatModel.ID;
-            // REMOTING CALL 2
-            var chatType = chatModel.ChatType;
-            // REMOTING CALL 3
-            var chatPosition = chatModel.Position;
-            // REMOTING CALL 4
-            IProtocolManager protocolManager = chatModel.ProtocolManager;
-            Type protocolManagerType = null;
-            if (protocolManager != null) {
-                protocolManagerType = protocolManager.GetType();
-            }
-#if LOG4NET
-            DateTime stop = DateTime.UtcNow;
-            double duration = stop.Subtract(start).TotalMilliseconds;
-            Logger.Debug("Add() done, syncing took: " +
-                         Math.Round(duration) + " ms");
-#endif
-
-            OnChatAdded(chatModel, chatId, chatType, chatPosition,
-                        protocolManager, protocolManagerType);
+            SyncInfos = new Dictionary<object, SyncInfo>();
         }
 
         /// <remarks>
         /// This method is thread safe.
         /// </remarks>
-        public void Remove(ChatModel chatModel)
+        void Remove(ChatModel chatModel)
         {
             Trace.Call(chatModel);
 
             if (chatModel == null) {
+
                 throw new ArgumentNullException("chatModel");
             }
 
@@ -99,31 +363,9 @@ namespace Smuxi.Frontend
             Logger.DebugFormat("Remove() <{0}> removing from release queue",
                                chatKey);
 #endif
-            lock (SyncReleaseQueue) {
-                SyncReleaseQueue.Remove(chatKey);
+            lock (SyncInfos) {
+                SyncInfos.Remove(chatKey);
             }
-        }
-
-        public void Sync(IChatView chatView)
-        {
-            Trace.Call(chatView);
-
-            if (chatView == null) {
-                throw new ArgumentNullException("chatView");
-            }
-
-#if LOG4NET
-            DateTime start = DateTime.UtcNow;
-#endif
-            chatView.Sync();
-#if LOG4NET
-            DateTime stop = DateTime.UtcNow;
-            double duration = stop.Subtract(start).TotalMilliseconds;
-            Logger.Debug("Sync() <" + chatView.ID + ">.Sync() done, " +
-                         " syncing took: " + Math.Round(duration) + " ms");
-#endif
-
-            OnChatSynced(chatView);
         }
 
         /// <remarks>
@@ -137,16 +379,97 @@ namespace Smuxi.Frontend
                 throw new ArgumentNullException("chatModel");
             }
 
-            var chatKey = GetChatKey(chatModel);
-            lock (SyncWaitQueue) {
-                SyncWaitQueue.Add(chatKey, new AutoResetEvent(false));
+            var chat = GetOrCreateChat(chatModel);
+            WorkerQueue.Enqueue(delegate {
+                try {
+                    chat.ExecuteAdd();
+                } catch (Exception ex) {
 #if LOG4NET
-                Logger.Debug("QueueAdd() <" + chatKey + "> created sync lock");
+                    Logger.Error("QueueAdd(): ExecuteAdd() threw exception!" , ex);
 #endif
+                    OnWorkerException(chat.ChatModel, ex);
+                }
+            });
+        }
+
+        public void QueueRemove(ChatModel chatModel)
+        {
+            Trace.Call(chatModel);
+
+            if (chatModel == null) {
+                throw new ArgumentNullException("chatModel");
+            }
+
+            SyncInfo chat;
+            if (!TryGetChat(chatModel, out chat)) {
+#if LOG4NET
+                Logger.WarnFormat("QueueRemove() <{0}> already removed or " +
+                                  "never existed", chatModel);
+#endif
+                return;
             }
             WorkerQueue.Enqueue(delegate {
-                AddWorker(chatModel);
+                try {
+                    chat.ExecuteRemove();
+                } catch (Exception ex) {
+#if LOG4NET
+                    Logger.Error("QueueRemove(): ExecuteRemove() threw " +
+                                 "exception!", ex);
+#endif
+                    OnWorkerException(chat.ChatModel, ex);
+                }
             });
+        }
+
+        public void QueueRemoveFinished(ChatModel chatModel)
+        {
+            Trace.Call(chatModel);
+
+            if (chatModel == null) {
+                throw new ArgumentNullException("chatModel");
+            }
+
+            SyncInfo chat;
+            if (!TryGetChat(chatModel, out chat)) {
+#if LOG4NET
+                Logger.WarnFormat("QueueRemoveFinished() <{0}> already " +
+                                  "removed or never existed", chatModel);
+#endif
+                return;
+            }
+
+            WorkerQueue.Enqueue(delegate {
+                try {
+                    chat.ExecuteRemoveFinished();
+                } catch (Exception ex) {
+#if LOG4NET
+                    Logger.Error("QueueRemoveFinished(): " +
+                                 "ExecuteRemoveFinished() threw exception!", ex);
+#endif
+                    OnWorkerException(chat.ChatModel, ex);
+                }
+            });
+        }
+
+        bool TryGetChat(ChatModel chatModel, out SyncInfo chat)
+        {
+            var key = GetChatKey(chatModel);
+            lock (SyncInfos) {
+                return SyncInfos.TryGetValue(key, out chat);
+            }
+        }
+
+        SyncInfo GetOrCreateChat(ChatModel chatModel)
+        {
+            var key = GetChatKey(chatModel);
+            lock (SyncInfos) {
+                SyncInfo chat;
+                if (!SyncInfos.TryGetValue(key, out chat)) {
+                    chat = new SyncInfo(this, chatModel);
+                    SyncInfos.Add(key, chat);
+                }
+                return chat;
+            }
         }
 
         /// <remarks>
@@ -160,15 +483,31 @@ namespace Smuxi.Frontend
                 throw new ArgumentNullException("chatModel");
             }
 
+            SyncInfo chat;
+            if (!TryGetChat(chatModel, out chat)) {
+#if LOG4NET
+                Logger.WarnFormat("QueueSync() <{0}> unknow chat, cannot sync",
+                                  chatModel);
+#endif
+                return;
+            }
+
             WorkerQueue.Enqueue(delegate {
-                SyncWorker(chatModel);
+                try {
+                    chat.ExecuteSync();
+                } catch (Exception ex) {
+#if LOG4NET
+                    Logger.Error("QueueSync(): ExecuteSync() threw exception!", ex);
+#endif
+                    OnWorkerException(chat.ChatModel, ex);
+                }
             });
         }
 
         /// <remarks>
         /// This method is thread safe.
         /// </remarks>
-        public void ReleaseSync(IChatView chatView)
+        public void QueueReadyToSync(IChatView chatView)
         {
             Trace.Call(chatView);
 
@@ -176,37 +515,67 @@ namespace Smuxi.Frontend
                 throw new ArgumentNullException("chatView");
             }
 
-            var chatKey = GetChatKey(chatView.ChatModel);
+            SyncInfo chat;
+            if (!TryGetChat(chatView.ChatModel, out chat)) {
 #if LOG4NET
-            Logger.Debug("ReleaseSync() <" + chatKey + "> releasing " +
-                         "<" + chatView.ID + ">");
-#endif
-            lock (SyncReleaseQueue) {
-                SyncReleaseQueue.Add(chatKey, chatView);
-            }
-            AutoResetEvent syncWait = null;
-            lock (SyncWaitQueue) {
-                SyncWaitQueue.TryGetValue(chatKey, out syncWait);
-            }
-            if (syncWait == null) {
-#if LOG4NET
-                Logger.Error("ReleaseSync(<" + chatView.ID + ">): failed to release " +
-                             "<" + chatKey + "> as syncWait is null!");
+                Logger.WarnFormat("QueueReadyToSync() <{0}> unknow chat, " +
+                                  "something is wrong", chatView.ChatModel);
 #endif
                 return;
             }
-            // release the sync worker
-            syncWait.Set();
+            chat.ChatView = chatView;
+
+            WorkerQueue.Enqueue(delegate {
+                try {
+                    chat.ExecuteReadyToSync();
+                } catch (Exception ex) {
+#if LOG4NET
+                    Logger.Error("QueueReadyToSync(): ExecuteReadyToSync() " +
+                                 "threw exception!", ex);
+#endif
+                    OnWorkerException(chat.ChatModel, ex);
+                }
+            });
+        }
+
+        public void QueueSyncFinished(IChatView chatView)
+        {
+            Trace.Call(chatView);
+
+            if (chatView == null) {
+                throw new ArgumentNullException("chatView");
+            }
+
+            SyncInfo chat;
+            if (!TryGetChat(chatView.ChatModel, out chat)) {
+#if LOG4NET
+                Logger.WarnFormat(
+                    "QueueSyncFinished() <{0}> unknow chat, something is wrong",
+                    chatView.ChatModel
+                );
+#endif
+                return;
+            }
+
+            WorkerQueue.Enqueue(delegate {
+                try {
+                    chat.ExecuteSyncFinished();
+                } catch (Exception ex) {
+#if LOG4NET
+                    Logger.Error("QueueSyncFinished(): ExecuteSyncFinished() " +
+                                 "threw exception!", ex);
+#endif
+                    OnWorkerException(chat.ChatModel, ex);
+                }
+            });
         }
 
         public void Clear()
         {
             Trace.Call();
 
-            lock (SyncWaitQueue)
-            lock (SyncReleaseQueue) {
-                SyncWaitQueue.Clear();
-                SyncReleaseQueue.Clear();
+            lock (SyncInfos) {
+                SyncInfos.Clear();
             }
         }
 
@@ -218,76 +587,6 @@ namespace Smuxi.Frontend
                 return RemotingServices.GetObjectUri(chatModel);
             }
             return chatModel;
-        }
-
-        void AddWorker(ChatModel chatModel)
-        {
-            try {
-                Add(chatModel);
-            } catch (Exception ex) {
-#if LOG4NET
-                Logger.Error("AddWorker(): Add() threw exception!" , ex);
-#endif
-                if (WorkerException != null) {
-                    WorkerException(
-                        this,
-                        new WorkerExceptionEventArgs(chatModel, ex)
-                    );
-                }
-                OnWorkerException(chatModel, ex);
-            }
-        }
-
-        void SyncWorker(ChatModel chatModel)
-        {
-            try {
-                var chatKey = GetChatKey(chatModel);
-                AutoResetEvent syncWait = null;
-                lock (SyncWaitQueue) {
-                    SyncWaitQueue.TryGetValue(chatKey, out syncWait);
-                }
-                if (syncWait != null) {
-#if LOG4NET
-                    Logger.Debug("SyncWorker() <" + chatKey + "> waiting for " +
-                                "sync lock release...");
-#endif
-                    // This chat was queued by QueueAdd() thus we need to wait
-                    // till the ChatView is created and ready to be synced
-                    syncWait.WaitOne();
-#if LOG4NET
-                    Logger.Debug("SyncWorker() <" + chatKey + "> " +
-                                 "sync lock released");
-#endif
-
-                    // no longer need the sync lock
-                    lock (SyncWaitQueue) {
-                        SyncWaitQueue.Remove(chatKey);
-                    }
-                }
-
-                IChatView chatView = null;
-                lock (SyncReleaseQueue) {
-                    if (!SyncReleaseQueue.TryGetValue(chatKey, out chatView)) {
-#if LOG4NET
-                        Logger.Warn("SyncWorker(): chatView is null! " +
-                                    "probably a reconnect, bailing out...");
-#endif
-                        return;
-                    }
-                    // no longer need the release slot
-                    // BUG: this breaks re-syncing an existing chat! For that
-                    // reason the frontend _must_ notify us via Remove() if the
-                    // chat sync state is no longer needed
-                    //SyncReleaseQueue.Remove(chatKey);
-                }
-
-                Sync(chatView);
-            } catch (Exception ex) {
-#if LOG4NET
-                Logger.Error("SyncWorker(): Exception!", ex);
-#endif
-                OnWorkerException(chatModel, ex);
-            }
         }
 
         void OnChatAdded(ChatModel chatModel, string chatId,
@@ -308,6 +607,13 @@ namespace Smuxi.Frontend
         {
             if (ChatSynced != null) {
                 ChatSynced(this, new ChatViewSyncedEventArgs(chatView));
+            }
+        }
+
+        void OnChatRemoved(IChatView chatView)
+        {
+            if (ChatRemoved != null) {
+                ChatRemoved(this, new ChatViewRemovedEventArgs(chatView));
             }
         }
 
@@ -355,6 +661,16 @@ namespace Smuxi.Frontend
         }
     }
 
+    public class ChatViewRemovedEventArgs : EventArgs
+    {
+        public IChatView ChatView { get; private set; }
+
+        public ChatViewRemovedEventArgs(IChatView chatView)
+        {
+            ChatView = chatView;
+        }
+    }
+
     public class WorkerExceptionEventArgs : EventArgs
     {
         public ChatModel ChatModel { get; private set; }
@@ -364,6 +680,14 @@ namespace Smuxi.Frontend
         {
             ChatModel = chat;
             Exception = ex;
+        }
+    }
+
+    public class InvalidStateException : Exception
+    {
+        internal InvalidStateException(string msg) :
+                                  base(msg)
+        {
         }
     }
 }
