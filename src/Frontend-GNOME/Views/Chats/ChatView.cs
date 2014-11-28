@@ -1,7 +1,7 @@
 /*
  * Smuxi - Smart MUltipleXed Irc
  *
- * Copyright (c) 2005-2013 Mirco Bauer <meebey@meebey.net>
+ * Copyright (c) 2005-2014 Mirco Bauer <meebey@meebey.net>
  *
  * Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
  *
@@ -42,6 +42,7 @@ namespace Smuxi.Frontend.Gnome
         private   bool               _HasHighlight;
         public    int                HighlightCount { get; private set; }
         private   bool               _HasActivity;
+        public    int                ActivityCount { get; private set; }
         private   bool               _HasEvent;
         private   bool               _IsSynced;
         private   Gtk.TextMark       _EndMark;
@@ -146,6 +147,13 @@ namespace Smuxi.Frontend.Gnome
                 return _HasActivity;
             }
             set {
+                if (value) {
+                    ActivityCount++;
+                    OnStatusChanged(EventArgs.Empty);
+                } else {
+                    ActivityCount = 0;
+                }
+
                 if (_HasActivity == value) {
                     // nothing to update
                     return;
