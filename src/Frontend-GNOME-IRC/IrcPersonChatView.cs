@@ -84,6 +84,11 @@ namespace Smuxi.Frontend.Gnome
 
         IEnumerable<Gtk.MenuItem> CreateContextMenuItems()
         {
+            if (IrcProtocolManager == null) {
+                // we are not synced yet
+                yield break;
+            }
+
             Gtk.ImageMenuItem whois_item = new Gtk.ImageMenuItem(_("Whois"));
             whois_item.Activated += OnMenuWhoisItemActivated;
             yield return whois_item;
