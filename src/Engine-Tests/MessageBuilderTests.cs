@@ -609,5 +609,38 @@ namespace Smuxi.Engine
             builder.Append(new UrlMessagePartModel("mailto:larry@google.com", "larry@google.com"));
             TestMessage(msg, builder.ToMessage());
         }
+
+        [Test]
+        public void AppendIPv4Links()
+        {
+            var builder = new MessageBuilder();
+            builder.TimeStamp = DateTime.MinValue;
+            builder.Append(new UrlMessagePartModel("http://127.0.0.1"));
+            TestMessage("http://127.0.0.1", builder.ToMessage());
+
+            builder = new MessageBuilder();
+            builder.TimeStamp = DateTime.MinValue;
+            builder.Append(new UrlMessagePartModel("http://93.220.211.43:40000"));
+            TestMessage("http://93.220.211.43:40000", builder.ToMessage());
+        }
+
+        [Test]
+        public void AppendIPv6Links()
+        {
+            var builder = new MessageBuilder();
+            builder.TimeStamp = DateTime.MinValue;
+            builder.Append(new UrlMessagePartModel("http://[::1]"));
+            TestMessage("http://[::1]", builder.ToMessage());
+
+            builder = new MessageBuilder();
+            builder.TimeStamp = DateTime.MinValue;
+            builder.Append(new UrlMessagePartModel("http://[2003:71:ce67:e700:3631:c4ff:fe2b:f874]:40000/"));
+            TestMessage("http://[2003:71:ce67:e700:3631:c4ff:fe2b:f874]:40000/", builder.ToMessage());
+
+            builder = new MessageBuilder();
+            builder.TimeStamp = DateTime.MinValue;
+            builder.Append(new UrlMessagePartModel("http://[2a01:4f8:a0:7041::2]/"));
+            TestMessage("http://[2a01:4f8:a0:7041::2]/", builder.ToMessage());
+        }
     }
 }

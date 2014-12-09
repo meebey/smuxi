@@ -75,16 +75,21 @@ namespace Smuxi.Engine
             string subdomain = domainchars + @"\.";
             string common_tld = @"de|es|im|us|com|net|org|info|biz|gov|name|edu|onion|museum";
             string any_tld = @"[a-z]+";
+            string ip6 = @"(?:[0-9a-f]{0,4}:){1,7}[0-9a-f]{1,4}";
+            string quoted_ip6 = @"\[" + ip6 + @"\]";
+            string ip4 = @"(?:[0-9]{1,3}\.){3}[0-9]{1,3}";
+            string ip = "(?:" + ip4 + "|" + ip6 + "|" + quoted_ip6 + ")";
             string domain = @"(?:(?:" + subdomain + ")+(?:" + any_tld + ")|localhost)";
+            string host = "(?:" + domain + "|" + ip + ")";
             string short_number = "[1-9][0-9]{,4}";
             string port = ":" + short_number;
             string user = "[a-z0-9._%+-]+@";
-            string domain_port = domain + "(?:" + port + ")?";
+            string host_port = host + "(?:" + port + ")?";
+            string user_host_port = "(?:" + user + ")?" + host_port;
             string user_domain = user + domain;
-            string user_domain_port = "(?:" + user + ")?" + domain_port;
             string path = @"/(?:["+ path_chars +"]*["+ path_last_chars +"]+)?";
             string protocol = @"[a-z][a-z0-9\-+]*://";
-            string protocol_user_domain_port_path = protocol + user_domain_port + "(?:" + path + ")?";
+            string protocol_user_host_port_path = protocol + user_host_port + "(?:" + path + ")?";
 
             // facebook attachment
             var regex = new Regex(
@@ -98,7 +103,7 @@ namespace Smuxi.Engine
 
             // protocol://user@domain:port/path
             regex = new Regex(
-                protocol_user_domain_port_path,
+                protocol_user_host_port_path,
                 RegexOptions.IgnoreCase | RegexOptions.Compiled
             );
             BuiltinPatterns.Add(new MessagePatternModel(regex));
