@@ -1,5 +1,4 @@
-//
-// Options.cs
+// This file is part of Smuxi and is licensed under the terms of MIT/X11
 //
 // Authors:
 //  Jonathan Pryor <jpryor@novell.com>
