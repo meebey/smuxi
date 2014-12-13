@@ -24,6 +24,7 @@ using System;
 using System.IO;
 using System.Text;
 using System.Reflection;
+using System.Collections.Generic;
 using Smuxi.Common;
 
 namespace Smuxi.Engine
@@ -38,6 +39,7 @@ namespace Smuxi.Engine
         private static Config           _Config;
         private static SessionManager   _SessionManager;
         private static ProtocolManagerFactory _ProtocolManagerFactory;
+        public static Dictionary<string, string> ConfigOverrides { get; set; }
 
         public static Version AssemblyVersion {
             get {
@@ -175,6 +177,32 @@ namespace Smuxi.Engine
             }
 
             _Config.Save();
+
+            // config overrides
+            // we only scan all config keys so we can convert the override
+            // value into the right type
+            foreach (var kvp in _Config.GetAll()) {
+                var configKey = kvp.Key;
+                var configValue = kvp.Value;
+
+                foreach (var @override in ConfigOverrides) {
+                    var keyPattern = @override.Key;
+
+                    if (!Pattern.IsMatch(configKey, keyPattern)) {
+                        continue;
+                    }
+
+                    // convert string to type
+                    var overridenValue = Convert.ChangeType(@override.Value,
+                                                            configValue.GetType());
+                    // as the patttern could match many keys we only need one
+                    // override with the right value type
+                    if (_Config.Overrides.ContainsKey(keyPattern)) {
+                        continue;
+                    }
+                    _Config.Overrides.Add(keyPattern, overridenValue);
+                }
+            }
 
             string location = Path.GetDirectoryName(asm.Location);
             if (String.IsNullOrEmpty(location) &&

@@ -53,10 +53,22 @@ namespace Smuxi.Engine
         protected Hashtable     m_Preferences = Hashtable.Synchronized(new Hashtable());
         public Version PreviousVersion { get; private set; }
         public Version CurrentVersion { get; private set; }
+        internal Dictionary<string, object> Overrides { get; private set; }
         public event EventHandler<ConfigChangedEventArgs> Changed;
         
         public object this[string key] {
             get {
+                // config overrides
+                lock (Overrides) {
+                    foreach (var @override in Overrides) {
+                        var pattern = @override.Key;
+                        var value = @override.Value;
+                        if (Pattern.IsMatch(key, pattern)) {
+                            return value;
+                        }
+                    }
+                }
+
                 return m_Preferences[key];
             }
             set {
@@ -66,6 +78,20 @@ namespace Smuxi.Engine
 #endif
                     return;
                 }
+
+                // config overrides
+                lock (Overrides) {
+                    foreach (var @override in Overrides) {
+                        var pattern = @override.Key;
+                        if (Pattern.IsMatch(key, pattern)) {
+#if LOG4NET
+                            _Logger.Debug("set[]: ignoring setting an overridden config key " + key + ".");
+#endif
+                            return;
+                        }
+                    }
+                }
+
                 var oldValue = m_Preferences[key];
                 m_Preferences[key] = value;
 
@@ -86,6 +112,7 @@ namespace Smuxi.Engine
 
         public Config()
         {
+            Overrides = new Dictionary<string, object>();
 #if CONFIG_NINI
             m_ConfigPath = Path.Combine(Environment.GetFolderPath(
                 Environment.SpecialFolder.ApplicationData), "smuxi");
@@ -680,7 +707,9 @@ namespace Smuxi.Engine
             lock (m_Preferences) {
                 var dict = new Dictionary<string, object>(m_Preferences.Count);
                 foreach (DictionaryEntry entry in m_Preferences) {
-                    dict.Add((string) entry.Key, entry.Value);
+                    // honor config overrides
+                    var value = this[(string) entry.Key];
+                    dict.Add((string) entry.Key, value);
                 }
                 return dict;
             }

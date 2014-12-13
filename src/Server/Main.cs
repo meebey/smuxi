@@ -23,7 +23,9 @@
 
 using System;
 using System.IO;
+using System.Linq;
 using System.Reflection;
+using System.Collections.Generic;
 using NDesk.Options;
 using Smuxi.Common;
 using Smuxi.Engine;
@@ -135,6 +137,22 @@ namespace Smuxi.Server
                 }
             );
 
+            var configOverrides = new Dictionary<string, string>();
+            parser.Add(
+                "override-config=",
+                _("Override config values"),
+                delegate (string val) {
+                    if (String.IsNullOrEmpty(val) || !val.Contains("=")) {
+                        return;
+                    }
+                    var overrideKeyPattern = val.Split('=')[0].Trim();
+                    var overrideValue = String.Join(
+                        "=", val.Split('=').Skip(1).ToArray()
+                    ).Trim();
+                    configOverrides.Add(overrideKeyPattern, overrideValue);
+                }
+            );
+
             parser.Add(
                  "h|help",
                  _("Show this help"),
@@ -194,7 +212,7 @@ namespace Smuxi.Server
             }
 
             try {
-                Server.Init(args);
+                Server.Init(args, configOverrides);
             } catch (Exception e) {
 #if LOG4NET
                 _Logger.Fatal(e);

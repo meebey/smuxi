@@ -29,6 +29,7 @@
 using System;
 using System.Threading;
 using System.Collections;
+using System.Collections.Generic;
 using System.Runtime.Remoting;
 using System.Runtime.Remoting.Lifetime;
 using System.Runtime.Remoting.Channels;
@@ -51,8 +52,9 @@ namespace Smuxi.Server
         private static readonly log4net.ILog _Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 #endif
 
-        public static void Init(string[] args)
+        public static void Init(string[] args, Dictionary<string, string> configOverrides)
         {
+            Engine.Engine.ConfigOverrides = configOverrides;
             Engine.Engine.Init();
             Engine.Engine.InitSessionManager();
             string channel = (string)Engine.Engine.Config["Server/Channel"];

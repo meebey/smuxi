@@ -47,6 +47,7 @@
     <Compile Include="MessageDtoModelV1Tests.cs" />
     <Compile Include="SqliteMessageBufferTests.cs" />
     <Compile Include="SessionTests.cs" />
+    <Compile Include="ConfigTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -74,9 +75,6 @@
       <Project>{A9AE40FF-1A21-414A-9FE7-3BE13644CC6D}</Project>
       <Name>Newtonsoft.Json</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

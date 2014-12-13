@@ -88,6 +88,7 @@ EXTRAS = \
 REFERENCES =  \
 	System.Runtime.Remoting \
 	System \
+	System.Core \
 	Mono.Posix
 
 DLL_REFERENCES = 
