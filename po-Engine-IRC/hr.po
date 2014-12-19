@@ -295,7 +295,7 @@ msgstr "Od sada ste znani kao {0}"
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2961
 #, csharp-format
 msgid "{0} is now known as {1}"
-msgstr "{0} je sada znan kao {0}"
+msgstr "{0} je sada znan kao {1}"
 
 #. TRANSLATOR: do NOT change the position of {0} and {2}!
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2998
