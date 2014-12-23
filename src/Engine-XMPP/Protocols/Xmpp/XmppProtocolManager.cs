@@ -641,6 +641,31 @@ namespace Smuxi.Engine
 
             JabberClient.SendMyPresence();
 
+            // send presence update to all MUCs, see XEP-0045:
+            // http://xmpp.org/extensions/xep-0045.html#changepres
+            foreach (var chat in Chats) {
+                if (!(chat is XmppGroupChatModel)) {
+                    continue;
+                }
+                var muc = (XmppGroupChatModel) chat;
+
+                var to = new Jid(muc.ID) {
+                    Resource = muc.OwnNickname
+                };
+
+                var presence = new Presence() {
+                    Show = JabberClient.Show,
+                    Status = JabberClient.Status,
+                    From = JabberClient.MyJID,
+                    To = to
+                };
+
+                if (JabberClient.EnableCapabilities) {
+                    presence.AddChild(JabberClient.Capabilities);
+                }
+                JabberClient.Send(presence);
+            }
+
             base.SetPresenceStatus(status, message);
         }
 
