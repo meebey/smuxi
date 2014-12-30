@@ -1,6 +1,6 @@
 // Smuxi - Smart MUltipleXed Irc
 // 
-// Copyright (c) 2009-2013 Mirco Bauer <meebey@meebey.net>
+// Copyright (c) 2009-2014 Mirco Bauer <meebey@meebey.net>
 // 
 // Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
 // 
@@ -671,6 +671,10 @@ namespace Smuxi.Engine
                             CommandReply(command);
                             handled = true;
                             break;
+                        case "say":
+                            CommandSay(command);
+                            handled = true;
+                            break;
                     }
                 }
                 switch (command.Command) {
@@ -870,7 +874,7 @@ namespace Smuxi.Engine
                     case TwitterChatType.FriendsTimeline:
                     case TwitterChatType.Replies: {
                         try {
-                            PostUpdate(cmd.Data);
+                            PostUpdate(cmd);
                         } catch (Exception ex) {
                             var msg = CreateMessageBuilder().
                                 AppendEventPrefix().
@@ -895,7 +899,7 @@ namespace Smuxi.Engine
                 }
             } else if (cmd.Chat.ChatType == ChatType.Person) {
                 try {
-                    SendMessage(cmd.Chat.Name, cmd.Data);
+                    SendMessage(cmd);
                 } catch (Exception ex) {
 #if LOG4NET
                     f_Logger.Error(ex);
@@ -1682,6 +1686,12 @@ namespace Smuxi.Engine
             return options;
         }
 
+        void PostUpdate(CommandModel cmd)
+        {
+            var text = cmd.IsCommand ? cmd.Parameter : cmd.Data;
+            PostUpdate(text);
+        }
+
         void PostUpdate(string text)
         {
             PostUpdate(text, null);
@@ -1695,6 +1705,12 @@ namespace Smuxi.Engine
             var res = TwitterStatus.Update(f_OAuthTokens, text, options);
             CheckResponse(res);
             f_FriendsTimelineEvent.Set();
+        }
+
+        void SendMessage(CommandModel cmd)
+        {
+            var text = cmd.IsCommand ? cmd.Parameter : cmd.Data;
+            SendMessage(cmd.Chat.Name, text);
         }
 
         private void SendMessage(string target, string text)
