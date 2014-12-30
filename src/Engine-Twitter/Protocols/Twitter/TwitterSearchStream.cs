@@ -114,6 +114,12 @@ namespace Smuxi.Engine
                 if (MessageRateLimiter.IsRateLimited) {
                     return;
                 }
+
+                // filter native and old-school retweets
+                if (status.RetweetedStatus != null || status.Text.StartsWith("RT @")) {
+                    return;
+                }
+
                 MessageRateLimiter++;
 
                 var sender = ProtocolManager.GetPerson(status.User);
