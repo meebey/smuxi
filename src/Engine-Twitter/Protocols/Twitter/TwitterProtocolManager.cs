@@ -1,6 +1,6 @@
 // Smuxi - Smart MUltipleXed Irc
 // 
-// Copyright (c) 2009-2014 Mirco Bauer <meebey@meebey.net>
+// Copyright (c) 2009-2015 Mirco Bauer <meebey@meebey.net>
 // 
 // Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
 // 
@@ -23,6 +23,7 @@ using System.Net;
 using System.Net.Security;
 using System.Web;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading;
 using System.Collections.Generic;
@@ -431,6 +432,13 @@ namespace Smuxi.Engine
         public override void OpenChat(FrontendManager fm, ChatModel chat)
         {
             Trace.Call(fm, chat);
+
+            if (chat.ChatType == ChatType.Group &&
+                chat.ID.StartsWith("#")) {
+                // hashtag search
+                OpenSearchChat(chat.ID);
+                return;
+            }
 
             if (chat.ChatType == ChatType.Group) {
                TwitterChatType twitterChatType = (TwitterChatType)
@@ -1098,7 +1106,18 @@ namespace Smuxi.Engine
                 return;
             }
 
-            var keyword = cmd.Parameter;
+            OpenSearchChat(cmd.Parameter);
+        }
+
+        void OpenSearchChat(string keyword)
+        {
+            if (keyword == null) {
+                throw new ArgumentNullException("keyword");
+            }
+            if (keyword.Length < 1) {
+                throw new ArgumentException("keyword must not be empty.", "keyword");
+            }
+
             var chatName = String.Format(_("Search {0}"), keyword);
             var chat = Session.CreateChat<GroupChatModel>(keyword, chatName, this);
             Session.AddChat(chat);
@@ -1673,7 +1692,7 @@ namespace Smuxi.Engine
 #endif
         }
 
-        protected new TwitterMessageBuilder CreateMessageBuilder()
+        public new TwitterMessageBuilder CreateMessageBuilder()
         {
             return CreateMessageBuilder<TwitterMessageBuilder>();
         }
@@ -1964,6 +1983,17 @@ namespace Smuxi.Engine
         {
             var builder = new TwitterMessageBuilder();
             builder.ApplyConfig(Session.UserConfig);
+
+            // link hashtags (handled/routed via OpenChat())
+            var hashtagRegex = new Regex(
+                "#(\\w*[a-zA-Z_0-9]+\\w*)",
+                RegexOptions.Compiled
+            );
+            var hashtagPattern = new MessagePatternModel(hashtagRegex) {
+                LinkFormat = "smuxi://" + NetworkID + "/#{1}"
+            };
+            builder.Settings.Patterns.Add(hashtagPattern);
+
             return (T)(object) builder;
         }
 

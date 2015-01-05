@@ -1,6 +1,6 @@
 // Smuxi - Smart MUltipleXed Irc
 //
-// Copyright (c) 2013-2014 Mirco Bauer <meebey@meebey.net>
+// Copyright (c) 2013-2015 Mirco Bauer <meebey@meebey.net>
 //
 // Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
 //
@@ -86,13 +86,6 @@ namespace Smuxi.Engine
             Dispose(true);
         }
 
-        protected TwitterMessageBuilder CreateMessageBuilder()
-        {
-            var builder = new TwitterMessageBuilder();
-            builder.ApplyConfig(Session.UserConfig);
-            return builder;
-        }
-
         void OnStreamStopped(StopReasons reason)
         {
             Trace.Call(reason);
@@ -129,7 +122,7 @@ namespace Smuxi.Engine
                         Session.AddPersonToGroupChat(Chat, sender);
                     }
                 }
-                var msg = CreateMessageBuilder().
+                var msg = ProtocolManager.CreateMessageBuilder().
                     Append(status, sender).
                     ToMessage();
                 Session.AddMessageToChat(Chat, msg);
