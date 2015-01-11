@@ -680,6 +680,18 @@ namespace Smuxi.Engine
                             CommandDelete(command);
                             handled = true;
                             break;
+                        case "fav":
+                        case "favourite":
+                        case "favorite":
+                            CommandFavorite(command);
+                            handled = true;
+                            break;
+                        case "unfav":
+                        case "unfavourite":
+                        case "unfavorite":
+                            CommandUnfavorite(command);
+                            handled = true;
+                            break;
                     }
                 }
                 switch (command.Command) {
@@ -735,6 +747,8 @@ namespace Smuxi.Engine
                 "retweet/rt index-number|tweet-id",
                 "reply index-number|tweet-id message",
                 "delete/del index-number|tweet-id",
+                "favorite/fav index-number|tweet-id",
+                "unfavorite/unfav index-number|tweet-id",
             };
 
             foreach (string line in help) {
@@ -1229,6 +1243,70 @@ namespace Smuxi.Engine
             var msg = CreateMessageBuilder().
                 AppendEventPrefix().
                 AppendFormat(_("Successfully deleted tweet {0}."), cmd.Parameter).
+                ToMessage();
+            Session.AddMessageToFrontend(cmd, msg);
+        }
+
+        public void CommandFavorite(CommandModel cmd)
+        {
+            if (cmd.DataArray.Length < 2) {
+                NotEnoughParameters(cmd);
+                return;
+            }
+
+            TwitterStatus status = null;
+            int indexId;
+            if (Int32.TryParse(cmd.Parameter, out indexId)) {
+                status = GetStatusFromIndex(indexId);
+            }
+
+            decimal statusId;
+            if (status == null) {
+                if (!Decimal.TryParse(cmd.Parameter, out statusId)) {
+                    return;
+                }
+            } else {
+                statusId = status.Id;
+            }
+            var response = TwitterFavorite.Create(f_OAuthTokens, statusId, f_OptionalProperties);
+            CheckResponse(response);
+            status = response.ResponseObject;
+
+            var msg = CreateMessageBuilder().
+                AppendEventPrefix().
+                AppendFormat(_("Successfully favorited tweet {0}."), cmd.Parameter).
+                ToMessage();
+            Session.AddMessageToFrontend(cmd, msg);
+        }
+
+        public void CommandUnfavorite(CommandModel cmd)
+        {
+            if (cmd.DataArray.Length < 2) {
+                NotEnoughParameters(cmd);
+                return;
+            }
+
+            TwitterStatus status = null;
+            int indexId;
+            if (Int32.TryParse(cmd.Parameter, out indexId)) {
+                status = GetStatusFromIndex(indexId);
+            }
+
+            decimal statusId;
+            if (status == null) {
+                if (!Decimal.TryParse(cmd.Parameter, out statusId)) {
+                    return;
+                }
+            } else {
+                statusId = status.Id;
+            }
+            var response = TwitterFavorite.Delete(f_OAuthTokens, statusId, f_OptionalProperties);
+            CheckResponse(response);
+            status = response.ResponseObject;
+
+            var msg = CreateMessageBuilder().
+                AppendEventPrefix().
+                AppendFormat(_("Successfully unfavorited tweet {0}."), cmd.Parameter).
                 ToMessage();
             Session.AddMessageToFrontend(cmd, msg);
         }
