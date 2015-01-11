@@ -9,6 +9,7 @@ usr/lib/smuxi/smuxi-message-buffer.exe*
 usr/lib/smuxi/Db4objects.Db4o.dll*
 usr/lib/smuxi/Meebey.SmartIrc4net.dll*
 usr/lib/smuxi/Twitterizer2.dll*
+usr/lib/smuxi/Twitterizer2.Streaming.dll*
 usr/lib/smuxi/ServiceStack*.dll*
 usr/lib/smuxi/Newtonsoft.Json.dll*
 usr/lib/smuxi/agsxmpp.dll*
