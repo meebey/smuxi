@@ -82,6 +82,9 @@ namespace Smuxi.Engine
                     case "_Username":
                         Username = (string) e.Value;
                         break;
+                    case "_Nickname":
+                        Nickname = (string) e.Value;
+                        break;
                     case "_Realname":
                         Realname = (string) e.Value;
                         break;
