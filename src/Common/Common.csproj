@@ -17,7 +17,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>..\..\bin\debug</OutputPath>
-    <DefineConstants>DEBUG;TRACE;LOG4NET;NET_2_0;NDESK_OPTIONS</DefineConstants>
+    <DefineConstants>DEBUG;TRACE;LOG4NET;NET_2_0;NDESK_OPTIONS;MONO_UNIX</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
@@ -31,7 +31,7 @@
     <DebugType>full</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>..\..\bin\release</OutputPath>
-    <DefineConstants>TRACE;LOG4NET;NET_2_0;NDESK_OPTIONS</DefineConstants>
+    <DefineConstants>TRACE;LOG4NET;NET_2_0;NDESK_OPTIONS;MONO_UNIX</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Execution>
@@ -58,6 +58,7 @@
     <Compile Include="AtomFeed.cs" />
     <Compile Include="SpecialFolderPatternConverter.cs" />
     <Compile Include="RateLimiter.cs" />
+    <Compile Include="SingleApplicationInstance.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Defines.cs.in" />
@@ -70,6 +71,7 @@
     <Reference Include="Mono.Posix" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml" />
+    <Reference Include="System.Runtime.Remoting" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>
