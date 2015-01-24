@@ -194,10 +194,10 @@ if test "$MCS_BASENAME" = "dmcs"; then
 	CLI_RUNTIME=4.0
 fi
 if test "$CLI_RUNTIME" = "2.0"; then
-	XBUILD_FLAGS="/toolsversion:3.5 /p:TargetFrameworkVersion=v3.5"
+	XBUILD_FLAGS="/toolsversion:3.5 /p:TargetFrameworkVersion=v3.5 /property:DefineConstants=MONO_3_5"
 fi
 if test "$CLI_RUNTIME" = "4.0"; then
-	XBUILD_FLAGS="/toolsversion:4.0 /p:TargetFrameworkVersion=v4.0"
+	XBUILD_FLAGS="/toolsversion:4.0 /p:TargetFrameworkVersion=v4.0 /property:DefineConstants=MONO_4_0"
 fi
 AC_SUBST(XBUILD_FLAGS)
 
