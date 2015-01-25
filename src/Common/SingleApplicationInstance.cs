@@ -254,7 +254,6 @@ namespace Smuxi.Common
                     mutex.ReleaseMutex();
                 }
                 mutex.Close();
-                mutex.Dispose();
             }
 
 #if MONO_UNIX
