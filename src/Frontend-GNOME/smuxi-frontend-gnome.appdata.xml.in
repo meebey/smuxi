@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright 2015 Mirco Bauer <meebey@meebey.net> -->
+<component type="desktop">
+  <id>smuxi-frontend-gnome.desktop</id>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>GPL-2.0+</project_license>
+  <name>Smuxi</name>
+  <summary>Chat with other people on IRC, Twitter, Jabber and Campfire</summary>
+  <description>
+    <_p>
+      Smuxi is an open-source, distributed and user-friendly chat client for
+      IRC, Twitter, Jabber/XMPP, Campfire and SignalR's JabbR.
+    </_p>
+    <_p>
+      Inspired by the combination of screen and irssi, Smuxi has a detachable
+      server (or like a "normal" client) that stays connected when you aren't,
+      and can allow multiple Smuxi frontends to be connected and in sync. This
+      is similar to screen+irssi or IRC bouncers, but more elegant and powerful.
+    </_p>
+  </description>
+  <screenshots>
+    <screenshot type="default">
+      <image>https://smuxi.im/screenshots/appdata/main-window.png</image>
+      <_caption>The main window showing an IRC channel</_caption>
+    </screenshot>
+  </screenshots>
+  <url type="homepage">https://smuxi.im/</url>
+  <updatecontact>mmmbauer@gnome.org</updatecontact>
+</component>
