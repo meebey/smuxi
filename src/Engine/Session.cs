@@ -1514,13 +1514,25 @@ namespace Smuxi.Engine
                                 if (command.Length == 0) {
                                     continue;
                                 }
-                                CommandModel cd = new CommandModel(
-                                    frontendManager,
-                                    protocolManager.Chat,
-                                    (string) _UserConfig["Interface/Entry/CommandCharacter"],
-                                    command
-                                );
-                                protocolManager.Command(cd);
+
+                                try {
+                                    var cd = new CommandModel(
+                                        frontendManager,
+                                        protocolManager.Chat,
+                                        (string) _UserConfig["Interface/Entry/CommandCharacter"],
+                                        command
+                                    );
+                                    protocolManager.Command(cd);
+                                } catch (Exception ex) {
+#if LOG4NET
+                                    f_Logger.Error("Command in Connected event: Exception", ex);
+#endif
+                                    var msg = CreateMessageBuilder().
+                                        AppendErrorText("Command '{0}' failed. Reason: {1} ({2})",
+                                                        command, ex.Message).
+                                        ToMessage();
+                                    AddMessageToFrontend (frontendManager, protocolManager.Chat, msg);
+                                }
                             }
                         } catch (Exception ex) {
 #if LOG4NET
