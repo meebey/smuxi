@@ -13,7 +13,6 @@ Feature Requests not converted to redmine tickets (yet):
 - making gnome highlight (urgency) a setting
 - /network save, save servers and joined channels for auto-connect/join (basher)
 - add marker for disabled pages
-- different identities per server (Salz)
 - overview page, showing all channels and queries on one page (Salz)
 - button to jump to last seen line marker (basher)
 - add sed support to correct the last said line, below the sed line
