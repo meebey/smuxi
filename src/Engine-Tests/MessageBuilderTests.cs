@@ -559,6 +559,12 @@ namespace Smuxi.Engine
             builder.TimeStamp = DateTime.MinValue;
             builder.Append(new UrlMessagePartModel("https://web.archive.org/web/20050208144213/http://www.jaganelli.de/"));
             TestMessage(msg, builder.ToMessage());
+
+            msg = "http://www.test.de/bilder.html?data[meta_id]=13895&data[bild_id]=7";
+            builder = new MessageBuilder();
+            builder.TimeStamp = DateTime.MinValue;
+            builder.Append(new UrlMessagePartModel("http://www.test.de/bilder.html?data[meta_id]=13895&data[bild_id]=7"));
+            TestMessage(msg, builder.ToMessage());
         }
 
         [Test]
