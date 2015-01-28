@@ -1818,6 +1818,9 @@ namespace Smuxi.Engine
             if (response.Result == RequestResult.Unknown &&
                 response.ErrorMessage == null) {
                 response.ErrorMessage = _("Twitter didn't send a valid response, they're probably overloaded");
+            } else if (response.Result == RequestResult.FileNotFound &&
+                response.ErrorMessage == null) {
+                response.ErrorMessage = _("Twitter user not found");
             }
             throw new TwitterizerException(response.ErrorMessage);
         }
