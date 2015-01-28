@@ -122,7 +122,7 @@ namespace Smuxi.Frontend
 #if LOG4NET
                     f_Logger.Error("Execute(): DoExecute() threw exception!", ex);
 #endif
-                    var msg = new MessageBuilder().
+                    var msg = CreateMessageBuilder().
                         AppendErrorText("Command '{0}' failed. Reason: {1}",
                                         cmd.Command, ex.Message).
                         ToMessage();
@@ -255,7 +255,7 @@ namespace Smuxi.Frontend
                                                cmd.Chat,
                                                cmd.CommandCharacter, output));
                 } else {
-                    var msg = new MessageBuilder().AppendText(output).ToMessage();
+                    var msg = CreateMessageBuilder().AppendText(output).ToMessage();
                     AddMessageToFrontend(cmd, msg);
                 }
             };
@@ -299,7 +299,7 @@ namespace Smuxi.Frontend
                     if (!String.IsNullOrEmpty(info.Arguments)) {
                         command += " " + info.Arguments;
                     }
-                    var msg = new MessageBuilder().
+                    var msg = CreateMessageBuilder().
                         AppendErrorText("Executing '{0}' failed with: {1}",
                                         command, ex.Message).
                         ToMessage();
@@ -312,7 +312,7 @@ namespace Smuxi.Frontend
         {
             Trace.Call(cmd);
 
-            var msg = new MessageBuilder().
+            var msg = CreateMessageBuilder().
                 AppendEventPrefix().
                     AppendText(cmd.Parameter).
                     ToMessage();
@@ -326,7 +326,7 @@ namespace Smuxi.Frontend
             var count = 0;
             Int32.TryParse(cmd.Parameter, out count);
 
-            var builder = new MessageBuilder();
+            var builder = CreateMessageBuilder();
             var sender = new ContactModel("msg-tester", "msg-tester", "test", "test");
             builder.AppendMessage(sender, "time for a messsage generator command so I can test speed and memory usage");
             var text = builder.CreateText(" *formatted text* ");
@@ -347,7 +347,7 @@ namespace Smuxi.Frontend
             }
             stop = DateTime.UtcNow;
 
-            builder = new MessageBuilder();
+            builder = CreateMessageBuilder();
             builder.AppendText(
                 "IChatView.AddMessage(): count: {0} took: {1:0} ms avg: {2:0.00} ms",
                 count,
@@ -410,7 +410,7 @@ namespace Smuxi.Frontend
             start = DateTime.UtcNow;
             MessageBuilder builder;
             for (var i = 0; i < count; i++) {
-                builder = new MessageBuilder();
+                builder = CreateMessageBuilder();
                 if (appendMessage) {
                     builder.AppendMessage("This is message with a link to https://www.smuxi.org/.");
                 }
@@ -432,7 +432,7 @@ namespace Smuxi.Frontend
             }
             stop = DateTime.UtcNow;
 
-            builder = new MessageBuilder();
+            builder = CreateMessageBuilder();
             builder.AppendText("MessageBuilder().");
             if (appendMessage) {
                 builder.AppendText("AppendMessage().");
