@@ -876,7 +876,7 @@ namespace Smuxi.Engine
                 throw new ArgumentNullException("cmd");
             }
 
-            var msg = new MessageBuilder().
+            var msg = CreateMessageBuilder().
                 AppendEventPrefix().
                     AppendText(cmd.Parameter).
                     ToMessage();
@@ -1311,7 +1311,7 @@ namespace Smuxi.Engine
                         chat.ResetMessageBuffer();
                         chat.InitMessageBuffer(MessageBufferPersistencyType.Volatile);
 
-                        var builder = new MessageBuilder();
+                        var builder = CreateMessageBuilder();
                         builder.AppendEventPrefix();
                         builder.AppendErrorText(
                             _("Failed to write to chat history. " +
