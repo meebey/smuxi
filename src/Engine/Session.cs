@@ -1979,8 +1979,9 @@ namespace Smuxi.Engine
 
         protected virtual void OnGroupChatPersonAdded(GroupChatPersonAddedEventArgs e)
         {
-            if (GroupChatPersonAdded != null) {
-                GroupChatPersonAdded(this, e);
+            var handler = GroupChatPersonAdded;
+            if (handler != null) {
+                handler(this, e);
             }
 
             var pm = e.GroupChat.ProtocolManager;
@@ -2029,8 +2030,9 @@ namespace Smuxi.Engine
 
         protected virtual void OnGroupChatPersonUpdated(GroupChatPersonUpdatedEventArgs e)
         {
-            if (GroupChatPersonUpdated != null) {
-                GroupChatPersonUpdated(this, e);
+            var handler = GroupChatPersonUpdated;
+            if (handler != null) {
+                handler(this, e);
             }
 
             var pm = e.GroupChat.ProtocolManager;
@@ -2055,8 +2057,9 @@ namespace Smuxi.Engine
 
         protected virtual void OnEventMessage(EventMessageEventArgs e)
         {
-            if (EventMessage != null) {
-                EventMessage(this, e);
+            var handler = EventMessage;
+            if (handler != null) {
+                handler(this, e);
             }
 
             var pm = e.Chat.ProtocolManager;

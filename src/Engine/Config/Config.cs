@@ -69,8 +69,9 @@ namespace Smuxi.Engine
 
                 // only raise event if the value changed
                 if (!value.Equals(oldValue)) {
-                    if (Changed != null) {
-                        Changed(this, new ConfigChangedEventArgs(key, value));
+                    var handler = Changed;
+                    if (handler != null) {
+                        handler(this, new ConfigChangedEventArgs(key, value));
                     }
                 }
             }
@@ -703,9 +704,9 @@ namespace Smuxi.Engine
                 m_IniDocument.Sections[key].Remove(key);
             }
 #endif
-            
-            if (Changed != null) {
-                Changed(this, new ConfigChangedEventArgs(key, null));
+            var handler = Changed;
+            if (handler != null) {
+                handler(this, new ConfigChangedEventArgs(key, null));
             }
         }
 
