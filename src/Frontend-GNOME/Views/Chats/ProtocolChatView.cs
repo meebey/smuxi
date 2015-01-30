@@ -21,6 +21,7 @@
  */
 
 using System;
+using System.Net;
 using System.Net.Security;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading;
@@ -232,6 +233,17 @@ namespace Smuxi.Frontend.Gnome
                 }
 
                 // download in background so Sync() doesn't get slowed down
+                WebProxy proxy = null;
+                // ignore the proxy settings of remote engines
+                if (Frontend.IsLocalEngine) {
+                    proxy = ProxySettings.GetWebProxy(websiteUrl);
+                    if (proxy == null) {
+                        // HACK: WebClient will always use the system proxy if set to
+                        // null so explicitely override this by setting an empty proxy
+                        proxy = new WebProxy();
+                    }
+                }
+                iconCache.Proxy = proxy;
                 iconCache.DownloadIcon(protocol, iconName, websiteUrl, UpdateServerIcon);
             }
         }

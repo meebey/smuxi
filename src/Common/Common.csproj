@@ -59,6 +59,7 @@
     <Compile Include="SpecialFolderPatternConverter.cs" />
     <Compile Include="RateLimiter.cs" />
     <Compile Include="SingleApplicationInstance.cs" />
+    <Compile Include="IconCache.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Defines.cs.in" />

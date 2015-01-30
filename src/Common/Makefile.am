@@ -50,6 +50,7 @@ FILES = \
 	AssemblyInfo.cs \
 	AtomFeed.cs \
 	Crc32.cs \
+	IconCache.cs \
 	IOSecurity.cs \
 	ITraceable.cs \
 	Trace.cs \

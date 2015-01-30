@@ -1,22 +1,25 @@
-﻿// Smuxi - Smart MUltipleXed Irc
+﻿// This file is part of Smuxi and is licensed under the terms of MIT/X11
 //
-// Copyright (c) 2015 Carlos Martín Nieto
+// Copyright (c) 2012 Mirco Bauer <meebey@meebey.net>
+// Copyright (c) 2015 Carlos Martín Nieto <cmn@dwim.me>
 //
-// Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
 //
-// This program is free software; you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation; either version 2 of the License, or
-// (at your option) any later version.
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
 //
-// This program is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License
-// along with this program; if not, write to the Free Software
-// Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+// THE SOFTWARE.
 using System;
 using System.IO;
 using System.Net;
@@ -25,9 +28,8 @@ using System.Threading;
 using System.Collections.Generic;
 using System.Linq;
 using Smuxi.Common;
-using Smuxi.Engine;
 
-namespace Smuxi.Frontend.Gnome
+namespace Smuxi.Common
 {
     public class IconCache
     {
@@ -35,10 +37,10 @@ namespace Smuxi.Frontend.Gnome
         private static readonly log4net.ILog f_Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         #endif
 
-        ProxySettings ProxySettings { get; set; }
+        public IWebProxy Proxy { get; set; }
 
-        readonly string cachePath = Platform.CachePath;
-        readonly string iconsPath;
+        readonly string f_CachePath = Platform.CachePath;
+        readonly string f_IconsPath;
 
         /// <summary>
         /// Try to get a cached icon
@@ -47,9 +49,12 @@ namespace Smuxi.Frontend.Gnome
         /// <param name="protocol">The protocol of the channel or server</param>
         /// <param name="iconName">Name of the icon, including file extension</param>
         /// <param name="value">Path to the cached icon, if cached</param>
+        /// <remarks>
+        /// This method is thread safe
+        /// </remarks>
         public bool TryGetIcon(string protocol, string iconName, out string value)
         {
-            var iconPath = Path.Combine(iconsPath, protocol, iconName);
+            var iconPath = Path.Combine(f_IconsPath, protocol, iconName);
             var iconFile = new FileInfo(iconPath);
             if (iconFile.Exists && iconFile.Length > 0) {
                 value = iconPath;
@@ -60,7 +65,7 @@ namespace Smuxi.Frontend.Gnome
             return false;
         }
 
-        void ensureDirectoryExists(string path)
+        void EnsureDirectoryExists(string path)
         {
             if (!Directory.Exists(path)) {
                 Directory.CreateDirectory(path);
@@ -74,18 +79,22 @@ namespace Smuxi.Frontend.Gnome
         /// when done. If there is an error during the download, an error will be
         /// logged and onSuccess will not be called.
         ///
-        /// The icon will
+        /// The callback will be called in the background thread. If you want to
+        /// update the GUI, make sure you schedule code to run in the main thread.
         /// </summary>
         /// <param name="protocol">The protocol of the channel or server</param>
         /// <param name="iconName">Name of the icon, including extension</param>
         /// <param name="websiteUrl">The url from which to download the icon</param>
         /// <param name="onSuccess">Function to call after downloading the icon</param>
+        /// <remarks>
+        /// This method is thread safe
+        /// </remarks>
         public void DownloadIcon(string protocol, string iconName, string websiteUrl, Action<string> onSuccess)
         {
             ThreadPool.QueueUserWorkItem(delegate {
                 try {
-                    var protocolPath = Path.Combine(iconsPath, protocol);
-                    ensureDirectoryExists(protocolPath);
+                    var protocolPath = Path.Combine(f_IconsPath, protocol);
+                    EnsureDirectoryExists(protocolPath);
                     var iconPath = Path.Combine(protocolPath, iconName);
                     var iconFile = new FileInfo(iconPath);
                     DownloadServerIcon(websiteUrl, iconFile);
@@ -108,17 +117,8 @@ namespace Smuxi.Frontend.Gnome
             Trace.Call(websiteUrl, iconFile);
 
             var webClient = new WebClient();
-            // ignore proxy settings of remote engines
-            WebProxy proxy = null;
-            if (Frontend.IsLocalEngine) {
-                proxy = ProxySettings.GetWebProxy(websiteUrl);
-                if (proxy == null) {
-                    // HACK: WebClient will always use the system proxy if set to
-                    // null so explicitely override this by setting an empty proxy
-                    proxy = new WebProxy();
-                }
-                webClient.Proxy = proxy;
-            }
+            webClient.Proxy = Proxy;
+
             var content = webClient.DownloadString(websiteUrl);
             var links = new List<Dictionary<string, string>>();
             foreach (Match linkMatch in Regex.Matches(content, @"<link[\s]+([^>]*?)/?>")) {
@@ -164,10 +164,8 @@ namespace Smuxi.Frontend.Gnome
             #endif
 
             var iconRequest = WebRequest.Create(faviconUrl);
-            // ignore proxy settings of remote engines
-            if (Frontend.IsLocalEngine) {
-                iconRequest.Proxy = proxy;
-            }
+            iconRequest.Proxy = Proxy;
+
             if (iconRequest is HttpWebRequest) {
                 var iconHttpRequest = (HttpWebRequest) iconRequest;
                 if (iconFile.Exists) {
@@ -206,10 +204,8 @@ namespace Smuxi.Frontend.Gnome
         /// <param name="kind">The kind of icons to cache (e.g. "server-icons", "emoji")</param>
         public IconCache(string kind)
         {
-            ProxySettings = new ProxySettings();
-
-            iconsPath = Path.Combine(cachePath, kind);
-            ensureDirectoryExists(iconsPath);
+            f_IconsPath = Path.Combine(f_CachePath, kind);
+            EnsureDirectoryExists(f_IconsPath);
         }
     }
 }
