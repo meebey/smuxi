@@ -1,6 +1,6 @@
 // Smuxi - Smart MUltipleXed Irc
 //
-// Copyright (c) 2011, 2014 Mirco Bauer <meebey@meebey.net>
+// Copyright (c) 2011, 2014-2015 Mirco Bauer <meebey@meebey.net>
 //
 // Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
 //
@@ -80,7 +80,8 @@ namespace Smuxi.Engine
             string ip4 = @"(?:[0-9]{1,3}\.){3}[0-9]{1,3}";
             string ip = "(?:" + ip4 + "|" + ip6 + "|" + quoted_ip6 + ")";
             string domain = @"(?:(?:" + subdomain + ")+(?:" + any_tld + ")|localhost)";
-            string host = "(?:" + domain + "|" + ip + ")";
+            string bare_host = @"[a-z]+";
+            string host = "(?:" + domain + "|" + bare_host + "|" + ip + ")";
             string short_number = "[1-9][0-9]{,4}";
             string port = ":" + short_number;
             string user = "[a-z0-9._%+-]+@";

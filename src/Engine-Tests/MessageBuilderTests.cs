@@ -1,6 +1,6 @@
 // Smuxi - Smart MUltipleXed Irc
 //
-// Copyright (c) 2013-2014 Mirco Bauer <meebey@meebey.net>
+// Copyright (c) 2013-2015 Mirco Bauer <meebey@meebey.net>
 //
 // Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
 // 
@@ -558,6 +558,12 @@ namespace Smuxi.Engine
             builder = new MessageBuilder();
             builder.TimeStamp = DateTime.MinValue;
             builder.Append(new UrlMessagePartModel("https://web.archive.org/web/20050208144213/http://www.jaganelli.de/"));
+            TestMessage(msg, builder.ToMessage());
+
+            msg = "irc://freenode/smuxi";
+            builder = new MessageBuilder();
+            builder.TimeStamp = DateTime.MinValue;
+            builder.Append(new UrlMessagePartModel(msg));
             TestMessage(msg, builder.ToMessage());
         }
 
