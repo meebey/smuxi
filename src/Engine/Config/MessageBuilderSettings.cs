@@ -70,7 +70,7 @@ namespace Smuxi.Engine
         static void InitBuiltinSmartLinks()
         {
             string path_last_chars = @"a-zA-Z0-9#/%&@=\-_+;:~'";
-            string path_chars = path_last_chars + @")(?!.,";
+            string path_chars = path_last_chars + @"\(\)\[\]?!.,";
             string domainchars = @"[a-z0-9\-]+";
             string subdomain = domainchars + @"\.";
             string common_tld = @"de|es|im|us|com|net|org|info|biz|gov|name|edu|onion|museum";
