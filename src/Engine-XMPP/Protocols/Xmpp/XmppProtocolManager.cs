@@ -310,7 +310,6 @@ namespace Smuxi.Engine
             JabberClient.Close();
         }
 
-        [MethodImpl(MethodImplOptions.Synchronized)]
         public override void Dispose()
         {
             Trace.Call();
@@ -318,18 +317,6 @@ namespace Smuxi.Engine
 
             base.Dispose();
             AutoReconnect = false;
-            JabberClient.OnMessage -= OnMessage;
-            JabberClient.OnClose -= OnClose;
-            JabberClient.OnLogin -= OnLogin;
-            JabberClient.OnError -= OnError;
-            JabberClient.OnStreamError -= OnStreamError;
-            JabberClient.OnPresence -= OnPresence;
-            JabberClient.OnRosterItem -= OnRosterItem;
-            JabberClient.OnReadXml -= OnReadXml;
-            JabberClient.OnWriteXml -= OnWriteXml;
-            JabberClient.OnAuthError -= OnAuthError;
-            JabberClient.ClientSocket.OnValidateCertificate -= ValidateCertificate;
-            JabberClient.SendingServiceUnavailable -= OnSendingServiceUnavailable;
             JabberClient.SocketDisconnect();
         }
 
