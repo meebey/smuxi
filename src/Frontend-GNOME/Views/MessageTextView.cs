@@ -21,6 +21,7 @@
  */
 
 using System;
+using System.IO;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Collections.Generic;
@@ -409,13 +410,22 @@ namespace Smuxi.Frontend.Gnome
                 } else if (msgPart is ImageMessagePartModel) {
                     var imgpart = (ImageMessagePartModel) msgPart;
                     try {
-                        var pix = new Gdk.Pixbuf(imgpart.ImageFileName);
-                        buffer.InsertPixbuf(ref iter, pix);
-                    } catch (GLib.GException) {
-                        // use the alt text if we can't find the file
-                        if (!String.IsNullOrEmpty(imgpart.AlternativeText))
-                            buffer.Insert(ref iter, imgpart.AlternativeText);
+                        var uri = new Uri(imgpart.ImageFileName);
+                        if (uri.Scheme == "smuxi-emoji") {
+                            var emojiPath = System.IO.Path.Combine("/tmp/emoji/assets/images", uri.Host + ".png");
+                            var emojiFile = new FileInfo(emojiPath);
+                            if (emojiFile.Exists && emojiFile.Length > 0) {
+                                var pix = new Gdk.Pixbuf(emojiPath);
+                                buffer.InsertPixbuf(ref iter, pix);
+                                continue;
+                            }
+                        }
+                    } catch (UriFormatException) {
+                        // we want to simply continue, using the alt text
                     }
+
+                    if (!String.IsNullOrEmpty(imgpart.AlternativeText))
+                        buffer.Insert(ref iter, imgpart.AlternativeText);
                 }
             }
             var startIter = buffer.GetIterAtMark(startMark);
