@@ -244,7 +244,7 @@ namespace Smuxi.Frontend.Gnome
                     }
                 }
                 iconCache.Proxy = proxy;
-                iconCache.DownloadIcon(protocol, iconName, websiteUrl, UpdateServerIcon);
+                iconCache.DownloadIcon(protocol, iconName, websiteUrl, UpdateServerIcon, null);
             }
         }
 

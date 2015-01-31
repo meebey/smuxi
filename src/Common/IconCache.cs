@@ -86,10 +86,12 @@ namespace Smuxi.Common
         /// <param name="iconName">Name of the icon, including extension</param>
         /// <param name="websiteUrl">The url from which to download the icon</param>
         /// <param name="onSuccess">Function to call after downloading the icon</param>
+        /// <param name="onError">Function to call if an error happens (optinal)</param>
         /// <remarks>
         /// This method is thread safe
         /// </remarks>
-        public void DownloadIcon(string protocol, string iconName, string websiteUrl, Action<string> onSuccess)
+        public void DownloadIcon(string protocol, string iconName, string websiteUrl,
+            Action<string> onSuccess, Action<Exception> onError)
         {
             ThreadPool.QueueUserWorkItem(delegate {
                 try {
@@ -108,6 +110,9 @@ namespace Smuxi.Common
 #if LOG4NET
                     f_Logger.Error("DownloadIcon(): Exception", ex);
 #endif
+                    if (onError != null) {
+                        onError(ex);
+                    }
                 }
             });
         }
