@@ -52,6 +52,7 @@ namespace Smuxi.Frontend.Gnome
         private Gdk.Color    _MarkerlineColor = new Gdk.Color(255, 0, 0);
         private int          _MarkerlineBufferPosition;
         private int          _BufferLines = -1;
+        private IconCache    _EmojiCache = new IconCache("emoji");
 
         Gtk.TextTag BoldTag { get; set; }
         Gtk.TextTag ItalicTag { get; set; }
@@ -242,6 +243,59 @@ namespace Smuxi.Frontend.Gnome
             Buffer.Clear();
         }
 
+        static void AddAlternativeText(Gtk.TextBuffer buffer, ref Gtk.TextIter iter, ImageMessagePartModel imgPart)
+        {
+            if (!String.IsNullOrEmpty(imgPart.AlternativeText)) {
+                buffer.Insert(ref iter, imgPart.AlternativeText);
+            }
+        }
+
+        void AddEmoji(Gtk.TextBuffer buffer, ref Gtk.TextIter iter, ImageMessagePartModel imgPart, string shortName)
+        {
+            var unicode = Emojione.ShortnameToUnicode(shortName);
+            if (unicode == null) {
+                AddAlternativeText(buffer, ref iter, imgPart);
+                return;
+            }
+
+            var emojiName = unicode + ".png";
+            string emojiPath;
+            if (_EmojiCache.TryGetIcon("emojione", emojiName, out emojiPath)) {
+                var emojiFile = new FileInfo(emojiPath);
+                if (emojiFile.Exists && emojiFile.Length > 0) {
+                    var pix = new Gdk.Pixbuf(emojiPath);
+                    buffer.InsertPixbuf(ref iter, pix);
+                } else {
+                    AddAlternativeText(buffer, ref iter, imgPart);
+                }
+
+                return;
+            }
+
+            // add a mark here so we know where to insert the pixbuf
+            // once we've downloaded the file; in case of error we
+            // insert the name instead
+            var mark = new Gtk.TextMark(null, true);
+            buffer.AddMark(mark, iter);
+            var emojiUrl = Emojione.UnicodeToUrl(unicode);
+            _EmojiCache.DownloadFile("emojione", emojiName, emojiUrl,
+                (path) => {
+                    GLib.Idle.Add(delegate {
+                        var markIter = buffer.GetIterAtMark(mark);
+                        buffer.InsertPixbuf(ref markIter, new Gdk.Pixbuf(path));
+                        return false;
+                    });
+                },
+                (ex) => {
+                    GLib.Idle.Add(delegate {
+                        var markIter = buffer.GetIterAtMark(mark);
+                        AddAlternativeText(buffer, ref markIter, imgPart);
+                        return false;
+                    });
+                }
+            );
+        }
+
         public void AddMessage(MessageModel msg)
         {
             AddMessage(msg, true);
@@ -409,23 +463,21 @@ namespace Smuxi.Frontend.Gnome
                     }
                 } else if (msgPart is ImageMessagePartModel) {
                     var imgpart = (ImageMessagePartModel) msgPart;
+                    Uri uri = null;
                     try {
-                        var uri = new Uri(imgpart.ImageFileName);
-                        if (uri.Scheme == "smuxi-emoji") {
-                            var emojiPath = System.IO.Path.Combine("/tmp/emoji/assets/images", uri.Host + ".png");
-                            var emojiFile = new FileInfo(emojiPath);
-                            if (emojiFile.Exists && emojiFile.Length > 0) {
-                                var pix = new Gdk.Pixbuf(emojiPath);
-                                buffer.InsertPixbuf(ref iter, pix);
-                                continue;
-                            }
-                        }
+                        uri = new Uri(imgpart.ImageFileName);
                     } catch (UriFormatException) {
-                        // we want to simply continue, using the alt text
+                        AddAlternativeText(buffer, ref iter, imgpart);
                     }
-
-                    if (!String.IsNullOrEmpty(imgpart.AlternativeText))
-                        buffer.Insert(ref iter, imgpart.AlternativeText);
+                    switch (uri.Scheme) {
+                        case "smuxi-emoji":
+                            var shortName = uri.Host;
+                            AddEmoji(buffer, ref iter, imgpart, shortName);
+                            break;
+                        default:
+                            AddAlternativeText(buffer, ref iter, imgpart);
+                            break;
+                    }
                 }
             }
             var startIter = buffer.GetIterAtMark(startMark);
