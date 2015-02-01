@@ -47,6 +47,7 @@ namespace Smuxi.Engine
         public  int                  Position { get; set; }
         public  IMessageBuffer       MessageBuffer { get; private set; }
         public  int                  MessagesSyncCount { get; set; }
+        public  DateTime             LastSeenMessage { get; set; }
 
         public string ID {
             get {

@@ -480,7 +480,7 @@ namespace Smuxi.Frontend.Gnome
                     return;
                 }
 
-                chatView.OutputMessageTextView.UpdateMarkerline();
+                chatView.UpdateLastSeenMessage();
             } catch (Exception ex) {
                 Frontend.ShowException(this, ex);
             }
