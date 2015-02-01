@@ -73,6 +73,104 @@ namespace Smuxi.Common
         }
 
         /// <summary>
+        /// Download an image file into the cache
+        /// </summary>
+        /// <param name="protocol">The protocol of the channel or server</param>
+        /// <param name="iconName">Name of the image, including extension</param>
+        /// <param name="fileUrl">The url from which to download the image</param>
+        /// <param name="onSuccess">Function to call after downloading the image</param>
+        /// <param name="onError">Function to call if an error happens (optional)</param>
+        /// <remarks>
+        /// This method is thread safe
+        /// </remarks>
+        public void DownloadFile(string protocol, string iconName, string fileUrl,
+            Action<string> onSuccess, Action<Exception> onError)
+        {
+            EnqueueDownload(protocol, iconName, fileUrl, DownloadFileWorker, onSuccess, onError);
+        }
+
+        void DownloadFileWorker(string fileUrl, FileInfo imageFile)
+        {
+            Trace.Call(fileUrl, imageFile);
+
+            // download to a randomly-named file so we don't conflict with a concurrent download
+            var tempFile = new FileInfo(Path.Combine(imageFile.DirectoryName, Path.GetRandomFileName()));
+            DownloadFileFromUrl(fileUrl, tempFile);
+
+            // finally, rename atomically, giving up if someone beat us to downloading
+            // this file
+            try {
+                tempFile.MoveTo(imageFile.FullName);
+            } catch (IOException) {
+                // someone beat us to downloading the image, simply remove the temp file
+                tempFile.Delete();
+            }
+        }
+
+        void EnqueueDownload(string protocol, string iconName, string url,
+            Action<string, FileInfo> action, Action<string> onSuccess, Action<Exception> onError)
+        {
+            ThreadPool.QueueUserWorkItem(delegate {
+                try {
+                    var protocolPath = Path.Combine(f_IconsPath, protocol);
+                    EnsureDirectoryExists(protocolPath);
+                    var iconPath = Path.Combine(protocolPath, iconName);
+                    var iconFile = new FileInfo(iconPath);
+                    action(url, iconFile);
+                    iconFile.Refresh();
+                    if (!iconFile.Exists || iconFile.Length == 0) {
+                        return;
+                    }
+
+                    onSuccess(iconPath);
+                } catch (Exception ex) {
+#if LOG4NET
+                    f_Logger.Error("IconCache: Exception", ex);
+#endif
+                    if (onError != null) {
+                        onError(ex);
+                    }
+                }
+            });
+        }
+
+        void DownloadFileFromUrl(string url, FileInfo file)
+        {
+            var request = WebRequest.Create(url);
+            request.Proxy = Proxy;
+
+            if (request is HttpWebRequest) {
+                var iconHttpRequest = (HttpWebRequest) request;
+                if (file.Exists) {
+                    iconHttpRequest.IfModifiedSince = file.LastWriteTime;
+                }
+            }
+
+            WebResponse response;
+            try {
+                response = request.GetResponse();
+            } catch (WebException ex) {
+                if (ex.Response is HttpWebResponse) {
+                    var iconHttpResponse = (HttpWebResponse) ex.Response;
+                    if (iconHttpResponse.StatusCode == HttpStatusCode.NotModified) {
+                        // icon hasn't changed, nothing to do
+                        return;
+                    }
+                }
+                throw;
+            }
+
+            using (var fileStream = file.OpenWrite())
+            using (var httpStream = response.GetResponseStream()) {
+                byte[] buffer = new byte[4096];
+                int read;
+                while ((read = httpStream.Read(buffer, 0, buffer.Length)) > 0) {
+                    fileStream.Write(buffer, 0, read);
+                }
+            }
+        }
+
+        /// <summary>
         /// Download an icon into the cache.
         ///
         /// The download will happen in the background and onSuccess will be called
@@ -93,28 +191,7 @@ namespace Smuxi.Common
         public void DownloadIcon(string protocol, string iconName, string websiteUrl,
             Action<string> onSuccess, Action<Exception> onError)
         {
-            ThreadPool.QueueUserWorkItem(delegate {
-                try {
-                    var protocolPath = Path.Combine(f_IconsPath, protocol);
-                    EnsureDirectoryExists(protocolPath);
-                    var iconPath = Path.Combine(protocolPath, iconName);
-                    var iconFile = new FileInfo(iconPath);
-                    DownloadServerIcon(websiteUrl, iconFile);
-                    iconFile.Refresh();
-                    if (!iconFile.Exists || iconFile.Length == 0) {
-                        return;
-                    }
-
-                    onSuccess(iconPath);
-                } catch (Exception ex) {
-#if LOG4NET
-                    f_Logger.Error("DownloadIcon(): Exception", ex);
-#endif
-                    if (onError != null) {
-                        onError(ex);
-                    }
-                }
-            });
+            EnqueueDownload(protocol, iconName, websiteUrl, DownloadServerIcon, onSuccess, onError);
         }
 
         void DownloadServerIcon(string websiteUrl, FileInfo iconFile)
@@ -168,39 +245,9 @@ namespace Smuxi.Common
                 faviconUrl);
             #endif
 
-            var iconRequest = WebRequest.Create(faviconUrl);
-            iconRequest.Proxy = Proxy;
-
-            if (iconRequest is HttpWebRequest) {
-                var iconHttpRequest = (HttpWebRequest) iconRequest;
-                if (iconFile.Exists) {
-                    iconHttpRequest.IfModifiedSince = iconFile.LastWriteTime;
-                }
-            }
-
-            WebResponse iconResponse;
-            try {
-                iconResponse = iconRequest.GetResponse();
-            } catch (WebException ex) {
-                if (ex.Response is HttpWebResponse) {
-                    var iconHttpResponse = (HttpWebResponse) ex.Response;
-                    if (iconHttpResponse.StatusCode == HttpStatusCode.NotModified) {
-                        // icon hasn't changed, nothing to do
-                        return;
-                    }
-                }
-                throw;
-            }
 
             // save new or modified icon file
-            using (var iconStream = iconFile.OpenWrite())
-            using (var httpStream = iconResponse.GetResponseStream()) {
-                byte[] buffer = new byte[4096];
-                int read;
-                while ((read = httpStream.Read(buffer, 0, buffer.Length)) > 0) {
-                    iconStream.Write(buffer, 0, read);
-                }
-            }
+            DownloadFileFromUrl(faviconUrl, iconFile);
         }
 
         /// <summary>
