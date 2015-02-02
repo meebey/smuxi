@@ -83,7 +83,7 @@ namespace Smuxi.Common
         /// <remarks>
         /// This method is thread safe
         /// </remarks>
-        public void DownloadFile(string protocol, string iconName, string fileUrl,
+        public void BeginDownloadFile(string protocol, string iconName, string fileUrl,
             Action<string> onSuccess, Action<Exception> onError)
         {
             EnqueueDownload(protocol, iconName, fileUrl, DownloadFileWorker, onSuccess, onError);
@@ -188,7 +188,7 @@ namespace Smuxi.Common
         /// <remarks>
         /// This method is thread safe
         /// </remarks>
-        public void DownloadIcon(string protocol, string iconName, string websiteUrl,
+        public void BeginDownloadIcon(string protocol, string iconName, string websiteUrl,
             Action<string> onSuccess, Action<Exception> onError)
         {
             EnqueueDownload(protocol, iconName, websiteUrl, DownloadServerIcon, onSuccess, onError);

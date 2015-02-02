@@ -278,7 +278,7 @@ namespace Smuxi.Frontend.Gnome
             var mark = new Gtk.TextMark(null, true);
             buffer.AddMark(mark, iter);
             var emojiUrl = Emojione.UnicodeToUrl(unicode);
-            _EmojiCache.DownloadFile("emojione", emojiName, emojiUrl,
+            _EmojiCache.BeginDownloadFile("emojione", emojiName, emojiUrl,
                 (path) => {
                     GLib.Idle.Add(delegate {
                         var markIter = buffer.GetIterAtMark(mark);
