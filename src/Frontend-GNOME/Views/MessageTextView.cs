@@ -258,12 +258,17 @@ namespace Smuxi.Frontend.Gnome
                 return;
             }
 
+            int width, height;
+            using (var layout = CreatePangoLayout(null)) {
+                layout.GetPixelSize(out width, out height);
+            }
+
             var emojiName = unicode + ".png";
             string emojiPath;
             if (_EmojiCache.TryGetIcon("emojione", emojiName, out emojiPath)) {
                 var emojiFile = new FileInfo(emojiPath);
                 if (emojiFile.Exists && emojiFile.Length > 0) {
-                    var pix = new Gdk.Pixbuf(emojiPath);
+                    var pix = new Gdk.Pixbuf(emojiPath, -1, height);
                     buffer.InsertPixbuf(ref iter, pix);
                 } else {
                     AddAlternativeText(buffer, ref iter, imgPart);
@@ -282,7 +287,7 @@ namespace Smuxi.Frontend.Gnome
                 (path) => {
                     GLib.Idle.Add(delegate {
                         var markIter = buffer.GetIterAtMark(mark);
-                        buffer.InsertPixbuf(ref markIter, new Gdk.Pixbuf(path));
+                        buffer.InsertPixbuf(ref markIter, new Gdk.Pixbuf(path, -1, height));
                         return false;
                     });
                 },
