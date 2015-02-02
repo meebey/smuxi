@@ -52,8 +52,8 @@ namespace Smuxi.Frontend.Gnome
         private Gdk.Color    _MarkerlineColor = new Gdk.Color(255, 0, 0);
         private int          _MarkerlineBufferPosition;
         private int          _BufferLines = -1;
-        private IconCache    _EmojiCache = new IconCache("emoji");
 
+        IconCache EmojiCache { get; set; }
         Gtk.TextTag BoldTag { get; set; }
         Gtk.TextTag ItalicTag { get; set; }
         Gtk.TextTag UnderlineTag { get; set; }
@@ -160,7 +160,8 @@ namespace Smuxi.Frontend.Gnome
 
             _MessageTextTagTable = BuildTagTable();
             _ThemeSettings = new ThemeSettings();
-            
+
+            EmojiCache = new IconCache("emoji");
             Buffer = new Gtk.TextBuffer(_MessageTextTagTable);
             MotionNotifyEvent += OnMotionNotifyEvent;
             PopulatePopup += OnPopulatePopup;
@@ -205,6 +206,49 @@ namespace Smuxi.Frontend.Gnome
             }
 
             _BufferLines = (int) config["Interface/Notebook/BufferLines"];
+
+#if LOG4NET
+            DateTime start = DateTime.UtcNow;
+#endif
+
+            ResizeEmoji();
+
+#if LOG4NET
+            DateTime stop = DateTime.UtcNow;
+            double duration = stop.Subtract(start).TotalMilliseconds;
+            _Logger.Debug("ApplyConfig(): ResizeEmoji()" +
+                " done, took: " + Math.Round(duration) + " ms");
+#endif
+        }
+
+        void ResizeEmoji()
+        {
+            var buffer = Buffer;
+
+            int width, height;
+            using (var layout = CreatePangoLayout(null)) {
+                layout.GetPixelSize(out width, out height);
+            }
+
+            _MessageTextTagTable.Foreach((tag) => {
+                if (!(tag is EmojiTag)) {
+                    return;
+                }
+
+                var emojiTag = tag as EmojiTag;
+                var pix = new Gdk.Pixbuf(emojiTag.Path, -1, height);
+
+                var beforeIter = buffer.GetIterAtMark(emojiTag.Mark);
+                var afterIter = beforeIter;
+                afterIter.ForwardToTagToggle(tag);
+                buffer.RemoveTag(tag, beforeIter, afterIter);
+                buffer.Delete(ref beforeIter, ref afterIter);
+                buffer.InsertPixbuf(ref beforeIter, pix);
+                // after all that, we need to re-apply the tag to the buffer
+                afterIter = beforeIter;
+                beforeIter = Buffer.GetIterAtMark(emojiTag.Mark);
+                buffer.ApplyTag(tag, beforeIter, afterIter);
+            });
         }
 
         void CheckStyle()
@@ -263,13 +307,23 @@ namespace Smuxi.Frontend.Gnome
                 layout.GetPixelSize(out width, out height);
             }
 
+            // A mark here serves two pusposes. One is to allow us to apply the
+            // tag across the pixbuf. It also lets us know later where to put
+            // the pixbuf if we need to load it from the network
+            var mark = new Gtk.TextMark(null, true);
+            buffer.AddMark(mark, iter);
+
             var emojiName = unicode + ".png";
             string emojiPath;
-            if (_EmojiCache.TryGetIcon("emojione", emojiName, out emojiPath)) {
+            if (EmojiCache.TryGetIcon("emojione", emojiName, out emojiPath)) {
                 var emojiFile = new FileInfo(emojiPath);
                 if (emojiFile.Exists && emojiFile.Length > 0) {
                     var pix = new Gdk.Pixbuf(emojiPath, -1, height);
                     buffer.InsertPixbuf(ref iter, pix);
+                    var beforeIter = buffer.GetIterAtMark(mark);
+                    var imgTag = new EmojiTag(mark, emojiFile.FullName);
+                    _MessageTextTagTable.Add(imgTag);
+                    buffer.ApplyTag(imgTag, beforeIter, iter);
                 } else {
                     AddAlternativeText(buffer, ref iter, imgPart);
                 }
@@ -277,23 +331,23 @@ namespace Smuxi.Frontend.Gnome
                 return;
             }
 
-            // add a mark here so we know where to insert the pixbuf
-            // once we've downloaded the file; in case of error we
-            // insert the name instead
-            var mark = new Gtk.TextMark(null, true);
-            buffer.AddMark(mark, iter);
             var emojiUrl = Emojione.UnicodeToUrl(unicode);
-            _EmojiCache.BeginDownloadFile("emojione", emojiName, emojiUrl,
+            EmojiCache.BeginDownloadFile("emojione", emojiName, emojiUrl,
                 (path) => {
                     GLib.Idle.Add(delegate {
-                        var markIter = buffer.GetIterAtMark(mark);
-                        buffer.InsertPixbuf(ref markIter, new Gdk.Pixbuf(path, -1, height));
+                        var afterIter = buffer.GetIterAtMark(mark);
+                        buffer.InsertPixbuf(ref afterIter, new Gdk.Pixbuf(path, -1, height));
+                        var beforeIter = buffer.GetIterAtMark(mark);
+                        var emojiTag = new EmojiTag(mark, path);
+                        _MessageTextTagTable.Add(emojiTag);
+                        buffer.ApplyTag(emojiTag, beforeIter, afterIter);
                         return false;
                     });
                 },
                 (ex) => {
                     GLib.Idle.Add(delegate {
                         var markIter = buffer.GetIterAtMark(mark);
+                        buffer.DeleteMark(mark);
                         AddAlternativeText(buffer, ref markIter, imgPart);
                         return false;
                     });
@@ -870,7 +924,7 @@ namespace Smuxi.Frontend.Gnome
                          tagName.StartsWith("bg_color:"))) {
                         continue;
                     }
-                    if (tag.IndentSet || tag is LinkTag || tag is PersonTag) {
+                    if (tag.IndentSet || tag is LinkTag || tag is PersonTag || tag is EmojiTag) {
                         buffer.RemoveTag(tag, start_iter, end_iter);
                         _MessageTextTagTable.Remove(tag);
                         tag.Dispose();
