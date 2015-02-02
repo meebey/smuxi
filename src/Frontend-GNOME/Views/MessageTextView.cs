@@ -226,8 +226,10 @@ namespace Smuxi.Frontend.Gnome
             var buffer = Buffer;
 
             int width, height;
+            int descent;
             using (var layout = CreatePangoLayout(null)) {
                 layout.GetPixelSize(out width, out height);
+                descent = layout.Context.GetMetrics(layout.FontDescription, null).Descent;
             }
 
             _MessageTextTagTable.Foreach((tag) => {
@@ -236,6 +238,7 @@ namespace Smuxi.Frontend.Gnome
                 }
 
                 var emojiTag = tag as EmojiTag;
+                tag.Rise = -descent;
                 var pix = new Gdk.Pixbuf(emojiTag.Path, -1, height);
 
                 var beforeIter = buffer.GetIterAtMark(emojiTag.Mark);
@@ -303,8 +306,12 @@ namespace Smuxi.Frontend.Gnome
             }
 
             int width, height;
+            int widthPango, heightPango;
+            int descent;
             using (var layout = CreatePangoLayout(null)) {
                 layout.GetPixelSize(out width, out height);
+                layout.GetSize(out widthPango, out heightPango);
+                descent = layout.Context.GetMetrics(layout.FontDescription, null).Descent;
             }
 
             // A mark here serves two pusposes. One is to allow us to apply the
@@ -322,6 +329,7 @@ namespace Smuxi.Frontend.Gnome
                     buffer.InsertPixbuf(ref iter, pix);
                     var beforeIter = buffer.GetIterAtMark(mark);
                     var imgTag = new EmojiTag(mark, emojiFile.FullName);
+                    imgTag.Rise = - descent;
                     _MessageTextTagTable.Add(imgTag);
                     buffer.ApplyTag(imgTag, beforeIter, iter);
                 } else {
@@ -340,6 +348,7 @@ namespace Smuxi.Frontend.Gnome
                         var beforeIter = buffer.GetIterAtMark(mark);
                         var emojiTag = new EmojiTag(mark, path);
                         _MessageTextTagTable.Add(emojiTag);
+                        emojiTag.Rise = - descent;
                         buffer.ApplyTag(emojiTag, beforeIter, afterIter);
                         return false;
                     });
