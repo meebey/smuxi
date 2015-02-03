@@ -571,6 +571,12 @@ namespace Smuxi.Engine
             builder.TimeStamp = DateTime.MinValue;
             builder.Append(new UrlMessagePartModel("http://www.test.de/bilder.html?data[meta_id]=13895&data[bild_id]=7"));
             TestMessage(msg, builder.ToMessage());
+
+            msg = "https://eu.api.soyoustart.com/console/#/order/dedicated/server/{serviceName}#GET";
+            builder = new MessageBuilder();
+            builder.TimeStamp = DateTime.MinValue;
+            builder.Append(new UrlMessagePartModel(msg));
+            TestMessage(msg, builder.ToMessage());
         }
 
         [Test]
