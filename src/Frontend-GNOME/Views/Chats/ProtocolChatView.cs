@@ -21,12 +21,8 @@
  */
 
 using System;
-using System.IO;
 using System.Net;
 using System.Net.Security;
-using System.Web;
-using System.Linq;
-using System.Text.RegularExpressions;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading;
 using System.Collections.Generic;
@@ -218,19 +214,13 @@ namespace Smuxi.Frontend.Gnome
         {
             Trace.Call();
 
-            var cachePath = Platform.CachePath;
-            var iconPath = SysPath.Combine(cachePath, "server-icons");
+            var iconCache = new IconCache("server-icons");
             // REMOTING CALL
             var protocol = ProtocolManager.Protocol;
-            iconPath = SysPath.Combine(iconPath, protocol);
-            if (!Directory.Exists(iconPath)) {
-                Directory.CreateDirectory(iconPath);
-            }
-            iconPath = SysPath.Combine(iconPath,
-                                       String.Format("{0}.ico", ID));
-            var iconFile = new FileInfo(iconPath);
-            if (iconFile.Exists && iconFile.Length > 0) {
-                // cached icon, use right away
+
+            string iconName = String.Format("{0}.ico", ID);
+            string iconPath;
+            if (iconCache.TryGetIcon(protocol, iconName, out iconPath)) {
                 UpdateServerIcon(iconPath);
             }
 
@@ -241,118 +231,20 @@ namespace Smuxi.Frontend.Gnome
                     // unknown network and protocol, nothing to download
                     return;
                 }
+
                 // download in background so Sync() doesn't get slowed down
-                ThreadPool.QueueUserWorkItem(delegate {
-                    try {
-                        DownloadServerIcon(websiteUrl, iconFile);
-                        iconFile.Refresh();
-                        if (!iconFile.Exists || iconFile.Length == 0) {
-                            return;
-                        }
-                        UpdateServerIcon(iconPath);
-                    } catch (Exception ex) {
-#if LOG4NET
-                        f_Logger.Error("CheckIcon(): Exception", ex);
-#endif
-                    }
-                });
-            }
-        }
-
-        void DownloadServerIcon(string websiteUrl, FileInfo iconFile)
-        {
-            Trace.Call(websiteUrl, iconFile);
-
-            var webClient = new WebClient();
-            // ignore proxy settings of remote engines
-            WebProxy proxy = null;
-            if (Frontend.IsLocalEngine) {
-                proxy = ProxySettings.GetWebProxy(websiteUrl);
-                if (proxy == null) {
-                    // HACK: WebClient will always use the system proxy if set to
-                    // null so explicitely override this by setting an empty proxy
-                    proxy = new WebProxy();
-                }
-                webClient.Proxy = proxy;
-            }
-            var content = webClient.DownloadString(websiteUrl);
-            var links = new List<Dictionary<string, string>>();
-            foreach (Match linkMatch in Regex.Matches(content, @"<link[\s]+([^>]*?)/?>")) {
-                var attributes = new Dictionary<string, string>();
-                foreach (Match attrMatch in Regex.Matches(linkMatch.Value, @"([\w]+)[\s]*=[\s]*[""']([^""']*)[""'][\s]*")) {
-                    var key = attrMatch.Groups[1].Value;
-                    var value = attrMatch.Groups[2].Value;
-                    attributes.Add(key, value);
-                }
-                links.Add(attributes);
-            }
-            string faviconRel = null;
-            foreach (var link in links) {
-                var iconLink = false;
-                foreach (var attribute in link) {
-                    if (attribute.Key != "rel" ||
-                        !attribute.Value.Split(' ').Contains("icon")) {
-                        continue;
-                    }
-                    iconLink = true;
-                    break;
-                }
-                if (!iconLink) {
-                    continue;
-                }
-                foreach (var attribute in link) {
-                    if (attribute.Key != "href") {
-                        continue;
-                    }
-                    // yay, we have found the favicon in all this junk
-                    faviconRel = attribute.Value;
-                    break;
-                }
-            }
-            string faviconUrl = null;
-            if (String.IsNullOrEmpty(faviconRel)) {
-                faviconRel = "/favicon.ico";
-            }
-            faviconUrl = new Uri(new Uri(websiteUrl), faviconRel).ToString();
-#if LOG4NET
-            f_Logger.DebugFormat("DownloadServerIcon(): favicon URL: {0}",
-                                 faviconUrl);
-#endif
-
-            var iconRequest = WebRequest.Create(faviconUrl);
-            // ignore proxy settings of remote engines
-            if (Frontend.IsLocalEngine) {
-                iconRequest.Proxy = proxy;
-            }
-            if (iconRequest is HttpWebRequest) {
-                var iconHttpRequest = (HttpWebRequest) iconRequest;
-                if (iconFile.Exists) {
-                    iconHttpRequest.IfModifiedSince = iconFile.LastWriteTime;
-                }
-            }
-
-            WebResponse iconResponse;
-            try {
-                iconResponse = iconRequest.GetResponse();
-            } catch (WebException ex) {
-                if (ex.Response is HttpWebResponse) {
-                    var iconHttpResponse = (HttpWebResponse) ex.Response;
-                    if (iconHttpResponse.StatusCode == HttpStatusCode.NotModified) {
-                        // icon hasn't changed, nothing to do
-                        return;
+                WebProxy proxy = null;
+                // ignore the proxy settings of remote engines
+                if (Frontend.IsLocalEngine) {
+                    proxy = ProxySettings.GetWebProxy(websiteUrl);
+                    if (proxy == null) {
+                        // HACK: WebClient will always use the system proxy if set to
+                        // null so explicitely override this by setting an empty proxy
+                        proxy = new WebProxy();
                     }
                 }
-                throw;
-            }
-
-            // save new or modified icon file
-            using (var iconStream = iconFile.OpenWrite())
-            using (var httpStream = iconResponse.GetResponseStream()) {
-                byte[] buffer = new byte[4096];
-                int read;
-                while ((read = httpStream.Read(buffer, 0, buffer.Length)) > 0) {
-                    iconStream.Write(buffer, 0, read);
-                }
+                iconCache.Proxy = proxy;
+                iconCache.BeginDownloadIcon(protocol, iconName, websiteUrl, UpdateServerIcon, null);
             }
         }
 

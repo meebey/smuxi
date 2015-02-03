@@ -59,9 +59,13 @@
     <Compile Include="SpecialFolderPatternConverter.cs" />
     <Compile Include="RateLimiter.cs" />
     <Compile Include="SingleApplicationInstance.cs" />
+    <Compile Include="IconCache.cs" />
+    <Compile Include="Emojione.cs" />
+    <Compile Include="GeneratedEmojione.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Defines.cs.in" />
+    <None Include="GenerateEmojione.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=a5715cc6d5c3540b">

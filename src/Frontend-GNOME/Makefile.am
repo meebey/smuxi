@@ -157,6 +157,7 @@ FILES = \
 	Views/Assistants/Engine/EngineAssistantConnectionWidget.cs \
 	Views/Assistants/Engine/EngineAssistantIntroWidget.cs \
 	Views/Assistants/Engine/EngineAssistant.cs \
+	Views/Tags/EmojiTag.cs \
 	Views/Tags/LinkTag.cs \
 	Views/Tags/PersonTag.cs \
 	QuickConnectDialog.cs \

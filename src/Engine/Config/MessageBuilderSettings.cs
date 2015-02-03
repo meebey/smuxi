@@ -333,6 +333,13 @@ namespace Smuxi.Engine
                 LinkFormat = "http://bugzilla.xamarin.com/show_bug.cgi?id={1}"
             });
 
+            // Emoji
+            regex = new Regex(@":(\w+):", RegexOptions.Compiled);
+            BuiltinPatterns.Add(new MessagePatternModel(regex) {
+                MessagePartType = typeof(ImageMessagePartModel),
+                LinkFormat = "smuxi-emoji://{1}",
+            });
+
             // TODO: msgid -> http://mid.gmane.org/{1}
             // TODO: ISSN/ISBN
             // TODO: Path: / or X:\

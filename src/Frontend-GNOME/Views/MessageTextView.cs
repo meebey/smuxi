@@ -21,6 +21,7 @@
  */
 
 using System;
+using System.IO;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Collections.Generic;
@@ -52,6 +53,7 @@ namespace Smuxi.Frontend.Gnome
         private int          _MarkerlineBufferPosition;
         private int          _BufferLines = -1;
 
+        IconCache EmojiCache { get; set; }
         Gtk.TextTag BoldTag { get; set; }
         Gtk.TextTag ItalicTag { get; set; }
         Gtk.TextTag UnderlineTag { get; set; }
@@ -158,7 +160,8 @@ namespace Smuxi.Frontend.Gnome
 
             _MessageTextTagTable = BuildTagTable();
             _ThemeSettings = new ThemeSettings();
-            
+
+            EmojiCache = new IconCache("emoji");
             Buffer = new Gtk.TextBuffer(_MessageTextTagTable);
             MotionNotifyEvent += OnMotionNotifyEvent;
             PopulatePopup += OnPopulatePopup;
@@ -203,6 +206,52 @@ namespace Smuxi.Frontend.Gnome
             }
 
             _BufferLines = (int) config["Interface/Notebook/BufferLines"];
+
+#if LOG4NET
+            DateTime start = DateTime.UtcNow;
+#endif
+
+            ResizeEmoji();
+
+#if LOG4NET
+            DateTime stop = DateTime.UtcNow;
+            double duration = stop.Subtract(start).TotalMilliseconds;
+            _Logger.Debug("ApplyConfig(): ResizeEmoji()" +
+                " done, took: " + Math.Round(duration) + " ms");
+#endif
+        }
+
+        void ResizeEmoji()
+        {
+            var buffer = Buffer;
+
+            int width, height;
+            int descent;
+            using (var layout = CreatePangoLayout(null)) {
+                layout.GetPixelSize(out width, out height);
+                descent = layout.Context.GetMetrics(layout.FontDescription, null).Descent;
+            }
+
+            _MessageTextTagTable.Foreach((tag) => {
+                if (!(tag is EmojiTag)) {
+                    return;
+                }
+
+                var emojiTag = tag as EmojiTag;
+                tag.Rise = -descent;
+                var pix = new Gdk.Pixbuf(emojiTag.Path, -1, height);
+
+                var beforeIter = buffer.GetIterAtMark(emojiTag.Mark);
+                var afterIter = beforeIter;
+                afterIter.ForwardToTagToggle(tag);
+                buffer.RemoveTag(tag, beforeIter, afterIter);
+                buffer.Delete(ref beforeIter, ref afterIter);
+                buffer.InsertPixbuf(ref beforeIter, pix);
+                // after all that, we need to re-apply the tag to the buffer
+                afterIter = beforeIter;
+                beforeIter = Buffer.GetIterAtMark(emojiTag.Mark);
+                buffer.ApplyTag(tag, beforeIter, afterIter);
+            });
         }
 
         void CheckStyle()
@@ -239,6 +288,80 @@ namespace Smuxi.Frontend.Gnome
             Trace.Call();
             
             Buffer.Clear();
+        }
+
+        static void AddAlternativeText(Gtk.TextBuffer buffer, ref Gtk.TextIter iter, ImageMessagePartModel imgPart)
+        {
+            if (!String.IsNullOrEmpty(imgPart.AlternativeText)) {
+                buffer.Insert(ref iter, imgPart.AlternativeText);
+            }
+        }
+
+        void AddEmoji(Gtk.TextBuffer buffer, ref Gtk.TextIter iter, ImageMessagePartModel imgPart, string shortName)
+        {
+            var unicode = Emojione.ShortnameToUnicode(shortName);
+            if (unicode == null) {
+                AddAlternativeText(buffer, ref iter, imgPart);
+                return;
+            }
+
+            int width, height;
+            int widthPango, heightPango;
+            int descent;
+            using (var layout = CreatePangoLayout(null)) {
+                layout.GetPixelSize(out width, out height);
+                layout.GetSize(out widthPango, out heightPango);
+                descent = layout.Context.GetMetrics(layout.FontDescription, null).Descent;
+            }
+
+            // A mark here serves two pusposes. One is to allow us to apply the
+            // tag across the pixbuf. It also lets us know later where to put
+            // the pixbuf if we need to load it from the network
+            var mark = new Gtk.TextMark(null, true);
+            buffer.AddMark(mark, iter);
+
+            var emojiName = unicode + ".png";
+            string emojiPath;
+            if (EmojiCache.TryGetIcon("emojione", emojiName, out emojiPath)) {
+                var emojiFile = new FileInfo(emojiPath);
+                if (emojiFile.Exists && emojiFile.Length > 0) {
+                    var pix = new Gdk.Pixbuf(emojiPath, -1, height);
+                    buffer.InsertPixbuf(ref iter, pix);
+                    var beforeIter = buffer.GetIterAtMark(mark);
+                    var imgTag = new EmojiTag(mark, emojiFile.FullName);
+                    imgTag.Rise = - descent;
+                    _MessageTextTagTable.Add(imgTag);
+                    buffer.ApplyTag(imgTag, beforeIter, iter);
+                } else {
+                    AddAlternativeText(buffer, ref iter, imgPart);
+                }
+
+                return;
+            }
+
+            var emojiUrl = Emojione.UnicodeToUrl(unicode);
+            EmojiCache.BeginDownloadFile("emojione", emojiName, emojiUrl,
+                (path) => {
+                    GLib.Idle.Add(delegate {
+                        var afterIter = buffer.GetIterAtMark(mark);
+                        buffer.InsertPixbuf(ref afterIter, new Gdk.Pixbuf(path, -1, height));
+                        var beforeIter = buffer.GetIterAtMark(mark);
+                        var emojiTag = new EmojiTag(mark, path);
+                        _MessageTextTagTable.Add(emojiTag);
+                        emojiTag.Rise = - descent;
+                        buffer.ApplyTag(emojiTag, beforeIter, afterIter);
+                        return false;
+                    });
+                },
+                (ex) => {
+                    GLib.Idle.Add(delegate {
+                        var markIter = buffer.GetIterAtMark(mark);
+                        buffer.DeleteMark(mark);
+                        AddAlternativeText(buffer, ref markIter, imgPart);
+                        return false;
+                    });
+                }
+            );
         }
 
         public void AddMessage(MessageModel msg)
@@ -405,6 +528,23 @@ namespace Smuxi.Frontend.Gnome
                         buffer.InsertWithTags(ref iter, fmsgti.Text, tags.ToArray());
                     } else {
                         buffer.Insert(ref iter, fmsgti.Text);
+                    }
+                } else if (msgPart is ImageMessagePartModel) {
+                    var imgpart = (ImageMessagePartModel) msgPart;
+                    Uri uri = null;
+                    try {
+                        uri = new Uri(imgpart.ImageFileName);
+                    } catch (UriFormatException) {
+                        AddAlternativeText(buffer, ref iter, imgpart);
+                    }
+                    switch (uri.Scheme) {
+                        case "smuxi-emoji":
+                            var shortName = uri.Host;
+                            AddEmoji(buffer, ref iter, imgpart, shortName);
+                            break;
+                        default:
+                            AddAlternativeText(buffer, ref iter, imgpart);
+                            break;
                     }
                 }
             }
@@ -793,7 +933,7 @@ namespace Smuxi.Frontend.Gnome
                          tagName.StartsWith("bg_color:"))) {
                         continue;
                     }
-                    if (tag.IndentSet || tag is LinkTag || tag is PersonTag) {
+                    if (tag.IndentSet || tag is LinkTag || tag is PersonTag || tag is EmojiTag) {
                         buffer.RemoveTag(tag, start_iter, end_iter);
                         _MessageTextTagTable.Remove(tag);
                         tag.Dispose();
