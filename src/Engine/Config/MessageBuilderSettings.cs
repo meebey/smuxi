@@ -332,6 +332,12 @@ namespace Smuxi.Engine
             BuiltinPatterns.Add(new MessagePatternModel(regex) {
                 LinkFormat = "http://bugzilla.xamarin.com/show_bug.cgi?id={1}"
             });
+            // Emocitons
+            regex = new Regex(@"(o|>|3)?:[)o(]|:([()\/D|*$Ppx?oO]|<{1,2}|8\)|'\()|\^_\^|-_-|B\||;\)",
+                              RegexOptions.Compiled);
+            BuiltinPatterns.Add(new MessagePatternModel(regex) {
+            MessagePartType = typeof(ImageMessagePartModel)
+            });
 
             // Emoji
             regex = new Regex(@":(\w+):", RegexOptions.Compiled);

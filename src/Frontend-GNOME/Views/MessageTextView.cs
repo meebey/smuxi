@@ -52,6 +52,7 @@ namespace Smuxi.Frontend.Gnome
         private Gdk.Color    _MarkerlineColor = new Gdk.Color(255, 0, 0);
         private int          _MarkerlineBufferPosition;
         private int          _BufferLines = -1;
+        public EmoticonStore EmoticonStore{ get; set; }
 
         IconCache EmojiCache { get; set; }
         Gtk.TextTag BoldTag { get; set; }
@@ -480,6 +481,14 @@ namespace Smuxi.Frontend.Gnome
                     tags.Add(LinkTag);
 
                     buffer.InsertWithTags(ref iter, linkText, tags.ToArray());
+                } else if (msgPart is ImageMessagePartModel) {
+                    var imgMsgPart = (ImageMessagePartModel) msgPart;
+                    if (EmoticonStore.TryGetImage(imgMsgPart.ImageFileName)) {
+                        var imgPixbuf = EmoticonStore.GetEmoticonImage(EmoticonStore [imgMsgPart.ImageFileName]);
+                        buffer.InsertPixbuf(ref iter, imgPixbuf);
+                    } else {
+                        buffer.Insert(ref iter, imgMsgPart.ImageFileName);
+                    }
                 } else if (msgPart is TextMessagePartModel) {
                     var tags = new List<Gtk.TextTag>();
                     TextMessagePartModel fmsgti = (TextMessagePartModel) msgPart;
