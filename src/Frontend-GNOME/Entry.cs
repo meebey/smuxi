@@ -48,7 +48,8 @@ namespace Smuxi.Frontend.Gnome
 
         ChatViewManager ChatViewManager;
         event EventHandler<EventArgs> Activated;
-
+        private Gtk.ComboBox PasteBinDropDown;
+        private BernamyBinPaste PasteBinProviders;
         /*
         public StringCollection History {
             get {
@@ -116,6 +117,7 @@ namespace Smuxi.Frontend.Gnome
             ChatViewManager = chatViewManager;
             Settings = new EntrySettings();
             WrapMode = Gtk.WrapMode.WordChar;
+            PasteBinProviders = new BernamyBinPaste();
 
             InitSpellCheck();
             InitCommandManager();
@@ -322,6 +324,39 @@ namespace Smuxi.Frontend.Gnome
                     case Gdk.Key.End:
                         ChatViewManager.CurrentChatView.ScrollToEnd();
                         break;
+                    case Gdk.Key.i:
+                    case Gdk.Key.I:
+                        string msg = String.Format(_("You are going To uplaod an Image on http://picpaste.com/."));
+                        Gtk.MessageDialog md = new Gtk.MessageDialog(
+                                                   Frontend.MainWindow,
+                                                   Gtk.DialogFlags.Modal,
+                                                   Gtk.MessageType.Info,
+                                                   Gtk.ButtonsType.YesNo,
+                                                   msg);
+                        var res = (Gtk.ResponseType) md.Run();
+                        md.Destroy();
+                        if (res == Gtk.ResponseType.Yes) {
+                            var filechooser = new Gtk.FileChooserDialog("Chose an Image", null, 
+                                Gtk.FileChooserAction.Open, 
+                                "Cancel", Gtk.ResponseType.Cancel, 
+                                "Open", Gtk.ResponseType.Accept);
+                            var filter = new Gtk.FileFilter();
+                            filter.Name = "PNG and JPEG images";
+                            filter.AddMimeType("image/png");
+                            filter.AddPattern("*.png");
+                            filter.AddMimeType("image/jpeg");
+                            filter.AddPattern("*.jpg");
+                            filechooser.AddFilter(filter);
+
+                            if (filechooser.Run() == (int)Gtk.ResponseType.Accept) 
+                            {
+                                PasteBinProviders.CtrlV(filechooser.Filename);
+                                Text = PasteBinProviders.GetUrl;
+                            }
+
+                            filechooser.Destroy();
+                        }
+                        break;
                     // anything else we let GTK+ handle
                     default:
                         e.RetVal = false;
@@ -481,20 +516,47 @@ namespace Smuxi.Frontend.Gnome
                     // seems to be a paste, so let's break it apart
                     string[] msgParts = text.Split(new char[] {'\n'});
                     if (msgParts.Length > 3) {
-                        string msg = String.Format(_("You are going to paste {0} lines. Do you want to continue?"),
+                        string msg = String.Format(_("Pasting {0} of lines. Do you want to continue?"),
                                                    msgParts.Length);
                         Gtk.MessageDialog md = new Gtk.MessageDialog(
                                                     Frontend.MainWindow,
                                                     Gtk.DialogFlags.Modal,
                                                     Gtk.MessageType.Warning,
-                                                    Gtk.ButtonsType.YesNo,
+                                                    Gtk.ButtonsType.None,
                                                     msg);
-                        Gtk.ResponseType res = (Gtk.ResponseType)md.Run();
+
+                        PasteBinDropDown = new Gtk.ComboBox(new string[] {"Directly", "DebianPaste", "Fpaste"});
+                        try {
+                            PasteBinDropDown.Active = (int)Frontend.FrontendConfig["PasteBinDropDown"];
+                        } catch {
+                            PasteBinDropDown.Active = 0;
+                        }
+                        PasteBinDropDown.Show();
+                        md.AddActionWidget(PasteBinDropDown, Gtk.ResponseType.None);
+
+                        md.AddButton("Yes", 73);
+                        md.AddButton("No", 75);
+                        var res = md.Run();
                         md.Destroy();
-                        if (res != Gtk.ResponseType.Yes) {
+
+                        if (res != 73) {
                             Text = String.Empty;
                             return;
+                        } else if (res == 73 && PasteBinDropDown.ActiveText.Equals("DebianPaste")) {
+                            PasteBinProviders.DebianPast(text, "Anonymous", "-1", "3600");
+                            Text = PasteBinProviders.GetUrl;
+                            Frontend.FrontendConfig["PasteBinDropDown"] = 1;
+                            Frontend.FrontendConfig.Save();
+                            return;
+                        } else if (res == 73 && PasteBinDropDown.ActiveText.Equals("Fpaste")) {
+                            PasteBinProviders.Fpaste(text, "Anonymous", "text", "21600");
+                            Text = PasteBinProviders.GetUrl;
+                            Frontend.FrontendConfig["PasteBinDropDown"] = 2;
+                            Frontend.FrontendConfig.Save();
+                            return;
                         }
+                        Frontend.FrontendConfig["PasteBinDropDown"] = 0;
+                        Frontend.FrontendConfig.Save();
                     }
                     if (Frontend.EngineVersion < new Version(0,8,11)) {
                         foreach (string msg in msgParts) {
