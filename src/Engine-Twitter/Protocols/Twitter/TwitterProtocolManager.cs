@@ -133,7 +133,7 @@ namespace Smuxi.Engine
 
             f_RepliesChat = new GroupChatModel(
                 TwitterChatType.Replies.ToString(),
-                _("Replies"),
+                _("Replies & Mentions"),
                 this
             );
             f_RepliesChat.InitMessageBuffer(
