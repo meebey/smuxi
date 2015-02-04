@@ -263,9 +263,13 @@ namespace Smuxi.Frontend.Gnome
                 treeviewScrolledWindow.CheckResize();
             };
 
+            var notebookPaned = new Gtk.VPaned();
+            notebookPaned.Pack1(Notebook, true, false);
+            notebookPaned.Pack2(entryScrolledWindow, false, false);
+
             var treeviewPaned = new Gtk.HPaned();
             treeviewPaned.Pack1(treeviewScrolledWindow, false, false);
-            treeviewPaned.Pack2(Notebook, true, false);
+            treeviewPaned.Pack2(notebookPaned, true, false);
             TreeViewHPaned = treeviewPaned;
 
             var entryPaned = new Gtk.VPaned();
@@ -280,7 +284,6 @@ namespace Smuxi.Frontend.Gnome
                 }
             };
             entryPaned.Pack1(treeviewPaned, true, false);
-            entryPaned.Pack2(entryScrolledWindow, false, false);
 
             Gtk.VBox vbox = new Gtk.VBox();
             vbox.PackStart(MenuWidget, false, false, 0);
