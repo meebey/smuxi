@@ -54,7 +54,8 @@ namespace Smuxi.Common
         /// </remarks>
         public bool TryGetIcon(string protocol, string iconName, out string value)
         {
-            var iconPath = Path.Combine(f_IconsPath, protocol, iconName);
+            var iconPath = Path.Combine(f_IconsPath, protocol);
+            iconPath = Path.Combine(iconPath, iconName);
             var iconFile = new FileInfo(iconPath);
             if (iconFile.Exists && iconFile.Length > 0) {
                 value = iconPath;
