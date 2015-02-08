@@ -1,7 +1,7 @@
 /*
  * Smuxi - Smart MUltipleXed Irc
  *
- * Copyright (c) 2009-2013 Mirco Bauer <meebey@meebey.net>
+ * Copyright (c) 2009-2015 Mirco Bauer <meebey@meebey.net>
  *
  * Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
  *
@@ -532,12 +532,14 @@ namespace Smuxi.Frontend.Gnome
                 } else if (msgPart is ImageMessagePartModel) {
                     var imgpart = (ImageMessagePartModel) msgPart;
                     Uri uri = null;
+                    string scheme = null;
                     try {
                         uri = new Uri(imgpart.ImageFileName);
+                        scheme = uri.Scheme;
                     } catch (UriFormatException) {
                         AddAlternativeText(buffer, ref iter, imgpart);
                     }
-                    switch (uri.Scheme) {
+                    switch (scheme) {
                         case "smuxi-emoji":
                             var shortName = uri.Host;
                             AddEmoji(buffer, ref iter, imgpart, shortName);
