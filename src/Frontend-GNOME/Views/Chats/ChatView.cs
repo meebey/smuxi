@@ -589,19 +589,23 @@ namespace Smuxi.Frontend.Gnome
         {
             _OutputMessageTextView.UpdateMarkerline();
             
-            if (Frontend.EngineVersion >= new Version(0, 12)) {
-                var lastSeenMessage = _OutputMessageTextView.LastMessage;
-                if (lastSeenMessage != null) {
-                    ThreadPool.QueueUserWorkItem(delegate {
-                        try {
-                            // REMOTING CALL
-                            _ChatModel.LastSeenMessage = lastSeenMessage.TimeStamp;
-                        } catch (Exception ex) {
-                            Frontend.ShowException(ex);
-                        }
-                    });
-                }
+            if (Frontend.EngineVersion < new Version(0, 12)) {
+                return;
             }
+            
+            var lastSeenMessage = _OutputMessageTextView.LastMessage;
+            if (lastSeenMessage == null) {
+                return;
+            }
+            
+            ThreadPool.QueueUserWorkItem(delegate {
+                try {
+                    // REMOTING CALL
+                    _ChatModel.LastSeenMessage = lastSeenMessage.TimeStamp;
+                } catch (Exception ex) {
+                    Frontend.ShowException(ex);
+                }
+            });
         }
         
         public virtual void AddMessage(MessageModel msg)
