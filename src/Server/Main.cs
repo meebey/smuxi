@@ -1,13 +1,7 @@
 /*
- * $Id$
- * $URL$
- * $Rev$
- * $Author$
- * $Date$
- *
  * Smuxi - Smart MUltipleXed Irc
  *
- * Copyright (c) 2005-2006, 2008, 2010 Mirco Bauer <meebey@meebey.net>
+ * Copyright (c) 2005-2006, 2008, 2010, 2011, 2015  Mirco Bauer <meebey@meebey.net>
  * Copyright (c) 2010 Clement Bourgeois <moonpyk@gmail.com>
  *
  * Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
@@ -151,6 +145,16 @@ namespace Smuxi.Server
                     parser.WriteOptionDescriptions(Console.Out);
                     Environment.Exit(0);
                  }
+            );
+
+            parser.Add(
+                "version",
+                _("Show version"),
+                delegate(string val) {
+                    Engine.Engine.Init();
+                    Console.WriteLine(Engine.Engine.VersionString);
+                    Environment.Exit(0);
+                }
             );
 
             parser.Add(
