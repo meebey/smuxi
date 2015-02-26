@@ -199,7 +199,7 @@ namespace Smuxi.Frontend.Gnome
             }
 
             var chatView = CurrentChatView;
-            chatView.OutputMessageTextView.UpdateMarkerline();
+            chatView.UpdateLastSeenMessage();
         }
 
         protected virtual void OnSwitchPage(object sender, Gtk.SwitchPageArgs e)

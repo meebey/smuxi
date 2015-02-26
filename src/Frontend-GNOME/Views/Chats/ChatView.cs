@@ -54,6 +54,7 @@ namespace Smuxi.Frontend.Gnome
         private   MessageTextView    _OutputMessageTextView;
         private   ThemeSettings      _ThemeSettings;
         private   TaskQueue          _LastSeenHighlightQueue;
+        public    DateTime           SyncedLastSeenMessage { get; private set; }
         public    DateTime           SyncedLastSeenHighlight { get; private set; }
         IList<MessageModel>          SyncedMessages { get; set; }
         protected string             SyncedName { get; set; }
@@ -519,6 +520,11 @@ namespace Smuxi.Frontend.Gnome
 
             // REMOTING CALL
             SyncedLastSeenHighlight = _ChatModel.LastSeenHighlight;
+            
+            if (Frontend.EngineVersion >= new Version(0, 12)) {
+                // REMOTING CALL
+                SyncedLastSeenMessage = _ChatModel.LastSeenMessage;
+            }
 
             DateTime start, stop;
             start = DateTime.UtcNow;
@@ -556,6 +562,10 @@ namespace Smuxi.Frontend.Gnome
                     // GTK+ in between for blocking the GUI thread less
                     foreach (MessageModel msg in SyncedMessages) {
                         AddMessage(msg);
+                        if (msg.TimeStamp <= SyncedLastSeenMessage) {
+                            // let the user know at which position new messages start
+                            _OutputMessageTextView.UpdateMarkerline();
+                        }
                     }
                 }
             }
@@ -567,15 +577,35 @@ namespace Smuxi.Frontend.Gnome
                 HasEvent = false;
             }
 
-            // let the user know at which position new messages start
-            _OutputMessageTextView.UpdateMarkerline();
-
             // reset tab icon to normal
             TabImage.Pixbuf = DefaultTabImage.Pixbuf;
             OnStatusChanged(EventArgs.Empty);
 
             SyncedMessages = null;
             _IsSynced = true;
+        }
+        
+        public virtual void UpdateLastSeenMessage()
+        {
+            _OutputMessageTextView.UpdateMarkerline();
+            
+            if (Frontend.EngineVersion < new Version(0, 12)) {
+                return;
+            }
+            
+            var lastSeenMessage = _OutputMessageTextView.LastMessage;
+            if (lastSeenMessage == null) {
+                return;
+            }
+            
+            ThreadPool.QueueUserWorkItem(delegate {
+                try {
+                    // REMOTING CALL
+                    _ChatModel.LastSeenMessage = lastSeenMessage.TimeStamp;
+                } catch (Exception ex) {
+                    Frontend.ShowException(ex);
+                }
+            });
         }
         
         public virtual void AddMessage(MessageModel msg)
