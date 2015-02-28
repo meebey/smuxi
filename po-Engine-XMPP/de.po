@@ -238,7 +238,7 @@ msgstr "{0} Sekunden"
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1810
 #, csharp-format
 msgid " since {0} ({1})"
-msgstr "seit {0} ({1})"
+msgstr " seit {0} ({1})"
 
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1888
 #, csharp-format
