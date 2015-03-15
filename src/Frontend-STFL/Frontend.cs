@@ -158,6 +158,9 @@ namespace Smuxi.Frontend.Stfl
             _FrontendConfig = new FrontendConfig(UIName);
             // loading and setting defaults
             _FrontendConfig.Load();
+            if (_FrontendConfig[Frontend.UIName + "/Interface/TerminalBackgroundColor"] == null) {
+                _FrontendConfig[Frontend.UIName + "/Interface/TerminalBackgroundColor"] = "#000000";
+            }
             _FrontendConfig.Save();
 
             if (_FrontendConfig.IsCleanConfig) {
