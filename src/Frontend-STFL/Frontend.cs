@@ -46,6 +46,7 @@ namespace Smuxi.Frontend.Stfl
         private static Session            _Session;
         private static UserConfig         _UserConfig;
         private static FrontendManager    _FrontendManager;
+        public static EngineManager EngineManager { get; private set; }
         
         public static event EventHandler SessionPropertyChanged;
 
@@ -191,14 +192,14 @@ namespace Smuxi.Frontend.Stfl
         
         public static void InitRemoteEngine(string engine)
         {
-            var manager = new EngineManager(_FrontendConfig,
-                                            _MainWindow.UI);
+            EngineManager = new EngineManager(_FrontendConfig,
+                                              _MainWindow.UI);
             try {
                 try {
                     Console.WriteLine(
                         _("Connecting to remote engine '{0}'..."), engine
                     );
-                    manager.Connect(engine);
+                    EngineManager.Connect(engine);
                     Console.WriteLine(_("Connection established"));
                 } catch (Exception ex) {
 #if LOG4NET
@@ -212,15 +213,15 @@ namespace Smuxi.Frontend.Stfl
                     Environment.Exit(1);
                 }
 
-                Session = manager.Session;
-                _UserConfig = manager.UserConfig;
-                _EngineVersion = manager.EngineVersion;
+                Session = EngineManager.Session;
+                _UserConfig = EngineManager.UserConfig;
+                _EngineVersion = EngineManager.EngineVersion;
                 ConnectEngineToGUI();
             } catch (Exception ex) {
 #if LOG4NET
                 _Logger.Error(ex);
 #endif
-                manager.Disconnect();
+                EngineManager.Disconnect();
                 throw;
             }
         }
@@ -274,6 +275,8 @@ namespace Smuxi.Frontend.Stfl
                         _Logger.Error("Quit(): Exception", ex);
 #endif
                     }
+                } else if (EngineManager != null) {
+                    EngineManager.Disconnect();
                 }
             }
             
