@@ -314,6 +314,11 @@ namespace Smuxi.Frontend.Stfl
                         line.Append(escapedText);
                     }
                     msgLength += txtPart.Text.Length;
+                } else if (msgPart is ImageMessagePartModel) {
+                    var imgPart = (ImageMessagePartModel)msgPart;
+                    string escapedAltText = StflApi.EscapeRichText(imgPart.AlternativeText);
+                    line.Append(escapedAltText);
+                    msgLength += escapedAltText.Length;
                 }
             }
 
