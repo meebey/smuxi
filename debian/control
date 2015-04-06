@@ -27,7 +27,7 @@ Build-Depends-Indep: cli-common-dev (>= 0.5.7),
  pkg-config,
  gettext,
  intltool,
- libtool,
+ libtool-bin | libtool (<< 2.4.2-1.8~),
  autoconf,
  automake,
  autotools-dev

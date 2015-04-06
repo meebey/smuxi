@@ -6,6 +6,8 @@ before_install:
 install:
     - sudo apt-get update > /dev/null
     - sudo apt-get build-dep smuxi > /dev/null
+    - sudo apt-get install devscripts equivs > /dev/null
+    - sudo mk-build-deps --install debian/control > /dev/null
     - sudo apt-get install mono-devel nunit-console moreutils gtk-sharp2-gapi libgtkspell-dev > /dev/null
 
 script:
