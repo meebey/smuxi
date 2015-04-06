@@ -43,7 +43,7 @@ namespace Smuxi.Frontend.Gnome
             }
             Version += "\n Frontend: " + Frontend.UIName + " " + version  +
                        "\n Engine: " + Frontend.EngineVersion;
-            Copyright = "Copyright © 2005-2013 Mirco Bauer <meebey@meebey.net>";
+            Copyright = "Copyright © 2005-2015 Mirco Bauer <meebey@meebey.net> and other contributors";
             Authors = new string[] {
                 "Mirco Bauer <meebey@meebey.net>",
                 "David Paleino <dapal@debian.org>",
