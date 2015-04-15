@@ -165,6 +165,12 @@ namespace Smuxi.Frontend
                 sshParameters += " -C";
             }
 
+            // HACK: using SSH to connect to a smuxi-server that runs on
+            // localhost makes no sense
+            if (sshHostname == "localhost" || sshHostname == "127.0.0.1") {
+                useSshTunnel = false;
+            }
+
             int remotingPort = 0;
             if (useSshTunnel) {
                 // find free remoting back-channel port
