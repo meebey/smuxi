@@ -1,13 +1,7 @@
 /*
- * $Id$
- * $URL$
- * $Rev$
- * $Author$
- * $Date$
- *
  * Smuxi - Smart MUltipleXed Irc
  *
- * Copyright (c) 2005-2006 Mirco Bauer <meebey@meebey.net>
+ * Copyright (c) 2005-2015 Mirco Bauer <meebey@meebey.net>
  *
  * Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
  *
@@ -189,6 +183,16 @@ namespace Smuxi.Frontend.Gnome
             
             Gtk.ComboBox persistencyTypeComboBox =
                 (Gtk.ComboBox) _Glade["PersistencyTypeComboBox"];
+            persistencyTypeComboBox.TooltipText = _(
+                "This setting specifies if Smuxi should store chat messages " +
+                "in memory (volatile) or to disk (persistent).\n" +
+                "For persistent you can choose between Db4o, an object " +
+                "database or SQLite, a relational database.\n" +
+                "The Db4o backend has known issues like high memory and CPU " +
+                "usage and can even lead to crashes and thus it is deprecated.\n" +
+                "The SQLite backend has no known performance or stability " +
+                "issues but is still an optional preview feature."
+            );
             // glade might initialize it already!
             persistencyTypeComboBox.Clear();
             persistencyTypeComboBox.Changed += _OnChanged;
@@ -202,12 +206,12 @@ namespace Smuxi.Frontend.Gnome
             store.AppendValues(MessageBufferPersistencyType.Volatile,
                                _("Volatile"));
             store.AppendValues(MessageBufferPersistencyType.Persistent,
-                               _("Persistent"));
+                               _("Persistent (Preview)"));
             if (Frontend.EngineVersion >= new Version("0.12")) {
                 store.AppendValues(MessageBufferPersistencyType.PersistentDb4o,
-                                   _("Persistent (Db4o)"));
+                                   _("Persistent: Db4o (Deprecated)"));
                 store.AppendValues(MessageBufferPersistencyType.PersistentSqlite,
-                                   _("Persistent (SQLite)"));
+                                   _("Persistent: SQLite (Preview)"));
             }
             persistencyTypeComboBox.Model = store;
             persistencyTypeComboBox.Active = 0;
