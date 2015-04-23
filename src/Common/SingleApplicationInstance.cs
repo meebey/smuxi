@@ -202,6 +202,7 @@ namespace Smuxi.Common
                     UnixSignal.WaitAny(shutdown_signals);
                     ReleaseFileLock();
                 });
+                UnixSignalThread.IsBackground = true;
                 UnixSignalThread.Start();
             }
         }
