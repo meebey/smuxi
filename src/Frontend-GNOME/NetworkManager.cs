@@ -1,6 +1,6 @@
 // Smuxi - Smart MUltipleXed Irc
 // 
-// Copyright (c) 2011 Mirco Bauer <meebey@meebey.net>
+// Copyright (c) 2011, 2013, 2015 Mirco Bauer <meebey@meebey.net>
 // 
 // Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
 // 
@@ -91,13 +91,24 @@ namespace Smuxi.Frontend.Gnome
         {
             BusG.Init();
 
-            if (!Bus.System.NameHasOwner(BusName)) {
+            var dbus = Bus.System;
+            if (!dbus.NameHasOwner(BusName)) {
+#if LOG4NET
+                Logger.Info("Init(): no DBus provider for network manager found, " +
+                            "disabling...");
+#endif
                 return;
             }
 
-            Manager = Bus.System.GetObject<INetworkManager>(
+            Manager = dbus.GetObject<INetworkManager>(
                 BusName, new ObjectPath(ObjectPath)
             );
+            if (Manager == null) {
+#if LOG4NET
+                Logger.Warn("Init(): DBus object is null, bailing out!");
+#endif
+                return;
+            }
             Manager.StateChanged += OnStateChanged;
 
             IsInitialized = true;
