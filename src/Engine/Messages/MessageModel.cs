@@ -21,6 +21,7 @@
  */
 
 using System;
+using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Collections;
@@ -35,6 +36,7 @@ namespace Smuxi.Engine
     public class MessageModel : ISerializable
     {
         static readonly Regex NickRegex = new Regex("^<([^ ]+)> ");
+        static readonly Regex NickEndTagRegex = new Regex("^> ");
         private DateTime                f_TimeStamp;
         private IList<MessagePartModel> f_MessageParts;
         private MessageType             f_MessageType;
@@ -65,6 +67,47 @@ namespace Smuxi.Engine
             }
         }
         
+        [IgnoreDataMember]
+        public IEnumerable<MessagePartModel> Body {
+            get {
+                string nick;
+                TextMessagePartModel coloredNick;
+                IEnumerable<MessagePartModel> body;
+                if (TryParseBody(out nick, out coloredNick, out body)) {
+                    if (coloredNick != null) {
+                        // first part is <
+                        // second part is the colored nick
+                        // third part is > and possibly other text
+                        var bodyParts = f_MessageParts.Skip(2).ToList();
+                        var firstPart = (TextMessagePartModel) f_MessageParts.First();
+                        var strippedPart = new TextMessagePartModel(firstPart) {
+                            Text = NickEndTagRegex.Replace(firstPart.Text, "")
+                        };
+                        bodyParts.Insert(0, strippedPart);
+                        return bodyParts;
+                    }
+                    if (nick != null) {
+                        // the first part starts with a (uncolored) nick
+                        var bodyParts = f_MessageParts.Skip(1).ToList();
+                        var firstPart = (TextMessagePartModel) f_MessageParts.First();
+                        var strippedPart = new TextMessagePartModel(firstPart) {
+                            Text = NickRegex.Replace(firstPart.Text, "")
+                        };
+                        bodyParts.Insert(0, strippedPart);
+                        return bodyParts;
+                    }
+                }
+                return f_MessageParts;
+            }
+        }
+
+        [IgnoreDataMember]
+        public TextMessagePartModel SenderNick {
+            get {
+                return null;
+            }
+        }
+
         [DataMember]
         public MessageType MessageType {
             get {
@@ -260,17 +303,62 @@ namespace Smuxi.Engine
 
         public string GetNick()
         {
+            string nick;
+            if (GetSenderNick(out nick)) {
+                return nick;
+            }
+            return null;
+        }
+
+        public bool GetSenderNick(out string nick)
+        {
+            TextMessagePartModel coloredNick;
+            IEnumerable<MessagePartModel> body;
+            return TryParseBody(out nick, out coloredNick, out body);
+        }
+
+        public bool TryParseBody(out string nick, out TextMessagePartModel coloredNick, out IEnumerable<MessagePartModel> body)
+        {
+            nick = null;
+            coloredNick = null;
+            body = null;
+
+            if (MessageParts.Count == 0) {
+                return false;
+            }
+
             // HACK: MessageModel doesn't contain a Sender/Origin property
             // yet, thus we have to retrieve the information from the
             // meesage itself
             // TODO: extend MessageModel with Origin property
-            var msgText = ToString();
-            var match = NickRegex.Match(msgText);
-            if (match.Success && match.Groups.Count >= 2) {
-                return match.Groups[1].Value;
+            if (MessageParts.Count >= 3) {
+                // possibly colored nick, see MessageBuilder.CreateNick()
+                var prefixText = MessageParts[0].ToString();
+                var nickPart = MessageParts[1];
+                var suffixText = MessageParts[2].ToString();;
+                if (prefixText == "<" &&
+                    nickPart is TextMessagePartModel &&
+                    suffixText.StartsWith(">")) {
+                    coloredNick = (TextMessagePartModel) nickPart;
+                    // FIXME: use regex replace!
+                    body = MessageParts.Skip(3);
+                    return true;
+                }
             }
-
-            return null;
+            if (MessageParts.Count >= 1) {
+                // we have to use regex here as it could be a big single text
+                // part that contains the nick and body
+                var nickPart = MessageParts[0];
+                var nickText = nickPart.ToString();
+                var nickMatch = NickRegex.Match(nickText);
+                if (nickMatch.Success) {
+                    nick = nickMatch.Groups[1].Value;
+                    // FIXME: use regex replace!
+                    body = MessageParts.Skip(1);
+                    return true;
+                }
+            }
+            return false;
         }
 
         public static bool operator ==(MessageModel a, MessageModel b)
