@@ -33,7 +33,7 @@ using Mono.Unix.Native;
 
 namespace Smuxi.Common
 {
-    public class SingleApplicationInstance<T> : IDisposable where T : MarshalByRefObject
+    public class SingleApplicationInstance<T> : IDisposable where T : SingleApplicationInterface
     {
         public string Identifier { get; private set; }
         public bool IsFirstInstance { get; private set; }
@@ -285,12 +285,39 @@ namespace Smuxi.Common
         {
             RemotingChannel = new IpcClientChannel();
             ChannelServices.RegisterChannel(RemotingChannel, false);
-            f_FirstInstance = (T) Activator.GetObject(typeof(T), "ipc://" + Identifier + "/" + RemotingObjectName);
+            try {
+                f_FirstInstance = (T) Activator.GetObject(typeof(T), "ipc://" + Identifier + "/" + RemotingObjectName);
+                // HACK: we have to make a method call so we actually can tell
+                // if the connection works or not
+                var isAlive = f_FirstInstance.IsAlive;
+            } catch (RemotingException ex) {
+#if MONO_UNIX
+                if (FirstInstanceFileInfo == null) {
+                    // no idea what happened
+                    throw;
+                } else {
+                    throw new RemotingException(
+                        "Remoting communication error with existing " +
+                        "application instance. Stalled file lock? (" +
+                        FirstInstanceFileInfo.FullName + ")", ex
+                    );
+                }
+#endif
+            }
         }
 
         static bool IsRunningOnMono()
         {
             return Type.GetType("Mono.Runtime") != null;
+        }
+    }
+
+    public class SingleApplicationInterface : MarshalByRefObject
+    {
+        public bool IsAlive {
+            get {
+                return true;
+            }
         }
     }
 }

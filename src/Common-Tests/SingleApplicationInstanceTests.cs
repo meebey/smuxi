@@ -31,7 +31,7 @@ namespace Smuxi.Common
     {
         SingleApplicationInstance<TestApplication> FirstInstance { get; set; }
 
-        class TestApplication : MarshalByRefObject
+        class TestApplication : SingleApplicationInterface
         {
             public int InvokeCounter { get; private set; }
 
