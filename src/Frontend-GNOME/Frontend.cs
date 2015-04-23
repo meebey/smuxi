@@ -1,7 +1,7 @@
 /*
  * Smuxi - Smart MUltipleXed Irc
  *
- * Copyright (c) 2005-2014 Mirco Bauer <meebey@meebey.net>
+ * Copyright (c) 2005-2015 Mirco Bauer <meebey@meebey.net>
  *
  * Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
  *
@@ -27,6 +27,8 @@ using System.Linq;
 using System.Threading;
 using System.Reflection;
 using SysDiag = System.Diagnostics;
+using Mono.Unix;
+using Mono.Unix.Native;
 using MonoDevelop.MacInterop;
 using Smuxi.Engine;
 using Smuxi.Common;
@@ -203,6 +205,7 @@ namespace Smuxi.Frontend.Gnome
             _Logger.Info(_VersionString + " starting");
 #endif
 
+            InitSignalHandlers();
             InitGtk(args);
 
             //_SplashScreenWindow = new SplashScreenWindow();
@@ -1022,6 +1025,31 @@ namespace Smuxi.Frontend.Gnome
             });
 
             return false;
+        }
+
+        static void InitSignalHandlers()
+        {
+            if ((Environment.OSVersion.Platform == PlatformID.Unix) ||
+                (Environment.OSVersion.Platform == PlatformID.MacOSX)) {
+                // Register shutdown handlers
+#if LOG4NET
+                _Logger.Info("Registering signal handlers");
+#endif
+                UnixSignal[] shutdown_signals = {
+                    new UnixSignal(Signum.SIGINT),
+                    new UnixSignal(Signum.SIGTERM),
+                };
+                Thread signal_thread = new Thread(() => {
+                    var index = UnixSignal.WaitAny(shutdown_signals);
+#if LOG4NET
+                    _Logger.Info("Caught signal " + shutdown_signals[index].Signum.ToString() + ", shutting down");
+#endif
+                    Gtk.Application.Invoke(delegate {
+                        Quit();
+                    });
+                });
+                signal_thread.Start();
+            }
         }
 
         private static void InitGtk(string[] args)
