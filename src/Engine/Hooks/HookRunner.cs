@@ -23,6 +23,8 @@ using System.Linq;
 using System.Text;
 using System.Collections.Generic;
 using SysDiag = System.Diagnostics;
+using Mono.Unix;
+using Smuxi.Common;
 
 namespace Smuxi.Engine
 {
@@ -78,13 +80,25 @@ namespace Smuxi.Engine
                 return;
             }
             foreach (var file in Directory.GetFiles(hookPath).OrderBy(x => x)) {
-                try {
-                    File.OpenRead(file).Close();
-                } catch (Exception ex) {
+                if (Environment.OSVersion.Platform == PlatformID.Unix) {
+                    var unixFile = new UnixFileInfo(file);
+                    if ((unixFile.FileAccessPermissions &
+                         FileAccessPermissions.UserExecute) !=
+                        FileAccessPermissions.UserExecute) {
 #if LOG4NET
-                    Logger.Error("Init(): error opening " + file, ex);
+                        Logger.Debug("Init(): skipping non-executable file " + file);
 #endif
-                    continue;
+                        continue;
+                    }
+                } else {
+                    try {
+                        File.OpenRead(file).Close();
+                    } catch (Exception ex) {
+#if LOG4NET
+                        Logger.Error("Init(): error opening " + file, ex);
+#endif
+                        continue;
+                    }
                 }
                 Hooks.Add(file);
             }
