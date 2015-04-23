@@ -1,13 +1,7 @@
 /*
- * $Id$
- * $URL$
- * $Rev$
- * $Author$
- * $Date$
- *
  * Smuxi - Smart MUltipleXed Irc
  *
- * Copyright (c) 2005-2006 Mirco Bauer <meebey@meebey.net>
+ * Copyright (c) 2005-2008, 2012-2013, 2015 Mirco Bauer <meebey@meebey.net>
  *
  * Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
  *
@@ -27,6 +21,10 @@
  */
 
 using System;
+using System.Runtime.Remoting;
+using System.Reflection;
+using Gtk.Extensions;
+using Smuxi.Common;
 
 namespace Smuxi.Frontend.Gnome
 { 
@@ -35,6 +33,8 @@ namespace Smuxi.Frontend.Gnome
 #if LOG4NET
         private static readonly log4net.ILog _Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 #endif
+        static readonly string LibraryTextDomain = "smuxi-frontend-gnome";
+        static SingleApplicationInstance<CommandLineInterface> Instance { get; set; }
 
         public static void Main(string[] args)
         {
@@ -72,6 +72,26 @@ namespace Smuxi.Frontend.Gnome
 #endif
 
             try {
+                try {
+                    Instance = new SingleApplicationInstance<CommandLineInterface>();
+                    if (Instance.IsFirstInstance) {
+                        Instance.FirstInstance = new CommandLineInterface();
+                    } else {
+                        var msg = _("Bringing already running Smuxi instance to foreground...");
+#if LOG4NET
+                        _Logger.Info(msg);
+#else
+                        Console.WriteLine(msg);
+#endif
+                        Instance.FirstInstance.PresentMainWindow();
+                        return;
+                    }
+                } catch (Exception ex) {
+#if LOG4NET
+                    _Logger.Warn("Single application instance error, ignoring...", ex);
+#endif
+                }
+
                 Frontend.Init(args);
             } catch (Exception e) {
 #if LOG4NET
@@ -96,6 +116,35 @@ namespace Smuxi.Frontend.Gnome
             Console.WriteLine("  -h --help                Show this help");
             Console.WriteLine("  -d --debug               Enable debug output");
             Console.WriteLine("  -e --engine engine-name  Connect to engine");
+        }
+
+        static string _(string msg)
+        {
+            return LibraryCatalog.GetString(msg, LibraryTextDomain);
+        }
+    }
+
+    public class CommandLineInterface : SingleApplicationInterface
+    {
+        public void PresentMainWindow()
+        {
+            if (!Frontend.IsGtkInitialized || !Frontend.InGtkApplicationRun) {
+                return;
+            }
+
+            Gtk.Application.Invoke(delegate {
+                var window = Frontend.MainWindow;
+                if (window == null) {
+                    return;
+                }
+                window.PresentWithServerTime();
+            });
+        }
+
+        public override object InitializeLifetimeService()
+        {
+            // live forever
+            return null;
         }
     }
 }
