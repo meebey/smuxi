@@ -24,6 +24,7 @@ Show the arguments Smuxi takes.
 List the available engines Smuxi can connect to.
 .It Fl e Ar engine , Fl \-engine Ns = Ns Ar engine
 Connect to a remote engine.
+.El
 .Sh KEY BINDINGS
 The keyboards are similar to that of irssi and similar clients. Note that some terminal control characters (like C-c, C-z, etc) are not intercepted. Common line editing keys that work in graphical applications will also work. In the following examples, C-x means Control-x.
 .Pp
@@ -46,6 +47,7 @@ jump to the next word
 delete word
 .It C-c
 exit frontend
+.El
 .Sh SMUXI COMMANDS
 Like most IRC clients, Smuxi uses commands prefixed with "/", and most use the same commands, also including its own set of commands for the client and engine. In the following examples, the "/" prefix is not included.
 .Bl -tag -width xx -offset -ident
@@ -69,6 +71,7 @@ Get the configuration key's value.
 Set the configuration key's value.
 .It shutdown
 Shuts down the current engine.
+.El
 .Sh FILES
 .Bl -tag -width -compact
 .It Pa $XDG_DATA_HOME/smuxi/share/smuxi-frontend-stfl.log
@@ -77,6 +80,7 @@ smuxi debug log
 smuxi local engine config
 .It Pa $XDG_CONFIG_HOME/smuxi/smuxi-frontend.ini
 smuxi frontend configuration and remote engine list
+.El
 .Sh SEE ALSO
 .Xr smuxi-frontend-gnome 1 ,
 .Xr smuxi-server 1 ,
