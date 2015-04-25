@@ -23,6 +23,7 @@ using System.Collections.Generic;
 
 namespace Smuxi.Engine
 {
+    [Serializable]
     public class ListMessageBuffer : List<MessageModel>, IMessageBuffer
     {
         int f_MaxCapacity;
