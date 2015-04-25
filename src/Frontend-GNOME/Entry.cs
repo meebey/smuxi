@@ -688,13 +688,16 @@ namespace Smuxi.Frontend.Gnome
                 return;
             }
 
+            var msgCount = 0;
+            Int32.TryParse(cmd.Parameter, out msgCount);
+
             var chatView = ChatViewManager.CurrentChatView;
             ThreadPool.QueueUserWorkItem(delegate {
                 try {
                     var oldValue = Frontend.UseLowBandwidthMode;
                     // HACK: force a full sync
                     Frontend.UseLowBandwidthMode = false;
-                    chatView.Sync();
+                    chatView.Sync(msgCount);
                     Frontend.UseLowBandwidthMode = oldValue;
 
                     Gtk.Application.Invoke(delegate {

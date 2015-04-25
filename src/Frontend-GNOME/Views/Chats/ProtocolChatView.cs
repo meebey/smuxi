@@ -135,11 +135,11 @@ namespace Smuxi.Frontend.Gnome
         {
         }
 
-        public override void Sync()
+        public override void Sync(int msgCount)
         {
-            Trace.Call();
+            Trace.Call(msgCount);
 
-            base.Sync();
+            base.Sync(msgCount);
 
             Host = ProtocolManager.Host;
             Port = ProtocolManager.Port;

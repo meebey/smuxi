@@ -28,6 +28,7 @@ using Smuxi.Engine.Dto;
 
 namespace Smuxi.Engine
 {
+    [Serializable]
     public class SqliteMessageBuffer : MessageBufferBase
     {
 #if LOG4NET

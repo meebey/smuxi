@@ -77,11 +77,11 @@ namespace Smuxi.Frontend.Gnome
             return LibraryCatalog.GetString(msg, _LibraryTextDomain);
         }
 
-        public override void Sync()
+        public override void Sync(int msgCount)
         {
-            Trace.Call();
+            Trace.Call(msgCount);
 
-            base.Sync();
+            base.Sync(msgCount);
 
             XmppProtocolManager = (XmppProtocolManager) ProtocolManager;
         }

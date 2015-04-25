@@ -94,9 +94,9 @@ namespace Smuxi.Frontend.Gnome
             }
         }
 
-        public override void Sync()
+        public override void Sync(int msgCount)
         {
-            Trace.Call();
+            Trace.Call(msgCount);
 
             GLib.Idle.Add(delegate {
                 TabImage.SetFromStock(Gtk.Stock.Refresh, Gtk.IconSize.Menu);
@@ -107,7 +107,7 @@ namespace Smuxi.Frontend.Gnome
             // REMOTING CALL 1
             PersonModel = PersonChatModel.Person;
 
-            base.Sync();
+            base.Sync(msgCount);
         }
     }
 }

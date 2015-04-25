@@ -31,6 +31,7 @@ using Smuxi.Engine.Dto;
 
 namespace Smuxi.Engine
 {
+    [Serializable]
     public class GitMessageBuffer : MessageBufferBase
     {
 #if LOG4NET

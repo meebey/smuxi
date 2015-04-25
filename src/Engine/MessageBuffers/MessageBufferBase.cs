@@ -26,6 +26,7 @@ using Smuxi.Common;
 
 namespace Smuxi.Engine
 {
+    [Serializable]
     public abstract class MessageBufferBase : IMessageBuffer
     {
         protected string Protocol { get; set; }

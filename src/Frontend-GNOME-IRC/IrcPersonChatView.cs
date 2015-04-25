@@ -42,11 +42,11 @@ namespace Smuxi.Frontend.Gnome
             OutputMessageTextView.PopulatePopup += OnOutputMessageTextViewPopulatePopup;
         }
 
-        public override void Sync()
+        public override void Sync(int msgCount)
         {
-            Trace.Call();
+            Trace.Call(msgCount);
 
-            base.Sync();
+            base.Sync(msgCount);
 
             IrcProtocolManager = (IrcProtocolManager) ProtocolManager;
         }

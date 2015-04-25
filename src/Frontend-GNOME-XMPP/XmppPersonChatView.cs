@@ -285,11 +285,11 @@ namespace Smuxi.Frontend.Gnome
             base.Dispose();
         }
 
-        public override void Sync()
+        public override void Sync(int msgCount)
         {
-            Trace.Call();
+            Trace.Call(msgCount);
 
-            base.Sync();
+            base.Sync(msgCount);
 
             XmppProtocolManager = (XmppProtocolManager) ProtocolManager;
         }

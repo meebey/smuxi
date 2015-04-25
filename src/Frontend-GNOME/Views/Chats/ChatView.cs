@@ -500,7 +500,12 @@ namespace Smuxi.Frontend.Gnome
             _IsSynced = false;
         }
         
-        public virtual void Sync()
+        public void Sync()
+        {
+            Sync(0);
+        }
+
+        public virtual void Sync(int msgCount)
         {
             Trace.Call();
 
@@ -528,8 +533,20 @@ namespace Smuxi.Frontend.Gnome
 
             DateTime start, stop;
             start = DateTime.UtcNow;
-            // REMOTING CALL
-            SyncedMessages = _ChatModel.Messages;
+            if (msgCount > 0 && Frontend.EngineVersion >= new Version(0, 8, 9)) {
+                // REMOTING CALL
+                var msgBuffer = _ChatModel.MessageBuffer;
+                // REMOTING CALL
+                var offset = msgBuffer.Count - msgCount;
+                if (offset < 0) {
+                    offset = 0;
+                }
+                // REMOTING CALL
+                SyncedMessages = _ChatModel.MessageBuffer.GetRange(offset, msgCount);
+            } else {
+                // REMOTING CALL
+                SyncedMessages = _ChatModel.Messages;
+            }
             stop = DateTime.UtcNow;
 #if LOG4NET
             _Logger.Debug(

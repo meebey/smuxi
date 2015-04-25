@@ -27,6 +27,7 @@ using Smuxi.Engine.Dto;
 
 namespace Smuxi.Engine
 {
+    [Serializable]
     public class JsonMessageBuffer : MessageBufferBase
     {
 #if LOG4NET
