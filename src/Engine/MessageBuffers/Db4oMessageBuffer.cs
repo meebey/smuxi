@@ -29,6 +29,7 @@ using Smuxi.Common;
 
 namespace Smuxi.Engine
 {
+    [Serializable]
     public class Db4oMessageBuffer : MessageBufferBase
     {
 #if LOG4NET
