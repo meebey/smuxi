@@ -36,5 +36,5 @@ using System.Runtime.CompilerServices;
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
-[assembly: AssemblyVersion("0.12")]
+[assembly: AssemblyVersion("1.0")]
 
