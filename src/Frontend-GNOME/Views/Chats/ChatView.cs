@@ -521,7 +521,7 @@ namespace Smuxi.Frontend.Gnome
             // REMOTING CALL
             SyncedLastSeenHighlight = _ChatModel.LastSeenHighlight;
             
-            if (Frontend.EngineVersion >= new Version(0, 12)) {
+            if (Frontend.EngineProtocolVersion >= new Version(0, 12)) {
                 // REMOTING CALL
                 SyncedLastSeenMessage = _ChatModel.LastSeenMessage;
             }
@@ -589,7 +589,7 @@ namespace Smuxi.Frontend.Gnome
         {
             _OutputMessageTextView.UpdateMarkerline();
             
-            if (Frontend.EngineVersion < new Version(0, 12)) {
+            if (Frontend.EngineProtocolVersion < new Version(0, 12)) {
                 return;
             }
             

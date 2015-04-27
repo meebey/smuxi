@@ -496,7 +496,7 @@ namespace Smuxi.Frontend.Gnome
                             return;
                         }
                     }
-                    if (Frontend.EngineVersion < new Version(0,8,11)) {
+                    if (Frontend.EngineProtocolVersion < new Version(0,8,11)) {
                         foreach (string msg in msgParts) {
                             ExecuteCommand(msg);
                         }
@@ -849,7 +849,7 @@ namespace Smuxi.Frontend.Gnome
                 _CommandManager = null;
             } else {
                 _CommandManager = new CommandManager(Frontend.Session);
-                _CommandManager.EngineVersion = Frontend.EngineVersion;
+                _CommandManager.EngineProtocolVersion = Frontend.EngineProtocolVersion;
                 _CommandManager.ExceptionEvent +=
                 delegate(object sender, CommandExceptionEventArgs e) {
                     Gtk.Application.Invoke(delegate {

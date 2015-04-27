@@ -105,7 +105,7 @@ namespace Smuxi.Frontend.Gnome
             
             try {
                 string nameFilter = f_NameEntry.Text.Trim();
-                if (!(Frontend.EngineVersion >= new Version("0.8.1")) &&
+                if (!(Frontend.EngineProtocolVersion >= new Version("0.8.1")) &&
                     String.IsNullOrEmpty(nameFilter)) {
                     Gtk.MessageDialog md = new Gtk.MessageDialog(
                         this,

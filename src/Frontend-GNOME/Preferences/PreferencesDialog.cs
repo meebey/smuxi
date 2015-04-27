@@ -147,7 +147,7 @@ namespace Smuxi.Frontend.Gnome
             };
 
             ((Gtk.TextView)_Glade["HighlightWordsTextView"]).Buffer.Changed += _OnChanged;
-            if (Frontend.EngineVersion < new Version("0.7.2")) {
+            if (Frontend.EngineProtocolVersion < new Version("0.7.2")) {
                 // feature introduced in >= 0.7.2
                 ((Gtk.TextView)_Glade["HighlightWordsTextView"]).Sensitive = false;
             }
@@ -207,7 +207,7 @@ namespace Smuxi.Frontend.Gnome
                                _("Volatile"));
             store.AppendValues(MessageBufferPersistencyType.Persistent,
                                _("Persistent (Preview)"));
-            if (Frontend.EngineVersion >= new Version("0.12")) {
+            if (Frontend.EngineProtocolVersion >= new Version("0.12")) {
                 store.AppendValues(MessageBufferPersistencyType.PersistentDb4o,
                                    _("Persistent: Db4o (Deprecated)"));
                 store.AppendValues(MessageBufferPersistencyType.PersistentSqlite,
@@ -215,7 +215,7 @@ namespace Smuxi.Frontend.Gnome
             }
             persistencyTypeComboBox.Model = store;
             persistencyTypeComboBox.Active = 0;
-            if (Frontend.EngineVersion < new Version("0.8.1")) {
+            if (Frontend.EngineProtocolVersion < new Version("0.8.1")) {
                 persistencyTypeComboBox.Sensitive = false;
                 ((Gtk.SpinButton) _Glade["VolatileMaxCapacitySpinButton"]).Sensitive = false;
                 ((Gtk.SpinButton) _Glade["PersistentMaxCapacitySpinButton"]).Sensitive = false;
@@ -261,7 +261,7 @@ namespace Smuxi.Frontend.Gnome
                                                 Gtk.IconSize.SmallToolbar, null),
                             _("Servers"));
 
-            if (Frontend.EngineVersion >= new Version("0.7.2")) {
+            if (Frontend.EngineProtocolVersion >= new Version("0.7.2")) {
                 // features introduced in >= 0.7.2
                 ls.AppendValues(Page.Filters, _Dialog.RenderIcon(
                                                     Gtk.Stock.Delete,
@@ -316,7 +316,7 @@ namespace Smuxi.Frontend.Gnome
             ((Gtk.TextView)_Glade["OnConnectCommandsTextView"]).Buffer.Text = connect_commands;
 
             var autoConvertUTF8CheckButton = (Gtk.CheckButton) _Glade["AutoConvertUTF8CheckButton"];
-            if (Frontend.EngineVersion >= new Version("0.8.12")) {
+            if (Frontend.EngineProtocolVersion >= new Version("0.8.12")) {
                 autoConvertUTF8CheckButton.Active =
                     (bool) Frontend.UserConfig["Connection/AutoConvertUTF8"];
             } else {
@@ -419,7 +419,7 @@ namespace Smuxi.Frontend.Gnome
             CheckProxyShowPasswordCheckButton();
 
             // MessageBuffer
-            if (Frontend.EngineVersion >= new Version("0.8.1")) {
+            if (Frontend.EngineProtocolVersion >= new Version("0.8.1")) {
                 // feature introduced in >= 0.8.1
                 Gtk.ComboBox persistencyTypeComboBox =
                     ((Gtk.ComboBox)_Glade["PersistencyTypeComboBox"]);
@@ -708,7 +708,7 @@ namespace Smuxi.Frontend.Gnome
             Frontend.UserConfig["Connection/OnConnectCommands"] = 
                 ((Gtk.TextView)_Glade["OnConnectCommandsTextView"]).Buffer.Text.Split(new char[] {'\n'});
 
-            if (Frontend.EngineVersion >= new Version("0.8.12")) {
+            if (Frontend.EngineProtocolVersion >= new Version("0.8.12")) {
                 Frontend.UserConfig["Connection/AutoConvertUTF8"] =
                     ((Gtk.CheckButton)_Glade["AutoConvertUTF8CheckButton"]).Active;
             }
@@ -735,7 +735,7 @@ namespace Smuxi.Frontend.Gnome
 
             int i;
             // MessageBuffer
-            if (Frontend.EngineVersion >= new Version("0.8.1")) {
+            if (Frontend.EngineProtocolVersion >= new Version("0.8.1")) {
                 var persistencyTypeComboBox = (Gtk.ComboBox) _Glade["PersistencyTypeComboBox"];
                 // for forward compatibility with newer engines
                 if (persistencyTypeComboBox.Active != -1) {

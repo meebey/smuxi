@@ -53,7 +53,7 @@ namespace Smuxi.Frontend
         TaskQueue       f_TaskQueue;
         TimeSpan        f_LastCommandTimeSpan;
 
-        public Version EngineVersion { get; set; }
+        public Version EngineProtocolVersion { get; set; }
 
         public TimeSpan LastCommandTimeSpan {
             get {
@@ -491,7 +491,7 @@ namespace Smuxi.Frontend
                 throw new ArgumentNullException("msg");
             }
 
-            if (EngineVersion != null && EngineVersion >= new Version(0, 10)) {
+            if (EngineProtocolVersion != null && EngineProtocolVersion >= new Version(0, 10)) {
                 f_Session.AddMessageToFrontend(cmd, msg);
             } else {
                 f_Session.AddMessageToChat(cmd.Chat, msg);

@@ -42,7 +42,7 @@ namespace Smuxi.Frontend.Gnome
                 Version = String.Format("\n Vendor: {0}", distVersion);
             }
             Version += "\n Frontend: " + Frontend.UIName + " " + version  +
-                       "\n Engine: " + Frontend.EngineVersion;
+                       "\n Engine: " + Frontend.EngineAssemblyVersion;
             Copyright = "Copyright © 2005-2015 Mirco Bauer <meebey@meebey.net> and other contributors";
             Authors = new string[] {
                 "Mirco Bauer <meebey@meebey.net>",

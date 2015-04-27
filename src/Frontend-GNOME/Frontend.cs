@@ -67,6 +67,8 @@ namespace Smuxi.Frontend.Gnome
         public static bool IsWindows { get; private set; }
         public static bool IsUnity { get; private set; }
         public static bool IsMacOSX { get; private set; }
+        public static Version EngineAssemblyVersion { get; set; }
+        public static Version EngineProtocolVersion { get; set; }
 
         public static event EventHandler  SessionPropertyChanged;
 
@@ -91,15 +93,6 @@ namespace Smuxi.Frontend.Gnome
         public static Version Version {
             get {
                 return _Version;
-            }
-        }
-        
-        public static Version EngineVersion {
-            get {
-                return _EngineVersion;
-            }
-            set {
-                _EngineVersion = value;
             }
         }
         
@@ -461,7 +454,8 @@ namespace Smuxi.Frontend.Gnome
                         }
                     }
                     _UserConfig = _MainWindow.EngineManager.UserConfig;
-                    EngineVersion = _MainWindow.EngineManager.EngineVersion;
+                    EngineAssemblyVersion = _MainWindow.EngineManager.EngineProtocolVersion;
+                    EngineProtocolVersion = _MainWindow.EngineManager.EngineAssemblyVersion;
                     Session = _MainWindow.EngineManager.Session;
 
                     Gtk.Application.Invoke(delegate {
@@ -1191,7 +1185,7 @@ namespace Smuxi.Frontend.Gnome
         {
             Trace.Call();
 
-            if (EngineVersion >= new Version("0.8.1.1")) {
+            if (EngineProtocolVersion >= new Version("0.8.1.1")) {
                 var config = UserConfig;
                 ThreadPool.QueueUserWorkItem(delegate {
                     try {

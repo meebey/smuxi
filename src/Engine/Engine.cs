@@ -1,13 +1,7 @@
 /*
- * $Id$
- * $URL$
- * $Rev$
- * $Author$
- * $Date$
- *
  * Smuxi - Smart MUltipleXed Irc
  *
- * Copyright (c) 2005-2013 Mirco Bauer <meebey@meebey.net>
+ * Copyright (c) 2005-2015 Mirco Bauer <meebey@meebey.net>
  *
  * Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
  *
@@ -43,10 +37,13 @@ namespace Smuxi.Engine
         private static Config           _Config;
         private static SessionManager   _SessionManager;
         private static ProtocolManagerFactory _ProtocolManagerFactory;
-        
+
+        public static Version AssemblyVersion { get; private set; }
+
+        [Obsolete("Use AssemblyVersion or ProtocolVersion instead.")]
         public static Version Version {
             get {
-                return _Version;
+                return AssemblyVersion;
             }
         }
     
@@ -55,7 +52,15 @@ namespace Smuxi.Engine
                 return _VersionString;
             }
         }
-        
+
+        public static Version ProtocolVersion {
+            get {
+                // major == compatibility
+                // minor == features
+                return new Version("0.13");
+            }
+        }
+
         public static Config Config {
             get {
                 return _Config;
@@ -92,8 +97,7 @@ namespace Smuxi.Engine
                 asm = Assembly.GetAssembly(typeof(Engine));
             }
             var asm_name = asm.GetName(false);
-            _Version = asm_name.Version;
-            _VersionNumber = asm_name.Version.ToString();
+            AssemblyVersion = asm_name.Version;
 
             var distVersion = Defines.DistVersion;
             if (!String.IsNullOrEmpty(distVersion)) {

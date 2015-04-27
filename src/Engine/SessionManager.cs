@@ -1,13 +1,7 @@
 /*
- * $Id$
- * $URL$
- * $Rev$
- * $Author$
- * $Date$
- *
  * Smuxi - Smart MUltipleXed Irc
  *
- * Copyright (c) 2005-2006 Mirco Bauer <meebey@meebey.net>
+ * Copyright (c) 2005-2007, 2014-2015 Mirco Bauer <meebey@meebey.net>
  *
  * Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
  *
@@ -38,13 +32,18 @@ namespace Smuxi.Engine
         private static readonly log4net.ILog _Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 #endif
         private Hashtable _Sessions = Hashtable.Synchronized(new Hashtable());
-        private Version   _EngineVersion;
         private Config    _Config;
         private ProtocolManagerFactory _ProtocolManagerFactory;
-        
+
+        public Version EngineAssemblyVersion { get; private set; }
+        public Version EngineProtocolVersion { get; private set; }
+
         public Version EngineVersion {
             get {
-                return _EngineVersion;
+                // HACK: since older frontend compare/check the engine version
+                // for protocol compatibility we expose the protocol version
+                // here instead for backwards compatibility
+                return EngineProtocolVersion;
             }
         }
         
@@ -62,8 +61,8 @@ namespace Smuxi.Engine
             _Config = config;
             _ProtocolManagerFactory = protocolManagerFactory;
 
-            // BUG: out of scope?
-            _EngineVersion = Engine.Version;
+            EngineAssemblyVersion = Engine.AssemblyVersion;
+            EngineProtocolVersion = Engine.ProtocolVersion;
 
             string[] users = (string[])Engine.Config["Engine/Users/Users"];
             if (users == null) {

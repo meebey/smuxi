@@ -385,7 +385,7 @@ namespace Smuxi.Frontend.Gnome
         int GetSortedChatPosition(ChatView chatView)
         {
             // starting with > 0.8 the Engine supplies ChatModel.Position for us
-            if (Frontend.EngineVersion > new Version("0.8")) {
+            if (Frontend.EngineProtocolVersion > new Version("0.8")) {
                 return chatView.Position;
             }
 

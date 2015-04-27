@@ -1,7 +1,7 @@
 /*
  * Smuxi - Smart MUltipleXed Irc
  *
- * Copyright (c) 2005-2013 Mirco Bauer <meebey@meebey.net>
+ * Copyright (c) 2005-2013, 2015 Mirco Bauer <meebey@meebey.net>
  *
  * Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
  *
@@ -204,21 +204,24 @@ namespace Smuxi.Frontend.Gnome
             string engine = _SelectedEngine;
             try {
                 _EngineManager.Connect(engine);
-                var engineVersion = _EngineManager.EngineVersion;
-                var frontendVersion = Frontend.Version;
-                if ((engineVersion >= new Version("0.8") &&
-                     engineVersion.Major != frontendVersion.Major) ||
-                    (engineVersion < new Version("0.8") &&
-                     (engineVersion.Major != frontendVersion.Major ||
-                      engineVersion.Minor != frontendVersion.Minor))) {
-                    throw new ApplicationException(String.Format(
-                                _("Your frontend version ({0}) does not match the engine version ({1})!"),
-                                Frontend.Version, _EngineManager.EngineVersion));
+                var engineProtocolVersion = _EngineManager.EngineProtocolVersion;
+                var frontendProtocolVersion = new Version(0, 0);
+                if (engineProtocolVersion.Major != frontendProtocolVersion.Major) {
+                    throw new ApplicationException(
+                        String.Format(
+                            _("Your frontend is not compatible with the engine!\n" +
+                              "Engine Version: {0} Frontend Version: {1}\n" +
+                              "Engine Protocol: {2} Frontend Protocol: {3}"),
+                            _EngineManager.EngineAssemblyVersion, Frontend.Version,
+                            engineProtocolVersion, frontendProtocolVersion
+                        )
+                    );
                 }
                 
                 Frontend.Session = _EngineManager.Session;
                 Frontend.UserConfig = _EngineManager.UserConfig;
-                Frontend.EngineVersion = _EngineManager.EngineVersion;
+                Frontend.EngineAssemblyVersion = _EngineManager.EngineAssemblyVersion;
+                Frontend.EngineProtocolVersion = _EngineManager.EngineProtocolVersion;
                 Frontend.ConnectEngineToGUI();
             } catch (Exception ex) {
 #if LOG4NET

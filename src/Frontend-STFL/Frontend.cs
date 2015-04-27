@@ -39,7 +39,6 @@ namespace Smuxi.Frontend.Stfl
         private static readonly string    _UIName = "STFL";
         private static Version            _Version;
         private static string             _VersionString;
-        private static Version            _EngineVersion;
         private static MainWindow         _MainWindow;
         private static FrontendConfig     _FrontendConfig;
         private static Session            _LocalSession;
@@ -47,7 +46,7 @@ namespace Smuxi.Frontend.Stfl
         private static UserConfig         _UserConfig;
         private static FrontendManager    _FrontendManager;
         public static EngineManager EngineManager { get; private set; }
-        
+
         public static event EventHandler SessionPropertyChanged;
 
         public static string Name {
@@ -67,16 +66,7 @@ namespace Smuxi.Frontend.Stfl
                 return _Version;
             }
         }
-        
-        public static Version EngineVersion {
-            get {
-                return _EngineVersion;
-            }
-            set {
-                _EngineVersion = value;
-            }
-        }
-        
+
         public static string VersionString {
             get {
                 return _VersionString;
@@ -183,7 +173,6 @@ namespace Smuxi.Frontend.Stfl
         public static void InitLocalEngine()
         {
             Engine.Engine.Init();
-            _EngineVersion = Engine.Engine.Version;
             _LocalSession = new Engine.Session(Engine.Engine.Config,
                                          Engine.Engine.ProtocolManagerFactory,
                                          "local");
@@ -218,7 +207,6 @@ namespace Smuxi.Frontend.Stfl
 
                 Session = EngineManager.Session;
                 _UserConfig = EngineManager.UserConfig;
-                _EngineVersion = EngineManager.EngineVersion;
                 ConnectEngineToGUI();
             } catch (Exception ex) {
 #if LOG4NET
