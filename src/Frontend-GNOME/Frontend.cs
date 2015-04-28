@@ -454,8 +454,8 @@ namespace Smuxi.Frontend.Gnome
                         }
                     }
                     _UserConfig = _MainWindow.EngineManager.UserConfig;
-                    EngineAssemblyVersion = _MainWindow.EngineManager.EngineProtocolVersion;
-                    EngineProtocolVersion = _MainWindow.EngineManager.EngineAssemblyVersion;
+                    EngineAssemblyVersion = _MainWindow.EngineManager.EngineAssemblyVersion;
+                    EngineProtocolVersion = _MainWindow.EngineManager.EngineProtocolVersion;
                     Session = _MainWindow.EngineManager.Session;
 
                     Gtk.Application.Invoke(delegate {
