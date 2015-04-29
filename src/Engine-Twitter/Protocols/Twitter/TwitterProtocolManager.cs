@@ -2040,7 +2040,7 @@ namespace Smuxi.Engine
             }
 
             PersonModel person;
-            if (!f_Friends.TryGetValue(user.Id.ToString(), out person)) {
+            if (f_Friends == null || !f_Friends.TryGetValue(user.Id.ToString(), out person)) {
                 return CreatePerson(user);
             }
             return person;
