@@ -589,7 +589,7 @@ namespace Smuxi.Frontend.Gnome
         {
             _OutputMessageTextView.UpdateMarkerline();
             
-            if (Frontend.EngineProtocolVersion == null |
+            if (Frontend.EngineProtocolVersion == null ||
                 Frontend.EngineProtocolVersion < new Version(0, 12)) {
                 return;
             }
