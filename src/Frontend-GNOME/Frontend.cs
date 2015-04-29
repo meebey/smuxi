@@ -46,7 +46,6 @@ namespace Smuxi.Frontend.Gnome
         private static int                _UIThreadID;
         private static Version            _Version;
         private static string             _VersionString;
-        private static Version            _EngineVersion;
         private static SplashScreenWindow _SplashScreenWindow;
         private static MainWindow         _MainWindow;
         private static FrontendConfig     _FrontendConfig;
@@ -290,7 +289,8 @@ namespace Smuxi.Frontend.Gnome
                                                    Engine.Engine.ProtocolManagerFactory,
                                                    "local");
             }
-            _EngineVersion = Engine.Engine.Version;
+            EngineAssemblyVersion = Engine.Engine.AssemblyVersion;
+            EngineProtocolVersion = Engine.Engine.ProtocolVersion;
             Session = _LocalSession;
             _UserConfig = _Session.UserConfig;
         }
