@@ -76,7 +76,8 @@ namespace Smuxi.Engine
         void Init()
         {
             Connection = new SqliteConnection(
-                "Data Source=" + DBPath + ";" +
+                //extra double-quotes are needed to prevent conflicting connectionString chars in the path such as ','
+                "Data Source=\"" + DBPath + "\";" +
                 // enable Write-Ahead-Log (WAL)
                 "Journal Mode=WAL"
             );
