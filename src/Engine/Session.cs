@@ -1529,7 +1529,7 @@ namespace Smuxi.Engine
 #endif
                                     var msg = CreateMessageBuilder().
                                         AppendErrorText("Command '{0}' failed. Reason: {1} ({2})",
-                                                        command, ex.Message).
+                                                        command, ex.Message, ex.GetType()).
                                         ToMessage();
                                     AddMessageToFrontend (frontendManager, protocolManager.Chat, msg);
                                 }
