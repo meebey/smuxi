@@ -550,7 +550,7 @@ namespace Smuxi.Frontend.Gnome
             Trace.Call(sender, e);
 
             try {
-                Frontend.OpenLink(new Uri("http://www.smuxi.org/"));
+                Frontend.OpenLink(new Uri("https://smuxi.im/"));
             } catch (Exception ex) {
                 Frontend.ShowException(Parent, ex);
             }

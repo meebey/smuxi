@@ -73,9 +73,9 @@ namespace Smuxi.Frontend.Gnome
             // the GTK{+,#} ports/installers for OS X and Windows. Thus we only
             // show the website URL as label instead.
             if (Frontend.IsMacOSX || Frontend.IsWindows) {
-                WebsiteLabel = "http://www.smuxi.org/";
+                WebsiteLabel = "https://smuxi.im/";
             } else {
-                Website = "http://www.smuxi.org/";
+                Website = "https://smuxi.im/";
                 WebsiteLabel = _("Smuxi Website");
             }
         }

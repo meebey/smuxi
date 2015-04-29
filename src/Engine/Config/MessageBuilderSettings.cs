@@ -135,7 +135,7 @@ namespace Smuxi.Engine
             regex = new Regex(@"smuxi#([0-9]+)",
                               RegexOptions.IgnoreCase | RegexOptions.Compiled);
             BuiltinPatterns.Add(new MessagePatternModel(regex) {
-                LinkFormat = "http://www.smuxi.org/issues/show/{1}"
+                LinkFormat = "https://smuxi.im/issues/show/{1}"
             });
 
             // RFCs
