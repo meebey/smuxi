@@ -31,8 +31,6 @@ namespace Smuxi.Engine
     public class Engine
     {
         private static bool             _IsInitialized;
-        private static Version          _Version;
-        private static string           _VersionNumber;
         private static string           _VersionString;
         private static Config           _Config;
         private static SessionManager   _SessionManager;
@@ -106,7 +104,7 @@ namespace Smuxi.Engine
             _VersionString = String.Format(
                 "{0} {1}{2} - running on {3} {4}",
                 Path.GetFileNameWithoutExtension(asm_name.Name),
-                _Version,
+                AssemblyVersion,
                 distVersion,
                 Platform.OperatingSystem,
                 Platform.Architecture
