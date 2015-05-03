@@ -3246,8 +3246,11 @@ namespace Smuxi.Engine
                         groupPerson.IsVoice = true;
                         break;
                 }
-                
-                groupChat.UnsafePersons.Add(groupPerson.NickName, groupPerson);
+
+                // HACK: replace existing value in case we get duplicate nicks
+                // on broken IRC servers like irc.gitter.im, see:
+                // https://smuxi.im/issues/show/1051
+                groupChat.UnsafePersons[groupPerson.NickName] = groupPerson;
 #if LOG4NET
                 // logging noise
                 //_Logger.Debug("_OnNames() added user: " + username + " to: " + groupChat.Name);
