@@ -1,3 +1,9 @@
+smuxi (2:1.0~rc3+dev-1) unstable; urgency=medium
+
+  * New release candidate
+
+ -- Mirco Bauer <meebey@debian.org>  Sun, 03 May 2015 12:39:32 +0200
+
 smuxi (2:1.0~rc2+dev-1~pre1) unstable; urgency=medium
 
   * New release candidate
