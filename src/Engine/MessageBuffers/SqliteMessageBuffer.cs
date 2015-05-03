@@ -1,6 +1,6 @@
 // Smuxi - Smart MUltipleXed Irc
 //
-// Copyright (c) 2014 Mirco Bauer <meebey@meebey.net>
+// Copyright (c) 2014-2015 Mirco Bauer <meebey@meebey.net>
 //
 // Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
 //
@@ -39,7 +39,11 @@ namespace Smuxi.Engine
 
         public override int Count {
             get {
-                using (var cmd = Connection.CreateCommand()) {
+                var connection = Connection;
+                if (connection == null) {
+                    return 0;
+                }
+                using (var cmd = connection.CreateCommand()) {
                     cmd.CommandText = "SELECT COUNT(*) FROM Messages";
                     return (int) Convert.ChangeType(cmd.ExecuteScalar(), typeof(int));
                 }
