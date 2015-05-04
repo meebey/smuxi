@@ -4,12 +4,12 @@
 # 
 # Translators:
 # Mirco Bauer <meebey@gmail.com>, 2013
-# Ondřej Hošek <ondra.hosek@gmail.com>, 2013
+# RavuAlHemio <ondra.hosek@gmail.com>, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: Smuxi - IRC client\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-12-11 17:00+0100\n"
+"POT-Creation-Date: 2015-05-03 12:32+0200\n"
 "PO-Revision-Date: 2013-12-11 16:09+0000\n"
 "Last-Translator: Mirco Bauer <meebey@gmail.com>\n"
 "Language-Team: Czech (http://www.transifex.com/projects/p/smuxi/language/cs/)\n"
@@ -43,16 +43,16 @@ msgstr "Spojení se nezdařilo! Důvod: {0}"
 msgid "Connecting to {0}..."
 msgstr "Spojuji se s {0}..."
 
-#: ../src/Engine-JabbR/JabbrProtocolManager.cs:340
+#: ../src/Engine-JabbR/JabbrProtocolManager.cs:354
 #, csharp-format
 msgid "Reconnecting to {0}..."
 msgstr "Obnovuji spojení s {0}..."
 
-#: ../src/Engine-JabbR/JabbrProtocolManager.cs:433
+#: ../src/Engine-JabbR/JabbrProtocolManager.cs:447
 msgid "not connected"
 msgstr "nepřipojen"
 
-#: ../src/Engine-JabbR/JabbrProtocolManager.cs:577
+#: ../src/Engine-JabbR/JabbrProtocolManager.cs:607
 #, csharp-format
 msgid "Retrieving chat information failed. Reason: {0}"
 msgstr "Nezdařilo se získat informace o chatu. Důvod: {0}"
