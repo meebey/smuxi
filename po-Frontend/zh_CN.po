@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Smuxi - IRC client\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-12-11 17:03+0100\n"
+"POT-Creation-Date: 2015-05-03 12:34+0200\n"
 "PO-Revision-Date: 2013-12-13 08:18+0000\n"
 "Last-Translator: Dean Lee <xslidian@gmail.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/projects/p/smuxi/language/zh_CN/)\n"
@@ -18,53 +18,53 @@ msgstr ""
 "Language: zh_CN\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: ../src/Frontend/CommandManager.cs:343
+#: ../src/Frontend/CommandManager.cs:466
 #, csharp-format
 msgid "Unknown Command: {0}"
 msgstr "未知命令: {0}"
 
-#: ../src/Frontend/CommandManager.cs:352
+#: ../src/Frontend/CommandManager.cs:475
 #, csharp-format
 msgid "Not enough parameters for {0} command"
 msgstr "{0} 命令参数不足"
 
-#: ../src/Frontend/EngineManager.cs:122
+#: ../src/Frontend/EngineManager.cs:112
 msgid "Engine must not be empty."
 msgstr "引擎不能为空。"
 
-#: ../src/Frontend/EngineManager.cs:133
+#: ../src/Frontend/EngineManager.cs:123
 msgid "Engine does not exist."
 msgstr "引擎不存在。"
 
-#: ../src/Frontend/EngineManager.cs:317
+#: ../src/Frontend/EngineManager.cs:313
 #, csharp-format
 msgid ""
 "Unknown channel ({0}) - only the following channel types are supported:"
 msgstr "未知频道 ({0}) - 仅支持下列频道类型:"
 
-#: ../src/Frontend/EngineManager.cs:326
+#: ../src/Frontend/EngineManager.cs:322
 msgid ""
 "Registration with engine failed!  The username and/or password were wrong - "
 "please verify them."
 msgstr "引擎注册失败!  用户名和/或密码错误 - 请验证。"
 
-#: ../src/Frontend/SshTunnelManager.cs:144
+#: ../src/Frontend/SshTunnelManager.cs:147
 msgid "SSH client application was not found: "
 msgstr "未找到 SSH 客户端应用程序: "
 
-#: ../src/Frontend/SshTunnelManager.cs:147
+#: ../src/Frontend/SshTunnelManager.cs:150
 msgid ""
 "SSH client must be either OpenSSH (ssh) or Plink (plink.exe, not putty.exe)"
 msgstr "SSH 客户端必须为 OpenSSH (ssh) 或 Plink (plink.exe, 而非 putty.exe)"
 
-#: ../src/Frontend/SshTunnelManager.cs:184
+#: ../src/Frontend/SshTunnelManager.cs:187
 #, csharp-format
 msgid ""
 "The local SSH forwarding port {0} is already in use. Is there an old SSH "
 "tunnel still active?"
 msgstr "本地 SSH 转发端口 {0} 已被占用。是不是还有旧版 SSH 隧道处于活动状态?"
 
-#: ../src/Frontend/SshTunnelManager.cs:208
+#: ../src/Frontend/SshTunnelManager.cs:211
 #, csharp-format
 msgid ""
 "SSH tunnel setup failed (exit code: {0})\n"
@@ -78,17 +78,17 @@ msgid ""
 "{4}\n"
 msgstr "SSH 隧道安装失败 (退出代码: {0})\n\nSSH 程序: {1}\nSSH 参数: {2}\n\n程序错误:\n{3}\n程序输出:\n{4}\n"
 
-#: ../src/Frontend/SshTunnelManager.cs:329
-#: ../src/Frontend/SshTunnelManager.cs:478
+#: ../src/Frontend/SshTunnelManager.cs:332
+#: ../src/Frontend/SshTunnelManager.cs:481
 msgid "SSH keyfile not found."
 msgstr "未找到 SSH 密钥文件。"
 
-#: ../src/Frontend/SshTunnelManager.cs:335
-#: ../src/Frontend/SshTunnelManager.cs:484
+#: ../src/Frontend/SshTunnelManager.cs:338
+#: ../src/Frontend/SshTunnelManager.cs:487
 msgid "SSH keyfile could not be read."
 msgstr "无法读取 SSH 密钥文件。"
 
-#: ../src/Frontend/SshTunnelManager.cs:426
+#: ../src/Frontend/SshTunnelManager.cs:429
 #, csharp-format
 msgid ""
 "OpenSSH version number not found (exit code: {0})\n"
@@ -101,11 +101,11 @@ msgid ""
 "{3}\n"
 msgstr "未发现 OpenSSH 版本号 (退出代码: {0})\n\nSSH 程序: {1}\n\n程序错误:\n{2}\n程序输出:\n{3}\n"
 
-#: ../src/Frontend/SshTunnelManager.cs:469
+#: ../src/Frontend/SshTunnelManager.cs:472
 msgid "PuTTY / Plink requires a username to be set."
 msgstr "PuTTY / Plink 需要设置用户名。"
 
-#: ../src/Frontend/SshTunnelManager.cs:557
+#: ../src/Frontend/SshTunnelManager.cs:560
 #, csharp-format
 msgid ""
 "Plink version number not found (exit code: {0})\n"

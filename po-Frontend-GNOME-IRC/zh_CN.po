@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Smuxi - IRC client\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-12-11 17:04+0100\n"
+"POT-Creation-Date: 2015-05-03 12:35+0200\n"
 "PO-Revision-Date: 2013-12-13 08:16+0000\n"
 "Last-Translator: Dean Lee <xslidian@gmail.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/projects/p/smuxi/language/zh_CN/)\n"
@@ -55,17 +55,17 @@ msgid "Unban"
 msgstr "解封"
 
 #: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:430
-#: ../src/Frontend-GNOME-IRC/IrcPersonChatView.cs:63
+#: ../src/Frontend-GNOME-IRC/IrcPersonChatView.cs:92
 msgid "Whois"
 msgstr "详情"
 
 #: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:434
-#: ../src/Frontend-GNOME-IRC/IrcPersonChatView.cs:67
+#: ../src/Frontend-GNOME-IRC/IrcPersonChatView.cs:96
 msgid "CTCP"
 msgstr "CTCP"
 
 #: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:443
-#: ../src/Frontend-GNOME-IRC/IrcPersonChatView.cs:74
+#: ../src/Frontend-GNOME-IRC/IrcPersonChatView.cs:103
 msgid "Invite to"
 msgstr "邀请加入"
 
