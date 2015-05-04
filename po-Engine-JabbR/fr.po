@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Smuxi - IRC client\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-12-11 17:00+0100\n"
+"POT-Creation-Date: 2015-05-03 12:32+0200\n"
 "PO-Revision-Date: 2013-12-13 21:38+0000\n"
 "Last-Translator: Clément Bourgeois <moonpyk@gmail.com>\n"
 "Language-Team: French (http://www.transifex.com/projects/p/smuxi/language/fr/)\n"
@@ -42,16 +42,16 @@ msgstr "Connexion échouée ! Raison : {0}"
 msgid "Connecting to {0}..."
 msgstr "Connexion à {0}..."
 
-#: ../src/Engine-JabbR/JabbrProtocolManager.cs:340
+#: ../src/Engine-JabbR/JabbrProtocolManager.cs:354
 #, csharp-format
 msgid "Reconnecting to {0}..."
 msgstr "Reconnexion à {0}..."
 
-#: ../src/Engine-JabbR/JabbrProtocolManager.cs:433
+#: ../src/Engine-JabbR/JabbrProtocolManager.cs:447
 msgid "not connected"
 msgstr "non connecté"
 
-#: ../src/Engine-JabbR/JabbrProtocolManager.cs:577
+#: ../src/Engine-JabbR/JabbrProtocolManager.cs:607
 #, csharp-format
 msgid "Retrieving chat information failed. Reason: {0}"
 msgstr "Récupération des informations de discussion échouée. Raison : {0}"
