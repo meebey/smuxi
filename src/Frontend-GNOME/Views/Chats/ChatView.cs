@@ -529,7 +529,7 @@ namespace Smuxi.Frontend.Gnome
             DateTime start, stop;
             start = DateTime.UtcNow;
             // REMOTING CALL
-            SyncedMessages = _ChatModel.Messages;
+            SyncedMessages = _ChatModel.MessageBuffer;
             stop = DateTime.UtcNow;
 #if LOG4NET
             _Logger.Debug(
