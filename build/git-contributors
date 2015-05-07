@@ -3,5 +3,5 @@ git log --no-merges "$@" | \
 	grep ^Author: | \
 	sed 's/ <.*//; s/^Author: //' | \
 	sort | \
-	uniq -c | \
+	uniq -ic | \
 	sort -nr
