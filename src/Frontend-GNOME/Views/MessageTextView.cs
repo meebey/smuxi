@@ -455,99 +455,11 @@ namespace Smuxi.Frontend.Gnome
 
                 // TODO: implement all types
                 if (msgPart is UrlMessagePartModel) {
-                    var urlPart = (UrlMessagePartModel) msgPart;
-                    var linkText = urlPart.Text ?? urlPart.Url;
-
-                    Uri uri;
-                    try {
-                        uri = new Uri(urlPart.Url);
-                    } catch (UriFormatException ex) {
-#if LOG4NET
-                        _Logger.Error("AddMessage(): Invalid URL: " + urlPart.Url, ex);
-#endif
-                        buffer.Insert(ref iter, linkText);
-                        continue;
-                    }
-
-                    var tags = new List<Gtk.TextTag>();
-                    // link URI tag
-                    var linkTag = new LinkTag(uri);
-                    linkTag.TextEvent += OnLinkTagTextEvent;
-                    _MessageTextTagTable.Add(linkTag);
-                    tags.Add(linkTag);
-
-                    // link style tag
-                    tags.Add(LinkTag);
-
-                    buffer.InsertWithTags(ref iter, linkText, tags.ToArray());
+                    InsertToBuffer(buffer, ref iter, (UrlMessagePartModel) msgPart);
                 } else if (msgPart is TextMessagePartModel) {
-                    var tags = new List<Gtk.TextTag>();
-                    TextMessagePartModel fmsgti = (TextMessagePartModel) msgPart;
-                    if (fmsgti.Text == null) {
-                        // Gtk.TextBuffer.Insert*() asserts on text == NULL
-                        continue;
-                    }
-                    if (fmsgti.ForegroundColor != TextColor.None) {
-                        var bg = ColorConverter.GetTextColor(BackgroundColor);
-                        if (fmsgti.BackgroundColor != TextColor.None) {
-                            bg = fmsgti.BackgroundColor;
-                        }
-                        TextColor color = TextColorTools.GetBestTextColor(
-                            fmsgti.ForegroundColor, bg
-                        );
-                        string tagname = GetTextTagName(color, null);
-                        var tag = _MessageTextTagTable.Lookup(tagname);
-                        tags.Add(tag);
-                    }
-                    if (fmsgti.BackgroundColor != TextColor.None) {
-                        // TODO: get this from ChatView
-                        string tagname = GetTextTagName(null, fmsgti.BackgroundColor);
-                        var tag = _MessageTextTagTable.Lookup(tagname);
-                        tags.Add(tag);
-                    }
-                    if (fmsgti.Underline) {
-#if LOG4NET && MSG_DEBUG
-                        _Logger.Debug("AddMessage(): fmsgti.Underline is true");
-#endif
-                        tags.Add(UnderlineTag);
-                    }
-                    if (fmsgti.Bold) {
-#if LOG4NET && MSG_DEBUG
-                        _Logger.Debug("AddMessage(): fmsgti.Bold is true");
-#endif
-                        tags.Add(BoldTag);
-                    }
-                    if (fmsgti.Italic) {
-#if LOG4NET && MSG_DEBUG
-                        _Logger.Debug("AddMessage(): fmsgti.Italic is true");
-#endif
-                        tags.Add(ItalicTag);
-                    }
-
-                    if (tags.Count > 0) {
-                        buffer.InsertWithTags(ref iter, fmsgti.Text, tags.ToArray());
-                    } else {
-                        buffer.Insert(ref iter, fmsgti.Text);
-                    }
+                    InsertToBuffer(buffer, ref iter, (TextMessagePartModel) msgPart);
                 } else if (msgPart is ImageMessagePartModel) {
-                    var imgpart = (ImageMessagePartModel) msgPart;
-                    Uri uri = null;
-                    string scheme = null;
-                    try {
-                        uri = new Uri(imgpart.ImageFileName);
-                        scheme = uri.Scheme;
-                    } catch (UriFormatException) {
-                        AddAlternativeText(buffer, ref iter, imgpart);
-                    }
-                    switch (scheme) {
-                        case "smuxi-emoji":
-                            var shortName = uri.Host;
-                            AddEmoji(buffer, ref iter, imgpart, shortName);
-                            break;
-                        default:
-                            AddAlternativeText(buffer, ref iter, imgpart);
-                            break;
-                    }
+                    InsertToBuffer(buffer, ref iter, (ImageMessagePartModel) msgPart);
                 }
             }
             var startIter = buffer.GetIterAtMark(startMark);
@@ -602,6 +514,106 @@ namespace Smuxi.Frontend.Gnome
             }
             
             _LastMessage = msg;
+        }
+
+        private void InsertToBuffer(Gtk.TextBuffer buffer, ref Gtk.TextIter iter, UrlMessagePartModel urlPart)
+        {
+            var linkText = urlPart.Text ?? urlPart.Url;
+
+            Uri uri;
+            try {
+                uri = new Uri(urlPart.Url);
+            } catch (UriFormatException ex) {
+#if LOG4NET
+                _Logger.Error("AddMessage(): Invalid URL: " + urlPart.Url, ex);
+#endif
+                buffer.Insert(ref iter, linkText);
+                return;
+            }
+
+            var tags = new List<Gtk.TextTag>();
+            // link URI tag
+            var linkTag = new LinkTag(uri);
+            linkTag.TextEvent += OnLinkTagTextEvent;
+            _MessageTextTagTable.Add(linkTag);
+            tags.Add(linkTag);
+
+            // link style tag
+            tags.Add(LinkTag);
+
+            buffer.InsertWithTags(ref iter, linkText, tags.ToArray());
+        }
+
+        private void InsertToBuffer(Gtk.TextBuffer buffer, ref Gtk.TextIter iter, TextMessagePartModel fmsgti)
+        {
+            var tags = new List<Gtk.TextTag>();
+            if (fmsgti.Text == null) {
+                // Gtk.TextBuffer.Insert*() asserts on text == NULL
+                return;
+            }
+            if (fmsgti.ForegroundColor != TextColor.None) {
+                var bg = ColorConverter.GetTextColor(BackgroundColor);
+                if (fmsgti.BackgroundColor != TextColor.None) {
+                    bg = fmsgti.BackgroundColor;
+                }
+                TextColor color = TextColorTools.GetBestTextColor(
+                    fmsgti.ForegroundColor, bg
+                );
+                string tagname = GetTextTagName(color, null);
+                var tag = _MessageTextTagTable.Lookup(tagname);
+                tags.Add(tag);
+            }
+            if (fmsgti.BackgroundColor != TextColor.None) {
+                // TODO: get this from ChatView
+                string tagname = GetTextTagName(null, fmsgti.BackgroundColor);
+                var tag = _MessageTextTagTable.Lookup(tagname);
+                tags.Add(tag);
+            }
+            if (fmsgti.Underline) {
+#if LOG4NET && MSG_DEBUG
+                _Logger.Debug("AddMessage(): fmsgti.Underline is true");
+#endif
+                tags.Add(UnderlineTag);
+            }
+            if (fmsgti.Bold) {
+#if LOG4NET && MSG_DEBUG
+                _Logger.Debug("AddMessage(): fmsgti.Bold is true");
+#endif
+                tags.Add(BoldTag);
+            }
+            if (fmsgti.Italic) {
+#if LOG4NET && MSG_DEBUG
+                _Logger.Debug("AddMessage(): fmsgti.Italic is true");
+#endif
+                tags.Add(ItalicTag);
+            }
+
+            if (tags.Count > 0) {
+                buffer.InsertWithTags(ref iter, fmsgti.Text, tags.ToArray());
+            } else {
+                buffer.Insert(ref iter, fmsgti.Text);
+            }
+        }
+
+        private void InsertToBuffer(Gtk.TextBuffer buffer, ref Gtk.TextIter iter, ImageMessagePartModel imgpart)
+        {
+            Uri uri = null;
+            string scheme = null;
+            try {
+                uri = new Uri(imgpart.ImageFileName);
+                scheme = uri.Scheme;
+            } catch (UriFormatException) {
+                AddAlternativeText(buffer, ref iter, imgpart);
+            }
+            switch (scheme) {
+                case "smuxi-emoji":
+                    var shortName = uri.Host;
+                    AddEmoji(buffer, ref iter, imgpart, shortName);
+                    break;
+                default:
+                    AddAlternativeText(buffer, ref iter, imgpart);
+                    break;
+            }
         }
 
         public void UpdateMarkerline()
