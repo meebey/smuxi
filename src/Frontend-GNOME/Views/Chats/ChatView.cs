@@ -1,7 +1,7 @@
 /*
  * Smuxi - Smart MUltipleXed Irc
  *
- * Copyright (c) 2005-2014 Mirco Bauer <meebey@meebey.net>
+ * Copyright (c) 2005-2015 Mirco Bauer <meebey@meebey.net>
  *
  * Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
  *
@@ -570,11 +570,16 @@ namespace Smuxi.Frontend.Gnome
                 }
             }
 
-            // as we don't track which messages were already seen it would
-            // show all chats with message activity after the frontend connect
+            // as we don't track which events have already been seen it would
+            // show all chats with unseen events after the frontend connect
             if (!HasHighlight) {
-                HasActivity = false;
                 HasEvent = false;
+                // Smuxi protocol < 0.13 does not support remembering seen
+                // messages thus we mark all message as seen as we can't tell
+                // which ones are new
+                if (Frontend.EngineProtocolVersion < new Version(0, 13)) {
+                    HasActivity = false;
+                }
             }
 
             // reset tab icon to normal
@@ -590,7 +595,7 @@ namespace Smuxi.Frontend.Gnome
             _OutputMessageTextView.UpdateMarkerline();
             
             if (Frontend.EngineProtocolVersion == null ||
-                Frontend.EngineProtocolVersion < new Version(0, 12)) {
+                Frontend.EngineProtocolVersion < new Version(0, 13)) {
                 return;
             }
             
@@ -724,7 +729,7 @@ namespace Smuxi.Frontend.Gnome
         
         protected virtual void OnMessageTextViewMessageAdded(object sender, MessageTextViewMessageAddedEventArgs e)
         {
-            if (!IsActive) {
+            if (_IsSynced && !IsActive) {
                 switch (e.Message.MessageType) {
                     case MessageType.Normal:
                         HasActivity = true;
@@ -732,6 +737,11 @@ namespace Smuxi.Frontend.Gnome
                     case MessageType.Event:
                         HasEvent = true;
                         break;
+                }
+            } else if (!IsActive) {
+                if (Frontend.EngineProtocolVersion >= new Version(0, 13) &&
+                    e.Message.TimeStamp > SyncedLastSeenMessage) {
+                    HasActivity = true;
                 }
             }
 
