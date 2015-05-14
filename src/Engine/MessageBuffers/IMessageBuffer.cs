@@ -1,6 +1,6 @@
 // Smuxi - Smart MUltipleXed Irc
 //
-// Copyright (c) 2010-2011 Mirco Bauer <meebey@meebey.net>
+// Copyright (c) 2010-2012, 2015 Mirco Bauer <meebey@meebey.net>
 //
 // Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
 //
@@ -28,5 +28,7 @@ namespace Smuxi.Engine
         IList<MessageModel> GetRange(int offset, int limit);
         void                Flush();
         int                 MaxCapacity { get; set; }
+        DateTime LastSeenMessage { get; set; }
+        DateTime LastSeenHighlight { get; set; }
     }
 }

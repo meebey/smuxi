@@ -50,6 +50,72 @@ namespace Smuxi.Engine
             }
         }
 
+        public override DateTime LastSeenMessage {
+            get {
+                var connection = Connection;
+                if (connection == null) {
+                    return DateTime.MinValue;
+                }
+                using (var cmd = connection.CreateCommand()) {
+                    cmd.CommandText = "SELECT Value FROM Properties WHERE Key = 'LastSeenMessage'";
+                    var value = cmd.ExecuteScalar();
+                    if (value == null) {
+                        return DateTime.MinValue;
+                    }
+                    return DateTime.Parse((string) value).ToUniversalTime();
+                }
+            }
+            set {
+                var connection = Connection;
+                if (connection == null) {
+                    return;
+                }
+                using (var cmd = connection.CreateCommand()) {
+                    var sql = "INSERT OR REPLACE INTO Properties (Key, Value) " +
+                              "VALUES('LastSeenMessage', @timestamp)";
+                    cmd.CommandText = sql;
+                    var param = cmd.CreateParameter();
+                    param.ParameterName = "timestamp";
+                    param.Value = value.ToString("u").Replace(" ", "T");
+                    cmd.Parameters.Add(param);
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
+        public override DateTime LastSeenHighlight {
+            get {
+                var connection = Connection;
+                if (connection == null) {
+                    return DateTime.MinValue;
+                }
+                using (var cmd = connection.CreateCommand()) {
+                    cmd.CommandText = "SELECT Value FROM Properties WHERE Key = 'LastSeenHighlight'";
+                    var value = cmd.ExecuteScalar();
+                    if (value == null) {
+                        return DateTime.MinValue;
+                    }
+                    return DateTime.Parse((string) value).ToUniversalTime();
+                }
+            }
+            set {
+                var connection = Connection;
+                if (connection == null) {
+                    return;
+                }
+                using (var cmd = connection.CreateCommand()) {
+                    var sql = "INSERT OR REPLACE INTO Properties (Key, Value) " +
+                              "VALUES('LastSeenHighlight', @timestamp)";
+                    cmd.CommandText = sql;
+                    var param = cmd.CreateParameter();
+                    param.ParameterName = "timestamp";
+                    param.Value = value.ToString("u").Replace(" ", "T");
+                    cmd.Parameters.Add(param);
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
         public override MessageModel this[int offset] {
             get {
                 return GetRange(offset, 1).First();
@@ -91,6 +157,15 @@ namespace Smuxi.Engine
                 var sql = "CREATE TABLE IF NOT EXISTS Messages (" +
                               "ID INTEGER PRIMARY KEY," +
                               "JSON TEXT" +
+                          ")";
+                cmd.CommandText = sql;
+                cmd.ExecuteNonQuery();
+            }
+
+            using (var cmd = Connection.CreateCommand()) {
+                var sql = "CREATE TABLE IF NOT EXISTS Properties (" +
+                              "Key TEXT PRIMARY KEY," +
+                              "Value TEXT" +
                           ")";
                 cmd.CommandText = sql;
                 cmd.ExecuteNonQuery();

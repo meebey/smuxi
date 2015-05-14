@@ -1,7 +1,7 @@
 /*
  * Smuxi - Smart MUltipleXed Irc
  *
- * Copyright (c) 2005-2008, 2010-2011 Mirco Bauer <meebey@meebey.net>
+ * Copyright (c) 2005-2008, 2010-2015 Mirco Bauer <meebey@meebey.net>
  *
  * Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
  *
@@ -40,14 +40,11 @@ namespace Smuxi.Engine
         private IProtocolManager     _ProtocolManager;
         //private List<MessageModel>   _Messages = new List<MessageModel>();
         private bool                 _IsEnabled = true;
-        // TODO: make persistent
-        private DateTime             _LastSeenHighlight;
         private string               _LogFile;
         // TODO: make persistent
         public  int                  Position { get; set; }
         public  IMessageBuffer       MessageBuffer { get; private set; }
         public  int                  MessagesSyncCount { get; set; }
-        public  DateTime             LastSeenMessage { get; set; }
 
         public string ID {
             get {
@@ -130,10 +127,25 @@ namespace Smuxi.Engine
 
         public DateTime LastSeenHighlight {
             get {
-                return _LastSeenHighlight;
+                if (MessageBuffer == null) {
+                    return DateTime.MinValue;
+                }
+                return MessageBuffer.LastSeenHighlight;
             }
             set {
-                _LastSeenHighlight = value;
+                MessageBuffer.LastSeenHighlight = value;
+            }
+        }
+
+        public DateTime LastSeenMessage {
+            get {
+                if (MessageBuffer == null) {
+                    return DateTime.MinValue;
+                }
+                return MessageBuffer.LastSeenMessage;
+            }
+            set {
+                MessageBuffer.LastSeenMessage = value;
             }
         }
 

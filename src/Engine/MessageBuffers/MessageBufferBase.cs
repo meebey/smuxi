@@ -1,6 +1,6 @@
 // Smuxi - Smart MUltipleXed Irc
 //
-// Copyright (c) 2011 Mirco Bauer <meebey@meebey.net>
+// Copyright (c) 2011, 2012, 2014-2015 Mirco Bauer <meebey@meebey.net>
 //
 // Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
 //
@@ -34,6 +34,8 @@ namespace Smuxi.Engine
         protected string ChatID { get; set; }
         protected string SessionUsername { get; set; }
         public    int    MaxCapacity { get; set; }
+        public virtual DateTime LastSeenMessage { get; set; }
+        public virtual DateTime LastSeenHighlight { get; set; }
 
         public bool IsReadOnly {
             get {

@@ -1,6 +1,6 @@
 // Smuxi - Smart MUltipleXed Irc
 //
-// Copyright (c) 2010-2011 Mirco Bauer <meebey@meebey.net>
+// Copyright (c) 2010-2011, 2015 Mirco Bauer <meebey@meebey.net>
 //
 // Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
 //
@@ -27,6 +27,9 @@ namespace Smuxi.Engine
     public class ListMessageBuffer : List<MessageModel>, IMessageBuffer
     {
         int f_MaxCapacity;
+
+        public DateTime LastSeenMessage { get; set; }
+        public DateTime LastSeenHighlight { get; set; }
 
         public int MaxCapacity {
             get {
