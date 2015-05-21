@@ -3101,7 +3101,10 @@ namespace Smuxi.Engine
                     targetChats.Add(chat);
                 }
             }
-            if (targetChats.Count == 0 && e.Data.Nick != null) {
+            // show notice on shared channels except the sender is Nick/ChanServ
+            if (targetChats.Count == 0 && e.Data.Nick != null &&
+                String.Compare(e.Data.Nick, "NickServ", true) != 0 &&
+                String.Compare(e.Data.Nick, "ChanServ", true) != 0) {
                 // always show on server chat
                 targetChats.Add(_NetworkChat);
                 // check if we share a channel with the sender
