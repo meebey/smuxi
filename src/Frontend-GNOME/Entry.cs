@@ -292,6 +292,7 @@ namespace Smuxi.Frontend.Gnome
                         break;
                     case Gdk.Key.c:
                     case Gdk.Key.C:
+                    case Gdk.Key.Insert:
                         // only use copy if something is selected in the entry
                         if (Buffer.HasSelection) {
                             e.RetVal = false;
