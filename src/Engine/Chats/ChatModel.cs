@@ -285,7 +285,6 @@ namespace Smuxi.Engine
                 case MessageBufferPersistencyType.Volatile:
                     MessageBuffer = new ListMessageBuffer();
                     break;
-                case Smuxi.Engine.MessageBufferPersistencyType.Persistent:
                 case Smuxi.Engine.MessageBufferPersistencyType.PersistentDb4o:
                     try {
                         var start = DateTime.UtcNow;
@@ -328,6 +327,7 @@ namespace Smuxi.Engine
                         MessageBuffer.Add(builder.ToMessage());
                     }
                     break;
+                case Smuxi.Engine.MessageBufferPersistencyType.Persistent:
                 case Smuxi.Engine.MessageBufferPersistencyType.PersistentSqlite: {
                     var start = DateTime.UtcNow;
                     MessageBuffer = new SqliteMessageBuffer(

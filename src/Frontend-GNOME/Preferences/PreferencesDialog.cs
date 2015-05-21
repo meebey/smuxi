@@ -191,7 +191,7 @@ namespace Smuxi.Frontend.Gnome
                 "The Db4o backend has known issues like high memory and CPU " +
                 "usage and can even lead to crashes and thus it is deprecated.\n" +
                 "The SQLite backend has no known performance or stability " +
-                "issues but is still an optional preview feature."
+                "issues and is the recommended setting."
             );
             // glade might initialize it already!
             persistencyTypeComboBox.Clear();
@@ -203,16 +203,20 @@ namespace Smuxi.Frontend.Gnome
                 typeof(MessageBufferPersistencyType), typeof(string)
             );
             // fill ListStore
-            store.AppendValues(MessageBufferPersistencyType.Volatile,
-                               _("Volatile"));
-            store.AppendValues(MessageBufferPersistencyType.Persistent,
-                               _("Persistent (Preview)"));
-            if (Frontend.EngineProtocolVersion >= new Version("0.12")) {
+            if (Frontend.EngineProtocolVersion >= new Version(0, 12)) {
+                store.AppendValues(MessageBufferPersistencyType.PersistentSqlite,
+                                   _("Persistent: SQLite (Recommended)"));
+            }
+            if (Frontend.EngineProtocolVersion >= new Version(0, 8, 9)) {
                 store.AppendValues(MessageBufferPersistencyType.PersistentDb4o,
                                    _("Persistent: Db4o (Deprecated)"));
-                store.AppendValues(MessageBufferPersistencyType.PersistentSqlite,
-                                   _("Persistent: SQLite (Preview)"));
             }
+            if (Frontend.EngineProtocolVersion < new Version(0, 12)) {
+                store.AppendValues(MessageBufferPersistencyType.Persistent,
+                                   _("Persistent (Preview)"));
+            }
+            store.AppendValues(MessageBufferPersistencyType.Volatile,
+                               _("Volatile"));
             persistencyTypeComboBox.Model = store;
             persistencyTypeComboBox.Active = 0;
             if (Frontend.EngineProtocolVersion < new Version("0.8.1")) {

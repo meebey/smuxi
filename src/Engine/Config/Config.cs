@@ -1,7 +1,7 @@
 /*
  * Smuxi - Smart MUltipleXed Irc
  *
- * Copyright (c) 2005-2014 Mirco Bauer <meebey@meebey.net>
+ * Copyright (c) 2005-2015 Mirco Bauer <meebey@meebey.net>
  *
  * Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
  *
@@ -131,6 +131,9 @@ namespace Smuxi.Engine
                 if (targetType == typeof(string[])) {
                     return (T)(object) GetList(key);
                 }
+                if (targetType == typeof(MessageBufferPersistencyType)) {
+                    return (T) Enum.Parse(typeof(MessageBufferPersistencyType), strValue, true);
+                }
                 // handle empty booleans and integers
                 if (targetType.IsValueType && String.IsNullOrEmpty(strValue)) {
                     return default(T);
@@ -238,7 +241,11 @@ namespace Smuxi.Engine
             Get(prefix+"Port", 7689);
             Get(prefix+"Channel", "TCP");
             Get(prefix+"Formatter", "binary");
-            
+
+            prefix = "Engine/";
+            var oldConfigVersion = Get<string>(prefix+"ConfigVersion", null);
+            Get(prefix+"ConfigVersion", Engine.AssemblyVersion.ToString());
+
             prefix = "Engine/Users/DEFAULT/Interface/";
             Get(prefix+"ShowAdvancedSettings", false);
 
@@ -299,7 +306,8 @@ namespace Smuxi.Engine
             Get(prefix+"LogFilteredMessages", false);
 
             prefix = "Engine/Users/DEFAULT/MessageBuffer/";
-            Get(prefix+"PersistencyType", "Volatile");
+            Get<string>(prefix+"PersistencyType",
+                        MessageBufferPersistencyType.PersistentSqlite.ToString());
             prefix = "Engine/Users/DEFAULT/MessageBuffer/Volatile/";
             Get(prefix+"MaxCapacity", 200);
             prefix = "Engine/Users/DEFAULT/MessageBuffer/Persistent/";
@@ -407,6 +415,14 @@ namespace Smuxi.Engine
             // loading defaults
             LoadAllEntries("Engine/Users/DEFAULT");
                     
+            // are we upgrading from <= 1.0?
+            if (String.IsNullOrEmpty(oldConfigVersion) ||
+                new Version(oldConfigVersion) < new Version(1, 0)) {
+                // change default value to PersistentSqlite
+                SetUserEntry("DEFAULT", "MessageBuffer/PersistencyType",
+                             MessageBufferPersistencyType.PersistentSqlite.ToString());
+            }
+
             prefix = "Engine/Users/";
             string[] users = GetList(prefix+"Users");
             m_Preferences[prefix + "Users"] = users;
@@ -524,7 +540,16 @@ namespace Smuxi.Engine
                 LoadUserEntry(user, "Logging/Enabled", null);
                 LoadUserEntry(user, "Logging/LogFilteredMessages", null);
 
-                LoadUserEntry(user, "MessageBuffer/PersistencyType", null);
+                var persistencyKey = "MessageBuffer/PersistencyType";
+                LoadUserEntry(user, persistencyKey , null);
+                // are we upgrading from < 1.0?
+                if (String.IsNullOrEmpty(oldConfigVersion) ||
+                    new Version(oldConfigVersion) < new Version(1, 0)) {
+                    // migrate all users automatically to SQLite
+                    SetUserEntry(user, persistencyKey,
+                                 MessageBufferPersistencyType.PersistentSqlite.ToString());
+                }
+
                 LoadUserEntry(user, "MessageBuffer/Volatile/MaxCapacity", null);
                 LoadUserEntry(user, "MessageBuffer/Persistent/MaxCapacity", null);
 
@@ -709,22 +734,52 @@ namespace Smuxi.Engine
             }
         }
 
+
+        protected string GetUserKey(string user, string key)
+        {
+            var prefix = "Engine/Users/";
+            var ukey = prefix+user+"/"+key;
+            return ukey;
+        }
+
+        [Obsolete]
+        protected object GetUserEntry(string user, string key, object defaultvalue)
+        {
+            var ukey = GetUserKey(user, key);
+            return Get(ukey, defaultvalue);
+        }
+
+        protected T GetUserEntry<T>(string user, string key, T defaultvalue)
+        {
+            var ukey = GetUserKey(user, key);
+            return Get<T>(ukey, defaultvalue);
+        }
+
+        protected void SetUserEntry(string user, string key, object value)
+        {
+#if CONFIG_DEBUG
+            Trace.Call(user, key, value);
+#endif
+            var ukey = GetUserKey(user, key);
+            m_Preferences[ukey] = value;
+        }
+
         protected void LoadUserEntry(string user, string key, object defaultvalue)
         {
 #if CONFIG_DEBUG
             Trace.Call(user, key, defaultvalue);
 #endif
 
-            string prefix = "Engine/Users/";
-            string ukey = prefix+user+"/"+key;
             object obj;
             if (defaultvalue is string) {
-                obj = Get<string>(ukey, (string) defaultvalue);
+                obj = GetUserEntry<string>(user, key, (string) defaultvalue);
+            } else if (defaultvalue is bool) {
+                obj = GetUserEntry<bool>(user, key, (bool) defaultvalue);
             } else {
-                obj = Get(ukey, defaultvalue);
+                obj = GetUserEntry(user, key, defaultvalue);
             }
             if (obj != null) {
-                m_Preferences[ukey] = obj;
+                SetUserEntry(user, key, obj);
             }
         }
         
