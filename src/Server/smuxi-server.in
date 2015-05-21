@@ -1,3 +1,8 @@
 #!/bin/sh
 
+# workaround TLS/SSL negotiation caching issues of Mono, see:
+# https://smuxi.im/issues/show/802
+MONO_TLS_SESSION_CACHE_TIMEOUT=0
+export MONO_TLS_SESSION_CACHE_TIMEOUT
+
 exec mono --debug "@expanded_libdir@/@PACKAGE@/smuxi-server.exe" "$@"
