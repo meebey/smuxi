@@ -1,7 +1,7 @@
 /*
  * Smuxi - Smart MUltipleXed Irc
  *
- * Copyright (c) 2005-2014 Mirco Bauer <meebey@meebey.net>
+ * Copyright (c) 2005-2015 Mirco Bauer <meebey@meebey.net>
  *
  * Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
  *
@@ -3735,6 +3735,15 @@ namespace Smuxi.Engine
 
             // WHO ourself so OnWho() can retrieve our ident, host and realname
             _IrcClient.RfcWho(_IrcClient.Nickname);
+
+            // NickServ authentication
+            if (_ServerModel != null &&
+                !String.IsNullOrEmpty(_ServerModel.Password)) {
+                _IrcClient.WriteLine(
+                    String.Format("NS IDENTIFY {0}", _ServerModel.Password),
+                    Priority.Critical
+                );
+            }
         }
 
         protected override void OnConnected(EventArgs e)
