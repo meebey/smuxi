@@ -1,10 +1,10 @@
 Index: smuxi-stable/lib/db4o-net/Db4objects.Db4o/Db4objects.Db4o-2008.csproj
 ===================================================================
---- smuxi-stable.orig/lib/db4o-net/Db4objects.Db4o/Db4objects.Db4o-2008.csproj	2013-11-27 14:52:57.792155841 +0100
-+++ smuxi-stable/lib/db4o-net/Db4objects.Db4o/Db4objects.Db4o-2008.csproj	2013-11-27 14:52:57.792155841 +0100
+--- smuxi-stable.orig/lib/db4o-net/Db4objects.Db4o/Db4objects.Db4o-2008.csproj	2015-05-22 20:06:38.965459016 +0200
++++ smuxi-stable/lib/db4o-net/Db4objects.Db4o/Db4objects.Db4o-2008.csproj	2015-05-22 20:07:01.973317359 +0200
 @@ -1,5 +1,5 @@
  <?xml version="1.0" encoding="UTF-8" standalone="no"?>
--<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build" ToolsVersion="3.5">
+-<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build" ToolsVersion="4.0">
 +<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
    <PropertyGroup>
      <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
