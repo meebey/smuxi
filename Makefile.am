@@ -327,4 +327,17 @@ run-server: all
 	cd $(BUILD_DIR) && \
 		mono --debug ./smuxi-server.exe -d
 
+test: src/*-Tests/*.cs*
+	xbuild src/Common-Tests/Common-Tests.csproj
+	xbuild src/Engine-Tests/Engine-Tests.csproj
+	xbuild src/Frontend-Tests/Frontend-Tests.csproj
+	xbuild src/Frontend-GNOME-Tests/Frontend-GNOME-Tests.csproj
+	xbuild src/Frontend-STFL-Tests/Frontend-STFL-Tests.csproj
+	-nunit-console $(BUILD_DIR)/smuxi-common-tests.dll
+	-nunit-console $(BUILD_DIR)/smuxi-engine-tests.dll
+	-nunit-console $(BUILD_DIR)bin/debug/smuxi-frontend-tests.dll
+	-nunit-console $(BUILD_DIR)bin/debug/smuxi-frontend-gnome-tests.dll
+	-nunit-console $(BUILD_DIR)bin/debug/smuxi-frontend-stfl-tests.dll
+
 .NOTPARALLEL:
+.PHONY: test
