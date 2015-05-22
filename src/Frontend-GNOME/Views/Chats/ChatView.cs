@@ -729,7 +729,22 @@ namespace Smuxi.Frontend.Gnome
         
         protected virtual void OnMessageTextViewMessageAdded(object sender, MessageTextViewMessageAddedEventArgs e)
         {
-            if (_IsSynced && !IsActive) {
+            var signalCounter = false;
+            if (!IsActive) {
+                // the chat isn't active, thus we need to signal the event/msg counter
+                if (_IsSynced) {
+                    signalCounter = true;
+                } else {
+                    // we are still syncing and since Smuxi 0.13 we know what msg
+                    // was last seen, so we only signal newer messages than that
+                    if (Frontend.EngineProtocolVersion >= new Version(0, 13) &&
+                        e.Message.TimeStamp > SyncedLastSeenMessage) {
+                        signalCounter = true;
+                    }
+                }
+            }
+
+            if (signalCounter) {
                 switch (e.Message.MessageType) {
                     case MessageType.Normal:
                         HasActivity = true;
@@ -737,11 +752,6 @@ namespace Smuxi.Frontend.Gnome
                     case MessageType.Event:
                         HasEvent = true;
                         break;
-                }
-            } else if (!IsActive) {
-                if (Frontend.EngineProtocolVersion >= new Version(0, 13) &&
-                    e.Message.TimeStamp > SyncedLastSeenMessage) {
-                    HasActivity = true;
                 }
             }
 
