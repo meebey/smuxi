@@ -86,7 +86,6 @@ def log():
                 res["agent"][7] = res["agent"][6]
 
             print res["host"].ljust(25), '| ' + PTR.ljust(50), '| ' + res["agent"][7].ljust(16), '| ' + res["agent"][0].ljust(22), '| ' + res["agent"][1].ljust(15) , '| ' + country
-            time.sleep(1)
         except AttributeError:
             pass
 
