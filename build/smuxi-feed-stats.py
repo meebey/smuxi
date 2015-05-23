@@ -1,5 +1,6 @@
 #!/usr/bin/env python2
 #-*- coding: utf-8 -*-
+# apt-get install python-geoip
 #
 # Copyright (c) 2015 James Axl <axlrose112@gmail.com>
 #
