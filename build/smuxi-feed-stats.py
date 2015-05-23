@@ -91,8 +91,8 @@ def log():
 
 if __name__=='__main__':
     print """================================
-Smuxi World Domination Progress"
-================================
+Smuxi World Domination Progress
+===============================
 
     """
     print "Number of unique IPs: %s"%len(unique_ips())
