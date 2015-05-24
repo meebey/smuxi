@@ -505,6 +505,12 @@ namespace Smuxi.Frontend.Gnome
                     }
                 }
 
+                // sync last seen message of current chat
+                var currentChatView = _MainWindow.ChatViewManager.CurrentChatView;
+                if (!UseLowBandwidthMode && currentChatView != null) {
+                    currentChatView.UpdateLastSeenMessage();
+                }
+
                 DisconnectEngineFromGUI();
             }
 
