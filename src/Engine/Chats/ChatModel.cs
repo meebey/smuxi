@@ -87,7 +87,7 @@ namespace Smuxi.Engine
                         ), ex
                     );
 #endif
-                    if (MessageBuffer is Db4oMessageBuffer) {
+                    if (!(MessageBuffer is ListMessageBuffer)) {
 #if LOG4NET
                         _Logger.Error(
                             String.Format(
