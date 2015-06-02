@@ -21,7 +21,7 @@ msgstr "Orde desconeguda: {0}"
 #: ../src/Frontend/EngineManager.cs:292
 #, csharp-format
 msgid "Unknown channel ({0}) - only the following channel types are supported:"
-msgstr "Sala desconeguda ({0}) - només s'admeten els següent tipus de sales:"
+msgstr "Sala desconeguda ({0}) - només s'admeten els següents tipus de sales:"
 
 #: ../src/Frontend/EngineManager.cs:301
 msgid "Registration with engine failed!  The username and/or password were wrong - please verify them."

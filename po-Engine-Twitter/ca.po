@@ -32,7 +32,7 @@ msgstr "S'està connectant al Twitter..."
 
 #: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:203
 msgid "Twitter authorization required."
-msgstr "Cal una autoritzat per a accedir al Twitter."
+msgstr "Cal una autorització per a accedir al Twitter."
 
 #: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:218
 #, csharp-format
@@ -41,7 +41,7 @@ msgstr "Obriu l'adreça següent i premeu «Permet» per a permetre a l'Smuxi de
 
 #: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:234
 msgid "Once you have allowed Smuxi to access your Twitter account, Twitter will provide a PIN."
-msgstr "Un cop hageu permès a l'Smuxi accedir al vostre compte de Twitter, aquest us proporcionarà un codi PIN."
+msgstr "Un cop hàgeu permès a l'Smuxi accedir al vostre compte de Twitter, aquest us proporcionarà un codi PIN."
 
 #: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:241
 msgid "Please type: /pin PIN_FROM_TWITTER"
@@ -59,7 +59,7 @@ msgstr "Ha fallat la connexió! Motiu:"
 
 #: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:266
 msgid "Fetching user details from Twitter, please wait..."
-msgstr "S'està recuperant els detalls de l'usuari de Twitter, espereu..."
+msgstr "S'estan recuperant els detalls de l'usuari de Twitter, espereu..."
 
 #: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:271
 msgid "Finished fetching user details."
