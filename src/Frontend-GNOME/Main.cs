@@ -42,6 +42,7 @@ namespace Smuxi.Frontend.Gnome
             var debug = false;
             var link = String.Empty;
             var engine = String.Empty;
+            var newInstance = false;
             var options = new OptionSet();
             options.Add(
                 "d|debug",
@@ -75,6 +76,13 @@ namespace Smuxi.Frontend.Gnome
                     link = v;
                 }
             );
+            options.Add(
+                "new-instance",
+                _("Starts a new Smuxi instance and ignores an existing one"),
+                v => {
+                    newInstance = true;
+                }
+            );
 
             try {
                 options.Parse(args);
@@ -105,7 +113,7 @@ namespace Smuxi.Frontend.Gnome
                             Console.WriteLine(msg);
 #endif
                             Instance.FirstInstance.OpenLink(link);
-                        } else {
+                        } else if (!newInstance) {
                             var msg = _("Bringing already running Smuxi instance to foreground...");
 #if LOG4NET
                             _Logger.Info(msg);
@@ -115,8 +123,10 @@ namespace Smuxi.Frontend.Gnome
                             Instance.FirstInstance.PresentMainWindow();
                         }
 
-                        // don't initialize/spawn another instance
-                        return;
+                        if (!newInstance) {
+                            // don't initialize/spawn another instance
+                            return;
+                        }
                     }
                 } catch (Exception ex) {
 #if LOG4NET
