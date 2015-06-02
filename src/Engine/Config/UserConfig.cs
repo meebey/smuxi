@@ -1,7 +1,7 @@
 /*
  * Smuxi - Smart MUltipleXed Irc
  *
- * Copyright (c) 2005-2006, 2010-2011, 2013 Mirco Bauer <meebey@meebey.net>
+ * Copyright (c) 2005-2006, 2010-2011, 2013, 2015 Mirco Bauer <meebey@meebey.net>
  *
  * Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
  *
@@ -55,7 +55,10 @@ namespace Smuxi.Engine
                 }
             }
         }
-        
+
+        /// <remarks>
+        /// This property is thread-safe.
+        /// </remarks>
         public object this[string key]
         {
             get {
@@ -77,7 +80,7 @@ namespace Smuxi.Engine
                 obj = _Config[_UserPrefix + key];
                 if (obj != null) {
                     if (IsCaching) {
-                        _Cache.Add(key, obj);
+                        _Cache[key] = obj;
                     }
                     return obj;
                 }
@@ -89,7 +92,7 @@ namespace Smuxi.Engine
                 }
 #endif
                 if (IsCaching) {
-                    _Cache.Add(key, obj);
+                    _Cache[key] = obj;
                 }
 
                 return obj;
@@ -182,7 +185,7 @@ namespace Smuxi.Engine
 
             var start = DateTime.UtcNow;
             var conf = _Config.GetAll();
-            var cache = new Hashtable(conf.Count);
+            var cache = Hashtable.Synchronized(new Hashtable(conf.Count));
             foreach (var entry in conf) {
                 if (!entry.Key.StartsWith(_UserPrefix)) {
                     // no need to cache values of other users
