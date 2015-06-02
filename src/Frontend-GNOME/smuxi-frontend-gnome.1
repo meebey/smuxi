@@ -1,4 +1,4 @@
-.Dd $Mdocdate: September 23 2013 $
+.Dd $Mdocdate: June 02 2015 $
 .Dt smuxi-frontend-gnome 1
 .Os
 .Sh NAME
@@ -8,6 +8,8 @@
 .Nm smuxi-frontend-gnome
 .Op Fl dh
 .Op Fl e Ar engine
+.Op Fl \-new-instance
+.Op Fl \-open Ar uri
 .Sh DESCRIPTION
 .Nm
 is a GNOME frontend for the Smuxi chat client, powered by the GTK# library. It can operate standalone or attached to a remote Smuxi engine.
@@ -20,8 +22,13 @@ Turn on debugging. Debug logs are sent to
 , and older logs are moved to the date of usage.
 .It Fl h , Fl \-help
 Show the arguments Smuxi takes.
-.It Fl e Ar engine , Fl \-engine Ns = Ns Ar engine
+.It Fl e Ar engine , Fl \-engine Ar engine
 Connect to a remote engine.
+.It Fl \-new-instance
+Starts a new Smuxi instance and ignores any existing sessions.a
+.It Fl \-open Ar uri , Fl \-open-link Ar uri
+Opens a URL to an IRC channel, in the following form:
+.Ql irc://irc.example.com/examplechannel
 .El
 .Sh FILES
 .Bl -tag -width -compact
