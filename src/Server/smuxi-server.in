@@ -8,7 +8,8 @@ export MONO_TLS_SESSION_CACHE_TIMEOUT
 # HACK: forcibly disabled SGen, as it has a known SEGV bug related to the
 # Mono.Data.Sqlite binding that does not happen with the boehm GC, see:
 # https://smuxi.im/issues/show/1062
-MONO_ENV_OPTIONS=--gc=boehm
+MONO_ENV_OPTIONS="$(echo $MONO_ENV_OPTIONS | sed s/--gc=sgen//)"
+MONO_ENV_OPTIONS="--gc=boehm $MONO_ENV_OPTIONS"
 export MONO_ENV_OPTIONS
 
 exec mono --debug "@expanded_libdir@/@PACKAGE@/smuxi-server.exe" "$@"
