@@ -4,8 +4,8 @@
   <id>smuxi-frontend-gnome.desktop</id>
   <metadata_license>CC0-1.0</metadata_license>
   <project_license>GPL-2.0+</project_license>
-  <name>Smuxi</name>
-  <summary>Chat with other people on IRC, Twitter, Jabber and Campfire</summary>
+  <_name>Smuxi</_name>
+  <_summary>Chat with other people on IRC, Twitter, Jabber and Campfire</_summary>
   <description>
     <_p>
       Smuxi is an open-source, distributed and user-friendly chat client for
