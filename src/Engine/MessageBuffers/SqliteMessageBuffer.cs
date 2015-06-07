@@ -76,7 +76,7 @@ namespace Smuxi.Engine
                     cmd.CommandText = sql;
                     var param = cmd.CreateParameter();
                     param.ParameterName = "timestamp";
-                    param.Value = value.ToString("u").Replace(" ", "T");
+                    param.Value = value.ToUniversalTime().ToString("o");
                     cmd.Parameters.Add(param);
                     cmd.ExecuteNonQuery();
                 }
@@ -109,7 +109,7 @@ namespace Smuxi.Engine
                     cmd.CommandText = sql;
                     var param = cmd.CreateParameter();
                     param.ParameterName = "timestamp";
-                    param.Value = value.ToString("u").Replace(" ", "T");
+                    param.Value = value.ToUniversalTime().ToString("o");
                     cmd.Parameters.Add(param);
                     cmd.ExecuteNonQuery();
                 }
