@@ -194,7 +194,7 @@ namespace Smuxi.Frontend.Gnome
         [GLib.ConnectBefore]
         protected virtual void OnBeforeSwitchPage(object sender, Gtk.SwitchPageArgs e)
         {
-            if (f_IsBrowseModeEnabled) {
+            if (f_IsBrowseModeEnabled || Frontend.IsDisconnecting) {
                 return;
             }
 

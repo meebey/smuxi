@@ -61,6 +61,7 @@ namespace Smuxi.Frontend.Gnome
         public static string IconName { get; private set; }
         public static bool HasSystemIconTheme { get; private set; }
         public static bool HadSession { get; private set; }
+        public static bool IsDisconnecting { get; private set; }
         public static bool IsGtkInitialized { get; private set; }
         public static bool InGtkApplicationRun { get; private set; }
         public static bool IsWindows { get; private set; }
@@ -355,6 +356,7 @@ namespace Smuxi.Frontend.Gnome
         {
             Trace.Call(cleanly);
 
+            IsDisconnecting = true;
             MainWindow.ChatViewManager.IsSensitive = false;
             if (cleanly) {
                 try {
@@ -387,6 +389,7 @@ namespace Smuxi.Frontend.Gnome
 
             _FrontendManager = null;
             Session = null;
+            IsDisconnecting = false;
         }
 
         public static void ReconnectEngineToGUI()
@@ -498,6 +501,9 @@ namespace Smuxi.Frontend.Gnome
                 if (!UseLowBandwidthMode && currentChatView != null) {
                     currentChatView.UpdateLastSeenMessage();
                 }
+                // OPT: switch to Smuxi chat so switch page events are not
+                // triggered when each chat gets removed
+                _MainWindow.ChatViewManager.CurrentChatNumber = 0;
 
                 DisconnectEngineFromGUI();
             }
