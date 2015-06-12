@@ -1,6 +1,6 @@
 // Smuxi - Smart MUltipleXed Irc
 //
-// Copyright (c) 2011 Mirco Bauer <meebey@meebey.net>
+// Copyright (c) 2011-2012, 2014, 2015 Mirco Bauer <meebey@meebey.net>
 //
 // Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
 //
@@ -392,6 +392,30 @@ namespace Smuxi.Engine
                 Assert.AreEqual(TestMessages[i++].ToString(), msg.ToString());
             }
             Assert.AreEqual(TestMessages.Count, i);
+        }
+
+        [Test]
+        public void LastSeenMessage()
+        {
+            Assert.AreEqual(DateTime.MinValue, Buffer.LastSeenMessage);
+
+            Buffer.LastSeenMessage = TestMessages[0].TimeStamp;
+            Assert.AreEqual(TestMessages[0].TimeStamp, Buffer.LastSeenMessage);
+
+            Buffer.LastSeenMessage = TestMessages[1].TimeStamp;
+            Assert.AreEqual(TestMessages[1].TimeStamp, Buffer.LastSeenMessage);
+        }
+
+        [Test]
+        public void LastSeenHighlight()
+        {
+            Assert.AreEqual(DateTime.MinValue, Buffer.LastSeenHighlight);
+
+            Buffer.LastSeenHighlight = TestMessages[0].TimeStamp;
+            Assert.AreEqual(TestMessages[0].TimeStamp, Buffer.LastSeenHighlight);
+
+            Buffer.LastSeenHighlight = TestMessages[1].TimeStamp;
+            Assert.AreEqual(TestMessages[1].TimeStamp, Buffer.LastSeenHighlight);
         }
     }
 }
