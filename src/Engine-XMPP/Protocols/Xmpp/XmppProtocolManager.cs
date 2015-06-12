@@ -185,7 +185,7 @@ namespace Smuxi.Engine
             //builder.AppendErrorText(error.Condition.ToString());
             switch (error.Condition) {
                 case StreamErrorCondition.SystemShutdown:
-                    builder.AppendErrorText(_("The Server has shut down"));
+                    builder.AppendErrorText(_("The server has shut down"));
                     break;
                 case StreamErrorCondition.Conflict:
                     builder.AppendErrorText(_("Another client logged in with the same resource, you have been disconnected"));
@@ -210,7 +210,7 @@ namespace Smuxi.Engine
             Session.AddMessageToChat(NetworkChat, builder.ToMessage());
             builder = CreateMessageBuilder();
             builder.AppendEventPrefix();
-            builder.AppendMessage(_("if you want to create an account with the specified user and password, type /register now"));
+            builder.AppendMessage(_("If you want to create an account with the specified user and password, type /register now"));
             Session.AddMessageToChat(NetworkChat, builder.ToMessage());
         }
 
@@ -256,7 +256,7 @@ namespace Smuxi.Engine
             if (Host.EndsWith("facebook.com") && !(this is FacebookProtocolManager)) {
                 var builder = CreateMessageBuilder();
                 builder.AppendEventPrefix();
-                builder.AppendMessage(_("This engine has native Facebook support, you should be using it instead of connecting to facebook with xmpp"));
+                builder.AppendMessage(_("This engine has native Facebook support, you should be using it instead of connecting to Facebook with XMPP"));
                 // cannot use AddMessageToFrontend because NetworkChat is not yet synced, causing AddMessageToFrontend to drop it.
                 // cannot sync NetworkChat before this, because then the sync would swallow the message
                 Session.AddMessageToChat(NetworkChat, builder.ToMessage());
@@ -736,7 +736,7 @@ namespace Smuxi.Engine
                 }
             } else {
                 if (command.IsCommand) {
-                    // commands which work even without beeing connected
+                    // commands which work even without being connected
                     switch (command.Command) {
                         case "help":
                             CommandHelp(command);
@@ -834,7 +834,7 @@ namespace Smuxi.Engine
                 Session.AddMessageToFrontend(cmd, builder.ToMessage());
                 return;
             }
-            builder.AppendText(_("Contact's Jid: {0}"), person.Jid);
+            builder.AppendText(_("Contact's JID: {0}"), person.Jid);
             builder.AppendText("\n");
             switch (person.Subscription) {
                 case SubscriptionType.both:
@@ -844,10 +844,10 @@ namespace Smuxi.Engine
                     builder.AppendText(_("You have no subscription with this contact and this contact is not subscribed to you"));
                     break;
                 case SubscriptionType.to:
-                    builder.AppendText(_("You are subscribed to this contact, but the contact is not subcribed to you"));
+                    builder.AppendText(_("You are subscribed to this contact, but the contact is not subscribed to you"));
                     break;
                 case SubscriptionType.from:
-                    builder.AppendText(_("You are not subscribed to this contact, but the contact is subcribed to you"));
+                    builder.AppendText(_("You are not subscribed to this contact, but the contact is subscribed to you"));
                     break;
                 case SubscriptionType.remove:
 #if LOG4NET
@@ -943,7 +943,7 @@ namespace Smuxi.Engine
                     break;
                 default:
                     var builder = CreateMessageBuilder();
-                    builder.AppendText(_("Invalid Contact command: {0}"), cmd);
+                    builder.AppendText(_("Invalid contact command: {0}"), cmd);
                     Session.AddMessageToFrontend(cd, builder.ToMessage());
                     return;
             }
@@ -1060,7 +1060,7 @@ namespace Smuxi.Engine
             int prio;
             if (!int.TryParse(command.DataArray[2], out prio) || prio < -128 || prio > 127) {
                 var builder = CreateMessageBuilder();
-                builder.AppendText(_("Invalid Priority: {0} (valid priorities are between -128 and 127 inclusive)"), command.DataArray[2]);
+                builder.AppendText(_("Invalid priority: {0} (valid priorities are between -128 and 127 inclusive)"), command.DataArray[2]);
                 Session.AddMessageToFrontend(command, builder.ToMessage());
                 return;
             }
@@ -1894,7 +1894,7 @@ namespace Smuxi.Engine
                             builder.AppendErrorText(_("Server of groupchat \"{0}\" not found."), pres.From.Bare);
                             break;
                         case ErrorCondition.ServiceUnavailable:
-                            builder.AppendErrorText(_("Muc service is not available for \"{0}\""), pres.From.Bare);
+                            builder.AppendErrorText(_("MUC service is not available for \"{0}\""), pres.From.Bare);
                             break;
                     }
                     break;
