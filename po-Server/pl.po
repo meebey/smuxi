@@ -1,141 +1,149 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
-# 
-# Translators:
-#   <lukasznaw@gmail.com>, 2012.
-#   <okwell@gmail.com>, 2012.
+# -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+# Aviary.pl
+# Jeśli masz jakiekolwiek uwagi odnoszące się do tłumaczenia lub chcesz
+# pomóc w jego rozwijaniu i pielęgnowaniu, napisz do nas:
+# gnomepl@aviary.pl
+# -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+# <lukasznaw@gmail.com>, 2012.
+# <okwell@gmail.com>, 2012.
+# Piotr Drąg <piotrdrag@gmail.com>, 2015.
+# Aviary.pl <gnomepl@aviary.pl>, 2015.
 msgid ""
 msgstr ""
-"Project-Id-Version: Smuxi - IRC client\n"
-"Report-Msgid-Bugs-To: http://www.smuxi.org/issues\n"
-"POT-Creation-Date: 2011-12-29 09:21+0100\n"
-"PO-Revision-Date: 2012-01-07 11:26+0000\n"
-"Last-Translator: lukasznaw <lukasznaw@gmail.com>\n"
-"Language-Team: Polish (http://www.transifex.net/projects/p/smuxi/team/pl/)\n"
+"Project-Id-Version: smuxi\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-06-12 17:29+0200\n"
+"PO-Revision-Date: 2015-06-12 17:30+0200\n"
+"Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
+"Language-Team: Polish <gnomepl@aviary.pl>\n"
+"Language: pl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: pl\n"
-"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
+"|| n%100>=20) ? 1 : 2);\n"
+"X-Poedit-Language: Polish\n"
+"X-Poedit-Country: Poland\n"
 
-#: ../src/Server/Main.cs:71
+#: ../src/Server/Main.cs:65
 msgid "Add user to Server"
-msgstr "Dodaj nowego użytkownika do serwera"
+msgstr "Dodaje użytkownika do serwera"
 
-#: ../src/Server/Main.cs:80
+#: ../src/Server/Main.cs:74
 msgid "Modify existing user of Server"
-msgstr "Modyfikuj użytkownika istniejącego na serwerze"
+msgstr "Modyfikuje istniejącego użytkownika serwera"
 
-#: ../src/Server/Main.cs:89
+#: ../src/Server/Main.cs:83
 msgid "Delete user from Server"
-msgstr "Usuń użytkownika z serwera"
+msgstr "Usuwa użytkownika z serwera"
 
-#: ../src/Server/Main.cs:98
+#: ../src/Server/Main.cs:92
 msgid "List all existing users of Server"
-msgstr "Pokaż wszystkich użytkowników istniejących na serwerze"
+msgstr "Wyświetla wszystkich istniejących użytkowników serwera"
 
-#: ../src/Server/Main.cs:107
+#: ../src/Server/Main.cs:101
 msgid "User to create, modify or delete"
-msgstr "Użytkownik do stworzenia, modyfikacji albo usunięcia"
+msgstr "Użytkownik do utworzenia, modyfikacji albo usunięcia"
 
-#: ../src/Server/Main.cs:116
+#: ../src/Server/Main.cs:110
 msgid "Password of the user when creating or modifying a user"
-msgstr "Hasło użytkownika podczas tworzenia/modyfikowania"
+msgstr "Hasło użytkownika podczas tworzenia lub modyfikowania"
 
-#: ../src/Server/Main.cs:125
+#: ../src/Server/Main.cs:119
 msgid "Enable debug output"
-msgstr "Włącz debugowanie"
+msgstr "Włącza wyjście debugowania"
 
-#: ../src/Server/Main.cs:133
+#: ../src/Server/Main.cs:127
 msgid ""
 "Optimize message buffers and exit (valid values: none, defrag, index, all)"
 msgstr ""
-"Optymalizuj bufor(y) wiadomości i wyjdź (prawidłowe wartości: none, defrag, "
-"index, all)"
+"Optymalizuje bufory wiadomości i kończy działanie (prawidłowe wartości: "
+"\"none\", \"defrag\", \"index\", \"all\")"
 
-#: ../src/Server/Main.cs:146
+#: ../src/Server/Main.cs:140
 msgid "Show this help"
-msgstr "Pokaż tą pomoc"
+msgstr "Wyświetla tę pomoc"
 
-#: ../src/Server/Main.cs:148
+#: ../src/Server/Main.cs:142
 msgid "Usage: smuxi-server [options]"
-msgstr "Zastosowanie: smuxi-server [opcje]"
+msgstr "Użycie: smuxi-server [opcje]"
 
-#: ../src/Server/Main.cs:150
+#: ../src/Server/Main.cs:144
 msgid "Options:"
 msgstr "Opcje:"
 
-#: ../src/Server/Main.cs:161
+#: ../src/Server/Main.cs:152
+msgid "Show version"
+msgstr "Wyświetla wersję"
+
+#: ../src/Server/Main.cs:165
 #, csharp-format
 msgid "Unknown option: '{0}'"
-msgstr "Nieznana opcja: '{0}'"
+msgstr "Nieznana opcja: \"{0}\""
 
-#: ../src/Server/Main.cs:188
+#: ../src/Server/Main.cs:192
 #, csharp-format
 msgid "Command line error: {0}"
-msgstr "Błąd linii poleceń: {0}"
+msgstr "Błąd wiersza poleceń: {0}"
 
-#: ../src/Server/Main.cs:232
+#: ../src/Server/Main.cs:236
 msgid ""
-"At most one of --add-user, --modify-user, and --delete-user may be used at a"
-" time."
+"At most one of --add-user, --modify-user, and --delete-user may be used at a "
+"time."
 msgstr ""
-"Najwyżej jedna komenda --add-user, --modify-user i --delete-user może być "
-"użyta w tym samym czasie."
+"Najwyżej jedno polecenie \"--add-user\", \"--modify-user\" i \"--delete-user"
+"\" może być użyte w tym samym czasie."
 
-#: ../src/Server/Main.cs:242
+#: ../src/Server/Main.cs:246
 msgid "You must specify a username with the --username option."
-msgstr "Musisz podać nazwę użytkownika z opcją --username."
+msgstr "Należy podać nazwę użytkownika za pomocą opcji \"--username\"."
 
-#: ../src/Server/Main.cs:248
+#: ../src/Server/Main.cs:252
 msgid "Username must not be empty."
 msgstr "Nazwa użytkownika nie może być pusta."
 
-#: ../src/Server/Main.cs:258
+#: ../src/Server/Main.cs:262
 msgid "You must specify a password with the --password option."
-msgstr "Musisz podać hasło z opcją --password."
+msgstr "Należy podać hasło za pomocą opcji \"--password\"."
 
-#: ../src/Server/Main.cs:264
+#: ../src/Server/Main.cs:268
 msgid "Password must not be empty."
 msgstr "Hasło nie może być puste."
 
-#: ../src/Server/Main.cs:283
+#: ../src/Server/Main.cs:287
 #, csharp-format
 msgid ""
-"Invalid optimization value passed to --optimize-message-buffer, valid values"
-" are: {0}"
+"Invalid optimization value passed to --optimize-message-buffer, valid values "
+"are: {0}"
 msgstr ""
-"Nieprawidłowa wartość optymalizacji przekazana do --optimize-message-buffer,"
-" prawidłowe wartości to: {0}"
+"Przekazano nieprawidłową wartość optymalizacji do \"--optimize-message-buffer"
+"\", prawidłowe wartości: {0}"
 
-#: ../src/Server/Main.cs:303
+#: ../src/Server/Main.cs:307
 #, csharp-format
 msgid "User \"{0}\" successfully added to server."
-msgstr "Użytkownik \"{0}\" pomyślnie dodany do serwera."
+msgstr "Pomyślnie dodano użytkownika \"{0}\" do serwera."
 
-#: ../src/Server/Main.cs:312
+#: ../src/Server/Main.cs:316
 #, csharp-format
 msgid "User \"{0}\" successfully modified."
-msgstr "Użytkownik \"{0}\" pomyślnie zmodyfikowany"
+msgstr "Pomyślnie zmodyfikowano użytkownika \"{0}\"."
 
-#: ../src/Server/Main.cs:321
+#: ../src/Server/Main.cs:325
 #, csharp-format
 msgid "User \"{0}\" successfully deleted from server."
-msgstr "Użytkownik \"{0}\" pomyślnie usunięty z serwera."
+msgstr "Pomyślnie usunięto użytkownika \"{0}\" z serwera."
 
-#: ../src/Server/Main.cs:328
+#: ../src/Server/Main.cs:332
 msgid "Users:"
-msgstr "Użytkownicy"
+msgstr "Użytkownicy:"
 
-#: ../src/Server/Main.cs:376
+#: ../src/Server/Main.cs:380
 #, csharp-format
 msgid "Successfully optimized {0} message buffers."
-msgstr "Pomyślnie zoptymalizowano {0} bufor(ów) wiadomości."
+msgstr "Pomyślnie zoptymalizowano tyle buforów wiadomości: {0}."
 
-#: ../src/Server/Main.cs:389
+#: ../src/Server/Main.cs:393
 #, csharp-format
 msgid "Failed to optimize message buffers: {0}"
-msgstr "Nie udało się zoptymalizować {0} bufora(ów) wiadomości"
-
-
+msgstr "Zoptymalizowanie tylu buforów wiadomości się nie powiodło: {0}"
