@@ -41,16 +41,8 @@ PTR=''
 giV4 = GeoIP.new(GeoIP.GEOIP_MEMORY_CACHE)
 giV6 = GeoIP.open("/usr/share/GeoIP/GeoIPv6.dat", GeoIP.GEOIP_STANDARD)
 
-def unique_ips():
-    file = open(HOME + '/smuxi-web/logs/access.log', 'r')
-    ips = set()
-    for line in file:
-        ip = line.split()[0]
-        ips.add(ip)
-    return ips
-
-def log():
-    
+def parse_log():
+    entries = dict()
     file = open(HOME + '/smuxi-web/logs/access.log', 'r')
     parts = [
         r'(?P<host>\S+)',                   # host %h
@@ -93,6 +85,7 @@ def log():
                 PTR = socket.gethostbyaddr(res["host"])[0]
             except socket.herror:
                 PTR = "Unknown"
+            res["PTR"] = PTR
 
             country = giV4.country_code_by_addr(res["host"])
             if country is None:
@@ -117,18 +110,28 @@ def log():
             elif len(agent_res["vendor"].split(' ')) == 3: agent_res["vendor"] = agent_res["vendor"].split(' ')[2]
             else: agent_res["vendor"] = agent_res["version"]           
             
-            print res["host"][:40].ljust(40), '| ' + PTR[:50].ljust(50), '| ' + agent_res["os"].ljust(11), '| ' + \
-            agent_res["program"].ljust(20), '| ' + agent_res["vendor"][:18].ljust(18) , '| ' + country
-            IPS.add(res["host"])
+            res["os"] = agent_res["os"]
+            res["vendor"] =  agent_res["vendor"]
+            res["program"] = agent_res["program"]
+            res["country"] = country
+
+            res["agent"] = res["agent"].split(" ")
+            if len(res["agent"]) == 8:
+                res["agent"][7] = res["agent"][6]
+
+            entries[res["host"]] = res
         except AttributeError:
             pass
+    return entries
 
 if __name__=='__main__':
+    log = parse_log()
     print "Smuxi World Domination Progress"
     print "==============================="
     print ""
-    print "Number of unique IPs: %s"%len(unique_ips())
+    print "Number of unique IPs: %s"%len(log)
     print ""
-    print 'IP'.ljust(40), '| PTR'.ljust(50), '  | OS'.ljust(15), '| Program'.ljust(22), '| Version'.ljust(20), '| C'
-    print "-" * 155
-    log()
+    print 'IP'.ljust(25), '| PTR'.ljust(50), '  | OS'.ljust(15), '| Program'.ljust(22), '| Version'.ljust(20), '| C'
+    print "-" * 145
+    for x in log.values():
+        print x["host"].ljust(25), '| ' + x["PTR"].ljust(50), '| ' + x["agent"][7].ljust(16), '| ' + x["agent"][0].ljust(22), '| ' + x["agent"][1].ljust(15) , '| ' + x["country"]
