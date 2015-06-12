@@ -113,6 +113,7 @@ def parse_log():
             res["os"] = agent_res["os"]
             res["vendor"] =  agent_res["vendor"]
             res["program"] = agent_res["program"]
+            res["version"] = agent_res["version"]
             res["country"] = country
 
             res["agent"] = res["agent"].split(" ")
@@ -134,4 +135,4 @@ if __name__=='__main__':
     print 'IP'.ljust(25), '| PTR'.ljust(50), '  | OS'.ljust(15), '| Program'.ljust(22), '| Version'.ljust(20), '| C'
     print "-" * 145
     for x in log.values():
-        print x["host"].ljust(25), '| ' + x["PTR"].ljust(50), '| ' + x["agent"][7].ljust(16), '| ' + x["agent"][0].ljust(22), '| ' + x["agent"][1].ljust(15) , '| ' + x["country"]
+        print x["host"].ljust(25), '| ' + x["PTR"].ljust(50), '| ' + x["os"].ljust(16), '| ' + x["program"].ljust(22), '| ' + x["version"].ljust(15) , '| ' + x["country"]
