@@ -23,10 +23,20 @@
 import re
 import time
 import socket
-import GeoIP
+import os
+import subprocess
+os.chdir("/git/smuxi.git")
+
+try:
+    import GeoIP
+except ImportError:
+    print "You should install python-geoip"
+    raise SystemExit(1)
+
 from os.path import expanduser
 
 HOME = expanduser("~")
+IPS = set()
 PTR=''
 giV4 = GeoIP.new(GeoIP.GEOIP_MEMORY_CACHE)
 giV6 = GeoIP.open("/usr/share/GeoIP/GeoIPv6.dat", GeoIP.GEOIP_STANDARD)
@@ -40,6 +50,7 @@ def unique_ips():
     return ips
 
 def log():
+    
     file = open(HOME + '/smuxi-web/logs/access.log', 'r')
     parts = [
         r'(?P<host>\S+)',                   # host %h
@@ -52,12 +63,19 @@ def log():
         r'"(?P<referer>.*)"',               # referer "%{Referer}i"
         r'"(?P<agent>(Smuxi|smuxi).*)"',    # user agent "%{User-agent}i"
     ]
+
     pattern = re.compile(r'\s+'.join(parts)+r'\s*\Z')
+    agent_p = re.compile(r'((?P<programV2>\S+\s+\-\s+\S+)|(?P<program>\S+))\s*(?P<version>[\S+]+/?)?\s*'+
+                        r'\((?P<vendor>.+)\)\s+\-\s+running on\s+(?P<os>\S+)\s+?(?P<dist>\S+)?')
 
     for line in file:
-        m = pattern.match(line)
+        log_m = pattern.match(line)
         try:
-            res = m.groupdict()
+            res = log_m.groupdict()
+            agent_m = agent_p.match(res["agent"])
+            agent_res = agent_m.groupdict()
+
+            if res["host"] in IPS: continue
             if res["user"] == "-":
                 res["user"] = None
 
@@ -81,12 +99,27 @@ def log():
                 country = giV6.country_code_by_addr_v6(res["host"])
                 if country is None:
                     country = "Unknown"
+            
+            if agent_res["os"] == "GNU/Linux" and "(" in agent_res["dist"] : agent_res["os"] = "Linux " + agent_res["dist"][1]
+            if agent_res["program"] == None: agent_res["program"] = agent_res["programV2"]
 
-            res["agent"] = res["agent"].split(" ")
-            if len(res["agent"]) == 8:
-                res["agent"][7] = res["agent"][6]
-
-            print res["host"].ljust(25), '| ' + PTR.ljust(50), '| ' + res["agent"][7].ljust(16), '| ' + res["agent"][0].ljust(22), '| ' + res["agent"][1].ljust(15) , '| ' + country
+            if ":" in agent_res["vendor"]: agent_res["vendor"] = agent_res["vendor"].split(':')[1]
+            elif "/" in agent_res["vendor"]:
+                commithash = agent_res["vendor"].split("/")[-1]
+                try:
+                    agent_res["vendor"] = subprocess.check_output(["git", "describe", "%s"%commithash]).strip("\n")
+                except subprocess.CalledProcessError:
+                    agent_res["vendor"] = "Unknown (%s)"%commithash
+                    
+            elif len(agent_res["vendor"].split(' ')) == 2: 
+                if (len(agent_res["vendor"].split(' ')[1]) < 3): agent_res["vendor"] = agent_res["version"]
+                else: agent_res["vendor"] = agent_res["vendor"].split(' ')[1]
+            elif len(agent_res["vendor"].split(' ')) == 3: agent_res["vendor"] = agent_res["vendor"].split(' ')[2]
+            else: agent_res["vendor"] = agent_res["version"]           
+            
+            print res["host"][:40].ljust(40), '| ' + PTR[:50].ljust(50), '| ' + agent_res["os"].ljust(11), '| ' + \
+            agent_res["program"].ljust(20), '| ' + agent_res["vendor"][:18].ljust(18) , '| ' + country
+            IPS.add(res["host"])
         except AttributeError:
             pass
 
@@ -96,6 +129,6 @@ if __name__=='__main__':
     print ""
     print "Number of unique IPs: %s"%len(unique_ips())
     print ""
-    print 'IP'.ljust(25), '| PTR'.ljust(50), '  | OS'.ljust(20), '| Program'.ljust(24), '| Version'.ljust(17), '| C'
-    print "-" * 145
+    print 'IP'.ljust(40), '| PTR'.ljust(50), '  | OS'.ljust(15), '| Program'.ljust(22), '| Version'.ljust(20), '| C'
+    print "-" * 155
     log()
