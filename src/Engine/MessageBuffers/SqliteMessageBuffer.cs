@@ -76,7 +76,17 @@ namespace Smuxi.Engine
                     cmd.CommandText = sql;
                     var param = cmd.CreateParameter();
                     param.ParameterName = "timestamp";
-                    param.Value = value.ToUniversalTime().ToString("o");
+                    if (value.Kind == DateTimeKind.Unspecified) {
+                        // HACK: on Mono the DateTimeKind gets lost during
+                        // serialization of .NET remoting. When this happens we
+                        // store the timestamp in local time instead. Otherwise
+                        // the timezone offset will be applied _again_ leading
+                        // to incorrect values, see:
+                        // https://smuxi.im/issues/show/1058
+                        param.Value = value.ToString("o");
+                    } else {
+                        param.Value = value.ToUniversalTime().ToString("o");
+                    }
                     cmd.Parameters.Add(param);
                     cmd.ExecuteNonQuery();
                 }
@@ -109,7 +119,17 @@ namespace Smuxi.Engine
                     cmd.CommandText = sql;
                     var param = cmd.CreateParameter();
                     param.ParameterName = "timestamp";
-                    param.Value = value.ToUniversalTime().ToString("o");
+                    if (value.Kind == DateTimeKind.Unspecified) {
+                        // HACK: on Mono the DateTimeKind gets lost during
+                        // serialization of .NET remoting. When this happens we
+                        // store the timestamp in local time instead. Otherwise
+                        // the timezone offset will be applied _again_ leading
+                        // to incorrect values, see:
+                        // https://smuxi.im/issues/show/1058
+                        param.Value = value.ToString("o");
+                    } else {
+                        param.Value = value.ToUniversalTime().ToString("o");
+                    }
                     cmd.Parameters.Add(param);
                     cmd.ExecuteNonQuery();
                 }
