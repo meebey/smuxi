@@ -353,7 +353,7 @@ namespace Smuxi.Common
         /// <summary> Reads a DateTime from the buffer. </summary>
         public DateTime ReadDateTime()
         {
-            return new DateTime(ReadInt64());
+            return new DateTime(ReadInt64(), DateTimeKind.Utc);
         }
 
         public IList ReadList()
