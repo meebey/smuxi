@@ -34,6 +34,7 @@ namespace Smuxi.Engine
         public bool StripColors { get; set; }
         public TextColor HighlightColor { get; set; }
         public List<string> HighlightWords { get; set; }
+        public bool Emojis { get; set; }
 
         static MessageBuilderSettings()
         {
@@ -333,13 +334,6 @@ namespace Smuxi.Engine
                 LinkFormat = "http://bugzilla.xamarin.com/show_bug.cgi?id={1}"
             });
 
-            // Emoji
-            regex = new Regex(@":(\w+):", RegexOptions.Compiled);
-            BuiltinPatterns.Add(new MessagePatternModel(regex) {
-                MessagePartType = typeof(ImageMessagePartModel),
-                LinkFormat = "smuxi-emoji://{1}",
-            });
-
             // TODO: msgid -> http://mid.gmane.org/{1}
             // TODO: ISSN/ISBN
             // TODO: Path: / or X:\
@@ -366,6 +360,7 @@ namespace Smuxi.Engine
             HighlightWords = new List<string>(
                 (string[]) userConfig["Interface/Chat/HighlightWords"]
             );
+            Emojis = (bool) userConfig["Interface/Chat/Emojis"];
 
             var patternController = new MessagePatternListController(userConfig);
             var userPatterns = patternController.GetList();
@@ -378,6 +373,14 @@ namespace Smuxi.Engine
             // of MessageBuilderSettings is created via the static initializer.
             patterns.AddRange(builtinPatterns);
             patterns.AddRange(userPatterns);
+            if (Emojis) {
+                // Emoji
+                var regex = new Regex(@":(\w+):", RegexOptions.Compiled);
+                patterns.Add(new MessagePatternModel(regex) {
+                    MessagePartType = typeof(ImageMessagePartModel),
+                    LinkFormat = "smuxi-emoji://{1}",
+                });
+            }
             Patterns = patterns;
             UserPatterns = userPatterns;
         }

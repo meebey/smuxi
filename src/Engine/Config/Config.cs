@@ -277,7 +277,8 @@ namespace Smuxi.Engine
             Get(prefix+"FontStyle",  String.Empty);
             Get(prefix+"FontSize",   0);
             Get(prefix+"WrapMode",   "Word");
-            
+            Get(prefix+"Emojis", false);
+
             prefix = "Engine/Users/DEFAULT/Interface/Entry/";
             Get(prefix+"CompletionCharacter", ":");
             Get(prefix+"CommandCharacter", "/");
@@ -527,6 +528,7 @@ namespace Smuxi.Engine
                 LoadUserEntry(user, "Interface/Chat/FontStyle", null);
                 LoadUserEntry(user, "Interface/Chat/FontSize", null);
                 LoadUserEntry(user, "Interface/Chat/WrapMode", null);
+                LoadUserEntry(user, "Interface/Chat/Emojis", null);
                 LoadUserEntry(user, "Interface/Entry/CompletionCharacter", null);
                 LoadUserEntry(user, "Interface/Entry/CommandCharacter", null);
                 LoadUserEntry(user, "Interface/Entry/BashStyleCompletion", null);
