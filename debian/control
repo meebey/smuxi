@@ -75,6 +75,7 @@ Suggests: oidentd | ident-server
 Depends: ${shlibs:Depends},
          ${misc:Depends},
          ${cli:Depends},
+         mono-runtime-boehm
 Recommends: unattended-upgrades,
             cron-apt
 Description: Engine libraries for Smuxi
