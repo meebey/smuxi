@@ -36,7 +36,16 @@ namespace Smuxi.Engine
         private static SessionManager   _SessionManager;
         private static ProtocolManagerFactory _ProtocolManagerFactory;
 
-        public static Version AssemblyVersion { get; private set; }
+        public static Version AssemblyVersion {
+            get {
+                var asm = Assembly.GetEntryAssembly();
+                if (asm == null) {
+                    asm = Assembly.GetAssembly(typeof(Engine));
+                }
+                var asm_name = asm.GetName(false);
+                return asm_name.Version;
+            }
+        }
 
         [Obsolete("Use AssemblyVersion or ProtocolVersion instead.")]
         public static Version Version {
@@ -95,7 +104,6 @@ namespace Smuxi.Engine
                 asm = Assembly.GetAssembly(typeof(Engine));
             }
             var asm_name = asm.GetName(false);
-            AssemblyVersion = asm_name.Version;
 
             var distVersion = Defines.DistVersion;
             if (!String.IsNullOrEmpty(distVersion)) {
