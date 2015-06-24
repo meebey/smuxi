@@ -108,7 +108,7 @@ msgstr "Port invàlid: {0}"
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:997
 #, csharp-format
 msgid "Queuing joins: {0}"
-msgstr "S'està afegint les unions a la cua: {0}"
+msgstr "S'estan afegint les unions a la cua: {0}"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1011
 #, csharp-format
@@ -199,7 +199,7 @@ msgstr "Error de connexió! Motiu:"
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1938
 #, csharp-format
 msgid "Not enough parameters for {0} command"
-msgstr "No heu proporcionat preu paràmetres per a l'ordre {0}"
+msgstr "No heu proporcionat prou paràmetres per a l'ordre {0}"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1948
 msgid "Not connected to server"
