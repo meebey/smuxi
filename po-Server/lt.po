@@ -1,0 +1,136 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+# Moo, 2014-2015
+msgid ""
+msgstr ""
+"Project-Id-Version: Smuxi - IRC client\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-05-03 12:33+0200\n"
+"PO-Revision-Date: 2015-05-25 09:04+0000\n"
+"Last-Translator: Moo\n"
+"Language-Team: Lithuanian (http://www.transifex.com/projects/p/smuxi/language/lt/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: lt\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+
+#: ../src/Server/Main.cs:65
+msgid "Add user to Server"
+msgstr "Pridėti vartotoją į Serverį"
+
+#: ../src/Server/Main.cs:74
+msgid "Modify existing user of Server"
+msgstr "Modifikuoti esantį Serverio vartotoją"
+
+#: ../src/Server/Main.cs:83
+msgid "Delete user from Server"
+msgstr "Ištrinti vartotoją iš Serverio"
+
+#: ../src/Server/Main.cs:92
+msgid "List all existing users of Server"
+msgstr "Pateikti visus esamus Serverio vartotojus"
+
+#: ../src/Server/Main.cs:101
+msgid "User to create, modify or delete"
+msgstr "Vartotojas, kurį norima sukurti, modifikuoti ar ištrinti"
+
+#: ../src/Server/Main.cs:110
+msgid "Password of the user when creating or modifying a user"
+msgstr "Vartotojo slaptažodis, kuomet kuriamas ar modifikuojamas vartotojas"
+
+#: ../src/Server/Main.cs:119
+msgid "Enable debug output"
+msgstr "Įjungti derinimo išvestį"
+
+#: ../src/Server/Main.cs:127
+msgid ""
+"Optimize message buffers and exit (valid values: none, defrag, index, all)"
+msgstr "Optimizuoti pranešimo buferius ir išėjimą (teisingos reikšmės: none, defrag, index, all)"
+
+#: ../src/Server/Main.cs:140
+msgid "Show this help"
+msgstr "Rodyti šią pagalbą"
+
+#: ../src/Server/Main.cs:142
+msgid "Usage: smuxi-server [options]"
+msgstr "Naudojimas: smuxi-server [parinktys]"
+
+#: ../src/Server/Main.cs:144
+msgid "Options:"
+msgstr "Parinktys:"
+
+#: ../src/Server/Main.cs:152
+msgid "Show version"
+msgstr "Rodyti versiją"
+
+#: ../src/Server/Main.cs:165
+#, csharp-format
+msgid "Unknown option: '{0}'"
+msgstr "Nežinoma parinktis: '{0}'"
+
+#: ../src/Server/Main.cs:192
+#, csharp-format
+msgid "Command line error: {0}"
+msgstr "Komandų eilutės klaida: {0}"
+
+#: ../src/Server/Main.cs:236
+msgid ""
+"At most one of --add-user, --modify-user, and --delete-user may be used at a"
+" time."
+msgstr "Vienu metu gali būti naudojamas daugiausiai vienas iš --add-user, --modify-user ir --delete-user"
+
+#: ../src/Server/Main.cs:246
+msgid "You must specify a username with the --username option."
+msgstr "Privalote nurodyti vartotojo vardą, naudodami --username parinktį."
+
+#: ../src/Server/Main.cs:252
+msgid "Username must not be empty."
+msgstr "Vartotojo vardas negali būti tuščias."
+
+#: ../src/Server/Main.cs:262
+msgid "You must specify a password with the --password option."
+msgstr "Privalote nurodyti slaptažodį, naudodami --password parinktį."
+
+#: ../src/Server/Main.cs:268
+msgid "Password must not be empty."
+msgstr "Slaptažodis negali būti tuščias."
+
+#: ../src/Server/Main.cs:287
+#, csharp-format
+msgid ""
+"Invalid optimization value passed to --optimize-message-buffer, valid values"
+" are: {0}"
+msgstr "Į --optimize-message-buffer perduota neteisinga optimizavimo reikšmė, teisingos reikšmės yra: {0}"
+
+#: ../src/Server/Main.cs:307
+#, csharp-format
+msgid "User \"{0}\" successfully added to server."
+msgstr "Vartotojas \"{0}\" sėkmingai pridėtas į serverį."
+
+#: ../src/Server/Main.cs:316
+#, csharp-format
+msgid "User \"{0}\" successfully modified."
+msgstr "Vartotojas \"{0}\" sėkmingai modifikuotas."
+
+#: ../src/Server/Main.cs:325
+#, csharp-format
+msgid "User \"{0}\" successfully deleted from server."
+msgstr "Vartotojas \"{0}\" sėkmingai ištrintas iš serverio."
+
+#: ../src/Server/Main.cs:332
+msgid "Users:"
+msgstr "Vartotojai:"
+
+#: ../src/Server/Main.cs:380
+#, csharp-format
+msgid "Successfully optimized {0} message buffers."
+msgstr "Sėkmingai optimizuota {0} pranešimo buferių."
+
+#: ../src/Server/Main.cs:393
+#, csharp-format
+msgid "Failed to optimize message buffers: {0}"
+msgstr "Nepavyko optimizuoti pranešimo buferių: {0}"
