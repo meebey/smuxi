@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: Smuxi - IRC client\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-05-03 12:33+0200\n"
-"PO-Revision-Date: 2015-06-04 02:00+0000\n"
+"PO-Revision-Date: 2015-06-28 16:54+0000\n"
 "Last-Translator: Mirco Bauer <meebey@gmail.com>\n"
 "Language-Team: German (http://www.transifex.com/projects/p/smuxi/language/de/)\n"
 "MIME-Version: 1.0\n"
@@ -266,7 +266,7 @@ msgstr "MUC DIenst für \"{0}\" ist nicht verfügbar"
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1904
 #, csharp-format
 msgid "You do not have permission to join \"{0}\""
-msgstr "Du hast keine Berechtigung dem Chat beizutreten."
+msgstr "Du hast keine Berechtigung \"{0}\" beizutreten"
 
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1910
 #, csharp-format
