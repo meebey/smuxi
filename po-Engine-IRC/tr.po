@@ -4,14 +4,15 @@
 # 
 # Translators:
 # zeugma <sunder67@hotmail.com>, 2013
-# Umut Albayrak <umutmuh@gmail.com>, 2013
+# Ş. Uzun <hashirrrt@gmail.com>, 2014-2015
+# U, 2013
 msgid ""
 msgstr ""
 "Project-Id-Version: Smuxi - IRC client\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-12-11 16:59+0100\n"
-"PO-Revision-Date: 2013-11-20 11:27+0000\n"
-"Last-Translator: Umut Albayrak <umutmuh@gmail.com>\n"
+"POT-Creation-Date: 2015-05-03 12:31+0200\n"
+"PO-Revision-Date: 2015-01-17 10:22+0000\n"
+"Last-Translator: Ş. Uzun <hashirrrt@gmail.com>\n"
 "Language-Team: Turkish (http://www.transifex.com/projects/p/smuxi/language/tr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -19,352 +20,354 @@ msgstr ""
 "Language: tr\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:250
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:255
 #, csharp-format
 msgid "{0} invites you to {1}"
-msgstr "{0} sizi {1}'e davet ediyor"
+msgstr "{0} sizi {1} sohbetine davet ediyor"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:266
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:279
 msgid "Accept invite (join room)"
-msgstr ""
+msgstr "Daveti kabul et (odaya katıl)"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:294
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1740
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:307
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1770
 msgid "away"
 msgstr "uzakta"
 
 #. TRANSLATOR: {0} is the amount of seconds
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:300
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:313
 #, csharp-format
 msgid "lag: {0} seconds"
-msgstr "lag: {0} saniye"
+msgstr "gecikme: {0} saniye"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:306
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:319
 msgid "not connected"
-msgstr "bağlanılamadı"
+msgstr "bağlantı yok"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:366
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:379
 #, csharp-format
 msgid "Using proxy: {0}:{1}"
-msgstr ""
+msgstr "{0}:{1} vekil sunucusu kullanılıyor"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:373
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:386
 #, csharp-format
 msgid "Connecting to {0} port {1}..."
-msgstr "Bağlanılıyor {0} kapı {1}"
+msgstr "{0} port {1} ile bağlantı kuruluyor..."
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:387
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:528
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:400
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:541
 #, csharp-format
 msgid "Connection to {0} established"
-msgstr ""
+msgstr "{0} ile bağlantı kuruldu"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:396
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:409
 msgid "Logging in..."
 msgstr "Oturum açılıyor..."
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:436
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:449
 msgid "Connection failed!"
-msgstr "Bağlantı başarısız!"
-
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:440
-msgid "Connection failed! Reason: "
-msgstr "Bağlantı başarısız! Sebep:"
+msgstr "Bağlantı kurulamadı!"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:453
+msgid "Connection failed! Reason: "
+msgstr "Bağlantı kurulamadı! Neden:"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:466
 msgid "Disconnecting..."
 msgstr "Bağlantı kesiliyor..."
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:458
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:471
 #, csharp-format
 msgid "Disconnecting from {0}..."
-msgstr "{0} bağlantısı kesiliyor..."
+msgstr "{0} ile bağlantı kesiliyor..."
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:465
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:478
 #, csharp-format
 msgid "Disconnected from {0}"
-msgstr "{0} bağlantısı kesildi"
+msgstr "{0} ile bağlantı kesildi"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:471
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:484
 msgid "Connection closed"
-msgstr "Bağlantı kapatıldı"
+msgstr "Bağlantıya son verildi"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:480
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:555
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:493
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:568
 msgid "Not connected"
-msgstr "Bağlanılmadı"
+msgstr "Bağlantı yok"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:514
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:527
 msgid "Reconnecting..."
-msgstr "Yeniden bağlanılıyor"
+msgstr "Yeniden bağlantı kuruluyor..."
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:522
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:535
 #, csharp-format
 msgid "Reconnecting to {0}..."
-msgstr "{0}'a yeniden bağlanılıyor"
+msgstr "{0} ile yeniden bağlantı kuruluyor..."
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:541
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:554
 msgid "Reconnect Error"
-msgstr "Yeniden bağlanma hatası"
+msgstr "Yeniden Bağlantı Hatası"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:933
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:948
 #, csharp-format
 msgid "Sleeping for {0} milliseconds"
-msgstr ""
+msgstr "{0} milisaniyelik uyku"
 
 #. TRANSLATOR: this line is used as label / category for a
 #. list of commands below
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1018
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1033
 msgid "IrcProtocolManager Commands"
-msgstr ""
+msgstr "IrcProtokolYöneticisi Komutları"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1100
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1115
 #, csharp-format
 msgid "Invalid port: {0}"
-msgstr "Geçersiz kapı: {0}"
+msgstr "Geçersiz port: {0}"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1193
+#. TRANSLATOR: some IRC networks dislike too many joins in a
+#. short period and thus Smuxi throttles/queues them
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1210
 #, csharp-format
 msgid "Queuing joins: {0}"
-msgstr ""
+msgstr "Katılmalar sıraya alınıyor: {0}"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1213
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1231
 #, csharp-format
 msgid "Already joined to channel: {0}. Type /window {0} to switch to it."
-msgstr ""
+msgstr "{0} kanalına zaten katılmışsınız. Geçiş yapmak için /window {0} yazın."
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1247
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1265
 #, csharp-format
 msgid "Active joins: {0} - Queued joins: {1}"
-msgstr "Aktif katılım: {0} - Kuyruk : {1}"
+msgstr "Etkin katılımlar: {0} - Sıraya alınmış katılımlar: {1}"
 
 #. TRANSLATORS: final message will look like this:
 #. Joining: #chan1 - Remaining active joins: #chan2 / queued joins: #chan3
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1271
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1301
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1289
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1319
 #, csharp-format
 msgid "Joining: {0}"
-msgstr ""
+msgstr "Katılım gerçekleşiyor: {0}"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1273
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1291
 msgid "Remaining"
 msgstr "Kalan"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1278
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1296
 #, csharp-format
 msgid "active joins: {0}"
-msgstr ""
+msgstr "etkin katılımlar: {0}"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1287
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1305
 #, csharp-format
 msgid "queued joins: {0}"
-msgstr ""
+msgstr "sıraya alınmış katılımlar: {0}"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1721
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1751
 msgid "IRC Op"
 msgstr "IRC Op"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1723
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1753
 msgid "Owner"
-msgstr ""
+msgstr "Owner"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1725
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1755
 msgid "ChanAdmin"
-msgstr ""
+msgstr "ChanAdmin"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1727
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1757
 msgid "Op"
 msgstr "Op"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1729
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1759
 msgid "Halfop"
-msgstr ""
+msgstr "Halfop"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1731
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1761
 msgid "Voice"
-msgstr "Ses"
+msgstr "Voice"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1794
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1824
 #, csharp-format
 msgid "Topic for {0}: {1}"
-msgstr "{0} konusu: {1}"
+msgstr "{0} için konu: {1}"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1796
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1826
 #, csharp-format
 msgid "No topic set for {0}"
-msgstr "{0} için hiç bir konu belirlenmedi"
+msgstr "{0} için bir konu belirlenmemiş"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1961
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1991
 msgid "ban"
-msgstr ""
+msgstr "yasaklama"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1972
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2002
 msgid "No bans in channel"
-msgstr ""
+msgstr "Kanalda yasaklama yok"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2009
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2039
 msgid "ban exception"
-msgstr ""
+msgstr "yasak istisnası"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2020
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2050
 msgid "No ban exceptions in channel"
-msgstr ""
+msgstr "Kanalda yasak istisnası yok"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2057
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2087
 msgid "invite exception"
-msgstr ""
+msgstr "davet istisnası"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2068
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2098
 msgid "No invite exceptions in channel"
-msgstr ""
+msgstr "Kanalda davet istisnası yok"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2182
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2212
 #, csharp-format
 msgid "Your user mode is {0}"
-msgstr ""
+msgstr "Kullanıcı modunuz {0}"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2208
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2238
 #, csharp-format
 msgid "{0} is already on {1}"
-msgstr ""
+msgstr "{0} zaten {1} sohbetinde"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2216
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2246
 #, csharp-format
 msgid "Inviting {0} to {1}"
-msgstr ""
+msgstr "{0} {1} sohbetine davet ediliyor"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2239
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2269
 msgid "Users"
 msgstr "Kullanıcılar"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2290
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2320
 #, csharp-format
 msgid "Total of {0} users [{1} ops, {2} voices, {3} normal]"
-msgstr ""
+msgstr "Toplam {0} kullanıcı [{1} op, {2} voice, {3} normal]"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2424
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2458
 msgid "Connection error! Reason: "
-msgstr "Bağlantı hatası! Sebep:"
+msgstr "Bağlantı hatası! Neden:"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2436
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2470
 #, csharp-format
 msgid "Not enough parameters for {0} command"
-msgstr ""
+msgstr "{0} komutu için yetersiz parametre"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2445
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2479
 msgid "Not connected to server"
-msgstr "Sunucuya bağlanılamadı"
+msgstr "Sunucuyla bağlantı yok"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2649
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2688
 #, csharp-format
 msgid "{0}: No such nick/channel"
-msgstr ""
+msgstr "{0} şeklinde bir takma ad/kanal yok"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2768
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2807
 #, csharp-format
 msgid ""
 "Increased send delay to {0}ms to avoid being flooded off the server again."
-msgstr ""
+msgstr "Sık iletim sebebiyle sunucudan yine atılmamak için gönderim geciktirmesi {0}ms olarak arttırıldı."
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2783
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2822
 #, csharp-format
 msgid "Nick {0} is already in use"
-msgstr ""
+msgstr "{0} takma adı zaten kullanımda"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2799
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2838
 msgid "Cannot join to channel:"
-msgstr "Kanala bağlanılamıyor:"
+msgstr "Kanala katılım gerçekleştirilemiyor:"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2801
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2840
 msgid "You are banned"
-msgstr ""
+msgstr "Yasaklısınız"
 
 #. TRANSLATOR: {0}: nickname, {1}: ident@host,
 #. {2}: CTCP command, {3}: own nickname, {4}: CTCP parameter
 #. example:
 #. meebey [meebey@example.com] requested CTCP VERSION from meebey:
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2884
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2923
 #, csharp-format
 msgid "{0} [{1}] requested CTCP {2} from {3}: {4}"
-msgstr ""
+msgstr "{0} [{1}] {3} ile CTCP {2} talep etti: {4}"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2911
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2950
 #, csharp-format
 msgid "CTCP PING reply from {0}: {1} seconds"
-msgstr ""
+msgstr "{0} tarafından CTCP PING yanıtı : {1} saniye"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2920
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2959
 #, csharp-format
 msgid "CTCP {0} reply from {1}: {2}"
-msgstr ""
+msgstr "{1} tarafından CTCP {0} yanıtı: {2}"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3168
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3207
 #, csharp-format
 msgid "{0} [{1}] has joined {2}"
-msgstr ""
+msgstr "{0} [{1}] {2} sohbetine katıldı"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3310
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3349
 #, csharp-format
 msgid "{0} [{1}] has left {2}"
-msgstr ""
+msgstr "{0} [{1}] {2} sohbetinden ayrıldı"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3335
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3374
 #, csharp-format
 msgid "You were kicked from {0} by {1}"
-msgstr ""
+msgstr "{1} tarafından {0} sohbetinden atıldınız"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3343
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3382
 #, csharp-format
 msgid "{0} was kicked from {1} by {2}"
-msgstr ""
+msgstr "{0} {2} tarafından {1} sohbetinden atıldı"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3361
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3393
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3400
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3432
 #, csharp-format
 msgid "You're now known as {0}"
-msgstr "{0} olarak biliniyorsunuz"
+msgstr "Artık {0} adını kullanıyorsunuz"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3396
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3435
 #, csharp-format
 msgid "{0} is now known as {1}"
-msgstr ""
+msgstr "{0} artık {1} adını kullanıyor"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3430
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3469
 #, csharp-format
 msgid "{0} changed the topic of {1} to: {2}"
-msgstr ""
+msgstr "{0} {1} için konuyu değiştirdi: {2}"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3592
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3629
 #, csharp-format
 msgid "Mode change [{0}] for user {1}"
-msgstr ""
+msgstr "{1} kullanıcısı için mod [{0}] değişimi"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3609
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3660
 #, csharp-format
 msgid "mode/{0} [{1}] by {2}"
-msgstr ""
+msgstr "{2} tarafından mod/{0} [{1}]"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3635
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3696
 #, csharp-format
 msgid "{0} [{1}] has quit"
-msgstr ""
+msgstr "{0} [{1}] çıktı"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3712
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3786
 #, csharp-format
 msgid ""
 "Connection to {0} port {1} has failed (attempt {2}), retrying in {3} "
 "seconds..."
-msgstr ""
+msgstr "{0} port {1} ile bağlantı başarısız oldu ({2}. girişim), {3} saniye içinde yeniden denenecek..."
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3762
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3836
 #, csharp-format
 msgid "{0} is away: {1}"
-msgstr ""
+msgstr "{0} uzakta: {1}"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3772
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3846
 msgid "You are no longer marked as being away"
-msgstr ""
+msgstr "Artık uzakta olarak işaretli değilsiniz"
 
-#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3782
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3856
 msgid "You have been marked as being away"
-msgstr ""
+msgstr "Uzakta olarak işaretlendiniz"

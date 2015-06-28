@@ -3,13 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
+# Ş. Uzun <hashirrrt@gmail.com>, 2014-2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Smuxi - IRC client\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-12-11 17:06+0100\n"
-"PO-Revision-Date: 2013-12-05 18:36+0000\n"
-"Last-Translator: Mirco Bauer <meebey@gmail.com>\n"
+"POT-Creation-Date: 2015-05-03 12:36+0200\n"
+"PO-Revision-Date: 2015-05-14 20:46+0000\n"
+"Last-Translator: Ş. Uzun <hashirrrt@gmail.com>\n"
 "Language-Team: Turkish (http://www.transifex.com/projects/p/smuxi/language/tr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -17,25 +18,29 @@ msgstr ""
 "Language: tr\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: ../src/Frontend-GNOME-XMPP/XmppGroupChatView.cs:219
+#: ../src/Frontend-GNOME-XMPP/XmppGroupChatView.cs:247
 msgid "Query"
-msgstr ""
+msgstr "Özel Sohbet"
 
-#: ../src/Frontend-GNOME-XMPP/XmppGroupChatView.cs:227
+#: ../src/Frontend-GNOME-XMPP/XmppGroupChatView.cs:255
 #: ../src/Frontend-GNOME-XMPP/XmppPersonChatView.cs:215
 msgid "Whois"
-msgstr ""
+msgstr "Whois"
 
-#: ../src/Frontend-GNOME-XMPP/XmppGroupChatView.cs:233
+#: ../src/Frontend-GNOME-XMPP/XmppGroupChatView.cs:261
 #: ../src/Frontend-GNOME-XMPP/XmppPersonChatView.cs:221
 msgid "Add To Contacts"
-msgstr ""
+msgstr "Rehber'e Ekle"
 
-#: ../src/Frontend-GNOME-XMPP/XmppGroupChatView.cs:239
+#: ../src/Frontend-GNOME-XMPP/XmppGroupChatView.cs:267
 #: ../src/Frontend-GNOME-XMPP/XmppPersonChatView.cs:227
 msgid "Invite to"
-msgstr ""
+msgstr "Şuraya Davet Et"
 
-#: ../src/Frontend-GNOME-XMPP/XmppGroupChatView.cs:257
+#: ../src/Frontend-GNOME-XMPP/XmppGroupChatView.cs:285
 msgid "Rename"
-msgstr ""
+msgstr "Yeniden Adlandır"
+
+#: ../src/Frontend-GNOME-XMPP/XmppGroupChatView.cs:297
+msgid "Remove"
+msgstr "Kaldır"
