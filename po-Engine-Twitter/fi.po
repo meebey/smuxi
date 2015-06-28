@@ -4,13 +4,14 @@
 # 
 # Translators:
 # Kalle Kaitala <cobrian@cobrian.net>, 2013,2015
+# Mirco Bauer <meebey@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Smuxi - IRC client\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-05-03 12:32+0200\n"
-"PO-Revision-Date: 2015-05-04 04:55+0000\n"
-"Last-Translator: Kalle Kaitala <cobrian@cobrian.net>\n"
+"PO-Revision-Date: 2015-06-28 16:33+0000\n"
+"Last-Translator: Mirco Bauer <meebey@gmail.com>\n"
 "Language-Team: Finnish (http://www.transifex.com/projects/p/smuxi/language/fi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -160,7 +161,7 @@ msgstr "Viestiä ei voitu lähettää - määriteltyä käyttäjää ei ole."
 #: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:1122
 #, csharp-format
 msgid "Search {0}"
-msgstr "Etsi"
+msgstr "Etsi {0}"
 
 #: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:1245
 #, csharp-format
