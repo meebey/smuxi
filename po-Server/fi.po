@@ -3,13 +3,13 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# Kalle Kaitala <cobrian@cobrian.net>, 2013
+# Kalle Kaitala <cobrian@cobrian.net>, 2013,2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Smuxi - IRC client\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-12-11 17:02+0100\n"
-"PO-Revision-Date: 2013-08-23 06:17+0000\n"
+"POT-Creation-Date: 2015-05-03 12:33+0200\n"
+"PO-Revision-Date: 2015-05-03 15:19+0000\n"
 "Last-Translator: Kalle Kaitala <cobrian@cobrian.net>\n"
 "Language-Team: Finnish (http://www.transifex.com/projects/p/smuxi/language/fi/)\n"
 "MIME-Version: 1.0\n"
@@ -18,115 +18,119 @@ msgstr ""
 "Language: fi\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../src/Server/Main.cs:71
+#: ../src/Server/Main.cs:65
 msgid "Add user to Server"
 msgstr "Lisää käyttäjä palvelimeen"
 
-#: ../src/Server/Main.cs:80
+#: ../src/Server/Main.cs:74
 msgid "Modify existing user of Server"
 msgstr "Muokkaa olemassaolevaa palvelimen käyttäjää"
 
-#: ../src/Server/Main.cs:89
+#: ../src/Server/Main.cs:83
 msgid "Delete user from Server"
 msgstr "Poista käyttäjä palvelimelta"
 
-#: ../src/Server/Main.cs:98
+#: ../src/Server/Main.cs:92
 msgid "List all existing users of Server"
 msgstr "Listaa kaikki palvelimen käyttäjät"
 
-#: ../src/Server/Main.cs:107
+#: ../src/Server/Main.cs:101
 msgid "User to create, modify or delete"
 msgstr "Luotava, muokattava tai poistettava käyttäjä"
 
-#: ../src/Server/Main.cs:116
+#: ../src/Server/Main.cs:110
 msgid "Password of the user when creating or modifying a user"
 msgstr "Käyttäjän salasana, jos luodaan tai muokataan käyttäjää"
 
-#: ../src/Server/Main.cs:125
+#: ../src/Server/Main.cs:119
 msgid "Enable debug output"
 msgstr "Vianetsinnän tuloste päälle"
 
-#: ../src/Server/Main.cs:133
+#: ../src/Server/Main.cs:127
 msgid ""
 "Optimize message buffers and exit (valid values: none, defrag, index, all)"
 msgstr "Optimoi viestipuskurit ja poistu (validit arvot: none, defrag, index, all)"
 
-#: ../src/Server/Main.cs:146
+#: ../src/Server/Main.cs:140
 msgid "Show this help"
 msgstr "Näytä tämä aputeksti"
 
-#: ../src/Server/Main.cs:148
+#: ../src/Server/Main.cs:142
 msgid "Usage: smuxi-server [options]"
 msgstr "Käyttö: smuxi-server [vaihtoehdot]"
 
-#: ../src/Server/Main.cs:150
+#: ../src/Server/Main.cs:144
 msgid "Options:"
 msgstr "Vaihtoehdot:"
 
-#: ../src/Server/Main.cs:161
+#: ../src/Server/Main.cs:152
+msgid "Show version"
+msgstr "Näytä versio"
+
+#: ../src/Server/Main.cs:165
 #, csharp-format
 msgid "Unknown option: '{0}'"
 msgstr "Tuntematon vaihtoehto: '{0}'"
 
-#: ../src/Server/Main.cs:188
+#: ../src/Server/Main.cs:192
 #, csharp-format
 msgid "Command line error: {0}"
 msgstr "Komentorivin virhe: {0}"
 
-#: ../src/Server/Main.cs:232
+#: ../src/Server/Main.cs:236
 msgid ""
 "At most one of --add-user, --modify-user, and --delete-user may be used at a"
 " time."
-msgstr "Vain yhtä komennoista --add-user, --modify-user tai --delete-user voi käyttää kerralla."
+msgstr "Vain yhtä komennoista --add-user, --modify-user tai --delete-user voi käyttää kerrallaan."
 
-#: ../src/Server/Main.cs:242
+#: ../src/Server/Main.cs:246
 msgid "You must specify a username with the --username option."
 msgstr "Käyttäjänimen ilmoittaminen --username -komennolla on pakollista."
 
-#: ../src/Server/Main.cs:248
+#: ../src/Server/Main.cs:252
 msgid "Username must not be empty."
 msgstr "Käyttäjänimi ei saa olla tyhjä."
 
-#: ../src/Server/Main.cs:258
+#: ../src/Server/Main.cs:262
 msgid "You must specify a password with the --password option."
 msgstr "Salasanan ilmoittaminen --password -vaihtoehdolla on pakollista."
 
-#: ../src/Server/Main.cs:264
+#: ../src/Server/Main.cs:268
 msgid "Password must not be empty."
 msgstr "Salasana ei saa olla tyhjä."
 
-#: ../src/Server/Main.cs:283
+#: ../src/Server/Main.cs:287
 #, csharp-format
 msgid ""
 "Invalid optimization value passed to --optimize-message-buffer, valid values"
 " are: {0}"
 msgstr "Epäkelpo optimointiarvo välitetty komennolle --optimize-message-buffer, kelvolliset arvot ovat: {0}"
 
-#: ../src/Server/Main.cs:303
+#: ../src/Server/Main.cs:307
 #, csharp-format
 msgid "User \"{0}\" successfully added to server."
 msgstr "Käyttäjä \"{0}\" lisätty palvelimelle onnistuneesti."
 
-#: ../src/Server/Main.cs:312
+#: ../src/Server/Main.cs:316
 #, csharp-format
 msgid "User \"{0}\" successfully modified."
 msgstr "Käyttäjää \"{0}\" muokattu onnistuneesti."
 
-#: ../src/Server/Main.cs:321
+#: ../src/Server/Main.cs:325
 #, csharp-format
 msgid "User \"{0}\" successfully deleted from server."
 msgstr "Käyttäjä \"{0}\" poistettu palvelimelta onnistuneesti."
 
-#: ../src/Server/Main.cs:328
+#: ../src/Server/Main.cs:332
 msgid "Users:"
 msgstr "Käyttäjät:"
 
-#: ../src/Server/Main.cs:376
+#: ../src/Server/Main.cs:380
 #, csharp-format
 msgid "Successfully optimized {0} message buffers."
 msgstr "{0} viestipuskuria optimoitu onnistuneesti."
 
-#: ../src/Server/Main.cs:389
+#: ../src/Server/Main.cs:393
 #, csharp-format
 msgid "Failed to optimize message buffers: {0}"
 msgstr "Viestipuskurien optimointi epäonnistui: {0}"

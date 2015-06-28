@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Smuxi - IRC client\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-12-11 17:03+0100\n"
+"POT-Creation-Date: 2015-05-03 12:34+0200\n"
 "PO-Revision-Date: 2013-08-23 06:09+0000\n"
 "Last-Translator: Kalle Kaitala <cobrian@cobrian.net>\n"
 "Language-Team: Finnish (http://www.transifex.com/projects/p/smuxi/language/fi/)\n"
@@ -18,53 +18,53 @@ msgstr ""
 "Language: fi\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../src/Frontend/CommandManager.cs:343
+#: ../src/Frontend/CommandManager.cs:466
 #, csharp-format
 msgid "Unknown Command: {0}"
 msgstr "Tuntematon komento: {0}"
 
-#: ../src/Frontend/CommandManager.cs:352
+#: ../src/Frontend/CommandManager.cs:475
 #, csharp-format
 msgid "Not enough parameters for {0} command"
 msgstr "Ei tarpeeksi parametrejä {0} -komennolle"
 
-#: ../src/Frontend/EngineManager.cs:122
+#: ../src/Frontend/EngineManager.cs:112
 msgid "Engine must not be empty."
 msgstr "Moottori ei saa olla tyhjä."
 
-#: ../src/Frontend/EngineManager.cs:133
+#: ../src/Frontend/EngineManager.cs:123
 msgid "Engine does not exist."
 msgstr "Moottoria ei ole olemassa."
 
-#: ../src/Frontend/EngineManager.cs:317
+#: ../src/Frontend/EngineManager.cs:313
 #, csharp-format
 msgid ""
 "Unknown channel ({0}) - only the following channel types are supported:"
 msgstr "Tuntematon kanava ({0}) - vain seuraavia kanavatyyppejä tuetaan:"
 
-#: ../src/Frontend/EngineManager.cs:326
+#: ../src/Frontend/EngineManager.cs:322
 msgid ""
 "Registration with engine failed!  The username and/or password were wrong - "
 "please verify them."
 msgstr "Rekisteröinti moottorin kanssa epäonnistui! Käyttäjänimi ja/tai salasana väärin - ole hyvä ja tarkista ne."
 
-#: ../src/Frontend/SshTunnelManager.cs:144
+#: ../src/Frontend/SshTunnelManager.cs:147
 msgid "SSH client application was not found: "
 msgstr "SSH-asiakasohjelmaa ei löytynyt:"
 
-#: ../src/Frontend/SshTunnelManager.cs:147
+#: ../src/Frontend/SshTunnelManager.cs:150
 msgid ""
 "SSH client must be either OpenSSH (ssh) or Plink (plink.exe, not putty.exe)"
 msgstr "SSH-asiakasohjelman on oltava OpenSSH (ssh) tai Plink (plink.exe, ei putty.exe)"
 
-#: ../src/Frontend/SshTunnelManager.cs:184
+#: ../src/Frontend/SshTunnelManager.cs:187
 #, csharp-format
 msgid ""
 "The local SSH forwarding port {0} is already in use. Is there an old SSH "
 "tunnel still active?"
 msgstr "Paikallinen SSH-edelleenohjausportti {0} on jo käytössä. Onko vanha SSH-tunneli edelleen aktiivinen?"
 
-#: ../src/Frontend/SshTunnelManager.cs:208
+#: ../src/Frontend/SshTunnelManager.cs:211
 #, csharp-format
 msgid ""
 "SSH tunnel setup failed (exit code: {0})\n"
@@ -78,17 +78,17 @@ msgid ""
 "{4}\n"
 msgstr "SSH-tunnelin pystytys epäonnistui (exit-koodi: {0})\n\nSSH-ohjelma: {1}\nSSH-parametrit: {2}\n\nOhjelmavirhe:\n{3}\nOhjelman tuloste:\n{4}\n"
 
-#: ../src/Frontend/SshTunnelManager.cs:329
-#: ../src/Frontend/SshTunnelManager.cs:478
+#: ../src/Frontend/SshTunnelManager.cs:332
+#: ../src/Frontend/SshTunnelManager.cs:481
 msgid "SSH keyfile not found."
 msgstr "SSH-avaintiedostoa ei löytynyt."
 
-#: ../src/Frontend/SshTunnelManager.cs:335
-#: ../src/Frontend/SshTunnelManager.cs:484
+#: ../src/Frontend/SshTunnelManager.cs:338
+#: ../src/Frontend/SshTunnelManager.cs:487
 msgid "SSH keyfile could not be read."
 msgstr "SSH-avaintiedostoa ei voitu lukea."
 
-#: ../src/Frontend/SshTunnelManager.cs:426
+#: ../src/Frontend/SshTunnelManager.cs:429
 #, csharp-format
 msgid ""
 "OpenSSH version number not found (exit code: {0})\n"
@@ -101,11 +101,11 @@ msgid ""
 "{3}\n"
 msgstr "OpenSSH:n versionumeroa ei löytynyt (exit-koodi: {0})\n\nSSH-ohjelma: {1}\n\nOhjelmavirhe:\n{2}\nOhjelman tuloste:\n{3}\n"
 
-#: ../src/Frontend/SshTunnelManager.cs:469
+#: ../src/Frontend/SshTunnelManager.cs:472
 msgid "PuTTY / Plink requires a username to be set."
 msgstr "PuTTY / Plink vaatii että käyttäjänimi on asetettu."
 
-#: ../src/Frontend/SshTunnelManager.cs:557
+#: ../src/Frontend/SshTunnelManager.cs:560
 #, csharp-format
 msgid ""
 "Plink version number not found (exit code: {0})\n"
