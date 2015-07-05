@@ -42,6 +42,7 @@ namespace Smuxi.Frontend
         int PreviousMatchLength { get; set; }
         int PreviousMatchCursorOffset { get; set; } // offset from match pos + match len
         IChatView PreviousChatView { get; set; }
+        string InitialMatch { get; set; }
 
         public TabCycleNickCompleter()
         {
@@ -51,6 +52,7 @@ namespace Smuxi.Frontend
             PreviousMatchLength = -1;
             PreviousMatchCursorOffset = 0;
             PreviousChatView = null;
+            InitialMatch = null;
         }
 
         public override void Complete(ref string entryLine, ref int cursorPosition, IChatView currentChatView)
@@ -61,7 +63,8 @@ namespace Smuxi.Frontend
             string matchMe = IsolateNickToComplete(entryLine, cursorPosition, out matchPosition, out appendSpace, out leadingAt);
 
             int rematchCursorPosition = PreviousMatchPos + PreviousMatchLength + PreviousMatchCursorOffset;
-            if (PreviousNickIndex != -1 && currentChatView == PreviousChatView && cursorPosition == rematchCursorPosition) {
+            if (PreviousNickIndex != -1 && currentChatView == PreviousChatView && cursorPosition == rematchCursorPosition
+                && InitialMatch != null && (matchMe.Length == 0 || matchMe.StartsWith(InitialMatch))) {
                 // re-match
                 PreviousNickIndex = (PreviousNickIndex + 1) % PreviousNicks.Count;
 
@@ -75,6 +78,9 @@ namespace Smuxi.Frontend
 
                 return;
             }
+
+            // store this to check for re-matches
+            InitialMatch = matchMe;
 
             // don't re-match even if the user moves the cursor back to the "correct" position
             PreviousNickIndex = -1;
