@@ -22,8 +22,9 @@
  */
 
 using System;
-using System.Text;
+using System.Reflection;
 using System.Runtime.InteropServices;
+using System.Text;
 using Mono.Unix;
 
 namespace Stfl
@@ -35,6 +36,7 @@ namespace Stfl
         static string EscapeLessThanCharacter  { get; set; }
         static string EscapeGreaterThanCharacter { get; set; }
         static Encoding Utf32NativeEndian { get; set; }
+        static bool BrokenUtf32Handling { get; set; }
 
         static StflApi()
         {
@@ -60,6 +62,57 @@ namespace Stfl
                 byteOrderMark: false,
                 throwOnInvalidCharacters: true
             );
+
+            // UTF-32 handling is broken in mono < 4.2
+            // fix in 4.4: https://github.com/mono/mono/commit/6bfb7e6d149f5e5c0fe04d680e3f7d36769ef541
+            // fix in 4.2: https://github.com/mono/mono/commit/ea4ed4a47b98832e294d166bee5b8301fe87e216
+            BrokenUtf32Handling = IsMonoVersionLessThan(4, 2);
+        }
+
+        static bool IsMonoVersionLessThan(int majorVersion, int minorVersion)
+        {
+            var monoRuntimeType = Type.GetType("Mono.Runtime");
+            if (monoRuntimeType != null) {
+                var monoRuntimeVersionMethod = monoRuntimeType.GetMethod(
+                    "GetDisplayName",
+                    BindingFlags.NonPublic | BindingFlags.Static
+                );
+                if (monoRuntimeVersionMethod != null) {
+                    var version = (string)monoRuntimeVersionMethod.Invoke(null, null);
+                    var versionPieces = version.Split(new[] { ' ' }, 2);
+                    var versionNumberPieces = versionPieces [0].Split(new[] { '.' });
+
+                    int runtimeMajorVersion, runtimeMinorVersion;
+                    int.TryParse(versionNumberPieces [0], out runtimeMajorVersion);
+                    int.TryParse(versionNumberPieces[1], out runtimeMinorVersion);
+
+                    if (runtimeMajorVersion < majorVersion) {
+                        return true;
+                    }
+                    if (runtimeMajorVersion == majorVersion && runtimeMinorVersion < minorVersion) {
+                        return true;
+                    }
+                    return false;
+                }
+            }
+
+            return false;
+        }
+
+        internal static string PtrToUtf32String(IntPtr ptr)
+        {
+            // calculate length
+            int length = 0;
+            while (Marshal.ReadInt32(ptr, length) != 0) {
+                ++length;
+            }
+
+            // read the bytes
+            var utf32Bytes = new byte[4 * length];
+            Marshal.Copy(ptr, utf32Bytes, 0, utf32Bytes.Length);
+
+            // decode to string
+            return Utf32NativeEndian.GetString(utf32Bytes);
         }
 
         public static IntPtr ToUnixWideCharacters(string text)
@@ -75,7 +128,11 @@ namespace Stfl
             if (text == IntPtr.Zero) {
                 return null;
             }
-            return UnixMarshal.PtrToString(text, Utf32NativeEndian);
+            if (BrokenUtf32Handling) {
+                return PtrToUtf32String(text);
+            } else {
+                return UnixMarshal.PtrToString(text, Utf32NativeEndian);
+            }
         }
 
         public static string EscapeRichText(string text)
