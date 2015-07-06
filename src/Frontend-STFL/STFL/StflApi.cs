@@ -34,6 +34,7 @@ namespace Stfl
         static bool IsUtf8Locale { get; set; }
         static string EscapeLessThanCharacter  { get; set; }
         static string EscapeGreaterThanCharacter { get; set; }
+        static Encoding Utf32NativeEndian { get; set; }
 
         static StflApi()
         {
@@ -53,6 +54,12 @@ namespace Stfl
 
             EscapeLessThanCharacter = "<>";
             EscapeGreaterThanCharacter = ">";
+
+            Utf32NativeEndian = new UTF32Encoding(
+                bigEndian: !BitConverter.IsLittleEndian,
+                byteOrderMark: false,
+                throwOnInvalidCharacters: true
+            );
         }
 
         public static IntPtr ToUnixWideCharacters(string text)
@@ -60,7 +67,7 @@ namespace Stfl
             if (text == null) {
                 return IntPtr.Zero;
             }
-            return UnixMarshal.StringToHeap(text, Encoding.UTF32);
+            return UnixMarshal.StringToHeap(text, Utf32NativeEndian);
         }
 
         public static string FromUnixWideCharacters(IntPtr text)
@@ -68,7 +75,7 @@ namespace Stfl
             if (text == IntPtr.Zero) {
                 return null;
             }
-            return UnixMarshal.PtrToString(text, Encoding.UTF32);
+            return UnixMarshal.PtrToString(text, Utf32NativeEndian);
         }
 
         public static string EscapeRichText(string text)
