@@ -115,12 +115,9 @@ namespace Stfl
             return Utf32NativeEndian.GetString(utf32Bytes);
         }
 
-        public static IntPtr ToUnixWideCharacters(string text)
+        public static StringOnHeap ToUnixWideCharacters(string text)
         {
-            if (text == null) {
-                return IntPtr.Zero;
-            }
-            return UnixMarshal.StringToHeap(text, Utf32NativeEndian);
+            return new StringOnHeap(text, Utf32NativeEndian);
         }
 
         public static string FromUnixWideCharacters(IntPtr text)
@@ -146,7 +143,9 @@ namespace Stfl
         static extern IntPtr stfl_create(IntPtr text);
         internal static IntPtr stfl_create(string text)
         {
-            return stfl_create(ToUnixWideCharacters(text));
+            using (var heapText = ToUnixWideCharacters(text)) {
+                return stfl_create(heapText.Pointer);
+            }
         }
 
         [DllImport("stfl")]
@@ -170,17 +169,21 @@ namespace Stfl
         static extern IntPtr stfl_get(IntPtr form, IntPtr name);
         internal static string stfl_get(IntPtr form, string text)
         {
-            return FromUnixWideCharacters(
-                stfl_get(form, ToUnixWideCharacters(text))
-            );
+            using (var heapText = ToUnixWideCharacters(text)) {
+                return FromUnixWideCharacters(
+                    stfl_get(form, heapText.Pointer)
+                );
+            }
         }
 
         [DllImport("stfl")]
         static extern void stfl_set(IntPtr form, IntPtr name, IntPtr value);
         internal static void stfl_set(IntPtr form, string name, string value)
         {
-            stfl_set(form, ToUnixWideCharacters(name),
-                     ToUnixWideCharacters(value));
+            using (var heapName = ToUnixWideCharacters(name))
+            using (var heapValue = ToUnixWideCharacters(value)) {
+                stfl_set(form, heapName.Pointer, heapValue.Pointer);
+            }
         }
         
         [DllImport("stfl", EntryPoint = "stfl_get_focus")]
@@ -188,9 +191,6 @@ namespace Stfl
         internal static string stfl_get_focus(IntPtr form)
         {
             IntPtr res = stfl_get_focus_native(form);
-            if (res == IntPtr.Zero) {
-                return null;
-            }
             return FromUnixWideCharacters(res);
         }
         
@@ -198,15 +198,20 @@ namespace Stfl
         static extern void stfl_set_focus(IntPtr form, IntPtr name);
         internal static void stfl_set_focus(IntPtr form, string name)
         {
-            stfl_set_focus(form, ToUnixWideCharacters(name));
+            using (var heapName = ToUnixWideCharacters(name)) {
+                stfl_set_focus(form, heapName.Pointer);
+            }
         }
 
         [DllImport("stfl")]
         static extern IntPtr stfl_quote(IntPtr text);
-        internal static string stfl_quote(string text) {
-            return FromUnixWideCharacters(
-                stfl_quote(ToUnixWideCharacters(text))
-            );
+        internal static string stfl_quote(string text)
+        {
+            using (var heapText = ToUnixWideCharacters(text)) {
+                return FromUnixWideCharacters(
+                    stfl_quote(heapText.Pointer)
+                );
+            }
         }
 
         [DllImport("stfl")]
@@ -215,10 +220,12 @@ namespace Stfl
         internal static string stfl_dump(IntPtr form, string name,
                                          string prefix, int focus)
         {
-            return FromUnixWideCharacters(
-                    stfl_dump(form, ToUnixWideCharacters(name),
-                              ToUnixWideCharacters(prefix), focus)
-            );
+            using (var heapName = ToUnixWideCharacters(name))
+            using (var heapPrefix = ToUnixWideCharacters(prefix)) {
+                return FromUnixWideCharacters(
+                    stfl_dump(form, heapName.Pointer, heapPrefix.Pointer, focus)
+                );
+            }
         }
 
         [DllImport("stfl")]
@@ -227,9 +234,12 @@ namespace Stfl
         internal static void stfl_modify(IntPtr form, string name, string mode,
                                          string text)
         {
-            stfl_modify(form, ToUnixWideCharacters(name),
-                        ToUnixWideCharacters(mode),
-                        ToUnixWideCharacters(text));
+            using (var heapName = ToUnixWideCharacters(name))
+            using (var heapMode = ToUnixWideCharacters(mode))
+            using (var heapText = ToUnixWideCharacters(text)) {
+                stfl_modify(form, heapName.Pointer, heapMode.Pointer,
+                    heapText.Pointer);
+            }
         }
 
         [DllImport("stfl")]
@@ -238,10 +248,12 @@ namespace Stfl
         internal static string stfl_lookup(IntPtr form, string path,
                                            string newname)
         {
-            return FromUnixWideCharacters(
-                stfl_lookup(form, ToUnixWideCharacters(path),
-                            ToUnixWideCharacters(newname))
-            );
+            using (var heapPath = ToUnixWideCharacters(path))
+            using (var heapNewName = ToUnixWideCharacters(newname)) {
+                return FromUnixWideCharacters(
+                    stfl_lookup(form, heapPath.Pointer, heapNewName.Pointer)
+                );
+            }
         }
 
         [DllImport("stfl", EntryPoint = "stfl_error")]
@@ -255,7 +267,9 @@ namespace Stfl
         static extern void stfl_error_action(IntPtr mode);
         internal static void stfl_error_action(string mode)
         {
-            stfl_error_action(ToUnixWideCharacters(mode));
+            using (var heapMode = ToUnixWideCharacters(mode)) {
+                stfl_error_action(heapMode.Pointer);
+            }
         }
 
         /*

@@ -55,6 +55,7 @@ FILES = \
 	STFL/KeyPressedEventArgs.cs \
 	STFL/NcursesApi.cs \
 	STFL/StflApi.cs \
+	STFL/StringOnHeap.cs \
 	STFL/TextView.cs \
 	STFL/Widget.cs \
 	Views/ChatView.cs \
