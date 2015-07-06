@@ -96,7 +96,7 @@ namespace Stfl
             if (res == IntPtr.Zero) {
                 return null;
             }
-            return UnixMarshal.PtrToString(res, Encoding.UTF32);
+            return FromUnixWideCharacters(res);
         }
 
         [DllImport("stfl")]
@@ -127,7 +127,7 @@ namespace Stfl
             if (res == IntPtr.Zero) {
                 return null;
             }
-            return UnixMarshal.PtrToString(res, Encoding.UTF32);
+            return FromUnixWideCharacters(res);
         }
         
         [DllImport("stfl")]
