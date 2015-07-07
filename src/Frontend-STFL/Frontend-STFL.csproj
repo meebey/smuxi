@@ -61,6 +61,7 @@
     <Compile Include="Views\ChatView.cs" />
     <Compile Include="Views\GroupChatView.cs" />
     <Compile Include="Views\PersonChatView.cs" />
+    <Compile Include="STFL\StringOnHeap.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="MainWindow.stfl">
