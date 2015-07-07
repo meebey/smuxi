@@ -103,7 +103,7 @@ namespace Stfl
         {
             // calculate length
             int length = 0;
-            while (Marshal.ReadInt32(ptr, length) != 0) {
+            while (Marshal.ReadInt32(ptr, 4 * length) != 0) {
                 ++length;
             }
 
