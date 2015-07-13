@@ -1,22 +1,24 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # Matías Bellone, 2013
 # Ricardo A. Hermosilla Carrillo <inactive+rahermosillac@transifex.com>, 2012
 msgid ""
 msgstr ""
 "Project-Id-Version: Smuxi - IRC client\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-05-03 12:32+0200\n"
-"PO-Revision-Date: 2015-05-03 10:38+0000\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
+"product=smuxi&keywords=I18N+L10N&component=general\n"
+"POT-Creation-Date: 2015-06-30 07:00+0000\n"
+"PO-Revision-Date: 2015-07-13 \n"
 "Last-Translator: Mirco Bauer <meebey@gmail.com>\n"
-"Language-Team: Spanish (http://www.transifex.com/projects/p/smuxi/language/es/)\n"
+"Language-Team: Spanish (http://www.transifex.com/projects/p/smuxi/language/"
+"es/) <>\n"
+"Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: es\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:125
@@ -25,7 +27,7 @@ msgstr "Línea de tiempo principal"
 
 #: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:136
 msgid "Replies & Mentions"
-msgstr ""
+msgstr "Respuestas y menciones"
 
 #: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:147
 msgid "Direct Messages"
@@ -49,13 +51,17 @@ msgstr "Se requiere autorización de Twitter."
 msgid ""
 "Please open the following URL and click \"Allow\" to allow Smuxi to connect "
 "to your Twitter account: {0}"
-msgstr "Por favor, abra la siguiente dirección y haga click en «Autorizar» para permitir que Smuxi se conecte a su cuenta de Twitter: {0}"
+msgstr ""
+"Por favor, abra la siguiente dirección y haga click en «Autorizar» para "
+"permitir que Smuxi se conecte a su cuenta de Twitter: {0}"
 
 #: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:282
 msgid ""
 "Once you have allowed Smuxi to access your Twitter account, Twitter will "
 "provide a PIN."
-msgstr "Una vez que haya autorizado a Smuxi acceder a su cuenta, Twitter le proveerá un número secreto («PIN»)."
+msgstr ""
+"Una vez que haya autorizado a Smuxi acceder a su cuenta, Twitter le proveerá "
+"un número secreto («PIN»)."
 
 #: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:289
 msgid "Please type: /pin PIN_FROM_TWITTER"
@@ -117,14 +123,17 @@ msgstr "No se pudo autorizar con Twitter: {0}"
 
 #: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:816
 msgid "Twitter did not accept your PIN.  Did you enter it correctly?"
-msgstr "Twitter no ha aceptado tu número secreto. ¿Lo ha ingresado correctamente?"
+msgstr ""
+"Twitter no ha aceptado tu número secreto. ¿Lo ha ingresado correctamente?"
 
 #: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:824
 #, csharp-format
 msgid ""
 "Please retry by closing this tab and reconnecting to the Twitter \"{0}\" "
 "account."
-msgstr "Inténtelo nuevamente cerrando esta pestaña y conectando a la cuenta de Twitter «{0}» nuevamente."
+msgstr ""
+"Inténtelo nuevamente cerrando esta pestaña y conectando a la cuenta de "
+"Twitter «{0}» nuevamente."
 
 #: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:865
 msgid "Migrated Twitter account from basic auth to OAuth."
@@ -142,7 +151,9 @@ msgstr "No se pudo actualizar su estado - Razón: {0}"
 
 #: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:913
 msgid "Cannot send message - no target specified. Use: /msg $nick message"
-msgstr "No se puede enviar el mensaje - no ha seleccionado un destinatario. Utilice: /msg $nick mensaje"
+msgstr ""
+"No se puede enviar el mensaje - no ha seleccionado un destinatario. "
+"Utilice: /msg $nick mensaje"
 
 #: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:930
 #: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:1025
@@ -166,24 +177,26 @@ msgstr "Buscar {0}"
 #: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:1245
 #, csharp-format
 msgid "Successfully deleted tweet {0}."
-msgstr ""
+msgstr "Tweet {0} eliminado con éxito."
 
 #: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:1277
 #, csharp-format
 msgid "Successfully favorited tweet {0}."
-msgstr ""
+msgstr "Tweet {0} marcado como favorito con éxito."
 
 #: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:1309
 #, csharp-format
 msgid "Successfully unfavorited tweet {0}."
-msgstr ""
+msgstr "Tweet {0} desmarcado como favorito con éxito."
 
 #: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:1371
 #, csharp-format
 msgid ""
 "An error occurred while fetching the friends timeline from Twitter. Reason: "
 "{0}"
-msgstr "Ocurrió un error al obtener la línea temporal de amigos desde Twitter. Razón: {0}"
+msgstr ""
+"Ocurrió un error al obtener la línea temporal de amigos desde Twitter. "
+"Razón: {0}"
 
 #: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:1483
 #, csharp-format
@@ -194,7 +207,8 @@ msgstr "Ocurrió un error al obtener respuestas desde Twitter. Razón: {0}"
 #, csharp-format
 msgid ""
 "An error occurred while fetching direct messages from Twitter. Reason: {0}"
-msgstr "Ocurrió un error al obtener mensajes directos desde Twitter. Razón: {0}"
+msgstr ""
+"Ocurrió un error al obtener mensajes directos desde Twitter. Razón: {0}"
 
 #: ../src/Engine-Twitter/Protocols/Twitter/TwitterProtocolManager.cs:1972
 msgid "Twitter didn't send a valid response, they're probably overloaded"
