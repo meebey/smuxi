@@ -215,10 +215,10 @@ namespace Smuxi.Engine
             }
             InitMessageBuffer(persistency);
 
-            var maxCapacityKey = String.Format("MessageBuffer/{0}/MaxCapacity",
-                                               persistency.ToString());
-            if (config[maxCapacityKey] == null &&
-                persistency.ToString().StartsWith("Persistent")) {
+            string maxCapacityKey;
+            if (persistency == MessageBufferPersistencyType.Volatile) {
+                maxCapacityKey = "MessageBuffer/Volatile/MaxCapacity";
+            } else {
                 maxCapacityKey = "MessageBuffer/Persistent/MaxCapacity";
             }
             MessageBuffer.MaxCapacity = (int) config[maxCapacityKey];
