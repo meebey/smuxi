@@ -74,10 +74,10 @@ Provides: smuxi-server
 Suggests: oidentd | ident-server
 Depends: ${shlibs:Depends},
          ${misc:Depends},
-         ${cli:Depends},
-         mono-runtime-boehm
+         ${cli:Depends}
 Recommends: unattended-upgrades,
-            cron-apt
+            cron-apt,
+            mono-runtime-boehm
 Description: Engine libraries for Smuxi
  Smuxi is an irssi-inspired, flexible, user-friendly and cross-platform IRC
  client for sophisticated users, targeting the GNOME desktop.
