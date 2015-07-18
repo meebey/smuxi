@@ -1,0 +1,151 @@
+# Hungarian translation for smuxi.
+# Copyright (C) 2015 Free Software Foundation, Inc.
+# This file is distributed under the same license as the smuxi package.
+#
+# Balázs Úr <urbalazs@gmail.com>, 2015.
+msgid ""
+msgstr ""
+"Project-Id-Version: smuxi master\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
+"product=smuxi&keywords=I18N+L10N&component=general\n"
+"POT-Creation-Date: 2015-07-17 17:47+0000\n"
+"PO-Revision-Date: 2015-07-17 23:58+0200\n"
+"Last-Translator: Balázs Úr <urbalazs@gmail.com>\n"
+"Language-Team: Hungarian <openscope at gmail dot com>\n"
+"Language: hu\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Lokalize 1.2\n"
+
+#: ../src/Frontend/CommandManager.cs:466
+#, csharp-format
+msgid "Unknown Command: {0}"
+msgstr "Ismeretlen parancs: {0}"
+
+#: ../src/Frontend/CommandManager.cs:475
+#, csharp-format
+msgid "Not enough parameters for {0} command"
+msgstr "Nincs elég paraméter a következő parancshoz: {0}"
+
+#: ../src/Frontend/EngineManager.cs:112
+msgid "Engine must not be empty."
+msgstr "A motor nem lehet üres."
+
+#: ../src/Frontend/EngineManager.cs:123
+msgid "Engine does not exist."
+msgstr "A motor nem létezik."
+
+#: ../src/Frontend/EngineManager.cs:313
+#, csharp-format
+msgid "Unknown channel ({0}) - only the following channel types are supported:"
+msgstr ""
+"Ismeretlen csatorna ({0}) - csak a következő csatornatípusok támogatottak:"
+
+#: ../src/Frontend/EngineManager.cs:322
+msgid ""
+"Registration with engine failed!  The username and/or password were wrong - "
+"please verify them."
+msgstr ""
+"A motorral történő regisztráció sikertelen! A felhasználónév és/vagy jelszó "
+"hibás volt - ellenőrizze azokat."
+
+#: ../src/Frontend/SshTunnelManager.cs:147
+msgid "SSH client application was not found: "
+msgstr "SSH-kliens alkalmazás nem volt található: "
+
+#: ../src/Frontend/SshTunnelManager.cs:150
+msgid ""
+"SSH client must be either OpenSSH (ssh) or Plink (plink.exe, not putty.exe)"
+msgstr ""
+"Az SSH-kliens vagy OpenSSH (ssh), vagy Plink (plink.exe, nem putty.exe) lehet"
+
+#: ../src/Frontend/SshTunnelManager.cs:187
+#, csharp-format
+msgid ""
+"The local SSH forwarding port {0} is already in use. Is there an old SSH "
+"tunnel still active?"
+msgstr ""
+"A helyi SSH továbbítási port {0} már használatban van. Van egy régi "
+"SSH-alagút, amely még mindig aktív?"
+
+#: ../src/Frontend/SshTunnelManager.cs:211
+#, csharp-format
+msgid ""
+"SSH tunnel setup failed (exit code: {0})\n"
+"\n"
+"SSH program: {1}\n"
+"SSH parameters: {2}\n"
+"\n"
+"Program Error:\n"
+"{3}\n"
+"Program Output:\n"
+"{4}\n"
+msgstr ""
+"Az SSH-alagút beállítása sikertelen (kilépési kód: {0})\n"
+"\n"
+"SSH program: {1}\n"
+"SSH paraméterek: {2}\n"
+"\n"
+"Programhiba:\n"
+"{3}\n"
+"Program kimenete:\n"
+"{4}\n"
+
+#: ../src/Frontend/SshTunnelManager.cs:332
+#: ../src/Frontend/SshTunnelManager.cs:481
+msgid "SSH keyfile not found."
+msgstr "Az SSH-kulcsfájl nem található."
+
+#: ../src/Frontend/SshTunnelManager.cs:338
+#: ../src/Frontend/SshTunnelManager.cs:487
+msgid "SSH keyfile could not be read."
+msgstr "Az SSH-kulcsfájl nem olvasható."
+
+#: ../src/Frontend/SshTunnelManager.cs:429
+#, csharp-format
+msgid ""
+"OpenSSH version number not found (exit code: {0})\n"
+"\n"
+"SSH program: {1}\n"
+"\n"
+"Program Error:\n"
+"{2}\n"
+"Program Output:\n"
+"{3}\n"
+msgstr ""
+"Az OpenSSH verziószám nem található (kilépési kód: {0})\n"
+"\n"
+"SSH program: {1}\n"
+"\n"
+"Programhiba:\n"
+"{2}\n"
+"Program kimenete:\n"
+"{3}\n"
+
+#: ../src/Frontend/SshTunnelManager.cs:472
+msgid "PuTTY / Plink requires a username to be set."
+msgstr "A PuTTY / Plink egy beállított felhasználónevet igényel."
+
+#: ../src/Frontend/SshTunnelManager.cs:560
+#, csharp-format
+msgid ""
+"Plink version number not found (exit code: {0})\n"
+"\n"
+"SSH program: {1}\n"
+"\n"
+"Program Error:\n"
+"{2}\n"
+"Program Output:\n"
+"{3}\n"
+msgstr ""
+"A Plink verziószám nem található (kilépési kód: {0})\n"
+"\n"
+"SSH program: {1}\n"
+"\n"
+"Programhiba:\n"
+"{2}\n"
+"Program kimenete:\n"
+"{3}\n"
+
