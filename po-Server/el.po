@@ -1,0 +1,145 @@
+# Greek translation for smuxi.
+# Copyright (C) 2015 smuxi's COPYRIGHT HOLDER
+# This file is distributed under the same license as the smuxi package.
+# Dimitris Spingos <dmtrs32@gmail.com>, 2015.
+# Dimitris Spingos (Δημήτρης Σπίγγος) <dmtrs32@gmail.com>, 2015.
+msgid ""
+msgstr ""
+"Project-Id-Version: smuxi master\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=smuxi&"
+"keywords=I18N+L10N&component=general\n"
+"POT-Creation-Date: 2015-07-24 11:46+0000\n"
+"PO-Revision-Date: 2015-07-27 12:18+0300\n"
+"Last-Translator: Dimitris Spingos (Δημήτρης Σπίγγος) <dmtrs32@gmail.com>\n"
+"Language-Team: team@lists.gnome.gr\n"
+"Language: el\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Virtaal 0.7.1\n"
+"X-Project-Style: gnome\n"
+
+#: ../src/Server/Main.cs:65
+msgid "Add user to Server"
+msgstr "Προσθήκη χρήστη στον διακομιστή"
+
+#: ../src/Server/Main.cs:74
+msgid "Modify existing user of Server"
+msgstr "Τροποποίηση υφιστάμενου χρήστη του διακομιστή"
+
+#: ../src/Server/Main.cs:83
+msgid "Delete user from Server"
+msgstr "Διαγραφή χρήστη από τον διακομιστή"
+
+#: ../src/Server/Main.cs:92
+msgid "List all existing users of Server"
+msgstr "Καταγραφή όλων των υφιστάμενων χρηστών του διακομιστή"
+
+#: ../src/Server/Main.cs:101
+msgid "User to create, modify or delete"
+msgstr "Χρήστης για δημιουργία, τροποποίηση ή διαγραφή"
+
+#: ../src/Server/Main.cs:110
+msgid "Password of the user when creating or modifying a user"
+msgstr ""
+"Κωδικός πρόσβασης του χρήστη κατά τη δημιουργία ή τροποποίηση ενός χρήστη"
+
+#: ../src/Server/Main.cs:119
+msgid "Enable debug output"
+msgstr "Ενεργοποίηση εξόδου αποσφαλμάτωσης"
+
+#: ../src/Server/Main.cs:127
+msgid ""
+"Optimize message buffers and exit (valid values: none, defrag, index, all)"
+msgstr ""
+"Βελτιστοποίηση ενδιαμέσων μνημών μηνύματος και έξοδος (έγκυρες τιμές: καμία, "
+"αποσφαλμάτωση, δείκτης, όλες - none, defrag, index, all)"
+
+#: ../src/Server/Main.cs:140
+msgid "Show this help"
+msgstr "Εμφάνιση αυτής της βοήθειας"
+
+#: ../src/Server/Main.cs:142
+msgid "Usage: smuxi-server [options]"
+msgstr "Χρήση: smuxi-server [options]"
+
+#: ../src/Server/Main.cs:144
+msgid "Options:"
+msgstr "Επιλογές:"
+
+#: ../src/Server/Main.cs:152
+msgid "Show version"
+msgstr "Εμφάνιση έκδοσης"
+
+#: ../src/Server/Main.cs:165
+#, csharp-format
+msgid "Unknown option: '{0}'"
+msgstr "Άγνωστη επιλογή: '{0}'"
+
+#: ../src/Server/Main.cs:192
+#, csharp-format
+msgid "Command line error: {0}"
+msgstr "Σφάλμα γραμμής εντολών: {0}"
+
+#: ../src/Server/Main.cs:236
+msgid ""
+"At most one of --add-user, --modify-user, and --delete-user may be used at a "
+"time."
+msgstr ""
+"Το πολύ ένα από τα --add-user, --modify-user και --delete-user μπορεί να "
+"χρησιμοποιηθεί τη φορά."
+
+#: ../src/Server/Main.cs:246
+msgid "You must specify a username with the --username option."
+msgstr "Πρέπει να ορίσετε ένα όνομα χρήστη με την επιλογή --username."
+
+#: ../src/Server/Main.cs:252
+msgid "Username must not be empty."
+msgstr "Το όνομα χρήστη δεν πρέπει να είναι κενό."
+
+#: ../src/Server/Main.cs:262
+msgid "You must specify a password with the --password option."
+msgstr "Πρέπει να ορίσετε έναν κωδικό πρόσβασης με την επιλογή --password."
+
+#: ../src/Server/Main.cs:268
+msgid "Password must not be empty."
+msgstr "Ο κωδικός πρόσβασης δεν πρέπει να είναι κενός."
+
+#: ../src/Server/Main.cs:287
+#, csharp-format
+msgid ""
+"Invalid optimization value passed to --optimize-message-buffer, valid values "
+"are: {0}"
+msgstr ""
+"Άκυρη τιμή βελτιστοποίησης πέρασε στο --optimize-message-buffer, έγκυρες "
+"τιμές είναι: {0}"
+
+#: ../src/Server/Main.cs:307
+#, csharp-format
+msgid "User \"{0}\" successfully added to server."
+msgstr "Ο χρήστης \"{0}\" προστέθηκε επιτυχώς στον διακομιστή."
+
+#: ../src/Server/Main.cs:316
+#, csharp-format
+msgid "User \"{0}\" successfully modified."
+msgstr "Ο χρήστης \"{0}\" τροποποιήθηκε επιτυχώς."
+
+#: ../src/Server/Main.cs:325
+#, csharp-format
+msgid "User \"{0}\" successfully deleted from server."
+msgstr "Ο χρήστης \"{0}\" διαγράφτηκε επιτυχώς από τον διακομιστή."
+
+#: ../src/Server/Main.cs:332
+msgid "Users:"
+msgstr "Χρήστες:"
+
+#: ../src/Server/Main.cs:380
+#, csharp-format
+msgid "Successfully optimized {0} message buffers."
+msgstr "Επιτυχής βελτιστοποίηση {0} ενδιάμεσων μνημών μηνύματος."
+
+#: ../src/Server/Main.cs:393
+#, csharp-format
+msgid "Failed to optimize message buffers: {0}"
+msgstr "Αποτυχία βελτιστοποίησης ενδιαμέσων μνημών μηνύματος: {0}"
