@@ -271,8 +271,16 @@ namespace Smuxi.Frontend.Stfl
                     var tags = new List<string>();
                     if (txtPart.ForegroundColor != TextColor.None) {
                         var palette = TextColorPalettes.LinuxConsole;
+                        var foregroundColor = txtPart.ForegroundColor;
+                        var backgroundColorString = (string)Frontend.FrontendConfig[Frontend.UIName + "/Interface/TerminalBackgroundColor"];
+                        if (!String.IsNullOrEmpty(backgroundColorString)) {
+                            foregroundColor = TextColorTools.GetBestTextColor(
+                                foregroundColor,
+                                TextColor.Parse(backgroundColorString)
+                            );
+                        }
                         var color = TextColorTools.GetNearestColor(
-                            txtPart.ForegroundColor,
+                            foregroundColor,
                             palette
                         );
                         var colorNumber = palette.IndexOf(color);
@@ -306,6 +314,11 @@ namespace Smuxi.Frontend.Stfl
                         line.Append(escapedText);
                     }
                     msgLength += txtPart.Text.Length;
+                } else if (msgPart is ImageMessagePartModel) {
+                    var imgPart = (ImageMessagePartModel)msgPart;
+                    string escapedAltText = StflApi.EscapeRichText(imgPart.AlternativeText);
+                    line.Append(escapedAltText);
+                    msgLength += escapedAltText.Length;
                 }
             }
 

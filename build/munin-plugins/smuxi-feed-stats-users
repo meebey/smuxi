@@ -1,0 +1,25 @@
+#!/bin/sh
+
+if [ "$1" = "autoconf" ]; then
+        echo yes
+        exit 0
+fi
+
+if [ "$1" = "config" ]; then
+
+        echo 'graph_title Smuxi Stats'
+        echo 'graph_vlabel users / day'
+        echo 'graph_args --base 1000 -l 0'
+        echo 'graph_scale no'
+        echo 'unique_ips.label news feed unique IPs'
+        echo 'channel_users.label \#smuxi channel users'
+        exit 0
+fi
+
+UNIQUE_IPS=$(grep IPs /home/meebey/smuxi-feed-stats.out | cut -d ':' -f 2)
+UNIQUE_IPS=$(echo $UNIQUE_IPS)
+CHANNEL_USERS=$(tail -n 1 /home/meebey/smuxi-channel-stats.out | cut -d ':' -f 4)
+CHANNEL_USERS=$(echo $CHANNEL_USERS)
+echo "unique_ips.value $UNIQUE_IPS"
+echo "channel_users.value $CHANNEL_USERS"
+

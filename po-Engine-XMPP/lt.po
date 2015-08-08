@@ -1,0 +1,323 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+# Moo, 2014-2015
+msgid ""
+msgstr ""
+"Project-Id-Version: Smuxi - IRC client\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-05-03 12:33+0200\n"
+"PO-Revision-Date: 2015-05-26 11:37+0000\n"
+"Last-Translator: Moo\n"
+"Language-Team: Lithuanian (http://www.transifex.com/projects/p/smuxi/language/lt/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: lt\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:188
+msgid "The Server has shut down"
+msgstr "Serveris sustabdytas"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:191
+msgid ""
+"Another client logged in with the same resource, you have been disconnected"
+msgstr "Prisijungė kitas klientas su tuo pačiu ištekliu, jūs buvote atjungti"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:209
+msgid ""
+"Authentication failed, either username does not exist or invalid password"
+msgstr "Tapatybės nustatymas nepavyko, tokio vartotojo vardo nėra arba neteisingas slaptažodis"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:213
+msgid ""
+"if you want to create an account with the specified user and password, type "
+"/register now"
+msgstr "jeigu norite susikurti paskyrą su nurodytu vartotojo vardu ir slaptažodžiu, dabar įveskite /register"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:259
+msgid ""
+"This engine has native Facebook support, you should be using it instead of "
+"connecting to facebook with xmpp"
+msgstr "Šis varikliukas turi savą Facebook palaikymą, jūs turėtumėte naudoti jį, vietoj jungimosi prie facebook per xmpp"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:328
+msgid "not connected"
+msgstr "neprisijungta"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:819
+#, csharp-format
+msgid "Could not find contact {0}"
+msgstr "Nepavyko rasti kontakto {0}"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:825
+#, csharp-format
+msgid "Contact {0} has {1} known resources"
+msgstr "Kontaktas {0} turi {1} žinomų išteklių"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:829
+#, csharp-format
+msgid "{0} is not a known resource"
+msgstr "{0} nėra žinomas išteklius"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:837
+#, csharp-format
+msgid "Contact's Jid: {0}"
+msgstr "Kontakto Jid: {0}"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:841
+msgid "You have a mutual subscription with this contact"
+msgstr "Jūs esate priregistruoti su šiuo kontaktu vienas prie kito"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:844
+msgid ""
+"You have no subscription with this contact and this contact is not "
+"subscribed to you"
+msgstr "Jūs nesate priregistruoti prie šio kontakto ir šis kontaktas nėra priregistruotas prie jūsų"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:847
+msgid ""
+"You are subscribed to this contact, but the contact is not subcribed to you"
+msgstr "Jūs esate priregistruoti prie šio kontakto, tačiau šis kontaktas nėra priregistruotas prie jūsų"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:850
+msgid ""
+"You are not subscribed to this contact, but the contact is subcribed to you"
+msgstr "Jūs nesate priregistruoti prie šio kontakto, tačiau kontaktas yra priregistruotas prie jūsų"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:946
+#, csharp-format
+msgid "Invalid Contact command: {0}"
+msgstr "Neteisinga Kontakto komanda: {0}"
+
+#. TRANSLATOR: this line is used as a label / category for a
+#. list of commands below
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:957
+#, csharp-format
+msgid "{0} Commands"
+msgstr "{0} Komandos"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:982
+#, csharp-format
+msgid "Advanced {0} Commands"
+msgstr "Išplėstinės {0} Komandos"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1017
+#, csharp-format
+msgid "Invalid port: {0}"
+msgstr "Neteisingas prievadas: {0}"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1052
+#, csharp-format
+msgid "Priority for Available is: {0}"
+msgstr "Prieinamumo Pirmenybė yra: {0}"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1055
+#, csharp-format
+msgid "Priority for Away is: {0}"
+msgstr "Atsitraukimo Pirmenybė yra: {0}"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1063
+#, csharp-format
+msgid ""
+"Invalid Priority: {0} (valid priorities are between -128 and 127 inclusive)"
+msgstr "Neteisinga Pirmenybė: {0} (teisingos pirmenybės yra tarp -128 ir 127 imtinai)"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1633
+#, csharp-format
+msgid "{0}{1} is available"
+msgstr "{0}{1} yra prieinamas"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1637
+#, csharp-format
+msgid "{0}{1} is away"
+msgstr "{0}{1} yra atsitraukęs"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1641
+#, csharp-format
+msgid "{0}{1} is extended away"
+msgstr "{0}{1} yra išplėstinai atsitraukęs"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1645
+#, csharp-format
+msgid "{0}{1} wishes not to be disturbed"
+msgstr "{0}{1} nenori būti trukdomas"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1649
+#, csharp-format
+msgid "{0}{1} wants to chat"
+msgstr "{0}{1} nori kalbėtis"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1656
+#, csharp-format
+msgid "{0}{1} is offline"
+msgstr "{0}{1} yra atsijungęs"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1662
+#, csharp-format
+msgid ""
+"Automatically allowed {0} to subscribe to you, since you are already asking "
+"to subscribe"
+msgstr "Automatiškai leista {0} prie jūsų prisiregistruoti, kadangi jūs jau prašote priregistravimo"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1666
+#, csharp-format
+msgid "{0}{1} wishes to subscribe to you"
+msgstr "{0}{1} nori užsisakyti jūsų prenumeratą"
+
+#. you can now see their presences
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1674
+#, csharp-format
+msgid "{0}{1} allowed you to subscribe"
+msgstr "{0}{1} leido jums prisiregistruoti"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1681
+#, csharp-format
+msgid ""
+"Automatically removed {0}'s subscription to your presences after losing the "
+"subscription to theirs"
+msgstr "Automatiškai pašalintas {0} priregistravimas prie jūsų būsenų, po to, kai jūs praradote priregistravimą prie šio vartotojo būsenų"
+
+#. you cannot (anymore?) see their presences
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1688
+#, csharp-format
+msgid "{0}{1} denied/removed your subscription"
+msgstr "{0}{1} atmetė/pašalino jūsų priregistravimą"
+
+#. you might still be able to see their presences
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1693
+#, csharp-format
+msgid "{0}{1} unsubscribed from you"
+msgstr "{0}{1} išsiregistravo iš jūsų"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1697
+#, csharp-format
+msgid "received a malformed error message: {0}"
+msgstr "gautas netaisyklingas klaidos pranešimas: {0}"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1704
+#, csharp-format
+msgid "{0}{1}'s server could not be found"
+msgstr "Nepavyko rasti {0}{1} serverio"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1707
+#, csharp-format
+msgid "{0}{1} is already using your requested resource"
+msgstr "{0}{1} jau naudoja jūsų užklaustą išteklių"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1714
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1736
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1750
+#, csharp-format
+msgid "There is currently no useful error message for {0}, {1}, {2}{3}"
+msgstr "Šiuo metu nėra naudingų {0}, {1}, {2}{3} klaidos pranešimų"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1727
+#, csharp-format
+msgid "You do not have permission to access {0}{1}"
+msgstr "Jūs neturite leidimo prieiti prie {0}{1}"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1777
+#, csharp-format
+msgid "{0} days"
+msgstr "{0} dienų"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1783
+#, csharp-format
+msgid "{0} hours"
+msgstr "{0} valandų"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1787
+#, csharp-format
+msgid "{0} minutes"
+msgstr "{0} minučių"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1790
+#, csharp-format
+msgid "{0} seconds"
+msgstr "{0} sekundžių"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1802
+#, csharp-format
+msgid " since {0} ({1})"
+msgstr " nuo {0} ({1})"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1887
+#, csharp-format
+msgid "An unknown groupchat error occurred: {0}"
+msgstr "Grupės pokalbyje įvyko nežinoma klaida: {0}"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1894
+#, csharp-format
+msgid "Server of groupchat \"{0}\" not found."
+msgstr "Grupės pokalbio \"{0}\" serveris nerastas."
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1897
+#, csharp-format
+msgid "Muc service is not available for \"{0}\""
+msgstr "Muc paslauga \"{0}\" yra neprieinama"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1904
+#, csharp-format
+msgid "You do not have permission to join \"{0}\""
+msgstr "Jūs neturite leidimo prisijungti prie \"{0}\""
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1910
+#, csharp-format
+msgid "An unhandled groupchat error occurred: {0}"
+msgstr "Grupės pokalbyje įvyko neapdorota klaida: {0}"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:2096
+#, csharp-format
+msgid ""
+"Received a presence update from {0}, but there's no corresponding chat "
+"window"
+msgstr "Gautas būsenos atnaujinimas iš {0}, tačiau nėra atitinkamo pokalbių lango"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:2120
+#, csharp-format
+msgid ""
+"Received a groupchat message from {0} but there's no corresponding chat "
+"window: {1}"
+msgstr "Gautas grupės pokalbio pranešimas iš {0}, tačiau nėra atitinkamo pokalbių lango: {1}"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:2397
+#, csharp-format
+msgid "You have been invited to {2} by {0} because {1}"
+msgstr " {0} pakvietė jus į {2}, nes {1}"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:2403
+#, csharp-format
+msgid "You have been invited to {1} by {0}"
+msgstr "{0} pakvietė jus į {1}"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:2424
+msgid "Accept invite (join room)"
+msgstr "Priimti pakvietimą (užeiti į kambarį)"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:2562
+#, csharp-format
+msgid "Reconnecting to {0}"
+msgstr "Iš naujo jungiamasi prie {0}"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:2576
+#, csharp-format
+msgid "Reconnecting to {0} in {1} seconds"
+msgstr "Iš naujo jungiamasi prie {0} po {1} sekundžių"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:2606
+#, csharp-format
+msgid "Error: {0}"
+msgstr "Klaida: {0}"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:2618
+msgid "Authenticated"
+msgstr "Tapatybė patvirtinta"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:2669
+#, csharp-format
+msgid "Using proxy: {0}:{1}"
+msgstr "Naudojamas įgaliotasis serveris: {0}:{1}"

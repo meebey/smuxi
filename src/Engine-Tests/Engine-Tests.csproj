@@ -41,6 +41,10 @@
     <Compile Include="ListMessageBufferTests.cs" />
     <Compile Include="MessageParserTests.cs" />
     <Compile Include="MessageBuilderTests.cs" />
+    <Compile Include="GitMessageBufferTests.cs" />
+    <Compile Include="JsonMessageBufferTests.cs" />
+    <Compile Include="MessageDtoModelV1Tests.cs" />
+    <Compile Include="SqliteMessageBufferTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -54,6 +58,9 @@
       <Private>False</Private>
       <Package>nunit</Package>
     </Reference>
+    <Reference Include="log4net">
+      <HintPath>..\..\lib\log4net.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Engine\Engine.csproj">
@@ -63,6 +70,14 @@
     <ProjectReference Include="..\Common\Common.csproj">
       <Project>{73DEF91D-03FF-41E3-B2E1-3259AF247CA7}</Project>
       <Name>Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\lib\ServiceStack.Text\src\ServiceStack.Text\ServiceStack.Text.csproj">
+      <Project>{579B3FDB-CDAD-44E1-8417-885C38E49A0E}</Project>
+      <Name>ServiceStack.Text</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\lib\Newtonsoft.Json\Src\Newtonsoft.Json\Newtonsoft.Json.csproj">
+      <Project>{A9AE40FF-1A21-414A-9FE7-3BE13644CC6D}</Project>
+      <Name>Newtonsoft.Json</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

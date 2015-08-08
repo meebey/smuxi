@@ -1,13 +1,7 @@
 /*
- * $Id$
- * $URL$
- * $Rev$
- * $Author$
- * $Date$
- *
  * Smuxi - Smart MUltipleXed Irc
  *
- * Copyright (c) 2005-2006 Mirco Bauer <meebey@meebey.net>
+ * Copyright (c) 2005-2015 Mirco Bauer <meebey@meebey.net>
  *
  * Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
  *
@@ -153,7 +147,7 @@ namespace Smuxi.Frontend.Gnome
             };
 
             ((Gtk.TextView)_Glade["HighlightWordsTextView"]).Buffer.Changed += _OnChanged;
-            if (Frontend.EngineVersion < new Version("0.7.2")) {
+            if (Frontend.EngineProtocolVersion < new Version("0.7.2")) {
                 // feature introduced in >= 0.7.2
                 ((Gtk.TextView)_Glade["HighlightWordsTextView"]).Sensitive = false;
             }
@@ -189,6 +183,16 @@ namespace Smuxi.Frontend.Gnome
             
             Gtk.ComboBox persistencyTypeComboBox =
                 (Gtk.ComboBox) _Glade["PersistencyTypeComboBox"];
+            persistencyTypeComboBox.TooltipText = _(
+                "This setting specifies if Smuxi should store chat messages " +
+                "in memory (volatile) or to disk (persistent).\n" +
+                "For persistent you can choose between Db4o, an object " +
+                "database or SQLite, a relational database.\n" +
+                "The Db4o backend has known issues like high memory and CPU " +
+                "usage and can even lead to crashes and thus it is deprecated.\n" +
+                "The SQLite backend has no known performance or stability " +
+                "issues and is the recommended setting."
+            );
             // glade might initialize it already!
             persistencyTypeComboBox.Clear();
             persistencyTypeComboBox.Changed += _OnChanged;
@@ -199,13 +203,23 @@ namespace Smuxi.Frontend.Gnome
                 typeof(MessageBufferPersistencyType), typeof(string)
             );
             // fill ListStore
+            if (Frontend.EngineProtocolVersion >= new Version(0, 12)) {
+                store.AppendValues(MessageBufferPersistencyType.PersistentSqlite,
+                                   _("Persistent: SQLite (Recommended)"));
+            }
+            if (Frontend.EngineProtocolVersion >= new Version(0, 8, 9)) {
+                store.AppendValues(MessageBufferPersistencyType.PersistentDb4o,
+                                   _("Persistent: Db4o (Deprecated)"));
+            }
+            if (Frontend.EngineProtocolVersion < new Version(0, 12)) {
+                store.AppendValues(MessageBufferPersistencyType.Persistent,
+                                   _("Persistent (Preview)"));
+            }
             store.AppendValues(MessageBufferPersistencyType.Volatile,
                                _("Volatile"));
-            store.AppendValues(MessageBufferPersistencyType.Persistent,
-                               _("Persistent"));
             persistencyTypeComboBox.Model = store;
             persistencyTypeComboBox.Active = 0;
-            if (Frontend.EngineVersion < new Version("0.8.1")) {
+            if (Frontend.EngineProtocolVersion < new Version("0.8.1")) {
                 persistencyTypeComboBox.Sensitive = false;
                 ((Gtk.SpinButton) _Glade["VolatileMaxCapacitySpinButton"]).Sensitive = false;
                 ((Gtk.SpinButton) _Glade["PersistentMaxCapacitySpinButton"]).Sensitive = false;
@@ -251,7 +265,7 @@ namespace Smuxi.Frontend.Gnome
                                                 Gtk.IconSize.SmallToolbar, null),
                             _("Servers"));
 
-            if (Frontend.EngineVersion >= new Version("0.7.2")) {
+            if (Frontend.EngineProtocolVersion >= new Version("0.7.2")) {
                 // features introduced in >= 0.7.2
                 ls.AppendValues(Page.Filters, _Dialog.RenderIcon(
                                                     Gtk.Stock.Delete,
@@ -306,7 +320,7 @@ namespace Smuxi.Frontend.Gnome
             ((Gtk.TextView)_Glade["OnConnectCommandsTextView"]).Buffer.Text = connect_commands;
 
             var autoConvertUTF8CheckButton = (Gtk.CheckButton) _Glade["AutoConvertUTF8CheckButton"];
-            if (Frontend.EngineVersion >= new Version("0.8.12")) {
+            if (Frontend.EngineProtocolVersion >= new Version("0.8.12")) {
                 autoConvertUTF8CheckButton.Active =
                     (bool) Frontend.UserConfig["Connection/AutoConvertUTF8"];
             } else {
@@ -409,7 +423,7 @@ namespace Smuxi.Frontend.Gnome
             CheckProxyShowPasswordCheckButton();
 
             // MessageBuffer
-            if (Frontend.EngineVersion >= new Version("0.8.1")) {
+            if (Frontend.EngineProtocolVersion >= new Version("0.8.1")) {
                 // feature introduced in >= 0.8.1
                 Gtk.ComboBox persistencyTypeComboBox =
                     ((Gtk.ComboBox)_Glade["PersistencyTypeComboBox"]);
@@ -698,7 +712,7 @@ namespace Smuxi.Frontend.Gnome
             Frontend.UserConfig["Connection/OnConnectCommands"] = 
                 ((Gtk.TextView)_Glade["OnConnectCommandsTextView"]).Buffer.Text.Split(new char[] {'\n'});
 
-            if (Frontend.EngineVersion >= new Version("0.8.12")) {
+            if (Frontend.EngineProtocolVersion >= new Version("0.8.12")) {
                 Frontend.UserConfig["Connection/AutoConvertUTF8"] =
                     ((Gtk.CheckButton)_Glade["AutoConvertUTF8CheckButton"]).Active;
             }
@@ -725,7 +739,7 @@ namespace Smuxi.Frontend.Gnome
 
             int i;
             // MessageBuffer
-            if (Frontend.EngineVersion >= new Version("0.8.1")) {
+            if (Frontend.EngineProtocolVersion >= new Version("0.8.1")) {
                 var persistencyTypeComboBox = (Gtk.ComboBox) _Glade["PersistencyTypeComboBox"];
                 // for forward compatibility with newer engines
                 if (persistencyTypeComboBox.Active != -1) {

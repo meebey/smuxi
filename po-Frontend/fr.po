@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Smuxi - IRC client\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-12-11 17:03+0100\n"
+"POT-Creation-Date: 2015-05-03 12:34+0200\n"
 "PO-Revision-Date: 2013-04-29 08:41+0000\n"
 "Last-Translator: Mirco Bauer <meebey@gmail.com>\n"
 "Language-Team: French (http://www.transifex.com/projects/p/smuxi/language/fr/)\n"
@@ -18,53 +18,53 @@ msgstr ""
 "Language: fr\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: ../src/Frontend/CommandManager.cs:343
+#: ../src/Frontend/CommandManager.cs:466
 #, csharp-format
 msgid "Unknown Command: {0}"
 msgstr "Commande inconnue : {0}"
 
-#: ../src/Frontend/CommandManager.cs:352
+#: ../src/Frontend/CommandManager.cs:475
 #, csharp-format
 msgid "Not enough parameters for {0} command"
 msgstr "Pas assez de paramètres pour la commande {0}"
 
-#: ../src/Frontend/EngineManager.cs:122
+#: ../src/Frontend/EngineManager.cs:112
 msgid "Engine must not be empty."
 msgstr "Le moteur ne doit pas être vide."
 
-#: ../src/Frontend/EngineManager.cs:133
+#: ../src/Frontend/EngineManager.cs:123
 msgid "Engine does not exist."
 msgstr "Le moteur n'existe pas."
 
-#: ../src/Frontend/EngineManager.cs:317
+#: ../src/Frontend/EngineManager.cs:313
 #, csharp-format
 msgid ""
 "Unknown channel ({0}) - only the following channel types are supported:"
 msgstr "Canal inconnu ({0}), seuls les types de canaux suivants sont supportés :"
 
-#: ../src/Frontend/EngineManager.cs:326
+#: ../src/Frontend/EngineManager.cs:322
 msgid ""
 "Registration with engine failed!  The username and/or password were wrong - "
 "please verify them."
 msgstr "Impossible de s'enregistrer auprès du moteur, le nom d'utilisateur et/ou le mot de passe était(ent) mauvais, veuillez le(s) vérifier."
 
-#: ../src/Frontend/SshTunnelManager.cs:144
+#: ../src/Frontend/SshTunnelManager.cs:147
 msgid "SSH client application was not found: "
 msgstr "L'application SSH client n'a pas été trouvée :"
 
-#: ../src/Frontend/SshTunnelManager.cs:147
+#: ../src/Frontend/SshTunnelManager.cs:150
 msgid ""
 "SSH client must be either OpenSSH (ssh) or Plink (plink.exe, not putty.exe)"
 msgstr "Le client SSH doit être soit OpenSSH (ssh) ou Plink (plink.exe, et non putty.exe)"
 
-#: ../src/Frontend/SshTunnelManager.cs:184
+#: ../src/Frontend/SshTunnelManager.cs:187
 #, csharp-format
 msgid ""
 "The local SSH forwarding port {0} is already in use. Is there an old SSH "
 "tunnel still active?"
 msgstr "La redirection locale de port {0} est toujours en cours d'utilisation. L'ancien tunnel SSH est-il toujours actif ?"
 
-#: ../src/Frontend/SshTunnelManager.cs:208
+#: ../src/Frontend/SshTunnelManager.cs:211
 #, csharp-format
 msgid ""
 "SSH tunnel setup failed (exit code: {0})\n"
@@ -78,17 +78,17 @@ msgid ""
 "{4}\n"
 msgstr "Mise en route du tunnel SSH  échouée (code de sortie : {0})\n\nProgramme SSH : {1}\nParamètres SSH : {2}\n\nErreur du programme :\n{3}\nSortie du programme :\n{4}\n"
 
-#: ../src/Frontend/SshTunnelManager.cs:329
-#: ../src/Frontend/SshTunnelManager.cs:478
+#: ../src/Frontend/SshTunnelManager.cs:332
+#: ../src/Frontend/SshTunnelManager.cs:481
 msgid "SSH keyfile not found."
 msgstr "Fichier de clé SSH introuvable"
 
-#: ../src/Frontend/SshTunnelManager.cs:335
-#: ../src/Frontend/SshTunnelManager.cs:484
+#: ../src/Frontend/SshTunnelManager.cs:338
+#: ../src/Frontend/SshTunnelManager.cs:487
 msgid "SSH keyfile could not be read."
 msgstr "Impossible de lire le fichier de clé SSH."
 
-#: ../src/Frontend/SshTunnelManager.cs:426
+#: ../src/Frontend/SshTunnelManager.cs:429
 #, csharp-format
 msgid ""
 "OpenSSH version number not found (exit code: {0})\n"
@@ -101,11 +101,11 @@ msgid ""
 "{3}\n"
 msgstr "Impossible de trouver la version d'OpenSSH (code de sortie: {0})\n\nProgramme SSH: {1}\n\nErreur du programme:\n{2}\nSortie du programme:\n{3}\n"
 
-#: ../src/Frontend/SshTunnelManager.cs:469
+#: ../src/Frontend/SshTunnelManager.cs:472
 msgid "PuTTY / Plink requires a username to be set."
 msgstr "PuTTY ou Plink nécessitent un nom d'utilisateur pour fonctionner."
 
-#: ../src/Frontend/SshTunnelManager.cs:557
+#: ../src/Frontend/SshTunnelManager.cs:560
 #, csharp-format
 msgid ""
 "Plink version number not found (exit code: {0})\n"

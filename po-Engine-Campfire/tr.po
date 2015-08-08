@@ -3,13 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
+# Ş. Uzun <hashirrrt@gmail.com>, 2014-2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Smuxi - IRC client\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-12-11 16:59+0100\n"
-"PO-Revision-Date: 2013-12-05 18:50+0000\n"
-"Last-Translator: Mirco Bauer <meebey@gmail.com>\n"
+"POT-Creation-Date: 2015-05-03 12:31+0200\n"
+"PO-Revision-Date: 2015-01-17 13:32+0000\n"
+"Last-Translator: Ş. Uzun <hashirrrt@gmail.com>\n"
 "Language-Team: Turkish (http://www.transifex.com/projects/p/smuxi/language/tr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -19,70 +20,70 @@ msgstr ""
 
 #: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:123
 msgid "Connecting to campfire... "
-msgstr ""
+msgstr "Campfire ile bağlantı kuruluyor..."
 
 #: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:166
 msgid "Connected to campfire"
-msgstr ""
+msgstr "Campfire ile bağlantı kuruldu"
 
 #. TRANSLATOR: this line is used as a label / category for a
 #. list of commands below
 #: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:200
 msgid "Campfire Commands"
-msgstr ""
+msgstr "Campfire Komutları"
 
 #: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:262
 msgid "Upload"
-msgstr ""
+msgstr "Karşıya Yükleme"
 
 #: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:263
 #, csharp-format
 msgid "'{0}' ({1} B) {2}"
-msgstr ""
+msgstr "'{0}' ({1} B) {2}"
 
 #: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:367
 #, csharp-format
 msgid "Failed to post message: {0}"
-msgstr ""
+msgstr "İleti gönderimi başarısız oldu: {0}"
 
 #: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:383
 #, csharp-format
 msgid "has uploaded '{0}' ({1} B) {2}"
-msgstr ""
+msgstr "karşıya yükleme yaptı '{0}' ({1} B) {2}"
 
 #. TRANSLATOR: {0} is the name of the room
 #: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:415
 #, csharp-format
 msgid "has joined {0}"
-msgstr ""
+msgstr "{0} odasına katıldı"
 
 #. TRANSLATOR: {0} is the name of the room
 #: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:424
 #, csharp-format
 msgid "has left {0}"
-msgstr ""
+msgstr "{0} odasından ayrıldı"
 
 #. TRANSLATOR: {0} is the name of the room
 #: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:432
 #, csharp-format
 msgid "has locked {0}"
-msgstr ""
+msgstr "{0} odasını kilitledi"
 
 #. TRANSLATOR: {0} is the name of the room
 #: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:436
 #, csharp-format
 msgid "has unlocked {0}"
-msgstr ""
+msgstr "{0} odasının kilidini açtı"
 
 #: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:441
 msgid "has changed the topic"
-msgstr ""
+msgstr "konuyu değiştirdi"
 
 #: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:451
 msgid "has performed an unknown action"
-msgstr ""
+msgstr "bilinmeyen bir eylem gerçekleştirdi"
 
 #: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:492
 #, csharp-format
 msgid "Error reading from stream: {0}"
-msgstr ""
+msgstr "Akıştan okumada hata: {0}"

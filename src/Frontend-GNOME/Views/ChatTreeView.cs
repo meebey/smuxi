@@ -300,9 +300,12 @@ namespace Smuxi.Frontend.Gnome
 
             Gdk.Color color;
             string text = null;
-            if (chat.HighlightCount > 1) {
+            if (chat.HighlightCount >= 1) {
                 color = ThemeSettings.HighlightColor;
                 text = chat.HighlightCount.ToString();
+            } else if (chat.ActivityCount >= 1) {
+                color = ThemeSettings.ActivityColor;
+                text = chat.ActivityCount.ToString();
             } else {
                 // no highlight counter
                 renderer.Markup = String.Empty;

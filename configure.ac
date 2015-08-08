@@ -1,5 +1,5 @@
 AC_PREREQ([2.54])
-AC_INIT([smuxi], [0.11], [https://smuxi.im/issues/new])
+AC_INIT([smuxi], [1.0], [https://smuxi.im/issues/new])
 # using the --foreign option makes automake less strict about GNU policy 
 AC_CONFIG_MACRO_DIR([.])
 AM_INIT_AUTOMAKE([foreign tar-ustar])
@@ -22,6 +22,7 @@ IT_PROG_INTLTOOL([0.25])
 POSUB="
 	po
 	po-Engine
+	po-Engine-MessageBuffer
 	po-Engine-Campfire
 	po-Engine-IRC
 	po-Engine-JabbR
@@ -62,6 +63,10 @@ AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE_ENGINE_CAMPFIRE, "$GETTEXT_PACKAGE_ENGINE_CAM
 GETTEXT_PACKAGE_ENGINE_JABBR=smuxi-engine-jabbr
 AC_SUBST(GETTEXT_PACKAGE_ENGINE_JABBR)
 AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE_ENGINE_JABBR, "$GETTEXT_PACKAGE_ENGINE_JABBR", [Gettext package])
+
+GETTEXT_PACKAGE_MSG_BUFFER=smuxi-message-buffer
+AC_SUBST(GETTEXT_PACKAGE_MSG_BUFFER)
+AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE_MSG_BUFFER, "$GETTEXT_PACKAGE_MSG_BUFFER", [Gettext package])
 
 GETTEXT_PACKAGE_SERVER=smuxi-server
 AC_SUBST(GETTEXT_PACKAGE_SERVER)
@@ -137,15 +142,18 @@ AC_SUBST([DEV_VERSION_SUFFIX])
 AC_SUBST([dist_version], "$DIST_VERSION")
 
 SHAMROCK_EXPAND_LIBDIR
-SHAMROCK_CHECK_MONO_MODULE(1.9.1)
+SHAMROCK_CHECK_MONO_MODULE(2.8)
 SHAMROCK_FIND_MONO_RUNTIME
 SHAMROCK_FIND_MONO_2_0_COMPILER_OR_HIGHER
 SHAMROCK_CHECK_MONO_2_0_GAC_ASSEMBLIES([
 	System
 	System.Core
-	System.Xml
+	System.Data
 	System.Runtime.Remoting
+	System.Runtime.Serialization
+	System.Xml
 	Mono.Posix
+	Mono.Data.Sqlite
 ])
 
 PROFILE=debug
@@ -171,7 +179,7 @@ AC_SUBST(CSC, "$MCS")
 CSC_FLAGS=
 if test "x$PROFILE" = "xdebug"; then
 	AM_CONDITIONAL(ENABLE_DEBUG, true)
-	CSC_FLAGS+=-define:DEBUG,TRACE,LOG4NET
+	CSC_FLAGS+="-define:DEBUG,TRACE,LOG4NET -debug"
 else
 	AM_CONDITIONAL(ENABLE_RELEASE, true)
 fi
@@ -186,10 +194,10 @@ if test "$MCS_BASENAME" = "dmcs"; then
 	CLI_RUNTIME=4.0
 fi
 if test "$CLI_RUNTIME" = "2.0"; then
-	XBUILD_FLAGS="/toolsversion:3.5 /p:TargetFrameworkVersion=v3.5"
+	XBUILD_FLAGS="/toolsversion:3.5 /p:TargetFrameworkVersion=v3.5 /property:DefineConstants=MONO_3_5"
 fi
 if test "$CLI_RUNTIME" = "4.0"; then
-	XBUILD_FLAGS="/toolsversion:4.0 /p:TargetFrameworkVersion=v4.0"
+	XBUILD_FLAGS="/toolsversion:4.0 /p:TargetFrameworkVersion=v4.0 /property:DefineConstants=MONO_4_0"
 fi
 AC_SUBST(XBUILD_FLAGS)
 
@@ -548,6 +556,12 @@ if test "x$ENABLE_ENGINE_JABBR" != "xno"; then
 fi
 AM_CONDITIONAL(ENABLE_ENGINE_JABBR, test "x$ENABLE_ENGINE_JABBR" = "xyes")
 
+# MessageBuffer tool
+if $PKG_CONFIG 'mono >= 2.6'; then
+	MSG_BUFFER_COMPILER_FLAGS+=" -platform:x86"
+fi
+AC_SUBST(MSG_BUFFER_COMPILER_FLAGS)
+
 # Server
 if $PKG_CONFIG 'mono >= 2.6'; then
 	SERVER_COMPILER_FLAGS+=" -platform:x86"
@@ -608,9 +622,9 @@ AM_CONDITIONAL(ENABLE_FRONTEND_GNOME_TWITTER, test "x$ENABLE_FRONTEND_GNOME_TWIT
 AM_CONDITIONAL(ENABLE_FRONTEND_GNOME_XMPP, test "x$ENABLE_FRONTEND_GNOME_XMPP" = "xyes")
 
 AC_ARG_ENABLE([frontend-stfl],
-	AC_HELP_STRING([--enable-frontend-stfl], [Enable STFL frontend (default no)]),
+	AC_HELP_STRING([--enable-frontend-stfl], [Enable STFL frontend (default yes)]),
 	ENABLE_FRONTEND_STFL=$enableval,
-	ENABLE_FRONTEND_STFL=no
+	ENABLE_FRONTEND_STFL=yes
 )
 if test "x$ENABLE_FRONTEND_STFL" != "xno"; then
 	PKG_CHECK_MODULES([STFL], [stfl >= 0.21])
@@ -677,6 +691,8 @@ AC_CONFIG_FILES([
 	src/Engine-XMPP/Makefile
 	src/Engine-XMPP/smuxi-engine-xmpp.pc
 	src/Engine-Campfire/Makefile
+	src/Engine-MessageBuffer/Makefile
+	src/Engine-MessageBuffer/smuxi-message-buffer
 	src/Server/Makefile
 	src/Server/smuxi-server
 	src/Frontend/Makefile
@@ -704,6 +720,7 @@ AC_CONFIG_FILES([
 	po-Engine-JabbR/Makefile.in
 	po-Engine-Twitter/Makefile.in
 	po-Engine-XMPP/Makefile.in
+	po-Engine-MessageBuffer/Makefile.in
 	po-Server/Makefile.in
 	po-Frontend/Makefile.in
 	po-Frontend-GNOME/Makefile.in
@@ -728,7 +745,7 @@ AC_MSG_RESULT([
 
 	* Engines
 	  -------
-	  Core:                (db4o: $WITH_DB4O)
+	  Core:                (sqlite: built-in, db4o: $WITH_DB4O)
 	  IRC:                 $ENABLE_ENGINE_IRC
 	  XMPP:                $ENABLE_ENGINE_XMPP
 	  Twitter:             $ENABLE_ENGINE_TWITTER

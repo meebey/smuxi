@@ -63,6 +63,7 @@ SUBDIRS =	Common \
 		$(ENGINE_CAMPFIRE) \
 		$(ENGINE_JABBR) \
 		$(ENGINE_XMPP) \
+		Engine-MessageBuffer \
 		Server \
 		Frontend \
 		$(FRONTEND_GNOME) \

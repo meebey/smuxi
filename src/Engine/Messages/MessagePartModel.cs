@@ -33,10 +33,17 @@ using Smuxi.Common;
 namespace Smuxi.Engine
 {
     [Serializable]
+    [DataContract]
     public abstract class MessagePartModel : ISerializable
     {
         private bool                     f_IsHighlight;
         
+        [DataMember]
+        public abstract string Type {
+             get;
+        }
+
+        [DataMember]
         public bool IsHighlight {
             get {
                 return f_IsHighlight;
@@ -45,7 +52,7 @@ namespace Smuxi.Engine
                 f_IsHighlight = value;
             }
         }
-        
+
         protected MessagePartModel()
         {
         }

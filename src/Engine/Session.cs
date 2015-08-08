@@ -63,6 +63,7 @@ namespace Smuxi.Engine
         public event EventHandler<GroupChatPersonAddedEventArgs> GroupChatPersonAdded;
         public event EventHandler<GroupChatPersonRemovedEventArgs> GroupChatPersonRemoved;
         public event EventHandler<GroupChatPersonUpdatedEventArgs> GroupChatPersonUpdated;
+        public event EventHandler<EventMessageEventArgs> EventMessage;
 
         public IList<IProtocolManager> ProtocolManagers {
             get {
@@ -452,6 +453,30 @@ namespace Smuxi.Engine
                     case "echo":
                         CommandEcho(cd);
                         handled = true;
+                        break;
+                    default:
+                        var filteredCmd = IOSecurity.GetFilteredPath(cd.Command);
+                        var hooks = new HookRunner("engine", "session",
+                                                   "command-" + filteredCmd);
+                        var pm = cd.Chat.ProtocolManager;
+                        hooks.Environments.Add(new CommandHookEnvironment(cd));
+                        hooks.Environments.Add(new ChatHookEnvironment(cd.Chat));
+                        if (pm != null) {
+                            hooks.Environments.Add(new ProtocolManagerHookEnvironment(pm));
+                        }
+
+                        var cmdChar = (string) UserConfig["Interface/Entry/CommandCharacter"];
+                        hooks.Commands.Add(new SessionHookCommand(this, cd.Chat, cmdChar));
+                        if (pm != null) {
+                            hooks.Commands.Add(new ProtocolManagerHookCommand(pm, cd.Chat, cmdChar));
+                        }
+
+                        // show time
+                        hooks.Init();
+                        if (hooks.HasHooks) {
+                            hooks.Run();
+                            handled = true;
+                        }
                         break;
                 }
             } else {
@@ -851,7 +876,7 @@ namespace Smuxi.Engine
                 throw new ArgumentNullException("cmd");
             }
 
-            var msg = new MessageBuilder().
+            var msg = CreateMessageBuilder().
                 AppendEventPrefix().
                     AppendText(cmd.Parameter).
                     ToMessage();
@@ -1268,12 +1293,15 @@ namespace Smuxi.Engine
                 } catch (Exception ex) {
 #if LOG4NET
                     Trace.Call(chat, msg, ignoreFilters);
-                    f_Logger.Error(
-                        "AddMessageToChat(): " +
-                        "chat.MessageBuffer.Add() threw exception!", ex
+                    f_Logger.ErrorFormat(
+                        "AddMessageToChat({0}, {1}, {2}): " +
+                        "chat.MessageBuffer.Add() threw exception:",
+                        chat, msg, ignoreFilters
                     );
+                    f_Logger.Error("AddMessageToChat(): ", ex);
 #endif
-                    if (chat.MessageBuffer is Db4oMessageBuffer) {
+                    if (chat.MessageBuffer is Db4oMessageBuffer ||
+                        chat.MessageBuffer is SqliteMessageBuffer) {
 #if LOG4NET
                         f_Logger.Error(
                             "AddMessageToChat(): " +
@@ -1283,7 +1311,7 @@ namespace Smuxi.Engine
                         chat.ResetMessageBuffer();
                         chat.InitMessageBuffer(MessageBufferPersistencyType.Volatile);
 
-                        var builder = new MessageBuilder();
+                        var builder = CreateMessageBuilder();
                         builder.AppendEventPrefix();
                         builder.AppendErrorText(
                             _("Failed to write to chat history. " +
@@ -1301,6 +1329,14 @@ namespace Smuxi.Engine
                 foreach (FrontendManager fm in _FrontendManagers.Values) {
                     fm.AddMessageToChat(chat, msg);
                 }
+            }
+
+            if (msg.MessageType == MessageType.Event) {
+                // on-event-message
+                OnEventMessage(
+                    // at this point we no longer know who sent this nor to whom
+                    new EventMessageEventArgs(chat, msg, String.Empty, String.Empty)
+                );
             }
         }
         
@@ -1478,13 +1514,25 @@ namespace Smuxi.Engine
                                 if (command.Length == 0) {
                                     continue;
                                 }
-                                CommandModel cd = new CommandModel(
-                                    frontendManager,
-                                    protocolManager.Chat,
-                                    (string) _UserConfig["Interface/Entry/CommandCharacter"],
-                                    command
-                                );
-                                protocolManager.Command(cd);
+
+                                try {
+                                    var cd = new CommandModel(
+                                        frontendManager,
+                                        protocolManager.Chat,
+                                        (string) _UserConfig["Interface/Entry/CommandCharacter"],
+                                        command
+                                    );
+                                    protocolManager.Command(cd);
+                                } catch (Exception ex) {
+#if LOG4NET
+                                    f_Logger.Error("Command in Connected event: Exception", ex);
+#endif
+                                    var msg = CreateMessageBuilder().
+                                        AppendErrorText("Command '{0}' failed. Reason: {1} ({2})",
+                                                        command, ex.Message, ex.GetType()).
+                                        ToMessage();
+                                    AddMessageToFrontend (frontendManager, protocolManager.Chat, msg);
+                                }
                             }
                         } catch (Exception ex) {
 #if LOG4NET
@@ -1719,12 +1767,37 @@ namespace Smuxi.Engine
         {
             Trace.Call(clean, frontendManager);
 
+#if LOG4NET
+            f_Logger.Debug("Shutdown(): flushing all message buffers");
+#endif
+            lock (_Chats) {
+                foreach (var chat in _Chats) {
+                    try {
+                        chat.MessageBuffer.Flush();
+                    } catch (Exception ex) {
+#if LOG4NET
+                        f_Logger.ErrorFormat(
+                            "Shutdown(): {0}.MessageBuffer.Flush() " +
+                            "failed, continuing with shutdown...",
+                            chat.ToString()
+                        );
+                        f_Logger.Error("Shutdown(): Exception", ex);
+#endif
+                    }
+                }
+            }
+
+            if (!clean) {
+                return;
+            }
+
+#if LOG4NET
+            f_Logger.Debug("Shutdown(): disconnecting and disposing all protocol manangers");
+#endif
             lock (_ProtocolManagers) {
                 foreach (var protocolManager in _ProtocolManagers) {
                     try {
-                        if (clean) {
-                            protocolManager.Disconnect(frontendManager);
-                        }
+                        protocolManager.Disconnect(frontendManager);
                         protocolManager.Dispose();
                     } catch (Exception ex) {
 #if LOG4NET
@@ -1992,6 +2065,33 @@ namespace Smuxi.Engine
             hooks.Run();
         }
 
+        protected virtual void OnEventMessage(EventMessageEventArgs e)
+        {
+            if (EventMessage != null) {
+                EventMessage(this, e);
+            }
+
+            var pm = e.Chat.ProtocolManager;
+            var hooks = new HookRunner("engine", "session", "on-event-message");
+            hooks.Environments.Add(new ChatHookEnvironment(e.Chat));
+            if (pm != null) {
+                hooks.Environments.Add(new ProtocolManagerHookEnvironment(pm));
+            }
+            hooks.Environments.Add(new MessageHookEnvironment(e.Message,
+                                                              e.Sender,
+                                                              e.Receiver));
+
+            var cmdChar = (string) UserConfig["Interface/Entry/CommandCharacter"];
+            hooks.Commands.Add(new SessionHookCommand(this, e.Chat, cmdChar));
+            if (pm != null) {
+                hooks.Commands.Add(new ProtocolManagerHookCommand(pm, e.Chat, cmdChar));
+            }
+
+            // show time
+            hooks.Init();
+            hooks.Run();
+        }
+
         private static string _(string msg)
         {
             return LibraryCatalog.GetString(msg, _LibraryTextDomain);
@@ -2037,6 +2137,23 @@ namespace Smuxi.Engine
             GroupChat = groupChat;
             OldPerson = oldPerson;
             NewPerson = newPerson;
+        }
+    }
+
+    public class EventMessageEventArgs : EventArgs
+    {
+        public ChatModel Chat { get; protected set; }
+        public MessageModel Message { get; protected set; }
+        public string Sender { get; protected set; }
+        public string Receiver { get; protected set; }
+
+        public EventMessageEventArgs(ChatModel chat, MessageModel msg,
+                                     string sender, string receiver)
+        {
+            Chat = chat;
+            Message = msg;
+            Sender = sender;
+            Receiver = receiver;
         }
     }
 }

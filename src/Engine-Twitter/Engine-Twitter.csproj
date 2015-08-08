@@ -35,6 +35,7 @@
     <Compile Include="AssemblyInfo.cs" />
     <Compile Include="Protocols\Twitter\TwitterProtocolManager.cs" />
     <Compile Include="Protocols\Twitter\TwitterMessageBuilder.cs" />
+    <Compile Include="Protocols\Twitter\TwitterSearchStream.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Protocols\" />
@@ -60,6 +61,10 @@
     <ProjectReference Include="..\..\lib\Twitterizer\Twitterizer2\Twitterizer2.csproj">
       <Project>{2FDC3492-6B9E-4771-9755-7892C9CB1E96}</Project>
       <Name>Twitterizer2</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\lib\Twitterizer\Twitterizer2.Streaming\Twitterizer2.Streaming.csproj">
+      <Project>{AFDC57ED-C013-4581-9D06-54D8A42D696D}</Project>
+      <Name>Twitterizer2.Streaming</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

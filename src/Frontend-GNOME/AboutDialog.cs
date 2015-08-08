@@ -42,7 +42,7 @@ namespace Smuxi.Frontend.Gnome
                 Version = String.Format("\n Vendor: {0}", distVersion);
             }
             Version += "\n Frontend: " + Frontend.UIName + " " + version  +
-                       "\n Engine: " + Frontend.EngineVersion;
+                       "\n Engine: " + Frontend.EngineAssemblyVersion;
             Copyright = "Copyright © 2005-2015 Mirco Bauer <meebey@meebey.net> and other contributors";
             Authors = new string[] {
                 "Mirco Bauer <meebey@meebey.net>",
@@ -73,9 +73,9 @@ namespace Smuxi.Frontend.Gnome
             // the GTK{+,#} ports/installers for OS X and Windows. Thus we only
             // show the website URL as label instead.
             if (Frontend.IsMacOSX || Frontend.IsWindows) {
-                WebsiteLabel = "http://www.smuxi.org/";
+                WebsiteLabel = "https://smuxi.im/";
             } else {
-                Website = "http://www.smuxi.org/";
+                Website = "https://smuxi.im/";
                 WebsiteLabel = _("Smuxi Website");
             }
         }

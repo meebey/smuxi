@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Smuxi - IRC client\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-12-11 17:03+0100\n"
+"POT-Creation-Date: 2015-05-03 12:34+0200\n"
 "PO-Revision-Date: 2013-04-29 08:41+0000\n"
 "Last-Translator: Mirco Bauer <meebey@gmail.com>\n"
 "Language-Team: Danish (http://www.transifex.com/projects/p/smuxi/language/da/)\n"
@@ -18,53 +18,53 @@ msgstr ""
 "Language: da\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../src/Frontend/CommandManager.cs:343
+#: ../src/Frontend/CommandManager.cs:466
 #, csharp-format
 msgid "Unknown Command: {0}"
 msgstr "Ukendt kommando: {0}"
 
-#: ../src/Frontend/CommandManager.cs:352
+#: ../src/Frontend/CommandManager.cs:475
 #, csharp-format
 msgid "Not enough parameters for {0} command"
 msgstr "Ikke nok parametre for kommandoen {0}"
 
-#: ../src/Frontend/EngineManager.cs:122
+#: ../src/Frontend/EngineManager.cs:112
 msgid "Engine must not be empty."
 msgstr "Motor må ikke være tom."
 
-#: ../src/Frontend/EngineManager.cs:133
+#: ../src/Frontend/EngineManager.cs:123
 msgid "Engine does not exist."
 msgstr "Motor findes ikke."
 
-#: ../src/Frontend/EngineManager.cs:317
+#: ../src/Frontend/EngineManager.cs:313
 #, csharp-format
 msgid ""
 "Unknown channel ({0}) - only the following channel types are supported:"
 msgstr "Ukendt kanal ({0}) - kun de følgende kanaltyper er understøttet:"
 
-#: ../src/Frontend/EngineManager.cs:326
+#: ../src/Frontend/EngineManager.cs:322
 msgid ""
 "Registration with engine failed!  The username and/or password were wrong - "
 "please verify them."
 msgstr "Registrering med motor mislykkedes! Brugernavnet og/eller adgangskoden var forkert - bekræft dem venligst."
 
-#: ../src/Frontend/SshTunnelManager.cs:144
+#: ../src/Frontend/SshTunnelManager.cs:147
 msgid "SSH client application was not found: "
 msgstr "SSH-klientprogram blev ikke fundet: "
 
-#: ../src/Frontend/SshTunnelManager.cs:147
+#: ../src/Frontend/SshTunnelManager.cs:150
 msgid ""
 "SSH client must be either OpenSSH (ssh) or Plink (plink.exe, not putty.exe)"
 msgstr "SSH-klient skal enten være OpenSSH (ssh) eller Plink (plink.exe, ikke putty.exe)"
 
-#: ../src/Frontend/SshTunnelManager.cs:184
+#: ../src/Frontend/SshTunnelManager.cs:187
 #, csharp-format
 msgid ""
 "The local SSH forwarding port {0} is already in use. Is there an old SSH "
 "tunnel still active?"
 msgstr "Den lokale SSH-videresendelsesport {0} er allerede i brug. Er der en gammel SSH-tunnel, der stadig er aktiv?"
 
-#: ../src/Frontend/SshTunnelManager.cs:208
+#: ../src/Frontend/SshTunnelManager.cs:211
 #, csharp-format
 msgid ""
 "SSH tunnel setup failed (exit code: {0})\n"
@@ -78,17 +78,17 @@ msgid ""
 "{4}\n"
 msgstr "Kunne ikke opsætte SSH-tunnel (afbrydelseskode: {0})\n\nSSH-program: {1}\nSSH-parametre: {2}\n\nProgramfejl:\n{3}\nProgramuddata:\n{4}\n"
 
-#: ../src/Frontend/SshTunnelManager.cs:329
-#: ../src/Frontend/SshTunnelManager.cs:478
+#: ../src/Frontend/SshTunnelManager.cs:332
+#: ../src/Frontend/SshTunnelManager.cs:481
 msgid "SSH keyfile not found."
 msgstr "SSH-nøglefil blev ikke fundet."
 
-#: ../src/Frontend/SshTunnelManager.cs:335
-#: ../src/Frontend/SshTunnelManager.cs:484
+#: ../src/Frontend/SshTunnelManager.cs:338
+#: ../src/Frontend/SshTunnelManager.cs:487
 msgid "SSH keyfile could not be read."
 msgstr "SSH-nøglefil kunne ikke læses."
 
-#: ../src/Frontend/SshTunnelManager.cs:426
+#: ../src/Frontend/SshTunnelManager.cs:429
 #, csharp-format
 msgid ""
 "OpenSSH version number not found (exit code: {0})\n"
@@ -101,11 +101,11 @@ msgid ""
 "{3}\n"
 msgstr "Versionnummer for OpenSSH blev ikke fundet (afbrydelseskode: {0})\n\nSSH-program: {1}\n\nProgramfejl:\n{2}\nProgramuddata:\n{3}\n"
 
-#: ../src/Frontend/SshTunnelManager.cs:469
+#: ../src/Frontend/SshTunnelManager.cs:472
 msgid "PuTTY / Plink requires a username to be set."
 msgstr "PuTTY / Plink kræver at et brugernavn er angivet."
 
-#: ../src/Frontend/SshTunnelManager.cs:557
+#: ../src/Frontend/SshTunnelManager.cs:560
 #, csharp-format
 msgid ""
 "Plink version number not found (exit code: {0})\n"

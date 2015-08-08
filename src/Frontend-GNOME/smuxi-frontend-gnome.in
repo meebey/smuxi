@@ -5,4 +5,27 @@
 MONO_TLS_SESSION_CACHE_TIMEOUT=0
 export MONO_TLS_SESSION_CACHE_TIMEOUT
 
+# HACK: forcibly disabled SGen, as it has a known SEGV bug related to the
+# Mono.Data.Sqlite binding that does not happen with the boehm GC, see:
+# https://smuxi.im/issues/show/1062
+MONO_ENV_OPTIONS="$(echo $MONO_ENV_OPTIONS | sed s/--gc=sgen//)"
+MONO_ENV_OPTIONS="--gc=boehm $MONO_ENV_OPTIONS"
+export MONO_ENV_OPTIONS
+
+# Smuxi uses an IPC channel for the single application instance feature and it
+# also allows to pass links from commandline to an existing Smuxi instance. This
+# IPC channel must be private to the user that executes Smuxi, else other system
+# users could control the existing Smuxi instance. Mono doesn't support LOCAL\
+# named pipes yet and thus we need to emulate the privateness to the user by
+# using a TMP directory that is only readable by the same user who started
+# Smuxi. This also workarounds the world-writable unix socket in /tmp issue of
+# Mono, see: https://smuxi.im/issues/show/1072
+SMUXI_TMP=$HOME/.cache/smuxi/tmp
+if [ ! -d $SMUXI_TMP ]; then
+    mkdir -p $SMUXI_TMP
+fi
+chmod 700 $SMUXI_TMP
+TMP=$SMUXI_TMP
+export TMP
+
 exec mono --debug "@expanded_libdir@/@PACKAGE@/smuxi-frontend-gnome.exe" "$@"

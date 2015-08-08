@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# Ondřej Hošek <ondra.hosek@gmail.com>, 2013
+# RavuAlHemio <ondra.hosek@gmail.com>, 2013-2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Smuxi - IRC client\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-12-11 17:02+0100\n"
-"PO-Revision-Date: 2013-05-22 17:22+0000\n"
-"Last-Translator: Ondřej Hošek <ondra.hosek@gmail.com>\n"
+"POT-Creation-Date: 2015-05-03 12:33+0200\n"
+"PO-Revision-Date: 2015-05-03 11:52+0000\n"
+"Last-Translator: RavuAlHemio <ondra.hosek@gmail.com>\n"
 "Language-Team: Czech (http://www.transifex.com/projects/p/smuxi/language/cs/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -18,115 +18,119 @@ msgstr ""
 "Language: cs\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 
-#: ../src/Server/Main.cs:71
+#: ../src/Server/Main.cs:65
 msgid "Add user to Server"
 msgstr "Přidat uživatele na server"
 
-#: ../src/Server/Main.cs:80
+#: ../src/Server/Main.cs:74
 msgid "Modify existing user of Server"
 msgstr "Upravit existujícího uživatele serveru"
 
-#: ../src/Server/Main.cs:89
+#: ../src/Server/Main.cs:83
 msgid "Delete user from Server"
 msgstr "Smazat uživatele ze serveru"
 
-#: ../src/Server/Main.cs:98
+#: ../src/Server/Main.cs:92
 msgid "List all existing users of Server"
 msgstr "Procházet všechny existující uživatele serveru"
 
-#: ../src/Server/Main.cs:107
+#: ../src/Server/Main.cs:101
 msgid "User to create, modify or delete"
 msgstr "Uživatel, který se má přidat, upravit či smazat"
 
-#: ../src/Server/Main.cs:116
+#: ../src/Server/Main.cs:110
 msgid "Password of the user when creating or modifying a user"
 msgstr "Heslo vytvářeného či upravovaného uživatele"
 
-#: ../src/Server/Main.cs:125
+#: ../src/Server/Main.cs:119
 msgid "Enable debug output"
 msgstr "Povolit ladicí informace"
 
-#: ../src/Server/Main.cs:133
+#: ../src/Server/Main.cs:127
 msgid ""
 "Optimize message buffers and exit (valid values: none, defrag, index, all)"
 msgstr "Optimalizovat buffery zpráv a ukončit (platné hodnoty: none, defrag, index, all)"
 
-#: ../src/Server/Main.cs:146
+#: ../src/Server/Main.cs:140
 msgid "Show this help"
 msgstr "Ukázat tuto nápovědu"
 
-#: ../src/Server/Main.cs:148
+#: ../src/Server/Main.cs:142
 msgid "Usage: smuxi-server [options]"
 msgstr "Používání: smuxi-server [volby]"
 
-#: ../src/Server/Main.cs:150
+#: ../src/Server/Main.cs:144
 msgid "Options:"
 msgstr "Volby:"
 
-#: ../src/Server/Main.cs:161
+#: ../src/Server/Main.cs:152
+msgid "Show version"
+msgstr "Zobrazit verzi"
+
+#: ../src/Server/Main.cs:165
 #, csharp-format
 msgid "Unknown option: '{0}'"
 msgstr "Neznámá volba: '{0}'"
 
-#: ../src/Server/Main.cs:188
+#: ../src/Server/Main.cs:192
 #, csharp-format
 msgid "Command line error: {0}"
 msgstr "Chybný příkaz: {0}"
 
-#: ../src/Server/Main.cs:232
+#: ../src/Server/Main.cs:236
 msgid ""
 "At most one of --add-user, --modify-user, and --delete-user may be used at a"
 " time."
-msgstr "V současné době můžete použít jednu z těchto voleb: --add-user, --modify-user a --delete-user."
+msgstr "Najednou smí být použita nanejvýš jedna z možností --add-user, --modify-user a --delete-user."
 
-#: ../src/Server/Main.cs:242
+#: ../src/Server/Main.cs:246
 msgid "You must specify a username with the --username option."
 msgstr "U volby --username musíte zadat uživatelské jméno."
 
-#: ../src/Server/Main.cs:248
+#: ../src/Server/Main.cs:252
 msgid "Username must not be empty."
 msgstr "Uživatelské jméno nemůže být prázdné."
 
-#: ../src/Server/Main.cs:258
+#: ../src/Server/Main.cs:262
 msgid "You must specify a password with the --password option."
 msgstr "U volby --password musíte zadat heslo."
 
-#: ../src/Server/Main.cs:264
+#: ../src/Server/Main.cs:268
 msgid "Password must not be empty."
 msgstr "Heslo nemůže být prázdné."
 
-#: ../src/Server/Main.cs:283
+#: ../src/Server/Main.cs:287
 #, csharp-format
 msgid ""
 "Invalid optimization value passed to --optimize-message-buffer, valid values"
 " are: {0}"
 msgstr "Neplatná hodnota předaná volbě --optimize-message-buffer; platné hodnoty jsou: {0}"
 
-#: ../src/Server/Main.cs:303
+#: ../src/Server/Main.cs:307
 #, csharp-format
 msgid "User \"{0}\" successfully added to server."
 msgstr "Uživatel \"{0}\" byl úspěšně přidán na server."
 
-#: ../src/Server/Main.cs:312
+#: ../src/Server/Main.cs:316
 #, csharp-format
 msgid "User \"{0}\" successfully modified."
 msgstr "Uživatel \"{0}\" byl úspěšně upraven."
 
-#: ../src/Server/Main.cs:321
+#: ../src/Server/Main.cs:325
 #, csharp-format
 msgid "User \"{0}\" successfully deleted from server."
 msgstr "Uživatel \"{0}\" byl úspěšně smazán ze serveru."
 
-#: ../src/Server/Main.cs:328
+#: ../src/Server/Main.cs:332
 msgid "Users:"
 msgstr "Uživatelé:"
 
-#: ../src/Server/Main.cs:376
+#: ../src/Server/Main.cs:380
 #, csharp-format
 msgid "Successfully optimized {0} message buffers."
 msgstr "Podařilo se optimalizovat buffery zpráv: {0}"
 
-#: ../src/Server/Main.cs:389
+#: ../src/Server/Main.cs:393
 #, csharp-format
 msgid "Failed to optimize message buffers: {0}"
 msgstr "Optimalizace bufferů zpráv selhala: {0}"

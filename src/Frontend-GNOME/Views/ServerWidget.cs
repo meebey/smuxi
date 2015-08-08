@@ -31,6 +31,7 @@ namespace Smuxi.Frontend.Gnome
         Gtk.ListStore f_NetworkListStore;
 
         string ServerID { get; set; }
+        ServerModel Server { get; set; }
 
         public Gtk.Entry HostnameEntry {
             get {
@@ -109,7 +110,7 @@ namespace Smuxi.Frontend.Gnome
         public bool ShowNickname {
             set {
                 // Smuxi < 0.11 does not support server specific nickname
-                if (Frontend.EngineVersion < new Version(0, 11)) {
+                if (Frontend.EngineProtocolVersion < new Version(0, 11)) {
                     value = false;
                 }
                 f_NicknameLabel.Visible = value;
@@ -120,7 +121,7 @@ namespace Smuxi.Frontend.Gnome
         public bool ShowRealname {
             set {
                 // Smuxi < 0.11 does not support server specific realname
-                if (Frontend.EngineVersion < new Version(0, 11)) {
+                if (Frontend.EngineProtocolVersion < new Version(0, 11)) {
                     value = false;
                 }
                 f_RealnameLabel.Visible = value;
@@ -161,6 +162,8 @@ namespace Smuxi.Frontend.Gnome
         public void Load(ServerModel server)
         {
             Trace.Call(server);
+
+            Server = server;
 
             // protocol is part of the PKEY, not allowed to change
             f_ProtocolComboBox.Sensitive = false;
@@ -209,7 +212,10 @@ namespace Smuxi.Frontend.Gnome
         
         public ServerModel GetServer()
         {
-            ServerModel server = new ServerModel();
+            var server = Server;
+            if (server == null) {
+                server = new ServerModel();
+            }
             server.Protocol = f_ProtocolComboBox.ActiveText;
             server.ServerID = ServerID;
             server.Hostname = f_HostnameEntry.Text.Trim();
@@ -230,6 +236,8 @@ namespace Smuxi.Frontend.Gnome
             if (f_OnConnectCommandsTextView.Sensitive) {
                 server.OnConnectCommands =
                     f_OnConnectCommandsTextView.Buffer.Text.Split('\n');
+            } else {
+                server.OnConnectCommands = new List<string>();
             }
 
             return server;

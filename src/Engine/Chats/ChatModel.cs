@@ -1,7 +1,7 @@
 /*
  * Smuxi - Smart MUltipleXed Irc
  *
- * Copyright (c) 2005-2008, 2010-2011 Mirco Bauer <meebey@meebey.net>
+ * Copyright (c) 2005-2008, 2010-2015 Mirco Bauer <meebey@meebey.net>
  *
  * Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
  *
@@ -40,8 +40,6 @@ namespace Smuxi.Engine
         private IProtocolManager     _ProtocolManager;
         //private List<MessageModel>   _Messages = new List<MessageModel>();
         private bool                 _IsEnabled = true;
-        // TODO: make persistent
-        private DateTime             _LastSeenHighlight;
         private string               _LogFile;
         // TODO: make persistent
         public  int                  Position { get; set; }
@@ -89,7 +87,7 @@ namespace Smuxi.Engine
                         ), ex
                     );
 #endif
-                    if (MessageBuffer is Db4oMessageBuffer) {
+                    if (!(MessageBuffer is ListMessageBuffer)) {
 #if LOG4NET
                         _Logger.Error(
                             String.Format(
@@ -129,10 +127,25 @@ namespace Smuxi.Engine
 
         public DateTime LastSeenHighlight {
             get {
-                return _LastSeenHighlight;
+                if (MessageBuffer == null) {
+                    return DateTime.MinValue;
+                }
+                return MessageBuffer.LastSeenHighlight;
             }
             set {
-                _LastSeenHighlight = value;
+                MessageBuffer.LastSeenHighlight = value;
+            }
+        }
+
+        public DateTime LastSeenMessage {
+            get {
+                if (MessageBuffer == null) {
+                    return DateTime.MinValue;
+                }
+                return MessageBuffer.LastSeenMessage;
+            }
+            set {
+                MessageBuffer.LastSeenMessage = value;
             }
         }
 
@@ -202,8 +215,12 @@ namespace Smuxi.Engine
             }
             InitMessageBuffer(persistency);
 
-            var maxCapacityKey = String.Format("MessageBuffer/{0}/MaxCapacity",
-                                               persistency.ToString());
+            string maxCapacityKey;
+            if (persistency == MessageBufferPersistencyType.Volatile) {
+                maxCapacityKey = "MessageBuffer/Volatile/MaxCapacity";
+            } else {
+                maxCapacityKey = "MessageBuffer/Persistent/MaxCapacity";
+            }
             MessageBuffer.MaxCapacity = (int) config[maxCapacityKey];
         }
 
@@ -268,7 +285,7 @@ namespace Smuxi.Engine
                 case MessageBufferPersistencyType.Volatile:
                     MessageBuffer = new ListMessageBuffer();
                     break;
-                case MessageBufferPersistencyType.Persistent:
+                case Smuxi.Engine.MessageBufferPersistencyType.PersistentDb4o:
                     try {
                         var start = DateTime.UtcNow;
                         MessageBuffer = new Db4oMessageBuffer(
@@ -309,6 +326,30 @@ namespace Smuxi.Engine
                         );
                         MessageBuffer.Add(builder.ToMessage());
                     }
+                    break;
+                case Smuxi.Engine.MessageBufferPersistencyType.Persistent:
+                case Smuxi.Engine.MessageBufferPersistencyType.PersistentSqlite: {
+                    var start = DateTime.UtcNow;
+                    MessageBuffer = new SqliteMessageBuffer(
+                        ProtocolManager.Session.Username,
+                        ProtocolManager.Protocol,
+                        ProtocolManager.NetworkID,
+                        ID
+                    );
+                    var stop = DateTime.UtcNow;
+#if LOG4NET
+                    _Logger.DebugFormat(
+                        "InitMessageBuffer(): initializing " +
+                        "SqliteMessageBuffer({0}, {1}, {2}, {3}) " +
+                        "took: {4:0.00} ms",
+                        ProtocolManager.Session.Username,
+                        ProtocolManager.Protocol,
+                        ProtocolManager.NetworkID,
+                        ID,
+                        (stop - start).TotalMilliseconds
+                    );
+#endif
+                }
                     break;
             }
         }

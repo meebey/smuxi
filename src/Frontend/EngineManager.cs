@@ -1,13 +1,7 @@
 /*
- * $Id: Frontend.cs 73 2005-06-27 12:42:06Z meebey $
- * $URL: svn+ssh://svn.qnetp.net/svn/smuxi/smuxi/trunk/src/Frontend-GtkGnome/Frontend.cs $
- * $Rev: 73 $
- * $Author: meebey $
- * $Date: 2005-06-27 14:42:06 +0200 (Mon, 27 Jun 2005) $
- *
  * Smuxi - Smart MUltipleXed Irc
  *
- * Copyright (c) 2008 Mirco Bauer <meebey@meebey.net>
+ * Copyright (c) 2008-2013, 2015 Mirco Bauer <meebey@meebey.net>
  *
  * Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
  *
@@ -60,11 +54,13 @@ namespace Smuxi.Frontend
         private IFrontendUI     f_FrontendUI;
         private string          f_Engine;
         private string          f_EngineUrl;
-        private Version         f_EngineVersion;
         private UserConfig      f_UserConfig;
         private Session         f_Session;
         private SshTunnelManager f_SshTunnelManager;
         private string          f_ChannelName;
+
+        public Version EngineAssemblyVersion { get; private set; }
+        public Version EngineProtocolVersion { get; private set; }
 
         public SessionManager SessionManager {
             get {
@@ -77,13 +73,7 @@ namespace Smuxi.Frontend
                 return f_EngineUrl;
             }
         }
-        
-        public Version EngineVersion {
-            get {
-                return f_EngineVersion;
-            }
-        }
-        
+
         public Session Session {
             get {
                 return f_Session;
@@ -333,7 +323,14 @@ namespace Smuxi.Frontend
                                "The username and/or password were wrong - please verify them."));
             }
             
-            f_EngineVersion = sessm.EngineVersion;
+            var engineVersion = sessm.EngineVersion;
+            if (engineVersion >= new Version("0.13")) {
+                EngineAssemblyVersion = sessm.EngineAssemblyVersion;
+                EngineProtocolVersion = sessm.EngineProtocolVersion;
+            } else {
+                EngineAssemblyVersion = engineVersion;
+                EngineProtocolVersion = engineVersion;
+            }
             f_UserConfig = new UserConfig(f_Session.Config,
                                          username);
             f_UserConfig.IsCaching = true;

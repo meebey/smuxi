@@ -25,6 +25,8 @@ namespace Smuxi.Engine
     public enum MessageBufferPersistencyType
     {
         Volatile,
-        Persistent
+        Persistent,
+        PersistentDb4o,
+        PersistentSqlite
     }
 }

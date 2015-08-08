@@ -42,12 +42,14 @@ When adding, deleting, or modifying a user, use that username.
 When adding or modifying a user, use that password.
 .It Fl \-optimize-message-buffers Ns = Ns Ar action
 Optimizes the message buffers. Valid values are none, defrag, index, and all.
+.El
 .Sh FILES
 .Bl -tag -width -compact
 .It Pa $XDG_DATA_HOME/smuxi/share/smuxi-server.log
 smuxi debug log
 .It Pa $XDG_CONFIG_HOME/smuxi/smuxi-engine.ini
 smuxi engine config
+.El
 .Sh SIGNALS
 Smuxi will handle and catch these signals:
 .Bl -tag -width xxxxxxxx -compact
@@ -55,12 +57,13 @@ Smuxi will handle and catch these signals:
 Gracefully exits the server.
 .It SIGTERM
 Gracefully exits the server.
+.El
 .Sh SEE ALSO
 .Xr smuxi-frontend-gnome 1 ,
 .Xr smuxi-frontend-stfl 1 ,
 .Xr smuxi-message-buffer 1
 .Pp
-Website: http://smuxi.im
+Website: https://smuxi.im/
 .Sh AUTHOR/CREDITS
 Smuxi, including this server, was written by Mirco Bauer.
 .Pp

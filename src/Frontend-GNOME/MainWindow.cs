@@ -38,6 +38,7 @@ namespace Smuxi.Frontend.Gnome
         private static readonly log4net.ILog f_Logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 #endif
         private bool             _IsFullscreen;
+        string f_NetworkStatus;
 
         Gtk.Statusbar NetworkStatusbar { get; set; }
         Gtk.Statusbar Statusbar { get; set; }
@@ -68,6 +69,7 @@ namespace Smuxi.Frontend.Gnome
         public NotificationAreaIconMode NotificationAreaIconMode { get; set; }
         public bool IsMinimized { get; private set; }
         public bool IsMaximized { get; private set; }
+        public int WindowWidth { get; private set; }
 
         public bool CaretMode {
             get {
@@ -100,6 +102,7 @@ namespace Smuxi.Frontend.Gnome
                 }
                 NetworkStatusbar.Pop(0);
                 NetworkStatusbar.Push(0, value);
+                f_NetworkStatus = value;
             }
         } 
 
@@ -260,9 +263,13 @@ namespace Smuxi.Frontend.Gnome
                 treeviewScrolledWindow.CheckResize();
             };
 
+            var notebookPaned = new Gtk.VPaned();
+            notebookPaned.Pack1(Notebook, true, false);
+            notebookPaned.Pack2(entryScrolledWindow, false, false);
+
             var treeviewPaned = new Gtk.HPaned();
             treeviewPaned.Pack1(treeviewScrolledWindow, false, false);
-            treeviewPaned.Pack2(Notebook, true, false);
+            treeviewPaned.Pack2(notebookPaned, true, false);
             TreeViewHPaned = treeviewPaned;
 
             var entryPaned = new Gtk.VPaned();
@@ -277,7 +284,6 @@ namespace Smuxi.Frontend.Gnome
                 }
             };
             entryPaned.Pack1(treeviewPaned, true, false);
-            entryPaned.Pack2(entryScrolledWindow, false, false);
 
             Gtk.VBox vbox = new Gtk.VBox();
             vbox.PackStart(MenuWidget, false, false, 0);
@@ -351,6 +357,9 @@ namespace Smuxi.Frontend.Gnome
             if (chatView == null) {
                 chatView = ChatViewManager.CurrentChatView;
             }
+            if (protocolStatus == null) {
+                protocolStatus = f_NetworkStatus;
+            }
             if (chatView == null) {
                 return;
             }
@@ -360,6 +369,14 @@ namespace Smuxi.Frontend.Gnome
                 title = String.Empty;
             } else if (chatView is ProtocolChatView) {
                 title = protocolStatus;
+            } else if (chatView is GroupChatView) {
+                var groupChatView = (GroupChatView) chatView;
+                var users = String.Format(_("{0} Users"),
+                                          groupChatView.Participants.Count);
+                title = String.Format("{0} ({1}) @ {2}",
+                                      chatView.Name,
+                                      users,
+                                      protocolStatus);
             } else {
                 title = String.Format("{0} @ {1}",
                                       chatView.Name,
@@ -377,7 +394,8 @@ namespace Smuxi.Frontend.Gnome
         {
             Trace.Call(e);
 
-            TreeViewHPaned.Position = e.Width / 6;
+            WindowWidth = e.Width;
+            CheckLayout();
             return base.OnConfigureEvent(e);
         }
 
@@ -465,7 +483,7 @@ namespace Smuxi.Frontend.Gnome
                     return;
                 }
 
-                chatView.OutputMessageTextView.UpdateMarkerline();
+                chatView.UpdateLastSeenMessage();
             } catch (Exception ex) {
                 Frontend.ShowException(this, ex);
             }
@@ -507,6 +525,10 @@ namespace Smuxi.Frontend.Gnome
 #if LOG4NET
                     f_Logger.Debug("OnWindowStateEvent(): IsMaximized: " + IsMaximized);
 #endif
+                    GLib.Idle.Add(() => {
+                        CheckLayout();
+                        return false;
+                    });
                 }
             } catch (Exception ex) {
                 Frontend.ShowException(this, ex);
@@ -578,6 +600,16 @@ namespace Smuxi.Frontend.Gnome
                 }
                 Entry.GrabFocus();
             };
+            if (e.ChatView is GroupChatView) {
+                var groupChatView = (GroupChatView) e.ChatView;
+                groupChatView.ParticipantsChanged += (o, args) => {
+                    if (ChatViewManager.CurrentChatView != groupChatView) {
+                        return;
+                    }
+                    UpdateTitle(groupChatView, null);
+                };
+                groupChatView.OutputHPaned.Position = (WindowWidth / 7) * 5;
+            }
             UpdateProgressBar();
         }
         
@@ -620,6 +652,18 @@ namespace Smuxi.Frontend.Gnome
                 ProgressBar.Hide();
             } else {
                 ProgressBar.Show();
+            }
+        }
+
+        void CheckLayout()
+        {
+            TreeViewHPaned.Position = WindowWidth / 7;
+            foreach (var chat in ChatViewManager.Chats) {
+                if (!(chat is GroupChatView)) {
+                    continue;
+                }
+                var groupChat = (GroupChatView) chat;
+                groupChat.OutputHPaned.Position = (WindowWidth / 7) * 5;
             }
         }
 

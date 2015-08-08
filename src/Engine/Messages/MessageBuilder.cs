@@ -719,6 +719,8 @@ namespace Smuxi.Engine
                             foreach (var part in ((MessageModel) placeMe).MessageParts) {
                                 parts.Add(part);
                             }
+                        } else if (placeMe.GetType().IsValueType) {
+                            parts.Add(CreateText(placeMe.ToString()));
                         } else {
                             // no idea how to format this
                             throw new System.FormatException("unknown object type to format: " + placeMe.GetType().ToString());

@@ -3,13 +3,13 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# Dean Lee <xslidian@gmail.com>, 2013
+# Dean Lee <xslidian@gmail.com>, 2013,2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Smuxi - IRC client\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-12-11 17:06+0100\n"
-"PO-Revision-Date: 2013-12-13 08:17+0000\n"
+"POT-Creation-Date: 2015-05-03 12:36+0200\n"
+"PO-Revision-Date: 2015-05-03 19:53+0000\n"
 "Last-Translator: Dean Lee <xslidian@gmail.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/projects/p/smuxi/language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
@@ -18,25 +18,29 @@ msgstr ""
 "Language: zh_CN\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: ../src/Frontend-GNOME-XMPP/XmppGroupChatView.cs:219
+#: ../src/Frontend-GNOME-XMPP/XmppGroupChatView.cs:247
 msgid "Query"
 msgstr "私聊"
 
-#: ../src/Frontend-GNOME-XMPP/XmppGroupChatView.cs:227
+#: ../src/Frontend-GNOME-XMPP/XmppGroupChatView.cs:255
 #: ../src/Frontend-GNOME-XMPP/XmppPersonChatView.cs:215
 msgid "Whois"
 msgstr "详情"
 
-#: ../src/Frontend-GNOME-XMPP/XmppGroupChatView.cs:233
+#: ../src/Frontend-GNOME-XMPP/XmppGroupChatView.cs:261
 #: ../src/Frontend-GNOME-XMPP/XmppPersonChatView.cs:221
 msgid "Add To Contacts"
 msgstr "添加到联系人"
 
-#: ../src/Frontend-GNOME-XMPP/XmppGroupChatView.cs:239
+#: ../src/Frontend-GNOME-XMPP/XmppGroupChatView.cs:267
 #: ../src/Frontend-GNOME-XMPP/XmppPersonChatView.cs:227
 msgid "Invite to"
 msgstr "邀请加入"
 
-#: ../src/Frontend-GNOME-XMPP/XmppGroupChatView.cs:257
+#: ../src/Frontend-GNOME-XMPP/XmppGroupChatView.cs:285
 msgid "Rename"
 msgstr "改名"
+
+#: ../src/Frontend-GNOME-XMPP/XmppGroupChatView.cs:297
+msgid "Remove"
+msgstr "移除"

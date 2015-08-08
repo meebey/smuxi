@@ -1,7 +1,7 @@
 /*
  * Smuxi - Smart MUltipleXed Irc
  *
- * Copyright (c) 2007-2013 Mirco Bauer <meebey@meebey.net>
+ * Copyright (c) 2007-2014 Mirco Bauer <meebey@meebey.net>
  *
  * Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
  *
@@ -48,6 +48,7 @@ namespace Smuxi.Engine
         public event EventHandler Disconnected;
         public event EventHandler<MessageEventArgs> MessageSent;
         public event EventHandler<MessageEventArgs> MessageReceived;
+        public event EventHandler<PresenceStatusChangedEventArgs> PresenceStatusChanged;
 
         public virtual string Host {
             get {
@@ -81,7 +82,6 @@ namespace Smuxi.Engine
                 return _PresenceStatus;
             }
             set {
-                _PresenceStatus = value;
                 SetPresenceStatus(value, null);
             }
         }
@@ -174,8 +174,17 @@ namespace Smuxi.Engine
         public abstract void OpenChat(FrontendManager fm, ChatModel chat);
         public abstract void CloseChat(FrontendManager fm, ChatModel chat);
 
-        public abstract void SetPresenceStatus(PresenceStatus status,
-                                               string message);
+        public virtual void SetPresenceStatus(PresenceStatus status,
+                                              string message)
+        {
+            var args = new PresenceStatusChangedEventArgs(_PresenceStatus,
+                                                          status, message);
+            _PresenceStatus = status;
+
+            if (args.OldStatus != args.NewStatus) {
+                OnPresenceStatusChanged(args);
+            }
+        }
 
         protected void NotConnected(CommandModel cmd)
         {
@@ -308,6 +317,29 @@ namespace Smuxi.Engine
             hooks.Run();
         }
 
+        protected virtual void OnPresenceStatusChanged(PresenceStatusChangedEventArgs e)
+        {
+            Trace.Call(e);
+
+            if (PresenceStatusChanged != null) {
+                PresenceStatusChanged(this, e);
+            }
+
+            var hooks = new HookRunner("engine", "protocol-manager", "on-presence-status-changed");
+            hooks.EnvironmentVariables.Add("PRESENCE_STATUS_CHANGED_OLD_STATUS", e.OldStatus.ToString());
+            hooks.EnvironmentVariables.Add("PRESENCE_STATUS_CHANGED_NEW_STATUS", e.NewStatus.ToString());
+            hooks.EnvironmentVariables.Add("PRESENCE_STATUS_CHANGED_NEW_MESSAGE", e.NewMessage);
+            hooks.Environments.Add(new ProtocolManagerHookEnvironment(this));
+
+            var cmdChar = (string) Session.UserConfig["Interface/Entry/CommandCharacter"];
+            hooks.Commands.Add(new SessionHookCommand(Session, Chat, cmdChar));
+            hooks.Commands.Add(new ProtocolManagerHookCommand(this, Chat, cmdChar));
+
+            // show time
+            hooks.Init();
+            hooks.Run();
+        }
+
         private static string _(string msg)
         {
             return LibraryCatalog.GetString(msg, _LibraryTextDomain);
@@ -411,6 +443,22 @@ namespace Smuxi.Engine
             Message = msg;
             Sender = sender;
             Receiver = receiver;
+        }
+    }
+
+    public class PresenceStatusChangedEventArgs : EventArgs
+    {
+        public PresenceStatus OldStatus { get; protected set; }
+        public PresenceStatus NewStatus { get; protected set; }
+        public string NewMessage { get; protected set; }
+
+        public PresenceStatusChangedEventArgs(PresenceStatus oldStatus,
+                                              PresenceStatus newStatus,
+                                              string newMessage)
+        {
+            OldStatus = oldStatus;
+            NewStatus = newStatus;
+            NewMessage = newMessage;
         }
     }
 }

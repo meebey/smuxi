@@ -1,6 +1,6 @@
 // Smuxi - Smart MUltipleXed Irc
 // 
-// Copyright (c) 2009-2013 Mirco Bauer <meebey@meebey.net>
+// Copyright (c) 2009-2015 Mirco Bauer <meebey@meebey.net>
 // 
 // Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
 // 
@@ -84,6 +84,7 @@ namespace Smuxi.Engine
 
         TwitterStatus[]         StatusIndex { get; set; }
         int                     StatusIndexOffset { get; set; }
+        Dictionary<string, TwitterSearchStream> SearchStreams { get; set; }
 
         public override string NetworkID {
             get {
@@ -132,7 +133,7 @@ namespace Smuxi.Engine
 
             f_RepliesChat = new GroupChatModel(
                 TwitterChatType.Replies.ToString(),
-                _("Replies"),
+                _("Replies & Mentions"),
                 this
             );
             f_RepliesChat.InitMessageBuffer(
@@ -153,6 +154,7 @@ namespace Smuxi.Engine
             f_GroupChats.Add(f_DirectMessagesChat);
 
             StatusIndex = new TwitterStatus[99];
+            SearchStreams = new Dictionary<string, TwitterSearchStream>();
         }
 
         public override void Connect(FrontendManager fm, ServerModel server)
@@ -205,6 +207,9 @@ namespace Smuxi.Engine
                     }
                     if (!whitelist.Contains("api.twitter.com")) {
                         whitelist.Add("api.twitter.com");
+                    }
+                    if (!whitelist.Contains("stream.twitter.com")) {
+                        whitelist.Add("stream.twitter.com");
                     }
                 }
             }
@@ -605,6 +610,15 @@ namespace Smuxi.Engine
                         }
                         break;
                 }
+            } else {
+                // no static/singleton chat, but maybe a search?
+                TwitterSearchStream stream;
+                lock (SearchStreams) {
+                    if (SearchStreams.TryGetValue(chat.ID, out stream)) {
+                        SearchStreams.Remove(chat.ID);
+                        stream.Dispose();
+                    }
+                }
             }
 
             Session.RemoveChat(chat);
@@ -655,6 +669,27 @@ namespace Smuxi.Engine
                             break;
                         case "reply":
                             CommandReply(command);
+                            handled = true;
+                            break;
+                        case "say":
+                            CommandSay(command);
+                            handled = true;
+                            break;
+                        case "del":
+                        case "delete":
+                            CommandDelete(command);
+                            handled = true;
+                            break;
+                        case "fav":
+                        case "favourite":
+                        case "favorite":
+                            CommandFavorite(command);
+                            handled = true;
+                            break;
+                        case "unfav":
+                        case "unfavourite":
+                        case "unfavorite":
+                            CommandUnfavorite(command);
                             handled = true;
                             break;
                     }
@@ -711,6 +746,9 @@ namespace Smuxi.Engine
                 "search keyword",
                 "retweet/rt index-number|tweet-id",
                 "reply index-number|tweet-id message",
+                "delete/del index-number|tweet-id",
+                "favorite/fav index-number|tweet-id",
+                "unfavorite/unfav index-number|tweet-id",
             };
 
             foreach (string line in help) {
@@ -856,7 +894,7 @@ namespace Smuxi.Engine
                     case TwitterChatType.FriendsTimeline:
                     case TwitterChatType.Replies: {
                         try {
-                            PostUpdate(cmd.Data);
+                            PostUpdate(cmd);
                         } catch (Exception ex) {
                             var msg = CreateMessageBuilder().
                                 AppendEventPrefix().
@@ -881,7 +919,7 @@ namespace Smuxi.Engine
                 }
             } else if (cmd.Chat.ChatType == ChatType.Person) {
                 try {
-                    SendMessage(cmd.Chat.Name, cmd.Data);
+                    SendMessage(cmd);
                 } catch (Exception ex) {
 #if LOG4NET
                     f_Logger.Error(ex);
@@ -1102,6 +1140,12 @@ namespace Smuxi.Engine
                 }
             }
             Session.SyncChat(chat);
+
+            var stream = new TwitterSearchStream(this, chat, keyword,
+                                                 f_OAuthTokens, f_WebProxy);
+            lock (SearchStreams) {
+                SearchStreams.Add(chat.ID, stream);
+            }
         }
 
         public void CommandRetweet(CommandModel cmd)
@@ -1169,6 +1213,102 @@ namespace Smuxi.Engine
             var options = CreateOptions<StatusUpdateOptions>();
             options.InReplyToStatusId = status.Id;
             PostUpdate(text, options);
+        }
+
+        public void CommandDelete(CommandModel cmd)
+        {
+            if (cmd.DataArray.Length < 2) {
+                NotEnoughParameters(cmd);
+                return;
+            }
+
+            TwitterStatus status = null;
+            int indexId;
+            if (Int32.TryParse(cmd.Parameter, out indexId)) {
+                status = GetStatusFromIndex(indexId);
+            }
+
+            decimal statusId;
+            if (status == null) {
+                if (!Decimal.TryParse(cmd.Parameter, out statusId)) {
+                    return;
+                }
+            } else {
+                statusId = status.Id;
+            }
+            var response = TwitterStatus.Delete(f_OAuthTokens, statusId, f_OptionalProperties);
+            CheckResponse(response);
+            status = response.ResponseObject;
+
+            var msg = CreateMessageBuilder().
+                AppendEventPrefix().
+                AppendFormat(_("Successfully deleted tweet {0}."), cmd.Parameter).
+                ToMessage();
+            Session.AddMessageToFrontend(cmd, msg);
+        }
+
+        public void CommandFavorite(CommandModel cmd)
+        {
+            if (cmd.DataArray.Length < 2) {
+                NotEnoughParameters(cmd);
+                return;
+            }
+
+            TwitterStatus status = null;
+            int indexId;
+            if (Int32.TryParse(cmd.Parameter, out indexId)) {
+                status = GetStatusFromIndex(indexId);
+            }
+
+            decimal statusId;
+            if (status == null) {
+                if (!Decimal.TryParse(cmd.Parameter, out statusId)) {
+                    return;
+                }
+            } else {
+                statusId = status.Id;
+            }
+            var response = TwitterFavorite.Create(f_OAuthTokens, statusId, f_OptionalProperties);
+            CheckResponse(response);
+            status = response.ResponseObject;
+
+            var msg = CreateMessageBuilder().
+                AppendEventPrefix().
+                AppendFormat(_("Successfully favorited tweet {0}."), cmd.Parameter).
+                ToMessage();
+            Session.AddMessageToFrontend(cmd, msg);
+        }
+
+        public void CommandUnfavorite(CommandModel cmd)
+        {
+            if (cmd.DataArray.Length < 2) {
+                NotEnoughParameters(cmd);
+                return;
+            }
+
+            TwitterStatus status = null;
+            int indexId;
+            if (Int32.TryParse(cmd.Parameter, out indexId)) {
+                status = GetStatusFromIndex(indexId);
+            }
+
+            decimal statusId;
+            if (status == null) {
+                if (!Decimal.TryParse(cmd.Parameter, out statusId)) {
+                    return;
+                }
+            } else {
+                statusId = status.Id;
+            }
+            var response = TwitterFavorite.Delete(f_OAuthTokens, statusId, f_OptionalProperties);
+            CheckResponse(response);
+            status = response.ResponseObject;
+
+            var msg = CreateMessageBuilder().
+                AppendEventPrefix().
+                AppendFormat(_("Successfully unfavorited tweet {0}."), cmd.Parameter).
+                ToMessage();
+            Session.AddMessageToFrontend(cmd, msg);
         }
 
         private List<TwitterDirectMessage> SortTimeline(TwitterDirectMessageCollection timeline)
@@ -1662,6 +1802,12 @@ namespace Smuxi.Engine
             return options;
         }
 
+        void PostUpdate(CommandModel cmd)
+        {
+            var text = cmd.IsCommand ? cmd.Parameter : cmd.Data;
+            PostUpdate(text);
+        }
+
         void PostUpdate(string text)
         {
             PostUpdate(text, null);
@@ -1675,6 +1821,12 @@ namespace Smuxi.Engine
             var res = TwitterStatus.Update(f_OAuthTokens, text, options);
             CheckResponse(res);
             f_FriendsTimelineEvent.Set();
+        }
+
+        void SendMessage(CommandModel cmd)
+        {
+            var text = cmd.IsCommand ? cmd.Parameter : cmd.Data;
+            SendMessage(cmd.Chat.Name, text);
         }
 
         private void SendMessage(string target, string text)
@@ -1881,14 +2033,14 @@ namespace Smuxi.Engine
             return false;
         }
 
-        private PersonModel GetPerson(TwitterUser user)
+        internal PersonModel GetPerson(TwitterUser user)
         {
             if (user == null) {
                 throw new ArgumentNullException("user");
             }
 
             PersonModel person;
-            if (!f_Friends.TryGetValue(user.Id.ToString(), out person)) {
+            if (f_Friends == null || !f_Friends.TryGetValue(user.Id.ToString(), out person)) {
                 return CreatePerson(user);
             }
             return person;

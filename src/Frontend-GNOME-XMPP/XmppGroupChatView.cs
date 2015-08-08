@@ -114,6 +114,34 @@ namespace Smuxi.Frontend.Gnome
             }
         }
 
+        void OnUserListMenuRemoveActivated(object sender, EventArgs e)
+        {
+            Trace.Call(sender, e);
+
+            IList<PersonModel> persons = GetSelectedPersons();
+            if (persons == null) {
+                return;
+            }
+
+            foreach (PersonModel person in persons) {
+                var per = person;
+
+                ThreadPool.QueueUserWorkItem(delegate {
+                    try {
+                        XmppProtocolManager.CommandContact(
+                            new CommandModel(
+                                Frontend.FrontendManager,
+                                ChatModel,
+                                "remove " + per.ID
+                            )
+                        );
+                    } catch (Exception ex) {
+                        Frontend.ShowException(ex);
+                    }
+                });
+            }
+        }
+
         void _OnUserListMenuQueryActivated (object sender, EventArgs e)
         {
             Trace.Call(sender, e);
@@ -211,11 +239,11 @@ namespace Smuxi.Frontend.Gnome
             base.OnPersonMenuShown(sender, e);
 
             // minimum version of any command below
-            if (Frontend.EngineVersion < new Version(0, 8, 9)) {
+            if (Frontend.EngineProtocolVersion < new Version(0, 8, 9)) {
                 return;
             }
 
-            if (Frontend.EngineVersion >= new Version(0, 8, 9)) {
+            if (Frontend.EngineProtocolVersion >= new Version(0, 8, 9)) {
                 Gtk.ImageMenuItem query_item = new Gtk.ImageMenuItem(_("Query"));
                 query_item.Activated += _OnUserListMenuQueryActivated;
                 PersonMenu.Append(query_item);
@@ -223,19 +251,19 @@ namespace Smuxi.Frontend.Gnome
 
             PersonMenu.Append(new Gtk.SeparatorMenuItem());
 
-            if (Frontend.EngineVersion >= new Version(0, 8, 12)) {
+            if (Frontend.EngineProtocolVersion >= new Version(0, 8, 12)) {
                 Gtk.ImageMenuItem whois_item = new Gtk.ImageMenuItem(_("Whois"));
                 whois_item.Activated += _OnUserListMenuWhoisActivated;
                 PersonMenu.Append(whois_item);
             }
 
-            if (!IsContactList && Frontend.EngineVersion >= new Version(0, 8, 11)) {
+            if (!IsContactList && Frontend.EngineProtocolVersion >= new Version(0, 8, 11)) {
                 var add_to_contacts_item = new Gtk.ImageMenuItem(_("Add To Contacts"));
                 add_to_contacts_item.Activated += _OnMenuAddToContactsItemActivated;
                 PersonMenu.Append(add_to_contacts_item);
             }
 
-            if (Frontend.EngineVersion >= new Version(0, 8, 12)) {
+            if (Frontend.EngineProtocolVersion >= new Version(0, 8, 12)) {
                 Gtk.MenuItem invite_to_item = new Gtk.MenuItem(_("Invite to"));
                 Gtk.Menu invite_to_menu_item = new InviteToMenu(
                     XmppProtocolManager,
@@ -246,7 +274,7 @@ namespace Smuxi.Frontend.Gnome
                 PersonMenu.Append(invite_to_item);
             }
 
-            if (IsContactList && Frontend.EngineVersion >= new Version(0, 8, 11)) {
+            if (IsContactList && Frontend.EngineProtocolVersion >= new Version(0, 8, 11)) {
                 // cleanup old handlers
                 IdentityNameCellRenderer.EditingStarted -= OnPersonRenameEditingStarted;
                 IdentityNameCellRenderer.Edited -= OnPersonRenameEdited;
@@ -265,6 +293,10 @@ namespace Smuxi.Frontend.Gnome
                     PersonTreeView.SetCursor(path, IdentityNameColumn, true);
                 };
                 PersonMenu.Append(rename_item);
+
+                Gtk.ImageMenuItem remove_item = new Gtk.ImageMenuItem(_("Remove"));
+                remove_item.Activated += OnUserListMenuRemoveActivated;
+                PersonMenu.Append(remove_item);
             }
 
             PersonMenu.ShowAll();

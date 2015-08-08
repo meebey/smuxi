@@ -22,8 +22,9 @@
  */
 
 using System;
-using System.Text;
+using System.Reflection;
 using System.Runtime.InteropServices;
+using System.Text;
 using Mono.Unix;
 
 namespace Stfl
@@ -34,6 +35,8 @@ namespace Stfl
         static bool IsUtf8Locale { get; set; }
         static string EscapeLessThanCharacter  { get; set; }
         static string EscapeGreaterThanCharacter { get; set; }
+        static Encoding Utf32NativeEndian { get; set; }
+        static bool BrokenUtf32Handling { get; set; }
 
         static StflApi()
         {
@@ -53,14 +56,68 @@ namespace Stfl
 
             EscapeLessThanCharacter = "<>";
             EscapeGreaterThanCharacter = ">";
+
+            Utf32NativeEndian = new UTF32Encoding(
+                bigEndian: !BitConverter.IsLittleEndian,
+                byteOrderMark: false,
+                throwOnInvalidCharacters: true
+            );
+
+            // UTF-32 handling is broken in mono < 4.2
+            // fix in 4.4: https://github.com/mono/mono/commit/6bfb7e6d149f5e5c0fe04d680e3f7d36769ef541
+            // fix in 4.2: https://github.com/mono/mono/commit/ea4ed4a47b98832e294d166bee5b8301fe87e216
+            BrokenUtf32Handling = IsMonoVersionLessThan(4, 2);
         }
 
-        public static IntPtr ToUnixWideCharacters(string text)
+        static bool IsMonoVersionLessThan(int majorVersion, int minorVersion)
         {
-            if (text == null) {
-                return IntPtr.Zero;
+            var monoRuntimeType = Type.GetType("Mono.Runtime");
+            if (monoRuntimeType != null) {
+                var monoRuntimeVersionMethod = monoRuntimeType.GetMethod(
+                    "GetDisplayName",
+                    BindingFlags.NonPublic | BindingFlags.Static
+                );
+                if (monoRuntimeVersionMethod != null) {
+                    var version = (string)monoRuntimeVersionMethod.Invoke(null, null);
+                    var versionPieces = version.Split(new[] { ' ' }, 2);
+                    var versionNumberPieces = versionPieces [0].Split(new[] { '.' });
+
+                    int runtimeMajorVersion, runtimeMinorVersion;
+                    int.TryParse(versionNumberPieces [0], out runtimeMajorVersion);
+                    int.TryParse(versionNumberPieces[1], out runtimeMinorVersion);
+
+                    if (runtimeMajorVersion < majorVersion) {
+                        return true;
+                    }
+                    if (runtimeMajorVersion == majorVersion && runtimeMinorVersion < minorVersion) {
+                        return true;
+                    }
+                    return false;
+                }
             }
-            return UnixMarshal.StringToHeap(text, Encoding.UTF32);
+
+            return false;
+        }
+
+        internal static string PtrToUtf32String(IntPtr ptr)
+        {
+            // calculate length
+            int length = 0;
+            while (Marshal.ReadInt32(ptr, 4 * length) != 0) {
+                ++length;
+            }
+
+            // read the bytes
+            var utf32Bytes = new byte[4 * length];
+            Marshal.Copy(ptr, utf32Bytes, 0, utf32Bytes.Length);
+
+            // decode to string
+            return Utf32NativeEndian.GetString(utf32Bytes);
+        }
+
+        public static StringOnHeap ToUnixWideCharacters(string text)
+        {
+            return new StringOnHeap(text, Utf32NativeEndian);
         }
 
         public static string FromUnixWideCharacters(IntPtr text)
@@ -68,7 +125,11 @@ namespace Stfl
             if (text == IntPtr.Zero) {
                 return null;
             }
-            return UnixMarshal.PtrToString(text, Encoding.UTF32);
+            if (BrokenUtf32Handling) {
+                return PtrToUtf32String(text);
+            } else {
+                return UnixMarshal.PtrToString(text, Utf32NativeEndian);
+            }
         }
 
         public static string EscapeRichText(string text)
@@ -82,7 +143,9 @@ namespace Stfl
         static extern IntPtr stfl_create(IntPtr text);
         internal static IntPtr stfl_create(string text)
         {
-            return stfl_create(ToUnixWideCharacters(text));
+            using (var heapText = ToUnixWideCharacters(text)) {
+                return stfl_create(heapText.Pointer);
+            }
         }
 
         [DllImport("stfl")]
@@ -96,7 +159,7 @@ namespace Stfl
             if (res == IntPtr.Zero) {
                 return null;
             }
-            return UnixMarshal.PtrToString(res, Encoding.UTF32);
+            return FromUnixWideCharacters(res);
         }
 
         [DllImport("stfl")]
@@ -106,17 +169,21 @@ namespace Stfl
         static extern IntPtr stfl_get(IntPtr form, IntPtr name);
         internal static string stfl_get(IntPtr form, string text)
         {
-            return FromUnixWideCharacters(
-                stfl_get(form, ToUnixWideCharacters(text))
-            );
+            using (var heapText = ToUnixWideCharacters(text)) {
+                return FromUnixWideCharacters(
+                    stfl_get(form, heapText.Pointer)
+                );
+            }
         }
 
         [DllImport("stfl")]
         static extern void stfl_set(IntPtr form, IntPtr name, IntPtr value);
         internal static void stfl_set(IntPtr form, string name, string value)
         {
-            stfl_set(form, ToUnixWideCharacters(name),
-                     ToUnixWideCharacters(value));
+            using (var heapName = ToUnixWideCharacters(name))
+            using (var heapValue = ToUnixWideCharacters(value)) {
+                stfl_set(form, heapName.Pointer, heapValue.Pointer);
+            }
         }
         
         [DllImport("stfl", EntryPoint = "stfl_get_focus")]
@@ -124,25 +191,27 @@ namespace Stfl
         internal static string stfl_get_focus(IntPtr form)
         {
             IntPtr res = stfl_get_focus_native(form);
-            if (res == IntPtr.Zero) {
-                return null;
-            }
-            return UnixMarshal.PtrToString(res, Encoding.UTF32);
+            return FromUnixWideCharacters(res);
         }
         
         [DllImport("stfl")]
         static extern void stfl_set_focus(IntPtr form, IntPtr name);
         internal static void stfl_set_focus(IntPtr form, string name)
         {
-            stfl_set_focus(form, ToUnixWideCharacters(name));
+            using (var heapName = ToUnixWideCharacters(name)) {
+                stfl_set_focus(form, heapName.Pointer);
+            }
         }
 
         [DllImport("stfl")]
         static extern IntPtr stfl_quote(IntPtr text);
-        internal static string stfl_quote(string text) {
-            return FromUnixWideCharacters(
-                stfl_quote(ToUnixWideCharacters(text))
-            );
+        internal static string stfl_quote(string text)
+        {
+            using (var heapText = ToUnixWideCharacters(text)) {
+                return FromUnixWideCharacters(
+                    stfl_quote(heapText.Pointer)
+                );
+            }
         }
 
         [DllImport("stfl")]
@@ -151,10 +220,12 @@ namespace Stfl
         internal static string stfl_dump(IntPtr form, string name,
                                          string prefix, int focus)
         {
-            return FromUnixWideCharacters(
-                    stfl_dump(form, ToUnixWideCharacters(name),
-                              ToUnixWideCharacters(prefix), focus)
-            );
+            using (var heapName = ToUnixWideCharacters(name))
+            using (var heapPrefix = ToUnixWideCharacters(prefix)) {
+                return FromUnixWideCharacters(
+                    stfl_dump(form, heapName.Pointer, heapPrefix.Pointer, focus)
+                );
+            }
         }
 
         [DllImport("stfl")]
@@ -163,9 +234,12 @@ namespace Stfl
         internal static void stfl_modify(IntPtr form, string name, string mode,
                                          string text)
         {
-            stfl_modify(form, ToUnixWideCharacters(name),
-                        ToUnixWideCharacters(mode),
-                        ToUnixWideCharacters(text));
+            using (var heapName = ToUnixWideCharacters(name))
+            using (var heapMode = ToUnixWideCharacters(mode))
+            using (var heapText = ToUnixWideCharacters(text)) {
+                stfl_modify(form, heapName.Pointer, heapMode.Pointer,
+                    heapText.Pointer);
+            }
         }
 
         [DllImport("stfl")]
@@ -174,10 +248,12 @@ namespace Stfl
         internal static string stfl_lookup(IntPtr form, string path,
                                            string newname)
         {
-            return FromUnixWideCharacters(
-                stfl_lookup(form, ToUnixWideCharacters(path),
-                            ToUnixWideCharacters(newname))
-            );
+            using (var heapPath = ToUnixWideCharacters(path))
+            using (var heapNewName = ToUnixWideCharacters(newname)) {
+                return FromUnixWideCharacters(
+                    stfl_lookup(form, heapPath.Pointer, heapNewName.Pointer)
+                );
+            }
         }
 
         [DllImport("stfl", EntryPoint = "stfl_error")]
@@ -191,7 +267,9 @@ namespace Stfl
         static extern void stfl_error_action(IntPtr mode);
         internal static void stfl_error_action(string mode)
         {
-            stfl_error_action(ToUnixWideCharacters(mode));
+            using (var heapMode = ToUnixWideCharacters(mode)) {
+                stfl_error_action(heapMode.Pointer);
+            }
         }
 
         /*

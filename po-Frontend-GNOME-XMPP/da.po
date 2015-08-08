@@ -3,13 +3,13 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# Joe Hansen <joedalton2@yahoo.dk>, 2013
+# Joe Hansen <joedalton2@yahoo.dk>, 2013,2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Smuxi - IRC client\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-12-11 17:06+0100\n"
-"PO-Revision-Date: 2013-12-05 19:51+0000\n"
+"POT-Creation-Date: 2015-05-03 12:36+0200\n"
+"PO-Revision-Date: 2015-05-03 19:24+0000\n"
 "Last-Translator: Joe Hansen <joedalton2@yahoo.dk>\n"
 "Language-Team: Danish (http://www.transifex.com/projects/p/smuxi/language/da/)\n"
 "MIME-Version: 1.0\n"
@@ -18,25 +18,29 @@ msgstr ""
 "Language: da\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../src/Frontend-GNOME-XMPP/XmppGroupChatView.cs:219
+#: ../src/Frontend-GNOME-XMPP/XmppGroupChatView.cs:247
 msgid "Query"
 msgstr "Forespørgsel"
 
-#: ../src/Frontend-GNOME-XMPP/XmppGroupChatView.cs:227
+#: ../src/Frontend-GNOME-XMPP/XmppGroupChatView.cs:255
 #: ../src/Frontend-GNOME-XMPP/XmppPersonChatView.cs:215
 msgid "Whois"
 msgstr "Hvem er"
 
-#: ../src/Frontend-GNOME-XMPP/XmppGroupChatView.cs:233
+#: ../src/Frontend-GNOME-XMPP/XmppGroupChatView.cs:261
 #: ../src/Frontend-GNOME-XMPP/XmppPersonChatView.cs:221
 msgid "Add To Contacts"
 msgstr "Tilføj til kontakter"
 
-#: ../src/Frontend-GNOME-XMPP/XmppGroupChatView.cs:239
+#: ../src/Frontend-GNOME-XMPP/XmppGroupChatView.cs:267
 #: ../src/Frontend-GNOME-XMPP/XmppPersonChatView.cs:227
 msgid "Invite to"
 msgstr "Inviter til"
 
-#: ../src/Frontend-GNOME-XMPP/XmppGroupChatView.cs:257
+#: ../src/Frontend-GNOME-XMPP/XmppGroupChatView.cs:285
 msgid "Rename"
 msgstr "Omdøb"
+
+#: ../src/Frontend-GNOME-XMPP/XmppGroupChatView.cs:297
+msgid "Remove"
+msgstr "Fjern"

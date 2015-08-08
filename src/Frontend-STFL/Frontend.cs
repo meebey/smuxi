@@ -39,14 +39,14 @@ namespace Smuxi.Frontend.Stfl
         private static readonly string    _UIName = "STFL";
         private static Version            _Version;
         private static string             _VersionString;
-        private static Version            _EngineVersion;
         private static MainWindow         _MainWindow;
         private static FrontendConfig     _FrontendConfig;
         private static Session            _LocalSession;
         private static Session            _Session;
         private static UserConfig         _UserConfig;
         private static FrontendManager    _FrontendManager;
-        
+        public static EngineManager EngineManager { get; private set; }
+
         public static event EventHandler SessionPropertyChanged;
 
         public static string Name {
@@ -66,16 +66,7 @@ namespace Smuxi.Frontend.Stfl
                 return _Version;
             }
         }
-        
-        public static Version EngineVersion {
-            get {
-                return _EngineVersion;
-            }
-            set {
-                _EngineVersion = value;
-            }
-        }
-        
+
         public static string VersionString {
             get {
                 return _VersionString;
@@ -157,6 +148,9 @@ namespace Smuxi.Frontend.Stfl
             _FrontendConfig = new FrontendConfig(UIName);
             // loading and setting defaults
             _FrontendConfig.Load();
+            if (_FrontendConfig[Frontend.UIName + "/Interface/TerminalBackgroundColor"] == null) {
+                _FrontendConfig[Frontend.UIName + "/Interface/TerminalBackgroundColor"] = "#000000";
+            }
             _FrontendConfig.Save();
 
             if (_FrontendConfig.IsCleanConfig) {
@@ -179,7 +173,6 @@ namespace Smuxi.Frontend.Stfl
         public static void InitLocalEngine()
         {
             Engine.Engine.Init();
-            _EngineVersion = Engine.Engine.Version;
             _LocalSession = new Engine.Session(Engine.Engine.Config,
                                          Engine.Engine.ProtocolManagerFactory,
                                          "local");
@@ -191,14 +184,14 @@ namespace Smuxi.Frontend.Stfl
         
         public static void InitRemoteEngine(string engine)
         {
-            var manager = new EngineManager(_FrontendConfig,
-                                            _MainWindow.UI);
+            EngineManager = new EngineManager(_FrontendConfig,
+                                              _MainWindow.UI);
             try {
                 try {
                     Console.WriteLine(
                         _("Connecting to remote engine '{0}'..."), engine
                     );
-                    manager.Connect(engine);
+                    EngineManager.Connect(engine);
                     Console.WriteLine(_("Connection established"));
                 } catch (Exception ex) {
 #if LOG4NET
@@ -212,15 +205,14 @@ namespace Smuxi.Frontend.Stfl
                     Environment.Exit(1);
                 }
 
-                Session = manager.Session;
-                _UserConfig = manager.UserConfig;
-                _EngineVersion = manager.EngineVersion;
+                Session = EngineManager.Session;
+                _UserConfig = EngineManager.UserConfig;
                 ConnectEngineToGUI();
             } catch (Exception ex) {
 #if LOG4NET
                 _Logger.Error(ex);
 #endif
-                manager.Disconnect();
+                EngineManager.Disconnect();
                 throw;
             }
         }
@@ -274,6 +266,8 @@ namespace Smuxi.Frontend.Stfl
                         _Logger.Error("Quit(): Exception", ex);
 #endif
                     }
+                } else if (EngineManager != null) {
+                    EngineManager.Disconnect();
                 }
             }
             

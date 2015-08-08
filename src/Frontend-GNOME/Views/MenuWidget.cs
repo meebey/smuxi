@@ -219,7 +219,7 @@ namespace Smuxi.Frontend.Gnome
                 // do connect as background task as it might take a while
                 ThreadPool.QueueUserWorkItem(delegate {
                     try {
-                        if (Frontend.EngineVersion < new Version(0, 8, 11)) {
+                        if (Frontend.EngineProtocolVersion < new Version(0, 8, 11)) {
                             // HACK: Smuxi < 0.8.11 used auto serialization for
                             // ServerModel and thus breaks on unknown fields,
                             // which we skip by setting this to null, see:
@@ -550,7 +550,7 @@ namespace Smuxi.Frontend.Gnome
             Trace.Call(sender, e);
 
             try {
-                Frontend.OpenLink(new Uri("http://www.smuxi.org/"));
+                Frontend.OpenLink(new Uri("https://smuxi.im/"));
             } catch (Exception ex) {
                 Frontend.ShowException(Parent, ex);
             }

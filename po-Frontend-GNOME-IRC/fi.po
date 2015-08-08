@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Smuxi - IRC client\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-12-11 17:04+0100\n"
+"POT-Creation-Date: 2015-05-03 12:35+0200\n"
 "PO-Revision-Date: 2013-11-19 16:27+0000\n"
 "Last-Translator: Kalle Kaitala <cobrian@cobrian.net>\n"
 "Language-Team: Finnish (http://www.transifex.com/projects/p/smuxi/language/fi/)\n"
@@ -55,17 +55,17 @@ msgid "Unban"
 msgstr "Poista porttikielto"
 
 #: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:430
-#: ../src/Frontend-GNOME-IRC/IrcPersonChatView.cs:63
+#: ../src/Frontend-GNOME-IRC/IrcPersonChatView.cs:92
 msgid "Whois"
 msgstr "Whois"
 
 #: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:434
-#: ../src/Frontend-GNOME-IRC/IrcPersonChatView.cs:67
+#: ../src/Frontend-GNOME-IRC/IrcPersonChatView.cs:96
 msgid "CTCP"
 msgstr "CTCP"
 
 #: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:443
-#: ../src/Frontend-GNOME-IRC/IrcPersonChatView.cs:74
+#: ../src/Frontend-GNOME-IRC/IrcPersonChatView.cs:103
 msgid "Invite to"
 msgstr "Kutsu..."
 

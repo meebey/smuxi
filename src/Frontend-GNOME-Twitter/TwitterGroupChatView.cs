@@ -48,7 +48,7 @@ namespace Smuxi.Frontend.Gnome
             base.OnPersonMenuShown(sender, e);
 
             Gtk.MenuItem item;
-            if (Frontend.EngineVersion >= new Version(0, 7)) {
+            if (Frontend.EngineProtocolVersion >= new Version(0, 7)) {
                 item = new Gtk.ImageMenuItem(_("Direct Message"));
                 item.Activated += OnUserListMenuDirectMessageActivated;
                 PersonMenu.Append(item);
@@ -56,7 +56,7 @@ namespace Smuxi.Frontend.Gnome
                 PersonMenu.Append(new Gtk.SeparatorMenuItem());
             }
 
-            if (Frontend.EngineVersion >= new Version(0, 10)) {
+            if (Frontend.EngineProtocolVersion >= new Version(0, 10)) {
                 item = new Gtk.ImageMenuItem(_("Timeline"));
                 item.Activated += OnUserListMenuTimelineActivated;
                 PersonMenu.Append(item);

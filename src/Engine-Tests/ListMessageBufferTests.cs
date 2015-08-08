@@ -32,5 +32,10 @@ namespace Smuxi.Engine
         {
             return new ListMessageBuffer();
         }
+
+        protected override IMessageBuffer OpenBuffer()
+        {
+            return CreateBuffer();
+        }
     }
 }

@@ -147,7 +147,7 @@ namespace Smuxi.Frontend.Gnome
         {
             Trace.Call();
 
-            if (Frontend.EngineVersion >= new Version("0.8.1.2")) {
+            if (Frontend.EngineProtocolVersion >= new Version("0.8.1.2")) {
                 // no need to sync chat positions with 0.8.1.2 as they get
                 // updated via Session.MoveChat()
                 return;
@@ -194,12 +194,12 @@ namespace Smuxi.Frontend.Gnome
         [GLib.ConnectBefore]
         protected virtual void OnBeforeSwitchPage(object sender, Gtk.SwitchPageArgs e)
         {
-            if (f_IsBrowseModeEnabled) {
+            if (f_IsBrowseModeEnabled || Frontend.IsDisconnecting) {
                 return;
             }
 
             var chatView = CurrentChatView;
-            chatView.OutputMessageTextView.UpdateMarkerline();
+            chatView.UpdateLastSeenMessage();
         }
 
         protected virtual void OnSwitchPage(object sender, Gtk.SwitchPageArgs e)
@@ -281,7 +281,7 @@ namespace Smuxi.Frontend.Gnome
         {
             Trace.Call(sender, e);
 
-            if (Frontend.EngineVersion < new Version("0.8.1.2")) {
+            if (Frontend.EngineProtocolVersion < new Version("0.8.1.2")) {
                 // Session.MoveChat() was added in >= 0.8.1.2
                 return;
             }

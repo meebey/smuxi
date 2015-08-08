@@ -1,3 +1,33 @@
+smuxi (2:1.0~rc5+dev-1) unstable; urgency=medium
+
+  * New release candidate
+
+ -- Mirco Bauer <meebey@debian.org>  Tue, 14 Jul 2015 17:38:37 +0200
+
+smuxi (2:1.0~rc4+dev-1) unstable; urgency=medium
+
+  * New release candidate
+
+ -- Mirco Bauer <meebey@debian.org>  Thu, 21 May 2015 23:51:27 +0200
+
+smuxi (2:1.0~rc3+dev-1) unstable; urgency=medium
+
+  * New release candidate
+
+ -- Mirco Bauer <meebey@debian.org>  Sun, 03 May 2015 12:39:32 +0200
+
+smuxi (2:1.0~rc2+dev-1~pre1) unstable; urgency=medium
+
+  * New release candidate
+
+ -- Mirco Bauer <meebey@debian.org>  Sat, 02 May 2015 17:04:18 +0200
+
+smuxi (2:0.12+dev-1~pre1) unstable; urgency=medium
+
+  * New upstream release
+
+ -- Mirco Bauer <meebey@debian.org>  Mon, 14 Jul 2014 11:37:02 +0200
+
 smuxi (2:0.11+dev-1~pre1) unstable; urgency=medium
 
   * New upstream release

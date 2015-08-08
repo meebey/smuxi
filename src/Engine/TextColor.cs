@@ -34,6 +34,7 @@ using Smuxi.Common;
 namespace Smuxi.Engine
 {
     [Serializable]
+    [DataContract]
     public class TextColor : ISerializable
     {
         public static readonly TextColor None  = new TextColor();
@@ -42,7 +43,8 @@ namespace Smuxi.Engine
         public static readonly TextColor Grey  = new TextColor(128, 128, 128);
         
         private int f_Value;
-        
+
+        [DataMember]
         public int Value {
             get {
                 return f_Value;
@@ -52,24 +54,28 @@ namespace Smuxi.Engine
             }
         }
         
+        [IgnoreDataMember]
         public string HexCode {
             get {
                 return f_Value.ToString("X6");
             }
         }
         
+        [IgnoreDataMember]
         public byte Red {
             get {
                 return (byte) ((f_Value & 0xFF0000) >> 16);
             }
         }
         
+        [IgnoreDataMember]
         public byte Green {
             get {
                 return (byte) ((f_Value & 0xFF00) >> 8);
             }
         }
         
+        [IgnoreDataMember]
         public byte Blue {
             get {
                 return (byte) (f_Value & 0xFF);
@@ -86,6 +92,7 @@ namespace Smuxi.Engine
             f_Value = value;
         }
         
+        [CLSCompliant(false)]
         public TextColor(uint value)
         {
             f_Value = checked((int) value);

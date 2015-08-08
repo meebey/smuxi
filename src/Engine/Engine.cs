@@ -1,13 +1,7 @@
 /*
- * $Id$
- * $URL$
- * $Rev$
- * $Author$
- * $Date$
- *
  * Smuxi - Smart MUltipleXed Irc
  *
- * Copyright (c) 2005-2013 Mirco Bauer <meebey@meebey.net>
+ * Copyright (c) 2005-2015 Mirco Bauer <meebey@meebey.net>
  *
  * Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
  *
@@ -28,6 +22,7 @@
 
 using System;
 using System.IO;
+using System.Text;
 using System.Reflection;
 using Smuxi.Common;
 
@@ -36,16 +31,26 @@ namespace Smuxi.Engine
     public class Engine
     {
         private static bool             _IsInitialized;
-        private static Version          _Version;
-        private static string           _VersionNumber;
         private static string           _VersionString;
         private static Config           _Config;
         private static SessionManager   _SessionManager;
         private static ProtocolManagerFactory _ProtocolManagerFactory;
-        
+
+        public static Version AssemblyVersion {
+            get {
+                var asm = Assembly.GetEntryAssembly();
+                if (asm == null) {
+                    asm = Assembly.GetAssembly(typeof(Engine));
+                }
+                var asm_name = asm.GetName(false);
+                return asm_name.Version;
+            }
+        }
+
+        [Obsolete("Use AssemblyVersion or ProtocolVersion instead.")]
         public static Version Version {
             get {
-                return _Version;
+                return AssemblyVersion;
             }
         }
     
@@ -54,7 +59,15 @@ namespace Smuxi.Engine
                 return _VersionString;
             }
         }
-        
+
+        public static Version ProtocolVersion {
+            get {
+                // major == compatibility
+                // minor == features
+                return new Version("0.13");
+            }
+        }
+
         public static Config Config {
             get {
                 return _Config;
@@ -91,8 +104,6 @@ namespace Smuxi.Engine
                 asm = Assembly.GetAssembly(typeof(Engine));
             }
             var asm_name = asm.GetName(false);
-            _Version = asm_name.Version;
-            _VersionNumber = asm_name.Version.ToString();
 
             var distVersion = Defines.DistVersion;
             if (!String.IsNullOrEmpty(distVersion)) {
@@ -101,7 +112,7 @@ namespace Smuxi.Engine
             _VersionString = String.Format(
                 "{0} {1}{2} - running on {3} {4}",
                 Path.GetFileNameWithoutExtension(asm_name.Name),
-                _Version,
+                AssemblyVersion,
                 distVersion,
                 Platform.OperatingSystem,
                 Platform.Architecture
@@ -110,10 +121,18 @@ namespace Smuxi.Engine
             _Config = new Config();
             _Config.Load();
             _Config.Save();
-            
-            string location = Assembly.GetExecutingAssembly().Location;
+
+            string location = Path.GetDirectoryName(asm.Location);
+            if (String.IsNullOrEmpty(location) &&
+                Environment.OSVersion.Platform == PlatformID.Unix) {
+                // we are mkbundled
+                var locationBuilder = new StringBuilder(8192);
+                if (Mono.Unix.Native.Syscall.readlink("/proc/self/exe", locationBuilder) >= 0) {
+                    location = Path.GetDirectoryName(locationBuilder.ToString());
+                }
+            }
             _ProtocolManagerFactory = new ProtocolManagerFactory();
-            _ProtocolManagerFactory.LoadAllProtocolManagers(Path.GetDirectoryName(location));
+            _ProtocolManagerFactory.LoadAllProtocolManagers(location);
             
             _SessionManager = new SessionManager(_Config, _ProtocolManagerFactory);
         }

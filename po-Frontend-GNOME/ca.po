@@ -784,7 +784,7 @@ msgstr "Gràcies"
 
 #: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:285
 msgid "An engine with this name already exists! Please specify a different one."
-msgstr "Ja existeix un motor amb aquest nom! Especifique-ne un altre."
+msgstr "Ja existeix un motor amb aquest nom! Especifiqueu-ne un altre."
 
 #: ../src/Frontend-GNOME/Views/MessageTextView.cs:198
 #, csharp-format

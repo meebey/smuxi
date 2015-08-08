@@ -207,8 +207,9 @@ namespace Smuxi.Frontend.Swf
 #endif
                 }
             } else {
-                _BackgroundColor = null;
-                _OutputTextView.BackColor = Color.Empty;
+                // Instead of a null colour, get the system colour "Window"
+                _BackgroundColor = SystemColors.Window;
+                _OutputTextView.BackColor = SystemColors.Window;
             }
             
             string fgStr = (string) config["Interface/Chat/ForegroundColor"];
@@ -223,8 +224,9 @@ namespace Smuxi.Frontend.Swf
 #endif
                 }
             } else {
-                _ForegroundColor = null;
-                _OutputTextView.ForeColor = Color.Empty;
+                // Same for the text.
+                _ForegroundColor = SystemColors.WindowText;
+                _OutputTextView.ForeColor = SystemColors.WindowText;
             }
             
             string fontFamily = (string) config["Interface/Chat/FontFamily"];

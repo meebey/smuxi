@@ -3,13 +3,13 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# Clément Bourgeois <moonpyk@gmail.com>, 2013
+# Clément Bourgeois <moonpyk@gmail.com>, 2013,2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Smuxi - IRC client\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-12-11 17:06+0100\n"
-"PO-Revision-Date: 2013-12-13 21:40+0000\n"
+"POT-Creation-Date: 2015-05-03 12:36+0200\n"
+"PO-Revision-Date: 2015-05-03 20:09+0000\n"
 "Last-Translator: Clément Bourgeois <moonpyk@gmail.com>\n"
 "Language-Team: French (http://www.transifex.com/projects/p/smuxi/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -18,25 +18,29 @@ msgstr ""
 "Language: fr\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: ../src/Frontend-GNOME-XMPP/XmppGroupChatView.cs:219
+#: ../src/Frontend-GNOME-XMPP/XmppGroupChatView.cs:247
 msgid "Query"
 msgstr "Chat privé"
 
-#: ../src/Frontend-GNOME-XMPP/XmppGroupChatView.cs:227
+#: ../src/Frontend-GNOME-XMPP/XmppGroupChatView.cs:255
 #: ../src/Frontend-GNOME-XMPP/XmppPersonChatView.cs:215
 msgid "Whois"
 msgstr "Whois"
 
-#: ../src/Frontend-GNOME-XMPP/XmppGroupChatView.cs:233
+#: ../src/Frontend-GNOME-XMPP/XmppGroupChatView.cs:261
 #: ../src/Frontend-GNOME-XMPP/XmppPersonChatView.cs:221
 msgid "Add To Contacts"
 msgstr "Ajouter aux contacts"
 
-#: ../src/Frontend-GNOME-XMPP/XmppGroupChatView.cs:239
+#: ../src/Frontend-GNOME-XMPP/XmppGroupChatView.cs:267
 #: ../src/Frontend-GNOME-XMPP/XmppPersonChatView.cs:227
 msgid "Invite to"
 msgstr "Inviter à"
 
-#: ../src/Frontend-GNOME-XMPP/XmppGroupChatView.cs:257
+#: ../src/Frontend-GNOME-XMPP/XmppGroupChatView.cs:285
 msgid "Rename"
 msgstr "Renommer"
+
+#: ../src/Frontend-GNOME-XMPP/XmppGroupChatView.cs:297
+msgid "Remove"
+msgstr "Retirer"

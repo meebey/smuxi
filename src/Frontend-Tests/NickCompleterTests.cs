@@ -452,16 +452,42 @@ namespace Smuxi.Frontend
             Assert.AreEqual(8, curPos);
 
             // simulate switching chats
-            cv.ClearParticipants();
-            cv.ID = "#elsinore";
-            cv.AddParticipant("Hamlet");
-            cv.AddParticipant("HamletSr|Ghost");
+            var elsinoreCV = new MockChatView();
+            elsinoreCV.ID = "#elsinore";
+            elsinoreCV.AddParticipant("Hamlet");
+            elsinoreCV.AddParticipant("HamletSr|Ghost");
 
-            tcnc.Complete(ref inputLine, ref curPos, cv);
+            tcnc.Complete(ref inputLine, ref curPos, elsinoreCV);
 
             AssertNoMessagesOutput();
             Assert.AreEqual("Helena: ", inputLine);
             Assert.AreEqual(8, curPos);
+        }
+
+        [Test]
+        public void TestNoRecompletionIfLineChangesButSameLength() {
+            cv.ID = "#athena";
+            cv.AddParticipant("Hippolyta");
+            cv.AddParticipant("Hermia");
+            cv.AddParticipant("Helena");
+
+            string inputLine = "Hip";
+            int curPos = 3;
+
+            tcnc.Complete(ref inputLine, ref curPos, cv);
+
+            AssertNoMessagesOutput();
+            Assert.AreEqual("Hippolyta: ", inputLine);
+            Assert.AreEqual(11, curPos);
+
+            // replace with a message of the same length
+            inputLine = "/kick Hermi";
+
+            tcnc.Complete(ref inputLine, ref curPos, cv);
+
+            AssertNoMessagesOutput();
+            Assert.AreEqual("/kick Hermia ", inputLine);
+            Assert.AreEqual(13, curPos);
         }
     }
 }

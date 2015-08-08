@@ -1,6 +1,7 @@
 glade/
 src/Common/
 src/Engine/
+src/Engine-MessageBuffer/
 src/Engine-Campfire/
 src/Engine-JabbR/
 src/Engine-XMPP/

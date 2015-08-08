@@ -1,12 +1,15 @@
 debian/apt.conf.d/60smuxi-daily /etc/apt/apt.conf.d/
 usr/bin/smuxi-server
+usr/bin/smuxi-message-buffer
 usr/lib/smuxi/smuxi-common.dll*
 usr/lib/smuxi/smuxi-engine*.dll*
 usr/lib/smuxi/smuxi-frontend.dll*
 usr/lib/smuxi/smuxi-server.exe*
+usr/lib/smuxi/smuxi-message-buffer.exe*
 usr/lib/smuxi/Db4objects.Db4o.dll*
 usr/lib/smuxi/Meebey.SmartIrc4net.dll*
 usr/lib/smuxi/Twitterizer2.dll*
+usr/lib/smuxi/Twitterizer2.Streaming.dll*
 usr/lib/smuxi/ServiceStack*.dll*
 usr/lib/smuxi/Newtonsoft.Json.dll*
 usr/lib/smuxi/agsxmpp.dll*
@@ -14,3 +17,4 @@ usr/lib/smuxi/StarkSoftProxy.dll*
 usr/share/locale/*/LC_MESSAGES/smuxi-engine*.mo
 usr/share/locale/*/LC_MESSAGES/smuxi-frontend.mo
 usr/share/locale/*/LC_MESSAGES/smuxi-server.mo
+usr/share/locale/*/LC_MESSAGES/smuxi-message-buffer.mo

@@ -1,0 +1,121 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+# RavuAlHemio <ondra.hosek@gmail.com>, 2014
+msgid ""
+msgstr ""
+"Project-Id-Version: Smuxi - IRC client\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-05-03 12:31+0200\n"
+"PO-Revision-Date: 2014-08-24 11:58+0000\n"
+"Last-Translator: RavuAlHemio <ondra.hosek@gmail.com>\n"
+"Language-Team: Czech (http://www.transifex.com/projects/p/smuxi/language/cs/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: cs\n"
+"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+
+#: ../src/Engine-MessageBuffer/Main.cs:49
+msgid "Enable debug output"
+msgstr "Zapnout ladicí informace"
+
+#: ../src/Engine-MessageBuffer/Main.cs:55
+#: ../src/Engine-MessageBuffer/Main.cs:131
+#: ../src/Engine-MessageBuffer/Main.cs:195
+msgid "Show this help"
+msgstr "Ukázat tuto nápovědu"
+
+#: ../src/Engine-MessageBuffer/Main.cs:57
+msgid "Usage: smuxi-message-buffer [options] action action-options"
+msgstr "Použití: smuxi-message-buffer [volby] akce volby-akce"
+
+#: ../src/Engine-MessageBuffer/Main.cs:59
+msgid "Actions:"
+msgstr "Akce:"
+
+#: ../src/Engine-MessageBuffer/Main.cs:63
+#: ../src/Engine-MessageBuffer/Main.cs:142
+#: ../src/Engine-MessageBuffer/Main.cs:207
+msgid "Options:"
+msgstr "Volby:"
+
+#: ../src/Engine-MessageBuffer/Main.cs:90
+#, csharp-format
+msgid "Unknown action: '{0}'"
+msgstr "Neznámá akce: '{0}'"
+
+#: ../src/Engine-MessageBuffer/Main.cs:97
+#, csharp-format
+msgid "Command line error: {0}"
+msgstr "Chybný příkaz: {0}"
+
+#: ../src/Engine-MessageBuffer/Main.cs:109
+msgid "Database format (valid values: auto, db4o, sqlite)"
+msgstr "Formát databáze (povolené hodnoty: auto, db4o, sqlite)"
+
+#: ../src/Engine-MessageBuffer/Main.cs:124
+#: ../src/Engine-MessageBuffer/Main.cs:188
+#, csharp-format
+msgid "Unknown {0} option: '{1}'"
+msgstr "Neznámá volba {0}: '{1}'"
+
+#: ../src/Engine-MessageBuffer/Main.cs:135
+#, csharp-format
+msgid "Usage: smuxi-message-buffer {0} [action-options] db_path"
+msgstr "Použití: smuxi-message-buffer {0} [volby-akce] cesta_k_databázi"
+
+#: ../src/Engine-MessageBuffer/Main.cs:140
+msgid "Database path"
+msgstr "Cesta k databázi"
+
+#: ../src/Engine-MessageBuffer/Main.cs:151
+msgid "db_path is required"
+msgstr "cesta_k_databázi musí být zadána"
+
+#: ../src/Engine-MessageBuffer/Main.cs:165
+msgid "Source format (valid values: auto, db4o, sqlite)"
+msgstr "Zdrojový formát (povolené hodnoty: auto, db4o, sqlite)"
+
+#: ../src/Engine-MessageBuffer/Main.cs:173
+msgid "Destination format (valid values: auto, db4o, sqlite)"
+msgstr "Cílový formát (povolené hodnoty: auto, db4o, sqlite)"
+
+#: ../src/Engine-MessageBuffer/Main.cs:199
+#, csharp-format
+msgid ""
+"Usage: smuxi-message-buffer {0} [action-options] source_db destination_db"
+msgstr "Použití: smuxi-message-buffer {0} [volby-akce] zdrojová_databáze cílová_databáze"
+
+#: ../src/Engine-MessageBuffer/Main.cs:204
+msgid "Source file path"
+msgstr "Cesta k zdrojovému souboru"
+
+#: ../src/Engine-MessageBuffer/Main.cs:205
+msgid "Destination file path or -/empty for stdout"
+msgstr "Cesta k cílovému souboru nebo -/prázdná pro stdout"
+
+#: ../src/Engine-MessageBuffer/Main.cs:216
+msgid "source_db and destination_db are required"
+msgstr "zdrojová_databáze a cílová_databáze musí být zadány"
+
+#: ../src/Engine-MessageBuffer/Main.cs:232
+msgid "sourceFile must not be empty."
+msgstr "zdrojovýSoubor nesmí být prázdný."
+
+#: ../src/Engine-MessageBuffer/Main.cs:248
+#, csharp-format
+msgid "Destination database {0} must be empty!"
+msgstr "Cílová databáze {0} musí být prázdná!"
+
+#: ../src/Engine-MessageBuffer/Main.cs:298
+#, csharp-format
+msgid "Unknown file format: '{0}'"
+msgstr "Neznámý formát souboru: '{0}'"
+
+#: ../src/Engine-MessageBuffer/Main.cs:320
+#, csharp-format
+msgid "Unsupported buffer type: '{0}'"
+msgstr "Neznámý typ bufferu: '{0}'"

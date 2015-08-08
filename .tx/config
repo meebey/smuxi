@@ -56,6 +56,11 @@ file_filter = po-Frontend-GNOME-XMPP/<lang>.po
 source_file = po-Frontend-GNOME-XMPP/smuxi-frontend-gnome-xmpp.pot
 source_lang = en
 
+[smuxi.smuxi-message-buffer]
+file_filter = po-Engine-MessageBuffer/<lang>.po
+source_file = po-Engine-MessageBuffer/smuxi-message-buffer.pot
+source_lang = en
+
 [smuxi.smuxi-server]
 file_filter = po-Server/<lang>.po
 source_file = po-Server/smuxi-server.pot

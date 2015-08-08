@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Smuxi - IRC client\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-12-11 17:00+0100\n"
+"POT-Creation-Date: 2015-05-03 12:32+0200\n"
 "PO-Revision-Date: 2013-12-13 08:22+0000\n"
 "Last-Translator: Dean Lee <xslidian@gmail.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/projects/p/smuxi/language/zh_CN/)\n"
@@ -42,16 +42,16 @@ msgstr "连接失败! 原因: {0}"
 msgid "Connecting to {0}..."
 msgstr "正在连接到 {0}..."
 
-#: ../src/Engine-JabbR/JabbrProtocolManager.cs:340
+#: ../src/Engine-JabbR/JabbrProtocolManager.cs:354
 #, csharp-format
 msgid "Reconnecting to {0}..."
 msgstr "正在重新连接到 {0}..."
 
-#: ../src/Engine-JabbR/JabbrProtocolManager.cs:433
+#: ../src/Engine-JabbR/JabbrProtocolManager.cs:447
 msgid "not connected"
 msgstr "未连接"
 
-#: ../src/Engine-JabbR/JabbrProtocolManager.cs:577
+#: ../src/Engine-JabbR/JabbrProtocolManager.cs:607
 #, csharp-format
 msgid "Retrieving chat information failed. Reason: {0}"
 msgstr "检索聊天信息失败。原因: {0}"

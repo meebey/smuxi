@@ -1,0 +1,1397 @@
+# Greek translation for smuxi.
+# Copyright (C) 2015 smuxi's COPYRIGHT HOLDER
+# This file is distributed under the same license as the smuxi package.
+# Dimitris Spingos <dmtrs32@gmail.com>, 2015.
+# Dimitris Spingos (Δημήτρης Σπίγγος) <dmtrs32@gmail.com>, 2015.
+msgid ""
+msgstr ""
+"Project-Id-Version: smuxi master\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=smuxi&"
+"keywords=I18N+L10N&component=general\n"
+"POT-Creation-Date: 2015-07-02 11:45+0000\n"
+"PO-Revision-Date: 2015-07-05 21:33+0300\n"
+"Last-Translator: Dimitris Spingos (Δημήτρης Σπίγγος) <dmtrs32@gmail.com>\n"
+"Language-Team: team@lists.gnome.gr\n"
+"Language: el\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Virtaal 0.7.1\n"
+"X-Project-Style: gnome\n"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:1
+msgid "Smuxi Preferences"
+msgstr "Προτιμήσεις Smuxi"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:2
+msgid ""
+"The nickname to use. You can specify extra nicknames (separated by spaces) "
+"which will be used as fallbacks when the first choice is not available. By "
+"default $nick_ and $nick__ will be used as fallbacks."
+msgstr ""
+"Το ψευδώνυμο που θα χρησιμοποιηθεί. Μπορείτε να ορίσετε πρόσθετα ψευδώνυμα "
+"(χωριζόμενα με κενά) που θα χρησιμοποιηθούν ως εναλλακτικά όταν η πρώτη "
+"επιλογή δεν είναι διαθέσιμη. Από προεπιλογή τα $nick_ και $nick__ θα "
+"χρησιμοποιηθούν ως εναλλακτικά."
+
+#: ../glade/smuxi-frontend-gnome.glade.h:3
+msgid "Nickname(s):"
+msgstr "Ψευδώνυμα:"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:4
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:315
+msgid "Username:"
+msgstr "Όνομα χρήστη:"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:5
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:338
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:147
+msgid "Realname:"
+msgstr "Πραγματικό όνομα:"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:6
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:359
+msgid "Encoding:"
+msgstr "Κωδικοποίηση:"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:7
+msgid "Automatically convert UTF-8 characters"
+msgstr "Αυτόματη μετατροπή χαρακτήρων σε UTF-8"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:8
+msgid "<b>General</b>"
+msgstr "<b>Γενικά</b>"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:9
+msgid "Type:"
+msgstr "Τύπος:"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:10
+msgid "Host:"
+msgstr "Οικοδεσπότης:"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:11
+msgid "Password:"
+msgstr "Κωδικός πρόσβασης:"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:12
+msgid "Port:"
+msgstr "Θύρα:"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:13
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:224
+msgid "Show Password"
+msgstr "Εμφάνιση κωδικού πρόσβασης"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:14
+msgid "<b>Network Proxy</b>"
+msgstr "<b>Διαμεσολαβητής δικτύου</b>"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:15
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:381
+msgid "On Connect Commands:"
+msgstr "Εντολές κατά τη σύνδεση:"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:16
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:427
+msgid "On Startup Commands:"
+msgstr "Εντολές κατά την εκκίνηση:"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:17
+msgid "<b>Global Commands</b>"
+msgstr "<b>Καθολικές εντολές</b>"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:18
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:471
+msgid "C_onnection"
+msgstr "Σύ_νδεση"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:19
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:526
+msgid "Timestamp Format:"
+msgstr "Μορφή χρονικής σήμανσης:"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:20
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:546
+msgid "Buffer Lines:"
+msgstr "Βοηθητικές γραμμές:"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:21
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:569
+msgid "Engine Buffer Lines:"
+msgstr "Βοηθητικές γραμμές μηχανής:"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:22
+msgid ""
+"ss = seconds\n"
+"mm = minutes\n"
+"hh = hours (01 - 12)\n"
+"HH = hours (00 - 23)\n"
+"tt = AM/PM\n"
+"\n"
+"dd = day\n"
+"MM = month\n"
+"yy/yyyy = year"
+msgstr ""
+"ss = δευτερόλεπτα\n"
+"mm = λεπτά\n"
+"hh = ώρες (01 - 12)\n"
+"HH = ώρες (00 - 23)\n"
+"tt = ΠΜ/ΜΜ\n"
+"\n"
+"dd = ημέρα\n"
+"MM = μήνας\n"
+"yy/yyyy = έτος"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:31
+msgid "Persistency Type:"
+msgstr "Τύπος μονιμότητας:"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:32
+msgid "Volatile Buffer Lines:"
+msgstr "Μη διατηρήσιμες βοηθητικές γραμμές:"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:33
+msgid "Persistent Buffer Lines:"
+msgstr "Μόνιμες βοηθητικές γραμμές:"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:34
+msgid "<b>Message Buffer</b>"
+msgstr "<b>Βοηθητικό μήνυμα</b>"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:35
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:628
+msgid "Strip Colors"
+msgstr "Αφαίρεση χρωμάτων"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:36
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:667
+msgid "Strip Formattings"
+msgstr "Αφαίρεση μορφοποιήσεων"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:37
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:707
+msgid "Strip UTF-8"
+msgstr "Αφαίρεση UTF-8"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:38
+msgid "Show Advanced Settings"
+msgstr "Εμφάνιση προχωρημένων ρυθμίσεων"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:39
+msgid "<b>Advanced</b>"
+msgstr "<b>Προχωρημένα</b>"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:40
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:725
+msgid "General"
+msgstr "Γενικά"
+
+#. Container child vbox6.Gtk.Box+BoxChild
+#. Container child vbox11.Gtk.Box+BoxChild
+#: ../glade/smuxi-frontend-gnome.glade.h:41
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:743
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:767
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1220
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1246
+msgid "Top"
+msgstr "Επάνω"
+
+#. Container child vbox6.Gtk.Box+BoxChild
+#. Container child vbox11.Gtk.Box+BoxChild
+#: ../glade/smuxi-frontend-gnome.glade.h:42
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:780
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:802
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1261
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1286
+msgid "Bottom"
+msgstr "Κάτω"
+
+#. Container child vbox6.Gtk.Box+BoxChild
+#. Container child vbox12.Gtk.Box+BoxChild
+#: ../glade/smuxi-frontend-gnome.glade.h:43
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:816
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:841
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1335
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1361
+msgid "Left"
+msgstr "Αριστερά"
+
+#. Container child vbox6.Gtk.Box+BoxChild
+#. Container child vbox12.Gtk.Box+BoxChild
+#: ../glade/smuxi-frontend-gnome.glade.h:44
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:856
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:881
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1376
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1401
+msgid "Right"
+msgstr "Δεξιά"
+
+#. Container child vbox6.Gtk.Box+BoxChild
+#. Container child vbox11.Gtk.Box+BoxChild
+#. Container child vbox12.Gtk.Box+BoxChild
+#: ../glade/smuxi-frontend-gnome.glade.h:45
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:896
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1301
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1416
+msgid "None"
+msgstr "Kανένα"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:46
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:910
+msgid "<b> Tabs Position </b>"
+msgstr "<b> Θέση καρτελών </b>"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:47
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:981
+msgid "Highlight"
+msgstr "Επισήμανση"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:48
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:961
+msgid "Activity"
+msgstr "Δραστηριότητα"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:49
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:953
+msgid "No Activity"
+msgstr "Χωρίς δραστηριότητα"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:50
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:971
+msgid "Join/Part/Mode"
+msgstr "Ένωση/Τμήμα/Κατάσταση"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:51
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1009
+msgid "<b> Tab Colors </b>"
+msgstr "<b> Χρώματα καρτέλας </b>"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:52
+msgid "Automatically switch to newly opened person chats"
+msgstr "Αυτόματη μετάβαση σε τις νέες ανοικτές συνομιλίες ατόμων"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:53
+msgid "Automatically switch to newly opened group chats"
+msgstr "Αυτόματη μετάβαση σε νέες ανοικτές ομαδικές συνομιλίες"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:54
+msgid "Tree"
+msgstr "Δένδρο"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:55
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1092
+msgid "Completion Character:"
+msgstr "Χαρακτήρας συμπλήρωσης:"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:56
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1112
+msgid "Command Character:"
+msgstr "Χαρακτήρας εντολής:"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:57
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1135
+msgid "Command History Size:"
+msgstr "Μέγεθος ιστορικού εντολών:"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:58
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1160
+msgid "Bash-Style Completion"
+msgstr "Συμπλήρωση με μορφή Bash"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:59
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1172
+msgid "<b> Entry Field </b>"
+msgstr "<b> πεδίο καταχώρισης </b>"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:60
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1181
+msgid "Input"
+msgstr "Είσοδος"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:61
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1202
+msgid "Nick Colors"
+msgstr "Χρώματα ψευδωνύμου"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:62
+msgid "<b> Person List Position </b>"
+msgstr "<b> Θέση καταλόγου ατόμων </b>"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:63
+msgid "Override"
+msgstr "Αντικατάσταση"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:64
+msgid "<b> Font </b>"
+msgstr "<b> Γραμματοσειρά </b>"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:65
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1315
+msgid "<b> Topic Position </b>"
+msgstr "<b> Θεματική θέση </b>"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:66
+msgid "Foreground"
+msgstr "Προσκήνιο"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:67
+msgid "Background"
+msgstr "Παρασκήνιο"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:68
+msgid "<b> Color </b>"
+msgstr "<b> Χρώμα </b>"
+
+#. This is a setting for character based line wrapping vs word based when showing messages
+#: ../glade/smuxi-frontend-gnome.glade.h:70
+msgid "_Wrap Mode:"
+msgstr "_Κατάσταση αναδίπλωσης:"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:71
+msgid "<b> Chat </b>"
+msgstr "<b> Συνομιλία </b>"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:72
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1466
+msgid "Highlight words:"
+msgstr "Λέξεις επισήμανσης:"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:73
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1490
+msgid "Beep on highlight"
+msgstr "Ήχος στην επισήμανση"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:74
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1502
+msgid "<b> Highlighting </b>"
+msgstr "<b> Επισήμανση </b>"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:75
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1514
+msgid "Output"
+msgstr "Έξοδος"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:76
+msgid "Enable"
+msgstr "Ενεργοποίηση"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:77
+msgid "Show always"
+msgstr "Να εμφανίζεται πάντα"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:78
+msgid "Show when window is minimized"
+msgstr "Να εμφανίζεται όταν το παράθυρο είναι ελαχιστοποιημένο"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:79
+msgid "Show when window is closed"
+msgstr "Να εμφανίζεται όταν το παράθυρο είναι κλειστό"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:80
+msgid "<b> Notification Area Icon </b>"
+msgstr "<b> Εικονίδιο περιοχής ειδοποιήσεων </b>"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:81
+msgid "Show Smuxi in the messaging menu"
+msgstr "Να εμφανίζεται το Smuxi στο μενού μηνυμάτων"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:82
+msgid "<b>Messaging Menu</b>"
+msgstr "<b>Μενού μηνυμάτων</b>"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:83
+msgid "Show notification popups"
+msgstr "Να εμφανίζονται οι αναδυόμενες ειδοποιήσεις"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:84
+msgid "<b>Notification Popups</b>"
+msgstr "<b>Αναδυόμενες ειδοποιήσεις</b>"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:85
+msgid "Notification"
+msgstr "Ειδοποίηση"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:86
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1523
+msgid "_Interface"
+msgstr "Δ_ιεπαφή"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:87
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1589
+msgid "_Servers"
+msgstr "_Διακομιστές"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:88
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1681
+msgid "_Filters"
+msgstr "_Φίλτρα"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:89
+msgid "Enabled"
+msgstr "Ενεργοποιημένο"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:90
+msgid "Log Filtered Messages"
+msgstr "Ημερολόγιο φιλτραρισμένων μηνυμάτων"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:91
+msgid "_Logging"
+msgstr "Καταγρα_φή"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:92
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerDialog.cs:16
+msgid "Smuxi - Server"
+msgstr "Διακομιστής Smuxi"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:93
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:263
+msgid "Automatically connect to server at startup"
+msgstr "Αυτόματη σύνδεση με τον διακομιστή κατά την εκκίνηση"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:94
+msgid "Protocol:"
+msgstr "Πρωτόκολλο:"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:95
+msgid "Network:"
+msgstr "Δίκτυο:"
+
+#: ../glade/smuxi-frontend-gnome.glade.h:96
+msgid "Hostname:"
+msgstr "Όνομα οικοδεσπότη:"
+
+#: ../src/Frontend-GNOME/smuxi-frontend-gnome.desktop.in.h:1
+#: ../src/Frontend-GNOME/smuxi-frontend-gnome.appdata.xml.in.h:1
+msgid "Smuxi"
+msgstr "Smuxi"
+
+#: ../src/Frontend-GNOME/smuxi-frontend-gnome.desktop.in.h:2
+msgid "IRC Chat"
+msgstr "Συνομιλία IRC"
+
+#: ../src/Frontend-GNOME/smuxi-frontend-gnome.desktop.in.h:3
+msgid "Smuxi IRC Client"
+msgstr "Πελάτης IRC Smuxi"
+
+#: ../src/Frontend-GNOME/smuxi-frontend-gnome.desktop.in.h:4
+msgid "Chat with other people on IRC"
+msgstr "Συνομιλία με άλλα άτομα στο IRC"
+
+#: ../src/Frontend-GNOME/smuxi-frontend-gnome.desktop.in.h:5
+msgid ""
+"chat;messaging;im;gnome;gtk;irc;twitter;facebook;gtalk;xmpp;jabber;campfire;"
+"jabbr;"
+msgstr ""
+"συνομιλία;μηνύματα;im;gnome;gtk;irc;twitter;facebook;gtalk;xmpp;jabber;campf"
+"ire;jabbr;"
+
+#: ../src/Frontend-GNOME/smuxi-frontend-gnome.appdata.xml.in.h:2
+msgid "Chat with other people on IRC, Twitter, Jabber and Campfire"
+msgstr "Συνομιλία με άλλα άτομα στο IRC, Twitter, Jabber και Campfire"
+
+#: ../src/Frontend-GNOME/smuxi-frontend-gnome.appdata.xml.in.h:3
+msgid ""
+"Smuxi is an open-source, distributed and user-friendly chat client for IRC, "
+"Twitter, Jabber/XMPP, Campfire and SignalR's JabbR."
+msgstr ""
+"Το Smuxi είναι ένας εύχρηστος διανεμόμενος πελάτης συνομιλίας ανοικτού "
+"λογισμικού για IRC, Twitter, Jabber/XMPP, Campfire και JabbR του SignalR."
+
+#: ../src/Frontend-GNOME/smuxi-frontend-gnome.appdata.xml.in.h:4
+msgid ""
+"Inspired by the combination of screen and irssi, Smuxi has a detachable "
+"server (or like a \"normal\" client) that stays connected when you aren't, "
+"and can allow multiple Smuxi frontends to be connected and in sync. This is "
+"similar to screen+irssi or IRC bouncers, but more elegant and powerful."
+msgstr ""
+"Εμπνεύστηκε από τον συνδυασμό οθόνης και irssi, το Smuxi έχει έναν "
+"αποσπώμενο διακομιστή (ή όπως ένας \"κανονικός\" πελάτης) που παραμένει "
+"συνδεμένος όταν δεν είσαστε συνδεδεμένοι και μπορεί να επιτρέψει πολλά "
+"προσκήνια Smuxi να συνδεθούν και σε συγχρονισμό. Αυτό είναι παρόμοιο με το "
+"οθόνη+irssi σε bouncers IRC, αλλά πιο κομψός και πιο ισχυρός."
+
+#: ../src/Frontend-GNOME/smuxi-frontend-gnome.appdata.xml.in.h:5
+msgid "The main window showing an IRC channel"
+msgstr "Το κύριο παράθυρο εμφανίζει ένα κανάλι IRC"
+
+#: ../src/Frontend-GNOME/AboutDialog.cs:66
+msgid "translator-credits"
+msgstr ""
+"Ελληνική μεταφραστική ομάδα του GNOME\n"
+" Δημήτρης Σπίγγος <dmtrs32@gmail.com>\n"
+"Για περισσότερα δείτε: http://gnome.gr"
+
+#: ../src/Frontend-GNOME/AboutDialog.cs:79
+msgid "Smuxi Website"
+msgstr "Ιστότοπος Smuxi"
+
+#: ../src/Frontend-GNOME/CrashDialog.cs:46
+msgid "Oops, I did it again..."
+msgstr "Όπα, το ξανάκανα..."
+
+#: ../src/Frontend-GNOME/CrashDialog.cs:59
+msgid "Smuxi crashed because an unhandled exception was thrown!"
+msgstr "Το Smuxi κατέρρευσε επειδή μια ανεπίλυτη εξαίρεση συνέβη!"
+
+#: ../src/Frontend-GNOME/CrashDialog.cs:63
+msgid "Here is the stacktrace, please report this bug!"
+msgstr "Εδώ είναι το ίχνος στοίβας, παρακαλούμε αναφέρτε αυτό το σφάλμα!"
+
+#: ../src/Frontend-GNOME/CrashDialog.cs:83
+msgid "_Report Bug"
+msgstr "Ανα_φορά σφάλματος"
+
+#: ../src/Frontend-GNOME/EngineManagerDialog.cs:61
+msgid "Engine not found."
+msgstr "Δεν βρέθηκε η μηχανή."
+
+#: ../src/Frontend-GNOME/EngineManagerDialog.cs:77
+msgid "Engine Manager"
+msgstr "Διαχειριστής μηχανής"
+
+#: ../src/Frontend-GNOME/EngineManagerDialog.cs:96
+msgid "Select which Smuxi engine you want to connect to"
+msgstr "Επιλέξτε με ποια μηχανή Smuxi θέλετε να συνδεθείτε"
+
+#: ../src/Frontend-GNOME/EngineManagerDialog.cs:102
+msgid "Engine:"
+msgstr "Μηχανή:"
+
+#: ../src/Frontend-GNOME/EngineManagerDialog.cs:113
+msgid "Use Low Bandwidth Mode"
+msgstr "Χρησιμοποιήστε κατάσταση χαμηλού εύρους ζώνης"
+
+#: ../src/Frontend-GNOME/EngineManagerDialog.cs:137
+#: ../src/Frontend-GNOME/EngineManagerDialog.cs:197
+#: ../src/Frontend-GNOME/EngineManagerDialog.cs:382
+msgid "Local Engine"
+msgstr "Τοπική μηχανή"
+
+#: ../src/Frontend-GNOME/EngineManagerDialog.cs:189
+msgid "Please select an engine!"
+msgstr "Παρακαλούμε επιλέξτε μια μηχανή!"
+
+#: ../src/Frontend-GNOME/EngineManagerDialog.cs:212
+#, csharp-format
+msgid ""
+"Your frontend is not compatible with the engine!\n"
+"Engine Version: {0} Frontend Version: {1}\n"
+"Engine Protocol: {2} Frontend Protocol: {3}"
+msgstr ""
+"Το προσκήνιο δεν είναι συμβατό με τη μηχανή!\n"
+"Έκδοση μηχανής: {0} Έκδοση προσκηνίου: {1}\n"
+"Πρωτόκολλο μηχανής: {2} Πρωτόκολλο προσκήνιου: {3}"
+
+#: ../src/Frontend-GNOME/EngineManagerDialog.cs:245
+msgid "An error occurred while connecting to the engine!"
+msgstr "Προέκυψε ένα σφάλμα κατά τη σύνδεση με τη μηχανή!"
+
+#: ../src/Frontend-GNOME/EngineManagerDialog.cs:246
+#, csharp-format
+msgid "Engine URL: {0}"
+msgstr "URL μηχανής: {0}"
+
+#: ../src/Frontend-GNOME/EngineManagerDialog.cs:249
+#, csharp-format
+msgid "Error: {0}"
+msgstr "Σφάλμα: {0}"
+
+#: ../src/Frontend-GNOME/EngineManagerDialog.cs:319
+#, csharp-format
+msgid "Are you sure you want to delete the engine \"{0}\"?"
+msgstr "Είστε σίγουρος ότι θέλετε να διαγράψετε τη μηχανή \"{0}\";"
+
+#: ../src/Frontend-GNOME/Entry.cs:485
+#, csharp-format
+msgid "You are going to paste {0} lines. Do you want to continue?"
+msgstr "Πρόκειται να επικολλήσετε {0} γραμμές. Θέλετε να συνεχίσετε;"
+
+#. TRANSLATOR: this line is used as a label / category for a
+#. list of commands below
+#: ../src/Frontend-GNOME/Entry.cs:602
+msgid "Frontend Commands"
+msgstr "Εντολές προσκηνίου"
+
+#: ../src/Frontend-GNOME/Main.cs:49
+msgid "Enable debug output"
+msgstr "Ενεργοποίηση εξόδου αποσφαλμάτωσης"
+
+#: ../src/Frontend-GNOME/Main.cs:56
+msgid "Show this help"
+msgstr "Εμφάνιση αυτής της βοήθειας"
+
+#: ../src/Frontend-GNOME/Main.cs:60
+msgid "Options:"
+msgstr "Επιλογές:"
+
+#: ../src/Frontend-GNOME/Main.cs:67
+msgid "Connect to engine"
+msgstr "Σύνδεση με τη μηχανή"
+
+#: ../src/Frontend-GNOME/Main.cs:74
+msgid "Opens the specified link in Smuxi"
+msgstr "Άνοιγμα τον συγκεκριμένο σύνδεσμο στο Smuxi"
+
+#: ../src/Frontend-GNOME/Main.cs:81
+msgid "Starts a new Smuxi instance and ignores an existing one"
+msgstr "Εκκίνηση ενός νέου στιγμιοτύπου Smuxi και παράβλεψη ενός υφισταμένου"
+
+#: ../src/Frontend-GNOME/Main.cs:109
+msgid "Passing link to already running Smuxi instance..."
+msgstr "Πέρασμα συνδέσμου στο ήδη εκτελούμενο στιγμιότυπο Smuxi..."
+
+#: ../src/Frontend-GNOME/Main.cs:117
+msgid "Bringing already running Smuxi instance to foreground..."
+msgstr "Μεταφορά του ήδη εκτελουμένου στιγμιοτύπου Smuxi στο προσκήνιο..."
+
+#: ../src/Frontend-GNOME/MainWindow.cs:374
+#, csharp-format
+msgid "{0} Users"
+msgstr "{0} Χρήστες"
+
+#: ../src/Frontend-GNOME/NotImplementedMessageDialog.cs:40
+msgid "Sorry, not implemented yet!"
+msgstr "Συγνώμη, δεν έχει ακόμα υλοποιηθεί!"
+
+#. fill ListStore
+#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:179
+msgid "Character"
+msgstr "Χαρακτήρας"
+
+#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:180
+msgid "Word"
+msgstr "Λέξη"
+
+#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:187
+msgid ""
+"This setting specifies if Smuxi should store chat messages in memory "
+"(volatile) or to disk (persistent).\n"
+"For persistent you can choose between Db4o, an object database or SQLite, a "
+"relational database.\n"
+"The Db4o backend has known issues like high memory and CPU usage and can "
+"even lead to crashes and thus it is deprecated.\n"
+"The SQLite backend has no known performance or stability issues and is the "
+"recommended setting."
+msgstr ""
+"Αυτή η ρύθμιση καθορίζει αν το Smuxi πρέπει να αποθηκεύσει τα μηνύματα "
+"συνομιλιών στη μνήμη (μη διατηρήσιμη) ή στον δίσκο (μόνιμη).\n"
+"Για τη μόνιμη μπορείτε να επιλέξετε μεταξύ Db4o, μια βάση δεδομένων "
+"αντικειμένων ή SQLite, μια σχεσιακή βάση δεδομένων.\n"
+"Το παρασκήνιο Db4o έχει γνωστά προβλήματα όπως υψηλή μνήμη και χρήση ΚΜΕ και "
+"μπορεί ακόμα να οδηγήσει σε καταρρεύσεις και συνεπώς είναι παρωχημένη.\n"
+"Το παρασκήνιο SQLite δεν έχει γνωστά προβλήματα απόδοσης ή σταθερότητας και "
+"είναι η συνιστώμενη ρύθμιση."
+
+#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:208
+msgid "Persistent: SQLite (Recommended)"
+msgstr "Μόνιμη: SQLite (συνιστώμενη)"
+
+#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:212
+msgid "Persistent: Db4o (Deprecated)"
+msgstr "Μόνιμη: Db4o (παρωχημένο)"
+
+#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:216
+msgid "Persistent (Preview)"
+msgstr "Μόνιμο (προεπισκόπηση)"
+
+#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:219
+msgid "Volatile"
+msgstr "Μη διατηρήσιμη"
+
+#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:242
+msgid "No Proxy"
+msgstr "Χωρίς διαμεσολαβητή"
+
+#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:244
+#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:340
+msgid "System Default"
+msgstr "Προεπιλεγμένο σύστημα"
+
+#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:258
+#: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:134
+msgid "Connection"
+msgstr "Σύνδεση"
+
+#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:262
+msgid "Interface"
+msgstr "Διεπαφή"
+
+#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:266
+msgid "Servers"
+msgstr "Διακομιστές"
+
+#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:273
+msgid "Filters"
+msgstr "Φίλτρα"
+
+#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:277
+msgid "Logging"
+msgstr "Καταγραφή"
+
+#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:696
+msgid "Nicknames(s) field must not be empty."
+msgstr "Τα πεδία ψευδωνύμων δεν πρέπει να είναι κενά."
+
+#: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:892
+#, csharp-format
+msgid "Invalid highlight regex: '{0}'. Reason: {1}"
+msgstr "Άκυρη επισήμανση κανονικής έκφρασης: '{0}'. Αιτία: {1}"
+
+#: ../src/Frontend-GNOME/FindGroupChatDialog.cs:81
+#: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:100
+#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:265
+msgid "Name"
+msgstr "Όνομα"
+
+#: ../src/Frontend-GNOME/FindGroupChatDialog.cs:86
+msgid "Topic"
+msgstr "Θέμα"
+
+#: ../src/Frontend-GNOME/FindGroupChatDialog.cs:115
+msgid ""
+"Searching for group chats without a filter is not recommended.  This may "
+"take a while, or may not work at all.\n"
+"Do you wish to continue?"
+msgstr ""
+"Η αναζήτηση ομαδικών συνομιλιών χωρίς φίλτρο δεν συνιστάται. Αυτό μπορεί να "
+"πάρει κάμποσο, ή μπορεί να μην δουλέψει καθόλου.\n"
+"Θέλετε να συνεχίσετε;"
+
+#: ../src/Frontend-GNOME/FindGroupChatDialog.cs:156
+msgid "Error while fetching the list of group chats from the server."
+msgstr ""
+"Σφάλμα κατά την προσκόμιση του καταλόγου των ομαδικών συνομιλιών από τον "
+"διακομιστή."
+
+#: ../src/Frontend-GNOME/Frontend.cs:388
+msgid "Disconnected from engine."
+msgstr "Αποσυνδέθηκε από τη μηχανή. "
+
+#: ../src/Frontend-GNOME/Frontend.cs:431
+#, csharp-format
+msgid "Reconnecting to engine... (attempt {0})"
+msgstr "Επανασυνδέεται με τη μηχανή... (προσπάθεια {0})"
+
+#: ../src/Frontend-GNOME/Frontend.cs:542
+#, csharp-format
+msgid "Cause: {0}"
+msgstr "Αιτία: {0}"
+
+#: ../src/Frontend-GNOME/Frontend.cs:675
+msgid ""
+"The frontend has lost the connection to the server.\n"
+"Do you want to reconnect now?"
+msgstr ""
+"Το προσκήνιο έχει χάσει τη σύνδεση με τον διακομιστή.\n"
+"Θέλετε να επανασυνδεθείτε τώρα;"
+
+#: ../src/Frontend-GNOME/Frontend.cs:694
+msgid ""
+"Reconnecting to the server has failed.\n"
+"Do you want to try again?"
+msgstr ""
+"Η επανασύνδεση με τον διακομιστή έχει αποτύχει.\n"
+"Θέλετε να ξαναδοκιμάσετε;"
+
+#: ../src/Frontend-GNOME/Frontend.cs:1008
+msgid ""
+"The server has lost the connection to the frontend.\n"
+"Do you want to reconnect now?"
+msgstr ""
+"Ο διακομιστής έχασε τη σύνδεση με το προσκήνιο.\n"
+"Θέλετε να επανασυνδεθείτε τώρα;"
+
+#: ../src/Frontend-GNOME/NotifyManager.cs:338
+msgid "Show"
+msgstr "Εμφάνιση"
+
+#: ../src/Frontend-GNOME/QuickConnectDialog.cs:58
+#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:233
+#: ../src/Frontend-GNOME/Preferences/ServerListView.cs:70
+msgid "Protocol"
+msgstr "Πρωτόκολλο"
+
+#: ../src/Frontend-GNOME/QuickConnectDialog.cs:59
+#: ../src/Frontend-GNOME/Preferences/ServerListView.cs:71
+msgid "Hostname"
+msgstr "Όνομα οικοδεσπότη"
+
+#: ../src/Frontend-GNOME/QuickConnectDialog.cs:162
+msgid "Unable to load server: "
+msgstr "Αδύνατη η φόρτωση του διακομιστή:"
+
+#: ../src/Frontend-GNOME/ChatTypeWidget.cs:54
+#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:239
+msgid "Person / Private"
+msgstr "Άτομο / Προσωπικό"
+
+#: ../src/Frontend-GNOME/ChatTypeWidget.cs:55
+#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:240
+msgid "Group / Public"
+msgstr "Ομάδα / Δημόσια"
+
+#: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:65
+msgid "Engine Assistant - Smuxi"
+msgstr "Βοηθός μηχανής - Smuxi"
+
+#: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:87
+msgid "Add Smuxi Engine"
+msgstr "Προσθήκη μηχανής Smuxi"
+
+#: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:89
+msgid "Edit Smuxi Engine"
+msgstr "Επεξεργασία μηχανής Smuxi"
+
+#: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:198
+msgid "Credentials"
+msgstr "Πιστοποιητικά"
+
+#: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:278
+msgid "Now you can use the Smuxi Engine"
+msgstr "Τώρα μπορείτε να χρησιμοποιήσετε τη μηχανή Smuxi"
+
+#: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:281
+msgid "Thank you"
+msgstr "Σας ευχαριστούμε"
+
+#: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:298
+msgid ""
+"An engine with this name already exists! Please specify a different one."
+msgstr ""
+"Μια μηχανή με αυτό το όνομα υπάρχει ήδη! Παρακαλούμε ορίστε μια διαφορετική."
+
+#: ../src/Frontend-GNOME/Views/JoinWidget.cs:89
+msgid "Enter which chat to join"
+msgstr "Εισάγετε σε ποια συνομιλία θα συμμετάσχετε"
+
+#: ../src/Frontend-GNOME/Views/MenuWidget.cs:153
+msgid "About Smuxi"
+msgstr "Περί του Smuxi"
+
+#. TODO: add cmd+, accelerator
+#: ../src/Frontend-GNOME/Views/MenuWidget.cs:157
+msgid "Preferences"
+msgstr "Προτιμήσεις"
+
+#: ../src/Frontend-GNOME/Views/MenuWidget.cs:263
+#: ../src/Frontend-GNOME/Preferences/ServerListView.cs:227
+msgid "Unable to add server: "
+msgstr "Αδύνατη η προσθήκη διακομιστή:"
+
+#: ../src/Frontend-GNOME/Views/MenuWidget.cs:384
+msgid ""
+"Switching to local engine will disconnect you from the current engine!\n"
+"Are you sure you want to do this?"
+msgstr ""
+"Η μετάβαση στην τοπική μηχανή θα σας αποσυνδέσει από την τρέχουσα μηχανή!\n"
+"Είσαστε σίγουροι ότι το θέλετε;"
+
+#: ../src/Frontend-GNOME/Views/MenuWidget.cs:428
+msgid ""
+"Switching the remote engine will disconnect you from the current engine!\n"
+"Are you sure you want to do this?"
+msgstr ""
+"Η μετάβαση στην απομακρυσμένη μηχανή θα σας αποσυνδέσει από την τρέχουσα "
+"μηχανή!\n"
+"Είσαστε σίγουροι ότι το θέλετε;"
+
+#: ../src/Frontend-GNOME/Views/MessageTextView.cs:412
+#, csharp-format
+msgid "Day changed from {0} to {1}"
+msgstr "Η ημέρα άλλαξε από {0} σε {1}"
+
+#: ../src/Frontend-GNOME/Views/MessageTextView.cs:416
+#, csharp-format
+msgid "Day changed to {0}"
+msgstr "Η ημέρα άλλαξε σε {0}"
+
+#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:120
+#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:130
+#, csharp-format
+msgid "Invalid filter regex: '{0}'. Reason: {1}"
+msgstr "Άκυρο φίλτρο κανονικής έκφρασης: '{0}'. Αιτία: {1}"
+
+#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:197
+msgid "Are you sure you want to delete the selected filter?"
+msgstr "Είστε σίγουρος ότι θέλετε να διαγράψετε το επιλεγμένο φίλτρο;"
+
+#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:241
+msgid "Protocol / Server"
+msgstr "Πρωτόκολλο / Διακομιστής"
+
+#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:248
+msgid "Chat Type"
+msgstr "Τύπος συνομιλίας"
+
+#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:281
+msgid "Normal"
+msgstr "Κανονικός"
+
+#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:282
+msgid "Event"
+msgstr "Συμβάν"
+
+#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:289
+msgid "Type"
+msgstr "Τύπος"
+
+#: ../src/Frontend-GNOME/Views/FilterListWidget.cs:314
+msgid "Pattern"
+msgstr "Υπόδειγμα"
+
+#: ../src/Frontend-GNOME/Views/Chats/ChatView.cs:557
+msgid "Low Bandwidth Mode is active: no messages synced."
+msgstr ""
+"Η κατάσταση χαμηλού εύρους ζώνης είναι ενεργή: δεν συγχρονίστηκε κανένα "
+"μήνυμα."
+
+#: ../src/Frontend-GNOME/Views/Chats/ChatView.cs:859
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:135
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:136
+msgid "Show _Menubar"
+msgstr "Εμφάνιση γραμμής _μενού"
+
+#: ../src/Frontend-GNOME/Views/Chats/GroupChatView.cs:321
+#, csharp-format
+msgid "Retrieving user list for {0}..."
+msgstr "Ανάκτηση του καταλόγου χρηστών για το {0}..."
+
+#. TRANSLATOR: this string will be appended to the one above
+#: ../src/Frontend-GNOME/Views/Chats/GroupChatView.cs:349
+msgid "done."
+msgstr "έτοιμο."
+
+#: ../src/Frontend-GNOME/Views/Chats/ProtocolChatView.cs:127
+msgid "Reconnect"
+msgstr "Επανασύνδεση"
+
+#: ../src/Frontend-GNOME/Views/Chats/ProtocolChatView.cs:174
+msgid ""
+"Closing the protocol chat will also close all open chats connected to it!\n"
+"Are you sure you want to do this?"
+msgstr ""
+"Το κλείσιμο του πρωτοκόλλου συνομιλίας θα κλείσει επίσης όλες τις ανοικτές "
+"συνομιλίες που είναι συνδεμένες με αυτό!\n"
+"Είσαστε σίγουρος ότι θέλετε να το κάνετε αυτό;"
+
+#: ../src/Frontend-GNOME/Preferences/ServerListView.cs:189
+msgid "Are you sure you want to delete the selected server?"
+msgstr "Είστε σίγουρος ότι θέλετε να διαγράψετε τον επιλεγμένο διακομιστή;"
+
+#: ../src/Frontend-GNOME/Preferences/ServerListView.cs:245
+#: ../src/Frontend-GNOME/Preferences/ServerListView.cs:279
+msgid "Unable to edit server: "
+msgstr "Αδύνατη η επεξεργασία του διακομιστή: "
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ChatFindDialog.cs:24
+msgid "Find"
+msgstr "Αναζήτηση"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ChatFindDialog.cs:44
+msgid "_Search for:"
+msgstr "_Αναζήτηση για:"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ChatFindDialog.cs:73
+msgid "_Match Case"
+msgstr "_Διάκριση πεζών από κεφαλαία"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ChatFindDialog.cs:85
+msgid "Search _Backwards"
+msgstr "Αναζήτηση προς τα _πίσω"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ChatFindDialog.cs:97
+msgid "_Wrap Around"
+msgstr "_Αναδίπλωση γύρω από"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ChatFindDialog.cs:110
+msgid "Use _Regular Expressions"
+msgstr "Χρήση _κανονικών εκφράσεων"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.FindGroupChatDialog.cs:23
+msgid "Smuxi - Find Group Chat"
+msgstr "Smuxi - Αναζήτηση ομαδικής συνομιλίας"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.FindGroupChatDialog.cs:47
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.OpenChatDialog.cs:73
+msgid "_Name:"
+msgstr "Ό_νομα:"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.JoinWidget.cs:69
+msgid "Join"
+msgstr "Συμμετοχή"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:55
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:56
+msgid "_Smuxi"
+msgstr "_Smuxi"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:58
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:59
+msgid "_Server"
+msgstr "_Διακομιστής"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:61
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:62
+msgid "_Chat"
+msgstr "_Συνομιλία"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:64
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:65
+msgid "_Engine"
+msgstr "_Μηχανή"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:67
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:68
+msgid "_View"
+msgstr "_Προβολή"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:70
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:71
+msgid "_Help"
+msgstr "_Βοήθεια"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:73
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:75
+msgid "Connect"
+msgstr "Σύνδεση"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:77
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:79
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:147
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:148
+msgid "Open Log"
+msgstr "Άνοιγμα ημερολογίου"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:87
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:88
+msgid "_Preferences"
+msgstr "_Προτιμήσεις"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:90
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:91
+msgid "_Quit"
+msgstr "Έ_ξοδος"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:93
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:94
+msgid "_Connect"
+msgstr "_Σύνδεση"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:96
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:97
+msgid "_Add"
+msgstr "_Προσθήκη"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:99
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:100
+msgid "_Manage"
+msgstr "_Διαχείριση"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:102
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:103
+msgid "_Open / Join Chat"
+msgstr "Ά_νοιγμα / Συμμετοχή σε συνομιλία"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:105
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:106
+msgid "_Find Group Chat"
+msgstr "Εύ_ρεση ομαδικής συνομιλίας"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:108
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:109
+msgid "C_lear All Activity"
+msgstr "Κα_θαρισμός όλων των δραστηριοτήτων"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:111
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:112
+msgid "_Next Chat"
+msgstr "Ε_πόμενη συνομιλία"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:114
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:115
+msgid "_Previous Chat"
+msgstr "Π_ροηγούμενη συνομιλία"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:117
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:118
+msgid "_Close"
+msgstr "_Κλείσιμο"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:120
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:121
+msgid "_Use Local Engine"
+msgstr "_Χρήση τοπικής μηχανής"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:123
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:124
+msgid "_Add Remote Engine"
+msgstr "_Προσθήκη απομακρυσμένης μηχανής"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:126
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:127
+msgid "Switch Remote Engine"
+msgstr "Εναλλαγή σε απομακρυσμένη μηχανή"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:129
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:130
+msgid "_Caret Mode"
+msgstr "Κα_τάσταση δρομέα"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:132
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:133
+msgid "_Browse Mode"
+msgstr "Λειτουργία π_εριήγησης"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:138
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:139
+msgid "Show _Statusbar"
+msgstr "Εμφάνιση _γραμμής κατάστασης"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:141
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:142
+msgid "_Fullscreen"
+msgstr "Π_λήρης οθόνη"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:144
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:145
+msgid "_About"
+msgstr "Π_ερί"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:150
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:152
+msgid "Find Group Chat"
+msgstr "Εύρεση ομαδικής συνομιλίας"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:154
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:155
+msgid "_Website"
+msgstr "_Ιστότοπος"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:157
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.MenuWidget.cs:158
+msgid "Show _Toolbar"
+msgstr "Εμφάνιση ερ_γαλειοθήκης"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.QuickConnectDialog.cs:19
+msgid "Smuxi - Connect"
+msgstr "Smuxi - σύνδεση"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:206
+msgid "Smuxi - Preferences"
+msgstr "Smuxi - Προτιμήσεις"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:295
+msgid "Nicknames:"
+msgstr "Ψευδώνυμα:"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1022
+msgid "Tabs"
+msgstr "Καρτέλες"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1430
+msgid "<b> User List Position </b>"
+msgstr "<b> Θέση καταλόγου χρηστών </b>"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1441
+msgid "<b> Channel </b>"
+msgstr "<b> κανάλι </b>"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1652
+msgid "<b>Channel Filters</b>"
+msgstr "<b>Φίλτρα καναλιού</b>"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:1669
+msgid "<b>User Filters</b>"
+msgstr "<b>Φίλτρα χρήστη</b>"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantConnectionWidget.cs:42
+msgid "Use _SSH Tunnel"
+msgstr "Χρήση διόδευσης _SSH"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantConnectionWidget.cs:56
+msgid ""
+"<span size=\"small\">Enables the use of SSH for the connection.  This has a "
+"small performance impact, but is more secure and required when using NAT or "
+"port-based firewalls</span>"
+msgstr ""
+"<span size=\"small\">Ενεργοποιεί τη χρήση SSH για τη σύνδεση. Αυτό έχει μια "
+"μικρή επίπτωση στην απόδοση, αλλά είναι πιο ασφαλές και απαιτείται όταν "
+"χρησιμοποιείτε NAT ή τείχη προστασίας με βάση τη θύρα</span>"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantConnectionWidget.cs:135
+msgid "SSH _Host:"
+msgstr "_Οικοδεσπότης SSH:"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantConnectionWidget.cs:146
+msgid ""
+"<span size=\"small\">DNS or IP address and port of the SSH server</span>"
+msgstr ""
+"<span size=\"small\">Διεύθυνση και θύρα DNS ή IP του διακομιστή SSH</span>"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantConnectionWidget.cs:159
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantConnectionWidget.cs:173
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:183
+msgid "_Port:"
+msgstr "_Θύρα:"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantConnectionWidget.cs:186
+msgid ""
+"<span size=\"small\">DNS or IP address and port of the Smuxi server</span>"
+msgstr ""
+"<span size=\"small\">Διεύθυνση και θύρα DNS ή IP του διακομιστή Smuxi</span>"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantConnectionWidget.cs:199
+msgid "_Smuxi Host:"
+msgstr "Οικοδεσπότης _Smuxi:"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:52
+msgid "_SSH Username: (optional)"
+msgstr "Όνομα χρήστη _SSH: (προαιρετικό)"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:75
+msgid ""
+"<span size=\"small\">Username which will be used to log into the SSH server</"
+"span>"
+msgstr ""
+"<span size=\"small\">Το όνομα χρήστη που θα χρησιμοποιηθεί για σύνδεση με τον "
+"διακομιστή SSH</span>"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:95
+msgid "_SSH Password: (optional)"
+msgstr "Κωδικός πρόσβασης _SSH: (προαιρετικός)"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:119
+msgid ""
+"<span size=\"small\">Password which will be used to log into the SSH server. "
+"The password is optional if SSH key authorization is used (see below).</span>"
+msgstr ""
+"<span size=\"small\">Ο κωδικός πρόσβασης που θα χρησιμοποιηθεί για σύνδεση με "
+"τον διακομιστή SSH. Ο κωδικός πρόσβασης είναι προαιρετικός αν "
+"χρησιμοποιείται εξουσιοδότηση κλειδιού SSH (δείτε παρακάτω).</span>"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:140
+msgid "_SSH Keyfile: (optional)"
+msgstr "Αρχείο κλειδιού _SSH: (προαιρετικό)"
+
+#. Container child vbox17.Gtk.Box+BoxChild
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:148
+msgid "Select a File"
+msgstr "Επιλογή αρχείου"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:161
+msgid ""
+"<span size=\"small\">SSH private keyfile which will be used to log into the "
+"SSH server</span>"
+msgstr ""
+"<span size=\"small\">Το αρχείο ιδιωτικού κλειδιού που θα χρησιμοποιηθεί για "
+"σύνδεση με τον διακομιστή SSH</span>"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:181
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:242
+msgid "_Username:"
+msgstr "Ό_νομα χρήστη:"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:204
+msgid ""
+"<span size=\"small\">Username which will be used to log into the Smuxi "
+"server</span>"
+msgstr ""
+"<span size=\"small\">Το όνομα χρήστη που θα χρησιμοποιηθεί για σύνδεση με τον "
+"διακομιστή Smuxi</span>"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:224
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:116
+msgid "_Password:"
+msgstr "_Κωδικός πρόσβασης:"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:248
+msgid "<span size=\"small\">Password of the user</span>"
+msgstr "<span size=\"small\">Κωδικός πρόσβασης του χρήστη</span>"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:268
+msgid "_Verify Password:"
+msgstr "Επι_βεβαίωση κωδικού πρόσβασης:"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantCredentialsWidget.cs:292
+msgid "<span size=\"small\">Repeat the password for verification</span>"
+msgstr ""
+"<span size=\"small\">Επανάληψη του κωδικού πρόσβασης για επιβεβαίωση</span>"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantIntroWidget.cs:19
+msgid ""
+"Welcome to the Smuxi Engine Configuration Assistant.\n"
+"You need to enter some information before you can use the engine.\n"
+"\n"
+"Click \"Forward\" to begin."
+msgstr ""
+"Καλωσορίσατε στον βοηθό διαμόρφωσης μηχανής Smuxi.\n"
+"Πρέπει να εισάγετε κάποιες πληροφορίες πριν να μπορέσετε να χρησιμοποιήσετε "
+"τη μηχανή.\n"
+"\n"
+"Πατήστε \"μπροστά\" για να ξεκινήσετε."
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantNameWidget.cs:36
+msgid "_Engine Name:"
+msgstr "Ό_νομα μηχανής:"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantNameWidget.cs:59
+msgid "<span size=\"small\">Profile name of the new engine</span>"
+msgstr "<span size=\"small\">Όνομα κατατομής της νέας μηχανής</span>"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantNameWidget.cs:80
+msgid "_Default Engine:"
+msgstr "_Προεπιλεγμένη μηχανή:"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantNameWidget.cs:91
+msgid "Use as new default engine"
+msgstr "Να χρησιμοποιηθεί ως νέα προεπιλεγμένη μηχανή"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantNameWidget.cs:104
+msgid ""
+"<span size=\"small\">If enabled, the current engine will be the default next "
+"time Smuxi is started</span>"
+msgstr ""
+"<span size=\"small\">Αν ενεργοποιηθεί, η τρέχουσα μηχανή θα είναι η "
+"προεπιλεγμένη την επόμενη φορά που θα ξεκινήσει το Smuxi</span>"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.OpenChatDialog.cs:20
+msgid "Smuxi - Open Chat"
+msgstr "Smuxi - Άνοιγμα συνομιλίας"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.OpenChatDialog.cs:63
+msgid "_Type:"
+msgstr "_Τύπος:"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:58
+msgid "_Hostname:"
+msgstr "Ό_νομα οικοδεσπότη:"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:79
+msgid "_Network:"
+msgstr "Δί_κτυο:"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:105
+msgid "Nickname:"
+msgstr "Ψευδώνυμο:"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:252
+msgid "_Protocol:"
+msgstr "Πρ_ωτόκολλο:"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:276
+msgid "Use Encryption"
+msgstr "Χρήση κρυπτογράφησης"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:288
+msgid "Validate Server Certificate"
+msgstr "Επικύρωση πιστοποιητικού διακομιστή"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:308
+msgid "_On Connect Commands:"
+msgstr "Εντολές κατά τη _σύνδεση:"
+
+#: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:319
+msgid "_Ignore Commands"
+msgstr "_Παράβλεψη εντολών"

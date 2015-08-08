@@ -1,7 +1,7 @@
 /*
  * Smuxi - Smart MUltipleXed Irc
  *
- * Copyright (c) 2005-2014 Mirco Bauer <meebey@meebey.net>
+ * Copyright (c) 2005-2015 Mirco Bauer <meebey@meebey.net>
  *
  * Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
  *
@@ -27,6 +27,8 @@ using System.Linq;
 using System.Threading;
 using System.Reflection;
 using SysDiag = System.Diagnostics;
+using Mono.Unix;
+using Mono.Unix.Native;
 using MonoDevelop.MacInterop;
 using Smuxi.Engine;
 using Smuxi.Common;
@@ -44,7 +46,6 @@ namespace Smuxi.Frontend.Gnome
         private static int                _UIThreadID;
         private static Version            _Version;
         private static string             _VersionString;
-        private static Version            _EngineVersion;
         private static SplashScreenWindow _SplashScreenWindow;
         private static MainWindow         _MainWindow;
         private static FrontendConfig     _FrontendConfig;
@@ -60,11 +61,14 @@ namespace Smuxi.Frontend.Gnome
         public static string IconName { get; private set; }
         public static bool HasSystemIconTheme { get; private set; }
         public static bool HadSession { get; private set; }
+        public static bool IsDisconnecting { get; private set; }
         public static bool IsGtkInitialized { get; private set; }
         public static bool InGtkApplicationRun { get; private set; }
         public static bool IsWindows { get; private set; }
         public static bool IsUnity { get; private set; }
         public static bool IsMacOSX { get; private set; }
+        public static Version EngineAssemblyVersion { get; set; }
+        public static Version EngineProtocolVersion { get; set; }
 
         public static event EventHandler  SessionPropertyChanged;
 
@@ -89,15 +93,6 @@ namespace Smuxi.Frontend.Gnome
         public static Version Version {
             get {
                 return _Version;
-            }
-        }
-        
-        public static Version EngineVersion {
-            get {
-                return _EngineVersion;
-            }
-            set {
-                _EngineVersion = value;
             }
         }
         
@@ -188,7 +183,7 @@ namespace Smuxi.Frontend.Gnome
             }
         }
 
-        public static void Init(string[] args)
+        public static void Init(string[] args, string engine)
         {
             System.Threading.Thread.CurrentThread.Name = "Main";
            
@@ -203,6 +198,7 @@ namespace Smuxi.Frontend.Gnome
             _Logger.Info(_VersionString + " starting");
 #endif
 
+            InitSignalHandlers();
             InitGtk(args);
 
             //_SplashScreenWindow = new SplashScreenWindow();
@@ -219,18 +215,6 @@ namespace Smuxi.Frontend.Gnome
                 ConnectEngineToGUI();
             } else {
                 // there are remote engines defined, means we have to ask
-                string engine = null;
-                for (int i = 0; i < args.Length; i++) {
-                    var arg = args[i];
-                    switch (arg) {
-                        case "-e":
-                        case "--engine":
-                            if (args.Length >=  i + 1) {
-                                engine = args[i + 1];
-                            }
-                            break;
-                    }
-                }
                 //_SplashScreenWindow.Destroy();
                 _SplashScreenWindow = null;
                 try {
@@ -294,7 +278,8 @@ namespace Smuxi.Frontend.Gnome
                                                    Engine.Engine.ProtocolManagerFactory,
                                                    "local");
             }
-            _EngineVersion = Engine.Engine.Version;
+            EngineAssemblyVersion = Engine.Engine.AssemblyVersion;
+            EngineProtocolVersion = Engine.Engine.ProtocolVersion;
             Session = _LocalSession;
             _UserConfig = _Session.UserConfig;
         }
@@ -371,6 +356,7 @@ namespace Smuxi.Frontend.Gnome
         {
             Trace.Call(cleanly);
 
+            IsDisconnecting = true;
             MainWindow.ChatViewManager.IsSensitive = false;
             if (cleanly) {
                 try {
@@ -403,6 +389,7 @@ namespace Smuxi.Frontend.Gnome
 
             _FrontendManager = null;
             Session = null;
+            IsDisconnecting = false;
         }
 
         public static void ReconnectEngineToGUI()
@@ -458,7 +445,8 @@ namespace Smuxi.Frontend.Gnome
                         }
                     }
                     _UserConfig = _MainWindow.EngineManager.UserConfig;
-                    EngineVersion = _MainWindow.EngineManager.EngineVersion;
+                    EngineAssemblyVersion = _MainWindow.EngineManager.EngineAssemblyVersion;
+                    EngineProtocolVersion = _MainWindow.EngineManager.EngineProtocolVersion;
                     Session = _MainWindow.EngineManager.Session;
 
                     Gtk.Application.Invoke(delegate {
@@ -507,6 +495,15 @@ namespace Smuxi.Frontend.Gnome
 #endif
                     }
                 }
+
+                // sync last seen message of current chat
+                var currentChatView = _MainWindow.ChatViewManager.CurrentChatView;
+                if (!UseLowBandwidthMode && currentChatView != null) {
+                    currentChatView.UpdateLastSeenMessage();
+                }
+                // OPT: switch to Smuxi chat so switch page events are not
+                // triggered when each chat gets removed
+                _MainWindow.ChatViewManager.CurrentChatNumber = 0;
 
                 DisconnectEngineFromGUI();
             }
@@ -1024,6 +1021,31 @@ namespace Smuxi.Frontend.Gnome
             return false;
         }
 
+        static void InitSignalHandlers()
+        {
+            if ((Environment.OSVersion.Platform == PlatformID.Unix) ||
+                (Environment.OSVersion.Platform == PlatformID.MacOSX)) {
+                // Register shutdown handlers
+#if LOG4NET
+                _Logger.Info("Registering signal handlers");
+#endif
+                UnixSignal[] shutdown_signals = {
+                    new UnixSignal(Signum.SIGINT),
+                    new UnixSignal(Signum.SIGTERM),
+                };
+                Thread signal_thread = new Thread(() => {
+                    var index = UnixSignal.WaitAny(shutdown_signals);
+#if LOG4NET
+                    _Logger.Info("Caught signal " + shutdown_signals[index].Signum.ToString() + ", shutting down");
+#endif
+                    Gtk.Application.Invoke(delegate {
+                        Quit();
+                    });
+                });
+                signal_thread.Start();
+            }
+        }
+
         private static void InitGtk(string[] args)
         {
             if (Environment.OSVersion.Platform == PlatformID.Win32NT) {
@@ -1163,7 +1185,7 @@ namespace Smuxi.Frontend.Gnome
         {
             Trace.Call();
 
-            if (EngineVersion >= new Version("0.8.1.1")) {
+            if (EngineProtocolVersion >= new Version("0.8.1.1")) {
                 var config = UserConfig;
                 ThreadPool.QueueUserWorkItem(delegate {
                     try {

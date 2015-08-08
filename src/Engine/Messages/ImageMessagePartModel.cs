@@ -34,6 +34,7 @@ using Smuxi.Common;
 namespace Smuxi.Engine
 {
     [Serializable]
+    [DataContract]
     public class ImageMessagePartModel : MessagePartModel
     {
 #if LOG4NET
@@ -41,7 +42,15 @@ namespace Smuxi.Engine
 #endif
         private string f_ImageFileName;
         private string f_AlternativeText;
-        
+
+        [DataMember]
+        public override string Type {
+            get {
+                return "Image";
+            }
+        }
+
+        [DataMember]
         public string ImageFileName {
             get {
                 return f_ImageFileName;
@@ -51,6 +60,7 @@ namespace Smuxi.Engine
             }
         }
         
+        [DataMember]
         public string AlternativeText {
             get {
                 return f_AlternativeText;
@@ -60,6 +70,10 @@ namespace Smuxi.Engine
             }
         }
         
+        public ImageMessagePartModel()
+        {
+        }
+
         public ImageMessagePartModel(string imageFileName, string alternativeText)
         {
             if (imageFileName == null) {

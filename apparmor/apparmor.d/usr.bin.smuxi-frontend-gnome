@@ -1,0 +1,86 @@
+# Last Modified: Tue Jun 17 23:12:51 2014
+#include <tunables/global>
+
+/usr/bin/smuxi-frontend-gnome {
+  #include <abstractions/base>
+  #include <abstractions/consoles>
+  #include <abstractions/dbus-session>
+  #include <abstractions/fonts>
+  #include <abstractions/freedesktop.org>
+  #include <abstractions/nameservice>
+  #include <abstractions/python>
+  #include <abstractions/X>
+
+  signal (send) peer=/usr/bin/smuxi-frontend-gnome///usr/bin/ssh,
+
+  /bin/dash rix,
+  /bin/uname rix,
+  /etc/debian_version r,
+  /etc/gnome/defaults.list r,
+  /etc/ld.so.preload r,
+  /etc/lsb-release r,
+  /etc/mono/** r,
+  /etc/passwd r,
+  /etc/protocols r,
+  /proc/ r,
+  /proc/[0-9]*/fd/ r,
+  /proc/sys/vm/overcommit_memory r,
+  /proc/uptime r,
+  owner /run/user/*/dconf/* rw,
+  /usr/bin/ r,
+  /usr/bin/apt-cache rix,
+  /usr/bin/gnome-open px,
+  /usr/bin/gvfs-open ix,
+  /usr/bin/lsb_release rix,
+  /usr/bin/mono ix,
+  /usr/bin/mono-sgen rix,
+  /usr/bin/opera rPx,
+  /usr/bin/smuxi-frontend-gnome r,
+  /usr/bin/ssh rCx,
+  /usr/bin/xdg-open rix,
+  /usr/lib/** mr,
+  /usr/lib/firefox/firefox.sh Px,
+  /usr/local/lib/python*/dist-packages/ r,
+  /usr/share/** r,
+  /var/lib/defoma/** r,
+  /{,var/}run/avahi-daemon/socket r,
+  /{,var/}run/shm/ r,
+  /{,var/}run/shm/mono** rw,
+  deny /{,var/}run/dbus/system_bus_socket rw,
+  owner @{HOME}/.cache/dconf/user rw,
+  owner @{HOME}/.cache/smuxi/ rw,
+  owner @{HOME}/.cache/smuxi/** rwk,
+  owner @{HOME}/.config/dconf/user rw,
+  owner @{HOME}/.config/enchant/ rw,
+  owner @{HOME}/.config/enchant/** rwk,
+  owner @{HOME}/.config/ibus/bus/ rw,
+  owner @{HOME}/.config/ibus/bus/* r,
+  owner @{HOME}/.config/indicators/ w,
+  owner @{HOME}/.config/indicators/messages/ w,
+  owner @{HOME}/.config/indicators/messages/*/ w,
+  owner @{HOME}/.config/indicators/messages/applications/smuxi-frontend-gnome w,
+  owner @{HOME}/.config/smuxi/** rwk,
+  owner @{HOME}/.local/share/applications/ r,
+  owner @{HOME}/.local/share/smuxi/logs/** w,
+
+
+  profile /usr/bin/ssh {
+    #include <abstractions/base>
+    #include <abstractions/nameservice>
+
+    signal (receive) peer=/usr/bin/smuxi-frontend-gnome,
+
+    /etc/ssh/ssh_config r,
+    /etc/ssl/openssl.cnf r,
+    owner /home/*/.ssh/config r,
+    owner /home/*/.ssh/id_rsa r,
+    owner /home/*/.ssh/id_rsa.pub r,
+    owner /home/*/.ssh/known_hosts r,
+    /proc/*/fd/ r,
+    owner /tmp/ssh-*/* rw,
+    /usr/bin/ssh mr,
+    /usr/share/ssh/* r,
+    /{,var/}run/user/*/keyring-*/ssh rw,
+
+  }
+}

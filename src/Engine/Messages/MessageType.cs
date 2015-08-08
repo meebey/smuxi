@@ -27,9 +27,11 @@
  */
 
 using System;
+using System.Runtime.Serialization;
 
 namespace Smuxi.Engine
 {
+    [DataContract]
     public enum MessageType
     {
         Normal,

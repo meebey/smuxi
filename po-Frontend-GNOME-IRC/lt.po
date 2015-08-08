@@ -1,0 +1,91 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+# Andrius Bentkus <andrius.bentkus@gmail.com>, 2015
+# Moo, 2014-2015
+msgid ""
+msgstr ""
+"Project-Id-Version: Smuxi - IRC client\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-05-03 12:35+0200\n"
+"PO-Revision-Date: 2015-05-26 10:13+0000\n"
+"Last-Translator: Moo\n"
+"Language-Team: Lithuanian (http://www.transifex.com/projects/p/smuxi/language/lt/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: lt\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:390
+msgid "Query"
+msgstr "Užklausa"
+
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:396
+msgid "Op"
+msgstr "Suteikti operatoriaus teises"
+
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:400
+msgid "Deop"
+msgstr "Atimti operatoriaus teises"
+
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:404
+msgid "Voice"
+msgstr "Suteikti balsą"
+
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:408
+msgid "Devoice"
+msgstr "Atimti balsą"
+
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:412
+msgid "Kick"
+msgstr "Išmesti"
+
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:416
+msgid "Kick + Ban"
+msgstr "Išmesti + Užbaninti"
+
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:420
+msgid "Ban"
+msgstr "Užbaninti"
+
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:424
+msgid "Unban"
+msgstr "Atbaninti"
+
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:430
+#: ../src/Frontend-GNOME-IRC/IrcPersonChatView.cs:92
+msgid "Whois"
+msgstr "Kas yra"
+
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:434
+#: ../src/Frontend-GNOME-IRC/IrcPersonChatView.cs:96
+msgid "CTCP"
+msgstr "CTCP"
+
+#: ../src/Frontend-GNOME-IRC/IrcGroupChatView.cs:443
+#: ../src/Frontend-GNOME-IRC/IrcPersonChatView.cs:103
+msgid "Invite to"
+msgstr "Pakviesti į"
+
+#: ../src/Frontend-GNOME-IRC/CtcpMenu.cs:73
+msgid "Ping"
+msgstr "Ryšio patikrinimas"
+
+#: ../src/Frontend-GNOME-IRC/CtcpMenu.cs:78
+msgid "Version"
+msgstr "Versija"
+
+#: ../src/Frontend-GNOME-IRC/CtcpMenu.cs:83
+msgid "Time"
+msgstr "Laikas"
+
+#: ../src/Frontend-GNOME-IRC/CtcpMenu.cs:88
+msgid "Finger"
+msgstr "Klientų ieškyklė"
+
+#: ../src/Frontend-GNOME-IRC/CtcpMenu.cs:93
+msgid "Userinfo"
+msgstr "Vartotojo informacija"

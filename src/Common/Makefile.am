@@ -5,7 +5,7 @@ EXTRA_DIST =
 
 if ENABLE_RELEASE
 ASSEMBLY_COMPILER_COMMAND = @MCS@
-ASSEMBLY_COMPILER_FLAGS =  -noconfig -codepage:utf8 -warn:4 -optimize+ "-define:NET_2_0,NDESK_OPTIONS"
+ASSEMBLY_COMPILER_FLAGS =  -noconfig -codepage:utf8 -warn:4 -optimize+ "-define:NET_2_0,NDESK_OPTIONS,MONO_UNIX"
 
 ASSEMBLY = ../../bin/release/smuxi-common.dll
 ASSEMBLY_MDB = 
@@ -19,7 +19,7 @@ endif
 
 if ENABLE_DEBUG
 ASSEMBLY_COMPILER_COMMAND = @MCS@
-ASSEMBLY_COMPILER_FLAGS =  -noconfig -codepage:utf8 -warn:4 -debug -optimize+ "-define:DEBUG,TRACE,LOG4NET,NET_2_0,NDESK_OPTIONS"
+ASSEMBLY_COMPILER_FLAGS =  -noconfig -codepage:utf8 -warn:4 -debug -optimize+ "-define:DEBUG,TRACE,LOG4NET,NET_2_0,NDESK_OPTIONS,MONO_UNIX"
 
 ASSEMBLY = ../../bin/debug/smuxi-common.dll
 ASSEMBLY_MDB = $(ASSEMBLY).mdb
@@ -43,13 +43,16 @@ PROGRAMFILES =
 LINUX_PKGCONFIG = \
 	$(COMMON_PC)  
 	
-all: $(ASSEMBLY) $(PROGRAMFILES) $(LINUX_PKGCONFIG) 
+all: $(ASSEMBLY) $(PROGRAMFILES) $(LINUX_PKGCONFIG)
 
 FILES = \
 	$(top_srcdir)/src/AssemblyVersion.cs \
 	AssemblyInfo.cs \
 	AtomFeed.cs \
 	Crc32.cs \
+	Emojione.cs \
+	GeneratedEmojione.cs \
+	IconCache.cs \
 	IOSecurity.cs \
 	ITraceable.cs \
 	Trace.cs \
@@ -59,9 +62,11 @@ FILES = \
 	NDesk.Options.cs \
 	Defines.cs \
 	SpecialFolderPatternConverter.cs \
+	SingleApplicationInstance.cs \
 	TaskQueue.cs \
 	ThreadPoolQueue.cs \
 	Platform.cs \
+	RateLimiter.cs \
 	Pattern.cs 
 	
 DATA_FILES = 
@@ -74,6 +79,7 @@ EXTRAS = \
 REFERENCES =  \
 	System \
 	System.Core \
+	System.Runtime.Remoting \
 	System.Xml \
 	Mono.Posix
 
@@ -99,3 +105,7 @@ $(build_resx_resources) : %.resources: %.resx
 $(ASSEMBLY) $(ASSEMBLY_MDB): $(build_sources) $(build_resources) $(build_datafiles) $(DLL_REFERENCES) $(PROJECT_REFERENCES) $(build_xamlg_list) $(build_satellite_assembly_list)
 	mkdir -p $(dir $(ASSEMBLY))
 	$(ASSEMBLY_COMPILER_COMMAND) $(ASSEMBLY_COMPILER_FLAGS) -out:$(ASSEMBLY) -target:$(COMPILE_TARGET) $(build_sources_embed) $(build_resources_embed) $(build_references_ref) $(LOG4NET_LIBS)
+
+generate-emojione:
+	$(ASSEMBLY_COMPILER_COMMAND) $(ASSEMBLY_COMPILER_FLAGS) -out:$(BUILD_DIR)/GenerateEmoji.exe -target:exe  GenerateEmojione.cs -r:$(BUILD_DIR)/ServiceStack.Text
+	$(BUILD_DIR)/GenerateEmoji.exe $(top_srcdir)/lib/emoji.json GeneratedEmojione.cs

@@ -1,7 +1,7 @@
 /*
  * Smuxi - Smart MUltipleXed Irc
  *
- * Copyright (c) 2005-2013 Mirco Bauer <meebey@meebey.net>
+ * Copyright (c) 2005-2015 Mirco Bauer <meebey@meebey.net>
  *
  * Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
  *
@@ -42,6 +42,7 @@ namespace Smuxi.Frontend.Gnome
         private   bool               _HasHighlight;
         public    int                HighlightCount { get; private set; }
         private   bool               _HasActivity;
+        public    int                ActivityCount { get; private set; }
         private   bool               _HasEvent;
         private   bool               _IsSynced;
         private   Gtk.TextMark       _EndMark;
@@ -53,6 +54,7 @@ namespace Smuxi.Frontend.Gnome
         private   MessageTextView    _OutputMessageTextView;
         private   ThemeSettings      _ThemeSettings;
         private   TaskQueue          _LastSeenHighlightQueue;
+        public    DateTime           SyncedLastSeenMessage { get; private set; }
         public    DateTime           SyncedLastSeenHighlight { get; private set; }
         IList<MessageModel>          SyncedMessages { get; set; }
         protected string             SyncedName { get; set; }
@@ -146,6 +148,13 @@ namespace Smuxi.Frontend.Gnome
                 return _HasActivity;
             }
             set {
+                if (value) {
+                    ActivityCount++;
+                    OnStatusChanged(EventArgs.Empty);
+                } else {
+                    ActivityCount = 0;
+                }
+
                 if (_HasActivity == value) {
                     // nothing to update
                     return;
@@ -511,6 +520,11 @@ namespace Smuxi.Frontend.Gnome
 
             // REMOTING CALL
             SyncedLastSeenHighlight = _ChatModel.LastSeenHighlight;
+            
+            if (Frontend.EngineProtocolVersion >= new Version(0, 12)) {
+                // REMOTING CALL
+                SyncedLastSeenMessage = _ChatModel.LastSeenMessage;
+            }
 
             DateTime start, stop;
             start = DateTime.UtcNow;
@@ -548,19 +562,25 @@ namespace Smuxi.Frontend.Gnome
                     // GTK+ in between for blocking the GUI thread less
                     foreach (MessageModel msg in SyncedMessages) {
                         AddMessage(msg);
+                        if (msg.TimeStamp <= SyncedLastSeenMessage) {
+                            // let the user know at which position new messages start
+                            _OutputMessageTextView.UpdateMarkerline();
+                        }
                     }
                 }
             }
 
-            // as we don't track which messages were already seen it would
-            // show all chats with message activity after the frontend connect
+            // as we don't track which events have already been seen it would
+            // show all chats with unseen events after the frontend connect
             if (!HasHighlight) {
-                HasActivity = false;
                 HasEvent = false;
+                // Smuxi protocol < 0.13 does not support remembering seen
+                // messages thus we mark all message as seen as we can't tell
+                // which ones are new
+                if (Frontend.EngineProtocolVersion < new Version(0, 13)) {
+                    HasActivity = false;
+                }
             }
-
-            // let the user know at which position new messages start
-            _OutputMessageTextView.UpdateMarkerline();
 
             // reset tab icon to normal
             TabImage.Pixbuf = DefaultTabImage.Pixbuf;
@@ -568,6 +588,30 @@ namespace Smuxi.Frontend.Gnome
 
             SyncedMessages = null;
             _IsSynced = true;
+        }
+        
+        public virtual void UpdateLastSeenMessage()
+        {
+            _OutputMessageTextView.UpdateMarkerline();
+            
+            if (Frontend.EngineProtocolVersion == null ||
+                Frontend.EngineProtocolVersion < new Version(0, 13)) {
+                return;
+            }
+            
+            var lastSeenMessage = _OutputMessageTextView.LastMessage;
+            if (lastSeenMessage == null) {
+                return;
+            }
+            
+            ThreadPool.QueueUserWorkItem(delegate {
+                try {
+                    // REMOTING CALL
+                    _ChatModel.LastSeenMessage = lastSeenMessage.TimeStamp;
+                } catch (Exception ex) {
+                    Frontend.ShowException(ex);
+                }
+            });
         }
         
         public virtual void AddMessage(MessageModel msg)
@@ -685,7 +729,22 @@ namespace Smuxi.Frontend.Gnome
         
         protected virtual void OnMessageTextViewMessageAdded(object sender, MessageTextViewMessageAddedEventArgs e)
         {
+            var signalCounter = false;
             if (!IsActive) {
+                // the chat isn't active, thus we need to signal the event/msg counter
+                if (_IsSynced) {
+                    signalCounter = true;
+                } else {
+                    // we are still syncing and since Smuxi 0.13 we know what msg
+                    // was last seen, so we only signal newer messages than that
+                    if (Frontend.EngineProtocolVersion >= new Version(0, 13) &&
+                        e.Message.TimeStamp > SyncedLastSeenMessage) {
+                        signalCounter = true;
+                    }
+                }
+            }
+
+            if (signalCounter) {
                 switch (e.Message.MessageType) {
                     case MessageType.Normal:
                         HasActivity = true;

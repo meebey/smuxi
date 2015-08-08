@@ -7,22 +7,25 @@ ASSEMBLY_TARGET = $(TARGET_DIR)/$(ASSEMBLY_FILENAME)
 SOURCES =	$(top_srcdir)/src/AssemblyVersion.cs \
 		AssemblyInfo.cs \
 		Protocols/Twitter/TwitterProtocolManager.cs \
-		Protocols/Twitter/TwitterMessageBuilder.cs
+		Protocols/Twitter/TwitterMessageBuilder.cs \
+		Protocols/Twitter/TwitterSearchStream.cs
 
 REFERENCES = 		$(LOG4NET_LIBS) \
 			$(SMARTIRC4NET_LIBS) \
 			System.Web \
 			System.Core
 
-DLL_REFERENCES =	$(TARGET_DIR)/Twitterizer2.dll \
-			$(TARGET_DIR)/smuxi-common.dll \
-			$(TARGET_DIR)/smuxi-engine.dll
+DLL_REFERENCES = \
+	$(TARGET_DIR)/Twitterizer2.dll \
+	$(TARGET_DIR)/Twitterizer2.Streaming.dll \
+	$(TARGET_DIR)/smuxi-common.dll \
+	$(TARGET_DIR)/smuxi-engine.dll
 
 SOURCES_BUILD = $(addprefix $(srcdir)/, $(SOURCES))
 
 # automake magic variables
 EXTRA_DIST = $(SOURCES_BUILD)
-CLEANFILES = $(ASSEMBLY_TARGET)
+CLEANFILES = $(ASSEMBLY_TARGET) $(ASSEMBLY_TARGET).mdb
 
 pkgapp_DATA = $(ASSEMBLY_TARGET)
 
@@ -34,4 +37,4 @@ include $(top_srcdir)/Makefile.include
 all: $(ASSEMBLY_TARGET)
 
 $(ASSEMBLY_TARGET): $(SOURCES) $(DLL_REFERENCES)
-	$(MCS) $(CSC_FLAGS) $(build_references_ref) -target:library -out:$@ $(SOURCES_BUILD)
+	$(MCS) $(CSC_FLAGS) $(build_references_ref) -target:library -out:$(ASSEMBLY_TARGET) $(SOURCES_BUILD)
