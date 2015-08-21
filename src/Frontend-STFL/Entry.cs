@@ -256,7 +256,7 @@ namespace Smuxi.Frontend.Stfl
             chatView.AddMessage(builder.ToMessage());
 
             string[] help = {
-                "window (number|close)",
+                "window (number|list|close)",
                 "exit",
             };
 
@@ -272,6 +272,21 @@ namespace Smuxi.Frontend.Stfl
         {
             if (cmd.Parameter == "close") {
                 f_ChatViewManager.CurrentChat.Close();
+                return;
+            } else if (cmd.Parameter == "list") {
+                var thisChatView = f_MainWindow.ChatViewManager.GetChat(cmd.Chat);
+
+                for (int i = 0;; ++i) {
+                    ChatView availableChatView = f_MainWindow.ChatViewManager.GetChat(i);
+                    if (availableChatView == null) {
+                        break;
+                    }
+
+                    var builder = new MessageBuilder();
+                    builder.AppendEventPrefix();
+                    builder.AppendFormat("{0} - {1}", i + 1, availableChatView.Name ?? "");
+                    thisChatView.AddMessage(builder.ToMessage());
+                }
                 return;
             }
 
