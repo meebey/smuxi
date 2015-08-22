@@ -140,37 +140,27 @@ namespace Smuxi.Engine
 
             using (StreamReader reader = new StreamReader(res.GetResponseStream()))
             {
-                /* Stupid but easy way to figure out when we've reached the end of a JSON object */
-                int brackets = 0;
                 StringBuilder bld = new StringBuilder();
 
                 while (!reader.EndOfStream) {
-                    var line = reader.ReadLine();
+                    var c = reader.Read();
 
-                    for (int i = 0; i < line.Length; i++) {
-                        bld.Append(line[i]);
-                        switch (line[i]) {
-                            case '{':
-                                brackets++;
-                                break;
-                            case '}':
-                                brackets--;
-                                break;
-                            default:
-                                continue;
-                        }
-
-                        if (brackets == 0) {
-                            var str = bld.ToString().Trim();
-                            bld.Length = 0;
-                            var message = JsonSerializer.DeserializeFromString<Message>(str);
-                            if (MessageReceived != null) {
-                                var args = new MessageReceivedEventArgs(Chat, message);
-                                MessageReceived(this, args);
-                            }
-                            LastMessage = message.Id;
-                        }
+                    /* The server uses CR to indicate when each message ends */
+                    if (c != '\r') {
+                        bld.Append((char)c);
+                        continue;
                     }
+
+                    var str = bld.ToString();
+                    bld.Length = 0;
+
+                    var message = JsonSerializer.DeserializeFromString<Message>(str);
+                    if (MessageReceived != null) {
+                        var args = new MessageReceivedEventArgs(Chat, message);
+                        MessageReceived(this, args);
+                    }
+
+                    LastMessage = message.Id;
                 }
 
                 reader.Close();
