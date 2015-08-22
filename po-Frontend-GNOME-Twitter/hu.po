@@ -1,0 +1,37 @@
+# Hungarian translation for smuxi.
+# Copyright (C) 2015 Free Software Foundation, Inc.
+# This file is distributed under the same license as the smuxi package.
+#
+# Balázs Úr <urbalazs@gmail.com>, 2015.
+msgid ""
+msgstr ""
+"Project-Id-Version: smuxi master\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
+"product=smuxi&keywords=I18N+L10N&component=general\n"
+"POT-Creation-Date: 2015-07-17 11:46+0000\n"
+"PO-Revision-Date: 2015-07-17 17:59+0200\n"
+"Last-Translator: Balázs Úr <urbalazs@gmail.com>\n"
+"Language-Team: Hungarian <openscope at gmail dot com>\n"
+"Language: hu\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Lokalize 1.2\n"
+
+#: ../src/Frontend-GNOME-Twitter/TwitterGroupChatView.cs:52
+msgid "Direct Message"
+msgstr "Közvetlen üzenet"
+
+#: ../src/Frontend-GNOME-Twitter/TwitterGroupChatView.cs:60
+msgid "Timeline"
+msgstr "Idővonal"
+
+#: ../src/Frontend-GNOME-Twitter/TwitterGroupChatView.cs:65
+msgid "Unfollow"
+msgstr "Leiratkozás"
+
+#: ../src/Frontend-GNOME-Twitter/TwitterGroupChatView.cs:69
+msgid "Follow"
+msgstr "Követés"
+

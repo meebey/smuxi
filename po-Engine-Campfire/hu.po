@@ -1,0 +1,91 @@
+# Hungarian translation for smuxi.
+# Copyright (C) 2015 Free Software Foundation, Inc.
+# This file is distributed under the same license as the smuxi package.
+#
+# Balázs Úr <urbalazs@gmail.com>, 2015.
+msgid ""
+msgstr ""
+"Project-Id-Version: smuxi master\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
+"product=smuxi&keywords=I18N+L10N&component=general\n"
+"POT-Creation-Date: 2015-07-17 11:44+0000\n"
+"PO-Revision-Date: 2015-07-17 18:38+0200\n"
+"Last-Translator: Balázs Úr <urbalazs@gmail.com>\n"
+"Language-Team: Hungarian <openscope at gmail dot com>\n"
+"Language: hu\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Lokalize 1.2\n"
+
+#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:123
+msgid "Connecting to campfire... "
+msgstr "Kapcsolódás a campfire kiszolgálóhoz… "
+
+#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:166
+msgid "Connected to campfire"
+msgstr "Kapcsolódva a campfire kiszolgálóhoz"
+
+#. TRANSLATOR: this line is used as a label / category for a
+#. list of commands below
+#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:200
+msgid "Campfire Commands"
+msgstr "Campfire parancsok"
+
+#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:262
+msgid "Upload"
+msgstr "Feltöltés"
+
+#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:263
+#, csharp-format
+msgid "'{0}' ({1} B) {2}"
+msgstr "„{0}” ({1} B) {2}"
+
+#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:367
+#, csharp-format
+msgid "Failed to post message: {0}"
+msgstr "Nem sikerült az üzenet elküldése: {0}"
+
+#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:383
+#, csharp-format
+msgid "has uploaded '{0}' ({1} B) {2}"
+msgstr "feltöltötte ezt: „{0}” ({1} B) {2}"
+
+#. TRANSLATOR: {0} is the name of the room
+#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:415
+#, csharp-format
+msgid "has joined {0}"
+msgstr "csatlakozott ehhez: {0}"
+
+#. TRANSLATOR: {0} is the name of the room
+#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:424
+#, csharp-format
+msgid "has left {0}"
+msgstr "elhagyta ezt: {0}"
+
+#. TRANSLATOR: {0} is the name of the room
+#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:432
+#, csharp-format
+msgid "has locked {0}"
+msgstr "zárolta ezt: {0}"
+
+#. TRANSLATOR: {0} is the name of the room
+#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:436
+#, csharp-format
+msgid "has unlocked {0}"
+msgstr "feloldotta ezt: {0}"
+
+#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:441
+msgid "has changed the topic"
+msgstr "megváltoztatta a témát"
+
+#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:451
+msgid "has performed an unknown action"
+msgstr "ismeretlen műveletet hajtott végre"
+
+#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:492
+#, csharp-format
+msgid "Error reading from stream: {0}"
+msgstr "Hiba az adatfolyam olvasásakor: {0}"
+

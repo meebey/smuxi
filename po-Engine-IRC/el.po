@@ -1,0 +1,377 @@
+# Greek translation for smuxi.
+# Copyright (C) 2015 smuxi's COPYRIGHT HOLDER
+# This file is distributed under the same license as the smuxi package.
+# Dimitris Spingos <dmtrs32@gmail.com>, 2015.
+# Dimitris Spingos (Δημήτρης Σπίγγος) <dmtrs32@gmail.com>, 2015.
+msgid ""
+msgstr ""
+"Project-Id-Version: smuxi master\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=smuxi&"
+"keywords=I18N+L10N&component=general\n"
+"POT-Creation-Date: 2015-07-10 11:41+0000\n"
+"PO-Revision-Date: 2015-07-20 11:41+0300\n"
+"Last-Translator: Dimitris Spingos (Δημήτρης Σπίγγος) <dmtrs32@gmail.com>\n"
+"Language-Team: team@gnome.gr\n"
+"Language: el\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Virtaal 0.7.1\n"
+"X-Project-Style: gnome\n"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:255
+#, csharp-format
+msgid "{0} invites you to {1}"
+msgstr "Ο {0} σας προσκαλεί στο {1}"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:279
+msgid "Accept invite (join room)"
+msgstr "Αποδοχή πρόσκλησης (συμμετοχή στην αίθουσα)"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:307
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1770
+msgid "away"
+msgstr "απών"
+
+#. TRANSLATOR: {0} is the amount of seconds
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:313
+#, csharp-format
+msgid "lag: {0} seconds"
+msgstr "καθυστέρηση: {0} δευτερόλεπτα"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:319
+msgid "not connected"
+msgstr "δε συνδέθηκε"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:379
+#, csharp-format
+msgid "Using proxy: {0}:{1}"
+msgstr "Χρήση διαμεσολαβητή: {0}:{1}"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:386
+#, csharp-format
+msgid "Connecting to {0} port {1}..."
+msgstr "Σύνδεση με το {0} θύρα {1}..."
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:400
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:541
+#, csharp-format
+msgid "Connection to {0} established"
+msgstr "Επιτεύχθηκε η σύνδεση με το {0}"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:409
+msgid "Logging in..."
+msgstr "Γίνεται σύνδεση..."
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:449
+msgid "Connection failed!"
+msgstr "Αποτυχία σύνδεσης!"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:453
+msgid "Connection failed! Reason: "
+msgstr "Αποτυχία σύνδεσης! Αιτία: "
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:466
+msgid "Disconnecting..."
+msgstr "Αποσυνδέεται..."
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:471
+#, csharp-format
+msgid "Disconnecting from {0}..."
+msgstr "Αποσυνδέεται από το {0}..."
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:478
+#, csharp-format
+msgid "Disconnected from {0}"
+msgstr "Αποσυνδέθηκε από το {0}"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:484
+msgid "Connection closed"
+msgstr "Η σύνδεση έκλεισε"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:493
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:568
+msgid "Not connected"
+msgstr "Δεν συνδέθηκε"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:527
+msgid "Reconnecting..."
+msgstr "Επανασυνδέεται..."
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:535
+#, csharp-format
+msgid "Reconnecting to {0}..."
+msgstr "Επανασυνδέεται στο {0}..."
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:554
+msgid "Reconnect Error"
+msgstr "Σφάλμα επανασύνδεσης"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:948
+#, csharp-format
+msgid "Sleeping for {0} milliseconds"
+msgstr "Ύπνωση για {0} ms"
+
+#. TRANSLATOR: this line is used as label / category for a
+#. list of commands below
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1033
+msgid "IrcProtocolManager Commands"
+msgstr "Εντολές IrcProtocolManager"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1115
+#, csharp-format
+msgid "Invalid port: {0}"
+msgstr "Άκυρη θύρα: {0}"
+
+#. TRANSLATOR: some IRC networks dislike too many joins in a
+#. short period and thus Smuxi throttles/queues them
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1210
+#, csharp-format
+msgid "Queuing joins: {0}"
+msgstr "Συνδέσεις σε αναμονή: {0}"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1231
+#, csharp-format
+msgid "Already joined to channel: {0}. Type /window {0} to switch to it."
+msgstr "Ήδη συνδεμένο με το κανάλι: {0}. Τύπος /παράθυρο {0} για εναλλαγή του."
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1265
+#, csharp-format
+msgid "Active joins: {0} - Queued joins: {1}"
+msgstr "Ενεργές συνδέσεις: {0} Συνδέσεις σε αναμονή: {1}"
+
+#. TRANSLATORS: final message will look like this:
+#. Joining: #chan1 - Remaining active joins: #chan2 / queued joins: #chan3
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1289
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1319
+#, csharp-format
+msgid "Joining: {0}"
+msgstr "Σύνδεση με: {0}"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1291
+msgid "Remaining"
+msgstr "Απομένουν"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1296
+#, csharp-format
+msgid "active joins: {0}"
+msgstr "ενεργές συνδέσεις: {0}"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1305
+#, csharp-format
+msgid "queued joins: {0}"
+msgstr "συνδέσεις σε αναμονή: {0}"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1751
+msgid "IRC Op"
+msgstr "Χειριστής IRC"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1753
+msgid "Owner"
+msgstr "Κάτοχος"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1755
+msgid "ChanAdmin"
+msgstr "Διαχειριστής καναλιού"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1757
+msgid "Op"
+msgstr "Χειριστής"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1759
+msgid "Halfop"
+msgstr "Ημιχειριστής"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1761
+msgid "Voice"
+msgstr "Φωνή"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1824
+#, csharp-format
+msgid "Topic for {0}: {1}"
+msgstr "Θέμα για {0}: {1}"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1826
+#, csharp-format
+msgid "No topic set for {0}"
+msgstr "Δεν ορίστηκε θέμα για το {0}"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1991
+msgid "ban"
+msgstr "απαγόρευση"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2002
+msgid "No bans in channel"
+msgstr "Χωρίς απαγορεύσεις στο κανάλι"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2039
+msgid "ban exception"
+msgstr "εξαίρεση απαγόρευσης"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2050
+msgid "No ban exceptions in channel"
+msgstr "Χωρίς εξαιρέσεις απαγόρευσης στο κανάλι"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2087
+msgid "invite exception"
+msgstr "εξαίρεση πρόσκλησης"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2098
+msgid "No invite exceptions in channel"
+msgstr "Χωρίς εξαιρέσεις πρόσκλησης στο κανάλι"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2212
+#, csharp-format
+msgid "Your user mode is {0}"
+msgstr "Η κατάσταση χρήστη σας είναι {0}"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2238
+#, csharp-format
+msgid "{0} is already on {1}"
+msgstr "ο {0} είναι ήδη ενεργός στο {1}"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2246
+#, csharp-format
+msgid "Inviting {0} to {1}"
+msgstr "Πρόσκληση του {0} στο {1}"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2269
+msgid "Users"
+msgstr "Χρήστες"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2320
+#, csharp-format
+msgid "Total of {0} users [{1} ops, {2} voices, {3} normal]"
+msgstr "Σύνολο {0} χρηστών [{1} χειριστές, {2} φωνές, {3} κανονικοί]"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2458
+msgid "Connection error! Reason: "
+msgstr "Σφάλμα σύνδεσης! Αιτία: "
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2470
+#, csharp-format
+msgid "Not enough parameters for {0} command"
+msgstr "Ανεπαρκείς παράμετροι στην εντολή {0}"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2479
+msgid "Not connected to server"
+msgstr "Δεν υπάρχει σύνδεση με τον διακομιστή"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2688
+#, csharp-format
+msgid "{0}: No such nick/channel"
+msgstr "{0}: Δεν υπάρχει τέτοιο ψευδώνυμο/κανάλι"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2807
+#, csharp-format
+msgid ""
+"Increased send delay to {0}ms to avoid being flooded off the server again."
+msgstr ""
+"Αυξημένη καθυστέρηση αποστολής σε {0}ms προς αποφυγή κατακλυσμού του "
+"διακομιστή ξανά."
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2822
+#, csharp-format
+msgid "Nick {0} is already in use"
+msgstr "Το ψευδώνυμο {0} χρησιμοποιείται ήδη"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2838
+msgid "Cannot join to channel:"
+msgstr "Αδύνατη η σύνδεση με το κανάλι:"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2840
+msgid "You are banned"
+msgstr "Είσαστε σε απαγόρευση"
+
+#. TRANSLATOR: {0}: nickname, {1}: ident@host,
+#. {2}: CTCP command, {3}: own nickname, {4}: CTCP parameter
+#. example:
+#. meebey [meebey@example.com] requested CTCP VERSION from meebey:
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2923
+#, csharp-format
+msgid "{0} [{1}] requested CTCP {2} from {3}: {4}"
+msgstr "{0} [{1}] ζήτησε CTCP {2} απότον {3}: {4}"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2950
+#, csharp-format
+msgid "CTCP PING reply from {0}: {1} seconds"
+msgstr "Απάντηση CTCP PING από {0}: {1} δευτερόλεπτα"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:2959
+#, csharp-format
+msgid "CTCP {0} reply from {1}: {2}"
+msgstr "Απάντηση CTCP {0} από {1}: {2}"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3210
+#, csharp-format
+msgid "{0} [{1}] has joined {2}"
+msgstr "{0} [{1}] έχει συνδεθεί με το {2}"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3355
+#, csharp-format
+msgid "{0} [{1}] has left {2}"
+msgstr "Ο {0} [{1}]  έχει φύγει {2}"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3380
+#, csharp-format
+msgid "You were kicked from {0} by {1}"
+msgstr "Έχετε διωχθεί από το {0} και τον {1}"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3388
+#, csharp-format
+msgid "{0} was kicked from {1} by {2}"
+msgstr "Ο {0} διώχτηκε από το {1} και τον {2}"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3406
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3438
+#, csharp-format
+msgid "You're now known as {0}"
+msgstr "Είσαστε τώρα γνωστός ως {0}"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3441
+#, csharp-format
+msgid "{0} is now known as {1}"
+msgstr "Ο {0} είναι τώρα γνωστός ως {1}"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3475
+#, csharp-format
+msgid "{0} changed the topic of {1} to: {2}"
+msgstr "Ο {0} άλλαξε το θέμα του {1} σε: {2}"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3635
+#, csharp-format
+msgid "Mode change [{0}] for user {1}"
+msgstr "Αλλαγή κατάστασης [{0}] για τον χρήστη {1}"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3666
+#, csharp-format
+msgid "mode/{0} [{1}] by {2}"
+msgstr "κατάσταση/{0} [{1}] από {2}"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3702
+#, csharp-format
+msgid "{0} [{1}] has quit"
+msgstr "Ο {0} [{1}] έχει φύγει"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3801
+#, csharp-format
+msgid ""
+"Connection to {0} port {1} has failed (attempt {2}), retrying in {3} "
+"seconds..."
+msgstr ""
+"Σύνδεση με {0} θύρα {1} έχει αποτύχει (προσπάθεια {2}), νέα προσπάθεια σε "
+"{3} δευτερόλεπτα..."
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3851
+#, csharp-format
+msgid "{0} is away: {1}"
+msgstr "Ο {0} είναι απών: {1}"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3861
+msgid "You are no longer marked as being away"
+msgstr "Δεν είσαστε πια χαρακτηρισμένος ως απών"
+
+#: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3871
+msgid "You have been marked as being away"
+msgstr "Έχετε σημείωθεί ως απών"

@@ -1,0 +1,145 @@
+# Hungarian translation for smuxi.
+# Copyright (C) 2015 Free Software Foundation, Inc.
+# This file is distributed under the same license as the smuxi package.
+#
+# Balázs Úr <urbalazs@gmail.com>, 2015.
+msgid ""
+msgstr ""
+"Project-Id-Version: smuxi master\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
+"product=smuxi&keywords=I18N+L10N&component=general\n"
+"POT-Creation-Date: 2015-07-17 17:48+0000\n"
+"PO-Revision-Date: 2015-07-18 00:14+0200\n"
+"Last-Translator: Balázs Úr <urbalazs@gmail.com>\n"
+"Language-Team: Hungarian <openscope at gmail dot com>\n"
+"Language: hu\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Lokalize 1.2\n"
+
+#: ../src/Server/Main.cs:65
+msgid "Add user to Server"
+msgstr "Felhasználó hozzáadása a kiszolgálóhoz"
+
+#: ../src/Server/Main.cs:74
+msgid "Modify existing user of Server"
+msgstr "A kiszolgáló meglévő felhasználójának módosítása"
+
+#: ../src/Server/Main.cs:83
+msgid "Delete user from Server"
+msgstr "Felhasználó törlése a kiszolgálóról"
+
+#: ../src/Server/Main.cs:92
+msgid "List all existing users of Server"
+msgstr "A kiszolgáló összes meglévő felhasználójának felsorolása"
+
+#: ../src/Server/Main.cs:101
+msgid "User to create, modify or delete"
+msgstr "A létrehozandó, módosítandó vagy törlendő felhasználó"
+
+#: ../src/Server/Main.cs:110
+msgid "Password of the user when creating or modifying a user"
+msgstr ""
+"A felhasználó jelszava egy felhasználó létrehozásakor vagy módosításakor"
+
+#: ../src/Server/Main.cs:119
+msgid "Enable debug output"
+msgstr "Hibakeresési kimenet engedélyezése"
+
+#: ../src/Server/Main.cs:127
+msgid ""
+"Optimize message buffers and exit (valid values: none, defrag, index, all)"
+msgstr ""
+"Üzenetpufferek optimalizálása és kilépés (érvényes értékek: none, defrag, "
+"index, all)"
+
+#: ../src/Server/Main.cs:140
+msgid "Show this help"
+msgstr "Ezen súgó megjelenítése"
+
+#: ../src/Server/Main.cs:142
+msgid "Usage: smuxi-server [options]"
+msgstr "Használat: smuxi-server [kapcsolók]"
+
+#: ../src/Server/Main.cs:144
+msgid "Options:"
+msgstr "Kapcsolók:"
+
+#: ../src/Server/Main.cs:152
+msgid "Show version"
+msgstr "Verzió megjelenítése"
+
+#: ../src/Server/Main.cs:165
+#, csharp-format
+msgid "Unknown option: '{0}'"
+msgstr "Ismeretlen kapcsoló: „{0}”"
+
+#: ../src/Server/Main.cs:192
+#, csharp-format
+msgid "Command line error: {0}"
+msgstr "Parancssori hiba: {0}"
+
+#: ../src/Server/Main.cs:236
+msgid ""
+"At most one of --add-user, --modify-user, and --delete-user may be used at a "
+"time."
+msgstr ""
+"Az --add-user, --modify-user és --delete-user legfeljebb egyike használható "
+"egy időben."
+
+#: ../src/Server/Main.cs:246
+msgid "You must specify a username with the --username option."
+msgstr "Meg kell adnia egy felhasználónevet a --username kapcsolóval."
+
+#: ../src/Server/Main.cs:252
+msgid "Username must not be empty."
+msgstr "A felhasználónév nem lehet üres."
+
+#: ../src/Server/Main.cs:262
+msgid "You must specify a password with the --password option."
+msgstr "Meg kell adnia egy jelszót a --password kapcsolóval."
+
+#: ../src/Server/Main.cs:268
+msgid "Password must not be empty."
+msgstr "A jelszó nem lehet üres."
+
+#: ../src/Server/Main.cs:287
+#, csharp-format
+msgid ""
+"Invalid optimization value passed to --optimize-message-buffer, valid values "
+"are: {0}"
+msgstr ""
+"Érvénytelen optimalizációs érték lett átadva az --optimize-message-buffer "
+"kapcsolónak, az érvényes értékek: {0}"
+
+#: ../src/Server/Main.cs:307
+#, csharp-format
+msgid "User \"{0}\" successfully added to server."
+msgstr "A(z) „{0}” felhasználó sikeresen hozzáadva a kiszolgálóhoz."
+
+#: ../src/Server/Main.cs:316
+#, csharp-format
+msgid "User \"{0}\" successfully modified."
+msgstr "A(z) „{0}” felhasználó sikeresen módosítva."
+
+#: ../src/Server/Main.cs:325
+#, csharp-format
+msgid "User \"{0}\" successfully deleted from server."
+msgstr "A(z) „{0}” felhasználó sikeresen törölve a kiszolgálóról."
+
+#: ../src/Server/Main.cs:332
+msgid "Users:"
+msgstr "Felhasználók:"
+
+#: ../src/Server/Main.cs:380
+#, csharp-format
+msgid "Successfully optimized {0} message buffers."
+msgstr "Sikeresen optimalizálva {0} üzenetpuffer."
+
+#: ../src/Server/Main.cs:393
+#, csharp-format
+msgid "Failed to optimize message buffers: {0}"
+msgstr "Nem sikerült optimalizálni az üzenetpuffereket: {0}"
+

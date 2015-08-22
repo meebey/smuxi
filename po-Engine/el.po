@@ -1,0 +1,313 @@
+# Greek translation for smuxi.
+# Copyright (C) 2015 smuxi's COPYRIGHT HOLDER
+# This file is distributed under the same license as the smuxi package.
+# Dimitris Spingos <dmtrs32@gmail.com>, 2015.
+# Dimitris Spingos (Δημήτρης Σπίγγος) <dmtrs32@gmail.com>, 2015.
+msgid ""
+msgstr ""
+"Project-Id-Version: smuxi master\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=smuxi&"
+"keywords=I18N+L10N&component=general\n"
+"POT-Creation-Date: 2015-07-10 11:40+0000\n"
+"PO-Revision-Date: 2015-07-20 16:09+0300\n"
+"Last-Translator: Dimitris Spingos (Δημήτρης Σπίγγος) <dmtrs32@gmail.com>\n"
+"Language-Team: team@gnome.gr\n"
+"Language: el\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Virtaal 0.7.1\n"
+"X-Project-Style: gnome\n"
+
+#: ../src/Engine/FrontendManager.cs:218
+msgid "No network connections"
+msgstr "Χωρίς συνδέσεις δικτύου"
+
+#: ../src/Engine/MessageBuffers/Db4oMessageBuffer.cs:263
+#, csharp-format
+msgid "Optimizing: {0}..."
+msgstr "Βελτιστοποιείται: {0}..."
+
+#: ../src/Engine/MessageBuffers/Db4oMessageBuffer.cs:281
+#, csharp-format
+msgid "Failed to optimize: {0}. Reason: {1}"
+msgstr "Αποτυχία βελτιστοποίησης: {0}. Αιτία: {1}"
+
+#: ../src/Engine/MessageBuffers/Db4oMessageBuffer.cs:315
+msgid ""
+"Your chat history is no longer available because of an error but will be "
+"preserved from now on."
+msgstr ""
+"Το ιστορικό συνομιλιών δεν είναι πια διαθέσιμο λόγω ενός σφάλματος, αλλά θα "
+"διατηρηθεί από δω και πέρα."
+
+#: ../src/Engine/Messages/MessageBuilder.cs:771
+#, csharp-format
+msgid "{0} is typing..."
+msgstr "Ο {0} πληκτρολογεί..."
+
+#: ../src/Engine/Messages/MessageBuilder.cs:777
+#, csharp-format
+msgid "{0} has stopped typing..."
+msgstr "Ο {0} έχει σταματήσει να πληκτρολογεί..."
+
+#: ../src/Engine/Messages/MessageBuilder.cs:820
+#, csharp-format
+msgid "{0} is away"
+msgstr "Ο {0} είναι απών"
+
+#: ../src/Engine/Messages/MessageBuilder.cs:826
+#, csharp-format
+msgid "{0} is offline"
+msgstr "Ο {0} είναι αποσυνδεδεμένος "
+
+#: ../src/Engine/Messages/MessageBuilder.cs:832
+#, csharp-format
+msgid "{0} is online"
+msgstr "Ο {0} είναι συνδεμένος"
+
+#: ../src/Engine/Protocols/ProtocolManagerBase.cs:162
+msgid "not connected"
+msgstr "δε συνδέθηκε"
+
+#: ../src/Engine/Protocols/ProtocolManagerBase.cs:193
+msgid "Not connected to server"
+msgstr "Δεν υπάρχει σύνδεση με τον διακομιστή"
+
+#: ../src/Engine/Protocols/ProtocolManagerBase.cs:201
+#: ../src/Engine/Session.cs:1067
+#, csharp-format
+msgid "Not enough parameters for {0} command"
+msgstr "Ανεπαρκείς παράμετροι για την εντολή {0}"
+
+#: ../src/Engine/Protocols/ProtocolManagerBase.cs:212
+#, csharp-format
+msgid "Connected to {0}"
+msgstr "Σύνδεση με το {0}"
+
+#: ../src/Engine/Protocols/ProtocolManagerBase.cs:242
+#, csharp-format
+msgid "Disconnected from {0}"
+msgstr "Αποσυνδέθηκε από το {0}"
+
+#: ../src/Engine/Session.cs:247
+#, csharp-format
+msgid "Automatically connecting to {0}..."
+msgstr "Αυτόματη σύνδεση με το {0}..."
+
+#: ../src/Engine/Session.cs:278
+#, csharp-format
+msgid "Automatic connect to {0} failed!"
+msgstr "Αποτυχία της αυτόματης σύνδεσης με το {0}!"
+
+#. TRANSLATOR: this line is used as a label / category for a
+#. list of commands below
+#: ../src/Engine/Session.cs:505
+msgid "Engine Commands"
+msgstr "Εντολές μηχανήματος"
+
+#: ../src/Engine/Session.cs:634
+msgid "Connect failed!"
+msgstr "Αποτυχία σύνδεσης!"
+
+#: ../src/Engine/Session.cs:657
+#, csharp-format
+msgid "Disconnect failed - could not find server: {0}"
+msgstr "Αποτυχία αποσύνδεσης - αδύνατη η εύρεση διακομιστή: {0}"
+
+#: ../src/Engine/Session.cs:699
+msgid "Reconnect failed!"
+msgstr "Αποτυχία επανασύνδεσης!"
+
+#: ../src/Engine/Session.cs:723
+msgid "Configuration reloaded"
+msgstr "Η ρύθμιση επαναφορτώθηκε"
+
+#: ../src/Engine/Session.cs:727
+msgid "Configuration saved"
+msgstr "Η ρύθμιση αποθηκεύτηκε"
+
+#: ../src/Engine/Session.cs:754
+msgid "Invalid key/value format."
+msgstr "Άκυρη μορφή κλειδιού/τιμής."
+
+#: ../src/Engine/Session.cs:778
+#, csharp-format
+msgid "Invalid config key: '{0}'"
+msgstr "Άκυρο κλειδί ρύθμισης: '{0}'"
+
+#: ../src/Engine/Session.cs:794 ../src/Engine/Session.cs:800
+#, csharp-format
+msgid "Could not convert config value: '{0}' to type: {1}"
+msgstr "Αδύνατη η μετατροπή τιμής ρύθμισης: '{0}' σε τύπο: {1}"
+
+#: ../src/Engine/Session.cs:814
+#, csharp-format
+msgid ""
+"Invalid config remove key: '{0}'. Valid remove keys: MessagePatterns/{{ID}}."
+msgstr ""
+"Άκυρο κλειδί αφαίρεσης ρύθμισης: '{0}'. Έγκυρα κλειδιά αφαίρεσης: "
+"MessagePatterns/{{ID}}."
+
+#: ../src/Engine/Session.cs:827
+#, csharp-format
+msgid "Message pattern with ID: '{0}' does not exist."
+msgstr "Το μοτίβο μηνύματος με αναγνωριστικό: '{0}' δεν υπάρχει."
+
+#: ../src/Engine/Session.cs:834
+#, csharp-format
+msgid "Message pattern with ID: '{0}' removed."
+msgstr "Το μοτίβο μηνύματος με αναγνωριστικό: '{0}' αφαιρέθηκε."
+
+#: ../src/Engine/Session.cs:842
+msgid "Invalid parameter for config; use load, save, get or set."
+msgstr ""
+"Άκυρη παράμετρος για ρύθμιση - χρησιμοποιήστε φόρτωση αποθήκευση, λήψη ή "
+"ορισμό."
+
+#: ../src/Engine/Session.cs:919
+msgid "Invalid parameter for network; use list, switch, or close"
+msgstr ""
+"Άκυρη παράμετρος για δίκτυο. Χρησιμοποιήστε κατάλογο, διακόπτη ή κλείσιμο."
+
+#. TRANSLATOR: this line is used as a label / category for a
+#. list of networks below
+#: ../src/Engine/Session.cs:949
+msgid "Connected Networks"
+msgstr "Συνδεμένα δίκτυα"
+
+#: ../src/Engine/Session.cs:954 ../src/Engine/Session.cs:978
+msgid "Network"
+msgstr "Δίκτυο"
+
+#: ../src/Engine/Session.cs:955
+msgid "Protocol"
+msgstr "Πρωτόκολλο"
+
+#: ../src/Engine/Session.cs:956
+msgid "Host"
+msgstr "Οικοδεσπότης"
+
+#: ../src/Engine/Session.cs:957
+msgid "Port"
+msgstr "Θύρα"
+
+#. TRANSLATOR: no connected networks
+#. TRANSLATOR: no available networks
+#: ../src/Engine/Session.cs:963 ../src/Engine/Session.cs:984
+msgid "None"
+msgstr "Kανένα"
+
+#. TRANSLATOR: this line is used as a label / category for a
+#. list of networks below
+#: ../src/Engine/Session.cs:970
+msgid "Available Networks"
+msgstr "Διαθέσιμα δίκτυα"
+
+#: ../src/Engine/Session.cs:998
+#, csharp-format
+msgid "Network close failed - could not find network: {0}"
+msgstr "Αποτυχία κλεισίματος δικτύου - αδύνατη η εύρεση δικτύου: {0}"
+
+#: ../src/Engine/Session.cs:1042
+#, csharp-format
+msgid "Network switch failed - could not find network: {0}"
+msgstr "Αποτυχία εναλλαγής δικτύου - αδύνατη η εύρεση δικτύου: {0}"
+
+#: ../src/Engine/Session.cs:1060
+msgid "Not connected to any network"
+msgstr "Δεν υπάρχει σύνδεση με κανένα δίκτυο"
+
+#: ../src/Engine/Session.cs:1317
+#, csharp-format
+msgid ""
+"Failed to write to chat history. Your chat history will not be preserved. "
+"Reason: {0}"
+msgstr ""
+"Αποτυχία εγγραφής στο ιστορικό συνομιλιών. Το ιστορικό συνομιλιών δεν θα "
+"διατηρηθεί. Αιτία: {0}"
+
+#. just in case the ProtocolManager is not setting the
+#. protocol chat
+#: ../src/Engine/Session.cs:1550
+msgid "Connect failed."
+msgstr "Αποτυχία σύνδεσης."
+
+#: ../src/Engine/Session.cs:1564
+#, csharp-format
+msgid "No protocol manager found for the protocol: {0}"
+msgstr "Δεν βρέθηκε κανένας διαχειριστής πρωτοκόλλου για το πρωτόκολλο!: {0}"
+
+#: ../src/Engine/Session.cs:1896
+msgid "Welcome to Smuxi"
+msgstr "Καλωσορίσατε στο Smuxi"
+
+#: ../src/Engine/Session.cs:1903
+msgid "Type /help to get a list of available commands."
+msgstr ""
+"Πληκτρολογήστε /help για να πάρετε έναν κατάλογο των διαθέσιμων εντολών."
+
+#: ../src/Engine/Session.cs:1909
+msgid ""
+"After you have made a connection the list of available commands changes. Go "
+"to the newly opened connection tab and use the /help command again to see "
+"the extended command list."
+msgstr ""
+"Αφού έχετε κάνει μια σύνδεση ο κατάλογος των διαθέσιμων εντολών αλλάζει. "
+"Μεταβείτε στην πρόσφατη καρτέλα ανοιγμένη σύνδεση και χρησιμοποιήστε την "
+"εντολή /help ξανά για να δείτε τον επεκταμένο κατάλογο εντολών."
+
+#: ../src/Engine/Config/UserListController.cs:117
+msgid "Username must not be empty."
+msgstr "Ο όνομα χρήστη δεν πρέπει να είναι κενό."
+
+#: ../src/Engine/Config/UserListController.cs:127
+msgid "Password must not be empty."
+msgstr "Ο κωδικός πρόσβασης δεν πρέπει να είναι κενός."
+
+#: ../src/Engine/Config/UserListController.cs:136
+#, csharp-format
+msgid "User \"{0}\" doesn't exist."
+msgstr "Ο χρήστης \"{0}\" δεν υπάρχει."
+
+#: ../src/Engine/Config/UserListController.cs:145
+#, csharp-format
+msgid "User \"{0}\" already exists."
+msgstr "Ο χρήστης \"{0}\" υπάρχει ήδη."
+
+#: ../src/Engine/Config/ServerListController.cs:118
+msgid "Network must not be empty."
+msgstr "Το δίκτυο δεν πρέπει να είναι κενό."
+
+#: ../src/Engine/Config/ServerListController.cs:138
+msgid "Server hostname must not be empty."
+msgstr "Το όνομα οικοδεσπότη διακομιστή δεν πρέπει να είναι κενό."
+
+#: ../src/Engine/Config/ServerListController.cs:141
+msgid "Server hostname contains invalid characters (newline)."
+msgstr ""
+"Το όνομα οικοδεσπότη διακομιστή περιέχει άκυρους χαρακτήρες (νέα γραμμή)."
+
+#: ../src/Engine/Config/ServerListController.cs:148
+#, csharp-format
+msgid "Server ID '{0}' already exists."
+msgstr "Ο διακομιστής '{0}' υπάρχει ήδη."
+
+#: ../src/Engine/Chats/ChatModel.cs:106
+#, csharp-format
+msgid ""
+"Failed to load chat history. Your chat history will not be preserved. "
+"Reason: {0}"
+msgstr ""
+"Αποτυχία φόρτωσης του ιστορικού συνομιλιών. Το ιστορικό συνομιλιών δεν θα "
+"διατηρηθεί. Αιτία: {0}"
+
+#: ../src/Engine/Chats/ChatModel.cs:322
+#, csharp-format
+msgid ""
+"Failed to open chat history for writing. Your chat history will not be "
+"preserved. Reason: {0}"
+msgstr ""
+"Αποτυχία ανοίγματος του ιστορικού συνομιλιών για εγγραφή. Το ιστορικό "
+"συνομιλιών δεν θα διατηρηθεί. Αιτία: {0}"

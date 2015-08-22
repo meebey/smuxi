@@ -1,0 +1,345 @@
+# Greek translation for smuxi.
+# Copyright (C) 2015 smuxi's COPYRIGHT HOLDER
+# This file is distributed under the same license as the smuxi package.
+# Dimitris Spingos <dmtrs32@gmail.com>, 2015.
+# Dimitris Spingos (Δημήτρης Σπίγγος) <dmtrs32@gmail.com>, 2015.
+msgid ""
+msgstr ""
+"Project-Id-Version: smuxi master\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=smuxi&"
+"keywords=I18N+L10N&component=general\n"
+"POT-Creation-Date: 2015-07-10 11:42+0000\n"
+"PO-Revision-Date: 2015-07-21 07:41+0300\n"
+"Last-Translator: Dimitris Spingos (Δημήτρης Σπίγγος) <dmtrs32@gmail.com>\n"
+"Language-Team: team@gnome.gr\n"
+"Language: el\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Virtaal 0.7.1\n"
+"X-Project-Style: gnome\n"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:188
+msgid "The server has shut down"
+msgstr "Ο διακομιστής έχει κλείσει"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:191
+msgid ""
+"Another client logged in with the same resource, you have been disconnected"
+msgstr "Ένας άλλος πελάτης συνδέθηκε με τον ίδιο πόρο, έχετε αποσυνδεθεί"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:209
+msgid ""
+"Authentication failed, either username does not exist or invalid password"
+msgstr ""
+"Αποτυχία της πιστοποίησης, είτε το όνομα χρήστη δεν υπάρχει ή ο κωδικός "
+"πρόσβασης είναι άκυρος"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:213
+msgid ""
+"If you want to create an account with the specified user and password, type /"
+"register now"
+msgstr ""
+"Αν θέλετε να δημιουργήσετε έναν λογαριασμό με τον συγκεκριμένο χρήστη και "
+"κωδικό πρόσβασης, πληκτρολογήστε /register τώρα"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:259
+msgid ""
+"This engine has native Facebook support, you should be using it instead of "
+"connecting to Facebook with XMPP"
+msgstr ""
+"Αυτό το μηχάνημα έχει εγγενή υποστήριξη του Facebook, θα πρέπει να τη "
+"χρησιμοποιείτε αντί να συνδέεστε στο Facebook με XMPP"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:328
+msgid "not connected"
+msgstr "δεν συνδέθηκε"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:819
+#, csharp-format
+msgid "Could not find contact {0}"
+msgstr "Αδύνατη η εύρεση της επαφής {0}"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:825
+#, csharp-format
+msgid "Contact {0} has {1} known resources"
+msgstr "Η επαφή {0} έχει {1} γνωστούς πόρους"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:829
+#, csharp-format
+msgid "{0} is not a known resource"
+msgstr "Το {0} δεν είναι γνωστός πόρος"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:837
+#, csharp-format
+msgid "Contact's JID: {0}"
+msgstr "JID της επαφής: {0}"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:841
+msgid "You have a mutual subscription with this contact"
+msgstr "Έχετε αμοιβαία συνδρομή με αυτήν την επαφή."
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:844
+msgid ""
+"You have no subscription with this contact and this contact is not "
+"subscribed to you"
+msgstr ""
+"Δεν έχετε συνδρομή με αυτήν την επαφή και αυτή η επαφή δεν σας έχει ως "
+"συνδρομή."
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:847
+msgid ""
+"You are subscribed to this contact, but the contact is not subscribed to you"
+msgstr ""
+"Έχετε συνδρομή με αυτήν την επαφή, αλλά η επαφή δεν σας έχει ως συνδρομή."
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:850
+msgid ""
+"You are not subscribed to this contact, but the contact is subscribed to you"
+msgstr ""
+"Δεν έχετε συνδρομή με αυτήν την επαφή, αλλά η επαφή σας έχει ως συνδρομή."
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:946
+#, csharp-format
+msgid "Invalid contact command: {0}"
+msgstr "Άκυρη εντολή επαφής: {0}"
+
+#. TRANSLATOR: this line is used as a label / category for a
+#. list of commands below
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:957
+#, csharp-format
+msgid "{0} Commands"
+msgstr "{0} Εντολές"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:982
+#, csharp-format
+msgid "Advanced {0} Commands"
+msgstr "Προχωρημένες {0} εντολές"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1017
+#, csharp-format
+msgid "Invalid port: {0}"
+msgstr "Άκυρη θύρα: {0}"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1052
+#, csharp-format
+msgid "Priority for Available is: {0}"
+msgstr "Η προτεραιότητα για διαθεσιμότητα είναι: {0}"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1055
+#, csharp-format
+msgid "Priority for Away is: {0}"
+msgstr "Η προτεραιότητα για απουσία είναι: {0}"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1063
+#, csharp-format
+msgid ""
+"Invalid priority: {0} (valid priorities are between -128 and 127 inclusive)"
+msgstr ""
+"Άκυρη προτεραιότητα: {0} (οι έγκυρες προτεραιότητες είναι μεταξύ -128 και "
+"127 συμπεριλαμβανόμενων)"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1633
+#, csharp-format
+msgid "{0}{1} is available"
+msgstr "Ο {0}{1} είναι διαθέσιμος"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1637
+#, csharp-format
+msgid "{0}{1} is away"
+msgstr "Ο {0}{1} είναι απών"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1641
+#, csharp-format
+msgid "{0}{1} is extended away"
+msgstr "Ο {0}{1} είναι παρατεταμένα απών"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1645
+#, csharp-format
+msgid "{0}{1} wishes not to be disturbed"
+msgstr "Ο {0}{1} δεν επιθυμεί να διακοπεί"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1649
+#, csharp-format
+msgid "{0}{1} wants to chat"
+msgstr "Ο {0}{1} θέλει να συνομιλήσει"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1656
+#, csharp-format
+msgid "{0}{1} is offline"
+msgstr "Ο {0}{1} είναι αποσυνδεδεμένος "
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1662
+#, csharp-format
+msgid ""
+"Automatically allowed {0} to subscribe to you, since you are already asking "
+"to subscribe"
+msgstr ""
+"Αυτόματα επιτρεπόμενο {0} να σας κάνει συνδρομή, αφού το έχετε ήδη ζητήσει."
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1666
+#, csharp-format
+msgid "{0}{1} wishes to subscribe to you"
+msgstr "Ο {0}{1} επιθυμεί να σας κάνει συνδρομή"
+
+#. you can now see their presences
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1674
+#, csharp-format
+msgid "{0}{1} allowed you to subscribe"
+msgstr "Ο {0}{1} σας επέτρεψε να εγγραφείτε"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1681
+#, csharp-format
+msgid ""
+"Automatically removed {0}'s subscription to your presences after losing the "
+"subscription to theirs"
+msgstr ""
+"Αυτόματη αφαίρεση της συνδρομής του {0} ως προς την παρουσία σας μετά την "
+"απώλεια της συνδρομής ως τη δικιά τους"
+
+#. you cannot (anymore?) see their presences
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1688
+#, csharp-format
+msgid "{0}{1} denied/removed your subscription"
+msgstr "Ο {0}{1} αρνήθηκε/αφαίρεσε τη συνδρομή σας"
+
+#. you might still be able to see their presences
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1693
+#, csharp-format
+msgid "{0}{1} unsubscribed from you"
+msgstr "Ο {0}{1} αφαίρεσε τη συνδρομή από εσάς"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1697
+#, csharp-format
+msgid "received a malformed error message: {0}"
+msgstr "έγινε δεκτό ένα κακοσχηματισμένο μήνυμα σφάλματος:{0}"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1704
+#, csharp-format
+msgid "{0}{1}'s server could not be found"
+msgstr "Ο διακομιστής του {0}{1} δεν μπόρεσε να βρεθεί"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1707
+#, csharp-format
+msgid "{0}{1} is already using your requested resource"
+msgstr "Ο {0}{1} χρησιμοποιεί ήδη τον ζητούμενο πόρο"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1714
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1736
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1750
+#, csharp-format
+msgid "There is currently no useful error message for {0}, {1}, {2}{3}"
+msgstr ""
+"Δεν υπάρχει προς το παρόν κανένα χρήσιμο μήνυμα σφάλματος για {0}, {1}, "
+"{2}{3}"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1727
+#, csharp-format
+msgid "You do not have permission to access {0}{1}"
+msgstr "Δεν έχετε δικαίωμα πρόσβασης στο {0}{1}"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1777
+#, csharp-format
+msgid "{0} days"
+msgstr "{0} ημέρες"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1783
+#, csharp-format
+msgid "{0} hours"
+msgstr "{0} ώρες"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1787
+#, csharp-format
+msgid "{0} minutes"
+msgstr "{0} λεπτά"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1790
+#, csharp-format
+msgid "{0} seconds"
+msgstr "{0} δευτερόλεπτα"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1802
+#, csharp-format
+msgid " since {0} ({1})"
+msgstr " από {0} ({1})"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1887
+#, csharp-format
+msgid "An unknown groupchat error occurred: {0}"
+msgstr "Παρουσιάστηκε ένα άγνωστο σφάλμα ομαδικής συνομιλίας: {0}"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1894
+#, csharp-format
+msgid "Server of groupchat \"{0}\" not found."
+msgstr "Ο διακομιστής της ομαδικής συνομιλίας \"{0}\" δεν βρέθηκε."
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1897
+#, csharp-format
+msgid "MUC service is not available for \"{0}\""
+msgstr "Η υπηρεσία MUC δεν είναι διαθέσιμη για το \"{0}\""
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1904
+#, csharp-format
+msgid "You do not have permission to join \"{0}\""
+msgstr "Δεν έχετε άδεια να συνδεθείτε με τον \"{0}\""
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1910
+#, csharp-format
+msgid "An unhandled groupchat error occurred: {0}"
+msgstr "Παρουσιάστηκε ένα ανεπίλυτο σφάλμα ομαδικής συνομιλίας: {0}"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:2096
+#, csharp-format
+msgid ""
+"Received a presence update from {0}, but there's no corresponding chat window"
+msgstr ""
+"Ελήφθη ενημέρωση διαθεσιμότητας από τον {0}, αλλά δεν υπάρχει αντίστοιχο "
+"παράθυρο συνομιλίας"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:2120
+#, csharp-format
+msgid ""
+"Received a groupchat message from {0} but there's no corresponding chat "
+"window: {1}"
+msgstr ""
+"Ελήφθη μήνυμα ομαδικής συνομιλίας τον {0}, αλλά δεν υπάρχει αντίστοιχο "
+"παράθυρο συνομιλίας: {1}"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:2397
+#, csharp-format
+msgid "You have been invited to {2} by {0} because {1}"
+msgstr "Έχετε προσκληθεί στο {2} από τον {0} λόγω του {1}"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:2403
+#, csharp-format
+msgid "You have been invited to {1} by {0}"
+msgstr "Έχετε προσκληθεί στο {1} από τον {0}"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:2424
+msgid "Accept invite (join room)"
+msgstr "Αποδοχή πρόσκλησης (συμμετοχή στην αίθουσα)"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:2562
+#, csharp-format
+msgid "Reconnecting to {0}"
+msgstr "Επανασύνδεση στο {0}"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:2576
+#, csharp-format
+msgid "Reconnecting to {0} in {1} seconds"
+msgstr "Επανασύνδεση στο {0} σε {1} δευτερόλεπτα"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:2606
+#, csharp-format
+msgid "Error: {0}"
+msgstr "Σφάλμα: {0}"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:2618
+msgid "Authenticated"
+msgstr "Πιστοποιήθηκε"
+
+#: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:2669
+#, csharp-format
+msgid "Using proxy: {0}:{1}"
+msgstr "Χρήση διαμεσολαβητή: {0}:{1}"
