@@ -75,6 +75,13 @@ namespace Smuxi.Engine.Campfire
         public string body { get; set; }
     }
 
+    internal class Tweet {
+        public long Id { get; set; }
+        public string Message { get; set; }
+        public string Author_Username { get; set; }
+        public string Author_Avatar_Url { get; set; }
+    }
+
     internal class Message {
         public int Id { get; set; }
         public string Body { get; set; }
@@ -83,6 +90,7 @@ namespace Smuxi.Engine.Campfire
         public DateTimeOffset Created_At { get; set; }
         public MessageType Type { get; set; }
         public bool Starred { get; set; }
+        public Tweet Tweet { get; set; }
     }
 
     internal class Upload {
