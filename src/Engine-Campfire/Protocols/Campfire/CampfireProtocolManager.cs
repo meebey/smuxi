@@ -357,7 +357,7 @@ namespace Smuxi.Engine
 
         void SendMessage(GroupChatModel chat, string text)
         {
-            var message = new MessageSending { body = text, type = Campfire.MessageType.TextMessage};
+            var message = new MessageSending { body = text };
             var wrapper = new MessageWrapper { message = message };
             Message res;
             try {

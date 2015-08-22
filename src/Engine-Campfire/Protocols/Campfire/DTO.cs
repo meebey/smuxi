@@ -71,7 +71,6 @@ namespace Smuxi.Engine.Campfire
     }
 
     internal class MessageSending {
-        public MessageType type { get; set; }
         public string body { get; set; }
     }
 
