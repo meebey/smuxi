@@ -1097,7 +1097,6 @@ namespace Smuxi.Frontend.Gnome
                                 HasSystemIconTheme ? "system" : "built-in");
 #endif
 
-            var unityWithLightIcons = false;
             if (Frontend.IsUnity) {
                 var sysGtkTheme = settings.ThemeName ?? String.Empty;
                 var sysIconTheme = GetGtkIconThemeName() ?? String.Empty;
@@ -1112,7 +1111,6 @@ namespace Smuxi.Frontend.Gnome
                     _Logger.Debug("InitGtk(): Detected Ambiance theme with "+
                                   "light icons");
 #endif
-                    unityWithLightIcons = true;
                 }
             }
             var appIconDir = Path.Combine(appDir, "icons");
