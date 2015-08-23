@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: smuxi\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-06-12 16:30+0200\n"
-"PO-Revision-Date: 2015-06-12 16:31+0200\n"
+"POT-Creation-Date: 2015-08-23 13:34+0200\n"
+"PO-Revision-Date: 2015-08-23 13:35+0200\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <gnomepl@aviary.pl>\n"
 "Language: pl\n"
@@ -57,38 +57,43 @@ msgid "has uploaded '{0}' ({1} B) {2}"
 msgstr "wysłał \"{0}\" ({1} B) {2}"
 
 #. TRANSLATOR: {0} is the name of the room
-#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:415
+#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:420
 #, csharp-format
 msgid "has joined {0}"
 msgstr "dołączył do pokoju {0}"
 
 #. TRANSLATOR: {0} is the name of the room
-#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:424
+#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:429
 #, csharp-format
 msgid "has left {0}"
 msgstr "opuścił pokój {0}"
 
 #. TRANSLATOR: {0} is the name of the room
-#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:432
+#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:437
 #, csharp-format
 msgid "has locked {0}"
 msgstr "zablokował pokój {0}"
 
 #. TRANSLATOR: {0} is the name of the room
-#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:436
+#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:441
 #, csharp-format
 msgid "has unlocked {0}"
 msgstr "odblokował pokój {0}"
 
-#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:441
+#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:446
 msgid "has changed the topic"
 msgstr "zmienił temat"
 
-#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:451
+#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:458
+#, csharp-format
+msgid "has pasted a tweet by {0}: {1}"
+msgstr "wkleił tweeta autorstwa użytkownika {0}: {1}"
+
+#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:465
 msgid "has performed an unknown action"
 msgstr "wykonał nieznane działanie"
 
-#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:492
+#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:504
 #, csharp-format
 msgid "Error reading from stream: {0}"
 msgstr "Błąd podczas odczytywania z potoku: {0}"
