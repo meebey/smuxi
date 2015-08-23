@@ -357,7 +357,7 @@ namespace Smuxi.Engine
 
         void SendMessage(GroupChatModel chat, string text)
         {
-            var message = new MessageSending { body = text, type = Campfire.MessageType.TextMessage};
+            var message = new MessageSending { body = text };
             var wrapper = new MessageWrapper { message = message };
             Message res;
             try {
@@ -388,6 +388,11 @@ namespace Smuxi.Engine
             bld.AppendEventPrefix();
             bld.AppendIdendityName(person).AppendSpace();
             bld.AppendText(action);
+        }
+
+        bool AlreadyPosted(PersonModel person, int messageId)
+        {
+            return person == Me && messageId <= LastSentId;
         }
 
         void ShowMessage(object sender, MessageReceivedEventArgs args)
@@ -443,6 +448,15 @@ namespace Smuxi.Engine
                 case Campfire.MessageType.UploadMessage:
                     FormatUpload(bld, person, chat, message);
                     break;
+                case Campfire.MessageType.TweetMessage:
+                    if (AlreadyPosted(person, message.Id))
+                        return;
+
+                    var tweet = message.Tweet;
+                    // TRANSLATOR: {0} is the twitter username, {1} the tweet text
+                    FormatEvent(bld, person,
+                        String.Format(_("has pasted a tweet by {0}: {1}"), tweet.Author_Username, tweet.Message));
+                    break;
                 case Campfire.MessageType.TextMessage:
                 case Campfire.MessageType.PasteMessage:
                     processed = false;
@@ -457,19 +471,17 @@ namespace Smuxi.Engine
                 return;
             }
 
-            bool mine = person == Me;
-
-            // Don't double-post the messages we've sent
-            if (mine && message.Id <= LastSentId)
+            if (AlreadyPosted(person, message.Id))
                 return;
+
+            bool mine = person == Me;
 
             if (mine)
                 bld.AppendSenderPrefix(Me);
             else
                 bld.AppendNick(person).AppendSpace();
 
-            if (message.Type == Campfire.MessageType.TextMessage ||
-                message.Type == Campfire.MessageType.TweetMessage) {
+            if (message.Type == Campfire.MessageType.TextMessage) {
                 bld.AppendMessage(message.Body);
             } else if (message.Type == Campfire.MessageType.PasteMessage) {
                 bld.AppendText("\n");
