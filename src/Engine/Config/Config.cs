@@ -471,6 +471,7 @@ namespace Smuxi.Engine
                 if (String.IsNullOrEmpty(realname)) {
                     realname = "Your Name";
                 }
+                realname = "Your Name";
                 LoadUserEntry(user, "Connection/Realname", realname);
                 LoadUserEntry(user, "Connection/Encoding", String.Empty);
 
