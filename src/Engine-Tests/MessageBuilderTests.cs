@@ -615,6 +615,12 @@ namespace Smuxi.Engine
             builder.TimeStamp = DateTime.MinValue;
             builder.Append(new UrlMessagePartModel(msg));
             TestMessage(msg, builder.ToMessage());
+
+            msg = "http://مثال.ايران/";
+            builder = new MessageBuilder();
+            builder.TimeStamp = DateTime.MinValue;
+            builder.Append(new UrlMessagePartModel(msg));
+            TestMessage(msg, builder.ToMessage());
         }
 
         [Test]

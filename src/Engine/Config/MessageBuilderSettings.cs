@@ -75,7 +75,7 @@ namespace Smuxi.Engine
             string domain_chars = @"[a-z0-9\-\p{L}]+";
             string subdomain = domain_chars + @"\.";
             string common_tld = @"de|es|im|us|com|net|org|info|biz|gov|name|edu|onion|museum";
-            string any_tld = @"[a-z]+";
+            string any_tld = @"[a-z\p{L}]+";
             string ip6 = @"(?:[0-9a-f]{0,4}:){1,7}[0-9a-f]{1,4}";
             string quoted_ip6 = @"\[" + ip6 + @"\]";
             string ip4 = @"(?:[0-9]{1,3}\.){3}[0-9]{1,3}";
