@@ -608,6 +608,16 @@ namespace Smuxi.Engine
         }
 
         [Test]
+        public void AppendMessageWithIdnLink()
+        {
+            var msg = "http://www.brasileirão.com";
+            var builder = new MessageBuilder();
+            builder.TimeStamp = DateTime.MinValue;
+            builder.Append(new UrlMessagePartModel(msg));
+            TestMessage(msg, builder.ToMessage());
+        }
+
+        [Test]
         public void AppendMessageWithSmartLinks()
         {
             var msg = "RFC2812";

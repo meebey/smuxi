@@ -72,8 +72,8 @@ namespace Smuxi.Engine
         {
             string path_last_chars = @"a-zA-Z0-9#/%&@=\-_+;:~'";
             string path_chars = path_last_chars + @"\(\)\[\]\{\}?!.,";
-            string domainchars = @"[a-z0-9\-]+";
-            string subdomain = domainchars + @"\.";
+            string domain_chars = @"[a-z0-9\-\p{L}]+";
+            string subdomain = domain_chars + @"\.";
             string common_tld = @"de|es|im|us|com|net|org|info|biz|gov|name|edu|onion|museum";
             string any_tld = @"[a-z]+";
             string ip6 = @"(?:[0-9a-f]{0,4}:){1,7}[0-9a-f]{1,4}";
