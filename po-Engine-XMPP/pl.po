@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: smuxi\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-06-12 17:59+0200\n"
-"PO-Revision-Date: 2015-06-12 18:00+0200\n"
+"POT-Creation-Date: 2015-09-02 16:39+0200\n"
+"PO-Revision-Date: 2015-09-02 16:25+0200\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <gnomepl@aviary.pl>\n"
 "Language: pl\n"
@@ -124,12 +124,12 @@ msgstr "Nieprawidłowy port: {0}"
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1052
 #, csharp-format
 msgid "Priority for Available is: {0}"
-msgstr "Priorytet dla stanu Dostępny: {0}"
+msgstr "Priorytet dla stanu „Dostępny”: {0}"
 
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1055
 #, csharp-format
 msgid "Priority for Away is: {0}"
-msgstr "Priorytet dla stanu Nieobecny: {0}"
+msgstr "Priorytet dla stanu „Nieobecny”: {0}"
 
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1063
 #, csharp-format
@@ -270,17 +270,17 @@ msgstr "Wystąpił nieznany błąd rozmowy grupowej: {0}"
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1894
 #, csharp-format
 msgid "Server of groupchat \"{0}\" not found."
-msgstr "Nie odnaleziono serwera rozmowy grupowej \"{0}\"."
+msgstr "Nie odnaleziono serwera rozmowy grupowej „{0}”."
 
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1897
 #, csharp-format
 msgid "MUC service is not available for \"{0}\""
-msgstr "Niedostępna usługa MUC dla \"{0}\""
+msgstr "Niedostępna usługa MUC dla „{0}”"
 
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1904
 #, csharp-format
 msgid "You do not have permission to join \"{0}\""
-msgstr "Brak uprawnień do dołączenia do \"{0}\""
+msgstr "Brak uprawnień do dołączenia do „{0}”"
 
 #: ../src/Engine-XMPP/Protocols/Xmpp/XmppProtocolManager.cs:1910
 #, csharp-format

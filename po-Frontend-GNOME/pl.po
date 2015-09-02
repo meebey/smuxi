@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: smuxi\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-06-12 19:44+0200\n"
-"PO-Revision-Date: 2015-06-12 19:45+0200\n"
+"POT-Creation-Date: 2015-09-02 16:39+0200\n"
+"PO-Revision-Date: 2015-09-02 16:30+0200\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <gnomepl@aviary.pl>\n"
 "Language: pl\n"
@@ -37,7 +37,7 @@ msgid ""
 msgstr ""
 "Używane pseudonimy. Można podać dodatkowe (oddzielone spacjami), które będą "
 "używane jako zapasowe, jeśli pierwszy pseudonim jest niedostępny. Domyślnie "
-"\"$pseudonim_\" i \"$pseudonim__\" będą używane jako zapasowe."
+"„$pseudonim_” i „$pseudonim__” będą używane jako zapasowe."
 
 #: ../glade/smuxi-frontend-gnome.glade.h:3
 msgid "Nickname(s):"
@@ -447,7 +447,7 @@ msgstr "Zapisywanie w _dzienniku"
 #: ../glade/smuxi-frontend-gnome.glade.h:92
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerDialog.cs:16
 msgid "Smuxi - Server"
-msgstr "Smuxi - serwer"
+msgstr "Smuxi — serwer"
 
 #: ../glade/smuxi-frontend-gnome.glade.h:93
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.ServerWidget.cs:263
@@ -512,7 +512,7 @@ msgid ""
 "similar to screen+irssi or IRC bouncers, but more elegant and powerful."
 msgstr ""
 "Zainspirowany przez połączenie programów screen i irssi, program Smuxi "
-"posiada odłączalny serwer (lub jako \"zwykły\" klient), który utrzymuje "
+"posiada odłączalny serwer (lub jako „zwykły” klient), który utrzymuje "
 "połączenie i umożliwia łączenie wielu interfejsów Smuxi w tym samym czasie. "
 "Jest to podobne do programów screen+irssi czy bramek IRC, ale jest bardziej "
 "eleganckie i ma większe możliwości."
@@ -607,7 +607,7 @@ msgstr "Błąd: {0}"
 #: ../src/Frontend-GNOME/EngineManagerDialog.cs:319
 #, csharp-format
 msgid "Are you sure you want to delete the engine \"{0}\"?"
-msgstr "Na pewno usunąć mechanizm \"{0}\"?"
+msgstr "Na pewno usunąć mechanizm „{0}”?"
 
 #: ../src/Frontend-GNOME/Entry.cs:485
 #, csharp-format
@@ -646,11 +646,11 @@ msgstr "Uruchamia nową kopię programu Smuxi i ignoruje istniejącą"
 
 #: ../src/Frontend-GNOME/Main.cs:109
 msgid "Passing link to already running Smuxi instance..."
-msgstr "Przekazywanie odnośnika do już uruchomionej kopii programu Smuxi..."
+msgstr "Przekazywanie odnośnika do już uruchomionej kopii programu Smuxi…"
 
 #: ../src/Frontend-GNOME/Main.cs:117
 msgid "Bringing already running Smuxi instance to foreground..."
-msgstr "Przenoszenie już uruchomionej kopii programu Smuxi na wierzch..."
+msgstr "Przenoszenie już uruchomionej kopii programu Smuxi na wierzch…"
 
 #: ../src/Frontend-GNOME/MainWindow.cs:374
 #, csharp-format
@@ -743,7 +743,7 @@ msgstr "Pole pseudonimów nie może być puste."
 #: ../src/Frontend-GNOME/Preferences/PreferencesDialog.cs:892
 #, csharp-format
 msgid "Invalid highlight regex: '{0}'. Reason: {1}"
-msgstr "Nieprawidłowe wyrażenie regularne wyróżniania: \"{0}\". Powód: {1}"
+msgstr "Nieprawidłowe wyrażenie regularne wyróżniania: „{0}”. Powód: {1}"
 
 #: ../src/Frontend-GNOME/FindGroupChatDialog.cs:81
 #: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:100
@@ -776,7 +776,7 @@ msgstr "Rozłączono z mechanizmu."
 #: ../src/Frontend-GNOME/Frontend.cs:431
 #, csharp-format
 msgid "Reconnecting to engine... (attempt {0})"
-msgstr "Ponowne łączenie z mechanizmem... (próba: {0})"
+msgstr "Ponowne łączenie z mechanizmem… (próba: {0})"
 
 #: ../src/Frontend-GNOME/Frontend.cs:542
 #, csharp-format
@@ -838,7 +838,7 @@ msgstr "Grupa/publiczne"
 
 #: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:65
 msgid "Engine Assistant - Smuxi"
-msgstr "Asystent mechanizmów - Smuxi"
+msgstr "Asystent mechanizmów — Smuxi"
 
 #: ../src/Frontend-GNOME/Views/Assistants/Engine/EngineAssistant.cs:87
 msgid "Add Smuxi Engine"
@@ -913,7 +913,7 @@ msgstr "Dzień zmieniono na {0}"
 #: ../src/Frontend-GNOME/Views/FilterListWidget.cs:130
 #, csharp-format
 msgid "Invalid filter regex: '{0}'. Reason: {1}"
-msgstr "Nieprawidłowe wyrażenie regularne filtru: \"{0}\". Powód: {1}"
+msgstr "Nieprawidłowe wyrażenie regularne filtru: „{0}”. Powód: {1}"
 
 #: ../src/Frontend-GNOME/Views/FilterListWidget.cs:197
 msgid "Are you sure you want to delete the selected filter?"
@@ -956,7 +956,7 @@ msgstr "Pasek _menu"
 #: ../src/Frontend-GNOME/Views/Chats/GroupChatView.cs:321
 #, csharp-format
 msgid "Retrieving user list for {0}..."
-msgstr "Pobieranie listy użytkowników dla {0}..."
+msgstr "Pobieranie listy użytkowników dla {0}…"
 
 #. TRANSLATOR: this string will be appended to the one above
 #: ../src/Frontend-GNOME/Views/Chats/GroupChatView.cs:349
@@ -1011,7 +1011,7 @@ msgstr "Wy_rażenie regularne"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.FindGroupChatDialog.cs:23
 msgid "Smuxi - Find Group Chat"
-msgstr "Smuxi - wyszukiwanie rozmowy grupowej"
+msgstr "Smuxi — wyszukiwanie rozmowy grupowej"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.FindGroupChatDialog.cs:47
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.OpenChatDialog.cs:73
@@ -1176,11 +1176,11 @@ msgstr "Pasek _narzędziowy"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.QuickConnectDialog.cs:19
 msgid "Smuxi - Connect"
-msgstr "Smuxi - połączenie"
+msgstr "Smuxi — połączenie"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:206
 msgid "Smuxi - Preferences"
-msgstr "Smuxi - preferencje"
+msgstr "Smuxi — preferencje"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.SteticPreferencesDialog.cs:295
 msgid "Nicknames:"
@@ -1328,7 +1328,7 @@ msgstr ""
 "Witamy w asystencie konfiguracji mechanizmu Smuxi.\n"
 "Przed użyciem mechanizmu należy podać kilka informacji.\n"
 "\n"
-"Kliknięcie przycisku \"Dalej\" rozpocznie."
+"Kliknięcie przycisku „Dalej” rozpocznie."
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.EngineAssistantNameWidget.cs:36
 msgid "_Engine Name:"
@@ -1356,7 +1356,7 @@ msgstr ""
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.OpenChatDialog.cs:20
 msgid "Smuxi - Open Chat"
-msgstr "Smuxi - otwarcie rozmowy"
+msgstr "Smuxi — otwarcie rozmowy"
 
 #: ../src/Frontend-GNOME/gtk-gui/Smuxi.Frontend.Gnome.OpenChatDialog.cs:63
 msgid "_Type:"

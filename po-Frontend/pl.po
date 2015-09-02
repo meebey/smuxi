@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: smuxi\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-06-12 17:18+0200\n"
-"PO-Revision-Date: 2015-06-12 17:20+0200\n"
+"POT-Creation-Date: 2015-09-02 16:39+0200\n"
+"PO-Revision-Date: 2015-09-02 16:26+0200\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <gnomepl@aviary.pl>\n"
 "Language: pl\n"
@@ -45,7 +45,7 @@ msgstr "Mechanizm nie istnieje."
 #: ../src/Frontend/EngineManager.cs:313
 #, csharp-format
 msgid "Unknown channel ({0}) - only the following channel types are supported:"
-msgstr "Nieznany kanał ({0}) - obsłigiwane są tylko następujące typy kanałów:"
+msgstr "Nieznany kanał ({0}) — obsługiwane są tylko następujące typy kanałów:"
 
 #: ../src/Frontend/EngineManager.cs:322
 msgid ""
@@ -53,7 +53,7 @@ msgid ""
 "please verify them."
 msgstr ""
 "Rejestracja mechanizmu się nie powiodła. Nazwa użytkownika i/lub hasło są "
-"niepoprawne - proszę je sprawdzić."
+"niepoprawne — proszę je sprawdzić."
 
 #: ../src/Frontend/SshTunnelManager.cs:147
 msgid "SSH client application was not found: "

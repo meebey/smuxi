@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: smuxi\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-23 13:34+0200\n"
-"PO-Revision-Date: 2015-08-23 13:35+0200\n"
+"POT-Creation-Date: 2015-09-02 16:38+0200\n"
+"PO-Revision-Date: 2015-09-02 16:17+0200\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <gnomepl@aviary.pl>\n"
 "Language: pl\n"
@@ -25,7 +25,7 @@ msgstr ""
 
 #: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:123
 msgid "Connecting to campfire... "
-msgstr "Łączenie z Campfire... "
+msgstr "Łączenie z Campfire… "
 
 #: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:166
 msgid "Connected to campfire"
@@ -44,7 +44,7 @@ msgstr "Wyślij"
 #: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:263
 #, csharp-format
 msgid "'{0}' ({1} B) {2}"
-msgstr "\"{0}\" ({1} B) {2}"
+msgstr "„{0}” ({1} B) {2}"
 
 #: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:367
 #, csharp-format
@@ -54,7 +54,7 @@ msgstr "Wysłanie wiadomości się nie powiodło: {0}"
 #: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:383
 #, csharp-format
 msgid "has uploaded '{0}' ({1} B) {2}"
-msgstr "wysłał \"{0}\" ({1} B) {2}"
+msgstr "wysłał „{0}” ({1} B) {2}"
 
 #. TRANSLATOR: {0} is the name of the room
 #: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:420

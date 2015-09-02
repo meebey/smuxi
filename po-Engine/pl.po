@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: smuxi\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-06-12 16:20+0200\n"
-"PO-Revision-Date: 2015-06-12 16:23+0200\n"
+"POT-Creation-Date: 2015-09-02 16:39+0200\n"
+"PO-Revision-Date: 2015-09-02 16:20+0200\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <gnomepl@aviary.pl>\n"
 "Language: pl\n"
@@ -32,7 +32,7 @@ msgstr "Brak połączeń sieciowych"
 #: ../src/Engine/MessageBuffers/Db4oMessageBuffer.cs:263
 #, csharp-format
 msgid "Optimizing: {0}..."
-msgstr "Optymalizowanie: {0}..."
+msgstr "Optymalizowanie: {0}…"
 
 #: ../src/Engine/MessageBuffers/Db4oMessageBuffer.cs:281
 #, csharp-format
@@ -50,12 +50,12 @@ msgstr ""
 #: ../src/Engine/Messages/MessageBuilder.cs:771
 #, csharp-format
 msgid "{0} is typing..."
-msgstr "Użytkownik {0} pisze..."
+msgstr "Użytkownik {0} pisze…"
 
 #: ../src/Engine/Messages/MessageBuilder.cs:777
 #, csharp-format
 msgid "{0} has stopped typing..."
-msgstr "Użytkownik {0} przestał pisać..."
+msgstr "Użytkownik {0} przestał pisać…"
 
 #: ../src/Engine/Messages/MessageBuilder.cs:820
 #, csharp-format
@@ -99,7 +99,7 @@ msgstr "Rozłączono z {0}"
 #: ../src/Engine/Session.cs:247
 #, csharp-format
 msgid "Automatically connecting to {0}..."
-msgstr "Automatyczne łączenie z {0}..."
+msgstr "Automatyczne łączenie z {0}…"
 
 #: ../src/Engine/Session.cs:278
 #, csharp-format
@@ -119,7 +119,7 @@ msgstr "Połączenie się nie powiodło"
 #: ../src/Engine/Session.cs:657
 #, csharp-format
 msgid "Disconnect failed - could not find server: {0}"
-msgstr "Rozłączenie się nie powiodło -  nie można odnaleźć serwera: {0}"
+msgstr "Rozłączenie się nie powiodło — nie można odnaleźć serwera: {0}"
 
 #: ../src/Engine/Session.cs:699
 msgid "Reconnect failed!"
@@ -140,42 +140,42 @@ msgstr "Nieprawidłowy format klucz/wartość."
 #: ../src/Engine/Session.cs:778
 #, csharp-format
 msgid "Invalid config key: '{0}'"
-msgstr "Nieprawidłowy klucz konfiguracji: \"{0}\""
+msgstr "Nieprawidłowy klucz konfiguracji: „{0}”"
 
 #: ../src/Engine/Session.cs:794 ../src/Engine/Session.cs:800
 #, csharp-format
 msgid "Could not convert config value: '{0}' to type: {1}"
-msgstr "Nie można skonwertować wartości konfiguracji: \"{0}\" do typu: {1}"
+msgstr "Nie można skonwertować wartości konfiguracji: „{0}” do typu: {1}"
 
 #: ../src/Engine/Session.cs:814
 #, csharp-format
 msgid ""
 "Invalid config remove key: '{0}'. Valid remove keys: MessagePatterns/{{ID}}."
 msgstr ""
-"Nieprawidłowy klucz usuwania konfiguracji: \"{0}\". Prawidłowe klucze "
+"Nieprawidłowy klucz usuwania konfiguracji: „{0}”. Prawidłowe klucze "
 "usuwania: MessagePatterns/{{ID}}."
 
 #: ../src/Engine/Session.cs:827
 #, csharp-format
 msgid "Message pattern with ID: '{0}' does not exist."
-msgstr "Wzór wiadomości o identyfikatorze: \"{0}\" nie istnieje."
+msgstr "Wzór wiadomości o identyfikatorze: „{0}” nie istnieje."
 
 #: ../src/Engine/Session.cs:834
 #, csharp-format
 msgid "Message pattern with ID: '{0}' removed."
-msgstr "Usunięto wzór wiadomości o identyfikatorze: \"{0}\"."
+msgstr "Usunięto wzór wiadomości o identyfikatorze: „{0}”."
 
 #: ../src/Engine/Session.cs:842
 msgid "Invalid parameter for config; use load, save, get or set."
 msgstr ""
-"Nieprawidłowy parametr dla konfiguracji; można użyć \"load\" (wczytanie), "
-"\"save\" (zapisanie), \"get\" (pobranie) lub \"set\" (ustawienie)."
+"Nieprawidłowy parametr dla konfiguracji; można użyć „load” (wczytanie), "
+"„save” (zapisanie), „get” (pobranie) lub „set” (ustawienie)."
 
 #: ../src/Engine/Session.cs:919
 msgid "Invalid parameter for network; use list, switch, or close"
 msgstr ""
-"Nieprawidłowy parametr dla sieci; można użyć \"list\" (lista), \"switch"
-"\" (zmiana) lub \"close\" (zamknięcie)"
+"Nieprawidłowy parametr dla sieci; można użyć „list” (lista), "
+"„switch” (zmiana) lub „close” (zamknięcie)"
 
 #. TRANSLATOR: this line is used as a label / category for a
 #. list of networks below
@@ -214,12 +214,12 @@ msgstr "Dostępne sieci"
 #: ../src/Engine/Session.cs:998
 #, csharp-format
 msgid "Network close failed - could not find network: {0}"
-msgstr "Zamknięcie sieci się nie powiodło - nie można odnaleźć sieci: {0}"
+msgstr "Zamknięcie sieci się nie powiodło — nie można odnaleźć sieci: {0}"
 
 #: ../src/Engine/Session.cs:1042
 #, csharp-format
 msgid "Network switch failed - could not find network: {0}"
-msgstr "Zmiana sieci się nie powiodła - nie można odnaleźć sieci: {0}"
+msgstr "Zmiana sieci się nie powiodła — nie można odnaleźć sieci: {0}"
 
 #: ../src/Engine/Session.cs:1060
 msgid "Not connected to any network"
@@ -274,12 +274,12 @@ msgstr "Hasło nie może być puste."
 #: ../src/Engine/Config/UserListController.cs:136
 #, csharp-format
 msgid "User \"{0}\" doesn't exist."
-msgstr "Użytkownik \"{0}\" nie istnieje."
+msgstr "Użytkownik „{0}” nie istnieje."
 
 #: ../src/Engine/Config/UserListController.cs:145
 #, csharp-format
 msgid "User \"{0}\" already exists."
-msgstr "Użytkownik \"{0}\" już istnieje."
+msgstr "Użytkownik „{0}” już istnieje."
 
 #: ../src/Engine/Config/ServerListController.cs:118
 msgid "Network must not be empty."
@@ -296,7 +296,7 @@ msgstr "Adres serwera zawiera nieprawidłowe znaki (znak nowego wiersza)."
 #: ../src/Engine/Config/ServerListController.cs:148
 #, csharp-format
 msgid "Server ID '{0}' already exists."
-msgstr "Identyfikator serwera \"{0}\" już istnieje."
+msgstr "Identyfikator serwera „{0}” już istnieje."
 
 #: ../src/Engine/Chats/ChatModel.cs:106
 #, csharp-format
