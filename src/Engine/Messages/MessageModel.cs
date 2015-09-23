@@ -52,6 +52,12 @@ namespace Smuxi.Engine
         }
 
         [DataMember]
+        public string ID {
+            get;
+            set;
+        }
+
+        [DataMember]
         public IList<MessagePartModel> MessageParts {
             get {
                 return f_MessageParts;

@@ -290,6 +290,11 @@ namespace Smuxi.Frontend.Gnome
             get;
         }
 
+        protected virtual MessageTextView CreateMainMessageTextView()
+        {
+            return new MessageTextView();
+        }
+
         public event EventHandler<ChatViewMessageHighlightedEventArgs> MessageHighlighted;
 
         public ChatView(ChatModel chat)
@@ -299,7 +304,7 @@ namespace Smuxi.Frontend.Gnome
             _ChatModel = chat;
 
             IsAutoScrolling = true;
-            MessageTextView tv = new MessageTextView();
+            MessageTextView tv = CreateMainMessageTextView();
             _EndMark = tv.Buffer.CreateMark("end", tv.Buffer.EndIter, false); 
             tv.ShowTimestamps = true;
             tv.ShowMarkerline = true;

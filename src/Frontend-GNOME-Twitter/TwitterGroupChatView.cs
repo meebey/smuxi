@@ -37,6 +37,11 @@ namespace Smuxi.Frontend.Gnome
             Trace.Call(groupChat);
         }
 
+        protected override MessageTextView CreateMainMessageTextView()
+        {
+            return new TwitterMessageTextView();
+        }
+
         protected override void OnPersonMenuShown(object sender, EventArgs e)
         {
             Trace.Call(sender, e);

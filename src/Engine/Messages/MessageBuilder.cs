@@ -59,6 +59,15 @@ namespace Smuxi.Engine
             }
         }
 
+        public string ID {
+            get {
+                return Message.ID;
+            }
+            set {
+                Message.ID = value;
+            }
+        }
+
         public bool IsEmpty {
             get {
                 return Message.IsEmpty;
