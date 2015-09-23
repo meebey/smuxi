@@ -51,6 +51,8 @@
   <ItemGroup>
     <Compile Include="TwitterGroupChatView.cs" />
     <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="TwitterMessageTextView.cs" />
+    <Compile Include="TwitterPersonChatView.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

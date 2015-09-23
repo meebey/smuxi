@@ -41,7 +41,7 @@ namespace Smuxi.Frontend.Gnome
         private static readonly Gdk.Cursor _LinkCursor = new Gdk.Cursor(Gdk.CursorType.Hand2);
         static readonly Regex NickRegex = new Regex("^(<([^ ]+)> )");
         static bool IsGtk2_17 { get; set; }
-        private Gtk.TextTagTable _MessageTextTagTable;
+        protected Gtk.TextTagTable _MessageTextTagTable;
         private MessageModel _LastMessage;
         private bool         _ShowTimestamps;
         private bool         _ShowHighlight;
@@ -57,7 +57,7 @@ namespace Smuxi.Frontend.Gnome
         Gtk.TextTag BoldTag { get; set; }
         Gtk.TextTag ItalicTag { get; set; }
         Gtk.TextTag UnderlineTag { get; set; }
-        Gtk.TextTag LinkTag { get; set; }
+        protected Gtk.TextTag LinkTag { get; set; }
         Gtk.TextTag EventTag { get; set; }
 
         Gtk.TextTag PersonTag { get; set; }
@@ -372,6 +372,13 @@ namespace Smuxi.Frontend.Gnome
             AddMessage(msg, addLinebreak, _ShowTimestamps);
         }
 
+        protected virtual void InsertTimeStamp(Gtk.TextBuffer buffer, ref Gtk.TextIter iter,
+                                               string timestamp, MessageModel msg)
+        {
+            timestamp = String.Format("{0} ", timestamp);
+            buffer.Insert(ref iter, timestamp);
+        }
+
         public void AddMessage(MessageModel msg, bool addLinebreak, bool showTimestamps)
         {
 #if MSG_DEBUG
@@ -431,8 +438,7 @@ namespace Smuxi.Frontend.Gnome
                 }
 
                 if (timestamp != null) {
-                    timestamp = String.Format("{0} ", timestamp);
-                    buffer.Insert(ref iter, timestamp);
+                    InsertTimeStamp(buffer, ref iter, timestamp, msg);
 
                     // apply timestamp width to indent tag
                     if (indentTag != null) {

@@ -6,7 +6,9 @@ ASSEMBLY_TARGET = $(TARGET_DIR)/$(ASSEMBLY_FILENAME)
 SOURCES = \
 	../AssemblyVersion.cs \
 	AssemblyInfo.cs \
-	TwitterGroupChatView.cs
+	TwitterGroupChatView.cs \
+	TwitterMessageTextView.cs \
+	TwitterPersonChatView.cs
 
 REFERENCES = \
 	System \

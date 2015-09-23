@@ -40,6 +40,9 @@ namespace Smuxi.Engine
 
             // MessageModel serializer expects UTC values
             TimeStamp = status.CreatedDate.ToUniversalTime();
+
+            ID = status.StringId;
+
             AppendSenderPrefix(sender, isHighlight);
 
             if (status.RetweetedStatus == null && status.QuotedStatus == null) {
