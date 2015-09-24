@@ -248,6 +248,7 @@ namespace Smuxi.Engine
 
             prefix = "Engine/Users/DEFAULT/Interface/";
             Get(prefix+"ShowAdvancedSettings", false);
+            Get(prefix+"ShowActivityCounter", true);
 
             prefix = "Engine/Users/DEFAULT/Interface/Notebook/";
             Get(prefix+"TimestampFormat", "HH:mm");
@@ -508,6 +509,7 @@ namespace Smuxi.Engine
                 }
 
                 LoadUserEntry(user, "Interface/ShowAdvancedSettings", null);
+                LoadUserEntry(user, "Interface/ShowActivityCounter", null);
                 LoadUserEntry(user, "Interface/Notebook/TimestampFormat", null);
                 LoadUserEntry(user, "Interface/Notebook/TabPosition", null);
                 LoadUserEntry(user, "Interface/Notebook/BufferLines", null);

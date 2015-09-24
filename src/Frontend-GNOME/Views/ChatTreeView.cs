@@ -1,6 +1,6 @@
 // Smuxi - Smart MUltipleXed Irc
 //
-// Copyright (c) 2013-2014 Mirco Bauer <meebey@meebey.net>
+// Copyright (c) 2013-2015 Mirco Bauer <meebey@meebey.net>
 //
 // Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
 //
@@ -27,6 +27,7 @@ namespace Smuxi.Frontend.Gnome
     {
         public Gtk.TreeStore TreeStore { get; private set; }
         ThemeSettings ThemeSettings { get; set; }
+        Gtk.TreeViewColumn ActivityColumn { get; set; }
         int f_CurrentChatNumber;
 
         public ChatView CurrentChatView {
@@ -114,6 +115,7 @@ namespace Smuxi.Frontend.Gnome
             column.Sizing = Gtk.TreeViewColumnSizing.Autosize;
             column.SetCellDataFunc(cellRenderer, new Gtk.TreeCellDataFunc(RenderChatViewActivity));
             AppendColumn(column);
+            ActivityColumn = column;
         }
 
         public virtual void Append(ChatView chatView)
@@ -214,6 +216,8 @@ namespace Smuxi.Frontend.Gnome
                 ModifyText(Gtk.StateType.Normal, ThemeSettings.ForegroundColor.Value);
             }
             ModifyFont(ThemeSettings.FontDescription);
+
+            ActivityColumn.Visible = (bool) config["Interface/ShowActivityCounter"];
         }
 
         protected virtual void RenderChatViewIcon(Gtk.TreeViewColumn column,
