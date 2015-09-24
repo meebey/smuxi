@@ -394,8 +394,11 @@ namespace Smuxi.Frontend.Gnome
         {
             Trace.Call(e);
 
-            WindowWidth = e.Width;
-            CheckLayout();
+            var widthChanged = WindowWidth != e.Width;
+            if (widthChanged) {
+                WindowWidth = e.Width;
+                CheckLayout();
+            }
             return base.OnConfigureEvent(e);
         }
 
