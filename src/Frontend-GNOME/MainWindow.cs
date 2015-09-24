@@ -228,7 +228,7 @@ namespace Smuxi.Frontend.Gnome
                 // predict and set useful heigth
                 int lineWidth, lineHeigth;
                 using (var layout = Entry.CreatePangoLayout("Qp")) {
-                    layout.GetPixelSize(out lineHeigth, out lineHeigth);
+                    layout.GetPixelSize(out lineWidth, out lineHeigth);
                 }
                 var it = Entry.Buffer.StartIter;
                 int newLines = 1;
