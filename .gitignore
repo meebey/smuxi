@@ -12,13 +12,7 @@ install-sh
 intltool-extract.in
 intltool-merge.in 
 intltool-update.in
-intltool.m4
 libtool
-libtool.m4
-ltoptions.m4
-ltsugar.m4
-ltversion.m4
-lt~obsolete.m4
 ltmain.sh
 missing
 *.user*

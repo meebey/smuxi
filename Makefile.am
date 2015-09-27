@@ -36,12 +36,9 @@ if ENABLE_FRONTEND_GNOME_XMPP
 PO_FRONTEND_GNOME_XMPP = po-Frontend-GNOME-XMPP
 endif
 
-ACLOCAL_AMFLAGS = -I .
+ACLOCAL_AMFLAGS = -I m4 ${ACLOCAL_FLAGS}
 
 EXTRA_DIST =	install-sh \
-		expansions.m4 \
-		mono.m4 \
-		programs.m4 \
 		HACKING \
 		LICENSE \
 		README.md
