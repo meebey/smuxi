@@ -39,7 +39,7 @@ endif
 ACLOCAL_AMFLAGS = -I m4 ${ACLOCAL_FLAGS}
 
 EXTRA_DIST =	install-sh \
-		HACKING \
+		HACKING.md \
 		LICENSE \
 		README.md
 

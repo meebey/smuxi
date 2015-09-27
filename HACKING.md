@@ -1,9 +1,17 @@
-[Smuxi Hacking HowTo](https://smuxi.im/documentation/hacking/)
-[Git Commit Message Style](http://chris.beams.io/posts/git-commit/)
+Hacking HowTo
+=============
+
+https://smuxi.im/documentation/hacking/
+
+Git Commit Message Style
+==========================
+
+http://chris.beams.io/posts/git-commit/
 
 Coding Style
 ============
 
+```cs
 using System;
 using System.IO;
 using ThirdPartyNamespaces;
