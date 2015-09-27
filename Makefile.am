@@ -44,12 +44,7 @@ EXTRA_DIST =	install-sh \
 		programs.m4 \
 		HACKING \
 		LICENSE \
-		README.md \
-		CREDITS \
-		PROFILING \
-		FEATURES \
-		BUGS \
-		TODO
+		README.md
 
 # HACK: distclean in po/ does not work for some reason
 DISTCLEANFILES = \
