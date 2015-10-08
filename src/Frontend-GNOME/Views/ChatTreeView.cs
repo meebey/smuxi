@@ -217,7 +217,7 @@ namespace Smuxi.Frontend.Gnome
             }
             ModifyFont(ThemeSettings.FontDescription);
 
-            ActivityColumn.Visible = (bool) config["Interface/ShowActivityCounter"];
+            ActivityColumn.Visible = (bool?) config["Interface/ShowActivityCounter"] ?? true;
         }
 
         protected virtual void RenderChatViewIcon(Gtk.TreeViewColumn column,
