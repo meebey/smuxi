@@ -16,6 +16,16 @@ AC_DISABLE_STATIC
 AC_PROG_LIBTOOL
 #LT_INIT([disable-static])
 
+AC_MSG_CHECKING([whether the shell understands "+="])
+shell_append=no
+( foo=bar; set foo baz; eval "$[1]+=\$[2]" && test "$foo" = barbaz ) \
+    >/dev/null 2>&1 \
+  && shell_append=yes
+AC_MSG_RESULT([$shell_append])
+if test "x$shell_append" = "xno"; then
+	AC_MSG_ERROR([Your shell (/bin/sh) is not supporting += which is required by this configure script. Try CONFIG_SHELL="env bash" ./configure instead.])
+fi
+
 # I18N
 IT_PROG_INTLTOOL([0.25])
 
