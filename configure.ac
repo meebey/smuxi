@@ -16,6 +16,16 @@ AC_DISABLE_STATIC
 AC_PROG_LIBTOOL
 #LT_INIT([disable-static])
 
+AC_MSG_CHECKING([whether the shell understands "+="])
+shell_append=no
+( foo=bar; set foo baz; eval "$[1]+=\$[2]" && test "$foo" = barbaz ) \
+    >/dev/null 2>&1 \
+  && shell_append=yes
+AC_MSG_RESULT([$shell_append])
+if test "x$shell_append" = "xno"; then
+	AC_MSG_ERROR([Your shell (/bin/sh) is not supporting += which is required by this configure script. Try CONFIG_SHELL="env bash" ./configure instead.])
+fi
+
 # I18N
 IT_PROG_INTLTOOL([0.25])
 
@@ -157,14 +167,17 @@ SHAMROCK_CHECK_MONO_2_0_GAC_ASSEMBLIES([
 ])
 
 PROFILE=debug
-AC_ARG_ENABLE(release,
-	AC_HELP_STRING([--enable-release],
-		[Use 'RELEASE' Configuration [default=NO]]),
-		enable_release=yes, enable_release=no)
+# Release builds, that is without log4net and without debug symbol files (.mdb)
+# are not supported at this point, as they have no advantage at runtime but
+# disadvantages to analyze bugs.
+#AC_ARG_ENABLE(release,
+#	AC_HELP_STRING([--enable-release],
+#		[Use 'RELEASE' Configuration [default=NO]]),
+#		enable_release=yes, enable_release=no)
 AM_CONDITIONAL(ENABLE_RELEASE, test x$enable_release = xyes)
-if test "x$enable_release" = "xyes" ; then
-	PROFILE=release
-fi
+#if test "x$enable_release" = "xyes" ; then
+#	PROFILE=release
+#fi
 AC_ARG_ENABLE(debug,
 	AC_HELP_STRING([--enable-debug],
 		[Use 'DEBUG' Configuration [default=YES]]),
