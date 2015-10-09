@@ -167,14 +167,17 @@ SHAMROCK_CHECK_MONO_2_0_GAC_ASSEMBLIES([
 ])
 
 PROFILE=debug
-AC_ARG_ENABLE(release,
-	AC_HELP_STRING([--enable-release],
-		[Use 'RELEASE' Configuration [default=NO]]),
-		enable_release=yes, enable_release=no)
+# Release builds, that is without log4net and without debug symbol files (.mdb)
+# are not supported at this point, as they have no advantage at runtime but
+# disadvantages to analyze bugs.
+#AC_ARG_ENABLE(release,
+#	AC_HELP_STRING([--enable-release],
+#		[Use 'RELEASE' Configuration [default=NO]]),
+#		enable_release=yes, enable_release=no)
 AM_CONDITIONAL(ENABLE_RELEASE, test x$enable_release = xyes)
-if test "x$enable_release" = "xyes" ; then
-	PROFILE=release
-fi
+#if test "x$enable_release" = "xyes" ; then
+#	PROFILE=release
+#fi
 AC_ARG_ENABLE(debug,
 	AC_HELP_STRING([--enable-debug],
 		[Use 'DEBUG' Configuration [default=YES]]),
