@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: smuxi\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-06-12 17:00+0200\n"
-"PO-Revision-Date: 2015-06-12 17:01+0200\n"
+"POT-Creation-Date: 2015-09-02 16:38+0200\n"
+"PO-Revision-Date: 2015-09-02 16:23+0200\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <gnomepl@aviary.pl>\n"
 "Language: pl\n"
@@ -50,7 +50,7 @@ msgstr "Opcje:"
 #: ../src/Engine-MessageBuffer/Main.cs:90
 #, csharp-format
 msgid "Unknown action: '{0}'"
-msgstr "Nieznane działanie: \"{0}\""
+msgstr "Nieznane działanie: „{0}”"
 
 #: ../src/Engine-MessageBuffer/Main.cs:97
 #, csharp-format
@@ -60,14 +60,14 @@ msgstr "Błąd wiersza poleceń: {0}"
 #: ../src/Engine-MessageBuffer/Main.cs:109
 msgid "Database format (valid values: auto, db4o, sqlite)"
 msgstr ""
-"Format bazy danych (prawidłowe wartości: \"auto\" (automatycznie), \"db4o\", "
-"\"sqlite\")"
+"Format bazy danych (prawidłowe wartości: „auto” (automatycznie), „db4o”, "
+"„sqlite”)"
 
 #: ../src/Engine-MessageBuffer/Main.cs:124
 #: ../src/Engine-MessageBuffer/Main.cs:188
 #, csharp-format
 msgid "Unknown {0} option: '{1}'"
-msgstr "Nieznana opcja {0}: \"{1}\""
+msgstr "Nieznana opcja {0}: „{1}”"
 
 #: ../src/Engine-MessageBuffer/Main.cs:135
 #, csharp-format
@@ -86,14 +86,14 @@ msgstr "ścieżka_do_bazy_danych jest wymagana"
 #: ../src/Engine-MessageBuffer/Main.cs:165
 msgid "Source format (valid values: auto, db4o, sqlite)"
 msgstr ""
-"Format źródłowy (prawidłowe wartości: \"auto\" (automatycznie), \"db4o\", "
-"\"sqlite\")"
+"Format źródłowy (prawidłowe wartości: „auto” (automatycznie), „db4o”, "
+"„sqlite”)"
 
 #: ../src/Engine-MessageBuffer/Main.cs:173
 msgid "Destination format (valid values: auto, db4o, sqlite)"
 msgstr ""
-"Format docelowy (prawidłowe wartości: \"auto\" (automatycznie), \"db4o\", "
-"\"sqlite\")"
+"Format docelowy (prawidłowe wartości: „auto” (automatycznie), „db4o”, "
+"„sqlite”)"
 
 #: ../src/Engine-MessageBuffer/Main.cs:199
 #, csharp-format
@@ -110,7 +110,7 @@ msgstr "Ścieżka do pliku źródłowego"
 #: ../src/Engine-MessageBuffer/Main.cs:205
 msgid "Destination file path or -/empty for stdout"
 msgstr ""
-"Ścieżka do pliku docelowego lub \"-/empty\", aby użyć standardowego wyjścia"
+"Ścieżka do pliku docelowego lub „-/empty”, aby użyć standardowego wyjścia"
 
 #: ../src/Engine-MessageBuffer/Main.cs:216
 msgid "source_db and destination_db are required"
@@ -128,9 +128,9 @@ msgstr "Docelowa baza danych {0} musi być pusta."
 #: ../src/Engine-MessageBuffer/Main.cs:298
 #, csharp-format
 msgid "Unknown file format: '{0}'"
-msgstr "Nieznany format pliku: \"{0}\""
+msgstr "Nieznany format pliku: „{0}”"
 
 #: ../src/Engine-MessageBuffer/Main.cs:320
 #, csharp-format
 msgid "Unsupported buffer type: '{0}'"
-msgstr "Nieobsługiwany typ bufora: \"{0}\""
+msgstr "Nieobsługiwany typ bufora: „{0}”"

@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: smuxi\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-06-12 16:50+0200\n"
-"PO-Revision-Date: 2015-06-12 16:51+0200\n"
+"POT-Creation-Date: 2015-09-02 16:38+0200\n"
+"PO-Revision-Date: 2015-09-02 16:21+0200\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <gnomepl@aviary.pl>\n"
 "Language: pl\n"
@@ -57,7 +57,7 @@ msgstr "Używanie pośrednika: {0}:{1}"
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:386
 #, csharp-format
 msgid "Connecting to {0} port {1}..."
-msgstr "Łączenie z {0} przez port {1}..."
+msgstr "Łączenie z {0} przez port {1}…"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:400
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:541
@@ -67,7 +67,7 @@ msgstr "Połączono z {0}"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:409
 msgid "Logging in..."
-msgstr "Logowanie..."
+msgstr "Logowanie…"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:449
 msgid "Connection failed!"
@@ -79,12 +79,12 @@ msgstr "Połączenie się nie powiodło. Powód: "
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:466
 msgid "Disconnecting..."
-msgstr "Rozłączanie..."
+msgstr "Rozłączanie…"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:471
 #, csharp-format
 msgid "Disconnecting from {0}..."
-msgstr "Rozłączanie z {0}..."
+msgstr "Rozłączanie z {0}…"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:478
 #, csharp-format
@@ -102,12 +102,12 @@ msgstr "Niepołączony"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:527
 msgid "Reconnecting..."
-msgstr "Ponowne łączenie..."
+msgstr "Ponowne łączenie…"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:535
 #, csharp-format
 msgid "Reconnecting to {0}..."
-msgstr "Ponowne łączenie z {0}..."
+msgstr "Ponowne łączenie z {0}…"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:554
 msgid "Reconnect Error"
@@ -144,7 +144,7 @@ msgstr "Już dołączono do kanału: {0}. Wpisanie /window {0} przełączy na ni
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:1265
 #, csharp-format
 msgid "Active joins: {0} - Queued joins: {1}"
-msgstr "Dołączono do: {0} - w kolejce: {1}"
+msgstr "Dołączono do: {0} — w kolejce: {1}"
 
 #. TRANSLATORS: final message will look like this:
 #. Joining: #chan1 - Remaining active joins: #chan2 / queued joins: #chan3
@@ -368,7 +368,7 @@ msgid ""
 "seconds..."
 msgstr ""
 "Połączenie z {0} przez port {1} się nie powiodło (próba: {2}), ponowna próba "
-"połączenia za {3} s..."
+"połączenia za {3} s…"
 
 #: ../src/Engine-IRC/Protocols/Irc/IrcProtocolManager.cs:3851
 #, csharp-format

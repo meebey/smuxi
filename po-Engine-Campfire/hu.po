@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: smuxi master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=smuxi&keywords=I18N+L10N&component=general\n"
-"POT-Creation-Date: 2015-07-17 11:44+0000\n"
-"PO-Revision-Date: 2015-07-17 18:38+0200\n"
+"POT-Creation-Date: 2015-08-23 11:09+0000\n"
+"PO-Revision-Date: 2015-09-17 16:45+0200\n"
 "Last-Translator: Balázs Úr <urbalazs@gmail.com>\n"
 "Language-Team: Hungarian <openscope at gmail dot com>\n"
 "Language: hu\n"
@@ -53,38 +53,43 @@ msgid "has uploaded '{0}' ({1} B) {2}"
 msgstr "feltöltötte ezt: „{0}” ({1} B) {2}"
 
 #. TRANSLATOR: {0} is the name of the room
-#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:415
+#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:420
 #, csharp-format
 msgid "has joined {0}"
 msgstr "csatlakozott ehhez: {0}"
 
 #. TRANSLATOR: {0} is the name of the room
-#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:424
+#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:429
 #, csharp-format
 msgid "has left {0}"
 msgstr "elhagyta ezt: {0}"
 
 #. TRANSLATOR: {0} is the name of the room
-#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:432
+#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:437
 #, csharp-format
 msgid "has locked {0}"
 msgstr "zárolta ezt: {0}"
 
 #. TRANSLATOR: {0} is the name of the room
-#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:436
+#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:441
 #, csharp-format
 msgid "has unlocked {0}"
 msgstr "feloldotta ezt: {0}"
 
-#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:441
+#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:446
 msgid "has changed the topic"
 msgstr "megváltoztatta a témát"
 
-#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:451
+#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:458
+#, csharp-format
+msgid "has pasted a tweet by {0}: {1}"
+msgstr "beillesztett egy tweet üzenetet - {0}: {1}"
+
+#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:465
 msgid "has performed an unknown action"
 msgstr "ismeretlen műveletet hajtott végre"
 
-#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:492
+#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:504
 #, csharp-format
 msgid "Error reading from stream: {0}"
 msgstr "Hiba az adatfolyam olvasásakor: {0}"
