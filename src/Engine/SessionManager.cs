@@ -113,6 +113,21 @@ namespace Smuxi.Engine
             return null;
         }
 
+        public Session GetSession(string username, string password)
+        {
+            Trace.Call(username, "XXX");
+
+            var configPassword = (string) Engine.Config["Engine/Users/"+username+"/Password"]; 
+            if (String.IsNullOrEmpty(configPassword)) {
+                return null;
+            }
+
+            if (configPassword != password) {
+                return null;
+            }
+            return (Session) _Sessions[username];
+        }
+
         internal void Shutdown()
         {
             lock (_Sessions) {

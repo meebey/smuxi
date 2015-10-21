@@ -36,6 +36,7 @@ using System.Runtime.Remoting.Channels.Tcp;
 using System.Runtime.Remoting.Channels.Http;
 using System.Runtime.Serialization.Formatters;
 using Smuxi;
+using Smuxi.Engine;
 using Mono.Unix;
 using Mono.Unix.Native;
 //using Smuxi.Channels.Tcp;
@@ -54,6 +55,20 @@ namespace Smuxi.Server
         public static void Init(string[] args)
         {
             Engine.Engine.Init();
+
+            InitRemoting();
+            InitRest();
+            InitSignalHandlers();
+
+            Thread.CurrentThread.Join();
+
+#if LOG4NET
+            _Logger.Info("Shutting down server...");
+#endif
+        }
+
+        public static void InitRemoting()
+        {
             string channel = (string)Engine.Engine.Config["Server/Channel"];
             string formatter = (string)Engine.Engine.Config["Server/Formatter"];
             string host = (string)Engine.Engine.Config["Server/Host"];
@@ -117,6 +132,10 @@ namespace Smuxi.Server
 #if LOG4NET
             _Logger.Info("Spawned remoting server with channel: "+channel+" formatter: "+formatter+" port: "+port);
 #endif            
+        }
+
+        public static void InitSignalHandlers()
+        {
             if ((Environment.OSVersion.Platform == PlatformID.Unix) ||
                 (Environment.OSVersion.Platform == PlatformID.MacOSX)) {
                 // Register shutdown handlers   
@@ -136,10 +155,19 @@ namespace Smuxi.Server
                 }); 
                 signal_thread.Start();
             }
+        }
 
-            Thread.CurrentThread.Join();
+        public static void InitRest()
+        {
+            var port = (int) Engine.Engine.Config["Server/RestPort"];
+
+            ServiceStack.Logging.LogManager.LogFactory = new ServiceStack.Logging.Support.Logging.ConsoleLogFactory();
+            var host = new WebServiceHost(Engine.Engine.SessionManager);
+            host.Init();
+            host.Start(String.Format("http://*:{0}/", port));
+
 #if LOG4NET
-            _Logger.Info("Shutting down remoting server...");
+            _Logger.Info("Spawned REST server on port: " + port);
 #endif
         }
     }

@@ -239,6 +239,7 @@ namespace Smuxi.Engine
             prefix = "Server/";
             Get(prefix+"BindAddress", "127.0.0.1");
             Get(prefix+"Port", 7689);
+            Get(prefix+"RestPort", 7690);
             Get(prefix+"Channel", "TCP");
             Get(prefix+"Formatter", "binary");
 
@@ -410,6 +411,7 @@ namespace Smuxi.Engine
             
             prefix = "Server/";
             LoadEntry(prefix+"Port", 7689);
+            LoadEntry(prefix+"RestPort", 7690);
             LoadEntry(prefix+"Formatter", "binary");
             LoadEntry(prefix+"Channel", "TCP");
             LoadEntry(prefix+"BindAddress", null);
