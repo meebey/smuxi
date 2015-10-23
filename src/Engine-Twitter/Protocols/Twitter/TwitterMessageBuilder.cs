@@ -1,6 +1,6 @@
 // Smuxi - Smart MUltipleXed Irc
 // 
-// Copyright (c) 2010, 2013 Mirco Bauer <meebey@meebey.net>
+// Copyright (c) 2010, 2013, 2015 Mirco Bauer <meebey@meebey.net>
 // 
 // Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
 // 
@@ -19,9 +19,12 @@
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA
 
 using System;
+using System.Linq;
 using System.Web;
 using System.Text;
+using System.Collections.Generic;
 using Twitterizer;
+using Twitterizer.Entities;
 
 namespace Smuxi.Engine
 {
@@ -34,34 +37,59 @@ namespace Smuxi.Engine
             if (status == null) {
                 throw new ArgumentNullException("status");
             }
-            if (sender == null) {
-                throw new ArgumentNullException("sender");
-            }
 
             // MessageModel serializer expects UTC values
             TimeStamp = status.CreatedDate.ToUniversalTime();
-            AppendSenderPrefix(sender, isHighlight);
-
-            if (status.RetweetedStatus == null && status.QuotedStatus == null) {
-                AppendMessage(status.Text);
+            if (sender != null) {
+                AppendSenderPrefix(sender, isHighlight);
             }
             if (status.RetweetedStatus != null) {
-                var rtMsg = String.Format(
-                    "RT @{0}: {1}",
-                    status.RetweetedStatus.User.ScreenName,
-                    status.RetweetedStatus.Text
-                );
-                AppendMessage(rtMsg);
+                AppendFormat("RT @{0}: ", status.RetweetedStatus.User.ScreenName);
+                Append(status.RetweetedStatus, null, isHighlight);
+                return this;
             }
-            if (status.QuotedStatus != null) {
-                var qtMsg = String.Format(
-                    "QT @{0}: {1}",
-                    status.QuotedStatus.User.ScreenName,
-                    status.QuotedStatus.Text
+
+            var entities = status.Entities ?? new TwitterEntityCollection();
+            var sortedEntities = entities.OrderBy(x => x.StartIndex);
+
+            var previousEntityEndIndex = 0;
+            foreach (var entity in sortedEntities) {
+                if (entity.StartIndex - previousEntityEndIndex > 0) {
+                    var leadingText = status.Text.Substring(
+                        previousEntityEndIndex, entity.StartIndex - previousEntityEndIndex
+                    );
+                    AppendMessage(leadingText);
+                }
+
+                var entityText = status.Text.Substring(
+                    entity.StartIndex, entity.EndIndex - entity.StartIndex
                 );
+                if (entity is TwitterHashTagEntity) {
+                    // TODO: create built-in search link
+                    AppendMessage(entityText);
+                } else if (entity is TwitterUrlEntity) {
+                    var urlEntity = (TwitterUrlEntity) entity;
+                    AppendUrl(urlEntity.ExpandedUrl, urlEntity.DisplayUrl);
+                } else if (entity is TwitterMentionEntity) {
+                    // TODO: create built-in timeline link
+                    AppendMessage(entityText);
+                } else {
+                    AppendMessage(entityText);
+                }
+                previousEntityEndIndex = entity.EndIndex;
+            }
+            var lastEntity = sortedEntities.LastOrDefault();
+            if (lastEntity == null) {
                 AppendMessage(status.Text);
+            } else {
+                var suffix = status.Text.Substring(lastEntity.EndIndex);
+                AppendMessage(suffix);
+            }
+
+            if (status.QuotedStatus != null) {
                 AppendSpace();
-                AppendMessage(qtMsg);
+                AppendFormat("QT @{0}: ", status.QuotedStatus.User.ScreenName);
+                Append(status.QuotedStatus, null, false);
             }
             return this;
         }

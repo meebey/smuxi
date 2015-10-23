@@ -1,6 +1,6 @@
 // Smuxi - Smart MUltipleXed Irc
 // 
-// Copyright (c) 2010-2014 Mirco Bauer <meebey@meebey.net>
+// Copyright (c) 2010-2015 Mirco Bauer <meebey@meebey.net>
 // Copyright (c) 2013 Oliver Schneider <mail@oli-obk.de>
 // 
 // Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
@@ -799,6 +799,10 @@ namespace Smuxi.Engine
 
             var normalized = new StringBuilder(text.Length);
             text = text.Replace("\r\n", "\n");
+            if (text.Trim('\n').Length == 0) {
+                // text just contains newlines
+                return " ";
+            }
             foreach (var textPart in text.Split('\n')) {
                 var trimmed = textPart.TrimEnd(' ');
                 if (trimmed.Length == 0) {

@@ -1839,6 +1839,8 @@ namespace Smuxi.Engine
 
         void AddIndexToStatus(TwitterStatus status)
         {
+            return;
+
             lock (StatusIndex) {
                 var slot = ++StatusIndexOffset;
                 if (slot > StatusIndex.Length) {
