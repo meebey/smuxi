@@ -31,6 +31,3 @@ using System.Runtime.CompilerServices;
 
 [assembly: AssemblyTitle("Smuxi - Test frontend")]
 [assembly: AssemblyCopyright("2005-2008 (C) Mirco Bauer <meebey@meebey.net>")]
-
-[assembly: AssemblyDelaySign(false)]
-[assembly: AssemblyKeyFile("")]

@@ -28,9 +28,6 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("Smuxi - common library")]
 [assembly: AssemblyCopyright("2005-2011 (C) Mirco Bauer <meebey@meebey.net>")]
 
-[assembly: AssemblyDelaySign(false)]
-[assembly: AssemblyKeyFile("")]
-
 [assembly: CLSCompliant(true)]
 [assembly: ComVisible(false)]
 

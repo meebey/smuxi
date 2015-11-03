@@ -28,8 +28,5 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("Smuxi - Twitter support")]
 [assembly: AssemblyCopyright("2009-2013 (C) Mirco Bauer <meebey@meebey.net>")]
 
-[assembly: AssemblyDelaySign(false)]
-[assembly: AssemblyKeyFile("")]
-
 [assembly: CLSCompliant(true)]
 [assembly: ComVisible(false)]

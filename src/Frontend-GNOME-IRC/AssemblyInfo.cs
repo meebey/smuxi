@@ -25,7 +25,3 @@ using System.Runtime.CompilerServices;
 
 [assembly: AssemblyTitle("Smuxi - IRC support for GNOME frontend")]
 [assembly: AssemblyCopyright("2005-2013 (C) Mirco Bauer <meebey@meebey.net>")]
-
-[assembly: AssemblyDelaySign(false)]
-[assembly: AssemblyKeyFile("")]
-

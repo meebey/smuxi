@@ -28,9 +28,6 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("Smuxi - MessageBuffer tool")]
 [assembly: AssemblyCopyright("2014 (C) Mirco Bauer <meebey@meebey.net>")]
 
-[assembly: AssemblyDelaySign(false)]
-[assembly: AssemblyKeyFile("")]
-
 [assembly: CLSCompliant(true)]
 [assembly: ComVisible(false)]
 

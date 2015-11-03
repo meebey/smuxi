@@ -26,9 +26,6 @@ using System.Runtime.CompilerServices;
 [assembly: AssemblyTitle("Smuxi - STFL frontend")]
 [assembly: AssemblyCopyright("2007-2013 (C) Mirco Bauer <meebey@meebey.net>, 2011 (C) Andrius Bentkus <andrius.bentkus@gmail.com>")]
 
-[assembly: AssemblyDelaySign(false)]
-[assembly: AssemblyKeyFile("")]
-
 #if LOG4NET
 // let log4net use .exe.config file
 [assembly: log4net.Config.XmlConfigurator]

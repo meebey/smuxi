@@ -28,9 +28,6 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("Smuxi - engine")]
 [assembly: AssemblyCopyright("2005-2013 (C) Mirco Bauer <meebey@meebey.net>")]
 
-[assembly: AssemblyDelaySign(false)]
-[assembly: AssemblyKeyFile("")]
-
 [assembly: CLSCompliant(true)]
 [assembly: ComVisible(false)]
 [assembly: InternalsVisibleToAttribute("smuxi-engine-tests")]

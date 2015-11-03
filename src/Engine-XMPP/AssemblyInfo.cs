@@ -30,8 +30,5 @@ using System.Runtime.InteropServices;
                              "2011 (C) Tuukka Hastrup <Tuukka.Hastrup@iki.fi>, " +
                              "2013 (C) Oliver Schneider <smuxi@oli-obk.de>")]
 
-[assembly: AssemblyDelaySign(false)]
-[assembly: AssemblyKeyFile("")]
-
 [assembly: CLSCompliant(true)]
 [assembly: ComVisible(false)]

@@ -32,6 +32,3 @@ using System.Runtime.CompilerServices;
 [assembly: AssemblyTitle("Smuxi - XMPP support for GNOME frontend")]
 [assembly: AssemblyCopyright("2010 (C) Mirco Bauer <meebey@meebey.net>, " +
                              "2013 (C) Oliver Schneider <smuxi@oli-obk.de>")]
-
-[assembly: AssemblyDelaySign(false)]
-[assembly: AssemblyKeyFile("")]
