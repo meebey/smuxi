@@ -39,6 +39,21 @@
     </Execution>
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug-Win32|AnyCPU' ">
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\bin\debug</OutputPath>
+    <WarningLevel>4</WarningLevel>
+    <DebugSymbols>true</DebugSymbols>
+    <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
+    <DefineConstants>DEBUG;TRACE;LOG4NET;NET_2_0;NDESK_OPTIONS</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release-Win32|AnyCPU' ">
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\bin\release</OutputPath>
+    <WarningLevel>4</WarningLevel>
+    <DebugSymbols>true</DebugSymbols>
+    <DefineConstants>TRACE;LOG4NET;NET_2_0;NDESK_OPTIONS</DefineConstants>
+  </PropertyGroup>
   <ItemGroup>
     <Compile Include="AssemblyInfo.cs" />
     <Compile Include="ITraceable.cs" />
@@ -87,4 +102,10 @@
       </Properties>
     </MonoDevelop>
   </ProjectExtensions>
+  <Target Name="AfterBuild">
+    <ItemGroup>
+      <LibWin32Items Include="$(SolutionDir)..\lib\win32\*" />
+    </ItemGroup>
+    <Copy Condition=" '$(Configuration)' == 'Debug-Win32' " DestinationFolder="$(OutputPath)" SourceFiles="@(LibWin32Items)" SkipUnchangedFiles="true" />
+  </Target>
 </Project>
