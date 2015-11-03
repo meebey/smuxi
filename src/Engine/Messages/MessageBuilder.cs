@@ -807,7 +807,9 @@ namespace Smuxi.Engine
                 normalized.AppendFormat("{0} ", trimmed);
             }
             // remove trailing space
-            normalized.Length--;
+            if (normalized.Length > 0) {
+                normalized.Length--;
+            }
             return normalized.ToString();
         }
 
