@@ -146,6 +146,15 @@ namespace Smuxi.Engine
             }
         }
         
+        public void RemoveFromCache(string key)
+        {
+            if (!IsCaching || _Cache == null) {
+                return;
+            }
+
+            _Cache.Remove(key);
+        }
+
         public void Remove(string key)
         {
             _Config.Remove(_UserPrefix + key);

@@ -29,6 +29,8 @@
 using System;
 using Smuxi.Engine;
 using Smuxi.Common;
+using System.Threading;
+using System.Linq;
 
 namespace Smuxi.Frontend.Gnome
 {
@@ -70,6 +72,30 @@ namespace Smuxi.Frontend.Gnome
             Trace.Call(sender, e);
             
             // disable menu for session chats
+        }
+
+        public override void AddMessage(MessageModel msg)
+        {
+            switch (msg.MessageType) {
+                case MessageType.ConfigKeyChanged:
+                    var userConfig = Frontend.Session.UserConfig;
+                    // re-fetch config key in background thread
+                    ThreadPool.QueueUserWorkItem(delegate {
+                        try {
+                            var configKey = String.Join(
+                                ":", msg.ToString().Split(':').Skip(1).ToArray()
+                            ).TrimStart();
+                            userConfig.RemoveFromCache(configKey);
+                            // REMOTING CALL
+                            var obj = userConfig[configKey];
+                        } catch (Exception ex) {
+                            Frontend.ShowException(ex);
+                        }
+                    });
+                    return;
+            }
+
+            base.AddMessage(msg);
         }
     }
 }

@@ -1734,6 +1734,17 @@ namespace Smuxi.Engine
                     }
                 }
             }
+
+            // notify connected frontends that this config key was changed and
+            // needs to be re-fetched
+            var builder = CreateMessageBuilder().
+                AppendEventPrefix().
+                    // TRANSLATOR: a string is appended to the message
+                AppendText(_("Config key has changed")).
+                // guarantee a parsable format
+                AppendText(": {0}", e.Key);
+            builder.MessageType = MessageType.ConfigKeyChanged;
+            AddMessageToChat(SessionChat, builder.ToMessage());
        }
 
         public void CheckPresenceStatus()
