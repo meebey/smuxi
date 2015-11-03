@@ -102,10 +102,10 @@
       </Properties>
     </MonoDevelop>
   </ProjectExtensions>
+  <ItemGroup>
+    <LibWin32Items Include="$(SolutionDir)..\lib\win32\*" />
+  </ItemGroup>
   <Target Name="AfterBuild">
-    <ItemGroup>
-      <LibWin32Items Include="$(SolutionDir)..\lib\win32\*" />
-    </ItemGroup>
     <Copy Condition=" '$(Configuration)' == 'Debug-Win32' " DestinationFolder="$(OutputPath)" SourceFiles="@(LibWin32Items)" SkipUnchangedFiles="true" />
   </Target>
 </Project>
