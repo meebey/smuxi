@@ -773,6 +773,20 @@ namespace Smuxi.Engine
                             oldValue = _UserConfig[setKey];
                         }
                     }
+                    if (oldValue == null && setKey.StartsWith("Filters/")) {
+                        var id = setKey.Split('/')[1];
+                        var parsedId = Int32.Parse(id);
+                        var filterSettings = new FilterListController(_UserConfig);
+                        var filter = filterSettings.GetFilter(parsedId);
+                        if (filter == null) {
+                            // filter does not exist, create it with default values
+                            filter = new FilterModel() {
+                                ChatID = "#channel"
+                            };
+                            filterSettings.AddFilter(filter);
+                            oldValue = _UserConfig[setKey];
+                        }
+                    }
                     if (oldValue == null) {
                         builder.AppendErrorText(
                             _("Invalid config key: '{0}'"),
