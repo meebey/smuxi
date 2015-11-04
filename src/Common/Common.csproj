@@ -106,6 +106,6 @@
     <LibWin32Items Include="$(SolutionDir)..\lib\win32\*" />
   </ItemGroup>
   <Target Name="AfterBuild">
-    <Copy Condition=" '$(Configuration)' == 'Debug-Win32' " DestinationFolder="$(OutputPath)" SourceFiles="@(LibWin32Items)" SkipUnchangedFiles="true" />
+    <Copy Condition=" '$(Configuration)' == 'Debug-Win32' Or '$(Configuration)' == 'Release-Win32' " DestinationFolder="$(OutputPath)" SourceFiles="@(LibWin32Items)" SkipUnchangedFiles="true" />
   </Target>
 </Project>
