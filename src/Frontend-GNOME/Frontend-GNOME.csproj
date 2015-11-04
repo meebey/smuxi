@@ -254,4 +254,10 @@
       </Properties>
     </MonoDevelop>
   </ProjectExtensions>
+  <ItemGroup>
+    <AppConfigWin32 Include="$(SolutionDir)..\lib\win32\smuxi-frontend-gnome.exe.config" />
+  </ItemGroup>
+  <Target Name="AfterBuild">
+    <Copy Condition=" '$(Configuration)' == 'Debug-Win32' Or '$(Configuration)' == 'Release-Win32' " DestinationFolder="$(OutputPath)" SourceFiles="@(AppConfigWin32)" SkipUnchangedFiles="true" />
+  </Target>
 </Project>
