@@ -1,22 +1,26 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # Moo, 2014-2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Smuxi - IRC client\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-05-03 12:31+0200\n"
-"PO-Revision-Date: 2015-05-25 18:09+0000\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
+"product=smuxi&keywords=I18N+L10N&component=general\n"
+"POT-Creation-Date: 2015-11-11 14:23+0000\n"
+"PO-Revision-Date: 2015-11-12 01:37+0200\n"
 "Last-Translator: Moo\n"
-"Language-Team: Lithuanian (http://www.transifex.com/projects/p/smuxi/language/lt/)\n"
+"Language-Team: Lithuanian (http://www.transifex.com/projects/p/smuxi/"
+"language/lt/)\n"
+"Language: lt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: lt\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n"
+"%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: Poedit 1.8.5\n"
 
 #: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:123
 msgid "Connecting to campfire... "
@@ -52,38 +56,43 @@ msgid "has uploaded '{0}' ({1} B) {2}"
 msgstr "įkėlė '{0}' ({1} B) {2}"
 
 #. TRANSLATOR: {0} is the name of the room
-#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:415
+#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:420
 #, csharp-format
 msgid "has joined {0}"
 msgstr "prisijungė prie {0}"
 
 #. TRANSLATOR: {0} is the name of the room
-#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:424
+#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:429
 #, csharp-format
 msgid "has left {0}"
 msgstr "paliko {0}"
 
 #. TRANSLATOR: {0} is the name of the room
-#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:432
+#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:437
 #, csharp-format
 msgid "has locked {0}"
 msgstr "užrakino {0}"
 
 #. TRANSLATOR: {0} is the name of the room
-#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:436
+#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:441
 #, csharp-format
 msgid "has unlocked {0}"
 msgstr "atrakino {0}"
 
-#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:441
+#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:446
 msgid "has changed the topic"
 msgstr "pakeitė temą"
 
-#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:451
+#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:458
+#, csharp-format
+msgid "has pasted a tweet by {0}: {1}"
+msgstr "įdėjo naudotojo {0} tauškalą: {1}"
+
+#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:465
 msgid "has performed an unknown action"
 msgstr "atliko nežinomą veiksmą"
 
-#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:492
+#: ../src/Engine-Campfire/Protocols/Campfire/CampfireProtocolManager.cs:504
 #, csharp-format
 msgid "Error reading from stream: {0}"
 msgstr "Klaida, skaitant iš srauto: {0}"
