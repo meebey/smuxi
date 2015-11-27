@@ -1,7 +1,7 @@
 /*
  * Smuxi - Smart MUltipleXed Irc
  *
- * Copyright (c) 2005-2014 Mirco Bauer <meebey@meebey.net>
+ * Copyright (c) 2005-2015 Mirco Bauer <meebey@meebey.net>
  *
  * Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
  *
@@ -125,6 +125,14 @@ namespace Smuxi.Engine
             }
         }
 
+        internal ICollection<FilterModel> Filters {
+            get {
+                return _Filters;
+            }
+            set {
+                _Filters = value;
+            }
+        }
 
         static Session()
         {
@@ -1656,6 +1664,13 @@ namespace Smuxi.Engine
                     if (!String.IsNullOrEmpty(filter.Protocol) &&
                         chat.ProtocolManager != null &&
                         filter.Protocol != chat.ProtocolManager.Protocol) {
+                        continue;
+                    }
+                    if (!String.IsNullOrEmpty(filter.NetworkID) &&
+                        chat.ProtocolManager != null &&
+                        String.Compare(filter.NetworkID,
+                                       chat.ProtocolManager.NetworkID,
+                                       StringComparison.OrdinalIgnoreCase) != 0) {
                         continue;
                     }
                     if (filter.ChatType.HasValue &&

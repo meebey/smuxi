@@ -1,7 +1,7 @@
 /*
  * Smuxi - Smart MUltipleXed Irc
  *
- * Copyright (c) 2005-2006, 2010 Mirco Bauer <meebey@meebey.net>
+ * Copyright (c) 2005-2006, 2010, 2015 Mirco Bauer <meebey@meebey.net>
  *
  * Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
  *
@@ -28,6 +28,7 @@ namespace Smuxi.Engine
     public class FilterModel
     {
         public string       Protocol       { get; set; }
+        public string       NetworkID      { get; set; }
         public string       ChatID         { get; set; }
         public ChatType?    ChatType       { get; set; }
         public MessageType? MessageType    { get; set; }

@@ -1,7 +1,7 @@
 /*
  * Smuxi - Smart MUltipleXed Irc
  *
- * Copyright (c) 2005-2006, 2010 Mirco Bauer <meebey@meebey.net>
+ * Copyright (c) 2005-2006, 2010, 2015 Mirco Bauer <meebey@meebey.net>
  *
  * Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
  *
@@ -69,6 +69,7 @@ namespace Smuxi.Engine
             }
             FilterModel filter = new FilterModel();
             filter.Protocol = (string) f_UserConfig[prefix + "Protocol"];
+            filter.NetworkID = (string) f_UserConfig[prefix + "NetworkID"];
             var chatType = (string) f_UserConfig[prefix + "ChatType"];
             if (!String.IsNullOrEmpty(chatType)) {
                 filter.ChatType = (ChatType) Enum.Parse(
@@ -111,6 +112,7 @@ namespace Smuxi.Engine
 
             string prefix = "Filters/" + newKey + "/";
             f_UserConfig[prefix + "Protocol"] = filter.Protocol;
+            f_UserConfig[prefix + "NetworkID"] = filter.NetworkID;
             if (filter.ChatType == null) {
                 f_UserConfig[prefix + "ChatType"] = String.Empty;
             } else {
@@ -140,6 +142,7 @@ namespace Smuxi.Engine
 
             string prefix = "Filters/" + key + "/";
             f_UserConfig[prefix + "Protocol"] = filter.Protocol;
+            f_UserConfig[prefix + "NetworkID"] = filter.NetworkID;
             if (filter.ChatType == null) {
                 f_UserConfig[prefix + "ChatType"] = String.Empty;
             } else {

@@ -45,6 +45,7 @@
     <Compile Include="JsonMessageBufferTests.cs" />
     <Compile Include="MessageDtoModelV1Tests.cs" />
     <Compile Include="SqliteMessageBufferTests.cs" />
+    <Compile Include="SessionTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />

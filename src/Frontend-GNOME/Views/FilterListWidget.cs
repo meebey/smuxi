@@ -1,6 +1,6 @@
 // Smuxi - Smart MUltipleXed Irc
 // 
-// Copyright (c) 2010 Mirco Bauer <meebey@meebey.net>
+// Copyright (c) 2010, 2015 Mirco Bauer <meebey@meebey.net>
 // 
 // Full GPL License: <http://www.gnu.org/licenses/gpl.txt>
 // 
@@ -136,6 +136,7 @@ namespace Smuxi.Frontend.Gnome
                 if (key == -1) {
                     // new filter
                     if (String.IsNullOrEmpty(filter.Protocol) &&
+                        String.IsNullOrEmpty(filter.NetworkID) &&
                         filter.ChatType == null &&
                         String.IsNullOrEmpty(filter.ChatID) &&
                         filter.MessageType == null &&
@@ -168,6 +169,7 @@ namespace Smuxi.Frontend.Gnome
             try {
                 var filter = new FilterModel();
                 filter.Protocol       = String.Empty;
+                filter.NetworkID      = String.Empty;
                 filter.ChatID         = String.Empty;
                 filter.MessagePattern = String.Empty;
                 Gtk.TreeIter iter = f_ListStore.AppendValues(filter, -1);
@@ -232,6 +234,32 @@ namespace Smuxi.Frontend.Gnome
             comboCellr.Edited += OnProtocolEdited;
             column = f_TreeView.AppendColumn(_("Protocol"), comboCellr);
             column.SetCellDataFunc(comboCellr, RenderProtocol);
+
+            // NetworkID
+            textCellr = new Gtk.CellRendererText();
+            textCellr.Editable = true;
+            textCellr.Edited += delegate(object sender, Gtk.EditedArgs e) {
+                Gtk.TreeIter iter;
+                if (!f_ListStore.GetIterFromString(out iter, e.Path)) {
+                    return;
+                }
+                var filter = (FilterModel) f_ListStore.GetValue(iter, 0);
+                filter.NetworkID = e.NewText;
+                f_ListStore.EmitRowChanged(new Gtk.TreePath(e.Path), iter);
+                OnChanged(EventArgs.Empty);
+            };
+            column = f_TreeView.AppendColumn(_("Network"), textCellr);
+            column.Resizable = true;
+            column.MinWidth = 80;
+            column.Sizing = Gtk.TreeViewColumnSizing.GrowOnly;
+            column.SetCellDataFunc(textCellr,
+                delegate(Gtk.TreeViewColumn col,
+                    Gtk.CellRenderer cellr,
+                    Gtk.TreeModel model, Gtk.TreeIter iter) {
+                    var filter = (FilterModel) model.GetValue(iter, 0);
+                    (cellr as Gtk.CellRendererText).Text = filter.NetworkID;
+                }
+            );
 
             f_ChatTypeListStore = new Gtk.ListStore(typeof(string),
                                                     typeof(ChatType?));

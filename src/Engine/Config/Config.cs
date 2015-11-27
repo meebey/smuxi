@@ -644,6 +644,7 @@ namespace Smuxi.Engine
                 foreach (string filter in filters) {
                     cprefix = "Filters/" + filter + "/";
                     LoadUserEntry(user, cprefix + "Protocol", null);
+                    LoadUserEntry(user, cprefix + "NetworkID", null);
                     LoadUserEntry(user, cprefix + "ChatType", null);
                     LoadUserEntry(user, cprefix + "ChatID", null);
                     LoadUserEntry(user, cprefix + "MessageType", null);
